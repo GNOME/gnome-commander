@@ -1,18 +1,19 @@
-# translation of gnome-commander.help.HEAD.po to Español
+# translation of gnome-commander-help.master.po to Español
 #
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2009.
+# Jorge Gonzalez <jorgegonz@svn.gnome.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander.help.HEAD\n"
+"Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 15:38+0000\n"
-"PO-Revision-Date: 2009-09-06 20:08+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"POT-Creation-Date: 2009-09-12 08:08+0000\n"
+"PO-Revision-Date: 2009-09-13 14:24+0200\n"
+"Last-Translator: Jorge Gonzalez <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -506,8 +507,9 @@ msgid "Colour profiles"
 msgstr "Perfiles de color"
 
 #: C/gnome-commander.xml:274(para)
-msgid "Support for 40 languages"
-msgstr "Soporte para 40 idiomas"
+#| msgid "Support for 40 languages"
+msgid "Support for over 40 languages"
+msgstr "Soporte para más de 40 idiomas"
 
 #: C/gnome-commander.xml:278(para)
 msgid ""
@@ -1211,6 +1213,10 @@ msgid ""
 "and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>. "
 "Drag the item to the location where you want to place the link."
 msgstr ""
+"Alternativamente, agarre el elemento del que quiere crear un enlace, después "
+"pulse y mantenga pulsado <keycombo><keycap>Ctrl</keycap><keycap>Mayús</"
+"keycap></keycombo>. Arrastre el elemento al lugar nuevo donde quiere colocar "
+"el enlace."
 
 #: C/gnome-commander.xml:779(para)
 msgid ""
@@ -1221,8 +1227,7 @@ msgstr ""
 "al que el enlace simbólico apunta."
 
 #: C/gnome-commander.xml:783(para)
-msgid ""
-"For more on dragging items, see <xref linkend=\"gnome-commander-dnd\"/>."
+msgid "For more on dragging items, see <xref linkend=\"gnome-commander-dnd\"/>."
 msgstr ""
 "Para conocer más sobre arrastrar objetos, consulte la <xref linkend=\"gnome-"
 "commander-dnd\"/>."
@@ -1232,8 +1237,7 @@ msgid "Viewing the Properties of a File or Folder"
 msgstr "Ver las propiedades de un archivo o carpeta"
 
 #: C/gnome-commander.xml:788(para)
-msgid ""
-"To view the properties of a file or folder, perform the following steps:"
+msgid "To view the properties of a file or folder, perform the following steps:"
 msgstr ""
 "Para ver las propiedades de un archivo o carpeta, ejecute los siguientes "
 "pasos:"
@@ -1333,8 +1337,7 @@ msgid "Changing Permissions"
 msgstr "Cambiar los permisos"
 
 #: C/gnome-commander.xml:877(para)
-msgid ""
-"To change the permissions of a file or a folder, perform the following steps:"
+msgid "To change the permissions of a file or a folder, perform the following steps:"
 msgstr ""
 "Para cambiar los permisos de un archivo o carpeta, ejecute los siguientes "
 "pasos:"
@@ -2699,8 +2702,7 @@ msgstr "Fecha de impresión"
 
 #: C/gnome-commander.xml:1558(para)
 msgid "Specifies the date and time when the document was last printed."
-msgstr ""
-"Especifica la fecha y la hora en que el documento se imprimió por última vez."
+msgstr "Especifica la fecha y la hora en que el documento se imprimió por última vez."
 
 #: C/gnome-commander.xml:1561(para)
 msgid "Doc.PrintedBy"
@@ -3202,6 +3204,8 @@ msgid ""
 "The version of Exif standard supported. Nonexistence of this field is taken "
 "to mean nonconformance to the standard."
 msgstr ""
+"La versión de Exif estándar soportada. De no existir este campo se tomará "
+"como discordante con el estándar."
 
 #: C/gnome-commander.xml:1726(para)
 msgid "Exif.ExposureBiasValue"
@@ -3318,8 +3322,7 @@ msgid "Flash"
 msgstr "Flash"
 
 #: C/gnome-commander.xml:1763(para)
-msgid ""
-"This tag is recorded when an image is taken using a strobe light (flash)."
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 "Esta etiqueta se graba cuando se toma una imagen con una luz estroboscópica "
 "(flash)."
@@ -3361,10 +3364,8 @@ msgid "F Number"
 msgstr "Número F"
 
 #: C/gnome-commander.xml:1778(para) C/gnome-commander.xml:2733(para)
-msgid ""
-"Diameter of the aperture relative to the effective focal length of the lens."
-msgstr ""
-"Diámetro de la apertura relativa de la longitud focal efectiva de las lentes."
+msgid "Diameter of the aperture relative to the effective focal length of the lens."
+msgstr "Diámetro de la apertura relativa de la longitud focal efectiva de las lentes."
 
 #: C/gnome-commander.xml:1781(para)
 msgid "Exif.FocalLength"
@@ -3379,6 +3380,8 @@ msgid ""
 "The actual focal length of the lens, in mm. Conversion is not made to the "
 "focal length of a 35 mm film camera."
 msgstr ""
+"La distancia focal actual de la lente, en mm. La conversión no se hace para "
+"la distancia focal de una cámara de 35 mm."
 
 #: C/gnome-commander.xml:1786(para)
 msgid "Exif.FocalLengthIn35mmFilm"
@@ -3451,8 +3454,7 @@ msgstr "Control de ganancia"
 
 #: C/gnome-commander.xml:1808(para)
 msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr ""
-"Esta etiqueta indica el grado de ajuste de ganancia sobre toda la imagen."
+msgstr "Esta etiqueta indica el grado de ajuste de ganancia sobre toda la imagen."
 
 #: C/gnome-commander.xml:1811(para)
 msgid "Exif.Gamma"
@@ -3530,6 +3532,12 @@ msgid ""
 "degrees and minutes are used and, for example, fractions of minutes are "
 "given up to two decimal places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
+"Indica la latitud. La latitud se expresa como tres valores racionales "
+"proporcionando los grados, minutos y segundos, respectivamente. Cuando los "
+"grados, minutos y segundos están expresados, el formato será dd/1,mm/1,ss/1. "
+"Cuando se usan los grados y minutos y, por ejemplo, las fracciones de los "
+"minutos se proporcionan con hasta dos posiciones decimales, el formato será "
+"dd/1,mmmm/100,0/1."
 
 #: C/gnome-commander.xml:1836(para)
 msgid "Exif.GPS.LatitudeRef"
@@ -3544,6 +3552,8 @@ msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "'N' indicates north latitude, and 'S' is south latitude."
 msgstr ""
+"Indica si la latitud es norte o sur. El valor ASCII «N» indica norte, y «S» "
+"latitud sur."
 
 #: C/gnome-commander.xml:1841(para)
 msgid "Exif.GPS.Longitude"
@@ -3561,6 +3571,12 @@ msgid ""
 "degrees and minutes are used and, for example, fractions of minutes are "
 "given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
+"Indica la longitud. La longitud se expresa como tres valores racionales "
+"proporcionando los grados, minutos y segundos, respectivamente. Cuando los "
+"grados, minutos y segundos están expresados, el formato será dd/1,mm/1,ss/1. "
+"Cuando se usan los grados y minutos y, por ejemplo, las fracciones de los "
+"minutos se proporcionan con hasta dos posiciones decimales, el formato será "
+"dd/1,mmmm/100,0/1."
 
 #: C/gnome-commander.xml:1846(para)
 msgid "Exif.GPS.LongitudeRef"
@@ -3910,8 +3926,7 @@ msgstr "Nuevo tipo de subarchivo"
 
 #: C/gnome-commander.xml:1958(para)
 msgid "A general indication of the kind of data contained in this subfile."
-msgstr ""
-"Una indicación general del tipo de datos contenidos en este subarchivo."
+msgstr "Una indicación general del tipo de datos contenidos en este subarchivo."
 
 #: C/gnome-commander.xml:1961(para)
 msgid "Exif.OECF"
@@ -3941,8 +3956,7 @@ msgstr "Orientación"
 
 #: C/gnome-commander.xml:1968(para)
 msgid "The image orientation viewed in terms of rows and columns."
-msgstr ""
-"La orientación de la imagen, expresada en términos de filas y columnas."
+msgstr "La orientación de la imagen, expresada en términos de filas y columnas."
 
 #: C/gnome-commander.xml:1971(para)
 msgid "Exif.PhotometricInterpretation"
@@ -3997,6 +4011,13 @@ msgid ""
 "vertical direction, the number of lines recorded in this valid image height "
 "tag will in fact be the same as that recorded in the SOF."
 msgstr ""
+"Información específica para datos comprimidos. Cuando se graba un archivo "
+"comprimido, la altura significativa válida de la imagen deber grabarse en "
+"esta etiqueta, si existe o no el relleno de datos o el marcador de reinicio. "
+"Esta etiqueta no debe existir en un archivo descomprimido. Puesto que el "
+"relleno de datos es innecesario en la dirección vertical, el número de "
+"líneas registradas en esta etiqueta de altura válida de imagen será, de "
+"hecho, la misma que la registrada en el SOF."
 
 #: C/gnome-commander.xml:1986(para)
 msgid "Exif.PlanarConfiguration"
@@ -4453,8 +4474,7 @@ msgstr "Hora de la subsección"
 
 #: C/gnome-commander.xml:2118(para)
 msgid "Fractions of seconds for the <literal>Exif.DateTime</literal> tag."
-msgstr ""
-"Fracciones de segundos para la etiqueta <literal>Exif.DateTime</literal>."
+msgstr "Fracciones de segundos para la etiqueta <literal>Exif.DateTime</literal>."
 
 #: C/gnome-commander.xml:2121(para)
 msgid "Exif.SubSecTimeDigitized"
@@ -4465,8 +4485,7 @@ msgid "Subsec Time Digitized"
 msgstr "Hora digitalizada de la subsección"
 
 #: C/gnome-commander.xml:2123(para)
-msgid ""
-"Fractions of seconds for the <literal>Exif.DateTimeDigitized</literal> tag."
+msgid "Fractions of seconds for the <literal>Exif.DateTimeDigitized</literal> tag."
 msgstr ""
 "Fracciones de segundos para la etiqueta <literal>Exif.DateTimeDigitized</"
 "literal>."
@@ -4480,8 +4499,7 @@ msgid "Subsec Time Original"
 msgstr "Hora original de la subsección"
 
 #: C/gnome-commander.xml:2128(para)
-msgid ""
-"Fractions of seconds for the <literal>Exif.DateTimeOriginal</literal> tag."
+msgid "Fractions of seconds for the <literal>Exif.DateTimeOriginal</literal> tag."
 msgstr ""
 "Fracciones de segundos para la etiqueta <literal>Exif.DateTimeOriginal</"
 "literal>."
@@ -4566,8 +4584,7 @@ msgstr "Balance de blancos"
 
 #: C/gnome-commander.xml:2153(para)
 msgid "The white balance mode set when the image was shot."
-msgstr ""
-"El modo de balanceo de blancos establecido cuando se disparó la imagen."
+msgstr "El modo de balanceo de blancos establecido cuando se disparó la imagen."
 
 #: C/gnome-commander.xml:2156(para)
 msgid "Exif.WhitePoint"
@@ -4732,8 +4749,7 @@ msgid "Format"
 msgstr "Formato"
 
 #: C/gnome-commander.xml:2208(para)
-msgid ""
-"MIME type of the file or if a directory it should contain value \"Folder\"."
+msgid "MIME type of the file or if a directory it should contain value \"Folder\"."
 msgstr ""
 "El tipo MIME del archivo o, si es un directorio, debería contener el valor "
 "«Folder»."
@@ -4835,8 +4851,7 @@ msgid "File.Size"
 msgstr "File.Size"
 
 #: C/gnome-commander.xml:2253(para)
-msgid ""
-"Size of the file in bytes or if a directory number of items it contains."
+msgid "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 "Tamaño del archivo en bytes o, si es un directorio, número de elementos que "
 "contiene."
@@ -4850,8 +4865,7 @@ msgid "Album Sort Order"
 msgstr "Orden de los álbumes"
 
 #: C/gnome-commander.xml:2258(para)
-msgid ""
-"String which should be used instead of the album name for sorting purposes."
+msgid "String which should be used instead of the album name for sorting purposes."
 msgstr ""
 "Cadena que se debe usar en lugar del nombre del álbum para propósitos de "
 "ordenación."
@@ -4866,7 +4880,7 @@ msgstr "Cifrado de sonido"
 
 #: C/gnome-commander.xml:2263(para)
 msgid "Frame indicates if the audio stream is encrypted, and by whom."
-msgstr ""
+msgstr "El marco indica si el flujo de sonido está cifrado, y por quién."
 
 #: C/gnome-commander.xml:2266(para)
 msgid "ID3.AudioSeekPoint"
@@ -4881,6 +4895,8 @@ msgid ""
 "Fractional offset within the audio data, providing a starting point from "
 "which to find an appropriate point to start decoding."
 msgstr ""
+"Desplazamiento fraccionado en los datos de sonido, proporcionando un punto de "
+"partida para encontrar un momento adecuado para empezar la decodificación."
 
 #: C/gnome-commander.xml:2271(para)
 msgid "ID3.Band"
@@ -6039,8 +6055,7 @@ msgstr "Image.WhiteBalance"
 msgid ""
 "White balance setting of the camera when the picture was taken (auto or "
 "manual)."
-msgstr ""
-"Ajuste del balance de blancos cuando se tomó la imagen (automático o manual)."
+msgstr "Ajuste del balance de blancos cuando se tomó la imagen (automático o manual)."
 
 #: C/gnome-commander.xml:2791(para)
 msgid "Image.Width"
@@ -6152,8 +6167,7 @@ msgid "Audio Type"
 msgstr "Tipo de sonido"
 
 #: C/gnome-commander.xml:2833(para)
-msgid ""
-"The number of channels and type of audio (music, text, etc.) in the object."
+msgid "The number of channels and type of audio (music, text, etc.) in the object."
 msgstr ""
 "El número de canales y el tipo de sonido (música, texto, etc.) dentro del "
 "objeto."
@@ -6261,6 +6275,8 @@ msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
 msgstr ""
+"La persona u organización que puede proporcionar más información del objeto "
+"(se admiten múltiples valores)."
 
 #: C/gnome-commander.xml:2876(para)
 msgid "IPTC.ContentLocCode"
@@ -6275,6 +6291,8 @@ msgid ""
 "The code of a country/geographical location referenced by the content of the "
 "object (multiple values allowed)."
 msgstr ""
+"El código de un país/ubicación geográfica referenciado por el contenido del "
+"objeto (se admiten múltiples valores)."
 
 #: C/gnome-commander.xml:2881(para)
 msgid "IPTC.ContentLocName"
@@ -6289,6 +6307,8 @@ msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
+"Nombre publicable de un país/ubicación geográfica referenciado por el "
+"contenido del objeto (se admiten múltiples valores)."
 
 #: C/gnome-commander.xml:2886(para)
 msgid "IPTC.CopyrightNotice"
@@ -6335,10 +6355,8 @@ msgid "Credit"
 msgstr "Créditos"
 
 #: C/gnome-commander.xml:2903(para)
-msgid ""
-"Identifies the provider of the object, not necessarily the owner/creator."
-msgstr ""
-"Identifica al proveedor del objeto, no necesariamente al propietario/creador."
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
+msgstr "Identifica al proveedor del objeto, no necesariamente al propietario/creador."
 
 #: C/gnome-commander.xml:2906(para)
 msgid "IPTC.DateCreated"
@@ -6428,7 +6446,7 @@ msgstr "Editar estado"
 
 #: C/gnome-commander.xml:2938(para)
 msgid "Status of the object, according to the practice of the provider."
-msgstr ""
+msgstr "Estado del objeto, de acuerdo con la práctica del proveedor."
 
 #: C/gnome-commander.xml:2941(para)
 msgid "IPTC.EnvelopeNum"
@@ -6456,6 +6474,9 @@ msgid ""
 "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
 "defined."
 msgstr ""
+"Especifica la prioridad de manejo del sobre y no la urgencia de la "
+"editorial. «1» para el más urgente, «5» para normal y «8» para el menos "
+"urgente. «9» es el definido por el usuario."
 
 #: C/gnome-commander.xml:2951(para)
 msgid "IPTC.ExpirationDate"
@@ -6480,6 +6501,8 @@ msgstr "Hora de expiración"
 #: C/gnome-commander.xml:2958(para)
 msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
+"Señala la hora más tardía en la que el proveedor considera que el objeto se "
+"usará."
 
 #: C/gnome-commander.xml:2961(para)
 msgid "IPTC.FileFormat"
@@ -6531,8 +6554,7 @@ msgstr "Cabecera"
 
 #: C/gnome-commander.xml:2978(para)
 msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr ""
-"Entrada publicable que proporciona una sinopsis del contenido del objeto."
+msgstr "Entrada publicable que proporciona una sinopsis del contenido del objeto."
 
 #: C/gnome-commander.xml:2981(para)
 msgid "IPTC.ImageOrientation"
@@ -6643,6 +6665,8 @@ msgid ""
 "Defines the nature of the object independent of the subject (multiple values "
 "allowed)."
 msgstr ""
+"Define la naturaleza del objeto independientemente del asunto (se admiten "
+"múltiples valores)."
 
 #: C/gnome-commander.xml:3021(para)
 msgid "IPTC.ObjectCycle"
@@ -6839,10 +6863,8 @@ msgid "Reference Number"
 msgstr "Número de referencia"
 
 #: C/gnome-commander.xml:3098(para)
-msgid ""
-"The Envelope Number of a prior envelope to which the current object refers."
-msgstr ""
-"El número de sobre de un sobre anterior al que el objeto actual se refiere."
+msgid "The Envelope Number of a prior envelope to which the current object refers."
+msgstr "El número de sobre de un sobre anterior al que el objeto actual se refiere."
 
 #: C/gnome-commander.xml:3101(para)
 msgid "IPTC.RefService"
@@ -6865,8 +6887,7 @@ msgid "IPTC.ReleaseDate"
 msgstr "IPTC.ReleaseDate"
 
 #: C/gnome-commander.xml:3108(para)
-msgid ""
-"Designates the earliest date the provider intends the object to be used."
+msgid "Designates the earliest date the provider intends the object to be used."
 msgstr ""
 "Señala la fecha más temprana en la que el proveedor considera que se usará "
 "el objeto."
@@ -6876,8 +6897,7 @@ msgid "IPTC.ReleaseTime"
 msgstr "IPTC.ReleaseTime"
 
 #: C/gnome-commander.xml:3113(para)
-msgid ""
-"Designates the earliest time the provider intends the object to be used."
+msgid "Designates the earliest time the provider intends the object to be used."
 msgstr ""
 "Señala la fecha más temprana en la que el proveedor piensa en que se usará "
 "el objeto."
@@ -6904,8 +6924,7 @@ msgstr "Modo de tamaño"
 
 #: C/gnome-commander.xml:3123(para)
 msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr ""
-"Establecido a 0 si se conoce el tamaño del objeto y a 1 si es desconoce."
+msgstr "Establecido a 0 si se conoce el tamaño del objeto y a 1 si es desconoce."
 
 #: C/gnome-commander.xml:3126(para)
 msgid "IPTC.Source"
@@ -6980,8 +6999,7 @@ msgstr "Sub ubicación"
 
 #: C/gnome-commander.xml:3153(para)
 msgid "The location within a city from which the object originates."
-msgstr ""
-"La ubicación dentro de una ciudad a partir de la cual el objeto se origina."
+msgstr "La ubicación dentro de una ciudad a partir de la cual el objeto se origina."
 
 #: C/gnome-commander.xml:3156(para)
 msgid "IPTC.SupplCategory"
@@ -7231,8 +7249,7 @@ msgstr "Comentario"
 
 #: C/gnome-commander.xml:3248(para)
 msgid "Set to \"1\" if adding or modifying text annotations is allowed."
-msgstr ""
-"Establecido a «1» si se permite insertar o modificar anotaciones de texto."
+msgstr "Establecido a «1» si se permite insertar o modificar anotaciones de texto."
 
 #: C/gnome-commander.xml:3251(para)
 msgid "PDF.FormFilling"
@@ -7267,7 +7284,7 @@ msgstr "Vorbis.Contact"
 
 #: C/gnome-commander.xml:3263(para)
 msgid "Contact information for the creators or distributors of the track."
-msgstr ""
+msgstr "Información de contacto de los creadores o distribuidores de la pista."
 
 #: C/gnome-commander.xml:3266(para)
 msgid "Vorbis.Description"
@@ -7390,10 +7407,8 @@ msgid "<guilabel>(start_index)</guilabel> ≡ (start_index:)"
 msgstr "<guilabel>(start_index)</guilabel> ≡ (start_index:)"
 
 #: C/gnome-commander.xml:3335(para)
-msgid ""
-"<guilabel>(start_index,length)</guilabel> ≡ (start_index:start_index+length)"
-msgstr ""
-"<guilabel>(start_index,length)</guilabel> ≡ (start_index:start_index+length)"
+msgid "<guilabel>(start_index,length)</guilabel> ≡ (start_index:start_index+length)"
+msgstr "<guilabel>(start_index,length)</guilabel> ≡ (start_index:start_index+length)"
 
 #: C/gnome-commander.xml:3340(para)
 msgid ""
@@ -7630,8 +7645,7 @@ msgid "%s"
 msgstr "%s"
 
 #: C/gnome-commander.xml:3473(para)
-msgid ""
-"The number of seconds since the Epoch, i.e., since 1970-01-01 00:00:00 UTC"
+msgid "The number of seconds since the Epoch, i.e., since 1970-01-01 00:00:00 UTC"
 msgstr ""
 
 #: C/gnome-commander.xml:3476(para)
@@ -7640,7 +7654,7 @@ msgstr "%S"
 
 #: C/gnome-commander.xml:3477(para)
 msgid "The second as a decimal number (range 00 to 61)"
-msgstr ""
+msgstr "Los segundos como un número decimal (rango de 00 a 61)"
 
 #: C/gnome-commander.xml:3480(para)
 msgid "%T"
@@ -7655,8 +7669,7 @@ msgid "%u"
 msgstr "%u"
 
 #: C/gnome-commander.xml:3485(para)
-msgid ""
-"The day of the week as a decimal, range 1 to 7, Monday being 1. See also %w"
+msgid "The day of the week as a decimal, range 1 to 7, Monday being 1. See also %w"
 msgstr ""
 
 #: C/gnome-commander.xml:3488(para)
@@ -7690,8 +7703,7 @@ msgid "%w"
 msgstr "%w"
 
 #: C/gnome-commander.xml:3501(para)
-msgid ""
-"The day of the week as a decimal, range 0 to 6, Sunday being 0. See also %u"
+msgid "The day of the week as a decimal, range 0 to 6, Sunday being 0. See also %u"
 msgstr ""
 
 #: C/gnome-commander.xml:3504(para)
@@ -7709,8 +7721,7 @@ msgid "%x"
 msgstr "%x"
 
 #: C/gnome-commander.xml:3510(para)
-msgid ""
-"The preferred date representation for the current locale without the time"
+msgid "The preferred date representation for the current locale without the time"
 msgstr ""
 
 #: C/gnome-commander.xml:3513(para)
@@ -7718,8 +7729,7 @@ msgid "%X"
 msgstr "%X"
 
 #: C/gnome-commander.xml:3514(para)
-msgid ""
-"The preferred time representation for the current locale without the date"
+msgid "The preferred time representation for the current locale without the date"
 msgstr ""
 
 #: C/gnome-commander.xml:3517(para)
@@ -7866,6 +7876,8 @@ msgid ""
 "To scroll around an image that is larger than the image window or full "
 "screen window, you can use the following methods:"
 msgstr ""
+"Para desplazar una imagen que sea más grande que la ventana de imagen o "
+"ventana del modo a pantalla completa, puede usar los siguientes métodos:"
 
 #: C/gnome-commander.xml:3612(para)
 msgid "Use the arrow keys on the keyboard."
@@ -8041,8 +8053,7 @@ msgid "S"
 msgstr "S"
 
 #: C/gnome-commander.xml:3720(para)
-msgid ""
-"Saves the current window size, input mode, and other settings as the default."
+msgid "Saves the current window size, input mode, and other settings as the default."
 msgstr ""
 
 #: C/gnome-commander.xml:3721(para)
@@ -8097,8 +8108,7 @@ msgstr "Opciones de la distribución"
 
 #: C/gnome-commander.xml:3819(phrase)
 msgid "Shows <placeholder-1/> layout preferences dialog."
-msgstr ""
-"Muestra el diálogo de las preferencias de disposición de <placeholder-1/>."
+msgstr "Muestra el diálogo de las preferencias de disposición de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3829(title)
 msgid "Confirmation"
@@ -8110,8 +8120,7 @@ msgstr "Opciones de confirmación"
 
 #: C/gnome-commander.xml:3839(phrase)
 msgid "Shows <placeholder-1/> confirmation preferences dialog."
-msgstr ""
-"Muestra el diálogo de las preferencias de confirmación de <placeholder-1/>."
+msgstr "Muestra el diálogo de las preferencias de confirmación de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3849(title)
 msgid "Filters"
@@ -8151,8 +8160,7 @@ msgstr "Opciones de dispositivos"
 
 #: C/gnome-commander.xml:3919(phrase)
 msgid "Shows <placeholder-1/> devices preferences dialog."
-msgstr ""
-"Muestra el diálogo de preferencias de dispositivos de <placeholder-1/>."
+msgstr "Muestra el diálogo de preferencias de dispositivos de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3935(para)
 msgid ""
@@ -8811,8 +8819,7 @@ msgid "<guilabel>%f</guilabel> file name (or list for multiple selections)"
 msgstr ""
 
 #: C/gnome-commander.xml:4574(para)
-msgid ""
-"<guilabel>%F</guilabel> quoted filename (or list for multiple selections)"
+msgid "<guilabel>%F</guilabel> quoted filename (or list for multiple selections)"
 msgstr ""
 
 #: C/gnome-commander.xml:4577(para)
@@ -8838,8 +8845,7 @@ msgid "<guilabel>%d</guilabel> full path to the directory containing file"
 msgstr ""
 
 #: C/gnome-commander.xml:4589(para)
-msgid ""
-"<guilabel>%D</guilabel> quoted full path to the directory containing file"
+msgid "<guilabel>%D</guilabel> quoted full path to the directory containing file"
 msgstr ""
 
 #: C/gnome-commander.xml:4592(para)
@@ -9097,7 +9103,7 @@ msgstr "help.keyboard"
 
 #: C/gnome-commander.xml:4789(para)
 msgid "Help on keyboard shortcuts"
-msgstr ""
+msgstr "Ayuda sobre los atajos de teclado"
 
 #: C/gnome-commander.xml:4793(para)
 msgid "help.problem"
@@ -9352,12 +9358,10 @@ msgstr ""
 
 #: C/gnome-commander.xml:5014(para)
 msgid "<application>GNOME Commander</application> comes with built-in plugins:"
-msgstr ""
-"<application>GNOME Commander</application> viene con complementos integrados:"
+msgstr "<application>GNOME Commander</application> viene con complementos integrados:"
 
 #: C/gnome-commander.xml:5017(para)
-msgid ""
-"<filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files"
+msgid "<filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files"
 msgstr ""
 "<filename>md5sum</filename> - checksum MD5 (128-bit) de los archivos "
 "seleccionados"
@@ -9781,8 +9785,7 @@ msgstr "git checkout gcmd-1-3"
 
 #: C/gnome-commander.xml:5311(title)
 msgid "<application>GNOME Commander</application> snapshots builds"
-msgstr ""
-"construcciones de instantáneas de <application>GNOME Commander</application>"
+msgstr "construcciones de instantáneas de <application>GNOME Commander</application>"
 
 #: C/gnome-commander.xml:5320(para)
 msgid ""
@@ -10358,9 +10361,9 @@ msgid "New or updated docs: de, es"
 msgstr "Documentos nuevos o actualizados: de, es"
 
 #: C/gnome-commander.xml:5989(para)
-#| msgid "New or updated translations: es, zh_CN"
-msgid "New or updated translations: es, eu, zh_CN"
-msgstr "Traducciones nuevas o actualizadas: es, eu, zh_CN"
+#| msgid "New or updated translations: es, eu, zh_CN"
+msgid "New or updated translations: da, es, eu, zh_CN"
+msgstr "Traducciones nuevas o actualizadas: da, es, eu, zh_CN"
 
 #: C/gnome-commander.xml:5992(para) C/gnome-commander.xml:6147(para)
 #: C/gnome-commander.xml:6285(para) C/gnome-commander.xml:6405(para)
@@ -10411,8 +10414,7 @@ msgid "1.2.8"
 msgstr "1.2.8"
 
 #: C/gnome-commander.xml:6048(para)
-msgid ""
-"Fixed problem #375357 (crash when cancelling calculation of dir properties)"
+msgid "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
 
 #: C/gnome-commander.xml:6051(para)
@@ -10434,8 +10436,7 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6063(para)
-msgid ""
-"Fixed problem #548961 (support for input method when rename or quicksearch)"
+msgid "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
 
 #: C/gnome-commander.xml:6066(para)
@@ -10586,8 +10587,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6180(para)
 msgid "Fixed problem #532615 (file operations on wrong file)"
-msgstr ""
-"Error #532615 corregido (archivo de operaciones sobre un archivo incorrecto)"
+msgstr "Error #532615 corregido (archivo de operaciones sobre un archivo incorrecto)"
 
 #: C/gnome-commander.xml:6183(para)
 msgid "Fixed problem #538806 (quick search in root dir)"
@@ -10611,8 +10611,7 @@ msgid "Build fixes"
 msgstr "Correcciones de construcción"
 
 #: C/gnome-commander.xml:6203(para)
-msgid ""
-"Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
+msgid "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
 
 #: C/gnome-commander.xml:6206(para)
@@ -10641,8 +10640,7 @@ msgstr "Documentos de ayuda actualizados"
 
 #: C/gnome-commander.xml:6221(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
-msgstr ""
-"Traducciones nuevas o actualizadas: cs, de, es, fr, it, ja, oc, pl, pt_BR"
+msgstr "Traducciones nuevas o actualizadas: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
 #: C/gnome-commander.xml:6228(para)
 msgid "1.2.6"
@@ -10670,8 +10668,7 @@ msgstr "Corregido error al ordenar nombres de archivos codificados en UTF-8"
 
 #: C/gnome-commander.xml:6250(para)
 msgid "Fixed problem with copying files to symlinked directories"
-msgstr ""
-"Corregido error al copiar archivos al directorios enlazados simbólicamente"
+msgstr "Corregido error al copiar archivos al directorios enlazados simbólicamente"
 
 #: C/gnome-commander.xml:6253(para)
 msgid ""
@@ -10688,8 +10685,7 @@ msgid "GUI for keyboard shortcuts management"
 msgstr ""
 
 #: C/gnome-commander.xml:6270(para)
-msgid ""
-"Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
+msgid "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
 
 #: C/gnome-commander.xml:6276(para)
@@ -10705,8 +10701,7 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6288(para)
-msgid ""
-"<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
+msgid "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgstr ""
 
 #: C/gnome-commander.xml:6297(para)
@@ -10744,8 +10739,7 @@ msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr ""
 
 #: C/gnome-commander.xml:6325(para)
-msgid ""
-"Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
+msgid "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
 
 #: C/gnome-commander.xml:6328(para)
@@ -10761,8 +10755,7 @@ msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr ""
 
 #: C/gnome-commander.xml:6337(para)
-msgid ""
-"Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
+msgid "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
 
 #: C/gnome-commander.xml:6340(para)
@@ -10798,8 +10791,7 @@ msgid "Fixed problem with history of advrename templates"
 msgstr ""
 
 #: C/gnome-commander.xml:6372(para)
-msgid ""
-"Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
+msgid "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
 
 #: C/gnome-commander.xml:6375(para)
@@ -10857,8 +10849,7 @@ msgid "Fixed problem with opening dirs by intviewer"
 msgstr ""
 
 #: C/gnome-commander.xml:6430(para)
-msgid ""
-"Fixed problem with editing dirs by <application>GNOME Commander</application>"
+msgid "Fixed problem with editing dirs by <application>GNOME Commander</application>"
 msgstr ""
 
 #: C/gnome-commander.xml:6433(para)
@@ -10911,8 +10902,7 @@ msgstr "Autenticación SMB"
 
 #: C/gnome-commander.xml:6479(para)
 msgid "Displaying total size of files in selected subirs"
-msgstr ""
-"Mostrar el tamaño total de los archivos en las subcarpetas seleccionadas"
+msgstr "Mostrar el tamaño total de los archivos en las subcarpetas seleccionadas"
 
 #: C/gnome-commander.xml:6482(para)
 msgid "'cd -' for changing to the previous working directory"
@@ -10931,8 +10921,7 @@ msgid "Creating directories 'mkdir -p' like"
 msgstr "Crear directorios de la forma «mkdir -p»"
 
 #: C/gnome-commander.xml:6497(para)
-msgid ""
-"New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
+msgid "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
 "Traducciones nuevas o actualizadas: ar, bg, cs, dz, en_GB, fr, it, oc, pl, "
 "sl, sv"
@@ -10975,8 +10964,7 @@ msgstr "1.2.3"
 
 #: C/gnome-commander.xml:6528(para)
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
-msgstr ""
-"Problema #384752 corregido (permisos incorrectos para las carpetas nuevas)"
+msgstr "Problema #384752 corregido (permisos incorrectos para las carpetas nuevas)"
 
 #: C/gnome-commander.xml:6535(para)
 msgid "1.2.2"
@@ -11002,8 +10990,7 @@ msgstr "Error #367744 corregido (nombres de archivo mostrados incorrectamente)"
 
 #: C/gnome-commander.xml:6554(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
-msgstr ""
-"Problema #374282 corregido (búsqueda con enlaces simbólicos recursivos)"
+msgstr "Problema #374282 corregido (búsqueda con enlaces simbólicos recursivos)"
 
 #: C/gnome-commander.xml:6557(para)
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
@@ -11037,8 +11024,7 @@ msgstr "2006-10-16"
 
 #: C/gnome-commander.xml:6593(para)
 msgid "Fixed problem with scrollkeeper database update"
-msgstr ""
-"Corregido el problema de actualización de la base de datos de scrollkeeper"
+msgstr "Corregido el problema de actualización de la base de datos de scrollkeeper"
 
 #: C/gnome-commander.xml:6596(para)
 msgid "Fix for crash when cmd dir indicator is empty"
@@ -11050,8 +11036,7 @@ msgstr "Corregido el problema al refrescar después de chown o chmod"
 
 #: C/gnome-commander.xml:6602(para)
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
-msgstr ""
-"Error #333898 corregido (sufijo de icono obsoleto en archivo del escritorio)"
+msgstr "Error #333898 corregido (sufijo de icono obsoleto en archivo del escritorio)"
 
 #: C/gnome-commander.xml:6605(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
@@ -11145,15 +11130,13 @@ msgstr ""
 
 #: C/gnome-commander.xml:6677(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
-msgstr ""
-"Problema #332258 corregido (parámetro de carpeta de inicio derecha/izquierda)"
+msgstr "Problema #332258 corregido (parámetro de carpeta de inicio derecha/izquierda)"
 
 #: C/gnome-commander.xml:6680(para)
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
-msgstr ""
-"Error #332261 (exec_prefix análisis incorrecto durante configure/makefiles)"
+msgstr "Error #332261 (exec_prefix análisis incorrecto durante configure/makefiles)"
 
 #: C/gnome-commander.xml:6683(para)
 msgid "Fixed problem #336649 (permission numbers presentation)"
@@ -11207,8 +11190,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6724(para)
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
-msgstr ""
-"Actualizaciones nuevas o actualizadas: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
+msgstr "Actualizaciones nuevas o actualizadas: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 
 #: C/gnome-commander.xml:6730(para)
 msgid ""
@@ -11217,10 +11199,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6733(para)
-msgid ""
-"<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External viewer"
-msgstr ""
-"<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> Visor externo"
+msgid "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External viewer"
+msgstr "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> Visor externo"
 
 #: C/gnome-commander.xml:6736(para)
 msgid "<keycap>ALT+letters</keycap> Quick search"
@@ -11301,13 +11281,11 @@ msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 
 #: C/gnome-commander.xml:6798(para)
-msgid ""
-"Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
+msgid "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
 
 #: C/gnome-commander.xml:6801(para)
-msgid ""
-"Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
+msgid "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
 
 #: C/gnome-commander.xml:6804(para)
@@ -11334,8 +11312,7 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6816(para)
-msgid ""
-"<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all files"
+msgid "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all files"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Seleccionar "
 "todos los archivos"
@@ -11361,8 +11338,7 @@ msgid "2004-01-20"
 msgstr "2004-01-20"
 
 #: C/gnome-commander.xml:6838(para)
-msgid ""
-"Fixed crash when navigating back in the history and then entering another dir"
+msgid "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
 
 #: C/gnome-commander.xml:6841(para)
@@ -11370,8 +11346,7 @@ msgid "Fixed ftp-quick-connect problems"
 msgstr "Corregidos los errores de conexión ftp rápida"
 
 #: C/gnome-commander.xml:6844(para)
-msgid ""
-"The quick-search function can now also be started by typing capital letters"
+msgid "The quick-search function can now also be started by typing capital letters"
 msgstr ""
 
 #: C/gnome-commander.xml:6847(para)
@@ -11458,8 +11433,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6910(para)
 msgid "The program no longer tries to center itself on the desktop"
-msgstr ""
-"El programa no volverá a intentar centrarse a sí mismo en el escritorio"
+msgstr "El programa no volverá a intentar centrarse a sí mismo en el escritorio"
 
 #: C/gnome-commander.xml:6913(para)
 msgid "Fixed problems when renaming directories"
@@ -11503,12 +11477,10 @@ msgstr ""
 
 #: C/gnome-commander.xml:6947(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
-msgstr ""
-"Corregido un posible error de async cuando se cancela una operación xfer"
+msgstr "Corregido un posible error de async cuando se cancela una operación xfer"
 
 #: C/gnome-commander.xml:6950(para)
-msgid ""
-"Reworked the layout tab and removed the colors tab in the options dialog"
+msgid "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
 
 #: C/gnome-commander.xml:6953(para)
@@ -11532,8 +11504,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6974(para)
 msgid "Accessing files on mounted devices should now work better"
-msgstr ""
-"Ahora debería funcionar mejor el acceso a archivos en dispositivos montados"
+msgstr "Ahora debería funcionar mejor el acceso a archivos en dispositivos montados"
 
 #: C/gnome-commander.xml:6977(para)
 msgid "Devices without the device filename should not disappear anymore"
@@ -11602,8 +11573,7 @@ msgid "2003-11-05"
 msgstr "2003-11-05"
 
 #: C/gnome-commander.xml:7051(para)
-msgid ""
-"Stopped showing the file extension in both the name column and the ext column"
+msgid "Stopped showing the file extension in both the name column and the ext column"
 msgstr ""
 
 #: C/gnome-commander.xml:7054(para)
@@ -11631,8 +11601,7 @@ msgid "Fixed the edit mime-types feature"
 msgstr "Corregida la funcionalidad de editar tipos MIME"
 
 #: C/gnome-commander.xml:7074(para)
-msgid ""
-"Added a button to change the default MIME-app in the file properties dialog"
+msgid "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
 
 #: C/gnome-commander.xml:7081(para)
@@ -11842,8 +11811,7 @@ msgstr "2001-08-02"
 
 #: C/gnome-commander.xml:7227(para)
 msgid "The first public version of <application>GNOME Commander</application>."
-msgstr ""
-"La primera versión pública de <application>GNOME Commander</application>."
+msgstr "La primera versión pública de <application>GNOME Commander</application>."
 
 #: C/gnome-commander.xml:7242(title)
 msgid "Known Bugs and Limitations"
@@ -11953,39 +11921,3 @@ msgstr ""
 msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008"
 
-#~ msgid "New or updated docs: ..."
-#~ msgstr "Documentos nuevos o actualizados: ..."
-
-#~ msgid "[search-history]"
-#~ msgstr "[search-history]"
-
-#~ msgid "case_sens"
-#~ msgstr "case_sens"
-
-#~ msgid "height"
-#~ msgstr "altura"
-
-#~ msgid "recursive"
-#~ msgstr "recursivo"
-
-#~ msgid "width"
-#~ msgstr "anchura"
-
-#~ msgid ""
-#~ "@@image: 'figures/gnome-commander_options_devices.png'; "
-#~ "md5=bb91882c5b90b6d6d1638e81645cdc8d"
-#~ msgstr ""
-#~ "@@image: 'figures/gnome-commander_options_devices.png'; "
-#~ "md5=bb91882c5b90b6d6d1638e81645cdc8d"
-
-#~ msgid "OK"
-#~ msgstr "Aceptar"
-
-#~ msgid "svn checkout svn://svn.gnome.org/svn/gnome-commander/trunk"
-#~ msgstr "svn checkout svn://svn.gnome.org/svn/gnome-commander/trunk"
-
-#~ msgid "Fractions of seconds for the <placeholder-1/> tag."
-#~ msgstr "Fracciones de segundos para la etiqueta <placeholder-1/>."
-
-#~ msgid "Advanced file rename tool - trim blanks"
-#~ msgstr "Renombrado avanzado de archivos; eliminar espacios"
