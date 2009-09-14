@@ -320,7 +320,12 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 
     f->metadata->mark_as_accessed(TAG_DOC);
 
+#ifdef POPPLER_HAS_GET_PDF_VERSION
     f->metadata->addf(TAG_PDF_VERSION, "%.1f", doc.getPDFVersion());
+#else
+    f->metadata->addf(TAG_PDF_VERSION, "%u.%u", doc.getPDFMajorVersion(), doc.getPDFMinorVersion());
+#endif
+
     f->metadata->addf(TAG_DOC_PAGECOUNT, "%i", doc.getNumPages());
     f->metadata->addf(TAG_PDF_OPTIMIZED, "%u", doc.isLinearized());
 
