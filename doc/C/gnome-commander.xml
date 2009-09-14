@@ -5995,6 +5995,9 @@
                             <para>Fixed problem #591944 (permissions set to 000 after chmod)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #595097 (build error for poppler >= 0.11.3)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with broken file icon after renaming a symbolic link</para>
                         </listitem>
                     </itemizedlist>

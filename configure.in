@@ -236,6 +236,9 @@ AC_ARG_WITH(poppler, [  --without-poppler        disable PDF support])
 have_pdf=no
 if test x$with_poppler != xno; then
     PKG_CHECK_MODULES(POPPLER, poppler >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
+    if pkg-config --max-version=0.11.2 poppler; then
+        AC_DEFINE(POPPLER_HAS_GET_PDF_VERSION, 1, [Define to 1 if poppler has support for PDFDoc::getPDFVersion()])
+    fi
 fi
 if test "x$have_pdf" = "xyes"; then
    AC_DEFINE(HAVE_PDF, 1, [Define to 1 if you have PDF support])
