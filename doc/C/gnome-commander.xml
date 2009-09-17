@@ -165,7 +165,7 @@
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
-    </revhistory>
+      <revision>
         <revnumber>GNOME Commander Manual V1.2.8.2;</revnumber>
         <date>2009-09-??</date>
         <revdescription>
