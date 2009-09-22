@@ -167,7 +167,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.2;</revnumber>
-        <date>2009-09-??</date>
+        <date>2009-09-22</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -5986,7 +5986,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.8.2</para></entry>
-            <entry><para>2009-09-??</para></entry>
+            <entry><para>2009-09-22</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
