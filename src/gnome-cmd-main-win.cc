@@ -1012,17 +1012,30 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             case GDK_u:
             case GDK_U:
                 {
-                    GnomeCmdDir *dir1 = fs(LEFT)->get_directory();
-                    GnomeCmdDir *dir2 = fs(RIGHT)->get_directory();
+                    GnomeCmdFileSelector *fs1 = fs(LEFT);
+                    GnomeCmdFileSelector *fs2 = fs(RIGHT);
 
-                    gnome_cmd_dir_ref (dir1);
-                    gnome_cmd_dir_ref (dir2);
+                    // swap widgets
+                    g_object_ref (fs1);
+                    g_object_ref (fs2);
+                    gtk_container_remove (GTK_CONTAINER (priv->paned), *fs1);
+                    gtk_container_remove (GTK_CONTAINER (priv->paned), *fs2);
+                    gtk_paned_pack1 (GTK_PANED (priv->paned), *fs2, TRUE, TRUE);
+                    gtk_paned_pack2 (GTK_PANED (priv->paned), *fs1, TRUE, TRUE);
+                    g_object_unref (fs1);
+                    g_object_unref (fs2);
 
-                    fs(LEFT)->set_directory(dir2);
-                    fs(RIGHT)->set_directory(dir1);
+                    // update priv->file_selector[]
+                    GtkWidget *swap = priv->file_selector[LEFT];
+                    priv->file_selector[LEFT] = priv->file_selector[RIGHT];
+                    priv->file_selector[RIGHT] = swap;
 
-                    gnome_cmd_dir_unref (dir1);
-                    gnome_cmd_dir_unref (dir2);
+                    // refocus ACTIVE fs
+                    gnome_cmd_main_win_focus_file_lists (this);
+
+                    // update cmdline only for different directories
+                    if (fs1->get_directory()!=fs2->get_directory())
+                        switch_fs(fs(ACTIVE));
 
                     clear_event_key (event);
                 }
