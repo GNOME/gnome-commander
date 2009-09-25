@@ -199,7 +199,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 
         case MENU_TYPE_TOGGLEITEM:
             item = gtk_check_menu_item_new_with_label (spec->label);
-            gtk_signal_connect (GTK_OBJECT (item), "toggled", GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
+            g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
             break;
 
         case MENU_TYPE_SEPARATOR:
@@ -217,9 +217,8 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
     if (spec->type == MENU_TYPE_ITEM)
     {
         // Connect to the signal and set user data
-        gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, spec->user_data);
-
-        gtk_signal_connect (GTK_OBJECT (item), "activate", GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
+        g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, spec->user_data);
+        g_signal_connect (item, "activate", G_CALLBACK (spec->moreinfo), spec->user_data);
     }
 
     spec->widget = item;
@@ -291,8 +290,8 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
     // Connect to the signal and set user data
     if (callback)
     {
-        gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, user_data);
-        gtk_signal_connect (GTK_OBJECT (item), "activate", callback, user_data);
+        g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, user_data);
+        g_signal_connect (item, "activate", callback, user_data);
     }
 
     return item;
@@ -875,8 +874,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_backup_files),
         !gnome_cmd_data.filter_settings.backup);
 
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed",
-                        GTK_SIGNAL_FUNC (on_con_list_list_changed), main_menu);
+    g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), main_menu);
 
     gnome_cmd_main_menu_update_bookmarks (main_menu);
     gnome_cmd_main_menu_update_connections (main_menu);
