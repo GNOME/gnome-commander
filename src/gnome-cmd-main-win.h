@@ -38,6 +38,12 @@ struct GnomeCmdMainWin
 {
     GnomeApp parent;
 
+  public:       //  FIXME:  change to private
+
+    void create_buttonbar();
+
+  public:
+
     struct Private;
 
     Private *priv;
@@ -56,28 +62,26 @@ struct GnomeCmdMainWin
     void set_equal_panes();
     GnomeCmdState *get_state();
     void set_cap_state(gboolean state);
+
+    GnomeCmdCmdline *get_cmdline();
+
+    void focus_file_lists();
+    void refocus();
+
+    void update_style();
+    void update_bookmarks();
+    void update_toolbar_visibility();
+    void update_cmdline_visibility();
+    void update_buttonbar_visibility();
+    void update_list_orientation();
+
+    void add_plugin_menu(PluginData *data);
 };
-
-
-extern GnomeCmdMainWin *main_win;
 
 
 GtkWidget *gnome_cmd_main_win_new ();
 
-GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline (GnomeCmdMainWin *mw);
 
-void gnome_cmd_main_win_update_style (GnomeCmdMainWin *mw);
-
-void gnome_cmd_main_win_focus_cmdline (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_focus_file_lists (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_refocus (GnomeCmdMainWin *mw);
-
-void gnome_cmd_main_win_update_bookmarks (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw);
-
-void gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data);
+extern GnomeCmdMainWin *main_win;
 
 #endif // __GNOME_CMD_MAIN_WIN_H__

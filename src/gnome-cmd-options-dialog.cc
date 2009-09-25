@@ -1712,7 +1712,7 @@ static void on_options_dialog_close (GtkButton *button, GtkWidget *dialog)
     gtk_widget_destroy (dialog);
 
     gnome_cmd_style_create ();
-    gnome_cmd_main_win_update_style (main_win);
+    main_win->update_style();
 
     gnome_cmd_data.save();
 }

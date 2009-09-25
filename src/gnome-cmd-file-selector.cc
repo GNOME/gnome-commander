@@ -663,8 +663,8 @@ inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
         gchar *text = fullpath ? gnome_cmd_file_get_quoted_real_path (f) :
                                  gnome_cmd_file_get_quoted_name (f);
 
-        gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
-        gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
+        gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
+        gnome_cmd_cmdline_focus (main_win->get_cmdline());
         g_free (text);
     }
 }
@@ -677,10 +677,10 @@ inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
     if (gnome_cmd_data.cmdline_visibility)
     {
         gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->get_directory()));
-        gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), dpath);
+        gnome_cmd_cmdline_append_text (main_win->get_cmdline(), dpath);
         g_free (dpath);
 
-        gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
+        gnome_cmd_cmdline_focus (main_win->get_cmdline());
     }
 }
 
@@ -761,7 +761,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 
 static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdFileSelector *fs)
 {
-    gnome_cmd_main_win_refocus (main_win);
+    main_win->refocus();
 }
 
 
@@ -1071,8 +1071,8 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
             else
             {
                 text[0] = event->keyval;
-                gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
-                gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
+                gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
+                gnome_cmd_cmdline_focus (main_win->get_cmdline());
             }
             return TRUE;
         }
@@ -1780,15 +1780,15 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Return:
             case GDK_KP_Enter:
                 if (gnome_cmd_data.cmdline_visibility
-                    && gnome_cmd_cmdline_is_empty (gnome_cmd_main_win_get_cmdline (main_win)))
-                    gnome_cmd_cmdline_exec (gnome_cmd_main_win_get_cmdline (main_win));
+                    && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
+                    gnome_cmd_cmdline_exec (main_win->get_cmdline());
                 else
                     do_file_specific_action (this, file_list()->get_focused_file());
                 return TRUE;
 
             case GDK_Escape:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_set_text (gnome_cmd_main_win_get_cmdline (main_win), "");
+                    gnome_cmd_cmdline_set_text (main_win->get_cmdline(), "");
                 return TRUE;
         }
     }

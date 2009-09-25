@@ -1327,7 +1327,7 @@ void view_toolbar (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.toolbar_visibility = checkitem->active;
-    gnome_cmd_main_win_update_toolbar_visibility (main_win);
+    main_win->update_toolbar_visibility();
 }
 
 
@@ -1337,7 +1337,7 @@ void view_buttonbar (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.buttonbar_visibility = checkitem->active;
-    gnome_cmd_main_win_update_buttonbar_visibility (main_win);
+    main_win->update_buttonbar_visibility();
 }
 
 
@@ -1347,7 +1347,7 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.cmdline_visibility = checkitem->active;
-    gnome_cmd_main_win_update_cmdline_visibility (main_win);
+    main_win->update_cmdline_visibility();
 }
 
 

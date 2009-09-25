@@ -198,7 +198,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 
     if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED)
     {
-        gnome_cmd_main_win_focus_file_lists (main_win);
+        main_win->focus_file_lists();
         data->done = TRUE;
     }
 
@@ -290,7 +290,7 @@ static gboolean update_xfer_gui_func (XferData *data)
         if (data->to_dir)
         {
             gnome_cmd_dir_relist_files (data->to_dir, FALSE);
-            gnome_cmd_main_win_focus_file_lists (main_win);
+            main_win->focus_file_lists();
             gnome_cmd_dir_unref (data->to_dir);
             data->to_dir = NULL;
         }

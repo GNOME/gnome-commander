@@ -355,7 +355,7 @@ static void on_switch_orientation (GtkMenuItem *menu_item, GnomeCmdMainMenu *mai
 {
     gnome_cmd_data.list_orientation = !gnome_cmd_data.list_orientation;
 
-    gnome_cmd_main_win_update_list_orientation (main_win);
+    main_win->update_list_orientation();
 
     update_view_menu (main_menu);
 }

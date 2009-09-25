@@ -477,7 +477,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
 
                     case GDK_Escape:
                         gnome_cmd_cmdline_set_text (cmdline, "");
-                        gnome_cmd_main_win_focus_file_lists (main_win);
+                        main_win->focus_file_lists();
                         return TRUE;
 
                     case GDK_Up:

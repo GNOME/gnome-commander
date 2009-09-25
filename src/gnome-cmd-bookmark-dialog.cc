@@ -451,7 +451,7 @@ static void destroy (GtkObject *object)
     g_list_free (dialog->priv->groups);
     g_free (dialog->priv);
 
-    gnome_cmd_main_win_update_bookmarks (main_win);
+    main_win->update_bookmarks();
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -636,7 +636,7 @@ void gnome_cmd_bookmark_add_current ()
 
         group->bookmarks = g_list_append (group->bookmarks, bookmark);
 
-        gnome_cmd_main_win_update_bookmarks (main_win);
+        main_win->update_bookmarks();
     }
     else
     {

@@ -813,7 +813,7 @@ inline void GnomeCmdData::save_cmdline_history()
     if (!cmdline_visibility)
         return;
 
-    cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
+    cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
 
     gnome_cmd_data_set_string_history ("/cmdline-history/line%d", cmdline_history);
 }

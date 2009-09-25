@@ -126,7 +126,7 @@ static void activate_plugin (PluginData *data)
     GnomeCmdState *state = main_win->get_state();
     data->menu = gnome_cmd_plugin_create_main_menu (data->plugin, state);
     if (data->menu)
-        gnome_cmd_main_win_add_plugin_menu (main_win, data);
+        main_win->add_plugin_menu(data);
 }
 
 
