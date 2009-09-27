@@ -173,10 +173,7 @@ inline GtkWidget *add_buttonbar_button (char *label,
                                         gint accel_signal_id)
 {
     GtkWidget *button = create_styled_button (label);
-    gtk_object_set_data_full (GTK_OBJECT (main_win),
-                              data_label,
-                              button,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*mw, data_label, button, (GtkDestroyNotify) gtk_widget_unref);
     GTK_WIDGET_UNSET_FLAGS (button, GTK_CAN_FOCUS);
 
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), button, TRUE, TRUE, 0);
@@ -349,7 +346,7 @@ static GtkWidget *create_slide_popup ()
 
     GtkWidget *menu = gtk_menu_new ();
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "slide-popup", menu, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*main_win, "slide-popup", menu, (GtkDestroyNotify) gtk_widget_unref);
 
     // Fill the menu
 
@@ -494,9 +491,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
         // g_free (dpath);
     // }
 
-    gdk_window_set_icon (GTK_WIDGET (main_win)->window, NULL,
-                         IMAGE_get_pixmap (PIXMAP_LOGO),
-                         IMAGE_get_mask (PIXMAP_LOGO));
+    gdk_window_set_icon (GTK_WIDGET (mw)->window, NULL, IMAGE_get_pixmap (PIXMAP_LOGO), IMAGE_get_mask (PIXMAP_LOGO));
 }
 
 
@@ -778,57 +773,49 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->file_selector[LEFT] = NULL;
     mw->priv->file_selector[RIGHT] = NULL;
 
-    gnome_app_construct (GNOME_APP (main_win), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander - ROOT PRIVILEGES") :
+    gnome_app_construct (GNOME_APP (mw), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander - ROOT PRIVILEGES") :
                                                                                          _("GNOME Commander"));
-    gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
+    gtk_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);
-    gtk_window_set_policy (GTK_WINDOW (main_win), TRUE, TRUE, FALSE);
+    gtk_window_set_policy (GTK_WINDOW (mw), TRUE, TRUE, FALSE);
 
     mw->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_ref (mw->priv->vbox);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "vbox", mw->priv->vbox,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*mw, "vbox", mw->priv->vbox, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->vbox);
-
 
     mw->priv->menubar = gnome_cmd_main_menu_new ();
     gtk_widget_ref (mw->priv->menubar);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "vbox", mw->priv->menubar,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*mw, "vbox", mw->priv->menubar, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->menubar);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), create_separator (FALSE), FALSE, TRUE, 0);
 
-    gnome_app_set_contents (GNOME_APP (main_win), mw->priv->vbox);
+    gnome_app_set_contents (GNOME_APP (mw), mw->priv->vbox);
 
     mw->priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     gtk_widget_ref (mw->priv->paned);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "paned", mw->priv->paned,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*mw, "paned", mw->priv->paned, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->paned);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     mw->create_buttonbar();
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new ();
     gtk_widget_ref (mw->priv->file_selector[LEFT]);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "left_file_selector",
-                              mw->priv->file_selector[LEFT],
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->file_selector[LEFT]);
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
 
     mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new ();
     gtk_widget_ref (mw->priv->file_selector[RIGHT]);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "right_file_selector",
-                              mw->priv->file_selector[RIGHT],
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
-    main_win->update_toolbar_visibility();
-    main_win->update_cmdline_visibility();
-    main_win->update_buttonbar_visibility();
+    mw->update_toolbar_visibility();
+    mw->update_cmdline_visibility();
+    mw->update_buttonbar_visibility();
 
     g_signal_connect (mw, "realize", G_CALLBACK (on_main_win_realize), mw);
     g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
@@ -852,8 +839,8 @@ static void init (GnomeCmdMainWin *mw)
     mw->fs(LEFT)->goto_directory(start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
     mw->fs(RIGHT)->goto_directory(start_dir_right ? start_dir_right : gnome_cmd_data_get_start_dir (RIGHT));
 
-    gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
-    main_win->focus_file_lists();
+    gtk_window_add_accel_group (GTK_WINDOW (mw), mw->priv->accel_group);
+    mw->focus_file_lists();
 
     mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, mw);
 }
@@ -1220,8 +1207,7 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         priv->cmdline_sep = create_separator (FALSE);
         priv->cmdline = gnome_cmd_cmdline_new ();
         gtk_widget_ref (priv->cmdline);
-        gtk_object_set_data_full (GTK_OBJECT (main_win), "cmdline", priv->cmdline,
-                                  (GtkDestroyNotify) gtk_widget_unref);
+        gtk_object_set_data_full (*this, "cmdline", priv->cmdline, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (priv->cmdline);
         if (gnome_cmd_data.toolbar_visibility)
             pos += 2;
