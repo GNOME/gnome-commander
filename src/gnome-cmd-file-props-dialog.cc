@@ -372,7 +372,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     table = create_table (dialog, 6, 3);
     gtk_container_add (GTK_CONTAINER (space_frame), table);
 
-    label = create_bold_label (dialog, _("File name:"));
+    label = create_bold_label (dialog, GNOME_CMD_IS_DIR (data->f) ? _("Directory name:") : _("File name:"));
     table_add (table, label, 0, y, GTK_FILL);
 
     fname = get_utf8 (gnome_cmd_file_get_name (data->f));
