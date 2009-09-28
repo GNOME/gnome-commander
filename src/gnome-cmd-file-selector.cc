@@ -813,7 +813,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
         gtk_widget_ref (hbox);
-        gtk_object_set_data_full (GTK_OBJECT (fs), "con-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
+        g_object_set_data_full (G_OBJECT (fs), "con-hbox", hbox, (GDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
 
         if (pm)
@@ -822,8 +822,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             if (pixmap)
             {
                 gtk_widget_ref (pixmap);
-                gtk_object_set_data_full (GTK_OBJECT (fs), "con-pixmap", pixmap,
-                                          (GtkDestroyNotify) gtk_widget_unref);
+                g_object_set_data_full (G_OBJECT (fs), "con-pixmap", pixmap, (GDestroyNotify) gtk_widget_unref);
                 gtk_widget_show (pixmap);
                 gtk_box_pack_start (GTK_BOX (hbox), pixmap, TRUE, TRUE, 0);
             }
@@ -833,8 +832,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
             gtk_widget_ref (label);
-            gtk_object_set_data_full (GTK_OBJECT (fs), "con-label", label,
-                                      (GtkDestroyNotify) gtk_widget_unref);
+            g_object_set_data_full (G_OBJECT (fs), "con-label", label, (GDestroyNotify) gtk_widget_unref);
             gtk_widget_show (label);
             gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
         }
@@ -1143,13 +1141,13 @@ static void init (GnomeCmdFileSelector *fs)
     // create the list
     fs->file_list() = new GnomeCmdFileList;             // FIXME: file_list() = ...
     gtk_widget_ref (*fs->file_list());
-    gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->file_list(), (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (fs), "list_widget", fs->file_list(), (GDestroyNotify) gtk_widget_unref);
     fs->file_list()->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the connection combo
     fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
     gtk_widget_ref (fs->con_combo);
-    gtk_object_set_data_full (GTK_OBJECT (fs), "con_combo", fs->con_combo, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (fs), "con_combo", fs->con_combo, (GDestroyNotify) gtk_widget_unref);
     gtk_widget_set_size_request (fs->con_combo, 150, -1);
     gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
     gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (fs->con_combo)->entry), FALSE);
@@ -1160,30 +1158,25 @@ static void init (GnomeCmdFileSelector *fs)
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
     gtk_widget_ref (fs->vol_label);
-    gtk_object_set_data_full (GTK_OBJECT (fs), "vol_label", fs->vol_label, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (fs), "vol_label", fs->vol_label, (GDestroyNotify) gtk_widget_unref);
     gtk_misc_set_alignment (GTK_MISC (fs->vol_label), 1, 0.5);
 
     // create the directory indicator
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
     gtk_widget_ref (fs->dir_indicator);
-    gtk_object_set_data_full (GTK_OBJECT (fs),
-                              "dir_indicator", fs->dir_indicator,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (fs), "dir_indicator", fs->dir_indicator, (GDestroyNotify) gtk_widget_unref);
 
     // create the scrollwindow that we'll place the list in
     fs->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (fs->scrolledwindow);
-    gtk_object_set_data_full (GTK_OBJECT (fs),
-                              "scrolledwindow", fs->scrolledwindow,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (fs), "scrolledwindow", fs->scrolledwindow, (GDestroyNotify) gtk_widget_unref);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (fs->scrolledwindow),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     // create the info label
     fs->info_label = gtk_label_new ("not initialized");
     gtk_widget_ref (fs->info_label);
-    gtk_object_set_data_full (GTK_OBJECT (fs), "infolabel", fs->info_label,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (fs), "infolabel", fs->info_label, (GDestroyNotify) gtk_widget_unref);
     gtk_misc_set_alignment (GTK_MISC (fs->info_label), 0.0f, 0.5f);
 
     // pack the widgets

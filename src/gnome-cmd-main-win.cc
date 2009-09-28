@@ -1242,7 +1242,7 @@ void GnomeCmdMainWin::update_list_orientation()
     priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     gtk_widget_ref (priv->paned);
-    gtk_object_set_data_full (*this, "paned", priv->paned, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (this), "paned", priv->paned, (GDestroyNotify) gtk_widget_unref);
     gtk_widget_show (priv->paned);
 
     gtk_paned_pack1 (GTK_PANED (priv->paned), priv->file_selector[LEFT], TRUE, TRUE);
