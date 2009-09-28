@@ -242,7 +242,7 @@ static void add_fav_app_menu_item (GnomeCmdFilePopmenu *menu, GnomeCmdApp *app, 
     gtk_container_add (GTK_CONTAINER (item), label);
 
     // Connect to the signal and set user data
-    gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
+    g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
 
     g_signal_connect (item, "activate", G_CALLBACK (cb_exec_with_app), data);
 }

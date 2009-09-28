@@ -804,7 +804,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         GnomeCmdPixmap *pm = gnome_cmd_con_get_go_pixmap (con);
 
         GtkWidget *btn = create_styled_button (NULL);
-        gtk_object_set_data (GTK_OBJECT (btn), "con", con);
+        g_object_set_data (G_OBJECT (btn), "con", con);
         g_signal_connect (btn, "clicked", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);

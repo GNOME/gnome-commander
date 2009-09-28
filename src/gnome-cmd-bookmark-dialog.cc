@@ -491,7 +491,7 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     in_dialog->priv->groups = NULL;
 
     dialog = GTK_WIDGET (in_dialog);
-    gtk_object_set_data (GTK_OBJECT (dialog), "dialog", dialog);
+    g_object_set_data (G_OBJECT (dialog), "dialog", dialog);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Bookmarks"));
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 400, 400);
     gtk_window_set_default_size (GTK_WINDOW (dialog), bookmark_dlg_width, bookmark_dlg_height);

@@ -416,16 +416,16 @@ void plugin_manager_show ()
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
     button = create_button (GTK_WIDGET (dialog), _("_Enable"), GTK_SIGNAL_FUNC (on_toggle));
-    gtk_object_set_data (GTK_OBJECT (dialog), "toggle_button", button);
+    g_object_set_data (G_OBJECT (dialog), "toggle_button", button);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
     button = create_button (GTK_WIDGET (dialog), _("_Configure"), GTK_SIGNAL_FUNC (on_configure));
-    gtk_object_set_data (GTK_OBJECT (dialog), "conf_button", button);
+    g_object_set_data (G_OBJECT (dialog), "conf_button", button);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
     button = create_button (GTK_WIDGET (dialog), _("_About"), GTK_SIGNAL_FUNC (on_about));
-    gtk_object_set_data (GTK_OBJECT (dialog), "about_button", button);
+    g_object_set_data (G_OBJECT (dialog), "about_button", button);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 

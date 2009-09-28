@@ -802,7 +802,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     dialog->priv->data = g_new0 (SearchData, 1);
 
     window = GTK_WIDGET (dialog);
-    gtk_object_set_data (GTK_OBJECT (window), "window", window);
+    g_object_set_data (G_OBJECT (window), "window", window);
     gtk_window_set_title (GTK_WINDOW (window), _("Search..."));
     gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
     gtk_window_set_default_size (GTK_WINDOW (window), defaults.width, defaults.height);

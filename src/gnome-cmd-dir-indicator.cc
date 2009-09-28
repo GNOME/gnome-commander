@@ -308,7 +308,7 @@ static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell,
     GtkWidget *item = text ? gtk_menu_item_new_with_label (text) : gtk_menu_item_new ();
 
     gtk_widget_ref (item);
-    gtk_object_set_data (GTK_OBJECT (item), "indicator", indicator);
+    g_object_set_data (G_OBJECT (item), "indicator", indicator);
     gtk_object_set_data_full (GTK_OBJECT (shell), "menu_item", item, (GtkDestroyNotify) gtk_widget_unref);
     if (func)
         g_signal_connect (item, "activate", G_CALLBACK (func), data);

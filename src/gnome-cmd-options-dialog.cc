@@ -485,7 +485,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, label, 0, 2, GTK_FILL);
 
     fe_optmenu = create_option_menu (parent, ext_modes);
-    gtk_object_set_data (GTK_OBJECT (parent), "fe_optmenu", fe_optmenu);
+    g_object_set_data (G_OBJECT (parent), "fe_optmenu", fe_optmenu);
     table_add (table, fe_optmenu, 1, 2, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     // Graphical mode
@@ -493,7 +493,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, label, 0, 3, GTK_FILL);
 
     lm_optmenu = create_option_menu (parent, gfx_modes);
-    gtk_object_set_data (GTK_OBJECT (parent), "lm_optmenu", lm_optmenu);
+    g_object_set_data (G_OBJECT (parent), "lm_optmenu", lm_optmenu);
     g_signal_connect (lm_optmenu, "changed", G_CALLBACK (on_layout_mode_changed), parent);
     table_add (table, lm_optmenu, 1, 3, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
@@ -505,13 +505,13 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, hbox, 1, 4, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     cm_optmenu = create_option_menu (parent, color_modes);
-    gtk_object_set_data (GTK_OBJECT (parent), "cm_optmenu", cm_optmenu);
+    g_object_set_data (G_OBJECT (parent), "cm_optmenu", cm_optmenu);
     g_signal_connect (cm_optmenu, "changed", G_CALLBACK (on_color_mode_changed), parent);
     gtk_box_pack_start (GTK_BOX (hbox), cm_optmenu, TRUE, TRUE, 0);
 
 
     btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
-    gtk_object_set_data (GTK_OBJECT (parent), "color_btn", btn);
+    g_object_set_data (G_OBJECT (parent), "color_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (btn, gnome_cmd_data.color_mode == GNOME_CMD_COLOR_CUSTOM);
 
@@ -525,7 +525,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
      // MIME icon settings
     table = create_table (parent, 4, 2);
     cat = create_category (parent, table, _("MIME icon settings"));
-    gtk_object_set_data (GTK_OBJECT (parent), "mime_icon_settings_frame", cat);
+    g_object_set_data (G_OBJECT (parent), "mime_icon_settings_frame", cat);
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     spin = create_spin (parent, "iconsize_spin", 8, 64, gnome_cmd_data.icon_size);
@@ -1077,7 +1077,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
 
     GtkWidget *dialog = gnome_cmd_dialog_new (NULL);
     gtk_widget_ref (dialog);
-    gtk_object_set_data (GTK_OBJECT (dialog), "options_dialog", options_dialog);
+    g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     hbox = create_hbox (dialog, FALSE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
@@ -1197,7 +1197,7 @@ static void on_app_edit (GtkWidget *button, GtkWidget *parent)
 static void on_app_selected (GtkCList *clist, gint row, gint column, GdkEventButton *event, GtkWidget *parent)
 {
     GnomeCmdApp *app = (GnomeCmdApp *) gtk_clist_get_row_data (clist, row);
-    gtk_object_set_data (GTK_OBJECT (parent), "selected_app", app);
+    g_object_set_data (G_OBJECT (parent), "selected_app", app);
 
     gtk_widget_set_sensitive (lookup_widget (parent, "remove_app_button"), TRUE);
     gtk_widget_set_sensitive (lookup_widget (parent, "edit_app_button"), TRUE);
@@ -1320,13 +1320,13 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_app_edit));
-    gtk_object_set_data (GTK_OBJECT (parent), "edit_app_button", button);
+    g_object_set_data (G_OBJECT (parent), "edit_app_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_app_remove));
-    gtk_object_set_data (GTK_OBJECT (parent), "remove_app_button", button);
+    g_object_set_data (G_OBJECT (parent), "remove_app_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
@@ -1486,7 +1486,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     dialog = gnome_cmd_dialog_new ("");
     gtk_widget_ref (dialog);
     gtk_window_set_title (GTK_WINDOW (dialog), "");
-    gtk_object_set_data (GTK_OBJECT (dialog), "options_dialog", options_dialog);
+    g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     table = create_table (dialog, 4, 2);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), table);
@@ -1573,7 +1573,7 @@ static void on_device_remove (GtkWidget *button, GtkWidget *frame)
 static void on_device_selected (GtkCList *clist, gint row, gint column, GdkEventButton *event, GtkWidget *parent)
 {
     GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, row));
-    gtk_object_set_data (GTK_OBJECT (parent), "selected_device", dev);
+    g_object_set_data (G_OBJECT (parent), "selected_device", dev);
 
     gtk_widget_set_sensitive (lookup_widget (parent, "remove_device_button"), TRUE);
     gtk_widget_set_sensitive (lookup_widget (parent, "edit_device_button"), TRUE);
@@ -1649,13 +1649,13 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_device_edit));
-    gtk_object_set_data (GTK_OBJECT (parent), "edit_device_button", button);
+    g_object_set_data (G_OBJECT (parent), "edit_device_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     button = create_stock_button (parent, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_device_remove));
-    gtk_object_set_data (GTK_OBJECT (parent), "remove_device_button", button);
+    g_object_set_data (G_OBJECT (parent), "remove_device_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
@@ -1763,7 +1763,7 @@ static void init (GnomeCmdOptionsDialog *dialog)
 
     dialog->priv = g_new0 (GnomeCmdOptionsDialog::Private, 1);
 
-    gtk_object_set_data (GTK_OBJECT (options_dialog), "options_dialog", options_dialog);
+    g_object_set_data (G_OBJECT (options_dialog), "options_dialog", options_dialog);
     gtk_window_set_position (GTK_WINDOW (options_dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (options_dialog), _("Options"));
 
