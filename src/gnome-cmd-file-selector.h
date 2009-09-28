@@ -64,6 +64,7 @@ struct GnomeCmdFileSelector
 
     Private *priv;
 
+    operator GObject * ()                   {  return G_OBJECT (this);    }
     operator GtkWidget * ()                 {  return GTK_WIDGET (this);  }
     operator GtkBox * ()                    {  return GTK_BOX (this);     }
 
