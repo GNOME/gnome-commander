@@ -380,8 +380,8 @@ static void add_groups (GnomeCmdBookmarkDialog *dialog)
         text[1] = (gchar *) gnome_cmd_con_get_alias (group->con);
         text[2] = NULL;
 
-        gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (dialog->priv->combo), text, group);
-        gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (dialog->priv->combo), row, 0, pixmap);
+        gint row = GNOME_CMD_COMBO (dialog->priv->combo)->append(text, group);
+        GNOME_CMD_COMBO (dialog->priv->combo)->set_pixmap(row, 0, pixmap);
     }
 }
 

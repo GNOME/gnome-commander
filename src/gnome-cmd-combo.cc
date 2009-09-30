@@ -46,6 +46,14 @@ enum
   LAST_SIGNAL
 };
 
+struct GnomeCmdComboClass
+{
+    GtkHBoxClass parent_class;
+
+    void (* item_selected)     (GnomeCmdCombo *combo, gpointer data);
+    void (* popwin_hidden)     (GnomeCmdCombo *combo);
+};
+
 const gchar *gnome_cmd_combo_string_key = "gnome-cmd-combo-string-value";
 
 #define COMBO_LIST_MAX_HEIGHT    (400)
@@ -53,7 +61,7 @@ const gchar *gnome_cmd_combo_string_key = "gnome-cmd-combo-string-value";
 
 static GtkHBoxClass *parent_class = NULL;
 
-static guint combo_signals[LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 
 static void gnome_cmd_combo_item_selected (GnomeCmdCombo *combo, gpointer data);
@@ -164,17 +172,17 @@ inline void get_pos (GnomeCmdCombo *combo, gint *x, gint *y, gint *height, gint 
 }
 
 
-void gnome_cmd_combo_popup_list (GnomeCmdCombo *combo)
+void GnomeCmdCombo::popup_list()
 {
     gint height, width, x, y;
 
-    get_pos (combo, &x, &y, &height, &width);
+    get_pos (this, &x, &y, &height, &width);
 
-    gtk_widget_set_uposition (combo->popwin, x, y);
-    gtk_widget_set_size_request (combo->popwin, width, height);
-    gtk_widget_realize (combo->popwin);
-    gdk_window_resize (combo->popwin->window, width, height);
-    gtk_widget_show (combo->popwin);
+    gtk_widget_set_uposition (popwin, x, y);
+    gtk_widget_set_size_request (popwin, width, height);
+    gtk_widget_realize (popwin);
+    gdk_window_resize (popwin->window, width, height);
+    gtk_widget_show (popwin);
 }
 
 
@@ -187,7 +195,7 @@ static gboolean on_popup_button_release (GtkWidget *button,  GnomeCmdCombo *comb
     if (combo->is_popped)
         gtk_widget_hide (combo->popwin);
     else
-        gnome_cmd_combo_popup_list (combo);
+        combo->popup_list();
 
     combo->is_popped = !combo->is_popped;
 
@@ -241,7 +249,7 @@ static int on_popwin_keypress (GtkWidget *widget, GdkEventKey *event, GnomeCmdCo
                 if (row < 0) return TRUE;
 
                 gpointer data = gtk_clist_get_row_data (GTK_CLIST (combo->list), row);
-                gtk_signal_emit (GTK_OBJECT (combo), combo_signals[ITEM_SELECTED], data);
+                gtk_signal_emit (*combo, signals[ITEM_SELECTED], data);
             }
 
             return TRUE;
@@ -280,7 +288,7 @@ static gboolean on_list_button_release (GtkCList *clist, GdkEventButton *event, 
     if (clist->focus_row >= 0 && clist->focus_row == row)
     {
         gpointer data = gtk_clist_get_row_data (clist, clist->focus_row);
-        gtk_signal_emit (GTK_OBJECT (combo), combo_signals[ITEM_SELECTED], data);
+        gtk_signal_emit (*combo, signals[ITEM_SELECTED], data);
 
         return TRUE;
     }
@@ -299,7 +307,7 @@ static void on_popwin_show (GtkWidget *widget, GnomeCmdCombo *combo)
 static void on_popwin_hide (GtkWidget *widget, GnomeCmdCombo *combo)
 {
     gtk_grab_remove (combo->popwin);
-    gtk_signal_emit (GTK_OBJECT (combo), combo_signals[POPWIN_HIDDEN]);
+    gtk_signal_emit (*combo, signals[POPWIN_HIDDEN]);
 }
 
 
@@ -321,7 +329,7 @@ static void class_init (GnomeCmdComboClass *klass)
     GtkObjectClass *object_class = (GtkObjectClass *) klass;
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
 
-    combo_signals[ITEM_SELECTED] =
+    signals[ITEM_SELECTED] =
         gtk_signal_new ("item-selected",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
@@ -330,7 +338,7 @@ static void class_init (GnomeCmdComboClass *klass)
             GTK_TYPE_NONE,
             1, GTK_TYPE_POINTER);
 
-    combo_signals[POPWIN_HIDDEN] =
+    signals[POPWIN_HIDDEN] =
         gtk_signal_new ("popwin-hidden",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
@@ -361,7 +369,7 @@ static void init (GnomeCmdCombo *combo)
 
     combo->entry = gtk_entry_new ();
     gtk_widget_ref (combo->entry);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "entry", combo->entry, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "entry", combo->entry, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (combo->entry);
     gtk_widget_set_size_request (combo->entry, 60, -1);
     gtk_entry_set_editable (GTK_ENTRY (combo->entry), FALSE);
@@ -370,12 +378,12 @@ static void init (GnomeCmdCombo *combo)
     combo->button = gtk_button_new ();
     gtk_widget_ref (combo->button);
     gtk_button_set_relief (GTK_BUTTON (combo->button), gnome_cmd_data.button_relief);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "button", combo->button, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "button", combo->button, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (combo->button);
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
     gtk_widget_ref (arrow);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "arrow", arrow, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "arrow", arrow, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (arrow);
 
     gtk_container_add (GTK_CONTAINER (combo->button), arrow);
@@ -387,7 +395,7 @@ static void init (GnomeCmdCombo *combo)
 
     combo->popwin = gtk_window_new (GTK_WINDOW_POPUP);
     gtk_widget_ref (combo->popwin);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "popwin", combo->popwin, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "popwin", combo->popwin, (GtkDestroyNotify) gtk_widget_unref);
     gtk_window_set_policy (GTK_WINDOW (combo->popwin), 1, 1, 0);
 
     gtk_widget_set_events (combo->popwin, GDK_KEY_PRESS_MASK);
@@ -401,7 +409,7 @@ static void init (GnomeCmdCombo *combo)
 
     event_box = gtk_event_box_new ();
     gtk_widget_ref (event_box);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "event_box", event_box, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "event_box", event_box, (GtkDestroyNotify) gtk_widget_unref);
     gtk_container_add (GTK_CONTAINER (combo->popwin), event_box);
     gtk_widget_show (event_box);
     gtk_widget_realize (event_box);
@@ -412,14 +420,14 @@ static void init (GnomeCmdCombo *combo)
 
     frame = gtk_frame_new (NULL);
     gtk_widget_ref (frame);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "frame", frame, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "frame", frame, (GtkDestroyNotify) gtk_widget_unref);
     gtk_container_add (GTK_CONTAINER (event_box), frame);
     gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
     gtk_widget_show (frame);
 
     combo->popup = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (combo->popup);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "combo->popup", combo->popup, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "combo->popup", combo->popup, (GtkDestroyNotify) gtk_widget_unref);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (combo->popup), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->hscrollbar, GTK_CAN_FOCUS);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->vscrollbar, GTK_CAN_FOCUS);
@@ -432,9 +440,9 @@ static void init (GnomeCmdCombo *combo)
  * Public functions
  ***********************************/
 
-guint gnome_cmd_combo_get_type ()
+GtkType gnome_cmd_combo_get_type ()
 {
-    static guint combo_type = 0;
+    static GtkType combo_type = 0;
 
     if (!combo_type)
     {
@@ -469,11 +477,9 @@ GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles
         combo->list = gnome_cmd_clist_new (num_cols);
 
     gtk_widget_ref (combo->list);
-    gtk_object_set_data_full (GTK_OBJECT (combo), "combo->list", combo->list, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*combo, "combo->list", combo->list, (GtkDestroyNotify) gtk_widget_unref);
 
-    /* We'll use enter notify events to figure out when to transfer
-     * the grab to the list
-     */
+    // We'll use enter notify events to figure out when to transfer the grab to the list
     gtk_container_add (GTK_CONTAINER (combo->popup), combo->list);
     gtk_widget_show (combo->list);
 
@@ -486,88 +492,71 @@ GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles
 }
 
 
-void gnome_cmd_combo_clear (GnomeCmdCombo *combo)
+gint GnomeCmdCombo::append(gchar **text, gpointer data)
 {
-    gtk_clist_clear (GTK_CLIST (combo->list));
-}
-
-
-gint gnome_cmd_combo_append (GnomeCmdCombo *combo, gchar **text, gpointer data)
-{
-    gint row;
-
-    g_return_val_if_fail (GNOME_CMD_IS_COMBO (combo), -1);
     g_return_val_if_fail (text != NULL, -1);
 
-    row = gtk_clist_append (GTK_CLIST (combo->list), text);
-    gtk_clist_set_row_data (GTK_CLIST (combo->list), row, data);
+    gint row = gtk_clist_append (GTK_CLIST (list), text);
+    gtk_clist_set_row_data (GTK_CLIST (list), row, data);
 
     return row;
 }
 
 
-gint gnome_cmd_combo_insert (GnomeCmdCombo *combo, gchar **text, gpointer data)
+gint GnomeCmdCombo::insert(gchar **text, gpointer data)
 {
-    gint row;
-
-    g_return_val_if_fail (GNOME_CMD_IS_COMBO (combo), -1);
     g_return_val_if_fail (text != NULL, -1);
 
-    row = gtk_clist_insert (GTK_CLIST (combo->list), 0, text);
-    gtk_clist_set_row_data (GTK_CLIST (combo->list), row, data);
+    gint row = gtk_clist_insert (GTK_CLIST (list), 0, text);
+    gtk_clist_set_row_data (GTK_CLIST (list), row, data);
 
     return row;
 }
 
 
-void gnome_cmd_combo_set_pixmap (GnomeCmdCombo *combo, gint row, gint col, GnomeCmdPixmap *pixmap)
+void GnomeCmdCombo::set_pixmap(gint row, gint col, GnomeCmdPixmap *pixmap)
 {
-    g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
     g_return_if_fail (pixmap != NULL);
 
-    gtk_clist_set_pixmap (GTK_CLIST (combo->list), row, col, pixmap->pixmap, pixmap->mask);
-    if (pixmap->height > combo->highest_pixmap)
+    gtk_clist_set_pixmap (GTK_CLIST (list), row, col, pixmap->pixmap, pixmap->mask);
+    if (pixmap->height > highest_pixmap)
     {
-        gtk_clist_set_row_height (GTK_CLIST (combo->list), pixmap->height);
-        combo->highest_pixmap = pixmap->height;
+        gtk_clist_set_row_height (GTK_CLIST (list), pixmap->height);
+        highest_pixmap = pixmap->height;
     }
-    if (pixmap->width > combo->widest_pixmap)
+    if (pixmap->width > widest_pixmap)
     {
-        gtk_clist_set_column_width (GTK_CLIST (combo->list), 0, pixmap->width);
-        combo->widest_pixmap = pixmap->width;
+        gtk_clist_set_column_width (GTK_CLIST (list), 0, pixmap->width);
+        widest_pixmap = pixmap->width;
     }
 }
 
 
-void gnome_cmd_combo_select_text (GnomeCmdCombo *combo, const gchar *text)
+void GnomeCmdCombo::select_text(const gchar *text)
 {
-    g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
-    g_return_if_fail (text != NULL);
-
-    gtk_entry_set_text (GTK_ENTRY (combo->entry), text);
+    if (text)
+        gtk_entry_set_text (GTK_ENTRY (entry), text);
 }
 
 
-void gnome_cmd_combo_select_data (GnomeCmdCombo *combo, gpointer data)
+void GnomeCmdCombo::select_data(gpointer data)
 {
-    g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
-
-    GtkCList *clist = GTK_CLIST (combo->list);
+    GtkCList *clist = GTK_CLIST (list);
     gint row = gtk_clist_find_row_from_data (clist, data);
 
-    if (gtk_clist_get_text (clist, row, combo->text_col, &combo->sel_text))
+    if (gtk_clist_get_text (clist, row, text_col, &sel_text))
     {
-        combo->sel_data = data;
-        gtk_entry_set_text (GTK_ENTRY (combo->entry), combo->sel_text);
-        gtk_clist_select_row (GTK_CLIST (combo->list), row, 0);
+        sel_data = data;
+        gtk_entry_set_text (GTK_ENTRY (entry), sel_text);
+        gtk_clist_select_row (GTK_CLIST (list), row, 0);
     }
 }
 
 
-void gnome_cmd_combo_update_style (GnomeCmdCombo *combo)
+void GnomeCmdCombo::update_style()
 {
-    gtk_widget_set_style (combo->entry, list_style);
-    gnome_cmd_clist_update_style (GNOME_CMD_CLIST (combo->list));
+    gtk_widget_set_style (entry, list_style);
+    gnome_cmd_clist_update_style (GNOME_CMD_CLIST (list));
 }
 
 
@@ -585,20 +574,4 @@ static void gnome_cmd_combo_item_selected (GnomeCmdCombo *combo, gpointer data)
         combo->sel_data = data;
         gtk_entry_set_text (GTK_ENTRY (combo->entry), combo->sel_text);
     }
-}
-
-
-gpointer gnome_cmd_combo_get_selected_data (GnomeCmdCombo *combo)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_COMBO (combo), NULL);
-
-    return combo->sel_data;
-}
-
-
-const gchar *gnome_cmd_combo_get_selected_text (GnomeCmdCombo *combo)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_COMBO (combo), NULL);
-
-    return combo->sel_text;
 }

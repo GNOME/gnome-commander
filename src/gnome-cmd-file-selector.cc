@@ -252,7 +252,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
     fs->set_directory(dir);
 
     if (con_change_needed)
-        gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
+        GNOME_CMD_COMBO (fs->con_combo)->select_data(con);
 }
 
 
@@ -895,7 +895,7 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *e
 static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
-    gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
+    GNOME_CMD_COMBO (fs->con_combo)->select_data(con);
 }
 
 
@@ -1504,7 +1504,7 @@ void GnomeCmdFileSelector::update_connections()
 
     gboolean found_my_con = FALSE;
 
-    gnome_cmd_combo_clear (GNOME_CMD_COMBO (con_combo));
+    GNOME_CMD_COMBO (con_combo)->clear();
     GNOME_CMD_COMBO (con_combo)->highest_pixmap = 20;
     GNOME_CMD_COMBO (con_combo)->widest_pixmap = 20;
     gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (con_combo)->list), 20);
@@ -1529,9 +1529,9 @@ void GnomeCmdFileSelector::update_connections()
 
         if (pixmap)
         {
-            gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (con_combo), text, con);
+            gint row = GNOME_CMD_COMBO (con_combo)->append(text, con);
 
-            gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (con_combo), row, 0, pixmap);
+            GNOME_CMD_COMBO (con_combo)->set_pixmap(row, 0, pixmap);
         }
     }
 
@@ -1539,7 +1539,7 @@ void GnomeCmdFileSelector::update_connections()
     if (!found_my_con)
         set_connection(get_home_con ());
     else
-        gnome_cmd_combo_select_data (GNOME_CMD_COMBO (con_combo), get_connection());
+        GNOME_CMD_COMBO (con_combo)->select_data(get_connection());
 
     create_con_buttons (this);
 }
@@ -1583,7 +1583,7 @@ gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
 
 void GnomeCmdFileSelector::update_style()
 {
-    gnome_cmd_combo_update_style (GNOME_CMD_COMBO (con_combo));
+    GNOME_CMD_COMBO (con_combo)->update_style();
     file_list()->update_style();
 
     if (priv->realized)

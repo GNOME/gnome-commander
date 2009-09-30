@@ -39,16 +39,26 @@
 #define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
 #define GNOME_CMD_IS_COMBO(obj)         GTK_CHECK_TYPE (obj, gnome_cmd_combo_get_type ())
 
-/* you should access only the entry and list fields directly */
+
+GtkType gnome_cmd_combo_get_type ();
+
+
 struct GnomeCmdCombo
 {
     GtkHBox hbox;
 
+  public:
+
+    operator GtkObject * ()             {  return GTK_OBJECT (this);       }
+
     GtkWidget *entry;
+    GtkWidget *list;
+
+  public:       //  FIXME:  change to private
+
     GtkWidget *button;
     GtkWidget *popup;
     GtkWidget *popwin;
-    GtkWidget *list;
     gboolean is_popped;
 
     guint entry_change_id;
@@ -66,34 +76,26 @@ struct GnomeCmdCombo
     gint widest_pixmap;
     gint highest_pixmap;
     gint text_col;
+
+  public:
+
+    void clear()                                                {  gtk_clist_clear (GTK_CLIST (list));  }
+    gint append(gchar **text, gpointer data);
+    gint insert(gchar **text, gpointer data);
+
+    void set_pixmap(gint row, gint col, GnomeCmdPixmap *pixmap);
+
+    void popup_list();
+
+    void select_text(const gchar *text);
+    void select_data(gpointer data);
+
+    void update_style();
+
+    gpointer get_selected_data()                                {  return sel_data;  }
+    const gchar *get_selected_text()                            {  return sel_text;  }
 };
-
-struct GnomeCmdComboClass
-{
-    GtkHBoxClass parent_class;
-
-    void (* item_selected)     (GnomeCmdCombo *combo, gpointer data);
-    void (* popwin_hidden)     (GnomeCmdCombo *combo);
-};
-
-guint gnome_cmd_combo_get_type ();
 
 GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles);
-
-void gnome_cmd_combo_clear (GnomeCmdCombo *combo);
-gint gnome_cmd_combo_append (GnomeCmdCombo *combo, gchar **text, gpointer data);
-gint gnome_cmd_combo_insert (GnomeCmdCombo *combo, gchar **text, gpointer data);
-
-void gnome_cmd_combo_set_pixmap (GnomeCmdCombo *combo, gint row, gint col, GnomeCmdPixmap *pixmap);
-
-void gnome_cmd_combo_popup_list  (GnomeCmdCombo *combo);
-
-void gnome_cmd_combo_select_text (GnomeCmdCombo *combo, const gchar *text);
-void gnome_cmd_combo_select_data (GnomeCmdCombo *combo, gpointer data);
-
-void gnome_cmd_combo_update_style (GnomeCmdCombo *combo);
-
-gpointer gnome_cmd_combo_get_selected_data (GnomeCmdCombo *combo);
-const gchar *gnome_cmd_combo_get_selected_text (GnomeCmdCombo *combo);
 
 #endif // __GNOME_CMD_COMBO_H__

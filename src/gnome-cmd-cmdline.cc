@@ -45,7 +45,7 @@ struct GnomeCmdCmdlinePrivate
 
 inline void update_history_combo (GnomeCmdCmdline *cmdline)
 {
-    gnome_cmd_combo_clear (GNOME_CMD_COMBO (cmdline->priv->combo));
+    GNOME_CMD_COMBO (cmdline->priv->combo)->clear();
 
     gchar *text[2];
 
@@ -55,7 +55,7 @@ inline void update_history_combo (GnomeCmdCmdline *cmdline)
     {
         gchar *command = text[0] = (gchar *) tmp->data;
 
-        gnome_cmd_combo_append (GNOME_CMD_COMBO (cmdline->priv->combo), text, command);
+        GNOME_CMD_COMBO (cmdline->priv->combo)->append(text, command);
     }
 
     gtk_clist_select_row (GTK_CLIST (GNOME_CMD_COMBO (cmdline->priv->combo)->list), 0, 0);
@@ -392,7 +392,7 @@ void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    gnome_cmd_combo_update_style (GNOME_CMD_COMBO (cmdline->priv->combo));
+    GNOME_CMD_COMBO (cmdline->priv->combo)->update_style();
 }
 
 
@@ -400,7 +400,7 @@ void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (cmdline->priv->combo));
+    GNOME_CMD_COMBO (cmdline->priv->combo)->popup_list();
 }
 
 
