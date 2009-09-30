@@ -48,6 +48,7 @@ struct GnomeCmdMainWin
 
     Private *priv;
 
+    operator GObject * ()               {  return G_OBJECT (this);         }
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
     operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
 

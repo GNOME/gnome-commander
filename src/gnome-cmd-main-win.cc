@@ -775,7 +775,7 @@ static void init (GnomeCmdMainWin *mw)
 
     gnome_app_construct (GNOME_APP (mw), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander - ROOT PRIVILEGES") :
                                                                                    _("GNOME Commander"));
-    g_object_set_data (G_OBJECT (mw), "main_win", mw);
+    g_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);
     gtk_window_set_policy (GTK_WINDOW (mw), TRUE, TRUE, FALSE);
 
@@ -1242,7 +1242,7 @@ void GnomeCmdMainWin::update_list_orientation()
     priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     gtk_widget_ref (priv->paned);
-    g_object_set_data_full (G_OBJECT (this), "paned", priv->paned, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*this, "paned", priv->paned, (GDestroyNotify) gtk_widget_unref);
     gtk_widget_show (priv->paned);
 
     gtk_paned_pack1 (GTK_PANED (priv->paned), priv->file_selector[LEFT], TRUE, TRUE);
