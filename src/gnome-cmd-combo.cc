@@ -383,7 +383,7 @@ static void init (GnomeCmdCombo *combo)
     gtk_box_pack_end (GTK_BOX (combo), combo->button, FALSE, FALSE, 0);
 
     // connect button signals
-    gtk_signal_connect (GTK_OBJECT (combo->button), "clicked", (GtkSignalFunc) on_popup_button_release, combo);
+    g_signal_connect (combo->button, "clicked", G_CALLBACK (on_popup_button_release), combo);
 
     combo->popwin = gtk_window_new (GTK_WINDOW_POPUP);
     gtk_widget_ref (combo->popwin);
@@ -394,10 +394,10 @@ static void init (GnomeCmdCombo *combo)
     gtk_widget_set_events (combo->popwin, GDK_BUTTON_PRESS_MASK);
 
     // connect popupwin signals
-    gtk_signal_connect (GTK_OBJECT (combo->popwin), "button-release-event", GTK_SIGNAL_FUNC (on_popwin_button_released), combo);
-    gtk_signal_connect (GTK_OBJECT (combo->popwin), "key-press-event", GTK_SIGNAL_FUNC (on_popwin_keypress), combo);
-    gtk_signal_connect (GTK_OBJECT (combo->popwin), "show", GTK_SIGNAL_FUNC (on_popwin_show), combo);
-    gtk_signal_connect (GTK_OBJECT (combo->popwin), "hide", GTK_SIGNAL_FUNC (on_popwin_hide), combo);
+    g_signal_connect (combo->popwin, "button-release-event", G_CALLBACK (on_popwin_button_released), combo);
+    g_signal_connect (combo->popwin, "key-press-event", G_CALLBACK (on_popwin_keypress), combo);
+    g_signal_connect (combo->popwin, "show", G_CALLBACK (on_popwin_show), combo);
+    g_signal_connect (combo->popwin, "hide", G_CALLBACK (on_popwin_hide), combo);
 
     event_box = gtk_event_box_new ();
     gtk_widget_ref (event_box);
@@ -478,9 +478,9 @@ GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles
     gtk_widget_show (combo->list);
 
     // connect list signals
-    gtk_signal_connect (GTK_OBJECT (combo->list), "button-press-event", GTK_SIGNAL_FUNC (on_list_button_press), combo);
-    gtk_signal_connect (GTK_OBJECT (combo->list), "button-release-event", GTK_SIGNAL_FUNC (on_list_button_release), combo);
-    gtk_signal_connect (GTK_OBJECT (combo->list), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_press), combo);
+    g_signal_connect (combo->list, "button-press-event", G_CALLBACK (on_list_button_press), combo);
+    g_signal_connect (combo->list, "button-release-event", G_CALLBACK (on_list_button_release), combo);
+    g_signal_connect (combo->list, "key-press-event", G_CALLBACK (on_list_key_press), combo);
 
     return GTK_WIDGET (combo);
 }

@@ -1031,5 +1031,5 @@ void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginDat
 {
     gtk_menu_shell_append (GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->plugins_menu)->submenu), data->menu);
 
-    gtk_signal_connect (GTK_OBJECT (data->menu), "activate", GTK_SIGNAL_FUNC (on_plugin_menu_activate), data);
+    g_signal_connect (data->menu, "activate", G_CALLBACK (on_plugin_menu_activate), data);
 }
