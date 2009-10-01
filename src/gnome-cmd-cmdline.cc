@@ -149,7 +149,6 @@ static void on_combo_item_selected (GnomeCmdCombo *combo, const gchar *command, 
 static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
-    g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
     gtk_widget_grab_focus (combo->entry);
 }
