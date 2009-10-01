@@ -18,6 +18,7 @@ gnome-commander 1.2.8.3
 
 Bug fixes:
  * Fixed problem #596768 (build warnings for python)
+ * Fixed problem #596973 (documentation build error)
 
 
 ===================================
