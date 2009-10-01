@@ -26,12 +26,12 @@
 
 inline GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
 {
-    GtkWidget *combo = gnome_cmd_combo_new (num_cols, text_col, titles);
-    gtk_widget_ref (combo);
+    GnomeCmdCombo *combo = new GnomeCmdCombo(num_cols, text_col, titles);
+    gtk_widget_ref (*combo);
     g_object_set_data_full (G_OBJECT (parent), "combo", combo, (GDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (combo);
+    gtk_widget_show (*combo);
 
-    return combo;
+    return *combo;
 }
 
 #endif // __WIDGET_FACTORY_H__

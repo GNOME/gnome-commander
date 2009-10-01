@@ -41,6 +41,9 @@ typedef enum
 } FileSelectorID;
 
 
+struct GnomeCmdCombo;
+
+
 struct GnomeCmdFileSelector
 {
     GtkVBox vbox;
@@ -51,7 +54,7 @@ struct GnomeCmdFileSelector
     GtkWidget *dir_label;
     GtkWidget *scrolledwindow;
     GtkWidget *info_label;
-    GtkWidget *con_combo;
+    GnomeCmdCombo *con_combo;
     GtkWidget *vol_label;
 
   private:

@@ -35,9 +35,10 @@
 #include "imageloader.h"
 #include "gnome-cmd-pixmap.h"
 
-#define GNOME_CMD_COMBO(obj)            GTK_CHECK_CAST (obj, gnome_cmd_combo_get_type (), GnomeCmdCombo)
-#define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
-#define GNOME_CMD_IS_COMBO(obj)         GTK_CHECK_TYPE (obj, gnome_cmd_combo_get_type ())
+#define GNOME_CMD_TYPE_COMBO           (gnome_cmd_combo_get_type())
+#define GNOME_CMD_COMBO(obj)            GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_COMBO, GnomeCmdCombo)
+#define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass)
+#define GNOME_CMD_IS_COMBO(obj)         GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_COMBO)
 
 
 GtkType gnome_cmd_combo_get_type ();
@@ -49,7 +50,9 @@ struct GnomeCmdCombo
 
   public:
 
+    operator GObject * ()               {  return G_OBJECT (this);         }
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
+    operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
 
     GtkWidget *entry;
     GtkWidget *list;
@@ -79,6 +82,12 @@ struct GnomeCmdCombo
 
   public:
 
+    void *operator new (size_t size);
+    void operator delete (void *p)      {  g_object_unref (p);  }
+
+    GnomeCmdCombo(gint num_cols, gint text_col, gchar **col_titles=NULL);
+    ~GnomeCmdCombo()                    {}
+
     void clear()                                                {  gtk_clist_clear (GTK_CLIST (list));  }
     gint append(gchar **text, gpointer data);
     gint insert(gchar **text, gpointer data);
@@ -96,6 +105,9 @@ struct GnomeCmdCombo
     const gchar *get_selected_text()                            {  return sel_text;  }
 };
 
-GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles);
+inline void *GnomeCmdCombo::operator new (size_t size)
+{
+    return g_object_new (GNOME_CMD_TYPE_COMBO, NULL);
+}
 
 #endif // __GNOME_CMD_COMBO_H__

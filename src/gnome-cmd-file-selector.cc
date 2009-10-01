@@ -252,7 +252,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
     fs->set_directory(dir);
 
     if (con_change_needed)
-        GNOME_CMD_COMBO (fs->con_combo)->select_data(con);
+        fs->con_combo->select_data(con);
 }
 
 
@@ -895,7 +895,7 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *e
 static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
-    GNOME_CMD_COMBO (fs->con_combo)->select_data(con);
+    fs->con_combo->select_data(con);
 }
 
 
@@ -1145,15 +1145,15 @@ static void init (GnomeCmdFileSelector *fs)
     fs->file_list()->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the connection combo
-    fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
-    gtk_widget_ref (fs->con_combo);
+    fs->con_combo = new GnomeCmdCombo(2, 1);
+    gtk_widget_ref (*fs->con_combo);
     g_object_set_data_full (*fs, "con_combo", fs->con_combo, (GDestroyNotify) gtk_widget_unref);
-    gtk_widget_set_size_request (fs->con_combo, 150, -1);
-    gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
-    gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (fs->con_combo)->entry), FALSE);
-    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);
-    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 1, 60);
-    GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (fs->con_combo)->button, GTK_CAN_FOCUS);
+    gtk_widget_set_size_request (*fs->con_combo, 150, -1);
+    gtk_clist_set_row_height (GTK_CLIST (fs->con_combo->list), 20);
+    gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->entry), FALSE);
+    gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 0, 20);
+    gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 1, 60);
+    GTK_WIDGET_UNSET_FLAGS (fs->con_combo->button, GTK_CAN_FOCUS);
 
     // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
@@ -1187,7 +1187,7 @@ static void init (GnomeCmdFileSelector *fs)
     padding = create_hbox (*fs, FALSE, 6);
     gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (padding), fs->info_label, FALSE, TRUE, 6);
-    gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->con_combo, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (fs->con_hbox), *fs->con_combo, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 6);
 
     // initialize dnd
@@ -1215,7 +1215,7 @@ static void init (GnomeCmdFileSelector *fs)
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
     fs->update_concombo_visibility();
-    gtk_widget_show (fs->con_combo);
+    gtk_widget_show (*fs->con_combo);
     gtk_widget_show (fs->vol_label);
     gtk_widget_show (fs->dir_indicator);
     gtk_widget_show (fs->scrolledwindow);
@@ -1504,11 +1504,11 @@ void GnomeCmdFileSelector::update_connections()
 
     gboolean found_my_con = FALSE;
 
-    GNOME_CMD_COMBO (con_combo)->clear();
-    GNOME_CMD_COMBO (con_combo)->highest_pixmap = 20;
-    GNOME_CMD_COMBO (con_combo)->widest_pixmap = 20;
-    gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (con_combo)->list), 20);
-    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (con_combo)->list), 0, 20);
+    con_combo->clear();
+    con_combo->highest_pixmap = 20;
+    con_combo->widest_pixmap = 20;
+    gtk_clist_set_row_height (GTK_CLIST (con_combo->list), 20);
+    gtk_clist_set_column_width (GTK_CLIST (con_combo->list), 0, 20);
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
@@ -1529,9 +1529,9 @@ void GnomeCmdFileSelector::update_connections()
 
         if (pixmap)
         {
-            gint row = GNOME_CMD_COMBO (con_combo)->append(text, con);
+            gint row = con_combo->append(text, con);
 
-            GNOME_CMD_COMBO (con_combo)->set_pixmap(row, 0, pixmap);
+            con_combo->set_pixmap(row, 0, pixmap);
         }
     }
 
@@ -1539,7 +1539,7 @@ void GnomeCmdFileSelector::update_connections()
     if (!found_my_con)
         set_connection(get_home_con ());
     else
-        GNOME_CMD_COMBO (con_combo)->select_data(get_connection());
+        con_combo->select_data(get_connection());
 
     create_con_buttons (this);
 }
@@ -1583,7 +1583,7 @@ gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
 
 void GnomeCmdFileSelector::update_style()
 {
-    GNOME_CMD_COMBO (con_combo)->update_style();
+    con_combo->update_style();
     file_list()->update_style();
 
     if (priv->realized)

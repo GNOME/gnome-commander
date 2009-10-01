@@ -36,7 +36,7 @@ static GtkHBoxClass *parent_class = NULL;
 
 struct GnomeCmdCmdlinePrivate
 {
-    GtkWidget *combo;
+    GnomeCmdCombo *combo;
     GtkWidget *cwd;
 
     GList *history;
@@ -45,7 +45,7 @@ struct GnomeCmdCmdlinePrivate
 
 inline void update_history_combo (GnomeCmdCmdline *cmdline)
 {
-    GNOME_CMD_COMBO (cmdline->priv->combo)->clear();
+    cmdline->priv->combo->clear();
 
     gchar *text[2];
 
@@ -55,10 +55,10 @@ inline void update_history_combo (GnomeCmdCmdline *cmdline)
     {
         gchar *command = text[0] = (gchar *) tmp->data;
 
-        GNOME_CMD_COMBO (cmdline->priv->combo)->append(text, command);
+        cmdline->priv->combo->append(text, command);
     }
 
-    gtk_clist_select_row (GTK_CLIST (GNOME_CMD_COMBO (cmdline->priv->combo)->list), 0, 0);
+    gtk_clist_select_row (GTK_CLIST (cmdline->priv->combo->list), 0, 0);
 }
 
 
@@ -74,7 +74,7 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 {
     const gchar *cmdline_text;
 
-    cmdline_text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
+    cmdline_text = gtk_entry_get_text (GTK_ENTRY (cmdline->priv->combo->entry));
     cmdline_text = g_strstrip (g_strdup (cmdline_text));
 
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
@@ -239,19 +239,18 @@ static void init (GnomeCmdCmdline *cmdline)
     gtk_widget_show (label);
     gtk_box_pack_start (GTK_BOX (cmdline), label, FALSE, FALSE, 0);
 
-    cmdline->priv->combo = gnome_cmd_combo_new (1, 0, NULL);
-    gtk_widget_ref (cmdline->priv->combo);
+    cmdline->priv->combo = new GnomeCmdCombo(1, 0);
+    gtk_widget_ref (*cmdline->priv->combo);
     gtk_object_set_data_full (GTK_OBJECT (cmdline), "combo", cmdline->priv->combo,
                               (GtkDestroyNotify) gtk_widget_unref);
-    gtk_clist_set_column_width (
-        GTK_CLIST (GNOME_CMD_COMBO (cmdline->priv->combo)->list), 0, 500);
-    gtk_box_pack_start (GTK_BOX (cmdline), cmdline->priv->combo, TRUE, TRUE, 2);
-    gtk_widget_show (cmdline->priv->combo);
-    gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry), TRUE);
-    GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (cmdline->priv->combo)->button, GTK_CAN_FOCUS);
-    GTK_WIDGET_SET_FLAGS (GNOME_CMD_COMBO (cmdline->priv->combo)->entry, GTK_CAN_FOCUS);
+    gtk_clist_set_column_width (GTK_CLIST (cmdline->priv->combo->list), 0, 500);
+    gtk_box_pack_start (GTK_BOX (cmdline), *cmdline->priv->combo, TRUE, TRUE, 2);
+    gtk_widget_show (*cmdline->priv->combo);
+    gtk_entry_set_editable (GTK_ENTRY (cmdline->priv->combo->entry), TRUE);
+    GTK_WIDGET_UNSET_FLAGS (cmdline->priv->combo->button, GTK_CAN_FOCUS);
+    GTK_WIDGET_SET_FLAGS (cmdline->priv->combo->entry, GTK_CAN_FOCUS);
 
-    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_COMBO (cmdline->priv->combo)->entry),
+    gtk_signal_connect (GTK_OBJECT (cmdline->priv->combo->entry),
                         "key-press-event",
                         GTK_SIGNAL_FUNC (on_key_pressed), cmdline);
     gtk_signal_connect (GTK_OBJECT (cmdline->priv->combo), "item-selected",
@@ -324,7 +323,7 @@ void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text)
     g_return_if_fail (cmdline->priv != NULL);
     g_return_if_fail (cmdline->priv->combo != NULL);
 
-    GtkEntry *entry = GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry);
+    GtkEntry *entry = GTK_ENTRY (cmdline->priv->combo->entry);
     const gchar *curtext = gtk_entry_get_text (entry);
 
     if (curtext[strlen(curtext)-1] != ' ' && strlen(curtext) > 0)
@@ -342,7 +341,7 @@ void gnome_cmd_cmdline_insert_text (GnomeCmdCmdline *cmdline, const gchar *text)
     g_return_if_fail (cmdline->priv != NULL);
     g_return_if_fail (cmdline->priv->combo != NULL);
 
-    GtkEntry *entry = GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry);
+    GtkEntry *entry = GTK_ENTRY (cmdline->priv->combo->entry);
     gint curpos = gtk_editable_get_position (GTK_EDITABLE (entry));
     gint tmp = curpos;
     gtk_editable_insert_text (GTK_EDITABLE (entry), text, strlen (text), &tmp);
@@ -356,13 +355,13 @@ void gnome_cmd_cmdline_set_text (GnomeCmdCmdline *cmdline, const gchar *text)
     g_return_if_fail (cmdline->priv != NULL);
     g_return_if_fail (cmdline->priv->combo != NULL);
 
-    gtk_entry_set_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry), text);
+    gtk_entry_set_text (GTK_ENTRY (cmdline->priv->combo->entry), text);
 }
 
 
 gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline)
 {
-    const gchar *text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
+    const gchar *text = gtk_entry_get_text (GTK_ENTRY (cmdline->priv->combo->entry));
 
     if (text == NULL || strcmp (text, ""))
         return TRUE;
@@ -382,8 +381,8 @@ void gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline)
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
     g_return_if_fail (cmdline->priv->combo != NULL);
 
-    gtk_widget_grab_focus (GTK_WIDGET (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
-    gtk_editable_set_position (GTK_EDITABLE (GNOME_CMD_COMBO (cmdline->priv->combo)->entry), -1);
+    gtk_widget_grab_focus (GTK_WIDGET (cmdline->priv->combo->entry));
+    gtk_editable_set_position (GTK_EDITABLE (cmdline->priv->combo->entry), -1);
 }
 
 
@@ -391,7 +390,7 @@ void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    GNOME_CMD_COMBO (cmdline->priv->combo)->update_style();
+    cmdline->priv->combo->update_style();
 }
 
 
@@ -399,7 +398,7 @@ void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    GNOME_CMD_COMBO (cmdline->priv->combo)->popup_list();
+    cmdline->priv->combo->popup_list();
 }
 
 
@@ -428,7 +427,7 @@ GtkWidget *gnome_cmd_cmdline_get_entry (GnomeCmdCmdline *cmdline)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), NULL);
 
-    return GNOME_CMD_COMBO (cmdline->priv->combo)->entry;
+    return cmdline->priv->combo->entry;
 }
 
 

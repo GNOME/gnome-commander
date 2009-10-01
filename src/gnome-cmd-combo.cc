@@ -463,32 +463,22 @@ GtkType gnome_cmd_combo_get_type ()
 }
 
 
-GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles)
+GnomeCmdCombo::GnomeCmdCombo(gint num_cols, gint _text_col, gchar **col_titles): sel_data(NULL), sel_text(NULL), text_col(_text_col)
 {
-    GnomeCmdCombo *combo = (GnomeCmdCombo *) gtk_type_new (gnome_cmd_combo_get_type ());
 
-    combo->text_col = text_col;
-    combo->sel_data = NULL;
-    combo->sel_text = NULL;
+    list = col_titles ? gnome_cmd_clist_new_with_titles (num_cols, col_titles) : gnome_cmd_clist_new (num_cols);
 
-    if (col_titles)
-        combo->list = gnome_cmd_clist_new_with_titles (num_cols, col_titles);
-    else
-        combo->list = gnome_cmd_clist_new (num_cols);
-
-    gtk_widget_ref (combo->list);
-    gtk_object_set_data_full (*combo, "combo->list", combo->list, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_ref (list);
+    g_object_set_data_full (*this, "list", list, (GDestroyNotify) gtk_widget_unref);
 
     // We'll use enter notify events to figure out when to transfer the grab to the list
-    gtk_container_add (GTK_CONTAINER (combo->popup), combo->list);
-    gtk_widget_show (combo->list);
+    gtk_container_add (GTK_CONTAINER (popup), list);
+    gtk_widget_show (list);
 
     // connect list signals
-    g_signal_connect (combo->list, "button-press-event", G_CALLBACK (on_list_button_press), combo);
-    g_signal_connect (combo->list, "button-release-event", G_CALLBACK (on_list_button_release), combo);
-    g_signal_connect (combo->list, "key-press-event", G_CALLBACK (on_list_key_press), combo);
-
-    return GTK_WIDGET (combo);
+    g_signal_connect (list, "button-press-event", G_CALLBACK (on_list_button_press), this);
+    g_signal_connect (list, "button-release-event", G_CALLBACK (on_list_button_release), this);
+    g_signal_connect (list, "key-press-event", G_CALLBACK (on_list_key_press), this);
 }
 
 
