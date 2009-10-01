@@ -6,7 +6,7 @@
   <!ENTITY appversion "1.2.8.3">
   <!ENTITY manrevision "1.2.8.3">
   <!ENTITY date "October 2009">
-  <!ENTITY app "<application>GNOME Commander</application>">
+  <!ENTITY app "GNOME Commander">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
        Use the appversion entity to specify the version of the application.
@@ -6026,6 +6026,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Fixed problem #596768 (build warnings for python)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #596973 (documentation build error)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
