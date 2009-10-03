@@ -20,6 +20,7 @@ Bug fixes:
  * Fixed problem #596768 (build warnings for python)
  * Fixed problem #596973 (documentation build error)
  * Fixed problem #597144 (missing call to pclose)
+ * Fixed problem #597233 (validating of doc translations)
 
 
 ===================================
