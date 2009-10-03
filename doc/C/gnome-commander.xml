@@ -6023,6 +6023,9 @@
                         <listitem>
                             <para>Fixed problem #596973 (documentation build error)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #597144 (missing call to pclose)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
