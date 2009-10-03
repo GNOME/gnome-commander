@@ -24,14 +24,14 @@
 #include "libgcmd/libgcmd-deps.h"
 #include "gnome-cmd-combo.h"
 
-inline GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
+inline GnomeCmdCombo *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
 {
     GnomeCmdCombo *combo = new GnomeCmdCombo(num_cols, text_col, titles);
     gtk_widget_ref (*combo);
     g_object_set_data_full (G_OBJECT (parent), "combo", combo, (GDestroyNotify) gtk_widget_unref);
     gtk_widget_show (*combo);
 
-    return *combo;
+    return combo;
 }
 
 #endif // __WIDGET_FACTORY_H__

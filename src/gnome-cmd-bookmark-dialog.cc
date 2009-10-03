@@ -43,7 +43,7 @@ struct GnomeCmdBookmarkDialogPrivate
     GnomeCmdBookmark *sel_bookmark;
     GnomeCmdBookmarkGroup *sel_group;
 
-    GtkWidget *combo;
+    GnomeCmdCombo *combo;
     GtkWidget *dir_list;
     GtkWidget *remove_btn;
     GtkWidget *edit_btn;
@@ -195,7 +195,7 @@ static void set_selected_group (GnomeCmdBookmarkDialog *dialog, GnomeCmdBookmark
 
     dialog->priv->sel_group = group;
 
-    gtk_entry_set_text (GTK_ENTRY (GNOME_CMD_COMBO (dialog->priv->combo)->entry), gnome_cmd_con_get_alias (group->con));
+    gtk_entry_set_text (GTK_ENTRY (dialog->priv->combo->entry), gnome_cmd_con_get_alias (group->con));
 
     gtk_clist_clear (GTK_CLIST (dialog->priv->dir_list));
 
@@ -380,8 +380,8 @@ static void add_groups (GnomeCmdBookmarkDialog *dialog)
         text[1] = (gchar *) gnome_cmd_con_get_alias (group->con);
         text[2] = NULL;
 
-        gint row = GNOME_CMD_COMBO (dialog->priv->combo)->append(text, group);
-        GNOME_CMD_COMBO (dialog->priv->combo)->set_pixmap(row, 0, pixmap);
+        gint row = dialog->priv->combo->append(text, group);
+        dialog->priv->combo->set_pixmap(row, 0, pixmap);
     }
 }
 
@@ -504,9 +504,9 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
     in_dialog->priv->combo = create_clist_combo (dialog, 2, 1, NULL);
-    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (in_dialog->priv->combo)->list), 0, 20);
-    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (in_dialog->priv->combo)->list), 1, 60);
-    gtk_box_pack_start (GTK_BOX (vbox), in_dialog->priv->combo, TRUE, TRUE, 0);
+    gtk_clist_set_column_width (GTK_CLIST (in_dialog->priv->combo->list), 0, 20);
+    gtk_clist_set_column_width (GTK_CLIST (in_dialog->priv->combo->list), 1, 60);
+    gtk_box_pack_start (GTK_BOX (vbox), *in_dialog->priv->combo, TRUE, TRUE, 0);
 
     hbox = create_hbox (dialog, FALSE, 12);
     cat = create_category (dialog, hbox, _("Bookmarks"));
