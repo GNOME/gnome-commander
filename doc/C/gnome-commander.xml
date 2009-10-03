@@ -6033,6 +6033,9 @@
                         <listitem>
                             <para>Fixed problem #597144 (missing call to pclose)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #597233 (validating of doc translations)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
