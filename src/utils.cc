@@ -996,6 +996,8 @@ GList *app_get_linked_libs (GnomeCmdFile *f)
         }
     }
 
+    pclose (fd);
+
     return libs;
 }
 
