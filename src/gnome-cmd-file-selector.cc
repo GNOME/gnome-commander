@@ -552,29 +552,8 @@ static void update_vol_label (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (fs->get_connection()));
 
-    gchar *s;
-
-    if (gnome_cmd_con_can_show_free_space (fs->get_connection()))
-    {
-        GnomeVFSFileSize free_space;
-        GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (fs->get_directory()));
-        GnomeVFSResult res = gnome_vfs_get_volume_free_space (uri, &free_space);
-        gnome_vfs_uri_unref (uri);
-
-        if (res == GNOME_VFS_OK)
-        {
-            gchar *sfree = gnome_vfs_format_file_size_for_display (free_space);
-            s = g_strdup_printf (_("%s free"), sfree);
-            g_free (sfree);
-        }
-        else
-            s = g_strdup (_("Unknown disk usage"));
-    }
-    else
-        s = g_strdup ("");
-
-    gtk_label_set_text (GTK_LABEL (fs->vol_label), s);
-
+    gchar *s = gnome_cmd_con_get_free_space (fs->get_connection(), fs->get_directory(), _("%s free"));
+    gtk_label_set_text (GTK_LABEL (fs->vol_label), s ? s : "");
     g_free (s);
 }
 

@@ -332,6 +332,25 @@ inline const gchar *gnome_cmd_con_get_icon_name (GnomeCmdCon *con)
     return gnome_cmd_con_get_icon_name (con->method);
 }
 
+inline gchar *gnome_cmd_con_get_free_space (GnomeCmdCon *con, GnomeCmdDir *dir, const gchar *fmt)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
+
+    if (!gnome_cmd_con_can_show_free_space (con))
+        return NULL;
+
+    gchar *free_space = gnome_cmd_dir_get_free_space (dir);
+
+    if (!free_space)
+        return _("Unknown disk usage");
+
+    gchar *retval = g_strdup_printf (fmt, free_space);
+    g_free (free_space);
+
+    return retval;
+}
+
 std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password);
 
 inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::string &uri)
