@@ -23,6 +23,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
+#include "gnome-cmd-con-device.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-file-props-dialog.h"
@@ -391,6 +392,58 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     }
 
     add_sep (table, y++);
+
+    if (gnome_cmd_file_is_local (data->f))
+    {
+        GnomeCmdDir *dir = gnome_cmd_file_get_parent_dir (data->f);
+        GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : NULL;
+        gchar *location = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+
+        label = create_bold_label (dialog, _("Location:"));
+        table_add (table, label, 0, y, GTK_FILL);
+
+        label = create_label (dialog, location);
+        table_add (table, label, 1, y++, GTK_FILL);
+
+        g_free (location);
+
+        label = create_bold_label (dialog, _("Volume:"));
+        table_add (table, label, 0, y, GTK_FILL);
+
+        if (GNOME_CMD_IS_CON_DEVICE (con))
+        {
+            GnomeVFSVolume *vol = gnome_cmd_con_device_get_vfs_volume (GNOME_CMD_CON_DEVICE (con));
+            gchar *fs_type = gnome_vfs_volume_get_filesystem_type (vol);
+            gchar *dev_path = gnome_vfs_volume_get_device_path (vol);
+
+            gchar *s = g_strdup_printf ("%s (%s, %s)", gnome_cmd_con_get_alias (con), dev_path, fs_type);
+
+            g_free (fs_type);
+            g_free (dev_path);
+
+            label = create_label (dialog, s);
+
+            g_free (s);
+        }
+        else
+            label = create_label (dialog, gnome_cmd_con_get_alias (con));
+
+        table_add (table, label, 1, y++, GTK_FILL);
+
+        if (dir && gnome_cmd_con_can_show_free_space (con))
+            if (gchar *free_space = gnome_cmd_dir_get_free_space (dir))
+            {
+                label = create_bold_label (dialog, _("Free space:"));
+                table_add (table, label, 0, y, GTK_FILL);
+
+                label = create_label (dialog, free_space);
+                table_add (table, label, 1, y++, GTK_FILL);
+
+                g_free (free_space);
+            }
+
+        add_sep (table, y++);
+    }
 
     label = create_bold_label (dialog, _("Type:"));
     table_add (table, label, 0, y, GTK_FILL);
