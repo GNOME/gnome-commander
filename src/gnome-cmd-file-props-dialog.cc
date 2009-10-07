@@ -412,18 +412,22 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
         if (GNOME_CMD_IS_CON_DEVICE (con))
         {
-            GnomeVFSVolume *vol = gnome_cmd_con_device_get_vfs_volume (GNOME_CMD_CON_DEVICE (con));
-            gchar *fs_type = gnome_vfs_volume_get_filesystem_type (vol);
-            gchar *dev_path = gnome_vfs_volume_get_device_path (vol);
+            if (GnomeVFSVolume *vol = gnome_cmd_con_device_get_vfs_volume (GNOME_CMD_CON_DEVICE (con)))
+            {
+                gchar *fs_type = gnome_vfs_volume_get_filesystem_type (vol);
+                gchar *dev_path = gnome_vfs_volume_get_device_path (vol);
 
-            gchar *s = g_strdup_printf ("%s (%s, %s)", gnome_cmd_con_get_alias (con), dev_path, fs_type);
+                gchar *s = g_strdup_printf ("%s (%s, %s)", gnome_cmd_con_get_alias (con), dev_path, fs_type);
 
-            g_free (fs_type);
-            g_free (dev_path);
+                g_free (fs_type);
+                g_free (dev_path);
 
-            label = create_label (dialog, s);
+                label = create_label (dialog, s);
 
-            g_free (s);
+                g_free (s);
+            }
+            else
+                label = create_label (dialog, gnome_cmd_con_get_alias (con));
         }
         else
             label = create_label (dialog, gnome_cmd_con_get_alias (con));
