@@ -6018,6 +6018,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #581645 (uncomfortable quick search)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #596768 (build warnings for python)</para>
                         </listitem>
                         <listitem>

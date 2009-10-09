@@ -138,10 +138,13 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
     switch (event->keyval)
     {
         case GDK_Escape:
-        case GDK_Return:
             popup->priv->fl->select_row(GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
             return TRUE;
+
+        // for more convenience do ENTER action directly on the current quicksearch item
+        case GDK_Return:
+        case GDK_KP_Enter:
 
         // for more convenience jump direct to Fx function on the current quicksearch item
         case GDK_F3:
