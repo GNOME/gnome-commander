@@ -3,6 +3,7 @@ gnome-commander 1.2.8.3
 ---------------
 
 Bug fixes:
+ * Fixed problem #581645 (uncomfortable quick search)
  * Fixed problem #596768 (build warnings for python)
  * Fixed problem #596973 (documentation build error)
  * Fixed problem #597144 (missing call to pclose)
