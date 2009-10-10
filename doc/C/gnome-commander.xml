@@ -6039,6 +6039,9 @@
                         <listitem>
                             <para>Fixed problem #597233 (validating of doc translations)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #597890 (wrong arguments passed to meld)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>

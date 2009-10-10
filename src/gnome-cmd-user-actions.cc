@@ -851,21 +851,10 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
         return;
     }
 
-    GnomeVFSURI *active_dir_uri = gnome_cmd_dir_get_uri (active_fs->get_directory());
-    GnomeVFSURI *inactive_dir_uri = gnome_cmd_dir_get_uri (inactive_fs->get_directory());
-    gchar *active_dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (active_dir_uri), NULL);
-    gchar *inactive_dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
-
-    gnome_vfs_uri_unref (active_dir_uri);
-    gnome_vfs_uri_unref (inactive_dir_uri);
-
     string s;
 
-    append_real_path (s, active_dir);
-    append_real_path (s, inactive_dir);
-
-    g_free (active_dir);
-    g_free (inactive_dir);
+    append_real_path (s, GNOME_CMD_FILE (active_fs->get_directory()));
+    append_real_path (s, GNOME_CMD_FILE (inactive_fs->get_directory()));
 
     gchar *cmd = g_strdup_printf (gnome_cmd_data.get_differ(), s.c_str(), "");
 

@@ -8,6 +8,7 @@ Bug fixes:
  * Fixed problem #596973 (documentation build error)
  * Fixed problem #597144 (missing call to pclose)
  * Fixed problem #597233 (validating of doc translations)
+ * Fixed problem #597890 (wrong arguments passed to meld)
 
 
 ===================================
