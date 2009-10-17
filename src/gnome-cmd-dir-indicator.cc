@@ -106,6 +106,7 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
             }
 
         // pointer is after directory name - just return
+        g_free (chTo);
         return TRUE;
     }
 
