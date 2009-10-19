@@ -1861,7 +1861,7 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
 
     if (start_marker)
     {
-        // the first 10 characeters are the offset number
+        // the first 10 characters are the offset number
         obj->priv->hexmode_marker_on_hexdump = TRUE;
 
         if (column<10+16*3)

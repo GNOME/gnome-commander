@@ -379,7 +379,7 @@ inline guint utf8_get_char_len(GVInputModesData *imd, offset_type offset)
             return 4;
     }
 
-    // fall back: this is an invalid UTF8 characeter
+    // fall back: this is an invalid UTF8 character
     return 0;
 }
 
@@ -427,8 +427,8 @@ static char_type inputmode_utf8_get_char(GVInputModesData *imd, offset_type offs
 
     if (!utf8_is_valid_char(imd, offset))
     {
-        g_warning("invalid UTF characeter at offset %lu (%02x)", offset,
-            (unsigned char)gv_input_mode_get_byte(imd, offset));
+        g_warning ("invalid UTF character at offset %lu (%02x)", offset,
+            (unsigned char) gv_input_mode_get_byte(imd, offset));
         return '.';
     }
 
