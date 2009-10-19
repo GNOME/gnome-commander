@@ -93,7 +93,7 @@ static void scroll_box_class_init (ScrollBoxClass *klass)
     GtkObjectClass *object_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = (GtkTableClass *) gtk_type_class(gtk_table_get_type());
+    parent_class = (GtkTableClass *) gtk_type_class (gtk_table_get_type ());
 
     object_class->destroy = scroll_box_destroy;
 }
@@ -101,10 +101,10 @@ static void scroll_box_class_init (ScrollBoxClass *klass)
 
 static void scroll_box_init (ScrollBox *w)
 {
-    w->priv = g_new0(ScrollBoxPrivate, 1);
+    w->priv = g_new0 (ScrollBoxPrivate, 1);
 
-    gtk_table_resize(GTK_TABLE(w), 2, 2);
-    gtk_table_set_homogeneous(GTK_TABLE(w), FALSE);
+    gtk_table_resize (GTK_TABLE (w), 2, 2);
+    gtk_table_set_homogeneous (GTK_TABLE (w), FALSE);
 
     w->priv->vscroll = gtk_vscrollbar_new (NULL);
     gtk_widget_show (w->priv->vscroll);

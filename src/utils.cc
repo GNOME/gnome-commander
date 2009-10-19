@@ -109,7 +109,7 @@ void warn_print (const gchar *fmt, ...)
     va_start (argptr,fmt);
     vsnprintf (string,sizeof(string),fmt,argptr);
     va_end (argptr);
-    g_printerr("WARNING: %s", string);
+    g_printerr ("WARNING: %s", string);
 }
 
 
@@ -230,7 +230,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     }
     while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
 
-    gtk_widget_destroy(dialog);
+    gtk_widget_destroy (dialog);
 
     return result;
 }
@@ -1138,7 +1138,7 @@ GtkWidget *create_ui_pixmap (GtkWidget *unused, GnomeUIPixmapType pixmap_type, g
 
         default:
             g_assert_not_reached ();
-            g_warning("Invalid pixmap_type %d", (int) pixmap_type);
+            g_warning ("Invalid pixmap_type %d", (int) pixmap_type);
     }
 
     return pixmap;
@@ -1247,7 +1247,7 @@ gboolean create_dir_if_needed (const gchar *dpath)
             }
         }
         else
-            g_warning(_("Couldn't read from the directory %s: %s"), dpath, strerror (errno));
+            g_warning (_("Couldn't read from the directory %s: %s"), dpath, strerror (errno));
 
         return FALSE;
     }

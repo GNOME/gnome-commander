@@ -76,7 +76,7 @@ inline void add_profile(GtkWidget *view, GnomeCmdData::AdvrenameConfig::Profile 
     GtkTreePath *path = gtk_tree_model_get_path (model, &i);
     gtk_widget_grab_focus (view);
     gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, gtk_tree_view_get_column (GTK_TREE_VIEW (view),0), TRUE);
-    gtk_tree_path_free(path);
+    gtk_tree_path_free (path);
 }
 
 

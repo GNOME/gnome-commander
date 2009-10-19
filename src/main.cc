@@ -99,7 +99,7 @@ int main (int argc, char *argv[])
 
 #ifdef HAVE_LOCALE_H
     if (setlocale(LC_ALL, "") == NULL)
-        g_warning("Error while processing locales, call to setlocale failed");
+        g_warning ("Error while processing locales, call to setlocale failed");
     locale_information = localeconv();
 #endif
 

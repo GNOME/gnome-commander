@@ -125,12 +125,12 @@ const char*gv_get_input_mode(GVInputModesData *imd)
 
 void gv_set_input_mode(GVInputModesData *imd, const gchar *input_mode)
 {
-    if (g_ascii_strcasecmp(input_mode, "ASCII")==0 || g_ascii_strcasecmp(input_mode, "CP437")==0)
+    if (g_ascii_strcasecmp (input_mode, "ASCII")==0 || g_ascii_strcasecmp (input_mode, "CP437")==0)
     {
         inputmode_ascii_activate(imd, input_mode);
         return;
     }
-    if (g_ascii_strcasecmp(input_mode, "UTF8")==0)
+    if (g_ascii_strcasecmp (input_mode, "UTF8")==0)
     {
         inputmode_utf8_activate(imd);
         return;
@@ -209,13 +209,13 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     g_free (imd->input_mode_name);
     imd->input_mode_name = g_strdup ("ASCII");
 
-    if (g_ascii_strcasecmp(encoding, "ASCII")==0)
+    if (g_ascii_strcasecmp (encoding, "ASCII")==0)
         return;
 
     /* Is this CP437 encoding ?
        If so, use our special translation table.
        (I could not get IConv to work with CP437....) */
-    if (g_ascii_strcasecmp(encoding, "CP437")==0)
+    if (g_ascii_strcasecmp (encoding, "CP437")==0)
     {
         for (i=0;i<256;i++)
         {
@@ -235,7 +235,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     icnv = g_iconv_open("UTF8", encoding);
     if (icnv == (GIConv)-1)
     {
-        g_warning("Failed to load charset conversions, using ASCII fallback.");
+        g_warning ("Failed to load charset conversions, using ASCII fallback.");
         return;
     }
     for (i=0;i<256;i++)
@@ -274,7 +274,7 @@ static char_type inputmode_ascii_get_char(GVInputModesData *imd, offset_type off
 
     if (value>255)
     {
-        g_warning("Got BYTE>255 (%d) ?!\n", value);
+        g_warning ("Got BYTE>255 (%d) ?!\n", value);
         value = ' ';
     }
 
@@ -427,7 +427,7 @@ static char_type inputmode_utf8_get_char(GVInputModesData *imd, offset_type offs
 
     if (!utf8_is_valid_char(imd, offset))
     {
-        g_warning("invalid UTF characeter at offset %lu (%02x)", offset,
+        g_warning ("invalid UTF characeter at offset %lu (%02x)", offset,
             (unsigned char)gv_input_mode_get_byte(imd, offset));
         return '.';
     }

@@ -25,7 +25,7 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
 
-#define GNOME_CMD_TYPE_FILE_LIST         (gnome_cmd_file_list_get_type())
+#define GNOME_CMD_TYPE_FILE_LIST         (gnome_cmd_file_list_get_type ())
 #define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList)
 #define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_LIST)
 

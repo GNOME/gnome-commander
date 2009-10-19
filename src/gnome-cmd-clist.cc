@@ -527,7 +527,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
  ****/
 static void on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
-    gtk_widget_draw(GTK_WIDGET(clist), NULL);
+    gtk_widget_draw (GTK_WIDGET(clist), NULL);
 }
 
 
@@ -543,9 +543,9 @@ static void on_realize (GtkCList *clist, gpointer data)
         if (clist->column[i].button)
             GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
 
-    if (GTK_CLIST(clist)->hadjustment)
-        gtk_signal_connect_after(GTK_OBJECT(GTK_CLIST(clist)->hadjustment), "value-changed",
-            GTK_SIGNAL_FUNC(on_hadj_value_changed), clist);
+    if (GTK_CLIST (clist)->hadjustment)
+        gtk_signal_connect_after (GTK_OBJECT(GTK_CLIST(clist)->hadjustment), "value-changed",
+            GTK_SIGNAL_FUNC (on_hadj_value_changed), clist);
 }
 
 
@@ -627,7 +627,7 @@ GtkType gnome_cmd_clist_get_type ()
 
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
-    GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n-columns", columns, NULL);
+    GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (GNOME_CMD_TYPE_CLIST, "n-columns", columns, NULL);
 
     for (gint i=0; i<columns; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);

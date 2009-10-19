@@ -243,7 +243,7 @@ static gboolean dev_close (GnomeCmdCon *con)
             DEBUG ('m', "umounting VFS volume \"%s\"\n", name);
             g_free (name);
 
-            gnome_vfs_volume_unmount(dev_con->priv->vfsvol, dev_vfs_umount_callback, NULL);
+            gnome_vfs_volume_unmount (dev_con->priv->vfsvol, dev_vfs_umount_callback, NULL);
         }
     }
     else
@@ -312,7 +312,7 @@ static void destroy (GtkObject *object)
 
     if (con->priv->vfsvol)
     {
-        gnome_vfs_volume_unref(con->priv->vfsvol);
+        gnome_vfs_volume_unref (con->priv->vfsvol);
         con->priv->vfsvol = NULL;
     }
 
@@ -515,8 +515,9 @@ void gnome_cmd_con_device_set_vfs_volume (GnomeCmdConDevice *dev, GnomeVFSVolume
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);
 
-    if (dev->priv->vfsvol) {
-        gnome_vfs_volume_unref(dev->priv->vfsvol);
+    if (dev->priv->vfsvol)
+    {
+        gnome_vfs_volume_unref (dev->priv->vfsvol);
         dev->priv->vfsvol = NULL;
     }
 

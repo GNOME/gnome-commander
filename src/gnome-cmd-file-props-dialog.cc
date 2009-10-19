@@ -489,7 +489,6 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     add_sep (table, y++);
 
-
     label = create_bold_label (dialog, _("Modified:"));
     table_add (table, label, 0, y, GTK_FILL);
 

@@ -211,7 +211,7 @@ void plugin_manager_init ()
     }
 
     // find user plugins
-    gchar *user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander/plugins", NULL);
+    gchar *user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander/plugins", NULL);
     create_dir_if_needed (user_dir);
     scan_plugins_in_dir (user_dir);
     g_free (user_dir);
@@ -455,6 +455,6 @@ void plugin_manager_show ()
     gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);
-    gtk_window_set_resizable((GtkWindow *) GTK_WIDGET (dialog), TRUE);
+    gtk_window_set_resizable ((GtkWindow *) GTK_WIDGET (dialog), TRUE);
     gtk_widget_show_all (GTK_WIDGET (dialog));
 }

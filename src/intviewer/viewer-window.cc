@@ -413,7 +413,7 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
             case GDK_w:
             case GDK_W:
-                gtk_widget_destroy(GTK_WIDGET (w));
+                gtk_widget_destroy (GTK_WIDGET (w));
                 return TRUE;
         }
 
@@ -614,7 +614,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 
             case MI_RADIO:
                 if (!menudata->radio_list)
-                    g_warning("radio_list field is NULL in \"%s\" menu item", menudata->label);
+                    g_warning ("radio_list field is NULL in \"%s\" menu item", menudata->label);
                 else
                 {
                     item = create_radio_menu_item(menudata->radio_list,
@@ -887,7 +887,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 // Event Handlers
 static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj)
 {
-    gtk_widget_destroy(GTK_WIDGET (obj));
+    gtk_widget_destroy (GTK_WIDGET (obj));
 }
 
 
@@ -1191,7 +1191,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
         g_free (buffer);
     }
 
-    gtk_widget_destroy(w);
+    gtk_widget_destroy (w);
 
 
     // call  "find_next" to actually do the search
@@ -1265,17 +1265,17 @@ void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
     strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name));
     g_free (temp);
 
-    settings->hex_decimal_offset = gviewer_get_bool(GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display", TRUE);
-    settings->wrap_mode = gviewer_get_bool(GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode", TRUE);
+    settings->hex_decimal_offset = gviewer_get_bool (GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display", TRUE);
+    settings->wrap_mode = gviewer_get_bool (GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode", TRUE);
 
-    settings->font_size = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "font_size", 12);
-    settings->tab_size = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "tab_size ", 8);
-    settings->binary_bytes_per_line = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "binary_bytes_per_line", 80);
+    settings->font_size = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "font_size", 12);
+    settings->tab_size = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "tab_size ", 8);
+    settings->binary_bytes_per_line = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "binary_bytes_per_line", 80);
 
-    settings->rect.x = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "x", -2);
-    settings->rect.y = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "y", -2);
-    settings->rect.width = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "width", -1);
-    settings->rect.height = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "height", -1);
+    settings->rect.x = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "x", -2);
+    settings->rect.y = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "y", -2);
+    settings->rect.width = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "width", -1);
+    settings->rect.height = gviewer_get_int (GVIEWER_DEFAULT_PATH_PREFIX "height", -1);
 }
 
 
@@ -1288,23 +1288,23 @@ static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj)
 
     gviewer_window_get_current_settings(obj, &settings);
 
-    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "charset", settings.charset);
-    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name", settings.fixed_font_name);
-    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name", settings.variable_font_name);
+    gnome_config_set_string (GVIEWER_DEFAULT_PATH_PREFIX "charset", settings.charset);
+    gnome_config_set_string (GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name", settings.fixed_font_name);
+    gnome_config_set_string (GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name", settings.variable_font_name);
 
-    gnome_config_set_bool(GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display", settings.hex_decimal_offset);
-    gnome_config_set_bool(GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode", settings.wrap_mode);
+    gnome_config_set_bool (GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display", settings.hex_decimal_offset);
+    gnome_config_set_bool (GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode", settings.wrap_mode);
 
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "font_size", settings.font_size);
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "tab_size ", settings.tab_size);
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "binary_bytes_per_line", settings.binary_bytes_per_line);
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "font_size", settings.font_size);
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "tab_size ", settings.tab_size);
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "binary_bytes_per_line", settings.binary_bytes_per_line);
+ 
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "x", settings.rect.x);
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "y", settings.rect.y);
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "width", settings.rect.width);
+    gnome_config_set_int (GVIEWER_DEFAULT_PATH_PREFIX "height", settings.rect.height);
 
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "x", settings.rect.x);
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "y", settings.rect.y);
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "width", settings.rect.width);
-    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "height", settings.rect.height);
-
-    gnome_config_sync();
+    gnome_config_sync ();
 }
 
 

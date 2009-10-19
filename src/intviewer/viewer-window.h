@@ -31,9 +31,9 @@
 #define GVIEWER_WINDOW(obj) \
     GTK_CHECK_CAST (obj, gviewer_window_get_type (), GViewerWindow)
 #define GVIEWER_WINDOW_CLASS(clss) \
-    GTK_CHECK_CLASS_CAST (clss, gviewer_window_get_type(), GViewerWindowClass)
+    GTK_CHECK_CLASS_CAST (clss, gviewer_window_get_type (), GViewerWindowClass)
 #define IS_GVIEWER_WINDOW(obj) \
-    GTK_CHECK_TYPE (obj, gviewer_window_get_type())
+    GTK_CHECK_TYPE (obj, gviewer_window_get_type ())
 
 
 struct GViewerWindowSettings

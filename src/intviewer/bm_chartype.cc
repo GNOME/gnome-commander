@@ -49,13 +49,13 @@ inline void bch_free(GHashTable *bch)
 
 static void bch_set_value(GHashTable *bch, int key, int value)
 {
-    g_hash_table_insert(bch, (gpointer) key, (gpointer) value);
+    g_hash_table_insert (bch, (gpointer) key, (gpointer) value);
 }
 
 
 int bch_get_value(GViewerBMChartypeData *data, char_type key, int default_value)
 {
-    gint value = GPOINTER_TO_INT (g_hash_table_lookup(data->bad, GINT_TO_POINTER (CHARTYPE_CASE(key, data->case_sensitive))));
+    gint value = GPOINTER_TO_INT (g_hash_table_lookup (data->bad, GINT_TO_POINTER (CHARTYPE_CASE(key, data->case_sensitive))));
 
     return value==0 ? default_value : value;
 }
