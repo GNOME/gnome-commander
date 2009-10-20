@@ -596,8 +596,6 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
     gnome_cmd_advrename_reset_counter (defaults.default_profile.counter_start,
                                        defaults.default_profile.counter_width,
                                        defaults.default_profile.counter_step);
-
-    char buff[256];
     GtkTreeIter i;
 
     vector<GnomeCmd::RegexReplace *> rx;
@@ -629,9 +627,7 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
         if (!f)
             continue;
 
-        gnome_cmd_advrename_gen_fname (buff, sizeof(buff), f);
-
-        gchar *fname = g_strdup (buff);
+        gchar *fname = gnome_cmd_advrename_gen_fname (f);
 
         for (vector<GnomeCmd::RegexReplace *>::iterator j=rx.begin(); j!=rx.end(); ++j)
         {

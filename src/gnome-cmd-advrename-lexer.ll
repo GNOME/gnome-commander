@@ -411,7 +411,7 @@ inline void find_dirs (const gchar *path, const gchar *&parent_dir, const gchar 
 }
 
 
-char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, GnomeCmdFile *f)
+char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
 {
   string fmt;
   fmt.reserve(256);
@@ -499,9 +499,12 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
       default :     break;
     }
 
-  strftime(new_fname, new_fname_size, fmt.c_str(), localtime(&f->info->mtime));
+  g_free (fname);
 
-  g_free(fname);
+  char *new_fname = g_new (char, new_fname_size+1);
+
+  if (!strftime(new_fname, new_fname_size+1, fmt.c_str(), localtime(&f->info->mtime)))      // if new_fname is not big enough...
+    new_fname[new_fname_size] = '\0';                                                       //      ... truncate
 
   return new_fname;
 }

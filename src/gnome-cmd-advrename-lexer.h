@@ -25,7 +25,6 @@
 
 void gnome_cmd_advrename_reset_counter(long start=1, int precision=-1, int step=1);
 void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &has_counters);
-char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, GnomeCmdFile *f);
-
+char *gnome_cmd_advrename_gen_fname(GnomeCmdFile *f, size_t new_fname_size=NAME_MAX);
 
 #endif // __GNOME_CMD_ADVRENAME_LEXER_H__
