@@ -413,6 +413,9 @@ inline void find_dirs (const gchar *path, const gchar *&parent_dir, const gchar 
 
 char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
 {
+  if (fname_template.empty())
+    return g_strdup ("");
+
   string fmt;
   fmt.reserve(256);
 
