@@ -289,14 +289,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-%[Dnt]                          {
-                                  CHUNK *p = g_new0 (CHUNK,1);
-
-                                  p->type = TEXT;
-                                  p->s = g_string_new("%%");
-
-                                  fname_template.push_back(p);
-                                }
+%[Dnt]                          yytext[1] = '%';  ECHO;
 %%
 
 
