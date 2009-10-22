@@ -87,8 +87,7 @@ struct _ViewerFileOps
 
 ViewerFileOps *gv_fileops_new()
 {
-    ViewerFileOps *fops = g_new0(ViewerFileOps, 1);
-    g_return_val_if_fail (fops!=NULL, NULL);
+    ViewerFileOps *fops = g_new0 (ViewerFileOps, 1);
 
     fops->file = -1;
     return fops;
