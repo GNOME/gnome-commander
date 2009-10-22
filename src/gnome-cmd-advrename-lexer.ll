@@ -290,6 +290,8 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                 }
 
 %[Dnt]                          yytext[1] = '%';  ECHO;
+
+[^%$]+                          ECHO;                                      // concatenate consecutive non-[%$] chars into single TEXT chunk
 %%
 
 
