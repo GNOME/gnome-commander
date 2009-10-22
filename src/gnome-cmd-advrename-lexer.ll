@@ -43,12 +43,17 @@
 using namespace std;
 
 
-#define   ECHO  {                                                                     \
-                  CHUNK *p = g_new0 (CHUNK, 1);                                       \
-                                                                                      \
-                  p->type = TEXT;                                                     \
-                  p->s = g_string_new(yytext);                                        \
-                  fname_template.push_back(p);                                        \
+#define   ECHO  {                                                                       \
+                  if (fname_template.empty() || fname_template.back()->type!=TEXT)      \
+                  {                                                                     \
+                      CHUNK *p = g_new0 (CHUNK, 1);                                     \
+                      p->type = TEXT;                                                   \
+                      p->s = g_string_sized_new (16);                                   \
+                      g_string_append_len (p->s, yytext, yyleng);                       \
+                      fname_template.push_back(p);                                      \
+                  }                                                                     \
+                  else                                                                  \
+                      g_string_append_len (fname_template.back()->s, yytext, yyleng);   \
                 }
 
 
