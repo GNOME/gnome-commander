@@ -69,16 +69,16 @@ static void search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
 
 static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 {
-    sdlg->priv = g_new0(GViewerSearchProgressDlgPrivate, 1);
+    sdlg->priv = g_new0 (GViewerSearchProgressDlgPrivate, 1);
 
     GtkDialog *dlg = GTK_DIALOG(sdlg);
-    sdlg->priv->progress = 0;
+    // sdlg->priv->progress = 0;
 
-    gtk_window_set_title(GTK_WINDOW (dlg), _("Searching..."));
-    gtk_window_set_modal(GTK_WINDOW (dlg), TRUE);
-    gtk_dialog_add_button(dlg, GTK_STOCK_STOP, 12);
+    gtk_window_set_title (GTK_WINDOW (dlg), _("Searching..."));
+    gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
+    gtk_dialog_add_button (dlg, GTK_STOCK_STOP, 12);
 
-    g_signal_connect_swapped(GTK_WIDGET (dlg), "response", G_CALLBACK (search_progress_dlg_action_response), sdlg);
+    g_signal_connect_swapped (GTK_WIDGET (dlg), "response", G_CALLBACK (search_progress_dlg_action_response), sdlg);
 
     // Text Label
     sdlg->priv->label = gtk_label_new("");

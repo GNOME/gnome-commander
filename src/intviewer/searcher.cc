@@ -126,15 +126,14 @@ static void g_viewer_searcher_class_init(GViewerSearcherClass *klass)
 
 static void g_viewer_searcher_init(GViewerSearcher *obj)
 {
-    obj->priv = g_new0(GViewerSearcherPrivate, 1);
+    obj->priv = g_new0 (GViewerSearcherPrivate, 1);
     // Initialize private members, etc.
 
-    obj->priv->abort_indicator = 0;
-    obj->priv->completed_indicator = 0;
-    obj->priv->progress_value = 0;
+    // obj->priv->abort_indicator = 0;
+    // obj->priv->completed_indicator = 0;
+    // obj->priv->progress_value = 0;
 
-    obj->priv->search_thread = NULL;
-
+    // obj->priv->search_thread = NULL;
 }
 
 

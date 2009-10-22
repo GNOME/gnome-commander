@@ -119,8 +119,8 @@ static void scroll_box_init (ScrollBox *w)
             (GtkAttachOptions) (GTK_FILL), 0, 0);
     w->priv->client = NULL;
 
-    g_signal_connect(w, "button-press-event", G_CALLBACK(scroll_box_button_press), w);
-    g_signal_connect(w, "destroy-event", G_CALLBACK(scroll_box_destroy), w);
+    g_signal_connect (w, "button-press-event", G_CALLBACK (scroll_box_button_press), w);
+    g_signal_connect (w, "destroy-event", G_CALLBACK (scroll_box_destroy), w);
 }
 
 

@@ -230,9 +230,9 @@ static void gviewer_window_init (GViewerWindow *w)
     w->priv->current_scale_index = 5;
 
     GtkWindow *win = GTK_WINDOW (w);
-    gtk_window_set_title(win, "GViewer");
+    gtk_window_set_title (win, "GViewer");
 
-    g_signal_connect(w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), NULL);
+    g_signal_connect (w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), NULL);
 
     w->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (w->priv->vbox);
@@ -246,7 +246,7 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_widget_show (GTK_WIDGET (w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
 
-    g_signal_connect(w->priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
+    g_signal_connect (w->priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
 
     w->priv->statusbar = gtk_statusbar_new ();
     gtk_widget_show (w->priv->statusbar);
@@ -256,7 +256,7 @@ static void gviewer_window_init (GViewerWindow *w)
 
     gtk_widget_grab_focus (GTK_WIDGET (w->priv->viewer));
 
-    gtk_container_add(GTK_CONTAINER (w), w->priv->vbox);
+    gtk_container_add (GTK_CONTAINER (w), w->priv->vbox);
 }
 
 

@@ -239,7 +239,7 @@ static void image_render_class_init (ImageRenderClass *klass)
 
 static void image_render_init (ImageRender *w)
 {
-    w->priv = g_new0(ImageRenderPrivate, 1);
+    w->priv = g_new0 (ImageRenderPrivate, 1);
 
     w->priv->button = 0;
 

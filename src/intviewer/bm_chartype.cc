@@ -97,7 +97,7 @@ inline void suffices(char_type *pattern, int m, gboolean case_sens, int *suff)
 
 static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*out*/ int *good)
 {
-   int *suff = g_new0(int, m);
+   int *suff = g_new0 (int, m);
    int j;
 
    suffices(pattern, m, case_sens, suff);
@@ -119,7 +119,7 @@ static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*ou
 
 GViewerBMChartypeData *create_bm_chartype_data(const gchar *pattern, gboolean case_sensitive)
 {
-    GViewerBMChartypeData *data = g_new0(GViewerBMChartypeData, 1);
+    GViewerBMChartypeData *data = g_new0 (GViewerBMChartypeData, 1);
 
     data->case_sensitive = case_sensitive;
 
@@ -130,7 +130,7 @@ GViewerBMChartypeData *create_bm_chartype_data(const gchar *pattern, gboolean ca
     data->bad = bch_create();
     bch_compute(data->bad, data->pattern, data->pattern_len, case_sensitive);
 
-    data->good = g_new0(int, data->pattern_len);
+    data->good = g_new0 (int, data->pattern_len);
     goodsuff_compute(data->pattern, data->pattern_len, case_sensitive, data->good);
 
     return data;

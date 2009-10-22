@@ -75,7 +75,7 @@ static void inputmode_utf8_activate(GVInputModesData *imd);
 
 GVInputModesData *gv_input_modes_new()
 {
-    return g_new0(GVInputModesData, 1);
+    return g_new0 (GVInputModesData, 1);
 }
 
 /*

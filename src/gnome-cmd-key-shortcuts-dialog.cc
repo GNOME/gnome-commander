@@ -359,7 +359,7 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_OPTION, _("Options"));
     gtk_tooltips_set_tip (tips, col->button, _("Optional data"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_OPTION);
-    g_signal_connect(renderer, "edited", (GCallback) cell_edited_callback, view);
+    g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
 
     g_object_set (renderer,
                   "editable", TRUE,

@@ -113,10 +113,10 @@ static LsColor *ext_color (gchar *key, gchar *val)
 static LsColor *type_color (gchar *key, gchar *val)
 {
     int i, n[3];
-    LsColor *col = g_new (LsColor, 1);
-    col->ext = NULL;
-    col->fg = NULL;
-    col->bg = NULL;
+    LsColor *col = g_new0 (LsColor, 1);
+    // col->ext = NULL;
+    // col->fg = NULL;
+    // col->bg = NULL;
 
     if (strcmp (key, "fi") == 0)
         col->type = GNOME_VFS_FILE_TYPE_REGULAR;

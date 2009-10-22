@@ -235,7 +235,7 @@ static GtkWidget *create_view_and_model (Profiles &profiles)
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Profile"));
     gtk_tooltips_set_tip (tips, col->button, _("Profile name"), NULL);
-    g_signal_connect(renderer, "edited", (GCallback) cell_edited_callback, view);
+    g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
 
     g_object_set (renderer,
                   "editable", TRUE,

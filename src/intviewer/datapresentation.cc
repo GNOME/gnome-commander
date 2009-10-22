@@ -76,7 +76,7 @@ static offset_type binfixed_get_eol(GVDataPresentation *dp, offset_type start_of
 *********************************************************/
 GVDataPresentation *gv_data_presentation_new()
 {
-    return g_new0(GVDataPresentation, 1);
+    return g_new0 (GVDataPresentation, 1);
 }
 
 

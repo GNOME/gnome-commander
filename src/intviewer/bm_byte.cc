@@ -72,7 +72,7 @@ inline void suffices(guint8 *pattern, int m, /* out */ int *suff)
 
 inline void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
 {
-   int *suff = g_new0(int, m);
+   int *suff = g_new0 (int, m);
 
    suffices(pattern, m, suff);
 
@@ -99,7 +99,7 @@ GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length)
     GViewerBMByteData *data = g_new0 (GViewerBMByteData, 1);
 
     data->pattern_len = length;
-    data->pattern = g_new(guint8, length);
+    data->pattern = g_new (guint8, length);
     memcpy(data->pattern, pattern, length);
 
     data->bad = g_new0 (int, 256);

@@ -238,17 +238,17 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
     GtkTable *table;
     GtkWidget *entry;
 
-    sdlg->priv = g_new0(GViewerSearchDlgPrivate, 1);
+    sdlg->priv = g_new0 (GViewerSearchDlgPrivate, 1);
 
     sdlg->priv->searchmode = (SEARCHMODE) gnome_cmd_data.intviewer_defaults.search_mode;
 
-    gtk_window_set_title(GTK_WINDOW (dlg), _("Find"));
-    gtk_window_set_modal(GTK_WINDOW (dlg), TRUE);
-    gtk_dialog_add_button(dlg, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-    gtk_dialog_add_button(dlg, GTK_STOCK_FIND, GTK_RESPONSE_OK);
-    gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
+    gtk_window_set_title (GTK_WINDOW (dlg), _("Find"));
+    gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
+    gtk_dialog_add_button (dlg, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button (dlg, GTK_STOCK_FIND, GTK_RESPONSE_OK);
+    gtk_dialog_set_default_response (dlg, GTK_RESPONSE_OK);
 
-    g_signal_connect_swapped(GTK_WIDGET (dlg), "response", G_CALLBACK (search_dlg_action_response), sdlg);
+    g_signal_connect_swapped (GTK_WIDGET (dlg), "response", G_CALLBACK (search_dlg_action_response), sdlg);
 
     // 2x4 Table
     table = GTK_TABLE (gtk_table_new (2, 2, FALSE));
@@ -275,11 +275,11 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
     sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL, _("_Text"));
     sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(sdlg->priv->text_mode), _("_Hexadecimal"));
 
-    g_signal_connect(sdlg->priv->text_mode, "toggled", G_CALLBACK (search_mode_text), sdlg);
-    g_signal_connect(sdlg->priv->hex_mode, "toggled", G_CALLBACK (search_mode_hex), sdlg);
+    g_signal_connect (sdlg->priv->text_mode, "toggled", G_CALLBACK (search_mode_text), sdlg);
+    g_signal_connect (sdlg->priv->hex_mode, "toggled", G_CALLBACK (search_mode_hex), sdlg);
 
-    gtk_table_attach(table, sdlg->priv->text_mode, 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
-    gtk_table_attach(table, sdlg->priv->hex_mode, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_table_attach (table, sdlg->priv->text_mode, 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_table_attach (table, sdlg->priv->hex_mode, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
     // Case-Sensitive Checkbox
     sdlg->priv->case_sensitive_checkbox = gtk_check_button_new_with_mnemonic(_("_Match case"));

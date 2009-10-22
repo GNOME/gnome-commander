@@ -291,7 +291,7 @@ static void text_render_class_init (TextRenderClass *klass)
 
 static void text_render_init (TextRender *w)
 {
-    w->priv = g_new0(TextRenderPrivate, 1);
+    w->priv = g_new0 (TextRenderPrivate, 1);
 
     w->priv->button = 0;
     w->priv->dispmode = TR_DISP_MODE_TEXT;
@@ -324,7 +324,7 @@ static void text_render_init (TextRender *w)
 
     w->priv->fixed_font_name = g_strdup ("Monospace");
 
-    g_signal_connect(w, "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
+    g_signal_connect (w, "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
 
     w->priv->layout = gtk_widget_create_pango_layout(GTK_WIDGET (w), NULL);
 
