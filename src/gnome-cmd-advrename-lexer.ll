@@ -43,18 +43,7 @@
 using namespace std;
 
 
-#define   ECHO  {                                                                       \
-                  if (fname_template.empty() || fname_template.back()->type!=TEXT)      \
-                  {                                                                     \
-                      CHUNK *p = g_new0 (CHUNK, 1);                                     \
-                      p->type = TEXT;                                                   \
-                      p->s = g_string_sized_new (16);                                   \
-                      g_string_append_len (p->s, yytext, yyleng);                       \
-                      fname_template.push_back(p);                                      \
-                  }                                                                     \
-                  else                                                                  \
-                      g_string_append_len (fname_template.back()->s, yytext, yyleng);   \
-                }
+#define   ECHO  echo(yytext, yyleng)
 
 
 enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,XRANDOM,XXRANDOM,PARENT_DIR,GRANDPARENT_DIR,METATAG};
@@ -104,6 +93,21 @@ struct CHUNK
 static vector<CHUNK *> fname_template;
 
 static gboolean      fname_template_has_counters = FALSE;
+
+
+inline void echo(const gchar *s, gssize length)
+{
+  if (fname_template.empty() || fname_template.back()->type!=TEXT)
+  {
+    CHUNK *p = g_new0 (CHUNK, 1);
+    p->type = TEXT;
+    p->s = g_string_sized_new (16);
+    g_string_append_len (p->s, s, length);
+    fname_template.push_back(p);
+  }
+  else
+    g_string_append_len (fname_template.back()->s, s, length);
+}
 
 %}
 
@@ -285,14 +289,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-\$\$                            {
-                                  CHUNK *p = g_new0 (CHUNK,1);
-
-                                  p->type = TEXT;
-                                  p->s = g_string_new("$");
-
-                                  fname_template.push_back(p);
-                                }
+\$\$                            echo("$",1);
 
 %[Dnt]                          yytext[1] = '%';  ECHO;
 
