@@ -93,6 +93,7 @@ struct CHUNK
 static vector<CHUNK *> fname_template;
 
 static gboolean      fname_template_has_counters = FALSE;
+static gboolean      fname_template_has_percent = FALSE;
 
 
 inline void echo(const gchar *s, gssize length)
@@ -291,7 +292,16 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 
 \$\$                            echo("$",1);
 
-%[Dnt]                          echo("%",1);  ECHO;                        // substitute %[Dnt] with %%[Dnt]
+%[Dnt]                          {                                          // substitute %[Dnt] with %%[Dnt]
+                                  echo("%",1);
+                                  ECHO;
+                                  fname_template_has_percent = TRUE;
+                                }
+
+%.                              {
+                                  ECHO;
+                                  fname_template_has_percent = TRUE;
+                                }
 
 [^%$]+                          ECHO;                                      // concatenate consecutive non-[%$] chars into single TEXT chunk
 %%
@@ -331,6 +341,7 @@ void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &h
 
   fname_template.clear();
   fname_template_has_counters = FALSE;
+  fname_template_has_percent = FALSE;
 
   yy_scan_string(template_string);
   yylex();
@@ -500,6 +511,9 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
     }
 
   g_free (fname);
+
+  if (!fname_template_has_percent)
+    return g_strdup (fmt.c_str());
 
   char *new_fname = g_new (char, new_fname_size+1);
 
