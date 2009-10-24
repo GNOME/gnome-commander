@@ -291,7 +291,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 
 \$\$                            echo("$",1);
 
-%[Dnt]                          yytext[1] = '%';  ECHO;
+%[Dnt]                          echo("%",1);  ECHO;                        // substitute %[Dnt] with %%[Dnt]
 
 [^%$]+                          ECHO;                                      // concatenate consecutive non-[%$] chars into single TEXT chunk
 %%

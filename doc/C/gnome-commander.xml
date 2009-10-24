@@ -979,7 +979,7 @@
                         (see below for the detailed list). Additionally
                         <link linkend="gnome-commander-advanced-rename-strftime">strftime() format controls</link>
                         are also accepted - except for "%D", "%n" and "%t" for obvious reasons.
-                        If found, they are converted into single "%".</para>
+                        If found, they are left intact.</para>
               </listitem>
           </varlistentry>
           <varlistentry>
