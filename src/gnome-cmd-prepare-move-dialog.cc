@@ -141,7 +141,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
-    g_free  (dest_dir_frame_msg);
+    g_free (dest_dir_frame_msg);
 
 
     // Connect signals
