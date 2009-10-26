@@ -95,6 +95,10 @@ static vector<CHUNK *> fname_template;
 static gboolean      fname_template_has_counters = FALSE;
 static gboolean      fname_template_has_percent = FALSE;
 
+#define    SUB_S "\x1A"
+const char SUB = '\x1A';
+const char ESC = '\x1B';
+
 
 inline void echo(const gchar *s, gssize length)
 {
@@ -293,12 +297,12 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 \$\$                            echo("$",1);
 
 %[Dnt]                          {                                          // substitute %[Dnt] with %%[Dnt]
-                                  yytext[1] = '%';
-                                  ECHO;
+                                  echo(SUB_S SUB_S,2);
                                   fname_template_has_percent = TRUE;
                                 }
 
 %.                              {
+                                  *yytext = SUB;
                                   ECHO;
                                   fname_template_has_percent = TRUE;
                                 }
@@ -419,6 +423,21 @@ inline void find_dirs (const gchar *path, const gchar *&parent_dir, const gchar 
 }
 
 
+inline gboolean convert (char *s, char from, char to)
+{
+  gboolean retval = FALSE;
+
+  for (; *s; ++s)
+    if (*s==from)
+    {
+      *s = to;
+      retval = TRUE;
+    }
+
+  return retval;
+}
+
+
 char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
 {
   if (fname_template.empty())
@@ -517,8 +536,14 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
 
   char *new_fname = g_new (char, new_fname_size+1);
 
+  gboolean new_fname_has_percent = convert ((char *) fmt.c_str(), '%', ESC);
+  convert ((char *) fmt.c_str(), SUB, '%');
+
   if (!strftime(new_fname, new_fname_size+1, fmt.c_str(), localtime(&f->info->mtime)))      // if new_fname is not big enough...
     new_fname[new_fname_size] = '\0';                                                       //      ... truncate
+
+  if (new_fname_has_percent)
+    convert (new_fname, ESC, '%');
 
   return new_fname;
 }
