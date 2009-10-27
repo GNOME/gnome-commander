@@ -77,15 +77,11 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     PrepareCopyData *data = g_new0 (PrepareCopyData, 1);
     gchar *dest_dir_frame_msg, *text;
     GtkWidget *label;
-    GList *tmp = from->file_list()->get_selected_files();
-
-    if (!tmp)
-    {
-        g_list_free (tmp);
-        return;
-    }
 
     data->dialog = GNOME_CMD_PREPARE_XFER_DIALOG (gnome_cmd_prepare_xfer_dialog_new (from, to));
+
+    g_return_if_fail (data->dialog->src_files != NULL);
+
     gtk_window_set_title (GTK_WINDOW (data->dialog), _("Copy"));
     gtk_widget_ref (GTK_WIDGET (data->dialog));
 
@@ -134,8 +130,6 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->right_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
-
-    g_return_if_fail (data->dialog->src_files != NULL);
 
     gint num_files = g_list_length (data->dialog->src_files);
 
