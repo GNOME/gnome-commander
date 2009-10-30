@@ -1,4 +1,4 @@
-AC_INIT(gnome-commander, 1.2.8.3, http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander)
+AC_INIT(gnome-commander, 1.2.8.4, http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander)
 AC_CONFIG_SRCDIR(src/gnome-cmd-includes.h)
 AC_CONFIG_MACRO_DIR([m4])
 

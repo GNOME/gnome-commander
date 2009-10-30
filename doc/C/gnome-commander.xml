@@ -3,9 +3,9 @@
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Piotr Eljasiak">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.2.8.3">
-  <!ENTITY manrevision "1.2.8.3">
-  <!ENTITY date "October 2009">
+  <!ENTITY appversion "1.2.8.4">
+  <!ENTITY manrevision "1.2.8.4">
+  <!ENTITY date "November 2009">
   <!ENTITY app "GNOME Commander">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -178,6 +178,16 @@
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.3;</revnumber>
         <date>2009-10-28</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.4;</revnumber>
+        <date>2009-11-??</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -5994,6 +6004,20 @@
         </row>
     </thead>
     <tbody>
+        <row valign="top">
+            <entry><para>1.2.8.4</para></entry>
+            <entry><para>2009-11-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
         <row valign="top">
             <entry><para>1.2.8.2</para></entry>
             <entry><para>2009-09-22</para></entry>
