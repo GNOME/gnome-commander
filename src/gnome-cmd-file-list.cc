@@ -775,6 +775,18 @@ inline gint my_intcmp (gint i1, gint i2, gboolean raising)
 }
 
 
+inline gint my_filesizecmp (GnomeVFSFileSize i1, GnomeVFSFileSize i2, gboolean raising)
+{
+    if (i1 > i2)
+        return raising ? -1 : 1;
+
+    if (i2 > i1)
+        return raising ? 1 : -1;
+
+    return 0;
+}
+
+
 static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
     if (strcmp (f1->info->name, "..") == 0)
@@ -873,7 +885,7 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     if (!ret)
     {
-        ret = my_intcmp (f1->info->size, f2->info->size, raising);
+        ret = my_filesizecmp (f1->info->size, f2->info->size, raising);
         if (!ret)
             ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
     }

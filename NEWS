@@ -3,7 +3,7 @@ gnome-commander 1.2.8.4
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)
 
 
 ===================================
