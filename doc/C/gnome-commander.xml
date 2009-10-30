@@ -6019,29 +6019,6 @@
             </entry>
         </row>
         <row valign="top">
-            <entry><para>1.2.8.2</para></entry>
-            <entry><para>2009-09-22</para></entry>
-            <entry>
-                <para>Bug fixes:</para>
-                <para>
-                    <itemizedlist>
-                        <listitem>
-                            <para>Fixed problem #591944 (permissions set to 000 after chmod)</para>
-                        </listitem>
-                        <listitem>
-                            <para>Fixed problem #595097 (build error for poppler >= 0.11.3)</para>
-                        </listitem>
-                        <listitem>
-                            <para>Fixed debian problem #438884 (wrong device label when switching panels with CTRL+U)</para>
-                        </listitem>
-                        <listitem>
-                            <para>Fixed problem with broken file icon after renaming a symbolic link</para>
-                        </listitem>
-                    </itemizedlist>
-                </para>
-            </entry>
-        </row>
-        <row valign="top">
             <entry><para>1.2.8.3</para></entry>
             <entry><para>2009-10-28</para></entry>
             <entry>
@@ -6071,6 +6048,29 @@
                         </listitem>
                         <listitem>
                             <para>Fixed problem #598278 (memory leak)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.2</para></entry>
+            <entry><para>2009-09-22</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #591944 (permissions set to 000 after chmod)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #595097 (build error for poppler >= 0.11.3)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed debian problem #438884 (wrong device label when switching panels with CTRL+U)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with broken file icon after renaming a symbolic link</para>
                         </listitem>
                     </itemizedlist>
                 </para>
