@@ -1530,11 +1530,11 @@ void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_
 
     if (get_connection() == con)
     {
-        if (!gnome_cmd_con_should_remember_dir (con))
-            set_directory (gnome_cmd_con_get_default_dir (con));
+        if (start_dir)
+            set_directory (start_dir);
         else
-            if (start_dir)
-                set_directory (start_dir);
+            if (!gnome_cmd_con_should_remember_dir (con))
+                set_directory (gnome_cmd_con_get_default_dir (con));
         return;
     }
 
