@@ -51,6 +51,7 @@ struct GnomeCmdMainWin
     operator GObject * ()               {  return G_OBJECT (this);         }
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
     operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
+    operator GtkWindow * ()             {  return GTK_WINDOW (this);       }
 
     GnomeCmdAdvrenameDialog *advrename_dlg;
 
