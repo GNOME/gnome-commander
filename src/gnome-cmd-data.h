@@ -305,9 +305,6 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
 gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
 void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
 
-GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ();
-GList *gnome_cmd_data_get_bookmark_groups ();
-
 const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);
 

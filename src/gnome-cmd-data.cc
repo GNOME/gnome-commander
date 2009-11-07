@@ -1909,12 +1909,6 @@ gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column)
 }
 
 
-GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ()
-{
-    return gnome_cmd_con_get_bookmarks (gnome_cmd_con_list_get_home (gnome_cmd_data.priv->con_list));
-}
-
-
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
 {
     if (gnome_cmd_data.priv->start_dirs[fs])
