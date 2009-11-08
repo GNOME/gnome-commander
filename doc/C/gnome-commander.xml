@@ -6014,6 +6014,9 @@
                         <listitem>
                             <para>Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with not working keypad enter in copy/move dialog</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
