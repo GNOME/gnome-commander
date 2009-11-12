@@ -968,7 +968,8 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 {
                     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, LEFT);
                     gnome_cmd_main_win_switch_fs (mw, fs);
-                    gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
+                    if (gnome_cmd_data.concombo_visibility)
+                        gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
                 return TRUE;
 
@@ -976,7 +977,8 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 {
                     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, RIGHT);
                     gnome_cmd_main_win_switch_fs (mw, fs);
-                    gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
+                    if (gnome_cmd_data.concombo_visibility)
+                        gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
                 return TRUE;
 
