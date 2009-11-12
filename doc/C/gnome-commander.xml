@@ -6033,6 +6033,9 @@
                         <listitem>
                             <para>Fixed problem with not working keypad enter in copy/move dialog</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with stalled keyboard after ALT+1/2 with hidden device list</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>

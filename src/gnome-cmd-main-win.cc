@@ -942,7 +942,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 {
                     GnomeCmdFileSelector *fs = this->fs(LEFT);
                     switch_fs(fs);
-                    fs->con_combo->popup_list();
+                    if (gnome_cmd_data.concombo_visibility)
+                        fs->con_combo->popup_list();
                 }
                 return TRUE;
 
@@ -950,7 +951,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 {
                     GnomeCmdFileSelector *fs = this->fs(RIGHT);
                     switch_fs(fs);
-                    fs->con_combo->popup_list();
+                    if (gnome_cmd_data.concombo_visibility)
+                        fs->con_combo->popup_list();
                 }
                 return TRUE;
 
