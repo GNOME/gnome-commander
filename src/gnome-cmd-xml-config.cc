@@ -353,6 +353,8 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT,
+      XML_GNOMECOMMANDER_BOOKMARKSTOOL,
+      XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE,
       XML_GNOMECOMMANDER_SELECTIONS,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN,
@@ -469,6 +471,17 @@ static void xml_start(GMarkupParseContext *context,
             {
                 cfg->search_defaults.width = atoi(param1);
                 cfg->search_defaults.height = atoi(param2);
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "width", &param1,
+                                             G_MARKUP_COLLECT_STRING, "height", &param2,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                cfg->bookmarks_defaults.width = atoi(param1);
+                cfg->bookmarks_defaults.height = atoi(param2);
             }
             break;
 
@@ -703,7 +716,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN, "/GnomeCommander/SearchTool/History/Pattern"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH, "/GnomeCommander/SearchTool/History/Path"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"},
-                        {XML_GNOMECOMMANDER_SEARCHTOOL, "/GnomeCommander/Selections"},
+                        {XML_GNOMECOMMANDER_BOOKMARKSTOOL, "/GnomeCommander/BookmarksTool"},
+                        {XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE, "/GnomeCommander/BookmarksTool/WindowSize"},
+                        {XML_GNOMECOMMANDER_SELECTIONS, "/GnomeCommander/Selections"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE, "/GnomeCommander/Selections/Profile"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN, "/GnomeCommander/Selections/Profile/Pattern"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATH, "/GnomeCommander/Selections/Profile/Path"},

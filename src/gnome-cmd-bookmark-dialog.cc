@@ -429,14 +429,10 @@ static void on_column_resize (GtkCList *clist, gint column, gint width, GnomeCmd
 }
 
 
-static gint bookmark_dlg_width = 500;
-static gint bookmark_dlg_height = 500;
-
-
 static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdBookmarkDialog *dialog)
 {
-    bookmark_dlg_width = allocation->width;
-    bookmark_dlg_height = allocation->height;
+    gnome_cmd_data.bookmarks_defaults.width = allocation->width;
+    gnome_cmd_data.bookmarks_defaults.height = allocation->height;
 }
 
 
@@ -494,7 +490,7 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     g_object_set_data (G_OBJECT (dialog), "dialog", dialog);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Bookmarks"));
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 400, 400);
-    gtk_window_set_default_size (GTK_WINDOW (dialog), bookmark_dlg_width, bookmark_dlg_height);
+    gtk_window_set_default_size (GTK_WINDOW (dialog), gnome_cmd_data.bookmarks_defaults.width, gnome_cmd_data.bookmarks_defaults.height);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
     g_signal_connect (dialog, "size-allocate", G_CALLBACK (on_dialog_size_allocate), dialog);

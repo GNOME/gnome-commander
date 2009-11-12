@@ -1759,6 +1759,7 @@ void GnomeCmdData::save()
 
         xml << advrename_defaults;
         xml << search_defaults;
+        xml << bookmarks_defaults;
 
         xml << XML::tag("Selections");
         for (vector<Selection>::iterator i=selections.begin(); i!=selections.end(); ++i)
@@ -2121,6 +2122,18 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchConfig &cfg)
             xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
 
         xml << XML::endtag();
+
+    xml << XML::endtag();
+
+    return xml;
+}
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::BookmarksConfig &cfg)
+{
+    xml << XML::tag("BookmarksTool");
+
+        xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
 
     xml << XML::endtag();
 

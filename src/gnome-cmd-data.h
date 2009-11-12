@@ -134,6 +134,15 @@ struct GnomeCmdData
                            case_sensitive(FALSE), search_mode(0)    {}
     };
 
+    struct BookmarksConfig
+    {
+        gint width, height;
+
+        BookmarksConfig(): width(400), height(250)   {}
+
+        friend XML::xstream &operator << (XML::xstream &xml, BookmarksConfig &cfg);
+    };
+
     struct FilterSettings
     {
         gboolean file_types[8];
@@ -191,6 +200,7 @@ struct GnomeCmdData
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
     IntViewerConfig              intviewer_defaults;
+    BookmarksConfig              bookmarks_defaults;
 
     gboolean                     case_sens_sort;
     GnomeCmdLayout               layout;
