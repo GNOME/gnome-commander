@@ -37,9 +37,9 @@
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-bookmark-dialog.h"
 #include "owner.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 #include "../pixmaps/copy_file_names.xpm"
 

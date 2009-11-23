@@ -5992,13 +5992,16 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #... (...)</para>
+                            <para>Fixed problem #600292 (crash when double-clicking on bookmarks list)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Revamped bookmarks dialog</para>
+                        </listitem>
                         <listitem>
                             <para>Revamped file properties dialog</para>
                         </listitem>

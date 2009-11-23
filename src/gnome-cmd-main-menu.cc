@@ -23,7 +23,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-menu.h"
 #include "gnome-cmd-types.h"
-#include "gnome-cmd-bookmark-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con.h"
@@ -32,6 +31,7 @@
 #include "utils.h"
 #include "imageloader.h"
 #include "gnome-cmd-user-actions.h"
+#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 #include "../pixmaps/exec_wheel.xpm"
 

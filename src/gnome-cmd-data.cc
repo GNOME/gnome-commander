@@ -35,7 +35,6 @@
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-advrename-dialog.h"
-#include "gnome-cmd-bookmark-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "filter.h"
 #include "utils.h"
@@ -59,7 +58,6 @@ struct GnomeCmdData::Private
     gchar                *list_font;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
-    guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
@@ -1260,13 +1258,6 @@ void GnomeCmdData::load()
         g_free (tmp);
     }
 
-    for (gint i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
-    {
-        gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
-        priv->bookmark_dialog_col_width[i] = get_int (tmp, bookmark_dialog_default_column_width[i]);
-        g_free (tmp);
-    }
-
     color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
@@ -1614,13 +1605,6 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
-    for (gint i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
-    {
-        gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
-        gnome_config_set_int (tmp, priv->bookmark_dialog_col_width[i]);
-        g_free (tmp);
-    }
-
     gnome_cmd_data_set_int    ("/options/size_disp_mode", size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", perm_disp_mode);
     gnome_cmd_data_set_int    ("/options/layout", layout);
@@ -1895,18 +1879,6 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
     g_free (gnome_cmd_data.priv->document_icon_dir);
 
     gnome_cmd_data.priv->document_icon_dir = g_strdup (dir);
-}
-
-
-void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width)
-{
-    gnome_cmd_data.priv->bookmark_dialog_col_width[column] = width;
-}
-
-
-gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column)
-{
-    return gnome_cmd_data.priv->bookmark_dialog_col_width[column];
 }
 
 

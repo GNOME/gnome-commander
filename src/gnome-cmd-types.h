@@ -92,7 +92,6 @@ struct GnomeCmdBookmarkGroup
 {
     GList *bookmarks;
     GnomeCmdCon *con;
-    gpointer *data;
 };
 
 

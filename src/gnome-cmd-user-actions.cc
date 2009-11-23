@@ -23,7 +23,6 @@
 #include <algorithm>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-bookmark-dialog.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-data.h"
@@ -45,6 +44,7 @@
 #include "gnome-cmd-key-shortcuts-dialog.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chown-dialog.h"
+#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
 #include "cap.h"
@@ -1522,15 +1522,13 @@ void connections_close_current (GtkMenuItem *menuitem, gpointer not_used)
 
 void bookmarks_add_current (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_bookmark_add_current ();
+    gnome_cmd_bookmark_add_current (get_fs (ACTIVE)->get_directory());
 }
 
 
 void bookmarks_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GtkWidget *dialog = gnome_cmd_bookmark_dialog_new ();
-    gtk_widget_ref (dialog);
-    gtk_widget_show (dialog);
+    gnome_cmd_bookmark_dialog_new (_("Bookmarks"), *main_win);
 }
 
 
