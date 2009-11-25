@@ -620,19 +620,6 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("Open in New _Tab"), "Ctrl+T", NULL,
-            (gpointer) view_new_tab, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OPEN,
-            NULL
-        },
-        {
-            MENU_TYPE_ITEM, _("_Close Tab"), "Ctrl+W", NULL,
-            (gpointer) view_close_tab, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
-            NULL
-        },
-        MENUTYPE_SEPARATOR,
-        {
             MENU_TYPE_TOGGLEITEM, _("Show Toolbar"), "", NULL,
             (gpointer) view_toolbar, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
