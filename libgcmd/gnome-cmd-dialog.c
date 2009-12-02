@@ -63,6 +63,7 @@ static void destroy (GtkObject *object)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 
     g_free (dialog->priv);
+    dialog->priv = NULL;
 }
 
 
