@@ -6015,6 +6015,9 @@
                             <para>Fixed problem #602916 (not working menu entry)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #603301 (crash when cancelling symlink creation by ESC)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)</para>
                         </listitem>
                         <listitem>

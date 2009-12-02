@@ -82,8 +82,11 @@ destroy (GtkObject *object)
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 
-    g_free (dialog->priv->error_desc);
+    if (dialog->priv)
+        g_free (dialog->priv->error_desc);
+ 
     g_free (dialog->priv);
+    dialog->priv = NULL;
 }
 
 
