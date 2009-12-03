@@ -367,7 +367,7 @@ static void on_quicksearch_popup_hide (GtkWidget *quicksearch_popup, GnomeCmdFil
 }
 
 
-void GnomeCmdFileList::select_file(GnomeCmdFile *f)
+void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
 {
     g_return_if_fail (f != NULL);
     g_return_if_fail (f->info != NULL);
@@ -375,7 +375,8 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f)
     if (strcmp (f->info->name, "..") == 0)
         return;
 
-    gint row = get_row_from_file(f);
+    if (row == -1)
+        gint row = get_row_from_file(f);
     if (row == -1)
         return;
 
@@ -402,11 +403,12 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f)
 }
 
 
-void GnomeCmdFileList::unselect_file(GnomeCmdFile *f)
+void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
 {
     g_return_if_fail (f != NULL);
 
-    gint row = get_row_from_file(f);
+    if (row == -1)
+        gint row = get_row_from_file(f);
     if (row == -1)
         return;
 
@@ -442,22 +444,9 @@ void GnomeCmdFileList::toggle_file(GnomeCmdFile *f)
 
     if (row < priv->visible_files.size())
         if (g_list_index (priv->selected_files, f) == -1)
-            select_file(f);
+            select_file(f, row);
         else
-            unselect_file(f);
-}
-
-
-inline void select_file_at_row (GnomeCmdFileList *fl, gint row)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    fl->priv->cur_file = row;
-
-    GnomeCmdFile *f = fl->get_file_at_row(row);
-
-    if (f)
-            fl->select_file(f);
+            unselect_file(f, row);
 }
 
 
@@ -473,7 +462,9 @@ inline void select_file_range (GnomeCmdFileList *fl, gint start_row, gint end_ro
     }
 
     for (gint i=start_row; i<=end_row; i++)
-        select_file_at_row (fl, i);
+        fl->select_file(fl->get_file_at_row(i), i);
+
+    fl->priv->cur_file = end_row;
 }
 
 
@@ -1170,8 +1161,9 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
                         else
                         {
                             if (prev_row!=row)
-                                fl->select_file(fl->get_file_at_row(prev_row));
-                            select_file_at_row (fl, row);
+                                fl->select_file(fl->get_file_at_row(prev_row), prev_row);
+                            fl->select_file(fl->get_file_at_row(row), row);
+                            fl->priv->cur_file = row;
                         }
                     }
             }
@@ -1235,9 +1227,9 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
             {
                 fl->select_row(row+1);
                 if (fl->priv->right_mb_sel_state)
-                    fl->select_file(f);
+                    fl->select_file(f, row);
                 else
-                    fl->unselect_file(f);
+                    fl->unselect_file(f, row);
             }
         }
     }

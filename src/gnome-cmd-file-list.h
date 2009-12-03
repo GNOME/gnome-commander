@@ -111,8 +111,8 @@ struct GnomeCmdFileList
 
     gboolean has_file(const GnomeCmdFile *f);
 
-    void select_file(GnomeCmdFile *f);
-    void unselect_file(GnomeCmdFile *f);
+    void select_file(GnomeCmdFile *f, gint row=-1);
+    void unselect_file(GnomeCmdFile *f, gint row=-1);
     void select_all();
     void unselect_all();
 
