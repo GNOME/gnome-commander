@@ -376,7 +376,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
         return;
 
     if (row == -1)
-        gint row = get_row_from_file(f);
+        row = get_row_from_file(f);
     if (row == -1)
         return;
 
@@ -408,7 +408,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
     g_return_if_fail (f != NULL);
 
     if (row == -1)
-        gint row = get_row_from_file(f);
+        row = get_row_from_file(f);
     if (row == -1)
         return;
 
