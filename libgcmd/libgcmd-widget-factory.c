@@ -658,25 +658,3 @@ create_error_dialog (const gchar *msg, ...)
 
     gtk_widget_show (dialog);
 }
-
-
-void
-create_warning_dialog (const gchar *msg, ...)
-{
-    va_list      argptr;
-    gchar        string[1024];
-    GtkWidget    *dialog;
-
-    va_start (argptr, msg);
-    vsprintf (string, msg, argptr);
-    va_end (argptr);
-
-    dialog = gtk_message_dialog_new (
-        GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL,
-        GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, msg);
-
-    gtk_signal_connect (GTK_OBJECT (dialog), "response",
-                        GTK_SIGNAL_FUNC (on_response), dialog);
-
-    gtk_widget_show (dialog);
-}

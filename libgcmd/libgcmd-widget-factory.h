@@ -117,8 +117,6 @@ const char *get_entry_text (GtkWidget *parent, gchar *entry_name);
 
 void create_error_dialog (const gchar *msg, ...);
 
-void create_warning_dialog (const gchar *msg, ...);
-
 G_END_DECLS
 
 #endif //__LIBGCMD_WIDGET_FACTORY_H__
