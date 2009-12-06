@@ -263,7 +263,7 @@ static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
     gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
 
     if (callback)
-        gtk_signal_connect (GTK_OBJECT (item), "activate", callback, data);
+        g_signal_connect (item, "activate", G_CALLBACK (callback), data);
 
     return item;
 }

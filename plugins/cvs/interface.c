@@ -181,7 +181,7 @@ static GtkWidget *create_compare_win (LogHistory *log_history)
     radio = create_radio (dialog, get_radio_group(radio), _("Other revision"), "other_rev_radio");
     gtk_box_pack_start (GTK_BOX (vbox), radio, TRUE, FALSE, 0);
 
-    gtk_signal_connect (GTK_OBJECT (radio), "toggled", GTK_SIGNAL_FUNC (on_other_rev_toggled), dialog);
+    g_signal_connect (radio, "toggled", G_CALLBACK (on_other_rev_toggled), dialog);
 
     combo = create_combo (dialog);
     gtk_object_set_data_full (GTK_OBJECT (dialog), "rev_combo", combo, (GtkDestroyNotify) gtk_widget_unref);
@@ -261,8 +261,8 @@ GtkWidget *create_diff_win (CvsPlugin *plugin)
         GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
         GTK_SIGNAL_FUNC (on_diff_window_close), plugin);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete-event", GTK_SIGNAL_FUNC (on_diff_win_delete), plugin);
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy-event", GTK_SIGNAL_FUNC (on_diff_win_destroy), plugin);
+    g_signal_connect (dialog, "delete-event", G_CALLBACK (on_diff_win_delete), plugin);
+    g_signal_connect (dialog, "destroy-event", G_CALLBACK (on_diff_win_destroy), plugin);
 
     notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
@@ -291,10 +291,8 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
         GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
         GTK_SIGNAL_FUNC (on_log_window_close), plugin);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete-event",
-                        GTK_SIGNAL_FUNC (on_log_win_delete), plugin);
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy-event",
-                        GTK_SIGNAL_FUNC (on_log_win_destroy), plugin);
+    g_signal_connect (dialog, "delete-event", G_CALLBACK (on_log_win_delete), plugin);
+    g_signal_connect (dialog, "destroy-event", G_CALLBACK (on_log_win_destroy), plugin);
 
     notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
@@ -329,7 +327,7 @@ static GtkWidget *create_tab_label (GtkWidget *parent,
     gtk_button_set_relief (GTK_BUTTON (btn), GTK_RELIEF_NONE);
     gtk_widget_show (btn);
     gtk_container_add (GTK_CONTAINER (btn), img);
-    gtk_signal_connect (GTK_OBJECT (btn), "clicked", on_close, user_data);
+    g_signal_connect (btn, "clicked", G_CALLBACK (on_close), user_data);
 
     lbl = create_label (hbox, label);
 
@@ -543,7 +541,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
         gtk_clist_set_row_data (GTK_CLIST (rev_list), row, rev);
     }
 
-    gtk_signal_connect (GTK_OBJECT (rev_list), "select-row", GTK_SIGNAL_FUNC (on_rev_list_select_row), log_history);
+    g_signal_connect (rev_list, "select-row", G_CALLBACK (on_rev_list_select_row), log_history);
 
     gtk_clist_select_row (GTK_CLIST (rev_list), 0, 0);
 }
