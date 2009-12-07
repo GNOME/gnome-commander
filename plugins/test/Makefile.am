@@ -11,7 +11,7 @@ plugindir = $(pkglibdir)/plugins
 noinst_LTLIBRARIES = libtest.la
 
 libtest_la_SOURCES = \
-	test-plugin.h test-plugin.c \
+	test-plugin.h test-plugin.cc \
 	test-plugin.xpm
 
 libtest_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
