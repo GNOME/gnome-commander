@@ -5,7 +5,7 @@ data/gnome-commander.desktop.in.in
 libgcmd/gnome-cmd-string-dialog.c
 plugins/cvs/cvs-plugin.c
 plugins/cvs/interface.c
-plugins/fileroller/file-roller-plugin.c
+plugins/fileroller/file-roller-plugin.cc
 plugins/test/test-plugin.cc
 src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 src/dialogs/gnome-cmd-edit-bookmark-dialog.cc

@@ -1,5 +1,5 @@
 /* XPM */
-static char * file_roller_small_xpm[] = {
+static const char * file_roller_small_xpm[] = {
 "16 16 101 2",
 "  	c None",
 ". 	c #94886F",
