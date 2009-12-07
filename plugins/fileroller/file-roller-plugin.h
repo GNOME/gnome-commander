@@ -21,8 +21,6 @@
 #ifndef __FILE_ROLLER_PLUGIN_H__
 #define __FILE_ROLLER_PLUGIN_H__
 
-G_BEGIN_DECLS
-
 #define FILE_ROLLER_PLUGIN(obj) \
     GTK_CHECK_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
 #define FILE_ROLLER_PLUGIN_CLASS(klass) \
@@ -47,11 +45,8 @@ struct _FileRollerPluginClass
     GnomeCmdPluginClass parent_class;
 };
 
-
 GtkType file_roller_plugin_get_type ();
 
 GnomeCmdPlugin *file_roller_plugin_new ();
-
-G_END_DECLS
 
 #endif //__FILE_ROLLER_PLUGIN_H__

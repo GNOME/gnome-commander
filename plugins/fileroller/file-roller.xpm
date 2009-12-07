@@ -1,5 +1,5 @@
 /* XPM */
-static char * file_roller_xpm[] = {
+static const char * file_roller_xpm[] = {
 "48 52 670 2",
 "  	c None",
 ". 	c #E3AC16",

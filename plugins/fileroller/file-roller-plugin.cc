@@ -44,7 +44,7 @@ static PluginInfo plugin_nfo = {
 };
 
 
-static gchar *handled_extensions[] =
+static const gchar *handled_extensions[] =
 {
     ".7z",          // 7-zip
     ".ar",          // ar
@@ -91,12 +91,12 @@ static GnomeCmdPluginClass *parent_class = NULL;
 static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
 {
     gchar *target_arg, *archive_arg;
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
-    gchar *target_name = gtk_object_get_data (GTK_OBJECT (item), "target_name");
-    gchar *target_dir = gtk_object_get_data (GTK_OBJECT (item), "target_dir");
+    gchar *target_name = (gchar *) gtk_object_get_data (GTK_OBJECT (item), "target_name");
+    gchar *target_dir = (gchar *) gtk_object_get_data (GTK_OBJECT (item), "target_dir");
     gchar *cmd, *t;
-    guint argc;
+    gint argc;
     gchar **argv;
 
     if (target_dir==NULL)
@@ -129,20 +129,20 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
 }
 
 
-static void do_add_to_archive (const gchar *name, GnomeCmdState *state)
+inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 {
     gchar *t = g_strdup_printf ("--add-to=%s", name);
     gchar *arg = g_shell_quote (t);
     gchar *cmd = g_strdup_printf ("file-roller %s ", arg);
     gchar *active_dir_path, *uri_str;
     GList *files;
-    guint argc;
+    gint argc;
     gchar **argv;
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
         GnomeVFSURI *uri = GNOME_CMD_FILE_INFO (files->data)->uri;
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
         gchar *path = gnome_vfs_get_local_path_from_uri (uri_str);
         gchar *tmp = cmd;
         gchar *arg = g_shell_quote (path);
@@ -154,7 +154,7 @@ static void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     }
 
     g_printerr ("add: %s\n", cmd);
-    uri_str = gnome_vfs_uri_to_string (state->active_dir_uri, 0);
+    uri_str = gnome_vfs_uri_to_string (state->active_dir_uri, GNOME_VFS_URI_HIDE_NONE);
     active_dir_path = gnome_vfs_get_local_path_from_uri (uri_str);
     g_shell_parse_argv (cmd, &argc, &argv, NULL);
     g_spawn_async (active_dir_path, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
@@ -187,7 +187,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
         dialog = gtk_message_dialog_new (
             NULL,
-            0,
+            (GtkDialogFlags) 0,
             GTK_MESSAGE_INFO,
             GTK_BUTTONS_OK_CANCEL,
             _("What file name should the new archive have?"));
@@ -357,7 +357,6 @@ static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 
 static void configure (GnomeCmdPlugin *plugin)
 {
-    gint i;
     GList *items = NULL;
     GtkWidget *dialog, *table, *cat, *label, *combo, *vbox;
 
@@ -377,13 +376,13 @@ static void configure (GnomeCmdPlugin *plugin)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     label = create_label (dialog, _("Default type"));
-    table_add (table, label, 0, 1, 0);
+    table_add (table, label, 0, 1, (GtkAttachOptions) 0);
 
     combo = create_combo (dialog);
     table_add (table, combo, 1, 1, GTK_FILL);
 
-    for (i=0; handled_extensions[i] != NULL; i++)
-        items = g_list_append (items, handled_extensions[i]);
+    for (gint i=0; handled_extensions[i] != NULL; i++)
+        items = g_list_append (items, (gpointer) handled_extensions[i]);
 
     gtk_combo_set_popdown_strings (GTK_COMBO (combo), items);
 
@@ -418,7 +417,7 @@ static void class_init (FileRollerPluginClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_plugin_get_type ());
+    parent_class = (GnomeCmdPluginClass *) gtk_type_class (gnome_cmd_plugin_get_type ());
 
     object_class->destroy = destroy;
 
@@ -467,7 +466,7 @@ GtkType file_roller_plugin_get_type ()
 
 GnomeCmdPlugin *file_roller_plugin_new ()
 {
-    FileRollerPlugin *plugin = gtk_type_new (file_roller_plugin_get_type ());
+    FileRollerPlugin *plugin = (FileRollerPlugin *) gtk_type_new (file_roller_plugin_get_type ());
 
     return GNOME_CMD_PLUGIN (plugin);
 }
