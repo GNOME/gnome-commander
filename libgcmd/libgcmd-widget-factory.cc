@@ -276,7 +276,7 @@ create_named_button (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc
 GtkWidget *
 create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func, gpointer data)
 {
-    GtkWidget *w = gtk_button_new_from_stock (stock);
+    GtkWidget *w = gtk_button_new_from_stock ((const gchar *) stock);
     gtk_widget_ref (w);
     gtk_object_set_data_full (GTK_OBJECT (parent), name, w,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -472,7 +472,7 @@ create_clist (GtkWidget *parent, gchar *name, gint cols, gint rowh,
 void
 create_clist_column (GtkWidget *sw, gint col, gint width, gchar *label)
 {
-    GtkWidget *clist = gtk_object_get_data (GTK_OBJECT (sw), "clist");
+    GtkWidget *clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (sw), "clist");
     gtk_clist_set_column_width (GTK_CLIST (clist), col, width);
     gtk_clist_set_column_title (GTK_CLIST (clist), col, label);
 }

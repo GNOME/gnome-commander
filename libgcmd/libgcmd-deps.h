@@ -23,8 +23,6 @@
 
 #include <glib.h>
 
-G_BEGIN_DECLS
-
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
@@ -35,7 +33,5 @@ G_BEGIN_DECLS
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 extern GtkWidget *main_win_widget;
-
-G_END_DECLS
 
 #endif //__LIBGCMD_DEPS_H__

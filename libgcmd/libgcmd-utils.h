@@ -21,8 +21,6 @@
 #ifndef __LIB_GCMD_UTILS_H__
 #define __LIB_GCMD_UTILS_H__
 
-G_BEGIN_DECLS
-
 gchar *get_utf8 (const gchar *unknown);
 
 gchar *get_bold_text (const gchar *in);
@@ -30,7 +28,5 @@ gchar *get_bold_text (const gchar *in);
 gchar *get_mono_text (const gchar *in);
 
 gchar *get_bold_mono_text (const gchar *in);
-
-G_END_DECLS
 
 #endif //__LIB_GCMD_UTILS_H__

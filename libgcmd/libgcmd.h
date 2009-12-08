@@ -32,7 +32,4 @@
 #include <libgcmd/gnome-cmd-string-dialog.h>
 #include <libgcmd/plugin-info.h>
 
-G_BEGIN_DECLS
-G_END_DECLS
-
 #endif //__LIBGCMD_H__
