@@ -518,7 +518,7 @@ create_combo (GtkWidget *parent)
 
 
 GtkWidget *
-create_option_menu (GtkWidget *parent, gchar **items)
+create_option_menu (GtkWidget *parent, const gchar **items)
 {
     gint i = 0;
 

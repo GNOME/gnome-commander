@@ -53,8 +53,6 @@ branches:[:alnum:]*;  {
 
 %option noyywrap
 %option nounput
-%option prefix="parser"
-%option outfile="parser.c"
 
 %{
 #include <stdio.h>
