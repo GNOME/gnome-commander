@@ -358,7 +358,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     }
     else
     {
-        create_error_dialog (gnome_vfs_result_to_string (res));
+        gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (res));
         gnome_vfs_file_info_unref (info);
     }
 

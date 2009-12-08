@@ -211,7 +211,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
 
     if (!pmod)
     {
-        create_error_dialog (_("Can't load python module 'gnomevfs' ('gnome.vfs')\n"));
+        gnome_cmd_show_message (*main_win, _("Can't load python module 'gnomevfs' ('gnome.vfs')"));
         goto out_A;
     }
 

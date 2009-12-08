@@ -217,7 +217,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
     if (data->delete_done)
     {
         if (data->vfs_status != GNOME_VFS_OK)
-            create_error_dialog (gnome_vfs_result_to_string (data->vfs_status));
+            gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (data->vfs_status));
 
         if (data->files)
             for (GList *tmp = data->files; tmp; tmp = tmp->next)

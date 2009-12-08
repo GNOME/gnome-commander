@@ -441,10 +441,8 @@ const gchar *time2string (time_t t, const gchar *date_format)
 
 inline void no_mime_app_found_error (gchar *mime_type)
 {
-    gchar *msg;
-
-    msg = g_strdup_printf (_("No default application found for the MIME type %s.\nOpen the \"File types and programs\" page in the Control Center to add one."), mime_type);
-    create_error_dialog (msg);
+    gchar *msg = g_strdup_printf (_("No default application found for the MIME type %s."), mime_type);
+    gnome_cmd_show_message (NULL, msg, "Open the \"File types and programs\" page in the Control Center to add one.");
     g_free (msg);
 }
 
@@ -1041,9 +1039,8 @@ gchar *get_temp_download_filepath (const gchar *fname)
         {
             g_free (tmp_file_dir_template);
 
-            create_error_dialog (
-                _("Failed to create a directory in which to store temporary files.\nError message: %s\n"),
-                strerror (errno));
+            gnome_cmd_show_message (NULL, _("Failed to create a directory in which to store temporary files"), strerror (errno));
+
             return NULL;
         }
     }

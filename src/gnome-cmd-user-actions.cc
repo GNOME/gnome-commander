@@ -73,7 +73,7 @@ inline GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
     GnomeCmdFile *f = get_fl (fsID)->get_first_selected_file();
 
     if (!f)
-        create_error_dialog (_("No file selected"));
+        gnome_cmd_show_message (*main_win, _("No file selected"));
 
     return f;
 }
@@ -856,7 +856,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!get_fs (ACTIVE)->is_local())
     {
-        create_error_dialog (_("Operation not supported on remote file systems"));
+        gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
         return;
     }
 
@@ -873,7 +873,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
         case 1:
             if (!get_fs (INACTIVE)->is_local())
-                create_error_dialog (_("Operation not supported on remote file systems"));
+                gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
             else
                 if (!append_real_path (s, get_selected_file (ACTIVE)) || !append_real_path (s, get_selected_file (INACTIVE)))
                     s.clear();
@@ -888,7 +888,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
             break;
 
         default:
-            create_error_dialog (_("Too many selected files"));
+            gnome_cmd_show_message (*main_win, _("Too many selected files"));
             break;
     }
 
@@ -913,7 +913,7 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
 
     if (!active_fs->is_local() || !inactive_fs->is_local())
     {
-        create_error_dialog (_("Operation not supported on remote file systems"));
+        gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
         return;
     }
 
@@ -1200,7 +1200,7 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 
     if  (!su)
     {
-        gnome_cmd_show_message (NULL, _("gksu or kdesu is not found."));
+        gnome_cmd_show_message (*main_win, _("gksu or kdesu is not found."));
         return ;
     }
 

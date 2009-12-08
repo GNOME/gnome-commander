@@ -55,8 +55,8 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
     if (ret != GNOME_VFS_OK)
     {
         gchar *fpath = gnome_cmd_file_get_real_path (in);
-        gchar *msg = g_strdup_printf (_("Could not chown %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
-        create_error_dialog (msg);
+        gchar *msg = g_strdup_printf (_("Could not chown %s"), fpath);
+        gnome_cmd_show_message (*main_win, msg, gnome_vfs_result_to_string (ret));
         g_free (msg);
         g_free (fpath);
     }

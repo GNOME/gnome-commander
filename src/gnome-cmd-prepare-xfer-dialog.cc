@@ -157,7 +157,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                             GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, parent_dir);
                             if (mkdir_result != GNOME_VFS_OK)
                             {
-                                create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
+                                gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (mkdir_result));
                                 goto bailout;
                             }
                         }
@@ -202,7 +202,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                     GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, dest_path);
                     if (mkdir_result != GNOME_VFS_OK)
                     {
-                        create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
+                        gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (mkdir_result));
                         goto bailout;
                     }
                 }
