@@ -432,19 +432,19 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     GtkWidget *frame, *hbox, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
     GtkWidget *lm_optmenu, *cm_optmenu, *fe_optmenu, *check;
-    gchar *ext_modes[] = {
+    const gchar *ext_modes[] = {
         _("With file name"),
         _("In separate column"),
         _("In both columns"),
         NULL
     };
-    gchar *gfx_modes[] = {
+    const gchar *gfx_modes[] = {
         _("No icons"),
         _("File type icons"),
         _("MIME icons"),
         NULL
     };
-    gchar *color_modes[GNOME_CMD_NUM_COLOR_MODES+1] = {
+    const gchar *color_modes[GNOME_CMD_NUM_COLOR_MODES+1] = {
         _("Respect theme colors"),
         _("Modern"),
         _("Fusion"),
