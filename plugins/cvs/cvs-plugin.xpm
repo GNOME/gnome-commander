@@ -1,5 +1,5 @@
 /* XPM */
-static char * cvs_plugin_xpm[] = {
+static const char * cvs_plugin_xpm[] = {
 "17 9 30 1",
 " 	c None",
 ".	c #CB9E32",

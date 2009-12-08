@@ -75,16 +75,15 @@ static void on_compare_clicked (GtkButton *button, LogHistory *log_history)
 
 static void on_compare_ok (GtkButton *button, GtkWidget *dialog)
 {
-    gchar *cmd, *args, *prev_rev;
-    const gchar *selected_rev, *selected_other_rev;
+    gchar *cmd, *args;
     GtkWidget *combo = lookup_widget (GTK_WIDGET (button), "rev_combo");
     GtkWidget *head_radio = lookup_widget (GTK_WIDGET (button), "head_radio");
     GtkWidget *prev_rev_radio = lookup_widget (GTK_WIDGET (button), "prev_rev_radio");
     LogHistory *log_history = (LogHistory *) lookup_widget (GTK_WIDGET (button), "log_history");
 
-    selected_rev = gtk_object_get_data (GTK_OBJECT (dialog), "selected_rev");
-    selected_other_rev = get_combo_text (combo);
-    prev_rev = gtk_object_get_data (GTK_OBJECT (dialog), "prev_rev");
+    const gchar *selected_rev = (const gchar *) gtk_object_get_data (GTK_OBJECT (dialog), "selected_rev");
+    const gchar *selected_other_rev = get_combo_text (combo);
+    const gchar *prev_rev = (const gchar *) gtk_object_get_data (GTK_OBJECT (dialog), "prev_rev");
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (head_radio)))
         args = g_strdup_printf ("-r %s", selected_rev);

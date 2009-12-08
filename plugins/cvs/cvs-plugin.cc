@@ -45,7 +45,7 @@ static PluginInfo plugin_nfo = {
 };
 
 
-static gchar *compression_level_strings[] = {
+static const gchar *compression_level_strings[] = {
     "0 - No compression",
     "1",
     "2",
@@ -102,7 +102,7 @@ static gboolean change_cwd (const gchar *fpath)
 static void on_diff (GtkMenuItem *item, GnomeCmdState *state)
 {
     GList *files = state->active_dir_selected_files;
-    CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
+    CvsPlugin *plugin = (CvsPlugin *) gtk_object_get_data (GTK_OBJECT (item), "plugin");
 
     if (files && !plugin->diff_win)
         plugin->diff_win = create_diff_win (plugin);
@@ -128,7 +128,7 @@ static void on_diff (GtkMenuItem *item, GnomeCmdState *state)
 static void on_log (GtkMenuItem *item, GnomeCmdState *state)
 {
     GList *files = state->active_dir_selected_files;
-    CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
+    CvsPlugin *plugin = (CvsPlugin *) gtk_object_get_data (GTK_OBJECT (item), "plugin");
 
     if (files && !plugin->log_win)
         plugin->log_win = create_log_win (plugin);
@@ -290,7 +290,7 @@ static void configure (GnomeCmdPlugin *p)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     label = create_label (dialog, _("Compression level"));
-    table_add (table, label, 0, 1, 0);
+    table_add (table, label, 0, 1, (GtkAttachOptions) 0);
 
     optmenu = create_option_menu (dialog, compression_level_strings);
     plugin->priv->compression_level_menu = optmenu;
@@ -326,7 +326,7 @@ static void class_init (CvsPluginClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_plugin_get_type ());
+    parent_class = (GnomeCmdPluginClass *) gtk_type_class (gnome_cmd_plugin_get_type ());
 
     object_class->destroy = destroy;
 
@@ -380,7 +380,7 @@ GtkType cvs_plugin_get_type ()
 
 GnomeCmdPlugin *cvs_plugin_new ()
 {
-    CvsPlugin *plugin = gtk_type_new (cvs_plugin_get_type ());
+    CvsPlugin *plugin = (CvsPlugin *) gtk_type_new (cvs_plugin_get_type ());
 
     return GNOME_CMD_PLUGIN (plugin);
 }

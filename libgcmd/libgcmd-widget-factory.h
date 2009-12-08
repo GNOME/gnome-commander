@@ -95,7 +95,7 @@ GtkWidget *create_hbuttonbox (GtkWidget *parent);
 
 GtkWidget *create_combo (GtkWidget *parent);
 
-GtkWidget *create_option_menu (GtkWidget *parent, gchar **items);
+GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items);
 
 const gchar *get_combo_text (GtkWidget *combo);
 
