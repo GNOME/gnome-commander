@@ -35,8 +35,6 @@ typedef struct _CvsPluginPrivate CvsPluginPrivate;
 #include <libgcmd/libgcmd.h>
 #include "parser.h"
 
-G_BEGIN_DECLS
-
 struct _CvsPlugin
 {
     GnomeCmdPlugin parent;
@@ -61,7 +59,5 @@ struct _CvsPluginClass
 GtkType cvs_plugin_get_type ();
 
 GnomeCmdPlugin *cvs_plugin_new ();
-
-G_END_DECLS
 
 #endif //__CVS_PLUGIN_H__

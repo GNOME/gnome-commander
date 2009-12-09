@@ -21,8 +21,6 @@
 #ifndef __TEST_PLUGIN_H__
 #define __TEST_PLUGIN_H__
 
-G_BEGIN_DECLS
-
 #define TEST_PLUGIN(obj) \
     GTK_CHECK_CAST (obj, test_plugin_get_type (), TestPlugin)
 #define TEST_PLUGIN_CLASS(klass) \
@@ -48,12 +46,8 @@ struct _TestPluginClass
 };
 
 
-GtkType
-test_plugin_get_type ();
+GtkType test_plugin_get_type ();
 
-GnomeCmdPlugin *
-test_plugin_new ();
-
-G_END_DECLS
+GnomeCmdPlugin *test_plugin_new ();
 
 #endif //__TEST_PLUGIN_H__
