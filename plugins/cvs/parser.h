@@ -34,8 +34,6 @@ typedef struct {
 
 #include "cvs-plugin.h"
 
-G_BEGIN_DECLS
-
 typedef struct {
     gchar *fname;
     GList *revisions;
@@ -54,7 +52,5 @@ typedef struct {
 
 LogHistory *log_create (CvsPlugin *plugin, const gchar *fpath);
 void log_free (LogHistory *log);
-
-G_END_DECLS
 
 #endif //__PARSER_H__
