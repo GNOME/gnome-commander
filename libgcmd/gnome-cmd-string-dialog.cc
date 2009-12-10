@@ -107,7 +107,7 @@ class_init (GnomeCmdStringDialogClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -142,7 +142,7 @@ setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 
         string_dialog->entries[i] = create_entry (dialog, "entry", "");
         gtk_entry_set_activates_default (GTK_ENTRY (string_dialog->entries[i]), TRUE);
-        table_add (table, string_dialog->entries[i], 1, i, GTK_FILL|GTK_EXPAND);
+        table_add (table, string_dialog->entries[i], 1, i, GtkAttachOptions(GTK_FILL|GTK_EXPAND));
     }
 
     gnome_cmd_dialog_add_button (
@@ -194,7 +194,7 @@ gnome_cmd_string_dialog_new_with_cancel (const gchar *title,
                                          GtkSignalFunc cancel_cb,
                                          gpointer user_data)
 {
-    GnomeCmdStringDialog *dialog = gtk_type_new (gnome_cmd_string_dialog_get_type ());
+    GnomeCmdStringDialog *dialog = (GnomeCmdStringDialog *) gtk_type_new (gnome_cmd_string_dialog_get_type ());
 
     gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, cancel_cb, user_data);
 

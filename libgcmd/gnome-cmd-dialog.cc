@@ -79,7 +79,7 @@ static void class_init (GnomeCmdDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_window_get_type ());
+    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -145,7 +145,7 @@ GtkType gnome_cmd_dialog_get_type ()
 
 GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 {
-    GnomeCmdDialog *dialog = gtk_type_new (gnome_cmd_dialog_get_type ());
+    GnomeCmdDialog *dialog = (GnomeCmdDialog *) gtk_type_new (gnome_cmd_dialog_get_type ());
 
     if (title)
         gnome_cmd_dialog_setup (dialog, title);

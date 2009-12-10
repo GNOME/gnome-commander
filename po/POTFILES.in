@@ -2,7 +2,7 @@
 # Please keep this file sorted alphabetically.
 [encoding: UTF-8]
 data/gnome-commander.desktop.in.in
-libgcmd/gnome-cmd-string-dialog.c
+libgcmd/gnome-cmd-string-dialog.cc
 plugins/cvs/cvs-plugin.cc
 plugins/cvs/interface.cc
 plugins/fileroller/file-roller-plugin.cc

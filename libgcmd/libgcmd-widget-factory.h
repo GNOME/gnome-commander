@@ -21,8 +21,6 @@
 #ifndef __LIBGCMD_WIDGET_FACTORY_H__
 #define __LIBGCMD_WIDGET_FACTORY_H__
 
-G_BEGIN_DECLS
-
 GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name);
 
 GtkWidget *create_frame (GtkWidget *parent, const gchar *text, gint spacing);
@@ -118,7 +116,5 @@ const char *get_entry_text (GtkWidget *parent, gchar *entry_name);
 void create_error_dialog (const gchar *msg, ...);
 
 void create_warning_dialog (const gchar *msg, ...);
-
-G_END_DECLS
 
 #endif //__LIBGCMD_WIDGET_FACTORY_H__

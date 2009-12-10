@@ -18,6 +18,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+extern "C" 
+{
+    void gnome_authentication_manager_init ();
+}
+
 #include <config.h>
 #include <locale.h>
 
@@ -37,7 +42,6 @@
 #include "tags/gnome-cmd-tags.h"
 
 using namespace std;
-
 
 GnomeCmdMainWin *main_win;
 GtkWidget *main_win_widget;

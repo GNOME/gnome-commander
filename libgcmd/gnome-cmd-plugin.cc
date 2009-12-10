@@ -20,16 +20,13 @@
 
 #include <config.h>
 #include "libgcmd-deps.h"
-#include "gnome-cmd-file-info.h"
+#include "plugin-info.h"
+#include "gnome-cmd-state.h"
+#include "gnome-cmd-plugin.h"
+
 
 static GtkObjectClass *parent_class = NULL;
 
-struct _GnomeCmdFileInfoPrivate
-{
-#ifdef __sun
-    gchar dummy;  // Sun's forte compiler does not like empty structs
-#endif
-};
 
 
 /*******************************
@@ -39,13 +36,7 @@ struct _GnomeCmdFileInfoPrivate
 static void
 destroy (GtkObject *object)
 {
-    GnomeCmdFileInfo *file = GNOME_CMD_FILE_INFO (object);
-
-    gnome_vfs_file_info_unref (file->info);
-    if (file->uri)
-        gnome_vfs_uri_unref (file->uri);
-
-    g_free (file->priv);
+    //GnomeCmdPlugin *plugin = GNOME_CMD_PLUGIN (object);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -53,25 +44,29 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdFileInfoClass *klass)
+class_init (GnomeCmdPluginClass *klass)
 {
     GtkObjectClass *object_class;
+    GnomeCmdPluginClass *plugin_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = gtk_type_class (gtk_object_get_type ());
+    plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
+    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;
+
+    plugin_class->create_main_menu = NULL;
+    plugin_class->create_popup_menu_items = NULL;
+    plugin_class->update_main_menu_state = NULL;
+    plugin_class->configure = NULL;
 }
 
 
 static void
-init (GnomeCmdFileInfo *file)
+init (GnomeCmdPlugin *plugin)
 {
-    file->info = NULL;
-    file->uri = NULL;
-
-    file->priv = g_new0 (GnomeCmdFileInfoPrivate, 1);
 }
+
 
 
 /***********************************
@@ -79,7 +74,7 @@ init (GnomeCmdFileInfo *file)
  ***********************************/
 
 GtkType
-gnome_cmd_file_info_get_type ()
+gnome_cmd_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -87,9 +82,9 @@ gnome_cmd_file_info_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdFileInfo",
-            sizeof (GnomeCmdFileInfo),
-            sizeof (GnomeCmdFileInfoClass),
+            "GnomeCmdPlugin",
+            sizeof (GnomeCmdPlugin),
+            sizeof (GnomeCmdPluginClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
             /* reserved_1 */ NULL,
@@ -103,11 +98,54 @@ gnome_cmd_file_info_get_type ()
 }
 
 
-void
-gnome_cmd_file_info_setup (GnomeCmdFileInfo *f, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+GtkWidget *
+gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_INFO (f));
+    GnomeCmdPluginClass *klass;
 
-    f->info = info;
-    f->uri = uri;
+    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
+
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    return klass->create_main_menu (plugin, state);
 }
+
+
+GList *
+gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+{
+    GnomeCmdPluginClass *klass;
+
+    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
+
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    return klass->create_popup_menu_items (plugin, state);
+}
+
+
+void
+gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+{
+    GnomeCmdPluginClass *klass;
+
+    g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
+
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    klass->update_main_menu_state (plugin, state);
+}
+
+
+void
+gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
+{
+    GnomeCmdPluginClass *klass;
+
+    g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
+
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    klass->configure (plugin);
+}
+

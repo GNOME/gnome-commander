@@ -21,8 +21,6 @@
 #ifndef __GNOME_CMD_STATE_H__
 #define __GNOME_CMD_STATE_H__
 
-G_BEGIN_DECLS
-
 typedef struct {
     GnomeVFSURI *active_dir_uri;
     GnomeVFSURI *inactive_dir_uri;
@@ -31,7 +29,5 @@ typedef struct {
     GList *active_dir_selected_files;
     GList *inactive_dir_selected_files;
 } GnomeCmdState;
-
-G_END_DECLS
 
 #endif //__GNOME_CMD_STATE_H__

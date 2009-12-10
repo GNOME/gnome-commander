@@ -21,8 +21,6 @@
 #ifndef __PLUGIN_INFO_H__
 #define __PLUGIN_INFO_H__
 
-G_BEGIN_DECLS
-
 /* This one should be increased when an api-incompatible change
  * is done to the plugin system. By doing that gcmd can detect
  * old plugins and avoid loading them.
@@ -51,7 +49,5 @@ typedef struct {
  * since it is needed to determinate the version of a plugin
  */
 typedef PluginInfo *(*PluginInfoFunc)(void);
-
-G_END_DECLS
 
 #endif //__PLUGIN_INFO_H__
