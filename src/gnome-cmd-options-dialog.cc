@@ -81,7 +81,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     if (gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Double click to open items"), "lmb_doubleclick_radio");
+    radio = create_radio (parent, get_radio_group (radio), _("Double click to open items"), "lmb_doubleclick_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -100,7 +100,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Selects files"), "rmb_sel_radio");
+    radio = create_radio (parent, get_radio_group (radio), _("Selects files"), "rmb_sel_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -115,7 +115,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Regex syntax"), "ft_regex_radio");
+    radio = create_radio (parent, get_radio_group (radio), _("Regex syntax"), "ft_regex_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -139,7 +139,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !gnome_cmd_data.alt_quick_search);
-    radio = create_radio (parent, get_radio_group(radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
+    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.alt_quick_search);
 
@@ -263,7 +263,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     label = create_label (parent, _("Format:"));
     table_add (table, label, 0, 0, GTK_FILL);
 
-    gchar *utf8_date_format = g_locale_to_utf8 (gnome_cmd_data_get_date_format(), -1, NULL, NULL, NULL);
+    gchar *utf8_date_format = g_locale_to_utf8 (gnome_cmd_data_get_date_format (), -1, NULL, NULL, NULL);
     entry = create_entry (parent, "date_format_entry", utf8_date_format);
     g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
@@ -532,9 +532,9 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
     scale = create_scale (parent, "iconquality_scale", gnome_cmd_data.icon_scale_quality, 0, 3);
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
-    entry = create_file_entry (parent, "theme_icondir_entry", gnome_cmd_data_get_theme_icon_dir());
+    entry = create_file_entry (parent, "theme_icondir_entry", gnome_cmd_data_get_theme_icon_dir ());
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
-    entry = create_file_entry (parent, "doc_icondir_entry", gnome_cmd_data_get_document_icon_dir());
+    entry = create_file_entry (parent, "doc_icondir_entry", gnome_cmd_data_get_document_icon_dir ());
     table_add (table, entry, 1, 3, (GtkAttachOptions)0);
 
     label = create_label (parent, _("Icon size:"));
@@ -629,11 +629,11 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     if (gnome_cmd_data.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Query first"), "copy_overwrite_query");
+    radio = create_radio (parent, get_radio_group (radio), _("Query first"), "copy_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Skip all"), "copy_overwrite_skip_all");
+    radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "copy_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -649,11 +649,11 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     if (gnome_cmd_data.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Query first"), "move_overwrite_query");
+    radio = create_radio (parent, get_radio_group (radio), _("Query first"), "move_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Skip all"), "move_overwrite_skip_all");
+    radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "move_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -1137,18 +1137,17 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_FILES);
     gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 0, 1, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
-    radio = create_radio (dialog, get_radio_group(radio), _("All directories"),
-                          "show_for_all_dirs");
+    radio = create_radio (dialog, get_radio_group (radio), _("All directories"), "show_for_all_dirs");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS);
     gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 1, 2, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
-    radio = create_radio (dialog, get_radio_group(radio), _("All directories and files"),
+    radio = create_radio (dialog, get_radio_group (radio), _("All directories and files"),
                           "show_for_all_dirs_and_files");
     if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
                                            gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
     gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 2, 3, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
-    radio = create_radio (dialog, get_radio_group(radio), _("Some files"),
+    radio = create_radio (dialog, get_radio_group (radio), _("Some files"),
                           "show_for_some_files");
     if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
                                            gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
@@ -1679,7 +1678,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
 
     clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
     for (GList *devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ()); devices; devices = devices->next)
-        if (!gnome_cmd_con_device_get_autovol((GnomeCmdConDevice *) devices->data))
+        if (!gnome_cmd_con_device_get_autovol ((GnomeCmdConDevice *) devices->data))
             add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
 
     return frame;
@@ -1824,8 +1823,7 @@ static void init (GnomeCmdOptionsDialog *dialog)
         gtk_label_new (_("Devices")));
 
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
-                                 GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
 }
 
 

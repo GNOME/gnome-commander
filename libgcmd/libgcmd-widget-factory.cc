@@ -25,17 +25,14 @@
 #include "gnome-cmd-dialog.h"
 
 
-GtkWidget *lookup_widget (GtkWidget *widget, const gchar     *widget_name)
+GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name)
 {
     GtkWidget *parent, *found_widget;
 
     for (;;)
     {
-        if (GTK_IS_MENU (widget))
-            parent = gtk_menu_get_attach_widget (GTK_MENU (widget));
-        else
-            parent = widget->parent;
-        if (parent == NULL)
+        parent = GTK_IS_MENU (widget) ? gtk_menu_get_attach_widget (GTK_MENU (widget)) : widget->parent;
+        if (!parent)
             break;
         widget = parent;
     }
