@@ -143,7 +143,7 @@ gchar *gcmd_convert_sentence_case (gchar *string)
     gunichar c;
     // There have to be space at the end of words to seperate them from prefix
     // Chicago Manual of Style "Heading caps" Capitalization Rules (CMS 1993, 282) (http://www.docstyles.com/cmscrib.htm#Note2)
-    static gchar *exempt[] =
+    static const gchar *exempt[] =
     {
         "a ",       "a_",
         "against ", "against_",

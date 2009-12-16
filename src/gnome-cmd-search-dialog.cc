@@ -739,7 +739,7 @@ inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *te
 /*
  * create a check_box_button with keyboard shortcut
  */
-inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, gchar *text, gchar *name)
+inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name)
 {
     GtkWidget *btn = gtk_check_button_new_with_mnemonic (text);
 

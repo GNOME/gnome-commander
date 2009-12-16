@@ -281,8 +281,8 @@ static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
         gchar *text[5];
 
         text[0] = NULL;
-        text[1] = data->info->name;
-        text[2] = data->info->version;
+        text[1] = (gchar *) data->info->name;
+        text[2] = (gchar *) data->info->version;
         text[3] = data->fname;
         text[4] = NULL;
 

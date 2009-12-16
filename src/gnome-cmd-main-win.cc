@@ -168,7 +168,7 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
 
 inline GtkWidget *add_buttonbar_button (char *label,
                                         GnomeCmdMainWin *mw,
-                                        char *data_label,
+                                        const char *data_label,
                                         GtkAccelGroup *accel_group,
                                         gint accel_signal_id)
 {

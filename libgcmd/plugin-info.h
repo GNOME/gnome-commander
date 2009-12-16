@@ -34,14 +34,14 @@
 typedef struct {
     gint plugin_system_version;
 
-    gchar *name;
-    gchar *version;
-    gchar *copyright;
-    gchar *comments;
+    const gchar *name;
+    const gchar *version;
+    const gchar *copyright;
+    const gchar *comments;
     gchar **authors;
     gchar **documenters;
-    gchar *translator;
-    gchar *webpage;
+    const gchar *translator;
+    const gchar *webpage;
 } PluginInfo;
 
 

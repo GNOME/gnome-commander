@@ -221,7 +221,7 @@ GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label,
 }
 
 
-GtkWidget * create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func, gpointer data)
+GtkWidget * create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GtkSignalFunc func, gpointer data)
 {
     GtkWidget *w = gtk_button_new_from_stock ((const gchar *) stock);
     gtk_widget_ref (w);
@@ -246,7 +246,7 @@ GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *valu
 }
 
 
-GtkWidget *create_check (GtkWidget *parent, gchar *text, gchar *name)
+GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name)
 {
     GtkWidget *btn = gtk_check_button_new_with_label (text);
     gtk_widget_ref (btn);
@@ -270,7 +270,7 @@ GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, co
 }
 
 
-GtkWidget *create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value)
+GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value)
 {
     GtkObject *adj;
     GtkWidget *spin;
@@ -286,7 +286,7 @@ GtkWidget *create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint
 }
 
 
-GtkWidget *create_color_button (GtkWidget *parent, gchar *name)
+GtkWidget *create_color_button (GtkWidget *parent, const gchar *name)
 {
     GtkWidget *w = gtk_color_button_new ();
     gtk_widget_ref (w);
@@ -296,7 +296,7 @@ GtkWidget *create_color_button (GtkWidget *parent, gchar *name)
 }
 
 
-GtkWidget *create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path)
+GtkWidget *create_icon_entry (GtkWidget *parent, const gchar *name, const gchar *icon_path)
 {
     GtkWidget *icon_entry = gnome_icon_entry_new (NULL, NULL);
     gtk_widget_ref (icon_entry);
@@ -308,7 +308,7 @@ GtkWidget *create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_
 }
 
 
-GtkWidget *create_scale (GtkWidget *parent, gchar *name, gint value, gint min, gint max)
+GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max)
 {
     GtkWidget *scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
 
@@ -321,7 +321,7 @@ GtkWidget *create_scale (GtkWidget *parent, gchar *name, gint value, gint min, g
 }
 
 
-GtkWidget *create_file_entry (GtkWidget *parent, gchar *name, const gchar *value)
+GtkWidget *create_file_entry (GtkWidget *parent, const gchar *name, const gchar *value)
 {
     GtkWidget *fentry, *entry;
 
@@ -341,7 +341,7 @@ GtkWidget *create_file_entry (GtkWidget *parent, gchar *name, const gchar *value
 }
 
 
-GtkWidget *create_clist (GtkWidget *parent, gchar *name, gint cols, gint rowh, GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved)
+GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint rowh, GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved)
 {
     GtkWidget *sw, *clist;
 
@@ -368,7 +368,7 @@ GtkWidget *create_clist (GtkWidget *parent, gchar *name, gint cols, gint rowh, G
 }
 
 
-void create_clist_column (GtkWidget *sw, gint col, gint width, gchar *label)
+void create_clist_column (GtkWidget *sw, gint col, gint width, const gchar *label)
 {
     GtkWidget *clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (sw), "clist");
     gtk_clist_set_column_width (GTK_CLIST (clist), col, width);
@@ -480,7 +480,7 @@ void progress_bar_update (GtkWidget *pbar, gint max)
 }
 
 
-const char *get_entry_text (GtkWidget *parent, gchar *entry_name)
+const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
 {
     GtkWidget *entry = lookup_widget (parent, entry_name);
     if (!entry) return NULL;
