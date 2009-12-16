@@ -427,6 +427,178 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
 }
 
 
+static void on_ls_colors_toggled (GtkToggleButton *btn, GtkWidget *dialog)
+{
+    GtkWidget *edit_btn = lookup_widget (GTK_WIDGET (dialog), "ls_colors_edit_btn");
+    if (edit_btn)
+        gtk_widget_set_sensitive (edit_btn, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (btn)));
+}
+
+
+static void on_edit_ls_colors_cancel (GtkButton *btn, GtkWidget *dlg)
+{
+    gtk_widget_destroy (dlg);
+}
+
+
+static void on_edit_ls_colors_ok (GtkButton *btn, GtkWidget *dlg)
+{
+    GnomeCmdLsColorsPalette *palette = gnome_cmd_data_get_ls_colors_palette ();
+
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_fg")), palette->black_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_bg")), palette->black_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_fg")), palette->red_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_bg")), palette->red_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_fg")), palette->green_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_bg")), palette->green_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_fg")), palette->yellow_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_bg")), palette->yellow_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_fg")), palette->blue_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_bg")), palette->blue_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_fg")), palette->magenta_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_bg")), palette->magenta_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_fg")), palette->cyan_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_bg")), palette->cyan_bg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_fg")), palette->white_fg);
+    gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_bg")), palette->white_bg);
+
+    gtk_widget_destroy (dlg);
+}
+
+
+static void on_edit_ls_colors_reset (GtkButton *btn, GtkWidget *dlg)
+{
+    static GdkColor black   = {0,0,0,0};
+    static GdkColor red     = {0,0xffff,0,0};
+    static GdkColor green   = {0,0,0xffff,0};
+    static GdkColor yellow  = {0,0xffff,0xffff,0};
+    static GdkColor blue    = {0,0,0,0xffff};
+    static GdkColor magenta = {0,0xffff,0,0xffff};
+    static GdkColor cyan    = {0,0,0xffff,0xffff};
+    static GdkColor white   = {0,0xffff,0xffff,0xffff};
+
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_fg")), &black);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "black_bg")), &black);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_fg")), &red);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "red_bg")), &red);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_fg")), &green);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "green_bg")), &green);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_fg")), &yellow);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "yellow_bg")), &yellow);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_fg")), &blue);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "blue_bg")), &blue);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_fg")), &magenta);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "magenta_bg")), &magenta);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_fg")), &cyan);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "cyan_bg")), &cyan);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_fg")), &white);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "white_bg")), &white);
+}
+
+
+static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
+{
+    GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit LS_COLORS Palette"));
+    gtk_widget_ref (dlg);
+
+    GtkWidget *cat, *cat_box;
+    GtkWidget *table, *label;
+    GtkWidget *cbutton;
+    GnomeCmdLsColorsPalette *palette = gnome_cmd_data_get_ls_colors_palette ();
+
+    cat_box = create_vbox (dlg, FALSE, 12);
+    cat = create_category (dlg, cat_box, _("Palette"));
+    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
+
+    table = create_table (dlg, 3, 9);
+    gtk_container_add (GTK_CONTAINER (cat_box), table);
+
+    cbutton = create_color_button (dlg, "black_fg");
+    table_add (table, cbutton, 1, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->black_fg);
+    cbutton = create_color_button (dlg, "black_bg");
+    table_add (table, cbutton, 1, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->black_bg);
+    cbutton = create_color_button (dlg, "red_fg");
+    table_add (table, cbutton, 2, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->red_fg);
+    cbutton = create_color_button (dlg, "red_bg");
+    table_add (table, cbutton, 2, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->red_bg);
+    cbutton = create_color_button (dlg, "green_fg");
+    table_add (table, cbutton, 3, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->green_fg);
+    cbutton = create_color_button (dlg, "green_bg");
+    table_add (table, cbutton, 3, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->green_bg);
+    cbutton = create_color_button (dlg, "yellow_fg");
+    table_add (table, cbutton, 4, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->yellow_fg);
+    cbutton = create_color_button (dlg, "yellow_bg");
+    table_add (table, cbutton, 4, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->yellow_bg);
+    cbutton = create_color_button (dlg, "blue_fg");
+    table_add (table, cbutton, 5, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->blue_fg);
+    cbutton = create_color_button (dlg, "blue_bg");
+    table_add (table, cbutton, 5, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->blue_bg);
+    cbutton = create_color_button (dlg, "magenta_fg");
+    table_add (table, cbutton, 6, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->magenta_fg);
+    cbutton = create_color_button (dlg, "magenta_bg");
+    table_add (table, cbutton, 6, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->magenta_bg);
+    cbutton = create_color_button (dlg, "cyan_fg");
+    table_add (table, cbutton, 7, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->cyan_fg);
+    cbutton = create_color_button (dlg, "cyan_bg");
+    table_add (table, cbutton, 7, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->cyan_bg);
+    cbutton = create_color_button (dlg, "white_fg");
+    table_add (table, cbutton, 8, 1, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->white_fg);
+    cbutton = create_color_button (dlg, "white_bg");
+    table_add (table, cbutton, 8, 2, (GtkAttachOptions) 0);
+    gtk_color_button_set_color (GTK_COLOR_BUTTON (cbutton), palette->white_bg);
+
+    label = create_label (dlg, _("Foreground:"));
+    table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Background:"));
+    table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Black"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 1, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Red"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 2, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Green"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 3, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Yellow"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 4, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Blue"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 5, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Magenta"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 6, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Cyan"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 7, 0, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("White"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.5, 1.0);
+    table_add (table, label, 8, 0, (GtkAttachOptions) GTK_FILL);
+
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), _("_Reset"), GTK_SIGNAL_FUNC (on_edit_ls_colors_reset), dlg);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_edit_ls_colors_cancel), dlg);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_edit_ls_colors_ok), dlg);
+
+    gtk_widget_show (dlg);
+}
+
+
 static GtkWidget *create_layout_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat;
@@ -519,7 +691,16 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     // LS_COLORS
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_ls_colors);
-    gtk_table_attach (GTK_TABLE (table), check, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
+    hbox = create_hbox (parent, FALSE, 6);
+    gtk_table_attach (GTK_TABLE (table), hbox, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
+
+    gtk_signal_connect (GTK_OBJECT (check), "toggled", GTK_SIGNAL_FUNC (on_ls_colors_toggled), parent);
+    gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
+
+    btn = create_button_with_data (parent, _("Edit colors..."), GTK_SIGNAL_FUNC (on_ls_colors_edit), parent);
+    g_object_set_data (G_OBJECT (parent), "ls_colors_edit_btn", btn);
+    gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
+    gtk_widget_set_sensitive (btn, gnome_cmd_data.use_ls_colors);
 
 
      // MIME icon settings

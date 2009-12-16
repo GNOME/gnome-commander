@@ -23,6 +23,7 @@
 #include "gnome-cmd-includes.h"
 #include "ls_colors.h"
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-data.h"
 
 using namespace std;
 
@@ -32,16 +33,6 @@ using namespace std;
 
 static GHashTable *map;
 static LsColor *type_colors[8];
-
-static GdkColor black   = {0,0,0,0};
-static GdkColor red     = {0,0xffff,0,0};
-static GdkColor green   = {0,0,0xffff,0};
-static GdkColor yellow  = {0,0xffff,0xffff,0};
-static GdkColor blue    = {0,0,0,0xffff};
-static GdkColor magenta = {0,0xffff,0,0xffff};
-static GdkColor cyan    = {0,0,0xffff,0xffff};
-static GdkColor white   = {0,0xffff,0xffff,0xffff};
-
 
 
 /*
@@ -54,25 +45,27 @@ static GdkColor white   = {0,0xffff,0xffff,0xffff};
 */
 inline GdkColor *code2color (gint code)
 {
+    GnomeCmdLsColorsPalette *palette = gnome_cmd_data_get_ls_colors_palette ();
+
     switch (code)
     {
-        case 30: return &black;
-        case 31: return &red;
-        case 32: return &green;
-        case 33: return &yellow;
-        case 34: return &blue;
-        case 35: return &magenta;
-        case 36: return &cyan;
-        case 37: return &white;
+        case 30: return palette->black_fg;
+        case 31: return palette->red_fg;
+        case 32: return palette->green_fg;
+        case 33: return palette->yellow_fg;
+        case 34: return palette->blue_fg;
+        case 35: return palette->magenta_fg;
+        case 36: return palette->cyan_fg;
+        case 37: return palette->white_fg;
 
-        case 40: return &black;
-        case 41: return &red;
-        case 42: return &green;
-        case 43: return &yellow;
-        case 44: return &blue;
-        case 45: return &magenta;
-        case 46: return &cyan;
-        case 47: return &white;
+        case 40: return palette->black_bg;
+        case 41: return palette->red_bg;
+        case 42: return palette->green_bg;
+        case 43: return palette->yellow_bg;
+        case 44: return palette->blue_bg;
+        case 45: return palette->magenta_bg;
+        case 46: return palette->cyan_bg;
+        case 47: return palette->white_bg;
     }
 
     return NULL;
@@ -184,7 +177,7 @@ static void init (gchar *ls_colors)
         if (col)
         {
             if (col->ext)
-                g_hash_table_insert (map, col->ext, col);
+                g_hash_table_insert (::map, col->ext, col);
             else
                 type_colors[col->type] = col;
         }
@@ -200,7 +193,7 @@ void ls_colors_init ()
     if (!s)
         s = DEFAULT_COLORS;
 
-    map = g_hash_table_new (g_str_hash, g_str_equal);
+    ::map = g_hash_table_new (g_str_hash, g_str_equal);
     init (s);
 }
 
@@ -214,7 +207,7 @@ LsColor *ls_colors_get (GnomeCmdFile *f)
     const gchar *ext = gnome_cmd_file_get_extension (f);
 
     if (ext)
-        col = (LsColor *) g_hash_table_lookup (map, ext);
+        col = (LsColor *) g_hash_table_lookup (::map, ext);
 
     if (!col)
         col = type_colors[f->info->type];

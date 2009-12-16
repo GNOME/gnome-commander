@@ -85,6 +85,19 @@ struct GnomeCmdColorTheme
 };
 
 
+struct GnomeCmdLsColorsPalette
+{
+    GdkColor *black_fg, *black_bg;
+    GdkColor *red_fg, *red_bg;
+    GdkColor *green_fg, *green_bg;
+    GdkColor *yellow_fg, *yellow_bg;
+    GdkColor *blue_fg, *blue_bg;
+    GdkColor *magenta_fg, *magenta_bg;
+    GdkColor *cyan_fg, *cyan_bg;
+    GdkColor *white_fg, *white_bg;
+};
+
+
 struct GnomeCmdCon;
 
 

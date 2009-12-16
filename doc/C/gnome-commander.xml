@@ -6016,6 +6016,9 @@
                             <para>Revamped file properties dialog</para>
                         </listitem>
                         <listitem>
+                            <para>User defined LS_COLORS colours</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: de, es, fr</para>
                         </listitem>
                         <listitem>

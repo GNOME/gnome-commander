@@ -117,7 +117,6 @@ int main (int argc, char *argv[])
                                   GNOME_PARAM_APP_DATADIR, DATADIR,
                                   GNOME_PARAM_NONE);
 
-    ls_colors_init ();
     gdk_rgb_init ();
     gnome_vfs_init ();
 
@@ -127,6 +126,7 @@ int main (int argc, char *argv[])
     gcmd_user_actions.init();
     gnome_cmd_data.load();
     gcmd_user_actions.set_defaults();
+    ls_colors_init ();
     IMAGE_init ();
     gnome_cmd_data.load_more();
 
