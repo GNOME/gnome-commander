@@ -53,42 +53,22 @@ struct _GnomeCmdStringDialogClass
 };
 
 
-typedef gboolean (*GnomeCmdStringDialogCallback)(GnomeCmdStringDialog *dialog,
-                                                 const gchar **values,
-                                                 gpointer user_data);
+typedef gboolean (*GnomeCmdStringDialogCallback) (GnomeCmdStringDialog *dialog, const gchar **values, gpointer user_data);
 
 
-GtkWidget*
-gnome_cmd_string_dialog_new_with_cancel (const gchar *title,
-                                         const gchar **labels,
-                                         gint rows,
-                                         GnomeCmdStringDialogCallback ok_cb,
-                                         GtkSignalFunc cancel_cb,
-                                         gpointer user_data);
+GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data);
 
-GtkWidget*
-gnome_cmd_string_dialog_new (const gchar *title,
-                             const gchar **labels,
-                             gint rows,
-                             GnomeCmdStringDialogCallback ok_cb,
-                             gpointer user_data);
+inline GtkWidget *gnome_cmd_string_dialog_new (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, gpointer user_data)
+{
+    return gnome_cmd_string_dialog_new_with_cancel (title, labels, rows, ok_cb, NULL, user_data);
+}
 
-void
-gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog,
-                                           const gchar *title,
-                                           const gchar **labels,
-                                           gint rows,
-                                           GnomeCmdStringDialogCallback ok_cb,
-                                           GtkSignalFunc cancel_cb,
-                                           gpointer user_data);
+void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data);
 
-void
-gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog,
-                               const gchar *title,
-                               const gchar **labels,
-                               gint rows,
-                               GnomeCmdStringDialogCallback ok_cb,
-                               gpointer user_data);
+inline void gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog, const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, gpointer user_data)
+{
+    gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, NULL, user_data);
+}
 
 GtkType gnome_cmd_string_dialog_get_type ();
 

@@ -35,9 +35,15 @@ GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s);
 
 GtkWidget *create_hbox (GtkWidget *parent, gboolean h, gint s);
 
-GtkWidget *create_tabvbox (GtkWidget *parent);
+inline GtkWidget *create_tabvbox (GtkWidget *parent)
+{
+    return create_vbox (parent, FALSE, 6);
+}
 
-GtkWidget *create_tabhbox (GtkWidget *parent);
+inline GtkWidget *create_tabhbox (GtkWidget *parent)
+{
+    return create_hbox (parent, FALSE, 6);
+}
 
 GtkWidget *create_label (GtkWidget *parent, const gchar *text);
 
@@ -51,21 +57,39 @@ GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content);
 
 GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, gchar *title);
 
-GtkWidget *create_button (GtkWidget *parent, gchar *label, GtkSignalFunc func);
-
-GtkWidget *create_named_button (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func);
-
-GtkWidget *create_button_with_data (GtkWidget *parent, const gchar *label, GtkSignalFunc func, gpointer data);
-
 GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GtkSignalFunc func, gpointer data);
 
-GtkWidget *create_stock_button (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func);
+inline GtkWidget *create_button_with_data (GtkWidget *parent, const gchar *label, GtkSignalFunc func, gpointer data)
+{
+    return create_named_button_with_data (parent, label, "button", func, data);
+}
 
-GtkWidget *create_named_stock_button (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func);
+inline GtkWidget *create_button (GtkWidget *parent, gchar *label, GtkSignalFunc func)
+{
+    return create_button_with_data (parent, label, func, parent);
+}
 
-GtkWidget *create_stock_button_with_data (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func, gpointer data);
+inline GtkWidget *create_named_button (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func)
+{
+    return create_named_button_with_data (parent, label, name, func, parent);
+}
 
 GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func, gpointer data);
+
+inline GtkWidget *create_stock_button_with_data (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func, gpointer data)
+{
+    return create_named_stock_button_with_data (parent, stock, "button", func, data);
+}
+
+inline GtkWidget *create_named_stock_button (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func)
+{
+    return create_named_stock_button_with_data (parent, stock, name, func, parent);
+}
+
+inline GtkWidget *create_stock_button (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func)
+{
+    return create_stock_button_with_data (parent, stock, func, parent);
+}
 
 GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *value);
 
@@ -97,11 +121,20 @@ GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items);
 
 const gchar *get_combo_text (GtkWidget *combo);
 
-GSList *get_radio_group (GtkWidget *radio);
+inline GSList *get_radio_group (GtkWidget *radio)
+{
+    return gtk_radio_button_group (GTK_RADIO_BUTTON (radio));
+}
 
-void table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts);
+inline void table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts)
+{
+    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, (GtkAttachOptions)0, 0, 0);
+}
 
-void table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts, GtkAttachOptions y_opts);
+inline void table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts, GtkAttachOptions y_opts)
+{
+    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, y_opts, 0, 0);
+}
 
 GtkWidget *create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask);
 

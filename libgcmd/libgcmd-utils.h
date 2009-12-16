@@ -23,10 +23,19 @@
 
 gchar *get_utf8 (const gchar *unknown);
 
-gchar *get_bold_text (const gchar *in);
+inline gchar *get_bold_text (const gchar *in)
+{
+    return g_strdup_printf ("<span weight=\"bold\">%s</span>", in);
+}
 
-gchar *get_mono_text (const gchar *in);
+inline gchar *get_mono_text (const gchar *in)
+{
+    return g_strdup_printf ("<span font_family=\"monospace\">%s</span>", in);
+}
 
-gchar *get_bold_mono_text (const gchar *in);
+inline gchar *get_bold_mono_text (const gchar *in)
+{
+    return g_strdup_printf ("<span font_family=\"monospace\" weight=\"bold\">%s</span>", in);
+}
 
 #endif //__LIB_GCMD_UTILS_H__
