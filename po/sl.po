@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
-"POT-Creation-Date: 2009-11-24 07:39+0000\n"
-"PO-Revision-Date: 2009-12-04 20:17+0100\n"
+"POT-Creation-Date: 2009-12-08 21:33+0000\n"
+"PO-Revision-Date: 2009-12-11 21:09+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -29,13 +29,13 @@ msgstr "Dvostrani urejevalnik datotek"
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../libgcmd/gnome-cmd-string-dialog.c:131
+#: ../libgcmd/gnome-cmd-string-dialog.c:134
 msgid "No error description available"
 msgstr "Opis napake ni na voljo"
 
 #. destroy model automatically with view
-#: ../plugins/cvs/cvs-plugin.c:275
-#: ../plugins/fileroller/file-roller-plugin.c:364
+#: ../plugins/cvs/cvs-plugin.cc:275
+#: ../plugins/fileroller/file-roller-plugin.cc:363
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:359
 #: ../src/gnome-cmd-options-dialog.cc:1113
 #: ../src/gnome-cmd-options-dialog.cc:1768
@@ -46,109 +46,109 @@ msgstr "Opis napake ni na voljo"
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../plugins/cvs/cvs-plugin.c:289
+#: ../plugins/cvs/cvs-plugin.cc:289
 msgid "CVS options"
-msgstr "CVS možnosti"
+msgstr "Možnosti CVS"
 
-#: ../plugins/cvs/cvs-plugin.c:292
+#: ../plugins/cvs/cvs-plugin.cc:292
 msgid "Compression level"
 msgstr "Raven skrčenja"
 
-#: ../plugins/cvs/cvs-plugin.c:300
+#: ../plugins/cvs/cvs-plugin.cc:300
 msgid "Unified diff format"
 msgstr "Poenoten diff zapis"
 
-#: ../plugins/cvs/cvs-plugin.c:402
+#: ../plugins/cvs/cvs-plugin.cc:402
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "Vstavek, ki bo nekoč enostaven CVS odjemalec"
 
-#: ../plugins/cvs/interface.c:170
+#: ../plugins/cvs/interface.cc:169
 msgid "Compare with"
 msgstr "Primerjaj z"
 
-#: ../plugins/cvs/interface.c:173
+#: ../plugins/cvs/interface.cc:172
 msgid "HEAD"
-msgstr "HEAD"
+msgstr "Glava"
 
-#: ../plugins/cvs/interface.c:176
+#: ../plugins/cvs/interface.cc:175
 msgid "The previous revision"
 msgstr "Predhodna revizija"
 
-#: ../plugins/cvs/interface.c:181
+#: ../plugins/cvs/interface.cc:180
 msgid "Other revision"
 msgstr "Ostale revizije"
 
-#: ../plugins/cvs/interface.c:255
+#: ../plugins/cvs/interface.cc:254
 msgid "CVS Diff"
 msgstr "CVS Diff"
 
-#: ../plugins/cvs/interface.c:414
+#: ../plugins/cvs/interface.cc:411
 msgid "revision"
 msgstr "predelava"
 
-#: ../plugins/cvs/interface.c:428
+#: ../plugins/cvs/interface.cc:425
 msgid "Revision:"
 msgstr "Predelava:"
 
-#: ../plugins/cvs/interface.c:446
+#: ../plugins/cvs/interface.cc:443
 msgid "Compare..."
 msgstr "Primerjaj ..."
 
-#: ../plugins/cvs/interface.c:449
+#: ../plugins/cvs/interface.cc:446
 msgid "Author:"
 msgstr "Avtor:"
 
-#: ../plugins/cvs/interface.c:463
+#: ../plugins/cvs/interface.cc:460
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../plugins/cvs/interface.c:477
+#: ../plugins/cvs/interface.cc:474
 msgid "State:"
 msgstr "Stanje:"
 
-#: ../plugins/cvs/interface.c:491
+#: ../plugins/cvs/interface.cc:488
 msgid "Lines:"
 msgstr "Vrstice:"
 
-#: ../plugins/cvs/interface.c:505
+#: ../plugins/cvs/interface.cc:502
 msgid "Message:"
 msgstr "Sporočilo:"
 
-#: ../plugins/fileroller/file-roller-plugin.c:193
+#: ../plugins/fileroller/file-roller-plugin.cc:193
 msgid "What file name should the new archive have?"
 msgstr "Kakšno ime naj ima nov arhiv?"
 
-#: ../plugins/fileroller/file-roller-plugin.c:195
+#: ../plugins/fileroller/file-roller-plugin.cc:195
 msgid "Create Archive"
 msgstr "Ustvari arhiv"
 
-#: ../plugins/fileroller/file-roller-plugin.c:296
+#: ../plugins/fileroller/file-roller-plugin.cc:296
 msgid "Create Archive..."
 msgstr "Ustvari arhiv ..."
 
-#: ../plugins/fileroller/file-roller-plugin.c:308
+#: ../plugins/fileroller/file-roller-plugin.cc:308
 msgid "Extract in Current Directory"
 msgstr "Razširi v trenutno mapo"
 
-#: ../plugins/fileroller/file-roller-plugin.c:315
-#: ../plugins/fileroller/file-roller-plugin.c:325
+#: ../plugins/fileroller/file-roller-plugin.cc:315
+#: ../plugins/fileroller/file-roller-plugin.cc:325
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Razširi v '%s'"
 
-#: ../plugins/fileroller/file-roller-plugin.c:376
+#: ../plugins/fileroller/file-roller-plugin.cc:375
 msgid "File-roller options"
-msgstr "Možnosti File-rollerja"
+msgstr "Možnosti File-roller"
 
-#: ../plugins/fileroller/file-roller-plugin.c:379
+#: ../plugins/fileroller/file-roller-plugin.cc:378
 msgid "Default type"
 msgstr "Privzeta vrsta"
 
-#: ../plugins/fileroller/file-roller-plugin.c:489
+#: ../plugins/fileroller/file-roller-plugin.cc:488
 msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
 msgstr "Vstavek, ki doda File Roller bližnjico za ustvarjanje in razširjanje skrčenih datotek."
 
-#: ../plugins/test/test-plugin.c:223
+#: ../plugins/test/test-plugin.cc:223
 msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
 msgstr "To je preizkusni vstavek za prikaz delovanja"
 
@@ -305,12 +305,12 @@ msgstr[3] "%d izpisane datoteke"
 #: ../src/eggcellrendererkeys.cc:182
 #: ../src/eggcellrendererkeys.cc:183
 msgid "Accelerator key"
-msgstr "Tipkovna bližnjica"
+msgstr "Črka pospeševalnika"
 
 #: ../src/eggcellrendererkeys.cc:192
 #: ../src/eggcellrendererkeys.cc:193
 msgid "Accelerator modifiers"
-msgstr "Določila bližnjice"
+msgstr "Spremenilniki pospeševanja"
 
 #: ../src/eggcellrendererkeys.cc:201
 msgid "Accelerator Mode"
@@ -327,7 +327,7 @@ msgstr "Onemogočeno"
 #: ../src/eggcellrendererkeys.cc:434
 #: ../src/eggcellrendererkeys.cc:649
 msgid "New accelerator..."
-msgstr "Nova bližnjica ..."
+msgstr "Nov pospeševalnik ..."
 
 #: ../src/gnome-cmd-about-plugin.cc:184
 msgid "Credits"
@@ -491,12 +491,8 @@ msgstr "Uporabi po strukturi map"
 
 #: ../src/gnome-cmd-chown-dialog.cc:58
 #, c-format
-msgid ""
-"Could not chown %s\n"
-"%s"
-msgstr ""
-"Ni mogoče zamenjati lastništva (chown) %s\n"
-"%s"
+msgid "Could not chown %s"
+msgstr "Ni mogoče zamenjati lastništva %s"
 
 #: ../src/gnome-cmd-chown-dialog.cc:177
 msgid "Chown"
@@ -608,7 +604,7 @@ msgstr "Preverite črkovanje in poskusite znova."
 
 #: ../src/gnome-cmd-con-dialog.cc:343
 msgid "_Alias:"
-msgstr "_Privzeto ime:"
+msgstr "_Vzdevek:"
 
 #: ../src/gnome-cmd-con-dialog.cc:347
 msgid "_Location (URI):"
@@ -767,7 +763,7 @@ msgstr "Napaka med brisanjem"
 #: ../src/gnome-cmd-xfer.cc:170
 #: ../src/gnome-cmd-xfer.cc:190
 msgid "Abort"
-msgstr "Prekini"
+msgstr "Prekliči"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
 #: ../src/gnome-cmd-file-selector.cc:1826
@@ -806,15 +802,15 @@ msgstr "Izbriši"
 #: ../src/gnome-cmd-delete-dialog.cc:287
 #: ../src/gnome-cmd-file-selector.cc:1826
 #: ../src/gnome-cmd-user-actions.cc:795
-#: ../src/utils.cc:529
-#: ../src/utils.cc:557
+#: ../src/utils.cc:527
+#: ../src/utils.cc:555
 msgid "Cancel"
 msgstr "Prekliči"
 
 #: ../src/gnome-cmd-delete-dialog.cc:287
-#: ../src/utils.cc:529
+#: ../src/utils.cc:527
 msgid "OK"
-msgstr "OK"
+msgstr "_V redu"
 
 #: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Add current dir"
@@ -834,7 +830,7 @@ msgstr "ime"
 
 #: ../src/gnome-cmd-file-list.cc:102
 msgid "ext"
-msgstr "kon"
+msgstr "pri"
 
 #: ../src/gnome-cmd-file-list.cc:103
 msgid "dir"
@@ -860,11 +856,10 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2027
-#: ../src/gnome-cmd-file-list.cc:2042
-#, c-format
-msgid "Not an ordinary file: %s"
-msgstr "Ni običajna datoteka: %s"
+#: ../src/gnome-cmd-file-list.cc:2019
+#: ../src/gnome-cmd-file-list.cc:2034
+msgid "Not an ordinary file"
+msgstr "Ni običajna datoteka"
 
 #: ../src/gnome-cmd-file-popmenu.cc:113
 msgid "Couldn't retrieve MIME type of the file."
@@ -951,7 +946,7 @@ msgid "Other..."
 msgstr "Ostali ..."
 
 #: ../src/gnome-cmd-file-props-dialog.cc:76
-#: ../src/utils.cc:846
+#: ../src/utils.cc:844
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -1208,7 +1203,7 @@ msgstr "Dejanje"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:353
 msgid "User action"
-msgstr "Uporabniški skript"
+msgstr "Skript"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:360
 msgid "Optional data"
@@ -1289,7 +1284,7 @@ msgstr "_Simbolna povezava"
 
 #: ../src/gnome-cmd-main-menu.cc:469
 msgid "_Diff"
-msgstr "_Primerjava vsebine"
+msgstr "_Primerjava"
 
 #: ../src/gnome-cmd-main-menu.cc:475
 msgid "S_ynchronize Directories"
@@ -1393,7 +1388,7 @@ msgstr "Pokaži varnostne kopije"
 
 #: ../src/gnome-cmd-main-menu.cc:679
 msgid "_Equal Panel Size"
-msgstr "_Enako velika okna"
+msgstr "_Enako veliki okni"
 
 #: ../src/gnome-cmd-main-menu.cc:690
 msgid "_Bookmark this Directory..."
@@ -1535,7 +1530,7 @@ msgstr "Osveži"
 #: ../src/gnome-cmd-main-win.cc:1141
 #: ../src/gnome-cmd-user-actions.cc:212
 msgid "Up one directory"
-msgstr "Mapo višje"
+msgstr "Mapa višje"
 
 #: ../src/gnome-cmd-main-win.cc:1142
 msgid "Go to the oldest"
@@ -1685,7 +1680,7 @@ msgstr "skupinsko"
 
 #: ../src/gnome-cmd-options-dialog.cc:236
 msgid "Plain"
-msgstr "prosto"
+msgstr "Običajno"
 
 #: ../src/gnome-cmd-options-dialog.cc:244
 msgid "Permission display mode"
@@ -1789,7 +1784,7 @@ msgstr "Fuzija"
 
 #: ../src/gnome-cmd-options-dialog.cc:451
 msgid "Classic"
-msgstr "Klasično"
+msgstr "Običajno"
 
 #: ../src/gnome-cmd-options-dialog.cc:452
 msgid "Deep blue"
@@ -1818,7 +1813,7 @@ msgstr "Višina vrstice:"
 #. File extensions
 #: ../src/gnome-cmd-options-dialog.cc:484
 msgid "Display file extensions:"
-msgstr "Pokaži končnice datotek:"
+msgstr "Pokaži pripone datotek:"
 
 #. Graphical mode
 #: ../src/gnome-cmd-options-dialog.cc:492
@@ -1878,7 +1873,7 @@ msgstr "Samodejno"
 #: ../src/gnome-cmd-options-dialog.cc:632
 #: ../src/gnome-cmd-options-dialog.cc:652
 msgid "Query first"
-msgstr "Predhodno preveri"
+msgstr "Predhodno poizvej"
 
 #: ../src/gnome-cmd-options-dialog.cc:645
 msgid "Move overwrite"
@@ -1890,7 +1885,7 @@ msgstr "Skrivanje vrst datotek"
 
 #: ../src/gnome-cmd-options-dialog.cc:735
 msgid "Unknown"
-msgstr "Neznane"
+msgstr "Neznano"
 
 #: ../src/gnome-cmd-options-dialog.cc:739
 msgid "Regular files"
@@ -1951,7 +1946,7 @@ msgstr "Geslo:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1091
 msgid "Label:"
-msgstr "Oznaka:"
+msgstr "Naziv:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1093
 msgid "Command:"
@@ -2044,7 +2039,7 @@ msgstr "Nalepka"
 
 #: ../src/gnome-cmd-options-dialog.cc:1494
 msgid "Alias:"
-msgstr "Privzeto ime:"
+msgstr "Vzdevek:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1496
 msgid "Device:"
@@ -2094,7 +2089,7 @@ msgstr "Razporeditev"
 
 #: ../src/gnome-cmd-options-dialog.cc:1804
 msgid "Confirmation"
-msgstr "Potrjevanje"
+msgstr "Potrditev"
 
 #: ../src/gnome-cmd-options-dialog.cc:1809
 msgid "Filters"
@@ -2123,7 +2118,7 @@ msgstr "Vzorec:"
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:98
 #: ../src/gnome-cmd-prepare-move-dialog.cc:91
 msgid "Query First"
-msgstr "Vprašaj"
+msgstr "Predhodno poizvej"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:105
 #: ../src/gnome-cmd-prepare-move-dialog.cc:98
@@ -2179,7 +2174,7 @@ msgstr "Mapa '%s' ne obstaja. Ali jo želite ustvariti?"
 #: ../src/gnome-cmd-profile-component.cc:406
 #: ../src/gnome-cmd-profile-component.cc:596
 #: ../src/gnome-cmd-profile-component.cc:628
-#: ../src/utils.cc:685
+#: ../src/utils.cc:683
 msgid "No"
 msgstr "Ne"
 
@@ -2187,7 +2182,7 @@ msgstr "Ne"
 #: ../src/gnome-cmd-profile-component.cc:406
 #: ../src/gnome-cmd-profile-component.cc:596
 #: ../src/gnome-cmd-profile-component.cc:628
-#: ../src/utils.cc:685
+#: ../src/utils.cc:683
 msgid "Yes"
 msgstr "Da"
 
@@ -2205,11 +2200,11 @@ msgstr "/Ime datoteke"
 
 #: ../src/gnome-cmd-profile-component.cc:125
 msgid "/File name without extension"
-msgstr "/Ime datoteke brez končnice"
+msgstr "/Ime datoteke brez pripone"
 
 #: ../src/gnome-cmd-profile-component.cc:126
 msgid "/File extension"
-msgstr "/Končnica datoteke"
+msgstr "/Pripona datoteke"
 
 #: ../src/gnome-cmd-profile-component.cc:129
 msgid "/Counter"
@@ -2429,8 +2424,8 @@ msgid "Case sensitive matching"
 msgstr "Upoštevanje velikost črk"
 
 #: ../src/gnome-cmd-python-plugin.cc:214
-msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
-msgstr "Ni mogoče naložiti python modula 'gnomevfs' ('gnome.vfs')\n"
+msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+msgstr "Ni mogoče naložiti python modula 'gnomevfs' ('gnome.vfs')"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:265
 #: ../src/gnome-cmd-user-actions.cc:155
@@ -2511,10 +2506,10 @@ msgstr "Iščem v: %s"
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
-msgstr[0] "Najdenih %d zadetkov - iskanje prekinjeno."
-msgstr[1] "Najden %d zadetek - iskanje prekinjeno."
-msgstr[2] "Najdena %d zadetka - iskanje prekinjeno."
-msgstr[3] "Najdeni %d zadetki - iskanje prekinjeno."
+msgstr[0] "Najdenih %d zadetkov - iskanje preklicano."
+msgstr[1] "Najden %d zadetek - iskanje preklicano."
+msgstr[2] "Najdena %d zadetka - iskanje preklicano."
+msgstr[3] "Najdeni %d zadetki - iskanje preklicano."
 
 #: ../src/gnome-cmd-search-dialog.cc:412
 #, c-format
@@ -2614,7 +2609,7 @@ msgstr "Odpri mapo"
 
 #: ../src/gnome-cmd-user-actions.cc:144
 msgid "Start GNOME Commander as root"
-msgstr "Zagon GNOME Commanderja kot skrbnik"
+msgstr "Skrbniški zagon GNOME Commanderja"
 
 #: ../src/gnome-cmd-user-actions.cc:145
 msgid "Close connection"
@@ -2706,7 +2701,7 @@ msgstr "Preimenuj datoteke"
 
 #: ../src/gnome-cmd-user-actions.cc:175
 msgid "Synchronize directories"
-msgstr "Uskladi mape"
+msgstr "Usklajevanje map"
 
 #: ../src/gnome-cmd-user-actions.cc:178
 msgid "About GNOME Commander"
@@ -2778,7 +2773,7 @@ msgstr "Zapri trenutni zavihek"
 
 #: ../src/gnome-cmd-user-actions.cc:197
 msgid "Equal panel size"
-msgstr "_Enako veliki okni"
+msgstr "Enako veliki okni"
 
 #: ../src/gnome-cmd-user-actions.cc:198
 msgid "Back to the first directory"
@@ -2939,7 +2934,7 @@ msgstr "Težave prenosa"
 
 #: ../src/gnome-cmd-xfer.cc:228
 msgid "copying..."
-msgstr "kopiram ..."
+msgstr "kopiranje ..."
 
 #: ../src/gnome-cmd-xfer.cc:236
 #, c-format
@@ -2947,12 +2942,12 @@ msgid "[file %ld of %ld] \"%s\""
 msgstr "[datoteka %ld od %ld] \"%s\""
 
 #: ../src/gnome-cmd-xfer.cc:386
-msgid ""
-"Copying a directory into itself is a bad idea.\n"
-"The whole operation was cancelled."
-msgstr ""
-"Kopiranje mape v samo sebe ni mogoče.\n"
-"Dejanje je bila preklicano."
+msgid "Copying a directory into itself is a bad idea."
+msgstr "Kopiranje mape v samo sebe ni mogoče."
+
+#: ../src/gnome-cmd-xfer.cc:386
+msgid "The whole operation was cancelled."
+msgstr "Celotno opravilo je preklicano."
 
 #: ../src/gnome-cmd-xfer.cc:427
 msgid "preparing..."
@@ -2964,7 +2959,7 @@ msgstr "prenesi v /tmp"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:41
 msgid "stopping..."
-msgstr "ustavljam ..."
+msgstr "ustavljanje ..."
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:84
 msgid "Progress"
@@ -3014,7 +3009,7 @@ msgstr "_Besedilo"
 #: ../src/intviewer/search-dlg.cc:276
 #: ../src/intviewer/viewer-window.cc:672
 msgid "_Hexadecimal"
-msgstr "_Osmiško"
+msgstr "_Šestnajstiško"
 
 #. sdlg->priv->progress = 0;
 #: ../src/intviewer/search-progress-dlg.cc:77
@@ -3078,11 +3073,11 @@ msgstr "_Oddalji"
 
 #: ../src/intviewer/viewer-window.cc:689
 msgid "_Normal Size"
-msgstr "Običajna _velikost"
+msgstr "_Običajna velikost"
 
 #: ../src/intviewer/viewer-window.cc:693
 msgid "Best _Fit"
-msgstr "Prilagojeno"
+msgstr "Najboljša _prilagoditev"
 
 #: ../src/intviewer/viewer-window.cc:703
 msgid "_Copy Text Selection"
@@ -3098,7 +3093,7 @@ msgstr "Najdi naslednje"
 
 #: ../src/intviewer/viewer-window.cc:715
 msgid "Find Previous"
-msgstr "Najdi _prejšnje"
+msgstr "Najdi _predhodne"
 
 #: ../src/intviewer/viewer-window.cc:720
 msgid "_Wrap lines"
@@ -3182,7 +3177,7 @@ msgstr "Določite začetno mapo za desno okno"
 
 #: ../src/main.cc:112
 msgid "File Manager"
-msgstr "Urejevalnik datotek"
+msgstr "Upravljalnik datotek"
 
 #: ../src/plugin_manager.cc:342
 msgid "Disable"
@@ -3206,7 +3201,7 @@ msgstr "_Omogoči"
 
 #: ../src/plugin_manager.cc:422
 msgid "_Configure"
-msgstr "_Nastavi"
+msgstr "_Nastavitve"
 
 #: ../src/tags/gnome-cmd-tags.cc:64
 msgid "<Exif and IPTC tags not supported>"
@@ -3449,7 +3444,7 @@ msgstr "Nastavitev na vrednost \"1\" določi podatek avtorske zaščite."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Layer"
-msgstr "Sloj"
+msgstr "Plast"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "MPEG layer."
@@ -3481,7 +3476,7 @@ msgstr "Ime izvajalca/dirigenta skladbe."
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Play Count"
-msgstr "Štetje predvajanja"
+msgstr "Števec predvajanj"
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Number of times the track has been played."
@@ -3652,7 +3647,7 @@ msgstr "Datum povezan z dogodkom pri urejanju vira (ustvarjanje/objavljanje)"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid "Date Modified"
-msgstr "Dan spremembe"
+msgstr "Datum spremembe"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid "The last time the document was saved."
@@ -3933,7 +3928,7 @@ msgstr "Polnost baterije."
 
 #: ../src/tags/gnome-cmd-tags.cc:201
 msgid "Bits per Sample"
-msgstr "Biti na vzorec"
+msgstr "Bitov na vzorec"
 
 #: ../src/tags/gnome-cmd-tags.cc:201
 msgid "The number of bits per image component. Each component of the image is 8 bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker is used instead of this tag."
@@ -3975,7 +3970,7 @@ msgstr "Podrobnosti prostora barve je vedno zabeležen kot določilo prostora ba
 
 #: ../src/tags/gnome-cmd-tags.cc:206
 msgid "Components Configuration"
-msgstr "Nastavitev komponent"
+msgstr "Nastavitev enot"
 
 #: ../src/tags/gnome-cmd-tags.cc:206
 msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
@@ -3991,7 +3986,7 @@ msgstr "Podrobnosti določene za stisnjene podatke. Uporabljen način stiskanja 
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid "Compression"
-msgstr "Krčenje"
+msgstr "Stiskanje"
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid "The compression scheme used for the image data. When a primary image is JPEG compressed, this designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is set to 6."
@@ -4177,7 +4172,7 @@ msgstr "Premer zaslonke določen relativno na žariščno dolžino leče."
 #: ../src/tags/gnome-cmd-tags.cc:231
 #: ../src/tags/gnome-cmd-tags.cc:423
 msgid "Focal Length"
-msgstr "Žariščna razdalja"
+msgstr "Goriščna razdalja"
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 msgid "The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film camera."
@@ -4225,7 +4220,7 @@ msgstr "Oznaka določa raven splošne prilagoditve ojačitve slike."
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Gamma"
-msgstr "Barva"
+msgstr "Gama"
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Indicates the value of coefficient gamma."
@@ -4504,7 +4499,7 @@ msgstr "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena s
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid "Planar Configuration"
-msgstr "Planarna nastavitev"
+msgstr "Nastavitev ravnine"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid "Indicates whether pixel components are recorded in a chunky or planar format. In JPEG compressed files a JPEG marker is used instead of this tag. If this field does not exist, the TIFF default of 1 (chunky) is assumed."
@@ -4556,7 +4551,7 @@ msgstr "Sorodna zvočna datoteka"
 
 #: ../src/tags/gnome-cmd-tags.cc:279
 msgid "This tag is used to record the name of an audio file related to the image data. The only relational information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 characters + '.' + 3 characters). The path is not recorded. When using this tag, audio files must be recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to the Exif audio format. If multiple files are mapped to one file, the above format is used to record just one audio file name. If there are multiple audio files, the first recorded file is given. When there are three Exif audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple relational information, a variety of playback possibilities can be supported. The method of using relational information is left to the implementation on the playback side. Since this information is an ASCII character string, it is terminated by NULL. When this tag is used to map audio files, the relation of the audio file to image data must also be indicated on the audio file end."
-msgstr "Oznaka se uporablja za shranjevanje imena zvočne datoteke v povezavi s podatki slike, kot so podatki Exif ime zvočne datoteke in  končnica (datotečni dos zapis z 8.3 znaki). Pod datoteke ni shranjena. V primeru, da je zvočna datoteka razdeljena na več delov, je zapis prirejen za primer \"SND00001.WAV\", \"SND00002.WAV\" in \"SND00003.WAV\"v Exif zapis \"DSC00001.JPG\". Z združevanjem več podrobnosti se razširijo možnosti predvajanja."
+msgstr "Oznaka se uporablja za shranjevanje imena zvočne datoteke v povezavi s podatki slike, kot so podatki Exif ime zvočne datoteke in pripona (datotečni DOS zapis z 8.3 znaki). Pot datoteke ni shranjena. V primeru, da je zvočna datoteka razdeljena na več delov, je zapis prirejen za primer \"SND00001.WAV\", \"SND00002.WAV\" in \"SND00003.WAV\"v Exif zapis \"DSC00001.JPG\". Z združevanjem več podrobnosti se razširijo možnosti predvajanja."
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Resolution Unit"
@@ -4770,7 +4765,7 @@ msgstr "Oznaka za zapisovanje opomb ob že obstoječih opombah v oznaki <Exif.Im
 #: ../src/tags/gnome-cmd-tags.cc:306
 #: ../src/tags/gnome-cmd-tags.cc:433
 msgid "White Balance"
-msgstr "Ravnotežje beline"
+msgstr "Uravnoteženje beline"
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 msgid "The white balance mode set when the image was shot."
@@ -4878,7 +4873,7 @@ msgstr "Čas zadnje spremembe."
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "File name excluding path but including the file extension."
-msgstr "Ime datoteke brez poti vendar s končnico datoteke."
+msgstr "Ime datoteke brez poti vendar s pripono datoteke."
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Full file path of file excluding the file name."
@@ -4943,7 +4938,7 @@ msgstr "Dodatne podrobnosti o izvajalcih na posnetku."
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "BPM"
-msgstr "BPM"
+msgstr "UNM"
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "BPM (beats per minute)."
@@ -5401,7 +5396,7 @@ msgstr "Dolžina skladbe v milisekundah."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Subtitle"
-msgstr "Podnapisi"
+msgstr "Podnapis"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Subtitle."
@@ -6060,7 +6055,7 @@ msgstr "Podatki predogleda"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid "The object preview data."
-msgstr "Predogledni podatki predmeta."
+msgstr "Podatki predogleda predmeta."
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Preview File Format"
@@ -6084,7 +6079,7 @@ msgstr "ID izdelka"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Allows a provider to identify subsets of its overall service."
-msgstr "Omogoča ponudniku določiti podenote skupne storitve."
+msgstr "Omogoča ponudniku določiti podrejene enote skupne storitve."
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Program Version"
@@ -6430,11 +6425,11 @@ msgstr "Organizacija, ki je izdala zapis"
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Vendor"
-msgstr "Ponudnik"
+msgstr "Prodajalec"
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Vorbis vendor ID."
-msgstr "ID Vorbis ponudnika"
+msgstr "ID prodajalca Vorbis"
 
 #: ../src/tags/gnome-cmd-tags.cc:537
 msgid "Vorbis Version"
@@ -6752,43 +6747,39 @@ msgstr "Brez"
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: ../src/utils.cc:446
+#: ../src/utils.cc:444
 #, c-format
-msgid ""
-"No default application found for the MIME type %s.\n"
-"Open the \"File types and programs\" page in the Control Center to add one."
-msgstr ""
-"Ni mogoče najti privzetega programa za MIME  vrsto %s.\n"
-"Odprite zavihek \"Tipi datotek in programi\" v nadzornem centru in izberite program."
+msgid "No default application found for the MIME type %s."
+msgstr "Ni določenega privzetega programa za MIME vrsto %s."
 
-#: ../src/utils.cc:526
+#: ../src/utils.cc:524
 #, c-format
 msgid "\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"
 msgstr "\"%s\" je videti kot izvedljiva datoteka, vendar ji manjka izvedljivi bit. Ali želite bit nastaviti in nato pognati program?"
 
-#: ../src/utils.cc:528
+#: ../src/utils.cc:526
 msgid "Make Executable?"
 msgstr "Ustvari izvedljivo?"
 
-#: ../src/utils.cc:555
+#: ../src/utils.cc:553
 #, c-format
 msgid "\"%s\" is an executable text file. Do you want to run it, or display its contents?"
 msgstr "\"%s\" je izvedljiva besedilna datoteka. Ali jo želite pognati ali želite pogledati vsebino?"
 
-#: ../src/utils.cc:556
+#: ../src/utils.cc:554
 msgid "Run or Display"
 msgstr "Poženi ali prikaži"
 
-#: ../src/utils.cc:557
+#: ../src/utils.cc:555
 msgid "Display"
-msgstr "Zaslon"
+msgstr "Pokaži"
 
-#: ../src/utils.cc:557
+#: ../src/utils.cc:555
 msgid "Run"
 msgstr "Poženi"
 
-#: ../src/utils.cc:600
-#: ../src/utils.cc:682
+#: ../src/utils.cc:598
+#: ../src/utils.cc:680
 #, c-format
 msgid "%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"
 msgid_plural "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?"
@@ -6797,26 +6788,21 @@ msgstr[1] "S programom %s ni mogoče odpreti oddaljene datoteke. Ali želite pre
 msgstr[2] "S programom %s ni mogoče odpreti oddaljene datoteke. Ali želite pretočiti datoteki v začasno mapo in ju potem odpreti?"
 msgstr[3] "S programom %s ni mogoče odpreti oddaljene datoteke. Ali želite pretočiti datoteke v začasno mapo in jih potem odpreti?"
 
-#: ../src/utils.cc:1045
-#, c-format
-msgid ""
-"Failed to create a directory in which to store temporary files.\n"
-"Error message: %s\n"
-msgstr ""
-"Napaka med ustvarjanjem mape za shranjevanje začasnih datotek.\n"
-"Sporočilo napake: %s\n"
+#: ../src/utils.cc:1042
+msgid "Failed to create a directory in which to store temporary files"
+msgstr "Napaka med ustvarjanjem mape za shranjevanje začasnih datotek."
 
-#: ../src/utils.cc:1241
+#: ../src/utils.cc:1238
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Ustvarjanje mape %s ..."
 
-#: ../src/utils.cc:1244
+#: ../src/utils.cc:1241
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Napaka med ustvarjanjem mape %s"
 
-#: ../src/utils.cc:1250
+#: ../src/utils.cc:1247
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Ni mogoče brati iz mape %s: %s"
@@ -6825,6 +6811,14 @@ msgstr "Ni mogoče brati iz mape %s: %s"
 msgid "There was an error displaying help."
 msgstr "Prišlo je do napake med prikazovanjem pomoči."
 
+#~ msgid ""
+#~ "No default application found for the MIME type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add "
+#~ "one."
+#~ msgstr ""
+#~ "Ni mogoče najti privzetega programa za MIME  vrsto %s.\n"
+#~ "Odprite zavihek \"Tipi datotek in programi\" v nadzornem centru in "
+#~ "izberite program."
 #~ msgid "path"
 #~ msgstr "pot"
 #~ msgid "Listing failed: %s\n"
