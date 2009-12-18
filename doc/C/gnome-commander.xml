@@ -6044,7 +6044,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #604904 (build error on Solaris)</para>
+                            <para>Fixed problem #604904 (build error on OpenSolaris)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
