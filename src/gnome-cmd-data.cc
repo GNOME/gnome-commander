@@ -109,6 +109,37 @@ inline gint get_int (const gchar *path, int def)
 }
 
 
+inline XML::xstream &operator << (XML::xstream &xml, GnomeCmdBookmark &bookmark)
+{
+    xml << XML::tag("Bookmark") << XML::attr("name") << XML::escape(bookmark.name);
+    xml << XML::attr("path") << XML::escape(bookmark.path) << XML::endtag();
+
+    return xml;
+}
+
+
+inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
+{
+    if (!con)
+        return;
+
+    GList *bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks;
+
+    if (!bookmarks)
+        return;
+
+    xml << XML::tag("Group") << XML::attr("name") << name;
+
+    if (GNOME_CMD_IS_CON_FTP (con))
+        xml << XML::attr("remote") << TRUE;
+
+    for (GList *i=bookmarks; i; i=i->next)
+        xml << *(GnomeCmdBookmark *) i->data;
+
+    xml << XML::endtag("Group");
+}
+
+
 inline void save_connections (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir (), fname);
@@ -1799,6 +1830,19 @@ void GnomeCmdData::save()
         xml << advrename_defaults;
         xml << search_defaults;
         xml << bookmarks_defaults;
+
+        xml << XML::tag("Bookmarks");
+
+        write (xml, gnome_cmd_con_list_get_home (priv->con_list), "Home");
+        write (xml, gnome_cmd_con_list_get_smb (priv->con_list), "SMB");
+
+        for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
+        {
+            GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+            write (xml, con, XML::escape(gnome_cmd_con_get_alias (con)));
+        }
+
+        xml << XML::endtag("Bookmarks");
 
         xml << XML::tag("Selections");
         for (vector<Selection>::iterator i=selections.begin(); i!=selections.end(); ++i)
