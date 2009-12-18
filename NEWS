@@ -3,7 +3,7 @@ gnome-commander 1.2.8.5
 ---------------
 
 Bug fixes:
- * Fixed problem #604904 (build error on Solaris)
+ * Fixed problem #604904 (build error on OpenSolaris)
 
 
 ===================================
