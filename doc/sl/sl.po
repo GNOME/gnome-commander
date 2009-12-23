@@ -1,8 +1,12 @@
+# Copyright (C) 2009 gnome-commander-help COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome-commander-help package.
+# Matej Urbančič <mateju@svn.gnome.org>, 2009.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help\n"
 "POT-Creation-Date: 2009-11-24 07:40+0000\n"
-"PO-Revision-Date: 2009-12-17 08:33+0100\n"
+"PO-Revision-Date: 2009-12-18 07:33+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -397,9 +401,8 @@ msgid "Getting Started"
 msgstr "Prenos začet"
 
 #: C/gnome-commander.xml:316(title)
-#, fuzzy
 msgid "To Start GNOME Commander"
-msgstr "Skrbniški zagon GNOME Commanderja"
+msgstr "Zagon programa GNOME Commander"
 
 #: C/gnome-commander.xml:317(para)
 msgid "You can start GNOME Commander in the following ways:"
@@ -414,9 +417,8 @@ msgid "Choose <menuchoice><guisubmenu>Accessories</guisubmenu><guimenuitem>GNOME
 msgstr ""
 
 #: C/gnome-commander.xml:331(term)
-#, fuzzy
 msgid "Command line"
-msgstr "Ukazna vrstice"
+msgstr "Ukazna vrstica"
 
 #: C/gnome-commander.xml:333(para)
 msgid "To start GNOME Commander from a command line, type the following command, then press <keycap>Return</keycap>:"
@@ -431,9 +433,8 @@ msgid "When you start GNOME Commander, the following window is displayed."
 msgstr ""
 
 #: C/gnome-commander.xml:349(title)
-#, fuzzy
 msgid "GNOME Commander Window"
-msgstr "O GNOME Commanderju"
+msgstr "Okno programa GNOME Commander"
 
 #: C/gnome-commander.xml:355(phrase)
 msgid "Shows GNOME Commander main window. Contains titlebar, menubar, toolbar, display area, and scrollbars. Menubar contains File, View, Settings, and Help menus."
@@ -445,56 +446,48 @@ msgid "The GNOME Commander window contains the following elements:"
 msgstr ""
 
 #: C/gnome-commander.xml:370(term)
-#, fuzzy
 msgid "Menubar."
-msgstr "MenijskaVrstica"
+msgstr "Menijska Vrstica."
 
 #: C/gnome-commander.xml:372(para)
 msgid "The menus on the menubar contain all of the commands you need to work with files in GNOME Commander."
 msgstr ""
 
 #: C/gnome-commander.xml:377(term)
-#, fuzzy
 msgid "Toolbar."
-msgstr "_Orodna vrstica"
+msgstr "Orodna vrstica."
 
 #: C/gnome-commander.xml:379(para)
 msgid "The toolbar contains a subset of the commands that you can access from the menubar."
 msgstr ""
 
 #: C/gnome-commander.xml:383(term)
-#, fuzzy
 msgid "Statusbar."
-msgstr "vrstica stanja"
+msgstr "Vrstica stanja."
 
 #: C/gnome-commander.xml:385(para)
 msgid "The statusbar displays information about current GNOME Commander activity and contextual information about the menu items."
 msgstr ""
 
 #: C/gnome-commander.xml:393(title)
-#, fuzzy
 msgid "Command Line Options"
-msgstr "Parametri ukazne vrstice"
+msgstr "Možnosti ukazne vrstice"
 
 #: C/gnome-commander.xml:397(guilabel)
-#, fuzzy
 msgid "Options"
 msgstr "Možnosti"
 
 #: C/gnome-commander.xml:402(guilabel)
-#, fuzzy
 msgid "--help"
-msgstr "_Pomoč"
+msgstr "--help"
 
 #: C/gnome-commander.xml:404(para)
-#, fuzzy
 msgid "Show summary of options."
-msgstr "Pokaži splošne možnosti"
+msgstr "Pokaži podrobnen pogled možnosti"
 
 #: C/gnome-commander.xml:408(guilabel)
-#, fuzzy
 msgid "--version"
-msgstr "Različica"
+msgstr "--version"
 
 #: C/gnome-commander.xml:410(para)
 msgid "Show version of GNOME Commander."
@@ -505,32 +498,28 @@ msgid "-l, --start-left-dir=STRING"
 msgstr ""
 
 #: C/gnome-commander.xml:416(para)
-#, fuzzy
 msgid "Specify the start directory for the left pane."
-msgstr "Določite začetno mapo za levo okno"
+msgstr "Določitev začetne mape za levo okno"
 
 #: C/gnome-commander.xml:420(guilabel)
 msgid "-r, --start-right-dir=STRING"
 msgstr ""
 
 #: C/gnome-commander.xml:422(para)
-#, fuzzy
 msgid "Specify the start directory for the right pane."
-msgstr "Določite začetno mapo za desno okno"
+msgstr "Določitev začetne mape za desno okno"
 
 #: C/gnome-commander.xml:426(guilabel)
-#, fuzzy
 msgid "-d, --debug=STRING"
-msgstr "Parametri niti"
+msgstr "-d, --debug=NIZ"
 
 #: C/gnome-commander.xml:428(para)
 msgid "Specify debug flags to use. Debug output will be written to stdout."
 msgstr ""
 
 #: C/gnome-commander.xml:429(para)
-#, fuzzy
 msgid "Possible flags:"
-msgstr "Zastavice C prevajalnika:"
+msgstr "Mogoče zastavice:"
 
 #: C/gnome-commander.xml:432(para)
 msgid "<guilabel>a</guilabel> user actions debugging"
@@ -622,7 +611,7 @@ msgstr "Primeri"
 
 #: C/gnome-commander.xml:502(option)
 msgid "-d nvl"
-msgstr ""
+msgstr "-d nvl"
 
 #: C/gnome-commander.xml:502(command)
 #, fuzzy
@@ -642,9 +631,8 @@ msgid "You can use the GNOME Commander application to perform the following task
 msgstr ""
 
 #: C/gnome-commander.xml:569(title)
-#, fuzzy
 msgid "Selecting Files and Folders"
-msgstr "Datoteke, Mape in Povezave"
+msgstr "Izbor datotek in map"
 
 #: C/gnome-commander.xml:570(para)
 msgid "You can select files and folders in several ways in GNOME Commander. Typically this is achieved by clicking on the files using the mouse, as explained in <xref linkend=\"gcmd-TBL-10\"/>."
@@ -655,12 +643,10 @@ msgid "Selecting Items in the File Manager"
 msgstr ""
 
 #: C/gnome-commander.xml:579(para)
-#, fuzzy
 msgid "Task"
 msgstr "Naloga"
 
 #: C/gnome-commander.xml:582(para)
-#, fuzzy
 msgid "Action"
 msgstr "Dejanje"
 
@@ -671,20 +657,17 @@ msgid "Default key bindings"
 msgstr "ID privzetega ključa"
 
 #: C/gnome-commander.xml:592(para)
-#, fuzzy
 msgid "Select an item"
-msgstr "_Nov predmet"
+msgstr "Izbor predmeta"
 
 #: C/gnome-commander.xml:595(para)
-#, fuzzy
 msgid "Click on the item."
-msgstr "Dejavnost ob kliku"
+msgstr "Klik na predmet"
 
 #: C/gnome-commander.xml:598(keycap)
 #: C/gnome-commander.xml:4262(keycap)
-#, fuzzy
 msgid "SPACE"
-msgstr "Prostor"
+msgstr "preslednica"
 
 #: C/gnome-commander.xml:599(keycap)
 #: C/gnome-commander.xml:4257(keycap)
@@ -705,9 +688,8 @@ msgid "In list view, click on the first item in the group. Press-and-hold <keyca
 msgstr ""
 
 #: C/gnome-commander.xml:615(para)
-#, fuzzy
 msgid "Select multiple items"
-msgstr "Izberite skladne predmete"
+msgstr "Izbor več predmetov"
 
 #: C/gnome-commander.xml:618(para)
 msgid "Press-and-hold <keycap>CTRL</keycap>. Click on the items that you want to select."
@@ -718,9 +700,8 @@ msgid "Alternatively, press-and-hold <keycap>CTRL</keycap>, then drag around the
 msgstr ""
 
 #: C/gnome-commander.xml:626(para)
-#, fuzzy
 msgid "Select all items in a folder"
-msgstr "Izberi vse predmete v tem oknu"
+msgstr "Izbor vseh predmetov v mapi"
 
 #: C/gnome-commander.xml:629(para)
 msgid "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select All</guimenuitem></menuchoice>."
@@ -872,7 +853,7 @@ msgstr "-"
 #: C/gnome-commander.xml:650(para)
 #: C/gnome-commander.xml:4176(para)
 msgid "Select all files with the same extension"
-msgstr ""
+msgstr "Izbor vseh datotek z enako pripono"
 
 #: C/gnome-commander.xml:655(keycap)
 #: C/gnome-commander.xml:665(keycap)
@@ -908,7 +889,7 @@ msgstr "Num"
 #: C/gnome-commander.xml:660(para)
 #: C/gnome-commander.xml:4181(para)
 msgid "Unselect all files with the same extension"
-msgstr ""
+msgstr "Počiščenje izbora vseh datotek z enako pripono."
 
 #: C/gnome-commander.xml:665(keycap)
 #: C/gnome-commander.xml:689(keycap)
@@ -922,9 +903,8 @@ msgstr "Num"
 #: C/gnome-commander.xml:670(para)
 #: C/gnome-commander.xml:4141(para)
 #: C/gnome-commander.xml:4146(para)
-#, fuzzy
 msgid "Select files using a pattern"
-msgstr "Filtriranje izbora datotek"
+msgstr "Izbor datotek z vzorčnim nizom"
 
 #: C/gnome-commander.xml:673(para)
 msgid "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select with Pattern</guimenuitem></menuchoice>. GNOME Commander selects files matching a pattern based upon their filename using either wildcards or regular expressions."
@@ -933,7 +913,7 @@ msgstr ""
 #: C/gnome-commander.xml:682(para)
 #: C/gnome-commander.xml:4151(para)
 msgid "Unselect files using a pattern"
-msgstr ""
+msgstr "Počiščenje izbora z uporabo vzorcev"
 
 #: C/gnome-commander.xml:685(para)
 msgid "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect with Pattern</guimenuitem></menuchoice>. GNOME Commander unselects files matching a pattern based upon their filename using either wildcards or regular expressions."
@@ -942,9 +922,8 @@ msgstr ""
 #: C/gnome-commander.xml:694(para)
 #: C/gnome-commander.xml:4156(para)
 #: C/gnome-commander.xml:4829(para)
-#, fuzzy
 msgid "Invert selection"
-msgstr "Obrni označeno"
+msgstr "Obrni izbor"
 
 #: C/gnome-commander.xml:697(para)
 msgid "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Invert Selection</guimenuitem></menuchoice>."
@@ -961,39 +940,32 @@ msgid "To perform the default action on an item, double-click on the item."
 msgstr ""
 
 #: C/gnome-commander.xml:710(title)
-#, fuzzy
 msgid "Drag-and-Drop"
-msgstr "povleci in spusti"
+msgstr "Povleci in spusti"
 
 #: C/gnome-commander.xml:715(title)
-#, fuzzy
 msgid "Copying a File or Folder"
-msgstr "Izbriše izbrano datoteko ali mapo"
+msgstr "Kopiranje datoteke ali mape"
 
 #: C/gnome-commander.xml:720(title)
-#, fuzzy
 msgid "Moving a File or Folder"
-msgstr "Izbriše izbrano datoteko ali mapo"
+msgstr "Premikanje datoteke ali mape"
 
 #: C/gnome-commander.xml:725(title)
-#, fuzzy
 msgid "Renaming a File or Folder"
-msgstr "Izbriše izbrano datoteko ali mapo"
+msgstr "Preimenovanje datoteke ali mape"
 
 #: C/gnome-commander.xml:730(title)
-#, fuzzy
 msgid "Deleting a File or Folder"
-msgstr "Izbriše izbrano datoteko ali mapo"
+msgstr "Izbrisanje datoteke ali mape"
 
 #: C/gnome-commander.xml:735(title)
-#, fuzzy
 msgid "Creating a Folder"
-msgstr "Ustvarjanje mape `%s'"
+msgstr "Ustvarjanje mape"
 
 #: C/gnome-commander.xml:740(title)
-#, fuzzy
 msgid "Searching For Files"
-msgstr "Poišči datoteke ..."
+msgstr "Iskanje datotek"
 
 #: C/gnome-commander.xml:741(para)
 msgid "The file search enables you to search for files on your system. To perform a basic search, you can type a filename or a partial filename, with or without wildcards. To refine your search, you can apply additional search options."
@@ -1004,9 +976,8 @@ msgid "When started, the following window is displayed:"
 msgstr ""
 
 #: C/gnome-commander.xml:749(title)
-#, fuzzy
 msgid "File Search Window"
-msgstr "Shranjena višina iskalnega okna"
+msgstr "Okno iskanja datotek"
 
 #: C/gnome-commander.xml:755(phrase)
 msgid "Shows file search window."
@@ -1040,11 +1011,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:782(title)
 msgid "Creating a Symbolic Link to a File or Folder"
-msgstr ""
+msgstr "Ustvarjanje simbolne povezave do datoteke ali mape"
 
 #: C/gnome-commander.xml:783(para)
 msgid "A symbolic link is a special type of file that points to another file or folder. When you perform an action on a symbolic link, the action is performed on the file or folder to which the symbolic link points. However, when you delete a symbolic link, you delete the link file, not the file to which the symbolic link points."
-msgstr ""
+msgstr "Simbolna povezava je posebna vrsta datoteke, ki kaže na drugo datoteko ali mapo. Kadar izvedete dejanje na simbolni povezavi, se dejanje izvede na datoteki ali mapi, na katero simbolna povezava kaže. Pomembno pa je, da lahko simbolno povezavo izbrišemo, prava datoteka pa ostane nespremenjena."
 
 #: C/gnome-commander.xml:789(para)
 msgid "To create a symbolic link to a file or folder, select the file or folder to which you want to create a link. Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>. A link to the file or folder is added to the current folder."
@@ -1107,9 +1078,8 @@ msgid "Name"
 msgstr "Ime"
 
 #: C/gnome-commander.xml:846(para)
-#, fuzzy
 msgid "The name of the file or folder."
-msgstr "Izbriše izbrano datoteko ali mapo"
+msgstr "Ime datoteke ali mape."
 
 #: C/gnome-commander.xml:851(para)
 #: C/gnome-commander.xml:5400(para)
@@ -1139,9 +1109,8 @@ msgstr ""
 
 #: C/gnome-commander.xml:875(para)
 #: C/gnome-commander.xml:2212(para)
-#, fuzzy
 msgid "Accessed"
-msgstr "Uporabljano"
+msgstr "Dostopano"
 
 #: C/gnome-commander.xml:878(para)
 msgid "The date and time at which the object was last viewed."
@@ -1158,9 +1127,8 @@ msgid "The amount of data occupied by object, file or folder."
 msgstr ""
 
 #: C/gnome-commander.xml:895(title)
-#, fuzzy
 msgid "Changing Permissions"
-msgstr "Nezadostna dovoljenja"
+msgstr "Spreminjanje dovoljenj"
 
 #: C/gnome-commander.xml:897(para)
 msgid "To change the permissions of a file or a folder, perform the following steps:"
@@ -1187,40 +1155,34 @@ msgid "For each of the owner, the group, and all other users, choose from these 
 msgstr ""
 
 #: C/gnome-commander.xml:915(term)
-#, fuzzy
 msgid "Read"
-msgstr "Beri"
+msgstr "Branje"
 
 #: C/gnome-commander.xml:917(para)
-#, fuzzy
 msgid "The users can read a file"
-msgstr "Uporabniški skripti - ni mogoče brati iz datoteke!"
+msgstr "Uporabniki lahko preberejo vsebino datoteke"
 
 #: C/gnome-commander.xml:920(term)
-#, fuzzy
 msgid "Write"
-msgstr "Zapiši"
+msgstr "Pisanje"
 
 #: C/gnome-commander.xml:922(para)
 msgid "The users can save a file."
-msgstr ""
+msgstr "Uporabniki lahko shranijo datoteko."
 
 #: C/gnome-commander.xml:925(term)
-#, fuzzy
 msgid "Execute"
-msgstr "Izvedi"
+msgstr "Izvajanje"
 
 #: C/gnome-commander.xml:927(para)
 msgid "The users can run a file as a program."
-msgstr ""
+msgstr "Uporabniki lahko zaženejo datoteko kot program."
 
 #: C/gnome-commander.xml:937(title)
-#, fuzzy
 msgid "Using Bookmarks"
-msgstr "_Uredi zaznamke ..."
+msgstr "Uporaba zaznamkov"
 
 #: C/gnome-commander.xml:942(title)
-#, fuzzy
 msgid "Hidden Files"
 msgstr "Skrite datoteke"
 
@@ -1230,7 +1192,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:947(para)
 msgid "Hidden files, whose file name begins with a period (.),"
-msgstr ""
+msgstr "Skrite datoteke katerih ime se začne s piko (.),"
 
 #: C/gnome-commander.xml:948(para)
 msgid "Backup files, whose file name ends with a tilde (~) or with extension <filename>'.bak'</filename>"
@@ -1245,9 +1207,8 @@ msgid "You may hide or show hidden files in a particular folder by selecting <me
 msgstr ""
 
 #: C/gnome-commander.xml:955(title)
-#, fuzzy
 msgid "Advanced file renaming"
-msgstr "Napaka med preimenovanjem datoteke: %s"
+msgstr "Napredno preimenovanje datotek"
 
 #: C/gnome-commander.xml:956(para)
 msgid "A powerful tool for batch renaming of the files selected in GNOME Commander. It allows to easily rename lots of files in one go. The file names can be created by parts of the original file name, its path, numbering the files or accessing hundreds of informations about the file, like creation date or <link linkend=\"gnome-commander-advanced-rename-metadata-tags\">Exif/IPTC</link> informations of an image."
@@ -1259,15 +1220,14 @@ msgstr ""
 
 #: C/gnome-commander.xml:967(title)
 msgid "Advanced Rename Tool Dialog"
-msgstr ""
+msgstr "Pogovorno okno naprednega preimenovanja"
 
 #: C/gnome-commander.xml:973(phrase)
 msgid "Shows advanced file renaming dialog."
-msgstr ""
+msgstr "Pokaže pogovorno okno naprednega preimenovanja."
 
 #: C/gnome-commander.xml:983(guilabel)
 #: C/gnome-commander.xml:1622(para)
-#, fuzzy
 msgid "Template"
 msgstr "Predloga"
 
@@ -1276,7 +1236,6 @@ msgid "Specifies template for file renaming. All ordinary characters placed in t
 msgstr ""
 
 #: C/gnome-commander.xml:997(guilabel)
-#, fuzzy
 msgid "Counter"
 msgstr "Števec"
 
@@ -1285,7 +1244,6 @@ msgid "Specifies settings for counters: start value, step and width."
 msgstr ""
 
 #: C/gnome-commander.xml:1005(guilabel)
-#, fuzzy
 msgid "Regex replacing"
 msgstr "Zamenjava z logičnimi izrazi"
 
@@ -1294,7 +1252,6 @@ msgid "List of the regular expression patterns. The patterns are matched against
 msgstr ""
 
 #: C/gnome-commander.xml:1016(guilabel)
-#, fuzzy
 msgid "Case"
 msgstr "Črke"
 
@@ -1303,7 +1260,6 @@ msgid "Changes the case of the selected file names."
 msgstr ""
 
 #: C/gnome-commander.xml:1024(guilabel)
-#, fuzzy
 msgid "Trim blanks"
 msgstr "Obreži prazno"
 
@@ -1312,7 +1268,6 @@ msgid "Removes leading and trailing whitespace from the selected file names."
 msgstr ""
 
 #: C/gnome-commander.xml:1032(guilabel)
-#, fuzzy
 msgid "Results"
 msgstr "Rezultati"
 
@@ -1321,7 +1276,6 @@ msgid "List of the new file names. The list can de reordered using drag-and-drop
 msgstr ""
 
 #: C/gnome-commander.xml:1043(guibutton)
-#, fuzzy
 msgid "Apply"
 msgstr "Uporabi"
 
@@ -1330,7 +1284,6 @@ msgid "Starts to rename files. Conflicting renames will be marked red."
 msgstr ""
 
 #: C/gnome-commander.xml:1051(guibutton)
-#, fuzzy
 msgid "Close"
 msgstr "Zapri"
 
@@ -1339,16 +1292,14 @@ msgid "Closes the dialog without file renaming."
 msgstr ""
 
 #: C/gnome-commander.xml:1059(guibutton)
-#, fuzzy
 msgid "Reset"
-msgstr "Počisti"
+msgstr "Ponastavi"
 
 #: C/gnome-commander.xml:1062(para)
 msgid "Resets current settings to defaults."
 msgstr ""
 
 #: C/gnome-commander.xml:1067(guibutton)
-#, fuzzy
 msgid "Profiles..."
 msgstr "Profili ..."
 
@@ -1357,34 +1308,30 @@ msgid "Shows options for profile management. A profile is a collection of advanc
 msgstr ""
 
 #: C/gnome-commander.xml:1079(title)
-#, fuzzy
 msgid "Template Placeholders"
-msgstr "<b>Predloga upravljalnika</b>"
+msgstr "Predloge držal"
 
 #: C/gnome-commander.xml:1086(para)
 #: C/gnome-commander.xml:3381(para)
-#, fuzzy
 msgid "Placeholder"
-msgstr "Privzeto držalo"
+msgstr "Držalo"
 
 #: C/gnome-commander.xml:1087(para)
 #: C/gnome-commander.xml:3382(para)
-#, fuzzy
 msgid "Replacement"
 msgstr "Zamenjava"
 
 #: C/gnome-commander.xml:1092(para)
 msgid "$N"
-msgstr ""
+msgstr "$N"
 
 #: C/gnome-commander.xml:1093(para)
 msgid "The whole file name (with extension)"
 msgstr ""
 
 #: C/gnome-commander.xml:1096(para)
-#, fuzzy
 msgid "$N(range)"
-msgstr "Interval"
+msgstr "$N(razpon)"
 
 #: C/gnome-commander.xml:1097(para)
 msgid "Part of the whole file name (with extension)"
@@ -1392,54 +1339,47 @@ msgstr ""
 
 #: C/gnome-commander.xml:1100(para)
 msgid "$n"
-msgstr ""
+msgstr "$n"
 
 #: C/gnome-commander.xml:1101(para)
-#, fuzzy
 msgid "File name without extension"
-msgstr "/Ime datoteke brez končnice"
+msgstr "Ime datoteke brez pripone"
 
 #: C/gnome-commander.xml:1104(para)
-#, fuzzy
 msgid "$n(range)"
-msgstr "Interval"
+msgstr "$n(razpon)"
 
 #: C/gnome-commander.xml:1105(para)
-#, fuzzy
 msgid "Part of the file name without extension"
-msgstr "Trenutno urejana datoteka brez končnice"
+msgstr "Del imena datoteke brez pripone"
 
 #: C/gnome-commander.xml:1108(para)
 msgid "$e"
-msgstr ""
+msgstr "$e"
 
 #: C/gnome-commander.xml:1109(para)
-#, fuzzy
 msgid "File extension"
-msgstr "/Končnica datoteke"
+msgstr "Pripona datoteke"
 
 #: C/gnome-commander.xml:1112(para)
-#, fuzzy
 msgid "$e(range)"
-msgstr "Interval"
+msgstr "$e(razpon)"
 
 #: C/gnome-commander.xml:1113(para)
-#, fuzzy
 msgid "Part of the file extension"
-msgstr "Končnica datoteke maske:"
+msgstr "Del pripone datoteke"
 
 #: C/gnome-commander.xml:1116(para)
 msgid "$p"
-msgstr ""
+msgstr "$p"
 
 #: C/gnome-commander.xml:1117(para)
 msgid "Parent dir name"
 msgstr ""
 
 #: C/gnome-commander.xml:1120(para)
-#, fuzzy
 msgid "$p(range)"
-msgstr "Interval"
+msgstr "$p(razpon)"
 
 #: C/gnome-commander.xml:1121(para)
 msgid "Part of the parent dir name"
@@ -1447,16 +1387,15 @@ msgstr ""
 
 #: C/gnome-commander.xml:1124(para)
 msgid "$g"
-msgstr ""
+msgstr "$g"
 
 #: C/gnome-commander.xml:1125(para)
 msgid "Grandparent dir name"
 msgstr ""
 
 #: C/gnome-commander.xml:1128(para)
-#, fuzzy
 msgid "$g(range)"
-msgstr "Interval"
+msgstr "$g(razpon)"
 
 #: C/gnome-commander.xml:1129(para)
 msgid "Part of the grandparent dir name"
@@ -1464,17 +1403,15 @@ msgstr ""
 
 #: C/gnome-commander.xml:1132(para)
 msgid "$c"
-msgstr ""
+msgstr "$c"
 
 #: C/gnome-commander.xml:1133(para)
-#, fuzzy
 msgid "File counter"
-msgstr "<small><i><b>%n:</b> števec</i></small>"
+msgstr "Števec datotek"
 
 #: C/gnome-commander.xml:1136(para)
-#, fuzzy
 msgid "$c(width)"
-msgstr "ŠIRINA"
+msgstr "$c(širina)"
 
 #: C/gnome-commander.xml:1137(para)
 msgid "File counter with specified digit number (width)"
@@ -1483,7 +1420,7 @@ msgstr ""
 #: C/gnome-commander.xml:1140(para)
 #: C/gnome-commander.xml:1148(para)
 msgid "$x"
-msgstr ""
+msgstr "$x"
 
 #: C/gnome-commander.xml:1141(para)
 msgid "Hexadecimal random number (8 lowercase digits)"
@@ -1491,9 +1428,8 @@ msgstr ""
 
 #: C/gnome-commander.xml:1144(para)
 #: C/gnome-commander.xml:1152(para)
-#, fuzzy
 msgid "$x(width)"
-msgstr "ŠIRINA"
+msgstr "$x(širina)"
 
 #: C/gnome-commander.xml:1145(para)
 msgid "Hexadecimal random number with specified lowercase digit number (width)"
@@ -1508,32 +1444,28 @@ msgid "Hexadecimal random number with specified uppercase digit number (width)"
 msgstr ""
 
 #: C/gnome-commander.xml:1156(para)
-#, fuzzy
 msgid "$T(metatag)"
-msgstr "Metaoznaka"
+msgstr "$T(metaoznaka)"
 
 #: C/gnome-commander.xml:1157(para)
-#, fuzzy
 msgid "Metadata tag"
-msgstr "Opis oznake metapodatka"
+msgstr "Metapodatkovne oznake"
 
 #: C/gnome-commander.xml:1160(para)
 msgid "$$"
-msgstr ""
+msgstr "$$"
 
 #: C/gnome-commander.xml:1161(para)
-#, fuzzy
 msgid "A literal \"$\" character"
-msgstr "_Nabor znakov"
+msgstr "Znak \"$\""
 
 #: C/gnome-commander.xml:1168(para)
 msgid "Broken - like $n(), $e(0,-3) or $N(abc) - or unknown placeholders are copied verbatim without any substitution."
 msgstr ""
 
 #: C/gnome-commander.xml:1173(title)
-#, fuzzy
 msgid "Metadata Tags (Metatags)"
-msgstr "Pokaži _meta oznake"
+msgstr "Metapodatkovne oznake (metaoznake)"
 
 #: C/gnome-commander.xml:1175(para)
 msgid "Metadata is usually defined as data about data. Metadata describes data about files that is often user visible in file managers, office applications, document viewers and audio players. Metadata can typically be viewed or written by selecting \"properties\" from the file menu of one of these applications."
@@ -1548,238 +1480,192 @@ msgid "The placeholder for metadata is <literal>$T(metatag)</literal>. Use, for 
 msgstr ""
 
 #: C/gnome-commander.xml:1199(para)
-#, fuzzy
 msgid "Tag"
 msgstr "Oznaka"
 
 #: C/gnome-commander.xml:1206(para)
-#, fuzzy
 msgid "Audio.Album"
-msgstr "Naslov albuma"
+msgstr "Audio.Album"
 
 #: C/gnome-commander.xml:1207(para)
 #: C/gnome-commander.xml:2707(para)
-#, fuzzy
 msgid "Album"
 msgstr "Album"
 
 #: C/gnome-commander.xml:1208(para)
-#, fuzzy
 msgid "Name of the album."
 msgstr "Ime albuma"
 
 #: C/gnome-commander.xml:1211(para)
-#, fuzzy
 msgid "Audio.AlbumArtist"
-msgstr "Kakovost zvoka"
+msgstr "Audio.AlbumArtist"
 
 #: C/gnome-commander.xml:1212(para)
-#, fuzzy
 msgid "Album Artist"
 msgstr "Izvajalec albuma"
 
 #: C/gnome-commander.xml:1213(para)
-#, fuzzy
 msgid "Artist of the album."
 msgstr "Izvajalec albuma"
 
 #: C/gnome-commander.xml:1216(para)
-#, fuzzy
 msgid "Audio.AlbumGain"
-msgstr "Kakovost zvoka"
+msgstr "Audio.AlbumGain"
 
 #: C/gnome-commander.xml:1217(para)
-#, fuzzy
 msgid "Album Gain"
 msgstr "Ojačenje albuma"
 
 #: C/gnome-commander.xml:1218(para)
-#, fuzzy
 msgid "Gain adjustment of the album."
 msgstr "Prilagoditev ojačitve za album."
 
 #: C/gnome-commander.xml:1221(para)
-#, fuzzy
 msgid "Audio.AlbumPeakGain"
-msgstr "Kakovost zvoka"
+msgstr "Audio.AlbumPeakGain"
 
 #: C/gnome-commander.xml:1222(para)
-#, fuzzy
 msgid "Album Peak Gain"
 msgstr "Ojačanje vrha albuma."
 
 #: C/gnome-commander.xml:1223(para)
-#, fuzzy
 msgid "Peak gain adjustment of album."
 msgstr "Prilagoditev ojačitve vrhov albuma."
 
 #: C/gnome-commander.xml:1226(para)
-#, fuzzy
 msgid "Audio.AlbumTrackCount"
-msgstr "Kakovost zvoka"
+msgstr "Audio.AlbumTrackCount"
 
 #: C/gnome-commander.xml:1227(para)
-#, fuzzy
 msgid "Album Track Count"
 msgstr "Štetje sledi albuma"
 
 #: C/gnome-commander.xml:1228(para)
-#, fuzzy
 msgid "Total number of tracks on the album."
 msgstr "Število sledi na albumu."
 
 #: C/gnome-commander.xml:1231(para)
-#, fuzzy
 msgid "Audio.Artist"
-msgstr "Ime izvajalca"
+msgstr "Audio.Artist"
 
 #: C/gnome-commander.xml:1232(para)
 #: C/gnome-commander.xml:1642(para)
-#, fuzzy
 msgid "Artist"
 msgstr "Izvajalec"
 
 #: C/gnome-commander.xml:1233(para)
-#, fuzzy
 msgid "Artist of the track."
-msgstr "Izvajalec zapisa"
+msgstr "Izvajalec sledi"
 
 #: C/gnome-commander.xml:1236(para)
-#, fuzzy
 msgid "Audio.Bitrate"
-msgstr "Bitna hitrost zvoka:"
+msgstr "Audio.Bitrate"
 
 #: C/gnome-commander.xml:1237(para)
-#, fuzzy
 msgid "Bitrate"
 msgstr "Bitna hitrost"
 
 #: C/gnome-commander.xml:1238(para)
-#, fuzzy
 msgid "Bitrate in kbps."
 msgstr "Bitna hitrost v kbps"
 
 #: C/gnome-commander.xml:1241(para)
-#, fuzzy
 msgid "Audio.Channels"
-msgstr "Zvočni kanali:"
+msgstr "Audio.Channels"
 
 #: C/gnome-commander.xml:1242(para)
-#, fuzzy
 msgid "Channels"
 msgstr "Kanali"
 
 #: C/gnome-commander.xml:1243(para)
-#, fuzzy
 msgid "Number of channels in the audio (2 = stereo)."
 msgstr "Število kanalov zvoka (2 = stereo)."
 
 #: C/gnome-commander.xml:1246(para)
-#, fuzzy
 msgid "Audio.Codec"
-msgstr "Zvočni kodek:"
+msgstr "Audio.Codec"
 
 #: C/gnome-commander.xml:1247(para)
-#, fuzzy
 msgid "Codec"
 msgstr "Kodek"
 
 #: C/gnome-commander.xml:1248(para)
-#, fuzzy
 msgid "Codec encoding description."
 msgstr "Opis kodiranja kodeka."
 
 #: C/gnome-commander.xml:1251(para)
-#, fuzzy
 msgid "Audio.CodecVersion"
-msgstr "Kakovost zvoka"
+msgstr "Audio.CodecVersion"
 
 #: C/gnome-commander.xml:1252(para)
-#, fuzzy
 msgid "Codec Version"
 msgstr "Različica kodeka"
 
 #: C/gnome-commander.xml:1253(para)
-#, fuzzy
 msgid "Codec version."
-msgstr "Različica kodeka"
+msgstr "Različica kodeka."
 
 #: C/gnome-commander.xml:1256(para)
-#, fuzzy
 msgid "Audio.Comment"
-msgstr "Ni opomb"
+msgstr "Audio.Comment"
 
 #: C/gnome-commander.xml:1257(para)
-#, fuzzy
 msgid "Comment"
 msgstr "Opomba"
 
 #: C/gnome-commander.xml:1258(para)
-#, fuzzy
 msgid "Comments on the track."
 msgstr "Opombe na sledi."
 
 #: C/gnome-commander.xml:1261(para)
-#, fuzzy
 msgid "Audio.Copyright"
-msgstr "Avtorske pravice/Licenca:"
+msgstr "Audio.Copyright"
 
 #: C/gnome-commander.xml:1262(para)
 #: C/gnome-commander.xml:1697(para)
 #: C/gnome-commander.xml:2337(para)
 #: C/gnome-commander.xml:2717(para)
-#, fuzzy
 msgid "Copyright"
 msgstr "Avtorske pravice"
 
 #: C/gnome-commander.xml:1263(para)
 #: C/gnome-commander.xml:2338(para)
-#, fuzzy
 msgid "Copyright message."
-msgstr "Avtorsko sporočilo."
+msgstr "Sporočilo avtorskih pravic."
 
 #: C/gnome-commander.xml:1266(para)
-#, fuzzy
 msgid "Audio.CoverAlbumThumbnailPath"
-msgstr "Kakovost zvoka"
+msgstr "Audio.CoverAlbumThumbnailPath"
 
 #: C/gnome-commander.xml:1267(para)
-#, fuzzy
 msgid "Cover Album Thumbnail Path"
 msgstr "Pod do sličic naslovnice albuma"
 
 #: C/gnome-commander.xml:1268(para)
-#, fuzzy
 msgid "File path to thumbnail image of the cover album."
 msgstr "Pot do sličice naslovnice albuma."
 
 #: C/gnome-commander.xml:1271(para)
-#, fuzzy
 msgid "Audio.DiscNo"
-msgstr "Kakovost zvoka"
+msgstr "Audio.DiscNo"
 
 #: C/gnome-commander.xml:1272(para)
-#, fuzzy
 msgid "Disc Number"
-msgstr "Številka diska"
+msgstr "Številka nosilca"
 
 #: C/gnome-commander.xml:1273(para)
-#, fuzzy
 msgid "Specifies which disc the track is on."
-msgstr "Določa disk na katerem je iskana sled."
+msgstr "Določa nosilec na katerem je iskana sled."
 
 #: C/gnome-commander.xml:1276(para)
-#, fuzzy
 msgid "Audio.Duration"
-msgstr "Trajanje posnetka"
+msgstr "Audio.Duration"
 
 #: C/gnome-commander.xml:1277(para)
-#, fuzzy
 msgid "Duration"
 msgstr "Trajanje"
 
 #: C/gnome-commander.xml:1278(para)
-#, fuzzy
 msgid "Duration of track in seconds."
 msgstr "Trajanje sledi v sekundah."
 
@@ -1788,498 +1674,401 @@ msgid "Audio.Duration.MMSS"
 msgstr ""
 
 #: C/gnome-commander.xml:1282(para)
-#, fuzzy
 msgid "Duration [MM:SS]"
 msgstr "Trajanje [MM:SS]"
 
 #: C/gnome-commander.xml:1283(para)
-#, fuzzy
 msgid "Duration of track as MM:SS."
-msgstr "Trajanje sledi  MM:SS."
+msgstr "Čas trajanja sledi v MM:SS."
 
 #: C/gnome-commander.xml:1286(para)
-#, fuzzy
 msgid "Audio.Genre"
-msgstr "Zvrst postaje:"
+msgstr "Audio.Genre"
 
 #: C/gnome-commander.xml:1287(para)
-#, fuzzy
 msgid "Genre"
 msgstr "Zvrst"
 
 #: C/gnome-commander.xml:1288(para)
 #: C/gnome-commander.xml:2333(para)
-#, fuzzy
 msgid "Type of music classification for the track as defined in ID3 spec."
-msgstr "Zvrst glasbe kot jo določa ID3 specifikacija sledi."
+msgstr "Zvrst glasbe kot jo določa ID3 določilo sledi."
 
 #: C/gnome-commander.xml:1291(para)
-#, fuzzy
 msgid "Audio.IsNew"
-msgstr "Kakovost zvoka"
+msgstr "Audio.IsNew"
 
 #: C/gnome-commander.xml:1292(para)
-#, fuzzy
 msgid "Is New"
 msgstr "Je nov"
 
 #: C/gnome-commander.xml:1293(para)
-#, fuzzy
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
 msgstr "Nastavitev na vrednost \"1\", če je sled v zbirki nova (privzeta vrednost je \"0\")."
 
 #: C/gnome-commander.xml:1296(para)
-#, fuzzy
 msgid "Audio.ISRC"
-msgstr "Kakovost zvoka"
+msgstr "Audio.ISRC"
 
 #: C/gnome-commander.xml:1297(para)
-#, fuzzy
 msgid "ISRC"
 msgstr "ISRC"
 
 #: C/gnome-commander.xml:1298(para)
-#, fuzzy
 msgid "ISRC (international standard recording code)."
 msgstr "Mednarodni standard snemanja (International Standard Recording Code)."
 
 #: C/gnome-commander.xml:1301(para)
-#, fuzzy
 msgid "Audio.LastPlay"
-msgstr "Kakovost zvoka"
+msgstr "Audio.LastPlay"
 
 #: C/gnome-commander.xml:1302(para)
-#, fuzzy
 msgid "Last Play"
 msgstr "Zadnjič predvajano"
 
 #: C/gnome-commander.xml:1303(para)
-#, fuzzy
 msgid "When track was last played."
 msgstr "Kdaj je bila sled nazadnje predvajana."
 
 #: C/gnome-commander.xml:1306(para)
-#, fuzzy
 msgid "Audio.Lyrics"
-msgstr "Besedilo sledi."
+msgstr "Audio.Lyrics"
 
 #: C/gnome-commander.xml:1307(para)
-#, fuzzy
 msgid "Lyrics"
-msgstr "Besedilo"
+msgstr "Besedilo skladbe"
 
 #: C/gnome-commander.xml:1308(para)
-#, fuzzy
 msgid "Lyrics of the track."
-msgstr "Besedilo sledi."
+msgstr "Besedilo skladbe."
 
 #: C/gnome-commander.xml:1311(para)
-#, fuzzy
 msgid "Audio.MBAlbumArtistID"
-msgstr "Kakovost zvoka"
+msgstr "Audio.MBAlbumArtistID"
 
 #: C/gnome-commander.xml:1312(para)
-#, fuzzy
 msgid "MB album artist ID"
-msgstr "ID izvajalca albuma"
+msgstr "MB ID izvajalca albuma"
 
 #: C/gnome-commander.xml:1313(para)
-#, fuzzy
 msgid "MusicBrainz album artist ID in UUID format."
 msgstr "MusicBrainz ID izvajalca albuma v UUID obliki."
 
 #: C/gnome-commander.xml:1316(para)
-#, fuzzy
 msgid "Audio.MBAlbumID"
-msgstr "Kakovost zvoka"
+msgstr "Audio.MBAlbumID"
 
 #: C/gnome-commander.xml:1317(para)
-#, fuzzy
 msgid "MB Album ID"
 msgstr "MB ID albuma"
 
 #: C/gnome-commander.xml:1318(para)
-#, fuzzy
 msgid "MusicBrainz album ID in UUID format."
 msgstr "MusicBrainz ID albuma v UUID obliki."
 
 #: C/gnome-commander.xml:1321(para)
-#, fuzzy
 msgid "Audio.MBArtistID"
-msgstr "Kakovost zvoka"
+msgstr "Audio.MBArtistID"
 
 #: C/gnome-commander.xml:1322(para)
-#, fuzzy
 msgid "MB Artist ID"
 msgstr "MB ID izvajalca"
 
 #: C/gnome-commander.xml:1323(para)
-#, fuzzy
 msgid "MusicBrainz artist ID in UUID format."
 msgstr "MusicBrainz ID izvajalca v UUID obliki."
 
 #: C/gnome-commander.xml:1326(para)
-#, fuzzy
 msgid "Audio.MBTrackID"
-msgstr "Kakovost zvoka"
+msgstr "Audio.MBTrackID"
 
 #: C/gnome-commander.xml:1327(para)
-#, fuzzy
 msgid "MB Track ID"
 msgstr "MB ID sledi"
 
 #: C/gnome-commander.xml:1328(para)
-#, fuzzy
 msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz ID sledi v UUID obliki."
 
 #: C/gnome-commander.xml:1331(para)
-#, fuzzy
 msgid "Audio.MPEG.ChannelMode"
-msgstr "MPEG dekodirnik zvoka"
+msgstr "Audio.MPEG.ChannelMode"
 
 #: C/gnome-commander.xml:1332(para)
-#, fuzzy
 msgid "Channel Mode"
 msgstr "Kanalni način"
 
 #: C/gnome-commander.xml:1333(para)
-#, fuzzy
 msgid "MPEG channel mode."
 msgstr "MPEG kanalski način."
 
 #: C/gnome-commander.xml:1336(para)
-#, fuzzy
 msgid "Audio.MPEG.Copyrighted"
-msgstr "MPEG dekodirnik zvoka"
+msgstr "Audio.MPEG.Copyrighted"
 
 #: C/gnome-commander.xml:1337(para)
-#, fuzzy
 msgid "Copyrighted"
 msgstr "Avtorsko zaščiteno"
 
 #: C/gnome-commander.xml:1338(para)
-#, fuzzy
 msgid "\"1\" if the copyrighted bit is set."
 msgstr "Nastavitev na vrednost \"1\" določi podatek avtorske zaščite."
 
 #: C/gnome-commander.xml:1341(para)
-#, fuzzy
 msgid "Audio.MPEG.Layer"
-msgstr "MPEG dekodirnik zvoka"
+msgstr "Audio.MPEG.Layer"
 
 #: C/gnome-commander.xml:1342(para)
-#, fuzzy
 msgid "Layer"
-msgstr "Plast"
+msgstr "Sloj"
 
 #: C/gnome-commander.xml:1343(para)
-#, fuzzy
 msgid "MPEG layer."
 msgstr "MPEG sloj."
 
 #: C/gnome-commander.xml:1346(para)
-#, fuzzy
 msgid "Audio.MPEG.Original"
-msgstr "MPEG dekodirnik zvoka"
+msgstr "Audio.MPEG.Original"
 
 #: C/gnome-commander.xml:1347(para)
-#, fuzzy
 msgid "Original Audio"
-msgstr "Izvirni zvok."
+msgstr "Izvirni zvok"
 
 #: C/gnome-commander.xml:1348(para)
-#, fuzzy
 msgid "\"1\" if the \"original\" bit is set."
 msgstr "Nastavitev na vrednost \"1\" določi podatek osnovnega lastništva."
 
 #: C/gnome-commander.xml:1351(para)
-#, fuzzy
 msgid "Audio.MPEG.Version"
-msgstr "MPEG dekodirnik zvoka"
+msgstr "Audio.MPEG.Version"
 
 #: C/gnome-commander.xml:1352(para)
-#, fuzzy
 msgid "MPEG Version"
 msgstr "MPEG različica"
 
 #: C/gnome-commander.xml:1353(para)
-#, fuzzy
 msgid "MPEG version."
 msgstr "MPEG različica."
 
 #: C/gnome-commander.xml:1356(para)
-#, fuzzy
 msgid "Audio.Performer"
-msgstr "Kakovost zvoka"
+msgstr "Audio.Performer"
 
 #: C/gnome-commander.xml:1357(para)
-#, fuzzy
 msgid "Performer"
 msgstr "Izvajalec"
 
 #: C/gnome-commander.xml:1358(para)
-#, fuzzy
 msgid "Name of the performer/conductor of the music."
 msgstr "Ime izvajalca/dirigenta skladbe."
 
 #: C/gnome-commander.xml:1361(para)
-#, fuzzy
 msgid "Audio.PlayCount"
-msgstr "Kakovost zvoka"
+msgstr "Audio.PlayCount"
 
 #: C/gnome-commander.xml:1362(para)
-#, fuzzy
 msgid "Play Count"
 msgstr "Števec predvajanj"
 
 #: C/gnome-commander.xml:1363(para)
-#, fuzzy
 msgid "Number of times the track has been played."
 msgstr "Število predvajanj sledi."
 
 #: C/gnome-commander.xml:1366(para)
-#, fuzzy
 msgid "Audio.ReleaseDate"
-msgstr "Kakovost zvoka"
+msgstr "Audio.ReleaseDate"
 
 #: C/gnome-commander.xml:1367(para)
 #: C/gnome-commander.xml:3127(para)
-#, fuzzy
 msgid "Release Date"
 msgstr "Datum objave"
 
 #: C/gnome-commander.xml:1368(para)
-#, fuzzy
 msgid "Date track was released."
-msgstr "Datum objave sledi."
+msgstr "Datum objave skladbe."
 
 #: C/gnome-commander.xml:1371(para)
-#, fuzzy
 msgid "Audio.SampleRate"
-msgstr "Kakovost zvoka"
+msgstr "Audio.SampleRate"
 
 #: C/gnome-commander.xml:1372(para)
-#, fuzzy
 msgid "Sample Rate"
-msgstr "Raven vzorčenja"
+msgstr "Vzorčna hitrost"
 
 #: C/gnome-commander.xml:1373(para)
-#, fuzzy
 msgid "Sample rate in Hz."
-msgstr "Raven vzorčenja v Hz."
+msgstr "Vzorčna hitrost v Hz."
 
 #: C/gnome-commander.xml:1376(para)
-#, fuzzy
 msgid "Audio.Title"
-msgstr "Naslov apleta:"
+msgstr "Audio.Title"
 
 #: C/gnome-commander.xml:1377(para)
 #: C/gnome-commander.xml:1627(para)
 #: C/gnome-commander.xml:2802(para)
-#, fuzzy
 msgid "Title"
 msgstr "Naslov"
 
 #: C/gnome-commander.xml:1378(para)
-#, fuzzy
 msgid "Title of the track."
 msgstr "Naslov sledi."
 
 #: C/gnome-commander.xml:1381(para)
-#, fuzzy
 msgid "Audio.TrackGain"
-msgstr "Kakovost zvoka"
+msgstr "Audio.TrackGain"
 
 #: C/gnome-commander.xml:1382(para)
-#, fuzzy
 msgid "Track Gain"
 msgstr "Ojačanje sledi"
 
 #: C/gnome-commander.xml:1383(para)
-#, fuzzy
 msgid "Gain adjustment of the track."
 msgstr "Prilagoditev ojačitve sledi."
 
 #: C/gnome-commander.xml:1386(para)
-#, fuzzy
 msgid "Audio.TrackNo"
-msgstr "Kakovost zvoka"
+msgstr "Audio.TrackNo"
 
 #: C/gnome-commander.xml:1387(para)
-#, fuzzy
 msgid "Track Number"
-msgstr "Številka skladbe"
+msgstr "Številka sledi"
 
 #: C/gnome-commander.xml:1388(para)
-#, fuzzy
 msgid "Position of track on the album."
-msgstr "Lega sledi v albumu."
+msgstr "Položaj sledi v albumu."
 
 #: C/gnome-commander.xml:1391(para)
-#, fuzzy
 msgid "Audio.TrackPeakGain"
-msgstr "Kakovost zvoka"
+msgstr "Audio.TrackPeakGain"
 
 #: C/gnome-commander.xml:1392(para)
-#, fuzzy
 msgid "Track Peak Gain"
 msgstr "Ojačanje vrhov sledi"
 
 #: C/gnome-commander.xml:1393(para)
-#, fuzzy
 msgid "Peak gain adjustment of track."
 msgstr "Prilagoditev ojačitve vrhov sledi."
 
 #: C/gnome-commander.xml:1396(para)
-#, fuzzy
 msgid "Audio.Year"
-msgstr "Vsako leto"
+msgstr "Audio.Year"
 
 #: C/gnome-commander.xml:1397(para)
-#, fuzzy
 msgid "Year"
 msgstr "Leto"
 
 #: C/gnome-commander.xml:1398(para)
-#, fuzzy
 msgid "Year."
 msgstr "Leto."
 
 #: C/gnome-commander.xml:1401(para)
 #: C/gnome-commander.xml:1446(para)
-#, fuzzy
 msgid "Doc.Author"
-msgstr "Ime avtorja:"
+msgstr "Doc.Author"
 
 #: C/gnome-commander.xml:1402(para)
 #: C/gnome-commander.xml:1447(para)
-#, fuzzy
 msgid "Author"
 msgstr "Avtor"
 
 #: C/gnome-commander.xml:1403(para)
 #: C/gnome-commander.xml:1448(para)
 #: C/gnome-commander.xml:2723(para)
-#, fuzzy
 msgid "Name of the author."
 msgstr "Ime avtorja."
 
 #: C/gnome-commander.xml:1406(para)
-#, fuzzy
 msgid "Doc.ByteCount"
-msgstr "gtk-doc"
+msgstr "Doc.ByteCount"
 
 #: C/gnome-commander.xml:1407(para)
-#, fuzzy
 msgid "Byte Count"
 msgstr "Štetje bajtov"
 
 #: C/gnome-commander.xml:1408(para)
-#, fuzzy
 msgid "Number of bytes in the document."
 msgstr "Število bajtov v dokumentu."
 
 #: C/gnome-commander.xml:1411(para)
-#, fuzzy
 msgid "Doc.CaseSensitive"
-msgstr "gtk-doc"
+msgstr "Doc.CaseSensitive"
 
 #: C/gnome-commander.xml:1412(para)
-#, fuzzy
 msgid "Case Sensitive"
-msgstr "Upoštevaj velikost črk"
+msgstr "Razlikovanje velikosti črk"
 
 #: C/gnome-commander.xml:1413(para)
-#, fuzzy
 msgid "Case sensitive."
-msgstr "Upoštevaj velikost črk."
+msgstr "Razlikovanje velikosti črk."
 
 #: C/gnome-commander.xml:1416(para)
-#, fuzzy
 msgid "Doc.Category"
-msgstr "<Nova kategorija (%d)>"
+msgstr "Doc.Category"
 
 #: C/gnome-commander.xml:1417(para)
 #: C/gnome-commander.xml:2872(para)
-#, fuzzy
 msgid "Category"
 msgstr "Kategorija"
 
 #: C/gnome-commander.xml:1418(para)
-#, fuzzy
 msgid "Category."
-msgstr "Kategorija"
+msgstr "Kategorija."
 
 #: C/gnome-commander.xml:1421(para)
-#, fuzzy
 msgid "Doc.CellCount"
-msgstr "gtk-doc"
+msgstr "Doc.CellCount"
 
 #: C/gnome-commander.xml:1422(para)
-#, fuzzy
 msgid "Cell Count"
 msgstr "Štetje celic"
 
 #: C/gnome-commander.xml:1423(para)
-#, fuzzy
 msgid "Number of cells in the spreadsheet document."
 msgstr "Število celic v dokumentu."
 
 #: C/gnome-commander.xml:1426(para)
-#, fuzzy
 msgid "Doc.CharacterCount"
-msgstr "gtk-doc"
+msgstr "Doc.CharacterCount"
 
 #: C/gnome-commander.xml:1427(para)
-#, fuzzy
 msgid "Character Count"
 msgstr "Štetje znakov"
 
 #: C/gnome-commander.xml:1428(para)
-#, fuzzy
 msgid "Number of characters in the document."
 msgstr "Število znakov v dokumentu."
 
 #: C/gnome-commander.xml:1431(para)
-#, fuzzy
 msgid "Doc.Codepage"
-msgstr "gtk-doc"
+msgstr "Doc.Codepage"
 
 #: C/gnome-commander.xml:1432(para)
-#, fuzzy
 msgid "Codepage"
 msgstr "Kodni nabor"
 
 #: C/gnome-commander.xml:1433(para)
-#, fuzzy
 msgid "The MS codepage to encode strings for metadata."
 msgstr "MS koda za kodiranje nizov metapodatkov."
 
 #: C/gnome-commander.xml:1436(para)
-#, fuzzy
 msgid "Doc.Comments"
-msgstr "Vidne opombe"
+msgstr "Doc.Comments"
 
 #: C/gnome-commander.xml:1437(para)
 #: C/gnome-commander.xml:2712(para)
-#, fuzzy
 msgid "Comments"
-msgstr "_Opombe"
+msgstr "Opombe"
 
 #: C/gnome-commander.xml:1438(para)
 #: C/gnome-commander.xml:2713(para)
-#, fuzzy
 msgid "User definable free text."
 msgstr "Uporabniško določeno prosto besedilo."
 
 #: C/gnome-commander.xml:1441(para)
-#, fuzzy
 msgid "Doc.Company"
-msgstr "Imenik podjetja"
+msgstr "Doc.Company"
 
 #: C/gnome-commander.xml:1442(para)
-#, fuzzy
 msgid "Company"
 msgstr "Podjetje"
 
@@ -2288,9 +2077,8 @@ msgid "Organization that the <literal>Doc.Creator</literal> entity is associated
 msgstr ""
 
 #: C/gnome-commander.xml:1451(para)
-#, fuzzy
 msgid "Doc.Creator"
-msgstr "Ustvarjalec postaj:"
+msgstr "Doc.Creator"
 
 #: C/gnome-commander.xml:1452(para)
 #: C/gnome-commander.xml:2722(para)
@@ -2304,9 +2092,8 @@ msgid "An entity primarily responsible for making the content of the resource, t
 msgstr "Sestavlavec besedila vira, ki je lahko oseba organizacija ali storitev."
 
 #: C/gnome-commander.xml:1456(para)
-#, fuzzy
 msgid "Doc.Created"
-msgstr "Datum stvaritve"
+msgstr "Doc.Created"
 
 #: C/gnome-commander.xml:1457(para)
 #, fuzzy
@@ -2319,9 +2106,8 @@ msgid "Datetime document was originally created."
 msgstr "Čas, ko je bil dokument ustvarjen."
 
 #: C/gnome-commander.xml:1461(para)
-#, fuzzy
 msgid "Doc.DateCreated"
-msgstr "gtk-doc"
+msgstr "Doc.DateCreated"
 
 #: C/gnome-commander.xml:1462(para)
 #: C/gnome-commander.xml:2927(para)
@@ -2335,9 +2121,8 @@ msgid "Date associated with an event in the life cycle of the resource (creation
 msgstr "Datum povezan z dogodkom pri urejanju vira (ustvarjanje/objavljanje)"
 
 #: C/gnome-commander.xml:1466(para)
-#, fuzzy
 msgid "Doc.DateModified"
-msgstr "gtk-doc"
+msgstr "Doc.DateModified"
 
 #: C/gnome-commander.xml:1467(para)
 #, fuzzy
@@ -2350,9 +2135,8 @@ msgid "The last time the document was saved."
 msgstr "Čas zadnjega shranjevanja dokumenta."
 
 #: C/gnome-commander.xml:1471(para)
-#, fuzzy
 msgid "Doc.Description"
-msgstr "<i>(brez opisa)</i>"
+msgstr "Doc.Description"
 
 #: C/gnome-commander.xml:1473(para)
 #, fuzzy
@@ -2360,9 +2144,8 @@ msgid "An account of the content of the resource."
 msgstr "Račun vsebine vira."
 
 #: C/gnome-commander.xml:1476(para)
-#, fuzzy
 msgid "Doc.Dictionary"
-msgstr "Priročnik slovarja"
+msgstr "Doc.Dictionary"
 
 #: C/gnome-commander.xml:1477(para)
 #, fuzzy
@@ -2375,9 +2158,8 @@ msgid "Dictionary."
 msgstr "Slovar."
 
 #: C/gnome-commander.xml:1481(para)
-#, fuzzy
 msgid "Doc.EditingDuration"
-msgstr "gtk-doc"
+msgstr "Doc.EditingDuration"
 
 #: C/gnome-commander.xml:1482(para)
 #, fuzzy
@@ -2390,9 +2172,8 @@ msgid "The total time taken until the last modification."
 msgstr "Skupni čas od zadnje spremembe."
 
 #: C/gnome-commander.xml:1486(para)
-#, fuzzy
 msgid "Doc.Generator"
-msgstr "Ustvarjalec razredov"
+msgstr "Doc.Generator"
 
 #: C/gnome-commander.xml:1487(para)
 #, fuzzy
@@ -2405,9 +2186,8 @@ msgid "The application that generated this document."
 msgstr "Program s katerim je bil dokument ustvarjen."
 
 #: C/gnome-commander.xml:1491(para)
-#, fuzzy
 msgid "Doc.HiddenSlideCount"
-msgstr "gtk-doc"
+msgstr "Doc.HiddenSlideCount"
 
 #: C/gnome-commander.xml:1492(para)
 #, fuzzy
@@ -2420,9 +2200,8 @@ msgid "Number of hidden slides in the presentation document."
 msgstr "Število skritih diapozitivov v predstavitvenem dokumentu."
 
 #: C/gnome-commander.xml:1496(para)
-#, fuzzy
 msgid "Doc.ImageCount"
-msgstr "gtk-doc"
+msgstr "Doc.ImageCount"
 
 #: C/gnome-commander.xml:1497(para)
 #, fuzzy
@@ -2435,9 +2214,8 @@ msgid "Number of images in the document."
 msgstr "Število slik v dokumentu."
 
 #: C/gnome-commander.xml:1501(para)
-#, fuzzy
 msgid "Doc.InitialCreator"
-msgstr "gtk-doc"
+msgstr "Doc.InitialCreator"
 
 #: C/gnome-commander.xml:1502(para)
 #, fuzzy
@@ -2450,9 +2228,8 @@ msgid "Specifies the name of the person who created the document initially."
 msgstr "Ime osebe, ki je prva ustvarila dokument."
 
 #: C/gnome-commander.xml:1506(para)
-#, fuzzy
 msgid "Doc.Keywords"
-msgstr "_Uredi ključne besede"
+msgstr "Doc.Keywords"
 
 #: C/gnome-commander.xml:1507(para)
 #: C/gnome-commander.xml:2232(para)
@@ -2468,9 +2245,8 @@ msgid "Searchable, indexable keywords."
 msgstr "Iskalne, indeksirane ključne besede."
 
 #: C/gnome-commander.xml:1511(para)
-#, fuzzy
 msgid "Doc.Language"
-msgstr "Upravljalnik jezikov"
+msgstr "Doc.Language"
 
 #: C/gnome-commander.xml:1512(para)
 #: C/gnome-commander.xml:2427(para)
@@ -2484,9 +2260,8 @@ msgid "The locale language of the intellectual content of the resource."
 msgstr "Krajevni jezik intelektualne vsebine vira."
 
 #: C/gnome-commander.xml:1516(para)
-#, fuzzy
 msgid "Doc.LastPrinted"
-msgstr "gtk-doc"
+msgstr "Doc.LastPrinted"
 
 #: C/gnome-commander.xml:1517(para)
 #, fuzzy
@@ -2499,9 +2274,8 @@ msgid "The last time this document was printed."
 msgstr "Čas zadnjega tiskanja dokumenta."
 
 #: C/gnome-commander.xml:1521(para)
-#, fuzzy
 msgid "Doc.LastSavedBy"
-msgstr "gtk-doc"
+msgstr "Doc.LastSavedBy"
 
 #: C/gnome-commander.xml:1522(para)
 #, fuzzy
@@ -2514,9 +2288,8 @@ msgid "The entity that made the last change to the document, typically a person,
 msgstr "Oseba ali organizacija ali storitev, ki je zadnja spreminjala dokument."
 
 #: C/gnome-commander.xml:1526(para)
-#, fuzzy
 msgid "Doc.LineCount"
-msgstr "gtk-doc"
+msgstr "Doc.LineCount"
 
 #: C/gnome-commander.xml:1527(para)
 #, fuzzy
@@ -2529,9 +2302,8 @@ msgid "Number of lines in the document."
 msgstr "Število vrstic v dokumentu."
 
 #: C/gnome-commander.xml:1531(para)
-#, fuzzy
 msgid "Doc.LinksDirty"
-msgstr "gtk-doc"
+msgstr "Doc.LinksDirty"
 
 #: C/gnome-commander.xml:1532(para)
 #, fuzzy
@@ -2544,9 +2316,8 @@ msgid "Links dirty."
 msgstr "Pomanjkljive povezave"
 
 #: C/gnome-commander.xml:1536(para)
-#, fuzzy
 msgid "Doc.LocaleSystemDefault"
-msgstr "gtk-doc"
+msgstr "Doc.LocaleSystemDefault"
 
 #: C/gnome-commander.xml:1537(para)
 #, fuzzy
@@ -2559,9 +2330,8 @@ msgid "Identifier representing the default system locale."
 msgstr "Določilo, ki predstavlja privzeti krajevni sistemski jezik."
 
 #: C/gnome-commander.xml:1541(para)
-#, fuzzy
 msgid "Doc.Manager"
-msgstr "Upravljalnik povezav"
+msgstr "Doc.Manager"
 
 #: C/gnome-commander.xml:1542(para)
 #, fuzzy
@@ -2573,9 +2343,8 @@ msgid "Name of the manager of <literal>Doc.Creator</literal> entity."
 msgstr ""
 
 #: C/gnome-commander.xml:1546(para)
-#, fuzzy
 msgid "Doc.MMClipCount"
-msgstr "gtk-doc"
+msgstr "Doc.MMClipCount"
 
 #: C/gnome-commander.xml:1547(para)
 #, fuzzy
@@ -2588,9 +2357,8 @@ msgid "Number of multimedia clips in the document."
 msgstr "Število medijskih klipov v dokumentu."
 
 #: C/gnome-commander.xml:1551(para)
-#, fuzzy
 msgid "Doc.NoteCount"
-msgstr "gtk-doc"
+msgstr "Doc.NoteCount"
 
 #: C/gnome-commander.xml:1552(para)
 #, fuzzy
@@ -2603,9 +2371,8 @@ msgid "Number of \"notes\" in the document."
 msgstr "Število \"opomb \" v dokumenta."
 
 #: C/gnome-commander.xml:1556(para)
-#, fuzzy
 msgid "Doc.ObjectCount"
-msgstr "gtk-doc"
+msgstr "Doc.ObjectCount"
 
 #: C/gnome-commander.xml:1557(para)
 #, fuzzy
@@ -2618,9 +2385,8 @@ msgid "Number of objects (OLE and other graphics) in the document."
 msgstr "Število predmetov (OLE in drugi slikovni viri) v dokumentu."
 
 #: C/gnome-commander.xml:1561(para)
-#, fuzzy
 msgid "Doc.PageCount"
-msgstr "gtk-doc"
+msgstr "Doc.PageCount"
 
 #: C/gnome-commander.xml:1562(para)
 #, fuzzy
@@ -2634,9 +2400,8 @@ msgid "Number of pages in the document."
 msgstr "Število strani v dokumentu."
 
 #: C/gnome-commander.xml:1566(para)
-#, fuzzy
 msgid "Doc.ParagraphCount"
-msgstr "gtk-doc"
+msgstr "Doc.ParagraphCount"
 
 #: C/gnome-commander.xml:1567(para)
 #, fuzzy
@@ -2649,9 +2414,8 @@ msgid "Number of paragraphs in the document."
 msgstr "Število odstavkov v dokumentu."
 
 #: C/gnome-commander.xml:1571(para)
-#, fuzzy
 msgid "Doc.PresentationFormat"
-msgstr "gtk-doc"
+msgstr "Doc.PresentationFormat"
 
 #: C/gnome-commander.xml:1572(para)
 #, fuzzy
@@ -2664,9 +2428,8 @@ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgstr "Vrsta predstavitve, npr.: \"zaslonski prikaz\", \"diaprojekcija\", in drugo."
 
 #: C/gnome-commander.xml:1576(para)
-#, fuzzy
 msgid "Doc.PrintDate"
-msgstr "gtk-doc"
+msgstr "Doc.PrintDate"
 
 #: C/gnome-commander.xml:1577(para)
 #, fuzzy
@@ -2679,9 +2442,8 @@ msgid "Specifies the date and time when the document was last printed."
 msgstr "Določa datum in čas, ko je bil dokument natisnjen."
 
 #: C/gnome-commander.xml:1581(para)
-#, fuzzy
 msgid "Doc.PrintedBy"
-msgstr "gtk-doc"
+msgstr "Doc.PrintedBy"
 
 #: C/gnome-commander.xml:1582(para)
 #, fuzzy
@@ -2694,9 +2456,8 @@ msgid "Specifies the name of the last person who printed the document."
 msgstr "Določa ime osebe, ki je zadnja natisnila dokument."
 
 #: C/gnome-commander.xml:1586(para)
-#, fuzzy
 msgid "Doc.RevisionCount"
-msgstr "gtk-doc"
+msgstr "Doc.RevisionCount"
 
 #: C/gnome-commander.xml:1587(para)
 #, fuzzy
@@ -2709,9 +2470,8 @@ msgid "Number of revision on the document."
 msgstr "Število revizij dokumenta."
 
 #: C/gnome-commander.xml:1591(para)
-#, fuzzy
 msgid "Doc.Scale"
-msgstr "Možnosti merila"
+msgstr "Doc.Scale"
 
 #: C/gnome-commander.xml:1592(para)
 #, fuzzy
@@ -2724,12 +2484,10 @@ msgid "Scale."
 msgstr "Merilo."
 
 #: C/gnome-commander.xml:1596(para)
-#, fuzzy
 msgid "Doc.Security"
-msgstr "Varnostno območje"
+msgstr "Doc.Security"
 
 #: C/gnome-commander.xml:1597(para)
-#, fuzzy
 msgid "Security"
 msgstr "Varnost"
 
@@ -2739,9 +2497,8 @@ msgid "One of: \"Password protected\", \"Read-only recommended\", \"Read-only en
 msgstr "Izbrane možnosti: \"Zaščiteno z geslom\", \"Priporočeno le za branje\", \"Zahtevano le za branje\" ali \"Zaklenjeno za pripombe\"."
 
 #: C/gnome-commander.xml:1601(para)
-#, fuzzy
 msgid "Doc.SlideCount"
-msgstr "gtk-doc"
+msgstr "Doc.SlideCount"
 
 #: C/gnome-commander.xml:1602(para)
 #, fuzzy
@@ -2754,9 +2511,8 @@ msgid "Number of slides in the presentation document."
 msgstr "Število diapozitivov v dokumentu predstavitve."
 
 #: C/gnome-commander.xml:1606(para)
-#, fuzzy
 msgid "Doc.SpreadsheetCount"
-msgstr "gtk-doc"
+msgstr "Doc.SpreadsheetCount"
 
 #: C/gnome-commander.xml:1607(para)
 #, fuzzy
@@ -2764,12 +2520,10 @@ msgid "Spreadsheet Count"
 msgstr "Štetje razpredelnic"
 
 #: C/gnome-commander.xml:1611(para)
-#, fuzzy
 msgid "Doc.Subject"
-msgstr "Zadeva je %s"
+msgstr "Doc.Subject"
 
 #: C/gnome-commander.xml:1612(para)
-#, fuzzy
 msgid "Subject"
 msgstr "Zadeva"
 
@@ -2779,24 +2533,20 @@ msgid "Document subject."
 msgstr "Zadeva dokumenta"
 
 #: C/gnome-commander.xml:1616(para)
-#, fuzzy
 msgid "Doc.TableCount"
-msgstr "gtk-doc"
+msgstr "Doc.TableCount"
 
 #: C/gnome-commander.xml:1617(para)
-#, fuzzy
 msgid "Table Count"
 msgstr "Štetje razpredelnic"
 
 #: C/gnome-commander.xml:1618(para)
-#, fuzzy
 msgid "Number of tables in the document."
 msgstr "Število razpredelnic v dokumentu."
 
 #: C/gnome-commander.xml:1621(para)
-#, fuzzy
 msgid "Doc.Template"
-msgstr "<b>Predloga upravljalnika</b>"
+msgstr "Doc.Template"
 
 #: C/gnome-commander.xml:1623(para)
 #, fuzzy
@@ -2804,9 +2554,8 @@ msgid "The template file that is been used to generate this document."
 msgstr "Predloga, ki je bila uporabljena za ustvarjanje tega dokumenta."
 
 #: C/gnome-commander.xml:1626(para)
-#, fuzzy
 msgid "Doc.Title"
-msgstr "Naslov apleta:"
+msgstr "Doc.Title"
 
 #: C/gnome-commander.xml:1628(para)
 #, fuzzy
@@ -2814,9 +2563,8 @@ msgid "Title of the document."
 msgstr "Naziv dokumenta"
 
 #: C/gnome-commander.xml:1631(para)
-#, fuzzy
 msgid "Doc.WordCount"
-msgstr "gtk-doc"
+msgstr "Doc.WordCount"
 
 #: C/gnome-commander.xml:1632(para)
 #, fuzzy
@@ -2829,9 +2577,8 @@ msgid "Number of words in the document."
 msgstr "Število besed v dokumentu."
 
 #: C/gnome-commander.xml:1636(para)
-#, fuzzy
 msgid "Exif.ApertureValue"
-msgstr "XMP Exif"
+msgstr "Exif.ApertureValue"
 
 #: C/gnome-commander.xml:1637(para)
 #, fuzzy
@@ -2844,9 +2591,8 @@ msgid "The lens aperture. The unit is the APEX value."
 msgstr "Zaslonka leče. Vrednost je APEX enotah."
 
 #: C/gnome-commander.xml:1641(para)
-#, fuzzy
 msgid "Exif.Artist"
-msgstr "Ime izvajalca"
+msgstr "Exif.Artist"
 
 #: C/gnome-commander.xml:1643(para)
 #, fuzzy
@@ -2854,9 +2600,8 @@ msgid "Name of the camera owner, photographer or image creator. The detailed for
 msgstr "Ime lastnika aparata, fotografa ali ustvarjalca slike. Podroben zapis ni določen, vendar je priporočeno, da se podatek vpiše zaradi lažjega vzajemnega delovanja. Prazno polje določa vrednost neznanega podatka."
 
 #: C/gnome-commander.xml:1646(para)
-#, fuzzy
 msgid "Exif.BatteryLevel"
-msgstr "XMP Exif"
+msgstr "Exif.BatteryLevel"
 
 #: C/gnome-commander.xml:1647(para)
 #, fuzzy
@@ -2869,9 +2614,8 @@ msgid "Battery level."
 msgstr "Polnost baterije."
 
 #: C/gnome-commander.xml:1651(para)
-#, fuzzy
 msgid "Exif.BitsPerSample"
-msgstr "XMP Exif"
+msgstr "Exif.BitsPerSample"
 
 #: C/gnome-commander.xml:1652(para)
 #, fuzzy
@@ -2884,31 +2628,26 @@ msgid "The number of bits per image component. Each component of the image is 8 
 msgstr "Število bitov na enoto slike. Vsaka enota slike ima 8 bitov, zato je vrednost oznake 8. Pri JPEG skrčenih slikah je uporabljena JPEG oznaka namesto te oznake."
 
 #: C/gnome-commander.xml:1656(para)
-#, fuzzy
 msgid "Exif.BrightnessValue"
-msgstr "XMP Exif"
+msgstr "Exif.BrightnessValue"
 
 #: C/gnome-commander.xml:1657(para)
-#, fuzzy
 msgid "Brightness"
 msgstr "Svetlost"
 
 #: C/gnome-commander.xml:1658(para)
-#, fuzzy
 msgid "The value of brightness. The unit is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
 msgstr "Vrednosti osvetlitve so v APEX enotah. Vrednost se vrednost med -99.99 in 99.99."
 
 #: C/gnome-commander.xml:1661(para)
 #: C/gnome-commander.xml:1971(para)
-#, fuzzy
 msgid "Exif.CFAPattern"
-msgstr "XMP Exif"
+msgstr "Exif.CFAPattern"
 
 #: C/gnome-commander.xml:1662(para)
 #: C/gnome-commander.xml:1972(para)
-#, fuzzy
 msgid "CFA Pattern"
-msgstr "CFA Vzorec"
+msgstr "CFA vzorec"
 
 #: C/gnome-commander.xml:1663(para)
 #: C/gnome-commander.xml:1973(para)
@@ -2932,12 +2671,10 @@ msgid "CFA Repeat Pattern Dim."
 msgstr "CFA ponavljalni vzorec zameglitve."
 
 #: C/gnome-commander.xml:1671(para)
-#, fuzzy
 msgid "Exif.ColorSpace"
-msgstr "XMP Exif"
+msgstr "Exif.ColorSpace"
 
 #: C/gnome-commander.xml:1672(para)
-#, fuzzy
 msgid "Color Space"
 msgstr "Barvni prostor"
 
@@ -2947,9 +2684,8 @@ msgid "The color space information tag is always recorded as the color space spe
 msgstr "Podrobnosti prostora barve je vedno zabeležen kot določilo prostora barve. Običajno je uporabljeno sRGB določilo prostora na osnovi zaslona in okolja. V primeru, da je uporabljen drug sistem namesto sistema sRGB, je določena vrednost Neumerjeno. Podatke slike zajete neumerjeno je mogoče obravnavati kot vrednosti sRGB, kadar so vrednosti prevedene v sistem FlashPix."
 
 #: C/gnome-commander.xml:1676(para)
-#, fuzzy
 msgid "Exif.ComponentsConfiguration"
-msgstr "XMP Exif"
+msgstr "Exif.ComponentsConfiguration"
 
 #: C/gnome-commander.xml:1677(para)
 #, fuzzy
@@ -2961,9 +2697,8 @@ msgid "Information specific to compressed data. The channels of each component a
 msgstr ""
 
 #: C/gnome-commander.xml:1681(para)
-#, fuzzy
 msgid "Exif.CompressedBitsPerPixel"
-msgstr "XMP Exif"
+msgstr "Exif.CompressedBitsPerPixel"
 
 #: C/gnome-commander.xml:1682(para)
 #, fuzzy
@@ -2976,12 +2711,10 @@ msgid "Information specific to compressed data. The compression mode used for a 
 msgstr "Podrobnosti določene za stisnjene podatke. Uporabljen način stiskanja je določen kot bitne enote na točko."
 
 #: C/gnome-commander.xml:1686(para)
-#, fuzzy
 msgid "Exif.Compression"
-msgstr "Privzeto stiskanje"
+msgstr "Exif.Compression"
 
 #: C/gnome-commander.xml:1687(para)
-#, fuzzy
 msgid "Compression"
 msgstr "Stiskanje"
 
@@ -2991,12 +2724,10 @@ msgid "The compression scheme used for the image data. When a primary image is J
 msgstr "Shema stiskanja za slikovne podatke. Kadar je osnovna slika stisnjena v JPEG načinu, določilo ni obvezno in ga lahko izpustimo. V primeru, da je JPEG stiskanje uporabljeno za sličice, je določena vrednost 6."
 
 #: C/gnome-commander.xml:1691(para)
-#, fuzzy
 msgid "Exif.Contrast"
-msgstr "Kontrast slike"
+msgstr "Exif.Contrast"
 
 #: C/gnome-commander.xml:1692(para)
-#, fuzzy
 msgid "Contrast"
 msgstr "Kontrast"
 
@@ -3006,9 +2737,8 @@ msgid "The direction of contrast processing applied by the camera when the image
 msgstr "Smero bdelave kontrasta slike, ki ga predoči aparat ob zajemanju slike."
 
 #: C/gnome-commander.xml:1696(para)
-#, fuzzy
 msgid "Exif.Copyright"
-msgstr "Avtorske pravice/Licenca:"
+msgstr "Exif.Copyright"
 
 #: C/gnome-commander.xml:1698(para)
 #, fuzzy
@@ -3031,9 +2761,8 @@ msgid "The use of special processing on image data, such as rendering geared to 
 msgstr "Uporaba posebnih učinkov pri obdelavi slike, kot na primer posebni način izrisovanja. V primeru uporabe posebnih učinkov bralnik onemogoči ali zmanjša vse ostale učinke na sliko."
 
 #: C/gnome-commander.xml:1706(para)
-#, fuzzy
 msgid "Exif.DateTime"
-msgstr "XMP Exif"
+msgstr "Exif.DateTime"
 
 #: C/gnome-commander.xml:1707(para)
 #, fuzzy
@@ -3046,9 +2775,8 @@ msgid "The date and time of image creation."
 msgstr "Datum in čas zajetja slike."
 
 #: C/gnome-commander.xml:1711(para)
-#, fuzzy
 msgid "Exif.DateTimeDigitized"
-msgstr "XMP Exif"
+msgstr "Exif.DateTimeDigitized"
 
 #: C/gnome-commander.xml:1712(para)
 #, fuzzy
@@ -3061,9 +2789,8 @@ msgid "The date and time when the image was stored as digital data."
 msgstr "Datum in čas shranjevanja slike v digitalni obliki."
 
 #: C/gnome-commander.xml:1716(para)
-#, fuzzy
 msgid "Exif.DateTimeOriginal"
-msgstr "XMP Exif"
+msgstr "Exif.DateTimeOriginal"
 
 #: C/gnome-commander.xml:1717(para)
 #, fuzzy
@@ -3076,9 +2803,8 @@ msgid "The date and time when the original image data was generated. For a digit
 msgstr "Datum in čas shranjevanja originalne slike. Pri zajemanju slike s fotoaparatom sta datum in čas določena kot datum in čas zajetja slike."
 
 #: C/gnome-commander.xml:1721(para)
-#, fuzzy
 msgid "Exif.DeviceSettingDescription"
-msgstr "XMP Exif"
+msgstr "Exif.DeviceSettingDescription"
 
 #: C/gnome-commander.xml:1722(para)
 #, fuzzy
@@ -3091,9 +2817,8 @@ msgid "Information on the picture-taking conditions of a particular camera model
 msgstr "Podrobnosti pogojev zajemanja posameznega aparata."
 
 #: C/gnome-commander.xml:1726(para)
-#, fuzzy
 msgid "Exif.DigitalZoomRatio"
-msgstr "XMP Exif"
+msgstr "Exif.DigitalZoomRatio"
 
 #: C/gnome-commander.xml:1727(para)
 #, fuzzy
@@ -3106,9 +2831,8 @@ msgid "The digital zoom ratio when the image was shot. If the numerator of the r
 msgstr "Razmerje digitalnega približanja ob zajetju slike. Številčna vrednost enaka 0 določa, da digitalno približanje ni bilo uporabljena. "
 
 #: C/gnome-commander.xml:1731(para)
-#, fuzzy
 msgid "Exif.DocumentName"
-msgstr "XMP Exif"
+msgstr "Exif.DocumentName"
 
 #: C/gnome-commander.xml:1732(para)
 #, fuzzy
@@ -3121,9 +2845,8 @@ msgid "Document name."
 msgstr "Ime dokumenta."
 
 #: C/gnome-commander.xml:1736(para)
-#, fuzzy
 msgid "Exif.ExifIfdPointer"
-msgstr "XMP Exif"
+msgstr "Exif.ExifIfdPointer"
 
 #: C/gnome-commander.xml:1737(para)
 #, fuzzy
@@ -3136,12 +2859,10 @@ msgid "A pointer to the Exif IFD. Interoperability, Exif IFD has the same struct
 msgstr "Kazalo za Exif IFD. Vzajemnost, Exif IFD ima enako zgradbo kot vrednost IFD določena v zapisu TIFF."
 
 #: C/gnome-commander.xml:1741(para)
-#, fuzzy
 msgid "Exif.ExifVersion"
-msgstr "XMP Exif"
+msgstr "Exif.ExifVersion"
 
 #: C/gnome-commander.xml:1742(para)
-#, fuzzy
 msgid "Exif Version"
 msgstr "Exif različica"
 
@@ -3151,9 +2872,8 @@ msgid "The version of Exif standard supported. Nonexistence of this field is tak
 msgstr "Določa podporo Exif standardu. V primeru, da polje ni določeno, standard Exif ni podprt."
 
 #: C/gnome-commander.xml:1746(para)
-#, fuzzy
 msgid "Exif.ExposureBiasValue"
-msgstr "XMP Exif"
+msgstr "Exif.ExposureBiasValue"
 
 #: C/gnome-commander.xml:1747(para)
 #, fuzzy
@@ -3166,9 +2886,8 @@ msgid "The exposure bias. The units is the APEX value. Ordinarily it is given in
 msgstr "Vrednosti nagnjenosti osvetlitve so v APEX enotah. Običajno se vrednost giblje med -99.99 in 99.99."
 
 #: C/gnome-commander.xml:1751(para)
-#, fuzzy
 msgid "Exif.ExposureIndex"
-msgstr "XMP Exif"
+msgstr "Exif.ExposureIndex"
 
 #: C/gnome-commander.xml:1752(para)
 #, fuzzy
@@ -3181,9 +2900,8 @@ msgid "The exposure index selected on the camera or input device at the time the
 msgstr "Zapis indeksa osvetlitve zabeleženega ob zajetju slike."
 
 #: C/gnome-commander.xml:1756(para)
-#, fuzzy
 msgid "Exif.ExposureMode"
-msgstr "XMP Exif"
+msgstr "Exif.ExposureMode"
 
 #: C/gnome-commander.xml:1757(para)
 #, fuzzy
@@ -3196,15 +2914,13 @@ msgid "The exposure mode set when the image was shot. In auto-bracketing mode, t
 msgstr "Oznaka določa način osvetlitve ob zajetju slike. V načinu samodejnega prilagajanja (auto-bracketing), aparat zajame nekaj zaporednih slik z različnimi nastavitvami osvetlitve."
 
 #: C/gnome-commander.xml:1761(para)
-#, fuzzy
 msgid "Exif.ExposureProgram"
-msgstr "XMP Exif"
+msgstr "Exif.ExposureProgram"
 
 #: C/gnome-commander.xml:1762(para)
 #: C/gnome-commander.xml:2737(para)
-#, fuzzy
 msgid "Exposure Program"
-msgstr "Program izpostavljenosti"
+msgstr "Program osvetljevanja"
 
 #: C/gnome-commander.xml:1763(para)
 #, fuzzy
@@ -3212,25 +2928,21 @@ msgid "The class of the program used by the camera to set exposure when the pict
 msgstr "Program fotoaparata, ki je bil uporabljen pri osvetljevanju slike."
 
 #: C/gnome-commander.xml:1766(para)
-#, fuzzy
 msgid "Exif.ExposureTime"
-msgstr "XMP Exif"
+msgstr "Exif.ExposureTime"
 
 #: C/gnome-commander.xml:1767(para)
 #: C/gnome-commander.xml:2742(para)
-#, fuzzy
 msgid "Exposure Time"
 msgstr "Čas osvetlitve"
 
 #: C/gnome-commander.xml:1768(para)
-#, fuzzy
 msgid "Exposure time, given in seconds."
 msgstr "Čas osvetlitve določen v sekundah."
 
 #: C/gnome-commander.xml:1771(para)
-#, fuzzy
 msgid "Exif.FileSource"
-msgstr "XMP Exif"
+msgstr "Exif.FileSource"
 
 #: C/gnome-commander.xml:1772(para)
 #, fuzzy
@@ -3243,24 +2955,20 @@ msgid "Indicates the image source. If a DSC recorded the image, this tag value o
 msgstr "Določa vir slike. V primeru, da je slika zajeta na sistemu DSC, je vrednost oznake 3."
 
 #: C/gnome-commander.xml:1776(para)
-#, fuzzy
 msgid "Exif.FillOrder"
-msgstr "XMP Exif"
+msgstr "Exif.FillOrder"
 
 #: C/gnome-commander.xml:1777(para)
-#, fuzzy
 msgid "Fill Order"
 msgstr "Vrstni red polnjenja"
 
 #: C/gnome-commander.xml:1778(para)
-#, fuzzy
 msgid "Fill order."
 msgstr "Vrstni red polnjenja."
 
 #: C/gnome-commander.xml:1781(para)
-#, fuzzy
 msgid "Exif.Flash"
-msgstr "Flash video"
+msgstr "Exif.Flash"
 
 #: C/gnome-commander.xml:1782(para)
 #: C/gnome-commander.xml:2747(para)
@@ -3274,9 +2982,8 @@ msgid "This tag is recorded when an image is taken using a strobe light (flash).
 msgstr "Podatki oznake se shranijo, kadar je slika zajeta z osvetljevanjem z bliskavico."
 
 #: C/gnome-commander.xml:1786(para)
-#, fuzzy
 msgid "Exif.FlashEnergy"
-msgstr "XMP Exif"
+msgstr "Exif.FlashEnergy"
 
 #: C/gnome-commander.xml:1787(para)
 #, fuzzy
@@ -3289,9 +2996,8 @@ msgid "The strobe energy at the time the image is captured, as measured in Beam 
 msgstr "Energija bliskavice ob zajetju slike, izmerjene v BCPS (Beam Candle Power Seconds)."
 
 #: C/gnome-commander.xml:1791(para)
-#, fuzzy
 msgid "Exif.FlashPixVersion"
-msgstr "XMP Exif"
+msgstr "Exif.FlashPixVersion"
 
 #: C/gnome-commander.xml:1792(para)
 #, fuzzy
@@ -3304,9 +3010,8 @@ msgid "The FlashPix format version supported by a FPXR file."
 msgstr "Zapis FlashPix različice je podprt preko datoteke FPXR."
 
 #: C/gnome-commander.xml:1796(para)
-#, fuzzy
 msgid "Exif.FNumber"
-msgstr "XMP Exif"
+msgstr "Exif.FNumber"
 
 #: C/gnome-commander.xml:1797(para)
 #: C/gnome-commander.xml:2752(para)
@@ -3321,9 +3026,8 @@ msgid "Diameter of the aperture relative to the effective focal length of the le
 msgstr "Premer zaslonke določen relativno na žariščno dolžino leče."
 
 #: C/gnome-commander.xml:1801(para)
-#, fuzzy
 msgid "Exif.FocalLength"
-msgstr "XMP Exif"
+msgstr "Exif.FocalLength"
 
 #: C/gnome-commander.xml:1802(para)
 #: C/gnome-commander.xml:2757(para)
@@ -3337,9 +3041,8 @@ msgid "The actual focal length of the lens, in mm. Conversion is not made to the
 msgstr "Dejanska žariščna razdalja leče v milimetrih. Pretvorba ne velja za žariščno razdaljo 35 mm filmske kamere."
 
 #: C/gnome-commander.xml:1806(para)
-#, fuzzy
 msgid "Exif.FocalLengthIn35mmFilm"
-msgstr "XMP Exif"
+msgstr "Exif.FocalLengthIn35mmFilm"
 
 #: C/gnome-commander.xml:1807(para)
 #, fuzzy
@@ -3351,9 +3054,8 @@ msgid "The equivalent focal length assuming a 35mm film camera, in mm. A value o
 msgstr ""
 
 #: C/gnome-commander.xml:1811(para)
-#, fuzzy
 msgid "Exif.FocalPlaneResolutionUnit"
-msgstr "XMP Exif"
+msgstr "Exif.FocalPlaneResolutionUnit"
 
 #: C/gnome-commander.xml:1812(para)
 #, fuzzy
@@ -3365,9 +3067,8 @@ msgid "The unit for measuring <literal>Exif.FocalPlaneXResolution</literal> and 
 msgstr ""
 
 #: C/gnome-commander.xml:1816(para)
-#, fuzzy
 msgid "Exif.FocalPlaneXResolution"
-msgstr "XMP Exif"
+msgstr "Exif.FocalPlaneXResolution"
 
 #: C/gnome-commander.xml:1817(para)
 #, fuzzy
@@ -3379,9 +3080,8 @@ msgid "The number of pixels in the image width (X) direction per <literal>Exif.F
 msgstr ""
 
 #: C/gnome-commander.xml:1821(para)
-#, fuzzy
 msgid "Exif.FocalPlaneYResolution"
-msgstr "XMP Exif"
+msgstr "Exif.FocalPlaneYResolution"
 
 #: C/gnome-commander.xml:1822(para)
 #, fuzzy
@@ -3393,9 +3093,8 @@ msgid "The number of pixels in the image height (Y) direction per <literal>Exif.
 msgstr ""
 
 #: C/gnome-commander.xml:1826(para)
-#, fuzzy
 msgid "Exif.GainControl"
-msgstr "XMP Exif"
+msgstr "Exif.GainControl"
 
 #: C/gnome-commander.xml:1827(para)
 #, fuzzy
@@ -3408,26 +3107,22 @@ msgid "This tag indicates the degree of overall image gain adjustment."
 msgstr "Oznaka določa raven splošne prilagoditve ojačitve slike."
 
 #: C/gnome-commander.xml:1831(para)
-#, fuzzy
 msgid "Exif.Gamma"
-msgstr "Gama valovi"
+msgstr "Exif.Gamma"
 
 #: C/gnome-commander.xml:1832(para)
-#, fuzzy
 msgid "Gamma"
-msgstr "Barva"
+msgstr "Gama"
 
 #: C/gnome-commander.xml:1833(para)
-#, fuzzy
 msgid "Indicates the value of coefficient gamma."
-msgstr "Določa vrednost barvnega koeficienta."
+msgstr "Določa vrednost koeficienta gama."
 
 #: C/gnome-commander.xml:1836(para)
 msgid "Exif.GPS.Altitude"
 msgstr ""
 
 #: C/gnome-commander.xml:1837(para)
-#, fuzzy
 msgid "Altitude"
 msgstr "Nadmorska višina"
 
@@ -3440,7 +3135,6 @@ msgid "Exif.GPS.AltitudeRef"
 msgstr ""
 
 #: C/gnome-commander.xml:1842(para)
-#, fuzzy
 msgid "Altitude Reference"
 msgstr "Vrednost nadmorske višine"
 
@@ -3453,7 +3147,6 @@ msgid "Exif.GPS.InfoIFDPointer"
 msgstr ""
 
 #: C/gnome-commander.xml:1847(para)
-#, fuzzy
 msgid "GPS Info IFDPointer"
 msgstr "GPS Info IFDPointer"
 
@@ -3467,7 +3160,6 @@ msgid "Exif.GPS.Latitude"
 msgstr ""
 
 #: C/gnome-commander.xml:1852(para)
-#, fuzzy
 msgid "Latitude"
 msgstr "Zemljepisna širina"
 
@@ -3495,7 +3187,6 @@ msgid "Exif.GPS.Longitude"
 msgstr ""
 
 #: C/gnome-commander.xml:1862(para)
-#, fuzzy
 msgid "Longitude"
 msgstr "Zemljepisna dolžina"
 
@@ -3532,9 +3223,8 @@ msgid "Indicates the version of <literal>Exif.GPS.InfoIFD</literal>. This tag is
 msgstr ""
 
 #: C/gnome-commander.xml:1876(para)
-#, fuzzy
 msgid "Exif.ImageDescription"
-msgstr "XMP Exif"
+msgstr "Exif.ImageDescription"
 
 #: C/gnome-commander.xml:1877(para)
 #, fuzzy
@@ -3546,9 +3236,8 @@ msgid "A character string giving the title of the image. Two-bytes character cod
 msgstr ""
 
 #: C/gnome-commander.xml:1881(para)
-#, fuzzy
 msgid "Exif.ImageLength"
-msgstr "XMP Exif"
+msgstr "Exif.ImageLength"
 
 #: C/gnome-commander.xml:1882(para)
 #, fuzzy
@@ -3561,9 +3250,8 @@ msgid "The number of rows of image data. In JPEG compressed data a JPEG marker i
 msgstr "Število vrstic podatkov slike. Pri JPEG stiskanju je uporabljen poseben marker namesto te oznake."
 
 #: C/gnome-commander.xml:1886(para)
-#, fuzzy
 msgid "Exif.ImageResources"
-msgstr "XMP Exif"
+msgstr "Exif.ImageResources"
 
 #: C/gnome-commander.xml:1887(para)
 #, fuzzy
@@ -3576,9 +3264,8 @@ msgid "Image Resources Block."
 msgstr "Izvorni blok slike."
 
 #: C/gnome-commander.xml:1891(para)
-#, fuzzy
 msgid "Exif.ImageUniqueID"
-msgstr "XMP Exif"
+msgstr "Exif.ImageUniqueID"
 
 #: C/gnome-commander.xml:1892(para)
 #, fuzzy
@@ -3591,9 +3278,8 @@ msgid "This tag indicates an identifier assigned uniquely to each image. It is r
 msgstr "Oznaka določa enoznačno določilo slike. Določilo je shranjeno v obliki ASCII niza enakega osmiški vrednosti 128 bitne dolžine."
 
 #: C/gnome-commander.xml:1896(para)
-#, fuzzy
 msgid "Exif.ImageWidth"
-msgstr "XMP Exif"
+msgstr "Exif.ImageWidth"
 
 #: C/gnome-commander.xml:1897(para)
 #, fuzzy
@@ -3606,9 +3292,8 @@ msgid "The number of columns of image data, equal to the number of pixels per ro
 msgstr "Število stolpcev podatkov slike, ki je enako številu točk na vrstico. Pri JPEG stiskanju je uporabljen poseben marker namesto te oznake."
 
 #: C/gnome-commander.xml:1901(para)
-#, fuzzy
 msgid "Exif.InterColorProfile"
-msgstr "XMP Exif"
+msgstr "Exif.InterColorProfile"
 
 #: C/gnome-commander.xml:1902(para)
 #, fuzzy
@@ -3621,9 +3306,8 @@ msgid "Inter Color Profile."
 msgstr "Barvni profil Inter."
 
 #: C/gnome-commander.xml:1906(para)
-#, fuzzy
 msgid "Exif.InteroperabilityIFDPointer"
-msgstr "XMP Exif"
+msgstr "Exif.InteroperabilityIFDPointer"
 
 #: C/gnome-commander.xml:1907(para)
 #, fuzzy
@@ -3636,9 +3320,8 @@ msgid "Interoperability IFD is composed of tags which stores the information to 
 msgstr "Vzajemnost IFD sestavljajo oznake ki hranijo podrobnosti vzajemnosti delovanja in jih kaže oznaka v Exif IFD. Zgradba vzajemnosti delovanja IFD je enaka TIFF določeni zgradbi IFD, vendar ne vključuje podatkov slike primerjalno z običajnim  TIFF IFD."
 
 #: C/gnome-commander.xml:1911(para)
-#, fuzzy
 msgid "Exif.InteroperabilityIndex"
-msgstr "XMP Exif"
+msgstr "Exif.InteroperabilityIndex"
 
 #: C/gnome-commander.xml:1912(para)
 #, fuzzy
@@ -3651,9 +3334,8 @@ msgid "Indicates the identification of the Interoperability rule. Use \"R98\" fo
 msgstr "Določa pravila vzajemnosti delovanja. Uporabite \"R98\" za zagon ExifR98 pravila."
 
 #: C/gnome-commander.xml:1916(para)
-#, fuzzy
 msgid "Exif.InteroperabilityVersion"
-msgstr "XMP Exif"
+msgstr "Exif.InteroperabilityVersion"
 
 #: C/gnome-commander.xml:1917(para)
 #, fuzzy
@@ -3666,9 +3348,8 @@ msgid "Interoperability version."
 msgstr "Različica vzajemnosti."
 
 #: C/gnome-commander.xml:1921(para)
-#, fuzzy
 msgid "Exif.ISOSpeedRatings"
-msgstr "XMP Exif"
+msgstr "Exif.ISOSpeedRatings"
 
 #: C/gnome-commander.xml:1922(para)
 #, fuzzy
@@ -3681,9 +3362,8 @@ msgid "The ISO Speed and ISO Latitude of the camera or input device as specified
 msgstr "Hitrost ISO in  širina ISO aparata ali druge vhodne naprave kot to določa standard ISO 12232."
 
 #: C/gnome-commander.xml:1926(para)
-#, fuzzy
 msgid "Exif.JPEGInterchangeFormat"
-msgstr "XMP Exif"
+msgstr "Exif.JPEGInterchangeFormat"
 
 #: C/gnome-commander.xml:1927(para)
 #, fuzzy
@@ -3711,9 +3391,8 @@ msgid "The number of bytes of JPEG compressed thumbnail data. This is not used f
 msgstr "Število bajtov stisnjenih podatkov JPEG sličic. Možnost se ne uporablja pri osnovni velikosti JPEG slike. Sličice JPEG niso razdeljene ampak so posnete kot nadaljujoči se JPEG pretok od SOI do EOI. Appn in COM markerji niso posneti. Stisnjene sličice ne smejo biti večje od 64 kilobajtov, vključno z ostalimi podatki, ki so posneti v APP1."
 
 #: C/gnome-commander.xml:1936(para)
-#, fuzzy
 msgid "Exif.JPEGProc"
-msgstr "XMP Exif"
+msgstr "Exif.JPEGProc"
 
 #: C/gnome-commander.xml:1937(para)
 #, fuzzy
@@ -3726,9 +3405,8 @@ msgid "JPEG procedure."
 msgstr "JPEG postopek"
 
 #: C/gnome-commander.xml:1941(para)
-#, fuzzy
 msgid "Exif.LightSource"
-msgstr "Vrsta svetlobnega vira:"
+msgstr "Exif.LightSource"
 
 #: C/gnome-commander.xml:1942(para)
 #, fuzzy
@@ -3741,9 +3419,8 @@ msgid "The kind of light source."
 msgstr "Vrsta vira svetlobe."
 
 #: C/gnome-commander.xml:1946(para)
-#, fuzzy
 msgid "Exif.Make"
-msgstr "%d: Ustvari mapo %s\n"
+msgstr "Exif.Make"
 
 #: C/gnome-commander.xml:1947(para)
 #, fuzzy
@@ -3756,9 +3433,8 @@ msgid "The manufacturer of the recording equipment. This is the manufacturer of 
 msgstr "Proizvajalec naprave za snemanje, podrobneje DSC, optičnega bralnika, video digitalnika in drugih naprav, ki so ustvarile sliko. Prazno polje se obravnava kot neznana vrednost."
 
 #: C/gnome-commander.xml:1951(para)
-#, fuzzy
 msgid "Exif.MakerNote"
-msgstr "XMP Exif"
+msgstr "Exif.MakerNote"
 
 #: C/gnome-commander.xml:1952(para)
 #, fuzzy
@@ -3771,9 +3447,8 @@ msgid "A tag for manufacturers of Exif writers to record any desired information
 msgstr "Oznaka za proizvajalce Exif zapisovalcev za shranjevanje želenih podrobnosti o sliki. Vsebino določajo proizvajalci."
 
 #: C/gnome-commander.xml:1956(para)
-#, fuzzy
 msgid "Exif.MaxApertureValue"
-msgstr "XMP Exif"
+msgstr "Exif.MaxApertureValue"
 
 #: C/gnome-commander.xml:1957(para)
 #, fuzzy
@@ -3786,9 +3461,8 @@ msgid "The smallest F number of the lens. The unit is the APEX value. Ordinarily
 msgstr "Najmanjša goriščna (F) razdalja leče. Enota je v APEX vrednostih. Običajno je podana v območju med 00.00 in 99.99, vendar na to območje ni omejena."
 
 #: C/gnome-commander.xml:1961(para)
-#, fuzzy
 msgid "Exif.MeteringMode"
-msgstr "XMP Exif"
+msgstr "Exif.MeteringMode"
 
 #: C/gnome-commander.xml:1962(para)
 #: C/gnome-commander.xml:2782(para)
@@ -3802,13 +3476,11 @@ msgid "The metering mode."
 msgstr "Način umerjanja."
 
 #: C/gnome-commander.xml:1966(para)
-#, fuzzy
 msgid "Exif.Model"
-msgstr "<b>Jezikovni model</b>"
+msgstr "Exif.Model"
 
 #: C/gnome-commander.xml:1967(para)
 #: C/gnome-commander.xml:2787(para)
-#, fuzzy
 msgid "Model"
 msgstr "Model"
 
@@ -3833,9 +3505,8 @@ msgid "A general indication of the kind of data contained in this subfile."
 msgstr "Splošna navedba vrste podatkov zapisanih v prikazni datoteki"
 
 #: C/gnome-commander.xml:1981(para)
-#, fuzzy
 msgid "Exif.OECF"
-msgstr "XMP Exif"
+msgstr "Exif.OECF"
 
 #: C/gnome-commander.xml:1982(para)
 #, fuzzy
@@ -3847,9 +3518,8 @@ msgid "The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <l
 msgstr ""
 
 #: C/gnome-commander.xml:1986(para)
-#, fuzzy
 msgid "Exif.Orientation"
-msgstr "Ponastavi _Exif usmerjenost"
+msgstr "Exif.Orientation"
 
 #: C/gnome-commander.xml:1987(para)
 #: C/gnome-commander.xml:2792(para)
@@ -3863,9 +3533,8 @@ msgid "The image orientation viewed in terms of rows and columns."
 msgstr "Usmerjenost slike določeno z vrsticami n stolpci."
 
 #: C/gnome-commander.xml:1991(para)
-#, fuzzy
 msgid "Exif.PhotometricInterpretation"
-msgstr "XMP Exif"
+msgstr "Exif.PhotometricInterpretation"
 
 #: C/gnome-commander.xml:1992(para)
 #, fuzzy
@@ -3878,9 +3547,8 @@ msgid "The pixel composition. In JPEG compressed data a JPEG marker is used inst
 msgstr "Zgradba točke slike. Pri JPEG stiskanju je uporabljen poseben marker namesto te oznake."
 
 #: C/gnome-commander.xml:1996(para)
-#, fuzzy
 msgid "Exif.PixelXDimension"
-msgstr "XMP Exif"
+msgstr "Exif.PixelXDimension"
 
 #: C/gnome-commander.xml:1997(para)
 #, fuzzy
@@ -3893,9 +3561,8 @@ msgid "Information specific to compressed data. When a compressed file is record
 msgstr "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena stisnjena datoteka, mora biti veljavna širina slike zabeležena v oznaki, neodvisno od ostalih podatkov in markerjev. Oznaka ne sme biti na voljo pri nestisnjenih zapisih slik."
 
 #: C/gnome-commander.xml:2001(para)
-#, fuzzy
 msgid "Exif.PixelYDimension"
-msgstr "XMP Exif"
+msgstr "Exif.PixelYDimension"
 
 #: C/gnome-commander.xml:2002(para)
 #, fuzzy
@@ -3908,9 +3575,8 @@ msgid "Information specific to compressed data. When a compressed file is record
 msgstr "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena stisnjena datoteka, mora biti veljavna višina slike zabeležena v oznaki, neodvisno od ostalih podatkov in markerjev. Oznaka ne sme biti na voljo pri nestisnjenih zapisih slik. Ker podlaganje podatkov v navpični smeri ni zahtevano, je število vrstic enako shranjeni vrednosti SOF."
 
 #: C/gnome-commander.xml:2006(para)
-#, fuzzy
 msgid "Exif.PlanarConfiguration"
-msgstr "XMP Exif"
+msgstr "Exif.PlanarConfiguration"
 
 #: C/gnome-commander.xml:2007(para)
 #, fuzzy
@@ -3923,9 +3589,8 @@ msgid "Indicates whether pixel components are recorded in a chunky or planar for
 msgstr "Določa kako so točke v sliki shranjene. Pri stisnjenih JPEG zapisih slik je namesto te oznake uporabljen marker. V primeru, da to polje ne obstaja, je določena privzeta TIFF vrednost 1."
 
 #: C/gnome-commander.xml:2011(para)
-#, fuzzy
 msgid "Exif.PrimaryChromaticities"
-msgstr "XMP Exif"
+msgstr "Exif.PrimaryChromaticities"
 
 #: C/gnome-commander.xml:2012(para)
 #, fuzzy
@@ -3937,9 +3602,8 @@ msgid "The chromaticity of the three primary colors of the image. Normally this 
 msgstr ""
 
 #: C/gnome-commander.xml:2016(para)
-#, fuzzy
 msgid "Exif.ReferenceBlackWhite"
-msgstr "XMP Exif"
+msgstr "Exif.ReferenceBlackWhite"
 
 #: C/gnome-commander.xml:2017(para)
 #, fuzzy
@@ -3952,9 +3616,8 @@ msgid "The reference black point value and reference white point value. No defau
 msgstr "Referenčni vrednosti črne in bele točke. Privzetih vrednosti za TIFF ni, so pa te določene spodaj. Barvno polje določa vrednost, ki najbolj ustreza pogojem prikazovanja."
 
 #: C/gnome-commander.xml:2021(para)
-#, fuzzy
 msgid "Exif.RelatedImageFileFormat"
-msgstr "XMP Exif"
+msgstr "Exif.RelatedImageFileFormat"
 
 #: C/gnome-commander.xml:2022(para)
 #, fuzzy
@@ -3967,9 +3630,8 @@ msgid "Related image file format."
 msgstr "Privzeti slikovni zapis datoteke."
 
 #: C/gnome-commander.xml:2026(para)
-#, fuzzy
 msgid "Exif.RelatedImageLength"
-msgstr "XMP Exif"
+msgstr "Exif.RelatedImageLength"
 
 #: C/gnome-commander.xml:2027(para)
 #, fuzzy
@@ -3982,9 +3644,8 @@ msgid "Related image length."
 msgstr "Privzeta dolžina slike"
 
 #: C/gnome-commander.xml:2031(para)
-#, fuzzy
 msgid "Exif.RelatedImageWidth"
-msgstr "XMP Exif"
+msgstr "Exif.RelatedImageWidth"
 
 #: C/gnome-commander.xml:2032(para)
 #, fuzzy
@@ -3997,9 +3658,8 @@ msgid "Related image width."
 msgstr "Privzeta širina slike."
 
 #: C/gnome-commander.xml:2036(para)
-#, fuzzy
 msgid "Exif.RelatedSoundFile"
-msgstr "XMP Exif"
+msgstr "Exif.RelatedSoundFile"
 
 #: C/gnome-commander.xml:2037(para)
 #, fuzzy
@@ -4026,9 +3686,8 @@ msgid "The unit for measuring <literal>Exif.XResolution</literal> and <literal>E
 msgstr ""
 
 #: C/gnome-commander.xml:2046(para)
-#, fuzzy
 msgid "Exif.RowsPerStrip"
-msgstr "XMP Exif"
+msgstr "Exif.RowsPerStrip"
 
 #: C/gnome-commander.xml:2047(para)
 #, fuzzy
@@ -4041,9 +3700,8 @@ msgid "The number of rows per strip. This is the number of rows in the image of 
 msgstr "Število vrstic na trak slike določa število vrstic slike, ki določajo en trak, v primeru, da je slika na trakove razdeljena. Pri JPEG stiskanju ta vrednost ni zahtevana in se ne beleži."
 
 #: C/gnome-commander.xml:2051(para)
-#, fuzzy
 msgid "Exif.SamplesPerPixel"
-msgstr "XMP Exif"
+msgstr "Exif.SamplesPerPixel"
 
 #: C/gnome-commander.xml:2052(para)
 #, fuzzy
@@ -4056,12 +3714,10 @@ msgid "The number of components per pixel. Since this standard applies to RGB an
 msgstr "Število enot na točko slike. Ker standard določa RGB in YCbCr barvne sheme slik, je vrednost oznake določena s 3. Pri JPEG stiskanju podatkov se namesto te oznake uporablja JPEG marker."
 
 #: C/gnome-commander.xml:2056(para)
-#, fuzzy
 msgid "Exif.Saturation"
-msgstr "Nasičenost slike"
+msgstr "Exif.Saturation"
 
 #: C/gnome-commander.xml:2057(para)
-#, fuzzy
 msgid "Saturation"
 msgstr "Nasičenost"
 
@@ -4071,9 +3727,8 @@ msgid "The direction of saturation processing applied by the camera when the ima
 msgstr "Smer zasičenosti slike med zajemanjem."
 
 #: C/gnome-commander.xml:2061(para)
-#, fuzzy
 msgid "Exif.SceneCaptureType"
-msgstr "XMP Exif"
+msgstr "Exif.SceneCaptureType"
 
 #: C/gnome-commander.xml:2062(para)
 #, fuzzy
@@ -4100,9 +3755,8 @@ msgid "The type of scene. If a DSC recorded the image, this tag value must alway
 msgstr "Vrsta slikane scene. V primeru, da je slika zajeta z DSC, mora biti vrednost določena kot 1, kar določa, da je bila slika neposredno zajeta."
 
 #: C/gnome-commander.xml:2071(para)
-#, fuzzy
 msgid "Exif.SensingMethod"
-msgstr "XMP Exif"
+msgstr "Exif.SensingMethod"
 
 #: C/gnome-commander.xml:2072(para)
 #, fuzzy
@@ -4115,9 +3769,8 @@ msgid "The image sensor type on the camera or input device."
 msgstr "Vrsta tipala na aparatu."
 
 #: C/gnome-commander.xml:2076(para)
-#, fuzzy
 msgid "Exif.Sharpness"
-msgstr "Ostrina (v stopinjah)"
+msgstr "Exif.Sharpness"
 
 #: C/gnome-commander.xml:2077(para)
 #, fuzzy
@@ -4130,9 +3783,8 @@ msgid "The direction of sharpness processing applied by the camera when the imag
 msgstr "Smer ostritve, ki jo je zabeležil aparat med zajemanjem slike.."
 
 #: C/gnome-commander.xml:2081(para)
-#, fuzzy
 msgid "Exif.ShutterSpeedValue"
-msgstr "XMP Exif"
+msgstr "Exif.ShutterSpeedValue"
 
 #: C/gnome-commander.xml:2082(para)
 #, fuzzy
@@ -4145,9 +3797,8 @@ msgid "Shutter speed. The unit is the APEX (Additive System of Photographic Expo
 msgstr "Hitrost zaklopke. Enota predstavlja APEX vrednost (Additive System of Photographic Exposure)."
 
 #: C/gnome-commander.xml:2086(para)
-#, fuzzy
 msgid "Exif.Software"
-msgstr "Programska oprema za osebni računalnik"
+msgstr "Exif.Software"
 
 #: C/gnome-commander.xml:2087(para)
 #: C/gnome-commander.xml:2797(para)
@@ -4161,9 +3812,8 @@ msgid "This tag records the name and version of the software or firmware of the 
 msgstr "Oznaka vsebuje podatke o imenu in različici programske opreme aparata ali druge naprave s katero je bila ustvarjena slika. Prazno polje določa neznano vrednost."
 
 #: C/gnome-commander.xml:2091(para)
-#, fuzzy
 msgid "Exif.SpatialFrequencyResponse"
-msgstr "XMP Exif"
+msgstr "Exif.SpatialFrequencyResponse"
 
 #: C/gnome-commander.xml:2092(para)
 #, fuzzy
@@ -4176,9 +3826,8 @@ msgid "This tag records the camera or input device spatial frequency table and S
 msgstr "Oznaka vsebuje podatke aparata o prostorski frekvenci in SFR vrednostih v smeri širine, višine in diagonale slike, kot je določeno v ISO 12233."
 
 #: C/gnome-commander.xml:2096(para)
-#, fuzzy
 msgid "Exif.SpectralSensitivity"
-msgstr "XMP Exif"
+msgstr "Exif.SpectralSensitivity"
 
 #: C/gnome-commander.xml:2097(para)
 #, fuzzy
@@ -4191,9 +3840,8 @@ msgid "The spectral sensitivity of each channel of the camera used."
 msgstr "Spektralna občutljivost posameznega kanala aparata."
 
 #: C/gnome-commander.xml:2101(para)
-#, fuzzy
 msgid "Exif.StripByteCounts"
-msgstr "XMP Exif"
+msgstr "Exif.StripByteCounts"
 
 #: C/gnome-commander.xml:2102(para)
 #, fuzzy
@@ -4206,9 +3854,8 @@ msgid "The total number of bytes in each strip. With JPEG compressed data this d
 msgstr "Skupno število bajtov v vsakem traku. Pri JPEG stiskanju ta oznaka ni zahtevana in se ne beleži."
 
 #: C/gnome-commander.xml:2106(para)
-#, fuzzy
 msgid "Exif.StripOffsets"
-msgstr "XMP Exif"
+msgstr "Exif.StripOffsets"
 
 #: C/gnome-commander.xml:2107(para)
 #, fuzzy
@@ -4221,9 +3868,8 @@ msgid "For each strip, the byte offset of that strip. It is recommended that thi
 msgstr "Za vsak trak določen zamik začetka traku. Priporočljivo je, da je vrednost bajtov traku ne presega 64 kilobajtov podatkov. Pri JPEG stiskanju podatkov vrednost ni zahtevana in se ne beleži."
 
 #: C/gnome-commander.xml:2111(para)
-#, fuzzy
 msgid "Exif.SubIFDs"
-msgstr "XMP Exif"
+msgstr "Exif.SubIFDs"
 
 #: C/gnome-commander.xml:2112(para)
 #, fuzzy
@@ -4236,9 +3882,8 @@ msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
 msgstr "Določen preko Adobe standarda, da omogoči TIFF zgradbo znotraj TIFF datoteke."
 
 #: C/gnome-commander.xml:2116(para)
-#, fuzzy
 msgid "Exif.SubjectArea"
-msgstr "XMP Exif"
+msgstr "Exif.SubjectArea"
 
 #: C/gnome-commander.xml:2117(para)
 #, fuzzy
@@ -4266,9 +3911,8 @@ msgid "The distance to the subject, given in meters."
 msgstr "Razdalja do predmeta določena v metrih."
 
 #: C/gnome-commander.xml:2126(para)
-#, fuzzy
 msgid "Exif.SubjectDistanceRange"
-msgstr "XMP Exif"
+msgstr "Exif.SubjectDistanceRange"
 
 #: C/gnome-commander.xml:2127(para)
 #, fuzzy
@@ -4281,12 +3925,10 @@ msgid "The distance to the subject."
 msgstr "Razdalja do predmeta."
 
 #: C/gnome-commander.xml:2131(para)
-#, fuzzy
 msgid "Exif.SubjectLocation"
-msgstr "XMP Exif"
+msgstr "Exif.SubjectLocation"
 
 #: C/gnome-commander.xml:2132(para)
-#, fuzzy
 msgid "Subject Location"
 msgstr "Mesto predmeta"
 
@@ -4295,9 +3937,8 @@ msgid "The location of the main subject in the scene. The value of this tag repr
 msgstr ""
 
 #: C/gnome-commander.xml:2136(para)
-#, fuzzy
 msgid "Exif.SubsecTime"
-msgstr "XMP Exif"
+msgstr "Exif.SubsecTime"
 
 #: C/gnome-commander.xml:2137(para)
 #, fuzzy
@@ -4309,9 +3950,8 @@ msgid "Fractions of seconds for the <literal>Exif.DateTime</literal> tag."
 msgstr ""
 
 #: C/gnome-commander.xml:2141(para)
-#, fuzzy
 msgid "Exif.SubSecTimeDigitized"
-msgstr "XMP Exif"
+msgstr "Exif.SubSecTimeDigitized"
 
 #: C/gnome-commander.xml:2142(para)
 #, fuzzy
@@ -4323,9 +3963,8 @@ msgid "Fractions of seconds for the <literal>Exif.DateTimeDigitized</literal> ta
 msgstr ""
 
 #: C/gnome-commander.xml:2146(para)
-#, fuzzy
 msgid "Exif.SubSecTimeOriginal"
-msgstr "XMP Exif"
+msgstr "Exif.SubSecTimeOriginal"
 
 #: C/gnome-commander.xml:2147(para)
 #, fuzzy
@@ -4341,19 +3980,16 @@ msgid "Exif.TIFF/EPStandardID"
 msgstr ""
 
 #: C/gnome-commander.xml:2152(para)
-#, fuzzy
 msgid "TIFF/EP Standard ID"
-msgstr "TIFF/EP Standard ID"
+msgstr "TIFF/EP Standardni ID"
 
 #: C/gnome-commander.xml:2153(para)
-#, fuzzy
 msgid "TIFF/EP Standard ID."
-msgstr "TIFF/EP Standard ID."
+msgstr "TIFF/EP Standardni ID."
 
 #: C/gnome-commander.xml:2156(para)
-#, fuzzy
 msgid "Exif.TransferFunction"
-msgstr "XMP Exif"
+msgstr "Exif.TransferFunction"
 
 #: C/gnome-commander.xml:2157(para)
 #, fuzzy
@@ -4365,27 +4001,22 @@ msgid "A transfer function for the image, described in tabular style. Normally t
 msgstr ""
 
 #: C/gnome-commander.xml:2161(para)
-#, fuzzy
 msgid "Exif.TransferRange"
-msgstr "XMP Exif"
+msgstr "Exif.TransferRange"
 
 #: C/gnome-commander.xml:2162(para)
-#, fuzzy
 msgid "Transfer Range"
 msgstr "Območje prenosa"
 
 #: C/gnome-commander.xml:2163(para)
-#, fuzzy
 msgid "Transfer range."
 msgstr "Območje prenosa."
 
 #: C/gnome-commander.xml:2166(para)
-#, fuzzy
 msgid "Exif.UserComment"
-msgstr "XMP Exif"
+msgstr "Exif.UserComment"
 
 #: C/gnome-commander.xml:2167(para)
-#, fuzzy
 msgid "User Comment"
 msgstr "Opomba uporabnika"
 
@@ -4394,28 +4025,23 @@ msgid "A tag for Exif users to write keywords or comments on the image besides t
 msgstr ""
 
 #: C/gnome-commander.xml:2171(para)
-#, fuzzy
 msgid "Exif.WhiteBalance"
-msgstr "XMP Exif"
+msgstr "Exif.WhiteBalance"
 
 #: C/gnome-commander.xml:2172(para)
 #: C/gnome-commander.xml:2807(para)
-#, fuzzy
 msgid "White Balance"
-msgstr "Uravnoteženje bele barve"
+msgstr "Uravnoteženje beline"
 
 #: C/gnome-commander.xml:2173(para)
-#, fuzzy
 msgid "The white balance mode set when the image was shot."
 msgstr "Način beline določen med zajemanjem slike."
 
 #: C/gnome-commander.xml:2176(para)
-#, fuzzy
 msgid "Exif.WhitePoint"
-msgstr "XMP Exif"
+msgstr "Exif.WhitePoint"
 
 #: C/gnome-commander.xml:2177(para)
-#, fuzzy
 msgid "White Point"
 msgstr "Bela točka"
 
@@ -4424,27 +4050,22 @@ msgid "The chromaticity of the white point of the image. Normally this tag is no
 msgstr ""
 
 #: C/gnome-commander.xml:2181(para)
-#, fuzzy
 msgid "Exif.XMLPacket"
-msgstr "XMP Exif"
+msgstr "Exif.XMLPacket"
 
 #: C/gnome-commander.xml:2182(para)
-#, fuzzy
 msgid "XML Packet"
 msgstr "Paket XML"
 
 #: C/gnome-commander.xml:2183(para)
-#, fuzzy
 msgid "XMP metadata."
 msgstr "Metapodatki XMP."
 
 #: C/gnome-commander.xml:2186(para)
-#, fuzzy
 msgid "Exif.XResolution"
-msgstr "XMP Exif"
+msgstr "Exif.XResolution"
 
 #: C/gnome-commander.xml:2187(para)
-#, fuzzy
 msgid "x Resolution"
 msgstr "X ločljivost"
 
@@ -4453,27 +4074,22 @@ msgid "The number of pixels per <literal>Exif.ResolutionUnit</literal> in the <l
 msgstr ""
 
 #: C/gnome-commander.xml:2191(para)
-#, fuzzy
 msgid "Exif.YCbCrCoefficients"
-msgstr "XMP Exif"
+msgstr "Exif.YCbCrCoefficients"
 
 #: C/gnome-commander.xml:2192(para)
-#, fuzzy
 msgid "YCbCr Coefficients"
 msgstr "Koeficient YCbCr"
 
 #: C/gnome-commander.xml:2193(para)
-#, fuzzy
 msgid "The matrix coefficients for transformation from RGB to YCbCr image data. No default is given in TIFF; but here \"Color Space Guidelines\" is used as the default. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability this condition."
 msgstr "Matrični koeficienti pretvarjanja RGB v YCbCr barvni sistem slike. Privzeta vrednost v TIFF ni določena; je pa privzeta vrednost določena v polju \"Vodila barvnega prostora\". Barvni prostor je določan v ločeni oznaki, privzeta vrednost pa je tista, ki najbolje podpira pogoje vzajemnega delovanja."
 
 #: C/gnome-commander.xml:2196(para)
-#, fuzzy
 msgid "Exif.YCbCrPositioning"
-msgstr "XMP Exif"
+msgstr "Exif.YCbCrPositioning"
 
 #: C/gnome-commander.xml:2197(para)
-#, fuzzy
 msgid "YCbCr Positioning"
 msgstr "YCbCr prilagajanje"
 
@@ -4482,12 +4098,10 @@ msgid "The position of chrominance components in relation to the luminance compo
 msgstr ""
 
 #: C/gnome-commander.xml:2201(para)
-#, fuzzy
 msgid "Exif.YCbCrSubSampling"
-msgstr "XMP Exif"
+msgstr "Exif.YCbCrSubSampling"
 
 #: C/gnome-commander.xml:2202(para)
-#, fuzzy
 msgid "YCbCr Sub-Sampling"
 msgstr "YCbCr vzorčenje"
 
@@ -4497,9 +4111,8 @@ msgid "The sampling ratio of chrominance components in relation to the luminance
 msgstr "Razmerje vzorčenja barvitosti barvnih delov v razmerju z osvetljenostjo. Pri stisnjenih JPEG podatkih se namesto te vrednosti uporablja JPEG marker."
 
 #: C/gnome-commander.xml:2206(para)
-#, fuzzy
 msgid "Exif.YResolution"
-msgstr "XMP Exif"
+msgstr "Exif.YResolution"
 
 #: C/gnome-commander.xml:2207(para)
 #, fuzzy
@@ -4511,9 +4124,8 @@ msgid "The number of pixels per <literal>Exif.ResolutionUnit</literal> in the <l
 msgstr ""
 
 #: C/gnome-commander.xml:2211(para)
-#, fuzzy
 msgid "File.Accessed"
-msgstr "Datum dostopa"
+msgstr "File.Accessed"
 
 #: C/gnome-commander.xml:2213(para)
 #, fuzzy
@@ -4521,24 +4133,20 @@ msgid "Last access datetime."
 msgstr "Čas zadnjega dostopa."
 
 #: C/gnome-commander.xml:2216(para)
-#, fuzzy
 msgid "File.Content"
-msgstr "Usmerjevalnik vsebin"
+msgstr "File.Content"
 
 #: C/gnome-commander.xml:2217(para)
-#, fuzzy
 msgid "Content"
 msgstr "Vsebina"
 
 #: C/gnome-commander.xml:2218(para)
-#, fuzzy
 msgid "File's contents filtered as plain text."
-msgstr "Vsebina datoteke filtrirana kot golo besedilo."
+msgstr "Vsebina datoteke filtrirana kot običajno besedilo."
 
 #: C/gnome-commander.xml:2221(para)
-#, fuzzy
 msgid "File.Description"
-msgstr "<i>(brez opisa)</i>"
+msgstr "File.Description"
 
 #: C/gnome-commander.xml:2223(para)
 #, fuzzy
@@ -4546,13 +4154,11 @@ msgid "Editable free text/notes."
 msgstr "Uredljiv seznam besedila in opomb."
 
 #: C/gnome-commander.xml:2226(para)
-#, fuzzy
 msgid "File.Format"
-msgstr "Zapis datoteke"
+msgstr "File.Format"
 
 #: C/gnome-commander.xml:2227(para)
 #: C/gnome-commander.xml:3809(title)
-#, fuzzy
 msgid "Format"
 msgstr "Zapis"
 
@@ -4562,9 +4168,8 @@ msgid "MIME type of the file or if a directory it should contain value \"Folder\
 msgstr "MIME vrsta datoteke ali mape z določeno vrednostjo \"mapa\"."
 
 #: C/gnome-commander.xml:2231(para)
-#, fuzzy
 msgid "File.Keywords"
-msgstr "_Uredi ključne besede"
+msgstr "File.Keywords"
 
 #: C/gnome-commander.xml:2233(para)
 #, fuzzy
@@ -4572,12 +4177,10 @@ msgid "Editable array of keywords."
 msgstr "Uredljiv seznam ključnih besed"
 
 #: C/gnome-commander.xml:2236(para)
-#, fuzzy
 msgid "File.Link"
-msgstr "Izbrana povezava"
+msgstr "File.Link"
 
 #: C/gnome-commander.xml:2237(para)
-#, fuzzy
 msgid "Link"
 msgstr "Povezava"
 
@@ -4587,9 +4190,8 @@ msgid "URI of link target."
 msgstr "URI ciljne povezave."
 
 #: C/gnome-commander.xml:2241(para)
-#, fuzzy
 msgid "File.Modified"
-msgstr "Diagram je bil spremenjen!"
+msgstr "File.Modified"
 
 #: C/gnome-commander.xml:2243(para)
 #, fuzzy
@@ -4597,9 +4199,8 @@ msgid "Last modified datetime."
 msgstr "Čas zadnje spremembe."
 
 #: C/gnome-commander.xml:2246(para)
-#, fuzzy
 msgid "File.Name"
-msgstr "Ime _datoteke"
+msgstr "File.Name"
 
 #: C/gnome-commander.xml:2248(para)
 #, fuzzy
@@ -4607,9 +4208,8 @@ msgid "File name excluding path but including the file extension."
 msgstr "Ime datoteke brez poti vendar s končnico datoteke."
 
 #: C/gnome-commander.xml:2251(para)
-#, fuzzy
 msgid "File.Path"
-msgstr "Pot datoteke:"
+msgstr "File.Path"
 
 #: C/gnome-commander.xml:2252(para)
 #, fuzzy
@@ -4622,9 +4222,8 @@ msgid "Full file path of file excluding the file name."
 msgstr "Polna pot datoteke brez imena datoteke."
 
 #: C/gnome-commander.xml:2256(para)
-#, fuzzy
 msgid "File.Permissions"
-msgstr "Dovoljenja za datoteko."
+msgstr "File.Permissions"
 
 #: C/gnome-commander.xml:2257(para)
 #, fuzzy
@@ -4632,14 +4231,12 @@ msgid "Permissions"
 msgstr "Dovoljenja"
 
 #: C/gnome-commander.xml:2258(para)
-#, fuzzy
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
 msgstr "Niz dovoljenj zapisan v unix obliki (primer: \"-rw-r--r--\")."
 
 #: C/gnome-commander.xml:2261(para)
-#, fuzzy
 msgid "File.Publisher"
-msgstr "Spletni založnik"
+msgstr "File.Publisher"
 
 #: C/gnome-commander.xml:2262(para)
 #: C/gnome-commander.xml:2557(para)
@@ -4653,9 +4250,8 @@ msgid "Editable DC type for the name of the publisher of the file (EG dc:publish
 msgstr "Uredljiva DC vrsta za ime urednika datoteke (EG dc:urednik polje v RSS virih)."
 
 #: C/gnome-commander.xml:2266(para)
-#, fuzzy
 msgid "File.Rank"
-msgstr "Odpri datoteko"
+msgstr "File.Rank"
 
 #: C/gnome-commander.xml:2267(para)
 #, fuzzy
@@ -4668,9 +4264,8 @@ msgid "Editable file rank for grading favourites. Value should be in the range 1
 msgstr "Uredljiv rank datoteke za ocenjevanje priljubljenih. Vrednost mora biti v območju med 1 in 10."
 
 #: C/gnome-commander.xml:2271(para)
-#, fuzzy
 msgid "File.Size"
-msgstr "Velikost datoteke"
+msgstr "File.Size"
 
 #: C/gnome-commander.xml:2273(para)
 #, fuzzy
@@ -4696,7 +4291,6 @@ msgid "ID3.AudioCrypto"
 msgstr ""
 
 #: C/gnome-commander.xml:2282(para)
-#, fuzzy
 msgid "Audio Encryption"
 msgstr "Šifriranje zvoka"
 
@@ -4720,9 +4314,8 @@ msgid "Fractional offset within the audio data, providing a starting point from 
 msgstr "Delni zamik znotraj zvočnih podatkov, ki določa začetno točko ustreznega začetka kodiranja."
 
 #: C/gnome-commander.xml:2291(para)
-#, fuzzy
 msgid "ID3.Band"
-msgstr "Big band"
+msgstr "ID3.Band"
 
 #: C/gnome-commander.xml:2292(para)
 #, fuzzy
@@ -4735,32 +4328,26 @@ msgid "Additional information about the performers in the recording."
 msgstr "Dodatne podrobnosti o izvajalcih na posnetku."
 
 #: C/gnome-commander.xml:2296(para)
-#, fuzzy
 msgid "ID3.BPM"
-msgstr "Zaznavanje BPM"
+msgstr "ID3.BPM"
 
 #: C/gnome-commander.xml:2297(para)
-#, fuzzy
 msgid "BPM"
-msgstr "UNM"
+msgstr "BPM"
 
 #: C/gnome-commander.xml:2298(para)
-#, fuzzy
 msgid "BPM (beats per minute)."
 msgstr "BPM (udarci na minuto)."
 
 #: C/gnome-commander.xml:2301(para)
-#, fuzzy
 msgid "ID3.BufferSize"
-msgstr "Velikost medpomnilnika (-1 za privzeto)"
+msgstr "ID3.BufferSize"
 
 #: C/gnome-commander.xml:2302(para)
-#, fuzzy
 msgid "Buffer Size"
 msgstr "Velikost predpomnilnika"
 
 #: C/gnome-commander.xml:2303(para)
-#, fuzzy
 msgid "Recommended buffer size."
 msgstr "Priporočljiva velikost predpomnilnika."
 
@@ -4769,42 +4356,34 @@ msgid "ID3.CDID"
 msgstr ""
 
 #: C/gnome-commander.xml:2307(para)
-#, fuzzy
 msgid "CD ID"
 msgstr "ID CDja"
 
 #: C/gnome-commander.xml:2308(para)
-#, fuzzy
 msgid "Music CD identifier."
-msgstr "Določilo glasbenega DCja"
+msgstr "Določilo glasbenega CDja"
 
 #: C/gnome-commander.xml:2311(para)
-#, fuzzy
 msgid "ID3.Commercial"
-msgstr "Reklamni okvir"
+msgstr "ID3.Commercial"
 
 #: C/gnome-commander.xml:2312(para)
-#, fuzzy
 msgid "Commercial"
-msgstr "Reklamno"
+msgstr "Reklama"
 
 #: C/gnome-commander.xml:2313(para)
-#, fuzzy
 msgid "Commercial frame."
 msgstr "Reklamni okvir"
 
 #: C/gnome-commander.xml:2316(para)
-#, fuzzy
 msgid "ID3.Composer"
-msgstr "Nastavitve sestavljalnika"
+msgstr "ID3.Composer"
 
 #: C/gnome-commander.xml:2317(para)
-#, fuzzy
 msgid "Composer"
 msgstr "Skladatelj"
 
 #: C/gnome-commander.xml:2318(para)
-#, fuzzy
 msgid "Composer."
 msgstr "Skladatelj."
 
@@ -4813,12 +4392,10 @@ msgid "ID3.Conductor"
 msgstr ""
 
 #: C/gnome-commander.xml:2322(para)
-#, fuzzy
 msgid "Conductor"
 msgstr "Dirigent"
 
 #: C/gnome-commander.xml:2323(para)
-#, fuzzy
 msgid "Conductor."
 msgstr "Dirigent."
 
@@ -4841,14 +4418,12 @@ msgid "ID3.ContentType"
 msgstr ""
 
 #: C/gnome-commander.xml:2332(para)
-#, fuzzy
 msgid "Content Type"
 msgstr "Vrsta vsebine"
 
 #: C/gnome-commander.xml:2336(para)
-#, fuzzy
 msgid "ID3.Copyright"
-msgstr "Avtorske pravice/Licenca:"
+msgstr "ID3.Copyright"
 
 #: C/gnome-commander.xml:2341(para)
 msgid "ID3.CryptoReg"
@@ -4865,33 +4440,27 @@ msgid "Encryption method registration."
 msgstr "Način šifriranja registracije"
 
 #: C/gnome-commander.xml:2346(para)
-#, fuzzy
 msgid "ID3.Date"
-msgstr "Začetni datum:"
+msgstr "ID3.Date"
 
 #: C/gnome-commander.xml:2347(para)
 #: C/gnome-commander.xml:2727(para)
-#, fuzzy
 msgid "Date"
 msgstr "Datum"
 
 #: C/gnome-commander.xml:2348(para)
-#, fuzzy
 msgid "Date."
 msgstr "Datum."
 
 #: C/gnome-commander.xml:2351(para)
-#, fuzzy
 msgid "ID3.Emphasis"
-msgstr "Ni poudarka"
+msgstr "ID3.Emphasis"
 
 #: C/gnome-commander.xml:2352(para)
-#, fuzzy
 msgid "Emphasis"
 msgstr "Poudarki"
 
 #: C/gnome-commander.xml:2353(para)
-#, fuzzy
 msgid "Emphasis."
 msgstr "Poudarek."
 
@@ -4900,12 +4469,10 @@ msgid "ID3.EncodedBy"
 msgstr ""
 
 #: C/gnome-commander.xml:2357(para)
-#, fuzzy
 msgid "Encoded By"
-msgstr "Kodirali"
+msgstr "Kodiral"
 
 #: C/gnome-commander.xml:2358(para)
-#, fuzzy
 msgid "Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder."
 msgstr "Oseba ali organizacija, ki je kodirala zvočno datoteko. V polju je lahko sporočilo avtorskih pravic v primeru, da je zvočni zapis avtorsko zaščiten."
 
@@ -4914,12 +4481,10 @@ msgid "ID3.EncoderSettings"
 msgstr ""
 
 #: C/gnome-commander.xml:2362(para)
-#, fuzzy
 msgid "Encoder Settings"
 msgstr "Nastavitve kodirnika"
 
 #: C/gnome-commander.xml:2363(para)
-#, fuzzy
 msgid "Software."
 msgstr "Programska oprema."
 
@@ -4928,12 +4493,10 @@ msgid "ID3.EncodingTime"
 msgstr ""
 
 #: C/gnome-commander.xml:2367(para)
-#, fuzzy
 msgid "Encoding Time"
 msgstr "Čas kodiranja"
 
 #: C/gnome-commander.xml:2368(para)
-#, fuzzy
 msgid "Encoding time."
 msgstr "Čas kodiranja."
 
@@ -4942,12 +4505,10 @@ msgid "ID3.Equalization"
 msgstr ""
 
 #: C/gnome-commander.xml:2372(para)
-#, fuzzy
 msgid "Equalization"
 msgstr "Uravnavanje"
 
 #: C/gnome-commander.xml:2373(para)
-#, fuzzy
 msgid "Equalization."
 msgstr "Uravnavanje."
 
@@ -4956,12 +4517,10 @@ msgid "ID3.Equalization2"
 msgstr ""
 
 #: C/gnome-commander.xml:2377(para)
-#, fuzzy
 msgid "Equalization 2"
 msgstr "Uravnavanje 2"
 
 #: C/gnome-commander.xml:2378(para)
-#, fuzzy
 msgid "Equalisation curve predefine within the audio file."
 msgstr "Krivulja uravnavanja zvoka, zapisana v zvočni datoteki."
 
@@ -4970,12 +4529,10 @@ msgid "ID3.EventTiming"
 msgstr ""
 
 #: C/gnome-commander.xml:2382(para)
-#, fuzzy
 msgid "Event Timing"
 msgstr "Časovno usklajevanje dogodkov"
 
 #: C/gnome-commander.xml:2383(para)
-#, fuzzy
 msgid "Event timing codes."
 msgstr "Kode časovnega usklajevanja"
 
@@ -4984,12 +4541,10 @@ msgid "ID3.FileOwner"
 msgstr ""
 
 #: C/gnome-commander.xml:2387(para)
-#, fuzzy
 msgid "File Owner"
 msgstr "Lastnik datoteke"
 
 #: C/gnome-commander.xml:2388(para)
-#, fuzzy
 msgid "File owner."
 msgstr "Lastnik datoteke."
 
@@ -4998,36 +4553,30 @@ msgid "ID3.FileType"
 msgstr ""
 
 #: C/gnome-commander.xml:2392(para)
-#, fuzzy
 msgid "File Type"
 msgstr "Vrsta datoteke"
 
 #: C/gnome-commander.xml:2393(para)
-#, fuzzy
 msgid "File type."
 msgstr "Vrsta datoteke."
 
 #: C/gnome-commander.xml:2396(para)
-#, fuzzy
 msgid "ID3.Frames"
-msgstr "Ni okvirjev"
+msgstr "ID3.Frames"
 
 #: C/gnome-commander.xml:2397(para)
-#, fuzzy
 msgid "Frames"
 msgstr "Sličice"
 
 #: C/gnome-commander.xml:2398(para)
-#, fuzzy
 msgid "Number of frames."
-msgstr "Število okvirjev."
+msgstr "Število sličic."
 
 #: C/gnome-commander.xml:2401(para)
 msgid "ID3.GeneralObject"
 msgstr ""
 
 #: C/gnome-commander.xml:2402(para)
-#, fuzzy
 msgid "General Object"
 msgstr "Splošni predmet"
 
@@ -5089,12 +4638,10 @@ msgid "InvolvedPeople2"
 msgstr "Drugo vključeno osebje"
 
 #: C/gnome-commander.xml:2426(para)
-#, fuzzy
 msgid "ID3.Language"
-msgstr "Upravljalnik jezikov"
+msgstr "ID3.Language"
 
 #: C/gnome-commander.xml:2428(para)
-#, fuzzy
 msgid "Language."
 msgstr "Jezik."
 
@@ -5113,17 +4660,14 @@ msgid "Linked information."
 msgstr "Povezane podrobnosti."
 
 #: C/gnome-commander.xml:2436(para)
-#, fuzzy
 msgid "ID3.Lyricist"
-msgstr "Izvirni pisec besedila"
+msgstr "ID3.Lyricist"
 
 #: C/gnome-commander.xml:2437(para)
-#, fuzzy
 msgid "Lyricist"
 msgstr "Pisec besedila"
 
 #: C/gnome-commander.xml:2438(para)
-#, fuzzy
 msgid "Lyricist."
 msgstr "Pisec besedila."
 
@@ -5146,12 +4690,10 @@ msgid "ID3.MixArtist"
 msgstr ""
 
 #: C/gnome-commander.xml:2447(para)
-#, fuzzy
 msgid "Mix Artist"
 msgstr "Mešani izvajalci"
 
 #: C/gnome-commander.xml:2448(para)
-#, fuzzy
 msgid "Interpreted, remixed, or otherwise modified by."
 msgstr "Tolmačen, predelan ali kakorkoli spremenjen."
 
@@ -5160,19 +4702,16 @@ msgid "ID3.Mood"
 msgstr ""
 
 #: C/gnome-commander.xml:2452(para)
-#, fuzzy
 msgid "Mood"
 msgstr "Razpoloženje"
 
 #: C/gnome-commander.xml:2453(para)
-#, fuzzy
 msgid "Mood."
 msgstr "Razpoloženje."
 
 #: C/gnome-commander.xml:2456(para)
-#, fuzzy
 msgid "ID3.MPEG.Lookup"
-msgstr "MPEG preglednica poizvedbe."
+msgstr "ID3.MPEG.Lookup"
 
 #: C/gnome-commander.xml:2457(para)
 #, fuzzy
@@ -5231,12 +4770,10 @@ msgid "ID3.OriginalAlbum"
 msgstr ""
 
 #: C/gnome-commander.xml:2477(para)
-#, fuzzy
 msgid "Original Album"
 msgstr "Izvirni album"
 
 #: C/gnome-commander.xml:2478(para)
-#, fuzzy
 msgid "Original album."
 msgstr "Izvirni album."
 
@@ -5245,12 +4782,10 @@ msgid "ID3.OriginalArtist"
 msgstr ""
 
 #: C/gnome-commander.xml:2482(para)
-#, fuzzy
 msgid "Original Artist"
 msgstr "Izvirni izvajalec"
 
 #: C/gnome-commander.xml:2483(para)
-#, fuzzy
 msgid "Original artist."
 msgstr "Izvirni izvajalec."
 
@@ -5259,12 +4794,10 @@ msgid "ID3.OriginalFileName"
 msgstr ""
 
 #: C/gnome-commander.xml:2487(para)
-#, fuzzy
 msgid "Original File Name"
 msgstr "Izvirno ime datoteke"
 
 #: C/gnome-commander.xml:2488(para)
-#, fuzzy
 msgid "Original file name."
 msgstr "Izvirno ime datoteke."
 
@@ -5273,12 +4806,10 @@ msgid "ID3.OriginalLyricist"
 msgstr ""
 
 #: C/gnome-commander.xml:2492(para)
-#, fuzzy
 msgid "Original Lyricist"
 msgstr "Izvirni pisec besedila"
 
 #: C/gnome-commander.xml:2493(para)
-#, fuzzy
 msgid "Original lyricist."
 msgstr "Izvirni pisec besedila."
 
@@ -5287,12 +4818,10 @@ msgid "ID3.OriginalReleaseTime"
 msgstr ""
 
 #: C/gnome-commander.xml:2497(para)
-#, fuzzy
 msgid "Original Release Time"
 msgstr "Izvirni čas izida"
 
 #: C/gnome-commander.xml:2498(para)
-#, fuzzy
 msgid "Original release time."
 msgstr "Izvirni čas izida."
 
@@ -5301,27 +4830,22 @@ msgid "ID3.OriginalYear"
 msgstr ""
 
 #: C/gnome-commander.xml:2502(para)
-#, fuzzy
 msgid "Original Year"
 msgstr "Izvirno leto"
 
 #: C/gnome-commander.xml:2503(para)
-#, fuzzy
 msgid "Original release year."
 msgstr "Izvirno leto objave."
 
 #: C/gnome-commander.xml:2506(para)
-#, fuzzy
 msgid "ID3.Ownership"
-msgstr "Okvir lastništva."
+msgstr "ID3.Ownership"
 
 #: C/gnome-commander.xml:2507(para)
-#, fuzzy
 msgid "Ownership"
 msgstr "Lastništvo"
 
 #: C/gnome-commander.xml:2508(para)
-#, fuzzy
 msgid "Ownership frame."
 msgstr "Okvir lastništva."
 
@@ -5354,26 +4878,22 @@ msgid "Performer sort order."
 msgstr "Red razvrščanja izvajalca."
 
 #: C/gnome-commander.xml:2521(para)
-#, fuzzy
 msgid "ID3.Picture"
-msgstr "Zajem slike"
+msgstr "ID3.Picture"
 
 #: C/gnome-commander.xml:2522(para)
-#, fuzzy
 msgid "Picture"
 msgstr "Slika"
 
 #: C/gnome-commander.xml:2523(para)
-#, fuzzy
 msgid "Attached picture."
-msgstr "Pripeta slika."
+msgstr "Prložena slika."
 
 #: C/gnome-commander.xml:2526(para)
 msgid "ID3.PlayCounter"
 msgstr ""
 
 #: C/gnome-commander.xml:2527(para)
-#, fuzzy
 msgid "Play Counter"
 msgstr "Štetje predvajanja"
 
@@ -5425,17 +4945,14 @@ msgid "Position synchronisation frame."
 msgstr "Okvir usklajevanja lege"
 
 #: C/gnome-commander.xml:2546(para)
-#, fuzzy
 msgid "ID3.Private"
-msgstr "Zasebni okvir."
+msgstr "ID3.Private"
 
 #: C/gnome-commander.xml:2547(para)
-#, fuzzy
 msgid "Private"
 msgstr "Zasebno"
 
 #: C/gnome-commander.xml:2548(para)
-#, fuzzy
 msgid "Private frame."
 msgstr "Zasebni okvir."
 
@@ -5454,12 +4971,10 @@ msgid "Produced notice."
 msgstr "Pridelano obvestilo."
 
 #: C/gnome-commander.xml:2556(para)
-#, fuzzy
 msgid "ID3.Publisher"
-msgstr "Spletni založnik"
+msgstr "ID3.Publisher"
 
 #: C/gnome-commander.xml:2558(para)
-#, fuzzy
 msgid "Publisher."
 msgstr "Založnik."
 
@@ -5535,24 +5050,20 @@ msgid "Subtitle of the part of a set this track belongs to."
 msgstr "Podnapis predmeta, ki mu pripada."
 
 #: C/gnome-commander.xml:2586(para)
-#, fuzzy
 msgid "ID3.Signature"
-msgstr "Veljaven podpis"
+msgstr "ID3.Signature"
 
 #: C/gnome-commander.xml:2587(para)
-#, fuzzy
 msgid "Signature"
 msgstr "Podpis"
 
 #: C/gnome-commander.xml:2588(para)
-#, fuzzy
 msgid "Signature frame."
-msgstr "Okvir."
+msgstr "Okvir podpisa."
 
 #: C/gnome-commander.xml:2591(para)
-#, fuzzy
 msgid "ID3.Size"
-msgstr "Velikost datoteke"
+msgstr "ID3.Size"
 
 #: C/gnome-commander.xml:2593(para)
 #, fuzzy
@@ -5569,22 +5080,18 @@ msgid "Song length"
 msgstr "Dolžina skladbe"
 
 #: C/gnome-commander.xml:2598(para)
-#, fuzzy
 msgid "Length of the song in milliseconds."
 msgstr "Dolžina skladbe v milisekundah."
 
 #: C/gnome-commander.xml:2601(para)
-#, fuzzy
 msgid "ID3.Subtitle"
-msgstr "Določitev podnapisov"
+msgstr "ID3.Subtitle"
 
 #: C/gnome-commander.xml:2602(para)
-#, fuzzy
 msgid "Subtitle"
 msgstr "Podnapisi"
 
 #: C/gnome-commander.xml:2603(para)
-#, fuzzy
 msgid "Subtitle."
 msgstr "Podnapisi."
 
@@ -5593,7 +5100,6 @@ msgid "ID3.Syncedlyrics"
 msgstr ""
 
 #: C/gnome-commander.xml:2607(para)
-#, fuzzy
 msgid "Synchronized Lyrics"
 msgstr "Usklajeno besedilo skladbe"
 
@@ -5645,9 +5151,8 @@ msgid "Terms of use."
 msgstr "Pogoji uporabe"
 
 #: C/gnome-commander.xml:2626(para)
-#, fuzzy
 msgid "ID3.Time"
-msgstr "Vstavi _čas"
+msgstr "ID3.Time"
 
 #: C/gnome-commander.xml:2627(para)
 #, fuzzy
@@ -5655,7 +5160,6 @@ msgid "Time"
 msgstr "Čas"
 
 #: C/gnome-commander.xml:2628(para)
-#, fuzzy
 msgid "Time."
 msgstr "Čas."
 
@@ -5866,9 +5370,8 @@ msgid "User defined URL link."
 msgstr "Uporabniško določena URL povezava."
 
 #: C/gnome-commander.xml:2706(para)
-#, fuzzy
 msgid "Image.Album"
-msgstr "Naslov albuma"
+msgstr "Image.Album"
 
 #: C/gnome-commander.xml:2708(para)
 #, fuzzy
@@ -5876,14 +5379,12 @@ msgid "Name of an album the image belongs to."
 msgstr "Ime albuma, ki mu pripada spodnja slika."
 
 #: C/gnome-commander.xml:2711(para)
-#, fuzzy
 msgid "Image.Comments"
-msgstr "Vidne opombe"
+msgstr "Image.Comments"
 
 #: C/gnome-commander.xml:2716(para)
-#, fuzzy
 msgid "Image.Copyright"
-msgstr "Avtorske pravice/Licenca:"
+msgstr "Image.Copyright"
 
 #: C/gnome-commander.xml:2718(para)
 #, fuzzy
@@ -5891,14 +5392,12 @@ msgid "Embedded copyright message."
 msgstr "Vstavljeno sporočilo avtorstva."
 
 #: C/gnome-commander.xml:2721(para)
-#, fuzzy
 msgid "Image.Creator"
-msgstr "Ustvarjalec postaj:"
+msgstr "Image.Creator"
 
 #: C/gnome-commander.xml:2726(para)
-#, fuzzy
 msgid "Image.Date"
-msgstr "Datum zajema slike"
+msgstr "Image.Date"
 
 #: C/gnome-commander.xml:2728(para)
 #, fuzzy
@@ -5916,9 +5415,8 @@ msgid "Description of the image."
 msgstr "Opis slike."
 
 #: C/gnome-commander.xml:2736(para)
-#, fuzzy
 msgid "Image.ExposureProgram"
-msgstr "Ustvarjanje odtisa"
+msgstr "Image.ExposureProgram"
 
 #: C/gnome-commander.xml:2738(para)
 #, fuzzy
@@ -5926,9 +5424,8 @@ msgid "The program used by the camera to set exposure when the picture is taken.
 msgstr "Program, ki ga uporablja kamera za določitev osvetlitve ob zajemanju slike. EG ročni, običajni, Prednost zaslonke in podobno."
 
 #: C/gnome-commander.xml:2741(para)
-#, fuzzy
 msgid "Image.ExposureTime"
-msgstr "Ustvarjanje odtisa"
+msgstr "Image.ExposureTime"
 
 #: C/gnome-commander.xml:2743(para)
 #, fuzzy
@@ -5936,9 +5433,8 @@ msgid "Exposure time used to capture the photo in seconds."
 msgstr "Čas osvetlitve med zajemanjem slike v sekundah."
 
 #: C/gnome-commander.xml:2746(para)
-#, fuzzy
 msgid "Image.Flash"
-msgstr "Flash video"
+msgstr "Image.Flash"
 
 #: C/gnome-commander.xml:2748(para)
 #, fuzzy
@@ -5961,9 +5457,8 @@ msgid "Focal length of lens in mm."
 msgstr "Žariščna razdalja leče v milimetrih."
 
 #: C/gnome-commander.xml:2761(para)
-#, fuzzy
 msgid "Image.Height"
-msgstr "Višina slike:"
+msgstr "Image.Height"
 
 #: C/gnome-commander.xml:2762(para)
 #, fuzzy
@@ -6001,9 +5496,8 @@ msgid "String of keywords."
 msgstr "Niz ključnih besed."
 
 #: C/gnome-commander.xml:2776(para)
-#, fuzzy
 msgid "Image.Make"
-msgstr "%d: Ustvari mapo %s\n"
+msgstr "Image.Make"
 
 #: C/gnome-commander.xml:2777(para)
 #, fuzzy
@@ -6016,9 +5510,8 @@ msgid "Make of camera used to take the image."
 msgstr "Izvedba aparata s katerim je bila zajeta slika."
 
 #: C/gnome-commander.xml:2781(para)
-#, fuzzy
 msgid "Image.MeteringMode"
-msgstr "Ustvarjanje odtisa"
+msgstr "Image.MeteringMode"
 
 #: C/gnome-commander.xml:2783(para)
 #, fuzzy
@@ -6026,9 +5519,8 @@ msgid "Metering mode used to acquire the image (IE Unknown, Average, CenterWeigh
 msgstr "Način merjenja, ki se uporablja pri pridobivanju slike (neznano, povprečno, vzorčno, delno, točkovno, večtočkovno)."
 
 #: C/gnome-commander.xml:2786(para)
-#, fuzzy
 msgid "Image.Model"
-msgstr "<b>Jezikovni model</b>"
+msgstr "Image.Model"
 
 #: C/gnome-commander.xml:2788(para)
 #, fuzzy
@@ -6036,9 +5528,8 @@ msgid "Model of camera used to take the image."
 msgstr "Model aparata s katerim je bila zajeta slika."
 
 #: C/gnome-commander.xml:2791(para)
-#, fuzzy
 msgid "Image.Orientation"
-msgstr "Usmerjenost slike"
+msgstr "Image.Orientation"
 
 #: C/gnome-commander.xml:2793(para)
 #, fuzzy
@@ -6046,9 +5537,8 @@ msgid "Represents the orientation of the image wrt camera (IE \"top,left\" or \"
 msgstr "Predstavlja usmerjenost slike (IE \"zgoraj,levo\" ali \"spodaj,desno\")."
 
 #: C/gnome-commander.xml:2796(para)
-#, fuzzy
 msgid "Image.Software"
-msgstr "Programska oprema za osebni računalnik"
+msgstr "Image.Software"
 
 #: C/gnome-commander.xml:2798(para)
 #, fuzzy
@@ -6066,9 +5556,8 @@ msgid "Title of image."
 msgstr "Naslov slike"
 
 #: C/gnome-commander.xml:2806(para)
-#, fuzzy
 msgid "Image.WhiteBalance"
-msgstr "Ustvarjanje odtisa"
+msgstr "Image.WhiteBalance"
 
 #: C/gnome-commander.xml:2808(para)
 #, fuzzy
@@ -6106,9 +5595,8 @@ msgid "The type of action that this object provides to a previous object. '01' O
 msgstr "Vrsta dejanja, ki ga predmet ponuja glede na predhodni predmet. '01' predmet uniči, '02' predmet zamenjaj, '03' predmet pripni, '04' predmet naveži."
 
 #: C/gnome-commander.xml:2821(para)
-#, fuzzy
 msgid "IPTC.ARMID"
-msgstr "XMP IPTC"
+msgstr "IPTC.ARMID"
 
 #: C/gnome-commander.xml:2822(para)
 #, fuzzy
@@ -6151,9 +5639,8 @@ msgid "The running time of the audio data in the form HHMMSS."
 msgstr "Trajanje predvajanja zvoka v obliki HHMMSS."
 
 #: C/gnome-commander.xml:2836(para)
-#, fuzzy
 msgid "IPTC.AudioOutcue"
-msgstr "XMP IPTC"
+msgstr "IPTC.AudioOutcue"
 
 #: C/gnome-commander.xml:2837(para)
 #, fuzzy
@@ -6166,9 +5653,8 @@ msgid "The content at the end of the audio data."
 msgstr "Vsebina na koncu podatkov zvočnega posnetka"
 
 #: C/gnome-commander.xml:2841(para)
-#, fuzzy
 msgid "IPTC.AudioSamplingRate"
-msgstr "XMP IPTC"
+msgstr "IPTC.AudioSamplingRate"
 
 #: C/gnome-commander.xml:2842(para)
 #, fuzzy
@@ -6181,9 +5667,8 @@ msgid "The sampling rate in Hz of the audio data."
 msgstr "Raven vzorčenja zvočnih podatkov v Hz."
 
 #: C/gnome-commander.xml:2846(para)
-#, fuzzy
 msgid "IPTC.AudioSamplingRes"
-msgstr "XMP IPTC"
+msgstr "IPTC.AudioSamplingRes"
 
 #: C/gnome-commander.xml:2847(para)
 #, fuzzy
@@ -6196,9 +5681,8 @@ msgid "The number of bits in each audio sample."
 msgstr "Število bitov vsakega zvočnega vzorca."
 
 #: C/gnome-commander.xml:2851(para)
-#, fuzzy
 msgid "IPTC.AudioType"
-msgstr "XMP IPTC"
+msgstr "IPTC.AudioType"
 
 #: C/gnome-commander.xml:2852(para)
 #, fuzzy
@@ -6211,9 +5695,8 @@ msgid "The number of channels and type of audio (music, text, etc.) in the objec
 msgstr "Število kanalov in vrsta zvočne datoteke (glasba, besedilo, ...) v predmetu."
 
 #: C/gnome-commander.xml:2856(para)
-#, fuzzy
 msgid "IPTC.Byline"
-msgstr "XMP IPTC"
+msgstr "IPTC.Byline"
 
 #: C/gnome-commander.xml:2857(para)
 #, fuzzy
@@ -6226,9 +5709,8 @@ msgid "Name of the creator of the object, e.g. writer, photographer or graphic a
 msgstr "Ime ustvarjalca predmeta, primer: pisatelj, fotograf, umetnik (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:2861(para)
-#, fuzzy
 msgid "IPTC.BylineTitle"
-msgstr "XMP IPTC"
+msgstr "IPTC.BylineTitle"
 
 #: C/gnome-commander.xml:2862(para)
 #, fuzzy
@@ -6241,9 +5723,8 @@ msgid "Title of the creator or creators of the object."
 msgstr "Naslov ustvarjalca ali ustvarjalcev predmeta."
 
 #: C/gnome-commander.xml:2866(para)
-#, fuzzy
 msgid "IPTC.Caption"
-msgstr "Naslov gumba"
+msgstr "IPTC.Caption"
 
 #: C/gnome-commander.xml:2867(para)
 #, fuzzy
@@ -6257,9 +5738,8 @@ msgid "A textual description of the data."
 msgstr "Besedilni opis podatkov."
 
 #: C/gnome-commander.xml:2871(para)
-#, fuzzy
 msgid "IPTC.Category"
-msgstr "<Nova kategorija (%d)>"
+msgstr "IPTC.Category"
 
 #: C/gnome-commander.xml:2873(para)
 #, fuzzy
@@ -6267,9 +5747,8 @@ msgid "Identifies the subject of the object in the opinion of the provider (Depr
 msgstr "Določa zadevo predmeta med možnostmi ponudnika (zastarelo)."
 
 #: C/gnome-commander.xml:2876(para)
-#, fuzzy
 msgid "IPTC.CharacterSet"
-msgstr "XMP IPTC"
+msgstr "IPTC.CharacterSet"
 
 #: C/gnome-commander.xml:2877(para)
 #, fuzzy
@@ -6282,24 +5761,20 @@ msgid "Control functions used for the announcement, invocation or designation of
 msgstr "Nadzorne funkcije uporabljane za objavljanje, pozivanje ali označbo nabora znakov kodiranja."
 
 #: C/gnome-commander.xml:2881(para)
-#, fuzzy
 msgid "IPTC.City"
-msgstr "Ime mesta"
+msgstr "IPTC.City"
 
 #: C/gnome-commander.xml:2882(para)
-#, fuzzy
 msgid "City"
 msgstr "Mesto"
 
 #: C/gnome-commander.xml:2883(para)
-#, fuzzy
 msgid "City of object origin."
 msgstr "Mesto izvora predmeta."
 
 #: C/gnome-commander.xml:2886(para)
-#, fuzzy
 msgid "IPTC.ConfirmedDataSize"
-msgstr "XMP IPTC"
+msgstr "IPTC.ConfirmedDataSize"
 
 #: C/gnome-commander.xml:2887(para)
 #, fuzzy
@@ -6312,9 +5787,8 @@ msgid "Total size of the object data."
 msgstr "Skupna velikost podatkov predmeta."
 
 #: C/gnome-commander.xml:2891(para)
-#, fuzzy
 msgid "IPTC.Contact"
-msgstr "Evolution stik."
+msgstr "IPTC.Contact"
 
 #: C/gnome-commander.xml:2892(para)
 #: C/gnome-commander.xml:3282(para)
@@ -6328,9 +5802,8 @@ msgid "The person or organization which can provide further background informati
 msgstr "Oseba ali organizacija, ki lahko ponudi več podrobnosti o predmetu (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:2896(para)
-#, fuzzy
 msgid "IPTC.ContentLocCode"
-msgstr "XMP IPTC"
+msgstr "IPTC.ContentLocCode"
 
 #: C/gnome-commander.xml:2897(para)
 #, fuzzy
@@ -6343,9 +5816,8 @@ msgid "The code of a country/geographical location referenced by the content of 
 msgstr "Koda države ali geografska lega določena v vsebini predmeta (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:2901(para)
-#, fuzzy
 msgid "IPTC.ContentLocName"
-msgstr "XMP IPTC"
+msgstr "IPTC.ContentLocName"
 
 #: C/gnome-commander.xml:2902(para)
 #, fuzzy
@@ -6358,9 +5830,8 @@ msgid "A full, publishable name of a country/geographical location referenced by
 msgstr "Polno, objavljeno ime države ali geografskega kraja, ki je določen v vsebini predmeta (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:2906(para)
-#, fuzzy
 msgid "IPTC.CopyrightNotice"
-msgstr "XMP IPTC"
+msgstr "IPTC.CopyrightNotice"
 
 #: C/gnome-commander.xml:2907(para)
 #, fuzzy
@@ -6373,17 +5844,14 @@ msgid "Any necessary copyright notice."
 msgstr "Vsako obvezno opozorilo avtorskih pravic."
 
 #: C/gnome-commander.xml:2911(para)
-#, fuzzy
 msgid "IPTC.CountryCode"
-msgstr "XMP IPTC"
+msgstr "IPTC.CountryCode"
 
 #: C/gnome-commander.xml:2912(para)
-#, fuzzy
 msgid "Country Code"
 msgstr "Koda države"
 
 #: C/gnome-commander.xml:2913(para)
-#, fuzzy
 msgid "The code of the country/primary location where the object was created."
 msgstr "Koda države ali kraja, kjer je bil predmet ustvarjen."
 
@@ -6403,9 +5871,8 @@ msgid "The name of the country/primary location where the object was created."
 msgstr "Ime države ali kraja, kjer je bil predmet ustvarjen."
 
 #: C/gnome-commander.xml:2921(para)
-#, fuzzy
 msgid "IPTC.Credit"
-msgstr "Kreditna kartica"
+msgstr "IPTC.Credit"
 
 #: C/gnome-commander.xml:2922(para)
 #, fuzzy
@@ -6418,9 +5885,8 @@ msgid "Identifies the provider of the object, not necessarily the owner/creator.
 msgstr "Določa ponudnika predmeta in ne nujno lastnika ali ustvarjalca."
 
 #: C/gnome-commander.xml:2926(para)
-#, fuzzy
 msgid "IPTC.DateCreated"
-msgstr "XMP IPTC"
+msgstr "IPTC.DateCreated"
 
 #: C/gnome-commander.xml:2928(para)
 #, fuzzy
@@ -6428,9 +5894,8 @@ msgid "The date the intellectual content of the object was created rather than t
 msgstr "Datum, ko je bila avtorska vsebina ustvarjena, namesto datuma dejanskega izdelka."
 
 #: C/gnome-commander.xml:2931(para)
-#, fuzzy
 msgid "IPTC.DateSent"
-msgstr "XMP IPTC"
+msgstr "IPTC.DateSent"
 
 #: C/gnome-commander.xml:2932(para)
 #, fuzzy
@@ -6443,9 +5908,8 @@ msgid "The day the service sent the material."
 msgstr "Dan pošiljanja storitev materiala."
 
 #: C/gnome-commander.xml:2936(para)
-#, fuzzy
 msgid "IPTC.Destination"
-msgstr "Izbor cilja"
+msgstr "IPTC.Destination"
 
 #: C/gnome-commander.xml:2937(para)
 #, fuzzy
@@ -6458,9 +5922,8 @@ msgid "Routing information."
 msgstr "Podrobnosti usmerjevalne razpredelnice."
 
 #: C/gnome-commander.xml:2941(para)
-#, fuzzy
 msgid "IPTC.DigitalCreationDate"
-msgstr "XMP IPTC"
+msgstr "IPTC.DigitalCreationDate"
 
 #: C/gnome-commander.xml:2942(para)
 #, fuzzy
@@ -6473,9 +5936,8 @@ msgid "The date the digital representation of the object was created."
 msgstr "Datum, ko je bila digitalna predstavitev ustvarjena."
 
 #: C/gnome-commander.xml:2946(para)
-#, fuzzy
 msgid "IPTC.DigitalCreationTime"
-msgstr "XMP IPTC"
+msgstr "IPTC.DigitalCreationTime"
 
 #: C/gnome-commander.xml:2947(para)
 #, fuzzy
@@ -6488,9 +5950,8 @@ msgid "The time the digital representation of the object was created."
 msgstr "Čas, ko je bila digitalna predstavitev ustvarjena."
 
 #: C/gnome-commander.xml:2951(para)
-#, fuzzy
 msgid "IPTC.EditorialUpdate"
-msgstr "XMP IPTC"
+msgstr "IPTC.EditorialUpdate"
 
 #: C/gnome-commander.xml:2952(para)
 #, fuzzy
@@ -6503,9 +5964,8 @@ msgid "The type of update this object provides to a previous object. The link to
 msgstr "Vrsta posodobitve predmeta glede na predhodni predmet. Povezava s predhodnim predmetom je ustvarjena z ARM.  '01' določa dodatni jezik."
 
 #: C/gnome-commander.xml:2956(para)
-#, fuzzy
 msgid "IPTC.EditStatus"
-msgstr "XMP IPTC"
+msgstr "IPTC.EditStatus"
 
 #: C/gnome-commander.xml:2957(para)
 #, fuzzy
@@ -6518,9 +5978,8 @@ msgid "Status of the object, according to the practice of the provider."
 msgstr "Stanje urejanja predmeta, kot ga določa ponudnik."
 
 #: C/gnome-commander.xml:2961(para)
-#, fuzzy
 msgid "IPTC.EnvelopeNum"
-msgstr "XMP IPTC"
+msgstr "IPTC.EnvelopeNum"
 
 #: C/gnome-commander.xml:2962(para)
 #, fuzzy
@@ -6533,9 +5992,8 @@ msgid "A number unique for the date and the service ID."
 msgstr "Enoznačna številka datuma in ID storitve."
 
 #: C/gnome-commander.xml:2966(para)
-#, fuzzy
 msgid "IPTC.EnvelopePriority"
-msgstr "XMP IPTC"
+msgstr "IPTC.EnvelopePriority"
 
 #: C/gnome-commander.xml:2967(para)
 #, fuzzy
@@ -6548,9 +6006,8 @@ msgid "Specifies the envelope handling priority and not the editorial urgency. '
 msgstr "Določa prednost upravljanja z ovojnico in ne nujnost urejanja. '1' za nujno, '5' za običajno, in '8' za odložljivo. Vrednost '9' je po meri."
 
 #: C/gnome-commander.xml:2971(para)
-#, fuzzy
 msgid "IPTC.ExpirationDate"
-msgstr "XMP IPTC"
+msgstr "IPTC.ExpirationDate"
 
 #: C/gnome-commander.xml:2972(para)
 #, fuzzy
@@ -6563,9 +6020,8 @@ msgid "Designates the latest date the provider intends the object to be used."
 msgstr "Določa najpoznejši datum, do katerega je predvidena uporaba predmeta."
 
 #: C/gnome-commander.xml:2976(para)
-#, fuzzy
 msgid "IPTC.ExpirationTime"
-msgstr "XMP IPTC"
+msgstr "IPTC.ExpirationTime"
 
 #: C/gnome-commander.xml:2977(para)
 #, fuzzy
@@ -6578,9 +6034,8 @@ msgid "Designates the latest time the provider intends the object to be used."
 msgstr "Določa najpoznejši čas do katerega je predvidena uporaba predmeta."
 
 #: C/gnome-commander.xml:2981(para)
-#, fuzzy
 msgid "IPTC.FileFormat"
-msgstr "Opozorilo vrste datoteke"
+msgstr "IPTC.FileFormat"
 
 #: C/gnome-commander.xml:2982(para)
 #, fuzzy
@@ -6593,9 +6048,8 @@ msgid "File format of the data described by this metadata."
 msgstr "Zapis datoteke in podatki opisani v metapodatkih."
 
 #: C/gnome-commander.xml:2986(para)
-#, fuzzy
 msgid "IPTC.FileVersion"
-msgstr "XMP IPTC"
+msgstr "IPTC.FileVersion"
 
 #: C/gnome-commander.xml:2987(para)
 #, fuzzy
@@ -6608,9 +6062,8 @@ msgid "Version of the file format."
 msgstr "Različica oblike datoteke."
 
 #: C/gnome-commander.xml:2991(para)
-#, fuzzy
 msgid "IPTC.FixtureID"
-msgstr "XMP IPTC"
+msgstr "IPTC.FixtureID"
 
 #: C/gnome-commander.xml:2992(para)
 #, fuzzy
@@ -6623,9 +6076,8 @@ msgid "Identifies objects that recur often and predictably, enabling users to im
 msgstr "Določa predmete, ki se pojavljajo pogosto in so predvidljivi, s čimer omogoči uporabniku hitro iskanje med takimi predmeti."
 
 #: C/gnome-commander.xml:2996(para)
-#, fuzzy
 msgid "IPTC.Headline"
-msgstr "Naslovnica vsebine"
+msgstr "IPTC.Headline"
 
 #: C/gnome-commander.xml:2997(para)
 #, fuzzy
@@ -6638,9 +6090,8 @@ msgid "A publishable entry providing a synopsis of the contents of the object."
 msgstr "Objavljen vnos, ki ponuja strnjen povzetek vsebine predmeta."
 
 #: C/gnome-commander.xml:3001(para)
-#, fuzzy
 msgid "IPTC.ImageOrientation"
-msgstr "XMP IPTC"
+msgstr "IPTC.ImageOrientation"
 
 #: C/gnome-commander.xml:3002(para)
 #, fuzzy
@@ -6668,9 +6119,8 @@ msgid "The data format of the image object."
 msgstr "Podatkovni zapis slikovnega predmeta."
 
 #: C/gnome-commander.xml:3011(para)
-#, fuzzy
 msgid "IPTC.Keywords"
-msgstr "_Uredi ključne besede"
+msgstr "IPTC.Keywords"
 
 #: C/gnome-commander.xml:3013(para)
 #, fuzzy
@@ -6678,9 +6128,8 @@ msgid "Used to indicate specific information retrieval words (multiple values al
 msgstr "Uporabljen za določitev posebnih podrobnosti pridobivanja besed (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:3016(para)
-#, fuzzy
 msgid "IPTC.LanguageID"
-msgstr "XMP IPTC"
+msgstr "IPTC.LanguageID"
 
 #: C/gnome-commander.xml:3017(para)
 #, fuzzy
@@ -6693,9 +6142,8 @@ msgid "The major national language of the object, according to the 2-letter code
 msgstr "Določilo jezika predmeta v obliki dvo-črkovne kode  ISO 639 standarda: 1988."
 
 #: C/gnome-commander.xml:3021(para)
-#, fuzzy
 msgid "IPTC.MaxObjectSize"
-msgstr "XMP IPTC"
+msgstr "IPTC.MaxObjectSize"
 
 #: C/gnome-commander.xml:3022(para)
 #, fuzzy
@@ -6708,9 +6156,8 @@ msgid "The largest possible size of the object if the size is not known."
 msgstr "Največja možna velikost predmeta v primeru, da ta ni znana."
 
 #: C/gnome-commander.xml:3026(para)
-#, fuzzy
 msgid "IPTC.MaxSubfileSize"
-msgstr "XMP IPTC"
+msgstr "IPTC.MaxSubfileSize"
 
 #: C/gnome-commander.xml:3027(para)
 #, fuzzy
@@ -6723,9 +6170,8 @@ msgid "The maximum size for a subfile dataset containing a portion of the object
 msgstr "Največja dovoljena velikost podatkov posamezne prikazne datoteke, ki vsebujejo del podatkov predmeta."
 
 #: C/gnome-commander.xml:3031(para)
-#, fuzzy
 msgid "IPTC.ModelVersion"
-msgstr "XMP IPTC"
+msgstr "IPTC.ModelVersion"
 
 #: C/gnome-commander.xml:3032(para)
 #, fuzzy
@@ -6738,9 +6184,8 @@ msgid "Version of IIM part 1."
 msgstr "Različica IIM del 1."
 
 #: C/gnome-commander.xml:3036(para)
-#, fuzzy
 msgid "IPTC.ObjectAttribute"
-msgstr "XMP IPTC"
+msgstr "IPTC.ObjectAttribute"
 
 #: C/gnome-commander.xml:3037(para)
 #, fuzzy
@@ -6753,9 +6198,8 @@ msgid "Defines the nature of the object independent of the subject (multiple val
 msgstr "Določa naravo predmeta neodvisno od predmeta samega (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:3041(para)
-#, fuzzy
 msgid "IPTC.ObjectCycle"
-msgstr "XMP IPTC"
+msgstr "IPTC.ObjectCycle"
 
 #: C/gnome-commander.xml:3042(para)
 #, fuzzy
@@ -6768,9 +6212,8 @@ msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
 msgstr "Vrednost 'a' določa jutro, 'p' večer, 'b' obe vrednosti."
 
 #: C/gnome-commander.xml:3046(para)
-#, fuzzy
 msgid "IPTC.ObjectName"
-msgstr "XMP IPTC"
+msgstr "IPTC.ObjectName"
 
 #: C/gnome-commander.xml:3047(para)
 #, fuzzy
@@ -6783,9 +6226,8 @@ msgid "A shorthand reference for the object."
 msgstr "Kratek sklic predmeta"
 
 #: C/gnome-commander.xml:3051(para)
-#, fuzzy
 msgid "IPTC.ObjectSizeAnnounced"
-msgstr "XMP IPTC"
+msgstr "IPTC.ObjectSizeAnnounced"
 
 #: C/gnome-commander.xml:3052(para)
 #, fuzzy
@@ -6798,9 +6240,8 @@ msgid "The total size of the object data if it is known."
 msgstr "Skupna znana velikost podatkov predmeta."
 
 #: C/gnome-commander.xml:3056(para)
-#, fuzzy
 msgid "IPTC.ObjectType"
-msgstr "XMP IPTC"
+msgstr "IPTC.ObjectType"
 
 #: C/gnome-commander.xml:3057(para)
 #, fuzzy
@@ -6813,9 +6254,8 @@ msgid "Distinguishes between different types of objects within the IIM."
 msgstr "Loči med različnimi vrstami predmetov znotraj IIM."
 
 #: C/gnome-commander.xml:3061(para)
-#, fuzzy
 msgid "IPTC.OriginatingProgram"
-msgstr "XMP IPTC"
+msgstr "IPTC.OriginatingProgram"
 
 #: C/gnome-commander.xml:3062(para)
 #, fuzzy
@@ -6828,9 +6268,8 @@ msgid "The type of program used to originate the object."
 msgstr "Vrsta programa s katerim je bil predmet ustvarjen."
 
 #: C/gnome-commander.xml:3066(para)
-#, fuzzy
 msgid "IPTC.OrigTransRef"
-msgstr "XMP IPTC"
+msgstr "IPTC.OrigTransRef"
 
 #: C/gnome-commander.xml:3067(para)
 #, fuzzy
@@ -6843,9 +6282,8 @@ msgid "A code representing the location of original transmission."
 msgstr "Koda, ki določa kraj prvotnega prenosa."
 
 #: C/gnome-commander.xml:3071(para)
-#, fuzzy
 msgid "IPTC.PreviewData"
-msgstr "XMP IPTC"
+msgstr "IPTC.PreviewData"
 
 #: C/gnome-commander.xml:3072(para)
 #, fuzzy
@@ -6858,9 +6296,8 @@ msgid "The object preview data."
 msgstr "Predogledni podatki predmeta."
 
 #: C/gnome-commander.xml:3076(para)
-#, fuzzy
 msgid "IPTC.PreviewFileFormat"
-msgstr "XMP IPTC"
+msgstr "IPTC.PreviewFileFormat"
 
 #: C/gnome-commander.xml:3077(para)
 #, fuzzy
@@ -6873,9 +6310,8 @@ msgid "Binary value indicating the file format of the object preview data."
 msgstr "Dvojiška vrednost, ki določa zapis datoteke predogleda podatkov predmeta."
 
 #: C/gnome-commander.xml:3081(para)
-#, fuzzy
 msgid "IPTC.PreviewFileFormatVer"
-msgstr "XMP IPTC"
+msgstr "IPTC.PreviewFileFormatVer"
 
 #: C/gnome-commander.xml:3082(para)
 #, fuzzy
@@ -6888,9 +6324,8 @@ msgid "The version of the preview file format."
 msgstr "Različica zapisa predogleda datoteke."
 
 #: C/gnome-commander.xml:3086(para)
-#, fuzzy
 msgid "IPTC.ProductID"
-msgstr "XMP IPTC"
+msgstr "IPTC.ProductID"
 
 #: C/gnome-commander.xml:3087(para)
 #, fuzzy
@@ -6903,9 +6338,8 @@ msgid "Allows a provider to identify subsets of its overall service."
 msgstr "Omogoča ponudniku določiti podenote skupne storitve."
 
 #: C/gnome-commander.xml:3091(para)
-#, fuzzy
 msgid "IPTC.ProgramVersion"
-msgstr "XMP IPTC"
+msgstr "IPTC.ProgramVersion"
 
 #: C/gnome-commander.xml:3092(para)
 #, fuzzy
@@ -6918,9 +6352,8 @@ msgid "The version of the originating program."
 msgstr "Različica osnovnega izvornega programa."
 
 #: C/gnome-commander.xml:3096(para)
-#, fuzzy
 msgid "IPTC.Province"
-msgstr "_Država/Provinca:"
+msgstr "IPTC.Province"
 
 #: C/gnome-commander.xml:3097(para)
 #: C/gnome-commander.xml:3157(para)
@@ -6935,9 +6368,8 @@ msgid "The Province/State where the object originates."
 msgstr "Okraj ali območje od koder predmet izvira."
 
 #: C/gnome-commander.xml:3101(para)
-#, fuzzy
 msgid "IPTC.RasterizedCaption"
-msgstr "XMP IPTC"
+msgstr "IPTC.RasterizedCaption"
 
 #: C/gnome-commander.xml:3102(para)
 #, fuzzy
@@ -6950,9 +6382,8 @@ msgid "Contains rasterized object description and is used where characters that 
 msgstr "Vsebuje opis rasterskega predmeta in je uporabljen tam, kjer so znaki, ki niso kodirani, zahtevani v naslovu."
 
 #: C/gnome-commander.xml:3106(para)
-#, fuzzy
 msgid "IPTC.RecordVersion"
-msgstr "XMP IPTC"
+msgstr "IPTC.RecordVersion"
 
 #: C/gnome-commander.xml:3107(para)
 #, fuzzy
@@ -6965,9 +6396,8 @@ msgid "Identifies the version of the IIM, Part 2."
 msgstr "Določa različico IIM, del 2."
 
 #: C/gnome-commander.xml:3111(para)
-#, fuzzy
 msgid "IPTC.RefDate"
-msgstr "XMP IPTC"
+msgstr "IPTC.RefDate"
 
 #: C/gnome-commander.xml:3112(para)
 #, fuzzy
@@ -6980,9 +6410,8 @@ msgid "The date of a prior envelope to which the current object refers."
 msgstr "Datum predhodne ovojnice, ki ji trenutni predmet pripada."
 
 #: C/gnome-commander.xml:3116(para)
-#, fuzzy
 msgid "IPTC.RefNumber"
-msgstr "XMP IPTC"
+msgstr "IPTC.RefNumber"
 
 #: C/gnome-commander.xml:3117(para)
 #, fuzzy
@@ -6995,9 +6424,8 @@ msgid "The Envelope Number of a prior envelope to which the current object refer
 msgstr "Številka predhodne ovojnice, ki ji trenutni predmet pripada."
 
 #: C/gnome-commander.xml:3121(para)
-#, fuzzy
 msgid "IPTC.RefService"
-msgstr "XMP IPTC"
+msgstr "IPTC.RefService"
 
 #: C/gnome-commander.xml:3122(para)
 #, fuzzy
@@ -7010,9 +6438,8 @@ msgid "The Service Identifier of a prior envelope to which the current object re
 msgstr "Določilo storitve predhodne ovojnice, ki ji trenutni predmet pripada."
 
 #: C/gnome-commander.xml:3126(para)
-#, fuzzy
 msgid "IPTC.ReleaseDate"
-msgstr "XMP IPTC"
+msgstr "IPTC.ReleaseDate"
 
 #: C/gnome-commander.xml:3128(para)
 #, fuzzy
@@ -7020,9 +6447,8 @@ msgid "Designates the earliest date the provider intends the object to be used."
 msgstr "Določa najpoznejši datum, do katerega je predvidena uporaba predmeta."
 
 #: C/gnome-commander.xml:3131(para)
-#, fuzzy
 msgid "IPTC.ReleaseTime"
-msgstr "XMP IPTC"
+msgstr "IPTC.ReleaseTime"
 
 #: C/gnome-commander.xml:3133(para)
 #, fuzzy
@@ -7030,9 +6456,8 @@ msgid "Designates the earliest time the provider intends the object to be used."
 msgstr "Določa najpoznejši čas, do katerega je predvidena uporaba predmeta."
 
 #: C/gnome-commander.xml:3136(para)
-#, fuzzy
 msgid "IPTC.ServiceID"
-msgstr "XMP IPTC"
+msgstr "IPTC.ServiceID"
 
 #: C/gnome-commander.xml:3137(para)
 #, fuzzy
@@ -7045,9 +6470,8 @@ msgid "Identifies the provider and product."
 msgstr "Določa ponudnika in izdelek."
 
 #: C/gnome-commander.xml:3141(para)
-#, fuzzy
 msgid "IPTC.SizeMode"
-msgstr "XMP IPTC"
+msgstr "IPTC.SizeMode"
 
 #: C/gnome-commander.xml:3142(para)
 #, fuzzy
@@ -7060,9 +6484,8 @@ msgid "Set to 0 if the size of the object is known and 1 if not known."
 msgstr "Vrednost 0 predstavlja znano velikost, vrednost 1 pa neznano."
 
 #: C/gnome-commander.xml:3146(para)
-#, fuzzy
 msgid "IPTC.Source"
-msgstr "Izvorna datoteka:"
+msgstr "IPTC.Source"
 
 #: C/gnome-commander.xml:3147(para)
 #, fuzzy
@@ -7090,14 +6513,12 @@ msgid "Other editorial instructions concerning the use of the object."
 msgstr "Druga navodila urejevanja, ki so povezana z uporabo predmeta."
 
 #: C/gnome-commander.xml:3156(para)
-#, fuzzy
 msgid "IPTC.State"
-msgstr "Eksplicitno stanje"
+msgstr "IPTC.State"
 
 #: C/gnome-commander.xml:3161(para)
-#, fuzzy
 msgid "IPTC.Subfile"
-msgstr "XMP IPTC"
+msgstr "IPTC.Subfile"
 
 #: C/gnome-commander.xml:3162(para)
 #, fuzzy
@@ -7110,9 +6531,8 @@ msgid "The object data itself. Subfiles must be sequential so that the subfiles 
 msgstr "Lastni podatki predmeta. Prikazne datoteke si morajo slediti, da jih je mogoče ponovno sestaviti."
 
 #: C/gnome-commander.xml:3166(para)
-#, fuzzy
 msgid "IPTC.SubjectRef"
-msgstr "XMP IPTC"
+msgstr "IPTC.SubjectRef"
 
 #: C/gnome-commander.xml:3167(para)
 #, fuzzy
@@ -7125,9 +6545,8 @@ msgid "A structured definition of the subject matter. It must contain an IPR, an
 msgstr "Oblikovana definicija predmeta. Vsebovati mora IPR, 8 mestno referenčno število predmeta in poljubno ime predmeta, enota in podrobnosti, ločene s podpičjem (:)."
 
 #: C/gnome-commander.xml:3171(para)
-#, fuzzy
 msgid "IPTC.Sublocation"
-msgstr "XMP IPTC"
+msgstr "IPTC.Sublocation"
 
 #: C/gnome-commander.xml:3172(para)
 #, fuzzy
@@ -7140,9 +6559,8 @@ msgid "The location within a city from which the object originates."
 msgstr "Podrobni podatki o mestu, kjer je bil predmet ustvarjen."
 
 #: C/gnome-commander.xml:3176(para)
-#, fuzzy
 msgid "IPTC.SupplCategory"
-msgstr "XMP IPTC"
+msgstr "IPTC.SupplCategory"
 
 #: C/gnome-commander.xml:3177(para)
 #, fuzzy
@@ -7155,9 +6573,8 @@ msgid "Further refines the subject of the object (Deprecated)."
 msgstr "Podrobneje določe naslov predmeta (zastarelo)"
 
 #: C/gnome-commander.xml:3181(para)
-#, fuzzy
 msgid "IPTC.TimeCreated"
-msgstr "XMP IPTC"
+msgstr "IPTC.TimeCreated"
 
 #: C/gnome-commander.xml:3182(para)
 #, fuzzy
@@ -7170,9 +6587,8 @@ msgid "The time the intellectual content of the object was created rather than t
 msgstr "Obdobje v katerem je bila ustvarjena avtorska vsebina predmeta, namesto datuma dejanskega posnetka vsebine (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:3186(para)
-#, fuzzy
 msgid "IPTC.TimeSent"
-msgstr "XMP IPTC"
+msgstr "IPTC.TimeSent"
 
 #: C/gnome-commander.xml:3187(para)
 #, fuzzy
@@ -7185,9 +6601,8 @@ msgid "The time the service sent the material."
 msgstr "Čas pošiljanja materiala."
 
 #: C/gnome-commander.xml:3191(para)
-#, fuzzy
 msgid "IPTC.UNO"
-msgstr "XMP IPTC"
+msgstr "IPTC.UNO"
 
 #: C/gnome-commander.xml:3192(para)
 #, fuzzy
@@ -7200,9 +6615,8 @@ msgid "An eternal, globally unique identification for the object, independent of
 msgstr "Notranji, splošno enoznačno določilo predmeta, neodvisno od ponudnika in določeno za vsako obliko medija."
 
 #: C/gnome-commander.xml:3196(para)
-#, fuzzy
 msgid "IPTC.Urgency"
-msgstr "XMP IPTC"
+msgstr "IPTC.Urgency"
 
 #: C/gnome-commander.xml:3197(para)
 #, fuzzy
@@ -7215,9 +6629,8 @@ msgid "Specifies the editorial urgency of content and not necessarily the envelo
 msgstr "Določa prednost upravljanja z ovojnico in ne nujnost urejanja. '1' za nujno, '5' za običajno, in '8' za odložljivo."
 
 #: C/gnome-commander.xml:3201(para)
-#, fuzzy
 msgid "IPTC.WriterEditor"
-msgstr "XMP IPTC"
+msgstr "IPTC.WriterEditor"
 
 #: C/gnome-commander.xml:3202(para)
 #, fuzzy
@@ -7230,227 +6643,182 @@ msgid "The name of the person involved in the writing, editing or correcting the
 msgstr "Ime osebe, ki je odgovorna za pisanje, urejanje ali popravljanje predmeta ali naslova (dovoljenih več vnosov)."
 
 #: C/gnome-commander.xml:3206(para)
-#, fuzzy
 msgid "PDF.PageSize"
-msgstr "Dokumenti PDF"
+msgstr "PDF.PageSize"
 
 #: C/gnome-commander.xml:3207(para)
-#, fuzzy
 msgid "Page Size"
 msgstr "Velikost strani"
 
 #: C/gnome-commander.xml:3208(para)
-#, fuzzy
 msgid "Page size format."
 msgstr "Oblika velikosti strani"
 
 #: C/gnome-commander.xml:3211(para)
-#, fuzzy
 msgid "PDF.PageWidth"
-msgstr "Dokumenti PDF"
+msgstr "PDF.PageWidth"
 
 #: C/gnome-commander.xml:3212(para)
-#, fuzzy
 msgid "Page Width"
 msgstr "Širina strani"
 
 #: C/gnome-commander.xml:3213(para)
-#, fuzzy
 msgid "Page width in mm."
 msgstr "Širina strani v milimetrih."
 
 #: C/gnome-commander.xml:3216(para)
-#, fuzzy
 msgid "PDF.PageHeight"
-msgstr "Dokumenti PDF"
+msgstr "PDF.PageHeight"
 
 #: C/gnome-commander.xml:3217(para)
-#, fuzzy
 msgid "Page Height"
 msgstr "Višina strani"
 
 #: C/gnome-commander.xml:3218(para)
-#, fuzzy
 msgid "Page height in mm."
 msgstr "Višina strani v milimetrih."
 
 #: C/gnome-commander.xml:3221(para)
-#, fuzzy
 msgid "PDF.Version"
-msgstr "Različica PDF"
+msgstr "PDF.Version"
 
 #: C/gnome-commander.xml:3222(para)
-#, fuzzy
 msgid "PDF Version"
 msgstr "Različica PDF"
 
 #: C/gnome-commander.xml:3223(para)
-#, fuzzy
 msgid "The PDF version of the document."
 msgstr "Različica PDF dokumenta."
 
 #: C/gnome-commander.xml:3226(para)
-#, fuzzy
 msgid "PDF.Producer"
-msgstr "Dokumenti PDF"
+msgstr "PDF.Producer"
 
 #: C/gnome-commander.xml:3227(para)
-#, fuzzy
 msgid "Producer"
 msgstr "Producent"
 
 #: C/gnome-commander.xml:3228(para)
-#, fuzzy
 msgid "The application that converted the document to PDF."
 msgstr "Program s katerim je bil dokument pretvorjen v PDF zapis."
 
 #: C/gnome-commander.xml:3231(para)
-#, fuzzy
 msgid "PDF.EmbeddedFiles"
-msgstr "Dokumenti PDF"
+msgstr "PDF.EmbeddedFiles"
 
 #: C/gnome-commander.xml:3232(para)
-#, fuzzy
 msgid "Embedded Files"
 msgstr "Vgrajene datoteke"
 
 #: C/gnome-commander.xml:3233(para)
-#, fuzzy
 msgid "Number of embedded files in the document."
-msgstr "Število vstavljenih datotek v dokumentu."
+msgstr "Število vgrajenih datotek v dokumentu."
 
 #: C/gnome-commander.xml:3236(para)
-#, fuzzy
 msgid "PDF.Optimized"
-msgstr "Dokumenti PDF"
+msgstr "PDF.Optimized"
 
 #: C/gnome-commander.xml:3237(para)
-#, fuzzy
 msgid "Fast Web View"
 msgstr "Hitri spletni pogled"
 
 #: C/gnome-commander.xml:3238(para)
-#, fuzzy
 msgid "Set to \"1\" if optimized for network access."
 msgstr "Nastavitev na vrednost \"1\" omogoči omrežni dostop."
 
 #: C/gnome-commander.xml:3241(para)
-#, fuzzy
 msgid "PDF.Printing"
-msgstr "Tiskanje strani %d of %d..."
+msgstr "PDF.Printing"
 
 #: C/gnome-commander.xml:3242(para)
-#, fuzzy
 msgid "Printing"
 msgstr "Tiskanje"
 
 #: C/gnome-commander.xml:3243(para)
-#, fuzzy
 msgid "Set to \"1\" if printing is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči tiskanje."
 
 #: C/gnome-commander.xml:3246(para)
-#, fuzzy
 msgid "PDF.HiResPrinting"
-msgstr "Dokumenti PDF"
+msgstr "PDF.HiResPrinting"
 
 #: C/gnome-commander.xml:3247(para)
-#, fuzzy
 msgid "Printing in High Resolution"
 msgstr "Tiskanje v visoki ločljivosti"
 
 #: C/gnome-commander.xml:3248(para)
-#, fuzzy
 msgid "Set to \"1\" if high resolution printing is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči tiskanje v visoki ločljivosti."
 
 #: C/gnome-commander.xml:3251(para)
-#, fuzzy
 msgid "PDF.Copying"
-msgstr "Kopiranje DVD nosilca"
+msgstr "PDF.Copying"
 
 #: C/gnome-commander.xml:3252(para)
-#, fuzzy
 msgid "Copying"
 msgstr "Kopiranje"
 
 #: C/gnome-commander.xml:3253(para)
-#, fuzzy
 msgid "Set to \"1\" if copying the contents is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči kopiranje vsebine."
 
 #: C/gnome-commander.xml:3256(para)
-#, fuzzy
 msgid "PDF.Modifying"
-msgstr "Spreminjanje razdelka"
+msgstr "PDF.Modifying"
 
 #: C/gnome-commander.xml:3257(para)
-#, fuzzy
 msgid "Modifying"
 msgstr "Spreminjanje"
 
 #: C/gnome-commander.xml:3258(para)
-#, fuzzy
 msgid "Set to \"1\" if modifying the contents is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči spreminjanje vsebine."
 
 #: C/gnome-commander.xml:3261(para)
-#, fuzzy
 msgid "PDF.DocAssembly"
-msgstr "Dokumenti PDF"
+msgstr "PDF.DocAssembly"
 
 #: C/gnome-commander.xml:3262(para)
-#, fuzzy
 msgid "Document Assembly"
 msgstr "Sestavljanje dokumentov"
 
 #: C/gnome-commander.xml:3263(para)
-#, fuzzy
 msgid "Set to \"1\" if inserting, rotating, or deleting pages and creating navigation elements is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči vstavljanje, obračanje in brisanje strani ter ustvarjanje predmetov."
 
 #: C/gnome-commander.xml:3266(para)
-#, fuzzy
 msgid "PDF.Commenting"
-msgstr "Dokumenti PDF"
+msgstr "PDF.Commenting"
 
 #: C/gnome-commander.xml:3267(para)
-#, fuzzy
 msgid "Commenting"
 msgstr "Opombe"
 
 #: C/gnome-commander.xml:3268(para)
-#, fuzzy
 msgid "Set to \"1\" if adding or modifying text annotations is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči dodajanje in spreminjanje besedilnih opomb."
 
 #: C/gnome-commander.xml:3271(para)
-#, fuzzy
 msgid "PDF.FormFilling"
-msgstr "Dokumenti PDF"
+msgstr "PDF.FormFilling"
 
 #: C/gnome-commander.xml:3272(para)
-#, fuzzy
 msgid "Form Filling"
 msgstr "Izpolnjevanje obrazcev"
 
 #: C/gnome-commander.xml:3273(para)
-#, fuzzy
 msgid "Set to \"1\" if filling of form fields is allowed."
 msgstr "Nastavitev na vrednost \"1\" omogoči izpolnjevanje polj obrazcev."
 
 #: C/gnome-commander.xml:3276(para)
-#, fuzzy
 msgid "PDF.AccessibilitySupport"
-msgstr "Dokumenti PDF"
+msgstr "PDF.AccessibilitySupport"
 
 #: C/gnome-commander.xml:3277(para)
-#, fuzzy
 msgid "Accessibility Support"
 msgstr "Podpora dostopnosti"
 
 #: C/gnome-commander.xml:3278(para)
-#, fuzzy
 msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
 msgstr "Nastavitev na vrednost \"1\" omogoči podporo dostopnosti (bralnik zaslona, zaslonska tipkovnica)"
 
@@ -7458,9 +6826,8 @@ msgstr "Nastavitev na vrednost \"1\" omogoči podporo dostopnosti (bralnik zaslo
 #: C/gnome-commander.xml:3301(para)
 #: C/gnome-commander.xml:3306(para)
 #: C/gnome-commander.xml:3311(para)
-#, fuzzy
 msgid "Vorbis.Contact"
-msgstr "Evolution stik."
+msgstr "Vorbis.Contact"
 
 #: C/gnome-commander.xml:3283(para)
 #, fuzzy
@@ -7468,77 +6835,62 @@ msgid "Contact information for the creators or distributors of the track."
 msgstr "Podrobnosti stika ustvarjalca ali ponudnika sledi."
 
 #: C/gnome-commander.xml:3286(para)
-#, fuzzy
 msgid "Vorbis.Description"
-msgstr "<i>(brez opisa)</i>"
+msgstr "Vorbis.Description"
 
 #: C/gnome-commander.xml:3291(para)
-#, fuzzy
 msgid "Vorbis.License"
-msgstr "Ni dovoljenja"
+msgstr "Vorbis.License"
 
 #: C/gnome-commander.xml:3292(para)
-#, fuzzy
 msgid "License"
-msgstr "Licenca"
+msgstr "Dovoljenje"
 
 #: C/gnome-commander.xml:3293(para)
-#, fuzzy
 msgid "License information."
 msgstr "Podrobnosti dovoljenja."
 
 #: C/gnome-commander.xml:3296(para)
-#, fuzzy
 msgid "Vorbis.Location"
-msgstr "Mesto doseženo\n"
+msgstr "Vorbis.Location"
 
 #: C/gnome-commander.xml:3297(para)
-#, fuzzy
 msgid "Location"
 msgstr "Mesto"
 
 #: C/gnome-commander.xml:3298(para)
-#, fuzzy
 msgid "Location where track was recorded."
 msgstr "Mesto snemanja posnetka."
 
 #: C/gnome-commander.xml:3302(para)
-#, fuzzy
 msgid "Maximum bitrate"
 msgstr "Največja bitna hitrost"
 
 #: C/gnome-commander.xml:3303(para)
-#, fuzzy
 msgid "Maximum bitrate in kbps."
-msgstr "Največja bitna hitrost v kbps"
+msgstr "Največja bitna hitrost v kbps."
 
 #: C/gnome-commander.xml:3307(para)
-#, fuzzy
 msgid "Minimum bitrate"
 msgstr "Najmanjša bitna hitrost"
 
 #: C/gnome-commander.xml:3308(para)
-#, fuzzy
 msgid "Minimum bitrate in kbps."
-msgstr "Največja bitna hitrost v kbps"
+msgstr "Najmanjša bitna hitrost v kbps."
 
 #: C/gnome-commander.xml:3312(para)
-#, fuzzy
 msgid "Nominal bitrate"
 msgstr "Nazivna bitna hitrost"
 
 #: C/gnome-commander.xml:3313(para)
-#, fuzzy
 msgid "Nominal bitrate in kbps."
-msgstr "Nazivna bitna hitrost kbps"
+msgstr "Nazivna bitna hitrost v kbps."
 
 #: C/gnome-commander.xml:3316(para)
-#, fuzzy
 msgid "Vorbis.Organization"
-msgstr "Nekdanja organizacija"
+msgstr "Vorbis.Organization"
 
 #: C/gnome-commander.xml:3317(para)
-#, fuzzy
 msgid "Organization"
 msgstr "Organizacija"
 
@@ -7548,32 +6900,26 @@ msgid "Organization producing the track."
 msgstr "Organizacija, ki je izdala zapis"
 
 #: C/gnome-commander.xml:3321(para)
-#, fuzzy
 msgid "Vorbis.Vendor"
-msgstr "ID Vorbis ponudnika"
+msgstr "Vorbis.Vendor"
 
 #: C/gnome-commander.xml:3322(para)
-#, fuzzy
 msgid "Vendor"
 msgstr "Ponudnik"
 
 #: C/gnome-commander.xml:3323(para)
-#, fuzzy
 msgid "Vorbis vendor ID."
 msgstr "ID Vorbis ponudnika"
 
 #: C/gnome-commander.xml:3326(para)
-#, fuzzy
 msgid "Vorbis.Version"
-msgstr "Različica Vorbis"
+msgstr "Vorbis.Version"
 
 #: C/gnome-commander.xml:3327(para)
-#, fuzzy
 msgid "Vorbis Version"
 msgstr "Različica Vorbis"
 
 #: C/gnome-commander.xml:3328(para)
-#, fuzzy
 msgid "Vorbis version."
 msgstr "Različica Vorbis."
 
@@ -7633,7 +6979,6 @@ msgid "The abbreviated weekday name according to the current locale"
 msgstr ""
 
 #: C/gnome-commander.xml:3391(para)
-#, fuzzy
 msgid "%A"
 msgstr "%A"
 
@@ -7655,7 +7000,6 @@ msgid "The full month name according to the current locale"
 msgstr ""
 
 #: C/gnome-commander.xml:3403(para)
-#, fuzzy
 msgid "%c"
 msgstr "%c"
 
@@ -7672,7 +7016,6 @@ msgid "The century number (year/100) as a 2-digit integer"
 msgstr ""
 
 #: C/gnome-commander.xml:3411(para)
-#, fuzzy
 msgid "%d"
 msgstr "%d"
 
@@ -7791,7 +7134,6 @@ msgid "%O"
 msgstr "%O"
 
 #: C/gnome-commander.xml:3475(para)
-#, fuzzy
 msgid "%p"
 msgstr "%p"
 
@@ -7824,7 +7166,6 @@ msgid "The time in 24-hour notation (%H:%M). For a version including the seconds
 msgstr ""
 
 #: C/gnome-commander.xml:3492(para)
-#, fuzzy
 msgid "%s"
 msgstr "%s"
 
@@ -7889,7 +7230,6 @@ msgid "The week number of the current year as a decimal number, range 00 to 53, 
 msgstr ""
 
 #: C/gnome-commander.xml:3529(para)
-#, fuzzy
 msgid "%x"
 msgstr "%x"
 
@@ -7898,7 +7238,6 @@ msgid "The preferred date representation for the current locale without the time
 msgstr ""
 
 #: C/gnome-commander.xml:3533(para)
-#, fuzzy
 msgid "%X"
 msgstr "%X"
 
@@ -7915,7 +7254,6 @@ msgid "The year as a decimal number without a century (range 00 to 99)"
 msgstr ""
 
 #: C/gnome-commander.xml:3541(para)
-#, fuzzy
 msgid "%Y"
 msgstr "%Y"
 
@@ -8053,7 +7391,6 @@ msgstr "Razporeditve tipkovnice"
 
 #: C/gnome-commander.xml:3653(para)
 #: C/gnome-commander.xml:3968(para)
-#, fuzzy
 msgid "Shortcut"
 msgstr "Bližnjica"
 
@@ -8142,7 +7479,6 @@ msgstr "Načini plasti"
 
 #: C/gnome-commander.xml:3690(keycap)
 #: C/gnome-commander.xml:4030(keycap)
-#, fuzzy
 msgid "1"
 msgstr "1"
 
@@ -8152,7 +7488,6 @@ msgstr ""
 
 #: C/gnome-commander.xml:3694(keycap)
 #: C/gnome-commander.xml:4035(keycap)
-#, fuzzy
 msgid "2"
 msgstr "2"
 
@@ -8161,7 +7496,6 @@ msgid "Sets display mode to binary. Switching to Binary display mode will automa
 msgstr ""
 
 #: C/gnome-commander.xml:3699(keycap)
-#, fuzzy
 msgid "3"
 msgstr "3"
 
@@ -8170,7 +7504,6 @@ msgid "Sets display mode to hex dump. Switching to hex display mode will automat
 msgstr ""
 
 #: C/gnome-commander.xml:3704(keycap)
-#, fuzzy
 msgid "4"
 msgstr "4"
 
@@ -8192,7 +7525,6 @@ msgid "Zooms out or decrement the font size"
 msgstr ""
 
 #: C/gnome-commander.xml:3720(keycap)
-#, fuzzy
 msgid "0"
 msgstr "0"
 
@@ -8211,7 +7543,6 @@ msgstr "Ustvarjanje odtisa"
 #: C/gnome-commander.xml:3731(keycap)
 #: C/gnome-commander.xml:4395(keycap)
 #: C/gnome-commander.xml:4940(keycap)
-#, fuzzy
 msgid "R"
 msgstr "R"
 
@@ -8224,7 +7555,6 @@ msgid "Rotates the image 270° (applicable only in IMAGE display mode)"
 msgstr ""
 
 #: C/gnome-commander.xml:3738(keycap)
-#, fuzzy
 msgid "S"
 msgstr "S"
 
@@ -8237,7 +7567,6 @@ msgid "Starting display mode is determined by the file's content, and is not sav
 msgstr ""
 
 #: C/gnome-commander.xml:3754(title)
-#, fuzzy
 msgid "Settings"
 msgstr "Nastavitve"
 
@@ -8246,65 +7575,56 @@ msgid "To configure GNOME Commander, choose <menuchoice><guimenu>Settings</guime
 msgstr ""
 
 #: C/gnome-commander.xml:3789(title)
-#, fuzzy
 msgid "General"
-msgstr "Splošno"
+msgstr "General"
 
 #: C/gnome-commander.xml:3793(title)
-#, fuzzy
 msgid "General options"
-msgstr "Splošne možnosti"
+msgstr "General options"
 
 #: C/gnome-commander.xml:3799(phrase)
 msgid "Shows GNOME Commander general preferences dialog."
 msgstr ""
 
 #: C/gnome-commander.xml:3813(title)
-#, fuzzy
 msgid "Format options"
-msgstr "Splošne možnosti"
+msgstr "Možnosti oblike"
 
 #: C/gnome-commander.xml:3819(phrase)
 msgid "Shows GNOME Commander format preferences dialog."
 msgstr ""
 
 #: C/gnome-commander.xml:3829(title)
-#, fuzzy
 msgid "Layout"
-msgstr "Postavitev"
+msgstr "Razporeditev"
 
 #: C/gnome-commander.xml:3833(title)
-#, fuzzy
 msgid "Layout options"
-msgstr "Možnosti postavitve"
+msgstr "Možnosti razporeditve"
 
 #: C/gnome-commander.xml:3839(phrase)
 msgid "Shows GNOME Commander layout preferences dialog."
 msgstr ""
 
 #: C/gnome-commander.xml:3849(title)
-#, fuzzy
 msgid "Confirmation"
 msgstr "Potrditev"
 
 #: C/gnome-commander.xml:3853(title)
-#, fuzzy
 msgid "Confirmation options"
-msgstr "Splošne možnosti"
+msgstr "Možnosti potrjevanja"
 
 #: C/gnome-commander.xml:3859(phrase)
 msgid "Shows GNOME Commander confirmation preferences dialog."
 msgstr ""
 
 #: C/gnome-commander.xml:3869(title)
-#, fuzzy
 msgid "Filters"
 msgstr "Filtri"
 
 #: C/gnome-commander.xml:3873(title)
-#, fuzzy
 msgid "Filters options"
-msgstr "Splošne možnosti"
+msgstr "Možnosti filtriranja"
 
 #: C/gnome-commander.xml:3879(phrase)
 msgid "Shows GNOME Commander filters preferences dialog."
@@ -8312,15 +7632,13 @@ msgstr ""
 
 #: C/gnome-commander.xml:3889(title)
 #: C/gnome-commander.xml:3909(title)
-#, fuzzy
 msgid "Programs"
 msgstr "Programi"
 
 #: C/gnome-commander.xml:3893(title)
 #: C/gnome-commander.xml:3913(title)
-#, fuzzy
 msgid "Programs options"
-msgstr "Splošne možnosti"
+msgstr "Možnosti programa"
 
 #: C/gnome-commander.xml:3899(phrase)
 msgid "Shows GNOME Commander network preferences dialog."
@@ -8331,14 +7649,12 @@ msgid "Shows GNOME Commander programs preferences dialog."
 msgstr ""
 
 #: C/gnome-commander.xml:3929(title)
-#, fuzzy
 msgid "Devices"
 msgstr "Naprave"
 
 #: C/gnome-commander.xml:3933(title)
-#, fuzzy
 msgid "Devices options"
-msgstr "Splošne možnosti"
+msgstr "Možnosti naprav"
 
 #: C/gnome-commander.xml:3939(phrase)
 msgid "Shows GNOME Commander devices preferences dialog."
@@ -8354,19 +7670,16 @@ msgid "User definable"
 msgstr "_Uporabniški priročnik"
 
 #: C/gnome-commander.xml:3975(keycap)
-#, fuzzy
 msgid "F1"
 msgstr "F1"
 
 #: C/gnome-commander.xml:3976(para)
 #: C/gnome-commander.xml:4804(para)
-#, fuzzy
 msgid "Help"
 msgstr "Pomoč"
 
 #: C/gnome-commander.xml:3980(keycap)
 #: C/gnome-commander.xml:4065(keycap)
-#, fuzzy
 msgid "F2"
 msgstr "F2"
 
@@ -8380,27 +7693,23 @@ msgstr ""
 #: C/gnome-commander.xml:4100(keycap)
 #: C/gnome-commander.xml:4755(keycap)
 #: C/gnome-commander.xml:4760(keycap)
-#, fuzzy
 msgid "F3"
 msgstr "F3"
 
 #: C/gnome-commander.xml:3986(para)
 #: C/gnome-commander.xml:4794(para)
-#, fuzzy
 msgid "View files"
-msgstr "Glej vse _datoteke"
+msgstr "Poglej datoteke"
 
 #: C/gnome-commander.xml:3990(keycap)
 #: C/gnome-commander.xml:4075(keycap)
 #: C/gnome-commander.xml:4105(keycap)
 #: C/gnome-commander.xml:4745(keycap)
-#, fuzzy
 msgid "F4"
 msgstr "F4"
 
 #: C/gnome-commander.xml:3991(para)
 #: C/gnome-commander.xml:4739(para)
-#, fuzzy
 msgid "Edit file"
 msgstr "Uredi datoteko"
 
@@ -8410,20 +7719,17 @@ msgstr "Uredi datoteko"
 #: C/gnome-commander.xml:4130(keycap)
 #: C/gnome-commander.xml:4720(keycap)
 #: C/gnome-commander.xml:4725(keycap)
-#, fuzzy
 msgid "F5"
 msgstr "F5"
 
 #: C/gnome-commander.xml:3996(para)
 #: C/gnome-commander.xml:4714(para)
-#, fuzzy
 msgid "Copy files"
-msgstr "Kopiranje datotek"
+msgstr "Kopirj datoteke"
 
 #: C/gnome-commander.xml:4000(keycap)
 #: C/gnome-commander.xml:4085(keycap)
 #: C/gnome-commander.xml:4115(keycap)
-#, fuzzy
 msgid "F6"
 msgstr "F6"
 
@@ -8435,20 +7741,17 @@ msgstr ""
 #: C/gnome-commander.xml:4050(keycap)
 #: C/gnome-commander.xml:4120(keycap)
 #: C/gnome-commander.xml:4694(keycap)
-#, fuzzy
 msgid "F7"
 msgstr "F7"
 
 #: C/gnome-commander.xml:4006(para)
 #: C/gnome-commander.xml:4764(para)
-#, fuzzy
 msgid "Create directory"
 msgstr "Ustvari mapo"
 
 #: C/gnome-commander.xml:4010(keycap)
 #: C/gnome-commander.xml:4055(keycap)
 #: C/gnome-commander.xml:4508(keycap)
-#, fuzzy
 msgid "F8"
 msgstr "F8"
 
@@ -8456,29 +7759,24 @@ msgstr "F8"
 #: C/gnome-commander.xml:4296(para)
 #: C/gnome-commander.xml:4673(para)
 #: C/gnome-commander.xml:4729(para)
-#, fuzzy
 msgid "Delete files"
 msgstr "Izbriši datoteke"
 
 #: C/gnome-commander.xml:4015(keycap)
-#, fuzzy
 msgid "F9"
 msgstr "F9"
 
 #: C/gnome-commander.xml:4016(para)
 #: C/gnome-commander.xml:4051(para)
-#, fuzzy
 msgid "Search"
 msgstr "Iskanje"
 
 #: C/gnome-commander.xml:4020(keycap)
 #: C/gnome-commander.xml:4090(keycap)
-#, fuzzy
 msgid "F10"
 msgstr "F10"
 
 #: C/gnome-commander.xml:4021(para)
-#, fuzzy
 msgid "Quit"
 msgstr "Končaj"
 
@@ -8525,7 +7823,6 @@ msgstr "Poglej datoteko z zunanjim pregledovalnikom"
 #: C/gnome-commander.xml:4427(para)
 #: C/gnome-commander.xml:4432(para)
 #: C/gnome-commander.xml:4442(para)
-#, fuzzy
 msgid "yes"
 msgstr "da"
 
@@ -8535,19 +7832,16 @@ msgstr ""
 
 #: C/gnome-commander.xml:4066(para)
 #: C/gnome-commander.xml:4824(para)
-#, fuzzy
 msgid "Compare directories"
 msgstr "Primerjava map"
 
 #: C/gnome-commander.xml:4071(para)
 #: C/gnome-commander.xml:4759(para)
-#, fuzzy
 msgid "View with internal viewer"
 msgstr "Poglej datoteko z vgrajenim pregledovalnikom"
 
 #: C/gnome-commander.xml:4076(para)
 #: C/gnome-commander.xml:4744(para)
-#, fuzzy
 msgid "Edit a new file"
 msgstr "Uredi novo datoteko"
 
@@ -8556,23 +7850,20 @@ msgid "Make a copy of the file in the current directory."
 msgstr ""
 
 #: C/gnome-commander.xml:4086(para)
-#, fuzzy
 msgid "Rename a file"
-msgstr "P_reimenuj datoteko"
+msgstr "Preimenuj datoteko"
 
 #: C/gnome-commander.xml:4091(para)
 msgid "Bring up the context menu for the selected files."
 msgstr ""
 
 #: C/gnome-commander.xml:4101(para)
-#, fuzzy
 msgid "Sort by name"
-msgstr "Razvrsti po _imenu"
+msgstr "Razvrsti po imenu"
 
 #: C/gnome-commander.xml:4106(para)
-#, fuzzy
 msgid "Sort by extension"
-msgstr "Določi po končnici"
+msgstr "Razvrsti po priponi"
 
 #: C/gnome-commander.xml:4111(para)
 msgid "Sort by date/time"
@@ -8599,7 +7890,6 @@ msgstr "Ustvari simbolično povezavo"
 #: C/gnome-commander.xml:4410(keycap)
 #: C/gnome-commander.xml:4836(keycap)
 #: C/gnome-commander.xml:4894(keycap)
-#, fuzzy
 msgid "="
 msgstr "="
 
@@ -8694,7 +7984,6 @@ msgstr "Spremeni mapo okna na koren sistema"
 
 #: C/gnome-commander.xml:4246(keycap)
 #: C/gnome-commander.xml:4909(keycap)
-#, fuzzy
 msgid "~"
 msgstr "~"
 
@@ -8785,7 +8074,6 @@ msgstr "M"
 
 #: C/gnome-commander.xml:4351(para)
 #: C/gnome-commander.xml:4698(para)
-#, fuzzy
 msgid "Multi-Rename-Tool"
 msgstr "Napredno preimenovanje"
 
@@ -8813,7 +8101,7 @@ msgstr ""
 #: C/gnome-commander.xml:4915(keycap)
 #: C/gnome-commander.xml:4920(keycap)
 msgid "."
-msgstr ""
+msgstr "."
 
 #: C/gnome-commander.xml:4381(para)
 #: C/gnome-commander.xml:4914(para)
@@ -9006,7 +8294,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4536(para)
 msgid "eg."
-msgstr ""
+msgstr "npr."
 
 #: C/gnome-commander.xml:4537(programlisting)
 #, no-wrap
@@ -9184,9 +8472,8 @@ msgid "connections.new"
 msgstr "<i>_Nov pogled ...</i>"
 
 #: C/gnome-commander.xml:4657(para)
-#, fuzzy
 msgid "edit.copy"
-msgstr "Kopiraj izbrano"
+msgstr "edit.copy"
 
 #: C/gnome-commander.xml:4662(para)
 msgid "edit.copy_filenames"
@@ -9198,62 +8485,52 @@ msgid "Copy file names to clipboard"
 msgstr "Kopiraj mesto datoteke čopiča na odložišče"
 
 #: C/gnome-commander.xml:4667(para)
-#, fuzzy
 msgid "edit.cut"
-msgstr "Izreži izbrano"
+msgstr "edit.cut"
 
 #: C/gnome-commander.xml:4672(para)
-#, fuzzy
 msgid "edit.delete"
-msgstr "Izbriši vejo"
+msgstr "edit.delete"
 
 #: C/gnome-commander.xml:4677(para)
-#, fuzzy
 msgid "edit.filter"
-msgstr "Urejanje filtra"
+msgstr "edit.filter"
 
 #: C/gnome-commander.xml:4678(para)
 msgid "Use file selection filter"
 msgstr ""
 
 #: C/gnome-commander.xml:4679(keycap)
-#, fuzzy
 msgid "F12"
 msgstr "F12"
 
 #: C/gnome-commander.xml:4682(para)
-#, fuzzy
 msgid "edit.paste"
-msgstr "Prilepi odložišče"
+msgstr "edit.paste"
 
 #: C/gnome-commander.xml:4683(para)
 msgid "Paste from clipboard to current directory (not a global one yet)"
 msgstr ""
 
 #: C/gnome-commander.xml:4687(para)
-#, fuzzy
 msgid "edit.quick_search"
-msgstr "Ponovi hitro iskanje"
+msgstr "edit.quick_search"
 
 #: C/gnome-commander.xml:4688(para)
-#, fuzzy
 msgid "Quick search"
 msgstr "Hitro iskanje"
 
 #: C/gnome-commander.xml:4692(para)
-#, fuzzy
 msgid "edit.search"
-msgstr "_Uredi iskanje"
+msgstr "edit.search"
 
 #: C/gnome-commander.xml:4693(para)
-#, fuzzy
 msgid "File search"
-msgstr "Iskanje vnosa"
+msgstr "Iskanje datotek"
 
 #: C/gnome-commander.xml:4697(para)
-#, fuzzy
 msgid "file.advrename"
-msgstr "Odpri datoteko"
+msgstr "file.advrename"
 
 #: C/gnome-commander.xml:4703(para)
 #, fuzzy
@@ -9492,9 +8769,8 @@ msgid "options.edit_mime_types"
 msgstr ""
 
 #: C/gnome-commander.xml:4868(para)
-#, fuzzy
 msgid "Configure MIME types"
-msgstr "Mime vrste za namestitev"
+msgstr "Nastavitev Mime vrst"
 
 #: C/gnome-commander.xml:4872(para)
 #, fuzzy
@@ -9512,7 +8788,6 @@ msgid "plugins.configure"
 msgstr "_Nastavitve vstavkov ..."
 
 #: C/gnome-commander.xml:4878(para)
-#, fuzzy
 msgid "Configure plugins"
 msgstr "Nastavitve vstavkov"
 
@@ -9621,7 +8896,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4966(para)
 msgid "a..z, 0..9"
-msgstr ""
+msgstr "a..z, 0..9"
 
 #: C/gnome-commander.xml:4969(para)
 msgid "ampersand, apostrophe, asciicircum, asciitilde, asterisk, at, backslash, bar, braceleft, braceright, bracketleft, bracketright, colon, comma, dollar, equal, exclam, grave, greater, less, minus, numbersign, parenleft, parenright, percent, period, plus, question, quotedbl, quoteleft, quoteright, semicolon, slash, space, underscore"
@@ -9629,7 +8904,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4977(para)
 msgid "f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35"
-msgstr ""
+msgstr "f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27, f28, f29, f30, f31, f32, f33, f34, f35"
 
 #: C/gnome-commander.xml:4982(para)
 msgid "kp.0, kp.1, kp.2, kp.3, kp.4, kp.5, kp.6, kp.7, kp.8, kp.9, kp.add, kp.begin, kp.decimal, kp.delete, kp.divide, kp.down, kp.end, kp.enter, kp.equal, kp.f1, kp.f2, kp.f3, kp.f4, kp.home, kp.insert, kp.left, kp.multiply, kp.next, kp.page.down, kp.page.up, kp.prior, kp.right, kp.separator, kp.space, kp.subtract, kp.tab, kp.up ('kp' stands for keypad)"
@@ -9648,9 +8923,8 @@ msgid "The list is based on GDK key symbols taken from <ulink url=\"http://git.g
 msgstr ""
 
 #: C/gnome-commander.xml:5016(title)
-#, fuzzy
 msgid "Python plugins"
-msgstr "Razpoložljivi vstavki"
+msgstr "Python vstavki"
 
 #: C/gnome-commander.xml:5031(para)
 msgid "Since version 1.2.4 GNOME Commander is capable of executing python plugins. Python plugin is a normal python application containing predefined entry function."
@@ -9694,9 +8968,8 @@ msgid "build"
 msgstr "Gradnja"
 
 #: C/gnome-commander.xml:5064(para)
-#, fuzzy
 msgid "python-devel ⩾ 2.4"
-msgstr "Python modul"
+msgstr "python-devel ⩾ 2.4"
 
 #: C/gnome-commander.xml:5068(term)
 #, fuzzy
@@ -9704,13 +8977,12 @@ msgid "run"
 msgstr "_Zaženi"
 
 #: C/gnome-commander.xml:5070(para)
-#, fuzzy
 msgid "python ⩾ 2.4"
-msgstr "Python"
+msgstr "python ⩾ 2.4"
 
 #: C/gnome-commander.xml:5071(para)
 msgid "gnome-python2-gnomevfs"
-msgstr ""
+msgstr "gnome-python2-gnomevfs"
 
 #: C/gnome-commander.xml:5072(para)
 msgid "pygtk (for GUI)"
@@ -9739,7 +9011,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5096(para)
 msgid "main_wnd_xid"
-msgstr ""
+msgstr "main_wnd_xid"
 
 #: C/gnome-commander.xml:5097(para)
 msgid "XID of GNOME Commander main toplevel window"
@@ -9773,9 +9045,8 @@ msgid "list of selected <ulink url=\"http://www.pygtk.org/pygnomevfs/class-gnome
 msgstr ""
 
 #: C/gnome-commander.xml:5117(title)
-#, fuzzy
 msgid "Sample plugin: md5sum"
-msgstr "Vzorčni vstavek za program Anjuta."
+msgstr "Vzorčni vstavek: md5sum"
 
 #: C/gnome-commander.xml:5119(programlisting)
 #, no-wrap
@@ -9810,9 +9081,8 @@ msgid "The latest version of md5sum code can be found in <ulink url=\"http://git
 msgstr ""
 
 #: C/gnome-commander.xml:5150(title)
-#, fuzzy
 msgid "Python resources"
-msgstr "_Spletni viri"
+msgstr "Python viri"
 
 #: C/gnome-commander.xml:5154(ulink)
 #, fuzzy
@@ -9957,9 +9227,8 @@ msgid "GNOME Commander is being developed in a stable and a testing branch, wher
 msgstr ""
 
 #: C/gnome-commander.xml:5302(title)
-#, fuzzy
 msgid "Stable version"
-msgstr "Izpiši različico"
+msgstr "Stabilna različica"
 
 #: C/gnome-commander.xml:5304(command)
 #: C/gnome-commander.xml:5317(command)
@@ -9986,9 +9255,8 @@ msgid "git branch --track gcmd-1-3 origin/gcmd-1-3"
 msgstr ""
 
 #: C/gnome-commander.xml:5323(command)
-#, fuzzy
 msgid "git checkout gcmd-1-3"
-msgstr "Git: odjavljanje veje je končano."
+msgstr "git odjava gcmd-1-3"
 
 #: C/gnome-commander.xml:5331(title)
 msgid "GNOME Commander snapshots builds"
@@ -10007,7 +9275,6 @@ msgid "Compilation and installation"
 msgstr ""
 
 #: C/gnome-commander.xml:5355(title)
-#, fuzzy
 msgid "Configuration files"
 msgstr "Nastavitvene datoteke"
 
@@ -10016,48 +9283,40 @@ msgid "This section gives an overview of the configuration files used by GNOME C
 msgstr ""
 
 #: C/gnome-commander.xml:5361(guilabel)
-#, fuzzy
 msgid "~/.gnome-commander/connections"
-msgstr "O GNOME Commanderju"
+msgstr "~/.gnome-commander/connections"
 
 #: C/gnome-commander.xml:5369(guilabel)
-#, fuzzy
 msgid "~/.gnome-commander/devices"
-msgstr "O GNOME Commanderju"
+msgstr "~/.gnome-commander/devices"
 
 #: C/gnome-commander.xml:5377(guilabel)
 msgid "~/.gnome-commander/fav-apps"
 msgstr ""
 
 #: C/gnome-commander.xml:5385(guilabel)
-#, fuzzy
 msgid "~/.gnome2/gnome-commander"
-msgstr "O GNOME Commanderju"
+msgstr "~/.gnome2/gnome-commander"
 
 #: C/gnome-commander.xml:5398(para)
-#, fuzzy
 msgid "Section"
-msgstr "Tema"
+msgstr "Odsek"
 
 #: C/gnome-commander.xml:5399(para)
-#, fuzzy
 msgid "Key"
 msgstr "Ključ"
 
 #: C/gnome-commander.xml:5401(para)
-#, fuzzy
 msgid "Value"
 msgstr "Vrednost"
 
 #: C/gnome-commander.xml:5402(para)
-#, fuzzy
 msgid "Refer to"
-msgstr "_Pojdi na"
+msgstr "Naveži na"
 
 #: C/gnome-commander.xml:5407(para)
-#, fuzzy
 msgid "[network]"
-msgstr "Omrežje"
+msgstr "[omrežje]"
 
 #: C/gnome-commander.xml:5408(para)
 msgid "use_gnome_auth_manager"
@@ -10068,7 +9327,6 @@ msgstr ""
 #: C/gnome-commander.xml:5451(para)
 #: C/gnome-commander.xml:5458(para)
 #: C/gnome-commander.xml:5807(para)
-#, fuzzy
 msgid "boolean"
 msgstr "boolova vrednost"
 
@@ -10085,14 +9343,12 @@ msgstr "Anonimno FTP geslo:"
 #: C/gnome-commander.xml:5710(para)
 #: C/gnome-commander.xml:5884(para)
 #: C/gnome-commander.xml:5947(para)
-#, fuzzy
 msgid "string"
 msgstr "niz"
 
 #: C/gnome-commander.xml:5421(para)
-#, fuzzy
 msgid "[options]"
-msgstr "Možnosti"
+msgstr "[možnosti]"
 
 #: C/gnome-commander.xml:5422(para)
 #, fuzzy
@@ -10130,7 +9386,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5457(para)
 msgid "con_list_visibility"
-msgstr ""
+msgstr "con_list_visibility"
 
 #: C/gnome-commander.xml:5459(para)
 msgid "Show connection/device list."
@@ -10138,7 +9394,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5464(para)
 msgid "date_disp_mode"
-msgstr ""
+msgstr "date_disp_mode"
 
 #: C/gnome-commander.xml:5471(para)
 #, fuzzy
@@ -10152,7 +9408,7 @@ msgstr "Mapa z ikonami dokumentov:"
 
 #: C/gnome-commander.xml:5485(para)
 msgid "ext_disp_mode"
-msgstr ""
+msgstr "ext_disp_mode"
 
 #: C/gnome-commander.xml:5492(para)
 #, fuzzy
@@ -10186,7 +9442,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5520(para)
 msgid "icon_scale_quality"
-msgstr ""
+msgstr "icon_scale_quality"
 
 #: C/gnome-commander.xml:5527(para)
 #, fuzzy
@@ -10210,11 +9466,11 @@ msgstr "Enotna višina vrstic"
 
 #: C/gnome-commander.xml:5555(para)
 msgid "main_win_pos_x"
-msgstr ""
+msgstr "main_win_pos_x"
 
 #: C/gnome-commander.xml:5562(para)
 msgid "main_win_pos_y"
-msgstr ""
+msgstr "main_win_pos_y"
 
 #: C/gnome-commander.xml:5569(para)
 msgid "perm_disp_mode"
@@ -10473,7 +9729,7 @@ msgstr "Urejevalnik:"
 
 #: C/gnome-commander.xml:5834(para)
 msgid "honor_expect_uris"
-msgstr ""
+msgstr "honor_expect_uris"
 
 #: C/gnome-commander.xml:5841(para)
 #, fuzzy
@@ -10496,27 +9752,22 @@ msgid "use_internal_viewer"
 msgstr "Uporabi privzeti pregledovalnik"
 
 #: C/gnome-commander.xml:5869(para)
-#, fuzzy
 msgid "viewer"
-msgstr "Pregledovalnik:"
+msgstr "pregledovalnik"
 
 #: C/gnome-commander.xml:5875(para)
-#, fuzzy
 msgid "[devices]"
-msgstr "Naprave"
+msgstr "[naprave]"
 
 #: C/gnome-commander.xml:5876(para)
-#, fuzzy
 msgid "only_icon"
-msgstr "Izbor ikone"
+msgstr "le ikone"
 
 #: C/gnome-commander.xml:5882(para)
-#, fuzzy
 msgid "[quick-connect]"
-msgstr "Samodejno povezovanje"
+msgstr "[hitro povezovanje]"
 
 #: C/gnome-commander.xml:5883(para)
-#, fuzzy
 msgid "uri"
 msgstr "uri"
 
@@ -10525,9 +9776,8 @@ msgid "URI for the last entered location."
 msgstr ""
 
 #: C/gnome-commander.xml:5889(para)
-#, fuzzy
 msgid "[defaults]"
-msgstr "Privzeto: "
+msgstr "[privzeto]"
 
 #: C/gnome-commander.xml:5890(para)
 #, fuzzy
@@ -10565,9 +9815,8 @@ msgid "[smb_bookmarks]"
 msgstr "_Uredi zaznamke ..."
 
 #: C/gnome-commander.xml:5931(para)
-#, fuzzy
 msgid "[plugins]"
-msgstr "Vstavki"
+msgstr "[vstavki]"
 
 #: C/gnome-commander.xml:5932(para)
 msgid "auto_load<emphasis><subscript>n</subscript></emphasis>"
@@ -10592,24 +9841,20 @@ msgid "~/.gnome2/gnome-commander-size"
 msgstr ""
 
 #: C/gnome-commander.xml:5971(title)
-#, fuzzy
 msgid "Release overview"
-msgstr "pregled oken"
+msgstr "Pregled objave"
 
 #: C/gnome-commander.xml:5981(para)
-#, fuzzy
 msgid "Version"
 msgstr "Različica"
 
 #: C/gnome-commander.xml:5982(para)
-#, fuzzy
 msgid "Release date"
 msgstr "Datum objave"
 
 #: C/gnome-commander.xml:5983(para)
-#, fuzzy
 msgid "What's new"
-msgstr "<i>_Nov pogled ...</i>"
+msgstr "Kaj je novega"
 
 #: C/gnome-commander.xml:5988(para)
 msgid "1.2.9"
@@ -10637,9 +9882,8 @@ msgstr "1.2.9"
 #: C/gnome-commander.xml:7109(para)
 #: C/gnome-commander.xml:7134(para)
 #: C/gnome-commander.xml:7191(para)
-#, fuzzy
 msgid "Bug fixes:"
-msgstr "Bug Buddy"
+msgstr "Popravki hroščev:"
 
 #: C/gnome-commander.xml:5995(para)
 msgid "Fixed problem #600292 (crash when double-clicking on bookmarks list)"
@@ -10661,9 +9905,8 @@ msgstr ""
 #: C/gnome-commander.xml:7120(para)
 #: C/gnome-commander.xml:7157(para)
 #: C/gnome-commander.xml:7171(para)
-#, fuzzy
 msgid "New features:"
-msgstr "Lastnosti Groupwise"
+msgstr "Nove zmožnosti:"
 
 #: C/gnome-commander.xml:6003(para)
 msgid "Revamped bookmarks dialog"
@@ -10691,9 +9934,8 @@ msgstr ""
 #: C/gnome-commander.xml:6814(para)
 #: C/gnome-commander.xml:6894(para)
 #: C/gnome-commander.xml:6963(para)
-#, fuzzy
 msgid "New key bindings:"
-msgstr "Ustvari nov ključ"
+msgstr "Nove tipkovne bližnjice:"
 
 #: C/gnome-commander.xml:6018(para)
 msgid "<keycombo><keycap>...</keycap><keycap>...</keycap></keycombo> ..."
@@ -10911,7 +10153,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6225(para)
 msgid "New colour theme: cafezinho"
-msgstr ""
+msgstr "Nova barvna tema: cafezinho"
 
 #: C/gnome-commander.xml:6228(para)
 msgid "New or updated docs: de, en, es"
@@ -10919,11 +10161,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:6231(para)
 msgid "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, sv"
-msgstr ""
+msgstr "Novi ali posodobljeni prevodi: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, sv"
 
 #: C/gnome-commander.xml:6237(para)
 msgid "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the history list for the command line"
-msgstr ""
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>E</keycap></keycombo> Odpri seznam zgodovine ukazne vrstice"
 
 #: C/gnome-commander.xml:6242(para)
 msgid "New internal viewer key bindings:"
@@ -10968,9 +10210,8 @@ msgstr ""
 #: C/gnome-commander.xml:6282(para)
 #: C/gnome-commander.xml:6451(para)
 #: C/gnome-commander.xml:6535(para)
-#, fuzzy
 msgid "Build fixes"
-msgstr "Mapa za izgradnjo:"
+msgstr "Popravki izgradnje"
 
 #: C/gnome-commander.xml:6290(para)
 msgid "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
@@ -11001,11 +10242,11 @@ msgstr ""
 #: C/gnome-commander.xml:6655(para)
 #: C/gnome-commander.xml:6727(para)
 msgid "Updated help docs"
-msgstr ""
+msgstr "Posodobljen priročnik pomoči"
 
 #: C/gnome-commander.xml:6308(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
-msgstr ""
+msgstr "Novi ali posodobljeni prevodi: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
 #: C/gnome-commander.xml:6315(para)
 msgid "1.2.6"
@@ -11221,11 +10462,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:6543(para)
 msgid "Support for python plugins"
-msgstr ""
+msgstr "Podpora Python vstavkov"
 
 #: C/gnome-commander.xml:6546(para)
 msgid "New python plugins:"
-msgstr ""
+msgstr "Novi python vstavki:"
 
 #: C/gnome-commander.xml:6549(para)
 msgid "<command>md5sum</command> Create MD5 (128-bit) checksum"
@@ -11803,7 +11044,7 @@ msgstr "1.1.1"
 
 #: C/gnome-commander.xml:7132(para)
 msgid "2003-11-05"
-msgstr ""
+msgstr "05.11.2003"
 
 #: C/gnome-commander.xml:7138(para)
 msgid "Stopped showing the file extension in both the name column and the ext column"
@@ -11839,7 +11080,7 @@ msgstr "1.1.0"
 
 #: C/gnome-commander.xml:7169(para)
 msgid "2003-11-01"
-msgstr ""
+msgstr "01.11.2003"
 
 #: C/gnome-commander.xml:7175(para)
 #, fuzzy
@@ -11847,7 +11088,6 @@ msgid "SMB browsing"
 msgstr "Delovna skupina SMB"
 
 #: C/gnome-commander.xml:7178(para)
-#, fuzzy
 msgid "Plugins"
 msgstr "Vstavki"
 
@@ -11861,7 +11101,7 @@ msgstr "1.0.1"
 
 #: C/gnome-commander.xml:7189(para)
 msgid "2003-06-27"
-msgstr ""
+msgstr "27.06.2003"
 
 #: C/gnome-commander.xml:7195(para)
 msgid "Improved file list update in non-fam mode"
@@ -11877,16 +11117,15 @@ msgstr "1.0"
 
 #: C/gnome-commander.xml:7206(para)
 msgid "2003-06-05"
-msgstr ""
+msgstr "05.06.2003"
 
 #: C/gnome-commander.xml:7208(para)
 msgid "This is the \"production stable\" 1.0 release. Mainly small bugfixes from previous version."
 msgstr ""
 
 #: C/gnome-commander.xml:7214(para)
-#, fuzzy
 msgid "0.9.12"
-msgstr "1:_8  (12.5%)"
+msgstr "0.9.12"
 
 #: C/gnome-commander.xml:7215(para)
 msgid "2003-03-18"
@@ -11894,12 +11133,11 @@ msgstr "18.03.2003"
 
 #: C/gnome-commander.xml:7217(para)
 msgid "Bugfixes"
-msgstr ""
+msgstr "Popravki hroščev"
 
 #: C/gnome-commander.xml:7221(para)
-#, fuzzy
 msgid "0.9.11"
-msgstr "F 11"
+msgstr "0.9.11"
 
 #: C/gnome-commander.xml:7222(para)
 msgid "2003-03-13"
@@ -11910,9 +11148,8 @@ msgid "Added support for $p in advrename dialog. This will give you the parent d
 msgstr ""
 
 #: C/gnome-commander.xml:7232(para)
-#, fuzzy
 msgid "0.9.10"
-msgstr "10%"
+msgstr "0.9.10"
 
 #: C/gnome-commander.xml:7233(para)
 msgid "2003-03-24"
@@ -12015,9 +11252,8 @@ msgid "Improved user interface and lots of other small hacks."
 msgstr ""
 
 #: C/gnome-commander.xml:7311(para)
-#, fuzzy
 msgid "0.90-pre1"
-msgstr "Zadnjih 90 dni"
+msgstr "0.90-pre1"
 
 #: C/gnome-commander.xml:7312(para)
 msgid "2001-08-02"
@@ -12029,7 +11265,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:7329(title)
 msgid "Known Bugs and Limitations"
-msgstr ""
+msgstr "Znani hrošči in omejitve programa"
 
 #: C/gnome-commander.xml:7330(para)
 msgid "You can report or view GNOME Commander bugs at the <ulink url=\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander\" type=\"http\">the gnome.org Bugzilla</ulink>."
@@ -12044,9 +11280,8 @@ msgid "Given enough eyeballs, all bugs are shallow."
 msgstr ""
 
 #: C/gnome-commander.xml:7343(foreignphrase)
-#, fuzzy
 msgid "Linus law."
-msgstr "Prvi zakon"
+msgstr "Linusov zakon."
 
 #: C/gnome-commander.xml:7354(para)
 msgid "GNOME Commander was primarily written by the former maintainer - Marcus Bjurman, who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in January 2004. Currently GNOME Commander is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>) with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>). To find more information about GNOME Commander, please visit the <ulink url=\"http://www.nongnu.org/gcmd/\" type=\"http\">GNOME Commander homepage</ulink>."
@@ -12062,11 +11297,6 @@ msgstr ""
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/gnome-commander.xml:0(None)
-#, fuzzy
 msgid "translator-credits"
-msgstr ""
-"Matic Žgur <mr.zgur@gmail.com>\n"
-"Matjaž Horvat <m@owca.info>\n"
-"Tilen Travnik <tilen.travnik@guest.arnes.si>\n"
-"Matej Urbančič <mateju@svn.gnome.org>"
+msgstr "Matej Urbančič <mateju@svn.gnome.org>, 2009"
 
