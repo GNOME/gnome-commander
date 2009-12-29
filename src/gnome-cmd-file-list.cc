@@ -1710,7 +1710,7 @@ void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_fi
 
 void GnomeCmdFileList::select_row(gint row)
 {
-    focus_file_at_row (this, row==-1 ? priv->cur_file : row);
+    focus_file_at_row (this, row==-1 ? 0 : row);
 }
 
 
