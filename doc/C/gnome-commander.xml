@@ -6044,6 +6044,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #604558 (cursor lost/placed in wrong position)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #604904 (build error on OpenSolaris)</para>
                         </listitem>
                     </itemizedlist>
