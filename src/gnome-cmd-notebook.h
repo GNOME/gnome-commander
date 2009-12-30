@@ -39,7 +39,7 @@ struct GnomeCmdNotebook
 
     Private *priv;
 
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_NOTEBOOK, "show-tabs", FALSE, NULL);  }
+    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_NOTEBOOK, "show-tabs", FALSE, "scrollable", TRUE, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
     operator GtkWidget * ()             {  return GTK_WIDGET (this);    }
