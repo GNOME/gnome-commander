@@ -386,13 +386,13 @@ GnomeCmdPlugin *cvs_plugin_new ()
 }
 
 
-GnomeCmdPlugin *create_plugin ()
+extern "C" GnomeCmdPlugin *create_plugin ()
 {
     return cvs_plugin_new ();
 }
 
 
-PluginInfo *get_plugin_info ()
+extern "C" PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {
