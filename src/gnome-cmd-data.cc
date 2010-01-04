@@ -161,20 +161,6 @@ inline void save_connections (const gchar *fname)
                 stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_get_alias (con)));
 
                 fprintf (fd, "U:\t%s\t%s\n", alias.c_str(), con->uri?con->uri:"");
-
-                GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (con);
-
-                for (GList *bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
-                {
-                    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
-                    gchar *name = gnome_vfs_escape_string (bookmark->name);
-                    gchar *path = gnome_vfs_escape_string (bookmark->path);
-
-                    fprintf (fd, "B: %s %s\n", name, path);
-
-                    g_free (name);
-                    g_free (path);
-                }
             }
         }
 
@@ -848,46 +834,6 @@ inline void GnomeCmdData::save_intviewer_defaults()
     gnome_cmd_data_set_string_history ("/internal_viewer/hex_pattern%d", intviewer_defaults.hex_patterns.ents);
     gnome_cmd_data_set_bool ("/internal_viewer/case_sens", intviewer_defaults.case_sensitive);
     gnome_cmd_data_set_int ("/internal_viewer/last_mode", intviewer_defaults.search_mode);
-}
-
-
-inline void GnomeCmdData::save_local_bookmarks()
-{
-    GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
-    GList *tmp, *bookmarks;
-    GList *names = NULL;
-    GList *paths = NULL;
-
-    for (tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next)
-    {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) tmp->data;
-        names = g_list_append (names, bookmark->name);
-        paths = g_list_append (paths, bookmark->path);
-    }
-
-    gnome_cmd_data_set_int ("/local_bookmarks/count", g_list_length (bookmarks));
-    gnome_cmd_data_set_string_history ("/local_bookmarks/name%d", names);
-    gnome_cmd_data_set_string_history ("/local_bookmarks/path%d", paths);
-}
-
-
-inline void GnomeCmdData::save_smb_bookmarks()
-{
-    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (priv->con_list);
-    GList *tmp, *bookmarks;
-    GList *names = NULL;
-    GList *paths = NULL;
-
-    for (tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next)
-    {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) tmp->data;
-        names = g_list_append (names, bookmark->name);
-        paths = g_list_append (paths, bookmark->path);
-    }
-
-    gnome_cmd_data_set_int ("/smb_bookmarks/count", g_list_length (bookmarks));
-    gnome_cmd_data_set_string_history ("/smb_bookmarks/name%d", names);
-    gnome_cmd_data_set_string_history ("/smb_bookmarks/path%d", paths);
 }
 
 
@@ -1828,8 +1774,6 @@ void GnomeCmdData::save()
         g_free (xml_cfg_path);
     }
 
-    save_local_bookmarks();
-    save_smb_bookmarks();
     save_auto_load_plugins();
 
     gnome_config_sync ();
