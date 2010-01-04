@@ -436,15 +436,7 @@ inline gboolean load_connections (const gchar *fname)
                         gint ret = sscanf (line, "B: %256s %256s\n", name, path);
 
                         if (ret == 2)
-                        {
-                            GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
-                            GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
-                            bookmark->name = gnome_vfs_unescape_string (name, NULL);
-                            bookmark->path = gnome_vfs_unescape_string (path, NULL);
-                            bookmark->group = group;
-
-                            group->bookmarks = g_list_append (group->bookmarks, bookmark);
-                        }
+                            gnome_cmd_con_add_bookmark (GNOME_CMD_CON (server), gnome_vfs_unescape_string (name, NULL), gnome_vfs_unescape_string (path, NULL));
                     }
                     break;
 
@@ -1026,25 +1018,13 @@ inline void GnomeCmdData::load_local_bookmarks()
 
     GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
 
-    GList *bookmarks = NULL;
-
     for (gint i=0; i<size; i++)
-    {
-        GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-        bookmark->name = (gchar *) g_list_nth_data (names, i);
-        bookmark->path = (gchar *) g_list_nth_data (paths, i);
-        bookmark->group = gnome_cmd_con_get_bookmarks (con);
-        bookmarks = g_list_append (bookmarks, bookmark);
-    }
-
-    gnome_cmd_con_get_bookmarks (con)->bookmarks = bookmarks;
+        gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
 }
 
 
 inline void GnomeCmdData::load_smb_bookmarks()
 {
-    GList *bookmarks = NULL;
-
     gint size = gnome_cmd_data_get_int ("/smb_bookmarks/count", 0);
     GList *names = load_string_history ("/smb_bookmarks/name%d", size);
     GList *paths = load_string_history ("/smb_bookmarks/path%d", size);
@@ -1052,15 +1032,7 @@ inline void GnomeCmdData::load_smb_bookmarks()
     GnomeCmdCon *con = gnome_cmd_con_list_get_smb (priv->con_list);
 
     for (gint i=0; i<size; i++)
-    {
-        GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-        bookmark->name = (gchar *) g_list_nth_data (names, i);
-        bookmark->path = (gchar *) g_list_nth_data (paths, i);
-        bookmark->group = gnome_cmd_con_get_bookmarks (con);
-        bookmarks = g_list_append (bookmarks, bookmark);
-    }
-
-    gnome_cmd_con_get_bookmarks (con)->bookmarks = bookmarks;
+        gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
 }
 
 
