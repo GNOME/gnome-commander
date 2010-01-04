@@ -179,6 +179,8 @@ struct GnomeCmdData
 
   public:
 
+    gboolean                     XML_cfg_has_bookmarks;
+
     gboolean                     confirm_delete;
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;

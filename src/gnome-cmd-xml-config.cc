@@ -47,6 +47,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-xml-config.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-regex.h"
 #include "gnome-cmd-user-actions.h"
@@ -355,6 +356,9 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE,
+      XML_GNOMECOMMANDER_BOOKMARKS,
+      XML_GNOMECOMMANDER_BOOKMARKS_GROUP,
+      XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK,
       XML_GNOMECOMMANDER_SELECTIONS,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN,
@@ -369,6 +373,8 @@ static stack<string> xml_paths;
 
 static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
 static GnomeCmdData::Selection xml_search_profile;
+
+static GnomeCmdCon *xml_con = NULL;
 
 
 static bool is_default(GnomeCmdData::AdvrenameConfig::Profile &profile)
@@ -482,6 +488,49 @@ static void xml_start(GMarkupParseContext *context,
             {
                 cfg->bookmarks_defaults.width = atoi(param1);
                 cfg->bookmarks_defaults.height = atoi(param2);
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_BOOKMARKS:
+            cfg->XML_cfg_has_bookmarks = TRUE;
+            break;
+
+        case XML_GNOMECOMMANDER_BOOKMARKS_GROUP:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "name", &param1,
+                                             G_MARKUP_COLLECT_BOOLEAN|G_MARKUP_COLLECT_OPTIONAL, "remote", &param4,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                if (param4) //  if remote...
+                    xml_con = gnome_cmd_con_list_find_alias ((GnomeCmdConList *) gnome_cmd_data_get_con_list (), param1);
+                else
+                    if (strcmp(param1,"Home")==0)
+                        xml_con = gnome_cmd_con_list_get_home ((GnomeCmdConList *) gnome_cmd_data_get_con_list ());
+                    else
+                        if (strcmp(param1,"SMB")==0)
+                            xml_con = gnome_cmd_con_list_get_smb ((GnomeCmdConList *) gnome_cmd_data_get_con_list ());
+                        else
+                            xml_con = NULL;
+
+                if (!xml_con)
+                    g_warning ("<Bookmarks> unknown connection: '%s' - ignored", param1);
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRDUP, "name", &param1,
+                                             G_MARKUP_COLLECT_STRDUP, "path", &param2,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                if (xml_con)
+                    gnome_cmd_con_add_bookmark (xml_con, param1, param2);
+                else
+                {
+                    // g_warning ("<Bookmarks> unknown connection: '%s' - ignored", param1);
+                    g_free (param1);
+                    g_free (param2);
+                }
             }
             break;
 
@@ -718,6 +767,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL, "/GnomeCommander/BookmarksTool"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE, "/GnomeCommander/BookmarksTool/WindowSize"},
+                        {XML_GNOMECOMMANDER_BOOKMARKS, "/GnomeCommander/Bookmarks"},
+                        {XML_GNOMECOMMANDER_BOOKMARKS_GROUP, "/GnomeCommander/Bookmarks/Group"},
+                        {XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK, "/GnomeCommander/Bookmarks/Group/Bookmark"},
                         {XML_GNOMECOMMANDER_SELECTIONS, "/GnomeCommander/Selections"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE, "/GnomeCommander/Selections/Profile"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN, "/GnomeCommander/Selections/Profile/Pattern"},

@@ -994,6 +994,8 @@ GnomeCmdData::GnomeCmdData()
 {
     quick_connect = NULL;
 
+    XML_cfg_has_bookmarks = FALSE;
+
     confirm_delete = TRUE;
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
@@ -1332,6 +1334,13 @@ void GnomeCmdData::load()
         priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
     }
 
+    priv->con_list = gnome_cmd_con_list_new ();
+
+    gnome_cmd_con_list_begin_update (priv->con_list);
+    load_devices ("devices");
+    load_connections ("connections") || load_connections ("ftp-servers");
+    gnome_cmd_con_list_end_update (priv->con_list);
+
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
 
     gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
@@ -1577,15 +1586,13 @@ void GnomeCmdData::load()
 
 void GnomeCmdData::load_more()
 {
-    priv->con_list = gnome_cmd_con_list_new ();
-    gnome_cmd_con_list_begin_update (priv->con_list);
-    load_devices ("devices");
-    load_connections ("connections") || load_connections ("ftp-servers");
-    gnome_cmd_con_list_end_update (priv->con_list);
-
     load_fav_apps ("fav-apps");
-    load_local_bookmarks();
-    load_smb_bookmarks();
+
+    if (!XML_cfg_has_bookmarks)
+    {
+        load_local_bookmarks();
+        load_smb_bookmarks();
+    }
 }
 
 
