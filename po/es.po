@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2009-12-19 16:44+0000\n"
-"PO-Revision-Date: 2009-12-20 14:47+0100\n"
+"POT-Creation-Date: 2010-01-05 15:57+0000\n"
+"PO-Revision-Date: 2009-12-20 19:54+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "A two paned file manager"
 msgstr "Un administrador de archivos con dos paneles"
 
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:468
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:460
 #: ../src/gnome-cmd-main-win.cc:777
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -135,7 +135,7 @@ msgstr "Crear archivador…"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:308
 msgid "Extract in Current Directory"
-msgstr "Extraer en el directorio actual"
+msgstr "Extraer en la carpeta actual"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:315
 #: ../plugins/fileroller/file-roller-plugin.cc:325
@@ -272,7 +272,7 @@ msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
 msgstr ""
-"Para marcar un directorio, la ruta completa al directorio debe estar en una "
+"Para marcar una carpeta, la ruta completa a la carpeta debe estar en una "
 "codificación UTF-8 válida"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:518
@@ -499,7 +499,7 @@ msgstr "Todos los archivos"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:46
 msgid "Directories only"
-msgstr "Sólo directorios"
+msgstr "Sólo carpetas"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:197
 msgid "Access Permissions"
@@ -546,7 +546,7 @@ msgstr "Desconectar de: %s"
 msgid "Connecting to %s\n"
 msgstr "Conectando a %s\n"
 
-#: ../src/gnome-cmd-con.h:346
+#: ../src/gnome-cmd-con.h:356
 msgid "Unknown disk usage"
 msgstr "Uso de disco desconocido"
 
@@ -649,7 +649,7 @@ msgstr "_Puerto:"
 #. Translators: 'Dir' in the sense of 'Directory'
 #: ../src/gnome-cmd-con-dialog.cc:421
 msgid "_Remote dir:"
-msgstr "Directorio _remoto:"
+msgstr "Carpeta _remota:"
 
 #: ../src/gnome-cmd-con-dialog.cc:424
 msgid "_User name:"
@@ -716,11 +716,11 @@ msgstr "Cierra la conexión remota con %s"
 
 #: ../src/gnome-cmd-con-home.cc:113
 msgid "Home"
-msgstr "Directorio inicial"
+msgstr "Carpeta inicial"
 
 #: ../src/gnome-cmd-con-home.cc:122
 msgid "Go to: Home"
-msgstr "Ir a: Directorio inicial"
+msgstr "Ir a: Carpeta inicial"
 
 #: ../src/gnome-cmd-con-smb.cc:93
 msgid "Failed to browse the network. Is the SMB module installed?"
@@ -738,13 +738,13 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: ../src/gnome-cmd-data.cc:1361 ../src/gnome-cmd-data.cc:1362
-#: ../src/gnome-cmd-data.cc:1761 ../src/gnome-cmd-data.cc:2102
+#: ../src/gnome-cmd-data.cc:1333 ../src/gnome-cmd-data.cc:1334
+#: ../src/gnome-cmd-data.cc:1733 ../src/gnome-cmd-data.cc:2074
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
 
-#: ../src/gnome-cmd-data.cc:1635
+#: ../src/gnome-cmd-data.cc:1607
 msgid "CamelCase"
 msgstr "CamelCase"
 
@@ -819,7 +819,7 @@ msgstr "Aceptar"
 
 #: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Add current dir"
-msgstr "Añadir directorio actual"
+msgstr "Añadir carpeta actual"
 
 #: ../src/gnome-cmd-dir-indicator.cc:404
 msgid "Manage bookmarks..."
@@ -960,7 +960,7 @@ msgstr "Imagen:"
 #: ../src/gnome-cmd-file-props-dialog.cc:376
 #: ../src/gnome-cmd-mkdir-dialog.cc:195
 msgid "Directory name:"
-msgstr "Nombre de directorio:"
+msgstr "Nombre de carpeta:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:376
 #: ../src/gnome-cmd-file-selector.cc:1646
@@ -1085,8 +1085,8 @@ msgstr[1] "%s de %s KiB en %d de %d archivos"
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] "%s, %d de %d directorio seleccionado"
-msgstr[1] "%s, %d de %d directorios seleccionados"
+msgstr[0] "%s, %d de %d carpeta seleccionada"
+msgstr[1] "%s, %d de %d carpetas seleccionadas"
 
 #: ../src/gnome-cmd-file-selector.cc:555
 #, c-format
@@ -1095,7 +1095,7 @@ msgstr "%s libre"
 
 #: ../src/gnome-cmd-file-selector.cc:1001
 msgid "Directory listing failed."
-msgstr "Falló al listar el directorio."
+msgstr "Falló al listar la carpeta."
 
 #: ../src/gnome-cmd-file-selector.cc:1416
 msgid "Failed to open connection."
@@ -1143,7 +1143,7 @@ msgstr "Archivo regular"
 
 #: ../src/gnome-cmd-file.cc:632 ../src/gnome-cmd-profile-component.cc:776
 msgid "Directory"
-msgstr "Directorio"
+msgstr "Carpeta"
 
 #: ../src/gnome-cmd-file.cc:633
 msgid "FIFO"
@@ -1226,7 +1226,7 @@ msgstr "No hacer nada"
 
 #: ../src/gnome-cmd-list-popmenu.cc:107
 msgid "_Directory"
-msgstr "_Directorio"
+msgstr "_Carpeta"
 
 #: ../src/gnome-cmd-list-popmenu.cc:108
 msgid "_Text File"
@@ -1274,7 +1274,7 @@ msgstr "_Diff"
 
 #: ../src/gnome-cmd-main-menu.cc:475
 msgid "S_ynchronize Directories"
-msgstr "S_incronizar directorios"
+msgstr "S_incronizar carpetas"
 
 #: ../src/gnome-cmd-main-menu.cc:482
 msgid "Start _GNOME Commander as Root"
@@ -1310,7 +1310,7 @@ msgstr "_Restaurar selección"
 
 #: ../src/gnome-cmd-main-menu.cc:537
 msgid "_Compare Directories"
-msgstr "_Comparar directorios"
+msgstr "_Comparar carpetas"
 
 #: ../src/gnome-cmd-main-menu.cc:573
 msgid "Copy _File Names"
@@ -1378,7 +1378,7 @@ msgstr "Tamaño del panel _igual"
 
 #: ../src/gnome-cmd-main-menu.cc:690
 msgid "_Bookmark this Directory..."
-msgstr "_Marcar este directorio…"
+msgstr "_Marcar esta carpeta…"
 
 #: ../src/gnome-cmd-main-menu.cc:696
 msgid "_Manage Bookmarks..."
@@ -1508,7 +1508,7 @@ msgstr "Refrescar"
 
 #: ../src/gnome-cmd-main-win.cc:1141 ../src/gnome-cmd-user-actions.cc:212
 msgid "Up one directory"
-msgstr "Subir un directorio"
+msgstr "Subir una carpeta"
 
 #: ../src/gnome-cmd-main-win.cc:1142
 msgid "Go to the oldest"
@@ -1569,11 +1569,11 @@ msgstr "Copiar archivo"
 
 #: ../src/gnome-cmd-mkdir-dialog.cc:96
 msgid "A directory name must be entered"
-msgstr "Debe introducirse un nombre de directorio"
+msgstr "Debe introducirse un nombre de carpeta"
 
 #: ../src/gnome-cmd-mkdir-dialog.cc:203
 msgid "Make Directory"
-msgstr "Crear directorio"
+msgstr "Crear carpeta"
 
 #: ../src/gnome-cmd-options-dialog.cc:77
 msgid "Left mouse button"
@@ -1884,11 +1884,11 @@ msgstr "Calidad de escalado:"
 
 #: ../src/gnome-cmd-options-dialog.cc:725
 msgid "Theme icon directory:"
-msgstr "Directorio del tema de iconos"
+msgstr "Carpeta del tema de iconos"
 
 #: ../src/gnome-cmd-options-dialog.cc:727
 msgid "Document icon directory:"
-msgstr "Directorio de iconos de documento:"
+msgstr "Carpeta de iconos de documento:"
 
 #: ../src/gnome-cmd-options-dialog.cc:798
 msgid "Confirm before delete"
@@ -1929,7 +1929,7 @@ msgstr "Archivos regulares"
 
 #: ../src/gnome-cmd-options-dialog.cc:924
 msgid "Directories"
-msgstr "Directorios"
+msgstr "Carpetas"
 
 #: ../src/gnome-cmd-options-dialog.cc:928
 msgid "Fifo files"
@@ -2011,11 +2011,11 @@ msgstr "Mostrar por"
 
 #: ../src/gnome-cmd-options-dialog.cc:1321
 msgid "All directories"
-msgstr "Todos los directorios"
+msgstr "Todas las carpetas"
 
 #: ../src/gnome-cmd-options-dialog.cc:1326
 msgid "All directories and files"
-msgstr "Sólo directorios y archivos"
+msgstr "Sólo carpetas y archivos"
 
 #: ../src/gnome-cmd-options-dialog.cc:1331
 msgid "Some files"
@@ -2199,7 +2199,7 @@ msgstr[1] "mover %d archivos a"
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:189
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr "El directorio «%s» no existe, ¿quiere crearlo?"
+msgstr "La carpeta «%s» no existe, ¿quiere crearla?"
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
 #: ../src/gnome-cmd-profile-component.cc:406
@@ -2499,7 +2499,7 @@ msgstr "Profundidad _ilimitada"
 
 #: ../src/gnome-cmd-search-dialog.cc:41
 msgid "Current _directory only"
-msgstr "Sólo el _directorio actual"
+msgstr "Sólo la _carpeta actual"
 
 #: ../src/gnome-cmd-search-dialog.cc:42
 msgid "_Limited depth"
@@ -2613,7 +2613,7 @@ msgstr "No se seleccionó ningún archivo"
 
 #: ../src/gnome-cmd-user-actions.cc:138
 msgid "Bookmark current directory"
-msgstr "Marcar el directorio actual"
+msgstr "Marcar la carpeta actual"
 
 #: ../src/gnome-cmd-user-actions.cc:139
 msgid "Manage bookmarks"
@@ -2713,7 +2713,7 @@ msgstr "Mostrar con un visor interno"
 
 #: ../src/gnome-cmd-user-actions.cc:169
 msgid "Create directory"
-msgstr "Crear directorio"
+msgstr "Crear carpeta"
 
 #: ../src/gnome-cmd-user-actions.cc:170
 msgid "Move files"
@@ -2725,7 +2725,7 @@ msgstr "Renombrar archivos"
 
 #: ../src/gnome-cmd-user-actions.cc:175
 msgid "Synchronize directories"
-msgstr "Sincronizar directorios"
+msgstr "Sincronizar carpetas"
 
 #: ../src/gnome-cmd-user-actions.cc:178
 msgid "About GNOME Commander"
@@ -2749,7 +2749,7 @@ msgstr "GNOME Commander en la web"
 
 #: ../src/gnome-cmd-user-actions.cc:183
 msgid "Compare directories"
-msgstr "Comparar directorios"
+msgstr "Comparar carpetas"
 
 #: ../src/gnome-cmd-user-actions.cc:184
 msgid "Invert selection"
@@ -2789,7 +2789,7 @@ msgstr "Ejecutar un complemento Python"
 
 #: ../src/gnome-cmd-user-actions.cc:195
 msgid "Back one directory"
-msgstr "Un directorio atrás"
+msgstr "Una carpeta atrás"
 
 #: ../src/gnome-cmd-user-actions.cc:196
 msgid "Close the current tab"
@@ -2801,43 +2801,43 @@ msgstr "Igual tamaño de panel"
 
 #: ../src/gnome-cmd-user-actions.cc:198
 msgid "Back to the first directory"
-msgstr "Voler al primer directorio"
+msgstr "Volver a la primera carpeta"
 
 #: ../src/gnome-cmd-user-actions.cc:199
 msgid "Forward one directory"
-msgstr "Un directorio adelante"
+msgstr "Una carpeta adelante"
 
 #: ../src/gnome-cmd-user-actions.cc:200
 msgid "Home directory"
-msgstr "Directorio de inicio"
+msgstr "Carpeta de inicio"
 
 #: ../src/gnome-cmd-user-actions.cc:201
 msgid "Open directory in the active window"
-msgstr "Abrir directorio en la ventana activa"
+msgstr "Abrir carpeta en la ventana activa"
 
 #: ../src/gnome-cmd-user-actions.cc:202
 msgid "Open directory in the inactive window"
-msgstr "Abrir directorio en la ventana inactiva"
+msgstr "Abrir carpeta en la ventana inactiva"
 
 #: ../src/gnome-cmd-user-actions.cc:203
 msgid "Open directory in the left window"
-msgstr "Abrir directorio en la ventana de la izquierda"
+msgstr "Abrir carpeta en la ventana de la izquierda"
 
 #: ../src/gnome-cmd-user-actions.cc:204
 msgid "Open directory in the right window"
-msgstr "Abrir directorio en la ventana de la derecha"
+msgstr "Abrir carpeta en la ventana de la derecha"
 
 #: ../src/gnome-cmd-user-actions.cc:205
 msgid "Forward to the last directory"
-msgstr "Avanzar hasta el último directorio"
+msgstr "Avanzar hasta la última carpeta"
 
 #: ../src/gnome-cmd-user-actions.cc:206
 msgid "Open directory in a new tab"
-msgstr "Abrir directorio en una solapa nueva"
+msgstr "Abrir carpeta en una solapa nueva"
 
 #: ../src/gnome-cmd-user-actions.cc:208
 msgid "Root directory"
-msgstr "Directorio raíz"
+msgstr "Carpeta raíz"
 
 #: ../src/gnome-cmd-user-actions.cc:210
 msgid "Show terminal"
@@ -2991,7 +2991,7 @@ msgstr "[archivo %ld de %ld] «%s»"
 
 #: ../src/gnome-cmd-xfer.cc:386
 msgid "Copying a directory into itself is a bad idea."
-msgstr "Copiar un directorio dentro de sí mismo es una mala idea."
+msgstr "Copiar una carpeta dentro de sí misma es una mala idea."
 
 #: ../src/gnome-cmd-xfer.cc:386
 msgid "The whole operation was cancelled."
@@ -3028,7 +3028,7 @@ msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Imposible cargar la imagen del tipo de archivo instalado, tratando de "
-"cargarla desde el directorio fuente\n"
+"cargarla desde la carpeta fuente\n"
 
 #: ../src/imageloader.cc:111 ../src/imageloader.cc:137
 #, c-format
@@ -3042,13 +3042,13 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr ""
 "Imposible encontrar la imagen. Verifique que se haya instalado el programa o "
-"que se esté ejecutando el gnome-commander desde el directorio gnome-"
-"commander-%s/src\n"
+"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-%"
+"s/src\n"
 
 #: ../src/imageloader.cc:136
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
-"Imposible cargar la imagen, tratando de cargarla desde el directorio fuente\n"
+"Imposible cargar la imagen, tratando de cargarla desde la carpeta fuente\n"
 
 #: ../src/intviewer/search-dlg.cc:245
 msgid "Find"
@@ -3214,11 +3214,11 @@ msgstr "Especifique las banderas de depuración a usar"
 
 #: ../src/main.cc:67 ../src/main.cc:76
 msgid "Specify the start directory for the left pane"
-msgstr "Especifique el directorio de inicio para el panel izquierdo"
+msgstr "Especifique la carpeta de inicio para el panel izquierdo"
 
 #: ../src/main.cc:68 ../src/main.cc:77
 msgid "Specify the start directory for the right pane"
-msgstr "Especifique el directorio de inicio para el panel derecho"
+msgstr "Especifique la carpeta de inicio para el panel derecho"
 
 #: ../src/main.cc:116
 msgid "File Manager"
@@ -5452,8 +5452,7 @@ msgstr "Textos/notas editables libremente."
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid ""
 "MIME type of the file or if a directory it should contain value \"Folder\"."
-msgstr ""
-"El tipo MIME del archivo o directorio debería contener el valor «Folder»"
+msgstr "El tipo MIME del archivo o carpeta debería contener el valor «Folder»"
 
 #: ../src/tags/gnome-cmd-tags.cc:318
 msgid "Editable array of keywords."
@@ -5515,7 +5514,7 @@ msgstr ""
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
-"Tamaño del archivo en bytes o, si es un directorio, número de elementos que "
+"Tamaño del archivo en bytes o, si es una carpeta, número de elementos que "
 "contiene."
 
 #: ../src/tags/gnome-cmd-tags.cc:327
@@ -7576,23 +7575,22 @@ msgstr[1] ""
 
 #: ../src/utils.cc:1042
 msgid "Failed to create a directory in which to store temporary files"
-msgstr ""
-"Falló al crear el directorio en el que almacenar archivos temporalmente"
+msgstr "Falló al crear la carpeta en la que almacenar archivos temporalmente"
 
 #: ../src/utils.cc:1238
 #, c-format
 msgid "Creating directory %s... "
-msgstr "Creando directorio %s…"
+msgstr "Creando carpeta %s…"
 
 #: ../src/utils.cc:1241
 #, c-format
 msgid "Failed to create the directory %s"
-msgstr "Falló al crear el directorio %s"
+msgstr "Falló al crear la carpeta %s"
 
 #: ../src/utils.cc:1247
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
-msgstr "No se pudo leer del directorio %s: %s"
+msgstr "No se pudo leer de la carpeta %s: %s"
 
 #: ../src/utils.h:261
 msgid "There was an error displaying help."
