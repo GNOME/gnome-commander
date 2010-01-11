@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 15:57+0000\n"
-"PO-Revision-Date: 2010-01-06 18:57+0100\n"
+"POT-Creation-Date: 2010-01-06 17:57+0000\n"
+"PO-Revision-Date: 2010-01-11 06:10+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1777,6 +1777,10 @@ msgid ""
 "its class type using a \".\" qualifier (e.g. <literal>Audio.Artist</literal> "
 "represents the metadata Artist for an audio class file)."
 msgstr ""
+"Para todos los metadatos, cada etiqueta de metadatos (metaetiqueta) necesita "
+"un nombre en espacio de usuario con clase, usando un «.» cualificador (ej. "
+"<literal>Audio.Artist</literal> representa el metadato Artista para un "
+"archivo de sonido)."
 
 #: C/gnome-commander.xml:1192(para)
 msgid ""
@@ -3512,6 +3516,11 @@ msgid ""
 "an absolute value in the <literal>Exif.GPS.Altitude</literal> tag. The "
 "reference unit is meters."
 msgstr ""
+"Indica la altitud usada como referencia. Si la referencia es el nivel del "
+"mar y la altitud está por encima de ese nivel, devuelve 0. Si la altitud "
+"está por debajo del nivel del mar, devuelve 1 y se indica la altitud como un "
+"valor absoluto en la etiqueta <literal>Exif.GPS.Altitude</literal>. La "
+"unidad de medida son metros."
 
 #: C/gnome-commander.xml:1856(para)
 msgid "Exif.GPS.InfoIFDPointer"
@@ -4592,6 +4601,26 @@ msgid ""
 "be ASCII and that the following user comment part be filled with blank "
 "characters [20.H]."
 msgstr ""
+"Una etiqueta para usuarios Exif para escribir palabras clave o comentarios "
+"sobre la imagen, además de <literal>Exif.ImageDescription</literal>, y sin "
+"las limitaciones del código de caracteres de la etiqueta <literal>Exif."
+"ImageDescription</literal>. El código de caracteres usado en la etiqueta "
+"<literal>Exif.UserComment</literal> se identifica basándose en un código ID "
+"en un área fija de 8 bytes al principio del área de datos de la etiqueta. La "
+"parte no usada de esta área se rellena con NULL («00.h»). Los códigos ID se "
+"asignan por medio del registro. El valor de CountN se determina basándose en "
+"los 8 bytes del área del código de caracteres y el número de bytes en la "
+"parte de los comentarios del usuario. Ya que el TIPO no es ASCII, no es "
+"necesaria la terminación NULL. El código ID para el área <literal>Exif."
+"UserComment</literal> puede ser un código Definido, tal como JIS o ASCII, o "
+"puede ser indefinido. El nombre indefinido es UndefinedText y el código ID "
+"se rellena con 8 bytes todos a NULL («00.h»). Un lector Exif que lea la "
+"etiqueta <literal>Exif.UserComment</literal> debe tener una función para "
+"determinar el código ID. Esta función no se requiere en lectores Exif que no "
+"usen la etiqueta <literal>Exif.UserComment</literal>. Cuando el área "
+"<literal>Exif.UserComment</literal> se pone a un lado, se recomienda que el "
+"código ID sea ASCII y que la siguiente parte de comentarios de usuario se "
+"rellene con espacios [20.H]."
 
 #: C/gnome-commander.xml:2181(para)
 msgid "Exif.WhiteBalance"
@@ -7490,7 +7519,7 @@ msgstr "%a"
 msgid "The abbreviated weekday name according to the current locale"
 msgstr ""
 "El nombre abreviado de día de la semana, de acuerdo con la configuración "
-"regionalactual"
+"regional actual"
 
 #: C/gnome-commander.xml:3401(para)
 msgid "%A"
@@ -7696,6 +7725,8 @@ msgid ""
 "The time in a.m. or p.m. notation. In the POSIX locale this is equivalent to "
 "\"%I:%M:%S %p\""
 msgstr ""
+"La hora en notación a.m o p.m. En la configuración regional POSIX esto es "
+"equivalente a «%I:%M:%S %p»"
 
 #: C/gnome-commander.xml:3498(para)
 msgid "%R"
@@ -7935,6 +7966,9 @@ msgid ""
 "Use this drop-down list box to specify when to use scrollbars to scroll "
 "through an image. Select one of the following options:"
 msgstr ""
+"Use esta lista desplegable para especificar cuándo usar barras de "
+"desplazamiento para moverse a lo largo de una imagen. Seleccione una de las "
+"siguientes opciones:"
 
 #: C/gnome-commander.xml:3622(guilabel)
 msgid "Pick window size and zoom factor automatically"
@@ -7947,6 +7981,11 @@ msgid ""
 "resizes the image window to fit the image. If the image is large, GNOME "
 "Commander resizes the image to fit the image window."
 msgstr ""
+"Seleccione esta opción para redimensionar la ventana de la imagen hasta "
+"ajustarse a la imagen o para redimensionar la imagen hasta ajustarse a la "
+"ventana. Si la imagen es pequeña. GNOME Commander redimensiona la ventana "
+"para ajustarse a la imagen. Si la imagen es grande. GNOME Commander "
+"redimensiona la imagen para ajustarse a la ventana."
 
 #: C/gnome-commander.xml:3630(para)
 msgid "Default: unselected."
@@ -7974,6 +8013,9 @@ msgid ""
 "to scroll. For example, if you want to scroll down the image, drag the image "
 "upwards in the window."
 msgstr ""
+"Arrastre la imagen en la dirección contraria a la dirección en la que quiere "
+"desplazarse. Por ejemplo, si quiere desplazar la imagen hacia abajo, "
+"arrastre la imagen hacia arriba en la ventana."
 
 #: C/gnome-commander.xml:3650(para)
 msgid "Use the scrollbars on the window."
@@ -8483,6 +8525,8 @@ msgid ""
 "Execute command line in the defined terminal and leaves the terminal window "
 "open"
 msgstr ""
+"Ejecuta la línea de comandos en el terminal definido y deja abierta la "
+"ventana de la terminal"
 
 #: C/gnome-commander.xml:4226(keycap)
 msgid "PageDown"
@@ -8552,6 +8596,9 @@ msgid ""
 "sizes of the directories are then shown in the \"full\" view instead of the "
 "string DIR"
 msgstr ""
+"Se cuentan los contenidos de todas las carpetas de la carpeta actual. Los "
+"tamaños de las carpetas se muestran en la vista «completa» en lugar de en la "
+"cadena DIR"
 
 #: C/gnome-commander.xml:4305(keycap)
 msgid "DELETE"
@@ -10347,7 +10394,7 @@ msgstr "editor"
 
 #: C/gnome-commander.xml:5844(para)
 msgid "honor_expect_uris"
-msgstr ""
+msgstr "honor_expect_uris"
 
 #: C/gnome-commander.xml:5851(para)
 msgid "skip_mounting"
@@ -10540,7 +10587,6 @@ msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
 #: C/gnome-commander.xml:6047(para)
-#| msgid "Fixed problem #538806 (quick search in root dir)"
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr "Error nº 604558 corregido (cursor perdido/ubicado en posición errónea)"
 
@@ -10892,7 +10938,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6329(para)
 msgid "User defined shortcuts to arbitrary programs"
-msgstr ""
+msgstr "Atajos definidos por el usuario para programas arbitrarios"
 
 #: C/gnome-commander.xml:6332(para)
 msgid ""
@@ -11010,11 +11056,13 @@ msgstr ""
 
 #: C/gnome-commander.xml:6439(para)
 msgid "Fixed problem #424159 (column sort problem)"
-msgstr ""
+msgstr "Error nº 424159 corregido (problema de ordenación de columnas)"
 
 #: C/gnome-commander.xml:6442(para)
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr ""
+"Error nº 434545 corregido (error de Debian nº 421480: iconos de dispositivos "
+"enormes)"
 
 #: C/gnome-commander.xml:6445(para)
 msgid "Fixed problem #447415 (inability to launch executables)"
@@ -11028,7 +11076,7 @@ msgstr ""
 #: C/gnome-commander.xml:6451(para)
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
-"Corregido el error nº 449137 (directorios renombrados no accedidos por el "
+"Corregido el error nº 449137 (carpetas renombradas no accedidas por el "
 "nombre)"
 
 #: C/gnome-commander.xml:6454(para)
@@ -11106,7 +11154,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6516(para)
 msgid "User defined shortcuts to bookmarks"
-msgstr ""
+msgstr "Atajos definidos por el usuario para marcadores"
 
 #: C/gnome-commander.xml:6525(para)
 msgid ""
@@ -11673,6 +11721,8 @@ msgstr "Corregidos los errores de conexión ftp rápida"
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr ""
+"Ahora se puede iniciar la función de búsqueda rápida escribiendo letras "
+"mayúsculas"
 
 #: C/gnome-commander.xml:6970(para)
 msgid ""
@@ -11691,6 +11741,8 @@ msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
 msgstr ""
+"Usar texto en negrita en vez de subrayado en el indicador de carpeta cuando "
+"se señala con el cursor del ratón"
 
 #: C/gnome-commander.xml:6984(para)
 msgid "The cwd label is selectable now (the one left of the cmdline)"
@@ -11751,10 +11803,14 @@ msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
 msgstr ""
+"La columna «ext» ahora está oculta cuando la extensión sólo se muestra junto "
+"con el nombre del archivo"
 
 #: C/gnome-commander.xml:7027(para)
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr ""
+"Corregido el redibujado excesivo de la lista de archivos cuando se arrastran "
+"archivos sobre ella"
 
 #: C/gnome-commander.xml:7030(para)
 msgid ""
@@ -11790,6 +11846,8 @@ msgstr "2003-11-24"
 #: C/gnome-commander.xml:7058(para)
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr ""
+"Corregido el error al seleccionar múltiples archivos con mayús+botón del "
+"ratón"
 
 #: C/gnome-commander.xml:7061(para)
 msgid ""
@@ -11944,6 +12002,8 @@ msgstr "Corregida la funcionalidad de editar tipos MIME"
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
+"Añadido un botón para cambiar el MIME-app predeterminado en el diálogo de "
+"propiedades del archivo"
 
 #: C/gnome-commander.xml:7204(para)
 msgid "1.1.0"
