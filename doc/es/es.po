@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-06 17:57+0000\n"
-"PO-Revision-Date: 2010-01-11 06:10+0100\n"
+"POT-Creation-Date: 2010-01-11 05:12+0000\n"
+"PO-Revision-Date: 2010-01-11 12:52+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -7467,6 +7467,8 @@ msgid ""
 "Ranges are a method of accessing a part of a string. The concept of ranges "
 "is based on python slices."
 msgstr ""
+"Los rangos son un método para acceder a las partes de una cadena. El "
+"concepto de rangos está basado en las subcadenas de python."
 
 #: C/gnome-commander.xml:3353(para)
 msgid ""
@@ -7928,6 +7930,12 @@ msgid ""
 "keycap></keycombo> (internal viewer). The internal viewer uses MMAP whenever "
 "possible for the fastest file loading."
 msgstr ""
+"Para comenzar a ver archivos use <keycap>F3</keycap> (visor predeterminado - "
+"definido en <menuchoice><guimenu>Configuración</"
+"guimenu><guimenuitem>Opciones...</guimenuitem></menuchoice>) o "
+"<keycombo><keycap>Mayús</keycap><keycap>F3</keycap></keycombo> (visor "
+"interno). El visor interno usa MMAP siempre que sea posible para una carga "
+"de archivo más rápida."
 
 #: C/gnome-commander.xml:3598(title)
 msgid "View Modes"
@@ -10040,7 +10048,7 @@ msgstr "Valor"
 
 #: C/gnome-commander.xml:5412(para)
 msgid "Refer to"
-msgstr ""
+msgstr "Referido a"
 
 #: C/gnome-commander.xml:5417(para)
 msgid "[network]"
@@ -10348,7 +10356,7 @@ msgstr "alt_fg"
 
 #: C/gnome-commander.xml:5797(para)
 msgid "Alternate foreground"
-msgstr ""
+msgstr "Cambiar color de primer plano"
 
 #: C/gnome-commander.xml:5802(para)
 msgid "sel_bg"
@@ -10695,7 +10703,7 @@ msgstr "1.2.8"
 
 #: C/gnome-commander.xml:6148(para)
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
-msgstr ""
+msgstr "Error nº 587325 corregido (error en un entorno chroot limpio)"
 
 #: C/gnome-commander.xml:6151(para)
 msgid "Fixed problem #589108 (build error on openSUSE)"
@@ -10751,7 +10759,7 @@ msgstr "Error nº 554586 corregido (problema con la macro AC_PROG_CXX)"
 
 #: C/gnome-commander.xml:6192(para)
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
-msgstr ""
+msgstr "Error nº 554598 corregido (objetivo de GNOME: LINGUAS)"
 
 #: C/gnome-commander.xml:6195(para)
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
@@ -10768,10 +10776,11 @@ msgstr ""
 #: C/gnome-commander.xml:6204(para)
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr ""
+"Error nº 567506 corregido (inicio lento en sistemas con muchos usuarios)"
 
 #: C/gnome-commander.xml:6207(para)
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
-msgstr ""
+msgstr "Error nº 570727 corregido (uso de gnome_url_show obsoleto)"
 
 #: C/gnome-commander.xml:6210(para)
 msgid ""
@@ -10818,10 +10827,14 @@ msgstr ""
 #: C/gnome-commander.xml:6234(para)
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
+"Corregido el error al establecer el mismo tamaño para los paneles en modo "
+"horizontal"
 
 #: C/gnome-commander.xml:6237(para)
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr ""
+"Corregido el error al actualizar la información MIME después de renombrar un "
+"archivo"
 
 #: C/gnome-commander.xml:6245(para)
 msgid "Support for PDF metatags in advanced file rename templates"
