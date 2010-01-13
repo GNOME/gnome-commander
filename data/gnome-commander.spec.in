@@ -51,6 +51,7 @@ BuildRequires: perl(XML::Parser)
 Requires:      glib2 >= @GLIB_REQ@
 Requires:      gtk2 >= @GTK_REQ@
 Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
+Requires:      gnome-vfs2-smb >= @GNOMEVFS_REQ@
 Requires:      libgnomeui >= @GNOMEUI_REQ@
 
 Requires:         meld
@@ -67,7 +68,11 @@ BuildRequires:   poppler-devel >= %{poppler_ver}
 
 Requires:        python >= %{python_ver}
 Requires:        gnome-python2-gnomevfs
+%if 0%{?fedora} >= 8
+Requires:        exiv2-libs >= %{exiv2_ver}
+%else
 Requires:        exiv2 >= %{exiv2_ver}
+%endif
 Requires:        taglib >= %{taglib_ver}
 %if 0%{?fedora} >= 6
 Requires:        libgsf >= %{libgsf_ver}
@@ -156,6 +161,10 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Jan 13 2010 Piotr Eljasiak <epiotr@use.pl>
+- added gnome-vfs2-smb dependency
+- replaced exiv2 with exiv2-libs dependency for FC>=8
+
 * Fri Oct 3 2008 Yuriy Penkin <yuriy.penkin@gmail.com>
 - changed dependencies for intltool to 0.35.0
 
