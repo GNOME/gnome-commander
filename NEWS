@@ -4,6 +4,7 @@ gnome-commander 1.2.9
 
 Bug fixes:
  * Fixed problem #600292 (crash when double-clicking on bookmarks list)
+ * Fixed Ubuntu problem #117226 (bookmarks unification)
 
 New features:
  * Revamped bookmarks dialog

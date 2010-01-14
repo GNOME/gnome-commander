@@ -6004,6 +6004,9 @@
                         <listitem>
                             <para>Fixed problem #600292 (crash when double-clicking on bookmarks list)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
