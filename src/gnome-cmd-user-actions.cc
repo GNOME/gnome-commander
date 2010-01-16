@@ -189,7 +189,6 @@ static UserActionData user_actions_data[] = {
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
                                              {plugins_execute_python, "plugins.execute_python", N_("Execute python plugin")},
                                              {view_back, "view.back", N_("Back one directory")},
-                                             {view_close_tab, "view.close_tab", N_("Close the current tab")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
@@ -199,7 +198,6 @@ static UserActionData user_actions_data[] = {
                                              {view_in_left_pane, "view.in_left_pane", N_("Open directory in the left window")},
                                              {view_in_right_pane, "view.in_right_pane", N_("Open directory in the right window")},
                                              {view_last, "view.last", N_("Forward to the last directory")},
-                                             {view_new_tab, "view.new_tab", N_("Open directory in a new tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
                                              {view_root, "view.root", N_("Root directory")},
 #if 0
@@ -333,15 +331,6 @@ void GnomeCmdUserActions::init()
 
     if (!registered("view.refresh"))
         register_action(GDK_CONTROL_MASK, GDK_R, "view.refresh");
-
-    if (!registered("view.new_tab"))
-    {
-        unregister(GDK_CONTROL_MASK, GDK_T);                       // unregister CTRL+T as it was used previously for file.advrename
-        register_action(GDK_CONTROL_MASK, GDK_T, "view.new_tab");
-    }
-
-    if (!registered("view.close_tab"))
-        register_action(GDK_CONTROL_MASK, GDK_W, "view.close_tab");
 
     unregister(GDK_F9);                                 // unregister F9 if defined in [key-bindings]
     register_action(GDK_F9, "edit.search");             // and overwrite it with edit.search action
