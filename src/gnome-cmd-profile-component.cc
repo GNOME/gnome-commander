@@ -73,6 +73,8 @@ struct GnomeCmdProfileComponent::Private
     GtkWidget *case_combo;
     GtkWidget *trim_combo;
 
+    gchar *sample_fname;
+
     enum {DIR_MENU, FILE_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
 
     static GtkItemFactoryEntry dir_items[];
@@ -95,8 +97,11 @@ struct GnomeCmdProfileComponent::Private
     GtkWidget *create_button_with_menu(gchar *label_text, int menu_type);
     void insert_tag(const gchar *text);
 
+    gchar *get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename=NULL);
+
     static void insert_text_tag(GnomeCmdProfileComponent::Private *priv, guint n, GtkWidget *widget);
     static void insert_num_tag(GnomeCmdProfileComponent::Private *priv, guint tag, GtkWidget *widget);
+    static void insert_range(Private *priv, guint unused, GtkWidget *widget);
 
     static void on_template_entry_changed(GtkEntry *entry, GnomeCmdProfileComponent *component);
 
@@ -122,7 +127,9 @@ GtkItemFactoryEntry GnomeCmdProfileComponent::Private::dir_items[] =
 
 GtkItemFactoryEntry GnomeCmdProfileComponent::Private::name_items[] =
     {{N_("/File name"), NULL, (GtkItemFactoryCallback) GnomeCmdProfileComponent::Private::insert_text_tag, 2},
+     {N_("/File name (range)"), NULL, (GtkItemFactoryCallback) GnomeCmdProfileComponent::Private::insert_range, 2},
      {N_("/File name without extension"), NULL, (GtkItemFactoryCallback) GnomeCmdProfileComponent::Private::insert_text_tag, 3},
+     {N_("/File name without extension (range)"), NULL, (GtkItemFactoryCallback) GnomeCmdProfileComponent::Private::insert_range,3},
      {N_("/File extension"), NULL, (GtkItemFactoryCallback) GnomeCmdProfileComponent::Private::insert_text_tag, 4}};
 
 GtkItemFactoryEntry GnomeCmdProfileComponent::Private::counter_items[] =
@@ -365,6 +372,7 @@ inline GnomeCmdProfileComponent::Private::Private()
     convert_case = gcmd_convert_unchanged;
     trim_blanks = gcmd_convert_strip;
     regex_model = NULL;
+    sample_fname = NULL;
 }
 
 
@@ -375,6 +383,8 @@ inline GnomeCmdProfileComponent::Private::~Private()
     clear_regex_model(regex_model);
 
     if (regex_model)  g_object_unref (regex_model);
+
+    g_free (sample_fname);
 }
 
 
@@ -540,6 +550,124 @@ void GnomeCmdProfileComponent::Private::insert_num_tag(GnomeCmdProfileComponent:
     gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name((GnomeCmdTag) tag));
     priv->insert_tag(s);
     g_free (s);
+}
+
+
+inline gchar *GnomeCmdProfileComponent::Private::get_selected_range (GtkWindow *parent, const gchar *title, const gchar *placeholder, const gchar *filename)
+{
+    if (!filename)
+        filename = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " \
+                   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " \
+                   "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " \
+                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+    GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
+                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     NULL);
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_widget_set_size_request (dialog, 480, -1);
+    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+    // HIG defaults
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
+
+    GtkWidget *hbox, *label, *entry, *option;
+
+    hbox = gtk_hbox_new (FALSE, 12);
+    gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox, FALSE, FALSE, 0);
+
+    label = gtk_label_new_with_mnemonic (_("_Select range:"));
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+    entry = gtk_entry_new ();
+    gtk_entry_set_text (GTK_ENTRY (entry), filename);
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+    g_object_set_data (G_OBJECT (dialog), "filename", entry);
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
+    gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
+
+    option = gtk_check_button_new_with_mnemonic (_("_Inverse selection"));
+    g_object_set_data (G_OBJECT (dialog), "inverse", option);
+    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), option, FALSE, FALSE, 0);
+
+    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    gchar *range = NULL;
+
+    if (result==GTK_RESPONSE_OK)
+    {
+        gint beg, end;
+        GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "filename");
+
+        gboolean inversed = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "inverse")));
+
+        if (gtk_editable_get_selection_bounds (GTK_EDITABLE (entry), &beg, &end))
+        {
+#if GTK_CHECK_VERSION (2, 16, 0)
+            guint16 len = gtk_entry_get_text_length (GTK_ENTRY (entry));
+#else
+            guint16 len = (guint16) g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (entry)), -1);
+#endif
+            if (!inversed)
+                range = end==len ? g_strdup_printf ("%s(%i:)", placeholder, beg) :
+                                   g_strdup_printf ("%s(%i:%i)", placeholder, beg, end);
+            else
+            {
+                if (end!=len)
+                    range = beg ? g_strdup_printf ("%s(:%i)%s(%i:)", placeholder, beg, placeholder, end) :
+                                  g_strdup_printf ("%s(%i:)", placeholder, end);
+                else
+                    if (beg)
+                        range = g_strdup_printf ("%s(:%i)", placeholder, beg);
+            }
+        }
+        else
+            if (inversed)
+                range = g_strdup (placeholder);
+    }
+
+    gtk_widget_destroy (dialog);
+
+    return range;
+}
+
+
+void GnomeCmdProfileComponent::Private::insert_range(GnomeCmdProfileComponent::Private *priv, guint n, GtkWidget *widget)
+{
+    static const gchar *placeholder[] = {"$g",          //  0
+                                         "$p",          //  1
+                                         "$N",          //  2
+                                         "$n",          //  3
+                                         "$e"};         //  4
+
+    gchar *fname = NULL;
+
+    if (n==3 && priv->sample_fname)
+    {
+        fname = g_strdup (priv->sample_fname);
+        gchar *ext = g_utf8_strrchr (fname, -1, '.');
+        if (ext)
+            *ext = 0;
+    }
+
+    gchar *tag = priv->get_selected_range (NULL, _("Range Selection"), placeholder[n], fname ? fname : priv->sample_fname);
+
+    if (tag)
+        priv->insert_tag(tag);
+
+    g_free (tag);
+    g_free (fname);
 }
 
 
@@ -1154,6 +1282,13 @@ void GnomeCmdProfileComponent::set_template_history(GList *history)
 {
     for (GList *i=history; i; i=i->next)
         gtk_combo_box_append_text (GTK_COMBO_BOX (priv->template_combo), (const gchar *) i->data);
+}
+
+
+void GnomeCmdProfileComponent::set_sample_fname(const gchar *fname)
+{
+    g_free (priv->sample_fname);
+    priv->sample_fname = g_strdup (fname);
 }
 
 

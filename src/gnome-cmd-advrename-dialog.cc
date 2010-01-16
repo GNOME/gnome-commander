@@ -81,6 +81,7 @@ struct GnomeCmdAdvrenameDialog::Private
     static gboolean on_files_view_button_pressed (GtkWidget *treeview, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog);
     static gboolean on_files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
+    static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
     static gboolean on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog);
@@ -399,6 +400,23 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_row_activated (GtkTreeView 
 }
 
 
+void GnomeCmdAdvrenameDialog::Private::on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog)
+{
+    GtkTreeIter iter;
+
+    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (view), NULL, &iter))
+    {
+        GtkTreeModel *model = gtk_tree_view_get_model (view);
+        GnomeCmdFile *f;
+
+        gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
+
+        if (f)
+            dialog->priv->profile_component->set_sample_fname(gnome_cmd_file_get_name (f));
+    }
+}
+
+
 gboolean GnomeCmdAdvrenameDialog::Private::on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog)
 {
     return event->type==GDK_DELETE;
@@ -705,6 +723,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->files_view, "button-press-event", G_CALLBACK (Private::on_files_view_button_pressed), this);
     g_signal_connect (priv->files_view, "popup-menu", G_CALLBACK (Private::on_files_view_popup_menu), this);
     g_signal_connect (priv->files_view, "row-activated", G_CALLBACK (Private::on_files_view_row_activated), this);
+    g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (Private::on_files_view_cursor_changed), this);
 
     g_signal_connect (this, "delete-event", G_CALLBACK (Private::on_dialog_delete), this);
     g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
@@ -716,6 +735,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
 void GnomeCmdAdvrenameDialog::set(GList *file_list)
 {
+    priv->profile_component->set_sample_fname(file_list ? gnome_cmd_file_get_name ((GnomeCmdFile *) file_list->data) : NULL);
+
     for (GtkTreeIter iter; file_list; file_list=file_list->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) file_list->data;

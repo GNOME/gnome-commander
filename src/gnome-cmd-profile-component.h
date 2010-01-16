@@ -59,6 +59,7 @@ struct GnomeCmdProfileComponent
 
     const gchar *get_template_entry() const;
     void set_template_history(GList *history);
+    void set_sample_fname(const gchar *fname);
     GtkTreeModel *get_regex_model() const;
 };
 
