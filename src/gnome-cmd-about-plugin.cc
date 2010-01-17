@@ -1,7 +1,7 @@
 /* Ripped from libgnomeui and adjusted to my needs. Original comments left intact below.
 
     Copyright (C) 2003-2006 Marcus Bjurman <marbj499@student.liu.se>
-    Copyright (C) 2007-2009 Piotr Eljasiak
+    Copyright (C) 2007-2010 Piotr Eljasiak
 */
 /* gnome-about.c - An about box widget for gnome.
 

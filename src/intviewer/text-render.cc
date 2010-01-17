@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2009 Piotr Eljasiak
+        Copyright (C) 2007-2010 Piotr Eljasiak
 
     Partly based on "gtkhex.c" module from "GHex2" Project.
     Author: Jaka Mocnik <jaka@gnu.org>
