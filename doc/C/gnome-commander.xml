@@ -6028,6 +6028,9 @@
                             <para>Fixed problem #604904 (build error on OpenSolaris)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem with editing connections to Windows network</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with nonexistent user actions</para>
                         </listitem>
                     </itemizedlist>

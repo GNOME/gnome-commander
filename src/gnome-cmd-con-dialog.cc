@@ -624,10 +624,42 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
             gtk_entry_set_text (GTK_ENTRY (conndlg->priv->uri_entry), con->uri);
 
             gtk_entry_set_text (GTK_ENTRY (conndlg->priv->server_entry), gnome_vfs_uri_get_host_name (uri));
-            // gtk_entry_set_text (GTK_ENTRY (conndlg->priv->share_entry), ???);
-            gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), gnome_vfs_uri_get_path (uri));
-            // gtk_entry_set_text (GTK_ENTRY (conndlg->priv->domain_entry), ???);
-            gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), gnome_vfs_uri_get_user_name (uri));
+
+            const gchar *path = gnome_vfs_uri_get_path (uri);
+            const gchar *user_name = gnome_vfs_uri_get_user_name (uri);
+
+            if (con->method==CON_SMB)
+            {
+                gchar **a = g_strsplit (path, "/", 3);
+
+                if (g_strv_length (a) > 2)
+                {
+                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->share_entry), a[1]);
+                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), a[2]);
+                }
+                else
+                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), path);
+
+                g_strfreev(a);
+
+                a = g_strsplit (user_name, ";", 2);
+
+                if (g_strv_length (a) > 1)
+                {
+                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->domain_entry), a[0]);
+                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), a[1]);
+                }
+                else
+                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), user_name);
+
+                g_strfreev(a);
+            }
+            else
+            {
+                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), path);
+                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), user_name);
+            }
+
             gtk_entry_set_text (GTK_ENTRY (conndlg->priv->password_entry), gnome_vfs_uri_get_password (uri));
 
             guint port = gnome_vfs_uri_get_host_port (uri);
