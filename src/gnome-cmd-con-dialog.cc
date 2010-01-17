@@ -627,6 +627,8 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
             const gchar *path = gnome_vfs_uri_get_path (uri);
             const gchar *user_name = gnome_vfs_uri_get_user_name (uri);
+            const gchar *password = gnome_vfs_uri_get_password (uri);
+            guint port = gnome_vfs_uri_get_host_port (uri);
 
             if (con->method==CON_SMB)
             {
@@ -660,9 +662,8 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
                 gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), user_name);
             }
 
-            gtk_entry_set_text (GTK_ENTRY (conndlg->priv->password_entry), gnome_vfs_uri_get_password (uri));
-
-            guint port = gnome_vfs_uri_get_host_port (uri);
+            if (password)
+                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->password_entry), password);
 
             if (port)
                 gtk_entry_set_text (GTK_ENTRY (conndlg->priv->port_entry), stringify(port).c_str());
