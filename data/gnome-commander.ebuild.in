@@ -1,9 +1,10 @@
-# Copyright 1999-2009 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License, v2 or later
+# Copyright 1999-2010 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
 # $Header:
 
 inherit gnome2 flag-o-matic
 
+EAPI="2"
 
 DESCRIPTION="A full featured, dual-pane file manager for Gnome2"
 HOMEPAGE="http://www.nongnu.org/gcmd/"
@@ -37,7 +38,8 @@ RDEPEND=">=x11-libs/gtk+-@GTK_REQ@
         exif?   ( >=media-gfx/exiv2-@EXIV2_REQ@     )
         gsf?    ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
         id3?    ( >=media-libs/taglib-@TAGLIB_REQ@  )
-        python? ( >=dev-lang/python-@PYTHON_REQ@    )"
+        python? ( >=dev-lang/python-@PYTHON_REQ@
+                  >=dev-python/gnome-vfs-python-@GNOMEVFS_REQ@ )"
 
 
 
