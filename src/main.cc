@@ -123,11 +123,11 @@ int main (int argc, char *argv[])
     conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander", NULL);
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
+    IMAGE_init ();
     gcmd_user_actions.init();
     gnome_cmd_data.load();
     gcmd_user_actions.set_defaults();
     ls_colors_init ();
-    IMAGE_init ();
     gnome_cmd_data.load_more();
 
     if (gnome_cmd_data.use_gnome_auth_manager)
