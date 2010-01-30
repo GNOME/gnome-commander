@@ -14,25 +14,26 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2009.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-01-05 15:57+0000\n"
-"PO-Revision-Date: 2009-12-20 19:54+0100\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2010-01-27 11:47+0000\n"
+"PO-Revision-Date: 2010-01-29 11:11+0100\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: ES <gnome-es@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: UTF-8\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "Un administrador de archivos con dos paneles"
 
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:460
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:446
 #: ../src/gnome-cmd-main-win.cc:777
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -212,7 +213,7 @@ msgid "Edit Profile"
 msgstr "Editar perfil"
 
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.cc:70
-#: ../src/gnome-cmd-advrename-dialog.cc:683
+#: ../src/gnome-cmd-advrename-dialog.cc:701
 msgid "Reset"
 msgstr "Restablecer"
 
@@ -381,81 +382,81 @@ msgstr "C_réditos"
 msgid "About %s"
 msgstr "Acerca de %s"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:125
+#: ../src/gnome-cmd-advrename-dialog.cc:126
 msgid "/_Save Profile As..."
 msgstr "/_Guardar perfil como…"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:134
+#: ../src/gnome-cmd-advrename-dialog.cc:135
 msgid "/_Manage Profiles..."
 msgstr "/_Gestionar perfiles…"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:186
+#: ../src/gnome-cmd-advrename-dialog.cc:187
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:330
+#: ../src/gnome-cmd-advrename-dialog.cc:331
 msgid "Remove from file list"
 msgstr "Eliminar de la lista de archivos"
 
 #. {file_umount, "file.umount"},
-#: ../src/gnome-cmd-advrename-dialog.cc:334
+#: ../src/gnome-cmd-advrename-dialog.cc:335
 #: ../src/gnome-cmd-user-actions.cc:177
 msgid "View file"
 msgstr "Ver archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:338
+#: ../src/gnome-cmd-advrename-dialog.cc:339
 msgid "File properties"
 msgstr "Propiedades del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:344
+#: ../src/gnome-cmd-advrename-dialog.cc:345
 msgid "Update file list"
 msgstr "Actualizar lista de archivos"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:482
+#: ../src/gnome-cmd-advrename-dialog.cc:500
 msgid "Advanced Rename Tool"
 msgstr "Herramienta de renombrado avanzado"
 
 #. Results
-#: ../src/gnome-cmd-advrename-dialog.cc:493
+#: ../src/gnome-cmd-advrename-dialog.cc:511
 msgid "Results"
 msgstr "Resultados"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:566
+#: ../src/gnome-cmd-advrename-dialog.cc:584
 msgid "Old name"
 msgstr "Nombre antiguo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:570
+#: ../src/gnome-cmd-advrename-dialog.cc:588
 msgid "Current file name"
 msgstr "Nombre actual del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:572
+#: ../src/gnome-cmd-advrename-dialog.cc:590
 msgid "New name"
 msgstr "Nuevo nombre"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:576
+#: ../src/gnome-cmd-advrename-dialog.cc:594
 msgid "New file name"
 msgstr "Nombre de archivo nuevo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:578 ../src/tags/gnome-cmd-tags.cc:326
+#: ../src/gnome-cmd-advrename-dialog.cc:596 ../src/tags/gnome-cmd-tags.cc:326
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:582
+#: ../src/gnome-cmd-advrename-dialog.cc:600
 msgid "File size"
 msgstr "Tamaño del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:584
-#: ../src/gnome-cmd-profile-component.cc:779 ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/gnome-cmd-advrename-dialog.cc:602
+#: ../src/gnome-cmd-profile-component.cc:907 ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Fecha"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:588
+#: ../src/gnome-cmd-advrename-dialog.cc:606
 msgid "File modification date"
 msgstr "Fecha de modificación del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:678
+#: ../src/gnome-cmd-advrename-dialog.cc:696
 msgid "Profiles..."
 msgstr "_Propiedades…"
 
@@ -738,13 +739,13 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: ../src/gnome-cmd-data.cc:1333 ../src/gnome-cmd-data.cc:1334
-#: ../src/gnome-cmd-data.cc:1733 ../src/gnome-cmd-data.cc:2074
+#: ../src/gnome-cmd-data.cc:1281 ../src/gnome-cmd-data.cc:1282
+#: ../src/gnome-cmd-data.cc:1686 ../src/gnome-cmd-data.cc:2025
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
 
-#: ../src/gnome-cmd-data.cc:1607
+#: ../src/gnome-cmd-data.cc:1562
 msgid "CamelCase"
 msgstr "CamelCase"
 
@@ -1141,7 +1142,7 @@ msgstr "Tipo de archivo desconocido"
 msgid "Regular file"
 msgstr "Archivo regular"
 
-#: ../src/gnome-cmd-file.cc:632 ../src/gnome-cmd-profile-component.cc:776
+#: ../src/gnome-cmd-file.cc:632 ../src/gnome-cmd-profile-component.cc:904
 msgid "Directory"
 msgstr "Carpeta"
 
@@ -2202,252 +2203,272 @@ msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "La carpeta «%s» no existe, ¿quiere crearla?"
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
-#: ../src/gnome-cmd-profile-component.cc:406
-#: ../src/gnome-cmd-profile-component.cc:596
-#: ../src/gnome-cmd-profile-component.cc:628 ../src/utils.cc:683
+#: ../src/gnome-cmd-profile-component.cc:416
+#: ../src/gnome-cmd-profile-component.cc:724
+#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:683
 msgid "No"
 msgstr "No"
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
-#: ../src/gnome-cmd-profile-component.cc:406
-#: ../src/gnome-cmd-profile-component.cc:596
-#: ../src/gnome-cmd-profile-component.cc:628 ../src/utils.cc:683
+#: ../src/gnome-cmd-profile-component.cc:416
+#: ../src/gnome-cmd-profile-component.cc:724
+#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:683
 msgid "Yes"
 msgstr "Sí"
 
-#: ../src/gnome-cmd-profile-component.cc:120
+#: ../src/gnome-cmd-profile-component.cc:125
 msgid "/Grandparent"
 msgstr "/Abuelo"
 
-#: ../src/gnome-cmd-profile-component.cc:121
+#: ../src/gnome-cmd-profile-component.cc:126
 msgid "/Parent"
 msgstr "/Padre"
 
-#: ../src/gnome-cmd-profile-component.cc:124
+#: ../src/gnome-cmd-profile-component.cc:129
 msgid "/File name"
 msgstr "/Nombre del archivo"
 
-#: ../src/gnome-cmd-profile-component.cc:125
+#: ../src/gnome-cmd-profile-component.cc:130
+msgid "/File name (range)"
+msgstr "/Nombre del archivo (rango)"
+
+#: ../src/gnome-cmd-profile-component.cc:131
 msgid "/File name without extension"
 msgstr "/Nombre del archivo sin extensión"
 
-#: ../src/gnome-cmd-profile-component.cc:126
+#: ../src/gnome-cmd-profile-component.cc:132
+msgid "/File name without extension (range)"
+msgstr "/Nombre del archivo sin extensión (rango)"
+
+#: ../src/gnome-cmd-profile-component.cc:133
 msgid "/File extension"
 msgstr "/Extensión del archivo"
 
-#: ../src/gnome-cmd-profile-component.cc:129
+#: ../src/gnome-cmd-profile-component.cc:136
 msgid "/Counter"
 msgstr "/Contador"
 
-#: ../src/gnome-cmd-profile-component.cc:130
+#: ../src/gnome-cmd-profile-component.cc:137
 msgid "/Counter (width)"
 msgstr "/Contador (anchura)"
 
-#: ../src/gnome-cmd-profile-component.cc:131
+#: ../src/gnome-cmd-profile-component.cc:138
 msgid "/Hexadecimal random number (width)"
 msgstr "/Número hexadecimal aleatorio (anchura)"
 
-#: ../src/gnome-cmd-profile-component.cc:134
+#: ../src/gnome-cmd-profile-component.cc:141
 msgid "/Date"
 msgstr "/Fecha"
 
-#: ../src/gnome-cmd-profile-component.cc:135
+#: ../src/gnome-cmd-profile-component.cc:142
 msgid "/Date/<locale>"
 msgstr "/Fecha/<locale>"
 
-#: ../src/gnome-cmd-profile-component.cc:136
+#: ../src/gnome-cmd-profile-component.cc:143
 msgid "/Date/yyyy-mm-dd"
 msgstr "/Fecha/yyyy-mm-dd"
 
-#: ../src/gnome-cmd-profile-component.cc:137
+#: ../src/gnome-cmd-profile-component.cc:144
 msgid "/Date/yy-mm-dd"
 msgstr "/Fecha/yy-mm-dd"
 
-#: ../src/gnome-cmd-profile-component.cc:138
+#: ../src/gnome-cmd-profile-component.cc:145
 msgid "/Date/yy.mm.dd"
 msgstr "/Fecha/yy.mm.dd"
 
-#: ../src/gnome-cmd-profile-component.cc:139
+#: ../src/gnome-cmd-profile-component.cc:146
 msgid "/Date/yymmdd"
 msgstr "/Fecha/yymmdd"
 
-#: ../src/gnome-cmd-profile-component.cc:140
+#: ../src/gnome-cmd-profile-component.cc:147
 msgid "/Date/dd.mm.yy"
 msgstr "/Fecha/dd.mm.yy"
 
-#: ../src/gnome-cmd-profile-component.cc:141
+#: ../src/gnome-cmd-profile-component.cc:148
 msgid "/Date/mm-dd-yy"
 msgstr "/Fecha/mm-dd-yy"
 
-#: ../src/gnome-cmd-profile-component.cc:142
+#: ../src/gnome-cmd-profile-component.cc:149
 msgid "/Date/yyyy"
 msgstr "/Fecha/yyyy"
 
-#: ../src/gnome-cmd-profile-component.cc:143
+#: ../src/gnome-cmd-profile-component.cc:150
 msgid "/Date/yy"
 msgstr "/Fecha/yy"
 
-#: ../src/gnome-cmd-profile-component.cc:144
+#: ../src/gnome-cmd-profile-component.cc:151
 msgid "/Date/mm"
 msgstr "/Fecha/mm"
 
-#: ../src/gnome-cmd-profile-component.cc:145
+#: ../src/gnome-cmd-profile-component.cc:152
 msgid "/Date/mmm"
 msgstr "Fecha/mmm"
 
-#: ../src/gnome-cmd-profile-component.cc:146
+#: ../src/gnome-cmd-profile-component.cc:153
 msgid "/Date/dd"
 msgstr "/Fecha/dd"
 
-#: ../src/gnome-cmd-profile-component.cc:147
+#: ../src/gnome-cmd-profile-component.cc:154
 msgid "/Time"
 msgstr "/Hora"
 
-#: ../src/gnome-cmd-profile-component.cc:148
+#: ../src/gnome-cmd-profile-component.cc:155
 msgid "/Time/<locale>"
 msgstr "/Hora/<locale>"
 
-#: ../src/gnome-cmd-profile-component.cc:149
+#: ../src/gnome-cmd-profile-component.cc:156
 msgid "/Time/HH.MM.SS"
 msgstr "/Hora/HH.MM.SS"
 
-#: ../src/gnome-cmd-profile-component.cc:150
+#: ../src/gnome-cmd-profile-component.cc:157
 msgid "/Time/HH-MM-SS"
 msgstr "/Hora/HH-MM-SS"
 
-#: ../src/gnome-cmd-profile-component.cc:151
+#: ../src/gnome-cmd-profile-component.cc:158
 msgid "/Time/HHMMSS"
 msgstr "/Hora/HHMMSS"
 
-#: ../src/gnome-cmd-profile-component.cc:152
+#: ../src/gnome-cmd-profile-component.cc:159
 msgid "/Time/HH"
 msgstr "/Hora/HH"
 
-#: ../src/gnome-cmd-profile-component.cc:153
+#: ../src/gnome-cmd-profile-component.cc:160
 msgid "/Time/MM"
 msgstr "/Hora/MM"
 
-#: ../src/gnome-cmd-profile-component.cc:154
+#: ../src/gnome-cmd-profile-component.cc:161
 msgid "/Time/SS"
 msgstr "/Hora/SS"
 
 #: ../src/gnome-cmd-profile-component.cc:586
+msgid "_Select range:"
+msgstr "Seleccionar _rango:"
+
+#: ../src/gnome-cmd-profile-component.cc:596
+msgid "_Inverse selection"
+msgstr "_Invertir selección"
+
+#: ../src/gnome-cmd-profile-component.cc:664
+msgid "Range Selection"
+msgstr "Selección del rango"
+
+#: ../src/gnome-cmd-profile-component.cc:714
 msgid "Add Rule"
 msgstr "Añadir regla"
 
-#: ../src/gnome-cmd-profile-component.cc:621
+#: ../src/gnome-cmd-profile-component.cc:749
 msgid "Edit Rule"
 msgstr "Editar regla"
 
-#: ../src/gnome-cmd-profile-component.cc:748
+#: ../src/gnome-cmd-profile-component.cc:876
 msgid "_Template"
 msgstr "_Plantilla"
 
-#: ../src/gnome-cmd-profile-component.cc:777 ../src/plugin_manager.cc:413
+#: ../src/gnome-cmd-profile-component.cc:905 ../src/plugin_manager.cc:413
 #: ../src/tags/gnome-cmd-tags.cc:687
 msgid "File"
 msgstr "Archivo"
 
-#: ../src/gnome-cmd-profile-component.cc:778
-#: ../src/gnome-cmd-profile-component.cc:790
+#: ../src/gnome-cmd-profile-component.cc:906
+#: ../src/gnome-cmd-profile-component.cc:918
 msgid "Counter"
 msgstr "Contador"
 
-#: ../src/gnome-cmd-profile-component.cc:780
+#: ../src/gnome-cmd-profile-component.cc:908
 msgid "Metatag"
 msgstr "Metaetiqueta"
 
-#: ../src/gnome-cmd-profile-component.cc:807
+#: ../src/gnome-cmd-profile-component.cc:935
 msgid "_Start:"
 msgstr "_Inicio:"
 
-#: ../src/gnome-cmd-profile-component.cc:814
+#: ../src/gnome-cmd-profile-component.cc:942
 msgid "Ste_p:"
 msgstr "_Paso:"
 
-#: ../src/gnome-cmd-profile-component.cc:821
+#: ../src/gnome-cmd-profile-component.cc:949
 msgid "Di_gits:"
 msgstr "_Dígitos:"
 
-#: ../src/gnome-cmd-profile-component.cc:832
+#: ../src/gnome-cmd-profile-component.cc:960
 msgid "Regex replacing"
 msgstr "Reemplazo por expreg"
 
-#: ../src/gnome-cmd-profile-component.cc:871
+#: ../src/gnome-cmd-profile-component.cc:999
 msgid "Remove A_ll"
 msgstr "Eli_minar todo"
 
-#: ../src/gnome-cmd-profile-component.cc:884
+#: ../src/gnome-cmd-profile-component.cc:1012
 msgid "Case"
 msgstr "Capitalización"
 
-#: ../src/gnome-cmd-profile-component.cc:896
+#: ../src/gnome-cmd-profile-component.cc:1024
 msgid "<unchanged>"
 msgstr "<unchanged>"
 
-#: ../src/gnome-cmd-profile-component.cc:897
+#: ../src/gnome-cmd-profile-component.cc:1025
 msgid "lowercase"
 msgstr "minúsculas"
 
-#: ../src/gnome-cmd-profile-component.cc:898
+#: ../src/gnome-cmd-profile-component.cc:1026
 msgid "UPPERCASE"
 msgstr "MAYÚSCULAS"
 
-#: ../src/gnome-cmd-profile-component.cc:900
+#: ../src/gnome-cmd-profile-component.cc:1028
 msgid "Sentence case"
 msgstr "Establecer capitalización"
 
 #. FIXME
-#: ../src/gnome-cmd-profile-component.cc:901
+#: ../src/gnome-cmd-profile-component.cc:1029
 msgid "Initial Caps"
 msgstr "Iniciales en mayúscula"
 
 #. FIXME
-#: ../src/gnome-cmd-profile-component.cc:902
+#: ../src/gnome-cmd-profile-component.cc:1030
 msgid "tOGGLE cASE"
 msgstr "cAMBIAR cAPITALIZACIÓN"
 
-#: ../src/gnome-cmd-profile-component.cc:912
+#: ../src/gnome-cmd-profile-component.cc:1040
 msgid "Trim blanks"
 msgstr "Eliminar espacios en blanco"
 
-#: ../src/gnome-cmd-profile-component.cc:924
+#: ../src/gnome-cmd-profile-component.cc:1052
 msgid "<none>"
 msgstr "<ninguno>"
 
-#: ../src/gnome-cmd-profile-component.cc:925
+#: ../src/gnome-cmd-profile-component.cc:1053
 msgid "leading"
 msgstr "principio"
 
-#: ../src/gnome-cmd-profile-component.cc:926
+#: ../src/gnome-cmd-profile-component.cc:1054
 msgid "trailing"
 msgstr "sobrante"
 
-#: ../src/gnome-cmd-profile-component.cc:927
+#: ../src/gnome-cmd-profile-component.cc:1055
 msgid "leading and trailing"
 msgstr "comienzo y final"
 
-#: ../src/gnome-cmd-profile-component.cc:1097
+#: ../src/gnome-cmd-profile-component.cc:1225
 msgid "Search for"
 msgstr "Buscar"
 
-#: ../src/gnome-cmd-profile-component.cc:1100
+#: ../src/gnome-cmd-profile-component.cc:1228
 msgid "Regex pattern"
 msgstr "Patrón de expresión regular"
 
-#: ../src/gnome-cmd-profile-component.cc:1102
+#: ../src/gnome-cmd-profile-component.cc:1230
 msgid "Replace with"
 msgstr "Reemplazar con"
 
-#: ../src/gnome-cmd-profile-component.cc:1105
+#: ../src/gnome-cmd-profile-component.cc:1233
 msgid "Replacement"
 msgstr "Reemplazar"
 
-#: ../src/gnome-cmd-profile-component.cc:1107
+#: ../src/gnome-cmd-profile-component.cc:1235
 msgid "Match case"
 msgstr "Coincidir con capitalización"
 
-#: ../src/gnome-cmd-profile-component.cc:1110
+#: ../src/gnome-cmd-profile-component.cc:1238
 msgid "Case sensitive matching"
 msgstr "Coincidir con capitalización"
 
