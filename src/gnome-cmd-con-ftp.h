@@ -47,6 +47,6 @@ GtkType gnome_cmd_con_ftp_get_type ();
 GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const std::string &uri);
 GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, guint port, const gchar *user, const gchar *password, const gchar *remote_dir);
 
-void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *fs, const gchar *host_name);
+void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_name);
 
 #endif // __GNOME_CMD_CON_FTP_H__
