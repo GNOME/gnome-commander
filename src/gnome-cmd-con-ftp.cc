@@ -248,10 +248,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     g_return_val_if_fail (uri != NULL, NULL);
 
-    const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
-    const gchar *remote_dir = gnome_vfs_uri_get_path (uri);     // do not g_free
-    const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
     const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
 
     GnomeCmdConFtp *server = (GnomeCmdConFtp *) gtk_type_new (gnome_cmd_con_ftp_get_type ());
@@ -266,14 +263,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     gnome_cmd_con_ftp_set_host_name (server, host);
 
-    con->method = gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
-                  g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
-                  g_str_equal (scheme, "sftp") ? CON_SSH :
-                  g_str_equal (scheme, "dav")  ? CON_DAV :
-                  g_str_equal (scheme, "davs") ? CON_DAVS :
-                  g_str_equal (scheme, "smb")  ? CON_SMB :
-                                                 CON_URI;
-
+    con->method = gnome_cmd_con_get_scheme (uri);
     con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
 
     gnome_vfs_uri_unref (uri);

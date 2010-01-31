@@ -361,6 +361,20 @@ inline gchar *gnome_cmd_con_get_free_space (GnomeCmdCon *con, GnomeCmdDir *dir, 
     return retval;
 }
 
+inline ConnectionMethodID gnome_cmd_con_get_scheme (GnomeVFSURI *uri)
+{
+    const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
+    const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
+
+    return gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
+           g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+           g_str_equal (scheme, "sftp") ? CON_SSH :
+           g_str_equal (scheme, "dav")  ? CON_DAV :
+           g_str_equal (scheme, "davs") ? CON_DAVS :
+           g_str_equal (scheme, "smb")  ? CON_SMB :
+                                          CON_URI;
+}
+
 std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password);
 
 inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::string &uri)
