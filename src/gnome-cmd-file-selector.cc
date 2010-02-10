@@ -162,7 +162,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
         switch (f->info->type)
         {
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
-                if (strcmp(f->info->name, "..") != 0)
+                if (!f->is_dotdot)
                 {
                     num_dirs++;
                     if (gnome_cmd_file_has_tree_size (f))
@@ -362,7 +362,7 @@ drag_data_received (GtkWidget          *widget,
         /* The drop was over a directory in the list, which means that the
          * xfer should be done to that directory instead of the current one in the list
          */
-        if (strcmp (f->info->name, "..") == 0)
+        if (f->is_dotdot)
             to = gnome_cmd_dir_get_parent (cwd);
         else
             to = gnome_cmd_dir_get_child (cwd, f->info->name);
@@ -623,7 +623,7 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
     {
         fs->file_list()->invalidate_tree_size();
 
-        if (strcmp (f->info->name, "..") == 0)
+        if (f->is_dotdot)
             fs->goto_directory("..");
         else
             fs->set_directory(GNOME_CMD_DIR (f));

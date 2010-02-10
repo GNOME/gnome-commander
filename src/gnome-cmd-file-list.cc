@@ -372,7 +372,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
     g_return_if_fail (f != NULL);
     g_return_if_fail (f->info != NULL);
 
-    if (strcmp (f->info->name, "..") == 0)
+    if (f->is_dotdot)
         return;
 
     if (row == -1)
@@ -826,10 +826,10 @@ inline gint my_filesizecmp (GnomeVFSFileSize i1, GnomeVFSFileSize i2, gboolean r
 
 static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     if (f1->info->type > f2->info->type)
@@ -846,10 +846,10 @@ static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     if (f1->info->type > f2->info->type)
@@ -876,10 +876,10 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
 static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     if (f1->info->type > f2->info->type)
@@ -909,10 +909,10 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
 static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -932,10 +932,10 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -954,10 +954,10 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -976,10 +976,10 @@ static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -998,10 +998,10 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
 static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    if (strcmp (f1->info->name, "..") == 0)
+    if (f1->is_dotdot)
         return -1;
 
-    if (strcmp (f2->info->name, "..") == 0)
+    if (f2->is_dotdot)
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -1169,7 +1169,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
             }
             else
                 if (event->button == 3)
-                    if (strcmp (f->info->name, "..") != 0)
+                    if (!f->is_dotdot)
                     {
                         if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
                         {
@@ -2304,7 +2304,7 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
 
     if (strcmp (info->name, ".") == 0)
         return FALSE;
-    if (strcmp (info->name, "..") == 0)
+    if (f->is_dotdot)
         return FALSE;
     if (gnome_cmd_data.hide_type(info->type))
         return FALSE;

@@ -214,6 +214,8 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
     f->info = info;
     GNOME_CMD_FILE_INFO (f)->info = info;
 
+    f->is_dotdot = info->type==GNOME_VFS_FILE_TYPE_DIRECTORY && strcmp(info->name, "..")==0;    // check if file is '..'
+
     gchar *utf8_name;
 
     if (!gnome_cmd_data.case_sens_sort)
@@ -571,7 +573,7 @@ GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
         return f->info->size;
 
-    if (strcmp (f->info->name, "..") == 0)
+    if (f->is_dotdot)
         return 0;
 
     if (f->priv->tree_size != -1)
@@ -593,7 +595,7 @@ const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *f)
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
         return gnome_cmd_file_get_size (f);
 
-    if (strcmp (f->info->name, "..") == 0)
+    if (f->is_dotdot)
         return gnome_cmd_file_get_size (f);
 
     return size2string (gnome_cmd_file_get_tree_size (f), gnome_cmd_data.size_disp_mode);

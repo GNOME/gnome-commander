@@ -202,7 +202,7 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 {
     GnomeCmdFile *f = get_focused_file();
 
-    return !f || strcmp (f->info->name, "..") == 0 ? NULL : f;
+    return !f || f->is_dotdot ? NULL : f;
 }
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
