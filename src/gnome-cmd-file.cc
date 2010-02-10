@@ -564,39 +564,39 @@ const gchar *gnome_cmd_file_get_size (GnomeCmdFile *file)
 }
 
 
-GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *file)
+GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (file != NULL, 0);
+    g_return_val_if_fail (f != NULL, 0);
 
-    if (file->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
-        return file->info->size;
+    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        return f->info->size;
 
-    if (strcmp (file->info->name, "..") == 0)
+    if (strcmp (f->info->name, "..") == 0)
         return 0;
 
-    if (file->priv->tree_size != -1)
-        return file->priv->tree_size;
+    if (f->priv->tree_size != -1)
+        return f->priv->tree_size;
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (file);
-    file->priv->tree_size = calc_tree_size (uri);
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    f->priv->tree_size = calc_tree_size (uri);
     gnome_vfs_uri_unref (uri);
 
-    return file->priv->tree_size;
+    return f->priv->tree_size;
 }
 
 
-const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *file)
+const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (file != NULL, NULL);
-    g_return_val_if_fail (file->info != NULL, NULL);
+    g_return_val_if_fail (f != NULL, NULL);
+    g_return_val_if_fail (f->info != NULL, NULL);
 
-    if (file->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
-        return gnome_cmd_file_get_size (file);
+    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        return gnome_cmd_file_get_size (f);
 
-    if (strcmp (file->info->name, "..") == 0)
-        return gnome_cmd_file_get_size (file);
+    if (strcmp (f->info->name, "..") == 0)
+        return gnome_cmd_file_get_size (f);
 
-    return size2string (gnome_cmd_file_get_tree_size (file), gnome_cmd_data.size_disp_mode);
+    return size2string (gnome_cmd_file_get_tree_size (f), gnome_cmd_data.size_disp_mode);
 }
 
 
