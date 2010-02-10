@@ -36,24 +36,22 @@ struct _GnomeCmdFileInfoPrivate
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
-    GnomeCmdFileInfo *file = GNOME_CMD_FILE_INFO (object);
+    GnomeCmdFileInfo *f = GNOME_CMD_FILE_INFO (object);
 
-    gnome_vfs_file_info_unref (file->info);
-    if (file->uri)
-        gnome_vfs_uri_unref (file->uri);
+    gnome_vfs_file_info_unref (f->info);
+    if (f->uri)
+        gnome_vfs_uri_unref (f->uri);
 
-    g_free (file->priv);
+    g_free (f->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void
-class_init (GnomeCmdFileInfoClass *klass)
+static void class_init (GnomeCmdFileInfoClass *klass)
 {
     GtkObjectClass *object_class;
 
@@ -64,13 +62,12 @@ class_init (GnomeCmdFileInfoClass *klass)
 }
 
 
-static void
-init (GnomeCmdFileInfo *file)
+static void init (GnomeCmdFileInfo *f)
 {
-    file->info = NULL;
-    file->uri = NULL;
+    f->info = NULL;
+    f->uri = NULL;
 
-    file->priv = g_new0 (GnomeCmdFileInfoPrivate, 1);
+    f->priv = g_new0 (GnomeCmdFileInfoPrivate, 1);
 }
 
 
@@ -78,8 +75,7 @@ init (GnomeCmdFileInfo *file)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_file_info_get_type ()
+GtkType gnome_cmd_file_info_get_type ()
 {
     static GtkType type = 0;
 
@@ -100,14 +96,4 @@ gnome_cmd_file_info_get_type ()
         type = gtk_type_unique (gtk_object_get_type (), &info);
     }
     return type;
-}
-
-
-void
-gnome_cmd_file_info_setup (GnomeCmdFileInfo *f, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_INFO (f));
-
-    f->info = info;
-    f->uri = uri;
 }

@@ -39,9 +39,9 @@ class GnomeCmdFileCollection
     gboolean empty()    {  return list==NULL;            }
     void clear();
 
-    void add(GnomeCmdFile *file);
+    void add(GnomeCmdFile *f);
     void add(GList *files);
-    gboolean remove(GnomeCmdFile *file);
+    gboolean remove(GnomeCmdFile *f);
     gboolean remove(const gchar *uri_str);
 
     GList *get_list()   {  return list;  }

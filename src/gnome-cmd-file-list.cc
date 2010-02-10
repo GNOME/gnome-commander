@@ -1688,9 +1688,9 @@ GList *GnomeCmdFileList::get_selected_files()
     if (priv->selected_files)
         return g_list_copy (priv->selected_files);
 
-    GnomeCmdFile *file = get_selected_file();
+    GnomeCmdFile *f = get_selected_file();
 
-    return file ? g_list_append (NULL, file) : NULL;
+    return f ? g_list_append (NULL, f) : NULL;
 }
 
 

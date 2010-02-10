@@ -66,15 +66,15 @@ GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *f, GnomeVFSFilePermissions pe
 GnomeVFSResult gnome_cmd_file_chown (GnomeCmdFile *f, uid_t uid, gid_t gid);
 GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name);
 
-inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *file)
+inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (file != NULL, NULL);
-    g_return_val_if_fail (file->info != NULL, NULL);
+    g_return_val_if_fail (f != NULL, NULL);
+    g_return_val_if_fail (f->info != NULL, NULL);
 
-    return file->info->name;
+    return f->info->name;
 }
 
-gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *file);
+gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f);
 
 gchar *gnome_cmd_file_get_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);

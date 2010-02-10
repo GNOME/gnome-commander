@@ -26,25 +26,25 @@
 using namespace std;
 
 
-void GnomeCmdFileCollection::add(GnomeCmdFile *file)
+void GnomeCmdFileCollection::add(GnomeCmdFile *f)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE (file));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    list = g_list_append (list, file);
+    list = g_list_append (list, f);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (file);
-    g_hash_table_insert (map, uri_str, file);
-    gnome_cmd_file_ref (file);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+    g_hash_table_insert (map, uri_str, f);
+    gnome_cmd_file_ref (f);
 }
 
 
-gboolean GnomeCmdFileCollection::remove(GnomeCmdFile *file)
+gboolean GnomeCmdFileCollection::remove(GnomeCmdFile *f)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (file), FALSE);
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
 
-    list = g_list_remove (list, file);
+    list = g_list_remove (list, f);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (file);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
     gboolean retval = g_hash_table_remove (map, uri_str);
     g_free (uri_str);
 
