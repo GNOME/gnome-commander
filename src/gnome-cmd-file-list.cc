@@ -209,9 +209,14 @@ struct FileFormatData
     gchar *fname;
     gchar *fext;
 
+    static gchar empty_string[];
+
     FileFormatData(GnomeCmdFile *f, gboolean tree_size);
     ~FileFormatData();
 };
+
+
+gchar FileFormatData::empty_string[] = "";
 
 
 inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
@@ -250,10 +255,21 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     text[GnomeCmdFileList::COLUMN_DIR]   = dpath;
     text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (f) :
                                                        (gchar *) gnome_cmd_file_get_size (f);
-    text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (f, FALSE);
-    text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (f);
-    text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (f);
-    text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (f);
+
+    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
+    {
+        text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (f, FALSE);
+        text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (f);
+        text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (f);
+        text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (f);
+    }
+    else
+    {
+        text[GnomeCmdFileList::COLUMN_DATE]  = empty_string;
+        text[GnomeCmdFileList::COLUMN_PERM]  = empty_string;
+        text[GnomeCmdFileList::COLUMN_OWNER] = empty_string;
+        text[GnomeCmdFileList::COLUMN_GROUP] = empty_string;
+    }
 }
 
 
