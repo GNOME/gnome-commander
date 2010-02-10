@@ -44,7 +44,7 @@ struct GnomeCmdQuicksearchPopupPrivate
 
 inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *f)
 {
-    if (strcmp (f->info->name, "..") == 0)
+    if (f->is_dotdot)
         return;
 
     popup->priv->last_focused_file = f;

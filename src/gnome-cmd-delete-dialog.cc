@@ -166,7 +166,7 @@ static void perform_delete_operation (DeleteData *data)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-        if (strcmp(f->info->name, "..") == 0 || strcmp(f->info->name, ".") == 0)
+        if (f->is_dotdot || strcmp(f->info->name, ".") == 0)
             continue;
 
         GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
@@ -269,7 +269,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) g_list_nth_data (files, 0);
 
-            if (strcmp (f->info->name, "..") == 0)
+            if (f->is_dotdot)
                 return;
 
             gchar *fname = get_utf8 (f->info->name);

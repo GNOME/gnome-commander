@@ -37,6 +37,7 @@ struct GnomeCmdFile
     GnomeCmdFileInfo parent;
 
     GnomeVFSFileInfo *info;
+    gboolean is_dotdot;
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
     GnomeCmdFilePrivate *priv;
     GnomeCmdFileMetadata *metadata;

@@ -655,7 +655,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     g_return_val_if_fail (f != NULL, NULL);
     g_return_val_if_fail (f->info != NULL, NULL);
 
-    if (strcmp (f->info->name, "..") == 0)
+    if (f->is_dotdot)
         return NULL;
 
     GnomeCmdFilePropsDialogPrivate *data = g_new0 (GnomeCmdFilePropsDialogPrivate, 1);

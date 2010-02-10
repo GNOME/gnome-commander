@@ -76,8 +76,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
         for (tmp = files; tmp; tmp = tmp->next)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
-            if (strcmp (f->info->name, ".") != 0
-                && strcmp (f->info->name, "..") != 0
+            if (!f->is_dotdot && strcmp (f->info->name, ".") != 0
                 && !GNOME_VFS_FILE_INFO_SYMLINK(f->info))
             {
                 do_chown (f, uid, gid, TRUE);
