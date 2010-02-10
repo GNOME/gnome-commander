@@ -5,6 +5,7 @@ gnome-commander 1.2.8.5
 Bug fixes:
  * Fixed problem #604558 (cursor lost/placed in wrong position)
  * Fixed problem #604904 (build error on OpenSolaris)
+ * Fixed problem #609342 (do not show mtime for '..')
  * Fixed problem with editing connections to Windows network
  * Fixed problem with nonexistent user actions
 
