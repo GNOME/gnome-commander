@@ -98,6 +98,10 @@ gnome_commander_SOURCES += \
 endif
 
 gnome_commander_LDADD = \
+	$(top_builddir)/libgcmd/libgcmd.la \
+	dialogs/libgcmd-dialogs.a \
+	tags/libgcmd-tags.a \
+	intviewer/libgviewer.a \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
 	$(EXIV2_LIBS) \
@@ -106,14 +110,6 @@ gnome_commander_LDADD = \
 	$(GSF_LIBS) \
 	$(POPPLER_LIBS) \
 	$(PYTHON_LIBS) \
-	$(PYTHON_EXTRA_LIBS) \
-	$(top_builddir)/libgcmd/libgcmd.la \
-	dialogs/libgcmd-dialogs.a \
-	tags/libgcmd-tags.a \
-	intviewer/libgviewer.a
-
-gnome_commander_LDFLAGS = \
-	$(GNOMEUI_LIBS) \
-	$(GNOMEVFS_LIBS)
+	$(PYTHON_EXTRA_LIBS)
 
 gcmd_block_SOURCES = block.cc

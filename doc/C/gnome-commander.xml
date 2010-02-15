@@ -6040,6 +6040,20 @@
             </entry>
         </row>
         <row valign="top">
+            <entry><para>1.2.8.6</para></entry>
+            <entry><para>2010-03-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #609912 (build error with --as-needed)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.2.8.5</para></entry>
             <entry><para>2010-02-13</para></entry>
             <entry>

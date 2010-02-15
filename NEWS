@@ -17,6 +17,14 @@ New features:
 
 
 ===================================
+gnome-commander 1.2.8.6
+---------------
+
+Bug fixes:
+ * Fixed problem #609912 (build error with --as-needed)
+
+
+===================================
 gnome-commander 1.2.8.5
 ---------------
 
