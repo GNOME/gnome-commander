@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.de\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-01-26 20:21+0000\n"
-"PO-Revision-Date: 2010-02-04 12:36+0100\n"
+"POT-Creation-Date: 2010-02-04 11:39+0000\n"
+"PO-Revision-Date: 2010-02-21 13:15+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -701,12 +701,12 @@ msgstr "Benutzerdefinierter Ort"
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "_GNOME-Schlüsselbund-Verwaltung zur Legitimierung benutzen"
 
-#: ../src/gnome-cmd-con-ftp.cc:330
+#: ../src/gnome-cmd-con-ftp.cc:320
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Öffnet eine Verbindung zur Gegenstelle %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:331
+#: ../src/gnome-cmd-con-ftp.cc:321
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Schließt die Verbindung zur Gegenstelle %s"
@@ -2221,7 +2221,6 @@ msgid "/File name"
 msgstr "/Dateiname"
 
 #: ../src/gnome-cmd-profile-component.cc:130
-#| msgid "/File name"
 msgid "/File name (range)"
 msgstr "/Dateiname (Bereich)"
 
@@ -2230,7 +2229,6 @@ msgid "/File name without extension"
 msgstr "/Dateiname ohne Endung"
 
 #: ../src/gnome-cmd-profile-component.cc:132
-#| msgid "/File name without extension"
 msgid "/File name without extension (range)"
 msgstr "/Dateiname ohne Endung (Bereich)"
 
@@ -2335,17 +2333,14 @@ msgid "/Time/SS"
 msgstr "/Zeit/SS"
 
 #: ../src/gnome-cmd-profile-component.cc:586
-#| msgid "Select all"
 msgid "_Select range:"
 msgstr "Bereich au_swählen:"
 
 #: ../src/gnome-cmd-profile-component.cc:596
-#| msgid "Invert selection"
 msgid "_Inverse selection"
 msgstr "Auswahl _umkehren"
 
 #: ../src/gnome-cmd-profile-component.cc:664
-#| msgid "_Invert Selection"
 msgid "Range Selection"
 msgstr "Bereichsauswahl"
 
@@ -4133,6 +4128,24 @@ msgid ""
 "of one space followed by a terminating NULL code, then the editor copyright "
 "is given. When the field is left blank, it is treated as unknown."
 msgstr ""
+"Urheberrechtliche Informationen. Mit diesem Tag werden sowohl die Rechte des "
+"Fotografen als auch die Rechte des Herausgebers deklariert. Es ist der "
+"Urheberrechtshinweis der Person oder Organisation, welche die Rechte an dem "
+"Bild beansprucht. Das »Interoperability Copyright Statement« einschließlich "
+"Angabe des Datums und der Rechte sollte in diesem Feld enthalten sein, "
+"beispielsweise »Copyright, John Smith, 19xx. All rights reserved.«. Das Feld "
+"enthält sowohl die Rechte des Fotografen als auch die Rechte des "
+"Herausgebers, die in einem jeweils separaten Teil der Deklaration vorliegen. "
+"Wenn eine klare Unterscheidung zwischen den Rechten des Fotografen und denen "
+"des Herausgebers gewünscht ist, dann muss zunächst der Fotograf genannt "
+"werden, gefolgt vom Herausgeber, getrennt durch NULL. Da in diesem Fall die "
+"Deklaration ebenfalls mit einem NULL-Element endet, gibt es zwei NULL-Codes, "
+"siehe Beispiel 1. Wenn nur die Rechte des Fotografen angegeben werden, endet "
+"die Angabe mit einem NULL-Code. Wenn nur die Rechte des Herausgebers "
+"angegeben werden, dann bestehen die Rechte des Fotografen aus einem "
+"Leerzeichen, gefolgt von einem schließenden NULL-Code, wiederum gefolgt von "
+"den Rechten des Herausgebers. Wenn das Feld leer bleibt, wird dies als "
+"unbekannt erkannt."
 
 #: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Custom Rendered"
@@ -4144,6 +4157,10 @@ msgid ""
 "output. When special processing is performed, the reader is expected to "
 "disable or minimize any further processing."
 msgstr ""
+"Die Benutzung der speziellen Verarbeitung der Bilddaten, wie beispielsweise "
+"das Rendern für die Ausgabe. Wenn die spezielle Verarbeitung ausgeführt wird, "
+"dann erwartet der Leser die Deaktivierung oder Minimierung weiterer "
+"Verarbeitungsprozesse."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid "Date and Time"
@@ -4953,6 +4970,25 @@ msgid ""
 "by NULL. When this tag is used to map audio files, the relation of the audio "
 "file to image data must also be indicated on the audio file end."
 msgstr ""
+"Dieser Tag wird zur Aufnahme des Namens einer auf die Bilddaten bezogenen "
+"Audiodatei verwendet. Die einzige hier verfügbare diesbezügliche Information "
+"ist der Exif-Name der Audiodatei und die Erweiterung (eine aus acht Zeichen "
+"bestehende ASCII-Zeichenkette, ein Punkt und weitere drei Zeichen). Der Pfad "
+"wird nicht gespeichert. Bei der Verwendung dieses Tags müssen die "
+"Audiodateien in einem Exif-konformen Format vorliegen. Es ist außerdem "
+"möglich, Audiodaten innerhalb von APP2 als »FlashPix Extension Stream«-Daten "
+"zu speichern. Falls mehrere Dateien einer Datei zugeordnet werden, dann wird "
+"das obenstehende Format zur Speicherung genau eines Audio-Dateinamens "
+"benutzt. Falls mehrere Audiodateien bestehen, wird die erste Audiodatei "
+"angenommen. Wenn es drei Exif-Audiodateien »SND00001.WAV«, »SND00002.WAV« und "
+"»SND00003.WAV« gibt, wird der Exif-Bilddateiname »DSC00001.JPG« für jede davon "
+"indiziert. Durch Kombination mehrerer darauf bezogener Informationen kann "
+"eine Vielzahl von Wiedergabefähigkeiten unterstützt werden. Die Methode der "
+"Verwendung von Bezugsinformationen ist abhängig von der wiedergabeseitigen "
+"Implementation. Weil diese Information als ASCII-Zeichenkette vorliegt, wird "
+"diese durch NULL terminiert. Wenn dieser Tag zum Zuordnen von Audiodateien "
+"verwendet wird, muss der Bezug der Audiodaten zur Bilddatei auch am Ende der "
+"Audiodatei sichtbar sein."
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Resolution Unit"
@@ -5082,7 +5118,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid "Spatial Frequency Response"
-msgstr ""
+msgstr "Räumlicher Frequenzverlauf"
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid ""
@@ -5090,6 +5126,9 @@ msgid ""
 "values in the direction of image width, image height, and diagonal direction, "
 "as specified in ISO 12233."
 msgstr ""
+"Dieser Tag beinhaltet die räumliche Frequenztabelle und die SFR-Werte in "
+"Richtung der Bildbreite, Bildhöhe sowie in diagonaler Richtung, wie in ISO "
+"12233 angegeben."
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "Spectral Sensitivity"
@@ -5179,7 +5218,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "Subsec Time"
-msgstr ""
+msgstr "Subsec-Zeit"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "Fractions of seconds for the <Exif.DateTime> tag."
@@ -5187,7 +5226,7 @@ msgstr "Sekundenbruchteile für den <Exif.DateTime>-Tag."
 
 #: ../src/tags/gnome-cmd-tags.cc:300
 msgid "Subsec Time Digitized"
-msgstr ""
+msgstr "Subsec-Zeit (digitalisiert)"
 
 #: ../src/tags/gnome-cmd-tags.cc:300
 msgid "Fractions of seconds for the <Exif.DateTimeDigitized> tag."
@@ -5195,7 +5234,7 @@ msgstr "Sekundenbruchteile für den <Exif.DateTimeDigitized>-Tag."
 
 #: ../src/tags/gnome-cmd-tags.cc:301
 msgid "Subsec Time Original"
-msgstr ""
+msgstr "Subsec-Zeit (original)"
 
 #: ../src/tags/gnome-cmd-tags.cc:301
 msgid "Fractions of seconds for the <Exif.DateTimeOriginal> tag."
@@ -5254,6 +5293,27 @@ msgid ""
 "ASCII and that the following user comment part be filled with blank "
 "characters [20.H]."
 msgstr ""
+"Ein Tag für Exif-Benutzer zum Schreiben von Schlüsselwörtern oder Kommentaren "
+"zum Bild, zusätzlich zu jenen in <literal>Exif.ImageDescription</literal> und "
+"ohne die Beschränkungen der Zeichenkodierung in <literal>Exif."
+"ImageDescription</literal>. Die in <literal>Exif.UserComment</literal> "
+"verwendete Zeichenkodierung basiert auf einer Codekennung in einem festen 8-"
+"bit-Bereich am Beginn des Datenbereichs des Tags. Der ungenutzte Teil dieses "
+"Bereichs wird mit NULL aufgefüllt (»00.h«). Die Kennungscodes werden anhand "
+"der Registrierung zugeordnet. Der Wert von CountN wird von den 8 Byte im "
+"Zeichenkodierungsbereich und der Anzahl der Bytes im Bereich des "
+"Benutzerkommentars bestimmt. Weil TYPE nicht im ASCII-Format vorliegt, ist "
+"ein schließendes NULL nicht erforderlich. Der Kennungscode für den Bereich "
+"<literal>Exif.UserComment</literal> kann ein definierter Code wie JIS oder "
+"ASCII sein, oder auch undefiniert. Der undefinierte Name ist »UndefinedText« "
+"und der Kennungscode wird mit 8 Byte von NULL gefüllt (»00.H«). Ein Exif-"
+"Leser, welcher <literal>Exif.UserComment</literal> liest, muss über eine "
+"Funktion verfügen, diesen Kennungscode zu bestimmen. Diese Funktion ist in "
+"Exif-Lesern nicht erforderlich, welche <literal>Exif.UserComment</literal> "
+"nicht verwenden. Wenn ein <literal>Exif.UserComment</literal> festgelegt ist, "
+"dann ist es empfehlenswert, dass der Kennungscode in ASCII vorliegt und der "
+"folgende Teil mit dem Benutzerkommentar mit Leerzeichen aufgefüllt wird [20."
+"H]."
 
 #: ../src/tags/gnome-cmd-tags.cc:306 ../src/tags/gnome-cmd-tags.cc:433
 msgid "White Balance"
@@ -5732,11 +5792,11 @@ msgstr "Stimmung."
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "MPEG Lookup"
-msgstr ""
+msgstr "MPEG Lookup"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "MPEG location lookup table."
-msgstr ""
+msgstr "Tabelle zum Nachschlagen von MPEG-Positionen."
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Musician Credit List"
@@ -5868,7 +5928,7 @@ msgstr "Bewertung der Audiodatei."
 
 #: ../src/tags/gnome-cmd-tags.cc:380
 msgid "Position Sync"
-msgstr ""
+msgstr "Abgleichpunkt"
 
 #: ../src/tags/gnome-cmd-tags.cc:380
 msgid "Position synchronisation frame."
@@ -6272,7 +6332,7 @@ msgstr "Laufzeit der Audioaufnahme in HHMMSS."
 
 #: ../src/tags/gnome-cmd-tags.cc:439
 msgid "Audio Outcue"
-msgstr ""
+msgstr "Audio-Liedende"
 
 #: ../src/tags/gnome-cmd-tags.cc:439
 msgid "The content at the end of the audio data."
@@ -6508,7 +6568,7 @@ msgstr "Eine eindeutige Zahl für das Datum und die Dienstkennung."
 
 #: ../src/tags/gnome-cmd-tags.cc:465
 msgid "Envelope Priority"
-msgstr ""
+msgstr "Priorität des Umschlags"
 
 #: ../src/tags/gnome-cmd-tags.cc:465
 msgid ""
@@ -6516,6 +6576,9 @@ msgid ""
 "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
 "defined."
 msgstr ""
+"Gibt die Priorität der Behandlung des Umschlags an, jedoch nicht die "
+"Dringlichkeit seitens des Herausgebers. »1« ist die oberste Dringlichkeit, »5« "
+"ist normal und »8« ist am niedrigsten. »9« bedeutet benutzerdefiniert."
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid "Expiration Date"
@@ -6524,6 +6587,8 @@ msgstr "Ablaufdatum"
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid "Designates the latest date the provider intends the object to be used."
 msgstr ""
+"Bestimmt das letzte Datum, das der Anbieter zur Benutzung des Objekts "
+"vorsieht."
 
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Expiration Time"
@@ -6532,6 +6597,8 @@ msgstr "Ablaufzeit"
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
+"Gibt die letzte Zeit an, zu der der Bereitsteller beabsichtigt, das Objekt zu "
+"verwenden."
 
 #: ../src/tags/gnome-cmd-tags.cc:468
 msgid "File Format"
@@ -6775,6 +6842,8 @@ msgstr "Referenzdatum"
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "The date of a prior envelope to which the current object refers."
 msgstr ""
+"Das Datum eines vorherigen Umschlags, auf welches das aktuelle Objekt "
+"verweist."
 
 #: ../src/tags/gnome-cmd-tags.cc:495
 msgid "Reference Number"
@@ -6784,6 +6853,8 @@ msgstr "Referenznummer"
 msgid ""
 "The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
+"Die Umschlagsnummer eine vorherigen Umschlags, auf den des aktuelle Objekt "
+"verweist."
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Reference Service"
@@ -6793,14 +6864,20 @@ msgstr "Referenzdienst"
 msgid ""
 "The Service Identifier of a prior envelope to which the current object refers."
 msgstr ""
+"Der Dienstbezeichner eines vorherigen Umschlags, auf welches das aktuelle "
+"Objekt verweist."
 
 #: ../src/tags/gnome-cmd-tags.cc:497
 msgid "Designates the earliest date the provider intends the object to be used."
 msgstr ""
+"Bestimmt das früheste Datum, das der Anbieter zur Benutzung des Objekts "
+"vorsieht."
 
 #: ../src/tags/gnome-cmd-tags.cc:498
 msgid "Designates the earliest time the provider intends the object to be used."
 msgstr ""
+"Bestimmt die früheste Zeit, die der Anbieter zur Benutzung des Objekts "
+"vorsieht."
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid "Service Identifier"
@@ -6860,6 +6937,10 @@ msgid ""
 "digit Subject Reference Number and an optional Subject Name, Subject Matter "
 "Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
+"Eine strukturierte Definition des Subjekts. Diese muss eine IPR, eine 8-"
+"stellige Subjekt-Referenznummer und optional einen Subjektnamen, einen "
+"Subjektbetreff und einen Subjaktdetailnamen enthalten, durch Semikola "
+"getrennt."
 
 #: ../src/tags/gnome-cmd-tags.cc:506
 msgid "Sub-location"
@@ -6918,6 +6999,9 @@ msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
 msgstr ""
+"Gibt die Dringlichkeit des Inhalts seitens des Herausgebers an, jedoch nicht "
+"notwendigerweise die Priorität der Behandlung des Umschlags. »1« ist die "
+"oberste Dringlichkeit, »5« ist normal und »8« ist am niedrigsten."
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Writer/Editor"
