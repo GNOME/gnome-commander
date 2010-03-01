@@ -232,7 +232,12 @@ inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
         SearchFileData  *search_file = NULL;
 
         while ((search_file = read_search_file (data, search_file, f)) != NULL)
+        {
             ret = regexec (data->content_regex, data->search_mem, 1, &match, 0);
+            // stop on first match
+            if (ret != REG_NOMATCH)
+                break;
+        }
     }
 
     return ret != REG_NOMATCH;

@@ -6047,6 +6047,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #602795 (file content search)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #609912 (build error with --as-needed)</para>
                         </listitem>
                     </itemizedlist>
