@@ -211,7 +211,8 @@ inline GnomeCmdOwner::GnomeCmdGroups::Entry *GnomeCmdOwner::new_entry(const stru
 inline GnomeCmdOwner::~GnomeCmdOwner()
 {
     stop_thread = TRUE;
-    g_thread_join (thread);
+    if (thread)
+        g_thread_join (thread);
     g_free (buff);
     g_list_free (group_names);
 }
