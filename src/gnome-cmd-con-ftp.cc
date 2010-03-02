@@ -272,46 +272,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 }
 
 
-GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, guint port, const gchar *user, const gchar *password, const gchar *remote_dir)
-{
-    GnomeCmdConFtp *server = (GnomeCmdConFtp *) gtk_type_new (gnome_cmd_con_ftp_get_type ());
-
-    g_return_val_if_fail (server != NULL, NULL);
-
-    GnomeCmdCon *con = GNOME_CMD_CON (server);
-
-    string _uri;
-    string _host;
-    string _port;
-    string _remote_dir;
-    string _user;
-    string _password;
-
-    if (port)                               // convert 0 --> ""
-        stringify (_port, port);
-
-    con->method = user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP;
-
-    gnome_cmd_con_make_ftp_uri (_uri,
-                                con->gnome_auth,
-                                stringify (_host, host),
-                                _port,
-                                stringify (_remote_dir, remote_dir),
-                                stringify (_user, user),
-                                stringify (_password, password));
-
-    gnome_cmd_con_set_alias (con, alias);
-    gnome_cmd_con_set_uri (con, _uri);
-    gnome_cmd_con_set_host_name (con, _host);
-
-    gnome_cmd_con_ftp_set_host_name (server, host);
-
-    con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
-
-    return server;
-}
-
-
 void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_name)
 {
     g_return_if_fail (con != NULL);
