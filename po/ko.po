@@ -1,0 +1,6780 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-commander\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-02-27 19:11+0900\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Sewon Jang <jangblue@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+
+#: ../data/gnome-commander.desktop.in.in.h:1
+msgid "A two paned file manager"
+msgstr "이중 창 파일 매니저"
+
+#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../src/gnome-cmd-data.cc:424
+#: ../src/gnome-cmd-main-win.cc:776
+msgid "GNOME Commander"
+msgstr "GNOME 커맨더"
+
+#: ../libgcmd/gnome-cmd-string-dialog.c:131
+msgid "No error description available"
+msgstr "에러 설명을 구할 수 없습니다"
+
+#. destroy model automatically with view
+#: ../plugins/cvs/cvs-plugin.c:282
+#: ../plugins/fileroller/file-roller-plugin.c:356
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:359
+#: ../src/gnome-cmd-options-dialog.cc:1101
+#: ../src/gnome-cmd-options-dialog.cc:1759
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:131
+#: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-remote-dialog.cc:485
+#: ../src/gnome-cmd-user-actions.cc:186
+msgid "Options"
+msgstr "옵션"
+
+#: ../plugins/cvs/cvs-plugin.c:296
+msgid "CVS options"
+msgstr "CVS 옵션"
+
+#: ../plugins/cvs/cvs-plugin.c:299
+msgid "Compression level"
+msgstr "압축 레벨"
+
+#: ../plugins/cvs/cvs-plugin.c:307
+msgid "Unified diff format"
+msgstr "통합된 diff 포맷"
+
+#: ../plugins/cvs/cvs-plugin.c:409
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "결국은 간단한 CVS 클라이언트가 될 플러그인"
+
+#: ../plugins/cvs/interface.c:170
+msgid "Compare with"
+msgstr "비교 대상"
+
+#: ../plugins/cvs/interface.c:173
+msgid "HEAD"
+msgstr "헤드"
+
+#: ../plugins/cvs/interface.c:176
+msgid "The previous revision"
+msgstr "기존 개정판"
+
+#: ../plugins/cvs/interface.c:181
+msgid "Other revision"
+msgstr "기타 개정판"
+
+#: ../plugins/cvs/interface.c:255
+msgid "CVS Diff"
+msgstr "CVS Diff"
+
+#: ../plugins/cvs/interface.c:414
+msgid "revision"
+msgstr "개정판"
+
+#: ../plugins/cvs/interface.c:428
+msgid "Revision:"
+msgstr "개정판:"
+
+#: ../plugins/cvs/interface.c:446
+msgid "Compare..."
+msgstr "비교..."
+
+#: ../plugins/cvs/interface.c:449
+msgid "Author:"
+msgstr "제작자:"
+
+#: ../plugins/cvs/interface.c:463
+msgid "Date:"
+msgstr "날짜:"
+
+#: ../plugins/cvs/interface.c:477
+msgid "State:"
+msgstr "상태:"
+
+#: ../plugins/cvs/interface.c:491
+msgid "Lines:"
+msgstr "줄:"
+
+#: ../plugins/cvs/interface.c:505
+msgid "Message:"
+msgstr "메시지:"
+
+#: ../plugins/fileroller/file-roller-plugin.c:185
+msgid "What file name should the new archive have?"
+msgstr "새 압축 파일의 파일 명을 무엇으로 하시겠습니까?"
+
+#: ../plugins/fileroller/file-roller-plugin.c:187
+msgid "Create Archive"
+msgstr "압축 파일 생성"
+
+#: ../plugins/fileroller/file-roller-plugin.c:288
+msgid "Create Archive..."
+msgstr "압축 파일 생성..."
+
+#: ../plugins/fileroller/file-roller-plugin.c:300
+msgid "Extract in Current Directory"
+msgstr "현 디렉토리에 풀기"
+
+#: ../plugins/fileroller/file-roller-plugin.c:307
+#: ../plugins/fileroller/file-roller-plugin.c:317
+#, c-format
+msgid "Extract to '%s'"
+msgstr "'%s'에 풀기"
+
+#: ../plugins/fileroller/file-roller-plugin.c:368
+msgid "File-roller options"
+msgstr "File-roller 옵션"
+
+#: ../plugins/fileroller/file-roller-plugin.c:371
+msgid "Default type"
+msgstr "디폴트 타입"
+
+#: ../plugins/fileroller/file-roller-plugin.c:481
+msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
+msgstr "압축 파일의 생성과 해제를 위한 File Roller 단축키를 추가하는 플러그인."
+
+#: ../plugins/test/test-plugin.c:223
+msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
+msgstr "이것은 플러그인 광들을 고취시키기 위한 단순한 예제로서 매우 유용한 예제 플러그인입니다."
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:85
+msgid "New profile"
+msgstr "새 프로필"
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:118
+msgid "To rename a profile, click on the corresponding row and type a new name, or press escape to cancel."
+msgstr "프로필의 이름을 바꾸려면 해당되는 열을 클릭한 후 새 이름을 입력하거나 escape 키를 눌러 취소하십시오."
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:126
+msgid "_Duplicate"
+msgstr "복제(_D)"
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:142
+msgid "/Local path..."
+msgstr "/로컬 경로..."
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:143
+msgid "/Remote location..."
+msgstr "/원격 위치..."
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:150
+msgid "_Import"
+msgstr "임포트(_I)"
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:231
+msgid "Profile"
+msgstr "프로필"
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:232
+msgid "Profile name"
+msgstr "프로필 명"
+
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:239
+#: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:240
+#: ../src/tags/gnome-cmd-tags.cc:195
+msgid "Template"
+msgstr "템플릿"
+
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:80
+msgid "_Search for:"
+msgstr "찾을 문자열(_S)"
+
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:91
+msgid "_Replace with:"
+msgstr "대체할 문자열(_R)"
+
+#. Case-Sensitive Checkbox
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:106
+#: ../src/intviewer/search-dlg.cc:285
+msgid "_Match case"
+msgstr "대소문자 구별(_M)"
+
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:112
+msgid "Some regular expressions functionality is disabled. To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your package maintainer about that."
+msgstr "몇 가지 정규식 기능은 비 활성화되어 있습니다. 이것을 활성화하려면 GLib 2.14 이상의 버전으로 GNOME 커맨더를 컴파일할 필요가 있습니다. 이것에 관한 내용은 여러분의 패키지 관리자를 접촉하기 바랍니다."
+
+#: ../src/dirlist.cc:74
+#, c-format
+msgid "%d file listed"
+msgstr "%d개의 파일이 리스트 되었습니다"
+
+#: ../src/eggcellrendererkeys.cc:182
+#: ../src/eggcellrendererkeys.cc:183
+msgid "Accelerator key"
+msgstr "액셀러레이터 키"
+
+#: ../src/eggcellrendererkeys.cc:192
+#: ../src/eggcellrendererkeys.cc:193
+msgid "Accelerator modifiers"
+msgstr "액셀러레이터 수정자"
+
+#: ../src/eggcellrendererkeys.cc:201
+msgid "Accelerator Mode"
+msgstr "액셀러레이터 모드"
+
+#: ../src/eggcellrendererkeys.cc:202
+msgid "The type of accelerator."
+msgstr "액셀러레이터 타입"
+
+#: ../src/eggcellrendererkeys.cc:237
+msgid "Disabled"
+msgstr "무효화"
+
+#: ../src/eggcellrendererkeys.cc:434
+#: ../src/eggcellrendererkeys.cc:648
+msgid "New accelerator..."
+msgstr "새 엑셀러레이터..."
+
+#: ../src/gnome-cmd-about-plugin.cc:184
+msgid "Credits"
+msgstr "공로자"
+
+#: ../src/gnome-cmd-about-plugin.cc:211
+msgid "Written by"
+msgstr "작성자 "
+
+#: ../src/gnome-cmd-about-plugin.cc:224
+msgid "Documented by"
+msgstr "문서화 "
+
+#: ../src/gnome-cmd-about-plugin.cc:237
+msgid "Translated by"
+msgstr "번역자 "
+
+#: ../src/gnome-cmd-about-plugin.cc:291
+msgid "Plugin Webpage"
+msgstr "플러그인 웹 페이지"
+
+#: ../src/gnome-cmd-about-plugin.cc:303
+msgid "C_redits"
+msgstr "공로자(_r)"
+
+#: ../src/gnome-cmd-about-plugin.cc:505
+#, c-format
+msgid "About %s"
+msgstr "%s에 대하여"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:139
+#: ../src/gnome-cmd-profile-component.cc:120
+msgid "/Grandparent"
+msgstr "/부모의 부모"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:140
+#: ../src/gnome-cmd-profile-component.cc:121
+msgid "/Parent"
+msgstr "/부모"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:143
+#: ../src/gnome-cmd-profile-component.cc:124
+msgid "/File name"
+msgstr "/파일 명"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:144
+#: ../src/gnome-cmd-profile-component.cc:125
+msgid "/File name without extension"
+msgstr "/파일 명(확장자 제외)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:145
+#: ../src/gnome-cmd-profile-component.cc:126
+msgid "/File extension"
+msgstr "/파일 확장자"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:148
+#: ../src/gnome-cmd-profile-component.cc:129
+msgid "/Counter"
+msgstr "/카운터"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:149
+#: ../src/gnome-cmd-profile-component.cc:130
+msgid "/Counter (width)"
+msgstr "/카운터(폭)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:150
+#: ../src/gnome-cmd-profile-component.cc:131
+msgid "/Hexadecimal random number (width)"
+msgstr "/16진 무작위 수(폭)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:153
+#: ../src/gnome-cmd-profile-component.cc:134
+msgid "/Date"
+msgstr "/날짜"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:154
+#: ../src/gnome-cmd-profile-component.cc:135
+msgid "/Date/<locale>"
+msgstr "/날짜/<로케일>"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:155
+#: ../src/gnome-cmd-profile-component.cc:136
+msgid "/Date/yyyy-mm-dd"
+msgstr "/날짜/yyyy-mm-dd"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:156
+#: ../src/gnome-cmd-profile-component.cc:137
+msgid "/Date/yy-mm-dd"
+msgstr "/날짜/yy-mm-dd"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:157
+#: ../src/gnome-cmd-profile-component.cc:138
+msgid "/Date/yy.mm.dd"
+msgstr "/날짜/yy.mm.dd"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:158
+#: ../src/gnome-cmd-profile-component.cc:139
+msgid "/Date/yymmdd"
+msgstr "/날짜/yymmdd"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:159
+#: ../src/gnome-cmd-profile-component.cc:140
+msgid "/Date/dd.mm.yy"
+msgstr "/날짜/dd.mm.yy"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:160
+#: ../src/gnome-cmd-profile-component.cc:141
+msgid "/Date/mm-dd-yy"
+msgstr "/날짜/mm-dd-yy"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:161
+#: ../src/gnome-cmd-profile-component.cc:142
+msgid "/Date/yyyy"
+msgstr "/날짜/yyyy"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:162
+#: ../src/gnome-cmd-profile-component.cc:143
+msgid "/Date/yy"
+msgstr "/날짜/yy"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:163
+#: ../src/gnome-cmd-profile-component.cc:144
+msgid "/Date/mm"
+msgstr "/날짜/mm"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:164
+#: ../src/gnome-cmd-profile-component.cc:145
+msgid "/Date/mmm"
+msgstr "/날짜/mmm"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:165
+#: ../src/gnome-cmd-profile-component.cc:146
+msgid "/Date/dd"
+msgstr "/날짜/dd"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:166
+#: ../src/gnome-cmd-profile-component.cc:147
+msgid "/Time"
+msgstr "/시간"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:167
+#: ../src/gnome-cmd-profile-component.cc:148
+msgid "/Time/<locale>"
+msgstr "/시간/<로케일>"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:168
+#: ../src/gnome-cmd-profile-component.cc:149
+msgid "/Time/HH.MM.SS"
+msgstr "/시간/HH.MM.SS"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:169
+#: ../src/gnome-cmd-profile-component.cc:150
+msgid "/Time/HH-MM-SS"
+msgstr "/시간/HH-MM-SS"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:170
+#: ../src/gnome-cmd-profile-component.cc:151
+msgid "/Time/HHMMSS"
+msgstr "/시간/HHMMSS"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:171
+#: ../src/gnome-cmd-profile-component.cc:152
+msgid "/Time/HH"
+msgstr "/시간/HH"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:172
+#: ../src/gnome-cmd-profile-component.cc:153
+msgid "/Time/MM"
+msgstr "/시간/MM"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:173
+#: ../src/gnome-cmd-profile-component.cc:154
+msgid "/Time/SS"
+msgstr "/시간/SS"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:411
+#: ../src/gnome-cmd-advrename-dialog.cc:734
+#: ../src/gnome-cmd-advrename-dialog.cc:766
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
+#: ../src/gnome-cmd-profile-component.cc:404
+#: ../src/gnome-cmd-profile-component.cc:594
+#: ../src/gnome-cmd-profile-component.cc:626
+#: ../src/utils.cc:685
+msgid "Yes"
+msgstr "예"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:411
+#: ../src/gnome-cmd-advrename-dialog.cc:734
+#: ../src/gnome-cmd-advrename-dialog.cc:766
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
+#: ../src/gnome-cmd-profile-component.cc:404
+#: ../src/gnome-cmd-profile-component.cc:594
+#: ../src/gnome-cmd-profile-component.cc:626
+#: ../src/utils.cc:685
+msgid "No"
+msgstr "아니오"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:489
+msgid "/_Save Profile As..."
+msgstr "/다른 이름으로 프로필 저장(_S)..."
+
+#: ../src/gnome-cmd-advrename-dialog.cc:498
+msgid "/_Manage Profiles..."
+msgstr "/프로필 관리(_M)..."
+
+#: ../src/gnome-cmd-advrename-dialog.cc:630
+msgid "Profiles"
+msgstr "프로필"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:724
+#: ../src/gnome-cmd-profile-component.cc:584
+msgid "Add Rule"
+msgstr "규칙 추가"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:759
+#: ../src/gnome-cmd-profile-component.cc:619
+msgid "Edit Rule"
+msgstr "편집 추가"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:959
+msgid "Remove from file list"
+msgstr "파일 리스트에서 제거"
+
+#. {file_umount, "file.umount"},
+#: ../src/gnome-cmd-advrename-dialog.cc:963
+#: ../src/gnome-cmd-user-actions.cc:173
+msgid "View file"
+msgstr "파일 보기"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:967
+msgid "File properties"
+msgstr "파일 속성"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:973
+msgid "Update file list"
+msgstr "파일 리스트 갱신"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1116
+msgid "Advanced Rename Tool"
+msgstr "진보된 개명 도구"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
+#: ../src/gnome-cmd-profile-component.cc:747
+msgid "_Template"
+msgstr "템플릿(_T)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1173
+#: ../src/gnome-cmd-file.cc:631
+#: ../src/gnome-cmd-profile-component.cc:774
+msgid "Directory"
+msgstr "디렉토리"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1174
+#: ../src/gnome-cmd-profile-component.cc:775
+#: ../src/plugin_manager.cc:413
+#: ../src/tags/gnome-cmd-tags.cc:687
+msgid "File"
+msgstr "파일"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1175
+#: ../src/gnome-cmd-advrename-dialog.cc:1187
+#: ../src/gnome-cmd-profile-component.cc:776
+#: ../src/gnome-cmd-profile-component.cc:788
+msgid "Counter"
+msgstr "카운터"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1176
+#: ../src/gnome-cmd-advrename-dialog.cc:1481
+#: ../src/gnome-cmd-profile-component.cc:777
+#: ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/tags/gnome-cmd-tags.cc:417
+msgid "Date"
+msgstr "날짜"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1177
+#: ../src/gnome-cmd-profile-component.cc:778
+msgid "Metatag"
+msgstr "메타 태그"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1204
+#: ../src/gnome-cmd-profile-component.cc:805
+msgid "_Start:"
+msgstr "시작(_S):"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1211
+#: ../src/gnome-cmd-profile-component.cc:812
+msgid "Ste_p:"
+msgstr "증감(_p):"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1218
+#: ../src/gnome-cmd-profile-component.cc:819
+msgid "Di_gits:"
+msgstr "숫자(_g):"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1229
+#: ../src/gnome-cmd-profile-component.cc:830
+msgid "Regex replacing"
+msgstr "정규식 교체"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1268
+#: ../src/gnome-cmd-profile-component.cc:869
+msgid "Remove A_ll"
+msgstr "모두 제거(_l)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1281
+#: ../src/gnome-cmd-profile-component.cc:882
+msgid "Case"
+msgstr "대소문자"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1293
+#: ../src/gnome-cmd-profile-component.cc:894
+msgid "<unchanged>"
+msgstr "<변경 안함>"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1294
+#: ../src/gnome-cmd-profile-component.cc:895
+msgid "lowercase"
+msgstr "소문자"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1295
+#: ../src/gnome-cmd-profile-component.cc:896
+msgid "UPPERCASE"
+msgstr "대문자"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1297
+#: ../src/gnome-cmd-profile-component.cc:898
+msgid "Sentence case"
+msgstr "문장 활자"
+
+#. FIXME
+#: ../src/gnome-cmd-advrename-dialog.cc:1298
+#: ../src/gnome-cmd-profile-component.cc:899
+msgid "Initial Caps"
+msgstr "대문자 머릿글자"
+
+#. FIXME
+#: ../src/gnome-cmd-advrename-dialog.cc:1299
+#: ../src/gnome-cmd-profile-component.cc:900
+msgid "tOGGLE cASE"
+msgstr "대소문자 변경"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1309
+#: ../src/gnome-cmd-profile-component.cc:910
+msgid "Trim blanks"
+msgstr "공백 제거"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1321
+#: ../src/gnome-cmd-profile-component.cc:922
+msgid "<none>"
+msgstr "<안함>"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1322
+#: ../src/gnome-cmd-profile-component.cc:923
+msgid "leading"
+msgstr "앞 부분"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1323
+#: ../src/gnome-cmd-profile-component.cc:924
+msgid "trailing"
+msgstr "뒷 부분"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1324
+#: ../src/gnome-cmd-profile-component.cc:925
+msgid "leading and trailing"
+msgstr "앞 부분과 뒷 부분"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1336
+msgid "Results"
+msgstr "결과"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1410
+#: ../src/gnome-cmd-profile-component.cc:1096
+msgid "Search for"
+msgstr "찾을 문자열"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1413
+#: ../src/gnome-cmd-profile-component.cc:1099
+msgid "Regex pattern"
+msgstr "정규식 패턴"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1415
+#: ../src/gnome-cmd-profile-component.cc:1101
+msgid "Replace with"
+msgstr "대체할 문자열"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1418
+#: ../src/gnome-cmd-profile-component.cc:1104
+msgid "Replacement"
+msgstr "대체"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1420
+#: ../src/gnome-cmd-profile-component.cc:1106
+msgid "Match case"
+msgstr "대소문자 일치"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1423
+#: ../src/gnome-cmd-profile-component.cc:1109
+msgid "Case sensitive matching"
+msgstr "대소문자 구분 매칭"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1463
+msgid "Old name"
+msgstr "기존 이름"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1467
+msgid "Current file name"
+msgstr "현 파일 명"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1469
+msgid "New name"
+msgstr "새 이름"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1473
+msgid "New file name"
+msgstr "새 파일 명"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1475
+#: ../src/tags/gnome-cmd-tags.cc:326
+#: ../src/tags/gnome-cmd-tags.cc:390
+msgid "Size"
+msgstr "크기"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1479
+msgid "File size"
+msgstr "파일 크기"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1485
+msgid "File modification date"
+msgstr "파일 변경 날짜"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1577
+msgid "Profiles..."
+msgstr "프로필..."
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1582
+msgid "Reset"
+msgstr "리셋"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:72
+msgid "Bookmark name:"
+msgstr "책갈피 명:"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:73
+msgid "Bookmark target:"
+msgstr "책갈피 대상:"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:157
+msgid "Bookmark name is missing"
+msgstr "책갈피 명이 없습니다"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:163
+msgid "Bookmark target is missing"
+msgstr "책갈피 대상이 없습니다"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:183
+msgid "Edit Bookmark"
+msgstr "책갈피 편집"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:434
+#: ../src/gnome-cmd-bookmark-dialog.cc:452
+msgid "Bookmarks"
+msgstr "책갈피"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:443
+msgid "Bookmark Groups"
+msgstr "책갈피 그룹"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:459
+#: ../src/gnome-cmd-file-list.cc:104
+msgid "name"
+msgstr "이름"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:460
+msgid "path"
+msgstr "경로"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:583
+msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"
+msgstr "디렉토리에 대한 책갈피를 만들려면 디렉토리에 대한 전체 검색 경로가 유효한 UTF-8 인코딩이어야 합니다\n"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:590
+msgid "New Bookmark"
+msgstr "새 책갈피"
+
+#: ../src/gnome-cmd-chmod-component.cc:120
+msgid "Read"
+msgstr "읽기"
+
+#: ../src/gnome-cmd-chmod-component.cc:120
+msgid "Write"
+msgstr "쓰기"
+
+#: ../src/gnome-cmd-chmod-component.cc:120
+msgid "Execute"
+msgstr "실행"
+
+#: ../src/gnome-cmd-chmod-component.cc:121
+#: ../src/gnome-cmd-chown-component.cc:85
+msgid "Owner:"
+msgstr "소유자:"
+
+#: ../src/gnome-cmd-chmod-component.cc:121
+#: ../src/gnome-cmd-chown-component.cc:88
+msgid "Group:"
+msgstr "그룹:"
+
+#: ../src/gnome-cmd-chmod-component.cc:121
+msgid "Others:"
+msgstr "기타:"
+
+#: ../src/gnome-cmd-chmod-component.cc:154
+msgid "Text view:"
+msgstr "텍스트 보기:"
+
+#: ../src/gnome-cmd-chmod-component.cc:157
+msgid "Number view:"
+msgstr "숫자 보기:"
+
+#: ../src/gnome-cmd-chmod-dialog.cc:45
+#: ../src/gnome-cmd-options-dialog.cc:1122
+msgid "All files"
+msgstr "모든 파일"
+
+#: ../src/gnome-cmd-chmod-dialog.cc:46
+msgid "Directories only"
+msgstr "디렉토리만"
+
+#: ../src/gnome-cmd-chmod-dialog.cc:198
+msgid "Access Permissions"
+msgstr "접근 권한"
+
+#: ../src/gnome-cmd-chmod-dialog.cc:216
+msgid "Apply Recursively for"
+msgstr "아래에 대해 재귀적으로 적용"
+
+#: ../src/gnome-cmd-chown-dialog.cc:58
+#, c-format
+msgid ""
+"Could not chown %s\n"
+"%s"
+msgstr ""
+"%s\n"
+"%s를 chown 할 수 없습니다"
+
+#: ../src/gnome-cmd-chown-dialog.cc:177
+msgid "Chown"
+msgstr "Chown"
+
+#: ../src/gnome-cmd-chown-dialog.cc:190
+msgid "Apply Recursively"
+msgstr "재귀적으로 적용"
+
+#: ../src/gnome-cmd-con.h:191
+msgid "<New connection>"
+msgstr "<새 연결>"
+
+#: ../src/gnome-cmd-con.h:193
+#, c-format
+msgid "Go to: %s"
+msgstr "%s로 가기"
+
+#: ../src/gnome-cmd-con.h:194
+#, c-format
+msgid "Connect to: %s"
+msgstr "연결: %s"
+
+#: ../src/gnome-cmd-con.h:195
+#, c-format
+msgid "Disconnect from: %s"
+msgstr "연결 해제: %s"
+
+#: ../src/gnome-cmd-con.h:202
+#, c-format
+msgid "Connecting to %s\n"
+msgstr "%s에 연결 중\n"
+
+#: ../src/gnome-cmd-con-device.cc:117
+#, c-format
+msgid "Failed to execute the mount command"
+msgstr "마운트 명령을 실행하는 데에 실패했습니다"
+
+#: ../src/gnome-cmd-con-device.cc:125
+msgid "Mount failed: Permission denied"
+msgstr "마운트 실패: 권한이 없습니다"
+
+#: ../src/gnome-cmd-con-device.cc:128
+msgid "Mount failed: No medium found"
+msgstr "마운트 실패: 미디어를 발견할 수 없습니다"
+
+#: ../src/gnome-cmd-con-device.cc:132
+#, c-format
+msgid "Mount failed: mount exited with existatus %d"
+msgstr "마운트 실패: 종료 상태 %d로 마운트가 종료되었습니다"
+
+#: ../src/gnome-cmd-con-device.cc:208
+msgid "Device is now safe to remove"
+msgstr "장치가 지금 안전하게 제거되었습니다"
+
+#: ../src/gnome-cmd-con-device.cc:216
+#, c-format
+msgid ""
+"Cannot unmount the volume:\n"
+"%s %s"
+msgstr ""
+"볼륨을 마운트 해제할 수 없습니다:\n"
+"%s %s"
+
+#: ../src/gnome-cmd-con-device.cc:217
+msgid "Unknown error"
+msgstr "불 특정 에러"
+
+#: ../src/gnome-cmd-con-device.cc:405
+#, c-format
+msgid "Mounting %s"
+msgstr "%s 마운팅 중"
+
+#: ../src/gnome-cmd-con-device.cc:421
+#, c-format
+msgid "Go to: %s (%s)"
+msgstr "%s (%s)로 이동"
+
+#: ../src/gnome-cmd-con-device.cc:422
+#, c-format
+msgid "Mount: %s"
+msgstr "마운트: %s"
+
+#: ../src/gnome-cmd-con-device.cc:423
+#, c-format
+msgid "Unmount: %s"
+msgstr "마운트 해제: %s"
+
+#: ../src/gnome-cmd-con-dialog.cc:222
+msgid "You must enter a name for the server"
+msgstr "서버에 이름을 입력해야 합니다"
+
+#: ../src/gnome-cmd-con-dialog.cc:222
+msgid "Please enter a name and try again."
+msgstr "이름을 입력하고 다시 시도하십시오."
+
+#: ../src/gnome-cmd-con-dialog.cc:237
+#, c-format
+msgid "\"%s\" is not a valid location"
+msgstr "\"%s\"는 유효한 위치가 아닙니다"
+
+#: ../src/gnome-cmd-con-dialog.cc:238
+msgid "Please check the spelling and try again."
+msgstr "철자를 확인하고 다시 시도하십시오."
+
+#: ../src/gnome-cmd-con-dialog.cc:343
+msgid "_Alias:"
+msgstr "별칭(_A):"
+
+#: ../src/gnome-cmd-con-dialog.cc:347
+msgid "_Location (URI):"
+msgstr "위치(_L)(URI):"
+
+#: ../src/gnome-cmd-con-dialog.cc:380
+msgid "_Server:"
+msgstr "서버(_S):"
+
+#: ../src/gnome-cmd-con-dialog.cc:391
+msgid "Optional information"
+msgstr "옵션 정보"
+
+#: ../src/gnome-cmd-con-dialog.cc:415
+msgid "S_hare:"
+msgstr "공유(_h):"
+
+#: ../src/gnome-cmd-con-dialog.cc:418
+msgid "_Port:"
+msgstr "포트(_P):"
+
+#. Translators: 'Dir' in the sense of 'Directory'
+#: ../src/gnome-cmd-con-dialog.cc:421
+msgid "_Remote dir:"
+msgstr "원격 디렉토리(_R):"
+
+#: ../src/gnome-cmd-con-dialog.cc:424
+msgid "_User name:"
+msgstr "사용자 명(_U):"
+
+#: ../src/gnome-cmd-con-dialog.cc:427
+msgid "_Password:"
+msgstr "비번(_P):"
+
+#: ../src/gnome-cmd-con-dialog.cc:430
+msgid "_Domain name:"
+msgstr "도메인 명(_D):"
+
+#: ../src/gnome-cmd-con-dialog.cc:467
+#: ../src/gnome-cmd-main-win.cc:1175
+msgid "Remote Server"
+msgstr "원격 서버"
+
+#: ../src/gnome-cmd-con-dialog.cc:482
+msgid "Service _type:"
+msgstr "서비스 타입(_t):"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../src/gnome-cmd-con-dialog.cc:494
+msgid "SSH"
+msgstr "SSH"
+
+#: ../src/gnome-cmd-con-dialog.cc:495
+msgid "FTP (with login)"
+msgstr "FTP(로그온 형)"
+
+#: ../src/gnome-cmd-con-dialog.cc:496
+msgid "Public FTP"
+msgstr "공용 FTP"
+
+#: ../src/gnome-cmd-con-dialog.cc:497
+msgid "Windows share"
+msgstr "윈도우즈 공유"
+
+#: ../src/gnome-cmd-con-dialog.cc:498
+msgid "WebDAV (HTTP)"
+msgstr "WebDAV (HTTP)"
+
+#: ../src/gnome-cmd-con-dialog.cc:499
+msgid "Secure WebDAV (HTTPS)"
+msgstr "보안 WebDAV (HTTPS)"
+
+#: ../src/gnome-cmd-con-dialog.cc:500
+msgid "Custom location"
+msgstr "맞춤형 위치"
+
+#: ../src/gnome-cmd-con-dialog.cc:511
+msgid "Use _GNOME Keyring Manager for authentication"
+msgstr "인증을 위해 GNOME(_G) Keyring 매니저 이용"
+
+#: ../src/gnome-cmd-con-ftp.cc:331
+#, c-format
+msgid "Opens remote connection to %s"
+msgstr "%s에 대한 원격 연결을 엽니다"
+
+#: ../src/gnome-cmd-con-ftp.cc:332
+#, c-format
+msgid "Closes remote connection to %s"
+msgstr "%s에 대한 원격 연결을 닫습니다"
+
+#: ../src/gnome-cmd-con-home.cc:113
+msgid "Home"
+msgstr "홈"
+
+#: ../src/gnome-cmd-con-home.cc:122
+msgid "Go to: Home"
+msgstr "홈으로 가기"
+
+#: ../src/gnome-cmd-con-smb.cc:93
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "네트워트 브라우즈 실패. SMB 모듈이 설치되었습니까?"
+
+#: ../src/gnome-cmd-con-smb.cc:201
+msgid "SMB"
+msgstr "SMB"
+
+#: ../src/gnome-cmd-con-smb.cc:203
+msgid "Searching for workgroups and hosts"
+msgstr "작업 그룹과 호스트를 검색 중"
+
+#: ../src/gnome-cmd-con-smb.cc:210
+msgid "Go to: Samba Network"
+msgstr "삼바 네트워크로 가기"
+
+#: ../src/gnome-cmd-data.cc:1316
+#: ../src/gnome-cmd-data.cc:1317
+#: ../src/gnome-cmd-data.cc:1684
+#: ../src/gnome-cmd-data.cc:2004
+#, c-format
+msgid "link to %s"
+msgstr "%s에 연결"
+
+#: ../src/gnome-cmd-data.cc:1376
+msgid "CamelCase"
+msgstr "CamelCase"
+
+#: ../src/gnome-cmd-delete-dialog.cc:90
+#, c-format
+msgid "Deleted %ld of %ld file"
+msgstr "%ld / %ld 파일 삭제됨"
+
+#: ../src/gnome-cmd-delete-dialog.cc:132
+msgid "Deleting..."
+msgstr "삭제 중..."
+
+#: ../src/gnome-cmd-delete-dialog.cc:204
+#, c-format
+msgid ""
+"Error while deleting \"%s\"\n"
+"\n"
+"%s"
+msgstr ""
+"\"%s\" 삭제 중 에러\n"
+"\n"
+"%s"
+
+#: ../src/gnome-cmd-delete-dialog.cc:207
+msgid "Delete problem"
+msgstr "삭제 문제"
+
+#: ../src/gnome-cmd-delete-dialog.cc:208
+#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:190
+msgid "Abort"
+msgstr "중단"
+
+#: ../src/gnome-cmd-delete-dialog.cc:208
+#: ../src/gnome-cmd-file-selector.cc:1947
+#: ../src/gnome-cmd-xfer.cc:190
+msgid "Retry"
+msgstr "재 시도"
+
+#: ../src/gnome-cmd-delete-dialog.cc:208
+#: ../src/gnome-cmd-file-selector.cc:1947
+#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:190
+msgid "Skip"
+msgstr "건너 뛰기"
+
+#: ../src/gnome-cmd-delete-dialog.cc:276
+#, c-format
+msgid "Do you want to delete \"%s\"?"
+msgstr "\"%s\"를 삭제하시겠습니까?"
+
+#: ../src/gnome-cmd-delete-dialog.cc:280
+#, c-format
+msgid "Do you want to delete the selected file?"
+msgstr "선택된 파일을 지우시겠습니까?"
+
+#: ../src/gnome-cmd-delete-dialog.cc:286
+#: ../src/gnome-cmd-main-win.cc:1169
+#: ../src/gnome-cmd-options-dialog.cc:602
+#: ../src/gnome-cmd-user-actions.cc:148
+msgid "Delete"
+msgstr "삭제"
+
+#: ../src/gnome-cmd-delete-dialog.cc:287
+#: ../src/gnome-cmd-file-selector.cc:1947
+#: ../src/gnome-cmd-user-actions.cc:729
+#: ../src/utils.cc:529
+#: ../src/utils.cc:557
+msgid "Cancel"
+msgstr "취소"
+
+#: ../src/gnome-cmd-delete-dialog.cc:287
+#: ../src/utils.cc:529
+msgid "OK"
+msgstr "확인"
+
+#: ../src/gnome-cmd-dir-indicator.cc:404
+msgid "Add current dir"
+msgstr "현 디렉토리 추가"
+
+#: ../src/gnome-cmd-dir-indicator.cc:405
+msgid "Manage bookmarks..."
+msgstr "책갈피 관리..."
+
+#: ../src/gnome-cmd-dir.cc:536
+msgid "Waiting for file list"
+msgstr "파일 리스트를 기다리는 중"
+
+#: ../src/gnome-cmd-file-list.cc:105
+msgid "ext"
+msgstr "확장자"
+
+#: ../src/gnome-cmd-file-list.cc:106
+msgid "dir"
+msgstr "디렉토리"
+
+#: ../src/gnome-cmd-file-list.cc:107
+msgid "size"
+msgstr "크기"
+
+#: ../src/gnome-cmd-file-list.cc:108
+msgid "date"
+msgstr "날짜"
+
+#: ../src/gnome-cmd-file-list.cc:109
+msgid "perm"
+msgstr "권한"
+
+#: ../src/gnome-cmd-file-list.cc:110
+msgid "uid"
+msgstr "uid"
+
+#: ../src/gnome-cmd-file-list.cc:111
+msgid "gid"
+msgstr "gid"
+
+#: ../src/gnome-cmd-file-list.cc:1921
+#: ../src/gnome-cmd-file-list.cc:1936
+#, c-format
+msgid "Not an ordinary file: %s"
+msgstr "정규 파일이 아닙니다: %s"
+
+#: ../src/gnome-cmd-file-popmenu.cc:113
+msgid "Couldn't retrieve MIME type of the file."
+msgstr "파일의 MIME 타입을 얻을 수 없습니다."
+
+#: ../src/gnome-cmd-file-popmenu.cc:128
+msgid "Invalid command"
+msgstr "무효한 명령"
+
+#: ../src/gnome-cmd-file-popmenu.cc:152
+msgid "Application:"
+msgstr "응용프로그램:"
+
+#: ../src/gnome-cmd-file-popmenu.cc:155
+msgid "Open with other..."
+msgstr "다음으로 열기..."
+
+#: ../src/gnome-cmd-file-popmenu.cc:160
+msgid "Needs terminal"
+msgstr "터미널 필요"
+
+#: ../src/gnome-cmd-file-popmenu.cc:399
+#: ../src/gnome-cmd-file-popmenu.cc:408
+#: ../src/gnome-cmd-file-popmenu.cc:433
+msgid "_Open"
+msgstr "열기(_O)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:412
+#, c-format
+msgid "_Open with \"%s\""
+msgstr "\"%s\"로(으로) 열기(_O)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:434
+msgid "Open With..."
+msgstr "다음으로 열기..."
+
+#: ../src/gnome-cmd-file-popmenu.cc:440
+msgid "E_xecute"
+msgstr "실행(_x)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:452
+#: ../src/gnome-cmd-main-menu.cc:549
+msgid "Cu_t"
+msgstr "잘라내기(_t)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:453
+#: ../src/gnome-cmd-main-menu.cc:555
+msgid "_Copy"
+msgstr "복사하기(_C)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:454
+#: ../src/gnome-cmd-main-menu.cc:567
+msgid "_Delete"
+msgstr "삭제(_D)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:456
+msgid "Rename"
+msgstr "개명"
+
+#. {file_run, "file.run"},
+#: ../src/gnome-cmd-file-popmenu.cc:457
+#: ../src/gnome-cmd-main-win.cc:1172
+#: ../src/gnome-cmd-user-actions.cc:170
+msgid "Send files"
+msgstr "파일 보내기"
+
+#: ../src/gnome-cmd-file-popmenu.cc:458
+#: ../src/gnome-cmd-list-popmenu.cc:117
+msgid "Open this _folder"
+msgstr "이 폴더 열기(_f)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:459
+#: ../src/gnome-cmd-list-popmenu.cc:118
+msgid "Open _terminal here"
+msgstr "여기에서 터미널 열기(_t)"
+
+#: ../src/gnome-cmd-file-popmenu.cc:461
+#: ../src/gnome-cmd-main-menu.cc:463
+msgid "_Properties..."
+msgstr "속성(_P)..."
+
+#: ../src/gnome-cmd-file-popmenu.cc:504
+msgid "Other..."
+msgstr "기타..."
+
+#: ../src/gnome-cmd-file-props-dialog.cc:74
+#: ../src/utils.cc:846
+#, c-format
+msgid "%s byte"
+msgstr "%s 바이트"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:199
+#: ../src/gnome-cmd-file-props-dialog.cc:420
+msgid "No default application registered"
+msgstr "기본 응용프로그램이 등록되지 않았습니다"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:346
+msgid "Image:"
+msgstr "이미지:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:373
+#: ../src/gnome-cmd-file-selector.cc:1738
+msgid "Filename:"
+msgstr "파일 명:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:384
+msgid "Symlink target:"
+msgstr "심벌릭 링크 대상:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:393
+msgid "Type:"
+msgstr "타입:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:400
+msgid "MIME Type:"
+msgstr "MIME 타입:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:409
+msgid "Opens with:"
+msgstr "아래로 열기:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:422
+msgid "_Change"
+msgstr "변경(_C)"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:434
+msgid "Modified:"
+msgstr "변경됨:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:440
+msgid "Accessed:"
+msgstr "접근됨:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:450
+msgid "Size:"
+msgstr "크기:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:495
+msgid "Owner and group"
+msgstr "소유자와 그룹"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:505
+msgid "Access permissions"
+msgstr "접근 권한"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:591
+#: ../src/intviewer/viewer-window.cc:1457
+msgid "Type"
+msgstr "타입"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:592
+#: ../src/intviewer/viewer-window.cc:1458
+msgid "Metadata namespace"
+msgstr "메타 데이터 이름 공간"
+
+#. col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+#. g_object_set (renderer,
+#. "foreground-set", TRUE,
+#. "foreground", "DarkGray",
+#. NULL);
+#: ../src/gnome-cmd-file-props-dialog.cc:599
+#: ../src/gnome-cmd-remote-dialog.cc:378
+#: ../src/intviewer/viewer-window.cc:1465
+#: ../src/plugin_manager.cc:411
+#: ../src/tags/gnome-cmd-tags.cc:321
+msgid "Name"
+msgstr "이름"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:600
+#: ../src/intviewer/viewer-window.cc:1466
+msgid "Tag name"
+msgstr "태그 이름"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:602
+#: ../src/intviewer/viewer-window.cc:1468
+msgid "Value"
+msgstr "값"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:603
+#: ../src/intviewer/viewer-window.cc:1469
+msgid "Tag value"
+msgstr "태그 값"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:605
+#: ../src/intviewer/viewer-window.cc:1471
+#: ../src/tags/gnome-cmd-tags.cc:165
+#: ../src/tags/gnome-cmd-tags.cc:316
+#: ../src/tags/gnome-cmd-tags.cc:418
+#: ../src/tags/gnome-cmd-tags.cc:529
+msgid "Description"
+msgstr "설명"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:606
+#: ../src/intviewer/viewer-window.cc:1472
+msgid "Metadata tag description"
+msgstr "메타 데이터 태그 설명"
+
+#. data->thread = 0;
+#: ../src/gnome-cmd-file-props-dialog.cc:661
+msgid "File Properties"
+msgstr "파일 속성"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:684
+#: ../src/gnome-cmd-user-actions.cc:167
+msgid "Properties"
+msgstr "속성"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:685
+#: ../src/tags/gnome-cmd-tags.cc:323
+msgid "Permissions"
+msgstr "권한"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:686
+msgid "Metadata"
+msgstr "메타 데이터"
+
+#: ../src/gnome-cmd-file-selector.cc:213
+#, c-format
+msgid "%s of %s kB in %d of %d file"
+msgstr "%s / %s kB(%d / %d 파일)"
+
+#: ../src/gnome-cmd-file-selector.cc:217
+#, c-format
+msgid "%s, %d of %d dir selected"
+msgstr "%s, %d / %d 디렉토리가 선택되었습니다"
+
+#: ../src/gnome-cmd-file-selector.cc:629
+#, c-format
+msgid "%s free"
+msgstr "%s 남음"
+
+#: ../src/gnome-cmd-file-selector.cc:633
+msgid "Unknown disk usage"
+msgstr "불 특정 디스크 이용"
+
+#: ../src/gnome-cmd-file-selector.cc:1045
+#, c-format
+msgid "Listing failed: %s\n"
+msgstr "리스팅 실패: %s\n"
+
+#: ../src/gnome-cmd-file-selector.cc:1502
+#, c-format
+msgid "Failed to open connection: %s\n"
+msgstr "연결을 여는 대에 실패했습니다: %s\n"
+
+#: ../src/gnome-cmd-file-selector.cc:1676
+msgid "No file name entered"
+msgstr "파일 명이 입력되지 않았습니다"
+
+#: ../src/gnome-cmd-file-selector.cc:1710
+msgid "No file name given"
+msgstr "파일 명이 주어지지 않았습니다"
+
+#: ../src/gnome-cmd-file-selector.cc:1741
+msgid "New Text File"
+msgstr "새 텍스트 파일"
+
+#: ../src/gnome-cmd-file-selector.cc:1895
+msgid "Symlink name:"
+msgstr "심벌릭 링크 명:"
+
+#: ../src/gnome-cmd-file-selector.cc:1901
+#: ../src/gnome-cmd-file-selector.cc:1947
+#: ../src/gnome-cmd-user-actions.cc:729
+msgid "Create Symbolic Link"
+msgstr "심벌릭 링크 생성"
+
+#: ../src/gnome-cmd-file-selector.cc:1947
+#: ../src/gnome-cmd-options-dialog.cc:624
+#: ../src/gnome-cmd-options-dialog.cc:644
+msgid "Skip all"
+msgstr "모두 지나침"
+
+#: ../src/gnome-cmd-file-selector.cc:2018
+msgid "Filter:"
+msgstr "필터:"
+
+#: ../src/gnome-cmd-file.cc:629
+msgid "Unknown file type"
+msgstr "알려지지 않은 파일 타입"
+
+#: ../src/gnome-cmd-file.cc:630
+msgid "Regular file"
+msgstr "정규 파일"
+
+#: ../src/gnome-cmd-file.cc:632
+msgid "FIFO"
+msgstr "FIFO"
+
+#: ../src/gnome-cmd-file.cc:633
+msgid "UNIX Socket"
+msgstr "유닉스 소켓"
+
+#: ../src/gnome-cmd-file.cc:634
+msgid "Character device"
+msgstr "문자 디바이스"
+
+#: ../src/gnome-cmd-file.cc:635
+msgid "Block device"
+msgstr "블럭 디바이스"
+
+#: ../src/gnome-cmd-file.cc:636
+msgid "Symbolic link"
+msgstr "심벌릭 링크"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:189
+msgid "Keyboard Shortcuts"
+msgstr "키보드 단축키"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:215
+msgid "To edit a shortcut key, click on the corresponding row and type a new accelerator, or press escape to cancel."
+msgstr "단축키를 편집하려면 해당되는 열을 클릭하고 새 액셀러레이터를 입력하거나 escape 키를 눌러 취소하십시오."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
+msgid "Shortcut Key"
+msgstr "단축키 키"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:345
+msgid "Keyboard shortcut for selected action"
+msgstr "선택된 행위를 위한 키보드 단축키"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:352
+msgid "Action"
+msgstr "행위"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:353
+msgid "User action"
+msgstr "사용자 행위"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:360
+msgid "Optional data"
+msgstr "옵션 데이터"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:487
+#, c-format
+msgid "Shortcut \"%s\" is already taken by \"%s\"."
+msgstr "단축키 \"%s\"는 \"%s\"에 의해 이미 이용되고 있습니다."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
+msgid "_Reassign shortcut"
+msgstr "단축키 재 할당(_R)"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
+msgid "Conflicting Shortcuts"
+msgstr "충돌하는 단축키"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
+#, c-format
+msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+msgstr "단축키를 재 할당하면 이것이 \"%s\"에서 제거될 것입니다."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:550
+msgid "Invalid shortcut."
+msgstr "무효한 단축키"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:627
+#: ../src/gnome-cmd-user-actions.cc:185
+msgid "Do nothing"
+msgstr "아무 것도 안함"
+
+#: ../src/gnome-cmd-list-popmenu.cc:107
+msgid "_Directory"
+msgstr "디렉토리(_D)"
+
+#: ../src/gnome-cmd-list-popmenu.cc:108
+msgid "_Text File"
+msgstr "텍스트 파일(_T)"
+
+#: ../src/gnome-cmd-list-popmenu.cc:114
+msgid "_New..."
+msgstr "새로 만들기(_N)..."
+
+#: ../src/gnome-cmd-list-popmenu.cc:115
+#: ../src/gnome-cmd-main-menu.cc:561
+msgid "_Paste"
+msgstr "붙여넣기(_P)"
+
+#: ../src/gnome-cmd-list-popmenu.cc:120
+#: ../src/gnome-cmd-main-menu.cc:616
+msgid "_Refresh"
+msgstr "갱신하기(_R)"
+
+#: ../src/gnome-cmd-main-menu.cc:374
+msgid "Switch to Vertical Layout"
+msgstr "수직 레이아웃으로 전환"
+
+#: ../src/gnome-cmd-main-menu.cc:380
+msgid "Switch to Horizontal Layout"
+msgstr "수평 레이아웃으로 전환"
+
+#: ../src/gnome-cmd-main-menu.cc:439
+msgid "Change _Owner/Group"
+msgstr "소유자/그룹 변경하기(_O)"
+
+#: ../src/gnome-cmd-main-menu.cc:445
+msgid "Change Per_missions"
+msgstr "권한 변경하기(_m)"
+
+#: ../src/gnome-cmd-main-menu.cc:451
+msgid "Advanced _Rename Tool"
+msgstr "진보된 개명 도구(_R)"
+
+#: ../src/gnome-cmd-main-menu.cc:457
+msgid "Create _Symbolic Link"
+msgstr "심벌릭 링크 생성하기(_S)"
+
+#: ../src/gnome-cmd-main-menu.cc:470
+msgid "_Diff"
+msgstr "_Diff"
+
+#: ../src/gnome-cmd-main-menu.cc:476
+msgid "S_ynchronize Directories"
+msgstr "디렉토리 동기화(_y)"
+
+#: ../src/gnome-cmd-main-menu.cc:483
+msgid "Start _GNOME Commander as Root"
+msgstr "GNOME 커맨더를 root 권한으로 시작"
+
+#: ../src/gnome-cmd-main-menu.cc:490
+msgid "_Quit"
+msgstr "종료(_Q)"
+
+#: ../src/gnome-cmd-main-menu.cc:501
+msgid "_Select All"
+msgstr "모두 선택(_S)"
+
+#: ../src/gnome-cmd-main-menu.cc:507
+msgid "_Unselect All"
+msgstr "모두 선택 해제(_U)"
+
+#: ../src/gnome-cmd-main-menu.cc:513
+msgid "Select with _Pattern"
+msgstr "패턴으로 선택(_P)"
+
+#: ../src/gnome-cmd-main-menu.cc:519
+msgid "Unselect with P_attern"
+msgstr "패턴으로 선택 해제(_a)"
+
+#: ../src/gnome-cmd-main-menu.cc:525
+msgid "_Invert Selection"
+msgstr "선택 반전(_I)"
+
+#: ../src/gnome-cmd-main-menu.cc:531
+msgid "_Restore Selection"
+msgstr "선택 복원(_R)"
+
+#: ../src/gnome-cmd-main-menu.cc:538
+msgid "_Compare Directories"
+msgstr "디렉토리 비교(_C)"
+
+#: ../src/gnome-cmd-main-menu.cc:574
+msgid "Copy _File Names"
+msgstr "파일 명 복사(_F)"
+
+#: ../src/gnome-cmd-main-menu.cc:581
+msgid "_Search..."
+msgstr "검색(_S)"
+
+#: ../src/gnome-cmd-main-menu.cc:587
+msgid "_Quick Search..."
+msgstr "빠른 검색(_Q)..."
+
+#: ../src/gnome-cmd-main-menu.cc:593
+msgid "_Enable Filter..."
+msgstr "필터 유효화(_E)..."
+
+#: ../src/gnome-cmd-main-menu.cc:604
+msgid "_Back"
+msgstr "뒤로(_B)"
+
+#: ../src/gnome-cmd-main-menu.cc:610
+msgid "_Forward"
+msgstr "앞으로(_F)"
+
+#: ../src/gnome-cmd-main-menu.cc:623
+msgid "Open in New _Tab"
+msgstr "새 탭에 열기(_T)"
+
+#: ../src/gnome-cmd-main-menu.cc:629
+msgid "_Close Tab"
+msgstr "탭 닫기(_C)"
+
+#: ../src/gnome-cmd-main-menu.cc:636
+msgid "Show Toolbar"
+msgstr "도구 바 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:642
+msgid "Show Device Buttons"
+msgstr "장치 버튼 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:648
+msgid "Show Device List"
+msgstr "장치 리스트 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:654
+msgid "Show Command Line"
+msgstr "명령 행 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:660
+msgid "Show Buttonbar"
+msgstr "버튼 바 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:667
+msgid "Show Hidden Files"
+msgstr "숨김 파일 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:673
+msgid "Show Backup Files"
+msgstr "백업 파일 보기"
+
+#: ../src/gnome-cmd-main-menu.cc:680
+msgid "_Equal Panel Size"
+msgstr "패널 크기 같게(_E)"
+
+#: ../src/gnome-cmd-main-menu.cc:691
+msgid "_Bookmark this Directory..."
+msgstr "이 디렉토리를 책갈피에 넣기..."
+
+#: ../src/gnome-cmd-main-menu.cc:697
+msgid "_Manage Bookmarks..."
+msgstr "책갈피 관리(_M)..."
+
+#: ../src/gnome-cmd-main-menu.cc:709
+msgid "_Configure Plugins..."
+msgstr "플러그인 설정(_C)..."
+
+#: ../src/gnome-cmd-main-menu.cc:721
+msgid "_Options..."
+msgstr "옵션(_O)..."
+
+#: ../src/gnome-cmd-main-menu.cc:727
+msgid "_Keyboard Shortcuts..."
+msgstr "키보드 단축키(_K)..."
+
+#: ../src/gnome-cmd-main-menu.cc:733
+msgid "_MIME Types..."
+msgstr "MIME 타입(_M)..."
+
+#: ../src/gnome-cmd-main-menu.cc:744
+msgid "_Remote Server..."
+msgstr "원격 서버(_R)..."
+
+#: ../src/gnome-cmd-main-menu.cc:750
+msgid "New Connection..."
+msgstr "새 연결..."
+
+#: ../src/gnome-cmd-main-menu.cc:761
+msgid "_Contents"
+msgstr "내용(_C)"
+
+#: ../src/gnome-cmd-main-menu.cc:767
+#: ../src/intviewer/viewer-window.cc:848
+msgid "_Keyboard Shortcuts"
+msgstr "키보드 단축키(_K)"
+
+#: ../src/gnome-cmd-main-menu.cc:773
+msgid "GNOME Commander on the _Web"
+msgstr "웹 상의 GNOME 커맨더(_W)"
+
+#: ../src/gnome-cmd-main-menu.cc:779
+msgid "Report a _Problem"
+msgstr "문제 보고(_P)"
+
+#: ../src/gnome-cmd-main-menu.cc:786
+#: ../src/plugin_manager.cc:427
+msgid "_About"
+msgstr "정보(_A)"
+
+#. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
+#. File Menu
+#: ../src/gnome-cmd-main-menu.cc:808
+#: ../src/intviewer/viewer-window.cc:860
+msgid "_File"
+msgstr "파일(_F)"
+
+#: ../src/gnome-cmd-main-menu.cc:812
+msgid "_Edit"
+msgstr "편집(_E)"
+
+#: ../src/gnome-cmd-main-menu.cc:816
+msgid "_Mark"
+msgstr "선택(_M)"
+
+#: ../src/gnome-cmd-main-menu.cc:820
+#: ../src/intviewer/viewer-window.cc:863
+msgid "_View"
+msgstr "보기(_V)"
+
+#: ../src/gnome-cmd-main-menu.cc:825
+#: ../src/intviewer/viewer-window.cc:874
+msgid "_Settings"
+msgstr "설정(_S)"
+
+#: ../src/gnome-cmd-main-menu.cc:829
+msgid "_Connections"
+msgstr "연결(_C)"
+
+#: ../src/gnome-cmd-main-menu.cc:833
+msgid "_Bookmarks"
+msgstr "책갈피(_B)"
+
+#: ../src/gnome-cmd-main-menu.cc:837
+msgid "_Plugins"
+msgstr "플러그인(_P)"
+
+#: ../src/gnome-cmd-main-menu.cc:841
+#: ../src/intviewer/viewer-window.cc:879
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: ../src/gnome-cmd-main-win.cc:429
+msgid "F3 View"
+msgstr "F3 보기"
+
+#: ../src/gnome-cmd-main-win.cc:431
+msgid "F4 Edit"
+msgstr "F4 편집"
+
+#: ../src/gnome-cmd-main-win.cc:433
+msgid "F5 Copy"
+msgstr "F5 복사"
+
+#: ../src/gnome-cmd-main-win.cc:435
+msgid "F6 Move"
+msgstr "F6 이동"
+
+#: ../src/gnome-cmd-main-win.cc:437
+msgid "F7 Mkdir"
+msgstr "F7 디렉토리 생성"
+
+#: ../src/gnome-cmd-main-win.cc:439
+msgid "F8 Delete"
+msgstr "F8 삭제"
+
+#: ../src/gnome-cmd-main-win.cc:441
+msgid "F9 Search"
+msgstr "F9 검색"
+
+#: ../src/gnome-cmd-main-win.cc:443
+msgid "F10 Quit"
+msgstr "F10 종료"
+
+#: ../src/gnome-cmd-main-win.cc:775
+msgid "GNOME Commander - ROOT PRIVILEGES"
+msgstr "GNOME 커맨더 - ROOT 권한"
+
+#: ../src/gnome-cmd-main-win.cc:1158
+#: ../src/gnome-cmd-user-actions.cc:203
+msgid "Refresh"
+msgstr "다시 읽기"
+
+#: ../src/gnome-cmd-main-win.cc:1159
+#: ../src/gnome-cmd-user-actions.cc:208
+msgid "Up one directory"
+msgstr "상위 디렉토리로"
+
+#: ../src/gnome-cmd-main-win.cc:1160
+msgid "Go to the oldest"
+msgstr "처음 위치로 가기"
+
+#: ../src/gnome-cmd-main-win.cc:1161
+msgid "Go back"
+msgstr "뒤로 가기"
+
+#: ../src/gnome-cmd-main-win.cc:1162
+msgid "Go forward"
+msgstr "앞으로 가기"
+
+#: ../src/gnome-cmd-main-win.cc:1163
+msgid "Go to the latest"
+msgstr "마지막 위치로 가기"
+
+#: ../src/gnome-cmd-main-win.cc:1165
+msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+msgstr "파일 명 복사(전체 경로는 SHIFT, URI는 ALT 키를 동시에)"
+
+#: ../src/gnome-cmd-main-win.cc:1166
+#: ../src/gnome-cmd-user-actions.cc:147
+msgid "Cut"
+msgstr "잘라내기"
+
+#: ../src/gnome-cmd-main-win.cc:1167
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:87
+#: ../src/gnome-cmd-user-actions.cc:145
+msgid "Copy"
+msgstr "복사하기"
+
+#: ../src/gnome-cmd-main-win.cc:1168
+#: ../src/gnome-cmd-user-actions.cc:150
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: ../src/gnome-cmd-main-win.cc:1171
+msgid "Edit (SHIFT for new document)"
+msgstr "편집(새 문서는 SHIFT 키를 동시에)"
+
+#: ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-user-actions.cc:140
+msgid "Open terminal"
+msgstr "터미널 열기"
+
+#: ../src/gnome-cmd-main-win.cc:1176
+msgid "Drop connection"
+msgstr "연결 해제"
+
+#: ../src/gnome-cmd-make-copy-dialog.cc:67
+msgid "No filename entered"
+msgstr "파일 명이 입력되지 않았습니다"
+
+#: ../src/gnome-cmd-make-copy-dialog.cc:139
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:144
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr "\"%s\"을(를) 복사할 곳"
+
+#: ../src/gnome-cmd-make-copy-dialog.cc:146
+msgid "Copy File"
+msgstr "파일 복사"
+
+#: ../src/gnome-cmd-mkdir-dialog.cc:96
+msgid "A directory name must be entered"
+msgstr "디렉토리 명이 입력되어야 합니다"
+
+#: ../src/gnome-cmd-mkdir-dialog.cc:195
+msgid "Directory name:"
+msgstr "디렉토리 명:"
+
+#: ../src/gnome-cmd-mkdir-dialog.cc:203
+msgid "Make Directory"
+msgstr "디렉토리 만들기"
+
+#: ../src/gnome-cmd-options-dialog.cc:77
+msgid "Use right mouse button to"
+msgstr "오른쪽 마우스 버튼 용도"
+
+#: ../src/gnome-cmd-options-dialog.cc:80
+msgid "Show popup menu"
+msgstr "팝업 메뉴 보이기"
+
+#: ../src/gnome-cmd-options-dialog.cc:84
+msgid "Select files"
+msgstr "파일 선택"
+
+#: ../src/gnome-cmd-options-dialog.cc:92
+msgid "Match filenames using"
+msgstr "파일 명 일치 방법"
+
+#: ../src/gnome-cmd-options-dialog.cc:95
+msgid "Shell syntax"
+msgstr "쉘 문법"
+
+#: ../src/gnome-cmd-options-dialog.cc:99
+msgid "Regex syntax"
+msgstr "정규식 문법"
+
+#: ../src/gnome-cmd-options-dialog.cc:107
+msgid "Sorting options"
+msgstr "정렬 옵션"
+
+#: ../src/gnome-cmd-options-dialog.cc:110
+#: ../src/gnome-cmd-patternsel-dialog.cc:141
+msgid "Case sensitive"
+msgstr "대소문자 구분"
+
+#: ../src/gnome-cmd-options-dialog.cc:117
+msgid "Quick search using"
+msgstr "빠른 탐색 방법"
+
+#: ../src/gnome-cmd-options-dialog.cc:120
+msgid "CTRL+ALT+letters"
+msgstr "CTRL+ALT+문자"
+
+#: ../src/gnome-cmd-options-dialog.cc:123
+msgid "ALT+letters (menu access with F10)"
+msgstr "ALT+문자 (F10으로 메뉴 접근)"
+
+#: ../src/gnome-cmd-options-dialog.cc:130
+msgid "Directory options"
+msgstr "디렉토리 옵션"
+
+#: ../src/gnome-cmd-options-dialog.cc:133
+msgid "Directory cache size"
+msgstr "디렉토리 캐시 크기"
+
+#: ../src/gnome-cmd-options-dialog.cc:204
+msgid "Size display mode"
+msgstr "크기 표시 모드"
+
+#. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
+#: ../src/gnome-cmd-options-dialog.cc:208
+msgid "Powered"
+msgstr "강화형"
+
+#. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
+#: ../src/gnome-cmd-options-dialog.cc:214
+msgid "<locale>"
+msgstr "<로케일>"
+
+#: ../src/gnome-cmd-options-dialog.cc:219
+msgid "Grouped"
+msgstr "그룹화"
+
+#: ../src/gnome-cmd-options-dialog.cc:224
+msgid "Plain"
+msgstr "그대로"
+
+#: ../src/gnome-cmd-options-dialog.cc:232
+msgid "Permission display mode"
+msgstr "권한 표시 모드"
+
+#: ../src/gnome-cmd-options-dialog.cc:235
+msgid "Text (rw-r--r--)"
+msgstr "텍스트 (rw-r--r--)"
+
+#: ../src/gnome-cmd-options-dialog.cc:240
+msgid "Number (644)"
+msgstr "숫자 (644)"
+
+#: ../src/gnome-cmd-options-dialog.cc:248
+msgid "Date format"
+msgstr "날짜 포맷"
+
+#: ../src/gnome-cmd-options-dialog.cc:251
+msgid "Format:"
+msgstr "포맷:"
+
+#: ../src/gnome-cmd-options-dialog.cc:260
+msgid "_Test"
+msgstr "테스트(_T)"
+
+#: ../src/gnome-cmd-options-dialog.cc:263
+msgid "Test result:"
+msgstr "테스트 결과:"
+
+#: ../src/gnome-cmd-options-dialog.cc:272
+msgid "See the manual page for \"strftime\" for help on how to set the format string."
+msgstr "포맷 문자열을 설정하는 방법에 관한 도움말은 \"strftime\"의 매뉴얼 페이지를 참조하기 바란다."
+
+#: ../src/gnome-cmd-options-dialog.cc:357
+msgid "Edit Colors..."
+msgstr "색상 편집..."
+
+#: ../src/gnome-cmd-options-dialog.cc:367
+msgid "Colors"
+msgstr "색상"
+
+#: ../src/gnome-cmd-options-dialog.cc:398
+msgid "Foreground"
+msgstr "전경"
+
+#: ../src/gnome-cmd-options-dialog.cc:400
+msgid "Background"
+msgstr "배경"
+
+#: ../src/gnome-cmd-options-dialog.cc:402
+msgid "Default:"
+msgstr "기본 값:"
+
+#: ../src/gnome-cmd-options-dialog.cc:404
+msgid "Alternate:"
+msgstr "대체:"
+
+#: ../src/gnome-cmd-options-dialog.cc:406
+msgid "Selected file:"
+msgstr "선택된 파일:"
+
+#: ../src/gnome-cmd-options-dialog.cc:408
+msgid "Cursor:"
+msgstr "커서:"
+
+#: ../src/gnome-cmd-options-dialog.cc:424
+msgid "With file name"
+msgstr "파일 명으로"
+
+#: ../src/gnome-cmd-options-dialog.cc:425
+msgid "In separate column"
+msgstr "독립된 컬럼에"
+
+#: ../src/gnome-cmd-options-dialog.cc:426
+msgid "In both columns"
+msgstr "양쪽 칼럼에"
+
+#: ../src/gnome-cmd-options-dialog.cc:430
+msgid "No icons"
+msgstr "아이콘 없음"
+
+#: ../src/gnome-cmd-options-dialog.cc:431
+msgid "File type icons"
+msgstr "파일 타입 아이콘"
+
+#: ../src/gnome-cmd-options-dialog.cc:432
+msgid "MIME icons"
+msgstr "MIME 아이콘"
+
+#: ../src/gnome-cmd-options-dialog.cc:436
+msgid "Respect theme colors"
+msgstr "테마 칼라를 존중"
+
+#: ../src/gnome-cmd-options-dialog.cc:437
+msgid "Modern"
+msgstr "모던"
+
+#: ../src/gnome-cmd-options-dialog.cc:438
+msgid "Fusion"
+msgstr "퓨전"
+
+#: ../src/gnome-cmd-options-dialog.cc:439
+msgid "Classic"
+msgstr "클래식"
+
+#: ../src/gnome-cmd-options-dialog.cc:440
+msgid "Deep blue"
+msgstr "진파랑"
+
+#: ../src/gnome-cmd-options-dialog.cc:441
+msgid "Cafezinho"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:442
+msgid "Custom"
+msgstr "커스텀"
+
+#: ../src/gnome-cmd-options-dialog.cc:456
+msgid "File panes"
+msgstr "파일 창"
+
+#: ../src/gnome-cmd-options-dialog.cc:466
+msgid "Font:"
+msgstr "폰트:"
+
+#: ../src/gnome-cmd-options-dialog.cc:468
+msgid "Row height:"
+msgstr "열 높이:"
+
+#. File extensions
+#: ../src/gnome-cmd-options-dialog.cc:472
+msgid "Display file extensions:"
+msgstr "파일 확장자 표시"
+
+#. Graphical mode
+#: ../src/gnome-cmd-options-dialog.cc:480
+msgid "Graphical mode:"
+msgstr "그래픽 모드:"
+
+#. Color scheme
+#: ../src/gnome-cmd-options-dialog.cc:489
+msgid "Color scheme:"
+msgstr "칼라 체계:"
+
+#: ../src/gnome-cmd-options-dialog.cc:501
+msgid "Edit..."
+msgstr "편집..."
+
+#. LS_COLORS
+#: ../src/gnome-cmd-options-dialog.cc:508
+msgid "Colorize files according to the LS_COLORS environment variable"
+msgstr "LS_COLORS 환경 변수에 따라 파일들을 색상화"
+
+#: ../src/gnome-cmd-options-dialog.cc:515
+msgid "MIME icon settings"
+msgstr "MIMI 아이콘 설정"
+
+#: ../src/gnome-cmd-options-dialog.cc:528
+msgid "Icon size:"
+msgstr "아이콘 크기:"
+
+#: ../src/gnome-cmd-options-dialog.cc:530
+msgid "Scaling quality:"
+msgstr "비율 품질:"
+
+#: ../src/gnome-cmd-options-dialog.cc:532
+msgid "Theme icon directory:"
+msgstr "테마 아이콘 디렉토리:"
+
+#: ../src/gnome-cmd-options-dialog.cc:534
+msgid "Document icon directory:"
+msgstr "문서 아이콘 디렉토리:"
+
+#: ../src/gnome-cmd-options-dialog.cc:605
+msgid "Confirm before delete"
+msgstr "삭제 전에 확인"
+
+#: ../src/gnome-cmd-options-dialog.cc:613
+msgid "Copy overwrite"
+msgstr "복사 시 덮어쓰기"
+
+#. Create prepare copy specific widgets
+#: ../src/gnome-cmd-options-dialog.cc:616
+#: ../src/gnome-cmd-options-dialog.cc:636
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:93
+#: ../src/gnome-cmd-prepare-move-dialog.cc:89
+msgid "Silently"
+msgstr "조용히"
+
+#: ../src/gnome-cmd-options-dialog.cc:620
+#: ../src/gnome-cmd-options-dialog.cc:640
+msgid "Query first"
+msgstr "먼저 질의"
+
+#: ../src/gnome-cmd-options-dialog.cc:633
+msgid "Move overwrite"
+msgstr "이동 시 덮어쓰기"
+
+#: ../src/gnome-cmd-options-dialog.cc:720
+msgid "Filetypes to hide"
+msgstr "감출 파일 타입"
+
+#: ../src/gnome-cmd-options-dialog.cc:723
+msgid "Unknown"
+msgstr "모르는 것"
+
+#: ../src/gnome-cmd-options-dialog.cc:727
+msgid "Regular files"
+msgstr "정규 파일"
+
+#: ../src/gnome-cmd-options-dialog.cc:731
+msgid "Directories"
+msgstr "디렉토리"
+
+#: ../src/gnome-cmd-options-dialog.cc:735
+msgid "Fifo files"
+msgstr "Fifo 파일"
+
+#: ../src/gnome-cmd-options-dialog.cc:739
+msgid "Socket files"
+msgstr "소켓 파일"
+
+#: ../src/gnome-cmd-options-dialog.cc:743
+msgid "Character devices"
+msgstr "문자 디바이스"
+
+#: ../src/gnome-cmd-options-dialog.cc:747
+msgid "Block devices"
+msgstr "블록 디바이스"
+
+#: ../src/gnome-cmd-options-dialog.cc:754
+msgid "Also hide"
+msgstr "추가 은폐 파일"
+
+#: ../src/gnome-cmd-options-dialog.cc:757
+msgid "Hidden files"
+msgstr "숨김 파일"
+
+#: ../src/gnome-cmd-options-dialog.cc:760
+#: ../src/gnome-cmd-options-dialog.cc:771
+msgid "Backup files"
+msgstr "백업 파일"
+
+#: ../src/gnome-cmd-options-dialog.cc:764
+msgid "Symlinks"
+msgstr "심벌릭 링크"
+
+#: ../src/gnome-cmd-options-dialog.cc:867
+msgid "Authentication"
+msgstr "인증"
+
+#: ../src/gnome-cmd-options-dialog.cc:870
+msgid "Use GNOME Keyring Manager for authentication"
+msgstr "인증을 위해 GNOME Keyring 관리자를 이용"
+
+#: ../src/gnome-cmd-options-dialog.cc:878
+msgid "Anonymous FTP access"
+msgstr "익명 FTP 접근"
+
+#: ../src/gnome-cmd-options-dialog.cc:881
+msgid "Password:"
+msgstr "비번:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1079
+msgid "Label:"
+msgstr "라벨:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1081
+msgid "Command:"
+msgstr "명령:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1083
+#: ../src/gnome-cmd-options-dialog.cc:1491
+msgid "Icon:"
+msgstr "아이콘:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1104
+msgid "Can handle multiple files"
+msgstr "여러 파일들을 처리할 수 있습니다"
+
+#: ../src/gnome-cmd-options-dialog.cc:1108
+msgid "Can handle URIs"
+msgstr "URI들을 처리할 수 있습니다"
+
+#: ../src/gnome-cmd-options-dialog.cc:1112
+msgid "Requires terminal"
+msgstr "터미널을 필요로 합니다"
+
+#: ../src/gnome-cmd-options-dialog.cc:1119
+msgid "Show for"
+msgstr "보이기 대상"
+
+#: ../src/gnome-cmd-options-dialog.cc:1128
+msgid "All directories"
+msgstr "모든 디렉토리"
+
+#: ../src/gnome-cmd-options-dialog.cc:1134
+msgid "All directories and files"
+msgstr "모든 디렉토리와 파일들"
+
+#: ../src/gnome-cmd-options-dialog.cc:1140
+msgid "Some files"
+msgstr "일부 파일들"
+
+#: ../src/gnome-cmd-options-dialog.cc:1151
+msgid "File patterns"
+msgstr "파일 패턴"
+
+#: ../src/gnome-cmd-options-dialog.cc:1173
+msgid "New Application"
+msgstr "새 응용프로그램"
+
+#: ../src/gnome-cmd-options-dialog.cc:1183
+msgid "Edit Application"
+msgstr "응용프로그램 편집"
+
+#: ../src/gnome-cmd-options-dialog.cc:1260
+msgid "Always download remote files before opening in external programs"
+msgstr "외부 프로그램에서 열기 전에 항상 원격 파일 다운로드 하기"
+
+#: ../src/gnome-cmd-options-dialog.cc:1262
+msgid "MIME applications"
+msgstr "MIME 응용프로그램"
+
+#: ../src/gnome-cmd-options-dialog.cc:1266
+msgid "Standard programs"
+msgstr "표준 프로그램"
+
+#: ../src/gnome-cmd-options-dialog.cc:1269
+msgid "Viewer:"
+msgstr "뷰어:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1271
+msgid "Editor:"
+msgstr "편집기:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1273
+msgid "Differ:"
+msgstr "차이:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1275
+msgid "Terminal:"
+msgstr "터미널:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1281
+msgid "Use Internal Viewer"
+msgstr "내장 뷰어 이용하기"
+
+#: ../src/gnome-cmd-options-dialog.cc:1296
+msgid "Other favorite apps"
+msgstr "기타 즐겨쓰는 응용프로그램"
+
+#: ../src/gnome-cmd-options-dialog.cc:1303
+msgid "Label"
+msgstr "라벨"
+
+#: ../src/gnome-cmd-options-dialog.cc:1485
+msgid "Alias:"
+msgstr "별칭:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1487
+msgid "Device:"
+msgstr "장치:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1489
+msgid "Mount point:"
+msgstr "마운트 지점:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1532
+msgid "New Device"
+msgstr "새 장치"
+
+#: ../src/gnome-cmd-options-dialog.cc:1545
+msgid "Edit Device"
+msgstr "장치 편집"
+
+#: ../src/gnome-cmd-options-dialog.cc:1622
+#: ../src/gnome-cmd-options-dialog.cc:1815
+msgid "Devices"
+msgstr "장치"
+
+#: ../src/gnome-cmd-options-dialog.cc:1632
+msgid "Alias"
+msgstr "별칭"
+
+#: ../src/gnome-cmd-options-dialog.cc:1662
+msgid "Show only the icons"
+msgstr "아이콘만 보기"
+
+#: ../src/gnome-cmd-options-dialog.cc:1666
+msgid "Skip mounting (useful when using super-mount)"
+msgstr "마운팅 지나치기(슈퍼 마운트 이용 중에 유용)"
+
+#: ../src/gnome-cmd-options-dialog.cc:1780
+msgid "General"
+msgstr "일반"
+
+#: ../src/gnome-cmd-options-dialog.cc:1785
+#: ../src/tags/gnome-cmd-tags.cc:317
+msgid "Format"
+msgstr "포맷"
+
+#: ../src/gnome-cmd-options-dialog.cc:1790
+msgid "Layout"
+msgstr "레이아웃"
+
+#: ../src/gnome-cmd-options-dialog.cc:1795
+msgid "Confirmation"
+msgstr "확인"
+
+#: ../src/gnome-cmd-options-dialog.cc:1800
+msgid "Filters"
+msgstr "필터"
+
+#: ../src/gnome-cmd-options-dialog.cc:1805
+msgid "Network"
+msgstr "네트워크"
+
+#: ../src/gnome-cmd-options-dialog.cc:1810
+msgid "Programs"
+msgstr "프로그램"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:124
+msgid "Select Using Pattern"
+msgstr "패턴을 이용해서 선택"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:124
+msgid "Unselect Using Pattern"
+msgstr "패턴을 이용해서 선택 해제"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:131
+msgid "Pattern:"
+msgstr "패턴:"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:100
+#: ../src/gnome-cmd-prepare-move-dialog.cc:96
+msgid "Query First"
+msgstr "먼저 질의"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:107
+#: ../src/gnome-cmd-prepare-move-dialog.cc:103
+#: ../src/gnome-cmd-xfer.cc:170
+msgid "Skip All"
+msgstr "모두 지나치기"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:117
+msgid "Follow Links"
+msgstr "링크 따라가기"
+
+#. Customize prepare xfer widgets
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:126
+#: ../src/gnome-cmd-prepare-move-dialog.cc:115
+msgid "Overwrite Files"
+msgstr "파일 덮어쓰기"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:148
+#, c-format
+msgid "copy %d file to"
+msgstr "%d 파일을 복사할 곳"
+
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
+msgid "Move"
+msgstr "이동"
+
+#: ../src/gnome-cmd-prepare-move-dialog.cc:133
+#, c-format
+msgid "Move \"%s\" to"
+msgstr "\"%s\"을(를) 이동할 곳"
+
+#: ../src/gnome-cmd-prepare-move-dialog.cc:137
+#, c-format
+msgid "move %d file to"
+msgstr "%d 파일을 이동할 곳"
+
+#. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:149
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:189
+#, c-format
+msgid "The directory '%s' doesn't exist, do you want to create it?"
+msgstr "'%s' 디렉토리가 존재하지 않은데 생성하기를 원하십니까?"
+
+#: ../src/gnome-cmd-python-plugin.cc:214
+msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
+msgstr "파이선 모듈 'gnomevfs'('gnome.vfs')를 로드 할 수 없습니다\n"
+
+#: ../src/gnome-cmd-quicksearch-popup.cc:262
+#: ../src/gnome-cmd-user-actions.cc:152
+msgid "Search"
+msgstr "검색"
+
+#: ../src/gnome-cmd-remote-dialog.cc:213
+#, c-format
+msgid "No server selected"
+msgstr "서버가 선택되지 않았습니다"
+
+#: ../src/gnome-cmd-remote-dialog.cc:364
+msgid "GNOME authentication manager usage"
+msgstr "GNOME 인증 관리자 이용"
+
+#: ../src/gnome-cmd-remote-dialog.cc:368
+msgid "Network protocol"
+msgstr "네트워크 프로토콜"
+
+#: ../src/gnome-cmd-remote-dialog.cc:379
+msgid "Connection name"
+msgstr "연결 이름"
+
+#: ../src/gnome-cmd-remote-dialog.cc:451
+msgid "Remote Connections"
+msgstr "원격 연결"
+
+#: ../src/gnome-cmd-remote-dialog.cc:457
+msgid "Connections"
+msgstr "연결"
+
+#: ../src/gnome-cmd-remote-dialog.cc:488
+msgid "Anonymous FTP password:"
+msgstr "익명 FTP 비번:"
+
+#: ../src/gnome-cmd-search-dialog.cc:39
+msgid "Search _recursively:"
+msgstr "재귀적으로 검색(_r)"
+
+#: ../src/gnome-cmd-search-dialog.cc:40
+msgid "_Unlimited depth"
+msgstr "무제한 깊이(_U)"
+
+#: ../src/gnome-cmd-search-dialog.cc:41
+msgid "Current _directory only"
+msgstr "현 디렉토리만(_d)"
+
+#: ../src/gnome-cmd-search-dialog.cc:42
+msgid "_Limited depth"
+msgstr "제한된 깊이(_L)"
+
+#. N_("Search local directories only"),
+#: ../src/gnome-cmd-search-dialog.cc:44
+msgid "Files _not containing text"
+msgstr "텍스트를 포함하지 않는 파일들(_n)"
+
+#: ../src/gnome-cmd-search-dialog.cc:172
+#, c-format
+msgid "Failed to open file %s: %s\n"
+msgstr "파일 %s 열기 실패: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.cc:213
+#, c-format
+msgid "Failed to seek in file %s: %s\n"
+msgstr "파일 %s 찾기 실패: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.cc:220
+#, c-format
+msgid "Failed to read from file %s: %s\n"
+msgstr "파일 %s에서 읽기 실패: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.cc:276
+#, c-format
+msgid "Searching in: %s"
+msgstr "%s에서 검색 중"
+
+#: ../src/gnome-cmd-search-dialog.cc:412
+#, c-format
+msgid "Found %d match - search aborted"
+msgstr "%d개의 매치 발견 - 검색 중지됨"
+
+#: ../src/gnome-cmd-search-dialog.cc:419
+#, c-format
+msgid "Found %d match"
+msgstr "%d개의 매치 발견"
+
+#: ../src/gnome-cmd-search-dialog.cc:822
+msgid "Search..."
+msgstr "검색..."
+
+#: ../src/gnome-cmd-search-dialog.cc:836
+msgid "Search _for: "
+msgstr "검색 내용(_f):"
+
+#: ../src/gnome-cmd-search-dialog.cc:848
+msgid "Search _in: "
+msgstr "검색 위치(_i):"
+
+#. Recurse check
+#: ../src/gnome-cmd-search-dialog.cc:863
+msgid "Search _recursively"
+msgstr "재귀적으로 검색(_r)"
+
+#. Filename matching
+#: ../src/gnome-cmd-search-dialog.cc:869
+msgid "Rege_x syntax"
+msgstr "정규식 문법(_x)"
+
+#: ../src/gnome-cmd-search-dialog.cc:873
+msgid "She_ll syntax"
+msgstr "쉘 문법(_l)"
+
+#. Find text
+#: ../src/gnome-cmd-search-dialog.cc:882
+msgid "Find _text: "
+msgstr "텍스트 찾기(_t):"
+
+#. Case check
+#: ../src/gnome-cmd-search-dialog.cc:895
+msgid "Case sensiti_ve"
+msgstr "대소문자 구분(_v)"
+
+#: ../src/gnome-cmd-search-dialog.cc:903
+msgid "_Go to"
+msgstr "이동(_G)"
+
+#: ../src/gnome-cmd-smb-auth.cc:35
+msgid "Enter password"
+msgstr "비번을 입력하세요"
+
+#: ../src/gnome-cmd-smb-auth.cc:36
+msgid ""
+"Problem: access not permitted\n"
+"\n"
+"please supply user credentials\n"
+"\n"
+"Remember: wrong credentials may lead to account locking"
+msgstr ""
+"문제: 접근이 허용되지 않습니다\n"
+"\n"
+"사용자 자격 증명을 제공하기 바랍니다\n"
+"\n"
+"주의: 잘못된 자격 증명은 계정 정지를 일으킬 수도 있습니다"
+
+#: ../src/gnome-cmd-smb-path.cc:323
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr "%s 라는 이름의 호스트나 작업 그룹을 발견할 수 없습니다\n"
+
+#: ../src/gnome-cmd-user-actions.cc:73
+msgid "No file selected"
+msgstr "파일이 선택되지 않았습니다"
+
+#: ../src/gnome-cmd-user-actions.cc:135
+msgid "Bookmark current directory"
+msgstr "현 디렉토리를 책갈피에 넣기"
+
+#: ../src/gnome-cmd-user-actions.cc:136
+msgid "Manage bookmarks"
+msgstr "책갈피 관리"
+
+#: ../src/gnome-cmd-user-actions.cc:137
+msgid "Go to bookmarked location"
+msgstr "책갈피 이치로 이동"
+
+#: ../src/gnome-cmd-user-actions.cc:138
+msgid "Execute command"
+msgstr "명령 실행"
+
+#: ../src/gnome-cmd-user-actions.cc:139
+msgid "Open folder"
+msgstr "폴더 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:141
+msgid "Start GNOME Commander as root"
+msgstr "GNOME 커맨더를 root 권한으로 시작"
+
+#: ../src/gnome-cmd-user-actions.cc:142
+msgid "Close connection"
+msgstr "연결 닫기"
+
+#: ../src/gnome-cmd-user-actions.cc:143
+msgid "New connection"
+msgstr "새 연결"
+
+#: ../src/gnome-cmd-user-actions.cc:144
+msgid "Open connection"
+msgstr "연결 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:146
+msgid "Copy file names"
+msgstr "파일 명 복사"
+
+#: ../src/gnome-cmd-user-actions.cc:149
+msgid "Show user defined files"
+msgstr "사용자 정의 파일 보기"
+
+#: ../src/gnome-cmd-user-actions.cc:151
+msgid "Quick search"
+msgstr "빠른 검색"
+
+#: ../src/gnome-cmd-user-actions.cc:153
+msgid "Advanced rename tool"
+msgstr "진보된 개명 도구"
+
+#: ../src/gnome-cmd-user-actions.cc:154
+msgid "Change permissions"
+msgstr "권한 변경"
+
+#: ../src/gnome-cmd-user-actions.cc:155
+msgid "Change owner/group"
+msgstr "소유자/그룹 변경"
+
+#: ../src/gnome-cmd-user-actions.cc:156
+msgid "Copy files"
+msgstr "파일 복사"
+
+#: ../src/gnome-cmd-user-actions.cc:157
+msgid "Create symbolic link"
+msgstr "심벌릭 링크 생성"
+
+#: ../src/gnome-cmd-user-actions.cc:158
+msgid "Delete files"
+msgstr "파일 삭제"
+
+#: ../src/gnome-cmd-user-actions.cc:159
+msgid "Compare files (diff)"
+msgstr "파일 비교(diff)"
+
+#: ../src/gnome-cmd-user-actions.cc:160
+msgid "Edit file"
+msgstr "파일 편집"
+
+#: ../src/gnome-cmd-user-actions.cc:161
+msgid "Edit a new file"
+msgstr "새 파일 편집"
+
+#: ../src/gnome-cmd-user-actions.cc:162
+msgid "Quit"
+msgstr "종료"
+
+#: ../src/gnome-cmd-user-actions.cc:163
+msgid "View with external viewer"
+msgstr "외부 뷰어로 보기"
+
+#: ../src/gnome-cmd-user-actions.cc:164
+msgid "View with internal viewer"
+msgstr "내부 뷰어로 보기"
+
+#: ../src/gnome-cmd-user-actions.cc:165
+msgid "Create directory"
+msgstr "디렉토리 생성"
+
+#: ../src/gnome-cmd-user-actions.cc:166
+msgid "Move files"
+msgstr "파일 이동"
+
+#: ../src/gnome-cmd-user-actions.cc:168
+msgid "Rename files"
+msgstr "파일 개명"
+
+#: ../src/gnome-cmd-user-actions.cc:171
+msgid "Synchronize directories"
+msgstr "디렉토리 동기화"
+
+#: ../src/gnome-cmd-user-actions.cc:174
+msgid "About GNOME Commander"
+msgstr "GNOME 커맨더에 대해서"
+
+#: ../src/gnome-cmd-user-actions.cc:175
+msgid "Help contents"
+msgstr "도움말 목록"
+
+#: ../src/gnome-cmd-user-actions.cc:176
+msgid "Help on keyboard shortcuts"
+msgstr "키보드 단축키에 관한 도움말"
+
+#: ../src/gnome-cmd-user-actions.cc:177
+msgid "Report a problem"
+msgstr "문제 보고"
+
+#: ../src/gnome-cmd-user-actions.cc:178
+msgid "GNOME Commander on the web"
+msgstr "웹 상의 GNOME 커맨더"
+
+#: ../src/gnome-cmd-user-actions.cc:179
+msgid "Compare directories"
+msgstr "디렉토리 비교"
+
+#: ../src/gnome-cmd-user-actions.cc:180
+msgid "Invert selection"
+msgstr "선택 반전"
+
+#: ../src/gnome-cmd-user-actions.cc:181
+msgid "Select all"
+msgstr "모두 선택"
+
+#: ../src/gnome-cmd-user-actions.cc:182
+msgid "Toggle selection"
+msgstr "선택 토글"
+
+#: ../src/gnome-cmd-user-actions.cc:183
+msgid "Toggle selection and move cursor downward"
+msgstr "선택을 토글 하고 커서를 아래로 이동"
+
+#: ../src/gnome-cmd-user-actions.cc:184
+msgid "Unselect all"
+msgstr "모두 선택 해제"
+
+#: ../src/gnome-cmd-user-actions.cc:187
+msgid "MIME types"
+msgstr "MIME 타입"
+
+#: ../src/gnome-cmd-user-actions.cc:188
+msgid "Keyboard shortcuts"
+msgstr "키보드 단축키"
+
+#: ../src/gnome-cmd-user-actions.cc:189
+msgid "Configure plugins"
+msgstr "플러그인 설정"
+
+#: ../src/gnome-cmd-user-actions.cc:190
+msgid "Execute python plugin"
+msgstr "파이선 플러그인 실행"
+
+#: ../src/gnome-cmd-user-actions.cc:191
+msgid "Back one directory"
+msgstr "한 디렉토리 뒤로"
+
+#: ../src/gnome-cmd-user-actions.cc:192
+msgid "Close the current tab"
+msgstr "현재 탭 닫기"
+
+#: ../src/gnome-cmd-user-actions.cc:193
+msgid "Equal panel size"
+msgstr "패널 크기 같게"
+
+#: ../src/gnome-cmd-user-actions.cc:194
+msgid "Back to the first directory"
+msgstr "첫 번째 디렉토리로 돌아가기"
+
+#: ../src/gnome-cmd-user-actions.cc:195
+msgid "Forward one directory"
+msgstr "한 디렉토리 앞으로"
+
+#: ../src/gnome-cmd-user-actions.cc:196
+msgid "Home directory"
+msgstr "홈 디렉토리"
+
+#: ../src/gnome-cmd-user-actions.cc:197
+msgid "Open directory in the active window"
+msgstr "활성 창에 디렉토리 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:198
+msgid "Open directory in the inactive window"
+msgstr "비 활성 창에 디렉토리 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:199
+msgid "Open directory in the left window"
+msgstr "좌측 창에 디렉토리 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:200
+msgid "Open directory in the right window"
+msgstr "우측 창에 디렉토리 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:201
+msgid "Forward to the last directory"
+msgstr "마지막 디렉토리로 앞으로"
+
+#: ../src/gnome-cmd-user-actions.cc:202
+msgid "Open directory in a new tab"
+msgstr "새 탭에 디렉토리 열기"
+
+#: ../src/gnome-cmd-user-actions.cc:204
+msgid "Root directory"
+msgstr "/(root) 디렉토리"
+
+#: ../src/gnome-cmd-user-actions.cc:206
+msgid "Show terminal"
+msgstr "터미널 보기"
+
+#: ../src/gnome-cmd-user-actions.cc:724
+#, c-format
+msgid "Create symbolic links of %i file in %s?"
+msgstr "%i 파일의 심벌릭 링크를 %s에 생성하시겠습니까?"
+
+#: ../src/gnome-cmd-user-actions.cc:729
+msgid "Create"
+msgstr "생성하기"
+
+#: ../src/gnome-cmd-user-actions.cc:793
+#: ../src/gnome-cmd-user-actions.cc:810
+#: ../src/gnome-cmd-user-actions.cc:850
+msgid "Operation not supported on remote file systems"
+msgstr "원격 파일 시스템에는 이 작업이 지원되지 않습니다"
+
+#: ../src/gnome-cmd-user-actions.cc:825
+msgid "Too many selected files"
+msgstr "선택 파일이 너무 많습니다"
+
+#: ../src/gnome-cmd-user-actions.cc:835
+#: ../src/gnome-cmd-user-actions.cc:872
+#, c-format
+msgid "running `%s'\n"
+msgstr "`%s' 실행 중\n"
+
+#: ../src/gnome-cmd-user-actions.cc:1111
+msgid "Unable to start Nautilus."
+msgstr "노틸러스를 시작할 수 없습니다."
+
+#: ../src/gnome-cmd-user-actions.cc:1143
+msgid "gksu or kdesu is not found."
+msgstr "gksu나 kdesu가 발견되지 않습니다."
+
+#: ../src/gnome-cmd-user-actions.cc:1156
+msgid "Unable to start GNOME Commander in root mode."
+msgstr "root 모드에서 GNOME 커맨더를 시작할 수 없습니다."
+
+#: ../src/gnome-cmd-user-actions.cc:1575
+#: ../src/gnome-cmd-user-actions.cc:1578
+msgid "There was an error opening home page."
+msgstr "홈 페이지를 여는 동안 에러가 발생했습니다."
+
+#: ../src/gnome-cmd-user-actions.cc:1589
+#: ../src/gnome-cmd-user-actions.cc:1592
+msgid "There was an error reporting problem."
+msgstr "문제 보고를 하는 동안 에러가 발생했습니다."
+
+#: ../src/gnome-cmd-user-actions.cc:1615
+msgid "A fast and powerful file manager for the GNOME desktop"
+msgstr "GNOME 데스크탑 상의 빠르고 강력한 파일 매니저"
+
+#: ../src/gnome-cmd-user-actions.cc:1619
+msgid "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
+msgstr "GNOME 커맨더는 무료 소프트웨어이며 자유 소프트웨어 재단에 의해 발행된 GNU 일반 공중 사용 허가서(버전 2나 선택적으로 그 이후의 버전)의 조건 하에서 여러분은 이것을 수정하거나 재 배포할 수 있습니다."
+
+#: ../src/gnome-cmd-user-actions.cc:1623
+msgid "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
+msgstr "GNOME 커맨더는 이것이 유용할 것이라는 희망 하에 배포되지만 어떤 보증도 하지 않으며 상업성이나 특별한 목적을 위한 적합성에 관한 어떤 암시적인 보증조차도 하지 않는다. 자세한 내용은 GNU 일반 공중 허가서를 보기 바란다."
+
+#: ../src/gnome-cmd-user-actions.cc:1627
+msgid "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
+msgstr "여러분은 GNOME 커맨더와 함께 GNU 일반 공중 사용 허가서의 복사본을 얻어야 한다. 그렇지 않다면 Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA에 글을 보내기 바란다."
+
+#: ../src/gnome-cmd-user-actions.cc:1644
+msgid "translator-credits"
+msgstr "번역 공로자"
+
+#: ../src/gnome-cmd-xfer.cc:166
+#, c-format
+msgid ""
+"The file \"%s\" already exists.\n"
+"\n"
+"Do you want to overwrite it?\n"
+msgstr ""
+"파일 \"%s\"이(가) 이미 존재합니다.\n"
+"\n"
+"덮어쓰기를 원하십니까?\n"
+
+#: ../src/gnome-cmd-xfer.cc:170
+msgid "Replace"
+msgstr "교체"
+
+#: ../src/gnome-cmd-xfer.cc:170
+msgid "Replace All"
+msgstr "모두 교체"
+
+#: ../src/gnome-cmd-xfer.cc:186
+#, c-format
+msgid ""
+"Error while copying to %s\n"
+"\n"
+"%s"
+msgstr ""
+"%s로 복사하는 동안 에러 발생\n"
+"\n"
+"%s"
+
+#: ../src/gnome-cmd-xfer.cc:189
+msgid "Transfer problem"
+msgstr "전송 문제"
+
+#: ../src/gnome-cmd-xfer.cc:228
+msgid "copying..."
+msgstr "복사 중..."
+
+#: ../src/gnome-cmd-xfer.cc:236
+#, c-format
+msgid "[file %ld of %ld] \"%s\""
+msgstr "[파일 %ld of %ld] \"%s\""
+
+#: ../src/gnome-cmd-xfer.cc:386
+msgid ""
+"Copying a directory into itself is a bad idea.\n"
+"The whole operation was cancelled."
+msgstr ""
+"자기 자신의 디렉토리에 복사하는 것은 좋지 않은 생각입니다.\n"
+"모든 작업이 취소되었습니다."
+
+#: ../src/gnome-cmd-xfer.cc:427
+msgid "preparing..."
+msgstr "준비 중..."
+
+#: ../src/gnome-cmd-xfer.cc:512
+msgid "downloading to /tmp"
+msgstr "/tmp로 다운로드 중"
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:41
+msgid "stopping..."
+msgstr "정지 중..."
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:84
+msgid "Progress"
+msgstr "진행 상태"
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:178
+#, c-format
+msgid "%s of %s copied"
+msgstr "%s/%s이(가) 복사됨"
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:182
+#, c-format
+msgid "%.0f%% copied"
+msgstr "%.0f%% 복사됨"
+
+#: ../src/imageloader.cc:110
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr "설치된 pixmap 파일 타입을 로드 할 수 없어 소스 디렉토리에서 로드를 시도하는 중\n"
+
+#: ../src/imageloader.cc:111
+#: ../src/imageloader.cc:137
+#, c-format
+msgid "Trying to load %s instead\n"
+msgstr "대신 %s의 로드를 시도하는 중\n"
+
+#: ../src/imageloader.cc:115
+#: ../src/imageloader.cc:140
+#, c-format
+msgid "Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory\n"
+msgstr "pixmap을 어디에서도 발견할 수 없습니다. 그 프로그램을 설치했는지를 확인해보거나 gnome-commander-%s/src 디렉토리에서 gnome-commander를 실행하기 바랍니다\n"
+
+#: ../src/imageloader.cc:136
+msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+msgstr "설치된 pixmap을 로드 할 수 없어 소스 디렉토리에서 로드를 시도하는 중\n"
+
+#: ../src/intviewer/search-dlg.cc:245
+msgid "Find"
+msgstr "찾기"
+
+#. Search mode radio buttons
+#: ../src/intviewer/search-dlg.cc:275
+#: ../src/intviewer/viewer-window.cc:664
+#: ../src/intviewer/viewer-window.cc:866
+msgid "_Text"
+msgstr "텍스트(_T)"
+
+#: ../src/intviewer/search-dlg.cc:276
+#: ../src/intviewer/viewer-window.cc:672
+msgid "_Hexadecimal"
+msgstr "16진(_H)"
+
+#: ../src/intviewer/search-progress-dlg.cc:77
+msgid "Searching..."
+msgstr "검색 중..."
+
+#: ../src/intviewer/search-progress-dlg.cc:189
+#, c-format
+msgid "Searching for \"%s\""
+msgstr "\"%s\"를 검색하는 중"
+
+#: ../src/intviewer/viewer-widget.cc:211
+#, c-format
+msgid "Position: %lu of %lu\tColumn: %d\t%s"
+msgstr "위치: %lu / %lu\t칼럼: %d\t%s"
+
+#: ../src/intviewer/viewer-widget.cc:215
+msgid "Wrap"
+msgstr ""
+
+#: ../src/intviewer/viewer-widget.cc:242
+msgid "pixel"
+msgstr "픽셀"
+
+#: ../src/intviewer/viewer-widget.cc:244
+msgid "bit/sample"
+msgstr "비트/샘플"
+
+#: ../src/intviewer/viewer-widget.cc:246
+msgid "(fit to window)"
+msgstr "(창에 맞춤)"
+
+#: ../src/intviewer/viewer-window.cc:654
+msgid "_Close"
+msgstr "닫기(_C)"
+
+#: ../src/intviewer/viewer-window.cc:668
+msgid "_Binary"
+msgstr "바이너리(_B)"
+
+#: ../src/intviewer/viewer-window.cc:676
+#: ../src/intviewer/viewer-window.cc:871
+msgid "_Image"
+msgstr "이미지(_I)"
+
+#: ../src/intviewer/viewer-window.cc:681
+msgid "_Zoom In"
+msgstr "확대(_Z)"
+
+#: ../src/intviewer/viewer-window.cc:685
+msgid "Zoom _Out"
+msgstr "축소(_O)"
+
+#: ../src/intviewer/viewer-window.cc:689
+msgid "_Normal Size"
+msgstr "보통 크기(_N)"
+
+#: ../src/intviewer/viewer-window.cc:693
+msgid "Best _Fit"
+msgstr "최적 크기(_F)"
+
+#: ../src/intviewer/viewer-window.cc:703
+msgid "_Copy Text Selection"
+msgstr "텍스트 선택 복사(_C)"
+
+#: ../src/intviewer/viewer-window.cc:707
+msgid "Find..."
+msgstr "찾기..."
+
+#: ../src/intviewer/viewer-window.cc:711
+msgid "Find Next"
+msgstr "다음 찾기"
+
+#: ../src/intviewer/viewer-window.cc:715
+msgid "Find Previous"
+msgstr "이전 찾기"
+
+#: ../src/intviewer/viewer-window.cc:720
+msgid "_Wrap lines"
+msgstr ""
+
+#: ../src/intviewer/viewer-window.cc:725
+msgid "_Encoding"
+msgstr "인코딩(_E)"
+
+#: ../src/intviewer/viewer-window.cc:766
+msgid "Show Metadata _Tags"
+msgstr "메타 태그 보기(_T)"
+
+#: ../src/intviewer/viewer-window.cc:772
+msgid "_Rotate Clockwise"
+msgstr "시계 방향으로 회전(_R)"
+
+#: ../src/intviewer/viewer-window.cc:777
+msgid "Rotate Counter Clockwis_e"
+msgstr "반 시계 방향으로 회전(_e)"
+
+#: ../src/intviewer/viewer-window.cc:782
+msgid "_Rotate 180°"
+msgstr "180° 회전(_R)"
+
+#: ../src/intviewer/viewer-window.cc:787
+msgid "Flip _Vertical"
+msgstr "수직으로 뒤집기(_V)"
+
+#: ../src/intviewer/viewer-window.cc:792
+msgid "Flip _Horizontal"
+msgstr "수평으로 뒤집기(_H)"
+
+#: ../src/intviewer/viewer-window.cc:802
+msgid "_Binary Mode"
+msgstr "이진 모드(_B)"
+
+#: ../src/intviewer/viewer-window.cc:808
+msgid "_Hexadecimal Offset"
+msgstr "16진 오프셋(_H)"
+
+#: ../src/intviewer/viewer-window.cc:814
+msgid "_Save Current Settings"
+msgstr "현 설정 저장(_S)"
+
+#: ../src/intviewer/viewer-window.cc:824
+msgid "_20 chars/line"
+msgstr "줄당 20문자(_2)"
+
+#: ../src/intviewer/viewer-window.cc:829
+msgid "_40 chars/line"
+msgstr "줄당 40문자(_4)"
+
+#: ../src/intviewer/viewer-window.cc:834
+msgid "_80 chars/line"
+msgstr "줄당 80문자(_8)"
+
+#: ../src/intviewer/viewer-window.cc:843
+msgid "Quick _Help"
+msgstr "빠른 도움말(_H)"
+
+#: ../src/intviewer/viewer-window.cc:1121
+#, c-format
+msgid "Pattern \"%s\" was not found"
+msgstr "패턴 \"%s\"이(가) 발견되지 않습니다"
+
+#: ../src/main.cc:62
+#: ../src/main.cc:71
+msgid "Specify debug flags to use"
+msgstr "이용할 디폴트 플래그를 명세하십시오"
+
+#: ../src/main.cc:63
+#: ../src/main.cc:72
+msgid "Specify the start directory for the left pane"
+msgstr "좌측 창을 위한 시작 디렉토리를 명세하십시오"
+
+#: ../src/main.cc:64
+#: ../src/main.cc:73
+msgid "Specify the start directory for the right pane"
+msgstr "우측 창을 위한 시작 디렉토리를 명세하십시오"
+
+#: ../src/main.cc:112
+msgid "File Manager"
+msgstr "파일 관리자"
+
+#: ../src/plugin_manager.cc:342
+msgid "Disable"
+msgstr "무효화"
+
+#: ../src/plugin_manager.cc:342
+msgid "Enable"
+msgstr "유효화"
+
+#: ../src/plugin_manager.cc:405
+msgid "Available plugins"
+msgstr "이용 가능한 플러그인"
+
+#: ../src/plugin_manager.cc:412
+msgid "Version"
+msgstr "버전"
+
+#: ../src/plugin_manager.cc:418
+msgid "_Enable"
+msgstr "유효화(_E)"
+
+#: ../src/plugin_manager.cc:422
+msgid "_Configure"
+msgstr "설정(_C)"
+
+#: ../src/tags/gnome-cmd-tags.cc:64
+msgid "<Exif and IPTC tags not supported>"
+msgstr "<Exif와 IPTC 태그는 지원되지 않습니다>"
+
+#: ../src/tags/gnome-cmd-tags.cc:68
+msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
+msgstr "<ID3, APE, FLAC와 Vorbis 태그는 지원되지 않습니다>"
+
+#: ../src/tags/gnome-cmd-tags.cc:72
+msgid "<OLE2 and ODF tags not supported>"
+msgstr "<OLE2와 ODF 태그는 지원되지 않습니다>"
+
+#: ../src/tags/gnome-cmd-tags.cc:76
+msgid "<PDF tags not supported>"
+msgstr "<PDF 태그는 지원되지 않습니다>"
+
+#: ../src/tags/gnome-cmd-tags.cc:112
+#: ../src/tags/gnome-cmd-tags.cc:413
+msgid "Album"
+msgstr "앨범"
+
+#: ../src/tags/gnome-cmd-tags.cc:112
+msgid "Name of the album."
+msgstr "앨범 명."
+
+#: ../src/tags/gnome-cmd-tags.cc:113
+msgid "Album Artist"
+msgstr "앨범 아티스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:113
+msgid "Artist of the album."
+msgstr "앨범의 제작자"
+
+#: ../src/tags/gnome-cmd-tags.cc:114
+msgid "Album Gain"
+msgstr "앨범 Gain"
+
+#: ../src/tags/gnome-cmd-tags.cc:114
+msgid "Gain adjustment of the album."
+msgstr "앨범의 Gain 조정."
+
+#: ../src/tags/gnome-cmd-tags.cc:115
+msgid "Album Peak Gain"
+msgstr "앨범 Peak Gain"
+
+#: ../src/tags/gnome-cmd-tags.cc:115
+msgid "Peak gain adjustment of album."
+msgstr "앨범의 Peak Gain 조정."
+
+#: ../src/tags/gnome-cmd-tags.cc:116
+msgid "Album Track Count"
+msgstr "앨범 트랙 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:116
+msgid "Total number of tracks on the album."
+msgstr "앨범의 총 트랙 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:117
+#: ../src/tags/gnome-cmd-tags.cc:199
+msgid "Artist"
+msgstr "아티스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:117
+msgid "Artist of the track."
+msgstr "트랙의 아티스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:118
+msgid "Bitrate"
+msgstr "비트 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:118
+msgid "Bitrate in kbps."
+msgstr "kbps 단위의 비트 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:119
+msgid "Channels"
+msgstr "채널"
+
+#: ../src/tags/gnome-cmd-tags.cc:119
+msgid "Number of channels in the audio (2 = stereo)."
+msgstr "오디오의 채털 수(2 = 스테레오)."
+
+#: ../src/tags/gnome-cmd-tags.cc:120
+msgid "Codec"
+msgstr "코덱"
+
+#: ../src/tags/gnome-cmd-tags.cc:120
+msgid "Codec encoding description."
+msgstr "코덱 인코딩 설명."
+
+#: ../src/tags/gnome-cmd-tags.cc:121
+msgid "Codec Version"
+msgstr "코덱 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:121
+msgid "Codec version."
+msgstr "코덱 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:122
+msgid "Comment"
+msgstr "주속"
+
+#: ../src/tags/gnome-cmd-tags.cc:122
+msgid "Comments on the track."
+msgstr "트랙의 주속."
+
+#: ../src/tags/gnome-cmd-tags.cc:123
+#: ../src/tags/gnome-cmd-tags.cc:210
+#: ../src/tags/gnome-cmd-tags.cc:339
+#: ../src/tags/gnome-cmd-tags.cc:415
+msgid "Copyright"
+msgstr "저작권"
+
+#: ../src/tags/gnome-cmd-tags.cc:123
+#: ../src/tags/gnome-cmd-tags.cc:339
+msgid "Copyright message."
+msgstr "저작권 메시지."
+
+#: ../src/tags/gnome-cmd-tags.cc:124
+msgid "Cover Album Thumbnail Path"
+msgstr "표지 앨범 썸네일 경로"
+
+#: ../src/tags/gnome-cmd-tags.cc:124
+msgid "File path to thumbnail image of the cover album."
+msgstr "표지 앨범의 썸네일의 파일 경로."
+
+#: ../src/tags/gnome-cmd-tags.cc:125
+msgid "Disc Number"
+msgstr "디스크 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:125
+msgid "Specifies which disc the track is on."
+msgstr "트랙이 위치한 디스크를 명세한다."
+
+#: ../src/tags/gnome-cmd-tags.cc:126
+msgid "Duration"
+msgstr "연주 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:126
+msgid "Duration of track in seconds."
+msgstr "초 단위의 트랙의 연주 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:127
+msgid "Duration [MM:SS]"
+msgstr "연주 시간 [MM:SS]"
+
+#: ../src/tags/gnome-cmd-tags.cc:127
+msgid "Duration of track as MM:SS."
+msgstr "MM:SS 단위의 트랙 연주 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:128
+msgid "Genre"
+msgstr "쟝르"
+
+#: ../src/tags/gnome-cmd-tags.cc:128
+#: ../src/tags/gnome-cmd-tags.cc:338
+msgid "Type of music classification for the track as defined in ID3 spec."
+msgstr " ID3 스펙으로 정의된 트랙의 음악 분류의 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:129
+msgid "Is New"
+msgstr "새 트랙"
+
+#: ../src/tags/gnome-cmd-tags.cc:129
+msgid "Set to \"1\" if track is new to the user (default \"0\")."
+msgstr "사용자에게 새 트랙이면 \"1\"로 설정(기본 값 \"0\")."
+
+#: ../src/tags/gnome-cmd-tags.cc:130
+msgid "ISRC"
+msgstr "ISRC"
+
+#: ../src/tags/gnome-cmd-tags.cc:130
+msgid "ISRC (international standard recording code)."
+msgstr "ISRC (international standard recording code)."
+
+#: ../src/tags/gnome-cmd-tags.cc:131
+msgid "Last Play"
+msgstr "마지막 연주"
+
+#: ../src/tags/gnome-cmd-tags.cc:131
+msgid "When track was last played."
+msgstr "트랙이 마지막 연주된 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:132
+msgid "Lyrics"
+msgstr "가사"
+
+#: ../src/tags/gnome-cmd-tags.cc:132
+msgid "Lyrics of the track."
+msgstr "트랙의 가사."
+
+#: ../src/tags/gnome-cmd-tags.cc:133
+msgid "MB album artist ID"
+msgstr "MB 앨범 아티스트 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:133
+msgid "MusicBrainz album artist ID in UUID format."
+msgstr "UUID 포맷의 MusicBrainz 앨범 아티스트 ID."
+
+#: ../src/tags/gnome-cmd-tags.cc:134
+msgid "MB Album ID"
+msgstr "MB 앨범 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:134
+msgid "MusicBrainz album ID in UUID format."
+msgstr "UUID 포맷의 MusicBrainz 앨범 ID."
+
+#: ../src/tags/gnome-cmd-tags.cc:135
+msgid "MB Artist ID"
+msgstr "MB 아티스트 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:135
+msgid "MusicBrainz artist ID in UUID format."
+msgstr "UUID 포맷의 MusicBrainz 아티스트 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:136
+msgid "MB Track ID"
+msgstr "MB 트랙 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:136
+msgid "MusicBrainz track ID in UUID format."
+msgstr "UUID 포맷의 MusicBrainz 트랙 ID."
+
+#: ../src/tags/gnome-cmd-tags.cc:137
+msgid "Channel Mode"
+msgstr "채널 모드"
+
+#: ../src/tags/gnome-cmd-tags.cc:137
+msgid "MPEG channel mode."
+msgstr "MPEG 채널 모드."
+
+#: ../src/tags/gnome-cmd-tags.cc:138
+msgid "Copyrighted"
+msgstr "저작권 소유"
+
+#: ../src/tags/gnome-cmd-tags.cc:138
+msgid "\"1\" if the copyrighted bit is set."
+msgstr "저작권 소유 비트가 설정되면 \"1\"."
+
+#: ../src/tags/gnome-cmd-tags.cc:139
+msgid "Layer"
+msgstr "레이어"
+
+#: ../src/tags/gnome-cmd-tags.cc:139
+msgid "MPEG layer."
+msgstr "MPEG 레이어."
+
+#: ../src/tags/gnome-cmd-tags.cc:140
+msgid "Original Audio"
+msgstr "원본 오디오"
+
+#: ../src/tags/gnome-cmd-tags.cc:140
+msgid "\"1\" if the \"original\" bit is set."
+msgstr "\"original\" 비트가 설정되면 \"1\"."
+
+#: ../src/tags/gnome-cmd-tags.cc:141
+msgid "MPEG Version"
+msgstr "MPEG 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:141
+msgid "MPEG version."
+msgstr "MPEG 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:142
+msgid "Performer"
+msgstr "연주자"
+
+#: ../src/tags/gnome-cmd-tags.cc:142
+msgid "Name of the performer/conductor of the music."
+msgstr "음악의 연주자/지휘자의 이름."
+
+#: ../src/tags/gnome-cmd-tags.cc:143
+msgid "Play Count"
+msgstr "연주 횟수"
+
+#: ../src/tags/gnome-cmd-tags.cc:143
+msgid "Number of times the track has been played."
+msgstr "트랙이 연주된 횟수."
+
+#: ../src/tags/gnome-cmd-tags.cc:144
+#: ../src/tags/gnome-cmd-tags.cc:497
+msgid "Release Date"
+msgstr "배포 일"
+
+#: ../src/tags/gnome-cmd-tags.cc:144
+msgid "Date track was released."
+msgstr "트랙이 배포된 날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:145
+msgid "Sample Rate"
+msgstr "샘플 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:145
+msgid "Sample rate in Hz."
+msgstr "Hz 단위의 샘플 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:146
+#: ../src/tags/gnome-cmd-tags.cc:196
+#: ../src/tags/gnome-cmd-tags.cc:432
+msgid "Title"
+msgstr "타이틀"
+
+#: ../src/tags/gnome-cmd-tags.cc:146
+msgid "Title of the track."
+msgstr "트랙의 타이틀."
+
+#: ../src/tags/gnome-cmd-tags.cc:147
+msgid "Track Gain"
+msgstr "트랙 Gain"
+
+#: ../src/tags/gnome-cmd-tags.cc:147
+msgid "Gain adjustment of the track."
+msgstr "트랙의 Gain 조정."
+
+#: ../src/tags/gnome-cmd-tags.cc:148
+msgid "Track Number"
+msgstr "트랙 번호"
+
+#: ../src/tags/gnome-cmd-tags.cc:148
+msgid "Position of track on the album."
+msgstr "앨범의 트랙의 위치."
+
+#: ../src/tags/gnome-cmd-tags.cc:149
+msgid "Track Peak Gain"
+msgstr "트랙 Peak Gain"
+
+#: ../src/tags/gnome-cmd-tags.cc:149
+msgid "Peak gain adjustment of track."
+msgstr "트랙의 Peak gain 조정."
+
+#: ../src/tags/gnome-cmd-tags.cc:150
+msgid "Year"
+msgstr "연도"
+
+#: ../src/tags/gnome-cmd-tags.cc:150
+msgid "Year."
+msgstr "연도."
+
+#: ../src/tags/gnome-cmd-tags.cc:151
+#: ../src/tags/gnome-cmd-tags.cc:160
+msgid "Author"
+msgstr "저자"
+
+#: ../src/tags/gnome-cmd-tags.cc:151
+#: ../src/tags/gnome-cmd-tags.cc:160
+#: ../src/tags/gnome-cmd-tags.cc:416
+msgid "Name of the author."
+msgstr "저자의 이름."
+
+#: ../src/tags/gnome-cmd-tags.cc:152
+msgid "Byte Count"
+msgstr "바이트 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:152
+msgid "Number of bytes in the document."
+msgstr "문서의 바이트 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:153
+msgid "Case Sensitive"
+msgstr "대소문자 구분"
+
+#: ../src/tags/gnome-cmd-tags.cc:153
+msgid "Case sensitive."
+msgstr "대소문자 구분."
+
+#: ../src/tags/gnome-cmd-tags.cc:154
+#: ../src/tags/gnome-cmd-tags.cc:446
+msgid "Category"
+msgstr "카테고리"
+
+#: ../src/tags/gnome-cmd-tags.cc:154
+msgid "Category."
+msgstr "카테고리."
+
+#: ../src/tags/gnome-cmd-tags.cc:155
+msgid "Cell Count"
+msgstr "셀 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:155
+msgid "Number of cells in the spreadsheet document."
+msgstr "스프레드시트 문서의 셀 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:156
+msgid "Character Count"
+msgstr "문자 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:156
+msgid "Number of characters in the document."
+msgstr "문서의 문자 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:157
+msgid "Codepage"
+msgstr "코드 페이지"
+
+#: ../src/tags/gnome-cmd-tags.cc:157
+msgid "The MS codepage to encode strings for metadata."
+msgstr "메타 데이터 문자열을 인코드 하는 MS 코드 페이지."
+
+#: ../src/tags/gnome-cmd-tags.cc:158
+#: ../src/tags/gnome-cmd-tags.cc:414
+msgid "Comments"
+msgstr "주석"
+
+#: ../src/tags/gnome-cmd-tags.cc:158
+#: ../src/tags/gnome-cmd-tags.cc:414
+msgid "User definable free text."
+msgstr "사용자 정의형 자유 텍스트."
+
+#: ../src/tags/gnome-cmd-tags.cc:159
+msgid "Company"
+msgstr "회사"
+
+#: ../src/tags/gnome-cmd-tags.cc:159
+msgid "Organization that the <Doc.Creator> entity is associated with."
+msgstr "<Doc.Creator> 엔터티와 연결되어 있는 조직."
+
+#: ../src/tags/gnome-cmd-tags.cc:161
+#: ../src/tags/gnome-cmd-tags.cc:416
+msgid "Creator"
+msgstr "창작자"
+
+#: ../src/tags/gnome-cmd-tags.cc:161
+msgid "An entity primarily responsible for making the content of the resource, typically a person, organization, or service."
+msgstr "자원 컨텐트 제작에 일차적으로 책임이 있는 사람, 조직 또는 서비스 등의 주체."
+
+#: ../src/tags/gnome-cmd-tags.cc:162
+msgid "Created"
+msgstr "생성 일"
+
+#: ../src/tags/gnome-cmd-tags.cc:162
+msgid "Datetime document was originally created."
+msgstr "문서가 원래 생성된 날짜 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:163
+#: ../src/tags/gnome-cmd-tags.cc:457
+msgid "Date Created"
+msgstr "생성된 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:163
+msgid "Date associated with an event in the life cycle of the resource (creation/publication date)."
+msgstr "자원의 생성 사이클에서의 이벤트와 관련된 날짜(생성/출판일)."
+
+#: ../src/tags/gnome-cmd-tags.cc:164
+msgid "Date Modified"
+msgstr "변경 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:164
+msgid "The last time the document was saved."
+msgstr "문서가 마지막으로 저장된 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:165
+msgid "An account of the content of the resource."
+msgstr "자원 컨텐트의 평가."
+
+#: ../src/tags/gnome-cmd-tags.cc:166
+msgid "Dictionary"
+msgstr "사전"
+
+#: ../src/tags/gnome-cmd-tags.cc:166
+msgid "Dictionary."
+msgstr "사전."
+
+#: ../src/tags/gnome-cmd-tags.cc:167
+msgid "Editing Duration"
+msgstr "편집 기간"
+
+#: ../src/tags/gnome-cmd-tags.cc:167
+msgid "The total time taken until the last modification."
+msgstr "마지막 변경까지 걸린 총 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:168
+msgid "Generator"
+msgstr "생성 응용프로그램"
+
+#: ../src/tags/gnome-cmd-tags.cc:168
+msgid "The application that generated this document."
+msgstr "이 문서를 생성한 응용프로그램."
+
+#: ../src/tags/gnome-cmd-tags.cc:169
+msgid "Hidden Slide Count"
+msgstr "숨겨진 슬라이드 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:169
+msgid "Number of hidden slides in the presentation document."
+msgstr "프레젠테이션 문서의 숨겨진 슬라이드의 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:170
+msgid "Image Count"
+msgstr "이미지 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:170
+msgid "Number of images in the document."
+msgstr "문서의 이미지 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:171
+msgid "Initial Creator"
+msgstr "초기 창작자"
+
+#: ../src/tags/gnome-cmd-tags.cc:171
+msgid "Specifies the name of the person who created the document initially."
+msgstr "최초로 문서를 생성했던 사람의 이름을 명세합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:172
+#: ../src/tags/gnome-cmd-tags.cc:318
+#: ../src/tags/gnome-cmd-tags.cc:426
+#: ../src/tags/gnome-cmd-tags.cc:474
+msgid "Keywords"
+msgstr "키워드"
+
+#: ../src/tags/gnome-cmd-tags.cc:172
+msgid "Searchable, indexable keywords."
+msgstr "검색과 색인이 가능한 키워드."
+
+#: ../src/tags/gnome-cmd-tags.cc:173
+#: ../src/tags/gnome-cmd-tags.cc:357
+msgid "Language"
+msgstr "언어"
+
+#: ../src/tags/gnome-cmd-tags.cc:173
+msgid "The locale language of the intellectual content of the resource."
+msgstr "자원의 지적 컨텐트의 로케일 언어."
+
+#: ../src/tags/gnome-cmd-tags.cc:174
+msgid "Last Printed"
+msgstr "마지막 프린트 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:174
+msgid "The last time this document was printed."
+msgstr "문서가 마지막으로 프린트 된 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:175
+msgid "Last Saved By"
+msgstr "마지막 변경자"
+
+#: ../src/tags/gnome-cmd-tags.cc:175
+msgid "The entity that made the last change to the document, typically a person, organization, or service."
+msgstr "전형적으로 사람, 조직 또는 서비스 등으로 문서에 마지막 변경을 가했던 주체."
+
+#: ../src/tags/gnome-cmd-tags.cc:176
+msgid "Line Count"
+msgstr "줄 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:176
+msgid "Number of lines in the document."
+msgstr "문서의 줄 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:177
+msgid "Links Dirty"
+msgstr "깨진 링크"
+
+#: ../src/tags/gnome-cmd-tags.cc:177
+msgid "Links dirty."
+msgstr "깨진 링크."
+
+#: ../src/tags/gnome-cmd-tags.cc:178
+msgid "Locale System Default"
+msgstr "로케일 시스템 디폴트"
+
+#: ../src/tags/gnome-cmd-tags.cc:178
+msgid "Identifier representing the default system locale."
+msgstr "디폴트 시스템 로케일을 나타내는 식별자."
+
+#: ../src/tags/gnome-cmd-tags.cc:179
+msgid "Manager"
+msgstr "관리자"
+
+#: ../src/tags/gnome-cmd-tags.cc:179
+msgid "Name of the manager of <Doc.Creator> entity."
+msgstr "<Doc.Creator> 엔터티의 관리자 명."
+
+#: ../src/tags/gnome-cmd-tags.cc:180
+msgid "Multimedia Clip Count"
+msgstr "멀티미디어 클립 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:180
+msgid "Number of multimedia clips in the document."
+msgstr "문서 안의 멀티미디어 클립의 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:181
+msgid "Note Count"
+msgstr "노트 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:181
+msgid "Number of \"notes\" in the document."
+msgstr "문서 안의 \"노트\"의 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:182
+msgid "Object Count"
+msgstr "객체 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:182
+msgid "Number of objects (OLE and other graphics) in the document."
+msgstr "문서 안의 객체(OLE와 다른 그래픽)의 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:183
+msgid "Page Count"
+msgstr "페이지 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:183
+#: ../src/tags/gnome-cmd-tags.cc:192
+msgid "Number of pages in the document."
+msgstr "문서의 페이지 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:184
+msgid "Paragraph Count"
+msgstr "문단 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:184
+msgid "Number of paragraphs in the document."
+msgstr "문서의 문단 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:185
+msgid "Presentation Format"
+msgstr "프레젠테이션 포맷"
+
+#: ../src/tags/gnome-cmd-tags.cc:185
+msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+msgstr "\"화면 보기\", \"슬라이드뷰\" 등의 프레젠테이션 타입."
+
+#: ../src/tags/gnome-cmd-tags.cc:186
+msgid "Print Date"
+msgstr "프린트 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:186
+msgid "Specifies the date and time when the document was last printed."
+msgstr "문서가 마지막으로 프린트 된 때의 날짜와 시간을 명세합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:187
+msgid "Printed By"
+msgstr "프린트한 사람"
+
+#: ../src/tags/gnome-cmd-tags.cc:187
+msgid "Specifies the name of the last person who printed the document."
+msgstr "문서를 프린트 한 마지막 사람의 이름을 명세합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:188
+msgid "Revision Count"
+msgstr "개정판 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:188
+msgid "Number of revision on the document."
+msgstr "이 문서의 개정판의 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:189
+msgid "Scale"
+msgstr "비율"
+
+#: ../src/tags/gnome-cmd-tags.cc:189
+msgid "Scale."
+msgstr "비율."
+
+#: ../src/tags/gnome-cmd-tags.cc:190
+msgid "Security"
+msgstr "보안"
+
+#: ../src/tags/gnome-cmd-tags.cc:190
+msgid "One of: \"Password protected\", \"Read-only recommended\", \"Read-only enforced\" or \"Locked for annotations\"."
+msgstr "\"암호로 보호됨\", \"읽기 전용 권장\", \"읽기 전용 강요\" 또는 \"주석을 위한 잠금\" 중 하나."
+
+#: ../src/tags/gnome-cmd-tags.cc:191
+msgid "Slide Count"
+msgstr "슬라이드 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:191
+msgid "Number of slides in the presentation document."
+msgstr "프레젠테이션 문서의 슬라이드 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:192
+msgid "Spreadsheet Count"
+msgstr "스프레드시트 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:193
+msgid "Subject"
+msgstr "주제"
+
+#: ../src/tags/gnome-cmd-tags.cc:193
+msgid "Document subject."
+msgstr "문서 주제."
+
+#: ../src/tags/gnome-cmd-tags.cc:194
+msgid "Table Count"
+msgstr "테이블 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:194
+msgid "Number of tables in the document."
+msgstr "문서 안의 테이블 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:195
+msgid "The template file that is been used to generate this document."
+msgstr "이 문서를 생성하는 데에 이용되었던 템플릿 파일."
+
+#: ../src/tags/gnome-cmd-tags.cc:196
+msgid "Title of the document."
+msgstr "문서의 타이틀."
+
+#: ../src/tags/gnome-cmd-tags.cc:197
+msgid "Word Count"
+msgstr "단어 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:197
+msgid "Number of words in the document."
+msgstr "문서 안의 단어 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:198
+msgid "Aperture"
+msgstr "조리개"
+
+#: ../src/tags/gnome-cmd-tags.cc:198
+msgid "The lens aperture. The unit is the APEX value."
+msgstr "렌즈 조리개. 단위는 APEX 값입니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:199
+msgid "Name of the camera owner, photographer or image creator. The detailed format is not specified, but it is recommended that the information be written for ease of Interoperability. When the field is left blank, it is treated as unknown."
+msgstr "카메라 소유자, 촬영자 또는 이미지 생성자의 이름. 자세한 포맷은 명세되지 않았지만 쉬운 상호 이용성을 위해 정보가 기록되는 것이 권장됩니다. 이 필드가 공백으로 남겨지면 이것은 unknown으로 처리됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:200
+msgid "Battery Level"
+msgstr "배터리 수준"
+
+#: ../src/tags/gnome-cmd-tags.cc:200
+msgid "Battery level."
+msgstr "배터리 수준."
+
+#: ../src/tags/gnome-cmd-tags.cc:201
+msgid "Bits per Sample"
+msgstr "샘플 당 비트 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:201
+msgid "The number of bits per image component. Each component of the image is 8 bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "이미지 컴포넌트 당의 비트 수. 이미지의 각 컴포넌트는 8비트이므로 이 태그의 값은 8입니다. JPEG로 압축된 데이터에서는 이 태그 대신에 JPEG 메이커가 이용됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:202
+msgid "Brightness"
+msgstr "밝기"
+
+#: ../src/tags/gnome-cmd-tags.cc:202
+msgid "The value of brightness. The unit is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
+msgstr "밝기 값. 단위는 APEX 값입니다. 보통 이것은 -99.99에서 99.99의 범위의 값으로 주어집니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:203
+#: ../src/tags/gnome-cmd-tags.cc:266
+msgid "CFA Pattern"
+msgstr "CFA 패턴"
+
+#: ../src/tags/gnome-cmd-tags.cc:203
+#: ../src/tags/gnome-cmd-tags.cc:266
+msgid "The color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
+msgstr "one-chip 칼라 영역 센서가 이용되었을 때의 이미지 센서의 color filter array(CFA) geometric 패턴. 이것은 모든 감지 방법에 적용되지 않습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:204
+msgid "CFA Repeat Pattern Dim"
+msgstr "CFA 반복 패턴 Dim"
+
+#: ../src/tags/gnome-cmd-tags.cc:204
+msgid "CFA Repeat Pattern Dim."
+msgstr "CFA 반복 패턴 Dim."
+
+#: ../src/tags/gnome-cmd-tags.cc:205
+msgid "Color Space"
+msgstr "칼라 공간"
+
+#: ../src/tags/gnome-cmd-tags.cc:205
+msgid "The color space information tag is always recorded as the color space specifier. Normally sRGB is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix."
+msgstr "칼라 공간 정보 태그는 항상 칼라 공간 명세자로서 기록됩니다. 보통 sRGB는 PC 모니터 조건과 환경을 기반으로 칼라 공간을 정의하는 데에 이용됩니다. sRGB 이외의 칼라 공간이 이용되면 Uncalibrated가 설정됩니다. Uncalibrated로 기록된 이미지 데이터는 FlashPix로 변환될 때 sRGB로 취급될 수 있습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:206
+msgid "Components Configuration"
+msgstr "컴포넌트 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:206
+msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:207
+msgid "Compressed Bits per Pixel"
+msgstr "픽셀 당의 압축된 비트"
+
+#: ../src/tags/gnome-cmd-tags.cc:207
+msgid "Information specific to compressed data. The compression mode used for a compressed image is indicated in unit bits per pixel."
+msgstr "압축된 데이터에 고유한 정보. 압축된 이미지를 위해 이용되는 압축 모드는 픽셀 당 비트 단위로 지정됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:208
+msgid "Compression"
+msgstr "압축"
+
+#: ../src/tags/gnome-cmd-tags.cc:208
+msgid "The compression scheme used for the image data. When a primary image is JPEG compressed, this designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is set to 6."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:209
+msgid "Contrast"
+msgstr "대비"
+
+#: ../src/tags/gnome-cmd-tags.cc:209
+msgid "The direction of contrast processing applied by the camera when the image was shot."
+msgstr "이미지가 찍힐 때 카메라에 의해 적용된 대비 처리의 방향."
+
+#: ../src/tags/gnome-cmd-tags.cc:210
+msgid "Copyright information. The tag is used to indicate both the photographer and editor copyrights. It is the copyright notice of the person or organization claiming rights to the image. The Interoperability copyright statement including date and rights should be written in this field; e.g., \"Copyright, John Smith, 19xx. All rights reserved.\". The field records both the photographer and editor copyrights, with each recorded in a separate part of the statement. When there is a clear distinction between the photographer and editor copyrights, these are to be written in the order of photographer followed by editor copyright, separated by NULL (in this case, since the statement also ends with a NULL, there are two NULL codes) (see example 1). When only the photographer is given, it is terminated by one NULL code. When only the editor copyright is given, the photographer copyright part consists of one space followed by a terminating NULL code, then the editor copyright is given. When the field is left blank, it is treated as unknown."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:211
+msgid "Custom Rendered"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:211
+msgid "The use of special processing on image data, such as rendering geared to output. When special processing is performed, the reader is expected to disable or minimize any further processing."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:212
+msgid "Date and Time"
+msgstr "날짜와 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:212
+msgid "The date and time of image creation."
+msgstr "이미지 생성 날짜와 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:213
+msgid "Date and Time (digitized)"
+msgstr "날짜와 시간 (디지털화)"
+
+#: ../src/tags/gnome-cmd-tags.cc:213
+msgid "The date and time when the image was stored as digital data."
+msgstr "이미지가 디지털 데이터로 저장된 날짜와 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:214
+msgid "Date and Time (original)"
+msgstr "날짜와 시간 (원본)"
+
+#: ../src/tags/gnome-cmd-tags.cc:214
+msgid "The date and time when the original image data was generated. For a digital still camera the date and time the picture was taken are recorded."
+msgstr "원본 이미지 데이터가 생성된 날짜와 시간. 디지털 정지 화상 카메라에서는 사진이 찍히고 기록된 날짜와 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:215
+msgid "Device Setting Description"
+msgstr "디바이스 설정 설명"
+
+#: ../src/tags/gnome-cmd-tags.cc:215
+msgid "Information on the picture-taking conditions of a particular camera model. The tag is used only to indicate the picture-taking conditions in the reader."
+msgstr "특정 카메라 모델의 사진 채득 조건에 관한 정보. 이 태그는 리더에서 사진 채득 조건을 가리키기 위해서만 이용됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:216
+msgid "Digital Zoom Ratio"
+msgstr "디지털 줌 비율"
+
+#: ../src/tags/gnome-cmd-tags.cc:216
+msgid "The digital zoom ratio when the image was shot. If the numerator of the recorded value is 0, this indicates that digital zoom was not used."
+msgstr "이미지가 찍힐 때의 디지털 줌 비율. 기록된 값의 숫자가 0이면 이것은 디지털 줌이 이용되지 않았다는 것을 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:217
+msgid "Document Name"
+msgstr "문서 이름"
+
+#: ../src/tags/gnome-cmd-tags.cc:217
+msgid "Document name."
+msgstr "문서 이름."
+
+#: ../src/tags/gnome-cmd-tags.cc:218
+msgid "Exif IFD Pointer"
+msgstr "Exif IFD 포인터"
+
+#: ../src/tags/gnome-cmd-tags.cc:218
+msgid "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure as that of the IFD specified in TIFF."
+msgstr "Exif IFD에 대한 포인터. 상호 이용성, Exif IFD는 TiFF에 명세된 IFD와 동일한 구조를 가집니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:219
+msgid "Exif Version"
+msgstr "Exif 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:219
+msgid "The version of Exif standard supported. Nonexistence of this field is taken to mean nonconformance to the standard."
+msgstr "지원되는 Exif 표준의 버전. 이 필드가 존재하지 않는다는 것은 표준을 따르지 않는다는 것을 의미하는 것으로 받아들여집니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:220
+msgid "Exposure Bias"
+msgstr "노출 bias"
+
+#: ../src/tags/gnome-cmd-tags.cc:220
+msgid "The exposure bias. The units is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
+msgstr "노출 bias. 단위는 APEX 값입니다. 보통 이것은 -99.99에서 99.99의 범위로 주어집니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:221
+msgid "Exposure Index"
+msgstr "노출 색인 값"
+
+#: ../src/tags/gnome-cmd-tags.cc:221
+msgid "The exposure index selected on the camera or input device at the time the image is captured."
+msgstr "이미지가 잡힐 때 카메라나 입력 장치에서 선택되었던 노출 색인 값."
+
+#: ../src/tags/gnome-cmd-tags.cc:222
+msgid "Exposure Mode"
+msgstr "노출 모드"
+
+#: ../src/tags/gnome-cmd-tags.cc:222
+msgid "The exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings."
+msgstr "이미지가 찍힐 때 설정된 노출 모드. 자동 촬영 모드에서 카메라는 다른 노출 설정에서 같은 장면에 일련의 프레임들을 쏩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:223
+#: ../src/tags/gnome-cmd-tags.cc:419
+msgid "Exposure Program"
+msgstr "노출 프로그램"
+
+#: ../src/tags/gnome-cmd-tags.cc:223
+msgid "The class of the program used by the camera to set exposure when the picture is taken."
+msgstr "사진이 찍힐 때 노출을 설정하기 위해 카메라에 이용된 프로그램의 클래스."
+
+#: ../src/tags/gnome-cmd-tags.cc:224
+#: ../src/tags/gnome-cmd-tags.cc:420
+msgid "Exposure Time"
+msgstr "노출 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:224
+msgid "Exposure time, given in seconds."
+msgstr "초 단위로 주어진 노출 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:225
+msgid "File Source"
+msgstr "파일 소스"
+
+#: ../src/tags/gnome-cmd-tags.cc:225
+msgid "Indicates the image source. If a DSC recorded the image, this tag value of this tag always be set to 3, indicating that the image was recorded on a DSC."
+msgstr "이미지 소스를 가리킵니다. DSC가 이미지를 기록하면 이 태그의 태그 값은 항상 3으로 설정되는데 이것은 이미지가 DSC에 의해 기록되었다는 것을 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:226
+msgid "Fill Order"
+msgstr "채움 순서"
+
+#: ../src/tags/gnome-cmd-tags.cc:226
+msgid "Fill order."
+msgstr "채움 순서."
+
+#: ../src/tags/gnome-cmd-tags.cc:227
+#: ../src/tags/gnome-cmd-tags.cc:421
+msgid "Flash"
+msgstr "플래시"
+
+#: ../src/tags/gnome-cmd-tags.cc:227
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
+msgstr "플래시 라이트(플래시)를 이용해서 이미지가 얻어질 때 이 태그가 기록됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:228
+msgid "Flash Energy"
+msgstr "플래시 에너지"
+
+#: ../src/tags/gnome-cmd-tags.cc:228
+msgid "The strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS)."
+msgstr "이미지가 잡힐 때의 Beam Candle Power Seconds(BCPS) 단위로 측정된 플래시 에너지."
+
+#: ../src/tags/gnome-cmd-tags.cc:229
+msgid "FlashPix Version"
+msgstr "FlashPix 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:229
+msgid "The FlashPix format version supported by a FPXR file."
+msgstr "FPXR 파일에 의해 지원되는 FlashPix 포맷의 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:230
+#: ../src/tags/gnome-cmd-tags.cc:422
+msgid "F Number"
+msgstr "F 번호"
+
+#: ../src/tags/gnome-cmd-tags.cc:230
+#: ../src/tags/gnome-cmd-tags.cc:422
+msgid "Diameter of the aperture relative to the effective focal length of the lens."
+msgstr "렌즈의 유효 초점 거리에 대한 조리개의 직경."
+
+#: ../src/tags/gnome-cmd-tags.cc:231
+#: ../src/tags/gnome-cmd-tags.cc:423
+msgid "Focal Length"
+msgstr "초점 거리"
+
+#: ../src/tags/gnome-cmd-tags.cc:231
+msgid "The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film camera."
+msgstr "렌즈의 mm 단위의 실제 초점 길이. 35mm 필름 카메라의 초점 거리에서는 변환이 이루어지지 않습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:232
+msgid "Focal Length In 35mm Film"
+msgstr "35mm 필름에서의 초점 거리"
+
+#: ../src/tags/gnome-cmd-tags.cc:232
+msgid "The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag."
+msgstr "35mm 필름 카메라라고 가정했을 경우의 그것과 동등한 mm 단위의 초점 거리. 값 0은 초점 거리를 알 수 없다는 것을 의미합니다. 이 태그는 <Exif.FocalLength> 태그와 다르다는 것에 주의하기 바랍니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:233
+msgid "Focal Plane Resolution Unit"
+msgstr "초점 평면 해상도 단위"
+
+#: ../src/tags/gnome-cmd-tags.cc:233
+msgid "The unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
+msgstr "<Exif.FocalPlaneXResolution>과 <Exif.FocalPlaneYResolution>을 측정하기 위한 단위. 이 값은 <Exif.ResolutionUnit>와 같습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:234
+msgid "Focal Plane x-Resolution"
+msgstr "초점 평면 x 해상도"
+
+#: ../src/tags/gnome-cmd-tags.cc:234
+msgid "The number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr "카메라 초점 평면에서의 <Exif.FocalPlaneResolutionUnit> 당 이미지 폭(X) 방향에서의 픽셀 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:235
+msgid "Focal Plane y-Resolution"
+msgstr "초점 평면 y 해상도"
+
+#: ../src/tags/gnome-cmd-tags.cc:235
+msgid "The number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr "카메라 초점 평면에서의 <Exif.FocalPlaneResolutionUnit> 당 이미지 높이(Y) 방향에서의 픽셀 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:236
+msgid "Gain Control"
+msgstr "Gain 컨트롤"
+
+#: ../src/tags/gnome-cmd-tags.cc:236
+msgid "This tag indicates the degree of overall image gain adjustment."
+msgstr "이 태그는 전체 이미지 gain 조정의 정도를 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:237
+msgid "Gamma"
+msgstr "감마"
+
+#: ../src/tags/gnome-cmd-tags.cc:237
+msgid "Indicates the value of coefficient gamma."
+msgstr "감마 계수의 값을 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:238
+msgid "Altitude"
+msgstr "고도"
+
+#: ../src/tags/gnome-cmd-tags.cc:238
+msgid "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The reference unit is meters."
+msgstr "<Exif.GPS.AltitudeRef>의 참조점을 기반으로 한 고도를 가리킵니다. 참조 단위는 메터입니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:239
+msgid "Altitude Reference"
+msgstr "고도 참조점"
+
+#: ../src/tags/gnome-cmd-tags.cc:239
+msgid "Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is meters."
+msgstr "참조점 고도로서 이용되는 고도를 가리킵니다. 참조점이 해수면이고 고도가 해수면보다 높으면 0이 주어집니다. 고도가 해수면보다 아래이면 1의 값이 주어지며, 고도는 <Exif.GPS.Altitute> 태그에서 절대값으로 주어집니다. 참조 단위는 메터입니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:240
+msgid "GPS Info IFDPointer"
+msgstr "GPS 정보 IFDPointer"
+
+#: ../src/tags/gnome-cmd-tags.cc:240
+msgid "A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info IFD, like that of Exif IFD, has no image data."
+msgstr "GPS 정보 IFD에 대한 포인터. GPS 정보 IFD의 상호 이용성 구조는 Exif IFD의 그것과 같이 이미지 데이터를 가지고 있지 않습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:241
+msgid "Latitude"
+msgstr "위도"
+
+#: ../src/tags/gnome-cmd-tags.cc:241
+msgid "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is dd/1,mmmm/100,0/1."
+msgstr "위도를 가리킵니다. 위도는 각각 도, 분, 초를 나타내는 3개의 유리수 값으로 표현됩니다. 도, 분, 초가 표현될 때 그 포맷은 dd/1,mm/1,ss/1과 같습니다. 도와 분이 이용되고 예컨대 분의 분수가 2개의 십진 위치로 주어졌다면 그 포맷은 dd/1,mmmm/100,0/1과 같습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:242
+msgid "North or South Latitude"
+msgstr "북위 또는 남위"
+
+#: ../src/tags/gnome-cmd-tags.cc:242
+msgid "Indicates whether the latitude is north or south latitude. The ASCII value 'N' indicates north latitude, and 'S' is south latitude."
+msgstr "위도가 북위인지 남위인지를 가리킵니다. 아스키 값 'N'은 북위를 가리키고 'S'는 남위를 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:243
+msgid "Longitude"
+msgstr "경도"
+
+#: ../src/tags/gnome-cmd-tags.cc:243
+msgid "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
+msgstr "경도를 가리킵니다. 경도는 각각 도, 분, 초를 나타내는 3개의 유리수 값으로 표현됩니다. 도, 분, 초가 표현될 때 그 포맷은 dd/1,mm/1,ss/1과 같습니다. 도와 분이 이용되고 예컨대 분의 분수가 2개의 십진 위치로 주어졌다면 그 포맷은 dd/1,mmmm/100,0/1과 같습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:244
+msgid "East or West Longitude"
+msgstr "동경 또는 서경"
+
+#: ../src/tags/gnome-cmd-tags.cc:244
+msgid "Indicates whether the longitude is east or west longitude. ASCII 'E' indicates east longitude, and 'W' is west longitude."
+msgstr "경도가 동경인지 서경인지를 가리킵니다. 아스키 'E'는 동경을 가리키고 'W'는 서경을 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:245
+msgid "GPS Tag Version"
+msgstr "GPS 태그 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:245
+msgid "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif.GPS.Info> tag is present."
+msgstr "<Exif.GPS.InfoIFD>의 버전을 가리킵니다. <Exif.GPS.Info> 태그가 존재할 때 이 태그는 의무적입니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:246
+msgid "Image Description"
+msgstr "이미지 설명"
+
+#: ../src/tags/gnome-cmd-tags.cc:246
+msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
+msgstr "이미지의 타이틀을 나타내는 문자 스트링. 2바이트 문자 코드는 이용될 수 없습니다. 2바이트 코드가 필요할 경우 Exif Private 태그인 <Exif.UserComment>가 이용됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:247
+msgid "Image Length"
+msgstr "이미지 길이"
+
+#: ../src/tags/gnome-cmd-tags.cc:247
+msgid "The number of rows of image data. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "이미지 데이터의 열 수. JPEG 압축 데이터에서는 이 태그 대신 JPEG 마커가 이용됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:248
+msgid "Image Resources Block"
+msgstr "이미지 리소스 블록"
+
+#: ../src/tags/gnome-cmd-tags.cc:248
+msgid "Image Resources Block."
+msgstr "이미지 리소스 블록."
+
+#: ../src/tags/gnome-cmd-tags.cc:249
+msgid "Image Unique ID"
+msgstr "이미지 unique ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:249
+msgid "This tag indicates an identifier assigned uniquely to each image. It is recorded as an ASCII string equivalent to hexadecimal notation and 128-bit fixed length."
+msgstr "이 태그는 각 이미지에 유일하게 할당된 식별자를 가리킵니다. 이것은 16진 표기와 128비트 고정 길이에 상당하는 아스키 문자열로서 기록됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:250
+msgid "Image Width"
+msgstr "이미지 폭"
+
+#: ../src/tags/gnome-cmd-tags.cc:250
+msgid "The number of columns of image data, equal to the number of pixels per row. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "이미지 데이터의 칼럼 수로서 열 당 픽셀의 수와 같습니다. JPEG 압축 데이터에서는 이 태그 대신에 JPEG 마커가 이용됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:251
+msgid "Inter Color Profile"
+msgstr "Inter Color 프로필"
+
+#: ../src/tags/gnome-cmd-tags.cc:251
+msgid "Inter Color Profile."
+msgstr "Inter Color 프로필."
+
+#: ../src/tags/gnome-cmd-tags.cc:252
+msgid "Interoperability IFD Pointer"
+msgstr "상호 이용성 IFD 포인터"
+
+#: ../src/tags/gnome-cmd-tags.cc:252
+msgid "Interoperability IFD is composed of tags which stores the information to ensure the Interoperability and pointed by the following tag located in Exif IFD. The Interoperability structure of Interoperability IFD is the same as TIFF defined IFD structure but does not contain the image data characteristically compared with normal TIFF IFD."
+msgstr "상호 이용성 IFD는 상호 이용성을 보증하기 위한 정보를 저장하는 태그들로 구성되며 Exif IFD에 위치하는 아래 태그에 의해 지칭됩니다. 상호 이용성 IFD의 상호 이용성 구조는 TIFF에 정의된 IFD 구조와 동일하지만 정상 TIFF IFD와 비교해서 특징적으로 이미지 데이터를 포함하지 않습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:253
+msgid "Interoperability Index"
+msgstr "상호 이용성 색인"
+
+#: ../src/tags/gnome-cmd-tags.cc:253
+msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules."
+msgstr "상호 이용성 규칙의 식별 코드를 가리킵니다. ExifR98 규칙을 서술하기 위해 \"R98\"을 이용하십시오."
+
+#: ../src/tags/gnome-cmd-tags.cc:254
+msgid "Interoperability Version"
+msgstr "상호 이용성 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:254
+msgid "Interoperability version."
+msgstr "상호 이용성 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:255
+msgid "An IPTC/NAA record."
+msgstr "IPTC/NAA 레코드."
+
+#: ../src/tags/gnome-cmd-tags.cc:256
+msgid "ISO Speed Ratings"
+msgstr "ISO 속도 평가"
+
+#: ../src/tags/gnome-cmd-tags.cc:256
+msgid "The ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
+msgstr "카메라나 ISO 12232에 명세된 것과 같은 입력 장치의 ISO 속도와 ISO 위도."
+
+#: ../src/tags/gnome-cmd-tags.cc:257
+msgid "JPEG Interchange Format"
+msgstr "JPEG 교환 포맷"
+
+#: ../src/tags/gnome-cmd-tags.cc:257
+msgid "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This is not used for primary image JPEG data."
+msgstr "JPEG로 압축된 썸네일 데이터의 시작 바이트의 오프셋(SOI). 이것은 기본 이미지 JPEG 데이터에서는 이용되지 않는다."
+
+#: ../src/tags/gnome-cmd-tags.cc:258
+msgid "JPEG Interchange Format Length"
+msgstr "JPEG 교환 포맷 길이"
+
+#: ../src/tags/gnome-cmd-tags.cc:258
+msgid "The number of bytes of JPEG compressed thumbnail data. This is not used for primary image JPEG data. JPEG thumbnails are not divided but are recorded as a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not be recorded. Compressed thumbnails must be recorded in no more than 64 Kbytes, including all other data to be recorded in APP1."
+msgstr "JPEG로 압축된 썸네일 데이터의 바이트 수. 이것은 기본 이미지 JPEG 데이터에서는 이용되지 않는다. JPEG 썸네일은 분할되지 않지만 SOI에서 EOI까지의 연속적인 JPEG 비트 스트림으로서 기록된다. Appn과 COM 마커는 기록되어서는 안된다. 압축된 썸네일은 APP1에 기록된 다른 모든 데이터를 포함해서 64k 바이트 내에서 기록되어야 한다."
+
+#: ../src/tags/gnome-cmd-tags.cc:259
+msgid "JPEG Procedure"
+msgstr "JPEG 프로시저"
+
+#: ../src/tags/gnome-cmd-tags.cc:259
+msgid "JPEG procedure."
+msgstr "JPEG 프로시저."
+
+#: ../src/tags/gnome-cmd-tags.cc:260
+msgid "Light Source"
+msgstr "광원"
+
+#: ../src/tags/gnome-cmd-tags.cc:260
+msgid "The kind of light source."
+msgstr "광원의 종류"
+
+#: ../src/tags/gnome-cmd-tags.cc:261
+msgid "Manufacturer"
+msgstr "제작자"
+
+#: ../src/tags/gnome-cmd-tags.cc:261
+msgid "The manufacturer of the recording equipment. This is the manufacturer of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
+msgstr "레코딩 장비의 제작자. 이것은 DSC, 스캐너, 비디어 디지타이져 또는 이미지를 생성한 다른 장비의 제작자입니다. 이 필드가 공백이면 이것은 unknown으로 취급됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:262
+msgid "Maker Note"
+msgstr "메이커 노트"
+
+#: ../src/tags/gnome-cmd-tags.cc:262
+msgid "A tag for manufacturers of Exif writers to record any desired information. The contents are up to the manufacturer."
+msgstr "Exif writer 제작자가 요망되는 정보를 기록하기 위한 태그. 내용들은 제작자에게 전달된다."
+
+#: ../src/tags/gnome-cmd-tags.cc:263
+msgid "Max Aperture Value"
+msgstr "최대 조리개 값"
+
+#: ../src/tags/gnome-cmd-tags.cc:263
+msgid "The smallest F number of the lens. The unit is the APEX value. Ordinarily it is given in the range of 00.00 to 99.99, but it is not limited to this range."
+msgstr "렌즈의 최소 F 번호. 단위는 APEX 값입니다. 보통 이것은 00.00에서 99.99의 범위에서 주어지지만 이 범위로 한정되지는 않습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:264
+#: ../src/tags/gnome-cmd-tags.cc:428
+msgid "Metering Mode"
+msgstr "메터 모드"
+
+#: ../src/tags/gnome-cmd-tags.cc:264
+msgid "The metering mode."
+msgstr "메터 모드."
+
+#: ../src/tags/gnome-cmd-tags.cc:265
+#: ../src/tags/gnome-cmd-tags.cc:429
+msgid "Model"
+msgstr "모델"
+
+#: ../src/tags/gnome-cmd-tags.cc:265
+msgid "The model name or model number of the equipment. This is the model name or number of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
+msgstr "장비의 모델 명 또는 모델 번호. 이것은 DSC, 스캐너, 비디오 디지타이져나 이미지를 생성한 다른 장비의 모델 명이나 번호이다. 이 필드가 공백으로 남겨지면 이것은 unknown으로 취급된다."
+
+#: ../src/tags/gnome-cmd-tags.cc:267
+msgid "New Subfile Type"
+msgstr "새 서브 파일 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:267
+msgid "A general indication of the kind of data contained in this subfile."
+msgstr "이 서브 파일에 포함된 테이터 종류의 일반 지시."
+
+#: ../src/tags/gnome-cmd-tags.cc:268
+msgid "OECF"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:268
+msgid "The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> is the relationship between the camera optical input and the image values."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:269
+#: ../src/tags/gnome-cmd-tags.cc:430
+msgid "Orientation"
+msgstr "방향"
+
+#: ../src/tags/gnome-cmd-tags.cc:269
+msgid "The image orientation viewed in terms of rows and columns."
+msgstr "열과 행의 관점에서 본 이미지 방향."
+
+#: ../src/tags/gnome-cmd-tags.cc:270
+msgid "Photometric Interpretation"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:270
+msgid "The pixel composition. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:271
+msgid "Pixel X Dimension"
+msgstr "픽셀 X Dimension"
+
+#: ../src/tags/gnome-cmd-tags.cc:271
+msgid "Information specific to compressed data. When a compressed file is recorded, the valid width of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file."
+msgstr "압축된 데이터에 특유한 정보. 압축된 파일이 기록될 때 패딩 데이터나 재 시작 마커가 있는지 여부와 관계 없이 의미 있는 이미지의 유효한 폭이 이 태그에 기록되어야 합니다. 이 태그는 압축되지 않은 파일에는 존재하지 않아야 합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:272
+msgid "Pixel Y Dimension"
+msgstr "픽셀 Y Dimension"
+
+#: ../src/tags/gnome-cmd-tags.cc:272
+msgid "Information specific to compressed data. When a compressed file is recorded, the valid height of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file. Since data padding is unnecessary in the vertical direction, the number of lines recorded in this valid image height tag will in fact be the same as that recorded in the SOF."
+msgstr "압축된 데이터에 특유한 정보. 압축된 파일이 기록될 때 패딩 데이터나 재 시작 마커가 있는지 여부와 관계 없이 의미 있는 이미지의 유효한 높이가 이 태그에 기록되어야 합니다. 이 태그는 압축되지 않은 파일에는 존재하지 않아야 합니다. 수직 방향으로는 데이터 패딩이 필요하지 않기 때문에 이 유효한 이미지 높이 태그에 기록된 라인의 수는 사실 상 SOF에 기록된 값과 같을 것입니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:273
+msgid "Planar Configuration"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:273
+msgid "Indicates whether pixel components are recorded in a chunky or planar format. In JPEG compressed files a JPEG marker is used instead of this tag. If this field does not exist, the TIFF default of 1 (chunky) is assumed."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:274
+msgid "Primary Chromaticities"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:274
+msgid "The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:275
+msgid "Reference Black/White"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:275
+msgid "The reference black point value and reference white point value. No defaults are given in TIFF, but the values below are given as defaults here. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability these conditions."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:276
+msgid "Related Image File Format"
+msgstr "관련된 이미지 파일 포맷"
+
+#: ../src/tags/gnome-cmd-tags.cc:276
+msgid "Related image file format."
+msgstr "고나련된 이미지 파일 포맷."
+
+#: ../src/tags/gnome-cmd-tags.cc:277
+msgid "Related Image Length"
+msgstr "관련된 이미지 길이"
+
+#: ../src/tags/gnome-cmd-tags.cc:277
+msgid "Related image length."
+msgstr "관련된 이미지 길이."
+
+#: ../src/tags/gnome-cmd-tags.cc:278
+msgid "Related Image Width"
+msgstr "관련된 이미지 폭"
+
+#: ../src/tags/gnome-cmd-tags.cc:278
+msgid "Related image width."
+msgstr "관련된 이미지 폭."
+
+#: ../src/tags/gnome-cmd-tags.cc:279
+msgid "Related Sound File"
+msgstr "관련된 사운드 파일"
+
+#: ../src/tags/gnome-cmd-tags.cc:279
+msgid "This tag is used to record the name of an audio file related to the image data. The only relational information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 characters + '.' + 3 characters). The path is not recorded. When using this tag, audio files must be recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to the Exif audio format. If multiple files are mapped to one file, the above format is used to record just one audio file name. If there are multiple audio files, the first recorded file is given. When there are three Exif audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple relational information, a variety of playback possibilities can be supported. The method of using relational information is left to the implementation on the playback side. Since this information is an ASCII character string, it is terminated by NULL. When this tag is used to map audio files, the relation of the audio file to image data must also be indicated on the audio file end."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:280
+msgid "Resolution Unit"
+msgstr "해상도 단위"
+
+#: ../src/tags/gnome-cmd-tags.cc:280
+msgid "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
+msgstr "<Exif.XResolution> 과 <Exif.YResolution> 을 측정하는 단위. <Exif.XResolution> 과 <Exif.YResolution> 에도 같은 단위가 이용됩니다. 이미지 해상도를 알 수 없으면 2(인치)가 지정됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:281
+msgid "Rows per Strip"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:281
+msgid "The number of rows per strip. This is the number of rows in the image of one strip when an image is divided into strips. With JPEG compressed data this designation is not needed and is omitted."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:282
+msgid "Samples per Pixel"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:282
+msgid "The number of components per pixel. Since this standard applies to RGB and YCbCr images, the value set for this tag is 3. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:283
+msgid "Saturation"
+msgstr "채도"
+
+#: ../src/tags/gnome-cmd-tags.cc:283
+msgid "The direction of saturation processing applied by the camera when the image was shot."
+msgstr "이미지가 찍힐 때 카메라에 의해 적용된 채도 처리의 방향."
+
+#: ../src/tags/gnome-cmd-tags.cc:284
+msgid "Scene Capture Type"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:284
+msgid "The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:285
+msgid "Scene Type"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:285
+msgid "The type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:286
+msgid "Sensing Method"
+msgstr "감지 방법"
+
+#: ../src/tags/gnome-cmd-tags.cc:286
+msgid "The image sensor type on the camera or input device."
+msgstr "카메라나 입력 장치의 이미지 센서 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:287
+msgid "Sharpness"
+msgstr "선명도"
+
+#: ../src/tags/gnome-cmd-tags.cc:287
+msgid "The direction of sharpness processing applied by the camera when the image was shot."
+msgstr "이미지가 찍힐 때 카메라에 의해 적용되는 선명도 처리의 방향."
+
+#: ../src/tags/gnome-cmd-tags.cc:288
+msgid "Shutter Speed"
+msgstr "셔터 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:288
+msgid "Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting."
+msgstr "셔터 속도. 단위는 APEX(Additive system of Photographic Exposure) 설정."
+
+#: ../src/tags/gnome-cmd-tags.cc:289
+#: ../src/tags/gnome-cmd-tags.cc:431
+msgid "Software"
+msgstr "소프트웨어"
+
+#: ../src/tags/gnome-cmd-tags.cc:289
+msgid "This tag records the name and version of the software or firmware of the camera or image input device used to generate the image. When the field is left blank, it is treated as unknown."
+msgstr "이 태그는 카메라의 소프트웨어나 펌웨어 또는 이미지를 생성하는 데에 이용된 이미지 입력 장치의 버전과 이름을 기록합니다. 이 필드가 공백으로 남겨지면 이것은 unknown으로 취급됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:290
+msgid "Spatial Frequency Response"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:290
+msgid "This tag records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:291
+msgid "Spectral Sensitivity"
+msgstr "스펙트럼 감도"
+
+#: ../src/tags/gnome-cmd-tags.cc:291
+msgid "The spectral sensitivity of each channel of the camera used."
+msgstr "이용된 카메라의 각 채널의 스펙트럼 감도."
+
+#: ../src/tags/gnome-cmd-tags.cc:292
+msgid "Strip Byte Count"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:292
+msgid "The total number of bytes in each strip. With JPEG compressed data this designation is not needed and is omitted."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:293
+msgid "Strip Offsets"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:293
+msgid "For each strip, the byte offset of that strip. It is recommended that this be selected so the number of strip bytes does not exceed 64 Kbytes. With JPEG compressed data this designation is not needed and is omitted."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:294
+msgid "Sub IFD Offsets"
+msgstr "서브 IFD 오프셋"
+
+#: ../src/tags/gnome-cmd-tags.cc:294
+msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
+msgstr "TIFF 파일 내에서 TIFF 티리를 활성화하기 위해 Adobe 사단에 의해 정의되었습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:295
+msgid "Subject Area"
+msgstr "서브젝트 영역"
+
+#: ../src/tags/gnome-cmd-tags.cc:295
+msgid "The location and area of the main subject in the overall scene."
+msgstr "전체 장면에서 주 서브젝트의 위치와 영역."
+
+#: ../src/tags/gnome-cmd-tags.cc:296
+msgid "Subject Distance"
+msgstr "서브젝트 거리"
+
+#: ../src/tags/gnome-cmd-tags.cc:296
+msgid "The distance to the subject, given in meters."
+msgstr "미터 단위로 주어진 서브젝트에 대한 거리."
+
+#: ../src/tags/gnome-cmd-tags.cc:297
+msgid "Subject Distance Range"
+msgstr "서버젝트 거리 범위"
+
+#: ../src/tags/gnome-cmd-tags.cc:297
+msgid "The distance to the subject."
+msgstr "서브젝트에 대한 거리."
+
+#: ../src/tags/gnome-cmd-tags.cc:298
+msgid "Subject Location"
+msgstr "서브젝트 위치"
+
+#: ../src/tags/gnome-cmd-tags.cc:298
+msgid "The location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <Exif.Rotation> tag. The first value indicates the X column number and second indicates the Y row number."
+msgstr "장면에서의 주 서브젝트의 위치. 이 태그의 값은 <Exif.Rotation> 태그에 따른 회전 처리 전에 좌측 모퉁이에 대해 상대적으로 주 서브젝트의 중심에 있는 픽셀을 가리킵니다. 첫 번째 값은 X 행 번호를 가리키며 두 번째 값은 Y 열 번호를 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:299
+msgid "Subsec Time"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:299
+msgid "Fractions of seconds for the <Exif.DateTime> tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:300
+msgid "Subsec Time Digitized"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:300
+msgid "Fractions of seconds for the <Exif.DateTimeDigitized> tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:301
+msgid "Subsec Time Original"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:301
+msgid "Fractions of seconds for the <Exif.DateTimeOriginal> tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:302
+msgid "TIFF/EP Standard ID"
+msgstr "TIFF/EP 표준 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:302
+msgid "TIFF/EP Standard ID."
+msgstr "TIFF/EP 표준 ID."
+
+#: ../src/tags/gnome-cmd-tags.cc:303
+msgid "Transfer Function"
+msgstr "전송 기능"
+
+#: ../src/tags/gnome-cmd-tags.cc:303
+msgid "A transfer function for the image, described in tabular style. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
+msgstr "tabular 스타일로 기술된 이미지를 위한 전송 기능. 보통 이 태그는 칼라 공간이 <Exif.ColarSpace> 태그에 명세되기 때문에 필요하지는 않다."
+
+#: ../src/tags/gnome-cmd-tags.cc:304
+msgid "Transfer Range"
+msgstr "전송 범위"
+
+#: ../src/tags/gnome-cmd-tags.cc:304
+msgid "Transfer range."
+msgstr "전송 범위."
+
+#: ../src/tags/gnome-cmd-tags.cc:305
+msgid "User Comment"
+msgstr "사용자 주석"
+
+#: ../src/tags/gnome-cmd-tags.cc:305
+msgid "A tag for Exif users to write keywords or comments on the image besides those in <Exif.ImageDescription>, and without the character code limitations of the <Exif.ImageDescription> tag. The character code used in the <Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area. The unused portion of the area is padded with NULL (\"00.h\"). ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The ID code for the <Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif.UserComment> tag must have a function for determining the ID code. This function is not required in Exif readers that do not use the <Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code be ASCII and that the following user comment part be filled with blank characters [20.H]."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:306
+#: ../src/tags/gnome-cmd-tags.cc:433
+msgid "White Balance"
+msgstr "화이트 밸런스"
+
+#: ../src/tags/gnome-cmd-tags.cc:306
+msgid "The white balance mode set when the image was shot."
+msgstr "이미지가 찍힐 때 설정된 화이트 밸런스 모드."
+
+#: ../src/tags/gnome-cmd-tags.cc:307
+msgid "White Point"
+msgstr "화이트 포인트"
+
+#: ../src/tags/gnome-cmd-tags.cc:307
+msgid "The chromaticity of the white point of the image. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
+msgstr "이미지의 화이트 포인트의 색도. 보통 이 태그는 칼라 공간이 <Exif.ColorSpace> 태그에 명세되기 때문에 필요하지는 않다."
+
+#: ../src/tags/gnome-cmd-tags.cc:308
+msgid "XML Packet"
+msgstr "XML 패킷"
+
+#: ../src/tags/gnome-cmd-tags.cc:308
+msgid "XMP metadata."
+msgstr "XMP 메타 데이터."
+
+#: ../src/tags/gnome-cmd-tags.cc:309
+msgid "x Resolution"
+msgstr "x 해상도"
+
+#: ../src/tags/gnome-cmd-tags.cc:309
+msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> direction. When the image resolution is unknown, 72 [dpi] is designated."
+msgstr "<Exif.ImageWidth> 방향에서의 <Exif.ResolutionUnit> 당의 픽셀 수. 이미지 해상도를 알 수 없으면 72[dpi]가 지정됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:310
+msgid "YCbCr Coefficients"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:310
+msgid "The matrix coefficients for transformation from RGB to YCbCr image data. No default is given in TIFF; but here \"Color Space Guidelines\" is used as the default. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability this condition."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:311
+msgid "YCbCr Positioning"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:311
+msgid "The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:312
+msgid "YCbCr Sub-Sampling"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:312
+msgid "The sampling ratio of chrominance components in relation to the luminance component. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:313
+msgid "y Resolution"
+msgstr "y 해상도"
+
+#: ../src/tags/gnome-cmd-tags.cc:313
+msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> direction. The same value as <Exif.XResolution> is designated."
+msgstr "<Exif.ImageLength> 방향에서의 <Exif.ResolutionUnit> 당의 픽셀 수. <Exif.XResolution>과 동일한 값이 지정됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:314
+msgid "Accessed"
+msgstr "접근 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:314
+msgid "Last access datetime."
+msgstr "마지막으로 접근한 날짜 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:315
+msgid "Content"
+msgstr "컨텐트"
+
+#: ../src/tags/gnome-cmd-tags.cc:315
+msgid "File's contents filtered as plain text."
+msgstr "파일 내용이 평문 텍스트로 필터됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:316
+msgid "Editable free text/notes."
+msgstr "편집 가능한 자유 텍스트/노트."
+
+#: ../src/tags/gnome-cmd-tags.cc:317
+msgid "MIME type of the file or if a directory it should contain value \"Folder\"."
+msgstr "파일의 MIME 타입이며 디렉토리일 경우 \"Folder\" 값을 가지고 있어야 합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:318
+msgid "Editable array of keywords."
+msgstr "편집 가능한 키워드들의 배열."
+
+#: ../src/tags/gnome-cmd-tags.cc:319
+msgid "Link"
+msgstr "링크"
+
+#: ../src/tags/gnome-cmd-tags.cc:319
+msgid "URI of link target."
+msgstr "링크 대상의 URI."
+
+#: ../src/tags/gnome-cmd-tags.cc:320
+msgid "Modified"
+msgstr "변경 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:320
+msgid "Last modified datetime."
+msgstr "마지막으로 변경된 날짜 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:321
+msgid "File name excluding path but including the file extension."
+msgstr "경로는 제외하고 파일 확장자는 포함한 파일 명"
+
+#: ../src/tags/gnome-cmd-tags.cc:322
+msgid "Path"
+msgstr "경로"
+
+#: ../src/tags/gnome-cmd-tags.cc:322
+msgid "Full file path of file excluding the file name."
+msgstr "파일 명을 제외한 전체 파일 경로."
+
+#: ../src/tags/gnome-cmd-tags.cc:323
+msgid "Permission string in unix format eg \"-rw-r--r--\"."
+msgstr "\"-rw-r-r-\"와 같은 유닉스 포맷의 권한 문자열"
+
+#: ../src/tags/gnome-cmd-tags.cc:324
+#: ../src/tags/gnome-cmd-tags.cc:383
+msgid "Publisher"
+msgstr "출판자"
+
+#: ../src/tags/gnome-cmd-tags.cc:324
+msgid "Editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed)."
+msgstr "파일 출판자 이름의 편집 가능한 DC 타입(예 RSS 피드의 dc:publisher 필드)"
+
+#: ../src/tags/gnome-cmd-tags.cc:325
+msgid "Rank"
+msgstr "순위"
+
+#: ../src/tags/gnome-cmd-tags.cc:325
+msgid "Editable file rank for grading favourites. Value should be in the range 1..10."
+msgstr "인기도 점수의 편집 가능한 파일 순위. 값은 1..10의 범위에 있어야 합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:326
+msgid "Size of the file in bytes or if a directory number of items it contains."
+msgstr "바이트 단위의 파일 크기 또는 디렉토리일 경우 이것이 포함하는 아이템들의 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:327
+msgid "Album Sort Order"
+msgstr "앨범 정렬 순서"
+
+#: ../src/tags/gnome-cmd-tags.cc:327
+msgid "String which should be used instead of the album name for sorting purposes."
+msgstr "정렬 목적으로 앨범 명 대신에 이용되어야 할 문자열"
+
+#: ../src/tags/gnome-cmd-tags.cc:328
+msgid "Audio Encryption"
+msgstr "오디오 암호화"
+
+#: ../src/tags/gnome-cmd-tags.cc:328
+msgid "Frame indicates if the audio stream is encrypted, and by whom."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:329
+msgid "Audio Seek Point"
+msgstr "오디오 탐색 지점"
+
+#: ../src/tags/gnome-cmd-tags.cc:329
+msgid "Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:330
+msgid "Band"
+msgstr "밴드"
+
+#: ../src/tags/gnome-cmd-tags.cc:330
+msgid "Additional information about the performers in the recording."
+msgstr "레코딩에서의 연주자에 관한 추가 정보."
+
+#: ../src/tags/gnome-cmd-tags.cc:331
+msgid "BPM"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:331
+msgid "BPM (beats per minute)."
+msgstr "BPM (분 당 beat 수)."
+
+#: ../src/tags/gnome-cmd-tags.cc:332
+msgid "Buffer Size"
+msgstr "버퍼 크기"
+
+#: ../src/tags/gnome-cmd-tags.cc:332
+msgid "Recommended buffer size."
+msgstr "권장되는 버퍼 크기."
+
+#: ../src/tags/gnome-cmd-tags.cc:333
+msgid "CD ID"
+msgstr "시디 아이디"
+
+#: ../src/tags/gnome-cmd-tags.cc:333
+msgid "Music CD identifier."
+msgstr "음악 시디 식별자."
+
+#: ../src/tags/gnome-cmd-tags.cc:334
+msgid "Commercial"
+msgstr "상용"
+
+#: ../src/tags/gnome-cmd-tags.cc:334
+msgid "Commercial frame."
+msgstr "상용 프레임."
+
+#: ../src/tags/gnome-cmd-tags.cc:335
+msgid "Composer"
+msgstr "컴포저"
+
+#: ../src/tags/gnome-cmd-tags.cc:335
+msgid "Composer."
+msgstr "컴포저."
+
+#: ../src/tags/gnome-cmd-tags.cc:336
+msgid "Conductor"
+msgstr "컨덕터"
+
+#: ../src/tags/gnome-cmd-tags.cc:336
+msgid "Conductor."
+msgstr "컨덕터."
+
+#: ../src/tags/gnome-cmd-tags.cc:337
+msgid "Content Group"
+msgstr "컨텐트 그룹"
+
+#: ../src/tags/gnome-cmd-tags.cc:337
+msgid "Content group description."
+msgstr "컨텐트 그룹 설명."
+
+#: ../src/tags/gnome-cmd-tags.cc:338
+msgid "Content Type"
+msgstr "컨텐트 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:340
+msgid "Encryption Registration"
+msgstr "암호화 등록"
+
+#: ../src/tags/gnome-cmd-tags.cc:340
+msgid "Encryption method registration."
+msgstr "암호화 방법 등록."
+
+#: ../src/tags/gnome-cmd-tags.cc:341
+msgid "Date."
+msgstr "날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:342
+msgid "Emphasis"
+msgstr "강조"
+
+#: ../src/tags/gnome-cmd-tags.cc:342
+msgid "Emphasis."
+msgstr "강조."
+
+#: ../src/tags/gnome-cmd-tags.cc:343
+msgid "Encoded By"
+msgstr "인코딩 담당"
+
+#: ../src/tags/gnome-cmd-tags.cc:343
+msgid "Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder."
+msgstr "오디오 파일을 인코드 한 사람이나 조직. 이 필드는 오디오 파일의 저작권이 인코드 한 사람에 있을 경우 저작권 메시지를 포함할 수도 있습니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:344
+msgid "Encoder Settings"
+msgstr "인코더 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:344
+msgid "Software."
+msgstr "소프트웨어."
+
+#: ../src/tags/gnome-cmd-tags.cc:345
+msgid "Encoding Time"
+msgstr "인코딩 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:345
+msgid "Encoding time."
+msgstr "인코딩 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:346
+msgid "Equalization"
+msgstr "이퀄라이제이션"
+
+#: ../src/tags/gnome-cmd-tags.cc:346
+msgid "Equalization."
+msgstr "이퀄라이제이션."
+
+#: ../src/tags/gnome-cmd-tags.cc:347
+msgid "Equalization 2"
+msgstr "이퀄라이제이션 2"
+
+#: ../src/tags/gnome-cmd-tags.cc:347
+msgid "Equalisation curve predefine within the audio file."
+msgstr "오디오 파일 내에 기 정의된 이퀄라이제이션 커브."
+
+#: ../src/tags/gnome-cmd-tags.cc:348
+msgid "Event Timing"
+msgstr "이벤트 타이밍"
+
+#: ../src/tags/gnome-cmd-tags.cc:348
+msgid "Event timing codes."
+msgstr "이벤트 타이밍 코드."
+
+#: ../src/tags/gnome-cmd-tags.cc:349
+msgid "File Owner"
+msgstr "파일 소유자"
+
+#: ../src/tags/gnome-cmd-tags.cc:349
+msgid "File owner."
+msgstr "파일 소유자."
+
+#: ../src/tags/gnome-cmd-tags.cc:350
+msgid "File Type"
+msgstr "파일 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:350
+msgid "File type."
+msgstr "파일 타입."
+
+#: ../src/tags/gnome-cmd-tags.cc:351
+msgid "Frames"
+msgstr "프레임"
+
+#: ../src/tags/gnome-cmd-tags.cc:351
+msgid "Number of frames."
+msgstr "프레임 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:352
+msgid "General Object"
+msgstr "일반 객체"
+
+#: ../src/tags/gnome-cmd-tags.cc:352
+msgid "General encapsulated object."
+msgstr "일반 캡슐화된 객체."
+
+#: ../src/tags/gnome-cmd-tags.cc:353
+msgid "Grouping Registration"
+msgstr "그룹 등록"
+
+#: ../src/tags/gnome-cmd-tags.cc:353
+msgid "Group identification registration."
+msgstr "그룹 식별자 등록."
+
+#: ../src/tags/gnome-cmd-tags.cc:354
+msgid "Initial Key"
+msgstr "초기 키"
+
+#: ../src/tags/gnome-cmd-tags.cc:354
+msgid "Initial key."
+msgstr "초기 키."
+
+#: ../src/tags/gnome-cmd-tags.cc:355
+msgid "Involved People"
+msgstr "관련 인물"
+
+#: ../src/tags/gnome-cmd-tags.cc:355
+#: ../src/tags/gnome-cmd-tags.cc:356
+msgid "Involved people list."
+msgstr "관련 인물 리스트."
+
+#: ../src/tags/gnome-cmd-tags.cc:356
+msgid "InvolvedPeople2"
+msgstr "관련 인물 2"
+
+#: ../src/tags/gnome-cmd-tags.cc:357
+msgid "Language."
+msgstr "언어."
+
+#: ../src/tags/gnome-cmd-tags.cc:358
+msgid "Linked Info"
+msgstr "링크된 정보"
+
+#: ../src/tags/gnome-cmd-tags.cc:358
+msgid "Linked information."
+msgstr "링크된 정보."
+
+#: ../src/tags/gnome-cmd-tags.cc:359
+msgid "Lyricist"
+msgstr "작사자"
+
+#: ../src/tags/gnome-cmd-tags.cc:359
+msgid "Lyricist."
+msgstr "작사자."
+
+#: ../src/tags/gnome-cmd-tags.cc:360
+msgid "Media Type"
+msgstr "미디어 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:360
+msgid "Media type."
+msgstr "미디어 타입."
+
+#: ../src/tags/gnome-cmd-tags.cc:361
+msgid "Mix Artist"
+msgstr "믹스 아티스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:361
+msgid "Interpreted, remixed, or otherwise modified by."
+msgstr "연주, 리믹스 또는 변경한 사람."
+
+#: ../src/tags/gnome-cmd-tags.cc:362
+msgid "Mood"
+msgstr "무드"
+
+#: ../src/tags/gnome-cmd-tags.cc:362
+msgid "Mood."
+msgstr "무드."
+
+#: ../src/tags/gnome-cmd-tags.cc:363
+msgid "MPEG Lookup"
+msgstr "MPEG Lookup"
+
+#: ../src/tags/gnome-cmd-tags.cc:363
+msgid "MPEG location lookup table."
+msgstr "MPEG 위치 lookup 테이블."
+
+#: ../src/tags/gnome-cmd-tags.cc:364
+msgid "Musician Credit List"
+msgstr "음악가 크레디트 리스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:364
+msgid "Musician credits list."
+msgstr "음악가 크레디트 리스트."
+
+#: ../src/tags/gnome-cmd-tags.cc:365
+msgid "Net Radio Owner"
+msgstr "네트 라디오 소유자"
+
+#: ../src/tags/gnome-cmd-tags.cc:365
+msgid "Internet radio station owner."
+msgstr "인터넷 라디오 방송국 소유자."
+
+#: ../src/tags/gnome-cmd-tags.cc:366
+msgid "Net Radiostation"
+msgstr "네트 라디오 방송국"
+
+#: ../src/tags/gnome-cmd-tags.cc:366
+msgid "Internet radio station name."
+msgstr "인터넷 라디오 방속국 이름."
+
+#: ../src/tags/gnome-cmd-tags.cc:367
+msgid "Original Album"
+msgstr "원본 앨범"
+
+#: ../src/tags/gnome-cmd-tags.cc:367
+msgid "Original album."
+msgstr "원본 앨범."
+
+#: ../src/tags/gnome-cmd-tags.cc:368
+msgid "Original Artist"
+msgstr "원본 아티스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:368
+msgid "Original artist."
+msgstr "원본 아티스트."
+
+#: ../src/tags/gnome-cmd-tags.cc:369
+msgid "Original File Name"
+msgstr "원본 파일 명"
+
+#: ../src/tags/gnome-cmd-tags.cc:369
+msgid "Original file name."
+msgstr "원본 파일 명."
+
+#: ../src/tags/gnome-cmd-tags.cc:370
+msgid "Original Lyricist"
+msgstr "원본 작사자"
+
+#: ../src/tags/gnome-cmd-tags.cc:370
+msgid "Original lyricist."
+msgstr "원본 작사자."
+
+#: ../src/tags/gnome-cmd-tags.cc:371
+msgid "Original Release Time"
+msgstr "원본 배포 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:371
+msgid "Original release time."
+msgstr "원본 배포 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:372
+msgid "Original Year"
+msgstr "원본 연도"
+
+#: ../src/tags/gnome-cmd-tags.cc:372
+msgid "Original release year."
+msgstr "원본 배포 연도."
+
+#: ../src/tags/gnome-cmd-tags.cc:373
+msgid "Ownership"
+msgstr "소유권"
+
+#: ../src/tags/gnome-cmd-tags.cc:373
+msgid "Ownership frame."
+msgstr "소유권 프레임."
+
+#: ../src/tags/gnome-cmd-tags.cc:374
+msgid "Part of a Set"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:374
+msgid "Part of a set the audio came from."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:375
+msgid "Performer Sort Order"
+msgstr "연주자 정렬 순서"
+
+#: ../src/tags/gnome-cmd-tags.cc:375
+msgid "Performer sort order."
+msgstr "연주자 정렬 순서."
+
+#: ../src/tags/gnome-cmd-tags.cc:376
+msgid "Picture"
+msgstr "사진"
+
+#: ../src/tags/gnome-cmd-tags.cc:376
+msgid "Attached picture."
+msgstr "첨가된 사진."
+
+#: ../src/tags/gnome-cmd-tags.cc:377
+msgid "Play Counter"
+msgstr "플레이 카운터"
+
+#: ../src/tags/gnome-cmd-tags.cc:377
+msgid "Number of times a file has been played."
+msgstr "파일이 플레이 된 횟수"
+
+#: ../src/tags/gnome-cmd-tags.cc:378
+msgid "Playlist Delay"
+msgstr "플레이 리스트 지연"
+
+#: ../src/tags/gnome-cmd-tags.cc:378
+msgid "Playlist delay."
+msgstr "플레이 리스트 지연."
+
+#: ../src/tags/gnome-cmd-tags.cc:379
+msgid "Popularimeter"
+msgstr "대중 인기도"
+
+#: ../src/tags/gnome-cmd-tags.cc:379
+msgid "Rating of the audio file."
+msgstr "오디오 파일의 순위."
+
+#: ../src/tags/gnome-cmd-tags.cc:380
+msgid "Position Sync"
+msgstr "위치 싱크"
+
+#: ../src/tags/gnome-cmd-tags.cc:380
+msgid "Position synchronisation frame."
+msgstr "위치 동기화 프레임."
+
+#: ../src/tags/gnome-cmd-tags.cc:381
+msgid "Private"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:381
+msgid "Private frame."
+msgstr "Private 프레임."
+
+#: ../src/tags/gnome-cmd-tags.cc:382
+msgid "Produced Notice"
+msgstr "생성된 공지"
+
+#: ../src/tags/gnome-cmd-tags.cc:382
+msgid "Produced notice."
+msgstr "생성된 공지."
+
+#: ../src/tags/gnome-cmd-tags.cc:383
+msgid "Publisher."
+msgstr "발행자."
+
+#: ../src/tags/gnome-cmd-tags.cc:384
+msgid "Recording Dates"
+msgstr "녹음 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:384
+msgid "Recording dates."
+msgstr "녹음 날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:385
+msgid "Recording Time"
+msgstr "녹음 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:385
+msgid "Recording time."
+msgstr "녹음 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:386
+#: ../src/tags/gnome-cmd-tags.cc:498
+msgid "Release Time"
+msgstr "배포 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:386
+msgid "Release time."
+msgstr "배포 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:387
+msgid "Reverb"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:387
+msgid "Reverb."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:388
+msgid "Set Subtitle"
+msgstr "부제 러정"
+
+#: ../src/tags/gnome-cmd-tags.cc:388
+msgid "Subtitle of the part of a set this track belongs to."
+msgstr "이 트랙이 속하는 집합의 부분의 부제."
+
+#: ../src/tags/gnome-cmd-tags.cc:389
+msgid "Signature"
+msgstr "서명"
+
+#: ../src/tags/gnome-cmd-tags.cc:389
+msgid "Signature frame."
+msgstr "서명 프레임."
+
+#: ../src/tags/gnome-cmd-tags.cc:390
+msgid "Size of the audio file in bytes, excluding the ID3 tag."
+msgstr "오디오 파일의 ID3 태그를 제외한 바이트 단위의 크기."
+
+#: ../src/tags/gnome-cmd-tags.cc:391
+msgid "Song length"
+msgstr "노래 길이"
+
+#: ../src/tags/gnome-cmd-tags.cc:391
+msgid "Length of the song in milliseconds."
+msgstr "밀리 초 단위의 노래 길이."
+
+#: ../src/tags/gnome-cmd-tags.cc:392
+msgid "Subtitle"
+msgstr "부제"
+
+#: ../src/tags/gnome-cmd-tags.cc:392
+msgid "Subtitle."
+msgstr "부제."
+
+#: ../src/tags/gnome-cmd-tags.cc:393
+msgid "Synchronized Lyrics"
+msgstr "동기화된 가사"
+
+#: ../src/tags/gnome-cmd-tags.cc:393
+msgid "Synchronized lyric."
+msgstr "동기화된 가사."
+
+#: ../src/tags/gnome-cmd-tags.cc:394
+msgid "Synchronized Tempo"
+msgstr "동기화된 템포"
+
+#: ../src/tags/gnome-cmd-tags.cc:394
+msgid "Synchronized tempo codes."
+msgstr "동기화된 템포 코드."
+
+#: ../src/tags/gnome-cmd-tags.cc:395
+msgid "Tagging Time"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:395
+msgid "Tagging time."
+msgstr "tagging 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:396
+msgid "Terms of Use"
+msgstr "사용 조건"
+
+#: ../src/tags/gnome-cmd-tags.cc:396
+msgid "Terms of use."
+msgstr "사용 조건."
+
+#: ../src/tags/gnome-cmd-tags.cc:397
+msgid "Time"
+msgstr "시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:397
+msgid "Time."
+msgstr "시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:398
+msgid "Title Sort Order"
+msgstr "타이틀 정렬 순서"
+
+#: ../src/tags/gnome-cmd-tags.cc:398
+msgid "Title sort order."
+msgstr "타이틀 정렬 순서."
+
+#: ../src/tags/gnome-cmd-tags.cc:399
+msgid "Unique File ID"
+msgstr "유일한 파일 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:399
+msgid "Unique file identifier."
+msgstr "유일한 파일 식별자."
+
+#: ../src/tags/gnome-cmd-tags.cc:400
+msgid "Unsynchronized Lyrics"
+msgstr "동기화되지 않은 가사"
+
+#: ../src/tags/gnome-cmd-tags.cc:400
+msgid "Unsynchronized lyric."
+msgstr "동기화되지 않은 가사."
+
+#: ../src/tags/gnome-cmd-tags.cc:401
+msgid "User Text"
+msgstr "사용자 텍스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:401
+msgid "User defined text information."
+msgstr "사용자 정의된 텍스트 정보."
+
+#: ../src/tags/gnome-cmd-tags.cc:402
+msgid "Volume Adjustment"
+msgstr "볼륨 조정"
+
+#: ../src/tags/gnome-cmd-tags.cc:402
+#: ../src/tags/gnome-cmd-tags.cc:403
+msgid "Relative volume adjustment."
+msgstr "상대적인 볼륨 조정."
+
+#: ../src/tags/gnome-cmd-tags.cc:403
+msgid "Volume Adjustment 2"
+msgstr "볼륨 조정 2"
+
+#: ../src/tags/gnome-cmd-tags.cc:404
+msgid "WWW Artist"
+msgstr "WWW 아티스트"
+
+#: ../src/tags/gnome-cmd-tags.cc:404
+msgid "Official artist."
+msgstr "공식 아티스트."
+
+#: ../src/tags/gnome-cmd-tags.cc:405
+msgid "WWW Audio File"
+msgstr "WWW 오디오 파일"
+
+#: ../src/tags/gnome-cmd-tags.cc:405
+msgid "Official audio file webpage."
+msgstr "공식 오디오 파일 웹 페이지"
+
+#: ../src/tags/gnome-cmd-tags.cc:406
+msgid "WWW Audio Source"
+msgstr "WWW 오디오 소스"
+
+#: ../src/tags/gnome-cmd-tags.cc:406
+msgid "Official audio source webpage."
+msgstr "공식 오디오 소스 웹 페이지."
+
+#: ../src/tags/gnome-cmd-tags.cc:407
+msgid "WWW Commercial Info"
+msgstr "WWW 상업 정보"
+
+#: ../src/tags/gnome-cmd-tags.cc:407
+msgid "URL pointing at a webpage containing commercial information."
+msgstr "상업 정보를 포함하는 웹 페이지를 가리키는 URL."
+
+#: ../src/tags/gnome-cmd-tags.cc:408
+msgid "WWW Copyright"
+msgstr "WWW 저작권"
+
+#: ../src/tags/gnome-cmd-tags.cc:408
+msgid "URL pointing at a webpage that holds copyright."
+msgstr "저작권을 가진 웹 페이지를 가리키는 URL."
+
+#: ../src/tags/gnome-cmd-tags.cc:409
+msgid "WWW Payment"
+msgstr "WWW 지불"
+
+#: ../src/tags/gnome-cmd-tags.cc:409
+msgid "URL pointing at a webpage that will handle the process of paying for this file."
+msgstr "이 파일의 지불 과정을 처리할 웹 페이지를 가리키는 URL."
+
+#: ../src/tags/gnome-cmd-tags.cc:410
+msgid "WWW Publisher"
+msgstr "WWW 발행자"
+
+#: ../src/tags/gnome-cmd-tags.cc:410
+msgid "URL pointing at the official webpage for the publisher."
+msgstr "발행자를 위한 공식 웹 페이지를 가리키는 URL."
+
+#: ../src/tags/gnome-cmd-tags.cc:411
+msgid "WWW Radio Page"
+msgstr "WWW 라디오 페이지"
+
+#: ../src/tags/gnome-cmd-tags.cc:411
+msgid "Official internet radio station homepage."
+msgstr "공식 인터넷 라디오 방송국 홈 페이지."
+
+#: ../src/tags/gnome-cmd-tags.cc:412
+msgid "WWW User"
+msgstr "WWW 사용자"
+
+#: ../src/tags/gnome-cmd-tags.cc:412
+msgid "User defined URL link."
+msgstr "사용자 정의된 URL 링크."
+
+#: ../src/tags/gnome-cmd-tags.cc:413
+msgid "Name of an album the image belongs to."
+msgstr "이미지가 속하는 앨범의 이름."
+
+#: ../src/tags/gnome-cmd-tags.cc:415
+msgid "Embedded copyright message."
+msgstr "내장된 저작권 메시지."
+
+#: ../src/tags/gnome-cmd-tags.cc:417
+msgid "Datetime image was originally created."
+msgstr "이미지가 원래 생성된 날짜 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:418
+msgid "Description of the image."
+msgstr "이미지의 설명."
+
+#: ../src/tags/gnome-cmd-tags.cc:419
+msgid "The program used by the camera to set exposure when the picture is taken. EG Manual, Normal, Aperture priority etc."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:420
+msgid "Exposure time used to capture the photo in seconds."
+msgstr "사진을 잡는 데에 이용된 초 단위의 노출 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:421
+msgid "Set to \"1\" if flash was fired."
+msgstr "플래시가 터지면 \"1\"로 설정."
+
+#: ../src/tags/gnome-cmd-tags.cc:423
+msgid "Focal length of lens in mm."
+msgstr "mm 단위의 렌즈의 초점 거리"
+
+#: ../src/tags/gnome-cmd-tags.cc:424
+msgid "Height"
+msgstr "높이"
+
+#: ../src/tags/gnome-cmd-tags.cc:424
+msgid "Height in pixels."
+msgstr "픽셀 단위의 높이."
+
+#: ../src/tags/gnome-cmd-tags.cc:425
+msgid "ISO Speed"
+msgstr "ISO 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:425
+msgid "ISO speed used to acquire the document contents. For example, 100, 200, 400, etc."
+msgstr "문서 내용을 취득하기 위해 이용된 ISO 속도. 예를 들면 100, 200, 400 등."
+
+#: ../src/tags/gnome-cmd-tags.cc:426
+msgid "String of keywords."
+msgstr "키워드들의 문자열."
+
+#: ../src/tags/gnome-cmd-tags.cc:427
+msgid "Make"
+msgstr "메이커"
+
+#: ../src/tags/gnome-cmd-tags.cc:427
+msgid "Make of camera used to take the image."
+msgstr "이미지를 얻는 데에 이용된 카메라의 메이커."
+
+#: ../src/tags/gnome-cmd-tags.cc:428
+msgid "Metering mode used to acquire the image (IE Unknown, Average, CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:429
+msgid "Model of camera used to take the image."
+msgstr "이미지를 얻기 위해 이용된 카메라의 모델."
+
+#: ../src/tags/gnome-cmd-tags.cc:430
+msgid "Represents the orientation of the image wrt camera (IE \"top,left\" or \"bottom,right\")."
+msgstr "카메라와 관련된 이미지의 방향을 상징한다(예 \"top,left\" 또는 \"bottom,right\")."
+
+#: ../src/tags/gnome-cmd-tags.cc:431
+msgid "Software used to produce/enhance the image."
+msgstr "이미지를 생성/향상하는 데에 이용된 소프트웨어."
+
+#: ../src/tags/gnome-cmd-tags.cc:432
+msgid "Title of image."
+msgstr "이미지의 타이틀."
+
+#: ../src/tags/gnome-cmd-tags.cc:433
+msgid "White balance setting of the camera when the picture was taken (auto or manual)."
+msgstr "사진이 찍혔을 때의 카메라의 화이트 밸런스 설정(자동 또는 수동)."
+
+#: ../src/tags/gnome-cmd-tags.cc:434
+msgid "Width"
+msgstr "폭"
+
+#: ../src/tags/gnome-cmd-tags.cc:434
+msgid "Width in pixels."
+msgstr "픽셀 단위의 폭."
+
+#: ../src/tags/gnome-cmd-tags.cc:435
+msgid "Action Advised"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:435
+msgid "The type of action that this object provides to a previous object. '01' Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:436
+msgid "ARM Identifier"
+msgstr "ARM 식별자"
+
+#: ../src/tags/gnome-cmd-tags.cc:436
+msgid "Identifies the Abstract Relationship Method (ARM)."
+msgstr "Abstract Relationship Method(ARM)를 식별합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:437
+msgid "ARM Version"
+msgstr "ARM 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:437
+msgid "Identifies the version of the Abstract Relationship Method (ARM)."
+msgstr "Abstract Relationship Method (ARM)의 버전을 식별합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:438
+msgid "Audio Duration"
+msgstr "오디오 지속 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:438
+msgid "The running time of the audio data in the form HHMMSS."
+msgstr "HHMMSS 형태의 오디어 데이터의 실행 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:439
+msgid "Audio Outcue"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:439
+msgid "The content at the end of the audio data."
+msgstr "오디오 데이터의 끝에 있는 컨텐트."
+
+#: ../src/tags/gnome-cmd-tags.cc:440
+msgid "Audio Sampling Rate"
+msgstr "오디오 샘플링 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:440
+msgid "The sampling rate in Hz of the audio data."
+msgstr "오디오 데이터의 Hz 단위의 샘플링 속도."
+
+#: ../src/tags/gnome-cmd-tags.cc:441
+msgid "Audio Sampling Resolution"
+msgstr "오디오 샘플링 해상도"
+
+#: ../src/tags/gnome-cmd-tags.cc:441
+msgid "The number of bits in each audio sample."
+msgstr "각 오디오 샘플의 비트 수."
+
+#: ../src/tags/gnome-cmd-tags.cc:442
+msgid "Audio Type"
+msgstr "오디오 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:442
+msgid "The number of channels and type of audio (music, text, etc.) in the object."
+msgstr "객체에서의 채널의 수와 오디오의 타입(음악, 텍스트 등)."
+
+#: ../src/tags/gnome-cmd-tags.cc:443
+msgid "By-line"
+msgstr "제작자"
+
+#: ../src/tags/gnome-cmd-tags.cc:443
+msgid "Name of the creator of the object, e.g. writer, photographer or graphic artist (multiple values allowed)."
+msgstr "작가, 촬영자 또는 그래픽 아티스트 등과 같은 객체 제작자의 이름(다중 값이 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:444
+msgid "By-line Title"
+msgstr "제작자 타이틀"
+
+#: ../src/tags/gnome-cmd-tags.cc:444
+msgid "Title of the creator or creators of the object."
+msgstr "제작자나 객체 제작자의 타이틀"
+
+#: ../src/tags/gnome-cmd-tags.cc:445
+msgid "Caption, Abstract"
+msgstr "표제, 초록"
+
+#: ../src/tags/gnome-cmd-tags.cc:445
+#: ../src/tags/gnome-cmd-tags.cc:529
+msgid "A textual description of the data."
+msgstr "데이터의 텍스트 설명."
+
+#: ../src/tags/gnome-cmd-tags.cc:446
+msgid "Identifies the subject of the object in the opinion of the provider (Deprecated)."
+msgstr "제공자의 의견에서 객체의 주제를 식별합니다(권장되지 않음)."
+
+#: ../src/tags/gnome-cmd-tags.cc:447
+msgid "Coded Character Set"
+msgstr "코드된 문자 세트"
+
+#: ../src/tags/gnome-cmd-tags.cc:447
+msgid "Control functions used for the announcement, invocation or designation of coded character sets."
+msgstr "발표, 청원 또는 지시를 위해 이용된 코드된 문자 세트의 제어 기능들."
+
+#: ../src/tags/gnome-cmd-tags.cc:448
+msgid "City"
+msgstr "도시"
+
+#: ../src/tags/gnome-cmd-tags.cc:448
+msgid "City of object origin."
+msgstr "객체가 유래한 도시"
+
+#: ../src/tags/gnome-cmd-tags.cc:449
+msgid "Confirmed Data Size"
+msgstr "확인된 데이터 크기"
+
+#: ../src/tags/gnome-cmd-tags.cc:449
+msgid "Total size of the object data."
+msgstr "객체 데이터의 총 크기."
+
+#: ../src/tags/gnome-cmd-tags.cc:450
+#: ../src/tags/gnome-cmd-tags.cc:528
+msgid "Contact"
+msgstr "연락처"
+
+#: ../src/tags/gnome-cmd-tags.cc:450
+msgid "The person or organization which can provide further background information on the object (multiple values allowed)."
+msgstr "객체에 대한 더 많은 배경 정보를 제공할 수 있는 사람이나 조직(다중 값이 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:451
+msgid "Content Location Code"
+msgstr "컨텐트 위치 코드"
+
+#: ../src/tags/gnome-cmd-tags.cc:451
+msgid "The code of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgstr "객체의 컨텐트에 의해 참조되는 국가/지역 위치 코드(다중 값이 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:452
+msgid "Content Location Name"
+msgstr "컨텐트 위치 이름"
+
+#: ../src/tags/gnome-cmd-tags.cc:452
+msgid "A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgstr "객체의 컨텐트에 의해 참조되는 국가/지역 위치의 출판 가능한 완전한 이름(다중 값이 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:453
+msgid "Copyright Notice"
+msgstr "저작권 공지"
+
+#: ../src/tags/gnome-cmd-tags.cc:453
+msgid "Any necessary copyright notice."
+msgstr "필요한 모든 저작권 공지."
+
+#: ../src/tags/gnome-cmd-tags.cc:454
+msgid "Country Code"
+msgstr "국가 코드"
+
+#: ../src/tags/gnome-cmd-tags.cc:454
+msgid "The code of the country/primary location where the object was created."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:455
+msgid "Country Name"
+msgstr "국가 명"
+
+#: ../src/tags/gnome-cmd-tags.cc:455
+msgid "The name of the country/primary location where the object was created."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:456
+msgid "Credit"
+msgstr "공로자"
+
+#: ../src/tags/gnome-cmd-tags.cc:456
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
+msgstr "객체 제공자를 식별하며 반드시 소유자/생성자인 것은 아닙니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:457
+msgid "The date the intellectual content of the object was created rather than the date of the creation of the physical representation."
+msgstr "물적 상징의 생성 날짜가 아니라 객체의 지적 컨텐트가 생성된 날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:458
+msgid "Date Sent"
+msgstr "전송된 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:458
+msgid "The day the service sent the material."
+msgstr "서비스가 물건을 전송한 날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:459
+msgid "Destination"
+msgstr "목적지"
+
+#: ../src/tags/gnome-cmd-tags.cc:459
+msgid "Routing information."
+msgstr "발송 정보."
+
+#: ../src/tags/gnome-cmd-tags.cc:460
+msgid "Digital Creation Date"
+msgstr "디지털 생성 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:460
+msgid "The date the digital representation of the object was created."
+msgstr "객체의 디지털 표현물이 생성된 날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:461
+msgid "Digital Creation Time"
+msgstr "디지털 생성 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:461
+msgid "The time the digital representation of the object was created."
+msgstr "객체의 디지털 표현물이 생성된 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:462
+msgid "Editorial Update"
+msgstr "편집 가능한 업데이트"
+
+#: ../src/tags/gnome-cmd-tags.cc:462
+msgid "The type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language."
+msgstr "이 객체가 기존의 객체에 대해 제공하는 업데이트의 타입. 기존 객체에 대한 연결은 ARM을 이용해서 이루어집니다. '01'은 추가적인 언어를 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:463
+msgid "Edit Status"
+msgstr "편집 상태"
+
+#: ../src/tags/gnome-cmd-tags.cc:463
+msgid "Status of the object, according to the practice of the provider."
+msgstr "제공자의 행동에 따른 객체의 상태."
+
+#: ../src/tags/gnome-cmd-tags.cc:464
+msgid "Envelope Number"
+msgstr "포장 번호"
+
+#: ../src/tags/gnome-cmd-tags.cc:464
+msgid "A number unique for the date and the service ID."
+msgstr "날짜와 서비스 ID를 위한 유일한 번호."
+
+#: ../src/tags/gnome-cmd-tags.cc:465
+msgid "Envelope Priority"
+msgstr "포장 우선권"
+
+#: ../src/tags/gnome-cmd-tags.cc:465
+msgid "Specifies the envelope handling priority and not the editorial urgency. '1' for most urgent, '5' for normal, and '8' for least urgent. '9' is user-defined."
+msgstr "편집 가능한 긴급성이 아니라 포장 처리 우선권을 명세합니다. '1'은 가장 긴급, '5'는 보통, '8'은 가장 긴급하지 않음. '9'는 사용자 정의."
+
+#: ../src/tags/gnome-cmd-tags.cc:466
+msgid "Expiration Date"
+msgstr "만료 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:466
+msgid "Designates the latest date the provider intends the object to be used."
+msgstr "제공자가 정한 객체가 이용될 수 있는 마지막 날짜를 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:467
+msgid "Expiration Time"
+msgstr "만료 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:467
+msgid "Designates the latest time the provider intends the object to be used."
+msgstr "제공자가 정한 객체가 이용될 수 있는 마지막 시간을 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:468
+msgid "File Format"
+msgstr "파일 포맷"
+
+#: ../src/tags/gnome-cmd-tags.cc:468
+msgid "File format of the data described by this metadata."
+msgstr "이 메타 데이터에 의해 기술된 데이터의 파일 포맷."
+
+#: ../src/tags/gnome-cmd-tags.cc:469
+msgid "File Version"
+msgstr "파일 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:469
+msgid "Version of the file format."
+msgstr "파일 포맷의 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:470
+msgid "Fixture Identifier"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:470
+msgid "Identifies objects that recur often and predictably, enabling users to immediately find or recall such an object."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:471
+msgid "Headline"
+msgstr "표제"
+
+#: ../src/tags/gnome-cmd-tags.cc:471
+msgid "A publishable entry providing a synopsis of the contents of the object."
+msgstr "객체의 컨텐츠의 개요를 제공하는 출판 가능한 엔트리."
+
+#: ../src/tags/gnome-cmd-tags.cc:472
+msgid "Image Orientation"
+msgstr "이미지 방향"
+
+#: ../src/tags/gnome-cmd-tags.cc:472
+msgid "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' for square."
+msgstr "이미지 영역의 레이아웃: 'P'는 인물, 'L'은 경치, 'S'는 사각."
+
+#: ../src/tags/gnome-cmd-tags.cc:473
+msgid "Image Type"
+msgstr "이미지 타입"
+
+#: ../src/tags/gnome-cmd-tags.cc:473
+msgid "The data format of the image object."
+msgstr "이미지 객체의 데이터 포맷."
+
+#: ../src/tags/gnome-cmd-tags.cc:474
+msgid "Used to indicate specific information retrieval words (multiple values allowed)."
+msgstr "특정 정보 검색 단어를 가리키기 위해 이용됩니다(다중 값 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:475
+msgid "Language Identifier"
+msgstr "언어 식별자"
+
+#: ../src/tags/gnome-cmd-tags.cc:475
+msgid "The major national language of the object, according to the 2-letter codes of ISO 639:1988."
+msgstr "ISO 639:1988의 2 문자 코드에 따른 객체의 주요 국가 언어."
+
+#: ../src/tags/gnome-cmd-tags.cc:476
+msgid "Maximum Object Size"
+msgstr "최대 객체 크기"
+
+#: ../src/tags/gnome-cmd-tags.cc:476
+msgid "The largest possible size of the object if the size is not known."
+msgstr "크기를 알지 못할 경우의 객체의 가능한 가장 큰 크기."
+
+#: ../src/tags/gnome-cmd-tags.cc:477
+msgid "Max Subfile Size"
+msgstr "최대 서브 파일 크기"
+
+#: ../src/tags/gnome-cmd-tags.cc:477
+msgid "The maximum size for a subfile dataset containing a portion of the object data."
+msgstr "객체 데이터의 부분을 포함하는 서브 파일 데이터 셋의 최대 크기."
+
+#: ../src/tags/gnome-cmd-tags.cc:478
+msgid "Model Version"
+msgstr "모델 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:478
+msgid "Version of IIM part 1."
+msgstr "IIM 파트 1의 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:479
+msgid "Object Attribute Reference"
+msgstr "객체 속성 참조"
+
+#: ../src/tags/gnome-cmd-tags.cc:479
+msgid "Defines the nature of the object independent of the subject (multiple values allowed)."
+msgstr "주제와 독립적으로 객체의 속성을 정의합니다(다중 값이 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:480
+msgid "Object Cycle"
+msgstr "객체 사이클"
+
+#: ../src/tags/gnome-cmd-tags.cc:480
+msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+msgstr "여기에서 'a'는 아침, 'p'는 저녁, 'b'는 모두."
+
+#: ../src/tags/gnome-cmd-tags.cc:481
+msgid "Object Name"
+msgstr "객체 이름"
+
+#: ../src/tags/gnome-cmd-tags.cc:481
+msgid "A shorthand reference for the object."
+msgstr "객체의 약식 참조."
+
+#: ../src/tags/gnome-cmd-tags.cc:482
+msgid "Object Size Announced"
+msgstr "공표된 객체 크기"
+
+#: ../src/tags/gnome-cmd-tags.cc:482
+msgid "The total size of the object data if it is known."
+msgstr "밝혀졌을 경우 객체 데이터의 총 크기."
+
+#: ../src/tags/gnome-cmd-tags.cc:483
+msgid "Object Type Reference"
+msgstr "객체 타입 참조"
+
+#: ../src/tags/gnome-cmd-tags.cc:483
+msgid "Distinguishes between different types of objects within the IIM."
+msgstr "IIM 내에서 다른 객체 타입들을 구분합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:484
+msgid "Originating Program"
+msgstr "발명 프로그램"
+
+#: ../src/tags/gnome-cmd-tags.cc:484
+msgid "The type of program used to originate the object."
+msgstr "그 객체를 발명하는 데에 이용되었던 프로그램의 타입."
+
+#: ../src/tags/gnome-cmd-tags.cc:485
+msgid "Original Transmission Reference"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:485
+msgid "A code representing the location of original transmission."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:486
+msgid "Preview Data"
+msgstr "미리보기 데이터"
+
+#: ../src/tags/gnome-cmd-tags.cc:486
+msgid "The object preview data."
+msgstr "객체의 미리보기 데이터."
+
+#: ../src/tags/gnome-cmd-tags.cc:487
+msgid "Preview File Format"
+msgstr "미리보기 파일 포맷"
+
+#: ../src/tags/gnome-cmd-tags.cc:487
+msgid "Binary value indicating the file format of the object preview data."
+msgstr "객체 미리보기 데이터의 파일 포맷을 가리키는 이진 값."
+
+#: ../src/tags/gnome-cmd-tags.cc:488
+msgid "Preview File Format Version"
+msgstr "미리보기 파일 포맷 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:488
+msgid "The version of the preview file format."
+msgstr "미리보기 파일 포맷의 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:489
+msgid "Product ID"
+msgstr "제품 ID"
+
+#: ../src/tags/gnome-cmd-tags.cc:489
+msgid "Allows a provider to identify subsets of its overall service."
+msgstr "제공자가 자신의 전체 서비스를 식별할 수있도록 해줍니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:490
+msgid "Program Version"
+msgstr "프로그램 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:490
+msgid "The version of the originating program."
+msgstr "원본 프로그램의 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:491
+#: ../src/tags/gnome-cmd-tags.cc:503
+msgid "Province, State"
+msgstr "도, 주"
+
+#: ../src/tags/gnome-cmd-tags.cc:491
+#: ../src/tags/gnome-cmd-tags.cc:503
+msgid "The Province/State where the object originates."
+msgstr "객체가 유래한 도/주."
+
+#: ../src/tags/gnome-cmd-tags.cc:492
+msgid "Rasterized Caption"
+msgstr "래스터 화한 표제"
+
+#: ../src/tags/gnome-cmd-tags.cc:492
+msgid "Contains rasterized object description and is used where characters that have not been coded are required for the caption."
+msgstr "래스터 화한 객체 설명을 포함하며 표제를 위해 인코드되지 않은 문자들이 필요할 때 이용됩니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:493
+msgid "Record Version"
+msgstr "레코드 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:493
+msgid "Identifies the version of the IIM, Part 2."
+msgstr "IIM, 파트 2의 버전을 식별합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:494
+msgid "Reference Date"
+msgstr "참조 날짜"
+
+#: ../src/tags/gnome-cmd-tags.cc:494
+msgid "The date of a prior envelope to which the current object refers."
+msgstr "현 객체가 참조한 우선 포장의 날짜."
+
+#: ../src/tags/gnome-cmd-tags.cc:495
+msgid "Reference Number"
+msgstr "참조 번호"
+
+#: ../src/tags/gnome-cmd-tags.cc:495
+msgid "The Envelope Number of a prior envelope to which the current object refers."
+msgstr "현 객체가 참조한 우선 포장의 포장 번호"
+
+#: ../src/tags/gnome-cmd-tags.cc:496
+msgid "Reference Service"
+msgstr "참조 서비스"
+
+#: ../src/tags/gnome-cmd-tags.cc:496
+msgid "The Service Identifier of a prior envelope to which the current object refers."
+msgstr "현 객체가 참조한 우선 포장의 서비스 식별자."
+
+#: ../src/tags/gnome-cmd-tags.cc:497
+msgid "Designates the earliest date the provider intends the object to be used."
+msgstr "제공자가 정한 객체가 이용될 수 있는 최초의 날짜를 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:498
+msgid "Designates the earliest time the provider intends the object to be used."
+msgstr "제공자가 정한 객체가 이용될 수 있는 최초의 시간을 가리킵니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:499
+msgid "Service Identifier"
+msgstr "서비스 식별자"
+
+#: ../src/tags/gnome-cmd-tags.cc:499
+msgid "Identifies the provider and product."
+msgstr "제공자와 제품을 식별합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:500
+msgid "Size Mode"
+msgstr "크기 모드"
+
+#: ../src/tags/gnome-cmd-tags.cc:500
+msgid "Set to 0 if the size of the object is known and 1 if not known."
+msgstr "객체의 크기가 알려졌으면 0으로, 알려지지 않았으면 1로 설정합니다."
+
+#: ../src/tags/gnome-cmd-tags.cc:501
+msgid "Source"
+msgstr "소스"
+
+#: ../src/tags/gnome-cmd-tags.cc:501
+msgid "The original owner of the intellectual content of the object."
+msgstr "객체의 지적인 컨텐트의 원 소유자."
+
+#: ../src/tags/gnome-cmd-tags.cc:502
+msgid "Special Instructions"
+msgstr "특별 지시 사항"
+
+#: ../src/tags/gnome-cmd-tags.cc:502
+msgid "Other editorial instructions concerning the use of the object."
+msgstr "객체의 이용과 관련된 다른 편집 가능한 지시 사항."
+
+#: ../src/tags/gnome-cmd-tags.cc:504
+msgid "Subfile"
+msgstr "서브 파일"
+
+#: ../src/tags/gnome-cmd-tags.cc:504
+msgid "The object data itself. Subfiles must be sequential so that the subfiles may be reassembled."
+msgstr "객체 데이터 자체. 서브 파일들은 재 조립될 수 있도록 순차적이어야 한다."
+
+#: ../src/tags/gnome-cmd-tags.cc:505
+msgid "Subject Reference"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:505
+msgid "A structured definition of the subject matter. It must contain an IPR, an 8 digit Subject Reference Number and an optional Subject Name, Subject Matter Name, and Subject Detail Name each separated by a colon (:)."
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags.cc:506
+msgid "Sub-location"
+msgstr "부차적 위치"
+
+#: ../src/tags/gnome-cmd-tags.cc:506
+msgid "The location within a city from which the object originates."
+msgstr "객체가 유래한 도시 내의 위치."
+
+#: ../src/tags/gnome-cmd-tags.cc:507
+msgid "Supplemental Category"
+msgstr "추가적인 카테고리"
+
+#: ../src/tags/gnome-cmd-tags.cc:507
+msgid "Further refines the subject of the object (Deprecated)."
+msgstr "객체의 주제를 더 상술합니다(권장되지 않음)."
+
+#: ../src/tags/gnome-cmd-tags.cc:508
+msgid "Time Created"
+msgstr "생성된 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:508
+msgid "The time the intellectual content of the object was created rather than the date of the creation of the physical representation (multiple values allowed)."
+msgstr "물적 상징물의 생성 날짜가 아니라 객체의 지적 컨텐트가 생성된 시간(다중 값이 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:509
+msgid "Time Sent"
+msgstr "전송된 시간"
+
+#: ../src/tags/gnome-cmd-tags.cc:509
+msgid "The time the service sent the material."
+msgstr "서비스가 물건을 전송한 시간."
+
+#: ../src/tags/gnome-cmd-tags.cc:510
+msgid "Unique Name of Object"
+msgstr "객체의 유일한 이름"
+
+#: ../src/tags/gnome-cmd-tags.cc:510
+msgid "An eternal, globally unique identification for the object, independent of provider and for any media form."
+msgstr "제공자나 미디어 형태와 독립적인 객체의 영구적, 전역적으로 유일한 신분증."
+
+#: ../src/tags/gnome-cmd-tags.cc:511
+msgid "Urgency"
+msgstr "긴급성"
+
+#: ../src/tags/gnome-cmd-tags.cc:511
+msgid "Specifies the editorial urgency of content and not necessarily the envelope handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+msgstr "컨텐트의 편집 가능한 긴급성을 명세하며 반드시 포장 처리 우선권일 필요는 없습니다. '1'은 가장 긴급, '5'는 보통이고 '8'은 가장 긴급하지 않음."
+
+#: ../src/tags/gnome-cmd-tags.cc:512
+msgid "Writer/Editor"
+msgstr "제작자/편집자"
+
+#: ../src/tags/gnome-cmd-tags.cc:512
+msgid "The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed)."
+msgstr "객체나 표제/초록의 기록, 편집 또는 수정과 연관된 사람의 이름(다중 값 허용됨)."
+
+#: ../src/tags/gnome-cmd-tags.cc:513
+msgid "Page Size"
+msgstr "페이지 크기"
+
+#: ../src/tags/gnome-cmd-tags.cc:513
+msgid "Page size format."
+msgstr "페이지 크기 포맷."
+
+#: ../src/tags/gnome-cmd-tags.cc:514
+msgid "Page Width"
+msgstr "페이지 폭"
+
+#: ../src/tags/gnome-cmd-tags.cc:514
+msgid "Page width in mm."
+msgstr "mm 단위의 페이지 폭"
+
+#: ../src/tags/gnome-cmd-tags.cc:515
+msgid "Page Height"
+msgstr "페이지 높이"
+
+#: ../src/tags/gnome-cmd-tags.cc:515
+msgid "Page height in mm."
+msgstr "mm 단위의 페이지 높이"
+
+#: ../src/tags/gnome-cmd-tags.cc:516
+msgid "PDF Version"
+msgstr "PDF 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:516
+msgid "The PDF version of the document."
+msgstr "문서의 PDF 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:517
+msgid "Producer"
+msgstr "제작자"
+
+#: ../src/tags/gnome-cmd-tags.cc:517
+msgid "The application that converted the document to PDF."
+msgstr "문서를 PDF로 변환한 응용프로그램"
+
+#: ../src/tags/gnome-cmd-tags.cc:518
+msgid "Embedded Files"
+msgstr "내장된 파일"
+
+#: ../src/tags/gnome-cmd-tags.cc:518
+msgid "Number of embedded files in the document."
+msgstr "문서에 내장된 파일의 수"
+
+#: ../src/tags/gnome-cmd-tags.cc:519
+msgid "Fast Web View"
+msgstr "빠른 웹 뷰"
+
+#: ../src/tags/gnome-cmd-tags.cc:519
+msgid "Set to \"1\" if optimized for network access."
+msgstr "네트워크 접근이 최적화되었을 경우 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:520
+msgid "Printing"
+msgstr "프린팅"
+
+#: ../src/tags/gnome-cmd-tags.cc:520
+msgid "Set to \"1\" if printing is allowed."
+msgstr "프린팅이 허용될 경우 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:521
+msgid "Printing in High Resolution"
+msgstr "고해상도로 프린팅"
+
+#: ../src/tags/gnome-cmd-tags.cc:521
+msgid "Set to \"1\" if high resolution printing is allowed."
+msgstr "고해상도 프린팅이 허용될 경우 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:522
+msgid "Copying"
+msgstr "복사 중"
+
+#: ../src/tags/gnome-cmd-tags.cc:522
+msgid "Set to \"1\" if copying the contents is allowed."
+msgstr "컨텐트 복사가 허용될 경우 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:523
+msgid "Modifying"
+msgstr "변경 중"
+
+#: ../src/tags/gnome-cmd-tags.cc:523
+msgid "Set to \"1\" if modifying the contents is allowed."
+msgstr "컨텐트 변경이 허용될 경우 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:524
+msgid "Document Assembly"
+msgstr "문서 어셈블리"
+
+#: ../src/tags/gnome-cmd-tags.cc:524
+msgid "Set to \"1\" if inserting, rotating, or deleting pages and creating navigation elements is allowed."
+msgstr "삽입, 회전 또는 페이지 삭제와 탐색 요소들을 생성하는 것이 허용되면 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:525
+msgid "Commenting"
+msgstr "주석화"
+
+#: ../src/tags/gnome-cmd-tags.cc:525
+msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+msgstr "텍스트 주석을 추가하거나 변경하는 것이 허용되면 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:526
+msgid "Form Filling"
+msgstr "폼 필링"
+
+#: ../src/tags/gnome-cmd-tags.cc:526
+msgid "Set to \"1\" if filling of form fields is allowed."
+msgstr "폼 필드의 필링이 허용되면 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:527
+msgid "Accessibility Support"
+msgstr "접근성 지원"
+
+#: ../src/tags/gnome-cmd-tags.cc:527
+msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
+msgstr "접근성 지원(예. 스키린 읽기)이 유효화되었으면 \"1\"로 설정"
+
+#: ../src/tags/gnome-cmd-tags.cc:528
+msgid "Contact information for the creators or distributors of the track."
+msgstr "트랙 생성자 또는 배포자의 접촉 정보"
+
+#: ../src/tags/gnome-cmd-tags.cc:530
+msgid "License"
+msgstr "라이선스"
+
+#: ../src/tags/gnome-cmd-tags.cc:530
+msgid "License information."
+msgstr "라이선스 정보."
+
+#: ../src/tags/gnome-cmd-tags.cc:531
+msgid "Location"
+msgstr "위치"
+
+#: ../src/tags/gnome-cmd-tags.cc:531
+msgid "Location where track was recorded."
+msgstr "트랙이 레코드된 위치."
+
+#: ../src/tags/gnome-cmd-tags.cc:532
+msgid "Maximum bitrate"
+msgstr "최대 비트 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:532
+msgid "Maximum bitrate in kbps."
+msgstr "kbps 단위의 최대 비트 속도."
+
+#: ../src/tags/gnome-cmd-tags.cc:533
+msgid "Minimum bitrate"
+msgstr "최소 비트 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:533
+msgid "Minimum bitrate in kbps."
+msgstr "kbps 단위의 최소 비트 속도."
+
+#: ../src/tags/gnome-cmd-tags.cc:534
+msgid "Nominal bitrate"
+msgstr "정상 비트 속도"
+
+#: ../src/tags/gnome-cmd-tags.cc:534
+msgid "Nominal bitrate in kbps."
+msgstr "kbps 단위의 정상 비트 속도."
+
+#: ../src/tags/gnome-cmd-tags.cc:535
+msgid "Organization"
+msgstr "조직"
+
+#: ../src/tags/gnome-cmd-tags.cc:535
+msgid "Organization producing the track."
+msgstr "트랙을 생성한 조직."
+
+#: ../src/tags/gnome-cmd-tags.cc:536
+msgid "Vendor"
+msgstr "벤더"
+
+#: ../src/tags/gnome-cmd-tags.cc:536
+msgid "Vorbis vendor ID."
+msgstr "Vorbis 벤더 ID."
+
+#: ../src/tags/gnome-cmd-tags.cc:537
+msgid "Vorbis Version"
+msgstr "Vorbis 버전"
+
+#: ../src/tags/gnome-cmd-tags.cc:537
+msgid "Vorbis version."
+msgstr "Vorbis 버전."
+
+#: ../src/tags/gnome-cmd-tags.cc:675
+msgid "Audio"
+msgstr "오디오"
+
+#: ../src/tags/gnome-cmd-tags.cc:681
+msgid "Doc"
+msgstr "문서"
+
+#: ../src/tags/gnome-cmd-tags.cc:699
+msgid "Image"
+msgstr "이미지"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:64
+msgid "No Proofing"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:66
+msgid "Arabic"
+msgstr "아라비아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:68
+msgid "Bulgarian"
+msgstr "불가리아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:70
+msgid "Catalan"
+msgstr "카탈로니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:72
+msgid "Traditional Chinese"
+msgstr "중국어 번체"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:74
+msgid "Simplified Chinese"
+msgstr "중국어 간체"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:76
+msgid "Chechen"
+msgstr "체첸어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:78
+msgid "Danish"
+msgstr "덴마크어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:80
+msgid "German"
+msgstr "독일어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:82
+msgid "Swiss German"
+msgstr "스위스 독일어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:84
+msgid "Greek"
+msgstr "그리스어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:86
+msgid "U.S. English"
+msgstr "U.S. 영어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:88
+msgid "U.K. English"
+msgstr "U.K. 영어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:90
+msgid "Australian English"
+msgstr "오스트레일리아 영어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:92
+msgid "Castilian Spanish"
+msgstr "표준 스페인어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:94
+msgid "Mexican Spanish"
+msgstr "맥시코스페인어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:96
+msgid "Finnish"
+msgstr "핀란드어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:98
+msgid "French"
+msgstr "프랑스어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:100
+msgid "Belgian French"
+msgstr "벨기에 프랑스어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:102
+msgid "Canadian French"
+msgstr "캐나다 프랑스어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:104
+msgid "Swiss French"
+msgstr "스위스 프랑스어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:106
+msgid "Hebrew"
+msgstr "히브리어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:108
+msgid "Hungarian"
+msgstr "헝가리어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:110
+msgid "Icelandic"
+msgstr "아이슬란드어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:112
+msgid "Italian"
+msgstr "이탈리아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:114
+msgid "Swiss Italian"
+msgstr "스위스 이탈리아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:116
+msgid "Japanese"
+msgstr "일본어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:118
+msgid "Korean"
+msgstr "한국어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:120
+msgid "Dutch"
+msgstr "네덜란드어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:122
+msgid "Belgian Dutch"
+msgstr "벨기어 네덜란드어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:124
+msgid "Norwegian Bokmal"
+msgstr "노르웨이 부크몰"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:126
+msgid "Norwegian Nynorsk"
+msgstr "노르웨이 뉘노르스크"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:128
+msgid "Polish"
+msgstr "폴란드어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:130
+msgid "Brazilian Portuguese"
+msgstr "브라질 포르투갈어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:132
+msgid "Portuguese"
+msgstr "포르투갈어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:134
+msgid "Rhaeto-Romanic"
+msgstr "레토로만어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:136
+msgid "Romanian"
+msgstr "루마니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:138
+msgid "Russian"
+msgstr "러시아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:140
+msgid "Croato-Serbian (Latin)"
+msgstr "세르보크로아티아어(라틴어)"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:142
+msgid "Serbo-Croatian (Cyrillic)"
+msgstr "세르보크로아티아어(키릴어)"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:144
+msgid "Slovak"
+msgstr "슬로바키아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:146
+msgid "Albanian"
+msgstr "알바니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:148
+msgid "Swedish"
+msgstr "스웨덴어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:150
+msgid "Thai"
+msgstr "타이어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:152
+msgid "Turkish"
+msgstr "터키어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:154
+msgid "Urdu"
+msgstr "우르두어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:156
+msgid "Indonesian"
+msgstr "인도네시아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:158
+msgid "Ukrainian"
+msgstr "우크라이나어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:160
+msgid "Byelorussian"
+msgstr "벨로루시어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:162
+msgid "Slovenian"
+msgstr "슬로베니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:164
+msgid "Estonian"
+msgstr "에스토니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:166
+msgid "Latvian"
+msgstr "라트비아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:168
+msgid "Lithuanian"
+msgstr "리투아니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:170
+msgid "Farsi"
+msgstr "페르시아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:172
+msgid "Basque"
+msgstr "바스크어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:174
+msgid "Macedonian"
+msgstr "마케도니아어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:176
+msgid "Afrikaans"
+msgstr "공용 네덜란드어"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:178
+msgid "Malayalam"
+msgstr "말레이시아어"
+
+#: ../src/tags/gnome-cmd-tags-exiv2.cc:66
+#, c-format
+msgid "unsupported tag (suppressed %u B of binary data)"
+msgstr "지원되지 않는 태그(이진 데이터의 억제된 %u B)"
+
+#. Note to translators: first placeholder is the paper name (eg. * A4)
+#: ../src/tags/gnome-cmd-tags-poppler.cc:251
+#: ../src/tags/gnome-cmd-tags-poppler.cc:276
+#, c-format
+msgid "%s, Portrait"
+msgstr "%s, 인물"
+
+#. Note to translators: first placeholder is the paper name (eg. * A4)
+#: ../src/tags/gnome-cmd-tags-poppler.cc:259
+#: ../src/tags/gnome-cmd-tags-poppler.cc:281
+#, c-format
+msgid "%s, Landscape"
+msgstr "%s, 경치"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:71
+msgid "Stereo"
+msgstr "스테레오"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:72
+msgid "Joint stereo"
+msgstr "조인트 스테레오"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:73
+msgid "Dual channel"
+msgstr "듀얼 채널"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:74
+msgid "Single channel"
+msgstr "싱글 채널"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:79
+msgid "Undefined"
+msgstr "정의되지 않음"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:80
+msgid "Layer I"
+msgstr "레이어 I"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:81
+msgid "Layer II"
+msgstr "레이어 II"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:82
+msgid "Layer III"
+msgstr "Layer III"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:90
+#: ../src/tags/gnome-cmd-tags-taglib.cc:97
+msgid "Reserved"
+msgstr "예약됨"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:95
+msgid "None"
+msgstr "없음"
+
+#: ../src/tags/gnome-cmd-tags-taglib.cc:96
+msgid "10-15ms"
+msgstr "10-15ms"
+
+#: ../src/utils.cc:446
+#, c-format
+msgid ""
+"No default application found for the MIME type %s.\n"
+"Open the \"File types and programs\" page in the Control Center to add one."
+msgstr ""
+"MIME 타입 %s을(를) 위한 어떤 기본 응용프로그램도 발견되지 않았습니다.\n"
+"추가하려면 제어 센터에서 \"파일 타입과 프로그램\"을 열기 바랍니다."
+
+#: ../src/utils.cc:526
+#, c-format
+msgid "\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"
+msgstr "\"%s\"은(는) 이진 실행 파일로 보이지만 실행 비트가 없습니다. 실행 비트를 설정한 후 파일을 실행하시겠습니까?"
+
+#: ../src/utils.cc:528
+msgid "Make Executable?"
+msgstr "실행 가능하게 하겠습니까?"
+
+#: ../src/utils.cc:555
+#, c-format
+msgid "\"%s\" is an executable text file. Do you want to run it, or display its contents?"
+msgstr "\"%s\"은(는) 실행 가능 텍스트 파일입니다. 이것을 실행하겠습니까 아니면 내용을 표시하시겠습니까?"
+
+#: ../src/utils.cc:556
+msgid "Run or Display"
+msgstr "실행 또는 표시"
+
+#: ../src/utils.cc:557
+msgid "Display"
+msgstr "표시"
+
+#: ../src/utils.cc:557
+msgid "Run"
+msgstr "실행"
+
+#: ../src/utils.cc:600
+#: ../src/utils.cc:682
+#, c-format
+msgid "%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"
+msgstr "%s은(는) 원격 파일들을 여는 방법을 알지 못합니다. 이 파일들을 임시 위치에 다운로드 한 후 열기를 원하십니까?"
+
+#: ../src/utils.cc:1045
+#, c-format
+msgid ""
+"Failed to create a directory in which to store temporary files.\n"
+"Error message: %s\n"
+msgstr ""
+"임시 파일들을 저장할 디렉토리 생성에 실패했습니다.\n"
+"에러 메시지: %s\n"
+
+#: ../src/utils.cc:1241
+#, c-format
+msgid "Creating directory %s... "
+msgstr "%s 디렉토리 생성 중..."
+
+#: ../src/utils.cc:1244
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "디렉토리 %s를 생성하는 데에 실패했습니다"
+
+#: ../src/utils.cc:1250
+#, c-format
+msgid "Couldn't read from the directory %s: %s"
+msgstr "디렉토리 %s에서 읽을 수 없습니다: %s"
+
+#: ../src/utils.h:261
+msgid "There was an error displaying help."
+msgstr "도움말을 디스플레이하는 동안 에러가 발생했습니다."
+

@@ -24,6 +24,9 @@ Bug fixes:
  * Fixed problem #602795 (file content search)
  * Fixed problem #609912 (build error with --as-needed)
 
+New features:
+ * New translations: ko
+
 
 ===================================
 gnome-commander 1.2.8.5
