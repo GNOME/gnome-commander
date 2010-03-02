@@ -27,7 +27,7 @@ except ImportError:
 
 import os
 import string
-import sha
+import hashlib
 
 
 def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
@@ -40,7 +40,7 @@ def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
             f = file(active_cwd+os.sep+uri.short_name, 'rb')
             file_content = f.read()
             f.close()
-            sha1sum = sha.new(file_content).hexdigest()
+            sha1sum = hashlib.sha1(file_content).hexdigest()
             f_sha1sum.write('%s  %s\n' % (sha1sum, uri.short_name))
     f_sha1sum.close()
     return True

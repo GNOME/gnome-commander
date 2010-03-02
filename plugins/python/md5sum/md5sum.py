@@ -27,7 +27,7 @@ except ImportError:
 
 import os
 import string
-import md5
+import hashlib
 
 
 def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
@@ -40,7 +40,7 @@ def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
             f = file(active_cwd+os.sep+uri.short_name, 'rb')
             file_content = f.read()
             f.close()
-            md5sum = md5.new(file_content).hexdigest()
+            md5sum = hashlib.md5(file_content).hexdigest()
             f_md5sum.write('%s  %s\n' % (md5sum, uri.short_name))
     f_md5sum.close()
     return True
