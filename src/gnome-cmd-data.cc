@@ -1338,7 +1338,7 @@ void GnomeCmdData::load()
 
     gnome_cmd_con_list_begin_update (priv->con_list);
     load_devices ("devices");
-    load_connections ("connections") || load_connections ("ftp-servers");
+    load_connections ("connections");
     gnome_cmd_con_list_end_update (priv->con_list);
 
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
