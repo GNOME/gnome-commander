@@ -45,6 +45,7 @@ BuildRequires: glib2-devel >= @GLIB_REQ@
 BuildRequires: gtk2-devel >= @GTK_REQ@
 BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
 BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
+BuildRequires: unique-devel >= @UNIQUE_REQ@
 BuildRequires: gnome-doc-utils >= 0.3.2
 BuildRequires: perl(XML::Parser)
 
@@ -53,6 +54,7 @@ Requires:      gtk2 >= @GTK_REQ@
 Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
 Requires:      gnome-vfs2-smb >= @GNOMEVFS_REQ@
 Requires:      libgnomeui >= @GNOMEUI_REQ@
+Requires:      unique >= @UNIQUE_REQ@
 
 Requires:         meld
 Requires(post):   scrollkeeper
@@ -161,6 +163,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Mar 3 2010 Piotr Eljasiak <epiotr@use.pl>
+- added unique dependency
+
 * Wed Jan 13 2010 Piotr Eljasiak <epiotr@use.pl>
 - added gnome-vfs2-smb dependency
 - replaced exiv2 with exiv2-libs dependency for FC>=8
