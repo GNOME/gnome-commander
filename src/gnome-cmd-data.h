@@ -227,6 +227,7 @@ struct GnomeCmdData
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
 
+    gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
     gboolean                     use_gnome_auth_manager;

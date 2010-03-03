@@ -946,6 +946,7 @@ GnomeCmdData::GnomeCmdData()
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
+    allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
     use_gnome_auth_manager = FALSE;
@@ -1183,6 +1184,7 @@ void GnomeCmdData::load()
         gui_update_rate = MAX_GUI_UPDATE_RATE;
 
     honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
+    allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
     use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
@@ -1582,6 +1584,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", honor_expect_uris);
+    gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", allow_multiple_instances);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", skip_mounting);

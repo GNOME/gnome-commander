@@ -144,6 +144,16 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.alt_quick_search);
 
 
+    // Multiple instances
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Multiple instances"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Don't start a new instance"), "multiple_instance_check");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !gnome_cmd_data.allow_multiple_instances);
+
+
     return frame;
 }
 
@@ -156,6 +166,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
+    GtkWidget *multiple_instance_check = lookup_widget (GTK_WIDGET (dialog), "multiple_instance_check");
 
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -171,6 +182,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
     gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
+    gnome_cmd_data.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
 }
 
 
