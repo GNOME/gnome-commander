@@ -25,6 +25,7 @@ extern "C"
 
 #include <config.h>
 #include <locale.h>
+#include <unique/unique.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
@@ -79,11 +80,28 @@ static const GOptionEntry options [] =
 };
 
 
+static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, UniqueMessageData *msg, guint t, gpointer  user_data)
+{
+    switch (cmd)
+    {
+        case UNIQUE_ACTIVATE:
+            gtk_window_set_screen (*main_win, unique_message_data_get_screen (msg));
+            gtk_window_present_with_time (*main_win, t);
+            break;
+
+        default:
+            break;
+    }
+
+    return UNIQUE_RESPONSE_OK;
+}
+
+
 int main (int argc, char *argv[])
 {
     GnomeProgram *program;
     GOptionContext *option_context;
-    gchar *conf_dir;
+    UniqueApp *app;
 
     main_win = NULL;
 
@@ -120,49 +138,65 @@ int main (int argc, char *argv[])
     gdk_rgb_init ();
     gnome_vfs_init ();
 
-    conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander", NULL);
+    gchar *conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander", NULL);
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
+
     IMAGE_init ();
     gcmd_user_actions.init();
     gnome_cmd_data.load();
-    gcmd_user_actions.set_defaults();
-    ls_colors_init ();
-    gnome_cmd_data.load_more();
 
-    if (gnome_cmd_data.use_gnome_auth_manager)
-        gnome_authentication_manager_init ();
+    app = unique_app_new_with_commands ("org.gnome.GnomeCommander", NULL,
+                                         NULL);
+
+    if (!gnome_cmd_data.allow_multiple_instances && unique_app_is_running (app))
+        unique_app_send_message (app, UNIQUE_ACTIVATE, NULL);
     else
-        gnome_cmd_smb_auth_init ();
+    {
+        gcmd_user_actions.set_defaults();
+        ls_colors_init ();
+        gnome_cmd_data.load_more();
 
-    gnome_cmd_style_create ();
+        if (gnome_cmd_data.use_gnome_auth_manager)
+            gnome_authentication_manager_init ();
+        else
+            gnome_cmd_smb_auth_init ();
 
-    main_win_widget = gnome_cmd_main_win_new ();
-    main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
-    gtk_widget_show (GTK_WIDGET (main_win));
-    gcmd_owner.load_async();
+        gnome_cmd_style_create ();
 
-    gcmd_tags_init();
-    plugin_manager_init ();
+        main_win_widget = gnome_cmd_main_win_new ();
+        main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
+
+        unique_app_watch_window (app, *main_win);
+        g_signal_connect (app, "message-received", G_CALLBACK (on_message_received), NULL);
+
+        gtk_widget_show (GTK_WIDGET (main_win));
+        gcmd_owner.load_async();
+
+        gcmd_tags_init();
+        plugin_manager_init ();
 #ifdef HAVE_PYTHON
-    python_plugin_manager_init ();
+        python_plugin_manager_init ();
 #endif
 
-    gtk_main ();
+        gtk_main ();
 
 #ifdef HAVE_PYTHON
-    python_plugin_manager_shutdown ();
+        python_plugin_manager_shutdown ();
 #endif
-    plugin_manager_shutdown ();
-    gcmd_tags_shutdown ();
-    gcmd_user_actions.shutdown();
-    gnome_cmd_data.save();
+        plugin_manager_shutdown ();
+        gcmd_tags_shutdown ();
+        gcmd_user_actions.shutdown();
+        gnome_cmd_data.save();
+        IMAGE_free ();
+
+        remove_temp_download_dir ();
+    }
+
     gnome_vfs_shutdown ();
-    IMAGE_free ();
-
-    remove_temp_download_dir ();
 
     g_option_context_free (option_context);
+    g_object_unref (app);
     g_object_unref (program);
 
     DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);
