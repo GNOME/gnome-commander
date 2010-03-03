@@ -35,6 +35,7 @@ RDEPEND=">=x11-libs/gtk+-@GTK_REQ@
                 app-admin/gamin
                 app-admin/fam
         )
+        >=dev-libs/libunique-@UNIQUE_REQ@
         exif?   ( >=media-gfx/exiv2-@EXIV2_REQ@     )
         gsf?    ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
         id3?    ( >=media-libs/taglib-@TAGLIB_REQ@  )
