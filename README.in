@@ -67,7 +67,7 @@ Plugins:
 3. Building
 --------------------------------
 
-GNOME Commander requires glib >= @GLIB_REQ@, GTK+ >= @GTK_REQ@ and gnome >= @GNOMEUI_REQ@ libraries.
+GNOME Commander requires glib >= @GLIB_REQ@, GTK+ >= @GTK_REQ@, gnome >= @GNOMEUI_REQ@ and unique >= @UNIQUE_REQ@ libraries.
 
 Additionally GNOME Commander may require:
 

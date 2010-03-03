@@ -29,7 +29,6 @@
   (visible file selection can be merged internally to the vfolder at any point,
    and then the usual multiple file actions can be applied)
 * Manageable queue for file transfers (pause/resume/cancel & rate limits)
-* One instance mode
 
 
 // Data presentation

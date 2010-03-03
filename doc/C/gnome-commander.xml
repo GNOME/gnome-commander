@@ -5848,8 +5848,15 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>skip_mounting</para></entry>
+                                    <entry><para>allow_multiple_instances</para></entry>
                                     <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>skip_mounting</para></entry>
+                                    <entry><para>boolean</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
@@ -6017,6 +6024,9 @@
                         </listitem>
                         <listitem>
                             <para>Revamped file properties dialog</para>
+                        </listitem>
+                        <listitem>
+                            <para>One instance mode</para>
                         </listitem>
                         <listitem>
                             <para>User defined LS_COLORS colours</para>
