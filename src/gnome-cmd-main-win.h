@@ -56,6 +56,7 @@ struct GnomeCmdMainWin
     GnomeCmdAdvrenameDialog *advrename_dlg;
 
     GnomeCmdFileSelector *fs(FileSelectorID id);
+    FileSelectorID fs();
 
     gboolean key_pressed (GdkEventKey *event);
 

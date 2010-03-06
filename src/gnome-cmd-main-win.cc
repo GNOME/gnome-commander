@@ -902,6 +902,12 @@ GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id)
 }
 
 
+FileSelectorID GnomeCmdMainWin::fs()
+{
+    return priv->current_fs;
+}
+
+
 void GnomeCmdMainWin::update_style()
 {
     g_return_if_fail (priv != NULL);
