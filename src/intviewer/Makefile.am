@@ -3,7 +3,7 @@
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
-	-I.. \
+	-I$(srcdir)/.. \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(GNOMEUI_CFLAGS) \

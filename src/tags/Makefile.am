@@ -5,7 +5,7 @@ noinst_LIBRARIES = libgcmd-tags.a
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
-	-I.. \
+	-I$(srcdir)/.. \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	$(EXIV2_CFLAGS) \
