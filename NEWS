@@ -3,7 +3,6 @@ gnome-commander 1.2.9
 ---------------
 
 Bug fixes:
- * Fixed problem #600292 (crash when double-clicking on bookmarks list)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
 
 New features:
@@ -22,6 +21,7 @@ gnome-commander 1.2.8.6
 ---------------
 
 Bug fixes:
+ * Fixed problems #600292, 612685 (crashes when double-clicking on a bookmark)
  * Fixed problem #602795 (file content search)
  * Fixed problem #609912 (build error with --as-needed)
 

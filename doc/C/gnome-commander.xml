@@ -6009,9 +6009,6 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #600292 (crash when double-clicking on bookmarks list)</para>
-                        </listitem>
-                        <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
                     </itemizedlist>
@@ -6056,6 +6053,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)</para>
+                        </listitem>
                         <listitem>
                             <para>Fixed problem #602795 (file content search)</para>
                         </listitem>
