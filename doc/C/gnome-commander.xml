@@ -6027,6 +6027,9 @@
                         <listitem>
                             <para>Fixed problem #609912 (build error with --as-needed)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #612685 (crashes when double-clicking on a bookmark)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

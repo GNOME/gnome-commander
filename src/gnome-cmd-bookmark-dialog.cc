@@ -335,7 +335,7 @@ static gboolean on_dialog_keypress (GnomeCmdBookmarkDialog *dialog, GdkEventKey 
 
 
 static void on_dir_selected (GtkCList *list, gint row, gint column,
-                              GdkEventButton *event, GnomeCmdBookmarkDialog *dialog)
+                             GdkEventButton *event, GnomeCmdBookmarkDialog *dialog)
 {
     if (event && event->type == GDK_2BUTTON_PRESS)
         on_dir_goto (NULL, dialog);
@@ -345,9 +345,8 @@ static void on_dir_selected (GtkCList *list, gint row, gint column,
         gtk_widget_set_sensitive (dialog->priv->remove_btn, TRUE);
         gtk_widget_set_sensitive (dialog->priv->edit_btn, TRUE);
         gtk_widget_set_sensitive (dialog->priv->goto_btn, TRUE);
+        update_move_buttons (dialog, row);
     }
-
-    update_move_buttons (dialog, row);
 }
 
 

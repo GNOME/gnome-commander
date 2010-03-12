@@ -5,6 +5,7 @@ gnome-commander 1.2.8.6
 Bug fixes:
  * Fixed problem #602795 (file content search)
  * Fixed problem #609912 (build error with --as-needed)
+ * Fixed problem #612685 (crashes when double-clicking on a bookmark)
 
 New features:
  * New translations: ko
