@@ -1197,10 +1197,12 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
     su = g_find_program_in_path ("gksu");
     if  (!su)
         su = g_find_program_in_path ("kdesu");
+    if  (!su)
+        su = g_find_program_in_path ("beesu");
 
     if  (!su)
     {
-        gnome_cmd_show_message (*main_win, _("gksu or kdesu is not found."));
+        gnome_cmd_show_message (*main_win, _("gksu, kdesu or beesu is not found."));
         return ;
     }
 
