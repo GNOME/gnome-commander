@@ -2835,8 +2835,8 @@ msgid "Unable to start Nautilus."
 msgstr "Ni mogoče zagnati Nautilusa"
 
 #: ../src/gnome-cmd-user-actions.cc:1141
-msgid "gksu or kdesu is not found."
-msgstr "Ukaza gksu oziroma kdesu ni mogoče najti."
+msgid "gksu, kdesu or beesu is not found."
+msgstr "Ukaza gksu, kdesu oziroma beesu ni mogoče najti."
 
 #: ../src/gnome-cmd-user-actions.cc:1154
 msgid "Unable to start GNOME Commander in root mode."

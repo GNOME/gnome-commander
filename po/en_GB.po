@@ -2192,8 +2192,8 @@ msgid "Too many selected files"
 msgstr "Too many selected files"
 
 #: ../src/gnome-cmd-user-actions.cc:954
-msgid "gksu or kdesu is not found."
-msgstr "gksu or kdesu is not found."
+msgid "gksu, kdesu or beesu is not found."
+msgstr "gksu, kdesu or beesu is not found."
 
 #: ../src/gnome-cmd-user-actions.cc:967
 msgid "Unable to start GNOME Commander in root mode."
