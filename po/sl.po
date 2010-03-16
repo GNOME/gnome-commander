@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
-"POT-Creation-Date: 2010-03-11 19:01+0000\n"
-"PO-Revision-Date: 2010-03-12 10:58+0100\n"
+"POT-Creation-Date: 2010-03-15 18:58+0000\n"
+"PO-Revision-Date: 2010-03-16 21:53+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -2942,45 +2942,45 @@ msgstr "Ni mogoče izvesti ukaza."
 msgid "Unable to start Nautilus."
 msgstr "Ni mogoče zagnati Nautilusa"
 
-#: ../src/gnome-cmd-user-actions.cc:1203
-msgid "gksu or kdesu is not found."
-msgstr "Ukaza gksu oziroma kdesu ni mogoče najti."
+#: ../src/gnome-cmd-user-actions.cc:1205
+msgid "gksu, kdesu or beesu is not found."
+msgstr "Ukaza gksu,  kdesu  oziroma beesu ni mogoče najti."
 
-#: ../src/gnome-cmd-user-actions.cc:1216
+#: ../src/gnome-cmd-user-actions.cc:1218
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Ni mogoče zagnati GNOME Commanderja v skrbniškem načinu."
 
-#: ../src/gnome-cmd-user-actions.cc:1531
+#: ../src/gnome-cmd-user-actions.cc:1533
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
-#: ../src/gnome-cmd-user-actions.cc:1633
-#: ../src/gnome-cmd-user-actions.cc:1636
+#: ../src/gnome-cmd-user-actions.cc:1635
+#: ../src/gnome-cmd-user-actions.cc:1638
 msgid "There was an error opening home page."
 msgstr "Prišlo je do napake pri odpiranju domače strani."
 
-#: ../src/gnome-cmd-user-actions.cc:1647
-#: ../src/gnome-cmd-user-actions.cc:1650
+#: ../src/gnome-cmd-user-actions.cc:1649
+#: ../src/gnome-cmd-user-actions.cc:1652
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake pri prikazovanju pomoči."
 
-#: ../src/gnome-cmd-user-actions.cc:1673
+#: ../src/gnome-cmd-user-actions.cc:1675
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in napreden urejevalnik datotek za GNOME namizje"
 
-#: ../src/gnome-cmd-user-actions.cc:1677
+#: ../src/gnome-cmd-user-actions.cc:1679
 msgid "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr "GNOME Terminal je prosti programski paket; lahko ga izmenjujete in spreminjate pod pogoji GNU Splošnega javnega dovoljenja, kot jo izdaja Free Software Foundation; različica 2 ali kasnejše različice."
 
-#: ../src/gnome-cmd-user-actions.cc:1681
+#: ../src/gnome-cmd-user-actions.cc:1683
 msgid "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
 msgstr "GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli garancije. Za več podrobnosti si oglejte GNU Splošno javno dovoljenje."
 
-#: ../src/gnome-cmd-user-actions.cc:1685
+#: ../src/gnome-cmd-user-actions.cc:1687
 msgid "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr "Skupaj s programom Spletni brskalnik za GNOME bi morali prejeti kopijo dovoljenja GNU General Public License. V primeru, da kopije niste dobili, pišite na Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/gnome-cmd-user-actions.cc:1702
+#: ../src/gnome-cmd-user-actions.cc:1704
 msgid "translator-credits"
 msgstr "Matej Urbančič"
 
