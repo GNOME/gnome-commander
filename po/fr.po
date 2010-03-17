@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-03-11 12:12+0000\n"
+"POT-Creation-Date: 2010-03-15 18:58+0000\n"
 "PO-Revision-Date: 2009-12-09 13:20+0000\n"
 "Last-Translator: Laurent Coudeur <laurentc@eircom.net>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -2909,31 +2909,31 @@ msgstr "Impossible d'exécuter la commande."
 msgid "Unable to start Nautilus."
 msgstr "Impossible de démarrer Nautilus."
 
-#: ../src/gnome-cmd-user-actions.cc:1203
-msgid "gksu or kdesu is not found."
-msgstr "gksu ou kdesu introuvable."
+#: ../src/gnome-cmd-user-actions.cc:1205
+msgid "gksu, kdesu or beesu is not found."
+msgstr "gksu, kdesu ou beesu introuvable."
 
-#: ../src/gnome-cmd-user-actions.cc:1216
+#: ../src/gnome-cmd-user-actions.cc:1218
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Impossible de lancer GNOME Commander en mode root."
 
-#: ../src/gnome-cmd-user-actions.cc:1531
+#: ../src/gnome-cmd-user-actions.cc:1533
 msgid "Bookmarks"
 msgstr "Signets"
 
-#: ../src/gnome-cmd-user-actions.cc:1633 ../src/gnome-cmd-user-actions.cc:1636
+#: ../src/gnome-cmd-user-actions.cc:1635 ../src/gnome-cmd-user-actions.cc:1638
 msgid "There was an error opening home page."
 msgstr "Une erreur est survenue lors de l'ouverture de la page d'accueil."
 
-#: ../src/gnome-cmd-user-actions.cc:1647 ../src/gnome-cmd-user-actions.cc:1650
+#: ../src/gnome-cmd-user-actions.cc:1649 ../src/gnome-cmd-user-actions.cc:1652
 msgid "There was an error reporting problem."
 msgstr "Une erreur est survenue lors du rapport d'anomalie."
 
-#: ../src/gnome-cmd-user-actions.cc:1673
+#: ../src/gnome-cmd-user-actions.cc:1675
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Un gestionnaire de fichiers rapide et puissant pour le bureau GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1677
+#: ../src/gnome-cmd-user-actions.cc:1679
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2945,7 +2945,7 @@ msgstr ""
 "telle que publiée par la Free Software Foundation ; version 2 de la licence, "
 "ou (à votre choix) toute version ultérieure."
 
-#: ../src/gnome-cmd-user-actions.cc:1681
+#: ../src/gnome-cmd-user-actions.cc:1683
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2957,7 +2957,7 @@ msgstr ""
 "D'ADAPTATION À UN OBJET PARTICULIER. Pour plus de détails, voir la Licence "
 "Publique Générale GNU."
 
-#: ../src/gnome-cmd-user-actions.cc:1685
+#: ../src/gnome-cmd-user-actions.cc:1687
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2967,7 +2967,7 @@ msgstr ""
 "GNOME Commander ; si ce n'est pas le cas, écrivez à la Free Software "
 "Foundation, Inc.,51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1702
+#: ../src/gnome-cmd-user-actions.cc:1704
 msgid "translator-credits"
 msgstr ""
 "Olivier Karquel <yellowspoon@free.fr>\n"
@@ -5443,9 +5443,9 @@ msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
-"La fréquence d'échantillonnage des composants de chrominance en relation avec "
-"le composant luminance. Avec des données JPEG compressées un marqueur JPEG "
-"est utilisé à la place de cette balise."
+"La fréquence d'échantillonnage des composants de chrominance en relation "
+"avec le composant luminance. Avec des données JPEG compressées un marqueur "
+"JPEG est utilisé à la place de cette balise."
 
 #: ../src/tags/gnome-cmd-tags.cc:313
 msgid "y Resolution"
