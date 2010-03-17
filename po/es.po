@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-03-12 12:27+0000\n"
-"PO-Revision-Date: 2010-03-15 09:39+0100\n"
+"POT-Creation-Date: 2010-03-16 20:53+0000\n"
+"PO-Revision-Date: 2010-03-17 15:49+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: ES <gnome-es@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2905,32 +2905,32 @@ msgstr "No se pudo ejecutar el comando."
 msgid "Unable to start Nautilus."
 msgstr "No se pudo iniciar Nautilus."
 
-#: ../src/gnome-cmd-user-actions.cc:1203
-msgid "gksu or kdesu is not found."
-msgstr "No se encontró gksu o kdesu."
+#: ../src/gnome-cmd-user-actions.cc:1205
+msgid "gksu, kdesu or beesu is not found."
+msgstr "No se encontró gksu, kdesu o beesu."
 
-#: ../src/gnome-cmd-user-actions.cc:1216
+#: ../src/gnome-cmd-user-actions.cc:1218
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "No se ha podido iniciar GNOME Commande en modo root."
 
-#: ../src/gnome-cmd-user-actions.cc:1531
+#: ../src/gnome-cmd-user-actions.cc:1533
 msgid "Bookmarks"
 msgstr "Marcadores"
 
-#: ../src/gnome-cmd-user-actions.cc:1633 ../src/gnome-cmd-user-actions.cc:1636
+#: ../src/gnome-cmd-user-actions.cc:1635 ../src/gnome-cmd-user-actions.cc:1638
 msgid "There was an error opening home page."
 msgstr "Hubo un error al abrir la página inicial."
 
-#: ../src/gnome-cmd-user-actions.cc:1647 ../src/gnome-cmd-user-actions.cc:1650
+#: ../src/gnome-cmd-user-actions.cc:1649 ../src/gnome-cmd-user-actions.cc:1652
 msgid "There was an error reporting problem."
 msgstr "Hubo un error al informar de un problema."
 
-#: ../src/gnome-cmd-user-actions.cc:1673
+#: ../src/gnome-cmd-user-actions.cc:1675
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 "Un administrador de archivos rápido y eficiente para el escritorio GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1677
+#: ../src/gnome-cmd-user-actions.cc:1679
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2942,7 +2942,7 @@ msgstr ""
 "Software; Version 2 de la licencia, o (a su gusto) cualquier version "
 "posterior."
 
-#: ../src/gnome-cmd-user-actions.cc:1681
+#: ../src/gnome-cmd-user-actions.cc:1683
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2954,7 +2954,7 @@ msgstr ""
 "modificación para cualquier uso ver la Licencia Publica General GNU para mas "
 "detalles."
 
-#: ../src/gnome-cmd-user-actions.cc:1685
+#: ../src/gnome-cmd-user-actions.cc:1687
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2965,7 +2965,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1702
+#: ../src/gnome-cmd-user-actions.cc:1704
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2007-2008\n"
