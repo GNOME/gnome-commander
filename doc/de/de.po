@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2010-03-11 12:12+0000\n"
-"PO-Revision-Date: 2010-03-11 13:50+0100\n"
+"POT-Creation-Date: 2010-03-15 18:00+0000\n"
+"PO-Revision-Date: 2010-03-20 22:13+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -10764,7 +10764,7 @@ msgstr "Was ist neu?"
 msgid "1.2.9"
 msgstr "1.2.9"
 
-#: C/gnome-commander.xml:6008(para) C/gnome-commander.xml:6056(para)
+#: C/gnome-commander.xml:6008(para) C/gnome-commander.xml:6053(para)
 #: C/gnome-commander.xml:6081(para) C/gnome-commander.xml:6107(para)
 #: C/gnome-commander.xml:6133(para) C/gnome-commander.xml:6168(para)
 #: C/gnome-commander.xml:6191(para) C/gnome-commander.xml:6214(para)
@@ -10780,14 +10780,10 @@ msgid "Bug fixes:"
 msgstr "Fehlerkorrekturen:"
 
 #: C/gnome-commander.xml:6012(para)
-msgid "Fixed problem #600292 (crash when double-clicking on bookmarks list)"
-msgstr "Fehlerkorrektur #600292 (Absturz beim Doppelklick auf Lesezeichenliste)"
-
-#: C/gnome-commander.xml:6015(para)
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
 msgstr "Beseitigtes Ubuntu-Problem #117226 (Lesezeichen-Vereinheitlichung)"
 
-#: C/gnome-commander.xml:6019(para) C/gnome-commander.xml:6067(para)
+#: C/gnome-commander.xml:6016(para) C/gnome-commander.xml:6067(para)
 #: C/gnome-commander.xml:6288(para) C/gnome-commander.xml:6369(para)
 #: C/gnome-commander.xml:6427(para) C/gnome-commander.xml:6538(para)
 #: C/gnome-commander.xml:6622(para) C/gnome-commander.xml:6731(para)
@@ -10799,35 +10795,38 @@ msgstr "Beseitigtes Ubuntu-Problem #117226 (Lesezeichen-Vereinheitlichung)"
 msgid "New features:"
 msgstr "Neue Funktionen:"
 
-#: C/gnome-commander.xml:6023(para)
+#: C/gnome-commander.xml:6020(para)
 msgid "Revamped bookmarks dialog"
 msgstr "Überarbeiteter Lesezeichendialog"
 
-#: C/gnome-commander.xml:6026(para)
+#: C/gnome-commander.xml:6023(para)
 msgid "Revamped file properties dialog"
 msgstr "Verbesserter Dateieigenschaftsdialog"
 
-#: C/gnome-commander.xml:6029(para)
+#: C/gnome-commander.xml:6026(para)
 msgid "One instance mode"
 msgstr "Ein-Instanz-Modus"
 
-#: C/gnome-commander.xml:6032(para)
+#: C/gnome-commander.xml:6029(para)
 msgid "User defined LS_COLORS colours"
 msgstr "Benutzerdefinierter Farben mit LS_COLORS"
 
-#: C/gnome-commander.xml:6035(para)
+#: C/gnome-commander.xml:6032(para)
 msgid "New or updated docs: de, es, fr, sl"
 msgstr ""
 "Neue oder aktualisierte Dokumentation: Deutsch, Spanisch, Französisch, "
 "Slowenisch"
 
-#: C/gnome-commander.xml:6038(para)
-msgid "New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, zh_CN"
+#: C/gnome-commander.xml:6035(para)
+#| msgid ""
+#| "New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, zh_CN"
+msgid ""
+"New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: da, es, eu, fr, hu, pl, ro, ru, sl, "
-"zh_CN"
+"uk, zh_CN"
 
-#: C/gnome-commander.xml:6041(para) C/gnome-commander.xml:6317(para)
+#: C/gnome-commander.xml:6038(para) C/gnome-commander.xml:6317(para)
 #: C/gnome-commander.xml:6455(para) C/gnome-commander.xml:6575(para)
 #: C/gnome-commander.xml:6670(para) C/gnome-commander.xml:6744(para)
 #: C/gnome-commander.xml:6816(para) C/gnome-commander.xml:6897(para)
@@ -10835,20 +10834,27 @@ msgstr ""
 msgid "New key bindings:"
 msgstr "Neue Tastenkürzel:"
 
-#: C/gnome-commander.xml:6044(para)
+#: C/gnome-commander.xml:6041(para)
 msgid "<keycombo><keycap>...</keycap><keycap>...</keycap></keycombo> ..."
 msgstr "<keycombo><keycap>…</keycap><keycap>…</keycap></keycombo> …"
 
-#: C/gnome-commander.xml:6053(para)
+#: C/gnome-commander.xml:6050(para)
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
-#: C/gnome-commander.xml:6054(para)
+#: C/gnome-commander.xml:6051(para)
 msgid "2010-03-??"
 msgstr "??. März 2010"
 
+#: C/gnome-commander.xml:6057(para)
+#| msgid "Fixed problem #600292 (crash when double-clicking on bookmarks list)"
+msgid ""
+"Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
+msgstr ""
+"Fehlerkorrekturen #600292, #612685 (Absturz beim Doppelklick auf ein "
+"Lesezeichen)"
+
 #: C/gnome-commander.xml:6060(para)
-#| msgid "Fixed problem #351952 (crash while doing a content search)"
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Fehlerkorrektur #602795 (Suche in Dateiinhalten)"
 
