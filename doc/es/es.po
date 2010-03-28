@@ -1,13 +1,14 @@
 # translation of gnome-commander-help.master.po to Español
 #
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-15 18:00+0000\n"
-"PO-Revision-Date: 2010-03-15 19:57+0100\n"
+"POT-Creation-Date: 2010-03-16 20:53+0000\n"
+"PO-Revision-Date: 2010-03-28 13:24+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -8866,6 +8867,8 @@ msgid ""
 "The file name under the cursor including its path is added to the end of the "
 "command line"
 msgstr ""
+"El nombre de archivo de debajo del cursor, incluyendo su ruta, se añade al "
+"final de la línea de comandos"
 
 #: C/gnome-commander.xml:4516(keycap)
 msgid "DOWN"
@@ -8902,6 +8905,10 @@ msgid ""
 "execute_python|sha1.sum</command> will compute SHA1 checksums for selected "
 "files."
 msgstr ""
+"Las acciones de usuario permiten al usuario asignar una tecla o un conjunto "
+"de ellas para ejecutar funciones (acciones) predefinidas de GNOME Commander. "
+"Por ejemplo, <command>plugins.execute_python|sha1.sum</command> calculará la "
+"suma de comprobación SHA1 de los archivos seleccionados."
 
 #: C/gnome-commander.xml:4537(para)
 msgid "User actions are supported since version 1.2.4"
@@ -8916,6 +8923,9 @@ msgid ""
 "Key bindings reside in [key-bindings] section of GNOME Commander config file "
 "(<guilabel>~/.gnome2/gnome-commander</guilabel>)."
 msgstr ""
+"Las asociaciones de teclas residen en la sección [key-bindings] del archivo "
+"de configuración de GNOME Commander (<guilabel>~/.gnome2/gnome-commander</"
+"guilabel>)."
 
 #: C/gnome-commander.xml:4542(para)
 msgid "Config file syntax:"
@@ -9980,6 +9990,8 @@ msgid ""
 "This is outdated info since Nautilus and later Gnome versions no longer use "
 "these kind of themes."
 msgstr ""
+"Esta información está desactualizada, ya que Nautilus y las últimas "
+"versiones de GNOME no usan más ese tipo de temas."
 
 #: C/gnome-commander.xml:5258(para)
 msgid ""
@@ -10012,6 +10024,9 @@ msgid ""
 "When you now close the <guimenu>Options</guimenu> dialog the file listings "
 "should refresh and you should see Unscalable Gorilla being used."
 msgstr ""
+"Cuando ahora cierra el diálogo <guimenu>Options</guimenu> se debería "
+"actualizar el listado de archivos y debería ver que se está usando Gorilla "
+"no escalable."
 
 #: C/gnome-commander.xml:5288(title)
 msgid "GNOME Commander installation"
@@ -10406,6 +10421,9 @@ msgid ""
 "available), other values = use given string for symlink name. <placeholder-1/"
 ">"
 msgstr ""
+"Un valor vacío significa «usar el \"enlace a %s\" para un enlace "
+"simbólico» (o traducción si está disponible), otros valores = usan la cadena "
+"dada para el nombre del enlace simbólico. <placeholder-1/>"
 
 #: C/gnome-commander.xml:5732(para)
 msgid "theme_icon_dir"
@@ -10697,7 +10715,7 @@ msgstr "Diálogo de propiedades de archivo renovado"
 
 #: C/gnome-commander.xml:6026(para)
 msgid "One instance mode"
-msgstr ""
+msgstr "Modo de una instancia"
 
 #: C/gnome-commander.xml:6029(para)
 msgid "User defined LS_COLORS colours"
@@ -10708,13 +10726,11 @@ msgid "New or updated docs: de, es, fr, sl"
 msgstr "Documentos nuevos o actualizados: de, es, fr, sl"
 
 #: C/gnome-commander.xml:6035(para)
-#, fuzzy
-#| msgid ""
-#| "New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, zh_CN"
 msgid ""
 "New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN"
 msgstr ""
-"Traducciones nuevas o actualizadas: da, es, eu, fr, hu, pl, ro, ru, sl, zh_CN"
+"Traducciones nuevas o actualizadas: da, es, eu, fr, hu, pl, ro, ru, sl, uk, "
+"zh_CN"
 
 #: C/gnome-commander.xml:6038(para) C/gnome-commander.xml:6317(para)
 #: C/gnome-commander.xml:6455(para) C/gnome-commander.xml:6575(para)
@@ -10737,19 +10753,15 @@ msgid "2010-03-??"
 msgstr "2010-03-??"
 
 #: C/gnome-commander.xml:6057(para)
-#, fuzzy
-#| msgid "Fixed problem #600292 (crash when double-clicking on bookmarks list)"
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
-"Error nº 600292 corregido (error al hacer doble click en la lista de "
-"marcadores)"
+"Errores nº 600292 y nº 612685 corregidos (error al hacer doble click en un "
+"marcador)"
 
 #: C/gnome-commander.xml:6060(para)
-#, fuzzy
-#| msgid "Fixed problem #351952 (crash while doing a content search)"
 msgid "Fixed problem #602795 (file content search)"
-msgstr "Error nº 351952 corregido (error al hacer una búsqueda de contenidos)"
+msgstr "Error nº 602795 corregido (búsqueda en el contenido de un archivo)"
 
 #: C/gnome-commander.xml:6063(para)
 msgid "Fixed problem #609912 (build error with --as-needed)"
@@ -10757,7 +10769,7 @@ msgstr "Error nº 609912 corregido (error de construcción con --as-needed)"
 
 #: C/gnome-commander.xml:6071(para)
 msgid "New translations: ko"
-msgstr ""
+msgstr "Traducciones nuevas: ko"
 
 #: C/gnome-commander.xml:6078(para)
 msgid "1.2.8.5"
@@ -11136,6 +11148,8 @@ msgstr "Correcciones de construcción"
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
+"Soporte para todos los protocolos de red GnomeVFS (incluyendo SSH+FTP y "
+"WebDAV)"
 
 #: C/gnome-commander.xml:6376(para)
 msgid "User defined shortcuts to arbitrary programs"
@@ -11314,6 +11328,8 @@ msgstr "Corregido el error al actualizar la barra de estado del visor interno"
 #: C/gnome-commander.xml:6519(para)
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
+"Corregido el error al crear una carpeta con una ruta absoluta en una carpeta "
+"SMB compartida"
 
 #: C/gnome-commander.xml:6522(para)
 msgid "Fixed crash when moving file with % in the name"
@@ -11413,6 +11429,7 @@ msgstr "Error nº 351952 corregido (error al hacer una búsqueda de contenidos)"
 #: C/gnome-commander.xml:6606(para)
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr ""
+"Error nº 352253 corregido (comportamiento del desplazamiento en el visor)"
 
 #: C/gnome-commander.xml:6609(para)
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
@@ -11624,6 +11641,8 @@ msgstr ""
 #: C/gnome-commander.xml:6789(para)
 msgid "New python-like indices for advanced file rename templates"
 msgstr ""
+"Nuevos índices estilo python para las plantillas avanzadas de renombrado de "
+"archivos"
 
 #: C/gnome-commander.xml:6792(para)
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
@@ -12054,6 +12073,8 @@ msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
 msgstr ""
+"Ahora se puede usar el indicador de carpeta de debajo de cada lista de "
+"archivos para navegar hacia arriba en la estructura de carpetas"
 
 #: C/gnome-commander.xml:7098(para)
 msgid "1.1.4"
