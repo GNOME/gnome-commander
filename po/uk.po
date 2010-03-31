@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-11 14:01+0200\n"
-"PO-Revision-Date: 2010-02-02 21:22+0300\n"
+"POT-Creation-Date: 2010-03-31 13:48+0300\n"
+"PO-Revision-Date: 2010-03-12 23:47+0300\n"
 "Last-Translator: Korpan Roman <krv@dnet.com.ua>\n"
 "Language-Team:  <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Poedit-Bookmarks: -1,896,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
@@ -176,6 +177,8 @@ msgid ""
 "to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
 "maintainer about that."
 msgstr ""
+"Не функціонують деякі регулярні вирази. Для їх функціонування зберіть GNOME "
+"Commander з GLib ≥ 2.14, звернувшись до Вашого менеджера пакетів."
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:42
 msgid "Bookmark name is missing"
@@ -238,7 +241,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:238
 msgid "Keyboard shortcut for selected bookmark"
-msgstr ""
+msgstr "Швидка клавіша для обраної закладки"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:245
 #: ../src/tags/gnome-cmd-tags.cc:322
@@ -277,14 +280,16 @@ msgid ""
 "To rename a profile, click on the corresponding row and type a new name, or "
 "press escape to cancel."
 msgstr ""
+"Для перейменування профілю, клікніть на відповідній рядок та введіть нове "
+"им'я, або натисніть  ESC для відміни."
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:129
 msgid "_Duplicate"
-msgstr ""
+msgstr "_Дублювати"
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:146
 msgid "/Local path..."
-msgstr ""
+msgstr "/Локальний шлях..."
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:147
 msgid "/Remote location..."
@@ -318,7 +323,7 @@ msgstr[2] "Сервер не вибраний"
 
 #: ../src/eggcellrendererkeys.cc:182 ../src/eggcellrendererkeys.cc:183
 msgid "Accelerator key"
-msgstr ""
+msgstr "Гаряча клавіша"
 
 #: ../src/eggcellrendererkeys.cc:192 ../src/eggcellrendererkeys.cc:193
 msgid "Accelerator modifiers"
@@ -371,7 +376,7 @@ msgstr "Про %s"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:126
 msgid "/_Save Profile As..."
-msgstr ""
+msgstr "/_Зберегти профіль як..."
 
 #: ../src/gnome-cmd-advrename-dialog.cc:135
 #, fuzzy
@@ -605,16 +610,16 @@ msgstr "Введіть назву сервера"
 
 #: ../src/gnome-cmd-con-dialog.cc:222
 msgid "Please enter a name and try again."
-msgstr ""
+msgstr "Будь ласка, введіть им'я та спробуйте знову."
 
 #: ../src/gnome-cmd-con-dialog.cc:237
 #, c-format
 msgid "\"%s\" is not a valid location"
-msgstr ""
+msgstr "\"%s\" не є вірною адресою"
 
 #: ../src/gnome-cmd-con-dialog.cc:238
 msgid "Please check the spelling and try again."
-msgstr ""
+msgstr "Будь ласка, перевірте правопис та спробуйте ще."
 
 #: ../src/gnome-cmd-con-dialog.cc:343
 msgid "_Alias:"
@@ -696,7 +701,7 @@ msgstr "Інше місце"
 
 #: ../src/gnome-cmd-con-dialog.cc:511
 msgid "Use _GNOME Keyring Manager for authentication"
-msgstr ""
+msgstr "Використайте Менеджер брелоків GNOME для підтвердження прав доступу"
 
 #: ../src/gnome-cmd-con-ftp.cc:280
 #, fuzzy, c-format
@@ -815,7 +820,7 @@ msgstr "Гаразд"
 
 #: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Add current dir"
-msgstr ""
+msgstr "Додати поточну директорію"
 
 #: ../src/gnome-cmd-dir-indicator.cc:404
 msgid "Manage bookmarks..."
@@ -859,11 +864,11 @@ msgstr "група"
 
 #: ../src/gnome-cmd-file-list.cc:2035 ../src/gnome-cmd-file-list.cc:2050
 msgid "Not an ordinary file"
-msgstr ""
+msgstr "Не оригінальний файл"
 
 #: ../src/gnome-cmd-file-popmenu.cc:113
 msgid "Couldn't retrieve MIME type of the file."
-msgstr ""
+msgstr "Не вдалось отримати MIME-тип файлу."
 
 #: ../src/gnome-cmd-file-popmenu.cc:128
 msgid "Invalid command"
@@ -1024,7 +1029,7 @@ msgstr "Тип"
 #: ../src/gnome-cmd-file-props-dialog.cc:650
 #: ../src/intviewer/viewer-window.cc:1458
 msgid "Metadata namespace"
-msgstr ""
+msgstr "Простір імен метаданих"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:658
 #: ../src/intviewer/viewer-window.cc:1466
@@ -1051,7 +1056,7 @@ msgstr "Опис"
 #: ../src/gnome-cmd-file-props-dialog.cc:664
 #: ../src/intviewer/viewer-window.cc:1472
 msgid "Metadata tag description"
-msgstr ""
+msgstr "Опис тега метаданих"
 
 #. data->thread = 0;
 #: ../src/gnome-cmd-file-props-dialog.cc:719
@@ -1069,7 +1074,7 @@ msgstr "Права доступу"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:744
 msgid "Metadata"
-msgstr ""
+msgstr "Метадані"
 
 #: ../src/gnome-cmd-file-selector.cc:208
 #, fuzzy, c-format
@@ -1169,21 +1174,23 @@ msgstr "Символьне посилання"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:189
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Швидкі клавіші"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:215
 msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
 msgstr ""
+"Для редагування швидкої клавіші, клікніть на відповідному рядку та натисніть "
+"обрану клавішу, або натисніть ESC для відміни."
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
 msgid "Shortcut Key"
-msgstr ""
+msgstr "Швидка клавіша"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:345
 msgid "Keyboard shortcut for selected action"
-msgstr ""
+msgstr "Швидка клавіша для обрнаної дії"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:352
 msgid "Action"
@@ -1191,7 +1198,7 @@ msgstr "Дія"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:353
 msgid "User action"
-msgstr ""
+msgstr "Дія користувача"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:360
 msgid "Optional data"
@@ -1200,20 +1207,20 @@ msgstr "Додадкова інформація"
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:487
 #, c-format
 msgid "Shortcut \"%s\" is already taken by \"%s\"."
-msgstr ""
+msgstr "Клавіша  \"%s\"  вже використовується  \"%s\"."
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
 msgid "_Reassign shortcut"
-msgstr ""
+msgstr "Переназначити клавіші"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
 msgid "Conflicting Shortcuts"
-msgstr ""
+msgstr "Конфліктуючі клавіші"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
-msgstr ""
+msgstr "Переназначення клавіші приведе до видалення з  \"%s\"."
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:550
 #, fuzzy
@@ -1223,7 +1230,7 @@ msgstr "Неприпустиме джерело шаблону"
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:627
 #: ../src/gnome-cmd-user-actions.cc:189
 msgid "Do nothing"
-msgstr ""
+msgstr "Нічого не робити"
 
 #: ../src/gnome-cmd-list-popmenu.cc:107
 msgid "_Directory"
@@ -1342,7 +1349,7 @@ msgstr "В_перед"
 
 #: ../src/gnome-cmd-main-menu.cc:622
 msgid "Open in New _Tab"
-msgstr ""
+msgstr "_Відкрити на новій вкладці"
 
 #: ../src/gnome-cmd-main-menu.cc:628
 msgid "_Close Tab"
@@ -1378,7 +1385,7 @@ msgstr "Показати резервні файли"
 
 #: ../src/gnome-cmd-main-menu.cc:679
 msgid "_Equal Panel Size"
-msgstr ""
+msgstr "Зрівняти розмір панелей"
 
 #: ../src/gnome-cmd-main-menu.cc:690
 msgid "_Bookmark this Directory..."
@@ -1528,11 +1535,11 @@ msgstr "Вперед"
 
 #: ../src/gnome-cmd-main-win.cc:1151
 msgid "Go to the latest"
-msgstr ""
+msgstr "Перейти до останнього"
 
 #: ../src/gnome-cmd-main-win.cc:1153
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
-msgstr ""
+msgstr "Копіювати імена файлів (SHIFT для повного шляху, ALT для URI)"
 
 #: ../src/gnome-cmd-main-win.cc:1154 ../src/gnome-cmd-user-actions.cc:150
 msgid "Cut"
@@ -1550,7 +1557,7 @@ msgstr "Вставити"
 
 #: ../src/gnome-cmd-main-win.cc:1159
 msgid "Edit (SHIFT for new document)"
-msgstr ""
+msgstr "Редагувати (SHIFT для нового документа)"
 
 #: ../src/gnome-cmd-main-win.cc:1161 ../src/gnome-cmd-user-actions.cc:143
 msgid "Open terminal"
@@ -1585,11 +1592,11 @@ msgstr "Дія правої кнопки миші"
 
 #: ../src/gnome-cmd-options-dialog.cc:80
 msgid "Single click to open items"
-msgstr ""
+msgstr "Один клік для відкриття"
 
 #: ../src/gnome-cmd-options-dialog.cc:84
 msgid "Double click to open items"
-msgstr ""
+msgstr "Подвійний клік для відкриття"
 
 #: ../src/gnome-cmd-options-dialog.cc:89
 #, fuzzy
@@ -1640,19 +1647,19 @@ msgstr "_Швидко знайти..."
 
 #: ../src/gnome-cmd-options-dialog.cc:139
 msgid "CTRL+ALT+letters"
-msgstr ""
+msgstr "CTRL+ALT+літера"
 
 #: ../src/gnome-cmd-options-dialog.cc:142
 msgid "ALT+letters (menu access with F10)"
-msgstr ""
+msgstr "ALT+літера (доступ до меню - F10)"
 
 #: ../src/gnome-cmd-options-dialog.cc:149
 msgid "Multiple instances"
-msgstr ""
+msgstr "Дубльовані екземпляри"
 
 #: ../src/gnome-cmd-options-dialog.cc:152
 msgid "Don't start a new instance"
-msgstr ""
+msgstr "Не запускайте новий екземпляр"
 
 #: ../src/gnome-cmd-options-dialog.cc:228
 msgid "Size display mode"
@@ -1666,7 +1673,7 @@ msgstr "Розширений"
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: ../src/gnome-cmd-options-dialog.cc:238
 msgid "<locale>"
-msgstr ""
+msgstr "<локаль>"
 
 #: ../src/gnome-cmd-options-dialog.cc:243
 msgid "Grouped"
@@ -1748,7 +1755,7 @@ msgstr "Курсор:"
 
 #: ../src/gnome-cmd-options-dialog.cc:513
 msgid "Edit LS_COLORS Palette"
-msgstr ""
+msgstr "Редагування палітри LS_COLORS"
 
 #: ../src/gnome-cmd-options-dialog.cc:522
 #, fuzzy
@@ -1787,7 +1794,7 @@ msgstr "Синій"
 
 #: ../src/gnome-cmd-options-dialog.cc:596
 msgid "Magenta"
-msgstr ""
+msgstr "Пурпуровий"
 
 #: ../src/gnome-cmd-options-dialog.cc:599
 #, fuzzy
@@ -1999,7 +2006,7 @@ msgstr "Аутентифікація"
 
 #: ../src/gnome-cmd-options-dialog.cc:1075
 msgid "Use GNOME Keyring Manager for authentication"
-msgstr ""
+msgstr "Використайте Менеджер брелоків GNOME для підтвердження прав доступу"
 
 #: ../src/gnome-cmd-options-dialog.cc:1083
 #, fuzzy
@@ -2094,7 +2101,7 @@ msgstr "Термінал:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1482
 msgid "Use Internal Viewer"
-msgstr ""
+msgstr "Використати вбудований вьювер"
 
 #: ../src/gnome-cmd-options-dialog.cc:1497
 msgid "Other favorite apps"
@@ -2254,7 +2261,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-profile-component.cc:126
 msgid "/Parent"
-msgstr ""
+msgstr "/"
 
 #: ../src/gnome-cmd-profile-component.cc:129
 #, fuzzy
@@ -2268,11 +2275,11 @@ msgstr "Назва файлу:"
 
 #: ../src/gnome-cmd-profile-component.cc:131
 msgid "/File name without extension"
-msgstr ""
+msgstr "/Ім'я файлу без розширення"
 
 #: ../src/gnome-cmd-profile-component.cc:132
 msgid "/File name without extension (range)"
-msgstr ""
+msgstr "/Ім'я файлу без розширення (діапазону)"
 
 #: ../src/gnome-cmd-profile-component.cc:133
 #, fuzzy
@@ -2291,7 +2298,7 @@ msgstr "З'єднатись"
 
 #: ../src/gnome-cmd-profile-component.cc:138
 msgid "/Hexadecimal random number (width)"
-msgstr ""
+msgstr "/Шіснадцятирічне випадкове число (ширина)"
 
 #: ../src/gnome-cmd-profile-component.cc:141
 #, fuzzy
@@ -2300,35 +2307,35 @@ msgstr "Дата:"
 
 #: ../src/gnome-cmd-profile-component.cc:142
 msgid "/Date/<locale>"
-msgstr ""
+msgstr "/Дата/<локаль>"
 
 #: ../src/gnome-cmd-profile-component.cc:143
 msgid "/Date/yyyy-mm-dd"
-msgstr ""
+msgstr "/Дата/рррр-мм-дд"
 
 #: ../src/gnome-cmd-profile-component.cc:144
 msgid "/Date/yy-mm-dd"
-msgstr ""
+msgstr "/Дата/рр-мм-дд"
 
 #: ../src/gnome-cmd-profile-component.cc:145
 msgid "/Date/yy.mm.dd"
-msgstr ""
+msgstr "/Дата/рр.мм.дд"
 
 #: ../src/gnome-cmd-profile-component.cc:146
 msgid "/Date/yymmdd"
-msgstr ""
+msgstr "/Дата/ррммдд"
 
 #: ../src/gnome-cmd-profile-component.cc:147
 msgid "/Date/dd.mm.yy"
-msgstr ""
+msgstr "/Дата/дд.мм.рр"
 
 #: ../src/gnome-cmd-profile-component.cc:148
 msgid "/Date/mm-dd-yy"
-msgstr ""
+msgstr "/Дата/мм-дд-рр"
 
 #: ../src/gnome-cmd-profile-component.cc:149
 msgid "/Date/yyyy"
-msgstr ""
+msgstr "/Дата/рррр"
 
 #: ../src/gnome-cmd-profile-component.cc:150
 #, fuzzy
@@ -2357,31 +2364,31 @@ msgstr "Файл"
 
 #: ../src/gnome-cmd-profile-component.cc:155
 msgid "/Time/<locale>"
-msgstr ""
+msgstr "/Час/<локаль>"
 
 #: ../src/gnome-cmd-profile-component.cc:156
 msgid "/Time/HH.MM.SS"
-msgstr ""
+msgstr "/Час/ГГ.ХХ.СС"
 
 #: ../src/gnome-cmd-profile-component.cc:157
 msgid "/Time/HH-MM-SS"
-msgstr ""
+msgstr "/Час/ГГ-ХХ-СС"
 
 #: ../src/gnome-cmd-profile-component.cc:158
 msgid "/Time/HHMMSS"
-msgstr ""
+msgstr "/Час/ГГХХСС"
 
 #: ../src/gnome-cmd-profile-component.cc:159
 msgid "/Time/HH"
-msgstr ""
+msgstr "/Час/ГГ"
 
 #: ../src/gnome-cmd-profile-component.cc:160
 msgid "/Time/MM"
-msgstr ""
+msgstr "/Час/ХХ"
 
 #: ../src/gnome-cmd-profile-component.cc:161
 msgid "/Time/SS"
-msgstr ""
+msgstr "/Час/СС"
 
 #: ../src/gnome-cmd-profile-component.cc:586
 #, fuzzy
@@ -2419,7 +2426,7 @@ msgstr "Файл"
 #: ../src/gnome-cmd-profile-component.cc:906
 #: ../src/gnome-cmd-profile-component.cc:918
 msgid "Counter"
-msgstr ""
+msgstr "Лічильник"
 
 #: ../src/gnome-cmd-profile-component.cc:908
 msgid "Metatag"
@@ -2437,7 +2444,7 @@ msgstr "Стан:"
 
 #: ../src/gnome-cmd-profile-component.cc:949
 msgid "Di_gits:"
-msgstr ""
+msgstr "_Символи"
 
 #: ../src/gnome-cmd-profile-component.cc:960
 msgid "Regex replacing"
@@ -2455,7 +2462,7 @@ msgstr "Вставити"
 
 #: ../src/gnome-cmd-profile-component.cc:1024
 msgid "<unchanged>"
-msgstr ""
+msgstr "<без змін>"
 
 #: ../src/gnome-cmd-profile-component.cc:1025
 #, fuzzy
@@ -2464,11 +2471,11 @@ msgstr "Розширений"
 
 #: ../src/gnome-cmd-profile-component.cc:1026
 msgid "UPPERCASE"
-msgstr ""
+msgstr "ВЕРХНІЙ РЕГІСТР"
 
 #: ../src/gnome-cmd-profile-component.cc:1028
 msgid "Sentence case"
-msgstr ""
+msgstr "нижній регістр"
 
 #. FIXME
 #: ../src/gnome-cmd-profile-component.cc:1029
@@ -2479,11 +2486,11 @@ msgstr "Каталог"
 #. FIXME
 #: ../src/gnome-cmd-profile-component.cc:1030
 msgid "tOGGLE cASE"
-msgstr ""
+msgstr "зМІШАНИЙ рЕГІСТР"
 
 #: ../src/gnome-cmd-profile-component.cc:1040
 msgid "Trim blanks"
-msgstr ""
+msgstr "Прибрати пробіли"
 
 #: ../src/gnome-cmd-profile-component.cc:1052
 #, fuzzy
@@ -2525,7 +2532,7 @@ msgstr "Замінити"
 
 #: ../src/gnome-cmd-profile-component.cc:1235
 msgid "Match case"
-msgstr ""
+msgstr "Враховуючи регістр"
 
 #: ../src/gnome-cmd-profile-component.cc:1238
 msgid "Case sensitive matching"
@@ -2533,7 +2540,7 @@ msgstr "Враховувати регістр"
 
 #: ../src/gnome-cmd-python-plugin.cc:214
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
-msgstr ""
+msgstr "Не можливо завантажити модуль 'gnomevfs' ('gnome.vfs')"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:265
 #: ../src/gnome-cmd-user-actions.cc:155
@@ -2547,11 +2554,11 @@ msgstr "Сервер не вибраний"
 
 #: ../src/gnome-cmd-remote-dialog.cc:363
 msgid "GNOME authentication manager usage"
-msgstr ""
+msgstr "Використання менеджера брелоків GNOME"
 
 #: ../src/gnome-cmd-remote-dialog.cc:367
 msgid "Network protocol"
-msgstr ""
+msgstr "Мережевий протокол"
 
 #: ../src/gnome-cmd-remote-dialog.cc:378
 #, fuzzy
@@ -2580,7 +2587,7 @@ msgstr "Рекурсивний пошук"
 
 #: ../src/gnome-cmd-search-dialog.cc:40
 msgid "_Unlimited depth"
-msgstr ""
+msgstr "_Необмежена глибина"
 
 #: ../src/gnome-cmd-search-dialog.cc:41
 #, fuzzy
@@ -2589,12 +2596,12 @@ msgstr "Розпакувати у поточний каталог"
 
 #: ../src/gnome-cmd-search-dialog.cc:42
 msgid "_Limited depth"
-msgstr ""
+msgstr "_Обмежена глибина"
 
 #. N_("Search local directories only"),
 #: ../src/gnome-cmd-search-dialog.cc:44
 msgid "Files _not containing text"
-msgstr ""
+msgstr "Файли, що не містять текст"
 
 #: ../src/gnome-cmd-search-dialog.cc:163
 #, c-format
@@ -2694,6 +2701,11 @@ msgid ""
 "\n"
 "Remember: wrong credentials may lead to account locking"
 msgstr ""
+"Проблема: доступ заборонено\n"
+"\n"
+"Введіть відомості про користувача\n"
+"\n"
+"Пам'ятайте, що хибні відомості можуть привести до блокування аккаунту"
 
 #: ../src/gnome-cmd-smb-path.cc:323
 #, c-format
@@ -2716,7 +2728,7 @@ msgstr "_Правка закладок..."
 
 #: ../src/gnome-cmd-user-actions.cc:140
 msgid "Go to bookmarked location"
-msgstr ""
+msgstr "Перейти по закладці"
 
 #: ../src/gnome-cmd-user-actions.cc:141
 #, fuzzy
@@ -2810,11 +2822,11 @@ msgstr "Ви_йти"
 
 #: ../src/gnome-cmd-user-actions.cc:167
 msgid "View with external viewer"
-msgstr ""
+msgstr "Перегляд зовнішнім вьювером"
 
 #: ../src/gnome-cmd-user-actions.cc:168
 msgid "View with internal viewer"
-msgstr ""
+msgstr "Перегляд вбудованим вьювером"
 
 #: ../src/gnome-cmd-user-actions.cc:169
 #, fuzzy
@@ -2845,7 +2857,7 @@ msgstr "З'_єднання"
 
 #: ../src/gnome-cmd-user-actions.cc:180
 msgid "Help on keyboard shortcuts"
-msgstr ""
+msgstr "Допомога по швидким клавішам"
 
 #: ../src/gnome-cmd-user-actions.cc:181
 #, fuzzy
@@ -2879,7 +2891,7 @@ msgstr "_Відновити виділення"
 
 #: ../src/gnome-cmd-user-actions.cc:187
 msgid "Toggle selection and move cursor downward"
-msgstr ""
+msgstr "Інверсія виділеного і сміщення курсору до низу"
 
 #: ../src/gnome-cmd-user-actions.cc:188
 #, fuzzy
@@ -2893,7 +2905,7 @@ msgstr "Тип MIME:"
 
 #: ../src/gnome-cmd-user-actions.cc:192
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Швидкі клавіші"
 
 #: ../src/gnome-cmd-user-actions.cc:193
 #, fuzzy
@@ -2902,7 +2914,7 @@ msgstr "Н_астроїти модулі..."
 
 #: ../src/gnome-cmd-user-actions.cc:194
 msgid "Execute python plugin"
-msgstr ""
+msgstr "Виконати python-модуль"
 
 #: ../src/gnome-cmd-user-actions.cc:195
 msgid "Back one directory"
@@ -2910,7 +2922,7 @@ msgstr "Повернутись на одну директорію"
 
 #: ../src/gnome-cmd-user-actions.cc:196
 msgid "Close the current tab"
-msgstr ""
+msgstr "Закрити поточну закладку"
 
 #: ../src/gnome-cmd-user-actions.cc:197
 msgid "Equal panel size"
@@ -2930,11 +2942,11 @@ msgstr "Домашня директорія"
 
 #: ../src/gnome-cmd-user-actions.cc:201
 msgid "Open directory in the active window"
-msgstr ""
+msgstr "Видкрити директорію в активному вікні"
 
 #: ../src/gnome-cmd-user-actions.cc:202
 msgid "Open directory in the inactive window"
-msgstr ""
+msgstr "Відкрити директорію в не активному вікні"
 
 #: ../src/gnome-cmd-user-actions.cc:203
 #, fuzzy
@@ -2952,7 +2964,7 @@ msgstr "Перейти до останьої директорії"
 
 #: ../src/gnome-cmd-user-actions.cc:206
 msgid "Open directory in a new tab"
-msgstr ""
+msgstr "Відкрити директорію в новій закладці"
 
 #: ../src/gnome-cmd-user-actions.cc:208
 msgid "Root directory"
@@ -2978,7 +2990,7 @@ msgstr "Зтворити"
 #: ../src/gnome-cmd-user-actions.cc:859 ../src/gnome-cmd-user-actions.cc:876
 #: ../src/gnome-cmd-user-actions.cc:916
 msgid "Operation not supported on remote file systems"
-msgstr ""
+msgstr "Операція не може бути виконана на віддаленій файловій системі"
 
 #: ../src/gnome-cmd-user-actions.cc:891
 #, fuzzy
@@ -2999,55 +3011,68 @@ msgstr "Не вдається виконати команду mount"
 msgid "Unable to start Nautilus."
 msgstr "Неможливо запустити  Nautilus."
 
-#: ../src/gnome-cmd-user-actions.cc:1203
-msgid "gksu or kdesu is not found."
-msgstr ""
+#: ../src/gnome-cmd-user-actions.cc:1205
+#, fuzzy
+msgid "gksu, kdesu or beesu is not found."
+msgstr "gksu або kdesu не знайдено."
 
-#: ../src/gnome-cmd-user-actions.cc:1216
+#: ../src/gnome-cmd-user-actions.cc:1218
 msgid "Unable to start GNOME Commander in root mode."
-msgstr ""
+msgstr "Не вдалий запуск GNOME Commander в режимі супер користувача."
 
-#: ../src/gnome-cmd-user-actions.cc:1531
+#: ../src/gnome-cmd-user-actions.cc:1533
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: ../src/gnome-cmd-user-actions.cc:1633 ../src/gnome-cmd-user-actions.cc:1636
+#: ../src/gnome-cmd-user-actions.cc:1635 ../src/gnome-cmd-user-actions.cc:1638
 msgid "There was an error opening home page."
-msgstr ""
+msgstr "Помилка відкриття домашньої сторінки."
 
-#: ../src/gnome-cmd-user-actions.cc:1647 ../src/gnome-cmd-user-actions.cc:1650
+#: ../src/gnome-cmd-user-actions.cc:1649 ../src/gnome-cmd-user-actions.cc:1652
 msgid "There was an error reporting problem."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1673
+#: ../src/gnome-cmd-user-actions.cc:1675
 #, fuzzy
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Швидкий та потужний менеджер файлів для середовища GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1677
+#: ../src/gnome-cmd-user-actions.cc:1679
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
 msgstr ""
+"GNOME Commander є вільним програмним забезпеченням; ви можете "
+"розповсюджувати та/або модифікувати його на умовах ліцензії GNU General "
+"Public License (не нижче версії 2), що публікується Фордом Вільного "
+"Програмного Забезпечення. "
 
-#: ../src/gnome-cmd-user-actions.cc:1681
+#: ../src/gnome-cmd-user-actions.cc:1683
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
 "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 msgstr ""
+"GNOME Commander розповсюджується з надією, що він буде придатний до "
+"використання, але БЕЗ БУДЬ ЯКОЇ ГАРАНТІЇ, навіть без очікуваної гарантії "
+"ТОВАРНОЇ ЯКОСТІ чи ВІДПОВІДНОСТІ ПЕВНИМ ЗАВДАННЯМ. Ознайомитись більш "
+"докладно можливо використавши ліцензію GNU General Public License."
 
-#: ../src/gnome-cmd-user-actions.cc:1685
+#: ../src/gnome-cmd-user-actions.cc:1687
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
+"Ви повинні були отримати копію ліцензії GNU General Public License разом з "
+"GNOME Commander; якщо цього не сталося, напишіть до Free Software "
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+"USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1702
+#: ../src/gnome-cmd-user-actions.cc:1704
 msgid "translator-credits"
 msgstr "Maxim Dziumanenko <mvd@mylinux.com.ua>"
 
@@ -3104,7 +3129,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.cc:386
 msgid "The whole operation was cancelled."
-msgstr ""
+msgstr "Операція цілком відмінена."
 
 #: ../src/gnome-cmd-xfer.cc:427
 msgid "preparing..."
@@ -3171,7 +3196,7 @@ msgstr "_Текст"
 
 #: ../src/intviewer/search-dlg.cc:276 ../src/intviewer/viewer-window.cc:672
 msgid "_Hexadecimal"
-msgstr ""
+msgstr "_Шіснадцяткове"
 
 #. sdlg->priv->progress = 0;
 #: ../src/intviewer/search-progress-dlg.cc:77
@@ -3187,18 +3212,18 @@ msgstr "Пошук в: %s"
 #: ../src/intviewer/viewer-widget.cc:211
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
-msgstr ""
+msgstr "Позиція: %lu з %lu\tСтовпець: %d\t%s"
 
 #: ../src/intviewer/viewer-widget.cc:215
 msgid "Wrap"
-msgstr ""
+msgstr "Прокрутка"
 
 #: ../src/intviewer/viewer-widget.cc:242
 msgid "pixel"
 msgid_plural "pixels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "піксел"
+msgstr[1] "піксела"
+msgstr[2] "пікселів"
 
 #: ../src/intviewer/viewer-widget.cc:244
 msgid "bit/sample"
@@ -3209,7 +3234,7 @@ msgstr[2] ""
 
 #: ../src/intviewer/viewer-widget.cc:246
 msgid "(fit to window)"
-msgstr ""
+msgstr "(до розміру вікна)"
 
 #: ../src/intviewer/viewer-window.cc:654
 msgid "_Close"
@@ -3217,7 +3242,7 @@ msgstr "_Закрити"
 
 #: ../src/intviewer/viewer-window.cc:668
 msgid "_Binary"
-msgstr ""
+msgstr "_Бінарний"
 
 #: ../src/intviewer/viewer-window.cc:676 ../src/intviewer/viewer-window.cc:871
 msgid "_Image"
@@ -3225,19 +3250,19 @@ msgstr "_Зображення"
 
 #: ../src/intviewer/viewer-window.cc:681
 msgid "_Zoom In"
-msgstr ""
+msgstr "_Збільшити"
 
 #: ../src/intviewer/viewer-window.cc:685
 msgid "Zoom _Out"
-msgstr ""
+msgstr "З_меншити"
 
 #: ../src/intviewer/viewer-window.cc:689
 msgid "_Normal Size"
-msgstr ""
+msgstr "_Нормальний розмір"
 
 #: ../src/intviewer/viewer-window.cc:693
 msgid "Best _Fit"
-msgstr ""
+msgstr "_Оптимальний розмір"
 
 #: ../src/intviewer/viewer-window.cc:703
 #, fuzzy
@@ -3258,11 +3283,11 @@ msgstr "Пошук попередньго"
 
 #: ../src/intviewer/viewer-window.cc:720
 msgid "_Wrap lines"
-msgstr ""
+msgstr "_Згорнути рядки"
 
 #: ../src/intviewer/viewer-window.cc:725
 msgid "_Encoding"
-msgstr ""
+msgstr "_Кодування"
 
 #: ../src/intviewer/viewer-window.cc:766
 msgid "Show Metadata _Tags"
@@ -3270,47 +3295,47 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:772
 msgid "_Rotate Clockwise"
-msgstr ""
+msgstr "_Розвернути за годинником"
 
 #: ../src/intviewer/viewer-window.cc:777
 msgid "Rotate Counter Clockwis_e"
-msgstr ""
+msgstr "Розвернути _проти годинника"
 
 #: ../src/intviewer/viewer-window.cc:782
 msgid "_Rotate 180°"
-msgstr ""
+msgstr "_Розвернути на 180°"
 
 #: ../src/intviewer/viewer-window.cc:787
 msgid "Flip _Vertical"
-msgstr ""
+msgstr "Відобразити _вертикально"
 
 #: ../src/intviewer/viewer-window.cc:792
 msgid "Flip _Horizontal"
-msgstr ""
+msgstr "Відобразити _горизонтально"
 
 #: ../src/intviewer/viewer-window.cc:802
 msgid "_Binary Mode"
-msgstr ""
+msgstr "_Бінарний режим"
 
 #: ../src/intviewer/viewer-window.cc:808
 msgid "_Hexadecimal Offset"
-msgstr ""
+msgstr "_Шіснадцятковий зсув"
 
 #: ../src/intviewer/viewer-window.cc:814
 msgid "_Save Current Settings"
-msgstr ""
+msgstr "_Зберегти чинні налаштування"
 
 #: ../src/intviewer/viewer-window.cc:824
 msgid "_20 chars/line"
-msgstr ""
+msgstr "_20 символів на лінію"
 
 #: ../src/intviewer/viewer-window.cc:829
 msgid "_40 chars/line"
-msgstr ""
+msgstr "_40 символів на лінію"
 
 #: ../src/intviewer/viewer-window.cc:834
 msgid "_80 chars/line"
-msgstr ""
+msgstr "_80 символів на лінію"
 
 #: ../src/intviewer/viewer-window.cc:843
 #, fuzzy
@@ -3320,7 +3345,7 @@ msgstr "_Довідка"
 #: ../src/intviewer/viewer-window.cc:1121
 #, c-format
 msgid "Pattern \"%s\" was not found"
-msgstr ""
+msgstr "Шаблон \"%s\" не знайдений"
 
 #: ../src/main.cc:67 ../src/main.cc:76
 msgid "Specify debug flags to use"
@@ -3365,55 +3390,55 @@ msgstr "_Настройка"
 
 #: ../src/tags/gnome-cmd-tags.cc:64
 msgid "<Exif and IPTC tags not supported>"
-msgstr ""
+msgstr "<Теги Exif та IPTC не підтримуються>"
 
 #: ../src/tags/gnome-cmd-tags.cc:68
 msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
-msgstr ""
+msgstr "<Теги ID3, APE, FLAC та Vorbis не підтримуються>"
 
 #: ../src/tags/gnome-cmd-tags.cc:72
 msgid "<OLE2 and ODF tags not supported>"
-msgstr ""
+msgstr "<Теги OLE2 та ODF не підтримуються>"
 
 #: ../src/tags/gnome-cmd-tags.cc:76
 msgid "<PDF tags not supported>"
-msgstr ""
+msgstr "<Теги PDF не підтримуються>"
 
 #: ../src/tags/gnome-cmd-tags.cc:112 ../src/tags/gnome-cmd-tags.cc:413
 msgid "Album"
-msgstr ""
+msgstr "Альбом"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "Name of the album."
-msgstr ""
+msgstr "Назва альбому."
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Album Artist"
-msgstr ""
+msgstr "Виконавець альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Artist of the album."
-msgstr ""
+msgstr "Виконавець альбому."
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Album Gain"
-msgstr ""
+msgstr "Підсилення альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Gain adjustment of the album."
-msgstr ""
+msgstr "Налаштування підсилення для альбому."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Album Peak Gain"
-msgstr ""
+msgstr "Пікове підсилення альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Peak gain adjustment of album."
-msgstr ""
+msgstr "Вирівнювання альбому за піковим підсиленням."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Album Track Count"
-msgstr ""
+msgstr "Кількість доріжок альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Total number of tracks on the album."
@@ -3434,7 +3459,7 @@ msgstr "Стан:"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "Bitrate in kbps."
-msgstr ""
+msgstr "Бітрейт в кбіт/с."
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 #, fuzzy
@@ -3443,7 +3468,7 @@ msgstr "Скасувати"
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Кількість аудіо каналів (2=стерео)."
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 #, fuzzy
@@ -3452,7 +3477,7 @@ msgstr "З'єднатись"
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Codec encoding description."
-msgstr ""
+msgstr "Опис кодека."
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 #, fuzzy
@@ -3461,7 +3486,7 @@ msgstr "Версія"
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 msgid "Codec version."
-msgstr ""
+msgstr "Версія кодека."
 
 #: ../src/tags/gnome-cmd-tags.cc:122
 #, fuzzy
@@ -3470,7 +3495,7 @@ msgstr "Команда:"
 
 #: ../src/tags/gnome-cmd-tags.cc:122
 msgid "Comments on the track."
-msgstr ""
+msgstr "Коментар до доріжки."
 
 #: ../src/tags/gnome-cmd-tags.cc:123 ../src/tags/gnome-cmd-tags.cc:210
 #: ../src/tags/gnome-cmd-tags.cc:339 ../src/tags/gnome-cmd-tags.cc:415
@@ -3485,35 +3510,35 @@ msgstr "Копіювати"
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "Cover Album Thumbnail Path"
-msgstr ""
+msgstr "Шлях до ескізу обкладинки альбома"
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "File path to thumbnail image of the cover album."
-msgstr ""
+msgstr "Шлях файла, що містить зеншене зображення обкладинки альбому."
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Disc Number"
-msgstr ""
+msgstr "Номер диску"
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Specifies which disc the track is on."
-msgstr ""
+msgstr "Визначає диск з доріжкою."
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Duration"
-msgstr ""
+msgstr "Тривалість"
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Duration of track in seconds."
-msgstr ""
+msgstr "Тривалість доріжки в секундах."
 
 #: ../src/tags/gnome-cmd-tags.cc:127
 msgid "Duration [MM:SS]"
-msgstr ""
+msgstr "Тривалість  [ХХ:СС]"
 
 #: ../src/tags/gnome-cmd-tags.cc:127
 msgid "Duration of track as MM:SS."
-msgstr ""
+msgstr "Тривалість доріжки в форматі ХХ:СС."
 
 #: ../src/tags/gnome-cmd-tags.cc:128
 #, fuzzy
@@ -3522,71 +3547,71 @@ msgstr "Загальне"
 
 #: ../src/tags/gnome-cmd-tags.cc:128 ../src/tags/gnome-cmd-tags.cc:338
 msgid "Type of music classification for the track as defined in ID3 spec."
-msgstr ""
+msgstr "Музикальний жанр доріжки згідно специфікації ID3."
 
 #: ../src/tags/gnome-cmd-tags.cc:129
 msgid "Is New"
-msgstr ""
+msgstr "Новий?"
 
 #: ../src/tags/gnome-cmd-tags.cc:129
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr ""
+msgstr " \"1\" якщо доріжка нова для користувача (за замовчанням \"0\")."
 
 #: ../src/tags/gnome-cmd-tags.cc:130
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../src/tags/gnome-cmd-tags.cc:130
 msgid "ISRC (international standard recording code)."
-msgstr ""
+msgstr "ISRC (міжнародний стандартний код мультимедіа запису)."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 msgid "Last Play"
-msgstr ""
+msgstr "Останне відтворення"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 msgid "When track was last played."
-msgstr ""
+msgstr "Коли доріжка буда в останнє відтворена."
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "Lyrics"
-msgstr ""
+msgstr "Текст"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "Текст пісні."
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "MB album artist ID"
-msgstr ""
+msgstr "MB-ідентифікатор  виконавця альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "MusicBrainz album artist ID in UUID format."
-msgstr ""
+msgstr "MusicBrainz-ідентифікатор виконавця альбому в форматі UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "MB Album ID"
-msgstr ""
+msgstr "MB-ідентифікатор альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "MusicBrainz album ID in UUID format."
-msgstr ""
+msgstr "MusicBrainz-ідентифікатор альбому в форматі UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:135
 msgid "MB Artist ID"
-msgstr ""
+msgstr "MB-ідентифікатор  виконавця"
 
 #: ../src/tags/gnome-cmd-tags.cc:135
 msgid "MusicBrainz artist ID in UUID format."
-msgstr ""
+msgstr "MusicBrainz-ідентифікатор виконавця в форматі UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "MB Track ID"
-msgstr ""
+msgstr "MB-ідентифікатор  доріжки"
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "MusicBrainz track ID in UUID format."
-msgstr ""
+msgstr "MusicBrainz-ідентифікатор доріжки в форматі UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:137
 #, fuzzy
@@ -3605,15 +3630,15 @@ msgstr "Копіювати"
 
 #: ../src/tags/gnome-cmd-tags.cc:138
 msgid "\"1\" if the copyrighted bit is set."
-msgstr ""
+msgstr "\"1\" якщо біт копірайта встановлено."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Layer"
-msgstr ""
+msgstr "Шар"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "MPEG layer."
-msgstr ""
+msgstr "Шар MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 #, fuzzy
@@ -3622,7 +3647,7 @@ msgstr "Перейменування файлу"
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "\"1\" if the \"original\" bit is set."
-msgstr ""
+msgstr "\"1\" якщо встановлений біт \"Оригинал\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:141
 #, fuzzy
@@ -3636,11 +3661,11 @@ msgstr "Версія"
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Performer"
-msgstr ""
+msgstr "Виконавець"
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Name of the performer/conductor of the music."
-msgstr ""
+msgstr "Им'я виконавця/диригента музики."
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 #, fuzzy
@@ -3649,15 +3674,15 @@ msgstr "Розташування"
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Number of times the track has been played."
-msgstr ""
+msgstr "Кількість відтворювань доріжки."
 
 #: ../src/tags/gnome-cmd-tags.cc:144 ../src/tags/gnome-cmd-tags.cc:497
 msgid "Release Date"
-msgstr ""
+msgstr "Дата релізу"
 
 #: ../src/tags/gnome-cmd-tags.cc:144
 msgid "Date track was released."
-msgstr ""
+msgstr "Дата виходу доріжки."
 
 #: ../src/tags/gnome-cmd-tags.cc:145
 #, fuzzy
@@ -3666,7 +3691,7 @@ msgstr "Шаблон"
 
 #: ../src/tags/gnome-cmd-tags.cc:145
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Частота дискретизації в Гц."
 
 #: ../src/tags/gnome-cmd-tags.cc:146 ../src/tags/gnome-cmd-tags.cc:196
 #: ../src/tags/gnome-cmd-tags.cc:432
@@ -3675,15 +3700,15 @@ msgstr "Заголовок"
 
 #: ../src/tags/gnome-cmd-tags.cc:146
 msgid "Title of the track."
-msgstr ""
+msgstr "Назва доріжки."
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Track Gain"
-msgstr ""
+msgstr "Підсилення доріжки"
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Gain adjustment of the track."
-msgstr ""
+msgstr "Налаштування підсилення доріжки."
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Track Number"
@@ -3691,15 +3716,15 @@ msgstr "Номер доріжки"
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Position of track on the album."
-msgstr ""
+msgstr "Номер доріжки в альбомі."
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Track Peak Gain"
-msgstr ""
+msgstr "Пікове підсилення доріжки"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Peak gain adjustment of track."
-msgstr ""
+msgstr "Налаштування максимального підсилення доріжки."
 
 #: ../src/tags/gnome-cmd-tags.cc:150
 msgid "Year"
@@ -3725,7 +3750,7 @@ msgstr "Кількість байт"
 
 #: ../src/tags/gnome-cmd-tags.cc:152
 msgid "Number of bytes in the document."
-msgstr ""
+msgstr "Кількість байтів в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:153
 msgid "Case Sensitive"
@@ -3750,7 +3775,7 @@ msgstr "Кількість  осередків"
 
 #: ../src/tags/gnome-cmd-tags.cc:155
 msgid "Number of cells in the spreadsheet document."
-msgstr ""
+msgstr "Кількість чарунок в таблиці документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:156
 msgid "Character Count"
@@ -3758,7 +3783,7 @@ msgstr "Кількість символів"
 
 #: ../src/tags/gnome-cmd-tags.cc:156
 msgid "Number of characters in the document."
-msgstr ""
+msgstr "Кількість символів в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:157
 #, fuzzy
@@ -3767,7 +3792,7 @@ msgstr "З'єднатись"
 
 #: ../src/tags/gnome-cmd-tags.cc:157
 msgid "The MS codepage to encode strings for metadata."
-msgstr ""
+msgstr "Кодова таблиця MS для запису метеданних."
 
 #: ../src/tags/gnome-cmd-tags.cc:158 ../src/tags/gnome-cmd-tags.cc:414
 msgid "Comments"
@@ -3783,7 +3808,7 @@ msgstr "Компанія"
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr ""
+msgstr "Організація, що пов'язана з суб'єктом <Doc.Creator>."
 
 #: ../src/tags/gnome-cmd-tags.cc:161 ../src/tags/gnome-cmd-tags.cc:416
 msgid "Creator"
@@ -3794,6 +3819,8 @@ msgid ""
 "An entity primarily responsible for making the content of the resource, "
 "typically a person, organization, or service."
 msgstr ""
+"Головний суб'єкт, відповідальний за створення контенту ресурса, частіше за "
+"все особа, організація або служба. "
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Created"
@@ -3801,7 +3828,7 @@ msgstr "Створене"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Datetime document was originally created."
-msgstr ""
+msgstr "Час та дата створення оригинального документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:163 ../src/tags/gnome-cmd-tags.cc:457
 #, fuzzy
@@ -3813,6 +3840,7 @@ msgid ""
 "Date associated with an event in the life cycle of the resource (creation/"
 "publication date)."
 msgstr ""
+"Дата пов'язана з подією в життєвому циклі ресурсу (створення/публікація)."
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 #, fuzzy
@@ -3825,7 +3853,7 @@ msgstr "Час останнього збереження документа."
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "An account of the content of the resource."
-msgstr ""
+msgstr "Обліковий запис контенту ресурсу."
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "Dictionary"
@@ -3842,7 +3870,7 @@ msgstr "Правка додатка"
 
 #: ../src/tags/gnome-cmd-tags.cc:167
 msgid "The total time taken until the last modification."
-msgstr ""
+msgstr "Загальний час, що пройшов від останньої модифікації."
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "Generator"
@@ -3850,15 +3878,15 @@ msgstr "Генератор"
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "The application that generated this document."
-msgstr ""
+msgstr "Додаток, в якому було згенеровано цей документ."
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Hidden Slide Count"
-msgstr ""
+msgstr "Кількість прихованих слайдів"
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Number of hidden slides in the presentation document."
-msgstr ""
+msgstr "Кількість прихованих слайдів в документі презентації."
 
 #: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Image Count"
@@ -3875,7 +3903,7 @@ msgstr "Каталог"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Specifies the name of the person who created the document initially."
-msgstr ""
+msgstr "Визначає ім'я суб'єкту, що створив документ первісно."
 
 #: ../src/tags/gnome-cmd-tags.cc:172 ../src/tags/gnome-cmd-tags.cc:318
 #: ../src/tags/gnome-cmd-tags.cc:426 ../src/tags/gnome-cmd-tags.cc:474
@@ -3884,7 +3912,7 @@ msgstr "Ключові слова"
 
 #: ../src/tags/gnome-cmd-tags.cc:172
 msgid "Searchable, indexable keywords."
-msgstr ""
+msgstr "Ключові слова для пошуку і індексації."
 
 #: ../src/tags/gnome-cmd-tags.cc:173 ../src/tags/gnome-cmd-tags.cc:357
 msgid "Language"
@@ -3892,7 +3920,7 @@ msgstr "Мова"
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "The locale language of the intellectual content of the resource."
-msgstr ""
+msgstr "Локальна мова інтелектуального контенту данного ресурсу."
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "Last Printed"
@@ -3900,17 +3928,19 @@ msgstr "Останній друк"
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "The last time this document was printed."
-msgstr ""
+msgstr "Час останнього друку цього документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:175
 msgid "Last Saved By"
-msgstr ""
+msgstr "Останнє збереження"
 
 #: ../src/tags/gnome-cmd-tags.cc:175
 msgid ""
 "The entity that made the last change to the document, typically a person, "
 "organization, or service."
 msgstr ""
+"Сутність, що внесла останні зміни в документ; зазвичай це особа, організація "
+"або сервіс."
 
 #: ../src/tags/gnome-cmd-tags.cc:176
 msgid "Line Count"
@@ -3918,23 +3948,23 @@ msgstr "Кількість рядків"
 
 #: ../src/tags/gnome-cmd-tags.cc:176
 msgid "Number of lines in the document."
-msgstr ""
+msgstr "Кількість рядків в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Links Dirty"
-msgstr ""
+msgstr "Помилкові посилання"
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Links dirty."
-msgstr ""
+msgstr "Помилкові посилання."
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Locale System Default"
-msgstr ""
+msgstr "Системна локаль за замовчанням"
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Identifier representing the default system locale."
-msgstr ""
+msgstr "Ідентифікатор вказує на системну локаль за замовчанням."
 
 #: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Manager"
@@ -3942,15 +3972,15 @@ msgstr "Менеджер"
 
 #: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Name of the manager of <Doc.Creator> entity."
-msgstr ""
+msgstr "Ім'я керуючого сутністю <Doc.Creator>."
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Multimedia Clip Count"
-msgstr ""
+msgstr "Кількість кліпів мультимедія"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Number of multimedia clips in the document."
-msgstr ""
+msgstr "Кількість кліпів мультимедія в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Note Count"
@@ -3958,7 +3988,7 @@ msgstr "Кількість приміток"
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Number of \"notes\" in the document."
-msgstr ""
+msgstr "Кількість \"приміток\" в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Object Count"
@@ -3966,7 +3996,7 @@ msgstr "Кількість об'єктів"
 
 #: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Number of objects (OLE and other graphics) in the document."
-msgstr ""
+msgstr "Кількість об'єктів  (OLE та іншої графіки) в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Page Count"
@@ -3974,7 +4004,7 @@ msgstr "Кількість сторінок"
 
 #: ../src/tags/gnome-cmd-tags.cc:183 ../src/tags/gnome-cmd-tags.cc:192
 msgid "Number of pages in the document."
-msgstr ""
+msgstr "Кількість сторінок в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid "Paragraph Count"
@@ -3982,15 +4012,16 @@ msgstr "Кількість параграфів"
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid "Number of paragraphs in the document."
-msgstr ""
+msgstr "Кількість параграфів в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Presentation Format"
-msgstr ""
+msgstr "Формат презинтації"
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgstr ""
+"Тип презинтації (наприклад  \"Екранний показ\", \"Слайд-шоу\" та таке інше)."
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Print Date"
@@ -3998,7 +4029,7 @@ msgstr "Дата друку"
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Specifies the date and time when the document was last printed."
-msgstr ""
+msgstr "Визначає дату та час останньго друку документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Printed By"
@@ -4006,7 +4037,7 @@ msgstr "Надруковано"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Specifies the name of the last person who printed the document."
-msgstr ""
+msgstr "Визначає ім'я останньої особи, що друкувала документ."
 
 #: ../src/tags/gnome-cmd-tags.cc:188
 #, fuzzy
@@ -4015,7 +4046,7 @@ msgstr "Перегляд:"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Number of revision on the document."
-msgstr ""
+msgstr "Кількість ревізій документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:189
 msgid "Scale"
@@ -4027,13 +4058,15 @@ msgstr "Масштаб."
 
 #: ../src/tags/gnome-cmd-tags.cc:190
 msgid "Security"
-msgstr ""
+msgstr "Безпека"
 
 #: ../src/tags/gnome-cmd-tags.cc:190
 msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
+"Одне з:  \"Захищено паролем\", \"Рекомендовано тільки для читаня\", "
+"\"Примусова тільки для читання\" or \"Закрито для анотацій\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 #, fuzzy
@@ -4042,11 +4075,11 @@ msgstr "Розташування"
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Number of slides in the presentation document."
-msgstr ""
+msgstr "Кількість слайдів в документі презинтації."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Spreadsheet Count"
-msgstr ""
+msgstr "Кількість таблиць"
 
 #: ../src/tags/gnome-cmd-tags.cc:193
 msgid "Subject"
@@ -4064,11 +4097,11 @@ msgstr "Розташування"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Number of tables in the document."
-msgstr ""
+msgstr "Кількість таблиць в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "The template file that is been used to generate this document."
-msgstr ""
+msgstr "Файл шаблону, що був використаний для створення цього документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:196
 msgid "Title of the document."
@@ -4076,11 +4109,11 @@ msgstr "Заголовок документу."
 
 #: ../src/tags/gnome-cmd-tags.cc:197
 msgid "Word Count"
-msgstr ""
+msgstr "Кількість слів"
 
 #: ../src/tags/gnome-cmd-tags.cc:197
 msgid "Number of words in the document."
-msgstr ""
+msgstr "Кількість слів в документі."
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "Aperture"
@@ -4088,7 +4121,7 @@ msgstr "Апертура"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "The lens aperture. The unit is the APEX value."
-msgstr ""
+msgstr "Апертура лінзи. Значення в системі APEX."
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid ""
@@ -4097,6 +4130,9 @@ msgid ""
 "ease of Interoperability. When the field is left blank, it is treated as "
 "unknown."
 msgstr ""
+"Ім'я власника фотокамери, фотографа чи творця зображення. Детальний формат "
+"не встановлено, та рекомендується вносити данні для покращення сумісності. "
+"Якщо поле залишиться пустим, ім'я буде визначено як Невідомий."
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 msgid "Battery Level"
@@ -4116,6 +4152,9 @@ msgid ""
 "bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
 "is used instead of this tag."
 msgstr ""
+"Кількість біт на компонент зображення. Кожен компонент зображення дорівнює 8 "
+"бітам, тому значення цього тегу - 8. В  JPEG форматі замість цього тегу "
+"використовується  JPEG маркер. "
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid "Brightness"
@@ -4126,6 +4165,8 @@ msgid ""
 "The value of brightness. The unit is the APEX value. Ordinarily it is given "
 "in the range of -99.99 to 99.99."
 msgstr ""
+"Рівень яскравості. Значення в системі APEX. Зазвичай лежить в диапазоні від -"
+"99.99 до 99.99."
 
 #: ../src/tags/gnome-cmd-tags.cc:203 ../src/tags/gnome-cmd-tags.cc:266
 #, fuzzy
@@ -4244,29 +4285,31 @@ msgstr "Дата і Час"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid "The date and time of image creation."
-msgstr ""
+msgstr "Дата та час створення зображення."
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "Date and Time (digitized)"
-msgstr ""
+msgstr "Дата і час (цифрування)"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "The date and time when the image was stored as digital data."
-msgstr ""
+msgstr "Дата і час, коли зображення було збережене як ціфрові данні."
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid "Date and Time (original)"
-msgstr ""
+msgstr "Дата і час (оригінал)"
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid ""
 "The date and time when the original image data was generated. For a digital "
 "still camera the date and time the picture was taken are recorded."
 msgstr ""
+"Дата і час, коли було створено оригинальне зображення. Для цифрової "
+"фотокамери це дата і час зйомки."
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid "Device Setting Description"
-msgstr ""
+msgstr "Опис параметрів пристрою"
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid ""
@@ -4276,13 +4319,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid "Digital Zoom Ratio"
-msgstr ""
+msgstr "Величина цифрового збільшення"
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid ""
 "The digital zoom ratio when the image was shot. If the numerator of the "
 "recorded value is 0, this indicates that digital zoom was not used."
 msgstr ""
+"Величина цифрового збільшення в момент зйомки. Якщо дорівнює 0 - цифрове "
+"збільшення не застосовувалось. "
 
 #: ../src/tags/gnome-cmd-tags.cc:217
 msgid "Document Name"
@@ -4294,13 +4339,15 @@ msgstr "Назва документа."
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Exif IFD Pointer"
-msgstr ""
+msgstr "Покажчик Exif IFD"
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid ""
 "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure "
 "as that of the IFD specified in TIFF."
 msgstr ""
+"Покажчик Exif IFD. Зазвичай має таку саму структуру, як і IFD, що визначений "
+"в форматі TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 #, fuzzy
@@ -4312,30 +4359,36 @@ msgid ""
 "The version of Exif standard supported. Nonexistence of this field is taken "
 "to mean nonconformance to the standard."
 msgstr ""
+"Версія стандарту Exif, що підтримується.  Якщо це поле не створене, це "
+"вказує на невідповідність цьому стандарту."
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid "Exposure Bias"
-msgstr ""
+msgstr "Зсув ескспозиції"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
+"Зсув ескспозиції. Значення в системі APEX. Зазвичай лежить в диапазоні від -"
+"99.99 до 99.99."
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid "Exposure Index"
-msgstr ""
+msgstr "Індекс еспозиції"
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid ""
 "The exposure index selected on the camera or input device at the time the "
 "image is captured."
 msgstr ""
+"Індекс еспозиції - це час еспозиції зображення встановлений фотокамерою або "
+"пристроєм введення."
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid "Exposure Mode"
-msgstr ""
+msgstr "Режим експозиції"
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid ""
@@ -4343,24 +4396,28 @@ msgid ""
 "camera shoots a series of frames of the same scene at different exposure "
 "settings."
 msgstr ""
+"Режим експозиції встановлюється при зйомці. В режимі auto-bracketing камера "
+"робить серію знімків однієї і тієї ж сцени з різнми параметрами експозиції."
 
 #: ../src/tags/gnome-cmd-tags.cc:223 ../src/tags/gnome-cmd-tags.cc:419
 msgid "Exposure Program"
-msgstr ""
+msgstr "Програма експозиції"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
 msgid ""
 "The class of the program used by the camera to set exposure when the picture "
 "is taken."
 msgstr ""
+"Клас програми, що була використана фотокамерою для встановлення експозиції "
+"під час зйомки."
 
 #: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:420
 msgid "Exposure Time"
-msgstr ""
+msgstr "Час експозиції"
 
 #: ../src/tags/gnome-cmd-tags.cc:224
 msgid "Exposure time, given in seconds."
-msgstr ""
+msgstr "Час експозиції в секундах."
 
 #: ../src/tags/gnome-cmd-tags.cc:225
 msgid "File Source"
@@ -4374,7 +4431,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:226
 msgid "Fill Order"
-msgstr ""
+msgstr "Послідовність заповнення"
 
 #: ../src/tags/gnome-cmd-tags.cc:226
 #, fuzzy
@@ -4383,22 +4440,26 @@ msgstr "Панелі файлів"
 
 #: ../src/tags/gnome-cmd-tags.cc:227 ../src/tags/gnome-cmd-tags.cc:421
 msgid "Flash"
-msgstr ""
+msgstr "Спалах"
 
 #: ../src/tags/gnome-cmd-tags.cc:227
 msgid ""
 "This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
+"Цей тег записується коли зображення створене з використанням імпульсу світла "
+"(спалаху)."
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid "Flash Energy"
-msgstr ""
+msgstr "Енергія спалаху"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid ""
 "The strobe energy at the time the image is captured, as measured in Beam "
 "Candle Power Seconds (BCPS)."
 msgstr ""
+"Енергія спалаху під час створення зображення виміряна в Beam Candle Power "
+"Seconds (BCPS)."
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 #, fuzzy
@@ -4407,30 +4468,32 @@ msgstr "Версія"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid "The FlashPix format version supported by a FPXR file."
-msgstr ""
+msgstr "Версія формату FlashPix для FPXR файлу."
 
 #: ../src/tags/gnome-cmd-tags.cc:230 ../src/tags/gnome-cmd-tags.cc:422
 msgid "F Number"
-msgstr ""
+msgstr "Діафрагма"
 
 #: ../src/tags/gnome-cmd-tags.cc:230 ../src/tags/gnome-cmd-tags.cc:422
 msgid ""
 "Diameter of the aperture relative to the effective focal length of the lens."
-msgstr ""
+msgstr "Діаметер апертури відносно ефективної фокусної відстані об'єктива."
 
 #: ../src/tags/gnome-cmd-tags.cc:231 ../src/tags/gnome-cmd-tags.cc:423
 msgid "Focal Length"
-msgstr ""
+msgstr "Фокусна відстань"
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 msgid ""
 "The actual focal length of the lens, in mm. Conversion is not made to the "
 "focal length of a 35 mm film camera."
 msgstr ""
+"Реальна фокусна відстань об'єктива в мм. Перетворення в фокусну відстань 35 "
+"мм камери не виконується."
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid "Focal Length In 35mm Film"
-msgstr ""
+msgstr "Фокусна відстань в 35 мм варіанті"
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid ""
@@ -4438,44 +4501,53 @@ msgid ""
 "means the focal length is unknown. Note that this tag differs from the <Exif."
 "FocalLength> tag."
 msgstr ""
+"Еквівалентна фокусна відстань приведена до 35 мм камери в мм. 0 відповідає "
+"невідомій фокусній відстані. Зауважте, що цей тег відрізняється від тегу "
+"<Exif.FocalLength>."
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid "Focal Plane Resolution Unit"
-msgstr ""
+msgstr "Одиниця фокальної роздільної здатності"
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid ""
 "The unit for measuring <Exif.FocalPlaneXResolution> and <Exif."
 "FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
 msgstr ""
+"Одиниця для вимірювання <Exif.FocalPlaneXResolution> та <Exif."
+"FocalPlaneYResolution>. Це значення відповідає <Exif.ResolutionUnit>."
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid "Focal Plane x-Resolution"
-msgstr ""
+msgstr "Фокальна роздільна здатність по X"
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid ""
 "The number of pixels in the image width (X) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
+"Кількість пікселів ширини (X) зображення відповідно до <Exif."
+"FocalPlaneResolutionUnit> в фокальній області камери."
 
 #: ../src/tags/gnome-cmd-tags.cc:235
 msgid "Focal Plane y-Resolution"
-msgstr ""
+msgstr "Фокальна роздільна здатність по Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:235
 msgid ""
 "The number of pixels in the image height (Y) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
+"Кількість пікселів висоти (Y) зображення відповідно до <Exif."
+"FocalPlaneResolutionUnit> в фокальній області камери."
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "Gain Control"
-msgstr ""
+msgstr "Регулювання яскравості"
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr ""
+msgstr "Цей тег вказує встановлений рівень загальнї яскравості зображення."
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Gamma"
@@ -4483,21 +4555,22 @@ msgstr "Дата і Час (справжні)"
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Indicates the value of coefficient gamma."
-msgstr ""
+msgstr "Вказує значення коефіцієнту гамми."
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid "Altitude"
-msgstr ""
+msgstr "Висота"
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid ""
 "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The "
 "reference unit is meters."
 msgstr ""
+"Вказує на висоту відповідно <Exif.GPS.AltitudeRef>. Вимірюється в метрах."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid "Altitude Reference"
-msgstr ""
+msgstr "Відносна висота"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid ""
@@ -4507,10 +4580,14 @@ msgid ""
 "an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
 "meters."
 msgstr ""
+"Значення висоти, що використовується як базова висота. Якщо базова висота - "
+"рівень моря і висота вище рівня моря - параметр дорівнює 0. Якщо висота "
+"менша за рівень моря - параметр дорівнює 1 і висота вказується як абсолютне "
+"значення згідно з тегом <Exif.GPS.Altitude>. Вимірюється в метрах."
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid "GPS Info IFDPointer"
-msgstr ""
+msgstr "IFD-покажчик на інформацію GPS"
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid ""
@@ -4520,7 +4597,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Latitude"
-msgstr ""
+msgstr "Широта"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
@@ -4533,7 +4610,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid "North or South Latitude"
-msgstr ""
+msgstr "Північна чи південна широта"
 
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid ""
@@ -4543,7 +4620,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Longitude"
-msgstr ""
+msgstr "Довгота"
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid ""
@@ -4556,7 +4633,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid "East or West Longitude"
-msgstr ""
+msgstr "Східна чи західна довгота"
 
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid ""
@@ -4584,28 +4661,33 @@ msgid ""
 "cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif."
 "UserComment> is to be used."
 msgstr ""
+"Символьний рядок, що містить назву зображення. Двох байтні символи "
+"недопустимі. Коли вони необхідні, тег Exif Private <Exif.UserComment> "
+"використовується."
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid "Image Length"
-msgstr ""
+msgstr "Довжина зображення"
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid ""
 "The number of rows of image data. In JPEG compressed data a JPEG marker is "
 "used instead of this tag."
 msgstr ""
+"Кількість рядків в даних зображення. При використанні JPEG замість цього "
+"тегу використовується JPEG маркер."
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Image Resources Block"
-msgstr ""
+msgstr "Блок ресурсів зображення"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Image Resources Block."
-msgstr ""
+msgstr "Блок ресурсів зображення."
 
 #: ../src/tags/gnome-cmd-tags.cc:249
 msgid "Image Unique ID"
-msgstr ""
+msgstr "Унікальний ID зображення"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
 msgid ""
@@ -4710,11 +4792,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:260
 msgid "Light Source"
-msgstr ""
+msgstr "Джерело світла"
 
 #: ../src/tags/gnome-cmd-tags.cc:260
 msgid "The kind of light source."
-msgstr ""
+msgstr "Вид джерела світла."
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "Manufacturer"
@@ -4806,7 +4888,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Pixel X Dimension"
-msgstr ""
+msgstr "Піксельний X розмір"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid ""
@@ -4818,7 +4900,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Pixel Y Dimension"
-msgstr ""
+msgstr "Піксельний Y розмір"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid ""
@@ -4853,7 +4935,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid "Reference Black/White"
-msgstr ""
+msgstr "Базовий рівень чорного/білого"
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid ""
@@ -4918,7 +5000,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Resolution Unit"
-msgstr ""
+msgstr "Одиниця роздільної здатності"
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid ""
@@ -4951,13 +5033,14 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:283
 msgid "Saturation"
-msgstr ""
+msgstr "Насиченість"
 
 #: ../src/tags/gnome-cmd-tags.cc:283
 msgid ""
 "The direction of saturation processing applied by the camera when the image "
 "was shot."
 msgstr ""
+"Рівень насиченісті встановлюється фотокамерою під час зйомки зображення."
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid "Scene Capture Type"
@@ -4989,13 +5072,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid "Sharpness"
-msgstr ""
+msgstr "Різкість"
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid ""
 "The direction of sharpness processing applied by the camera when the image "
 "was shot."
-msgstr ""
+msgstr "Рівень різкості встановлюється фотокамерою під час зйомки зображення."
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Shutter Speed"
@@ -5009,7 +5092,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:289 ../src/tags/gnome-cmd-tags.cc:431
 msgid "Software"
-msgstr ""
+msgstr "Програмне забезпечення"
 
 #: ../src/tags/gnome-cmd-tags.cc:289
 msgid ""
@@ -5031,11 +5114,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "Spectral Sensitivity"
-msgstr ""
+msgstr "Спектральна чутливість"
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "The spectral sensitivity of each channel of the camera used."
-msgstr ""
+msgstr "Спектральна чутливість кожного каналу використаної камери."
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid "Strip Byte Count"
@@ -5068,31 +5151,31 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid "Subject Area"
-msgstr ""
+msgstr "Область об'єкту"
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid "The location and area of the main subject in the overall scene."
-msgstr ""
+msgstr "Розміщення і область головного об'єкту в загальній сцені."
 
 #: ../src/tags/gnome-cmd-tags.cc:296
 msgid "Subject Distance"
-msgstr ""
+msgstr "Відстань об'єкту"
 
 #: ../src/tags/gnome-cmd-tags.cc:296
 msgid "The distance to the subject, given in meters."
-msgstr ""
+msgstr "Відстань до об'єкту в метрах."
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 msgid "Subject Distance Range"
-msgstr ""
+msgstr "Межі відстаней до об'єкту"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 msgid "The distance to the subject."
-msgstr ""
+msgstr "Відстань до об'єкту."
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Subject Location"
-msgstr ""
+msgstr "Місцеположення об'єкту"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid ""
@@ -5181,11 +5264,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:306 ../src/tags/gnome-cmd-tags.cc:433
 msgid "White Balance"
-msgstr ""
+msgstr "Баланс білого"
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 msgid "The white balance mode set when the image was shot."
-msgstr ""
+msgstr "Рівень балансу білого встановлюється під час зйомки зображення."
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid "White Point"
@@ -5207,7 +5290,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:309
 msgid "x Resolution"
-msgstr ""
+msgstr "Роздільна здатність по X"
 
 #: ../src/tags/gnome-cmd-tags.cc:309
 msgid ""
@@ -5259,7 +5342,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:313
 msgid "y Resolution"
-msgstr ""
+msgstr "Роздільна здатність по Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:313
 msgid ""
@@ -5274,7 +5357,7 @@ msgstr "Доступ:"
 
 #: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Last access datetime."
-msgstr ""
+msgstr "Дата і час останнього доступу."
 
 #: ../src/tags/gnome-cmd-tags.cc:315
 #, fuzzy
@@ -5314,19 +5397,19 @@ msgstr "Змінено:"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
 msgid "Last modified datetime."
-msgstr ""
+msgstr "Дата і час останньої модифікації."
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "File name excluding path but including the file extension."
-msgstr ""
+msgstr "Ім'я файла без шляху, але включно з його розширенням."
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Full file path of file excluding the file name."
-msgstr ""
+msgstr "Повний шлях до файлу за виключенням його ім'я."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
-msgstr ""
+msgstr "Рядок дозволів в unix форматі (наприклад  \"-rw-r--r--\")."
 
 #: ../src/tags/gnome-cmd-tags.cc:324 ../src/tags/gnome-cmd-tags.cc:383
 msgid "Publisher"
@@ -5352,19 +5435,22 @@ msgstr ""
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
+"Розмір файлу в байтах або для директорії - кількість елементів, що вона "
+"містить."
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid "Album Sort Order"
-msgstr ""
+msgstr "Порядок сортування альбому"
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid ""
 "String which should be used instead of the album name for sorting purposes."
 msgstr ""
+"Рядок, що повинен використовуватись при сортуванні замість имені альбому."
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Audio Encryption"
-msgstr ""
+msgstr "Аудіошифрування"
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Frame indicates if the audio stream is encrypted, and by whom."
@@ -5414,7 +5500,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Commercial"
-msgstr ""
+msgstr "Комерційне"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Commercial frame."
@@ -5422,7 +5508,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Composer"
-msgstr ""
+msgstr "Композитор"
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 #, fuzzy
@@ -5436,7 +5522,7 @@ msgstr "З'єднатись"
 
 #: ../src/tags/gnome-cmd-tags.cc:336
 msgid "Conductor."
-msgstr ""
+msgstr "Композитор."
 
 #: ../src/tags/gnome-cmd-tags.cc:337
 #, fuzzy
@@ -5475,7 +5561,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:343
 msgid "Encoded By"
-msgstr ""
+msgstr "Кодувальник"
 
 #: ../src/tags/gnome-cmd-tags.cc:343
 msgid ""
@@ -5490,7 +5576,7 @@ msgstr "Настройки MIME значків"
 
 #: ../src/tags/gnome-cmd-tags.cc:344
 msgid "Software."
-msgstr ""
+msgstr "Програмне забезпечення."
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Encoding Time"
