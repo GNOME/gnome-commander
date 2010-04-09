@@ -24,8 +24,7 @@
 
 #include <config.h>
 #include <glib.h>
-#include <libgnomeui/libgnomeui.h>
-#include <libgnome/libgnome.h>
+#include <libgnome/gnome-config.h>
 
 #include "gvtypes.h"
 #include "viewer-utils.h"

@@ -28,7 +28,7 @@
 
 #include <glib.h>
 #include <gtk/gtk.h>
-#include <libgnomeui/libgnomeui.h>
+#include <libgnomeui/gnome-ui-init.h>
 
 #include <config.h>
 

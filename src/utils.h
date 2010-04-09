@@ -28,6 +28,8 @@
 
 #include <stdio.h>
 
+#include <libgnome/gnome-help.h>
+
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-pixmap.h"

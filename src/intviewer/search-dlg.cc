@@ -24,7 +24,6 @@
 
 #include <config.h>
 #include <string.h>
-#include <libgnome/libgnome.h>
 
 #include "libgviewer.h"
 #include "gnome-cmd-includes.h"

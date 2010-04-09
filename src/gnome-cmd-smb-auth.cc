@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnomeui/gnome-password-dialog.h>
 #include <libgnomevfs/gnome-vfs-module-callback.h>
 
 #include "gnome-cmd-includes.h"

@@ -31,9 +31,6 @@
 #include <gtk/gtk.h>
 #include <gtk/gtktable.h>
 
-#include <libgnomeui/libgnomeui.h>
-#include <libgnome/libgnome.h>
-
 #include "libgviewer.h"
 #include "search-dlg.h"
 

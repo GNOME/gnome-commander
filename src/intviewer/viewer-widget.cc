@@ -35,9 +35,6 @@
 #include <gtk/gtktable.h>
 #include <gtk/gtkmarshal.h>
 
-#include <libgnome/libgnome.h>
-#include <libgnomevfs/gnome-vfs.h>
-
 #include "libgviewer.h"
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"

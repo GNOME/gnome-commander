@@ -27,8 +27,6 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <gnome.h>
-
 #include <libgcmd/libgcmd.h>
 #include "cvs-plugin.h"
 #include "interface.h"

@@ -32,7 +32,7 @@
 #include <config.h>
 
 #include <libgviewer/libgviewer.h>
-#include <libgnomeui/libgnomeui.h>
+#include <libgnomeui/gnome-ui-init.h>
 
 
 static void destroy(GObject *a, gpointer data)

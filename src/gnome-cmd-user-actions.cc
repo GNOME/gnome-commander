@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <gtk/gtkclipboard.h>
+#include <libgnomeui/gnome-url.h>
 #include <algorithm>
 
 #include "gnome-cmd-includes.h"

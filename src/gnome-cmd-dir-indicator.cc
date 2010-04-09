@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnomeui/gnome-popup-menu.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir-indicator.h"

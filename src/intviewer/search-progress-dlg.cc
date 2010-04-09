@@ -23,7 +23,6 @@
 */
 
 #include <config.h>
-#include <libgnome/libgnome.h>
 
 #include "libgviewer.h"
 

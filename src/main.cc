@@ -26,6 +26,7 @@ extern "C"
 #include <config.h>
 #include <locale.h>
 #include <unique/unique.h>
+#include <libgnomeui/gnome-ui-init.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"

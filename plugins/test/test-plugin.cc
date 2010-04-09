@@ -19,7 +19,8 @@
 */
 
 #include <config.h>
-#include <gnome.h>
+#include <gtk/gtk.h>
+#include <libgnomeui/gnome-dialog-util.h>
 #include <libgcmd/libgcmd.h>
 #include "test-plugin.h"
 #include "test-plugin.xpm"

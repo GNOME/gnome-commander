@@ -22,13 +22,15 @@
 #define __LIBGCMD_DEPS_H__
 
 #include <glib.h>
-
+#include <glib/gi18n.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
-#include <libgnome/libgnome.h>
-#include <libgnome/gnome-i18n.h>
-#include <libgnomeui/libgnomeui.h>
+#include <libgnome/gnome-config.h>
+#include <libgnome/gnome-exec.h>
+#include <libgnomeui/gnome-app-helper.h>
+#include <libgnomeui/gnome-icon-entry.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 

@@ -19,7 +19,6 @@
 */
 
 #include <config.h>
-#include <gnome.h>
 #include <libgcmd/libgcmd.h>
 #include "file-roller-plugin.h"
 #include "file-roller.xpm"

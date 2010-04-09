@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnomeui/gnome-stock-icons.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-popmenu.h"

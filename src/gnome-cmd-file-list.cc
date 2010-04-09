@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <glib-object.h>
+#include <libgnomeui/gnome-popup-menu.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
