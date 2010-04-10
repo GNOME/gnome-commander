@@ -1,14 +1,13 @@
 # translation of gnome-commander-help.master.po to Español
 #
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-16 20:53+0000\n"
-"PO-Revision-Date: 2010-03-28 13:24+0200\n"
+"POT-Creation-Date: 2010-03-28 11:25+0000\n"
+"PO-Revision-Date: 2010-04-10 19:22+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -7933,6 +7932,16 @@ msgid ""
 "numerals), and that of the E modifier is to use a locale-dependent "
 "alternative representation."
 msgstr ""
+"Se pueden modificar algunos especificadores de conversión precediéndolos de "
+"un modificador E u O para indicar que debe usarse un formato alternativo. Si "
+"el formato alternativo o la especificación no existen en la configuración "
+"regional actual, el comportamiento será como si se hubiera usado una "
+"especificación de conversión sin modificar. La certificación Single Unix "
+"Specification menciona %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, %"
+"Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, donde el efecto del modificador "
+"O es usar símbolos numéricos alternativos (es decir, números romanos), y que "
+"el modificador E es para usar una representación alternativa dependiente de "
+"la configuración regional."
 
 #: C/gnome-commander.xml:3587(title)
 msgid "Using the Internal Viewer"
@@ -8638,6 +8647,11 @@ msgid ""
 "directory under the cursor, the contents in this directory are counted and "
 "the size is shown in the \"full\" view instead of the string DIR"
 msgstr ""
+"Seleccionar un archivo o una carpeta (como <keycombo><keycap>INSERTAR</"
+"keycap></keycombo>). Si se usa <keycombo><keycap>ESPACIO</keycap></keycombo> "
+"en una carpeta no seleccionada bajo el cursor, se cuentan los contenidos de "
+"esa carpeta y se muestra el tamaño en la vista «completa» en lugar de la "
+"cadena DIR"
 
 #: C/gnome-commander.xml:4285(para) C/gnome-commander.xml:4784(para)
 msgid "Show properties for the selected file"
@@ -10061,6 +10075,9 @@ msgid ""
 "ftp.gnome.org/pub/GNOME/sources/gnome-commander/\" type=\"http\">Gnome FTP "
 "server</ulink>."
 msgstr ""
+"Se pueden encontrar todas las versiones recientes e históricas en el <ulink "
+"url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\" type=\"http"
+"\">Servidor FTP de GNOME</ulink>."
 
 #: C/gnome-commander.xml:5304(title)
 msgid "Versioning"
@@ -10102,6 +10119,9 @@ msgid ""
 "code, if you already have a version of the code simply run <command>git "
 "pull</command> to get the latest revisions."
 msgstr ""
+"Lo anterior sólo funciona para hacer una descarga inicial, no para "
+"actualizar el código. Si ya tiene una versión del código, simplemente "
+"ejecute <command>git pull</command> para obtener las últimas revisiones."
 
 #: C/gnome-commander.xml:5325(title)
 msgid "Development version"
@@ -10124,6 +10144,9 @@ msgid ""
 "Be aware that there can be serious bugs in code from GNOME git repository. "
 "This code is intended for hacking, development and testing purposes only."
 msgstr ""
+"Tenga en cuenta que puede haber errores serios en el código del repositorio "
+"git de GNOME. Este código está pensado para «hacking», desarrollo y pruebas "
+"solamente."
 
 #: C/gnome-commander.xml:5342(para)
 msgid ""
@@ -10551,7 +10574,7 @@ msgstr "honor_expect_uris"
 
 #: C/gnome-commander.xml:5851(para)
 msgid "allow_multiple_instances"
-msgstr ""
+msgstr "permitir_múltiples_instancias"
 
 #: C/gnome-commander.xml:5858(para)
 msgid "skip_mounting"
@@ -10883,6 +10906,8 @@ msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
 msgstr ""
+"Corregido el error de Debian nº 438884 (etiqueta de dispositivo incorrecta "
+"al cambiar entre paneles con CTRL+U)"
 
 #: C/gnome-commander.xml:6181(para)
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
@@ -10928,10 +10953,12 @@ msgstr ""
 #: C/gnome-commander.xml:6221(para)
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr ""
+"Corregido el error nº 536446 (nombre del archivo sin foco en el renombrado "
+"directo)"
 
 #: C/gnome-commander.xml:6224(para)
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
-msgstr ""
+msgstr "Error nº 539812 corregido (error al borrar archivos: it.po roto)"
 
 #: C/gnome-commander.xml:6227(para)
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
@@ -11160,6 +11187,9 @@ msgid ""
 "Copying selected URIs to clipboard with <keycombo><keycap>ALT</"
 "keycap><keycap>click</keycap></keycombo> on toolbar button"
 msgstr ""
+"Copiar los URI seleccionados al portapapeles con <keycombo><keycap>ALT</"
+"keycap><keycap>pulsación</keycap></keycombo> en el botón de la barra de "
+"herramientas"
 
 #: C/gnome-commander.xml:6382(para) C/gnome-commander.xml:6443(para)
 msgid "Revamped search dialog"
@@ -11315,7 +11345,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6510(para)
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
-msgstr ""
+msgstr "Error nº 510567 corregido (afirmación fallida al borrar una carpeta)"
 
 #: C/gnome-commander.xml:6513(para)
 msgid "Fixed problem when creating ~/dir"
@@ -11338,6 +11368,7 @@ msgstr "Corregido el error al mover un archivo con % en el nombre"
 #: C/gnome-commander.xml:6525(para)
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr ""
+"Corregido el error de pérdidas esporádicas del cursor en el panel de archivos"
 
 #: C/gnome-commander.xml:6528(para)
 msgid "Fixed problem with mounting of devices with spaces in the name"
@@ -11353,10 +11384,14 @@ msgstr ""
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
+"Soporte para metaetiquetas APE, FLAC y Vorbis en plantillas avanzadas de "
+"renombrado de archivos"
 
 #: C/gnome-commander.xml:6545(para)
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr ""
+"Soporte para metaetiquetas de notas de marcador Exif en plantillas avanzadas "
+"de renombrado de archivos"
 
 #: C/gnome-commander.xml:6548(para)
 msgid "Support for file metatags in advanced file rename templates"
@@ -11607,6 +11642,8 @@ msgstr ""
 #: C/gnome-commander.xml:6766(para)
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr ""
+"Corregido el error cuando el indicador de carpeta de la línea de comandos "
+"está vacío"
 
 #: C/gnome-commander.xml:6769(para)
 msgid "Fixed problem with refreshing after chown or chmod"
@@ -11657,7 +11694,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6798(para)
 msgid "In-place rename (SHIFT+F6)"
-msgstr ""
+msgstr "Renombrado directo (Mayús+F6)"
 
 #: C/gnome-commander.xml:6801(para)
 msgid "Revamped application menus"
@@ -11849,6 +11886,8 @@ msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
 msgstr ""
+"Corregido el error del botón «desconectar», que no se comportaba "
+"correctamente al conectarse a servidores ftp estando en modo supermount"
 
 #: C/gnome-commander.xml:6945(para)
 msgid "Fixed update after renaming without FAM"
@@ -11871,6 +11910,8 @@ msgid ""
 "Inserting selected file full path to the cmdline when pressing <keycap>CTRL"
 "+SHIFT+ENTER</keycap>"
 msgstr ""
+"Insertar la ruta completa del archivo seleccionado en la línea de comandos "
+"cuando se pulse <keycap>CTRL+MAYÚS+INTRO</keycap>"
 
 #: C/gnome-commander.xml:6965(para)
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
@@ -12095,6 +12136,8 @@ msgid ""
 "Stopped superfluous updates of the file list on machines with the imon "
 "kernel patch applied"
 msgstr ""
+"Detenidas las actualizaciones no relevantes de la lista de archivos en las "
+"máquinas con el parche imon del kernel aplicado"
 
 #: C/gnome-commander.xml:7111(para)
 msgid "Cleaned up the file-popup menu"
@@ -12232,6 +12275,8 @@ msgid ""
 "The connection combo boxes should now show the correct connection as "
 "selected all the time"
 msgstr ""
+"Las cajas combinadas de conexión deberían mostrar la conexión correcta como "
+"seleccionada todo el tiempo"
 
 #: C/gnome-commander.xml:7233(para)
 msgid "Removed some bugs related to selecting files using the keyboard"
