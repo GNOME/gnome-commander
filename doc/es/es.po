@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-28 11:25+0000\n"
-"PO-Revision-Date: 2010-04-10 19:22+0200\n"
+"POT-Creation-Date: 2010-04-10 17:24+0000\n"
+"PO-Revision-Date: 2010-04-11 17:51+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1595,6 +1595,11 @@ msgid ""
 "conversions and blank trimming) identified by its name. You can define as "
 "many different profiles as you require."
 msgstr ""
+"Muestra las opciones de gestión de perfiles. Un perfil es una colección de "
+"parámetros de renombrado avanzado de archivos (plantilla, contador, patrones "
+"de expresiones regulares, conversiones de capitalización y eliminado de "
+"espacios en blanco) identificada por su nombre. Puede definir tantos "
+"perfiles como necesite."
 
 #: C/gnome-commander.xml:1089(title)
 msgid "Template Placeholders"
@@ -7726,6 +7731,9 @@ msgid ""
 "corresponding strings for the current locale. Noon is treated as \"pm\" and "
 "midnight as \"am\""
 msgstr ""
+"«AM» o «PM» de acuerdo con el valor de hora dado, o las cadenas "
+"correspondientes para la configuración regional actual. Mediodía se trata "
+"como «pm» y medianoche como «am»."
 
 #: C/gnome-commander.xml:3490(para)
 msgid "%P"
@@ -7811,7 +7819,7 @@ msgid ""
 msgstr ""
 "El número de semana del año actual como un número decimal, rango de 00 a 53, "
 "comenzando por el primer domingo como el primer día de la semana 01. Véase "
-"también %V y %W"
+"también %V y %W."
 
 #: C/gnome-commander.xml:3524(para)
 msgid "%V"
@@ -7824,6 +7832,10 @@ msgid ""
 "current year, and with Monday as the first day of the week. See also %U and %"
 "W"
 msgstr ""
+"El número ISO 8601:1988 de la semana del año actual como un número decimal, "
+"rango de 01 a 53, donde la semana 1 es la primera semana que tiene al menos "
+"4 días en el año actual, y siendo Lunes el primer día de la semana. Vea "
+"también %U y %W."
 
 #: C/gnome-commander.xml:3530(para)
 msgid "%w"
@@ -10015,6 +10027,11 @@ msgid ""
 "Unscalable Gorilla by Jimmac is one example and can be used in GNOME "
 "Commander by following these steps:"
 msgstr ""
+"El tema de iconos predeterminado que viene con GNOME carece de muchos iconos "
+"de tipos de archivo y sólo se ve bien con un tamaño de icono 16. Hay otros "
+"temas similares, que son más completos y se ven mejor en tamaños más "
+"grandes. Gorilla no escalable de Jimmac es un ejemplo que puede usarse en "
+"GNOME Commander siguiendo estos pasos:"
 
 #: C/gnome-commander.xml:5263(para)
 msgid "Download the theme."
@@ -10963,17 +10980,23 @@ msgstr "Error nº 539812 corregido (error al borrar archivos: it.po roto)"
 #: C/gnome-commander.xml:6227(para)
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr ""
+"Error nº 548947 corregido (problema con la configuración regional de la "
+"fecha no UTF-8)"
 
 #: C/gnome-commander.xml:6230(para)
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 "
 "characters)"
 msgstr ""
+"Error nº 548948 corregido (error cuando la carpeta personal contiene "
+"caracteres que no son UTF-8)"
 
 #: C/gnome-commander.xml:6233(para)
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
+"Error nº 548961 corregido (soporte para método de entrada al renombrar o "
+"hacer una búsqueda rápida)"
 
 #: C/gnome-commander.xml:6236(para)
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
@@ -10986,6 +11009,8 @@ msgstr "Error nº 554598 corregido (objetivo de GNOME: LINGUAS)"
 #: C/gnome-commander.xml:6242(para)
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr ""
+"Error nº 556664 corregido (no se pueden guardar marcadores de dispositivos "
+"montados)"
 
 #: C/gnome-commander.xml:6245(para)
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
@@ -11245,6 +11270,8 @@ msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
 msgstr ""
+"Corregido el error de manejo de la ruta completa del archivo al copiar/mover "
+"a dispositivos montados"
 
 #: C/gnome-commander.xml:6431(para)
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
@@ -11288,10 +11315,14 @@ msgstr "1.2.5"
 #: C/gnome-commander.xml:6474(para)
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr ""
+"Error nº 345314 corregido (cursor que no se mantiene sobre el archivo "
+"mientras se renombra)"
 
 #: C/gnome-commander.xml:6477(para)
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr ""
+"Corregido el error nº 353889 (archivos que desaparecen después de un fallo "
+"al mover (F6))"
 
 #: C/gnome-commander.xml:6480(para)
 msgid ""
@@ -11304,6 +11335,8 @@ msgstr ""
 #: C/gnome-commander.xml:6483(para)
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr ""
+"Errores nº 365227 y nº 446361 corregidos (problemas de construcción en "
+"Solaris)"
 
 #: C/gnome-commander.xml:6486(para)
 msgid "Fixed problem #424159 (column sort problem)"
@@ -11589,7 +11622,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6715(para)
 msgid "Fixed problem with grouping of file size digits"
-msgstr ""
+msgstr "Corregido el error de agrupación de dígitos de tamaño del archivo"
 
 #: C/gnome-commander.xml:6718(para)
 msgid "Fixed problem with SMB UNC handling"
@@ -12160,6 +12193,8 @@ msgstr ""
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
+"Renovada la solapa de disposición y eliminada la solapa de colores en el "
+"diálogo de opciones"
 
 #: C/gnome-commander.xml:7123(para)
 msgid "Improved plugin-system"
@@ -12202,6 +12237,8 @@ msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
 msgstr ""
+"Corrige el error donde una nueva carpeta podría aparecer varias veces en la "
+"misma lista de archivos hasta que se actualiza"
 
 #: C/gnome-commander.xml:7167(para)
 msgid "The delete confirmation can now be disabled"
