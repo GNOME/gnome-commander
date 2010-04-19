@@ -2,12 +2,13 @@
 #
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010.
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 17:24+0000\n"
-"PO-Revision-Date: 2010-04-11 17:51+0200\n"
+"POT-Creation-Date: 2010-04-11 15:52+0000\n"
+"PO-Revision-Date: 2010-04-19 07:17+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1802,6 +1803,18 @@ msgid ""
 "wiki/Specifications/shared-filemetadata-spec\" type=\"http\">freedesktop."
 "org</ulink> for more details on the generic metatags."
 msgstr ""
+"Los parámetros de sustitución para los metadatos es <literal>$T(metaetiqueta)"
+"</literal>. Use, por ejemplo, <literal>$T(Exif.DateTime)</literal> para "
+"obtener la fecha/hora de captura de la imagen y para insertarla en el nombre "
+"del archivo nuevo (los nombres de las metaetiquetas no son sensibles a "
+"mayúsculas, por lo que también podríamos usar aquí <literal>$T(exif.datetime)"
+"</literal>). Las metaetiquetas genéricas <literal>«Audio.»</literal>, "
+"<literal>«Doc.»</literal>, <literal>«File.»</literal> y <literal>«Image.»</"
+"literal> son independientes del framework usado y proporcionan acceso "
+"unificado a los metadatos de sonido, documento, archivo o imagen "
+"respectivos. Vaya a <ulink url=\"http://freedesktop.org/wiki/Specifications/"
+"shared-filemetadata-spec\" type=\"http\">freedesktop.org</ulink> para "
+"obtener más información sobre las metaetiquetas genéricas."
 
 #: C/gnome-commander.xml:1209(para)
 msgid "Tag"
@@ -7495,6 +7508,8 @@ msgid ""
 "A range (start_index:end_index) starts at the start_index and finishes one "
 "character before the end_index."
 msgstr ""
+"Un rango (start_index:end_index) empieza en start_index y termina un "
+"carácter antes de end_index."
 
 #: C/gnome-commander.xml:3356(guilabel)
 msgid "Range syntax"
@@ -7907,6 +7922,8 @@ msgid ""
 "The time-zone as hour offset from GMT. Required to emit RFC822-conformant "
 "dates (using \"%a, %d %b %Y %H:%M:%S %z\")"
 msgstr ""
+"La zona horaria como diferencia horaria respecto de GMT. Necesario para "
+"emitir fechas conformes con RFC822 (usando «%a, %d %b %Y %H:%M:%S %z»)"
 
 #: C/gnome-commander.xml:3560(para)
 msgid "%Z"
@@ -9134,6 +9151,8 @@ msgstr "<guilabel>%%</guilabel> símbolo de porcentaje"
 #: C/gnome-commander.xml:4629(para)
 msgid "Unknown placeholders are copied verbatim without any substitution."
 msgstr ""
+"Los parámetros de sustitución desconocidos se copian literalmente sin "
+"ninguna sustitución."
 
 #: C/gnome-commander.xml:4635(para)
 msgid "command.open_folder"
@@ -10049,6 +10068,12 @@ msgid ""
 "Icon size to 20 or some other size that you like. When you're done also make "
 "sure that the Graphical mode is set to MIME icons."
 msgstr ""
+"Inicie GNOME Commander y abra el diálogo <guimenu>Opciones</guimenu>. En la "
+"solapa <guimenuitem>Apariencia</guimenuitem> configure la «Carpeta del tema "
+"de iconos» para que sea la carpeta donde ha extraído Gorilla no escalable. "
+"Cambie también la «Altura de la fila» y el «Tamaño de los iconos» a 20 o a "
+"algún otro tamaño que le guste. Cuando haya terminado asegúrese de que el "
+"«Modo gráfico» está configurado a iconos MIME."
 
 #: C/gnome-commander.xml:5275(para)
 msgid ""
@@ -10865,6 +10890,8 @@ msgstr ""
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
+"Arreglado el problema del teclado bloqueado después de ALT+1/2 con la lista "
+"de dispositivos ocultos"
 
 #: C/gnome-commander.xml:6130(para)
 msgid "1.2.8.3"
@@ -11055,6 +11082,8 @@ msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
 msgstr ""
+"Error nº 576174 corregido (ordenación por nombre de archivo no sensible a "
+"mayúsculas en la configuración regional en_US.utf8)"
 
 #: C/gnome-commander.xml:6269(para)
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
@@ -11241,7 +11270,7 @@ msgstr "1.2.6"
 
 #: C/gnome-commander.xml:6405(para)
 msgid "Fixed problem #392959 (dynamically changing user to root)"
-msgstr ""
+msgstr "Error nº 392959 corregido (cambio dinámico de usuario a root)"
 
 #: C/gnome-commander.xml:6408(para)
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
@@ -11275,7 +11304,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6431(para)
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
-msgstr ""
+msgstr "Modo root para iniciar GNOME con privilegios de administrador"
 
 #: C/gnome-commander.xml:6434(para)
 msgid "GUI for keyboard shortcuts management"
@@ -11356,6 +11385,8 @@ msgstr "Corregido el error nº 447415 (imposibilidad de iniciar ejecutables)"
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
+"Error nº 448942 corregido (MAYÚS+INTRO: ejecutar un comando en una terminal "
+"aparte)"
 
 #: C/gnome-commander.xml:6498(para)
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
@@ -11375,6 +11406,8 @@ msgstr "Corregido el error nº 490431 (ver archivos cuyo nombre contiene «%»)"
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
+"Error nº 508565 corregido (manejo inadecuado de UTF-8 en herramienta "
+"avanzada de renombrado de archivos)"
 
 #: C/gnome-commander.xml:6510(para)
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
@@ -11804,6 +11837,8 @@ msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
 msgstr ""
+"Corregido un problema de errores al usar expresiones regulares rotas o no "
+"coincidentes en herramienta avanzada de renombrado de archivos"
 
 #: C/gnome-commander.xml:6864(para)
 msgid "Monitoring of mounted volumes"
@@ -12214,6 +12249,9 @@ msgid ""
 "installation. This lead to that GNOME Commander tried to remove the same "
 "file twice from a list"
 msgstr ""
+"Corregido el error al mover archivos en una máquina con una instalación "
+"rápida de FAM. Esto llevó a que GNOME Commander tratase de quitar el mismo "
+"archivo dos veces de una lista."
 
 #: C/gnome-commander.xml:7144(para)
 msgid "Accessing files on mounted devices should now work better"
@@ -12231,6 +12269,9 @@ msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
 msgstr ""
+"Arreglado de modo que la característica de que la ventana de la terminal "
+"permanece abierta después de que termina un programa funciona de manera más "
+"fiable"
 
 #: C/gnome-commander.xml:7156(para)
 msgid ""
@@ -12447,6 +12488,11 @@ msgid ""
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
 "theme. Made the file popup menu behave more normal."
 msgstr ""
+"Mejorada la herramienta de renombrado avanzado. Añadida la característica de "
+"conexión rápida. Mejorado el diálogo de búsqueda y corregidos algunos "
+"errores en él. Añadido el tema predeterminado de iconos MIME de baja "
+"resolución. Hecho que el menú emergente de archivos se comporte de manera "
+"más normal."
 
 #: C/gnome-commander.xml:7342(para)
 msgid "0.9.8"
