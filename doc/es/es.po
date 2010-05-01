@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 15:52+0000\n"
-"PO-Revision-Date: 2010-04-19 07:17+0200\n"
+"POT-Creation-Date: 2010-04-19 05:19+0000\n"
+"PO-Revision-Date: 2010-05-01 10:38+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1498,6 +1498,14 @@ msgid ""
 "\">strftime() format controls</link> are also accepted - except for \"%D\", "
 "\"%n\" and \"%t\" for obvious reasons. If found, they are left intact."
 msgstr ""
+"Especifica una plantilla para renombrar el archivo. Todos los caracteres "
+"ordinarios situados en la cadena de formato van dentro del nombre nuevo sin "
+"conversión. Los especificadores de conversión se introducen con unos pocos "
+"<link linkend=\"gnome-commander-advanced-rename-placeholders\">parámetros de "
+"sustitución</link> (vea debajo la lista detallada). Adicionalmente, los "
+"<link linkend=\"gnome-commander-advanced-rename-strftime\">controles de "
+"formato strftime()</link> también están aceptados: excepto para «%D», «%n» y «%"
+"t» por razones obvias. Si se los encuentra, déjelos intactos."
 
 #: C/gnome-commander.xml:1007(guilabel)
 msgid "Counter"
@@ -1604,11 +1612,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1089(title)
 msgid "Template Placeholders"
-msgstr "Marcadores de lugar de plantillas "
+msgstr "Parámetros de sustitución de plantillas"
 
 #: C/gnome-commander.xml:1096(para) C/gnome-commander.xml:3391(para)
 msgid "Placeholder"
-msgstr "Marcador de lugar"
+msgstr "Parámetro de sustitución"
 
 #: C/gnome-commander.xml:1097(para) C/gnome-commander.xml:3392(para)
 msgid "Replacement"
@@ -1759,6 +1767,8 @@ msgid ""
 "Broken - like $n(), $e(0,-3) or $N(abc) - or unknown placeholders are copied "
 "verbatim without any substitution."
 msgstr ""
+"Roto: igual que «$n()», «$e(0,-3)» o «$N(abc)»; o los parámetros de sustitución "
+"desconocidos se copian literalmente sin ninguna sustitución."
 
 #: C/gnome-commander.xml:1183(title)
 msgid "Metadata Tags (Metatags)"
@@ -7539,6 +7549,13 @@ msgid ""
 "to the end of the string. Index -3 stands for \"the third character from the "
 "end of the string\"."
 msgstr ""
+"Si se elimina alguno de los índices, se asume que quiere todo en esa "
+"dirección. Ej. «(:3)» significa «cualquier carácter desde el principio de la "
+"cadena hasta el tercer carácter, no incluido.» Por otro lado, «(3:)» "
+"significaría «cualquier carácter de la cadena, comenzando por el 3º "
+"(incluido) hasta el último incluido». Si el índice es negativo, es relativo "
+"al final de la cadena. Un índice «-3» significa «el tercer carácter desde el "
+"final de la cadena»."
 
 #: C/gnome-commander.xml:3379(para)
 msgid "Position of the first letter is '0'."
@@ -11047,6 +11064,8 @@ msgstr ""
 #: C/gnome-commander.xml:6248(para)
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr ""
+"Error nº 556836 corregido (desplazamiento del panel al moverse entre los "
+"paneles)"
 
 #: C/gnome-commander.xml:6251(para)
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
@@ -11128,6 +11147,9 @@ msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
 msgstr ""
+"Herramienta de renombrado avanzado de archivos renovada (referencias hacia "
+"atras en expresiones regulares («\\number»), perfiles, conversión entre "
+"mayúsculas/minúsculas, eliminación de espacios en blanco y mucho más)"
 
 #: C/gnome-commander.xml:6299(para)
 msgid "Support for metadata tags in internal viewer"
@@ -11314,6 +11336,8 @@ msgstr "IGU para la gestión de los atajos de teclado"
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
+"Herramienta de multi-renombrado: nuevos parámetros de sustitución «$x» y «$X» "
+"para números decimales aleatorios"
 
 #: C/gnome-commander.xml:6446(para)
 msgid ""
@@ -11984,6 +12008,8 @@ msgstr ""
 #: C/gnome-commander.xml:6965(para)
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
+"Herramienta de multi-renombrado - nuevo parámetro de sustitución para la "
+"carpeta abuela"
 
 #: C/gnome-commander.xml:6968(para)
 msgid ""
@@ -12095,6 +12121,8 @@ msgstr ""
 #: C/gnome-commander.xml:7031(para)
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr ""
+"Ahora la etiqueta cwd es seleccionable (la de la izquierda de la línea de "
+"comandos)"
 
 #: C/gnome-commander.xml:7034(para)
 msgid ""
@@ -12129,6 +12157,8 @@ msgid ""
 "<keycap>SHIFT+F10</keycap> Bring up the file context menu (the windows menu "
 "key also works)"
 msgstr ""
+"<keycap>Mayús+F10</keycap> Mostrar el menú contextual del archivo (la tecla "
+"del menú de Windows también funciona)"
 
 #: C/gnome-commander.xml:7055(para)
 msgid ""
@@ -12473,6 +12503,13 @@ msgid ""
 "with rename support. Dragging files to the \"..\" directory is now possible. "
 "The toolbar and buttonbar can now be hidden."
 msgstr ""
+"Corregido un error al cargar imágenes cuando se usa un tema que no es el "
+"predeterminado. Nueva funcionalidad de marcadores. Nueva funcionalidad de "
+"plantillas en el diálogo de renombrado avanzado. Vea doc/advrename.txt en el "
+"archivo tarball para obtener más detalles. Mejor diálogo de propiedades de "
+"archivo con soporte de renombrado. Ahora es posible arrastrar archivos al "
+"directorio «..». Ahora las barras de herramientas y de botones se pueden "
+"ocultar."
 
 #: C/gnome-commander.xml:7329(para)
 msgid "0.9.9"
@@ -12698,7 +12735,7 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
-msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010"
+msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2010"
 
 #~ msgid "Fixed problem #... (...)"
 #~ msgstr "Error nº... corregido (...)"
