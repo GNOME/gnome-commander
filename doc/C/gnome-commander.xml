@@ -3886,11 +3886,11 @@
       <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-network">
-      <title>Programs</title>
+      <title>Network</title>
 
         <!-- ==== Figure ==== -->
           <figure id="options-network-fig">
-              <title>Programs options</title>
+              <title>Network options</title>
               <screenshot>
                  <mediaobject>
                     <imageobject>
