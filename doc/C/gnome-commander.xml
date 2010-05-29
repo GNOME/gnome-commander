@@ -1,19 +1,18 @@
-﻿<?xml version="1.0"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Piotr Eljasiak">
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.9">
   <!ENTITY manrevision "1.2.9">
   <!ENTITY date "??? 2009">
   <!ENTITY app "GNOME Commander">
-  <!-- Information about the entities
+]>
+<!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
        Use the appversion entity to specify the version of the application.
        Use the manrevision entity to specify the revision number of this manual.
        Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
-]>
 <!--
       (Do not remove this comment block.)
   Maintained by the GNOME Documentation Project
@@ -30,6 +29,7 @@
     <title>&app; Manual</title>
     <subtitle>&app; Desktop Application Manual V&manrevision;</subtitle>
     <copyright>
+      <year>2010</year>
       <year>2009</year>
       <year>2008</year>
       <year>2007</year>
@@ -45,23 +45,28 @@
    -->
 
     <publisher role="maintainer">
-        <publishername>GNOME Documentation Project</publishername>
+      <publishername>GNOME Documentation Project</publishername>
     </publisher>
 
     <xi:include href="legal.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
     <authorgroup>
-        <author>
-            <firstname>GNOME Documentation Project</firstname>
-            <surname></surname>
-            <affiliation>
-                <orgname>GNOME</orgname>
-            </affiliation>
-        </author>
-        <author>
-            <firstname>Piotr</firstname>
-            <surname>Eljasiak</surname>
-        </author>
+      <author>
+        <firstname>GNOME Documentation Project</firstname>
+        <surname/>
+        <affiliation>
+          <orgname>GNOME</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <firstname>Piotr</firstname>
+        <surname>Eljasiak</surname>
+      </author>
+      <author>
+        <firstname>Laurent</firstname>
+        <surname>Coudeur</surname>
+      </author>
+
 
 <!-- This is appropriate place for other contributors: translators,
       maintainers,  etc. Commented out by default.
@@ -83,8 +88,7 @@
 
 <!-- According to GNU FDL, revision history is mandatory if you are -->
 <!-- modifying/reusing someone else's document.  If not, you can omit it. -->
-<!-- Remember to remove the &manrevision; entity from the revision entries other
--->
+<!-- Remember to remove the &manrevision; entity from the revision entries other-->
 <!-- than the current revision. -->
 <!-- The revision numbering system for GNOME manuals is as follows: -->
 <!-- * the revision number consists of two components -->
@@ -99,139 +103,128 @@
         <revnumber>GNOME Commander Manual V1.2.3;</revnumber>
         <date>2006-12-11</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.4;</revnumber>
         <date>2007-06-09</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.5;</revnumber>
         <date>2008-02-29</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.6;</revnumber>
         <date>2008-06-01</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.7;</revnumber>
         <date>2008-07-28</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8;</revnumber>
         <date>2009-06-29</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.1;</revnumber>
         <date>2009-08-10</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.2;</revnumber>
         <date>2009-09-22</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.3;</revnumber>
         <date>2009-10-28</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.4;</revnumber>
         <date>2009-12-03</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.5;</revnumber>
         <date>2010-02-13</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.9;</revnumber>
-        <date>2009-??-??</date>
+        <date>2010-??-??</date>
         <revdescription>
-            <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email>
-            </para>
-            <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Laurent Coudeur
+                <email>laurentc@iol.ie</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
     </revhistory>
-
-    <releaseinfo>This manual describes version &appversion; of &app;.
-    </releaseinfo>
+    <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
       <title>Feedback</title>
       <para>To report a bug or make a suggestion regarding the &app; application or
-      this manual, follow the directions in the <ulink url="ghelp:gnome-feedback"
-      type="help">GNOME Feedback Page</ulink>.
+      this manual, follow the directions in the <ulink type="help" url="ghelp:gnome-feedback">GNOME Feedback Page</ulink>.
       </para>
+
+
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice>
     <abstract role="description">
-        <para>&app; is a lighweight and fast file manager for the GNOME desktop.</para>
+      <para>&app; is a lightweight and fast file manager for the GNOME desktop.</para>
     </abstract>
   </articleinfo>
-
   <indexterm zone="index">
     <primary>gnome-commander</primary>
   </indexterm>
@@ -241,73 +234,73 @@
 
 <!-- ============= Document Body ============================= -->
 <!-- ============= Introduction ============================== -->
-<!-- Use the Introduction section to give a brief overview of what
-     the application is and what it does. -->
+<!-- Use the Introduction section to give a brief overview of what the application is and what it does. -->
   <sect1 id="gnome-commander-introduction">
     <title>Introduction</title>
     <para>The &app; application is a fast and powerful graphical file manager for the Gnome desktop environment,
-    it has a "two-pane" interface based on the orthodox file manager (OFM) principle,
+    it has a &quot;two-pane&quot; interface based on the orthodox file manager (OFM) principle,
     in the tradition of Norton and Midnight Commander.
 
     &app; provides the following features:</para>
-        <itemizedlist>
-            <listitem>
-                <para>GTK-2 GUI with standard mouse interactions</para>
-            </listitem>
-            <listitem>
-                <para>Gnome MIME types</para>
-            </listitem>
-            <listitem>
-                <para>Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS (Samba)</para>
-            </listitem>
-            <listitem>
-                <para>Right click mouse menu</para>
-            </listitem>
-            <listitem>
-                <para>User defined context menu</para>
-            </listitem>
-            <listitem>
-                <para>Quick device access buttons with automatic mounting and unmounting</para>
-            </listitem>
-            <listitem>
-                <para>History of accessed locations</para>
-            </listitem>
-            <listitem>
-                <para>Folder bookmarks</para>
-            </listitem>
-            <listitem>
-                <para>User defined keyboard shortcuts</para>
-            </listitem>
-            <listitem>
-                <para>Python scripting</para>
-            </listitem>
-            <listitem>
-                <para>Plugin support</para>
-            </listitem>
-            <listitem>
-                <para>Fast file viewer for text and images</para>
-            </listitem>
-            <listitem>
-                <para>Meta data support for Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2, ODF and PDF tags</para>
-            </listitem>
-            <listitem>
-                <para>Tools for advanced batch renaming of files, searching, quick file name searching in current dir,
+    <itemizedlist>
+      <listitem>
+        <para>GTK-2 GUI with standard mouse interactions</para>
+      </listitem>
+      <listitem>
+        <para>Gnome MIME types</para>
+      </listitem>
+      <listitem>
+        <para>Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS (Samba)</para>
+      </listitem>
+      <listitem>
+        <para>Right click mouse menu</para>
+      </listitem>
+      <listitem>
+        <para>User defined context menu</para>
+      </listitem>
+      <listitem>
+        <para>Quick device access buttons with automatic mounting and unmounting</para>
+      </listitem>
+      <listitem>
+        <para>History of accessed locations</para>
+      </listitem>
+      <listitem>
+        <para>Folder bookmarks</para>
+      </listitem>
+      <listitem>
+        <para>User defined keyboard shortcuts</para>
+      </listitem>
+      <listitem>
+        <para>Python scripting</para>
+      </listitem>
+      <listitem>
+        <para>Plugin support</para>
+      </listitem>
+      <listitem>
+        <para>Fast file viewer for text and images</para>
+      </listitem>
+      <listitem>
+        <para>Meta data support for Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2, ODF and PDF tags</para>
+      </listitem>
+      <listitem>
+        <para>Tools for advanced batch renaming of files, searching, quick file name searching in current directory,
                 symlinking, comparing directories</para>
-            </listitem>
-            <listitem>
-                <para>Integrated command line</para>
-            </listitem>
-            <listitem>
-                <para>Colour profiles</para>
-            </listitem>
-            <listitem>
-                <para>Support for over 40 languages</para>
-            </listitem>
-        </itemizedlist>
+      </listitem>
+      <listitem>
+        <para>Integrated command line</para>
+      </listitem>
+      <listitem>
+        <para>Color profiles</para>
+      </listitem>
+      <listitem>
+        <para>Support for over 40 languages</para>
+      </listitem>
+    </itemizedlist>
     <note>
-      <para>If you are using code from git repository, it is possible that the latest new features are not yet in this manual.
-            Please read the <ulink url="http://git.gnome.org/cgit/gnome-commander/plain/ChangeLog" type="http">detailed ChangeLog online</ulink>
-            or in the &app; sources to find out more about the new features.</para>
+      <para>If you are using code from git repository, it is possible that the latest new features are not yet in
+      	this manual. Please read the
+      	<ulink type="http" url="http://git.gnome.org/cgit/gnome-commander/plain/ChangeLog">detailed ChangeLog
+      	online</ulink> or in the &app; sources to find out more about the new features.</para>
     </note>
   </sect1>
 
@@ -321,10 +314,9 @@
      include it in the Introduction and omit this section. -->
   <sect1 id="gnome-commander-getting-started">
     <title>Getting Started</title>
-
     <sect2 id="gnome-commander-start">
-    <title>To Start &app;</title>
-    <para>You can start &app; in the following ways:
+      <title>To Start &app;</title>
+      <para>You can start &app; in the following ways:
     </para>
     <variablelist>
     <varlistentry>
@@ -351,60 +343,55 @@
     </sect2>
 
     <sect2 id="gnome-commander-when-start">
-    <title>When You Start &app;</title>
-    <para>When you start &app;, the following window is displayed.</para>
-
-    <!-- ==== Figure ==== -->
+      <title>When You Start &app;</title>
+      <para>When you start &app;, the following window is displayed.</para>
+      <!-- ==== Figure ==== -->
       <figure id="mainwindow-fig">
-          <title>&app; Window</title>
-          <screenshot>
-             <mediaobject>
-                <imageobject>
-                  <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/>
-                </imageobject>
-                <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
-                                    and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
-                </textobject>
-            </mediaobject>
-          </screenshot>
-        </figure>
-    <!-- ==== End of Figure ==== -->
-
-    <!-- Include any descriptions of the GUI immediately after the screenshot of the main UI, -->
-    <!-- for example, the items on the menubar and on the toolbar. This section is optional. -->
-
-    <para>The &app; window contains the following elements:
-    </para>
-      <variablelist>
-    <varlistentry>
-    <term>Menubar.</term>
-    <listitem>
-    <para>The menus on the menubar contain all of the commands you need to work with files in
-    &app;.</para>
-    </listitem>
-    </varlistentry>
-    <varlistentry>
-    <term>Toolbar. </term>
-    <listitem>
-    <para> The toolbar contains a subset of the commands that you can access from the menubar.</para>
-    </listitem>
-    </varlistentry>
-    <varlistentry>
-    <term>Statusbar.</term>
-    <listitem>
-    <para>The statusbar displays information about current &app;
-    activity and contextual information about the menu items.</para>
-    </listitem>
-    </varlistentry>
-    </variablelist>
-    </sect2>
-
-    <sect2 id="gnome-commander-command-line">
-    <title>Command Line Options</title>
+        <title>&app; Window</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area, and scrollbars.
+              	Menubar contains File, View, Settings, and Help menus.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+<!-- Include any descriptions of the GUI immediately after the screenshot of the main UI, -->
+<!-- for example, the items on the menubar and on the toolbar. This section is optional. -->
+      <para>The &app; window contains the following elements:</para>
       <variablelist>
         <varlistentry>
-          <term>
-            <guilabel>Options</guilabel></term>
+          <term>Menubar.</term>
+          <listitem>
+            <para>The menus on the menubar contain all of the commands you need to work with files in &app;.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Toolbar. </term>
+          <listitem>
+            <para> The toolbar contains a subset of the commands that you can access from the menubar.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Statusbar.</term>
+          <listitem>
+            <para>The statusbar displays information about current &app; activity and contextual information about
+            	the menu items.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </sect2>
+    <sect2 id="gnome-commander-command-line">
+      <title>Command Line Options</title>
+      <variablelist>
+        <varlistentry>
+          <term><guilabel>Options</guilabel></term>
           <listitem>
             <itemizedlist>
               <listitem>
@@ -438,81 +425,84 @@
                 <para>Specify debug flags to use. Debug output will be written to stdout.</para>
                 <para>Possible flags:</para>
                 <itemizedlist>
-                    <listitem>
-                        <para><guilabel>a</guilabel> user actions debugging</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>c</guilabel> file and directory counting</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>d</guilabel> directory ref-counting</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>f</guilabel> file ref-counting</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>g</guilabel> run_command debugging</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>i</guilabel> image loader</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>k</guilabel> directory pool</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>l</guilabel> directory listings</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>m</guilabel> connection debugging</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>n</guilabel> directory monitoring</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>p</guilabel> python plugins</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>s</guilabel> SMB network browser</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>t</guilabel> metadata tags</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>v</guilabel> internal viewer</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>w</guilabel> widget_lookup</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>x</guilabel> xfer</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>y</guilabel> brief MIME based imageload</para>
-                    </listitem>
-                    <listitem>
-                        <para><guilabel>z</guilabel> detailed MIME based imageload</para>
-                    </listitem>
+                  <listitem>
+                    <para><guilabel>a</guilabel> user actions debugging</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>c</guilabel> file and directory counting</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>d</guilabel> directory ref-counting</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>f</guilabel> file ref-counting</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>g</guilabel> run_command debugging</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>i</guilabel> image loader</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>k</guilabel> directory pool</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>l</guilabel> directory listings</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>m</guilabel> connection debugging</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>n</guilabel> directory monitoring</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>p</guilabel> python plugins</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>s</guilabel> SMB network browser</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>t</guilabel> metadata tags</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>v</guilabel> internal viewer</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>w</guilabel> widget_lookup</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>x</guilabel> xfer</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>y</guilabel> brief MIME based imageload</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>z</guilabel> detailed MIME based imageload</para>
+                  </listitem>
                 </itemizedlist>
               </listitem>
               <listitem>
                 <para>
                   <guilabel>[gtk,gnome,bonobo options]</guilabel>
                 </para>
-                <para>Standard gtk, gnome, bonobo options are supported.
-                      Use <guilabel>--help</guilabel> to see possible options.</para>
+                <para>Standard gtk, gnome, bonobo options are supported. Use <guilabel>--help</guilabel> to see
+                	possible options.
+                </para>
               </listitem>
             </itemizedlist>
           </listitem>
         </varlistentry>
         <varlistentry>
           <term>
-            <guilabel>Examples</guilabel></term>
+            <guilabel>Examples</guilabel>
+          </term>
           <listitem>
-              <para>
-                <command>gnome-commander <option>-d nvl</option></command>
-              </para>
-              <para>
-                Starts &app; with debugging of directory listings, internal viewer and directory monitoring facilities.
+            <para>
+              <command>gnome-commander <option>-d nvl</option></command>
+            </para>
+            <para>
+                Starts &app; with debugging of directory listings, internal viewer and directory monitoring
+                facilities.
               </para>
           </listitem>
         </varlistentry>
@@ -520,60 +510,11 @@
     </sect2>
   </sect1>
 
-<!-- ================ Usage ================================ -->
+<!-- ================ Basic Usage ========================== -->
 <!-- Use this section to describe how to use the application to perform the tasks for
   which the application is designed. -->
   <sect1 id="gnome-commander-usage">
-    <title>Usage</title>
-    <para>You can use the &app; application to
-      perform the following tasks:
-      <itemizedlist>
-        <listitem>
-            <para><xref linkend="gnome-commander-select"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-dnd"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-copy"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-move"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-rename"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-delete"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-create-folder"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-search"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-symbolic-links"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-file-properties"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-permissions"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-bookmarks"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-hidden-files"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-advanced-rename"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-internal-viewer"/></para>
-        </listitem>
-      </itemizedlist></para>
+    <title>Basic Usage</title>
     <!-- ================ Selecting Files Subsection ======================= -->
     <sect2 id="gnome-commander-select">
         <title>Selecting Files and Folders</title>
@@ -617,8 +558,7 @@
                 <para>In icon view, drag around the files that you want to select.</para>
                 <para>In list view, click on the first item in the group. Press-and-hold <keycap>SHIFT</keycap>, then click on the last item in the group.</para>
               </entry>
-              <entry colname="colspec3" valign="top">
-              </entry>
+              <entry colname="colspec3" valign="top"/>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
@@ -628,8 +568,7 @@
                 <para>Press-and-hold <keycap>CTRL</keycap>. Click on the items that you want to select.</para>
                 <para>Alternatively, press-and-hold <keycap>CTRL</keycap>, then drag around the files that you want to select.</para>
               </entry>
-              <entry colname="colspec3" valign="top">
-              </entry>
+              <entry colname="colspec3" valign="top"/>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
@@ -659,8 +598,7 @@
               <entry colname="colspec0" valign="top">
                 <para>Select all files with the same extension</para>
               </entry>
-              <entry colname="colspec2" valign="top">
-              </entry>
+              <entry colname="colspec2" valign="top"/>
               <entry colname="colspec3" valign="top">
                 <para><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></para>
               </entry>
@@ -669,8 +607,7 @@
               <entry colname="colspec0" valign="top">
                 <para>Unselect all files with the same extension</para>
               </entry>
-              <entry colname="colspec2" valign="top">
-              </entry>
+              <entry colname="colspec2" valign="top"/>
               <entry colname="colspec3" valign="top">
                 <para><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></para>
               </entry>
@@ -680,8 +617,8 @@
                 <para>Select files using a pattern</para>
               </entry>
               <entry colname="colspec2" valign="top">
-                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select with Pattern</guimenuitem></menuchoice>.
-                &app; selects files matching a pattern based upon their filename using either wildcards or regular expressions.</para>
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select with Pattern</guimenuitem></menuchoice>. &app; selects files matching a pattern based upon their file name using either wildcards or regular expressions.
+                </para>
               </entry>
               <entry colname="colspec3" valign="top">
                 <para><keycombo><keycap>NUM +</keycap></keycombo></para>
@@ -692,8 +629,9 @@
                 <para>Unselect files using a pattern</para>
               </entry>
               <entry colname="colspec2" valign="top">
-                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect with Pattern</guimenuitem></menuchoice>.
-                &app; unselects files matching a pattern based upon their filename using either wildcards or regular expressions.</para>
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect with Pattern</guimenuitem></menuchoice>. &app; unselects files matching a pattern based upon their file name using either
+                  wildcards or regular expressions.
+                </para>
               </entry>
               <entry colname="colspec3" valign="top">
                 <para><keycombo><keycap>NUM -</keycap></keycombo></para>
@@ -713,37 +651,150 @@
           </tbody>
         </tgroup>
       </table>
-        <para>To perform the default action on an item, double-click on the item.</para>
+      <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
-        <title>Drag-and-Drop</title>
-        <para></para>
+      <title>Drag-and-Drop</title>
+      <para>You can drag and drop selected items from one pane to the other to copy, move, or create a symbolic link
+      	to an item. You can also drag and drop the selected items into another application.
+      </para>
+      <para>To drag and drop a selection or a selected item with your mouse, with the pointer over the selection or
+	      the item, press the left button and keep it depressed, move the mouse pointer to the target location and
+   	   release the left button.
+   	</para>
+      <itemizedlist>
+        <listitem>
+          <para>By pressing the <keycap>SHIFT</keycap> key while you release the mouse button you can move the
+          	selection instead of copying it.
+       	</para>
+        </listitem>
+        <listitem>
+          <para>By pressing the <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo> keys while you
+          	release the mouse button you can create symbolic link to the selection instead of copying it.
+          </para>
+        </listitem>
+      </itemizedlist>
     </sect2>
     <!-- ================ Copying Files Subsection ======================= -->
     <sect2 id="gnome-commander-copy">
-        <title>Copying a File or Folder</title>
-        <para></para>
+      <title>Copying a File or Folder</title>
+      <para>You can use the mouse, the keyboard and the menus to copy a selection of items in another location.
+      </para>
+      <para>First select the item(s) you wish to copy, You can then use any of the the following options.</para>
+      <itemizedlist>
+        <listitem>
+          <para>To copy using the menus <menuchoice><guimenu>Edit</guimenu><guimenuitem>Copy</guimenuitem></menuchoice>, then select the location where you want to copy the selection and select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>Using the mouse You can also right click on the selected items in the drop down menu select
+   	       <guimenuitem>Copy</guimenuitem> then in the chosen location Right click in an empty area and select
+	          <guimenuitem>Paste</guimenuitem> in the drop down menu.
+          </para>
+        </listitem>
+        <listitem>
+          <para>Press the following keys <keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo>, then select the location for the files and press <keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></para>
+        </listitem>
+        <listitem>
+          <para>To copy the selection from one pane to the other using the mouse simply drag and drop the selected
+          	items to the other pane.
+       	</para>
+        </listitem>
+        <listitem>
+          <para>To copy the selection from one pane to the other you can simply press <keycap>F5</keycap>.</para>
+        </listitem>
+      </itemizedlist>
+      <note>
+        <para>The first three options will allow you to copy into another application than &app;.</para>
+      </note>
     </sect2>
     <!-- ================ Moving Files Subsection ======================= -->
     <sect2 id="gnome-commander-move">
-        <title>Moving a File or Folder</title>
-        <para></para>
+      <title>Moving a File or Folder</title>
+      <para>You can use the mouse, the keyboard , and the menus to move a selection of items in another location
+      </para>
+      <para>First select the item(s) you wish to move, You can then use any of the the following options.</para>
+      <itemizedlist>
+        <listitem>
+          <para>To copy using the menus <menuchoice><guimenu>Edit</guimenu><guimenuitem>Cut</guimenuitem></menuchoice> ,then select the location where you want to copy the selection and select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>.
+          </para>
+        </listitem>
+        <listitem>
+          <para>To copy the selection from one pane to the other using the mouse you can also right click on the
+   	       selected items in the menu select <guimenuitem>Cut</guimenuitem> then in the chosen location Right
+   	       click in an empty area and select <guimenuitem>Paste</guimenuitem> in the drop down menu.
+          </para>
+        </listitem>
+        <listitem>
+          <para>Using the mouse You can also right click on the selected items in the drop down menu select
+          <guimenuitem>Cut</guimenuitem> then in the chosen location right click in an empty area and select
+          <guimenuitem>Paste</guimenuitem> in the drop down menu.</para>
+        </listitem>
+        <listitem>
+          <para>To move the selection from one pane to the other using the mouse drag and drop the selected items
+          to the other pane and press the <keycap>SHIFT</keycap> while releasing the left mouse button.</para>
+        </listitem>
+        <listitem>
+          <para>To copy the selection from one pane to the other can simply press <keycap>F6</keycap>.</para>
+        </listitem>
+      </itemizedlist>
+      <note>
+        <para>The first Three options will allow you to copy into another application than &app;.</para>
+      </note>
     </sect2>
     <!-- ================ Renaming Files Subsection ======================= -->
     <sect2 id="gnome-commander-rename">
-        <title>Renaming a File or Folder</title>
-        <para></para>
+      <title>Renaming a File or Folder</title>
+      <para>This section describes a simple way to rename files or folders. There is also the
+      <xref linkend="gnome-commander-advanced-rename"/> for more complex operations and batch processing. You can
+       use various the following methods to rename files and folder.</para>
+      <para>Firstly select the item you wish to rename.</para>
+      <itemizedlist>
+        <listitem>
+          <para>Right click on the item and select <guimenu>Rename</guimenu>, type in the new name, and press
+           <keycap>Enter</keycap> when finished.</para>
+        </listitem>
+        <listitem>
+          <para>Press <keycap>F2</keycap> and then type in the new name and press <keycap>Enter</keycap> when
+           finished.</para>
+        </listitem>
+        <listitem>
+          <para>You can also use the menus: select <menuchoice><guimenu>File</guimenu><guimenu>Properties</guimenu></menuchoice> and rename the file using the properties dialog.</para>
+        </listitem>
+      </itemizedlist>
     </sect2>
     <!-- ================ Deleting Files Subsection ======================= -->
     <sect2 id="gnome-commander-delete">
-        <title>Deleting a File or Folder</title>
-        <para></para>
+      <title>Deleting a File or Folder</title>
+      <para>There are different ways to delete an item using &app;.</para>
+      <para>Select the item(s) You wish to delete.</para>
+      <itemizedlist>
+        <listitem>
+          <para>Press the <keycap>Delete</keycap> or the <keycap>F8</keycap> keys.</para>
+        </listitem>
+        <listitem>
+          <para>With the mouse right click on the item(s) then in the drop down menu select <guimenu>Delete
+          </guimenu>.</para>
+        </listitem>
+        <listitem>
+          <para>In the menu select <guimenu>Delete</guimenu>. </para>
+        </listitem>
+      </itemizedlist>
     </sect2>
     <!-- ================ Creating Folders Subsection ======================= -->
     <sect2 id="gnome-commander-create-folder">
-        <title>Creating a Folder</title>
-        <para></para>
+      <title>Creating a Folder</title>
+      <para>You can create a new folder in &app; using the following methods.</para>
+      <para>Navigate to the location where you want to create the new folder.</para>
+      <itemizedlist>
+        <listitem>
+          <para>Press the <keycap>F7</keycap> in the dialog box that is then opened name the new folder.</para>
+        </listitem>
+        <listitem>
+          <para>Using the mouse right click in an empty area of the pane, in the drop down menu select <menuchoice><guimenu>New</guimenu><guimenu>Folder</guimenu></menuchoice>, then type the folder name in the dialog box that is opened.</para>
+        </listitem>
+      </itemizedlist>
     </sect2>
     <!-- ================ File Searching Subsection ======================= -->
     <sect2 id="gnome-commander-search">
@@ -789,33 +840,77 @@
     </sect2>
     <!-- ================ Symbolic Links Subsection ======================= -->
     <sect2 id="gnome-commander-symbolic-links">
-        <title>Creating a Symbolic Link to a File or Folder</title>
-        <para>A symbolic link is a special type of file that points to another file or folder.
+      <title>Creating a Symbolic Link to a File or Folder</title>
+      <para>A symbolic link is a special type of file that points to another file or folder.
         When you perform an action on a symbolic link, the action is performed
         on the file or folder to which the symbolic link points.
         However, when you delete a symbolic link, you delete the link file,
         not the file to which the symbolic link points.</para>
-
-        <para>To create a symbolic link to a file or folder, select the file or folder
+      <para>To create a symbolic link to a file or folder, select the file or folder
         to which you want to create a link.
         Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>.
         A link to the file or folder is added to the current folder. </para>
-
-        <para>Alternatively, grab the item to which you want to create a link, then
+      <para>Alternatively, grab the item to which you want to create a link, then
         press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>.
         Drag the item to the location where you want to place the link.</para>
-
-        <note>
-            <para>The permissions of a symbolic link are determined by the file
+      <note>
+        <para>The permissions of a symbolic link are determined by the file
             or folder to which a symbolic link points.</para>
-        </note>
+      </note>
+      <tip>
+        <para>For more on dragging items, see <xref linkend="gnome-commander-dnd"/>.</para>
+      </tip>
+    </sect2>
+  </sect1>
 
-        <tip><para>For more on dragging items, see <xref linkend="gnome-commander-dnd"/>.</para></tip>
+<!-- ================ Advanced features ================================ -->
+<!-- Use this section to describe how to use the application to perform the tasks for
+  which the application is designed. -->
+<!--This was split from usage section to help readability-->
+  <sect1 id="gnome-commander-advanced-features">
+    <title>Advanced Features</title>
+    <para>This section describes more features and tools included in &app;</para>
+    <!-- ================ File Searching Subsection ======================= -->
+    <sect2 id="gnome-commander-search">
+      <title>Searching for Files</title>
+      <para>The file search enables you to search for files on your system.
+        To perform a basic search, you can type a file name or a partial file name, with or without wild cards.
+        To refine your search, you can apply additional search options.</para>
+      <para>To start the search you can use the following methods:
+			<itemizedlist><listitem><para>Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search.
+				</guibutton></para></listitem><listitem><para>Use the <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>.</para></listitem><listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search
+				</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
+      <para>When started, the following window is displayed:</para>
+      <!-- ==== Figure ==== -->
+      <figure id="search-dlg-fig">
+        <title>File Search Window</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_dialog_search.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows file search window.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para>&app; searches in the directory that you specify and optionally in the sub directories.
+        The search results are displayed in the results file list.</para>
+      <para>Additional options for file search include:
+        <itemizedlist><listitem><para>recursive search</para></listitem><listitem><para>search for the specified text in files</para></listitem></itemizedlist></para>
+      <para>Use Stop button to stop a search before &app; completes the search.</para>
+      <warning>
+        <para>The files in the results list are actually the original ones.
+                       If you delete a file - it is removed!</para>
+      </warning>
     </sect2>
     <!-- ================ File Properties Subsection ======================= -->
     <sect2 id="gnome-commander-file-properties">
-        <title>Viewing the Properties of a File or Folder</title>
-      <para>To view the properties of a file or folder, perform the following steps:</para>
+      <title>Viewing the Properties of a File or Folder</title>
+      <para>To view the properties of a file or folder, perform the following steps:
+      </para>
       <orderedlist>
         <listitem>
           <para>Select the file or folder whose properties you want to view. </para>
@@ -824,15 +919,31 @@
           <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</guimenuitem></menuchoice>. A properties dialog is displayed.</para>
         </listitem>
       </orderedlist>
+      <!-- ==== Figure ==== -->
+      <figure id="properties-dlg-fig">
+        <title>File Properties dialog</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_dialog_file_properties.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows file properties dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
       <tip>
-      <para>On the Permissions tab (see Figure xxx), you can change the permissions and ownership of a file
-      (that is, if you have the right permissions yourself).
-      You can change the read, write, and execute settings for a file.
-      For more information on permissions, see Chapter xxx.</para>
+        <para>On the Permissions tab (see <xref linkend="permission-tab-fig"></xref>), you can change the permissions
+         and ownership of a file (that is, if you have the right permissions
+         yourself).You can change the read, write, and execute settings
+   	   for a file. For more information on permissions, see
+   	   <xref linkend="gnome-commander-permissions"></xref>.</para>
       </tip>
-
-      <para>The following table lists the properties that you can view or set for files and folders,
-      the exact information shown depends on the object type:</para>
+      <para>The following table lists the properties that you can view or set for
+      	files and folders, the exact information shown depends on the object type:
+      </para>
       <informaltable frame="topbot">
         <tgroup cols="2" colsep="0" rowsep="0">
           <colspec colwidth="27.27*"/>
@@ -902,55 +1013,122 @@
     </sect2>
     <!-- ================ Permissions Subsection ======================= -->
     <sect2 id="gnome-commander-permissions">
-        <title>Changing Permissions</title>
-
-    <para>To change the permissions of a file or a folder, perform the following steps:</para>
-    <orderedlist>
+      <title>Changing Permissions</title>
+      <para>To change the permissions of a file or a folder, perform the following steps:</para>
+      <orderedlist>
         <listitem>
-            <para>Select the file that you want to change. </para>
+          <para>Select the file that needs its permission modified.</para>
         </listitem>
         <listitem>
             <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>.
             The <link linkend="gnome-commander-file-properties">properties window</link> for the item is displayed.</para>
         </listitem>
         <listitem>
-            <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
+          <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
         </listitem>
         <listitem>
-            <para>To change the file's group, choose from the groups the user belongs to in the drop-down selector.</para>
+          <para>To change the file&apos;s group, choose from the groups the user
+           belongs to in the drop-down selector.</para>
         </listitem>
         <listitem>
-            <para>For each of the owner, the group, and all other users, choose from these permissions for the file:</para>
-        <variablelist>
-        <varlistentry><term>Read</term>
-        <listitem>
-            <para>The users can read a file</para>
+          <para>For each of the owner, the group, and all other users, choose from
+           these permissions for the file:</para>
+          <informaltable frame="topbot">
+            <tgroup cols="2" colsep="0" rowsep="0">
+              <colspec colwidth="27.27*"/>
+              <colspec colwidth="72.73*"/>
+              <thead>
+                <row rowsep="1">
+                  <entry>
+                    <para>Property</para>
+                  </entry>
+                  <entry>
+                    <para>Description</para>
+                  </entry>
+                </row>
+              </thead>
+              <tbody>
+                <row>
+                  <entry valign="top">
+                    <para>Read</para>
+                  </entry>
+                  <entry valign="top">
+                    <para>The users can read a file.</para>
+                  </entry>
+                </row>
+                <row>
+                  <entry valign="top">
+                    <para>Write</para>
+                  </entry>
+                  <entry valign="top">
+                    <para>The users can save a file.</para>
+                  </entry>
+                </row>
+                <row>
+                  <entry valign="top">
+                    <para>Execute</para>
+                  </entry>
+                  <entry valign="top">
+                    <para>The users can run a file as a program.</para>
+                  </entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </informaltable>
         </listitem>
-        </varlistentry>
-        <varlistentry><term>Write</term>
-        <listitem>
-            <para>The users can save a file.</para>
-        </listitem>
-        </varlistentry>
-        <varlistentry><term>Execute</term>
-        <listitem>
-            <para>The users can run a file as a program.</para>
-        </listitem>
-        </varlistentry>
-        </variablelist>
-        </listitem>
-    </orderedlist>
+      </orderedlist>
+      <!-- ==== Figure ==== -->
+      <figure id="permission-tab-fig">
+        <title>File Permissions dialog</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_dialog_file_permissions.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows file properties dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+
+      <!-- ==== End of Figure ==== -->
+
 
     </sect2>
     <!-- ================ Bookmarks Subsection ======================= -->
     <sect2 id="gnome-commander-bookmarks">
-        <title>Using Bookmarks</title>
-        <para></para>
+      <title>Using Bookmarks</title>
+      <para>You can use bookmark to speed up navigation, within your local files or to
+       access remote servers.</para>
+      <para>To add a folder to the bookmarks, navigate to the folder&apos;s location
+       in the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this directory</guimenu></menuchoice>.</para>
+      <para>Managing your bookmarks can be done with the bookmark manager.</para>
+      <para>To start the bookmark manager select the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press the <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></para>
+      <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
+      bookmark in the selected group.</para>
+      <!-- ==== Figure ==== -->
+      <figure id="bookmark-dlg-mgmt-fig">
+        <title>Bookmark Management Dialog</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_dialog_bookmark.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows bookmark management dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para>Once You have added bookmarks to &app; these will be added in their
+       respective groups in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.</para>
     </sect2>
     <!-- ================ Hidden Files Subsection ======================= -->
     <sect2 id="gnome-commander-hidden-files">
-        <title>Hidden Files</title>
-        <para>By default, &app; does not display certain system and backup files in folders.
+      <title>Hidden Files</title>
+      <para>By default, &app; does not display certain system and backup files in folders.
         This prevents accidental modification or deletion of them, which can impair the operation of your computer,
         and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
         <itemizedlist>
@@ -958,7 +1136,7 @@
             <listitem><para>Backup files, whose file name ends with a tilde (~) or with extension <filename>'.bak'</filename></para></listitem>
             <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
         </itemizedlist>
-        <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
+      <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
     </sect2>
     <!-- ================ Advanced Rename Subsection ======================= -->
     <sect2 id="gnome-commander-advanced-rename">
@@ -3584,33 +3762,27 @@
     </sect2>
     <!-- ================ Internal Viewer Subsection ======================= -->
     <sect2 id="gnome-commander-internal-viewer">
-        <title>Using the Internal Viewer</title>
-        <para>The internal viewer allows viewing contents of files in text, unicode, binary, hex or graphical mode.</para>
-
-        <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined in
-        <menuchoice>
-          <guimenu>Settings</guimenu>
-          <guimenuitem>Options...</guimenuitem>
-        </menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer). The internal viewer
-        uses MMAP whenever possible for the fastest file loading.</para>
-
-        <sect3 id="gnome-commander-internal-viewer-modes">
+      <title>Using the Internal Viewer</title>
+      <para>The internal viewer allows viewing contents of files in text, Unicode,
+       binary, hex or graphical mode.</para>
+      <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined
+	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...
+	      </guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3
+	      </keycap></keycombo> (internal viewer). The internal viewer uses MMAP
+	       whenever possible for the fastest file loading.
+      </para>
+      <sect3 id="gnome-commander-internal-viewer-modes">
         <title>View Modes</title>
         <para>The
           <guilabel>View Modes</guilabel> group contains the preferences
           that you can set to view images in image windows.</para>
         <variablelist>
           <varlistentry>
-            <term>
-              <guilabel>Character Encodings</guilabel></term>
-            <term>
-              <guilabel>Text Display Mode</guilabel></term>
-            <term>
-              <guilabel>Binary Display Mode</guilabel></term>
-            <term>
-              <guilabel>Hex dump Display Mode</guilabel></term>
-            <term>
-              <guilabel>Image Display Mode</guilabel></term>
+            <term><guilabel>Character Encodings</guilabel></term>
+            <term><guilabel>Text Display Mode</guilabel></term>
+            <term><guilabel>Binary Display Mode</guilabel></term>
+            <term><guilabel>Hex dump Display Mode</guilabel></term>
+            <term><guilabel>Image Display Mode</guilabel></term>
             <listitem>
               <para>Use this drop-down list box to specify when to use
             scrollbars to scroll through an image. Select one of
@@ -3618,41 +3790,38 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>
-              <guilabel>Pick window size and zoom factor automatically</guilabel></term>
+            <term><guilabel>Pick window size and zoom factor automatically</guilabel></term>
             <listitem>
               <para>Select this option to resize the image window to fit the
             image or to resize the image to fit the image
             window. If the image is small,
             &app; resizes the image window to fit the image. If
             the image is large, &app; resizes the image to fit
-            the image window. </para>
+            the image window.</para>
               <para>Default: unselected.</para>
             </listitem>
           </varlistentry>
         </variablelist>
-        </sect3>
-
-        <sect3 id="gnome-commander-internal-viewer-scroll-image">
-            <title>To Scroll an Image</title>
-            <para>To scroll around an image that is larger than the image window or
+      </sect3>
+      <sect3 id="gnome-commander-internal-viewer-scroll-image">
+        <title>To Scroll an Image</title>
+        <para>To scroll around an image that is larger than the image window or
                   full screen window, you can use the following methods:</para>
-            <itemizedlist>
-                <listitem>
-                <para>Use the arrow keys on the keyboard.</para>
-                </listitem>
-                <listitem>
-                <para>Drag the image in the opposite direction to the direction in
-                      which you want to scroll. For example, if you want to
-                      scroll down the image, drag the image upwards in the window.</para>
-                </listitem>
-                <listitem>
-                <para>Use the scrollbars on the window.</para>
-                </listitem>
-            </itemizedlist>
-        </sect3>
-
-        <sect3 id="gnome-commander-internal-viewer-keyboard">
+        <itemizedlist>
+          <listitem>
+            <para>Use the arrow keys on the keyboard.</para>
+          </listitem>
+          <listitem>
+            <para>Drag the image in the opposite direction to the direction in
+                which you want to scroll. For example, if you want to
+                scroll down the image, drag the image upwards in the window.</para>
+          </listitem>
+          <listitem>
+            <para>Use the scrollbars on the window.</para>
+          </listitem>
+        </itemizedlist>
+      </sect3>
+      <sect3 id="gnome-commander-internal-viewer-keyboard">
         <title>Keyboard mappings</title>
         <informaltable frame="topbot">
         <tgroup cols="2">
@@ -3754,7 +3923,7 @@
         </tbody>
         </tgroup>
         </informaltable>
-        </sect3>
+      </sect3>
     </sect2>
   </sect1>
 
@@ -3762,217 +3931,1040 @@
 <!-- Use this section to describe how to customize the application. -->
   <sect1 id="gnome-commander-prefs">
     <title>Settings</title>
-    <para>To configure &app;, choose
-      <menuchoice>
-        <guimenu>Settings</guimenu>
-        <guimenuitem>Options...</guimenuitem>
-      </menuchoice> The
-      <guilabel>Options</guilabel> dialog contains the following tabbed sections:
-    </para>
-    <itemizedlist>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-general"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-format"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-layout"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-confirmation"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-filters"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-network"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-programs"/></para>
-      </listitem>
-      <listitem>
-        <para><xref linkend="gnome-commander-prefs-devices"/></para>
-      </listitem>
-    </itemizedlist>
+    <para>To configure &app;, in the menubar choose
+        <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>
+      The <guilabel>Options</guilabel> dialog contains the following tabbed sections.</para>
+    <!-- general preferences section -->
     <sect2 id="gnome-commander-prefs-general">
       <title>General</title>
-
-        <!-- ==== Figure ==== -->
-          <figure id="options-general-fig">
-              <title>General options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_general.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; general preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-        <para></para>
+      <para>The <guilabel>General</guilabel> tab is used to configure the &app; basic
+        behavior. It deals with the mouse, file matching, sorting and quick search
+        features.
+      </para>
+      <para>The settings alter the behavior of the  following features:</para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para><guilabel>Left mouse button</guilabel> configures the action
+            resulting from clicking the left mouse button.</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Right mouse button</guilabel> configures the action
+            resulting from clicking the right mouse button.</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Match file names</guilabel> configures the pattern
+            matching system used.</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Sorting options</guilabel> configures whether sorting is
+            case sensitive.</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Quick search using</guilabel> configures the combination
+            of keys used for quick search.</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
+         then click on the <guilabel>general</guilabel> tab.
+       </para>
+      <para>The options available are described in more details in
+         <xref linkend="gcmd-TBL-setting1">General settings</xref></para>
+      <!-- ==== Figure ==== -->
+      <figure id="options-general-fig">
+        <title>General options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_general.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; general preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
+      <table frame="topbot" id="gcmd-TBL-setting1">
+        <title>General option tab</title>
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="50.36*"/>
+          <colspec colname="colspec1" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Header</para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Option</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Description</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Left Mouse button</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Single click to open items</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option, a single left mouse button click
+                on a file will open it with the default application.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Double click to open items</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option, double clicking with the left
+                mouse button on a file will open it with the default application.
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Single click unselects files</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option, a single left mouse button click
+                on a file will reselect it if it is already selected.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Right Mouse button</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Shows pop up menu</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option a right click with the mouse on
+                an item in &app; will open a contextual menu at the location of
+                the click.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Select files</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option, a right click on an item in &app;
+                with the mouse will select it.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Match file names using</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Shell syntax</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By selecting this option you will be using the same pattern
+                matching as you would in the command line shell.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Regex syntax</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By selecting this option you will be using regular expression
+                matching patterns. For more information about regular expressions see
+                <ulink type="" url="http://en.wikipedia.org/wiki/Regular_expression">
+                Regular expression</ulink></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Sorting options</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Case sensitive</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When this option is activated &app; will differentiate the
+                sorting order between upper case and lower case, upper case items are
+                then listed after lower case ones.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Quick search using</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>CTRL+ALT+Letters</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By selecting this option when you press <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
+                   pane to the first item using that letter. You can then enter more
+                   letters after the first one to refine the search.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Alt+letters (menu access with F10)</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When you press <keycombo><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
+                   pane to the first item using that letter. You can then enter more
+                   letters after the first one to refine the search.</para>
+                <note>
+                  <para>By selecting this option you alter the standard GNOME behavior
+                  and to access the menus with the keyboard you will need to use the
+                  <keycap>F10</keycap>.</para>
+                </note>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </sect2>
+    <!-- Format options-->
     <sect2 id="gnome-commander-prefs-format">
       <title>Format</title>
-
-        <!-- ==== Figure ==== -->
-          <figure id="options-format-fig">
-              <title>Format options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_format.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; format preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-      <para></para>
+      <para>The Format tab contains the options on How file informations are displayed.
+       </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para><guilabel>Size display mode</guilabel> select the size information
+            format. </para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Permission display mode</guilabel> select the permissions
+            display format</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Date format</guilabel> select the date display format.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>To modify the Format options click on <menuchoice><guimenu>Settings
+         </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
+         the <guilabel>Format</guilabel> tab.</para>
+      <para>The options available are described in more details in
+       <xref linkend="gcmd-TBL-setting2">Format settings</xref></para>
+      <!-- ==== Figure ==== -->
+      <figure id="options-format-fig">
+        <title>Format options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_format.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; format preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <table frame="topbot" id="gcmd-TBL-setting2">
+        <title>Format option tab</title>
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="50.36*"/>
+          <colspec colname="colspec1" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Header</para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Option</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Description</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Size display mode</guilabel>
+                </para>
+              </entry>
+              <entry>
+                <para>Powered</para>
+              </entry>
+              <entry>
+                <para>The powered option displays file sizes using units such as B KB
+                MB</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+              </entry>
+              <entry>
+                <para>&lt;locale&gt;</para>
+              </entry>
+              <entry>The locale option uses the current local settings number format
+              to display the file size in bytes. </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+              </entry>
+              <entry>Grouped</entry>
+              <entry>The grouped entry displays the file size in groups of three
+              digits separated by a space. The unit used is the byte.</entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+              </entry>
+              <entry>Plain</entry>
+              <entry>The plain option displays the file size in bytes without any
+              separation.</entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Permission display mode</guilabel>
+                </para>
+              </entry>
+              <entry>
+                <para>Text (rw-r--r--)</para>
+              </entry>
+              <entry>
+                <para>Display the permission in text format. Using r for read, w
+                for write, x for executable.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+              </entry>
+              <entry>
+                <para>Number (644)</para>
+              </entry>
+              <entry>Display the permission in octal numerical format.</entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Date format</guilabel>
+                </para>
+              </entry>
+              <entry>
+                <para>Format</para>
+              </entry>
+              <entry>
+                <para>The date format is defined by strftime you can test it to
+                validate the string you enter there. For more information about
+                strftime please read the
+                <ulink url="http://linux.die.net/man/3/strftime">man page</ulink>.
+                </para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para/>
     </sect2>
+    <!-- Layout options -->
     <sect2 id="gnome-commander-prefs-layout">
       <title>Layout</title>
+      <para>The layout preferences tab allows you to configure the appearance of &app;.
+       You can allocate Fonts, row heights, icons and color theme.</para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para><guilabel>File Panes</guilabel> in this section you can modify the
+            way &app;is displayed</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Mime icon settings</guilabel> in this section you can
+            configure how and which  icons display when they are enabled in the
+            previous section.</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>To modify the Panes layout options click on <menuchoice><guimenu>
+         Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
+         then click on the <guilabel>Layout</guilabel> tab.</para>
+      <para>The options available are described in more details in
+       <xref linkend="gcmd-TBL-setting3">Layout settings</xref></para>
+      <!-- ==== Figure ==== -->
+      <figure id="options-layout-fig">
+        <title>Layout options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_layout.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; layout preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <table frame="topbot" id="gcmd-TBL-setting3">
+        <title>Layout option tab</title>
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="50.36*"/>
+          <colspec colname="colspec1" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Header</para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Option</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Description</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>File Panes</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Font</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>This button opens a font selection dialog, where you can preview
+                and select the preferred font and size in which text is displayed in
+                the panes.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Row height</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>This is the height of every row displayed in the panes in pixels
+                you can increase or decrease it here using the spin button or entering
+                the size manually.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Display file extensions</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>You can select here how file extensions are displayed in this
+                drop down list. There are three options available:<itemizedlist><listitem><para><guibutton>In both columns</guibutton> where the extension
+                      is displayed in filename and extension columns</para></listitem><listitem><para>  <guibutton>In separate columns</guibutton> where the
+                      extension is displayed in its own column</para></listitem><listitem><para><guibutton>With filename</guibutton> where the extension
+                      is only displayed in the file name column; in this case the ext
+                      column is still displayed to allow sorting by extension</para></listitem></itemizedlist></para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Graphical mode</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>The graphical mode has three display options in the drop down
+                list:<itemizedlist><listitem><para><guibutton>No icons</guibutton> this option does not
+                      display an icon item in the first column in the pane it displays
+                      a &quot;/&quot; in front of directories to distinguish them from
+                      files</para></listitem><listitem><para><guibutton>File type icons</guibutton> this option
+                      displays simple icons for files and folder</para></listitem><listitem><para><guibutton>MIME icons</guibutton> this option displays the
+                      mime icon associated with the file type. selecting this option
+                      activates the <guilabel>MIME icon settings</guilabel> section
+                      below</para></listitem></itemizedlist></para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Color scheme</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>&app; comes with five color themes, You can also use the theme
+                as defined by your current GNOME theme  (<guibutton>Respect theme
+                colors</guibutton>. There is also an option to customize the theme
+                <guibutton>Custom</guibutton>, this option activates the <guibutton>
+                Edit</guibutton> button.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Edit</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When the <guibutton>Custom</guibutton> option is selected this
+                button activates. Clicking on it will open a dialog box where you can
+                select row and alternate row colors for the foreground (text color)
+                and background, the alternate colors are used by every other row.
+                The selected file colors and the cursor position colors.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Colorize files according to the LS_COLORS environment variable</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>This option uses LS_COLORS variable to highlight file types just
+                 like the command &quot;ls&quot;. For more information on this You can
+                 look up the <ulink url="http://linux.die.net/man/5/dir_colors">
+                 dir_colors man page</ulink>.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel>MIME&#160;icon settings</guilabel>
+              </entry>
+              <entry colname="colspec2">
+                <para>Icon size</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Specify the size of icons used to represent the files when
+                <guibutton>MIME icon</guibutton> is activated above.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Scaling quality</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Select the render quality of the icons (higher is better).
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Theme icon directory</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>If you wish to customize the theme icon select the folder
+                containing the custom icons here.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para/>
+                <guilabel/>
+              </entry>
+              <entry colname="colspec2">
+                <para>Document icon directory</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>If you wish to customize the document icons select the folder
+                containing the new document icons here.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+      <para/>
 
-        <!-- ==== Figure ==== -->
-          <figure id="options-layout-fig">
-              <title>Layout options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_layout.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; layout preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
 
-      <para></para>
+<!-- ====Confirmation==== -->
     </sect2>
     <sect2 id="gnome-commander-prefs-confirmation">
       <title>Confirmation</title>
-
-        <!-- ==== Figure ==== -->
-          <figure id="options-confirmation-fig">
-              <title>Confirmation options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_confirmation.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; confirmation preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-      <para></para>
+      <para>The Confirmation tab allows You to configure when a confirmation dialog
+      is displayed. You also configure the behavior of &app; when the confirmation
+      dialog does not appear.</para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para><guilabel>Delete</guilabel> whether deleting an item needs to be
+            confirmed</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Copy overwrite</guilabel> configure the action when a file
+            copied already exists in the target location</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Move overwrite</guilabel> configure the action when a file
+            moved already exists in the target location</para>
+          </listitem>
+        </itemizedlist>
+      </para>
+      <para>To modify the confirmation settings click on <menuchoice><guimenu>
+       Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
+       then click on the <guilabel>Confirmation</guilabel> tab.</para>
+      <para>The options available are described in more details in
+       <xref linkend="gcmd-TBL-setting4">Confirmation settings</xref>.</para>
+      <!-- ==== Figure ==== -->
+      <figure id="options-confirmation-fig">
+        <title>Confirmation options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_confirmation.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; confirmation preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
+      <table frame="topbot" id="gcmd-TBL-setting4">
+        <title>Layout option tab</title>
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="50.36*"/>
+          <colspec colname="colspec1" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Header</para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Option</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Description</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Delete</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Confirm before delete</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When activated &app; opens a dialog to confirm file deletion.
+                </para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Copy overwrite</guilabel>
+                </para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Silently</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected if a file name in the target
+						location is the same as one of the files copied it will be
+						overwritten.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Query first</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected if a file name in the target
+						location is the same as one of the files copied &app; will open a
+						dialog asking for user confirmation. The user can autorise the
+						overwriting of the file or skip the file.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Skip all</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected if a file name in the target
+						location is the same as one of the files copied, the files will be
+						skipped and not copied into the target directory.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Move overwrite</guilabel>
+                </para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Silently</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected if a file name in the target
+						location is the same as one of the files moved it will be
+						overwritten.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Query first</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected if a file name in the target
+						location is the same as one of the files moved &app; will open a
+						dialog asking for user confirmation. The user can autorise the
+						overwriting of the file or skip the file. The file will then be still
+						present in the source location.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Skip all</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected if a file name in the target
+						location is the same as one of the files copied, the file will be
+						skipped and not moved into the target directory. The selected files
+						will not be moved</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
     </sect2>
     <sect2 id="gnome-commander-prefs-filters">
       <title>Filters</title>
+      <!--Brief description-->
+      <para>The filter section of the option dialog allows you to select which types
+	      of files are hidden.</para>
+      <para>To modify the filter settings click on <menuchoice><guimenu>Settings
+       </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on the
+       <guilabel>Filters</guilabel> tab.</para>
+      <para>The description for the files you can add in the hidden section is in the
+        <xref linkend="gcmd-TBL-setting6"></xref></para>
+      <!-- ==== Figure ==== -->
+      <figure id="options-filters-fig">
+        <title>Filters options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_filters.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; filters preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
+      <table frame="topbot" id="gcmd-TBL-setting6">
+        <title>Layout option tab</title>
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="50.36*"/>
+          <colspec colname="colspec1" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Header</para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Option</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Description</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Filetypes to hide</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Unknown</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Unknown filetypes are files that MIME does not have a definition
+                for (on this system).</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Regular files</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Any normal files that contain text or binary executable.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Directories</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Directories or folders are special type of files that contains a list of other files.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Fifo files </para>
+              </entry>
+              <entry colname="colspec3">
+                <para>A FIFO file does not contain any user information. Instead, it allows two or more processes to communicate with each other by reading/writing to/from this file.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Socket files</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Socket files are the representation of physical devices in the filesystem.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Character devices</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>A peripheral device that transfers data one byte at a time such as a serial port.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Block devices</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>A peripheral device that transfers a group of bytes of data at a time such as a disk.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Also hide</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Hidden Files</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Hidden files and directory in linux are preceded by the "." hidden files usually contain application settings</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Backup files</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Backup files are standard files they contain a previous version of a file using the same name the extension of this file is usually changed to "~" or "bak".</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Symlinks</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>A symlink is a file linking to another it can link to a file or a folder</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Backup files</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>If backup file are hidden you can add more filename extensions here that are used as backup files on your system.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
 
-        <!-- ==== Figure ==== -->
-          <figure id="options-filters-fig">
-              <title>Filters options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_filters.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; filters preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
 
-      <para></para>
+
+<!--network preferences -->
     </sect2>
     <sect2 id="gnome-commander-prefs-network">
-      <title>Programs</title>
-
-        <!-- ==== Figure ==== -->
-          <figure id="options-network-fig">
-              <title>Programs options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_network.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; network preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-      <para></para>
+      <title>Network</title>
+      <!--brief desciption-->
+      <para>The network section of the option dialog let you configure parameters for
+      FTP and the use of the GNOME keyring.</para>
+      <itemizedlist>
+        <listitem>
+          <para><guilabel>Authentication</guilabel> there is only one option <guilabel>Use GNOME keyring manager for authentication</guilabel> when this is activated &app; uses the GNOME keyring to authenticate the user on remote servers.</para>
+        </listitem>
+        <listitem>
+          <para><guilabel>Anonymous FTP access</guilabel> <guilabel>Password</guilabel> this contains the address used as password to access anonymous FTP server.</para>
+        </listitem>
+      </itemizedlist>
+      <!-- ==== Figure ==== -->
+      <figure id="options-network-fig">
+        <title>Network options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_network.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; network preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
     </sect2>
+    <!-- PrefeRred programs settings-->
     <sect2 id="gnome-commander-prefs-programs">
       <title>Programs</title>
-
-        <!-- ==== Figure ==== -->
-          <figure id="options-programs-fig">
-              <title>Programs options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_programs.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; programs preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-      <para></para>
+      <!-- Brief description-->
+      <para>This section of the options dialog lets you configure preferred applications
+       to open certain document types.</para>
+      <!-- == Figure ==== -->
+      <figure id="options-programs-fig">
+        <title>Programs options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_programs.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; programs preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
     </sect2>
     <sect2 id="gnome-commander-prefs-devices">
       <title>Devices</title>
-
-        <!-- ==== Figure ==== -->
-          <figure id="options-devices-fig">
-              <title>Devices options</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/gnome-commander_options_devices.png" format="PNG"/>
-                    </imageobject>
-                    <textobject><phrase>Shows &app; devices preferences dialog.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-      <para></para>
+      <!--Brief description -->
+      <para>This Tab of the option dialog lets you configure devices so that you can
+    have Access to a button in the device buttons toolbar and an entry in the
+    connections menu.</para>
+      <!-- ==== Figure ==== -->
+      <figure id="options-devices-fig">
+        <title>Devices options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_devices.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; devices preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
     </sect2>
   </sect1>
 
 <!-- ============= Keyboard shortcuts ===================== -->
 <!-- This section contains info about the keyboard mappings.-->
   <sect1 id="gnome-commander-keyboard">
-    <title>Keyboard mappings</title>
-        <note>
-          <para>Some keyboard shortcuts may not work as expected under the Gnome
+    <title>Keyboard Mappings</title>
+    <note>
+      <para>Some keyboard shortcuts may not work as expected under the Gnome
                 environment. The reason for that is that Gnome uses some global
                 shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> moves the entire application window),
                 which suppresses assigned keyboard mapping of &app;. Use the GNOME
                 Keyboard Shortcuts preference tool to customize the default keyboard
                 shortcuts to your requirements.</para>
-        </note>
-        <informaltable frame="topbot">
-        <tgroup cols="2">
-            <colspec colname="col1"/>
-            <colspec colname="col2"/>
+    </note>
+    <informaltable frame="topbot">
+      <tgroup cols="2">
+        <colspec colname="col1"/>
+        <colspec colname="col2"/>
         <thead>
         <row valign="top">
             <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
@@ -4520,45 +5512,45 @@
             and <keycombo><keycap>DOWN</keycap></keycombo> cursor keys to select an entry.
             By pressing the <keycombo><keycap>LEFT</keycap></keycombo> or <keycombo><keycap>RIGHT</keycap></keycombo> key, you can edit the command line.
             This automatically closes the list</para></entry>
-            <entry><para></para></entry>
+            <entry><para/></entry>
         </row>
         </tbody>
-        </tgroup>
-        </informaltable>
+      </tgroup>
+    </informaltable>
   </sect1>
 
 <!-- ============= User actions ===================== -->
 <!-- This section contains info about the user actions.-->
   <sect1 id="gnome-commander-user-actions">
-    <title>User actions</title>
+    <title>User Actions</title>
     <para>User actions allow user assigning a key or set of keys to trigger predefined &app;
           functions (actions). For example, <command>plugins.execute_python|sha1.sum</command>
           will compute SHA1 checksums for selected files.</para>
     <para>User actions are supported since version 1.2.4</para>
     <sect2 id="gnome-commander-user-actions-managing">
-        <title>Managing user actions</title>
-        <para>Key bindings reside in [key-bindings] section of &app; config file
+      <title>Managing user actions</title>
+      <para>Key bindings reside in [key-bindings] section of &app; config file
               (<guilabel>~/.gnome2/gnome-commander</guilabel>).</para>
-        <para>Config file syntax:</para>
-        <para>
-            <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;super&gt;][&lt;hyper&gt;][&lt;meta&gt;]key_name=action[|options]</command>
-        </para>
-        <para>eg.</para>
-        <programlisting>
+      <para>Config file syntax:</para>
+      <para>
+        <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;super&gt;][&lt;hyper&gt;][&lt;meta&gt;]key_name=action[|options]</command>
+      </para>
+      <para>eg.</para>
+      <programlisting>
     &lt;ctrl&gt;m=file.advrename
     &lt;ctrl&gt;t=file.advrename
     &lt;shift&gt;&lt;ctrl&gt;f5=file.create_symlink
     &lt;ctrl&gt;2=file.diff
     &lt;super&gt;f=edit.search
         </programlisting>
-        <tip>
-            <para>It's possible to assign one action to more than one key.</para>
-        </tip>
-        <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
-        <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
-        <note>
-            <para>&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10.</para>
-        </note>
+      <tip>
+        <para>It&apos;s possible to assign one action to more than one key.</para>
+      </tip>
+      <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
+      <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
+      <note>
+        <para>&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10.</para>
+      </note>
     </sect2>
     <sect2 id="gnome-commander-user-actions-list">
         <title>List of user actions</title>
@@ -4962,46 +5954,46 @@
                 </tbody>
             </tgroup>
         </informaltable>
-        <tip>
-            <para>Action names are case insensitive.</para>
-        </tip>
+      <tip>
+        <para>Action names are case insensitive.</para>
+      </tip>
     </sect2>
     <sect2 id="gnome-commander-user-actions-keys">
-        <title>List of key symbols</title>
-        <tip>
-            <para>Key names are case insensitive (&lt;ctrl&gt; a&#x2261; &lt;CtRl&gt;A).</para>
-        </tip>
-        <itemizedlist>
-            <listitem>
-                <para>a..z, 0..9</para>
-            </listitem>
-            <listitem>
-                <para>ampersand, apostrophe, asciicircum, asciitilde, asterisk, at,
+      <title>List of key symbols</title>
+      <tip>
+        <para>Key names are case insensitive (&lt;ctrl&gt; a&#x2261; &lt;CtRl&gt;A).</para>
+      </tip>
+      <itemizedlist>
+        <listitem>
+          <para>a..z, 0..9</para>
+        </listitem>
+        <listitem>
+          <para>ampersand, apostrophe, asciicircum, asciitilde, asterisk, at,
                 backslash, bar, braceleft, braceright, bracketleft,
                 bracketright, colon, comma, dollar, equal, exclam, grave, greater,
                 less, minus, numbersign, parenleft, parenright, percent, period,
                 plus, question, quotedbl, quoteleft, quoteright, semicolon,
                 slash, space, underscore</para>
-            </listitem>
-            <listitem>
-                <para>f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14,
+        </listitem>
+        <listitem>
+          <para>f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14,
                 f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27,
                 f28, f29, f30, f31, f32, f33, f34, f35</para>
-            </listitem>
-            <listitem>
-                <para>kp.0, kp.1, kp.2, kp.3, kp.4, kp.5, kp.6, kp.7, kp.8, kp.9,
+        </listitem>
+        <listitem>
+          <para>kp.0, kp.1, kp.2, kp.3, kp.4, kp.5, kp.6, kp.7, kp.8, kp.9,
                 kp.add, kp.begin, kp.decimal, kp.delete, kp.divide, kp.down,
                 kp.end, kp.enter, kp.equal, kp.f1, kp.f2, kp.f3, kp.f4, kp.home,
                 kp.insert, kp.left, kp.multiply, kp.next, kp.page.down,
                 kp.page.up, kp.prior, kp.right, kp.separator, kp.space,
                 kp.subtract, kp.tab, kp.up
-                ('kp' stands for keypad)</para>
-            </listitem>
-            <listitem>
-                <para>caps.lock, num.lock, scroll.lock, shift.lock</para>
-            </listitem>
-            <listitem>
-                <para>backspace, begin, break, cancel, clear, codeinput, delete, down,
+                (&apos;kp&apos; stands for keypad)</para>
+        </listitem>
+        <listitem>
+          <para>caps.lock, num.lock, scroll.lock, shift.lock</para>
+        </listitem>
+        <listitem>
+          <para>backspace, begin, break, cancel, clear, codeinput, delete, down,
                 eisu.shift, eisu.toggle, end, escape, execute, find,
                 first.virtual.screen, help, home, hyper.l, hyper.r, insert,
                 last.virtual.screen, left, linefeed, menu, meta.l, meta.r,
@@ -5010,88 +6002,63 @@
                 previouscandidate, prev.virtual.screen, print, prior, redo,
                 return, right, script.switch, select, singlecandidate, super.l,
                 super.r, sys.req, tab, terminate.server, undo, up</para>
-            </listitem>
-        </itemizedlist>
-        <note>
-            <para>The list is based on GDK key symbols taken from
-            <ulink url="http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h" type="http">
-            gdkkeysyms.h</ulink>.</para>
-        </note>
+        </listitem>
+      </itemizedlist>
+      <note>
+        <para>The list is based on GDK key symbols taken from
+            <ulink type="http" url="http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h"> gdkkeysyms.h</ulink>.</para>
+      </note>
     </sect2>
   </sect1>
 
 <!-- ============= Plugins ================================ -->
 <!-- This section contains info about the python plugins.-->
   <sect1 id="gnome-commander-python-plugins">
-    <title>Python plugins</title>
-        <itemizedlist>
-        <listitem>
-            <para><xref linkend="gnome-commander-python-plugins-working-with"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-python-plugins-api"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-python-plugins-md5sum"/></para>
-        </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-python-plugins-resources"/></para>
-        </listitem>
-      </itemizedlist>
+    <title>Python Plugins</title>
         <para>Since version 1.2.4 &app; is capable of executing python plugins.
         Python plugin is a normal python application containing predefined entry function.</para>
-
-        <para>&app; comes with built-in plugins:</para>
-        <itemizedlist>
-            <listitem>
-                <para><filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files</para>
-            </listitem>
-            <listitem>
-                <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
-            </listitem>
-        </itemizedlist>
-
-       <sect2 id="gnome-commander-python-plugins-working-with">
-            <title>Working with plugins</title>
-
-            <para>To start - simply place your plugin in <filename>~/.gnome-commander/plugins/</filename> directory.
+    <para>&app; comes with built-in plugins:</para>
+    <itemizedlist>
+      <listitem>
+        <para><filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files</para>
+      </listitem>
+      <listitem>
+        <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
+      </listitem>
+    </itemizedlist>
+    <sect2 id="gnome-commander-python-plugins-working-with">
+      <title>Working with plugins</title>
+      <para>To start - simply place your plugin in <filename>~/.gnome-commander/plugins/</filename> directory.
             If the plugin is meant to be accessed system widely, use alternate location: <filename>$(libdir)/$(PACKAGE)/plugins/</filename>.</para>
-
-            <para>Plugins will be added as new entries to the &app; context menus.</para>
-
-            <note>
-                <para>Keyboard shortcuts can be assigned to execute specific python plugins
+      <para>Plugins will be added as new entries to the &app; context menus.</para>
+      <note>
+        <para>Keyboard shortcuts can be assigned to execute specific python plugins
                      (eg. <keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> &#x2192; <filename>md5sum</filename>).</para>
-            </note>
-
-            <para>
-
-            <variablelist>
-                <title>Python plugins requirements</title>
-                <varlistentry>
-                    <term>build</term>
-                    <listitem>
-                        <para>python-devel &#x2a7e; 2.4</para>
-                    </listitem>
-                </varlistentry>
-                <varlistentry>
-                    <term>run</term>
-                    <listitem>
-                        <para>python &#x2a7e; 2.4</para>
-                        <para>gnome-python2-gnomevfs</para>
-                        <para>pygtk (for GUI)</para>
-                    </listitem>
-                </varlistentry>
-            </variablelist>
-
-            </para>
-        </sect2>
-
-        <sect2 id="gnome-commander-python-plugins-api">
-            <title>Plugins API</title>
-            <para>The entry (start) point for plugin is always main() function:</para>
-
-            <programlisting>
+      </note>
+      <para>
+        <variablelist>
+          <title>Python plugins requirements</title>
+          <varlistentry>
+            <term>build</term>
+            <listitem>
+              <para>python-devel &#x2a7e; 2.4</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>run</term>
+            <listitem>
+              <para>python &#x2a7e; 2.4</para>
+              <para>gnome-python2-gnomevfs</para>
+              <para>pygtk (for GUI)</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+    </sect2>
+    <sect2 id="gnome-commander-python-plugins-api">
+      <title>Plugins API</title>
+      <para>The entry (start) point for plugin is always main() function:</para>
+      <programlisting>
     def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)
             </programlisting>
 
@@ -5125,8 +6092,8 @@
 
         <sect2 id="gnome-commander-python-plugins-md5sum">
             <title>Sample plugin: md5sum</title>
-            <para>
-            <programlisting>
+      <para>
+        <programlisting>
     #!/usr/bin/env python
 
     try:
@@ -5149,12 +6116,12 @@
 
         return True
             </programlisting>
-            </para>
-            <note>
-              <para>The latest version of md5sum code can be found in
-              <ulink url="http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py" type="http">git &app; repository.</ulink></para>
-            </note>
-        </sect2>
+      </para>
+      <note>
+        <para>The latest version of md5sum code can be found in
+              <ulink type="http" url="http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py">git &app; repository.</ulink></para>
+      </note>
+    </sect2>
 
         <sect2 id="gnome-commander-python-plugins-resources">
             <title>Python resources</title>
@@ -5183,220 +6150,215 @@
 <!-- ============= Tips and tricks ======================== -->
 <!-- This section contains info some very simple tips and tricks.-->
   <sect1 id="gnome-commander-tips-and-tricks">
-  <title>Tips and tricks</title>
-  <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
-
-  <variablelist>
-    <varlistentry>
-      <term>
-        <guilabel>Handling archives</guilabel></term>
-      <listitem>
-        <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
+    <title>Tips and Tricks</title>
+    <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <guilabel>Handling archives</guilabel>
+        </term>
+        <listitem>
+          <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
         that working with archives becomes quite practical anyway. This is how you do it:</para>
-        <itemizedlist>
-          <listitem>
+          <itemizedlist>
+            <listitem>
               <para>
-                If you don't already have the program <application>Fileroller</application>,
+                If you don&apos;t already have the program <application>Fileroller</application>,
                 download it and install it.</para>
-          </listitem>
-          <listitem>
-        <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para>
-          </listitem>
-          <listitem>
-        <para>Add two favourite apps using the values shown here and here.</para>
-          </listitem>
-        </itemizedlist>
-        <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem>
+            </listitem>
+            <listitem>
+              <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para>
+            </listitem>
+            <listitem>
+              <para>Add two favorite apps using the values shown here and here.</para>
+            </listitem>
+          </itemizedlist>
+          <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem>
         to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem>
         to extract it.</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-        <guilabel>Using removable media</guilabel></term>
-      <listitem>
-        <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Using removable media</guilabel>
+        </term>
+        <listitem>
+          <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
         automatically take care of mounting them by following this guide:</para>
-        <itemizedlist>
-          <listitem>
+          <itemizedlist>
+            <listitem>
               <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para>
-          </listitem>
-          <listitem>
-        <para>Add the devices that you are using. This is how the program looks with a few added devices.
+            </listitem>
+            <listitem>
+              <para>Add the devices that you are using. This is how the program looks with a few added devices.
         In the last image the red circle shows the available devices, there is also a button, in the green circle,
         to press if we want to unmount the floppy, which happened to be mounted.
         The icons that are used for the devices in the example should be available
         in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para>
-          </listitem>
-          <listitem>
-        <para>There is also an option to skip mounting in the option device tab,
+            </listitem>
+            <listitem>
+              <para>There is also an option to skip mounting in the option device tab,
         this can be useful for making shortcuts to directories, or if you have some automounting feature
         that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-        <guilabel>Opening a full terminal</guilabel></term>
-      <listitem>
-        <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Opening a full terminal</guilabel>
+        </term>
+        <listitem>
+          <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
         Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
         in the &app; command line and press <keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo> - there you have it.</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-        <guilabel>Using Nautilus icon theme</guilabel></term>
-      <listitem>
-      <warning>
-      <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
-      </warning>
-        <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16.
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Using Nautilus icon theme</guilabel>
+        </term>
+        <listitem>
+          <warning>
+            <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
+          </warning>
+          <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16.
               There are other themes around though, that are more complete and looks better in bigger sizes.
               Unscalable Gorilla by Jimmac is one example and can be used in &app; by following these steps:</para>
-        <itemizedlist>
-          <listitem>
+          <itemizedlist>
+            <listitem>
               <para>Download the theme.</para>
-          </listitem>
-          <listitem>
-        <para>Unpack the theme to where ever you want.</para>
-          </listitem>
-          <listitem>
-        <para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set
+            </listitem>
+            <listitem>
+              <para>Unpack the theme to where ever you want.</para>
+            </listitem>
+            <listitem>
+              <para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set
         the Theme icon directory to be the folder where you extracted Unscalable Gorilla. Also change Row height
-        and Icon size to 20 or some other size that you like. When you're done also make sure that
+        and Icon size to 20 or some other size that you like. When you&apos;re done also make sure that
         the Graphical mode is set to MIME icons.</para>
-          </listitem>
-          <listitem>
+            </listitem>
+            <listitem>
               <para>When you now close the <guimenu>Options</guimenu> dialog the file listings should refresh
               and you should see Unscalable Gorilla being used.</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-    </varlistentry>
-
-  </variablelist>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+      </varlistentry>
+    </variablelist>
   </sect1>
 
 <!-- ============= Installation =========================== -->
 <!-- This section contains info about the program installation.-->
   <sect1 id="gnome-commander-installation">
-    <title>&app; installation</title>
+    <title>&app; Installation</title>
     <sect2 id="gnome-commander-getting-app">
-        <title>Getting &app;</title>
-        <para>
+      <title>Getting &app;</title>
+      <para>
             The very latest information about can be found on &app; website.
         </para>
-        <para>
-            It's recommended to use the &app; package that is provided by your distribution.
-            Refer to &app; for the <ulink url="http://www.nongnu.org/gcmd/download.html#distro" type="http">list of distributions</ulink>
+      <para>
+            It&apos;s recommended to use the &app; package that is provided by your distribution.
+            Refer to &app; for the <ulink type="http" url="http://www.nongnu.org/gcmd/download.html#distro">list of distributions</ulink>
             supporting &app; packages.
         </para>
-        <para>
-            All current and historical releases can be found on the <ulink url="http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/" type="http">Gnome FTP server</ulink>.
+      <para>
+            All current and historical releases can be found on the <ulink type="http" url="http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/">Gnome FTP server</ulink>.
         </para>
     </sect2>
     <sect2 id="gnome-commander-versioning">
-        <title>Versioning</title>
-        <para>
+      <title>Versioning</title>
+      <para>
         &app; is being developed in a stable and a testing branch, where the test releases fill the purpose of testing new ideas.
         Successful ones will then get backported to the stable branch. The version numbers (major, minor and micro) follows
         the quite usual standard of odd and even versioning, where odd minor versions stands for the unstable releases
         and the even numbered branch eventually gets the thoroughly tested new functions backported.</para>
     </sect2>
     <sect2 id="gnome-commander-stable-version">
-        <title>Stable version</title>
-        <para>
-            <command>git clone git://git.gnome.org/gnome-commander</command>
-        </para>
-        <para>
-            <command>git checkout master</command>
-        </para>
-        <note>
-            <para>The above works only to do a first time download and not for updating the code,
+      <title>Stable version</title>
+      <para>
+        <command>git clone git://git.gnome.org/gnome-commander</command>
+      </para>
+      <para>
+        <command>git checkout master</command>
+      </para>
+      <note>
+        <para>The above works only to do a first time download and not for updating the code,
                   if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
-        </note>
+      </note>
     </sect2>
     <sect2 id="gnome-commander-development-version">
-        <title>Development version</title>
-        <para>
-            <command>git clone git://git.gnome.org/gnome-commander</command>
-        </para>
-        <para>
-            <command>git branch --track gcmd-1-3 origin/gcmd-1-3</command>
-        </para>
-        <para>
-            <command>git checkout gcmd-1-3</command>
-        </para>
-        <note>
-            <para>The above works only to do a first time download and not for updating the code,
+      <title>Development version</title>
+      <para>
+        <command>git clone git://git.gnome.org/gnome-commander</command>
+      </para>
+      <para>
+        <command>git branch --track gcmd-1-3 origin/gcmd-1-3</command>
+      </para>
+      <para>
+        <command>git checkout gcmd-1-3</command>
+      </para>
+      <note>
+        <para>The above works only to do a first time download and not for updating the code,
                   if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
-        </note>
+      </note>
     </sect2>
     <sect2 id="gnome-commander-snapshot-builds">
-        <title>&app; snapshots builds</title>
-        <para>
+      <title>&app; snapshots builds</title>
+      <para>
         For those of you who feel really adventurous, or maybe want to hack on the freshest code,
         the latest development source snapshots can be downloaded from
-        <ulink url="http://www.nongnu.org/gcmd/download.html#testing" type="http">&app; home page</ulink>
+        <ulink type="http" url="http://www.nongnu.org/gcmd/download.html#testing">&app; home page</ulink>
 
         (just remember to run <command>./autogen.sh</command> before building).
 
-            <warning>
-                <para>Be aware that there can be serious bugs in code from GNOME git repository. This code is intended for hacking,
-                development and testing purposes only.</para>
-            </warning>
-        </para>
+            <warning><para>Be aware that there can be serious bugs in code from GNOME git repository. This code is intended for hacking,
+                development and testing purposes only.</para></warning></para>
     </sect2>
     <sect2 id="gnome-commander-compilation">
-        <title>Compilation and installation</title>
-        <para>
-        </para>
+      <title>Compilation and installation</title>
+      <para></para>
     </sect2>
   </sect1>
 
 <!-- ============= Configuration files ==================== -->
 <!-- This section contains info about the program configuration files.-->
   <sect1 id="gnome-commander-configuration-files">
-    <title>Configuration files</title>
+    <title>Configuration Files</title>
     <para>This section gives an overview of the configuration files used by &app;:
     </para>
     <variablelist>
-        <varlistentry>
-            <term>
-                <guilabel>~/.gnome-commander/connections</guilabel>
-            </term>
-            <listitem>
-                <para></para>
-            </listitem>
-        </varlistentry>
-        <varlistentry>
-            <term>
-                <guilabel>~/.gnome-commander/devices</guilabel>
-            </term>
-            <listitem>
-                <para></para>
-            </listitem>
-        </varlistentry>
-        <varlistentry>
-            <term>
-                <guilabel>~/.gnome-commander/fav-apps</guilabel>
-            </term>
-            <listitem>
-                <para></para>
-            </listitem>
-        </varlistentry>
-        <varlistentry>
-            <term>
-                <guilabel>~/.gnome2/gnome-commander</guilabel>
-            </term>
-            <listitem>
-                <para>
-                    <informaltable frame="topbot">
+      <varlistentry>
+        <term>
+          <guilabel>~/.gnome-commander/connections</guilabel>
+        </term>
+        <listitem>
+          <para/>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>~/.gnome-commander/devices</guilabel>
+        </term>
+        <listitem>
+          <para/>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>~/.gnome-commander/fav-apps</guilabel>
+        </term>
+        <listitem>
+          <para/>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>~/.gnome2/gnome-commander</guilabel>
+        </term>
+        <listitem>
+          <para>
+            <informaltable frame="topbot">
                         <tgroup cols="5">
                             <colspec colname="col1"/>
                             <colspec colname="col2"/>
@@ -5965,27 +6927,27 @@
                                     <entry><para><command>action[|options]</command></para></entry>
                                     <entry><para><xref linkend="gnome-commander-user-actions"/></para></entry>
                                 </row>
-                            </tbody>
-                        </tgroup>
-                    </informaltable>
-                </para>
-            </listitem>
-        </varlistentry>
-        <varlistentry>
-            <term>
-                <guilabel>~/.gnome2/gnome-commander-size</guilabel>
-            </term>
-            <listitem>
-                <para></para>
-            </listitem>
-        </varlistentry>
+                </tbody>
+              </tgroup>
+            </informaltable>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>~/.gnome2/gnome-commander-size</guilabel>
+        </term>
+        <listitem>
+          <para/>
+        </listitem>
+      </varlistentry>
     </variablelist>
   </sect1>
 
 <!-- ============= Release overview ======================= -->
 <!-- This section contains info about the program releases.-->
   <sect1 id="gnome-commander-releases">
-    <title>Release overview</title>
+    <title>Release Overview</title>
     <para>
     </para>
     <informaltable frame="topbot">
@@ -7409,12 +8371,11 @@
      problems you know of.
 -->
   <sect1 id="gnome-commander-bugs">
-  <title>Known Bugs and Limitations</title>
-  <para>You can report or view &app; bugs at the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander" type="http">the gnome.org Bugzilla</ulink>.</para>
-
-  <para>Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bugfree.
+    <title>Known Bugs and Limitations</title>
+    <para>You can report or view &app; bugs at the <ulink type="http" url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander">the gnome.org Bugzilla</ulink>.</para>
+    <para>Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
-        this goes especially for development and testing versions. Quality bugreporting is very important
+        this goes especially for development and testing versions. Quality bug reporting is very important
         and can be a very good help for the developers to make a better program.
         Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find, hunt down and kill the bugs.
         Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
@@ -7440,21 +8401,18 @@
     with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>).
 
     To find more information about &app;, please visit the
-    <ulink url="http://www.nongnu.org/gcmd/" type="http">&app; homepage</ulink>.
+    <ulink type="http" url="http://www.nongnu.org/gcmd/">&app; homepage</ulink>.
     </para>
     <para>
       To report a bug or make a suggestion regarding this application or
       this manual, follow the directions in this
-      <ulink url="ghelp:gnome-feedback" type="help">document</ulink>.
+      <ulink type="help" url="ghelp:gnome-feedback">document</ulink>.
     </para>
-
     <para> This program is distributed under the terms of the GNU
       General Public license as published by the Free Software
       Foundation; either version 2 of the License, or (at your option)
       any later version. A copy of this license can be found at this
-      <ulink url="ghelp:gpl" type="help">link</ulink>, or in the file
+      <ulink type="help" url="ghelp:gpl">link</ulink>, or in the file
       COPYING included with the source code of this program. </para>
-
   </sect1>
-
 </article>
