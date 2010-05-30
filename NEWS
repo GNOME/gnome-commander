@@ -3,6 +3,7 @@ gnome-commander 1.2.9
 ---------------
 
 Bug fixes:
+ * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
 
 New features:

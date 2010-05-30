@@ -74,17 +74,29 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
                                                      GTK_STOCK_JUMP_TO, RESPONSE_JUMP_TO,
                                                      NULL);
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
+#endif
+
     GtkWidget *vbox, *hbox, *scrolled_window, *view, *button;
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_box_set_spacing (GTK_BOX (content_area), 2);
+#else
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+#endif
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     vbox = gtk_vbox_new (FALSE, 12);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+ #if GTK_CHECK_VERSION (2, 14, 0)
+   gtk_container_add (GTK_CONTAINER (content_area), vbox);
+#else
     gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
+#endif
 
     hbox = gtk_hbox_new (FALSE, 12);
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
@@ -133,7 +145,11 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), RESPONSE_JUMP_TO);
     gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), RESPONSE_JUMP_TO, FALSE);
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_widget_show_all (content_area);
+#else
     gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+#endif
 
     g_signal_connect (dialog, "size-allocate", G_CALLBACK (size_allocate_callback), NULL);
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), view);

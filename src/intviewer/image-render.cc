@@ -167,9 +167,14 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
               (GtkSignalFunc) image_render_h_adjustment_value_changed ,
               (gpointer) obj);
 
-    obj->priv->old_h_adj_value = adjustment->value;
+    obj->priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    obj->priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
+    obj->priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
+#else
     obj->priv->old_h_adj_lower = adjustment->lower;
     obj->priv->old_h_adj_upper = adjustment->upper;
+#endif
 
     image_render_h_adjustment_update (obj);
 }
@@ -196,9 +201,14 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
               (GtkSignalFunc) image_render_v_adjustment_value_changed ,
               (gpointer) obj);
 
-    obj->priv->old_v_adj_value = adjustment->value;
+    obj->priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    obj->priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
+    obj->priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
+#else
     obj->priv->old_v_adj_lower = adjustment->lower;
     obj->priv->old_v_adj_upper = adjustment->upper;
+#endif
 
     image_render_v_adjustment_update (obj);
 }
@@ -348,6 +358,9 @@ static void image_render_realize (GtkWidget *widget)
     ImageRender *obj = IMAGE_RENDER (widget);
 
     GdkWindowAttr attributes;
+#if GTK_CHECK_VERSION (2,14,0)
+    GdkWindow *window = gtk_widget_get_window (widget);
+#endif
 
     attributes.x = widget->allocation.x;
     attributes.y = widget->allocation.y;
@@ -365,11 +378,15 @@ static void image_render_realize (GtkWidget *widget)
     gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
     widget->window = gdk_window_new (widget->parent->window, &attributes, attributes_mask);
 
+#if GTK_CHECK_VERSION (2,14,0)
+    widget->style = gtk_style_attach (widget->style, window);
+    gdk_window_set_user_data (window, widget);
+    gtk_style_set_background (widget->style, window, GTK_STATE_ACTIVE);
+#else
     widget->style = gtk_style_attach (widget->style, widget->window);
-
     gdk_window_set_user_data (widget->window, widget);
-
     gtk_style_set_background (widget->style, widget->window, GTK_STATE_ACTIVE);
+#endif
 
     // image_render_prepare_disp_pixbuf (obj);
     if (!obj->priv->scaled_pixbuf_loaded)
@@ -383,7 +400,11 @@ static void image_render_redraw (ImageRender *w)
         return;
 
     image_render_notify_status_changed (w);
+#if GTK_CHECK_VERSION (2,14,0)
+    gdk_window_invalidate_rect (gtk_widget_get_window (GTK_WIDGET (w)), NULL, FALSE);
+#else
     gdk_window_invalidate_rect (GTK_WIDGET (w)->window, NULL, FALSE);
+#endif
 }
 
 
@@ -404,8 +425,11 @@ static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *alloca
 
     if (GTK_WIDGET_REALIZED (widget))
     {
+#if GTK_CHECK_VERSION (2,14,0)
+        gdk_window_move_resize (gtk_widget_get_window (widget), allocation->x, allocation->y, allocation->width, allocation->height);
+#else
         gdk_window_move_resize (widget->window, allocation->x, allocation->y, allocation->width, allocation->height);
-
+#endif
         image_render_prepare_disp_pixbuf (IMAGE_RENDER (widget));
     }
 }
@@ -422,7 +446,11 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
 
     ImageRender *w = IMAGE_RENDER (widget);
 
+#if GTK_CHECK_VERSION (2,14,0)
+    gdk_window_clear_area (gtk_widget_get_window (widget), 0, 0, widget->allocation.width, widget->allocation.height);
+#else
     gdk_window_clear_area (widget->window, 0, 0, widget->allocation.width, widget->allocation.height);
+#endif
 
     if (!w->priv->disp_pixbuf)
         return FALSE;
@@ -436,7 +464,11 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         xc = widget->allocation.width / 2 - gdk_pixbuf_get_width (w->priv->disp_pixbuf)/2;
         yc = widget->allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
 
-        gdk_draw_pixbuf(widget->window,
+#if GTK_CHECK_VERSION (2,14,0)
+        gdk_draw_pixbuf (gtk_widget_get_window (widget),
+#else
+        gdk_draw_pixbuf (widget->window,
+#endif
                 NULL,
                 w->priv->disp_pixbuf,
                 0, 0, // source X, Y
@@ -458,7 +490,7 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         }
         else
         {
-            src_x = (int)w->priv->h_adjustment->value;
+            src_x = (int) gtk_adjustment_get_value (w->priv->h_adjustment);
             dst_x = 0;
             width = MIN(widget->allocation.width, gdk_pixbuf_get_width (w->priv->disp_pixbuf));
             if (src_x + width > gdk_pixbuf_get_width (w->priv->disp_pixbuf))
@@ -466,7 +498,7 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         }
 
 
-        if ((int)w->priv->h_adjustment->value > gdk_pixbuf_get_height (w->priv->disp_pixbuf))
+        if ((int) gtk_adjustment_get_value (w->priv->h_adjustment) > gdk_pixbuf_get_height (w->priv->disp_pixbuf))
         {
             src_y = 0;
             dst_y = widget->allocation.height / 2 - gdk_pixbuf_get_height (w->priv->disp_pixbuf)/2;
@@ -474,7 +506,7 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
         }
         else
         {
-            src_y = (int)w->priv->v_adjustment->value;
+            src_y = (int) gtk_adjustment_get_value (w->priv->v_adjustment);
             dst_y = 0;
             height = MIN(widget->allocation.height, gdk_pixbuf_get_height (w->priv->disp_pixbuf));
 
@@ -494,7 +526,11 @@ static gboolean image_render_expose (GtkWidget *widget, GdkEventExpose *event)
                 (int)w->priv->h_adjustment->value,
                 (int)w->priv->v_adjustment->value);
 #endif
+#if GTK_CHECK_VERSION (2,14,0)
+        gdk_draw_pixbuf(gtk_widget_get_window (widget),
+#else
         gdk_draw_pixbuf(widget->window,
+#endif
                         NULL,
                         w->priv->disp_pixbuf,
                         src_x, src_y,
@@ -565,9 +601,15 @@ static gboolean image_render_motion_notify (GtkWidget *widget, GdkEventMotion *e
         gint x = event->x;
         gint y = event->y;
 
+#if GTK_CHECK_VERSION (2,14,0)
+        GdkWindow *window = gtk_widget_get_window (widget);
+
+        if (event->is_hint || (event->window != window))
+            gdk_window_get_pointer (window, &x, &y, &mods);
+#else
         if (event->is_hint || (event->window != widget->window))
             gdk_window_get_pointer (widget->window, &x, &y, &mods);
-
+#endif
         // TODO: respond to motion event
     }
 
@@ -580,17 +622,25 @@ static void image_render_h_adjustment_update (ImageRender *obj)
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_IMAGE_RENDER(obj));
 
-    gfloat new_value = obj->priv->h_adjustment->value;
+    gfloat new_value = gtk_adjustment_get_value (obj->priv->h_adjustment);
 
+#if GTK_CHECK_VERSION (2,14,0)
+    if (new_value < gtk_adjustment_get_lower (obj->priv->h_adjustment))
+        new_value = gtk_adjustment_get_lower (obj->priv->h_adjustment);
+
+    if (new_value > gtk_adjustment_get_upper (obj->priv->h_adjustment))
+        new_value = gtk_adjustment_get_upper (obj->priv->h_adjustment);
+#else
     if (new_value < obj->priv->h_adjustment->lower)
         new_value = obj->priv->h_adjustment->lower;
 
     if (new_value > obj->priv->h_adjustment->upper)
         new_value = obj->priv->h_adjustment->upper;
+#endif
 
-    if (new_value != obj->priv->h_adjustment->value)
+    if (new_value != gtk_adjustment_get_value (obj->priv->h_adjustment))
     {
-        obj->priv->h_adjustment->value = new_value;
+        gtk_adjustment_set_value (obj->priv->h_adjustment, new_value);
         gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
     }
 
@@ -608,6 +658,18 @@ static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpoint
 
     ImageRender *obj = IMAGE_RENDER (data);
 
+#if GTK_CHECK_VERSION (2,14,0)
+    if ((obj->priv->old_h_adj_value != gtk_adjustment_get_value (adjustment)) ||
+        (obj->priv->old_h_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
+        (obj->priv->old_h_adj_upper != gtk_adjustment_get_upper (adjustment)))
+    {
+        image_render_h_adjustment_update (obj);
+
+        obj->priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
+        obj->priv->old_h_adj_lower = gtk_adjustment_get_lower (adjustment);
+        obj->priv->old_h_adj_upper = gtk_adjustment_get_upper (adjustment);
+    }
+#else
     if ((obj->priv->old_h_adj_value != adjustment->value) ||
         (obj->priv->old_h_adj_lower != adjustment->lower) ||
         (obj->priv->old_h_adj_upper != adjustment->upper))
@@ -618,6 +680,7 @@ static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpoint
         obj->priv->old_h_adj_lower = adjustment->lower;
         obj->priv->old_h_adj_upper = adjustment->upper;
     }
+#endif
 }
 
 
@@ -628,10 +691,10 @@ static void image_render_h_adjustment_value_changed (GtkAdjustment *adjustment, 
 
     ImageRender *obj = IMAGE_RENDER (data);
 
-    if (obj->priv->old_h_adj_value != adjustment->value)
+    if (obj->priv->old_h_adj_value != gtk_adjustment_get_value (adjustment))
     {
         image_render_h_adjustment_update (obj);
-        obj->priv->old_h_adj_value = adjustment->value;
+        obj->priv->old_h_adj_value = gtk_adjustment_get_value (adjustment);
     }
 }
 
@@ -641,17 +704,25 @@ static void image_render_v_adjustment_update (ImageRender *obj)
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_IMAGE_RENDER(obj));
 
-    gfloat new_value = obj->priv->v_adjustment->value;
+    gfloat new_value = gtk_adjustment_get_value (obj->priv->v_adjustment);
 
+#if GTK_CHECK_VERSION (2,14,0)
+    if (new_value < gtk_adjustment_get_lower (obj->priv->v_adjustment))
+        new_value = gtk_adjustment_get_lower (obj->priv->v_adjustment);
+
+    if (new_value > gtk_adjustment_get_upper (obj->priv->v_adjustment))
+        new_value = gtk_adjustment_get_upper (obj->priv->v_adjustment);
+#else
     if (new_value < obj->priv->v_adjustment->lower)
         new_value = obj->priv->v_adjustment->lower;
 
     if (new_value > obj->priv->v_adjustment->upper)
         new_value = obj->priv->v_adjustment->upper;
+#endif
 
-    if (new_value != obj->priv->v_adjustment->value)
+    if (new_value != gtk_adjustment_get_value (obj->priv->v_adjustment))
     {
-        obj->priv->v_adjustment->value = new_value;
+        gtk_adjustment_set_value (obj->priv->v_adjustment, new_value);
         gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value-changed");
     }
 
@@ -669,6 +740,18 @@ static void image_render_v_adjustment_changed (GtkAdjustment *adjustment, gpoint
 
     ImageRender *obj = IMAGE_RENDER (data);
 
+#if GTK_CHECK_VERSION (2,14,0)
+    if ((obj->priv->old_v_adj_value != gtk_adjustment_get_value (adjustment)) ||
+        (obj->priv->old_v_adj_lower != gtk_adjustment_get_lower (adjustment)) ||
+        (obj->priv->old_v_adj_upper != gtk_adjustment_get_upper (adjustment)))
+    {
+        image_render_v_adjustment_update (obj);
+
+        obj->priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
+        obj->priv->old_v_adj_lower = gtk_adjustment_get_lower (adjustment);
+        obj->priv->old_v_adj_upper = gtk_adjustment_get_upper (adjustment);
+    }
+#else
     if ((obj->priv->old_v_adj_value != adjustment->value) ||
         (obj->priv->old_v_adj_lower != adjustment->lower) ||
         (obj->priv->old_v_adj_upper != adjustment->upper))
@@ -679,6 +762,7 @@ static void image_render_v_adjustment_changed (GtkAdjustment *adjustment, gpoint
         obj->priv->old_v_adj_lower = adjustment->lower;
         obj->priv->old_v_adj_upper = adjustment->upper;
     }
+#endif
 }
 
 
@@ -689,10 +773,10 @@ static void image_render_v_adjustment_value_changed (GtkAdjustment *adjustment, 
 
     ImageRender *obj = IMAGE_RENDER (data);
 
-    if (obj->priv->old_v_adj_value != adjustment->value)
+    if (obj->priv->old_v_adj_value != gtk_adjustment_get_value (adjustment))
     {
         image_render_v_adjustment_update (obj);
-        obj->priv->old_v_adj_value = adjustment->value;
+        obj->priv->old_v_adj_value = gtk_adjustment_get_value (adjustment);
     }
 }
 
@@ -900,34 +984,56 @@ static void image_render_update_adjustments (ImageRender *obj)
     {
         if (obj->priv->h_adjustment)
         {
+#if GTK_CHECK_VERSION (2,14,0)
+            gtk_adjustment_set_lower (obj->priv->h_adjustment, 0);
+            gtk_adjustment_set_upper (obj->priv->h_adjustment, 0);
+#else
             obj->priv->h_adjustment->lower = 0;
             obj->priv->h_adjustment->upper = 0;
-            obj->priv->h_adjustment->value = 0;
-            gtk_adjustment_changed(obj->priv->h_adjustment);
+#endif
+            gtk_adjustment_set_value (obj->priv->h_adjustment, 0);
+            gtk_adjustment_changed (obj->priv->h_adjustment);
         }
         if (obj->priv->v_adjustment)
         {
+#if GTK_CHECK_VERSION (2,14,0)
+            gtk_adjustment_set_lower (obj->priv->v_adjustment, 0);
+            gtk_adjustment_set_upper (obj->priv->v_adjustment, 0);
+#else
             obj->priv->v_adjustment->lower = 0;
             obj->priv->v_adjustment->upper = 0;
-            obj->priv->v_adjustment->value = 0;
-            gtk_adjustment_changed(obj->priv->v_adjustment);
+#endif
+            gtk_adjustment_set_value (obj->priv->v_adjustment, 0);
+            gtk_adjustment_changed (obj->priv->v_adjustment);
         }
     }
     else
     {
         if (obj->priv->h_adjustment)
         {
+#if GTK_CHECK_VERSION (2,14,0)
+            gtk_adjustment_set_lower (obj->priv->h_adjustment, 0);
+            gtk_adjustment_set_upper (obj->priv->h_adjustment, gdk_pixbuf_get_width (obj->priv->disp_pixbuf));
+            gtk_adjustment_set_page_size (obj->priv->h_adjustment, GTK_WIDGET (obj)->allocation.width);
+#else
             obj->priv->h_adjustment->lower = 0;
             obj->priv->h_adjustment->upper = gdk_pixbuf_get_width (obj->priv->disp_pixbuf);
             obj->priv->h_adjustment->page_size = GTK_WIDGET (obj)->allocation.width;
-            gtk_adjustment_changed(obj->priv->h_adjustment);
+#endif
+            gtk_adjustment_changed (obj->priv->h_adjustment);
         }
         if (obj->priv->v_adjustment)
         {
+#if GTK_CHECK_VERSION (2,14,0)
+            gtk_adjustment_set_lower (obj->priv->v_adjustment, 0);
+            gtk_adjustment_set_upper (obj->priv->v_adjustment, gdk_pixbuf_get_height (obj->priv->disp_pixbuf));
+            gtk_adjustment_set_page_size (obj->priv->v_adjustment, GTK_WIDGET (obj)->allocation.height);
+#else
             obj->priv->v_adjustment->lower = 0;
             obj->priv->v_adjustment->upper = gdk_pixbuf_get_height (obj->priv->disp_pixbuf);
             obj->priv->v_adjustment->page_size = GTK_WIDGET (obj)->allocation.height;
-            gtk_adjustment_changed(obj->priv->v_adjustment);
+#endif
+            gtk_adjustment_changed (obj->priv->v_adjustment);
         }
     }
 }

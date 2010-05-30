@@ -93,17 +93,29 @@ gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *pa
                                                      GTK_STOCK_OK, GTK_RESPONSE_OK,
                                                      NULL);
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
+#endif
+
     GtkWidget *vbox, *hbox, *scrolled_window, *view, *box, *button;
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_box_set_spacing (GTK_BOX (content_area), 2);
+#else
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+#endif
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     vbox = gtk_vbox_new (FALSE, 12);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_container_add (GTK_CONTAINER (content_area), vbox);
+#else
     gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
+#endif
 
     hbox = gtk_hbox_new (FALSE, 12);
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
@@ -157,7 +169,11 @@ gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *pa
     }
 #endif
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_widget_show_all (content_area);
+#else
     gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+#endif
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

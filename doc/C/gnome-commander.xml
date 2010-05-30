@@ -6971,6 +6971,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
                     </itemizedlist>

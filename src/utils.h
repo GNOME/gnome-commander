@@ -183,8 +183,15 @@ void set_cursor_busy_for_widget (GtkWidget *widget);
 
 inline void set_cursor_default_for_widget (GtkWidget *widget)
 {
+#if GTK_CHECK_VERSION (2, 14, 0)
+    GdkWindow *window = gtk_widget_get_window (widget);
+
+    if (window)
+        gdk_window_set_cursor (window, NULL);
+#else
     if (widget->window)
         gdk_window_set_cursor (widget->window, NULL);
+#endif
 }
 
 void set_cursor_busy ();
