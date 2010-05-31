@@ -22,7 +22,6 @@
 #define __GNOME_CMD_REGEX_H__
 
 #include <glib.h>
-#include <string>
 
 #include "utils.h"
 
