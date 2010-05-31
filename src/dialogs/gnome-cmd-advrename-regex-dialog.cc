@@ -109,9 +109,9 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_container_add (GTK_CONTAINER (align), check);
 
 #if !GLIB_CHECK_VERSION (2, 14, 0)
-    box = gnome_cmd_hint_box_new (_("Some regular expressions functionality is disabled. "
-                                    "To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. "
-                                    "Please contact your package maintainer about that."));
+    GtkWidget *box = gnome_cmd_hint_box_new (_("Some regular expressions functionality is disabled. "
+                                               "To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. "
+                                               "Please contact your package maintainer about that."));
     gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), box);
 #endif
 

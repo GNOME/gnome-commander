@@ -229,7 +229,30 @@ namespace GnomeCmd
 #if GLIB_CHECK_VERSION (2, 14, 0)
         return g_regex_replace (re, s, -1, 0, replacement.c_str(), G_REGEX_MATCH_NOTEMPTY, NULL);
 #else
-        return NULL;
+        regmatch_t pmatch;
+
+        memset(&pmatch, 0, sizeof(pmatch));
+
+        std::vector<std::pair<int,int> > match;
+
+        for (const gchar *i=s; *i && regexec(&re,i,1,&pmatch,0)==0; i+=pmatch.rm_eo)
+            if (pmatch.rm_so!=pmatch.rm_eo)
+                match.push_back(std::make_pair(pmatch.rm_so,pmatch.rm_eo));
+
+        gchar *dest = (gchar *) g_malloc (strlen(s) + match.size()*replacement.size() + 1),    // allocate new string big enough to hold all data
+              *retval = dest;
+
+        for (std::vector<std::pair<int,int> >::const_iterator i=match.begin(); i!=match.end(); ++i)
+        {
+            dest += i->first;
+            src += i->second;
+            memcpy(dest, replacement.c_str(), replacement.size());
+            dest += replacement.size();
+        }
+
+        strcpy(dest, src);
+
+        return retval;
 #endif
     }
 }
