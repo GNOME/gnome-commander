@@ -6985,6 +6985,9 @@
                         <listitem>
                             <para>Fixed problem #609912 (build error with --as-needed)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #616891 (build error on RHEL 5.5)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

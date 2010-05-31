@@ -631,10 +631,6 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
             rx.push_back(r);
     }
 
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-    vector<pair<int,int> > match;
-#endif
-
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (files, &i))
     {
         GnomeCmdFile *f;
@@ -653,29 +649,8 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 
             gchar *prev_fname = fname;
 
-#if GLIB_CHECK_VERSION (2, 14, 0)
             fname = r->replace(prev_fname);
-#else
-            match.clear();
 
-            for (gchar *s=prev_fname; *s && r->match(s); s+=r->end())
-                if (r->length()>0)
-                    match.push_back(make_pair(r->start(), r->end()));
-
-            gchar *src = prev_fname;
-            gchar *dest = fname = (gchar *) g_malloc (strlen(prev_fname) + match.size()*r->to.size() + 1);    // allocate new fname big enough to hold all data
-
-            for (vector<pair<int,int> >::const_iterator i=match.begin(); i!=match.end(); ++i)
-            {
-                memcpy(dest, src, i->first);
-                dest += i->first;
-                src += i->second;
-                memcpy(dest, r->to.c_str(), r->to.size());
-                dest += r->to.size();
-            }
-
-            strcpy(dest, src);
-#endif
             g_free (prev_fname);
         }
 
