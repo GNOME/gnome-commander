@@ -796,48 +796,6 @@
         </listitem>
       </itemizedlist>
     </sect2>
-    <!-- ================ File Searching Subsection ======================= -->
-    <sect2 id="gnome-commander-search">
-        <title>Searching For Files</title>
-        <para>The file search enables you to search for files on your system.
-        To perform a basic search, you can type a filename or a partial filename, with or without wildcards.
-        To refine your search, you can apply additional search options.</para>
-
-        <para>When started, the following window is displayed:</para>
-
-        <!-- ==== Figure ==== -->
-        <figure id="search-dlg-fig">
-             <title>File Search Window</title>
-             <screenshot>
-                <mediaobject>
-                   <imageobject>
-                     <imagedata fileref="figures/gnome-commander_dialog_search.png" format="PNG"/>
-                        </imageobject>
-                   <textobject><phrase>Shows file search window.</phrase>
-                   </textobject>
-               </mediaobject>
-             </screenshot>
-           </figure>
-        <!-- ==== End of Figure ==== -->
-
-        <para>&app; searches in the directory that you specify and optionally in the subdirectories.
-        The search results are displayed in the results file list.</para>
-
-        <para>Additional options for file search include:
-        <itemizedlist>
-            <listitem>
-                <para>recursive search</para>
-            </listitem>
-            <listitem>
-                <para>search for the specified text in files</para>
-            </listitem>
-        </itemizedlist></para>
-
-        <para>Use Stop button to stop a search before &app; completes the search.</para>
-
-        <warning><para>The files in the results list are actually the original ones.
-                       If you delete a file - it is removed!</para></warning>
-    </sect2>
     <!-- ================ Symbolic Links Subsection ======================= -->
     <sect2 id="gnome-commander-symbolic-links">
       <title>Creating a Symbolic Link to a File or Folder</title>
