@@ -41,11 +41,18 @@ gboolean DEBUG_ENABLED (gchar flag);
 void DEBUG (gchar flag, const gchar *fmt, ...);
 void warn_print (const gchar *fmt, ...);
 
+void gnome_cmd_error_message (const gchar *title, GError *error);
+
 void run_command_indir (const gchar *command, const gchar *dir, gboolean term);
 
-inline void run_command (const gchar *command, gboolean term=FALSE)
+inline void run_command (const gchar *command)
 {
-    run_command_indir (command, NULL, term);
+    GError *error = NULL;
+
+    DEBUG ('g', "running: %s\n", command);
+
+    if (!g_spawn_command_line_async (command, &error))
+        gnome_cmd_error_message (command, error);
 }
 
 const char **convert_varargs_to_name_array (va_list args);
@@ -255,9 +262,6 @@ inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, cons
     gtk_dialog_run (GTK_DIALOG (dlg));
     gtk_widget_destroy (dlg);
 }
-
-
-void gnome_cmd_error_message (const gchar *title, GError *error);
 
 
 inline void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL)

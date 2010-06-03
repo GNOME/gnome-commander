@@ -6997,7 +6997,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem #540438 (no GUI message if meld cannot be executed)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

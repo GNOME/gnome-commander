@@ -22,7 +22,7 @@ gnome-commander 1.2.8.7
 ---------------
 
 Bug fixes:
- * Fixed problem ...
+ * Fixed problem #540438 (no GUI message if meld cannot be executed)
 
 
 ===================================
