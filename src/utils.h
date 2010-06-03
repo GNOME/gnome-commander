@@ -56,6 +56,7 @@ inline void run_command (const gchar *command)
 }
 
 const char **convert_varargs_to_name_array (va_list args);
+
 gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
                         GtkMessageType msg_type,
                         const char *text, const char *title, gint def_response, ...);

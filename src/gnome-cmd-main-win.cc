@@ -478,6 +478,7 @@ static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event,
     return FALSE;
 }
 
+
 static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 {
     mw->set_equal_panes();
@@ -752,6 +753,7 @@ static void class_init (GnomeCmdMainWinClass *klass)
     widget_class->map = ::map;
     klass->switch_fs = gnome_cmd_main_win_real_switch_fs;
 }
+
 
 static void init (GnomeCmdMainWin *mw)
 {
@@ -1296,7 +1298,7 @@ GnomeCmdState *GnomeCmdMainWin::get_state()
 }
 
 
-void GnomeCmdMainWin::set_cap_state (gboolean state)
+void GnomeCmdMainWin::set_cap_state(gboolean state)
 {
     gtk_widget_set_sensitive (priv->tb_cap_paste_btn, state);
 }

@@ -108,7 +108,6 @@ namespace GnomeCmd
         gchar *replace(const std::string &s)    {  return replace(s.c_str());  }
     };
 
-
     inline ReplacePattern::ReplacePattern(const gchar *from, const gchar *to, gboolean case_sensitive): FindPattern(from,case_sensitive)
     {
         if (to)  replacement = to;
