@@ -8,11 +8,12 @@ AM_CPPFLAGS = \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	$(UNIQUE_CFLAGS) \
+	$(VTE_CFLAGS) \
 	$(PYTHON_CFLAGS) \
 	-DDATADIR=\""$(datadir)"\"\
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
-bin_PROGRAMS = gnome-commander gcmd-block
+bin_PROGRAMS = gnome-commander gcmd-block gcmd-helper
 
 gnome_commander_SOURCES = \
 	cap.cc cap.h \
@@ -106,6 +107,7 @@ gnome_commander_LDADD = \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
 	$(UNIQUE_LIBS) \
+	$(VTE_LIBS) \
 	$(EXIV2_LIBS) \
 	$(TAGLIB_LIBS) \
 	$(CHM_LIBS) \
@@ -115,3 +117,5 @@ gnome_commander_LDADD = \
 	$(PYTHON_EXTRA_LIBS)
 
 gcmd_block_SOURCES = block.cc
+
+gcmd_helper_SOURCES = gcmd-helper.cc

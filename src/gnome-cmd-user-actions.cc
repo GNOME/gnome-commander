@@ -1454,6 +1454,13 @@ void view_close_tab (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
+void view_terminal (GtkMenuItem *menuitem, gpointer not_used)
+{
+    if (GTK_WIDGET_REALIZED (main_win))
+        main_win->toggle_terminal_visibility();
+}
+
+
 /************** Options Menu **************/
 void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {

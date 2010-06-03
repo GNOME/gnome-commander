@@ -21,6 +21,8 @@
 #ifndef __GNOME_CMD_MAIN_WIN_H__
 #define __GNOME_CMD_MAIN_WIN_H__
 
+#include <vte/vte.h>
+
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-cmdline.h"
@@ -67,19 +69,42 @@ struct GnomeCmdMainWin
     void set_cap_state(gboolean state);
 
     GnomeCmdCmdline *get_cmdline();
+    VteTerminal *get_terminal();
 
     void focus_file_lists();
+    void focus_cmdline();
+    void focus_terminal();
     void refocus();
+
+    void hide_panels();
+    void show_panels();
 
     void update_style();
     void update_bookmarks();
     void update_toolbar_visibility();
+    void update_panels_visibility();
+    void toggle_terminal_visibility();
     void update_cmdline_visibility();
     void update_buttonbar_visibility();
     void update_list_orientation();
 
     void add_plugin_menu(PluginData *data);
 };
+
+
+inline void GnomeCmdMainWin::update_panels_visibility ()
+{
+    if (gnome_cmd_data.terminal_visibility)
+        hide_panels();
+    else
+        show_panels();
+}
+
+inline void GnomeCmdMainWin::toggle_terminal_visibility ()
+{
+    gnome_cmd_data.terminal_visibility = !gnome_cmd_data.terminal_visibility;
+    update_panels_visibility();
+}
 
 
 GtkWidget *gnome_cmd_main_win_new ();

@@ -22,6 +22,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <glib/gstdio.h>
 #include <libgnomeui/gnome-stock-icons.h>
 
 #include "gnome-cmd-includes.h"
@@ -110,6 +111,7 @@ struct GnomeCmdMainWin::Private
     GtkWidget *cmdline_sep;
     GtkWidget *buttonbar;
     GtkWidget *buttonbar_sep;
+    GtkWidget *terminal;
 
     GtkWidget *tb_first_btn;
     GtkWidget *tb_back_btn;
@@ -696,6 +698,157 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
 }
 
 
+static char *read_file (const char *filename, size_t maxsize, size_t &size)
+{
+    struct stat statbuf;
+    if (g_stat (filename, &statbuf) != 0)
+        return NULL;
+
+    FILE *f = fopen(filename, "r");
+    if (f == NULL)
+        return NULL;
+
+    size = statbuf.st_size;
+    size = min(size, maxsize); // impose some sensible limit on file size
+
+    char *buf = (char *) g_malloc (size+1);
+    size = fread(buf, 1, size, f);
+    fclose(f);
+
+    buf[size] = 0; // just to be safe
+
+    return buf;
+}
+
+
+// the following variables are defined and used in gnome_cmd_cmdline.cc
+extern char *g_tempfile;
+extern char **g_env;
+extern bool g_command_running;
+
+
+static void on_terminal_child_exited (GtkWidget *vte, GnomeCmdMainWin *mw)
+{
+    DEBUG('g', "done\n");
+    g_command_running = FALSE;
+
+    if (!gnome_cmd_data.terminal_visibility)
+        mw->show_panels();
+
+    mw->focus_cmdline();
+
+    // read the temp file, created by gcmd_helper
+    size_t size = 0;
+    char *buf = read_file (g_tempfile, 1024*1024, size);
+    if (buf != NULL)
+    {
+        // first string is the working directory when the shell exited
+        const char *working_dir = buf;
+        char *envstrings = buf + strlen(buf) + 1;
+
+        mw->fs(ACTIVE)->goto_directory(working_dir);
+
+        // then environment variables set in the shell, in NAME=VALUE form
+        if (g_env != NULL)
+        {
+            for (char **p = g_env; *p; ++p)
+                g_free (*p);
+            g_free (g_env);
+            g_env = NULL;
+        }
+
+        // count strings
+        int n = 0;
+        for (char *s = envstrings; s < buf+size; s += strlen(s) + 1)
+            ++n;
+
+        // build new g_env[]
+        g_env = g_new (char *, n+1);
+        char *s = envstrings;
+        for (int i=0; i<n; ++i)
+        {
+            DEBUG('g', "  env[%d] @%d: '%s'\n", i, s-envstrings, s);
+            g_env[i] = g_strdup (s);
+            s += strlen(s) + 1;
+        }
+        g_env[n] = NULL;
+
+        g_free (buf);
+    }
+}
+
+
+static void on_terminal_popup_menu__copy (GtkMenuItem *menuitem, GtkWidget *vte)
+{
+    vte_terminal_copy_clipboard (VTE_TERMINAL (vte));
+}
+
+
+inline void terminal_popup_menu (GtkWidget *vte, GnomeCmdMainWin *mw, GdkEventButton *event=NULL)
+{
+    GtkWidget *menu = gtk_menu_new ();
+    GtkWidget *menuitem;
+
+    menuitem = gtk_image_menu_item_new_from_stock (GTK_STOCK_COPY, NULL);
+
+    if (vte_terminal_get_has_selection (VTE_TERMINAL (vte)))
+        g_signal_connect (menuitem, "activate", G_CALLBACK (on_terminal_popup_menu__copy), vte);
+    else
+        gtk_widget_set_sensitive (menuitem, FALSE);
+
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+
+    menuitem = gtk_menu_item_new_with_label (_("Hide terminal"));
+    g_signal_connect (menuitem, "activate", G_CALLBACK (view_terminal), NULL);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+    gtk_widget_show_all (menu);
+    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
+                    (event != NULL) ? event->button : 0, gdk_event_get_time ((GdkEvent*) event));
+}
+
+
+static gboolean on_terminal_popup_menu (GtkWidget *vte, GnomeCmdMainWin *mw)
+{
+    terminal_popup_menu (vte, mw);
+
+    return TRUE;
+}
+
+
+static gboolean on_terminal_button_pressed (GtkWidget *vte, GdkEventButton *event, GnomeCmdMainWin *mw)
+{
+    if (event->type==GDK_BUTTON_PRESS && event->button==3)
+    {
+        terminal_popup_menu (vte, mw, event);
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+
+static gboolean on_terminal_key_pressed (GtkWidget *vte, GdkEventKey *event, GnomeCmdMainWin *mw)
+{
+    if (state_is_ctrl (event->state))
+        switch (event->keyval)
+        {
+            case GDK_O:
+            case GDK_o:
+                view_terminal();
+                return TRUE;
+
+            default:
+                return FALSE;
+        }
+
+    return FALSE;
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -814,9 +967,20 @@ static void init (GnomeCmdMainWin *mw)
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
+    // GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    // gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+    // gtk_box_pack_start (GTK_BOX (mw->priv->vbox), scrolled_window, TRUE, TRUE, 0);
+
+    GtkWidget *terminal = mw->priv->terminal = vte_terminal_new ();
+    gtk_widget_ref (terminal);
+    gtk_object_set_data_full (*mw, "vbox", terminal, (GtkDestroyNotify) gtk_widget_unref);
+    // gtk_container_add (GTK_CONTAINER (scrolled_window), GTK_WIDGET (terminal));
+    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), terminal, TRUE, TRUE, 0);
+
     mw->update_toolbar_visibility();
     mw->update_cmdline_visibility();
     mw->update_buttonbar_visibility();
+    mw->update_panels_visibility();
 
     g_signal_connect (mw, "realize", G_CALLBACK (on_main_win_realize), mw);
     g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
@@ -830,6 +994,11 @@ static void init (GnomeCmdMainWin *mw)
     g_signal_connect (mw, "delete-event", G_CALLBACK (on_delete_event), mw);
     g_signal_connect (mw->priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), mw);
     g_signal_connect (mw, "window-state-event", G_CALLBACK (on_window_state_event), NULL);
+
+    g_signal_connect (terminal, "child-exited", G_CALLBACK (on_terminal_child_exited), mw);
+    g_signal_connect (terminal, "key-press-event", G_CALLBACK (on_terminal_key_pressed), mw);
+    g_signal_connect (terminal, "button-press-event", G_CALLBACK (on_terminal_button_pressed), mw);
+    g_signal_connect (terminal, "popup-menu", G_CALLBACK (on_terminal_popup_menu), mw);
 
     mw->fs(LEFT)->update_connections();
     mw->fs(RIGHT)->update_connections();
@@ -932,10 +1101,38 @@ void GnomeCmdMainWin::focus_file_lists()
 }
 
 
+void GnomeCmdMainWin::focus_cmdline()
+{
+    gtk_widget_grab_focus (priv->cmdline);
+    priv->focused_widget = priv->cmdline;
+}
+
+
+void GnomeCmdMainWin::focus_terminal()
+{
+    gtk_widget_grab_focus (priv->terminal);
+    priv->focused_widget = priv->terminal;
+}
+
+
 void GnomeCmdMainWin::refocus()
 {
     if (priv->focused_widget)
         gtk_widget_grab_focus (priv->focused_widget);
+}
+
+
+void GnomeCmdMainWin::hide_panels()
+{
+    gtk_widget_hide (priv->paned);
+    gtk_widget_show (priv->terminal);
+}
+
+
+void GnomeCmdMainWin::show_panels()
+{
+    gtk_widget_show (priv->paned);
+    gtk_widget_hide (priv->terminal);
 }
 
 
@@ -1134,6 +1331,12 @@ GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline()
 }
 
 
+VteTerminal *GnomeCmdMainWin::get_terminal()
+{
+    return VTE_TERMINAL (priv->terminal);
+}
+
+
 void GnomeCmdMainWin::update_bookmarks()
 {
     gnome_cmd_main_menu_update_bookmarks (GNOME_CMD_MAIN_MENU (priv->menubar));
@@ -1222,8 +1425,8 @@ void GnomeCmdMainWin::update_cmdline_visibility()
             pos += 2;
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->cmdline_sep, FALSE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->cmdline, FALSE, TRUE, 1);
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline_sep, pos);
-        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline, pos+1);
+        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline_sep, pos+1);
+        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->cmdline, pos+2);
     }
     else
     {
@@ -1296,7 +1499,7 @@ GnomeCmdState *GnomeCmdMainWin::get_state()
 }
 
 
-void GnomeCmdMainWin::set_cap_state (gboolean state)
+void GnomeCmdMainWin::set_cap_state(gboolean state)
 {
     gtk_widget_set_sensitive (priv->tb_cap_paste_btn, state);
 }

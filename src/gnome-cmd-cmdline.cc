@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnome/libgnome.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-combo.h"
@@ -69,6 +70,78 @@ inline void add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
     update_history_combo (cmdline);
 }
 
+char *g_tempfile = NULL;
+char **g_env = NULL;
+bool g_command_running = FALSE;
+
+static void run_in_terminal (GnomeCmdMainWin *mw, const gchar *command, const gchar *dir)
+{
+    if (strspn(command, " \t") == strlen(command))     // command empty or all whitespace
+        return;
+
+    if (g_command_running)
+    {
+        gnome_cmd_show_message (*mw, _("There was a problem with the command"), _("The previous command is still running in the terminal."));
+
+        return;
+    }
+
+    VteTerminal *terminal = mw->get_terminal();
+
+    vte_terminal_feed (terminal, "\r\n", 2);
+    vte_terminal_feed (terminal, dir, strlen(dir));
+    vte_terminal_feed (terminal, "$ ", 2);                  // "$" -> 'g_env["PS1"]'
+    vte_terminal_feed (terminal, command, strlen(command)); // XXX strlen OK utf8-wise?
+    vte_terminal_feed (terminal, "\r\n", 2);
+
+    if (g_tempfile == NULL)
+    {
+        const char *tmp_dir = getenv("TMP");
+        if (tmp_dir == NULL || tmp_dir[0] == 0)
+            tmp_dir = getenv("TEMP");
+        if (tmp_dir == NULL || tmp_dir[0] == 0)
+            tmp_dir = "/tmp";
+        g_tempfile = g_strdup_printf ("%s/gcmd-%d-XXXXXXXX", tmp_dir, (int) getpid());
+        mktemp(g_tempfile); // cannot use mkstemp() because helper prog will need to write this file
+    }
+
+    // PROBLEM WITH VTE_TERMINAL: when it receives SIGCHILD, it stops reading the pipe, so it loses the rest of the output!
+    // Workaround used here: append "; sleep 1" to the end of the command to give the terminal more time (i.e. delay SIGCHILD)
+    // Another possible workaround: steal SIGCHILD handler from VTE so it doesn't get notified...?
+
+    // if the command contains "&", bash reports "illegal token"; workaround is to put the command in parens
+    // HOWEVER, still these processes will immediately die as the shell exists; how to make them orphaned so that they survive...?
+    bool paren = command[strlen(command)-1] == '&';
+
+    // gcmd-helper will save cwd and env[] into the temp file, which we'll read afterwards
+    // gchar *full_command = g_strdup_printf ("%s%s%s; %s/bin/gcmd-helper %s; sleep 1", (paren?"(":""), command, (paren?")":""), PREFIX, g_tempfile);
+    gchar *full_command = g_strdup_printf ("%s%s%s; /home/andras/gcmd-devel/gcmd-1-3/src/gcmd-helper %s; sleep 1", (paren?"(":""), command, (paren?")":""), g_tempfile); //XXX debug
+    unlink(g_tempfile);
+
+    DEBUG('g', "running: %s\nin dir: %s\n", full_command, dir);
+
+    // from gnome-exec.c:
+    char *user_shell = gnome_util_user_shell ();
+    char *argv[4];
+    argv[0] = user_shell;
+    argv[1] = "-c";
+    argv[2] = (char *) full_command;
+    argv[3] = NULL;
+
+    pid_t command_pid = vte_terminal_fork_command (terminal, argv[0], argv, g_env, dir, TRUE, TRUE, TRUE);
+    g_free (full_command);
+
+    DEBUG('g', " pid: %d\n", (int) command_pid);
+
+    if (command_pid == -1)
+        return;  // launch failed
+
+    mw->hide_panels();
+    mw->focus_terminal(); // we'll get it back the focus when terminal emits "child-exited" signal
+
+    g_command_running = TRUE;
+}
+
 
 static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 {
@@ -105,7 +178,8 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
             {
                 gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->get_directory()));
 
-                run_command_indir (cmdline_text, fpath, term);
+                // run_command_indir (cmdline_text, fpath, term);
+                run_in_terminal (main_win, cmdline_text, fpath);
                 g_free (fpath);
             }
 
@@ -131,7 +205,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCm
             break;
     }
 
-    return gnome_cmd_cmdline_keypressed (cmdline, event) || main_win->key_pressed(event);
+    return gnome_cmd_cmdline_keypressed (cmdline, event) || !gnome_cmd_data.terminal_visibility && main_win->key_pressed(event);
 }
 
 

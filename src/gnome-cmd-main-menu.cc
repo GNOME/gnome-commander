@@ -113,6 +113,7 @@ struct GnomeCmdMainMenuPrivate
     GtkWidget *menu_view_concombo;
     GtkWidget *menu_view_buttonbar;
     GtkWidget *menu_view_cmdline;
+    GtkWidget *menu_view_terminal;
     GtkWidget *menu_view_hidden_files;
     GtkWidget *menu_view_backup_files;
     GtkWidget *menu_view_back;
@@ -657,6 +658,12 @@ static void init (GnomeCmdMainMenu *main_menu)
             NULL
         },
         {
+            MENU_TYPE_TOGGLEITEM, _("Show Terminal"), "", NULL,
+            (gpointer) view_terminal, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
+        {
             MENU_TYPE_TOGGLEITEM, _("Show Buttonbar"), "", NULL,
             (gpointer) view_buttonbar, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
@@ -847,9 +854,10 @@ static void init (GnomeCmdMainMenu *main_menu)
     main_menu->priv->menu_view_conbuttons = view_menu_uiinfo[8].widget;
     main_menu->priv->menu_view_concombo = view_menu_uiinfo[9].widget;
     main_menu->priv->menu_view_cmdline = view_menu_uiinfo[10].widget;
-    main_menu->priv->menu_view_buttonbar = view_menu_uiinfo[11].widget;
-    main_menu->priv->menu_view_hidden_files = view_menu_uiinfo[13].widget;
-    main_menu->priv->menu_view_backup_files = view_menu_uiinfo[14].widget;
+    main_menu->priv->menu_view_terminal = view_menu_uiinfo[11].widget;
+    main_menu->priv->menu_view_buttonbar = view_menu_uiinfo[12].widget;
+    main_menu->priv->menu_view_hidden_files = view_menu_uiinfo[14].widget;
+    main_menu->priv->menu_view_backup_files = view_menu_uiinfo[15].widget;
     main_menu->priv->menu_view_back = view_menu_uiinfo[0].widget;
     main_menu->priv->menu_view_forward = view_menu_uiinfo[1].widget;
 
@@ -868,6 +876,9 @@ static void init (GnomeCmdMainMenu *main_menu)
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_cmdline),
         gnome_cmd_data.cmdline_visibility);
+    gtk_check_menu_item_set_active (
+        GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_terminal),
+        gnome_cmd_data.terminal_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_hidden_files),
         !gnome_cmd_data.filter_settings.hidden);

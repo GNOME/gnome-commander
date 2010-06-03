@@ -48,6 +48,7 @@ GNOME_REQ=2.0.0
 GNOMEUI_REQ=2.4.0
 GNOMEVFS_REQ=2.0.0
 UNIQUE_REQ=0.9.3
+VTE_REQ=0.11
 PYTHON_REQ=2.5
 EXIV2_REQ=0.14
 TAGLIB_REQ=1.4
@@ -60,6 +61,7 @@ AC_SUBST(GNOME_REQ)
 AC_SUBST(GNOMEUI_REQ)
 AC_SUBST(GNOMEVFS_REQ)
 AC_SUBST(UNIQUE_REQ)
+AC_SUBST(VTE_REQ)
 AC_SUBST(PYTHON_REQ)
 AC_SUBST(EXIV2_REQ)
 AC_SUBST(TAGLIB_REQ)
@@ -195,6 +197,10 @@ fi
 
 dnl Check for libUnique
 PKG_CHECK_MODULES(UNIQUE, [ unique-1.0 >= ${UNIQUE_REQ} ])
+
+
+dnl Check for vte support
+PKG_CHECK_MODULES(VTE, vte >= $VTE_REQ)
 
 
 dnl Check for exiv2 support
@@ -443,6 +449,7 @@ echo "  gtk+     : ${GTK_VERSION}	in ${GTK_PREFIX}"
 echo "  gnome    : ${GNOME_VERSION}	in ${GNOME_PREFIX}"
 echo "  gnomeui  : ${GNOMEUI_VERSION}	in ${GNOMEUI_PREFIX}"
 echo "  gnome-vfs: ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
+echo "  vte      : ${VTE_REQ}	in ${GLIB_PREFIX}"
 if test "x$have_python" = "xyes"; then
 echo "  python   : ${PYTHON_VERSION}	in ${PY_EXEC_PREFIX}"
 fi

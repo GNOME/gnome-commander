@@ -212,6 +212,7 @@ struct GnomeCmdData
     gboolean                     concombo_visibility;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
+    gboolean                     terminal_visibility;
 
     gboolean                     use_ls_colors;
 

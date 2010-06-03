@@ -1705,6 +1705,11 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
+            case GDK_O:
+            case GDK_o:
+                view_terminal();
+                return TRUE;
+
             case GDK_V:
             case GDK_v:
                 gnome_cmd_file_selector_cap_paste (this);

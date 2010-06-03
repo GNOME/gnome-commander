@@ -930,6 +930,7 @@ GnomeCmdData::GnomeCmdData()
     concombo_visibility = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
+    terminal_visibility = FALSE;
 
     use_ls_colors = FALSE;
 
