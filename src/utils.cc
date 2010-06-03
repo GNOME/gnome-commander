@@ -640,7 +640,7 @@ static void do_mime_exec_multiple (gpointer *args)
         if (dirs.size()==1)
             run_command_indir (cmd.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
         else
-            run_command (cmd.c_str(), gnome_cmd_app_get_requires_terminal (app));
+            run_command_indir (cmd.c_str(), NULL, gnome_cmd_app_get_requires_terminal (app));
 
         g_list_free (files);
     }
@@ -1270,7 +1270,7 @@ void edit_mimetypes (const gchar *mime_type, gboolean blocking)
     if (blocking)
         system (cmd);
     else
-        run_command (cmd, FALSE);
+        run_command (cmd);
     g_free (cmd);
 }
 

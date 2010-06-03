@@ -822,7 +822,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
         gchar *cmd = g_strdup_printf (gnome_cmd_data.get_differ(), s.c_str(), "");
 
         g_print (_("running `%s'\n"), cmd);
-        run_command (cmd, FALSE);
+        run_command (cmd);
 
         g_free (cmd);
     }
@@ -848,7 +848,7 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
     gchar *cmd = g_strdup_printf (gnome_cmd_data.get_differ(), s.c_str(), "");
 
     g_print (_("running `%s'\n"), cmd);
-    run_command (cmd, FALSE);
+    run_command (cmd);
 
     g_free (cmd);
 }

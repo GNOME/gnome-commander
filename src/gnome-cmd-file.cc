@@ -755,7 +755,7 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
         case FALSE: {
                         gchar *filename = gnome_cmd_file_get_quoted_real_path (f);
                         gchar *command = g_strdup_printf (gnome_cmd_data.get_viewer(), filename);
-                        run_command (command, FALSE);
+                        run_command (command);
                         g_free (filename);
                     }
                     break;
