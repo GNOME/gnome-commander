@@ -14,6 +14,7 @@
 %define srcext .bz2
 %endif
 
+%define        vte_req               @VTE_REQ@
 %define        python_ver            @PYTHON_REQ@
 %define        exiv2_ver             @EXIV2_REQ@
 %define        taglib_ver            @TAGLIB_REQ@
@@ -60,6 +61,7 @@ Requires:         meld
 Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
 
+BuildRequires:   libvte-devel >= %{vte_req}
 BuildRequires:   python-devel >= %{python_ver}
 BuildRequires:   exiv2-devel >= %{exiv2_ver}
 BuildRequires:   taglib-devel >= %{taglib_ver}
@@ -68,6 +70,7 @@ BuildRequires:   libgsf-devel >= %{libgsf_ver}
 %endif
 BuildRequires:   poppler-devel >= %{poppler_ver}
 
+Requires:        libvte >= %{vte_req}
 Requires:        python >= %{python_ver}
 Requires:        gnome-python2-gnomevfs
 %if 0%{?fedora} >= 8
