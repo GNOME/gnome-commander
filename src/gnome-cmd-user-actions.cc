@@ -665,7 +665,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
     if (mask & GDK_SHIFT_MASK)
-        gnome_cmd_file_selector_start_editor (get_fs (ACTIVE));
+        gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
         gnome_cmd_file_list_edit (get_fl (ACTIVE));
 }
@@ -673,7 +673,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_start_editor (get_fs (ACTIVE));
+    gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
 }
 
 
