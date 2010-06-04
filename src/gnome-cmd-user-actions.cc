@@ -633,25 +633,6 @@ inline void get_file_list (string &s, GList *sfl, F f, T t)
 }
 
 
-inline void start_editor (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (GNOME_CMD_IS_DIR (fl->cwd));
-
-    if (!gnome_cmd_con_is_local (fl->con))
-        return;
-
-    // create a command with an empty argument to the editor
-    gchar *cmd = g_strdup_printf (gnome_cmd_data.get_editor(), "");
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl->cwd));
-
-    run_command_indir (cmd, dpath, FALSE);
-
-    g_free (dpath);
-    g_free (cmd);
-}
-
-
 /***************************************/
 void no_action (GtkMenuItem *menuitem, gpointer not_used)
 {
@@ -725,7 +706,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
     if (mask & GDK_SHIFT_MASK)
-        start_editor (get_fl (ACTIVE));
+        gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
         gnome_cmd_file_list_edit (get_fl (ACTIVE));
 }
@@ -733,7 +714,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 {
-    start_editor (get_fl (ACTIVE));
+    gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
 }
 
 
