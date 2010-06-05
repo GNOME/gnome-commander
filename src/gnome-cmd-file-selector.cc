@@ -51,9 +51,6 @@ struct GnomeCmdFileSelectorClass
 };
 
 
-#define FS_PBAR_MAX 50
-
-
 GtkTargetEntry drop_types [] = {
     { TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
     { TARGET_URL_TYPE, 0, TARGET_URL }
@@ -81,11 +78,6 @@ class GnomeCmdFileSelector::Private
 
     gboolean sel_first_file;
 
-    GtkWidget *con_open_dialog;
-    GtkWidget *con_open_dialog_label;
-    GtkWidget *con_open_dialog_pbar;
-    GnomeCmdCon *con_opening;
-
     gboolean autoscroll_dir;
     guint autoscroll_timeout;
     gint autoscroll_y;
@@ -101,11 +93,6 @@ inline GnomeCmdFileSelector::Private::Private()
     sel_first_file = TRUE;
     dir_history = NULL;
     sym_file = NULL;
-
-    con_open_dialog = NULL;
-    con_open_dialog_label = NULL;
-    con_open_dialog_pbar = NULL;
-    con_opening = NULL;
 
     autoscroll_dir = FALSE;
     autoscroll_timeout = 0;
@@ -1128,106 +1115,6 @@ void GnomeCmdFileSelector::set_active(gboolean value)
         gtk_clist_unselect_all (*list);
 
     gnome_cmd_dir_indicator_set_active (GNOME_CMD_DIR_INDICATOR (dir_indicator), value);
-}
-
-
-static void on_con_open_cancel (GtkButton *button, GnomeCmdFileSelector *fs)
-{
-    DEBUG('m', "on_con_open_cancel\n");
-
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (fs->priv->con_opening != NULL);
-    g_return_if_fail (fs->priv->con_opening->state == CON_STATE_OPENING);
-
-    gnome_cmd_con_cancel_open (fs->priv->con_opening);
-
-    gtk_widget_destroy (fs->priv->con_open_dialog);
-    fs->priv->con_open_dialog = NULL;
-    fs->priv->con_opening = NULL;
-}
-
-
-static gboolean update_con_open_progress (GnomeCmdFileSelector *fs)
-{
-    if (!fs->priv->con_open_dialog)
-        return FALSE;
-
-    const gchar *msg = gnome_cmd_con_get_open_msg (fs->priv->con_opening);
-    gtk_label_set_text (GTK_LABEL (fs->priv->con_open_dialog_label), msg);
-    progress_bar_update (fs->priv->con_open_dialog_pbar, FS_PBAR_MAX);
-
-    return TRUE;
-}
-
-
-static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
-{
-    DEBUG('m', "on_con_open_done\n");
-
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (fs->priv->con_opening != NULL);
-    g_return_if_fail (fs->priv->con_opening == con);
-    g_return_if_fail (fs->priv->con_open_dialog != NULL);
-
-    gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
-
-    set_connection (fs, con);
-
-    gtk_widget_destroy (fs->priv->con_open_dialog);
-    fs->priv->con_open_dialog = NULL;
-    fs->priv->con_opening = NULL;
-}
-
-
-static void on_con_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result, GnomeCmdFileSelector *fs)
-{
-    DEBUG('m', "on_con_open_failed\n");
-
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (fs->priv->con_opening != NULL);
-    g_return_if_fail (fs->priv->con_opening == con);
-    g_return_if_fail (fs->priv->con_open_dialog != NULL);
-
-    gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
-
-    if (msg)
-        gnome_cmd_show_message (NULL, msg);
-    else
-        gnome_cmd_show_message (NULL, _("Failed to open connection."), gnome_vfs_result_to_string (result));
-
-    fs->priv->con_open_dialog = NULL;
-    fs->priv->con_opening = NULL;
-}
-
-
-static void create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    fs->priv->con_open_dialog = gnome_cmd_dialog_new (NULL);
-    gtk_widget_ref (fs->priv->con_open_dialog);
-
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fs->priv->con_open_dialog),
-                                 GTK_STOCK_CANCEL,
-                                 GTK_SIGNAL_FUNC (on_con_open_cancel), fs);
-
-    GtkWidget *vbox = create_vbox (fs->priv->con_open_dialog, FALSE, 0);
-
-    fs->priv->con_open_dialog_label = create_label (fs->priv->con_open_dialog, "");
-
-    fs->priv->con_open_dialog_pbar = create_progress_bar (fs->priv->con_open_dialog);
-    gtk_progress_set_show_text (GTK_PROGRESS (fs->priv->con_open_dialog_pbar), FALSE);
-    gtk_progress_set_activity_mode (GTK_PROGRESS (fs->priv->con_open_dialog_pbar), TRUE);
-    gtk_progress_configure (GTK_PROGRESS (fs->priv->con_open_dialog_pbar), 0, 0, FS_PBAR_MAX);
-
-    gtk_box_pack_start (GTK_BOX (vbox), fs->priv->con_open_dialog_label, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), fs->priv->con_open_dialog_pbar, FALSE, TRUE, 0);
-
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (fs->priv->con_open_dialog), vbox);
-
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (fs->priv->con_open_dialog), GTK_WINDOW (main_win));
-
-    gtk_widget_show_all (fs->priv->con_open_dialog);
 }
 
 
