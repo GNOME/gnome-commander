@@ -62,6 +62,8 @@ struct GnomeCmdMainWin
 
     void switch_fs(GnomeCmdFileSelector *fs);
 
+    void set_fs_directory_to_opposite(FileSelectorID fsID);
+
     void set_equal_panes();
     GnomeCmdState *get_state();
     void set_cap_state(gboolean state);

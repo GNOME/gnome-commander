@@ -1388,25 +1388,25 @@ void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_in_left_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), LEFT);
+    main_win->set_fs_directory_to_opposite(LEFT);
 }
 
 
 void view_in_right_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), RIGHT);
+    main_win->set_fs_directory_to_opposite(RIGHT);
 }
 
 
 void view_in_active_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), ACTIVE);
+    main_win->set_fs_directory_to_opposite(ACTIVE);
 }
 
 
 void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), INACTIVE);
+    main_win->set_fs_directory_to_opposite(INACTIVE);
 }
 
 

@@ -1113,6 +1113,29 @@ void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
 }
 
 
+void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
+{
+    GnomeCmdFileSelector *fs =  this->fs(fsID);
+    GnomeCmdFileSelector *other = this->fs(!fsID);
+
+    GnomeCmdDir *dir = other->get_directory();
+    gboolean fs_is_active = fs->is_active();
+
+    if (!fs_is_active)
+    {
+        GnomeCmdFile *file = other->file_list()->get_selected_file();
+
+        if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            dir = gnome_cmd_dir_new_from_info (file->info, dir);
+    }
+
+    fs->file_list()->set_connection(other->get_connection(), dir);
+
+    other->set_active(!fs_is_active);
+    fs->set_active(fs_is_active);
+}
+
+
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));

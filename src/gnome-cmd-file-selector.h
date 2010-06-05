@@ -112,8 +112,6 @@ inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *
 GtkType gnome_cmd_file_selector_get_type ();
 GtkWidget *gnome_cmd_file_selector_new ();
 
-void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID);
-
 gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID);
 
 void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);

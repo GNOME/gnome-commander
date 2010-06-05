@@ -1118,31 +1118,6 @@ void GnomeCmdFileSelector::set_active(gboolean value)
 }
 
 
-void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID)
-{
-    g_return_if_fail (mw!=NULL);
-
-    GnomeCmdFileSelector *fs = mw->fs(fsID);
-    GnomeCmdFileSelector *other = mw->fs(!fsID);
-
-    GnomeCmdDir *dir = other->get_directory();
-    gboolean fs_is_active = fs->priv->active;
-
-    if (!fs_is_active)
-    {
-        GnomeCmdFile *f = other->file_list()->get_selected_file();
-
-        if (f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
-            dir = gnome_cmd_dir_new_from_info (f->info, dir);
-    }
-
-    set_connection (fs, other->get_connection(), dir);
-
-    other->set_active(!fs_is_active);
-    fs->set_active(fs_is_active);
-}
-
-
 void GnomeCmdFileSelector::update_connections()
 {
     if (!priv->realized)
