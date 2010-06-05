@@ -249,7 +249,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
     if (!dir)
         dir = gnome_cmd_con_get_default_dir (con);
 
-    fs->set_directory(dir);
+    fs->file_list()->set_directory(dir);
 
     if (con_change_needed)
         fs->con_combo->select_data(con);
@@ -603,7 +603,7 @@ void GnomeCmdFileSelector::goto_directory(const gchar *in_dir)
     }
 
     if (new_dir)
-        set_directory(new_dir);
+        file_list()->set_directory(new_dir);
 
     // focus the current dir when going back to the parent dir
     if (focus_dir)
@@ -626,7 +626,7 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
         if (f->is_dotdot)
             fs->goto_directory("..");
         else
-            fs->set_directory(GNOME_CMD_DIR (f));
+            fs->file_list()->set_directory(GNOME_CMD_DIR (f));
     }
 }
 
@@ -908,6 +908,8 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
         gtk_clist_select_row (*fl, 0, 0);
 
     fs->update_selected_files_label();
+
+    g_signal_emit (fs, signals[DIR_CHANGED], 0, dir);
 }
 
 
@@ -1201,43 +1203,6 @@ gboolean GnomeCmdFileSelector::can_forward()
 }
 
 
-void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    if (get_directory() == dir)
-        return;
-
-    if (priv->realized)
-    {
-        gtk_widget_set_sensitive (GTK_WIDGET (this), FALSE);
-        set_cursor_busy_for_widget (GTK_WIDGET (this));
-    }
-
-    gnome_cmd_dir_ref (dir);
-
-    if (file_list()->lwd && file_list()->lwd != dir)
-        gnome_cmd_dir_unref (file_list()->lwd);
-
-    if (file_list()->cwd)
-    {
-        gnome_cmd_dir_cancel_monitoring (file_list()->cwd);
-        file_list()->lwd = file_list()->cwd;
-        gtk_signal_disconnect_by_data (GTK_OBJECT (file_list()->lwd), this);
-        file_list()->connected_dir = NULL;
-        file_list()->lwd->voffset = gnome_cmd_clist_get_voffset (*file_list());
-    }
-
-    file_list()->cwd = dir;
-
-    g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
-    g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
-
-    gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (get_connection()));
-    gnome_cmd_dir_start_monitoring (dir);
-}
-
-
 void GnomeCmdFileSelector::set_active(gboolean value)
 {
     priv->active = value;
@@ -1437,7 +1402,7 @@ void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_
             set_directory (start_dir);
         else
             if (!gnome_cmd_con_should_remember_dir (con))
-                set_directory (gnome_cmd_con_get_default_dir (con));
+                file_list()->set_directory (gnome_cmd_con_get_default_dir (con));
         return;
     }
 

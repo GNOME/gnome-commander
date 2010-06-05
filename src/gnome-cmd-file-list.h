@@ -158,6 +158,8 @@ struct GnomeCmdFileList
 
     void invalidate_tree_size();
 
+    void set_directory(GnomeCmdDir *dir);
+
     void update_style();
 
     gboolean key_pressed(GdkEventKey *event);

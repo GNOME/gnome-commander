@@ -2379,6 +2379,58 @@ GList *GnomeCmdFileList::sort_selection(GList *list)
 }
 
 
+void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+
+    if (cwd==dir)
+        return;
+
+    if (realized && dir->state!=DIR_STATE_LISTED)
+    {
+        gtk_widget_set_sensitive (*this, FALSE);
+        set_cursor_busy_for_widget (*this);
+    }
+
+    gnome_cmd_dir_ref (dir);
+
+    if (lwd && lwd!=dir)
+        gnome_cmd_dir_unref (lwd);
+
+    if (cwd)
+    {
+        gnome_cmd_dir_cancel_monitoring (cwd);
+        lwd = cwd;
+        g_signal_handlers_disconnect_matched (lwd, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, this);
+        connected_dir = NULL;
+        lwd->voffset = gnome_cmd_clist_get_voffset (*this);
+    }
+
+    cwd = dir;
+
+    switch (dir->state)
+    {
+        case DIR_STATE_EMPTY:
+            g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
+            g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
+            gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (con));
+            break;
+
+        case DIR_STATE_LISTING:
+        case DIR_STATE_CANCELING:
+            g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
+            g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
+            break;
+
+        case DIR_STATE_LISTED:
+            g_signal_emit (this, signals[DIR_CHANGED], 0, dir);
+            break;
+    }
+
+    gnome_cmd_dir_start_monitoring (dir);
+}
+
+
 void GnomeCmdFileList::update_style()
 {
     gtk_clist_set_row_height (*this, gnome_cmd_data.list_row_height);
