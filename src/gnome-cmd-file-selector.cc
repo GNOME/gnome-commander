@@ -223,39 +223,6 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 }
 
 
-inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir=NULL)
-{
-    gboolean con_change_needed = fs->get_connection()!=con;
-
-    if (con_change_needed)
-    {
-        fs->file_list()->con = con;
-        fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
-
-        if (fs->file_list()->lwd)
-        {
-            gnome_cmd_dir_cancel_monitoring (fs->file_list()->lwd);
-            gnome_cmd_dir_unref (fs->file_list()->lwd);
-            fs->file_list()->lwd = NULL;
-        }
-        if (fs->file_list()->cwd)
-        {
-            gnome_cmd_dir_cancel_monitoring (fs->file_list()->cwd);
-            gnome_cmd_dir_unref (fs->file_list()->cwd);
-            fs->file_list()->cwd = NULL;
-        }
-    }
-
-    if (!dir)
-        dir = gnome_cmd_con_get_default_dir (con);
-
-    fs->file_list()->set_directory(dir);
-
-    if (con_change_needed)
-        fs->con_combo->select_data(con);
-}
-
-
 inline void GnomeCmdFileSelector::update_files()
 {
     GnomeCmdDir *dir = get_directory();
@@ -1334,36 +1301,6 @@ void GnomeCmdFileSelector::update_connections()
         con_combo->select_data(get_connection());
 
     create_con_buttons (this);
-}
-
-
-void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    if (get_connection() == con)
-    {
-        if (start_dir)
-            set_directory (start_dir);
-        else
-            if (!gnome_cmd_con_should_remember_dir (con))
-                file_list()->set_directory (gnome_cmd_con_get_default_dir (con));
-        return;
-    }
-
-    if (!gnome_cmd_con_is_open (con))
-    {
-        g_signal_connect (con, "open-done", G_CALLBACK (on_con_open_done), this);
-        g_signal_connect (con, "open-failed", G_CALLBACK (on_con_open_failed), this);
-        priv->con_opening = con;
-
-        create_con_open_progress_dialog (this);
-        g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_con_open_progress, this);
-
-        gnome_cmd_con_open (con);
-    }
-    else
-        ::set_connection (this, con, start_dir);
 }
 
 

@@ -104,6 +104,10 @@ struct GnomeCmdFileSelector
     gboolean key_pressed(GdkEventKey *event);
 };
 
+inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
+{
+    file_list()->set_connection(con, start_dir);
+}
 
 GtkType gnome_cmd_file_selector_get_type ();
 GtkWidget *gnome_cmd_file_selector_new ();

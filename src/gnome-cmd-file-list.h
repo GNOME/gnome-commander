@@ -158,11 +158,11 @@ struct GnomeCmdFileList
 
     void invalidate_tree_size();
 
+    void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
     void set_directory(GnomeCmdDir *dir);
+    void goto_directory(const gchar *dir);
 
     void update_style();
-
-    void goto_directory(const gchar *dir);
 
     gboolean key_pressed(GdkEventKey *event);
 };

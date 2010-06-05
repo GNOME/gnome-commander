@@ -1412,7 +1412,7 @@ void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_home (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fs (ACTIVE)->set_connection(get_home_con ());
+    get_fl (ACTIVE)->set_connection(get_home_con ());
     get_fl (ACTIVE)->goto_directory("~");
 }
 
@@ -1472,7 +1472,7 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
 {
-    get_fs (ACTIVE)->set_connection((GnomeCmdCon *) con);
+    get_fl (ACTIVE)->set_connection((GnomeCmdCon *) con);
 }
 
 

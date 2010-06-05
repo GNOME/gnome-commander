@@ -2379,6 +2379,58 @@ GList *GnomeCmdFileList::sort_selection(GList *list)
 }
 
 
+void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (new_con));
+
+    if (con==new_con)
+    {
+        if (!gnome_cmd_con_should_remember_dir (new_con))
+            set_directory (gnome_cmd_con_get_default_dir (new_con));
+        else
+            if (start_dir)
+                set_directory (start_dir);
+        return;
+    }
+
+    if (!gnome_cmd_con_is_open (new_con))
+    {
+        g_signal_connect (new_con, "open-done", G_CALLBACK (on_con_open_done), this);
+        g_signal_connect (new_con, "open-failed", G_CALLBACK (on_con_open_failed), this);
+        priv->con_opening = new_con;
+
+        create_con_open_progress_dialog (this);
+        g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_con_open_progress, this);
+
+        gnome_cmd_con_open (new_con);
+
+        return;
+    }
+
+    con = new_con;
+
+    if (lwd)
+    {
+        gnome_cmd_dir_cancel_monitoring (lwd);
+        gnome_cmd_dir_unref (lwd);
+        lwd = NULL;
+    }
+    if (cwd)
+    {
+        gnome_cmd_dir_cancel_monitoring (cwd);
+        gnome_cmd_dir_unref (cwd);
+        cwd = NULL;
+    }
+
+    if (!start_dir)
+        start_dir = gnome_cmd_con_get_default_dir (con);
+
+    g_signal_emit (this, signals[CON_CHANGED], 0, con);
+
+    set_directory(start_dir);
+}
+
+
 void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
