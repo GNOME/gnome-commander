@@ -30,6 +30,7 @@ struct GnomeCmdMainWin;
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
+#include "gnome-cmd-notebook.h"
 
 
 typedef enum
@@ -52,13 +53,11 @@ struct GnomeCmdFileSelector
     GtkWidget *con_hbox;
     GtkWidget *dir_indicator;
     GtkWidget *dir_label;
-    GtkWidget *scrolledwindow;
     GtkWidget *info_label;
     GnomeCmdCombo *con_combo;
     GtkWidget *vol_label;
 
-  private:
-
+    GnomeCmdNotebook *notebook;
     GnomeCmdFileList *list;
 
   public:
@@ -71,7 +70,8 @@ struct GnomeCmdFileSelector
     operator GtkWidget * ()                 {  return GTK_WIDGET (this);  }
     operator GtkBox * ()                    {  return GTK_BOX (this);     }
 
-    GnomeCmdFileList *&file_list()          {  return list;               }
+    GnomeCmdFileList *file_list() const     {  return list;               }
+    GnomeCmdFileList *file_list(gint n) const;
 
     GnomeCmdDir *get_directory()            {  return file_list()->cwd;   }
     void goto_directory(const gchar *dir)   {  return file_list()->goto_directory(dir);  }
@@ -92,6 +92,10 @@ struct GnomeCmdFileSelector
     gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
     gboolean is_active();
 
+    GtkWidget *new_tab(GnomeCmdDir *dir=NULL, gboolean activate=TRUE);
+    void close_tab()                        {  if (notebook->size()>1)  notebook->remove_page();   }
+    void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
+
     void show_filter();
     void update_files();
     void update_direntry();
@@ -103,6 +107,11 @@ struct GnomeCmdFileSelector
 
     gboolean key_pressed(GdkEventKey *event);
 };
+
+inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const
+{
+    return (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (notebook->page(n)));
+}
 
 inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
