@@ -165,6 +165,8 @@ struct GnomeCmdFileList
     void update_style();
 
     gboolean key_pressed(GdkEventKey *event);
+
+    void init_dnd();
 };
 
 
@@ -183,6 +185,8 @@ inline GnomeCmdFileList::GnomeCmdFileList()
     connected_dir = NULL;
 
     create_column_titles();
+
+    init_dnd();
 }
 
 inline GnomeCmdFileList::~GnomeCmdFileList()
@@ -226,9 +230,5 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
 gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
-
-
-extern GtkTargetEntry drag_types[];
-extern GtkTargetEntry drop_types[];
 
 #endif // __GNOME_CMD_FILE_LIST_H__

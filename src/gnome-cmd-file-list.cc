@@ -30,6 +30,7 @@
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-xfer.h"
 #include "gnome-cmd-patternsel-dialog.h"
 #include "imageloader.h"
 #include "cap.h"
@@ -71,11 +72,19 @@ enum
 };
 
 
-GtkTargetEntry drag_types [] = {
+static GtkTargetEntry drag_types [] =
+{
     { TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
     { TARGET_TEXT_PLAIN_TYPE, 0, TARGET_TEXT_PLAIN },
     { TARGET_URL_TYPE, 0, TARGET_URL }
 };
+
+static GtkTargetEntry drop_types [] =
+{
+    { TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
+    { TARGET_URL_TYPE, 0, TARGET_URL }
+};
+
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -152,6 +161,10 @@ class GnomeCmdFileList::Private
     GtkWidget *quicksearch_popup;
     gchar *focus_later;
 
+    gboolean autoscroll_dir;
+    guint autoscroll_timeout;
+    gint autoscroll_y;
+
     GnomeCmdCon *con_opening;
     GtkWidget *con_open_dialog;
     GtkWidget *con_open_dialog_label;
@@ -179,6 +192,10 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     right_mb_sel_state = FALSE;
     right_mb_down_file = NULL;
     right_mb_timeout_id = 0;
+
+    autoscroll_dir = FALSE;
+    autoscroll_timeout = 0;
+    autoscroll_y = 0;
 
     con_opening = NULL;
     con_open_dialog = NULL;
@@ -717,48 +734,6 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
     *file_list_len = 0;
     g_list_free (sel_files);
     return NULL;
-}
-
-
-static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
-{
-    int len;
-    GList *files;
-
-    gchar *data = (gchar *) build_selected_file_list (fl, &len);
-
-    if (!data) return;
-
-    switch (info)
-    {
-        case TARGET_URI_LIST:
-        case TARGET_TEXT_PLAIN:
-            gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) data, len);
-            break;
-
-        case TARGET_URL:
-            files = gnome_vfs_uri_list_parse (data);
-            if (files)
-                gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) files->data, strlen ((const char *) files->data));
-            g_list_foreach (files, (GFunc) g_free, NULL);
-            break;
-
-        default:
-            g_assert_not_reached ();
-    }
-
-    g_free (data);
-}
-
-
-inline void init_dnd (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gtk_drag_source_set (*fl, GDK_BUTTON1_MASK, drag_types, G_N_ELEMENTS (drag_types),
-                         (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
-
-    g_signal_connect (fl, "drag-data-get", G_CALLBACK (drag_data_get), fl);
 }
 
 
@@ -1628,8 +1603,6 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     fl->priv = new GnomeCmdFileList::Private(fl);
-
-    init_dnd (fl);
 
     g_signal_connect_after (fl, "scroll-vertical", G_CALLBACK (on_scroll_vertical), fl);
     g_signal_connect (fl, "click-column", G_CALLBACK (on_column_clicked), fl);
@@ -2684,4 +2657,298 @@ void GnomeCmdFileList::invalidate_tree_size()
         if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
             gnome_cmd_file_invalidate_tree_size (f);
     }
+}
+
+
+/******************************************************
+ * DnD functions
+ **/
+
+static gboolean do_scroll (GnomeCmdFileList *fl)
+{
+    gint w, h;
+    gint focus_row, top_row, bottom_row;
+    gint row_count;
+    guint offset;
+    gint row_height;
+    GtkCList *clist = *fl;
+
+    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+
+    offset = (0-clist->voffset);
+    row_height = gnome_cmd_data.list_row_height;
+    row_count = clist->rows;
+    focus_row = gnome_cmd_clist_get_row (*fl, 1, fl->priv->autoscroll_y);
+    top_row = gnome_cmd_clist_get_row (*fl, 1, 0);
+    bottom_row = gnome_cmd_clist_get_row (*fl, 1, h);
+
+    if (!fl->priv->autoscroll_dir)
+    {
+        if (focus_row > 0)
+            gtk_clist_moveto (clist, top_row-1, 0, 0, 0);
+        else
+            return FALSE;
+    }
+    else
+    {
+        if (focus_row < row_count)
+            gtk_clist_moveto (clist, top_row+1, 0, 0, 0);
+        else
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
+
+static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
+{
+    if (y < 0) return;
+
+    GtkCList *clist = *fl;
+    gint w, h;
+
+    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+
+    gint smin = h/8;
+    gint smax = h-smin;
+
+    if (y < smin)
+    {
+        if (fl->priv->autoscroll_timeout) return;
+        fl->priv->autoscroll_dir = FALSE;
+        fl->priv->autoscroll_y = y;
+        fl->priv->autoscroll_timeout = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) do_scroll, fl);
+    }
+    else if (y > smax)
+    {
+        if (fl->priv->autoscroll_timeout) return;
+        fl->priv->autoscroll_dir = TRUE;
+        fl->priv->autoscroll_y = y;
+        fl->priv->autoscroll_timeout = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) do_scroll, fl);
+    }
+    else
+    {
+        if (fl->priv->autoscroll_timeout)
+        {
+            g_source_remove (fl->priv->autoscroll_timeout);
+            fl->priv->autoscroll_timeout = 0;
+        }
+    }
+}
+
+
+static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
+{
+    int len;
+    GList *files;
+
+    gchar *data = (gchar *) build_selected_file_list (fl, &len);
+
+    if (!data) return;
+
+    switch (info)
+    {
+        case TARGET_URI_LIST:
+        case TARGET_TEXT_PLAIN:
+            gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) data, len);
+            break;
+
+        case TARGET_URL:
+            files = gnome_vfs_uri_list_parse (data);
+            if (files)
+                gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) files->data, strlen ((const char *) files->data));
+            g_list_foreach (files, (GFunc) g_free, NULL);
+            break;
+
+        default:
+            g_assert_not_reached ();
+    }
+
+    g_free (data);
+}
+
+
+inline void restore_drag_indicator (GnomeCmdFileList *fl)
+{
+    gnome_cmd_clist_set_drag_row (*fl, -1);
+}
+
+
+static void unref_uri_list (GList *list)
+{
+    g_return_if_fail (list != NULL);
+
+    g_list_foreach (list, (GFunc) gnome_vfs_uri_unref, NULL);
+}
+
+
+static void
+drag_data_received (GtkWidget          *widget,
+                    GdkDragContext     *context,
+                    gint                x,
+                    gint                y,
+                    GtkSelectionData   *selection_data,
+                    guint               info,
+                    guint32             time,
+                    GnomeCmdFileList   *fl)
+{
+    GtkCList *clist = *fl;
+    GnomeCmdFile *f;
+    GnomeCmdDir *to, *cwd;
+    GList *uri_list = NULL;
+    gchar *to_fn = NULL;
+    GnomeVFSXferOptions xferOptions;
+
+    // Find out what operation to perform
+    switch (context->action)
+    {
+        case GDK_ACTION_MOVE:
+            xferOptions = GNOME_VFS_XFER_REMOVESOURCE;
+            break;
+
+        case GDK_ACTION_COPY:
+            xferOptions = GNOME_VFS_XFER_RECURSIVE;
+            break;
+
+        case GDK_ACTION_LINK:
+            xferOptions = GNOME_VFS_XFER_LINK_ITEMS;
+            break;
+
+        default:
+            warn_print ("Unknown context->action in drag_data_received\n");
+            return;
+    }
+
+
+    // Find the row that the file was dropped on
+    y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
+    if (y < 0) return;
+
+    int row = gnome_cmd_clist_get_row (*fl, x, y);
+
+    // Transform the drag data to a list with uris
+    uri_list = strings_to_uris ((gchar *) selection_data->data);
+
+    if (g_list_length (uri_list) == 1)
+    {
+        GnomeVFSURI *uri = (GnomeVFSURI *) uri_list->data;
+        to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (uri), 0);
+    }
+
+    f = fl->get_file_at_row(row);
+    cwd = fl->cwd;
+
+    if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    {
+        /* The drop was over a directory in the list, which means that the
+         * xfer should be done to that directory instead of the current one in the list
+         */
+        if (strcmp (f->info->name, "..") == 0)
+            to = gnome_cmd_dir_get_parent (cwd);
+        else
+            to = gnome_cmd_dir_get_child (cwd, f->info->name);
+    }
+    else
+        to = cwd;
+
+    g_return_if_fail (GNOME_CMD_IS_DIR (to));
+
+    gnome_cmd_dir_ref (to);
+
+    // Start the xfer
+    gnome_cmd_xfer_uris_start (uri_list,
+                               to,
+                               NULL,
+                               NULL,
+                               to_fn,
+                               xferOptions,
+                               GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
+                               GTK_SIGNAL_FUNC (unref_uri_list),
+                               uri_list);
+}
+
+
+static void drag_begin (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileList *fl)
+{
+}
+
+
+static void drag_end (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileList *fl)
+{
+    restore_drag_indicator (fl);
+}
+
+
+static void drag_leave (GtkWidget *widget, GdkDragContext *context, guint time, GnomeCmdFileList *fl)
+{
+    if (fl->priv->autoscroll_timeout)
+    {
+        g_source_remove (fl->priv->autoscroll_timeout);
+        fl->priv->autoscroll_timeout = 0;
+    }
+
+    restore_drag_indicator (fl);
+}
+
+
+static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, GnomeCmdFileList *fl)
+{
+    gdk_drag_status (context, context->suggested_action, time);
+
+    GtkCList *clist = *fl;
+
+    y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
+
+    gint row = gnome_cmd_clist_get_row (*fl, x, y);
+
+    if (row > -1)
+    {
+        GnomeCmdFile *f = fl->get_file_at_row(row);
+
+        if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+            row = -1;
+
+        gnome_cmd_clist_set_drag_row (*fl, row);
+    }
+
+    autoscroll_if_appropriate (fl, x, y);
+
+    return FALSE;
+}
+
+
+static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, GnomeCmdFileList *fl)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    GList *files = fl->get_selected_files();
+    fl->remove_files(files);
+    g_list_free (files);
+}
+
+
+void GnomeCmdFileList::init_dnd()
+{
+    // Set up drag source
+    gtk_drag_source_set (*this,
+                         GDK_BUTTON1_MASK,
+                         drag_types, G_N_ELEMENTS (drag_types),
+                         (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
+
+    g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
+    g_signal_connect (this, "drag-begin", G_CALLBACK (drag_begin), this);
+    g_signal_connect (this, "drag-end", G_CALLBACK (drag_end), this);
+    g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
+    g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
+
+    // Set up drag destination
+    gtk_drag_dest_set (*this,
+                       GTK_DEST_DEFAULT_DROP,
+                       drop_types, G_N_ELEMENTS (drop_types),
+                       (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
+
+    g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
+    g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
+    g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
