@@ -406,8 +406,8 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     GnomeCmdDir *prev_dir = fs->get_directory();
-    fs->list = GNOME_CMD_FILE_LIST (gtk_bin_get_child (GTK_BIN (GNOME_CMD_NOTEBOOK (notebook)->page(n))));
 
+    fs->list = fs->file_list(n);
     fs->update_direntry();
     fs->update_selected_files_label();
     update_vol_label (fs);
@@ -550,6 +550,122 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
 }
 
 
+static int find_tab_num_at_pos (GtkNotebook *notebook, int screen_x, int screen_y)
+{
+    if (!GTK_NOTEBOOK (notebook)->first_tab)
+        return -1;
+
+    int page_num = 0;
+    GtkWidget *page;
+
+    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (GTK_NOTEBOOK (notebook));
+
+    while ((page = gtk_notebook_get_nth_page (notebook, page_num)))
+    {
+        GtkWidget *tab = gtk_notebook_get_tab_label (notebook, page);
+
+        g_return_val_if_fail (tab!=NULL, -1);
+
+        if (!GTK_WIDGET_MAPPED (GTK_WIDGET (tab)))
+        {
+            page_num++;
+            continue;
+        }
+
+        int x_root, y_root;
+
+        gdk_window_get_origin (tab->window, &x_root, &y_root);
+
+        int max_x = x_root + tab->allocation.x + tab->allocation.width;
+        int max_y = y_root + tab->allocation.y + tab->allocation.height;
+
+        if ((tab_pos == GTK_POS_TOP || tab_pos == GTK_POS_BOTTOM) && screen_x <= max_x)
+            return page_num;
+
+        if ((tab_pos == GTK_POS_LEFT || tab_pos == GTK_POS_RIGHT) && screen_y <= max_y)
+            return page_num;
+
+        page_num++;
+    }
+
+    return -1;
+}
+
+
+static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
+{
+    GnomeCmdNotebook *notebook = GNOME_CMD_NOTEBOOK (widget);
+
+    int tab_clicked;
+
+    switch (event->type)
+    {
+        case GDK_BUTTON_PRESS:
+            if (event->button!=3)
+                return FALSE;
+
+            tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
+
+            if (tab_clicked>=0)
+            {
+                // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
+
+                GtkWidget *menu = gtk_menu_new ();
+                GtkWidget *menuitem;
+
+                menuitem = gtk_menu_item_new_with_mnemonic (_("Open in New _Tab"));
+                g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fs->file_list(tab_clicked));
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+
+                menuitem = gtk_menu_item_new_with_mnemonic (_("_Refresh Tab"));
+                g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fs->file_list(tab_clicked));
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                menuitem = gtk_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
+                g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fs->file_list(tab_clicked));
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+
+                menuitem = gtk_menu_item_new_with_mnemonic (_("_Close Tab"));
+                g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), GINT_TO_POINTER (tab_clicked));
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                menuitem = gtk_menu_item_new_with_mnemonic (_("Close _All Tabs"));
+                g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_all_tabs), NULL);
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                menuitem = gtk_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
+                g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), NULL);
+                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                gtk_widget_show_all (menu);
+                gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
+            }
+
+            return TRUE;
+
+        case GDK_2BUTTON_PRESS:
+            if (event->button!=1)
+                return FALSE;
+
+            tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
+
+            if (tab_clicked>=0)
+                fs->close_tab(tab_clicked);
+            else
+                fs->new_tab(fs->get_directory());
+
+            return TRUE;
+
+        default:
+            return FALSE;
+    }
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -661,6 +777,7 @@ static void init (GnomeCmdFileSelector *fs)
     g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), fs);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
+    g_signal_connect (fs->notebook, "button-press-event", G_CALLBACK (on_notebook_button_pressed), fs);
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
@@ -1222,18 +1339,13 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (scrolled_window), *list);
 
-    gchar *label = dir ? gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)) : NULL;
+    GtkWidget *label = gtk_label_new (dir ? gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)) : NULL);
     gint n = notebook->append_page(scrolled_window, label);
 #if GTK_CHECK_VERSION (2, 10, 0)
     gtk_notebook_set_tab_reorderable (*notebook, scrolled_window, TRUE);
 #endif
 
-    // GTK_WIDGET_UNSET_FLAGS (gtk_notebook_get_tab_label (*notebook, scrolled_window), GTK_CAN_FOCUS);
-
     gtk_widget_show_all (scrolled_window);
-
-    if (activate)
-        notebook->set_current_page(n);
 
     g_signal_connect (list, "con-changed", G_CALLBACK (on_list_con_changed), this);
     g_signal_connect (list, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
@@ -1241,6 +1353,12 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 
     if (dir)
         list->set_connection(gnome_cmd_dir_get_connection (dir), dir);
+
+    if (activate)
+    {
+        notebook->set_current_page(n);
+        gtk_widget_grab_focus (*list);
+    }
 
     g_signal_connect (list, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
     g_signal_connect (list, "file-released", G_CALLBACK (on_list_file_released), this);
