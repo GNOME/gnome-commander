@@ -21,6 +21,7 @@
 #include <config.h>
 #include <gtk/gtkclipboard.h>
 #include <libgnomeui/gnome-url.h>
+#include <set>
 #include <algorithm>
 
 #include "gnome-cmd-includes.h"
@@ -195,6 +196,8 @@ static UserActionData user_actions_data[] = {
                                              {plugins_execute_python, "plugins.execute_python", N_("Execute python plugin")},
                                              {view_back, "view.back", N_("Back one directory")},
                                              {view_close_tab, "view.close_tab", N_("Close the current tab")},
+                                             {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
+                                             {view_close_duplicate_tabs, "view.close_duplicate_tabs", N_("Close duplicate tabs")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
@@ -203,8 +206,12 @@ static UserActionData user_actions_data[] = {
                                              {view_in_inactive_pane, "view.in_inactive_pane", N_("Open directory in the inactive window")},
                                              {view_in_left_pane, "view.in_left_pane", N_("Open directory in the left window")},
                                              {view_in_right_pane, "view.in_right_pane", N_("Open directory in the right window")},
+                                             {view_in_new_tab, "view.in_new_tab", N_("Open directory in the new tab")},
+                                             {view_in_inactive_tab, "view.in_inactive_tab", N_("Open directory in the new tab (inactive window)")},
                                              {view_last, "view.last", N_("Forward to the last directory")},
+                                             {view_new_tab, "view.next_tab", N_("Next tab")},
                                              {view_new_tab, "view.new_tab", N_("Open directory in a new tab")},
+                                             {view_prev_tab, "view.prev_tab", N_("Previous tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
                                              {view_root, "view.root", N_("Root directory")},
 #if 0
@@ -332,6 +339,18 @@ void GnomeCmdUserActions::init()
         register_action(GDK_CONTROL_MASK, GDK_KP_Right, "view.in_right_pane");
     }
 
+    if (!registered("view.in_new_tab"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_Up, "view.in_new_tab");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Up, "view.in_new_tab");
+    }
+
+    if (!registered("view.in_inactive_tab"))
+    {
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_Up, "view.in_inactive_tab");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KP_Up, "view.in_inactive_tab");
+    }
+
     if (!registered("view.home"))
     {
         register_action(GDK_CONTROL_MASK, GDK_quoteleft, "view.home");
@@ -352,6 +371,9 @@ void GnomeCmdUserActions::init()
 
     if (!registered("view.close_tab"))
         register_action(GDK_CONTROL_MASK, GDK_W, "view.close_tab");
+
+    if (!registered("view.close_all_tabs"))
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_W, "view.close_all_tabs");
 
     unregister(GDK_F9);                                 // unregister F9 if defined in [key-bindings]
     register_action(GDK_F9, "edit.search");             // and overwrite it with edit.search action
@@ -1374,9 +1396,10 @@ void view_last (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
+void view_refresh (GtkMenuItem *menuitem, gpointer file_list)
 {
-    get_fl (ACTIVE)->reload();
+    GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
+    fl->reload();
 }
 
 
@@ -1423,13 +1446,107 @@ void view_root (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_new_tab (GtkMenuItem *menuitem, gpointer not_used)
+void view_new_tab (GtkMenuItem *menuitem, gpointer file_list)
 {
+    GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
+    get_fs (ACTIVE)->new_tab(fl->cwd);
 }
 
 
-void view_close_tab (GtkMenuItem *menuitem, gpointer not_used)
+void view_close_tab (GtkMenuItem *menuitem, gpointer page)
 {
+    if (page)
+        get_fs (ACTIVE)->close_tab(GPOINTER_TO_INT(page));
+    else
+        get_fs (ACTIVE)->close_tab();
+}
+
+
+void view_close_all_tabs (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdNotebook *notebook = fs->notebook;
+    gint n = notebook->get_current_page();
+
+    for (gint i=notebook->size(); i--;)
+        if (i!=n)
+            notebook->remove_page(i);
+}
+
+
+void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdNotebook *notebook = fs->notebook;
+
+    typedef set<gint> TABS_COLL;
+    typedef map <GnomeCmdDir *, TABS_COLL> DIRS_COLL;
+
+    DIRS_COLL dirs;
+
+    for (gint i=notebook->size(); i--;)
+    {
+        GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (gtk_bin_get_child (GTK_BIN (notebook->page(i))));
+
+        if (fl)
+            dirs[fl->cwd].insert(i);
+    }
+
+    TABS_COLL duplicates;
+
+    DIRS_COLL::iterator pos = dirs.find(fs->get_directory());       //  find tabs with the current dir...
+
+    if (pos!=dirs.end())
+    {
+        duplicates.swap(pos->second);                               //  ... and mark them as to be closed...
+        duplicates.erase(notebook->get_current_page());             //  ... but WITHOUT the current one
+        dirs.erase(pos);
+    }
+
+    for (DIRS_COLL::const_iterator i=dirs.begin(); i!=dirs.end(); ++i)
+    {
+        TABS_COLL::iterator beg = i->second.begin();
+        copy(++beg, i->second.end(), inserter(duplicates, duplicates.begin()));   //  for every dir, leave the first tab opened
+    }
+
+    for (TABS_COLL::const_reverse_iterator i=duplicates.rbegin(); i!=duplicates.rend(); ++i)
+        notebook->remove_page(*i);
+}
+
+
+void view_prev_tab (GtkMenuItem *menuitem, gpointer not_used)
+{
+    get_fs (ACTIVE)->notebook->prev_page();
+}
+
+
+void view_next_tab (GtkMenuItem *menuitem, gpointer not_used)
+{
+    get_fs (ACTIVE)->notebook->next_page();
+}
+
+
+void view_in_new_tab (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFile *file = fs->file_list()->get_selected_file();
+
+    if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        fs->new_tab(GNOME_CMD_DIR (file), FALSE);
+    else
+        fs->new_tab(fs->get_directory(), FALSE);
+}
+
+
+void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
+{
+    GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
+    GnomeCmdFile *file = fl->get_selected_file();
+
+    if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        get_fs (INACTIVE)->new_tab(GNOME_CMD_DIR (file), FALSE);
+    else
+        get_fs (INACTIVE)->new_tab(fl->cwd, FALSE);
 }
 
 

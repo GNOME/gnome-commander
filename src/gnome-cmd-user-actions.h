@@ -296,6 +296,12 @@ GNOME_CMD_USER_ACTION(view_home);
 GNOME_CMD_USER_ACTION(view_root);
 GNOME_CMD_USER_ACTION(view_new_tab);
 GNOME_CMD_USER_ACTION(view_close_tab);
+GNOME_CMD_USER_ACTION(view_close_all_tabs);
+GNOME_CMD_USER_ACTION(view_close_duplicate_tabs);
+GNOME_CMD_USER_ACTION(view_prev_tab);
+GNOME_CMD_USER_ACTION(view_next_tab);
+GNOME_CMD_USER_ACTION(view_in_new_tab);
+GNOME_CMD_USER_ACTION(view_in_inactive_tab);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);
