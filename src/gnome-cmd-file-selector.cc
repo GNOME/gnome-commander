@@ -920,104 +920,6 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 }
 
 
-static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
-{
-    DEBUG('l', "on_dir_list_ok\n");
-
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    if (fs->priv->realized)
-    {
-        gtk_widget_set_sensitive (*fs, TRUE);
-        set_cursor_default_for_widget (*fs);
-        gtk_widget_grab_focus (GTK_WIDGET (fs->file_list()));
-    }
-
-    if (fs->file_list()->connected_dir != dir)
-    {
-        if (fs->file_list()->connected_dir != NULL)
-        {
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_created), fs);
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
-        }
-
-        g_signal_connect (dir, "file-created", G_CALLBACK (on_dir_file_created), fs);
-        g_signal_connect (dir, "file-deleted", G_CALLBACK (on_dir_file_deleted), fs);
-        g_signal_connect (dir, "file-changed", G_CALLBACK (on_dir_file_changed), fs);
-        g_signal_connect (dir, "file-renamed", G_CALLBACK (on_dir_file_renamed), fs);
-        fs->file_list()->connected_dir = dir;
-    }
-
-    if (fs->priv->dir_history && !fs->priv->dir_history->is_locked)
-    {
-        gchar *fpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
-        fs->priv->dir_history->add(fpath);
-        g_free (fpath);
-    }
-
-    gtk_signal_emit (GTK_OBJECT (fs), signals[DIR_CHANGED], dir);
-
-    fs->update_direntry();
-    update_vol_label (fs);
-
-    if (fs->get_directory() != dir) return;
-
-    fs->priv->sel_first_file = FALSE;
-    fs->update_files();
-    fs->priv->sel_first_file = TRUE;
-
-    if (!fs->priv->active)
-    {
-        GTK_CLIST (fs->file_list())->focus_row = -1;
-        gtk_clist_unselect_all (*fs->file_list());
-    }
-
-    if (fs->priv->sel_first_file && fs->priv->active)
-        gtk_clist_select_row (*fs->file_list(), 0, 0);
-
-    fs->update_selected_files_label();
-
-    DEBUG('l', "returning from on_dir_list_ok\n");
-}
-
-
-static gboolean set_home_connection (GnomeCmdFileSelector *fs)
-{
-    g_printerr ("Setting home connection\n");
-    fs->set_connection(get_home_con ());
-
-    return FALSE;
-}
-
-
-static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelector *fs)
-{
-    DEBUG('l', "on_dir_list_failed\n");
-
-    if (result != GNOME_VFS_OK)
-        gnome_cmd_show_message (NULL, _("Directory listing failed."), gnome_vfs_result_to_string (result));
-
-    gtk_signal_disconnect_by_data (GTK_OBJECT (fs->get_directory()), fs);
-    fs->file_list()->connected_dir = NULL;
-    gnome_cmd_dir_unref (fs->get_directory());
-    set_cursor_default_for_widget (GTK_WIDGET (fs));
-    gtk_widget_set_sensitive (*fs, TRUE);
-
-    if (fs->file_list()->lwd && fs->get_connection() == gnome_cmd_dir_get_connection (fs->file_list()->lwd))
-    {
-        fs->file_list()->cwd = fs->file_list()->lwd;
-        g_signal_connect (fs->file_list()->cwd, "list-ok", G_CALLBACK (on_dir_list_ok), fs);
-        g_signal_connect (fs->file_list()->cwd, "list-failed", G_CALLBACK (on_dir_list_failed), fs);
-        fs->file_list()->lwd = NULL;
-    }
-    else
-        g_timeout_add (1, (GSourceFunc) set_home_connection, fs);
-}
-
-
 // This function should only be called for input made when the file-selector was focused
 static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
@@ -1184,6 +1086,7 @@ static void init (GnomeCmdFileSelector *fs)
     g_signal_connect (fs->file_list(), "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), fs);
 
     g_signal_connect (fs->file_list(), "con-changed", G_CALLBACK (on_list_con_changed), fs);
+    g_signal_connect (fs->file_list(), "dir-changed", G_CALLBACK (on_list_dir_changed), fs);
     g_signal_connect (fs->file_list(), "files-changed", G_CALLBACK (on_list_files_changed), fs);
 
     g_signal_connect (fs->file_list(), "key-press-event", G_CALLBACK (on_list_key_pressed), fs);

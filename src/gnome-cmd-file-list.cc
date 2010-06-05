@@ -26,6 +26,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "gnome-cmd-data.h"
@@ -1339,6 +1340,78 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
         if (sort_col==GnomeCmdFileList::COLUMN_NAME || sort_col==GnomeCmdFileList::COLUMN_EXT)
             fl->sort();
     }
+}
+
+
+static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileList *fl)
+{
+    DEBUG('l', "on_dir_list_ok\n");
+
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    if (fl->realized)
+    {
+        gtk_widget_set_sensitive (*fl, TRUE);
+        set_cursor_default_for_widget (*fl);
+        gtk_widget_grab_focus (*fl);
+    }
+
+    if (fl->connected_dir!=dir)
+    {
+        if (fl->connected_dir)
+        {
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_created, fl);
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_deleted, fl);
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_changed, fl);
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_renamed, fl);
+        }
+
+        g_signal_connect (dir, "file-created", G_CALLBACK (on_dir_file_created), fl);
+        g_signal_connect (dir, "file-deleted", G_CALLBACK (on_dir_file_deleted), fl);
+        g_signal_connect (dir, "file-changed", G_CALLBACK (on_dir_file_changed), fl);
+        g_signal_connect (dir, "file-renamed", G_CALLBACK (on_dir_file_renamed), fl);
+
+        fl->connected_dir = dir;
+    }
+
+    g_signal_emit (fl, signals[DIR_CHANGED], 0, dir);
+
+    DEBUG('l', "returning from on_dir_list_ok\n");
+}
+
+
+static gboolean set_home_connection (GnomeCmdFileList *fl)
+{
+    g_printerr ("Setting home connection\n");
+    fl->set_connection(get_home_con ());
+
+    return FALSE;
+}
+
+
+static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileList *fl)
+{
+    DEBUG('l', "on_dir_list_failed\n");
+
+    if (result != GNOME_VFS_OK)
+        gnome_cmd_show_message (NULL, _("Directory listing failed."), gnome_vfs_result_to_string (result));
+
+    g_signal_handlers_disconnect_matched (fl->cwd, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, fl);
+    fl->connected_dir = NULL;
+    gnome_cmd_dir_unref (fl->cwd);
+    set_cursor_default_for_widget (*fl);
+    gtk_widget_set_sensitive (*fl, TRUE);
+
+    if (fl->lwd && fl->con == gnome_cmd_dir_get_connection (fl->lwd))
+    {
+        fl->cwd = fl->lwd;
+        g_signal_connect (fl->cwd, "list-ok", G_CALLBACK (on_dir_list_ok), fl);
+        g_signal_connect (fl->cwd, "list-failed", G_CALLBACK (on_dir_list_failed), fl);
+        fl->lwd = NULL;
+    }
+    else
+        g_timeout_add (1, (GSourceFunc) set_home_connection, fl);
 }
 
 
