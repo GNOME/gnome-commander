@@ -558,61 +558,6 @@ static void update_vol_label (GnomeCmdFileSelector *fs)
 }
 
 
-void GnomeCmdFileSelector::goto_directory(const gchar *in_dir)
-{
-    g_return_if_fail (in_dir != NULL);
-
-    GnomeCmdDir *cur_dir = get_directory();
-
-    g_return_if_fail (GNOME_CMD_IS_DIR (cur_dir));
-
-    GnomeCmdDir *new_dir = NULL;
-    const gchar *focus_dir = NULL;
-    gchar *dir;
-
-    if (g_str_has_prefix (in_dir, "~"))
-        dir = gnome_vfs_expand_initial_tilde (in_dir);
-    else
-        dir = unquote_if_needed (in_dir);
-
-    if (strcmp (dir, "..") == 0)
-    {
-        // lets get the parent directory
-        new_dir = gnome_cmd_dir_get_parent (cur_dir);
-        if (!new_dir)
-        {
-            g_free (dir);
-            return;
-        }
-        focus_dir = gnome_cmd_file_get_name (GNOME_CMD_FILE (cur_dir));
-    }
-    else
-    {
-        // check if it's an absolute address or not
-        if (dir[0] == '/')
-            new_dir = gnome_cmd_dir_new (get_connection(), gnome_cmd_con_create_path (get_connection(), dir));
-        else
-            if (g_str_has_prefix (dir, "\\\\"))
-            {
-                GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
-                if (path)
-                    new_dir = gnome_cmd_dir_new (get_smb_con (), path);
-            }
-            else
-                new_dir = gnome_cmd_dir_get_child (cur_dir, dir);
-    }
-
-    if (new_dir)
-        file_list()->set_directory(new_dir);
-
-    // focus the current dir when going back to the parent dir
-    if (focus_dir)
-        file_list()->focus_file(focus_dir, FALSE);
-
-    g_free (dir);
-}
-
-
 static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));

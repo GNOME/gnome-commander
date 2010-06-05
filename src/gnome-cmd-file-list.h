@@ -162,6 +162,8 @@ struct GnomeCmdFileList
 
     void update_style();
 
+    void goto_directory(const gchar *dir);
+
     gboolean key_pressed(GdkEventKey *event);
 };
 

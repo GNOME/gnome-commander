@@ -2461,6 +2461,57 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
 }
 
 
+void GnomeCmdFileList::goto_directory(const gchar *in_dir)
+{
+    g_return_if_fail (in_dir != NULL);
+
+    GnomeCmdDir *new_dir = NULL;
+    const gchar *focus_dir = NULL;
+    gchar *dir;
+
+    if (g_str_has_prefix (in_dir, "~"))
+        dir = gnome_vfs_expand_initial_tilde (in_dir);
+    else
+        dir = unquote_if_needed (in_dir);
+
+    if (strcmp (dir, "..") == 0)
+    {
+        // lets get the parent directory
+        new_dir = gnome_cmd_dir_get_parent (cwd);
+        if (!new_dir)
+        {
+            g_free (dir);
+            return;
+        }
+        focus_dir = gnome_cmd_file_get_name (GNOME_CMD_FILE (cwd));
+    }
+    else
+    {
+        // check if it's an absolute address or not
+        if (dir[0] == '/')
+            new_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dir));
+        else
+            if (g_str_has_prefix (dir, "\\\\"))
+            {
+                GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
+                if (path)
+                    new_dir = gnome_cmd_dir_new (get_smb_con (), path);
+            }
+            else
+                new_dir = gnome_cmd_dir_get_child (cwd, dir);
+    }
+
+    if (new_dir)
+        set_directory(new_dir);
+
+    // focus the current dir when going back to the parent dir
+    if (focus_dir)
+        focus_file(focus_dir, FALSE);
+
+    g_free (dir);
+}
+
+
 void GnomeCmdFileList::invalidate_tree_size()
 {
     for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
