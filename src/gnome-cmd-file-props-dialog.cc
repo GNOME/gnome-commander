@@ -468,7 +468,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        GnomeVFSMimeApplication *vfs_app = gnome_cmd_app_get_default_application (data->f);
+        GnomeVFSMimeApplication *vfs_app = gnome_cmd_file_get_default_application (data->f);
 
         if (vfs_app)
         {

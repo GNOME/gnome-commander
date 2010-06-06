@@ -86,9 +86,4 @@ void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_te
 
 GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app);
 
-inline GnomeVFSMimeApplication *gnome_cmd_app_get_default_application (GnomeCmdFile *f)
-{
-    return f && f->info->mime_type ? gnome_vfs_mime_get_default_application (f->info->mime_type) : NULL;
-}
-
 #endif // __GNOME_CMD_APP_H__

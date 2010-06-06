@@ -93,7 +93,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
     for (; files; files = files->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-        GnomeVFSMimeApplication *vfs_app = gnome_cmd_app_get_default_application (f);
+        GnomeVFSMimeApplication *vfs_app = gnome_cmd_file_get_default_application (f);
 
         if (vfs_app)
         {

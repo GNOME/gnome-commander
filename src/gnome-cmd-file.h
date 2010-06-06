@@ -138,4 +138,9 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f);
 void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *f);
 gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *f);
 
+inline GnomeVFSMimeApplication *gnome_cmd_file_get_default_application (GnomeCmdFile *f)
+{
+    return f && f->info->mime_type ? gnome_vfs_mime_get_default_application (f->info->mime_type) : NULL;
+}
+
 #endif // __GNOME_CMD_FILE_H__
