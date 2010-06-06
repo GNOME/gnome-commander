@@ -270,7 +270,7 @@ static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate
     string s;
 
     for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=data->f->metadata->begin(); i!=data->f->metadata->end(); ++i)
-        for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
+        for (set<string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
         {
             s += gcmd_tags_get_name(i->first);
             s += '\t';
@@ -611,7 +611,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *f)
                                 -1);
         }
 
-        for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
+        for (set<string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
         {
             GtkTreeIter child;
 

@@ -1957,7 +1957,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::AdvrenameConfig &cfg
                                        << XML::attr("width") << cfg.default_profile.counter_width << XML::endtag();
 
             xml << XML::tag("Regexes");
-            for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=cfg.default_profile.regexes.begin(); r!=cfg.default_profile.regexes.end(); ++r)
+            for (vector<GnomeCmd::ReplacePattern>::const_iterator r=cfg.default_profile.regexes.begin(); r!=cfg.default_profile.regexes.end(); ++r)
             {
                 xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
                 xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
@@ -1969,7 +1969,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::AdvrenameConfig &cfg
 
         xml << XML::endtag();
 
-        for (std::vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p)
+        for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p)
         {
             xml << XML::tag("Profile") << XML::attr("name") << p->name;
                 xml << XML::tag("Template") << XML::chardata() << XML::escape(p->template_string.empty() ? "$N" : p->template_string) << XML::endtag();
@@ -1977,7 +1977,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::AdvrenameConfig &cfg
                                            << XML::attr("step") << p->counter_step
                                            << XML::attr("width") << p->counter_width << XML::endtag();
                 xml << XML::tag("Regexes");
-                for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
+                for (vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
                 {
                     xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
                     xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
