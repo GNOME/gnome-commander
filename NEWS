@@ -7,6 +7,7 @@ Bug fixes:
  * Fixed Ubuntu problem #117226 (bookmarks unification)
 
 New features:
+ * Support for tabs
  * Revamped bookmarks dialog
  * Revamped file properties dialog
  * One instance mode
@@ -14,7 +15,10 @@ New features:
  * New or updated docs: de, en, es, fr, sl
  * New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN
  * New key bindings:
-      ...            ...
+      CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
+      CTRL+W         Close current tab
+      CTRL+TAB       Switch to the next tab
+      CTRL+SHIFT+TAB Switch to the previous tab
 
 
 ===================================

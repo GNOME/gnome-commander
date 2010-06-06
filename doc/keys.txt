@@ -99,6 +99,11 @@ CTRL+SHIFT+.    Copy the current working directory from the active file list
 CTRL+LEFT/RIGHT Copy the current working directory from the active file list
                 to the inactive one
 
+CTRL+T          Open directory in a new tab
+CTRL+W          Close current tab
+CTRL+TAB        Switch to the next tab
+CTRL+SHIFT+TAB  Switch to the previous tab
+
 CTRL+R          Refresh the active file list
 CTRL+O          Options dialog
 CTRL+SHIFT+H    Toggle hidden files on/off

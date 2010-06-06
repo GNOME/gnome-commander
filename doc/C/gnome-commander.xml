@@ -5372,6 +5372,31 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></entry>
+            <entry><para>Open directory in a new tab</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></entry>
+            <entry><para>Close current tab</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo></entry>
+            <entry><para>Switch to the next tab</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo></entry>
+            <entry><para>Switch to the previous tab</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></entry>
             <entry><para>Refresh the active file list</para></entry>
             <entry><para>yes</para></entry>
@@ -6960,6 +6985,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Support for tabs</para>
+                        </listitem>
+                        <listitem>
                             <para>Revamped bookmarks dialog</para>
                         </listitem>
                         <listitem>
@@ -6981,7 +7009,16 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycombo><keycap>...</keycap><keycap>...</keycap></keycombo>   ...</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo>   Open directory in a new tab (replaces the old Multi-Rename-Tool binding)</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>   Close current tab</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo>   Switch to the next tab</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo>   Switch to the previous tab</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
