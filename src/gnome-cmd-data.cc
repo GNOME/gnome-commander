@@ -141,7 +141,7 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 
 inline void save_connections (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), ".gnome-commander", fname, NULL);
+    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE  *fd = fopen (path, "w");
 
     if (fd)
@@ -174,7 +174,7 @@ inline void save_connections (const gchar *fname)
 
 inline void save_devices (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), ".gnome-commander", fname, NULL);
+    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "w");
 
     if (fd)
@@ -219,7 +219,7 @@ inline void save_devices (const gchar *fname)
 
 inline void save_fav_apps (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), ".gnome-commander", fname, NULL);
+    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "w");
 
     if (fd)
@@ -263,7 +263,7 @@ inline gboolean load_connections (const gchar *fname)
 {
     guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list));
 
-    gchar *path = g_build_filename (g_get_home_dir (), ".gnome-commander", fname, NULL);
+    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE  *fd = fopen (path, "r");
 
     if (fd)
@@ -605,7 +605,7 @@ inline void load_vfs_auto_devices ()
 
 inline void load_devices (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), ".gnome-commander", fname, NULL);
+    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "r");
 
     if (fd)
@@ -655,7 +655,7 @@ inline void load_devices (const gchar *fname)
 inline void load_fav_apps (const gchar *fname)
 {
     gnome_cmd_data.priv->fav_apps = NULL;
-    gchar *path = g_build_filename (g_get_home_dir (), ".gnome-commander", fname, NULL);
+    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "r");
     if (fd)
     {

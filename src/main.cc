@@ -139,7 +139,7 @@ int main (int argc, char *argv[])
     gdk_rgb_init ();
     gnome_vfs_init ();
 
-    gchar *conf_dir = g_build_filename (g_get_home_dir (), ".gnome-commander", NULL);
+    gchar *conf_dir = g_build_filename (g_get_home_dir (), "." PACKAGE, NULL);
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
 

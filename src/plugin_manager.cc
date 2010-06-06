@@ -211,7 +211,7 @@ void plugin_manager_init ()
     }
 
     // find user plugins
-    gchar *user_dir = g_build_filename (g_get_home_dir (), ".gnome-commander/plugins", NULL);
+    gchar *user_dir = g_build_filename (g_get_home_dir (), "." PACKAGE "/plugins", NULL);
     create_dir_if_needed (user_dir);
     scan_plugins_in_dir (user_dir);
     g_free (user_dir);
