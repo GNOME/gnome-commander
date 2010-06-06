@@ -445,7 +445,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GtkTreeView *
     switch (response_id)
     {
         case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-advanced-rename");
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-bookmarks");
             g_signal_stop_emission_by_name (dialog, "response");
             break;
 
