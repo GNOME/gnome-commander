@@ -1046,7 +1046,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
         }
     }
 
-    return g_build_path (G_DIR_SEPARATOR_S, tmp_dir, tmp_file_dir, fname, NULL);
+    return g_build_filename (tmp_dir, tmp_file_dir, fname, NULL);
 }
 
 
@@ -1056,7 +1056,7 @@ void remove_temp_download_dir ()
 
     if (tmp_file_dir)
     {
-        gchar *path = g_build_path (G_DIR_SEPARATOR_S, tmp_dir, tmp_file_dir, NULL);
+        gchar *path = g_build_filename (tmp_dir, tmp_file_dir, NULL);
         gchar *command = g_strdup_printf ("rm -rf %s", path);
         g_free (path);
         system (command);

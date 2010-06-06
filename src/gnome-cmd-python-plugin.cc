@@ -95,7 +95,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
                     data->name = g_strdup (ent->d_name);
                     *strchr (data->name, '.') = '\0';               // strip {.py, .pyc} off
 
-                    data->path = g_build_path (G_DIR_SEPARATOR_S, dpath, data->name, NULL);
+                    data->path = g_build_filename (dpath, data->name, NULL);
                     g_strdelimit (data->name, "_-", ' ');           // replace '[-_]' with ' '
 
                     // if there is already data->name plugin in py_plugins list ...
@@ -128,7 +128,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
 
 void python_plugin_manager_init ()
 {
-    gchar *user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander/plugins", NULL);
+    gchar *user_dir = g_build_filename (g_get_home_dir(), ".gnome-commander/plugins", NULL);
     gchar *set_plugin_path = g_strdup_printf("sys.path = ['%s', '%s'] + sys.path", user_dir, PLUGIN_DIR);
 
     DEBUG('p', "User plugin dir: %s\n", user_dir);

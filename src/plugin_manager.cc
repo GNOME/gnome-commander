@@ -173,7 +173,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
                 // the direntry has the .so extension and is a regular file, lets accept it
                 PluginData *data = g_new0 (PluginData, 1);
                 data->fname = g_strdup (ent->d_name);
-                data->fpath = g_build_path (G_DIR_SEPARATOR_S, dpath, ent->d_name, NULL);
+                data->fpath = g_build_filename (dpath, ent->d_name, NULL);
                 data->loaded = FALSE;
                 data->active = FALSE;
                 data->menu = NULL;
@@ -211,7 +211,7 @@ void plugin_manager_init ()
     }
 
     // find user plugins
-    gchar *user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander/plugins", NULL);
+    gchar *user_dir = g_build_filename (g_get_home_dir (), ".gnome-commander/plugins", NULL);
     create_dir_if_needed (user_dir);
     scan_plugins_in_dir (user_dir);
     g_free (user_dir);

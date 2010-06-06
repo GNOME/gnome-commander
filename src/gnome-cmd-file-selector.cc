@@ -986,7 +986,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
-    gchar *filepath = g_build_path (G_DIR_SEPARATOR_S, dpath, fname, NULL);
+    gchar *filepath = g_build_filename (dpath, fname, NULL);
     g_free (dpath);
     g_return_val_if_fail (filepath, TRUE);
 

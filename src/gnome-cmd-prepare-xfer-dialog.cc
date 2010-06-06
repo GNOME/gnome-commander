@@ -85,12 +85,12 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         if (!gnome_cmd_dir_is_local (dialog->default_dest_dir))
         {
             const gchar *t = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (dialog->default_dest_dir));
-            dest_path = g_build_path (G_DIR_SEPARATOR_S, t, user_path, NULL);
+            dest_path = g_build_filename (t, user_path, NULL);
         }
         else
         {
             gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->src_fs->get_directory()));
-            dest_path = g_build_path (G_DIR_SEPARATOR_S, t, user_path, NULL);
+            dest_path = g_build_filename (t, user_path, NULL);
             g_free (t);
         }
         g_free (user_path);
@@ -410,7 +410,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
             gchar *fname = get_utf8 (f->info->name);
             g_free (t);
 
-            dest_str = g_build_path (G_DIR_SEPARATOR_S, path, fname, NULL);
+            dest_str = g_build_filename (path, fname, NULL);
             if (path_points_at_directory (to, dest_str))
             {
                 g_free (dest_str);

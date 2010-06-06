@@ -1001,7 +1001,7 @@ void GnomeCmdData::free()
 
 void GnomeCmdData::load()
 {
-    gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+    gchar *xml_cfg_path = g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
     gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
     gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
@@ -1655,7 +1655,7 @@ void GnomeCmdData::save()
     save_intviewer_defaults();
 
     {
-        gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+        gchar *xml_cfg_path = g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
         ofstream f(xml_cfg_path);
         XML::xstream xml(f);

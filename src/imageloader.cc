@@ -98,14 +98,14 @@ void IMAGE_init ()
 
     for (gint i=1; i<NUM_PIXMAPS; i++)
     {
-        gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, pixmap_files[i], NULL);
+        gchar *path = g_build_filename (PIXMAPS_DIR, pixmap_files[i], NULL);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
         pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
         if (!pixmaps[i])
         {
-            gchar *path2 = g_build_path (G_DIR_SEPARATOR_S, "../pixmaps", pixmap_files[i], NULL);
+            gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], NULL);
 
             warn_print (_("Couldn't load installed file type pixmap, trying to load from source-dir\n"));
             warn_print (_("Trying to load %s instead\n"), path2);
@@ -125,13 +125,13 @@ void IMAGE_init ()
      for (gint i=0; i<NUM_FILE_TYPE_PIXMAPS; i++)
     {
         CacheEntry *e = &file_type_pixmaps[i];
-        gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
+        gchar *path = g_build_filename (PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
         if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
         {
-            gchar *path2 = g_build_path (G_DIR_SEPARATOR_S, "../pixmaps", pixmap_files[i], NULL);
+            gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], NULL);
 
             warn_print (_("Couldn't load installed pixmap, trying to load from source-dir\n"));
             warn_print (_("Trying to load %s instead\n"), path2);
@@ -223,7 +223,7 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
  */
 inline gchar *get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
 {
-    return g_build_path (G_DIR_SEPARATOR_S, icon_dir, get_type_icon_name (type), NULL);
+    return g_build_filename (icon_dir, get_type_icon_name (type), NULL);
 }
 
 
@@ -235,7 +235,7 @@ inline gchar *get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *
 inline gchar *get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
     gchar *icon_name = get_mime_icon_name (mime_type);
-    gchar *icon_path = g_build_path (G_DIR_SEPARATOR_S, icon_dir, icon_name, NULL);
+    gchar *icon_path = g_build_filename (icon_dir, icon_name, NULL);
     g_free (icon_name);
 
     return icon_path;
@@ -251,7 +251,7 @@ inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_
 {
     for (gint i=0; i<G_N_ELEMENTS(categories); i++)
         if (g_str_has_prefix (mime_type, categories[i][0]))
-            return g_build_path (G_DIR_SEPARATOR_S, icon_dir, categories[i][1], NULL);
+            return g_build_filename (icon_dir, categories[i][1], NULL);
 
     return NULL;
 }
