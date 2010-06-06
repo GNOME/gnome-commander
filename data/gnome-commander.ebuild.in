@@ -9,7 +9,7 @@ EAPI="2"
 DESCRIPTION="A full featured, dual-pane file manager for Gnome2"
 HOMEPAGE="http://www.nongnu.org/gcmd/"
 
-SRC_URI="http://ftp.gnome.org/pub/GNOME/sources/${PN}/1.2/${P}.tar.bz2";
+SRC_URI="http://ftp.gnome.org/pub/GNOME/sources/${PN}/1.4/${P}.tar.bz2";
 
 KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 
