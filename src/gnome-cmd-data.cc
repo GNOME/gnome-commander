@@ -1469,6 +1469,14 @@ void GnomeCmdData::load()
         {
             AdvrenameConfig::Profile p;
 
+            p.name = _("Audio Files");
+            p.template_string = "$T(Audio.AlbumArtist) - $T(Audio.Title).$e";
+            p.regexes.push_back(GnomeCmd::ReplacePattern("[ _]+", " ", FALSE));
+            p.regexes.push_back(GnomeCmd::ReplacePattern("[fF]eat\\.", "fr.", TRUE));
+
+            advrename_defaults.profiles.push_back(p);
+
+            p.reset();
             p.name = _("CamelCase");
             p.template_string = "$N";
             p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
