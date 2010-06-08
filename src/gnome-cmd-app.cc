@@ -213,7 +213,7 @@ void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_st
     for (gint i=0; ents[i]; ++i)
         app->priv->pattern_list = g_list_append (app->priv->pattern_list, ents[i]);
 
-    g_strfreev (ents);
+    g_free (ents);
 }
 
 
