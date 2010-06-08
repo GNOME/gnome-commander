@@ -574,7 +574,10 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr)
 
             xml << XML::endtag();
         }
+
     xml << XML::endtag();
+
+    return xml;
 }
 
 
