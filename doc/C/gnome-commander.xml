@@ -737,12 +737,12 @@
       <para>First select the item(s) you wish to move, You can then use any of the the following options.</para>
       <itemizedlist>
         <listitem>
-          <para>To copy using the menus <menuchoice><guimenu>Edit</guimenu><guimenuitem>Cut</guimenuitem></menuchoice> ,then select the location where you want to copy the selection and select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>.
+          <para>To move using the menus <menuchoice><guimenu>Edit</guimenu><guimenuitem>Cut</guimenuitem></menuchoice>, then select the location where you want to copy the selection and select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></menuchoice>.
           </para>
         </listitem>
         <listitem>
-          <para>To copy the selection from one pane to the other using the mouse you can also right click on the
-   	       selected items in the menu select <guimenuitem>Cut</guimenuitem> then in the chosen location Right
+          <para>To move the selection from one pane to the other using the mouse you can also right click on the
+   	       selected items in the menu select <guimenuitem>Cut</guimenuitem> then in the chosen location right
    	       click in an empty area and select <guimenuitem>Paste</guimenuitem> in the drop down menu.
           </para>
         </listitem>
@@ -756,11 +756,11 @@
           to the other pane and press the <keycap>SHIFT</keycap> while releasing the left mouse button.</para>
         </listitem>
         <listitem>
-          <para>To copy the selection from one pane to the other can simply press <keycap>F6</keycap>.</para>
+          <para>To move the selection from one pane to the other can simply press <keycap>F6</keycap>.</para>
         </listitem>
       </itemizedlist>
       <note>
-        <para>The first Three options will allow you to copy into another application than &app;.</para>
+        <para>The first Three options will allow you to move into another application than &app;.</para>
       </note>
     </sect2>
     <!-- ================ Renaming Files Subsection ======================= -->
