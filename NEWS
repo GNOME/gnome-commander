@@ -4,6 +4,7 @@ gnome-commander 1.2.8.7
 
 Bug fixes:
  * Fixed problem #540438 (no GUI message if meld cannot be executed)
+ * Fixed problem #620650 (buffer overflow in load_fav_apps())
 
 
 ===================================
