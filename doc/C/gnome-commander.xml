@@ -7015,6 +7015,9 @@
                                     <para><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>   Close current tab</para>
                                 </listitem>
                                 <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></keycombo>   Close all tabs</para>
+                                </listitem>
+                                <listitem>
                                     <para><keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo>   Switch to the next tab</para>
                                 </listitem>
                                 <listitem>

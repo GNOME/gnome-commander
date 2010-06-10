@@ -101,6 +101,7 @@ CTRL+LEFT/RIGHT Copy the current working directory from the active file list
 
 CTRL+T          Open directory in a new tab
 CTRL+W          Close current tab
+CTRL+SHIFT+W    Close all tabs
 CTRL+TAB        Switch to the next tab
 CTRL+SHIFT+TAB  Switch to the previous tab
 
