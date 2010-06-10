@@ -238,7 +238,7 @@ inline void save_fav_apps (const gchar *fname)
                 gint handles_multiple = gnome_cmd_app_get_handles_multiple (app);
                 gint requires_terminal = gnome_cmd_app_get_requires_terminal (app);
 
-                fprintf (fd, "%s %s %s %d %s %d %d %d\n",
+                fprintf (fd, "%s\t%s\t%s\t%d\t%s\t%d\t%d\t%d\n",
                          name, cmd, icon_path,
                          target, pattern_string,
                          handles_uris, handles_multiple, requires_terminal);
@@ -656,47 +656,42 @@ inline void load_fav_apps (const gchar *fname)
 {
     gnome_cmd_data.priv->fav_apps = NULL;
     gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    FILE *fd = fopen (path, "r");
-    if (fd)
+
+    ifstream f(path);
+    string line;
+
+    while (getline(f,line))
     {
-        int ret;
-        gchar name[256], cmd[256], icon_path[256], pattern_string[256];
-        gint target, handles_uris, handles_multiple, requires_terminal;
+        gchar **a = g_strsplit_set (line.c_str()," \t",-1);
 
-        do
+        if (g_strv_length (a)==8)
         {
-            ret = fscanf (fd, "%s %s %s %d %s %d %d %d\n",
-                          name, cmd, icon_path,
-                          &target, pattern_string,
-                          &handles_uris, &handles_multiple, &requires_terminal);
+            guint target, handles_uris, handles_multiple, requires_terminal;
 
-            if (ret == 8)
+            if (string2uint (a[3], target) &&
+                string2uint (a[5], handles_uris) &&
+                string2uint (a[6], handles_multiple) &&
+                string2uint (a[7], requires_terminal))
             {
-                gchar *name2      = gnome_vfs_unescape_string (name, NULL);
-                gchar *cmd2       = gnome_vfs_unescape_string (cmd, NULL);
-                gchar *icon_path2 = gnome_vfs_unescape_string (icon_path, NULL);
-                gchar *pattern_string2 = gnome_vfs_unescape_string (pattern_string, NULL);
+                gchar *name      = gnome_vfs_unescape_string (a[0], NULL);
+                gchar *cmd       = gnome_vfs_unescape_string (a[1], NULL);
+                gchar *icon_path = gnome_vfs_unescape_string (a[2], NULL);
+                gchar *pattern   = gnome_vfs_unescape_string (a[4], NULL);
 
                 gnome_cmd_data.priv->fav_apps = g_list_append (
                     gnome_cmd_data.priv->fav_apps,
                     gnome_cmd_app_new_with_values (
-                        name2, cmd2, icon_path2,
-                        (AppTarget) target, pattern_string2,
-                        handles_uris, handles_multiple, requires_terminal));
+                        name, cmd, icon_path, (AppTarget) target, pattern, handles_uris, handles_multiple, requires_terminal));
 
-                g_free (name2);
-                g_free (cmd2);
-                g_free (icon_path2);
-                g_free (pattern_string2);
+                g_free (name);
+                g_free (cmd);
+                g_free (icon_path);
+                g_free (pattern);
             }
         }
-        while (ret == 8);
 
-        fclose (fd);
+        g_strfreev (a);
     }
-    else
-        if (errno != ENOENT)
-            warn_print ("Failed to open the file %s for reading\n", path);
 
     g_free (path);
 }
