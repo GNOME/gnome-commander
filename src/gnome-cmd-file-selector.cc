@@ -601,51 +601,62 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
     switch (event->type)
     {
         case GDK_BUTTON_PRESS:
-            if (event->button!=3)
-                return FALSE;
-
-            tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
-
-            if (tab_clicked>=0)
+            switch (event->button)
             {
-                // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
+                case 2:
+                    tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
 
-                GtkWidget *menu = gtk_menu_new ();
-                GtkWidget *menuitem;
+                    if (tab_clicked>=0)
+                        fs->close_tab(tab_clicked);
 
-                menuitem = gtk_menu_item_new_with_mnemonic (_("Open in New _Tab"));
-                g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fs->file_list(tab_clicked));
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                    return tab_clicked>=0;
 
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+                case 3:
+                    tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
 
-                menuitem = gtk_menu_item_new_with_mnemonic (_("_Refresh Tab"));
-                g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fs->file_list(tab_clicked));
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                    if (tab_clicked>=0)
+                    {
+                        // notebook->set_current_page(tab_clicked);    // switch to the page the mouse is over
 
-                menuitem = gtk_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
-                g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fs->file_list(tab_clicked));
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        GtkWidget *menu = gtk_menu_new ();
+                        GtkWidget *menuitem;
 
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+                        menuitem = gtk_menu_item_new_with_mnemonic (_("Open in New _Tab"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fs->file_list(tab_clicked));
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
-                menuitem = gtk_menu_item_new_with_mnemonic (_("_Close Tab"));
-                g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), GINT_TO_POINTER (tab_clicked));
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
-                menuitem = gtk_menu_item_new_with_mnemonic (_("Close _All Tabs"));
-                g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_all_tabs), NULL);
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        menuitem = gtk_menu_item_new_with_mnemonic (_("_Refresh Tab"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fs->file_list(tab_clicked));
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
-                menuitem = gtk_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
-                g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), NULL);
-                gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+                        menuitem = gtk_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fs->file_list(tab_clicked));
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
-                gtk_widget_show_all (menu);
-                gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
+
+                        menuitem = gtk_menu_item_new_with_mnemonic (_("_Close Tab"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), GINT_TO_POINTER (tab_clicked));
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                        menuitem = gtk_menu_item_new_with_mnemonic (_("Close _All Tabs"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_all_tabs), NULL);
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                        menuitem = gtk_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), NULL);
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+                        gtk_widget_show_all (menu);
+                        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
+                    }
+                    return TRUE;
+
+                default:
+                    return FALSE;
             }
-
-            return TRUE;
 
         case GDK_2BUTTON_PRESS:
             if (event->button!=1)
