@@ -75,7 +75,6 @@ struct GnomeCmdNotebook
     void next_page();
 };
 
-
 inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *label)
 {
     if (size()==1)
@@ -83,14 +82,12 @@ inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *la
     return gtk_notebook_insert_page (*this, page, label, n);
 }
 
-
 inline void GnomeCmdNotebook::remove_page(gint n)
 {
     gtk_notebook_remove_page (*this, n);
     if (size()<2)
         gtk_notebook_set_show_tabs (*this, FALSE);
 }
-
 
 inline void GnomeCmdNotebook::prev_page()
 {
@@ -100,7 +97,6 @@ inline void GnomeCmdNotebook::prev_page()
         if (size()>1)
             set_current_page(-1);
 }
-
 
 inline void GnomeCmdNotebook::next_page()
 {
