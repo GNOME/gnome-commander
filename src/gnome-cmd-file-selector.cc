@@ -550,48 +550,6 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
 }
 
 
-static int find_tab_num_at_pos (GtkNotebook *notebook, int screen_x, int screen_y)
-{
-    if (!GTK_NOTEBOOK (notebook)->first_tab)
-        return -1;
-
-    int page_num = 0;
-    GtkWidget *page;
-
-    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (GTK_NOTEBOOK (notebook));
-
-    while ((page = gtk_notebook_get_nth_page (notebook, page_num)))
-    {
-        GtkWidget *tab = gtk_notebook_get_tab_label (notebook, page);
-
-        g_return_val_if_fail (tab!=NULL, -1);
-
-        if (!GTK_WIDGET_MAPPED (GTK_WIDGET (tab)))
-        {
-            page_num++;
-            continue;
-        }
-
-        int x_root, y_root;
-
-        gdk_window_get_origin (tab->window, &x_root, &y_root);
-
-        int max_x = x_root + tab->allocation.x + tab->allocation.width;
-        int max_y = y_root + tab->allocation.y + tab->allocation.height;
-
-        if ((tab_pos == GTK_POS_TOP || tab_pos == GTK_POS_BOTTOM) && screen_x <= max_x)
-            return page_num;
-
-        if ((tab_pos == GTK_POS_LEFT || tab_pos == GTK_POS_RIGHT) && screen_y <= max_y)
-            return page_num;
-
-        page_num++;
-    }
-
-    return -1;
-}
-
-
 static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     GnomeCmdNotebook *notebook = GNOME_CMD_NOTEBOOK (widget);
@@ -604,7 +562,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
             switch (event->button)
             {
                 case 2:
-                    tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
+                    tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
 
                     if (tab_clicked>=0)
                         fs->close_tab(tab_clicked);
@@ -612,7 +570,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                     return tab_clicked>=0;
 
                 case 3:
-                    tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
+                    tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
 
                     if (tab_clicked>=0)
                     {
@@ -662,7 +620,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
             if (event->button!=1)
                 return FALSE;
 
-            tab_clicked = find_tab_num_at_pos (*notebook, event->x_root, event->y_root);
+            tab_clicked = notebook->find_tab_num_at_pos(event->x_root, event->y_root);
 
             if (tab_clicked>=0)
                 fs->close_tab(tab_clicked);

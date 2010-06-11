@@ -73,6 +73,8 @@ struct GnomeCmdNotebook
 
     void prev_page();
     void next_page();
+
+    int find_tab_num_at_pos(gint screen_x, gint screen_y);
 };
 
 inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *label)

@@ -80,3 +80,38 @@ static void gnome_cmd_notebook_class_init (GnomeCmdNotebookClass *klass)
 
     object_class->finalize = gnome_cmd_notebook_finalize;
 }
+
+
+int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y)
+{
+    if (!GTK_NOTEBOOK (this)->first_tab)
+        return -1;
+
+    GtkPositionType tab_pos = gtk_notebook_get_tab_pos (*this);
+    GtkWidget *page;
+
+    for (int page_num=0; (page=GnomeCmdNotebook::page(page_num)); ++page_num)
+    {
+        GtkWidget *tab = gtk_notebook_get_tab_label (*this, page);
+
+        g_return_val_if_fail (tab!=NULL, -1);
+
+        if (!GTK_WIDGET_MAPPED (GTK_WIDGET (tab)))
+            continue;
+
+        gint x_root, y_root;
+
+        gdk_window_get_origin (tab->window, &x_root, &y_root);
+
+        int max_x = x_root + tab->allocation.x + tab->allocation.width;
+        int max_y = y_root + tab->allocation.y + tab->allocation.height;
+
+        if ((tab_pos == GTK_POS_TOP || tab_pos == GTK_POS_BOTTOM) && screen_x <= max_x)
+            return page_num;
+
+        if ((tab_pos == GTK_POS_LEFT || tab_pos == GTK_POS_RIGHT) && screen_y <= max_y)
+            return page_num;
+    }
+
+    return -1;
+}
