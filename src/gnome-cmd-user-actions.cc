@@ -209,7 +209,7 @@ static UserActionData user_actions_data[] = {
                                              {view_in_new_tab, "view.in_new_tab", N_("Open directory in the new tab")},
                                              {view_in_inactive_tab, "view.in_inactive_tab", N_("Open directory in the new tab (inactive window)")},
                                              {view_last, "view.last", N_("Forward to the last directory")},
-                                             {view_new_tab, "view.next_tab", N_("Next tab")},
+                                             {view_next_tab, "view.next_tab", N_("Next tab")},
                                              {view_new_tab, "view.new_tab", N_("Open directory in a new tab")},
                                              {view_prev_tab, "view.prev_tab", N_("Previous tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
