@@ -92,13 +92,12 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
     {
         // left click - work out the path
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
-        gchar *chTo = (gchar *) g_malloc (strlen(labelText)+1);
+        gchar *chTo = g_strdup (labelText);
         gint x = (gint) event->x;
 
         for (gint i=0; i < indicator->priv->numPositions; ++i)
             if (x < indicator->priv->slashPixelPosition[i])
             {
-                strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
                 chTo[indicator->priv->slashCharPosition[i]] = 0;
                 main_win->switch_fs(fs);
                 fs->goto_directory(chTo);
@@ -320,7 +319,7 @@ static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell,
 }
 
 
-static void popup_dir_history (GnomeCmdDirIndicator *indicator)
+void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 {
     if (indicator->priv->dir_history_popup) return;
 
@@ -377,7 +376,7 @@ static void on_bookmarks_manage (GtkMenuItem *item, GnomeCmdDirIndicator *indica
 }
 
 
-inline void popup_bookmarks (GnomeCmdDirIndicator *indicator)
+void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 {
     if (indicator->priv->bookmark_popup) return;
 
@@ -594,16 +593,4 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
 void gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value)
 {
     // FIXME: Do something creative here
-}
-
-
-void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
-{
-    popup_dir_history (indicator);
-}
-
-
-void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
-{
-    popup_bookmarks (indicator);
 }
