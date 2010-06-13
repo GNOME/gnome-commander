@@ -88,22 +88,21 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
-    if (event->type == GDK_BUTTON_PRESS && event->button == 1)
+    if (event->type==GDK_BUTTON_PRESS && event->button==1)
     {
         // left click - work out the path
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
-        gchar *chTo = g_strdup(labelText);
+        gchar *chTo = (gchar *) g_malloc (strlen(labelText)+1);
         gint x = (gint) event->x;
 
-        for (gint i = 0; i < indicator->priv->numPositions; i++)
+        for (gint i=0; i < indicator->priv->numPositions; ++i)
             if (x < indicator->priv->slashPixelPosition[i])
             {
                 strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
-                chTo[indicator->priv->slashCharPosition[i]] = 0x0;
+                chTo[indicator->priv->slashCharPosition[i]] = 0;
                 main_win->switch_fs(fs);
                 fs->goto_directory(chTo);
-                g_free (chTo);
-                return TRUE;
+                break;
             }
 
         // pointer is after directory name - just return

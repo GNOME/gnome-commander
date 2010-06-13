@@ -502,7 +502,6 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
         {
             GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
             fs->set_connection(con, dir);
-
         }
         else
         {

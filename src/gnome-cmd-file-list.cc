@@ -2783,15 +2783,7 @@ static void unref_uri_list (GList *list)
 }
 
 
-static void
-drag_data_received (GtkWidget          *widget,
-                    GdkDragContext     *context,
-                    gint                x,
-                    gint                y,
-                    GtkSelectionData   *selection_data,
-                    guint               info,
-                    guint32             time,
-                    GnomeCmdFileList   *fl)
+static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
 {
     GtkCList *clist = *fl;
     GnomeCmdFile *f;
