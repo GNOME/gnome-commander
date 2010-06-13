@@ -5382,6 +5382,11 @@
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></keycombo></entry>
+            <entry><para>Close all tabs</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo></entry>
             <entry><para>Switch to the next tab</para></entry>
             <entry><para></para></entry>
@@ -5696,13 +5701,13 @@
                     <row valign="top">
                         <entry><para>edit.search</para></entry>
                         <entry><para>File search</para></entry>
-                        <entry><para><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></para>
+                               <para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>file.advrename</para></entry>
                         <entry><para>Multi-Rename-Tool</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></para>
-                               <para><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>file.chmod</para></entry>
@@ -5894,6 +5899,21 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.close_tab</para></entry>
+                        <entry><para>Close the current tab</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.close_all_tabs</para></entry>
+                        <entry><para>Close all tabs</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.close_duplicate_tabs</para></entry>
+                        <entry><para>Close duplicate tabs</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.equal_panes</para></entry>
                         <entry><para>Set equal panes (50/50)</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para></entry>
@@ -5935,8 +5955,33 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.in_new_tab</para></entry>
+                        <entry><para>Open directory in the new tab</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.in_inactive_tab</para></entry>
+                        <entry><para>Open directory in the new tab (inactive window)</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.last</para></entry>
                         <entry><para>Go forward to the last visited directory</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.next_tab</para></entry>
+                        <entry><para>Next tab</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.new_tab</para></entry>
+                        <entry><para>Open directory in a new tab</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.prev_tab</para></entry>
+                        <entry><para>Previous tab</para></entry>
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
