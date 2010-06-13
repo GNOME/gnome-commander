@@ -856,13 +856,11 @@ gboolean GnomeCmdFileSelector::can_forward()
 
 void GnomeCmdFileSelector::set_active(gboolean value)
 {
-    GnomeCmdFileList *list = file_list();
-
     priv->active = value;
 
     if (value)
     {
-        gtk_widget_grab_focus (*file_list());
+        gtk_widget_grab_focus (*list);
         list->select_row(GTK_CLIST (list)->focus_row);
     }
     else
