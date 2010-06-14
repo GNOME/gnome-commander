@@ -113,7 +113,7 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
 
 inline void GnomeCmdFileSelector::update_selected_files_label()
 {
-    GList *all_files = file_list()->get_visible_files();
+    GList *all_files = list->get_visible_files();
 
     if (!all_files)
         return;
@@ -154,7 +154,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
         }
     }
 
-    for (GList *i = file_list()->get_marked_files(); i; i = i->next)
+    for (GList *i = list->get_marked_files(); i; i = i->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
@@ -202,13 +202,13 @@ inline void GnomeCmdFileSelector::update_files()
     GnomeCmdDir *dir = get_directory();
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    file_list()->show_files(dir);
-    gnome_cmd_clist_set_voffset (*file_list(), get_directory()->voffset);
+    list->show_files(dir);
+    gnome_cmd_clist_set_voffset (*list, get_directory()->voffset);
 
     if (priv->realized)
         update_selected_files_label();
     if (priv->active)
-        file_list()->select_row(0);
+        list->select_row(0);
 }
 
 
@@ -243,12 +243,12 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        fs->file_list()->invalidate_tree_size();
+        fs->list->invalidate_tree_size();
 
         if (f->is_dotdot)
             fs->goto_directory("..");
         else
-            fs->file_list()->set_directory(GNOME_CMD_DIR (f));
+            fs->list->set_directory(GNOME_CMD_DIR (f));
     }
 }
 
@@ -927,7 +927,7 @@ gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
 void GnomeCmdFileSelector::update_style()
 {
     con_combo->update_style();
-    file_list()->update_style();
+    list->update_style();
 
     if (priv->realized)
         update_files();
@@ -1065,12 +1065,12 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_Left:
                 back();
-                stop_kp (*file_list());
+                stop_kp (*list);
                 return TRUE;
 
             case GDK_Right:
                 forward();
-                stop_kp (*file_list());
+                stop_kp (*list);
                 return TRUE;
         }
     }
@@ -1093,7 +1093,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Page_Down:
-                f = file_list()->get_selected_file();
+                f = list->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (this, f);
                 return TRUE;
@@ -1120,10 +1120,10 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_Right:
             case GDK_KP_Right:
-                f = file_list()->get_selected_file();
+                f = list->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (this, f);
-                stop_kp (*file_list());
+                stop_kp (*list);
                 return TRUE;
 
             case GDK_Return:
@@ -1132,7 +1132,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                     && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
                     gnome_cmd_cmdline_exec (main_win->get_cmdline());
                 else
-                    do_file_specific_action (this, file_list()->get_focused_file());
+                    do_file_specific_action (this, list->get_focused_file());
                 return TRUE;
 
             case GDK_Escape:

@@ -73,8 +73,8 @@ struct GnomeCmdFileSelector
     GnomeCmdFileList *file_list() const     {  return list;               }
     GnomeCmdFileList *file_list(gint n) const;
 
-    GnomeCmdDir *get_directory()            {  return file_list()->cwd;   }
-    void goto_directory(const gchar *dir)   {  return file_list()->goto_directory(dir);  }
+    GnomeCmdDir *get_directory()            {  return list->cwd;          }
+    void goto_directory(const gchar *dir)   {  return list->goto_directory(dir);  }
 
     void first();
     void back();
