@@ -1295,7 +1295,11 @@ gboolean GnomeCmdFileSelector::is_active()
 GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 {
     // create the list
-    list = new GnomeCmdFileList;
+    GnomeCmdFileList *list = new GnomeCmdFileList;
+
+    if (activate)
+        this->list = list;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
+
     list->update_style();
 
     // hide dir column
