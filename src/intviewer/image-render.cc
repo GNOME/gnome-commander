@@ -358,9 +358,6 @@ static void image_render_realize (GtkWidget *widget)
     ImageRender *obj = IMAGE_RENDER (widget);
 
     GdkWindowAttr attributes;
-#if GTK_CHECK_VERSION (2,14,0)
-    GdkWindow *window = gtk_widget_get_window (widget);
-#endif
 
     attributes.x = widget->allocation.x;
     attributes.y = widget->allocation.y;
@@ -376,17 +373,16 @@ static void image_render_realize (GtkWidget *widget)
     attributes.colormap = gtk_widget_get_colormap (widget);
 
     gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
-    widget->window = gdk_window_new (widget->parent->window, &attributes, attributes_mask);
 
-#if GTK_CHECK_VERSION (2,14,0)
+    GdkWindow *window = gdk_window_new (widget->parent->window, &attributes, attributes_mask);
+#if GTK_CHECK_VERSION (2,18,0)
+    gtk_widget_set_window (widget, window);
+#else
+    widget->window = window;
+#endif
     widget->style = gtk_style_attach (widget->style, window);
     gdk_window_set_user_data (window, widget);
     gtk_style_set_background (widget->style, window, GTK_STATE_ACTIVE);
-#else
-    widget->style = gtk_style_attach (widget->style, widget->window);
-    gdk_window_set_user_data (widget->window, widget);
-    gtk_style_set_background (widget->style, widget->window, GTK_STATE_ACTIVE);
-#endif
 
     // image_render_prepare_disp_pixbuf (obj);
     if (!obj->priv->scaled_pixbuf_loaded)
