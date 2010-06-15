@@ -809,7 +809,7 @@
       <para>Navigate to the location where you want to create the new folder.</para>
       <itemizedlist>
         <listitem>
-          <para>Press the <keycap>F7</keycap> in the dialog box that is then opened name the new folder.</para>
+          <para>Press the <keycap>F7</keycap>, in the dialog box that is then opened name the new folder.</para>
         </listitem>
         <listitem>
           <para>Using the mouse right click in an empty area of the pane, in the drop down menu select <menuchoice><guimenu>New</guimenu><guimenu>Folder</guimenu></menuchoice>, then type the folder name in the dialog box that is opened.</para>
@@ -855,8 +855,10 @@
         To perform a basic search, you can type a file name or a partial file name, with or without wild cards.
         To refine your search, you can apply additional search options.</para>
       <para>To start the search you can use the following methods:
-			<itemizedlist><listitem><para>Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search.
-				</guibutton></para></listitem><listitem><para>Use the <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>.</para></listitem><listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search
+			<itemizedlist>
+				<listitem><para>Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search</guibutton>.</para></listitem>
+				<listitem><para>Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>.</para></listitem>
+				<listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search
 				</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
       <para>When started, the following window is displayed:</para>
       <!-- ==== Figure ==== -->
@@ -1077,12 +1079,12 @@
     <!-- ================ Bookmarks Subsection ======================= -->
     <sect2 id="gnome-commander-bookmarks">
       <title>Using Bookmarks</title>
-      <para>You can use bookmark to speed up navigation, within your local files or to
+      <para>You can use bookmarks to speed up navigation within your local files or to
        access remote servers.</para>
       <para>To add a folder to the bookmarks, navigate to the folder&apos;s location
        in the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this directory</guimenu></menuchoice>.</para>
-      <para>Managing your bookmarks can be done with the bookmark manager.</para>
-      <para>To start the bookmark manager select the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press the <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></para>
+      <para>Managing your bookmarks is done with the bookmark manager.</para>
+      <para>To start the bookmark manager select the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press the <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>.</para>
       <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
       bookmark in the selected group.</para>
       <!-- ==== Figure ==== -->
@@ -3942,6 +3944,9 @@
             <para><guilabel>Quick search using</guilabel> configures the combination
             of keys used for quick search.</para>
           </listitem>
+          <listitem>
+          	<para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
+          </listitem>
         </itemizedlist>
       </para>
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
@@ -4124,6 +4129,15 @@
                   and to access the menus with the keyboard you will need to use the
                   <keycap>F10</keycap>.</para>
                 </note>
+              </entry>
+              <entry colname="colspec0" valign="top">
+	              <para><guilabel>Multiple instances</guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+					<para>Don't start a new instance</para>              
+              </entry>
+              <entry colname="colspec3" valign="top">
+	              <para>By activating this option &app; can only have one instance running.</para>
               </entry>
             </row>
           </tbody>
