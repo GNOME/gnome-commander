@@ -1616,7 +1616,8 @@ void connections_close_current (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdCon *con = get_fs (ACTIVE)->get_connection();
 
-    connections_close (menuitem, con);
+    if (!gnome_cmd_con_is_local (con))
+        connections_close (menuitem, con);
 }
 
 
