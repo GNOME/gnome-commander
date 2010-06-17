@@ -235,29 +235,29 @@ static void update_vol_label (GnomeCmdFileSelector *fs)
 }
 
 
-static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
+static void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (f!=NULL);
     g_return_if_fail (f->info!=NULL);
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        fs->list->invalidate_tree_size();
+        fl->invalidate_tree_size();
 
         if (f->is_dotdot)
-            fs->goto_directory("..");
+            fl->goto_directory("..");
         else
-            fs->list->set_directory(GNOME_CMD_DIR (f));
+            fl->set_directory(GNOME_CMD_DIR (f));
     }
 }
 
 
-inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
+inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *f = fs->file_list()->get_selected_file();
+    GnomeCmdFile *f = fl->get_selected_file();
 
     if (f && gnome_cmd_data.cmdline_visibility)
     {
@@ -271,13 +271,13 @@ inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 }
 
 
-inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
+inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     if (gnome_cmd_data.cmdline_visibility)
     {
-        gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->get_directory()));
+        gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl->cwd));
         gnome_cmd_cmdline_append_text (main_win->get_cmdline(), dpath);
         g_free (dpath);
 
@@ -420,14 +420,14 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
 static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
-        do_file_specific_action (fs, f);
+        do_file_specific_action (fl, f);
 }
 
 
 static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        do_file_specific_action (fs, f);
+        do_file_specific_action (fl, f);
 }
 
 
@@ -1051,7 +1051,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_Return:
             case GDK_KP_Enter:
-                add_file_to_cmdline (this, TRUE);
+                add_file_to_cmdline (list, TRUE);
                 return TRUE;
         }
     }
@@ -1085,7 +1085,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_P:
             case GDK_p:
-                add_cwd_to_cmdline (this);
+                add_cwd_to_cmdline (list);
                 return TRUE;
 
             case GDK_Page_Up:
@@ -1095,7 +1095,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Page_Down:
                 f = list->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (this, f);
+                    do_file_specific_action (list, f);
                 return TRUE;
 
             case GDK_Tab:
@@ -1104,7 +1104,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_Return:
             case GDK_KP_Enter:
-                add_file_to_cmdline (this, FALSE);
+                add_file_to_cmdline (list, FALSE);
                 return TRUE;
         }
     }
@@ -1122,7 +1122,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_KP_Right:
                 f = list->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (this, f);
+                    do_file_specific_action (list, f);
                 stop_kp (*list);
                 return TRUE;
 
@@ -1132,7 +1132,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                     && gnome_cmd_cmdline_is_empty (main_win->get_cmdline()))
                     gnome_cmd_cmdline_exec (main_win->get_cmdline());
                 else
-                    do_file_specific_action (this, list->get_focused_file());
+                    do_file_specific_action (list, list->get_focused_file());
                 return TRUE;
 
             case GDK_Escape:
