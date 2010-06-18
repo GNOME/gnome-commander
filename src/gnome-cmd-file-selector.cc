@@ -417,14 +417,14 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
 }
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer)
 {
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
         do_file_specific_action (fl, f);
 }
 
 
-static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer)
 {
     if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         do_file_specific_action (fl, f);
@@ -1331,8 +1331,8 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
         gtk_widget_grab_focus (*list);
     }
 
-    g_signal_connect (list, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
-    g_signal_connect (list, "file-released", G_CALLBACK (on_list_file_released), this);
+    g_signal_connect (list, "file-clicked", G_CALLBACK (on_list_file_clicked), NULL);
+    g_signal_connect (list, "file-released", G_CALLBACK (on_list_file_released), NULL);
     g_signal_connect (list, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
     g_signal_connect (list, "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), this);
 
