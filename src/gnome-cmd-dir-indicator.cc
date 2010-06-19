@@ -88,7 +88,10 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
-    if (event->type==GDK_BUTTON_PRESS && event->button==1)
+    if (event->type!=GDK_BUTTON_PRESS)
+        return FALSE;
+
+    if (event->button==1 || event->button==2)
     {
         // left click - work out the path
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
@@ -100,7 +103,14 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
             {
                 chTo[indicator->priv->slashCharPosition[i]] = 0;
                 main_win->switch_fs(fs);
-                fs->goto_directory(chTo);
+                if (event->button==2 || event->state&GDK_CONTROL_MASK)
+                {
+                    GnomeCmdCon *con = fs->get_connection();
+                    GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chTo));
+                    fs->new_tab(dir);
+                }
+                else
+                    fs->goto_directory(chTo);
                 break;
             }
 
