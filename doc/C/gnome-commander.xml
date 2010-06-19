@@ -3953,7 +3953,7 @@
          then click on the <guilabel>general</guilabel> tab.
        </para>
       <para>The options available are described in more details in
-         <xref linkend="gcmd-TBL-setting1">General settings</xref></para>
+         <xref linkend="gcmd-TBL-setting1">General settings</xref></para>.
       <!-- ==== Figure ==== -->
       <figure id="options-general-fig">
         <title>General options</title>
@@ -4011,7 +4011,7 @@
                 <para>Double click to open items</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>When selecting this option, double clicking with the left
+                <para>When selecting this option, a double click with the left
                 mouse button on a file will open it with the default application.
                 </para>
               </entry>
@@ -4095,7 +4095,7 @@
               <entry colname="colspec3" valign="top">
                 <para>When this option is activated &app; will differentiate the
                 sorting order between upper case and lower case, upper case items are
-                then listed after lower case ones.</para>
+                then listed before lower case ones.</para>
               </entry>
             </row>
             <row>
@@ -4134,7 +4134,7 @@
 	              <para><guilabel>Multiple instances</guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Don't start a new instance</para>              
+					<para>Don't start a new instance</para>
               </entry>
               <entry colname="colspec3" valign="top">
 	              <para>By activating this option &app; can only have one instance running.</para>
@@ -4298,7 +4298,7 @@
         <itemizedlist>
           <listitem>
             <para><guilabel>File Panes</guilabel> in this section you can modify the
-            way &app;is displayed</para>
+            way &app;is displayed.</para>
           </listitem>
           <listitem>
             <para><guilabel>Mime icon settings</guilabel> in this section you can
@@ -4385,11 +4385,19 @@
               </entry>
               <entry colname="colspec3">
                 <para>You can select here how file extensions are displayed in this
-                drop down list. There are three options available:<itemizedlist><listitem><para><guibutton>In both columns</guibutton> where the extension
-                      is displayed in filename and extension columns</para></listitem><listitem><para>  <guibutton>In separate columns</guibutton> where the
-                      extension is displayed in its own column</para></listitem><listitem><para><guibutton>With filename</guibutton> where the extension
-                      is only displayed in the file name column; in this case the ext
-                      column is still displayed to allow sorting by extension</para></listitem></itemizedlist></para>
+                drop down list. There are three options available:
+                <itemizedlist>
+                	<listitem>
+                		<para><guibutton>In both columns</guibutton> where the extension is displayed in filename and extension columns</para>
+                	</listitem>
+                	<listitem>
+                		<para><guibutton>In separate columns</guibutton> where the extension is displayed in its own column</para>
+                      </listitem>
+                  <listitem>
+                        <para><guibutton>With filename</guibutton> where the extension is only displayed in the file name column; in this case the ext column is still displayed to allow sorting by extension</para>
+                  </listitem>
+                 </itemizedlist>
+                </para>
               </entry>
             </row>
             <row>
@@ -4402,14 +4410,18 @@
               </entry>
               <entry colname="colspec3">
                 <para>The graphical mode has three display options in the drop down
-                list:<itemizedlist><listitem><para><guibutton>No icons</guibutton> this option does not
-                      display an icon item in the first column in the pane it displays
-                      a &quot;/&quot; in front of directories to distinguish them from
-                      files</para></listitem><listitem><para><guibutton>File type icons</guibutton> this option
-                      displays simple icons for files and folder</para></listitem><listitem><para><guibutton>MIME icons</guibutton> this option displays the
-                      mime icon associated with the file type. selecting this option
-                      activates the <guilabel>MIME icon settings</guilabel> section
-                      below</para></listitem></itemizedlist></para>
+                list:
+                	<itemizedlist>
+                		<listitem>
+                			<para><guibutton>No icons</guibutton> this option does not display an icon item in the first column in the pane it displays a &quot;/&quot; in front of directories to distinguish them from files.</para>
+                		</listitem>
+                     <listitem>
+                     	<para><guibutton>File type icons</guibutton> this option displays simple icons for files and folder.</para>
+                     </listitem>
+                     <listitem><para><guibutton>MIME icons</guibutton> this option displays the mime icon associated with the file type. Selecting this option activates the <guilabel>MIME icon settings</guilabel> section below.</para>
+                     </listitem>
+                  </itemizedlist>
+                 </para>
               </entry>
             </row>
             <row>
@@ -4423,7 +4435,7 @@
               <entry colname="colspec3">
                 <para>&app; comes with five color themes, You can also use the theme
                 as defined by your current GNOME theme  (<guibutton>Respect theme
-                colors</guibutton>. There is also an option to customize the theme
+                colors</guibutton>). There is also an option to customize the theme
                 <guibutton>Custom</guibutton>, this option activates the <guibutton>
                 Edit</guibutton> button.</para>
               </entry>
@@ -4440,8 +4452,8 @@
                 <para>When the <guibutton>Custom</guibutton> option is selected this
                 button activates. Clicking on it will open a dialog box where you can
                 select row and alternate row colors for the foreground (text color)
-                and background, the alternate colors are used by every other row.
-                The selected file colors and the cursor position colors.</para>
+                and background, the alternate colors are used by every other row,
+                the selected file colors and the cursor position colors.</para>
               </entry>
             </row>
             <row>
@@ -4662,7 +4674,7 @@
                 <para>When this option is selected if a file name in the target
 						location is the same as one of the files moved &app; will open a
 						dialog asking for user confirmation. The user can autorise the
-						overwriting of the file or skip the file. The file will then be still
+						overwriting of the file or skip the file. The skipped file will then be still
 						present in the source location.</para>
               </entry>
             </row>
@@ -4919,8 +4931,8 @@
     <sect2 id="gnome-commander-prefs-devices">
       <title>Devices</title>
       <!--Brief description -->
-      <para>This Tab of the option dialog lets you configure devices so that you can
-    have Access to a button in the device buttons toolbar and an entry in the
+      <para>This tab of the option dialog lets you configure devices so that you can
+    have access to a button in the device buttons toolbar and an entry in the
     connections menu.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-devices-fig">
