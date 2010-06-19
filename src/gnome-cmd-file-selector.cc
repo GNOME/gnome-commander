@@ -307,7 +307,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 }
 
 
-static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdFileSelector *fs)
+static void on_combo_popwin_hidden (GnomeCmdCombo *combo, gpointer)
 {
     main_win->refocus();
 }
@@ -743,7 +743,7 @@ static void init (GnomeCmdFileSelector *fs)
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
     g_signal_connect (fs->con_combo, "item-selected", G_CALLBACK (on_con_combo_item_selected), fs);
-    g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), fs);
+    g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), NULL);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
     g_signal_connect (fs->notebook, "button-press-event", G_CALLBACK (on_notebook_button_pressed), fs);
