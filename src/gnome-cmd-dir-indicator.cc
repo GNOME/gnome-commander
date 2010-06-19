@@ -281,12 +281,23 @@ static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 {
     g_return_if_fail (path != NULL);
 
+    GdkModifierType mask;
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+
     GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) gtk_object_get_data (GTK_OBJECT (item), "indicator");
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
     main_win->switch_fs(indicator->priv->fs);
-    indicator->priv->fs->goto_directory(path);
+
+    if (mask&GDK_CONTROL_MASK)
+    {
+        GnomeCmdCon *con = indicator->priv->fs->get_connection();
+        GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
+        indicator->priv->fs->new_tab(dir);
+    }
+    else
+        indicator->priv->fs->goto_directory(path);
 }
 
 
