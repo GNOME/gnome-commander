@@ -313,15 +313,25 @@ static void on_combo_popwin_hidden (GnomeCmdCombo *combo, gpointer)
 }
 
 
-static void on_con_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
+static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdCon *con = (GnomeCmdCon *) gtk_object_get_data (GTK_OBJECT (button), "con");
+    if (event->type!=GDK_BUTTON_PRESS)
+        return;
+
+    if (event->button!=1 && event->button!=2)
+        return;
+
+    GnomeCmdCon *con = (GnomeCmdCon *) gtk_object_get_data (GTK_OBJECT (widget), "con");
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     main_win->switch_fs(fs);
+
+    if (event->button==2 || event->state&GDK_CONTROL_MASK)
+        fs->new_tab(gnome_cmd_con_get_default_dir(con));
+
     fs->set_connection(con);
 }
 
@@ -353,7 +363,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GtkWidget *btn = create_styled_button (NULL);
         g_object_set_data (G_OBJECT (btn), "con", con);
-        g_signal_connect (btn, "clicked", (GtkSignalFunc) on_con_btn_clicked, fs);
+        g_signal_connect (btn, "button-press-event", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
