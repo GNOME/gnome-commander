@@ -70,6 +70,7 @@ struct GnomeCmdFileList
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
 
+    operator GObject * ()               {  return G_OBJECT (this);         }
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
     operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
     operator GtkCList * ()              {  return GTK_CLIST (this);        }
