@@ -6046,6 +6046,9 @@
                             <para>Fixed problem #540438 (no GUI message if meld cannot be executed)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #616367 ("File not found" dialog after startup)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #620650 (buffer overflow in load_fav_apps())</para>
                         </listitem>
                     </itemizedlist>
