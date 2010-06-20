@@ -65,11 +65,21 @@ void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget 
 
 void gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog, GtkEditable *editable);
 
-void gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog, GtkWindow *win);
+inline void gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog, GtkWindow *win)
+{
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (win));
+}
 
-void gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog);
+inline void gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog)
+{
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+}
 
-void gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog, gboolean value);
+inline void gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog, gboolean value)
+{
+    gtk_window_set_resizable (GTK_WINDOW (dialog), value);
+    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, value, !value);
+}
 
 #endif //__GNOME_CMD_DIALOG_H__
 

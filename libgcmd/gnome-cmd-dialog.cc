@@ -206,22 +206,3 @@ void gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog, GtkEditable *edit
 
     g_signal_connect_swapped(editable, "activate", G_CALLBACK(gtk_window_activate_default), dialog);
 }
-
-
-void gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog, GtkWindow *win)
-{
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (win));
-}
-
-
-void gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog)
-{
-    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-}
-
-
-void gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog, gboolean value)
-{
-    gtk_window_set_resizable (GTK_WINDOW (dialog), value);
-    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, value, !value);
-}
