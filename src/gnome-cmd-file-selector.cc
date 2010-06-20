@@ -226,9 +226,14 @@ inline void GnomeCmdFileSelector::update_direntry()
 
 inline void GnomeCmdFileSelector::update_vol_label()
 {
-    g_return_if_fail (GNOME_CMD_IS_CON (get_connection()));
+    GnomeCmdCon *con = get_connection();
 
-    gchar *s = gnome_cmd_con_get_free_space (get_connection(), get_directory(), _("%s free"));
+    if (!con)
+        return;
+
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+
+    gchar *s = gnome_cmd_con_get_free_space (con, get_directory(), _("%s free"));
     gtk_label_set_text (GTK_LABEL (vol_label), s ? s : "");
     g_free (s);
 }
