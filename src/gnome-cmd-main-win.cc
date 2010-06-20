@@ -780,7 +780,7 @@ static void init (GnomeCmdMainWin *mw)
                                                                                    _("GNOME Commander"));
     g_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);
-    gtk_window_set_policy (GTK_WINDOW (mw), TRUE, TRUE, FALSE);
+    gtk_window_set_policy (*mw, TRUE, TRUE, FALSE);
 
     mw->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_ref (mw->priv->vbox);
@@ -842,7 +842,7 @@ static void init (GnomeCmdMainWin *mw)
     mw->fs(LEFT)->goto_directory(start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
     mw->fs(RIGHT)->goto_directory(start_dir_right ? start_dir_right : gnome_cmd_data_get_start_dir (RIGHT));
 
-    gtk_window_add_accel_group (GTK_WINDOW (mw), mw->priv->accel_group);
+    gtk_window_add_accel_group (*mw, mw->priv->accel_group);
     mw->focus_file_lists();
 
     mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, mw);
