@@ -99,6 +99,7 @@ struct GnomeCmdFileSelector
     void show_filter();
     void update_files();
     void update_direntry();
+    void update_vol_label();
     void update_selected_files_label();
     void update_style();
     void update_connections();

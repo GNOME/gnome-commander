@@ -224,13 +224,12 @@ inline void GnomeCmdFileSelector::update_direntry()
 }
 
 
-static void update_vol_label (GnomeCmdFileSelector *fs)
+inline void GnomeCmdFileSelector::update_vol_label()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (GNOME_CMD_IS_CON (fs->get_connection()));
+    g_return_if_fail (GNOME_CMD_IS_CON (get_connection()));
 
-    gchar *s = gnome_cmd_con_get_free_space (fs->get_connection(), fs->get_directory(), _("%s free"));
-    gtk_label_set_text (GTK_LABEL (fs->vol_label), s ? s : "");
+    gchar *s = gnome_cmd_con_get_free_space (get_connection(), get_directory(), _("%s free"));
+    gtk_label_set_text (GTK_LABEL (vol_label), s ? s : "");
     g_free (s);
 }
 
@@ -420,7 +419,7 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
     fs->list = fs->file_list(n);
     fs->update_direntry();
     fs->update_selected_files_label();
-    update_vol_label (fs);
+    fs->update_vol_label();
 
     if (prev_dir!=fs->get_directory())
         g_signal_emit (fs, signals[DIR_CHANGED], 0, fs->get_directory());
@@ -485,7 +484,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
     if (fs->file_list()!=fl)  return;
 
     fs->update_direntry();
-    update_vol_label (fs);
+    fs->update_vol_label();
 
     if (fl->cwd != dir)  return;
 
