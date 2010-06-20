@@ -214,7 +214,12 @@ inline void GnomeCmdFileSelector::update_files()
 
 inline void GnomeCmdFileSelector::update_direntry()
 {
-    gchar *tmp = gnome_cmd_dir_get_display_path (get_directory());
+    GnomeCmdDir *dir = get_directory();
+
+    if (!dir)
+        return;
+
+    gchar *tmp = gnome_cmd_dir_get_display_path (dir);
 
     g_return_if_fail (tmp != NULL);
 
