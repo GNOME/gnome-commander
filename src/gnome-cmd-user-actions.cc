@@ -1558,7 +1558,7 @@ void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
     GtkWidget *dialog = gnome_cmd_options_dialog_new ();
     gtk_widget_ref (dialog);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
     gtk_widget_show (dialog);
 }
 
@@ -1792,7 +1792,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
 
     gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), NULL);
 
-    gtk_show_about_dialog (GTK_WINDOW (main_win),
+    gtk_show_about_dialog (*main_win,
                            "name", "GNOME Commander",
                            "version", VERSION,
                            "comments", _(comments),

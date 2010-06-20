@@ -201,7 +201,7 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
 
     if (succeeded)
     {
-            msgbox = gtk_message_dialog_new (GTK_WINDOW (main_win),
+            msgbox = gtk_message_dialog_new (*main_win,
                             GTK_DIALOG_MODAL,
                             GTK_MESSAGE_INFO,
                             GTK_BUTTONS_OK,
@@ -209,7 +209,7 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
     }
     else
     {
-            msgbox = gtk_message_dialog_new (GTK_WINDOW (main_win),
+            msgbox = gtk_message_dialog_new (*main_win,
                             GTK_DIALOG_MODAL,
                             GTK_MESSAGE_ERROR,
                             GTK_BUTTONS_OK,

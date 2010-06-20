@@ -449,7 +449,7 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Connections"));
 
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
+    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), *main_win);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     cat_box = create_hbox (dialog, FALSE, 12);
