@@ -928,12 +928,6 @@ void GnomeCmdFileSelector::update_connections()
 }
 
 
-gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
-{
-    return main_win->fs(fsID)->is_local();
-}
-
-
 void GnomeCmdFileSelector::update_style()
 {
     con_combo->update_style();

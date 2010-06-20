@@ -66,7 +66,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     if (user_path[0] == '/')
     {
-        if (gnome_cmd_file_selector_is_local (INACTIVE))   // hack to avoiding 'root' dir for mounted devices
+        if (main_win->fs(INACTIVE)->is_local())   // hack to avoiding 'root' dir for mounted devices
         {
             GnomeCmdCon *dev;
 

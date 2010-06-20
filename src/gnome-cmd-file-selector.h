@@ -121,8 +121,6 @@ inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *
 GtkType gnome_cmd_file_selector_get_type ();
 GtkWidget *gnome_cmd_file_selector_new ();
 
-gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID);
-
 void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);
 
 void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
