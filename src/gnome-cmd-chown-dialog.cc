@@ -180,9 +180,7 @@ init (GnomeCmdChownDialog *dialog)
 
     dialog->priv->chown_component = gnome_cmd_chown_component_new ();
     gtk_widget_ref (dialog->priv->chown_component);
-    gtk_object_set_data_full (GTK_OBJECT (dialog),
-                              "chown_component", dialog->priv->chown_component,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (dialog), "chown_component", dialog->priv->chown_component, g_object_unref);
     gtk_widget_show (dialog->priv->chown_component);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->chown_component, FALSE, FALSE, 0);
 

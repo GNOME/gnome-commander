@@ -58,8 +58,7 @@ GtkWidget *create_frame (GtkWidget *parent, const gchar *text, gint spacing)
 {
     GtkWidget *frame = gtk_frame_new (text);
     gtk_widget_ref (frame);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "spaced_frame", frame,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "spaced_frame", frame, g_object_unref);
     gtk_container_set_border_width (GTK_CONTAINER (frame), spacing);
     gtk_widget_show (frame);
     return frame;
@@ -86,8 +85,7 @@ GtkWidget *create_table (GtkWidget *parent, gint rows, gint cols)
 {
     GtkWidget *table = gtk_table_new (rows, cols, FALSE);
     gtk_widget_ref (table);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "table", table,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "table", table, g_object_unref);
     gtk_widget_show (table);
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 12);
@@ -100,8 +98,7 @@ GtkWidget *create_vbox (GtkWidget *parent, gboolean h, gint s)
 {
     GtkWidget *vbox = gtk_vbox_new (h, s);
     gtk_widget_ref (vbox);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "vbox", vbox,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "vbox", vbox, g_object_unref);
     gtk_widget_show (vbox);
 
     return vbox;
@@ -112,8 +109,7 @@ GtkWidget *create_hbox (GtkWidget *parent, gboolean h, gint s)
 {
     GtkWidget *hbox = gtk_hbox_new (h, s);
     gtk_widget_ref (hbox);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "hbox", hbox,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "hbox", hbox, g_object_unref);
     gtk_widget_show (hbox);
 
     return hbox;
@@ -126,8 +122,7 @@ GtkWidget *create_label (GtkWidget *parent, const gchar *text)
 
     label = gtk_label_new (text);
     gtk_widget_ref (label);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "label", label,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
     gtk_widget_show (label);
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 
@@ -151,8 +146,7 @@ GtkWidget *create_hsep (GtkWidget *parent)
 {
     GtkWidget *sep = gtk_hseparator_new ();
     gtk_widget_ref (sep);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "sep", sep,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
     gtk_widget_show (sep);
     return sep;
 }
@@ -162,8 +156,7 @@ GtkWidget *create_vsep (GtkWidget *parent)
 {
     GtkWidget *sep = gtk_vseparator_new ();
     gtk_widget_ref (sep);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "sep", sep,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
     gtk_widget_show (sep);
     return sep;
 }
@@ -209,7 +202,7 @@ GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label,
                                 key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
     gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
     if (func)
         gtk_signal_connect (GTK_OBJECT (w), "clicked", func, data);
@@ -222,8 +215,7 @@ GtkWidget * create_named_stock_button_with_data (GtkWidget *parent, gconstpointe
 {
     GtkWidget *w = gtk_button_new_from_stock ((const gchar *) stock);
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, w,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
     if (func)
         gtk_signal_connect (GTK_OBJECT (w), "clicked", func, data);
@@ -235,7 +227,7 @@ GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *valu
 {
     GtkWidget *w = gtk_entry_new ();
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     if (value)
         gtk_entry_set_text (GTK_ENTRY (w), value);
     gtk_widget_show (w);
@@ -247,8 +239,7 @@ GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name
 {
     GtkWidget *btn = gtk_check_button_new_with_label (text);
     gtk_widget_ref (btn);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, btn,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
     gtk_widget_show (btn);
 
     return btn;
@@ -259,8 +250,7 @@ GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, co
 {
     GtkWidget *btn = gtk_radio_button_new_with_label (group, text);
     gtk_widget_ref (btn);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, btn,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
     gtk_widget_show (btn);
 
     return btn;
@@ -275,7 +265,7 @@ GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max
     adj = gtk_adjustment_new (value, min, max, 1, 10, 10);
     spin = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
     gtk_widget_ref (spin);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, spin, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, spin, g_object_unref);
     gtk_widget_show (spin);
     gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin), TRUE);
 
@@ -287,7 +277,7 @@ GtkWidget *create_color_button (GtkWidget *parent, const gchar *name)
 {
     GtkWidget *w = gtk_color_button_new ();
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
     return w;
 }
@@ -297,7 +287,7 @@ GtkWidget *create_icon_entry (GtkWidget *parent, const gchar *name, const gchar 
 {
     GtkWidget *icon_entry = gnome_icon_entry_new (NULL, NULL);
     gtk_widget_ref (icon_entry);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, icon_entry, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, icon_entry, g_object_unref);
     gtk_widget_show (icon_entry);
     if (icon_path)
         gnome_icon_entry_set_filename (GNOME_ICON_ENTRY (icon_entry), icon_path);
@@ -310,7 +300,7 @@ GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint 
     GtkWidget *scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
 
     gtk_widget_ref (scale);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, scale,(GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, scale, g_object_unref);
     gtk_widget_show (scale);
     gtk_scale_set_digits (GTK_SCALE (scale), 0);
 
@@ -324,12 +314,12 @@ GtkWidget *create_file_entry (GtkWidget *parent, const gchar *name, const gchar 
 
     fentry = gnome_file_entry_new (NULL, NULL);
     gtk_widget_ref (fentry);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "fileentry", fentry, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "fileentry", fentry, g_object_unref);
     gtk_widget_show (fentry);
 
     entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (fentry));
     gtk_widget_ref (entry);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, entry, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, entry, g_object_unref);
     if (value)
         gtk_entry_set_text (GTK_ENTRY (entry), value);
     gtk_widget_show (entry);
@@ -344,14 +334,14 @@ GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint r
 
     sw = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (sw);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "sw", sw, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "sw", sw, g_object_unref);
     gtk_widget_show (sw);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     clist = gtk_clist_new (cols);
     gtk_widget_ref (clist);
     gtk_object_set_data (GTK_OBJECT (sw), "clist", clist);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, clist, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, clist, g_object_unref);
     gtk_widget_show (clist);
     gtk_clist_set_row_height (GTK_CLIST (clist), rowh);
     gtk_container_add (GTK_CONTAINER (sw), clist);
@@ -377,7 +367,7 @@ GtkWidget *create_vbuttonbox (GtkWidget *parent)
 {
     GtkWidget *w = gtk_vbutton_box_new ();
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "vbuttonbox", w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "vbuttonbox", w, g_object_unref);
     gtk_widget_show (w);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (w), GTK_BUTTONBOX_START);
     gtk_box_set_spacing (GTK_BOX (w), 12);
@@ -389,7 +379,7 @@ GtkWidget *create_hbuttonbox (GtkWidget *parent)
 {
     GtkWidget *w = gtk_hbutton_box_new ();
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "hbuttonbox", w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "hbuttonbox", w, g_object_unref);
     gtk_widget_show (w);
     gtk_box_set_spacing (GTK_BOX (w), 12);
     return w;
@@ -400,7 +390,7 @@ GtkWidget *create_combo (GtkWidget *parent)
 {
     GtkWidget *combo = gtk_combo_new ();
     gtk_widget_ref (combo);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "combo", combo, g_object_unref);
     gtk_widget_show (combo);
     return combo;
 }
@@ -410,7 +400,7 @@ GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items)
 {
     GtkWidget *optmenu = gtk_option_menu_new ();
     gtk_widget_ref (optmenu);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "optmenu", optmenu, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "optmenu", optmenu, g_object_unref);
     gtk_widget_show (optmenu);
 
     GtkWidget *menu = gtk_menu_new ();
@@ -439,7 +429,7 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
 {
     GtkWidget *w = gtk_progress_bar_new ();
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "progress_bar", w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "progress_bar", w, g_object_unref);
     gtk_widget_show (w);
     gtk_progress_set_show_text (GTK_PROGRESS (w), TRUE);
     return w;
@@ -450,7 +440,7 @@ GtkWidget *create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask)
 {
     GtkWidget *w = gtk_pixmap_new (pm, mask);
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "pixmap", w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "pixmap", w, g_object_unref);
     gtk_widget_show (w);
     return w;
 }
@@ -460,7 +450,7 @@ GtkWidget *create_sw (GtkWidget *parent)
 {
     GtkWidget *scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (scrolledwindow);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "scrolledwindow", scrolledwindow, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "scrolledwindow", scrolledwindow, g_object_unref);
     gtk_widget_show (scrolledwindow);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     return scrolledwindow;

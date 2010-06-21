@@ -369,7 +369,7 @@ static void init (GnomeCmdCombo *combo)
 
     combo->entry = gtk_entry_new ();
     gtk_widget_ref (combo->entry);
-    gtk_object_set_data_full (*combo, "entry", combo->entry, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "entry", combo->entry, g_object_unref);
     gtk_widget_show (combo->entry);
     gtk_widget_set_size_request (combo->entry, 60, -1);
     gtk_entry_set_editable (GTK_ENTRY (combo->entry), FALSE);
@@ -378,12 +378,12 @@ static void init (GnomeCmdCombo *combo)
     combo->button = gtk_button_new ();
     gtk_widget_ref (combo->button);
     gtk_button_set_relief (GTK_BUTTON (combo->button), gnome_cmd_data.button_relief);
-    gtk_object_set_data_full (*combo, "button", combo->button, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "button", combo->button, g_object_unref);
     gtk_widget_show (combo->button);
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
     gtk_widget_ref (arrow);
-    gtk_object_set_data_full (*combo, "arrow", arrow, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "arrow", arrow, g_object_unref);
     gtk_widget_show (arrow);
 
     gtk_container_add (GTK_CONTAINER (combo->button), arrow);
@@ -395,7 +395,7 @@ static void init (GnomeCmdCombo *combo)
 
     combo->popwin = gtk_window_new (GTK_WINDOW_POPUP);
     gtk_widget_ref (combo->popwin);
-    gtk_object_set_data_full (*combo, "popwin", combo->popwin, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "popwin", combo->popwin, g_object_unref);
     gtk_window_set_policy (GTK_WINDOW (combo->popwin), 1, 1, 0);
 
     gtk_widget_set_events (combo->popwin, GDK_KEY_PRESS_MASK);
@@ -409,7 +409,7 @@ static void init (GnomeCmdCombo *combo)
 
     event_box = gtk_event_box_new ();
     gtk_widget_ref (event_box);
-    gtk_object_set_data_full (*combo, "event_box", event_box, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "event_box", event_box, g_object_unref);
     gtk_container_add (GTK_CONTAINER (combo->popwin), event_box);
     gtk_widget_show (event_box);
     gtk_widget_realize (event_box);
@@ -420,14 +420,14 @@ static void init (GnomeCmdCombo *combo)
 
     frame = gtk_frame_new (NULL);
     gtk_widget_ref (frame);
-    gtk_object_set_data_full (*combo, "frame", frame, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "frame", frame, g_object_unref);
     gtk_container_add (GTK_CONTAINER (event_box), frame);
     gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
     gtk_widget_show (frame);
 
     combo->popup = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (combo->popup);
-    gtk_object_set_data_full (*combo, "combo->popup", combo->popup, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*combo, "combo->popup", combo->popup, g_object_unref);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (combo->popup), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->hscrollbar, GTK_CAN_FOCUS);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->vscrollbar, GTK_CAN_FOCUS);

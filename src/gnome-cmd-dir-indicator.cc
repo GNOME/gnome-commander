@@ -475,14 +475,12 @@ static void init (GnomeCmdDirIndicator *indicator)
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->history_button, GTK_CAN_FOCUS);
     gtk_widget_ref (indicator->priv->history_button);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), gnome_cmd_data.button_relief);
-    gtk_object_set_data_full (GTK_OBJECT (indicator),
-                              "button", indicator->priv->history_button,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->history_button, g_object_unref);
     gtk_widget_show (indicator->priv->history_button);
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
     gtk_widget_ref (arrow);
-    gtk_object_set_data_full (GTK_OBJECT (indicator), "arrow", arrow, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (indicator), "arrow", arrow, g_object_unref);
     gtk_widget_show (arrow);
     gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
 
@@ -490,7 +488,7 @@ static void init (GnomeCmdDirIndicator *indicator)
     indicator->priv->bookmark_button = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->bookmark_button, GTK_CAN_FOCUS);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), gnome_cmd_data.button_relief);
-    gtk_object_set_data_full (GTK_OBJECT (indicator), "button", indicator->priv->bookmark_button, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->bookmark_button, g_object_unref);
     gtk_widget_show (indicator->priv->bookmark_button);
 
     // pack

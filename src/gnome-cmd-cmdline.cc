@@ -225,8 +225,7 @@ static void init (GnomeCmdCmdline *cmdline)
 
     cmdline->priv->cwd = gtk_label_new ("cwd");
     gtk_widget_ref (cmdline->priv->cwd);
-    gtk_object_set_data_full (GTK_OBJECT (cmdline), "cwdlabel", cmdline->priv->cwd,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (cmdline), "cwdlabel", cmdline->priv->cwd, g_object_unref);
     gtk_widget_show (cmdline->priv->cwd);
     gtk_box_pack_start (GTK_BOX (cmdline), cmdline->priv->cwd,
                         FALSE, TRUE, 2);
@@ -234,15 +233,13 @@ static void init (GnomeCmdCmdline *cmdline)
 
     label = gtk_label_new ("#");
     gtk_widget_ref (label);
-    gtk_object_set_data_full (GTK_OBJECT (cmdline), "label", label,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (cmdline), "label", label, g_object_unref);
     gtk_widget_show (label);
     gtk_box_pack_start (GTK_BOX (cmdline), label, FALSE, FALSE, 0);
 
     cmdline->priv->combo = new GnomeCmdCombo(1, 0);
     gtk_widget_ref (*cmdline->priv->combo);
-    gtk_object_set_data_full (GTK_OBJECT (cmdline), "combo", cmdline->priv->combo,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (cmdline), "combo", cmdline->priv->combo, g_object_unref);
     gtk_clist_set_column_width (GTK_CLIST (cmdline->priv->combo->list), 0, 500);
     gtk_box_pack_start (GTK_BOX (cmdline), *cmdline->priv->combo, TRUE, TRUE, 2);
     gtk_widget_show (*cmdline->priv->combo);

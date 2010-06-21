@@ -181,7 +181,7 @@ static GtkWidget *create_compare_win (LogHistory *log_history)
     g_signal_connect (radio, "toggled", G_CALLBACK (on_other_rev_toggled), dialog);
 
     combo = create_combo (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "rev_combo", combo, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (dialog), "rev_combo", combo, g_object_unref);
     gtk_box_pack_start (GTK_BOX (vbox), combo, TRUE, FALSE, 0);
     gtk_widget_set_sensitive (combo, FALSE);
 
@@ -263,7 +263,7 @@ GtkWidget *create_diff_win (CvsPlugin *plugin)
 
     notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);
     gtk_widget_show (notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
 
@@ -293,7 +293,7 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
 
     notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);
     gtk_widget_show (notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
 
@@ -352,7 +352,7 @@ void add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
     text_view = gtk_text_view_new ();
     gtk_container_add (GTK_CONTAINER (sw), text_view);
     gtk_widget_ref (text_view);
-    gtk_object_set_data_full (GTK_OBJECT (sw), "text_view", text_view, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (sw), "text_view", text_view, g_object_unref);
     gtk_widget_show (text_view);
 
     notebook = lookup_widget (plugin->diff_win, "notebook");
@@ -398,10 +398,8 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
     hpaned = gtk_hpaned_new ();
     gtk_container_set_border_width (GTK_CONTAINER (hpaned), 6);
     gtk_widget_ref (hpaned);
-    gtk_object_set_data_full (GTK_OBJECT (plugin->log_win), "hpaned", hpaned,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_object_set_data_full (GTK_OBJECT (hpaned), "log_history", log_history,
-                              (GtkDestroyNotify) log_free);
+    g_object_set_data_full (G_OBJECT (plugin->log_win), "hpaned", hpaned, g_object_unref);
+    g_object_set_data_full (G_OBJECT (hpaned), "log_history", log_history, (GDestroyNotify) log_free);
     gtk_widget_show (hpaned);
     gtk_paned_set_position (GTK_PANED (hpaned), 100);
 
@@ -515,8 +513,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
     msg_text = gtk_text_view_new ();
     log_history->msg_text_view = msg_text;
     gtk_widget_ref (msg_text);
-    gtk_object_set_data_full (GTK_OBJECT (hpaned), "msg_text", msg_text,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (hpaned), "msg_text", msg_text, g_object_unref);
     gtk_widget_show (msg_text);
     gtk_container_add (GTK_CONTAINER (sw), msg_text);
     gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (msg_text), GTK_WRAP_WORD);

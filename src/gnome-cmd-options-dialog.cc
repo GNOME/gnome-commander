@@ -46,7 +46,7 @@ inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 {
     GtkWidget *w = gtk_font_button_new ();
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, w, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
 
     return w;
@@ -288,8 +288,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     table_add (table, label, 0, 1, GTK_FILL);
 
     label = create_label (parent, "");
-    gtk_object_set_data_full (GTK_OBJECT (parent), "date_format_test_label",
-                              label, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (parent), "date_format_test_label", label, g_object_unref);
     g_signal_connect (label, "realize", G_CALLBACK (on_date_format_update), parent);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
@@ -1949,8 +1948,7 @@ static void init (GnomeCmdOptionsDialog *dialog)
 
     dialog->notebook = gtk_notebook_new ();
     gtk_widget_ref (dialog->notebook);
-    gtk_object_set_data_full (GTK_OBJECT (options_dialog), "notebook",
-                              dialog->notebook, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (options_dialog), "notebook", dialog->notebook, g_object_unref);
     gtk_widget_show (dialog->notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), dialog->notebook);
 

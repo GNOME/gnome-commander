@@ -610,18 +610,18 @@ void GnomeCmdFileList::create_column_titles()
 
         hbox = gtk_hbox_new (FALSE, 1);
         gtk_widget_ref (hbox);
-        gtk_object_set_data_full (*this, "column-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
+        g_object_set_data_full (*this, "column-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
         priv->column_labels[i] = gtk_label_new (_(file_list_column[i].title));
         gtk_widget_ref (priv->column_labels[i]);
-        gtk_object_set_data_full (*this, "column-label", priv->column_labels[i], (GtkDestroyNotify) gtk_widget_unref);
+        g_object_set_data_full (*this, "column-label", priv->column_labels[i], g_object_unref);
         gtk_widget_show (priv->column_labels[i]);
         gtk_box_pack_start (GTK_BOX (hbox), priv->column_labels[i], TRUE, TRUE, 0);
 
         pixmap = gtk_pixmap_new (pm, bm);
         gtk_widget_ref (pixmap);
-        gtk_object_set_data_full (*this, "column-pixmap", pixmap, (GtkDestroyNotify) gtk_widget_unref);
+        g_object_set_data_full (*this, "column-pixmap", pixmap, g_object_unref);
         gtk_widget_show (pixmap);
         gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, FALSE, 0);
 
@@ -754,7 +754,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     if (!menu) return;
 
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (*fl, "file_popup_menu", menu, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*fl, "file_popup_menu", menu, g_object_unref);
 
     gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc) popup_position_function, fl, event, fl, NULL);
 }

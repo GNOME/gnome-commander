@@ -174,7 +174,7 @@ inline GtkWidget *add_buttonbar_button (char *label,
                                         gint accel_signal_id)
 {
     GtkWidget *button = create_styled_button (label);
-    gtk_object_set_data_full (*mw, data_label, button, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, data_label, button, g_object_unref);
     GTK_WIDGET_UNSET_FLAGS (button, GTK_CAN_FOCUS);
 
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), button, TRUE, TRUE, 0);
@@ -217,7 +217,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 
     mw->priv->toolbar = gtk_hbox_new (FALSE, 0);
     gtk_widget_ref (mw->priv->toolbar);
-    gtk_object_set_data_full (GTK_OBJECT (mw), "toolbar", mw->priv->toolbar, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, "toolbar", mw->priv->toolbar, g_object_unref);
     gtk_widget_show (mw->priv->toolbar);
 
     if (!toolbar_tooltips)
@@ -347,7 +347,7 @@ static GtkWidget *create_slide_popup ()
 
     GtkWidget *menu = gtk_menu_new ();
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (*main_win, "slide-popup", menu, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*main_win, "slide-popup", menu, g_object_unref);
 
     // Fill the menu
 
@@ -427,7 +427,7 @@ void GnomeCmdMainWin::create_buttonbar()
 
     priv->buttonbar = gtk_hbox_new (FALSE, 0);
     gtk_widget_ref (priv->buttonbar);
-    gtk_object_set_data_full (*this, "buttonbar", priv->buttonbar, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*this, "buttonbar", priv->buttonbar, g_object_unref);
     gtk_widget_show (priv->buttonbar);
 
     priv->view_btn = add_buttonbar_button(_("F3 View"), this, "view_btn", priv->accel_group, 0);
@@ -784,12 +784,12 @@ static void init (GnomeCmdMainWin *mw)
 
     mw->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_ref (mw->priv->vbox);
-    gtk_object_set_data_full (*mw, "vbox", mw->priv->vbox, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, "vbox", mw->priv->vbox, g_object_unref);
     gtk_widget_show (mw->priv->vbox);
 
     mw->priv->menubar = gnome_cmd_main_menu_new ();
     gtk_widget_ref (mw->priv->menubar);
-    gtk_object_set_data_full (*mw, "vbox", mw->priv->menubar, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, "vbox", mw->priv->menubar, g_object_unref);
     gtk_widget_show (mw->priv->menubar);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), create_separator (FALSE), FALSE, TRUE, 0);
@@ -799,20 +799,20 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     gtk_widget_ref (mw->priv->paned);
-    gtk_object_set_data_full (*mw, "paned", mw->priv->paned, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, "paned", mw->priv->paned, g_object_unref);
     gtk_widget_show (mw->priv->paned);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     mw->create_buttonbar();
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new ();
     gtk_widget_ref (mw->priv->file_selector[LEFT]);
-    gtk_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[LEFT]);
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
 
     mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new ();
     gtk_widget_ref (mw->priv->file_selector[RIGHT]);
-    gtk_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
@@ -1241,7 +1241,7 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         priv->cmdline_sep = create_separator (FALSE);
         priv->cmdline = gnome_cmd_cmdline_new ();
         gtk_widget_ref (priv->cmdline);
-        gtk_object_set_data_full (*this, "cmdline", priv->cmdline, (GtkDestroyNotify) gtk_widget_unref);
+        g_object_set_data_full (*this, "cmdline", priv->cmdline, g_object_unref);
         gtk_widget_show (priv->cmdline);
         if (gnome_cmd_data.toolbar_visibility)
             pos += 2;

@@ -161,7 +161,7 @@ static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
     GtkWidget *term_check = create_check (dialog, _("Needs terminal"), "term_check");
 
     gtk_widget_ref (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (menu_item), "new_textfile_dialog", dialog, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (menu_item), "new_textfile_dialog", dialog, g_object_unref);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), term_check);
 

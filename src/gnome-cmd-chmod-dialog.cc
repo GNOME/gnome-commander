@@ -201,9 +201,7 @@ static void init (GnomeCmdChmodDialog *dialog)
 
     dialog->priv->chmod_component = gnome_cmd_chmod_component_new ((GnomeVFSFilePermissions) 0);
     gtk_widget_ref (dialog->priv->chmod_component);
-    gtk_object_set_data_full (GTK_OBJECT (chmod_dialog),
-                              "chmod_component", dialog->priv->chmod_component,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (chmod_dialog), "chmod_component", dialog->priv->chmod_component, g_object_unref);
     gtk_widget_show (dialog->priv->chmod_component);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->chmod_component, TRUE, TRUE, 0);
 
