@@ -1026,10 +1026,7 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
     add_app_to_list (GTK_CLIST (clist), app);
     gtk_widget_destroy (dialog);
 
-    g_free (name);
-    g_free (cmd);
     g_free (icon_path);
-    g_free (pattern_string);
 }
 
 
@@ -1063,10 +1060,7 @@ static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
     update_app_in_list (GTK_CLIST (clist), app);
     gtk_widget_destroy (dialog);
 
-    g_free (name);
-    g_free (cmd);
     g_free (icon_path);
-    g_free (pattern_string);
 }
 
 
@@ -1449,9 +1443,6 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
     gnome_cmd_con_list_add_device (gnome_cmd_con_list_get (), dev);
 
-    g_free (alias);
-    g_free (device);
-    g_free (mountp);
     g_free (icon_path);
 }
 
@@ -1472,9 +1463,6 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     update_device_in_list (GTK_CLIST (clist), dev, alias, device, mountp, icon_path);
     gtk_widget_destroy (dialog);
 
-    g_free (alias);
-    g_free (device);
-    g_free (mountp);
     g_free (icon_path);
 }
 

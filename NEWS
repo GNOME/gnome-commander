@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem #540438 (no GUI message if meld cannot be executed)
  * Fixed problem #616367 ("File not found" dialog after startup)
  * Fixed problem #620650 (buffer overflow in load_fav_apps())
+ * Fixed problem with editing options for favourite apps and devices
 
 
 ===================================
