@@ -1296,6 +1296,8 @@ static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
 static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileList *fl)
 {
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
     if (fl->cwd == dir)
         if (fl->remove_file(f))
             g_signal_emit (fl, signals[FILES_CHANGED], 0);
