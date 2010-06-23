@@ -6052,6 +6052,9 @@
                             <para>Fixed problem #620650 (buffer overflow in load_fav_apps())</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #622456 (do not build plugins as shared library objects)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with editing options for favourite apps and devices</para>
                         </listitem>
                     </itemizedlist>

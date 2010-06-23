@@ -14,4 +14,4 @@ libtest_la_SOURCES = \
 	test-plugin.h test-plugin.cc \
 	test-plugin.xpm
 
-libtest_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
+libtest_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
