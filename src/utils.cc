@@ -902,7 +902,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     GtkWidget *label = NULL;
     GtkWidget *pixmap = NULL;
 
-    g_object_set_data_full (G_OBJECT (btn), "hbox", hbox, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (btn), "hbox", hbox, g_object_unref);
     gtk_widget_ref (hbox);
     gtk_widget_show (hbox);
 
@@ -912,7 +912,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
         if (pixmap)
         {
             gtk_widget_ref (pixmap);
-            g_object_set_data_full (G_OBJECT (btn), "pixmap", pixmap, (GDestroyNotify) gtk_widget_unref);
+            g_object_set_data_full (G_OBJECT (btn), "pixmap", pixmap, g_object_unref);
             gtk_widget_show (pixmap);
         }
     }
@@ -921,7 +921,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     {
         label = gtk_label_new (text);
         gtk_widget_ref (label);
-        g_object_set_data_full (G_OBJECT (btn), "label", label, (GDestroyNotify) gtk_widget_unref);
+        g_object_set_data_full (G_OBJECT (btn), "label", label, g_object_unref);
         gtk_widget_show (label);
     }
 

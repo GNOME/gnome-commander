@@ -469,7 +469,7 @@ GnomeCmdCombo::GnomeCmdCombo(gint num_cols, gint _text_col, gchar **col_titles):
     list = col_titles ? gnome_cmd_clist_new_with_titles (num_cols, col_titles) : gnome_cmd_clist_new (num_cols);
 
     gtk_widget_ref (list);
-    g_object_set_data_full (*this, "list", list, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (*this, "list", list, g_object_unref);
 
     // We'll use enter notify events to figure out when to transfer the grab to the list
     gtk_container_add (GTK_CONTAINER (popup), list);

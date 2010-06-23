@@ -91,21 +91,21 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     data->silent = gtk_radio_button_new_with_label (group, _("Silently"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->silent));
     gtk_widget_ref (data->silent);
-    g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (data->dialog), "silent", data->silent, g_object_unref);
     gtk_widget_show (data->silent);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->silent, FALSE, FALSE, 0);
 
     data->query = gtk_radio_button_new_with_label (group, _("Query First"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->query));
     gtk_widget_ref (data->query);
-    g_object_set_data_full (G_OBJECT (data->dialog), "query", data->query, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (data->dialog), "query", data->query, g_object_unref);
     gtk_widget_show (data->query);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->query, FALSE, FALSE, 0);
 
     data->skip = gtk_radio_button_new_with_label (group, _("Skip All"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->skip));
     gtk_widget_ref (data->skip);
-    g_object_set_data_full (G_OBJECT (data->dialog), "skip", data->skip, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (data->dialog), "skip", data->skip, g_object_unref);
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
@@ -114,7 +114,7 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     data->follow_links = gtk_check_button_new_with_label (_("Follow Links"));
     gtk_widget_ref (data->follow_links);
-    g_object_set_data_full (G_OBJECT (data->dialog), "follow_links", data->follow_links, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (data->dialog), "follow_links", data->follow_links, g_object_unref);
     gtk_widget_show (data->follow_links);
     gtk_box_pack_start (GTK_BOX (data->dialog->right_vbox), data->follow_links, FALSE, FALSE, 0);
 

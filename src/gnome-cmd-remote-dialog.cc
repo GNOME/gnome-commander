@@ -461,7 +461,7 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
 
     ftp_dialog->priv->connection_list = create_view_and_model (get_ftp_cons ());
     gtk_widget_ref (ftp_dialog->priv->connection_list);
-    g_object_set_data_full (G_OBJECT (dialog), "connection_list", ftp_dialog->priv->connection_list, (GDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (dialog), "connection_list", ftp_dialog->priv->connection_list, g_object_unref);
     gtk_widget_show (ftp_dialog->priv->connection_list);
     gtk_container_add (GTK_CONTAINER (sw), ftp_dialog->priv->connection_list);
     gtk_widget_set_size_request (ftp_dialog->priv->connection_list, -1, 240);
