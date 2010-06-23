@@ -16,4 +16,4 @@ libcvs_la_SOURCES = \
 	interface.h interface.cc \
 	cvs-plugin.xpm close.xpm
 
-libcvs_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
+libcvs_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
