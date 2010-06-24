@@ -8,7 +8,7 @@ AM_CPPFLAGS = \
 
 plugindir = $(pkglibdir)/plugins
 
-plugin_LTLIBRARIES = libcvs.la
+noinst_LTLIBRARIES = libcvs.la
 
 libcvs_la_SOURCES = \
 	parser.h parser.ll \
