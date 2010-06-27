@@ -21,14 +21,17 @@
 #ifndef __HISTORY_H__
 #define __HISTORY_H__
 
-struct History
+class History
 {
-    GList *ents;
-    GList *pos;
     gint max;
     gboolean is_locked;
 
-    History(gint max): ents(NULL), pos(NULL), is_locked(FALSE)       {  this->max = max;  }
+  public:
+
+    GList *ents;
+    GList *pos;
+
+    History(gint max): is_locked(FALSE), ents(NULL), pos(NULL)       {  this->max = max;  }
     ~History();
 
     guint size()                                         {  return g_list_length (ents);  }
@@ -49,6 +52,8 @@ struct History
 
     void lock()                                             {  is_locked = TRUE;         }
     void unlock()                                           {  is_locked = FALSE;        }
+
+    gboolean locked() const                                 {  return is_locked;         }
 };
 
 #endif // __HISTORY_H__
