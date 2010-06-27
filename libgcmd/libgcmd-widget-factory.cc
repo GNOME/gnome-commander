@@ -348,9 +348,9 @@ GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint r
     gtk_clist_column_titles_show (GTK_CLIST (clist));
 
     if (on_row_selected)
-        gtk_signal_connect (GTK_OBJECT (clist), "select-row", GTK_SIGNAL_FUNC (on_row_selected), parent);
+        g_signal_connect (clist, "select-row", G_CALLBACK (on_row_selected), parent);
     if (on_row_moved)
-        gtk_signal_connect (GTK_OBJECT (clist), "row-move", GTK_SIGNAL_FUNC (on_row_moved), parent);
+        g_signal_connect (clist, "row-move", G_CALLBACK (on_row_moved), parent);
     return sw;
 }
 
@@ -495,7 +495,7 @@ void create_error_dialog (const gchar *msg, ...)
 
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, string);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "response", GTK_SIGNAL_FUNC (on_response), dialog);
+    g_signal_connect (dialog, "response", G_CALLBACK (on_response), dialog);
 
     gtk_widget_show (dialog);
 }

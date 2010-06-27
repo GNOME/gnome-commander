@@ -213,12 +213,8 @@ void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
     obj->priv->h_adjustment = adjustment;
     gtk_object_ref (GTK_OBJECT (obj->priv->h_adjustment));
 
-    gtk_signal_connect (GTK_OBJECT (adjustment), "changed",
-              (GtkSignalFunc) text_render_h_adjustment_changed ,
-              (gpointer) obj);
-    gtk_signal_connect (GTK_OBJECT (adjustment), "value-changed",
-              (GtkSignalFunc) text_render_h_adjustment_value_changed ,
-              (gpointer) obj);
+    g_signal_connect (adjustment, "changed", G_CALLBACK (text_render_h_adjustment_changed), obj);
+    g_signal_connect (adjustment, "value-changed", G_CALLBACK (text_render_h_adjustment_value_changed), obj);
 
     obj->priv->old_h_adj_value = adjustment->value;
     obj->priv->old_h_adj_lower = adjustment->lower;
@@ -242,12 +238,8 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
     obj->priv->v_adjustment = adjustment;
     gtk_object_ref (GTK_OBJECT (obj->priv->v_adjustment));
 
-    gtk_signal_connect (GTK_OBJECT (adjustment), "changed",
-              (GtkSignalFunc) text_render_v_adjustment_changed ,
-              (gpointer) obj);
-    gtk_signal_connect (GTK_OBJECT (adjustment), "value-changed",
-              (GtkSignalFunc) text_render_v_adjustment_value_changed ,
-              (gpointer) obj);
+    g_signal_connect (adjustment, "changed", G_CALLBACK (text_render_v_adjustment_changed), obj);
+    g_signal_connect (adjustment, "value-changed", G_CALLBACK (text_render_v_adjustment_value_changed), obj);
 
     obj->priv->old_v_adj_value = adjustment->value;
     obj->priv->old_v_adj_lower = adjustment->lower;

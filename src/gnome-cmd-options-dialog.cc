@@ -705,7 +705,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     hbox = create_hbox (parent, FALSE, 6);
     gtk_table_attach (GTK_TABLE (table), hbox, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
-    gtk_signal_connect (GTK_OBJECT (check), "toggled", GTK_SIGNAL_FUNC (on_ls_colors_toggled), parent);
+    g_signal_connect (check, "toggled", G_CALLBACK (on_ls_colors_toggled), parent);
     gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
 
     btn = create_button_with_data (parent, _("Edit colors..."), GTK_SIGNAL_FUNC (on_ls_colors_edit), parent);

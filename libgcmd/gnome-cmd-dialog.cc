@@ -110,8 +110,8 @@ static void init (GnomeCmdDialog *dialog)
     gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog->priv->buttonbox), GTK_BUTTONBOX_END);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->buttonbox, FALSE, TRUE, 0);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", (GtkSignalFunc)on_dialog_keypressed, NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog), "show", (GtkSignalFunc)on_dialog_show, dialog);
+    g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypressed), NULL);
+    g_signal_connect (dialog, "show", G_CALLBACK (on_dialog_show), dialog);
 }
 
 

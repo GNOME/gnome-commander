@@ -593,7 +593,7 @@ static void init (GnomeCmdCList *clist)
     GTK_CLIST (clist)->focus_row = 0;
 
     gtk_signal_connect_after (GTK_OBJECT (clist), "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
-    gtk_signal_connect (GTK_OBJECT (clist), "realize", GTK_SIGNAL_FUNC (on_realize), NULL);
+    g_signal_connect (clist, "realize", G_CALLBACK (on_realize), NULL);
 }
 
 
