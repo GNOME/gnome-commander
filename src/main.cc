@@ -164,8 +164,8 @@ int main (int argc, char *argv[])
 
         gnome_cmd_style_create ();
 
-        main_win_widget = gnome_cmd_main_win_new ();
-        main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
+        main_win = new GnomeCmdMainWin;
+        main_win_widget = *main_win;
 
         unique_app_watch_window (app, *main_win);
         g_signal_connect (app, "message-received", G_CALLBACK (on_message_received), NULL);

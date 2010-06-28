@@ -874,14 +874,6 @@ GtkType gnome_cmd_main_win_get_type ()
 }
 
 
-GtkWidget *gnome_cmd_main_win_new ()
-{
-    GnomeCmdMainWin *mw = (GnomeCmdMainWin *) gtk_type_new (gnome_cmd_main_win_get_type ());
-
-    return GTK_WIDGET (mw);
-}
-
-
 GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id)
 {
     switch (id)

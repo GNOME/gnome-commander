@@ -26,9 +26,10 @@
 #include "gnome-cmd-cmdline.h"
 #include "plugin_manager.h"
 
-#define GNOME_CMD_MAIN_WIN(obj)          GTK_CHECK_CAST(obj, gnome_cmd_main_win_get_type (), GnomeCmdMainWin)
-#define GNOME_CMD_MAIN_WIN_CLASS(klass)  GTK_CHECK_CLASS_CAST(klass, gnome_cmd_main_win_get_type (), GnomeCmdMainWinClass)
-#define GNOME_CMD_IS_MAIN_WIN(obj)       GTK_CHECK_TYPE(obj, gnome_cmd_main_win_get_type ())
+#define GNOME_CMD_TYPE_MAIN_WIN          (gnome_cmd_main_win_get_type ())
+#define GNOME_CMD_MAIN_WIN(obj)          GTK_CHECK_CAST(obj, GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin)
+#define GNOME_CMD_MAIN_WIN_CLASS(klass)  GTK_CHECK_CLASS_CAST(klass, GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWinClass)
+#define GNOME_CMD_IS_MAIN_WIN(obj)       GTK_CHECK_TYPE(obj, GNOME_CMD_TYPE_MAIN_WIN)
 
 
 GtkType gnome_cmd_main_win_get_type ();
@@ -47,6 +48,9 @@ struct GnomeCmdMainWin
     struct Private;
 
     Private *priv;
+
+    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_MAIN_WIN, NULL);  }
+    void operator delete (void *p)      {  g_object_unref (p);  }
 
     operator GObject * ()               {  return G_OBJECT (this);         }
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
@@ -82,9 +86,6 @@ struct GnomeCmdMainWin
 
     void add_plugin_menu(PluginData *data);
 };
-
-
-GtkWidget *gnome_cmd_main_win_new ();
 
 
 extern GnomeCmdMainWin *main_win;
