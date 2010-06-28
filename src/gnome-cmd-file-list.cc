@@ -1635,6 +1635,12 @@ GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column()
 }
 
 
+gboolean GnomeCmdFileList::get_sort_order()
+{
+    return priv->sort_raising[priv->current_col];
+}
+
+
 inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_row)
 {
     GtkCList *clist = *fl;

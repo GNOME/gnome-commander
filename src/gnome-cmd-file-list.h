@@ -155,6 +155,7 @@ struct GnomeCmdFileList
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (*this, col, value);  }
 
     ColumnID get_sort_column();
+    gboolean get_sort_order();
     static guint get_column_default_width(ColumnID col);
 
     void invalidate_tree_size();
