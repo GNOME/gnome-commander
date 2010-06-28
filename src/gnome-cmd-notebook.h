@@ -43,6 +43,7 @@ struct GnomeCmdNotebook
     void operator delete (void *p)      {  g_object_unref (p);  }
 
     operator GtkWidget * ()             {  return GTK_WIDGET (this);    }
+    operator GtkContainer * ()          {  return GTK_CONTAINER (this); }
     operator GtkNotebook * ()           {  return GTK_NOTEBOOK (this);  }
 
     int size()                          {  return gtk_notebook_get_n_pages (*this);  }
