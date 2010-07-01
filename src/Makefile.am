@@ -90,6 +90,7 @@ gnome_commander_SOURCES = \
 	main.cc \
 	owner.h owner.cc \
 	plugin_manager.h plugin_manager.cc \
+	tuple.h \
 	utils.h utils.cc \
 	widget-factory.h
 
