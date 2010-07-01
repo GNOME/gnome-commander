@@ -31,6 +31,7 @@ struct GnomeCmdMainWin;
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-notebook.h"
+#include "gnome-cmd-xml-config.h"
 
 
 typedef enum
@@ -107,6 +108,8 @@ struct GnomeCmdFileSelector
     void update_concombo_visibility();
 
     gboolean key_pressed(GdkEventKey *event);
+
+    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs);
 };
 
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const

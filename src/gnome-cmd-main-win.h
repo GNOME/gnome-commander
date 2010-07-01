@@ -24,6 +24,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-cmdline.h"
+#include "gnome-cmd-xml-config.h"
 #include "plugin_manager.h"
 
 #define GNOME_CMD_TYPE_MAIN_WIN          (gnome_cmd_main_win_get_type ())
@@ -85,6 +86,8 @@ struct GnomeCmdMainWin
     void update_list_orientation();
 
     void add_plugin_menu(PluginData *data);
+
+    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw);
 };
 
 

@@ -1354,3 +1354,21 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 
     return scrolled_window;
 }
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
+{
+    GList *tabs = gtk_container_get_children (*fs.notebook);
+
+    for (GList *i=tabs; i; i=i->next)
+    {
+        GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+
+        if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
+            xml << *fl;
+    }
+
+    g_list_free (tabs);
+
+    return xml;
+}

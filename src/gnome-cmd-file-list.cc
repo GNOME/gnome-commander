@@ -2951,3 +2951,9 @@ void GnomeCmdFileList::init_dnd()
     g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
     g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
+{
+    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
+}
+

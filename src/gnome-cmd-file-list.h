@@ -24,6 +24,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
+#include "gnome-cmd-xml-config.h"
 
 #define GNOME_CMD_TYPE_FILE_LIST         (gnome_cmd_file_list_get_type ())
 #define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList)
@@ -169,6 +170,8 @@ struct GnomeCmdFileList
     gboolean key_pressed(GdkEventKey *event);
 
     void init_dnd();
+
+    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl);
 };
 
 
