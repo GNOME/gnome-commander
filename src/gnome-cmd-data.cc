@@ -940,6 +940,8 @@ GnomeCmdData::GnomeCmdData()
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
+    save_tabs_on_exit = TRUE;
+
     allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
@@ -1220,6 +1222,8 @@ void GnomeCmdData::load()
     gnome_cmd_data_get_color ("/colors/ls_colors_cyan_bg", priv->ls_colors_palette.cyan_bg);
     gnome_cmd_data_get_color ("/colors/ls_colors_white_fg", priv->ls_colors_palette.white_fg);
     gnome_cmd_data_get_color ("/colors/ls_colors_white_bg", priv->ls_colors_palette.white_bg);
+
+    save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
 
     priv->start_dirs[LEFT] = gnome_cmd_data_get_string ("/options/start_dir_left", g_get_home_dir ());
     priv->start_dirs[RIGHT] = gnome_cmd_data_get_string ("/options/start_dir_right", g_get_home_dir ());
@@ -1637,6 +1641,8 @@ void GnomeCmdData::save()
         gnome_config_set_int (tmp, fs_col_width[i]);
         g_free (tmp);
     }
+
+    gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
 
     gnome_cmd_data_set_string ("/options/start_dir_left", priv->start_dirs[LEFT]);
     gnome_cmd_data_set_string ("/options/start_dir_right", priv->start_dirs[RIGHT]);
