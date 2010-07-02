@@ -19,6 +19,7 @@ DOC_FIGURES = \
 	figures/dev_cd.png                                      \
 	figures/extract_archive.png                             \
 	figures/gnome-commander_dialog_adv_rename.png           \
+	figures/gnome-commander_dialog_application.png          \
 	figures/gnome-commander_dialog_bookmark.png             \
 	figures/gnome-commander_dialog_file_metadata.png        \
 	figures/gnome-commander_dialog_file_permissions.png     \

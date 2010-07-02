@@ -1200,7 +1200,7 @@
                   <guilabel>Results</guilabel>
               </term>
               <listitem>
-                  <para>List of the new file names. The list can de reordered using drag-and-drop.
+                  <para>List of the new file names. The list can be reordered using drag-and-drop.
                         The context menu provides options for: removing file from the list,
                         viewing file or its properties, and refreshing the list.
                         Conflicting renames will be marked red.</para>
@@ -4631,7 +4631,7 @@
               <entry colname="colspec3">
                 <para>When this option is selected if a file name in the target
 						location is the same as one of the files copied &app; will open a
-						dialog asking for user confirmation. The user can autorise the
+						dialog asking for user confirmation. The user can authorize the
 						overwriting of the file or skip the file.</para>
               </entry>
             </row>
@@ -4673,7 +4673,7 @@
               <entry colname="colspec3">
                 <para>When this option is selected if a file name in the target
 						location is the same as one of the files moved &app; will open a
-						dialog asking for user confirmation. The user can autorise the
+						dialog asking for user confirmation. The user can authorize the
 						overwriting of the file or skip the file. The skipped file will then be still
 						present in the source location.</para>
               </entry>
@@ -4870,11 +4870,11 @@
           </tbody>
         </tgroup>
       </table>
-
+   </sect2>
 
 
 <!--network preferences -->
-    </sect2>
+
     <sect2 id="gnome-commander-prefs-network">
       <title>Network</title>
       <!--brief desciption-->
@@ -4905,12 +4905,23 @@
       <!-- ==== End of Figure ==== -->
       <para/>
     </sect2>
-    <!-- PrefeRred programs settings-->
+    <!-- Preferred programs settings-->
     <sect2 id="gnome-commander-prefs-programs">
       <title>Programs</title>
       <!-- Brief description-->
       <para>This section of the options dialog lets you configure preferred applications
        to open certain document types.</para>
+       <para>You can configure the file opening behaviour for remote items.</para>
+       <para>You can modify the preferred applications used to open the following file types:
+       	<itemizedlist>
+       		<listitem><para><guilabel>Viewer</guilabel> the internal file viewer is used by default but you can configure here another application.</para></listitem>
+       		<listitem><para><guilabel>Editor</guilabel> you can configure your favorite text editor in here.</para></listitem>
+       		<listitem><para><guilabel>Differ</guilabel> You can configure here your favourite comparison tool.</para></listitem>
+       		<listitem><para><guilabel>Terminal</guilabel> You can configure here the terminal of your choice.</para></listitem>
+       	</itemizedlist>
+      	<note>You can specify the application to use as well as the command line options. To use specific options please refer yourself to the application help or man page.</note>
+       </para>
+       <para>You can also add more applications in the <guilabel>Other favorite apps</guilabel> section described further below.</para>
       <!-- == Figure ==== -->
       <figure id="options-programs-fig">
         <title>Programs options</title>
@@ -4927,6 +4938,340 @@
       </figure>
       <!-- ==== End of Figure ==== -->
       <para/>
+      <para>
+      	<table frame="topbot" id="gcmd-TBL-setting6">
+        		<title>Programs option tab</title>
+        			<tgroup cols="2" colsep="0" rowsep="0">
+          			<colspec colname="colspec0" colwidth="50.36*"/>
+          			<colspec colname="colspec1" colwidth="63.64*"/>
+          				<thead>
+            				<row rowsep="1">
+              					<entry>
+                					<para>Header</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Option</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Description</para>
+              					</entry>
+            				</row>
+          				</thead>
+          				<tbody>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>MIME application</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Always download remote files before opening in external program</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Whether the associated application is started before the remote file is downloaded locally.</para>
+              					</entry>
+            				</row>
+            				<row>
+            					<entry>
+	            					<para><guilabel>Standard programs</guilabel>
+   	         					</para>
+            					</entry>
+            					<entry colname="cospec2">
+            						<para>Viewer:</para>
+            					</entry>
+            					<entry colname="colspec3">
+										<para>Set which application is used when the command view is used when the <keycap>F3</keycap> key is pressed. By default &app; uses an internal viewer</para>
+            					</entry>
+            				</row>
+            				<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Use internal viewer</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>When this option is activated (default) &app; uses its internal viewer to display the selected item, if it is deactivated the application defined above will be used instead.</para>
+            					</entry>
+            				</row>
+            				<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Editor:</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>In this text box You can type in the command line used to start your favourite text editor. %s is the variable containing the selected items. The default application is the GNOME default Gedit.</para>
+            					</entry>
+            				</row>
+            				<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Differ:</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>In this text box You can type in the command line used to start your favourite comparison tool. %s is the variable containing the selected files to compare. The default application is Meld.</para>
+            					</entry>
+            				</row>
+            				<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Terminal:</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>In this text box You can type in the command line used to start you favourite terminal application. %s is the variable used to pass the current path to start the terminal into. The Default application is xterm.</para>
+            					</entry>
+            				</row>
+								<row>
+            					<entry>
+            						<para><guilabel>Other favorite apps</guilabel></para>
+            					</entry>
+            					<entry colname="colspec2">
+            						<para>Add</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>You can add any other application in this section the applications defined here will appear in the contextual menu. A dialog box is opened when you click on this button. This dialog box options are described below.</para>
+            					</entry>
+            				</row>
+            				<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Edit</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>Clicking this button will open a dialog were you can modify the parameters used to launch the application selected. The same dialog box as above is opened when you click on this button. This dialog box options are described below.</para>
+            					</entry>
+            				</row>
+								<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Remove</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>Clicking this button will remove the application selected from the list.</para>
+            					</entry>
+            				</row>
+								<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Up</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>Clicking this button will move the application up in the list, this will also affect the order in which the list is displayed in the contextual menu.</para>
+            					</entry>
+            				</row>
+								<row>
+            					<entry><para></para></entry>
+            					<entry colname="colspec2">
+            						<para>Down</para>
+            					</entry>
+            					<entry colname="colspec3">
+            						<para>Clicking this button will move the application down in the list, this will also affect the order in which the list is displayed in the contextual menu.</para>
+            					</entry>
+            				</row>
+            			</tbody>
+            	</tgroup>
+            </table>
+            </para>
+      <para>The section below describes the process of adding or modifying other applications to the contextual menu</para>
+      <para>In the following dialog box you can input a number of different parameters to run the application as you want it to. You will probably need to check the various options available to the application in its manual pages.</para>
+      <note>The dialog box used to modify existing applications is the same as the one described below.</note>
+         <!-- ==== Figure ==== -->
+      <figure id="options-application-fig">
+        <title>Devices options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_dialog_application.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; new application dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+            <para>
+      	<table frame="topbot" id="gcmd-apps">
+        		<title>Programs option tab</title>
+        			<tgroup cols="2" colsep="0" rowsep="0">
+          			<colspec colname="colspec0" colwidth="50.36*"/>
+          			<colspec colname="colspec1" colwidth="63.64*"/>
+          				<thead>
+            				<row rowsep="1">
+              					<entry>
+                					<para>Header</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Option</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Description</para>
+              					</entry>
+            				</row>
+          				</thead>
+          				<tbody>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Label:</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>This text box contains the label that is displayed in the contextual menu.
+                					</para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Command:</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>This text box contains the command line used to start the application and open the selected items.
+                					</para>
+                					<para><note>It is recommended that you read the help or the manual pages of the application to start it properly and to configure it with the correct options.</note></para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Icon:</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Choose Icon
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Clicking on this button opens a dialog box where you can choose the Icon that will displayed in the contextual menu.
+                					</para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Options</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Can handle multiple files
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Whether the application can handle multiple file names to be passed in the command used to start it.
+                					</para>
+              					</entry>
+            				</row><row>
+              					<entry>
+                					<para>
+					                  <guilabel></guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Can handle URIs
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Whether the application can handle a file name provided as a URI. This is especially important when you work on remote files. You can get more information about this in the Help and Manual pages of the application itself.
+                					</para>
+              					</entry>
+            				</row><row>
+              					<entry>
+                					<para>
+					                  <guilabel></guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Requires terminal
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Whether the application requires a terminal to be opened. In this case &app; starts the application in an independent terminal.
+                					</para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Show for</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>All files
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>When this option is selected right clicking on any file will display the application in the contextual menu.
+                					</para>
+              					</entry>
+            				</row><row>
+              					<entry>
+                					<para>
+					                  <guilabel></guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>All directories
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>When this option is selected right clicking on any directory will display the application in the contextual menu.
+                					</para>
+              					</entry>
+            				</row><row>
+              					<entry>
+                					<para>
+					                  <guilabel></guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>All directories and files
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>When this option is selected right clicking on any file or directory will display the application in the contextual menu.
+                					</para>
+              					</entry>
+            				</row><row>
+              					<entry>
+                					<para>
+					                  <guilabel></guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Some files
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>When this option is selected right clicking on the files specified in the <guiitem>File patterns</guiitem> below will display the application in the contextual menu.
+                					</para>
+              					</entry>
+            				</row><row>
+              					<entry>
+                					<para>
+					                  <guilabel></guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>File patterns
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>This contains the file extensions specific to the application. the syntax is as follow :"*.extension" use ";" as a separator between the different extensions if there are more than one.
+                					</para>
+              					</entry>
+            				</row>
+            			</tbody>
+            		</tgroup>
+            	</table>
+            	</para>
     </sect2>
     <sect2 id="gnome-commander-prefs-devices">
       <title>Devices</title>
