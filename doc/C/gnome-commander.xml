@@ -3950,7 +3950,7 @@
         </itemizedlist>
       </para>
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
-         then click on the <guilabel>general</guilabel> tab.
+         then click on the <guilabel>General</guilabel> tab.
        </para>
       <para>The options available are described in more details in
          <xref linkend="gcmd-TBL-setting1">General settings</xref></para>.
@@ -4130,6 +4130,8 @@
                   <keycap>F10</keycap>.</para>
                 </note>
               </entry>
+            </row>
+            <row>
               <entry colname="colspec0" valign="top">
 	              <para><guilabel>Multiple instances</guilabel></para>
               </entry>
@@ -5075,7 +5077,7 @@
       <note>The dialog box used to modify existing applications is the same as the one described below.</note>
          <!-- ==== Figure ==== -->
       <figure id="options-application-fig">
-        <title>Devices options</title>
+        <title>Application options</title>
         <screenshot>
           <mediaobject>
             <imageobject>
