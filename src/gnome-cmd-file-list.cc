@@ -202,7 +202,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     con_open_dialog_label = NULL;
     con_open_dialog_pbar = NULL;
 
-    memset(sort_raising, FALSE, sizeof(sort_raising));
+    memset(sort_raising, GTK_SORT_ASCENDING, sizeof(sort_raising));
 
     gint col = COLUMN_NAME;             // defaults,
     gboolean b = GTK_SORT_ASCENDING;    // used when not set by gnome_cmd_data_get_sort_params()
