@@ -1226,12 +1226,12 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
 
         row = gnome_cmd_clist_get_row (*fl, event->x, y);
 
-        if (row != -1)
+        if (row++ != -1)
         {
-            GnomeCmdFile *f = fl->get_file_at_row(row+1);
+            GnomeCmdFile *f = fl->get_file_at_row(row);
             if (f)
             {
-                fl->select_row(row+1);
+                fl->select_row(row);
                 if (fl->priv->right_mb_sel_state)
                     fl->select_file(f, row);
                 else
