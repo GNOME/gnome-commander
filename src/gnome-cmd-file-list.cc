@@ -2547,7 +2547,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         gnome_cmd_dir_cancel_monitoring (cwd);
         lwd = cwd;
         g_signal_handlers_disconnect_matched (lwd, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, this);
-        lwd->voffset = gnome_cmd_clist_get_voffset (*this);
+        cwd->voffset = gnome_cmd_clist_get_voffset (*this);
     }
 
     cwd = dir;
