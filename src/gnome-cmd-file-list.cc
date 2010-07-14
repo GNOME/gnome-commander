@@ -2567,7 +2567,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
             break;
 
         case DIR_STATE_LISTED:
-            g_signal_emit (this, signals[DIR_CHANGED], 0, dir);
+            on_dir_list_ok (dir, NULL, this);
             break;
     }
 
