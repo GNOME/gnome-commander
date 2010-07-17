@@ -1041,8 +1041,6 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     update_column_sort_arrows (fl);
 
     fl->sort();
-
-    gnome_cmd_data_set_sort_params (fl, col, fl->priv->sort_raising[col]);
 }
 
 

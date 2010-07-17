@@ -282,7 +282,6 @@ GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
 GnomeCmdLsColorsPalette *gnome_cmd_data_get_ls_colors_palette ();
 
 void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &direction);
-void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction);
 
 inline void GnomeCmdData::set_viewer(const gchar *command)
 {

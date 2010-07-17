@@ -1609,10 +1609,10 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/main_win_pos_x", priv->main_win_pos[0]);
     gnome_cmd_data_set_int    ("/options/main_win_pos_y", priv->main_win_pos[1]);
 
-    gnome_cmd_data_set_int    ("/options/sort_column_left", priv->sort_column[LEFT]);
-    gnome_cmd_data_set_bool   ("/options/sort_direction_left", priv->sort_direction[LEFT]);
-    gnome_cmd_data_set_int    ("/options/sort_column_right", priv->sort_column[RIGHT]);
-    gnome_cmd_data_set_bool   ("/options/sort_direction_right", priv->sort_direction[RIGHT]);
+    gnome_cmd_data_set_int    ("/options/sort_column_left", main_win->fs(LEFT)->file_list()->get_sort_column());
+    gnome_cmd_data_set_bool   ("/options/sort_direction_left", main_win->fs(LEFT)->file_list()->get_sort_order());
+    gnome_cmd_data_set_int    ("/options/sort_column_right", main_win->fs(RIGHT)->file_list()->get_sort_column());
+    gnome_cmd_data_set_bool   ("/options/sort_direction_right", main_win->fs(RIGHT)->file_list()->get_sort_order());
 
     gnome_cmd_data_set_string ("/programs/viewer", viewer);
     gnome_cmd_data_set_string ("/programs/editor", editor);
@@ -1884,22 +1884,6 @@ void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &
         {
             col = gnome_cmd_data.priv->sort_column[RIGHT];
             direction = gnome_cmd_data.priv->sort_direction[RIGHT];
-        }
-}
-
-
-void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
-{
-    if (main_win->fs(LEFT)->file_list()==fl)
-    {
-        gnome_cmd_data.priv->sort_column[LEFT] = col;
-        gnome_cmd_data.priv->sort_direction[LEFT] = direction;
-    }
-    else
-        if (main_win->fs(RIGHT)->file_list()==fl)
-        {
-            gnome_cmd_data.priv->sort_column[RIGHT] = col;
-            gnome_cmd_data.priv->sort_direction[RIGHT] = direction;
         }
 }
 
