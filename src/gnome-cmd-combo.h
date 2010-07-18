@@ -50,9 +50,9 @@ struct GnomeCmdCombo
 
   public:
 
-    operator GObject * ()               {  return G_OBJECT (this);         }
-    operator GtkObject * ()             {  return GTK_OBJECT (this);       }
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
+    operator GObject * () const         {  return G_OBJECT (this);         }
+    operator GtkObject * () const       {  return GTK_OBJECT (this);       }
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
 
     GtkWidget *entry;
     GtkWidget *list;
@@ -101,8 +101,8 @@ struct GnomeCmdCombo
 
     void update_style();
 
-    gpointer get_selected_data()                                {  return sel_data;  }
-    const gchar *get_selected_text()                            {  return sel_text;  }
+    gpointer get_selected_data() const                          {  return sel_data;  }
+    const gchar *get_selected_text() const                      {  return sel_text;  }
 };
 
 inline void *GnomeCmdCombo::operator new (size_t size)

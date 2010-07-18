@@ -874,7 +874,7 @@ GtkType gnome_cmd_main_win_get_type ()
 }
 
 
-GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id)
+GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id) const
 {
     switch (id)
     {
@@ -897,7 +897,7 @@ GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id)
 }
 
 
-FileSelectorID GnomeCmdMainWin::fs()
+FileSelectorID GnomeCmdMainWin::fs() const
 {
     return priv->current_fs;
 }
@@ -1145,7 +1145,7 @@ static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFile
 }
 
 
-GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline()
+GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline() const
 {
     return GNOME_CMD_CMDLINE (priv->cmdline);
 }
@@ -1294,7 +1294,7 @@ void GnomeCmdMainWin::add_plugin_menu(PluginData *data)
 }
 
 
-GnomeCmdState *GnomeCmdMainWin::get_state()
+GnomeCmdState *GnomeCmdMainWin::get_state() const
 {
     GnomeCmdFileSelector *fs1 = fs(ACTIVE);
     GnomeCmdFileSelector *fs2 = fs(INACTIVE);

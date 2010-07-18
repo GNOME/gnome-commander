@@ -700,8 +700,6 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 
 static void init (GnomeCmdFileSelector *fs)
 {
-    GtkWidget *padding;
-
     fs->list = NULL;
 
     fs->priv = new GnomeCmdFileSelector::Private;
@@ -750,10 +748,10 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_misc_set_alignment (GTK_MISC (fs->info_label), 0.0f, 0.5f);
 
     // pack the widgets
+    GtkWidget *padding = create_hbox (*fs, FALSE, 6);
     gtk_box_pack_start (GTK_BOX (fs), fs->con_hbox, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), fs->dir_indicator, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (fs->notebook), TRUE, TRUE, 0);
-    padding = create_hbox (*fs, FALSE, 6);
     gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (padding), fs->info_label, FALSE, TRUE, 6);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), *fs->con_combo, FALSE, FALSE, 0);

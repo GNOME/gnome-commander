@@ -779,7 +779,7 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_KEYBINDINGS_KEY, "/GnomeCommander/KeyBindings/Key"}
                        };
 
-    load_data (xml_elem_names, xml_elem_data, G_N_ELEMENTS(xml_elem_data));
+    load_data (xml_elem_names, xml_elem_data, G_N_ELEMENTS (xml_elem_data));
 
     if (xml_len==-1)
         xml_len = strlen (xml);

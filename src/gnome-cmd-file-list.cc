@@ -1622,13 +1622,13 @@ guint GnomeCmdFileList::get_column_default_width (GnomeCmdFileList::ColumnID col
 }
 
 
-GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column()
+GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column() const
 {
     return (ColumnID) priv->current_col;
 }
 
 
-gboolean GnomeCmdFileList::get_sort_order()
+gboolean GnomeCmdFileList::get_sort_order() const
 {
     return priv->sort_raising[priv->current_col];
 }

@@ -72,7 +72,7 @@ namespace GnomeCmd
 
       public:
 
-        operator gboolean ()                    {  return !malformed_pattern;   }
+        operator gboolean () const              {  return !malformed_pattern;   }
     };
 
     class RegexFind: public Regex

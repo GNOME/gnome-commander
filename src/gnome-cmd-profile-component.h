@@ -38,7 +38,7 @@ struct GnomeCmdProfileComponent
 
     Private *priv;
 
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);  }
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
 
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_PROFILE_COMPONENT, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }

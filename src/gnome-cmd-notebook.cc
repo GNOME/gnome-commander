@@ -82,7 +82,7 @@ static void gnome_cmd_notebook_class_init (GnomeCmdNotebookClass *klass)
 }
 
 
-int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y)
+int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
 {
     if (!GTK_NOTEBOOK (this)->first_tab)
         return -1;

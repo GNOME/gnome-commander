@@ -71,11 +71,11 @@ struct GnomeCmdFileList
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    operator GObject * ()               {  return G_OBJECT (this);         }
-    operator GtkObject * ()             {  return GTK_OBJECT (this);       }
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
-    operator GtkCList * ()              {  return GTK_CLIST (this);        }
-    operator GnomeCmdCList * ()         {  return GNOME_CMD_CLIST (this);  }
+    operator GObject * () const         {  return G_OBJECT (this);         }
+    operator GtkObject * () const       {  return GTK_OBJECT (this);       }
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
+    operator GtkCList * () const        {  return GTK_CLIST (this);        }
+    operator GnomeCmdCList * () const   {  return GNOME_CMD_CLIST (this);  }
 
     enum ColumnID
     {
@@ -155,8 +155,8 @@ struct GnomeCmdFileList
 
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (*this, col, value);  }
 
-    ColumnID get_sort_column();
-    gboolean get_sort_order();
+    ColumnID get_sort_column() const;
+    gboolean get_sort_order() const;
     static guint get_column_default_width(ColumnID col);
 
     void invalidate_tree_size();

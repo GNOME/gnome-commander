@@ -41,9 +41,9 @@ struct GnomeCmdAdvrenameDialog
 
     Private *priv;
 
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);  }
-    operator GtkWindow * ()             {  return GTK_WINDOW (this);  }
-    operator GtkDialog * ()             {  return GTK_DIALOG (this);  }
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
+    operator GtkWindow * () const       {  return GTK_WINDOW (this);  }
+    operator GtkDialog * () const       {  return GTK_DIALOG (this);  }
 
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_DIALOG, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }

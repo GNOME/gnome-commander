@@ -53,15 +53,15 @@ struct GnomeCmdMainWin
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_MAIN_WIN, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    operator GObject * ()               {  return G_OBJECT (this);         }
-    operator GtkObject * ()             {  return GTK_OBJECT (this);       }
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
-    operator GtkWindow * ()             {  return GTK_WINDOW (this);       }
+    operator GObject * () const         {  return G_OBJECT (this);         }
+    operator GtkObject * () const       {  return GTK_OBJECT (this);       }
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);       }
+    operator GtkWindow * () const       {  return GTK_WINDOW (this);       }
 
     GnomeCmdAdvrenameDialog *advrename_dlg;
 
-    GnomeCmdFileSelector *fs(FileSelectorID id);
-    FileSelectorID fs();
+    GnomeCmdFileSelector *fs(FileSelectorID id) const;
+    FileSelectorID fs() const;
 
     gboolean key_pressed (GdkEventKey *event);
 
@@ -70,10 +70,10 @@ struct GnomeCmdMainWin
     void set_fs_directory_to_opposite(FileSelectorID fsID);
 
     void set_equal_panes();
-    GnomeCmdState *get_state();
+    GnomeCmdState *get_state() const;
     void set_cap_state(gboolean state);
 
-    GnomeCmdCmdline *get_cmdline();
+    GnomeCmdCmdline *get_cmdline() const;
 
     void focus_file_lists();
     void refocus();

@@ -42,18 +42,18 @@ struct GnomeCmdNotebook
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_NOTEBOOK, "show-tabs", FALSE, "scrollable", TRUE, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);    }
-    operator GtkContainer * ()          {  return GTK_CONTAINER (this); }
-    operator GtkNotebook * ()           {  return GTK_NOTEBOOK (this);  }
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);     }
+    operator GtkContainer * () const    {  return GTK_CONTAINER (this);  }
+    operator GtkNotebook * () const     {  return GTK_NOTEBOOK (this);   }
 
-    int size()                          {  return gtk_notebook_get_n_pages (*this);  }
-    bool empty()                        {  return size()==0;  }
+    int size() const                    {  return gtk_notebook_get_n_pages (*this);  }
+    bool empty() const                  {  return size()==0;  }
 
-    gint get_current_page()             {  return gtk_notebook_get_current_page (*this);  }
+    gint get_current_page() const       {  return gtk_notebook_get_current_page (*this);  }
     void set_current_page(gint n)       {  gtk_notebook_set_current_page (*this, n);      }
 
-    GtkWidget *page()                   {  return gtk_notebook_get_nth_page (*this, get_current_page());  }
-    GtkWidget *page(gint n)             {  return gtk_notebook_get_nth_page (*this, n);  }
+    GtkWidget *page() const             {  return gtk_notebook_get_nth_page (*this, get_current_page());  }
+    GtkWidget *page(gint n) const       {  return gtk_notebook_get_nth_page (*this, n);  }
 
     gint insert_page(GtkWidget *page, gint n, GtkWidget *label=NULL);
     gint insert_page(GtkWidget *page, gint n, const gchar *label)           {  return insert_page(page, n, label ? gtk_label_new (label) : NULL);  }
@@ -65,8 +65,8 @@ struct GnomeCmdNotebook
     void remove_page(gint n);
     void remove_page()                  {  remove_page (get_current_page());  }
 
-    GtkWidget *get_label()                                                  {  return gtk_notebook_get_tab_label (*this, page());   }
-    GtkWidget *get_label(gint n)                                            {  return gtk_notebook_get_tab_label (*this, page(n));  }
+    GtkWidget *get_label() const                                            {  return gtk_notebook_get_tab_label (*this, page());   }
+    GtkWidget *get_label(gint n) const                                      {  return gtk_notebook_get_tab_label (*this, page(n));  }
     void set_label(GtkWidget *label=NULL)                                   {  gtk_notebook_set_tab_label (*this, page(), label);   }
     void set_label(gint n, GtkWidget *label=NULL)                           {  gtk_notebook_set_tab_label (*this, page(n), label);  }
     void set_label(const gchar *label)                                      {  set_label(label ? gtk_label_new (label) : NULL);     }
@@ -75,7 +75,7 @@ struct GnomeCmdNotebook
     void prev_page();
     void next_page();
 
-    int find_tab_num_at_pos(gint screen_x, gint screen_y);
+    int find_tab_num_at_pos(gint screen_x, gint screen_y) const;
 };
 
 inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *label)
