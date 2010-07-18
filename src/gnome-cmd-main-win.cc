@@ -874,6 +874,26 @@ GtkType gnome_cmd_main_win_get_type ()
 }
 
 
+FileSelectorID GnomeCmdMainWin::fs() const
+{
+    return priv->current_fs;
+}
+
+
+FileSelectorID GnomeCmdMainWin::fs(GnomeCmdFileSelector *fs) const
+{
+    if (!priv->file_selector[LEFT] || priv->file_selector[LEFT]==*fs)
+        return LEFT;
+
+    if (!priv->file_selector[RIGHT] || priv->file_selector[RIGHT]==*fs)
+        return RIGHT;
+
+    g_assert_not_reached();
+
+    return LEFT;    //  never reached, to make compiler happy
+}
+
+
 GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id) const
 {
     switch (id)
@@ -894,12 +914,6 @@ GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id) const
        default:
             return NULL;
     }
-}
-
-
-FileSelectorID GnomeCmdMainWin::fs() const
-{
-    return priv->current_fs;
 }
 
 
