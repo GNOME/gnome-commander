@@ -1884,22 +1884,6 @@ void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 }
 
 
-void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &direction)
-{
-    if (!main_win->fs(LEFT) || main_win->fs(LEFT)->file_list() == fl)
-    {
-        col = gnome_cmd_data.priv->sort_column[LEFT];
-        direction = gnome_cmd_data.priv->sort_direction[LEFT];
-    }
-    else
-        if (!main_win->fs(RIGHT) || main_win->fs(RIGHT)->file_list() == fl)
-        {
-            col = gnome_cmd_data.priv->sort_column[RIGHT];
-            direction = gnome_cmd_data.priv->sort_direction[RIGHT];
-        }
-}
-
-
 void gnome_cmd_data_set_main_win_pos (gint x, gint y)
 {
     gnome_cmd_data.priv->main_win_pos[0] = x;
