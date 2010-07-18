@@ -93,7 +93,8 @@ struct GnomeCmdFileSelector
     gboolean is_local() const               {  return gnome_cmd_con_is_local (get_connection ());  }
     gboolean is_active();
 
-    GtkWidget *new_tab(GnomeCmdDir *dir=NULL, gboolean activate=TRUE);
+    GtkWidget *new_tab();
+    GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
     GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate=TRUE);
     void close_tab()                        {  if (notebook->size()>1)  notebook->remove_page();   }
     void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
@@ -123,9 +124,14 @@ inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *
     file_list()->set_connection(con, start_dir);
 }
 
+inline GtkWidget *GnomeCmdFileSelector::new_tab()
+{
+    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, TRUE);
+}
+
 inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 {
-    return new_tab(dir, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, activate);
+    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), activate);
 }
 
 GtkType gnome_cmd_file_selector_get_type ();
