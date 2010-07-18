@@ -34,15 +34,6 @@ struct GnomeCmdMainWin;
 #include "gnome-cmd-xml-config.h"
 
 
-typedef enum
-{
-    LEFT,
-    RIGHT,
-    ACTIVE,
-    INACTIVE
-} FileSelectorID;
-
-
 struct GnomeCmdCombo;
 
 
