@@ -204,14 +204,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
     memset(sort_raising, GTK_SORT_ASCENDING, sizeof(sort_raising));
 
-    gint col = COLUMN_NAME;             // defaults,
-    gboolean b = GTK_SORT_ASCENDING;    // used when not set by gnome_cmd_data_get_sort_params()
-
-    gnome_cmd_data_get_sort_params (fl, col, b);
-    current_col = col;
-    sort_raising[col] = b;
-    sort_func = file_list_column[col].sort_func;
-
     for (gint i=0; i<NUM_COLUMNS; i++)
         gtk_clist_set_column_resizeable (*fl, i, TRUE);
 }
@@ -222,6 +214,24 @@ GnomeCmdFileList::Private::~Private()
     gnome_cmd_file_list_free (selected_files);
 }
 
+
+GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
+{
+    realized = FALSE;
+    modifier_click = FALSE;
+    con = NULL;
+    cwd = NULL;
+    lwd = NULL;
+    connected_dir = NULL;
+
+    priv->current_col = sort_col;
+    priv->sort_raising[sort_col] = sort_order;
+    priv->sort_func = file_list_column[sort_col].sort_func;
+
+    create_column_titles();
+
+    init_dnd();
+}
 
 inline gchar *strip_extension (const gchar *fname)
 {

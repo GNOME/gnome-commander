@@ -95,7 +95,7 @@ struct GnomeCmdFileList
     GnomeCmdDir *cwd, *lwd;         // current & last working dir
     GnomeCmdDir *connected_dir;
 
-    GnomeCmdFileList();
+    GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order);
     ~GnomeCmdFileList();
 
     int size()                          {  return g_list_length (get_visible_files());  }
@@ -178,20 +178,6 @@ struct GnomeCmdFileList
 inline void *GnomeCmdFileList::operator new (size_t size)
 {
     return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
-}
-
-inline GnomeCmdFileList::GnomeCmdFileList()
-{
-    realized = FALSE;
-    modifier_click = FALSE;
-    con = NULL;
-    cwd = NULL;
-    lwd = NULL;
-    connected_dir = NULL;
-
-    create_column_titles();
-
-    init_dnd();
 }
 
 inline GnomeCmdFileList::~GnomeCmdFileList()

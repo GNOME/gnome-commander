@@ -713,8 +713,9 @@ static void init (GnomeCmdFileSelector *fs)
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
 
     // create the notebook and the first tab
+    FileSelectorID id = main_win->fs(fs);
     fs->notebook = new GnomeCmdNotebook;
-    fs->new_tab();
+    fs->new_tab(NULL, gnome_cmd_data.get_sort_col(id), gnome_cmd_data.get_sort_direction(id));
 
     // create the connection combo
     fs->con_combo = new GnomeCmdCombo(2, 1);
@@ -1306,7 +1307,7 @@ gboolean GnomeCmdFileSelector::is_active()
 GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate)
 {
     // create the list
-    GnomeCmdFileList *list = new GnomeCmdFileList;
+    GnomeCmdFileList *list = new GnomeCmdFileList(sort_col,sort_order);
 
     if (activate)
         this->list = list;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
