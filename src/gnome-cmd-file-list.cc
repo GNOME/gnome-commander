@@ -1628,9 +1628,9 @@ GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column() const
 }
 
 
-gboolean GnomeCmdFileList::get_sort_order() const
+GtkSortType GnomeCmdFileList::get_sort_order() const
 {
-    return priv->sort_raising[priv->current_col];
+    return (GtkSortType) priv->sort_raising[priv->current_col];
 }
 
 
