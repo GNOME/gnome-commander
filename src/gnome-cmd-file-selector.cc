@@ -1305,7 +1305,7 @@ gboolean GnomeCmdFileSelector::is_active()
 }
 
 
-GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
+GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate)
 {
     // create the list
     GnomeCmdFileList *list = new GnomeCmdFileList;
