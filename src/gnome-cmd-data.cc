@@ -1710,6 +1710,18 @@ void GnomeCmdData::save()
 }
 
 
+GnomeCmdFileList::ColumnID GnomeCmdData::get_sort_col(FileSelectorID id) const
+{
+    return (GnomeCmdFileList::ColumnID) priv->sort_column[id];
+}
+
+
+GtkSortType GnomeCmdData::get_sort_direction(FileSelectorID id) const
+{
+    return (GtkSortType) priv->sort_direction[id];
+}
+
+
 gpointer gnome_cmd_data_get_con_list ()
 {
     return gnome_cmd_data.priv->con_list;

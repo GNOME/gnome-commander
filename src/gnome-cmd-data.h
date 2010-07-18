@@ -252,6 +252,9 @@ struct GnomeCmdData
     gboolean hide_type(GnomeVFSFileType type)     {  return filter_settings.file_types[type];  }
     GnomeCmdConFtp *get_quick_connect()           {  return quick_connect;                     }
 
+    GnomeCmdFileList::ColumnID get_sort_col(FileSelectorID id) const;
+    GtkSortType get_sort_direction(FileSelectorID id) const;
+
     const gchar *get_viewer()                     {  return viewer;                            }
     const gchar *get_editor()                     {  return editor;                            }
     const gchar *get_differ()                     {  return differ;                            }
