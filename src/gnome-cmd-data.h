@@ -249,16 +249,16 @@ struct GnomeCmdData
     void load_more();
     void save();
 
-    gboolean hide_type(GnomeVFSFileType type)     {  return filter_settings.file_types[type];  }
-    GnomeCmdConFtp *get_quick_connect()           {  return quick_connect;                     }
+    gboolean hide_type(GnomeVFSFileType type) const {  return filter_settings.file_types[type];  }
+    GnomeCmdConFtp *get_quick_connect() const       {  return quick_connect;                     }
 
     GnomeCmdFileList::ColumnID get_sort_col(FileSelectorID id) const;
     GtkSortType get_sort_direction(FileSelectorID id) const;
 
-    const gchar *get_viewer()                     {  return viewer;                            }
-    const gchar *get_editor()                     {  return editor;                            }
-    const gchar *get_differ()                     {  return differ;                            }
-    const gchar *get_term()                       {  return term;                              }
+    const gchar *get_viewer() const                 {  return viewer;                            }
+    const gchar *get_editor() const                 {  return editor;                            }
+    const gchar *get_differ() const                 {  return differ;                            }
+    const gchar *get_term() const                   {  return term;                              }
 
     void set_viewer(const gchar *command);
     void set_editor(const gchar *command);
