@@ -1358,7 +1358,12 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileList *fl
     if (fl->connected_dir!=dir)
     {
         if (fl->connected_dir)
-            g_signal_handlers_disconnect_matched (fl->connected_dir, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, fl);
+        {
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_created, fl);
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_deleted, fl);
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_changed, fl);
+            g_signal_handlers_disconnect_by_func (fl->connected_dir, (gpointer) on_dir_file_renamed, fl);
+        }
 
         g_signal_connect (dir, "file-created", G_CALLBACK (on_dir_file_created), fl);
         g_signal_connect (dir, "file-deleted", G_CALLBACK (on_dir_file_deleted), fl);
