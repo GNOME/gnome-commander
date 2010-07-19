@@ -2575,6 +2575,8 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
             break;
 
         case DIR_STATE_LISTED:
+            g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
+            g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             on_dir_list_ok (dir, NULL, this);
             break;
     }
