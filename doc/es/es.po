@@ -1,20 +1,19 @@
 # translation of gnome-commander-help.master.po to Español
 #
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2010.
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-02 20:18+0000\n"
-"PO-Revision-Date: 2010-07-11 09:35+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2010-07-27 21:39+0000\n"
+"PO-Revision-Date: 2010-07-12 11:31+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: es <gnome-es-list@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -188,9 +187,6 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3963(None)
-#| msgid ""
-#| "@@image: 'figures/gnome-commander_options_general.png'; "
-#| "md5=834ecc59383c2f6c08b62c039f73e44b"
 msgid ""
 "@@image: 'figures/gnome-commander_options_general.png'; "
 "md5=ec1c95469808b81891fc8370c25985cc"
@@ -261,9 +257,6 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:5084(None)
-#| msgid ""
-#| "@@image: 'figures/gnome-commander_dialog_file_permissions.png'; "
-#| "md5=4013d302c47a2de516521a987f633b3e"
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_application.png'; "
 "md5=c1fb163d4ee65209417f823ba2c98b4e"
@@ -460,16 +453,21 @@ msgstr "2010-06-01"
 msgid "GNOME Commander Manual V1.2.8.7;"
 msgstr "Manual de GNOME Commander v1.2.8.1;"
 
-#: C/gnome-commander.xml:213(date) C/gnome-commander.xml:223(date)
-#: C/gnome-commander.xml:7389(para) C/gnome-commander.xml:7452(para)
-msgid "2010-??-??"
-msgstr "2010-??-??"
+#: C/gnome-commander.xml:213(date) C/gnome-commander.xml:7452(para)
+#, fuzzy
+#| msgid "2008-07-28"
+msgid "2010-07-27"
+msgstr "2008-07-28"
 
 #: C/gnome-commander.xml:222(revnumber)
 #, fuzzy
 #| msgid "GNOME Commander Manual V1.2.4;"
 msgid "GNOME Commander Manual V1.4;"
 msgstr "Manual de GNOME Commander v1.2.4"
+
+#: C/gnome-commander.xml:223(date) C/gnome-commander.xml:7389(para)
+msgid "2010-??-??"
+msgstr "2010-??-??"
 
 #: C/gnome-commander.xml:225(para)
 msgid "Laurent Coudeur <email>laurentc@iol.ie</email>"
@@ -1474,8 +1472,8 @@ msgstr ""
 "Un enlace simbólico es un tipo especial de archivo que apunta a otro archivo "
 "o carpeta. Cuando se realiza una acción sobre un enlace simbólico, se "
 "ejecuta la acción sobre el archivo o carpeta a la que apunta el enlace "
-"simbólico. Sin embargo, si borra el enlace simbólico, borra el archivo del "
-"enlace, no el archivo al que el enlace simbólico apunta."
+"simbólico. Sin embargo, si elimina el enlace simbólico, elimina el archivo "
+"del enlace, no el archivo al que el enlace simbólico apunta."
 
 #: C/gnome-commander.xml:827(para)
 msgid ""
@@ -1642,7 +1640,7 @@ msgid ""
 "a file - it is removed!"
 msgstr ""
 "Los archivos de la lista de resultados son actualmente los originales. Si "
-"borra un archivo, se elimina."
+"elimina un archivo, se quita."
 
 #: C/gnome-commander.xml:891(title)
 msgid "Viewing the Properties of a File or Folder"
@@ -9109,7 +9107,7 @@ msgstr "permitir_múltiples_instancias"
 
 #: C/gnome-commander.xml:4139(para)
 msgid "Don't start a new instance"
-msgstr ""
+msgstr "No iniciar una instancia nueva"
 
 #: C/gnome-commander.xml:4142(para)
 msgid ""
@@ -9592,7 +9590,7 @@ msgstr "borrar"
 
 #: C/gnome-commander.xml:4604(para)
 msgid "Confirm before delete"
-msgstr ""
+msgstr "Confirmar antes de eliminar"
 
 #: C/gnome-commander.xml:4607(para)
 msgid "When activated GNOME Commander opens a dialog to confirm file deletion."
@@ -9606,7 +9604,7 @@ msgstr "Con copyright"
 
 #: C/gnome-commander.xml:4618(para) C/gnome-commander.xml:4660(para)
 msgid "Silently"
-msgstr ""
+msgstr "Silenciosamente"
 
 #: C/gnome-commander.xml:4621(para)
 msgid ""
@@ -9616,7 +9614,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4631(para) C/gnome-commander.xml:4673(para)
 msgid "Query first"
-msgstr ""
+msgstr "Preguntar primero"
 
 #: C/gnome-commander.xml:4634(para)
 msgid ""
@@ -9639,7 +9637,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4656(guilabel)
 msgid "Move overwrite"
-msgstr ""
+msgstr "Mover sobreescribiendo"
 
 #: C/gnome-commander.xml:4663(para)
 msgid ""
@@ -9953,7 +9951,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4978(guilabel)
 msgid "Standard programs"
-msgstr ""
+msgstr "Programas estándar"
 
 #: C/gnome-commander.xml:4982(para)
 #, fuzzy
@@ -10022,11 +10020,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:5026(guilabel)
 msgid "Other favorite apps"
-msgstr ""
+msgstr "Otras apl. favoritas"
 
 #: C/gnome-commander.xml:5029(para)
 msgid "Add"
-msgstr ""
+msgstr "Añadir"
 
 #: C/gnome-commander.xml:5032(para)
 msgid ""
@@ -10111,7 +10109,7 @@ msgstr "Muestra el diálogo de preferencias de red de GNOME Commander."
 
 #: C/gnome-commander.xml:5116(guilabel)
 msgid "Label:"
-msgstr ""
+msgstr "Etiqueta:"
 
 #: C/gnome-commander.xml:5124(para)
 msgid ""
@@ -10145,7 +10143,7 @@ msgstr "contar"
 
 #: C/gnome-commander.xml:5151(para)
 msgid "Choose Icon"
-msgstr ""
+msgstr "Elegir icono"
 
 #: C/gnome-commander.xml:5155(para)
 msgid ""
@@ -10167,7 +10165,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5180(para)
 msgid "Can handle URIs"
-msgstr ""
+msgstr "Puede manejar URIs"
 
 #: C/gnome-commander.xml:5184(para)
 msgid ""
@@ -10178,7 +10176,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5194(para)
-#| msgid "terminal"
 msgid "Requires terminal"
 msgstr "Requiere terminal"
 
@@ -10190,10 +10187,9 @@ msgstr ""
 
 #: C/gnome-commander.xml:5205(guilabel)
 msgid "Show for"
-msgstr ""
+msgstr "Mostrar por"
 
 #: C/gnome-commander.xml:5209(para)
-#| msgid "Select all files"
 msgid "All files"
 msgstr "Todos los archivos"
 
@@ -10204,7 +10200,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5223(para)
-#| msgid "Compare directories"
 msgid "All directories"
 msgstr "Todas las carpetas"
 
@@ -10216,7 +10211,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5237(para)
 msgid "All directories and files"
-msgstr ""
+msgstr "Todas las carpetas y archivos"
 
 #: C/gnome-commander.xml:5241(para)
 msgid ""
@@ -10225,7 +10220,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5251(para)
-#| msgid "Move files"
 msgid "Some files"
 msgstr "Algunos archivos"
 
@@ -10237,7 +10231,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5265(para)
-#| msgid "Filters"
 msgid "File patterns"
 msgstr "Patrones de archivos"
 
@@ -10366,7 +10359,7 @@ msgstr "F8"
 #: C/gnome-commander.xml:5364(para) C/gnome-commander.xml:5649(para)
 #: C/gnome-commander.xml:6056(para) C/gnome-commander.xml:6112(para)
 msgid "Delete files"
-msgstr "Borrar archivos"
+msgstr "Eliminar archivos"
 
 #: C/gnome-commander.xml:5368(keycap)
 msgid "F9"
@@ -10690,15 +10683,15 @@ msgstr ""
 
 #: C/gnome-commander.xml:5749(para) C/gnome-commander.xml:6352(para)
 msgid "Open directory in a new tab"
-msgstr ""
+msgstr "Abrir carpeta en una solapa nueva"
 
 #: C/gnome-commander.xml:5754(para)
 msgid "Close current tab"
-msgstr ""
+msgstr "Cerrar solapa actual"
 
 #: C/gnome-commander.xml:5759(para) C/gnome-commander.xml:6281(para)
 msgid "Close all tabs"
-msgstr ""
+msgstr "Cerrar todas las solapas"
 
 #: C/gnome-commander.xml:5764(para)
 msgid "Switch to the next tab"
@@ -10801,11 +10794,11 @@ msgstr "Borrar hasta el final de la línea"
 
 #: C/gnome-commander.xml:5860(para)
 msgid "Delete the word to the left of the cursor"
-msgstr "Borra la palabra a la izquierda del cursor"
+msgstr "Borrar la palabra a la izquierda del cursor"
 
 #: C/gnome-commander.xml:5865(para)
 msgid "Delete the word to the right of the cursor"
-msgstr "Borra la palabra a la derecha del cursor"
+msgstr "Borrar la palabra a la derecha del cursor"
 
 #: C/gnome-commander.xml:5869(keycap)
 msgid "P"
@@ -11427,7 +11420,7 @@ msgstr "view.last"
 
 #: C/gnome-commander.xml:6276(para)
 msgid "Close the current tab"
-msgstr ""
+msgstr "Cerrar la solapa actual"
 
 #: C/gnome-commander.xml:6280(para)
 #, fuzzy
@@ -11437,7 +11430,7 @@ msgstr "view.equal_panes"
 
 #: C/gnome-commander.xml:6285(para)
 msgid "view.close_duplicate_tabs"
-msgstr ""
+msgstr "view.close_duplicate_tabs"
 
 #: C/gnome-commander.xml:6286(para)
 msgid "Close duplicate tabs"
@@ -12545,7 +12538,7 @@ msgstr "[confirm]"
 
 #: C/gnome-commander.xml:7129(para)
 msgid "delete"
-msgstr "borrar"
+msgstr "eliminar"
 
 #: C/gnome-commander.xml:7135(para)
 msgid "[colors]"
@@ -12775,7 +12768,6 @@ msgid "What's new"
 msgstr "Qué hay nuevo"
 
 #: C/gnome-commander.xml:7388(para)
-#| msgid "1.2.4"
 msgid "1.4"
 msgstr "1.4"
 
@@ -12921,7 +12913,6 @@ msgstr ""
 "keycombo> Configurar igual ambos paneles"
 
 #: C/gnome-commander.xml:7451(para)
-#| msgid "1.2.8.6"
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
@@ -14444,7 +14435,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:8597(para)
 msgid "The delete confirmation can now be disabled"
-msgstr "Ahora se puede deshabilitar la confirmación al borrar"
+msgstr "Ahora se puede deshabilitar la confirmación al eliminar"
 
 #: C/gnome-commander.xml:8600(para)
 msgid "Better error messages when a mount fails"
@@ -14615,7 +14606,7 @@ msgid ""
 msgstr ""
 "Añadido soporte para $p en el diálogo de renombrado avanzado. Esto le "
 "proporcionará la carpeta padre. Corregido un error que, al borrar una "
-"carpeta, a veces sólo se vaciaba la carpeta, pero no se borraba. Corregido "
+"carpeta, a veces sólo se vaciaba la carpeta, pero no se eliminaba. Corregido "
 "el que la carpeta «..» es visible en sesiones FTP."
 
 #: C/gnome-commander.xml:8745(para)
