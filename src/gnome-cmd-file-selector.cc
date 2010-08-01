@@ -936,7 +936,9 @@ void GnomeCmdFileSelector::update_connections()
 void GnomeCmdFileSelector::update_style()
 {
     con_combo->update_style();
-    list->update_style();
+
+    if (list)
+        list->update_style();
 
     if (priv->realized)
         update_files();
