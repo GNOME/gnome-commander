@@ -739,9 +739,6 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_widget_ref (fs->dir_indicator);
     g_object_set_data_full (*fs, "dir_indicator", fs->dir_indicator, g_object_unref);
 
-    // hide dir column
-    fs->file_list()->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
-
     // create the info label
     fs->info_label = gtk_label_new ("not initialized");
     gtk_widget_ref (fs->info_label);
