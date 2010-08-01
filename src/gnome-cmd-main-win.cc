@@ -199,10 +199,10 @@ static GtkWidget *create_separator (gboolean vertical)
         box = gtk_hbox_new (FALSE, 0);
     }
 
-    gtk_widget_ref (sep);
+    g_object_ref (sep);
     gtk_widget_show (sep);
 
-    gtk_widget_ref (box);
+    g_object_ref (box);
     gtk_widget_show (box);
 
     gtk_box_pack_start (GTK_BOX (box), sep, TRUE, TRUE, 3);
@@ -216,7 +216,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
     gint i;
 
     mw->priv->toolbar = gtk_hbox_new (FALSE, 0);
-    gtk_widget_ref (mw->priv->toolbar);
+    g_object_ref (mw->priv->toolbar);
     g_object_set_data_full (*mw, "toolbar", mw->priv->toolbar, g_object_unref);
     gtk_widget_show (mw->priv->toolbar);
 
@@ -244,7 +244,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
                 GTK_ICON_SIZE_LARGE_TOOLBAR);
             if (pixmap)
             {
-                gtk_widget_ref (pixmap);
+                g_object_ref (pixmap);
                 gtk_widget_show (pixmap);
                 gtk_container_add (GTK_CONTAINER (w), pixmap);
             }
@@ -346,7 +346,7 @@ static GtkWidget *create_slide_popup ()
             popmenu_uiinfo[i].user_data = main_win;
 
     GtkWidget *menu = gtk_menu_new ();
-    gtk_widget_ref (menu);
+    g_object_ref (menu);
     g_object_set_data_full (*main_win, "slide-popup", menu, g_object_unref);
 
     // Fill the menu
@@ -426,7 +426,7 @@ void GnomeCmdMainWin::create_buttonbar()
     priv->buttonbar_sep = create_separator (FALSE);
 
     priv->buttonbar = gtk_hbox_new (FALSE, 0);
-    gtk_widget_ref (priv->buttonbar);
+    g_object_ref (priv->buttonbar);
     g_object_set_data_full (*this, "buttonbar", priv->buttonbar, g_object_unref);
     gtk_widget_show (priv->buttonbar);
 
@@ -613,7 +613,7 @@ static void update_drop_con_button (GnomeCmdMainWin *mw, GnomeCmdFileSelector *f
         GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
         if (pixmap)
         {
-            gtk_widget_ref (pixmap);
+            g_object_ref (pixmap);
             gtk_widget_show (pixmap);
             gtk_container_add (GTK_CONTAINER (btn), pixmap);
             prev_pixmap = pixmap;
@@ -624,7 +624,7 @@ static void update_drop_con_button (GnomeCmdMainWin *mw, GnomeCmdFileSelector *f
         GtkWidget *label = gtk_label_new (gnome_cmd_con_get_close_text (con));
         if (label)
         {
-            gtk_widget_ref (label);
+            g_object_ref (label);
             gtk_widget_show (label);
             gtk_container_add (GTK_CONTAINER (btn), label);
             prev_pixmap = label;
@@ -783,12 +783,12 @@ static void init (GnomeCmdMainWin *mw)
     gtk_window_set_policy (*mw, TRUE, TRUE, FALSE);
 
     mw->priv->vbox = gtk_vbox_new (FALSE, 0);
-    gtk_widget_ref (mw->priv->vbox);
+    g_object_ref (mw->priv->vbox);
     g_object_set_data_full (*mw, "vbox", mw->priv->vbox, g_object_unref);
     gtk_widget_show (mw->priv->vbox);
 
     mw->priv->menubar = gnome_cmd_main_menu_new ();
-    gtk_widget_ref (mw->priv->menubar);
+    g_object_ref (mw->priv->menubar);
     g_object_set_data_full (*mw, "vbox", mw->priv->menubar, g_object_unref);
     gtk_widget_show (mw->priv->menubar);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar, FALSE, TRUE, 0);
@@ -798,20 +798,20 @@ static void init (GnomeCmdMainWin *mw)
 
     mw->priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
-    gtk_widget_ref (mw->priv->paned);
+    g_object_ref (mw->priv->paned);
     g_object_set_data_full (*mw, "paned", mw->priv->paned, g_object_unref);
     gtk_widget_show (mw->priv->paned);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     mw->create_buttonbar();
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new ();
-    gtk_widget_ref (mw->priv->file_selector[LEFT]);
+    g_object_ref (mw->priv->file_selector[LEFT]);
     g_object_set_data_full (*mw, "left_file_selector", mw->priv->file_selector[LEFT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[LEFT]);
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
 
     mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new ();
-    gtk_widget_ref (mw->priv->file_selector[RIGHT]);
+    g_object_ref (mw->priv->file_selector[RIGHT]);
     g_object_set_data_full (*mw, "right_file_selector", mw->priv->file_selector[RIGHT], g_object_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
@@ -1246,7 +1246,7 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         gint pos = 3;
         priv->cmdline_sep = create_separator (FALSE);
         priv->cmdline = gnome_cmd_cmdline_new ();
-        gtk_widget_ref (priv->cmdline);
+        g_object_ref (priv->cmdline);
         g_object_set_data_full (*this, "cmdline", priv->cmdline, g_object_unref);
         gtk_widget_show (priv->cmdline);
         if (gnome_cmd_data.toolbar_visibility)
@@ -1272,8 +1272,8 @@ void GnomeCmdMainWin::update_list_orientation()
 {
     gint pos = 2;
 
-    gtk_widget_ref (priv->file_selector[LEFT]);
-    gtk_widget_ref (priv->file_selector[RIGHT]);
+    g_object_ref (priv->file_selector[LEFT]);
+    g_object_ref (priv->file_selector[RIGHT]);
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[LEFT]);
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[RIGHT]);
 
@@ -1281,7 +1281,7 @@ void GnomeCmdMainWin::update_list_orientation()
 
     priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
-    gtk_widget_ref (priv->paned);
+    g_object_ref (priv->paned);
     g_object_set_data_full (*this, "paned", priv->paned, g_object_unref);
     gtk_widget_show (priv->paned);
 
@@ -1294,8 +1294,8 @@ void GnomeCmdMainWin::update_list_orientation()
     gtk_box_pack_start (GTK_BOX (priv->vbox), priv->paned, TRUE, TRUE, 0);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
 
-    gtk_widget_unref (priv->file_selector[LEFT]);
-    gtk_widget_unref (priv->file_selector[RIGHT]);
+    g_object_unref (priv->file_selector[LEFT]);
+    g_object_unref (priv->file_selector[RIGHT]);
 
     g_signal_connect (priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), this);
     slide_set_50_50 (NULL, NULL);
