@@ -32,6 +32,7 @@
 #include "filter.h"
 #include "history.h"
 #include "dict.h"
+#include "tuple.h"
 
 struct GnomeCmdConFtp;
 
@@ -153,6 +154,8 @@ struct GnomeCmdData
         gchar *other_value;
     };
 
+    typedef triple<std::string,GnomeCmdFileList::ColumnID,GtkSortType> Tab;
+
     struct Private;
 
     Private *priv;
@@ -240,6 +243,8 @@ struct GnomeCmdData
     gint                         main_win_width;
     gint                         main_win_height;
     GdkWindowState               main_win_state;
+
+    std::map<guint,std::vector<Tab> > tabs;
 
     GnomeCmdData();
 
