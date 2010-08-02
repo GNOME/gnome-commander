@@ -333,6 +333,9 @@ failure:
 
 enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER,
+      XML_GNOMECOMMANDER_LAYOUT,
+      XML_GNOMECOMMANDER_LAYOUT_PANEL,
+      XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE,
@@ -374,6 +377,9 @@ static stack<string> xml_paths;
 static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
 static GnomeCmdData::Selection xml_search_profile;
 
+static DICT<FileSelectorID> xml_fs_names(INACTIVE);
+static FileSelectorID xml_fs = INACTIVE;
+
 static GnomeCmdCon *xml_con = NULL;
 
 
@@ -406,6 +412,30 @@ static void xml_start(GMarkupParseContext *context,
 
     switch (xml_elem_names[xml_paths.top()])
     {
+        case XML_GNOMECOMMANDER_LAYOUT_PANEL:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "name", &param1,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                xml_fs = xml_fs_names[param1];
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "dir", &param1,
+                                             G_MARKUP_COLLECT_STRING, "sort", &param2,
+                                             G_MARKUP_COLLECT_BOOLEAN, "asc", &param4,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                string dir(param1);
+                gint sort = atoi(param2);
+
+                if (!dir.empty() && sort<GnomeCmdFileList::NUM_COLUMNS)
+                    cfg->tabs[xml_fs].push_back(make_triple(string(param1),(GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4));
+            }
+            break;
+
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE:
             if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
                                              G_MARKUP_COLLECT_STRING, "width", &param1,
@@ -742,6 +772,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
     }
     xml_elem_data[] = {
                         {XML_GNOMECOMMANDER, "/GnomeCommander"},
+                        {XML_GNOMECOMMANDER_LAYOUT, "/GnomeCommander/Layout"},
+                        {XML_GNOMECOMMANDER_LAYOUT_PANEL, "/GnomeCommander/Layout/Panel"},
+                        {XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB, "/GnomeCommander/Layout/Panel/Tab"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL, "/GnomeCommander/AdvancedRenameTool"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE, "/GnomeCommander/AdvancedRenameTool/WindowSize"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE, "/GnomeCommander/AdvancedRenameTool/Profile"},
@@ -780,6 +813,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                        };
 
     load_data (xml_elem_names, xml_elem_data, G_N_ELEMENTS (xml_elem_data));
+
+    xml_fs_names.add(LEFT,"left");
+    xml_fs_names.add(RIGHT,"right");
 
     if (xml_len==-1)
         xml_len = strlen (xml);
