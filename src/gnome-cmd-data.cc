@@ -1672,8 +1672,7 @@ void GnomeCmdData::save()
         xml << XML::comment("Created with GNOME Commander (http://www.nongnu.org/gcmd/)");
         xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
 
-        if (save_tabs_on_exit)
-            xml << *main_win;
+        xml << *main_win;
 
         xml << advrename_defaults;
         xml << search_defaults;
