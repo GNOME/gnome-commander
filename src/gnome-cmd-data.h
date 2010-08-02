@@ -230,6 +230,7 @@ struct GnomeCmdData
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
 
+    gboolean                     save_dirs_on_exit;
     gboolean                     save_tabs_on_exit;
 
     gboolean                     allow_multiple_instances;

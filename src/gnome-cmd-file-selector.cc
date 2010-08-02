@@ -1370,6 +1370,10 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
 
         g_list_free (tabs);
     }
+    else
+        if (gnome_cmd_data.save_dirs_on_exit)
+            if (fs.is_local())
+                xml << *fs.file_list();
 
     return xml;
 }
