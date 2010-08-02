@@ -571,10 +571,8 @@ inline void update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 }
 
 
-static void update_drop_con_button (GnomeCmdMainWin *mw, GnomeCmdFileList *fl)
+void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
 {
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-
     if (!fl)
         return;
 
@@ -589,7 +587,7 @@ static void update_drop_con_button (GnomeCmdMainWin *mw, GnomeCmdFileList *fl)
         || (gnome_cmd_data.skip_mounting && GNOME_CMD_IS_CON_DEVICE (con)))
         return;
 
-    GtkWidget *btn = mw->priv->tb_con_drop_btn;
+    GtkWidget *btn = priv->tb_con_drop_btn;
     g_return_if_fail (GTK_IS_BUTTON (btn));
 
     if (prev_pixmap)
@@ -638,7 +636,7 @@ static void update_drop_con_button (GnomeCmdMainWin *mw, GnomeCmdFileList *fl)
 static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCmdMainWin *mw)
 {
     update_browse_buttons (mw, fs);
-    update_drop_con_button (mw, fs->file_list());
+    mw->update_drop_con_button(fs->file_list());
 }
 
 
@@ -1157,7 +1155,7 @@ static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFile
     mw->fs(INACTIVE)->set_active(FALSE);
 
     update_browse_buttons (mw, fs);
-    update_drop_con_button (mw, fs->file_list());
+    mw->update_drop_con_button(fs->file_list());
 }
 
 
@@ -1217,7 +1215,7 @@ void GnomeCmdMainWin::update_toolbar_visibility()
         priv->toolbar_sep = NULL;
     }
 
-    update_drop_con_button (this, fs(ACTIVE)->file_list());
+    update_drop_con_button(fs(ACTIVE)->file_list());
 }
 
 

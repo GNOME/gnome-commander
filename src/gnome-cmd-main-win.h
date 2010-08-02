@@ -43,6 +43,7 @@ struct GnomeCmdMainWin
   public:       //  FIXME:  change to private
 
     void create_buttonbar();
+    void update_drop_con_button(GnomeCmdFileList *fl);
 
   public:
 
