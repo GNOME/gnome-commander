@@ -376,7 +376,7 @@ inline void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 
     GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
 
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
     gtk_widget_show (dialog);
 
@@ -619,18 +619,18 @@ void GnomeCmdFileList::create_column_titles()
         GdkBitmap *bm = IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK);
 
         hbox = gtk_hbox_new (FALSE, 1);
-        gtk_widget_ref (hbox);
+        g_object_ref (hbox);
         g_object_set_data_full (*this, "column-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
         priv->column_labels[i] = gtk_label_new (_(file_list_column[i].title));
-        gtk_widget_ref (priv->column_labels[i]);
+        g_object_ref (priv->column_labels[i]);
         g_object_set_data_full (*this, "column-label", priv->column_labels[i], g_object_unref);
         gtk_widget_show (priv->column_labels[i]);
         gtk_box_pack_start (GTK_BOX (hbox), priv->column_labels[i], TRUE, TRUE, 0);
 
         pixmap = gtk_pixmap_new (pm, bm);
-        gtk_widget_ref (pixmap);
+        g_object_ref (pixmap);
         g_object_set_data_full (*this, "column-pixmap", pixmap, g_object_unref);
         gtk_widget_show (pixmap);
         gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, FALSE, 0);
@@ -763,7 +763,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     GtkWidget *menu = gnome_cmd_file_popmenu_new (fl);
     if (!menu) return;
 
-    gtk_widget_ref (menu);
+    g_object_ref (menu);
     g_object_set_data_full (*fl, "file_popup_menu", menu, g_object_unref);
 
     gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc) popup_position_function, fl, event, fl, NULL);
@@ -1487,7 +1487,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     fl->priv->con_open_dialog = gnome_cmd_dialog_new (NULL);
-    gtk_widget_ref (fl->priv->con_open_dialog);
+    g_object_ref (fl->priv->con_open_dialog);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fl->priv->con_open_dialog),
                                  GTK_STOCK_CANCEL,
@@ -2133,7 +2133,7 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 
         GtkWidget *dialog = gnome_cmd_rename_dialog_new (f, x, y, w, h);
 
-        gtk_widget_ref (dialog);
+        g_object_ref (dialog);
         gtk_widget_show (dialog);
     }
 }
@@ -2249,7 +2249,7 @@ void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
     fl->priv->quicksearch_popup = gnome_cmd_quicksearch_popup_new (fl);
     text[0] = c;
     text[1] = '\0';
-    gtk_widget_ref (fl->priv->quicksearch_popup);
+    g_object_ref (fl->priv->quicksearch_popup);
     gtk_widget_show (fl->priv->quicksearch_popup);
     if (c != 0)
     {
