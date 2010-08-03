@@ -703,7 +703,7 @@ void gnome_cmd_file_show_properties (GnomeCmdFile *f)
     GtkWidget *dialog = gnome_cmd_file_props_dialog_create (f);
     if (!dialog) return;
 
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gtk_widget_show (dialog);
 }
 

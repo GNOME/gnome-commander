@@ -524,7 +524,7 @@ static void on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
 static void create_list_progress_dialog (GnomeCmdDir *dir)
 {
     dir->dialog = gnome_cmd_dialog_new (NULL);
-    gtk_widget_ref (dir->dialog);
+    g_object_ref (dir->dialog);
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dir->dialog),
