@@ -368,7 +368,7 @@ static void init (GnomeCmdCombo *combo)
     combo->is_popped = FALSE;
 
     combo->entry = gtk_entry_new ();
-    gtk_widget_ref (combo->entry);
+    g_object_ref (combo->entry);
     g_object_set_data_full (*combo, "entry", combo->entry, g_object_unref);
     gtk_widget_show (combo->entry);
     gtk_widget_set_size_request (combo->entry, 60, -1);
@@ -376,13 +376,13 @@ static void init (GnomeCmdCombo *combo)
     GTK_WIDGET_UNSET_FLAGS (combo->entry, GTK_CAN_FOCUS);
 
     combo->button = gtk_button_new ();
-    gtk_widget_ref (combo->button);
+    g_object_ref (combo->button);
     gtk_button_set_relief (GTK_BUTTON (combo->button), gnome_cmd_data.button_relief);
     g_object_set_data_full (*combo, "button", combo->button, g_object_unref);
     gtk_widget_show (combo->button);
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
-    gtk_widget_ref (arrow);
+    g_object_ref (arrow);
     g_object_set_data_full (*combo, "arrow", arrow, g_object_unref);
     gtk_widget_show (arrow);
 
@@ -394,7 +394,7 @@ static void init (GnomeCmdCombo *combo)
     g_signal_connect (combo->button, "clicked", G_CALLBACK (on_popup_button_release), combo);
 
     combo->popwin = gtk_window_new (GTK_WINDOW_POPUP);
-    gtk_widget_ref (combo->popwin);
+    g_object_ref (combo->popwin);
     g_object_set_data_full (*combo, "popwin", combo->popwin, g_object_unref);
     gtk_window_set_policy (GTK_WINDOW (combo->popwin), 1, 1, 0);
 
@@ -408,7 +408,7 @@ static void init (GnomeCmdCombo *combo)
     g_signal_connect (combo->popwin, "hide", G_CALLBACK (on_popwin_hide), combo);
 
     event_box = gtk_event_box_new ();
-    gtk_widget_ref (event_box);
+    g_object_ref (event_box);
     g_object_set_data_full (*combo, "event_box", event_box, g_object_unref);
     gtk_container_add (GTK_CONTAINER (combo->popwin), event_box);
     gtk_widget_show (event_box);
@@ -419,14 +419,14 @@ static void init (GnomeCmdCombo *combo)
     gdk_cursor_destroy (cursor);
 
     frame = gtk_frame_new (NULL);
-    gtk_widget_ref (frame);
+    g_object_ref (frame);
     g_object_set_data_full (*combo, "frame", frame, g_object_unref);
     gtk_container_add (GTK_CONTAINER (event_box), frame);
     gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_OUT);
     gtk_widget_show (frame);
 
     combo->popup = gtk_scrolled_window_new (NULL, NULL);
-    gtk_widget_ref (combo->popup);
+    g_object_ref (combo->popup);
     g_object_set_data_full (*combo, "combo->popup", combo->popup, g_object_unref);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (combo->popup), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->hscrollbar, GTK_CAN_FOCUS);
@@ -468,7 +468,7 @@ GnomeCmdCombo::GnomeCmdCombo(gint num_cols, gint _text_col, gchar **col_titles):
 
     list = col_titles ? gnome_cmd_clist_new_with_titles (num_cols, col_titles) : gnome_cmd_clist_new (num_cols);
 
-    gtk_widget_ref (list);
+    g_object_ref (list);
     g_object_set_data_full (*this, "list", list, g_object_unref);
 
     // We'll use enter notify events to figure out when to transfer the grab to the list

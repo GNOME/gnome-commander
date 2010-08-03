@@ -179,7 +179,7 @@ init (GnomeCmdChownDialog *dialog)
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
 
     dialog->priv->chown_component = gnome_cmd_chown_component_new ();
-    gtk_widget_ref (dialog->priv->chown_component);
+    g_object_ref (dialog->priv->chown_component);
     g_object_set_data_full (G_OBJECT (dialog), "chown_component", dialog->priv->chown_component, g_object_unref);
     gtk_widget_show (dialog->priv->chown_component);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->chown_component, FALSE, FALSE, 0);

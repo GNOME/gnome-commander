@@ -152,7 +152,7 @@ inline void create_delete_progress_win (DeleteData *data)
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    gtk_widget_ref (data->progwin);
+    g_object_ref (data->progwin);
     gtk_widget_show (data->progwin);
 }
 
