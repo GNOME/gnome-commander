@@ -275,7 +275,7 @@ static void configure (GnomeCmdPlugin *p)
 
     dialog = gnome_cmd_dialog_new (_("Options"));
     plugin->priv->conf_dialog = dialog;
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win_widget));
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
 

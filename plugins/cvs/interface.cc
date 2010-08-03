@@ -150,7 +150,7 @@ static GtkWidget *create_compare_win (LogHistory *log_history)
     Revision *prev_rev;
 
     dialog = gnome_cmd_dialog_new ("Compare");
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
 
     prev_rev = find_prev_rev (log_history, log_history->plugin->selected_rev);
     if (prev_rev)
@@ -250,7 +250,7 @@ GtkWidget *create_diff_win (CvsPlugin *plugin)
     GtkWidget *notebook;
 
     dialog = gnome_cmd_dialog_new (_("CVS Diff"));
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
 
@@ -262,7 +262,7 @@ GtkWidget *create_diff_win (CvsPlugin *plugin)
     g_signal_connect (dialog, "destroy-event", G_CALLBACK (on_diff_win_destroy), plugin);
 
     notebook = gtk_notebook_new ();
-    gtk_widget_ref (notebook);
+    g_object_ref (notebook);
     g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);
     gtk_widget_show (notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
@@ -279,7 +279,7 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
     GtkWidget *notebook;
 
     dialog = gnome_cmd_dialog_new ("CVS Log");
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
@@ -292,7 +292,7 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
     g_signal_connect (dialog, "destroy-event", G_CALLBACK (on_log_win_destroy), plugin);
 
     notebook = gtk_notebook_new ();
-    gtk_widget_ref (notebook);
+    g_object_ref (notebook);
     g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);
     gtk_widget_show (notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
@@ -351,7 +351,7 @@ void add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
 
     text_view = gtk_text_view_new ();
     gtk_container_add (GTK_CONTAINER (sw), text_view);
-    gtk_widget_ref (text_view);
+    g_object_ref (text_view);
     g_object_set_data_full (G_OBJECT (sw), "text_view", text_view, g_object_unref);
     gtk_widget_show (text_view);
 
@@ -397,7 +397,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     hpaned = gtk_hpaned_new ();
     gtk_container_set_border_width (GTK_CONTAINER (hpaned), 6);
-    gtk_widget_ref (hpaned);
+    g_object_ref (hpaned);
     g_object_set_data_full (G_OBJECT (plugin->log_win), "hpaned", hpaned, g_object_unref);
     g_object_set_data_full (G_OBJECT (hpaned), "log_history", log_history, (GDestroyNotify) log_free);
     gtk_widget_show (hpaned);
@@ -512,7 +512,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     msg_text = gtk_text_view_new ();
     log_history->msg_text_view = msg_text;
-    gtk_widget_ref (msg_text);
+    g_object_ref (msg_text);
     g_object_set_data_full (G_OBJECT (hpaned), "msg_text", msg_text, g_object_unref);
     gtk_widget_show (msg_text);
     gtk_container_add (GTK_CONTAINER (sw), msg_text);
