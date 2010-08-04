@@ -341,7 +341,7 @@ static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell,
 
     gtk_widget_ref (item);
     g_object_set_data (G_OBJECT (item), "indicator", indicator);
-    gtk_object_set_data_full (GTK_OBJECT (shell), "menu_item", item, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (shell), "menu_item", item, g_object_unref);
     if (func)
         g_signal_connect (item, "activate", G_CALLBACK (func), data);
     gtk_widget_show (item);
@@ -357,9 +357,7 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 
     indicator->priv->dir_history_popup = gtk_menu_new ();
     gtk_widget_ref (indicator->priv->dir_history_popup);
-    gtk_object_set_data_full (
-        GTK_OBJECT (indicator), "dir_history_popup",
-        indicator->priv->dir_history_popup, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (indicator), "dir_history_popup", indicator->priv->dir_history_popup, g_object_unref);
     g_signal_connect (indicator->priv->dir_history_popup, "hide", G_CALLBACK (on_dir_history_popup_hide), indicator);
 
     GnomeCmdCon *con = indicator->priv->fs->get_connection();
@@ -414,7 +412,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
     indicator->priv->bookmark_popup = gtk_menu_new ();
     gtk_widget_ref (indicator->priv->bookmark_popup);
-    gtk_object_set_data_full (GTK_OBJECT (indicator), "bookmark_popup", indicator->priv->bookmark_popup, (GtkDestroyNotify) gtk_widget_unref);
+    g_object_set_data_full (G_OBJECT (indicator), "bookmark_popup", indicator->priv->bookmark_popup, g_object_unref);
     g_signal_connect (indicator->priv->bookmark_popup, "hide", G_CALLBACK (on_bookmark_popup_hide), indicator);
 
     GnomeCmdCon *con = indicator->priv->fs->get_connection();
