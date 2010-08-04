@@ -181,7 +181,7 @@ GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, gchar *title)
     GtkWidget *hbox = create_space_hbox (parent, content);
     GtkWidget *inner_frame = create_space_frame (parent, 3);
 
-    gtk_object_set_data (GTK_OBJECT (frame), "label", label);
+    g_object_set_data (G_OBJECT (frame), "label", label);
 
     gtk_box_pack_start (GTK_BOX (frame), label, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (frame), inner_frame, TRUE, TRUE, 0);
@@ -340,7 +340,7 @@ GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint r
 
     clist = gtk_clist_new (cols);
     g_object_ref (clist);
-    gtk_object_set_data (GTK_OBJECT (sw), "clist", clist);
+    g_object_set_data (G_OBJECT (sw), "clist", clist);
     g_object_set_data_full (G_OBJECT (parent), name, clist, g_object_unref);
     gtk_widget_show (clist);
     gtk_clist_set_row_height (GTK_CLIST (clist), rowh);

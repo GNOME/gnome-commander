@@ -259,7 +259,7 @@ static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
     gtk_container_add (GTK_CONTAINER (item), label);
 
     // Connect to the signal and set user data
-    gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
+    g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
 
     if (callback)
         g_signal_connect (item, "activate", G_CALLBACK (callback), data);
@@ -313,7 +313,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                 text = g_strdup_printf (_("Extract to '%s'"), fname);
                 item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
-                gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
+                g_object_set_data (G_OBJECT (item), "target_name", g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
 
@@ -323,7 +323,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                     text = g_strdup_printf (_("Extract to '%s'"), path);
                     item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
-                    gtk_object_set_data (GTK_OBJECT (item), "target_dir", path);
+                    g_object_set_data (G_OBJECT (item), "target_dir", path);
                     items = g_list_append (items, item);
                     g_free (text);
                 }

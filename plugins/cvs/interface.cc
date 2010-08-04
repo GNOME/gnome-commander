@@ -154,10 +154,10 @@ static GtkWidget *create_compare_win (LogHistory *log_history)
 
     prev_rev = find_prev_rev (log_history, log_history->plugin->selected_rev);
     if (prev_rev)
-        gtk_object_set_data (GTK_OBJECT (dialog), "prev_rev", prev_rev->number);
+        g_object_set_data (G_OBJECT (dialog), "prev_rev", prev_rev->number);
 
-    gtk_object_set_data (GTK_OBJECT (dialog), "selected_rev", log_history->plugin->selected_rev->number);
-    gtk_object_set_data (GTK_OBJECT (dialog), "log_history", log_history);
+    g_object_set_data (G_OBJECT (dialog), "selected_rev", log_history->plugin->selected_rev->number);
+    g_object_set_data (G_OBJECT (dialog), "log_history", log_history);
 
 
     /**
@@ -431,7 +431,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     label = create_label (hpaned, "...");
     log_history->rev_label = label;
-    gtk_object_set_data (GTK_OBJECT (hpaned), "rev_label", label);
+    g_object_set_data (G_OBJECT (hpaned), "rev_label", label);
     gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 
@@ -447,7 +447,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     label = create_label (hpaned, "...");
     log_history->author_label = label;
-    gtk_object_set_data (GTK_OBJECT (hpaned), "author_label", label);
+    g_object_set_data (G_OBJECT (hpaned), "author_label", label);
     gtk_table_attach (GTK_TABLE (table1), label, 1, 2, 1, 2,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
@@ -461,7 +461,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     label = create_label (hpaned, "...");
     log_history->date_label = label;
-    gtk_object_set_data (GTK_OBJECT (hpaned), "date_label", label);
+    g_object_set_data (G_OBJECT (hpaned), "date_label", label);
     gtk_table_attach (GTK_TABLE (table1), label, 1, 2, 2, 3,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
@@ -475,7 +475,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     label = create_label (hpaned, "...");
     log_history->state_label = label;
-    gtk_object_set_data (GTK_OBJECT (hpaned), "state_label", label);
+    g_object_set_data (G_OBJECT (hpaned), "state_label", label);
     gtk_table_attach (GTK_TABLE (table1), label, 1, 2, 3, 4,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
@@ -489,7 +489,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 
     label = create_label (hpaned, "...");
     log_history->lines_label = label;
-    gtk_object_set_data (GTK_OBJECT (hpaned), "lines_label", label);
+    g_object_set_data (G_OBJECT (hpaned), "lines_label", label);
     gtk_table_attach (GTK_TABLE (table1), label, 1, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
