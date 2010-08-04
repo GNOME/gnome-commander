@@ -30,3 +30,5 @@ libgviewer_a_SOURCES = \
 	viewer-utils.cc viewer-utils.h \
 	viewer-widget.cc viewer-widget.h \
 	viewer-window.cc viewer-window.h
+
+-include $(top_srcdir)/git.mk

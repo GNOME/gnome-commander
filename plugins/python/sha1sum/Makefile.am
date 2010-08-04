@@ -3,3 +3,5 @@
 plugindir = $(pkglibdir)/plugins
 
 plugin_PYTHON = sha1sum.py
+
+-include $(top_srcdir)/git.mk

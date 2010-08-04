@@ -41,3 +41,5 @@ DOC_FIGURES = \
 
 DOC_LINGUAS = de es fr sl
 
+
+-include $(top_srcdir)/git.mk

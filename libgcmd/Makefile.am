@@ -23,3 +23,5 @@ libgcmd_la_SOURCES = \
 
 libgcmd_la_LIBADD = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
 libgcmd_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
+
+-include $(top_srcdir)/git.mk

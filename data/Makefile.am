@@ -17,3 +17,5 @@ ebuild_DATA_NOINST = @PACKAGE@-@VERSION@.ebuild
 EXTRA_DIST = $(desktop_in_files) @PACKAGE@.spec $(ebuild_files) $(ebuild_DATA_NOINST)
 
 DISTCLEANFILES = $(desktop_DATA)
+
+-include $(top_srcdir)/git.mk

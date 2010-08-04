@@ -116,3 +116,5 @@ gnome_commander_LDADD = \
 	$(PYTHON_EXTRA_LIBS)
 
 gcmd_block_SOURCES = block.cc
+
+-include $(top_srcdir)/git.mk

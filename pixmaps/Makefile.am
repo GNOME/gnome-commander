@@ -31,3 +31,5 @@ pixmaps_DATA = \
 	terminal.svg
 
 EXTRA_DIST = $(dti_DATA) $(pixmaps_DATA)
+
+-include $(top_srcdir)/git.mk

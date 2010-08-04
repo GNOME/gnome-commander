@@ -58,3 +58,5 @@ utils_test_LDFLAGS = $(TESTLIBS)
 search_dlg_test_SOURCES = search_dlg_test.c
 search_dlg_test_LDADD = $(TESTLIBS)
 search_dlg_test_LDFLAGS = $(TESTLIBS)
+
+-include $(top_srcdir)/git.mk

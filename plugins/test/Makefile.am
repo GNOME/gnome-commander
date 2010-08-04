@@ -15,3 +15,5 @@ libtest_la_SOURCES = \
 	test-plugin.xpm
 
 libtest_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
+
+-include $(top_srcdir)/git.mk

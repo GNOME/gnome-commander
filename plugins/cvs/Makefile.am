@@ -17,3 +17,5 @@ libcvs_la_SOURCES = \
 	cvs-plugin.xpm close.xpm
 
 libcvs_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
+
+-include $(top_srcdir)/git.mk

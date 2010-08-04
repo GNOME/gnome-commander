@@ -22,3 +22,5 @@ libgcmd_tags_a_SOURCES = \
 	gnome-cmd-tags-file.h gnome-cmd-tags-file.cc \
 	gnome-cmd-tags-poppler.h gnome-cmd-tags-poppler.cc \
 	gnome-cmd-tags-taglib.h gnome-cmd-tags-taglib.cc
+
+-include $(top_srcdir)/git.mk
