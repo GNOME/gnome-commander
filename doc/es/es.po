@@ -1,19 +1,19 @@
 # translation of gnome-commander-help.master.po to Español
 #
-# Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010.
+# Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-27 21:39+0000\n"
-"PO-Revision-Date: 2010-07-12 11:31+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gmail.com>\n"
+"POT-Creation-Date: 2010-08-04 19:11+0000\n"
+"PO-Revision-Date: 2010-08-05 14:58+0200\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: es\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -279,10 +279,8 @@ msgid "GNOME Commander Manual"
 msgstr "Manual de GNOME Commander"
 
 #: C/gnome-commander.xml:30(subtitle)
-#, fuzzy
-#| msgid "GNOME Commander Desktop Application Manual V1.2.9"
 msgid "GNOME Commander Desktop Application Manual V1.4"
-msgstr "Manual de aplicación de escritorio GNOME Commander V1.2.9"
+msgstr "Manual de aplicación de escritorio GNOME Commander V1.4"
 
 #: C/gnome-commander.xml:32(year)
 msgid "2010"
@@ -448,22 +446,16 @@ msgid "2010-06-01"
 msgstr "2010-06-01"
 
 #: C/gnome-commander.xml:212(revnumber)
-#, fuzzy
-#| msgid "GNOME Commander Manual V1.2.8.1;"
 msgid "GNOME Commander Manual V1.2.8.7;"
-msgstr "Manual de GNOME Commander v1.2.8.1;"
+msgstr "Manual de GNOME Commander v1.2.8.7;"
 
 #: C/gnome-commander.xml:213(date) C/gnome-commander.xml:7452(para)
-#, fuzzy
-#| msgid "2008-07-28"
 msgid "2010-07-27"
-msgstr "2008-07-28"
+msgstr "2010-07-27"
 
 #: C/gnome-commander.xml:222(revnumber)
-#, fuzzy
-#| msgid "GNOME Commander Manual V1.2.4;"
 msgid "GNOME Commander Manual V1.4;"
-msgstr "Manual de GNOME Commander v1.2.4"
+msgstr "Manual de GNOME Commander v1.4;"
 
 #: C/gnome-commander.xml:223(date) C/gnome-commander.xml:7389(para)
 msgid "2010-??-??"
@@ -474,10 +466,8 @@ msgid "Laurent Coudeur <email>laurentc@iol.ie</email>"
 msgstr "Laurent Coudeur <email>laurentc@iol.ie</email>"
 
 #: C/gnome-commander.xml:234(releaseinfo)
-#, fuzzy
-#| msgid "This manual describes version 1.2.9 of GNOME Commander."
 msgid "This manual describes version 1.4 of GNOME Commander."
-msgstr "Este manual describe la versión 1.2.9 de GNOME Commander."
+msgstr "Este manual describe la versión 1.4 de GNOME Commander."
 
 #: C/gnome-commander.xml:236(title)
 msgid "Feedback"
@@ -1410,10 +1400,8 @@ msgid "There are different ways to delete an item using GNOME Commander."
 msgstr ""
 
 #: C/gnome-commander.xml:791(para)
-#, fuzzy
-#| msgid "Select the file that you want to change."
 msgid "Select the item(s) You wish to delete."
-msgstr "Seleccione el archivo que quiere modificar."
+msgstr "Seleccione el/los elemento/s que quiere eliminar."
 
 #: C/gnome-commander.xml:794(para)
 msgid "Press the <keycap>Delete</keycap> or the <keycap>F8</keycap> keys."
@@ -1515,10 +1503,8 @@ msgstr ""
 "commander-dnd\"/>."
 
 #: C/gnome-commander.xml:849(title)
-#, fuzzy
-#| msgid "Advanced file renaming"
 msgid "Advanced Features"
-msgstr "Renombrado avanzado de archivos"
+msgstr "Características avanzadas"
 
 #: C/gnome-commander.xml:850(para)
 #, fuzzy
@@ -1666,16 +1652,12 @@ msgstr ""
 "guimenuitem></menuchoice>. Se mostrará un diálogo de propiedades."
 
 #: C/gnome-commander.xml:904(title)
-#, fuzzy
-#| msgid "Revamped file properties dialog"
 msgid "File Properties dialog"
-msgstr "Diálogo de propiedades de archivo renovado"
+msgstr "Diálogo de propiedades de archivo"
 
 #: C/gnome-commander.xml:911(phrase) C/gnome-commander.xml:1069(phrase)
-#, fuzzy
-#| msgid "Revamped file properties dialog"
 msgid "Shows file properties dialog."
-msgstr "Diálogo de propiedades de archivo renovado"
+msgstr "Mostrar el diálogo de propiedades del archivo."
 
 #: C/gnome-commander.xml:918(para)
 #, fuzzy
@@ -1822,8 +1804,6 @@ msgid "Read"
 msgstr "Leer"
 
 #: C/gnome-commander.xml:1036(para)
-#, fuzzy
-#| msgid "The users can read a file"
 msgid "The users can read a file."
 msgstr "Los usuarios pueden leer un archivo."
 
@@ -1844,10 +1824,8 @@ msgid "The users can run a file as a program."
 msgstr "Los usuarios pueden ejecutar un archivo como un programa."
 
 #: C/gnome-commander.xml:1062(title)
-#, fuzzy
-#| msgid "File.Permissions"
 msgid "File Permissions dialog"
-msgstr "File.Permissions"
+msgstr "Diálogo de permisos del archivo"
 
 #: C/gnome-commander.xml:1081(title)
 msgid "Using Bookmarks"
@@ -8922,17 +8900,13 @@ msgid "Shows GNOME Commander general preferences dialog."
 msgstr "Muestra el diálogo de preferencias generales de GNOME Commander."
 
 #: C/gnome-commander.xml:3974(title)
-#, fuzzy
-#| msgid "General options"
 msgid "General option tab"
-msgstr "Opciones generales"
+msgstr "Solapa «Opciones generales»"
 
 #: C/gnome-commander.xml:3981(para) C/gnome-commander.xml:4198(para)
 #: C/gnome-commander.xml:4340(para) C/gnome-commander.xml:4586(para)
 #: C/gnome-commander.xml:4735(para) C/gnome-commander.xml:4952(para)
 #: C/gnome-commander.xml:5102(para)
-#, fuzzy
-#| msgid "Headline"
 msgid "Header"
 msgstr "Cabecera"
 
@@ -8940,16 +8914,12 @@ msgstr "Cabecera"
 #: C/gnome-commander.xml:4343(para) C/gnome-commander.xml:4589(para)
 #: C/gnome-commander.xml:4738(para) C/gnome-commander.xml:4955(para)
 #: C/gnome-commander.xml:5105(para)
-#, fuzzy
-#| msgid "Options"
 msgid "Option"
-msgstr "Opciones"
+msgstr "Opción"
 
 #: C/gnome-commander.xml:3995(guilabel)
-#, fuzzy
-#| msgid "left_mouse_button_mode"
 msgid "Left Mouse button"
-msgstr "left_mouse_button_mode"
+msgstr "Botón izquierdo del ratón"
 
 #: C/gnome-commander.xml:3999(para)
 #, fuzzy
@@ -8984,10 +8954,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4034(guilabel)
-#, fuzzy
-#| msgid "right_mouse_button_mode"
 msgid "Right Mouse button"
-msgstr "right_mouse_button_mode"
+msgstr "Botón derecho del ratón"
 
 #: C/gnome-commander.xml:4038(para)
 msgid "Shows pop up menu"
@@ -9000,10 +8968,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4051(para)
-#, fuzzy
-#| msgid "Select all files"
 msgid "Select files"
-msgstr "Seleccionar todos los archivos"
+msgstr "Seleccionar archivos"
 
 #: C/gnome-commander.xml:4054(para)
 msgid ""
@@ -9018,10 +8984,8 @@ msgid "Match file names using"
 msgstr "Renombrado avanzado de archivos"
 
 #: C/gnome-commander.xml:4065(para)
-#, fuzzy
-#| msgid "Range syntax"
 msgid "Shell syntax"
-msgstr "Sintaxis de rango"
+msgstr "Sintaxis de Shell"
 
 #: C/gnome-commander.xml:4068(para)
 msgid ""
@@ -9030,10 +8994,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4077(para)
-#, fuzzy
-#| msgid "Range syntax"
 msgid "Regex syntax"
-msgstr "Sintaxis de rango"
+msgstr "Sintaxis de expresiones regulares"
 
 #: C/gnome-commander.xml:4080(para)
 msgid ""
@@ -9044,16 +9006,12 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4089(guilabel)
-#, fuzzy
-#| msgid "Format options"
 msgid "Sorting options"
-msgstr "Opciones de formato"
+msgstr "Opciones de ordenacion"
 
 #: C/gnome-commander.xml:4093(para)
-#, fuzzy
-#| msgid "Case sensitive."
 msgid "Case sensitive"
-msgstr "Sensible a capitalización."
+msgstr "Sensible a capitalización"
 
 #: C/gnome-commander.xml:4096(para)
 msgid ""
@@ -9708,10 +9666,8 @@ msgid "Filetypes to hide"
 msgstr "Tipos de archivos que ocultar"
 
 #: C/gnome-commander.xml:4753(para)
-#, fuzzy
-#| msgid "show_unknown"
 msgid "Unknown"
-msgstr "show_unknown"
+msgstr "Desconocido"
 
 #: C/gnome-commander.xml:4756(para)
 msgid ""
@@ -9730,10 +9686,8 @@ msgid "Any normal files that contain text or binary executable."
 msgstr ""
 
 #: C/gnome-commander.xml:4776(para)
-#, fuzzy
-#| msgid "Compare directories"
 msgid "Directories"
-msgstr "Comparar carpetas"
+msgstr "Carpetas"
 
 #: C/gnome-commander.xml:4779(para)
 msgid ""
@@ -9742,10 +9696,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4787(para)
-#, fuzzy
-#| msgid "View files"
 msgid "Fifo files"
-msgstr "Ver archivos"
+msgstr "Archivos Fifo"
 
 #: C/gnome-commander.xml:4790(para)
 msgid ""
@@ -9780,10 +9732,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4820(para)
-#, fuzzy
-#| msgid "show_block_device"
 msgid "Block devices"
-msgstr "show_block_device"
+msgstr "Dispositivos de bloque"
 
 #: C/gnome-commander.xml:4823(para)
 msgid ""
@@ -9830,10 +9780,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4881(title)
-#, fuzzy
-#| msgid "[network]"
 msgid "Network"
-msgstr "[red]"
+msgstr "Red"
 
 #. brief desciption
 #: C/gnome-commander.xml:4883(para)
@@ -9954,10 +9902,8 @@ msgid "Standard programs"
 msgstr "Programas estándar"
 
 #: C/gnome-commander.xml:4982(para)
-#, fuzzy
-#| msgid "viewer"
 msgid "Viewer:"
-msgstr "visor"
+msgstr "Visor:"
 
 #: C/gnome-commander.xml:4985(para)
 msgid ""
@@ -9980,10 +9926,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5000(para)
-#, fuzzy
-#| msgid "editor"
 msgid "Editor:"
-msgstr "editor"
+msgstr "Editor:"
 
 #: C/gnome-commander.xml:5003(para)
 msgid ""
@@ -9993,10 +9937,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5009(para)
-#, fuzzy
-#| msgid "differ"
 msgid "Differ:"
-msgstr "differ"
+msgstr "Diferenciador:"
 
 #: C/gnome-commander.xml:5012(para)
 msgid ""
@@ -10006,10 +9948,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5018(para)
-#, fuzzy
-#| msgid "terminal"
 msgid "Terminal:"
-msgstr "terminal"
+msgstr "Terminal:"
 
 #: C/gnome-commander.xml:5021(para)
 msgid ""
@@ -10042,10 +9982,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5047(para)
-#, fuzzy
-#| msgid "Reverb"
 msgid "Remove"
-msgstr "Reverberación"
+msgstr "Eliminar"
 
 #: C/gnome-commander.xml:5050(para)
 msgid ""
@@ -10117,10 +10055,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5131(guilabel)
-#, fuzzy
-#| msgid "Command line"
 msgid "Command:"
-msgstr "Línea de comandos"
+msgstr "Comando:"
 
 #: C/gnome-commander.xml:5139(para)
 msgid ""
@@ -10136,10 +10072,8 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:5147(guilabel)
-#, fuzzy
-#| msgid "count"
 msgid "Icon:"
-msgstr "contar"
+msgstr "Icono:"
 
 #: C/gnome-commander.xml:5151(para)
 msgid "Choose Icon"
@@ -10849,8 +10783,6 @@ msgstr ""
 "comando. Esto cierra automáticamente la lista."
 
 #: C/gnome-commander.xml:5906(title)
-#, fuzzy
-#| msgid "User actions"
 msgid "User Actions"
 msgstr "Acciones del usuario"
 
@@ -11413,20 +11345,16 @@ msgid "view.back"
 msgstr "view.back"
 
 #: C/gnome-commander.xml:6275(para)
-#, fuzzy
-#| msgid "view.last"
 msgid "view.close_tab"
-msgstr "view.last"
+msgstr "view.close_tab"
 
 #: C/gnome-commander.xml:6276(para)
 msgid "Close the current tab"
 msgstr "Cerrar la solapa actual"
 
 #: C/gnome-commander.xml:6280(para)
-#, fuzzy
-#| msgid "view.equal_panes"
 msgid "view.close_all_tabs"
-msgstr "view.equal_panes"
+msgstr "view.close_all_tabs"
 
 #: C/gnome-commander.xml:6285(para)
 msgid "view.close_duplicate_tabs"
@@ -11485,20 +11413,16 @@ msgstr ""
 "izquierda a la de la derecha"
 
 #: C/gnome-commander.xml:6331(para)
-#, fuzzy
-#| msgid "view.in_left_pane"
 msgid "view.in_new_tab"
-msgstr "view.in_left_pane"
+msgstr "view.in_new_tab"
 
 #: C/gnome-commander.xml:6332(para)
 msgid "Open directory in the new tab"
 msgstr ""
 
 #: C/gnome-commander.xml:6336(para)
-#, fuzzy
-#| msgid "view.in_inactive_pane"
 msgid "view.in_inactive_tab"
-msgstr "view.in_inactive_pane"
+msgstr "view.in_inactive_tab"
 
 #: C/gnome-commander.xml:6337(para)
 msgid "Open directory in the new tab (inactive window)"
@@ -11513,26 +11437,20 @@ msgid "Go forward to the last visited directory"
 msgstr "Ir a la última carpeta visitada"
 
 #: C/gnome-commander.xml:6346(para)
-#, fuzzy
-#| msgid "view.in_left_pane"
 msgid "view.next_tab"
-msgstr "view.in_left_pane"
+msgstr "view.next_tab"
 
 #: C/gnome-commander.xml:6347(para)
 msgid "Next tab"
 msgstr ""
 
 #: C/gnome-commander.xml:6351(para)
-#, fuzzy
-#| msgid "view.in_left_pane"
 msgid "view.new_tab"
-msgstr "view.in_left_pane"
+msgstr "view.new_tab"
 
 #: C/gnome-commander.xml:6356(para)
-#, fuzzy
-#| msgid "view.root"
 msgid "view.prev_tab"
-msgstr "view.root"
+msgstr "view.prev_tab"
 
 #: C/gnome-commander.xml:6357(para)
 #, fuzzy
