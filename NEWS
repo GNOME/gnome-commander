@@ -3,7 +3,7 @@ gnome-commander 1.2.8.8
 ---------------
 
 Bug fixes:
- * Fixed problem ...
+ * Fixed problem #610764 (menu item won't stay checked)
 
 
 ===================================

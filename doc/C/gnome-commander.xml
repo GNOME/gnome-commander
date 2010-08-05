@@ -6053,7 +6053,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem #610764 (menu item won't stay checked)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
