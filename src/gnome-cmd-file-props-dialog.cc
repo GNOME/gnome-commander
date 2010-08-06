@@ -141,8 +141,9 @@ static void calc_tree_size_func (GnomeCmdFilePropsDialogPrivate *data)
 // Tells the thread to exit and then waits for it to do so.
 static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
 {
-    g_source_remove (data->updater_proc_id);
-    
+    if (data->updater_proc_id)
+        g_source_remove (data->updater_proc_id);
+
     if (data->thread)
         g_thread_join (data->thread);
 
