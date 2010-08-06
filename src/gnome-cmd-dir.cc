@@ -863,6 +863,14 @@ void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
 }
 
 
+void gnome_cmd_dir_is_monitored (GnomeCmdDir *dir)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
+
+    return dir->priv->monitor_users > 0;
+}
+
+
 gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);

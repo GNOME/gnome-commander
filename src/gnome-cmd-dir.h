@@ -146,6 +146,7 @@ gboolean gnome_cmd_dir_uses_fam (GnomeCmdDir *dir);
 
 void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);
 void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir);
+void gnome_cmd_dir_is_monitored (GnomeCmdDir *dir);
 gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_content_changed (GnomeCmdDir *dir);
 
