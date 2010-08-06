@@ -863,7 +863,7 @@ void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
 }
 
 
-void gnome_cmd_dir_is_monitored (GnomeCmdDir *dir)
+gboolean gnome_cmd_dir_is_monitored (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
 
