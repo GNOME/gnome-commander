@@ -26,21 +26,17 @@
 #define GNOME_CMD_IS_FILE_INFO(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_info_get_type ())
 
 
-typedef struct _GnomeCmdFileInfo        GnomeCmdFileInfo;
-typedef struct _GnomeCmdFileInfoClass   GnomeCmdFileInfoClass;
-typedef struct _GnomeCmdFileInfoPrivate GnomeCmdFileInfoPrivate;
-
-struct _GnomeCmdFileInfo
+struct GnomeCmdFileInfo
 {
     GtkObject parent;
 
     GnomeVFSURI *uri;
     GnomeVFSFileInfo *info;
-
-    GnomeCmdFileInfoPrivate *priv;
+    
+    void setup(GnomeVFSURI *uri, GnomeVFSFileInfo *info);
 };
 
-struct _GnomeCmdFileInfoClass
+struct GnomeCmdFileInfoClass
 {
     GtkObjectClass parent_class;
 };
@@ -49,12 +45,10 @@ struct _GnomeCmdFileInfoClass
 GtkType gnome_cmd_file_info_get_type ();
 
 
-inline void gnome_cmd_file_info_setup (GnomeCmdFileInfo *f, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+inline void GnomeCmdFileInfo::setup(GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_INFO (f));
-
-    f->info = info;
-    f->uri = uri;
+    this->info = info;
+    this->uri = uri;
 }
 
 #endif //__GNOME_CMD_FILE_INFO_H__
