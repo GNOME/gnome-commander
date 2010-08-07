@@ -543,7 +543,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     gtk_container_add (GTK_CONTAINER (space_frame), vbox);
 
     data->chown_component = gnome_cmd_chown_component_new ();
-    gtk_widget_ref (data->chown_component);
+    g_object_ref (data->chown_component);
     g_object_set_data_full (G_OBJECT (data->dialog), "chown_component", data->chown_component, g_object_unref);
     gtk_widget_show (data->chown_component);
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (data->chown_component),
@@ -554,7 +554,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
 
 
     data->chmod_component = gnome_cmd_chmod_component_new ((GnomeVFSFilePermissions) 0);
-    gtk_widget_ref (data->chmod_component);
+    g_object_ref (data->chmod_component);
     g_object_set_data_full (G_OBJECT (data->dialog), "chmod_component", data->chmod_component, g_object_unref);
     gtk_widget_show (data->chmod_component);
     gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component), data->f->info->permissions);
@@ -729,7 +729,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->notebook = notebook;
     gnome_cmd_file_ref (f);
 
-    gtk_widget_ref (notebook);
+    g_object_ref (notebook);
     g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);
     gtk_widget_show (notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);

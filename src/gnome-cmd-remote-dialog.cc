@@ -460,7 +460,7 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
     gtk_box_pack_start (GTK_BOX (cat_box), sw, TRUE, TRUE, 0);
 
     ftp_dialog->priv->connection_list = create_view_and_model (get_ftp_cons ());
-    gtk_widget_ref (ftp_dialog->priv->connection_list);
+    g_object_ref (ftp_dialog->priv->connection_list);
     g_object_set_data_full (G_OBJECT (dialog), "connection_list", ftp_dialog->priv->connection_list, g_object_unref);
     gtk_widget_show (ftp_dialog->priv->connection_list);
     gtk_container_add (GTK_CONTAINER (sw), ftp_dialog->priv->connection_list);

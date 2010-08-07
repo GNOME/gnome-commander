@@ -732,7 +732,7 @@ inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *te
     if (for_widget != NULL)
       gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
 
-    gtk_widget_ref (label);
+    g_object_ref (label);
     g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
     gtk_widget_show (label);
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
@@ -747,7 +747,7 @@ inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *te
 {
     GtkWidget *btn = gtk_check_button_new_with_mnemonic (text);
 
-    gtk_widget_ref (btn);
+    g_object_ref (btn);
     g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
     gtk_widget_show (btn);
 
@@ -761,7 +761,7 @@ inline GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, 
 {
     GtkWidget *radio = gtk_radio_button_new_with_mnemonic (group, text);
 
-    gtk_widget_ref (radio);
+    g_object_ref (radio);
     g_object_set_data_full (G_OBJECT (parent), name, radio, g_object_unref);
     gtk_widget_show (radio);
 
@@ -774,7 +774,7 @@ inline GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, 
 inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
 {
     GtkWidget *combo = gtk_combo_box_entry_new_text ();
-    gtk_widget_ref (combo);
+    g_object_ref (combo);
     g_object_set_data_full (G_OBJECT (parent), "combo", combo, g_object_unref);
     gtk_widget_show (combo);
     return combo;
@@ -897,14 +897,14 @@ static void init (GnomeCmdSearchDialog *dialog)
 
 
     sw = gtk_scrolled_window_new (NULL, NULL);
-    gtk_widget_ref (sw);
+    g_object_ref (sw);
     g_object_set_data_full (G_OBJECT (window), "sw", sw, g_object_unref);
     gtk_widget_show (sw);
     gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
     dialog->priv->result_list = new GnomeCmdFileList(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING);
-    gtk_widget_ref (GTK_WIDGET (dialog->priv->result_list));
+    g_object_ref (dialog->priv->result_list);
     g_object_set_data_full (G_OBJECT (window), "result_list", GTK_WIDGET (dialog->priv->result_list), g_object_unref);
     gtk_widget_set_size_request (GTK_WIDGET (dialog->priv->result_list), -1, 200);
     gtk_widget_show (GTK_WIDGET (dialog->priv->result_list));
@@ -914,7 +914,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->statusbar = gtk_statusbar_new ();
     gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (dialog->priv->statusbar), FALSE);
-    gtk_widget_ref (dialog->priv->statusbar);
+    g_object_ref (dialog->priv->statusbar);
     g_object_set_data_full (G_OBJECT (window), "statusbar", dialog->priv->statusbar, g_object_unref);
     gtk_widget_show (dialog->priv->statusbar);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->statusbar, FALSE, TRUE, 0);

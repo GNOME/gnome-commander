@@ -45,7 +45,7 @@ struct GnomeCmdOptionsDialog::Private
 inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 {
     GtkWidget *w = gtk_font_button_new ();
-    gtk_widget_ref (w);
+    g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
 
@@ -396,7 +396,7 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
 {
     GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit Colors..."));
-    gtk_widget_ref (dlg);
+    g_object_ref (dlg);
 
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
@@ -528,7 +528,7 @@ static void on_edit_ls_colors_reset (GtkButton *btn, GtkWidget *dlg)
 static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 {
     GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit LS_COLORS Palette"));
-    gtk_widget_ref (dlg);
+    g_object_ref (dlg);
 
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
@@ -1280,7 +1280,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     const gchar *s = NULL;
 
     GtkWidget *dialog = gnome_cmd_dialog_new (NULL);
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     hbox = create_hbox (dialog, FALSE, 6);
@@ -1681,7 +1681,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     gchar *icon_dir;
 
     dialog = gnome_cmd_dialog_new ("");
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gtk_window_set_title (GTK_WINDOW (dialog), "");
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
@@ -1965,7 +1965,7 @@ static void init (GnomeCmdOptionsDialog *dialog)
     gtk_window_set_title (GTK_WINDOW (options_dialog), _("Options"));
 
     dialog->notebook = gtk_notebook_new ();
-    gtk_widget_ref (dialog->notebook);
+    g_object_ref (dialog->notebook);
     g_object_set_data_full (G_OBJECT (options_dialog), "notebook", dialog->notebook, g_object_unref);
     gtk_widget_show (dialog->notebook);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), dialog->notebook);
