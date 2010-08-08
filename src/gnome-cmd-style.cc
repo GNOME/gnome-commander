@@ -171,10 +171,10 @@ inline GtkStyle *create_alt_sel_list_style ()
 
 void gnome_cmd_style_create ()
 {
-    if (list_style) gtk_style_unref (list_style);
-    if (alt_list_style) gtk_style_unref (alt_list_style);
-    if (sel_list_style) gtk_style_unref (sel_list_style);
-    if (alt_sel_list_style) gtk_style_unref (alt_sel_list_style);
+    if (list_style) g_object_unref (list_style);
+    if (alt_list_style) g_object_unref (alt_list_style);
+    if (sel_list_style) g_object_unref (sel_list_style);
+    if (alt_sel_list_style) g_object_unref (alt_sel_list_style);
 
     list_style = create_list_style ();
     alt_list_style = create_alt_list_style ();
