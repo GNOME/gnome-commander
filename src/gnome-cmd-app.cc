@@ -178,7 +178,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
         if (pixbuf)
             app->priv->pixmap = gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
 
-        gdk_pixbuf_unref (tmp);
+        g_object_unref (tmp);
     }
 }
 

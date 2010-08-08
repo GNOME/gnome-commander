@@ -57,14 +57,14 @@ GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
 
     GnomeCmdPixmap *pixmap = g_new (GnomeCmdPixmap, 1);
     pixmap->pixbuf = pixbuf;
-//    gdk_pixbuf_ref (pixmap->pixbuf);
+//    g_object_ref (pixmap->pixbuf);
 
     pixmap->width = gdk_pixbuf_get_width (pixmap->pixbuf);
     pixmap->height = gdk_pixbuf_get_height (pixmap->pixbuf);
 
     gdk_pixbuf_render_pixmap_and_mask (pixmap->pixbuf, &pixmap->pixmap, &pixmap->mask, 128);
-    gdk_pixmap_ref (pixmap->pixmap);
-    gdk_bitmap_ref (pixmap->mask);
+    g_object_ref (pixmap->pixmap);
+    g_object_ref (pixmap->mask);
 
     return pixmap;
 }

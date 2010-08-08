@@ -291,7 +291,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
         w = (gint)(scale*(gfloat)gdk_pixbuf_get_width (pixbuf));
 
         GdkPixbuf *tmp = gdk_pixbuf_scale_simple (pixbuf, w, h, gnome_cmd_data.icon_scale_quality);
-        gdk_pixbuf_unref (pixbuf);
+        g_object_unref (pixbuf);
         pixbuf = tmp;
     }
 
@@ -309,8 +309,8 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
 
     gdk_pixbuf_render_pixmap_and_mask (pixbuf, pm, bm, 128);
     gdk_pixbuf_render_pixmap_and_mask (lnk_pixbuf, lpm, lbm, 128);
-    gdk_pixbuf_unref (pixbuf);
-    gdk_pixbuf_unref (lnk_pixbuf);
+    g_object_unref (pixbuf);
+    g_object_unref (lnk_pixbuf);
 
     return TRUE;
 }
@@ -450,8 +450,8 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
 
     if (!entry->dead_end)
     {
-        gdk_pixmap_unref (entry->pixmap);
-        gdk_bitmap_unref (entry->mask);
+        g_object_unref (entry->pixmap);
+        g_object_unref (entry->mask);
     }
 
     g_free (entry);

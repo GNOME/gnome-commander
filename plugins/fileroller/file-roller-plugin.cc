@@ -213,7 +213,7 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
         pixbuf = gdk_pixbuf_new_from_xpm_data ((const char**)file_roller_xpm);
         gtk_image_set_from_pixbuf (GTK_IMAGE (GTK_MESSAGE_DIALOG (dialog)->image), pixbuf);
-        gdk_pixbuf_unref (pixbuf);
+        g_object_unref (pixbuf);
 
         ret = gtk_dialog_run (GTK_DIALOG (dialog));
 

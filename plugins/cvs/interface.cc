@@ -318,7 +318,7 @@ static GtkWidget *create_tab_label (GtkWidget *parent,
 
     pb = gdk_pixbuf_new_from_xpm_data ((const gchar**)close_xpm);
     img = gtk_image_new_from_pixbuf (pb);
-    gdk_pixbuf_unref (pb);
+    g_object_unref (pb);
     gtk_widget_show (img);
     btn = gtk_button_new ();
     gtk_button_set_relief (GTK_BUTTON (btn), GTK_RELIEF_NONE);
