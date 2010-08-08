@@ -24,13 +24,6 @@
 
 static GtkObjectClass *parent_class = NULL;
 
-struct _GnomeCmdFileInfoPrivate
-{
-#ifdef __sun
-    gchar dummy;  // Sun's forte compiler does not like empty structs
-#endif
-};
-
 
 /*******************************
  * Gtk class implementation
@@ -44,8 +37,6 @@ destroy (GtkObject *object)
     gnome_vfs_file_info_unref (file->info);
     if (file->uri)
         gnome_vfs_uri_unref (file->uri);
-
-    g_free (file->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -69,8 +60,6 @@ init (GnomeCmdFileInfo *file)
 {
     file->info = NULL;
     file->uri = NULL;
-
-    file->priv = g_new0 (GnomeCmdFileInfoPrivate, 1);
 }
 
 

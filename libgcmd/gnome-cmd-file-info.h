@@ -28,7 +28,6 @@
 
 typedef struct _GnomeCmdFileInfo        GnomeCmdFileInfo;
 typedef struct _GnomeCmdFileInfoClass   GnomeCmdFileInfoClass;
-typedef struct _GnomeCmdFileInfoPrivate GnomeCmdFileInfoPrivate;
 
 struct _GnomeCmdFileInfo
 {
@@ -36,8 +35,6 @@ struct _GnomeCmdFileInfo
 
     GnomeVFSURI *uri;
     GnomeVFSFileInfo *info;
-
-    GnomeCmdFileInfoPrivate *priv;
 };
 
 struct _GnomeCmdFileInfoClass
