@@ -116,11 +116,15 @@ static void class_init (GnomeCmdFileClass *klass)
 
 static void init (GnomeCmdFile *file)
 {
-    file->info = NULL;
-    file->collate_key = NULL;
+    // file->info = NULL;
+    // file->collate_key = NULL;
 
     file->priv = g_new0 (GnomeCmdFilePrivate, 1);
-    file->priv->dir_handle = NULL;
+
+    // file->priv->dir_handle = NULL;
+
+    // file->priv->last_update.tv_sec = 0;
+    // file->priv->last_update.tv_usec = 0;
 
     file->priv->tree_size = -1;
 
@@ -129,10 +133,6 @@ static void init (GnomeCmdFile *file)
         all_files = g_list_append (all_files, file);
         created_files_cnt++;
     }
-
-    file->priv->last_update.tv_sec = 0;
-    file->priv->last_update.tv_usec = 0;
-
 }
 
 
