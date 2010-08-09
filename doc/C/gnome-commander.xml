@@ -7067,48 +7067,6 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>sort_column_left</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>sort_column_right</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>sort_direction_left</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>sort_direction_right</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>start_dir_left</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>start_dir_right</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>symlink_prefix</para></entry>
                                     <entry><para>string</para></entry>
                                     <entry><para>Empty value means 'use "link to %s" for symlink'
