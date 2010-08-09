@@ -323,9 +323,6 @@ void gnome_cmd_data_set_theme_icon_dir (const gchar *dir);
 const gchar *gnome_cmd_data_get_document_icon_dir ();
 void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
 
-const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
-void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);
-
 const gchar *gnome_cmd_data_get_last_pattern ();
 void gnome_cmd_data_set_last_pattern (const gchar *value);
 

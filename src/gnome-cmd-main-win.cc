@@ -127,8 +127,6 @@ static GnomeAppClass *parent_class = NULL;
 
 static guint signals[LAST_SIGNAL] = { 0 };
 static GtkTooltips *toolbar_tooltips = NULL;
-extern gchar *start_dir_left;   //  main.cc
-extern gchar *start_dir_right;  //  main.cc
 
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 

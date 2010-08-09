@@ -57,7 +57,6 @@ struct GnomeCmdData::Private
     gchar                *list_font;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
-    gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
     gint                 sort_column[2];
@@ -1193,11 +1192,6 @@ void GnomeCmdData::load()
         priv->symlink_prefix = NULL;
     }
 
-    priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", GnomeCmdFileList::COLUMN_NAME);
-    priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ("/options/sort_direction_left", GTK_SORT_ASCENDING);
-    priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", GnomeCmdFileList::COLUMN_NAME);
-    priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", GTK_SORT_ASCENDING);
-
     viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
     differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
@@ -1226,9 +1220,6 @@ void GnomeCmdData::load()
 
     save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
     save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
-
-    priv->start_dirs[LEFT] = gnome_cmd_data_get_string ("/options/start_dir_left", g_get_home_dir ());
-    priv->start_dirs[RIGHT] = gnome_cmd_data_get_string ("/options/start_dir_right", g_get_home_dir ());
 
     priv->last_pattern = gnome_cmd_data_get_string ("/defaults/last_pattern", "");
     priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
@@ -1611,11 +1602,6 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/main_win_pos_x", priv->main_win_pos[0]);
     gnome_cmd_data_set_int    ("/options/main_win_pos_y", priv->main_win_pos[1]);
 
-    gnome_cmd_data_set_int    ("/options/sort_column_left", main_win->fs(LEFT)->file_list()->get_sort_column());
-    gnome_cmd_data_set_bool   ("/options/sort_direction_left", main_win->fs(LEFT)->file_list()->get_sort_order());
-    gnome_cmd_data_set_int    ("/options/sort_column_right", main_win->fs(RIGHT)->file_list()->get_sort_column());
-    gnome_cmd_data_set_bool   ("/options/sort_direction_right", main_win->fs(RIGHT)->file_list()->get_sort_order());
-
     gnome_cmd_data_set_string ("/programs/viewer", viewer);
     gnome_cmd_data_set_string ("/programs/editor", editor);
     gnome_cmd_data_set_string ("/programs/differ", differ);
@@ -1647,8 +1633,6 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", save_dirs_on_exit);
     gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
 
-    gnome_cmd_data_set_string ("/options/start_dir_left", priv->start_dirs[LEFT]);
-    gnome_cmd_data_set_string ("/options/start_dir_right", priv->start_dirs[RIGHT]);
     gnome_cmd_data_set_string ("/defaults/last_pattern", priv->last_pattern);
     gnome_cmd_data_set_string ("/defaults/backup_pattern", priv->backup_pattern);
 
@@ -1844,21 +1828,6 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
     g_free (gnome_cmd_data.priv->document_icon_dir);
 
     gnome_cmd_data.priv->document_icon_dir = g_strdup (dir);
-}
-
-
-void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
-{
-    if (gnome_cmd_data.priv->start_dirs[fs])
-        g_free (gnome_cmd_data.priv->start_dirs[fs]);
-
-    gnome_cmd_data.priv->start_dirs[fs] = g_strdup (start_dir);
-}
-
-
-const gchar *gnome_cmd_data_get_start_dir (gboolean fs)
-{
-    return gnome_cmd_data.priv->start_dirs[fs];
 }
 
 
