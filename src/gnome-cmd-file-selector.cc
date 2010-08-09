@@ -713,9 +713,7 @@ static void init (GnomeCmdFileSelector *fs)
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
 
     // create the notebook and the first tab
-    FileSelectorID id = main_win->fs(fs);
     fs->notebook = new GnomeCmdNotebook;
-    fs->new_tab(NULL, gnome_cmd_data.get_sort_col(id), gnome_cmd_data.get_sort_direction(id));
 
     // create the connection combo
     fs->con_combo = new GnomeCmdCombo(2, 1);

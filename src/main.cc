@@ -153,6 +153,12 @@ int main (int argc, char *argv[])
         unique_app_send_message (app, UNIQUE_ACTIVATE, NULL);
     else
     {
+        if (start_dir_left)
+            gnome_cmd_data.tabs[LEFT].push_back(make_triple(string(start_dir_left),GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING));
+
+        if (start_dir_right)
+            gnome_cmd_data.tabs[RIGHT].push_back(make_triple(string(start_dir_right),GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING));
+
         gcmd_user_actions.set_defaults();
         ls_colors_init ();
         gnome_cmd_data.load_more();

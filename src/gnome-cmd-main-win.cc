@@ -703,21 +703,11 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdCon *con_home = get_home_con ();
-
     if (main_win && main_win->priv && main_win->priv->key_snooper_id)
     {
         gtk_key_snooper_remove (main_win->priv->key_snooper_id);
         main_win->priv->key_snooper_id = 0;
     }
-
-    GnomeCmdDir *dir = main_win->fs(LEFT)->get_directory();
-    if (con_home == gnome_cmd_dir_get_connection (dir))
-        gnome_cmd_data_set_start_dir (LEFT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
-
-    dir = main_win->fs(RIGHT)->get_directory();
-    if (con_home == gnome_cmd_dir_get_connection (dir))
-        gnome_cmd_data_set_start_dir (RIGHT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
 
     if (main_win->advrename_dlg)
         gtk_widget_destroy (*main_win->advrename_dlg);
@@ -824,23 +814,38 @@ static void init (GnomeCmdMainWin *mw)
     g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
     g_signal_connect (mw->fs(RIGHT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
 
-    g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT)->file_list());
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT)->file_list());
-    g_signal_connect (mw->fs(LEFT)->file_list(), "button-press-event", G_CALLBACK (on_left_fs_select), mw);
-    g_signal_connect (mw->fs(RIGHT)->file_list(), "button-press-event", G_CALLBACK (on_right_fs_select), mw);
+    mw->fs(LEFT)->update_connections();
+    mw->fs(RIGHT)->update_connections();
+
+    GnomeCmdCon *home = get_home_con ();
+
+    if (gnome_cmd_data.tabs[LEFT].empty())
+        gnome_cmd_data.tabs[LEFT].push_back(make_triple(string(g_get_home_dir ()), GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING));
+
+    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[LEFT].begin(); i!=gnome_cmd_data.tabs[LEFT].end(); ++i)
+    {
+        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
+        mw->fs(LEFT)->new_tab(dir, i->second, i->third);
+    }
+
+    if (gnome_cmd_data.tabs[RIGHT].empty())
+        gnome_cmd_data.tabs[RIGHT].push_back(make_triple(string(g_get_home_dir ()), GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING));
+
+    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[RIGHT].begin(); i!=gnome_cmd_data.tabs[RIGHT].end(); ++i)
+    {
+        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
+        mw->fs(RIGHT)->new_tab(dir, i->second, i->third);
+    }
+
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
     g_signal_connect (mw, "delete-event", G_CALLBACK (on_delete_event), mw);
     g_signal_connect (mw->priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), mw);
     g_signal_connect (mw, "window-state-event", G_CALLBACK (on_window_state_event), NULL);
 
-    mw->fs(LEFT)->update_connections();
-    mw->fs(RIGHT)->update_connections();
-
-    mw->fs(LEFT)->set_connection(get_home_con ());
-    mw->fs(RIGHT)->set_connection(get_home_con ());
-
-    mw->fs(LEFT)->goto_directory(start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
-    mw->fs(RIGHT)->goto_directory(start_dir_right ? start_dir_right : gnome_cmd_data_get_start_dir (RIGHT));
+    g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT)->file_list());
+    g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT)->file_list());
+    g_signal_connect (mw->fs(LEFT)->file_list(), "button-press-event", G_CALLBACK (on_left_fs_select), mw);
+    g_signal_connect (mw->fs(RIGHT)->file_list(), "button-press-event", G_CALLBACK (on_right_fs_select), mw);
 
     gtk_window_add_accel_group (*mw, mw->priv->accel_group);
     mw->focus_file_lists();
