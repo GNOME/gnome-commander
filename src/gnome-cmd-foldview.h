@@ -2,6 +2,7 @@
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
     Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2010-2010 Guillaume Wardavoir
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,14 +19,22 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __GNOME_CMD_STYLE_H__
-#define __GNOME_CMD_STYLE_H__
+#ifndef __GCMDGTKFOLDVIEW_H__
+#define __GCMDGTKFOLDVIEW_H__
 
-extern GtkStyle *list_style, *sel_list_style;
-extern GtkStyle *alt_list_style, *alt_sel_list_style;
+//=============================================================================
+//
+//						public header file
+//
+//=============================================================================
 
-extern GtkStyle *style_foldview, *style_foldview_selected;
+#include <glib.h>
+#include <glib-object.h>
+#include <gtk/gtkvbox.h>
+#include <gtk/gtklabel.h>
 
-void gnome_cmd_style_create ();
+// This function because of the creation process of GtkWidgets. Annoying.
+GtkWidget*			gnome_cmd_foldview_get_instance();
+void				gnome_cmd_foldview_update_style (GtkWidget *widget);
 
-#endif // __GNOME_CMD_STYLE_H__
+#endif //__GCMDGTKFOLDVIEW_H__

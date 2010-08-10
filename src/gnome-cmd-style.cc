@@ -33,6 +33,8 @@ GtkStyle *alt_list_style = NULL;
 GtkStyle *sel_list_style = NULL;
 GtkStyle *alt_sel_list_style = NULL;
 
+GtkStyle *style_foldview = NULL;
+GtkStyle *style_foldview_selected = NULL;
 
 inline GtkStyle *create_list_style ()
 {
@@ -169,6 +171,82 @@ inline GtkStyle *create_alt_sel_list_style ()
 }
 
 
+inline GtkStyle *create_style_foldview()
+{
+    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
+    const gchar *font_name = gnome_cmd_data_get_list_font ();
+    GtkStyle *style = gtk_style_new ();
+
+    // set style font to default font
+    if (strcmp (font_name, "default") != 0)
+    {
+        PangoFontDescription *pfont = pango_font_description_from_string (font_name);
+
+        if (pfont && pango_font_description_get_size (pfont) != 0)
+        {
+            if (style->font_desc)
+                pango_font_description_free (style->font_desc);
+            style->font_desc = pfont;
+        }
+    }
+
+    if (!cols->respect_theme)
+    {
+        // Warning modify this leads to madness
+        style->base[GTK_STATE_NORMAL] = *cols->norm_bg;
+        style->base[GTK_STATE_ACTIVE] = *cols->curs_bg;
+        style->base[GTK_STATE_SELECTED] = *cols->curs_bg;
+
+        style->fg[GTK_STATE_NORMAL] = *cols->norm_fg;
+        style->fg[GTK_STATE_SELECTED] = *cols->norm_fg;
+
+        style->bg[GTK_STATE_NORMAL] = *cols->norm_bg;
+        style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
+
+        style->text[GTK_STATE_NORMAL] = *cols->norm_fg;
+    }
+
+    return style;
+}
+
+
+inline GtkStyle *create_style_foldview_selected()
+{
+    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
+    const gchar *font_name = gnome_cmd_data_get_list_font ();
+    GtkStyle *style = gtk_style_new ();
+
+    // set style font to default font
+    if (strcmp (font_name, "default") != 0)
+    {
+        PangoFontDescription *pfont = pango_font_description_from_string (font_name);
+
+        if (pfont && pango_font_description_get_size (pfont) != 0)
+        {
+            if (style->font_desc)
+                pango_font_description_free (style->font_desc);
+            style->font_desc = pfont;
+        }
+    }
+
+    if (!cols->respect_theme)
+    {
+        style->base[GTK_STATE_NORMAL] = *cols->norm_bg;
+        style->bg[GTK_STATE_NORMAL] = *cols->sel_bg;
+        style->fg[GTK_STATE_NORMAL] = *cols->sel_fg;
+
+        style->base[GTK_STATE_ACTIVE] = *cols->norm_bg;
+
+        style->fg[GTK_STATE_SELECTED] = *cols->sel_fg;
+        style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
+
+        style->text[GTK_STATE_NORMAL] = *cols->sel_fg;
+    }
+
+    return style;
+}
+
+
 void gnome_cmd_style_create ()
 {
     if (list_style) g_object_unref (list_style);
@@ -176,8 +254,16 @@ void gnome_cmd_style_create ()
     if (sel_list_style) g_object_unref (sel_list_style);
     if (alt_sel_list_style) g_object_unref (alt_sel_list_style);
 
+    if (style_foldview)
+        g_object_unref (style_foldview);
+    if (style_foldview_selected)
+        g_object_unref (style_foldview_selected);
+
     list_style = create_list_style ();
     alt_list_style = create_alt_list_style ();
     sel_list_style = create_sel_list_style ();
     alt_sel_list_style = create_alt_sel_list_style ();
+
+    style_foldview = create_style_foldview();
+    style_foldview_selected = create_style_foldview_selected();
 }

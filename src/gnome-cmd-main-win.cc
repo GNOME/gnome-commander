@@ -38,6 +38,7 @@
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
+#include "gnome-cmd-foldview.h"
 #include "owner.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
@@ -89,6 +90,8 @@ struct GnomeCmdMainWin::Private
 
     GtkWidget *main_win;
     GtkWidget *vbox;
+    GtkWidget *foldview_paned;
+    GtkWidget *foldview;
     GtkWidget *paned;
     GtkWidget *file_selector[2];
     GtkWidget *focused_widget;
@@ -784,6 +787,10 @@ static void init (GnomeCmdMainWin *mw)
 
     gnome_app_set_contents (GNOME_APP (mw), mw->priv->vbox);
 
+    mw->priv->foldview = NULL;
+    mw->priv->foldview_paned = NULL; // gcmd-foldview is not yet in metadata
+
+
     mw->priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     g_object_ref (mw->priv->paned);
@@ -931,6 +938,8 @@ void GnomeCmdMainWin::update_style()
 
     if (gnome_cmd_data.cmdline_visibility)
         gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (priv->cmdline));
+
+    gnome_cmd_foldview_update_style (priv->foldview);
 }
 
 
@@ -1162,6 +1171,18 @@ static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFile
 }
 
 
+GtkWidget *GnomeCmdMainWin::get_vbox() const
+{
+    return priv->vbox;
+}
+
+
+GtkWidget *GnomeCmdMainWin::get_paned() const
+{
+    return priv->paned;
+}
+
+    
 GnomeCmdCmdline *GnomeCmdMainWin::get_cmdline() const
 {
     return GNOME_CMD_CMDLINE (priv->cmdline);
@@ -1242,6 +1263,65 @@ void GnomeCmdMainWin::update_buttonbar_visibility()
 }
 
 
+void GnomeCmdMainWin::update_treeview_visibility(gboolean visible)
+{
+    guint length = 0;
+    gint pos = 0;
+
+    // Ensure object is created before calling show / hide, coz I have
+    // signals in widget creation, leading to... a bug
+    if (!priv->foldview)
+        priv->foldview = gnome_cmd_foldview_get_instance();
+
+    if (visible)
+    {
+        // style
+        gnome_cmd_foldview_update_style (priv->foldview);
+
+        priv->foldview_paned = gtk_hpaned_new ();
+
+        g_object_ref (priv->paned);
+        gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->paned);
+        gtk_paned_pack1 (GTK_PANED (priv->foldview_paned), priv->foldview, FALSE, TRUE);
+        gtk_paned_pack2 (GTK_PANED (priv->foldview_paned), priv->paned, FALSE, TRUE);
+        g_object_unref (priv->paned);
+
+        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->foldview_paned, TRUE, TRUE, 0);
+
+        // put the foldview_paned at its right place
+        // rule : there are only cmdline & buttons after us
+        length = g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->vbox)));
+        pos = length - 1;
+        if (priv->buttonbar)  pos -= 2;
+        if (priv->cmdline)  pos -= 2;
+        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->foldview_paned, pos);
+
+        // show
+        gtk_widget_show_all (priv->foldview_paned);
+    }
+    else
+    {
+        g_object_ref (priv->paned);
+        gtk_container_remove (GTK_CONTAINER (priv->foldview_paned), priv->foldview);
+        gtk_container_remove (GTK_CONTAINER (priv->foldview_paned), priv->paned);
+        gtk_container_remove (GTK_CONTAINER (priv->vbox), priv->foldview_paned);
+        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->paned, TRUE, TRUE, 0);
+        g_object_unref (priv->paned);
+
+        priv->foldview = NULL;
+        priv->foldview_paned = NULL;
+
+        // put the gcmd paned at its right place
+        // rule : there are only cmdline & buttons after us
+        length =   g_list_length (gtk_container_get_children (GTK_CONTAINER (priv->vbox)));
+        pos =   length - 1;
+        if (priv->buttonbar)  pos -= 2;
+        if (priv->cmdline) pos -= 2;
+        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
+    }
+}
+
+
 void GnomeCmdMainWin::update_cmdline_visibility()
 {
     if (gnome_cmd_data.cmdline_visibility)
@@ -1277,10 +1357,14 @@ void GnomeCmdMainWin::update_list_orientation()
 
     g_object_ref (priv->file_selector[LEFT]);
     g_object_ref (priv->file_selector[RIGHT]);
+
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[LEFT]);
     gtk_container_remove (GTK_CONTAINER (priv->paned), priv->file_selector[RIGHT]);
 
-    gtk_object_destroy (GTK_OBJECT (priv->paned));
+    if (priv->foldview)
+        gtk_container_remove (GTK_CONTAINER (priv->foldview_paned), priv->paned);
+
+    g_object_unref (priv->paned);
 
     priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
@@ -1291,11 +1375,16 @@ void GnomeCmdMainWin::update_list_orientation()
     gtk_paned_pack1 (GTK_PANED (priv->paned), priv->file_selector[LEFT], TRUE, TRUE);
     gtk_paned_pack2 (GTK_PANED (priv->paned), priv->file_selector[RIGHT], TRUE, TRUE);
 
-    if (gnome_cmd_data.toolbar_visibility)
-        pos += 2;
+    if (priv->foldview)
+        gtk_paned_pack2 (GTK_PANED (priv->foldview_paned), priv->paned, FALSE, TRUE);
+    else
+    {
+        if (gnome_cmd_data.toolbar_visibility)
+            pos += 2;
 
-    gtk_box_pack_start (GTK_BOX (priv->vbox), priv->paned, TRUE, TRUE, 0);
-    gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
+        gtk_box_pack_start (GTK_BOX (priv->vbox), priv->paned, TRUE, TRUE, 0);
+        gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->paned, pos);
+    }
 
     g_object_unref (priv->file_selector[LEFT]);
     g_object_unref (priv->file_selector[RIGHT]);

@@ -660,6 +660,12 @@ static void init (GnomeCmdMainMenu *main_menu)
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },
+        {
+            MENU_TYPE_TOGGLEITEM, _("Show Treeview"), "", NULL,
+            (gpointer) view_treeview, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
         MENUTYPE_SEPARATOR,
         {
             MENU_TYPE_TOGGLEITEM, _("Show Hidden Files"), "", NULL,
@@ -848,8 +854,9 @@ static void init (GnomeCmdMainMenu *main_menu)
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[10].widget), gnome_cmd_data.concombo_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[11].widget), gnome_cmd_data.cmdline_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[12].widget), gnome_cmd_data.buttonbar_visibility);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[14].widget), !gnome_cmd_data.filter_settings.hidden);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[15].widget), !gnome_cmd_data.filter_settings.backup);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[13].widget), FALSE);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[15].widget), !gnome_cmd_data.filter_settings.hidden);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[16].widget), !gnome_cmd_data.filter_settings.backup);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), main_menu);
 

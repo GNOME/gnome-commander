@@ -1337,6 +1337,16 @@ void view_buttonbar (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
+void view_treeview (GtkMenuItem *menuitem, gpointer not_used)
+{
+    if (!GTK_WIDGET_REALIZED (main_win)) return;
+
+    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
+    // gnome_cmd_data.treeview_visibility = checkitem->active;
+    main_win->update_treeview_visibility(checkitem->active);
+}
+
+
 void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;

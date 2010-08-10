@@ -75,6 +75,8 @@ struct GnomeCmdMainWin
     GnomeCmdState *get_state() const;
     void set_cap_state(gboolean state);
 
+    GtkWidget *get_vbox() const;
+    GtkWidget *get_paned() const;
     GnomeCmdCmdline *get_cmdline() const;
 
     void focus_file_lists();
@@ -83,6 +85,7 @@ struct GnomeCmdMainWin
     void update_style();
     void update_bookmarks();
     void update_toolbar_visibility();
+    void update_treeview_visibility(gboolean visible);
     void update_cmdline_visibility();
     void update_buttonbar_visibility();
     void update_list_orientation();

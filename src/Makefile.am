@@ -49,6 +49,12 @@ gnome_commander_SOURCES = \
 	gnome-cmd-file-props-dialog.h gnome-cmd-file-props-dialog.cc \
 	gnome-cmd-file-selector.h gnome-cmd-file-selector.cc \
 	gnome-cmd-file.h gnome-cmd-file.cc \
+	gnome-cmd-foldview.h gnome-cmd-foldview.cc \
+	gnome-cmd-foldview-control.cc \
+	gnome-cmd-foldview-gvfs.h gnome-cmd-foldview-gvfs.cc \
+	gnome-cmd-foldview-model.cc \
+	gnome-cmd-foldview-private.h \
+	gnome-cmd-foldview-view.cc \
 	gnome-cmd-hintbox.h gnome-cmd-hintbox.cc \
 	gnome-cmd-includes.h \
 	gnome-cmd-key-shortcuts-dialog.h gnome-cmd-key-shortcuts-dialog.cc \
