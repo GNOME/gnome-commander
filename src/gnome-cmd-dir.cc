@@ -64,6 +64,7 @@ struct GnomeCmdDirPrivate
     GnomeCmdPath *path;
 
     gboolean lock;
+    gboolean needs_mtime_update;
 
     Handle *handle;
     GnomeVFSMonitorHandle *monitor_handle;
@@ -284,6 +285,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
     dir->priv->con = con;
     gnome_cmd_dir_set_path (dir, path);
     gtk_object_ref (GTK_OBJECT (path));
+    dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir);
 
@@ -314,6 +316,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *p
     dir->priv->con = con;
     gnome_cmd_dir_set_path (dir, path);
     gtk_object_ref (GTK_OBJECT (path));
+    dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (con, dir);
 
@@ -354,6 +357,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
         dir->priv->con = con;
         gnome_cmd_dir_set_path (dir, path);
         gtk_object_ref (GTK_OBJECT (path));
+        dir->priv->needs_mtime_update = FALSE;
 
         gnome_cmd_con_add_to_cache (con, dir);
     }
@@ -742,6 +746,8 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
     dir->priv->file_collection->add(f);
     dir->priv->files = dir->priv->file_collection->get_list();
 
+    dir->priv->needs_mtime_update = TRUE;
+
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CREATED], f);
 }
 
@@ -756,6 +762,8 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 
     if (!GNOME_CMD_IS_FILE (f))
         return;
+
+    dir->priv->needs_mtime_update = TRUE;
 
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], f);
 
@@ -779,6 +787,8 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     gnome_vfs_uri_unref (uri);
 
+    dir->priv->needs_mtime_update = TRUE;
+
     gnome_cmd_file_update_info (f, info);
     gnome_cmd_file_invalidate_metadata (f);
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], f);
@@ -793,6 +803,8 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar 
 
     if (GNOME_CMD_IS_DIR (f))
         gnome_cmd_con_remove_from_cache (dir->priv->con, old_uri_str);
+
+    dir->priv->needs_mtime_update = TRUE;
 
     dir->priv->file_collection->remove(old_uri_str);
     dir->priv->file_collection->add(f);
@@ -877,4 +889,40 @@ gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
 
     return gnome_cmd_con_is_local (dir->priv->con);
+}
+
+
+gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir)
+{
+    // this function also determines if cached dir is up-to-date (FALSE=yes)
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
+
+    // assume cache is updated
+    gboolean returnValue = FALSE;
+    GnomeVFSURI *uri = gnome_cmd_dir_get_uri (dir);
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, (GnomeVFSFileInfoOptions)
+                                            (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_NAME_ONLY));
+    if (res != GNOME_VFS_OK || GNOME_CMD_FILE(dir)->info->mtime != info->mtime)
+    {
+        // cache is not up-to-date
+        GNOME_CMD_FILE (dir)->info->mtime = info->mtime;
+        returnValue = TRUE;
+    }
+
+    gnome_vfs_file_info_unref (info);
+    gnome_vfs_uri_unref (uri);
+
+    // after this function we are sure dir's mtime is up-to-date
+    dir->priv->needs_mtime_update = FALSE;
+
+    return returnValue;
+}
+
+
+gboolean gnome_cmd_dir_needs_mtime_update (GnomeCmdDir *dir)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), FALSE);
+
+    return dir->priv->needs_mtime_update;
 }

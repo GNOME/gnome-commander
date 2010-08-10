@@ -150,6 +150,9 @@ gboolean gnome_cmd_dir_is_monitored (GnomeCmdDir *dir);
 gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_content_changed (GnomeCmdDir *dir);
 
+gboolean gnome_cmd_dir_update_mtime (GnomeCmdDir *dir);
+gboolean gnome_cmd_dir_needs_mtime_update (GnomeCmdDir *dir);
+
 inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);

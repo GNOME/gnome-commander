@@ -2552,9 +2552,11 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
     if (cwd)
     {
-        gnome_cmd_dir_cancel_monitoring (cwd);
         lwd = cwd;
+        gnome_cmd_dir_cancel_monitoring (lwd);
         g_signal_handlers_disconnect_matched (lwd, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, this);
+        if (gnome_cmd_dir_is_local (lwd) && !gnome_cmd_dir_is_monitored (lwd) && gnome_cmd_dir_needs_mtime_update (lwd))
+            gnome_cmd_dir_update_mtime (lwd);
         cwd->voffset = gnome_cmd_clist_get_voffset (*this);
     }
 
@@ -2577,7 +2579,12 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
         case DIR_STATE_LISTED:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
-            on_dir_list_ok (dir, NULL, this);
+
+            // check if the dir has up-to-date file list; if not and it's a local dir - relist it
+            if (gnome_cmd_dir_is_local (dir) && !gnome_cmd_dir_is_monitored (dir) && gnome_cmd_dir_update_mtime (dir))
+                gnome_cmd_dir_relist_files (dir, gnome_cmd_con_needs_list_visprog (con));
+            else
+                on_dir_list_ok (dir, NULL, this);
             break;
     }
 
