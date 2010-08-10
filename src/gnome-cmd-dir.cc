@@ -208,22 +208,23 @@ static void class_init (GnomeCmdDirClass *klass)
 
 static void init (GnomeCmdDir *dir)
 {
-    dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
-    dir->voffset = 0;
-    dir->dialog = NULL;
+    // dir->voffset = 0;
+    // dir->dialog = NULL;
     dir->state = DIR_STATE_EMPTY;
+
+    dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
+
+    dir->priv->handle = handle_new (dir);
+    // dir->priv->monitor_handle = NULL;
+    // dir->priv->monitor_users = 0;
+    // dir->priv->files = NULL;
+    dir->priv->file_collection = new GnomeCmdFileCollection;
 
     if (DEBUG_ENABLED ('c'))
     {
         created_dirs_cnt++;
         all_dirs = g_list_append (all_dirs, dir);
     }
-
-    dir->priv->handle = handle_new (dir);
-    dir->priv->monitor_handle = NULL;
-    dir->priv->monitor_users = 0;
-    dir->priv->files = NULL;
-    dir->priv->file_collection = new GnomeCmdFileCollection;
 }
 
 
