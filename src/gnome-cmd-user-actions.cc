@@ -1110,9 +1110,9 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 
     su = g_find_program_in_path ("gksu");
     if  (!su)
-        su = g_find_program_in_path ("kdesu");
-    if  (!su)
         su = g_find_program_in_path ("beesu");
+    if  (!su)
+        su = g_find_program_in_path ("kdesu");
 
     if  (!su)
     {
