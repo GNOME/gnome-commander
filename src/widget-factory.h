@@ -27,8 +27,8 @@
 inline GnomeCmdCombo *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
 {
     GnomeCmdCombo *combo = new GnomeCmdCombo(num_cols, text_col, titles);
-    gtk_widget_ref (*combo);
-    g_object_set_data_full (G_OBJECT (parent), "combo", combo, (GDestroyNotify) gtk_widget_unref);
+    g_object_ref (combo);
+    g_object_set_data_full (G_OBJECT (parent), "combo", combo, (GDestroyNotify) g_object_unref);
     gtk_widget_show (*combo);
 
     return combo;

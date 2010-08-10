@@ -886,7 +886,7 @@ GtkWidget *create_styled_button (const gchar *text)
     GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
 
     gtk_button_set_relief (GTK_BUTTON (w), gnome_cmd_data.button_relief);
-    gtk_widget_ref (w);
+    g_object_ref (w);
     gtk_widget_show (w);
 
     return w;
@@ -903,7 +903,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     GtkWidget *pixmap = NULL;
 
     g_object_set_data_full (G_OBJECT (btn), "hbox", hbox, g_object_unref);
-    gtk_widget_ref (hbox);
+    g_object_ref (hbox);
     gtk_widget_show (hbox);
 
     if (pm)
@@ -911,7 +911,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
         pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
         if (pixmap)
         {
-            gtk_widget_ref (pixmap);
+            g_object_ref (pixmap);
             g_object_set_data_full (G_OBJECT (btn), "pixmap", pixmap, g_object_unref);
             gtk_widget_show (pixmap);
         }
@@ -920,7 +920,7 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     if (text)
     {
         label = gtk_label_new (text);
-        gtk_widget_ref (label);
+        g_object_ref (label);
         g_object_set_data_full (G_OBJECT (btn), "label", label, g_object_unref);
         gtk_widget_show (label);
     }

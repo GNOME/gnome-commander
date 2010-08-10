@@ -339,7 +339,7 @@ static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell,
 {
     GtkWidget *item = text ? gtk_menu_item_new_with_label (text) : gtk_menu_item_new ();
 
-    gtk_widget_ref (item);
+    g_object_ref (item);
     g_object_set_data (G_OBJECT (item), "indicator", indicator);
     g_object_set_data_full (G_OBJECT (shell), "menu_item", item, g_object_unref);
     if (func)
@@ -356,7 +356,7 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
     if (indicator->priv->dir_history_popup) return;
 
     indicator->priv->dir_history_popup = gtk_menu_new ();
-    gtk_widget_ref (indicator->priv->dir_history_popup);
+    g_object_ref (indicator->priv->dir_history_popup);
     g_object_set_data_full (G_OBJECT (indicator), "dir_history_popup", indicator->priv->dir_history_popup, g_object_unref);
     g_signal_connect (indicator->priv->dir_history_popup, "hide", G_CALLBACK (on_dir_history_popup_hide), indicator);
 
@@ -411,7 +411,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
     if (indicator->priv->bookmark_popup) return;
 
     indicator->priv->bookmark_popup = gtk_menu_new ();
-    gtk_widget_ref (indicator->priv->bookmark_popup);
+    g_object_ref (indicator->priv->bookmark_popup);
     g_object_set_data_full (G_OBJECT (indicator), "bookmark_popup", indicator->priv->bookmark_popup, g_object_unref);
     g_signal_connect (indicator->priv->bookmark_popup, "hide", G_CALLBACK (on_bookmark_popup_hide), indicator);
 
@@ -458,7 +458,7 @@ static void init (GnomeCmdDirIndicator *indicator)
 
     // create the directory label and its event box
     indicator->priv->event_box = gtk_event_box_new ();
-    gtk_widget_ref (indicator->priv->event_box);
+    g_object_ref (indicator->priv->event_box);
     g_signal_connect_swapped (indicator->priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
     g_signal_connect_swapped (indicator->priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
     gtk_widget_set_events (indicator->priv->event_box, GDK_POINTER_MOTION_MASK);
@@ -471,13 +471,13 @@ static void init (GnomeCmdDirIndicator *indicator)
     // create the history popup button
     indicator->priv->history_button = gtk_button_new ();
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->history_button, GTK_CAN_FOCUS);
-    gtk_widget_ref (indicator->priv->history_button);
+    g_object_ref (indicator->priv->history_button);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), gnome_cmd_data.button_relief);
     g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->history_button, g_object_unref);
     gtk_widget_show (indicator->priv->history_button);
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
-    gtk_widget_ref (arrow);
+    g_object_ref (arrow);
     g_object_set_data_full (G_OBJECT (indicator), "arrow", arrow, g_object_unref);
     gtk_widget_show (arrow);
     gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
