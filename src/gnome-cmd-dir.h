@@ -50,7 +50,9 @@ typedef enum
 
 struct GnomeCmdDir
 {
-    GnomeCmdFile parent;
+    GnomeCmdFile parent;      // this MUST be the first member
+
+    GnomeCmdDirPrivate *priv;
 
     gint voffset;
     GList *infolist;
@@ -64,8 +66,6 @@ struct GnomeCmdDir
     GtkWidget *dialog;
     GtkWidget *label;
     GtkWidget *pbar;
-
-    GnomeCmdDirPrivate *priv;
 };
 
 struct GnomeCmdDirClass
