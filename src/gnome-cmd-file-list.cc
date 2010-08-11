@@ -2971,6 +2971,6 @@ void GnomeCmdFileList::init_dnd()
 
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
 {
-    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
+    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
 }
 
