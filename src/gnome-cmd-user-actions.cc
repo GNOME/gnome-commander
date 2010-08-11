@@ -24,7 +24,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-bookmark-dialog.h"
-#include "gnome-cmd-con.h"
+#include "gnome-cmd-con-home.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
@@ -1430,7 +1430,7 @@ void connections_close_current (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdCon *con = get_fs (ACTIVE)->get_connection();
 
-    if (!gnome_cmd_con_is_local (con))
+    if (!GNOME_CMD_IS_CON_HOME (con))
         connections_close (menuitem, con);
 }
 
