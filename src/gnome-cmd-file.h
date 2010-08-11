@@ -41,6 +41,15 @@ struct GnomeCmdFile
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
     GnomeCmdFilePrivate *priv;
     GnomeCmdFileMetadata *metadata;
+
+    char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
+
+    gboolean needs_update();
+
+    void invalidate_tree_size();
+    gboolean has_tree_size();
+
+    GnomeVFSMimeApplication *get_default_application();
 };
 
 struct GnomeCmdFileClass
@@ -85,11 +94,6 @@ gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f);
 GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f, const gchar *name=NULL);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
-inline char *gnome_cmd_file_get_collation_fname (GnomeCmdFile *f)
-{
-    return f->collate_key ? f->collate_key : f->info->name;
-}
-
 const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_group (GnomeCmdFile *f);
@@ -132,15 +136,9 @@ gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f);
 void gnome_cmd_file_is_deleted (GnomeCmdFile *f);
 void gnome_cmd_file_execute (GnomeCmdFile *f);
 
-gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f);
-
-//misc tree size functions
-void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *f);
-gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *f);
-
-inline GnomeVFSMimeApplication *gnome_cmd_file_get_default_application (GnomeCmdFile *f)
+inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {
-    return f && f->info->mime_type ? gnome_vfs_mime_get_default_application (f->info->mime_type) : NULL;
+    return info->mime_type ? gnome_vfs_mime_get_default_application (info->mime_type) : NULL;
 }
 
 #endif // __GNOME_CMD_FILE_H__

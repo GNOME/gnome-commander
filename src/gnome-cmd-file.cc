@@ -1004,15 +1004,15 @@ inline gulong tv2ms (const GTimeVal &t)
 }
 
 
-gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f)
+gboolean GnomeCmdFile::needs_update()
 {
     GTimeVal t;
 
     g_get_current_time (&t);
 
-    if (tv2ms (t) - tv2ms (f->priv->last_update) > gnome_cmd_data.gui_update_rate)
+    if (tv2ms (t) - tv2ms (priv->last_update) > gnome_cmd_data.gui_update_rate)
     {
-        f->priv->last_update = t;
+        priv->last_update = t;
         return TRUE;
     }
 
@@ -1020,17 +1020,13 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f)
 }
 
 
-void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *f)
+void GnomeCmdFile::invalidate_tree_size()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
-
-    f->priv->tree_size = -1;
+    priv->tree_size = -1;
 }
 
 
-gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *f)
+gboolean GnomeCmdFile::has_tree_size()
 {
-    g_return_val_if_fail (f != NULL, FALSE);
-
-    return f->priv->tree_size != -1;
+    return priv->tree_size != -1;
 }
