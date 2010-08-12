@@ -857,13 +857,6 @@ const gchar *create_nice_size_str (GnomeVFSFileSize size)
 }
 
 
-gchar *quote_if_needed (const gchar *in)
-{
-    //return strpbrk(in,";&$'\"?")==NULL ? g_strdup (in) : g_strdup_printf ("'%s'", in);
-    return g_shell_quote (in);
-}
-
-
 gchar *unquote_if_needed (const gchar *in)
 {
 

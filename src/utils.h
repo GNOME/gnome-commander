@@ -171,7 +171,12 @@ GList *strings_to_uris (gchar *data);
 
 GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri);
 const gchar *create_nice_size_str (GnomeVFSFileSize size);
-gchar *quote_if_needed (const gchar *in);
+
+inline gchar *quote_if_needed (const gchar *in)
+{
+    return g_shell_quote (in);
+}
+
 gchar *unquote_if_needed (const gchar *in);
 
 inline void stop_kp (GtkObject *obj)
