@@ -7365,6 +7365,9 @@
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with right mouse button selection not being precise</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

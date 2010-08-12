@@ -1226,17 +1226,11 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
 
     if (event->state & GDK_BUTTON3_MASK)
     {
-        gint row;
-        gint y;
-
-        y = event->y;
-        y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
-
-        row = gnome_cmd_clist_get_row (*fl, event->x, y);
+        gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
 
         if (row != -1)
         {
-            GnomeCmdFile *f = fl->get_file_at_row(++row);
+            GnomeCmdFile *f = fl->get_file_at_row(row);
             if (f)
             {
                 fl->select_row(row);
