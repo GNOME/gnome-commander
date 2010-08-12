@@ -382,7 +382,7 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f)
     f->metadata->mark_as_accessed(TAG_IPTC);
 #endif
 
-    if (!gnome_cmd_file_is_local(f))  return;
+    if (!f->is_local())  return;
 
     gchar *fname = gnome_cmd_file_get_real_path (f);
 

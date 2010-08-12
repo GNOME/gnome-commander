@@ -347,7 +347,7 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name)
     {
         gchar *old_uri_str = gnome_cmd_file_get_uri_str (f);
 
-        gnome_cmd_file_update_info (f, new_info);
+        f->update_info(new_info);
         gnome_cmd_dir_file_renamed (get_parent_dir (f), f, old_uri_str);
         if (GNOME_CMD_IS_DIR (f))
             gnome_cmd_dir_update_path (GNOME_CMD_DIR (f));
@@ -755,7 +755,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     g_return_if_fail (has_parent_dir (f));
 
     // If the file is local there is no need to download it
-    if (gnome_cmd_file_is_local (f))
+    if (f->is_local())
     {
         do_view_file (f, internal_viewer);
         return;
@@ -786,7 +786,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
 
-    if (!gnome_cmd_file_is_local (f))
+    if (!f->is_local())
         return;
 
     gchar *fpath = gnome_cmd_file_get_quoted_real_path (f);
@@ -816,15 +816,14 @@ void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f)
 }
 
 
-void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info)
+void GnomeCmdFile::update_info(GnomeVFSFileInfo *info)
 {
-    g_return_if_fail (f != NULL);
     g_return_if_fail (info != NULL);
 
-    g_free (f->collate_key);
-    gnome_vfs_file_info_unref (f->info);
+    g_free (collate_key);
+    gnome_vfs_file_info_unref (this->info);
     gnome_vfs_file_info_ref (info);
-    f->info = info;
+    this->info = info;
 
     gchar *utf8_name;
 
@@ -837,64 +836,56 @@ void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info)
     else
         utf8_name = get_utf8 (info->name);
 
-    f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
+    collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
 }
 
 
-gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
+gboolean GnomeCmdFile::is_local()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
-
-    return gnome_cmd_dir_is_local (get_parent_dir (f));
+    return gnome_cmd_dir_is_local (get_parent_dir (this));
 }
 
 
-gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f)
+gboolean GnomeCmdFile::is_executable()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
-
-    if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+    if (info->type != GNOME_VFS_FILE_TYPE_REGULAR)
         return FALSE;
 
-    if (!gnome_cmd_file_is_local (f))
+    if (!is_local())
         return FALSE;
 
-    if (gcmd_owner.uid() == f->info->uid
-        && f->info->permissions & GNOME_VFS_PERM_USER_EXEC)
+    if (gcmd_owner.uid() == info->uid && info->permissions & GNOME_VFS_PERM_USER_EXEC)
         return TRUE;
 
-    if (gcmd_owner.gid() == f->info->gid
-        && f->info->permissions & GNOME_VFS_PERM_GROUP_EXEC)
+    if (gcmd_owner.gid() == info->gid && info->permissions & GNOME_VFS_PERM_GROUP_EXEC)
         return TRUE;
 
-    if (f->info->permissions & GNOME_VFS_PERM_OTHER_EXEC)
+    if (info->permissions & GNOME_VFS_PERM_OTHER_EXEC)
         return TRUE;
 
     return FALSE;
 }
 
 
-void gnome_cmd_file_is_deleted (GnomeCmdFile *f)
+void GnomeCmdFile::is_deleted()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
-
-    if (has_parent_dir (f))
+    if (has_parent_dir (this))
     {
-        gchar *uri_str = gnome_cmd_file_get_uri_str (f);
-        gnome_cmd_dir_file_deleted (get_parent_dir (f), uri_str);
+        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
+        gnome_cmd_dir_file_deleted (get_parent_dir (this), uri_str);
         g_free (uri_str);
     }
 }
 
 
-void gnome_cmd_file_execute (GnomeCmdFile *f)
+void GnomeCmdFile::execute()
 {
-    gchar *fpath = gnome_cmd_file_get_real_path (f);
+    gchar *fpath = gnome_cmd_file_get_real_path (this);
     gchar *dpath = g_path_get_dirname (fpath);
-    gchar *cmd = g_strdup_printf ("./%s", f->info->name);
+    gchar *cmd = g_strdup_printf ("./%s", info->name);
 
-    run_command_indir (cmd, dpath, app_needs_terminal (f));
+    run_command_indir (cmd, dpath, app_needs_terminal (this));
 
     g_free (fpath);
     g_free (dpath);

@@ -275,7 +275,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
     if (dir)
     {
         gtk_object_destroy (GTK_OBJECT (path));
-        gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
+        GNOME_CMD_FILE (dir)->update_info(info);
         return dir;
     }
 
@@ -306,7 +306,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *p
     {
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
-        gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
+        GNOME_CMD_FILE (dir)->update_info(info);
         return dir;
     }
 
@@ -789,7 +789,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 
     dir->priv->needs_mtime_update = TRUE;
 
-    gnome_cmd_file_update_info (f, info);
+    f->update_info(info);
     gnome_cmd_file_invalidate_metadata (f);
     gtk_signal_emit (GTK_OBJECT (dir), signals[FILE_CHANGED], f);
 }

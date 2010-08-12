@@ -226,7 +226,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
                 GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
 
                 if (!gnome_vfs_uri_exists (uri))
-                    gnome_cmd_file_is_deleted (f);
+                    f->is_deleted();
             }
 
         gtk_widget_destroy (data->progwin);

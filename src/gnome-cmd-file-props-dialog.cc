@@ -394,7 +394,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     add_sep (table, y++);
 
-    if (gnome_cmd_file_is_local (data->f))
+    if (data->f->is_local())
     {
         GnomeCmdDir *dir = gnome_cmd_file_get_parent_dir (data->f);
         GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : NULL;

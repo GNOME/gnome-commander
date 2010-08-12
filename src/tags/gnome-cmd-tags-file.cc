@@ -42,7 +42,7 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     f->metadata->mark_as_accessed(TAG_FILE);
 
-    // if (!gnome_cmd_file_is_local(f))  return;
+    // if (!f->is_local())  return;
 
     gchar *dpath = gnome_cmd_file_get_dirname(f);
 

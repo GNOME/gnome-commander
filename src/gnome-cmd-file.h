@@ -44,6 +44,12 @@ struct GnomeCmdFile
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
 
+    void update_info(GnomeVFSFileInfo *info);
+    gboolean is_local();
+    gboolean is_executable();
+    void is_deleted();
+    void execute();
+
     gboolean needs_update();
 
     void invalidate_tree_size();
@@ -129,12 +135,6 @@ void gnome_cmd_file_list_ref (GList *files);
 void gnome_cmd_file_list_unref (GList *files);
 
 GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f);
-
-void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info);
-gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
-gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f);
-void gnome_cmd_file_is_deleted (GnomeCmdFile *f);
-void gnome_cmd_file_execute (GnomeCmdFile *f);
 
 inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {

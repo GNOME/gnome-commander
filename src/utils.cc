@@ -517,7 +517,7 @@ void mime_exec_single (GnomeCmdFile *f)
 
     // Check if the file is a binary executable that lacks the executable bit
 
-    if (!gnome_cmd_file_is_executable (f))
+    if (!f->is_executable())
     {
         if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
         {
@@ -540,11 +540,11 @@ void mime_exec_single (GnomeCmdFile *f)
 
     // If the file is executable but not a binary file, check if the user wants to exec it or open it
 
-    if (gnome_cmd_file_is_executable (f))
+    if (f->is_executable())
     {
         if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
         {
-            gnome_cmd_file_execute (f);
+            f->execute();
             return;
         }
         else
@@ -560,7 +560,7 @@ void mime_exec_single (GnomeCmdFile *f)
                 if (ret != 1)
                 {
                     if (ret == 2)
-                        gnome_cmd_file_execute (f);
+                        f->execute();
                     return;
                 }
             }
@@ -578,7 +578,7 @@ void mime_exec_single (GnomeCmdFile *f)
 
     args = g_new0 (gpointer, 3);
 
-    if (gnome_cmd_file_is_local (f))
+    if (f->is_local())
     {
         args[0] = (gpointer) app;
         args[1] = (gpointer) g_strdup (gnome_cmd_file_get_real_path (f));

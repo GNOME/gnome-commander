@@ -173,7 +173,7 @@ static void on_execute (GtkMenuItem *menu_item, GList *files)
 {
     GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
 
-    gnome_cmd_file_execute (f);
+    f->execute();
 }
 
 
@@ -529,7 +529,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     g_free ((gpointer) open_uiinfo[0].label);
 
     pos += 3;
-    if (gnome_cmd_file_is_executable (f) && g_list_length (files) == 1)
+    if (f->is_executable() && g_list_length (files) == 1)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, NULL, FALSE, pos++);
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
