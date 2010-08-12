@@ -8,7 +8,7 @@
 
 	C++
 
-	Contains variadic macros
+	Contain variadic macros
 
 	---------------------------------------------------------------------------
 
@@ -729,3 +729,4 @@ void GVFS_async_load_subdirectories(
 		GVFS_async_load_subdirectories_callback,
 		(gpointer)ga);
 }
+

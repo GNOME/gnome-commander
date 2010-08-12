@@ -8,7 +8,7 @@
 
 	C++
 
-	Contains variadic macros
+	Contain variadic macros
 
 	---------------------------------------------------------------------------
 
@@ -445,3 +445,4 @@ void GcmdGtkFoldview::Model::iter_remove_all()
 {
 	gtk_tree_store_clear(treestore());
 }
+

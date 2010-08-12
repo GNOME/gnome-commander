@@ -8,7 +8,7 @@
 
 	C++
 
-	Contains variadic macros
+	Contain variadic macros
 
 	---------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@
 //=============================================================================
 GcmdGtkFoldview::View::ctx_menu GcmdGtkFoldview:: s_context_menu =
 {
-	NULL, (gint)2,
+	NULL, (gint)2,	
 	{
 		{
 			_("Directory"), (gint)3,
@@ -216,9 +216,9 @@ void GcmdGtkFoldview::control_context_menu_populate_add_section(
 		{
 			// connect with new ctx data
 			e->a_handle = g_signal_connect(
-				e->a_widget,
-				"activate",
-				e->a_desc.a_callback,
+				e->a_widget, 
+				"activate", 
+				e->a_desc.a_callback, 
 				(gpointer)ctxdata);
 		}
 
@@ -228,7 +228,7 @@ void GcmdGtkFoldview::control_context_menu_populate_add_section(
 }
 
 void GcmdGtkFoldview::Control_set_active_tab(
-	GtkMenuItem				*menu_item,
+	GtkMenuItem				*menu_item, 
 	View::ctx_menu_data		*ctxdata)
 {
 	ctxdata->a_foldview->control_set_active_tab(ctxdata->d_path_selected);
@@ -260,7 +260,7 @@ void GcmdGtkFoldview::control_set_active_tab(GtkTreePath *path)
 }
 
 void GcmdGtkFoldview::Control_open_new_tab(
-	GtkMenuItem				*menu_item,
+	GtkMenuItem				*menu_item, 
 	View::ctx_menu_data		*ctxdata)
 {
 	ctxdata->a_foldview->control_open_new_tab(ctxdata->d_path_selected);
@@ -293,7 +293,7 @@ void GcmdGtkFoldview::control_open_new_tab(GtkTreePath *path)
 }
 
 void GcmdGtkFoldview::Control_set_new_root(
-	GtkMenuItem				*menu_item,
+	GtkMenuItem				*menu_item, 
 	View::ctx_menu_data		*ctxdata)
 {
 	ctxdata->a_foldview->control_set_new_root(ctxdata);
@@ -348,7 +348,7 @@ GcmdGtkFoldview::eSyncState GcmdGtkFoldview::control_sync_check()
 }
 
 void GcmdGtkFoldview::Control_sync_update(
-	GtkMenuItem				*menu_item,
+	GtkMenuItem				*menu_item, 
 	View::ctx_menu_data		*ctxdata)
 {
 	ctxdata->a_foldview->control_sync_update(ctxdata);
@@ -360,7 +360,7 @@ void GcmdGtkFoldview::control_sync_update(GcmdGtkFoldview::View::ctx_menu_data *
 	GtkTreeIter		iter			= Model::s_iter_NULL;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//gwr_inf("control_sync_update");
-
+	
 	if ( control_sync_check() != SYNC_Y_LIST_Y )
 	{
 		//gwr_wng("control_sync_update:not SYNC_Y_LIST_Y:%03i", control_sync_check());
@@ -373,12 +373,12 @@ void GcmdGtkFoldview::control_sync_update(GcmdGtkFoldview::View::ctx_menu_data *
 	uri = model.iter_get_uri_new(&iter);
 	if ( uri == NULL )
 		return;
-
+	
 	control_gcmd_file_list_set_connection(a_synced_list, uri);
 }
 
 void GcmdGtkFoldview::Control_unsync_treeview(
-	GtkMenuItem				*menu_item,
+	GtkMenuItem				*menu_item, 
 	View::ctx_menu_data		*ctxdata)
 {
 	ctxdata->a_foldview->control_unsync_treeview();
@@ -414,7 +414,7 @@ void GcmdGtkFoldview::control_unsync_treeview()
 }
 
 void GcmdGtkFoldview::Control_sync_treeview(
-	GtkMenuItem				*menu_item,
+	GtkMenuItem				*menu_item, 
 	View::ctx_menu_data		*ctxdata)
 {
 	ctxdata->a_foldview->control_sync_treeview(ctxdata);
@@ -520,7 +520,7 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 	gboolean							b					= FALSE;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	gdk_threads_enter();														// _GDK_LOCK_
-
+	
 	foldview		= GcmdFoldview();
 
 	ls				= (gvfs_async_load_subdirs*)(ga->ad());
@@ -543,7 +543,7 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 	for ( i = 0 ; i != count ; i++ )
 	{
 		file = ls->element(i);
-		CIE_INF("ciec_1:%s", file->name());
+		CIE_INF("ciec_1:%s", file->name());		
 
 		// determine icon number for the file element
 		GcmdGtkFoldview::View::eIcon	icon	= GcmdGtkFoldview::View::eIconUnknown;
@@ -577,7 +577,7 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 		// NOTHING here ! Because the sort function mix all - iter or path !!!
 		//child_uri = foldview->model.iter_get_uri_new(child_iter);
 		//foldview->control_check_if_empty(child_iter);
-		//gnome_vfs_uri_unref(child_uri);
+		//gnome_vfs_uri_unref(child_uri);	
 	}
 
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -639,7 +639,7 @@ GcmdGtkFoldview::control_iter_expand(
 	// new uri that will be destroyed at the end of GVFS callback
 	parent_uri = model.iter_get_uri_new(parent);
 
-	// string representing the GtkTreePath of the parent ; we dont use
+	// string representing the GtkTreePath of the parent ; we dont use 
 	// a GtkTreePath directly,since it is a GtkObject and maybe invalided
 	// when GVFS callback code will run. Neither use we any GtkTreeIter.
 	temp_path   = gtk_tree_model_get_path(model.treemodel(), parent);
@@ -680,7 +680,7 @@ void GcmdGtkFoldview::control_check_if_empty_callback_1(gvfs_async *ga)
 	GtkTreeIter							*parent_iter		= NULL;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	gdk_threads_enter();														// _GDK_LOCK_
-
+	
 	foldview		= GcmdFoldview();
 
 	ls				= (gvfs_async_load_subdirs*)(ga->ad());
@@ -721,7 +721,7 @@ void GcmdGtkFoldview::control_check_if_empty_callback_1(gvfs_async *ga)
 	// delete user data
 	delete ga->cd();
 
-	gdk_threads_leave();
+	gdk_threads_leave();	
 
 }
 //  MULTITHREAD
@@ -755,7 +755,7 @@ void GcmdGtkFoldview::control_check_if_empty(GtkTreeIter *parent)
 	// new uri that will be destroyed at the end of GVFS callback
 	parent_uri = model.iter_get_uri_new(parent);
 
-	// string representing the GtkTreePath of the parent ; we dont use
+	// string representing the GtkTreePath of the parent ; we dont use 
 	// a GtkTreePath directly,since it is a GtkObject and maybe invalided
 	// when GVFS callback code will run. Neither use we any GtkTreeIter.
 	temp_path   = gtk_tree_model_get_path(model.treemodel(), parent);
@@ -837,13 +837,13 @@ void GcmdGtkFoldview::control_gcmd_file_list_set_connection(
 		// Avoid gcmd to call gtk_object_destroy on access-denied directories   // __GWR_TODO__
 		// and lost+found in GnomeCmdFileList::on_dir_list_failed(...)
 		//
-		// The problem is that gcmd cant handle correctly such directories
+		// The problem is that gcmd cant handle correctly such directories 
 		// when calling GnomeCmdFileList::set_connection,set_directory,
 		// goto_directory, ...I think you get the same result if you bookmark
 		// (manually) such a directory
 		//
-		// Since gcmd increase GnomeCmdFile->ref_cnt until infinite (!),
-		// I feel allowed to call gnome_cmd_dir_ref rather than
+		// Since gcmd increase GnomeCmdFile->ref_cnt until infinite (!), 
+		// I feel allowed to call gnome_cmd_dir_ref rather than 
 		// g_object_ref_sink :)
 		//g_object_ref_sink(gnomecmddir);
 		gnome_cmd_dir_ref(gnomecmddir);
@@ -885,7 +885,7 @@ void GcmdGtkFoldview::control_connection_combo_update()
 		// dont add connection if
 		// it is closed AND it is not a device AND it is not smb
 		if  (
-				!gnome_cmd_con_is_open (con)		&&
+				!gnome_cmd_con_is_open (con)		&& 
 				!GNOME_CMD_IS_CON_DEVICE (con)		&&
 				!GNOME_CMD_IS_CON_SMB (con)
 			)  continue;
@@ -903,3 +903,6 @@ void GcmdGtkFoldview::control_connection_combo_update()
 	else
 		combo->select_data(model.connection());
 }
+
+
+

@@ -332,4 +332,7 @@ void			GVFS_async_load_subdirectories(
 					gint						max_result,
 					gboolean					follow_links);
 
+
+
+
 #endif //__GCMDGTKFOLDVIEW_GVFS_H__

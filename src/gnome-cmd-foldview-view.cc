@@ -8,7 +8,7 @@
 
 	C++
 
-	Contains variadic macros
+	Contain variadic macros
 
 	---------------------------------------------------------------------------
 
@@ -77,7 +77,7 @@ myfunc(
 
 	gtk_tree_model_get(model, iter, 1, &icon, -1);
 
-	g_object_set(renderer, "pixbuf", GcmdFoldview()->view.pixbuf( (GcmdGtkFoldview::View::eIcon) icon), NULL);
+	g_object_set(renderer, "pixbuf", GcmdFoldview()->view.pixbuf( (GcmdGtkFoldview::View::eIcon)icon), NULL);
 }
 
 //=============================================================================
@@ -160,7 +160,7 @@ void signal_cursor_changed(
 
 	GtkTreeIter			iter_selected   = GcmdGtkFoldview::Model::s_iter_NULL;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-	// gwr_inf("signal_cursor_changed");
+	//gwr_inf("signal_cursor_changed");
 
 	//  get path to currently selected iter
 	tree_sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(tree_view));
@@ -169,13 +169,15 @@ void signal_cursor_changed(
 		gwr_err("View::signal_cursor_changed:gtk_tree_view_get_selection failed");
 	}
 
-	// Note: gtk_tree_selection_count_selected_rows() does not exist in gtk+-2.0, only in gtk+ >= v2.2 !
+	// Note: gtk_tree_selection_count_selected_rows() does not
+	//   exist in gtk+-2.0, only in gtk+ >= v2.2 !
 	tree_sel_card = gtk_tree_selection_count_selected_rows(tree_sel);
 
 	if ( tree_sel_card == 1 )
 	{
 		if ( gtk_tree_selection_get_selected( tree_sel, NULL, &iter_selected) )
 		{
+
 		}
 		else
 		{
@@ -210,11 +212,11 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 	gtk_object_set_data_full (GTK_OBJECT (foldview()), "con_combo", m_con_combo, (GtkDestroyNotify) g_object_unref);
 	gtk_widget_set_size_request (m_con_combo, 150, -1);
-	gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 20);
-	gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (m_con_combo)->entry), FALSE);
-	gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 0, 20);
-	gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 1, 60);
-	GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (m_con_combo)->button, GTK_CAN_FOCUS);
+		gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 20);
+		gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (m_con_combo)->entry), FALSE);
+		gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 0, 20);
+		gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 1, 60);
+		GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (m_con_combo)->button, GTK_CAN_FOCUS);
 
 	// create the free space on volume label
 	//m_vol_label = gtk_label_new ("* LABEL *");
@@ -352,10 +354,10 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	gtk_box_pack_start(GTK_BOX(m_con_hbox), m_con_combo, FALSE, FALSE, 0);
 	//gtk_box_pack_start (GTK_BOX(m_con_hbox), m_vol_label, FALSE, FALSE, 0);
 
-	//gtk_box_pack_start (GTK_BOX (m_con_hbox), m_dir_indicator, FALSE, FALSE, 0);
-	//padding = create_hbox (*fs, FALSE, 6);
-	//gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
-	//gtk_box_pack_start (GTK_BOX (padding), info_label, FALSE, TRUE, 6);
+		 //gtk_box_pack_start (GTK_BOX (m_con_hbox), m_dir_indicator, FALSE, FALSE, 0);
+		 //padding = create_hbox (*fs, FALSE, 6);
+		 //gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
+		 //gtk_box_pack_start (GTK_BOX (padding), info_label, FALSE, TRUE, 6);
 
 	gtk_box_pack_start(GTK_BOX(foldview()), m_con_hbox, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(foldview()), m_scrolledwindow, TRUE, TRUE, 0);
@@ -379,9 +381,9 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	//fs->update_concombo_visibility();
 	gtk_widget_show(m_con_combo);
 	//gtk_widget_show(m_vol_label);
-	//gtk_widget_show(m_info_label);
-	//gtk_widget_show (m_dir_indicator);
-	//gtk_widget_show (fs->list_widget);
+		//gtk_widget_show(m_info_label);
+		//gtk_widget_show (m_dir_indicator);
+		//gtk_widget_show (fs->list_widget);
 	gtk_widget_show(m_treeview);
 
 	gtk_widget_show(m_scrolledwindow);
@@ -393,6 +395,7 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 void GcmdGtkFoldview::View::destroy()
 {
+
 }
 
 //=============================================================================
@@ -699,3 +702,12 @@ void GcmdGtkFoldview::View::update_style()
 	gtk_widget_set_style (GTK_WIDGET(treeview()), style_foldview);
 	((GnomeCmdCombo*)connection_combo())->update_style();
 }
+
+
+
+
+
+
+
+
+

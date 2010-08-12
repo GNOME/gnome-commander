@@ -25,7 +25,7 @@
 /******************************************************************************
 
 	C++
-	Contains variadic macros
+	Contain variadic macros
 
 	---------------------------------------------------------------------------
 	TODO GWR
@@ -49,8 +49,65 @@
 		Notification from filesystem ( very hard to do, we're really going
 		multithread ) -> gdk_threads_enter will be enough I think
 
+DONE	foldview correct position on show / hide ( cmdline, buttonbar, ... )
+
+DONE	(Finally) gcmd crashes when opening access-denied folder from treeview
+		in tab, after showing an alert
+
+DONE	Going crazy with correct theming of treeview with selectionned items,
+		focus between widgets,...
+
+
+DONE	combo connections at startup
+
+DONE	gtk_widget_set_sensitive on non-full-functional items of context menu
+
+DONE	Check index_ff on qstack_push()
+
+DONE	? mutex on handles : no, gvfs_async calls are queued
+		and since I use gdk_threads_enter/leave, there is no more
+		concurrency between gtk & gvfs
+
+DONE	why GVFS_qstack_ff / GVFS_qstack_size  is always n-2 / n ??? should be n / n
+		-> because t' affiches ff _avant_ update et qsize au lieu de qsize - 1,
+		stupid, ça fait un décalage de 2
+
+DONE	Comments cleanup
+
+DONE	Private logging for gvfs ops
+
+DONE	Cancel all async ops
+
+DONE	Big Bug in checking type of GnomeVFSFileInfo : GNOME_VFS_FILE_TYPE_...
+		are distinct values - it is not a bitfield, triple fuck, spended time
+		on that
+
 	---------------------------------------------------------------------------
 	TODO EPIOTR
+
+DONE	in src/gnome-cmd-foldview.h:
+        extern		gboolean			gnome_cmd_foldview_set_root_1(gchar *text);
+		...
+        extern		GtkWidget		*GcmdWidget();
+        'extern' is superfluous here, please remove it
+
+DONE	epiotr.10.07.16.gcmd-foldview
+DONE	ua
+
+		epiotr.10.07.22.kill-warnings
+DONE	epiotr.10.07.22.gtk_object_ref,unref
+
+DONE	epiotr.10.07.24.000? struct-gvfs_async_caller_data
+DONE	epiotr.10.07.24.000? struct-gvfs-async
+DONE	epiotr.10.07.24.000? struct-gvfs-async-load-subdirs
+DONE	epiotr.10.07.24.000? struct-gvfs-async-load-subdirs-subdirs
+
+
+DONE	* I've moved view_treeview() to gnome-cmd-user-actions.cc. I'm
+		sending you a patch for that.
+
+DONE	* after opening foldview, cmdline is moved from bottom to top -
+		that requires fixing
 
 		* foldview should respect global settings for case sensitive
 		sorting (gnome_cmd_data.case_sens_sort) and showing hidden dirs
@@ -782,7 +839,8 @@ struct GcmdGtkFoldviewClass
   void (* gcmdgtkfoldview) (GcmdGtkFoldview* fv);
 };
 
-GcmdGtkFoldview		*GcmdFoldview();
-GtkWidget			*GcmdWidget();
+extern		GcmdGtkFoldview		*GcmdFoldview();
+extern		GtkWidget			*GcmdWidget();
+
 
 #endif //__GCMDGTKFOLDVIEW_PRIVATE_H__

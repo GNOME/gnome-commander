@@ -8,7 +8,7 @@
 
 	C++
 
-	Contains variadic macros
+	Contain variadic macros
 
 	---------------------------------------------------------------------------
 
@@ -188,9 +188,9 @@ GcmdGtkFoldview::eFileAccess GcmdGtkFoldview::Access_from_permissions(
 }
 
 GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_permissions(
-	GnomeVFSFileType		type,
+	GnomeVFSFileType		type, 
 	GnomeVFSFilePermissions permissions)
-{
+{  
 	eFileAccess	access  = eAccessUnknown;
 
 	access = Access_from_permissions(permissions);
@@ -199,9 +199,9 @@ GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_permissions(
 }
 
 GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_access(
-	GnomeVFSFileType				type,
+	GnomeVFSFileType				type, 
 	GcmdGtkFoldview::eFileAccess	access)
-{
+{  
 	if ( type == GNOME_VFS_FILE_TYPE_DIRECTORY )
 	{
 		switch ( access )
@@ -378,3 +378,4 @@ void
 gcmdgtkfoldview_clear (GcmdGtkFoldview *foldview)
 {
 }
+
