@@ -386,7 +386,7 @@ static void on_about (GtkButton *button, GtkWidget *dialog)
     g_return_if_fail (data != NULL);
 
     gtk_window_set_transient_for (GTK_WINDOW (about), *main_win);
-    gtk_widget_ref (about);
+    g_object_ref (about);
     gtk_widget_show (about);
 }
 
@@ -403,7 +403,7 @@ void plugin_manager_show ()
     GtkWidget *avail_list;
 
     dialog = gnome_cmd_dialog_new (_("Available plugins"));
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
 
     hbox = create_vbox (dialog, FALSE, 6);
     avail_list = create_clist (dialog, "avail_list", 4, 20, GTK_SIGNAL_FUNC (on_plugin_selected), NULL);

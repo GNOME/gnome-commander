@@ -684,7 +684,7 @@ void file_copy_as (GtkMenuItem *menuitem, gpointer not_used)
     {
         GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->get_directory());
 
-        gtk_widget_ref (dialog);
+        g_object_ref (dialog);
         gtk_widget_show (dialog);
     }
 }
@@ -751,7 +751,7 @@ void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
     {
         GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
 
-        gtk_widget_ref (dialog);
+        g_object_ref (dialog);
         gtk_widget_show (dialog);
         g_list_free (files);
     }
@@ -766,7 +766,7 @@ void file_chown (GtkMenuItem *menuitem, gpointer not_used)
     {
         GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
 
-        gtk_widget_ref (dialog);
+        g_object_ref (dialog);
         gtk_widget_show (dialog);
         g_list_free (files);
     }
@@ -781,7 +781,7 @@ void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
     GtkWidget *dialog = gnome_cmd_mkdir_dialog_new (dir);
     g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
 
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gtk_widget_show (dialog);
 }
 
@@ -831,7 +831,7 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
         if (!main_win->advrename_dlg)
         {
             main_win->advrename_dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults);
-            // gtk_widget_ref (*main_win->advrename_dlg);      //  FIXME:  ???
+            // g_object_ref (main_win->advrename_dlg);      //  FIXME:  ???
             main_win->advrename_dlg->set(files);
             gtk_widget_show_all (*main_win->advrename_dlg);
         }
@@ -980,7 +980,7 @@ void edit_search (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GtkWidget *dialog = gnome_cmd_search_dialog_new (fs->get_directory());
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gtk_widget_show (dialog);
 }
 
@@ -1557,7 +1557,7 @@ void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
 void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
     GtkWidget *dialog = gnome_cmd_options_dialog_new ();
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
     gtk_widget_show (dialog);
 }
@@ -1579,7 +1579,7 @@ void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
 void connections_open (GtkMenuItem *menuitem, gpointer not_used)
 {
     GtkWidget *dialog = gnome_cmd_remote_dialog_new ();
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     gtk_widget_show (dialog);
 }
 
