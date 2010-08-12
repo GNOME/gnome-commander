@@ -409,7 +409,7 @@ gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
 {
     gchar *path = gnome_cmd_file_get_real_path (f);
-    gchar *ret = path ? quote_if_needed (path) : NULL;
+    gchar *ret = quote_if_needed (path);
 
     g_free (path);
 
