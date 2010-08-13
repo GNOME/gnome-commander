@@ -238,7 +238,7 @@ void GcmdGtkFoldview::control_set_active_tab(GtkTreePath *path)
 {
 	GnomeCmdFileSelector	*fs		= NULL;
 	GnomeVFSURI				*uri	= NULL;
-	GtkTreeIter				iter	= Model::s_iter_NULL;
+	GtkTreeIter				iter	= Model::Iter_zero;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//gwr_inf("control_open_active_tab");
 
@@ -247,7 +247,7 @@ void GcmdGtkFoldview::control_set_active_tab(GtkTreePath *path)
 		return;
 
 	// get the path from the item selectionned in the treeview
-	if ( !model.iter_from_path(path, &iter) )
+	if ( !model.get_iter(path, &iter) )
 		return;
 
 	uri = model.iter_get_uri_new(&iter);
@@ -271,11 +271,11 @@ void GcmdGtkFoldview::control_open_new_tab(GtkTreePath *path)
 	GnomeVFSURI		*uri			= NULL;
 	GnomeCmdPath	*gnomecmdpath   = NULL;
 	GnomeCmdDir		*gnomecmddir	= NULL;
-	GtkTreeIter		iter			= Model::s_iter_NULL;
+	GtkTreeIter		iter			= Model::Iter_zero;
 
 	//gwr_inf("control_open_new_tab");
 
-	if ( !model.iter_from_path(path, &iter) )
+	if ( !model.get_iter(path, &iter) )
 		return;
 
 	uri = model.iter_get_uri_new(&iter);
@@ -302,11 +302,11 @@ void GcmdGtkFoldview::Control_set_new_root(
 void GcmdGtkFoldview::control_set_new_root(GcmdGtkFoldview::View::ctx_menu_data *ctxdata)
 {
 	GnomeVFSURI		*uri			= NULL;
-	GtkTreeIter		iter			= Model::s_iter_NULL;
+	GtkTreeIter		iter			= Model::Iter_zero;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//gwr_inf("control_set_new_root");
 
-	if ( !model.iter_from_path(ctxdata->d_path_selected, &iter) )
+	if ( !model.get_iter(ctxdata->d_path_selected, &iter) )
 		return;
 
 	uri = model.iter_get_uri_new(&iter);
@@ -357,7 +357,7 @@ void GcmdGtkFoldview::Control_sync_update(
 void GcmdGtkFoldview::control_sync_update(GcmdGtkFoldview::View::ctx_menu_data *ctxdata)
 {
 	GnomeVFSURI		*uri			= NULL;
-	GtkTreeIter		iter			= Model::s_iter_NULL;
+	GtkTreeIter		iter			= Model::Iter_zero;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//gwr_inf("control_sync_update");
 	
@@ -367,7 +367,7 @@ void GcmdGtkFoldview::control_sync_update(GcmdGtkFoldview::View::ctx_menu_data *
 		return;
 	}
 
-	if ( !model.iter_from_path(ctxdata->d_path_clicked, &iter) )
+	if ( !model.get_iter(ctxdata->d_path_clicked, &iter) )
 		return;
 
 	uri = model.iter_get_uri_new(&iter);
@@ -424,14 +424,14 @@ void GcmdGtkFoldview::control_sync_treeview(GcmdGtkFoldview::View::ctx_menu_data
 {
 	GnomeCmdFileList	*list			= NULL;
 	GnomeVFSURI			*uri			= NULL;
-	GtkTreeIter			iter			= Model::s_iter_NULL;
+	GtkTreeIter			iter			= Model::Iter_zero;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//gwr_inf("control_sync_treeview");
 
 	// We use weak pointers on the GnomeCmdFileList so if the user close
 	// the tab, we can know it coz the weak pointer is set to NULL by glib
 
-	if ( !model.iter_from_path(ctxdata->d_path_selected, &iter) )
+	if ( !model.get_iter(ctxdata->d_path_selected, &iter) )
 	{
 		gwr_wng("control_sync_treeview:no selected item");
 		return;
@@ -512,10 +512,10 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 	gint								i			= 0;
 	gint								count		= 0;
 
-	GtkTreeIter							*child_iter			= NULL;
+	GtkTreeIter							child_iter			= GcmdGtkFoldview::Model::Iter_zero;
 
 	GtkTreePath							*parent_path_gtk	= NULL;
-	GtkTreeIter							*parent_iter		= NULL;
+	GtkTreeIter							parent_iter			= GcmdGtkFoldview::Model::Iter_zero;
 
 	gboolean							b					= FALSE;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -528,14 +528,15 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 	count			= ls->len();
 
 	parent_path_gtk = gtk_tree_path_new_from_string(ls->ppath());
-	parent_iter		= Model::Iter_new(NULL);
-	child_iter		= Model::Iter_new(NULL);
-	if ( !gtk_tree_model_get_iter(foldview->model.treemodel(), parent_iter, parent_path_gtk) )
+
+	if ( !foldview->model.get_iter(parent_path_gtk, &parent_iter) )
 	{
 		CIE_ERR("ciec_1:gtk_tree_model_get_iter failed for parent !");
 		return;
 	}
-	CIE_INF("ciec_1:[0x%16x][0x%16x]", parent_iter, child_iter);
+	gtk_tree_path_free(parent_path_gtk);
+
+	CIE_INF("ciec_1:[0x%16x][0x%16x]", &parent_iter, &child_iter);
 	// check is name is the same												// __GWR__TODO__
 
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -567,11 +568,11 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 		// add to the model
 		if ( i == 0 )
 		{
-			foldview->model.iter_replace_first_child(parent_iter, child_iter, file->name(), icon);
+			foldview->model.iter_replace_first_child(&parent_iter, &child_iter, file->name(), icon);
 		}
 		else
 		{
-			foldview->model.iter_add_child(parent_iter, child_iter, file->name(), icon);
+			foldview->model.iter_add_child(&parent_iter, &child_iter, file->name(), icon);
 		}
 
 		// NOTHING here ! Because the sort function mix all - iter or path !!!
@@ -582,12 +583,22 @@ void GcmdGtkFoldview::control_iter_expand_callback_1(gvfs_async *ga)
 
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	// loop 2 : check if children are empty or not
-	b = gtk_tree_model_iter_children( foldview->model.treemodel(), child_iter, parent_iter);
+#ifdef __GTS__
+	b = gtk_tree_model_iter_children( foldview->model.treemodel(), &child_iter, &parent_iter);
 	while ( b )
 	{
-		foldview->control_check_if_empty(child_iter);
-		b = gtk_tree_model_iter_next( foldview->model.treemodel(), child_iter);
+		foldview->control_check_if_empty(&child_iter);
+		b = gtk_tree_model_iter_next( foldview->model.treemodel(), &child_iter);
 	}
+#else
+	b = GnomeCmdFoldviewTreestore::iter_children( foldview->model.treemodel(), &child_iter, &parent_iter);
+	while ( b )
+	{
+		foldview->control_check_if_empty(&child_iter);
+		b = GnomeCmdFoldviewTreestore::iter_next( foldview->model.treemodel(), &child_iter);
+	}
+#endif
+
 
 	// delete user data
 	delete ga->cd();
@@ -642,7 +653,12 @@ GcmdGtkFoldview::control_iter_expand(
 	// string representing the GtkTreePath of the parent ; we dont use 
 	// a GtkTreePath directly,since it is a GtkObject and maybe invalided
 	// when GVFS callback code will run. Neither use we any GtkTreeIter.
+#ifdef __GTS__
 	temp_path   = gtk_tree_model_get_path(model.treemodel(), parent);
+#else
+	temp_path   = GnomeCmdFoldviewTreestore::get_path(model.treemodel(), parent);
+#endif
+
 	parent_path = gtk_tree_path_to_string(temp_path);
 	gtk_tree_path_free(temp_path);
 
@@ -674,10 +690,10 @@ void GcmdGtkFoldview::control_check_if_empty_callback_1(gvfs_async *ga)
 
 	gchar								*str		= NULL;
 
-	GtkTreeIter							*child_iter			= NULL;
+	GtkTreeIter							child_iter  = GcmdGtkFoldview::Model::Iter_zero;
 
 	GtkTreePath							*parent_path_gtk	= NULL;
-	GtkTreeIter							*parent_iter		= NULL;
+	GtkTreeIter							parent_iter	= GcmdGtkFoldview::Model::Iter_zero;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	gdk_threads_enter();														// _GDK_LOCK_
 	
@@ -691,30 +707,31 @@ void GcmdGtkFoldview::control_check_if_empty_callback_1(gvfs_async *ga)
 	// Ex : filesystem notification, user click...
 	// This is a BIG problem. Maybe queue requests ?
 	parent_path_gtk = gtk_tree_path_new_from_string(ls->ppath());
-	parent_iter		= Model::Iter_new(NULL);
-	child_iter		= Model::Iter_new(NULL);
-	if ( !gtk_tree_model_get_iter(foldview->model.treemodel(), parent_iter, parent_path_gtk) )
+
+	if ( !foldview->model.get_iter(parent_path_gtk, &parent_iter) )
 	{
 		CCIE_ERR("cciec_1:gtk_tree_model_get_iter failed for parent !");
 		return;
 	}
+	gtk_tree_path_free(parent_path_gtk);
+
 	// check is name is the same												// __GWR__TODO__
-	CCIE_INF("cciec_1:[0x%16x][0x%16x]", parent_iter, child_iter);
+	CCIE_INF("cciec_1:[0x%16x][0x%16x]", &parent_iter, &child_iter);
 	if ( count > 0 )
 	{
-		foldview->model.iter_add_child(parent_iter, child_iter, "... Working ...", GcmdGtkFoldview::eAccessReadWrite);
+		foldview->model.iter_add_child(&parent_iter, &child_iter, "... Working ...", View::eIconUnknown);
 
-		str = foldview->model.iter_get_string_new(parent_iter);
+		str = foldview->model.iter_get_string_new(&parent_iter);
 		CCIE_INF("cciec_1:adding dummy to parent:[0x%16x]-[0x%16x]-[0x%16x][0x%16x][0x%16x] %s | %s",
-			parent_iter, parent_iter->stamp, parent_iter->user_data, parent_iter->user_data2, parent_iter->user_data3,
+			&parent_iter, parent_iter.stamp, parent_iter.user_data, parent_iter.user_data2, parent_iter.user_data3,
 			str, ls->ppath());
 		g_free(str);
 	}
 	else
 	{
-		str = foldview->model.iter_get_string_new(parent_iter);
-		CCIE_INF("cciec_1:adding nothing to parent:[0x%16x]-[0x%16x]-[0x%16x][0x%16x][0x%16x] %s | %s",
-			parent_iter, parent_iter->stamp, parent_iter->user_data, parent_iter->user_data2, parent_iter->user_data3,
+		str = foldview->model.iter_get_string_new(&parent_iter);
+		CCIE_INF("cciec_1:adding dummy to parent:[0x%16x]-[0x%16x]-[0x%16x][0x%16x][0x%16x] %s | %s",
+			&parent_iter, parent_iter.stamp, parent_iter.user_data, parent_iter.user_data2, parent_iter.user_data3,
 			str, ls->ppath());
 	}
 
@@ -758,7 +775,11 @@ void GcmdGtkFoldview::control_check_if_empty(GtkTreeIter *parent)
 	// string representing the GtkTreePath of the parent ; we dont use 
 	// a GtkTreePath directly,since it is a GtkObject and maybe invalided
 	// when GVFS callback code will run. Neither use we any GtkTreeIter.
+#ifdef __GTS__
 	temp_path   = gtk_tree_model_get_path(model.treemodel(), parent);
+#else
+	temp_path   = GnomeCmdFoldviewTreestore::get_path(model.treemodel(), parent);
+#endif
 	parent_path = gtk_tree_path_to_string(temp_path);
 
 		gchar   *str = gtk_tree_path_to_string( temp_path );
@@ -771,7 +792,7 @@ void GcmdGtkFoldview::control_check_if_empty(GtkTreeIter *parent)
 	control_check_if_empty_p(parent_uri, parent_path);
 }
 
-//============================================================================= // _GWR_TODO_ see FAM stuff
+//============================================================================= // _GWR_TODO_ MONITORING
 //  Item collapsed
 //  - Remove all subdirs
 //  - Add [DUMMY] ( we have been callapsed, so there were subdirs in there )
@@ -788,9 +809,9 @@ GtkTreeIter *parent)
 
 	removed = model.iter_remove_children(parent);
 
-	//gwr_inf("control_iter_collapsed:removed %03i children", removed);
+	gwr_inf("control::iter_collapsed:removed %03i children", removed);
 
-	// we have been collapsed, so we have children ; so re-add dummy child
+	// we have been collapsed, so we had children ; so re-add dummy child
 	model.iter_add_child(parent, &child, "...Working...", View::eIconUnknown);
 }
 //=============================================================================

@@ -311,8 +311,26 @@ static void gcmdgtkfoldview_init                (GcmdGtkFoldview  		*ttt);
 
 static guint gcmdgtkfoldview_signals[LAST_SIGNAL] = { 0 };
 
+// GObject stuff - nothing to worry about
+static GObjectClass *parent_class = NULL;
 
 
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+static void
+gnome_cmd_foldview_treestore_finalize(GObject *object)
+{
+	GcmdGtkFoldview *foldview  = NULL;
+	//......................................................................... 
+	g_return_if_fail ( IS_GCMDGTKFOLDVIEW(object) );
+	foldview = GCMDGTKFOLDVIEW(object);
+
+	g_assert(FALSE);
+
+	// must chain up - finalize parent
+	(* parent_class->finalize) (object);
+
+}
 //-----------------------------------------------------------------------------
 //	GcmdGtkFoldview GType implementation
 //-----------------------------------------------------------------------------
@@ -357,6 +375,16 @@ gcmdgtkfoldview_class_init (GcmdGtkFoldviewClass *klass)
 		NULL,
 		g_cclosure_marshal_VOID__VOID,
 		G_TYPE_NONE, 0);
+
+
+
+	// For exiting properly 
+	GObjectClass *object_class;
+
+	parent_class = (GObjectClass*) g_type_class_peek_parent (klass);
+	object_class = (GObjectClass*) klass;
+
+	object_class->finalize = gnome_cmd_foldview_treestore_finalize;
 }
 
 //-----------------------------------------------------------------------------

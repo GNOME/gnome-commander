@@ -111,19 +111,72 @@ void gwr_gvfs_err(const char* fmt, ...)
 
 #endif
 
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #						File, Dir, ...	Structs							  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
 
+//
+//  Hope it is standard C++ 
+//
+//  new in code -> operator new -> constructor
+//  delete in code -> destructor -> operator delete
+//
+gvfs_file::gvfs_file(gchar *name, GnomeVFSResult result, GnomeVFSFilePermissions permissions, GnomeVFSFileType type, GnomeVFSFileFlags flags)
+{
+	d_name			= name;
+
+	a_vfsresult		= result;
+	a_vfstype		= type;
+	a_vfsflags		= flags;
+
+	a_access		= GcmdGtkFoldview::Access_from_permissions(permissions);
+}
+gvfs_file::~gvfs_file()
+{
+	//printf("==>~gvfs_fil()\n");
+	g_free (d_name);					
+}
+
+
+
+
+gvfs_dir::gvfs_dir(gchar *name, GnomeVFSFilePermissions permissions, GnomeVFSFileFlags flags) :
+	gvfs_file(name, GNOME_VFS_OK, permissions, GNOME_VFS_FILE_TYPE_DIRECTORY, flags)
+{
+}
+gvfs_dir::~gvfs_dir()
+{
+	//printf("==>~gvfs_dir()\n");
+}
+
+
+
+
+gvfs_symlink::gvfs_symlink(gchar *name, GnomeVFSFilePermissions permissions, GnomeVFSFileFlags flags) :
+	gvfs_file(name, GNOME_VFS_OK, permissions, GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK, flags)
+{
+}
+gvfs_symlink::~gvfs_symlink()
+{
+	//printf("==>~gvfs_dir()\n");
+}
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #						Gnome VFS - Misc								  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
 
 //=============================================================================
 //  Common vars
 //=============================================================================
 static  GnomeVFSResult  sVFSResult		= GNOME_VFS_OK;	 // for sync operations
 
-
-//  ***************************************************************************
-//  *																		  *
-//  *						Gnome VFS - Misc							      *
-//  *																		  *
-//  ***************************************************************************
 
 gboolean																		// __GWR__TODO__ inline
 GVFS_vfsinfo_has_type_directory(
@@ -179,12 +232,13 @@ GVFS_uri_new(const gchar *text)
 	return uri;
 }
 
-
-//  ***************************************************************************
-//  *																		  *
-//  *						Gnome VFS - Sync ops						      *
-//  *																		  *
-//  ***************************************************************************
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #						Gnome VFS - Sync ops							  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Test if an uri exists
@@ -241,12 +295,14 @@ static gboolean gvfs_dir_has_subdirs(GnomeVFSURI *uri)
 	return bRes;;
 }
 */
-//  ***************************************************************************
-//  *																		  *
-//  *						Gnome VFS - Async ops						      *
-//  *																		  *
-//  ***************************************************************************
-//static  GStaticMutex GVFS_qstack_Mutex	= G_STATIC_MUTEX_INIT;						__GWR__TODO__
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #					Gnome VFS - Async ops ( handles )					  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+//static  GStaticMutex GVFS_qstack_Mutex	= G_STATIC_MUTEX_INIT;						__GWR__TODO__ ?
 
 //=============================================================================
 //  Handles for vfs async ops
@@ -270,7 +326,7 @@ static  guint32					GVFS_qstack_size	= 0;
 
 static  GnomeVFSAsyncHandle**	GVFS_qstack_el		= NULL;
 static  guint32*				GVFS_qstack_ix		= NULL;
-static  guint32					GVFS_qstack_ff		= 0;
+static  guint32					GVFS_qstack_ff		= 0; 
 
 gboolean GVFS_qstack_initialized()
 {
@@ -445,6 +501,14 @@ void GVFS_async_cancel_all()
 	GVFS_qstack_ff = GVFS_qstack_size - 1;
 }
 
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #					Gnome VFS - Async ops							      #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+
 //=============================================================================
 //  Base structs for vfs async ops
 //=============================================================================
@@ -471,8 +535,8 @@ void* gvfs_async_load_subdirs::operator new(size_t size, GnomeVFSURI* parent_uri
 	//guint			element_size,
 	//guint			reserved_size);		growness
 	ls->array() = g_array_sized_new(
-		FALSE,
-		TRUE,
+		FALSE, 
+		TRUE, 
 		sizeof(gvfs_file*),
 		10);
 	ls->len()   = 0;
@@ -510,7 +574,7 @@ void gvfs_async_load_subdirs ::operator delete (void *p)
 //.............................................................................
 // Add entries...goto is the best
 //.............................................................................
-static void
+static void 
 GVFS_async_load_subdirectories_callback(
 	GnomeVFSAsyncHandle		*handle,
 	GnomeVFSResult			result,
@@ -538,7 +602,7 @@ GVFS_async_load_subdirectories_callback(
 	ALSC_INF("alsc:[%03i] entries:%03i list:%16x parent:[%s]%s", ga->hi(), entries_read, list, ls->ppath(), ls->puri()->text);
 
 	// counter
-	count   = 0;
+	count   = 0;						
 
 	// handle the '0-entry-case'
 	if ( entries_read == 0 )
@@ -548,7 +612,7 @@ GVFS_async_load_subdirectories_callback(
 
 	// init loop - we have at least one entry
 	l = g_list_first(list);
-
+	
 lab_loop:
 
 	count++;
@@ -572,14 +636,14 @@ lab_loop:
 			ALSC_WNG("alsc:[%03i][0x%16x] [%03i][%03i][%03i] [broken link, ignored]<%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 			break;
 		}
-
+	
 		added++;
-
+		
 		ALSC_INF("alsc:[%03i][0x%16x] [%03i][%03i][%03i] S<%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 
-		lnk = new(g_strdup(info->name), info->permissions, info->flags ) gvfs_symlink;
+		lnk = new() gvfs_symlink(g_strdup(info->name), info->permissions, info->flags );
 		ls->append( (gvfs_file*)lnk );
-
+		
 		// if the caller want partial listing
 		if  (
 				( ga->mr()  >= 0		)  &&
@@ -591,16 +655,18 @@ lab_loop:
 
 		//.....................................................................
 		case GNOME_VFS_FILE_TYPE_DIRECTORY :
-
+			
 		if  ( GVFS_vfsinfo_is_true_directory(info) )
 		{
 			added++;
 
 			ALSC_INF("alsc:[%03i][0x%16x] [%03i][%03i][%03i] +<%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 
-			dir = new(g_strdup(info->name), info->permissions, info->flags ) gvfs_dir;
-			ls->append( (gvfs_file*)dir );
+			//dir = new(g_strdup(info->name), info->permissions, info->flags);// gvfs_dir;
+			dir = new() gvfs_dir(g_strdup(info->name), info->permissions, info->flags);
 
+			ls->append( (gvfs_file*)dir );
+			
 			// if the caller want partial listing
 			if  (
 					( ga->mr()  >= 0		)  &&
@@ -614,16 +680,16 @@ lab_loop:
 		default:
 		ALSC_INF("alsc:[%03i][0x%16x] [%03i][%03i][%03i]  <%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 	}
-
+	
 	// if gvfs bugs on entries_read, we bug too with this
-	if ( count == entries_read )
+	if ( count == entries_read )		
 		goto lab_no_more_entry;
 
 	l = g_list_next(l);
 
 	goto lab_loop;
 
-//.............................................................................
+//.............................................................................	
 lab_no_more_entry:
 
 	// if OK, simply return, we will be re-called for further entries
@@ -640,10 +706,10 @@ lab_no_more_entry:
 	// else an error as occured : result is not OK, neither EOF.
 	// this occurs for example with symlinks, or access-denied directories ;
 	// show a little warning, and do as EOF, since there is no more entry.
-	ALSC_INF("alsc:[%03i][0x%16x]  (NO ENTRY - Jumping to EOF):%s",
+	ALSC_INF("alsc:[%03i][0x%16x]  (NO ENTRY - Jumping to EOF):%s", 
 		ga->hi(), l, gnome_vfs_result_to_string(result));
-
-//.............................................................................
+	
+//.............................................................................	
 lab_eof:
 
 	ALSC_INF("alsc:[%03i][0x%16x] (EOF)", ga->hi(), l);
@@ -662,7 +728,7 @@ lab_eof:
 	// "Final end"
 	return;
 
-//.............................................................................
+//.............................................................................	
 lab_abort:
 
 	ALSC_INF("alsc:[%03i][0x%16x] (ABORT)", ga->hi(), l);
@@ -725,7 +791,7 @@ void GVFS_async_load_subdirectories(
 			),
 		GVFS_ITEMS_PER_NOTIFICATION,
 		//GNOME_VFS_PRIORITY_DEFAULT,
-		GNOME_VFS_PRIORITY_MIN,
+		GNOME_VFS_PRIORITY_MIN,  
 		GVFS_async_load_subdirectories_callback,
 		(gpointer)ga);
 }

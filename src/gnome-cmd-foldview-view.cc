@@ -66,7 +66,7 @@
 //  *																		  *
 //  ***************************************************************************
 static void
-myfunc(
+myfunc_pix(
 	GtkTreeViewColumn *col,
 	GtkCellRenderer   *renderer,
 	GtkTreeModel      *model,
@@ -75,9 +75,45 @@ myfunc(
 {
 	gint icon;
 
-	gtk_tree_model_get(model, iter, 1, &icon, -1);
+#ifdef __GTS__
 
+	gtk_tree_model_get(model, iter, 1, &icon, -1);
 	g_object_set(renderer, "pixbuf", GcmdFoldview()->view.pixbuf( (GcmdGtkFoldview::View::eIcon)icon), NULL);
+
+#else
+
+	GValue v = {0};
+	GnomeCmdFoldviewTreestore::get_value(model, iter, 0, &v);
+	GcmdGtkFoldview::Model::Rowlike *r = (GcmdGtkFoldview::Model::Rowlike*)g_value_get_pointer(&v);
+
+	icon = r->icon();
+	g_object_set(renderer, "pixbuf", GcmdFoldview()->view.pixbuf( (GcmdGtkFoldview::View::eIcon)icon), NULL);
+
+#endif
+}
+
+static void
+myfunc_txt(
+	GtkTreeViewColumn *col,
+	GtkCellRenderer   *renderer,
+	GtkTreeModel      *model,
+	GtkTreeIter       *iter,
+	gpointer           user_data)
+{
+
+#ifdef __GTS__
+
+	// Do nothing, not connect in GTS mode
+
+#else
+
+	GValue v = {0};
+	GnomeCmdFoldviewTreestore::get_value(model, iter, 0, &v);
+	GcmdGtkFoldview::Model::Rowlike *r = (GcmdGtkFoldview::Model::Rowlike*)g_value_get_pointer(&v);
+
+	g_object_set(renderer, "text", r->utf8_name() , NULL);
+
+#endif
 }
 
 //=============================================================================
@@ -158,7 +194,7 @@ void signal_cursor_changed(
 	GtkTreeSelection	*tree_sel		= NULL;
 	gint				tree_sel_card   = 0;
 
-	GtkTreeIter			iter_selected   = GcmdGtkFoldview::Model::s_iter_NULL;
+	GtkTreeIter			iter_selected   = GcmdGtkFoldview::Model::Iter_zero;
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	//gwr_inf("signal_cursor_changed");
 
@@ -170,14 +206,14 @@ void signal_cursor_changed(
 	}
 
 	// Note: gtk_tree_selection_count_selected_rows() does not
-	//   exist in gtk+-2.0, only in gtk+ >= v2.2 !
+	//   exist in gtk+-2.0, only in gtk+ >= v2.2 ! 
 	tree_sel_card = gtk_tree_selection_count_selected_rows(tree_sel);
 
 	if ( tree_sel_card == 1 )
 	{
 		if ( gtk_tree_selection_get_selected( tree_sel, NULL, &iter_selected) )
 		{
-
+			
 		}
 		else
 		{
@@ -239,7 +275,7 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	//gtk_object_set_data_full (GTK_OBJECT (m_this), "infolabel", m_info_label,
 	//	                      (GtkDestroyNotify) g_object_unref);
 	//gtk_misc_set_alignment (GTK_MISC (m_info_label), 0.0f, 0.5f);
-
+	
 	// create the scrollwindow that we'll place the treeview in
 	m_scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
 	gtk_object_set_data_full (GTK_OBJECT (foldview()),
@@ -270,23 +306,23 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	//			gint					n_targets,
 	//			GdkDragAction			actions);
 	//
-	//	typedef struct
+	//	typedef struct 
 	//	{
 	//	  gchar *target;
 	//	  guint  flags;
 	//	  guint  info;
-	//	}
+	//	} 
 	//  GtkTargetEntry;
 	//
-	//  typedef enum
+	//  typedef enum 
 	//  {
 	//	  GTK_TARGET_SAME_APP = 1 << 0,    /*< nick=same-app >*/
 	//	  GTK_TARGET_SAME_WIDGET = 1 << 1  /*< nick=same-widget >*/
-	//  }
+	//  } 
 	//  GtkTargetFlags;
 
-	//GtkTargetEntry  drag_source_entry[2]	=
-	//	{
+	//GtkTargetEntry  drag_source_entry[2]	= 
+	//	{ 
 	//		{   (gchar*)"text/plain", 0, 0X30 },
 	//		{   (gchar*)"text/plain", 0, 0X31 }
 	//	};
@@ -299,7 +335,7 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	//	GDK_ACTION_PRIVATE );
 
     //g_signal_connect(m_treeview, "drag-begin", G_CALLBACK (signal_drag_begin), (gpointer)this);
-
+		
 	// columns
 	col0 = gtk_tree_view_column_new();
 	gtk_tree_view_column_set_title(col0, _("Folders"));
@@ -309,11 +345,12 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	gtk_tree_view_column_set_title(col1, _("Access Rights"));
 	gtk_tree_view_column_set_visible(col1,FALSE);
 
+#ifdef __GTS__
 	// column 0 - pixbuf renderer
 	renderer = gtk_cell_renderer_pixbuf_new();
 	gtk_tree_view_column_pack_start(col0, renderer, FALSE);
 	g_object_set(renderer, "xalign", 0.0, NULL);
-	gtk_tree_view_column_set_cell_data_func(col0, renderer, myfunc, NULL, NULL);
+	gtk_tree_view_column_set_cell_data_func(col0, renderer, myfunc_pix, NULL, NULL);
 
 	// column 0 - text renderer
 	renderer = gtk_cell_renderer_text_new();
@@ -329,6 +366,21 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 	gtk_tree_view_append_column(GTK_TREE_VIEW(m_treeview), col0);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(m_treeview), col1);
+#else
+	// column 0 - pixbuf renderer
+	renderer = gtk_cell_renderer_pixbuf_new();
+	gtk_tree_view_column_pack_start(col0, renderer, FALSE);
+	g_object_set(renderer, "xalign", 0.0, NULL);
+	gtk_tree_view_column_set_cell_data_func(col0, renderer, myfunc_pix, NULL, NULL);
+
+	// column 0 - text renderer
+	renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_column_pack_start(col0, renderer, FALSE);
+	g_object_set(renderer, "xalign", 0.0, NULL);
+	gtk_tree_view_column_set_cell_data_func(col0, renderer, myfunc_txt, NULL, NULL);
+
+	gtk_tree_view_append_column(GTK_TREE_VIEW(m_treeview), col0);
+#endif
 
 	// signals
 	g_signal_connect(m_treeview, "test_expand_row",		G_CALLBACK(signal_test_expand_row), NULL);
@@ -377,7 +429,7 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 	//-------------------------------------------------------------------------
 	// show, except the pane container
-
+	
 	//fs->update_concombo_visibility();
 	gtk_widget_show(m_con_combo);
 	//gtk_widget_show(m_vol_label);
@@ -395,7 +447,7 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 void GcmdGtkFoldview::View::destroy()
 {
-
+	
 }
 
 //=============================================================================
@@ -444,8 +496,8 @@ void	GcmdGtkFoldview::View::signal_row_collapsed(
 //  Buttons
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 gboolean GcmdGtkFoldview::View::signal_button_press_event(
-	GtkWidget	   *tree_view,
-	GdkEventButton *event,
+	GtkWidget	   *tree_view, 
+	GdkEventButton *event, 
 	gpointer		data)
 {
 	//  signal handled		: return TRUE
@@ -453,7 +505,7 @@ gboolean GcmdGtkFoldview::View::signal_button_press_event(
 	//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	GtkTreePath								*path_clicked   = NULL;
 
-	GtkTreeIter								iter_selected   = GcmdGtkFoldview::Model::s_iter_NULL;
+	GtkTreeIter								iter_selected   = GcmdGtkFoldview::Model::Iter_zero;
 	GtkTreePath								*path_selected  = NULL;
 
 	GtkTreeSelection						*tree_sel		= NULL;
@@ -464,7 +516,7 @@ gboolean GcmdGtkFoldview::View::signal_button_press_event(
 	// get path to iter over which the user clicked
 	gtk_tree_view_get_path_at_pos(
 		GTK_TREE_VIEW(tree_view),
-		(gint) event->x,
+		(gint) event->x, 
 		(gint) event->y,
 		&path_clicked, NULL, NULL, NULL);
 
@@ -478,17 +530,22 @@ gboolean GcmdGtkFoldview::View::signal_button_press_event(
 	}
 
 	// Note: gtk_tree_selection_count_selected_rows() does not
-	//   exist in gtk+-2.0, only in gtk+ >= v2.2 !
+	//   exist in gtk+-2.0, only in gtk+ >= v2.2 ! 
 	tree_sel_card = gtk_tree_selection_count_selected_rows(tree_sel);
 
 	if ( tree_sel_card == 1 )
 	{
 		if ( gtk_tree_selection_get_selected( tree_sel, NULL, &iter_selected) )
 		{
+#ifdef __GTS__
 			path_selected = gtk_tree_model_get_path(
 				gtk_tree_view_get_model(GTK_TREE_VIEW(tree_view)),
 				&iter_selected);
-
+#else
+			path_selected = GnomeCmdFoldviewTreestore::get_path(
+				gtk_tree_view_get_model(GTK_TREE_VIEW(tree_view)),
+				&iter_selected);
+#endif
 			if ( !path_selected )
 			{
 				gwr_wng("View::signal_button_press_event:gtk_tree_model_get_path failed");
@@ -506,10 +563,10 @@ gboolean GcmdGtkFoldview::View::signal_button_press_event(
 	if ( ( event->type == GDK_BUTTON_PRESS )  &&  ( event->button == 1 ) )
 	{
 		// The GtkTreeSelection will be updated only
-		// in the next loop of gtk_main(), and when calling sync(),
+		// in the next loop of gtk_main(), and when calling sync(), 
 		// the path_selected is still the old selected item, not the
 		// clicked one.
-
+	
 		// So in the sync() function, we use path_clicked instead of
 		// path_selected
 
@@ -570,7 +627,7 @@ gboolean GcmdGtkFoldview::View::signal_button_press_event(
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 void GcmdGtkFoldview::View::signal_drag_begin(
 	GtkWidget	   *widget,
-	GdkDragContext *drag_context,
+	GdkDragContext *drag_context, 
 	gpointer		user_data)
 {
 	gwr_inf("View:signal_drag_begin");
@@ -588,7 +645,7 @@ gboolean GcmdGtkFoldview::View::context_menu_pop(ctx_menu_data *ctxdata)
 		if ( ctxdata->d_path_clicked )
 		{
 			if ( gtk_tree_path_compare(
-					ctxdata->d_path_clicked,
+					ctxdata->d_path_clicked, 
 					ctxdata->d_path_selected) == 0 )
 			{
 				ctxdata->a_foldview->control_context_menu_populate_add_section  (s_context_menu.a_widget, 0, ctxdata);
@@ -630,10 +687,10 @@ gboolean GcmdGtkFoldview::View::context_menu_pop(ctx_menu_data *ctxdata)
 	//	func				:	a user supplied function used to position the menu, or NULL. [allow-none]
 	//	data				:	user supplied data to be passed to func. [allow-none]
 	//	button				:	the mouse button which was pressed to initiate the event.
-	//	activate_time		:	the time at which the activation event occurred.
+	//	activate_time		:	the time at which the activation event occurred. 
 	gtk_menu_popup(
-		GTK_MENU(s_context_menu.a_widget), NULL, NULL,
-		NULL, NULL,
+		GTK_MENU(s_context_menu.a_widget), NULL, NULL, 
+		NULL, NULL, 
 		ctxdata->a_button, ctxdata->a_time);
 
 	return TRUE;
@@ -647,7 +704,7 @@ gboolean GcmdGtkFoldview::View::click_left_single(ctx_menu_data *ctxdata)
 	// simulate a callback, avoiding accessing to GcmdGtkFoldview singleton
 	GcmdGtkFoldview::Control_sync_update(NULL, ctxdata);
 
-	// tell gtk to continue signal treatment, else treeview wont
+	// tell gtk to continue signal treatment, else treeview wont 
 	// expand / collapse anymore if that was the arrow that was clicked
 	return FALSE;
 }
@@ -702,8 +759,8 @@ void GcmdGtkFoldview::View::update_style()
 	gtk_widget_set_style (GTK_WIDGET(treeview()), style_foldview);
 	((GnomeCmdCombo*)connection_combo())->update_style();
 }
-
-
+	
+	
 
 
 
