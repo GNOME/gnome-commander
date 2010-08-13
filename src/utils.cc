@@ -479,7 +479,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 
         dldata->args[1] = (gpointer) path_str;
 
-        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->f));
+        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (dldata->f->get_uri());
         GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
         GnomeCmdCon *con = get_home_con ();
         GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
@@ -664,7 +664,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
-        if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (f)))
+        if (gnome_vfs_uri_is_local (f->get_uri()))
             local_files = g_list_append (local_files, g_strdup (gnome_cmd_file_get_real_path (f)));
         else
         {
@@ -690,7 +690,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
                     if (!path_str) return;
 
-                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (f));
+                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (f->get_uri());
                     GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
                     GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
                     gtk_object_destroy (GTK_OBJECT (path));
@@ -1192,7 +1192,7 @@ GList *file_list_to_uri_list (GList *files)
     for (; files; files = files->next)
     {
         GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+        GnomeVFSURI *uri = f->get_uri();
 
         if (!uri)
             g_warning ("NULL uri!!!");

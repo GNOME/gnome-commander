@@ -29,18 +29,25 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
 
 
-struct GnomeCmdFilePrivate;
 class GnomeCmdFileMetadata;
 
 struct GnomeCmdFile
 {
     GnomeCmdFileInfo parent;
 
+    class Private;
+
+    Private *priv;
+
     GnomeVFSFileInfo *info;
     gboolean is_dotdot;
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
-    GnomeCmdFilePrivate *priv;
     GnomeCmdFileMetadata *metadata;
+
+    gchar *get_path();
+    gchar *get_dirname();
+    gchar *get_unescaped_dirname();
+    GnomeVFSURI *get_uri(const gchar *name=NULL);
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
 
@@ -91,13 +98,8 @@ inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 }
 
 gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f);
-
-gchar *gnome_cmd_file_get_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f);
-GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f, const gchar *name=NULL);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
 const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f);

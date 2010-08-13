@@ -519,7 +519,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
 {
     gchar *path = gnome_cmd_dir_is_local (dir) ? gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)) :
-                                                 gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+                                                 GNOME_CMD_FILE (dir)->get_path();
 
     if (!g_utf8_validate (path, -1, NULL))
     {

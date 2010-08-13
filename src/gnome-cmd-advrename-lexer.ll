@@ -464,7 +464,7 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   const char *parent_dir, *grandparent_dir;
   int parent_dir_len, grandparent_dir_len;
 
-  find_dirs(gnome_cmd_file_get_path(f), parent_dir, grandparent_dir, parent_dir_len, grandparent_dir_len);
+  find_dirs(f->get_path(), parent_dir, grandparent_dir, parent_dir_len, grandparent_dir_len);
 
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     switch ((*i)->type)

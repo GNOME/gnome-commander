@@ -486,7 +486,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 
     // if (gnome_cmd_data.cmdline_visibility)
     // {
-        // gchar *dpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (mw->fs(LEFT)->get_directory()));
+        // gchar *dpath = GNOME_CMD_FILE (mw->fs(LEFT)->get_directory())->get_path();
         // gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
         // g_free (dpath);
     // }
@@ -1319,8 +1319,8 @@ GnomeCmdState *GnomeCmdMainWin::get_state() const
     GnomeCmdDir *dir2 = fs2->get_directory();
 
     GnomeCmdState *state = &priv->state;
-    state->active_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
-    state->inactive_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
+    state->active_dir_uri = GNOME_CMD_FILE (dir1)->get_uri();
+    state->inactive_dir_uri = GNOME_CMD_FILE (dir2)->get_uri();
     state->active_dir_files = fs1->file_list()->get_visible_files();
     state->inactive_dir_files = fs2->file_list()->get_visible_files();
     state->active_dir_selected_files = fs1->file_list()->get_selected_files();

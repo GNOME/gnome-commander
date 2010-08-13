@@ -270,7 +270,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
         text[GnomeCmdFileList::COLUMN_ICON] = NULL;
 
     // Prepare the strings to show
-    gchar *t1 = gnome_cmd_file_get_path (f);
+    gchar *t1 = f->get_path();
     gchar *t2 = g_path_get_dirname (t1);
     dpath = get_utf8 (t2);
     g_free (t1);
@@ -693,7 +693,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             const gchar *fn = NULL;
             gchar *uri_str;
 
-            if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (f)))
+            if (gnome_vfs_uri_is_local (f->get_uri()))
             {
 #ifdef UNESCAPE_LOCAL_FILES
                 fn = gnome_vfs_unescape_string (gnome_cmd_file_get_uri_str (f), 0);
@@ -904,8 +904,8 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f1->info->type < f2->info->type)
         return 1;
 
-    // gchar *t1 = gnome_cmd_file_get_path (f1);
-    // gchar *t2 = gnome_cmd_file_get_path (f2);
+    // gchar *t1 = f1->get_path();
+    // gchar *t2 = f2->get_path();
     // gchar *d1 = g_path_get_dirname (t1);
     // gchar *d2 = g_path_get_dirname (t2);
 
@@ -1751,7 +1751,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
     }
 
     // Create a parent dir file (..) if appropriate
-    gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+    gchar *path = GNOME_CMD_FILE (dir)->get_path();
     if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
         files = g_list_append (files, gnome_cmd_dir_new_parent_dir_file (dir));
     g_free (path);

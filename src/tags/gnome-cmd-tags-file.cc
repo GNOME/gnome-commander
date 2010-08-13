@@ -44,7 +44,7 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 
     // if (!f->is_local())  return;
 
-    gchar *dpath = gnome_cmd_file_get_dirname(f);
+    gchar *dpath = f->get_dirname();
 
     static char buff[32];
 

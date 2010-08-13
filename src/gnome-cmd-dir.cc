@@ -575,11 +575,11 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (!dir->priv->files || gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir))))
+    if (!dir->priv->files || gnome_vfs_uri_is_local (GNOME_CMD_FILE (dir)->get_uri()))
     {
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
-               gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)),
+               GNOME_CMD_FILE (dir)->get_path(),
                visprog);
         gnome_cmd_dir_relist_files (dir, visprog);
     }
@@ -782,7 +782,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     gnome_vfs_uri_unref (uri);

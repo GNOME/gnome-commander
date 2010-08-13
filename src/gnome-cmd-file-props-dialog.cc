@@ -723,7 +723,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
-    data->uri = gnome_cmd_file_get_uri (f);
+    data->uri = f->get_uri();
     data->mutex = g_mutex_new ();
     data->msg = NULL;
     data->notebook = notebook;
