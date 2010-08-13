@@ -4717,7 +4717,7 @@
        </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on the
        <guilabel>Filters</guilabel> tab.</para>
       <para>The description for the files you can add in the hidden section is in the
-        <xref linkend="gcmd-TBL-setting6"></xref></para>
+        <xref linkend="gcmd-TBL-setting5"></xref></para>
       <!-- ==== Figure ==== -->
       <figure id="options-filters-fig">
         <title>Filters options</title>
@@ -4734,7 +4734,7 @@
       </figure>
       <!-- ==== End of Figure ==== -->
       <para/>
-      <table frame="topbot" id="gcmd-TBL-setting6">
+      <table frame="topbot" id="gcmd-TBL-setting5">
         <title>Layout option tab</title>
         <tgroup cols="2" colsep="0" rowsep="0">
           <colspec colname="colspec0" colwidth="50.36*"/>
