@@ -44,12 +44,18 @@ struct GnomeCmdFile
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
     GnomeCmdFileMetadata *metadata;
 
+    void invalidate_metadata();
+
     gchar *get_path();
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
     GnomeVFSURI *get_uri(const gchar *name=NULL);
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
+
+    const gchar *get_type_string();
+    const gchar *get_type_desc();
+    gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
 
     void update_info(GnomeVFSFileInfo *info);
     gboolean is_local();
@@ -79,8 +85,6 @@ GtkType gnome_cmd_file_get_type ();
 GnomeCmdFile *gnome_cmd_file_new_from_uri (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
-
-void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f);
 
 GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f);
 void gnome_cmd_file_unref (GnomeCmdFile *f);
@@ -116,10 +120,6 @@ const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *f);
 gboolean gnome_cmd_file_has_mime_type (GnomeCmdFile *f, const gchar *mime_type);
 gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *f, const gchar *mime_type_start);
-
-const gchar *gnome_cmd_file_get_type_string (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f);
-gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **pixmap, GdkBitmap **mask);
 
 void gnome_cmd_file_show_properties (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);

@@ -198,12 +198,10 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
 }
 
 
-void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f)
+void GnomeCmdFile::invalidate_metadata()
 {
-    g_return_if_fail (f != NULL);
-
-    delete f->metadata;
-    f->metadata = NULL;
+    delete metadata;
+    metadata = NULL;
 }
 
 
@@ -609,19 +607,18 @@ const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *f)
 }
 
 
-const gchar *gnome_cmd_file_get_type_string (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_type_string()
 {
     static gchar type_str[MAX_TYPE_LENGTH];
 
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    type2string (f->info->type, type_str, MAX_TYPE_LENGTH);
+    type2string (info->type, type_str, MAX_TYPE_LENGTH);
     return type_str;
 }
 
 
-const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_type_desc()
 {
     static const gchar *type_strings[] = {
         N_("Unknown file type"),
@@ -634,22 +631,20 @@ const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f)
         N_("Symbolic link")
     };
 
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (!f->info->symlink_name)
-        return type_strings[f->info->type];
+    if (!info->symlink_name)
+        return type_strings[info->type];
 
     return type_strings[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 }
 
 
-gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **pixmap, GdkBitmap **mask)
+gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    return IMAGE_get_pixmap_and_mask (f->info->type, f->info->mime_type, f->info->symlink_name != NULL, pixmap, mask);
+    return IMAGE_get_pixmap_and_mask (info->type, info->mime_type, info->symlink_name != NULL, pixmap, mask);
 }
 
 

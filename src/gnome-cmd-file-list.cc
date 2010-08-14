@@ -265,7 +265,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
 {
     // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data.layout == GNOME_CMD_LAYOUT_TEXT)
-        text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (f);
+        text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) f->get_type_string();
     else
         text[GnomeCmdFileList::COLUMN_ICON] = NULL;
 
@@ -1324,7 +1324,7 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (fl->has_file(f))
     {
-        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
+        // f->invalidate_metadata(TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
         fl->update_file(f);
 
         GnomeCmdFileList::ColumnID sort_col = fl->get_sort_column();
@@ -1674,7 +1674,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
         GdkPixmap *pixmap;
         GdkBitmap *mask;
 
-        if (gnome_cmd_file_get_type_pixmap_and_mask (f, &pixmap, &mask))
+        if (f->get_type_pixmap_and_mask(&pixmap, &mask))
             gtk_clist_set_pixmap (clist, row, 0, pixmap, mask);
     }
 
@@ -1790,7 +1790,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
         GdkPixmap *pixmap;
         GdkBitmap *mask;
 
-        if (gnome_cmd_file_get_type_pixmap_and_mask (f, &pixmap, &mask))
+        if (f->get_type_pixmap_and_mask(&pixmap, &mask))
             gtk_clist_set_pixmap (*this, row, 0, pixmap, mask);
     }
 }

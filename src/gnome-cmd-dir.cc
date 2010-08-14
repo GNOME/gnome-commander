@@ -796,7 +796,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     dir->priv->needs_mtime_update = TRUE;
 
     f->update_info(info);
-    gnome_cmd_file_invalidate_metadata (f);
+    f->invalidate_metadata();
     g_signal_emit (dir, signals[FILE_CHANGED], 0, f);
 }
 
