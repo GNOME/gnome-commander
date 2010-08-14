@@ -35,6 +35,7 @@
 
 // This function because of the creation process of GtkWidgets. Annoying.
 GtkWidget*			gnome_cmd_foldview_get_instance();
+GtkWidget*			gnome_cmd_foldview_destroy();
 void				gnome_cmd_foldview_update_style (GtkWidget *widget);
 
 #endif //__GCMDGTKFOLDVIEW_H__

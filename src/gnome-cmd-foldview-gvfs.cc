@@ -374,6 +374,14 @@ void GVFS_qstack_initialize()
 	GVFS_qstack_size = GVFS_qstack_step;
 }
 
+void GVFS_qstack_destroy()
+{
+	gwr_inf("gstack_destroy");
+	g_free(GVFS_qstack_el);
+	g_free(GVFS_qstack_ix);
+}
+
+
 gboolean GVFS_qstack_realloc()
 {
 	gpointer temp = NULL;
@@ -414,6 +422,9 @@ gboolean GVFS_qstack_realloc()
 
 	// copy used pointers
 	memcpy( GVFS_qstack_el, temp, GVFS_qstack_el_core_size * GVFS_qstack_size);
+
+	// free temp
+	g_free(temp);
 
 	// update stack size
 	GVFS_qstack_size += GVFS_qstack_step;

@@ -75,6 +75,7 @@ GcmdGtkFoldview::Model::Rowlike::Rowlike(gchar *_utf8_name, gint _icon)
 GcmdGtkFoldview::Model::Rowlike::~Rowlike()
 {
 	g_free(d_utf8_name);
+	g_free(d_utf8_collate_key);
 }
 
 const   gchar*  
@@ -134,6 +135,8 @@ gboolean GcmdGtkFoldview::Model::create()
 #else
 
 	m_treestore = gnome_cmd_foldview_treestore_new();
+	// dont do sink on a widget that will be parented !!!
+	//g_object_ref_sink(m_treestore);
 
 #endif
 
@@ -141,8 +144,22 @@ gboolean GcmdGtkFoldview::Model::create()
 
 	return TRUE;
 }
-void GcmdGtkFoldview::Model::destroy()
+
+void GcmdGtkFoldview::Model::release_objects()
 {
+	gwr_inf("GcmdGtkFoldview::Model::release_objects()");
+#ifdef __GTS__
+	#warning NOT IMPLEMENTED
+#else
+
+	if ( m_treestore )
+	{
+		gwr_inf("GcmdGtkFoldview::Model::release_objects::releasing:%03i", m_treestore->refcount());
+		g_object_unref(m_treestore);
+		m_treestore = NULL;
+	}
+	
+#endif
 }
 
 //=============================================================================

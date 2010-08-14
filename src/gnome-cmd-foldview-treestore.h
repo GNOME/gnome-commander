@@ -206,6 +206,12 @@ struct GnomeCmdFoldviewTreestore
 					return TRUE;
 				}
 
+	public:
+	gint		refcount()
+				{
+					return ((GInitiallyUnowned*)this)->ref_count;
+				}
+
 	//.........................................................................
 	// GtkTreeModel interface
 	//.........................................................................
@@ -240,19 +246,7 @@ struct GnomeCmdFoldviewTreestore
 	void	add_child			(GtkTreeIter *in_parent,	GtkTreeIter *out_child, GnomeCmdFoldviewTreestore::Data*);
 	void	set_value			(GtkTreeIter *in,			gint column, GValue *value);
 	gint	remove_children		(GtkTreeIter *in);	
-	gint	clear()
-			{
-				// store is empty !
-				if ( !d_node_root )
-					return 0;
-					
-				//return d_node_root->children()->node_remove_all(dyn_data);
-				// return 0;
-				delete d_node_root;
-				d_node_root = NULL;
-				
-				return 0;
-			}
+	gint	clear();
 };
 
 GType         					gnome_cmd_foldview_treestore_get_type   (void);

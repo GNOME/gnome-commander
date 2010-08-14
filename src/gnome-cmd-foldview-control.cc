@@ -116,9 +116,11 @@
 
 
 
-//=============================================================================
-//  Common vars
-//=============================================================================
+//  ***************************************************************************
+//  *																		  *
+//  *								Common vars							      *
+//  *																		  *
+//  ***************************************************************************
 GcmdGtkFoldview::View::ctx_menu GcmdGtkFoldview:: s_context_menu =
 {
 	NULL, (gint)2,	
@@ -148,9 +150,11 @@ GcmdGtkFoldview::View::ctx_menu GcmdGtkFoldview:: s_context_menu =
 	}
 };
 
-//=============================================================================
-//  init_instance, ...
-//=============================================================================
+//  ***************************************************************************
+//  *																		  *
+//  *						Instance init / destroy ...		          		  *
+//  *																		  *
+//  ***************************************************************************
 void GcmdGtkFoldview::control_raz_pointers()
 {
 	// sync
@@ -175,17 +179,80 @@ void GcmdGtkFoldview::control_init_instance()
 
 	root_uri_set_1((gchar*)"/");
 }
+
+
 gboolean GcmdGtkFoldview::control_create()
-{
+{   
+	//g_signal_connect (this, "destroy", G_CALLBACK (__TEST__), NULL);
+
 	return TRUE;
 }
-void GcmdGtkFoldview::control_destroy()
+
+void GcmdGtkFoldview::control_dispose()
 {
+	model.release_objects();
+}
+void GcmdGtkFoldview::control_finalize()
+{
+	GVFS_async_cancel_all();
+	GVFS_qstack_destroy();
 }
 
-//=============================================================================
-//	Contextual menu
-//=============================================================================
+//  ***************************************************************************
+//  *																		  *
+//  *						GObject stuff					          		  *
+//  *																		  *
+//  ***************************************************************************
+GObjectClass *GcmdGtkFoldview::Control_parent_class = NULL;
+
+void GcmdGtkFoldview::Control_gtk_object_destroy(GtkObject* object)
+{
+	//g_return_if_fail( IS_GCMDGTKFOLDVIEW(object) );
+
+	//gwr_inf("Control_gtk_object_destroy:%03i", GCMDGTKFOLDVIEW(object)->control_ref_count());
+	gwr_inf("GcmdGtkFoldview::Control_gtk_object_destroy");
+
+	GCMDGTKFOLDVIEW(object)->control_dispose();
+
+	(* GTK_OBJECT_CLASS (Control_parent_class)->destroy)(object);
+}
+
+
+void GcmdGtkFoldview::Control_g_object_dispose(GObject* object)
+{
+	//g_return_if_fail( IS_GCMDGTKFOLDVIEW(object) );
+
+	//gwr_inf("Control_g_object_dispose:%03i", GCMDGTKFOLDVIEW(object)->control_ref_count());
+	gwr_inf("GcmdGtkFoldview::Control_g_object_dispose");
+
+	//g_assert(FALSE);
+
+	(*Control_parent_class->dispose)(object);
+}
+void GcmdGtkFoldview::Control_g_object_finalize(GObject* object)
+{
+	g_return_if_fail( IS_GCMDGTKFOLDVIEW(object) );
+
+	//gwr_inf("Control_g_object_finalize:%03i", GCMDGTKFOLDVIEW(object)->control_ref_count());
+	gwr_inf("GcmdGtkFoldview::Control_g_object_finalize");
+
+	GCMDGTKFOLDVIEW(object)->control_finalize();
+
+	(*Control_parent_class->finalize)(object);
+}
+void
+GcmdGtkFoldview::Control_g_object_init (GcmdGtkFoldview *foldview)
+{
+	foldview->control_init_instance();
+}
+
+
+
+//  ***************************************************************************
+//  *																		  *
+//  *							Contextual menu					              *
+//  *																		  *
+//  ***************************************************************************
 void GcmdGtkFoldview::control_context_menu_populate_add_separator(GtkWidget *widget)
 {
 	gtk_menu_shell_append(GTK_MENU_SHELL(widget), gtk_separator_menu_item_new());
@@ -489,13 +556,18 @@ void GcmdGtkFoldview::control_sync_treeview(GcmdGtkFoldview::View::ctx_menu_data
 	gnome_vfs_uri_unref(uri);
 }
 
+//  ***************************************************************************
+//  *																		  *
+//  *							Iter expansion					              *
+//  *																		  *
+//  ***************************************************************************
 
-//=============================================================================
-//	control_iter_expand
+//
+//	When an expansion occurs :
 //
 //  - Find all subdirs
 //  - For each subdir : call control_check_if_empty
-//=============================================================================
+//
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  Iter expansion static callback									MULTITHREAD
@@ -667,13 +739,19 @@ GcmdGtkFoldview::control_iter_expand(
 
 
 
-//=============================================================================
-//  control_check_if_empty static callback
+//  ***************************************************************************
+//  *																		  *
+//  *						Check is a directory is empty	                  *
+//  *																		  *
+//  ***************************************************************************
+
 //
-//  - no   : add dummy element to the directory ( so the gtktreeview will show
-//  an arrow )
-//  - yes  : nop
-//=============================================================================
+//	What we do here:
+//
+//  - Find all subdirs
+//  - If at least one, add a dummy subitem so GtkTreeview will show a little
+//  arrow allowing expansion.
+//
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  result callback													MULTITHREAD
@@ -733,6 +811,7 @@ void GcmdGtkFoldview::control_check_if_empty_callback_1(gvfs_async *ga)
 		CCIE_INF("cciec_1:adding dummy to parent:[0x%16x]-[0x%16x]-[0x%16x][0x%16x][0x%16x] %s | %s",
 			&parent_iter, parent_iter.stamp, parent_iter.user_data, parent_iter.user_data2, parent_iter.user_data3,
 			str, ls->ppath());
+		g_free(str);
 	}
 
 	// delete user data
@@ -792,13 +871,21 @@ void GcmdGtkFoldview::control_check_if_empty(GtkTreeIter *parent)
 	control_check_if_empty_p(parent_uri, parent_path);
 }
 
-//============================================================================= // _GWR_TODO_ MONITORING
+//  ***************************************************************************
+//  *																		  *
+//  *							Item collapse	              				  *
+//  *																		  *
+//  ***************************************************************************
+																				// _GWR_TODO_ MONITORING
+//
 //  Item collapsed
+//
 //  - Remove all subdirs
 //  - Add [DUMMY] ( we have been callapsed, so there were subdirs in there )
 //  This is useful, because when re-expanding, directory will be re-scanned
 //  and thus we'll be more accurate
-//=============================================================================
+//
+
 void
 GcmdGtkFoldview::control_iter_collapsed(
 GtkTreeIter *parent)
@@ -809,14 +896,18 @@ GtkTreeIter *parent)
 
 	removed = model.iter_remove_children(parent);
 
-	gwr_inf("control::iter_collapsed:removed %03i children", removed);
+	//gwr_inf("control::iter_collapsed:removed %03i children", removed);
 
 	// we have been collapsed, so we had children ; so re-add dummy child
 	model.iter_add_child(parent, &child, "...Working...", View::eIconUnknown);
 }
-//=============================================================================
-//  Divers
-//=============================================================================
+
+//  ***************************************************************************
+//  *																		  *
+//  *								Divers	              					  *
+//  *																		  *
+//  ***************************************************************************
+
 gboolean GcmdGtkFoldview::control_root_uri_set(GnomeVFSURI *uri)
 {
 	GtkTreeIter *parent = NULL;

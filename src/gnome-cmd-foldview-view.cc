@@ -246,7 +246,7 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	// create the connection combo
 	m_con_combo = (GtkWidget*)( new GnomeCmdCombo(2, 1, NULL) );
 
-	gtk_object_set_data_full (GTK_OBJECT (foldview()), "con_combo", m_con_combo, (GtkDestroyNotify) g_object_unref);
+	//gtk_object_set_data_full (GTK_OBJECT (foldview()), "con_combo", m_con_combo, (GtkDestroyNotify) g_object_unref);
 	gtk_widget_set_size_request (m_con_combo, 150, -1);
 		gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (m_con_combo)->list), 20);
 		gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (m_con_combo)->entry), FALSE);
@@ -278,9 +278,11 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	
 	// create the scrollwindow that we'll place the treeview in
 	m_scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
+	/*
 	gtk_object_set_data_full (GTK_OBJECT (foldview()),
 		                      "scrolledwindow", m_scrolledwindow,
 		                      (GtkDestroyNotify) g_object_unref);
+	*/
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (m_scrolledwindow),
 		                            GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
@@ -394,6 +396,9 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 	// some settings
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(m_treeview), FALSE);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(m_treeview), m_treemodel);
+
+	gwr_inf("--> %03i", GNOME_CMD_FOLDVIEW_TREESTORE(m_treemodel)->refcount() );
+
 	gtk_tree_view_set_show_expanders(treeview(), TRUE);
 
 	// treeview contextual menu :
@@ -418,14 +423,15 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 	//-------------------------------------------------------------------------
 	// ref objects for showing / hiding since I dont understand gtk ref / unref
-	g_object_ref(foldview());
+	// g_object_ref(foldview()); 
+	// Now I understand !
 
-	g_object_ref(m_con_hbox);
-	g_object_ref(m_con_combo);
+//g_object_ref(m_con_hbox);
+//g_object_ref(m_con_combo);
 	//g_object_ref(m_dir_indicator);
 	//g_object_ref(m_vol_label);
-	g_object_ref(m_scrolledwindow);
-	g_object_ref(m_treeview);
+	//g_object_ref(m_scrolledwindow);
+	//g_object_ref(m_treeview);
 
 	//-------------------------------------------------------------------------
 	// show, except the pane container
@@ -447,7 +453,36 @@ gboolean GcmdGtkFoldview::View::create(GtkWidget *_this, GtkTreeModel *_treemode
 
 void GcmdGtkFoldview::View::destroy()
 {
+	/*
+	if ( m_con_hbox )
+		GtkWidget *m_con_combo;
+		GtkWidget *m_vol_label;
+
+		GtkWidget   *m_scrolledwindow;
+		GtkWidget   *m_info_label;
+
+		GdkPixbuf		*m_pixbuf[50];
 	
+		public:
+		enum eIcon
+		{
+			eIconUnknown					,
+
+			eIconDirReadWrite				,
+			eIconDirReadOnly				,
+			eIconDirForbidden				,
+
+			eIconSymlinkToDirReadWrite		,
+			eIconSymlinkToDirReadOnly		,
+			eIconSymlinkToDirForbidden
+		};
+		
+		// Release 
+		icons_unload();
+
+
+		GtkWidget		*m_treeview;
+	*/
 }
 
 //=============================================================================

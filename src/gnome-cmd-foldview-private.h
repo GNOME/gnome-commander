@@ -32,13 +32,8 @@
 
 		GcmdFileSelector resize automatically resize the main vertical pane
 		( FILL / EXPAND gtk settings somewhere ) ?
-		
-		memory leaks hunt
 
-		symlinks icons show little white pixel when selected its ugly
-		but gcmd's too
-			
-		init / destroy cleanup : g_object_ref on hided widgets
+		Trivial bug as no item is selectionned on foldview showing
 
 		..................... facultative  / later ............................
 
@@ -48,6 +43,26 @@
 
 		Notification from filesystem ( very hard to do, we're really going
 		multithread ) -> gdk_threads_enter will be enough I think
+
+DONE	init / destroy cleanup : g_object_ref on hided widgets
+
+DONE	memory leaks hunt
+
+DONE	memory leak : gnome-cmd-foldview-control.cc::814 forgot g_free(str)
+
+DONE	memory leak : root node
+
+DONE	memory leak : GcmdGtkFldview::Model::destroy implemented
+
+DONE	memory leak : gvfs quickstack
+
+DONE	correct ESC[30m for terminal after each gwr_print
+
+		.......................................................................
+COMMIT  05bb32e2cfd8eb56bf64e93bc1785ce52f6a100d
+
+DONE	symlinks icons show little white pixel when selected its ugly
+		but gcmd's too
 
 DONE	foldview correct position on show / hide ( cmdline, buttonbar, ... )
 
@@ -348,17 +363,10 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 		"drag-data-delete"								SRC
 		
 ******************************************************************************/
-//#define USE_GTK_TREESTORE
-
-
-
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtkvbox.h>
 #include <gtk/gtklabel.h>
-#ifndef USE_GTK_TREESTORE
-	#include "gnome-cmd-foldview-treestore.h"
-#endif
 
 //*****************************************************************************
 //								Defines
@@ -368,10 +376,14 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 // of a GnomeCmdFoldviewTreestore
 //#define USE_GTK_TREESTORE
 
+#ifndef USE_GTK_TREESTORE
+	#include "gnome-cmd-foldview-treestore.h"
+#endif
+
 //*****************************************************************************
 //								Logging
 //*****************************************************************************
-#define DEBUG_SHOW_INF
+//#define DEBUG_SHOW_INF
 #define DEBUG_SHOW_WNG
 #define DEBUG_SHOW_ERR
 #define DEBUG_SHOW_VFS
@@ -650,10 +662,10 @@ struct GcmdGtkFoldview
 	{
 		public:
 		void			init_instance();
+		void			release_objects();
 		private:
 		void			raz_pointers();
 		gboolean		create();
-		void			destroy();												// __GWR__TODO__
 
 		//---------------------------------------------------------------------
 		// divers
@@ -777,8 +789,25 @@ struct GcmdGtkFoldview
 	private:
 	void		control_raz_pointers();
 	gboolean	control_create();
-	void		control_destroy();
+	void		control_finalize();
+	void		control_dispose();
 
+	//-------------------------------------------------------------------------
+	// GObject stuff
+	//-------------------------------------------------------------------------
+	public:
+	static GObjectClass *Control_parent_class;
+	public:
+	static  void	Control_gtk_object_destroy	(GtkObject*);
+	static  void	Control_g_object_dispose	(GObject*);
+	static  void	Control_g_object_finalize   (GObject*);
+	static  void	Control_g_object_init		(GcmdGtkFoldview *foldview);
+	
+			gint	control_ref_count()
+					{
+						return ((GInitiallyUnowned*)this)->ref_count;
+					}
+	
 	//-------------------------------------------------------------------------
 	// divers
 	//-------------------------------------------------------------------------

@@ -259,6 +259,7 @@ struct gvfs_async_load_subdirs
 //*****************************************************************************
 gboolean		GVFS_qstack_initialized();
 void			GVFS_qstack_initialize();
+void			GVFS_qstack_destroy();
 
 GnomeVFSURI*	GVFS_uri_new(const gchar *text);
 gboolean		GVFS_info_from_uri(GnomeVFSURI* uri, GnomeVFSFileInfo* info);

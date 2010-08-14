@@ -319,10 +319,12 @@ void*   GnomeCmdFoldviewTreestore::node_block::operator new(
 //=============================================================================
 void	GnomeCmdFoldviewTreestore::node_block::operator delete (void *p)
 {
-	#ifdef DEBUG_BLOCKS
 	GnomeCmdFoldviewTreestore::node_block *b = (GnomeCmdFoldviewTreestore::node_block*)p;
-	BLOCK_INF("BLK(+%04i blocks) d:%03i c:%03i", Count - 1, b->a_depth, b->a_card);
+	#ifdef DEBUG_BLOCKS
+	BLOCK_INF("BLK(-%04i blocks) d:%03i c:%03i", Count - 1, b->a_depth, b->a_card);
 	#endif
+
+	g_array_free( b->d_nodes, TRUE );
 
 	g_free(p);
 
@@ -352,7 +354,7 @@ GnomeCmdFoldviewTreestore::node_block::node_get(
 		if ( pos != 0 )
 			return NULL;
 
-		BLOCK_INF("BLK(%-20s) d:%03i p:%03i c:%03i [NULL]", "node_get", a_depth, index, a_card);
+		//BLOCK_INF("BLK(%-20s) d:%03i p:%03i c:%03i [NULL]", "node_get", a_depth, index, a_card);
 		// this is authorized, since gtk call us for 0th child !!!
 		return NULL;
 	}
@@ -365,7 +367,7 @@ GnomeCmdFoldviewTreestore::node_block::node_get(
 	}
 
 	node = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, pos);
-	BLOCK_INF("BLK(%-20s) d:%03i p:%03i c:%03i [%s]", "node_get", a_depth, pos, a_card, node->log());
+	//BLOCK_INF("BLK(%-20s) d:%03i p:%03i c:%03i [%s]", "node_get", a_depth, pos, a_card, node->log());
 	return node;
 }
 
@@ -577,7 +579,7 @@ GnomeCmdFoldviewTreestore::node_block::node_cut(
 	*   @node : the node of this block to remove
 	*
 	*   _RECURSIVELY_ remove all the nodes of the block.
-	*   After this call, the block is set to have 0 child.
+	*   After this call, the block cannot be used, its info is invalid
 	*
 	**/
 
@@ -596,13 +598,15 @@ GnomeCmdFoldviewTreestore::node_block::purge()
 	{
 		next = node->next();
 		count += node->purge();
+
 		delete node;
+		count++;
+
 		node = next;
 	}
 
-	// update block 
-	//g_array_remove_range(d_nodes, 0, a_card - 1);
-	//a_card = 0;
+	// no update block, the "purge" process for node_blocks is separated
+	// in two methods - this is the quick part
 	return count;
 }
 
@@ -620,12 +624,15 @@ GnomeCmdFoldviewTreestore::node_block::purge_and_update()
 	{
 		next = node->next();
 		count += node->purge();
+
 		delete node;
+		count++;
+
 		node = next;
 	}
 
-	// update block 
-	//g_array_remove_range(pointer, index, length);
+	// update block, the "purge" process for node_blocks is separated
+	// in two methods - this is the first call
 	g_array_remove_range(d_nodes, 0, a_card);
 	a_card = 0;
 	return count;
@@ -857,6 +864,42 @@ gint GnomeCmdFoldviewTreestore::remove_children(
 
 	return count;
 }
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::clear:
+	*
+	*   Clear * everything *
+	*
+	**/
+
+//=============================================================================
+gint 
+GnomeCmdFoldviewTreestore::clear()
+{
+	gint count = 0;
+
+	// store is empty !
+	if ( !d_node_root )
+		return 0;
+
+	// Quickly purge all beyond node_root	
+	count = d_node_root->children()->purge();
+
+	// delete node_root
+	delete d_node_root->children();
+	delete d_node_root;
+	count++;
+
+	// Set pointer to NULL
+	d_node_root = NULL;
+	
+	gwr_inf("GnomeCmdFoldviewTreestore::clear:%03i nodes deleted", count);
+	
+	return count;
+}
+
 
 
 
@@ -1398,6 +1441,8 @@ gnome_cmd_foldview_treestore_finalize(GObject *object)
 	//......................................................................... 
 	g_return_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(object) );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(object);
+
+	gwr_inf("GnomeCmdFoldviewTreestore::finalize()");
 
 	// free all records and free all memory used by the list
 	treestore->clear();

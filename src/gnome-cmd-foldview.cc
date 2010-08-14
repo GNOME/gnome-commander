@@ -68,6 +68,16 @@ static  GnomeVFSResult  sVFSResult		= GNOME_VFS_OK;	 // for sync operations
 
 extern  GnomeCmdMainWin *main_win;
 
+
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #								Logging									  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+
+
 //=============================================================================
 //  Logger
 //=============================================================================
@@ -121,7 +131,7 @@ void gwr_inf(const char* fmt, ...)
 		return;
 	#endif
 	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	gwr_print("\033[0;32mINF:\033[0;30m");
+	gwr_print("\033[0;32mINF:\033[0m");
 }
 void gwr_wng(const char* fmt, ...)
 {
@@ -129,7 +139,7 @@ void gwr_wng(const char* fmt, ...)
 		return;
 	#endif
 	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	gwr_print("\033[0;35mWNG:\033[0;30m");
+	gwr_print("\033[0;35mWNG:\033[0m");
 }
 void gwr_err(const char* fmt, ...)
 {
@@ -137,7 +147,7 @@ void gwr_err(const char* fmt, ...)
 		return;
 	#endif
 	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	gwr_print("\033[0;31mERR:\033[0;30m");
+	gwr_print("\033[0;31mERR:\033[0m");
 }
 void gwr_inf_vfs(const char* fmt, ...)
 {
@@ -148,7 +158,7 @@ void gwr_inf_vfs(const char* fmt, ...)
 	strcat(sLogStr, " [VFS-INF:");
 	strcat(sLogStr,   gnome_vfs_result_to_string(sVFSResult));
 	strcat(sLogStr, "]");
-	gwr_print("\033[0;31mERR:\033[0;30m");
+	gwr_print("\033[0;31mERR:\033[0m");
 }
 void gwr_err_vfs(const char* fmt, ...)
 {
@@ -159,15 +169,17 @@ void gwr_err_vfs(const char* fmt, ...)
 	strcat(sLogStr, " [VFS-ERR:");
 	strcat(sLogStr,   gnome_vfs_result_to_string(sVFSResult));
 	strcat(sLogStr, "]");
-	gwr_print("\033[0;31mERR:\033[0;30m");
+	gwr_print("\033[0;31mERR:\033[0m");
 }
 
 
-//  ***************************************************************************
-//  *																		  *
-//  *								Divers									  *
-//  *																		  *
-//  ***************************************************************************
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #								Divers									  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
 GcmdGtkFoldview::eFileAccess GcmdGtkFoldview::Access_from_permissions(
 	GnomeVFSFilePermissions permissions)
 {
@@ -227,29 +239,40 @@ GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_access(
 	return View::eIconUnknown;
 }
 
-//  ***************************************************************************
-//  *																		  *
-//  *						widget showing / hiding							  *
-//  *																		  *
-//  ***************************************************************************
-static  GtkWidget*	GcmdGtkFoldviewSingleton	= NULL;
+
+
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #						GcmdGtkFoldview									  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
 
 //  ***************************************************************************
 //  *																		  *
-//  *						public interface								  *
+//  *							Singleton impl							      *
 //  *																		  *
 //  ***************************************************************************
 
-//=============================================================================
-//  Singleton
-//=============================================================================
+//
+// ~ The ~  singleton
+//
+static  GtkWidget*	GcmdGtkFoldviewSingleton = NULL;
 
+//
+// Singleton accessors
+//
 GtkWidget* GcmdWidget()
 {
 	if ( GcmdGtkFoldviewSingleton != NULL )
 		return GcmdGtkFoldviewSingleton;
 
 	GcmdGtkFoldviewSingleton = gcmdgtkfoldview_new();
+
+	// assume ownership:
+	// ensure foldview will not be destroyed when showing / hiding
+	g_object_ref_sink(GcmdGtkFoldviewSingleton);
 
 	return GcmdGtkFoldviewSingleton;
 }
@@ -259,45 +282,13 @@ GcmdGtkFoldview* GcmdFoldview()
 	return (GcmdGtkFoldview*)( GcmdWidget() );
 }
 
-void	gnome_cmd_foldview_update_style(GtkWidget *widget)
-{
-	g_return_if_fail( widget != NULL );
-
-	(GCMDGTKFOLDVIEW(widget))->view.update_style();
-}
-
-GtkWidget* gnome_cmd_foldview_get_instance()
-{
-	return GcmdWidget();
-}
-
-//=============================================================================
-//  Init
-//=============================================================================
-
-//=============================================================================
-//  Root element
-//=============================================================================
-gboolean GcmdGtkFoldview::root_uri_set_1(gchar * text)
-{
-	GnomeVFSURI *uri	= GVFS_uri_new(text);
-	control_root_uri_set(uri);
-	gnome_vfs_uri_unref(uri);
-	return TRUE;
-}
-
-gboolean GcmdGtkFoldview::root_uri_set_2(GnomeVFSURI *uri)
-{
-	return control_root_uri_set(uri);
-}
-
-
-
 //  ***************************************************************************
 //  *																		  *
-//  *						gtk implementation								  *
+//  *							GObject impl								  *
 //  *																		  *
 //  ***************************************************************************
+
+static  void	gcmdgtkfoldview_class_init(GcmdGtkFoldviewClass   *klass);
 
 enum
 {
@@ -305,32 +296,15 @@ enum
   LAST_SIGNAL
 };
 
-static void gcmdgtkfoldview_class_init          (GcmdGtkFoldviewClass   *klass);
-static void gcmdgtkfoldview_init                (GcmdGtkFoldview  		*ttt);
-//static void init								(GcmdGtkFoldview		*foldview);
-
 static guint gcmdgtkfoldview_signals[LAST_SIGNAL] = { 0 };
 
-// GObject stuff - nothing to worry about
-static GObjectClass *parent_class = NULL;
 
+//=============================================================================
+//
+//							Pure GObject stuff
+//
+//=============================================================================
 
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-static void
-gnome_cmd_foldview_treestore_finalize(GObject *object)
-{
-	GcmdGtkFoldview *foldview  = NULL;
-	//......................................................................... 
-	g_return_if_fail ( IS_GCMDGTKFOLDVIEW(object) );
-	foldview = GCMDGTKFOLDVIEW(object);
-
-	g_assert(FALSE);
-
-	// must chain up - finalize parent
-	(* parent_class->finalize) (object);
-
-}
 //-----------------------------------------------------------------------------
 //	GcmdGtkFoldview GType implementation
 //-----------------------------------------------------------------------------
@@ -351,7 +325,7 @@ gcmdgtkfoldview_get_type (void)
 			NULL, /* class_data */
 			sizeof (GcmdGtkFoldview),
 			0,
-			(GInstanceInitFunc) gcmdgtkfoldview_init,
+			(GInstanceInitFunc)GcmdGtkFoldview::Control_g_object_init,
 		};
 
 	fv_type = g_type_register_static(GTK_TYPE_VBOX, "gtkGcmdFoldview", &fv_info, (GTypeFlags)0);
@@ -376,24 +350,18 @@ gcmdgtkfoldview_class_init (GcmdGtkFoldviewClass *klass)
 		g_cclosure_marshal_VOID__VOID,
 		G_TYPE_NONE, 0);
 
-
-
 	// For exiting properly 
-	GObjectClass *object_class;
+    GtkObjectClass  *gtk_object_class   = GTK_OBJECT_CLASS  (klass);
+    //GtkWidgetClass  *gtk_widget_class   = GTK_WIDGET_CLASS  (klass);
+	GObjectClass	*g_object_class		= G_OBJECT_CLASS	(klass);
 
-	parent_class = (GObjectClass*) g_type_class_peek_parent (klass);
-	object_class = (GObjectClass*) klass;
 
-	object_class->finalize = gnome_cmd_foldview_treestore_finalize;
-}
+	GcmdGtkFoldview::Control_parent_class	= (GObjectClass*) g_type_class_peek_parent (klass);
 
-//-----------------------------------------------------------------------------
-//	GcmdGtkFoldview instance initialization
-//-----------------------------------------------------------------------------
-static void
-gcmdgtkfoldview_init (GcmdGtkFoldview *foldview)
-{
-	foldview->control_init_instance();
+	// override dispose & finalize
+	gtk_object_class->destroy   = GcmdGtkFoldview::Control_gtk_object_destroy;
+	g_object_class->dispose		= GcmdGtkFoldview::Control_g_object_dispose;
+	g_object_class->finalize	= GcmdGtkFoldview::Control_g_object_finalize;
 }
 
 GtkWidget*
@@ -402,8 +370,61 @@ gcmdgtkfoldview_new ()
     return GTK_WIDGET (g_object_new (GCMDGTKFOLDVIEW_TYPE, NULL));
 }
 
-void
-gcmdgtkfoldview_clear (GcmdGtkFoldview *foldview)
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #						Public methods									  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+void	
+gnome_cmd_foldview_update_style(GtkWidget *widget)
 {
+	g_return_if_fail( widget != NULL );
+
+	(GCMDGTKFOLDVIEW(widget))->view.update_style();
 }
+
+GtkWidget* 
+gnome_cmd_foldview_get_instance()
+{
+	return GcmdWidget();
+}
+
+void gnome_cmd_foldview_destroy()
+{
+	gint rc = 0;
+
+	if ( ! GcmdGtkFoldviewSingleton )
+		return;
+
+	rc = (GCMDGTKFOLDVIEW(GcmdGtkFoldviewSingleton))->control_ref_count();
+
+	// release our ref
+	gwr_inf("gnome_cmd_foldview_destroy:refcount is %03i, releasing one", rc);
+	g_object_unref( GcmdGtkFoldviewSingleton );
+
+	// last ref !
+	//gwr_inf("removing last ref...");
+	//g_object_unref( GcmdGtkFoldviewSingleton );
+	//gtk_widget_destroy( GcmdWidget() );
+}
+
+
+//=============================================================================
+//  Root element
+//=============================================================================
+gboolean GcmdGtkFoldview::root_uri_set_1(gchar * text)
+{
+	GnomeVFSURI *uri	= GVFS_uri_new(text);
+	control_root_uri_set(uri);
+	gnome_vfs_uri_unref(uri);
+	return TRUE;
+}
+
+gboolean GcmdGtkFoldview::root_uri_set_2(GnomeVFSURI *uri)
+{
+	return control_root_uri_set(uri);
+}
+
 
