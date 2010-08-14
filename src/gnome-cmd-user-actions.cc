@@ -1767,6 +1767,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
     static const gchar *documenters[] = {
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
+        "Laurent Coudeur <laurentc@eircom.net>",
         NULL
     };
 
