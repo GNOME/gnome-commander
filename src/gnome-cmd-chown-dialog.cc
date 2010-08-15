@@ -50,7 +50,7 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
     g_return_if_fail (in != NULL);
     g_return_if_fail (in->info != NULL);
 
-    ret = gnome_cmd_file_chown (in, uid, gid);
+    ret = in->chown(uid, gid);
 
     if (ret != GNOME_VFS_OK)
     {

@@ -272,20 +272,19 @@ void gnome_cmd_file_unref (GnomeCmdFile *f)
 }
 
 
-GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *f, GnomeVFSFilePermissions perm)
+GnomeVFSResult GnomeCmdFile::chmod(GnomeVFSFilePermissions perm)
 {
-    g_return_val_if_fail (f != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
-    g_return_val_if_fail (f->info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
-    f->info->permissions = perm;
-    GnomeVFSURI *uri = f->get_uri();
-    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, f->info, GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
+    info->permissions = perm;
+    GnomeVFSURI *uri = get_uri();
+    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, info, GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
     gnome_vfs_uri_unref (uri);
 
-    if (has_parent_dir (f))
+    if (has_parent_dir (this))
     {
-        GnomeCmdDir *dir = get_parent_dir (f);
-        gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+        GnomeCmdDir *dir = get_parent_dir (this);
+        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
@@ -294,23 +293,22 @@ GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *f, GnomeVFSFilePermissions pe
 }
 
 
-GnomeVFSResult gnome_cmd_file_chown (GnomeCmdFile *f, uid_t uid, gid_t gid)
+GnomeVFSResult GnomeCmdFile::chown(uid_t uid, gid_t gid)
 {
-    g_return_val_if_fail (f != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
-    g_return_val_if_fail (f->info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     if (uid != -1)
-        f->info->uid = uid;
-    f->info->gid = gid;
+        info->uid = uid;
+    info->gid = gid;
 
-    GnomeVFSURI *uri = f->get_uri();
-    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, f->info, GNOME_VFS_SET_FILE_INFO_OWNER);
+    GnomeVFSURI *uri = get_uri();
+    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, info, GNOME_VFS_SET_FILE_INFO_OWNER);
     gnome_vfs_uri_unref (uri);
 
-    if (has_parent_dir (f))
+    if (has_parent_dir (this))
     {
-        GnomeCmdDir *dir = get_parent_dir (f);
-        gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+        GnomeCmdDir *dir = get_parent_dir (this);
+        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
@@ -319,36 +317,35 @@ GnomeVFSResult gnome_cmd_file_chown (GnomeCmdFile *f, uid_t uid, gid_t gid)
 }
 
 
-GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name)
+GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
 {
-    g_return_val_if_fail (f, GNOME_VFS_ERROR_CORRUPTED_DATA);
-    g_return_val_if_fail (f->info, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     GnomeVFSFileInfo *new_info = gnome_vfs_file_info_new ();
     g_return_val_if_fail (new_info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     new_info->name = const_cast<gchar *> (new_name);
 
-    GnomeVFSURI *uri = f->get_uri();
+    GnomeVFSURI *uri = get_uri();
     GnomeVFSResult result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
     gnome_vfs_uri_unref (uri);
 
     if (result==GNOME_VFS_OK)       //  re-read GnomeVFSFileInfo for the new MIME type
     {
         const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-        uri = f->get_uri(new_name);
+        uri = get_uri(new_name);
         result = gnome_vfs_get_file_info_uri (uri, new_info, infoOpts);
         gnome_vfs_uri_unref (uri);
     }
 
-    if (result==GNOME_VFS_OK && has_parent_dir (f))
+    if (result==GNOME_VFS_OK && has_parent_dir (this))
     {
-        gchar *old_uri_str = gnome_cmd_file_get_uri_str (f);
+        gchar *old_uri_str = gnome_cmd_file_get_uri_str (this);
 
-        f->update_info(new_info);
-        gnome_cmd_dir_file_renamed (get_parent_dir (f), f, old_uri_str);
-        if (GNOME_CMD_IS_DIR (f))
-            gnome_cmd_dir_update_path (GNOME_CMD_DIR (f));
+        update_info(new_info);
+        gnome_cmd_dir_file_renamed (get_parent_dir (this), this, old_uri_str);
+        if (GNOME_CMD_IS_DIR (this))
+            gnome_cmd_dir_update_path (GNOME_CMD_DIR (this));
     }
 
     return result;

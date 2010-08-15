@@ -57,6 +57,10 @@ struct GnomeCmdFile
     const gchar *get_type_desc();
     gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
 
+    GnomeVFSResult chmod(GnomeVFSFilePermissions perm);
+    GnomeVFSResult chown(uid_t uid, gid_t gid);
+    GnomeVFSResult rename(const gchar *new_name);
+
     void update_info(GnomeVFSFileInfo *info);
     gboolean is_local();
     gboolean is_executable();
@@ -88,10 +92,6 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 
 GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f);
 void gnome_cmd_file_unref (GnomeCmdFile *f);
-
-GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *f, GnomeVFSFilePermissions perm);
-GnomeVFSResult gnome_cmd_file_chown (GnomeCmdFile *f, uid_t uid, gid_t gid);
-GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name);
 
 inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 {

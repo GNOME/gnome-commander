@@ -451,7 +451,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                 GnomeVFSResult result = GNOME_VFS_OK;
 
                 if (strcmp (f->info->name, new_name) != 0)
-                    result = gnome_cmd_file_rename (f, new_name);
+                    result = f->rename(new_name);
 
                 gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
                                     COL_NAME, gnome_cmd_file_get_name (f),
