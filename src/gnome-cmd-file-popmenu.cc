@@ -93,7 +93,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
     for (; files; files = files->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-        GnomeVFSMimeApplication *vfs_app = gnome_cmd_file_get_default_application (f);
+        GnomeVFSMimeApplication *vfs_app = f->get_default_application();
 
         if (vfs_app)
         {
@@ -160,7 +160,7 @@ static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
 
     GtkWidget *term_check = create_check (dialog, _("Needs terminal"), "term_check");
 
-    gtk_widget_ref (dialog);
+    g_object_ref (dialog);
     g_object_set_data_full (G_OBJECT (menu_item), "new_textfile_dialog", dialog, g_object_unref);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), term_check);
@@ -173,7 +173,7 @@ static void on_execute (GtkMenuItem *menu_item, GList *files)
 {
     GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
 
-    gnome_cmd_file_execute (f);
+    f->execute();
 }
 
 
@@ -529,7 +529,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     g_free ((gpointer) open_uiinfo[0].label);
 
     pos += 3;
-    if (gnome_cmd_file_is_executable (f) && g_list_length (files) == 1)
+    if (f->is_executable() && g_list_length (files) == 1)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, NULL, FALSE, pos++);
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);

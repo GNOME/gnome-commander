@@ -29,18 +29,46 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
 
 
-struct GnomeCmdFilePrivate;
 class GnomeCmdFileMetadata;
 
 struct GnomeCmdFile
 {
     GnomeCmdFileInfo parent;
 
+    class Private;
+
+    Private *priv;
+
     GnomeVFSFileInfo *info;
     gboolean is_dotdot;
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
-    GnomeCmdFilePrivate *priv;
     GnomeCmdFileMetadata *metadata;
+
+    void invalidate_metadata();
+
+    gchar *get_path();
+    gchar *get_dirname();
+    gchar *get_unescaped_dirname();
+    GnomeVFSURI *get_uri(const gchar *name=NULL);
+
+    char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
+
+    const gchar *get_type_string();
+    const gchar *get_type_desc();
+    gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
+
+    void update_info(GnomeVFSFileInfo *info);
+    gboolean is_local();
+    gboolean is_executable();
+    void is_deleted();
+    void execute();
+
+    gboolean needs_update();
+
+    void invalidate_tree_size();
+    gboolean has_tree_size();
+
+    GnomeVFSMimeApplication *get_default_application();
 };
 
 struct GnomeCmdFileClass
@@ -58,8 +86,6 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 
-void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f);
-
 GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f);
 void gnome_cmd_file_unref (GnomeCmdFile *f);
 
@@ -76,19 +102,9 @@ inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 }
 
 gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f);
-
-gchar *gnome_cmd_file_get_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f);
-GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f, const gchar *name=NULL);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
-
-inline char *gnome_cmd_file_get_collation_fname (GnomeCmdFile *f)
-{
-    return f->collate_key ? f->collate_key : f->info->name;
-}
 
 const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *f);
@@ -104,10 +120,6 @@ const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *f);
 gboolean gnome_cmd_file_has_mime_type (GnomeCmdFile *f, const gchar *mime_type);
 gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *f, const gchar *mime_type_start);
-
-const gchar *gnome_cmd_file_get_type_string (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f);
-gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **pixmap, GdkBitmap **mask);
 
 void gnome_cmd_file_show_properties (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);
@@ -126,21 +138,9 @@ void gnome_cmd_file_list_unref (GList *files);
 
 GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f);
 
-void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info);
-gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
-gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f);
-void gnome_cmd_file_is_deleted (GnomeCmdFile *f);
-void gnome_cmd_file_execute (GnomeCmdFile *f);
-
-gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f);
-
-//misc tree size functions
-void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *f);
-gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *f);
-
-inline GnomeVFSMimeApplication *gnome_cmd_file_get_default_application (GnomeCmdFile *f)
+inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {
-    return f && f->info->mime_type ? gnome_vfs_mime_get_default_application (f->info->mime_type) : NULL;
+    return info->mime_type ? gnome_vfs_mime_get_default_application (info->mime_type) : NULL;
 }
 
 #endif // __GNOME_CMD_FILE_H__

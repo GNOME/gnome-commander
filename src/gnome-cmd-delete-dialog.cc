@@ -169,7 +169,7 @@ static void perform_delete_operation (DeleteData *data)
         if (f->is_dotdot || strcmp(f->info->name, ".") == 0)
             continue;
 
-        GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+        GnomeVFSURI *uri = f->get_uri();
         if (!uri) continue;
 
         uri_list = g_list_append (uri_list, gnome_vfs_uri_ref (uri));
@@ -223,10 +223,10 @@ static gboolean update_delete_status_widgets (DeleteData *data)
             for (GList *tmp = data->files; tmp; tmp = tmp->next)
             {
                 GnomeCmdFile *f = GNOME_CMD_FILE (tmp->data);
-                GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+                GnomeVFSURI *uri = f->get_uri();
 
                 if (!gnome_vfs_uri_exists (uri))
-                    gnome_cmd_file_is_deleted (f);
+                    f->is_deleted();
             }
 
         gtk_widget_destroy (data->progwin);

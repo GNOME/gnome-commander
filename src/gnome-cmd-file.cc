@@ -50,7 +50,7 @@ GList *all_files = NULL;
 
 static GnomeCmdFileInfoClass *parent_class = NULL;
 
-struct GnomeCmdFilePrivate
+struct GnomeCmdFile::Private
 {
     Handle *dir_handle;
     GTimeVal last_update;
@@ -119,7 +119,7 @@ static void init (GnomeCmdFile *f)
     // f->info = NULL;
     // f->collate_key = NULL;
 
-    f->priv = g_new0 (GnomeCmdFilePrivate, 1);
+    f->priv = g_new0 (GnomeCmdFile::Private, 1);
 
     // f->priv->dir_handle = NULL;
 
@@ -198,12 +198,10 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
 }
 
 
-void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f)
+void GnomeCmdFile::invalidate_metadata()
 {
-    g_return_if_fail (f != NULL);
-
-    delete f->metadata;
-    f->metadata = NULL;
+    delete metadata;
+    metadata = NULL;
 }
 
 
@@ -280,7 +278,7 @@ GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *f, GnomeVFSFilePermissions pe
     g_return_val_if_fail (f->info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     f->info->permissions = perm;
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, f->info, GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
     gnome_vfs_uri_unref (uri);
 
@@ -305,7 +303,7 @@ GnomeVFSResult gnome_cmd_file_chown (GnomeCmdFile *f, uid_t uid, gid_t gid)
         f->info->uid = uid;
     f->info->gid = gid;
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, f->info, GNOME_VFS_SET_FILE_INFO_OWNER);
     gnome_vfs_uri_unref (uri);
 
@@ -331,14 +329,14 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name)
 
     new_info->name = const_cast<gchar *> (new_name);
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     GnomeVFSResult result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
     gnome_vfs_uri_unref (uri);
 
     if (result==GNOME_VFS_OK)       //  re-read GnomeVFSFileInfo for the new MIME type
     {
         const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
-        uri = gnome_cmd_file_get_uri (f, new_name);
+        uri = f->get_uri(new_name);
         result = gnome_vfs_get_file_info_uri (uri, new_info, infoOpts);
         gnome_vfs_uri_unref (uri);
     }
@@ -347,7 +345,7 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name)
     {
         gchar *old_uri_str = gnome_cmd_file_get_uri_str (f);
 
-        gnome_cmd_file_update_info (f, new_info);
+        f->update_info(new_info);
         gnome_cmd_dir_file_renamed (get_parent_dir (f), f, old_uri_str);
         if (GNOME_CMD_IS_DIR (f))
             gnome_cmd_dir_update_path (GNOME_CMD_DIR (f));
@@ -366,28 +364,27 @@ gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
 }
 
 
-gchar *gnome_cmd_file_get_path (GnomeCmdFile *f)
+gchar *GnomeCmdFile::get_path()
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (strcmp (f->info->name, G_DIR_SEPARATOR_S) == 0)
+    if (strcmp (info->name, G_DIR_SEPARATOR_S) == 0)
         return g_strdup (G_DIR_SEPARATOR_S);
 
     GnomeCmdPath *path;
     gchar *path_str;
 
-    if (!has_parent_dir (f))
+    if (!has_parent_dir (this))
     {
-        if (GNOME_CMD_IS_DIR (f))
+        if (GNOME_CMD_IS_DIR (this))
         {
-            path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (f));
+            path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
             return g_strdup (gnome_cmd_path_get_path (path));
         }
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (get_parent_dir (f)), f->info->name);
+    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (get_parent_dir (this)), info->name);
     path_str = g_strdup (gnome_cmd_path_get_path (path));
     gtk_object_destroy (GTK_OBJECT (path));
 
@@ -397,9 +394,8 @@ gchar *gnome_cmd_file_get_path (GnomeCmdFile *f)
 
 gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
 {
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
-
     gnome_vfs_uri_unref (uri);
 
     return path;
@@ -409,7 +405,7 @@ gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
 {
     gchar *path = gnome_cmd_file_get_real_path (f);
-    gchar *ret = path ? quote_if_needed (path) : NULL;
+    gchar *ret = quote_if_needed (path);
 
     g_free (path);
 
@@ -417,20 +413,19 @@ gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
 }
 
 
-gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *f)
+gchar *GnomeCmdFile::get_dirname()
 {
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = get_uri();
     gchar *path = gnome_vfs_uri_extract_dirname (uri);
-
     gnome_vfs_uri_unref (uri);
 
     return path;
 }
 
 
-gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f)
+gchar *GnomeCmdFile::get_unescaped_dirname()
 {
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = get_uri();
     gchar *path = gnome_vfs_uri_extract_dirname (uri);
     gnome_vfs_uri_unref (uri);
     gchar *unescaped_path = gnome_vfs_unescape_string (path, NULL);
@@ -440,23 +435,21 @@ gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f)
 }
 
 
-GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f, const gchar *name)
+GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
-
-    if (!has_parent_dir (f))
+    if (!has_parent_dir (this))
     {
-        if (GNOME_CMD_IS_DIR (f))
+        if (GNOME_CMD_IS_DIR (this))
         {
-            GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (f));
-            GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (f));
+            GnomeCmdPath *path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
+            GnomeCmdCon *con = gnome_cmd_dir_get_connection (GNOME_CMD_DIR (this));
             return gnome_cmd_con_create_uri (con, path);
         }
         else
             g_assert ("Non directory file without owning directory");
     }
 
-    return gnome_cmd_dir_get_child_uri (get_parent_dir (f), name ? name : f->info->name);
+    return gnome_cmd_dir_get_child_uri (get_parent_dir (this), name ? name : info->name);
 }
 
 
@@ -464,7 +457,7 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     gchar *uri_str = gnome_vfs_uri_to_string (uri, hide_options);
     gnome_vfs_uri_unref (uri);
 
@@ -579,7 +572,7 @@ GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
     if (f->priv->tree_size != -1)
         return f->priv->tree_size;
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     f->priv->tree_size = calc_tree_size (uri);
     gnome_vfs_uri_unref (uri);
 
@@ -614,19 +607,18 @@ const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *f)
 }
 
 
-const gchar *gnome_cmd_file_get_type_string (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_type_string()
 {
     static gchar type_str[MAX_TYPE_LENGTH];
 
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    type2string (f->info->type, type_str, MAX_TYPE_LENGTH);
+    type2string (info->type, type_str, MAX_TYPE_LENGTH);
     return type_str;
 }
 
 
-const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_type_desc()
 {
     static const gchar *type_strings[] = {
         N_("Unknown file type"),
@@ -639,22 +631,20 @@ const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f)
         N_("Symbolic link")
     };
 
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (!f->info->symlink_name)
-        return type_strings[f->info->type];
+    if (!info->symlink_name)
+        return type_strings[info->type];
 
     return type_strings[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 }
 
 
-gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **pixmap, GdkBitmap **mask)
+gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    return IMAGE_get_pixmap_and_mask (f->info->type, f->info->mime_type, f->info->symlink_name != NULL, pixmap, mask);
+    return IMAGE_get_pixmap_and_mask (info->type, info->mime_type, info->symlink_name != NULL, pixmap, mask);
 }
 
 
@@ -755,7 +745,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     g_return_if_fail (has_parent_dir (f));
 
     // If the file is local there is no need to download it
-    if (gnome_cmd_file_is_local (f))
+    if (f->is_local())
     {
         do_view_file (f, internal_viewer);
         return;
@@ -766,7 +756,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     if (!path_str)  return;
 
     GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
-    GnomeVFSURI *src_uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *src_uri = f->get_uri();
     GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
 
     g_printerr ("Copying to: %s\n", path_str);
@@ -786,11 +776,11 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
 
-    if (!gnome_cmd_file_is_local (f))
+    if (!f->is_local())
         return;
 
     gchar *fpath = gnome_cmd_file_get_quoted_real_path (f);
-    gchar *dpath = gnome_cmd_file_get_unescaped_dirname (f);
+    gchar *dpath = f->get_unescaped_dirname();
     gchar *command = g_strdup_printf (gnome_cmd_data.get_editor(), fpath);
 
     run_command_indir (command, dpath, FALSE);
@@ -816,15 +806,14 @@ void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f)
 }
 
 
-void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info)
+void GnomeCmdFile::update_info(GnomeVFSFileInfo *info)
 {
-    g_return_if_fail (f != NULL);
     g_return_if_fail (info != NULL);
 
-    g_free (f->collate_key);
-    gnome_vfs_file_info_unref (f->info);
+    g_free (collate_key);
+    gnome_vfs_file_info_unref (this->info);
     gnome_vfs_file_info_ref (info);
-    f->info = info;
+    this->info = info;
 
     gchar *utf8_name;
 
@@ -837,64 +826,56 @@ void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info)
     else
         utf8_name = get_utf8 (info->name);
 
-    f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
+    collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
 }
 
 
-gboolean gnome_cmd_file_is_local (GnomeCmdFile *f)
+gboolean GnomeCmdFile::is_local()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
-
-    return gnome_cmd_dir_is_local (get_parent_dir (f));
+    return gnome_cmd_dir_is_local (get_parent_dir (this));
 }
 
 
-gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f)
+gboolean GnomeCmdFile::is_executable()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
-
-    if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+    if (info->type != GNOME_VFS_FILE_TYPE_REGULAR)
         return FALSE;
 
-    if (!gnome_cmd_file_is_local (f))
+    if (!is_local())
         return FALSE;
 
-    if (gcmd_owner.uid() == f->info->uid
-        && f->info->permissions & GNOME_VFS_PERM_USER_EXEC)
+    if (gcmd_owner.uid() == info->uid && info->permissions & GNOME_VFS_PERM_USER_EXEC)
         return TRUE;
 
-    if (gcmd_owner.gid() == f->info->gid
-        && f->info->permissions & GNOME_VFS_PERM_GROUP_EXEC)
+    if (gcmd_owner.gid() == info->gid && info->permissions & GNOME_VFS_PERM_GROUP_EXEC)
         return TRUE;
 
-    if (f->info->permissions & GNOME_VFS_PERM_OTHER_EXEC)
+    if (info->permissions & GNOME_VFS_PERM_OTHER_EXEC)
         return TRUE;
 
     return FALSE;
 }
 
 
-void gnome_cmd_file_is_deleted (GnomeCmdFile *f)
+void GnomeCmdFile::is_deleted()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
-
-    if (has_parent_dir (f))
+    if (has_parent_dir (this))
     {
-        gchar *uri_str = gnome_cmd_file_get_uri_str (f);
-        gnome_cmd_dir_file_deleted (get_parent_dir (f), uri_str);
+        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
+        gnome_cmd_dir_file_deleted (get_parent_dir (this), uri_str);
         g_free (uri_str);
     }
 }
 
 
-void gnome_cmd_file_execute (GnomeCmdFile *f)
+void GnomeCmdFile::execute()
 {
-    gchar *fpath = gnome_cmd_file_get_real_path (f);
+    gchar *fpath = gnome_cmd_file_get_real_path (this);
     gchar *dpath = g_path_get_dirname (fpath);
-    gchar *cmd = g_strdup_printf ("./%s", f->info->name);
+    gchar *cmd = g_strdup_printf ("./%s", info->name);
 
-    run_command_indir (cmd, dpath, app_needs_terminal (f));
+    run_command_indir (cmd, dpath, app_needs_terminal (this));
 
     g_free (fpath);
     g_free (dpath);
@@ -1004,15 +985,15 @@ inline gulong tv2ms (const GTimeVal &t)
 }
 
 
-gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f)
+gboolean GnomeCmdFile::needs_update()
 {
     GTimeVal t;
 
     g_get_current_time (&t);
 
-    if (tv2ms (t) - tv2ms (f->priv->last_update) > gnome_cmd_data.gui_update_rate)
+    if (tv2ms (t) - tv2ms (priv->last_update) > gnome_cmd_data.gui_update_rate)
     {
-        f->priv->last_update = t;
+        priv->last_update = t;
         return TRUE;
     }
 
@@ -1020,17 +1001,13 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *f)
 }
 
 
-void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *f)
+void GnomeCmdFile::invalidate_tree_size()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
-
-    f->priv->tree_size = -1;
+    priv->tree_size = -1;
 }
 
 
-gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *f)
+gboolean GnomeCmdFile::has_tree_size()
 {
-    g_return_val_if_fail (f != NULL, FALSE);
-
-    return f->priv->tree_size != -1;
+    return priv->tree_size != -1;
 }

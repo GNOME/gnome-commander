@@ -265,10 +265,10 @@ static void init (GnomeCmdQuicksearchPopup *popup)
     popup->lbl = gtk_label_new (_("Search"));
     popup->entry = gtk_entry_new ();
 
-    gtk_widget_ref (popup->frame);
-    gtk_widget_ref (popup->box);
-    gtk_widget_ref (popup->lbl);
-    gtk_widget_ref (popup->entry);
+    g_object_ref (popup->frame);
+    g_object_ref (popup->box);
+    g_object_ref (popup->lbl);
+    g_object_ref (popup->entry);
 
     gtk_box_pack_start (GTK_BOX (popup->box), popup->lbl, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (popup->box), popup->entry, FALSE, TRUE, 0);

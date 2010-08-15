@@ -302,7 +302,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 
     f->metadata->mark_as_accessed(TAG_PDF);
 
-    if (!gnome_cmd_file_is_local (f))  return;
+    if (!f->is_local())  return;
 
     // skip non pdf files, as pdf metatags extraction is very expensive...
     if (!strstr (f->info->mime_type, "pdf"))  return;

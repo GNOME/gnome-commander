@@ -113,7 +113,7 @@ static void init (GnomeCmdConHome *home_con)
     con->alias = g_strdup (_("Home"));
     con->method = CON_LOCAL;
     con->open_msg = g_strdup ("This should not be visible anywhere");
-    con->should_remember_dir = FALSE;
+    con->should_remember_dir = TRUE;
     con->needs_open_visprog = FALSE;
     con->needs_list_visprog = FALSE;
     con->can_show_free_space = TRUE;

@@ -265,12 +265,12 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
 {
     // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data.layout == GNOME_CMD_LAYOUT_TEXT)
-        text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (f);
+        text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) f->get_type_string();
     else
         text[GnomeCmdFileList::COLUMN_ICON] = NULL;
 
     // Prepare the strings to show
-    gchar *t1 = gnome_cmd_file_get_path (f);
+    gchar *t1 = f->get_path();
     gchar *t2 = g_path_get_dirname (t1);
     dpath = get_utf8 (t2);
     g_free (t1);
@@ -693,7 +693,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             const gchar *fn = NULL;
             gchar *uri_str;
 
-            if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (f)))
+            if (gnome_vfs_uri_is_local (f->get_uri()))
             {
 #ifdef UNESCAPE_LOCAL_FILES
                 fn = gnome_vfs_unescape_string (gnome_cmd_file_get_uri_str (f), 0);
@@ -856,7 +856,7 @@ static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
 
-    return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), raising);
+    return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
 }
 
 
@@ -877,7 +877,7 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
 
     if (!gnome_cmd_file_get_extension (f1) && !gnome_cmd_file_get_extension (f2))
-        return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), fl->priv->sort_raising[1]);
+        return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
 
     if (!gnome_cmd_file_get_extension (f1))
         return raising?1:-1;
@@ -886,7 +886,7 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     gint ret = my_strcmp (gnome_cmd_file_get_extension (f1), gnome_cmd_file_get_extension (f2), raising);
 
-    return ret ? ret : my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), fl->priv->sort_raising[1]);
+    return ret ? ret : my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
 }
 
 
@@ -904,8 +904,8 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f1->info->type < f2->info->type)
         return 1;
 
-    // gchar *t1 = gnome_cmd_file_get_path (f1);
-    // gchar *t2 = gnome_cmd_file_get_path (f2);
+    // gchar *t1 = f1->get_path();
+    // gchar *t2 = f2->get_path();
     // gchar *d1 = g_path_get_dirname (t1);
     // gchar *d2 = g_path_get_dirname (t2);
 
@@ -919,7 +919,7 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     // return ret;
 
-    return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), raising);
+    return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
 }
 
 
@@ -940,7 +940,7 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_filesizecmp (f1->info->size, f2->info->size, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
     return ret;
 }
@@ -962,7 +962,7 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_intcmp (f1->info->permissions, f2->info->permissions, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
     return ret;
 }
@@ -984,7 +984,7 @@ static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_intcmp (f1->info->mtime, f2->info->mtime, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
     return ret;
 }
@@ -1006,7 +1006,7 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     {
         ret = my_intcmp (f1->info->uid, f2->info->uid, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
     return ret;
 }
@@ -1028,7 +1028,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     {
         ret = my_intcmp (f1->info->gid, f2->info->gid, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), file_raising);
     }
     return ret;
 }
@@ -1226,17 +1226,11 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
 
     if (event->state & GDK_BUTTON3_MASK)
     {
-        gint row;
-        gint y;
-
-        y = event->y;
-        y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
-
-        row = gnome_cmd_clist_get_row (*fl, event->x, y);
+        gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
 
         if (row != -1)
         {
-            GnomeCmdFile *f = fl->get_file_at_row(++row);
+            GnomeCmdFile *f = fl->get_file_at_row(row);
             if (f)
             {
                 fl->select_row(row);
@@ -1330,7 +1324,7 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (fl->has_file(f))
     {
-        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
+        // f->invalidate_metadata(TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
         fl->update_file(f);
 
         GnomeCmdFileList::ColumnID sort_col = fl->get_sort_column();
@@ -1680,7 +1674,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
         GdkPixmap *pixmap;
         GdkBitmap *mask;
 
-        if (gnome_cmd_file_get_type_pixmap_and_mask (f, &pixmap, &mask))
+        if (f->get_type_pixmap_and_mask(&pixmap, &mask))
             gtk_clist_set_pixmap (clist, row, 0, pixmap, mask);
     }
 
@@ -1757,7 +1751,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
     }
 
     // Create a parent dir file (..) if appropriate
-    gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+    gchar *path = GNOME_CMD_FILE (dir)->get_path();
     if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
         files = g_list_append (files, gnome_cmd_dir_new_parent_dir_file (dir));
     g_free (path);
@@ -1779,7 +1773,7 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
 
 void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 {
-    if (!gnome_cmd_file_needs_update (f))
+    if (!f->needs_update())
         return;
 
     gint row = get_row_from_file(f);
@@ -1796,7 +1790,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
         GdkPixmap *pixmap;
         GdkBitmap *mask;
 
-        if (gnome_cmd_file_get_type_pixmap_and_mask (f, &pixmap, &mask))
+        if (f->get_type_pixmap_and_mask(&pixmap, &mask))
             gtk_clist_set_pixmap (*this, row, 0, pixmap, mask);
     }
 }
@@ -2679,7 +2673,7 @@ void GnomeCmdFileList::invalidate_tree_size()
     {
         GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
         if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-            gnome_cmd_file_invalidate_tree_size (f);
+            f->invalidate_tree_size();
     }
 }
 
@@ -2971,6 +2965,6 @@ void GnomeCmdFileList::init_dnd()
 
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
 {
-    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
+    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
 }
 

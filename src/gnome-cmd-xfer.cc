@@ -279,9 +279,10 @@ static gboolean update_xfer_gui_func (XferData *data)
 
                 for (; data->src_files; data->src_files = data->src_files->next)
                 {
-                    GnomeVFSURI *src_uri = gnome_cmd_file_get_uri ((GnomeCmdFile *) data->src_files->data);
+                    GnomeCmdFile *f = (GnomeCmdFile *) data->src_files->data;
+                    GnomeVFSURI *src_uri = f->get_uri();
                     if (!gnome_vfs_uri_exists (src_uri))
-                        data->src_fl->remove_file((GnomeCmdFile *) data->src_files->data);
+                        data->src_fl->remove_file(f);
                     g_free (src_uri);
                 }
             }
@@ -314,7 +315,7 @@ static gboolean update_xfer_gui_func (XferData *data)
 
 inline gboolean uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
-    GnomeVFSURI *dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
+    GnomeVFSURI *dir_uri = GNOME_CMD_FILE (dir)->get_uri ();
 
     gboolean is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
 

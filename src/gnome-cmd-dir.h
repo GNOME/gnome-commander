@@ -50,7 +50,9 @@ typedef enum
 
 struct GnomeCmdDir
 {
-    GnomeCmdFile parent;
+    GnomeCmdFile parent;      // this MUST be the first member
+
+    GnomeCmdDirPrivate *priv;
 
     gint voffset;
     GList *infolist;
@@ -64,8 +66,6 @@ struct GnomeCmdDir
     GtkWidget *dialog;
     GtkWidget *label;
     GtkWidget *pbar;
-
-    GnomeCmdDirPrivate *priv;
 };
 
 struct GnomeCmdDirClass
@@ -158,7 +158,7 @@ inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
     GnomeVFSFileSize free_space;
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
+    GnomeVFSURI *uri = GNOME_CMD_FILE (dir)->get_uri();
     GnomeVFSResult res = gnome_vfs_get_volume_free_space (uri, &free_space);
     gnome_vfs_uri_unref (uri);
 

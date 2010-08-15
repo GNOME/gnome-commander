@@ -393,7 +393,7 @@ static void on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *i
     GnomeCmdBookmark *bm = g_new0 (GnomeCmdBookmark, 1);
 
     bm->name = g_strdup (gnome_cmd_file_get_name (f));
-    bm->path = gnome_cmd_file_get_path (f);
+    bm->path = f->get_path();
     bm->group = group;
 
     group->bookmarks = g_list_append (group->bookmarks, bm);

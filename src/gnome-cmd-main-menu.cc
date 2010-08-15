@@ -154,7 +154,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
         case MENU_TYPE_BASIC:
             item = gtk_menu_item_new ();
             desc = gtk_label_new_with_mnemonic (spec->label);
-            gtk_widget_ref (desc);
+            g_object_ref (desc);
             gtk_widget_show (desc);
 
             gtk_container_add (GTK_CONTAINER (item), desc);
@@ -165,7 +165,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
             content = create_hbox (GTK_WIDGET (main_win), FALSE, 12);
 
             desc = gtk_label_new_with_mnemonic (spec->label);
-            gtk_widget_ref (desc);
+            g_object_ref (desc);
             gtk_widget_show (desc);
             gtk_box_pack_start (GTK_BOX (content), desc, FALSE, FALSE, 0);
 
@@ -227,7 +227,7 @@ static GtkWidget *create_menu (GnomeCmdMainMenu *main_menu, MenuData *spec, Menu
 
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item), submenu);
 
-    gtk_widget_ref (menu_item);
+    g_object_ref (menu_item);
     gtk_widget_show (menu_item);
 
     for (gint i=0; childs[i].type != MENU_TYPE_END; ++i)

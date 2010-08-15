@@ -267,7 +267,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
     {
         g_mutex_lock (data->pdata.mutex);
 
-        gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+        gchar *path = GNOME_CMD_FILE (dir)->get_path();
         g_free (data->pdata.msg);
         data->pdata.msg = g_strdup_printf (_("Searching in: %s"), path);
         g_free (path);
@@ -630,7 +630,7 @@ static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
     if (!f)
         return;
 
-    gchar *fpath = gnome_cmd_file_get_path (f);
+    gchar *fpath = f->get_path();
     gchar *dpath = g_path_get_dirname (fpath);
 
     GnomeCmdFileList *fl = main_win->fs(ACTIVE)->file_list();
@@ -974,7 +974,7 @@ GtkWidget *gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
     gchar *new_path;
     GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) gtk_type_new (gnome_cmd_search_dialog_get_type ());
 
-    gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (default_dir));
+    gchar *path = GNOME_CMD_FILE (default_dir)->get_path();
     if (path[strlen(path)-1] != '/')
     {
         new_path = g_strdup_printf ("%s/", path);

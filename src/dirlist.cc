@@ -91,7 +91,7 @@ inline void visprog_list (GnomeCmdDir *dir)
 
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
+    GnomeVFSURI *uri = GNOME_CMD_FILE (dir)->get_uri();
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 
     DEBUG('l', "visprog_list: %s\n", uri_str);

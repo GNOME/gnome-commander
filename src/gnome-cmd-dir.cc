@@ -73,7 +73,7 @@ struct GnomeCmdDirPrivate
 
 static GnomeCmdFileClass *parent_class = NULL;
 
-static guint dir_signals[LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 
 static void monitor_callback (GnomeVFSMonitorHandle *handle, const gchar *monitor_uri, const gchar *info_uri, GnomeVFSMonitorEventType event_type, GnomeCmdDir *dir)
@@ -143,59 +143,65 @@ static void class_init (GnomeCmdDirClass *klass)
 
     parent_class = (GnomeCmdFileClass *) gtk_type_class (gnome_cmd_file_get_type ());
 
-    dir_signals[FILE_CREATED] =
-        gtk_signal_new ("file-created",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_created),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+    signals[FILE_CREATED] =
+        g_signal_new ("file-created",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, file_created),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
-    dir_signals[FILE_DELETED] =
-        gtk_signal_new ("file-deleted",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_deleted),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+    signals[FILE_DELETED] =
+        g_signal_new ("file-deleted",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, file_deleted),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
-    dir_signals[FILE_CHANGED] =
-        gtk_signal_new ("file-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_changed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+    signals[FILE_CHANGED] =
+        g_signal_new ("file-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, file_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
-    dir_signals[FILE_RENAMED] =
-        gtk_signal_new ("file-renamed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_renamed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+    signals[FILE_RENAMED] =
+        g_signal_new ("file-renamed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, file_renamed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
-    dir_signals[LIST_OK] =
-        gtk_signal_new ("list-ok",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, list_ok),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+    signals[LIST_OK] =
+        g_signal_new ("list-ok",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, list_ok),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
-    dir_signals[LIST_FAILED] =
-        gtk_signal_new ("list-failed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, list_failed),
-            gtk_marshal_NONE__INT,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_INT);
+    signals[LIST_FAILED] =
+        g_signal_new ("list-failed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdDirClass, list_failed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__INT,
+            G_TYPE_NONE,
+            1, G_TYPE_INT);
 
     object_class->destroy = destroy;
     klass->file_created = NULL;
@@ -275,7 +281,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
     if (dir)
     {
         gtk_object_destroy (GTK_OBJECT (path));
-        gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
+        GNOME_CMD_FILE (dir)->update_info(info);
         return dir;
     }
 
@@ -306,7 +312,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *p
     {
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
-        gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
+        GNOME_CMD_FILE (dir)->update_info(info);
         return dir;
     }
 
@@ -492,7 +498,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         dir->priv->last_result = GNOME_VFS_OK;
 
         DEBUG('l', "Emitting 'list-ok' signal\n");
-        gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_OK], dir->priv->files);
+        g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
     }
     else if (dir->state == DIR_STATE_EMPTY)
     {
@@ -508,7 +514,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         dir->priv->lock = FALSE;
 
         DEBUG('l', "Emitting 'list-failed' signal\n");
-        gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_FAILED], result);
+        g_signal_emit (dir, signals[LIST_FAILED], 0, result);
     }
 }
 
@@ -575,16 +581,16 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (!dir->priv->files || gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir))))
+    if (!dir->priv->files || gnome_vfs_uri_is_local (GNOME_CMD_FILE (dir)->get_uri()))
     {
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
-               gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)),
+               GNOME_CMD_FILE (dir)->get_path(),
                visprog);
         gnome_cmd_dir_relist_files (dir, visprog);
     }
     else
-        gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_OK], dir->priv->files);
+        g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
 }
 
 
@@ -748,7 +754,7 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
 
     dir->priv->needs_mtime_update = TRUE;
 
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CREATED], f);
+    g_signal_emit (dir, signals[FILE_CREATED], 0, f);
 }
 
 
@@ -765,7 +771,7 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 
     dir->priv->needs_mtime_update = TRUE;
 
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], f);
+    g_signal_emit (dir, signals[FILE_DELETED], 0, f);
 
     dir->priv->file_collection->remove(uri_str);
     dir->priv->files = dir->priv->file_collection->get_list();
@@ -782,16 +788,16 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *uri = f->get_uri();
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     gnome_vfs_uri_unref (uri);
 
     dir->priv->needs_mtime_update = TRUE;
 
-    gnome_cmd_file_update_info (f, info);
-    gnome_cmd_file_invalidate_metadata (f);
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], f);
+    f->update_info(info);
+    f->invalidate_metadata();
+    g_signal_emit (dir, signals[FILE_CHANGED], 0, f);
 }
 
 
@@ -808,7 +814,7 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar 
 
     dir->priv->file_collection->remove(old_uri_str);
     dir->priv->file_collection->add(f);
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_RENAMED], f);
+    g_signal_emit (dir, signals[FILE_RENAMED], 0, f);
 }
 
 

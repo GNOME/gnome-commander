@@ -394,7 +394,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     add_sep (table, y++);
 
-    if (gnome_cmd_file_is_local (data->f))
+    if (data->f->is_local())
     {
         GnomeCmdDir *dir = gnome_cmd_file_get_parent_dir (data->f);
         GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : NULL;
@@ -469,7 +469,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        GnomeVFSMimeApplication *vfs_app = gnome_cmd_file_get_default_application (data->f);
+        GnomeVFSMimeApplication *vfs_app = data->f->get_default_application();
 
         if (vfs_app)
         {
@@ -723,7 +723,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
-    data->uri = gnome_cmd_file_get_uri (f);
+    data->uri = f->get_uri();
     data->mutex = g_mutex_new ();
     data->msg = NULL;
     data->notebook = notebook;
