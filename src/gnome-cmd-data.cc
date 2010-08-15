@@ -939,7 +939,7 @@ GnomeCmdData::GnomeCmdData()
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
-    save_dirs_on_exit = TRUE;
+    save_dirs_on_exit = FALSE;
     save_tabs_on_exit = TRUE;
 
     allow_multiple_instances = FALSE;

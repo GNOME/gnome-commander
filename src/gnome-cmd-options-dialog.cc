@@ -159,13 +159,12 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     cat = create_category (parent, cat_box, _("Save on exit"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    check = create_check (parent, _("Directories"), "save_dirs");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_dirs_on_exit);
-
-    check = create_check (parent, _("Tabs"), "save_tabs");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_tabs_on_exit);
+    radio = create_radio (parent, NULL, _("Directories"), "save_dirs");
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.save_dirs_on_exit);
+    radio = create_radio (parent, get_radio_group (radio), _("Tabs"), "save_tabs");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.save_tabs_on_exit);
 
 
     return frame;
