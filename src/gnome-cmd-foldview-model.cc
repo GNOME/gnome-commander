@@ -67,7 +67,7 @@ GcmdGtkFoldview::Model::Rowlike::Rowlike(gchar *_utf8_name, gint _icon)
 {
 	d_utf8_name		= g_strdup( _utf8_name );
 	a_icon			= _icon;
-	
+
 	// collate key
 	glong l = g_utf8_strlen(d_utf8_name, -1);
 	d_utf8_collate_key = g_utf8_collate_key_for_filename(d_utf8_name, l);
@@ -78,20 +78,20 @@ GcmdGtkFoldview::Model::Rowlike::~Rowlike()
 	g_free(d_utf8_collate_key);
 }
 
-const   gchar*  
+const   gchar*
 GcmdGtkFoldview::Model::Rowlike::utf8_collate_key()
-{ 
-	return d_utf8_collate_key;	
+{
+	return d_utf8_collate_key;
 }
-const   gchar*	
+const   gchar*
 GcmdGtkFoldview::Model::Rowlike::utf8_name()
-{ 
-	return d_utf8_name;			
+{
+	return d_utf8_name;
 }
-gint	
+gint
 GcmdGtkFoldview::Model::Rowlike::icon()
-{ 
-	return a_icon;				
+{
+	return a_icon;
 }
 
 
@@ -158,7 +158,7 @@ void GcmdGtkFoldview::Model::release_objects()
 		g_object_unref(m_treestore);
 		m_treestore = NULL;
 	}
-	
+
 #endif
 }
 
@@ -169,7 +169,7 @@ GtkTreeIter* GcmdGtkFoldview::Model::Iter_new(GtkTreeIter* iter)
 {
 	GtkTreeIter *new_iter = g_new0(GtkTreeIter,1);
 
-	if ( iter != NULL )	
+	if ( iter != NULL )
 		*new_iter = *iter;
 
 	return new_iter;
@@ -245,7 +245,7 @@ void	GcmdGtkFoldview::Model::Root::unset()
 		gwr_inf("model_root::unset:info is null, destroying nothing");
 	}
 
-	m_uri		= NULL; 
+	m_uri		= NULL;
 	m_info		= NULL;
 }
 
@@ -269,7 +269,7 @@ gint GcmdGtkFoldview::Model::Compare(
 	if ( str_a[0] == '.' )  a_dotted = TRUE;
 	if ( str_b[0] == '.' )  b_dotted = TRUE;
 
-	if ( a_dotted && !b_dotted ) 
+	if ( a_dotted && !b_dotted )
 	{
 		g_free(str_a);
 		g_free(str_b);
@@ -290,7 +290,7 @@ gint GcmdGtkFoldview::Model::Compare(
 }
 
 //=============================================================================
-//  given an iter, return a mallocated 
+//  given an iter, return a mallocated
 //  * GnomeVFSURI   representing the full path
 //  * gchar*		representing the iter string
 //  ( is GtkTreeModel sucking ??? )
@@ -370,7 +370,7 @@ GnomeVFSURI* GcmdGtkFoldview::Model::iter_get_uri_new(GtkTreeIter *final)
 	// new uri
 	uri = GVFS_uri_new(strUri);
 	return uri;
-	
+
 #endif
 }
 
@@ -392,7 +392,7 @@ gchar* GcmdGtkFoldview::Model::iter_get_string_new(GtkTreeIter *iter)
 	str = g_strdup( r->utf8_name() );
 
 #endif
-	
+
 	return str;
 }
 
@@ -406,7 +406,7 @@ gchar* GcmdGtkFoldview::Model::iter_get_string_new(GtkTreeIter *iter)
 	GValue v = {0};
 	gtk_tree_model_get_value(treemodel(), iter, 0, &v);
 	str_const = g_value_get_string(&v);
-	
+
 #endif
 
 	str = (char*)str_const;
@@ -471,7 +471,7 @@ void GcmdGtkFoldview::Model::set_value(GtkTreeIter *iter, gchar* text, gint icon
 
 #else
 
-	
+
 	Rowlike* r = new Rowlike(text, icon);
 
 	GValue v = {0};
@@ -487,9 +487,9 @@ void GcmdGtkFoldview::Model::set_value(GtkTreeIter *iter, gchar* text, gint icon
 //  set value for first child -> control
 //=============================================================================
 void GcmdGtkFoldview::Model::iter_replace_first_child(
-	GtkTreeIter				*parent, 
-	GtkTreeIter				*child, 
-	gchar*					text, 
+	GtkTreeIter				*parent,
+	GtkTreeIter				*child,
+	gchar*					text,
 	gint					icon)
 {
 #ifdef __GTS__
@@ -521,9 +521,9 @@ void GcmdGtkFoldview::Model::iter_replace_first_child(
 //  we create the model_iter_set_first_child above just for fun.
 //=============================================================================
 void GcmdGtkFoldview::Model::iter_replace_dummy_child(
-	GtkTreeIter				*parent, 
+	GtkTreeIter				*parent,
 	GtkTreeIter				*child,
-	gchar*					text, 
+	gchar*					text,
 	gint					icon)
 {
 	gint	n = 0;
@@ -580,7 +580,7 @@ gboolean GcmdGtkFoldview::Model::iter_remove(GtkTreeIter *iter)
 //=============================================================================
 gint GcmdGtkFoldview::Model::iter_remove_children(GtkTreeIter *parent)
 {
-#ifdef __GTS__ 
+#ifdef __GTS__
 
 	gint				count   = 0;
 	//gchar				*str	= NULL;
@@ -588,7 +588,7 @@ gint GcmdGtkFoldview::Model::iter_remove_children(GtkTreeIter *parent)
 
 	//  Code with iter_remove, that is not recursive, but does not
 	//  return the number of nodes removed
-	//	
+	//
 	while ( gtk_tree_model_iter_children( treemodel(), &child, parent) )
 	{
 		gtk_tree_store_remove(treestore(), &child);
@@ -596,7 +596,7 @@ gint GcmdGtkFoldview::Model::iter_remove_children(GtkTreeIter *parent)
 
 	//  Code with iter_remove, that returns the number of nodes removed
 	//  but is unuselessly recursive
-	//	
+	//
 	//	while ( gtk_tree_model_iter_children( treemodel(), &child, parent) )
 	//	{
 	//		//str = iter_get_string_new(&child);

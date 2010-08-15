@@ -3,11 +3,11 @@
 
 #include <gtk/gtk.h>
 
-//***************************************************************************** 
+//*****************************************************************************
 //
 //  Docs
 //
-//***************************************************************************** 
+//*****************************************************************************
 /*
 
 	GtkTreeIter usage:
@@ -18,19 +18,19 @@
 		gpointer	user_data3  : treestore's user data
 	}
 
-	So for each valid GtkTreeIter, we have iter->node->data() == iter->user_data3 ; 
+	So for each valid GtkTreeIter, we have iter->node->data() == iter->user_data3 ;
 	and a treestore's user can just do : get_iter(path), then (user's_type*)iter->user_data3
 	instead of treestore->get_value(g_value_stuff...)
 	Note that treestore code does that as well...
-	
-	
+
+
 */
 
-//***************************************************************************** 
+//*****************************************************************************
 //
 //					Object definition
 //
-//***************************************************************************** 
+//*****************************************************************************
 #define GNOME_CMD_FOLDVIEW_TREESTORE_TYPE            (gnome_cmd_foldview_treestore_get_type())
 
 #define GNOME_CMD_FOLDVIEW_TREESTORE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_FOLDVIEW_TREESTORE_TYPE, GnomeCmdFoldviewTreestore))
@@ -63,10 +63,10 @@ struct GnomeCmdFoldviewTreestore
 		Data();
 		virtual ~Data() = 0;	// forbid instantiation
 	};
-	
+
 	//=========================================================================
 	//
-	//								Nodes 
+	//								Nodes
 	//
 	//=========================================================================
 	struct node_block;
@@ -88,7 +88,7 @@ struct GnomeCmdFoldviewTreestore
 		public:
 		void*		operator new	(size_t size, gint _depth, gint _pos, node *_parent, GnomeCmdFoldviewTreestore::Data* _data);
 		public:
-		void		operator delete (void *p);	
+		void		operator delete (void *p);
 		//.................................................................
 		public:
 		const gchar*		log();
@@ -125,7 +125,7 @@ struct GnomeCmdFoldviewTreestore
 		//.................................................................
 		public:
 		void*		operator new	(size_t size, guint _depth, node *_parent);
-		void		operator delete (void *p);	
+		void		operator delete (void *p);
 		//.................................................................
 		public:
 		gint				card()		{ return a_card;	}
@@ -187,13 +187,13 @@ struct GnomeCmdFoldviewTreestore
 	static  gboolean	Render_sort_case_sensitive()	{ return Render_flags & eSortCaseSensitive;		}
 	static  gboolean	Render_sort_ascending()			{ return Render_flags & eSortAscending;			}
 	static  gboolean	Render_sort_descending()		{ return Render_flags & eSortDescending;		}
-	
+
 	public:
 	gboolean	set_render_flags(eRenderFlags flags)
 				{
 					eRenderFlags old = Render_flags;
 					Render_flags = flags;
-					
+
 					if ( Render_sort_case_sensitive() )
 					{
 						if ( !Render_sort_ascending() && !Render_sort_descending() )
@@ -235,8 +235,8 @@ struct GnomeCmdFoldviewTreestore
 	//.........................................................................
 	public:
 	// iter validation
-	inline gboolean iter_is_valid(GtkTreeIter*);	
-	inline gboolean	iter_is_valid_but_may_be_null(GtkTreeIter*);	
+	inline gboolean iter_is_valid(GtkTreeIter*);
+	inline gboolean	iter_is_valid_but_may_be_null(GtkTreeIter*);
 	// private helpers for sending signals
 	private:
 	void	emit_row_inserted   (node*);
@@ -245,30 +245,28 @@ struct GnomeCmdFoldviewTreestore
 	public:
 	void	add_child			(GtkTreeIter *in_parent,	GtkTreeIter *out_child, GnomeCmdFoldviewTreestore::Data*);
 	void	set_value			(GtkTreeIter *in,			gint column, GValue *value);
-	gint	remove_children		(GtkTreeIter *in);	
+	gint	remove_children		(GtkTreeIter *in);
 	gint	clear();
 };
 
 GType         					gnome_cmd_foldview_treestore_get_type   (void);
 GnomeCmdFoldviewTreestore*		gnome_cmd_foldview_treestore_new		(void);
 
- 
-//***************************************************************************** 
+
+//*****************************************************************************
 //
 //					Class Definition
 //
-//***************************************************************************** 
+//*****************************************************************************
 #define GNOME_CMD_FOLDVIEW_TREESTORE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass),  GNOME_CMD_FOLDVIEW_TREESTORE_TYPE, GnomeCmdFoldviewTreestoreClass))
 #define IS_GNOME_CMD_FOLDVIEW_TREESTORE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  GNOME_CMD_FOLDVIEW_TREESTORE_TYPE))
 #define GNOME_CMD_FOLDVIEW_TREESTORE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  GNOME_CMD_FOLDVIEW_TREESTORE_TYPE, GnomeCmdFoldviewTreestoreClass))
 
 typedef struct _GnomeCmdFoldviewTreestoreClass  GnomeCmdFoldviewTreestoreClass;
- 
+
 struct _GnomeCmdFoldviewTreestoreClass
 {
   GObjectClass parent_class;
 };
- 
 
- 
 #endif

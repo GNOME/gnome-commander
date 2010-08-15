@@ -1,6 +1,6 @@
 #include <string.h>
 #include "gnome-cmd-foldview-treestore.h"
- 
+
 //  ###########################################################################
 //  ###																		###
 //  ##																		 ##
@@ -138,7 +138,7 @@ gint GnomeCmdFoldviewTreestore::node::Count = 0;
 	(_iter)->user_data	= NULL;												\
 	(_iter)->user_data2	= NULL;												\
 	(_iter)->user_data3	= NULL;
-	
+
 //=============================================================================
 
   /**
@@ -190,7 +190,7 @@ void*	GnomeCmdFoldviewTreestore::node::operator new(
 	**/
 
 //=============================================================================
-void	
+void
 GnomeCmdFoldviewTreestore::node::operator delete(
 void *p)
 {
@@ -477,7 +477,7 @@ generic_append:
 	// Note : I have never seen d_nodes change in append case
 	d_nodes = g_array_append_val(d_nodes, node);
 
-	// modify the previous node so its ->next field points to the newly 
+	// modify the previous node so its ->next field points to the newly
 	// created node ; do that only if we didnt create the first node.
 	if ( a_card != 0 )
 	{
@@ -518,7 +518,7 @@ generic_insert:
 		temp->a_pos++;
 		temp = temp->next();
 	}
-	
+
 	a_card++;
 	return node;
 }
@@ -647,8 +647,8 @@ GnomeCmdFoldviewTreestore::node_block::purge_and_update()
 //  ###																		###
 //  ###########################################################################
 
-GnomeCmdFoldviewTreestore::eRenderFlags 
-	GnomeCmdFoldviewTreestore::Render_flags = 
+GnomeCmdFoldviewTreestore::eRenderFlags
+	GnomeCmdFoldviewTreestore::Render_flags =
 		(GnomeCmdFoldviewTreestore::eRenderFlags)
 			(   GnomeCmdFoldviewTreestore::eSortDescending			|
 				GnomeCmdFoldviewTreestore::eSortCaseSensitive
@@ -664,7 +664,7 @@ GnomeCmdFoldviewTreestore::eRenderFlags
 	**/
 
 //=============================================================================
-inline gboolean 
+inline gboolean
 GnomeCmdFoldviewTreestore::iter_is_valid(
 	GtkTreeIter *iter)
 {
@@ -770,15 +770,15 @@ GnomeCmdFoldviewTreestore::node* node)
 	**/
 
 //=============================================================================
-void 
+void
 GnomeCmdFoldviewTreestore::add_child(
 	GtkTreeIter							*in_parent,
-	GtkTreeIter							*out_child, 
+	GtkTreeIter							*out_child,
 	GnomeCmdFoldviewTreestore::Data		*data)
 {
 	GnomeCmdFoldviewTreestore::node				*n_parent	= NULL;
 	GnomeCmdFoldviewTreestore::node				*n_child	= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_if_fail( iter_is_valid_but_may_be_null(in_parent) );
 
 	// try to set node_root
@@ -817,7 +817,7 @@ void GnomeCmdFoldviewTreestore::set_value(
 	GValue		*value)
 {
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_if_fail ( iter_is_valid(in) );
 	g_return_if_fail ( value );
 
@@ -854,7 +854,7 @@ gint GnomeCmdFoldviewTreestore::remove_children(
 	GtkTreeIter *in)
 {
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( iter_is_valid(in), 0 );
 
 	NODE_FROM_ITER(node, in);
@@ -875,7 +875,7 @@ gint GnomeCmdFoldviewTreestore::remove_children(
 	**/
 
 //=============================================================================
-gint 
+gint
 GnomeCmdFoldviewTreestore::clear()
 {
 	gint count = 0;
@@ -884,7 +884,7 @@ GnomeCmdFoldviewTreestore::clear()
 	if ( !d_node_root )
 		return 0;
 
-	// Quickly purge all beyond node_root	
+	// Quickly purge all beyond node_root
 	count = d_node_root->children()->purge();
 
 	// delete node_root
@@ -894,9 +894,9 @@ GnomeCmdFoldviewTreestore::clear()
 
 	// Set pointer to NULL
 	d_node_root = NULL;
-	
+
 	gwr_inf("GnomeCmdFoldviewTreestore::clear:%03i nodes deleted", count);
-	
+
 	return count;
 }
 
@@ -916,7 +916,7 @@ GnomeCmdFoldviewTreestore::clear()
   /**
 	*   GnomeCmdFoldviewTreestore::get_flags:
 	*
-	*   Tells the rest of the world whether our tree model has any special 
+	*   Tells the rest of the world whether our tree model has any special
 	*   characteristics. In our case, tree iters are non persistent
 	*
 	**/
@@ -926,10 +926,10 @@ GtkTreeModelFlags
 GnomeCmdFoldviewTreestore::get_flags(GtkTreeModel *tree_model)
 {
   g_return_val_if_fail (IS_GNOME_CMD_FOLDVIEW_TREESTORE(tree_model), (GtkTreeModelFlags)0);
- 
+
   return (GtkTreeModelFlags)0;
 }
- 
+
 //=============================================================================
 
   /**
@@ -944,10 +944,10 @@ gint
 GnomeCmdFoldviewTreestore::get_n_columns(GtkTreeModel *tree_model)
 {
   //g_return_val_if_fail (IS_GNOME_CMD_FOLDVIEW_TREESTORE(tree_model), 0);
- 
+
   return 1;
 }
- 
+
 //=============================================================================
 
   /**
@@ -965,7 +965,7 @@ GnomeCmdFoldviewTreestore::get_column_type(
 {
   g_return_val_if_fail (IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), G_TYPE_INVALID);
   g_return_val_if_fail (index == 0, G_TYPE_INVALID);
- 
+
   return G_TYPE_POINTER;
 }
 
@@ -990,7 +990,7 @@ GnomeCmdFoldviewTreestore::get_iter(
 	GnomeCmdFoldviewTreestore::node_block		*block		= NULL;
 	gint          *indices = NULL, pos = 0, depth =0;
 	gint		i = 0;
-	//......................................................................... 
+	//.........................................................................
 	g_assert( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel) );
 	g_assert( path!=NULL );
 
@@ -1029,8 +1029,8 @@ GnomeCmdFoldviewTreestore::get_iter(
 	ITER_FROM_NODE(treestore, iter, node);
 	return TRUE;
 }
- 
- 
+
+
 //=============================================================================
 
   /**
@@ -1049,7 +1049,7 @@ GnomeCmdFoldviewTreestore::get_path(
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GtkTreePath									*path		= NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), NULL );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid(iter), NULL);
@@ -1069,8 +1069,8 @@ GnomeCmdFoldviewTreestore::get_path(
 
 	return path;
 }
- 
- 
+
+
 //=============================================================================
 
   /**
@@ -1090,7 +1090,7 @@ GnomeCmdFoldviewTreestore::get_value(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel) );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_if_fail ( treestore->iter_is_valid(iter) );
@@ -1103,8 +1103,8 @@ GnomeCmdFoldviewTreestore::get_value(
 	g_value_init(value, G_TYPE_POINTER);
 	g_value_set_pointer(value, node->data());
 }
- 
- 
+
+
 //=============================================================================
 
   /**
@@ -1122,7 +1122,7 @@ GnomeCmdFoldviewTreestore::iter_next(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid(iter), FALSE );
@@ -1137,8 +1137,8 @@ GnomeCmdFoldviewTreestore::iter_next(
 	ITER_FROM_NODE(treestore, iter, node);
 	return TRUE;
 }
- 
- 
+
+
 //=============================================================================
 
   /**
@@ -1146,9 +1146,9 @@ GnomeCmdFoldviewTreestore::iter_next(
 	*
 	*   Returns TRUE or FALSE depending on whether the row specified by
 	*   'parent' has any children. If it has children, then 'iter' is set to
-	*   point to the first child. 
+	*   point to the first child.
 	*
-	*   Special case: if 'parent' is NULL, then the first top-level row should 
+	*   Special case: if 'parent' is NULL, then the first top-level row should
 	*   be returned if it exists.
 	*
 	**/
@@ -1162,7 +1162,7 @@ GnomeCmdFoldviewTreestore::iter_children(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid_but_may_be_null(iter_parent), FALSE );
@@ -1187,13 +1187,13 @@ GnomeCmdFoldviewTreestore::iter_children(
 
 	return FALSE;
 }
- 
+
 //=============================================================================
 
   /**
 	*   GnomeCmdFoldviewTreestore::iter_has_child:
 	*
-	*   Returns TRUE or FALSE depending on whether the row specified by 'iter' 
+	*   Returns TRUE or FALSE depending on whether the row specified by 'iter'
 	*   has any children.
 	*
 	**/
@@ -1206,7 +1206,7 @@ GnomeCmdFoldviewTreestore::iter_has_child(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid(iter), FALSE );
@@ -1216,8 +1216,8 @@ GnomeCmdFoldviewTreestore::iter_has_child(
 
 	return node->children()->card() != 0 ? TRUE : FALSE;
 }
- 
- 
+
+
 //=============================================================================
 
   /**
@@ -1237,7 +1237,7 @@ GnomeCmdFoldviewTreestore::iter_n_children(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), 0 );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid_but_may_be_null(iter), 0 );
@@ -1251,14 +1251,14 @@ GnomeCmdFoldviewTreestore::iter_n_children(
 
 	return node->children()->card();
 }
- 
- 
+
+
 //=============================================================================
 
   /**
 	*   GnomeCmdFoldviewTreestore::iter_nth_child:
 	*
-	*   If the row specified by 'parent' has any children, set 'iter' to the 
+	*   If the row specified by 'parent' has any children, set 'iter' to the
 	*   n-th child and return TRUE if it exists, otherwise FALSE.
 	*
 	*   Special case : if 'parent' is NULL, we need to set 'iter' to the n-th
@@ -1277,7 +1277,7 @@ GnomeCmdFoldviewTreestore::iter_nth_child(
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
 	GnomeCmdFoldviewTreestore::node_block		*block		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid_but_may_be_null(iter_parent), FALSE );
@@ -1318,7 +1318,7 @@ GnomeCmdFoldviewTreestore::iter_parent(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid(iter_child), FALSE );
@@ -1330,12 +1330,12 @@ GnomeCmdFoldviewTreestore::iter_parent(
 	node = node->parent();
 	g_assert( node );
 	ITER_FROM_NODE(treestore, iter_parent, node);
-	 
+
 	return TRUE;
 }
- 
- 
- 
+
+
+
 //  ###########################################################################
 //  ###																		###
 //  ##																		 ##
@@ -1356,8 +1356,8 @@ static void gnome_cmd_foldview_treestore_finalize(GObject *object);
 
   /**
 	*   gnome_cmd_foldview_treestore_init:
-	*   
-	*   This is called everytime a new custom list object instance is created 
+	*
+	*   This is called everytime a new custom list object instance is created
 	*   (we do that in gnome_cmd_foldview_treestore_new).
 	*
 	**/
@@ -1386,10 +1386,10 @@ static void
 gnome_cmd_foldview_treestore_class_init(GnomeCmdFoldviewTreestoreClass *klass)
 {
   GObjectClass *object_class;
- 
+
   parent_class = (GObjectClass*) g_type_class_peek_parent (klass);
   object_class = (GObjectClass*) klass;
- 
+
   object_class->finalize = gnome_cmd_foldview_treestore_finalize;
 }
 
@@ -1398,8 +1398,8 @@ gnome_cmd_foldview_treestore_class_init(GnomeCmdFoldviewTreestoreClass *klass)
   /**
 	*   gnome_cmd_foldview_treestore_tree_model_init:
 	*
-	*   Init callback for the interface registration in 
-	*   gnome_cmd_foldview_treestore_get_type. Here we override the 
+	*   Init callback for the interface registration in
+	*   gnome_cmd_foldview_treestore_get_type. Here we override the
 	*   GtkTreeModel interface functions that we implement.
 	*
 	**/
@@ -1428,7 +1428,7 @@ gnome_cmd_foldview_treestore_tree_model_init (GtkTreeModelIface *iface)
   /**
 	*   gnome_cmd_foldview_treestore_finalize:
 	*
-	*   This is called just before an instance is destroyed. Free dynamically 
+	*   This is called just before an instance is destroyed. Free dynamically
 	*   allocated memory here.
 	*
 	**/
@@ -1438,7 +1438,7 @@ static void
 gnome_cmd_foldview_treestore_finalize(GObject *object)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	//......................................................................... 
+	//.........................................................................
 	g_return_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(object) );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(object);
 
@@ -1498,7 +1498,7 @@ gnome_cmd_foldview_treestore_get_type (void)
 		/* Now register our GtkTreeModel interface with the type system */
 		g_type_add_interface_static (gnome_cmd_foldview_treestore_type, GTK_TYPE_TREE_MODEL, &tree_model_info);
 	}
- 
+
   return gnome_cmd_foldview_treestore_type;
 }
 
@@ -1514,15 +1514,10 @@ GnomeCmdFoldviewTreestore*
 gnome_cmd_foldview_treestore_new(void)
 {
   GnomeCmdFoldviewTreestore *t;
- 
+
   t = (GnomeCmdFoldviewTreestore*) g_object_new (GNOME_CMD_FOLDVIEW_TREESTORE_TYPE, NULL);
- 
+
   g_assert( t != NULL );
- 
+
   return t;
 }
-
- 
- 
-
-

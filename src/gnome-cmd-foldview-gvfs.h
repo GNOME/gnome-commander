@@ -61,7 +61,7 @@ void gwr_gvfs_err(const char* fmt, ...);
 						|						+-------------- gvfs_async_user_callback
 						|						|
 						|						+-------------- user_data
-						|						
+						|
 						+-------------------------------------- gvfs_async_load_subdirs
 
 */
@@ -81,7 +81,7 @@ struct gvfs_file
 	public:
 	gchar*&							name()			{ return d_name;	}
 	GcmdGtkFoldview::eFileAccess&	access()		{ return a_access;  }
-	
+
 	gboolean						flagged_symlink()   { return  ( (a_vfsflags & GNOME_VFS_FILE_FLAGS_SYMLINK) != 0	);	}
 	gboolean						is_symlink()		{ return ( a_vfstype == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK		);  }
 	gboolean						is_dir()			{ return ( a_vfstype == GNOME_VFS_FILE_TYPE_DIRECTORY			);  }
@@ -104,11 +104,11 @@ struct gvfs_symlink : gvfs_file
 	private:
 	GArray		*d_array;
 	guint		a_array_card;
-	
+
 	public:
 	void		append(gvfs_symlink* link)
 				{
-					
+
 				}
 	private:
 	gvfs_file   *d_target;
@@ -150,7 +150,7 @@ struct gvfs_async
 	gpointer&					ad()		{ return a_async_data;		}
 
 	public:
-	void*		operator new	(size_t size, gint32 handle_index, gint max_result, gvfs_async_caller_data* caller_data)   
+	void*		operator new	(size_t size, gint32 handle_index, gint max_result, gvfs_async_caller_data* caller_data)
 				{
 					gvfs_async	*ga	= g_try_new0(gvfs_async, 1);
 
@@ -159,7 +159,7 @@ struct gvfs_async
 						gwr_err("gvfs_async::new:g_try_new0 failed");
 						return ga;
 					}
-					
+
 					// no up & down function, since we have no inheritance
 					// for this struct
 					ga->a_handle_index	= handle_index;
@@ -169,14 +169,14 @@ struct gvfs_async
 					return ga;
 				}
 
-	void		operator delete (void *p)		
-				{  
-					g_free (p);						
+	void		operator delete (void *p)
+				{
+					g_free (p);
 				}
 };
 
 //-----------------------------------------------------------------------------
-//  Caller part : 
+//  Caller part :
 //  * gvfs_async_callback
 //  * struct gvfs_async_caller_data
 //-----------------------------------------------------------------------------
@@ -188,7 +188,7 @@ struct  gvfs_async_caller_data
 	gpointer					a_user_data;
 
 	public:
-	void*		operator new	(size_t size, gvfs_async_user_callback callback, gpointer p)   
+	void*		operator new	(size_t size, gvfs_async_user_callback callback, gpointer p)
 				{
 					gvfs_async_caller_data	*cd	= g_try_new0(gvfs_async_caller_data, 1);
 
@@ -197,16 +197,16 @@ struct  gvfs_async_caller_data
 						gwr_err("gvfs_async_caller_data::new:g_try_new0 failed");
 						return cd;
 					}
-					
+
 					cd->a_callback		= callback;
 					cd->a_user_data		= p;
 
 					return cd;
 				}
 
-	void		operator delete (void *p)		
-				{  
-					g_free (p);						
+	void		operator delete (void *p)
+				{
+					g_free (p);
 				}
 };
 
@@ -237,7 +237,7 @@ struct gvfs_async_load_subdirs
 	gint		a_array_card;
 	public:
 	GArray*&							array()			{ return m_array;		}
-	gint&								len()			{ return a_array_card;	} 
+	gint&								len()			{ return a_array_card;	}
 
 	gvfs_file*	element(gint i)	{ return g_array_index(m_array, gvfs_file*, i);	}
 
@@ -247,10 +247,10 @@ struct gvfs_async_load_subdirs
 				g_array_append_val(m_array, file);
 				a_array_card++;
 			}
-			
+
 	public:
-	void*		operator new	(size_t size, GnomeVFSURI* parent_uri, gchar *parent_path) ; 
-	void		operator delete (void *p);		
+	void*		operator new	(size_t size, GnomeVFSURI* parent_uri, gchar *parent_path) ;
+	void		operator delete (void *p);
 };
 
 

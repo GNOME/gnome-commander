@@ -120,7 +120,7 @@ void gwr_gvfs_err(const char* fmt, ...)
 //  ###########################################################################
 
 //
-//  Hope it is standard C++ 
+//  Hope it is standard C++
 //
 //  new in code -> operator new -> constructor
 //  delete in code -> destructor -> operator delete
@@ -138,7 +138,7 @@ gvfs_file::gvfs_file(gchar *name, GnomeVFSResult result, GnomeVFSFilePermissions
 gvfs_file::~gvfs_file()
 {
 	//printf("==>~gvfs_fil()\n");
-	g_free (d_name);					
+	g_free (d_name);
 }
 
 
@@ -326,7 +326,7 @@ static  guint32					GVFS_qstack_size	= 0;
 
 static  GnomeVFSAsyncHandle**	GVFS_qstack_el		= NULL;
 static  guint32*				GVFS_qstack_ix		= NULL;
-static  guint32					GVFS_qstack_ff		= 0; 
+static  guint32					GVFS_qstack_ff		= 0;
 
 gboolean GVFS_qstack_initialized()
 {
@@ -546,8 +546,8 @@ void* gvfs_async_load_subdirs::operator new(size_t size, GnomeVFSURI* parent_uri
 	//guint			element_size,
 	//guint			reserved_size);		growness
 	ls->array() = g_array_sized_new(
-		FALSE, 
-		TRUE, 
+		FALSE,
+		TRUE,
 		sizeof(gvfs_file*),
 		10);
 	ls->len()   = 0;
@@ -585,7 +585,7 @@ void gvfs_async_load_subdirs ::operator delete (void *p)
 //.............................................................................
 // Add entries...goto is the best
 //.............................................................................
-static void 
+static void
 GVFS_async_load_subdirectories_callback(
 	GnomeVFSAsyncHandle		*handle,
 	GnomeVFSResult			result,
@@ -613,7 +613,7 @@ GVFS_async_load_subdirectories_callback(
 	ALSC_INF("alsc:[%03i] entries:%03i list:%16x parent:[%s]%s", ga->hi(), entries_read, list, ls->ppath(), ls->puri()->text);
 
 	// counter
-	count   = 0;						
+	count   = 0;
 
 	// handle the '0-entry-case'
 	if ( entries_read == 0 )
@@ -623,7 +623,7 @@ GVFS_async_load_subdirectories_callback(
 
 	// init loop - we have at least one entry
 	l = g_list_first(list);
-	
+
 lab_loop:
 
 	count++;
@@ -647,14 +647,14 @@ lab_loop:
 			ALSC_WNG("alsc:[%03i][0x%16x] [%03i][%03i][%03i] [broken link, ignored]<%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 			break;
 		}
-	
+
 		added++;
-		
+
 		ALSC_INF("alsc:[%03i][0x%16x] [%03i][%03i][%03i] S<%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 
 		lnk = new() gvfs_symlink(g_strdup(info->name), info->permissions, info->flags );
 		ls->append( (gvfs_file*)lnk );
-		
+
 		// if the caller want partial listing
 		if  (
 				( ga->mr()  >= 0		)  &&
@@ -666,7 +666,7 @@ lab_loop:
 
 		//.....................................................................
 		case GNOME_VFS_FILE_TYPE_DIRECTORY :
-			
+
 		if  ( GVFS_vfsinfo_is_true_directory(info) )
 		{
 			added++;
@@ -677,7 +677,7 @@ lab_loop:
 			dir = new() gvfs_dir(g_strdup(info->name), info->permissions, info->flags);
 
 			ls->append( (gvfs_file*)dir );
-			
+
 			// if the caller want partial listing
 			if  (
 					( ga->mr()  >= 0		)  &&
@@ -691,16 +691,16 @@ lab_loop:
 		default:
 		ALSC_INF("alsc:[%03i][0x%16x] [%03i][%03i][%03i]  <%s>", ga->hi(), l, count, added, ga->mr(), info->name);
 	}
-	
+
 	// if gvfs bugs on entries_read, we bug too with this
-	if ( count == entries_read )		
+	if ( count == entries_read )
 		goto lab_no_more_entry;
 
 	l = g_list_next(l);
 
 	goto lab_loop;
 
-//.............................................................................	
+//.............................................................................
 lab_no_more_entry:
 
 	// if OK, simply return, we will be re-called for further entries
@@ -717,10 +717,10 @@ lab_no_more_entry:
 	// else an error as occured : result is not OK, neither EOF.
 	// this occurs for example with symlinks, or access-denied directories ;
 	// show a little warning, and do as EOF, since there is no more entry.
-	ALSC_INF("alsc:[%03i][0x%16x]  (NO ENTRY - Jumping to EOF):%s", 
+	ALSC_INF("alsc:[%03i][0x%16x]  (NO ENTRY - Jumping to EOF):%s",
 		ga->hi(), l, gnome_vfs_result_to_string(result));
-	
-//.............................................................................	
+
+//.............................................................................
 lab_eof:
 
 	ALSC_INF("alsc:[%03i][0x%16x] (EOF)", ga->hi(), l);
@@ -739,7 +739,7 @@ lab_eof:
 	// "Final end"
 	return;
 
-//.............................................................................	
+//.............................................................................
 lab_abort:
 
 	ALSC_INF("alsc:[%03i][0x%16x] (ABORT)", ga->hi(), l);
@@ -802,8 +802,7 @@ void GVFS_async_load_subdirectories(
 			),
 		GVFS_ITEMS_PER_NOTIFICATION,
 		//GNOME_VFS_PRIORITY_DEFAULT,
-		GNOME_VFS_PRIORITY_MIN,  
+		GNOME_VFS_PRIORITY_MIN,
 		GVFS_async_load_subdirectories_callback,
 		(gpointer)ga);
 }
-

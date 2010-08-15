@@ -22,7 +22,7 @@
 #ifndef __GCMDGTKFOLDVIEW_PRIVATE_H__
 #define __GCMDGTKFOLDVIEW_PRIVATE_H__
 
-/******************************************************************************							
+/******************************************************************************
 
 	C++
 	Contain variadic macros
@@ -38,7 +38,7 @@
 		..................... facultative  / later ............................
 
 		sync file_list when it is not active ( in a hidden tab )
-			
+
 		Bookmarks
 
 		Notification from filesystem ( very hard to do, we're really going
@@ -66,7 +66,7 @@ DONE	symlinks icons show little white pixel when selected its ugly
 
 DONE	foldview correct position on show / hide ( cmdline, buttonbar, ... )
 
-DONE	(Finally) gcmd crashes when opening access-denied folder from treeview 
+DONE	(Finally) gcmd crashes when opening access-denied folder from treeview
 		in tab, after showing an alert
 
 DONE	Going crazy with correct theming of treeview with selectionned items,
@@ -83,19 +83,19 @@ DONE	? mutex on handles : no, gvfs_async calls are queued
 		concurrency between gtk & gvfs
 
 DONE	why GVFS_qstack_ff / GVFS_qstack_size  is always n-2 / n ??? should be n / n
-		-> because t' affiches ff _avant_ update et qsize au lieu de qsize - 1, 
+		-> because t' affiches ff _avant_ update et qsize au lieu de qsize - 1,
 		stupid, ça fait un décalage de 2
 
 DONE	Comments cleanup
-	
+
 DONE	Private logging for gvfs ops
 
-DONE	Cancel all async ops 
-	
+DONE	Cancel all async ops
+
 DONE	Big Bug in checking type of GnomeVFSFileInfo : GNOME_VFS_FILE_TYPE_...
-		are distinct values - it is not a bitfield, triple fuck, spended time 
+		are distinct values - it is not a bitfield, triple fuck, spended time
 		on that
-	
+
 	---------------------------------------------------------------------------
 	TODO EPIOTR
 
@@ -133,7 +133,7 @@ DONE	* after opening foldview, cmdline is moved from bottom to top -
 
 
 
-*******************************************************************************							
+*******************************************************************************
 						HELPERS LOGGERS
 						===============
 
@@ -151,7 +151,7 @@ void gnome_cmd_file_log(gchar *str, GnomeCmdFile *file)
 {
 	gchar   temp[1024];
 
-	sprintf(temp, "fil:[0x%08x %3s][%03i-%03i] [h:xxxxxxxx] [mu:xxx] [%s] [%s]\n", 
+	sprintf(temp, "fil:[0x%08x %3s][%03i-%03i] [h:xxxxxxxx] [mu:xxx] [%s] [%s]\n",
 		file,
 		g_object_is_floating(file) ? "FLO" : "REF",
 		((GInitiallyUnowned*)file)->ref_count,
@@ -176,12 +176,12 @@ void gnome_cmd_dir_log(const gchar *str, GnomeCmdDir *dir)
 		return;
 	}
 
-	sprintf(temp, "dir:[0x%08x %3s][%03i-%03i] [h:0x%08x] [mu:xxx] [%s] [%s]\n", 
+	sprintf(temp, "dir:[0x%08x %3s][%03i-%03i] [h:0x%08x] [mu:xxx] [%s] [%s]\n",
 		dir,
 		g_object_is_floating(dir) ? "FLO" : "REF",
 		((GInitiallyUnowned*)dir)->ref_count,
 		gnome_cmd_file_get_ref_count(GNOME_CMD_FILE(dir)),
-		gnome_cmd_dir_get_handle(dir), 
+		gnome_cmd_dir_get_handle(dir),
 		//dir->priv->monitor_users,
 		GNOME_CMD_FILE_INFO(dir)->uri != NULL ? GNOME_CMD_FILE_INFO(dir)->uri->text : "no uri",
 		str);
@@ -301,7 +301,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
 
 
-*******************************************************************************							
+*******************************************************************************
 
 					WIDGET HIERARCHY FOR GTK-FOLDVIEW
 					=================================
@@ -320,7 +320,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 		GtkWidget *info_label;
 
 
-*******************************************************************************							
+*******************************************************************************
 
 				WIDGET HIERARCHY FOR GNOME-CMD-FILE-SELECTOR
 				============================================
@@ -333,12 +333,12 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 		+--------------------- GnomeCmdFileList
 
 
-*******************************************************************************							
+*******************************************************************************
 
 						GTK+ DRAG & DROP SYNOPSIS
 						=========================
 
-			
+
 		"drag-begin"									SRC
 
 		"drag-motion"												DST
@@ -355,13 +355,13 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 			|
 		"drag-data-received"										DST
 			|
-			|									
+			|
 		"drag-end"										SRC
 
-	
+
 	+   "drag-failed"									SRC
 		"drag-data-delete"								SRC
-		
+
 ******************************************************************************/
 #include <glib.h>
 #include <glib-object.h>
@@ -481,8 +481,8 @@ struct GcmdGtkFoldview
 		// For fixing the moving gutter of the pane
 		gulong		a_size_request_handle;
 		gint		a_size_request_width;
-		
-		// We have a m_parent member because of callbacks, for calling 
+
+		// We have a m_parent member because of callbacks, for calling
 		// the controller
 		private:
 		GtkWidget   *a_this;
@@ -511,7 +511,7 @@ struct GcmdGtkFoldview
 		//---------------------------------------------------------------------
 		private:
 		GdkPixbuf		*m_pixbuf[50];
-	
+
 		public:
 		enum eIcon
 		{
@@ -525,7 +525,7 @@ struct GcmdGtkFoldview
 			eIconSymlinkToDirReadOnly		,
 			eIconSymlinkToDirForbidden
 		};
-		
+
 		private:
 		gboolean		icons_load();
 		void			icons_unload();
@@ -561,10 +561,10 @@ struct GcmdGtkFoldview
 
 		private:
 		GtkTreeSelection	*selection()		{ return gtk_tree_view_get_selection(treeview()); }
-		gint				selection_count()	
+		gint				selection_count()
 							{
 								// Note: gtk_tree_selection_count_selected_rows() does not
-								//   exist in gtk+-2.0, only in gtk+ >= v2.2 ! 
+								//   exist in gtk+-2.0, only in gtk+ >= v2.2 !
  								return 	gtk_tree_selection_count_selected_rows(selection());
 							}
 
@@ -578,7 +578,7 @@ struct GcmdGtkFoldview
 		static 	void		signal_row_collapsed(GtkTreeView *tree_view,
 			GtkTreeIter		*iter, GtkTreePath *path,gpointer user_data);
 
-		static  gboolean	signal_button_press_event(GtkWidget *tree_view, 
+		static  gboolean	signal_button_press_event(GtkWidget *tree_view,
 							GdkEventButton *event, gpointer user_data);
 
 		static 	void		signal_drag_begin(GtkWidget *widget,
@@ -612,7 +612,7 @@ struct GcmdGtkFoldview
 										gtk_tree_path_free(d_path_clicked);
 									}
 								}
-			   
+
 			void	*operator   new(size_t size)	{  return g_new0(ctx_menu_data, 1);  }
 			void	operator	delete(void *p)		{  g_free(p);  }
 		};
@@ -621,7 +621,7 @@ struct GcmdGtkFoldview
 		{
 			gboolean	a_connect;
 			gchar		*a_text;
-			GCallback   a_callback;				
+			GCallback   a_callback;
 		};
 		struct  ctx_menu_entry
 		{
@@ -653,7 +653,7 @@ struct GcmdGtkFoldview
 		//---------------------------------------------------------------------
 		public:
 		void	update_style();
-		
+
 	} view;
 	//=========================================================================
 	//  Model
@@ -695,7 +695,7 @@ struct GcmdGtkFoldview
 		GtkTreeSortable	*treesortable()	{ return GTK_TREE_SORTABLE(m_treestore);}
 
 		//
-		//  Instead of storing boring G_TYPES vars in the store, we can store 
+		//  Instead of storing boring G_TYPES vars in the store, we can store
 		//  anything that inherits from GnomeCmdFoldviewTreestore::Data
 		//  when using GnomeCmdFoldviewTreestore :)
 		//
@@ -711,16 +711,16 @@ struct GcmdGtkFoldview
 			Rowlike(gchar *_utf8_name, gint _icon);
 			~Rowlike();
 			//.................................................................
-			public:	
+			public:
 			const   gchar*  utf8_collate_key();
 			const   gchar*	utf8_name();
 					gint	icon();
 		};
 
 #endif
-		
+
 		// Treemodel methods. These methods use either
-		// GtkTreestore or CnomeCmdFoldviewTreestore, depending on the 
+		// GtkTreestore or CnomeCmdFoldviewTreestore, depending on the
 		// #define __GTS__ above.
 
 		//
@@ -774,13 +774,13 @@ struct GcmdGtkFoldview
 		//---------------------------------------------------------------------
 		private:
 		GnomeCmdCon		*m_con;
-		
-		public:					
+
+		public:
 		void			connection(GnomeCmdCon *con)	{ m_con = con;		}
 		GnomeCmdCon*	connection()					{ return m_con;		}
-		
+
 	} model;
-	
+
 	//=========================================================================
 	//  Controller
 	//=========================================================================
@@ -802,12 +802,12 @@ struct GcmdGtkFoldview
 	static  void	Control_g_object_dispose	(GObject*);
 	static  void	Control_g_object_finalize   (GObject*);
 	static  void	Control_g_object_init		(GcmdGtkFoldview *foldview);
-	
+
 			gint	control_ref_count()
 					{
 						return ((GInitiallyUnowned*)this)->ref_count;
 					}
-	
+
 	//-------------------------------------------------------------------------
 	// divers
 	//-------------------------------------------------------------------------
@@ -836,7 +836,7 @@ struct GcmdGtkFoldview
 			void		control_iter_expand_p(GnomeVFSURI *parent_uri, gchar *parent_path);
 	public:
 			void		control_iter_expand(GtkTreeIter *parent);
-	
+
 	//-------------------------------------------------------------------------
 	// context menu actions
 	//-------------------------------------------------------------------------
@@ -848,7 +848,7 @@ struct GcmdGtkFoldview
 	static  void		Control_set_active_tab	(GtkMenuItem*, View::ctx_menu_data*);
 	static  void		Control_open_new_tab	(GtkMenuItem*, View::ctx_menu_data*);
 	static  void		Control_set_new_root	(GtkMenuItem*, View::ctx_menu_data*);
-	
+
 	private:
 	enum eSyncState
 	{

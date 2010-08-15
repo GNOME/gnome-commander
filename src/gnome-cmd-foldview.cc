@@ -200,9 +200,9 @@ GcmdGtkFoldview::eFileAccess GcmdGtkFoldview::Access_from_permissions(
 }
 
 GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_permissions(
-	GnomeVFSFileType		type, 
+	GnomeVFSFileType		type,
 	GnomeVFSFilePermissions permissions)
-{  
+{
 	eFileAccess	access  = eAccessUnknown;
 
 	access = Access_from_permissions(permissions);
@@ -211,9 +211,9 @@ GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_permissions(
 }
 
 GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_access(
-	GnomeVFSFileType				type, 
+	GnomeVFSFileType				type,
 	GcmdGtkFoldview::eFileAccess	access)
-{  
+{
 	if ( type == GNOME_VFS_FILE_TYPE_DIRECTORY )
 	{
 		switch ( access )
@@ -350,7 +350,7 @@ gcmdgtkfoldview_class_init (GcmdGtkFoldviewClass *klass)
 		g_cclosure_marshal_VOID__VOID,
 		G_TYPE_NONE, 0);
 
-	// For exiting properly 
+	// For exiting properly
     GtkObjectClass  *gtk_object_class   = GTK_OBJECT_CLASS  (klass);
     //GtkWidgetClass  *gtk_widget_class   = GTK_WIDGET_CLASS  (klass);
 	GObjectClass	*g_object_class		= G_OBJECT_CLASS	(klass);
@@ -377,7 +377,7 @@ gcmdgtkfoldview_new ()
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
-void	
+void
 gnome_cmd_foldview_update_style(GtkWidget *widget)
 {
 	g_return_if_fail( widget != NULL );
@@ -385,7 +385,7 @@ gnome_cmd_foldview_update_style(GtkWidget *widget)
 	(GCMDGTKFOLDVIEW(widget))->view.update_style();
 }
 
-GtkWidget* 
+GtkWidget*
 gnome_cmd_foldview_get_instance()
 {
 	return GcmdWidget();
@@ -426,5 +426,3 @@ gboolean GcmdGtkFoldview::root_uri_set_2(GnomeVFSURI *uri)
 {
 	return control_root_uri_set(uri);
 }
-
-
