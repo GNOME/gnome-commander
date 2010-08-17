@@ -1106,25 +1106,37 @@ void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
 
 void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 {
-    char *su;
+    char *su = NULL;
+    gboolean need_c = FALSE;
 
-    su = g_find_program_in_path ("gksu");
-    if  (!su)
-        su = g_find_program_in_path ("beesu");
-    if  (!su)
-        su = g_find_program_in_path ("kdesu");
+    if ((su = g_find_program_in_path ("xdg-su")))
+        goto with_c_param;
+    if ((su = g_find_program_in_path ("gksu")))
+        goto without_c_param;
+    if ((su = g_find_program_in_path ("gnomesu")))
+        goto with_c_param;
+    if ((su = g_find_program_in_path ("beesu")))
+        goto without_c_param;
+    if ((su = g_find_program_in_path ("kdesu")))
+        goto without_c_param;
 
-    if  (!su)
-    {
-        gnome_cmd_show_message (NULL, _("gksu, kdesu or beesu is not found."));
-        return ;
-    }
+    gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
+    return;
 
-    char *argv[3];
+  with_c_param:
 
-    argv[0] = su;
-    argv[1] = g_get_prgname ();
-    argv[2] = NULL;
+    need_c = TRUE;
+
+  without_c_param:
+
+    char *argv[4];
+    int i = 0;
+
+    argv[i++] = su;
+    argv[i++] = g_get_prgname ();
+    if (need_c)
+        argv[i++] = "-c";
+    argv[i++] = NULL;
 
     GError *error = NULL;
 
