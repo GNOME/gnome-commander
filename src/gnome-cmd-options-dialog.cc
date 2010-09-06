@@ -54,6 +54,14 @@ inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 
 
 
+static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
+{
+    GtkWidget *check = lookup_widget (dialog, "save_dirs");
+
+    gtk_widget_set_sensitive (check, !gtk_toggle_button_get_active (togglebutton));
+}
+
+
 /***********************************************************************
  *
  *  The General tab
@@ -159,12 +167,14 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     cat = create_category (parent, cat_box, _("Save on exit"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    radio = create_radio (parent, NULL, _("Directories"), "save_dirs");
-    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.save_dirs_on_exit);
-    radio = create_radio (parent, get_radio_group (radio), _("Tabs"), "save_tabs");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.save_tabs_on_exit);
+    check = create_check (parent, _("Directories"), "save_dirs");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_dirs_on_exit);
+
+    check = create_check (parent, _("Tabs"), "save_tabs");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_tabs_on_exit);
 
 
     return frame;
