@@ -29,6 +29,7 @@ gnome-commander 1.2.8.8
 
 Bug fixes:
  * Fixed problem #610764 (menu item won't stay checked)
+ * Fixed problem #626469 (add support for other su-like programs: xdg-su, gnomesu)
  * Fixed problem with broken Spanish translation
 
 
