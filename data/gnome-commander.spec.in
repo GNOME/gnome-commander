@@ -22,6 +22,7 @@
 
 Name:          @PACKAGE@
 Version:       @VERSION@
+Epoch:         2
 Release:       %{rel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
@@ -163,6 +164,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Fri Sep 10 2010 Piotr Eljasiak <epiotr@use.pl>
+- set epoch to 2
+
 * Wed Mar 3 2010 Piotr Eljasiak <epiotr@use.pl>
 - added unique dependency
 
