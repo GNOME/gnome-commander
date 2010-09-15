@@ -127,12 +127,6 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
 }
 
 
-static gint xfer_callback (GnomeVFSXferProgressInfo *info, gpointer user_data)
-{
-    return 1;
-}
-
-
 static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgressInfo *info, XferData *data)
 {
     data->cur_phase = info->phase;
@@ -428,17 +422,11 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     gtk_widget_show (GTK_WIDGET (data->win));
 
     //  start the transfer
-    gnome_vfs_async_xfer (&data->handle,
-                          data->src_uri_list,
-                          data->dest_uri_list,
-                          xferOptions,
-                          GNOME_VFS_XFER_ERROR_MODE_QUERY,
-                          xferOverwriteMode,
+    gnome_vfs_async_xfer (&data->handle, data->src_uri_list, data->dest_uri_list,
+                          xferOptions, GNOME_VFS_XFER_ERROR_MODE_QUERY, xferOverwriteMode,
                           XFER_PRIORITY,
-                          (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
-                          data,
-                          xfer_callback,
-                          data);
+                          (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
+                          NULL, NULL);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }
@@ -514,17 +502,11 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
 
     //  start the transfer
     GnomeVFSResult result;
-    result = gnome_vfs_async_xfer (&data->handle,
-                                   data->src_uri_list,
-                                   data->dest_uri_list,
-                                   xferOptions,
-                                   GNOME_VFS_XFER_ERROR_MODE_ABORT,
-                                   xferOverwriteMode,
+    result = gnome_vfs_async_xfer (&data->handle, data->src_uri_list, data->dest_uri_list,
+                                   xferOptions, GNOME_VFS_XFER_ERROR_MODE_ABORT, xferOverwriteMode,
                                    XFER_PRIORITY,
-                                   (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
-                                   data,
-                                   xfer_callback,
-                                   data);
+                                   (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
+                                   NULL, NULL);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }
