@@ -160,7 +160,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gchar *msg = g_strdup_printf (_("The file \"%s\" already exists.\n\nDo you want to overwrite it?\n"), fn);
 
         gdk_threads_enter ();
-        gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_ERROR, msg, " ",
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, " ",
                                       1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
         g_free (msg);
         g_free (fn);
@@ -169,26 +169,26 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gdk_threads_leave ();
         return ret==-1 ? 0 : ret;
     }
-    else
-        if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR
-            && data->prev_status != GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
-        {
-            const gchar *error = gnome_vfs_result_to_string (info->vfs_status);
-            gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) :
-                                                               str_uri_basename (info->target_name);
-            gchar *fn = get_utf8 (t);
-            gchar *msg = g_strdup_printf (_("Error while copying to %s\n\n%s"), fn, error);
 
-            gdk_threads_enter ();
-            gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
-                                          -1, _("Abort"), _("Retry"), _("Skip"), NULL);
-            g_free (msg);
-            g_free (fn);
-            g_free (t);
-            data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR;
-            gdk_threads_leave ();
-            return ret==-1 ? 0 : ret;
-        }
+    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR
+        && data->prev_status != GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
+    {
+        const gchar *error = gnome_vfs_result_to_string (info->vfs_status);
+        gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) :
+                                                           str_uri_basename (info->target_name);
+        gchar *fn = get_utf8 (t);
+        gchar *msg = g_strdup_printf (_("Error while copying to %s\n\n%s"), fn, error);
+
+        gdk_threads_enter ();
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
+                                      -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+        g_free (msg);
+        g_free (fn);
+        g_free (t);
+        data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR;
+        gdk_threads_leave ();
+        return ret==-1 ? 0 : ret;
+    }
 
     if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED)
     {
