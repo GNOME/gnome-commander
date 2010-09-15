@@ -34,7 +34,7 @@
 using namespace std;
 
 
-#define XFER_PRIORITY 0
+#define XFER_PRIORITY GNOME_VFS_PRIORITY_DEFAULT
 
 
 typedef struct
