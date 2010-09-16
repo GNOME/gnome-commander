@@ -10,6 +10,7 @@ plugins/test/test-plugin.cc
 src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 src/dialogs/gnome-cmd-edit-bookmark-dialog.cc
 src/dialogs/gnome-cmd-edit-profile-dialog.cc
+src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.cc
 src/dirlist.cc
@@ -35,7 +36,6 @@ src/gnome-cmd-file-popmenu.cc
 src/gnome-cmd-file-props-dialog.cc
 src/gnome-cmd-file-selector.cc
 src/gnome-cmd-file.cc
-src/gnome-cmd-key-shortcuts-dialog.cc
 src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc
