@@ -48,11 +48,11 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-xml-config.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-regex.h"
 #include "gnome-cmd-user-actions.h"
 #include "dict.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;
 

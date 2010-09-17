@@ -22,10 +22,10 @@
 #define __GNOME_CMD_MAIN_WIN_H__
 
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-xml-config.h"
 #include "plugin_manager.h"
+#include "dialogs/gnome-cmd-advrename-dialog.h"
 
 #define GNOME_CMD_TYPE_MAIN_WIN          (gnome_cmd_main_win_get_type ())
 #define GNOME_CMD_MAIN_WIN(obj)          GTK_CHECK_CAST(obj, GNOME_CMD_TYPE_MAIN_WIN, GnomeCmdMainWin)

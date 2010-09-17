@@ -42,15 +42,15 @@
 #include "gnome-cmd-prepare-move-dialog.h"
 #include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-search-dialog.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chown-dialog.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
-#include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
 #include "cap.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-advrename-dialog.h"
+#include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
+#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 using namespace std;
 

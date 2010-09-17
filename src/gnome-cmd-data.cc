@@ -33,10 +33,10 @@
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "filter.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;
 
