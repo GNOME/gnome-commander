@@ -26,18 +26,18 @@
 #include <gtk/gtkdialog.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-convert.h"
 #include "gnome-cmd-advrename-dialog.h"
-#include "gnome-cmd-profile-component.h"
-#include "dialogs/gnome-cmd-advrename-regex-dialog.h"
-#include "dialogs/gnome-cmd-manage-profiles-dialog.h"
 #include "gnome-cmd-advrename-lexer.h"
-#include "gnome-cmd-file.h"
-#include "gnome-cmd-treeview.h"
-#include "gnome-cmd-menu-button.h"
+#include "gnome-cmd-advrename-regex-dialog.h"
+#include "gnome-cmd-convert.h"
 #include "gnome-cmd-data.h"
-#include "tags/gnome-cmd-tags.h"
+#include "gnome-cmd-file.h"
+#include "gnome-cmd-manage-profiles-dialog.h"
+#include "gnome-cmd-menu-button.h"
+#include "gnome-cmd-profile-component.h"
+#include "gnome-cmd-treeview.h"
 #include "utils.h"
+#include "tags/gnome-cmd-tags.h"
 
 using namespace std;
 
@@ -451,7 +451,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                 GnomeVFSResult result = GNOME_VFS_OK;
 
                 if (strcmp (f->info->name, new_name) != 0)
-                    result = gnome_cmd_file_rename (f, new_name);
+                    result = f->rename(new_name);
 
                 gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
                                     COL_NAME, gnome_cmd_file_get_name (f),

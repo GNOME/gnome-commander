@@ -232,7 +232,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.8;</revnumber>
-        <date>2010-??-??</date>
+        <date>2010-09-09</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -7420,13 +7420,16 @@
         </row>
         <row valign="top">
             <entry><para>1.2.8.8</para></entry>
-            <entry><para>2010-??-??</para></entry>
+            <entry><para>2010-09-09</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
                             <para>Fixed problem #610764 (menu item won't stay checked)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #626469 (add support for other su-like programs: xdg-su, gnomesu)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem with broken Spanish translation</para>

@@ -7,15 +7,16 @@ plugins/cvs/cvs-plugin.cc
 plugins/cvs/interface.cc
 plugins/fileroller/file-roller-plugin.cc
 plugins/test/test-plugin.cc
+src/dialogs/gnome-cmd-advrename-dialog.cc
 src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 src/dialogs/gnome-cmd-edit-bookmark-dialog.cc
 src/dialogs/gnome-cmd-edit-profile-dialog.cc
+src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.cc
 src/dirlist.cc
 src/eggcellrendererkeys.cc
 src/gnome-cmd-about-plugin.cc
-src/gnome-cmd-advrename-dialog.cc
 src/gnome-cmd-chmod-component.cc
 src/gnome-cmd-chmod-dialog.cc
 src/gnome-cmd-chown-component.cc
@@ -37,7 +38,6 @@ src/gnome-cmd-file-selector.cc
 src/gnome-cmd-file.cc
 src/gnome-cmd-foldview-control.cc
 src/gnome-cmd-foldview-view.cc
-src/gnome-cmd-key-shortcuts-dialog.cc
 src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc

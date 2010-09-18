@@ -68,7 +68,7 @@ static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean r
 
     if (!(recursive && mode == CHMOD_DIRS_ONLY && in->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
     {
-        GnomeVFSResult ret = gnome_cmd_file_chmod (in, perm);
+        GnomeVFSResult ret = in->chmod(perm);
 
         if (ret != GNOME_VFS_OK)
             gnome_cmd_show_message (NULL, gnome_cmd_file_get_name (in), gnome_vfs_result_to_string (ret));

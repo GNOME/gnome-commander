@@ -33,10 +33,10 @@
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "filter.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;
 
@@ -939,7 +939,7 @@ GnomeCmdData::GnomeCmdData()
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
-    save_dirs_on_exit = TRUE;
+    save_dirs_on_exit = FALSE;
     save_tabs_on_exit = TRUE;
 
     allow_multiple_instances = FALSE;

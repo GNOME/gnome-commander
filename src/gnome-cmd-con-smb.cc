@@ -67,12 +67,13 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
         }
     }
     else
+    {
         if (con->state == CON_STATE_CANCELLING)
             DEBUG('m', "The open operation was cancelled, doing nothing\n");
-    else
-        DEBUG('m', "Strange ConState %d\n", con->state);
-
-    con->state = CON_STATE_CLOSED;
+        else
+            DEBUG('m', "Strange ConState %d\n", con->state);
+        con->state = CON_STATE_CLOSED;
+    }
 }
 
 

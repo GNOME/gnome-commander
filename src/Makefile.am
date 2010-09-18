@@ -21,7 +21,6 @@ gnome_commander_SOURCES = \
 	eggcellrendererkeys.h eggcellrendererkeys.cc \
 	filter.h filter.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \
-	gnome-cmd-advrename-dialog.h gnome-cmd-advrename-dialog.cc \
 	gnome-cmd-advrename-lexer.h gnome-cmd-advrename-lexer.ll \
 	gnome-cmd-app.h gnome-cmd-app.cc \
 	gnome-cmd-chmod-component.h gnome-cmd-chmod-component.cc \
@@ -58,7 +57,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-foldview-view.cc \
 	gnome-cmd-hintbox.h gnome-cmd-hintbox.cc \
 	gnome-cmd-includes.h \
-	gnome-cmd-key-shortcuts-dialog.h gnome-cmd-key-shortcuts-dialog.cc \
 	gnome-cmd-list-popmenu.h gnome-cmd-list-popmenu.cc \
 	gnome-cmd-main-menu.h gnome-cmd-main-menu.cc \
 	gnome-cmd-main-win.h gnome-cmd-main-win.cc \

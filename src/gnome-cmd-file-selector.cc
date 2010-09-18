@@ -425,6 +425,7 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     GnomeCmdDir *prev_dir = fs->get_directory();
+    GnomeCmdCon *prev_con = fs->get_connection();
 
     fs->list = fs->file_list(n);
     fs->update_direntry();
@@ -433,6 +434,9 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
 
     if (prev_dir!=fs->get_directory())
         g_signal_emit (fs, signals[DIR_CHANGED], 0, fs->get_directory());
+
+    if (prev_con!=fs->get_connection())
+        fs->con_combo->select_data(fs->get_connection());
 }
 
 

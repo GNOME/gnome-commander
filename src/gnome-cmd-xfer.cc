@@ -34,7 +34,7 @@
 using namespace std;
 
 
-#define XFER_PRIORITY 0
+#define XFER_PRIORITY GNOME_VFS_PRIORITY_DEFAULT
 
 
 typedef struct
@@ -127,12 +127,6 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
 }
 
 
-static gint xfer_callback (GnomeVFSXferProgressInfo *info, gpointer user_data)
-{
-    return 1;
-}
-
-
 static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgressInfo *info, XferData *data)
 {
     data->cur_phase = info->phase;
@@ -166,7 +160,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gchar *msg = g_strdup_printf (_("The file \"%s\" already exists.\n\nDo you want to overwrite it?\n"), fn);
 
         gdk_threads_enter ();
-        gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_ERROR, msg, " ",
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, " ",
                                       1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
         g_free (msg);
         g_free (fn);
@@ -175,26 +169,26 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gdk_threads_leave ();
         return ret==-1 ? 0 : ret;
     }
-    else
-        if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR
-            && data->prev_status != GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
-        {
-            const gchar *error = gnome_vfs_result_to_string (info->vfs_status);
-            gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) :
-                                                               str_uri_basename (info->target_name);
-            gchar *fn = get_utf8 (t);
-            gchar *msg = g_strdup_printf (_("Error while copying to %s\n\n%s"), fn, error);
 
-            gdk_threads_enter ();
-            gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
-                                          -1, _("Abort"), _("Retry"), _("Skip"), NULL);
-            g_free (msg);
-            g_free (fn);
-            g_free (t);
-            data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR;
-            gdk_threads_leave ();
-            return ret==-1 ? 0 : ret;
-        }
+    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR
+        && data->prev_status != GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
+    {
+        const gchar *error = gnome_vfs_result_to_string (info->vfs_status);
+        gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) :
+                                                           str_uri_basename (info->target_name);
+        gchar *fn = get_utf8 (t);
+        gchar *msg = g_strdup_printf (_("Error while copying to %s\n\n%s"), fn, error);
+
+        gdk_threads_enter ();
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
+                                      -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+        g_free (msg);
+        g_free (fn);
+        g_free (t);
+        data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR;
+        gdk_threads_leave ();
+        return ret==-1 ? 0 : ret;
+    }
 
     if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED)
     {
@@ -429,17 +423,11 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     gtk_widget_show (GTK_WIDGET (data->win));
 
     //  start the transfer
-    gnome_vfs_async_xfer (&data->handle,
-                          data->src_uri_list,
-                          data->dest_uri_list,
-                          xferOptions,
-                          GNOME_VFS_XFER_ERROR_MODE_QUERY,
-                          xferOverwriteMode,
+    gnome_vfs_async_xfer (&data->handle, data->src_uri_list, data->dest_uri_list,
+                          xferOptions, GNOME_VFS_XFER_ERROR_MODE_QUERY, xferOverwriteMode,
                           XFER_PRIORITY,
-                          (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
-                          data,
-                          xfer_callback,
-                          data);
+                          (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
+                          NULL, NULL);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }
@@ -515,17 +503,11 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
 
     //  start the transfer
     GnomeVFSResult result;
-    result = gnome_vfs_async_xfer (&data->handle,
-                                   data->src_uri_list,
-                                   data->dest_uri_list,
-                                   xferOptions,
-                                   GNOME_VFS_XFER_ERROR_MODE_ABORT,
-                                   xferOverwriteMode,
+    result = gnome_vfs_async_xfer (&data->handle, data->src_uri_list, data->dest_uri_list,
+                                   xferOptions, GNOME_VFS_XFER_ERROR_MODE_ABORT, xferOverwriteMode,
                                    XFER_PRIORITY,
-                                   (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
-                                   data,
-                                   xfer_callback,
-                                   data);
+                                   (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
+                                   NULL, NULL);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }

@@ -220,7 +220,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (strcmp (filename, gnome_cmd_file_get_name (data->f)) != 0)
     {
-        result = gnome_cmd_file_rename (data->f, filename);
+        result = data->f->rename(filename);
 
         if (result==GNOME_VFS_OK)
             main_win->fs(ACTIVE)->file_list()->focus_file(filename, TRUE);
@@ -231,7 +231,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         GnomeVFSFilePermissions perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 
         if (perms != data->f->info->permissions)
-            result = gnome_cmd_file_chmod (data->f, perms);
+            result = data->f->chmod(perms);
     }
 
     if (result == GNOME_VFS_OK)
@@ -245,7 +245,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
             gid = -1;
 
         if (uid != -1 || gid != -1)
-            result = gnome_cmd_file_chown (data->f, uid, gid);
+            result = data->f->chown(uid,gid);
     }
 
     if (result != GNOME_VFS_OK)

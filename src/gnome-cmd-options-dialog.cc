@@ -54,6 +54,14 @@ inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 
 
 
+static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
+{
+    GtkWidget *check = lookup_widget (dialog, "save_dirs");
+
+    gtk_widget_set_sensitive (check, !gtk_toggle_button_get_active (togglebutton));
+}
+
+
 /***********************************************************************
  *
  *  The General tab
@@ -165,6 +173,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Tabs"), "save_tabs");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_tabs_on_exit);
 
 

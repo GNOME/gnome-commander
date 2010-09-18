@@ -60,7 +60,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_KP_Enter:
             {
                 gchar *new_fname = g_strdup (gtk_entry_get_text (dialog->priv->textbox));
-                GnomeVFSResult result = gnome_cmd_file_rename (dialog->priv->f, new_fname);
+                GnomeVFSResult result = dialog->priv->f->rename(new_fname);
 
                 if (result==GNOME_VFS_OK)
                     main_win->fs(ACTIVE)->file_list()->focus_file(new_fname, TRUE);

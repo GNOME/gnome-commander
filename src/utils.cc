@@ -531,7 +531,7 @@ void mime_exec_single (GnomeCmdFile *f)
 
             if (ret != 1)  return;  else
             {
-                GnomeVFSResult result = gnome_cmd_file_chmod (f, (GnomeVFSFilePermissions) (f->info->permissions|GNOME_VFS_PERM_USER_EXEC));
+                GnomeVFSResult result = f->chmod((GnomeVFSFilePermissions) (f->info->permissions|GNOME_VFS_PERM_USER_EXEC));
                 if (result != GNOME_VFS_OK)
                     return;
             }
