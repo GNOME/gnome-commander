@@ -240,6 +240,16 @@
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.9;</revnumber>
+        <date>2010-??-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
@@ -7413,6 +7423,20 @@
                                     <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo>   Switch to the previous tab</para>
                                 </listitem>
                             </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.9</para></entry>
+            <entry><para>2010-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
                         </listitem>
                     </itemizedlist>
                 </para>
