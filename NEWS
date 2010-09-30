@@ -5,6 +5,9 @@ gnome-commander 1.2.8.9
 Bug fixes:
  * ...
 
+New features:
+ * Support for shell-style wildcards in quick search
+
 
 ===================================
 gnome-commander 1.2.8.8
