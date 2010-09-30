@@ -47,7 +47,7 @@ struct Filter
 inline gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *string, gboolean case_sens)
 {
 #ifdef FNM_CASEFOLD
-    return pattern && string && fnmatch (pattern, string, case_sens ? FNM_NOESCAPE|FNM_CASEFOLD : FNM_NOESCAPE)==0;
+    return pattern && string && fnmatch (pattern, string, case_sens ? FNM_NOESCAPE : FNM_NOESCAPE|FNM_CASEFOLD)==0;
 #else
     return pattern && string && fnmatch (pattern, string, FNM_NOESCAPE) == 0;
 #endif
