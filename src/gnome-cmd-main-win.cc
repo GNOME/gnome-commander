@@ -1122,6 +1122,16 @@ void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
 }
 
 
+void GnomeCmdMainWin::change_connection(FileSelectorID id)
+{
+    GnomeCmdFileSelector *fs = this->fs(id);
+
+    switch_fs(fs);
+    if (gnome_cmd_data.concombo_visibility)
+        fs->con_combo->popup_list();
+}
+
+
 void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 {
     GnomeCmdFileSelector *fs =  this->fs(fsID);
