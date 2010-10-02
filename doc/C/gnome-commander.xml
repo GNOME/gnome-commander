@@ -6344,7 +6344,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>view.in_right_pane</para></entry>
-                        <entry><para>Copy the current working directory from the active left file list to the rigth one</para></entry>
+                        <entry><para>Copy the current working directory from the active left file list to the right one</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
