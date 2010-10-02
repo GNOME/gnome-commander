@@ -1154,7 +1154,8 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()));
 
-    gnome_execute_terminal_shell (dpath, NULL);
+    if (gnome_execute_terminal_shell (dpath, NULL) == -1)
+        gnome_cmd_show_message (NULL, _("Unable to open terminal"), g_strerror (errno));
     g_free (dpath);
 }
 
