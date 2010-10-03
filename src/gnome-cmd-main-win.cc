@@ -956,24 +956,6 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_1:
-                {
-                    GnomeCmdFileSelector *fs = this->fs(LEFT);
-                    switch_fs(fs);
-                    if (gnome_cmd_data.concombo_visibility)
-                        fs->con_combo->popup_list();
-                }
-                return TRUE;
-
-            case GDK_2:
-                {
-                    GnomeCmdFileSelector *fs = this->fs(RIGHT);
-                    switch_fs(fs);
-                    if (gnome_cmd_data.concombo_visibility)
-                        fs->con_combo->popup_list();
-                }
-                return TRUE;
-
             case GDK_F8:
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));

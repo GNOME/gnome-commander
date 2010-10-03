@@ -21,6 +21,8 @@ New features:
       CTRL+SHIFT+W   Close all tabs
       CTRL+TAB       Switch to the next tab
       CTRL+SHIFT+TAB Switch to the previous tab
+      SUPER+1        Change left connection
+      SUPER+2        Change right connection
 
 
 ===================================

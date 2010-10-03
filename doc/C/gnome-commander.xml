@@ -5402,12 +5402,12 @@
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para></entry>
             <entry><para>Change left connection</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para></entry>
             <entry><para>Change right connection</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -5502,6 +5502,26 @@
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
             <entry><para>Create symbolic link</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
+            <entry><para>Change left connection</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
+            <entry><para>Change right connection</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo></para></entry>
+            <entry><para>Search files</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
@@ -6055,6 +6075,18 @@
                         <entry><para>connections.new</para></entry>
                         <entry><para>Open new remote connection</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.change_left</para></entry>
+                        <entry><para>Change left connection</para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para>
+                               <para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.change_right</para></entry>
+                        <entry><para>Change right connection</para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para>
+                               <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>edit.copy</para></entry>
@@ -7421,6 +7453,12 @@
                                 </listitem>
                                 <listitem>
                                     <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo>   Switch to the previous tab</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo>   Change left connection</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo>   Change right connection</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

@@ -147,6 +147,8 @@ static UserActionData user_actions_data[] = {
                                              {connections_close_current, "connections.close", N_("Close connection")},
                                              {connections_new, "connections.new", N_("New connection")},
                                              {connections_open, "connections.open", N_("Open connection")},
+                                             {connections_change_left, "connections.change_left", N_("Change left connection")},
+                                             {connections_change_right, "connections.change_right", N_("Change right connection")},
                                              {edit_cap_copy, "edit.copy", N_("Copy")},
                                              {edit_copy_fnames, "edit.copy_filenames", N_("Copy file names")},
                                              {edit_cap_cut, "edit.cut", N_("Cut")},
@@ -253,6 +255,26 @@ void GnomeCmdUserActions::init()
 
     if (!registered("connections.close"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F, "connections.close");
+
+    if (!registered("connections.change_left"))
+    {
+        register_action(GDK_MOD1_MASK, GDK_1, "connections.change_left");
+#if GTK_CHECK_VERSION (2, 10, 0)
+        register_action(GDK_SUPER_MASK, GDK_1, "connections.change_left");
+#else
+        register_action(GDK_MOD4_MASK, GDK_1, "connections.change_left");
+#endif
+    }
+
+    if (!registered("connections.change_right"))
+    {
+        register_action(GDK_MOD1_MASK, GDK_2, "connections.change_right");
+#if GTK_CHECK_VERSION (2, 10, 0)
+        register_action(GDK_SUPER_MASK, GDK_2, "connections.change_right");
+#else
+        register_action(GDK_MOD4_MASK, GDK_2, "connections.change_right");
+#endif
+    }
 
     if (!registered("edit.copy_filenames"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_C, "edit.copy_filenames");
@@ -1605,6 +1627,18 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
 {
     get_fl (ACTIVE)->set_connection((GnomeCmdCon *) con);
+}
+
+
+void connections_change_left (GtkMenuItem *menuitem, gpointer con)
+{
+    main_win->change_connection(LEFT);
+}
+
+
+void connections_change_right (GtkMenuItem *menuitem, gpointer con)
+{
+    main_win->change_connection(RIGHT);
 }
 
 
