@@ -13,6 +13,7 @@ New features:
  * Revamped file properties dialog
  * One instance mode
  * User defined LS_COLORS colours
+ * Enhanced file name matching in quick search
  * New or updated docs: de, en, es, fr, sl
  * New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN
  * New key bindings:

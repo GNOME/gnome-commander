@@ -7431,6 +7431,9 @@
                             <para>User defined LS_COLORS colours</para>
                         </listitem>
                         <listitem>
+                            <para>Enhanced file name matching in quick search</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: de, en, es, fr, sl</para>
                         </listitem>
                         <listitem>

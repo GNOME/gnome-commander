@@ -908,6 +908,8 @@ GnomeCmdData::GnomeCmdData()
     size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
     perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     alt_quick_search = FALSE;
+    quick_search_exact_match_begin = TRUE;
+    quick_search_exact_match_end = FALSE;
 
     filter_type = Filter::TYPE_FNMATCH;
     memset(&filter_settings, 0, sizeof(filter_settings));
@@ -1183,6 +1185,8 @@ void GnomeCmdData::load()
     allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
     use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
+    quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
+    quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
     skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
     priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
@@ -1586,6 +1590,8 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", allow_multiple_instances);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", alt_quick_search);
+    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", quick_search_exact_match_begin);
+    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", quick_search_exact_match_end);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);

@@ -73,7 +73,12 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
         popup->priv->matches = NULL;
     }
 
-    gchar *pattern = g_strconcat (text, "*", NULL);
+    gchar *pattern;
+
+    if (gnome_cmd_data.quick_search_exact_match_begin)
+        pattern = gnome_cmd_data.quick_search_exact_match_end ? g_strdup (text) : g_strconcat (text, "*", NULL);
+    else
+        pattern = gnome_cmd_data.quick_search_exact_match_end ? g_strconcat ("*", text, NULL) : g_strconcat ("*", text, "*", NULL);
 
     for (GList *files = popup->priv->fl->get_visible_files(); files; files = files->next)
     {

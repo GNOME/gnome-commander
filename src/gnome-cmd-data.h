@@ -194,6 +194,8 @@ struct GnomeCmdData
     GnomeCmdSizeDispMode         size_disp_mode;
     GnomeCmdPermDispMode         perm_disp_mode;
     gboolean                     alt_quick_search;
+    gboolean                     quick_search_exact_match_begin;
+    gboolean                     quick_search_exact_match_end;
 
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
