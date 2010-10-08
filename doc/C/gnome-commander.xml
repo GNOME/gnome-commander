@@ -6063,7 +6063,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem #631243 (advrename $c(width) regression)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

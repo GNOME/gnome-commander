@@ -3,7 +3,7 @@ gnome-commander 1.2.8.9
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed problem #631243 (advrename $c(width) regression)
 
 New features:
  * Support for shell-style wildcards in quick search
