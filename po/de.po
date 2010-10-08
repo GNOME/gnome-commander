@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-10-03 13:22+0000\n"
-"PO-Revision-Date: 2010-10-03 15:37+0100\n"
+"POT-Creation-Date: 2010-10-07 20:53+0000\n"
+"PO-Revision-Date: 2010-10-08 19:47+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,8 +43,8 @@ msgstr "Keine Fehlerbeschreibung vorhanden"
 #: ../plugins/cvs/cvs-plugin.cc:276
 #: ../plugins/fileroller/file-roller-plugin.cc:362
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:359
-#: ../src/gnome-cmd-options-dialog.cc:1335
-#: ../src/gnome-cmd-options-dialog.cc:1986
+#: ../src/gnome-cmd-options-dialog.cc:1347
+#: ../src/gnome-cmd-options-dialog.cc:1998
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/gnome-cmd-prepare-move-dialog.cc:115
 #: ../src/gnome-cmd-remote-dialog.cc:484 ../src/gnome-cmd-user-actions.cc:194
@@ -549,7 +549,7 @@ msgstr "Textansicht:"
 msgid "Number view:"
 msgstr "Zahlenansicht:"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:45 ../src/gnome-cmd-options-dialog.cc:1356
+#: ../src/gnome-cmd-chmod-dialog.cc:45 ../src/gnome-cmd-options-dialog.cc:1368
 msgid "All files"
 msgstr "Alle Dateien"
 
@@ -796,17 +796,17 @@ msgstr "Arbeitsgruppen und Rechner werden gesucht"
 msgid "Go to: Samba Network"
 msgstr "Gehe zu: Samba-Netzwerk"
 
-#: ../src/gnome-cmd-data.cc:1188 ../src/gnome-cmd-data.cc:1189
-#: ../src/gnome-cmd-data.cc:1597 ../src/gnome-cmd-data.cc:1899
+#: ../src/gnome-cmd-data.cc:1192 ../src/gnome-cmd-data.cc:1193
+#: ../src/gnome-cmd-data.cc:1603 ../src/gnome-cmd-data.cc:1905
 #, c-format
 msgid "link to %s"
 msgstr "Link zu %s"
 
-#: ../src/gnome-cmd-data.cc:1464
+#: ../src/gnome-cmd-data.cc:1468
 msgid "Audio Files"
 msgstr "Audiodateien"
 
-#: ../src/gnome-cmd-data.cc:1472
+#: ../src/gnome-cmd-data.cc:1476
 msgid "CamelCase"
 msgstr "Zusammenschreibung ohne Leerzeichen (CamelCase)"
 
@@ -864,7 +864,7 @@ msgstr[0] "Möchten Sie die gewählte Datei löschen?"
 msgstr[1] "Möchten Sie die %d gewählten Dateien löschen?"
 
 #: ../src/gnome-cmd-delete-dialog.cc:286 ../src/gnome-cmd-main-win.cc:1184
-#: ../src/gnome-cmd-options-dialog.cc:839 ../src/gnome-cmd-user-actions.cc:155
+#: ../src/gnome-cmd-options-dialog.cc:851 ../src/gnome-cmd-user-actions.cc:155
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1208,8 +1208,8 @@ msgid "Create Symbolic Link"
 msgstr "Symbolische Verknüpfung erstellen"
 
 #: ../src/gnome-cmd-file-selector.cc:1216
-#: ../src/gnome-cmd-options-dialog.cc:861
-#: ../src/gnome-cmd-options-dialog.cc:881
+#: ../src/gnome-cmd-options-dialog.cc:873
+#: ../src/gnome-cmd-options-dialog.cc:893
 msgid "Skip all"
 msgstr "Alle überspringen"
 
@@ -1639,9 +1639,9 @@ msgstr "Sortieroptionen"
 msgid "Case sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
-#: ../src/gnome-cmd-options-dialog.cc:144
-msgid "Quick search using"
-msgstr "Schnellsuche über"
+#: ../src/gnome-cmd-options-dialog.cc:144 ../src/gnome-cmd-user-actions.cc:158
+msgid "Quick search"
+msgstr "Schnellsuche"
 
 #: ../src/gnome-cmd-options-dialog.cc:147
 msgid "CTRL+ALT+letters"
@@ -1651,521 +1651,529 @@ msgstr "Strg+Alt+Buchstaben"
 msgid "ALT+letters (menu access with F10)"
 msgstr "Alt+Buchstaben (Menüzugriff durch F10)"
 
-#: ../src/gnome-cmd-options-dialog.cc:157
+#: ../src/gnome-cmd-options-dialog.cc:154
+msgid "Match beginning of the file name"
+msgstr "Übereinstimmung mit dem Anfang des Dateinamens"
+
+#: ../src/gnome-cmd-options-dialog.cc:158
+msgid "Match end of the file name"
+msgstr "Übereinstimmung mit dem Ende des Dateinamens"
+
+#: ../src/gnome-cmd-options-dialog.cc:165
 msgid "Multiple instances"
 msgstr "Mehrere Instanzen"
 
-#: ../src/gnome-cmd-options-dialog.cc:160
+#: ../src/gnome-cmd-options-dialog.cc:168
 msgid "Don't start a new instance"
 msgstr "Keine neue Instanz starten"
 
-#: ../src/gnome-cmd-options-dialog.cc:167
+#: ../src/gnome-cmd-options-dialog.cc:175
 msgid "Save on exit"
 msgstr "Beim Beenden speichern"
 
-#: ../src/gnome-cmd-options-dialog.cc:170
-#: ../src/gnome-cmd-options-dialog.cc:968
+#: ../src/gnome-cmd-options-dialog.cc:178
+#: ../src/gnome-cmd-options-dialog.cc:980
 msgid "Directories"
 msgstr "Ordner"
 
-#: ../src/gnome-cmd-options-dialog.cc:174
+#: ../src/gnome-cmd-options-dialog.cc:182
 msgid "Tabs"
 msgstr "Reiter"
 
-#: ../src/gnome-cmd-options-dialog.cc:255
+#: ../src/gnome-cmd-options-dialog.cc:267
 msgid "Size display mode"
 msgstr "Größenanzeige"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: ../src/gnome-cmd-options-dialog.cc:259
+#: ../src/gnome-cmd-options-dialog.cc:271
 msgid "Powered"
 msgstr "Gekürzt"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: ../src/gnome-cmd-options-dialog.cc:265
+#: ../src/gnome-cmd-options-dialog.cc:277
 msgid "<locale>"
 msgstr "<locale>"
 
-#: ../src/gnome-cmd-options-dialog.cc:270
+#: ../src/gnome-cmd-options-dialog.cc:282
 msgid "Grouped"
 msgstr "Gruppiert"
 
-#: ../src/gnome-cmd-options-dialog.cc:275
+#: ../src/gnome-cmd-options-dialog.cc:287
 msgid "Plain"
 msgstr "Einfach"
 
-#: ../src/gnome-cmd-options-dialog.cc:283
+#: ../src/gnome-cmd-options-dialog.cc:295
 msgid "Permission display mode"
 msgstr "Anzeigeweise der Zugriffsrechte"
 
-#: ../src/gnome-cmd-options-dialog.cc:286
+#: ../src/gnome-cmd-options-dialog.cc:298
 msgid "Text (rw-r--r--)"
 msgstr "Text (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:291
+#: ../src/gnome-cmd-options-dialog.cc:303
 msgid "Number (644)"
 msgstr "Zahlen (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:299
+#: ../src/gnome-cmd-options-dialog.cc:311
 msgid "Date format"
 msgstr "Datumsformat"
 
-#: ../src/gnome-cmd-options-dialog.cc:302
+#: ../src/gnome-cmd-options-dialog.cc:314
 msgid "Format:"
 msgstr "Format:"
 
-#: ../src/gnome-cmd-options-dialog.cc:311
+#: ../src/gnome-cmd-options-dialog.cc:323
 msgid "_Test"
 msgstr "_Test"
 
-#: ../src/gnome-cmd-options-dialog.cc:314
+#: ../src/gnome-cmd-options-dialog.cc:326
 msgid "Test result:"
 msgstr "Testergebnis:"
 
-#: ../src/gnome-cmd-options-dialog.cc:322
+#: ../src/gnome-cmd-options-dialog.cc:334
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format string."
 msgstr ""
 "Genauere Angaben zur Formatierung werden durch\n"
 "Eingabe von »man strftime« angezeigt."
 
-#: ../src/gnome-cmd-options-dialog.cc:407
+#: ../src/gnome-cmd-options-dialog.cc:419
 msgid "Edit Colors..."
 msgstr "Farben bearbeiten …"
 
-#: ../src/gnome-cmd-options-dialog.cc:420
+#: ../src/gnome-cmd-options-dialog.cc:432
 msgid "Colors"
 msgstr "Farben"
 
-#: ../src/gnome-cmd-options-dialog.cc:451
+#: ../src/gnome-cmd-options-dialog.cc:463
 msgid "Foreground"
 msgstr "Vordergrund"
 
-#: ../src/gnome-cmd-options-dialog.cc:453
+#: ../src/gnome-cmd-options-dialog.cc:465
 msgid "Background"
 msgstr "Hintergrund"
 
-#: ../src/gnome-cmd-options-dialog.cc:455
+#: ../src/gnome-cmd-options-dialog.cc:467
 msgid "Default:"
 msgstr "Standard:"
 
-#: ../src/gnome-cmd-options-dialog.cc:457
+#: ../src/gnome-cmd-options-dialog.cc:469
 msgid "Alternate:"
 msgstr "Alternativ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:459
+#: ../src/gnome-cmd-options-dialog.cc:471
 msgid "Selected file:"
 msgstr "Ausgewählte Datei:"
 
-#: ../src/gnome-cmd-options-dialog.cc:461
+#: ../src/gnome-cmd-options-dialog.cc:473
 msgid "Cursor:"
 msgstr "Cursor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:542
+#: ../src/gnome-cmd-options-dialog.cc:554
 msgid "Edit LS_COLORS Palette"
 msgstr "LS_COLORS-Palette bearbeiten"
 
-#: ../src/gnome-cmd-options-dialog.cc:554
+#: ../src/gnome-cmd-options-dialog.cc:566
 msgid "Palette"
 msgstr "Palette"
 
-#: ../src/gnome-cmd-options-dialog.cc:609
+#: ../src/gnome-cmd-options-dialog.cc:621
 msgid "Foreground:"
 msgstr "Vordergrund:"
 
-#: ../src/gnome-cmd-options-dialog.cc:611
+#: ../src/gnome-cmd-options-dialog.cc:623
 msgid "Background:"
 msgstr "Hintergrund:"
 
-#: ../src/gnome-cmd-options-dialog.cc:613
+#: ../src/gnome-cmd-options-dialog.cc:625
 msgid "Black"
 msgstr "Schwarz"
 
-#: ../src/gnome-cmd-options-dialog.cc:616
+#: ../src/gnome-cmd-options-dialog.cc:628
 msgid "Red"
 msgstr "Rot"
 
-#: ../src/gnome-cmd-options-dialog.cc:619
+#: ../src/gnome-cmd-options-dialog.cc:631
 msgid "Green"
 msgstr "Grün"
 
-#: ../src/gnome-cmd-options-dialog.cc:622
+#: ../src/gnome-cmd-options-dialog.cc:634
 msgid "Yellow"
 msgstr "Gelb"
 
-#: ../src/gnome-cmd-options-dialog.cc:625
+#: ../src/gnome-cmd-options-dialog.cc:637
 msgid "Blue"
 msgstr "Blau"
 
-#: ../src/gnome-cmd-options-dialog.cc:628
+#: ../src/gnome-cmd-options-dialog.cc:640
 msgid "Magenta"
 msgstr "Magenta"
 
-#: ../src/gnome-cmd-options-dialog.cc:631
+#: ../src/gnome-cmd-options-dialog.cc:643
 msgid "Cyan"
 msgstr "Cyan"
 
-#: ../src/gnome-cmd-options-dialog.cc:634
+#: ../src/gnome-cmd-options-dialog.cc:646
 msgid "White"
 msgstr "Weiß"
 
-#: ../src/gnome-cmd-options-dialog.cc:638
+#: ../src/gnome-cmd-options-dialog.cc:650
 msgid "_Reset"
 msgstr "Zu_rücksetzen"
 
-#: ../src/gnome-cmd-options-dialog.cc:652
+#: ../src/gnome-cmd-options-dialog.cc:664
 msgid "With file name"
 msgstr "Mit dem Dateinamen"
 
-#: ../src/gnome-cmd-options-dialog.cc:653
+#: ../src/gnome-cmd-options-dialog.cc:665
 msgid "In separate column"
 msgstr "In einer eigenen Spalte"
 
-#: ../src/gnome-cmd-options-dialog.cc:654
+#: ../src/gnome-cmd-options-dialog.cc:666
 msgid "In both columns"
 msgstr "In beiden Spalten"
 
-#: ../src/gnome-cmd-options-dialog.cc:658
+#: ../src/gnome-cmd-options-dialog.cc:670
 msgid "No icons"
 msgstr "Keine Symbole"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:671
 msgid "File type icons"
 msgstr "Datei-Symbole"
 
-#: ../src/gnome-cmd-options-dialog.cc:660
+#: ../src/gnome-cmd-options-dialog.cc:672
 msgid "MIME icons"
 msgstr "MIME-Typen-Symbole"
 
-#: ../src/gnome-cmd-options-dialog.cc:664
+#: ../src/gnome-cmd-options-dialog.cc:676
 msgid "Respect theme colors"
 msgstr "Themenfarben berücksichtigen"
 
-#: ../src/gnome-cmd-options-dialog.cc:665
+#: ../src/gnome-cmd-options-dialog.cc:677
 msgid "Modern"
 msgstr "Modern"
 
-#: ../src/gnome-cmd-options-dialog.cc:666
+#: ../src/gnome-cmd-options-dialog.cc:678
 msgid "Fusion"
 msgstr "Fusion"
 
-#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:679
 msgid "Classic"
 msgstr "Klassisch"
 
-#: ../src/gnome-cmd-options-dialog.cc:668
+#: ../src/gnome-cmd-options-dialog.cc:680
 msgid "Deep blue"
 msgstr "Dunkelblau"
 
-#: ../src/gnome-cmd-options-dialog.cc:669
+#: ../src/gnome-cmd-options-dialog.cc:681
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: ../src/gnome-cmd-options-dialog.cc:670
+#: ../src/gnome-cmd-options-dialog.cc:682
 msgid "Custom"
 msgstr "Frei"
 
-#: ../src/gnome-cmd-options-dialog.cc:684
+#: ../src/gnome-cmd-options-dialog.cc:696
 msgid "File panes"
 msgstr "Dateifenster"
 
-#: ../src/gnome-cmd-options-dialog.cc:694
+#: ../src/gnome-cmd-options-dialog.cc:706
 msgid "Font:"
 msgstr "Schrift:"
 
-#: ../src/gnome-cmd-options-dialog.cc:696
+#: ../src/gnome-cmd-options-dialog.cc:708
 msgid "Row height:"
 msgstr "Zeilenhöhe"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.cc:700
+#: ../src/gnome-cmd-options-dialog.cc:712
 msgid "Display file extensions:"
 msgstr "Dateiendungen anzeigen:"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.cc:708
+#: ../src/gnome-cmd-options-dialog.cc:720
 msgid "Graphical mode:"
 msgstr "Grafischer Modus:"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.cc:717
+#: ../src/gnome-cmd-options-dialog.cc:729
 msgid "Color scheme:"
 msgstr "Farbschema:"
 
-#: ../src/gnome-cmd-options-dialog.cc:729
+#: ../src/gnome-cmd-options-dialog.cc:741
 msgid "Edit..."
 msgstr "Bearbeiten …"
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.cc:736
+#: ../src/gnome-cmd-options-dialog.cc:748
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Dateieinfärbung laut Umgebungsvariable LS_COLORS vornehmen"
 
-#: ../src/gnome-cmd-options-dialog.cc:744
+#: ../src/gnome-cmd-options-dialog.cc:756
 msgid "Edit colors..."
 msgstr "Farben bearbeiten …"
 
-#: ../src/gnome-cmd-options-dialog.cc:752
+#: ../src/gnome-cmd-options-dialog.cc:764
 msgid "MIME icon settings"
 msgstr "MIME-Typen-Symbole einstellen"
 
-#: ../src/gnome-cmd-options-dialog.cc:765
+#: ../src/gnome-cmd-options-dialog.cc:777
 msgid "Icon size:"
 msgstr "Symbolgröße:"
 
-#: ../src/gnome-cmd-options-dialog.cc:767
+#: ../src/gnome-cmd-options-dialog.cc:779
 msgid "Scaling quality:"
 msgstr "Skalierungsqualität:"
 
-#: ../src/gnome-cmd-options-dialog.cc:769
+#: ../src/gnome-cmd-options-dialog.cc:781
 msgid "Theme icon directory:"
 msgstr "Ordner für Symbolthemen:"
 
-#: ../src/gnome-cmd-options-dialog.cc:771
+#: ../src/gnome-cmd-options-dialog.cc:783
 msgid "Document icon directory:"
 msgstr "Ordner für Dokument-Symbole:"
 
-#: ../src/gnome-cmd-options-dialog.cc:842
+#: ../src/gnome-cmd-options-dialog.cc:854
 msgid "Confirm before delete"
 msgstr "Vor dem Löschen bestätigen"
 
-#: ../src/gnome-cmd-options-dialog.cc:850
+#: ../src/gnome-cmd-options-dialog.cc:862
 msgid "Copy overwrite"
 msgstr "Überschreiben beim Kopieren"
 
 #. Create prepare copy specific widgets
-#: ../src/gnome-cmd-options-dialog.cc:853
-#: ../src/gnome-cmd-options-dialog.cc:873
+#: ../src/gnome-cmd-options-dialog.cc:865
+#: ../src/gnome-cmd-options-dialog.cc:885
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:91
 #: ../src/gnome-cmd-prepare-move-dialog.cc:84
 msgid "Silently"
 msgstr "Ohne Rückfrage"
 
-#: ../src/gnome-cmd-options-dialog.cc:857
-#: ../src/gnome-cmd-options-dialog.cc:877
+#: ../src/gnome-cmd-options-dialog.cc:869
+#: ../src/gnome-cmd-options-dialog.cc:889
 msgid "Query first"
 msgstr "Erst nachfragen"
 
-#: ../src/gnome-cmd-options-dialog.cc:870
+#: ../src/gnome-cmd-options-dialog.cc:882
 msgid "Move overwrite"
 msgstr "Überschreiben beim Verschieben"
 
-#: ../src/gnome-cmd-options-dialog.cc:957
+#: ../src/gnome-cmd-options-dialog.cc:969
 msgid "Filetypes to hide"
 msgstr "Zu verbergende Dateitypen"
 
-#: ../src/gnome-cmd-options-dialog.cc:960
+#: ../src/gnome-cmd-options-dialog.cc:972
 msgid "Unknown"
 msgstr "Unbekannte Dateitypen"
 
-#: ../src/gnome-cmd-options-dialog.cc:964
+#: ../src/gnome-cmd-options-dialog.cc:976
 msgid "Regular files"
 msgstr "Reguläre Dateitypen"
 
-#: ../src/gnome-cmd-options-dialog.cc:972
+#: ../src/gnome-cmd-options-dialog.cc:984
 msgid "Fifo files"
 msgstr "Fifo-Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:976
+#: ../src/gnome-cmd-options-dialog.cc:988
 msgid "Socket files"
 msgstr "Socket-Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:980
+#: ../src/gnome-cmd-options-dialog.cc:992
 msgid "Character devices"
 msgstr "Zeichenorientierte Geräte"
 
-#: ../src/gnome-cmd-options-dialog.cc:984
+#: ../src/gnome-cmd-options-dialog.cc:996
 msgid "Block devices"
 msgstr "Blockorientierte Geräte"
 
-#: ../src/gnome-cmd-options-dialog.cc:991
+#: ../src/gnome-cmd-options-dialog.cc:1003
 msgid "Also hide"
 msgstr "Ebenfalls verbergen"
 
-#: ../src/gnome-cmd-options-dialog.cc:994
+#: ../src/gnome-cmd-options-dialog.cc:1006
 msgid "Hidden files"
 msgstr "Verborgene Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:997
-#: ../src/gnome-cmd-options-dialog.cc:1008
+#: ../src/gnome-cmd-options-dialog.cc:1009
+#: ../src/gnome-cmd-options-dialog.cc:1020
 msgid "Backup files"
 msgstr "Backup-Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:1001
+#: ../src/gnome-cmd-options-dialog.cc:1013
 msgid "Symlinks"
 msgstr "Symbolische Verknüpfungen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1104
+#: ../src/gnome-cmd-options-dialog.cc:1116
 msgid "Authentication"
 msgstr "Legitimierung"
 
-#: ../src/gnome-cmd-options-dialog.cc:1107
+#: ../src/gnome-cmd-options-dialog.cc:1119
 msgid "Use GNOME Keyring Manager for authentication"
 msgstr "GNOME-Schlüsselbund-Verwaltung zur Legitimierung benutzen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1115
+#: ../src/gnome-cmd-options-dialog.cc:1127
 msgid "Anonymous FTP access"
 msgstr "Anonymer FTP-Zugriff"
 
-#: ../src/gnome-cmd-options-dialog.cc:1118
+#: ../src/gnome-cmd-options-dialog.cc:1130
 msgid "Password:"
 msgstr "Passwort:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1313
+#: ../src/gnome-cmd-options-dialog.cc:1325
 msgid "Label:"
 msgstr "Bezeichnung:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1315
+#: ../src/gnome-cmd-options-dialog.cc:1327
 msgid "Command:"
 msgstr "Befehl:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1317
-#: ../src/gnome-cmd-options-dialog.cc:1718
+#: ../src/gnome-cmd-options-dialog.cc:1329
+#: ../src/gnome-cmd-options-dialog.cc:1730
 msgid "Icon:"
 msgstr "Symbol:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1338
+#: ../src/gnome-cmd-options-dialog.cc:1350
 msgid "Can handle multiple files"
 msgstr "Kann mit mehreren Dateien umgehen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1342
+#: ../src/gnome-cmd-options-dialog.cc:1354
 msgid "Can handle URIs"
 msgstr "Kann mit URIs umgehen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1346
+#: ../src/gnome-cmd-options-dialog.cc:1358
 msgid "Requires terminal"
 msgstr "Erfordert ein Terminal"
 
-#: ../src/gnome-cmd-options-dialog.cc:1353
+#: ../src/gnome-cmd-options-dialog.cc:1365
 msgid "Show for"
 msgstr "Suche nach"
 
-#: ../src/gnome-cmd-options-dialog.cc:1362
+#: ../src/gnome-cmd-options-dialog.cc:1374
 msgid "All directories"
 msgstr "Alle Ordner"
 
-#: ../src/gnome-cmd-options-dialog.cc:1367
+#: ../src/gnome-cmd-options-dialog.cc:1379
 msgid "All directories and files"
 msgstr "Alle Ordner und Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:1372
+#: ../src/gnome-cmd-options-dialog.cc:1384
 msgid "Some files"
 msgstr "Einige Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:1381
+#: ../src/gnome-cmd-options-dialog.cc:1393
 msgid "File patterns"
 msgstr "Schablone für Dateien"
 
-#: ../src/gnome-cmd-options-dialog.cc:1403
+#: ../src/gnome-cmd-options-dialog.cc:1415
 msgid "New Application"
 msgstr "Neue Anwendung"
 
-#: ../src/gnome-cmd-options-dialog.cc:1413
+#: ../src/gnome-cmd-options-dialog.cc:1425
 msgid "Edit Application"
 msgstr "Anwendung bearbeiten"
 
-#: ../src/gnome-cmd-options-dialog.cc:1490
+#: ../src/gnome-cmd-options-dialog.cc:1502
 msgid "Always download remote files before opening in external programs"
 msgstr "Ferne Dateien vor dem Öffnen in externen Programmen immer herunterladen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1492
+#: ../src/gnome-cmd-options-dialog.cc:1504
 msgid "MIME applications"
 msgstr "MIME-Anwendungen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1496
+#: ../src/gnome-cmd-options-dialog.cc:1508
 msgid "Standard programs"
 msgstr "Standardanwendungen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1499
+#: ../src/gnome-cmd-options-dialog.cc:1511
 msgid "Viewer:"
 msgstr "Betrachter:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1501
+#: ../src/gnome-cmd-options-dialog.cc:1513
 msgid "Editor:"
 msgstr "Editor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1503
+#: ../src/gnome-cmd-options-dialog.cc:1515
 msgid "Differ:"
 msgstr "Differ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1505
+#: ../src/gnome-cmd-options-dialog.cc:1517
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1511
+#: ../src/gnome-cmd-options-dialog.cc:1523
 msgid "Use Internal Viewer"
 msgstr "Internen Betrachter verwenden"
 
-#: ../src/gnome-cmd-options-dialog.cc:1526
+#: ../src/gnome-cmd-options-dialog.cc:1538
 msgid "Other favorite apps"
 msgstr "Andere bevorzugte Anwendungen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1533
+#: ../src/gnome-cmd-options-dialog.cc:1545
 msgid "Label"
 msgstr "Bezeichnung"
 
-#: ../src/gnome-cmd-options-dialog.cc:1712
+#: ../src/gnome-cmd-options-dialog.cc:1724
 msgid "Alias:"
 msgstr "Alias:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1714
+#: ../src/gnome-cmd-options-dialog.cc:1726
 msgid "Device:"
 msgstr "Laufwerk:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1716
+#: ../src/gnome-cmd-options-dialog.cc:1728
 msgid "Mount point:"
 msgstr "Einhängepunkt:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1759
+#: ../src/gnome-cmd-options-dialog.cc:1771
 msgid "New Device"
 msgstr "Neues Laufwerk"
 
-#: ../src/gnome-cmd-options-dialog.cc:1772
+#: ../src/gnome-cmd-options-dialog.cc:1784
 msgid "Edit Device"
 msgstr "Laufwerk bearbeiten"
 
-#: ../src/gnome-cmd-options-dialog.cc:1849
-#: ../src/gnome-cmd-options-dialog.cc:2041
+#: ../src/gnome-cmd-options-dialog.cc:1861
+#: ../src/gnome-cmd-options-dialog.cc:2053
 msgid "Devices"
 msgstr "Laufwerke"
 
-#: ../src/gnome-cmd-options-dialog.cc:1859
+#: ../src/gnome-cmd-options-dialog.cc:1871
 msgid "Alias"
 msgstr "Alias"
 
-#: ../src/gnome-cmd-options-dialog.cc:1889
+#: ../src/gnome-cmd-options-dialog.cc:1901
 msgid "Show only the icons"
 msgstr "Nur die Symbole anzeigen"
 
-#: ../src/gnome-cmd-options-dialog.cc:1893
+#: ../src/gnome-cmd-options-dialog.cc:1905
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Einbinden abbrechen (sinnvoll bei Verwendung von super-mount)"
 
-#: ../src/gnome-cmd-options-dialog.cc:2006
+#: ../src/gnome-cmd-options-dialog.cc:2018
 msgid "General"
 msgstr "Allgemein"
 
-#: ../src/gnome-cmd-options-dialog.cc:2011 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-options-dialog.cc:2023 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Format"
 msgstr "Format"
 
-#: ../src/gnome-cmd-options-dialog.cc:2016
+#: ../src/gnome-cmd-options-dialog.cc:2028
 msgid "Layout"
 msgstr "Layout"
 
-#: ../src/gnome-cmd-options-dialog.cc:2021
+#: ../src/gnome-cmd-options-dialog.cc:2033
 msgid "Confirmation"
 msgstr "Bestätigung"
 
-#: ../src/gnome-cmd-options-dialog.cc:2026
+#: ../src/gnome-cmd-options-dialog.cc:2038
 msgid "Filters"
 msgstr "Filter"
 
-#: ../src/gnome-cmd-options-dialog.cc:2031
+#: ../src/gnome-cmd-options-dialog.cc:2043
 msgid "Network"
 msgstr "Netzwerk"
 
-#: ../src/gnome-cmd-options-dialog.cc:2036
+#: ../src/gnome-cmd-options-dialog.cc:2048
 msgid "Programs"
 msgstr "Programme"
 
@@ -2505,7 +2513,7 @@ msgstr "Groß-/Kleinschreibung beachten"
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr "Python-Modul »gnomevfs« (»gnome.vfs«) konnte nicht geladen werden"
 
-#: ../src/gnome-cmd-quicksearch-popup.cc:263
+#: ../src/gnome-cmd-quicksearch-popup.cc:268
 #: ../src/gnome-cmd-user-actions.cc:159
 msgid "Search"
 msgstr "Suche"
@@ -2712,10 +2720,6 @@ msgstr "Dateinamen kopieren"
 #: ../src/gnome-cmd-user-actions.cc:156
 msgid "Show user defined files"
 msgstr "Benutzerdefinierte Dateien zeigen"
-
-#: ../src/gnome-cmd-user-actions.cc:158
-msgid "Quick search"
-msgstr "Schnellsuche"
 
 #: ../src/gnome-cmd-user-actions.cc:160
 msgid "Advanced rename tool"
@@ -7664,3 +7668,5 @@ msgstr "Aus dem Ordner %s konnte nicht gelesen werden: %s"
 msgid "There was an error displaying help."
 msgstr "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten."
 
+#~ msgid "Quick search using"
+#~ msgstr "Schnellsuche über"
