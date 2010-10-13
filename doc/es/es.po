@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 18:15+0000\n"
-"PO-Revision-Date: 2010-10-11 14:39+0200\n"
+"POT-Creation-Date: 2010-10-11 12:40+0000\n"
+"PO-Revision-Date: 2010-10-13 13:29+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1228,6 +1228,11 @@ msgid ""
 "<menuchoice><guimenu>Edit</guimenu><guimenuitem>Paste</guimenuitem></"
 "menuchoice>."
 msgstr ""
+"Para copiar usando los menús <menuchoice><guimenu>Editar</"
+"guimenu><guimenuitem>Copiar</guimenuitem></menuchoice>, entonces seleccione "
+"la ubicación donde quiere copiar la selección y elija "
+"<menuchoice><guimenu>Editar</guimenu><guimenuitem>Pegar</guimenuitem></"
+"menuchoice>."
 
 #: C/gnome-commander.xml:731(para)
 msgid ""
@@ -1518,6 +1523,8 @@ msgid ""
 "Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search</"
 "guibutton>."
 msgstr ""
+"Pulse la tecla <keycap>F9</keycap> o pulse en <guibutton>F9 Buscar</"
+"guibutton>."
 
 #: C/gnome-commander.xml:880(para)
 #, fuzzy
@@ -1842,7 +1849,7 @@ msgstr "Diálogo de gestión de marcadores"
 
 #: C/gnome-commander.xml:1119(phrase)
 msgid "Shows bookmark management dialog."
-msgstr ""
+msgstr "Mostrar el diálogo de administración de marcadores."
 
 #. ==== End of Figure ====
 #: C/gnome-commander.xml:1125(para)
@@ -8833,6 +8840,8 @@ msgid ""
 "<guilabel>Quick search using</guilabel> configures the combination of keys "
 "used for quick search."
 msgstr ""
+"<guilabel>Búsqueda rápida usando</guilabel> configura la combinación de "
+"teclas usada para una búsqueda rápida."
 
 #: C/gnome-commander.xml:3968(para)
 msgid ""
@@ -8902,6 +8911,8 @@ msgid ""
 "When selecting this option, a single left mouse button click on a file will "
 "open it with the default application."
 msgstr ""
+"Al seleccionar esta opción, una sola pulsación con el botón izquierdo del "
+"ratón sobre un archivo lo abrirá con la aplicación predeterminada."
 
 #: C/gnome-commander.xml:4031(para)
 msgid "Double click to open items"
@@ -8912,6 +8923,8 @@ msgid ""
 "When selecting this option, a double click with the left mouse button on a "
 "file will open it with the default application."
 msgstr ""
+"Al seleccionar esta opción, una pulsación doble con el botón izquierdo del "
+"ratón sobre un archivo lo abrirá con la aplicación predeterminada."
 
 #: C/gnome-commander.xml:4044(para)
 msgid "Single click unselects files"
@@ -9046,6 +9059,12 @@ msgid ""
 "><colspec colname=\"colspec1\" colwidth=\"63.64*\"/><placeholder-10/"
 "><placeholder-11/></tgroup></table>"
 msgstr ""
+"<placeholder-1/><placeholder-2/><placeholder-3/><placeholder-4/"
+"><placeholder-5/><placeholder-6/>. <placeholder-7/><placeholder-8/><table "
+"frame=\"topbot\" id=\"gcmd-TBL-setting1\"><placeholder-9/><tgroup cols=\"2\" "
+"colsep=\"0\" rowsep=\"0\"><colspec colname=\"colspec0\" colwidth=\"50.36*\"/"
+"><colspec colname=\"colspec1\" colwidth=\"63.64*\"/><placeholder-10/"
+"><placeholder-11/></tgroup></table>"
 
 #: C/gnome-commander.xml:4172(para)
 msgid ""
@@ -9290,6 +9309,8 @@ msgid ""
 "You can select here how file extensions are displayed in this drop down "
 "list. There are three options available: <placeholder-1/>"
 msgstr ""
+"En esta lista desplegable puede seleccionar cómo se muestran las extensiones "
+"de los archivos. Hay tres opciones disponibles: <placeholder-1/>"
 
 #: C/gnome-commander.xml:4431(para)
 msgid "Graphical mode"
@@ -9307,6 +9328,8 @@ msgid ""
 "<guibutton>File type icons</guibutton> this option displays simple icons for "
 "files and folder."
 msgstr ""
+"<guibutton>Iconos de tipos de archivo</guibutton> esta opción muestra iconos "
+"simples para archivos y carpetas."
 
 #: C/gnome-commander.xml:4443(para)
 msgid ""
@@ -9333,6 +9356,11 @@ msgid ""
 "<guibutton>Custom</guibutton>, this option activates the <guibutton> Edit</"
 "guibutton> button."
 msgstr ""
+"GNOME Commander viene con cinco temas de colores. También puede usar el tema "
+"definido por su tema actual de GNOME (<guibutton>Respetar colores del tema</"
+"guibutton>). También hay una opción para personalizar el tema "
+"<guibutton>Personalizado</guibutton>, esta opción activa el botón "
+"<guibutton>Editar</guibutton>."
 
 #: C/gnome-commander.xml:4471(para) C/gnome-commander.xml:5058(para)
 msgid "Edit"
@@ -9888,6 +9916,10 @@ msgid ""
 "opened when you click on this button. This dialog box options are described "
 "below."
 msgstr ""
+"Al pulsar este botón se abrirá un diálogo donde puede modificar los "
+"parámetros usados para ejecutar la aplicación seleccionada. Cuando pulsa "
+"este botón se abre el mismo cuadro de diálogo de arriba. Este cuadro de "
+"diálogo se describe a continuación."
 
 #: C/gnome-commander.xml:5067(para)
 msgid "Remove"
@@ -9897,6 +9929,7 @@ msgstr "Eliminar"
 msgid ""
 "Clicking this button will remove the application selected from the list."
 msgstr ""
+"Al pulsar este botón se quitará de la lista la aplicación seleccionada."
 
 #: C/gnome-commander.xml:5076(para)
 msgid "Up"
@@ -10548,11 +10581,11 @@ msgstr "Cerrar todas las solapas"
 
 #: C/gnome-commander.xml:5804(para)
 msgid "Switch to the next tab"
-msgstr ""
+msgstr "Cambiar a la siguiente solapa"
 
 #: C/gnome-commander.xml:5809(para)
 msgid "Switch to the previous tab"
-msgstr ""
+msgstr "Cambiar a la solapa anterior"
 
 #: C/gnome-commander.xml:5819(para) C/gnome-commander.xml:6414(para)
 msgid "Refresh the active file list"
@@ -11277,7 +11310,7 @@ msgstr "view.close_duplicate_tabs"
 
 #: C/gnome-commander.xml:6338(para)
 msgid "Close duplicate tabs"
-msgstr ""
+msgstr "Cerrar solapas duplicadas"
 
 #: C/gnome-commander.xml:6342(para)
 msgid "view.equal_panes"
@@ -11325,7 +11358,7 @@ msgstr "view.in_new_tab"
 
 #: C/gnome-commander.xml:6384(para)
 msgid "Open directory in the new tab"
-msgstr ""
+msgstr "Abrir carpeta en una solapa nueva"
 
 #: C/gnome-commander.xml:6388(para)
 msgid "view.in_inactive_tab"
@@ -11349,7 +11382,7 @@ msgstr "view.next_tab"
 
 #: C/gnome-commander.xml:6399(para)
 msgid "Next tab"
-msgstr ""
+msgstr "Siguiente solapa"
 
 #: C/gnome-commander.xml:6403(para)
 msgid "view.new_tab"
@@ -12627,7 +12660,7 @@ msgstr "Colores LS_COLORS definidos por el usuario"
 
 #: C/gnome-commander.xml:7434(para)
 msgid "Enhanced file name matching in quick search"
-msgstr ""
+msgstr "Coincidencia de nombres de archivos mejorada en la búsqueda rápida"
 
 #: C/gnome-commander.xml:7437(para)
 msgid "New or updated docs: de, en, es, fr, sl"
