@@ -814,8 +814,7 @@
           <para>Press the <keycap>Delete</keycap> or the <keycap>F8</keycap> keys.</para>
         </listitem>
         <listitem>
-          <para>With the mouse right click on the item(s) then in the drop down menu select <guimenu>Delete
-          </guimenu>.</para>
+          <para>With the mouse right click on the item(s) then in the drop down menu select <guimenu>Delete</guimenu>.</para>
         </listitem>
         <listitem>
           <para>In the menu select <guimenu>Delete</guimenu>. </para>
@@ -7403,6 +7402,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #632064 (bug in in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
