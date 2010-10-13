@@ -253,7 +253,7 @@ msgstr "За_мінити:"
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:119
 #: ../src/intviewer/search-dlg.cc:284
 msgid "_Match case"
-msgstr "Враховувати регістр"
+msgstr "Враховувати _регістр"
 
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:125
 msgid ""
@@ -261,7 +261,7 @@ msgid ""
 "to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
 "maintainer about that."
 msgstr ""
-"Не функціонують деякі регулярні вирази. Для їх функціонування зберіть GNOME "
+"Не функціонують деякі регулярні вирази. Для їх роботи зберіть GNOME "
 "Commander з GLib ≥ 2.14, звернувшись до Вашого менеджера пакетів."
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:42
@@ -327,16 +327,16 @@ msgstr "Клавіша  \"%s\"  вже використовується  \"%s\".
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:490
 msgid "_Reassign shortcut"
-msgstr "Переназначити клавіші"
+msgstr "_Перепризначити клавіші"
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:493
 msgid "Conflicting Shortcuts"
-msgstr "Конфліктуючі клавіші"
+msgstr "Конфліктні клавіші"
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:494
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
-msgstr "Переназначення клавіші приведе до видалення з  \"%s\"."
+msgstr "Перепризначення клавіші приведе до видалення з  \"%s\"."
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:550
 msgid "Invalid shortcut."
@@ -754,17 +754,17 @@ msgstr "Інше місце"
 
 #: ../src/gnome-cmd-con-dialog.cc:511
 msgid "Use _GNOME Keyring Manager for authentication"
-msgstr "Використайте Менеджер брелоків GNOME для підтвердження прав доступу"
+msgstr "Використайте Менеджер брелоків _GNOME для підтвердження прав доступу"
 
 #: ../src/gnome-cmd-con-ftp.cc:280
-#, fuzzy, c-format
+#, c-format
 msgid "Opens remote connection to %s"
-msgstr "Створює FTP з'єднання з %s"
+msgstr "Створює віддалене з'єднання з %s"
 
 #: ../src/gnome-cmd-con-ftp.cc:281
-#, fuzzy, c-format
+#, c-format
 msgid "Closes remote connection to %s"
-msgstr "Створює FTP з'єднання з %s"
+msgstr "Закриває віддалене з'єднання з %s"
 
 #: ../src/gnome-cmd-con-home.cc:113
 msgid "Home"
@@ -1155,9 +1155,9 @@ msgstr[2] "%s з %s кБ в %d з %d файлів"
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] "%s з %s кБ в %d з %d каталгу вибрано"
-msgstr[1] "%s з %s кБ в %d з %d каталогів вибрано"
-msgstr[2] "%s з %s кБ в %d з %d каталогів вибрано"
+msgstr[0] "%s, %d з %d каталогу вибрано"
+msgstr[1] "%s, %d з %d каталогів вибрано"
+msgstr[2] "%s, %d з %d каталогів вибрано"
 
 #: ../src/gnome-cmd-file-selector.cc:241
 #, c-format
@@ -1398,7 +1398,7 @@ msgstr "Показати резервні файли"
 
 #: ../src/gnome-cmd-main-menu.cc:678
 msgid "_Equal Panel Size"
-msgstr "Зрівняти розмір панелей"
+msgstr "З_рівняти розмір панелей"
 
 #: ../src/gnome-cmd-main-menu.cc:689
 msgid "_Bookmark this Directory..."
@@ -2617,9 +2617,8 @@ msgid "_Unlimited depth"
 msgstr "_Необмежена глибина"
 
 #: ../src/gnome-cmd-search-dialog.cc:41
-#, fuzzy
 msgid "Current _directory only"
-msgstr "Розпакувати у поточний каталог"
+msgstr "Лише _поточний каталог"
 
 #: ../src/gnome-cmd-search-dialog.cc:42
 msgid "_Limited depth"
@@ -2628,7 +2627,7 @@ msgstr "_Обмежена глибина"
 #. N_("Search local directories only"),
 #: ../src/gnome-cmd-search-dialog.cc:44
 msgid "Files _not containing text"
-msgstr "Файли, що не містять текст"
+msgstr "Файли, що _не містять текст"
 
 #: ../src/gnome-cmd-search-dialog.cc:163
 #, c-format
@@ -2636,9 +2635,9 @@ msgid "Failed to open file %s: %s\n"
 msgstr "Не вдається відкрити файл %s: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:204
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to seek in file %s: %s\n"
-msgstr "Не вдається відкрити файл %s: %s\n"
+msgstr "Не вдається пошук у файлі %s: %s\n"
 
 # c-format
 #: ../src/gnome-cmd-search-dialog.cc:211
@@ -4230,7 +4229,7 @@ msgid ""
 "one-chip color area sensor is used. It does not apply to all sensing methods."
 msgstr ""
 "Геометрична структура масиву кольорових фільтрів  (color filter array, CFA) "
-"одночипового сенсору зображення. Не застосовується до інших сенсорних "
+"однокристального сенсору зображення. Не застосовується до інших сенсорних "
 "методів."
 
 #: ../src/tags/gnome-cmd-tags.cc:204
