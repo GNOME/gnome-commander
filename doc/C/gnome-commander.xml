@@ -877,8 +877,7 @@
 			<itemizedlist>
 				<listitem><para>Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search</guibutton>.</para></listitem>
 				<listitem><para>Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>.</para></listitem>
-				<listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search
-				</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
+				<listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
       <para>When started, the following window is displayed:</para>
       <!-- ==== Figure ==== -->
       <figure id="search-dlg-fig">
@@ -7404,7 +7403,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #632064 (bug in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208 (bug in in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
