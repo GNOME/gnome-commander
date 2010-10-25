@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 17:27+0000\n"
-"PO-Revision-Date: 2010-10-21 16:15+0200\n"
+"POT-Creation-Date: 2010-10-21 14:16+0000\n"
+"PO-Revision-Date: 2010-10-25 17:02+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1525,9 +1525,6 @@ msgid "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgstr "Use <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 
 #: C/gnome-commander.xml:880(para)
-#| msgid ""
-#| "In the menubar select <menuchoice><guimenuitem>Edit</"
-#| "guimenuitem><guimenuitem>Search </guimenuitem></menuchoice>."
 msgid ""
 "In the menubar select <menuchoice><guimenuitem>Edit</"
 "guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>."
@@ -1987,12 +1984,6 @@ msgid "Results"
 msgstr "Resultados"
 
 #: C/gnome-commander.xml:1221(para)
-#, fuzzy
-#| msgid ""
-#| "List of the new file names. The list can de reordered using drag-and-"
-#| "drop. The context menu provides options for: removing file from the list, "
-#| "viewing file or its properties, and refreshing the list. Conflicting "
-#| "renames will be marked red."
 msgid ""
 "List of the new file names. The list can be reordered using drag-and-drop. "
 "The context menu provides options for: removing file from the list, viewing "
@@ -2000,9 +1991,9 @@ msgid ""
 "marked red."
 msgstr ""
 "Lista de los nombres de archivo nuevos. La lista se puede reordenar usando "
-"arrastrar y soltar. El menú contextual proporciona opciones para: eliminar "
-"un archivo de la lista, ver un archivo o sus propiedades y actualizar la "
-"lista. Los renombrados en conflicto se marcan en rojo."
+"arrastrar y soltar. El menú contextual proporciona opciones para: quitar un "
+"archivo de la lista, ver un archivo o sus propiedades y actualizar la lista. "
+"Los renombrados en conflicto se marcan en rojo."
 
 #: C/gnome-commander.xml:1229(guibutton)
 msgid "Apply"
@@ -8441,13 +8432,6 @@ msgstr ""
 "binario, hexadecimal o gráfico."
 
 #: C/gnome-commander.xml:3766(para)
-#, fuzzy
-#| msgid ""
-#| "To start viewing files use <keycap>F3</keycap> (default viewer - defined "
-#| "in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</"
-#| "guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3</"
-#| "keycap></keycombo> (internal viewer). The internal viewer uses MMAP "
-#| "whenever possible for the fastest file loading."
 msgid ""
 "To start viewing files use <keycap>F3</keycap> (default viewer - defined in "
 "<menuchoice><guimenu>Settings</guimenu><guimenuitem>Options... </"
@@ -8460,7 +8444,7 @@ msgstr ""
 "guimenu><guimenuitem>Opciones...</guimenuitem></menuchoice>) o "
 "<keycombo><keycap>Mayús</keycap><keycap>F3</keycap></keycombo> (visor "
 "interno). El visor interno usa MMAP siempre que sea posible para una carga "
-"de archivo más rápida."
+"del archivo más rápida."
 
 #: C/gnome-commander.xml:3773(title)
 msgid "View Modes"
@@ -8777,6 +8761,8 @@ msgstr ""
 #: C/gnome-commander.xml:3942(para)
 msgid "The settings alter the behavior of the following features:"
 msgstr ""
+"La configuración modifica el comportamiento de las siguientes "
+"características:"
 
 #: C/gnome-commander.xml:3946(para)
 msgid ""
@@ -9055,21 +9041,14 @@ msgstr ""
 "mostrar."
 
 #: C/gnome-commander.xml:4188(para)
-#, fuzzy
-#| msgid ""
-#| "To configure GNOME Commander, choose <menuchoice><guimenu>Settings</"
-#| "guimenu><guimenuitem>Options...</guimenuitem></menuchoice> The "
-#| "<guilabel>Options</guilabel> dialog contains the following tabbed "
-#| "sections:"
 msgid ""
 "To modify the Format options click on <menuchoice><guimenu>Settings </"
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on "
 "the <guilabel>Format</guilabel> tab."
 msgstr ""
-"Para configurar GNOME Commander, seleccione "
+"Para modificar las opciones de formato pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en solapas:"
+"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>Formato</guilabel>."
 
 #: C/gnome-commander.xml:4191(para)
 msgid ""
@@ -9150,7 +9129,7 @@ msgstr "Número (644)"
 
 #: C/gnome-commander.xml:4288(entry)
 msgid "Display the permission in octal numerical format."
-msgstr ""
+msgstr "Mostrar los permisos en formato octal."
 
 #: C/gnome-commander.xml:4293(guilabel)
 msgid "Date format"
@@ -9186,21 +9165,15 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4330(para)
-#, fuzzy
-#| msgid ""
-#| "To configure GNOME Commander, choose <menuchoice><guimenu>Settings</"
-#| "guimenu><guimenuitem>Options...</guimenuitem></menuchoice> The "
-#| "<guilabel>Options</guilabel> dialog contains the following tabbed "
-#| "sections:"
 msgid ""
 "To modify the Panes layout options click on <menuchoice><guimenu> Settings</"
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on "
 "the <guilabel>Layout</guilabel> tab."
 msgstr ""
-"Para configurar GNOME Commander, seleccione "
+"Para modificar las opciones de apariencia de los paneles pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en solapas:"
+"guimenuitem></menuchoice> y pulse en la solapa <guilabel>Apariencia</"
+"guilabel>."
 
 #: C/gnome-commander.xml:4333(para)
 msgid ""
@@ -9425,21 +9398,15 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4575(para)
-#, fuzzy
-#| msgid ""
-#| "To configure GNOME Commander, choose <menuchoice><guimenu>Settings</"
-#| "guimenu><guimenuitem>Options...</guimenuitem></menuchoice> The "
-#| "<guilabel>Options</guilabel> dialog contains the following tabbed "
-#| "sections:"
 msgid ""
 "To modify the confirmation settings click on <menuchoice><guimenu> Settings</"
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on "
 "the <guilabel>Confirmation</guilabel> tab."
 msgstr ""
-"Para configurar GNOME Commander, seleccione "
+"Para modificar la configuración de la confirmación pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en solapas:"
+"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>Confirmación</"
+"guilabel>"
 
 #: C/gnome-commander.xml:4578(para)
 msgid ""
@@ -9543,21 +9510,14 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4724(para)
-#, fuzzy
-#| msgid ""
-#| "To configure GNOME Commander, choose <menuchoice><guimenu>Settings</"
-#| "guimenu><guimenuitem>Options...</guimenuitem></menuchoice> The "
-#| "<guilabel>Options</guilabel> dialog contains the following tabbed "
-#| "sections:"
 msgid ""
 "To modify the filter settings click on <menuchoice><guimenu>Settings </"
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on "
 "the <guilabel>Filters</guilabel> tab."
 msgstr ""
-"Para configurar GNOME Commander, seleccione "
+"Para modificar la configuración de los filtros pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en solapas:"
+"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>Filtros</guilabel>."
 
 #: C/gnome-commander.xml:4727(para)
 msgid ""
@@ -9946,6 +9906,7 @@ msgstr "Etiqueta:"
 msgid ""
 "This text box contains the label that is displayed in the contextual menu."
 msgstr ""
+"Esta caja de texto contiene la etiqueta que se muestra en el menú contextual."
 
 #: C/gnome-commander.xml:5149(guilabel)
 msgid "Command:"
@@ -11324,7 +11285,7 @@ msgstr "view.in_inactive_tab"
 
 #: C/gnome-commander.xml:6387(para)
 msgid "Open directory in the new tab (inactive window)"
-msgstr ""
+msgstr "Abrir carpeta en la nueva solapa (ventana inactiva)"
 
 #: C/gnome-commander.xml:6391(para)
 msgid "view.last"
@@ -11745,8 +11706,6 @@ msgstr ""
 "<guimenuitem>Programas</guimenuitem>."
 
 #: C/gnome-commander.xml:6644(para)
-#, fuzzy
-#| msgid "Add two favourite apps using the values shown here and here."
 msgid "Add two favorite apps using the values shown here and here."
 msgstr ""
 "Añadir dos aplicaciones favoritas usando los valores mostrados aquí y aquí."
@@ -12549,6 +12508,8 @@ msgstr ""
 msgid ""
 "Fixed problems #632064, #632208 (bug in in gnome-commander-help.master.po)"
 msgstr ""
+"Errores nº 632064 y nº 632208 corregidos (error en gnome-commander-help."
+"master.po)"
 
 #: C/gnome-commander.xml:7409(para)
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
@@ -12600,15 +12561,12 @@ msgid "New or updated docs: de, en, es, fr, sl"
 msgstr "Documentos nuevos o actualizados: de, en, es, fr, sl"
 
 #: C/gnome-commander.xml:7441(para)
-#, fuzzy
-#| msgid ""
-#| "New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN"
 msgid ""
 "New or updated translations: da, es, eu, fr, hu, ko, pl, ro, ru, sl, uk, "
 "zh_CN"
 msgstr ""
-"Traducciones nuevas o actualizadas: da, es, eu, fr, hu, pl, ro, ru, sl, uk, "
-"zh_CN"
+"Traducciones nuevas o actualizadas: da, es, eu, fr, hu, ko, pl, ro, ru, sl, "
+"uk, zh_CN"
 
 #: C/gnome-commander.xml:7444(para) C/gnome-commander.xml:7812(para)
 #: C/gnome-commander.xml:7950(para) C/gnome-commander.xml:8070(para)
@@ -12660,34 +12618,29 @@ msgstr ""
 "keycombo> Cambiar a la solapa anterior"
 
 #: C/gnome-commander.xml:7462(para)
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Change left "
 "connection"
 msgstr ""
-"<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Buscar archivos"
+"<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Cambiar "
+"conexión izquierda"
 
 #: C/gnome-commander.xml:7465(para)
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Change right "
 "connection"
 msgstr ""
-"<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Buscar archivos"
+"<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Cambiar "
+"conexión derecha"
 
 #: C/gnome-commander.xml:7474(para)
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
 #: C/gnome-commander.xml:7481(para)
-#, fuzzy
-#| msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
-msgstr "Error nº 374282 corregido (búsqueda con enlaces simbólicos recursivos)"
+msgstr ""
+"Error nº 631243 corregido (regresión de renombrado avanzado de $c(width))"
 
 #: C/gnome-commander.xml:7489(para)
 msgid "Support for shell-style wildcards in quick search"
