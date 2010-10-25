@@ -3764,8 +3764,7 @@
       <para>The internal viewer allows viewing contents of files in text, Unicode,
        binary, hex or graphical mode.</para>
       <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined
-	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...
-	      </guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3
+	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3
 	      </keycap></keycombo> (internal viewer). The internal viewer uses MMAP
 	       whenever possible for the fastest file loading.
       </para>
@@ -4185,8 +4184,7 @@
           </listitem>
         </itemizedlist>
       </para>
-      <para>To modify the Format options click on <menuchoice><guimenu>Settings
-         </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
+      <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
       <para>The options available are described in more details in
        <xref linkend="gcmd-TBL-setting2">Format settings</xref></para>
@@ -4719,10 +4717,8 @@
     <sect2 id="gnome-commander-prefs-filters">
       <title>Filters</title>
       <!--Brief description-->
-      <para>The filter section of the option dialog allows you to select which types
-	      of files are hidden.</para>
-      <para>To modify the filter settings click on <menuchoice><guimenu>Settings
-       </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on the
+      <para>The filter section of the option dialog allows you to select which types of files are hidden.</para>
+      <para>To modify the filter settings click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on the
        <guilabel>Filters</guilabel> tab.</para>
       <para>The description for the files you can add in the hidden section is in the
         <xref linkend="gcmd-TBL-setting5"></xref></para>
@@ -7403,7 +7399,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208 (bug in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107 (bugs in in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
