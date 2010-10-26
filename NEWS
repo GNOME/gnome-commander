@@ -4,7 +4,7 @@ gnome-commander 1.4
 
 Bug fixes:
  * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
- * Fixed problems #632064, #632208, #633107 (bugs in in gnome-commander-help.master.po)
+ * Fixed problems #632064, #632208, #633107, #633167 (bugs in in gnome-commander-help.master.po)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
 

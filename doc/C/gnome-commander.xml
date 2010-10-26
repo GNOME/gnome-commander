@@ -366,7 +366,7 @@
         <menuchoice>
         <guisubmenu>Accessories</guisubmenu>
         <guimenuitem>&app;</guimenuitem>
-        </menuchoice>. </para>
+        </menuchoice>.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -817,7 +817,7 @@
           <para>With the mouse right click on the item(s) then in the drop down menu select <guimenu>Delete</guimenu>.</para>
         </listitem>
         <listitem>
-          <para>In the menu select <guimenu>Delete</guimenu>. </para>
+          <para>In the menu select <guimenu>Delete</guimenu>.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -846,7 +846,7 @@
       <para>To create a symbolic link to a file or folder, select the file or folder
         to which you want to create a link.
         Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>.
-        A link to the file or folder is added to the current folder. </para>
+        A link to the file or folder is added to the current folder.</para>
       <para>Alternatively, grab the item to which you want to create a link, then
         press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>.
         Drag the item to the location where you want to place the link.</para>
@@ -911,7 +911,7 @@
       </para>
       <orderedlist>
         <listitem>
-          <para>Select the file or folder whose properties you want to view. </para>
+          <para>Select the file or folder whose properties you want to view.</para>
         </listitem>
         <listitem>
           <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</guimenuitem></menuchoice>. A properties dialog is displayed.</para>
@@ -3764,8 +3764,8 @@
       <para>The internal viewer allows viewing contents of files in text, Unicode,
        binary, hex or graphical mode.</para>
       <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined
-	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3
-	      </keycap></keycombo> (internal viewer). The internal viewer uses MMAP
+	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>) or
+          <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer). The internal viewer uses MMAP
 	       whenever possible for the fastest file loading.
       </para>
       <sect3 id="gnome-commander-internal-viewer-modes">
@@ -4172,7 +4172,7 @@
         <itemizedlist>
           <listitem>
             <para><guilabel>Size display mode</guilabel> select the size information
-            format. </para>
+            format.</para>
           </listitem>
           <listitem>
             <para><guilabel>Permission display mode</guilabel> select the permissions
@@ -4485,8 +4485,7 @@
               <entry colname="colspec3">
                 <para>This option uses LS_COLORS variable to highlight file types just
                  like the command &quot;ls&quot;. For more information on this You can
-                 look up the <ulink url="http://linux.die.net/man/5/dir_colors">
-                 dir_colors man page</ulink>.</para>
+                 look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
               </entry>
             </row>
             <row>
@@ -7399,7 +7398,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107 (bugs in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107, #633167 (bugs in in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
@@ -8942,6 +8941,6 @@
       Foundation; either version 2 of the License, or (at your option)
       any later version. A copy of this license can be found at this
       <ulink type="help" url="ghelp:gpl">link</ulink>, or in the file
-      COPYING included with the source code of this program. </para>
+      COPYING included with the source code of this program.</para>
   </sect1>
 </article>
