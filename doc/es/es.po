@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-26 18:29+0000\n"
-"PO-Revision-Date: 2010-10-26 20:50+0200\n"
+"POT-Creation-Date: 2010-10-26 18:51+0000\n"
+"PO-Revision-Date: 2010-10-28 10:22+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1216,6 +1216,8 @@ msgid ""
 "You can use the mouse, the keyboard and the menus to copy a selection of "
 "items in another location."
 msgstr ""
+"Puede usar el ratón, el teclado y los menús para copiar la una selección de "
+"elementos a otra ubicación."
 
 #: C/gnome-commander.xml:724(para)
 msgid ""
@@ -1260,18 +1262,24 @@ msgid ""
 "To copy the selection from one pane to the other using the mouse simply drag "
 "and drop the selected items to the other pane."
 msgstr ""
+"Para copiar la selección de un panel a otro usando el ratón, arrastre los "
+"elementos seleccionados hasta el otro panel y suéltelos."
 
 #: C/gnome-commander.xml:745(para)
 msgid ""
 "To copy the selection from one pane to the other you can simply press "
 "<keycap>F5</keycap>."
 msgstr ""
+"Para copiar la selección de un panel a otro simplemente pulse <keycap>F5</"
+"keycap>."
 
 #: C/gnome-commander.xml:749(para)
 msgid ""
 "The first three options will allow you to copy into another application than "
 "GNOME Commander."
 msgstr ""
+"Las tres primeras opciones le permitirán copiar en otra aplicación además de "
+"en GNOME Commander."
 
 #: C/gnome-commander.xml:754(title)
 msgid "Moving a File or Folder"
@@ -1282,6 +1290,8 @@ msgid ""
 "You can use the mouse, the keyboard , and the menus to move a selection of "
 "items in another location"
 msgstr ""
+"Puede usar el ratón, el teclado y los menús para mover la una selección de "
+"elementos a otra ubicación."
 
 #: C/gnome-commander.xml:757(para)
 msgid ""
@@ -1296,6 +1306,10 @@ msgid ""
 "the selection and select <menuchoice><guimenu>Edit</"
 "guimenu><guimenuitem>Paste</guimenuitem></menuchoice>."
 msgstr ""
+"Para mover, use los menús <menuchoice><guimenu>Editar</"
+"guimenu><guimenuitem>Cortar</guimenuitem></menuchoice>, elija la ubicación "
+"donde quiere copiar la selección y elija <menuchoice><guimenu>Editar</"
+"guimenu><guimenuitem>Pegar</guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:764(para)
 msgid ""
@@ -1304,6 +1318,11 @@ msgid ""
 "guimenuitem> then in the chosen location right click in an empty area and "
 "select <guimenuitem>Paste</guimenuitem> in the drop down menu."
 msgstr ""
+"Para mover la selección de un panel a otro usando el ratón, puede pulsar con "
+"el botón derecho sobre los elementos seleccionados y elegir en el menú "
+"<guimenuitem>Cortar</guimenuitem>, y en la ubicación elegida pulsar con el "
+"botón derecho en un área vacía y elegir <guimenuitem>Pegar</guimenuitem> en "
+"el menú desplegable."
 
 #: C/gnome-commander.xml:770(para)
 msgid ""
@@ -1325,12 +1344,16 @@ msgid ""
 "To move the selection from one pane to the other can simply press "
 "<keycap>F6</keycap>."
 msgstr ""
+"Para mover la selección de un panel a otro simplemente pulse <keycap>F6</"
+"keycap>."
 
 #: C/gnome-commander.xml:783(para)
 msgid ""
 "The first Three options will allow you to move into another application than "
 "GNOME Commander."
 msgstr ""
+"Las tres primeras opciones le permitirán mover en otra aplicación además de "
+"en GNOME Commander."
 
 #: C/gnome-commander.xml:788(title)
 msgid "Renaming a File or Folder"
@@ -1353,12 +1376,17 @@ msgid ""
 "Right click on the item and select <guimenu>Rename</guimenu>, type in the "
 "new name, and press <keycap>Enter</keycap> when finished."
 msgstr ""
+"Pulse con el botón derecho sobre el elemento y elija <guimenu>Renombrar</"
+"guimenu>, escriba el nuevo nombre, y pulse <keycap>Intro</keycap> cuando "
+"termine."
 
 #: C/gnome-commander.xml:799(para)
 msgid ""
 "Press <keycap>F2</keycap> and then type in the new name and press "
 "<keycap>Enter</keycap> when finished."
 msgstr ""
+"Pulse <keycap>F2</keycap>, escriba el nombre nuevo y pulse <keycap>Intro</"
+"keycap> cuando termine."
 
 #: C/gnome-commander.xml:803(para)
 msgid ""
@@ -1377,6 +1405,7 @@ msgstr "Borrar un archivo o carpeta"
 #: C/gnome-commander.xml:810(para)
 msgid "There are different ways to delete an item using GNOME Commander."
 msgstr ""
+"Existen diferentes maneras de eliminar un elemento usando GNOME Commander."
 
 #: C/gnome-commander.xml:811(para)
 msgid "Select the item(s) You wish to delete."
@@ -1384,7 +1413,7 @@ msgstr "Seleccione el/los elemento/s que quiere eliminar."
 
 #: C/gnome-commander.xml:814(para)
 msgid "Press the <keycap>Delete</keycap> or the <keycap>F8</keycap> keys."
-msgstr ""
+msgstr "Pulse la teclas <keycap>Supr</keycap> o <keycap>F8</keycap>."
 
 #: C/gnome-commander.xml:817(para)
 msgid ""
@@ -1396,7 +1425,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:820(para)
 msgid "In the menu select <guimenu>Delete</guimenu>."
-msgstr ""
+msgstr "En el menú seleccione <guimenu>Supr</guimenu>."
 
 #: C/gnome-commander.xml:826(title)
 msgid "Creating a Folder"
@@ -1411,7 +1440,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:828(para)
 msgid "Navigate to the location where you want to create the new folder."
-msgstr ""
+msgstr "Navegue hasta la ubicación donde quiere crear la carpeta nueva."
 
 #: C/gnome-commander.xml:831(para)
 msgid ""
@@ -1789,6 +1818,8 @@ msgid ""
 "You can use bookmarks to speed up navigation within your local files or to "
 "access remote servers."
 msgstr ""
+"Puede usar marcadores para acelerar la navegación por sus archivos locales o "
+"para acceder a servidores remotos."
 
 #: C/gnome-commander.xml:1102(para)
 msgid ""
@@ -1810,6 +1841,10 @@ msgid ""
 "guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press "
 "the <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>."
 msgstr ""
+"Para iniciar el administrador de marcadores seleccione "
+"<menuchoice><guimenu>Marcadores</guimenu><guimenuitem>Administrar "
+"marcadores</guimenuitem></menuchoice> o pulse <keycombo><keycap>CTRL</"
+"keycap><keycap>D</keycap></keycombo>."
 
 #: C/gnome-commander.xml:1106(para)
 msgid ""
@@ -8432,12 +8467,6 @@ msgstr ""
 "binario, hexadecimal o gráfico."
 
 #: C/gnome-commander.xml:3766(para)
-#| msgid ""
-#| "To start viewing files use <keycap>F3</keycap> (default viewer - defined "
-#| "in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</"
-#| "guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3 "
-#| "</keycap></keycombo> (internal viewer). The internal viewer uses MMAP "
-#| "whenever possible for the fastest file loading."
 msgid ""
 "To start viewing files use <keycap>F3</keycap> (default viewer - defined in "
 "<menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</"
@@ -9006,6 +9035,8 @@ msgstr "No iniciar una instancia nueva"
 msgid ""
 "By activating this option GNOME Commander can only have one instance running."
 msgstr ""
+"Al activar esta opción sólo podrá haber una instancia de GNOME Commander en "
+"ejecución."
 
 #. general preferences section
 #: C/gnome-commander.xml:3935(sect2)
@@ -9325,11 +9356,6 @@ msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Colorear los archivos según la variable de entorno LS_COLORS"
 
 #: C/gnome-commander.xml:4486(para)
-#| msgid ""
-#| "This option uses LS_COLORS variable to highlight file types just like the "
-#| "command \"ls\". For more information on this You can look up the <ulink "
-#| "url=\"http://linux.die.net/man/5/dir_colors\"> dir_colors man page</"
-#| "ulink>."
 msgid ""
 "This option uses LS_COLORS variable to highlight file types just like the "
 "command \"ls\". For more information on this You can look up the <ulink url="
@@ -9928,6 +9954,8 @@ msgid ""
 "The dialog box used to modify existing applications is the same as the one "
 "described below."
 msgstr ""
+"El cuadro de diálogo usado para modificar las aplicaciones existentes es el "
+"mismo que el que se describe a continuación."
 
 #: C/gnome-commander.xml:5093(title)
 msgid "Application options"
@@ -9979,6 +10007,8 @@ msgid ""
 "Clicking on this button opens a dialog box where you can choose the Icon "
 "that will displayed in the contextual menu."
 msgstr ""
+"Al pulsar en este botón se abre un cuadro de diálogo dónde puede elegir el "
+"icono que se mostrará en el menú contextual."
 
 #: C/gnome-commander.xml:5179(para)
 msgid "Can handle multiple files"
@@ -12546,9 +12576,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:7401(para)
-#| msgid ""
-#| "Fixed problems #632064, #632208, #633107 (bugs in in gnome-commander-help."
-#| "master.po)"
 msgid ""
 "Fixed problems #632064, #632208, #633107, #633167 (bugs in in gnome-"
 "commander-help.master.po)"
