@@ -761,15 +761,13 @@
           </para>
         </listitem>
         <listitem>
-          <para>To move the selection from one pane to the other using the mouse you can also right click on the
-   	       selected items in the menu select <guimenuitem>Cut</guimenuitem> then in the chosen location right
-   	       click in an empty area and select <guimenuitem>Paste</guimenuitem> in the drop down menu.
+          <para>Using the mouse you can also right click on the selected items in the drop down menu select
+          <guimenuitem>Cut</guimenuitem> then in the chosen location right click in an empty area and select
+          <guimenuitem>Paste</guimenuitem> in the drop down menu.
           </para>
         </listitem>
         <listitem>
-          <para>Using the mouse You can also right click on the selected items in the drop down menu select
-          <guimenuitem>Cut</guimenuitem> then in the chosen location right click in an empty area and select
-          <guimenuitem>Paste</guimenuitem> in the drop down menu.</para>
+          <para>Press the following keys <keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo>, then select the location for the files and press <keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></para>
         </listitem>
         <listitem>
           <para>To move the selection from one pane to the other using the mouse drag and drop the selected items
@@ -1331,11 +1329,11 @@
                         <entry><para>Hexadecimal random number with specified lowercase digit number (width)</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$x</para></entry>
+                        <entry><para>$X</para></entry>
                         <entry><para>Hexadecimal random number (8 uppercase digits)</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$x(width)</para></entry>
+                        <entry><para>$X(width)</para></entry>
                         <entry><para>Hexadecimal random number with specified uppercase digit number (width)</para></entry>
                     </row>
                     <row valign="top">
@@ -4042,7 +4040,8 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option, a single left mouse button click
-                on a file will reselect it if it is already selected.</para>
+                on a file will unselect the current selection. If the option is not active 
+		a left click on any file will not affect the current selection.</para>
               </entry>
             </row>
             <row>
@@ -7398,7 +7397,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107, #633167 (bugs in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331 (bugs in in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
