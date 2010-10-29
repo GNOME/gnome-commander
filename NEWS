@@ -16,7 +16,7 @@ New features:
  * User defined LS_COLORS colours
  * Enhanced file name matching in quick search
  * New or updated docs: de, en, es, fr, sl
- * New or updated translations: da, es, eu, fr, hu, ko, pl, ro, ru, sl, uk, zh_CN
+ * New or updated translations: da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
