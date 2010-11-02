@@ -345,6 +345,10 @@ void gnome_cmd_data_set_symlink_prefix (const gchar *value);
 
 extern GnomeCmdData gnome_cmd_data;
 
+extern gchar *start_dir_left;
+extern gchar *start_dir_right;
+extern gchar *config_dir;
+
 extern DICT<guint> gdk_key_names;
 extern DICT<guint> gdk_modifiers_names;
 

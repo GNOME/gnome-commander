@@ -460,6 +460,12 @@
               </listitem>
               <listitem>
                 <para>
+                  <guilabel>--config-dir=STRING</guilabel>
+                </para>
+                <para>Specify the directory for configuration files.</para>
+              </listitem>
+              <listitem>
+                <para>
                   <guilabel>-d, --debug=STRING</guilabel>
                 </para>
                 <para>Specify debug flags to use. Debug output will be written to stdout.</para>
@@ -7427,6 +7433,9 @@
                         </listitem>
                         <listitem>
                             <para>Enhanced file name matching in quick search</para>
+                        </listitem>
+                        <listitem>
+                            <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>
                             <para>New or updated docs: de, en, es, fr, sl</para>
