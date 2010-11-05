@@ -6,17 +6,17 @@
 # Edgardo García Hoeffler <edybsd@yahoo.com.ar>, 2002.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2006.
 # Lorenzo nunez <lorenzo.nunez@gmail.com>, 2007.
-# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-11-02 16:40+0000\n"
-"PO-Revision-Date: 2010-10-29 09:51+0200\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2010-11-04 13:10+0000\n"
+"PO-Revision-Date: 2010-11-05 12:22+0100\n"
+"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3129,8 +3129,8 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr ""
 "Imposible encontrar la imagen. Verifique que se haya instalado el programa o "
-"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-%"
-"s/src\n"
+"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-"
+"%s/src\n"
 
 #: ../src/imageloader.cc:136
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
@@ -3308,10 +3308,8 @@ msgid "Specify the start directory for the right pane"
 msgstr "Especifique la carpeta de inicio para el panel derecho"
 
 #: ../src/main.cc:72 ../src/main.cc:82
-#, fuzzy
-#| msgid "Specify the start directory for the right pane"
 msgid "Specify the directory for configuration files"
-msgstr "Especifique la carpeta de inicio para el panel derecho"
+msgstr "Especificar la carpeta para los archivos de configuración"
 
 #: ../src/main.cc:138
 msgid "File Manager"
@@ -4001,8 +3999,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo lectura "
-"forzado» o «Bloquedao para anotaciones»."
+"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo "
+"lectura forzado» o «Bloquedao para anotaciones»."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Slide Count"
@@ -6742,8 +6740,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
-"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y «S» "
-"para recuadro."
+"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y "
+"«S» para recuadro."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Image Type"
@@ -7207,8 +7205,8 @@ msgid ""
 "Set to \"1\" if inserting, rotating, or deleting pages and creating "
 "navigation elements is allowed."
 msgstr ""
-"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y crear "
-"elementos de navegación."
+"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y "
+"crear elementos de navegación."
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Commenting"
