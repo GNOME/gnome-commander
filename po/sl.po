@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
-"POT-Creation-Date: 2010-10-09 11:28+0000\n"
-"PO-Revision-Date: 2010-10-09 20:05+0100\n"
+"POT-Creation-Date: 2010-11-05 11:26+0000\n"
+"PO-Revision-Date: 2010-11-05 14:03+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -3314,22 +3314,27 @@ msgstr "_Hitra pomoč"
 msgid "Pattern \"%s\" was not found"
 msgstr "Iskani niz \"%s\" ni najden"
 
-#: ../src/main.cc:68
-#: ../src/main.cc:77
+#: ../src/main.cc:69
+#: ../src/main.cc:79
 msgid "Specify debug flags to use"
 msgstr "Določi razhroščevalne zastavice"
 
-#: ../src/main.cc:69
-#: ../src/main.cc:78
+#: ../src/main.cc:70
+#: ../src/main.cc:80
 msgid "Specify the start directory for the left pane"
 msgstr "Določite začetno mapo za levo okno"
 
-#: ../src/main.cc:70
-#: ../src/main.cc:79
+#: ../src/main.cc:71
+#: ../src/main.cc:81
 msgid "Specify the start directory for the right pane"
 msgstr "Določite začetno mapo za desno okno"
 
-#: ../src/main.cc:135
+#: ../src/main.cc:72
+#: ../src/main.cc:82
+msgid "Specify the directory for configuration files"
+msgstr "Določite mapo nastavitvenih datotek"
+
+#: ../src/main.cc:138
 msgid "File Manager"
 msgstr "Upravljalnik datotek"
 
@@ -6967,4 +6972,3 @@ msgstr "Prišlo je do napake med prikazovanjem pomoči."
 
 #~ msgid "Quick search using"
 #~ msgstr "Hitro iskanje z"
-
