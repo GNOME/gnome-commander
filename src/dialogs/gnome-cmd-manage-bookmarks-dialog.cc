@@ -498,7 +498,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
     {
         GnomeCmdCon *con = bookmark->group->con;
 
-        if (con->state == CON_STATE_OPEN)
+        if (con->state == GnomeCmdCon::STATE_OPEN)
         {
             GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
             fs->set_connection(con, dir);

@@ -1453,7 +1453,7 @@ static void on_con_open_cancel (GtkButton *button, GnomeCmdFileList *fl)
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (fl->priv->con_opening != NULL);
-    g_return_if_fail (fl->priv->con_opening->state == CON_STATE_OPENING);
+    g_return_if_fail (fl->priv->con_opening->state == GnomeCmdCon::STATE_OPENING);
 
     gnome_cmd_con_cancel_open (fl->priv->con_opening);
 

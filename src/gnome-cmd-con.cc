@@ -194,7 +194,7 @@ static void init (GnomeCmdCon *con)
     con->close_tooltip = NULL;
     con->close_pixmap = NULL;
 
-    con->state = CON_STATE_CLOSED;
+    con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = CON_OPEN_NOT_STARTED;
     con->open_failed_reason = GNOME_VFS_OK;
     con->open_failed_msg = NULL;
@@ -274,7 +274,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con)
 
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
 
-    if (con->state != CON_STATE_OPEN)
+    if (con->state != GnomeCmdCon::STATE_OPEN)
         klass->open (con);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) check_con_open_progress, con);
@@ -285,7 +285,7 @@ void gnome_cmd_con_cancel_open (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    if (con->state == CON_STATE_OPENING)
+    if (con->state == GnomeCmdCon::STATE_OPENING)
     {
         GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
         klass->cancel_open (con);

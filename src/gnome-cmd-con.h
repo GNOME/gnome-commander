@@ -40,14 +40,6 @@ struct GnomeCmdConPrivate;
 #include "history.h"
 #include "utils.h"
 
-enum ConState
-{
-    CON_STATE_CLOSED,
-    CON_STATE_OPEN,
-    CON_STATE_OPENING,
-    CON_STATE_CANCELLING
-};
-
 enum ConOpenResult
 {
     CON_OPEN_OK,
@@ -74,6 +66,14 @@ struct GnomeCmdCon
 {
     GtkObject parent;
 
+    enum State
+    {
+        STATE_CLOSED,
+        STATE_OPEN,
+        STATE_OPENING,
+        STATE_CANCELLING
+    };
+
     gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
     ConnectionMethodID  method;
@@ -86,7 +86,7 @@ struct GnomeCmdCon
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;
     gboolean            can_show_free_space;
-    ConState            state;
+    State               state;
     gboolean            is_local;
     gboolean            is_closeable;
     gchar               *go_text;
@@ -133,7 +133,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con);
 inline gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->state == CON_STATE_OPEN;
+    return con->state == GnomeCmdCon::STATE_OPEN;
 }
 
 void gnome_cmd_con_cancel_open (GnomeCmdCon *con);

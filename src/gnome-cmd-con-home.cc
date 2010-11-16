@@ -109,7 +109,7 @@ static void init (GnomeCmdConHome *home_con)
 
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 
-    con->state = CON_STATE_OPEN;
+    con->state = GnomeCmdCon::STATE_OPEN;
     con->alias = g_strdup (_("Home"));
     con->method = CON_LOCAL;
     con->open_msg = g_strdup ("This should not be visible anywhere");
