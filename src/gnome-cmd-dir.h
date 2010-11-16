@@ -40,13 +40,13 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GnomeVFSResult
 #include "gnome-cmd-path.h"
 #include "handle.h"
 
-typedef enum
+enum DirState
 {
     DIR_STATE_EMPTY,
     DIR_STATE_LISTED,
     DIR_STATE_LISTING,
     DIR_STATE_CANCELING
-} DirState;
+};
 
 struct GnomeCmdDir
 {

@@ -61,7 +61,7 @@ gchar *XML::xstream::escaped_text = NULL;
 
 
 #if !GLIB_CHECK_VERSION (2, 16, 0)
-typedef enum
+enum GMarkupCollectType
 {
   G_MARKUP_COLLECT_INVALID,
   G_MARKUP_COLLECT_STRING,
@@ -70,7 +70,7 @@ typedef enum
   G_MARKUP_COLLECT_TRISTATE,
 
   G_MARKUP_COLLECT_OPTIONAL = (1 << 16)
-} GMarkupCollectType;
+};
 
 
 static gboolean

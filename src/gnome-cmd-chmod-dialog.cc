@@ -34,12 +34,12 @@
 using namespace std;
 
 
-typedef enum
+enum ChmodRecursiveMode
 {
     CHMOD_ALL_FILES,
     CHMOD_DIRS_ONLY,
     CHMOD_MAX
-} ChmodRecursiveMode;
+};
 
 static gchar *recurse_opts[CHMOD_MAX] = {
     N_("All files"),

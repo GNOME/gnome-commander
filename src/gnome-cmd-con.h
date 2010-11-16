@@ -40,24 +40,24 @@ struct GnomeCmdConPrivate;
 #include "history.h"
 #include "utils.h"
 
-typedef enum
+enum ConState
 {
     CON_STATE_CLOSED,
     CON_STATE_OPEN,
     CON_STATE_OPENING,
     CON_STATE_CANCELLING
-} ConState;
+};
 
-typedef enum
+enum ConOpenResult
 {
     CON_OPEN_OK,
     CON_OPEN_FAILED,
     CON_OPEN_CANCELLED,
     CON_OPEN_IN_PROGRESS,
     CON_OPEN_NOT_STARTED
-} ConOpenResult;
+};
 
-typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
+enum ConnectionMethodID        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
 {
     CON_SSH,
     CON_SFTP = CON_SSH,
@@ -68,7 +68,7 @@ typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dia
     CON_DAVS,
     CON_URI,
     CON_LOCAL      // CON_FILE ???
-} ConnectionMethodID;
+};
 
 struct GnomeCmdCon
 {

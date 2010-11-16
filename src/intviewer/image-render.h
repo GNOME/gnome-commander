@@ -56,14 +56,14 @@ struct ImageRenderStatus
     gint     bits_per_sample;
 };
 
-typedef enum
+enum IMAGEOPERATION
 {
     ROTATE_CLOCKWISE,
     ROTATE_COUNTERCLOCKWISE,
     ROTATE_UPSIDEDOWN,
     FLIP_VERTICAL,
     FLIP_HORIZONTAL
-} IMAGEOPERATION;
+};
 
 GtkWidget     *image_render_new ();
 GtkType        image_render_get_type ();
