@@ -4046,7 +4046,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option, a single left mouse button click
-                on a file will unselect the current selection. If the option is not active 
+                on a file will unselect the current selection. If the option is not active
 		a left click on any file will not affect the current selection.</para>
               </entry>
             </row>
@@ -5284,7 +5284,7 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                					<para>This contains the file extensions specific to the application. the syntax is as follow :"*.extension" use ";" as a separator between the different extensions if there are more than one.
+                					<para>This contains the file extensions specific to the application. The syntax is as follow: "*.extension" use ";" as a separator between the different extensions if there are more than one.
                 					</para>
               					</entry>
             				</row>
@@ -7403,7 +7403,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331 (bugs in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
