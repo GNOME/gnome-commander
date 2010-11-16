@@ -38,7 +38,7 @@
 using namespace std;
 
 
-typedef struct
+struct GnomeCmdFilePropsDialogPrivate
 {
     GtkWidget *dialog;
     GnomeCmdFile *f;
@@ -63,7 +63,7 @@ typedef struct
     GtkWidget *chown_component;
     GtkWidget *chmod_component;
 
-} GnomeCmdFilePropsDialogPrivate;
+};
 
 
 inline const gchar *get_size_disp_string (GnomeVFSFileSize size)

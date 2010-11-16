@@ -39,12 +39,12 @@
 using namespace std;
 
 
-typedef struct
+struct TmpDlData
 {
     GnomeCmdFile *f;
     GtkWidget *dialog;
     gpointer *args;
-} TmpDlData;
+};
 
 #ifdef HAVE_LOCALE_H
 extern struct lconv *locale_information;

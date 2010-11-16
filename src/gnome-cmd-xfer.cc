@@ -37,7 +37,7 @@ using namespace std;
 #define XFER_PRIORITY GNOME_VFS_PRIORITY_DEFAULT
 
 
-typedef struct
+struct XferData
 {
     GnomeVFSXferOptions xferOptions;
     GnomeVFSAsyncHandle *handle;
@@ -73,7 +73,7 @@ typedef struct
     gboolean done;
     gboolean aborted;
 
-} XferData;
+};
 
 
 inline void free_xfer_data (XferData *data)

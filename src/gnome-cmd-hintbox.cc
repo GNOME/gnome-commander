@@ -50,13 +50,13 @@ using namespace std;
 
 typedef GtkHBoxClass  GnomeCmdHintBoxClass;
 
-typedef struct
+struct GnomeCmdHintBox
 {
   GtkHBox    parent_instance;
 
   gchar     *stock_id;
   gchar     *hint;
-} GnomeCmdHintBox;
+};
 
 #define GNOME_CMD_HINT_BOX(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_HINT_BOX, GnomeCmdHintBox))
 
