@@ -116,7 +116,7 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
     data->cur_file = -1;
     data->prev_file = -1;
     data->files_total = 0;
-    data->prev_totalprog = (gfloat)0.00;
+    data->prev_totalprog = (gfloat) 0.00;
     data->first_time = TRUE;
     data->on_completed_func = on_completed_func;
     data->on_completed_data = on_completed_data;
