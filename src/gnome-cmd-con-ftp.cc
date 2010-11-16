@@ -52,13 +52,13 @@ static void get_file_info_func (GnomeCmdCon *con)
         if (res == GNOME_VFS_OK)
         {
             con->state = GnomeCmdCon::STATE_OPEN;
-            con->open_result = CON_OPEN_OK;
+            con->open_result = GnomeCmdCon::OPEN_OK;
         }
         else
         {
             con->state = GnomeCmdCon::STATE_CLOSED;
             con->open_failed_reason = res;
-            con->open_result = CON_OPEN_FAILED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
         }
     }
     else
@@ -88,7 +88,7 @@ static void ftp_open (GnomeCmdCon *con)
     }
 
     con->state = GnomeCmdCon::STATE_OPENING;
-    con->open_result = CON_OPEN_IN_PROGRESS;
+    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 }
@@ -100,7 +100,7 @@ static gboolean ftp_close (GnomeCmdCon *con)
     g_object_unref (con->base_path);
     con->base_path = NULL;
     con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_result = CON_OPEN_NOT_STARTED;
+    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
 
     return TRUE;
 }

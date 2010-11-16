@@ -51,19 +51,19 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
             gnome_vfs_file_info_ref (r->file_info);
             con->state = GnomeCmdCon::STATE_OPEN;
             con->base_info = r->file_info;
-            con->open_result = CON_OPEN_OK;
+            con->open_result = GnomeCmdCon::OPEN_OK;
         }
         else if (r)
         {
             con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_result = CON_OPEN_FAILED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
             con->open_failed_reason = r->result;
         }
         else
         {
             g_warning ("No result at all");
             con->state = GnomeCmdCon::STATE_CLOSED;
-            con->open_result = CON_OPEN_FAILED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
         }
     }
     else
@@ -90,7 +90,7 @@ static void smb_open (GnomeCmdCon *con)
     {
         DEBUG('m', "gnome_cmd_con_create_uri returned NULL\n");
         con->state = GnomeCmdCon::STATE_CLOSED;
-        con->open_result = CON_OPEN_FAILED;
+        con->open_result = GnomeCmdCon::OPEN_FAILED;
         con->open_failed_msg = g_strdup (_("Failed to browse the network. Is the SMB module installed?"));
         return;
     }
@@ -99,7 +99,7 @@ static void smb_open (GnomeCmdCon *con)
     GList *uri_list = g_list_append (NULL, uri);
 
     con->state = GnomeCmdCon::STATE_OPENING;
-    con->open_result = CON_OPEN_IN_PROGRESS;
+    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     GnomeVFSAsyncHandle *handle;
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |

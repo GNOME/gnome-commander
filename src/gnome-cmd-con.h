@@ -40,15 +40,6 @@ struct GnomeCmdConPrivate;
 #include "history.h"
 #include "utils.h"
 
-enum ConOpenResult
-{
-    CON_OPEN_OK,
-    CON_OPEN_FAILED,
-    CON_OPEN_CANCELLED,
-    CON_OPEN_IN_PROGRESS,
-    CON_OPEN_NOT_STARTED
-};
-
 enum ConnectionMethodID        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
 {
     CON_SSH,
@@ -72,6 +63,15 @@ struct GnomeCmdCon
         STATE_OPEN,
         STATE_OPENING,
         STATE_CANCELLING
+    };
+
+    enum OpenResult
+    {
+        OPEN_OK,
+        OPEN_FAILED,
+        OPEN_CANCELLED,
+        OPEN_IN_PROGRESS,
+        OPEN_NOT_STARTED
     };
 
     gchar               *alias;                 // coded as UTF-8
@@ -99,7 +99,7 @@ struct GnomeCmdCon
     gchar               *close_tooltip;
     GnomeCmdPixmap      *close_pixmap;
 
-    ConOpenResult    open_result;
+    OpenResult       open_result;
     GnomeVFSResult   open_failed_reason;
     gchar            *open_failed_msg;
 

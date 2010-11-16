@@ -136,7 +136,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
 
         if (emsg != NULL)
         {
-            con->open_result = CON_OPEN_FAILED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
             con->state = GnomeCmdCon::STATE_CLOSED;
             con->open_failed_msg = emsg;
             return;
@@ -159,14 +159,14 @@ static void do_mount_thread_func (GnomeCmdCon *con)
     if (result == GNOME_VFS_OK)
     {
         con->state = GnomeCmdCon::STATE_OPEN;
-        con->open_result = CON_OPEN_OK;
+        con->open_result = GnomeCmdCon::OPEN_OK;
     }
     else
     {
         gnome_vfs_file_info_unref (con->base_info);
         con->base_info = NULL;
         con->open_failed_reason = result;
-        con->open_result = CON_OPEN_FAILED;
+        con->open_result = GnomeCmdCon::OPEN_FAILED;
         con->state = GnomeCmdCon::STATE_CLOSED;
     }
 }
@@ -185,7 +185,7 @@ static void dev_open (GnomeCmdCon *con)
     }
 
     con->state = GnomeCmdCon::STATE_OPENING;
-    con->open_result = CON_OPEN_IN_PROGRESS;
+    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     g_thread_create ((GThreadFunc) do_mount_thread_func, con, FALSE, NULL);
 }

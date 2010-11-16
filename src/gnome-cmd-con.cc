@@ -195,7 +195,7 @@ static void init (GnomeCmdCon *con)
     con->close_pixmap = NULL;
 
     con->state = GnomeCmdCon::STATE_CLOSED;
-    con->open_result = CON_OPEN_NOT_STARTED;
+    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
     con->open_failed_reason = GNOME_VFS_OK;
     con->open_failed_msg = NULL;
 
@@ -243,11 +243,11 @@ GtkType gnome_cmd_con_get_type ()
 static gboolean check_con_open_progress (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    g_return_val_if_fail (con->open_result != CON_OPEN_NOT_STARTED, FALSE);
+    g_return_val_if_fail (con->open_result != GnomeCmdCon::OPEN_NOT_STARTED, FALSE);
 
-    if (con->open_result == CON_OPEN_OK)
+    if (con->open_result == GnomeCmdCon::OPEN_OK)
     {
-        DEBUG('m', "CON_OPEN_OK detected\n");
+        DEBUG('m', "GnomeCmdCon::OPEN_OK detected\n");
 
         GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con->base_info, con->base_path, con);
 
@@ -256,14 +256,14 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
         DEBUG ('m', "Emitting 'open-done' signal\n");
         gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
     }
-    else if (con->open_result == CON_OPEN_FAILED)
+    else if (con->open_result == GnomeCmdCon::OPEN_FAILED)
     {
-        DEBUG ('m', "CON_OPEN_FAILED detected\n");
+        DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
         DEBUG ('m', "Emitting 'open-failed' signal\n");
         gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_reason);
     }
 
-    return con->open_result == CON_OPEN_IN_PROGRESS;
+    return con->open_result == GnomeCmdCon::OPEN_IN_PROGRESS;
 }
 
 
