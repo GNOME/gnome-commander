@@ -16,10 +16,10 @@
 .\" .sp <n>    insert n+1 empty lines
 .\" for manpage-specific macros, see man(7)
 .SH NAME
-gnome-commander \- A GNOME file manager
+gnome-commander \- a GNOME file manager
 .SH SYNOPSIS
 .B gnome-commander
-[-d STRING] [--help] [--version] [gtk,gnome,bonobo options]
+[-d STRING] [options] [gtk,gnome,bonobo options]
 .br
 .SH DESCRIPTION
 .B GNOME Commander
@@ -38,6 +38,9 @@ Specify the start directory for the left pane
 .TP
 .B \-r, \-\-start-right-dir=STRING
 Specify the start directory for the right pane
+.TP
+.B \    \-\-config-dir=STRING
+Specify the directory for configuration files
 .TP
 .B \-d, \-\-debug=STRING
 Specify debug flags to use.
@@ -95,6 +98,8 @@ with debugging of directory listings, internal viewer
 and directory monitoring facilities.
 .SH FILES
 .TP
+.B ~/.gnome-commander/gnome-commander.xml
+.TP
 .B ~/.gnome2/gnome-commander
 User settings.
 .TP
@@ -127,9 +132,7 @@ http://www.nongnu.org/gcmd/
 was originally developed by Marcus Bjurman.
 .br
 Piotr Eljasiak <epiotr@use.pl> is the current project manager.
-Magnus Stålnacke <jemamo@telia.com> maintains the
-.B GNOME Commander
-home page. Assaf Gordon <agordon88@gmail.com> added the internal viewer code
+Assaf Gordon <agordon88@gmail.com> added the internal viewer code
 and other features.
 .br
 Translations and other contributions by numerous people. See the

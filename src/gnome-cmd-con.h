@@ -40,24 +40,7 @@ struct GnomeCmdConPrivate;
 #include "history.h"
 #include "utils.h"
 
-typedef enum
-{
-    CON_STATE_CLOSED,
-    CON_STATE_OPEN,
-    CON_STATE_OPENING,
-    CON_STATE_CANCELLING
-} ConState;
-
-typedef enum
-{
-    CON_OPEN_OK,
-    CON_OPEN_FAILED,
-    CON_OPEN_CANCELLED,
-    CON_OPEN_IN_PROGRESS,
-    CON_OPEN_NOT_STARTED
-} ConOpenResult;
-
-typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
+enum ConnectionMethodID        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
 {
     CON_SSH,
     CON_SFTP = CON_SSH,
@@ -68,11 +51,28 @@ typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dia
     CON_DAVS,
     CON_URI,
     CON_LOCAL      // CON_FILE ???
-} ConnectionMethodID;
+};
 
 struct GnomeCmdCon
 {
     GtkObject parent;
+
+    enum State
+    {
+        STATE_CLOSED,
+        STATE_OPEN,
+        STATE_OPENING,
+        STATE_CANCELLING
+    };
+
+    enum OpenResult
+    {
+        OPEN_OK,
+        OPEN_FAILED,
+        OPEN_CANCELLED,
+        OPEN_IN_PROGRESS,
+        OPEN_NOT_STARTED
+    };
 
     gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
@@ -86,7 +86,7 @@ struct GnomeCmdCon
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;
     gboolean            can_show_free_space;
-    ConState            state;
+    State               state;
     gboolean            is_local;
     gboolean            is_closeable;
     gchar               *go_text;
@@ -99,7 +99,7 @@ struct GnomeCmdCon
     gchar               *close_tooltip;
     GnomeCmdPixmap      *close_pixmap;
 
-    ConOpenResult    open_result;
+    OpenResult       open_result;
     GnomeVFSResult   open_failed_reason;
     gchar            *open_failed_msg;
 
@@ -133,7 +133,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con);
 inline gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
-    return con->state == CON_STATE_OPEN;
+    return con->state == GnomeCmdCon::STATE_OPEN;
 }
 
 void gnome_cmd_con_cancel_open (GnomeCmdCon *con);

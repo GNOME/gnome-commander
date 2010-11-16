@@ -73,17 +73,18 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
         popup->priv->matches = NULL;
     }
 
+    gchar *pattern;
+
+    if (gnome_cmd_data.quick_search_exact_match_begin)
+        pattern = gnome_cmd_data.quick_search_exact_match_end ? g_strdup (text) : g_strconcat (text, "*", NULL);
+    else
+        pattern = gnome_cmd_data.quick_search_exact_match_end ? g_strconcat ("*", text, NULL) : g_strconcat ("*", text, "*", NULL);
+
     for (GList *files = popup->priv->fl->get_visible_files(); files; files = files->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-        gint res;
 
-        if (gnome_cmd_data.case_sens_sort)
-            res = strncmp (f->info->name, text, strlen(text));
-        else
-            res = strncasecmp (f->info->name, text, strlen(text));
-
-        if (res == 0)
+        if (gnome_cmd_filter_fnmatch (pattern, f->info->name, gnome_cmd_data.case_sens_sort))
         {
             if (first)
             {
@@ -94,6 +95,8 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
             popup->priv->matches = g_list_append (popup->priv->matches, f);
         }
     }
+
+    g_free (pattern);
 
     // If no file matches the new filter, focus on the last file that matched a previous filter
     if (popup->priv->matches==NULL && popup->priv->last_focused_file!=NULL)

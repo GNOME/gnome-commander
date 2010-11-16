@@ -14,6 +14,8 @@ F10             Quit
 
 ALT+1           Change left connection
 ALT+2           Change right connection
+SUPER+1         Change left connection
+SUPER+2         Change right connection
 
 ALT+F3          View with external viewer
 ALT+F7          Search

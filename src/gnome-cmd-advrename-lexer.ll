@@ -321,7 +321,7 @@ void gnome_cmd_advrename_reset_counter(long start, int precision, int step)
     {
       (*i)->counter.n = (*i)->counter.start = start;
       (*i)->counter.step = (*i)->counter.init_step==GLOBAL_COUNTER_STEP ? step : (*i)->counter.init_step;
-      (*i)->counter.prec = (*i)->counter.init_step==GLOBAL_COUNTER_PREC ? precision : (*i)->counter.init_prec;
+      (*i)->counter.prec = (*i)->counter.init_prec==GLOBAL_COUNTER_PREC ? precision : (*i)->counter.init_prec;
       sprintf((*i)->counter.fmt,"%%0%ili",(*i)->counter.prec);
     }
 }

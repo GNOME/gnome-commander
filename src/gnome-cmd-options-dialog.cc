@@ -141,7 +141,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     // Quick search options
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Quick search using"));
+    cat = create_category (parent, cat_box, _("Quick search"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
@@ -150,6 +150,14 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.alt_quick_search);
+
+    check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.quick_search_exact_match_begin);
+
+    check = create_check (parent, _("Match end of the file name"), "qsearch_exact_match_end");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.quick_search_exact_match_end);
 
 
     // Multiple instances
@@ -190,6 +198,8 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (GTK_WIDGET (dialog), "multiple_instance_check");
+    GtkWidget *qsearch_exact_match_begin = lookup_widget (GTK_WIDGET (dialog), "qsearch_exact_match_begin");
+    GtkWidget *qsearch_exact_match_end = lookup_widget (GTK_WIDGET (dialog), "qsearch_exact_match_end");
     GtkWidget *save_dirs = lookup_widget (GTK_WIDGET (dialog), "save_dirs");
     GtkWidget *save_tabs = lookup_widget (GTK_WIDGET (dialog), "save_tabs");
 
@@ -208,6 +218,8 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
     gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
     gnome_cmd_data.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
+    gnome_cmd_data.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
+    gnome_cmd_data.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
     gnome_cmd_data.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
     gnome_cmd_data.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
 }

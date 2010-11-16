@@ -21,6 +21,7 @@
 #ifndef __FILTER_H__
 #define __FILTER_H__
 
+#include <fnmatch.h>
 #include <regex.h>
 
 
@@ -42,5 +43,14 @@ struct Filter
 
     gboolean match(const gchar *text);
 };
+
+inline gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *string, gboolean case_sens)
+{
+#ifdef FNM_CASEFOLD
+    return pattern && string && fnmatch (pattern, string, case_sens ? FNM_NOESCAPE : FNM_NOESCAPE|FNM_CASEFOLD)==0;
+#else
+    return pattern && string && fnmatch (pattern, string, FNM_NOESCAPE) == 0;
+#endif
+}
 
 #endif // __FILTER_H__

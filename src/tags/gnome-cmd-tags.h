@@ -29,7 +29,7 @@
 #include "gnome-cmd-file.h"
 #include "utils.h"
 
-typedef enum
+enum GnomeCmdTagClass
 {
     TAG_NONE_CLASS  = 0,
     TAG_FILE        = -1,
@@ -46,10 +46,10 @@ typedef enum
     TAG_AUDIO       = TAG_APE | TAG_FLAC | TAG_ID3 | TAG_VORBIS,
     TAG_DOC         = TAG_CHM | TAG_PDF,
     TAG_IMAGE       = TAG_EXIF | TAG_IPTC | TAG_ICC
-} GnomeCmdTagClass;
+};
 
 
-typedef enum
+enum GnomeCmdTag
 {
     TAG_NONE,
     TAG_AUDIO_ALBUMARTIST,                  // artist of the album
@@ -477,7 +477,7 @@ typedef enum
     TAG_VORBIS_ORGANIZATION,                // organization producing the track
     TAG_VORBIS_VENDOR,                      // Vorbis vendor ID
     TAG_VORBIS_VERSION                      // Vorbis version
-} GnomeCmdTag;
+};
 
 
 void gcmd_tags_init();

@@ -473,7 +473,8 @@ enum MENUITEMTYPE
 } ;
 
 
-typedef struct {
+struct MENU_ITEM_DATA
+{
     MENUITEMTYPE menutype;
     const gchar *label;
 
@@ -491,7 +492,7 @@ typedef struct {
     GtkWidget **menu_item_widget;
 
     GSList **radio_list;
-} MENU_ITEM_DATA;
+};
 
 static GtkWidget *create_menu_item (MENUITEMTYPE type,
                                     const gchar *name,

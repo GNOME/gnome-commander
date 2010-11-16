@@ -42,37 +42,37 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 
     GnomeCmdConSmb *smb_con = GNOME_CMD_CON_SMB (con);
 
-    if (con->state == CON_STATE_OPENING)
+    if (con->state == GnomeCmdCon::STATE_OPENING)
     {
         GnomeVFSGetFileInfoResult *r = (GnomeVFSGetFileInfoResult *) results->data;
 
         if (r && r->result == GNOME_VFS_OK)
         {
             gnome_vfs_file_info_ref (r->file_info);
-            con->state = CON_STATE_OPEN;
+            con->state = GnomeCmdCon::STATE_OPEN;
             con->base_info = r->file_info;
-            con->open_result = CON_OPEN_OK;
+            con->open_result = GnomeCmdCon::OPEN_OK;
         }
         else if (r)
         {
-            con->state = CON_STATE_CLOSED;
-            con->open_result = CON_OPEN_FAILED;
+            con->state = GnomeCmdCon::STATE_CLOSED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
             con->open_failed_reason = r->result;
         }
         else
         {
             g_warning ("No result at all");
-            con->state = CON_STATE_CLOSED;
-            con->open_result = CON_OPEN_FAILED;
+            con->state = GnomeCmdCon::STATE_CLOSED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
         }
     }
     else
     {
-        if (con->state == CON_STATE_CANCELLING)
+        if (con->state == GnomeCmdCon::STATE_CANCELLING)
             DEBUG('m', "The open operation was cancelled, doing nothing\n");
         else
             DEBUG('m', "Strange ConState %d\n", con->state);
-        con->state = CON_STATE_CLOSED;
+        con->state = GnomeCmdCon::STATE_CLOSED;
     }
 }
 
@@ -89,8 +89,8 @@ static void smb_open (GnomeCmdCon *con)
     if (!uri)
     {
         DEBUG('m', "gnome_cmd_con_create_uri returned NULL\n");
-        con->state = CON_STATE_CLOSED;
-        con->open_result = CON_OPEN_FAILED;
+        con->state = GnomeCmdCon::STATE_CLOSED;
+        con->open_result = GnomeCmdCon::OPEN_FAILED;
         con->open_failed_msg = g_strdup (_("Failed to browse the network. Is the SMB module installed?"));
         return;
     }
@@ -98,8 +98,8 @@ static void smb_open (GnomeCmdCon *con)
     DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
     GList *uri_list = g_list_append (NULL, uri);
 
-    con->state = CON_STATE_OPENING;
-    con->open_result = CON_OPEN_IN_PROGRESS;
+    con->state = GnomeCmdCon::STATE_OPENING;
+    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     GnomeVFSAsyncHandle *handle;
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
@@ -124,7 +124,7 @@ static gboolean smb_close (GnomeCmdCon *con)
 
 static void smb_cancel_open (GnomeCmdCon *con)
 {
-    con->state = CON_STATE_CANCELLING;
+    con->state = GnomeCmdCon::STATE_CANCELLING;
 }
 
 

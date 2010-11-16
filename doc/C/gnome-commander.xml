@@ -240,6 +240,16 @@
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.9;</revnumber>
+        <date>2010-??-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
@@ -356,7 +366,7 @@
         <menuchoice>
         <guisubmenu>Accessories</guisubmenu>
         <guimenuitem>&app;</guimenuitem>
-        </menuchoice>. </para>
+        </menuchoice>.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -447,6 +457,12 @@
                   <guilabel>-r, --start-right-dir=STRING</guilabel>
                 </para>
                 <para>Specify the start directory for the right pane.</para>
+              </listitem>
+              <listitem>
+                <para>
+                  <guilabel>--config-dir=STRING</guilabel>
+                </para>
+                <para>Specify the directory for configuration files.</para>
               </listitem>
               <listitem>
                 <para>
@@ -751,15 +767,13 @@
           </para>
         </listitem>
         <listitem>
-          <para>To move the selection from one pane to the other using the mouse you can also right click on the
-   	       selected items in the menu select <guimenuitem>Cut</guimenuitem> then in the chosen location right
-   	       click in an empty area and select <guimenuitem>Paste</guimenuitem> in the drop down menu.
+          <para>Using the mouse you can also right click on the selected items in the drop down menu select
+          <guimenuitem>Cut</guimenuitem> then in the chosen location right click in an empty area and select
+          <guimenuitem>Paste</guimenuitem> in the drop down menu.
           </para>
         </listitem>
         <listitem>
-          <para>Using the mouse You can also right click on the selected items in the drop down menu select
-          <guimenuitem>Cut</guimenuitem> then in the chosen location right click in an empty area and select
-          <guimenuitem>Paste</guimenuitem> in the drop down menu.</para>
+          <para>Press the following keys <keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo>, then select the location for the files and press <keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></para>
         </listitem>
         <listitem>
           <para>To move the selection from one pane to the other using the mouse drag and drop the selected items
@@ -804,11 +818,10 @@
           <para>Press the <keycap>Delete</keycap> or the <keycap>F8</keycap> keys.</para>
         </listitem>
         <listitem>
-          <para>With the mouse right click on the item(s) then in the drop down menu select <guimenu>Delete
-          </guimenu>.</para>
+          <para>With the mouse right click on the item(s) then in the drop down menu select <guimenu>Delete</guimenu>.</para>
         </listitem>
         <listitem>
-          <para>In the menu select <guimenu>Delete</guimenu>. </para>
+          <para>In the menu select <guimenu>Delete</guimenu>.</para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -837,7 +850,7 @@
       <para>To create a symbolic link to a file or folder, select the file or folder
         to which you want to create a link.
         Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>.
-        A link to the file or folder is added to the current folder. </para>
+        A link to the file or folder is added to the current folder.</para>
       <para>Alternatively, grab the item to which you want to create a link, then
         press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>.
         Drag the item to the location where you want to place the link.</para>
@@ -868,8 +881,7 @@
 			<itemizedlist>
 				<listitem><para>Press the <keycap>F9</keycap> key or click on the <guibutton>F9 Search</guibutton>.</para></listitem>
 				<listitem><para>Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>.</para></listitem>
-				<listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search
-				</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
+				<listitem><para>In the menubar select <menuchoice><guimenuitem>Edit</guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>.</para></listitem></itemizedlist></para>
       <para>When started, the following window is displayed:</para>
       <!-- ==== Figure ==== -->
       <figure id="search-dlg-fig">
@@ -903,7 +915,7 @@
       </para>
       <orderedlist>
         <listitem>
-          <para>Select the file or folder whose properties you want to view. </para>
+          <para>Select the file or folder whose properties you want to view.</para>
         </listitem>
         <listitem>
           <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</guimenuitem></menuchoice>. A properties dialog is displayed.</para>
@@ -1323,11 +1335,11 @@
                         <entry><para>Hexadecimal random number with specified lowercase digit number (width)</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$x</para></entry>
+                        <entry><para>$X</para></entry>
                         <entry><para>Hexadecimal random number (8 uppercase digits)</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$x(width)</para></entry>
+                        <entry><para>$X(width)</para></entry>
                         <entry><para>Hexadecimal random number with specified uppercase digit number (width)</para></entry>
                     </row>
                     <row valign="top">
@@ -3756,9 +3768,8 @@
       <para>The internal viewer allows viewing contents of files in text, Unicode,
        binary, hex or graphical mode.</para>
       <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined
-	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...
-	      </guimenuitem></menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3
-	      </keycap></keycombo> (internal viewer). The internal viewer uses MMAP
+	      in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>) or
+          <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer). The internal viewer uses MMAP
 	       whenever possible for the fastest file loading.
       </para>
       <sect3 id="gnome-commander-internal-viewer-modes">
@@ -4035,7 +4046,8 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option, a single left mouse button click
-                on a file will reselect it if it is already selected.</para>
+                on a file will unselect the current selection. If the option is not active
+		a left click on any file will not affect the current selection.</para>
               </entry>
             </row>
             <row>
@@ -4165,7 +4177,7 @@
         <itemizedlist>
           <listitem>
             <para><guilabel>Size display mode</guilabel> select the size information
-            format. </para>
+            format.</para>
           </listitem>
           <listitem>
             <para><guilabel>Permission display mode</guilabel> select the permissions
@@ -4177,8 +4189,7 @@
           </listitem>
         </itemizedlist>
       </para>
-      <para>To modify the Format options click on <menuchoice><guimenu>Settings
-         </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
+      <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
       <para>The options available are described in more details in
        <xref linkend="gcmd-TBL-setting2">Format settings</xref></para>
@@ -4479,8 +4490,7 @@
               <entry colname="colspec3">
                 <para>This option uses LS_COLORS variable to highlight file types just
                  like the command &quot;ls&quot;. For more information on this You can
-                 look up the <ulink url="http://linux.die.net/man/5/dir_colors">
-                 dir_colors man page</ulink>.</para>
+                 look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
               </entry>
             </row>
             <row>
@@ -4711,10 +4721,8 @@
     <sect2 id="gnome-commander-prefs-filters">
       <title>Filters</title>
       <!--Brief description-->
-      <para>The filter section of the option dialog allows you to select which types
-	      of files are hidden.</para>
-      <para>To modify the filter settings click on <menuchoice><guimenu>Settings
-       </guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on the
+      <para>The filter section of the option dialog allows you to select which types of files are hidden.</para>
+      <para>To modify the filter settings click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on the
        <guilabel>Filters</guilabel> tab.</para>
       <para>The description for the files you can add in the hidden section is in the
         <xref linkend="gcmd-TBL-setting5"></xref></para>
@@ -5276,7 +5284,7 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                					<para>This contains the file extensions specific to the application. the syntax is as follow :"*.extension" use ";" as a separator between the different extensions if there are more than one.
+                					<para>This contains the file extensions specific to the application. The syntax is as follow: "*.extension" use ";" as a separator between the different extensions if there are more than one.
                 					</para>
               					</entry>
             				</row>
@@ -5392,12 +5400,12 @@
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para></entry>
             <entry><para>Change left connection</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para></entry>
             <entry><para>Change right connection</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -5492,6 +5500,26 @@
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
             <entry><para>Create symbolic link</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
+            <entry><para>Change left connection</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
+            <entry><para>Change right connection</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo></para></entry>
+            <entry><para>Search files</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
@@ -6047,6 +6075,18 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>connections.change_left</para></entry>
+                        <entry><para>Change left connection</para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para>
+                               <para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.change_right</para></entry>
+                        <entry><para>Change right connection</para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para>
+                               <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>edit.copy</para></entry>
                         <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
                         <entry><para></para></entry>
@@ -6334,7 +6374,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>view.in_right_pane</para></entry>
-                        <entry><para>Copy the current working directory from the active left file list to the rigth one</para></entry>
+                        <entry><para>Copy the current working directory from the active left file list to the right one</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
@@ -7363,6 +7403,9 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
                         <listitem>
@@ -7389,10 +7432,16 @@
                             <para>User defined LS_COLORS colours</para>
                         </listitem>
                         <listitem>
+                            <para>Enhanced file name matching in quick search</para>
+                        </listitem>
+                        <listitem>
+                            <para>--config-dir command line option for customized location of config files</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: de, en, es, fr, sl</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN</para>
+                            <para>New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN</para>
                         </listitem>
                         <listitem>
                             <para>New key bindings:</para>
@@ -7412,7 +7461,35 @@
                                 <listitem>
                                     <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></keycombo>   Switch to the previous tab</para>
                                 </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo>   Change left connection</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo>   Change right connection</para>
+                                </listitem>
                             </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.9</para></entry>
+            <entry><para>2010-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #631243 (advrename $c(width) regression)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Support for shell-style wildcards in quick search</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -8872,6 +8949,6 @@
       Foundation; either version 2 of the License, or (at your option)
       any later version. A copy of this license can be found at this
       <ulink type="help" url="ghelp:gpl">link</ulink>, or in the file
-      COPYING included with the source code of this program. </para>
+      COPYING included with the source code of this program.</para>
   </sect1>
 </article>

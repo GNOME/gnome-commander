@@ -21,11 +21,11 @@
 #ifndef __GNOME_CMD_SMB_NET_H__
 #define __GNOME_CMD_SMB_NET_H__
 
-typedef enum
+enum SmbEntityType
 {
     SMB_WORKGROUP,
     SMB_HOST
-} SmbEntityType;
+};
 
 
 struct SmbEntity

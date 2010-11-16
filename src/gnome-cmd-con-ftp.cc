@@ -46,23 +46,23 @@ static void get_file_info_func (GnomeCmdCon *con)
 
     gnome_vfs_uri_unref (uri);
 
-    if (con->state == CON_STATE_OPENING)
+    if (con->state == GnomeCmdCon::STATE_OPENING)
     {
         DEBUG('m', "State was OPENING, setting flags\n");
         if (res == GNOME_VFS_OK)
         {
-            con->state = CON_STATE_OPEN;
-            con->open_result = CON_OPEN_OK;
+            con->state = GnomeCmdCon::STATE_OPEN;
+            con->open_result = GnomeCmdCon::OPEN_OK;
         }
         else
         {
-            con->state = CON_STATE_CLOSED;
+            con->state = GnomeCmdCon::STATE_CLOSED;
             con->open_failed_reason = res;
-            con->open_result = CON_OPEN_FAILED;
+            con->open_result = GnomeCmdCon::OPEN_FAILED;
         }
     }
     else
-        if (con->state == CON_STATE_CANCELLING)
+        if (con->state == GnomeCmdCon::STATE_CANCELLING)
             DEBUG('m', "The open operation was cancelled, doing nothing\n");
         else
             DEBUG('m', "Strange ConState %d\n", con->state);
@@ -87,8 +87,8 @@ static void ftp_open (GnomeCmdCon *con)
         gtk_object_ref (GTK_OBJECT (con->base_path));
     }
 
-    con->state = CON_STATE_OPENING;
-    con->open_result = CON_OPEN_IN_PROGRESS;
+    con->state = GnomeCmdCon::STATE_OPENING;
+    con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
     g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 }
@@ -99,8 +99,8 @@ static gboolean ftp_close (GnomeCmdCon *con)
     gnome_cmd_con_set_default_dir (con, NULL);
     g_object_unref (con->base_path);
     con->base_path = NULL;
-    con->state = CON_STATE_CLOSED;
-    con->open_result = CON_OPEN_NOT_STARTED;
+    con->state = GnomeCmdCon::STATE_CLOSED;
+    con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
 
     return TRUE;
 }
@@ -109,7 +109,7 @@ static gboolean ftp_close (GnomeCmdCon *con)
 static void ftp_cancel_open (GnomeCmdCon *con)
 {
     DEBUG('m', "Setting state CANCELLING\n");
-    con->state = CON_STATE_CANCELLING;
+    con->state = GnomeCmdCon::STATE_CANCELLING;
 }
 
 

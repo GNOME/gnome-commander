@@ -49,6 +49,7 @@ GnomeCmdMainWin *main_win;
 GtkWidget *main_win_widget;
 gchar *start_dir_left;
 gchar *start_dir_right;
+gchar *config_dir;
 gchar *debug_flags;
 
 #ifdef HAVE_LOCALE_H
@@ -68,6 +69,7 @@ struct poptOption popt_options[] = {
     {"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, N_("Specify debug flags to use"), NULL},
     {"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, N_("Specify the start directory for the left pane"), NULL},
     {"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, N_("Specify the start directory for the right pane"), NULL},
+    {"config-dir", 0, POPT_ARG_STRING, &config_dir, 0, N_("Specify the directory for configuration files"), NULL},
     {NULL, 0, 0, NULL, 0, NULL, NULL}
 };
 
@@ -77,6 +79,7 @@ static const GOptionEntry options [] =
     {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), NULL},
     {"start-left-dir", 'l', 0, G_OPTION_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), NULL},
     {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), NULL},
+    {"config-dir", 0, 0, G_OPTION_ARG_STRING, &config_dir, N_("Specify the directory for configuration files"), NULL},
     {NULL}
 };
 

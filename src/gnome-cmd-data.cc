@@ -140,7 +140,7 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 
 inline void save_connections (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE  *fd = fopen (path, "w");
 
     if (fd)
@@ -173,7 +173,7 @@ inline void save_connections (const gchar *fname)
 
 inline void save_devices (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "w");
 
     if (fd)
@@ -218,7 +218,7 @@ inline void save_devices (const gchar *fname)
 
 inline void save_fav_apps (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "w");
 
     if (fd)
@@ -262,7 +262,7 @@ inline gboolean load_connections (const gchar *fname)
 {
     guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list));
 
-    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE  *fd = fopen (path, "r");
 
     if (fd)
@@ -604,7 +604,7 @@ inline void load_vfs_auto_devices ()
 
 inline void load_devices (const gchar *fname)
 {
-    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "r");
 
     if (fd)
@@ -654,7 +654,7 @@ inline void load_devices (const gchar *fname)
 inline void load_fav_apps (const gchar *fname)
 {
     gnome_cmd_data.priv->fav_apps = NULL;
-    gchar *path = g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
 
     ifstream f(path);
     string line;
@@ -908,6 +908,8 @@ GnomeCmdData::GnomeCmdData()
     size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
     perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     alt_quick_search = FALSE;
+    quick_search_exact_match_begin = TRUE;
+    quick_search_exact_match_end = FALSE;
 
     filter_type = Filter::TYPE_FNMATCH;
     memset(&filter_settings, 0, sizeof(filter_settings));
@@ -998,7 +1000,7 @@ void GnomeCmdData::free()
 
 void GnomeCmdData::load()
 {
-    gchar *xml_cfg_path = g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
     gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
     gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
@@ -1183,6 +1185,8 @@ void GnomeCmdData::load()
     allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
     use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
+    quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
+    quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
     skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
     priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
@@ -1586,6 +1590,8 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", allow_multiple_instances);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", alt_quick_search);
+    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", quick_search_exact_match_begin);
+    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", quick_search_exact_match_end);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
@@ -1651,7 +1657,7 @@ void GnomeCmdData::save()
     save_intviewer_defaults();
 
     {
-        gchar *xml_cfg_path = g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+        gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
         ofstream f(xml_cfg_path);
         XML::xstream xml(f);

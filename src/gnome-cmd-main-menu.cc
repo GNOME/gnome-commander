@@ -44,7 +44,7 @@ using namespace std;
    menus. Another difference is that we want only mouse-clicks in the menu to generate an
    action, keyboard shortcuts are caught by the different components by them self */
 
-typedef enum
+enum MenuType
 {
     MENU_TYPE_END,        // No more items, use it at the end of an array
     MENU_TYPE_ITEM,       // Normal item, or radio item if it is inside a radioitems group
@@ -53,10 +53,10 @@ typedef enum
     MENU_TYPE_RADIOITEMS, // Radio item group
     MENU_TYPE_SUBTREE,    // Item that defines a subtree/submenu
     MENU_TYPE_SEPARATOR   // Separator line (menus) or blank space (toolbars)
-} MenuType;
+};
 
 
-typedef struct
+struct MenuData
 {
     MenuType type;          // Type of item
     const gchar *label;     // The text to use for this menu-item
@@ -78,7 +78,7 @@ typedef struct
                                      */
 
     GtkWidget *widget;      // Filled in by gnome_app_create*, you can use this to tweak the widgets once they have been created
-} MenuData;
+};
 
 #define MENUTYPE_END { \
     MENU_TYPE_END, \

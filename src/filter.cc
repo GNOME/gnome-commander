@@ -20,8 +20,6 @@
 
 #include <config.h>
 #include <sys/types.h>
-#include <regex.h>
-#include <fnmatch.h>
 
 #include "gnome-cmd-includes.h"
 #include "filter.h"

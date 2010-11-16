@@ -540,8 +540,8 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     GtkWidget *regex_radio = lookup_widget (GTK_WIDGET (dialog), "regex_radio");
 
     data->name_filter = new Filter(data->name_pattern, data->case_sens,
-                                    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (regex_radio)) ? Filter::TYPE_REGEX
-                                                                                                   : Filter::TYPE_FNMATCH);
+                                   gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (regex_radio)) ? Filter::TYPE_REGEX
+                                                                                                  : Filter::TYPE_FNMATCH);
 
     // if we're going to search through file content create an re for that too
     if (data->content_search)

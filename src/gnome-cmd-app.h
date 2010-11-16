@@ -24,13 +24,13 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-pixmap.h"
 
-typedef enum
+enum AppTarget
 {
     APP_TARGET_ALL_FILES,
     APP_TARGET_ALL_DIRS,
     APP_TARGET_ALL_DIRS_AND_FILES,
     APP_TARGET_SOME_FILES
-} AppTarget;
+};
 
 
 typedef struct _GnomeCmdApp GnomeCmdApp;

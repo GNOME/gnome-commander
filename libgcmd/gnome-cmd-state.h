@@ -21,13 +21,14 @@
 #ifndef __GNOME_CMD_STATE_H__
 #define __GNOME_CMD_STATE_H__
 
-typedef struct {
+struct GnomeCmdState 
+{
     GnomeVFSURI *active_dir_uri;
     GnomeVFSURI *inactive_dir_uri;
     GList *active_dir_files;
     GList *inactive_dir_files;
     GList *active_dir_selected_files;
     GList *inactive_dir_selected_files;
-} GnomeCmdState;
+};
 
 #endif //__GNOME_CMD_STATE_H__

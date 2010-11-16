@@ -41,12 +41,12 @@ using namespace std;
 #define MAX_OPEN_WITH_APPS 20
 
 
-typedef struct
+struct OpenWithData
 {
     GList *files;
     GnomeCmdApp *app;
     GtkPixmap *pm;
-} OpenWithData;
+};
 
 
 static GtkMenuClass *parent_class = NULL;

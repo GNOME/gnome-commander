@@ -23,13 +23,13 @@
 typedef gchar *GnomeCmdDateFormat;
 
 
-typedef enum
+enum FileSelectorID
 {
     LEFT,
     RIGHT,
     ACTIVE,
     INACTIVE
-} FileSelectorID;
+};
 
 
 enum GnomeCmdLayout

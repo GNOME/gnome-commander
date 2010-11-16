@@ -4,6 +4,7 @@ gnome-commander 1.4
 
 Bug fixes:
  * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
+ * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
 
@@ -13,14 +14,29 @@ New features:
  * Revamped file properties dialog
  * One instance mode
  * User defined LS_COLORS colours
+ * Enhanced file name matching in quick search
+ * --config-dir command line option for customized location of config files
  * New or updated docs: de, en, es, fr, sl
- * New or updated translations: da, es, eu, fr, hu, pl, ro, ru, sl, uk, zh_CN
+ * New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
       CTRL+SHIFT+W   Close all tabs
       CTRL+TAB       Switch to the next tab
       CTRL+SHIFT+TAB Switch to the previous tab
+      SUPER+1        Change left connection
+      SUPER+2        Change right connection
+
+
+===================================
+gnome-commander 1.2.8.9
+---------------
+
+Bug fixes:
+ * Fixed problem #631243 (advrename $c(width) regression)
+
+New features:
+ * Support for shell-style wildcards in quick search
 
 
 ===================================

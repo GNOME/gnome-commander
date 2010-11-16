@@ -31,7 +31,8 @@
 /* This struct must never ever be changed
  * since it is needed to determinate the version of a plugin
  */
-typedef struct {
+struct PluginInfo 
+{
     gint plugin_system_version;
 
     const gchar *name;
@@ -42,7 +43,7 @@ typedef struct {
     gchar **documenters;
     const gchar *translator;
     const gchar *webpage;
-} PluginInfo;
+};
 
 
 /* This function prototype must never ever be changed

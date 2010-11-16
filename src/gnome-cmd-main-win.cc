@@ -141,9 +141,9 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
 
-    if (!((event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
-            (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
-            (event->keyval == GDK_period)))
+    if (!(event->keyval >= GDK_A && event->keyval <= GDK_Z || event->keyval >= GDK_a && event->keyval <= GDK_z ||
+          event->keyval >= GDK_0 && event->keyval <= GDK_9 ||
+          event->keyval == GDK_period || event->keyval == GDK_question|| event->keyval == GDK_asterisk || event->keyval == GDK_bracketleft))
         return FALSE;
 
     if (!gnome_cmd_data.alt_quick_search)
@@ -965,24 +965,6 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_1:
-                {
-                    GnomeCmdFileSelector *fs = this->fs(LEFT);
-                    switch_fs(fs);
-                    if (gnome_cmd_data.concombo_visibility)
-                        fs->con_combo->popup_list();
-                }
-                return TRUE;
-
-            case GDK_2:
-                {
-                    GnomeCmdFileSelector *fs = this->fs(RIGHT);
-                    switch_fs(fs);
-                    if (gnome_cmd_data.concombo_visibility)
-                        fs->con_combo->popup_list();
-                }
-                return TRUE;
-
             case GDK_F8:
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
@@ -1128,6 +1110,16 @@ void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     gtk_signal_emit (*this, signals[SWITCH_FS], fs);
+}
+
+
+void GnomeCmdMainWin::change_connection(FileSelectorID id)
+{
+    GnomeCmdFileSelector *fs = this->fs(id);
+
+    switch_fs(fs);
+    if (gnome_cmd_data.concombo_visibility)
+        fs->con_combo->popup_list();
 }
 
 

@@ -194,6 +194,8 @@ struct GnomeCmdData
     GnomeCmdSizeDispMode         size_disp_mode;
     GnomeCmdPermDispMode         perm_disp_mode;
     gboolean                     alt_quick_search;
+    gboolean                     quick_search_exact_match_begin;
+    gboolean                     quick_search_exact_match_end;
 
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
@@ -342,6 +344,10 @@ void gnome_cmd_data_set_symlink_prefix (const gchar *value);
 
 
 extern GnomeCmdData gnome_cmd_data;
+
+extern gchar *start_dir_left;
+extern gchar *start_dir_right;
+extern gchar *config_dir;
 
 extern DICT<guint> gdk_key_names;
 extern DICT<guint> gdk_modifiers_names;
