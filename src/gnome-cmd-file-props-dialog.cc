@@ -453,14 +453,14 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mime_type_desc (data->f));
+    label = create_label (dialog, data->f->get_mime_type_desc());
     table_add (table, label, 1, y++, GTK_FILL);
 
 
     label = create_bold_label (dialog, _("MIME Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mime_type (data->f));
+    label = create_label (dialog, data->f->get_mime_type());
     table_add (table, label, 1, y++, GTK_FILL);
 
 
@@ -493,13 +493,13 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Modified:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mdate (data->f, TRUE));
+    label = create_label (dialog, data->f->get_mdate(TRUE));
     table_add (table, label, 1, y++, GTK_FILL);
 
     label = create_bold_label (dialog, _("Accessed:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_adate (data->f, TRUE));
+    label = create_label (dialog, data->f->get_adate(TRUE));
     table_add (table, label, 1, y++, GTK_FILL);
 
 

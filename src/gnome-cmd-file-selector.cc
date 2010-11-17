@@ -140,7 +140,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
                 {
                     num_dirs++;
                     if (f->has_tree_size())
-                        total_bytes += gnome_cmd_file_get_tree_size (f);
+                        total_bytes += f->get_tree_size();
                 }
                 break;
 
@@ -163,7 +163,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
                 num_sel_dirs++;
                 if (f->has_tree_size())
-                    sel_bytes += gnome_cmd_file_get_tree_size (f);
+                    sel_bytes += f->get_tree_size();
                 break;
 
             case GNOME_VFS_FILE_TYPE_REGULAR:

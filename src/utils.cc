@@ -519,7 +519,7 @@ void mime_exec_single (GnomeCmdFile *f)
 
     if (!f->is_executable())
     {
-        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
+        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
         {
             gchar *fname = get_utf8 (f->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
@@ -542,13 +542,13 @@ void mime_exec_single (GnomeCmdFile *f)
 
     if (f->is_executable())
     {
-        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
+        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
         {
             f->execute();
             return;
         }
         else
-            if (gnome_cmd_file_mime_begins_with (f, "text/"))
+            if (f->mime_begins_with("text/"))
             {
                 gchar *fname = get_utf8 (f->info->name);
                 gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);

@@ -67,6 +67,21 @@ struct GnomeCmdFile
     void is_deleted();
     void execute();
 
+    const gchar *get_extension();
+    const gchar *get_owner();
+    const gchar *get_group();
+    const gchar *get_adate(gboolean overide_disp_setting);
+    const gchar *get_mdate(gboolean overide_disp_setting);
+    const gchar *get_cdate(gboolean overide_disp_setting);
+    const gchar *get_size();
+    GnomeVFSFileSize get_tree_size();
+    const gchar *get_tree_size_as_str();
+    const gchar *get_perm();
+    const gchar *get_mime_type();
+    const gchar *get_mime_type_desc();
+    gboolean has_mime_type(const gchar *mime_type);
+    gboolean mime_begins_with(const gchar *mime_type_start);
+
     gboolean needs_update();
 
     void invalidate_tree_size();
@@ -106,21 +121,6 @@ gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
-const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_group (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_adate (GnomeCmdFile *f, gboolean overide_disp_setting);
-const gchar *gnome_cmd_file_get_mdate (GnomeCmdFile *f, gboolean overide_disp_setting);
-const gchar *gnome_cmd_file_get_cdate (GnomeCmdFile *f, gboolean overide_disp_setting);
-const gchar *gnome_cmd_file_get_size (GnomeCmdFile *f);
-GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *f);
-gboolean gnome_cmd_file_has_mime_type (GnomeCmdFile *f, const gchar *mime_type);
-gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *f, const gchar *mime_type_start);
-
 void gnome_cmd_file_show_properties (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
@@ -137,6 +137,18 @@ void gnome_cmd_file_list_ref (GList *files);
 void gnome_cmd_file_list_unref (GList *files);
 
 GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f);
+
+inline const gchar *GnomeCmdFile::get_mime_type()
+{
+    g_return_val_if_fail (info != NULL, NULL);
+    return gnome_vfs_file_info_get_mime_type (info);
+}
+
+inline const gchar *GnomeCmdFile::get_mime_type_desc()
+{
+    g_return_val_if_fail (info != NULL, NULL);
+    return info->mime_type ? gnome_vfs_mime_get_description (info->mime_type) : NULL;
+}
 
 inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {

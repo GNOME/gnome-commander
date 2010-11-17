@@ -462,48 +462,45 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_
 }
 
 
-const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_extension()
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         return NULL;
 
-    const char *s = strrchr (f->info->name, '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
-    // const char *s = g_utf8_strrchr (f->info->name, -1, '.');
+    const char *s = strrchr (info->name, '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
+    // const char *s = g_utf8_strrchr (info->name, -1, '.');
 
     return s ? s+1 : NULL;
 }
 
 
-const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_owner()
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (GNOME_VFS_FILE_INFO_LOCAL (f->info))
-        return gcmd_owner.get_name_by_uid(f->info->uid);
+    if (GNOME_VFS_FILE_INFO_LOCAL (info))
+        return gcmd_owner.get_name_by_uid(info->uid);
     else
     {
         static gchar owner_str[MAX_OWNER_LENGTH];
-        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d", f->info->uid);
+        g_snprintf (owner_str, MAX_OWNER_LENGTH, "%d", info->uid);
         return owner_str;
     }
 }
 
 
-const gchar *gnome_cmd_file_get_group (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_group()
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (GNOME_VFS_FILE_INFO_LOCAL (f->info))
-        return gcmd_owner.get_name_by_gid(f->info->gid);
+    if (GNOME_VFS_FILE_INFO_LOCAL (info))
+        return gcmd_owner.get_name_by_gid(info->gid);
     else
     {
         static gchar group_str[MAX_GROUP_LENGTH];
-        g_snprintf (group_str, MAX_GROUP_LENGTH, "%d", f->info->gid);
+        g_snprintf (group_str, MAX_GROUP_LENGTH, "%d", info->gid);
         return group_str;
     }
 }
@@ -515,91 +512,83 @@ inline const gchar *date2string (time_t date, gboolean overide_disp_setting)
 }
 
 
-const gchar *gnome_cmd_file_get_adate (GnomeCmdFile *f, gboolean overide_disp_setting)
+const gchar *GnomeCmdFile::get_adate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    return date2string (f->info->atime, overide_disp_setting);
+    return date2string (info->atime, overide_disp_setting);
 }
 
 
-const gchar *gnome_cmd_file_get_mdate (GnomeCmdFile *f, gboolean overide_disp_setting)
+const gchar *GnomeCmdFile::get_mdate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    return date2string (f->info->mtime, overide_disp_setting);
+    return date2string (info->mtime, overide_disp_setting);
 }
 
 
-const gchar *gnome_cmd_file_get_cdate (GnomeCmdFile *f, gboolean overide_disp_setting)
+const gchar *GnomeCmdFile::get_cdate(gboolean overide_disp_setting)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    return date2string (f->info->ctime, overide_disp_setting);
+    return date2string (info->ctime, overide_disp_setting);
 }
 
 
-const gchar *gnome_cmd_file_get_size (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_size()
 {
     static gchar dir_indicator[] = "<DIR> ";
 
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         return dir_indicator;
 
-    return size2string (f->info->size, gnome_cmd_data.size_disp_mode);
+    return size2string (info->size, gnome_cmd_data.size_disp_mode);
 }
 
 
-GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *f)
+GnomeVFSFileSize GnomeCmdFile::get_tree_size()
 {
-    g_return_val_if_fail (f != NULL, 0);
+    if (info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        return info->size;
 
-    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
-        return f->info->size;
-
-    if (f->is_dotdot)
+    if (is_dotdot)
         return 0;
 
-    if (f->priv->tree_size != -1)
-        return f->priv->tree_size;
+    if (priv->tree_size != -1)
+        return priv->tree_size;
 
-    GnomeVFSURI *uri = f->get_uri();
-    f->priv->tree_size = calc_tree_size (uri);
+    GnomeVFSURI *uri = get_uri();
+    priv->tree_size = calc_tree_size (uri);
     gnome_vfs_uri_unref (uri);
 
-    return f->priv->tree_size;
+    return priv->tree_size;
 }
 
 
-const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_tree_size_as_str()
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
-        return gnome_cmd_file_get_size (f);
+    if (info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        return get_size();
 
-    if (f->is_dotdot)
-        return gnome_cmd_file_get_size (f);
+    if (is_dotdot)
+        return get_size();
 
-    return size2string (gnome_cmd_file_get_tree_size (f), gnome_cmd_data.size_disp_mode);
+    return size2string (get_tree_size(), gnome_cmd_data.size_disp_mode);
 }
 
 
-const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *f)
+const gchar *GnomeCmdFile::get_perm()
 {
     static gchar perm_str[MAX_PERM_LENGTH];
 
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    perm2string (f->info->permissions, perm_str, MAX_PERM_LENGTH);
+    perm2string (info->permissions, perm_str, MAX_PERM_LENGTH);
     return perm_str;
 }
 
@@ -645,43 +634,23 @@ gboolean GnomeCmdFile::get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **
 }
 
 
-const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *f)
+gboolean GnomeCmdFile::has_mime_type(const gchar *mime_type)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
-    return gnome_vfs_file_info_get_mime_type (f->info);
-}
-
-
-const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
-    return f->info->mime_type ? gnome_vfs_mime_get_description (f->info->mime_type) : NULL;
-}
-
-
-gboolean gnome_cmd_file_has_mime_type (GnomeCmdFile *f, const gchar *mime_type)
-{
-    g_return_val_if_fail (f != NULL, FALSE);
-    g_return_val_if_fail (f->info != NULL, FALSE);
-    g_return_val_if_fail (f->info->mime_type != NULL, FALSE);
+    g_return_val_if_fail (info != NULL, FALSE);
+    g_return_val_if_fail (info->mime_type != NULL, FALSE);
     g_return_val_if_fail (mime_type != NULL, FALSE);
 
-    return strcmp (f->info->mime_type, mime_type) == 0;
+    return strcmp (info->mime_type, mime_type) == 0;
 }
 
 
-gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *f, const gchar *mime_type_start)
+gboolean GnomeCmdFile::mime_begins_with(const gchar *mime_type_start)
 {
-    g_return_val_if_fail (f != NULL, FALSE);
-    g_return_val_if_fail (f->info != NULL, FALSE);
-    g_return_val_if_fail (f->info->mime_type != NULL, FALSE);
+    g_return_val_if_fail (info != NULL, FALSE);
+    g_return_val_if_fail (info->mime_type != NULL, FALSE);
     g_return_val_if_fail (mime_type_start != NULL, FALSE);
 
-    return strncmp (f->info->mime_type, mime_type_start, strlen(mime_type_start)) == 0;
+    return strncmp (info->mime_type, mime_type_start, strlen(mime_type_start)) == 0;
 }
 
 

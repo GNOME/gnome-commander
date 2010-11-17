@@ -312,8 +312,8 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
 
         gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
                             COL_NAME, gnome_cmd_file_get_name (f),
-                            COL_SIZE, gnome_cmd_file_get_size (f),
-                            COL_DATE, gnome_cmd_file_get_mdate (f, FALSE),
+                            COL_SIZE, f->get_size(),
+                            COL_DATE, f->get_mdate(FALSE),
                             COL_RENAME_FAILED, FALSE,
                             -1);
     }
@@ -720,8 +720,8 @@ void GnomeCmdAdvrenameDialog::set(GList *file_list)
         gtk_list_store_set (GTK_LIST_STORE (files), &iter,
                             COL_FILE, gnome_cmd_file_ref (f),
                             COL_NAME, gnome_cmd_file_get_name (f),
-                            COL_SIZE, gnome_cmd_file_get_size (f),
-                            COL_DATE, gnome_cmd_file_get_mdate (f, FALSE),
+                            COL_SIZE, f->get_size(),
+                            COL_DATE, f->get_mdate(FALSE),
                             -1);
     }
 

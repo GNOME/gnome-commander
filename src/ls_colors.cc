@@ -205,7 +205,7 @@ LsColor *ls_colors_get (GnomeCmdFile *f)
         return type_colors[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 
     LsColor *col = NULL;
-    const gchar *ext = gnome_cmd_file_get_extension (f);
+    const gchar *ext = f->get_extension();
 
     if (ext)
         col = (LsColor *) g_hash_table_lookup (::map, ext);

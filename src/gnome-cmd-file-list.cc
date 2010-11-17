@@ -287,7 +287,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
         fname = get_utf8 (gnome_cmd_file_get_name (f));
 
     if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
-        fext = get_utf8 (gnome_cmd_file_get_extension (f));
+        fext = get_utf8 (f->get_extension());
     else
         fext = NULL;
 
@@ -295,15 +295,14 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     text[GnomeCmdFileList::COLUMN_NAME]  = fname;
     text[GnomeCmdFileList::COLUMN_EXT]   = fext;
     text[GnomeCmdFileList::COLUMN_DIR]   = dpath;
-    text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (f) :
-                                                       (gchar *) gnome_cmd_file_get_size (f);
+    text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
 
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
     {
-        text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (f, FALSE);
-        text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (f);
-        text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (f);
-        text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (f);
+        text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) f->get_mdate(FALSE);
+        text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) f->get_perm();
+        text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) f->get_owner();
+        text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) f->get_group();
     }
     else
     {
@@ -562,7 +561,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     GnomeCmdFile *f = fl->get_selected_file();
     if (!f) return;
 
-    const gchar *ext1 = gnome_cmd_file_get_extension (f);
+    const gchar *ext1 = f->get_extension();
     if (!ext1) return;
 
     for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
@@ -571,7 +570,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
         if (f && f->info)
         {
-            const gchar *ext2 = gnome_cmd_file_get_extension (f);
+            const gchar *ext2 = f->get_extension();
 
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
@@ -876,15 +875,15 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
 
-    if (!gnome_cmd_file_get_extension (f1) && !gnome_cmd_file_get_extension (f2))
+    if (!f1->get_extension() && !f2->get_extension())
         return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
 
-    if (!gnome_cmd_file_get_extension (f1))
+    if (!f1->get_extension())
         return raising?1:-1;
-    if (!gnome_cmd_file_get_extension (f2))
+    if (!f2->get_extension())
         return raising?-1:1;
 
-    gint ret = my_strcmp (gnome_cmd_file_get_extension (f1), gnome_cmd_file_get_extension (f2), raising);
+    gint ret = my_strcmp (f1->get_extension(), f2->get_extension(), raising);
 
     return ret ? ret : my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
 }
