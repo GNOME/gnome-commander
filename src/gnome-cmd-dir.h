@@ -40,26 +40,26 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GnomeVFSResult
 #include "gnome-cmd-path.h"
 #include "handle.h"
 
-enum DirState
-{
-    DIR_STATE_EMPTY,
-    DIR_STATE_LISTED,
-    DIR_STATE_LISTING,
-    DIR_STATE_CANCELING
-};
-
 struct GnomeCmdDir
 {
     GnomeCmdFile parent;      // this MUST be the first member
 
     GnomeCmdDirPrivate *priv;
 
+    enum State
+    {
+        STATE_EMPTY,
+        STATE_LISTED,
+        STATE_LISTING,
+        STATE_CANCELING
+    };
+
     gint voffset;
     GList *infolist;
     GnomeVFSAsyncHandle *list_handle;
     GnomeVFSResult list_result;
     gint list_counter;
-    DirState state;
+    State state;
 
     DirListDoneFunc done_func;
 

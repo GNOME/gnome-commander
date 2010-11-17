@@ -2533,7 +2533,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
     if (cwd==dir)
         return;
 
-    if (realized && dir->state!=DIR_STATE_LISTED)
+    if (realized && dir->state!=GnomeCmdDir::STATE_LISTED)
     {
         gtk_widget_set_sensitive (*this, FALSE);
         set_cursor_busy_for_widget (*this);
@@ -2558,19 +2558,19 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
     switch (dir->state)
     {
-        case DIR_STATE_EMPTY:
+        case GnomeCmdDir::STATE_EMPTY:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (con));
             break;
 
-        case DIR_STATE_LISTING:
-        case DIR_STATE_CANCELING:
+        case GnomeCmdDir::STATE_LISTING:
+        case GnomeCmdDir::STATE_CANCELING:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             break;
 
-        case DIR_STATE_LISTED:
+        case GnomeCmdDir::STATE_LISTED:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
 

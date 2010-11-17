@@ -217,7 +217,7 @@ static void init (GnomeCmdDir *dir)
 {
     // dir->voffset = 0;
     // dir->dialog = NULL;
-    dir->state = DIR_STATE_EMPTY;
+    dir->state = GnomeCmdDir::STATE_EMPTY;
 
     dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
 
@@ -477,7 +477,7 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
 
 static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
 {
-    if (dir->state == DIR_STATE_LISTED)
+    if (dir->state == GnomeCmdDir::STATE_LISTED)
     {
         DEBUG('l', "File listing succeded\n");
 
@@ -486,7 +486,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
 
         dir->priv->files = create_file_list (dir, infolist);
         dir->priv->file_collection->add(dir->priv->files);
-        dir->state = DIR_STATE_LISTED;
+        dir->state = GnomeCmdDir::STATE_LISTED;
         g_list_free (infolist);
 
         if (dir->dialog)
@@ -500,7 +500,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         DEBUG('l', "Emitting 'list-ok' signal\n");
         g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
     }
-    else if (dir->state == DIR_STATE_EMPTY)
+    else if (dir->state == GnomeCmdDir::STATE_EMPTY)
     {
         DEBUG('l', "File listing failed: %s\n", gnome_vfs_result_to_string (result));
 
@@ -521,7 +521,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
 
 static void on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
 {
-    if (dir->state == DIR_STATE_LISTING)
+    if (dir->state == GnomeCmdDir::STATE_LISTING)
     {
         DEBUG('l', "on_dir_list_cancel\n");
         dirlist_cancel (dir);

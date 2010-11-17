@@ -44,7 +44,7 @@ on_files_listed (GnomeVFSAsyncHandle *handle,
     if (result != GNOME_VFS_OK && result != GNOME_VFS_ERROR_EOF)
     {
         DEBUG ('l', "Directory listing failed, %s\n", gnome_vfs_result_to_string (result));
-        dir->state = DIR_STATE_EMPTY;
+        dir->state = GnomeCmdDir::STATE_EMPTY;
         dir->list_result = result;
     }
 
@@ -58,7 +58,7 @@ on_files_listed (GnomeVFSAsyncHandle *handle,
 
     if (result == GNOME_VFS_ERROR_EOF)
     {
-        dir->state = DIR_STATE_LISTED;
+        dir->state = GnomeCmdDir::STATE_LISTED;
         dir->list_result = GNOME_VFS_OK;
         DEBUG('l', "All files listed\n");
     }
@@ -69,7 +69,7 @@ static gboolean update_list_progress (GnomeCmdDir *dir)
 {
     DEBUG ('l', "Checking list progress...\n");
 
-    if (dir->state == DIR_STATE_LISTING)
+    if (dir->state == GnomeCmdDir::STATE_LISTING)
     {
         gchar *msg = g_strdup_printf (ngettext ("%d file listed", "%d files listed", dir->list_counter), dir->list_counter);
         gtk_label_set_text (GTK_LABEL (dir->label), msg);
@@ -125,12 +125,12 @@ inline void blocking_list (GnomeCmdDir *dir)
 
     if (dir->list_result == GNOME_VFS_OK)
     {
-        dir->state = DIR_STATE_LISTED;
+        dir->state = GnomeCmdDir::STATE_LISTED;
         dir->done_func (dir, dir->infolist, dir->list_result);
     }
     else
     {
-        dir->state = DIR_STATE_EMPTY;
+        dir->state = GnomeCmdDir::STATE_EMPTY;
         dir->done_func (dir, NULL, dir->list_result);
     }
 }
@@ -144,7 +144,7 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visprog)
     dir->list_handle = NULL;
     dir->list_counter = 0;
     dir->list_result = GNOME_VFS_OK;
-    dir->state = DIR_STATE_LISTING;
+    dir->state = GnomeCmdDir::STATE_LISTING;
 
     if (!visprog)
     {
@@ -158,7 +158,7 @@ void dirlist_list (GnomeCmdDir *dir, gboolean visprog)
 
 void dirlist_cancel (GnomeCmdDir *dir)
 {
-    dir->state = DIR_STATE_EMPTY;
+    dir->state = GnomeCmdDir::STATE_EMPTY;
     dir->list_result = GNOME_VFS_OK;
 
     DEBUG('l', "Calling async_cancel\n");
