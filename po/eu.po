@@ -1,18 +1,18 @@
-# translation of eu_to_be_translate.po to Basque
+# translation of eu.po to Basque
 # Basque translation of gnome-commander
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2006, 2008, 2009, 2010.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu_to_be_translate\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-07 23:55+0200\n"
-"PO-Revision-Date: 2010-10-07 23:58+0200\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
+"POT-Creation-Date: 2010-11-18 22:16+0100\n"
+"PO-Revision-Date: 2010-11-18 22:17+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -367,7 +367,7 @@ msgstr "Laster-marken taldea"
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:250
 #: ../src/gnome-cmd-file-props-dialog.cc:656
 #: ../src/gnome-cmd-remote-dialog.cc:377
-#: ../src/intviewer/viewer-window.cc:1462 ../src/plugin_manager.cc:411
+#: ../src/intviewer/viewer-window.cc:1463 ../src/plugin_manager.cc:411
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "Name"
 msgstr "Izena"
@@ -917,15 +917,15 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:1390
+#: ../src/gnome-cmd-file-list.cc:1389
 msgid "Directory listing failed."
 msgstr "Huts egin du direktorioa zerrendatzean."
 
-#: ../src/gnome-cmd-file-list.cc:1443
+#: ../src/gnome-cmd-file-list.cc:1442
 msgid "Failed to open connection."
 msgstr "Huts egin du konexioa irekitzean."
 
-#: ../src/gnome-cmd-file-list.cc:2204 ../src/gnome-cmd-file-list.cc:2219
+#: ../src/gnome-cmd-file-list.cc:2203 ../src/gnome-cmd-file-list.cc:2218
 msgid "Not an ordinary file"
 msgstr "Ez da fitxategi arrunta"
 
@@ -1084,39 +1084,39 @@ msgid "Access permissions"
 msgstr "Atzitzeko baimenak"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:648
-#: ../src/intviewer/viewer-window.cc:1454
+#: ../src/intviewer/viewer-window.cc:1455
 msgid "Type"
 msgstr "Mota"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:649
-#: ../src/intviewer/viewer-window.cc:1455
+#: ../src/intviewer/viewer-window.cc:1456
 msgid "Metadata namespace"
 msgstr "Metadatuen izen-lekua"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:657
-#: ../src/intviewer/viewer-window.cc:1463
+#: ../src/intviewer/viewer-window.cc:1464
 msgid "Tag name"
 msgstr "Etiketa-izena"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:659
-#: ../src/intviewer/viewer-window.cc:1465
+#: ../src/intviewer/viewer-window.cc:1466
 msgid "Value"
 msgstr "Balioa"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:660
-#: ../src/intviewer/viewer-window.cc:1466
+#: ../src/intviewer/viewer-window.cc:1467
 msgid "Tag value"
 msgstr "Etiketa-balioa"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:662
-#: ../src/intviewer/viewer-window.cc:1468 ../src/tags/gnome-cmd-tags.cc:165
+#: ../src/intviewer/viewer-window.cc:1469 ../src/tags/gnome-cmd-tags.cc:165
 #: ../src/tags/gnome-cmd-tags.cc:316 ../src/tags/gnome-cmd-tags.cc:418
 #: ../src/tags/gnome-cmd-tags.cc:529
 msgid "Description"
 msgstr "Azalpena"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:663
-#: ../src/intviewer/viewer-window.cc:1469
+#: ../src/intviewer/viewer-window.cc:1470
 msgid "Metadata tag description"
 msgstr "Metadatuen etiketaren azalpena."
 
@@ -1213,35 +1213,35 @@ msgstr "Saltatu guztiak"
 msgid "Filter:"
 msgstr "Iragazkia:"
 
-#: ../src/gnome-cmd-file.cc:621
+#: ../src/gnome-cmd-file.cc:610
 msgid "Unknown file type"
 msgstr "Fitxategi-mota ezezaguna"
 
-#: ../src/gnome-cmd-file.cc:622
+#: ../src/gnome-cmd-file.cc:611
 msgid "Regular file"
 msgstr "Fitxategi erregularra"
 
-#: ../src/gnome-cmd-file.cc:623 ../src/gnome-cmd-profile-component.cc:904
+#: ../src/gnome-cmd-file.cc:612 ../src/gnome-cmd-profile-component.cc:904
 msgid "Directory"
 msgstr "Direktorioa"
 
-#: ../src/gnome-cmd-file.cc:624
+#: ../src/gnome-cmd-file.cc:613
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:625
+#: ../src/gnome-cmd-file.cc:614
 msgid "UNIX Socket"
 msgstr "UNIX socket-a"
 
-#: ../src/gnome-cmd-file.cc:626
+#: ../src/gnome-cmd-file.cc:615
 msgid "Character device"
 msgstr "Karaktere-gailua"
 
-#: ../src/gnome-cmd-file.cc:627
+#: ../src/gnome-cmd-file.cc:616
 msgid "Block device"
 msgstr "Blokeatu gailua"
 
-#: ../src/gnome-cmd-file.cc:628
+#: ../src/gnome-cmd-file.cc:617
 msgid "Symbolic link"
 msgstr "Esteka sinbolikoa"
 
@@ -1425,7 +1425,7 @@ msgstr "Konexio berria..."
 msgid "_Contents"
 msgstr "_Edukia"
 
-#: ../src/gnome-cmd-main-menu.cc:765 ../src/intviewer/viewer-window.cc:845
+#: ../src/gnome-cmd-main-menu.cc:765 ../src/intviewer/viewer-window.cc:846
 msgid "_Keyboard Shortcuts"
 msgstr "_Laster-teklak"
 
@@ -1443,7 +1443,7 @@ msgstr "Honi _buruz"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:806 ../src/intviewer/viewer-window.cc:857
+#: ../src/gnome-cmd-main-menu.cc:806 ../src/intviewer/viewer-window.cc:858
 msgid "_File"
 msgstr "_Fitxategia"
 
@@ -1455,11 +1455,11 @@ msgstr "_Editatu"
 msgid "_Mark"
 msgstr "_Markatu"
 
-#: ../src/gnome-cmd-main-menu.cc:818 ../src/intviewer/viewer-window.cc:860
+#: ../src/gnome-cmd-main-menu.cc:818 ../src/intviewer/viewer-window.cc:861
 msgid "_View"
 msgstr "_Ikusi"
 
-#: ../src/gnome-cmd-main-menu.cc:823 ../src/intviewer/viewer-window.cc:871
+#: ../src/gnome-cmd-main-menu.cc:823 ../src/intviewer/viewer-window.cc:872
 msgid "_Settings"
 msgstr "_Ezarpenak"
 
@@ -1475,7 +1475,7 @@ msgstr "_Laster-markak"
 msgid "_Plugins"
 msgstr "_Pluginak"
 
-#: ../src/gnome-cmd-main-menu.cc:839 ../src/intviewer/viewer-window.cc:876
+#: ../src/gnome-cmd-main-menu.cc:839 ../src/intviewer/viewer-window.cc:877
 msgid "_Help"
 msgstr "Lag_untza"
 
@@ -2072,8 +2072,7 @@ msgstr "Editatu aplikazioa"
 
 #: ../src/gnome-cmd-options-dialog.cc:1502
 msgid "Always download remote files before opening in external programs"
-msgstr ""
-"Deskargatu beti urruneko fitxategiak kanpoko programetan ireki aurretik"
+msgstr "Deskargatu beti urruneko fitxategiak kanpoko programetan ireki aurretik"
 
 #: ../src/gnome-cmd-options-dialog.cc:1504
 msgid "MIME applications"
@@ -3101,8 +3100,7 @@ msgid "%.0f%% copied"
 msgstr "%%%.0f kopiatuta"
 
 #: ../src/imageloader.cc:110
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Ezin izan da kargatu instalatutako fitxategiaren pix-mapa; iturburu-"
 "direktoriotik kargatzen saiatuko da\n"
@@ -3133,12 +3131,12 @@ msgid "Find"
 msgstr "Bilatu"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:661
-#: ../src/intviewer/viewer-window.cc:863
+#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:662
+#: ../src/intviewer/viewer-window.cc:864
 msgid "_Text"
 msgstr "_Testua"
 
-#: ../src/intviewer/search-dlg.cc:275 ../src/intviewer/viewer-window.cc:669
+#: ../src/intviewer/search-dlg.cc:275 ../src/intviewer/viewer-window.cc:670
 msgid "_Hexadecimal"
 msgstr "_Hamaseitarra"
 
@@ -3177,128 +3175,132 @@ msgstr[1] "bit/lagineko"
 msgid "(fit to window)"
 msgstr "(doitu leihora)"
 
-#: ../src/intviewer/viewer-window.cc:651
+#: ../src/intviewer/viewer-window.cc:652
 msgid "_Close"
 msgstr "It_xi"
 
-#: ../src/intviewer/viewer-window.cc:665
+#: ../src/intviewer/viewer-window.cc:666
 msgid "_Binary"
 msgstr "_Bitarra"
 
-#: ../src/intviewer/viewer-window.cc:673 ../src/intviewer/viewer-window.cc:868
+#: ../src/intviewer/viewer-window.cc:674 ../src/intviewer/viewer-window.cc:869
 msgid "_Image"
 msgstr "_Irudia"
 
-#: ../src/intviewer/viewer-window.cc:678
+#: ../src/intviewer/viewer-window.cc:679
 msgid "_Zoom In"
 msgstr "_Handiagotu"
 
-#: ../src/intviewer/viewer-window.cc:682
+#: ../src/intviewer/viewer-window.cc:683
 msgid "Zoom _Out"
 msgstr "_Txikiagotu"
 
-#: ../src/intviewer/viewer-window.cc:686
+#: ../src/intviewer/viewer-window.cc:687
 msgid "_Normal Size"
 msgstr "_Tamaina normala"
 
-#: ../src/intviewer/viewer-window.cc:690
+#: ../src/intviewer/viewer-window.cc:691
 msgid "Best _Fit"
 msgstr "_Egokitze optimoa"
 
-#: ../src/intviewer/viewer-window.cc:700
+#: ../src/intviewer/viewer-window.cc:701
 msgid "_Copy Text Selection"
 msgstr "_Kopiatu testua hautapenera"
 
-#: ../src/intviewer/viewer-window.cc:704
+#: ../src/intviewer/viewer-window.cc:705
 msgid "Find..."
 msgstr "Bilatu..."
 
-#: ../src/intviewer/viewer-window.cc:708
+#: ../src/intviewer/viewer-window.cc:709
 msgid "Find Next"
 msgstr "Bilatu hurrengoa"
 
-#: ../src/intviewer/viewer-window.cc:712
+#: ../src/intviewer/viewer-window.cc:713
 msgid "Find Previous"
 msgstr "Bilatu aurrekoa"
 
-#: ../src/intviewer/viewer-window.cc:717
+#: ../src/intviewer/viewer-window.cc:718
 msgid "_Wrap lines"
 msgstr "_Itzulbiratu lerroak"
 
-#: ../src/intviewer/viewer-window.cc:722
+#: ../src/intviewer/viewer-window.cc:723
 msgid "_Encoding"
 msgstr "_Kodeketa"
 
-#: ../src/intviewer/viewer-window.cc:763
+#: ../src/intviewer/viewer-window.cc:764
 msgid "Show Metadata _Tags"
 msgstr "Erakutsi metadatuen _etiketak"
 
-#: ../src/intviewer/viewer-window.cc:769
+#: ../src/intviewer/viewer-window.cc:770
 msgid "_Rotate Clockwise"
 msgstr "_Biratu erlojuaren norantzan"
 
-#: ../src/intviewer/viewer-window.cc:774
+#: ../src/intviewer/viewer-window.cc:775
 msgid "Rotate Counter Clockwis_e"
 msgstr "Biratu erlojuaren norantzaren _aurka"
 
-#: ../src/intviewer/viewer-window.cc:779
+#: ../src/intviewer/viewer-window.cc:780
 msgid "_Rotate 180°"
 msgstr "_Biratu 180°"
 
-#: ../src/intviewer/viewer-window.cc:784
+#: ../src/intviewer/viewer-window.cc:785
 msgid "Flip _Vertical"
 msgstr "Irauli _bertikalki"
 
-#: ../src/intviewer/viewer-window.cc:789
+#: ../src/intviewer/viewer-window.cc:790
 msgid "Flip _Horizontal"
 msgstr "Irauli _horizontalki"
 
-#: ../src/intviewer/viewer-window.cc:799
+#: ../src/intviewer/viewer-window.cc:800
 msgid "_Binary Mode"
 msgstr "_Bitar modua"
 
-#: ../src/intviewer/viewer-window.cc:805
+#: ../src/intviewer/viewer-window.cc:806
 msgid "_Hexadecimal Offset"
 msgstr "Desplazamendu _hamaseitarra"
 
-#: ../src/intviewer/viewer-window.cc:811
+#: ../src/intviewer/viewer-window.cc:812
 msgid "_Save Current Settings"
 msgstr "_Gorde uneko ezarpenak"
 
-#: ../src/intviewer/viewer-window.cc:821
+#: ../src/intviewer/viewer-window.cc:822
 msgid "_20 chars/line"
 msgstr "_20 karak/lerroko"
 
-#: ../src/intviewer/viewer-window.cc:826
+#: ../src/intviewer/viewer-window.cc:827
 msgid "_40 chars/line"
 msgstr "_40 karak/lerroko"
 
-#: ../src/intviewer/viewer-window.cc:831
+#: ../src/intviewer/viewer-window.cc:832
 msgid "_80 chars/line"
 msgstr "_80 karak/lerroko"
 
-#: ../src/intviewer/viewer-window.cc:840
+#: ../src/intviewer/viewer-window.cc:841
 msgid "Quick _Help"
 msgstr "_Laguntza bizkorra"
 
-#: ../src/intviewer/viewer-window.cc:1118
+#: ../src/intviewer/viewer-window.cc:1119
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "\"%s\" eredua ez da aurkitu"
 
-#: ../src/main.cc:68 ../src/main.cc:77
+#: ../src/main.cc:69 ../src/main.cc:79
 msgid "Specify debug flags to use"
 msgstr "Zehaztu erabiltzeko arazketa-banderak"
 
-#: ../src/main.cc:69 ../src/main.cc:78
+#: ../src/main.cc:70 ../src/main.cc:80
 msgid "Specify the start directory for the left pane"
 msgstr "Zehaztu ezkerreko panelaren hasierako direktorioa"
 
-#: ../src/main.cc:70 ../src/main.cc:79
+#: ../src/main.cc:71 ../src/main.cc:81
 msgid "Specify the start directory for the right pane"
 msgstr "Zehaztu eskuineko panelaren hasierako direktorioa"
 
-#: ../src/main.cc:135
+#: ../src/main.cc:72 ../src/main.cc:82
+msgid "Specify the directory for configuration files"
+msgstr "Zehaztu direktorioa konfigurazioko fitxategientzako"
+
+#: ../src/main.cc:138
 msgid "File Manager"
 msgstr "Fitxategi-kudeatzailea"
 
@@ -3940,8 +3942,7 @@ msgstr "Aurkezpenaren formatua"
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
-msgstr ""
-"Aurkezpen mota: \"Pantailako erakusketa\", \"Diapositiba-aurkezpena\", e.a."
+msgstr "Aurkezpen mota: \"Pantailako erakusketa\", \"Diapositiba-aurkezpena\", e.a."
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Print Date"
@@ -4401,8 +4402,7 @@ msgid "Flash"
 msgstr "Flasha"
 
 #: ../src/tags/gnome-cmd-tags.cc:227
-msgid ""
-"This tag is recorded when an image is taken using a strobe light (flash)."
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 "Etiketa hau irudia argi estroboskopikoa (flasha) erabiliz kapturatzean "
 "gordetzen da."
@@ -4432,10 +4432,8 @@ msgid "F Number"
 msgstr "F zenbakia"
 
 #: ../src/tags/gnome-cmd-tags.cc:230 ../src/tags/gnome-cmd-tags.cc:422
-msgid ""
-"Diameter of the aperture relative to the effective focal length of the lens."
-msgstr ""
-"Irekieraren diametroa lenteen luzera fokal eraginkorrarekiko erlatiboa."
+msgid "Diameter of the aperture relative to the effective focal length of the lens."
+msgstr "Irekieraren diametroa lenteen luzera fokal eraginkorrarekiko erlatiboa."
 
 #: ../src/tags/gnome-cmd-tags.cc:231 ../src/tags/gnome-cmd-tags.cc:423
 msgid "Focal Length"
@@ -4506,8 +4504,7 @@ msgstr "Irabaziaren kontrola"
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr ""
-"Etiketa honek irudiaren guztirako irabaziaren doitze gradua adierazten du."
+msgstr "Etiketa honek irudiaren guztirako irabaziaren doitze gradua adierazten du."
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Gamma"
@@ -5199,8 +5196,7 @@ msgstr "Sentikortasun espektrala"
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "The spectral sensitivity of each channel of the camera used."
-msgstr ""
-"Kamerak erabilitako kanal bakoitzaren sentikortasun espektrala adierazten du."
+msgstr "Kamerak erabilitako kanal bakoitzaren sentikortasun espektrala adierazten du."
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid "Strip Byte Count"
@@ -5234,8 +5230,7 @@ msgstr "Azpi IFD desplazamendua"
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
-msgstr ""
-"Adobe Corporation-ek definitua TIFF zuhaitzak TIFF fitxategian gaitzeko."
+msgstr "Adobe Corporation-ek definitua TIFF zuhaitzak TIFF fitxategian gaitzeko."
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid "Subject Area"
@@ -5243,8 +5238,7 @@ msgstr "Gaiaren area"
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid "The location and area of the main subject in the overall scene."
-msgstr ""
-"Etiketa honek eszenako gai nagusiaren area eta kokalekua adierazten du."
+msgstr "Etiketa honek eszenako gai nagusiaren area eta kokalekua adierazten du."
 
 #: ../src/tags/gnome-cmd-tags.cc:296
 msgid "Subject Distance"
@@ -5511,10 +5505,8 @@ msgid "Editable free text/notes."
 msgstr "Testu/ohar libre editagarria."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
-msgid ""
-"MIME type of the file or if a directory it should contain value \"Folder\"."
-msgstr ""
-"Fitxategiaren MIME mota edo \"Folder\" (karpeta) balioa duen direktorioa."
+msgid "MIME type of the file or if a directory it should contain value \"Folder\"."
+msgstr "Fitxategiaren MIME mota edo \"Folder\" (karpeta) balioa duen direktorioa."
 
 #: ../src/tags/gnome-cmd-tags.cc:318
 msgid "Editable array of keywords."
@@ -5573,8 +5565,7 @@ msgstr ""
 "barrutian egin behar du."
 
 #: ../src/tags/gnome-cmd-tags.cc:326
-msgid ""
-"Size of the file in bytes or if a directory number of items it contains."
+msgid "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 "Fitxategiaren tamaina (byte untitatean), edo direktorioak duen edukiaren "
 "elementu kopurua."
@@ -5584,8 +5575,7 @@ msgid "Album Sort Order"
 msgstr "Albumaren ordena"
 
 #: ../src/tags/gnome-cmd-tags.cc:327
-msgid ""
-"String which should be used instead of the album name for sorting purposes."
+msgid "String which should be used instead of the album name for sorting purposes."
 msgstr "Ordenatzeko erabiliko den katea albumaren izena erabili ordez."
 
 #: ../src/tags/gnome-cmd-tags.cc:328
@@ -6270,8 +6260,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:420
 msgid "Exposure time used to capture the photo in seconds."
-msgstr ""
-"Argazkia kapturatzean erabilitako esposizioaren denbora milisegundotan."
+msgstr "Argazkia kapturatzean erabilitako esposizioaren denbora milisegundotan."
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Set to \"1\" if flash was fired."
@@ -6424,8 +6413,7 @@ msgid "Audio Type"
 msgstr "Audio mota"
 
 #: ../src/tags/gnome-cmd-tags.cc:442
-msgid ""
-"The number of channels and type of audio (music, text, etc.) in the object."
+msgid "The number of channels and type of audio (music, text, etc.) in the object."
 msgstr "Objektuaren audioaren mota (musika, testua, e.a.) eta kanal kopurua."
 
 #: ../src/tags/gnome-cmd-tags.cc:443
@@ -6460,8 +6448,7 @@ msgstr "Datuen testuzko azalpena."
 msgid ""
 "Identifies the subject of the object in the opinion of the provider "
 "(Deprecated)."
-msgstr ""
-"Objektuaren gaia identifikatzen du hornitzailearen iritzian (zaharkitua)."
+msgstr "Objektuaren gaia identifikatzen du hornitzailearen iritzian (zaharkitua)."
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Coded Character Set"
@@ -6556,8 +6543,7 @@ msgid "Credit"
 msgstr "Kreditua"
 
 #: ../src/tags/gnome-cmd-tags.cc:456
-msgid ""
-"Identifies the provider of the object, not necessarily the owner/creator."
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
 "Objektuaren hornitzailea identifikatzen du, ez derrigorrez jabea edo "
 "sortzailea."
@@ -6696,8 +6682,7 @@ msgstr "Titulua"
 
 #: ../src/tags/gnome-cmd-tags.cc:471
 msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr ""
-"Argitara daitekeen sarrera, objektuaren edukiaren laburpena eskaintzen duena."
+msgstr "Argitara daitekeen sarrera, objektuaren edukiaren laburpena eskaintzen duena."
 
 #: ../src/tags/gnome-cmd-tags.cc:472
 msgid "Image Orientation"
@@ -6707,8 +6692,7 @@ msgstr "Irudiaren orientazioa"
 msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
-msgstr ""
-"Irudiaren arearen diseinua. 'P' bertikala, 'L' horizontala eta 'S' karratua."
+msgstr "Irudiaren arearen diseinua. 'P' bertikala, 'L' horizontala eta 'S' karratua."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Image Type"
@@ -6858,8 +6842,7 @@ msgstr "Produktuaren IDa"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Allows a provider to identify subsets of its overall service."
-msgstr ""
-"Zerbitzu osoaren azpimultzoa identifikatzea baimentzen dio hornitzaileari."
+msgstr "Zerbitzu osoaren azpimultzoa identifikatzea baimentzen dio hornitzaileari."
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Program Version"
@@ -6910,8 +6893,7 @@ msgid "Reference Number"
 msgstr "Erreferentzia-zenbakia"
 
 #: ../src/tags/gnome-cmd-tags.cc:495
-msgid ""
-"The Envelope Number of a prior envelope to which the current object refers."
+msgid "The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
 "Uneko objektuari erreferitzen dion aurreneko gainazalaren 'Gainazal "
 "zenbakia' da."
@@ -6929,16 +6911,12 @@ msgstr ""
 "identifikatzailea da."
 
 #: ../src/tags/gnome-cmd-tags.cc:497
-msgid ""
-"Designates the earliest date the provider intends the object to be used."
-msgstr ""
-"Hornitzaileak objektua erabil daitekeen datarik berriena izendatzen du."
+msgid "Designates the earliest date the provider intends the object to be used."
+msgstr "Hornitzaileak objektua erabil daitekeen datarik berriena izendatzen du."
 
 #: ../src/tags/gnome-cmd-tags.cc:498
-msgid ""
-"Designates the earliest time the provider intends the object to be used."
-msgstr ""
-"Hornitzaileak objektua erabil daitekeen ordurik berriena izendatzen du."
+msgid "Designates the earliest time the provider intends the object to be used."
+msgstr "Hornitzaileak objektua erabil daitekeen ordurik berriena izendatzen du."
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid "Service Identifier"
@@ -6954,8 +6932,7 @@ msgstr "Tamaina modua"
 
 #: ../src/tags/gnome-cmd-tags.cc:500
 msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr ""
-"Ezarri '0' balioarekin objektuaren tamaina ezaguna bada, '1' ezezaguna bada."
+msgstr "Ezarri '0' balioarekin objektuaren tamaina ezaguna bada, '1' ezezaguna bada."
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Source"
@@ -6971,8 +6948,7 @@ msgstr "Instrukzio bereziak"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid "Other editorial instructions concerning the use of the object."
-msgstr ""
-"Objektuaren erabilerarekin zerikusia duten beste instrukzio editorialak."
+msgstr "Objektuaren erabilerarekin zerikusia duten beste instrukzio editorialak."
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Subfile"
@@ -7144,8 +7120,7 @@ msgstr "Bereizmen altuan inprimatzea"
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Set to \"1\" if high resolution printing is allowed."
-msgstr ""
-"Ezarri \"1\" balioarekin bereizmen altuan inprimatzea baimenduta badago."
+msgstr "Ezarri \"1\" balioarekin bereizmen altuan inprimatzea baimenduta badago."
 
 #: ../src/tags/gnome-cmd-tags.cc:522
 msgid "Copying"
@@ -7191,8 +7166,7 @@ msgstr "Inprimakiak betetzea"
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Set to \"1\" if filling of form fields is allowed."
-msgstr ""
-"Ezarri \"1\" balioarekin inprimakien eremuak betetzea baimenduta badago."
+msgstr "Ezarri \"1\" balioarekin inprimakien eremuak betetzea baimenduta badago."
 
 #: ../src/tags/gnome-cmd-tags.cc:527
 msgid "Accessibility Support"
@@ -7657,8 +7631,3 @@ msgstr "Ezin izan da %s direktoriotik irakurri: %s"
 msgid "There was an error displaying help."
 msgstr "Errorea gertatu da laguntza bistaratzean."
 
-#~ msgid "Quick search using"
-#~ msgstr "Bilaketa bizkorrean erabili:"
-
-#~ msgid "running `%s'\n"
-#~ msgstr "\"%s\"exekutatzen\n"
