@@ -33,6 +33,7 @@ gnome-commander 1.2.8.9
 ---------------
 
 Bug fixes:
+ * Fixed problem #352024 (F10 key doesn't work)
  * Fixed problem #631243 (advrename $c(width) regression)
 
 New features:

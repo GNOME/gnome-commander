@@ -10,7 +10,6 @@ F6              Rename or move files
 F7              Create directory
 F8              Delete files
 F9              Search
-F10             Quit
 
 ALT+1           Change left connection
 ALT+2           Change right connection

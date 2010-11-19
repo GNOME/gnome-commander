@@ -5388,11 +5388,6 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap>F10</keycap></keycombo></para></entry>
-            <entry><para>Quit</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
             <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
@@ -7480,6 +7475,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #352024 (F10 key doesn't work)</para>
+                        </listitem>
                         <listitem>
                             <para>Fixed problem #631243 (advrename $c(width) regression)</para>
                         </listitem>
