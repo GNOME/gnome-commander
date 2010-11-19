@@ -891,46 +891,6 @@ void gnome_cmd_file_list_free (GList *files)
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_ref
-*
-*   Purpose: Refs all files in the passed list
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-void gnome_cmd_file_list_ref (GList *files)
-{
-    g_list_foreach (files, (GFunc) gnome_cmd_file_ref, NULL);
-}
-
-
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_unref
-*
-*   Purpose: Unrefs all files in the passed list
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-void gnome_cmd_file_list_unref (GList *files)
-{
-    g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
-}
-
-
 GnomeCmdDir *GnomeCmdFile::get_parent_dir()
 {
     return ::get_parent_dir (this);
