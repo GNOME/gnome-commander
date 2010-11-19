@@ -135,8 +135,7 @@ inline void rebuild_map ()
     entities = g_hash_table_new_full (
         (GHashFunc) str_hash, (GEqualFunc) str_ncase_equal, (GDestroyNotify) g_free, (GDestroyNotify) g_free);
 
-    GList *wgs = get_wgs ();
-    g_list_foreach (wgs, (GFunc) add_wg_to_map, NULL);
+    g_list_foreach (get_wgs (), (GFunc) add_wg_to_map, NULL);
 }
 
 

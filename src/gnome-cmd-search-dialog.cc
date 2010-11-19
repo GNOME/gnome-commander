@@ -785,7 +785,7 @@ inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
  */
 static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 {
-  gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
+    gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
 }
 
 
