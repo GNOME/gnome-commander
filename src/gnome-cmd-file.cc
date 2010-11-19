@@ -911,8 +911,6 @@ void gnome_cmd_file_list_free (GList *files)
 
 void gnome_cmd_file_list_ref (GList *files)
 {
-    g_return_if_fail (files != NULL);
-
     g_list_foreach (files, (GFunc) gnome_cmd_file_ref, NULL);
 }
 
@@ -933,8 +931,6 @@ void gnome_cmd_file_list_ref (GList *files)
 
 void gnome_cmd_file_list_unref (GList *files)
 {
-    g_return_if_fail (files != NULL);
-
     g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
 }
 
