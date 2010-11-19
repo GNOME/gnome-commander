@@ -31,6 +31,9 @@
 
 class GnomeCmdFileMetadata;
 
+struct GnomeCmdDir;
+
+
 struct GnomeCmdFile
 {
     GnomeCmdFileInfo parent;
@@ -53,20 +56,6 @@ struct GnomeCmdFile
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
 
-    const gchar *get_type_string();
-    const gchar *get_type_desc();
-    gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
-
-    GnomeVFSResult chmod(GnomeVFSFilePermissions perm);
-    GnomeVFSResult chown(uid_t uid, gid_t gid);
-    GnomeVFSResult rename(const gchar *new_name);
-
-    void update_info(GnomeVFSFileInfo *info);
-    gboolean is_local();
-    gboolean is_executable();
-    void is_deleted();
-    void execute();
-
     const gchar *get_extension();
     const gchar *get_owner();
     const gchar *get_group();
@@ -82,6 +71,22 @@ struct GnomeCmdFile
     gboolean has_mime_type(const gchar *mime_type);
     gboolean mime_begins_with(const gchar *mime_type_start);
 
+    GnomeCmdDir *get_parent_dir();
+
+    const gchar *get_type_string();
+    const gchar *get_type_desc();
+    gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
+
+    GnomeVFSResult chmod(GnomeVFSFilePermissions perm);
+    GnomeVFSResult chown(uid_t uid, gid_t gid);
+    GnomeVFSResult rename(const gchar *new_name);
+
+    void update_info(GnomeVFSFileInfo *info);
+    gboolean is_local();
+    gboolean is_executable();
+    void is_deleted();
+    void execute();
+
     gboolean needs_update();
 
     void invalidate_tree_size();
@@ -94,9 +99,6 @@ struct GnomeCmdFileClass
 {
     GnomeCmdFileInfoClass parent_class;
 };
-
-
-struct GnomeCmdDir;
 
 
 GtkType gnome_cmd_file_get_type ();
@@ -135,8 +137,6 @@ GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);
 void gnome_cmd_file_list_ref (GList *files);
 void gnome_cmd_file_list_unref (GList *files);
-
-GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f);
 
 inline const gchar *GnomeCmdFile::get_mime_type()
 {

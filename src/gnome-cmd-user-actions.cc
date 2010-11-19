@@ -1067,11 +1067,11 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     if (i)
     {
-        dir = gnome_cmd_file_get_parent_dir (GNOME_CMD_FILE (i->data));
+        dir = GNOME_CMD_FILE (i->data)->get_parent_dir();
         i = i->next;
     }
 
-    for (; i && gnome_cmd_file_get_parent_dir (GNOME_CMD_FILE (i->data))==dir; i=i->next);
+    for (; i && GNOME_CMD_FILE (i->data)->get_parent_dir()==dir; i=i->next);
 
     if (i)
         dir = NULL;

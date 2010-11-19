@@ -283,7 +283,7 @@ GnomeVFSResult GnomeCmdFile::chmod(GnomeVFSFilePermissions perm)
 
     if (has_parent_dir (this))
     {
-        GnomeCmdDir *dir = get_parent_dir (this);
+        GnomeCmdDir *dir = ::get_parent_dir (this);
         gchar *uri_str = gnome_cmd_file_get_uri_str (this);
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
@@ -307,7 +307,7 @@ GnomeVFSResult GnomeCmdFile::chown(uid_t uid, gid_t gid)
 
     if (has_parent_dir (this))
     {
-        GnomeCmdDir *dir = get_parent_dir (this);
+        GnomeCmdDir *dir = ::get_parent_dir (this);
         gchar *uri_str = gnome_cmd_file_get_uri_str (this);
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
@@ -343,7 +343,7 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
         gchar *old_uri_str = gnome_cmd_file_get_uri_str (this);
 
         update_info(new_info);
-        gnome_cmd_dir_file_renamed (get_parent_dir (this), this, old_uri_str);
+        gnome_cmd_dir_file_renamed (::get_parent_dir (this), this, old_uri_str);
         if (GNOME_CMD_IS_DIR (this))
             gnome_cmd_dir_update_path (GNOME_CMD_DIR (this));
     }
@@ -381,7 +381,7 @@ gchar *GnomeCmdFile::get_path()
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (get_parent_dir (this)), info->name);
+    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (::get_parent_dir (this)), info->name);
     path_str = g_strdup (gnome_cmd_path_get_path (path));
     gtk_object_destroy (GTK_OBJECT (path));
 
@@ -446,7 +446,7 @@ GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
             g_assert ("Non directory file without owning directory");
     }
 
-    return gnome_cmd_dir_get_child_uri (get_parent_dir (this), name ? name : info->name);
+    return gnome_cmd_dir_get_child_uri (::get_parent_dir (this), name ? name : info->name);
 }
 
 
@@ -799,7 +799,7 @@ void GnomeCmdFile::update_info(GnomeVFSFileInfo *info)
 
 gboolean GnomeCmdFile::is_local()
 {
-    return gnome_cmd_dir_is_local (get_parent_dir (this));
+    return gnome_cmd_dir_is_local (::get_parent_dir (this));
 }
 
 
@@ -829,7 +829,7 @@ void GnomeCmdFile::is_deleted()
     if (has_parent_dir (this))
     {
         gchar *uri_str = gnome_cmd_file_get_uri_str (this);
-        gnome_cmd_dir_file_deleted (get_parent_dir (this), uri_str);
+        gnome_cmd_dir_file_deleted (::get_parent_dir (this), uri_str);
         g_free (uri_str);
     }
 }
@@ -935,9 +935,9 @@ void gnome_cmd_file_list_unref (GList *files)
 }
 
 
-GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f)
+GnomeCmdDir *GnomeCmdFile::get_parent_dir()
 {
-    return get_parent_dir (f);
+    return ::get_parent_dir (this);
 }
 
 
