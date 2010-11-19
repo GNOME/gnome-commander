@@ -92,7 +92,6 @@ struct GnomeCmdMainWinPrivate
     GtkWidget *mkdir_btn;
     GtkWidget *delete_btn;
     GtkWidget *find_btn;
-    GtkWidget *quit_btn;
 
     GtkWidget *menubar;
     GtkWidget *toolbar;
@@ -410,12 +409,6 @@ static void on_search_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 }
 
 
-static void on_quit_clicked (GtkButton *button, GnomeCmdMainWin *mw)
-{
-    file_exit (NULL);
-}
-
-
 static void create_buttonbar (GnomeCmdMainWin *mw)
 {
     mw->priv->buttonbar_sep = create_separator (FALSE);
@@ -439,8 +432,6 @@ static void create_buttonbar (GnomeCmdMainWin *mw)
     mw->priv->delete_btn = add_buttonbar_button(_("F8 Delete"), main_win, "delete_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
     mw->priv->find_btn = add_buttonbar_button(_("F9 Search"), main_win, "find_btn", mw->priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->quit_btn = add_buttonbar_button(_("F10 Quit"), main_win, "quit_btn", mw->priv->accel_group, 0);
 
     gtk_signal_connect (GTK_OBJECT (mw->priv->view_btn), "clicked", GTK_SIGNAL_FUNC (on_view_clicked), mw);
     gtk_signal_connect (GTK_OBJECT (mw->priv->edit_btn), "clicked", GTK_SIGNAL_FUNC (on_edit_clicked), mw);
@@ -449,7 +440,6 @@ static void create_buttonbar (GnomeCmdMainWin *mw)
     gtk_signal_connect (GTK_OBJECT (mw->priv->mkdir_btn), "clicked", GTK_SIGNAL_FUNC (on_mkdir_clicked), mw);
     gtk_signal_connect (GTK_OBJECT (mw->priv->delete_btn), "clicked", GTK_SIGNAL_FUNC (on_delete_clicked), mw);
     gtk_signal_connect (GTK_OBJECT (mw->priv->find_btn), "clicked", GTK_SIGNAL_FUNC (on_search_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->quit_btn), "clicked", GTK_SIGNAL_FUNC (on_quit_clicked), mw);
 }
 
 
@@ -1108,10 +1098,6 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
 
                 case GDK_F9:
                     on_search_clicked (NULL, mw);
-                    return TRUE;
-
-                case GDK_F10:
-                    on_quit_clicked (NULL, mw);
                     return TRUE;
             }
 

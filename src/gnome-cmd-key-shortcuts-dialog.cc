@@ -134,7 +134,6 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                 dialog->user_actions->unregister(GDK_F7);
                 dialog->user_actions->unregister(GDK_F8);
                 dialog->user_actions->unregister(GDK_F9);
-                dialog->user_actions->unregister(GDK_F10);
 
                 dialog->user_actions->register_action(GDK_F3, "file.view");
                 dialog->user_actions->register_action(GDK_F4, "file.edit");
@@ -143,7 +142,6 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                 dialog->user_actions->register_action(GDK_F7, "file.mkdir");
                 dialog->user_actions->register_action(GDK_F8, "file.delete");
                 dialog->user_actions->register_action(GDK_F9, "edit.search");
-                dialog->user_actions->register_action(GDK_F10, "file.exit");
             }
 
             break;
