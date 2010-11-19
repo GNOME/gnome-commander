@@ -241,34 +241,30 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 }
 
 
-GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
+GnomeCmdFile *GnomeCmdFile::ref()
 {
-    g_return_val_if_fail (f != NULL, NULL);
+    priv->ref_cnt++;
 
-    f->priv->ref_cnt++;
+    if (priv->ref_cnt == 1)
+        gtk_object_ref (GTK_OBJECT (this));
 
-    if (f->priv->ref_cnt == 1)
-        gtk_object_ref (GTK_OBJECT (f));
+    char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    char c = GNOME_CMD_IS_DIR (f) ? 'd' : 'f';
+    DEBUG (c, "refing: 0x%p %s to %d\n", this, info->name, priv->ref_cnt);
 
-    DEBUG (c, "refing: 0x%p %s to %d\n", f, f->info->name, f->priv->ref_cnt);
-
-    return f;
+    return this;
 }
 
 
-void gnome_cmd_file_unref (GnomeCmdFile *f)
+void GnomeCmdFile::unref()
 {
-    g_return_if_fail (f != NULL);
+    priv->ref_cnt--;
 
-    f->priv->ref_cnt--;
+    char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
-    char c = GNOME_CMD_IS_DIR (f) ? 'd' : 'f';
-
-    DEBUG (c, "un-refing: 0x%p %s to %d\n", f, f->info->name, f->priv->ref_cnt);
-    if (f->priv->ref_cnt < 1)
-        gtk_object_destroy (GTK_OBJECT (f));
+    DEBUG (c, "un-refing: 0x%p %s to %d\n", this, info->name, priv->ref_cnt);
+    if (priv->ref_cnt < 1)
+        gtk_object_destroy (GTK_OBJECT (this));
 }
 
 
@@ -701,7 +697,7 @@ static void on_file_downloaded_for_view (GnomeVFSURI *uri)
         return;
 
     do_view_file (f);
-    gnome_cmd_file_unref (f);
+    f->unref();
 }
 
 

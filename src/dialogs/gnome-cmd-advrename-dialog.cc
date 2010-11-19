@@ -259,7 +259,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidg
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
         gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
 
-        gnome_cmd_file_unref (f);
+        f->unref();
     }
 }
 
@@ -718,7 +718,7 @@ void GnomeCmdAdvrenameDialog::set(GList *file_list)
 
         gtk_list_store_append (GTK_LIST_STORE (files), &iter);
         gtk_list_store_set (GTK_LIST_STORE (files), &iter,
-                            COL_FILE, gnome_cmd_file_ref (f),
+                            COL_FILE, f->ref(),
                             COL_NAME, gnome_cmd_file_get_name (f),
                             COL_SIZE, f->get_size(),
                             COL_DATE, f->get_mdate(FALSE),
@@ -745,7 +745,7 @@ void GnomeCmdAdvrenameDialog::unset()
                             COL_FILE, &f,
                             -1);
 
-        gnome_cmd_file_unref (f);
+        f->unref();
     }
 
     g_signal_handlers_block_by_func (files, gpointer (Private::on_files_model_row_deleted), this);

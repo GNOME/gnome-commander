@@ -453,8 +453,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
     if (g_list_index (priv->selected_files, f) != -1)
         return;
 
-    gnome_cmd_file_ref (f);
-    priv->selected_files = g_list_append (priv->selected_files, f);
+    priv->selected_files = g_list_append (priv->selected_files, f->ref());
 
     g_signal_emit (this, signals[FILES_CHANGED], 0);
 }
@@ -472,7 +471,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
     if (g_list_index (priv->selected_files, f) == -1)
         return;
 
-    gnome_cmd_file_unref (f);
+    f->unref();
     priv->selected_files = g_list_remove (priv->selected_files, f);
 
     if (!gnome_cmd_data.use_ls_colors)

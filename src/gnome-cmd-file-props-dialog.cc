@@ -148,7 +148,7 @@ static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
     if (data->thread)
         g_thread_join (data->thread);
 
-    gnome_cmd_file_unref (data->f);
+    data->f->unref();
     g_free (data);
 
     return FALSE;
@@ -727,7 +727,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->mutex = g_mutex_new ();
     data->msg = NULL;
     data->notebook = notebook;
-    gnome_cmd_file_ref (f);
+    f->ref();
 
     g_object_ref (notebook);
     g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);

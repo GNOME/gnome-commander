@@ -34,7 +34,7 @@ void GnomeCmdFileCollection::add(GnomeCmdFile *f)
 
     gchar *uri_str = gnome_cmd_file_get_uri_str (f);
     g_hash_table_insert (map, uri_str, f);
-    gnome_cmd_file_ref (f);
+    f->ref();
 }
 
 

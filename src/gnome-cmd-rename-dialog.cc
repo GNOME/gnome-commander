@@ -52,7 +52,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
     switch (event->keyval)
     {
         case GDK_Escape:
-            gnome_cmd_file_unref (dialog->priv->f);
+            dialog->priv->f->unref();
             gtk_widget_destroy(widget);
             return TRUE;
 
@@ -65,7 +65,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
                 if (result==GNOME_VFS_OK)
                     main_win->fs(ACTIVE)->file_list()->focus_file(new_fname, TRUE);
 
-                gnome_cmd_file_unref (dialog->priv->f);
+                dialog->priv->f->unref();
                 gtk_widget_destroy (widget);
 
                 if (result!=GNOME_VFS_OK)
@@ -89,7 +89,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 
 static gboolean on_focus_out (GtkWidget *widget, GdkEventKey *event)
 {
-    gnome_cmd_file_unref (GNOME_CMD_RENAME_DIALOG(widget)->priv->f);
+    GNOME_CMD_RENAME_DIALOG(widget)->priv->f->unref();
     gtk_widget_destroy (widget);
     return TRUE;
 }
@@ -145,8 +145,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
 
     GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) gtk_type_new (gnome_cmd_rename_dialog_get_type ());
 
-    dialog->priv->f = f;
-    gnome_cmd_file_ref (f);
+    dialog->priv->f = f->ref();
 
     gtk_window_set_has_frame (GTK_WINDOW (dialog), 0);
     gtk_window_set_decorated (GTK_WINDOW (dialog), 0);
