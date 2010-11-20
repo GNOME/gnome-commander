@@ -1107,17 +1107,18 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    g_signal_emit (fl, signals[LIST_CLICKED], 0, event);
-
     gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
+
     if (row < 0)
     {
+        g_signal_emit (fl, signals[LIST_CLICKED], 0, NULL, event);
         g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, event);
         return FALSE;
     }
 
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
+    g_signal_emit (fl, signals[LIST_CLICKED], 0, f, event);
     g_signal_emit (fl, signals[FILE_CLICKED], 0, f, event);
 
     g_signal_stop_emission_by_name (clist, "button-press-event");
@@ -1557,9 +1558,9 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, list_clicked),
             NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
+            g_cclosure_marshal_VOID__POINTER_POINTER,
             G_TYPE_NONE,
-            1, G_TYPE_POINTER);
+            2, G_TYPE_POINTER, G_TYPE_POINTER);
 
     signals[EMPTY_SPACE_CLICKED] =
         g_signal_new ("empty-space-clicked",

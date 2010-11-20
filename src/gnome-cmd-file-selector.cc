@@ -454,7 +454,7 @@ static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEve
 }
 
 
-static void on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_PRESS)
         switch (event->button)
