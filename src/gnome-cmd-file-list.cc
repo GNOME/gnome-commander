@@ -279,12 +279,12 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     if (gnome_cmd_data.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
-        gchar *t = strip_extension (gnome_cmd_file_get_name (f));
+        gchar *t = strip_extension (f->get_name());
         fname = get_utf8 (t);
         g_free (t);
     }
     else
-        fname = get_utf8 (gnome_cmd_file_get_name (f));
+        fname = get_utf8 (f->get_name());
 
     if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (f->get_extension());
@@ -694,12 +694,12 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             if (gnome_vfs_uri_is_local (f->get_uri()))
             {
 #ifdef UNESCAPE_LOCAL_FILES
-                fn = gnome_vfs_unescape_string (gnome_cmd_file_get_uri_str (f), 0);
+                fn = gnome_vfs_unescape_string (f->get_uri_str(), 0);
 #endif
             }
 
             if (!fn)
-                fn = gnome_cmd_file_get_uri_str (f);
+                fn = f->get_uri_str();
 
             uri_str = g_strdup_printf ("%s\r\n", fn);
             uri_str_list = g_list_append (uri_str_list, uri_str);
@@ -733,7 +733,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         if (listlen == 1)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) sel_files->data;
-            char *uri_str = g_strdup (gnome_cmd_file_get_uri_str (f));
+            char *uri_str = g_strdup (f->get_uri_str());
 
             *file_list_len = strlen (uri_str) + 1;
             return uri_str;
@@ -1679,7 +1679,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
 
     // If we have been waiting for this file to show up, focus it
     if (fl->priv->focus_later &&
-        strcmp (gnome_cmd_file_get_name (f), fl->priv->focus_later) == 0)
+        strcmp (f->get_name(), fl->priv->focus_later) == 0)
         focus_file_at_row (fl, row);
 }
 
@@ -2637,7 +2637,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
             g_free (dir);
             return;
         }
-        focus_dir = gnome_cmd_file_get_name (GNOME_CMD_FILE (cwd));
+        focus_dir = GNOME_CMD_FILE (cwd)->get_name();
     }
     else
     {
@@ -2962,6 +2962,6 @@ void GnomeCmdFileList::init_dnd()
 
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
 {
-    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
+    return xml << XML::tag("Tab") << XML::attr("dir") << GNOME_CMD_FILE (fl.cwd)->get_real_path() << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
 }
 

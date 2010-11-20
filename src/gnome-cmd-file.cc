@@ -280,7 +280,7 @@ GnomeVFSResult GnomeCmdFile::chmod(GnomeVFSFilePermissions perm)
     if (has_parent_dir (this))
     {
         GnomeCmdDir *dir = ::get_parent_dir (this);
-        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
+        gchar *uri_str = get_uri_str();
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
@@ -304,7 +304,7 @@ GnomeVFSResult GnomeCmdFile::chown(uid_t uid, gid_t gid)
     if (has_parent_dir (this))
     {
         GnomeCmdDir *dir = ::get_parent_dir (this);
-        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
+        gchar *uri_str = get_uri_str();
         gnome_cmd_dir_file_changed (dir, uri_str);
         g_free (uri_str);
     }
@@ -336,7 +336,7 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
 
     if (result==GNOME_VFS_OK && has_parent_dir (this))
     {
-        gchar *old_uri_str = gnome_cmd_file_get_uri_str (this);
+        gchar *old_uri_str = get_uri_str();
 
         update_info(new_info);
         gnome_cmd_dir_file_renamed (::get_parent_dir (this), this, old_uri_str);
@@ -348,12 +348,11 @@ GnomeVFSResult GnomeCmdFile::rename(const gchar *new_name)
 }
 
 
-gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
+gchar *GnomeCmdFile::get_quoted_name()
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
+    g_return_val_if_fail (info != NULL, NULL);
 
-    return quote_if_needed (f->info->name);
+    return quote_if_needed (info->name);
 }
 
 
@@ -385,9 +384,9 @@ gchar *GnomeCmdFile::get_path()
 }
 
 
-gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
+gchar *GnomeCmdFile::get_real_path()
 {
-    GnomeVFSURI *uri = f->get_uri();
+    GnomeVFSURI *uri = get_uri();
     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
     gnome_vfs_uri_unref (uri);
 
@@ -395,9 +394,9 @@ gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
 }
 
 
-gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
+gchar *GnomeCmdFile::get_quoted_real_path()
 {
-    gchar *path = gnome_cmd_file_get_real_path (f);
+    gchar *path = get_real_path();
     gchar *ret = quote_if_needed (path);
 
     g_free (path);
@@ -446,11 +445,9 @@ GnomeVFSURI *GnomeCmdFile::get_uri(const gchar *name)
 }
 
 
-gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options)
+gchar *GnomeCmdFile::get_uri_str(GnomeVFSURIHideOptions hide_options)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
-
-    GnomeVFSURI *uri = f->get_uri();
+    GnomeVFSURI *uri = get_uri();
     gchar *uri_str = gnome_vfs_uri_to_string (uri, hide_options);
     gnome_vfs_uri_unref (uri);
 
@@ -677,7 +674,7 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
                     break;
 
         case FALSE: {
-                        gchar *filename = gnome_cmd_file_get_quoted_real_path (f);
+                        gchar *filename = f->get_quoted_real_path();
                         gchar *command = g_strdup_printf (gnome_cmd_data.get_viewer(), filename);
                         run_command (command);
                         g_free (filename);
@@ -714,7 +711,7 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     }
 
     // The file is remote, let's download it to a temporary file first
-    gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (f));
+    gchar *path_str = get_temp_download_filepath (f->get_name());
     if (!path_str)  return;
 
     GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
@@ -741,7 +738,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
     if (!f->is_local())
         return;
 
-    gchar *fpath = gnome_cmd_file_get_quoted_real_path (f);
+    gchar *fpath = f->get_quoted_real_path();
     gchar *dpath = f->get_unescaped_dirname();
     gchar *command = g_strdup_printf (gnome_cmd_data.get_editor(), fpath);
 
@@ -824,7 +821,7 @@ void GnomeCmdFile::is_deleted()
 {
     if (has_parent_dir (this))
     {
-        gchar *uri_str = gnome_cmd_file_get_uri_str (this);
+        gchar *uri_str = get_uri_str();
         gnome_cmd_dir_file_deleted (::get_parent_dir (this), uri_str);
         g_free (uri_str);
     }
@@ -833,7 +830,7 @@ void GnomeCmdFile::is_deleted()
 
 void GnomeCmdFile::execute()
 {
-    gchar *fpath = gnome_cmd_file_get_real_path (this);
+    gchar *fpath = get_real_path();
     gchar *dpath = g_path_get_dirname (fpath);
     gchar *cmd = g_strdup_printf ("./%s", info->name);
 

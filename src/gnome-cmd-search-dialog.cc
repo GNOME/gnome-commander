@@ -155,7 +155,7 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
     if (searchfile_data == NULL)
     {
         searchfile_data          = g_new0 (SearchFileData, 1);
-        searchfile_data->uri_str = gnome_cmd_file_get_uri_str (f);
+        searchfile_data->uri_str = f->get_uri_str();
         result                   = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
 
         if (result != GNOME_VFS_OK)
@@ -635,7 +635,7 @@ static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     GnomeCmdFileList *fl = main_win->fs(ACTIVE)->file_list();
     fl->goto_directory(dpath);
-    fl->focus_file(gnome_cmd_file_get_name (f), TRUE);
+    fl->focus_file(f->get_name(), TRUE);
 
     g_free (fpath);
     g_free (dpath);

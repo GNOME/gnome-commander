@@ -52,10 +52,15 @@ struct GnomeCmdFile
 
     void invalidate_metadata();
 
+    gchar *get_name();
+    gchar *get_quoted_name();
     gchar *get_path();
+    gchar *get_real_path();
+    gchar *get_quoted_real_path();
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
     GnomeVFSURI *get_uri(const gchar *name=NULL);
+    gchar *get_uri_str(GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
 
@@ -106,6 +111,13 @@ struct GnomeCmdFileClass
 
 GtkType gnome_cmd_file_get_type ();
 
+
+inline gchar *GnomeCmdFile::get_name()
+{
+    g_return_val_if_fail (info != NULL, NULL);
+    return info->name;
+}
+
 GnomeCmdFile *gnome_cmd_file_new_from_uri (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
@@ -125,15 +137,32 @@ inline void gnome_cmd_file_unref (GnomeCmdFile *f)
 inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
-    return f->info->name;
+    return f->get_name();
 }
 
-gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
+inline gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_quoted_name();
+}
+
+inline gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_real_path();
+}
+
+inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_quoted_real_path();
+}
+
+inline gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_uri_str(hide_options);
+}
 
 void gnome_cmd_file_show_properties (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);

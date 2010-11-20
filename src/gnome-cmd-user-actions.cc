@@ -95,7 +95,7 @@ inline gboolean append_real_path (string &s, GnomeCmdFile *f)
     if (!f)
         return FALSE;
 
-    gchar *name = g_shell_quote (gnome_cmd_file_get_real_path (f));
+    gchar *name = g_shell_quote (f->get_real_path());
 
     append_real_path (s, name);
 
@@ -1078,7 +1078,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     if (dir)
     {
-        stringify (dir_path, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)));
+        stringify (dir_path, GNOME_CMD_FILE (dir)->get_real_path());
         stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
     }
 
@@ -1169,7 +1169,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
 void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()));
+    gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
 
     if (gnome_execute_terminal_shell (dpath, NULL) == -1)
         gnome_cmd_show_message (NULL, _("Unable to open terminal"), g_strerror (errno));
@@ -1203,13 +1203,13 @@ void command_open_nautilus (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFile *f = get_fl (ACTIVE)->get_selected_file();
 
-    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
+    open_uri_in_nautilus ((GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()))->get_uri_str());
 }
 
 
 void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
 {
-    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
+    open_uri_in_nautilus (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_uri_str());
 }
 
 

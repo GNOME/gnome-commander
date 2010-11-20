@@ -307,7 +307,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
     // skip non pdf files, as pdf metatags extraction is very expensive...
     if (!strstr (f->info->mime_type, "pdf"))  return;
 
-    gchar *fname = gnome_cmd_file_get_real_path (f);
+    gchar *fname = f->get_real_path();
 
     DEBUG('t', "Loading PDF metadata for '%s'\n", fname);
 

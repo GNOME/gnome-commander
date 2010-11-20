@@ -457,7 +457,7 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
                 // look like normal directories
                 info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
                 // Determining smb MIME type: workgroup or server
-                gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+                gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
                 info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :
                                                                      g_strdup ("x-directory/smb-server");
@@ -622,7 +622,7 @@ void gnome_cmd_dir_update_path (GnomeCmdDir *dir)
     if (!parent)
         return;
 
-    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
+    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), GNOME_CMD_FILE (dir)->get_name());
     if (path)
         gnome_cmd_dir_set_path (dir, path);
 }
@@ -834,7 +834,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 
     if (dir->priv->monitor_users == 0)
     {
-        gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+        gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
         result = gnome_vfs_monitor_add (
             &dir->priv->monitor_handle,
@@ -870,10 +870,10 @@ void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
             GnomeVFSResult result = gnome_vfs_monitor_cancel (dir->priv->monitor_handle);
             if (result == GNOME_VFS_OK)
                 DEBUG('n', "Removed monitor from 0x%p %s\n",
-                      dir, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
+                      dir, GNOME_CMD_FILE (dir)->get_uri_str());
             else
                 DEBUG('n', "Failed to remove monitor from 0x%p %s: %s\n",
-                      dir, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)),
+                      dir, GNOME_CMD_FILE (dir)->get_uri_str(),
                       gnome_vfs_result_to_string (result));
 
             dir->priv->monitor_handle = NULL;

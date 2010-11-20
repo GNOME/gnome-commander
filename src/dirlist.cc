@@ -116,7 +116,7 @@ inline void blocking_list (GnomeCmdDir *dir)
 
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
     DEBUG('l', "blocking_list: %s\n", uri_str);
 
     dir->list_result = gnome_vfs_directory_list_load (&dir->infolist, uri_str, infoOpts);

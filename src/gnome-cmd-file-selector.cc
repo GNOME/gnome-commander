@@ -270,8 +270,7 @@ inline void add_file_to_cmdline (GnomeCmdFileList *fl, gboolean fullpath)
 
     if (f && gnome_cmd_data.cmdline_visibility)
     {
-        gchar *text = fullpath ? gnome_cmd_file_get_quoted_real_path (f) :
-                                 gnome_cmd_file_get_quoted_name (f);
+        gchar *text = fullpath ? f->get_quoted_real_path() : f->get_quoted_name();
 
         gnome_cmd_cmdline_append_text (main_win->get_cmdline(), text);
         gnome_cmd_cmdline_focus (main_win->get_cmdline());
@@ -286,7 +285,7 @@ inline void add_cwd_to_cmdline (GnomeCmdFileList *fl)
 
     if (gnome_cmd_data.cmdline_visibility)
     {
-        gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl->cwd));
+        gchar *dpath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
         gnome_cmd_cmdline_append_text (main_win->get_cmdline(), dpath);
         g_free (dpath);
 
@@ -510,7 +509,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
 
     if (fl->cwd != dir)  return;
 
-    fs->notebook->set_label(gnome_cmd_file_get_name (GNOME_CMD_FILE (fl->cwd)));
+    fs->notebook->set_label(GNOME_CMD_FILE (fl->cwd)->get_name());
 
     fs->priv->sel_first_file = FALSE;
     fs->update_files();
@@ -973,7 +972,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     GnomeCmdDir *dir = fs->get_directory();
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+    gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
     gchar *filepath = g_build_filename (dpath, fname, NULL);
     g_free (dpath);
     g_return_val_if_fail (filepath, TRUE);
@@ -1005,7 +1004,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     }
 
     GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), fname);
-    GnomeVFSResult result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (fs->priv->sym_file));
+    GnomeVFSResult result = gnome_vfs_create_symbolic_link (uri, fs->priv->sym_file->get_uri_str());
 
     if (result == GNOME_VFS_OK)
     {
@@ -1171,7 +1170,7 @@ void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdF
 {
     const gchar *labels[] = {_("Symbolic link name:")};
 
-    gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
+    gchar *fname = get_utf8 (f->get_name());
     gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
     g_free (fname);
 
@@ -1197,7 +1196,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
     for (; files; files=files->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-        gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
+        gchar *fname = get_utf8 (f->get_name());
         gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
 
         GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), symlink_name);
@@ -1209,7 +1208,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
         do
         {
-            result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (f));
+            result = gnome_vfs_create_symbolic_link (uri, f->get_uri_str());
 
             if (result == GNOME_VFS_OK)
             {
@@ -1331,7 +1330,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (scrolled_window), *list);
 
-    GtkWidget *label = gtk_label_new (dir ? gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)) : NULL);
+    GtkWidget *label = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : NULL);
     gint n = notebook->append_page(scrolled_window, label);
 #if GTK_CHECK_VERSION (2, 10, 0)
     gtk_notebook_set_tab_reorderable (*notebook, scrolled_window, TRUE);

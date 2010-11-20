@@ -311,7 +311,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
                             -1);
 
         gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
-                            COL_NAME, gnome_cmd_file_get_name (f),
+                            COL_NAME, f->get_name(),
                             COL_SIZE, f->get_size(),
                             COL_DATE, f->get_mdate(FALSE),
                             COL_RENAME_FAILED, FALSE,
@@ -412,7 +412,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_cursor_changed (GtkTreeView
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            dialog->priv->profile_component->set_sample_fname(gnome_cmd_file_get_name (f));
+            dialog->priv->profile_component->set_sample_fname(f->get_name());
     }
 }
 
@@ -454,7 +454,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                     result = f->rename(new_name);
 
                 gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
-                                    COL_NAME, gnome_cmd_file_get_name (f),
+                                    COL_NAME, f->get_name(),
                                     COL_RENAME_FAILED, result!=GNOME_VFS_OK,
                                     -1);
 
@@ -710,7 +710,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
 void GnomeCmdAdvrenameDialog::set(GList *file_list)
 {
-    priv->profile_component->set_sample_fname(file_list ? gnome_cmd_file_get_name ((GnomeCmdFile *) file_list->data) : NULL);
+    priv->profile_component->set_sample_fname(file_list ? ((GnomeCmdFile *) file_list->data)->get_name() : NULL);
 
     for (GtkTreeIter iter; file_list; file_list=file_list->next)
     {
@@ -719,7 +719,7 @@ void GnomeCmdAdvrenameDialog::set(GList *file_list)
         gtk_list_store_append (GTK_LIST_STORE (files), &iter);
         gtk_list_store_set (GTK_LIST_STORE (files), &iter,
                             COL_FILE, f->ref(),
-                            COL_NAME, gnome_cmd_file_get_name (f),
+                            COL_NAME, f->get_name(),
                             COL_SIZE, f->get_size(),
                             COL_DATE, f->get_mdate(FALSE),
                             -1);

@@ -167,7 +167,7 @@ void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f)
     g_free (obj->priv->filename);
 
     obj->priv->f = f;
-    obj->priv->filename = gnome_cmd_file_get_real_path (f);
+    obj->priv->filename = f->get_real_path();
     gviewer_load_file (obj->priv->viewer, obj->priv->filename);
 
     gtk_window_set_title (GTK_WINDOW(obj), obj->priv->filename);

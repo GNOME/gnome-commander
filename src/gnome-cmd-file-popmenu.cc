@@ -135,12 +135,12 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
     for (; files; files = files->next)
     {
         cmd += ' ';
-        cmd += stringify (gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (files->data)));
+        cmd += stringify (GNOME_CMD_FILE (files->data)->get_quoted_real_path());
     }
 
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     GnomeCmdDir *dir = fs->get_directory();
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+    gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
     run_command_indir (cmd.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
     g_free (dpath);
 
@@ -400,7 +400,7 @@ inline gchar *get_default_application_action_name (GList *files)
         return g_strdup(_("_Open"));
 
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+    gchar *uri_str = f->get_uri_str();
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
 
     g_free (uri_str);
