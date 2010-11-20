@@ -465,7 +465,15 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
                 break;
 
             case 2:
-                fs->goto_directory("..");
+                if (gnome_cmd_data.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
+                    fs->goto_directory("..");
+                else
+                {
+                    if (f && f->is_dotdot)
+                        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd), TRUE);
+                    else
+                        fs->new_tab(f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_DIR (f) : fl->cwd, TRUE);
+                }
                 break;
         }
 }

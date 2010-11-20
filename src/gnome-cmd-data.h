@@ -44,6 +44,12 @@ struct GnomeCmdData
         LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK
     };
 
+    enum MiddleMouseButtonMode
+    {
+        MIDDLE_BUTTON_GOES_UP_DIR,
+        MIDDLE_BUTTON_OPENS_NEW_TAB
+    };
+
     enum RightMouseButtonMode
     {
         RIGHT_BUTTON_POPUPS_MENU,
@@ -189,6 +195,7 @@ struct GnomeCmdData
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     LeftMouseButtonMode          left_mouse_button_mode;
     gboolean                     left_mouse_button_unselects;
+    MiddleMouseButtonMode        middle_mouse_button_mode;
     RightMouseButtonMode         right_mouse_button_mode;
     GnomeCmdColorMode            color_mode;
     GnomeCmdSizeDispMode         size_disp_mode;
