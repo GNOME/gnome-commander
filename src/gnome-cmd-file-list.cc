@@ -2848,13 +2848,9 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        /* The drop was over a directory in the list, which means that the
-         * xfer should be done to that directory instead of the current one in the list
-         */
-        if (strcmp (f->info->name, "..") == 0)
-            to = gnome_cmd_dir_get_parent (cwd);
-        else
-            to = gnome_cmd_dir_get_child (cwd, f->info->name);
+        // The drop was over a directory in the list, which means that the
+        // xfer should be done to that directory instead of the current one in the list
+        to = f->is_dotdot ? gnome_cmd_dir_get_parent (cwd) : gnome_cmd_dir_get_child (cwd, f->info->name);
     }
     else
         to = cwd;
