@@ -502,7 +502,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Add open with other
     apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
-    apps_uiinfo[i].label = g_strdup (_("Other..."));
+    apps_uiinfo[i].label = g_strdup (_("Other _Application..."));
     apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
 
