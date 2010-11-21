@@ -432,7 +432,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     static GnomeUIInfo open_uiinfo[] =
     {
         GNOMEUIINFO_ITEM_NONE(N_("_Open"), NULL, cb_exec_default),
-        GNOMEUIINFO_SUBTREE(N_("Open With..."), apps_uiinfo),
+        GNOMEUIINFO_SUBTREE(N_("Open Wit_h"), apps_uiinfo),
         GNOMEUIINFO_END
     };
 
@@ -472,7 +472,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
 
-    // Fill the "Open with..." menu with applications
+    // Fill the "Open With" menu with applications
     gint i = -1;
     menu->priv->data_list = NULL;
 
