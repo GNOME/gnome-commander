@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-11-20 23:40+0000\n"
+"POT-Creation-Date: 2010-11-21 23:07+0000\n"
 "PO-Revision-Date: 2010-11-21 10:19+0000\n"
 "Last-Translator: Laurent Coudeur <laurentc@iol.ie>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -968,8 +968,8 @@ msgid "_Open with \"%s\""
 msgstr "_Ouvrir avec « %s »"
 
 #: ../src/gnome-cmd-file-popmenu.cc:435
-msgid "Open With..."
-msgstr "Ouvrir avec..."
+msgid "Open Wit_h"
+msgstr "Ouvrir _avec"
 
 #: ../src/gnome-cmd-file-popmenu.cc:441
 msgid "E_xecute"
@@ -1010,8 +1010,8 @@ msgid "_Properties..."
 msgstr "_Propriétés..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:505
-msgid "Other..."
-msgstr "Autre..."
+msgid "Other _Application..."
+msgstr "A_utre application..."
 
 #: ../src/gnome-cmd-file-props-dialog.cc:76 ../src/utils.cc:844
 #, c-format
@@ -1262,8 +1262,8 @@ msgid "_Text File"
 msgstr "Fichier _texte"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
-msgid "_New..."
-msgstr "_Nouveau..."
+msgid "_New"
+msgstr "_Nouveau"
 
 #: ../src/gnome-cmd-list-popmenu.cc:115 ../src/gnome-cmd-main-menu.cc:553
 msgid "_Paste"
@@ -3755,7 +3755,7 @@ msgstr "Société"
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr "Organisation avec laqu	elle l'entité <Doc.Creator> est associée."
+msgstr "Organisation avec laquelle l'entité <Doc.Creator> est associée."
 
 #: ../src/tags/gnome-cmd-tags.cc:161 ../src/tags/gnome-cmd-tags.cc:416
 msgid "Creator"
@@ -5473,11 +5473,11 @@ msgid ""
 "Interoperability this condition."
 msgstr ""
 "Les coefficients de la matrice de transformation pour convertir les données "
-"de l'image de RVB en YCbCr. Il n'y a pas de valeur par défaut pour TIFF ; ici "
-"les « directives Espace colorimétrique » sont utilisées par défaut. L'espace "
-"colorimétrique est déclaré dans la balise d'information Color space, la "
-"valeur par défaut étant la valeur qui donne les caractéristiques optimales "
-"d'interopérabilité à l'image."
+"de l'image de RVB en YCbCr. Il n'y a pas de valeur par défaut pour TIFF ; "
+"ici les « directives Espace colorimétrique » sont utilisées par défaut. "
+"L'espace colorimétrique est déclaré dans la balise d'information Color "
+"space, la valeur par défaut étant la valeur qui donne les caractéristiques "
+"optimales d'interopérabilité à l'image."
 
 #: ../src/tags/gnome-cmd-tags.cc:311
 msgid "YCbCr Positioning"
@@ -7716,3 +7716,5 @@ msgstr "Impossible de lire depuis le répertoire %s : %s"
 msgid "There was an error displaying help."
 msgstr "Une erreur est survenue durant l'affichage de l'aide."
 
+#~ msgid "Other..."
+#~ msgstr "Autre..."
