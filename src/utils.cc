@@ -581,7 +581,7 @@ void mime_exec_single (GnomeCmdFile *f)
     if (f->is_local())
     {
         args[0] = (gpointer) app;
-        args[1] = (gpointer) g_strdup (f->get_real_path());
+        args[1] = (gpointer) f->get_real_path();
         args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
         do_mime_exec_single (args);
     }
@@ -590,7 +590,7 @@ void mime_exec_single (GnomeCmdFile *f)
         if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
         {
             args[0] = (gpointer) app;
-            args[1] = (gpointer) g_strdup (f->get_uri_str());
+            args[1] = (gpointer) f->get_uri_str();
             // args[2] is NULL here (don't set exec dir for remote files)
             do_mime_exec_single (args);
         }
@@ -665,13 +665,13 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
         if (gnome_vfs_uri_is_local (f->get_uri()))
-            local_files = g_list_append (local_files, g_strdup (f->get_real_path()));
+            local_files = g_list_append (local_files, f->get_real_path());
         else
         {
             ++no_of_remote_files;
             if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
             {
-                local_files = g_list_append (local_files,  g_strdup (f->get_uri_str()));
+                local_files = g_list_append (local_files,  f->get_uri_str());
             }
             else
             {

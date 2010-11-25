@@ -733,7 +733,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         if (listlen == 1)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) sel_files->data;
-            char *uri_str = g_strdup (f->get_uri_str());
+            char *uri_str = f->get_uri_str();
 
             *file_list_len = strlen (uri_str) + 1;
             return uri_str;
