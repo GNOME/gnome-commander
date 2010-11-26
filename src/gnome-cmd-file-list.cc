@@ -2872,11 +2872,6 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 }
 
 
-static void drag_begin (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileList *fl)
-{
-}
-
-
 static void drag_end (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileList *fl)
 {
     restore_drag_indicator (fl);
@@ -2940,7 +2935,6 @@ void GnomeCmdFileList::init_dnd()
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
     g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
-    g_signal_connect (this, "drag-begin", G_CALLBACK (drag_begin), this);
     g_signal_connect (this, "drag-end", G_CALLBACK (drag_end), this);
     g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
     g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
