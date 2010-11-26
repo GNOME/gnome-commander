@@ -422,11 +422,6 @@ drag_data_received (GtkWidget          *widget,
 }
 
 
-static void drag_begin (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSelector *fs)
-{
-}
-
-
 static void drag_end (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSelector *fs)
 {
     restore_drag_indicator (fs);
@@ -565,7 +560,6 @@ inline void init_dnd (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     // Set up drag source
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-begin", GTK_SIGNAL_FUNC (drag_begin), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-end", GTK_SIGNAL_FUNC (drag_end), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-leave", GTK_SIGNAL_FUNC (drag_leave), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-data-delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
