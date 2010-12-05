@@ -1080,15 +1080,18 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
         switch (event->keyval)
         {
             case GDK_Down:
+            case GDK_KP_Down:
                 gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (dir_indicator));
                 return TRUE;
 
             case GDK_Left:
+            case GDK_KP_Left:
                 back();
                 stop_kp (*list);
                 return TRUE;
 
             case GDK_Right:
+            case GDK_KP_Right:
                 forward();
                 stop_kp (*list);
                 return TRUE;
@@ -1109,10 +1112,12 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Page_Up:
+            case GDK_KP_Page_Up:
                 goto_directory("..");
                 return TRUE;
 
             case GDK_Page_Down:
+            case GDK_KP_Page_Down:
                 f = list->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (list, f);
