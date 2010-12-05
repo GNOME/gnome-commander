@@ -2045,6 +2045,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
         switch (event->keyval)
         {
             case GDK_Return:
+            case GDK_KP_Enter:
                 gnome_cmd_file_list_show_properties_dialog (this);
                 return TRUE;
 
@@ -2077,42 +2078,50 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Left:
+            case GDK_KP_Left:
             case GDK_Right:
+            case GDK_KP_Right:
                 event->state -= GDK_SHIFT_MASK;
                 return FALSE;
 
             case GDK_Page_Up:
             case GDK_KP_Page_Up:
+            case GDK_KP_9:
                 priv->shift_down = TRUE;
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_PAGE_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Page_Down:
             case GDK_KP_Page_Down:
+            case GDK_KP_3:
                 priv->shift_down = TRUE;
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_PAGE_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Up:
             case GDK_KP_Up:
+            case GDK_KP_8:
                 priv->shift_down = TRUE;
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Down:
             case GDK_KP_Down:
+            case GDK_KP_2:
                 priv->shift_down = TRUE;
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Home:
             case GDK_KP_Home:
+            case GDK_KP_7:
                 priv->shift_down = TRUE;
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_JUMP, 0.0);
                 return TRUE;
 
             case GDK_End:
             case GDK_KP_End:
+            case GDK_KP_1:
                 priv->shift_down = TRUE;
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
@@ -2184,19 +2193,19 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 
             case GDK_KP_Page_Up:
                 event->keyval = GDK_Page_Up;
-                return TRUE;
+                return FALSE;
 
             case GDK_KP_Page_Down:
                 event->keyval = GDK_Page_Down;
-                return TRUE;
+                return FALSE;
 
             case GDK_KP_Up:
                 event->keyval = GDK_Up;
-                return TRUE;
+                return FALSE;
 
             case GDK_KP_Down:
                 event->keyval = GDK_Down;
-                return TRUE;
+                return FALSE;
 
             case GDK_Home:
             case GDK_KP_Home:

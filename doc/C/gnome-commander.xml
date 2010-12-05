@@ -6068,7 +6068,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem #448941 (numeric keypad arrows don't work in the main window)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
