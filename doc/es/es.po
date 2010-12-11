@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-05 13:42+0000\n"
-"PO-Revision-Date: 2010-12-05 19:39+0100\n"
+"POT-Creation-Date: 2010-12-05 18:40+0000\n"
+"PO-Revision-Date: 2010-12-11 18:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -482,16 +482,12 @@ msgid "GNOME Commander Manual V1.2.8.9;"
 msgstr "Manual de GNOME Commander v1.2.8.9;"
 
 #: C/gnome-commander.xml:254(revnumber)
-#, fuzzy
-#| msgid "GNOME Commander Manual V1.2.8.1;"
 msgid "GNOME Commander Manual V1.2.8.10;"
-msgstr "Manual de GNOME Commander v1.2.8.1;"
+msgstr "Manual de GNOME Commander v1.2.8.10;"
 
 #: C/gnome-commander.xml:255(date) C/gnome-commander.xml:7483(para)
-#, fuzzy
-#| msgid "2010-??-??"
 msgid "2011-??-??"
-msgstr "2010-??-??"
+msgstr "2011-??-??"
 
 #: C/gnome-commander.xml:264(releaseinfo)
 msgid "This manual describes version 1.4 of GNOME Commander."
@@ -9609,6 +9605,9 @@ msgid ""
 "When this option is selected if a file name in the target location is the "
 "same as one of the files copied it will be overwritten."
 msgstr ""
+"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
+"nombre de archivo igual que uno de los archivos que se copiarán, se "
+"reescribirá."
 
 #: C/gnome-commander.xml:4661(para) C/gnome-commander.xml:4703(para)
 msgid "Query first"
@@ -9621,6 +9620,10 @@ msgid ""
 "for user confirmation. The user can authorize the overwriting of the file or "
 "skip the file."
 msgstr ""
+"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
+"nombre de archivo igual que uno de los archivos que se copiarán, GNOME "
+"Commander abrirá un diálogo pidiendo la confirmación del usuario. El usuario "
+"puede autorizar que el archivo se sobreescriba o que se omita."
 
 #: C/gnome-commander.xml:4675(para) C/gnome-commander.xml:4718(para)
 msgid "Skip all"
@@ -9632,6 +9635,9 @@ msgid ""
 "same as one of the files copied, the files will be skipped and not copied "
 "into the target directory."
 msgstr ""
+"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
+"nombre de archivo igual que uno de los archivos que se copiarán, los "
+"archivos se omitirán y no se copiarán en la carpeta de destino."
 
 #: C/gnome-commander.xml:4686(guilabel)
 msgid "Move overwrite"
@@ -9654,6 +9660,11 @@ msgid ""
 "skip the file. The skipped file will then be still present in the source "
 "location."
 msgstr ""
+"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
+"nombre de archivo igual que uno de los archivos que se copiarán, GNOME "
+"Commander abrirá un diálogo pidiendo la confirmación del usuario. El usuario "
+"puede autorizar que el archivo se sobreescriba o que se omita. El archivo "
+"omitido seguirá presente en la ubicación de origen."
 
 #: C/gnome-commander.xml:4721(para)
 msgid ""
@@ -9661,6 +9672,10 @@ msgid ""
 "same as one of the files copied, the file will be skipped and not moved into "
 "the target directory. The selected files will not be moved"
 msgstr ""
+"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
+"nombre de archivo igual que uno de los archivos que se copiarán, el archivo "
+"se omitirá y no se copiará en la carpeta de destino. Los archivos "
+"seleccionados no se moverán"
 
 #: C/gnome-commander.xml:4732(title)
 msgid "Filters"
@@ -9718,6 +9733,7 @@ msgstr "Archivos regulares"
 #: C/gnome-commander.xml:4796(para)
 msgid "Any normal files that contain text or binary executable."
 msgstr ""
+"Todos los archivos normales que contienen texto o un binario ejecutable."
 
 #: C/gnome-commander.xml:4804(para)
 msgid "Directories"
@@ -9938,6 +9954,8 @@ msgid ""
 "Whether the associated application is started before the remote file is "
 "downloaded locally."
 msgstr ""
+"Indica si la aplicación asociada se inicia antes de que el archivo remoto se "
+"descargue localmente."
 
 #: C/gnome-commander.xml:5006(guilabel)
 msgid "Standard programs"
@@ -9981,6 +9999,10 @@ msgid ""
 "favourite text editor. %s is the variable containing the selected items. The "
 "default application is the GNOME default Gedit."
 msgstr ""
+"En este cuadro de texto puede escribir la línea de comando usada para "
+"iniciar su editor de texto favorito. %s es la variable que contiene los "
+"elementos seleccionados. La aplicación predeterminada el Gedit "
+"predeterminado de GNOME."
 
 #: C/gnome-commander.xml:5037(para)
 msgid "Differ:"
@@ -9992,6 +10014,10 @@ msgid ""
 "favourite comparison tool. %s is the variable containing the selected files "
 "to compare. The default application is Meld."
 msgstr ""
+"En este cuadro de texto puede escribir la línea de comando usada para "
+"iniciar su herramienta de comparación favorita. %s es la variable que "
+"contiene los archivos seleccionados que comparar. La aplicación "
+"predeterminada es Meld."
 
 #: C/gnome-commander.xml:5046(para)
 msgid "Terminal:"
@@ -10054,6 +10080,8 @@ msgid ""
 "Clicking this button will move the application up in the list, this will "
 "also affect the order in which the list is displayed in the contextual menu."
 msgstr ""
+"Al pulsar sobre este botón la aplicación se moverá hacia arriba en la lista, "
+"esto afectará al orden en que la lista se muestra en el menú contextual."
 
 #: C/gnome-commander.xml:5093(para)
 msgid "Down"
@@ -10064,12 +10092,16 @@ msgid ""
 "Clicking this button will move the application down in the list, this will "
 "also affect the order in which the list is displayed in the contextual menu."
 msgstr ""
+"Al pulsar sobre este botón la aplicación se moverá hacia abajo en la lista, "
+"esto afectará al orden en que la lista se muestra en el menú contextual."
 
 #: C/gnome-commander.xml:5103(para)
 msgid ""
 "The section below describes the process of adding or modifying other "
 "applications to the contextual menu"
 msgstr ""
+"La siguiente sección describe el proceso de añadir o modificar otras "
+"aplicaciones del menú contextual."
 
 #: C/gnome-commander.xml:5104(para)
 msgid ""
@@ -10078,8 +10110,8 @@ msgid ""
 "the various options available to the application in its manual pages."
 msgstr ""
 "En el siguiente cuadro de diálogo puede introducir un número de parámetros "
-"diferentes para ejecutar la aplicación como quiera. Probablemente necesitará "
-"revisar las diferentes opciones disponibles para la aplicación en las "
+"diferentes para ejecutar la aplicación como quiera. Probablemente deberá "
+"comprobar las distintas opciones disponibles para la aplicación en sus "
 "páginas del manual."
 
 #: C/gnome-commander.xml:5105(note)
@@ -12209,8 +12241,8 @@ msgid ""
 "This section gives an overview of the configuration files used by GNOME "
 "Commander:"
 msgstr ""
-"Esta sección ofrece una visión global de los archivos de configuración "
-"usados por GNOME Commander:"
+"Esta sección ofrece una visión global de losarchivos de configuración usados "
+"por GNOME Commander:"
 
 #: C/gnome-commander.xml:6809(guilabel)
 msgid "~/.gnome-commander/connections"
@@ -12869,15 +12901,15 @@ msgstr ""
 "conexión derecha"
 
 #: C/gnome-commander.xml:7482(para)
-#, fuzzy
-#| msgid "1.2.8.1"
 msgid "1.2.8.10"
-msgstr "1.2.8"
+msgstr "1.2.8.10"
 
 #: C/gnome-commander.xml:7489(para)
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
+"Error nº 448941 corregido (las flechas del teclado numérico no funcionan en "
+"la ventana principal)"
 
 #: C/gnome-commander.xml:7496(para)
 msgid "1.2.8.9"
