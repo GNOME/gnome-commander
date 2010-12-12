@@ -23,33 +23,6 @@
 
 #include "gnome-cmd-dir.h"
 
-#define GNOME_CMD_MKDIR_DIALOG(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_mkdir_dialog_get_type (), GnomeCmdMkdirDialog)
-#define GNOME_CMD_MKDIR_DIALOG_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_mkdir_dialog_get_type (), GnomeCmdMkdirDialogClass)
-#define GNOME_CMD_IS_MKDIR_DIALOG(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_mkdir_dialog_get_type ())
-
-
-struct GnomeCmdMkdirDialogPrivate;
-
-
-struct GnomeCmdMkdirDialog
-{
-    GnomeCmdStringDialog parent;
-
-    GnomeCmdMkdirDialogPrivate *priv;
-};
-
-
-struct GnomeCmdMkdirDialogClass
-{
-    GnomeCmdStringDialogClass parent_class;
-};
-
-
-GtkWidget *gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
-
-GtkType gnome_cmd_mkdir_dialog_get_type ();
+gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
 
 #endif // __GNOME_CMD_MKDIR_DIALOG_H__

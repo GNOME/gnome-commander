@@ -35,7 +35,6 @@
 #include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-mkdir-dialog.h"
 #include "gnome-cmd-options-dialog.h"
 #include "gnome-cmd-make-copy-dialog.h"
 #include "gnome-cmd-prepare-copy-dialog.h"
@@ -51,6 +50,7 @@
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
+#include "dialogs/gnome-cmd-mkdir-dialog.h"
 
 using namespace std;
 
@@ -795,11 +795,9 @@ void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdDir *dir = get_fs (ACTIVE)->get_directory();
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    GtkWidget *dialog = gnome_cmd_mkdir_dialog_new (dir);
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-
-    g_object_ref (dialog);
-    gtk_widget_show (dialog);
+    gnome_cmd_dir_ref (dir);
+    gnome_cmd_mkdir_dialog_new (dir);
+    gnome_cmd_dir_unref (dir);
 }
 
 

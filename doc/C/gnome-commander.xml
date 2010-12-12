@@ -7405,6 +7405,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #377463 (mkdir dialog loses focus)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>

@@ -14,6 +14,7 @@ src/dialogs/gnome-cmd-edit-profile-dialog.cc
 src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.cc
+src/dialogs/gnome-cmd-mkdir-dialog.cc
 src/dirlist.cc
 src/eggcellrendererkeys.cc
 src/gnome-cmd-about-plugin.cc
@@ -40,7 +41,6 @@ src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc
 src/gnome-cmd-make-copy-dialog.cc
-src/gnome-cmd-mkdir-dialog.cc
 src/gnome-cmd-options-dialog.cc
 src/gnome-cmd-patternsel-dialog.cc
 src/gnome-cmd-prepare-copy-dialog.cc
