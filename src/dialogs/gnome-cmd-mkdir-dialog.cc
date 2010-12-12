@@ -151,7 +151,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
 }
 
 
-gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
+gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file)
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Make Directory"), *main_win,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
@@ -195,7 +195,8 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), "PATTERN");
+    if (selected_file)
+        gtk_entry_set_text (GTK_ENTRY (entry), selected_file->get_name());
     g_object_set_data (G_OBJECT (dialog), "name", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);

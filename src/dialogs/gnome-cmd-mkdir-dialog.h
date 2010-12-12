@@ -23,6 +23,6 @@
 
 #include "gnome-cmd-dir.h"
 
-gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
+gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file=NULL);
 
 #endif // __GNOME_CMD_MKDIR_DIALOG_H__

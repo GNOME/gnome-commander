@@ -792,11 +792,13 @@ void file_chown (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdDir *dir = get_fs (ACTIVE)->get_directory();
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdDir *dir = fs->get_directory();
+
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     gnome_cmd_dir_ref (dir);
-    gnome_cmd_mkdir_dialog_new (dir);
+    gnome_cmd_mkdir_dialog_new (dir, fs->file_list()->get_selected_file());
     gnome_cmd_dir_unref (dir);
 }
 
