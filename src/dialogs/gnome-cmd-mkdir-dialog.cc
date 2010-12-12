@@ -29,13 +29,6 @@
 using namespace std;
 
 
-struct GnomeCmdMkdirDialogPrivate
-{
-    GnomeCmdDir *dir;
-    GnomeCmdMainWin *mw;
-};
-
-
 inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
