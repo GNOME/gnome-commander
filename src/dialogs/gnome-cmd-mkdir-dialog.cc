@@ -72,6 +72,19 @@ inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
 }
 
 
+static gboolean on_name_entry_keypressed (GtkEntry *entry, GdkEventKey *event, gpointer unused)
+{
+    switch (event->keyval)
+    {
+        case GDK_F7:
+            gnome_cmd_toggle_file_name_selection (GTK_WIDGET (entry));
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+
 static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *dir)
 {
     switch (response_id)
@@ -209,6 +222,7 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
+    g_signal_connect (entry, "key-press-event", G_CALLBACK (on_name_entry_keypressed), NULL);
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dir);
 
     gint result = gtk_dialog_run (GTK_DIALOG (dialog));
