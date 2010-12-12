@@ -804,7 +804,7 @@ void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
 void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
-    GList *f = get_fl (ACTIVE)->get_selected_files ();
+    GList *f = get_fl (ACTIVE)->get_selected_files();
     guint selected_files = g_list_length (f);
 
     if (selected_files > 1)
