@@ -196,7 +196,23 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
     if (selected_file)
-        gtk_entry_set_text (GTK_ENTRY (entry), selected_file->get_name());
+    {
+        if (GNOME_CMD_IS_DIR (selected_file))
+            gtk_entry_set_text (GTK_ENTRY (entry), selected_file->get_name());
+        else
+        {
+            gchar *fname = g_strdup (selected_file->get_name());
+
+            char *ext = g_utf8_strrchr (fname, -1, '.');
+
+            if (ext)
+                *ext = 0;
+
+            gtk_entry_set_text (GTK_ENTRY (entry), fname);
+
+            g_free (fname);
+        }
+    }
     g_object_set_data (G_OBJECT (dialog), "name", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
