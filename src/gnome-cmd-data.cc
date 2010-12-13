@@ -165,7 +165,7 @@ inline void save_connections (const gchar *fname)
         fclose (fd);
     }
     else
-        warn_print ("Failed to open the file %s for writing\n", path);
+        g_warning ("Failed to open the file %s for writing", path);
 
     g_free (path);
 }
@@ -210,7 +210,7 @@ inline void save_devices (const gchar *fname)
         fclose (fd);
     }
     else
-        warn_print ("Failed to open the file %s for writing\n", path);
+        g_warning ("Failed to open the file %s for writing", path);
 
     g_free (path);
 }
@@ -252,7 +252,7 @@ inline void save_fav_apps (const gchar *fname)
         fclose (fd);
     }
     else
-        warn_print ("Failed to open the file %s for writing\n", path);
+        g_warning ("Failed to open the file %s for writing", path);
 
     g_free (path);
 }
@@ -344,7 +344,7 @@ inline gboolean load_connections (const gchar *fname)
     }
     else
         if (errno != ENOENT)
-            warn_print ("Failed to open the file %s for reading\n", path);
+            g_warning ("Failed to open the file %s for reading", path);
 
     g_free (path);
 
@@ -643,7 +643,7 @@ inline void load_devices (const gchar *fname)
     }
     else
         if (errno != ENOENT)
-            warn_print ("Failed to open the file %s for reading\n", path);
+            g_warning ("Failed to open the file %s for reading", path);
 
     load_vfs_auto_devices ();
 

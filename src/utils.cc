@@ -93,18 +93,6 @@ void DEBUG (gchar flag, const gchar *format, ...)
 }
 
 
-void warn_print (const gchar *fmt, ...)
-{
-    va_list     argptr;
-    char        string[1024];
-
-    va_start (argptr,fmt);
-    vsnprintf (string,sizeof(string),fmt,argptr);
-    va_end (argptr);
-    g_printerr ("WARNING: %s", string);
-}
-
-
 void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term)
 {
     gchar *command;

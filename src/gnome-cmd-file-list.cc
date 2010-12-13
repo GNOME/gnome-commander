@@ -2832,7 +2832,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
             break;
 
         default:
-            warn_print ("Unknown context->action in drag_data_received\n");
+            g_warning ("Unknown context->action in drag_data_received");
             return;
     }
 

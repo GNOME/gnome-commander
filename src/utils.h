@@ -45,7 +45,6 @@ inline gboolean DEBUG_ENABLED (gchar flag)
 }
 
 void DEBUG (gchar flag, const gchar *fmt, ...);
-void warn_print (const gchar *fmt, ...);
 
 void gnome_cmd_error_message (const gchar *title, GError *error);
 

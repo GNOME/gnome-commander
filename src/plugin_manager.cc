@@ -150,8 +150,8 @@ static void scan_plugins_in_dir (const gchar *dpath)
 
     if (dir == NULL)
     {
-        gchar *msg = g_strdup_printf ("Could not list files in %s: %s\n", dpath, strerror (errno));
-        warn_print (msg);
+        gchar *msg = g_strdup_printf ("Could not list files in %s: %s", dpath, strerror (errno));
+        g_warning (msg);
         g_free (msg);
         return;
     }
@@ -206,7 +206,7 @@ void plugin_manager_init ()
 {
     if (plugins)
     {
-        warn_print ("plugin_manager already initiated\n");
+        g_warning ("plugin_manager already initiated");
         return;
     }
 
