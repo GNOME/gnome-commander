@@ -37,7 +37,13 @@
 
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
-gboolean DEBUG_ENABLED (gchar flag);
+extern gchar *debug_flags;
+
+inline gboolean DEBUG_ENABLED (gchar flag)
+{
+    return debug_flags ? strchr(debug_flags, flag) != 0 : FALSE;
+}
+
 void DEBUG (gchar flag, const gchar *fmt, ...);
 void warn_print (const gchar *fmt, ...);
 
