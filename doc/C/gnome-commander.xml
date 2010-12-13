@@ -482,9 +482,6 @@
                 <para>Possible flags:</para>
                 <itemizedlist>
                   <listitem>
-                    <para><guilabel>a</guilabel> user actions debugging</para>
-                  </listitem>
-                  <listitem>
                     <para><guilabel>c</guilabel> file and directory counting</para>
                   </listitem>
                   <listitem>
@@ -519,6 +516,9 @@
                   </listitem>
                   <listitem>
                     <para><guilabel>t</guilabel> metadata tags</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>u</guilabel> user actions debugging</para>
                   </listitem>
                   <listitem>
                     <para><guilabel>v</guilabel> internal viewer</para>

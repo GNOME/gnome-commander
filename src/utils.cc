@@ -60,7 +60,6 @@ static gchar *tmp_file_dir = NULL;
 /**
  * The already reserved debug flags:
  * --------------------------------
- * a: user actions debugging
  * c: file and directory counting
  * d: directory ref-counting
  * f: file ref-counting
@@ -73,6 +72,7 @@ static gchar *tmp_file_dir = NULL;
  * p: python plugins
  * s: smb network browser
  * t: metadata tags
+ * u: user actions debugging
  * v: internal viewer
  * w: widget_lookup
  * y: brief mime-based imageload

@@ -542,7 +542,7 @@ inline void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, 
 
 static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkWidget *view)
 {
-    DEBUG('a', "Key event:  %s (%#x)\n", key2str(accel_mask,accel_key).c_str(), accel_key);
+    DEBUG('u', "Key event:  %s (%#x)\n", key2str(accel_mask,accel_key).c_str(), accel_key);
 
     if (!accel_key)
         gnome_cmd_show_message (NULL, _("Invalid shortcut."));

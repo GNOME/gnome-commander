@@ -426,7 +426,7 @@ void GnomeCmdUserActions::load(const gchar *section)
 
     for (gpointer i=gnome_config_init_iterator(section_path.c_str()); (i=gnome_config_iterator_next(i, &key, &action_name)); )
     {
-        DEBUG('a',"[%s]\t%s=%s\n", section, key, action_name);
+        DEBUG('u',"[%s]\t%s=%s\n", section, key, action_name);
 
         char *action_options = strchr(action_name, '|');
 
@@ -551,8 +551,8 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     if (pos==action.end())
         return FALSE;
 
-    DEBUG('a', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
-    DEBUG('a', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
+    DEBUG('u', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
+    DEBUG('u', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
 
     (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
