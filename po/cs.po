@@ -10,18 +10,20 @@
 # Petr Kovar <pknbe@volny.cz>, 2008.
 # Dusan Hokuv <dusan@mirc.cz>, 2007, 2010.
 # Marek Černocký <marek@manet.cz>, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-21 22:21+0100\n"
-"PO-Revision-Date: 2010-11-17 08:03+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"commander&component=general\n"
+"POT-Creation-Date: 2010-12-12 22:15+0000\n"
+"PO-Revision-Date: 2010-12-05 14:11+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
@@ -453,6 +455,19 @@ msgstr "Název profilu"
 msgid "Template"
 msgstr "Šablona"
 
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:104
+msgid "A directory name must be entered"
+msgstr "Musí být zadán název složky"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:169
+msgid "Make Directory"
+msgstr "Vytvořit složku"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:205
+#: ../src/gnome-cmd-file-props-dialog.cc:377
+msgid "Directory name:"
+msgstr "Název složky:"
+
 #: ../src/dirlist.cc:74
 #, c-format
 msgid "%d file listed"
@@ -840,12 +855,12 @@ msgid "Abort"
 msgstr "Přerušit"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-xfer.cc:184
+#: ../src/gnome-cmd-file-selector.cc:1228 ../src/gnome-cmd-xfer.cc:184
 msgid "Retry"
 msgstr "Opakovat"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-xfer.cc:164
+#: ../src/gnome-cmd-file-selector.cc:1228 ../src/gnome-cmd-xfer.cc:164
 #: ../src/gnome-cmd-xfer.cc:184
 msgid "Skip"
 msgstr "Přeskočit"
@@ -869,7 +884,7 @@ msgid "Delete"
 msgstr "Odstranit"
 
 #: ../src/gnome-cmd-delete-dialog.cc:287
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-user-actions.cc:819
+#: ../src/gnome-cmd-file-selector.cc:1228 ../src/gnome-cmd-user-actions.cc:819
 #: ../src/utils.cc:528 ../src/utils.cc:556
 msgid "Cancel"
 msgstr "Zrušit"
@@ -965,8 +980,8 @@ msgid "_Open with \"%s\""
 msgstr "_Otevřít s „%s“"
 
 #: ../src/gnome-cmd-file-popmenu.cc:435
-msgid "Open With..."
-msgstr "Otevřít s…"
+msgid "Open Wit_h"
+msgstr "Otevřít _s"
 
 #: ../src/gnome-cmd-file-popmenu.cc:441
 msgid "E_xecute"
@@ -1007,8 +1022,8 @@ msgid "_Properties..."
 msgstr "_Vlastnosti…"
 
 #: ../src/gnome-cmd-file-popmenu.cc:505
-msgid "Other..."
-msgstr "Jiné…"
+msgid "Other _Application..."
+msgstr "Jiná _aplikace…"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:76 ../src/utils.cc:844
 #, c-format
@@ -1026,11 +1041,6 @@ msgstr "Není zaregistrována žádná výchozí aplikace"
 #: ../src/gnome-cmd-file-props-dialog.cc:350
 msgid "Image:"
 msgstr "Obrázek:"
-
-#: ../src/gnome-cmd-file-props-dialog.cc:377
-#: ../src/gnome-cmd-mkdir-dialog.cc:195
-msgid "Directory name:"
-msgstr "Název složky:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:377
 #: ../src/gnome-cmd-file-selector.cc:1030
@@ -1202,22 +1212,22 @@ msgstr "Nebyl zadán název souboru"
 msgid "New Text File"
 msgstr "Nový textový soubor"
 
-#: ../src/gnome-cmd-file-selector.cc:1171
+#: ../src/gnome-cmd-file-selector.cc:1176
 msgid "Symbolic link name:"
 msgstr "Název symbolického odkazu:"
 
-#: ../src/gnome-cmd-file-selector.cc:1177
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-user-actions.cc:819
+#: ../src/gnome-cmd-file-selector.cc:1182
+#: ../src/gnome-cmd-file-selector.cc:1228 ../src/gnome-cmd-user-actions.cc:819
 msgid "Create Symbolic Link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: ../src/gnome-cmd-file-selector.cc:1223
+#: ../src/gnome-cmd-file-selector.cc:1228
 #: ../src/gnome-cmd-options-dialog.cc:892
 #: ../src/gnome-cmd-options-dialog.cc:912
 msgid "Skip all"
 msgstr "Přeskočit vše"
 
-#: ../src/gnome-cmd-file-selector.cc:1294
+#: ../src/gnome-cmd-file-selector.cc:1299
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -1262,8 +1272,8 @@ msgid "_Text File"
 msgstr "_Textový soubor"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
-msgid "_New..."
-msgstr "_Nový…"
+msgid "_New"
+msgstr "_Nový"
 
 #: ../src/gnome-cmd-list-popmenu.cc:115 ../src/gnome-cmd-main-menu.cc:553
 msgid "_Paste"
@@ -1583,14 +1593,6 @@ msgstr "Kopírovat „%s“ do"
 #: ../src/gnome-cmd-make-copy-dialog.cc:146
 msgid "Copy File"
 msgstr "Kopírovat soubor"
-
-#: ../src/gnome-cmd-mkdir-dialog.cc:96
-msgid "A directory name must be entered"
-msgstr "Musí být zadán název složky"
-
-#: ../src/gnome-cmd-mkdir-dialog.cc:203
-msgid "Make Directory"
-msgstr "Vytvořit složku"
 
 #: ../src/gnome-cmd-options-dialog.cc:85
 msgid "Left mouse button"
@@ -4351,8 +4353,8 @@ msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
-"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu "
-"-99,99 až 99,99."
+"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu -"
+"99,99 až 99,99."
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid "Exposure Index"
@@ -7650,101 +7652,3 @@ msgstr "Nelze číst ze složky %s: %s"
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
 
-#~ msgid "F10 Quit"
-#~ msgstr "F10 Ukončit"
-
-#~ msgid "Quick search using"
-#~ msgstr "Rychlé hledání pomocí"
-
-#~ msgid "path"
-#~ msgstr "cesta"
-
-#~ msgid "Listing failed: %s\n"
-#~ msgstr "Výpis selhal: %s\n"
-
-#~ msgid "Directory options"
-#~ msgstr "Možnosti adresáře"
-
-#~ msgid "Directory cache size"
-#~ msgstr "Velikost cache adresáře"
-
-#~ msgid "running `%s'\n"
-#~ msgstr "spouštím `%s'\n"
-
-#~ msgid ""
-#~ "When parsing the users and groups on this system it was found that the "
-#~ "user %s is part of the group %s. This user can however not be found.\n"
-#~ msgstr ""
-#~ "Při procházení uživatelů a skupin v systému bylo zjištěno, že uživatel %s "
-#~ "je členem skupiny %s. Tento uživatel však nebyl nalezen.\n"
-
-#~ msgid ""
-#~ "No default application found for the MIME type %s.\n"
-#~ "Open the \"File types and programs\" page in the Control Center to add "
-#~ "one."
-#~ msgstr ""
-#~ "Nebyla nalezena výchozí aplikace pro MIME typ %s.\n"
-#~ "Přidejte ji otevřením strany \"Typy souborů a programy\" v Ovládacím "
-#~ "centru."
-
-#~ msgid "Invalid source pattern"
-#~ msgstr "Neplatný vzor zdroje"
-
-#~ msgid "With this:"
-#~ msgstr "S tímto:"
-
-#~ msgid "New Rule"
-#~ msgstr "Nové pravidlo"
-
-#~ msgid "Counter start value:"
-#~ msgstr "Počáteční hodnota počítadla:"
-
-#~ msgid "Counter increment:"
-#~ msgstr "Krok počítadla:"
-
-#~ msgid "Counter minimum digit count:"
-#~ msgstr "Minimální počet číslic počítadla:"
-
-#~ msgid "Template Options"
-#~ msgstr "Možnosti šablony"
-
-#~ msgid "Auto-update when the template is entered"
-#~ msgstr "Automaticky aktualizovat při zadání šablony"
-
-#~ msgid "O_ptions..."
-#~ msgstr "Mož_nosti..."
-
-#~ msgid "With this"
-#~ msgstr "Tímto"
-
-#~ msgid "_Case sensitive"
-#~ msgstr "Rozlišovat velikost _písmen"
-
-#~ msgid "_No Parsing (original file)"
-#~ msgstr "Zobrazit _nezpracovaný (původní soubor)"
-
-#~ msgid "_HTML Parser"
-#~ msgstr "Zpracovat jako _HTML"
-
-#~ msgid "_PS/PDF Parser"
-#~ msgstr "Zpracovat jako _PS/PDF"
-
-#~ msgid "_Show EXIF/IPTC Information"
-#~ msgstr "_Zobrazovat informaci EXIF/IPTC"
-
-#~ msgid "_Decimal Offset in Hexdump"
-#~ msgstr "_Desítkový offset v šestnáctkovém výpisu"
-
-#, fuzzy
-#~ msgid "A textual description of the data"
-#~ msgstr "Doslovný popis dat"
-
-#~ msgid "/Counter (precision)"
-#~ msgstr "/Počítadlo (precizní)"
-
-#~ msgid ""
-#~ "Volume unmounting succeeded.\n"
-#~ "It is safe to eject the media."
-#~ msgstr ""
-#~ "Odpojení se zdařilo.\n"
-#~ "Můžete bezpečně vyjmout médium."
