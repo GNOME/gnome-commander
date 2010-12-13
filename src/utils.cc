@@ -53,17 +53,8 @@ extern struct lconv *locale_information;
 #define STRINGS_TO_URIS_CHUNK 1024
 
 static GdkCursor *cursor_busy = NULL;
-extern gchar *debug_flags;
 static gchar *tmp_file_dir = NULL;
 
-
-gboolean DEBUG_ENABLED (gchar flag)
-{
-    if (debug_flags != NULL)
-       return strchr(debug_flags, flag) != 0;
-
-    return FALSE;
-}
 
 /**
  * The already reserved debug flags:
