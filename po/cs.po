@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-12-12 22:15+0000\n"
-"PO-Revision-Date: 2010-12-05 14:11+0100\n"
+"POT-Creation-Date: 2010-12-13 20:44+0000\n"
+"PO-Revision-Date: 2010-12-15 09:47+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -455,15 +455,15 @@ msgstr "Název profilu"
 msgid "Template"
 msgstr "Šablona"
 
-#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:104
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:91
 msgid "A directory name must be entered"
 msgstr "Musí být zadán název složky"
 
-#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:169
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:156
 msgid "Make Directory"
 msgstr "Vytvořit složku"
 
-#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:205
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:192
 #: ../src/gnome-cmd-file-props-dialog.cc:377
 msgid "Directory name:"
 msgstr "Název složky:"
@@ -885,11 +885,11 @@ msgstr "Odstranit"
 
 #: ../src/gnome-cmd-delete-dialog.cc:287
 #: ../src/gnome-cmd-file-selector.cc:1228 ../src/gnome-cmd-user-actions.cc:819
-#: ../src/utils.cc:528 ../src/utils.cc:556
+#: ../src/utils.cc:507 ../src/utils.cc:535
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/utils.cc:528
+#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/utils.cc:507
 msgid "OK"
 msgstr "OK"
 
@@ -1025,7 +1025,7 @@ msgstr "_Vlastnosti…"
 msgid "Other _Application..."
 msgstr "Jiná _aplikace…"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:76 ../src/utils.cc:844
+#: ../src/gnome-cmd-file-props-dialog.cc:76 ../src/utils.cc:823
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -2258,14 +2258,14 @@ msgstr "Složka „%s“ neexistuje, chcete jej vytvořit?"
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
 #: ../src/gnome-cmd-profile-component.cc:416
 #: ../src/gnome-cmd-profile-component.cc:724
-#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:683
+#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:662
 msgid "No"
 msgstr "Ne"
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
 #: ../src/gnome-cmd-profile-component.cc:416
 #: ../src/gnome-cmd-profile-component.cc:724
-#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:683
+#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:662
 msgid "Yes"
 msgstr "Ano"
 
@@ -2586,18 +2586,18 @@ msgstr "Soubory _neobsahující text"
 
 #: ../src/gnome-cmd-search-dialog.cc:163
 #, c-format
-msgid "Failed to open file %s: %s\n"
-msgstr "Selhalo otevření souboru %s: %s\n"
+msgid "Failed to open file %s: %s"
+msgstr "Selhalo otevření souboru %s: %s"
 
 #: ../src/gnome-cmd-search-dialog.cc:204
 #, c-format
-msgid "Failed to seek in file %s: %s\n"
-msgstr "Selhalo nastavení pozice v souboru %s: %s\n"
+msgid "Failed to seek in file %s: %s"
+msgstr "Selhalo nastavení pozice v souboru %s: %s"
 
 #: ../src/gnome-cmd-search-dialog.cc:211
 #, c-format
-msgid "Failed to read from file %s: %s\n"
-msgstr "Selhalo čtení ze souboru %s: %s\n"
+msgid "Failed to read from file %s: %s"
+msgstr "Selhalo čtení ze souboru %s: %s"
 
 #: ../src/gnome-cmd-search-dialog.cc:272
 #, c-format
@@ -3127,32 +3127,26 @@ msgid "%.0f%% copied"
 msgstr "%.0f%% zkopírováno"
 
 #: ../src/imageloader.cc:110
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
-msgstr ""
-"Nelze načíst nainstalovaný soubor typu pixelová mapa, zkouší se načíst ze "
-"zdrojové složky\n"
-
-#: ../src/imageloader.cc:111 ../src/imageloader.cc:137
 #, c-format
-msgid "Trying to load %s instead\n"
-msgstr "Místo toho se zkouší načíst %s\n"
+msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+msgstr ""
+"Nelze načíst nainstalovaný soubor typu pixelová mapa, místo něj se zkouší "
+"načíst %s"
 
-#: ../src/imageloader.cc:115 ../src/imageloader.cc:140
+#: ../src/imageloader.cc:114 ../src/imageloader.cc:138
 #, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-%s/src directory\n"
+"is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Nikde nelze najít pixelové mapy. Zkontrolujte, zda jste program "
-"nainstalovali a že spouštíte gnome-commander ze složky gnome-commander-%s/"
-"src\n"
+"nainstalovali a že spouštíte gnome-commander ze složky gnome-commander-%s/src"
 
-#: ../src/imageloader.cc:136
-msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+#: ../src/imageloader.cc:135
+#, c-format
+msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
-"Nelze načíst nainstalovanou pixelovou mapu, zkouší se načíst ze zdrojové "
-"složky\n"
+"Nelze načíst nainstalovanou pixelovou mapu, místo ní se zkouší načíst %s"
 
 #: ../src/intviewer/search-dlg.cc:244
 msgid "Find"
@@ -7572,12 +7566,12 @@ msgstr "Žádné"
 msgid "10-15ms"
 msgstr "10 – 15 ms"
 
-#: ../src/utils.cc:445
+#: ../src/utils.cc:424
 #, c-format
 msgid "No default application found for the MIME type %s."
 msgstr "Pro typ MIME %s nebyla nalezena výchozí aplikace."
 
-#: ../src/utils.cc:525
+#: ../src/utils.cc:504
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -7586,11 +7580,11 @@ msgstr ""
 "„%s“ vypadá jako binární spustitelný soubor, ale nemá nastaven příznak "
 "spustitelnosti. Chcete jej nastavit a pak soubor spustit?"
 
-#: ../src/utils.cc:527
+#: ../src/utils.cc:506
 msgid "Make Executable?"
 msgstr "Nastavit jako spustitelný?"
 
-#: ../src/utils.cc:554
+#: ../src/utils.cc:533
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -7599,19 +7593,19 @@ msgstr ""
 "„%s“ je spustitelný textový soubor. Chcete jej spustit nebo zobrazit jeho "
 "obsah?"
 
-#: ../src/utils.cc:555
+#: ../src/utils.cc:534
 msgid "Run or Display"
 msgstr "Spustit nebo zobrazit"
 
-#: ../src/utils.cc:556
+#: ../src/utils.cc:535
 msgid "Display"
 msgstr "Zobrazit"
 
-#: ../src/utils.cc:556
+#: ../src/utils.cc:535
 msgid "Run"
 msgstr "Spustit"
 
-#: ../src/utils.cc:599 ../src/utils.cc:680
+#: ../src/utils.cc:578 ../src/utils.cc:659
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -7629,26 +7623,26 @@ msgstr[2] ""
 "Aplikace %s neumí otevřít vzdálené soubory. Chcete soubor stáhnout do složky "
 "pro dočasné soubory a poté jej otevřít?"
 
-#: ../src/utils.cc:1035
+#: ../src/utils.cc:1014
 msgid "Failed to create a directory in which to store temporary files"
 msgstr "Selhalo vytvoření složky, do které se ukládají dočasné soubory"
 
-#: ../src/utils.cc:1231
+#: ../src/utils.cc:1210
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Vytváří se složka %s… "
 
-#: ../src/utils.cc:1234
+#: ../src/utils.cc:1213
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Selhalo vytvoření složky %s"
 
-#: ../src/utils.cc:1240
+#: ../src/utils.cc:1219
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Nelze číst ze složky %s: %s"
 
-#: ../src/utils.h:280
+#: ../src/utils.h:285
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
 
