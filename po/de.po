@@ -3126,8 +3126,8 @@ msgstr "%.0f%% kopiert"
 #, c-format
 msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgstr ""
-"Die Grafik zum Dateityp konnte nicht geladen werden, Laden aus dem "
-"Quellordner wird versucht"
+"Die Grafik zum Dateityp konnte nicht geladen werden, Laden von "
+"%s wird versucht"
 
 #: ../src/imageloader.cc:114 ../src/imageloader.cc:138
 #, c-format
@@ -3143,7 +3143,7 @@ msgstr ""
 #, c-format
 msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
-"Die Grafik konnte nicht geladen werden, Laden aus dem Quellordner wird "
+"Die Grafik konnte nicht geladen werden, Laden von %s wird "
 "versucht"
 
 #: ../src/intviewer/search-dlg.cc:244
