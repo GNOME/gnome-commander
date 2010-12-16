@@ -1182,10 +1182,9 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 {
     int argc = 1;
-    char **argv = g_new (char *, argc+1);
+    char **argv = g_new0 (char *, argc+1);
 
     argv[0] = gnome_util_user_shell ();
-    argv[1] = NULL;
 
     gnome_prepend_terminal_to_vector (&argc, &argv);
 
