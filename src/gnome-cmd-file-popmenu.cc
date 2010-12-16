@@ -457,7 +457,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
         GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GNOME_STOCK_MAIL_SND),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open this _folder"), NULL, command_open_nautilus, PACKAGE_NAME G_DIR_SEPARATOR_S "nautilus.svg"),
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GTK_STOCK_PROPERTIES),
         GNOMEUIINFO_END

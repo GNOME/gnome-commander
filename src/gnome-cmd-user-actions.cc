@@ -1169,6 +1169,19 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 }
 
 
+void command_open_terminal__internal (GtkMenuItem *menuitem, gpointer not_used)           // this function is NOT exposed to user as UserAction
+{
+    GdkModifierType mask;
+
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+
+    if (mask & GDK_SHIFT_MASK)
+        command_open_terminal_as_root (menuitem, NULL);
+    else
+        command_open_terminal (menuitem, NULL);
+}
+
+
 void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
     gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
@@ -1247,7 +1260,7 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
     char **argv = g_new0 (char *, argc+1);
 
     argv[0] = g_strdup (g_get_prgname ());
-    
+
     if (gnome_cmd_prepend_su_to_vector (argc, argv))
     {
         GError *error = NULL;

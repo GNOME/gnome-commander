@@ -1171,7 +1171,7 @@ void GnomeCmdMainWin::update_toolbar_visibility()
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Send files"), file_sendto, GNOME_STOCK_MAIL_SND),
-        GNOMEUIINFO_ITEM_FILENAME(NULL, _("Open terminal"), command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_ITEM_FILENAME(NULL, _("Open terminal (SHIFT for root privileges)"), command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Remote Server"), connections_open, GTK_STOCK_CONNECT),
         GNOMEUIINFO_ITEM_NONE(NULL, _("Drop connection"), connections_close_current),
