@@ -259,6 +259,8 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
+gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv);
+
 inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
 {
     GtkWidget *dlg = gtk_message_dialog_new (parent,
