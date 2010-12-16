@@ -35,6 +35,7 @@ gnome-commander 1.2.8.10
 
 Bug fixes:
  * Fixed problem #448941 (numeric keypad arrows don't work in the main window)
+ * Updated translations: de
 
 
 ===================================
