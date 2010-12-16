@@ -1346,7 +1346,7 @@ void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
     {
         glong text_len = g_utf8_strlen (text, -1);
 
-        s = strrchr(text,'.');                                      // '.' is ASCII, g_utf8_strrchr() is not needed here
+        s = strrchr(s ? s : text,'.');                                      // '.' is ASCII, g_utf8_strrchr() is not needed here
         glong ext = s ? g_utf8_pointer_to_offset (text, s) : -1;
 
         if (beg==0 && end==text_len)
