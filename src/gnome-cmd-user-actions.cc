@@ -1229,7 +1229,7 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
    if ((su = g_find_program_in_path ("kdesu")))
        goto without_c_param;
 
-   gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
+   gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
    return;
 
  with_c_param:
