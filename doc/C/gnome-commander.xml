@@ -6070,6 +6070,9 @@
                         <listitem>
                             <para>Fixed problem #448941 (numeric keypad arrows don't work in the main window)</para>
                         </listitem>
+                        <listitem>
+                            <para>Updated translations: de</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
