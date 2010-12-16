@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <gtk/gtkclipboard.h>
+#include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-url.h>
 #include <set>
 #include <algorithm>
@@ -143,6 +144,7 @@ static UserActionData user_actions_data[] = {
                                              {command_execute, "command.execute", N_("Execute command")},
                                              {command_open_nautilus, "command.open_folder", N_("Open folder")},
                                              {command_open_terminal, "command.open_terminal", N_("Open terminal")},
+                                             {command_open_terminal_as_root, "command.open_terminal_as_root", N_("Open terminal as root")},
                                              {command_root_mode, "command.root_mode", N_("Start GNOME Commander as root")},
                                              {connections_close_current, "connections.close", N_("Close connection")},
                                              {connections_new, "connections.new", N_("New connection")},
@@ -1174,6 +1176,33 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
     if (gnome_execute_terminal_shell (dpath, NULL) == -1)
         gnome_cmd_show_message (NULL, _("Unable to open terminal"), g_strerror (errno));
     g_free (dpath);
+}
+
+
+void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
+{
+    int argc = 1;
+    char **argv = g_new (char *, argc+1);
+
+    argv[0] = gnome_util_user_shell ();
+    argv[1] = NULL;
+
+    gnome_prepend_terminal_to_vector (&argc, &argv);
+
+    if (gnome_cmd_prepend_su_to_vector (argc, argv))
+    {
+        gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
+        GError *error = NULL;
+
+        if (!g_spawn_async (dpath, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
+            gnome_cmd_error_message (_("Unable to open terminal in root mode"), error);
+
+        g_free (dpath);
+    }
+    else
+        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
+
+    g_strfreev (argv);
 }
 
 

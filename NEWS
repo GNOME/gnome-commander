@@ -16,6 +16,7 @@ New features:
  * One instance mode
  * User defined LS_COLORS colours
  * Enhanced file name matching in quick search
+ * Open terminal with administrator privileges
  * --config-dir command line option for customized location of config files
  * New or updated docs: de, en, es, fr, sl
  * New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN
