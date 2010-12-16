@@ -544,8 +544,7 @@ static void on_realize (GtkCList *clist, gpointer data)
             GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
 
     if (GTK_CLIST (clist)->hadjustment)
-        gtk_signal_connect_after (GTK_OBJECT(GTK_CLIST(clist)->hadjustment), "value-changed",
-            GTK_SIGNAL_FUNC (on_hadj_value_changed), clist);
+        g_signal_connect_after (GTK_CLIST(clist)->hadjustment, "value-changed", GTK_SIGNAL_FUNC (on_hadj_value_changed), clist);
 }
 
 
@@ -589,10 +588,10 @@ static void init (GnomeCmdCList *clist)
     clist->drag_motion_row = -1;
 
     gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_SINGLE);
-    
+
     GTK_CLIST (clist)->focus_row = 0;
 
-    gtk_signal_connect_after (GTK_OBJECT (clist), "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
+    g_signal_connect_after (clist, "scroll-vertical", G_CALLBACK (on_scroll_vertical), NULL);
     g_signal_connect (clist, "realize", G_CALLBACK (on_realize), NULL);
 }
 

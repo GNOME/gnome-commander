@@ -279,10 +279,8 @@ static void init (GnomeCmdQuicksearchPopup *popup)
     gtk_container_add (GTK_CONTAINER (popup), popup->frame);
 
     g_signal_connect (popup->entry, "key-press-event", G_CALLBACK (on_key_pressed), popup);
-    gtk_signal_connect_after (GTK_OBJECT (popup->entry), "key-press-event",
-                              GTK_SIGNAL_FUNC (on_key_pressed_after), popup);
-    gtk_signal_connect_after (GTK_OBJECT (popup->entry), "changed",
-                              GTK_SIGNAL_FUNC (on_text_changed), popup);
+    g_signal_connect_after (popup->entry, "key-press-event", G_CALLBACK (on_key_pressed_after), popup);
+    g_signal_connect_after (popup->entry, "changed", G_CALLBACK (on_text_changed), popup);
     g_signal_connect (popup->entry, "button-press-event", G_CALLBACK (on_button_press), popup);
 
     gtk_widget_show (popup->lbl);
