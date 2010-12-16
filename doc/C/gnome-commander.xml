@@ -482,6 +482,9 @@
                 <para>Possible flags:</para>
                 <itemizedlist>
                   <listitem>
+                    <para><guilabel>a</guilabel> set all debug flags</para>
+                  </listitem>
+                  <listitem>
                     <para><guilabel>c</guilabel> file and directory counting</para>
                   </listitem>
                   <listitem>

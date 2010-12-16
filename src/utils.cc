@@ -60,6 +60,7 @@ static gchar *tmp_file_dir = NULL;
 /**
  * The already reserved debug flags:
  * --------------------------------
+ * a: set all debug flags
  * c: file and directory counting
  * d: directory ref-counting
  * f: file ref-counting
