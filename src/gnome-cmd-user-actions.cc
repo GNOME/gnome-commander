@@ -1243,43 +1243,22 @@ void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
 
 void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 {
-   char *su = NULL;
-   gboolean need_c = FALSE;
+    int argc = 1;
+    char **argv = g_new0 (char *, argc+1);
 
-   if ((su = g_find_program_in_path ("xdg-su")))
-       goto with_c_param;
-   if ((su = g_find_program_in_path ("gksu")))
-       goto without_c_param;
-   if ((su = g_find_program_in_path ("gnomesu")))
-       goto with_c_param;
-   if ((su = g_find_program_in_path ("beesu")))
-       goto without_c_param;
-   if ((su = g_find_program_in_path ("kdesu")))
-       goto without_c_param;
+    argv[0] = g_strdup (g_get_prgname ());
+    
+    if (gnome_cmd_prepend_su_to_vector (argc, argv))
+    {
+        GError *error = NULL;
 
-   gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
-   return;
+        if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
+            gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
+    }
+    else
+        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
 
- with_c_param:
-   need_c = TRUE;
-
- without_c_param:
-
-   char *argv[4];
-   int i = 0;
-
-   argv[i++] = su;
-   argv[i++] = g_get_prgname ();
-   if (need_c)
-       argv[i++] = "-c";
-   argv[i++] = NULL;
-
-    GError *error = NULL;
-
-    if (!g_spawn_async (NULL, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
-        gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
-
-    g_free (su);
+    g_strfreev (argv);
 }
 
 
