@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
 "POT-Creation-Date: 2010-12-16 23:02+0000\n"
-"PO-Revision-Date: 2010-12-17 20:14+0100\n"
+"PO-Revision-Date: 2010-12-17 20:19+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -3155,7 +3155,7 @@ msgstr "Ni mogoče naložiti nameščene sličice vrste datotek, zato bo nalože
 #: ../src/imageloader.cc:138
 #, c-format
 msgid "Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory"
-msgstr "Ni mogoče najti sličice. Prepričajte se, da je program naložen in da je program zagnan iz mape  gnome-commander-%s/src.\n"
+msgstr "Ni mogoče najti sličice. Prepričajte se, da je program naložen in da je program zagnan iz mape  gnome-commander-%s/src."
 
 #: ../src/imageloader.cc:135
 #, c-format
