@@ -20,6 +20,13 @@ gnome_commander_SOURCES = \
 	dirlist.h dirlist.cc \
 	eggcellrendererkeys.h eggcellrendererkeys.cc \
 	filter.h filter.cc \
+	foldview/gnome-cmd-foldview.h \
+	foldview/gnome-cmd-foldview-control.cc \
+	foldview/gnome-cmd-foldview-gvfs.h gnome-cmd-foldview-gvfs.cc \
+	foldview/gnome-cmd-foldview-model.cc \
+	foldview/gnome-cmd-foldview-private.h  gnome-cmd-foldview.cc \
+	foldview/gnome-cmd-foldview-treestore.h gnome-cmd-foldview-treestore.cc \
+	foldview/gnome-cmd-foldview-view.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \
 	gnome-cmd-advrename-lexer.h gnome-cmd-advrename-lexer.ll \
 	gnome-cmd-app.h gnome-cmd-app.cc \
@@ -48,13 +55,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-file-props-dialog.h gnome-cmd-file-props-dialog.cc \
 	gnome-cmd-file-selector.h gnome-cmd-file-selector.cc \
 	gnome-cmd-file.h gnome-cmd-file.cc \
-	gnome-cmd-foldview.h \
-	gnome-cmd-foldview-control.cc \
-	gnome-cmd-foldview-gvfs.h gnome-cmd-foldview-gvfs.cc \
-	gnome-cmd-foldview-model.cc \
-	gnome-cmd-foldview-private.h  gnome-cmd-foldview.cc \
-	gnome-cmd-foldview-treestore.h gnome-cmd-foldview-treestore.cc \
-	gnome-cmd-foldview-view.cc \
 	gnome-cmd-hintbox.h gnome-cmd-hintbox.cc \
 	gnome-cmd-includes.h \
 	gnome-cmd-list-popmenu.h gnome-cmd-list-popmenu.cc \

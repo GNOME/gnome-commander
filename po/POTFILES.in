@@ -16,6 +16,8 @@ src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.cc
 src/dirlist.cc
 src/eggcellrendererkeys.cc
+src/foldview/gnome-cmd-foldview-control.cc
+src/foldview/gnome-cmd-foldview-view.cc
 src/gnome-cmd-about-plugin.cc
 src/gnome-cmd-chmod-component.cc
 src/gnome-cmd-chmod-dialog.cc
@@ -36,8 +38,6 @@ src/gnome-cmd-file-popmenu.cc
 src/gnome-cmd-file-props-dialog.cc
 src/gnome-cmd-file-selector.cc
 src/gnome-cmd-file.cc
-src/gnome-cmd-foldview-control.cc
-src/gnome-cmd-foldview-view.cc
 src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc
