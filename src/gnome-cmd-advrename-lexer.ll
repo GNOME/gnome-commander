@@ -221,7 +221,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-\$T\({tag_name}(\.[a-zA-Z][a-zA-Z0-9]+)+(,[^,)]+)*\)   {
+\$T\({tag_name}(\.[a-zA-Z][a-zA-Z0-9_]+)+(,[^,)]+)*\)   {
 
                                   gchar **a = g_strsplit_set(yytext+3,",()",0);
                                   guint n = g_strv_length(a);                     // glib >= 2.6
