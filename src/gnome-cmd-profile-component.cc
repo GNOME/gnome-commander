@@ -438,6 +438,8 @@ inline GtkWidget *GnomeCmdProfileComponent::Private::create_placeholder_menu(int
 
         case METATAG_MENU:
             {
+                const int BUFF_SIZE = 2048;
+                gchar *s = (gchar *) g_malloc0 (BUFF_SIZE);
                 GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
                 g_return_val_if_fail (items!=NULL, NULL);
@@ -455,11 +457,18 @@ inline GtkWidget *GnomeCmdProfileComponent::Private::create_placeholder_menu(int
                     }
                     else
                     {
-                        p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(tag), gcmd_tags_get_title(tag));
+                        strncpy (s, gcmd_tags_get_title (tag), BUFF_SIZE-1);
+
+                        for (gchar *i=s; *i; ++i)
+                            if (*i=='/')  *i = ' ';
+
+                        p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(tag), s);
                         p->callback = (GtkItemFactoryCallback) insert_num_tag;
                         p->callback_action = tag;
                     }
                 }
+
+                g_free (s);
 
                 GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
 
