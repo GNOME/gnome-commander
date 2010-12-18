@@ -135,12 +135,12 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
     for (; files; files = files->next)
     {
         cmd += ' ';
-        cmd += stringify (gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (files->data)));
+        cmd += stringify (GNOME_CMD_FILE (files->data)->get_quoted_real_path());
     }
 
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     GnomeCmdDir *dir = fs->get_directory();
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+    gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
     run_command_indir (cmd.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
     g_free (dpath);
 
@@ -400,7 +400,7 @@ inline gchar *get_default_application_action_name (GList *files)
         return g_strdup(_("_Open"));
 
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+    gchar *uri_str = f->get_uri_str();
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
 
     g_free (uri_str);
@@ -432,7 +432,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     static GnomeUIInfo open_uiinfo[] =
     {
         GNOMEUIINFO_ITEM_NONE(N_("_Open"), NULL, cb_exec_default),
-        GNOMEUIINFO_SUBTREE(N_("Open With..."), apps_uiinfo),
+        GNOMEUIINFO_SUBTREE(N_("Open Wit_h"), apps_uiinfo),
         GNOMEUIINFO_END
     };
 
@@ -457,7 +457,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
         GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GNOME_STOCK_MAIL_SND),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open this _folder"), NULL, command_open_nautilus, PACKAGE_NAME G_DIR_SEPARATOR_S "nautilus.svg"),
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GTK_STOCK_PROPERTIES),
         GNOMEUIINFO_END
@@ -472,7 +472,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
 
-    // Fill the "Open with..." menu with applications
+    // Fill the "Open With" menu with applications
     gint i = -1;
     menu->priv->data_list = NULL;
 
@@ -502,7 +502,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Add open with other
     apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
-    apps_uiinfo[i].label = g_strdup (_("Other..."));
+    apps_uiinfo[i].label = g_strdup (_("Other _Application..."));
     apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
 

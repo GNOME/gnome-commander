@@ -134,7 +134,6 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                 dialog->user_actions->unregister(GDK_F7);
                 dialog->user_actions->unregister(GDK_F8);
                 dialog->user_actions->unregister(GDK_F9);
-                dialog->user_actions->unregister(GDK_F10);
 
                 dialog->user_actions->register_action(GDK_F3, "file.view");
                 dialog->user_actions->register_action(GDK_F4, "file.edit");
@@ -143,7 +142,6 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
                 dialog->user_actions->register_action(GDK_F7, "file.mkdir");
                 dialog->user_actions->register_action(GDK_F8, "file.delete");
                 dialog->user_actions->register_action(GDK_F9, "edit.search");
-                dialog->user_actions->register_action(GDK_F10, "file.exit");
             }
 
             break;
@@ -544,7 +542,7 @@ inline void set_accel (GtkTreeModel *model, GtkTreePath *path, guint accel_key, 
 
 static void accel_edited_callback (GtkCellRendererAccel *accel, const char *path_string, guint accel_key, GdkModifierType accel_mask, guint hardware_keycode, GtkWidget *view)
 {
-    DEBUG('a', "Key event:  %s (%#x)\n", key2str(accel_mask,accel_key).c_str(), accel_key);
+    DEBUG('u', "Key event:  %s (%#x)\n", key2str(accel_mask,accel_key).c_str(), accel_key);
 
     if (!accel_key)
         gnome_cmd_show_message (NULL, _("Invalid shortcut."));

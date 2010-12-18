@@ -54,22 +54,13 @@ extern struct lconv *locale_information;
 #define STRINGS_TO_URIS_CHUNK 1024
 
 static GdkCursor *cursor_busy = NULL;
-extern gchar *debug_flags;
 static gchar *tmp_file_dir = NULL;
 
-
-gboolean DEBUG_ENABLED (gchar flag)
-{
-    if (debug_flags != NULL)
-       return strchr(debug_flags, flag) != 0;
-
-    return FALSE;
-}
 
 /**
  * The already reserved debug flags:
  * --------------------------------
- * a: user actions debugging
+ * a: set all debug flags
  * c: file and directory counting
  * d: directory ref-counting
  * f: file ref-counting
@@ -82,6 +73,7 @@ gboolean DEBUG_ENABLED (gchar flag)
  * p: python plugins
  * s: smb network browser
  * t: metadata tags
+ * u: user actions debugging
  * v: internal viewer
  * w: widget_lookup
  * y: brief mime-based imageload
@@ -99,18 +91,6 @@ void DEBUG (gchar flag, const gchar *format, ...)
         vfprintf(stderr, format, ap);
         va_end(ap);
     }
-}
-
-
-void warn_print (const gchar *fmt, ...)
-{
-    va_list     argptr;
-    char        string[1024];
-
-    va_start (argptr,fmt);
-    vsnprintf (string,sizeof(string),fmt,argptr);
-    va_end (argptr);
-    g_printerr ("WARNING: %s", string);
 }
 
 
@@ -473,7 +453,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 {
     if (id == GTK_RESPONSE_YES)
     {
-        gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (dldata->f));
+        gchar *path_str = get_temp_download_filepath (dldata->f->get_name());
 
         if (!path_str) return;
 
@@ -519,7 +499,7 @@ void mime_exec_single (GnomeCmdFile *f)
 
     if (!f->is_executable())
     {
-        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
+        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
         {
             gchar *fname = get_utf8 (f->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
@@ -542,13 +522,13 @@ void mime_exec_single (GnomeCmdFile *f)
 
     if (f->is_executable())
     {
-        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
+        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
         {
             f->execute();
             return;
         }
         else
-            if (gnome_cmd_file_mime_begins_with (f, "text/"))
+            if (f->mime_begins_with("text/"))
             {
                 gchar *fname = get_utf8 (f->info->name);
                 gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
@@ -581,7 +561,7 @@ void mime_exec_single (GnomeCmdFile *f)
     if (f->is_local())
     {
         args[0] = (gpointer) app;
-        args[1] = (gpointer) g_strdup (gnome_cmd_file_get_real_path (f));
+        args[1] = (gpointer) f->get_real_path();
         args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
         do_mime_exec_single (args);
     }
@@ -590,7 +570,7 @@ void mime_exec_single (GnomeCmdFile *f)
         if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
         {
             args[0] = (gpointer) app;
-            args[1] = (gpointer) g_strdup (gnome_cmd_file_get_uri_str (f));
+            args[1] = (gpointer) f->get_uri_str();
             // args[2] is NULL here (don't set exec dir for remote files)
             do_mime_exec_single (args);
         }
@@ -665,13 +645,13 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
         if (gnome_vfs_uri_is_local (f->get_uri()))
-            local_files = g_list_append (local_files, g_strdup (gnome_cmd_file_get_real_path (f)));
+            local_files = g_list_append (local_files, f->get_real_path());
         else
         {
             ++no_of_remote_files;
             if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
             {
-                local_files = g_list_append (local_files,  g_strdup (gnome_cmd_file_get_uri_str (f)));
+                local_files = g_list_append (local_files,  f->get_uri_str());
             }
             else
             {
@@ -686,7 +666,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
                 if (retid==1)
                 {
-                    gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (f));
+                    gchar *path_str = get_temp_download_filepath (f->get_name());
 
                     if (!path_str) return;
 
@@ -965,7 +945,7 @@ GList *app_get_linked_libs (GnomeCmdFile *f)
     gchar *s;
     gchar tmp[256];
 
-    gchar *arg = g_shell_quote (gnome_cmd_file_get_real_path (f));
+    gchar *arg = g_shell_quote (f->get_real_path());
     gchar *cmd = g_strdup_printf ("ldd %s", arg);
     g_free (arg);
     FILE *fd = popen (cmd, "r");
@@ -1350,7 +1330,7 @@ void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
     {
         glong text_len = g_utf8_strlen (text, -1);
 
-        s = strrchr(text,'.');                                      // '.' is ASCII, g_utf8_strrchr() is not needed here
+        s = strrchr(s ? s : text,'.');                                      // '.' is ASCII, g_utf8_strrchr() is not needed here
         glong ext = s ? g_utf8_pointer_to_offset (text, s) : -1;
 
         if (beg==0 && end==text_len)
@@ -1371,6 +1351,60 @@ void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
     }
 
     gtk_editable_select_region (GTK_EDITABLE (entry), beg, end);
+}
+
+
+gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
+{
+    // sanity
+    if(!argv)
+        argc = 0;
+
+    char *su = NULL;
+    gboolean need_c = FALSE;
+
+    if ((su = g_find_program_in_path ("xdg-su")))
+       goto with_c_param;
+    if ((su = g_find_program_in_path ("gksu")))
+       goto without_c_param;
+    if ((su = g_find_program_in_path ("gnomesu")))
+       goto with_c_param;
+    if ((su = g_find_program_in_path ("beesu")))
+       goto without_c_param;
+    if ((su = g_find_program_in_path ("kdesu")))
+       goto without_c_param;
+
+    return FALSE;
+
+ with_c_param:
+
+   need_c = TRUE;
+
+ without_c_param:
+
+    char **su_argv = g_new0 (char *, 3);
+    int su_argc = 0;
+
+    su_argv[su_argc++] = su;
+    if (need_c)
+        su_argv[su_argc++] = g_strdup("-c");
+
+    // compute size if not given
+    if (argc < 0)
+        for (argc=0; argv[argc]; ++argc);
+
+    int real_argc = su_argc + argc;
+    char **real_argv = g_new0 (char *, real_argc+1);
+
+    g_memmove (real_argv, su_argv, su_argc*sizeof(char *));
+    g_memmove (real_argv+su_argc, argv, argc*sizeof(char *));
+
+    g_free (argv);
+
+    argv = real_argv;
+    argc = real_argc;
+
+    return TRUE;
 }
 
 

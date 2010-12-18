@@ -436,7 +436,7 @@ void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo)
 
     if (!finfo->is_local())  return;
 
-    const gchar *fname = gnome_cmd_file_get_real_path (finfo);
+    const gchar *fname = finfo->get_real_path();
 
     DEBUG('t', "Loading audio metadata for '%s'\n", fname);
 

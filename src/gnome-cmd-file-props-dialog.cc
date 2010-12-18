@@ -148,7 +148,7 @@ static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
     if (data->thread)
         g_thread_join (data->thread);
 
-    gnome_cmd_file_unref (data->f);
+    data->f->unref();
     g_free (data);
 
     return FALSE;
@@ -218,7 +218,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     const gchar *filename = gtk_entry_get_text (GTK_ENTRY (data->filename_entry));
 
-    if (strcmp (filename, gnome_cmd_file_get_name (data->f)) != 0)
+    if (strcmp (filename, data->f->get_name()) != 0)
     {
         result = data->f->rename(filename);
 
@@ -377,7 +377,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, GNOME_CMD_IS_DIR (data->f) ? _("Directory name:") : _("File name:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    fname = get_utf8 (gnome_cmd_file_get_name (data->f));
+    fname = get_utf8 (data->f->get_name());
     data->filename_entry = create_entry (dialog, "filename_entry", fname);
     g_free (fname);
     table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
@@ -396,9 +396,9 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     if (data->f->is_local())
     {
-        GnomeCmdDir *dir = gnome_cmd_file_get_parent_dir (data->f);
+        GnomeCmdDir *dir = data->f->get_parent_dir();
         GnomeCmdCon *con = dir ? gnome_cmd_dir_get_connection (dir) : NULL;
-        gchar *location = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+        gchar *location = GNOME_CMD_FILE (dir)->get_real_path();
 
         label = create_bold_label (dialog, _("Location:"));
         table_add (table, label, 0, y, GTK_FILL);
@@ -453,14 +453,14 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mime_type_desc (data->f));
+    label = create_label (dialog, data->f->get_mime_type_desc());
     table_add (table, label, 1, y++, GTK_FILL);
 
 
     label = create_bold_label (dialog, _("MIME Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mime_type (data->f));
+    label = create_label (dialog, data->f->get_mime_type());
     table_add (table, label, 1, y++, GTK_FILL);
 
 
@@ -493,13 +493,13 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Modified:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mdate (data->f, TRUE));
+    label = create_label (dialog, data->f->get_mdate(TRUE));
     table_add (table, label, 1, y++, GTK_FILL);
 
     label = create_bold_label (dialog, _("Accessed:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_adate (data->f, TRUE));
+    label = create_label (dialog, data->f->get_adate(TRUE));
     table_add (table, label, 1, y++, GTK_FILL);
 
 
@@ -727,7 +727,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->mutex = g_mutex_new ();
     data->msg = NULL;
     data->notebook = notebook;
-    gnome_cmd_file_ref (f);
+    f->ref();
 
     g_object_ref (notebook);
     g_object_set_data_full (G_OBJECT (dialog), "notebook", notebook, g_object_unref);

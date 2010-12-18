@@ -113,7 +113,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         {
             // There exists a directory, copy into it using the original filename
             dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
-            dest_fn = g_strdup (gnome_cmd_file_get_name (f));
+            dest_fn = g_strdup (f->get_name());
         }
         else
             if (res == GNOME_VFS_OK)
@@ -217,9 +217,9 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         goto bailout;
 
     if (g_list_length (dialog->src_files) == 1)
-        DEBUG ('x', "Starting xfer the file '%s' to '%s'\n", dest_fn, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
+        DEBUG ('x', "Starting xfer the file '%s' to '%s'\n", dest_fn, GNOME_CMD_FILE (dest_dir)->get_real_path());
     else
-        DEBUG ('x', "Starting xfer %d files to '%s'\n", g_list_length (dialog->src_files), gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
+        DEBUG ('x', "Starting xfer %d files to '%s'\n", g_list_length (dialog->src_files), GNOME_CMD_FILE (dest_dir)->get_real_path());
 
 
     gnome_cmd_dir_ref (dest_dir);
@@ -405,7 +405,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
         {
             GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
 
-            gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+            gchar *t = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
             gchar *path = get_utf8 (t);
             gchar *fname = get_utf8 (f->info->name);
             g_free (t);
@@ -422,7 +422,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
         }
         else
         {
-            gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+            gchar *t = GNOME_CMD_FILE (dialog->default_dest_dir)->get_real_path();
             dest_str = get_utf8 (t);
             g_free (t);
         }

@@ -465,7 +465,7 @@ void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
     if (!con->priv->all_dirs_map)
         con->priv->all_dirs_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -480,7 +480,7 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+    gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
     DEBUG ('k', "REMOVING 0x%p %s from the cache\n", dir, uri_str);
     g_hash_table_remove (con->priv->all_dirs_map, uri_str);

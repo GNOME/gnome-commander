@@ -165,7 +165,7 @@ inline void save_connections (const gchar *fname)
         fclose (fd);
     }
     else
-        warn_print ("Failed to open the file %s for writing\n", path);
+        g_warning ("Failed to open the file %s for writing", path);
 
     g_free (path);
 }
@@ -210,7 +210,7 @@ inline void save_devices (const gchar *fname)
         fclose (fd);
     }
     else
-        warn_print ("Failed to open the file %s for writing\n", path);
+        g_warning ("Failed to open the file %s for writing", path);
 
     g_free (path);
 }
@@ -252,7 +252,7 @@ inline void save_fav_apps (const gchar *fname)
         fclose (fd);
     }
     else
-        warn_print ("Failed to open the file %s for writing\n", path);
+        g_warning ("Failed to open the file %s for writing", path);
 
     g_free (path);
 }
@@ -344,7 +344,7 @@ inline gboolean load_connections (const gchar *fname)
     }
     else
         if (errno != ENOENT)
-            warn_print ("Failed to open the file %s for reading\n", path);
+            g_warning ("Failed to open the file %s for reading", path);
 
     g_free (path);
 
@@ -643,7 +643,7 @@ inline void load_devices (const gchar *fname)
     }
     else
         if (errno != ENOENT)
-            warn_print ("Failed to open the file %s for reading\n", path);
+            g_warning ("Failed to open the file %s for reading", path);
 
     load_vfs_auto_devices ();
 
@@ -903,6 +903,7 @@ GnomeCmdData::GnomeCmdData()
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     left_mouse_button_mode = LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
     left_mouse_button_unselects = TRUE;
+    middle_mouse_button_mode = MIDDLE_BUTTON_GOES_UP_DIR;
     right_mouse_button_mode = RIGHT_BUTTON_POPUPS_MENU;
     color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
     size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
@@ -1154,6 +1155,7 @@ void GnomeCmdData::load()
     ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
     left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
+    middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
     right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
     icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
@@ -1574,6 +1576,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", left_mouse_button_mode);
     gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", left_mouse_button_unselects);
+    gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", middle_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);

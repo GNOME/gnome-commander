@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <gtk/gtkclipboard.h>
+#include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-url.h>
 #include <set>
 #include <algorithm>
@@ -35,7 +36,6 @@
 #include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-mkdir-dialog.h"
 #include "gnome-cmd-options-dialog.h"
 #include "gnome-cmd-make-copy-dialog.h"
 #include "gnome-cmd-prepare-copy-dialog.h"
@@ -51,6 +51,7 @@
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
+#include "dialogs/gnome-cmd-mkdir-dialog.h"
 
 using namespace std;
 
@@ -95,7 +96,7 @@ inline gboolean append_real_path (string &s, GnomeCmdFile *f)
     if (!f)
         return FALSE;
 
-    gchar *name = g_shell_quote (gnome_cmd_file_get_real_path (f));
+    gchar *name = g_shell_quote (f->get_real_path());
 
     append_real_path (s, name);
 
@@ -143,6 +144,7 @@ static UserActionData user_actions_data[] = {
                                              {command_execute, "command.execute", N_("Execute command")},
                                              {command_open_nautilus, "command.open_folder", N_("Open folder")},
                                              {command_open_terminal, "command.open_terminal", N_("Open terminal")},
+                                             {command_open_terminal_as_root, "command.open_terminal_as_root", N_("Open terminal as root")},
                                              {command_root_mode, "command.root_mode", N_("Start GNOME Commander as root")},
                                              {connections_close_current, "connections.close", N_("Close connection")},
                                              {connections_new, "connections.new", N_("New connection")},
@@ -238,7 +240,6 @@ void GnomeCmdUserActions::init()
     register_action(GDK_F7, "file.mkdir");
     register_action(GDK_F8, "file.delete");
     // register_action(GDK_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
-    // register_action(GDK_F10, "file.exit");      //  do not register F10 here, as file.exit action wouldn't be checked for registration later
 }
 
 
@@ -399,9 +400,6 @@ void GnomeCmdUserActions::init()
 
     unregister(GDK_F9);                                 // unregister F9 if defined in [key-bindings]
     register_action(GDK_F9, "edit.search");             // and overwrite it with edit.search action
-
-    unregister(GDK_F10);                                // unregister F10 if defined in [key-bindings]
-    register_action(GDK_F10, "file.exit");              // and overwrite it with file.exit action
  }
 
 
@@ -416,7 +414,6 @@ void GnomeCmdUserActions::shutdown()
     unregister(GDK_F7);
     unregister(GDK_F8);
     unregister(GDK_F9);
-    unregister(GDK_F10);
 }
 
 
@@ -431,7 +428,7 @@ void GnomeCmdUserActions::load(const gchar *section)
 
     for (gpointer i=gnome_config_init_iterator(section_path.c_str()); (i=gnome_config_iterator_next(i, &key, &action_name)); )
     {
-        DEBUG('a',"[%s]\t%s=%s\n", section, key, action_name);
+        DEBUG('u',"[%s]\t%s=%s\n", section, key, action_name);
 
         char *action_options = strchr(action_name, '|');
 
@@ -556,8 +553,8 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     if (pos==action.end())
         return FALSE;
 
-    DEBUG('a', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
-    DEBUG('a', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
+    DEBUG('u', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
+    DEBUG('u', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
 
     (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
@@ -797,21 +794,21 @@ void file_chown (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdDir *dir = get_fs (ACTIVE)->get_directory();
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdDir *dir = fs->get_directory();
+
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    GtkWidget *dialog = gnome_cmd_mkdir_dialog_new (dir);
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-
-    g_object_ref (dialog);
-    gtk_widget_show (dialog);
+    gnome_cmd_dir_ref (dir);
+    gnome_cmd_mkdir_dialog_new (dir, fs->file_list()->get_selected_file());
+    gnome_cmd_dir_unref (dir);
 }
 
 
 void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
-    GList *f = get_fl (ACTIVE)->get_selected_files ();
+    GList *f = get_fl (ACTIVE)->get_selected_files();
     guint selected_files = g_list_length (f);
 
     if (selected_files > 1)
@@ -1072,18 +1069,18 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     if (i)
     {
-        dir = gnome_cmd_file_get_parent_dir (GNOME_CMD_FILE (i->data));
+        dir = GNOME_CMD_FILE (i->data)->get_parent_dir();
         i = i->next;
     }
 
-    for (; i && gnome_cmd_file_get_parent_dir (GNOME_CMD_FILE (i->data))==dir; i=i->next);
+    for (; i && GNOME_CMD_FILE (i->data)->get_parent_dir()==dir; i=i->next);
 
     if (i)
         dir = NULL;
 
     if (dir)
     {
-        stringify (dir_path, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)));
+        stringify (dir_path, GNOME_CMD_FILE (dir)->get_real_path());
         stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
     }
 
@@ -1172,13 +1169,52 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 }
 
 
+void command_open_terminal__internal (GtkMenuItem *menuitem, gpointer not_used)           // this function is NOT exposed to user as UserAction
+{
+    GdkModifierType mask;
+
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+
+    if (mask & GDK_SHIFT_MASK)
+        command_open_terminal_as_root (menuitem, NULL);
+    else
+        command_open_terminal (menuitem, NULL);
+}
+
+
 void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()));
+    gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
 
     if (gnome_execute_terminal_shell (dpath, NULL) == -1)
         gnome_cmd_show_message (NULL, _("Unable to open terminal"), g_strerror (errno));
     g_free (dpath);
+}
+
+
+void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
+{
+    int argc = 1;
+    char **argv = g_new0 (char *, argc+1);
+
+    argv[0] = gnome_util_user_shell ();
+
+    gnome_prepend_terminal_to_vector (&argc, &argv);
+
+    if (gnome_cmd_prepend_su_to_vector (argc, argv))
+    {
+        gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
+        GError *error = NULL;
+
+        if (!g_spawn_async (dpath, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
+            gnome_cmd_error_message (_("Unable to open terminal in root mode"), error);
+
+        g_free (dpath);
+    }
+    else
+        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
+
+    g_strfreev (argv);
 }
 
 
@@ -1208,55 +1244,34 @@ void command_open_nautilus (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFile *f = get_fl (ACTIVE)->get_selected_file();
 
-    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
+    open_uri_in_nautilus ((GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()))->get_uri_str());
 }
 
 
 void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
 {
-    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
+    open_uri_in_nautilus (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_uri_str());
 }
 
 
 void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 {
-   char *su = NULL;
-   gboolean need_c = FALSE;
+    int argc = 1;
+    char **argv = g_new0 (char *, argc+1);
 
-   if ((su = g_find_program_in_path ("xdg-su")))
-       goto with_c_param;
-   if ((su = g_find_program_in_path ("gksu")))
-       goto without_c_param;
-   if ((su = g_find_program_in_path ("gnomesu")))
-       goto with_c_param;
-   if ((su = g_find_program_in_path ("beesu")))
-       goto without_c_param;
-   if ((su = g_find_program_in_path ("kdesu")))
-       goto without_c_param;
+    argv[0] = g_strdup (g_get_prgname ());
 
-   gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
-   return;
+    if (gnome_cmd_prepend_su_to_vector (argc, argv))
+    {
+        GError *error = NULL;
 
- with_c_param:
-   need_c = TRUE;
+        if (!g_spawn_async (NULL, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
+            gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
+    }
+    else
+        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
 
- without_c_param:
-
-   char *argv[4];
-   int i = 0;
-
-   argv[i++] = su;
-   argv[i++] = g_get_prgname ();
-   if (need_c)
-       argv[i++] = "-c";
-   argv[i++] = NULL;
-
-    GError *error = NULL;
-
-    if (!g_spawn_async (NULL, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
-        gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
-
-    g_free (su);
+    g_strfreev (argv);
 }
 
 

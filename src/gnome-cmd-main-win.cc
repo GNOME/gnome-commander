@@ -104,7 +104,6 @@ struct GnomeCmdMainWin::Private
     GtkWidget *mkdir_btn;
     GtkWidget *delete_btn;
     GtkWidget *find_btn;
-    GtkWidget *quit_btn;
 
     GtkWidget *menubar;
     GtkWidget *toolbar;
@@ -416,12 +415,6 @@ static void on_search_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 }
 
 
-static void on_quit_clicked (GtkButton *button, GnomeCmdMainWin *mw)
-{
-    file_exit (NULL);
-}
-
-
 void GnomeCmdMainWin::create_buttonbar()
 {
     priv->buttonbar_sep = create_separator (FALSE);
@@ -444,8 +437,6 @@ void GnomeCmdMainWin::create_buttonbar()
     priv->delete_btn = add_buttonbar_button(_("F8 Delete"), this, "delete_btn", priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
     priv->find_btn = add_buttonbar_button(_("F9 Search"), this, "find_btn", priv->accel_group, 0);
-    gtk_box_pack_start (GTK_BOX (priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    priv->quit_btn = add_buttonbar_button(_("F10 Quit"), this, "quit_btn", priv->accel_group, 0);
 
     g_signal_connect (priv->view_btn, "clicked", G_CALLBACK (on_view_clicked), this);
     g_signal_connect (priv->edit_btn, "clicked", G_CALLBACK (on_edit_clicked), this);
@@ -454,7 +445,6 @@ void GnomeCmdMainWin::create_buttonbar()
     g_signal_connect (priv->mkdir_btn, "clicked", G_CALLBACK (on_mkdir_clicked), this);
     g_signal_connect (priv->delete_btn, "clicked", G_CALLBACK (on_delete_clicked), this);
     g_signal_connect (priv->find_btn, "clicked", G_CALLBACK (on_search_clicked), this);
-    g_signal_connect (priv->quit_btn, "clicked", G_CALLBACK (on_quit_clicked), this);
 }
 
 
@@ -1092,10 +1082,6 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 case GDK_F9:
                     on_search_clicked (NULL, this);
                     return TRUE;
-
-                case GDK_F10:
-                    on_quit_clicked (NULL, this);
-                    return TRUE;
             }
 
     if (fs(ACTIVE)->key_pressed(event))
@@ -1206,7 +1192,7 @@ void GnomeCmdMainWin::update_toolbar_visibility()
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Send files"), file_sendto, GNOME_STOCK_MAIL_SND),
-        GNOMEUIINFO_ITEM_FILENAME(NULL, _("Open terminal"), command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_ITEM_FILENAME(NULL, _("Open terminal (SHIFT for root privileges)"), command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Remote Server"), connections_open, GTK_STOCK_CONNECT),
         GNOMEUIINFO_ITEM_NONE(NULL, _("Drop connection"), connections_close_current),

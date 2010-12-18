@@ -99,6 +99,21 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.left_mouse_button_unselects);
 
 
+    // Middle mouse button settings
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Middle mouse button"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    radio = create_radio (parent, NULL, _("Up one directory"), "mmb_cd_up_radio");
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    if (gnome_cmd_data.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Opens new tab"), "mmb_new_tab_radio");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (gnome_cmd_data.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+
     // Right mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Right mouse button"));
@@ -193,6 +208,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 {
     GtkWidget *lmb_singleclick_radio = lookup_widget (GTK_WIDGET (dialog), "lmb_singleclick_radio");
     GtkWidget *lmb_unselects_check = lookup_widget (GTK_WIDGET (dialog), "lmb_unselects_check");
+    GtkWidget *mmb_cd_up_radio = lookup_widget (GTK_WIDGET (dialog), "mmb_cd_up_radio");
     GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
     GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
@@ -206,6 +222,9 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
     gnome_cmd_data.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselects_check));
+
+    gnome_cmd_data.middle_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mmb_cd_up_radio)) ? GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR
+                                                                                                                 : GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB;
 
     gnome_cmd_data.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
                                                                                                                 : GnomeCmdData::RIGHT_BUTTON_SELECTS;

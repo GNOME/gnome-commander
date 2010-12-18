@@ -279,15 +279,15 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     if (gnome_cmd_data.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
-        gchar *t = strip_extension (gnome_cmd_file_get_name (f));
+        gchar *t = strip_extension (f->get_name());
         fname = get_utf8 (t);
         g_free (t);
     }
     else
-        fname = get_utf8 (gnome_cmd_file_get_name (f));
+        fname = get_utf8 (f->get_name());
 
     if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
-        fext = get_utf8 (gnome_cmd_file_get_extension (f));
+        fext = get_utf8 (f->get_extension());
     else
         fext = NULL;
 
@@ -295,15 +295,14 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     text[GnomeCmdFileList::COLUMN_NAME]  = fname;
     text[GnomeCmdFileList::COLUMN_EXT]   = fext;
     text[GnomeCmdFileList::COLUMN_DIR]   = dpath;
-    text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (f) :
-                                                       (gchar *) gnome_cmd_file_get_size (f);
+    text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
 
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
     {
-        text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (f, FALSE);
-        text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (f);
-        text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (f);
-        text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (f);
+        text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) f->get_mdate(FALSE);
+        text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) f->get_perm();
+        text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) f->get_owner();
+        text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) f->get_group();
     }
     else
     {
@@ -454,8 +453,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
     if (g_list_index (priv->selected_files, f) != -1)
         return;
 
-    gnome_cmd_file_ref (f);
-    priv->selected_files = g_list_append (priv->selected_files, f);
+    priv->selected_files = g_list_append (priv->selected_files, f->ref());
 
     g_signal_emit (this, signals[FILES_CHANGED], 0);
 }
@@ -473,7 +471,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
     if (g_list_index (priv->selected_files, f) == -1)
         return;
 
-    gnome_cmd_file_unref (f);
+    f->unref();
     priv->selected_files = g_list_remove (priv->selected_files, f);
 
     if (!gnome_cmd_data.use_ls_colors)
@@ -562,7 +560,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     GnomeCmdFile *f = fl->get_selected_file();
     if (!f) return;
 
-    const gchar *ext1 = gnome_cmd_file_get_extension (f);
+    const gchar *ext1 = f->get_extension();
     if (!ext1) return;
 
     for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
@@ -571,7 +569,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
         if (f && f->info)
         {
-            const gchar *ext2 = gnome_cmd_file_get_extension (f);
+            const gchar *ext2 = f->get_extension();
 
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
@@ -696,12 +694,12 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             if (gnome_vfs_uri_is_local (f->get_uri()))
             {
 #ifdef UNESCAPE_LOCAL_FILES
-                fn = gnome_vfs_unescape_string (gnome_cmd_file_get_uri_str (f), 0);
+                fn = gnome_vfs_unescape_string (f->get_uri_str(), 0);
 #endif
             }
 
             if (!fn)
-                fn = gnome_cmd_file_get_uri_str (f);
+                fn = f->get_uri_str();
 
             uri_str = g_strdup_printf ("%s\r\n", fn);
             uri_str_list = g_list_append (uri_str_list, uri_str);
@@ -735,7 +733,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         if (listlen == 1)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) sel_files->data;
-            char *uri_str = g_strdup (gnome_cmd_file_get_uri_str (f));
+            char *uri_str = f->get_uri_str();
 
             *file_list_len = strlen (uri_str) + 1;
             return uri_str;
@@ -876,15 +874,15 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
 
-    if (!gnome_cmd_file_get_extension (f1) && !gnome_cmd_file_get_extension (f2))
+    if (!f1->get_extension() && !f2->get_extension())
         return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
 
-    if (!gnome_cmd_file_get_extension (f1))
+    if (!f1->get_extension())
         return raising?1:-1;
-    if (!gnome_cmd_file_get_extension (f2))
+    if (!f2->get_extension())
         return raising?-1:1;
 
-    gint ret = my_strcmp (gnome_cmd_file_get_extension (f1), gnome_cmd_file_get_extension (f2), raising);
+    gint ret = my_strcmp (f1->get_extension(), f2->get_extension(), raising);
 
     return ret ? ret : my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), fl->priv->sort_raising[1]);
 }
@@ -1109,17 +1107,18 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    g_signal_emit (fl, signals[LIST_CLICKED], 0, event);
-
     gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
+
     if (row < 0)
     {
+        g_signal_emit (fl, signals[LIST_CLICKED], 0, NULL, event);
         g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, event);
         return FALSE;
     }
 
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
+    g_signal_emit (fl, signals[LIST_CLICKED], 0, f, event);
     g_signal_emit (fl, signals[FILE_CLICKED], 0, f, event);
 
     g_signal_stop_emission_by_name (clist, "button-press-event");
@@ -1559,9 +1558,9 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_SIGNAL_RUN_LAST,
             G_STRUCT_OFFSET (GnomeCmdFileListClass, list_clicked),
             NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
+            g_cclosure_marshal_VOID__POINTER_POINTER,
             G_TYPE_NONE,
-            1, G_TYPE_POINTER);
+            2, G_TYPE_POINTER, G_TYPE_POINTER);
 
     signals[EMPTY_SPACE_CLICKED] =
         g_signal_new ("empty-space-clicked",
@@ -1680,7 +1679,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
 
     // If we have been waiting for this file to show up, focus it
     if (fl->priv->focus_later &&
-        strcmp (gnome_cmd_file_get_name (f), fl->priv->focus_later) == 0)
+        strcmp (f->get_name(), fl->priv->focus_later) == 0)
         focus_file_at_row (fl, row);
 }
 
@@ -2265,6 +2264,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
         switch (event->keyval)
         {
             case GDK_Return:
+            case GDK_KP_Enter:
                 gnome_cmd_file_list_show_properties_dialog (this);
                 return TRUE;
 
@@ -2297,42 +2297,50 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Left:
+            case GDK_KP_Left:
             case GDK_Right:
+            case GDK_KP_Right:
                 event->state -= GDK_SHIFT_MASK;
                 return FALSE;
 
             case GDK_Page_Up:
             case GDK_KP_Page_Up:
+            case GDK_KP_9:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_PAGE_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Page_Down:
             case GDK_KP_Page_Down:
+            case GDK_KP_3:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_PAGE_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Up:
             case GDK_KP_Up:
+            case GDK_KP_8:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Down:
             case GDK_KP_Down:
+            case GDK_KP_2:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Home:
             case GDK_KP_Home:
+            case GDK_KP_7:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 0.0);
                 return TRUE;
 
             case GDK_End:
             case GDK_KP_End:
+            case GDK_KP_1:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
@@ -2423,19 +2431,19 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 
             case GDK_KP_Page_Up:
                 event->keyval = GDK_Page_Up;
-                return TRUE;
+                return FALSE;
 
             case GDK_KP_Page_Down:
                 event->keyval = GDK_Page_Down;
-                return TRUE;
+                return FALSE;
 
             case GDK_KP_Up:
                 event->keyval = GDK_Up;
-                return TRUE;
+                return FALSE;
 
             case GDK_KP_Down:
                 event->keyval = GDK_Down;
-                return TRUE;
+                return FALSE;
 
             case GDK_Home:
             case GDK_KP_Home:
@@ -2533,7 +2541,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
     if (cwd==dir)
         return;
 
-    if (realized && dir->state!=DIR_STATE_LISTED)
+    if (realized && dir->state!=GnomeCmdDir::STATE_LISTED)
     {
         gtk_widget_set_sensitive (*this, FALSE);
         set_cursor_busy_for_widget (*this);
@@ -2558,19 +2566,19 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
     switch (dir->state)
     {
-        case DIR_STATE_EMPTY:
+        case GnomeCmdDir::STATE_EMPTY:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (con));
             break;
 
-        case DIR_STATE_LISTING:
-        case DIR_STATE_CANCELING:
+        case GnomeCmdDir::STATE_LISTING:
+        case GnomeCmdDir::STATE_CANCELING:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
             break;
 
-        case DIR_STATE_LISTED:
+        case GnomeCmdDir::STATE_LISTED:
             g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
             g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
 
@@ -2638,7 +2646,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
             g_free (dir);
             return;
         }
-        focus_dir = gnome_cmd_file_get_name (GNOME_CMD_FILE (cwd));
+        focus_dir = GNOME_CMD_FILE (cwd)->get_name();
     }
     else
     {
@@ -2795,8 +2803,6 @@ inline void restore_drag_indicator (GnomeCmdFileList *fl)
 
 static void unref_uri_list (GList *list)
 {
-    g_return_if_fail (list != NULL);
-
     g_list_foreach (list, (GFunc) gnome_vfs_uri_unref, NULL);
 }
 
@@ -2826,7 +2832,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
             break;
 
         default:
-            warn_print ("Unknown context->action in drag_data_received\n");
+            g_warning ("Unknown context->action in drag_data_received");
             return;
     }
 
@@ -2851,13 +2857,9 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        /* The drop was over a directory in the list, which means that the
-         * xfer should be done to that directory instead of the current one in the list
-         */
-        if (strcmp (f->info->name, "..") == 0)
-            to = gnome_cmd_dir_get_parent (cwd);
-        else
-            to = gnome_cmd_dir_get_child (cwd, f->info->name);
+        // The drop was over a directory in the list, which means that the
+        // xfer should be done to that directory instead of the current one in the list
+        to = f->is_dotdot ? gnome_cmd_dir_get_parent (cwd) : gnome_cmd_dir_get_child (cwd, f->info->name);
     }
     else
         to = cwd;
@@ -2876,11 +2878,6 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
                                GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
                                GTK_SIGNAL_FUNC (unref_uri_list),
                                uri_list);
-}
-
-
-static void drag_begin (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileList *fl)
-{
 }
 
 
@@ -2947,7 +2944,6 @@ void GnomeCmdFileList::init_dnd()
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
     g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
-    g_signal_connect (this, "drag-begin", G_CALLBACK (drag_begin), this);
     g_signal_connect (this, "drag-end", G_CALLBACK (drag_end), this);
     g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
     g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
@@ -2965,6 +2961,6 @@ void GnomeCmdFileList::init_dnd()
 
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
 {
-    return xml << XML::tag("Tab") << XML::attr("dir") << gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fl.cwd)) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
+    return xml << XML::tag("Tab") << XML::attr("dir") << GNOME_CMD_FILE (fl.cwd)->get_real_path() << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::endtag();
 }
 

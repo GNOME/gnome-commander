@@ -344,7 +344,7 @@ inline gboolean file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
     gchar *tmp = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gchar *uri_str = remove_basename (tmp);
-    gchar *dir_uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+    gchar *dir_uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 
     gboolean ret = (strcmp (uri_str, dir_uri_str) == 0);
 

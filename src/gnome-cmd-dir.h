@@ -40,26 +40,26 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GnomeVFSResult
 #include "gnome-cmd-path.h"
 #include "handle.h"
 
-enum DirState
-{
-    DIR_STATE_EMPTY,
-    DIR_STATE_LISTED,
-    DIR_STATE_LISTING,
-    DIR_STATE_CANCELING
-};
-
 struct GnomeCmdDir
 {
     GnomeCmdFile parent;      // this MUST be the first member
 
     GnomeCmdDirPrivate *priv;
 
+    enum State
+    {
+        STATE_EMPTY,
+        STATE_LISTED,
+        STATE_LISTING,
+        STATE_CANCELING
+    };
+
     gint voffset;
     GList *infolist;
     GnomeVFSAsyncHandle *list_handle;
     GnomeVFSResult list_result;
     gint list_counter;
-    DirState state;
+    State state;
 
     DirListDoneFunc done_func;
 
@@ -112,13 +112,13 @@ inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
 inline void gnome_cmd_dir_ref (GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    gnome_cmd_file_ref (GNOME_CMD_FILE (dir));
+    GNOME_CMD_FILE (dir)->ref();
 }
 
 inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    gnome_cmd_file_unref (GNOME_CMD_FILE (dir));
+    GNOME_CMD_FILE (dir)->unref();
 }
 
 GnomeVFSResult gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files);

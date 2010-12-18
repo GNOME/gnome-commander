@@ -155,12 +155,12 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
     if (searchfile_data == NULL)
     {
         searchfile_data          = g_new0 (SearchFileData, 1);
-        searchfile_data->uri_str = gnome_cmd_file_get_uri_str (f);
+        searchfile_data->uri_str = f->get_uri_str();
         result                   = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
 
         if (result != GNOME_VFS_OK)
         {
-           warn_print (_("Failed to open file %s: %s\n"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+           g_warning (_("Failed to open file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
            search_file_data_free (searchfile_data);
            return NULL;
         }
@@ -201,14 +201,14 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
     result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
     if (result != GNOME_VFS_OK)
     {
-        warn_print (_("Failed to seek in file %s: %s\n"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        g_warning (_("Failed to seek in file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
     result = gnome_vfs_read (searchfile_data->handle, data->search_mem, searchfile_data->len, &ret);
     if (result != GNOME_VFS_OK)
     {
-        warn_print (_("Failed to read from file %s: %s\n"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        g_warning (_("Failed to read from file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
@@ -635,7 +635,7 @@ static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     GnomeCmdFileList *fl = main_win->fs(ACTIVE)->file_list();
     fl->goto_directory(dpath);
-    fl->focus_file(gnome_cmd_file_get_name (f), TRUE);
+    fl->focus_file(f->get_name(), TRUE);
 
     g_free (fpath);
     g_free (dpath);
@@ -785,7 +785,7 @@ inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
  */
 static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 {
-  gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
+    gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
 }
 
 

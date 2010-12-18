@@ -103,7 +103,7 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
         else
             if (fs->is_local())
             {
-                gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->get_directory()));
+                gchar *fpath = GNOME_CMD_FILE (fs->get_directory())->get_real_path ();
 
                 run_command_indir (cmdline_text, fpath, term);
                 g_free (fpath);

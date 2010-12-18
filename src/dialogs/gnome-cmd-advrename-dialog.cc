@@ -259,7 +259,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidg
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
         gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
 
-        gnome_cmd_file_unref (f);
+        f->unref();
     }
 }
 
@@ -311,9 +311,9 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__update_files (G
                             -1);
 
         gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
-                            COL_NAME, gnome_cmd_file_get_name (f),
-                            COL_SIZE, gnome_cmd_file_get_size (f),
-                            COL_DATE, gnome_cmd_file_get_mdate (f, FALSE),
+                            COL_NAME, f->get_name(),
+                            COL_SIZE, f->get_size(),
+                            COL_DATE, f->get_mdate(FALSE),
                             COL_RENAME_FAILED, FALSE,
                             -1);
     }
@@ -412,7 +412,7 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_cursor_changed (GtkTreeView
         gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
 
         if (f)
-            dialog->priv->profile_component->set_sample_fname(gnome_cmd_file_get_name (f));
+            dialog->priv->profile_component->set_sample_fname(f->get_name());
     }
 }
 
@@ -454,7 +454,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                     result = f->rename(new_name);
 
                 gtk_list_store_set (GTK_LIST_STORE (dialog->files), &i,
-                                    COL_NAME, gnome_cmd_file_get_name (f),
+                                    COL_NAME, f->get_name(),
                                     COL_RENAME_FAILED, result!=GNOME_VFS_OK,
                                     -1);
 
@@ -710,7 +710,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
 void GnomeCmdAdvrenameDialog::set(GList *file_list)
 {
-    priv->profile_component->set_sample_fname(file_list ? gnome_cmd_file_get_name ((GnomeCmdFile *) file_list->data) : NULL);
+    priv->profile_component->set_sample_fname(file_list ? ((GnomeCmdFile *) file_list->data)->get_name() : NULL);
 
     for (GtkTreeIter iter; file_list; file_list=file_list->next)
     {
@@ -718,10 +718,10 @@ void GnomeCmdAdvrenameDialog::set(GList *file_list)
 
         gtk_list_store_append (GTK_LIST_STORE (files), &iter);
         gtk_list_store_set (GTK_LIST_STORE (files), &iter,
-                            COL_FILE, gnome_cmd_file_ref (f),
-                            COL_NAME, gnome_cmd_file_get_name (f),
-                            COL_SIZE, gnome_cmd_file_get_size (f),
-                            COL_DATE, gnome_cmd_file_get_mdate (f, FALSE),
+                            COL_FILE, f->ref(),
+                            COL_NAME, f->get_name(),
+                            COL_SIZE, f->get_size(),
+                            COL_DATE, f->get_mdate(FALSE),
                             -1);
     }
 
@@ -745,7 +745,7 @@ void GnomeCmdAdvrenameDialog::unset()
                             COL_FILE, &f,
                             -1);
 
-        gnome_cmd_file_unref (f);
+        f->unref();
     }
 
     g_signal_handlers_block_by_func (files, gpointer (Private::on_files_model_row_deleted), this);

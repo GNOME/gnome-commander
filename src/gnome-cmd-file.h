@@ -31,6 +31,9 @@
 
 class GnomeCmdFileMetadata;
 
+struct GnomeCmdDir;
+
+
 struct GnomeCmdFile
 {
     GnomeCmdFileInfo parent;
@@ -44,14 +47,39 @@ struct GnomeCmdFile
     gchar *collate_key;                 // necessary for proper sorting of UTF-8 encoded file names
     GnomeCmdFileMetadata *metadata;
 
+    GnomeCmdFile *ref();
+    void unref();
+
     void invalidate_metadata();
 
+    gchar *get_name();
+    gchar *get_quoted_name();
     gchar *get_path();
+    gchar *get_real_path();
+    gchar *get_quoted_real_path();
     gchar *get_dirname();
     gchar *get_unescaped_dirname();
     GnomeVFSURI *get_uri(const gchar *name=NULL);
+    gchar *get_uri_str(GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
     char *get_collation_fname() const    {  return collate_key ? collate_key : info->name;  }
+
+    const gchar *get_extension();
+    const gchar *get_owner();
+    const gchar *get_group();
+    const gchar *get_adate(gboolean overide_disp_setting);
+    const gchar *get_mdate(gboolean overide_disp_setting);
+    const gchar *get_cdate(gboolean overide_disp_setting);
+    const gchar *get_size();
+    GnomeVFSFileSize get_tree_size();
+    const gchar *get_tree_size_as_str();
+    const gchar *get_perm();
+    const gchar *get_mime_type();
+    const gchar *get_mime_type_desc();
+    gboolean has_mime_type(const gchar *mime_type);
+    gboolean mime_begins_with(const gchar *mime_type_start);
+
+    GnomeCmdDir *get_parent_dir();
 
     const gchar *get_type_string();
     const gchar *get_type_desc();
@@ -81,45 +109,60 @@ struct GnomeCmdFileClass
 };
 
 
-struct GnomeCmdDir;
-
-
 GtkType gnome_cmd_file_get_type ();
+
+
+inline gchar *GnomeCmdFile::get_name()
+{
+    g_return_val_if_fail (info != NULL, NULL);
+    return info->name;
+}
 
 GnomeCmdFile *gnome_cmd_file_new_from_uri (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 
-GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f);
-void gnome_cmd_file_unref (GnomeCmdFile *f);
+inline GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->ref();
+}
+
+inline void gnome_cmd_file_unref (GnomeCmdFile *f)
+{
+    g_return_if_fail (f != NULL);
+    f->unref();
+}
 
 inline gchar *gnome_cmd_file_get_name (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
-    return f->info->name;
+    return f->get_name();
 }
 
-gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f);
-gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
+inline gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_quoted_name();
+}
 
-const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_group (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_adate (GnomeCmdFile *f, gboolean overide_disp_setting);
-const gchar *gnome_cmd_file_get_mdate (GnomeCmdFile *f, gboolean overide_disp_setting);
-const gchar *gnome_cmd_file_get_cdate (GnomeCmdFile *f, gboolean overide_disp_setting);
-const gchar *gnome_cmd_file_get_size (GnomeCmdFile *f);
-GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *f);
-const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *f);
-gboolean gnome_cmd_file_has_mime_type (GnomeCmdFile *f, const gchar *mime_type);
-gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *f, const gchar *mime_type_start);
+inline gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_real_path();
+}
+
+inline gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_quoted_real_path();
+}
+
+inline gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    return f->get_uri_str(hide_options);
+}
 
 void gnome_cmd_file_show_properties (GnomeCmdFile *f);
 void gnome_cmd_file_show_chown_dialog (GList *files);
@@ -130,13 +173,30 @@ void gnome_cmd_file_show_cap_cut (GnomeCmdFile *f);
 void gnome_cmd_file_show_cap_copy (GnomeCmdFile *f);
 void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f);
 
-// FIXME: These names suck when we have a class called GnomeCmdFileList...
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);
-void gnome_cmd_file_list_ref (GList *files);
-void gnome_cmd_file_list_unref (GList *files);
 
-GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f);
+inline void gnome_cmd_file_list_ref (GList *files)
+{
+    g_list_foreach (files, (GFunc) gnome_cmd_file_ref, NULL);
+}
+
+inline void gnome_cmd_file_list_unref (GList *files)
+{
+    g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
+}
+
+inline const gchar *GnomeCmdFile::get_mime_type()
+{
+    g_return_val_if_fail (info != NULL, NULL);
+    return gnome_vfs_file_info_get_mime_type (info);
+}
+
+inline const gchar *GnomeCmdFile::get_mime_type_desc()
+{
+    g_return_val_if_fail (info != NULL, NULL);
+    return info->mime_type ? gnome_vfs_mime_get_description (info->mime_type) : NULL;
+}
 
 inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {

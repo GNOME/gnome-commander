@@ -3,6 +3,7 @@ gnome-commander 1.4
 ---------------
 
 Bug fixes:
+ * Fixed problem #377463 (mkdir dialog loses focus)
  * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
  * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
@@ -15,6 +16,7 @@ New features:
  * One instance mode
  * User defined LS_COLORS colours
  * Enhanced file name matching in quick search
+ * Open terminal with administrator privileges
  * --config-dir command line option for customized location of config files
  * New or updated docs: de, en, es, fr, sl
  * New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN
@@ -29,10 +31,22 @@ New features:
 
 
 ===================================
+gnome-commander 1.2.8.10
+---------------
+
+Bug fixes:
+ * Fixed problem #448941 (numeric keypad arrows don't work in the main window)
+ * Fixed problem #637501 (advrename: metatag popup menu shows wrong items)
+ * Fixed problem with toggling path/basename/filename selections in copy/move dialogs
+ * Updated translations: de
+
+
+===================================
 gnome-commander 1.2.8.9
 ---------------
 
 Bug fixes:
+ * Fixed problem #352024 (F10 key doesn't work)
  * Fixed problem #631243 (advrename $c(width) regression)
 
 New features:

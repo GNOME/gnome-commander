@@ -297,7 +297,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     for (gint i=0; f; f=f->next, ++i)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) f->data;
-        gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
+        gchar *uri_str = finfo->get_uri_str();
         PyObject *pArgs  = Py_BuildValue("(s)", uri_str);
         PyObject *pURI = PyEval_CallObject(pURIclass, pArgs);
         Py_XDECREF(pArgs);

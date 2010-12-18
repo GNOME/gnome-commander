@@ -268,7 +268,9 @@ GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** Command Menu **************/
 GNOME_CMD_USER_ACTION(command_execute);
+GNOME_CMD_USER_ACTION(command_open_terminal__internal);             // this function is NOT exposed to user as UserAction
 GNOME_CMD_USER_ACTION(command_open_terminal);
+GNOME_CMD_USER_ACTION(command_open_terminal_as_root);
 GNOME_CMD_USER_ACTION(command_open_nautilus);
 GNOME_CMD_USER_ACTION(command_open_nautilus_in_cwd);
 GNOME_CMD_USER_ACTION(command_root_mode);

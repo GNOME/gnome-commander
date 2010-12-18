@@ -71,7 +71,7 @@ static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean r
         GnomeVFSResult ret = in->chmod(perm);
 
         if (ret != GNOME_VFS_OK)
-            gnome_cmd_show_message (NULL, gnome_cmd_file_get_name (in), gnome_vfs_result_to_string (ret));
+            gnome_cmd_show_message (NULL, in->get_name(), gnome_vfs_result_to_string (ret));
         else
             if (!recursive)
                 return;

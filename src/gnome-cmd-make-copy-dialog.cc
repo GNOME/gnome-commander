@@ -76,7 +76,7 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
 
 static void on_cancel (GtkWidget *widget, GnomeCmdMakeCopyDialog *dialog)
 {
-    gnome_cmd_file_unref (dialog->priv->f);
+    dialog->priv->f->unref();
 }
 
 
@@ -133,10 +133,10 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
 
     dialog->priv->f = f;
     dialog->priv->dir = dir;
-    gnome_cmd_file_ref (f);
+    f->ref();
     gnome_cmd_dir_ref (dir);
 
-    gchar *msg = g_strdup_printf (_("Copy \"%s\" to"), gnome_cmd_file_get_name (f));
+    gchar *msg = g_strdup_printf (_("Copy \"%s\" to"), f->get_name());
     GtkWidget *msg_label = create_label (GTK_WIDGET (dialog), msg);
     g_free (msg);
 

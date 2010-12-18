@@ -250,6 +250,16 @@
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.10;</revnumber>
+        <date>2011-??-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
@@ -472,7 +482,7 @@
                 <para>Possible flags:</para>
                 <itemizedlist>
                   <listitem>
-                    <para><guilabel>a</guilabel> user actions debugging</para>
+                    <para><guilabel>a</guilabel> set all debug flags</para>
                   </listitem>
                   <listitem>
                     <para><guilabel>c</guilabel> file and directory counting</para>
@@ -509,6 +519,9 @@
                   </listitem>
                   <listitem>
                     <para><guilabel>t</guilabel> metadata tags</para>
+                  </listitem>
+                  <listitem>
+                    <para><guilabel>u</guilabel> user actions debugging</para>
                   </listitem>
                   <listitem>
                     <para><guilabel>v</guilabel> internal viewer</para>
@@ -699,6 +712,8 @@
       </table>
       <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
+
+    
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
       <title>Drag-and-Drop</title>
@@ -862,6 +877,58 @@
         <para>For more on dragging items, see <xref linkend="gnome-commander-dnd"/>.</para>
       </tip>
     </sect2>
+	 <!-- ================ Tab subsection ================================= -->
+	 <sect2 id="gnome-commander-tabs">
+		<title>Using multiple tabs</title>
+		<Para>You can open multiple tabs in both panels to speed up navigation. Gnome Commander can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </Para> 	 	
+		<para>Using the mouse the middle click can be configured to open a new tab. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. When it is set a middle click on a folder will open it in a new tab in the same pane.
+		</para>
+		<note>
+		<para>When using a 2 button mouse the middle click is emulated by clicking both buttons simultaneously
+		</para>
+		</note>
+		<itemizedlist>
+        <listitem>
+        <para>To open a new tab press <keycombo><keycap>Ctrl</keycap><keycap>t</keycap></keycombo> this opens a new tab in the current panel with the same folder opened.</para>
+        </listitem>
+        <listitem>
+       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>Ctrl</keycap><keycap>Up arrow</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para> 
+        </listitem>
+        <listitem>
+       	 <para>To open a new tab displaying the selected folder in the inactive pane press the Ctrl+Shift+Up arrow </para>
+        </listitem>
+        <listitem>
+     	   <para>To navigate between tab you can you the mouse or use <keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> as many time as needed to select the tab element. If the tabs are selected you can also use the <keycap>right arrow</keycap> or <keycap>left arrow</keycap> to select the desired tab.</para>
+        </listitem>
+        <listitem> 
+     	   <para>To close a tab you can use the mouse and double click the tab or right click on it and from the menu select <guimenu>Close tab</guimenu>. You can also close the current tab using the keyboard shortcut <keycombo><keycap>Ctrl</keycap><keycap>w</keycap></keycombo></para>
+        </listitem>
+      </itemizedlist>
+    	  <para>Right clicking on any tab will open a tab specific menu</para>
+      <itemizedlist>
+        <listitem>
+        	<para><guimenu>Open in New Tab</guimenu> this action opens a new tab with the displaying the currently opened folder. </para>
+        </listitem>
+        <listitem>
+        	<para><guimenu>Refresh Tab</guimenu> this actions refreshes the files displayed currently in the folder.
+        	</para> 
+        </listitem>
+        <listitem>
+        	<para><guimenu>Copy Tab to Other Pane</guimenu> opens a new tab in the opposite pane, this tab will display the selected tab. </para>
+        </listitem>
+        <listitem>
+	        <para><guimenu>Close Tab</guimenu> this action closes the currently selected tab.
+        </para>
+        </listitem> 
+		  <listitem>        
+        <para><guimenu>Close All Tabs</guimenu> GNOME-Commander will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
+        </listitem> 
+        <listitem>
+        <para><guimenu>Close Duplicate Tabs</guimenu> GNOME-Commander will search for duplicated open tabs in the current pane and close them.</para> 
+        </listitem>
+      </itemizedlist>
+	 </sect2>        
+    
   </sect1>
 
 <!-- ================ Advanced features ================================ -->
@@ -2338,7 +2405,7 @@
                         <entry><para>Fractions of seconds for the <literal>Exif.DateTimeOriginal</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>Exif.TIFF/EPStandardID</para></entry>
+                        <entry><para>Exif.TIFF_EPStandardID</para></entry>
                         <entry><para>TIFF/EP Standard ID</para></entry>
                         <entry><para>TIFF/EP Standard ID.</para></entry>
                     </row>
@@ -3949,8 +4016,11 @@
             <para><guilabel>Left mouse button</guilabel> configures the action
             resulting from clicking the left mouse button.</para>
           </listitem>
+			<listitem>
+          	<para><guilabel>Middle mouse button</guilabel> configures the action resulting from clicking the middle mouse button.</para>
+          </listitem>
           <listitem>
-            <para><guilabel>Right mouse button</guilabel> configures the action
+          	<para><guilabel>Right mouse button</guilabel> configures the action
             resulting from clicking the right mouse button.</para>
           </listitem>
           <listitem>
@@ -3967,6 +4037,9 @@
           </listitem>
           <listitem>
           	<para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
+          </listitem>
+          <listitem>
+          	<para><guilabel>Save on exit</guilabel> configures the storage of location when &app; is closed.</para>
           </listitem>
         </itemizedlist>
       </para>
@@ -3991,7 +4064,7 @@
       </figure>
       <!-- ==== End of Figure ==== -->
       <para/>
-      <table frame="topbot" id="gcmd-TBL-setting1">
+      <table frame="topbot" id="gcmd-TBL-setting1">      
         <title>General option tab</title>
         <tgroup cols="2" colsep="0" rowsep="0">
           <colspec colname="colspec0" colwidth="50.36*"/>
@@ -4051,6 +4124,32 @@
               </entry>
             </row>
             <row>
+              <entry colname="colspec0" valign="top">
+                <para>
+                  <guilabel>Middle Mouse button</guilabel>
+                </para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Up one directory</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option a middle click with the mouse on
+                any item in &app; will display the parent directory of the current one.</para>
+                <note><para>The middle click is usually emulated by clicking both left and right buttons simultaneously on two buttons mice.</para></note>  
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Opens new tab</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When selecting this option, a middle click on a directory in &app;
+                with the mouse will open it in a new tab.</para>
+              </entry>
+            </row>            <row>
               <entry colname="colspec0" valign="top">
                 <para>
                   <guilabel>Right Mouse button</guilabel>
@@ -4164,9 +4263,33 @@
 	              <para>By activating this option &app; can only have one instance running.</para>
               </entry>
             </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+	              <para><guilabel>Save on exit</guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+					<para>Directories</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+	              <para>By activating this option &app; Saves the current folder location on exit. When you restart the two active location are reopened.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+	              <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+					<para>Tabs</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+	              <para>By activating this option &app; Saves all the opened tabs locations on exit. When you restart all the tabs are reopened in their previous location.</para>
+              </entry>
+            </row>
           </tbody>
         </tgroup>
       </table>
+            
+
     </sect2>
     <!-- Format options-->
     <sect2 id="gnome-commander-prefs-format">
@@ -5385,11 +5508,6 @@
         <row valign="top">
             <entry><para><keycombo><keycap>F9</keycap></keycombo></para></entry>
             <entry><para>Search</para></entry>
-            <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para><keycombo><keycap>F10</keycap></keycombo></para></entry>
-            <entry><para>Quit</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -7400,6 +7518,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #377463 (mkdir dialog loses focus)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
@@ -7433,6 +7554,9 @@
                         </listitem>
                         <listitem>
                             <para>Enhanced file name matching in quick search</para>
+                        </listitem>
+                        <listitem>
+                            <para>Open terminal with administrator privileges</para>
                         </listitem>
                         <listitem>
                             <para>--config-dir command line option for customized location of config files</para>
@@ -7474,12 +7598,38 @@
             </entry>
         </row>
         <row valign="top">
+            <entry><para>1.2.8.10</para></entry>
+            <entry><para>2011-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #448941 (numeric keypad arrows don't work in the main window)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #637501 (advrename: metatag popup menu shows wrong items)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with toggling path/basename/filename selections in copy/move dialogs</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated translations: de</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.2.8.9</para></entry>
             <entry><para>2010-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #352024 (F10 key doesn't work)</para>
+                        </listitem>
                         <listitem>
                             <para>Fixed problem #631243 (advrename $c(width) regression)</para>
                         </listitem>

@@ -139,6 +139,9 @@ int main (int argc, char *argv[])
                                   GNOME_PARAM_APP_DATADIR, DATADIR,
                                   GNOME_PARAM_NONE);
 
+    if (debug_flags && strchr(debug_flags,'a'))
+        debug_flags = "cdfgiklmnpstuvwyzx";
+
     gdk_rgb_init ();
     gnome_vfs_init ();
 

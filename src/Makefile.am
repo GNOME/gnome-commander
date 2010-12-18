@@ -62,7 +62,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-main-win.h gnome-cmd-main-win.cc \
 	gnome-cmd-make-copy-dialog.h gnome-cmd-make-copy-dialog.cc \
 	gnome-cmd-menu-button.h gnome-cmd-menu-button.cc \
-	gnome-cmd-mkdir-dialog.h gnome-cmd-mkdir-dialog.cc \
 	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
 	gnome-cmd-options-dialog.h gnome-cmd-options-dialog.cc \
 	gnome-cmd-path.h gnome-cmd-path.cc \

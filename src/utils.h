@@ -37,9 +37,14 @@
 
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
-gboolean DEBUG_ENABLED (gchar flag);
+extern gchar *debug_flags;
+
+inline gboolean DEBUG_ENABLED (gchar flag)
+{
+    return debug_flags ? strchr(debug_flags, flag) != 0 : FALSE;
+}
+
 void DEBUG (gchar flag, const gchar *fmt, ...);
-void warn_print (const gchar *fmt, ...);
 
 void gnome_cmd_error_message (const gchar *title, GError *error);
 
@@ -253,6 +258,8 @@ void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
 void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
+
+gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv);
 
 inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
 {

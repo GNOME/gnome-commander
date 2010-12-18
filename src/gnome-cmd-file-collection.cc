@@ -32,9 +32,9 @@ void GnomeCmdFileCollection::add(GnomeCmdFile *f)
 
     list = g_list_append (list, f);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+    gchar *uri_str = f->get_uri_str();
     g_hash_table_insert (map, uri_str, f);
-    gnome_cmd_file_ref (f);
+    f->ref();
 }
 
 
@@ -44,7 +44,7 @@ gboolean GnomeCmdFileCollection::remove(GnomeCmdFile *f)
 
     list = g_list_remove (list, f);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+    gchar *uri_str = f->get_uri_str();
     gboolean retval = g_hash_table_remove (map, uri_str);
     g_free (uri_str);
 
