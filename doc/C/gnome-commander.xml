@@ -2405,7 +2405,7 @@
                         <entry><para>Fractions of seconds for the <literal>Exif.DateTimeOriginal</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>Exif.TIFF/EPStandardID</para></entry>
+                        <entry><para>Exif.TIFF_EPStandardID</para></entry>
                         <entry><para>TIFF/EP Standard ID</para></entry>
                         <entry><para>TIFF/EP Standard ID.</para></entry>
                     </row>
