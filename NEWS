@@ -36,6 +36,7 @@ gnome-commander 1.2.8.10
 
 Bug fixes:
  * Fixed problem #448941 (numeric keypad arrows don't work in the main window)
+ * Fixed problem #637501 (advrename: metatag popup menu shows wrong items)
  * Fixed problem with toggling path/basename/filename selections in copy/move dialogs
  * Updated translations: de
 
