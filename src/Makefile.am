@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = dialogs tags intviewer
+SUBDIRS = dialogs tags intviewer treeview
 
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
@@ -108,6 +108,7 @@ gnome_commander_LDADD = \
 	dialogs/libgcmd-dialogs.a \
 	tags/libgcmd-tags.a \
 	intviewer/libgviewer.a \
+	foldview/libtreview.a \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
 	$(UNIQUE_LIBS) \
