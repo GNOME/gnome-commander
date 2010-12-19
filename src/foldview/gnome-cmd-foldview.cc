@@ -1,16 +1,14 @@
 /*
+    ###########################################################################
+
+    gnome-cmd-foldview-private.h
+
+    ---------------------------------------------------------------------------
+
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
     Copyright (C) 2007-2010 Piotr Eljasiak
     Copyright (C) 2010-2010 Guillaume Wardavoir
-
-	---------------------------------------------------------------------------
-
-	C++
-
-	Contain variadic macros
-
-	---------------------------------------------------------------------------
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,289 +23,242 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
-*/
 
+    ---------------------------------------------------------------------------
+
+    - Public methods
+    - GcmdGtkFoldview GObject
+
+    ###########################################################################
+*/
 #include	<config.h>
 
 #include	<stdlib.h>
-
+//  ...........................................................................
 #include	<gtk/gtksignal.h>
 #include	<gtk/gtkvbox.h>
 
 #include	<libgnomevfs/gnome-vfs.h>
 #include	<libgnomevfs/gnome-vfs-utils.h>
-
-#include	"gnome-cmd-includes.h"
+//  ...........................................................................
+#include	"gnome-cmd-foldview-private.h"
+//#include	"gnome-cmd-includes.h"
 #include	"gnome-cmd-combo.h"
 #include	"gnome-cmd-main-win.h"
 #include	"gnome-cmd-style.h"
 #include	"gnome-cmd-data.h"
-
-#include	"gnome-cmd-foldview-private.h"
-#include	"gnome-cmd-foldview-gvfs.h"
-
-//  ***************************************************************************
-//  *																		  *
-//  *								Defines								      *
-//  *																		  *
-//  ***************************************************************************
-
-#define GVFS_MAX_ASYNC_OPS					10000
-#define GVFS_ITEMS_PER_NOTIFICATION			30
-
-//  ***************************************************************************
-//  *																		  *
-//  *								Helpers								      *
-//  *																		  *
-//  ***************************************************************************
-
-//=============================================================================
-//  Common vars
-//=============================================================================
-static  GnomeVFSResult  sVFSResult		= GNOME_VFS_OK;	 // for sync operations
+#include    "gnome-cmd-con-list.h"
+#include    "gnome-cmd-con-smb.h"
+//  ...........................................................................
+#include    "gnome-cmd-connection-treeview.h"
 
 extern  GnomeCmdMainWin *main_win;
 
+Logger  sLogger(30);
 
 //  ###########################################################################
 //  ###																		###
 //  ##																		 ##
-//  #								Logging									  #
+//  #						Public methods									  #
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
-
-
-//=============================================================================
-//  Logger
-//=============================================================================
-/*
-	<ESC>[{attr};{fg};{bg}m
-
-{attr} needs to be one of the following:
-	0 Reset All Attributes (return to normal mode)
-	1 Bright (usually turns on BOLD)
-	2 Dim
-	3 Underline
-	5 Blink
-	7 Reverse
-	8 Hidden
-
-{fg} needs to be one of the following:
-      30 Black
-      31 Red
-      32 Green
-      33 Yellow
-      34 Blue
-      35 Magenta
-      36 Cyan
-      37 White
-
-{bg} needs to be one of the following:
-      40 Black
-      41 Red
-      42 Green
-      43 Yellow
-      44 Blue
-      45 Magenta
-      46 Cyan
-      47 White
-*/
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//  Core logging
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-static  char			sLogStr		[1024];
-static  char			sLogStrFinal[1024];
-
-void gwr_print(const char* str)
+void
+gnome_cmd_foldview_update_style(GtkWidget *widget)
 {
-	sprintf(sLogStrFinal,"%s%s", str,sLogStr);
-	printf("%s\n",sLogStrFinal);
-}
-void gwr_inf(const char* fmt, ...)
-{
-	#ifndef DEBUG_SHOW_INF
-		return;
-	#endif
-	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	gwr_print("\033[0;32mINF:\033[0m");
-}
-void gwr_wng(const char* fmt, ...)
-{
-	#ifndef DEBUG_SHOW_WNG
-		return;
-	#endif
-	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	gwr_print("\033[0;35mWNG:\033[0m");
-}
-void gwr_err(const char* fmt, ...)
-{
-	#ifndef DEBUG_SHOW_ERR
-		return;
-	#endif
-	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	gwr_print("\033[0;31mERR:\033[0m");
-}
-void gwr_inf_vfs(const char* fmt, ...)
-{
-	#ifndef DEBUG_SHOW_VFS
-		return;
-	#endif
-	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	strcat(sLogStr, " [VFS-INF:");
-	strcat(sLogStr,   gnome_vfs_result_to_string(sVFSResult));
-	strcat(sLogStr, "]");
-	gwr_print("\033[0;31mERR:\033[0m");
-}
-void gwr_err_vfs(const char* fmt, ...)
-{
-	#ifndef DEBUG_SHOW_VFS
-		return;
-	#endif
-	va_list val; va_start(val, fmt); vsprintf(sLogStr, fmt, val); va_end(val);
-	strcat(sLogStr, " [VFS-ERR:");
-	strcat(sLogStr,   gnome_vfs_result_to_string(sVFSResult));
-	strcat(sLogStr, "]");
-	gwr_print("\033[0;31mERR:\033[0m");
+	//g_return_if_fail( widget != NULL );
+
+	//(GCMDGTKFOLDVIEW(widget))->view.update_style();
 }
 
+GtkWidget*
+gnome_cmd_foldview_new()
+{
+	return gcmdgtkfoldview_new();
+}
 
 //  ###########################################################################
 //  ###																		###
 //  ##																		 ##
-//  #								Divers									  #
+//  #				        GcmdGtkFoldview::HeadBand                         #
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
-GcmdGtkFoldview::eFileAccess GcmdGtkFoldview::Access_from_permissions(
-	GnomeVFSFilePermissions permissions)
+GcmdGtkFoldview::HeadBand::HeadBand(
+GcmdGtkFoldview *   _foldview)
 {
-	eFileAccess		access  = eAccessUnknown;
-	gboolean		b_read	= FALSE;
-	gboolean		b_write	= FALSE;
-	if ( ( permissions & GNOME_VFS_PERM_ACCESS_READABLE ) != 0 )	b_read  = TRUE;
-	if ( ( permissions & GNOME_VFS_PERM_ACCESS_WRITABLE ) != 0 )	b_write = TRUE;
-	if ( b_read )
-	{
-		access = ( b_write ? eAccessReadWrite : eAccessReadOnly );
-	}
-	else
-	{
-		access = ( b_write ? eAccessUnknown : eAccessForbidden );
-	}
-	return access;
+    d_hbox_main             = gtk_hbox_new(FALSE, 0);
+        d_button_add        = gtk_button_new();
+        d_con_combo         = (GtkWidget*)( new GnomeCmdCombo(2, 1, NULL) );
+        d_alignement_padder = gtk_alignment_new(1.0f, 1.0f, 1.0f, 1.0f);
+        d_button_up         = gtk_button_new();
+            d_arrow_up      = gtk_arrow_new(GTK_ARROW_UP,   GTK_SHADOW_NONE);
+        d_button_down       = gtk_button_new();
+            d_arrow_down    = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_NONE);
+
+    //.........................................................................
+    //
+    // Setup
+    //
+
+    // connection combo
+    //gtk_object_set_data_full (GTK_OBJECT (_foldview), "con_combo", m_con_combo, (GtkDestroyNotify) g_object_unref);
+	gtk_widget_set_size_request (d_con_combo, 150, -1);
+	gtk_clist_set_row_height    (GTK_CLIST (GNOME_CMD_COMBO (d_con_combo)->list), 20);
+	gtk_entry_set_editable      (GTK_ENTRY (GNOME_CMD_COMBO (d_con_combo)->entry), FALSE);
+	gtk_clist_set_column_width  (GTK_CLIST (GNOME_CMD_COMBO (d_con_combo)->list), 0, 20);
+	gtk_clist_set_column_width  (GTK_CLIST (GNOME_CMD_COMBO (d_con_combo)->list), 1, 60);
+	GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (d_con_combo)->button, GTK_CAN_FOCUS);
+
+    // buttons
+    gtk_button_set_image(GTK_BUTTON(d_button_add),  gtk_image_new_from_pixbuf(GcmdGtkFoldview::s_gdk_pixbuf[eIconGtkAdd]));
+    gtk_button_set_image(GTK_BUTTON(d_button_up),   d_arrow_up);
+    gtk_button_set_image(GTK_BUTTON(d_button_down), d_arrow_down);
+
+	g_signal_connect(d_button_add,  "clicked",    G_CALLBACK(Signal_button_add_clicked),    (gpointer)_foldview);
+	g_signal_connect(d_button_up,   "clicked",    G_CALLBACK(Signal_button_up_clicked),     (gpointer)_foldview);
+	g_signal_connect(d_button_down, "clicked",    G_CALLBACK(Signal_button_down_clicked),   (gpointer)_foldview);
+
+    //.........................................................................
+    //
+    // Packing
+    //
+    gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_add,          FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(d_hbox_main), d_con_combo,           FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(d_hbox_main), d_alignement_padder,   TRUE , TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_up,           FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_down,         FALSE, TRUE, 0);
+}
+GcmdGtkFoldview::HeadBand::~HeadBand()
+{
 }
 
-GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_permissions(
-	GnomeVFSFileType		type,
-	GnomeVFSFilePermissions permissions)
+void
+GcmdGtkFoldview::HeadBand::show()
 {
-	eFileAccess	access  = eAccessUnknown;
+    gtk_widget_show_all(d_hbox_main);
+    GNOME_CMD_COMBO(d_con_combo)->select_data((gpointer)gnome_cmd_con_list_get_home(gnome_cmd_con_list_get()));
+}
+void
+GcmdGtkFoldview::HeadBand::hide()
+{
+    gtk_widget_hide_all(d_hbox_main);
+}
+void
+GcmdGtkFoldview::HeadBand::update_style()
+{
+	((GnomeCmdCombo*)d_con_combo)->update_style();
+}
+//  ===========================================================================
+//  Connection combo specific
+//  ===========================================================================
+void
+GcmdGtkFoldview::HeadBand::reset_connections()
+{
+	GnomeCmdCombo   *   combo = NULL;
+    //.........................................................................
+	combo = GNOME_CMD_COMBO(d_con_combo);
 
-	access = Access_from_permissions(permissions);
-
-	return Icon_from_type_access(type, access);
+    combo->clear();
+    combo->highest_pixmap   = 20;
+    combo->widest_pixmap	= 20;
+    gtk_clist_set_row_height    (GTK_CLIST (combo->list), 20);
+    gtk_clist_set_column_width  (GTK_CLIST (combo->list), 0, 20);
 }
 
-GcmdGtkFoldview::View::eIcon GcmdGtkFoldview::View::Icon_from_type_access(
-	GnomeVFSFileType				type,
-	GcmdGtkFoldview::eFileAccess	access)
+void
+GcmdGtkFoldview::HeadBand::add_connection(
+    GnomeCmdCon *   _con)
 {
-	if ( type == GNOME_VFS_FILE_TYPE_DIRECTORY )
-	{
-		switch ( access )
-		{
-			case	eAccessReadWrite: return GcmdGtkFoldview::View::eIconDirReadWrite; break;
-			case	eAccessReadOnly : return GcmdGtkFoldview::View::eIconDirReadOnly;  break;
-			case	eAccessForbidden: return GcmdGtkFoldview::View::eIconDirForbidden; break;
-			default					: return GcmdGtkFoldview::View::eIconUnknown;	   break;
-		}
-	}
+	GnomeCmdCombo   *   combo   = NULL;
+    gchar			*   text    [3];
+    gint                row     = 0;
+    //.........................................................................
+	combo			= GNOME_CMD_COMBO(d_con_combo);
 
-	if ( type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK )
-	{
-		switch ( access )
-		{
-			case	eAccessReadWrite: return GcmdGtkFoldview::View::eIconSymlinkToDirReadWrite;	 break;
-			case	eAccessReadOnly : return GcmdGtkFoldview::View::eIconSymlinkToDirReadOnly;	 break;
-			case	eAccessForbidden: return GcmdGtkFoldview::View::eIconSymlinkToDirForbidden;	 break;
-			default					: return GcmdGtkFoldview::View::eIconUnknown;				 break;
-		}
-	}
+    text[0] = NULL;
+    text[1] = (gchar *)gnome_cmd_con_get_alias(_con);
+    text[2] = NULL;
 
-	return View::eIconUnknown;
+    GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap(_con);
+    if (pixmap)
+    {
+        row = combo->append(text, _con);
+        combo->set_pixmap(row, 0, pixmap);
+    }
+}
+
+gboolean
+GcmdGtkFoldview::HeadBand::can_add_that_connection(
+    GnomeCmdCon *   _con)
+{
+    // dont add connection if
+    // it is closed AND it is not a device AND it is not smb
+    if  (
+            !gnome_cmd_con_is_open (_con)		&&
+            !GNOME_CMD_IS_CON_DEVICE (_con)		&&
+            !GNOME_CMD_IS_CON_SMB (_con)
+        )  return FALSE;
+
+    return TRUE;
 }
 
 
+void
+GcmdGtkFoldview::HeadBand::update_connections()
+{
+    GnomeCmdCombo   *   combo			= NULL;
+    GList           *   l               = NULL;
+    //.........................................................................
+
+    combo			= GNOME_CMD_COMBO(d_con_combo);
+
+    reset_connections();
+
+    for ( l = gnome_cmd_con_list_get_all(gnome_cmd_con_list_get ()); l ; l = l->next )
+    {
+        GnomeCmdCon *con = (GnomeCmdCon *)l->data;
+
+        if ( ! can_add_that_connection(con) )
+            continue;
+
+        // else add it
+        add_connection(con);
+    }
+}
+
+GnomeCmdCon*
+GcmdGtkFoldview::HeadBand::get_selected_connection()
+{
+    return GNOME_CMD_CON(GNOME_CMD_COMBO(d_con_combo)->sel_data);
+}
 
 //  ###########################################################################
 //  ###																		###
 //  ##																		 ##
-//  #						GcmdGtkFoldview									  #
+//  #					        GcmdGtkFoldview          					  #
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
 
-//  ***************************************************************************
-//  *																		  *
-//  *							Singleton impl							      *
-//  *																		  *
-//  ***************************************************************************
-
+//  ###########################################################################
 //
-// ~ The ~  singleton
+//  GcmdGtkFoldview : GObject
 //
-static  GtkWidget*	GcmdGtkFoldviewSingleton = NULL;
-
-//
-// Singleton accessors
-//
-GtkWidget* GcmdWidget()
-{
-	if ( GcmdGtkFoldviewSingleton != NULL )
-		return GcmdGtkFoldviewSingleton;
-
-	GcmdGtkFoldviewSingleton = gcmdgtkfoldview_new();
-
-	// assume ownership:
-	// ensure foldview will not be destroyed when showing / hiding
-	g_object_ref_sink(GcmdGtkFoldviewSingleton);
-
-	return GcmdGtkFoldviewSingleton;
-}
-
-GcmdGtkFoldview* GcmdFoldview()
-{
-	return (GcmdGtkFoldview*)( GcmdWidget() );
-}
-
-//  ***************************************************************************
-//  *																		  *
-//  *							GObject impl								  *
-//  *																		  *
-//  ***************************************************************************
-
-static  void	gcmdgtkfoldview_class_init(GcmdGtkFoldviewClass   *klass);
-
+//  ###########################################################################
 enum
 {
   GCMDGTKFOLDVIEW_SIGNAL,
   LAST_SIGNAL
 };
 
-static guint gcmdgtkfoldview_signals[LAST_SIGNAL] = { 0 };
+static  void	            gcmdgtkfoldview_class_init(GcmdGtkFoldviewClass   *klass);
 
+static  guint               gcmdgtkfoldview_signals[LAST_SIGNAL] = { 0 };
 
-//=============================================================================
-//
-//							Pure GObject stuff
-//
-//=============================================================================
+        GObjectClass    *   GcmdGtkFoldview::Parent_class = NULL;
 
-//-----------------------------------------------------------------------------
-//	GcmdGtkFoldview GType implementation
-//-----------------------------------------------------------------------------
+//  ===========================================================================
 GType
 gcmdgtkfoldview_get_type (void)
 {
@@ -325,7 +276,7 @@ gcmdgtkfoldview_get_type (void)
 			NULL, /* class_data */
 			sizeof (GcmdGtkFoldview),
 			0,
-			(GInstanceInitFunc)GcmdGtkFoldview::Control_g_object_init,
+			(GInstanceInitFunc)GcmdGtkFoldview::G_object_init,
 		};
 
 	fv_type = g_type_register_static(GTK_TYPE_VBOX, "gtkGcmdFoldview", &fv_info, (GTypeFlags)0);
@@ -333,10 +284,6 @@ gcmdgtkfoldview_get_type (void)
 
 	return fv_type;
 }
-
-//-----------------------------------------------------------------------------
-//	GcmdGtkFoldview class initialization
-//-----------------------------------------------------------------------------
 static void
 gcmdgtkfoldview_class_init (GcmdGtkFoldviewClass *klass)
 {
@@ -356,73 +303,399 @@ gcmdgtkfoldview_class_init (GcmdGtkFoldviewClass *klass)
 	GObjectClass	*g_object_class		= G_OBJECT_CLASS	(klass);
 
 
-	GcmdGtkFoldview::Control_parent_class	= (GObjectClass*) g_type_class_peek_parent (klass);
+	GcmdGtkFoldview::Parent_class	= (GObjectClass*) g_type_class_peek_parent (klass);
 
 	// override dispose & finalize
-	gtk_object_class->destroy   = GcmdGtkFoldview::Control_gtk_object_destroy;
-	g_object_class->dispose		= GcmdGtkFoldview::Control_g_object_dispose;
-	g_object_class->finalize	= GcmdGtkFoldview::Control_g_object_finalize;
+	gtk_object_class->destroy   = GcmdGtkFoldview::Gtk_object_destroy;
+	g_object_class->dispose		= GcmdGtkFoldview::G_object_dispose;
+	g_object_class->finalize	= GcmdGtkFoldview::G_object_finalize;
 }
-
 GtkWidget*
 gcmdgtkfoldview_new ()
 {
-    return GTK_WIDGET (g_object_new (GCMDGTKFOLDVIEW_TYPE, NULL));
+    return GTK_WIDGET(g_object_new (GCMDGTKFOLDVIEW_TYPE, NULL));
 }
-
-//  ###########################################################################
-//  ###																		###
-//  ##																		 ##
-//  #						Public methods									  #
-//  ##																		 ##
-//  ###																		###
-//  ###########################################################################
+//  ===========================================================================
 void
-gnome_cmd_foldview_update_style(GtkWidget *widget)
+GcmdGtkFoldview::G_object_init (GcmdGtkFoldview *foldview)
 {
-	g_return_if_fail( widget != NULL );
+	foldview->init_instance();
+}
+void GcmdGtkFoldview::Gtk_object_destroy(GtkObject* object)
+{
+	//g_return_if_fail( IS_GCMDGTKFOLDVIEW(object) );
+	//GCMD_INF("Control_gtk_object_destroy:%03i", GCMDGTKFOLDVIEW(object)->control_ref_count());
+	GCMD_INF("GcmdGtkFoldview::Control_gtk_object_destroy");
 
-	(GCMDGTKFOLDVIEW(widget))->view.update_style();
+	GCMDGTKFOLDVIEW(object)->dispose();
+
+	(* GTK_OBJECT_CLASS (Parent_class)->destroy)(object);
+}
+void GcmdGtkFoldview::G_object_dispose(GObject* object)
+{
+	//g_return_if_fail( IS_GCMDGTKFOLDVIEW(object) );
+	//GCMD_INF("Control_g_object_dispose:%03i", GCMDGTKFOLDVIEW(object)->control_ref_count());
+	GCMD_INF("GcmdGtkFoldview::Control_g_object_dispose");
+
+	(*Parent_class->dispose)(object);
+}
+void GcmdGtkFoldview::G_object_finalize(GObject* object)
+{
+	g_return_if_fail( IS_GCMDGTKFOLDVIEW(object) );
+	//GCMD_INF("Control_g_object_finalize:%03i", GCMDGTKFOLDVIEW(object)->control_ref_count());
+	GCMD_INF("GcmdGtkFoldview::Control_g_object_finalize");
+
+	GCMDGTKFOLDVIEW(object)->finalize();
+
+	(*Parent_class->finalize)(object);
+}
+//  ###########################################################################
+//
+//  GcmdGtkFoldview : the rest
+//
+//  ###########################################################################
+
+GdkPixbuf   *   GcmdGtkFoldview::s_gdk_pixbuf[GcmdGtkFoldview::eIconCard];
+gboolean        GcmdGtkFoldview::s_gdk_pixbuf_loaded    = FALSE;
+
+//  ***************************************************************************
+//
+//  init_instance, ...
+//
+//  ***************************************************************************
+void GcmdGtkFoldview::init_instance()
+{
+    raz_pointers();
+
+    //.........................................................................
+    // Init logger
+    //
+
+    //
+    //                           Tki
+    //                            |
+    //                         Wng| Tke
+    //                          | | |
+    // Logger format : GCMD_B8(xxxxxx)
+    //                         | | |
+    //                        Inf| Tkw
+    //                           |
+    //                          Err
+    //
+    //
+
+    // common
+    sLogger.channel_create(eLogGcmd,      "GCMD     ", GCMD_B8(111000));
+    sLogger.channel_create(eLogLeaks,     "LEAKS    ", GCMD_B8(111111));
+    // control
+    sLogger.channel_create(eLogFifo,      "FIFO     ", GCMD_B8(000000));
+    sLogger.channel_create(eLogMsg,       "MESSAGES ", GCMD_B8(111011));
+    // model
+    sLogger.channel_create(eLogFiles,     "FILES    ", GCMD_B8(000000));
+    sLogger.channel_create(eLogRefresh,   "REFRESH  ", GCMD_B8(011011));
+    sLogger.channel_create(eLogSort,      "SORT     ", GCMD_B8(111111));
+    sLogger.channel_create(eLogEnumerate, "ENUMERATE", GCMD_B8(111000));
+    sLogger.channel_create(eLogCheck,     "CHECK    ", GCMD_B8(111000));
+    sLogger.channel_create(eLogExpand,    "EXPAND   ", GCMD_B8(111000));
+    sLogger.channel_create(eLogMonitor,   "MONITOR  ", GCMD_B8(000000));
+
+    sLogger.channel_create(eLogTreeNode,  "TREENODE ", GCMD_B8(111011));
+    sLogger.channel_create(eLogTreeBlock, "TREEBLOCK", GCMD_B8(111100));
+    sLogger.channel_create(eLogTreeStore, "TREESTORE", GCMD_B8(111100));
+
+    //.........................................................................
+    //
+    //  Images
+    //
+    Pixbuf_load_all();
+
+    //.........................................................................
+    //
+    //  Members
+    //
+    d_headband          = GCMD_STRUCT_NEW(HeadBand, this);
+
+    d_scrolled_window   = gtk_scrolled_window_new(NULL,NULL);
+    d_vbox_sw           = gtk_vbox_new(FALSE, 0);
+
+    //.........................................................................
+    //
+    //  Setup
+    //
+    gtk_container_set_reallocate_redraws(GTK_CONTAINER(this), TRUE);
+	gtk_box_set_homogeneous(GTK_BOX(this), FALSE);
+
+    d_headband->update_connections();
+
+    gtk_scrolled_window_set_placement(GTK_SCROLLED_WINDOW(d_scrolled_window), GTK_CORNER_BOTTOM_RIGHT);
+	gtk_scrolled_window_set_policy
+    (   GTK_SCROLLED_WINDOW(d_scrolled_window),
+		GTK_POLICY_AUTOMATIC,
+        GTK_POLICY_AUTOMATIC    );
+
+	gtk_box_set_homogeneous(GTK_BOX(d_vbox_sw), FALSE);
+
+    //.........................................................................
+    //
+    //  Packing
+    //
+	gtk_box_pack_start(GTK_BOX(this), d_headband->widget(), FALSE, FALSE, 0);
+
+    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(d_scrolled_window), d_vbox_sw);
+	gtk_box_pack_start(GTK_BOX(this), d_scrolled_window, TRUE, TRUE, 0);
+
+	//-------------------------------------------------------------------------
+	// show, except the pane container
+    d_headband->show();
+	gtk_widget_show_all(GTK_WIDGET(this));
+
+    //=========================================================================
+    //  Control
+    //=========================================================================
+}
+void GcmdGtkFoldview::raz_pointers()
+{
+    d_headband          = NULL;
+
+    d_scrolled_window   = NULL;
+    d_vbox_sw           = NULL;
+
+    d_list_widget       = NULL;
+    a_list_widget_card  = 0;
 }
 
-GtkWidget*
-gnome_cmd_foldview_get_instance()
+void GcmdGtkFoldview::dispose()
 {
-	return GcmdWidget();
+    GList                                   *   l   = NULL;
+    GcmdStruct<GnomeCmdConnectionTreeview>  *   ctv = NULL;
+    //.........................................................................
+    l = g_list_first( d_list_widget );
+
+    while ( l )
+    {
+        if ( ! GTK_IS_HSEPARATOR((GtkSeparator*)l->data) )
+        {
+            ctv = (GcmdStruct<GnomeCmdConnectionTreeview>*)(l->data);
+
+            gtk_container_remove(GTK_CONTAINER(d_vbox_sw), ctv->widget());
+
+            delete ctv;
+        }
+        else
+        {
+            gtk_container_remove(GTK_CONTAINER(d_vbox_sw), GTK_WIDGET(l->data));
+        }
+
+        l = g_list_next(l);
+    }
+
+    gtk_container_remove(GTK_CONTAINER(this), headband()->widget());
+    delete d_headband;
+
+    g_list_free(d_list_widget);
+
 }
 
-void gnome_cmd_foldview_destroy()
+void GcmdGtkFoldview::finalize()
 {
-	gint rc = 0;
+    Pixbuf_unload_all();
+}
+//  ***************************************************************************
+//
+//  Icons
+//
+//  ***************************************************************************
+gboolean
+GcmdGtkFoldview::Pixbuf_load(
+    GcmdGtkFoldview::eIcon      _icon,
+    const gchar             *   _filename)
+{
+	GError  *   g_error		= NULL;
+    //.........................................................................
+	s_gdk_pixbuf[_icon] = gdk_pixbuf_new_from_file(_filename, &g_error);
 
-	if ( ! GcmdGtkFoldviewSingleton )
-		return;
+    if ( g_error )
+    {
+        GCMD_ERR("GcmdGtkFoldview::Pixbuf_load():%s", g_error->message );
+        g_error_free(g_error);
+        return FALSE;
+    }
+    return TRUE;
+}
+gboolean
+GcmdGtkFoldview::Pixbuf_load_all()
+{
+    if ( s_gdk_pixbuf_loaded )
+        return TRUE;
 
-	rc = (GCMDGTKFOLDVIEW(GcmdGtkFoldviewSingleton))->control_ref_count();
+	Pixbuf_load(eIconGtkAdd, "../pixmaps/gtk-add.png");
 
-	// release our ref
-	gwr_inf("gnome_cmd_foldview_destroy:refcount is %03i, releasing one", rc);
-	g_object_unref( GcmdGtkFoldviewSingleton );
+    return TRUE;
+}
+void
+GcmdGtkFoldview::Pixbuf_unload_all()
+{
+	g_object_unref(s_gdk_pixbuf[eIconGtkAdd]);
+}
+//  ***************************************************************************
+//
+//  Widget signals
+//
+//  ***************************************************************************
+void
+GcmdGtkFoldview::Signal_button_add_clicked(
+    GtkButton    *  _button,
+    gpointer        _udata)
+{
+    GcmdGtkFoldview     *   gfv     = NULL;
+    GnomeCmdCon         *   con     = NULL;
+    GList               *   l       = NULL;
+    gboolean                b       = FALSE;
+    //.........................................................................
+    g_return_if_fail( _udata );
+    gfv = GCMDGTKFOLDVIEW(_udata);
 
-	// last ref !
-	//gwr_inf("removing last ref...");
-	//g_object_unref( GcmdGtkFoldviewSingleton );
-	//gtk_widget_destroy( GcmdWidget() );
+    // get selected connection
+    con = gfv->headband()->get_selected_connection();
+    if ( ! con )
+    {
+        GCMD_ERR("GcmdGtkFoldview::Signal_button_add_clicked():No connection selected");
+        return;
+    }
+
+    // if connection no more available, abort
+    for ( l = gnome_cmd_con_list_get_all(gnome_cmd_con_list_get ()); l ; l = l->next )
+    {
+        if ( con == (GnomeCmdCon *)l->data )
+        {
+            b = TRUE;
+            break;
+        }
+    }
+    if ( ! b )
+    {
+        GCMD_ERR("GcmdGtkFoldview::Signal_button_add_clicked():Connection no more available");
+        gfv->headband()->update_connections();
+        return;
+    }
+
+    if ( ! gfv->headband()->can_add_that_connection(con) )
+    {
+        GCMD_ERR("GcmdGtkFoldview::Signal_button_add_clicked():Cant add that connection");
+        return;
+    }
+
+    // add a new treeview
+    gfv->treeview_add(con);
+}
+void
+GcmdGtkFoldview::Signal_button_up_clicked(
+    GtkButton    *  _button,
+    gpointer        _udata)
+{
+}
+void
+GcmdGtkFoldview::Signal_button_down_clicked(
+    GtkButton    *  _button,
+    gpointer        _udata)
+{
+}
+//  ***************************************************************************
+//
+//  Treeviews
+//
+//  ***************************************************************************
+void
+GcmdGtkFoldview::treeview_add(
+    GnomeCmdCon     *   _con)
+{
+    GcmdStruct<GnomeCmdConnectionTreeview>  *   ctv = NULL;
+    GtkWidget                               *   sep = NULL;
+    //.........................................................................
+    g_return_if_fail( _con );
+
+    // the separator
+    if ( a_list_widget_card != 0 )
+    {
+        sep = gtk_hseparator_new();
+        gtk_widget_set_size_request(sep, -1, 10);
+        gtk_widget_show(sep);
+
+        d_list_widget = g_list_append(d_list_widget, sep);
+        a_list_widget_card++;
+    }
+
+    // the gct
+    ctv = GCMD_STRUCT_NEW(GnomeCmdConnectionTreeview, this, _con);
+    ctv->show();
+
+    d_list_widget = g_list_append(d_list_widget, ctv);
+    a_list_widget_card++;
+
+    // pack
+    if ( sep )
+        gtk_box_pack_start(GTK_BOX(d_vbox_sw), sep, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(d_vbox_sw), ctv->widget(), TRUE, TRUE, 0);
+}
+
+void
+GcmdGtkFoldview::treeview_del(
+    GnomeCmdConnectionTreeview   *   _ctv)
+{
+    GList                                   *   l   = NULL;
+    GList                                   *   l1  = NULL;
+    GList                                   *   l2  = NULL;
+    GcmdStruct<GnomeCmdConnectionTreeview>  *   ctv = NULL;
+    GtkWidget                               *   sep = NULL;
+    //.........................................................................
+    g_return_if_fail( _ctv );
+
+    l = g_list_first(d_list_widget);
+    while ( l )
+    {
+        if ( ! GTK_IS_HSEPARATOR((GtkSeparator*)l->data) )
+        {
+            ctv = (GcmdStruct<GnomeCmdConnectionTreeview>*)(l->data);
+
+            if ( ((GnomeCmdConnectionTreeview*)ctv) == _ctv )
+            {
+                l1 = l;
+                l  = g_list_next(l);
+                if ( l )
+                {
+                    l2  = l;
+                    sep = GTK_WIDGET(l->data);
+                }
+
+                gtk_container_remove(GTK_CONTAINER(d_vbox_sw), ctv->widget());
+
+                delete ctv;
+                d_list_widget = g_list_delete_link(d_list_widget, l1);
+                a_list_widget_card--;
+
+
+                if ( sep )
+                {
+                    gtk_container_remove(GTK_CONTAINER(d_vbox_sw), sep);
+
+                    d_list_widget = g_list_delete_link(d_list_widget, l2);
+                    a_list_widget_card--;
+                }
+            }
+        }
+
+        l = g_list_next(l);
+    }
 }
 
 
-//=============================================================================
-//  Root element
-//=============================================================================
-gboolean GcmdGtkFoldview::root_uri_set_1(gchar * text)
+void
+GcmdGtkFoldview::treeview_set_packing_expansion(
+    GnomeCmdConnectionTreeview  *   _ctv,
+    gboolean                        _expand)
 {
-	GnomeVFSURI *uri	= GVFS_uri_new(text);
-	control_root_uri_set(uri);
-	gnome_vfs_uri_unref(uri);
-	return TRUE;
+    gtk_box_set_child_packing(GTK_BOX(d_vbox_sw), _ctv->widget(), _expand, TRUE, 0, GTK_PACK_START);
 }
 
-gboolean GcmdGtkFoldview::root_uri_set_2(GnomeVFSURI *uri)
-{
-	return control_root_uri_set(uri);
-}
+
+

@@ -2,7 +2,7 @@
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
     Copyright (C) 2007-2010 Piotr Eljasiak
-    Copyright (C) 2010-2010 Guillaume Wardavoir
+    Copyleft      2010-2010 Guillaume Wardavoir
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,9 +33,15 @@
 #include <gtk/gtkvbox.h>
 #include <gtk/gtklabel.h>
 
+struct  IGnomeCmdFoldview
+{
+	
+};
+
 // This function because of the creation process of GtkWidgets. Annoying.
-GtkWidget*			gnome_cmd_foldview_get_instance();
-GtkWidget*			gnome_cmd_foldview_destroy();
-void				gnome_cmd_foldview_update_style (GtkWidget *widget);
+GtkWidget*			gnome_cmd_foldview_new();
+void				gnome_cmd_foldview_update_style(GtkWidget *widget);
+
+
 
 #endif //__GCMDGTKFOLDVIEW_H__

@@ -1,94 +1,37 @@
-#include <string.h>
-#include "gnome-cmd-foldview-treestore.h"
+/*
+    GNOME Commander - A GNOME based file manager
+    Copyright (C) 2001-2006 Marcus Bjurman
+    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyleft      2010-2010 Guillaume Wardavoir
+							Tim-Philipp Müller
 
-//  ###########################################################################
-//  ###																		###
-//  ##																		 ##
-//  #								LOGGER									  #
-//  ##																		 ##
-//  ###																		###
-//  ###########################################################################
+	***************************************************************************
+	Tim-Philipp Müller wrote the excellent "GTK+ 2.0 Tree View Tutorial" whose
+	section 11 'writing custom models' is the base of the
+	GnomeCmdFoldviewTreestore code.
+	***************************************************************************
 
-void gwr_inf(const char* fmt, ...);
-void gwr_wng(const char* fmt, ...);
-void gwr_err(const char* fmt, ...);
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-//#define DEBUG_STORE
-//#define DEBUG_NODES
-//#define DEBUG_BLOCKS
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
 
-// Logging for GnomeCmdFoldviewTreestore
-#ifdef DEBUG_STORE
+#include	<glib.h>
+#include	<glib/gprintf.h>
+#include	<string.h>
+#include	"gnome-cmd-foldview-treestore.h"
+#include	"gnome-cmd-foldview-utils.h"
 
-	#define STORE_INF(...)													\
-	{																		\
-		gwr_inf(__VA_ARGS__);												\
-	}
-	#define STORE_WNG(...)													\
-	{																		\
-		gwr_wng(__VA_ARGS__);												\
-	}
-	#define STORE_ERR(...)													\
-	{																		\
-		gwr_err( __VA_ARGS__);												\
-	}
-
-#else
-
-	#define STORE_INF(...)
-	#define STORE_WNG(...)
-	#define STORE_ERR(...)
-
-#endif
-
-// Logging for nodes
-#ifdef DEBUG_NODES
-
-	#define NODE_INF(...)													\
-	{																		\
-		gwr_inf(__VA_ARGS__);												\
-	}
-	#define NODE_WNG(...)													\
-	{																		\
-		gwr_wng(__VA_ARGS__);												\
-	}
-	#define NODE_ERR(...)													\
-	{																		\
-		gwr_err( __VA_ARGS__);												\
-	}
-
-#else
-
-	#define NODE_INF(...)
-	#define NODE_WNG(...)
-	#define NODE_ERR(...)
-
-#endif
-
-// Logging for blocks
-#ifdef DEBUG_BLOCKS
-
-	#define BLOCK_INF(...)													\
-	{																		\
-		gwr_inf(__VA_ARGS__);												\
-	}
-	#define BLOCK_WNG(...)													\
-	{																		\
-		gwr_wng(__VA_ARGS__);												\
-	}
-	#define BLOCK_ERR(...)													\
-	{																		\
-		gwr_err( __VA_ARGS__);												\
-	}
-
-#else
-
-	#define BLOCK_INF(...)
-	#define BLOCK_WNG(...)
-	#define BLOCK_ERR(...)
-
-#endif
 
 
 //  ###########################################################################
@@ -98,21 +41,97 @@ void gwr_err(const char* fmt, ...);
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
-gint GnomeCmdFoldviewTreestore::Data::Count = 0;
 
-GnomeCmdFoldviewTreestore::Data::Data()
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #								PATH									  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+void*
+GnomeCmdFoldviewTreestore::Path::operator new(size_t t)
 {
-	GnomeCmdFoldviewTreestore::Data::Count++;
-	//STORE_INF("DAT(+ %04i)", Count);
+	Path * path = g_try_new0(Path, 1);
+
+	if ( ! path )
+		GCMD_ERR("GnomeCmdFoldviewTreestore::Path::operator new:g_try_new0 failed");
+
+	return path;
+}
+void
+GnomeCmdFoldviewTreestore::Path::operator delete(void *p)
+{
+	g_free(p);
 }
 
-GnomeCmdFoldviewTreestore::Data::~Data()
+GnomeCmdFoldviewTreestore::Path::Path(gint card)
 {
-	Count--;
-	//STORE_INF("DAT(- %04i)", Count);
+	d_ascii_dump	= (gchar*)g_try_malloc0(64);
+	a_card			= card;
+	d_uid			= (guint32*) g_try_malloc0(a_card * sizeof(guint32) );
+}
+GnomeCmdFoldviewTreestore::Path::~Path()
+{
+	g_free(d_ascii_dump);
+	g_free(d_uid);
 }
 
+gint
+GnomeCmdFoldviewTreestore::Path::card()
+{
+	return a_card;
+}
 
+guint32
+GnomeCmdFoldviewTreestore::Path::uid_get(gint _pos)
+{
+	return d_uid[_pos];
+}
+
+void
+GnomeCmdFoldviewTreestore::Path::uid_set(gint _pos, guint32 _uid)
+{
+	d_uid[_pos] = _uid;
+}
+
+GnomeCmdFoldviewTreestore::Path*
+GnomeCmdFoldviewTreestore::Path::dup()
+{
+	Path	*   dup = NULL;
+	gint		i   = 0;
+	//.........................................................................
+
+	dup = new Path(card());
+
+	for ( i = 0 ; i != card() ; i++ )
+		dup->uid_set(i, uid_get(i));
+
+	return dup;
+}
+
+const gchar*
+GnomeCmdFoldviewTreestore::Path::dump()
+{
+	gchar   temp[128];
+	gint	i ;
+	//.........................................................................
+	if ( a_card == 0 )
+	{
+		sprintf(d_ascii_dump, "~ Empty ~");
+		return (const gchar*)d_ascii_dump;
+	}
+
+	sprintf(d_ascii_dump, "%03i", uid_get(0));
+
+	for ( i = 1 ; i < a_card ; i++ )
+	{
+		sprintf(temp, " %03i ", uid_get(i));
+		strcat(d_ascii_dump, temp);
+	}
+
+	return (const gchar*)d_ascii_dump;
+}
 
 //  ###########################################################################
 //  ###																		###
@@ -122,10 +141,10 @@ GnomeCmdFoldviewTreestore::Data::~Data()
 //  ###																		###
 //  ###########################################################################
 
-gint GnomeCmdFoldviewTreestore::node::Count = 0;
+gint GnomeCmdFoldviewTreestore::Node::Count = 0;
 
 #define NODE_FROM_ITER(_node, _iter)										\
-	_node = (GnomeCmdFoldviewTreestore::node*)_iter->user_data
+	_node = (GnomeCmdFoldviewTreestore::Node*)_iter->user_data
 
 #define ITER_FROM_NODE(_treestore, _iter, _node)							\
 	(_iter)->stamp		= _treestore->stamp();								\
@@ -142,7 +161,38 @@ gint GnomeCmdFoldviewTreestore::node::Count = 0;
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node::new:
+	*   GnomeCmdFoldviewTreestore::Node::new()
+	*
+	**/
+
+//=============================================================================
+void*	GnomeCmdFoldviewTreestore::Node::operator new(
+	size_t  size)
+{
+	GnomeCmdFoldviewTreestore::Node	*n = g_try_new0(GnomeCmdFoldviewTreestore::Node, 1);
+
+	return n;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Node::delete()
+	*
+	**/
+
+//=============================================================================
+void
+GnomeCmdFoldviewTreestore::Node::operator delete(
+void *p)
+{
+	g_free(p);
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Node::node()
 	*
 	*   @_depth  : Depth of the node ( = same as depth in GtkTreePath )
 	*   @_pos    : Pos ( starting from 0 ) of the node in the block
@@ -153,82 +203,108 @@ gint GnomeCmdFoldviewTreestore::node::Count = 0;
 	**/
 
 //=============================================================================
-void*	GnomeCmdFoldviewTreestore::node::operator new(
-	size_t								size,
-	gint								_depth, // only for the new node_block
-	gint								_pos,
-	GnomeCmdFoldviewTreestore::node		*_parent,
-	GnomeCmdFoldviewTreestore::Data*	_data)
+GnomeCmdFoldviewTreestore::Node::Node(
+	guint32					_uid,
+	gint					_depth, // only for the new node_block
+	gint					_pos,
+	Node				*   _parent,
+	DataInterface		*   _data)
 {
-	GnomeCmdFoldviewTreestore::node	*n = g_try_new0(GnomeCmdFoldviewTreestore::node, 1);
+	a_bits			=   0;
+	a_bits			+=  ( (guint32)( _uid                           << e_UID_SHIFT)      ) & e_UID_BITS;
+	a_pos			=   _pos;
+	a_parent	    =   _parent;
+	a_next			=   NULL;
 
-	if ( !n )
-		return n;
+	a_children		=   new NodeBlock(_depth + 1, this);
 
-	n->a_pos			= _pos;
-	n->a_parent			= _parent;
-	n->a_next			= NULL;
-
-	n->a_children		= new (_depth + 1, n) node_block;
-
-	n->d_data			= _data;
+	d_data			=   _data;
 
 	Count++;
-	NODE_INF("NOD(+%04i nodes) d:%03i p:%03i p:0x%08x,%03i", Count, _depth, _pos, _parent, _parent ? _parent->pos() : 0);
-
-	return n;
+	//NODE_INF("NOD+(%04i):[%s]",Count, log());
 }
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node::delete:
+	*   GnomeCmdFoldviewTreestore::Node::~node()
 	*
-	*   This function does _NOT_ free the GArray containing the children.
-	*   For recursive delete, use purge()
+	*   Here we only delete the memory allowed for the struct itself.
+    *   We do _NOT_ free the node_block containing the children.
+	*   For recursive delete, use remove()
 	*
 	**/
 
 //=============================================================================
-void
-GnomeCmdFoldviewTreestore::node::operator delete(
-void *p)
+GnomeCmdFoldviewTreestore::Node::~Node()
 {
-	GnomeCmdFoldviewTreestore::node	*n = (GnomeCmdFoldviewTreestore::node*)p;
+	//NODE_INF("NOD-(%04i):[%s]", (Count - 1), log());
 
-	#ifdef DEBUG_NODES
-	NODE_INF("NOD(-%04i nodes) p:%03i p:0x%08x,%03i", Count - 1, n->pos(), n->parent(), n->parent() ? n->parent()->pos() : 0);
-	#endif
-
-	delete n->data();
-
-	g_free(p);
+    delete data();
 
 	Count--;
 }
 
+
+
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node::purge:
+	*   GnomeCmdFoldviewTreestore::Node:remove_children()
 	*
-	*   @node : the node of this block to remove
-	*
-	*   _RECURSIVELY_ remove the node and all its descendance. The GArray
-	*   containing the children of the node is deleted.
+	*   __RECURSIVE__ remove the descendance of the node.
 	*
 	**/
 
 //=============================================================================
 gint
-GnomeCmdFoldviewTreestore::node::purge()
+GnomeCmdFoldviewTreestore::Node::remove_children()
+{
+    return children()->remove_nodes();
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Node:remove_child()
+	*
+	*   __RECURSIVE__ remove a child and all its descendance.
+    *
+	**/
+
+//=============================================================================
+gint
+GnomeCmdFoldviewTreestore::Node::remove_child(
+    gint    _pos)
 {
 	gint									count   = 0;
 	//.........................................................................
 
-	count += children()->purge();
-	delete children();
+    // remove children nodes
+	count += children()->remove_node(_pos);
+
 	return count;
+}
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Node::row
+	*
+	*   __RECURSIVE__
+	*   Get a node's row index in the tree
+	*
+	**/
+
+//=============================================================================
+gint
+GnomeCmdFoldviewTreestore::Node::row()
+{
+	if ( depth() != 1 )
+	{
+		return ( pos() + 1 ) + parent()->row();
+	}
+
+	return pos();
 }
 
 //=============================================================================
@@ -236,13 +312,13 @@ GnomeCmdFoldviewTreestore::node::purge()
 //  node : Logging
 //
 //=============================================================================
-#ifdef DEBUG_NODES
-const gchar* GnomeCmdFoldviewTreestore::node::log()
+const gchar* GnomeCmdFoldviewTreestore::Node::log()
 {
 	static gchar Node_str_01[1024];
 
-	//node : pos parent next children data
-	sprintf(Node_str_01, "dep:%03i pos:%03i nxt:%s chd:%03i dat:%s",
+	//node : ref_count pos parent next children data
+	sprintf(Node_str_01, "this:%08x dep:%03i pos:%03i nxt:%s chd:%03i dat:%s",
+        this,
 		a_parent ? a_parent->children()->depth() : 1,
 		a_pos,
 		a_next ? "Y" : "N",
@@ -251,12 +327,80 @@ const gchar* GnomeCmdFoldviewTreestore::node::log()
 
 	return Node_str_01;
 }
-#else
-const gchar* GnomeCmdFoldviewTreestore::node::log()
+
+void GnomeCmdFoldviewTreestore::Node::dump_tree(
+    gint    _level)
 {
-	return "XXX";
+    GnomeCmdFoldviewTreestore::NodeBlock * block   = NULL;
+    GnomeCmdFoldviewTreestore::Node *       child   = NULL;
+    gint                                    card    = 0;
+    gint                                    depth   = 0;
+
+    gint                                i       = 0;
+    gchar                               sp      [256];
+    gchar                               s1      [256];
+    gchar                               s2      [256];
+    //.........................................................................
+    //
+    //  0123456789
+    //  [xxxxxxxx]                      0   8
+    //      |                           4   1
+    //      +-----[xxxxxxxx]            4   10
+    //                |
+    //                +-----[xxxxxxxx]
+    //
+
+    //.........................................................................
+    //
+    //  some vars
+    //
+    block   = children();
+    card    = block->card();
+    depth   = block->depth();
+
+    //.........................................................................
+    //
+    //  this
+    //
+    if ( _level  == 0 )
+    {
+        strcpy(s1, "     ");
+        strcpy(s2, "     ");
+    }
+    if ( _level  == 1 )
+    {
+        strcpy(s1, "         |");
+        strcpy(s2, "         +-----");
+    }
+    if ( _level >= 2 )
+    {
+        strcpy(sp, "     ");
+        for ( i = 2 ; i <= _level ; i++ )
+        {
+            //          0123456789
+            strcat(sp, "          ");
+        }
+
+        strcpy(s1, sp);
+        strcpy(s2, sp);
+        strcat(s1, "    |");
+        strcat(s2, "    +-----");
+    }
+
+    NODE_TKI("%s", s1);
+    NODE_TKI("%s[%08x]", s2, this);
+
+    //.........................................................................
+    //
+    //  children
+    //
+    for ( i = 0 ; i != card ; i++ )
+    {
+        child = g_array_index(block->array(), GnomeCmdFoldviewTreestore::Node*, i);
+
+        child->dump_tree(1 + _level);
+    }
 }
-#endif
 
 //  ###########################################################################
 //  ###																		###
@@ -265,46 +409,20 @@ const gchar* GnomeCmdFoldviewTreestore::node::log()
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
-gint GnomeCmdFoldviewTreestore::node_block::Count   = 0;
+gint GnomeCmdFoldviewTreestore::NodeBlock::Count   = 0;
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node_block::new:
-	*
-	*   @_depth  : The depth of the block ( = same as depth in GtkTreePath )
-	*   @_parent : The parent node
+	*   GnomeCmdFoldviewTreestore::NodeBlock::new:
 	*
 	**/
 
 //=============================================================================
-void*   GnomeCmdFoldviewTreestore::node_block::operator new(
-	size_t								size,
-	guint								_depth,
-	GnomeCmdFoldviewTreestore::node		*_parent)
+void*   GnomeCmdFoldviewTreestore::NodeBlock::operator new(
+	size_t								size)
 {
-	GnomeCmdFoldviewTreestore::node_block	*nb = g_try_new0(GnomeCmdFoldviewTreestore::node_block, 1);
-
-	if ( !nb )
-		return nb;
-
-	nb->a_card		= 0;
-	nb->a_depth		= _depth;
-	nb->a_parent	= _parent;
-
-	nb->d_nodes		= g_array_sized_new(
-		FALSE,					// zero_terminated element appended at the end
-		TRUE,					// all bits set to zero
-		sizeof(node*),			// element_size,
-		10);					//reserved_size);
-
-	// Fuck, Fuck, Fuck !!!
-	// Spended hours on this, g_array_sized_new( ...set bits to 0 )
-	// doesnt fucking work !!!
-	// printf("GArray 0x%08x d:%03i p:0x%08x [0]=0x%08x\n", nb->d_nodes, nb->a_depth, nb->a_parent, g_array_index(nb->d_nodes, GnomeCmdFoldviewTreestore::node*, 0));
-
-	Count++;
-	BLOCK_INF("BLK(+%04i blocks) d:%03i", Count, nb->a_depth);
+	GnomeCmdFoldviewTreestore::NodeBlock	*nb = g_try_new0(GnomeCmdFoldviewTreestore::NodeBlock, 1);
 
 	return nb;
 }
@@ -312,40 +430,108 @@ void*   GnomeCmdFoldviewTreestore::node_block::operator new(
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node_block::delete:
+	*   GnomeCmdFoldviewTreestore::NodeBlock::delete:
 	*
 	**/
 
 //=============================================================================
-void	GnomeCmdFoldviewTreestore::node_block::operator delete (void *p)
+void	GnomeCmdFoldviewTreestore::NodeBlock::operator delete (void *p)
 {
-	GnomeCmdFoldviewTreestore::node_block *b = (GnomeCmdFoldviewTreestore::node_block*)p;
-	#ifdef DEBUG_BLOCKS
-	BLOCK_INF("BLK(-%04i blocks) d:%03i c:%03i", Count - 1, b->a_depth, b->a_card);
-	#endif
-
-	g_array_free( b->d_nodes, TRUE );
-
 	g_free(p);
-
-	Count--;
 }
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node_block::node_get:
+	*   GnomeCmdFoldviewTreestore::NodeBlock::NodeBlock()
+	*
+	*   @_depth  : The depth of the block ( = same as depth in GtkTreePath )
+	*   @_parent : The parent node
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::NodeBlock::NodeBlock(
+	guint									_depth,
+	GnomeCmdFoldviewTreestore::Node		*   _parent)
+{
+	a_card		= 0;
+	a_depth		= _depth;
+	a_parent	= _parent;
+
+	d_nodes		= g_array_sized_new(
+		FALSE,					// zero_terminated element appended at the end
+		TRUE,					// all bits set to zero
+		sizeof(Node*),			// element_size,
+		10);					//reserved_size);
+
+	// Fuck, Fuck, Fuck !!!
+	// Spended hours on this, g_array_sized_new( ...set bits to 0 )
+	// doesnt fucking work !!!
+	// printf("GArray 0x%08x d:%03i p:0x%08x [0]=0x%08x\n", nb->d_nodes, nb->a_depth, nb->a_parent, g_array_index(nb->d_nodes, GnomeCmdFoldviewTreestore::Node*, 0));
+
+	Count++;
+	//BLOCK_INF("BLK+(%04i):d %03i", Count, a_depth);
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::NodeBlock::~node_block()
+	*
+	*   Here we only delete the array of children ; it does _NOT_ affect the
+	*   children objects.
+	*   For recursive delete, use purge()
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::NodeBlock::~NodeBlock()
+{
+	//BLOCK_INF("BLK-(%04i):d %03i c:%03i", Count - 1, a_depth, a_card);
+
+	g_array_free( d_nodes, TRUE );
+
+	Count--;
+}
+
+
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::NodeBlock::reset()
+	*
+	*   Set the number of children to zero, redim the GArray
+	*
+	**/
+
+//=============================================================================
+void
+GnomeCmdFoldviewTreestore::NodeBlock::reset()
+{
+    if ( ! a_card )
+        return;
+
+	g_array_remove_range(d_nodes, 0, a_card);
+	a_card = 0;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::NodeBlock::node_get:
 	*
 	*   @pos : Position ( starting from zero ) of the node to get.
 	*
 	**/
 
 //=============================================================================
-GnomeCmdFoldviewTreestore::node*
-GnomeCmdFoldviewTreestore::node_block::node_get(
+GnomeCmdFoldviewTreestore::Node*
+GnomeCmdFoldviewTreestore::NodeBlock::node_get(
 	gint pos)
 {
-	GnomeCmdFoldviewTreestore::node			*node   = NULL;
+	GnomeCmdFoldviewTreestore::Node			*node   = NULL;
 	//.........................................................................
 	if ( a_card == 0 )
 	{
@@ -366,7 +552,7 @@ GnomeCmdFoldviewTreestore::node_block::node_get(
 			return NULL;
 	}
 
-	node = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, pos);
+	node = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, pos);
 	//BLOCK_INF("BLK(%-20s) d:%03i p:%03i c:%03i [%s]", "node_get", a_depth, pos, a_card, node->log());
 	return node;
 }
@@ -374,116 +560,111 @@ GnomeCmdFoldviewTreestore::node_block::node_get(
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node_block::node_append:
+	*   GnomeCmdFoldviewTreestore::NodeBlock::node_append:
 	*
 	*   @data : user's data
 	*
 	*   Insert a node in the block. This method respect the ordering settings
 	*   of the store.
 	*
-	**/
+    **/
 
 //=============================================================================
-GnomeCmdFoldviewTreestore::node*
-GnomeCmdFoldviewTreestore::node_block::node_append(
-GnomeCmdFoldviewTreestore::Data *data)
+GnomeCmdFoldviewTreestore::Node*
+GnomeCmdFoldviewTreestore::NodeBlock::node_add(
+	guint32				_uid,
+	eSortType			_sort_type,
+	gint				_collate_key_to_use,
+	DataInterface	*   _data)
 {
-	GnomeCmdFoldviewTreestore::node *node   = NULL;
-	GnomeCmdFoldviewTreestore::node *temp   = NULL;
+	GnomeCmdFoldviewTreestore::Node *node   = NULL;
+	GnomeCmdFoldviewTreestore::Node *temp   = NULL;
 	gint							i		= 0;
 	//.........................................................................
 
 	// create a new node with pos = 0 :
 	// we cant set the position now, because we dont know at which position
 	// we will be stored
-	node = new (a_depth, 0, a_parent, data) GnomeCmdFoldviewTreestore::node;
+	node = new GnomeCmdFoldviewTreestore::Node(_uid, a_depth, 0, a_parent, _data);
 
-	if ( !GnomeCmdFoldviewTreestore::Render_sort() )
+	if ( ! _sort_type  ) // eSortNone is 0x00
 	{
 		goto generic_append;
 	}
-	else
+
+	if ( _sort_type == GnomeCmdFoldviewTreestore::eSortDescending )
 	{
-		if ( GnomeCmdFoldviewTreestore::Render_sort_ascending() )
-		{
-			// ascending - case NO
-			if ( !GnomeCmdFoldviewTreestore::Render_sort_case_sensitive() )
-			{
-				g_assert(FALSE);
-			}
-			//.................................................................
-			// ascending - case YES
-			else
-			{
-				temp = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, 0);
+		temp = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, 0);
 loop_acy:
-				// Fuck, Fuck, Fuck !!!
-				// Spended hours on this, g_array_sized_new( ...set bits to 0 )
-				// doesnt fucking work !!!
-				//if ( !temp )
-				if ( i >= a_card )
-					goto generic_append;
+		// Fuck, Fuck, Fuck !!!
+		// Spended hours on this, g_array_sized_new( ...set bits to 0 )
+		// doesnt fucking work ( in glib 2.16.6 ) !!!
+		if ( i >= a_card )
+			goto generic_append;
 
-				g_assert( node->parent() == temp->parent() );
+        //  Previous method, with direct access to collate keys
+        //  from DataInterface
+        //
+        //		if ( strcmp (
+        //				node->data()->utf8_collate_key(_collate_key_to_use),
+        //				temp->data()->utf8_collate_key(_collate_key_to_use)
+        //					) >= 0 )
+        //
+        if ( node->data()->compare(temp->data()) >= 0 )
+            goto generic_insert;
 
-				if ( strcmp( node->data()->utf8_collate_key(), temp->data()->utf8_collate_key() ) >= 0 )
-					goto generic_insert;
-
-				temp = temp->next(); i++;
-				goto loop_acy;
-			}
-		}
-		else
-		{
-			// descending - case NO
-			if ( !GnomeCmdFoldviewTreestore::Render_sort_case_sensitive() )
-			{
-				g_assert(FALSE);
-			}
-			//.................................................................
-			// descending - case YES
-			else
-			{
-				temp = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, 0);
-loop_dcy:
-				// Fuck, Fuck, Fuck !!!
-				// Spended hours on this, g_array_sized_new( ...set bits to 0 )
-				// doesnt fucking work !!!
-				//if ( !temp )
-				if ( i >= a_card )
-					goto generic_append;
-
-				g_assert( node->parent() == temp->parent() );
-
-				if ( strcmp( node->data()->utf8_collate_key(), temp->data()->utf8_collate_key() ) <= 0 )
-					goto generic_insert;
-
-				temp = temp->next(); i++;
-				goto loop_dcy;
-			}
-		}
+		temp = temp->next();
+		i++;
+		goto loop_acy;
 	}
 
+	if ( _sort_type == GnomeCmdFoldviewTreestore::eSortAscending )
+	{
+		temp = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, 0);
+loop_dcy:
+		// Fuck, Fuck, Fuck !!!
+		// Spended hours on this, g_array_sized_new( ...set bits to 0 )
+		// doesnt fucking work ( in glib 2.16.6 ) !!!
+		if ( i >= a_card )
+			goto generic_append;
+
+        //  Previous method, with direct access to collate keys
+        //  from DataInterface
+        //
+		//if ( strcmp (
+		//		node->data()->utf8_collate_key(_collate_key_to_use),
+		//		temp->data()->utf8_collate_key(_collate_key_to_use)
+		//			) <= 0 )
+        //
+        if ( node->data()->compare(temp->data()) <= 0 )
+			goto generic_insert;
+
+		temp = temp->next(); i++;
+		goto loop_dcy;
+	}
+
+	// Bad sort type
+	g_assert(FALSE);
 
 	//.........................................................................
 	//
-	// Generic back-end : We have to append 'node' at the end of the array
+	// 'Append' back-end : We have to append 'node' at the end of the array
 	//
 	// append to the end of the array
 generic_append:
-	// Now we know our pos, it is a_card - 1 + 1 = a_card
-	node->a_pos = a_card;
+	// Now we know the node's pos, it is a_card - 1 + 1 = a_card
+	node->set_pos(a_card);
 
 	// Note : I have never seen d_nodes change in append case
+	// but I still reaffect the GArray, cf GLib documentation
 	d_nodes = g_array_append_val(d_nodes, node);
 
 	// modify the previous node so its ->next field points to the newly
 	// created node ; do that only if we didnt create the first node.
 	if ( a_card != 0 )
 	{
-		temp = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, a_card - 1);
-		g_assert( node->parent() == temp->parent() );
-		temp->a_next = node;
+		temp = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, a_card - 1);
+		temp->set_next(node);
 	}
 
 	a_card++;
@@ -491,31 +672,31 @@ generic_append:
 
 	//.........................................................................
 	//
-	// Generic back-end : We have to insert 'node' at pos i, instead of 'temp'
+	// 'Insert' back-end : We have to insert 'node' at pos i, instead of 'temp'
 	//
 generic_insert:
 	// Now we know our pos, it is i
-	node->a_pos = i;
+	node->set_pos(i);
 
-	// insert
+	// I reaffect the GArray, cf GLib documentation, but I didnt dig this case
 	d_nodes = g_array_insert_val(d_nodes, i, node);
 
 	// modify the previous node so its ->next field points to 'node' ( at pos i )
 	// do that only if we didnt create the first node.
 	if ( i != 0 )
-		g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, i - 1)->a_next = node;
+		g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, i - 1)->set_next(node);
 
 	// modify 'node' so its ->next field points to the node at pos i + 1
 	// here we have collated, so we are sure that we have taken the place
 	// of a node, that is now just after us
-	node->a_next = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, i + 1);
+	node->set_next( g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, i + 1) );
 
 	// increase by 1 all ->pos fields of nodes following 'node'
 	temp = node->next();
 	g_assert(temp);
 	while ( temp )
 	{
-		temp->a_pos++;
+		temp->inc_pos();
 		temp = temp->next();
 	}
 
@@ -523,121 +704,287 @@ generic_insert:
 	return node;
 }
 
-
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node_block::node_cut:
+	*   GnomeCmdFoldviewTreestore::NodeBlock::remove_node()
 	*
-	*   @node : the node to cut
+	*   @param node : the node to remove
 	*
-	*   Cut the node, i.e. simply remove its pointer from the node_block
-	*   it belongs to, and delete it;
+	*   __RECURSIVE__
+	*   Remove the node and all its children. Update block info.
 	*
 	**/
 
 //=============================================================================
-/*
-void
-GnomeCmdFoldviewTreestore::node_block::node_cut(
-	GnomeCmdFoldviewTreestore::node*	node)
+gint
+GnomeCmdFoldviewTreestore::NodeBlock::remove_node(
+	gint pos)
 {
-	GnomeCmdFoldviewTreestore::node*		follow  = NULL;
+	GnomeCmdFoldviewTreestore::Node*		node	= NULL;
+	GnomeCmdFoldviewTreestore::Node*		follow	= NULL;
 	gint									i		= 0;
-	gint									pos		= 0;
+    gint                                    count   = 0;
 	//.........................................................................
+	node = node_get(pos);
+	g_return_val_if_fail( node, 0 );
 
-	pos = node->pos();
+    //BLOCK_INF("remove_node():[%s]", node->log());
 
 	// remove the node from the array
 	g_array_remove_index(d_nodes, pos);
 	a_card--;
 
-	// now update all node->a_pos, starting from node->pos() since it just
-	// has been replaced by GArray call
+	// modify eventually the previous node's "next" field
+	// ( dont call node_get, we do inline-verifications
+    //  - pos = 0 => no previous node to modify
+    //  - pos !== a_card <=> we remove the last node ; in this case next = NULL
+	if ( pos != 0 )
+			g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, pos - 1)->set_next
+            (
+				( pos != a_card														?
+					g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, pos)   :
+					NULL )
+            );
+
+	// update all nodes "pos" field, starting from node->pos() since it just
+	// has been replaced by the g_array_index call
+	// ( dont call node_get, we dont need verifications )
 	for ( i = pos ; i < a_card ; i ++ )
 	{
-		follow = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, i);
-		follow->a_pos -= 1;
+		follow = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, i);
+		follow->dec_pos();
 	}
 
-	// delete the node, it will automatically call delete on the Data* member
-	delete node;
+    //
+    // delete the node and all its children
+    //
 
-	// modify the previous->a_next field
-	if ( pos != 0 )
-		g_array_index(d_nodes, GnomeCmdFoldviewTreestore::node*, pos - 1)->a_next = NULL;
+    // remove children nodes
+	count += node->remove_children();
 
+    // delete the NodeBlock struct
+	delete node->children();
+
+    // delete the Node struct
+    delete node;
+
+    // return count
+	return ( 1 + count);
 }
-*/
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::node_block::purge:
+	*   GnomeCmdFoldviewTreestore::NodeBlock::remove_nodes()
 	*
-	*   @node : the node of this block to remove
-	*
-	*   _RECURSIVELY_ remove all the nodes of the block.
-	*   After this call, the block cannot be used, its info is invalid
+	*   __RECURSIVE__
+	*   Remove all the nodes and all their children. Update block info.
 	*
 	**/
 
 //=============================================================================
 gint
-GnomeCmdFoldviewTreestore::node_block::purge()
+GnomeCmdFoldviewTreestore::NodeBlock::remove_nodes()
 {
-	GnomeCmdFoldviewTreestore::node*		node	= NULL;
-	GnomeCmdFoldviewTreestore::node*		next	= NULL;
-	gint									count   = 0;
+	GnomeCmdFoldviewTreestore::Node*		node	= NULL;
+	GnomeCmdFoldviewTreestore::Node*		next	= NULL;
+    gint                                    count   = 0;
 	//.........................................................................
 
-	node = node_get(0);
+    //BLOCK_INF("remove_nodes():[%03i]", a_card);
 
-	while ( node )
-	{
-		next = node->next();
-		count += node->purge();
+    node = node_get(0);
 
-		delete node;
-		count++;
+    while ( node )
+    {
+        next    =   node->next();
+        count   +=  remove_node(node->pos());
+        node    =   next;
+    }
+	//for ( i = 0 ; i < a_card ; i ++ )
+	//{
+	//	node = g_array_index(d_nodes, GnomeCmdFoldviewTreestore::Node*, i);
+	//	count += remove_node(i);
+	//}
 
-		node = next;
-	}
+    reset();
 
-	// no update block, the "purge" process for node_blocks is separated
-	// in two methods - this is the quick part
-	return count;
+    return count;
 }
 
+
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #							    BRANCH     								  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::operator new()
+	*
+	**/
+
+//=============================================================================
+void*   GnomeCmdFoldviewTreestore::Branch::operator new(size_t size)
+{
+	return (void*)g_try_new0(GnomeCmdFoldviewTreestore::Branch, 1);
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::operator delete()
+	*
+	**/
+
+//=============================================================================
+void	GnomeCmdFoldviewTreestore::Branch::operator delete(void *p)
+{
+	g_free(p);
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::Branch()
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::Branch::Branch(
+	Node    *   _node)
+{
+    Node    *   _parent;
+    //.........................................................................
+    Branch();
+
+    g_return_if_fail( _node );
+
+    _parent = _node->parent();
+    g_return_if_fail( _parent );
+
+    a_root          =   _node;
+    a_root_parent   =   _parent;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::Branch()
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::Branch::Branch()
+{
+    a_root          =   NULL;
+    a_root_parent   =   NULL;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::~Branch()
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::Branch::~Branch()
+{
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::dup()
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::Branch*
+GnomeCmdFoldviewTreestore::Branch::dup()
+{
+    return NULL;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::cut()
+	*
+    *   Delete a branch.
+    *
+	**/
+
+//=============================================================================
 gint
-GnomeCmdFoldviewTreestore::node_block::purge_and_update()
+GnomeCmdFoldviewTreestore::Branch::cut()
 {
-	GnomeCmdFoldviewTreestore::node*		node	= NULL;
-	GnomeCmdFoldviewTreestore::node*		next	= NULL;
-	gint									count   = 0;
-	//.........................................................................
+    gint            count               = 0;
+    NodeBlock   *   block_parent        = NULL;
+    //.........................................................................
 
-	node = node_get(0);
+    // tell the parent to remove a_root child
+    block_parent = a_root_parent->children();
+    g_return_val_if_fail( block_parent, -1 );
 
-	while ( node )
-	{
-		next = node->next();
-		count += node->purge();
+    count = block_parent->remove_node( a_root->pos() );
 
-		delete node;
-		count++;
+    a_root = NULL;
 
-		node = next;
-	}
-
-	// update block, the "purge" process for node_blocks is separated
-	// in two methods - this is the first call
-	g_array_remove_range(d_nodes, 0, a_card);
-	a_card = 0;
-	return count;
+    return count;
 }
 
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::cut_but_keep_root()
+	*
+	**/
+
+//=============================================================================
+gint
+GnomeCmdFoldviewTreestore::Branch::cut_but_keep_root()
+{
+	return a_root->remove_children();
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::Branch::sort()
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::Branch::sort()
+{
+    return FALSE;
+}
+
+
+
+//  ###########################################################################
+//  ###																		###
+//  ##																		 ##
+//  #							NODE ROOT									  #
+//  ##																		 ##
+//  ###																		###
+//  ###########################################################################
+void
+GnomeCmdFoldviewTreestore::node_root_init()
+{
+	//g_return_if_fail( ! a_node_root_created );
+
+	d_node_root = new GnomeCmdFoldviewTreestore::Node( 0, 0, 0, NULL, NULL) ;
+	a_node_root_created = TRUE;
+}
 
 //  ###########################################################################
 //  ###																		###
@@ -646,13 +993,6 @@ GnomeCmdFoldviewTreestore::node_block::purge_and_update()
 //  ##																		 ##
 //  ###																		###
 //  ###########################################################################
-
-GnomeCmdFoldviewTreestore::eRenderFlags
-	GnomeCmdFoldviewTreestore::Render_flags =
-		(GnomeCmdFoldviewTreestore::eRenderFlags)
-			(   GnomeCmdFoldviewTreestore::eSortDescending			|
-				GnomeCmdFoldviewTreestore::eSortCaseSensitive
-			);
 
 //=============================================================================
 
@@ -698,13 +1038,14 @@ GnomeCmdFoldviewTreestore::iter_is_valid_but_may_be_null(
   /**
 	*   GnomeCmdFoldviewTreestore::emit_row_inserted:
 	*
-	*   @iter : the iter to check
+	*   @iter : the iter inserted
 	*
 	**/
 
 //=============================================================================
-void GnomeCmdFoldviewTreestore::emit_row_inserted(
-GnomeCmdFoldviewTreestore::node* node)
+void
+GnomeCmdFoldviewTreestore::emit_row_inserted(
+GnomeCmdFoldviewTreestore::Node* node)
 {
 	GtkTreePath					*path = NULL;
 	GtkTreeIter					iter;
@@ -728,13 +1069,14 @@ GnomeCmdFoldviewTreestore::node* node)
   /**
 	*   GnomeCmdFoldviewTreestore::emit_row_changed:
 	*
-	*   @iter : the iter to check
+	*   @iter : the iter changed
 	*
 	**/
 
 //=============================================================================
-void GnomeCmdFoldviewTreestore::emit_row_changed(
-GnomeCmdFoldviewTreestore::node* node)
+void
+GnomeCmdFoldviewTreestore::emit_row_changed(
+GnomeCmdFoldviewTreestore::Node* node)
 {
 	GtkTreePath					*path = NULL;
 	GtkTreeIter					iter;
@@ -753,11 +1095,134 @@ GnomeCmdFoldviewTreestore::node* node)
 	gtk_tree_path_free(path);
 }
 
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::emit_row_deleted:
+	*
+	*   @iter : the iter deleted
+	*
+	**/
+
+//=============================================================================
+void
+GnomeCmdFoldviewTreestore::emit_row_deleted(
+GnomeCmdFoldviewTreestore::Node* node)
+{
+	GtkTreePath					*path = NULL;
+	GtkTreeIter					iter;
+	//.........................................................................
+	g_assert( node );
+
+	ITER_FROM_NODE(this, &iter, node);
+
+	path = get_path(GTK_TREE_MODEL(this), &iter);
+
+	gtk_tree_model_row_deleted(
+		GTK_TREE_MODEL(this),
+		path);
+
+	gtk_tree_path_free(path);
+}
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::add_child:
+	*   GnomeCmdFoldviewTreestore::emit_row_has_child_toggled:
+	*
+	*   @iter : the iter that has
+	*			- its first child
+	*			  or
+	*			- no more children
+	*
+	**/
+
+//=============================================================================
+void
+GnomeCmdFoldviewTreestore::emit_row_has_child_toggled(
+GnomeCmdFoldviewTreestore::Node* node)
+{
+	GtkTreePath					*path = NULL;
+	GtkTreeIter					iter;
+	//.........................................................................
+	g_assert( node );
+
+	ITER_FROM_NODE(this, &iter, node);
+
+	path = get_path(GTK_TREE_MODEL(this), &iter);
+
+	gtk_tree_model_row_has_child_toggled(
+		GTK_TREE_MODEL(this),
+		path,
+		&iter);
+
+	gtk_tree_path_free(path);
+}
+
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::iter_get_uid:
+	*
+	*   @iter : the iter to get the uid from
+	*
+	**/
+
+//=============================================================================
+guint32
+GnomeCmdFoldviewTreestore::iter_get_uid(
+	GtkTreeIter *_in_iter)
+{
+	GnomeCmdFoldviewTreestore::Node				*node	= NULL;
+	//.........................................................................
+	g_return_val_if_fail( iter_is_valid(_in_iter), 0 );
+
+	NODE_FROM_ITER(node, _in_iter);
+
+	return node->uid();
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_dump
+	*
+	*   Dump the treestore, for debugging purpose
+	*
+	**/
+
+//=============================================================================
+void
+GnomeCmdFoldviewTreestore::ext_dump_tree(
+    GtkTreeIter *   _iter)
+{
+    GnomeCmdFoldviewTreestore::Node *   node    = NULL;
+    //.........................................................................
+    if ( ! _iter )
+    {
+        node = node_root();
+    }
+    else
+    {
+        NODE_FROM_ITER(node, _iter);
+    }
+    NODE_TKI("  +-------------------------------------------+");
+    //                                   [12345678]
+    NODE_TKI("  | Dumping Tree from node [%08x]         |", node);
+    NODE_TKI("  +-------------------------------------------+");
+
+    node->dump_tree();
+
+    NODE_TKI("   ");
+    //NODE_INF("  +-------------------------------------------+");
+    NODE_TKI("  Dumped !");
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_add_child:
 	*
 	*	@in_parent  : the iter that will have a new child
 	*	@out_child  : the child that will be created
@@ -771,71 +1236,76 @@ GnomeCmdFoldviewTreestore::node* node)
 
 //=============================================================================
 void
-GnomeCmdFoldviewTreestore::add_child(
-	GtkTreeIter							*in_parent,
-	GtkTreeIter							*out_child,
-	GnomeCmdFoldviewTreestore::Data		*data)
+GnomeCmdFoldviewTreestore::ext_add_child(
+	GtkTreeIter									*   _in_parent,
+	GtkTreeIter									*   _out_child,
+	GnomeCmdFoldviewTreestore::DataInterface	*   _data_child)
 {
-	GnomeCmdFoldviewTreestore::node				*n_parent	= NULL;
-	GnomeCmdFoldviewTreestore::node				*n_child	= NULL;
+	GnomeCmdFoldviewTreestore::Node				*n_parent	= NULL;
+	GnomeCmdFoldviewTreestore::Node				*n_child	= NULL;
 	//.........................................................................
-	g_return_if_fail( iter_is_valid_but_may_be_null(in_parent) );
+	g_return_if_fail( iter_is_valid_but_may_be_null( _in_parent ) );
 
 	// try to set node_root
-	if ( ! in_parent )
+	if ( ! _in_parent )
 	{
-		g_return_if_fail( ! node_root() );
+		g_return_if_fail( node_root() );
 
-		d_node_root = new ( 1, 0, NULL, data) GnomeCmdFoldviewTreestore::node;
-		n_child = d_node_root;
+		n_parent = node_root();
 	}
 	else
 	{
-		NODE_FROM_ITER(n_parent, in_parent );
+		NODE_FROM_ITER(n_parent, _in_parent );
 		g_return_if_fail( n_parent );
-
-		n_child = n_parent->children()->node_append(data);
 	}
 
-	ITER_FROM_NODE(this, out_child, n_child);
+	n_child = n_parent->children()->node_add(uid_new(), a_sort_type, a_sort_collate_key_to_use, _data_child);
+
+	ITER_FROM_NODE(this, _out_child, n_child);
+
+	_data_child->set_path_from_treestore(ext_path_from_iter(_out_child));
+
 	emit_row_inserted( n_child );
 }
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::set_value:
+	*   GnomeCmdFoldviewTreestore::ext_set_data:
 	*
-	*   @iter : the iter to check
+	*   @iter : set Data for an iter.
 	*
 	**/
 
 //=============================================================================
-void GnomeCmdFoldviewTreestore::set_value(
-	GtkTreeIter *in,
-	gint		column,
-	GValue		*value)
+void
+GnomeCmdFoldviewTreestore::ext_set_data(
+	GtkTreeIter		*   _iter_in,
+	DataInterface	*   _data)
 {
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	Node				*   node		= NULL;
+	DataInterface		*	data_old	= NULL;
+	DataInterface		*   data_new	= NULL;
 	//.........................................................................
-	g_return_if_fail ( iter_is_valid(in) );
-	g_return_if_fail ( value );
+	g_return_if_fail ( iter_is_valid(_iter_in) );
 
-	g_return_if_fail( G_IS_VALUE(value) );
-	g_return_if_fail( G_VALUE_TYPE(value) == G_TYPE_POINTER );
-
-	// specific to foldview
-	g_return_if_fail( G_VALUE_HOLDS(value, G_TYPE_POINTER) );
-
-	NODE_FROM_ITER(node, in);
+	NODE_FROM_ITER(node, _iter_in);
 	g_assert(node);
 
-	GnomeCmdFoldviewTreestore::Data* data = node->data();
+	data_old = node->data();
+	g_return_if_fail( data_old );
 
-	if ( data )
-		delete data;
+	data_new = _data;
+	g_return_if_fail( data_new );
 
-	node->data() = (GnomeCmdFoldviewTreestore::Data*)g_value_get_pointer(value);
+	// We set the Path for the new Data with a copy of the old Data's Path
+	data_new->set_path_from_treestore( data_old->path()->dup() );
+
+	// Then we delete the old Data, that will delete old Path too
+	delete data_old;
+
+	// Then we set the new Data as iter Data
+	node->data() = data_new;
 
 	emit_row_changed( node );
 }
@@ -843,32 +1313,68 @@ void GnomeCmdFoldviewTreestore::set_value(
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::remove_children:
+	*   GnomeCmdFoldviewTreestore::ext_data_changed:
 	*
-	*   @iter : the iter to check
+	*   @iter : set Data for an iter.
+	*
+	*   Tell the treestore that an iter's data has changed. So emit the
+	*   row_changed signal.
 	*
 	**/
 
 //=============================================================================
-gint GnomeCmdFoldviewTreestore::remove_children(
-	GtkTreeIter *in)
+void
+GnomeCmdFoldviewTreestore::ext_data_changed(
+	GtkTreeIter		*   _iter_in)
 {
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	Node				*   node		= NULL;
 	//.........................................................................
-	g_return_val_if_fail ( iter_is_valid(in), 0 );
+	g_return_if_fail ( iter_is_valid(_iter_in) );
 
-	NODE_FROM_ITER(node, in);
-	g_return_val_if_fail( node, 0 );
+	NODE_FROM_ITER(node, _iter_in);
+	g_assert(node);
 
-	gint count = node->children()->purge_and_update();
-
-	return count;
+	emit_row_changed( node );
 }
 
 //=============================================================================
 
   /**
-	*   GnomeCmdFoldviewTreestore::clear:
+	*   GnomeCmdFoldviewTreestore::ext_get_data:
+	*
+	*   @iter : get Data for an iter.
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_get_data(
+	GtkTreeIter		*		_iter_in,
+	DataInterface	**		_data_out)
+{
+	Node				*   node		= NULL;
+	DataInterface		*	data_old	= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( _data_out != NULL, FALSE );
+	*_data_out = NULL;
+
+	g_return_val_if_fail ( iter_is_valid(_iter_in), FALSE );
+
+	NODE_FROM_ITER(node, _iter_in);
+	g_assert(node);
+
+	data_old = node->data();
+	g_return_val_if_fail( data_old, FALSE );
+
+	*_data_out = data_old;
+
+	return ( data_old != NULL );
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_clear:
 	*
 	*   Clear * everything *
 	*
@@ -876,32 +1382,551 @@ gint GnomeCmdFoldviewTreestore::remove_children(
 
 //=============================================================================
 gint
-GnomeCmdFoldviewTreestore::clear()
+GnomeCmdFoldviewTreestore::ext_clear()
 {
 	gint count = 0;
+	//.........................................................................
+	g_return_val_if_fail( d_node_root, 0 );
 
-	// store is empty !
-	if ( !d_node_root )
-		return 0;
-
-	// Quickly purge all beyond node_root
-	count = d_node_root->children()->purge();
+	// We should code a quicker mehod                                           // _GWR_TODO_
+	count = d_node_root->remove_children();
 
 	// delete node_root
 	delete d_node_root->children();
 	delete d_node_root;
-	count++;
 
 	// Set pointer to NULL
 	d_node_root = NULL;
 
-	gwr_inf("GnomeCmdFoldviewTreestore::clear:%03i nodes deleted", count);
+	LEAKS_INF("GnomeCmdFoldviewTreestore::ext_clear()");
+	LEAKS_INF("  remaining nodes  : %04i %s", Node::Remaining(),		Node::Remaining() ?         "- not empty -" : "EMPTY !");
+	LEAKS_INF("  remaining blocks : %04i %s", NodeBlock::Remaining(),   NodeBlock::Remaining() ?    "- not empty -" : "EMPTY !");
 
 	return count;
 }
 
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_get_root:
+	*
+	*   Retrives the root node of a given node
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_get_root(
+	GtkTreeIter *in,
+	GtkTreeIter *out_root)
+{
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid(in), FALSE );
+	g_return_val_if_fail ( out_root, FALSE );
+
+	NODE_FROM_ITER(node, in);
+	g_return_val_if_fail( node, FALSE );
+
+	// All this code for this simple loop :)
+	while ( node->parent() != node_root() )
+		node = node->parent();
+
+	ITER_FROM_NODE(this, out_root, node);
+	return TRUE;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_is_root:
+	*
+	*   Tell wether the iter is a root iter
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_is_root(
+	GtkTreeIter *in)
+{
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid(in), FALSE );
+
+	NODE_FROM_ITER(node, in);
+	g_return_val_if_fail( node, FALSE );
+
+	return ( node->parent() == node_root() ? TRUE : FALSE );
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_iter_depth:
+	*
+	*   Return the depth of an iter
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_iter_depth(
+	GtkTreeIter *in)
+{
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid(in), FALSE );
+
+	NODE_FROM_ITER(node, in);
+	g_return_val_if_fail( node, FALSE );
+
+	return node->depth();
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_get_gtk_path_str_new:
+	*
+	*   @in : a GtkTreeIter
+	*
+	*   Return the string path for an iter ( GtkTreePath style )
+	*
+	**/
+
+//=============================================================================
+gchar*
+GnomeCmdFoldviewTreestore::ext_get_gtk_path_str_new(
+	GtkTreeIter *in)
+{
+	gint										i			= 0;
+	GArray										*a			= NULL;
+	gint										pos			= 0;
+	gchar										 ascii_tmp1 [8];
+	gchar										 ascii_tmp2 [1024];
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid(in), NULL );
+
+	NODE_FROM_ITER(node, in);
+	g_return_val_if_fail( node, NULL );
+
+	a = g_array_sized_new(FALSE, TRUE, sizeof(gint), 10);
+
+	do
+	{
+		pos = node->pos();
+		g_array_append_vals(a, &pos, 1);
+
+		node = node->parent();
+		i++;
+	}
+	while ( node != node_root() );
+
+	ascii_tmp2[0] = 0;
+
+	STORE_INF("get_path_str_new:depth %02i", i);
+
+	if ( i > 1 )
+		g_sprintf( ascii_tmp2, "%i:", g_array_index(a, gint, --i) );
+
+	while ( i > 1 )
+	{
+		g_sprintf( ascii_tmp1, "%i:", g_array_index(a, gint, --i) );
+		g_strlcat(ascii_tmp2, ascii_tmp1, 1024);
+	}
+
+	g_sprintf( ascii_tmp1, "%i", g_array_index(a, gint, 0) );
+	g_strlcat(ascii_tmp2, ascii_tmp1, 1024);
+
+	g_array_free(a, TRUE);
+
+	//STORE_INF("get_path_str_new:%s", ascii_tmp2);
+
+	return g_strdup(ascii_tmp2);
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_iter_get_row:
+	*
+	*   @in : a GtkTreeIter
+	*
+	*   Get the row of an iter
+	*
+	**/
+
+//=============================================================================
+gint GnomeCmdFoldviewTreestore::ext_iter_get_row(
+	GtkTreeIter *in)
+{
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid(in), 0 );
+
+	NODE_FROM_ITER(node, in);
+	g_return_val_if_fail( node, 0 );
+
+	return node->row();
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_iter_remove_children_no_signal_row_deleted:
+	*
+	*   @in : a GtkTreeIter
+	*
+	*   Remove all children of iter, but dont send any row_deleted signal.
+	*   Only send row_toggled if parent
+	*   Call only this method if an iter is collapsed !
+	*
+	**/
+
+//=============================================================================
+gint
+GnomeCmdFoldviewTreestore::ext_iter_remove_children_no_signal_row_deleted(
+	GtkTreeIter *in)
+{
+    gint            count       = 0;
+	Node		*   node		= NULL;
+	//.........................................................................
+    g_return_val_if_fail ( iter_is_valid(in), 0 );
+
+    NODE_FROM_ITER(node, in);
+    g_return_val_if_fail( node, 0 );
+
+    // Create branch from the node
+    Branch branch(node);
+    g_return_val_if_fail( branch.is_valid(), -1 );
+
+    count = branch.cut_but_keep_root();
+
+	// if a_root is now sterile, send child_toggled signal ( if parent != root )
+	if ( branch.root()->is_sterile() )
+		if ( branch.root() != node_root() )
+			emit_row_has_child_toggled(branch.root());
+
+    return count;
+
+    //   Previous method, without the Branch concept
+    //
+    //	g_return_val_if_fail ( iter_is_valid(in), 0 );
+    //
+    //	NODE_FROM_ITER(node, in);
+    //	g_return_val_if_fail( node, 0 );
+    //
+    //	gint count = node->remove_children();
+    //
+    //	// if parent is now sterile, send child_toggled signal ( if parent != root )
+    //	if ( ! node->children()->card() )
+    //		if ( node->parent() != node_root() )
+    //			emit_row_has_child_toggled(node);
+    //
+    //	return count;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_iter_sterile_remove:
+	*
+	*   @in : a GtkTreeIter with no children
+	*
+	*   Remove the iter & send a row_deleted signal
+	*
+	**/
+
+//=============================================================================
+gint
+GnomeCmdFoldviewTreestore::ext_iter_sterile_remove(
+	GtkTreeIter *in)
+{
+    gint            count       = 0;
+    Node		*   node		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid(in), FALSE );
+
+	NODE_FROM_ITER(node, in);
+	g_return_val_if_fail( node, FALSE );
+	g_return_val_if_fail( node->is_sterile(), FALSE );
+
+    // Create branch from the node
+    Branch branch(node);
+    g_return_val_if_fail( branch.is_valid(), FALSE );
+
+    // *IMPORTANT* send signal before removing, according to GtkTreeModel doc
+	emit_row_deleted(node);
+
+    // cut the branch
+    count = branch.cut();
+
+	// if parent is now sterile, send child_toggled signal ( if parent != root )
+	if ( branch.parent()->is_sterile() )
+		if ( branch.parent() != node_root() )
+			emit_row_has_child_toggled(branch.parent());
+
+    return count;
+
+    //   Previous method, without the Branch concept
+    //
+    //	// children block where node resides
+    //	block = node->parent()->children();
+    //
+    //	// *IMPORTANT* send signal before removing, according to GtkTreeModel doc
+    //	emit_row_deleted(node);
+    //
+    //	// remove the node
+    //	block->remove_node( node->pos() );
+    //
+    //	// if parent is now sterile, send child_toggled signal ( if parent != root )
+    //	if ( ! block->card() )
+    //		if ( block->parent() != node_root() )
+    //			emit_row_has_child_toggled(block->parent());
+    //
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_iter_from_path
+	*
+	*   @_path		: a GnomeCmdFoldviewTreestore::Path
+	*   @_iter_out  : a GtkTreeIter
+	*
+	*   Retrieves an iter from a Path.
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_iter_from_path(
+	const   Path			*   _path,
+			GtkTreeIter		*   _iter_out)
+{
+	return ext_iter_from_path((Path*)_path, _iter_out);
+}
+gboolean
+GnomeCmdFoldviewTreestore::ext_iter_from_path(
+	Path			*   _path,
+	GtkTreeIter		*   _iter_out)
+{
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	gint										depth		= 0;
+	//.........................................................................
+	g_return_val_if_fail( _path, FALSE );
+
+	depth	= 1;
+	node	= node_root();
+
+loop:
+	node = node->children()->node_get(0);
+
+	while ( node )
+	{
+		if ( node->uid() == _path->uid_get(depth-1) )
+		{
+			if ( ++depth > _path->card() )
+				goto found;
+			else
+				goto loop;
+		}
+		node = node->next();
+	}
+
+	return FALSE;
+
+found:
+	//REFRESH_INF("Model::iter_find_from_base_path:Retrieved iter %s", path->dump());
+	ITER_FROM_NODE(this, _iter_out, node);
+	return TRUE;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_path_from_iter
+	*
+	*   @_path		: a GnomeCmdFoldviewTreestore::Path
+	*   @_iter_out  : a GtkTreeIter
+	*
+	*   Return a mallocated Path from an iter
+	*
+	**/
+
+//=============================================================================
+GnomeCmdFoldviewTreestore::Path*
+GnomeCmdFoldviewTreestore::ext_path_from_iter(
+	GtkTreeIter		*   _iter_in)
+{
+	GnomeCmdFoldviewTreestore::Node			*   node		= NULL;
+	gint										depth		= 0;
+	gint										i			= 1;
+	Path									*   path		= NULL;
+	//.........................................................................
+	g_return_val_if_fail( _iter_in,					FALSE );
+	g_return_val_if_fail( iter_is_valid(_iter_in),  FALSE );
+
+	NODE_FROM_ITER(node, _iter_in);
+	g_return_val_if_fail( node,	FALSE );
+
+	// build & fill a reverse path
+	depth		= node->depth();
+	path		= new Path(depth);
+
+	do
+	{
+		if ( node == node_root() )
+		{
+			NODE_ERR("GnomeCmdFoldviewTreestore::ext_path_from_iter():node root reached !");
+			delete path;
+			return NULL;
+		}
+
+		path->uid_set( depth - i, node->uid() );
+
+		node = node->parent();
+	}
+	while ( (i++) != depth );
+
+	return path;
+}
 
 
+//*****************************************************************************
+//*																			  *
+//*							Match functions									  *
+//*																			  *
+//*****************************************************************************
+
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_match_child_gint:
+	*
+	*   in_parent								: a GtkTreeIter
+	*   out_child								: a GtkTreeIter
+	*   gboolean(*match_function)(Data*, gint)  : matching function
+	*   the_gint								: a gint
+	*
+	*   For all childs of in_parent, call match_function(child->data, the_gint).
+	*
+	*   If parent is NULL, test root nodes
+	*
+	*   If it returns TRUE for a child, the function fills in out_child with
+	*   this child and return TRUE.
+	*
+	*   If matching_function return FALSE for all childs, return FALSE.
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_match_child_gint(
+	GtkTreeIter								*   in_parent   ,
+	GtkTreeIter								*   out_child   ,
+	gboolean(*match_function)(DataInterface*, gint)					,
+	gint										the_gint)
+{
+	gint				i			= 0;
+	Node			*   node		= NULL;
+	NodeBlock		*   block		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid_but_may_be_null(in_parent), FALSE );
+
+	if ( !in_parent )
+		node = node_root();
+	else
+		NODE_FROM_ITER(node, in_parent);
+
+	g_return_val_if_fail( node, FALSE );
+
+	block   = node->children();
+	g_return_val_if_fail( block->card() != 0, FALSE );
+
+	while ( i < block->card() )
+	{
+		node = block->node_get(i++);
+		if ( match_function(node->data(), the_gint ) )
+		{
+			ITER_FROM_NODE(this, out_child, node);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+//=============================================================================
+
+  /**
+	*   GnomeCmdFoldviewTreestore::ext_match_child_collate_key:
+	*
+	*   in_parent								: a GtkTreeIter
+	*   out_child								: a GtkTreeIter
+	*   collate_key_id							: a gint identifying
+	*											  the collate key to use
+	*											  for the childs
+	*   utf8_collate_key						: a collate key
+	*
+	*   For all childs of in_parent, compare child->collatekey &
+	*   collate_key_to_use.
+	*
+	*   If parent is NULL, test root nodes
+	*
+	*   If it collate for a child, the function fills in out_child with
+	*   this child and return TRUE.
+	*
+	*   If no collate for all childs, return FALSE.
+	*
+	**/
+
+//=============================================================================
+gboolean
+GnomeCmdFoldviewTreestore::ext_match_child_str(
+	GtkTreeIter								*   in_parent   ,
+	GtkTreeIter								*   out_child   ,
+	const gchar								*   _str)
+{
+	gint										i			= 0;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::NodeBlock		*block		= NULL;
+	//.........................................................................
+	g_return_val_if_fail ( iter_is_valid_but_may_be_null(in_parent), FALSE );
+
+	if ( !in_parent )
+		node = node_root();
+	else
+		NODE_FROM_ITER(node, in_parent);
+
+	g_return_val_if_fail( node, FALSE );
+
+	block   = node->children();
+	g_return_val_if_fail( block->card() != 0, FALSE );
+
+	while ( i < block->card() )
+	{
+		node = block->node_get(i++);
+        //  Previous method, with direct access to collate keys
+        //  from DataInterface
+        //
+		//if (	strcmp
+        //        (
+		//			node->data()->utf8_collate_key(collate_key_id),
+		//			utf8_collate_key
+        //       ) == 0 )
+        if ( node->data()->compare_str(_str) == 0 )
+		{
+			ITER_FROM_NODE(this, out_child, node);
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
 
 //  ###########################################################################
 //  ###																		###
@@ -986,48 +2011,43 @@ GnomeCmdFoldviewTreestore::get_iter(
 	GtkTreePath  *path)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	GnomeCmdFoldviewTreestore::node_block		*block		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::NodeBlock		*block		= NULL;
 	gint          *indices = NULL, pos = 0, depth =0;
 	gint		i = 0;
 	//.........................................................................
 	g_assert( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel) );
-	g_assert( path!=NULL );
-
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
+	g_assert( path );
 
 	indices = gtk_tree_path_get_indices(path);
 	depth   = gtk_tree_path_get_depth(path);
-	g_assert( indices );
-	g_assert( depth > 0 );
 
-
-	// foldview specific : we have only one toplevel node
+	// get the position
 	pos		= indices[i++];
-	g_assert( pos == 0 );
 
-	// ok, get root node
-	node	=   treestore->node_root();
+	// ok, get first root node ( first child of the ~root~ node )
+	node	=   treestore->node_root()->children()->node_get(pos);
 
-	// treestore is empty !
-	if ( ! node )
-		return FALSE;
-
-	// loop
-	while ( i < depth )
+	while ( node )
 	{
-		g_assert(node);
+		// path is done ?
+		if ( i == depth )
+		{
+			ITER_FROM_NODE(treestore, iter, node);
+			return TRUE;
+		}
 
-		// go further
+		// node = node->children()->get_pos( indices[i++] );
 		block   = node->children();
 		pos		= indices[i++];
 		node	= block->node_get(pos);
 	}
 
-	g_assert(node);
+	if ( treestore->node_root()->children()->card() != 0 )
+		GCMD_ERR("GnomeCmdFoldviewTreestore::get_iter::failed to get iter from path");
 
-	ITER_FROM_NODE(treestore, iter, node);
-	return TRUE;
+	return FALSE;
 }
 
 
@@ -1048,7 +2068,7 @@ GnomeCmdFoldviewTreestore::get_path(
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
 	GtkTreePath									*path		= NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), NULL );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
@@ -1059,13 +2079,14 @@ GnomeCmdFoldviewTreestore::get_path(
 	NODE_FROM_ITER(node, iter);
 	g_return_val_if_fail( node, NULL );
 
-	while ( node )
+	do
 	{
 		gtk_tree_path_prepend_index(path, node->pos());
 		node = node->parent();
 	}
+	while ( node != treestore->node_root() );
 
-	STORE_INF("get_path:%s", gtk_tree_path_to_string(path));
+	//STORE_INF("get_path:%s", gtk_tree_path_to_string(path));
 
 	return path;
 }
@@ -1089,19 +2110,24 @@ GnomeCmdFoldviewTreestore::get_value(
 	GValue       *value)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
-	g_return_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel) );
+	if ( ! IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel) )		goto fail;
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
-	g_return_if_fail ( treestore->iter_is_valid(iter) );
-	g_return_if_fail ( column == 0 );
-	g_return_if_fail ( value );
+	if ( ! treestore->iter_is_valid(iter) )					goto fail;
+	//if ( column != 0 )									goto fail;
+	//if ( !value )											goto fail;
 
 	NODE_FROM_ITER(node, iter);
-	g_assert(node);
+	if ( ! node )											goto fail;
 
 	g_value_init(value, G_TYPE_POINTER);
 	g_value_set_pointer(value, node->data());
+	return;
+
+fail:
+	g_value_init(value, G_TYPE_POINTER);
+	g_value_set_pointer(value, NULL);
 }
 
 
@@ -1121,10 +2147,11 @@ GnomeCmdFoldviewTreestore::iter_next(
 	GtkTreeIter   *iter)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
+
 	g_return_val_if_fail ( treestore->iter_is_valid(iter), FALSE );
 
 	NODE_FROM_ITER(node, iter);
@@ -1161,10 +2188,11 @@ GnomeCmdFoldviewTreestore::iter_children(
 	GtkTreeIter  *iter_parent)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
+
 	g_return_val_if_fail ( treestore->iter_is_valid_but_may_be_null(iter_parent), FALSE );
 
 	if ( ! iter_parent )
@@ -1172,14 +2200,17 @@ GnomeCmdFoldviewTreestore::iter_children(
 		node = treestore->node_root();
 			g_return_val_if_fail( node, FALSE );
 
-		ITER_FROM_NODE(treestore, iter_child, node);
+        if ( node->is_sterile() )
+            return FALSE;
+
+		ITER_FROM_NODE(treestore, iter_child, node->children()->node_get(0));
 		return TRUE;
 	}
 
 	NODE_FROM_ITER(node, iter_parent);
 	g_assert(node);
 
-	if ( node->children()->card() )
+	if ( ! node->is_sterile() )
 	{
 		ITER_FROM_NODE(treestore, iter_child, node->children()->node_get(0));
 		return TRUE;
@@ -1205,7 +2236,7 @@ GnomeCmdFoldviewTreestore::iter_has_child(
 	GtkTreeIter  *iter)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
@@ -1236,17 +2267,17 @@ GnomeCmdFoldviewTreestore::iter_n_children(
 	GtkTreeIter  *iter)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), 0 );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid_but_may_be_null(iter), 0 );
 
-	// We have only one node_root for instant
 	if ( ! iter )
-		return 1;
+		node = treestore->node_root();
+	else
+		NODE_FROM_ITER(node, iter);
 
-	NODE_FROM_ITER(node, iter);
 	g_assert(node);
 
 	return node->children()->card();
@@ -1275,26 +2306,26 @@ GnomeCmdFoldviewTreestore::iter_nth_child(
 	gint          n)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
-	GnomeCmdFoldviewTreestore::node_block		*block		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::NodeBlock		*block		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
 	g_return_val_if_fail ( treestore->iter_is_valid_but_may_be_null(iter_parent), FALSE );
 
 	if ( ! iter_parent )
+		node = treestore->node_root();
+	else
 	{
-		ITER_FROM_NODE(treestore, iter_child, treestore->node_root());
-		return TRUE;
+		NODE_FROM_ITER(node, iter_parent);
+		g_assert( node );
 	}
-
-	NODE_FROM_ITER(node, iter_parent);
-	g_assert( node );
 
 	block = node->children();
 
-	if ( n >= block->card() )
-		return FALSE;
+	g_assert( n < block->card() );
+	//if ( n >= block->card() )
+	//return FALSE;
 
 	ITER_FROM_NODE(treestore, iter_child, block->node_get(n));
 	return TRUE;
@@ -1317,7 +2348,7 @@ GnomeCmdFoldviewTreestore::iter_parent(
 	GtkTreeIter  *iter_child)
 {
 	GnomeCmdFoldviewTreestore					*treestore  = NULL;
-	GnomeCmdFoldviewTreestore::node				*node		= NULL;
+	GnomeCmdFoldviewTreestore::Node				*node		= NULL;
 	//.........................................................................
 	g_return_val_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(treemodel), FALSE );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(treemodel);
@@ -1325,10 +2356,11 @@ GnomeCmdFoldviewTreestore::iter_parent(
 
 	NODE_FROM_ITER(node, iter_child);
 	g_assert( node );
-	g_assert( node != treestore->node_root() );
+	g_assert( node->parent() );
 
 	node = node->parent();
 	g_assert( node );
+	//g_assert( node != treestore->node_root() );
 	ITER_FROM_NODE(treestore, iter_parent, node);
 
 	return TRUE;
@@ -1367,8 +2399,17 @@ static void
 gnome_cmd_foldview_treestore_init(
 GnomeCmdFoldviewTreestore *treestore)
 {
+	// default sort settings
+	treestore->set_sort_type(GnomeCmdFoldviewTreestore::eSortAscending);
+	treestore->set_sort_collate_key_to_use(0);
+
+    //treestore->d_node_root          = NULL;
+    //treestore->a_node_root_created  = FALSE;
+
+	// others
 	treestore->stamp_init();
 	treestore->node_root_init();
+	treestore->uid_init();
 }
 
 //=============================================================================
@@ -1442,10 +2483,10 @@ gnome_cmd_foldview_treestore_finalize(GObject *object)
 	g_return_if_fail ( IS_GNOME_CMD_FOLDVIEW_TREESTORE(object) );
 	treestore = GNOME_CMD_FOLDVIEW_TREESTORE(object);
 
-	gwr_inf("GnomeCmdFoldviewTreestore::finalize()");
+	GCMD_INF("GnomeCmdFoldviewTreestore::finalize()");
 
 	// free all records and free all memory used by the list
-	treestore->clear();
+	treestore->ext_clear();
 
 	// must chain up - finalize parent
 	(* parent_class->finalize) (object);
@@ -1521,3 +2562,8 @@ gnome_cmd_foldview_treestore_new(void)
 
   return t;
 }
+
+
+
+
+
