@@ -60,9 +60,6 @@ extern gint created_files_cnt;
 extern gint deleted_files_cnt;
 extern int created_dirs_cnt;
 extern int deleted_dirs_cnt;
-extern GList *all_dirs;
-extern GHashTable *all_dirs_map;
-extern GList *all_files;
 
 
 struct poptOption popt_options[] = {
