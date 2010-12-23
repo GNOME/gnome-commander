@@ -4694,7 +4694,7 @@
 			<title>Configuring Custom LS_COLORS</title>
 			 <para>Gnome Commander does not differentiate files types by default.</para>
 			 <para>You can configure it to differentiate files types like LS_COLORS does when using the command shell.</para>
-			 <para>To configure the custom colors for GNOME Commander click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, activate the <guilabel>Colorize files according to the LS_COLORS environmentvariable</guilabel> check box, then click the <guilabel>Edit colors...</guilabel> button.</para>
+			 <para>To configure the custom colors for GNOME Commander click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box, then click the <guilabel>Edit colors...</guilabel> button.</para>
 		</sect3>
 <!-- ====Confirmation==== -->
     </sect2>
@@ -7546,7 +7546,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873 (bugs in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
