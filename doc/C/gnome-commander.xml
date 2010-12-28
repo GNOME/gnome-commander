@@ -4537,7 +4537,7 @@
                 		<para><guibutton>In both columns</guibutton> where the extension is displayed in filename and extension columns</para>
                 	</listitem>
                 	<listitem>
-                		<para><guibutton>In separate columns</guibutton> where the extension is displayed in its own column</para>
+                		<para><guibutton>In separate column</guibutton> where the extension is displayed in its own column</para>
                       </listitem>
                   <listitem>
                         <para><guibutton>With filename</guibutton> where the extension is only displayed in the file name column; in this case the ext column is still displayed to allow sorting by extension</para>
@@ -7546,7 +7546,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873 (bugs in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
