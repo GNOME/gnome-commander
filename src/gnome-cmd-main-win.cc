@@ -813,7 +813,7 @@ static void init (GnomeCmdMainWin *mw)
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[LEFT].begin(); i!=gnome_cmd_data.tabs[LEFT].end(); ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(LEFT)->new_tab(dir, i->second, i->third);
+        mw->fs(LEFT)->new_tab(dir, i->second, i->third, TRUE);
     }
 
     if (gnome_cmd_data.tabs[RIGHT].empty())
@@ -822,7 +822,7 @@ static void init (GnomeCmdMainWin *mw)
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[RIGHT].begin(); i!=gnome_cmd_data.tabs[RIGHT].end(); ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(RIGHT)->new_tab(dir, i->second, i->third);
+        mw->fs(RIGHT)->new_tab(dir, i->second, i->third, TRUE);
     }
 
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);

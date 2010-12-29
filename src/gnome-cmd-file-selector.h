@@ -86,7 +86,7 @@ struct GnomeCmdFileSelector
 
     GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
-    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate=TRUE);
+    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate);
     void close_tab()                        {  if (notebook->size()>1)  notebook->remove_page();   }
     void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
 
