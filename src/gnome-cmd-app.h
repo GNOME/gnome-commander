@@ -33,12 +33,20 @@ enum AppTarget
 };
 
 
-typedef struct _GnomeCmdApp GnomeCmdApp;
-typedef struct _GnomeCmdAppPrivate GnomeCmdAppPrivate;
-
-struct _GnomeCmdApp
+struct GnomeCmdApp
 {
-    GnomeCmdAppPrivate *priv;
+    gchar *name;
+    gchar *cmd;
+    gchar *icon_path;
+
+    AppTarget target;
+    gchar *pattern_string;
+    GList *pattern_list;
+    gboolean handles_uris;
+    gboolean handles_multiple;
+    gboolean requires_terminal;
+
+    GnomeCmdPixmap *pixmap;
 };
 
 GnomeCmdApp *gnome_cmd_app_new ();

@@ -26,37 +26,19 @@
 using namespace std;
 
 
-struct _GnomeCmdAppPrivate
-{
-    gchar *name;
-    gchar *cmd;
-    gchar *icon_path;
-
-    AppTarget target;
-    gchar *pattern_string;
-    GList *pattern_list;
-    gboolean handles_uris;
-    gboolean handles_multiple;
-    gboolean requires_terminal;
-
-    GnomeCmdPixmap *pixmap;
-};
-
-
 GnomeCmdApp *gnome_cmd_app_new ()
 {
     GnomeCmdApp *app = g_new0 (GnomeCmdApp, 1);
-    app->priv = g_new0 (GnomeCmdAppPrivate, 1);
-    app->priv->name = NULL;
-    app->priv->cmd = NULL;
-    app->priv->icon_path = NULL;
-    app->priv->pixmap = NULL;
-    app->priv->target = APP_TARGET_ALL_FILES;
-    app->priv->pattern_string = NULL;
-    app->priv->pattern_list = NULL;
-    app->priv->handles_uris = FALSE;
-    app->priv->handles_multiple = FALSE;
-    app->priv->requires_terminal = FALSE;
+    // app->name = NULL;
+    // app->cmd = NULL;
+    // app->icon_path = NULL;
+    // app->pixmap = NULL;
+    app->target = APP_TARGET_ALL_FILES;
+    // app->pattern_string = NULL;
+    // app->pattern_list = NULL;
+    // app->handles_uris = FALSE;
+    // app->handles_multiple = FALSE;
+    // app->requires_terminal = FALSE;
 
     return app;
 }
@@ -104,28 +86,26 @@ GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
 
 GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app)
 {
-    return gnome_cmd_app_new_with_values (app->priv->name,
-                                          app->priv->cmd,
-                                          app->priv->icon_path,
-                                          app->priv->target,
-                                          app->priv->pattern_string,
-                                          app->priv->handles_uris,
-                                          app->priv->handles_multiple,
-                                          app->priv->requires_terminal);
+    return gnome_cmd_app_new_with_values (app->name,
+                                          app->cmd,
+                                          app->icon_path,
+                                          app->target,
+                                          app->pattern_string,
+                                          app->handles_uris,
+                                          app->handles_multiple,
+                                          app->requires_terminal);
 }
 
 
 void gnome_cmd_app_free (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);
-    g_return_if_fail (app->priv != NULL);
 
-    g_free (app->priv->name);
-    g_free (app->priv->cmd);
-    g_free (app->priv->icon_path);
-    gnome_cmd_pixmap_free (app->priv->pixmap);
+    g_free (app->name);
+    g_free (app->cmd);
+    g_free (app->icon_path);
+    gnome_cmd_pixmap_free (app->pixmap);
 
-    g_free (app->priv);
     g_free (app);
 }
 
@@ -133,40 +113,37 @@ void gnome_cmd_app_free (GnomeCmdApp *app)
 void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name)
 {
     g_return_if_fail (app != NULL);
-    g_return_if_fail (app->priv != NULL);
     g_return_if_fail (name != NULL);
 
-    g_free (app->priv->name);
+    g_free (app->name);
 
-    app->priv->name = g_strdup (name);
+    app->name = g_strdup (name);
 }
 
 
 void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd)
 {
     g_return_if_fail (app != NULL);
-    g_return_if_fail (app->priv != NULL);
 
     if (!cmd) return;
 
-    g_free (app->priv->cmd);
+    g_free (app->cmd);
 
-    app->priv->cmd = g_strdup (cmd);
+    app->cmd = g_strdup (cmd);
 }
 
 
 void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 {
     g_return_if_fail (app != NULL);
-    g_return_if_fail (app->priv != NULL);
 
     if (!icon_path) return;
 
-    g_free (app->priv->icon_path);
+    g_free (app->icon_path);
 
-    gnome_cmd_pixmap_free (app->priv->pixmap);
+    gnome_cmd_pixmap_free (app->pixmap);
 
-    app->priv->icon_path = g_strdup (icon_path);
+    app->icon_path = g_strdup (icon_path);
 
     //FIXME: Check GError here
     GdkPixbuf *tmp = gdk_pixbuf_new_from_file (icon_path, NULL);
@@ -176,7 +153,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
         GdkPixbuf *pixbuf = gdk_pixbuf_scale_simple (tmp, 16, 16, GDK_INTERP_HYPER);
 
         if (pixbuf)
-            app->priv->pixmap = gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
+            app->pixmap = gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
 
         g_object_unref (tmp);
     }
@@ -186,32 +163,30 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target)
 {
     g_return_if_fail (app != NULL);
-    g_return_if_fail (app->priv != NULL);
 
-    app->priv->target = target;
+    app->target = target;
 }
 
 
 void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_string)
 {
     g_return_if_fail (app != NULL);
-    g_return_if_fail (app->priv != NULL);
     g_return_if_fail (pattern_string != NULL);
 
-    if (app->priv->pattern_string)
-        g_free (app->priv->pattern_string);
+    if (app->pattern_string)
+        g_free (app->pattern_string);
 
-    app->priv->pattern_string = g_strdup (pattern_string);
+    app->pattern_string = g_strdup (pattern_string);
 
     // Free old list with patterns
-    g_list_foreach (app->priv->pattern_list, (GFunc) g_free, NULL);
-    g_list_free (app->priv->pattern_list);
-    app->priv->pattern_list = NULL;
+    g_list_foreach (app->pattern_list, (GFunc) g_free, NULL);
+    g_list_free (app->pattern_list);
+    app->pattern_list = NULL;
 
     // Create the new one
     gchar **ents = g_strsplit (pattern_string, ";", 0);
     for (gint i=0; ents[i]; ++i)
-        app->priv->pattern_list = g_list_append (app->priv->pattern_list, ents[i]);
+        app->pattern_list = g_list_append (app->pattern_list, ents[i]);
 
     g_free (ents);
 }
@@ -219,86 +194,83 @@ void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_st
 
 void gnome_cmd_app_set_handles_uris (GnomeCmdApp *app, gboolean handles_uris)
 {
-    app->priv->handles_uris = handles_uris;
+    app->handles_uris = handles_uris;
 }
 
 
 void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_multiple)
 {
-    app->priv->handles_multiple = handles_multiple;
+    app->handles_multiple = handles_multiple;
 }
 
 
 void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal)
 {
-    app->priv->requires_terminal = requires_terminal;
+    app->requires_terminal = requires_terminal;
 }
 
 
 const gchar *gnome_cmd_app_get_name (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != NULL, NULL);
-    g_return_val_if_fail (app->priv != NULL, NULL);
 
-    return app->priv->name;
+    return app->name;
 }
 
 
 const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != NULL, NULL);
-    g_return_val_if_fail (app->priv != NULL, NULL);
 
-    return app->priv->cmd;
+    return app->cmd;
 }
 
 
 const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != NULL, NULL);
-    g_return_val_if_fail (app->priv != NULL, NULL);
 
-    return app->priv->icon_path;
+    return app->icon_path;
 }
 
 
 GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app)
 {
-    return app->priv->pixmap;
+    return app->pixmap;
 }
 
 
 AppTarget gnome_cmd_app_get_target (GnomeCmdApp *app)
 {
-    return app->priv->target;
+    return app->target;
 }
 
 
 const gchar *gnome_cmd_app_get_pattern_string (GnomeCmdApp *app)
 {
-    return app->priv->pattern_string;
+    return app->pattern_string;
 }
 
 
 GList *gnome_cmd_app_get_pattern_list (GnomeCmdApp *app)
 {
-    return app->priv->pattern_list;
+    return app->pattern_list;
 }
 
 
 gboolean gnome_cmd_app_get_handles_uris (GnomeCmdApp *app)
 {
-    return app->priv->handles_uris;
+    return app->handles_uris;
 }
 
 
 gboolean gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app)
 {
-    return app->priv->handles_multiple;
+    return app->handles_multiple;
 }
 
 
 gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app)
 {
-    return app->priv->requires_terminal;
+    return app->requires_terminal;
 }
