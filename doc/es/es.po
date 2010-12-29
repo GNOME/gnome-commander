@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-23 20:38+0000\n"
-"PO-Revision-Date: 2010-12-26 21:42+0100\n"
+"POT-Creation-Date: 2010-12-28 11:25+0000\n"
+"PO-Revision-Date: 2010-12-28 21:19+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -9649,13 +9649,12 @@ msgstr ""
 "nombre del archivo y en las columnas de extensiones"
 
 #: C/gnome-commander.xml:4540(para)
-#, fuzzy
 msgid ""
-"<guibutton>In separate columns</guibutton> where the extension is displayed "
+"<guibutton>In separate column</guibutton> where the extension is displayed "
 "in its own column"
 msgstr ""
-"<guibutton>En columnas separadas</guibutton> donde la extensión se muestra "
-"en su propia columna"
+"<guibutton>En columna separada</guibutton> donde la extensión se muestra en "
+"su propia columna"
 
 #: C/gnome-commander.xml:4543(para)
 msgid ""
@@ -9925,11 +9924,6 @@ msgstr ""
 "LS_COLORS cuando se usa la terminal de comandos."
 
 #: C/gnome-commander.xml:4697(para)
-#| msgid ""
-#| "To configure GNOME Commander, in the menubar choose "
-#| "<menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</"
-#| "guimenuitem></menuchoice> The <guilabel>Options</guilabel> dialog "
-#| "contains the following tabbed sections."
 msgid ""
 "To configure the custom colors for GNOME Commander click on "
 "<menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></"
@@ -13231,14 +13225,14 @@ msgstr ""
 
 #: C/gnome-commander.xml:7549(para)
 #| msgid ""
-#| "Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs "
-#| "in in gnome-commander-help.master.po)"
+#| "Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, "
+#| "#637873 (bugs in gnome-commander-help.master.po)"
 msgid ""
-"Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873 "
-"(bugs in gnome-commander-help.master.po)"
+"Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, "
+"#637873, #638059 (bugs in gnome-commander-help.master.po)"
 msgstr ""
-"Errores nº 632064, nº 632208, nº 633107, nº 633167, nº 633331, nº 634972 y "
-"nº 637873 corregidos (errores en gnome-commander-help.master.po)"
+"Errores nº 632064, nº 632208, nº 633107, nº 633167, nº 633331, nº 634972, nº "
+"637873 y nº 638059 corregidos (errores en gnome-commander-help.master.po)"
 
 #: C/gnome-commander.xml:7552(para)
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
@@ -13301,12 +13295,15 @@ msgid "New or updated docs: de, en, es, fr, sl"
 msgstr "Documentos nuevos o actualizados: de, en, es, fr, sl"
 
 #: C/gnome-commander.xml:7590(para)
+#| msgid ""
+#| "New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, "
+#| "sl, uk, zh_CN"
 msgid ""
-"New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, "
-"uk, zh_CN"
-msgstr ""
-"Traducciones nuevas o actualizadas: cs, da, es, eu, fr, hu, ko, nb, pl, ro, "
+"New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, "
 "ru, sl, uk, zh_CN"
+msgstr ""
+"Traducciones nuevas o actualizadas: cs, da, es, eu, fr, hu, ko, nb, pl, "
+"pt_BR, ro, ru, sl, uk, zh_CN"
 
 #: C/gnome-commander.xml:7593(para) C/gnome-commander.xml:7987(para)
 #: C/gnome-commander.xml:8125(para) C/gnome-commander.xml:8245(para)
