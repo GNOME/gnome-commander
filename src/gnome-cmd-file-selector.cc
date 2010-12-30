@@ -244,7 +244,7 @@ inline void GnomeCmdFileSelector::update_vol_label()
 }
 
 
-static void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f)
+void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (f!=NULL);
@@ -442,14 +442,14 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
 static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
-        do_file_specific_action (fl, f);
+        fs->do_file_specific_action (fl, f);
 }
 
 
 static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
-        do_file_specific_action (fl, f);
+        fs->do_file_specific_action (fl, f);
 }
 
 

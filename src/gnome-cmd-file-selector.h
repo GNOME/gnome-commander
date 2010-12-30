@@ -100,6 +100,8 @@ struct GnomeCmdFileSelector
     void update_conbuttons_visibility();
     void update_concombo_visibility();
 
+    void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
+
     gboolean key_pressed(GdkEventKey *event);
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs);
