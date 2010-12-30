@@ -6087,24 +6087,10 @@
     <para>User actions are supported since version 1.2.4</para>
     <sect2 id="gnome-commander-user-actions-managing">
       <title>Managing user actions</title>
-      <para>Key bindings reside in [key-bindings] section of &app; config file
-              (<guilabel>~/.gnome2/gnome-commander</guilabel>).</para>
-      <para>Config file syntax:</para>
-      <para>
-        <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;super&gt;][&lt;hyper&gt;][&lt;meta&gt;]key_name=action[|options]</command>
-      </para>
-      <para>eg.</para>
-      <programlisting>
-    &lt;ctrl&gt;m=file.advrename
-    &lt;ctrl&gt;t=file.advrename
-    &lt;shift&gt;&lt;ctrl&gt;f5=file.create_symlink
-    &lt;ctrl&gt;2=file.diff
-    &lt;super&gt;f=edit.search
-        </programlisting>
+      <para>Key bindings reside in &lt;KeyBindings&gt; section of &app; config file (<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>).</para>
       <tip>
         <para>It&apos;s possible to assign one action to more than one key.</para>
       </tip>
-      <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
       <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
       <note>
         <para>&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10.</para>
