@@ -338,7 +338,7 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
     main_win->switch_fs(fs);
 
     if (event->button==2 || event->state&GDK_CONTROL_MASK)
-        fs->new_tab(gnome_cmd_con_get_default_dir(con));
+        fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
     fs->set_connection(con);
 }
@@ -469,9 +469,9 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
                 else
                 {
                     if (f && f->is_dotdot)
-                        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd), TRUE);
+                        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
                     else
-                        fs->new_tab(f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_DIR (f) : fl->cwd, TRUE);
+                        fs->new_tab(f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_DIR (f) : fl->cwd);
                 }
                 break;
         }

@@ -544,8 +544,7 @@
                 <para>
                   <guilabel>[gtk,gnome,bonobo options]</guilabel>
                 </para>
-                <para>Standard gtk, gnome, bonobo options are supported. Use <guilabel>--help</guilabel> to see
-                	possible options.
+                <para>Standard gtk, gnome, bonobo options are supported. Use <guilabel>--help</guilabel> to see possible options.
                 </para>
               </listitem>
             </itemizedlist>
