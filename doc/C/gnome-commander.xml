@@ -6071,6 +6071,9 @@
                             <para>Fixed problem #448941 (numeric keypad arrows don't work in the main window)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #620275 (add menu item to copy full path and file name to clipboard)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #637501 (advrename: metatag popup menu shows wrong items)</para>
                         </listitem>
                         <listitem>
