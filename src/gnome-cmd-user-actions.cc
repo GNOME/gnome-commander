@@ -1206,7 +1206,7 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
         gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
         GError *error = NULL;
 
-        if (!g_spawn_async (dpath, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
+        if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
             gnome_cmd_error_message (_("Unable to open terminal in root mode"), error);
 
         g_free (dpath);
