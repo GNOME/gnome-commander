@@ -35,6 +35,8 @@
 
 #include <fnmatch.h>
 
+#include "../pixmaps/copy_file_names.xpm"
+
 using namespace std;
 
 
@@ -452,6 +454,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     {
         GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GTK_STOCK_CUT),
         GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM(N_("Copy file names"), NULL, edit_copy_fnames, copy_file_names_xpm),
         GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GNOME_STOCK_TRASH),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
