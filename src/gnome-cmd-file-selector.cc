@@ -609,18 +609,20 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                         GtkWidget *menu = gtk_menu_new ();
                         GtkWidget *menuitem;
 
+                        GnomeCmdFileList *fl = fs->file_list(tab_clicked);
+
                         menuitem = gtk_menu_item_new_with_mnemonic (_("Open in New _Tab"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fs->file_list(tab_clicked));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
                         menuitem = gtk_menu_item_new_with_mnemonic (_("_Refresh Tab"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fs->file_list(tab_clicked));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fs->file_list(tab_clicked));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
