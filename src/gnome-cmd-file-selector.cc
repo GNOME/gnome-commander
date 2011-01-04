@@ -311,7 +311,15 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     main_win->switch_fs(fs);
-    fs->set_connection(con);
+
+    GdkModifierType mask;
+
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+
+    if (mask & GDK_CONTROL_MASK)
+        fs->new_tab(gnome_cmd_con_get_default_dir (con));
+    else
+        fs->set_connection(con);
 }
 
 
