@@ -1506,10 +1506,15 @@ void view_new_tab (GtkMenuItem *menuitem, gpointer file_list)
 }
 
 
-void view_close_tab (GtkMenuItem *menuitem, gpointer page)
+void view_close_tab (GtkMenuItem *menuitem, gpointer file_list)
 {
-    if (page)
-        get_fs (ACTIVE)->close_tab(GPOINTER_TO_INT(page));
+    if (file_list)
+    {
+        GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (file_list);
+        GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
+
+        fs->close_tab(gtk_notebook_page_num (*fs->notebook, gtk_widget_get_parent (*fl)));
+    }
     else
         get_fs (ACTIVE)->close_tab();
 }

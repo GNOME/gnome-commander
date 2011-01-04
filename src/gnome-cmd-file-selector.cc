@@ -636,7 +636,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
                         menuitem = gtk_menu_item_new_with_mnemonic (_("_Close Tab"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), GINT_TO_POINTER (tab_clicked));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_menu_item_new_with_mnemonic (_("Close _All Tabs"));
