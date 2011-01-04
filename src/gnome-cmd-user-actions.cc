@@ -1501,7 +1501,8 @@ void view_root (GtkMenuItem *menuitem, gpointer not_used)
 void view_new_tab (GtkMenuItem *menuitem, gpointer file_list)
 {
     GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
-    get_fs (ACTIVE)->new_tab(fl->cwd);
+    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
+    fs->new_tab(fl->cwd);
 }
 
 
