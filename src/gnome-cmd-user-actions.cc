@@ -1529,7 +1529,6 @@ void view_close_all_tabs (GtkMenuItem *menuitem, gpointer not_used)
 void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer file_selector)
 {
     GnomeCmdFileSelector *fs = file_selector ? GNOME_CMD_FILE_SELECTOR (file_selector) : get_fs (ACTIVE);
-
     GnomeCmdNotebook *notebook = fs->notebook;
 
     typedef set<gint> TABS_COLL;
