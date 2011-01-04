@@ -1514,9 +1514,9 @@ void view_close_tab (GtkMenuItem *menuitem, gpointer page)
 }
 
 
-void view_close_all_tabs (GtkMenuItem *menuitem, gpointer not_used)
+void view_close_all_tabs (GtkMenuItem *menuitem, gpointer file_selector)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileSelector *fs = file_selector ? GNOME_CMD_FILE_SELECTOR (file_selector) : get_fs (ACTIVE);
     GnomeCmdNotebook *notebook = fs->notebook;
     gint n = notebook->get_current_page();
 
