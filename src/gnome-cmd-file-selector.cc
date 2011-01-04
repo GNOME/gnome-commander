@@ -644,7 +644,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         menuitem = gtk_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
-                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), NULL);
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), fs);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_widget_show_all (menu);
