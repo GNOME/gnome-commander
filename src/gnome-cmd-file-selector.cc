@@ -619,31 +619,36 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
                         GnomeCmdFileList *fl = fs->file_list(tab_clicked);
 
-                        menuitem = gtk_menu_item_new_with_mnemonic (_("Open in New _Tab"));
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Open in New _Tab"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_new_tab), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
-                        menuitem = gtk_menu_item_new_with_mnemonic (_("_Refresh Tab"));
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Refresh Tab"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
-                        menuitem = gtk_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Copy Tab to Other _Pane"));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_in_inactive_tab), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
-                        menuitem = gtk_menu_item_new_with_mnemonic (_("_Close Tab"));
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Close Tab"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_tab), fl);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
-                        menuitem = gtk_menu_item_new_with_mnemonic (_("Close _All Tabs"));
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Close _All Tabs"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_all_tabs), fs);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
-                        menuitem = gtk_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (_("Close _Duplicate Tabs"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_close_duplicate_tabs), fs);
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
