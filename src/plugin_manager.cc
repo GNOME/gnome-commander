@@ -381,9 +381,10 @@ static void on_about (GtkButton *button, GtkWidget *dialog)
 {
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
-    GtkWidget *about = gnome_cmd_about_plugin_new (data->info);
 
     g_return_if_fail (data != NULL);
+
+    GtkWidget *about = gnome_cmd_about_plugin_new (data->info);
 
     gtk_window_set_transient_for (GTK_WINDOW (about), GTK_WINDOW (main_win));
     gtk_widget_ref (about);
