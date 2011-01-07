@@ -974,7 +974,7 @@ GtkWidget *gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
     gchar *new_path;
     GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) gtk_type_new (gnome_cmd_search_dialog_get_type ());
 
-    gchar *path = GNOME_CMD_FILE (default_dir)->get_path();
+    gchar *path = gnome_cmd_dir_is_local (default_dir) ? GNOME_CMD_FILE (default_dir)->get_real_path() : GNOME_CMD_FILE (default_dir)->get_path();
     if (path[strlen(path)-1] != '/')
     {
         new_path = g_strdup_printf ("%s/", path);
