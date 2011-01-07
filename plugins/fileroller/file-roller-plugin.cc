@@ -98,7 +98,7 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gint argc;
     gchar **argv;
 
-    if (target_dir==NULL)
+    if (!target_dir)
     {
         t = g_path_get_dirname (local_path);
         target_dir = target_name ? g_build_filename (t, target_name, NULL) : g_strdup (t);

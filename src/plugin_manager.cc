@@ -148,11 +148,9 @@ static void scan_plugins_in_dir (const gchar *dpath)
     char *prev_dir;
     struct dirent *ent;
 
-    if (dir == NULL)
+    if (!dir)
     {
-        gchar *msg = g_strdup_printf ("Could not list files in %s: %s", dpath, strerror (errno));
-        g_warning (msg);
-        g_free (msg);
+        g_warning ("Could not list files in %s: %s", dpath, strerror (errno));
         return;
     }
 
@@ -275,7 +273,7 @@ static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
     gint row = 0;
     gboolean only_update = (list->rows > 0);
 
-    for (GList *tmp=plugins; tmp; tmp=tmp->next)
+    for (GList *tmp=plugins; tmp; tmp=tmp->next, ++row)
     {
         PluginData *data = (PluginData *) tmp->data;
         gchar *text[5];
@@ -297,8 +295,6 @@ static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
             gtk_clist_set_pixmap (list, row, 0, blank_pixmap, blank_mask);
 
         gtk_clist_set_row_data (list, row, data);
-
-        row++;
     }
 
     gtk_clist_select_row (list, old_focus, 0);
@@ -321,9 +317,7 @@ inline void do_toggle (GtkWidget *dialog)
 }
 
 
-static void
-on_plugin_selected (GtkCList *list, gint row, gint column,
-                    GdkEventButton *event, GtkWidget *dialog)
+static void on_plugin_selected (GtkCList *list, gint row, gint column, GdkEventButton *event, GtkWidget *dialog)
 {
     GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
     GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
@@ -345,9 +339,7 @@ on_plugin_selected (GtkCList *list, gint row, gint column,
 }
 
 
-static void
-on_plugin_unselected (GtkCList *list, gint row, gint column,
-                      GdkEventButton *event, GtkWidget *dialog)
+static void on_plugin_unselected (GtkCList *list, gint row, gint column, GdkEventButton *event, GtkWidget *dialog)
 {
     GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
     GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
