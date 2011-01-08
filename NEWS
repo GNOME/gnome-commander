@@ -38,8 +38,8 @@ Bug fixes:
  * Fixed problem #448941 (numeric keypad arrows don't work in the main window)
  * Fixed problem #620275 (add menu item to copy full path and file name to clipboard)
  * Fixed problem #637501 (advrename: metatag popup menu shows wrong items)
- * Fixed problem #638954 (search path is wrong for devices)
  * Fixed problem with toggling path/basename/filename selections in copy/move dialogs
+ * Fixed problem with searching path for devices
  * Updated translations: de
 
 
