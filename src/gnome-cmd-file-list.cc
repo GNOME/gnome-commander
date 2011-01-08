@@ -219,6 +219,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
     realized = FALSE;
     modifier_click = FALSE;
+    locked = FALSE;
     con = NULL;
     cwd = NULL;
     lwd = NULL;

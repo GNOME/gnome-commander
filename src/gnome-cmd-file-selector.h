@@ -87,9 +87,11 @@ struct GnomeCmdFileSelector
 
     GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
-    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate);
+    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate);
     void close_tab()                        {  if (notebook->size()>1)  notebook->remove_page();   }
     void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
+
+    void update_tab_label(const gchar *name, gboolean locked);
 
     void show_filter();
     void update_files();
@@ -120,12 +122,12 @@ inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab()
 {
-    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, TRUE);
+    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE, TRUE);
 }
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 {
-    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), activate);
+    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), FALSE, activate);
 }
 
 GtkType gnome_cmd_file_selector_get_type ();

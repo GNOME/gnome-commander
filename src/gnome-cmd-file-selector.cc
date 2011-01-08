@@ -517,7 +517,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
 
     if (fl->cwd != dir)  return;
 
-    fs->notebook->set_label(GNOME_CMD_FILE (fl->cwd)->get_name());
+    fs->update_tab_label(GNOME_CMD_FILE (dir)->get_name(), fl->locked);
 
     fs->priv->sel_first_file = FALSE;
     fs->update_files();
@@ -1332,7 +1332,7 @@ gboolean GnomeCmdFileSelector::is_active()
 }
 
 
-GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate)
+GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate)
 {
     // create the list
     GnomeCmdFileList *list = new GnomeCmdFileList(sort_col,sort_order);
@@ -1340,6 +1340,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     if (activate)
         this->list = list;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
 
+    list->locked = locked;
     list->update_style();
 
     // hide dir column
@@ -1380,6 +1381,19 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     g_signal_connect (list, "key-press-event", G_CALLBACK (on_list_key_pressed_private), this);
 
     return scrolled_window;
+}
+
+
+void GnomeCmdFileSelector::update_tab_label(const gchar *name, gboolean locked)
+{
+    if (locked)
+    {
+        gchar *s = g_strconcat ("* ", name, NULL);
+        notebook->set_label(s);
+        g_free (s);
+    }
+    else
+        notebook->set_label(name);
 }
 
 

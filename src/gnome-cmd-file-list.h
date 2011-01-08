@@ -68,6 +68,8 @@ struct GnomeCmdFileList
     gboolean realized;
     gboolean modifier_click;
 
+    gboolean locked;
+
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
 
