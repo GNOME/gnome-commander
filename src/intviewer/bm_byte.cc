@@ -114,7 +114,7 @@ GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length)
 
 void free_bm_byte_data(GViewerBMByteData *data)
 {
-    if (data==NULL)
+    if (!data)
         return;
 
     g_free (data->good);

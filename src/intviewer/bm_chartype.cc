@@ -143,7 +143,7 @@ error:
 
 void free_bm_chartype_data(GViewerBMChartypeData*data)
 {
-    if (data==NULL)
+    if (!data)
         return;
 
     g_free (data->good);

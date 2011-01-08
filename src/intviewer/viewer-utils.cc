@@ -124,7 +124,7 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int *a
         unicode2utf8(unicode_char, (unsigned char*)&result[index]);
 
         pos = g_utf8_next_char(pos);
-        if (pos==NULL)
+        if (!pos)
         {
             g_warning("unexpected NULL found in UTF8 string");
             break;

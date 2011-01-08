@@ -582,7 +582,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     g_return_if_fail (menudata!=NULL);
     g_return_if_fail (container!=NULL);
 
-    while (menudata!=NULL && menudata->menutype!=MI_NONE)
+    while (menudata && menudata->menutype!=MI_NONE)
     {
         GtkWidget *item = NULL;
 

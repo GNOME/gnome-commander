@@ -812,7 +812,7 @@ inline void image_render_wait_for_loader_thread (ImageRender *obj)
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (IS_IMAGE_RENDER (obj));
 
-    if (obj->priv->pixbuf_loading_thread !=NULL)
+    if (obj->priv->pixbuf_loading_thread)
     {
         /*
             ugly hack: use a busy wait loop, until the loader thread is done.
