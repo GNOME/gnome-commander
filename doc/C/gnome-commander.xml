@@ -6077,10 +6077,10 @@
                             <para>Fixed problem #637501 (advrename: metatag popup menu shows wrong items)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #638954 (search path is wrong for devices)</para>
+                            <para>Fixed problem with toggling path/basename/filename selections in copy/move dialogs</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem with toggling path/basename/filename selections in copy/move dialogs</para>
+                            <para>Fixed problem with searching path for devices</para>
                         </listitem>
                         <listitem>
                             <para>Updated translations: de</para>
