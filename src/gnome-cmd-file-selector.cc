@@ -517,7 +517,7 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
 
     if (fl->cwd != dir)  return;
 
-    fs->update_tab_label(GNOME_CMD_FILE (dir)->get_name(), fl->locked);
+    fs->update_tab_label(fl);
 
     fs->priv->sel_first_file = FALSE;
     fs->update_files();
@@ -1384,9 +1384,11 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 }
 
 
-void GnomeCmdFileSelector::update_tab_label(const gchar *name, gboolean locked)
+void GnomeCmdFileSelector::update_tab_label(const GnomeCmdFileList *fl)
 {
-    if (locked)
+    const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
+
+    if (fl->locked)
     {
         gchar *s = g_strconcat ("* ", name, NULL);
         notebook->set_label(s);
