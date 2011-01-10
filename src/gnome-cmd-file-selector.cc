@@ -626,6 +626,11 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
+                        menuitem = gtk_image_menu_item_new_with_mnemonic (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_file (fl->locked ? PACKAGE_NAME G_DIR_SEPARATOR_S "unpin.png" : PACKAGE_NAME G_DIR_SEPARATOR_S "pin.png"));
+                        g_signal_connect (menuitem, "activate", G_CALLBACK (view_toggle_tab_lock), GINT_TO_POINTER (fs->is_active() ? tab_clicked+1 : -tab_clicked-1));
+                        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
                         menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Refresh Tab"));
                         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_REFRESH, GTK_ICON_SIZE_MENU));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_refresh), fl);
@@ -1396,6 +1401,21 @@ void GnomeCmdFileSelector::update_tab_label(const GnomeCmdFileList *fl)
     }
     else
         notebook->set_label(name);
+}
+
+
+void GnomeCmdFileSelector::update_tab_label(const GnomeCmdFileList *fl, gint page)
+{
+    const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
+
+    if (fl->locked)
+    {
+        gchar *s = g_strconcat ("* ", name, NULL);
+        notebook->set_label(page,s);
+        g_free (s);
+    }
+    else
+        notebook->set_label(page,name);
 }
 
 

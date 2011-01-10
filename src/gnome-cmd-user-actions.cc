@@ -218,6 +218,7 @@ static UserActionData user_actions_data[] = {
                                              {view_prev_tab, "view.prev_tab", N_("Previous tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
                                              {view_root, "view.root", N_("Root directory")},
+                                             {view_toggle_tab_lock, "view.toggle_lock_tab", N_("Lock/unlock tab")},
 #if 0
                                              {view_terminal, "view.terminal", N_("Show terminal")},
 #endif
@@ -1605,6 +1606,43 @@ void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
         get_fs (INACTIVE)->new_tab(GNOME_CMD_DIR (file), FALSE);
     else
         get_fs (INACTIVE)->new_tab(fl->cwd, FALSE);
+}
+
+
+void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
+{
+    //  0       -> current tab
+    //  1 .. n  -> tab #n for active fs
+    // -1 .. -n -> tab #n for inactive fs
+
+    GnomeCmdFileSelector *fs;
+    GnomeCmdFileList *fl;
+
+    if (!page)
+    {
+        fs = get_fs (ACTIVE);
+        fl = get_fl (ACTIVE);
+
+        if (fs && fl)
+        {
+            fl->locked = !fl->locked;
+            fs->update_tab_label(fl);
+        }
+
+        return;
+    }
+
+    int n = GPOINTER_TO_INT (page);
+
+    fs = get_fs (n>0 ? ACTIVE : INACTIVE);
+    n = ABS(n)-1;
+    fl = fs->file_list(n);
+
+    if (fs && fl)
+    {
+        fl->locked = !fl->locked;
+        fs->update_tab_label(fl,n);
+    }
 }
 
 

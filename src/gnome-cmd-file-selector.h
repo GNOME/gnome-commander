@@ -92,6 +92,7 @@ struct GnomeCmdFileSelector
     void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
 
     void update_tab_label(const GnomeCmdFileList *fl);
+    void update_tab_label(const GnomeCmdFileList *fl, gint page);
 
     void show_filter();
     void update_files();
