@@ -251,14 +251,17 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
     g_return_if_fail (f->info!=NULL);
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-    {
-        fl->invalidate_tree_size();
+        if (!fl->locked)
+        {
+            fl->invalidate_tree_size();
 
-        if (f->is_dotdot)
-            fl->goto_directory("..");
+            if (f->is_dotdot)
+                fl->goto_directory("..");
+            else
+                fl->set_directory(GNOME_CMD_DIR (f));
+        }
         else
-            fl->set_directory(GNOME_CMD_DIR (f));
-    }
+            new_tab(f->is_dotdot ? gnome_cmd_dir_get_parent (fl->cwd) : GNOME_CMD_DIR (f));
 }
 
 
@@ -316,7 +319,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
-    if (mask & GDK_CONTROL_MASK)
+    if (mask & GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
     else
         fs->set_connection(con);
@@ -345,7 +348,7 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
 
     main_win->switch_fs(fs);
 
-    if (event->button==2 || event->state&GDK_CONTROL_MASK)
+    if (event->button==2 || event->state&GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
     fs->set_connection(con);

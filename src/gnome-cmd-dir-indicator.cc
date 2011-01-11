@@ -103,7 +103,7 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
             {
                 chTo[indicator->priv->slashCharPosition[i]] = 0;
                 main_win->switch_fs(fs);
-                if (event->button==2 || event->state&GDK_CONTROL_MASK)
+                if (event->button==2 || event->state&GDK_CONTROL_MASK || fs->file_list()->locked)
                 {
                     GnomeCmdCon *con = fs->get_connection();
                     GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chTo));
@@ -290,7 +290,7 @@ static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 
     main_win->switch_fs(indicator->priv->fs);
 
-    if (mask&GDK_CONTROL_MASK)
+    if (mask&GDK_CONTROL_MASK || indicator->priv->fs->file_list()->locked)
     {
         GnomeCmdCon *con = indicator->priv->fs->get_connection();
         GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
@@ -314,7 +314,7 @@ static void on_bookmark_item_selected (GtkMenuItem *item, GnomeCmdBookmark *bm)
 
     main_win->switch_fs(indicator->priv->fs);
 
-    if (mask&GDK_CONTROL_MASK)
+    if (mask&GDK_CONTROL_MASK || indicator->priv->fs->file_list()->locked)
     {
         GnomeCmdCon *con = indicator->priv->fs->get_connection();
         GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bm->path));
