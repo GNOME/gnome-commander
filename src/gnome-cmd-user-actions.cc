@@ -1514,10 +1514,18 @@ void view_close_tab (GtkMenuItem *menuitem, gpointer file_list)
         GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (file_list);
         GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
 
-        fs->close_tab(gtk_notebook_page_num (*fs->notebook, gtk_widget_get_parent (*fl)));
+        if (fs->notebook->size()>1)
+            if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+                fs->close_tab(gtk_notebook_page_num (*fs->notebook, gtk_widget_get_parent (*fl)));
     }
     else
-        get_fs (ACTIVE)->close_tab();
+    {
+        GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+
+        if (fs->notebook->size()>1)
+            if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+                fs->close_tab();
+    }
 }
 
 
@@ -1528,7 +1536,7 @@ void view_close_all_tabs (GtkMenuItem *menuitem, gpointer file_selector)
     gint n = notebook->get_current_page();
 
     for (gint i=notebook->size(); i--;)
-        if (i!=n)
+        if (i!=n && !fs->file_list(i)->locked)
             notebook->remove_page(i);
 }
 
@@ -1547,7 +1555,7 @@ void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer file_selector)
     {
         GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (gtk_bin_get_child (GTK_BIN (notebook->page(i))));
 
-        if (fl)
+        if (fl && !fl->locked)
             dirs[fl->cwd].insert(i);
     }
 
