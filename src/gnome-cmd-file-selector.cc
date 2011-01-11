@@ -627,7 +627,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), gtk_separator_menu_item_new ());
 
                         menuitem = gtk_image_menu_item_new_with_mnemonic (fl->locked ? _("_Unlock Tab") : _("_Lock Tab"));
-                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_file (fl->locked ? PACKAGE_NAME G_DIR_SEPARATOR_S "unpin.png" : PACKAGE_NAME G_DIR_SEPARATOR_S "pin.png"));
+                        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_file (fl->locked ? PIXMAPS_DIR G_DIR_SEPARATOR_S "unpin.png" : PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png"));
                         g_signal_connect (menuitem, "activate", G_CALLBACK (view_toggle_tab_lock), GINT_TO_POINTER (fs->is_active() ? tab_clicked+1 : -tab_clicked-1));
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
