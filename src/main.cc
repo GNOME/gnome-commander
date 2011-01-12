@@ -147,10 +147,10 @@ int main (int argc, char *argv[])
     else
     {
         if (start_dir_left)
-            gnome_cmd_data.tabs[LEFT].push_back(make_triple(string(start_dir_left),GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING));
+            gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(start_dir_left),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
 
         if (start_dir_right)
-            gnome_cmd_data.tabs[RIGHT].push_back(make_triple(string(start_dir_right),GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING));
+            gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_left),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
 
         gcmd_user_actions.set_defaults();
         ls_colors_init ();

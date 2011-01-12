@@ -160,7 +160,7 @@ struct GnomeCmdData
         gchar *other_value;
     };
 
-    typedef triple<std::string,GnomeCmdFileList::ColumnID,GtkSortType> Tab;
+    typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
     struct Private;
 

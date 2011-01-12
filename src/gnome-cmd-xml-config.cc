@@ -408,7 +408,7 @@ static void xml_start(GMarkupParseContext *context,
 
     GnomeCmdData *cfg = (GnomeCmdData *) user_data;
     gchar *param1, *param2, *param3;
-    gboolean param4;
+    gboolean param4, param5;
 
     switch (xml_elem_names[xml_paths.top()])
     {
@@ -426,13 +426,14 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_STRING, "dir", &param1,
                                              G_MARKUP_COLLECT_STRING, "sort", &param2,
                                              G_MARKUP_COLLECT_BOOLEAN, "asc", &param4,
+                                             G_MARKUP_COLLECT_BOOLEAN, "lock", &param5,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 string dir(param1);
                 gint sort = atoi(param2);
 
                 if (!dir.empty() && sort<GnomeCmdFileList::NUM_COLUMNS)
-                    cfg->tabs[xml_fs].push_back(make_triple(string(param1),(GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4));
+                    cfg->tabs[xml_fs].push_back(make_pair(string(param1),make_triple((GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4,param5)));
             }
             break;
 

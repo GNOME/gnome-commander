@@ -808,21 +808,21 @@ static void init (GnomeCmdMainWin *mw)
     GnomeCmdCon *home = get_home_con ();
 
     if (gnome_cmd_data.tabs[LEFT].empty())
-        gnome_cmd_data.tabs[LEFT].push_back(make_triple(string(g_get_home_dir ()), GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING));
+        gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
 
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[LEFT].begin(); i!=gnome_cmd_data.tabs[LEFT].end(); ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(LEFT)->new_tab(dir, i->second, i->third, FALSE, TRUE);
+        mw->fs(LEFT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
 
     if (gnome_cmd_data.tabs[RIGHT].empty())
-        gnome_cmd_data.tabs[RIGHT].push_back(make_triple(string(g_get_home_dir ()), GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING));
+        gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING,FALSE)));
 
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[RIGHT].begin(); i!=gnome_cmd_data.tabs[RIGHT].end(); ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(RIGHT)->new_tab(dir, i->second, i->third, FALSE, TRUE);
+        mw->fs(RIGHT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
 
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
