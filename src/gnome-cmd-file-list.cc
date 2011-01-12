@@ -2640,7 +2640,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
 
     if (strcmp (dir, "..") == 0)
     {
-        // lets get the parent directory
+        // let's get the parent directory
         new_dir = gnome_cmd_dir_get_parent (cwd);
         if (!new_dir)
         {
