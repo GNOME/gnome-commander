@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2010-11-22 17:20+0000\n"
-"PO-Revision-Date: 2010-11-24 00:15+0800\n"
+"POT-Creation-Date: 2011-01-11 21:13+0000\n"
+"PO-Revision-Date: 2011-01-06 15:31+0800\n"
 "Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "没有可用的错误描述"
 #: ../src/gnome-cmd-options-dialog.cc:2017
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/gnome-cmd-prepare-move-dialog.cc:115
-#: ../src/gnome-cmd-remote-dialog.cc:484 ../src/gnome-cmd-user-actions.cc:194
+#: ../src/gnome-cmd-remote-dialog.cc:484 ../src/gnome-cmd-user-actions.cc:196
 msgid "Options"
 msgstr "选项"
 
@@ -172,7 +172,7 @@ msgstr "从文件列表中删除"
 
 #. {file_umount, "file.umount"},
 #: ../src/dialogs/gnome-cmd-advrename-dialog.cc:335
-#: ../src/gnome-cmd-user-actions.cc:181
+#: ../src/gnome-cmd-user-actions.cc:183
 msgid "View file"
 msgstr "查看文件"
 
@@ -219,7 +219,7 @@ msgid "File size"
 msgstr "文件大小"
 
 #: ../src/dialogs/gnome-cmd-advrename-dialog.cc:602
-#: ../src/gnome-cmd-profile-component.cc:907 ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/gnome-cmd-profile-component.cc:916 ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "日期"
@@ -337,7 +337,7 @@ msgid "Invalid shortcut."
 msgstr "无效的快捷键。"
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:625
-#: ../src/gnome-cmd-user-actions.cc:193
+#: ../src/gnome-cmd-user-actions.cc:195
 msgid "Do nothing"
 msgstr "无操作"
 
@@ -358,7 +358,7 @@ msgstr "书签组"
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:250
 #: ../src/gnome-cmd-file-props-dialog.cc:656
 #: ../src/gnome-cmd-remote-dialog.cc:377
-#: ../src/intviewer/viewer-window.cc:1463 ../src/plugin_manager.cc:411
+#: ../src/intviewer/viewer-window.cc:1463 ../src/plugin_manager.cc:404
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "Name"
 msgstr "名称"
@@ -437,6 +437,19 @@ msgstr "配置名称"
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "Template"
 msgstr "模板"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:91
+msgid "A directory name must be entered"
+msgstr "必须输入目录名称"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:156
+msgid "Make Directory"
+msgstr "创建目录"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:192
+#: ../src/gnome-cmd-file-props-dialog.cc:377
+msgid "Directory name:"
+msgstr "目录名称："
 
 #: ../src/dirlist.cc:74
 #, c-format
@@ -787,8 +800,9 @@ msgid "Audio Files"
 msgstr "音频文件"
 
 #: ../src/gnome-cmd-data.cc:1478
+#, fuzzy
 msgid "CamelCase"
-msgstr ""
+msgstr "驼峰格式"
 
 #: ../src/gnome-cmd-delete-dialog.cc:90
 #, c-format
@@ -821,12 +835,12 @@ msgid "Abort"
 msgstr "中止"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-xfer.cc:184
+#: ../src/gnome-cmd-file-selector.cc:1261 ../src/gnome-cmd-xfer.cc:184
 msgid "Retry"
 msgstr "重试"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-xfer.cc:164
+#: ../src/gnome-cmd-file-selector.cc:1261 ../src/gnome-cmd-xfer.cc:164
 #: ../src/gnome-cmd-xfer.cc:184
 msgid "Skip"
 msgstr "跳过"
@@ -843,17 +857,17 @@ msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "您想删除所选的 %d 个文件吗？"
 
 #: ../src/gnome-cmd-delete-dialog.cc:286 ../src/gnome-cmd-main-win.cc:1170
-#: ../src/gnome-cmd-options-dialog.cc:870 ../src/gnome-cmd-user-actions.cc:155
+#: ../src/gnome-cmd-options-dialog.cc:870 ../src/gnome-cmd-user-actions.cc:157
 msgid "Delete"
 msgstr "删除"
 
 #: ../src/gnome-cmd-delete-dialog.cc:287
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-user-actions.cc:819
-#: ../src/utils.cc:528 ../src/utils.cc:556
+#: ../src/gnome-cmd-file-selector.cc:1261 ../src/gnome-cmd-user-actions.cc:822
+#: ../src/utils.cc:508 ../src/utils.cc:536
 msgid "Cancel"
 msgstr "取消"
 
-#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/utils.cc:528
+#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/utils.cc:508
 msgid "OK"
 msgstr "确定"
 
@@ -901,95 +915,99 @@ msgstr "用户 ID"
 msgid "gid"
 msgstr "组 ID"
 
-#: ../src/gnome-cmd-file-list.cc:1389
+#: ../src/gnome-cmd-file-list.cc:1390
 msgid "Directory listing failed."
 msgstr "列出目录失败。"
 
-#: ../src/gnome-cmd-file-list.cc:1442
+#: ../src/gnome-cmd-file-list.cc:1443
 msgid "Failed to open connection."
 msgstr "打开连接失败。"
 
-#: ../src/gnome-cmd-file-list.cc:2203 ../src/gnome-cmd-file-list.cc:2218
+#: ../src/gnome-cmd-file-list.cc:2204 ../src/gnome-cmd-file-list.cc:2219
 msgid "Not an ordinary file"
 msgstr "不是普通文件"
 
-#: ../src/gnome-cmd-file-popmenu.cc:114
+#: ../src/gnome-cmd-file-popmenu.cc:116
 msgid "Couldn't retrieve MIME type of the file."
 msgstr "无法获取该文件的 MIME 类型。"
 
-#: ../src/gnome-cmd-file-popmenu.cc:129
+#: ../src/gnome-cmd-file-popmenu.cc:131
 msgid "Invalid command"
 msgstr "无效命令"
 
-#: ../src/gnome-cmd-file-popmenu.cc:153
+#: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Application:"
 msgstr "应用程序："
 
-#: ../src/gnome-cmd-file-popmenu.cc:156
+#: ../src/gnome-cmd-file-popmenu.cc:158
 msgid "Open with other..."
 msgstr "用其它程序打开..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:161
+#: ../src/gnome-cmd-file-popmenu.cc:163
 msgid "Needs terminal"
 msgstr "需要终端"
 
-#: ../src/gnome-cmd-file-popmenu.cc:400 ../src/gnome-cmd-file-popmenu.cc:409
-#: ../src/gnome-cmd-file-popmenu.cc:434
+#: ../src/gnome-cmd-file-popmenu.cc:402 ../src/gnome-cmd-file-popmenu.cc:411
+#: ../src/gnome-cmd-file-popmenu.cc:436
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:413
+#: ../src/gnome-cmd-file-popmenu.cc:415
 #, c-format
 msgid "_Open with \"%s\""
 msgstr "使用“%s”打开(_O)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:435
+#: ../src/gnome-cmd-file-popmenu.cc:437
 msgid "Open Wit_h"
 msgstr "打开方式(_H)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:441
+#: ../src/gnome-cmd-file-popmenu.cc:443
 msgid "E_xecute"
 msgstr "执行(_X)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:541
+#: ../src/gnome-cmd-file-popmenu.cc:455 ../src/gnome-cmd-main-menu.cc:541
 msgid "Cu_t"
 msgstr "剪切(_T)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:547
+#: ../src/gnome-cmd-file-popmenu.cc:456 ../src/gnome-cmd-main-menu.cc:547
 msgid "_Copy"
 msgstr "复制(_C)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:455 ../src/gnome-cmd-main-menu.cc:559
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-user-actions.cc:155
+msgid "Copy file names"
+msgstr "复制文件名"
+
+#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-main-menu.cc:559
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:457
+#: ../src/gnome-cmd-file-popmenu.cc:460
 msgid "Rename"
 msgstr "重命名"
 
 #. {file_run, "file.run"},
-#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-main-win.cc:1173
-#: ../src/gnome-cmd-user-actions.cc:178
+#: ../src/gnome-cmd-file-popmenu.cc:461 ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-user-actions.cc:180
 msgid "Send files"
 msgstr "发送文件"
 
-#: ../src/gnome-cmd-file-popmenu.cc:459 ../src/gnome-cmd-list-popmenu.cc:117
+#: ../src/gnome-cmd-file-popmenu.cc:462 ../src/gnome-cmd-list-popmenu.cc:117
 msgid "Open this _folder"
 msgstr "打开此文件夹"
 
-#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-list-popmenu.cc:118
+#: ../src/gnome-cmd-file-popmenu.cc:463 ../src/gnome-cmd-list-popmenu.cc:118
 msgid "Open _terminal here"
 msgstr "打开终端"
 
-#: ../src/gnome-cmd-file-popmenu.cc:462 ../src/gnome-cmd-main-menu.cc:455
+#: ../src/gnome-cmd-file-popmenu.cc:465 ../src/gnome-cmd-main-menu.cc:455
 msgid "_Properties..."
 msgstr "属性(_P)..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:505
+#: ../src/gnome-cmd-file-popmenu.cc:508
 msgid "Other _Application..."
 msgstr "其他应用程序(_A)..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:76 ../src/utils.cc:844
+#: ../src/gnome-cmd-file-props-dialog.cc:76 ../src/utils.cc:824
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -1005,12 +1023,7 @@ msgid "Image:"
 msgstr "图像："
 
 #: ../src/gnome-cmd-file-props-dialog.cc:377
-#: ../src/gnome-cmd-mkdir-dialog.cc:195
-msgid "Directory name:"
-msgstr "目录名称："
-
-#: ../src/gnome-cmd-file-props-dialog.cc:377
-#: ../src/gnome-cmd-file-selector.cc:1030
+#: ../src/gnome-cmd-file-selector.cc:1063
 msgid "File name:"
 msgstr "文件名："
 
@@ -1109,7 +1122,7 @@ msgid "File Properties"
 msgstr "文件属性"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:741
-#: ../src/gnome-cmd-user-actions.cc:175
+#: ../src/gnome-cmd-user-actions.cc:177
 msgid "Properties"
 msgstr "属性"
 
@@ -1138,59 +1151,76 @@ msgstr[0] "选中了 %1$s，%3$d 个目录中的第 %2$d 个"
 msgid "%s free"
 msgstr "%s 空闲"
 
-#: ../src/gnome-cmd-file-selector.cc:612 ../src/gnome-cmd-main-menu.cc:615
+#: ../src/gnome-cmd-file-selector.cc:612 ../src/gnome-cmd-file-selector.cc:687
+#: ../src/gnome-cmd-user-actions.cc:1518 ../src/gnome-cmd-user-actions.cc:1526
+msgid "The tab is locked, close anyway ?"
+msgstr ""
+
+#: ../src/gnome-cmd-file-selector.cc:630 ../src/gnome-cmd-main-menu.cc:615
 msgid "Open in New _Tab"
 msgstr "在新标签中打开(_T)"
 
-#: ../src/gnome-cmd-file-selector.cc:618
+#: ../src/gnome-cmd-file-selector.cc:637
+#, fuzzy
+#| msgid "_Close Tab"
+msgid "_Unlock Tab"
+msgstr "关闭标签(_C)"
+
+#: ../src/gnome-cmd-file-selector.cc:637
+#, fuzzy
+#| msgid "_Close Tab"
+msgid "_Lock Tab"
+msgstr "关闭标签(_C)"
+
+#: ../src/gnome-cmd-file-selector.cc:642
 msgid "_Refresh Tab"
 msgstr "刷新标签(_R)"
 
-#: ../src/gnome-cmd-file-selector.cc:622
+#: ../src/gnome-cmd-file-selector.cc:647
 msgid "Copy Tab to Other _Pane"
 msgstr "将标签复制到另一面板(_P)"
 
-#: ../src/gnome-cmd-file-selector.cc:628 ../src/gnome-cmd-main-menu.cc:621
+#: ../src/gnome-cmd-file-selector.cc:653 ../src/gnome-cmd-main-menu.cc:621
 msgid "_Close Tab"
 msgstr "关闭标签(_C)"
 
-#: ../src/gnome-cmd-file-selector.cc:632 ../src/gnome-cmd-main-menu.cc:627
+#: ../src/gnome-cmd-file-selector.cc:658 ../src/gnome-cmd-main-menu.cc:627
 msgid "Close _All Tabs"
 msgstr "关闭所有标签(_A)"
 
-#: ../src/gnome-cmd-file-selector.cc:636
+#: ../src/gnome-cmd-file-selector.cc:663
 msgid "Close _Duplicate Tabs"
 msgstr "关闭重复标签(_D)"
 
-#: ../src/gnome-cmd-file-selector.cc:968
+#: ../src/gnome-cmd-file-selector.cc:1001
 #: ../src/gnome-cmd-make-copy-dialog.cc:67
 msgid "No file name entered"
 msgstr "没有输入文件名"
 
-#: ../src/gnome-cmd-file-selector.cc:1002
+#: ../src/gnome-cmd-file-selector.cc:1035
 msgid "No file name given"
 msgstr "没有给文件名"
 
-#: ../src/gnome-cmd-file-selector.cc:1033
+#: ../src/gnome-cmd-file-selector.cc:1066
 msgid "New Text File"
 msgstr "新文本文件"
 
-#: ../src/gnome-cmd-file-selector.cc:1171
+#: ../src/gnome-cmd-file-selector.cc:1209
 msgid "Symbolic link name:"
 msgstr "符号链接名称："
 
-#: ../src/gnome-cmd-file-selector.cc:1177
-#: ../src/gnome-cmd-file-selector.cc:1223 ../src/gnome-cmd-user-actions.cc:819
+#: ../src/gnome-cmd-file-selector.cc:1215
+#: ../src/gnome-cmd-file-selector.cc:1261 ../src/gnome-cmd-user-actions.cc:822
 msgid "Create Symbolic Link"
 msgstr "创建符号连接"
 
-#: ../src/gnome-cmd-file-selector.cc:1223
+#: ../src/gnome-cmd-file-selector.cc:1261
 #: ../src/gnome-cmd-options-dialog.cc:892
 #: ../src/gnome-cmd-options-dialog.cc:912
 msgid "Skip all"
 msgstr "全部跳过"
 
-#: ../src/gnome-cmd-file-selector.cc:1294
+#: ../src/gnome-cmd-file-selector.cc:1332
 msgid "Filter:"
 msgstr "过滤器："
 
@@ -1202,7 +1232,7 @@ msgstr "未知文件类型"
 msgid "Regular file"
 msgstr "常规文件"
 
-#: ../src/gnome-cmd-file.cc:605 ../src/gnome-cmd-profile-component.cc:904
+#: ../src/gnome-cmd-file.cc:605 ../src/gnome-cmd-profile-component.cc:913
 msgid "Directory"
 msgstr "目录"
 
@@ -1418,7 +1448,7 @@ msgstr "网上的 GNOME 指挥官(_W)"
 msgid "Report a _Problem"
 msgstr "报告问题(_P)"
 
-#: ../src/gnome-cmd-main-menu.cc:784 ../src/plugin_manager.cc:427
+#: ../src/gnome-cmd-main-menu.cc:784 ../src/plugin_manager.cc:420
 msgid "_About"
 msgstr "关于(_A)"
 
@@ -1492,12 +1522,12 @@ msgstr "F9 搜索"
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME 指挥官 - ROOT 特权"
 
-#: ../src/gnome-cmd-main-win.cc:1159 ../src/gnome-cmd-user-actions.cc:217
+#: ../src/gnome-cmd-main-win.cc:1159 ../src/gnome-cmd-user-actions.cc:219
 msgid "Refresh"
 msgstr "刷新"
 
 #: ../src/gnome-cmd-main-win.cc:1160 ../src/gnome-cmd-options-dialog.cc:107
-#: ../src/gnome-cmd-user-actions.cc:222
+#: ../src/gnome-cmd-user-actions.cc:225
 msgid "Up one directory"
 msgstr "上升一级目录"
 
@@ -1521,17 +1551,17 @@ msgstr "转到最后的位置"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "复制文件名(按 SHIFT 复制完整路径，按 ALT 复制 URI)"
 
-#: ../src/gnome-cmd-main-win.cc:1167 ../src/gnome-cmd-user-actions.cc:154
+#: ../src/gnome-cmd-main-win.cc:1167 ../src/gnome-cmd-user-actions.cc:156
 msgid "Cut"
 msgstr "剪切"
 
 #: ../src/gnome-cmd-main-win.cc:1168
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:85
-#: ../src/gnome-cmd-user-actions.cc:152
+#: ../src/gnome-cmd-user-actions.cc:154
 msgid "Copy"
 msgstr "复制"
 
-#: ../src/gnome-cmd-main-win.cc:1169 ../src/gnome-cmd-user-actions.cc:157
+#: ../src/gnome-cmd-main-win.cc:1169 ../src/gnome-cmd-user-actions.cc:159
 msgid "Paste"
 msgstr "粘贴"
 
@@ -1539,9 +1569,9 @@ msgstr "粘贴"
 msgid "Edit (SHIFT for new document)"
 msgstr "编辑(按 SHIFT 新建文档)"
 
-#: ../src/gnome-cmd-main-win.cc:1174 ../src/gnome-cmd-user-actions.cc:145
-msgid "Open terminal"
-msgstr "打开终端"
+#: ../src/gnome-cmd-main-win.cc:1174
+msgid "Open terminal (SHIFT for root privileges)"
+msgstr "打开终端(用 SHIFT 来得到 root 权限)"
 
 #: ../src/gnome-cmd-main-win.cc:1177
 msgid "Drop connection"
@@ -1556,14 +1586,6 @@ msgstr "复制“%s”到"
 #: ../src/gnome-cmd-make-copy-dialog.cc:146
 msgid "Copy File"
 msgstr "复制文件"
-
-#: ../src/gnome-cmd-mkdir-dialog.cc:96
-msgid "A directory name must be entered"
-msgstr "必须输入目录名称"
-
-#: ../src/gnome-cmd-mkdir-dialog.cc:203
-msgid "Make Directory"
-msgstr "创建目录"
 
 #: ../src/gnome-cmd-options-dialog.cc:85
 msgid "Left mouse button"
@@ -1622,7 +1644,7 @@ msgstr "排序选项"
 msgid "Case sensitive"
 msgstr "区分大小写"
 
-#: ../src/gnome-cmd-options-dialog.cc:159 ../src/gnome-cmd-user-actions.cc:158
+#: ../src/gnome-cmd-options-dialog.cc:159 ../src/gnome-cmd-user-actions.cc:160
 msgid "Quick search"
 msgstr "快速搜索"
 
@@ -1849,7 +1871,7 @@ msgstr "深蓝"
 
 #: ../src/gnome-cmd-options-dialog.cc:700
 msgid "Cafezinho"
-msgstr ""
+msgstr "咖啡色"
 
 #: ../src/gnome-cmd-options-dialog.cc:701
 msgid "Custom"
@@ -2221,15 +2243,15 @@ msgstr "目录 %s 不存在，您要创建吗？"
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
 #: ../src/gnome-cmd-profile-component.cc:416
-#: ../src/gnome-cmd-profile-component.cc:724
-#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:683
+#: ../src/gnome-cmd-profile-component.cc:733
+#: ../src/gnome-cmd-profile-component.cc:765 ../src/utils.cc:663
 msgid "No"
 msgstr "否"
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
 #: ../src/gnome-cmd-profile-component.cc:416
-#: ../src/gnome-cmd-profile-component.cc:724
-#: ../src/gnome-cmd-profile-component.cc:756 ../src/utils.cc:683
+#: ../src/gnome-cmd-profile-component.cc:733
+#: ../src/gnome-cmd-profile-component.cc:765 ../src/utils.cc:663
 msgid "Yes"
 msgstr "是"
 
@@ -2357,136 +2379,136 @@ msgstr "/时间/MM"
 msgid "/Time/SS"
 msgstr "/时间/SS"
 
-#: ../src/gnome-cmd-profile-component.cc:586
+#: ../src/gnome-cmd-profile-component.cc:595
 msgid "_Select range:"
 msgstr "选择范围(_S)："
 
-#: ../src/gnome-cmd-profile-component.cc:596
+#: ../src/gnome-cmd-profile-component.cc:605
 msgid "_Inverse selection"
 msgstr "反选(_I)"
 
-#: ../src/gnome-cmd-profile-component.cc:664
+#: ../src/gnome-cmd-profile-component.cc:673
 msgid "Range Selection"
 msgstr "选择范围"
 
-#: ../src/gnome-cmd-profile-component.cc:714
+#: ../src/gnome-cmd-profile-component.cc:723
 msgid "Add Rule"
 msgstr "编辑规则"
 
-#: ../src/gnome-cmd-profile-component.cc:749
+#: ../src/gnome-cmd-profile-component.cc:758
 msgid "Edit Rule"
 msgstr "编辑规则"
 
-#: ../src/gnome-cmd-profile-component.cc:876
+#: ../src/gnome-cmd-profile-component.cc:885
 msgid "_Template"
 msgstr "模板(_T)"
 
-#: ../src/gnome-cmd-profile-component.cc:905 ../src/plugin_manager.cc:413
+#: ../src/gnome-cmd-profile-component.cc:914 ../src/plugin_manager.cc:406
 #: ../src/tags/gnome-cmd-tags.cc:687
 msgid "File"
 msgstr "文件"
 
-#: ../src/gnome-cmd-profile-component.cc:906
-#: ../src/gnome-cmd-profile-component.cc:918
+#: ../src/gnome-cmd-profile-component.cc:915
+#: ../src/gnome-cmd-profile-component.cc:927
 msgid "Counter"
 msgstr "计数器"
 
-#: ../src/gnome-cmd-profile-component.cc:908
+#: ../src/gnome-cmd-profile-component.cc:917
 msgid "Metatag"
 msgstr "元标签"
 
-#: ../src/gnome-cmd-profile-component.cc:935
+#: ../src/gnome-cmd-profile-component.cc:944
 msgid "_Start:"
 msgstr "开始(_S)："
 
-#: ../src/gnome-cmd-profile-component.cc:942
+#: ../src/gnome-cmd-profile-component.cc:951
 msgid "Ste_p:"
 msgstr "步骤(_P)："
 
-#: ../src/gnome-cmd-profile-component.cc:949
+#: ../src/gnome-cmd-profile-component.cc:958
 msgid "Di_gits:"
 msgstr "数字(_G)："
 
-#: ../src/gnome-cmd-profile-component.cc:960
+#: ../src/gnome-cmd-profile-component.cc:969
 msgid "Regex replacing"
 msgstr "正规表达式替换"
 
-#: ../src/gnome-cmd-profile-component.cc:999
+#: ../src/gnome-cmd-profile-component.cc:1008
 msgid "Remove A_ll"
 msgstr "全部删除(_L)"
 
-#: ../src/gnome-cmd-profile-component.cc:1012
+#: ../src/gnome-cmd-profile-component.cc:1021
 msgid "Case"
 msgstr "大小写"
 
-#: ../src/gnome-cmd-profile-component.cc:1024
+#: ../src/gnome-cmd-profile-component.cc:1033
 msgid "<unchanged>"
 msgstr "<未变动>"
 
-#: ../src/gnome-cmd-profile-component.cc:1025
+#: ../src/gnome-cmd-profile-component.cc:1034
 msgid "lowercase"
 msgstr "小写"
 
-#: ../src/gnome-cmd-profile-component.cc:1026
+#: ../src/gnome-cmd-profile-component.cc:1035
 msgid "UPPERCASE"
 msgstr "大写"
 
-#: ../src/gnome-cmd-profile-component.cc:1028
+#: ../src/gnome-cmd-profile-component.cc:1037
 msgid "Sentence case"
-msgstr ""
+msgstr "首字母大写"
 
 #. FIXME
-#: ../src/gnome-cmd-profile-component.cc:1029
+#: ../src/gnome-cmd-profile-component.cc:1038
 #, fuzzy
 msgid "Initial Caps"
 msgstr "目录"
 
 #. FIXME
-#: ../src/gnome-cmd-profile-component.cc:1030
+#: ../src/gnome-cmd-profile-component.cc:1039
 msgid "tOGGLE cASE"
 msgstr "切换大小写"
 
-#: ../src/gnome-cmd-profile-component.cc:1040
+#: ../src/gnome-cmd-profile-component.cc:1049
 msgid "Trim blanks"
 msgstr "压缩空白"
 
-#: ../src/gnome-cmd-profile-component.cc:1052
+#: ../src/gnome-cmd-profile-component.cc:1061
 msgid "<none>"
 msgstr "<无>"
 
-#: ../src/gnome-cmd-profile-component.cc:1053
+#: ../src/gnome-cmd-profile-component.cc:1062
 msgid "leading"
 msgstr "前导"
 
-#: ../src/gnome-cmd-profile-component.cc:1054
+#: ../src/gnome-cmd-profile-component.cc:1063
 msgid "trailing"
 msgstr "尾随"
 
-#: ../src/gnome-cmd-profile-component.cc:1055
+#: ../src/gnome-cmd-profile-component.cc:1064
 msgid "leading and trailing"
 msgstr "前导和尾随"
 
-#: ../src/gnome-cmd-profile-component.cc:1225
+#: ../src/gnome-cmd-profile-component.cc:1234
 msgid "Search for"
 msgstr "搜索内容"
 
-#: ../src/gnome-cmd-profile-component.cc:1228
+#: ../src/gnome-cmd-profile-component.cc:1237
 msgid "Regex pattern"
 msgstr "正则表达式模式"
 
-#: ../src/gnome-cmd-profile-component.cc:1230
+#: ../src/gnome-cmd-profile-component.cc:1239
 msgid "Replace with"
 msgstr "替换为"
 
-#: ../src/gnome-cmd-profile-component.cc:1233
+#: ../src/gnome-cmd-profile-component.cc:1242
 msgid "Replacement"
 msgstr "替换"
 
-#: ../src/gnome-cmd-profile-component.cc:1235
+#: ../src/gnome-cmd-profile-component.cc:1244
 msgid "Match case"
 msgstr "区分大小写"
 
-#: ../src/gnome-cmd-profile-component.cc:1238
+#: ../src/gnome-cmd-profile-component.cc:1247
 msgid "Case sensitive matching"
 msgstr "区分大小写"
 
@@ -2495,7 +2517,7 @@ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr "无法加载 python 模块“gnomevfs”(“gnome.vfs”)"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:268
-#: ../src/gnome-cmd-user-actions.cc:159
+#: ../src/gnome-cmd-user-actions.cc:161
 msgid "Search"
 msgstr "搜索"
 
@@ -2550,18 +2572,21 @@ msgid "Files _not containing text"
 msgstr "文件不包含文本(_N)"
 
 #: ../src/gnome-cmd-search-dialog.cc:163
-#, c-format
-msgid "Failed to open file %s: %s\n"
+#, fuzzy, c-format
+#| msgid "Failed to open file %s: %s\n"
+msgid "Failed to open file %s: %s"
 msgstr "打开文件 %s 失败：%s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:204
-#, c-format
-msgid "Failed to seek in file %s: %s\n"
+#, fuzzy, c-format
+#| msgid "Failed to seek in file %s: %s\n"
+msgid "Failed to seek in file %s: %s"
 msgstr "在 %s 中搜索失败：%s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:211
-#, c-format
-msgid "Failed to read from file %s: %s\n"
+#, fuzzy, c-format
+#| msgid "Failed to read from file %s: %s\n"
+msgid "Failed to read from file %s: %s"
 msgstr "从文件 %s 读取失败：%s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:272
@@ -2644,326 +2669,344 @@ msgstr ""
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "找不到名叫 %s 的主机或工作组\n"
 
-#: ../src/gnome-cmd-user-actions.cc:78
+#: ../src/gnome-cmd-user-actions.cc:79
 msgid "No file selected"
 msgstr "没有选择文件"
 
-#: ../src/gnome-cmd-user-actions.cc:140
+#: ../src/gnome-cmd-user-actions.cc:141
 msgid "Bookmark current directory"
 msgstr "添加当前目录为书签"
 
-#: ../src/gnome-cmd-user-actions.cc:141
+#: ../src/gnome-cmd-user-actions.cc:142
 msgid "Manage bookmarks"
 msgstr "管理书签"
 
-#: ../src/gnome-cmd-user-actions.cc:142
+#: ../src/gnome-cmd-user-actions.cc:143
 msgid "Go to bookmarked location"
 msgstr "转到加书签的位置"
 
-#: ../src/gnome-cmd-user-actions.cc:143
+#: ../src/gnome-cmd-user-actions.cc:144
 msgid "Execute command"
 msgstr "执行命令"
 
-#: ../src/gnome-cmd-user-actions.cc:144
+#: ../src/gnome-cmd-user-actions.cc:145
 msgid "Open folder"
 msgstr "打开文件夹"
 
 #: ../src/gnome-cmd-user-actions.cc:146
+msgid "Open terminal"
+msgstr "打开终端"
+
+#: ../src/gnome-cmd-user-actions.cc:147
+#, fuzzy
+#| msgid "Open terminal"
+msgid "Open terminal as root"
+msgstr "打开终端"
+
+#: ../src/gnome-cmd-user-actions.cc:148
 msgid "Start GNOME Commander as root"
 msgstr "以 root 启动 GNOME 指挥官"
 
-#: ../src/gnome-cmd-user-actions.cc:147
+#: ../src/gnome-cmd-user-actions.cc:149
 msgid "Close connection"
 msgstr "关闭连接"
 
-#: ../src/gnome-cmd-user-actions.cc:148
+#: ../src/gnome-cmd-user-actions.cc:150
 msgid "New connection"
 msgstr "新建连接"
 
-#: ../src/gnome-cmd-user-actions.cc:149
+#: ../src/gnome-cmd-user-actions.cc:151
 msgid "Open connection"
 msgstr "打开连接"
 
-#: ../src/gnome-cmd-user-actions.cc:150
+#: ../src/gnome-cmd-user-actions.cc:152
 msgid "Change left connection"
 msgstr "更改左侧连接"
 
-#: ../src/gnome-cmd-user-actions.cc:151
+#: ../src/gnome-cmd-user-actions.cc:153
 msgid "Change right connection"
 msgstr "更改右侧连接"
 
-#: ../src/gnome-cmd-user-actions.cc:153
-msgid "Copy file names"
-msgstr "复制文件名"
-
-#: ../src/gnome-cmd-user-actions.cc:156
+#: ../src/gnome-cmd-user-actions.cc:158
 msgid "Show user defined files"
 msgstr "显示用户定义的文件"
 
-#: ../src/gnome-cmd-user-actions.cc:160
+#: ../src/gnome-cmd-user-actions.cc:162
 msgid "Advanced rename tool"
 msgstr "高级重命名工具"
 
-#: ../src/gnome-cmd-user-actions.cc:161
+#: ../src/gnome-cmd-user-actions.cc:163
 msgid "Change permissions"
 msgstr "更改权限"
 
-#: ../src/gnome-cmd-user-actions.cc:162
+#: ../src/gnome-cmd-user-actions.cc:164
 msgid "Change owner/group"
 msgstr "改变所有者/组"
 
-#: ../src/gnome-cmd-user-actions.cc:163
+#: ../src/gnome-cmd-user-actions.cc:165
 msgid "Copy files"
 msgstr "复制文件"
 
-#: ../src/gnome-cmd-user-actions.cc:164
+#: ../src/gnome-cmd-user-actions.cc:166
 msgid "Copy files with rename"
 msgstr "复制文件名并重命名"
 
-#: ../src/gnome-cmd-user-actions.cc:165
+#: ../src/gnome-cmd-user-actions.cc:167
 msgid "Create symbolic link"
 msgstr "创建符号连接"
 
-#: ../src/gnome-cmd-user-actions.cc:166
+#: ../src/gnome-cmd-user-actions.cc:168
 msgid "Delete files"
 msgstr "删除文件"
 
-#: ../src/gnome-cmd-user-actions.cc:167
+#: ../src/gnome-cmd-user-actions.cc:169
 msgid "Compare files (diff)"
 msgstr "比较文件(diff)"
 
-#: ../src/gnome-cmd-user-actions.cc:168
+#: ../src/gnome-cmd-user-actions.cc:170
 msgid "Edit file"
 msgstr "编辑文件"
 
-#: ../src/gnome-cmd-user-actions.cc:169
+#: ../src/gnome-cmd-user-actions.cc:171
 msgid "Edit a new file"
 msgstr "编辑新文件"
 
-#: ../src/gnome-cmd-user-actions.cc:170
+#: ../src/gnome-cmd-user-actions.cc:172
 msgid "Quit"
 msgstr "退出"
 
-#: ../src/gnome-cmd-user-actions.cc:171
+#: ../src/gnome-cmd-user-actions.cc:173
 msgid "View with external viewer"
 msgstr "使用外部查看器查看"
 
-#: ../src/gnome-cmd-user-actions.cc:172
+#: ../src/gnome-cmd-user-actions.cc:174
 msgid "View with internal viewer"
 msgstr "使用内部查看器查看"
 
-#: ../src/gnome-cmd-user-actions.cc:173
+#: ../src/gnome-cmd-user-actions.cc:175
 msgid "Create directory"
 msgstr "创建目录"
 
-#: ../src/gnome-cmd-user-actions.cc:174
+#: ../src/gnome-cmd-user-actions.cc:176
 msgid "Move files"
 msgstr "移动文件"
 
-#: ../src/gnome-cmd-user-actions.cc:176
+#: ../src/gnome-cmd-user-actions.cc:178
 msgid "Rename files"
 msgstr "重命名文件"
 
-#: ../src/gnome-cmd-user-actions.cc:179
+#: ../src/gnome-cmd-user-actions.cc:181
 msgid "Synchronize directories"
 msgstr "同步目录"
 
-#: ../src/gnome-cmd-user-actions.cc:182
+#: ../src/gnome-cmd-user-actions.cc:184
 msgid "About GNOME Commander"
 msgstr "关于 GNOME 指挥官"
 
-#: ../src/gnome-cmd-user-actions.cc:183
+#: ../src/gnome-cmd-user-actions.cc:185
 msgid "Help contents"
 msgstr "帮助内容"
 
-#: ../src/gnome-cmd-user-actions.cc:184
+#: ../src/gnome-cmd-user-actions.cc:186
 msgid "Help on keyboard shortcuts"
 msgstr "有关键盘快捷键的帮助"
 
-#: ../src/gnome-cmd-user-actions.cc:185
+#: ../src/gnome-cmd-user-actions.cc:187
 msgid "Report a problem"
 msgstr "报告问题"
 
-#: ../src/gnome-cmd-user-actions.cc:186
+#: ../src/gnome-cmd-user-actions.cc:188
 msgid "GNOME Commander on the web"
 msgstr "网上的 GNOME 指挥官"
 
-#: ../src/gnome-cmd-user-actions.cc:187
+#: ../src/gnome-cmd-user-actions.cc:189
 msgid "Compare directories"
 msgstr "比较目录"
 
-#: ../src/gnome-cmd-user-actions.cc:188
+#: ../src/gnome-cmd-user-actions.cc:190
 msgid "Invert selection"
 msgstr "反转选择"
 
-#: ../src/gnome-cmd-user-actions.cc:189
+#: ../src/gnome-cmd-user-actions.cc:191
 msgid "Select all"
 msgstr "全部选中"
 
-#: ../src/gnome-cmd-user-actions.cc:190
+#: ../src/gnome-cmd-user-actions.cc:192
 msgid "Toggle selection"
 msgstr "切换选择"
 
-#: ../src/gnome-cmd-user-actions.cc:191
+#: ../src/gnome-cmd-user-actions.cc:193
 msgid "Toggle selection and move cursor downward"
-msgstr ""
+msgstr "切换选择并将光标向下移动"
 
-#: ../src/gnome-cmd-user-actions.cc:192
+#: ../src/gnome-cmd-user-actions.cc:194
 msgid "Unselect all"
 msgstr "全部不选"
 
-#: ../src/gnome-cmd-user-actions.cc:195
+#: ../src/gnome-cmd-user-actions.cc:197
 msgid "MIME types"
 msgstr "MIME 类型"
 
-#: ../src/gnome-cmd-user-actions.cc:196
+#: ../src/gnome-cmd-user-actions.cc:198
 msgid "Keyboard shortcuts"
 msgstr "键盘快捷键"
 
-#: ../src/gnome-cmd-user-actions.cc:197
+#: ../src/gnome-cmd-user-actions.cc:199
 msgid "Configure plugins"
 msgstr "配置插件"
 
-#: ../src/gnome-cmd-user-actions.cc:198
+#: ../src/gnome-cmd-user-actions.cc:200
 msgid "Execute python plugin"
 msgstr "执行 python 插件"
 
-#: ../src/gnome-cmd-user-actions.cc:199
+#: ../src/gnome-cmd-user-actions.cc:201
 msgid "Back one directory"
 msgstr "后退一个目录"
 
-#: ../src/gnome-cmd-user-actions.cc:200
+#: ../src/gnome-cmd-user-actions.cc:202
 msgid "Close the current tab"
 msgstr "关闭当前标签"
 
-#: ../src/gnome-cmd-user-actions.cc:201
+#: ../src/gnome-cmd-user-actions.cc:203
 msgid "Close all tabs"
 msgstr "关闭所有标签"
 
-#: ../src/gnome-cmd-user-actions.cc:202
+#: ../src/gnome-cmd-user-actions.cc:204
 msgid "Close duplicate tabs"
 msgstr "关闭重复标签"
 
-#: ../src/gnome-cmd-user-actions.cc:203
+#: ../src/gnome-cmd-user-actions.cc:205
 msgid "Equal panel size"
 msgstr "使面板等大"
 
-#: ../src/gnome-cmd-user-actions.cc:204
+#: ../src/gnome-cmd-user-actions.cc:206
 msgid "Back to the first directory"
 msgstr "后退到第一个目录"
 
-#: ../src/gnome-cmd-user-actions.cc:205
+#: ../src/gnome-cmd-user-actions.cc:207
 msgid "Forward one directory"
 msgstr "前进一个目录"
 
-#: ../src/gnome-cmd-user-actions.cc:206
+#: ../src/gnome-cmd-user-actions.cc:208
 msgid "Home directory"
 msgstr "主目录"
 
-#: ../src/gnome-cmd-user-actions.cc:207
+#: ../src/gnome-cmd-user-actions.cc:209
 msgid "Open directory in the active window"
 msgstr "在活动窗口中打开目录"
 
-#: ../src/gnome-cmd-user-actions.cc:208
+#: ../src/gnome-cmd-user-actions.cc:210
 msgid "Open directory in the inactive window"
 msgstr "在非活动窗口打开文件夹"
 
-#: ../src/gnome-cmd-user-actions.cc:209
+#: ../src/gnome-cmd-user-actions.cc:211
 msgid "Open directory in the left window"
 msgstr "在左侧窗口中打开目录"
 
-#: ../src/gnome-cmd-user-actions.cc:210
+#: ../src/gnome-cmd-user-actions.cc:212
 msgid "Open directory in the right window"
 msgstr "在右侧窗口中打开目录"
 
-#: ../src/gnome-cmd-user-actions.cc:211
+#: ../src/gnome-cmd-user-actions.cc:213
 msgid "Open directory in the new tab"
 msgstr "在新标签中打开目录"
 
-#: ../src/gnome-cmd-user-actions.cc:212
+#: ../src/gnome-cmd-user-actions.cc:214
 msgid "Open directory in the new tab (inactive window)"
 msgstr "在新标签中打开目录(不激活窗口)"
 
-#: ../src/gnome-cmd-user-actions.cc:213
+#: ../src/gnome-cmd-user-actions.cc:215
 msgid "Forward to the last directory"
 msgstr "前往上次的目录"
 
-#: ../src/gnome-cmd-user-actions.cc:214
+#: ../src/gnome-cmd-user-actions.cc:216
 msgid "Next tab"
 msgstr "下个标签"
 
-#: ../src/gnome-cmd-user-actions.cc:215
+#: ../src/gnome-cmd-user-actions.cc:217
 msgid "Open directory in a new tab"
 msgstr "在新标签中打开目录"
 
-#: ../src/gnome-cmd-user-actions.cc:216
+#: ../src/gnome-cmd-user-actions.cc:218
 msgid "Previous tab"
 msgstr "上个标签"
 
-#: ../src/gnome-cmd-user-actions.cc:218
+#: ../src/gnome-cmd-user-actions.cc:220
 msgid "Root directory"
 msgstr "根目录"
 
-#: ../src/gnome-cmd-user-actions.cc:220
+#: ../src/gnome-cmd-user-actions.cc:221
+msgid "Lock/unlock tab"
+msgstr ""
+
+#: ../src/gnome-cmd-user-actions.cc:223
 msgid "Show terminal"
 msgstr "显示终端"
 
-#: ../src/gnome-cmd-user-actions.cc:814
+#: ../src/gnome-cmd-user-actions.cc:817
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "在 %2$s 中创建 %1$i 个文件的符号链接？"
 
-#: ../src/gnome-cmd-user-actions.cc:819
+#: ../src/gnome-cmd-user-actions.cc:822
 msgid "Create"
 msgstr "创建"
 
-#: ../src/gnome-cmd-user-actions.cc:883 ../src/gnome-cmd-user-actions.cc:900
-#: ../src/gnome-cmd-user-actions.cc:939
+#: ../src/gnome-cmd-user-actions.cc:886 ../src/gnome-cmd-user-actions.cc:903
+#: ../src/gnome-cmd-user-actions.cc:942
 msgid "Operation not supported on remote file systems"
 msgstr "远程文件系统不支持操作"
 
-#: ../src/gnome-cmd-user-actions.cc:915
+#: ../src/gnome-cmd-user-actions.cc:918
 msgid "Too many selected files"
 msgstr "选择的文件过多"
 
-#: ../src/gnome-cmd-user-actions.cc:1163
+#: ../src/gnome-cmd-user-actions.cc:1166
 msgid "Unable to execute command."
 msgstr "无法执行命令。"
 
-#: ../src/gnome-cmd-user-actions.cc:1175
+#: ../src/gnome-cmd-user-actions.cc:1191
 msgid "Unable to open terminal"
 msgstr "无法打开终端"
 
-#: ../src/gnome-cmd-user-actions.cc:1196
+#: ../src/gnome-cmd-user-actions.cc:1211
+#, fuzzy
+#| msgid "Unable to open terminal"
+msgid "Unable to open terminal in root mode"
+msgstr "无法打开终端"
+
+#: ../src/gnome-cmd-user-actions.cc:1216 ../src/gnome-cmd-user-actions.cc:1273
+#, fuzzy
+#| msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+msgstr "没有找到 xdg-su、gksu、gnomesu、kdesu 或 beesu。"
+
+#: ../src/gnome-cmd-user-actions.cc:1238
 msgid "Unable to start Nautilus."
 msgstr "无法启动 Nautilus。"
 
-#: ../src/gnome-cmd-user-actions.cc:1232
-msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
-msgstr "没有找到 xdg-su、gksu、gnomesu、kdesu 或 beesu。"
-
-#: ../src/gnome-cmd-user-actions.cc:1252
+#: ../src/gnome-cmd-user-actions.cc:1270
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "无法以 root 模式启动 GNOME 指挥官。"
 
-#: ../src/gnome-cmd-user-actions.cc:1675
+#: ../src/gnome-cmd-user-actions.cc:1747
 msgid "Bookmarks"
 msgstr "书签"
 
-#: ../src/gnome-cmd-user-actions.cc:1777 ../src/gnome-cmd-user-actions.cc:1780
+#: ../src/gnome-cmd-user-actions.cc:1849 ../src/gnome-cmd-user-actions.cc:1852
 msgid "There was an error opening home page."
 msgstr "打开主页出错。"
 
-#: ../src/gnome-cmd-user-actions.cc:1791 ../src/gnome-cmd-user-actions.cc:1794
+#: ../src/gnome-cmd-user-actions.cc:1863 ../src/gnome-cmd-user-actions.cc:1866
 msgid "There was an error reporting problem."
 msgstr "报告问题出现错误。"
 
-#: ../src/gnome-cmd-user-actions.cc:1818
+#: ../src/gnome-cmd-user-actions.cc:1890
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME 桌面上的一个快速强大的文件管理器"
 
-#: ../src/gnome-cmd-user-actions.cc:1822
+#: ../src/gnome-cmd-user-actions.cc:1894
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2973,25 +3016,29 @@ msgstr ""
 "GNOME 指挥官是自由软件；您可以在自由软件基金会发布的 GNU 通用公共许可证的条款"
 "约束下重新发布和/或修改它；可以自愿选择许可证的第 2 版或其他更新版本。"
 
-#: ../src/gnome-cmd-user-actions.cc:1826
+#: ../src/gnome-cmd-user-actions.cc:1898
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
 "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 msgstr ""
+"GNOME Commander 的发布是希望它有用，但没有任何担保；甚至没有任何商业性或对特"
+"定目的适合的担保。参见 GNU 通用公共许可协议获取更多信息。"
 
-#: ../src/gnome-cmd-user-actions.cc:1830
+#: ../src/gnome-cmd-user-actions.cc:1902
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
+"您应当已随 GNOME Commander 收到了一份 GNU 通用公共许可协议；如果没有，可以给"
+"自由软件基金会写信，地址是：51 Franklin Street, Fifth Floor, Boston, MA "
+"02110-1301, USA"
 
-#: ../src/gnome-cmd-user-actions.cc:1847
+#: ../src/gnome-cmd-user-actions.cc:1919
 msgid "translator-credits"
-msgstr ""
-"Aron Xu <aronxu@gnome.org>, 2010"
+msgstr "Aron Xu <aronxu@gnome.org>, 2010"
 
 #: ../src/gnome-cmd-xfer.cc:160
 #, c-format
@@ -3071,26 +3118,29 @@ msgid "%.0f%% copied"
 msgstr "已复制 %.0f%%"
 
 #: ../src/imageloader.cc:110
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+#, fuzzy, c-format
+#| msgid ""
+#| "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgstr "不能加载已安装的文件类型 pixmap，尝试从源目录中加载\n"
 
-#: ../src/imageloader.cc:111 ../src/imageloader.cc:137
-#, c-format
-msgid "Trying to load %s instead\n"
-msgstr "尝试加载 %s 来作为替换\n"
-
-#: ../src/imageloader.cc:115 ../src/imageloader.cc:140
-#, c-format
+#: ../src/imageloader.cc:114 ../src/imageloader.cc:138
+#, fuzzy, c-format
+#| msgid ""
+#| "Can't find the pixmap anywhere. Make sure you have installed the program "
+#| "or is executing gnome-commander from the gnome-commander-%s/src "
+#| "directory\n"
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-%s/src directory\n"
+"is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "找不到 pixmap。请确保您已经安装了该程序或执行的是 gnome-commander-%s/src 目录"
 "中的 gnome-commander\n"
 
-#: ../src/imageloader.cc:136
-msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+#: ../src/imageloader.cc:135
+#, fuzzy, c-format
+#| msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr "不能加载已安装的 pixmap，尝试从源目录中加载\n"
 
 #: ../src/intviewer/search-dlg.cc:244
@@ -3249,47 +3299,47 @@ msgstr "快速帮助(_H)"
 msgid "Pattern \"%s\" was not found"
 msgstr "未找到“%s”模式"
 
-#: ../src/main.cc:69 ../src/main.cc:79
+#: ../src/main.cc:67
 msgid "Specify debug flags to use"
 msgstr "指定要使用的调试标志"
 
-#: ../src/main.cc:70 ../src/main.cc:80
+#: ../src/main.cc:68
 msgid "Specify the start directory for the left pane"
 msgstr "指定左侧窗格的起始目录"
 
-#: ../src/main.cc:71 ../src/main.cc:81
+#: ../src/main.cc:69
 msgid "Specify the start directory for the right pane"
 msgstr "指定右侧窗格的起始目录"
 
-#: ../src/main.cc:72 ../src/main.cc:82
+#: ../src/main.cc:70
 msgid "Specify the directory for configuration files"
 msgstr "指定配置文件目录"
 
-#: ../src/main.cc:138
+#: ../src/main.cc:125
 msgid "File Manager"
 msgstr "文件管理器"
 
-#: ../src/plugin_manager.cc:342
+#: ../src/plugin_manager.cc:336
 msgid "Disable"
 msgstr "禁用"
 
-#: ../src/plugin_manager.cc:342
+#: ../src/plugin_manager.cc:336
 msgid "Enable"
 msgstr "启用"
 
-#: ../src/plugin_manager.cc:405
+#: ../src/plugin_manager.cc:398
 msgid "Available plugins"
 msgstr "可用插件"
 
-#: ../src/plugin_manager.cc:412
+#: ../src/plugin_manager.cc:405
 msgid "Version"
 msgstr "版本"
 
-#: ../src/plugin_manager.cc:418
+#: ../src/plugin_manager.cc:411
 msgid "_Enable"
 msgstr "启用(_E)"
 
-#: ../src/plugin_manager.cc:422
+#: ../src/plugin_manager.cc:415
 msgid "_Configure"
 msgstr "配置(_C)"
 
@@ -3698,7 +3748,7 @@ msgstr "公司"
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr ""
+msgstr "与 <Doc.Creator> 相关联的组织。"
 
 #: ../src/tags/gnome-cmd-tags.cc:161 ../src/tags/gnome-cmd-tags.cc:416
 msgid "Creator"
@@ -3708,7 +3758,7 @@ msgstr "创建者"
 msgid ""
 "An entity primarily responsible for making the content of the resource, "
 "typically a person, organization, or service."
-msgstr ""
+msgstr "资源的内容的主要责任者，通常是一个人、组织或者服务。"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Created"
@@ -3726,7 +3776,7 @@ msgstr "创建日期"
 msgid ""
 "Date associated with an event in the life cycle of the resource (creation/"
 "publication date)."
-msgstr ""
+msgstr "资源生命周期内与一个事件相关联的日期(创建/发布日期)。"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid "Date Modified"
@@ -3737,8 +3787,9 @@ msgid "The last time the document was saved."
 msgstr "文档上次保存的时间。"
 
 #: ../src/tags/gnome-cmd-tags.cc:165
+#, fuzzy
 msgid "An account of the content of the resource."
-msgstr ""
+msgstr "资源内容的说明。"
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "Dictionary"
@@ -3821,7 +3872,7 @@ msgstr "上次保存者"
 msgid ""
 "The entity that made the last change to the document, typically a person, "
 "organization, or service."
-msgstr ""
+msgstr "文档的最后修改者，一般是一个人、组织或者服务。"
 
 #: ../src/tags/gnome-cmd-tags.cc:176
 msgid "Line Count"
@@ -3853,7 +3904,7 @@ msgstr "管理器"
 
 #: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Name of the manager of <Doc.Creator> entity."
-msgstr ""
+msgstr "<Doc.Creator> 条目管理者的名称。"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Multimedia Clip Count"
@@ -3940,10 +3991,11 @@ msgid "Security"
 msgstr "安全"
 
 #: ../src/tags/gnome-cmd-tags.cc:190
+#, fuzzy
 msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
-msgstr ""
+msgstr "下述情况之一：“密码保护”，“推荐只读”，“强制只读”或者“为注解锁定”。"
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Slide Count"
@@ -4004,6 +4056,8 @@ msgid ""
 "ease of Interoperability. When the field is left blank, it is treated as "
 "unknown."
 msgstr ""
+"相机所有者、摄影师或者图像创建者的名称。格式的细节没有指定，但推荐写入这些信"
+"息以便于互操作性。当字段留空，将被当作未知处理。"
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 msgid "Battery Level"
@@ -4023,6 +4077,8 @@ msgid ""
 "bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
 "is used instead of this tag."
 msgstr ""
+"每个图像元件的比特数。图像的每个元件是 8 比特，因此这个标签的值是 8。在 JPEG "
+"压缩数据中，将用 JPEG 标记代替这个标签。"
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid "Brightness"
@@ -4089,7 +4145,7 @@ msgstr "压缩级别"
 msgid ""
 "Information specific to compressed data. The compression mode used for a "
 "compressed image is indicated in unit bits per pixel."
-msgstr ""
+msgstr "针对压缩数据的信息。压缩图像使用的压缩模式由每像素比特数指明。"
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid "Compression"
@@ -4101,6 +4157,8 @@ msgid ""
 "compressed, this designation is not necessary and is omitted. When "
 "thumbnails use JPEG compression, this tag value is set to 6."
 msgstr ""
+"图像数据所用的压缩模式。当主图像是 JPEG 压缩的，这个指定是不需要的并会被忽"
+"略。当缩略图使用 JPEG 压缩，这个标签值被设为 6。"
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid "Contrast"
@@ -4166,7 +4224,7 @@ msgstr "日期和时间(原始)"
 msgid ""
 "The date and time when the original image data was generated. For a digital "
 "still camera the date and time the picture was taken are recorded."
-msgstr ""
+msgstr "原始图像数据的创建日期和时间。对于数码相机，记录照片的拍摄日期和时间。"
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid "Device Setting Description"
@@ -4198,13 +4256,15 @@ msgstr "文档名称。"
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Exif IFD Pointer"
-msgstr ""
+msgstr "Exif IFD 指针"
 
 #: ../src/tags/gnome-cmd-tags.cc:218
+#, fuzzy
 msgid ""
 "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure "
 "as that of the IFD specified in TIFF."
 msgstr ""
+"到 Exif IFD 的指针。对于互操作性，Exif IFD 和 TIFF 中指定的 IFD 有相同结构。"
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 msgid "Exif Version"
@@ -4292,7 +4352,7 @@ msgstr "闪光灯"
 #: ../src/tags/gnome-cmd-tags.cc:227
 msgid ""
 "This tag is recorded when an image is taken using a strobe light (flash)."
-msgstr ""
+msgstr "当图像使用闪光灯拍摄时，该标签会被记录。"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid "Flash Energy"
@@ -4628,7 +4688,7 @@ msgstr "光源类型。"
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "Manufacturer"
-msgstr ""
+msgstr "制造者"
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid ""
@@ -4636,6 +4696,8 @@ msgid ""
 "DSC, scanner, video digitizer or other equipment that generated the image. "
 "When the field is left blank, it is treated as unknown."
 msgstr ""
+"记录设备的制造者。这是创建图像的 DSC、扫描仪、视频数字化仪或其他设备的制造"
+"者。当留空，当作未知处理。"
 
 #: ../src/tags/gnome-cmd-tags.cc:262
 msgid "Maker Note"
@@ -4649,7 +4711,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:263
 msgid "Max Aperture Value"
-msgstr ""
+msgstr "最大孔径值"
 
 #: ../src/tags/gnome-cmd-tags.cc:263
 msgid ""
@@ -5059,7 +5121,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:304
 msgid "Transfer Range"
-msgstr ""
+msgstr "传输范围"
 
 #: ../src/tags/gnome-cmd-tags.cc:304
 msgid "Transfer range."
@@ -5196,7 +5258,7 @@ msgstr "过滤为纯文本后文件内容。"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Editable free text/notes."
-msgstr ""
+msgstr "可编辑的自由文本/笔记。"
 
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid ""
@@ -5237,7 +5299,7 @@ msgstr "Unit 格式的权限字符串，如“-rw-r--r--”。"
 
 #: ../src/tags/gnome-cmd-tags.cc:324 ../src/tags/gnome-cmd-tags.cc:383
 msgid "Publisher"
-msgstr ""
+msgstr "发布者"
 
 #: ../src/tags/gnome-cmd-tags.cc:324
 msgid ""
@@ -5553,7 +5615,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Internet radio station owner."
-msgstr ""
+msgstr "网络电台所有者。"
 
 #: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Net Radiostation"
@@ -5693,7 +5755,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Publisher."
-msgstr ""
+msgstr "发布者。"
 
 #: ../src/tags/gnome-cmd-tags.cc:384
 msgid "Recording Dates"
@@ -5900,11 +5962,11 @@ msgstr "指向处理为此文件支付费用的过程的网页的 URL"
 
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid "WWW Publisher"
-msgstr ""
+msgstr "WWW 发布者"
 
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid "URL pointing at the official webpage for the publisher."
-msgstr ""
+msgstr "指向发布者官方网址的 URL。"
 
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "WWW Radio Page"
@@ -5936,7 +5998,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Description of the image."
-msgstr ""
+msgstr "图像的描述。"
 
 #: ../src/tags/gnome-cmd-tags.cc:419
 msgid ""
@@ -5966,7 +6028,7 @@ msgstr "高度，单位为像素。"
 
 #: ../src/tags/gnome-cmd-tags.cc:425
 msgid "ISO Speed"
-msgstr ""
+msgstr "ISO 速度"
 
 #: ../src/tags/gnome-cmd-tags.cc:425
 msgid ""
@@ -6004,7 +6066,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:431
 msgid "Software used to produce/enhance the image."
-msgstr ""
+msgstr "用以产生/增强图片的软件。"
 
 #: ../src/tags/gnome-cmd-tags.cc:432
 msgid "Title of image."
@@ -6089,7 +6151,7 @@ msgstr "音频类型"
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid ""
 "The number of channels and type of audio (music, text, etc.) in the object."
-msgstr ""
+msgstr "对象中频道的数目和音频类型(音乐，文本等)。"
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 msgid "By-line"
@@ -6099,7 +6161,7 @@ msgstr ""
 msgid ""
 "Name of the creator of the object, e.g. writer, photographer or graphic "
 "artist (multiple values allowed)."
-msgstr ""
+msgstr "对象创建者的名称，例如作者、摄影师或者视觉艺术家(允许多个值)。"
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid "By-line Title"
@@ -6157,7 +6219,7 @@ msgstr "联系人"
 msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
-msgstr ""
+msgstr "可以为对象提供更多背景信息的人或组织(允许多个值)。"
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid "Content Location Code"
@@ -6210,7 +6272,7 @@ msgstr "鸣谢"
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid ""
 "Identifies the provider of the object, not necessarily the owner/creator."
-msgstr ""
+msgstr "标识对象的提供者，不一定是所有者/创建者。"
 
 #: ../src/tags/gnome-cmd-tags.cc:457
 msgid ""
@@ -7180,12 +7242,12 @@ msgstr "无"
 msgid "10-15ms"
 msgstr "10-15 毫秒"
 
-#: ../src/utils.cc:445
+#: ../src/utils.cc:425
 #, c-format
 msgid "No default application found for the MIME type %s."
 msgstr "没有对应于 MIME 类型 %s 的默认应用程序。"
 
-#: ../src/utils.cc:525
+#: ../src/utils.cc:505
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -7193,30 +7255,30 @@ msgid ""
 msgstr ""
 "“%s”是一个二进制可执行文件，但是缺少可执行位。您想设置可执行位并运行它吗？"
 
-#: ../src/utils.cc:527
+#: ../src/utils.cc:507
 msgid "Make Executable?"
 msgstr "使其可执行？"
 
-#: ../src/utils.cc:554
+#: ../src/utils.cc:534
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr "“%s”是一个可执行的文本文件。您想运行它还是显示它的内容？"
 
-#: ../src/utils.cc:555
+#: ../src/utils.cc:535
 msgid "Run or Display"
 msgstr "运行或显示"
 
-#: ../src/utils.cc:556
+#: ../src/utils.cc:536
 msgid "Display"
 msgstr "显示"
 
-#: ../src/utils.cc:556
+#: ../src/utils.cc:536
 msgid "Run"
 msgstr "运行"
 
-#: ../src/utils.cc:599 ../src/utils.cc:680
+#: ../src/utils.cc:579 ../src/utils.cc:660
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -7226,25 +7288,28 @@ msgid_plural ""
 "to a temporary location and then open them?"
 msgstr[0] "%s 不知道如何打开远程文件。您想将其下载到一个临时位置再打开吗？"
 
-#: ../src/utils.cc:1035
+#: ../src/utils.cc:1015
 msgid "Failed to create a directory in which to store temporary files"
 msgstr "创建用于保存临时文件的目录失败"
 
-#: ../src/utils.cc:1231
+#: ../src/utils.cc:1211
 #, c-format
 msgid "Creating directory %s... "
 msgstr "正在创建目录 %s ... "
 
-#: ../src/utils.cc:1234
+#: ../src/utils.cc:1214
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "创建目录 %s 失败"
 
-#: ../src/utils.cc:1240
+#: ../src/utils.cc:1220
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "无法从 %s 目录中读取：%s"
 
-#: ../src/utils.h:280
+#: ../src/utils.h:293
 msgid "There was an error displaying help."
 msgstr "显示帮助时出现了错误。"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "尝试加载 %s 来作为替换\n"
