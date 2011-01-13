@@ -6543,6 +6543,11 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.toggle_lock_tab</para></entry>
+                        <entry><para>Lock/unlock tab</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.up</para></entry>
                         <entry><para>Go forward to the parent directory</para></entry>
                         <entry><para></para></entry>
