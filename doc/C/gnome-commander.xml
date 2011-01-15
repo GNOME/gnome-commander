@@ -5,7 +5,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.8.10">
   <!ENTITY manrevision "1.2.8.10">
-  <!ENTITY date "??? 2011">
+  <!ENTITY date "Jan 2011">
   <!ENTITY app "GNOME Commander">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -248,7 +248,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.10;</revnumber>
-        <date>2011-??-??</date>
+        <date>2011-01-15</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -6062,7 +6062,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.8.10</para></entry>
-            <entry><para>2011-??-??</para></entry>
+            <entry><para>2011-01-15</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
