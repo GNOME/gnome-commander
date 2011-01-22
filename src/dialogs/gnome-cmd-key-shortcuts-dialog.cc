@@ -35,7 +35,7 @@ using namespace std;
 #define GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG          (gnome_cmd_key_shortcuts_dialog_get_type())
 #define GNOME_CMD_KEY_SHORTCUTS_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, GnomeCmdKeyShortcutsDialog))
 #define GNOME_CMD_KEY_SHORTCUTS_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG, GnomeCmdKeyShortcutsDialogClass))
-#define GNOME_CMD_IS_KEY_SHORTCUTS_DIALOG(obj)       (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG)
+#define GNOME_CMD_IS_KEY_SHORTCUTS_DIALOG(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG)
 
 
 struct GnomeCmdKeyShortcutsDialogPrivate

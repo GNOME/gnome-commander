@@ -27,7 +27,7 @@
 #define GNOME_CMD_TYPE_ADVRENAME_DIALOG         (gnome_cmd_advrename_dialog_get_type ())
 #define GNOME_CMD_ADVRENAME_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialog))
 #define GNOME_CMD_ADVRENAME_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialogClass))
-#define GNOME_CMD_IS_ADVRENAME_DIALOG(obj)      (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG))
+#define GNOME_CMD_IS_ADVRENAME_DIALOG(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG))
 
 
 GType gnome_cmd_advrename_dialog_get_type ();

@@ -24,7 +24,7 @@
 
 #define GNOME_CMD_TYPE_PROFILE_COMPONENT          (gnome_cmd_profile_component_get_type())
 #define GNOME_CMD_PROFILE_COMPONENT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponent))
-#define GNOME_CMD_IS_PROFILE_COMPONENT(obj)       (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT)
+#define GNOME_CMD_IS_PROFILE_COMPONENT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT)
 
 
 GType gnome_cmd_profile_component_get_type ();
