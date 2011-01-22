@@ -145,7 +145,7 @@ GtkType gnome_cmd_dialog_get_type ()
 
 GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 {
-    GnomeCmdDialog *dialog = (GnomeCmdDialog *) gtk_type_new (gnome_cmd_dialog_get_type ());
+    GnomeCmdDialog *dialog = (GnomeCmdDialog *) gtk_type_new (GNOME_CMD_TYPE_DIALOG);
 
     if (title)
         gnome_cmd_dialog_setup (dialog, title);

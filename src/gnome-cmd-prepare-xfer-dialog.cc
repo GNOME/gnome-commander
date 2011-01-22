@@ -291,7 +291,7 @@ static void class_init (GnomeCmdPrepareXferDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
@@ -361,7 +361,7 @@ GtkType gnome_cmd_prepare_xfer_dialog_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        dlg_type = gtk_type_unique (gnome_cmd_dialog_get_type (), &dlg_info);
+        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
     }
     return dlg_type;
 }
