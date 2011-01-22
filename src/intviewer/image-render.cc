@@ -228,14 +228,14 @@ static void image_render_class_init (ImageRenderClass *klass)
     widget_class->realize = image_render_realize;
 
     image_render_signals[IMAGE_STATUS_CHANGED] =
-        gtk_signal_new ("image-status-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (ImageRenderClass, image_status_changed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
-
+        g_signal_new ("image-status-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (ImageRenderClass, image_status_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 
@@ -331,7 +331,7 @@ void image_render_notify_status_changed (ImageRender *w)
         stat.bits_per_sample = gdk_pixbuf_get_bits_per_sample(w->priv->orig_pixbuf);
     }
 
-    gtk_signal_emit (GTK_OBJECT(w), image_render_signals[IMAGE_STATUS_CHANGED], &stat);
+    g_signal_emit (w, image_render_signals[IMAGE_STATUS_CHANGED], 0, &stat);
 }
 
 
