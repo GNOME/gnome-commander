@@ -246,7 +246,7 @@ GnomeCmdFile *GnomeCmdFile::ref()
     priv->ref_cnt++;
 
     if (priv->ref_cnt == 1)
-        gtk_object_ref (GTK_OBJECT (this));
+        g_object_ref (this);
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 

@@ -84,7 +84,7 @@ static void ftp_open (GnomeCmdCon *con)
     if (!con->base_path)
     {
         con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
-        gtk_object_ref (GTK_OBJECT (con->base_path));
+        g_object_ref (con->base_path);
     }
 
     con->state = GnomeCmdCon::STATE_OPENING;

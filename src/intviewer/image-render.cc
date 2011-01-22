@@ -158,7 +158,7 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     }
 
     obj->priv->h_adjustment = adjustment;
-    gtk_object_ref (GTK_OBJECT (obj->priv->h_adjustment));
+    g_object_ref (obj->priv->h_adjustment);
 
     g_signal_connect (adjustment, "changed", G_CALLBACK (image_render_h_adjustment_changed), obj);
     g_signal_connect (adjustment, "value-changed", G_CALLBACK (image_render_h_adjustment_value_changed), obj);
@@ -188,7 +188,7 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     }
 
     obj->priv->v_adjustment = adjustment;
-    gtk_object_ref (GTK_OBJECT (obj->priv->v_adjustment));
+    g_object_ref (obj->priv->v_adjustment);
 
     g_signal_connect (adjustment, "changed", G_CALLBACK (image_render_v_adjustment_changed), obj);
     g_signal_connect (adjustment, "value-changed",  G_CALLBACK (image_render_v_adjustment_value_changed), obj);

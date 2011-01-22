@@ -321,7 +321,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *p
 
     dir->priv->con = con;
     gnome_cmd_dir_set_path (dir, path);
-    gtk_object_ref (GTK_OBJECT (path));
+    g_object_ref (path);
     dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (con, dir);
@@ -362,7 +362,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 
         dir->priv->con = con;
         gnome_cmd_dir_set_path (dir, path);
-        gtk_object_ref (GTK_OBJECT (path));
+        g_object_ref (path);
         dir->priv->needs_mtime_update = FALSE;
 
         gnome_cmd_con_add_to_cache (con, dir);
@@ -610,7 +610,7 @@ void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
         gtk_object_destroy (GTK_OBJECT (dir->priv->path));
 
     dir->priv->path = path;
-    gtk_object_ref (GTK_OBJECT (path));
+    g_object_ref (path);
 }
 
 

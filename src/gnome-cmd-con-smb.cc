@@ -82,7 +82,7 @@ static void smb_open (GnomeCmdCon *con)
     if (!con->base_path)
     {
         con->base_path = gnome_cmd_smb_path_new (NULL, NULL, NULL);
-        gtk_object_ref (GTK_OBJECT (con->base_path));
+        g_object_ref (con->base_path);
     }
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
