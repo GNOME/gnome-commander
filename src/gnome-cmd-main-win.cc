@@ -719,13 +719,14 @@ static void class_init (GnomeCmdMainWinClass *klass)
     parent_class = (GnomeAppClass *) gtk_type_class (gnome_app_get_type ());
 
     signals[SWITCH_FS] =
-        gtk_signal_new ("switch-fs",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdMainWinClass, switch_fs),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+        g_signal_new ("switch-fs",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdMainWinClass, switch_fs),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
@@ -1086,7 +1087,7 @@ void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gtk_signal_emit (*this, signals[SWITCH_FS], fs);
+    g_signal_emit (this, signals[SWITCH_FS], 0, fs);
 }
 
 
