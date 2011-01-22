@@ -271,13 +271,14 @@ static void text_render_class_init (TextRenderClass *klass)
     widget_class->realize = text_render_realize;
 
     text_render_signals[TEXT_STATUS_CHANGED] =
-        gtk_signal_new ("text-status-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (TextRenderClass, text_status_changed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+        g_signal_new ("text-status-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 
@@ -341,7 +342,7 @@ void text_render_notify_status_changed(TextRender *w)
 
     stat.encoding = w->priv->encoding;
 
-    gtk_signal_emit (GTK_OBJECT(w), text_render_signals[TEXT_STATUS_CHANGED], &stat);
+    g_signal_emit (w, text_render_signals[TEXT_STATUS_CHANGED], 0, &stat);
 }
 
 
