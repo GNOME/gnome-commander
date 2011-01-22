@@ -426,7 +426,7 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_STRING, "dir", &param1,
                                              G_MARKUP_COLLECT_STRING, "sort", &param2,
                                              G_MARKUP_COLLECT_BOOLEAN, "asc", &param4,
-                                             G_MARKUP_COLLECT_BOOLEAN, "lock", &param5,
+                                             (G_MARKUP_COLLECT_BOOLEAN|G_MARKUP_COLLECT_OPTIONAL), "lock", &param5,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 string dir(param1);
