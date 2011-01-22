@@ -624,7 +624,7 @@ void gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
 }
 
 
-void gviewer_copy_selection(GViewer *obj)
+void gviewer_copy_selection(GtkMenuItem *item, GViewer *obj)
 {
     g_return_if_fail (obj!= NULL);
     g_return_if_fail (IS_GVIEWER (obj));

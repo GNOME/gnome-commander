@@ -1096,7 +1096,7 @@ static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    gviewer_copy_selection(obj->priv->viewer);
+    gviewer_copy_selection(item, obj->priv->viewer);
 }
 
 

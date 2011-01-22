@@ -95,7 +95,7 @@ void        gviewer_set_scale_factor(GViewer *obj, double scalefactor);
 double      gviewer_get_scale_factor(GViewer *obj);
 
 void        gviewer_image_operation(GViewer *obj, IMAGEOPERATION op);
-void        gviewer_copy_selection(GViewer *obj);
+void        gviewer_copy_selection(GtkMenuItem *item, GViewer *obj);
 
 TextRender  *gviewer_get_text_render(GViewer *obj);
 
