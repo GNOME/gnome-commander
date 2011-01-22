@@ -7571,6 +7571,9 @@
                             <para>Open terminal with administrator privileges</para>
                         </listitem>
                         <listitem>
+                            <para>Context popup menu for internal viewer</para>
+                        </listitem>
+                        <listitem>
                             <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>

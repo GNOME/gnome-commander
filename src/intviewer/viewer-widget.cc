@@ -85,6 +85,7 @@ static void gviewer_destroy (GtkObject *object);
 
 static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer);
 static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer);
+static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
 
 static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
@@ -192,6 +193,8 @@ static void gviewer_init (GViewer *w)
 
     g_signal_connect (w->priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
     g_signal_connect (w->priv->imgr, "image-status-changed", G_CALLBACK (gviewer_image_status_update), w);
+
+    g_signal_connect (w->priv->textr, "button-press-event", G_CALLBACK (on_text_viewer_button_pressed), w);
 }
 
 
@@ -244,6 +247,29 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *sta
     }
 
     gtk_signal_emit (GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
+}
+
+
+
+static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer)
+{
+    if (event->type==GDK_BUTTON_PRESS && event->button==3)
+    {
+        GtkWidget *menu = gtk_menu_new ();
+        GtkWidget *menuitem;
+
+        menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Copy selection"));
+        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), gtk_image_new_from_stock (GTK_STOCK_COPY, GTK_ICON_SIZE_MENU));
+        g_signal_connect (menuitem, "activate", G_CALLBACK (gviewer_copy_selection), viewer);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+        gtk_widget_show_all (menu);
+        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
 
