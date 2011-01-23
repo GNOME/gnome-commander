@@ -20,12 +20,12 @@
 #ifndef __GNOME_CMD_CHMOD_DIALOG_H__
 #define __GNOME_CMD_CHMOD_DIALOG_H__
 
-#define GNOME_CMD_CHMOD_DIALOG(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_chmod_dialog_get_type (), GnomeCmdChmodDialog)
-#define GNOME_CMD_CHMOD_DIALOG_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_chmod_dialog_get_type (), GnomeCmdChmodDialogClass)
-#define GNOME_CMD_IS_CHMOD_DIALOG(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_chmod_dialog_get_type ())
+#define GNOME_CMD_TYPE_CHMOD_DIALOG         (gnome_cmd_chmod_dialog_get_type ())
+#define GNOME_CMD_CHMOD_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_CHMOD_DIALOG, GnomeCmdChmodDialog))
+#define GNOME_CMD_IS_CHMOD_DIALOG(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_CHMOD_DIALOG))
+
+
+GType gnome_cmd_chmod_dialog_get_type ();
 
 
 struct GnomeCmdChmodDialogPrivate;

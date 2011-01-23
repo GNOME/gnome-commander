@@ -58,7 +58,7 @@ struct GnomeCmdChmodDialogPrivate
 };
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdChmodDialog, gnome_cmd_chmod_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean recursive, ChmodRecursiveMode mode)
@@ -150,40 +150,25 @@ static void on_perms_changed (GnomeCmdChmodComponent *component, GnomeCmdChmodDi
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
-
-static void destroy (GtkObject *object)
+static void gnome_cmd_chmod_dialog_finalize (GObject *object)
 {
     GnomeCmdChmodDialog *dialog = GNOME_CMD_CHMOD_DIALOG (object);
 
     g_free (dialog->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_chmod_dialog_parent_class)->finalize (object);
 }
 
 
-static void map (GtkWidget *widget)
+static void gnome_cmd_chmod_dialog_class_init (GnomeCmdChmodDialogClass *klass)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_chmod_dialog_finalize;
 }
 
 
-static void class_init (GnomeCmdChmodDialogClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
-    object_class->destroy = destroy;
-    widget_class->map = ::map;
-}
-
-
-static void init (GnomeCmdChmodDialog *dialog)
+static void gnome_cmd_chmod_dialog_init (GnomeCmdChmodDialog *dialog)
 {
     GtkWidget *chmod_dialog = GTK_WIDGET (dialog);
     GtkWidget *vbox;
@@ -235,7 +220,7 @@ GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
 {
     g_return_val_if_fail (files != NULL, NULL);
 
-    GnomeCmdChmodDialog *dialog = (GnomeCmdChmodDialog *) gtk_type_new (gnome_cmd_chmod_dialog_get_type ());
+    GnomeCmdChmodDialog *dialog = (GnomeCmdChmodDialog *) g_object_new (GNOME_CMD_TYPE_CHMOD_DIALOG, NULL);
     dialog->priv->files = gnome_cmd_file_list_copy (files);
 
     dialog->priv->f = (GnomeCmdFile *) dialog->priv->files->data;
@@ -253,28 +238,4 @@ GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
     gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->recurse_combo), strings);
 
     return GTK_WIDGET (dialog);
-}
-
-
-GtkType gnome_cmd_chmod_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdChmodDialog",
-            sizeof (GnomeCmdChmodDialog),
-            sizeof (GnomeCmdChmodDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-    return dlg_type;
 }
