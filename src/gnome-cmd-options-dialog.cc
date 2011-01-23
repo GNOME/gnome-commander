@@ -2108,5 +2108,5 @@ GtkType gnome_cmd_options_dialog_get_type ()
 
 GtkWidget *gnome_cmd_options_dialog_new ()
 {
-    return (GtkWidget *) gtk_type_new (gnome_cmd_options_dialog_get_type ());
+    return (GtkWidget *) gtk_type_new (GNOME_CMD_TYPE_OPTIONS_DIALOG);
 }

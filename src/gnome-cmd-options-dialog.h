@@ -20,9 +20,10 @@
 #ifndef __GNOME_CMD_OPTIONS_DIALOG_H__
 #define __GNOME_CMD_OPTIONS_DIALOG_H__
 
-#define GNOME_CMD_OPTIONS_DIALOG(obj)           GTK_CHECK_CAST (obj, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialog)
-#define GNOME_CMD_OPTIONS_DIALOG_CLASS(klass)   GTK_CHECK_CLASS_CAST (klass, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialogClass)
-#define GNOME_CMD_IS_OPTIONS_DIALOG(obj)        GTK_CHECK_TYPE (obj, gnome_cmd_options_dialog_get_type ())
+#define GNOME_CMD_TYPE_OPTIONS_DIALOG          (gnome_cmd_options_dialog_get_type ())
+#define GNOME_CMD_OPTIONS_DIALOG(obj)           GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_OPTIONS_DIALOG, GnomeCmdOptionsDialog)
+#define GNOME_CMD_OPTIONS_DIALOG_CLASS(klass)   GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_OPTIONS_DIALOG, GnomeCmdOptionsDialogClass)
+#define GNOME_CMD_IS_OPTIONS_DIALOG(obj)        GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_OPTIONS_DIALOG)
 
 
 struct GnomeCmdOptionsDialogClass
