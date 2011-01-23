@@ -2,6 +2,7 @@
 # Copyright (C) 2002, 2003, 2008, 2009, 2010 the author(s) of gnome-commander.
 # Copyright (C) 2003, 2004, 2005 Miloslav Trmac <mitr@volny.cz>.
 # This file is distributed under the same license as the gnome-commander package.
+#
 # <zdpo@mailbox.sk>, 2002.
 # Jaroslav Jiricka <jiricka@mujbox.cz>, 2003.
 # Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005.
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&component=general\n"
-"POT-Creation-Date: 2011-01-12 17:37+0000\n"
-"PO-Revision-Date: 2011-01-13 14:22+0100\n"
+"POT-Creation-Date: 2011-01-22 22:12+0000\n"
+"PO-Revision-Date: 2011-01-23 15:35+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +32,7 @@ msgid "A two paned file manager"
 msgstr "Správce souborů se dvěma panely"
 
 #: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:353
-#: ../src/gnome-cmd-main-win.cc:758
+#: ../src/gnome-cmd-main-win.cc:759
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -733,7 +734,7 @@ msgstr "_Heslo:"
 msgid "_Domain name:"
 msgstr "Název _domény:"
 
-#: ../src/gnome-cmd-con-dialog.cc:467 ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-con-dialog.cc:467 ../src/gnome-cmd-main-win.cc:1177
 msgid "Remote Server"
 msgstr "Vzdálený server"
 
@@ -878,7 +879,7 @@ msgstr[0] "Chcete odstranit vybraný soubor?"
 msgstr[1] "Chcete odstranit %d vybrané soubory?"
 msgstr[2] "Chcete odstranit %d vybraných souborů?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:286 ../src/gnome-cmd-main-win.cc:1170
+#: ../src/gnome-cmd-delete-dialog.cc:286 ../src/gnome-cmd-main-win.cc:1171
 #: ../src/gnome-cmd-options-dialog.cc:870 ../src/gnome-cmd-user-actions.cc:157
 msgid "Delete"
 msgstr "Odstranit"
@@ -1008,7 +1009,7 @@ msgid "Rename"
 msgstr "Přejmenovat"
 
 #. {file_run, "file.run"},
-#: ../src/gnome-cmd-file-popmenu.cc:461 ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-file-popmenu.cc:461 ../src/gnome-cmd-main-win.cc:1174
 #: ../src/gnome-cmd-user-actions.cc:180
 msgid "Send files"
 msgstr "Odeslat soubory"
@@ -1542,62 +1543,62 @@ msgstr "F8 Odstranit"
 msgid "F9 Search"
 msgstr "F9 Hledat"
 
-#: ../src/gnome-cmd-main-win.cc:757
+#: ../src/gnome-cmd-main-win.cc:758
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME Commander - PRÁVA SPRÁVCE ROOT"
 
-#: ../src/gnome-cmd-main-win.cc:1159 ../src/gnome-cmd-user-actions.cc:219
+#: ../src/gnome-cmd-main-win.cc:1160 ../src/gnome-cmd-user-actions.cc:219
 msgid "Refresh"
 msgstr "Občerstvit"
 
-#: ../src/gnome-cmd-main-win.cc:1160 ../src/gnome-cmd-options-dialog.cc:107
+#: ../src/gnome-cmd-main-win.cc:1161 ../src/gnome-cmd-options-dialog.cc:107
 #: ../src/gnome-cmd-user-actions.cc:225
 msgid "Up one directory"
 msgstr "O úroveň výš"
 
-#: ../src/gnome-cmd-main-win.cc:1161
+#: ../src/gnome-cmd-main-win.cc:1162
 msgid "Go to the oldest"
 msgstr "Přejít na nejstarší"
 
-#: ../src/gnome-cmd-main-win.cc:1162
+#: ../src/gnome-cmd-main-win.cc:1163
 msgid "Go back"
 msgstr "Zpět"
 
-#: ../src/gnome-cmd-main-win.cc:1163
+#: ../src/gnome-cmd-main-win.cc:1164
 msgid "Go forward"
 msgstr "Vpřed"
 
-#: ../src/gnome-cmd-main-win.cc:1164
+#: ../src/gnome-cmd-main-win.cc:1165
 msgid "Go to the latest"
 msgstr "Přejít na nejnovější"
 
-#: ../src/gnome-cmd-main-win.cc:1166
+#: ../src/gnome-cmd-main-win.cc:1167
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopírovat názvy souborů (SHIFT pro úplné cesty, ALT pro adresy URI)"
 
-#: ../src/gnome-cmd-main-win.cc:1167 ../src/gnome-cmd-user-actions.cc:156
+#: ../src/gnome-cmd-main-win.cc:1168 ../src/gnome-cmd-user-actions.cc:156
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../src/gnome-cmd-main-win.cc:1168
+#: ../src/gnome-cmd-main-win.cc:1169
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:85
 #: ../src/gnome-cmd-user-actions.cc:154
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: ../src/gnome-cmd-main-win.cc:1169 ../src/gnome-cmd-user-actions.cc:159
+#: ../src/gnome-cmd-main-win.cc:1170 ../src/gnome-cmd-user-actions.cc:159
 msgid "Paste"
 msgstr "Vložit"
 
-#: ../src/gnome-cmd-main-win.cc:1172
+#: ../src/gnome-cmd-main-win.cc:1173
 msgid "Edit (SHIFT for new document)"
 msgstr "Upravit (SHIFT pro nový dokument)"
 
-#: ../src/gnome-cmd-main-win.cc:1174
+#: ../src/gnome-cmd-main-win.cc:1175
 msgid "Open terminal (SHIFT for root privileges)"
 msgstr "Otevřít terminál (SHIFT pro práva uživatele root)"
 
-#: ../src/gnome-cmd-main-win.cc:1177
+#: ../src/gnome-cmd-main-win.cc:1178
 msgid "Drop connection"
 msgstr "Ukončit spojení"
 
@@ -3201,32 +3202,37 @@ msgstr "Hledá se…"
 msgid "Searching for \"%s\""
 msgstr "Hledá se „%s“"
 
-#: ../src/intviewer/viewer-widget.cc:208
+#: ../src/intviewer/viewer-widget.cc:211
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Pozice: %lu z %lu\tSloupec: %d\t%s"
 
-#: ../src/intviewer/viewer-widget.cc:212
+#: ../src/intviewer/viewer-widget.cc:215
 msgid "Wrap"
 msgstr "Zalamovat"
 
-#: ../src/intviewer/viewer-widget.cc:239
+#: ../src/intviewer/viewer-widget.cc:242
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pixel"
 msgstr[1] "pixely"
 msgstr[2] "pixelů"
 
-#: ../src/intviewer/viewer-widget.cc:241
+#: ../src/intviewer/viewer-widget.cc:244
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "bit na vzorek"
 msgstr[1] "bity na vzorek"
 msgstr[2] "bitů na vzorek"
 
-#: ../src/intviewer/viewer-widget.cc:243
+#: ../src/intviewer/viewer-widget.cc:246
 msgid "(fit to window)"
 msgstr "(přizpůsobit velikosti okna)"
+
+#: ../src/intviewer/viewer-widget.cc:261
+#| msgid "_Copy Text Selection"
+msgid "_Copy selection"
+msgstr "_Kopírovat výběr"
 
 #: ../src/intviewer/viewer-window.cc:652
 msgid "_Close"
@@ -4376,8 +4382,8 @@ msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
-"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu -"
-"99,99 až 99,99."
+"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu "
+"-99,99 až 99,99."
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid "Exposure Index"
