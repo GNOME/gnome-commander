@@ -23,12 +23,12 @@
 
 #include "gnome-cmd-file.h"
 
-#define GNOME_CMD_RENAME_DIALOG(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_rename_dialog_get_type (), GnomeCmdRenameDialog)
-#define GNOME_CMD_RENAME_DIALOG_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_rename_dialog_get_type (), GnomeCmdRenameDialogClass)
-#define GNOME_CMD_IS_RENAME_DIALOG(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_rename_dialog_get_type ())
+#define GNOME_CMD_TYPE_RENAME_DIALOG        (gnome_cmd_rename_dialog_get_type ())
+#define GNOME_CMD_RENAME_DIALOG(obj)        (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_RENAME_DIALOG, GnomeCmdRenameDialog))
+#define GNOME_CMD_IS_RENAME_DIALOG(obj)     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_RENAME_DIALOG))
+
+
+GType gnome_cmd_rename_dialog_get_type ();
 
 
 struct GnomeCmdRenameDialogPrivate;
