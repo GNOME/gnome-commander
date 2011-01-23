@@ -108,7 +108,7 @@ static void class_init (GnomeCmdFileClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
-    parent_class = (GnomeCmdFileInfoClass *) gtk_type_class (gnome_cmd_file_info_get_type ());
+    parent_class = (GnomeCmdFileInfoClass *) gtk_type_class (GNOME_CMD_TYPE_FILE_INFO);
 
     object_class->destroy = destroy;
 }
@@ -158,7 +158,7 @@ GtkType gnome_cmd_file_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        type = gtk_type_unique (gnome_cmd_file_info_get_type (), &info);
+        type = gtk_type_unique (GNOME_CMD_TYPE_FILE_INFO, &info);
     }
     return type;
 }

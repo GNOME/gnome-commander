@@ -21,9 +21,10 @@
 #ifndef __GNOME_CMD_FILE_INFO_H__
 #define __GNOME_CMD_FILE_INFO_H__
 
-#define GNOME_CMD_FILE_INFO(obj)          GTK_CHECK_CAST (obj, gnome_cmd_file_info_get_type (), GnomeCmdFileInfo)
-#define GNOME_CMD_FILE_INFO_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_info_get_type (), GnomeCmdFileInfoClass)
-#define GNOME_CMD_IS_FILE_INFO(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_info_get_type ())
+#define GNOME_CMD_TYPE_FILE_INFO         (gnome_cmd_file_info_get_type ())
+#define GNOME_CMD_FILE_INFO(obj)          GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_INFO, GnomeCmdFileInfo)
+#define GNOME_CMD_FILE_INFO_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_FILE_INFO, GnomeCmdFileInfoClass)
+#define GNOME_CMD_IS_FILE_INFO(obj)       GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_INFO)
 
 
 struct GnomeCmdFileInfo
