@@ -46,6 +46,4 @@ struct GnomeCmdChmodDialogClass
 
 GtkWidget *gnome_cmd_chmod_dialog_new (GList *files);
 
-GtkType gnome_cmd_chmod_dialog_get_type ();
-
 #endif // __GNOME_CMD_CHMOD_DIALOG_H__
