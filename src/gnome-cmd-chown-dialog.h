@@ -21,12 +21,12 @@
 #ifndef __GNOME_CMD_CHOWN_DIALOG_H__
 #define __GNOME_CMD_CHOWN_DIALOG_H__
 
-#define GNOME_CMD_CHOWN_DIALOG(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_chown_dialog_get_type (), GnomeCmdChownDialog)
-#define GNOME_CMD_CHOWN_DIALOG_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_chown_dialog_get_type (), GnomeCmdChownDialogClass)
-#define GNOME_CMD_IS_CHOWN_DIALOG(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_chown_dialog_get_type ())
+#define GNOME_CMD_TYPE_CHOWN_DIALOG         (gnome_cmd_chown_dialog_get_type ())
+#define GNOME_CMD_CHOWN_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_CHOWN_DIALOG, GnomeCmdChownDialog))
+#define GNOME_CMD_IS_CHOWN_DIALOG(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_CHOWN_DIALOG))
+
+
+GType gnome_cmd_chown_dialog_get_type ();
 
 
 struct GnomeCmdChownDialogPrivate;

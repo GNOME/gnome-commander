@@ -40,17 +40,15 @@ struct GnomeCmdChownDialogPrivate
     GtkWidget *recurse_check;
 };
 
-static GnomeCmdDialogClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdChownDialog, gnome_cmd_chown_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 {
-    GnomeVFSResult ret;
-
     g_return_if_fail (in != NULL);
     g_return_if_fail (in->info != NULL);
 
-    ret = in->chown(uid, gid);
+    GnomeVFSResult ret = in->chown(uid, gid);
 
     if (ret != GNOME_VFS_OK)
     {
@@ -127,44 +125,25 @@ static void on_cancel (GtkButton *button, GnomeCmdChownDialog *dialog)
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
-
-static void
-destroy (GtkObject *object)
+static void gnome_cmd_chown_dialog_finalize (GObject *object)
 {
     GnomeCmdChownDialog *dialog = GNOME_CMD_CHOWN_DIALOG (object);
 
     g_free (dialog->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_chown_dialog_parent_class)->finalize (object);
 }
 
 
-static void
-map (GtkWidget *widget)
+static void gnome_cmd_chown_dialog_class_init (GnomeCmdChownDialogClass *klass)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_chown_dialog_finalize;
 }
 
 
-static void
-class_init (GnomeCmdChownDialogClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
-    object_class->destroy = destroy;
-    widget_class->map = ::map;
-}
-
-
-static void
-init (GnomeCmdChownDialog *dialog)
+static void gnome_cmd_chown_dialog_init (GnomeCmdChownDialog *dialog)
 {
     GtkWidget *chown_dialog = GTK_WIDGET (dialog);
     GtkWidget *vbox;
@@ -187,11 +166,8 @@ init (GnomeCmdChownDialog *dialog)
     dialog->priv->recurse_check = create_check (GTK_WIDGET (dialog), _("Apply Recursively"), "check");
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
-
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
-                                 GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
-                                 GTK_SIGNAL_FUNC (on_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
 }
 
 
@@ -199,40 +175,15 @@ init (GnomeCmdChownDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_chown_dialog_new (GList *files)
+GtkWidget *gnome_cmd_chown_dialog_new (GList *files)
 {
     g_return_val_if_fail (files != NULL, NULL);
 
-    GnomeCmdChownDialog *dialog = (GnomeCmdChownDialog *) gtk_type_new (gnome_cmd_chown_dialog_get_type ());
+    GnomeCmdChownDialog *dialog = (GnomeCmdChownDialog *) g_object_new (GNOME_CMD_TYPE_CHOWN_DIALOG, NULL);
     dialog->priv->files = gnome_cmd_file_list_copy (files);
     GnomeCmdFile *f = GNOME_CMD_FILE (dialog->priv->files->data);
 
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component), f->info->uid, f->info->gid);
 
     return GTK_WIDGET (dialog);
-}
-
-
-GtkType gnome_cmd_chown_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdChownDialog",
-            sizeof (GnomeCmdChownDialog),
-            sizeof (GnomeCmdChownDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-    return dlg_type;
 }
