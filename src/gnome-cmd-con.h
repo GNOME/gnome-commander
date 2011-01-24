@@ -21,13 +21,11 @@
 #ifndef __GNOME_CMD_CON_H__
 #define __GNOME_CMD_CON_H__
 
-#define GNOME_CMD_CON(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_con_get_type (), GnomeCmdCon)
-#define GNOME_CMD_CON_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_get_type (), GnomeCmdConClass)
-#define GNOME_CMD_IS_CON(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_con_get_type ())
-#define GNOME_CMD_CON_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_CON, GnomeCmdConClass))
+#define GNOME_CMD_TYPE_CON              (gnome_cmd_con_get_type ())
+#define GNOME_CMD_CON(obj)              (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CON, GnomeCmdCon))
+#define GNOME_CMD_CON_CLASS(klass)      (GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_CON, GnomeCmdConClass))
+#define GNOME_CMD_IS_CON(obj)           (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CON))
+#define GNOME_CMD_CON_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_CON, GnomeCmdConClass))
 
 struct GnomeCmdConPrivate;
 
