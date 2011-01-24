@@ -261,6 +261,16 @@
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.11;</revnumber>
+        <date>2011-??-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
