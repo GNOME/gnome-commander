@@ -23,12 +23,9 @@
 
 #include "gnome-cmd-file.h"
 
-#define GNOME_CMD_CHMOD_COMPONENT(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_chmod_component_get_type (), GnomeCmdChmodComponent)
-#define GNOME_CMD_CHMOD_COMPONENT_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_chmod_component_get_type (), GnomeCmdChmodComponentClass)
-#define GNOME_CMD_IS_CHMOD_COMPONENT(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_chmod_component_get_type ())
+#define GNOME_CMD_TYPE_CHMOD_COMPONENT      (gnome_cmd_chmod_component_get_type ())
+#define GNOME_CMD_CHMOD_COMPONENT(obj)      (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CHMOD_COMPONENT, GnomeCmdChmodComponent))
+#define GNOME_CMD_IS_CHMOD_COMPONENT(obj)   (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CHMOD_COMPONENT))
 
 
 struct GnomeCmdChmodComponentPrivate;
