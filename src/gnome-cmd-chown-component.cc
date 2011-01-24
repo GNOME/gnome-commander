@@ -118,7 +118,7 @@ inline void load_users_and_groups (GnomeCmdChownComponent *comp)
 
 GtkWidget *gnome_cmd_chown_component_new ()
 {
-    GnomeCmdChownComponent *comp = (GnomeCmdChownComponent *) gtk_type_new (gnome_cmd_chown_component_get_type ());
+    GnomeCmdChownComponent *comp = (GnomeCmdChownComponent *) gtk_type_new (GNOME_CMD_TYPE_CHOWN_COMPONENT);
 
     load_users_and_groups (comp);
 

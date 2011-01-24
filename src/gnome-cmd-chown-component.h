@@ -23,12 +23,9 @@
 
 #include "gnome-cmd-file.h"
 
-#define GNOME_CMD_CHOWN_COMPONENT(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_chown_component_get_type (), GnomeCmdChownComponent)
-#define GNOME_CMD_CHOWN_COMPONENT_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_chown_component_get_type (), GnomeCmdChownComponentClass)
-#define GNOME_CMD_IS_CHOWN_COMPONENT(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_chown_component_get_type ())
+#define GNOME_CMD_TYPE_CHOWN_COMPONENT      (gnome_cmd_chown_component_get_type ())
+#define GNOME_CMD_CHOWN_COMPONENT(obj)      (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CHOWN_COMPONENT, GnomeCmdChownComponent))
+#define GNOME_CMD_IS_CHOWN_COMPONENT(obj)   (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CHOWN_COMPONENT))
 
 
 struct GnomeCmdChownComponentPrivate;
