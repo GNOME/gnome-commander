@@ -7624,8 +7624,22 @@
             </entry>
         </row>
         <row valign="top">
-            <entry><para>1.2.8.10</para></entry>
+            <entry><para>1.2.8.11</para></entry>
             <entry><para>2011-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #640387 (usage of deprecated python modules: md5, sha1)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.10</para></entry>
+            <entry><para>2011-01-15</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -7654,7 +7668,7 @@
         </row>
         <row valign="top">
             <entry><para>1.2.8.9</para></entry>
-            <entry><para>2010-??-??</para></entry>
+            <entry><para>2010-12-03</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>

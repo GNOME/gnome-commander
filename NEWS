@@ -36,6 +36,7 @@ gnome-commander 1.2.8.11
 ---------------
 
 Bug fixes:
+ * Fixed problem #640387 (usage of deprecated python modules: md5, sha1)
 
 
 ===================================
