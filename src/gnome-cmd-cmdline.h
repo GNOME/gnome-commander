@@ -20,12 +20,9 @@
 #ifndef __GNOME_CMD_CMDLINE_H__
 #define __GNOME_CMD_CMDLINE_H__
 
-#define GNOME_CMD_CMDLINE(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_cmdline_get_type (), GnomeCmdCmdline)
-#define GNOME_CMD_CMDLINE_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_cmdline_get_type (), GnomeCmdCmdlineClass)
-#define GNOME_CMD_IS_CMDLINE(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_cmdline_get_type ())
+#define GNOME_CMD_TYPE_CMDLINE      (gnome_cmd_cmdline_get_type ())
+#define GNOME_CMD_CMDLINE(obj)      (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdline))
+#define GNOME_CMD_IS_CMDLINE(obj)   (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CMDLINE))
 
 
 struct GnomeCmdCmdlinePrivate;

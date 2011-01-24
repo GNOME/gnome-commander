@@ -264,7 +264,7 @@ static void init (GnomeCmdCmdline *cmdline)
 
 GtkWidget *gnome_cmd_cmdline_new ()
 {
-    GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) gtk_type_new (gnome_cmd_cmdline_get_type ());
+    GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) gtk_type_new (GNOME_CMD_TYPE_CMDLINE);
 
     gnome_cmd_cmdline_set_history (cmdline, gnome_cmd_data.cmdline_history);
     update_history_combo (cmdline);
