@@ -22,10 +22,6 @@
 
 #include "gnome-cmd-data.h"
 
-#define GNOME_CMD_TYPE_OPTIONS_DIALOG          (gnome_cmd_options_dialog_get_type ())
-#define GNOME_CMD_OPTIONS_DIALOG(obj)          (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_OPTIONS_DIALOG, GnomeCmdOptionsDialog))
-#define GNOME_CMD_IS_OPTIONS_DIALOG(obj)       (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_OPTIONS_DIALOG))
-
 gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg);
 
 #endif // __GNOME_CMD_OPTIONS_DIALOG_H__
