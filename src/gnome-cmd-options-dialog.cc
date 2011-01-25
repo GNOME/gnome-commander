@@ -201,20 +201,20 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 }
 
 
-inline void store_general_options (GnomeCmdOptionsDialog *dialog)
+inline void store_general_options (GtkWidget *dialog)
 {
-    GtkWidget *lmb_singleclick_radio = lookup_widget (GTK_WIDGET (dialog), "lmb_singleclick_radio");
-    GtkWidget *lmb_unselects_check = lookup_widget (GTK_WIDGET (dialog), "lmb_unselects_check");
-    GtkWidget *mmb_cd_up_radio = lookup_widget (GTK_WIDGET (dialog), "mmb_cd_up_radio");
-    GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
-    GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
-    GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
-    GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
-    GtkWidget *multiple_instance_check = lookup_widget (GTK_WIDGET (dialog), "multiple_instance_check");
-    GtkWidget *qsearch_exact_match_begin = lookup_widget (GTK_WIDGET (dialog), "qsearch_exact_match_begin");
-    GtkWidget *qsearch_exact_match_end = lookup_widget (GTK_WIDGET (dialog), "qsearch_exact_match_end");
-    GtkWidget *save_dirs = lookup_widget (GTK_WIDGET (dialog), "save_dirs");
-    GtkWidget *save_tabs = lookup_widget (GTK_WIDGET (dialog), "save_tabs");
+    GtkWidget *lmb_singleclick_radio = lookup_widget (dialog, "lmb_singleclick_radio");
+    GtkWidget *lmb_unselects_check = lookup_widget (dialog, "lmb_unselects_check");
+    GtkWidget *mmb_cd_up_radio = lookup_widget (dialog, "mmb_cd_up_radio");
+    GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
+    GtkWidget *ft_regex_radio = lookup_widget (dialog, "ft_regex_radio");
+    GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
+    GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
+    GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
+    GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
+    GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
+    GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
+    GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
 
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -355,13 +355,13 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
 }
 
 
-inline void store_format_options (GnomeCmdOptionsDialog *dialog)
+inline void store_format_options (GtkWidget *dialog)
 {
-    GtkWidget *size_powered_radio = lookup_widget (GTK_WIDGET (dialog), "size_powered_radio");
-    GtkWidget *size_locale_radio = lookup_widget (GTK_WIDGET (dialog), "size_locale_radio");
-    GtkWidget *size_grouped_radio = lookup_widget (GTK_WIDGET (dialog), "size_grouped_radio");
-    GtkWidget *perm_text_radio = lookup_widget (GTK_WIDGET (dialog), "perm_text_radio");
-    GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "date_format_entry");
+    GtkWidget *size_powered_radio = lookup_widget (dialog, "size_powered_radio");
+    GtkWidget *size_locale_radio = lookup_widget (dialog, "size_locale_radio");
+    GtkWidget *size_grouped_radio = lookup_widget (dialog, "size_grouped_radio");
+    GtkWidget *perm_text_radio = lookup_widget (dialog, "perm_text_radio");
+    GtkWidget *entry = lookup_widget (dialog, "date_format_entry");
     const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
@@ -808,20 +808,20 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 }
 
 
-inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
+inline void store_layout_options (GtkWidget *dialog)
 {
-    GtkWidget *iconsize_spin       = lookup_widget (GTK_WIDGET (dialog), "iconsize_spin");
-    GtkWidget *iconquality_scale   = lookup_widget (GTK_WIDGET (dialog), "iconquality_scale");
-    GtkWidget *theme_icondir_entry = lookup_widget (GTK_WIDGET (dialog), "theme_icondir_entry");
-    GtkWidget *doc_icondir_entry   = lookup_widget (GTK_WIDGET (dialog), "doc_icondir_entry");
-    GtkWidget *row_height_spin     = lookup_widget (GTK_WIDGET (dialog), "row_height_spin");
-    GtkWidget *use_ls              = lookup_widget (GTK_WIDGET (dialog), "use_ls_colors");
+    GtkWidget *iconsize_spin       = lookup_widget (dialog, "iconsize_spin");
+    GtkWidget *iconquality_scale   = lookup_widget (dialog, "iconquality_scale");
+    GtkWidget *theme_icondir_entry = lookup_widget (dialog, "theme_icondir_entry");
+    GtkWidget *doc_icondir_entry   = lookup_widget (dialog, "doc_icondir_entry");
+    GtkWidget *row_height_spin     = lookup_widget (dialog, "row_height_spin");
+    GtkWidget *use_ls              = lookup_widget (dialog, "use_ls_colors");
 
-    GtkWidget *lm_optmenu = lookup_widget (GTK_WIDGET (dialog), "lm_optmenu");
-    GtkWidget *fe_optmenu = lookup_widget (GTK_WIDGET (dialog), "fe_optmenu");
-    GtkWidget *cm_optmenu = lookup_widget (GTK_WIDGET (dialog), "cm_optmenu");
+    GtkWidget *lm_optmenu = lookup_widget (dialog, "lm_optmenu");
+    GtkWidget *fe_optmenu = lookup_widget (dialog, "fe_optmenu");
+    GtkWidget *cm_optmenu = lookup_widget (dialog, "cm_optmenu");
 
-    GtkWidget *list_font_picker = lookup_widget (GTK_WIDGET (dialog), "list_font_picker");
+    GtkWidget *list_font_picker = lookup_widget (dialog, "list_font_picker");
 
     gnome_cmd_data.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
     gnome_cmd_data.layout = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu));
@@ -916,15 +916,15 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
 }
 
 
-inline void store_confirmation_options (GnomeCmdOptionsDialog *dialog)
+inline void store_confirmation_options (GtkWidget *dialog)
 {
-    GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
-    GtkWidget *confirm_copy_silent = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_silently");
-    GtkWidget *confirm_copy_query = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_query");
-    GtkWidget *confirm_copy_skip_all = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_skip_all");
-    GtkWidget *confirm_move_silent = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_silently");
-    GtkWidget *confirm_move_query = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_query");
-    GtkWidget *confirm_move_skip_all = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_skip_all");
+    GtkWidget *confirm_delete_check = lookup_widget (dialog, "confirm_delete_check");
+    GtkWidget *confirm_copy_silent = lookup_widget (dialog, "copy_overwrite_silently");
+    GtkWidget *confirm_copy_query = lookup_widget (dialog, "copy_overwrite_query");
+    GtkWidget *confirm_copy_skip_all = lookup_widget (dialog, "copy_overwrite_skip_all");
+    GtkWidget *confirm_move_silent = lookup_widget (dialog, "move_overwrite_silently");
+    GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
+    GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
 
     gnome_cmd_data.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
 
@@ -1047,7 +1047,7 @@ static GtkWidget *create_filter_tab (GtkWidget *parent)
 }
 
 
-inline void store_filter_options (GnomeCmdOptionsDialog *dialog)
+inline void store_filter_options (GtkWidget *dialog)
 {
     GtkWidget *hide_unknown_check;
     GtkWidget *hide_directory_check;
@@ -1061,17 +1061,17 @@ inline void store_filter_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *hide_symlink_check;
     GtkWidget *backup_pattern_entry;
 
-    hide_unknown_check = lookup_widget (GTK_WIDGET (dialog), "hide_unknown_check");
-    hide_regular_check = lookup_widget (GTK_WIDGET (dialog), "hide_regular_check");
-    hide_directory_check = lookup_widget (GTK_WIDGET (dialog), "hide_directory_check");
-    hide_fifo_check = lookup_widget (GTK_WIDGET (dialog), "hide_fifo_check");
-    hide_socket_check = lookup_widget (GTK_WIDGET (dialog), "hide_socket_check");
-    hide_char_check = lookup_widget (GTK_WIDGET (dialog), "hide_char_check");
-    hide_block_check = lookup_widget (GTK_WIDGET (dialog), "hide_block_check");
-    hide_symlink_check = lookup_widget (GTK_WIDGET (dialog), "hide_symlink_check");
-    hide_hidden_check = lookup_widget (GTK_WIDGET (dialog), "hide_hidden_check");
-    hide_backup_check = lookup_widget (GTK_WIDGET (dialog), "hide_backup_check");
-    backup_pattern_entry = lookup_widget (GTK_WIDGET (dialog), "backup_pattern_entry");
+    hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
+    hide_regular_check = lookup_widget (dialog, "hide_regular_check");
+    hide_directory_check = lookup_widget (dialog, "hide_directory_check");
+    hide_fifo_check = lookup_widget (dialog, "hide_fifo_check");
+    hide_socket_check = lookup_widget (dialog, "hide_socket_check");
+    hide_char_check = lookup_widget (dialog, "hide_char_check");
+    hide_block_check = lookup_widget (dialog, "hide_block_check");
+    hide_symlink_check = lookup_widget (dialog, "hide_symlink_check");
+    hide_hidden_check = lookup_widget (dialog, "hide_hidden_check");
+    hide_backup_check = lookup_widget (dialog, "hide_backup_check");
+    backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
 
     gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_unknown_check));
@@ -1153,10 +1153,10 @@ static GtkWidget *create_network_tab (GtkWidget *parent)
 }
 
 
-inline void store_network_options (GnomeCmdOptionsDialog *dialog)
+inline void store_network_options (GtkWidget *dialog)
 {
-    GtkWidget *use_auth_manager_check = lookup_widget (GTK_WIDGET (dialog), "use_auth_manager");
-    GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "anonymous_ftp_password");
+    GtkWidget *use_auth_manager_check = lookup_widget (dialog, "use_auth_manager");
+    GtkWidget *entry = lookup_widget (dialog, "anonymous_ftp_password");
 
     gnome_cmd_data.use_gnome_auth_manager = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_auth_manager_check));
     gnome_cmd_data_set_ftp_anonymous_password (gtk_entry_get_text (GTK_ENTRY (entry)));
@@ -1596,14 +1596,14 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
 }
 
 
-inline void store_programs_options (GnomeCmdOptionsDialog *dialog)
+inline void store_programs_options (GtkWidget *dialog)
 {
-    GtkWidget *entry1 = lookup_widget (GTK_WIDGET (dialog), "viewer");
-    GtkWidget *entry2 = lookup_widget (GTK_WIDGET (dialog), "editor");
-    GtkWidget *entry3 = lookup_widget (GTK_WIDGET (dialog), "differ");
-    GtkWidget *entry5 = lookup_widget (GTK_WIDGET (dialog), "term");
-    GtkWidget *check_uris = lookup_widget (GTK_WIDGET (dialog), "honor_expect_uris");
-    GtkWidget *check_iv = lookup_widget (GTK_WIDGET (dialog), "use_internal_viewer");
+    GtkWidget *entry1 = lookup_widget (dialog, "viewer");
+    GtkWidget *entry2 = lookup_widget (dialog, "editor");
+    GtkWidget *entry3 = lookup_widget (dialog, "differ");
+    GtkWidget *entry5 = lookup_widget (dialog, "term");
+    GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
+    GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
 
     gnome_cmd_data.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
     gnome_cmd_data.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
@@ -1944,15 +1944,13 @@ inline void store_devices_options (GtkWidget *dialog)
 
 static void on_options_dialog_close (GtkButton *button, GtkWidget *dialog)
 {
-    GnomeCmdOptionsDialog *options_dialog = GNOME_CMD_OPTIONS_DIALOG (dialog);
-
-    store_general_options (options_dialog);
-    store_format_options (options_dialog);
-    store_layout_options (options_dialog);
-    store_confirmation_options (options_dialog);
-    store_filter_options (options_dialog);
-    store_network_options (options_dialog);
-    store_programs_options (options_dialog);
+    store_general_options (dialog);
+    store_format_options (dialog);
+    store_layout_options (dialog);
+    store_confirmation_options (dialog);
+    store_filter_options (dialog);
+    store_network_options (dialog);
+    store_programs_options (dialog);
     store_devices_options (dialog);
 
     gtk_widget_destroy (dialog);
