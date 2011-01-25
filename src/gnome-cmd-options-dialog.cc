@@ -22,13 +22,10 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-options-dialog.h"
-#include "gnome-cmd-data.h"
 #include "utils.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-combo.h"
 
 using namespace std;
 

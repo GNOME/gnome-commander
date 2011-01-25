@@ -28,7 +28,6 @@
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-user-actions.h"
-#include "plugin_manager.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-main-menu.h"
 #include "gnome-cmd-data.h"
@@ -36,11 +35,9 @@
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
 #include "owner.h"
 #include "utils.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 #include "../pixmaps/copy_file_names.xpm"
 
