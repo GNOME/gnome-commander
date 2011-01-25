@@ -20,44 +20,12 @@
 #ifndef __GNOME_CMD_OPTIONS_DIALOG_H__
 #define __GNOME_CMD_OPTIONS_DIALOG_H__
 
+#include "gnome-cmd-data.h"
+
 #define GNOME_CMD_TYPE_OPTIONS_DIALOG          (gnome_cmd_options_dialog_get_type ())
 #define GNOME_CMD_OPTIONS_DIALOG(obj)          (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_OPTIONS_DIALOG, GnomeCmdOptionsDialog))
 #define GNOME_CMD_IS_OPTIONS_DIALOG(obj)       (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_OPTIONS_DIALOG))
 
-
-struct GnomeCmdOptionsDialogClass
-{
-    GnomeCmdDialogClass parent_class;
-};
-
-
-struct GnomeCmdOptionsDialog
-{
-    GnomeCmdDialog parent;
-
-    struct Private;
-
-    Private *priv;
-
-    enum Tab
-    {
-        TAB_GENERAL,
-        TAB_FORMAT,
-        TAB_LAYOUT,
-        TAB_CONFIRMATION,
-        TAB_FILTERS,
-        TAB_NETWORK,
-        TAB_PROGRAMS,
-        TAB_DEVICES
-    } ;
-
-    GtkWidget *notebook;
-
-    void set_tab (Tab tab)      {  gtk_notebook_set_page (GTK_NOTEBOOK (notebook), tab);  }
-};
-
-
-GtkType gnome_cmd_options_dialog_get_type ();
-GtkWidget *gnome_cmd_options_dialog_new ();
+gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg);
 
 #endif // __GNOME_CMD_OPTIONS_DIALOG_H__

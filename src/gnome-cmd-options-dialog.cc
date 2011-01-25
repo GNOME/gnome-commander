@@ -30,15 +30,6 @@
 using namespace std;
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
-
-
-struct GnomeCmdOptionsDialog::Private
-{
-};
-
-
-
 inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 {
     GtkWidget *w = gtk_font_button_new ();
@@ -48,7 +39,6 @@ inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 
     return w;
 }
-
 
 
 static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
@@ -277,7 +267,6 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     vbox = create_tabvbox (parent);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
-
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Size display mode"));
@@ -343,7 +332,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     table_add (table, label, 0, 1, GTK_FILL);
 
     label = create_label (parent, "");
-    g_object_set_data_full (G_OBJECT (parent), "date_format_test_label", label, g_object_unref);
+    g_object_set_data (G_OBJECT (parent), "date_format_test_label", label);
     g_signal_connect (label, "realize", G_CALLBACK (on_date_format_update), parent);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
@@ -387,7 +376,6 @@ inline void store_format_options (GtkWidget *dialog)
  *  The Layout tab
  *
  **********************************************************************/
-
 
 static void on_layout_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
 {
@@ -1106,7 +1094,6 @@ inline void store_filter_options (GtkWidget *dialog)
 }
 
 
-
 /***********************************************************************
  *
  *  The Network tab
@@ -1218,11 +1205,10 @@ static void on_some_files_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 }
 
 
-static void
-get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **icon_path,
-                       gint *target, gchar **pattern_string,
-                       gboolean *handles_uris, gboolean *handles_multiple,
-                       gboolean *requires_terminal)
+static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **icon_path,
+                                   gint *target, gchar **pattern_string,
+                                   gboolean *handles_uris, gboolean *handles_multiple,
+                                   gboolean *requires_terminal)
 {
     GtkWidget *name_entry = lookup_widget (dialog, "name_entry");
     GtkWidget *cmd_entry = lookup_widget (dialog, "cmd_entry");
@@ -1942,166 +1928,115 @@ inline void store_devices_options (GtkWidget *dialog)
 }
 
 
-static void on_options_dialog_close (GtkButton *button, GtkWidget *dialog)
+static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNotebook *notebook)
 {
-    store_general_options (dialog);
-    store_format_options (dialog);
-    store_layout_options (dialog);
-    store_confirmation_options (dialog);
-    store_filter_options (dialog);
-    store_network_options (dialog);
-    store_programs_options (dialog);
-    store_devices_options (dialog);
+    static const char *help_id[] = {"gnome-commander-prefs-general",
+                                    "gnome-commander-prefs-format",
+                                    "gnome-commander-prefs-layout",
+                                    "gnome-commander-prefs-confirmation",
+                                    "gnome-commander-prefs-filters",
+                                    "gnome-commander-prefs-network",
+                                    "gnome-commander-prefs-programs",
+                                    "gnome-commander-prefs-devices"};
+
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            break;
+
+        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_CANCEL:
+            break;
+
+        case GTK_RESPONSE_HELP:
+            gnome_cmd_help_display ("gnome-commander.xml", help_id[notebook->get_current_page()]);
+            g_signal_stop_emission_by_name (dialog, "response");
+            break;
+
+        default:
+            g_assert_not_reached ();
+    }
+}
+
+
+gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
+{
+    GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Options"), parent,
+                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+                                                     GTK_STOCK_HELP, GTK_RESPONSE_HELP,
+                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     NULL);
+
+    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+#endif
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+    // HIG defaults
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_box_set_spacing (GTK_BOX (content_area), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
+    gtk_box_set_spacing (GTK_BOX (content_area),6);
+#else
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
+#endif
+
+    GnomeCmdNotebook *notebook = new GnomeCmdNotebook;
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_container_add (GTK_CONTAINER (content_area), *notebook);
+#else
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), *notebook);
+#endif
+
+    notebook->append_page(create_general_tab (dialog), _("General"));
+    notebook->append_page(create_format_tab (dialog), _("Format"));
+    notebook->append_page(create_layout_tab (dialog), _("Layout"));
+    notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
+    notebook->append_page(create_filter_tab (dialog), _("Filters"));
+    notebook->append_page(create_network_tab (dialog), _("Network"));
+    notebook->append_page(create_programs_tab (dialog), _("Programs"));
+    notebook->append_page(create_devices_tab (dialog), _("Devices"));
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_widget_show_all (content_area);
+#else
+    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+#endif
+
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), notebook);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (result==GTK_RESPONSE_OK)
+    {
+        store_general_options (dialog);
+        store_format_options (dialog);
+        store_layout_options (dialog);
+        store_confirmation_options (dialog);
+        store_filter_options (dialog);
+        store_network_options (dialog);
+        store_programs_options (dialog);
+        store_devices_options (dialog);
+
+        gnome_cmd_style_create ();
+        main_win->update_style();
+
+        gnome_cmd_data.save();
+    }
 
     gtk_widget_destroy (dialog);
 
-    gnome_cmd_style_create ();
-    main_win->update_style();
-
-    gnome_cmd_data.save();
-}
-
-
-/*******************************
- * Gtk class implementation
- *******************************/
-
-
- static void destroy (GtkObject *object)
-{
-    GnomeCmdOptionsDialog *dialog = GNOME_CMD_OPTIONS_DIALOG (object);
-
-    g_free (dialog->priv);
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
-}
-
-
-static void class_init (GnomeCmdOptionsDialogClass *klass)
-{
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
-
-    object_class->destroy = destroy;
-
-    widget_class->map = ::map;
-}
-
-
-static void init (GnomeCmdOptionsDialog *dialog)
-{
-    GtkWidget *options_dialog = GTK_WIDGET (dialog);
-
-    dialog->priv = g_new0 (GnomeCmdOptionsDialog::Private, 1);
-
-    g_object_set_data (G_OBJECT (options_dialog), "options_dialog", options_dialog);
-    gtk_window_set_position (GTK_WINDOW (options_dialog), GTK_WIN_POS_CENTER);
-    gtk_window_set_title (GTK_WINDOW (options_dialog), _("Options"));
-
-    dialog->notebook = gtk_notebook_new ();
-    g_object_ref (dialog->notebook);
-    g_object_set_data_full (G_OBJECT (options_dialog), "notebook", dialog->notebook, g_object_unref);
-    gtk_widget_show (dialog->notebook);
-    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), dialog->notebook);
-
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_general_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_format_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_layout_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_confirmation_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_filter_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_network_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_programs_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_devices_tab (options_dialog));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_GENERAL),
-        gtk_label_new (_("General")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_FORMAT),
-        gtk_label_new (_("Format")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_LAYOUT),
-        gtk_label_new (_("Layout")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_CONFIRMATION),
-        gtk_label_new (_("Confirmation")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_FILTERS),
-        gtk_label_new (_("Filters")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_NETWORK),
-        gtk_label_new (_("Network")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_PROGRAMS),
-        gtk_label_new (_("Programs")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_DEVICES),
-        gtk_label_new (_("Devices")));
-
-
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
-}
-
-
-/***********************************
- * Public functions
- ***********************************/
-
-
-GtkType gnome_cmd_options_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdOptionsDialog",
-            sizeof (GnomeCmdOptionsDialog),
-            sizeof (GnomeCmdOptionsDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-
-    return dlg_type;
-}
-
-
-GtkWidget *gnome_cmd_options_dialog_new ()
-{
-    return (GtkWidget *) gtk_type_new (GNOME_CMD_TYPE_OPTIONS_DIALOG);
+    return result==GTK_RESPONSE_OK;
 }

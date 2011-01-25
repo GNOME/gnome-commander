@@ -1657,10 +1657,7 @@ void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
 /************** Options Menu **************/
 void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GtkWidget *dialog = gnome_cmd_options_dialog_new ();
-    g_object_ref (dialog);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
-    gtk_widget_show (dialog);
+    gnome_cmd_options_dialog (*main_win, gnome_cmd_data);
 }
 
 
