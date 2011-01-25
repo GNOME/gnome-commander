@@ -358,7 +358,7 @@ create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value)
     GtkObject *adj;
     GtkWidget *spin;
 
-    adj = gtk_adjustment_new (value, min, max, 1, 10, 10);
+    adj = gtk_adjustment_new (value, min, max, 1, 10, 0);
     spin = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
     gtk_widget_ref (spin);
     gtk_object_set_data_full (GTK_OBJECT (parent), name, spin,
