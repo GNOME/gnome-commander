@@ -259,11 +259,8 @@ GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, co
 
 GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value)
 {
-    GtkObject *adj;
-    GtkWidget *spin;
-
-    adj = gtk_adjustment_new (value, min, max, 1, 10, 10);
-    spin = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
+    GtkObject *adj = gtk_adjustment_new (value, min, max, 1, 10, 0);
+    GtkWidget *spin = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
     g_object_ref (spin);
     g_object_set_data_full (G_OBJECT (parent), name, spin, g_object_unref);
     gtk_widget_show (spin);
