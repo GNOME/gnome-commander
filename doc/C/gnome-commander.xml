@@ -5046,14 +5046,11 @@
         </tgroup>
       </table>
    </sect2>
-
-
-<!--network preferences -->
-
+    <!--network preferences -->
     <sect2 id="gnome-commander-prefs-network">
       <title>Network</title>
       <!--brief desciption-->
-      <para>The network section of the option dialog let you configure parameters for
+      <para>The network section of the option dialog lets you configure parameters for
       FTP and the use of the GNOME keyring.</para>
       <itemizedlist>
         <listitem>
