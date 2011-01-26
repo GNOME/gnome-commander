@@ -20,13 +20,12 @@
 #ifndef __GNOME_CMD_PATH_H__
 #define __GNOME_CMD_PATH_H__
 
-#define GNOME_CMD_PATH(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_path_get_type (), GnomeCmdPath)
-#define GNOME_CMD_PATH_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_path_get_type (), GnomeCmdPathClass)
-#define GNOME_CMD_IS_PATH(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_path_get_type ())
-#define GNOME_CMD_PATH_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_PATH, GnomeCmdPathClass))
+#define GNOME_CMD_TYPE_PATH              (gnome_cmd_path_get_type ())
+#define GNOME_CMD_PATH(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PATH, GnomeCmdPath))
+#define GNOME_CMD_PATH_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PATH, GnomeCmdPathClass))
+#define GNOME_CMD_IS_PATH(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PATH))
+#define GNOME_CMD_IS_PATH_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PATH))
+#define GNOME_CMD_PATH_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PATH, GnomeCmdPathClass))
 
 
 struct GnomeCmdPath
