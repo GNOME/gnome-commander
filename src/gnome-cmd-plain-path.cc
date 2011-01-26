@@ -168,7 +168,7 @@ GtkType gnome_cmd_plain_path_get_type ()
 
 GnomeCmdPath *gnome_cmd_plain_path_new (const gchar *path)
 {
-    GnomeCmdPlainPath *plain_path = (GnomeCmdPlainPath *) gtk_type_new (gnome_cmd_plain_path_get_type ());
+    GnomeCmdPlainPath *plain_path = (GnomeCmdPlainPath *) gtk_type_new (GNOME_CMD_TYPE_PLAIN_PATH);
     plain_path->priv->path = g_strdup (path);
 
     return GNOME_CMD_PATH (plain_path);
