@@ -865,7 +865,7 @@ static void init (GnomeCmdMainMenu *main_menu)
 
 GtkWidget *gnome_cmd_main_menu_new ()
 {
-    return (GtkWidget *) gtk_type_new (gnome_cmd_main_menu_get_type ());
+    return (GtkWidget *) gtk_type_new (GNOME_CMD_TYPE_MAIN_MENU);
 }
 
 
