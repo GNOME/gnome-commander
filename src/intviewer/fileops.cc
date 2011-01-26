@@ -234,7 +234,7 @@ const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
 */
 const char *gv_file_load(ViewerFileOps *ops, int fd)
 {
-    g_return_val_if_fail (ops!=NULL, "invalid ops paramter");
+    g_return_val_if_fail (ops!=NULL, "invalid ops parameter");
 
     ops->file = fd;
 
