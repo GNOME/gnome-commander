@@ -21,12 +21,12 @@
 #ifndef __GNOME_CMD_XFER_PROGRESS_WIN_H__
 #define __GNOME_CMD_XFER_PROGRESS_WIN_H__
 
-#define GNOME_CMD_XFER_PROGRESS_WIN(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWin)
-#define GNOME_CMD_XFER_PROGRESS_WIN_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWinClass)
-#define GNOME_CMD_IS_XFER_PROGRESS_WIN(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_xfer_progress_win_get_type ())
+#define GNOME_CMD_TYPE_XFER_PROGRESS_WIN              (gnome_cmd_xfer_progress_win_get_type ())
+#define GNOME_CMD_XFER_PROGRESS_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_XFER_PROGRESS_WIN, GnomeCmdXferProgressWin))
+#define GNOME_CMD_XFER_PROGRESS_WIN_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_XFER_PROGRESS_WIN, GnomeCmdXferProgressWinClass))
+#define GNOME_CMD_IS_XFER_PROGRESS_WIN(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_XFER_PROGRESS_WIN))
+#define GNOME_CMD_IS_XFER_PROGRESS_WIN_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_XFER_PROGRESS_WIN))
+#define GNOME_CMD_XFER_PROGRESS_WIN_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_XFER_PROGRESS_WIN, GnomeCmdXferProgressWinClass))
 
 
 struct GnomeCmdXferProgressWin

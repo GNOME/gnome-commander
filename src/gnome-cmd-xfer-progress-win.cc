@@ -117,7 +117,7 @@ static void init (GnomeCmdXferProgressWin *win)
 
 GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files)
 {
-    GnomeCmdXferProgressWin *win = (GnomeCmdXferProgressWin *) gtk_type_new (gnome_cmd_xfer_progress_win_get_type ());
+    GnomeCmdXferProgressWin *win = (GnomeCmdXferProgressWin *) gtk_type_new (GNOME_CMD_TYPE_XFER_PROGRESS_WIN);
 
     if (no_of_files<2)
     {
