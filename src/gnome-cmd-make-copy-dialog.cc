@@ -129,7 +129,7 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
 
     const gchar *labels[] = {""};
 
-    GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) gtk_type_new (gnome_cmd_make_copy_dialog_get_type ());
+    GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) gtk_type_new (GNOME_CMD_TYPE_MAKE_COPY_DIALOG);
 
     dialog->priv->f = f;
     dialog->priv->dir = dir;
