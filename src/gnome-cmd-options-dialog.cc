@@ -237,7 +237,7 @@ inline void store_general_options (GtkWidget *dialog)
  *
  **********************************************************************/
 
-static void on_date_format_update (GtkButton *button, GtkWidget *options_dialog)
+static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dialog)
 {
     GtkWidget *format_entry = lookup_widget (options_dialog, "date_format_entry");
     GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
@@ -323,17 +323,15 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     entry = create_entry (parent, "date_format_entry", utf8_date_format);
     g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
+    g_signal_connect (entry, "realize", G_CALLBACK (on_date_format_update), parent);
+    g_signal_connect (entry, "changed", G_CALLBACK (on_date_format_update), parent);
     table_add (table, entry, 1, 0, GTK_FILL);
-
-    button = create_button (parent, _("_Test"), GTK_SIGNAL_FUNC (on_date_format_update));
-    table_add (table, button, 2, 0, GTK_FILL);
 
     label = create_label (parent, _("Test result:"));
     table_add (table, label, 0, 1, GTK_FILL);
 
     label = create_label (parent, "");
     g_object_set_data (G_OBJECT (parent), "date_format_test_label", label);
-    g_signal_connect (label, "realize", G_CALLBACK (on_date_format_update), parent);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     label = create_label (parent, _("See the manual page for \"strftime\" for help on how to set the format string."));
