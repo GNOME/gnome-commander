@@ -22,12 +22,12 @@
 
 #include "gnome-cmd-file-list.h"
 
-#define GNOME_CMD_PATTERNSEL_DIALOG(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_patternsel_dialog_get_type (), GnomeCmdPatternselDialog)
-#define GNOME_CMD_PATTERNSEL_DIALOG_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_patternsel_dialog_get_type (), GnomeCmdPatternselDialogClass)
-#define GNOME_CMD_IS_PATTERNSEL_DIALOG(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_patternsel_dialog_get_type ())
+#define GNOME_CMD_TYPE_PATTERNSEL_DIALOG              (gnome_cmd_patternsel_dialog_get_type ())
+#define GNOME_CMD_PATTERNSEL_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PATTERNSEL_DIALOG, GnomeCmdPatternselDialog))
+#define GNOME_CMD_PATTERNSEL_DIALOG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PATTERNSEL_DIALOG, GnomeCmdPatternselDialogClass))
+#define GNOME_CMD_IS_PATTERNSEL_DIALOG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PATTERNSEL_DIALOG))
+#define GNOME_CMD_IS_PATTERNSEL_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PATTERNSEL_DIALOG))
+#define GNOME_CMD_PATTERNSEL_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PATTERNSEL_DIALOG, GnomeCmdPatternselDialogClass))
 
 
 struct GnomeCmdPatternselDialogPrivate;
