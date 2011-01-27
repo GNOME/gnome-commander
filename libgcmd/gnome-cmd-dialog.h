@@ -21,10 +21,12 @@
 #ifndef __GNOME_CMD_DIALOG_H__
 #define __GNOME_CMD_DIALOG_H__
 
-#define GNOME_CMD_TYPE_DIALOG         (gnome_cmd_dialog_get_type ())
-#define GNOME_CMD_DIALOG(obj)         (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_DIALOG, GnomeCmdDialog))
-#define GNOME_CMD_DIALOG_CLASS(klass) (GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_DIALOG, GnomeCmdDialogClass))
-#define GNOME_CMD_IS_DIALOG(obj)      (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_DIALOG))
+#define GNOME_CMD_TYPE_DIALOG              (gnome_cmd_dialog_get_type ())
+#define GNOME_CMD_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_DIALOG, GnomeCmdDialog))
+#define GNOME_CMD_DIALOG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_DIALOG, GnomeCmdDialogClass))
+#define GNOME_CMD_IS_DIALOG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_DIALOG))
+#define GNOME_CMD_IS_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_DIALOG))
+#define GNOME_CMD_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_DIALOG, GnomeCmdDialogClass))
 
 
 typedef struct _GnomeCmdDialog GnomeCmdDialog;
