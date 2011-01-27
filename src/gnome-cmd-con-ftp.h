@@ -23,12 +23,12 @@
 
 #include "gnome-cmd-con.h"
 
-#define GNOME_CMD_CON_FTP(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_con_ftp_get_type (), GnomeCmdConFtp)
-#define GNOME_CMD_CON_FTP_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_ftp_get_type (), GnomeCmdConFtpClass)
-#define GNOME_CMD_IS_CON_FTP(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_con_ftp_get_type ())
+#define GNOME_CMD_TYPE_CON_FTP              (gnome_cmd_con_ftp_get_type ())
+#define GNOME_CMD_CON_FTP(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON_FTP, GnomeCmdConFtp))
+#define GNOME_CMD_CON_FTP_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CON_FTP, GnomeCmdConFtpClass))
+#define GNOME_CMD_IS_CON_FTP(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CON_FTP))
+#define GNOME_CMD_IS_CON_FTP_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON_FTP))
+#define GNOME_CMD_CON_FTP_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_FTP, GnomeCmdConFtpClass))
 
 
 struct GnomeCmdConFtp
