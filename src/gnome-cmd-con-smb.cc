@@ -246,5 +246,5 @@ GtkType gnome_cmd_con_smb_get_type ()
 
 GnomeCmdCon *gnome_cmd_con_smb_new ()
 {
-    return GNOME_CMD_CON (gtk_type_new (gnome_cmd_con_smb_get_type ()));
+    return GNOME_CMD_CON (gtk_type_new (GNOME_CMD_TYPE_CON_SMB));
 }
