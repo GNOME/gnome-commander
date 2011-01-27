@@ -21,10 +21,12 @@
 #ifndef __GNOME_CMD_FILE_SELECTOR_H__
 #define __GNOME_CMD_FILE_SELECTOR_H__
 
-#define GNOME_CMD_TYPE_FILE_SELECTOR          (gnome_cmd_file_selector_get_type ())
-#define GNOME_CMD_FILE_SELECTOR(obj)          (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelector))
-#define GNOME_CMD_FILE_SELECTOR_CLASS(klass)  (GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelectorClass))
-#define GNOME_CMD_IS_FILE_SELECTOR(obj)       (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_SELECTOR))
+#define GNOME_CMD_TYPE_FILE_SELECTOR              (gnome_cmd_file_selector_get_type ())
+#define GNOME_CMD_FILE_SELECTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelector))
+#define GNOME_CMD_FILE_SELECTOR_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelectorClass))
+#define GNOME_CMD_IS_FILE_SELECTOR(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_FILE_SELECTOR))
+#define GNOME_CMD_IS_FILE_SELECTOR_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE_SELECTOR))
+#define GNOME_CMD_FILE_SELECTOR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelectorClass))
 
 struct GnomeCmdMainWin;
 
