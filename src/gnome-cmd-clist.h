@@ -20,9 +20,12 @@
 #ifndef __GNOME_CMD_CLIST_H__
 #define __GNOME_CMD_CLIST_H__
 
-#define GNOME_CMD_TYPE_CLIST        (gnome_cmd_clist_get_type ())
-#define GNOME_CMD_CLIST(obj)        (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CLIST, GnomeCmdCList))
-#define GNOME_CMD_IS_CLIST(obj)     (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CLIST))
+#define GNOME_CMD_TYPE_CLIST              (gnome_cmd_clist_get_type ())
+#define GNOME_CMD_CLIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CLIST, GnomeCmdCList))
+#define GNOME_CMD_CLIST_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CLIST, GnomeCmdCListClass))
+#define GNOME_CMD_IS_CLIST(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CLIST))
+#define GNOME_CMD_IS_CLIST_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CLIST))
+#define GNOME_CMD_CLIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CLIST, GnomeCmdCListClass))
 
 
 struct GnomeCmdCListPrivate;
