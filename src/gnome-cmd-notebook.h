@@ -23,9 +23,12 @@
 
 #include <gtk/gtk.h>
 
-#define GNOME_CMD_TYPE_NOTEBOOK          (gnome_cmd_notebook_get_type ())
-#define GNOME_CMD_NOTEBOOK(obj)          (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_NOTEBOOK, GnomeCmdNotebook))
-#define GNOME_CMD_IS_NOTEBOOK(obj)       (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_NOTEBOOK))
+#define GNOME_CMD_TYPE_NOTEBOOK              (gnome_cmd_notebook_get_type ())
+#define GNOME_CMD_NOTEBOOK(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_NOTEBOOK, GnomeCmdNotebook))
+#define GNOME_CMD_NOTEBOOK_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_NOTEBOOK, GnomeCmdNotebookClass))
+#define GNOME_CMD_IS_NOTEBOOK(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_NOTEBOOK))
+#define GNOME_CMD_IS_NOTEBOOK_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_NOTEBOOK))
+#define GNOME_CMD_NOTEBOOK_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_NOTEBOOK, GnomeCmdNotebookClass))
 
 
 GType gnome_cmd_notebook_get_type ();
