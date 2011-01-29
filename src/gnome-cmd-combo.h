@@ -35,9 +35,12 @@
 #include "imageloader.h"
 #include "gnome-cmd-pixmap.h"
 
-#define GNOME_CMD_TYPE_COMBO        (gnome_cmd_combo_get_type ())
-#define GNOME_CMD_COMBO(obj)        (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_COMBO, GnomeCmdCombo))
-#define GNOME_CMD_IS_COMBO(obj)     (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_COMBO))
+#define GNOME_CMD_TYPE_COMBO              (gnome_cmd_combo_get_type ())
+#define GNOME_CMD_COMBO(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_COMBO, GnomeCmdCombo))
+#define GNOME_CMD_COMBO_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass))
+#define GNOME_CMD_IS_COMBO(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_COMBO))
+#define GNOME_CMD_IS_COMBO_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_COMBO))
+#define GNOME_CMD_COMBO_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_COMBO, GnomeCmdComboClass))
 
 
 GtkType gnome_cmd_combo_get_type ();
