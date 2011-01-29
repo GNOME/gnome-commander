@@ -383,7 +383,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     g_return_val_if_fail (to!=NULL, NULL);
 
     gchar *dest_str = NULL;
-    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());
+    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (GNOME_CMD_TYPE_PREPARE_XFER_DIALOG);
 
     dialog->src_files = from->file_list()->get_selected_files();
     gnome_cmd_file_list_ref (dialog->src_files);
