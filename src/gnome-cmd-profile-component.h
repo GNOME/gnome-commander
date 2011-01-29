@@ -22,9 +22,12 @@
 
 #include "gnome-cmd-data.h"
 
-#define GNOME_CMD_TYPE_PROFILE_COMPONENT          (gnome_cmd_profile_component_get_type())
-#define GNOME_CMD_PROFILE_COMPONENT(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponent))
-#define GNOME_CMD_IS_PROFILE_COMPONENT(obj)       (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT)
+#define GNOME_CMD_TYPE_PROFILE_COMPONENT              (gnome_cmd_profile_component_get_type ())
+#define GNOME_CMD_PROFILE_COMPONENT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponent))
+#define GNOME_CMD_PROFILE_COMPONENT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponentClass))
+#define GNOME_CMD_IS_PROFILE_COMPONENT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT))
+#define GNOME_CMD_IS_PROFILE_COMPONENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PROFILE_COMPONENT))
+#define GNOME_CMD_PROFILE_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponentClass))
 
 
 GType gnome_cmd_profile_component_get_type ();
