@@ -23,9 +23,12 @@
 
 #include "gnome-cmd-file.h"
 
-#define GNOME_CMD_TYPE_RENAME_DIALOG        (gnome_cmd_rename_dialog_get_type ())
-#define GNOME_CMD_RENAME_DIALOG(obj)        (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_RENAME_DIALOG, GnomeCmdRenameDialog))
-#define GNOME_CMD_IS_RENAME_DIALOG(obj)     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_RENAME_DIALOG))
+#define GNOME_CMD_TYPE_RENAME_DIALOG              (gnome_cmd_rename_dialog_get_type ())
+#define GNOME_CMD_RENAME_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_RENAME_DIALOG, GnomeCmdRenameDialog))
+#define GNOME_CMD_RENAME_DIALOG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_RENAME_DIALOG, GnomeCmdRenameDialogClass))
+#define GNOME_CMD_IS_RENAME_DIALOG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_RENAME_DIALOG))
+#define GNOME_CMD_IS_RENAME_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_RENAME_DIALOG))
+#define GNOME_CMD_RENAME_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_RENAME_DIALOG, GnomeCmdRenameDialogClass))
 
 
 GType gnome_cmd_rename_dialog_get_type ();
