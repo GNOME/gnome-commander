@@ -325,7 +325,7 @@ GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
 {
     GnomeCmdQuicksearchPopup *popup;
 
-    popup = (GnomeCmdQuicksearchPopup *) gtk_type_new (gnome_cmd_quicksearch_popup_get_type ());
+    popup = (GnomeCmdQuicksearchPopup *) gtk_type_new (GNOME_CMD_TYPE_QUICKSEARCH_POPUP);
     GTK_WINDOW (popup)->type = GTK_WINDOW_POPUP;
     popup->priv->fl = fl;
     popup->priv->last_focused_file = NULL;

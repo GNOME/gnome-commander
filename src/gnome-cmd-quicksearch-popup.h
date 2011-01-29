@@ -22,12 +22,12 @@
 
 #include "gnome-cmd-file-list.h"
 
-#define GNOME_CMD_QUICKSEARCH_POPUP(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_quicksearch_popup_get_type (), GnomeCmdQuicksearchPopup)
-#define GNOME_CMD_QUICKSEARCH_POPUP_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_quicksearch_popup_get_type (), GnomeCmdQuicksearchPopupClass)
-#define GNOME_CMD_IS_QUICKSEARCH_POPUP(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_quicksearch_popup_get_type ())
+#define GNOME_CMD_TYPE_QUICKSEARCH_POPUP              (gnome_cmd_quicksearch_popup_get_type ())
+#define GNOME_CMD_QUICKSEARCH_POPUP(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_QUICKSEARCH_POPUP, GnomeCmdQuicksearchPopup))
+#define GNOME_CMD_QUICKSEARCH_POPUP_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_QUICKSEARCH_POPUP, GnomeCmdQuicksearchPopupClass))
+#define GNOME_CMD_IS_QUICKSEARCH_POPUP(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_QUICKSEARCH_POPUP))
+#define GNOME_CMD_IS_QUICKSEARCH_POPUP_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_QUICKSEARCH_POPUP))
+#define GNOME_CMD_QUICKSEARCH_POPUP_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_QUICKSEARCH_POPUP, GnomeCmdQuicksearchPopupClass))
 
 
 struct GnomeCmdQuicksearchPopupPrivate;
