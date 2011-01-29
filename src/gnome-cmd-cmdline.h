@@ -20,9 +20,12 @@
 #ifndef __GNOME_CMD_CMDLINE_H__
 #define __GNOME_CMD_CMDLINE_H__
 
-#define GNOME_CMD_TYPE_CMDLINE      (gnome_cmd_cmdline_get_type ())
-#define GNOME_CMD_CMDLINE(obj)      (GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdline))
-#define GNOME_CMD_IS_CMDLINE(obj)   (GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CMDLINE))
+#define GNOME_CMD_TYPE_CMDLINE              (gnome_cmd_cmdline_get_type ())
+#define GNOME_CMD_CMDLINE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdline))
+#define GNOME_CMD_CMDLINE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdlineClass))
+#define GNOME_CMD_IS_CMDLINE(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CMDLINE))
+#define GNOME_CMD_IS_CMDLINE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CMDLINE))
+#define GNOME_CMD_CMDLINE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdlineClass))
 
 
 struct GnomeCmdCmdlinePrivate;
