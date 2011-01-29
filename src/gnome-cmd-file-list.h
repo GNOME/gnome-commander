@@ -26,9 +26,12 @@
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-xml-config.h"
 
-#define GNOME_CMD_TYPE_FILE_LIST         (gnome_cmd_file_list_get_type ())
-#define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList)
-#define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_LIST)
+#define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())
+#define GNOME_CMD_FILE_LIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList))
+#define GNOME_CMD_FILE_LIST_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileListClass))
+#define GNOME_CMD_IS_FILE_LIST(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_FILE_LIST))
+#define GNOME_CMD_IS_FILE_LIST_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE_LIST))
+#define GNOME_CMD_FILE_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileListClass))
 
 
 GtkType gnome_cmd_file_list_get_type ();
