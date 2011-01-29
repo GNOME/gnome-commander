@@ -20,9 +20,12 @@
 #ifndef __GNOME_CMD_CHMOD_DIALOG_H__
 #define __GNOME_CMD_CHMOD_DIALOG_H__
 
-#define GNOME_CMD_TYPE_CHMOD_DIALOG         (gnome_cmd_chmod_dialog_get_type ())
-#define GNOME_CMD_CHMOD_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_CHMOD_DIALOG, GnomeCmdChmodDialog))
-#define GNOME_CMD_IS_CHMOD_DIALOG(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_CHMOD_DIALOG))
+#define GNOME_CMD_TYPE_CHMOD_DIALOG              (gnome_cmd_chmod_dialog_get_type ())
+#define GNOME_CMD_CHMOD_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CHMOD_DIALOG, GnomeCmdChmodDialog))
+#define GNOME_CMD_CHMOD_DIALOG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CHMOD_DIALOG, GnomeCmdChmodDialogClass))
+#define GNOME_CMD_IS_CHMOD_DIALOG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CHMOD_DIALOG))
+#define GNOME_CMD_IS_CHMOD_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CHMOD_DIALOG))
+#define GNOME_CMD_CHMOD_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CHMOD_DIALOG, GnomeCmdChmodDialogClass))
 
 
 GType gnome_cmd_chmod_dialog_get_type ();
