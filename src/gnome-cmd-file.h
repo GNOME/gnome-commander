@@ -21,12 +21,12 @@
 #ifndef __GNOME_CMD_FILE_H__
 #define __GNOME_CMD_FILE_H__
 
-#define GNOME_CMD_FILE(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_file_get_type (), GnomeCmdFile)
-#define GNOME_CMD_FILE_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_get_type (), GnomeCmdFileClass)
-#define GNOME_CMD_IS_FILE(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
+#define GNOME_CMD_TYPE_FILE              (gnome_cmd_file_get_type ())
+#define GNOME_CMD_FILE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFile))
+#define GNOME_CMD_FILE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
+#define GNOME_CMD_IS_FILE(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_FILE))
+#define GNOME_CMD_IS_FILE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE))
+#define GNOME_CMD_FILE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
 
 
 class GnomeCmdFileMetadata;

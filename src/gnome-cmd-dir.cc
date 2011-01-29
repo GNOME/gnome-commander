@@ -141,7 +141,7 @@ static void class_init (GnomeCmdDirClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdFileClass *file_class = GNOME_CMD_FILE_CLASS (klass);
 
-    parent_class = (GnomeCmdFileClass *) gtk_type_class (gnome_cmd_file_get_type ());
+    parent_class = (GnomeCmdFileClass *) gtk_type_class (GNOME_CMD_TYPE_FILE);
 
     signals[FILE_CREATED] =
         g_signal_new ("file-created",
@@ -257,7 +257,7 @@ GtkType gnome_cmd_dir_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        type = gtk_type_unique (gnome_cmd_file_get_type (), &info);
+        type = gtk_type_unique (GNOME_CMD_TYPE_FILE, &info);
     }
     return type;
 }

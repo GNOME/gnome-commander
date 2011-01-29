@@ -166,7 +166,7 @@ GtkType gnome_cmd_file_get_type ()
 
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
-    GnomeCmdFile *f = (GnomeCmdFile *) gtk_type_new (gnome_cmd_file_get_type ());
+    GnomeCmdFile *f = (GnomeCmdFile *) gtk_type_new (GNOME_CMD_TYPE_FILE);
 
     gnome_cmd_file_setup (f, info, dir);
 
