@@ -45,7 +45,7 @@ struct GnomeCmdRemoteDialogClass
 };
 
 
-GtkType gnome_cmd_remote_dialog_get_type ();
+GType gnome_cmd_remote_dialog_get_type ();
 
 GtkWidget *gnome_cmd_remote_dialog_new ();
 
