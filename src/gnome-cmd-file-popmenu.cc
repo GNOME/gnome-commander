@@ -470,7 +470,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     GList *files = fl->get_selected_files();
     if (!files) return NULL;
 
-    GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) gtk_type_new (GNOME_CMD_TYPE_FILE_POPMENU);
+    GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) g_object_new (GNOME_CMD_TYPE_FILE_POPMENU, NULL);
 
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 

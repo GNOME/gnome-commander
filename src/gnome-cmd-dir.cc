@@ -285,7 +285,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
         return dir;
     }
 
-    dir = (GnomeCmdDir *) gtk_type_new (GNOME_CMD_TYPE_DIR);
+    dir = (GnomeCmdDir *) g_object_new (GNOME_CMD_TYPE_DIR, NULL);
     gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, parent);
 
     dir->priv->con = con;
@@ -316,7 +316,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *p
         return dir;
     }
 
-    dir = (GnomeCmdDir *) gtk_type_new (GNOME_CMD_TYPE_DIR);
+    dir = (GnomeCmdDir *) g_object_new (GNOME_CMD_TYPE_DIR, NULL);
     gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 
     dir->priv->con = con;
@@ -357,7 +357,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
     if (res == GNOME_VFS_OK)
     {
-        dir = (GnomeCmdDir *) gtk_type_new (GNOME_CMD_TYPE_DIR);
+        dir = (GnomeCmdDir *) g_object_new (GNOME_CMD_TYPE_DIR, NULL);
         gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 
         dir->priv->con = con;

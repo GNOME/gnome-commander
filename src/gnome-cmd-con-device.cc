@@ -392,7 +392,7 @@ GtkType gnome_cmd_con_device_get_type ()
 
 GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path)
 {
-    GnomeCmdConDevice *dev = (GnomeCmdConDevice *) gtk_type_new (GNOME_CMD_TYPE_CON_DEVICE);
+    GnomeCmdConDevice *dev = (GnomeCmdConDevice *) g_object_new (GNOME_CMD_TYPE_CON_DEVICE, NULL);
 
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);

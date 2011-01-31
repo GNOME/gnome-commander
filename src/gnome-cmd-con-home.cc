@@ -162,7 +162,7 @@ GtkType gnome_cmd_con_home_get_type ()
 
 GnomeCmdCon *gnome_cmd_con_home_new ()
 {
-    GnomeCmdConHome *con = (GnomeCmdConHome *) gtk_type_new (GNOME_CMD_TYPE_CON_HOME);
+    GnomeCmdConHome *con = (GnomeCmdConHome *) g_object_new (GNOME_CMD_TYPE_CON_HOME, NULL);
 
     return GNOME_CMD_CON (con);
 }

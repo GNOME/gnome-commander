@@ -849,7 +849,7 @@ GtkType gnome_cmd_file_selector_get_type ()
 
 GtkWidget *gnome_cmd_file_selector_new ()
 {
-    GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) gtk_type_new (GNOME_CMD_TYPE_FILE_SELECTOR);
+    GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL);
 
     return *fs;
 }

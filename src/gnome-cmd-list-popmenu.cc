@@ -132,7 +132,7 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
             popmenu_uiinfo[i].user_data = fs;
 
-    GnomeCmdListPopmenu *menu = (GnomeCmdListPopmenu *) gtk_type_new (GNOME_CMD_TYPE_LIST_POPMENU);
+    GnomeCmdListPopmenu *menu = (GnomeCmdListPopmenu *) g_object_new (GNOME_CMD_TYPE_LIST_POPMENU, NULL);
 
     // Fill the menu
 

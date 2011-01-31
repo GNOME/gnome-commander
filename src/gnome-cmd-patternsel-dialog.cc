@@ -117,7 +117,7 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
     GtkWidget *hbox, *vbox, *label;
     GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
-    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) gtk_type_new (GNOME_CMD_TYPE_PATTERNSEL_DIALOG);
+    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) g_object_new (GNOME_CMD_TYPE_PATTERNSEL_DIALOG, NULL);
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
 

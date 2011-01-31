@@ -227,7 +227,7 @@ GtkType gnome_cmd_smb_path_get_type ()
 
 GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resource, const gchar *resource_path)
 {
-    GnomeCmdSmbPath *smb_path = (GnomeCmdSmbPath *) gtk_type_new (GNOME_CMD_TYPE_SMB_PATH);
+    GnomeCmdSmbPath *smb_path = (GnomeCmdSmbPath *) g_object_new (GNOME_CMD_TYPE_SMB_PATH, NULL);
 
     if (workgroup)
     {

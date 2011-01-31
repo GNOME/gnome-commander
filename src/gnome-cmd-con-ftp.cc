@@ -251,7 +251,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
     const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
 
-    GnomeCmdConFtp *server = (GnomeCmdConFtp *) gtk_type_new (GNOME_CMD_TYPE_CON_FTP);
+    GnomeCmdConFtp *server = (GnomeCmdConFtp *) g_object_new (GNOME_CMD_TYPE_CON_FTP, NULL);
 
     g_return_val_if_fail (server != NULL, NULL);
 

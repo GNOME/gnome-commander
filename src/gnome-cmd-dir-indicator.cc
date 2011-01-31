@@ -532,7 +532,7 @@ GtkType gnome_cmd_dir_indicator_get_type ()
 
 GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
-    GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) gtk_type_new (GNOME_CMD_TYPE_DIR_INDICATOR);
+    GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) g_object_new (GNOME_CMD_TYPE_DIR_INDICATOR, NULL);
 
     g_signal_connect (dir_indicator, "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 

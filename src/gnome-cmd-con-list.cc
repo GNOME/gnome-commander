@@ -191,7 +191,7 @@ GtkType gnome_cmd_con_list_get_type ()
 
 GnomeCmdConList *gnome_cmd_con_list_new ()
 {
-    return (GnomeCmdConList *) gtk_type_new (GNOME_CMD_TYPE_CON_LIST);
+    return (GnomeCmdConList *) g_object_new (GNOME_CMD_TYPE_CON_LIST, NULL);
 }
 
 

@@ -177,7 +177,7 @@ GtkType gnome_cmd_string_dialog_get_type ()
 
 GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data)
 {
-    GnomeCmdStringDialog *dialog = (GnomeCmdStringDialog *) gtk_type_new (GNOME_CMD_TYPE_STRING_DIALOG);
+    GnomeCmdStringDialog *dialog = (GnomeCmdStringDialog *) g_object_new (GNOME_CMD_TYPE_STRING_DIALOG, NULL);
 
     gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, cancel_cb, user_data);
 

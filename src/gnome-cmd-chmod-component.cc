@@ -170,7 +170,7 @@ static void init (GnomeCmdChmodComponent *comp)
 
 GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 {
-    GnomeCmdChmodComponent *comp = (GnomeCmdChmodComponent *) gtk_type_new (GNOME_CMD_TYPE_CHMOD_COMPONENT);
+    GnomeCmdChmodComponent *comp = (GnomeCmdChmodComponent *) g_object_new (GNOME_CMD_TYPE_CHMOD_COMPONENT, NULL);
 
     gnome_cmd_chmod_component_set_perms (comp, perms);
 
