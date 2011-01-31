@@ -193,7 +193,7 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
     GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), path);
 
     gnome_vfs_uri_unref (parent);
-    gtk_object_unref (GTK_OBJECT (path));
+    g_object_unref (path);
 
     return gnome_cmd_file_new (info, dir);
 }
