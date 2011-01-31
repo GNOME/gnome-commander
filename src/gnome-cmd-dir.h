@@ -29,6 +29,9 @@
 #define GNOME_CMD_DIR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_DIR, GnomeCmdDirClass))
 
 
+GType gnome_cmd_dir_get_type ();
+
+
 struct GnomeCmdDir;
 struct GnomeCmdDirPrivate;
 
@@ -81,8 +84,6 @@ struct GnomeCmdDirClass
 };
 
 struct GnomeCmdCon;
-
-GtkType gnome_cmd_dir_get_type ();
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent);
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *path, GnomeCmdCon *con);

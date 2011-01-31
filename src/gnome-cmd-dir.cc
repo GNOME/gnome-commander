@@ -71,7 +71,9 @@ struct GnomeCmdDirPrivate
     gint monitor_users;
 };
 
-static GnomeCmdFileClass *parent_class = NULL;
+
+G_DEFINE_TYPE (GnomeCmdDir, gnome_cmd_dir, GNOME_CMD_TYPE_FILE)
+
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -103,11 +105,29 @@ static void monitor_callback (GnomeVFSMonitorHandle *handle, const gchar *monito
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
+static void gnome_cmd_dir_init (GnomeCmdDir *dir)
+{
+    // dir->voffset = 0;
+    // dir->dialog = NULL;
+    dir->state = GnomeCmdDir::STATE_EMPTY;
 
-static void destroy (GtkObject *object)
+    dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
+
+    dir->priv->handle = handle_new (dir);
+    // dir->priv->monitor_handle = NULL;
+    // dir->priv->monitor_users = 0;
+    // dir->priv->files = NULL;
+    dir->priv->file_collection = new GnomeCmdFileCollection;
+
+    if (DEBUG_ENABLED ('c'))
+    {
+        created_dirs_cnt++;
+        all_dirs = g_list_append (all_dirs, dir);
+    }
+}
+
+
+static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
 
@@ -131,17 +151,13 @@ static void destroy (GtkObject *object)
         deleted_dirs_cnt++;
     }
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_dir_parent_class)->finalize (object);
 }
 
 
-static void class_init (GnomeCmdDirClass *klass)
+static void gnome_cmd_dir_class_init (GnomeCmdDirClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GnomeCmdFileClass *file_class = GNOME_CMD_FILE_CLASS (klass);
-
-    parent_class = (GnomeCmdFileClass *) gtk_type_class (GNOME_CMD_TYPE_FILE);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     signals[FILE_CREATED] =
         g_signal_new ("file-created",
@@ -203,7 +219,7 @@ static void class_init (GnomeCmdDirClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_INT);
 
-    object_class->destroy = destroy;
+    object_class->finalize = gnome_cmd_dir_finalize;
     klass->file_created = NULL;
     klass->file_deleted = NULL;
     klass->file_changed = NULL;
@@ -213,55 +229,9 @@ static void class_init (GnomeCmdDirClass *klass)
 }
 
 
-static void init (GnomeCmdDir *dir)
-{
-    // dir->voffset = 0;
-    // dir->dialog = NULL;
-    dir->state = GnomeCmdDir::STATE_EMPTY;
-
-    dir->priv = g_new0 (GnomeCmdDirPrivate, 1);
-
-    dir->priv->handle = handle_new (dir);
-    // dir->priv->monitor_handle = NULL;
-    // dir->priv->monitor_users = 0;
-    // dir->priv->files = NULL;
-    dir->priv->file_collection = new GnomeCmdFileCollection;
-
-    if (DEBUG_ENABLED ('c'))
-    {
-        created_dirs_cnt++;
-        all_dirs = g_list_append (all_dirs, dir);
-    }
-}
-
-
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_dir_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "GnomeCmdDir",
-            sizeof (GnomeCmdDir),
-            sizeof (GnomeCmdDirClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_FILE, &info);
-    }
-    return type;
-}
-
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
 {
