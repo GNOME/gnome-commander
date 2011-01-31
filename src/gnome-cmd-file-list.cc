@@ -1526,13 +1526,6 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 
     object_class->finalize = gnome_cmd_file_list_finalize;
 
-    klass->file_clicked = NULL;
-    klass->file_released = NULL;
-    klass->list_clicked = NULL;
-    klass->files_changed = NULL;
-    klass->dir_changed = NULL;
-    klass->con_changed = NULL;
-
     signals[FILE_CLICKED] =
         g_signal_new ("file-clicked",
             G_TYPE_FROM_CLASS (klass),

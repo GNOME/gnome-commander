@@ -738,7 +738,6 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
-    klass->dir_changed = NULL;
 }
 
 

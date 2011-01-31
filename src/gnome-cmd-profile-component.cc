@@ -1091,10 +1091,6 @@ static void gnome_cmd_profile_component_class_init (GnomeCmdProfileComponentClas
 
     object_class->finalize = gnome_cmd_profile_component_finalize;
 
-    klass->template_changed = NULL;
-    klass->counter_changed = NULL;
-    klass->regex_changed = NULL;
-
     signals[TEMPLATE_CHANGED] =
         g_signal_new ("template-changed",
             G_TYPE_FROM_CLASS (klass),

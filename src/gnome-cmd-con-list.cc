@@ -135,11 +135,6 @@ static void class_init (GnomeCmdConListClass *klass)
                                                                0);
 
     object_class->destroy = destroy;
-
-    klass->list_changed = NULL;
-    klass->ftp_list_changed = NULL;
-    klass->device_list_changed = NULL;
-    klass->quick_ftp_list_changed = NULL;
 }
 
 
