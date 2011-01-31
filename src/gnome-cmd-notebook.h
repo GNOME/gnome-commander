@@ -49,14 +49,14 @@ struct GnomeCmdNotebook
     operator GtkContainer * () const    {  return GTK_CONTAINER (this);  }
     operator GtkNotebook * () const     {  return GTK_NOTEBOOK (this);   }
 
-    int size() const                    {  return gtk_notebook_get_n_pages (*this);  }
-    bool empty() const                  {  return size()==0;  }
+    int size() const                    {  return gtk_notebook_get_n_pages (*this);       }
+    bool empty() const                  {  return size()==0;                              }
 
     gint get_current_page() const       {  return gtk_notebook_get_current_page (*this);  }
     void set_current_page(gint n)       {  gtk_notebook_set_current_page (*this, n);      }
 
     GtkWidget *page() const             {  return gtk_notebook_get_nth_page (*this, get_current_page());  }
-    GtkWidget *page(gint n) const       {  return gtk_notebook_get_nth_page (*this, n);  }
+    GtkWidget *page(gint n) const       {  return gtk_notebook_get_nth_page (*this, n);   }
 
     gint insert_page(GtkWidget *page, gint n, GtkWidget *label=NULL);
     gint insert_page(GtkWidget *page, gint n, const gchar *label)           {  return insert_page(page, n, label ? gtk_label_new (label) : NULL);  }

@@ -67,8 +67,7 @@ static void gnome_cmd_notebook_finalize (GObject *object)
 
     delete self->priv;
 
-    if (G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize)
-        (* G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize) (object);
+    G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize (object);
 }
 
 
