@@ -465,7 +465,7 @@ GtkType file_roller_plugin_get_type ()
 
 GnomeCmdPlugin *file_roller_plugin_new ()
 {
-    FileRollerPlugin *plugin = (FileRollerPlugin *) gtk_type_new (file_roller_plugin_get_type ());
+    FileRollerPlugin *plugin = (FileRollerPlugin *) g_object_new (file_roller_plugin_get_type (), NULL);
 
     return GNOME_CMD_PLUGIN (plugin);
 }

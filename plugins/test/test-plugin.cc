@@ -202,7 +202,7 @@ GtkType test_plugin_get_type ()
 
 GnomeCmdPlugin *test_plugin_new ()
 {
-    TestPlugin *plugin = (TestPlugin *) gtk_type_new (test_plugin_get_type ());
+    TestPlugin *plugin = (TestPlugin *) g_object_new (test_plugin_get_type (), NULL);
 
     return GNOME_CMD_PLUGIN (plugin);
 }

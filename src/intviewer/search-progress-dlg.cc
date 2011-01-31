@@ -139,7 +139,7 @@ GType gviewer_search_progress_dlg_get_type ()
 
 GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
 {
-    GViewerSearchProgressDlg *dlg = (GViewerSearchProgressDlg *) gtk_type_new (gviewer_search_progress_dlg_get_type());
+    GViewerSearchProgressDlg *dlg = (GViewerSearchProgressDlg *) g_object_new (gviewer_search_progress_dlg_get_type(), NULL);
 
     return GTK_WIDGET (dlg);
 }

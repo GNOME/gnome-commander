@@ -193,7 +193,7 @@ GtkType text_render_get_type ()
 
 GtkWidget* text_render_new ()
 {
-    TextRender *w = (TextRender *) gtk_type_new (text_render_get_type ());
+    TextRender *w = (TextRender *) g_object_new (text_render_get_type (), NULL);
 
     return GTK_WIDGET (w);
 }

@@ -82,7 +82,7 @@ GtkType scroll_box_get_type ()
 
 GtkWidget* scroll_box_new ()
 {
-    ScrollBox *w = (ScrollBox *) gtk_type_new (scroll_box_get_type ());
+    ScrollBox *w = (ScrollBox *) g_object_new (scroll_box_get_type (), NULL);
 
     return GTK_WIDGET (w);
 }

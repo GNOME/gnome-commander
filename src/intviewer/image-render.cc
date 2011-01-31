@@ -140,7 +140,7 @@ GtkType image_render_get_type ()
 
 GtkWidget *image_render_new ()
 {
-    ImageRender *w = (ImageRender *) gtk_type_new (image_render_get_type ());
+    ImageRender *w = (ImageRender *) g_object_new (image_render_get_type (), NULL);
 
     return GTK_WIDGET (w);
 }

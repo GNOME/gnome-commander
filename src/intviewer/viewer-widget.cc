@@ -120,7 +120,7 @@ GtkType gviewer_get_type ()
 
 GtkWidget *gviewer_new ()
 {
-    GViewer *w = (GViewer *) gtk_type_new (gviewer_get_type ());
+    GViewer *w = (GViewer *) g_object_new (gviewer_get_type (), NULL);
 
     return GTK_WIDGET (w);
 }

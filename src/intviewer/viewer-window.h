@@ -74,7 +74,7 @@ GtkType gviewer_window_get_type ();
 
 inline GtkWidget *gviewer_window_new ()
 {
-    return (GtkWidget *) gtk_type_new (gviewer_window_get_type ());
+    return (GtkWidget *) g_object_new (gviewer_window_get_type (), NULL);
 }
 
 void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f);

@@ -381,7 +381,7 @@ GtkType cvs_plugin_get_type ()
 
 GnomeCmdPlugin *cvs_plugin_new ()
 {
-    CvsPlugin *plugin = (CvsPlugin *) gtk_type_new (cvs_plugin_get_type ());
+    CvsPlugin *plugin = (CvsPlugin *) g_object_new (cvs_plugin_get_type (), NULL);
 
     return GNOME_CMD_PLUGIN (plugin);
 }
