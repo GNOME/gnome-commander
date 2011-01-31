@@ -49,8 +49,6 @@ gint created_files_cnt = 0;
 gint deleted_files_cnt = 0;
 GList *all_files = NULL;
 
-static GnomeCmdFileInfoClass *parent_class = NULL;
-
 struct GnomeCmdFile::Private
 {
     Handle *dir_handle;
@@ -58,6 +56,9 @@ struct GnomeCmdFile::Private
     gint ref_cnt;
     GnomeVFSFileSize tree_size;
 };
+
+
+G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_INFO)
 
 
 inline gboolean has_parent_dir (GnomeCmdFile *f)
@@ -74,48 +75,7 @@ inline GnomeCmdDir *get_parent_dir (GnomeCmdFile *f)
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
-
-static void destroy (GtkObject *object)
-{
-    GnomeCmdFile *f = GNOME_CMD_FILE (object);
-
-    delete f->metadata;
-
-    if (f->info->name[0] != '.')
-        DEBUG ('f', "file destroying 0x%p %s\n", f, f->info->name);
-
-    g_free (f->collate_key);
-    gnome_vfs_file_info_unref (f->info);
-    if (f->priv->dir_handle)
-        handle_unref (f->priv->dir_handle);
-
-    if (DEBUG_ENABLED ('c'))
-    {
-        all_files = g_list_remove (all_files, f);
-        deleted_files_cnt++;
-    }
-
-    g_free (f->priv);
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-static void class_init (GnomeCmdFileClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-
-    parent_class = (GnomeCmdFileInfoClass *) gtk_type_class (GNOME_CMD_TYPE_FILE_INFO);
-
-    object_class->destroy = destroy;
-}
-
-
-static void init (GnomeCmdFile *f)
+static void gnome_cmd_file_init (GnomeCmdFile *f)
 {
     // f->info = NULL;
     // f->collate_key = NULL;
@@ -137,33 +97,43 @@ static void init (GnomeCmdFile *f)
 }
 
 
+static void gnome_cmd_file_finalize (GObject *object)
+{
+    GnomeCmdFile *f = GNOME_CMD_FILE (object);
+
+    delete f->metadata;
+
+    if (f->info->name[0] != '.')
+        DEBUG ('f', "file destroying 0x%p %s\n", f, f->info->name);
+
+    g_free (f->collate_key);
+    gnome_vfs_file_info_unref (f->info);
+    if (f->priv->dir_handle)
+        handle_unref (f->priv->dir_handle);
+
+    if (DEBUG_ENABLED ('c'))
+    {
+        all_files = g_list_remove (all_files, f);
+        deleted_files_cnt++;
+    }
+
+    g_free (f->priv);
+
+    G_OBJECT_CLASS (gnome_cmd_file_parent_class)->finalize (object);
+}
+
+
+static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_file_finalize;
+}
+
+
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_file_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "GnomeCmdFile",
-            sizeof (GnomeCmdFile),
-            sizeof (GnomeCmdFileClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_FILE_INFO, &info);
-    }
-    return type;
-}
-
 
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {

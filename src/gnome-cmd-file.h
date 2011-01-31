@@ -29,6 +29,9 @@
 #define GNOME_CMD_FILE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
 
 
+GType gnome_cmd_file_get_type ();
+
+
 class GnomeCmdFileMetadata;
 
 struct GnomeCmdDir;
@@ -107,9 +110,6 @@ struct GnomeCmdFileClass
 {
     GnomeCmdFileInfoClass parent_class;
 };
-
-
-GtkType gnome_cmd_file_get_type ();
 
 
 inline gchar *GnomeCmdFile::get_name()
