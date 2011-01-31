@@ -29,9 +29,12 @@
 #define GNOME_CMD_FILE_INFO_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_INFO, GnomeCmdFileInfoClass))
 
 
+GType gnome_cmd_file_info_get_type ();
+
+
 struct GnomeCmdFileInfo
 {
-    GtkObject parent;
+    GObject parent;
 
     GnomeVFSURI *uri;
     GnomeVFSFileInfo *info;
@@ -41,12 +44,8 @@ struct GnomeCmdFileInfo
 
 struct GnomeCmdFileInfoClass
 {
-    GtkObjectClass parent_class;
+    GObjectClass parent_class;
 };
-
-
-GtkType gnome_cmd_file_info_get_type ();
-
 
 inline void GnomeCmdFileInfo::setup(GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {

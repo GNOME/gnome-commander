@@ -235,7 +235,7 @@ void GnomeCmdFile::unref()
 
     DEBUG (c, "un-refing: 0x%p %s to %d\n", this, info->name, priv->ref_cnt);
     if (priv->ref_cnt < 1)
-        gtk_object_destroy (GTK_OBJECT (this));
+        g_object_unref (this);
 }
 
 
