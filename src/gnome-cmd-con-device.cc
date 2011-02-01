@@ -430,10 +430,7 @@ void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *de
 
     g_free (dev->priv->device_fn);
 
-    if (!device_fn)
-        dev->priv->device_fn = NULL;
-    else
-        dev->priv->device_fn = g_strdup (device_fn);
+    dev->priv->device_fn = g_strdup (device_fn);
 }
 
 
