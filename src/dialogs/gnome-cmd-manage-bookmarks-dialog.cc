@@ -490,18 +490,25 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdCon *current_con = fs->get_connection();
+    GnomeCmdCon *con = bookmark->group->con;
 
-    if (current_con == bookmark->group->con)
-        fs->goto_directory(bookmark->path);
+    if (fs->get_connection() == con)
+    {
+        if (fs->file_list()->locked)
+            fs->new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path)));
+        else
+            fs->goto_directory(bookmark->path);
+    }
     else
     {
-        GnomeCmdCon *con = bookmark->group->con;
-
         if (con->state == GnomeCmdCon::STATE_OPEN)
         {
             GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
-            fs->set_connection(con, dir);
+
+            if (fs->file_list()->locked)
+                fs->new_tab(dir);
+            else
+                fs->set_connection(con, dir);
         }
         else
         {
@@ -510,7 +517,10 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 
             con->base_path = gnome_cmd_con_create_path (con, bookmark->path);
             g_object_ref (con->base_path);
-            fs->set_connection(con);
+            if (fs->file_list()->locked)
+                fs->new_tab(gnome_cmd_con_get_default_dir (con));
+            else
+                fs->set_connection(con);
         }
     }
 }
