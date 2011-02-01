@@ -1731,8 +1731,7 @@ const gchar *gnome_cmd_data_get_ftp_anonymous_password ()
 
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
 {
-    if (gnome_cmd_data.priv->ftp_anonymous_password)
-        g_free (gnome_cmd_data.priv->ftp_anonymous_password);
+    g_free (gnome_cmd_data.priv->ftp_anonymous_password);
 
     gnome_cmd_data.priv->ftp_anonymous_password = g_strdup (pw);
 }
@@ -1774,8 +1773,7 @@ GnomeCmdDateFormat gnome_cmd_data_get_date_format ()
 
 void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format)
 {
-    if (gnome_cmd_data.priv->date_format)
-        g_free (gnome_cmd_data.priv->date_format);
+    g_free (gnome_cmd_data.priv->date_format);
 
     gnome_cmd_data.priv->date_format = g_strdup (format);
 }
