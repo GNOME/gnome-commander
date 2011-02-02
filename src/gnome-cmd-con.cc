@@ -254,7 +254,7 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
             {
                 DEBUG('m', "GnomeCmdCon::OPEN_OK detected\n");
 
-                GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con->base_info, con->base_path, con);
+                GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con);
 
                 gnome_cmd_con_set_default_dir (con, dir);
 

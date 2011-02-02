@@ -86,7 +86,7 @@ struct GnomeCmdDirClass
 struct GnomeCmdCon;
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent);
-GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *path, GnomeCmdCon *con);
+GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path);
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);

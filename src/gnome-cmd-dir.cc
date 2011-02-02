@@ -269,12 +269,12 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
 }
 
 
-GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *path, GnomeCmdCon *con)
+GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 {
-    g_return_val_if_fail (info != NULL, NULL);
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    g_return_val_if_fail (con->base_info != NULL, NULL);
 
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
@@ -282,16 +282,16 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *p
     {
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
-        GNOME_CMD_FILE (dir)->update_info(info);
+        GNOME_CMD_FILE (dir)->update_info(con->base_info);
         return dir;
     }
 
     dir = (GnomeCmdDir *) g_object_new (GNOME_CMD_TYPE_DIR, NULL);
-    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
+    gnome_cmd_file_setup (GNOME_CMD_FILE (dir), con->base_info, NULL);
 
     dir->priv->con = con;
-    gnome_cmd_dir_set_path (dir, path);
-    g_object_ref (path);
+    gnome_cmd_dir_set_path (dir, con->base_path);
+    g_object_ref (con->base_path);
     dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (con, dir);
