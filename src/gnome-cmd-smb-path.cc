@@ -229,24 +229,18 @@ GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resou
 {
     GnomeCmdSmbPath *smb_path = (GnomeCmdSmbPath *) g_object_new (GNOME_CMD_TYPE_SMB_PATH, NULL);
 
+    smb_path->priv->workgroup = g_strdup (workgroup);
+
     if (workgroup)
     {
-        smb_path->priv->workgroup = g_strdup (workgroup);
-
         if (resource)
         {
             smb_path->priv->resource = g_strdup (resource);
-
-            if (resource_path)
-            {
-                smb_path->priv->resource_path = g_strdup (resource_path);
-                smb_path->priv->path = g_strdup_printf ("/%s%s", resource, resource_path);
-            }
-            else
-                smb_path->priv->path = g_strdup_printf ("/%s", resource);
+            smb_path->priv->resource_path = g_strdup (resource_path);
+            smb_path->priv->path = g_strconcat (G_DIR_SEPARATOR_S, resource, resource_path, NULL);
         }
         else
-            smb_path->priv->path = g_strdup_printf ("/%s", workgroup);
+            smb_path->priv->path = g_strconcat (G_DIR_SEPARATOR_S, workgroup, NULL);
     }
     else
         smb_path->priv->path = g_strdup (G_DIR_SEPARATOR_S);
@@ -294,7 +288,7 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
             b = g_strdup (v[1]);
             if (v[2] != NULL)
             {
-                c = g_strdup_printf ("/%s", v[2]);
+                c = g_strconcat (G_DIR_SEPARATOR_S, v[2], NULL);
                 if (v[3] != NULL)
                 {
                     gchar *t1 = c;
@@ -316,7 +310,7 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
             {
                 if (!b)
                     b = "/";
-                b = c ? g_strdup_printf ("/%s%s", b, c) : g_strdup_printf ("%s", b);
+                b = c ? g_strconcat (G_DIR_SEPARATOR_S, b, c, NULL) : g_strdup (b);
                 g_free (c);
                 out = gnome_cmd_smb_path_new (ent->workgroup_name, a, b);
             }
