@@ -262,7 +262,6 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
     g_return_val_if_fail (path_str != NULL, NULL);
 
     gchar *s, *t;
-    gchar **v;
     gchar *a = NULL,
           *b = NULL,
           *c = NULL;
@@ -276,11 +275,15 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
     g_strdelimit (s, "\\", '/');
 
     // Eat up all leading slashes
-    for (; *s=='/'; ++s)
-        if (!strlen (s))
-            return NULL;
+    for (; *s && *s=='/'; ++s);
 
-    v = g_strsplit (s, G_DIR_SEPARATOR_S, 0);
+    if (!*s)
+    {
+        g_free (t);
+        return NULL;
+    }
+
+    gchar **v = g_strsplit (s, G_DIR_SEPARATOR_S, 0);
     g_free (t);
 
     if (v[0] != NULL)
