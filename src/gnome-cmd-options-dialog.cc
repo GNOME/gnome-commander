@@ -1988,7 +1988,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
 #endif
 
-    GnomeCmdNotebook *notebook = new GnomeCmdNotebook;
+    GnomeCmdNotebook *notebook = new GnomeCmdNotebook(GnomeCmdNotebook::SHOW_TABS);
 
 #if GTK_CHECK_VERSION (2, 14, 0)
     gtk_container_add (GTK_CONTAINER (content_area), *notebook);
