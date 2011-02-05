@@ -831,6 +831,43 @@ inline void store_layout_options (GtkWidget *dialog)
 
 /***********************************************************************
  *
+ *  The Tabs tab
+ *
+ **********************************************************************/
+
+static GtkWidget *create_tabs_tab (GtkWidget *parent)
+{
+    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *radio, *check;
+
+    frame = create_tabframe (parent);
+    hbox = create_tabhbox (parent);
+    gtk_container_add (GTK_CONTAINER (frame), hbox);
+    vbox = create_tabvbox (parent);
+    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Tabs labels"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.always_show_tabs);
+
+    return frame;
+}
+
+
+inline void store_tabs_options (GtkWidget *dialog)
+{
+    GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
+
+    gnome_cmd_data.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
+}
+
+
+/***********************************************************************
+ *
  *  The Confirmation tab
  *
  **********************************************************************/
@@ -1931,6 +1968,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNoteb
     static const char *help_id[] = {"gnome-commander-prefs-general",
                                     "gnome-commander-prefs-format",
                                     "gnome-commander-prefs-layout",
+                                    "gnome-commander-prefs-tabs",
                                     "gnome-commander-prefs-confirmation",
                                     "gnome-commander-prefs-filters",
                                     "gnome-commander-prefs-network",
@@ -1999,6 +2037,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_general_tab (dialog), _("General"));
     notebook->append_page(create_format_tab (dialog), _("Format"));
     notebook->append_page(create_layout_tab (dialog), _("Layout"));
+    notebook->append_page(create_tabs_tab (dialog), _("Tabs"));
     notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog), _("Filters"));
     notebook->append_page(create_network_tab (dialog), _("Network"));
@@ -2022,6 +2061,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_general_options (dialog);
         store_format_options (dialog);
         store_layout_options (dialog);
+        store_tabs_options (dialog);
         store_confirmation_options (dialog);
         store_filter_options (dialog);
         store_network_options (dialog);

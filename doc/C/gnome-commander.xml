@@ -4708,6 +4708,33 @@
 		</sect3>
 <!-- ====Confirmation==== -->
     </sect2>
+    <!-- Tabs options -->
+    <sect2 id="gnome-commander-prefs-tabs">
+      <title>Tabs</title>
+      <!--brief desciption-->
+      <para>This section of the option dialog lets you configure parameters for tabs.</para>
+      <itemizedlist>
+        <listitem>
+          <para><guilabel>Always show the tab bar</guilabel> If you're only viewing one file list in a &app; window, the tab bar is not normally shown. Check this preference to always show the tab bar, including when the &app; window contains only file list</para>
+        </listitem>
+      </itemizedlist>
+      <!-- ==== Figure ==== -->
+      <figure id="options-network-fig">
+        <title>Tabs options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_tabs.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; tabs preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
+    </sect2>
     <sect2 id="gnome-commander-prefs-confirmation">
       <title>Confirmation</title>
       <para>The Confirmation tab allows You to configure when a confirmation dialog
@@ -7374,6 +7401,13 @@
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>always_show_tabs</para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-prefs-tabs"/></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>

@@ -242,6 +242,8 @@ struct GnomeCmdData
     gboolean                     save_dirs_on_exit;
     gboolean                     save_tabs_on_exit;
 
+    gboolean                     always_show_tabs;
+
     gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;

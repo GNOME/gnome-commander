@@ -984,6 +984,8 @@ void GnomeCmdFileSelector::update_style()
     if (priv->realized)
         update_files();
 
+    notebook->show_tabs(gnome_cmd_data.always_show_tabs ? GnomeCmdNotebook::SHOW_TABS : GnomeCmdNotebook::HIDE_TABS_IF_ONE);
+
     create_con_buttons (this);
     update_connections();
 }

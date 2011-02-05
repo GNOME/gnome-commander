@@ -945,6 +945,8 @@ GnomeCmdData::GnomeCmdData()
     save_dirs_on_exit = FALSE;
     save_tabs_on_exit = TRUE;
 
+    always_show_tabs = FALSE;
+
     allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
@@ -1226,6 +1228,8 @@ void GnomeCmdData::load()
 
     save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
     save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
+
+    always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
 
     priv->last_pattern = gnome_cmd_data_get_string ("/defaults/last_pattern", "");
     priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
@@ -1641,6 +1645,8 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", save_dirs_on_exit);
     gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
+
+    gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
 
     gnome_cmd_data_set_string ("/defaults/last_pattern", priv->last_pattern);
     gnome_cmd_data_set_string ("/defaults/backup_pattern", priv->backup_pattern);
