@@ -81,6 +81,25 @@ static void gnome_cmd_notebook_class_init (GnomeCmdNotebookClass *klass)
 }
 
 
+GnomeCmdNotebook::GnomeCmdNotebook(TabBarVisibility visibility)
+{
+    tabs_visibility = visibility;
+
+    if (visibility==SHOW_TABS)
+        g_object_set (this, "show-tabs", TRUE, NULL);
+}
+
+
+void GnomeCmdNotebook::show_tabs(TabBarVisibility _show_tabs)
+{
+    if (_show_tabs!=tabs_visibility)
+    {
+        tabs_visibility = _show_tabs;
+        gtk_notebook_set_show_tabs (*this, _show_tabs==SHOW_TABS || _show_tabs!=HIDE_TABS && size()>1);
+    }
+}
+
+
 int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
 {
     if (!GTK_NOTEBOOK (this)->first_tab)

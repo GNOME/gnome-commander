@@ -49,6 +49,17 @@ struct GnomeCmdNotebook
     operator GtkContainer * () const    {  return GTK_CONTAINER (this);  }
     operator GtkNotebook * () const     {  return GTK_NOTEBOOK (this);   }
 
+    enum TabBarVisibility
+    {
+        HIDE_TABS,
+        HIDE_TABS_IF_ONE,
+        SHOW_TABS
+    };
+
+    TabBarVisibility tabs_visibility;
+
+    GnomeCmdNotebook(TabBarVisibility visibility=HIDE_TABS_IF_ONE);
+
     int size() const                    {  return gtk_notebook_get_n_pages (*this);       }
     bool empty() const                  {  return size()==0;                              }
 
@@ -78,12 +89,15 @@ struct GnomeCmdNotebook
     void prev_page();
     void next_page();
 
+    void show_tabs(TabBarVisibility show);
+    void show_tabs(gboolean show)                                           {  show_tabs(show ? SHOW_TABS : HIDE_TABS);             }
+
     int find_tab_num_at_pos(gint screen_x, gint screen_y) const;
 };
 
 inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *label)
 {
-    if (size()==1)
+    if (tabs_visibility==HIDE_TABS_IF_ONE && size()==1)
         gtk_notebook_set_show_tabs (*this, TRUE);
     return gtk_notebook_insert_page (*this, page, label, n);
 }
@@ -91,7 +105,7 @@ inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *la
 inline void GnomeCmdNotebook::remove_page(gint n)
 {
     gtk_notebook_remove_page (*this, n);
-    if (size()<2)
+    if (tabs_visibility==HIDE_TABS_IF_ONE && size()<2)
         gtk_notebook_set_show_tabs (*this, FALSE);
 }
 
