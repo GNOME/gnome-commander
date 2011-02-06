@@ -476,7 +476,12 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
 
             case 2:
                 if (gnome_cmd_data.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
-                    fs->goto_directory("..");
+                {
+                    if (fl->locked)
+                        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
+                    else
+                        fs->goto_directory("..");
+                }
                 else
                 {
                     if (f && f->is_dotdot)
