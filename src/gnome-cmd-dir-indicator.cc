@@ -73,7 +73,6 @@ static void destroy (GtkObject *object)
 static void class_init (GnomeCmdDirIndicatorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = (GtkFrameClass *) gtk_type_class (gtk_frame_get_type ());
 

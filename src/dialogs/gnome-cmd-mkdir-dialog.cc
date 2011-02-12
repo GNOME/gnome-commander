@@ -177,7 +177,7 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
     gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
 #endif
-    GtkWidget *table, *align, *label, *entry;
+    GtkWidget *table, *label, *entry;
 
     table = gtk_table_new (3, 2, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (table), 5);

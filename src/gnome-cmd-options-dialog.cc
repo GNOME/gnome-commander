@@ -259,7 +259,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 static GtkWidget *create_format_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box, *table;
-    GtkWidget *radio, *label, *entry, *button;
+    GtkWidget *radio, *label, *entry;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);

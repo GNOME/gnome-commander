@@ -144,8 +144,6 @@ static GnomeCmdPath *ftp_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (object);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }

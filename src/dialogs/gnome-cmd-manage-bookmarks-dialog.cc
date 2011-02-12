@@ -190,7 +190,6 @@ static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
     for (GList *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); all_cons; all_cons = all_cons->next)
     {
         GnomeCmdCon *con = (GnomeCmdCon *) all_cons->data;
-        GnomeCmdPixmap *pixmap = gnome_cmd_con_get_open_pixmap (con);
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
         if (!group || !group->bookmarks)

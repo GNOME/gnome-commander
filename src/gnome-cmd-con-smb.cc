@@ -40,8 +40,6 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 {
     g_return_if_fail (results != NULL);
 
-    GnomeCmdConSmb *smb_con = GNOME_CMD_CON_SMB (con);
-
     if (con->state == GnomeCmdCon::STATE_OPENING)
     {
         GnomeVFSGetFileInfoResult *r = (GnomeVFSGetFileInfoResult *) results->data;
@@ -168,8 +166,6 @@ static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdConSmb *con = GNOME_CMD_CON_SMB (object);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }

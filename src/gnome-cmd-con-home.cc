@@ -78,8 +78,6 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdConHome *con = GNOME_CMD_CON_HOME (object);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
