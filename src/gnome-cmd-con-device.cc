@@ -114,7 +114,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
         DEBUG ('m', "mount returned %d and had the exitstatus %d\n", ret, estatus);
 
         if (ret == -1)
-            emsg = g_strdup_printf (_("Failed to execute the mount command"));
+            emsg = g_strdup (_("Failed to execute the mount command"));
         else
             switch (estatus)
             {
