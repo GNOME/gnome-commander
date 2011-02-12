@@ -87,8 +87,7 @@ static void destroy (GtkObject *object)
     g_free (con->alias);
     g_free (con->uri);
 
-    if (con->base_path)
-        g_object_unref (con->base_path);
+    delete con->base_path;
     g_free (con->open_text);
     g_free (con->open_tooltip);
     gnome_cmd_pixmap_free (con->open_pixmap);
@@ -440,7 +439,7 @@ GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar
         *type = info->type;
 
     gnome_vfs_uri_unref (uri);
-    gtk_object_destroy (GTK_OBJECT (path));
+    delete path;
     gnome_vfs_file_info_unref (info);
 
     return res;
@@ -464,7 +463,7 @@ GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str)
         GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
 
     gnome_vfs_uri_unref (uri);
-    gtk_object_destroy (GTK_OBJECT (path));
+    delete path;
 
     return result;
 }

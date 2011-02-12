@@ -131,14 +131,12 @@ static void gnome_cmd_dir_finalize (GObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
 
-    DEBUG ('d', "dir destroying 0x%p %s\n", dir, gnome_cmd_path_get_path (dir->priv->path));
+    DEBUG ('d', "dir destroying 0x%p %s\n", dir, dir->priv->path->get_path());
 
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
     delete dir->priv->file_collection;
-
-    if (dir->priv->path)
-        g_object_unref (dir->priv->path);
+    delete dir->priv->path;
 
     dir->priv->handle->ref = NULL;
     handle_unref (dir->priv->handle);
@@ -239,7 +237,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
     g_return_val_if_fail (GNOME_CMD_IS_DIR (parent), NULL);
 
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (parent);
-    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), info->name);
+    GnomeCmdPath *path =  gnome_cmd_dir_get_path (parent)->get_child(info->name);
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
@@ -250,7 +248,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
 
     if (dir)
     {
-        gtk_object_destroy (GTK_OBJECT (path));
+        delete path;
         GNOME_CMD_FILE (dir)->update_info(info);
         return dir;
     }
@@ -260,7 +258,6 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
 
     dir->priv->con = con;
     gnome_cmd_dir_set_path (dir, path);
-    gtk_object_ref (GTK_OBJECT (path));
     dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir);
@@ -290,8 +287,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     gnome_cmd_file_setup (GNOME_CMD_FILE (dir), con->base_info, NULL);
 
     dir->priv->con = con;
-    gnome_cmd_dir_set_path (dir, con->base_path);
-    g_object_ref (con->base_path);
+    gnome_cmd_dir_set_path (dir, con->base_path->clone());
     dir->priv->needs_mtime_update = FALSE;
 
     gnome_cmd_con_add_to_cache (con, dir);
@@ -303,7 +299,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-    g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
+    g_return_val_if_fail (path!=NULL, NULL);
 
     GnomeVFSFileInfo *info;
     GnomeVFSResult res;
@@ -332,14 +328,13 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 
         dir->priv->con = con;
         gnome_cmd_dir_set_path (dir, path);
-        g_object_ref (path);
         dir->priv->needs_mtime_update = FALSE;
 
         gnome_cmd_con_add_to_cache (con, dir);
     }
     else
     {
-        gnome_cmd_show_message (*main_win, gnome_cmd_path_get_display_path (path), gnome_vfs_result_to_string (res));
+        gnome_cmd_show_message (*main_win, path->get_display_path(), gnome_vfs_result_to_string (res));
         gnome_vfs_file_info_unref (info);
     }
 
@@ -354,7 +349,7 @@ GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    GnomeCmdPath *path = gnome_cmd_path_get_parent (dir->priv->path);
+    GnomeCmdPath *path = dir->priv->path->get_parent();
 
     return path ? gnome_cmd_dir_new (dir->priv->con, path) : NULL;
 }
@@ -364,7 +359,7 @@ GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    GnomeCmdPath *path = gnome_cmd_path_get_child (dir->priv->path, child);
+    GnomeCmdPath *path = dir->priv->path->get_child(child);
 
     return path ? gnome_cmd_dir_new (dir->priv->con, path) : NULL;
 }
@@ -576,11 +571,9 @@ void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (dir->priv->path)
-        gtk_object_destroy (GTK_OBJECT (dir->priv->path));
+    delete dir->priv->path;
 
     dir->priv->path = path;
-    g_object_ref (path);
 }
 
 
@@ -592,7 +585,7 @@ void gnome_cmd_dir_update_path (GnomeCmdDir *dir)
     if (!parent)
         return;
 
-    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), GNOME_CMD_FILE (dir)->get_name());
+    GnomeCmdPath *path = gnome_cmd_dir_get_path (parent)->get_child(GNOME_CMD_FILE (dir)->get_name());
     if (path)
         gnome_cmd_dir_set_path (dir, path);
 }
@@ -602,7 +595,7 @@ gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    return g_strdup (gnome_cmd_path_get_display_path (dir->priv->path));
+    return g_strdup (dir->priv->path->get_display_path());
 }
 
 
@@ -630,9 +623,9 @@ GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filenam
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    GnomeCmdPath *path = gnome_cmd_path_get_child (dir->priv->path, filename);
+    GnomeCmdPath *path = dir->priv->path->get_child(filename);
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
-    gtk_object_destroy (GTK_OBJECT (path));
+    delete path;
 
     return uri;
 }
@@ -682,7 +675,7 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
     GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
 
-    gtk_object_destroy (GTK_OBJECT (path));
+    delete path;
 
     return uri;
 }

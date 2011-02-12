@@ -57,7 +57,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-menu-button.h gnome-cmd-menu-button.cc \
 	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
 	gnome-cmd-options-dialog.h gnome-cmd-options-dialog.cc \
-	gnome-cmd-path.h gnome-cmd-path.cc \
+	gnome-cmd-path.h \
 	gnome-cmd-patternsel-dialog.h gnome-cmd-patternsel-dialog.cc \
 	gnome-cmd-pixmap.h gnome-cmd-pixmap.cc \
 	gnome-cmd-plain-path.h gnome-cmd-plain-path.cc \

@@ -179,10 +179,7 @@ static void dev_open (GnomeCmdCon *con)
     DEBUG ('m', "Mounting device\n");
 
     if (!con->base_path)
-    {
-        con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
-        g_object_ref (con->base_path);
-    }
+        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -279,11 +276,11 @@ static gboolean dev_open_is_needed (GnomeCmdCon *con)
 static GnomeVFSURI *dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), NULL);
-    g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
+    g_return_val_if_fail (path!=NULL, NULL);
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
-    const gchar *path_str = gnome_cmd_path_get_path (path);
+    const gchar *path_str = path->get_path();
     gchar *p = g_build_filename (dev_con->priv->mountp, path_str, NULL);
     GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
     GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, p);
@@ -298,7 +295,7 @@ static GnomeCmdPath *dev_create_path (GnomeCmdCon *con, const gchar *path_str)
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), NULL);
     g_return_val_if_fail (path_str != NULL, NULL);
 
-    return gnome_cmd_plain_path_new (path_str);
+    return new GnomeCmdPlainPath(path_str);
 }
 
 

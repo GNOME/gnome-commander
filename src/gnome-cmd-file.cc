@@ -159,11 +159,10 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
     }
 
     GnomeVFSURI *parent = gnome_vfs_uri_get_parent (uri);
-    GnomeCmdPath *path = gnome_cmd_plain_path_new (gnome_vfs_uri_get_path (parent));
-    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), path);
+    GnomeCmdPlainPath path(gnome_vfs_uri_get_path (parent));
+    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), &path);
 
     gnome_vfs_uri_unref (parent);
-    g_object_unref (path);
 
     return gnome_cmd_file_new (info, dir);
 }
@@ -342,14 +341,14 @@ gchar *GnomeCmdFile::get_path()
         if (GNOME_CMD_IS_DIR (this))
         {
             path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
-            return g_strdup (gnome_cmd_path_get_path (path));
+            return g_strdup (path->get_path());
         }
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (::get_parent_dir (this)), info->name);
-    path_str = g_strdup (gnome_cmd_path_get_path (path));
-    gtk_object_destroy (GTK_OBJECT (path));
+    path = gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(info->name);
+    path_str = g_strdup (path->get_path());
+    delete path;
 
     return path_str;
 }
@@ -685,12 +684,11 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     gchar *path_str = get_temp_download_filepath (f->get_name());
     if (!path_str)  return;
 
-    GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
+    GnomeCmdPlainPath path(path_str);
     GnomeVFSURI *src_uri = f->get_uri();
-    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
+    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
 
     g_printerr ("Copying to: %s\n", path_str);
-    gtk_object_destroy (GTK_OBJECT (path));
     g_free (path_str);
 
     gnome_cmd_xfer_tmp_download (src_uri,

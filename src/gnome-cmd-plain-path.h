@@ -22,34 +22,33 @@
 
 #include "gnome-cmd-path.h"
 
-#define GNOME_CMD_TYPE_PLAIN_PATH              (gnome_cmd_plain_path_get_type ())
-#define GNOME_CMD_PLAIN_PATH(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PLAIN_PATH, GnomeCmdPlainPath))
-#define GNOME_CMD_PLAIN_PATH_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PLAIN_PATH, GnomeCmdPlainPathClass))
-#define GNOME_CMD_IS_PLAIN_PATH(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PLAIN_PATH))
-#define GNOME_CMD_IS_PLAIN_PATH_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PLAIN_PATH))
-#define GNOME_CMD_PLAIN_PATH_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PLAIN_PATH, GnomeCmdPlainPathClass))
-
-
 struct GnomeCmdPlainPathPrivate;
 
 
-struct GnomeCmdPlainPath
+class GnomeCmdPlainPath: public GnomeCmdPath
 {
-    GnomeCmdPath parent;
 
-    GnomeCmdPlainPathPrivate *priv;
+    gchar *path;
+
+  protected:
+
+    virtual GnomeCmdPlainPath *do_clone() const {  return new GnomeCmdPlainPath(*this);  }
+
+  public:
+
+    GnomeCmdPlainPath(const GnomeCmdPlainPath &thePath);
+    GnomeCmdPlainPath(const gchar *path)        {  this->path = g_strdup (path);  }
+    virtual ~GnomeCmdPlainPath()                {  g_free (path);                 }
+
+    virtual const gchar *get_path()             {  return path;                   }
+    virtual const gchar *get_display_path()     {  return path;                   }
+    virtual GnomeCmdPath *get_parent();
+    virtual GnomeCmdPath *get_child(const gchar *child);
 };
 
-struct GnomeCmdPlainPathClass
+inline GnomeCmdPlainPath::GnomeCmdPlainPath(const GnomeCmdPlainPath &thePath)
 {
-    GnomeCmdPathClass parent_class;
-
-    void (* update_text) (GtkEditable *editable, gint start_pos, gint end_pos);
-};
-
-
-GtkType gnome_cmd_plain_path_get_type ();
-
-GnomeCmdPath *gnome_cmd_plain_path_new (const gchar *path);
+    path = g_strdup (thePath.path);
+}
 
 #endif // __GNOME_CMD_PLAIN_PATH_H__

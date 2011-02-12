@@ -58,7 +58,7 @@ static gboolean home_open_is_needed (GnomeCmdCon *con)
 static GnomeVFSURI *home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
-    GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
+    GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, path->get_path());
     gnome_vfs_uri_unref (u1);
 
     return u2;
@@ -67,7 +67,7 @@ static GnomeVFSURI *home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 
 static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return gnome_cmd_plain_path_new (path_str);
+    return new GnomeCmdPlainPath(path_str);
 }
 
 
@@ -122,7 +122,7 @@ static void init (GnomeCmdConHome *home_con)
     con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
     con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
 
-    GnomeCmdPath *path = gnome_cmd_plain_path_new (g_get_home_dir ());
+    GnomeCmdPath *path = new GnomeCmdPlainPath(g_get_home_dir ());
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
 
     gnome_cmd_con_set_default_dir (con, dir);

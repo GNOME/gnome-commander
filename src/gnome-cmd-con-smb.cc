@@ -78,10 +78,7 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 static void smb_open (GnomeCmdCon *con)
 {
     if (!con->base_path)
-    {
-        con->base_path = gnome_cmd_smb_path_new (NULL, NULL, NULL);
-        g_object_ref (con->base_path);
-    }
+        con->base_path = new GnomeCmdSmbPath(NULL, NULL, NULL);
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
     if (!uri)
@@ -139,7 +136,7 @@ static GnomeVFSURI *smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
     u1 = gnome_vfs_uri_new ("smb:");
     if (!u1) return NULL;
 
-    u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
+    u2 = gnome_vfs_uri_append_path (u1, path->get_path());
     gnome_vfs_uri_unref (u1);
     if (!u2) return NULL;
 
@@ -155,7 +152,7 @@ static GnomeVFSURI *smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 
 static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return gnome_cmd_smb_path_new_from_str (path_str);
+    return new GnomeCmdSmbPath(path_str);
 }
 
 

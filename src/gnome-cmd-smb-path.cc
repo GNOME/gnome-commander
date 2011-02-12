@@ -28,53 +28,43 @@
 using namespace std;
 
 
-struct GnomeCmdSmbPathPrivate
+inline void GnomeCmdSmbPath::set_resources(const gchar *workgroup, const gchar *resource, const gchar *path)
 {
-    gchar *workgroup;
-    gchar *resource;
-    gchar *resource_path;
-    gchar *path;
-    gchar *display_path;
-};
+    this->workgroup = g_strdup (workgroup);
 
-static GnomeCmdPathClass *parent_class = NULL;
+    if (workgroup)
+    {
+        if (resource)
+        {
+            this->resource = g_strdup (resource);
+            this->resource_path = g_strdup (resource_path);
+            path = g_strconcat (G_DIR_SEPARATOR_S, resource, resource_path, NULL);
+        }
+        else
+            path = g_strconcat (G_DIR_SEPARATOR_S, workgroup, NULL);
+    }
+    else
+        path = g_strdup (G_DIR_SEPARATOR_S);
 
-
-inline const gchar *smb_path_get_path (GnomeCmdPath *path)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
-
-    return GNOME_CMD_SMB_PATH (path)->priv->path;
+    display_path = unix_to_unc (path);
 }
 
 
-inline const gchar *smb_path_get_display_path (GnomeCmdPath *path)
+GnomeCmdPath *GnomeCmdSmbPath::get_parent()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
-
-    return GNOME_CMD_SMB_PATH (path)->priv->display_path;
-}
-
-
-inline GnomeCmdPath *smb_path_get_parent (GnomeCmdPath *path)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
-
-    GnomeCmdSmbPath *smb_path = GNOME_CMD_SMB_PATH (path);
-
-    if (!smb_path->priv->workgroup)
+    if (!workgroup)
         return NULL;
 
     gchar *a = NULL,
           *b = NULL,
           *c = NULL;
 
-    if (smb_path->priv->resource)
+    if (resource)
     {
-        if (smb_path->priv->resource_path)
+        if (resource_path)
         {
             GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
-            GnomeVFSURI *u1 = gnome_vfs_uri_append_path (t, smb_path->priv->resource_path);
+            GnomeVFSURI *u1 = gnome_vfs_uri_append_path (t, resource_path);
             gnome_vfs_uri_unref (t);
 
             if (u1 && gnome_vfs_uri_has_parent (u1))
@@ -89,20 +79,19 @@ inline GnomeCmdPath *smb_path_get_parent (GnomeCmdPath *path)
                 g_free (s);
             }
 
-            b = smb_path->priv->resource;
+            b = resource;
             gnome_vfs_uri_unref (u1);
         }
 
-        a = smb_path->priv->workgroup;
+        a = workgroup;
     }
 
-    return gnome_cmd_smb_path_new (a, b, c);
+    return new GnomeCmdSmbPath(a, b, c);
 }
 
 
-inline GnomeCmdPath *smb_path_get_child (GnomeCmdPath *path, const gchar *child)
+ GnomeCmdPath *GnomeCmdSmbPath::get_child(const gchar *child)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
     g_return_val_if_fail (child != NULL, NULL);
     g_return_val_if_fail (child[0] != '/', NULL);
 
@@ -110,18 +99,16 @@ inline GnomeCmdPath *smb_path_get_child (GnomeCmdPath *path, const gchar *child)
           *b = NULL,
           *c = NULL;
 
-    GnomeCmdSmbPath *smb_path = GNOME_CMD_SMB_PATH (path);
-
-    if (smb_path->priv->workgroup)
+    if (workgroup)
     {
-        if (smb_path->priv->resource)
+        if (resource)
         {
-            if (smb_path->priv->resource_path)
+            if (resource_path)
             {
                 GnomeVFSURI *u1, *u2;
 
                 GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
-                u1 = gnome_vfs_uri_append_path (t, smb_path->priv->resource_path);
+                u1 = gnome_vfs_uri_append_path (t, resource_path);
                 gnome_vfs_uri_unref (t);
                 if (!strchr (child, '/'))
                     u2 = gnome_vfs_uri_append_file_name (u1, child);
@@ -136,17 +123,17 @@ inline GnomeCmdPath *smb_path_get_child (GnomeCmdPath *path, const gchar *child)
             else
                 c = g_strdup_printf ("/%s", child);
 
-            b = g_strdup (smb_path->priv->resource);
+            b = g_strdup (resource);
         }
         else
             b = g_strdup (child);
 
-        a = g_strdup (smb_path->priv->workgroup);
+        a = g_strdup (workgroup);
     }
     else
         a = g_strdup (child);
 
-    GnomeCmdPath *out = gnome_cmd_smb_path_new (a, b, c);
+    GnomeCmdPath *out = new GnomeCmdSmbPath(a, b, c);
     g_free (a);
     g_free (b);
     g_free (c);
@@ -155,111 +142,20 @@ inline GnomeCmdPath *smb_path_get_child (GnomeCmdPath *path, const gchar *child)
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
-
-static void destroy (GtkObject *object)
+GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *workgroup, const gchar *resource, const gchar *resource_path)
 {
-    GnomeCmdSmbPath *path = GNOME_CMD_SMB_PATH (object);
-
-    g_free (path->priv->workgroup);
-    g_free (path->priv->resource);
-    g_free (path->priv->resource_path);
-    g_free (path->priv->path);
-    g_free (path->priv->display_path);
-    g_free (path->priv);
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    set_resources(workgroup,resource,resource_path);
 }
 
 
-static void class_init (GnomeCmdSmbPathClass *klass)
+GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
-
-    parent_class = (GnomeCmdPathClass *) gtk_type_class (GNOME_CMD_TYPE_PATH);
-
-    object_class->destroy = destroy;
-
-    path_class->get_path = smb_path_get_path;
-    path_class->get_display_path = smb_path_get_display_path;
-    path_class->get_parent = smb_path_get_parent;
-    path_class->get_child = smb_path_get_child;
-}
-
-
-static void init (GnomeCmdSmbPath *path)
-{
-    path->priv = g_new0 (GnomeCmdSmbPathPrivate, 1);
-}
-
-
-/***********************************
- * Public functions
- ***********************************/
-
-GtkType gnome_cmd_smb_path_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "GnomeCmdSmbPath",
-            sizeof (GnomeCmdSmbPath),
-            sizeof (GnomeCmdSmbPathClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (GNOME_CMD_TYPE_PATH, &info);
-    }
-    return type;
-}
-
-
-GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resource, const gchar *resource_path)
-{
-    GnomeCmdSmbPath *smb_path = (GnomeCmdSmbPath *) g_object_new (GNOME_CMD_TYPE_SMB_PATH, NULL);
-
-    smb_path->priv->workgroup = g_strdup (workgroup);
-
-    if (workgroup)
-    {
-        if (resource)
-        {
-            smb_path->priv->resource = g_strdup (resource);
-            smb_path->priv->resource_path = g_strdup (resource_path);
-            smb_path->priv->path = g_strconcat (G_DIR_SEPARATOR_S, resource, resource_path, NULL);
-        }
-        else
-            smb_path->priv->path = g_strconcat (G_DIR_SEPARATOR_S, workgroup, NULL);
-    }
-    else
-        smb_path->priv->path = g_strdup (G_DIR_SEPARATOR_S);
-
-    smb_path->priv->display_path = unix_to_unc (smb_path->priv->path);
-
-    return GNOME_CMD_PATH (smb_path);
-}
-
-
-GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
-{
-    g_return_val_if_fail (path_str != NULL, NULL);
+    g_return_if_fail (path_str != NULL);
 
     gchar *s, *t;
     gchar *a = NULL,
           *b = NULL,
           *c = NULL;
-    GnomeCmdPath *out = NULL;
 
     DEBUG('s', "Creating smb-path for %s\n", path_str);
 
@@ -274,7 +170,7 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
     if (!*s)
     {
         g_free (t);
-        return NULL;
+        return;
     }
 
     gchar **v = g_strsplit (s, G_DIR_SEPARATOR_S, 0);
@@ -305,21 +201,19 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
         if (ent)
         {
             if (ent->type == SMB_WORKGROUP)
-                out = gnome_cmd_smb_path_new (a, b, c);
+                set_resources(a, b, c);
             else
             {
                 if (!b)
                     b = "/";
                 b = c ? g_strconcat (G_DIR_SEPARATOR_S, b, c, NULL) : g_strdup (b);
                 g_free (c);
-                out = gnome_cmd_smb_path_new (ent->workgroup_name, a, b);
+                set_resources(ent->workgroup_name, a, b);
             }
         }
         else
-            create_error_dialog (_("Can't find a host or workgroup named %s\n"), a);
+            g_warning ("Can't find a host or workgroup named %s", a);
     }
     else
-        out = gnome_cmd_smb_path_new (NULL, NULL, NULL);
-
-    return out;
+        set_resources(NULL, NULL, NULL);
 }

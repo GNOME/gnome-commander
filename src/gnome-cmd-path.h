@@ -20,39 +20,20 @@
 #ifndef __GNOME_CMD_PATH_H__
 #define __GNOME_CMD_PATH_H__
 
-#define GNOME_CMD_TYPE_PATH              (gnome_cmd_path_get_type ())
-#define GNOME_CMD_PATH(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PATH, GnomeCmdPath))
-#define GNOME_CMD_PATH_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PATH, GnomeCmdPathClass))
-#define GNOME_CMD_IS_PATH(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PATH))
-#define GNOME_CMD_IS_PATH_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PATH))
-#define GNOME_CMD_PATH_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PATH, GnomeCmdPathClass))
-
-
 struct GnomeCmdPath
 {
-    GtkObject parent;
+  protected:
+
+    virtual GnomeCmdPath *do_clone() const = 0;
+
+  public:
+
+    GnomeCmdPath *clone() const                                 {  return do_clone();  }
+
+    virtual const gchar *get_path() = 0;
+    virtual const gchar *get_display_path() = 0;
+    virtual GnomeCmdPath *get_parent() = 0;
+    virtual GnomeCmdPath *get_child(const gchar *child) = 0;
 };
-
-struct GnomeCmdPathClass
-{
-    GtkObjectClass parent_class;
-
-    // virtual functions
-    const gchar *(* get_path)          (GnomeCmdPath *path);
-    const gchar *(* get_display_path)  (GnomeCmdPath *path);
-    GnomeCmdPath *(* get_parent)       (GnomeCmdPath *path);
-    GnomeCmdPath *(* get_child)        (GnomeCmdPath *path, const gchar *child);
-};
-
-
-GtkType gnome_cmd_path_get_type ();
-
-const gchar *gnome_cmd_path_get_path (GnomeCmdPath *path);
-
-const gchar *gnome_cmd_path_get_display_path (GnomeCmdPath *path);
-
-GnomeCmdPath *gnome_cmd_path_get_parent (GnomeCmdPath *path);
-
-GnomeCmdPath *gnome_cmd_path_get_child (GnomeCmdPath *path, const gchar *child);
 
 #endif // __GNOME_CMD_PATH_H__

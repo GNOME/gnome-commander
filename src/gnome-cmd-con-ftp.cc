@@ -82,10 +82,7 @@ static void ftp_open (GnomeCmdCon *con)
     DEBUG('m', "Opening remote connection\n");
 
     if (!con->base_path)
-    {
-        con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
-        g_object_ref (con->base_path);
-    }
+        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -97,7 +94,7 @@ static void ftp_open (GnomeCmdCon *con)
 static gboolean ftp_close (GnomeCmdCon *con)
 {
     gnome_cmd_con_set_default_dir (con, NULL);
-    g_object_unref (con->base_path);
+    delete con->base_path;
     con->base_path = NULL;
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
@@ -124,7 +121,7 @@ static GnomeVFSURI *ftp_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
     g_return_val_if_fail (con->uri != NULL, NULL);
 
     GnomeVFSURI *u0 = gnome_vfs_uri_new (con->uri);
-    GnomeVFSURI *u1 = gnome_vfs_uri_append_path (u0, gnome_cmd_path_get_path (path));
+    GnomeVFSURI *u1 = gnome_vfs_uri_append_path (u0, path->get_path());
 
     gnome_vfs_uri_unref (u0);
 
@@ -134,7 +131,7 @@ static GnomeVFSURI *ftp_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 
 static GnomeCmdPath *ftp_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return gnome_cmd_plain_path_new (path_str);
+    return new GnomeCmdPlainPath(path_str);
 }
 
 
