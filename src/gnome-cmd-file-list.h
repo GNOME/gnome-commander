@@ -68,6 +68,9 @@ struct GnomeCmdFileList
 
     Private *priv;
 
+    GtkWidget *tab_label_pin;
+    GtkWidget *tab_label_text;
+
     gboolean realized;
     gboolean modifier_click;
 

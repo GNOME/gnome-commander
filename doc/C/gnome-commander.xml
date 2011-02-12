@@ -7411,6 +7411,13 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
+                                    <entry><para>tab_lock_indicator</para></entry>
+                                    <entry><para>integer</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-prefs-tabs"/></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
                                     <entry><para>allow_multiple_instances</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>

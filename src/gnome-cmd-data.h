@@ -55,6 +55,13 @@ struct GnomeCmdData
         RIGHT_BUTTON_POPUPS_MENU,
         RIGHT_BUTTON_SELECTS
     };
+    
+    enum TabLockIndicator
+    {
+        TAB_LOCK_ICON,
+        TAB_LOCK_ASTERISK,
+        TAB_LOCK_STYLED_TEXT
+    };
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
@@ -243,6 +250,7 @@ struct GnomeCmdData
     gboolean                     save_tabs_on_exit;
 
     gboolean                     always_show_tabs;
+    int                          tab_lock_indicator;
 
     gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;

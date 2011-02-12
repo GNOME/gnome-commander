@@ -1623,33 +1623,14 @@ void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
     //  1 .. n  -> tab #n for active fs
     // -1 .. -n -> tab #n for inactive fs
 
-    GnomeCmdFileSelector *fs;
-    GnomeCmdFileList *fl;
-
-    if (!page)
-    {
-        fs = get_fs (ACTIVE);
-        fl = get_fl (ACTIVE);
-
-        if (fs && fl)
-        {
-            fl->locked = !fl->locked;
-            fs->update_tab_label(fl);
-        }
-
-        return;
-    }
-
     int n = GPOINTER_TO_INT (page);
-
-    fs = get_fs (n>0 ? ACTIVE : INACTIVE);
-    n = ABS(n)-1;
-    fl = fs->file_list(n);
+    GnomeCmdFileSelector *fs = get_fs (n>=0 ? ACTIVE : INACTIVE);
+    GnomeCmdFileList *fl = n==0 ? get_fl (ACTIVE) : fs->file_list(ABS(n)-1);
 
     if (fs && fl)
     {
         fl->locked = !fl->locked;
-        fs->update_tab_label(fl,n);
+        fs->update_tab_label(fl);
     }
 }
 

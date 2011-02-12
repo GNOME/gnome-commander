@@ -979,6 +979,20 @@ void GnomeCmdFileSelector::update_connections()
 }
 
 
+static void update_style_notebook_tab (GtkWidget *widget, GnomeCmdFileSelector *fs)
+{
+    GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (widget));
+
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    if (gnome_cmd_data.tab_lock_indicator!=GnomeCmdData::TAB_LOCK_ICON)
+        gtk_widget_hide (fl->tab_label_pin);
+
+    if (fl->locked)
+        fs->update_tab_label(fl);
+}
+
+
 void GnomeCmdFileSelector::update_style()
 {
     con_combo->update_style();
@@ -990,6 +1004,8 @@ void GnomeCmdFileSelector::update_style()
         update_files();
 
     notebook->show_tabs(gnome_cmd_data.always_show_tabs ? GnomeCmdNotebook::SHOW_TABS : GnomeCmdNotebook::HIDE_TABS_IF_ONE);
+
+    gtk_container_foreach (*notebook, (GtkCallback) update_style_notebook_tab, this);
 
     create_con_buttons (this);
     update_connections();
@@ -1375,8 +1391,19 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (scrolled_window), *list);
 
-    GtkWidget *label = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : NULL);
-    gint n = notebook->append_page(scrolled_window, label);
+    GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
+
+    list->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
+    list->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : NULL);
+
+    gtk_box_pack_start (GTK_BOX (hbox), list->tab_label_pin, FALSE, FALSE, 3);
+    gtk_box_pack_start (GTK_BOX (hbox), list->tab_label_text, FALSE, FALSE, 0);
+
+    if (locked && gnome_cmd_data.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
+        gtk_widget_show (list->tab_label_pin);
+    gtk_widget_show (list->tab_label_text);
+
+    gint n = notebook->append_page(scrolled_window, hbox);
 #if GTK_CHECK_VERSION (2, 10, 0)
     gtk_notebook_set_tab_reorderable (*notebook, scrolled_window, TRUE);
 #endif
@@ -1408,33 +1435,41 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 }
 
 
-void GnomeCmdFileSelector::update_tab_label(const GnomeCmdFileList *fl)
+void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 {
     const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
 
-    if (fl->locked)
+    switch (gnome_cmd_data.tab_lock_indicator)
     {
-        gchar *s = g_strconcat ("* ", name, NULL);
-        notebook->set_label(s);
-        g_free (s);
+        case GnomeCmdData::TAB_LOCK_ICON:
+            if (fl->locked)
+                gtk_widget_show (fl->tab_label_pin);
+            else
+                gtk_widget_hide (fl->tab_label_pin);
+            break;
+
+        case GnomeCmdData::TAB_LOCK_ASTERISK:
+            if (fl->locked)
+            {
+                gchar *s = g_strconcat ("* ", name, NULL);
+                gtk_label_set_text (GTK_LABEL (fl->tab_label_text), s);
+                g_free (s);
+                return;
+            }
+            break;
+
+        case GnomeCmdData::TAB_LOCK_STYLED_TEXT:
+            if (fl->locked)
+            {
+                gchar *s = g_strconcat ("<span foreground='blue'>", name, "</span>", NULL);
+                gtk_label_set_markup (GTK_LABEL (fl->tab_label_text), s);
+                g_free (s);
+                return;
+            }
+            break;
     }
-    else
-        notebook->set_label(name);
-}
 
-
-void GnomeCmdFileSelector::update_tab_label(const GnomeCmdFileList *fl, gint page)
-{
-    const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
-
-    if (fl->locked)
-    {
-        gchar *s = g_strconcat ("* ", name, NULL);
-        notebook->set_label(page,s);
-        g_free (s);
-    }
-    else
-        notebook->set_label(page,name);
+    gtk_label_set_text (GTK_LABEL (fl->tab_label_text), name);
 }
 
 

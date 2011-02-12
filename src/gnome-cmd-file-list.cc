@@ -217,6 +217,8 @@ GnomeCmdFileList::Private::~Private()
 
 GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
+    tab_label_pin = NULL;
+    tab_label_text = NULL;
     realized = FALSE;
     modifier_click = FALSE;
     locked = FALSE;
