@@ -847,7 +847,7 @@ static GtkWidget *create_tabs_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Tabs labels"));
+    cat = create_category (parent, cat_box, _("Tab bar"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
