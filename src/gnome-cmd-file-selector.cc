@@ -865,7 +865,16 @@ void GnomeCmdFileSelector::first()
         return;
 
     priv->dir_history->lock();
-    goto_directory(priv->dir_history->first());
+
+    if (list->locked)
+    {
+        GnomeCmdCon *con = get_connection();
+
+        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->first())));
+    }
+    else
+        goto_directory(priv->dir_history->first());
+
     priv->dir_history->unlock();
 }
 
@@ -876,7 +885,16 @@ void GnomeCmdFileSelector::back()
         return;
 
     priv->dir_history->lock();
-    goto_directory(priv->dir_history->back());
+
+    if (list->locked)
+    {
+        GnomeCmdCon *con = get_connection();
+
+        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->back())));
+    }
+    else
+        goto_directory(priv->dir_history->back());
+
     priv->dir_history->unlock();
 }
 
@@ -887,7 +905,16 @@ void GnomeCmdFileSelector::forward()
         return;
 
     priv->dir_history->lock();
-    goto_directory(priv->dir_history->forward());
+
+    if (list->locked)
+    {
+        GnomeCmdCon *con = get_connection();
+
+        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->forward())));
+    }
+    else
+        goto_directory(priv->dir_history->forward());
+
     priv->dir_history->unlock();
 }
 
@@ -898,7 +925,16 @@ void GnomeCmdFileSelector::last()
         return;
 
     priv->dir_history->lock();
-    goto_directory(priv->dir_history->last());
+
+    if (list->locked)
+    {
+        GnomeCmdCon *con = get_connection();
+
+        new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, priv->dir_history->last())));
+    }
+    else
+        goto_directory(priv->dir_history->last());
+
     priv->dir_history->unlock();
 }
 
