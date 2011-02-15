@@ -5528,7 +5528,7 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>F2</keycap></keycombo></para></entry>
-            <entry><para>Refresh files in the active file list</para></entry>
+            <entry><para>Rename a file</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -7668,6 +7668,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #639243 (misleading docs for F2 shortcut)</para>
+                        </listitem>
                         <listitem>
                             <para>Fixed problem #640387 (usage of deprecated python modules: md5, sha1)</para>
                         </listitem>
