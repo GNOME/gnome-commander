@@ -28,16 +28,11 @@
 #define GNOME_CMD_CLIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CLIST, GnomeCmdCListClass))
 
 
-struct GnomeCmdCListPrivate;
-
-
 struct GnomeCmdCList
 {
     GtkCList parent;
 
     gint drag_motion_row;
-
-    GnomeCmdCListPrivate *priv;
 };
 
 
@@ -57,7 +52,7 @@ inline GtkWidget *gnome_cmd_clist_new (gint columns)
     return gnome_cmd_clist_new_with_titles (columns, NULL);
 }
 
-void gnome_cmd_clist_update_style        (GnomeCmdCList *clist);
+void gnome_cmd_clist_update_style (GnomeCmdCList *clist);
 
 gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist);
 void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset);

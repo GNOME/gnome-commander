@@ -31,11 +31,6 @@ using namespace std;
 static GtkCListClass *parent_class = NULL;
 
 
-struct GnomeCmdCListPrivate
-{
-};
-
-
 /*******************************************
  * TEST TEST TEST
  ****/
@@ -263,8 +258,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
     if (area)
     {
         rect = &intersect_rectangle;
-        if (gdk_rectangle_intersect (area, &cell_rectangle,
-                                     &intersect_rectangle))
+        if (gdk_rectangle_intersect (area, &cell_rectangle, &intersect_rectangle))
             gdk_draw_rectangle (clist->clist_window,
                                 widget->style->base_gc[GTK_STATE_NORMAL],
                                 TRUE,
@@ -350,8 +344,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
         if (area && !gdk_rectangle_intersect (area, &clip_rectangle, &intersect_rectangle))
             continue;
 
-        gdk_draw_rectangle (clist->clist_window, bg_gc, TRUE,
-                            rect->x, rect->y, rect->width, rect->height);
+        gdk_draw_rectangle (clist->clist_window, bg_gc, TRUE, rect->x, rect->y, rect->width, rect->height);
 
         clip_rectangle.x += COLUMN_INSET + CELL_SPACING;
         clip_rectangle.width -= (2 * COLUMN_INSET + CELL_SPACING + (i == last_column) * CELL_SPACING);
