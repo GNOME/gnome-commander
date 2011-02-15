@@ -2,7 +2,7 @@ Default keyboard mapping for GNOME Commander v1.2
 -----------------------------------------
 
 F1              Help
-F2              Refresh files in the active file list
+F2              Rename a file
 F3              View files
 F4              Edit file
 F5              Copy files
