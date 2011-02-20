@@ -1231,7 +1231,13 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Left:
             case GDK_KP_Left:
             case GDK_BackSpace:
-                goto_directory("..");
+                if (!list->locked)
+                {
+                    list->invalidate_tree_size();
+                    list->goto_directory("..");
+                }
+                else
+                    new_tab(gnome_cmd_dir_get_parent (list->cwd));
                 return TRUE;
 
             case GDK_Right:
