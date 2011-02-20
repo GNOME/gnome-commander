@@ -1202,11 +1202,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 add_cwd_to_cmdline (list);
                 return TRUE;
 
-            case GDK_Page_Up:
-            case GDK_KP_Page_Up:
-                goto_directory("..");
-                return TRUE;
-
             case GDK_Page_Down:
             case GDK_KP_Page_Down:
                 f = list->get_selected_file();

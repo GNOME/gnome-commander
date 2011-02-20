@@ -342,6 +342,12 @@ void GnomeCmdUserActions::init()
         register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
     }
 
+    if (!registered("view.up"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_Page_Up, "view.up");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Page_Up, "view.up");
+    }
+
     if (!registered("view.equal_panes"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_plus, "view.equal_panes");
 
