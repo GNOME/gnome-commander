@@ -1421,7 +1421,13 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fl (ACTIVE)->goto_directory("..");
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    if (fl->locked)
+        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
+    else
+        fs->goto_directory("..");
 }
 
 
