@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-15 20:15+0000\n"
-"PO-Revision-Date: 2011-02-16 18:24+0100\n"
+"POT-Creation-Date: 2011-02-17 20:00+0000\n"
+"PO-Revision-Date: 2011-02-21 15:11+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1585,7 +1585,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:892(title)
 msgid "Using multiple tabs"
-msgstr "Usar múltiples solapas"
+msgstr "Usar múltiples pestañas"
 
 #: C/gnome-commander.xml:893(Para)
 msgid ""
@@ -1594,9 +1594,9 @@ msgid ""
 "the application the tabs are reopened as they were before. This option can "
 "be set in <xref linkend=\"gnome-commander-prefs-general\"/>."
 msgstr ""
-"Puede abrir varias solapas en ambos paneles para acelerar la navegación. "
-"GNOME Commander puede almacenar la ubicación de las solapas abiertas al "
-"cerrarse. Cuando inicia de nuevo la aplicación, las solapas se abren como "
+"Puede abrir varias pestañas en ambos paneles para acelerar la navegación. "
+"GNOME Commander puede almacenar la ubicación de las pestañas abiertas al "
+"cerrarse. Cuando inicia de nuevo la aplicación, las pestañas se abren como "
 "estaban. Esta opción se puede configurar en la <xref linkend=\"gnome-"
 "commander-prefs-general\"/>."
 
@@ -1608,9 +1608,9 @@ msgid ""
 "pane."
 msgstr ""
 "Usando el ratón, se puede configurar la pulsación con el botón central para "
-"que abra una solapa nueva. Esta opción se puede establecer en la <xref "
+"que abra una pestaña nueva. Esta opción se puede establecer en la <xref "
 "linkend=\"gnome-commander-prefs-general\"/>. Cuando está configurado, una "
-"pulsación con el botón central sobre una carpeta la abrirá en una solapa "
+"pulsación con el botón central sobre una carpeta la abrirá en una pestaña "
 "nueva en el mismo panel."
 
 #: C/gnome-commander.xml:897(para)
@@ -1627,8 +1627,8 @@ msgid ""
 "keycombo> this opens a new tab in the current panel with the same folder "
 "opened."
 msgstr ""
-"Para abrir una solapa nueva pulse <keycombo><keycap>CTRL</keycap><keycap>t</"
-"keycap></keycombo>, esto abra una solapa nueva en el panel actual con la "
+"Para abrir una pestaña nueva pulse <keycombo><keycap>CTRL</keycap><keycap>t</"
+"keycap></keycombo>, esto abra una pestaña nueva en el panel actual con la "
 "misma carpeta abierta."
 
 #: C/gnome-commander.xml:905(para)
@@ -1640,11 +1640,11 @@ msgid ""
 "button on a folder will also open a new tab displaying it in the current "
 "pane."
 msgstr ""
-"Para abrir una solapa nueva que muestre la carpeta seleccionada en el panel "
+"Para abrir una pestaña nueva que muestre la carpeta seleccionada en el panel "
 "actual, pulse <keycombo><keycap>Ctrl</keycap><keycap>flecha arriba</keycap></"
-"keycombo>. Si ha configurado la opción de abrir una solapa nueva con el "
+"keycombo>. Si ha configurado la opción de abrir una pestaña nueva con el "
 "botón central del ratón (<xref linkend=\"gnome-commander-prefs-general\"/>), "
-"usar el botón central del ratón también abrirá una solapa nueva en el panel "
+"usar el botón central del ratón también abrirá una pestaña nueva en el panel "
 "actual."
 
 #: C/gnome-commander.xml:908(para)
@@ -1653,7 +1653,7 @@ msgid ""
 "the <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up arrow</"
 "keycap></keycombo>."
 msgstr ""
-"Para abrir una solapa nueva que muestre la carpeta seleccionada en el panel "
+"Para abrir una pestaña nueva que muestre la carpeta seleccionada en el panel "
 "inactivo pulse <keycombo><keycap>Ctrl</keycap><keycap>Mayús</"
 "keycap><keycap>flecha arriba</keycap></keycombo>."
 
@@ -1664,11 +1664,11 @@ msgid ""
 "tab element. If the tabs are selected you can also use the <keycap>right "
 "arrow</keycap> or <keycap>left arrow</keycap> to select the desired tab."
 msgstr ""
-"Para navegar entre solapas puede usar el ratón o usar "
+"Para navegar entre pestañas puede usar el ratón o usar "
 "<keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> tantas veces "
-"como necesite para seleccionar la solapa. Si las solapas están seleccionadas "
-"también puede usar <keycap>flecha derecha</keycap> o <keycap>flecha "
-"izquierda</keycap> para seleccionar la solapa que quiere."
+"como necesite para seleccionar la pestaña. Si las pestañas están "
+"seleccionadas también puede usar <keycap>flecha derecha</keycap> o "
+"<keycap>flecha izquierda</keycap> para seleccionar la pestaña que quiere."
 
 #: C/gnome-commander.xml:914(para)
 msgid ""
@@ -1677,24 +1677,24 @@ msgid ""
 "close the current tab using the keyboard shortcut <keycombo><keycap>Ctrl</"
 "keycap><keycap>w</keycap></keycombo>"
 msgstr ""
-"Para cerrar una solapa puede usar el ratón, pulsando dos veces en la solapa "
-"o pulsando con el botón derecho sobre ella y seleccionando <guimenu>Cerrar "
-"solapa</guimenu> en el menú. También puede cerrar la solapa actual usando el "
-"atajo de teclado <keycombo><keycap>Ctrl</keycap><keycap>w</keycap></"
-"keycombo>."
+"Para cerrar una pestaña puede usar el ratón, pulsando dos veces en la "
+"pestaña o pulsando con el botón derecho sobre ella y seleccionando "
+"<guimenu>Cerrar pestaña</guimenu> en el menú. También puede cerrar la "
+"pestaña actual usando el atajo de teclado <keycombo><keycap>Ctrl</"
+"keycap><keycap>w</keycap></keycombo>."
 
 #: C/gnome-commander.xml:917(para)
 msgid "Right clicking on any tab will open a tab specific menu"
 msgstr ""
-"Pulsando con el botón derecho sobre cualquier solapa se abrirá un menú "
-"específico de la solapa"
+"Pulsando con el botón derecho sobre cualquier pestaña se abrirá un menú "
+"específico de la pestaña"
 
 #: C/gnome-commander.xml:920(para)
 msgid ""
 "<guimenu>Open in new tab</guimenu> this action opens a new tab with the "
 "displaying the currently opened folder."
 msgstr ""
-"<guimenu>Abrir en una solapa nueva</guimenu> esta acción abre una solapa "
+"<guimenu>Abrir en una pestaña nueva</guimenu> esta acción abre una pestaña "
 "nueva mostrando la carpeta abierta actualmente."
 
 #: C/gnome-commander.xml:923(para)
@@ -1702,7 +1702,7 @@ msgid ""
 "<guimenu>Refresh tab</guimenu> this actions refreshes the files displayed "
 "currently in the folder."
 msgstr ""
-"<guimenu>Abrir en una solapa nueva</guimenu> esta acción actualiza los "
+"<guimenu>Abrir en una pestaña nueva</guimenu> esta acción actualiza los "
 "archivos mostrados actualmente en la carpeta."
 
 #: C/gnome-commander.xml:927(para)
@@ -1710,14 +1710,14 @@ msgid ""
 "<guimenu>Copy tab to other pane</guimenu> opens a new tab in the opposite "
 "pane, this tab will display the selected tab."
 msgstr ""
-"<guimenu>Copiar solapa a otro panel</guimenu> abre una solapa nueva en el "
-"panel opuesto; esta solapa mostrará la solapa seleccionada."
+"<guimenu>Copiar pestaña a otro panel</guimenu> abre una pestaña nueva en el "
+"panel opuesto; esta pestaña mostrará la pestaña seleccionada."
 
 #: C/gnome-commander.xml:930(para)
 msgid ""
 "<guimenu>Close tab</guimenu> this action closes the currently selected tab."
 msgstr ""
-"<guimenu>Cerrar solapa</guimenu> esta acción cierra la solapa seleccionada "
+"<guimenu>Cerrar pestaña</guimenu> esta acción cierra la pestaña seleccionada "
 "actualmente."
 
 #: C/gnome-commander.xml:934(para)
@@ -1725,8 +1725,8 @@ msgid ""
 "<guimenu>Close all tabs</guimenu> GNOME Commander will close all open tabs "
 "in the current pane. This leaves the current tab as the only open folder."
 msgstr ""
-"<guimenu>Cerrar todas las solapas</guimenu> GNOME-Commander cerrará todas la "
-"solapas abiertas en el panel actual. Esto deja la solapa actual como la "
+"<guimenu>Cerrar todas las pestañas</guimenu> GNOME-Commander cerrará todas "
+"la pestañas abiertas en el panel actual. Esto deja la pestaña actual como la "
 "única carpeta abierta."
 
 #: C/gnome-commander.xml:937(para)
@@ -1734,8 +1734,8 @@ msgid ""
 "<guimenu>Close duplicate tabs</guimenu> GNOME Commander will search for "
 "duplicated open tabs in the current pane and close them."
 msgstr ""
-"<guimenu>Cerrar solapas duplicadas</guimenu> GNOME-Commander buscará solapas "
-"abiertas duplicadas en el panel actual y las cerrará."
+"<guimenu>Cerrar pestañas duplicadas</guimenu> GNOME-Commander buscará "
+"pestañas abiertas duplicadas en el panel actual y las cerrará."
 
 #: C/gnome-commander.xml:949(title)
 msgid "Advanced Features"
@@ -1879,7 +1879,7 @@ msgid ""
 "settings for a file. For more information on permissions, see <xref linkend="
 "\"gnome-commander-permissions\"/>."
 msgstr ""
-"En la solapa Permisos (consulte la <xref linkend=\"permission-tab-fig\"/>), "
+"En la pestaña Permisos (consulte la <xref linkend=\"permission-tab-fig\"/>), "
 "puede cambiar los permisos y el propietario de un archivo (si tiene los "
 "permisos adecuados para hacerlo). Puede cambiar los permisos de lectura, "
 "escritura y ejecución de un archivo. Para obtener más información sobre los "
@@ -1986,7 +1986,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1106(para)
 msgid "Click on the <guilabel>Permissions</guilabel> tab."
-msgstr "Pulse en la solapa <guilabel>Permisos</guilabel>."
+msgstr "Pulse en la pestaña <guilabel>Permisos</guilabel>."
 
 #: C/gnome-commander.xml:1109(para)
 msgid ""
@@ -9015,7 +9015,7 @@ msgstr ""
 "Para configurar GNOME Commander, seleccione en la barra de menú "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
 "guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en solapas:"
+"las siguientes secciones en pestañas:"
 
 #: C/gnome-commander.xml:4017(title)
 msgid "General"
@@ -9027,7 +9027,7 @@ msgid ""
 "Commander basic behavior. It deals with the mouse, file matching, sorting "
 "and quick search features."
 msgstr ""
-"La solapa <guilabel>General</guilabel> se usa para configurar el "
+"La pestaña <guilabel>General</guilabel> se usa para configurar el "
 "comportamiento básico de GNOME Commander. Tiene que ver con las "
 "características del ratón, la coincidencia de archivos, la ordenación y la "
 "búsqueda rápida."
@@ -9110,7 +9110,8 @@ msgid ""
 msgstr ""
 "Para modificar las opciones generales pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>General</guilabel>."
+"guimenuitem></menuchoice>, y pulse en la pestaña <guilabel>General</"
+"guilabel>."
 
 #: C/gnome-commander.xml:4059(para)
 msgid ""
@@ -9130,7 +9131,7 @@ msgstr "Muestra el diálogo de preferencias generales de GNOME Commander."
 
 #: C/gnome-commander.xml:4078(title)
 msgid "General option tab"
-msgstr "Solapa «Opciones generales»"
+msgstr "Pestaña «Opciones generales»"
 
 #: C/gnome-commander.xml:4085(para) C/gnome-commander.xml:4352(para)
 #: C/gnome-commander.xml:4494(para) C/gnome-commander.xml:4788(para)
@@ -9216,7 +9217,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4156(para)
 msgid "Opens new tab"
-msgstr "Abre una solapa nueva"
+msgstr "Abre una pestaña nueva"
 
 #: C/gnome-commander.xml:4159(para)
 msgid ""
@@ -9224,7 +9225,7 @@ msgid ""
 "with the mouse will open it in a new tab."
 msgstr ""
 "Al seleccionar esta opción, una pulsación con el botón central del ratón "
-"sobre una carpeta en GNOME Commander la abrirá en una solapa nueva"
+"sobre una carpeta en GNOME Commander la abrirá en una pestaña nueva"
 
 #: C/gnome-commander.xml:4165(guilabel)
 msgid "Right Mouse button"
@@ -9386,7 +9387,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4292(para) C/gnome-commander.xml:4713(title)
 msgid "Tabs"
-msgstr "Solapas"
+msgstr "Pestañas"
 
 #: C/gnome-commander.xml:4295(para)
 msgid ""
@@ -9395,7 +9396,7 @@ msgid ""
 "previous location."
 msgstr ""
 "Al activar esta opción, GNOME Commander guarda las ubicaciones de las "
-"solapas abiertas al salir. Cuando inicia de nuevo todas la solapas se "
+"pestañas abiertas al salir. Cuando inicia de nuevo todas la pestañas se "
 "vuelven a abrir en su ubicación anterior."
 
 #. general preferences section
@@ -9419,7 +9420,7 @@ msgstr ""
 msgid ""
 "The Format tab contains the options on How file informations are displayed."
 msgstr ""
-"La solapa «Formato» contiene las opciones sobre cómo se muestra la "
+"La pestaña «Formato» contiene las opciones sobre cómo se muestra la "
 "información de los archivos."
 
 #: C/gnome-commander.xml:4312(para)
@@ -9451,7 +9452,8 @@ msgid ""
 msgstr ""
 "Para modificar las opciones de formato pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>Formato</guilabel>."
+"guimenuitem></menuchoice>, y pulse en la pestaña <guilabel>Formato</"
+"guilabel>."
 
 #: C/gnome-commander.xml:4327(para)
 msgid ""
@@ -9471,7 +9473,7 @@ msgstr "Muestra el diálogo de las preferencias de formato de GNOME Commander."
 
 #: C/gnome-commander.xml:4345(title)
 msgid "Format option tab"
-msgstr "Solapa de opciones de formato"
+msgstr "Pestaña de opciones de formato"
 
 #: C/gnome-commander.xml:4366(guilabel)
 msgid "Size display mode"
@@ -9570,7 +9572,7 @@ msgid ""
 "The layout preferences tab allows you to configure the appearance of GNOME "
 "Commander. You can allocate Fonts, row heights, icons and color theme."
 msgstr ""
-"La solapa de preferencias de la apariencia le permite configurar la "
+"La pestaña de preferencias de la apariencia le permite configurar la "
 "apariencia de GNOME Commander. Puede asignar tipografías, alturas de fila, "
 "iconos y tema de color."
 
@@ -9599,7 +9601,7 @@ msgid ""
 msgstr ""
 "Para modificar las opciones de apariencia de los paneles pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice> y pulse en la solapa <guilabel>Apariencia</"
+"guimenuitem></menuchoice> y pulse en la pestaña <guilabel>Apariencia</"
 "guilabel>."
 
 #: C/gnome-commander.xml:4469(para)
@@ -9622,7 +9624,7 @@ msgstr ""
 #: C/gnome-commander.xml:4487(title) C/gnome-commander.xml:4781(title)
 #: C/gnome-commander.xml:4928(title)
 msgid "Layout option tab"
-msgstr "Solapa de opciones de la distribución"
+msgstr "Pestaña de opciones de la distribución"
 
 #: C/gnome-commander.xml:4508(guilabel)
 msgid "File Panes"
@@ -9847,7 +9849,7 @@ msgid ""
 msgstr ""
 "Para configurar los colores personalizados GNOME Commander, pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones</"
-"guimenuitem></menuchoice>, pulse en la solapa <guilabel>Apariencia</"
+"guimenuitem></menuchoice>, pulse en la pestaña <guilabel>Apariencia</"
 "guilabel>, seleccione <guilabel>Personalizado</guilabel> en la lista "
 "desplegable y pulse en el botón <guilabel>Editar</guilabel>."
 
@@ -9953,7 +9955,7 @@ msgid ""
 msgstr ""
 "Para configurar los colores personalizados de GNOME Commander, pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones</"
-"guimenuitem></menuchoice>, pulse en la solapa <guilabel>Apariencia</"
+"guimenuitem></menuchoice>, pulse en la pestaña <guilabel>Apariencia</"
 "guilabel>, active la casilla <guilabel>Colorear los archivos de acuerdo con "
 "la variable de entorno LS_COLORS</guilabel> y pulse en el botón "
 "<guilabel>Editar colores…</guilabel>."
@@ -9964,7 +9966,7 @@ msgid ""
 "This section of the option dialog lets you configure parameters for tabs."
 msgstr ""
 "Esta sección del diálogo de opciones le permite configurar parámetros para "
-"solapas."
+"pestañas."
 
 #: C/gnome-commander.xml:4718(para)
 msgid ""
@@ -9973,19 +9975,19 @@ msgid ""
 "this preference to always show the tab bar, including when the GNOME "
 "Commander window contains only file list"
 msgstr ""
-"<guilabel>Mostrar siempre la barra de solapas</guilabel>: normalmente, si "
+"<guilabel>Mostrar siempre la barra de pestañas</guilabel>: normalmente, si "
 "está viendo una sola lista de archivos en la ventana de GNOME Commander, la "
-"barra de solapas no se muestra. Marque esta preferencia para mostrar siempre "
-"la barra de solapas, incluso cuando la ventana de GNOME Commander contiene "
-"sólo una lista de archivos."
+"barra de pestañas no se muestra. Marque esta preferencia para mostrar "
+"siempre la barra de pestañas, incluso cuando la ventana de GNOME Commander "
+"contiene sólo una lista de archivos."
 
 #: C/gnome-commander.xml:4723(title)
 msgid "Tabs options"
-msgstr "Opciones de solapas"
+msgstr "Opciones de pestañas"
 
 #: C/gnome-commander.xml:4730(phrase)
 msgid "Shows GNOME Commander tabs preferences dialog."
-msgstr "Muestra el diálogo de preferencias de solapas de GNOME Commander."
+msgstr "Muestra el diálogo de preferencias de pestañas de GNOME Commander."
 
 #: C/gnome-commander.xml:4739(title)
 msgid "Confirmation"
@@ -9997,7 +9999,7 @@ msgid ""
 "displayed. You also configure the behavior of GNOME Commander when the "
 "confirmation dialog does not appear."
 msgstr ""
-"La solapa «Confirmación» le permite configurar cuándo se muestra un diálogo "
+"La pestaña «Confirmación» le permite configurar cuándo se muestra un diálogo "
 "de confirmación. También puede configurar el comportamiento de GNOME "
 "Commander cuando el diálogo de confirmación no aparece."
 
@@ -10032,7 +10034,7 @@ msgid ""
 msgstr ""
 "Para modificar la configuración de la confirmación pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>Confirmación</"
+"guimenuitem></menuchoice>, y pulse en la pestaña <guilabel>Confirmación</"
 "guilabel>"
 
 #: C/gnome-commander.xml:4762(para)
@@ -10172,7 +10174,8 @@ msgid ""
 msgstr ""
 "Para modificar la configuración de los filtros pulse en "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>, y pulse en la solapa <guilabel>Filtros</guilabel>."
+"guimenuitem></menuchoice>, y pulse en la pestaña <guilabel>Filtros</"
+"guilabel>."
 
 #: C/gnome-commander.xml:4909(para)
 msgid ""
@@ -10438,7 +10441,7 @@ msgstr "Muestra el diálogo de preferencias de programas de GNOME Commander."
 
 #: C/gnome-commander.xml:5142(title) C/gnome-commander.xml:5292(title)
 msgid "Programs option tab"
-msgstr "Solapa de opciones del programa"
+msgstr "Pestaña de opciones del programa"
 
 #: C/gnome-commander.xml:5163(guilabel)
 msgid "MIME application"
@@ -10800,7 +10803,7 @@ msgid ""
 "have access to a button in the device buttons toolbar and an entry in the "
 "connections menu."
 msgstr ""
-"Esta solapa del diálogo de opciones le permite configurar dispositivos para "
+"Esta pestaña del diálogo de opciones le permite configurar dispositivos para "
 "que pueda tener acceso al botón en la barra de herramientas de botones del "
 "dispositivo y una entrada en el menú de conexiones."
 
@@ -11245,23 +11248,23 @@ msgstr ""
 
 #: C/gnome-commander.xml:5961(para) C/gnome-commander.xml:6562(para)
 msgid "Open directory in a new tab"
-msgstr "Abrir carpeta en una solapa nueva"
+msgstr "Abrir carpeta en una pestaña nueva"
 
 #: C/gnome-commander.xml:5966(para)
 msgid "Close current tab"
-msgstr "Cerrar solapa actual"
+msgstr "Cerrar pestaña actual"
 
 #: C/gnome-commander.xml:5971(para) C/gnome-commander.xml:6491(para)
 msgid "Close all tabs"
-msgstr "Cerrar todas las solapas"
+msgstr "Cerrar todas las pestañas"
 
 #: C/gnome-commander.xml:5976(para)
 msgid "Switch to the next tab"
-msgstr "Cambiar a la siguiente solapa"
+msgstr "Cambiar a la siguiente pestaña"
 
 #: C/gnome-commander.xml:5981(para)
 msgid "Switch to the previous tab"
-msgstr "Cambiar a la solapa anterior"
+msgstr "Cambiar a la pestaña anterior"
 
 #: C/gnome-commander.xml:5991(para) C/gnome-commander.xml:6572(para)
 msgid "Refresh the active file list"
@@ -11931,7 +11934,7 @@ msgstr "view.close_tab"
 
 #: C/gnome-commander.xml:6486(para)
 msgid "Close the current tab"
-msgstr "Cerrar la solapa actual"
+msgstr "Cerrar la pestaña actual"
 
 #: C/gnome-commander.xml:6490(para)
 msgid "view.close_all_tabs"
@@ -11943,7 +11946,7 @@ msgstr "view.close_duplicate_tabs"
 
 #: C/gnome-commander.xml:6496(para)
 msgid "Close duplicate tabs"
-msgstr "Cerrar solapas duplicadas"
+msgstr "Cerrar pestañas duplicadas"
 
 #: C/gnome-commander.xml:6500(para)
 msgid "view.equal_panes"
@@ -11991,7 +11994,7 @@ msgstr "view.in_new_tab"
 
 #: C/gnome-commander.xml:6542(para)
 msgid "Open directory in the new tab"
-msgstr "Abrir carpeta en una solapa nueva"
+msgstr "Abrir carpeta en una pestaña nueva"
 
 #: C/gnome-commander.xml:6546(para)
 msgid "view.in_inactive_tab"
@@ -11999,7 +12002,7 @@ msgstr "view.in_inactive_tab"
 
 #: C/gnome-commander.xml:6547(para)
 msgid "Open directory in the new tab (inactive window)"
-msgstr "Abrir carpeta en la nueva solapa (ventana inactiva)"
+msgstr "Abrir carpeta en la nueva pestaña (ventana inactiva)"
 
 #: C/gnome-commander.xml:6551(para)
 msgid "view.last"
@@ -12015,7 +12018,7 @@ msgstr "view.next_tab"
 
 #: C/gnome-commander.xml:6557(para)
 msgid "Next tab"
-msgstr "Siguiente solapa"
+msgstr "Siguiente pestaña"
 
 #: C/gnome-commander.xml:6561(para)
 msgid "view.new_tab"
@@ -12027,7 +12030,7 @@ msgstr "view.prev_tab"
 
 #: C/gnome-commander.xml:6567(para)
 msgid "Previous tab"
-msgstr "Solapa anterior"
+msgstr "Pestaña anterior"
 
 #: C/gnome-commander.xml:6571(para)
 msgid "view.refresh"
@@ -12043,7 +12046,7 @@ msgstr "view.toggle_lock_tab"
 
 #: C/gnome-commander.xml:6582(para)
 msgid "Lock/unlock tab"
-msgstr "Bloquear/desbloquear solapa"
+msgstr "Bloquear/desbloquear pestaña"
 
 #: C/gnome-commander.xml:6586(para)
 msgid "view.up"
@@ -12424,7 +12427,7 @@ msgid ""
 "Open the <guimenu>Options</guimenu> dialog and go to the "
 "<guimenuitem>Programs</guimenuitem> tab."
 msgstr ""
-"Abra el diálogo <guimenu>Opciones</guimenu> y vaya a la solapa "
+"Abra el diálogo <guimenu>Opciones</guimenu> y vaya a la pestaña "
 "<guimenuitem>Programas</guimenuitem>."
 
 #: C/gnome-commander.xml:6809(para)
@@ -12462,7 +12465,7 @@ msgid ""
 "Open the <guimenu>Options</guimenu> dialog and go to the "
 "<guimenuitem>Devices</guimenuitem> tab."
 msgstr ""
-"Abra el diálogo <guimenu>Opciones</guimenu> y vaya a la solapa "
+"Abra el diálogo <guimenu>Opciones</guimenu> y vaya a la pestaña "
 "<guimenuitem>Dispositivos</guimenuitem>."
 
 #: C/gnome-commander.xml:6829(para)
@@ -12557,7 +12560,7 @@ msgid ""
 "sure that the Graphical mode is set to MIME icons."
 msgstr ""
 "Inicie GNOME Commander y abra el diálogo <guimenu>Opciones</guimenu>. En la "
-"solapa <guimenuitem>Apariencia</guimenuitem> configure la «Carpeta del tema "
+"pestaña <guimenuitem>Apariencia</guimenuitem> configure la «Carpeta del tema "
 "de iconos» para que sea la carpeta donde ha extraído Gorilla no escalable. "
 "Cambie también la «Altura de la fila» y el «Tamaño de los iconos» a 20 o a "
 "algún otro tamaño que le guste. Cuando haya terminado asegúrese de que el "
@@ -13274,7 +13277,7 @@ msgstr "Nuevas funcionalidades:"
 
 #: C/gnome-commander.xml:7602(para)
 msgid "Support for tabs"
-msgstr "Soporte para solapas"
+msgstr "Soporte para pestañas"
 
 #: C/gnome-commander.xml:7605(para)
 msgid "Revamped bookmarks dialog"
@@ -13337,7 +13340,7 @@ msgid ""
 "in a new tab (replaces the old Multi-Rename-Tool binding)"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> Abrir carpeta "
-"en una solapa nueva (reemplaza la antigua asociación Herramienta de multi-"
+"en una pestaña nueva (reemplaza la antigua asociación Herramienta de multi-"
 "renombrado)"
 
 #: C/gnome-commander.xml:7641(para)
@@ -13346,7 +13349,7 @@ msgid ""
 "tab"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Cerrar la "
-"solapa actual"
+"pestaña actual"
 
 #: C/gnome-commander.xml:7644(para)
 msgid ""
@@ -13354,7 +13357,7 @@ msgid ""
 "keycombo> Close all tabs"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>Mayús</keycap><keycap>W</keycap></"
-"keycombo> Cerrar todas las solapas"
+"keycombo> Cerrar todas las pestañas"
 
 #: C/gnome-commander.xml:7647(para)
 msgid ""
@@ -13362,7 +13365,7 @@ msgid ""
 "next tab"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Cambiar a la "
-"siguiente solapa"
+"siguiente pestaña"
 
 #: C/gnome-commander.xml:7650(para)
 msgid ""
@@ -13370,7 +13373,7 @@ msgid ""
 "keycombo> Switch to the previous tab"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>Mayús</keycap><keycap>TAB</keycap></"
-"keycombo> Cambiar a la solapa anterior"
+"keycombo> Cambiar a la pestaña anterior"
 
 #: C/gnome-commander.xml:7653(para)
 msgid ""
@@ -13393,7 +13396,6 @@ msgid "1.2.8.11"
 msgstr "1.2.8.11"
 
 #: C/gnome-commander.xml:7672(para)
-#| msgid "Fixed problem #377463 (mkdir dialog loses focus)"
 msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgstr "Error nº 639243 corregido (documentos erróneos para el atajo F2)"
 
@@ -14953,7 +14955,7 @@ msgstr ""
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
-"Renovada la solapa de disposición y eliminada la solapa de colores en el "
+"Renovada la pestaña de disposición y eliminada la pestaña de colores en el "
 "diálogo de opciones"
 
 #: C/gnome-commander.xml:8858(para)
