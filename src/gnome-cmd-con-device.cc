@@ -128,9 +128,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
                     emsg = g_strdup (_("Mount failed: No medium found"));
                     break;
                 default:
-                    emsg = g_strdup_printf (
-                        _("Mount failed: mount exited with existatus %d"),
-                        estatus);
+                    emsg = g_strdup_printf (_("Mount failed: mount exited with existatus %d"), estatus);
                     break;
             }
 

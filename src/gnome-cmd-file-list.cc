@@ -2955,6 +2955,7 @@ void GnomeCmdFileList::init_dnd()
     g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
 }
 
+
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
 {
     return xml << XML::tag("Tab") << XML::attr("dir") << GNOME_CMD_FILE (fl.cwd)->get_real_path() << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::attr("lock") << fl.locked << XML::endtag();
