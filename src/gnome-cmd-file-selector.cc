@@ -154,9 +154,11 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
         }
     }
 
-    for (GList *i = list->get_marked_files(); i; i = i->next)
+    GnomeCmd::Collection<GnomeCmdFile *> &marked_files = list->get_marked_files();
+
+    for (GnomeCmd::Collection<GnomeCmdFile *>::const_iterator i=marked_files.begin(); i!=marked_files.end(); ++i)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+        GnomeCmdFile *f = *i;
 
         switch (f->info->type)
         {
