@@ -29,6 +29,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-chown-dialog.h gnome-cmd-chown-dialog.cc \
 	gnome-cmd-clist.h gnome-cmd-clist.cc \
 	gnome-cmd-cmdline.h gnome-cmd-cmdline.cc \
+	gnome-cmd-collection.h \
 	gnome-cmd-combo.h gnome-cmd-combo.cc \
 	gnome-cmd-con-device.h gnome-cmd-con-device.cc \
 	gnome-cmd-con-dialog.h gnome-cmd-con-dialog.cc \
