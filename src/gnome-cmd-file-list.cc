@@ -209,7 +209,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
 GnomeCmdFileList::Private::~Private()
 {
-    TRACE(this);
 }
 
 
