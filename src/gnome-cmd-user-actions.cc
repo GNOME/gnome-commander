@@ -1500,8 +1500,16 @@ void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_home (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fl (ACTIVE)->set_connection(get_home_con ());
-    get_fl (ACTIVE)->goto_directory("~");
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    if (!fl->locked)
+    {
+        fl->set_connection(get_home_con ());
+        fl->goto_directory("~");
+    }
+    else
+        fs->new_tab(gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), g_get_home_dir ())));
 }
 
 
