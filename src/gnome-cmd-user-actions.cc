@@ -1515,7 +1515,13 @@ void view_home (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_root (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fl (ACTIVE)->goto_directory("/");
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    if (fl->locked)
+        fs->new_tab(gnome_cmd_dir_new (fl->con, gnome_cmd_con_create_path (fl->con, "/")));
+    else
+        fs->goto_directory("/");
 }
 
 
