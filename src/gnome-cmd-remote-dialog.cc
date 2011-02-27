@@ -114,9 +114,13 @@ inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *
 static gboolean do_connect_real (GnomeCmdConFtp *server)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (server);
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
 
-    main_win->fs(ACTIVE)->set_connection(con);
-    // gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
+    if (fl->locked)
+        fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (fs->new_tab()));     //  new_tab() retrieves scrolled_window, we must use gtk_bin_get_child() to get fl
+
+    fl->set_connection(con);
 
     return FALSE;
 }
