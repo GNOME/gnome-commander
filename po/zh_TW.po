@@ -1401,7 +1401,7 @@ msgstr "F5 複製"
 
 #: ../src/gnome-cmd-main-win.cc:426
 msgid "F6 Move"
-msgstr "F8 移動"
+msgstr "F6 移動"
 
 #: ../src/gnome-cmd-main-win.cc:428
 msgid "F7 Mkdir"
