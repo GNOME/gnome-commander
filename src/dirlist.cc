@@ -112,8 +112,6 @@ inline void visprog_list (GnomeCmdDir *dir)
 
 inline void blocking_list (GnomeCmdDir *dir)
 {
-    DEBUG('l', "blocking_list\n");
-
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
