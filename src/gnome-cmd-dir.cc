@@ -451,7 +451,6 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
 
         dir->priv->files = create_file_list (dir, infolist);
         dir->priv->file_collection->add(dir->priv->files);
-        dir->state = GnomeCmdDir::STATE_LISTED;
         g_list_free (infolist);
 
         if (dir->dialog)
