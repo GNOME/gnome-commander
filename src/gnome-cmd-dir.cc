@@ -381,14 +381,11 @@ Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir)
 }
 
 
-GnomeVFSResult gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files)
+GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), GNOME_VFS_ERROR_BAD_PARAMETERS);
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    if (files)
-        *files = dir->priv->files;
-
-    return dir->priv->last_result;
+    return dir->priv->files;
 }
 
 

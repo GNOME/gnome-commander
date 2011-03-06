@@ -122,7 +122,7 @@ inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
     GNOME_CMD_FILE (dir)->unref();
 }
 
-GnomeVFSResult gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files);
+GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);
 void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog);
 

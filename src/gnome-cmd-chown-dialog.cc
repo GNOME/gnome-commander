@@ -65,15 +65,13 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
     if (in->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
         GnomeCmdDir *dir = GNOME_CMD_DIR (in);
-        GList *files, *tmp;
 
         gnome_cmd_dir_ref (dir);
         gnome_cmd_dir_list_files (dir, FALSE);
-        gnome_cmd_dir_get_files (dir, &files);
 
-        for (tmp = files; tmp; tmp = tmp->next)
+        for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
             if (!f->is_dotdot && strcmp (f->info->name, ".") != 0
                 && !GNOME_VFS_FILE_INFO_SYMLINK(f->info))
             {

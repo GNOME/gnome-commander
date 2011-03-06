@@ -280,20 +280,16 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
     if (data->stopped)
         return;
 
-    GList *files;
-
     gnome_cmd_dir_list_files (dir, FALSE);
-    gnome_cmd_dir_get_files (dir, &files);
-
 
     // Let's iterate through all files
-    for (GList *tmp=files; tmp; tmp=tmp->next)
+    for (GList *i=gnome_cmd_dir_get_files (dir); i; i=i->next)
     {
         // If the stop button was pressed let's abort here
         if (data->stopped)
             return;
 
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         // If the current file is a directory lets continue our recursion
         if (GNOME_CMD_IS_DIR (f) && data->recurse)

@@ -1729,13 +1729,12 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
 {
     remove_all_files();
 
-    GList *list;
     GList *files = NULL;
 
     // select the files to show
-    for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
+    for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)
     {
-        GnomeCmdFile *f = GNOME_CMD_FILE (list->data);
+        GnomeCmdFile *f = GNOME_CMD_FILE (i->data);
 
         if (file_is_wanted (f))
             files = g_list_append (files, f);
