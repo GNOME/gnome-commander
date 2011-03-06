@@ -117,20 +117,13 @@ inline void blocking_list (GnomeCmdDir *dir)
     gchar *uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
     DEBUG('l', "blocking_list: %s\n", uri_str);
 
+    dir->infolist = NULL;
     dir->list_result = gnome_vfs_directory_list_load (&dir->infolist, uri_str, infoOpts);
 
     g_free (uri_str);
 
-    if (dir->list_result == GNOME_VFS_OK)
-    {
-        dir->state = GnomeCmdDir::STATE_LISTED;
-        dir->done_func (dir, dir->infolist, dir->list_result);
-    }
-    else
-    {
-        dir->state = GnomeCmdDir::STATE_EMPTY;
-        dir->done_func (dir, NULL, dir->list_result);
-    }
+    dir->state = dir->list_result==GNOME_VFS_OK ? GnomeCmdDir::STATE_LISTED : GnomeCmdDir::STATE_EMPTY;
+    dir->done_func (dir, dir->infolist, dir->list_result);
 }
 
 
