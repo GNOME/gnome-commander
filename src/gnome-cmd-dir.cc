@@ -545,7 +545,7 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (!dir->priv->files || gnome_vfs_uri_is_local (GNOME_CMD_FILE (dir)->get_uri()))
+    if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
     {
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
