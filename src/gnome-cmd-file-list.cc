@@ -700,7 +700,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             if (!fn)
                 fn = f->get_uri_str();
 
-            uri_str = g_strdup_printf ("%s\r\n", fn);
+            uri_str = g_strconcat (fn, "\r\n", NULL);
             uri_str_list = g_list_append (uri_str_list, uri_str);
             total_len += strlen (uri_str);
         }

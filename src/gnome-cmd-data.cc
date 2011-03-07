@@ -1006,8 +1006,8 @@ void GnomeCmdData::load()
 {
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
-    gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
-    gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
+    gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
+    gchar *theme_icon_dir    = g_strconcat (PIXMAPS_DIR, "/mime-icons", NULL);
 
     priv = g_new0 (Private, 1);
 

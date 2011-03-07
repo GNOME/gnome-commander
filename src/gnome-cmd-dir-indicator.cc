@@ -138,7 +138,7 @@ inline void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 
         gchar *mt = get_mono_text (t);
         gchar *ms = get_bold_mono_text (s);
-        m = g_strdup_printf ("%s%s", ms, mt);
+        m = g_strconcat (ms, mt, NULL);
         g_free (t);
         g_free (mt);
         g_free (ms);
