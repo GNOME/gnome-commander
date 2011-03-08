@@ -1826,7 +1826,8 @@ gboolean GnomeCmdFileList::remove_file(GnomeCmdFile *f)
     priv->selected_files.remove(f);
     priv->visible_files.remove(f);
 
-    focus_file_at_row (this, MIN (row, GTK_CLIST (this)->focus_row));
+    if (gtk_widget_is_focus(*this))
+        focus_file_at_row (this, MIN (row, GTK_CLIST (this)->focus_row));
 
     return TRUE;
 }
