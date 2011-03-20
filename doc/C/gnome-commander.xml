@@ -4281,7 +4281,10 @@
 					<para>Directories</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; Saves the current folder location on exit. When you restart the two active location are reopened.</para>
+	              <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
+                <note>
+                  <para>Regardless of 'Save on exit' option, locations for locked tabs are always saved on exit.</para>
+                </note>
               </entry>
             </row>
             <row>
@@ -4292,7 +4295,7 @@
 					<para>Tabs</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; Saves all the opened tabs locations on exit. When you restart all the tabs are reopened in their previous location.</para>
+	              <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
               </entry>
             </row>
           </tbody>
