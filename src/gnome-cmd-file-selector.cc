@@ -1514,10 +1514,9 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
 {
-    if (gnome_cmd_data.save_tabs_on_exit)
-    {
-        GList *tabs = gtk_container_get_children (*fs.notebook);
+    GList *tabs = gtk_container_get_children (*fs.notebook);
 
+    if (gnome_cmd_data.save_tabs_on_exit)
         for (GList *i=tabs; i; i=i->next)
         {
             GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
@@ -1525,13 +1524,25 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
             if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
                 xml << *fl;
         }
-
-        g_list_free (tabs);
-    }
     else
         if (gnome_cmd_data.save_dirs_on_exit)
-            if (fs.is_local())
-                xml << *fs.file_list();
+            for (GList *i=tabs; i; i=i->next)
+            {
+                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+
+                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==fs.file_list() || fl->locked))
+                    xml << *fl;
+            }
+        else
+            for (GList *i=tabs; i; i=i->next)
+            {
+                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+
+                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
+                    xml << *fl;
+            }
+
+    g_list_free (tabs);
 
     return xml;
 }
