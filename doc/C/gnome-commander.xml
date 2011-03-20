@@ -4,7 +4,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.4">
   <!ENTITY manrevision "1.4">
-  <!ENTITY date "??? 2010">
+  <!ENTITY date "??? 2011">
   <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
@@ -220,18 +220,6 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4;</revnumber>
-        <date>2010-??-??</date>
-        <revdescription>
-          <para role="author">Laurent Coudeur
-                <email>laurentc@iol.ie</email></para>
-          <para role="publisher">GNOME Documentation Project</para>
-          <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email></para>
-          <para role="publisher">GNOME Documentation Project</para>
-        </revdescription>
-      </revision>
-      <revision>
         <revnumber>GNOME Commander Manual V1.2.8.8;</revnumber>
         <date>2010-09-09</date>
         <revdescription>
@@ -269,6 +257,18 @@
                 <email>epiotr@cvs.gnome.org</email>
             </para>
             <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.4;</revnumber>
+        <date>2011-??-??</date>
+        <revdescription>
+          <para role="author">Laurent Coudeur
+                <email>laurentc@iol.ie</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
     </revhistory>
@@ -7573,7 +7573,7 @@
     <tbody>
          <row valign="top">
             <entry><para>1.4</para></entry>
-            <entry><para>2010-??-??</para></entry>
+            <entry><para>2011-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
