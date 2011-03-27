@@ -529,9 +529,6 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->result_list->remove_all_files();
 
-    gtk_widget_set_sensitive (data->dialog->priv->search_button, FALSE);
-    gtk_widget_set_sensitive (data->dialog->priv->stop_button, TRUE);
-
     // create an re for file name matching
     GtkWidget *regex_radio = lookup_widget (GTK_WIDGET (dialog), "regex_radio");
 
@@ -577,8 +574,9 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
     g_timeout_add (1, (GSourceFunc) start_search, dialog);
 
-    gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
+    gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
+    gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
 }
 
 
