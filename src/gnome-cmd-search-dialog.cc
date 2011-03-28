@@ -94,6 +94,7 @@ struct SearchFileData
     guint           len;
 };
 
+
 struct GnomeCmdSearchDialogPrivate
 {
     SearchData *data;                       // holds data needed by the search routines
@@ -447,8 +448,8 @@ static gboolean join_thread_func (SearchData *data)
     if (data->thread)
         g_thread_join (data->thread);
 
-    if (data->pdata.mutex != NULL)
-      g_mutex_free (data->pdata.mutex);
+    if (data->pdata.mutex)
+        g_mutex_free (data->pdata.mutex);
 
     g_free (data->search_mem);
 
@@ -473,7 +474,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
         g_timeout_add (1, (GSourceFunc) join_thread_func, data);
 
         // Unref all directories which contained matching files from last search
-        if (data->pdata.mutex != NULL)
+        if (data->pdata.mutex)
         {
             g_mutex_lock (data->pdata.mutex);
             if (data->match_dirs)
