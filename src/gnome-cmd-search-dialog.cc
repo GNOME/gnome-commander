@@ -493,7 +493,7 @@ static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocatio
 }
 
 
-static gboolean start_search (GnomeCmdSearchDialog *dialog)
+static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
 {
     SearchData *data = dialog->priv->data;
 
@@ -573,7 +573,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
  */
 static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
-    g_timeout_add (1, (GSourceFunc) start_search, dialog);
+    g_timeout_add (1, (GSourceFunc) start_generic_search, dialog);
 
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
