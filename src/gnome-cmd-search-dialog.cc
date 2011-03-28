@@ -151,7 +151,7 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
 
     GnomeVFSResult  result;
 
-    if (searchfile_data == NULL)
+    if (!searchfile_data)
     {
         searchfile_data          = g_new0 (SearchFileData, 1);
         searchfile_data->uri_str = gnome_cmd_file_get_uri_str (f);
@@ -547,8 +547,8 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
         regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
     }
 
-    if (dialog->priv->data->search_mem == NULL)
-        dialog->priv->data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
+    if (!data->search_mem)
+        data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
 
     // start the search
     GnomeCmdPath *path = gnome_cmd_con_create_path (dialog->priv->con, data->dir);
@@ -557,15 +557,14 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
 
     data->search_done = FALSE;
 
-    if (data->pdata.mutex == NULL)
-      data->pdata.mutex = g_mutex_new ();
+    if (!data->pdata.mutex)
+        data->pdata.mutex = g_mutex_new ();
 
     data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
 
     gtk_widget_show (data->dialog->priv->pbar);
-    data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate,
-                                                 (GSourceFunc) update_search_status_widgets,
-                                                 dialog->priv->data);
+    data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
+
     return FALSE;
 }
 
