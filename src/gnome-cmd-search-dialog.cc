@@ -66,25 +66,27 @@ struct SearchData
     const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file list
     const gchar *dir;                       // the current dir of the search routine
 
+    gboolean recurse;                       // should we recurse or just search in the selected directory?
+    Filter::Type name_filter_type;
+    gboolean content_search;                // should we do content search?
+    gboolean case_sens;
+
     Filter *name_filter;
     regex_t *content_regex;
-    gboolean content_search;                // should we do content search?
     gint matches;                           // the number of matching files
     gint context_id;                        // the context id of the status bar
     GnomeCmdSearchDialog *dialog;
-    gboolean recurse;                       // should we recurse or just search in the selected directory?
-    gboolean case_sens;
     GList *match_dirs;                      // the directories which we found matching files in
     GnomeCmdDir *start_dir;                 // the directory to start searching from
     GThread *thread;
     ProtectedData pdata;
     gint update_gui_timeout_id;
 
+    gchar  *search_mem;                     // memory to search in the content of a file
+
     gboolean search_done;
     gboolean stopped;                       // stops the search routine if set to TRUE. This is done by the stop_button
     gboolean dialog_destroyed;              // set when the search dialog is destroyed, also stops the search of course
-
-    gchar  *search_mem;                     // memory to search in the content of a file
 };
 
 
@@ -522,6 +524,7 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     gnome_cmd_data.search_defaults.default_profile.recursive = data->recurse;
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
     gnome_cmd_data.search_defaults.directories.add(data->dir);
+
     if (data->content_search)
     {
         gnome_cmd_data.search_defaults.content_patterns.add(data->content_pattern);
