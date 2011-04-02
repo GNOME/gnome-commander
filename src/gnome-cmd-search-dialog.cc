@@ -324,7 +324,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
                 // the file matched the search criteria, lets add it to the list
                 g_mutex_lock (data->pdata.mutex);
-                data->pdata.files = g_list_append (data->pdata.files, f);
+                data->pdata.files = g_list_append (data->pdata.files, f->ref());
                 g_mutex_unlock (data->pdata.mutex);
 
                 // also ref each directory that has a matching file
@@ -385,7 +385,7 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     if (data->pdata.files)
     {
-        g_list_free (data->pdata.files);
+        gnome_cmd_file_list_free (data->pdata.files);
         data->pdata.files = NULL;
     }
 
