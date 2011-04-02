@@ -134,7 +134,7 @@ inline void set_statusmsg (SearchData *data, gchar *msg)
 
 inline void search_file_data_free (SearchFileData  *searchfile_data)
 {
-    if (searchfile_data->handle != NULL)
+    if (searchfile_data->handle)
         gnome_vfs_close (searchfile_data->handle);
 
     g_free (searchfile_data->uri_str);
@@ -223,14 +223,14 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
  */
 inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
 {
-    gint   ret = REG_NOMATCH;
+    gint ret = REG_NOMATCH;
 
     if (f->info->size > 0)
     {
         regmatch_t       match;
         SearchFileData  *search_file = NULL;
 
-        while ((search_file = read_search_file (data, search_file, f)) != NULL)
+        while ((search_file = read_search_file (data, search_file, f)))
         {
             ret = regexec (data->content_regex, data->search_mem, 1, &match, 0);
             // stop on first match
@@ -273,7 +273,6 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
         g_mutex_unlock (data->pdata.mutex);
     }
-
 
     // If the stop button was pressed let's abort here
     if (data->stopped)
@@ -726,8 +725,8 @@ inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *te
 {
     GtkWidget *label = gtk_label_new_with_mnemonic (text);
 
-    if (for_widget != NULL)
-      gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
+    if (for_widget)
+        gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
 
     gtk_widget_ref (label);
     gtk_object_set_data_full (GTK_OBJECT (parent), "label", label, (GtkDestroyNotify) gtk_widget_unref);
