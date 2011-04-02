@@ -401,20 +401,10 @@ static gboolean update_search_status_widgets (SearchData *data)
     {
         if (!data->dialog_destroyed)
         {
-            gchar *msg;
-            if (data->stopped)
-                msg = g_strdup_printf (
-                        ngettext("Found %d match - search aborted",
-                                 "Found %d matches - search aborted",
-                                  data->matches),
-                        data->matches);
-            else
-                msg = g_strdup_printf (
-                        ngettext(
-                            "Found %d match",
-                            "Found %d matches",
-                            data->matches),
-                        data->matches);
+            gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", data->matches) :
+                                         ngettext("Found %d match", "Found %d matches", data->matches);
+
+            gchar *msg = g_strdup_printf (fmt, data->matches);
 
             set_statusmsg (data, msg);
             g_free (msg);
