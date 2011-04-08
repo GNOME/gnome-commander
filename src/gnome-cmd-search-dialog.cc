@@ -69,7 +69,7 @@ struct SearchData
     gboolean recurse;                       // should we recurse or just search in the selected directory?
     Filter::Type name_filter_type;
     gboolean content_search;                // should we do content search?
-    gboolean case_sens;
+    gboolean case_sens;                     // case sensitive content search ?
 
     Filter *name_filter;
     regex_t *content_regex;
