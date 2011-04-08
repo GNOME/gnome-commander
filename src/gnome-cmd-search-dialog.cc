@@ -377,7 +377,8 @@ static gpointer perform_search_operation (SearchData *data)
 
 static gboolean update_search_status_widgets (SearchData *data)
 {
-    g_mutex_lock (data->pdata.mutex);
+    if (data->pdata.mutex)
+        g_mutex_lock (data->pdata.mutex);
 
     // Add all files found since last update to the list
     for (GList *files = data->pdata.files; files; files = files->next)
@@ -395,7 +396,8 @@ static gboolean update_search_status_widgets (SearchData *data)
     // Update the progress bar
     progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
 
-    g_mutex_unlock (data->pdata.mutex);
+    if (data->pdata.mutex)
+        g_mutex_unlock (data->pdata.mutex);
 
     if (data->search_done)
     {
