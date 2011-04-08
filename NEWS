@@ -20,7 +20,7 @@ New features:
  * Context popup menu for internal viewer
  * --config-dir command line option for customized location of config files
  * New or updated docs: de, en, es, fr, sl
- * New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN
+ * New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
