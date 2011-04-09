@@ -148,6 +148,7 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
 {
     g_return_val_if_fail (uri != NULL, NULL);
+    g_return_val_if_fail (gnome_vfs_uri_is_local (uri), NULL);
 
     const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
