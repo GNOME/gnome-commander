@@ -1128,9 +1128,9 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
     int i = 0;
 
     argv[i++] = su;
-    argv[i++] = g_get_prgname ();
     if (need_c)
         argv[i++] = "-c";
+    argv[i++] = g_get_prgname ();
     argv[i++] = NULL;
 
     GError *error = NULL;
