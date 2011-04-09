@@ -135,6 +135,21 @@ static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
  * Public functions
  ***********************************/
 
+GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path)
+{
+    g_return_val_if_fail (local_full_path != NULL, NULL);
+
+    gchar *text_uri = gnome_vfs_get_uri_from_local_path (local_full_path);
+    GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri);
+    GnomeCmdFile *f = gnome_cmd_file_new_from_uri (uri);
+
+    gnome_vfs_uri_unref (uri);
+    g_free (text_uri);
+
+    return f;
+}
+
+
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
     GnomeCmdFile *f = (GnomeCmdFile *) g_object_new (GNOME_CMD_TYPE_FILE, NULL);
