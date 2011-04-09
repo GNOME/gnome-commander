@@ -301,12 +301,6 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
     g_return_val_if_fail (path!=NULL, NULL);
 
-    GnomeVFSFileInfo *info;
-    GnomeVFSResult res;
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-                                                                  GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
-                                                                  GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
-
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
     if (!uri) return NULL;
 
@@ -319,8 +313,12 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
         return dir;
     }
 
-    info = gnome_vfs_file_info_new ();
-    res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+                                                                  GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
+                                                                  GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
+
     if (res == GNOME_VFS_OK)
     {
         dir = (GnomeCmdDir *) g_object_new (GNOME_CMD_TYPE_DIR, NULL);
