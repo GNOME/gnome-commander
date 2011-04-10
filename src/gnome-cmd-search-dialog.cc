@@ -52,16 +52,17 @@ static GnomeCmdDialogClass *parent_class = NULL;
 #define SEARCH_JUMP_SIZE     4096U
 #define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
 
-struct ProtectedData
-{
-    GList *files;
-    gchar *msg;
-    GMutex *mutex;
-};
 
 
 struct SearchData
 {
+    struct ProtectedData
+    {
+        GList *files;
+        gchar *msg;
+        GMutex *mutex;
+    };
+
     const gchar *name_pattern;              // the pattern that file names should match to end up in the file list
     const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file list
     const gchar *dir;                       // the current dir of the search routine
