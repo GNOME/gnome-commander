@@ -69,7 +69,7 @@ struct SearchData
 
     gboolean recurse;                       // should we recurse or just search in the selected directory?
     Filter::Type name_filter_type;
-    gboolean content_search;                // should we do content search?
+    gboolean content_search;                // should we do content search ?
     gboolean case_sens;                     // case sensitive content search ?
 
     Filter *name_filter;
@@ -83,7 +83,7 @@ struct SearchData
     ProtectedData pdata;
     gint update_gui_timeout_id;
 
-    gchar  *search_mem;                     // memory to search in the content of a file
+    gchar *search_mem;                      // memory to search in the content of a file
 
     gboolean search_done;
     gboolean stopped;                       // stops the search routine if set to TRUE. This is done by the stop_button
