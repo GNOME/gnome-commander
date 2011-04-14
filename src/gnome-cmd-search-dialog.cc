@@ -113,8 +113,6 @@ struct GnomeCmdSearchDialogPrivate
     GnomeCmdFileList *result_list;
     GtkWidget *statusbar;
 
-    GtkWidget *help_button;
-    GtkWidget *close_button;
     GtkWidget *goto_button;
     GtkWidget *stop_button;
     GtkWidget *search_button;
@@ -867,8 +865,8 @@ static void init (GnomeCmdSearchDialog *dialog)
                       (GtkAttachOptions) (0), 0, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults.default_profile.match_case);
 
-    dialog->priv->help_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
-    dialog->priv->close_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);
     dialog->priv->goto_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Go to"), GTK_SIGNAL_FUNC (on_goto), dialog);
     dialog->priv->stop_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP, GTK_SIGNAL_FUNC (on_stop), dialog);
     dialog->priv->search_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND, GTK_SIGNAL_FUNC (on_search), dialog);
