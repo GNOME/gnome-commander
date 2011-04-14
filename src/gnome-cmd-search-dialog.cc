@@ -272,10 +272,8 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
     {
         g_mutex_lock (data->pdata.mutex);
 
-        gchar *path = GNOME_CMD_FILE (dir)->get_path();
         g_free (data->pdata.msg);
-        data->pdata.msg = g_strdup_printf (_("Searching in: %s"), path);
-        g_free (path);
+        data->pdata.msg = g_strdup_printf (_("Searching in: %s"), gnome_cmd_dir_get_display_path (dir));
 
         g_mutex_unlock (data->pdata.mutex);
     }
