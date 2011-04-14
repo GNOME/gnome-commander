@@ -74,7 +74,6 @@ struct SearchData
 
     Filter *name_filter;
     regex_t *content_regex;
-    gint matches;                           // the number of matching files
     gint context_id;                        // the context id of the status bar
     GnomeCmdSearchDialog *dialog;
     GList *match_dirs;                      // the directories which we found matching files in
@@ -332,9 +331,6 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
                     gnome_cmd_dir_ref (dir);
                     data->match_dirs = g_list_append (data->match_dirs, dir);
                 }
-
-                // count the match
-                data->matches++;
             }
     }
 }
@@ -402,10 +398,12 @@ static gboolean update_search_status_widgets (SearchData *data)
     {
         if (!data->dialog_destroyed)
         {
-            gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", data->matches) :
-                                         ngettext("Found %d match", "Found %d matches", data->matches);
+            int matches = data->dialog->priv->result_list->size();
 
-            gchar *msg = g_strdup_printf (fmt, data->matches);
+            gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
+                                         ngettext("Found %d match", "Found %d matches", matches);
+
+            gchar *msg = g_strdup_printf (fmt, matches);
 
             set_statusmsg (data, msg);
             g_free (msg);
@@ -502,7 +500,6 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     data->context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (data->dialog->priv->statusbar), "info");
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
     data->content_regex = NULL;
-    data->matches = 0;
     data->match_dirs = NULL;
     data->stopped = FALSE;
     data->dialog_destroyed = FALSE;
