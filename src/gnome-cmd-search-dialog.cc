@@ -364,7 +364,6 @@ static gpointer perform_search_operation (SearchData *data)
     data->dir = NULL;
 
     data->search_done = TRUE;
-    gtk_widget_set_sensitive (data->dialog->priv->goto_button, TRUE);
 
     return NULL;
 }
@@ -388,39 +387,37 @@ static gboolean update_search_status_widgets (SearchData *data)
     // Update status bar with the latest message
     set_statusmsg (data, data->pdata.msg);
 
-    // Update the progress bar
-    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
-
     if (data->pdata.mutex)
         g_mutex_unlock (data->pdata.mutex);
 
-    if (data->search_done)
+    // Update the progress bar
+    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
+
+    if (!data->search_done)
+        return TRUE;
+
+    if (!data->dialog_destroyed)
     {
-        if (!data->dialog_destroyed)
-        {
-            int matches = data->dialog->priv->result_list->size();
+        int matches = data->dialog->priv->result_list->size();
 
-            gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
-                                         ngettext("Found %d match", "Found %d matches", matches);
+        gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
+                                     ngettext("Found %d match", "Found %d matches", matches);
 
-            gchar *msg = g_strdup_printf (fmt, matches);
+        gchar *msg = g_strdup_printf (fmt, matches);
 
-            set_statusmsg (data, msg);
-            g_free (msg);
+        set_statusmsg (data, msg);
+        g_free (msg);
 
-            gtk_widget_set_sensitive (data->dialog->priv->search_button, TRUE);
-            gtk_widget_set_sensitive (data->dialog->priv->stop_button, FALSE);
+        gtk_widget_hide (data->dialog->priv->pbar);
 
-            // set focus to result list
-            gtk_widget_grab_focus (GTK_WIDGET (data->dialog->priv->result_list));
+        gtk_widget_set_sensitive (data->dialog->priv->goto_button, matches>0);
+        gtk_widget_set_sensitive (data->dialog->priv->stop_button, FALSE);
+        gtk_widget_set_sensitive (data->dialog->priv->search_button, TRUE);
 
-            gtk_widget_hide (data->dialog->priv->pbar);
-        }
-
-        return FALSE;    // Returning FALSE here stops the timeout callbacks
+        gtk_widget_grab_focus (GTK_WIDGET (data->dialog->priv->result_list));        // set focus to result list
     }
 
-    return TRUE;
+    return FALSE;    // returning FALSE here stops the timeout callbacks
 }
 
 
