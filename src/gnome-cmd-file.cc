@@ -176,8 +176,7 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
 
     GnomeVFSURI *parent = gnome_vfs_uri_get_parent (uri);
     gchar *parent_path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path(parent), "");
-    GnomeCmdPlainPath path(parent_path);
-    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), &path);
+    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(parent_path));
 
     g_free (parent_path);
     gnome_vfs_uri_unref (parent);
