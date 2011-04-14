@@ -295,12 +295,11 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-        // If the current file is a directory lets continue our recursion
+        // If the current file is a directory, let's continue our recursion
         if (GNOME_CMD_IS_DIR (f) && data->recurse)
         {
             // we don't want to go backwards or follow symlinks
-            if (!f->is_dotdot && strcmp (f->info->name, ".") != 0 &&
-                !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
+            if (!f->is_dotdot && strcmp (f->info->name, ".") != 0 && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (f);
 
