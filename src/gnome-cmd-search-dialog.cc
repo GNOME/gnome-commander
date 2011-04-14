@@ -146,6 +146,7 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
     g_free (searchfile_data);
 }
 
+
 /**
  * Loads a file in chunks and returns the content.
  */

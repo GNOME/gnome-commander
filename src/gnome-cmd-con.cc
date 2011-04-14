@@ -355,15 +355,6 @@ GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
 
-    /*
-    if (!con->priv->default_dir)
-    {
-        GnomeCmdDir *dir = gnome_cmd_dir_new (con, con->base_path);
-        if (dir)
-            gnome_cmd_con_set_default_dir (con, dir);
-    }
-    */
-
     return con->priv->default_dir;
 }
 

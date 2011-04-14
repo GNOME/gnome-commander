@@ -122,8 +122,7 @@ static void init (GnomeCmdConHome *home_con)
     con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
     con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
 
-    GnomeCmdPath *path = new GnomeCmdPlainPath(g_get_home_dir ());
-    GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
+    GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
 
     gnome_cmd_con_set_default_dir (con, dir);
 }

@@ -278,8 +278,7 @@ static GnomeVFSURI *dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
-    const gchar *path_str = path->get_path();
-    gchar *p = g_build_filename (dev_con->priv->mountp, path_str, NULL);
+    gchar *p = g_build_filename (dev_con->priv->mountp, path->get_path(), NULL);
     GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
     GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, p);
     gnome_vfs_uri_unref (u1);
