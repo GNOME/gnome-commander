@@ -245,6 +245,7 @@ inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
     return ret != REG_NOMATCH;
 }
 
+
 /**
  * Determines if the name of a file matches an regexp
  *
@@ -369,8 +370,7 @@ static gpointer perform_search_operation (SearchData *data)
 
 static gboolean update_search_status_widgets (SearchData *data)
 {
-    // update the progress bar
-    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
+    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);       // update the progress bar
 
     if (data->pdata.mutex)
     {
@@ -379,13 +379,11 @@ static gboolean update_search_status_widgets (SearchData *data)
         GList *files = data->pdata.files;
         data->pdata.files = NULL;
 
-        // update status bar with the latest message
-        set_statusmsg (data, data->pdata.msg);
+        set_statusmsg (data, data->pdata.msg);                      // update status bar with the latest message
 
         g_mutex_unlock (data->pdata.mutex);
 
-        // add all files found since last update to the list
-        for (GList *i = files; i; i = i->next)
+        for (GList *i = files; i; i = i->next)                      // add all files found since last update to the list
             data->dialog->priv->result_list->append_file(GNOME_CMD_FILE (i->data));
 
         gnome_cmd_file_list_free (files);
