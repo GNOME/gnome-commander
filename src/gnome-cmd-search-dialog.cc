@@ -369,27 +369,25 @@ static gpointer perform_search_operation (SearchData *data)
 
 static gboolean update_search_status_widgets (SearchData *data)
 {
+    // update the progress bar
+    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
+
     if (data->pdata.mutex)
+    {
         g_mutex_lock (data->pdata.mutex);
 
-    // Add all files found since last update to the list
-    for (GList *files = data->pdata.files; files; files = files->next)
-        data->dialog->priv->result_list->append_file(GNOME_CMD_FILE (files->data));
+        // add all files found since last update to the list
+        for (GList *files = data->pdata.files; files; files = files->next)
+            data->dialog->priv->result_list->append_file(GNOME_CMD_FILE (files->data));
 
-    if (data->pdata.files)
-    {
         gnome_cmd_file_list_free (data->pdata.files);
         data->pdata.files = NULL;
-    }
 
-    // Update status bar with the latest message
-    set_statusmsg (data, data->pdata.msg);
+        // update status bar with the latest message
+        set_statusmsg (data, data->pdata.msg);
 
-    if (data->pdata.mutex)
         g_mutex_unlock (data->pdata.mutex);
-
-    // Update the progress bar
-    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
+    }
 
     if (!data->search_done)
         return TRUE;
