@@ -168,7 +168,7 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
         }
     }
 
-    // If the stop button was pressed let's abort here
+    // if the stop button was pressed, let's abort here
     if (data->stopped)
     {
         search_file_data_free (searchfile_data);
@@ -275,25 +275,25 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
         g_mutex_unlock (data->pdata.mutex);
     }
 
-    // If the stop button was pressed let's abort here
+    // if the stop button was pressed, let's abort here
     if (data->stopped)
         return;
 
     gnome_cmd_dir_list_files (dir, FALSE);
 
-    // Let's iterate through all files
+    // let's iterate through all files
     for (GList *i=gnome_cmd_dir_get_files (dir); i; i=i->next)
     {
-        // If the stop button was pressed let's abort here
+        // if the stop button was pressed, let's abort here
         if (data->stopped)
             return;
 
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-        // If the current file is a directory, let's continue our recursion
+        // if the current file is a directory, let's continue our recursion
         if (GNOME_CMD_IS_DIR (f) && data->recurse)
         {
-            // we don't want to go backwards or follow symlinks
+            // we don't want to go backwards or to follow symlinks
             if (!f->is_dotdot && strcmp (f->info->name, ".") != 0 && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (f);
@@ -310,7 +310,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
         else
             if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
             {
-                // if the name doesn't match lets go to the next file
+                // if the name doesn't match, let's go to the next file
                 if (!name_matches (f->info->name, data))
                     continue;
 
@@ -318,7 +318,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
                 if (data->content_search && !content_matches (f, data))
                     continue;
 
-                // the file matched the search criteria, lets add it to the list
+                // the file matched the search criteria, let's add it to the list
                 g_mutex_lock (data->pdata.mutex);
                 data->pdata.files = g_list_append (data->pdata.files, f->ref());
                 g_mutex_unlock (data->pdata.mutex);
@@ -336,7 +336,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
 static gpointer perform_search_operation (SearchData *data)
 {
-    // Unref all directories which contained matching files from last search
+    // unref all directories which contained matching files from last search
     if (data->match_dirs)
     {
         g_list_foreach (data->match_dirs, (GFunc) gnome_cmd_dir_unref, NULL);
@@ -450,12 +450,12 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
         if (!data->search_done)
             g_source_remove (data->update_gui_timeout_id);
 
-        // Stop and wait for search thread to exit
+        // stop and wait for search thread to exit
         data->stopped = TRUE;
         data->dialog_destroyed = TRUE;
         g_timeout_add (1, (GSourceFunc) join_thread_func, data);
 
-        // Unref all directories which contained matching files from last search
+        // unref all directories which contained matching files from last search
         if (data->pdata.mutex)
         {
             g_mutex_lock (data->pdata.mutex);
@@ -501,7 +501,7 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
-    // Save default settings
+    // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
     gnome_cmd_data.search_defaults.default_profile.recursive = data->recurse;
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
@@ -601,7 +601,7 @@ static void on_stop (GtkButton *button, GnomeCmdSearchDialog *dialog)
 }
 
 
-//  The user has clicked on the "go to" button
+//  the user has clicked on the "go to" button
 static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
     GnomeCmdFile *f = dialog->priv->result_list->get_selected_file();
@@ -653,7 +653,7 @@ static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event,
 }
 
 
-// The user has clicked on the "search by content" checkbutton.
+// the user has clicked on the "search by content" checkbutton
 static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDialog *dialog)
 {
     if (gtk_toggle_button_get_active (togglebutton))
@@ -871,9 +871,8 @@ static void init (GnomeCmdSearchDialog *dialog)
     dialog->priv->stop_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP, GTK_SIGNAL_FUNC (on_stop), dialog);
     dialog->priv->search_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND, GTK_SIGNAL_FUNC (on_search), dialog);
 
-    gtk_widget_set_sensitive (dialog->priv->stop_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
-
+    gtk_widget_set_sensitive (dialog->priv->stop_button, FALSE);
 
     sw = gtk_scrolled_window_new (NULL, NULL);
     g_object_ref (sw);
