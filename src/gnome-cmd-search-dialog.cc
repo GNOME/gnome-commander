@@ -722,6 +722,7 @@ inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *te
     return label;
 }
 
+
 /*
  * create a check_box_button with keyboard shortcut
  */
@@ -735,6 +736,7 @@ inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *te
 
     return btn;
 }
+
 
 /*
  * create a GtkRadioButton with keyboard shortcut
@@ -750,6 +752,7 @@ inline GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, 
     return radio;
 }
 
+
 /*
  * create a gtk_combo_box_entry_new_text. gtk_combo is deprecated.
  */
@@ -761,6 +764,7 @@ inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
     gtk_widget_show (combo);
     return combo;
 }
+
 
 /*
  * callback function for 'g_list_foreach' to add default value to dropdownbox
