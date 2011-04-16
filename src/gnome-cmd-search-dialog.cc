@@ -45,13 +45,13 @@ static char *msgs[] = {N_("Search _recursively:"),
 #endif
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
-
 #define PBAR_MAX   50
 
 #define SEARCH_JUMP_SIZE     4096U
 #define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
 
+
+G_DEFINE_TYPE (GnomeCmdSearchDialog, gnome_cmd_search_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 struct SearchData
@@ -673,36 +673,6 @@ static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDial
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
-{
-    GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
-
-    g_free (dialog->priv);
-    dialog->priv = NULL;
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
-}
-
-
-static void class_init (GnomeCmdSearchDialogClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
-
-    object_class->destroy = destroy;
-
-    widget_class->map = ::map;
-}
 
 /*
  * create a label with keyboard shortcut and a widget to activate if shortcut is pressed.
@@ -775,7 +745,17 @@ static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 }
 
 
-static void init (GnomeCmdSearchDialog *dialog)
+static void gnome_cmd_search_dialog_finalize (GObject *object)
+{
+    GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
+
+    g_free (dialog->priv);
+
+    G_OBJECT_CLASS (gnome_cmd_search_dialog_parent_class)->finalize (object);
+}
+
+
+static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 {
     GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
 
@@ -926,31 +906,11 @@ static void init (GnomeCmdSearchDialog *dialog)
 }
 
 
-/***********************************
- * Public functions
- ***********************************/
-
-GtkType gnome_cmd_search_dialog_get_type ()
+static void gnome_cmd_search_dialog_class_init (GnomeCmdSearchDialogClass *klass)
 {
-    static GtkType dlg_type = 0;
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdSearchDialog",
-            sizeof (GnomeCmdSearchDialog),
-            sizeof (GnomeCmdSearchDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-    return dlg_type;
+    object_class->finalize = gnome_cmd_search_dialog_finalize;
 }
 
 
