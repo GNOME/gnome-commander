@@ -723,7 +723,7 @@
       <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
 
-    
+
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
       <title>Drag-and-Drop</title>
@@ -890,7 +890,7 @@
 	 <!-- ================ Tab subsection ================================= -->
 	 <sect2 id="gnome-commander-tabs">
 		<title>Using multiple tabs</title>
-		<Para>You can open multiple tabs in both panels to speed up navigation. GNOME Commander can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </Para> 	 	
+		<para>You can open multiple tabs in both panels to speed up navigation. GNOME Commander can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </para>
 		<para>Using the mouse the middle click can be configured to open a new tab. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. When it is set a middle click on a folder will open it in a new tab in the same pane.
 		</para>
 		<note>
@@ -902,7 +902,7 @@
         <para>To open a new tab press <keycombo><keycap>Ctrl</keycap><keycap>t</keycap></keycombo> this opens a new tab in the current panel with the same folder opened.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>Ctrl</keycap><keycap>Up arrow</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para> 
+       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>Ctrl</keycap><keycap>Up arrow</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para>
         </listitem>
         <listitem>
        	 <para>To open a new tab displaying the selected folder in the inactive pane press the <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up arrow</keycap></keycombo>.</para>
@@ -910,7 +910,7 @@
         <listitem>
      	   <para>To navigate between tab you can you the mouse or use <keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> as many time as needed to select the tab element. If the tabs are selected you can also use the <keycap>right arrow</keycap> or <keycap>left arrow</keycap> to select the desired tab.</para>
         </listitem>
-        <listitem> 
+        <listitem>
      	   <para>To close a tab you can use the mouse and double click the tab or right click on it and from the menu select <guimenu>Close tab</guimenu>. You can also close the current tab using the keyboard shortcut <keycombo><keycap>Ctrl</keycap><keycap>w</keycap></keycombo></para>
         </listitem>
       </itemizedlist>
@@ -921,7 +921,7 @@
         </listitem>
         <listitem>
         	<para><guimenu>Refresh tab</guimenu> this actions refreshes the files displayed currently in the folder.
-        	</para> 
+        	</para>
         </listitem>
         <listitem>
         	<para><guimenu>Copy tab to other pane</guimenu> opens a new tab in the opposite pane, this tab will display the selected tab. </para>
@@ -929,16 +929,16 @@
         <listitem>
 	        <para><guimenu>Close tab</guimenu> this action closes the currently selected tab.
         </para>
-        </listitem> 
-		  <listitem>        
+        </listitem>
+		  <listitem>
         <para><guimenu>Close all tabs</guimenu> GNOME Commander will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
-        </listitem> 
+        </listitem>
         <listitem>
-        <para><guimenu>Close duplicate tabs</guimenu> GNOME Commander will search for duplicated open tabs in the current pane and close them.</para> 
+        <para><guimenu>Close duplicate tabs</guimenu> GNOME Commander will search for duplicated open tabs in the current pane and close them.</para>
         </listitem>
       </itemizedlist>
-	 </sect2>        
-    
+	 </sect2>
+
   </sect1>
 
 <!-- ================ Advanced features ================================ -->
@@ -4074,7 +4074,7 @@
       </figure>
       <!-- ==== End of Figure ==== -->
       <para/>
-      <table frame="topbot" id="gcmd-TBL-setting1">      
+      <table frame="topbot" id="gcmd-TBL-setting1">
         <title>General option tab</title>
         <tgroup cols="2" colsep="0" rowsep="0">
           <colspec colname="colspec0" colwidth="50.36*"/>
@@ -4145,7 +4145,7 @@
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option a middle click with the mouse on
                 any item in &app; will display the parent directory of the current one.</para>
-                <note><para>The middle click is usually emulated by clicking both left and right buttons simultaneously on two buttons mice.</para></note>  
+                <note><para>The middle click is usually emulated by clicking both left and right buttons simultaneously on two buttons mice.</para></note>
               </entry>
             </row>
             <row>
@@ -4301,7 +4301,7 @@
           </tbody>
         </tgroup>
       </table>
-            
+
 
     </sect2>
     <!-- Format options-->
@@ -4693,15 +4693,15 @@
 		<para><guilabel>Foreground</guilabel> describes the color used for the text, and <guilabel>background</guilabel> is the background color used for the row.</para>
 		<itemizedlist>
 			<listitem><guilabel>Default</guilabel> this is the text and background colors used by default. These colors are used for standard unselected items.
-			</listitem>			
+			</listitem>
 			<listitem><guilabel>Alternate</guilabel> If you wish to have a different color on alternate rows to help distinguish the files you can change the colors defined here. By default they are set to the same colors as the default.
-			</listitem>			
+			</listitem>
 			<listitem><guilabel>Selected File</guilabel>, all selected items will be marked using the colors defined here. They differ from the default to help visualization of the marked items.
 			</listitem>
 			<listitem><guilabel>Cursor</guilabel> is the row currently activated. This highlights the position and is useful when navigating files with the keyboard.
 			</listitem>
 		</itemizedlist>
-		
+
 		</sect3>
 		<sect3 id="gnome-commander-prefs-layout-ls_colors">
 			<title>Configuring Custom LS_COLORS</title>
