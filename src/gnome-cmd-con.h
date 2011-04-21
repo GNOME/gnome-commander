@@ -209,9 +209,6 @@ inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &ho
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-GnomeCmdDir *gnome_cmd_con_get_root_dir (GnomeCmdCon *con);
-void gnome_cmd_con_set_root_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
-
 inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);

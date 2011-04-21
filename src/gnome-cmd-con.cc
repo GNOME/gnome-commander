@@ -31,7 +31,6 @@ using namespace std;
 
 struct GnomeCmdConPrivate
 {
-    GnomeCmdDir    *root_dir;      // the root dir of this connection
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
     GnomeCmdBookmarkGroup *bookmarks;
@@ -97,8 +96,6 @@ static void destroy (GtkObject *object)
 
     if (con->priv->default_dir)
         gnome_cmd_dir_unref (con->priv->default_dir);
-    if (con->priv->root_dir)
-        gnome_cmd_dir_unref (con->priv->root_dir);
 
     delete con->priv->dir_history;
 
@@ -356,26 +353,6 @@ GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
 
     return con->priv->default_dir;
-}
-
-
-GnomeCmdDir *gnome_cmd_con_get_root_dir (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-
-    return con->priv->root_dir;
-}
-
-
-void gnome_cmd_con_set_root_dir (GnomeCmdCon *con, GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    if (dir)
-        gnome_cmd_dir_ref (dir);
-    if (con->priv->root_dir)
-        gnome_cmd_dir_unref (con->priv->root_dir);
-    con->priv->root_dir = dir;
 }
 
 
