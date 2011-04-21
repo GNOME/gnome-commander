@@ -326,10 +326,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
                 // also ref each directory that has a matching file
                 if (g_list_index (data->match_dirs, dir) == -1)
-                {
-                    gnome_cmd_dir_ref (dir);
-                    data->match_dirs = g_list_append (data->match_dirs, dir);
-                }
+                    data->match_dirs = g_list_append (data->match_dirs, gnome_cmd_dir_ref (dir));
             }
     }
 }

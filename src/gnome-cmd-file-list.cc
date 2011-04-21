@@ -2862,11 +2862,9 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     g_return_if_fail (GNOME_CMD_IS_DIR (to));
 
-    gnome_cmd_dir_ref (to);
-
     // Start the xfer
     gnome_cmd_xfer_uris_start (uri_list,
-                               to,
+                               gnome_cmd_dir_ref (to),
                                NULL,
                                NULL,
                                to_fn,

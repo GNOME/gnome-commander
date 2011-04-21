@@ -131,10 +131,8 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
 
     GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) g_object_new (GNOME_CMD_TYPE_MAKE_COPY_DIALOG, NULL);
 
-    dialog->priv->f = f;
-    dialog->priv->dir = dir;
-    f->ref();
-    gnome_cmd_dir_ref (dir);
+    dialog->priv->f = f->ref();
+    dialog->priv->dir = gnome_cmd_dir_ref (dir);
 
     gchar *msg = g_strdup_printf (_("Copy \"%s\" to"), f->get_name());
     GtkWidget *msg_label = create_label (GTK_WIDGET (dialog), msg);

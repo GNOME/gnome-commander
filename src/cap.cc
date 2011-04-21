@@ -56,9 +56,8 @@ inline void update_refs (GnomeCmdFileList *fl, GList *files)
 
 inline void cut_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_dir_ref (to);
     gnome_cmd_xfer_start (_files,
-                          to,
+                          gnome_cmd_dir_ref (to),
                           _fl,
                           NULL,
                           GNOME_VFS_XFER_REMOVESOURCE,
@@ -72,9 +71,8 @@ inline void cut_and_paste (GnomeCmdDir *to)
 
 inline void copy_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_dir_ref (to);
     gnome_cmd_xfer_start (_files,
-                          to,
+                          gnome_cmd_dir_ref (to),
                           _fl,
                           NULL,
                           GNOME_VFS_XFER_RECURSIVE,

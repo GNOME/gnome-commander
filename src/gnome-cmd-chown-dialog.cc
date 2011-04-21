@@ -64,9 +64,8 @@ static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 
     if (in->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        GnomeCmdDir *dir = GNOME_CMD_DIR (in);
+        GnomeCmdDir *dir = gnome_cmd_dir_ref (GNOME_CMD_DIR (in));
 
-        gnome_cmd_dir_ref (dir);
         gnome_cmd_dir_list_files (dir, FALSE);
 
         for (GList *i = gnome_cmd_dir_get_files (dir); i; i = i->next)

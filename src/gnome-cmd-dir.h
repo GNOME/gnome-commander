@@ -110,10 +110,11 @@ inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
     return gnome_cmd_file_new (info, dir);
 }
 
-inline void gnome_cmd_dir_ref (GnomeCmdDir *dir)
+inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
 {
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
     GNOME_CMD_FILE (dir)->ref();
+    return dir;
 }
 
 inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
