@@ -71,7 +71,7 @@ static void on_open_done (GnomeCmdCon *con)
 
 static void on_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result)
 {
-    //gnome_cmd_con_updated (con);
+    // gnome_cmd_con_updated (con);
 }
 
 

@@ -782,7 +782,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_table_set_col_spacings (GTK_TABLE (table), 6);
     gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
 
-    // Search for
+    // search for
     dialog->priv->pattern_combo = create_combo_box_entry (window);
     label = create_label_with_mnemonic (window, _("Search _for: "), dialog->priv->pattern_combo);
     table_add (table, label, 0, 0, GTK_FILL);
@@ -794,7 +794,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
 
-    // Search in
+    // search in
     dialog->priv->dir_browser = create_file_entry (window, "dir_browser", "");
     label = create_label_with_mnemonic (window, _("Search _in: "), dialog->priv->dir_browser);
     table_add (table, label, 0, 1, GTK_FILL);
@@ -810,13 +810,13 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     hbox = create_hbox (window, FALSE, 0);
 
 
-    // Recurse check
+    // recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.recursive);
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
-    // File name matching
+    // file name matching
     radio = create_radio_with_mnemonic (window, NULL, _("Rege_x syntax"), "regex_radio");
     gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
     if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
@@ -829,7 +829,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     table_add (table, hbox, 1, 2, GTK_FILL);
 
 
-    // Find text
+    // find text
     dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Find _text: "), "find_text");
     table_add (table, dialog->priv->find_text_check, 0, 3, GTK_FILL);
 
@@ -842,7 +842,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
 
-    // Case check
+    // case check
     dialog->priv->case_check = create_check_with_mnemonic (window, _("Case sensiti_ve"), "case_check");
     gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 1, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),

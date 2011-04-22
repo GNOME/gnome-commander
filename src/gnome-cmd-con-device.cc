@@ -122,10 +122,10 @@ static void do_mount_thread_func (GnomeCmdCon *con)
                     emsg = NULL;
                     break;
                 case 1:
-                    emsg = g_strdup (_("Mount failed: Permission denied"));
+                    emsg = g_strdup (_("Mount failed: permission denied"));
                     break;
                 case 32:
-                    emsg = g_strdup (_("Mount failed: No medium found"));
+                    emsg = g_strdup (_("Mount failed: no medium found"));
                     break;
                 default:
                     emsg = g_strdup_printf (_("Mount failed: mount exited with existatus %d"), estatus);
@@ -190,28 +190,25 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
 {
     GtkWidget *msgbox;
 
-    DEBUG('m', "VFS Umount Callback: %s %s %s\n", succeeded ? "Succeeded" : "Failed",
+    DEBUG('m', "VFS umount callback: %s %s %s\n", succeeded ? "succeeded" : "failed",
                error ? error : "",
                detailed_error ? detailed_error : "");
 
     if (succeeded)
-    {
-            msgbox = gtk_message_dialog_new (*main_win,
-                            GTK_DIALOG_MODAL,
-                            GTK_MESSAGE_INFO,
-                            GTK_BUTTONS_OK,
-                            _("Device is now safe to remove"));
-    }
+        msgbox = gtk_message_dialog_new (*main_win,
+                                         GTK_DIALOG_MODAL,
+                                         GTK_MESSAGE_INFO,
+                                         GTK_BUTTONS_OK,
+                                         _("Device is now safe to remove"));
     else
-    {
-            msgbox = gtk_message_dialog_new (*main_win,
-                            GTK_DIALOG_MODAL,
-                            GTK_MESSAGE_ERROR,
-                            GTK_BUTTONS_OK,
-                            _("Cannot unmount the volume:\n%s %s"),
-                            error ? error : _("Unknown error"),
-                            detailed_error ? detailed_error: "");
-    }
+        msgbox = gtk_message_dialog_new (*main_win,
+                                         GTK_DIALOG_MODAL,
+                                         GTK_MESSAGE_ERROR,
+                                         GTK_BUTTONS_OK,
+                                         _("Cannot unmount the volume:\n%s %s"),
+                                         error ? error : _("Unknown error"),
+                                         detailed_error ? detailed_error: "");
+
     gtk_dialog_run (GTK_DIALOG (msgbox));
     gtk_widget_destroy (msgbox);
 }
