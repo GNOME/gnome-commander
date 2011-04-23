@@ -7,16 +7,16 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2005.
 # Allan Jäke <allan@jaeke.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2007-2009.c
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011.
+# Mario Blättermann <mariobl@freenet.de>, 2008-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
-"commander&component=general\n"
-"POT-Creation-Date: 2011-02-12 18:19+0000\n"
-"PO-Revision-Date: 2011-02-13 15:43+0100\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
+"commander&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-22 22:24+0000\n"
+"PO-Revision-Date: 2011-04-23 17:08+0100\n"
+"Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "Keine Fehlerbeschreibung vorhanden"
 #: ../src/gnome-cmd-options-dialog.cc:2033
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/gnome-cmd-prepare-move-dialog.cc:115
-#: ../src/gnome-cmd-remote-dialog.cc:467 ../src/gnome-cmd-user-actions.cc:196
+#: ../src/gnome-cmd-remote-dialog.cc:471 ../src/gnome-cmd-user-actions.cc:196
 msgid "Options"
 msgstr "Optionen"
 
@@ -372,7 +372,7 @@ msgstr "Gruppe des Lesezeichens"
 #. NULL);
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:249
 #: ../src/gnome-cmd-file-props-dialog.cc:656
-#: ../src/gnome-cmd-remote-dialog.cc:376 ../src/intviewer/viewer-window.cc:1463
+#: ../src/gnome-cmd-remote-dialog.cc:380 ../src/intviewer/viewer-window.cc:1463
 #: ../src/plugin_manager.cc:404 ../src/tags/gnome-cmd-tags.cc:321
 msgid "Name"
 msgstr "Name"
@@ -571,11 +571,11 @@ msgstr "Alle Dateien"
 msgid "Directories only"
 msgstr "Nur Ordner"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:181
+#: ../src/gnome-cmd-chmod-dialog.cc:178
 msgid "Access Permissions"
 msgstr "Zugriffsrechte"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:197
+#: ../src/gnome-cmd-chmod-dialog.cc:194
 msgid "Apply Recursively for"
 msgstr "Rekursiv anwenden für"
 
@@ -584,11 +584,11 @@ msgstr "Rekursiv anwenden für"
 msgid "Could not chown %s"
 msgstr "chown %s nicht erfolgreich"
 
-#: ../src/gnome-cmd-chown-dialog.cc:155
+#: ../src/gnome-cmd-chown-dialog.cc:152
 msgid "Chown"
 msgstr "Chown"
 
-#: ../src/gnome-cmd-chown-dialog.cc:166
+#: ../src/gnome-cmd-chown-dialog.cc:163
 msgid "Apply Recursively"
 msgstr "Rekursiv anwenden"
 
@@ -616,7 +616,7 @@ msgstr "Trenne Verbindung zu: %s"
 msgid "Connecting to %s\n"
 msgstr "Verbindung zu %s wird hergestellt\n"
 
-#: ../src/gnome-cmd-con.h:355
+#: ../src/gnome-cmd-con.h:352
 msgid "Unknown disk usage"
 msgstr "Unbekannte Datenträgerbelegung"
 
@@ -625,23 +625,23 @@ msgid "Failed to execute the mount command"
 msgstr "Beim Befehl zum Einbinden ist ein Fehler aufgetreten"
 
 #: ../src/gnome-cmd-con-device.cc:125
-msgid "Mount failed: Permission denied"
+msgid "Mount failed: permission denied"
 msgstr "Einbinden fehlgeschlagen: Zugriff verweigert"
 
 #: ../src/gnome-cmd-con-device.cc:128
-msgid "Mount failed: No medium found"
+msgid "Mount failed: no medium found"
 msgstr "Einbinden fehlgeschlagen: Kein Datenträger gefunden"
 
-#: ../src/gnome-cmd-con-device.cc:132
+#: ../src/gnome-cmd-con-device.cc:131
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "Einbinden fehlgeschlagen: Rückgabewert war %d"
 
-#: ../src/gnome-cmd-con-device.cc:205
+#: ../src/gnome-cmd-con-device.cc:202
 msgid "Device is now safe to remove"
 msgstr "Datenträger kann sicher entfernt werden"
 
-#: ../src/gnome-cmd-con-device.cc:213
+#: ../src/gnome-cmd-con-device.cc:208
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -650,26 +650,26 @@ msgstr ""
 "Der Datenträger konnte nicht ausgehängt werden:\n"
 "%s %s"
 
-#: ../src/gnome-cmd-con-device.cc:214
+#: ../src/gnome-cmd-con-device.cc:209
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: ../src/gnome-cmd-con-device.cc:401
+#: ../src/gnome-cmd-con-device.cc:395
 #, c-format
 msgid "Mounting %s"
 msgstr "%s wird eingebunden"
 
-#: ../src/gnome-cmd-con-device.cc:417
+#: ../src/gnome-cmd-con-device.cc:411
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Gehe zu: %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:418
+#: ../src/gnome-cmd-con-device.cc:412
 #, c-format
 msgid "Mount: %s"
 msgstr "Einbinden: %s"
 
-#: ../src/gnome-cmd-con-device.cc:419
+#: ../src/gnome-cmd-con-device.cc:413
 #, c-format
 msgid "Unmount: %s"
 msgstr "Aushängen: %s"
@@ -854,12 +854,12 @@ msgstr "Problem beim Löschen"
 msgid "Abort"
 msgstr "Abbruch"
 
-#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1283
+#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1322
 #: ../src/gnome-cmd-xfer.cc:184
 msgid "Retry"
 msgstr "Wiederholen"
 
-#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1283
+#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1322
 #: ../src/gnome-cmd-xfer.cc:164 ../src/gnome-cmd-xfer.cc:184
 msgid "Skip"
 msgstr "Überspringen"
@@ -881,8 +881,8 @@ msgstr[1] "Möchten Sie die %d gewählten Dateien löschen?"
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/gnome-cmd-file-selector.cc:1283
-#: ../src/gnome-cmd-user-actions.cc:822 ../src/utils.cc:506 ../src/utils.cc:534
+#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/gnome-cmd-file-selector.cc:1322
+#: ../src/gnome-cmd-user-actions.cc:828 ../src/utils.cc:506 ../src/utils.cc:534
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -898,7 +898,7 @@ msgstr "Aktuellen Ordner hinzufügen"
 msgid "Manage bookmarks..."
 msgstr "Lesezeichen _verwalten …"
 
-#: ../src/gnome-cmd-dir.cc:512
+#: ../src/gnome-cmd-dir.cc:506
 msgid "Waiting for file list"
 msgstr "Warte auf Dateiliste"
 
@@ -934,11 +934,11 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:1392
+#: ../src/gnome-cmd-file-list.cc:1388
 msgid "Directory listing failed."
 msgstr "Ordnerauflistung ist gescheitert."
 
-#: ../src/gnome-cmd-file-list.cc:1445
+#: ../src/gnome-cmd-file-list.cc:1441
 msgid "Failed to open connection."
 msgstr "Verbindung konnte nicht geöffnet werden."
 
@@ -1043,7 +1043,7 @@ msgid "Image:"
 msgstr "Bild:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:377
-#: ../src/gnome-cmd-file-selector.cc:1085
+#: ../src/gnome-cmd-file-selector.cc:1123
 msgid "File name:"
 msgstr "Dateiname:"
 
@@ -1154,123 +1154,123 @@ msgstr "Zugriffsrechte"
 msgid "Metadata"
 msgstr "Metadaten"
 
-#: ../src/gnome-cmd-file-selector.cc:182
+#: ../src/gnome-cmd-file-selector.cc:184
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
 msgstr[0] "%s von %s KB in %d von %d Datei"
 msgstr[1] "%s von %s KB in %d von %d Dateien"
 
-#: ../src/gnome-cmd-file-selector.cc:186
+#: ../src/gnome-cmd-file-selector.cc:188
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d von %d Ordner ausgewählt"
 msgstr[1] "%s, %d von %d Ordnern ausgewählt"
 
-#: ../src/gnome-cmd-file-selector.cc:241
+#: ../src/gnome-cmd-file-selector.cc:243
 #, c-format
 msgid "%s free"
 msgstr "%s frei"
 
-#: ../src/gnome-cmd-file-selector.cc:617 ../src/gnome-cmd-file-selector.cc:692
-#: ../src/gnome-cmd-user-actions.cc:1518 ../src/gnome-cmd-user-actions.cc:1526
+#: ../src/gnome-cmd-file-selector.cc:619 ../src/gnome-cmd-file-selector.cc:694
+#: ../src/gnome-cmd-user-actions.cc:1544 ../src/gnome-cmd-user-actions.cc:1552
 msgid "The tab is locked, close anyway ?"
 msgstr "Der Reiter ist gesperrt, trotzdem fortsetzen?"
 
-#: ../src/gnome-cmd-file-selector.cc:635 ../src/gnome-cmd-main-menu.cc:615
+#: ../src/gnome-cmd-file-selector.cc:637 ../src/gnome-cmd-main-menu.cc:615
 msgid "Open in New _Tab"
 msgstr "In neuem Rei_ter öffnen"
 
-#: ../src/gnome-cmd-file-selector.cc:642
+#: ../src/gnome-cmd-file-selector.cc:644
 msgid "_Unlock Tab"
 msgstr "Reiter _entsperren"
 
-#: ../src/gnome-cmd-file-selector.cc:642
+#: ../src/gnome-cmd-file-selector.cc:644
 msgid "_Lock Tab"
 msgstr "Reiter _sperren"
 
-#: ../src/gnome-cmd-file-selector.cc:647
+#: ../src/gnome-cmd-file-selector.cc:649
 msgid "_Refresh Tab"
 msgstr "_Reiter aktualisieren"
 
-#: ../src/gnome-cmd-file-selector.cc:652
+#: ../src/gnome-cmd-file-selector.cc:654
 msgid "Copy Tab to Other _Pane"
 msgstr "Reiter in anderes Dateifenster _kopieren"
 
-#: ../src/gnome-cmd-file-selector.cc:658 ../src/gnome-cmd-main-menu.cc:621
+#: ../src/gnome-cmd-file-selector.cc:660 ../src/gnome-cmd-main-menu.cc:621
 msgid "_Close Tab"
 msgstr "Reiter s_chließen"
 
-#: ../src/gnome-cmd-file-selector.cc:663 ../src/gnome-cmd-main-menu.cc:627
+#: ../src/gnome-cmd-file-selector.cc:665 ../src/gnome-cmd-main-menu.cc:627
 msgid "Close _All Tabs"
 msgstr "_Alle Reiter schließen"
 
-#: ../src/gnome-cmd-file-selector.cc:668
+#: ../src/gnome-cmd-file-selector.cc:670
 msgid "Close _Duplicate Tabs"
 msgstr "_Doppelte Reiter schließen"
 
-#: ../src/gnome-cmd-file-selector.cc:1023
+#: ../src/gnome-cmd-file-selector.cc:1061
 #: ../src/gnome-cmd-make-copy-dialog.cc:67
 msgid "No file name entered"
 msgstr "Kein Dateiname eingegeben"
 
-#: ../src/gnome-cmd-file-selector.cc:1057
+#: ../src/gnome-cmd-file-selector.cc:1095
 msgid "No file name given"
 msgstr "Kein Dateiname angegeben"
 
-#: ../src/gnome-cmd-file-selector.cc:1088
+#: ../src/gnome-cmd-file-selector.cc:1126
 msgid "New Text File"
 msgstr "Neue Textdatei"
 
-#: ../src/gnome-cmd-file-selector.cc:1231
+#: ../src/gnome-cmd-file-selector.cc:1270
 msgid "Symbolic link name:"
 msgstr "Verknüpfungsname:"
 
-#: ../src/gnome-cmd-file-selector.cc:1237
-#: ../src/gnome-cmd-file-selector.cc:1283 ../src/gnome-cmd-user-actions.cc:822
+#: ../src/gnome-cmd-file-selector.cc:1276
+#: ../src/gnome-cmd-file-selector.cc:1322 ../src/gnome-cmd-user-actions.cc:828
 msgid "Create Symbolic Link"
 msgstr "Symbolische Verknüpfung erstellen"
 
-#: ../src/gnome-cmd-file-selector.cc:1283
+#: ../src/gnome-cmd-file-selector.cc:1322
 #: ../src/gnome-cmd-options-dialog.cc:944
 #: ../src/gnome-cmd-options-dialog.cc:964
 msgid "Skip all"
 msgstr "Alle überspringen"
 
-#: ../src/gnome-cmd-file-selector.cc:1354
+#: ../src/gnome-cmd-file-selector.cc:1393
 msgid "Filter:"
 msgstr "Filter:"
 
-#: ../src/gnome-cmd-file.cc:573
+#: ../src/gnome-cmd-file.cc:590
 msgid "Unknown file type"
 msgstr "Unbekannter Dateityp"
 
-#: ../src/gnome-cmd-file.cc:574
+#: ../src/gnome-cmd-file.cc:591
 msgid "Regular file"
 msgstr "Reguläre Datei"
 
-#: ../src/gnome-cmd-file.cc:575 ../src/gnome-cmd-profile-component.cc:913
+#: ../src/gnome-cmd-file.cc:592 ../src/gnome-cmd-profile-component.cc:913
 msgid "Directory"
 msgstr "Ordner"
 
-#: ../src/gnome-cmd-file.cc:576
+#: ../src/gnome-cmd-file.cc:593
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:577
+#: ../src/gnome-cmd-file.cc:594
 msgid "UNIX Socket"
 msgstr "UNIX-Socket"
 
-#: ../src/gnome-cmd-file.cc:578
+#: ../src/gnome-cmd-file.cc:595
 msgid "Character device"
 msgstr "Zeichenorientiertes Gerät"
 
-#: ../src/gnome-cmd-file.cc:579
+#: ../src/gnome-cmd-file.cc:596
 msgid "Block device"
 msgstr "Blockorientiertes Gerät"
 
-#: ../src/gnome-cmd-file.cc:580
+#: ../src/gnome-cmd-file.cc:597
 msgid "Symbolic link"
 msgstr "Symbolische Verknüpfung"
 
@@ -1594,13 +1594,13 @@ msgstr "Terminal öffnen (Umschalttaste für Systemverwalterrechte)"
 msgid "Drop connection"
 msgstr "Verbindung beenden"
 
-#: ../src/gnome-cmd-make-copy-dialog.cc:139
+#: ../src/gnome-cmd-make-copy-dialog.cc:137
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:140
 #, c-format
 msgid "Copy \"%s\" to"
 msgstr "»%s« wird kopiert nach"
 
-#: ../src/gnome-cmd-make-copy-dialog.cc:146
+#: ../src/gnome-cmd-make-copy-dialog.cc:144
 msgid "Copy File"
 msgstr "Datei kopieren"
 
@@ -1961,12 +1961,10 @@ msgid "Always show the tab bar"
 msgstr "Reiterleiste immer anzeigen"
 
 #: ../src/gnome-cmd-options-dialog.cc:861
-#| msgid "Back one directory"
 msgid "Tab lock indicator"
 msgstr "Sperrindikator der Reiterleiste"
 
 #: ../src/gnome-cmd-options-dialog.cc:864
-#| msgid "No icons"
 msgid "Lock icon"
 msgstr "Symbol sperren"
 
@@ -2563,32 +2561,32 @@ msgstr "Python-Modul »gnomevfs« (»gnome.vfs«) konnte nicht geladen werden"
 msgid "Search"
 msgstr "Suche"
 
-#: ../src/gnome-cmd-remote-dialog.cc:211
+#: ../src/gnome-cmd-remote-dialog.cc:215
 #, c-format
 msgid "No server selected"
 msgstr "Kein Server ausgewählt"
 
-#: ../src/gnome-cmd-remote-dialog.cc:362
+#: ../src/gnome-cmd-remote-dialog.cc:366
 msgid "GNOME authentication manager usage"
 msgstr "Nutzung der GNOME-Schlüsselbund-Verwaltung"
 
-#: ../src/gnome-cmd-remote-dialog.cc:366
+#: ../src/gnome-cmd-remote-dialog.cc:370
 msgid "Network protocol"
 msgstr "Netzwerkprotokoll"
 
-#: ../src/gnome-cmd-remote-dialog.cc:377
+#: ../src/gnome-cmd-remote-dialog.cc:381
 msgid "Connection name"
 msgstr "Verbindungsname"
 
-#: ../src/gnome-cmd-remote-dialog.cc:433
+#: ../src/gnome-cmd-remote-dialog.cc:437
 msgid "Remote Connections"
 msgstr "Entfernte Verbindungen"
 
-#: ../src/gnome-cmd-remote-dialog.cc:439
+#: ../src/gnome-cmd-remote-dialog.cc:443
 msgid "Connections"
 msgstr "Verbindungen"
 
-#: ../src/gnome-cmd-remote-dialog.cc:470
+#: ../src/gnome-cmd-remote-dialog.cc:474
 msgid "Anonymous FTP password:"
 msgstr "Passwort für anonymen FTP-Zugriff:"
 
@@ -2613,77 +2611,77 @@ msgstr "_Begrenzte Tiefe"
 msgid "Files _not containing text"
 msgstr "Dateien, die _keinen Text enthalten"
 
-#: ../src/gnome-cmd-search-dialog.cc:163
+#: ../src/gnome-cmd-search-dialog.cc:165
 #, c-format
 msgid "Failed to open file %s: %s"
 msgstr "Datei %s konnte nicht geöffnet werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:204
+#: ../src/gnome-cmd-search-dialog.cc:206
 #, c-format
 msgid "Failed to seek in file %s: %s"
 msgstr "In Datei %s konnte nicht gesucht werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:211
+#: ../src/gnome-cmd-search-dialog.cc:213
 #, c-format
 msgid "Failed to read from file %s: %s"
 msgstr "Datei %s konnte nicht gelesen werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:272
+#: ../src/gnome-cmd-search-dialog.cc:274
 #, c-format
 msgid "Searching in: %s"
 msgstr "Suche in: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:409
+#: ../src/gnome-cmd-search-dialog.cc:396
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
 msgstr[0] "Vor dem Abbruch der Suche wurde %d Treffer gefunden"
 msgstr[1] "Vor dem Abbruch der Suche wurden %d Treffer gefunden"
 
-#: ../src/gnome-cmd-search-dialog.cc:416
+#: ../src/gnome-cmd-search-dialog.cc:397
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d Treffer gefunden"
 msgstr[1] "%d Treffer gefunden"
 
-#: ../src/gnome-cmd-search-dialog.cc:810
+#: ../src/gnome-cmd-search-dialog.cc:773
 msgid "Search..."
 msgstr "Suchen …"
 
-#: ../src/gnome-cmd-search-dialog.cc:824
+#: ../src/gnome-cmd-search-dialog.cc:787
 msgid "Search _for: "
 msgstr "Suche _nach: "
 
-#: ../src/gnome-cmd-search-dialog.cc:836
+#: ../src/gnome-cmd-search-dialog.cc:799
 msgid "Search _in: "
 msgstr "Suche _in: "
 
-#. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:851
+#. recurse check
+#: ../src/gnome-cmd-search-dialog.cc:814
 msgid "Search _recursively"
 msgstr "_Rekursive Suche"
 
-#. File name matching
-#: ../src/gnome-cmd-search-dialog.cc:857
+#. file name matching
+#: ../src/gnome-cmd-search-dialog.cc:820
 msgid "Rege_x syntax"
 msgstr "Reguläre _Ausdrücke verwenden"
 
-#: ../src/gnome-cmd-search-dialog.cc:861
+#: ../src/gnome-cmd-search-dialog.cc:824
 msgid "She_ll syntax"
 msgstr "She_ll-Syntax"
 
-#. Find text
-#: ../src/gnome-cmd-search-dialog.cc:870
+#. find text
+#: ../src/gnome-cmd-search-dialog.cc:833
 msgid "Find _text: "
 msgstr "_Text suchen: "
 
-#. Case check
-#: ../src/gnome-cmd-search-dialog.cc:883
+#. case check
+#: ../src/gnome-cmd-search-dialog.cc:846
 msgid "Case sensiti_ve"
 msgstr "_Groß-/Kleinschreibung beachten"
 
-#: ../src/gnome-cmd-search-dialog.cc:891
+#: ../src/gnome-cmd-search-dialog.cc:854
 msgid "_Go to"
 msgstr "_Gehe zu"
 
@@ -2977,67 +2975,67 @@ msgstr "Reiter sperren/entsperren"
 msgid "Show terminal"
 msgstr "Terminal zeigen"
 
-#: ../src/gnome-cmd-user-actions.cc:817
+#: ../src/gnome-cmd-user-actions.cc:823
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Symbolische Verknüpfung erstellen für %i Datei in %s?"
 msgstr[1] "Symbolische Verknüpfungen erstellen für %i Dateien in %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:822
+#: ../src/gnome-cmd-user-actions.cc:828
 msgid "Create"
 msgstr "Erstellen"
 
-#: ../src/gnome-cmd-user-actions.cc:886 ../src/gnome-cmd-user-actions.cc:903
-#: ../src/gnome-cmd-user-actions.cc:942
+#: ../src/gnome-cmd-user-actions.cc:892 ../src/gnome-cmd-user-actions.cc:909
+#: ../src/gnome-cmd-user-actions.cc:948
 msgid "Operation not supported on remote file systems"
 msgstr "Aktion wird auf entfernten Dateisystemen nicht unterstützt"
 
-#: ../src/gnome-cmd-user-actions.cc:918
+#: ../src/gnome-cmd-user-actions.cc:924
 msgid "Too many selected files"
 msgstr "Zuviele ausgewählte Dateien"
 
-#: ../src/gnome-cmd-user-actions.cc:1166
+#: ../src/gnome-cmd-user-actions.cc:1172
 msgid "Unable to execute command."
 msgstr "Befehl konnte nicht ausgeführt werden."
 
-#: ../src/gnome-cmd-user-actions.cc:1191
+#: ../src/gnome-cmd-user-actions.cc:1197
 msgid "Unable to open terminal"
 msgstr "Terminal konnte nicht geöffnet werden"
 
-#: ../src/gnome-cmd-user-actions.cc:1211
+#: ../src/gnome-cmd-user-actions.cc:1217
 msgid "Unable to open terminal in root mode"
 msgstr "Terminal konnte im Systemverwaltermodus nicht geöffnet werden"
 
-#: ../src/gnome-cmd-user-actions.cc:1216 ../src/gnome-cmd-user-actions.cc:1273
+#: ../src/gnome-cmd-user-actions.cc:1222 ../src/gnome-cmd-user-actions.cc:1279
 msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "xdg-su, gksu, gnomesu, kdesu oder beesu konnten nicht gefunden werden"
 
-#: ../src/gnome-cmd-user-actions.cc:1238
+#: ../src/gnome-cmd-user-actions.cc:1244
 msgid "Unable to start Nautilus."
 msgstr "Nautilus konnte nicht gestartet werden."
 
-#: ../src/gnome-cmd-user-actions.cc:1270
+#: ../src/gnome-cmd-user-actions.cc:1276
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "GNOME Commander konnte nicht als Administrator gestartet werden."
 
-#: ../src/gnome-cmd-user-actions.cc:1725
+#: ../src/gnome-cmd-user-actions.cc:1751
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
-#: ../src/gnome-cmd-user-actions.cc:1827 ../src/gnome-cmd-user-actions.cc:1830
+#: ../src/gnome-cmd-user-actions.cc:1853 ../src/gnome-cmd-user-actions.cc:1856
 msgid "There was an error opening home page."
 msgstr "Beim Öffnen der Homepage ist ein Fehler aufgetreten."
 
-#: ../src/gnome-cmd-user-actions.cc:1841 ../src/gnome-cmd-user-actions.cc:1844
+#: ../src/gnome-cmd-user-actions.cc:1867 ../src/gnome-cmd-user-actions.cc:1870
 msgid "There was an error reporting problem."
 msgstr "Beim Berichten des Problems ist ein Fehler aufgetreten."
 
-#: ../src/gnome-cmd-user-actions.cc:1868
+#: ../src/gnome-cmd-user-actions.cc:1894
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Ein schneller und funktionsreicher Dateimanager für den GNOME Desktop"
 
-#: ../src/gnome-cmd-user-actions.cc:1872
+#: ../src/gnome-cmd-user-actions.cc:1898
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -3050,7 +3048,7 @@ msgstr ""
 "entweder in Version 2 der Lizenz oder (nach Ihrem Ermessen) in jeder "
 "folgenden Version."
 
-#: ../src/gnome-cmd-user-actions.cc:1876
+#: ../src/gnome-cmd-user-actions.cc:1902
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -3063,7 +3061,7 @@ msgstr ""
 "für weitere Informationen bitten in der GNU General Public License (GNU GPL) "
 "nach."
 
-#: ../src/gnome-cmd-user-actions.cc:1880
+#: ../src/gnome-cmd-user-actions.cc:1906
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -3074,7 +3072,7 @@ msgstr ""
 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA "
 "02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1897
+#: ../src/gnome-cmd-user-actions.cc:1923
 msgid "translator-credits"
 msgstr ""
 "Frank Arnold <farnold@cvs.gnome.org>\n"
@@ -3083,7 +3081,7 @@ msgstr ""
 "Walter Muellner <walter.muellner@telering.at>\n"
 "Allan Jäke <allan@jaeke.de>\n"
 "Andre Klapper <ak-47@gmx.net>\n"
-"Mario Blättermann <mario.blaettermann@gmail.com>"
+"Mario Blättermann <mariobl@freenet.de>"
 
 #: ../src/gnome-cmd-xfer.cc:160
 #, c-format
@@ -3234,7 +3232,6 @@ msgid "(fit to window)"
 msgstr "(Ins Fenster einpassen)"
 
 #: ../src/intviewer/viewer-widget.cc:261
-#| msgid "_Copy Text Selection"
 msgid "_Copy selection"
 msgstr "Auswahl _kopieren"
 
