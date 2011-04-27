@@ -8,15 +8,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
-"POT-Creation-Date: 2011-02-23 18:24+0000\n"
-"PO-Revision-Date: 2011-02-25 14:15+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-27 19:04+0000\n"
+"PO-Revision-Date: 2011-04-27 22:11+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -27,7 +27,7 @@ msgid "A two paned file manager"
 msgstr "Dvostrani urejevalnik datotek"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
-#: ../src/gnome-cmd-data.cc:353
+#: ../src/gnome-cmd-data.cc:351
 #: ../src/gnome-cmd-main-win.cc:756
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -44,7 +44,7 @@ msgstr "Opis napake ni na voljo"
 #: ../src/gnome-cmd-options-dialog.cc:2033
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/gnome-cmd-prepare-move-dialog.cc:115
-#: ../src/gnome-cmd-remote-dialog.cc:467
+#: ../src/gnome-cmd-remote-dialog.cc:471
 #: ../src/gnome-cmd-user-actions.cc:196
 msgid "Options"
 msgstr "Možnosti"
@@ -353,7 +353,7 @@ msgstr "Skupina zaznamka"
 #. NULL);
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:249
 #: ../src/gnome-cmd-file-props-dialog.cc:656
-#: ../src/gnome-cmd-remote-dialog.cc:376
+#: ../src/gnome-cmd-remote-dialog.cc:380
 #: ../src/intviewer/viewer-window.cc:1463
 #: ../src/plugin_manager.cc:404
 #: ../src/tags/gnome-cmd-tags.cc:321
@@ -552,11 +552,11 @@ msgstr "Vse datoteke"
 msgid "Directories only"
 msgstr "Samo mape"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:181
+#: ../src/gnome-cmd-chmod-dialog.cc:178
 msgid "Access Permissions"
 msgstr "Dovoljenja"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:197
+#: ../src/gnome-cmd-chmod-dialog.cc:194
 msgid "Apply Recursively for"
 msgstr "Uporabi po strukturi map"
 
@@ -565,11 +565,11 @@ msgstr "Uporabi po strukturi map"
 msgid "Could not chown %s"
 msgstr "Ni mogoče zamenjati lastništva %s"
 
-#: ../src/gnome-cmd-chown-dialog.cc:155
+#: ../src/gnome-cmd-chown-dialog.cc:152
 msgid "Chown"
 msgstr "Zamenjava lastništva"
 
-#: ../src/gnome-cmd-chown-dialog.cc:166
+#: ../src/gnome-cmd-chown-dialog.cc:163
 msgid "Apply Recursively"
 msgstr "Uporabi po strukturi map"
 
@@ -597,7 +597,7 @@ msgstr "Prekinjanje povezave: %s"
 msgid "Connecting to %s\n"
 msgstr "Povezovanje z %s\n"
 
-#: ../src/gnome-cmd-con.h:355
+#: ../src/gnome-cmd-con.h:352
 msgid "Unknown disk usage"
 msgstr "Nedoločena zasedenost diska"
 
@@ -606,23 +606,23 @@ msgid "Failed to execute the mount command"
 msgstr "Napaka med izvajanjem ukaza mount"
 
 #: ../src/gnome-cmd-con-device.cc:125
-msgid "Mount failed: Permission denied"
-msgstr "Priklop je spodletel: Ni ustreznih dovoljenj"
+msgid "Mount failed: permission denied"
+msgstr "Priklop je spodletel: ni ustreznih dovoljenj"
 
 #: ../src/gnome-cmd-con-device.cc:128
-msgid "Mount failed: No medium found"
-msgstr "Priklop je spodletel: Ni mogoče najti medija."
+msgid "Mount failed: no medium found"
+msgstr "Priklop je spodletel: ni mogoče najti nodilca."
 
 #: ../src/gnome-cmd-con-device.cc:131
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "Priklop je spodletel: priklop zaključen s stanjem %d"
 
-#: ../src/gnome-cmd-con-device.cc:203
+#: ../src/gnome-cmd-con-device.cc:202
 msgid "Device is now safe to remove"
 msgstr "Napravo je mogoče varno odstraniti"
 
-#: ../src/gnome-cmd-con-device.cc:211
+#: ../src/gnome-cmd-con-device.cc:208
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -631,26 +631,26 @@ msgstr ""
 "Ni mogoče odklopi naprave:\n"
 "%s %s"
 
-#: ../src/gnome-cmd-con-device.cc:212
+#: ../src/gnome-cmd-con-device.cc:209
 msgid "Unknown error"
 msgstr "Neznana napaka"
 
-#: ../src/gnome-cmd-con-device.cc:399
+#: ../src/gnome-cmd-con-device.cc:395
 #, c-format
 msgid "Mounting %s"
 msgstr "Priklop %s"
 
-#: ../src/gnome-cmd-con-device.cc:415
+#: ../src/gnome-cmd-con-device.cc:411
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Skoči na: %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:416
+#: ../src/gnome-cmd-con-device.cc:412
 #, c-format
 msgid "Mount: %s"
 msgstr "Priklop %s"
 
-#: ../src/gnome-cmd-con-device.cc:417
+#: ../src/gnome-cmd-con-device.cc:413
 #, c-format
 msgid "Unmount: %s"
 msgstr "Odklapljam: %s"
@@ -789,19 +789,19 @@ msgstr "Iskanje delovnih skupin in gostiteljev"
 msgid "Go to: Samba Network"
 msgstr "Skoči na: samba omrežje"
 
-#: ../src/gnome-cmd-data.cc:1197
-#: ../src/gnome-cmd-data.cc:1198
-#: ../src/gnome-cmd-data.cc:1612
-#: ../src/gnome-cmd-data.cc:1915
+#: ../src/gnome-cmd-data.cc:1195
+#: ../src/gnome-cmd-data.cc:1196
+#: ../src/gnome-cmd-data.cc:1610
+#: ../src/gnome-cmd-data.cc:1913
 #, c-format
 msgid "link to %s"
 msgstr "povezava do %s"
 
-#: ../src/gnome-cmd-data.cc:1476
+#: ../src/gnome-cmd-data.cc:1474
 msgid "Audio Files"
 msgstr "Zvočne datoteke"
 
-#: ../src/gnome-cmd-data.cc:1484
+#: ../src/gnome-cmd-data.cc:1482
 msgid "CamelCase"
 msgstr "EnoBesedno"
 
@@ -894,7 +894,7 @@ msgstr "Dodaj trenutno mapo"
 msgid "Manage bookmarks..."
 msgstr "Uredi zaznamke ..."
 
-#: ../src/gnome-cmd-dir.cc:512
+#: ../src/gnome-cmd-dir.cc:506
 msgid "Waiting for file list"
 msgstr "Čakanje na izpis datotek"
 
@@ -1078,7 +1078,7 @@ msgstr "Vrsta:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:460
 msgid "MIME Type:"
-msgstr "MIME Vrsta:"
+msgstr "Vrsta MIME:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:469
 msgid "Opens with:"
@@ -1191,8 +1191,8 @@ msgstr "Prosto %s"
 
 #: ../src/gnome-cmd-file-selector.cc:619
 #: ../src/gnome-cmd-file-selector.cc:694
-#: ../src/gnome-cmd-user-actions.cc:1530
-#: ../src/gnome-cmd-user-actions.cc:1538
+#: ../src/gnome-cmd-user-actions.cc:1544
+#: ../src/gnome-cmd-user-actions.cc:1552
 msgid "The tab is locked, close anyway ?"
 msgstr "Zavihek je zaklenje. Naj se vseeno zapre?"
 
@@ -1264,36 +1264,36 @@ msgstr "Preskoči vse"
 msgid "Filter:"
 msgstr "Filter:"
 
-#: ../src/gnome-cmd-file.cc:573
+#: ../src/gnome-cmd-file.cc:590
 msgid "Unknown file type"
 msgstr "Neznana vrsta datoteke"
 
-#: ../src/gnome-cmd-file.cc:574
+#: ../src/gnome-cmd-file.cc:591
 msgid "Regular file"
 msgstr "Običajna datoteka"
 
-#: ../src/gnome-cmd-file.cc:575
+#: ../src/gnome-cmd-file.cc:592
 #: ../src/gnome-cmd-profile-component.cc:913
 msgid "Directory"
 msgstr "Mapa"
 
-#: ../src/gnome-cmd-file.cc:576
+#: ../src/gnome-cmd-file.cc:593
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:577
+#: ../src/gnome-cmd-file.cc:594
 msgid "UNIX Socket"
 msgstr "Vtič UNIX"
 
-#: ../src/gnome-cmd-file.cc:578
+#: ../src/gnome-cmd-file.cc:595
 msgid "Character device"
 msgstr "Znakovna naprava"
 
-#: ../src/gnome-cmd-file.cc:579
+#: ../src/gnome-cmd-file.cc:596
 msgid "Block device"
 msgstr "Onemogoči napravo"
 
-#: ../src/gnome-cmd-file.cc:580
+#: ../src/gnome-cmd-file.cc:597
 msgid "Symbolic link"
 msgstr "Simbolna povezava"
 
@@ -1630,13 +1630,13 @@ msgstr "Odpri terminal (s tipko shift s skrbniškimi dovoljenji)"
 msgid "Drop connection"
 msgstr "Prekini povezavo"
 
-#: ../src/gnome-cmd-make-copy-dialog.cc:139
+#: ../src/gnome-cmd-make-copy-dialog.cc:137
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:140
 #, c-format
 msgid "Copy \"%s\" to"
 msgstr "Kopiraj \"%s\" v"
 
-#: ../src/gnome-cmd-make-copy-dialog.cc:146
+#: ../src/gnome-cmd-make-copy-dialog.cc:144
 msgid "Copy File"
 msgstr "Kopiraj datoteko"
 
@@ -2604,32 +2604,32 @@ msgstr "Ni mogoče naložiti python modula 'gnomevfs' ('gnome.vfs')"
 msgid "Search"
 msgstr "Poišči"
 
-#: ../src/gnome-cmd-remote-dialog.cc:211
+#: ../src/gnome-cmd-remote-dialog.cc:215
 #, c-format
 msgid "No server selected"
 msgstr "Ni izbranega strežnika"
 
-#: ../src/gnome-cmd-remote-dialog.cc:362
+#: ../src/gnome-cmd-remote-dialog.cc:366
 msgid "GNOME authentication manager usage"
 msgstr "Uporaba GNOME upravljalnika overitve"
 
-#: ../src/gnome-cmd-remote-dialog.cc:366
+#: ../src/gnome-cmd-remote-dialog.cc:370
 msgid "Network protocol"
 msgstr "Omrežni protokol"
 
-#: ../src/gnome-cmd-remote-dialog.cc:377
+#: ../src/gnome-cmd-remote-dialog.cc:381
 msgid "Connection name"
 msgstr "Ime povezave"
 
-#: ../src/gnome-cmd-remote-dialog.cc:433
+#: ../src/gnome-cmd-remote-dialog.cc:437
 msgid "Remote Connections"
 msgstr "Oddaljene povezave"
 
-#: ../src/gnome-cmd-remote-dialog.cc:439
+#: ../src/gnome-cmd-remote-dialog.cc:443
 msgid "Connections"
 msgstr "Povezave"
 
-#: ../src/gnome-cmd-remote-dialog.cc:470
+#: ../src/gnome-cmd-remote-dialog.cc:474
 msgid "Anonymous FTP password:"
 msgstr "Brezimno FTP geslo:"
 
@@ -2654,27 +2654,27 @@ msgstr "_Omejena globina"
 msgid "Files _not containing text"
 msgstr "Datoteke, ki _ne vsebujejo besedila"
 
-#: ../src/gnome-cmd-search-dialog.cc:163
+#: ../src/gnome-cmd-search-dialog.cc:165
 #, c-format
 msgid "Failed to open file %s: %s"
 msgstr "Ni mogoče odpreti datoteke %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:204
+#: ../src/gnome-cmd-search-dialog.cc:206
 #, c-format
 msgid "Failed to seek in file %s: %s"
 msgstr "Ni mogoče iskati v datoteki %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:211
+#: ../src/gnome-cmd-search-dialog.cc:213
 #, c-format
 msgid "Failed to read from file %s: %s"
 msgstr "Ni mogoče brati iz datoteke %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:272
+#: ../src/gnome-cmd-search-dialog.cc:274
 #, c-format
 msgid "Searching in: %s"
 msgstr "Iskanje v: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:409
+#: ../src/gnome-cmd-search-dialog.cc:396
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -2683,7 +2683,7 @@ msgstr[1] "Najden %d zadetek - iskanje preklicano."
 msgstr[2] "Najdena %d zadetka - iskanje preklicano."
 msgstr[3] "Najdeni %d zadetki - iskanje preklicano."
 
-#: ../src/gnome-cmd-search-dialog.cc:416
+#: ../src/gnome-cmd-search-dialog.cc:397
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2692,43 +2692,43 @@ msgstr[1] "Najden %d zadetek"
 msgstr[2] "Najdena %d zadetka"
 msgstr[3] "Najdeni %d zadetki"
 
-#: ../src/gnome-cmd-search-dialog.cc:810
+#: ../src/gnome-cmd-search-dialog.cc:773
 msgid "Search..."
 msgstr "Iskanje ..."
 
-#: ../src/gnome-cmd-search-dialog.cc:824
+#: ../src/gnome-cmd-search-dialog.cc:787
 msgid "Search _for: "
 msgstr "_Poišči:"
 
-#: ../src/gnome-cmd-search-dialog.cc:836
+#: ../src/gnome-cmd-search-dialog.cc:799
 msgid "Search _in: "
 msgstr "Poišči v:"
 
-#. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:851
+#. recurse check
+#: ../src/gnome-cmd-search-dialog.cc:814
 msgid "Search _recursively"
 msgstr "Poišči po _strukturi map"
 
-#. File name matching
-#: ../src/gnome-cmd-search-dialog.cc:857
+#. file name matching
+#: ../src/gnome-cmd-search-dialog.cc:820
 msgid "Rege_x syntax"
 msgstr "_Logična skladnja"
 
-#: ../src/gnome-cmd-search-dialog.cc:861
+#: ../src/gnome-cmd-search-dialog.cc:824
 msgid "She_ll syntax"
 msgstr "L_upinska skladnja"
 
-#. Find text
-#: ../src/gnome-cmd-search-dialog.cc:870
+#. find text
+#: ../src/gnome-cmd-search-dialog.cc:833
 msgid "Find _text: "
 msgstr "Najdi _besedilo:"
 
-#. Case check
-#: ../src/gnome-cmd-search-dialog.cc:883
+#. case check
+#: ../src/gnome-cmd-search-dialog.cc:846
 msgid "Case sensiti_ve"
 msgstr "_Razlikovanje velikosti črk"
 
-#: ../src/gnome-cmd-search-dialog.cc:891
+#: ../src/gnome-cmd-search-dialog.cc:854
 msgid "_Go to"
 msgstr "_Pojdi na"
 
@@ -3070,37 +3070,37 @@ msgstr "Ni mogoče zagnati programa Nautilus"
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Ni mogoče zagnati programa GNOME Commander v skrbniškem načinu."
 
-#: ../src/gnome-cmd-user-actions.cc:1737
+#: ../src/gnome-cmd-user-actions.cc:1751
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
-#: ../src/gnome-cmd-user-actions.cc:1839
-#: ../src/gnome-cmd-user-actions.cc:1842
+#: ../src/gnome-cmd-user-actions.cc:1853
+#: ../src/gnome-cmd-user-actions.cc:1856
 msgid "There was an error opening home page."
 msgstr "Prišlo je do napake med odpiranjem domače strani."
 
-#: ../src/gnome-cmd-user-actions.cc:1853
-#: ../src/gnome-cmd-user-actions.cc:1856
+#: ../src/gnome-cmd-user-actions.cc:1867
+#: ../src/gnome-cmd-user-actions.cc:1870
 msgid "There was an error reporting problem."
 msgstr "Prišlo je do napake med prikazovanjem pomoči."
 
-#: ../src/gnome-cmd-user-actions.cc:1880
+#: ../src/gnome-cmd-user-actions.cc:1894
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Hiter in napreden urejevalnik datotek za GNOME namizje"
 
-#: ../src/gnome-cmd-user-actions.cc:1884
+#: ../src/gnome-cmd-user-actions.cc:1898
 msgid "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr "GNOME Terminal je prosti programski paket; lahko ga izmenjujete in spreminjate pod pogoji GNU Splošnega javnega dovoljenja, kot jo izdaja Free Software Foundation; različica 2 ali kasnejše različice."
 
-#: ../src/gnome-cmd-user-actions.cc:1888
+#: ../src/gnome-cmd-user-actions.cc:1902
 msgid "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
 msgstr "GNOME Terminal se širi v upanju, da bo uporaben, vendar brez kakršnekoli garancije. Za več podrobnosti si oglejte GNU Splošno javno dovoljenje."
 
-#: ../src/gnome-cmd-user-actions.cc:1892
+#: ../src/gnome-cmd-user-actions.cc:1906
 msgid "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr "Skupaj s programom Spletni brskalnik za GNOME bi morali prejeti kopijo dovoljenja GNU General Public License. V primeru, da kopije niste dobili, pišite na Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA"
 
-#: ../src/gnome-cmd-user-actions.cc:1909
+#: ../src/gnome-cmd-user-actions.cc:1923
 msgid "translator-credits"
 msgstr "Matej Urbančič"
 
@@ -7020,18 +7020,14 @@ msgstr "Prišlo je do napake med prikazovanjem pomoči."
 
 #~ msgid "Can't find a host or workgroup named %s\n"
 #~ msgstr "Ni mogoče najti gostitelja ali skupine %s\n"
-
 #~ msgid "_Test"
 #~ msgstr "_Preizkus"
-
 #~ msgid "Trying to load %s instead\n"
 #~ msgstr "Poskus nalaganja %s\n"
-
 #~ msgid "Other..."
 #~ msgstr "Ostali ..."
-
 #~ msgid "F10 Quit"
 #~ msgstr "F10 Končaj"
-
 #~ msgid "Quick search using"
 #~ msgstr "Hitro iskanje z"
+
