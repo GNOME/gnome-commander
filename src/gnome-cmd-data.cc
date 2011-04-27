@@ -278,9 +278,7 @@ inline gboolean load_connections (const gchar *fname)
                             g_warning ("%s: ignored duplicate entry: %s", path, alias);
                         else
                         {
-                            const gchar *text_uri = a[2].c_str();
-
-                            server = gnome_cmd_con_ftp_new (alias, text_uri);
+                            server = gnome_cmd_con_ftp_new (alias, a[2]);
 
                             if (!server)
                             {
