@@ -43,6 +43,9 @@ struct GnomeCmdConSmbClass
 
 GtkType gnome_cmd_con_smb_get_type ();
 
-GnomeCmdCon *gnome_cmd_con_smb_new ();
+inline GnomeCmdCon *gnome_cmd_con_smb_new ()
+{
+    return GNOME_CMD_CON (g_object_new (GNOME_CMD_TYPE_CON_SMB, NULL));
+}
 
 #endif // __GNOME_CMD_CON_SMB_H__
