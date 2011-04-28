@@ -30,6 +30,12 @@
 using namespace std;
 
 
+struct GnomeCmdConSmbClass
+{
+    GnomeCmdConClass parent_class;
+};
+
+
 static GnomeCmdConClass *parent_class = NULL;
 
 
