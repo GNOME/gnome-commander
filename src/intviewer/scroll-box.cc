@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ GtkType scroll_box_get_type ()
 
 GtkWidget* scroll_box_new ()
 {
-    ScrollBox *w = (ScrollBox *) gtk_type_new (scroll_box_get_type ());
+    ScrollBox *w = (ScrollBox *) g_object_new (scroll_box_get_type (), NULL);
 
     return GTK_WIDGET (w);
 }

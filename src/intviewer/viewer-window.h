@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ GtkType gviewer_window_get_type ();
 
 inline GtkWidget *gviewer_window_new ()
 {
-    return (GtkWidget *) gtk_type_new (gviewer_window_get_type ());
+    return (GtkWidget *) g_object_new (gviewer_window_get_type (), NULL);
 }
 
 void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f);

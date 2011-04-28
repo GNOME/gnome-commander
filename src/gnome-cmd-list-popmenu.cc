@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
             popmenu_uiinfo[i].user_data = fs;
 
-    GnomeCmdListPopmenu *menu = (GnomeCmdListPopmenu *) gtk_type_new (gnome_cmd_list_popmenu_get_type ());
+    GnomeCmdListPopmenu *menu = (GnomeCmdListPopmenu *) g_object_new (GNOME_CMD_TYPE_LIST_POPMENU, NULL);
 
     // Fill the menu
 

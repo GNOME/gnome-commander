@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,70 +19,38 @@
 */
 
 #include <config.h>
+
 #include "libgcmd-deps.h"
 #include "gnome-cmd-file-info.h"
 
-static GtkObjectClass *parent_class = NULL;
+using namespace std;
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
+G_DEFINE_TYPE (GnomeCmdFileInfo, gnome_cmd_file_info, G_TYPE_OBJECT)
 
-static void destroy (GtkObject *object)
+
+static void gnome_cmd_file_info_init (GnomeCmdFileInfo *self)
 {
-    GnomeCmdFileInfo *f = GNOME_CMD_FILE_INFO (object);
-
-    gnome_vfs_file_info_unref (f->info);
-    if (f->uri)
-        gnome_vfs_uri_unref (f->uri);
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void class_init (GnomeCmdFileInfoClass *klass)
+static void gnome_cmd_file_info_finalize (GObject *object)
 {
-    GtkObjectClass *object_class;
+    GnomeCmdFileInfo *self = GNOME_CMD_FILE_INFO (object);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
+    gnome_vfs_file_info_unref (self->info);
+    if (self->uri)
+        gnome_vfs_uri_unref (self->uri);
 
-    object_class->destroy = destroy;
+    G_OBJECT_CLASS (gnome_cmd_file_info_parent_class)->finalize (object);
 }
 
 
-static void init (GnomeCmdFileInfo *f)
+static void gnome_cmd_file_info_class_init (GnomeCmdFileInfoClass *klass)
 {
-    f->info = NULL;
-    f->uri = NULL;
-}
+    gnome_cmd_file_info_parent_class = (GObjectClass *) g_type_class_peek_parent (klass);
 
+    GObjectClass *object_class = (GObjectClass *) klass;
 
-/***********************************
- * Public functions
- ***********************************/
-
-GtkType gnome_cmd_file_info_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "GnomeCmdFileInfo",
-            sizeof (GnomeCmdFileInfo),
-            sizeof (GnomeCmdFileInfoClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (gtk_object_get_type (), &info);
-    }
-    return type;
+    object_class->finalize = gnome_cmd_file_info_finalize;
 }

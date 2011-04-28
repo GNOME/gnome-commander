@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     Partly based on "view.c" module from "Midnight Commander" Project.
     Copyright (C) 1994, 1995, 1996 The Free Software Foundation
@@ -234,7 +234,7 @@ const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
 */
 const char *gv_file_load(ViewerFileOps *ops, int fd)
 {
-    g_return_val_if_fail (ops!=NULL, "invalid ops paramter");
+    g_return_val_if_fail (ops!=NULL, "invalid ops parameter");
 
     ops->file = fd;
 

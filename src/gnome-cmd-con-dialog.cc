@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ using namespace std;
 #define GNOME_CMD_TYPE_CONNECT_DIALOG         (gnome_cmd_connect_dialog_get_type())
 #define GNOME_CMD_CONNECT_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_CONNECT_DIALOG, GnomeCmdConnectDialog))
 #define GNOME_CMD_CONNECT_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_CMD_TYPE_CONNECT_DIALOG, GnomeCmdConnectDialogClass))
-#define GNOME_CMD_IS_CONNECT_DIALOG(obj)      (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_CONNECT_DIALOG)
+#define GNOME_CMD_IS_CONNECT_DIALOG(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_CONNECT_DIALOG)
 
 typedef struct _GnomeCmdConnectDialog        GnomeCmdConnectDialog;
 typedef struct _GnomeCmdConnectDialogClass   GnomeCmdConnectDialogClass;
@@ -547,7 +547,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 
 GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 {
-    GtkWidget *dialog = (GtkWidget *) gtk_type_new (gnome_cmd_connect_dialog_get_type ());
+    GtkWidget *dialog = (GtkWidget *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
 
     g_return_val_if_fail (dialog != NULL, NULL);
 

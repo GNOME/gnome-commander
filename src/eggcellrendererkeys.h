@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,12 +42,12 @@
 
 #include <gtk/gtkcellrenderertext.h>
 
-#define EGG_TYPE_CELL_RENDERER_KEYS             (egg_cell_renderer_keys_get_type ())
-#define EGG_CELL_RENDERER_KEYS(obj)             (GTK_CHECK_CAST ((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeys))
-#define EGG_CELL_RENDERER_KEYS_CLASS(klass)     (GTK_CHECK_CLASS_CAST ((klass), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeysClass))
-#define EGG_IS_CELL_RENDERER_KEYS(obj)          (GTK_CHECK_TYPE ((obj), EGG_TYPE_CELL_RENDERER_KEYS))
-#define EGG_IS_CELL_RENDERER_KEYS_CLASS(klass)  (GTK_CHECK_CLASS_TYPE ((klass), EGG_TYPE_CELL_RENDERER_KEYS))
-#define EGG_CELL_RENDERER_KEYS_GET_CLASS(obj)   (GTK_CHECK_GET_CLASS ((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeysClass))
+#define EGG_TYPE_CELL_RENDERER_KEYS              (egg_cell_renderer_keys_get_type ())
+#define EGG_CELL_RENDERER_KEYS(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeys))
+#define EGG_CELL_RENDERER_KEYS_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeysClass))
+#define EGG_IS_CELL_RENDERER_KEYS(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), EGG_TYPE_CELL_RENDERER_KEYS))
+#define EGG_IS_CELL_RENDERER_KEYS_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), EGG_TYPE_CELL_RENDERER_KEYS))
+#define EGG_CELL_RENDERER_KEYS_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeysClass))
 
 
 struct EggCellRendererKeys

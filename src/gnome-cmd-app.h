@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,12 +33,20 @@ enum AppTarget
 };
 
 
-typedef struct _GnomeCmdApp GnomeCmdApp;
-typedef struct _GnomeCmdAppPrivate GnomeCmdAppPrivate;
-
-struct _GnomeCmdApp
+struct GnomeCmdApp
 {
-    GnomeCmdAppPrivate *priv;
+    gchar *name;
+    gchar *cmd;
+    gchar *icon_path;
+
+    AppTarget target;
+    gchar *pattern_string;
+    GList *pattern_list;
+    gboolean handles_uris;
+    gboolean handles_multiple;
+    gboolean requires_terminal;
+
+    GnomeCmdPixmap *pixmap;
 };
 
 GnomeCmdApp *gnome_cmd_app_new ();

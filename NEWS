@@ -5,7 +5,7 @@ gnome-commander 1.4
 Bug fixes:
  * Fixed problem #377463 (mkdir dialog loses focus)
  * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
- * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)
+ * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
 
@@ -17,9 +17,10 @@ New features:
  * User defined LS_COLORS colours
  * Enhanced file name matching in quick search
  * Open terminal with administrator privileges
+ * Context popup menu for internal viewer
  * --config-dir command line option for customized location of config files
  * New or updated docs: de, en, es, fr, sl
- * New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN
+ * New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
@@ -31,13 +32,25 @@ New features:
 
 
 ===================================
+gnome-commander 1.2.8.11
+---------------
+
+Bug fixes:
+ * Fixed problem #639243 (misleading docs for F2 shortcut)
+ * Fixed problem #640387 (usage of deprecated python modules: md5, sha1)
+ * Fixed problem with Traditional Chinese translation
+
+
+===================================
 gnome-commander 1.2.8.10
 ---------------
 
 Bug fixes:
  * Fixed problem #448941 (numeric keypad arrows don't work in the main window)
+ * Fixed problem #620275 (add menu item to copy full path and file name to clipboard)
  * Fixed problem #637501 (advrename: metatag popup menu shows wrong items)
  * Fixed problem with toggling path/basename/filename selections in copy/move dialogs
+ * Fixed problem with searching path for devices
  * Updated translations: de
 
 

@@ -1,7 +1,7 @@
 /*
   GNOME Commander - A GNOME based file manager
   Copyright (C) 2001-2006 Marcus Bjurman
-  Copyright (C) 2007-2010 Piotr Eljasiak
+  Copyright (C) 2007-2011 Piotr Eljasiak
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -305,6 +305,7 @@ GNOME_CMD_USER_ACTION(view_prev_tab);
 GNOME_CMD_USER_ACTION(view_next_tab);
 GNOME_CMD_USER_ACTION(view_in_new_tab);
 GNOME_CMD_USER_ACTION(view_in_inactive_tab);
+GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);

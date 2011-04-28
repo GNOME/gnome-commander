@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,9 +35,6 @@
 using namespace std;
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
-
-
 struct GnomeCmdRemoteDialogPrivate
 {
     GtkWidget         *connection_list;
@@ -45,6 +42,8 @@ struct GnomeCmdRemoteDialogPrivate
     GtkWidget         *connect_button;
 };
 
+
+G_DEFINE_TYPE (GnomeCmdRemoteDialog, gnome_cmd_remote_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 /******************************************************
@@ -115,9 +114,13 @@ inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *
 static gboolean do_connect_real (GnomeCmdConFtp *server)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (server);
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
 
-    main_win->fs(ACTIVE)->set_connection(con);
-    // gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
+    if (fl->locked)
+        fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (fs->new_tab()));     //  new_tab() retrieves scrolled_window, we must use gtk_bin_get_child() to get fl
+
+    fl->set_connection(con);
 
     return FALSE;
 }
@@ -404,41 +407,25 @@ inline GtkWidget *create_view_and_model (GList *list)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void gnome_cmd_remote_dialog_finalize (GObject *object)
 {
     GnomeCmdRemoteDialog *dialog = GNOME_CMD_REMOTE_DIALOG (object);
 
-    if (!dialog->priv)
-        g_warning ("GnomeCmdRemoteDialog: dialog->priv != NULL test failed");
-
     g_free (dialog->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_remote_dialog_parent_class)->finalize (object);
 }
 
 
-static void map (GtkWidget *widget)
+static void gnome_cmd_remote_dialog_class_init (GnomeCmdRemoteDialogClass *klass)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_remote_dialog_finalize;
 }
 
 
-static void class_init (GnomeCmdRemoteDialogClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
-
-    object_class->destroy = destroy;
-
-    widget_class->map = ::map;
-}
-
-
-static void init (GnomeCmdRemoteDialog *ftp_dialog)
+static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *ftp_dialog)
 {
     GtkWidget *cat_box, *table, *cat, *sw, *label, *button, *bbox;
 
@@ -512,35 +499,9 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_remote_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdRemoteDialog",
-            sizeof (GnomeCmdRemoteDialog),
-            sizeof (GnomeCmdRemoteDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (gnome_cmd_dialog_get_type (), &dlg_info);
-    }
-    return dlg_type;
-}
-
-
 GtkWidget *gnome_cmd_remote_dialog_new ()
 {
-    GnomeCmdRemoteDialog *dialog = (GnomeCmdRemoteDialog *) gtk_type_new (gnome_cmd_remote_dialog_get_type ());
-
-    return GTK_WIDGET (dialog);
+    return GTK_WIDGET (g_object_new (GNOME_CMD_TYPE_REMOTE_DIALOG, NULL));
 }
 
 

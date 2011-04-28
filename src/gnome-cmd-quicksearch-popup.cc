@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -325,7 +325,7 @@ GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
 {
     GnomeCmdQuicksearchPopup *popup;
 
-    popup = (GnomeCmdQuicksearchPopup *) gtk_type_new (gnome_cmd_quicksearch_popup_get_type ());
+    popup = (GnomeCmdQuicksearchPopup *) g_object_new (GNOME_CMD_TYPE_QUICKSEARCH_POPUP, NULL);
     GTK_WINDOW (popup)->type = GTK_WINDOW_POPUP;
     popup->priv->fl = fl;
     popup->priv->last_focused_file = NULL;

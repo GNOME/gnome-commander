@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,37 +23,50 @@
 
 #include "gnome-cmd-path.h"
 
-#define GNOME_CMD_SMB_PATH(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_smb_path_get_type (), GnomeCmdSmbPath)
-#define GNOME_CMD_SMB_PATH_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_smb_path_get_type (), GnomeCmdSmbPathClass)
-#define GNOME_CMD_IS_SMB_PATH(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_smb_path_get_type ())
-
-
-struct GnomeCmdSmbPathPrivate;
-
-
-struct GnomeCmdSmbPath
+class GnomeCmdSmbPath: public GnomeCmdPath
 {
-    GnomeCmdPath parent;
+    gchar *workgroup;
+    gchar *resource;
+    gchar *resource_path;
+    gchar *path;
+    gchar *display_path;
 
-    GnomeCmdSmbPathPrivate *priv;
+    void set_resources(const gchar *workgroup, const gchar *resource, const gchar *path);
+
+  protected:
+
+    virtual GnomeCmdSmbPath *do_clone() const       {  return new GnomeCmdSmbPath(*this);  }
+
+  public:
+
+    GnomeCmdSmbPath(const GnomeCmdSmbPath &thePath);
+    GnomeCmdSmbPath(const gchar *workgroup, const gchar *resource, const gchar *path);
+    GnomeCmdSmbPath(const gchar *path_str);
+    virtual ~GnomeCmdSmbPath();
+
+    virtual const gchar *get_path()                 {  return path;                   }
+    virtual const gchar *get_display_path()         {  return display_path;           }
+    virtual GnomeCmdPath *get_parent();
+    virtual GnomeCmdPath *get_child(const gchar *child);
 };
 
-struct GnomeCmdSmbPathClass
+inline GnomeCmdSmbPath::GnomeCmdSmbPath(const GnomeCmdSmbPath &thePath)
 {
-    GnomeCmdPathClass parent_class;
+    path = g_strdup (thePath.path);
+    workgroup = g_strdup (thePath.workgroup);
+    resource = g_strdup (thePath.resource);
+    resource_path = g_strdup (thePath.resource_path);
+    path = g_strdup (thePath.path);
+    display_path = g_strdup (thePath.display_path);
+}
 
-    void (* update_text)  (GtkEditable    *editable,
-                           gint            start_pos,
-                           gint            end_pos);
-};
-
-
-GtkType gnome_cmd_smb_path_get_type ();
-
-GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resource, const gchar *path);
-GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str);
+inline GnomeCmdSmbPath::~GnomeCmdSmbPath()
+{
+    g_free (workgroup);
+    g_free (resource);
+    g_free (resource_path);
+    g_free (path);
+    g_free (display_path);
+}
 
 #endif // __GNOME_CMD_SMB_PATH_H__

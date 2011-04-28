@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -55,6 +55,13 @@ struct GnomeCmdData
         RIGHT_BUTTON_POPUPS_MENU,
         RIGHT_BUTTON_SELECTS
     };
+    
+    enum TabLockIndicator
+    {
+        TAB_LOCK_ICON,
+        TAB_LOCK_ASTERISK,
+        TAB_LOCK_STYLED_TEXT
+    };
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
@@ -89,7 +96,7 @@ struct GnomeCmdData
         SearchConfig(): width(600), height(400),
                         name_patterns(SEARCH_HISTORY_SIZE),
                         directories(SEARCH_HISTORY_SIZE),
-                        content_patterns(SEARCH_HISTORY_SIZE)   {}
+                        content_patterns(SEARCH_HISTORY_SIZE)   {  default_profile.name = "Default";  }
 
         friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
     };
@@ -160,7 +167,7 @@ struct GnomeCmdData
         gchar *other_value;
     };
 
-    typedef triple<std::string,GnomeCmdFileList::ColumnID,GtkSortType> Tab;
+    typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
     struct Private;
 
@@ -241,6 +248,9 @@ struct GnomeCmdData
 
     gboolean                     save_dirs_on_exit;
     gboolean                     save_tabs_on_exit;
+
+    gboolean                     always_show_tabs;
+    int                          tab_lock_indicator;
 
     gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;

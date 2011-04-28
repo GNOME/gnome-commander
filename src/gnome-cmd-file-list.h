@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,11 +24,15 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
+#include "gnome-cmd-collection.h"
 #include "gnome-cmd-xml-config.h"
 
-#define GNOME_CMD_TYPE_FILE_LIST         (gnome_cmd_file_list_get_type ())
-#define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList)
-#define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_LIST)
+#define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())
+#define GNOME_CMD_FILE_LIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList))
+#define GNOME_CMD_FILE_LIST_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileListClass))
+#define GNOME_CMD_IS_FILE_LIST(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_FILE_LIST))
+#define GNOME_CMD_IS_FILE_LIST_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE_LIST))
+#define GNOME_CMD_FILE_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileListClass))
 
 
 GtkType gnome_cmd_file_list_get_type ();
@@ -65,8 +69,13 @@ struct GnomeCmdFileList
 
     Private *priv;
 
+    GtkWidget *tab_label_pin;
+    GtkWidget *tab_label_text;
+
     gboolean realized;
     gboolean modifier_click;
+
+    gboolean locked;
 
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
@@ -139,7 +148,7 @@ struct GnomeCmdFileList
 
     GList *get_visible_files();                 // Returns a list with all files shown in the file list. The list is the same as that in the file list it self so make a copy and ref the files if needed
     GList *get_selected_files();                // Returns a list with all selected files. The list returned is a copy and should be freed when no longer needed. The files in the list is however not refed before returning
-    GList *get_marked_files();                  // Returns a list with all marked files. The list is the same as that in the file list it self so make a copy and ref the files if needed
+    GnomeCmd::Collection<GnomeCmdFile *> &get_marked_files();  // Returns a collection of all selected files.
                                                 // A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked
 
     GnomeCmdFile *get_focused_file();           // Returns the currently focused file if any. The returned file is not reffed. The ".." file is returned if focused

@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -154,7 +154,7 @@ static void class_init (TestPluginClass *klass)
 
     object_class = GTK_OBJECT_CLASS (klass);
     plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-    parent_class = (GnomeCmdPluginClass *) gtk_type_class (gnome_cmd_plugin_get_type ());
+    parent_class = (GnomeCmdPluginClass *) gtk_type_class (GNOME_CMD_TYPE_PLUGIN);
 
     object_class->destroy = destroy;
 
@@ -194,7 +194,7 @@ GtkType test_plugin_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        type = gtk_type_unique (gnome_cmd_plugin_get_type (), &info);
+        type = gtk_type_unique (GNOME_CMD_TYPE_PLUGIN, &info);
     }
     return type;
 }
@@ -202,7 +202,7 @@ GtkType test_plugin_get_type ()
 
 GnomeCmdPlugin *test_plugin_new ()
 {
-    TestPlugin *plugin = (TestPlugin *) gtk_type_new (test_plugin_get_type ());
+    TestPlugin *plugin = (TestPlugin *) g_object_new (test_plugin_get_type (), NULL);
 
     return GNOME_CMD_PLUGIN (plugin);
 }

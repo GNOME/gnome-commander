@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,12 +21,15 @@
 #ifndef __GNOME_CMD_DIR_H__
 #define __GNOME_CMD_DIR_H__
 
-#define GNOME_CMD_DIR(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_dir_get_type (), GnomeCmdDir)
-#define GNOME_CMD_DIR_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_get_type (), GnomeCmdDirClass)
-#define GNOME_CMD_IS_DIR(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_dir_get_type ())
+#define GNOME_CMD_TYPE_DIR              (gnome_cmd_dir_get_type ())
+#define GNOME_CMD_DIR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_DIR, GnomeCmdDir))
+#define GNOME_CMD_DIR_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_DIR, GnomeCmdDirClass))
+#define GNOME_CMD_IS_DIR(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_DIR))
+#define GNOME_CMD_IS_DIR_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_DIR))
+#define GNOME_CMD_DIR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_DIR, GnomeCmdDirClass))
+
+
+GType gnome_cmd_dir_get_type ();
 
 
 struct GnomeCmdDir;
@@ -82,10 +85,8 @@ struct GnomeCmdDirClass
 
 struct GnomeCmdCon;
 
-GtkType gnome_cmd_dir_get_type ();
-
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent);
-GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *path, GnomeCmdCon *con);
+GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con);
 GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path);
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
@@ -109,10 +110,11 @@ inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
     return gnome_cmd_file_new (info, dir);
 }
 
-inline void gnome_cmd_dir_ref (GnomeCmdDir *dir)
+inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
 {
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
     GNOME_CMD_FILE (dir)->ref();
+    return dir;
 }
 
 inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
@@ -121,7 +123,7 @@ inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
     GNOME_CMD_FILE (dir)->unref();
 }
 
-GnomeVFSResult gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files);
+GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);
 void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog);
 

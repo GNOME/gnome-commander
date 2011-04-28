@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ static void class_init (GnomeCmdStringDialogClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -169,7 +169,7 @@ GtkType gnome_cmd_string_dialog_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        dlg_type = gtk_type_unique (gnome_cmd_dialog_get_type (), &dlg_info);
+        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
     }
     return dlg_type;
 }
@@ -177,7 +177,7 @@ GtkType gnome_cmd_string_dialog_get_type ()
 
 GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data)
 {
-    GnomeCmdStringDialog *dialog = (GnomeCmdStringDialog *) gtk_type_new (gnome_cmd_string_dialog_get_type ());
+    GnomeCmdStringDialog *dialog = (GnomeCmdStringDialog *) g_object_new (GNOME_CMD_TYPE_STRING_DIALOG, NULL);
 
     gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, cancel_cb, user_data);
 

@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -408,7 +408,7 @@ static void xml_start(GMarkupParseContext *context,
 
     GnomeCmdData *cfg = (GnomeCmdData *) user_data;
     gchar *param1, *param2, *param3;
-    gboolean param4;
+    gboolean param4, param5;
 
     switch (xml_elem_names[xml_paths.top()])
     {
@@ -426,13 +426,14 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_STRING, "dir", &param1,
                                              G_MARKUP_COLLECT_STRING, "sort", &param2,
                                              G_MARKUP_COLLECT_BOOLEAN, "asc", &param4,
+                                             (G_MARKUP_COLLECT_BOOLEAN|G_MARKUP_COLLECT_OPTIONAL), "lock", &param5,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 string dir(param1);
                 gint sort = atoi(param2);
 
                 if (!dir.empty() && sort<GnomeCmdFileList::NUM_COLUMNS)
-                    cfg->tabs[xml_fs].push_back(make_triple(string(param1),(GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4));
+                    cfg->tabs[xml_fs].push_back(make_pair(string(param1),make_triple((GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4,param5)));
             }
             break;
 

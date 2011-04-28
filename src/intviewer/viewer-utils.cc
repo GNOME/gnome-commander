@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -124,7 +124,7 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int *a
         unicode2utf8(unicode_char, (unsigned char*)&result[index]);
 
         pos = g_utf8_next_char(pos);
-        if (pos==NULL)
+        if (!pos)
         {
             g_warning("unexpected NULL found in UTF8 string");
             break;

@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -303,9 +303,7 @@ inline gboolean load_connections (const gchar *fname)
                             g_warning ("%s: ignored duplicate entry: %s", path, alias);
                         else
                         {
-                            const gchar *text_uri = a[2].c_str();
-
-                            server = gnome_cmd_con_ftp_new (alias, text_uri);
+                            server = gnome_cmd_con_ftp_new (alias, a[2]);
 
                             if (!server)
                             {
@@ -945,6 +943,9 @@ GnomeCmdData::GnomeCmdData()
     save_dirs_on_exit = FALSE;
     save_tabs_on_exit = TRUE;
 
+    always_show_tabs = FALSE;
+    tab_lock_indicator = TAB_LOCK_ICON;
+
     allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
@@ -1003,8 +1004,8 @@ void GnomeCmdData::load()
 {
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
-    gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
-    gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
+    gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
+    gchar *theme_icon_dir    = g_strconcat (PIXMAPS_DIR, "/mime-icons", NULL);
 
     priv = g_new0 (Private, 1);
 
@@ -1226,6 +1227,9 @@ void GnomeCmdData::load()
 
     save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
     save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
+
+    always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
+    tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
 
     priv->last_pattern = gnome_cmd_data_get_string ("/defaults/last_pattern", "");
     priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
@@ -1642,6 +1646,9 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", save_dirs_on_exit);
     gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
 
+    gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
+    gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) tab_lock_indicator);
+
     gnome_cmd_data_set_string ("/defaults/last_pattern", priv->last_pattern);
     gnome_cmd_data_set_string ("/defaults/backup_pattern", priv->backup_pattern);
 
@@ -1731,8 +1738,7 @@ const gchar *gnome_cmd_data_get_ftp_anonymous_password ()
 
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
 {
-    if (gnome_cmd_data.priv->ftp_anonymous_password)
-        g_free (gnome_cmd_data.priv->ftp_anonymous_password);
+    g_free (gnome_cmd_data.priv->ftp_anonymous_password);
 
     gnome_cmd_data.priv->ftp_anonymous_password = g_strdup (pw);
 }
@@ -1774,8 +1780,7 @@ GnomeCmdDateFormat gnome_cmd_data_get_date_format ()
 
 void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format)
 {
-    if (gnome_cmd_data.priv->date_format)
-        g_free (gnome_cmd_data.priv->date_format);
+    g_free (gnome_cmd_data.priv->date_format);
 
     gnome_cmd_data.priv->date_format = g_strdup (format);
 }

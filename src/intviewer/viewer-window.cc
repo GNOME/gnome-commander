@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -582,7 +582,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     g_return_if_fail (menudata!=NULL);
     g_return_if_fail (container!=NULL);
 
-    while (menudata!=NULL && menudata->menutype!=MI_NONE)
+    while (menudata && menudata->menutype!=MI_NONE)
     {
         GtkWidget *item = NULL;
 
@@ -1096,7 +1096,7 @@ static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    gviewer_copy_selection(obj->priv->viewer);
+    gviewer_copy_selection(item, obj->priv->viewer);
 }
 
 

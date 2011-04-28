@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,6 +34,8 @@
 #include "cap.h"
 
 #include <fnmatch.h>
+
+#include "../pixmaps/copy_file_names.xpm"
 
 using namespace std;
 
@@ -452,6 +454,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     {
         GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GTK_STOCK_CUT),
         GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM(N_("Copy file names"), NULL, edit_copy_fnames, copy_file_names_xpm),
         GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GNOME_STOCK_TRASH),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
@@ -467,7 +470,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     GList *files = fl->get_selected_files();
     if (!files) return NULL;
 
-    GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) gtk_type_new (gnome_cmd_file_popmenu_get_type ());
+    GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) g_object_new (GNOME_CMD_TYPE_FILE_POPMENU, NULL);
 
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 

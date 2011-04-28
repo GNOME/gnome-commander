@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,13 +20,12 @@
 #ifndef __GNOME_CMD_CLIST_H__
 #define __GNOME_CMD_CLIST_H__
 
-#define GNOME_CMD_TYPE_CLIST           (gnome_cmd_clist_get_type ())
-#define GNOME_CMD_CLIST(obj)            GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_CLIST, GnomeCmdCList)
-#define GNOME_CMD_CLIST_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, GNOME_CMD_TYPE_CLIST, GnomeCmdCListClass)
-#define GNOME_CMD_IS_CLIST(obj)         GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_CLIST)
-
-
-struct GnomeCmdCListPrivate;
+#define GNOME_CMD_TYPE_CLIST              (gnome_cmd_clist_get_type ())
+#define GNOME_CMD_CLIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CLIST, GnomeCmdCList))
+#define GNOME_CMD_CLIST_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CLIST, GnomeCmdCListClass))
+#define GNOME_CMD_IS_CLIST(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CLIST))
+#define GNOME_CMD_IS_CLIST_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CLIST))
+#define GNOME_CMD_CLIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CLIST, GnomeCmdCListClass))
 
 
 struct GnomeCmdCList
@@ -34,8 +33,6 @@ struct GnomeCmdCList
     GtkCList parent;
 
     gint drag_motion_row;
-
-    GnomeCmdCListPrivate *priv;
 };
 
 
@@ -55,7 +52,7 @@ inline GtkWidget *gnome_cmd_clist_new (gint columns)
     return gnome_cmd_clist_new_with_titles (columns, NULL);
 }
 
-void gnome_cmd_clist_update_style        (GnomeCmdCList *clist);
+void gnome_cmd_clist_update_style (GnomeCmdCList *clist);
 
 gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist);
 void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset);

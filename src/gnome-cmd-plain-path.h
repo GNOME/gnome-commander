@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,34 +22,33 @@
 
 #include "gnome-cmd-path.h"
 
-#define GNOME_CMD_PLAIN_PATH(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_plain_path_get_type (), GnomeCmdPlainPath)
-#define GNOME_CMD_PLAIN_PATH_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_plain_path_get_type (), GnomeCmdPlainPathClass)
-#define GNOME_CMD_IS_PLAIN_PATH(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_plain_path_get_type ())
-
-
 struct GnomeCmdPlainPathPrivate;
 
 
-struct GnomeCmdPlainPath
+class GnomeCmdPlainPath: public GnomeCmdPath
 {
-    GnomeCmdPath parent;
 
-    GnomeCmdPlainPathPrivate *priv;
+    gchar *path;
+
+  protected:
+
+    virtual GnomeCmdPlainPath *do_clone() const {  return new GnomeCmdPlainPath(*this);  }
+
+  public:
+
+    GnomeCmdPlainPath(const GnomeCmdPlainPath &thePath);
+    GnomeCmdPlainPath(const gchar *path)        {  this->path = g_strdup (path);  }
+    virtual ~GnomeCmdPlainPath()                {  g_free (path);                 }
+
+    virtual const gchar *get_path()             {  return path;                   }
+    virtual const gchar *get_display_path()     {  return path;                   }
+    virtual GnomeCmdPath *get_parent();
+    virtual GnomeCmdPath *get_child(const gchar *child);
 };
 
-struct GnomeCmdPlainPathClass
+inline GnomeCmdPlainPath::GnomeCmdPlainPath(const GnomeCmdPlainPath &thePath)
 {
-    GnomeCmdPathClass parent_class;
-
-    void (* update_text) (GtkEditable *editable, gint start_pos, gint end_pos);
-};
-
-
-GtkType gnome_cmd_plain_path_get_type ();
-
-GnomeCmdPath *gnome_cmd_plain_path_new (const gchar *path);
+    path = g_strdup (thePath.path);
+}
 
 #endif // __GNOME_CMD_PLAIN_PATH_H__

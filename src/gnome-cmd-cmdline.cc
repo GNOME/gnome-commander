@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -264,7 +264,7 @@ static void init (GnomeCmdCmdline *cmdline)
 
 GtkWidget *gnome_cmd_cmdline_new ()
 {
-    GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) gtk_type_new (gnome_cmd_cmdline_get_type ());
+    GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) g_object_new (GNOME_CMD_TYPE_CMDLINE, NULL);
 
     gnome_cmd_cmdline_set_history (cmdline, gnome_cmd_data.cmdline_history);
     update_history_combo (cmdline);

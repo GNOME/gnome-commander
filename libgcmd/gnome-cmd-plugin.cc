@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,8 +33,7 @@ static GtkObjectClass *parent_class = NULL;
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     //GnomeCmdPlugin *plugin = GNOME_CMD_PLUGIN (object);
 
@@ -43,8 +42,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (GnomeCmdPluginClass *klass)
+static void class_init (GnomeCmdPluginClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
@@ -62,8 +60,7 @@ class_init (GnomeCmdPluginClass *klass)
 }
 
 
-static void
-init (GnomeCmdPlugin *plugin)
+static void init (GnomeCmdPlugin *plugin)
 {
 }
 
@@ -73,8 +70,7 @@ init (GnomeCmdPlugin *plugin)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_plugin_get_type ()
+GtkType gnome_cmd_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -98,8 +94,7 @@ gnome_cmd_plugin_get_type ()
 }
 
 
-GtkWidget *
-gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GnomeCmdPluginClass *klass;
 
@@ -111,8 +106,7 @@ gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 }
 
 
-GList *
-gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+GList *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GnomeCmdPluginClass *klass;
 
@@ -124,8 +118,7 @@ gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState 
 }
 
 
-void
-gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+void gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GnomeCmdPluginClass *klass;
 
@@ -137,8 +130,7 @@ gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *
 }
 
 
-void
-gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
+void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
 {
     GnomeCmdPluginClass *klass;
 
@@ -148,4 +140,3 @@ gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
 
     klass->configure (plugin);
 }
-

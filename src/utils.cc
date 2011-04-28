@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -460,10 +460,8 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
         dldata->args[1] = (gpointer) path_str;
 
         GnomeVFSURI *src_uri = gnome_vfs_uri_dup (dldata->f->get_uri());
-        GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
-        GnomeCmdCon *con = get_home_con ();
-        GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
-        gtk_object_destroy (GTK_OBJECT (path));
+        GnomeCmdPlainPath path(path_str);
+        GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
 
         gnome_cmd_xfer_tmp_download (src_uri,
                                      dest_uri,
@@ -671,9 +669,8 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     if (!path_str) return;
 
                     GnomeVFSURI *src_uri = gnome_vfs_uri_dup (f->get_uri());
-                    GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
-                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
-                    gtk_object_destroy (GTK_OBJECT (path));
+                    GnomeCmdPlainPath path(path_str);
+                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
 
                     src_uri_list = g_list_append (src_uri_list, src_uri);
                     dest_uri_list = g_list_append (dest_uri_list, dest_uri);

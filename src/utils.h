@@ -1,7 +1,7 @@
 /*
   GNOME Commander - A GNOME based file manager
   Copyright (C) 2001-2006 Marcus Bjurman
-  Copyright (C) 2007-2010 Piotr Eljasiak
+  Copyright (C) 2007-2011 Piotr Eljasiak
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -261,19 +261,25 @@ void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
 gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv);
 
-inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
+
+inline gint gnome_cmd_prompt_message (GtkWindow *parent, GtkMessageType type, GtkButtonsType buttons, const gchar *message, const gchar *secondary_text=NULL)
 {
-    GtkWidget *dlg = gtk_message_dialog_new (parent,
-                                             GTK_DIALOG_DESTROY_WITH_PARENT,
-                                             GTK_MESSAGE_ERROR,
-                                             GTK_BUTTONS_OK,
-                                             message.c_str());
+    GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, message);
 
     if (secondary_text)
         gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), secondary_text);
 
-    gtk_dialog_run (GTK_DIALOG (dlg));
+    gint result = gtk_dialog_run (GTK_DIALOG (dlg));
+
     gtk_widget_destroy (dlg);
+
+    return result;
+}
+
+
+inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
+{
+    gnome_cmd_prompt_message (parent, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, message.c_str(), secondary_text);
 }
 
 
@@ -290,7 +296,7 @@ inline void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id
 
 inline void gnome_cmd_error_message (const gchar *title, GError *error)
 {
-    gnome_cmd_show_message (NULL, title, error->message);
+    gnome_cmd_prompt_message (NULL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, title, error->message);
     g_error_free (error);
 }
 

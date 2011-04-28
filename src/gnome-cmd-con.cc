@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ using namespace std;
 
 struct GnomeCmdConPrivate
 {
-    GnomeCmdDir    *root_dir;      // the root dir of this connection
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
     GnomeCmdBookmarkGroup *bookmarks;
@@ -72,7 +71,7 @@ static void on_open_done (GnomeCmdCon *con)
 
 static void on_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result)
 {
-    //gnome_cmd_con_updated (con);
+    // gnome_cmd_con_updated (con);
 }
 
 
@@ -87,8 +86,8 @@ static void destroy (GtkObject *object)
     g_free (con->alias);
     g_free (con->uri);
 
-    if (con->base_path)
-        g_object_unref (con->base_path);
+    delete con->base_path;
+    g_string_free (con->root_path, TRUE);
     g_free (con->open_text);
     g_free (con->open_tooltip);
     gnome_cmd_pixmap_free (con->open_pixmap);
@@ -98,8 +97,6 @@ static void destroy (GtkObject *object)
 
     if (con->priv->default_dir)
         gnome_cmd_dir_unref (con->priv->default_dir);
-    if (con->priv->root_dir)
-        gnome_cmd_dir_unref (con->priv->root_dir);
 
     delete con->priv->dir_history;
 
@@ -177,6 +174,7 @@ static void init (GnomeCmdCon *con)
 
     con->base_path = NULL;
     con->base_info = NULL;
+    con->root_path = g_string_sized_new (128);
     con->open_msg = NULL;
     con->should_remember_dir = FALSE;
     con->needs_open_visprog = FALSE;
@@ -245,25 +243,35 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     g_return_val_if_fail (con->open_result != GnomeCmdCon::OPEN_NOT_STARTED, FALSE);
 
-    if (con->open_result == GnomeCmdCon::OPEN_OK)
+    switch (con->open_result)
     {
-        DEBUG('m', "GnomeCmdCon::OPEN_OK detected\n");
+        case GnomeCmdCon::OPEN_IN_PROGRESS:
+            return TRUE;
 
-        GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con->base_info, con->base_path, con);
+        case GnomeCmdCon::OPEN_OK:
+            {
+                DEBUG('m', "GnomeCmdCon::OPEN_OK detected\n");
 
-        gnome_cmd_con_set_default_dir (con, dir);
+                GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con);
 
-        DEBUG ('m', "Emitting 'open-done' signal\n");
-        gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
+                gnome_cmd_con_set_default_dir (con, dir);
+
+                DEBUG ('m', "Emitting 'open-done' signal\n");
+                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
+            }
+            return FALSE;
+
+        case GnomeCmdCon::OPEN_FAILED:
+            {
+                DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
+                DEBUG ('m', "Emitting 'open-failed' signal\n");
+                gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_reason);
+            }
+            return FALSE;
+
+        default:
+            return FALSE;
     }
-    else if (con->open_result == GnomeCmdCon::OPEN_FAILED)
-    {
-        DEBUG ('m', "GnomeCmdCon::OPEN_FAILED detected\n");
-        DEBUG ('m', "Emitting 'open-failed' signal\n");
-        gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_reason);
-    }
-
-    return con->open_result == GnomeCmdCon::OPEN_IN_PROGRESS;
 }
 
 
@@ -346,36 +354,7 @@ GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
 
-    /*
-    if (!con->priv->default_dir)
-    {
-        GnomeCmdDir *dir = gnome_cmd_dir_new (con, con->base_path);
-        if (dir)
-            gnome_cmd_con_set_default_dir (con, dir);
-    }
-    */
-
     return con->priv->default_dir;
-}
-
-
-GnomeCmdDir *gnome_cmd_con_get_root_dir (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-
-    return con->priv->root_dir;
-}
-
-
-void gnome_cmd_con_set_root_dir (GnomeCmdCon *con, GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    if (dir)
-        gnome_cmd_dir_ref (dir);
-    if (con->priv->root_dir)
-        gnome_cmd_dir_unref (con->priv->root_dir);
-    con->priv->root_dir = dir;
 }
 
 
@@ -430,7 +409,7 @@ GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar
         *type = info->type;
 
     gnome_vfs_uri_unref (uri);
-    gtk_object_destroy (GTK_OBJECT (path));
+    delete path;
     gnome_vfs_file_info_unref (info);
 
     return res;
@@ -454,7 +433,7 @@ GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str)
         GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
 
     gnome_vfs_uri_unref (uri);
-    gtk_object_destroy (GTK_OBJECT (path));
+    delete path;
 
     return result;
 }

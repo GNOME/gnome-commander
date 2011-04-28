@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -56,9 +56,8 @@ inline void update_refs (GnomeCmdFileList *fl, GList *files)
 
 inline void cut_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_dir_ref (to);
     gnome_cmd_xfer_start (_files,
-                          to,
+                          gnome_cmd_dir_ref (to),
                           _fl,
                           NULL,
                           GNOME_VFS_XFER_REMOVESOURCE,
@@ -72,9 +71,8 @@ inline void cut_and_paste (GnomeCmdDir *to)
 
 inline void copy_and_paste (GnomeCmdDir *to)
 {
-    gnome_cmd_dir_ref (to);
     gnome_cmd_xfer_start (_files,
-                          to,
+                          gnome_cmd_dir_ref (to),
                           _fl,
                           NULL,
                           GNOME_VFS_XFER_RECURSIVE,

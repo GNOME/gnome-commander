@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -67,8 +67,7 @@ static void gnome_cmd_notebook_finalize (GObject *object)
 
     delete self->priv;
 
-    if (G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize)
-        (* G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize) (object);
+    G_OBJECT_CLASS (gnome_cmd_notebook_parent_class)->finalize (object);
 }
 
 
@@ -79,6 +78,25 @@ static void gnome_cmd_notebook_class_init (GnomeCmdNotebookClass *klass)
     GObjectClass *object_class = (GObjectClass *) klass;
 
     object_class->finalize = gnome_cmd_notebook_finalize;
+}
+
+
+GnomeCmdNotebook::GnomeCmdNotebook(TabBarVisibility visibility)
+{
+    tabs_visibility = visibility;
+
+    if (visibility==SHOW_TABS)
+        g_object_set (this, "show-tabs", TRUE, NULL);
+}
+
+
+void GnomeCmdNotebook::show_tabs(TabBarVisibility _show_tabs)
+{
+    if (_show_tabs!=tabs_visibility)
+    {
+        tabs_visibility = _show_tabs;
+        gtk_notebook_set_show_tabs (*this, _show_tabs==SHOW_TABS || _show_tabs!=HIDE_TABS && size()>1);
+    }
 }
 
 

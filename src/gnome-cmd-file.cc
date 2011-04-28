@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@
 
 using namespace std;
 
+
 #define MAX_TYPE_LENGTH 2
 #define MAX_NAME_LENGTH 128
 #define MAX_OWNER_LENGTH 128
@@ -48,8 +49,6 @@ gint created_files_cnt = 0;
 gint deleted_files_cnt = 0;
 GList *all_files = NULL;
 
-static GnomeCmdFileInfoClass *parent_class = NULL;
-
 struct GnomeCmdFile::Private
 {
     Handle *dir_handle;
@@ -57,6 +56,9 @@ struct GnomeCmdFile::Private
     gint ref_cnt;
     GnomeVFSFileSize tree_size;
 };
+
+
+G_DEFINE_TYPE (GnomeCmdFile, gnome_cmd_file, GNOME_CMD_TYPE_FILE_INFO)
 
 
 inline gboolean has_parent_dir (GnomeCmdFile *f)
@@ -73,48 +75,7 @@ inline GnomeCmdDir *get_parent_dir (GnomeCmdFile *f)
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
-
-static void destroy (GtkObject *object)
-{
-    GnomeCmdFile *f = GNOME_CMD_FILE (object);
-
-    delete f->metadata;
-
-    if (f->info->name[0] != '.')
-        DEBUG ('f', "file destroying 0x%p %s\n", f, f->info->name);
-
-    g_free (f->collate_key);
-    gnome_vfs_file_info_unref (f->info);
-    if (f->priv->dir_handle)
-        handle_unref (f->priv->dir_handle);
-
-    if (DEBUG_ENABLED ('c'))
-    {
-        all_files = g_list_remove (all_files, f);
-        deleted_files_cnt++;
-    }
-
-    g_free (f->priv);
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-static void class_init (GnomeCmdFileClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-
-    parent_class = (GnomeCmdFileInfoClass *) gtk_type_class (gnome_cmd_file_info_get_type ());
-
-    object_class->destroy = destroy;
-}
-
-
-static void init (GnomeCmdFile *f)
+static void gnome_cmd_file_init (GnomeCmdFile *f)
 {
     // f->info = NULL;
     // f->collate_key = NULL;
@@ -136,37 +97,62 @@ static void init (GnomeCmdFile *f)
 }
 
 
+static void gnome_cmd_file_finalize (GObject *object)
+{
+    GnomeCmdFile *f = GNOME_CMD_FILE (object);
+
+    delete f->metadata;
+
+    if (f->info->name[0] != '.')
+        DEBUG ('f', "file destroying 0x%p %s\n", f, f->info->name);
+
+    g_free (f->collate_key);
+    gnome_vfs_file_info_unref (f->info);
+    if (f->priv->dir_handle)
+        handle_unref (f->priv->dir_handle);
+
+    if (DEBUG_ENABLED ('c'))
+    {
+        all_files = g_list_remove (all_files, f);
+        deleted_files_cnt++;
+    }
+
+    g_free (f->priv);
+
+    G_OBJECT_CLASS (gnome_cmd_file_parent_class)->finalize (object);
+}
+
+
+static void gnome_cmd_file_class_init (GnomeCmdFileClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_file_finalize;
+}
+
+
 /***********************************
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_file_get_type ()
+GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path)
 {
-    static GtkType type = 0;
+    g_return_val_if_fail (local_full_path != NULL, NULL);
 
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "GnomeCmdFile",
-            sizeof (GnomeCmdFile),
-            sizeof (GnomeCmdFileClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
+    gchar *text_uri = gnome_vfs_get_uri_from_local_path (local_full_path);
+    GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri);
+    GnomeCmdFile *f = gnome_cmd_file_new_from_uri (uri);
 
-        type = gtk_type_unique (gnome_cmd_file_info_get_type (), &info);
-    }
-    return type;
+    gnome_vfs_uri_unref (uri);
+    g_free (text_uri);
+
+    return f;
 }
 
 
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
-    GnomeCmdFile *f = (GnomeCmdFile *) gtk_type_new (gnome_cmd_file_get_type ());
+    GnomeCmdFile *f = (GnomeCmdFile *) g_object_new (GNOME_CMD_TYPE_FILE, NULL);
 
     gnome_cmd_file_setup (f, info, dir);
 
@@ -177,6 +163,7 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
 {
     g_return_val_if_fail (uri != NULL, NULL);
+    g_return_val_if_fail (gnome_vfs_uri_is_local (uri), NULL);
 
     const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
@@ -188,11 +175,11 @@ GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
     }
 
     GnomeVFSURI *parent = gnome_vfs_uri_get_parent (uri);
-    GnomeCmdPath *path = gnome_cmd_plain_path_new (gnome_vfs_uri_get_path (parent));
-    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), path);
+    gchar *parent_path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (parent), NULL);
+    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), new GnomeCmdPlainPath(parent_path));
 
+    g_free (parent_path);
     gnome_vfs_uri_unref (parent);
-    gtk_object_unref (GTK_OBJECT (path));
 
     return gnome_cmd_file_new (info, dir);
 }
@@ -246,7 +233,7 @@ GnomeCmdFile *GnomeCmdFile::ref()
     priv->ref_cnt++;
 
     if (priv->ref_cnt == 1)
-        gtk_object_ref (GTK_OBJECT (this));
+        g_object_ref (this);
 
     char c = GNOME_CMD_IS_DIR (this) ? 'd' : 'f';
 
@@ -264,7 +251,7 @@ void GnomeCmdFile::unref()
 
     DEBUG (c, "un-refing: 0x%p %s to %d\n", this, info->name, priv->ref_cnt);
     if (priv->ref_cnt < 1)
-        gtk_object_destroy (GTK_OBJECT (this));
+        g_object_unref (this);
 }
 
 
@@ -371,14 +358,14 @@ gchar *GnomeCmdFile::get_path()
         if (GNOME_CMD_IS_DIR (this))
         {
             path = gnome_cmd_dir_get_path (GNOME_CMD_DIR (this));
-            return g_strdup (gnome_cmd_path_get_path (path));
+            return g_strdup (path->get_path());
         }
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (::get_parent_dir (this)), info->name);
-    path_str = g_strdup (gnome_cmd_path_get_path (path));
-    gtk_object_destroy (GTK_OBJECT (path));
+    path = gnome_cmd_dir_get_path (::get_parent_dir (this))->get_child(info->name);
+    path_str = g_strdup (path->get_path());
+    delete path;
 
     return path_str;
 }
@@ -714,12 +701,11 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     gchar *path_str = get_temp_download_filepath (f->get_name());
     if (!path_str)  return;
 
-    GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
+    GnomeCmdPlainPath path(path_str);
     GnomeVFSURI *src_uri = f->get_uri();
-    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
+    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
 
     g_printerr ("Copying to: %s\n", path_str);
-    gtk_object_destroy (GTK_OBJECT (path));
     g_free (path_str);
 
     gnome_cmd_xfer_tmp_download (src_uri,

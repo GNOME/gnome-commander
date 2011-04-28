@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,13 +21,12 @@
 #ifndef __GNOME_CMD_CON_H__
 #define __GNOME_CMD_CON_H__
 
-#define GNOME_CMD_CON(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_con_get_type (), GnomeCmdCon)
-#define GNOME_CMD_CON_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_get_type (), GnomeCmdConClass)
-#define GNOME_CMD_IS_CON(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_con_get_type ())
-#define GNOME_CMD_CON_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_CON, GnomeCmdConClass))
+#define GNOME_CMD_TYPE_CON              (gnome_cmd_con_get_type ())
+#define GNOME_CMD_CON(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON, GnomeCmdCon))
+#define GNOME_CMD_CON_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CON, GnomeCmdConClass))
+#define GNOME_CMD_IS_CON(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CON))
+#define GNOME_CMD_IS_CON_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON))
+#define GNOME_CMD_CON_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON, GnomeCmdConClass))
 
 struct GnomeCmdConPrivate;
 
@@ -82,6 +81,7 @@ struct GnomeCmdCon
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;
+    GString             *root_path;             // root path of the connection, used for calculation of relative paths
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;
@@ -210,8 +210,17 @@ inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &ho
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-GnomeCmdDir *gnome_cmd_con_get_root_dir (GnomeCmdCon *con);
-void gnome_cmd_con_set_root_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
+inline gchar *gnome_cmd_con_get_root_path (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->root_path->str;
+}
+
+inline void gnome_cmd_con_set_root_path (GnomeCmdCon *con, const gchar *path=NULL)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_string_assign (con->root_path, path);
+}
 
 inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 {

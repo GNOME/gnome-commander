@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -107,7 +107,7 @@ static void class_init (GnomeCmdMakeCopyDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeCmdStringDialogClass *) gtk_type_class (gnome_cmd_string_dialog_get_type ());
+    parent_class = (GnomeCmdStringDialogClass *) gtk_type_class (GNOME_CMD_TYPE_STRING_DIALOG);
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
@@ -129,12 +129,10 @@ GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir)
 
     const gchar *labels[] = {""};
 
-    GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) gtk_type_new (gnome_cmd_make_copy_dialog_get_type ());
+    GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) g_object_new (GNOME_CMD_TYPE_MAKE_COPY_DIALOG, NULL);
 
-    dialog->priv->f = f;
-    dialog->priv->dir = dir;
-    f->ref();
-    gnome_cmd_dir_ref (dir);
+    dialog->priv->f = f->ref();
+    dialog->priv->dir = gnome_cmd_dir_ref (dir);
 
     gchar *msg = g_strdup_printf (_("Copy \"%s\" to"), f->get_name());
     GtkWidget *msg_label = create_label (GTK_WIDGET (dialog), msg);
@@ -174,7 +172,7 @@ GtkType gnome_cmd_make_copy_dialog_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        dlg_type = gtk_type_unique (gnome_cmd_string_dialog_get_type (), &dlg_info);
+        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_STRING_DIALOG, &dlg_info);
     }
     return dlg_type;
 }

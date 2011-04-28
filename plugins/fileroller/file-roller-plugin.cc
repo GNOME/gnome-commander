@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gint argc;
     gchar **argv;
 
-    if (target_dir==NULL)
+    if (!target_dir)
     {
         t = g_path_get_dirname (local_path);
         target_dir = target_name ? g_build_filename (t, target_name, NULL) : g_strdup (t);
@@ -416,7 +416,7 @@ static void class_init (FileRollerPluginClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
-    parent_class = (GnomeCmdPluginClass *) gtk_type_class (gnome_cmd_plugin_get_type ());
+    parent_class = (GnomeCmdPluginClass *) gtk_type_class (GNOME_CMD_TYPE_PLUGIN);
 
     object_class->destroy = destroy;
 
@@ -457,7 +457,7 @@ GtkType file_roller_plugin_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        type = gtk_type_unique (gnome_cmd_plugin_get_type (), &info);
+        type = gtk_type_unique (GNOME_CMD_TYPE_PLUGIN, &info);
     }
     return type;
 }
@@ -465,7 +465,7 @@ GtkType file_roller_plugin_get_type ()
 
 GnomeCmdPlugin *file_roller_plugin_new ()
 {
-    FileRollerPlugin *plugin = (FileRollerPlugin *) gtk_type_new (file_roller_plugin_get_type ());
+    FileRollerPlugin *plugin = (FileRollerPlugin *) g_object_new (file_roller_plugin_get_type (), NULL);
 
     return GNOME_CMD_PLUGIN (plugin);
 }

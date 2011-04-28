@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -114,7 +114,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
         DEBUG ('m', "mount returned %d and had the exitstatus %d\n", ret, estatus);
 
         if (ret == -1)
-            emsg = g_strdup_printf (_("Failed to execute the mount command"));
+            emsg = g_strdup (_("Failed to execute the mount command"));
         else
             switch (estatus)
             {
@@ -122,15 +122,13 @@ static void do_mount_thread_func (GnomeCmdCon *con)
                     emsg = NULL;
                     break;
                 case 1:
-                    emsg = g_strdup (_("Mount failed: Permission denied"));
+                    emsg = g_strdup (_("Mount failed: permission denied"));
                     break;
                 case 32:
-                    emsg = g_strdup (_("Mount failed: No medium found"));
+                    emsg = g_strdup (_("Mount failed: no medium found"));
                     break;
                 default:
-                    emsg = g_strdup_printf (
-                        _("Mount failed: mount exited with existatus %d"),
-                        estatus);
+                    emsg = g_strdup_printf (_("Mount failed: mount exited with existatus %d"), estatus);
                     break;
             }
 
@@ -179,10 +177,7 @@ static void dev_open (GnomeCmdCon *con)
     DEBUG ('m', "Mounting device\n");
 
     if (!con->base_path)
-    {
-        con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
-        gtk_object_ref (GTK_OBJECT (con->base_path));
-    }
+        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -195,28 +190,25 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
 {
     GtkWidget *msgbox;
 
-    DEBUG('m', "VFS Umount Callback: %s %s %s\n", succeeded ? "Succeeded" : "Failed",
+    DEBUG('m', "VFS umount callback: %s %s %s\n", succeeded ? "succeeded" : "failed",
                error ? error : "",
                detailed_error ? detailed_error : "");
 
     if (succeeded)
-    {
-            msgbox = gtk_message_dialog_new (*main_win,
-                            GTK_DIALOG_MODAL,
-                            GTK_MESSAGE_INFO,
-                            GTK_BUTTONS_OK,
-                            _("Device is now safe to remove"));
-    }
+        msgbox = gtk_message_dialog_new (*main_win,
+                                         GTK_DIALOG_MODAL,
+                                         GTK_MESSAGE_INFO,
+                                         GTK_BUTTONS_OK,
+                                         _("Device is now safe to remove"));
     else
-    {
-            msgbox = gtk_message_dialog_new (*main_win,
-                            GTK_DIALOG_MODAL,
-                            GTK_MESSAGE_ERROR,
-                            GTK_BUTTONS_OK,
-                            _("Cannot unmount the volume:\n%s %s"),
-                            error ? error : _("Unknown error"),
-                            detailed_error ? detailed_error: "");
-    }
+        msgbox = gtk_message_dialog_new (*main_win,
+                                         GTK_DIALOG_MODAL,
+                                         GTK_MESSAGE_ERROR,
+                                         GTK_BUTTONS_OK,
+                                         _("Cannot unmount the volume:\n%s %s"),
+                                         error ? error : _("Unknown error"),
+                                         detailed_error ? detailed_error: "");
+
     gtk_dialog_run (GTK_DIALOG (msgbox));
     gtk_widget_destroy (msgbox);
 }
@@ -279,12 +271,11 @@ static gboolean dev_open_is_needed (GnomeCmdCon *con)
 static GnomeVFSURI *dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), NULL);
-    g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
+    g_return_val_if_fail (path!=NULL, NULL);
 
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
-    const gchar *path_str = gnome_cmd_path_get_path (path);
-    gchar *p = g_build_filename (dev_con->priv->mountp, path_str, NULL);
+    gchar *p = g_build_filename (dev_con->priv->mountp, path->get_path(), NULL);
     GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
     GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, p);
     gnome_vfs_uri_unref (u1);
@@ -298,7 +289,7 @@ static GnomeCmdPath *dev_create_path (GnomeCmdCon *con, const gchar *path_str)
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), NULL);
     g_return_val_if_fail (path_str != NULL, NULL);
 
-    return gnome_cmd_plain_path_new (path_str);
+    return new GnomeCmdPlainPath(path_str);
 }
 
 
@@ -330,7 +321,7 @@ static void class_init (GnomeCmdConDeviceClass *klass)
 
     object_class = GTK_OBJECT_CLASS (klass);
     con_class = GNOME_CMD_CON_CLASS (klass);
-    parent_class = (GnomeCmdConClass *) gtk_type_class (gnome_cmd_con_get_type ());
+    parent_class = (GnomeCmdConClass *) gtk_type_class (GNOME_CMD_TYPE_CON);
 
     object_class->destroy = destroy;
 
@@ -384,7 +375,7 @@ GtkType gnome_cmd_con_device_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        type = gtk_type_unique (gnome_cmd_con_get_type (), &info);
+        type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
     }
     return type;
 }
@@ -392,7 +383,8 @@ GtkType gnome_cmd_con_device_get_type ()
 
 GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path)
 {
-    GnomeCmdConDevice *dev = (GnomeCmdConDevice *) gtk_type_new (gnome_cmd_con_device_get_type ());
+    GnomeCmdConDevice *dev = (GnomeCmdConDevice *) g_object_new (GNOME_CMD_TYPE_CON_DEVICE, NULL);
+    GnomeCmdCon *con = GNOME_CMD_CON (dev);
 
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);
@@ -401,7 +393,9 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
     gnome_cmd_con_device_set_vfs_volume(dev, NULL);
     gnome_cmd_con_device_set_alias (dev, alias);
 
-    GNOME_CMD_CON (dev)->open_msg = g_strdup_printf (_("Mounting %s"), alias);
+    gnome_cmd_con_set_root_path (con, mountp);
+
+    con->open_msg = g_strdup_printf (_("Mounting %s"), alias);
 
     return dev;
 }
@@ -430,10 +424,7 @@ void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *de
 
     g_free (dev->priv->device_fn);
 
-    if (!device_fn)
-        dev->priv->device_fn = NULL;
-    else
-        dev->priv->device_fn = g_strdup (device_fn);
+    dev->priv->device_fn = g_strdup (device_fn);
 }
 
 

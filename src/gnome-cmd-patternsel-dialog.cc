@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ static void class_init (GnomeCmdPatternselDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
     object_class->destroy = destroy;
     widget_class->map = ::map;
 }
@@ -117,7 +117,7 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
     GtkWidget *hbox, *vbox, *label;
     GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
-    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) gtk_type_new (gnome_cmd_patternsel_dialog_get_type ());
+    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) g_object_new (GNOME_CMD_TYPE_PATTERNSEL_DIALOG, NULL);
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
 
@@ -171,7 +171,7 @@ GtkType gnome_cmd_patternsel_dialog_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        dlg_type = gtk_type_unique (gnome_cmd_dialog_get_type (), &dlg_info);
+        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
     }
     return dlg_type;
 }

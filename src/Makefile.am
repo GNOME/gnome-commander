@@ -36,6 +36,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-chown-dialog.h gnome-cmd-chown-dialog.cc \
 	gnome-cmd-clist.h gnome-cmd-clist.cc \
 	gnome-cmd-cmdline.h gnome-cmd-cmdline.cc \
+	gnome-cmd-collection.h \
 	gnome-cmd-combo.h gnome-cmd-combo.cc \
 	gnome-cmd-con-device.h gnome-cmd-con-device.cc \
 	gnome-cmd-con-dialog.h gnome-cmd-con-dialog.cc \
@@ -64,7 +65,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-menu-button.h gnome-cmd-menu-button.cc \
 	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
 	gnome-cmd-options-dialog.h gnome-cmd-options-dialog.cc \
-	gnome-cmd-path.h gnome-cmd-path.cc \
+	gnome-cmd-path.h \
 	gnome-cmd-patternsel-dialog.h gnome-cmd-patternsel-dialog.cc \
 	gnome-cmd-pixmap.h gnome-cmd-pixmap.cc \
 	gnome-cmd-plain-path.h gnome-cmd-plain-path.cc \

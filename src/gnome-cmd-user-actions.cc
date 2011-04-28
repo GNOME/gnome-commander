@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -218,6 +218,7 @@ static UserActionData user_actions_data[] = {
                                              {view_prev_tab, "view.prev_tab", N_("Previous tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
                                              {view_root, "view.root", N_("Root directory")},
+                                             {view_toggle_tab_lock, "view.toggle_lock_tab", N_("Lock/unlock tab")},
 #if 0
                                              {view_terminal, "view.terminal", N_("Show terminal")},
 #endif
@@ -339,6 +340,12 @@ void GnomeCmdUserActions::init()
         register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
+    }
+
+    if (!registered("view.up"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_Page_Up, "view.up");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Page_Up, "view.up");
     }
 
     if (!registered("view.equal_panes"))
@@ -1206,7 +1213,7 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
         gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
         GError *error = NULL;
 
-        if (!g_spawn_async (dpath, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
+        if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
             gnome_cmd_error_message (_("Unable to open terminal in root mode"), error);
 
         g_free (dpath);
@@ -1430,7 +1437,13 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fl (ACTIVE)->goto_directory("..");
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    if (fl->locked)
+        fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
+    else
+        fs->goto_directory("..");
 }
 
 
@@ -1497,48 +1510,76 @@ void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_home (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fl (ACTIVE)->set_connection(get_home_con ());
-    get_fl (ACTIVE)->goto_directory("~");
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    if (!fl->locked)
+    {
+        fl->set_connection(get_home_con ());
+        fl->goto_directory("~");
+    }
+    else
+        fs->new_tab(gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), g_get_home_dir ())));
 }
 
 
 void view_root (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fl (ACTIVE)->goto_directory("/");
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    if (fl->locked)
+        fs->new_tab(gnome_cmd_dir_new (fl->con, gnome_cmd_con_create_path (fl->con, "/")));
+    else
+        fs->goto_directory("/");
 }
 
 
 void view_new_tab (GtkMenuItem *menuitem, gpointer file_list)
 {
     GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
-    get_fs (ACTIVE)->new_tab(fl->cwd);
+    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
+    fs->new_tab(fl->cwd);
 }
 
 
-void view_close_tab (GtkMenuItem *menuitem, gpointer page)
+void view_close_tab (GtkMenuItem *menuitem, gpointer file_list)
 {
-    if (page)
-        get_fs (ACTIVE)->close_tab(GPOINTER_TO_INT(page));
+    if (file_list)
+    {
+        GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (file_list);
+        GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
+
+        if (fs->notebook->size()>1)
+            if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+                fs->close_tab(gtk_notebook_page_num (*fs->notebook, gtk_widget_get_parent (*fl)));
+    }
     else
-        get_fs (ACTIVE)->close_tab();
+    {
+        GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+
+        if (fs->notebook->size()>1)
+            if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+                fs->close_tab();
+    }
 }
 
 
-void view_close_all_tabs (GtkMenuItem *menuitem, gpointer not_used)
+void view_close_all_tabs (GtkMenuItem *menuitem, gpointer file_selector)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileSelector *fs = file_selector ? GNOME_CMD_FILE_SELECTOR (file_selector) : get_fs (ACTIVE);
     GnomeCmdNotebook *notebook = fs->notebook;
     gint n = notebook->get_current_page();
 
     for (gint i=notebook->size(); i--;)
-        if (i!=n)
+        if (i!=n && !fs->file_list(i)->locked)
             notebook->remove_page(i);
 }
 
 
-void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer not_used)
+void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer file_selector)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileSelector *fs = file_selector ? GNOME_CMD_FILE_SELECTOR (file_selector) : get_fs (ACTIVE);
     GnomeCmdNotebook *notebook = fs->notebook;
 
     typedef set<gint> TABS_COLL;
@@ -1550,7 +1591,7 @@ void view_close_duplicate_tabs (GtkMenuItem *menuitem, gpointer not_used)
     {
         GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (gtk_bin_get_child (GTK_BIN (notebook->page(i))));
 
-        if (fl)
+        if (fl && !fl->locked)
             dirs[fl->cwd].insert(i);
     }
 
@@ -1612,13 +1653,28 @@ void view_in_inactive_tab (GtkMenuItem *menuitem, gpointer file_list)
 }
 
 
+void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
+{
+    //  0       -> current tab
+    //  1 .. n  -> tab #n for active fs
+    // -1 .. -n -> tab #n for inactive fs
+
+    int n = GPOINTER_TO_INT (page);
+    GnomeCmdFileSelector *fs = get_fs (n>=0 ? ACTIVE : INACTIVE);
+    GnomeCmdFileList *fl = n==0 ? get_fl (ACTIVE) : fs->file_list(ABS(n)-1);
+
+    if (fs && fl)
+    {
+        fl->locked = !fl->locked;
+        fs->update_tab_label(fl);
+    }
+}
+
+
 /************** Options Menu **************/
 void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GtkWidget *dialog = gnome_cmd_options_dialog_new ();
-    g_object_ref (dialog);
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), *main_win);
-    gtk_widget_show (dialog);
+    gnome_cmd_options_dialog (*main_win, gnome_cmd_data);
 }
 
 
@@ -1843,7 +1899,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
     };
 
     static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
-                                     "Copyright \xc2\xa9 2007-2010 Piotr Eljasiak";
+                                     "Copyright \xc2\xa9 2007-2011 Piotr Eljasiak";
 
     static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 

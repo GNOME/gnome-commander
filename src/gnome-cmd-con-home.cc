@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ static gboolean home_open_is_needed (GnomeCmdCon *con)
 static GnomeVFSURI *home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
-    GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
+    GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, path->get_path());
     gnome_vfs_uri_unref (u1);
 
     return u2;
@@ -67,7 +67,7 @@ static GnomeVFSURI *home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 
 static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
-    return gnome_cmd_plain_path_new (path_str);
+    return new GnomeCmdPlainPath(path_str);
 }
 
 
@@ -78,8 +78,6 @@ static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdConHome *con = GNOME_CMD_CON_HOME (object);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -90,7 +88,7 @@ static void class_init (GnomeCmdConHomeClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    parent_class = (GnomeCmdConClass *) gtk_type_class (gnome_cmd_con_get_type ());
+    parent_class = (GnomeCmdConClass *) gtk_type_class (GNOME_CMD_TYPE_CON);
 
     object_class->destroy = destroy;
 
@@ -124,8 +122,7 @@ static void init (GnomeCmdConHome *home_con)
     con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
     con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
 
-    GnomeCmdPath *path = gnome_cmd_plain_path_new (g_get_home_dir ());
-    GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
+    GnomeCmdDir *dir = gnome_cmd_dir_new (con, new GnomeCmdPlainPath(g_get_home_dir ()));
 
     gnome_cmd_con_set_default_dir (con, dir);
 }
@@ -154,7 +151,7 @@ GtkType gnome_cmd_con_home_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        type = gtk_type_unique (gnome_cmd_con_get_type (), &info);
+        type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
     }
     return type;
 }
@@ -162,7 +159,7 @@ GtkType gnome_cmd_con_home_get_type ()
 
 GnomeCmdCon *gnome_cmd_con_home_new ()
 {
-    GnomeCmdConHome *con = (GnomeCmdConHome *) gtk_type_new (gnome_cmd_con_home_get_type ());
+    GnomeCmdConHome *con = (GnomeCmdConHome *) g_object_new (GNOME_CMD_TYPE_CON_HOME, NULL);
 
     return GNOME_CMD_CON (con);
 }

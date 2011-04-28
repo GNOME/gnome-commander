@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,24 +22,12 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-options-dialog.h"
-#include "gnome-cmd-data.h"
 #include "utils.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-combo.h"
 
 using namespace std;
-
-
-static GnomeCmdDialogClass *parent_class = NULL;
-
-
-struct GnomeCmdOptionsDialog::Private
-{
-};
-
 
 
 inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
@@ -51,7 +39,6 @@ inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 
     return w;
 }
-
 
 
 static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
@@ -204,20 +191,20 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 }
 
 
-inline void store_general_options (GnomeCmdOptionsDialog *dialog)
+inline void store_general_options (GtkWidget *dialog)
 {
-    GtkWidget *lmb_singleclick_radio = lookup_widget (GTK_WIDGET (dialog), "lmb_singleclick_radio");
-    GtkWidget *lmb_unselects_check = lookup_widget (GTK_WIDGET (dialog), "lmb_unselects_check");
-    GtkWidget *mmb_cd_up_radio = lookup_widget (GTK_WIDGET (dialog), "mmb_cd_up_radio");
-    GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
-    GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
-    GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
-    GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
-    GtkWidget *multiple_instance_check = lookup_widget (GTK_WIDGET (dialog), "multiple_instance_check");
-    GtkWidget *qsearch_exact_match_begin = lookup_widget (GTK_WIDGET (dialog), "qsearch_exact_match_begin");
-    GtkWidget *qsearch_exact_match_end = lookup_widget (GTK_WIDGET (dialog), "qsearch_exact_match_end");
-    GtkWidget *save_dirs = lookup_widget (GTK_WIDGET (dialog), "save_dirs");
-    GtkWidget *save_tabs = lookup_widget (GTK_WIDGET (dialog), "save_tabs");
+    GtkWidget *lmb_singleclick_radio = lookup_widget (dialog, "lmb_singleclick_radio");
+    GtkWidget *lmb_unselects_check = lookup_widget (dialog, "lmb_unselects_check");
+    GtkWidget *mmb_cd_up_radio = lookup_widget (dialog, "mmb_cd_up_radio");
+    GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
+    GtkWidget *ft_regex_radio = lookup_widget (dialog, "ft_regex_radio");
+    GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
+    GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
+    GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
+    GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
+    GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
+    GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
+    GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
 
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -250,7 +237,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
  *
  **********************************************************************/
 
-static void on_date_format_update (GtkButton *button, GtkWidget *options_dialog)
+static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dialog)
 {
     GtkWidget *format_entry = lookup_widget (options_dialog, "date_format_entry");
     GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
@@ -272,14 +259,13 @@ static void on_date_format_update (GtkButton *button, GtkWidget *options_dialog)
 static GtkWidget *create_format_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box, *table;
-    GtkWidget *radio, *label, *entry, *button;
+    GtkWidget *radio, *label, *entry;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
-
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
@@ -337,17 +323,15 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     entry = create_entry (parent, "date_format_entry", utf8_date_format);
     g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
+    g_signal_connect (entry, "realize", G_CALLBACK (on_date_format_update), parent);
+    g_signal_connect (entry, "changed", G_CALLBACK (on_date_format_update), parent);
     table_add (table, entry, 1, 0, GTK_FILL);
-
-    button = create_button (parent, _("_Test"), GTK_SIGNAL_FUNC (on_date_format_update));
-    table_add (table, button, 2, 0, GTK_FILL);
 
     label = create_label (parent, _("Test result:"));
     table_add (table, label, 0, 1, GTK_FILL);
 
     label = create_label (parent, "");
-    g_object_set_data_full (G_OBJECT (parent), "date_format_test_label", label, g_object_unref);
-    g_signal_connect (label, "realize", G_CALLBACK (on_date_format_update), parent);
+    g_object_set_data (G_OBJECT (parent), "date_format_test_label", label);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     label = create_label (parent, _("See the manual page for \"strftime\" for help on how to set the format string."));
@@ -358,13 +342,13 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
 }
 
 
-inline void store_format_options (GnomeCmdOptionsDialog *dialog)
+inline void store_format_options (GtkWidget *dialog)
 {
-    GtkWidget *size_powered_radio = lookup_widget (GTK_WIDGET (dialog), "size_powered_radio");
-    GtkWidget *size_locale_radio = lookup_widget (GTK_WIDGET (dialog), "size_locale_radio");
-    GtkWidget *size_grouped_radio = lookup_widget (GTK_WIDGET (dialog), "size_grouped_radio");
-    GtkWidget *perm_text_radio = lookup_widget (GTK_WIDGET (dialog), "perm_text_radio");
-    GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "date_format_entry");
+    GtkWidget *size_powered_radio = lookup_widget (dialog, "size_powered_radio");
+    GtkWidget *size_locale_radio = lookup_widget (dialog, "size_locale_radio");
+    GtkWidget *size_grouped_radio = lookup_widget (dialog, "size_grouped_radio");
+    GtkWidget *perm_text_radio = lookup_widget (dialog, "perm_text_radio");
+    GtkWidget *entry = lookup_widget (dialog, "date_format_entry");
     const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
@@ -390,7 +374,6 @@ inline void store_format_options (GnomeCmdOptionsDialog *dialog)
  *  The Layout tab
  *
  **********************************************************************/
-
 
 static void on_layout_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
 {
@@ -811,20 +794,20 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 }
 
 
-inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
+inline void store_layout_options (GtkWidget *dialog)
 {
-    GtkWidget *iconsize_spin       = lookup_widget (GTK_WIDGET (dialog), "iconsize_spin");
-    GtkWidget *iconquality_scale   = lookup_widget (GTK_WIDGET (dialog), "iconquality_scale");
-    GtkWidget *theme_icondir_entry = lookup_widget (GTK_WIDGET (dialog), "theme_icondir_entry");
-    GtkWidget *doc_icondir_entry   = lookup_widget (GTK_WIDGET (dialog), "doc_icondir_entry");
-    GtkWidget *row_height_spin     = lookup_widget (GTK_WIDGET (dialog), "row_height_spin");
-    GtkWidget *use_ls              = lookup_widget (GTK_WIDGET (dialog), "use_ls_colors");
+    GtkWidget *iconsize_spin       = lookup_widget (dialog, "iconsize_spin");
+    GtkWidget *iconquality_scale   = lookup_widget (dialog, "iconquality_scale");
+    GtkWidget *theme_icondir_entry = lookup_widget (dialog, "theme_icondir_entry");
+    GtkWidget *doc_icondir_entry   = lookup_widget (dialog, "doc_icondir_entry");
+    GtkWidget *row_height_spin     = lookup_widget (dialog, "row_height_spin");
+    GtkWidget *use_ls              = lookup_widget (dialog, "use_ls_colors");
 
-    GtkWidget *lm_optmenu = lookup_widget (GTK_WIDGET (dialog), "lm_optmenu");
-    GtkWidget *fe_optmenu = lookup_widget (GTK_WIDGET (dialog), "fe_optmenu");
-    GtkWidget *cm_optmenu = lookup_widget (GTK_WIDGET (dialog), "cm_optmenu");
+    GtkWidget *lm_optmenu = lookup_widget (dialog, "lm_optmenu");
+    GtkWidget *fe_optmenu = lookup_widget (dialog, "fe_optmenu");
+    GtkWidget *cm_optmenu = lookup_widget (dialog, "cm_optmenu");
 
-    GtkWidget *list_font_picker = lookup_widget (GTK_WIDGET (dialog), "list_font_picker");
+    GtkWidget *list_font_picker = lookup_widget (dialog, "list_font_picker");
 
     gnome_cmd_data.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
     gnome_cmd_data.layout = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu));
@@ -843,6 +826,75 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data.icon_scale_quality = (GdkInterpType) adj->value;
 
     gnome_cmd_data.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
+}
+
+
+/***********************************************************************
+ *
+ *  The Tabs tab
+ *
+ **********************************************************************/
+
+static GtkWidget *create_tabs_tab (GtkWidget *parent)
+{
+    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *radio, *check;
+
+    frame = create_tabframe (parent);
+    hbox = create_tabhbox (parent);
+    gtk_container_add (GTK_CONTAINER (frame), hbox);
+    vbox = create_tabvbox (parent);
+    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+
+
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Tab bar"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.always_show_tabs);
+
+
+    // Size display mode
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Tab lock indicator"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    radio = create_radio (parent, NULL, _("Lock icon"), "tab_lock_icon_radio");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (gnome_cmd_data.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ICON)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+    radio = create_radio (parent, get_radio_group (radio), _("* (asterisk)"), "tab_lock_asterisk_radio");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (gnome_cmd_data.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ASTERISK)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+    radio = create_radio (parent, get_radio_group (radio), _("Styled text"), "tab_lock_style_radio");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (gnome_cmd_data.tab_lock_indicator == GnomeCmdData::TAB_LOCK_STYLED_TEXT)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+    return frame;
+}
+
+
+inline void store_tabs_options (GtkWidget *dialog)
+{
+    GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
+    GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
+    GtkWidget *tab_lock_asterisk_radio = lookup_widget (dialog, "tab_lock_asterisk_radio");
+    GtkWidget *tab_lock_style_radio = lookup_widget (dialog, "tab_lock_style_radio");
+
+    gnome_cmd_data.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
+
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tab_lock_icon_radio)))
+        gnome_cmd_data.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ICON;
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tab_lock_asterisk_radio)))
+        gnome_cmd_data.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ASTERISK;
+    else
+        gnome_cmd_data.tab_lock_indicator = GnomeCmdData::TAB_LOCK_STYLED_TEXT;
 }
 
 
@@ -919,15 +971,15 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
 }
 
 
-inline void store_confirmation_options (GnomeCmdOptionsDialog *dialog)
+inline void store_confirmation_options (GtkWidget *dialog)
 {
-    GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
-    GtkWidget *confirm_copy_silent = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_silently");
-    GtkWidget *confirm_copy_query = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_query");
-    GtkWidget *confirm_copy_skip_all = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_skip_all");
-    GtkWidget *confirm_move_silent = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_silently");
-    GtkWidget *confirm_move_query = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_query");
-    GtkWidget *confirm_move_skip_all = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_skip_all");
+    GtkWidget *confirm_delete_check = lookup_widget (dialog, "confirm_delete_check");
+    GtkWidget *confirm_copy_silent = lookup_widget (dialog, "copy_overwrite_silently");
+    GtkWidget *confirm_copy_query = lookup_widget (dialog, "copy_overwrite_query");
+    GtkWidget *confirm_copy_skip_all = lookup_widget (dialog, "copy_overwrite_skip_all");
+    GtkWidget *confirm_move_silent = lookup_widget (dialog, "move_overwrite_silently");
+    GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
+    GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
 
     gnome_cmd_data.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
 
@@ -1050,7 +1102,7 @@ static GtkWidget *create_filter_tab (GtkWidget *parent)
 }
 
 
-inline void store_filter_options (GnomeCmdOptionsDialog *dialog)
+inline void store_filter_options (GtkWidget *dialog)
 {
     GtkWidget *hide_unknown_check;
     GtkWidget *hide_directory_check;
@@ -1064,17 +1116,17 @@ inline void store_filter_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *hide_symlink_check;
     GtkWidget *backup_pattern_entry;
 
-    hide_unknown_check = lookup_widget (GTK_WIDGET (dialog), "hide_unknown_check");
-    hide_regular_check = lookup_widget (GTK_WIDGET (dialog), "hide_regular_check");
-    hide_directory_check = lookup_widget (GTK_WIDGET (dialog), "hide_directory_check");
-    hide_fifo_check = lookup_widget (GTK_WIDGET (dialog), "hide_fifo_check");
-    hide_socket_check = lookup_widget (GTK_WIDGET (dialog), "hide_socket_check");
-    hide_char_check = lookup_widget (GTK_WIDGET (dialog), "hide_char_check");
-    hide_block_check = lookup_widget (GTK_WIDGET (dialog), "hide_block_check");
-    hide_symlink_check = lookup_widget (GTK_WIDGET (dialog), "hide_symlink_check");
-    hide_hidden_check = lookup_widget (GTK_WIDGET (dialog), "hide_hidden_check");
-    hide_backup_check = lookup_widget (GTK_WIDGET (dialog), "hide_backup_check");
-    backup_pattern_entry = lookup_widget (GTK_WIDGET (dialog), "backup_pattern_entry");
+    hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
+    hide_regular_check = lookup_widget (dialog, "hide_regular_check");
+    hide_directory_check = lookup_widget (dialog, "hide_directory_check");
+    hide_fifo_check = lookup_widget (dialog, "hide_fifo_check");
+    hide_socket_check = lookup_widget (dialog, "hide_socket_check");
+    hide_char_check = lookup_widget (dialog, "hide_char_check");
+    hide_block_check = lookup_widget (dialog, "hide_block_check");
+    hide_symlink_check = lookup_widget (dialog, "hide_symlink_check");
+    hide_hidden_check = lookup_widget (dialog, "hide_hidden_check");
+    hide_backup_check = lookup_widget (dialog, "hide_backup_check");
+    backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
 
     gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_unknown_check));
@@ -1107,7 +1159,6 @@ inline void store_filter_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data_set_backup_pattern (gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
 }
-
 
 
 /***********************************************************************
@@ -1156,10 +1207,10 @@ static GtkWidget *create_network_tab (GtkWidget *parent)
 }
 
 
-inline void store_network_options (GnomeCmdOptionsDialog *dialog)
+inline void store_network_options (GtkWidget *dialog)
 {
-    GtkWidget *use_auth_manager_check = lookup_widget (GTK_WIDGET (dialog), "use_auth_manager");
-    GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "anonymous_ftp_password");
+    GtkWidget *use_auth_manager_check = lookup_widget (dialog, "use_auth_manager");
+    GtkWidget *entry = lookup_widget (dialog, "anonymous_ftp_password");
 
     gnome_cmd_data.use_gnome_auth_manager = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_auth_manager_check));
     gnome_cmd_data_set_ftp_anonymous_password (gtk_entry_get_text (GTK_ENTRY (entry)));
@@ -1221,11 +1272,10 @@ static void on_some_files_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 }
 
 
-static void
-get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **icon_path,
-                       gint *target, gchar **pattern_string,
-                       gboolean *handles_uris, gboolean *handles_multiple,
-                       gboolean *requires_terminal)
+static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **icon_path,
+                                   gint *target, gchar **pattern_string,
+                                   gboolean *handles_uris, gboolean *handles_multiple,
+                                   gboolean *requires_terminal)
 {
     GtkWidget *name_entry = lookup_widget (dialog, "name_entry");
     GtkWidget *cmd_entry = lookup_widget (dialog, "cmd_entry");
@@ -1599,14 +1649,14 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
 }
 
 
-inline void store_programs_options (GnomeCmdOptionsDialog *dialog)
+inline void store_programs_options (GtkWidget *dialog)
 {
-    GtkWidget *entry1 = lookup_widget (GTK_WIDGET (dialog), "viewer");
-    GtkWidget *entry2 = lookup_widget (GTK_WIDGET (dialog), "editor");
-    GtkWidget *entry3 = lookup_widget (GTK_WIDGET (dialog), "differ");
-    GtkWidget *entry5 = lookup_widget (GTK_WIDGET (dialog), "term");
-    GtkWidget *check_uris = lookup_widget (GTK_WIDGET (dialog), "honor_expect_uris");
-    GtkWidget *check_iv = lookup_widget (GTK_WIDGET (dialog), "use_internal_viewer");
+    GtkWidget *entry1 = lookup_widget (dialog, "viewer");
+    GtkWidget *entry2 = lookup_widget (dialog, "editor");
+    GtkWidget *entry3 = lookup_widget (dialog, "differ");
+    GtkWidget *entry5 = lookup_widget (dialog, "term");
+    GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
+    GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
 
     gnome_cmd_data.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
     gnome_cmd_data.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
@@ -1945,168 +1995,118 @@ inline void store_devices_options (GtkWidget *dialog)
 }
 
 
-static void on_options_dialog_close (GtkButton *button, GtkWidget *dialog)
+static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNotebook *notebook)
 {
-    GnomeCmdOptionsDialog *options_dialog = GNOME_CMD_OPTIONS_DIALOG (dialog);
+    static const char *help_id[] = {"gnome-commander-prefs-general",
+                                    "gnome-commander-prefs-format",
+                                    "gnome-commander-prefs-layout",
+                                    "gnome-commander-prefs-tabs",
+                                    "gnome-commander-prefs-confirmation",
+                                    "gnome-commander-prefs-filters",
+                                    "gnome-commander-prefs-network",
+                                    "gnome-commander-prefs-programs",
+                                    "gnome-commander-prefs-devices"};
 
-    store_general_options (options_dialog);
-    store_format_options (options_dialog);
-    store_layout_options (options_dialog);
-    store_confirmation_options (options_dialog);
-    store_filter_options (options_dialog);
-    store_network_options (options_dialog);
-    store_programs_options (options_dialog);
-    store_devices_options (dialog);
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            break;
+
+        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_CANCEL:
+            break;
+
+        case GTK_RESPONSE_HELP:
+            gnome_cmd_help_display ("gnome-commander.xml", help_id[notebook->get_current_page()]);
+            g_signal_stop_emission_by_name (dialog, "response");
+            break;
+
+        default:
+            g_assert_not_reached ();
+    }
+}
+
+
+gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
+{
+    GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Options"), parent,
+                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+                                                     GTK_STOCK_HELP, GTK_RESPONSE_HELP,
+                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     NULL);
+
+    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+#endif
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+    // HIG defaults
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_box_set_spacing (GTK_BOX (content_area), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
+    gtk_box_set_spacing (GTK_BOX (content_area),6);
+#else
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
+#endif
+
+    GnomeCmdNotebook *notebook = new GnomeCmdNotebook(GnomeCmdNotebook::SHOW_TABS);
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_container_add (GTK_CONTAINER (content_area), *notebook);
+#else
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), *notebook);
+#endif
+
+    notebook->append_page(create_general_tab (dialog), _("General"));
+    notebook->append_page(create_format_tab (dialog), _("Format"));
+    notebook->append_page(create_layout_tab (dialog), _("Layout"));
+    notebook->append_page(create_tabs_tab (dialog), _("Tabs"));
+    notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
+    notebook->append_page(create_filter_tab (dialog), _("Filters"));
+    notebook->append_page(create_network_tab (dialog), _("Network"));
+    notebook->append_page(create_programs_tab (dialog), _("Programs"));
+    notebook->append_page(create_devices_tab (dialog), _("Devices"));
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_widget_show_all (content_area);
+#else
+    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+#endif
+
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), notebook);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (result==GTK_RESPONSE_OK)
+    {
+        store_general_options (dialog);
+        store_format_options (dialog);
+        store_layout_options (dialog);
+        store_tabs_options (dialog);
+        store_confirmation_options (dialog);
+        store_filter_options (dialog);
+        store_network_options (dialog);
+        store_programs_options (dialog);
+        store_devices_options (dialog);
+
+        gnome_cmd_style_create ();
+        main_win->update_style();
+
+        gnome_cmd_data.save();
+    }
 
     gtk_widget_destroy (dialog);
 
-    gnome_cmd_style_create ();
-    main_win->update_style();
-
-    gnome_cmd_data.save();
-}
-
-
-/*******************************
- * Gtk class implementation
- *******************************/
-
-
- static void destroy (GtkObject *object)
-{
-    GnomeCmdOptionsDialog *dialog = GNOME_CMD_OPTIONS_DIALOG (object);
-
-    g_free (dialog->priv);
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-static void map (GtkWidget *widget)
-{
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
-}
-
-
-static void class_init (GnomeCmdOptionsDialogClass *klass)
-{
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
-
-    object_class->destroy = destroy;
-
-    widget_class->map = ::map;
-}
-
-
-static void init (GnomeCmdOptionsDialog *dialog)
-{
-    GtkWidget *options_dialog = GTK_WIDGET (dialog);
-
-    dialog->priv = g_new0 (GnomeCmdOptionsDialog::Private, 1);
-
-    g_object_set_data (G_OBJECT (options_dialog), "options_dialog", options_dialog);
-    gtk_window_set_position (GTK_WINDOW (options_dialog), GTK_WIN_POS_CENTER);
-    gtk_window_set_title (GTK_WINDOW (options_dialog), _("Options"));
-
-    dialog->notebook = gtk_notebook_new ();
-    g_object_ref (dialog->notebook);
-    g_object_set_data_full (G_OBJECT (options_dialog), "notebook", dialog->notebook, g_object_unref);
-    gtk_widget_show (dialog->notebook);
-    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), dialog->notebook);
-
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_general_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_format_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_layout_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_confirmation_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_filter_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_network_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_programs_tab (options_dialog));
-    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_devices_tab (options_dialog));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_GENERAL),
-        gtk_label_new (_("General")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_FORMAT),
-        gtk_label_new (_("Format")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_LAYOUT),
-        gtk_label_new (_("Layout")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_CONFIRMATION),
-        gtk_label_new (_("Confirmation")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_FILTERS),
-        gtk_label_new (_("Filters")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_NETWORK),
-        gtk_label_new (_("Network")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_PROGRAMS),
-        gtk_label_new (_("Programs")));
-
-    gtk_notebook_set_tab_label (
-        GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_DEVICES),
-        gtk_label_new (_("Devices")));
-
-
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
-}
-
-
-/***********************************
- * Public functions
- ***********************************/
-
-
-GtkType gnome_cmd_options_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdOptionsDialog",
-            sizeof (GnomeCmdOptionsDialog),
-            sizeof (GnomeCmdOptionsDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (gnome_cmd_dialog_get_type (), &dlg_info);
-    }
-
-    return dlg_type;
-}
-
-
-GtkWidget *gnome_cmd_options_dialog_new ()
-{
-    return (GtkWidget *) gtk_type_new (gnome_cmd_options_dialog_get_type ());
+    return result==GTK_RESPONSE_OK;
 }

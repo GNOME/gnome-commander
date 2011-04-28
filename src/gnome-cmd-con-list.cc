@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -135,11 +135,6 @@ static void class_init (GnomeCmdConListClass *klass)
                                                                0);
 
     object_class->destroy = destroy;
-
-    klass->list_changed = NULL;
-    klass->ftp_list_changed = NULL;
-    klass->device_list_changed = NULL;
-    klass->quick_ftp_list_changed = NULL;
 }
 
 
@@ -191,7 +186,7 @@ GtkType gnome_cmd_con_list_get_type ()
 
 GnomeCmdConList *gnome_cmd_con_list_new ()
 {
-    return (GnomeCmdConList *) gtk_type_new (gnome_cmd_con_list_get_type ());
+    return (GnomeCmdConList *) g_object_new (GNOME_CMD_TYPE_CON_LIST, NULL);
 }
 
 

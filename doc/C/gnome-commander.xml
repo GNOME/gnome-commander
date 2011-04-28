@@ -4,7 +4,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.4">
   <!ENTITY manrevision "1.4">
-  <!ENTITY date "??? 2010">
+  <!ENTITY date "??? 2011">
   <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
@@ -29,6 +29,7 @@
     <title>&app; Manual</title>
     <subtitle>&app; Desktop Application Manual V&manrevision;</subtitle>
     <copyright>
+      <year>2011</year>
       <year>2010</year>
       <year>2009</year>
       <year>2008</year>
@@ -219,18 +220,6 @@
         </revdescription>
       </revision>
       <revision>
-        <revnumber>GNOME Commander Manual V1.4;</revnumber>
-        <date>2010-??-??</date>
-        <revdescription>
-          <para role="author">Laurent Coudeur
-                <email>laurentc@iol.ie</email></para>
-          <para role="publisher">GNOME Documentation Project</para>
-          <para role="author">Piotr Eljasiak
-                <email>epiotr@cvs.gnome.org</email></para>
-          <para role="publisher">GNOME Documentation Project</para>
-        </revdescription>
-      </revision>
-      <revision>
         <revnumber>GNOME Commander Manual V1.2.8.8;</revnumber>
         <date>2010-09-09</date>
         <revdescription>
@@ -260,6 +249,28 @@
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.11;</revnumber>
+        <date>2011-??-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.4;</revnumber>
+        <date>2011-??-??</date>
+        <revdescription>
+          <para role="author">Laurent Coudeur
+                <email>laurentc@iol.ie</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
     </revhistory>
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
@@ -287,7 +298,7 @@
 <!-- Use the Introduction section to give a brief overview of what the application is and what it does. -->
   <sect1 id="gnome-commander-introduction">
     <title>Introduction</title>
-    <para>The &app; application is a fast and powerful graphical file manager for the Gnome desktop environment,
+    <para>The &app; application is a fast and powerful graphical file manager for the GNOME desktop environment,
     it has a &quot;two-pane&quot; interface based on the orthodox file manager (OFM) principle,
     in the tradition of Norton and Midnight Commander.
 
@@ -297,7 +308,7 @@
         <para>GTK-2 GUI with standard mouse interactions</para>
       </listitem>
       <listitem>
-        <para>Gnome MIME types</para>
+        <para>GNOME MIME types</para>
       </listitem>
       <listitem>
         <para>Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS (Samba)</para>
@@ -544,8 +555,7 @@
                 <para>
                   <guilabel>[gtk,gnome,bonobo options]</guilabel>
                 </para>
-                <para>Standard gtk, gnome, bonobo options are supported. Use <guilabel>--help</guilabel> to see
-                	possible options.
+                <para>Standard gtk, gnome, bonobo options are supported. Use <guilabel>--help</guilabel> to see possible options.
                 </para>
               </listitem>
             </itemizedlist>
@@ -713,7 +723,7 @@
       <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
 
-    
+
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
       <title>Drag-and-Drop</title>
@@ -880,7 +890,7 @@
 	 <!-- ================ Tab subsection ================================= -->
 	 <sect2 id="gnome-commander-tabs">
 		<title>Using multiple tabs</title>
-		<Para>You can open multiple tabs in both panels to speed up navigation. Gnome Commander can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </Para> 	 	
+		<para>You can open multiple tabs in both panels to speed up navigation. GNOME Commander can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </para>
 		<para>Using the mouse the middle click can be configured to open a new tab. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. When it is set a middle click on a folder will open it in a new tab in the same pane.
 		</para>
 		<note>
@@ -892,43 +902,43 @@
         <para>To open a new tab press <keycombo><keycap>Ctrl</keycap><keycap>t</keycap></keycombo> this opens a new tab in the current panel with the same folder opened.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>Ctrl</keycap><keycap>Up arrow</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para> 
+       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>Ctrl</keycap><keycap>Up arrow</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the inactive pane press the Ctrl+Shift+Up arrow </para>
+       	 <para>To open a new tab displaying the selected folder in the inactive pane press the <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up arrow</keycap></keycombo>.</para>
         </listitem>
         <listitem>
      	   <para>To navigate between tab you can you the mouse or use <keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> as many time as needed to select the tab element. If the tabs are selected you can also use the <keycap>right arrow</keycap> or <keycap>left arrow</keycap> to select the desired tab.</para>
         </listitem>
-        <listitem> 
+        <listitem>
      	   <para>To close a tab you can use the mouse and double click the tab or right click on it and from the menu select <guimenu>Close tab</guimenu>. You can also close the current tab using the keyboard shortcut <keycombo><keycap>Ctrl</keycap><keycap>w</keycap></keycombo></para>
         </listitem>
       </itemizedlist>
     	  <para>Right clicking on any tab will open a tab specific menu</para>
       <itemizedlist>
         <listitem>
-        	<para><guimenu>Open in New Tab</guimenu> this action opens a new tab with the displaying the currently opened folder. </para>
+        	<para><guimenu>Open in new tab</guimenu> this action opens a new tab with the displaying the currently opened folder. </para>
         </listitem>
         <listitem>
-        	<para><guimenu>Refresh Tab</guimenu> this actions refreshes the files displayed currently in the folder.
-        	</para> 
+        	<para><guimenu>Refresh tab</guimenu> this actions refreshes the files displayed currently in the folder.
+        	</para>
         </listitem>
         <listitem>
-        	<para><guimenu>Copy Tab to Other Pane</guimenu> opens a new tab in the opposite pane, this tab will display the selected tab. </para>
+        	<para><guimenu>Copy tab to other pane</guimenu> opens a new tab in the opposite pane, this tab will display the selected tab. </para>
         </listitem>
         <listitem>
-	        <para><guimenu>Close Tab</guimenu> this action closes the currently selected tab.
+	        <para><guimenu>Close tab</guimenu> this action closes the currently selected tab.
         </para>
-        </listitem> 
-		  <listitem>        
-        <para><guimenu>Close All Tabs</guimenu> GNOME-Commander will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
-        </listitem> 
+        </listitem>
+		  <listitem>
+        <para><guimenu>Close all tabs</guimenu> GNOME Commander will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
+        </listitem>
         <listitem>
-        <para><guimenu>Close Duplicate Tabs</guimenu> GNOME-Commander will search for duplicated open tabs in the current pane and close them.</para> 
+        <para><guimenu>Close duplicate tabs</guimenu> GNOME Commander will search for duplicated open tabs in the current pane and close them.</para>
         </listitem>
       </itemizedlist>
-	 </sect2>        
-    
+	 </sect2>
+
   </sect1>
 
 <!-- ================ Advanced features ================================ -->
@@ -4064,7 +4074,7 @@
       </figure>
       <!-- ==== End of Figure ==== -->
       <para/>
-      <table frame="topbot" id="gcmd-TBL-setting1">      
+      <table frame="topbot" id="gcmd-TBL-setting1">
         <title>General option tab</title>
         <tgroup cols="2" colsep="0" rowsep="0">
           <colspec colname="colspec0" colwidth="50.36*"/>
@@ -4135,7 +4145,7 @@
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option a middle click with the mouse on
                 any item in &app; will display the parent directory of the current one.</para>
-                <note><para>The middle click is usually emulated by clicking both left and right buttons simultaneously on two buttons mice.</para></note>  
+                <note><para>The middle click is usually emulated by clicking both left and right buttons simultaneously on two buttons mice.</para></note>
               </entry>
             </row>
             <row>
@@ -4271,7 +4281,10 @@
 					<para>Directories</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; Saves the current folder location on exit. When you restart the two active location are reopened.</para>
+	              <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
+                <note>
+                  <para>Regardless of 'Save on exit' option, locations for locked tabs are always saved on exit.</para>
+                </note>
               </entry>
             </row>
             <row>
@@ -4282,13 +4295,13 @@
 					<para>Tabs</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; Saves all the opened tabs locations on exit. When you restart all the tabs are reopened in their previous location.</para>
+	              <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
               </entry>
             </row>
           </tbody>
         </tgroup>
       </table>
-            
+
 
     </sect2>
     <!-- Format options-->
@@ -4444,7 +4457,7 @@
         <itemizedlist>
           <listitem>
             <para><guilabel>File Panes</guilabel> in this section you can modify the
-            way &app;is displayed.</para>
+            way &app; is displayed.</para>
           </listitem>
           <listitem>
             <para><guilabel>Mime icon settings</guilabel> in this section you can
@@ -4537,7 +4550,7 @@
                 		<para><guibutton>In both columns</guibutton> where the extension is displayed in filename and extension columns</para>
                 	</listitem>
                 	<listitem>
-                		<para><guibutton>In separate columns</guibutton> where the extension is displayed in its own column</para>
+                		<para><guibutton>In separate column</guibutton> where the extension is displayed in its own column</para>
                       </listitem>
                   <listitem>
                         <para><guibutton>With filename</guibutton> where the extension is only displayed in the file name column; in this case the ext column is still displayed to allow sorting by extension</para>
@@ -4673,8 +4686,57 @@
       </table>
       <para/>
 
+		<sect3 id="gnome-commander-prefs-layout-colors">
+		<title>Configuring custom colors</title>
+		<para>To configure the custom colors for GNOME Commander click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, Select <guilabel>Custom</guilabel> in the <guilabel>Color scheme:</guilabel> drop down list then click the <guilabel>Edit</guilabel> button.</para>
+		<para>This feature allows you to configure how GNOME commander displays elements to suit your needs. By default the unselected elements are all displayed in the same way. This can become confusing, to solve this you can configure alternate colors for alternate rows.</para>
+		<para><guilabel>Foreground</guilabel> describes the color used for the text, and <guilabel>background</guilabel> is the background color used for the row.</para>
+		<itemizedlist>
+			<listitem><guilabel>Default</guilabel> this is the text and background colors used by default. These colors are used for standard unselected items.
+			</listitem>
+			<listitem><guilabel>Alternate</guilabel> If you wish to have a different color on alternate rows to help distinguish the files you can change the colors defined here. By default they are set to the same colors as the default.
+			</listitem>
+			<listitem><guilabel>Selected File</guilabel>, all selected items will be marked using the colors defined here. They differ from the default to help visualization of the marked items.
+			</listitem>
+			<listitem><guilabel>Cursor</guilabel> is the row currently activated. This highlights the position and is useful when navigating files with the keyboard.
+			</listitem>
+		</itemizedlist>
 
+		</sect3>
+		<sect3 id="gnome-commander-prefs-layout-ls_colors">
+			<title>Configuring Custom LS_COLORS</title>
+			 <para>Gnome Commander does not differentiate files types by default.</para>
+			 <para>You can configure it to differentiate files types like LS_COLORS does when using the command shell.</para>
+			 <para>To configure the custom colors for GNOME Commander click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box, then click the <guilabel>Edit colors...</guilabel> button.</para>
+		</sect3>
 <!-- ====Confirmation==== -->
+    </sect2>
+    <!-- Tabs options -->
+    <sect2 id="gnome-commander-prefs-tabs">
+      <title>Tabs</title>
+      <!--brief desciption-->
+      <para>This section of the option dialog lets you configure parameters for tabs.</para>
+      <itemizedlist>
+        <listitem>
+          <para><guilabel>Always show the tab bar</guilabel> If you're only viewing one file list in a &app; window, the tab bar is not normally shown. Check this preference to always show the tab bar, including when the &app; window contains only file list</para>
+        </listitem>
+      </itemizedlist>
+      <!-- ==== Figure ==== -->
+      <figure id="options-tabs-fig">
+        <title>Tabs options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_options_tabs.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; tabs preferences dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <para/>
     </sect2>
     <sect2 id="gnome-commander-prefs-confirmation">
       <title>Confirmation</title>
@@ -5014,14 +5076,11 @@
         </tgroup>
       </table>
    </sect2>
-
-
-<!--network preferences -->
-
+    <!--network preferences -->
     <sect2 id="gnome-commander-prefs-network">
       <title>Network</title>
       <!--brief desciption-->
-      <para>The network section of the option dialog let you configure parameters for
+      <para>The network section of the option dialog lets you configure parameters for
       FTP and the use of the GNOME keyring.</para>
       <itemizedlist>
         <listitem>
@@ -5446,8 +5505,8 @@
   <sect1 id="gnome-commander-keyboard">
     <title>Keyboard Mappings</title>
     <note>
-      <para>Some keyboard shortcuts may not work as expected under the Gnome
-                environment. The reason for that is that Gnome uses some global
+      <para>Some keyboard shortcuts may not work as expected under the GNOME
+                environment. The reason for that is that GNOME uses some global
                 shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> moves the entire application window),
                 which suppresses assigned keyboard mapping of &app;. Use the GNOME
                 Keyboard Shortcuts preference tool to customize the default keyboard
@@ -5472,7 +5531,7 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>F2</keycap></keycombo></para></entry>
-            <entry><para>Refresh files in the active file list</para></entry>
+            <entry><para>Rename a file</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -6066,24 +6125,10 @@
     <para>User actions are supported since version 1.2.4</para>
     <sect2 id="gnome-commander-user-actions-managing">
       <title>Managing user actions</title>
-      <para>Key bindings reside in [key-bindings] section of &app; config file
-              (<guilabel>~/.gnome2/gnome-commander</guilabel>).</para>
-      <para>Config file syntax:</para>
-      <para>
-        <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;super&gt;][&lt;hyper&gt;][&lt;meta&gt;]key_name=action[|options]</command>
-      </para>
-      <para>eg.</para>
-      <programlisting>
-    &lt;ctrl&gt;m=file.advrename
-    &lt;ctrl&gt;t=file.advrename
-    &lt;shift&gt;&lt;ctrl&gt;f5=file.create_symlink
-    &lt;ctrl&gt;2=file.diff
-    &lt;super&gt;f=edit.search
-        </programlisting>
+      <para>Key bindings reside in &lt;KeyBindings&gt; section of &app; config file (<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>).</para>
       <tip>
         <para>It&apos;s possible to assign one action to more than one key.</para>
       </tip>
-      <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
       <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
       <note>
         <para>&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10.</para>
@@ -6536,6 +6581,11 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.toggle_lock_tab</para></entry>
+                        <entry><para>Lock/unlock tab</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.up</para></entry>
                         <entry><para>Go forward to the parent directory</para></entry>
                         <entry><para></para></entry>
@@ -6809,7 +6859,7 @@
         </term>
         <listitem>
           <warning>
-            <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
+            <para>This is outdated info since Nautilus and later GNOME versions no longer use these kind of themes.</para>
           </warning>
           <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16.
               There are other themes around though, that are more complete and looks better in bigger sizes.
@@ -6852,7 +6902,7 @@
             supporting &app; packages.
         </para>
       <para>
-            All current and historical releases can be found on the <ulink type="http" url="http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/">Gnome FTP server</ulink>.
+            All current and historical releases can be found on the <ulink type="http" url="http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/">GNOME FTP server</ulink>.
         </para>
     </sect2>
     <sect2 id="gnome-commander-versioning">
@@ -7357,6 +7407,20 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
+                                    <entry><para>always_show_tabs</para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-prefs-tabs"/></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>tab_lock_indicator</para></entry>
+                                    <entry><para>integer</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-prefs-tabs"/></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
                                     <entry><para>allow_multiple_instances</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -7512,7 +7576,7 @@
     <tbody>
          <row valign="top">
             <entry><para>1.4</para></entry>
-            <entry><para>2010-??-??</para></entry>
+            <entry><para>2011-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -7524,7 +7588,7 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972 (bugs in in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
@@ -7559,13 +7623,16 @@
                             <para>Open terminal with administrator privileges</para>
                         </listitem>
                         <listitem>
+                            <para>Context popup menu for internal viewer</para>
+                        </listitem>
+                        <listitem>
                             <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>
                             <para>New or updated docs: de, en, es, fr, sl</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: cs, da, es, eu, fr, hu, ko, nb, pl, ro, ru, sl, uk, zh_CN</para>
+                            <para>New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN</para>
                         </listitem>
                         <listitem>
                             <para>New key bindings:</para>
@@ -7598,8 +7665,28 @@
             </entry>
         </row>
         <row valign="top">
-            <entry><para>1.2.8.10</para></entry>
+            <entry><para>1.2.8.11</para></entry>
             <entry><para>2011-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #639243 (misleading docs for F2 shortcut)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #640387 (usage of deprecated python modules: md5, sha1)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with Traditional Chinese translation</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.10</para></entry>
+            <entry><para>2011-01-15</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -7608,10 +7695,16 @@
                             <para>Fixed problem #448941 (numeric keypad arrows don't work in the main window)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #620275 (add menu item to copy full path and file name to clipboard)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #637501 (advrename: metatag popup menu shows wrong items)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem with toggling path/basename/filename selections in copy/move dialogs</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with searching path for devices</para>
                         </listitem>
                         <listitem>
                             <para>Updated translations: de</para>
@@ -7622,7 +7715,7 @@
         </row>
         <row valign="top">
             <entry><para>1.2.8.9</para></entry>
-            <entry><para>2010-??-??</para></entry>
+            <entry><para>2010-12-03</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>

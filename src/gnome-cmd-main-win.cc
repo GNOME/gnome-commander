@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-user-actions.h"
-#include "plugin_manager.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-main-menu.h"
 #include "gnome-cmd-data.h"
@@ -36,12 +35,10 @@
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-foldview.h"
 #include "owner.h"
 #include "utils.h"
-#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 
 #include "../pixmaps/copy_file_names.xpm"
 
@@ -722,13 +719,14 @@ static void class_init (GnomeCmdMainWinClass *klass)
     parent_class = (GnomeAppClass *) gtk_type_class (gnome_app_get_type ());
 
     signals[SWITCH_FS] =
-        gtk_signal_new ("switch-fs",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdMainWinClass, switch_fs),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+        g_signal_new ("switch-fs",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdMainWinClass, switch_fs),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
@@ -815,21 +813,21 @@ static void init (GnomeCmdMainWin *mw)
     GnomeCmdCon *home = get_home_con ();
 
     if (gnome_cmd_data.tabs[LEFT].empty())
-        gnome_cmd_data.tabs[LEFT].push_back(make_triple(string(g_get_home_dir ()), GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING));
+        gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
 
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[LEFT].begin(); i!=gnome_cmd_data.tabs[LEFT].end(); ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(LEFT)->new_tab(dir, i->second, i->third);
+        mw->fs(LEFT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
 
     if (gnome_cmd_data.tabs[RIGHT].empty())
-        gnome_cmd_data.tabs[RIGHT].push_back(make_triple(string(g_get_home_dir ()), GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING));
+        gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING,FALSE)));
 
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[RIGHT].begin(); i!=gnome_cmd_data.tabs[RIGHT].end(); ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(RIGHT)->new_tab(dir, i->second, i->third);
+        mw->fs(RIGHT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
 
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
@@ -1095,7 +1093,7 @@ void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gtk_signal_emit (*this, signals[SWITCH_FS], fs);
+    g_signal_emit (this, signals[SWITCH_FS], 0, fs);
 }
 
 

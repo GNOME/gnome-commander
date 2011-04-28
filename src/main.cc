@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -60,18 +60,6 @@ extern gint created_files_cnt;
 extern gint deleted_files_cnt;
 extern int created_dirs_cnt;
 extern int deleted_dirs_cnt;
-extern GList *all_dirs;
-extern GHashTable *all_dirs_map;
-extern GList *all_files;
-
-
-struct poptOption popt_options[] = {
-    {"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, N_("Specify debug flags to use"), NULL},
-    {"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, N_("Specify the start directory for the left pane"), NULL},
-    {"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, N_("Specify the start directory for the right pane"), NULL},
-    {"config-dir", 0, POPT_ARG_STRING, &config_dir, 0, N_("Specify the directory for configuration files"), NULL},
-    {NULL, 0, 0, NULL, 0, NULL, NULL}
-};
 
 
 static const GOptionEntry options [] =
@@ -133,8 +121,7 @@ int main (int argc, char *argv[])
     g_option_context_add_main_entries (option_context, options, NULL);
     program = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
                                   argc, argv,
-                                  // GNOME_PARAM_GOPTION_CONTEXT, option_context,
-                                  GNOME_PARAM_POPT_TABLE, popt_options,
+                                  GNOME_PARAM_GOPTION_CONTEXT, option_context,
                                   GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
                                   GNOME_PARAM_APP_DATADIR, DATADIR,
                                   GNOME_PARAM_NONE);
@@ -160,10 +147,10 @@ int main (int argc, char *argv[])
     else
     {
         if (start_dir_left)
-            gnome_cmd_data.tabs[LEFT].push_back(make_triple(string(start_dir_left),GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING));
+            gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(start_dir_left),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
 
         if (start_dir_right)
-            gnome_cmd_data.tabs[RIGHT].push_back(make_triple(string(start_dir_right),GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING));
+            gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(start_dir_left),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
 
         gcmd_user_actions.set_defaults();
         ls_colors_init ();
@@ -207,7 +194,6 @@ int main (int argc, char *argv[])
 
     gnome_vfs_shutdown ();
 
-    g_option_context_free (option_context);
     g_object_unref (app);
     g_object_unref (program);
 

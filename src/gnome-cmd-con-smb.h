@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,12 +22,12 @@
 
 #include "gnome-cmd-con.h"
 
-#define GNOME_CMD_CON_SMB(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_con_smb_get_type (), GnomeCmdConSmb)
-#define GNOME_CMD_CON_SMB_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_smb_get_type (), GnomeCmdConSmbClass)
-#define GNOME_CMD_IS_CON_SMB(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_con_smb_get_type ())
+#define GNOME_CMD_TYPE_CON_SMB              (gnome_cmd_con_smb_get_type ())
+#define GNOME_CMD_CON_SMB(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON_SMB, GnomeCmdConSmb))
+#define GNOME_CMD_CON_SMB_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CON_SMB, GnomeCmdConSmbClass))
+#define GNOME_CMD_IS_CON_SMB(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CON_SMB))
+#define GNOME_CMD_IS_CON_SMB_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON_SMB))
+#define GNOME_CMD_CON_SMB_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_SMB, GnomeCmdConSmbClass))
 
 
 struct GnomeCmdConSmb
@@ -35,14 +35,11 @@ struct GnomeCmdConSmb
     GnomeCmdCon parent;
 };
 
-struct GnomeCmdConSmbClass
-{
-    GnomeCmdConClass parent_class;
-};
-
-
 GtkType gnome_cmd_con_smb_get_type ();
 
-GnomeCmdCon *gnome_cmd_con_smb_new ();
+inline GnomeCmdCon *gnome_cmd_con_smb_new ()
+{
+    return GNOME_CMD_CON (g_object_new (GNOME_CMD_TYPE_CON_SMB, NULL));
+}
 
 #endif // __GNOME_CMD_CON_SMB_H__

@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,12 +23,12 @@
 
 #include "gnome-cmd-con.h"
 
-#define GNOME_CMD_CON_HOME(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_con_home_get_type (), GnomeCmdConHome)
-#define GNOME_CMD_CON_HOME_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_home_get_type (), GnomeCmdConHomeClass)
-#define GNOME_CMD_IS_CON_HOME(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_con_home_get_type ())
+#define GNOME_CMD_TYPE_CON_HOME              (gnome_cmd_con_home_get_type ())
+#define GNOME_CMD_CON_HOME(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON_HOME, GnomeCmdConHome))
+#define GNOME_CMD_CON_HOME_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_CON_HOME, GnomeCmdConHomeClass))
+#define GNOME_CMD_IS_CON_HOME(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_CON_HOME))
+#define GNOME_CMD_IS_CON_HOME_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_CON_HOME))
+#define GNOME_CMD_CON_HOME_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_HOME, GnomeCmdConHomeClass))
 
 
 struct GnomeCmdConHome

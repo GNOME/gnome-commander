@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,9 +23,12 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-selector.h"
 
-#define GNOME_CMD_PREPARE_XFER_DIALOG(obj)          GTK_CHECK_CAST (obj, gnome_cmd_prepare_xfer_dialog_get_type (), GnomeCmdPrepareXferDialog)
-#define GNOME_CMD_PREPARE_XFER_DIALOG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_prepare_xfer_dialog_get_type (), GnomeCmdPrepareXferDialogClass)
-#define GNOME_CMD_IS_PREPARE_XFER_DIALOG(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_prepare_xfer_dialog_get_type ())
+#define GNOME_CMD_TYPE_PREPARE_XFER_DIALOG              (gnome_cmd_prepare_xfer_dialog_get_type ())
+#define GNOME_CMD_PREPARE_XFER_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, GnomeCmdPrepareXferDialog))
+#define GNOME_CMD_PREPARE_XFER_DIALOG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, GnomeCmdPrepareXferDialogClass))
+#define GNOME_CMD_IS_PREPARE_XFER_DIALOG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PREPARE_XFER_DIALOG))
+#define GNOME_CMD_IS_PREPARE_XFER_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PREPARE_XFER_DIALOG))
+#define GNOME_CMD_PREPARE_XFER_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, GnomeCmdPrepareXferDialogClass))
 
 
 struct GnomeCmdPrepareXferDialog

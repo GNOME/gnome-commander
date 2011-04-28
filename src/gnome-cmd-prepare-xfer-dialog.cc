@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -84,7 +84,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     {
         if (!gnome_cmd_dir_is_local (dialog->default_dest_dir))
         {
-            const gchar *t = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (dialog->default_dest_dir));
+            const gchar *t = gnome_cmd_dir_get_path (dialog->default_dest_dir)->get_path();
             dest_path = g_build_filename (t, user_path, NULL);
         }
         else
@@ -291,7 +291,7 @@ static void class_init (GnomeCmdPrepareXferDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
@@ -361,7 +361,7 @@ GtkType gnome_cmd_prepare_xfer_dialog_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        dlg_type = gtk_type_unique (gnome_cmd_dialog_get_type (), &dlg_info);
+        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
     }
     return dlg_type;
 }
@@ -383,7 +383,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     g_return_val_if_fail (to!=NULL, NULL);
 
     gchar *dest_str = NULL;
-    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());
+    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) g_object_new (GNOME_CMD_TYPE_PREPARE_XFER_DIALOG, NULL);
 
     dialog->src_files = from->file_list()->get_selected_files();
     gnome_cmd_file_list_ref (dialog->src_files);

@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -190,7 +190,6 @@ static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
     for (GList *all_cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); all_cons; all_cons = all_cons->next)
     {
         GnomeCmdCon *con = (GnomeCmdCon *) all_cons->data;
-        GnomeCmdPixmap *pixmap = gnome_cmd_con_get_open_pixmap (con);
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
         if (!group || !group->bookmarks)
@@ -490,27 +489,35 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdCon *current_con = fs->get_connection();
+    GnomeCmdCon *con = bookmark->group->con;
 
-    if (current_con == bookmark->group->con)
-        fs->goto_directory(bookmark->path);
+    if (fs->get_connection() == con)
+    {
+        if (fs->file_list()->locked)
+            fs->new_tab(gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path)));
+        else
+            fs->goto_directory(bookmark->path);
+    }
     else
     {
-        GnomeCmdCon *con = bookmark->group->con;
-
         if (con->state == GnomeCmdCon::STATE_OPEN)
         {
             GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
-            fs->set_connection(con, dir);
+
+            if (fs->file_list()->locked)
+                fs->new_tab(dir);
+            else
+                fs->set_connection(con, dir);
         }
         else
         {
-            if (con->base_path)
-                g_object_unref (con->base_path);
+            delete con->base_path;
 
             con->base_path = gnome_cmd_con_create_path (con, bookmark->path);
-            gtk_object_ref (GTK_OBJECT (con->base_path));
-            fs->set_connection(con);
+            if (fs->file_list()->locked)
+                fs->new_tab(gnome_cmd_con_get_default_dir (con));
+            else
+                fs->set_connection(con);
         }
     }
 }

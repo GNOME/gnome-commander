@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ void        gviewer_set_scale_factor(GViewer *obj, double scalefactor);
 double      gviewer_get_scale_factor(GViewer *obj);
 
 void        gviewer_image_operation(GViewer *obj, IMAGEOPERATION op);
-void        gviewer_copy_selection(GViewer *obj);
+void        gviewer_copy_selection(GtkMenuItem *item, GViewer *obj);
 
 TextRender  *gviewer_get_text_render(GViewer *obj);
 

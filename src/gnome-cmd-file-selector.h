@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,9 +21,12 @@
 #ifndef __GNOME_CMD_FILE_SELECTOR_H__
 #define __GNOME_CMD_FILE_SELECTOR_H__
 
-#define GNOME_CMD_FILE_SELECTOR(obj)          GTK_CHECK_CAST (obj, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelector)
-#define GNOME_CMD_FILE_SELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelectorClass)
-#define GNOME_CMD_IS_FILE_SELECTOR(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_selector_get_type ())
+#define GNOME_CMD_TYPE_FILE_SELECTOR              (gnome_cmd_file_selector_get_type ())
+#define GNOME_CMD_FILE_SELECTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelector))
+#define GNOME_CMD_FILE_SELECTOR_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelectorClass))
+#define GNOME_CMD_IS_FILE_SELECTOR(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_FILE_SELECTOR))
+#define GNOME_CMD_IS_FILE_SELECTOR_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE_SELECTOR))
+#define GNOME_CMD_FILE_SELECTOR_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelectorClass))
 
 struct GnomeCmdMainWin;
 
@@ -66,7 +69,7 @@ struct GnomeCmdFileSelector
     GnomeCmdFileList *file_list(gint n) const;
 
     GnomeCmdDir *get_directory() const      {  return list->cwd;          }
-    void goto_directory(const gchar *dir)   {  return list->goto_directory(dir);  }
+    void goto_directory(const gchar *dir)   {  list->goto_directory(dir); }
 
     void first();
     void back();
@@ -86,9 +89,11 @@ struct GnomeCmdFileSelector
 
     GtkWidget *new_tab();
     GtkWidget *new_tab(GnomeCmdDir *dir, gboolean activate=TRUE);
-    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean activate=TRUE);
+    GtkWidget *new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate);
     void close_tab()                        {  if (notebook->size()>1)  notebook->remove_page();   }
     void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
+
+    void update_tab_label(GnomeCmdFileList *fl);
 
     void show_filter();
     void update_files();
@@ -99,6 +104,8 @@ struct GnomeCmdFileSelector
     void update_connections();
     void update_conbuttons_visibility();
     void update_concombo_visibility();
+
+    void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 
     gboolean key_pressed(GdkEventKey *event);
 
@@ -117,12 +124,12 @@ inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab()
 {
-    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, TRUE);
+    return new_tab(NULL, GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE, TRUE);
 }
 
 inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activate)
 {
-    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), activate);
+    return new_tab(dir, file_list()->get_sort_column(), file_list()->get_sort_order(), FALSE, activate);
 }
 
 GtkType gnome_cmd_file_selector_get_type ();

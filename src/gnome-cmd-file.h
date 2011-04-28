@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,12 +21,15 @@
 #ifndef __GNOME_CMD_FILE_H__
 #define __GNOME_CMD_FILE_H__
 
-#define GNOME_CMD_FILE(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_file_get_type (), GnomeCmdFile)
-#define GNOME_CMD_FILE_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_get_type (), GnomeCmdFileClass)
-#define GNOME_CMD_IS_FILE(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
+#define GNOME_CMD_TYPE_FILE              (gnome_cmd_file_get_type ())
+#define GNOME_CMD_FILE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFile))
+#define GNOME_CMD_FILE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
+#define GNOME_CMD_IS_FILE(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_FILE))
+#define GNOME_CMD_IS_FILE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE))
+#define GNOME_CMD_FILE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFileClass))
+
+
+GType gnome_cmd_file_get_type ();
 
 
 class GnomeCmdFileMetadata;
@@ -109,16 +112,14 @@ struct GnomeCmdFileClass
 };
 
 
-GtkType gnome_cmd_file_get_type ();
-
-
 inline gchar *GnomeCmdFile::get_name()
 {
     g_return_val_if_fail (info != NULL, NULL);
     return info->name;
 }
 
-GnomeCmdFile *gnome_cmd_file_new_from_uri (const gchar *local_full_path);
+GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri);
+GnomeCmdFile *gnome_cmd_file_new (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 

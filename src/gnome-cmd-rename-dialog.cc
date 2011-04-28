@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ struct GnomeCmdRenameDialogPrivate
 };
 
 
-static GtkWindowClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdRenameDialog, gnome_cmd_rename_dialog, GTK_TYPE_WINDOW)
 
 
 static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
@@ -95,39 +95,25 @@ static gboolean on_focus_out (GtkWidget *widget, GdkEventKey *event)
 }
 
 
-/*******************************
- * Gtk class implementation
- *******************************/
-static void destroy (GtkObject *object)
+static void gnome_cmd_rename_dialog_finalize (GObject *object)
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG (object);
 
     g_free (dialog->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_rename_dialog_parent_class)->finalize (object);
 }
 
 
-static void map (GtkWidget *widget)
+static void gnome_cmd_rename_dialog_class_init (GnomeCmdRenameDialogClass *klass)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_rename_dialog_finalize;
 }
 
 
-static void class_init (GnomeCmdRenameDialogClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
-    object_class->destroy = destroy;
-    widget_class->map = ::map;
-}
-
-
-static void init (GnomeCmdRenameDialog *dialog)
+static void gnome_cmd_rename_dialog_init (GnomeCmdRenameDialog *dialog)
 {
     dialog->priv = g_new0 (GnomeCmdRenameDialogPrivate, 1);
     g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypressed), NULL);
@@ -143,8 +129,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
 {
     g_return_val_if_fail (f != NULL, NULL);
 
-    GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) gtk_type_new (gnome_cmd_rename_dialog_get_type ());
-
+    GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) g_object_new (GNOME_CMD_TYPE_RENAME_DIALOG, NULL);
     dialog->priv->f = f->ref();
 
     gtk_window_set_has_frame (GTK_WINDOW (dialog), 0);
@@ -170,29 +155,4 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
     g_free (fname);
 
     return GTK_WIDGET (dialog);
-}
-
-
-GtkType gnome_cmd_rename_dialog_get_type ()
-{
-    static GtkType dlg_type = 0;
-
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdRenameDialog",
-            sizeof (GnomeCmdRenameDialog),
-            sizeof (GnomeCmdRenameDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
-    }
-
-    return dlg_type;
 }

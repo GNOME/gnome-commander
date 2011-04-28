@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -73,7 +73,6 @@ static void destroy (GtkObject *object)
 static void class_init (GnomeCmdDirIndicatorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = (GtkFrameClass *) gtk_type_class (gtk_frame_get_type ());
 
@@ -103,7 +102,7 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
             {
                 chTo[indicator->priv->slashCharPosition[i]] = 0;
                 main_win->switch_fs(fs);
-                if (event->button==2 || event->state&GDK_CONTROL_MASK)
+                if (event->button==2 || event->state&GDK_CONTROL_MASK || fs->file_list()->locked)
                 {
                     GnomeCmdCon *con = fs->get_connection();
                     GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, chTo));
@@ -139,7 +138,7 @@ inline void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 
         gchar *mt = get_mono_text (t);
         gchar *ms = get_bold_mono_text (s);
-        m = g_strdup_printf ("%s%s", ms, mt);
+        m = g_strconcat (ms, mt, NULL);
         g_free (t);
         g_free (mt);
         g_free (ms);
@@ -290,7 +289,7 @@ static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 
     main_win->switch_fs(indicator->priv->fs);
 
-    if (mask&GDK_CONTROL_MASK)
+    if (mask&GDK_CONTROL_MASK || indicator->priv->fs->file_list()->locked)
     {
         GnomeCmdCon *con = indicator->priv->fs->get_connection();
         GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, path));
@@ -314,7 +313,7 @@ static void on_bookmark_item_selected (GtkMenuItem *item, GnomeCmdBookmark *bm)
 
     main_win->switch_fs(indicator->priv->fs);
 
-    if (mask&GDK_CONTROL_MASK)
+    if (mask&GDK_CONTROL_MASK || indicator->priv->fs->file_list()->locked)
     {
         GnomeCmdCon *con = indicator->priv->fs->get_connection();
         GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bm->path));
@@ -532,7 +531,7 @@ GtkType gnome_cmd_dir_indicator_get_type ()
 
 GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
-    GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) gtk_type_new (gnome_cmd_dir_indicator_get_type ());
+    GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) g_object_new (GNOME_CMD_TYPE_DIR_INDICATOR, NULL);
 
     g_signal_connect (dir_indicator, "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 

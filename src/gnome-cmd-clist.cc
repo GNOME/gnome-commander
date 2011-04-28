@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,11 +31,6 @@ using namespace std;
 static GtkCListClass *parent_class = NULL;
 
 
-struct GnomeCmdCListPrivate
-{
-};
-
-
 /*******************************************
  * TEST TEST TEST
  ****/
@@ -52,61 +47,6 @@ struct GnomeCmdCListPrivate
 #define ROW_TOP_YPIXEL(clist, row) (((clist)->row_height * (row)) + \
                     (((row) + 1) * CELL_SPACING) + \
                     (clist)->voffset)
-
-/* returns the row index from a y pixel location in the
- * context of the clist's voffset */
-#define ROW_FROM_YPIXEL(clist, y)  (((y) - (clist)->voffset) / \
-                    ((clist)->row_height + CELL_SPACING))
-
-/* gives the left pixel of the given column in context of
- * the clist's hoffset */
-#define COLUMN_LEFT_XPIXEL(clist, colnum)  ((clist)->column[(colnum)].area.x + \
-                        (clist)->hoffset)
-
-/* returns the column index from a x pixel location in the
- * context of the clist's hoffset */
-inline gint COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
-{
-    for (gint i = 0; i < clist->columns; i++)
-        if (clist->column[i].visible)
-        {
-            gint cx = clist->column[i].area.x + clist->hoffset;
-
-            if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&  x <= (cx + clist->column[i].area.width + COLUMN_INSET))
-                return i;
-        }
-
-    // no match
-    return -1;
-}
-
-
-/* returns the top pixel of the given row in the context of
- * the list height */
-#define ROW_TOP(clist, row)        (((clist)->row_height + CELL_SPACING) * (row))
-
-/* returns the left pixel of the given column in the context of
- * the list width */
-#define COLUMN_LEFT(clist, colnum) ((clist)->column[(colnum)].area.x)
-
-// returns the total height of the list
-#define LIST_HEIGHT(clist)         (((clist)->row_height * ((clist)->rows)) + \
-                                    (CELL_SPACING * ((clist)->rows + 1)))
-
-
-// returns the total width of the list
-inline gint LIST_WIDTH (GtkCList * clist)
-{
-  gint last_column;
-
-  for (last_column = clist->columns - 1;
-       last_column >= 0 && !clist->column[last_column].visible; last_column--);
-
-  if (last_column >= 0)
-    return clist->column[last_column].area.x + clist->column[last_column].area.width + COLUMN_INSET + CELL_SPACING;
-
-  return 0;
-}
 
 // returns the GList item for the nth row
 #define    ROW_ELEMENT(clist, row)    (((row) == (clist)->rows - 1) ? (clist)->row_list_end : \
@@ -318,8 +258,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
     if (area)
     {
         rect = &intersect_rectangle;
-        if (gdk_rectangle_intersect (area, &cell_rectangle,
-                                     &intersect_rectangle))
+        if (gdk_rectangle_intersect (area, &cell_rectangle, &intersect_rectangle))
             gdk_draw_rectangle (clist->clist_window,
                                 widget->style->base_gc[GTK_STATE_NORMAL],
                                 TRUE,
@@ -405,8 +344,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
         if (area && !gdk_rectangle_intersect (area, &clip_rectangle, &intersect_rectangle))
             continue;
 
-        gdk_draw_rectangle (clist->clist_window, bg_gc, TRUE,
-                            rect->x, rect->y, rect->width, rect->height);
+        gdk_draw_rectangle (clist->clist_window, bg_gc, TRUE, rect->x, rect->y, rect->width, rect->height);
 
         clip_rectangle.x += COLUMN_INSET + CELL_SPACING;
         clip_rectangle.width -= (2 * COLUMN_INSET + CELL_SPACING + (i == last_column) * CELL_SPACING);

@@ -5,7 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
-        Copyright (C) 2007-2010 Piotr Eljasiak
+        Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -140,7 +140,7 @@ GtkType image_render_get_type ()
 
 GtkWidget *image_render_new ()
 {
-    ImageRender *w = (ImageRender *) gtk_type_new (image_render_get_type ());
+    ImageRender *w = (ImageRender *) g_object_new (image_render_get_type (), NULL);
 
     return GTK_WIDGET (w);
 }
@@ -158,7 +158,7 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     }
 
     obj->priv->h_adjustment = adjustment;
-    gtk_object_ref (GTK_OBJECT (obj->priv->h_adjustment));
+    g_object_ref (obj->priv->h_adjustment);
 
     g_signal_connect (adjustment, "changed", G_CALLBACK (image_render_h_adjustment_changed), obj);
     g_signal_connect (adjustment, "value-changed", G_CALLBACK (image_render_h_adjustment_value_changed), obj);
@@ -188,7 +188,7 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     }
 
     obj->priv->v_adjustment = adjustment;
-    gtk_object_ref (GTK_OBJECT (obj->priv->v_adjustment));
+    g_object_ref (obj->priv->v_adjustment);
 
     g_signal_connect (adjustment, "changed", G_CALLBACK (image_render_v_adjustment_changed), obj);
     g_signal_connect (adjustment, "value-changed",  G_CALLBACK (image_render_v_adjustment_value_changed), obj);
@@ -228,14 +228,14 @@ static void image_render_class_init (ImageRenderClass *klass)
     widget_class->realize = image_render_realize;
 
     image_render_signals[IMAGE_STATUS_CHANGED] =
-        gtk_signal_new ("image-status-changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (ImageRenderClass, image_status_changed),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
-
+        g_signal_new ("image-status-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (ImageRenderClass, image_status_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 
@@ -331,7 +331,7 @@ void image_render_notify_status_changed (ImageRender *w)
         stat.bits_per_sample = gdk_pixbuf_get_bits_per_sample(w->priv->orig_pixbuf);
     }
 
-    gtk_signal_emit (GTK_OBJECT(w), image_render_signals[IMAGE_STATUS_CHANGED], &stat);
+    g_signal_emit (w, image_render_signals[IMAGE_STATUS_CHANGED], 0, &stat);
 }
 
 
@@ -812,7 +812,7 @@ inline void image_render_wait_for_loader_thread (ImageRender *obj)
     g_return_if_fail (obj!=NULL);
     g_return_if_fail (IS_IMAGE_RENDER (obj));
 
-    if (obj->priv->pixbuf_loading_thread !=NULL)
+    if (obj->priv->pixbuf_loading_thread)
     {
         /*
             ugly hack: use a busy wait loop, until the loader thread is done.

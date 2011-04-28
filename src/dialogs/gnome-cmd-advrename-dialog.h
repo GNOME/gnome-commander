@@ -1,7 +1,7 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2010 Piotr Eljasiak
+    Copyright (C) 2007-2011 Piotr Eljasiak
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,10 +24,12 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-list.h"
 
-#define GNOME_CMD_TYPE_ADVRENAME_DIALOG         (gnome_cmd_advrename_dialog_get_type ())
-#define GNOME_CMD_ADVRENAME_DIALOG(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialog))
-#define GNOME_CMD_ADVRENAME_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialogClass))
-#define GNOME_CMD_IS_ADVRENAME_DIALOG(obj)      (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG))
+#define GNOME_CMD_TYPE_ADVRENAME_DIALOG              (gnome_cmd_advrename_dialog_get_type ())
+#define GNOME_CMD_ADVRENAME_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialog))
+#define GNOME_CMD_ADVRENAME_DIALOG_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialogClass))
+#define GNOME_CMD_IS_ADVRENAME_DIALOG(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG))
+#define GNOME_CMD_IS_ADVRENAME_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_ADVRENAME_DIALOG))
+#define GNOME_CMD_ADVRENAME_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_ADVRENAME_DIALOG, GnomeCmdAdvrenameDialogClass))
 
 
 GType gnome_cmd_advrename_dialog_get_type ();
