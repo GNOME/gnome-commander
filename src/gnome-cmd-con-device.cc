@@ -384,6 +384,7 @@ GtkType gnome_cmd_con_device_get_type ()
 GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path)
 {
     GnomeCmdConDevice *dev = (GnomeCmdConDevice *) g_object_new (GNOME_CMD_TYPE_CON_DEVICE, NULL);
+    GnomeCmdCon *con = GNOME_CMD_CON (dev);
 
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);
@@ -392,7 +393,9 @@ GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *de
     gnome_cmd_con_device_set_vfs_volume(dev, NULL);
     gnome_cmd_con_device_set_alias (dev, alias);
 
-    GNOME_CMD_CON (dev)->open_msg = g_strdup_printf (_("Mounting %s"), alias);
+    gnome_cmd_con_set_root_path (con, mountp);
+
+    con->open_msg = g_strdup_printf (_("Mounting %s"), alias);
 
     return dev;
 }

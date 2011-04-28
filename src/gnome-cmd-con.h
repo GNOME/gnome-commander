@@ -81,6 +81,7 @@ struct GnomeCmdCon
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;
+    GString             *root_path;             // root path of the connection, used for calculation of relative paths
     gboolean            should_remember_dir;
     gboolean            needs_open_visprog;
     gboolean            needs_list_visprog;
@@ -208,6 +209,18 @@ inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &ho
 
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
+
+inline gchar *gnome_cmd_con_get_root_path (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->root_path->str;
+}
+
+inline void gnome_cmd_con_set_root_path (GnomeCmdCon *con, const gchar *path=NULL)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_string_assign (con->root_path, path);
+}
 
 inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 {

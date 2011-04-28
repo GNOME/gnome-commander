@@ -245,6 +245,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
     const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
+    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
 
     GnomeCmdConFtp *server = (GnomeCmdConFtp *) g_object_new (GNOME_CMD_TYPE_CON_FTP, NULL);
 
@@ -255,12 +256,14 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, text_uri);
     gnome_cmd_con_set_host_name (con, host);
+    gnome_cmd_con_set_root_path (con, path);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri);
     con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
 
+    g_free (path);
     gnome_vfs_uri_unref (uri);
 
     return server;

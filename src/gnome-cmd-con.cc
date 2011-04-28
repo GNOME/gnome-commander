@@ -87,6 +87,7 @@ static void destroy (GtkObject *object)
     g_free (con->uri);
 
     delete con->base_path;
+    g_string_free (con->root_path, TRUE);
     g_free (con->open_text);
     g_free (con->open_tooltip);
     gnome_cmd_pixmap_free (con->open_pixmap);
@@ -173,6 +174,7 @@ static void init (GnomeCmdCon *con)
 
     con->base_path = NULL;
     con->base_info = NULL;
+    con->root_path = g_string_sized_new (128);
     con->open_msg = NULL;
     con->should_remember_dir = FALSE;
     con->needs_open_visprog = FALSE;
