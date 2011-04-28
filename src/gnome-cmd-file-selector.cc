@@ -853,14 +853,6 @@ GtkType gnome_cmd_file_selector_get_type ()
 }
 
 
-GtkWidget *gnome_cmd_file_selector_new ()
-{
-    GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL);
-
-    return *fs;
-}
-
-
 void GnomeCmdFileSelector::first()
 {
     if (!priv->dir_history->can_back())
