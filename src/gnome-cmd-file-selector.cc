@@ -931,13 +931,27 @@ static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEve
 static void on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_PRESS)
-    {
-        if (event->button == 1 || event->button == 3)
-            gnome_cmd_main_win_switch_fs (main_win, fs);
-        else
-            if (event->button == 2)
+        switch (event->button)
+        {
+            case 1:
+            case 3:
+                gnome_cmd_main_win_switch_fs (main_win, fs);
+                break;
+
+            case 2:
                 fs->goto_directory("..");
-    }
+                break;
+
+            case 6:
+            case 8:
+                fs->back();
+                break;
+
+            case 7:
+            case 9:
+                fs->forward();
+                break;
+        }
 }
 
 

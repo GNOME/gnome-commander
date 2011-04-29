@@ -7,6 +7,9 @@ Bug fixes:
  * Fixed problem #640387 (usage of deprecated python modules: md5, sha1)
  * Fixed problem with Traditional Chinese translation
 
+New features:
+ * Support for backward/forward mouse buttons
+
 
 ===================================
 gnome-commander 1.2.8.10

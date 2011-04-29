@@ -7430,6 +7430,14 @@
                         </listitem>
                     </itemizedlist>
                 </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Support for backward/forward mouse buttons</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
             </entry>
         </row>
         <row valign="top">
