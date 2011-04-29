@@ -492,6 +492,16 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
                         fs->new_tab(f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_DIR (f) : fl->cwd);
                 }
                 break;
+
+            case 6:
+            case 8:
+                fs->back();
+                break;
+
+            case 7:
+            case 9:
+                fs->forward();
+                break;
         }
 }
 
