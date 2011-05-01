@@ -38,6 +38,7 @@ gnome-commander 1.2.8.11
 Bug fixes:
  * Fixed problem #639243 (misleading docs for F2 shortcut)
  * Fixed problem #640387 (usage of deprecated python modules: md5, sha1)
+ * Fixed problem with starting GNOME Commander as root
  * Fixed problem with Traditional Chinese translation
 
 New features:
