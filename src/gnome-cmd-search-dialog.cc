@@ -324,7 +324,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
                 // the file matched the search criteria, lets add it to the list
                 g_mutex_lock (data->pdata.mutex);
-                data->pdata.files = g_list_append (data->pdata.files, f->ref());
+                data->pdata.files = g_list_append (data->pdata.files, gnome_cmd_file_ref (f));
                 g_mutex_unlock (data->pdata.mutex);
 
                 // also ref each directory that has a matching file
