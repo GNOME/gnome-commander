@@ -55,7 +55,7 @@ struct GnomeCmdData
         RIGHT_BUTTON_POPUPS_MENU,
         RIGHT_BUTTON_SELECTS
     };
-    
+
     enum TabLockIndicator
     {
         TAB_LOCK_ICON,
@@ -90,13 +90,9 @@ struct GnomeCmdData
         Selection default_profile;
 
         History name_patterns;
-        History directories;
         History content_patterns;
 
-        SearchConfig(): width(600), height(400),
-                        name_patterns(SEARCH_HISTORY_SIZE),
-                        directories(SEARCH_HISTORY_SIZE),
-                        content_patterns(SEARCH_HISTORY_SIZE)   {  default_profile.name = "Default";  }
+        SearchConfig(): width(600), height(400), name_patterns(SEARCH_HISTORY_SIZE), content_patterns(SEARCH_HISTORY_SIZE)   {  default_profile.name = "Default";  }
 
         friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
     };

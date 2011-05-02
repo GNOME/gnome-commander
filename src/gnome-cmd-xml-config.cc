@@ -355,7 +355,6 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN,
-      XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE,
@@ -699,7 +698,6 @@ static void xml_end (GMarkupParseContext *context,
 
         case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY:
             cfg->search_defaults.name_patterns.reverse();
-            cfg->search_defaults.directories.reverse();
             cfg->search_defaults.content_patterns.reverse();
             break;
 
@@ -748,10 +746,6 @@ static void xml_end (GMarkupParseContext *context,
             cfg->search_defaults.name_patterns.add(text);
             break;
 
-        case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH:
-            cfg->search_defaults.directories.add(text);
-            break;
-
         case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT:
             cfg->search_defaults.content_patterns.add(text);
             break;
@@ -797,7 +791,6 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT, "/GnomeCommander/SearchTool/Profile/Text"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY, "/GnomeCommander/SearchTool/History"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN, "/GnomeCommander/SearchTool/History/Pattern"},
-                        {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH, "/GnomeCommander/SearchTool/History/Path"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL, "/GnomeCommander/BookmarksTool"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE, "/GnomeCommander/BookmarksTool/WindowSize"},

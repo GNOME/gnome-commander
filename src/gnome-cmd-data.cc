@@ -786,9 +786,6 @@ inline void GnomeCmdData::load_search_defaults()
     list = load_string_history ("/search-history/name_pattern%d", -1);
     search_defaults.name_patterns.ents = list;
     search_defaults.name_patterns.pos = list;
-    list = load_string_history ("/search-history/directory%d", -1);
-    search_defaults.directories.ents = list;
-    search_defaults.directories.pos = list;
     list = load_string_history ("/search-history/content_pattern%d", -1);
     search_defaults.content_patterns.ents = list;
     search_defaults.content_patterns.pos = list;
@@ -2002,9 +1999,6 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchConfig &cfg)
 
         for (GList *i=cfg.name_patterns.ents; i; i=i->next)
             xml << XML::tag("Pattern") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
-
-        for (GList *i=cfg.directories.ents; i; i=i->next)
-            xml << XML::tag("Path") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
 
         for (GList *i=cfg.content_patterns.ents; i; i=i->next)
             xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
