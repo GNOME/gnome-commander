@@ -491,6 +491,7 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
     data->content_regex = NULL;
     data->match_dirs = NULL;
+    data->search_done = FALSE;
     data->stopped = FALSE;
     data->dialog_destroyed = FALSE;
     data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
@@ -531,8 +532,6 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     GnomeCmdPath *path = gnome_cmd_con_create_path (dialog->priv->con, data->dir);
     data->start_dir = gnome_cmd_dir_new (dialog->priv->con, path);
     gnome_cmd_dir_ref (data->start_dir);
-
-    data->search_done = FALSE;
 
     if (!data->pdata.mutex)
         data->pdata.mutex = g_mutex_new ();
