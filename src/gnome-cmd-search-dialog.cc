@@ -471,7 +471,35 @@ static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocatio
 }
 
 
-static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
+static gboolean start_generic_search (SearchData *data)
+{
+    // create an re for file name matching
+    data->name_filter = new Filter(data->name_pattern, data->case_sens, data->name_filter_type);
+
+    // if we're going to search through file content create an re for that too
+    if (data->content_search)
+    {
+        data->content_regex = g_new0 (regex_t, 1);
+        regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
+    }
+
+    if (!data->search_mem)
+        data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
+
+    if (!data->pdata.mutex)
+        data->pdata.mutex = g_mutex_new ();
+
+    data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
+
+    return FALSE;
+}
+
+
+/**
+ * The user has clicked on the search button
+ *
+ */
+static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
     SearchData *data = dialog->priv->data;
 
@@ -484,15 +512,14 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     data->dialog = dialog;
     data->name_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->pattern_combo));
     data->content_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->find_text_combo));
-    data->context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (data->dialog->priv->statusbar), "info");
+    data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
+    data->name_filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
+    data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
+
+    data->context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (dialog->priv->statusbar), "info");
     data->content_regex = NULL;
     data->match_dirs = NULL;
-    data->search_done = FALSE;
-    data->stopped = FALSE;
-    data->dialog_destroyed = FALSE;
-    data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
-    data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     gchar *dir_str = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
     GnomeVFSURI *uri = gnome_vfs_uri_new (dir_str);
@@ -514,7 +541,7 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
             data->search_done = TRUE;
             data->stopped = TRUE;
 
-            return FALSE;
+            return;
         }
         else
             data->start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dir_path));
@@ -526,6 +553,10 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
 
     gnome_vfs_uri_unref (uri);
     g_free (dir_path);
+
+    data->search_done = FALSE;
+    data->stopped = FALSE;
+    data->dialog_destroyed = FALSE;
 
     // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
@@ -540,47 +571,14 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->result_list->remove_all_files();
 
-    // create an re for file name matching
-    GtkWidget *regex_radio = lookup_widget (GTK_WIDGET (dialog), "regex_radio");
-
-    data->name_filter = new Filter(data->name_pattern, data->case_sens,
-                                   gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (regex_radio)) ? Filter::TYPE_REGEX
-                                                                                                  : Filter::TYPE_FNMATCH);
-
-    // if we're going to search through file content create an re for that too
-    if (data->content_search)
-    {
-        data->content_regex = g_new0 (regex_t, 1);
-        regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
-    }
-
-    if (!data->search_mem)
-        data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
-
-    // start the search
-    if (!data->pdata.mutex)
-        data->pdata.mutex = g_mutex_new ();
-
-    data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
-
     gtk_widget_show (data->dialog->priv->pbar);
     data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
-
-    return FALSE;
-}
-
-
-/**
- * The user has clicked on the search button
- *
- */
-static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
-{
-    g_timeout_add (1, (GSourceFunc) start_generic_search, dialog);
 
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
     gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
+
+    g_timeout_add (1, (GSourceFunc) start_generic_search, data);
 }
 
 
