@@ -251,7 +251,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.11;</revnumber>
-        <date>2011-??-??</date>
+        <date>2011-05-01</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -7666,7 +7666,7 @@
         </row>
         <row valign="top">
             <entry><para>1.2.8.11</para></entry>
-            <entry><para>2011-??-??</para></entry>
+            <entry><para>2011-05-01</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
