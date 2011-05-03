@@ -717,6 +717,8 @@ static void gnome_cmd_search_dialog_finalize (GObject *object)
     gnome_cmd_data.search_defaults.width = allocation.width;
     gnome_cmd_data.search_defaults.height = allocation.height;
 
+    gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+
     g_free (dialog->priv);
 
     G_OBJECT_CLASS (gnome_cmd_search_dialog_parent_class)->finalize (object);
