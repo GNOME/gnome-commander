@@ -76,6 +76,8 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdPatternselDialog *dialog = GNOME_CMD_PATTERNSEL_DIALOG (object);
 
+    gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (object), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+
     g_free (dialog->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -113,9 +115,10 @@ static void init (GnomeCmdPatternselDialog *dialog)
 
 GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
-    GtkWidget *hbox, *vbox, *label;
+    GtkWidget *hbox, *vbox, *label, *radio;
     GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
     GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) g_object_new (GNOME_CMD_TYPE_PATTERNSEL_DIALOG, NULL);
+
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
 
@@ -126,7 +129,6 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 6);
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
-    label = create_label (GTK_WIDGET (dialog), _("Pattern:"));
 
     dialog->priv->pattern_combo = create_combo (GTK_WIDGET (dialog));
     gtk_combo_disable_activate (GTK_COMBO (dialog->priv->pattern_combo));
@@ -136,12 +138,26 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
     gtk_entry_select_region (GTK_ENTRY (dialog->priv->pattern_entry), 0, -1);
 
-    dialog->priv->case_check = create_check (GTK_WIDGET (dialog), _("Case sensitive"), "case_sens");
+    label = create_label_with_mnemonic (GTK_WIDGET (dialog), _("_Pattern:"), dialog->priv->pattern_entry);
+
+    dialog->priv->case_check = create_check_with_mnemonic (GTK_WIDGET (dialog), _("Case _sensitive"), "case_sens");
 
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->pattern_combo, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->case_check, TRUE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->pattern_combo, TRUE, TRUE, 0);
+
+    hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->case_check, TRUE, FALSE, 0);
+
+    radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), NULL, _("She_ll syntax"), "shell_radio");
+    gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
+    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
+    gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
+    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), vbox);
 
