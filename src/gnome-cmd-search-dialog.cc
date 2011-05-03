@@ -464,13 +464,6 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
 }
 
 
-static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog)
-{
-    gnome_cmd_data.search_defaults.width = allocation->width;
-    gnome_cmd_data.search_defaults.height = allocation->height;
-}
-
-
 static gboolean start_generic_search (SearchData *data)
 {
     // create an re for file name matching
@@ -718,6 +711,11 @@ static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 static void gnome_cmd_search_dialog_finalize (GObject *object)
 {
     GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
+    GtkAllocation allocation;
+
+    gtk_widget_get_allocation (GTK_WIDGET (dialog), &allocation);
+    gnome_cmd_data.search_defaults.width = allocation.width;
+    gnome_cmd_data.search_defaults.height = allocation.height;
 
     g_free (dialog->priv);
 
@@ -860,7 +858,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
 
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), NULL);
-    g_signal_connect (dialog, "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
     g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
 
     g_signal_connect (dialog->priv->find_text_check, "toggled", G_CALLBACK (find_text_toggled), dialog);

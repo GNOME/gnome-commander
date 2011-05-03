@@ -1006,7 +1006,6 @@ void edit_search (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GtkWidget *dialog = gnome_cmd_search_dialog_new (fs->get_directory());
-    g_object_ref (dialog);
     gtk_widget_show (dialog);
 }
 
