@@ -48,8 +48,6 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
-
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
@@ -58,7 +56,7 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     else
         dialog->priv->fl->unselect_pattern(s, case_sens);
 
-    defaults.name_patterns.add(s);
+    gnome_cmd_data.search_defaults.name_patterns.add(s);
 
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
