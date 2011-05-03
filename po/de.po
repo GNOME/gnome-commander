@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-04-22 22:24+0000\n"
-"PO-Revision-Date: 2011-04-23 17:08+0100\n"
+"POT-Creation-Date: 2011-05-02 17:55+0000\n"
+"PO-Revision-Date: 2011-05-03 19:50+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "A two paned file manager"
 msgstr "Ein Dateimanager mit zweigeteilter Oberfläche"
 
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:353
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:351
 #: ../src/gnome-cmd-main-win.cc:756
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -134,13 +134,13 @@ msgstr "Archiv erstellen …"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:307
 msgid "Extract in Current Directory"
-msgstr "Entpacke in aktuellen Ordner"
+msgstr "In aktuellen Ordner entpacken"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:314
 #: ../plugins/fileroller/file-roller-plugin.cc:324
 #, c-format
 msgid "Extract to '%s'"
-msgstr "Entpacke in »%s«"
+msgstr "Entpacken in »%s«"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:374
 msgid "File-roller options"
@@ -424,7 +424,7 @@ msgid ""
 "press escape to cancel."
 msgstr ""
 "Um ein Profil umzubenennen, klicken Sie auf die entsprechende Zeile und geben "
-"Sie einen neuen Namen ein, oder drücken Sie auf »Esc« um abzubrechen."
+"Sie einen neuen Namen ein, oder drücken Sie auf »Esc«, um abzubrechen."
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:141
 msgid "_Duplicate"
@@ -592,31 +592,31 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Rekursiv anwenden"
 
-#: ../src/gnome-cmd-con.h:190
+#: ../src/gnome-cmd-con.h:191
 msgid "<New connection>"
 msgstr "<Neue Verbindung>"
 
-#: ../src/gnome-cmd-con.h:192
+#: ../src/gnome-cmd-con.h:193
 #, c-format
 msgid "Go to: %s"
 msgstr "Gehe zu: %s"
 
-#: ../src/gnome-cmd-con.h:193
-#, c-format
-msgid "Connect to: %s"
-msgstr "Verbinde zu: %s"
-
 #: ../src/gnome-cmd-con.h:194
 #, c-format
-msgid "Disconnect from: %s"
-msgstr "Trenne Verbindung zu: %s"
+msgid "Connect to: %s"
+msgstr "Verbinden zu: %s"
 
-#: ../src/gnome-cmd-con.h:201
+#: ../src/gnome-cmd-con.h:195
+#, c-format
+msgid "Disconnect from: %s"
+msgstr "Verbindung zu %s trennen"
+
+#: ../src/gnome-cmd-con.h:202
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Verbindung zu %s wird hergestellt\n"
 
-#: ../src/gnome-cmd-con.h:352
+#: ../src/gnome-cmd-con.h:365
 msgid "Unknown disk usage"
 msgstr "Unbekannte Datenträgerbelegung"
 
@@ -654,22 +654,22 @@ msgstr ""
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: ../src/gnome-cmd-con-device.cc:395
+#: ../src/gnome-cmd-con-device.cc:398
 #, c-format
 msgid "Mounting %s"
 msgstr "%s wird eingebunden"
 
-#: ../src/gnome-cmd-con-device.cc:411
+#: ../src/gnome-cmd-con-device.cc:414
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Gehe zu: %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:412
+#: ../src/gnome-cmd-con-device.cc:415
 #, c-format
 msgid "Mount: %s"
 msgstr "Einbinden: %s"
 
-#: ../src/gnome-cmd-con-device.cc:413
+#: ../src/gnome-cmd-con-device.cc:416
 #, c-format
 msgid "Unmount: %s"
 msgstr "Aushängen: %s"
@@ -773,12 +773,12 @@ msgstr "Benutzerdefinierter Ort"
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "_GNOME-Schlüsselbund-Verwaltung zur Legitimierung benutzen"
 
-#: ../src/gnome-cmd-con-ftp.cc:275
+#: ../src/gnome-cmd-con-ftp.cc:278
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "Öffnet eine Verbindung zur Gegenstelle %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:276
+#: ../src/gnome-cmd-con-ftp.cc:279
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "Schließt die Verbindung zur Gegenstelle %s"
@@ -791,35 +791,35 @@ msgstr "Persönlicher Ordner"
 msgid "Go to: Home"
 msgstr "Gehe zu: Persönlicher Ordner"
 
-#: ../src/gnome-cmd-con-smb.cc:89
+#: ../src/gnome-cmd-con-smb.cc:95
 msgid "Failed to browse the network. Is the SMB module installed?"
 msgstr ""
 "Es ist nicht möglich, das Netzwerk zu durchsuchen. Ist das SMB-Modul "
 "installiert?"
 
-#: ../src/gnome-cmd-con-smb.cc:195
+#: ../src/gnome-cmd-con-smb.cc:201
 msgid "SMB"
 msgstr "SMB"
 
-#: ../src/gnome-cmd-con-smb.cc:197
+#: ../src/gnome-cmd-con-smb.cc:203
 msgid "Searching for workgroups and hosts"
 msgstr "Arbeitsgruppen und Rechner werden gesucht"
 
-#: ../src/gnome-cmd-con-smb.cc:204
+#: ../src/gnome-cmd-con-smb.cc:210
 msgid "Go to: Samba Network"
 msgstr "Gehe zu: Samba-Netzwerk"
 
-#: ../src/gnome-cmd-data.cc:1197 ../src/gnome-cmd-data.cc:1198
-#: ../src/gnome-cmd-data.cc:1612 ../src/gnome-cmd-data.cc:1915
+#: ../src/gnome-cmd-data.cc:1192 ../src/gnome-cmd-data.cc:1193
+#: ../src/gnome-cmd-data.cc:1607 ../src/gnome-cmd-data.cc:1910
 #, c-format
 msgid "link to %s"
 msgstr "Link zu %s"
 
-#: ../src/gnome-cmd-data.cc:1476
+#: ../src/gnome-cmd-data.cc:1471
 msgid "Audio Files"
 msgstr "Audiodateien"
 
-#: ../src/gnome-cmd-data.cc:1484
+#: ../src/gnome-cmd-data.cc:1479
 msgid "CamelCase"
 msgstr "Zusammenschreibung ohne Leerzeichen (CamelCase)"
 
@@ -832,7 +832,7 @@ msgstr[1] "%ld von %ld Dateien gelöscht"
 
 #: ../src/gnome-cmd-delete-dialog.cc:132
 msgid "Deleting..."
-msgstr "Es wird gelöscht …"
+msgstr "Löschvorgang …"
 
 #: ../src/gnome-cmd-delete-dialog.cc:204
 #, c-format
@@ -854,12 +854,12 @@ msgstr "Problem beim Löschen"
 msgid "Abort"
 msgstr "Abbruch"
 
-#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1322
+#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1324
 #: ../src/gnome-cmd-xfer.cc:184
 msgid "Retry"
 msgstr "Wiederholen"
 
-#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1322
+#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-file-selector.cc:1324
 #: ../src/gnome-cmd-xfer.cc:164 ../src/gnome-cmd-xfer.cc:184
 msgid "Skip"
 msgstr "Überspringen"
@@ -881,7 +881,7 @@ msgstr[1] "Möchten Sie die %d gewählten Dateien löschen?"
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/gnome-cmd-file-selector.cc:1322
+#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/gnome-cmd-file-selector.cc:1324
 #: ../src/gnome-cmd-user-actions.cc:828 ../src/utils.cc:506 ../src/utils.cc:534
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -1043,13 +1043,13 @@ msgid "Image:"
 msgstr "Bild:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:377
-#: ../src/gnome-cmd-file-selector.cc:1123
+#: ../src/gnome-cmd-file-selector.cc:1125
 msgid "File name:"
 msgstr "Dateiname:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:388
 msgid "Symlink target:"
-msgstr "Verknüpfungsziele:"
+msgstr "Verknüpfungsziel:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:403
 msgid "Location:"
@@ -1173,72 +1173,72 @@ msgstr[1] "%s, %d von %d Ordnern ausgewählt"
 msgid "%s free"
 msgstr "%s frei"
 
-#: ../src/gnome-cmd-file-selector.cc:619 ../src/gnome-cmd-file-selector.cc:694
+#: ../src/gnome-cmd-file-selector.cc:629 ../src/gnome-cmd-file-selector.cc:704
 #: ../src/gnome-cmd-user-actions.cc:1544 ../src/gnome-cmd-user-actions.cc:1552
 msgid "The tab is locked, close anyway ?"
 msgstr "Der Reiter ist gesperrt, trotzdem fortsetzen?"
 
-#: ../src/gnome-cmd-file-selector.cc:637 ../src/gnome-cmd-main-menu.cc:615
+#: ../src/gnome-cmd-file-selector.cc:647 ../src/gnome-cmd-main-menu.cc:615
 msgid "Open in New _Tab"
 msgstr "In neuem Rei_ter öffnen"
 
-#: ../src/gnome-cmd-file-selector.cc:644
+#: ../src/gnome-cmd-file-selector.cc:654
 msgid "_Unlock Tab"
 msgstr "Reiter _entsperren"
 
-#: ../src/gnome-cmd-file-selector.cc:644
+#: ../src/gnome-cmd-file-selector.cc:654
 msgid "_Lock Tab"
 msgstr "Reiter _sperren"
 
-#: ../src/gnome-cmd-file-selector.cc:649
+#: ../src/gnome-cmd-file-selector.cc:659
 msgid "_Refresh Tab"
 msgstr "_Reiter aktualisieren"
 
-#: ../src/gnome-cmd-file-selector.cc:654
+#: ../src/gnome-cmd-file-selector.cc:664
 msgid "Copy Tab to Other _Pane"
 msgstr "Reiter in anderes Dateifenster _kopieren"
 
-#: ../src/gnome-cmd-file-selector.cc:660 ../src/gnome-cmd-main-menu.cc:621
+#: ../src/gnome-cmd-file-selector.cc:670 ../src/gnome-cmd-main-menu.cc:621
 msgid "_Close Tab"
 msgstr "Reiter s_chließen"
 
-#: ../src/gnome-cmd-file-selector.cc:665 ../src/gnome-cmd-main-menu.cc:627
+#: ../src/gnome-cmd-file-selector.cc:675 ../src/gnome-cmd-main-menu.cc:627
 msgid "Close _All Tabs"
 msgstr "_Alle Reiter schließen"
 
-#: ../src/gnome-cmd-file-selector.cc:670
+#: ../src/gnome-cmd-file-selector.cc:680
 msgid "Close _Duplicate Tabs"
 msgstr "_Doppelte Reiter schließen"
 
-#: ../src/gnome-cmd-file-selector.cc:1061
+#: ../src/gnome-cmd-file-selector.cc:1063
 #: ../src/gnome-cmd-make-copy-dialog.cc:67
 msgid "No file name entered"
 msgstr "Kein Dateiname eingegeben"
 
-#: ../src/gnome-cmd-file-selector.cc:1095
+#: ../src/gnome-cmd-file-selector.cc:1097
 msgid "No file name given"
 msgstr "Kein Dateiname angegeben"
 
-#: ../src/gnome-cmd-file-selector.cc:1126
+#: ../src/gnome-cmd-file-selector.cc:1128
 msgid "New Text File"
 msgstr "Neue Textdatei"
 
-#: ../src/gnome-cmd-file-selector.cc:1270
+#: ../src/gnome-cmd-file-selector.cc:1272
 msgid "Symbolic link name:"
 msgstr "Verknüpfungsname:"
 
-#: ../src/gnome-cmd-file-selector.cc:1276
-#: ../src/gnome-cmd-file-selector.cc:1322 ../src/gnome-cmd-user-actions.cc:828
+#: ../src/gnome-cmd-file-selector.cc:1278
+#: ../src/gnome-cmd-file-selector.cc:1324 ../src/gnome-cmd-user-actions.cc:828
 msgid "Create Symbolic Link"
 msgstr "Symbolische Verknüpfung erstellen"
 
-#: ../src/gnome-cmd-file-selector.cc:1322
+#: ../src/gnome-cmd-file-selector.cc:1324
 #: ../src/gnome-cmd-options-dialog.cc:944
 #: ../src/gnome-cmd-options-dialog.cc:964
 msgid "Skip all"
 msgstr "Alle überspringen"
 
-#: ../src/gnome-cmd-file-selector.cc:1393
+#: ../src/gnome-cmd-file-selector.cc:1395
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -2590,98 +2590,108 @@ msgstr "Verbindungen"
 msgid "Anonymous FTP password:"
 msgstr "Passwort für anonymen FTP-Zugriff:"
 
-#: ../src/gnome-cmd-search-dialog.cc:39
+#: ../src/gnome-cmd-search-dialog.cc:40
 msgid "Search _recursively:"
 msgstr "_Rekursiv suchen:"
 
-#: ../src/gnome-cmd-search-dialog.cc:40
+#: ../src/gnome-cmd-search-dialog.cc:41
 msgid "_Unlimited depth"
 msgstr "_Unbegrenzte Tiefe"
 
-#: ../src/gnome-cmd-search-dialog.cc:41
+#: ../src/gnome-cmd-search-dialog.cc:42
 msgid "Current _directory only"
 msgstr "Nur aktueller _Ordner"
 
-#: ../src/gnome-cmd-search-dialog.cc:42
+#: ../src/gnome-cmd-search-dialog.cc:43
 msgid "_Limited depth"
 msgstr "_Begrenzte Tiefe"
 
 #. N_("Search local directories only"),
-#: ../src/gnome-cmd-search-dialog.cc:44
+#: ../src/gnome-cmd-search-dialog.cc:45
 msgid "Files _not containing text"
 msgstr "Dateien, die _keinen Text enthalten"
 
-#: ../src/gnome-cmd-search-dialog.cc:165
+#: ../src/gnome-cmd-search-dialog.cc:164
 #, c-format
 msgid "Failed to open file %s: %s"
 msgstr "Datei %s konnte nicht geöffnet werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:206
+#: ../src/gnome-cmd-search-dialog.cc:205
 #, c-format
 msgid "Failed to seek in file %s: %s"
 msgstr "In Datei %s konnte nicht gesucht werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:213
+#: ../src/gnome-cmd-search-dialog.cc:212
 #, c-format
 msgid "Failed to read from file %s: %s"
 msgstr "Datei %s konnte nicht gelesen werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:274
+#: ../src/gnome-cmd-search-dialog.cc:273
 #, c-format
 msgid "Searching in: %s"
 msgstr "Suche in: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:396
+#: ../src/gnome-cmd-search-dialog.cc:394
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
 msgstr[0] "Vor dem Abbruch der Suche wurde %d Treffer gefunden"
 msgstr[1] "Vor dem Abbruch der Suche wurden %d Treffer gefunden"
 
-#: ../src/gnome-cmd-search-dialog.cc:397
+#: ../src/gnome-cmd-search-dialog.cc:395
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d Treffer gefunden"
 msgstr[1] "%d Treffer gefunden"
 
-#: ../src/gnome-cmd-search-dialog.cc:773
+#: ../src/gnome-cmd-search-dialog.cc:536
+#, c-format
+msgid "Failed to change directory outside of %s"
+msgstr "In den Ordner außerhalb von %s konnte nicht gewechselt werden"
+
+#: ../src/gnome-cmd-search-dialog.cc:795
 msgid "Search..."
 msgstr "Suchen …"
 
-#: ../src/gnome-cmd-search-dialog.cc:787
+#: ../src/gnome-cmd-search-dialog.cc:809
 msgid "Search _for: "
 msgstr "Suche _nach: "
 
-#: ../src/gnome-cmd-search-dialog.cc:799
+#. search in
+#: ../src/gnome-cmd-search-dialog.cc:820
+msgid "Select Directory"
+msgstr "Ordner wählen"
+
+#: ../src/gnome-cmd-search-dialog.cc:823
 msgid "Search _in: "
 msgstr "Suche _in: "
 
 #. recurse check
-#: ../src/gnome-cmd-search-dialog.cc:814
+#: ../src/gnome-cmd-search-dialog.cc:832
 msgid "Search _recursively"
 msgstr "_Rekursive Suche"
 
 #. file name matching
-#: ../src/gnome-cmd-search-dialog.cc:820
+#: ../src/gnome-cmd-search-dialog.cc:838
 msgid "Rege_x syntax"
 msgstr "Reguläre _Ausdrücke verwenden"
 
-#: ../src/gnome-cmd-search-dialog.cc:824
+#: ../src/gnome-cmd-search-dialog.cc:842
 msgid "She_ll syntax"
 msgstr "She_ll-Syntax"
 
 #. find text
-#: ../src/gnome-cmd-search-dialog.cc:833
+#: ../src/gnome-cmd-search-dialog.cc:851
 msgid "Find _text: "
 msgstr "_Text suchen: "
 
 #. case check
-#: ../src/gnome-cmd-search-dialog.cc:846
+#: ../src/gnome-cmd-search-dialog.cc:864
 msgid "Case sensiti_ve"
 msgstr "_Groß-/Kleinschreibung beachten"
 
-#: ../src/gnome-cmd-search-dialog.cc:854
+#: ../src/gnome-cmd-search-dialog.cc:872
 msgid "_Go to"
 msgstr "_Gehe zu"
 
@@ -7318,7 +7328,7 @@ msgstr "Organisation"
 
 #: ../src/tags/gnome-cmd-tags.cc:535
 msgid "Organization producing the track."
-msgstr "Organistaion, die diesen Titel produziert hat."
+msgstr "Organisation, die diesen Titel produziert hat."
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Vendor"
@@ -7692,7 +7702,7 @@ msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr[0] ""
-"%s kann ferne Datei nicht öffnen. Soll die Datei zuerst in ein temporären "
+"%s kann ferne Datei nicht öffnen. Soll die Datei zuerst in einen temporären "
 "Ordner kopiert und dann geöffnet werden?"
 msgstr[1] ""
 "%s kann ferne Dateien nicht öffnen. Sollen die Dateien zuerst in einen "
@@ -7721,8 +7731,3 @@ msgstr "Aus dem Ordner %s konnte nicht gelesen werden: %s"
 msgid "There was an error displaying help."
 msgstr "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten."
 
-#~ msgid "_Test"
-#~ msgstr "_Test"
-
-#~ msgid "Can't find a host or workgroup named %s\n"
-#~ msgstr "Rechner bzw. Arbeitsgruppe mit dem Namen %s wurde nicht gefunden\n"
