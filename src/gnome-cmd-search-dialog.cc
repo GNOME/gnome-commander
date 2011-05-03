@@ -694,55 +694,6 @@ static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDial
 
 
 /*
- * create a label with keyboard shortcut and a widget to activate if shortcut is pressed.
- */
-inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget)
-{
-    GtkWidget *label = gtk_label_new_with_mnemonic (text);
-
-    if (for_widget)
-        gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
-
-    g_object_ref (label);
-    g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
-    gtk_widget_show (label);
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-
-    return label;
-}
-
-
-/*
- * create a check_box_button with keyboard shortcut
- */
-inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name)
-{
-    GtkWidget *btn = gtk_check_button_new_with_mnemonic (text);
-
-    g_object_ref (btn);
-    g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
-    gtk_widget_show (btn);
-
-    return btn;
-}
-
-
-/*
- * create a GtkRadioButton with keyboard shortcut
- */
-inline GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, gchar *name)
-{
-    GtkWidget *radio = gtk_radio_button_new_with_mnemonic (group, text);
-
-    g_object_ref (radio);
-    g_object_set_data_full (G_OBJECT (parent), name, radio, g_object_unref);
-    gtk_widget_show (radio);
-
-    return radio;
-}
-
-
-/*
  * create a gtk_combo_box_entry_new_text. gtk_combo is deprecated.
  */
 inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
