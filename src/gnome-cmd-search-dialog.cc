@@ -259,7 +259,7 @@ inline gboolean name_matches (gchar *name, SearchData *data)
  * Searches a given directory for files that matches the criteria given by data.
  *
  */
-static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
+static void search_dir_r (GnomeCmdDir *dir, SearchData *data, long level)
 {
     if (!dir)
         return;
@@ -291,7 +291,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         // if the current file is a directory, let's continue our recursion
-        if (GNOME_CMD_IS_DIR (f) && data->recurse)
+        if (GNOME_CMD_IS_DIR (f) && level!=0)
         {
             // we don't want to go backwards or to follow symlinks
             if (!f->is_dotdot && strcmp (f->info->name, ".") != 0 && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
@@ -301,7 +301,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
                 if (new_dir)
                 {
                     gnome_cmd_dir_ref (new_dir);
-                    search_dir_r (new_dir, data);
+                    search_dir_r (new_dir, data, level-1);
                     gnome_cmd_dir_unref (new_dir);
                 }
             }
@@ -341,7 +341,7 @@ static gpointer perform_search_operation (SearchData *data)
         data->match_dirs = NULL;
     }
 
-    search_dir_r (data->start_dir, data);
+    search_dir_r (data->start_dir, data, data->recurse ? -1 : 0);
 
     // free regexps
     delete data->name_filter;
