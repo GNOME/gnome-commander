@@ -771,7 +771,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     dialog->priv->dir_browser =  gtk_file_chooser_button_new (_("Select Directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog->priv->dir_browser), FALSE);
     gtk_widget_show (dialog->priv->dir_browser);
-    label = create_label_with_mnemonic (window, _("Search _in: "), dialog->priv->dir_browser);
+    label = create_label_with_mnemonic (window, _("_Look in folder:"), dialog->priv->dir_browser);
     table_add (table, label, 0, 1, GTK_FILL);
 
     table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
@@ -799,7 +799,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
 
     // find text
-    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Find _text: "), "find_text");
+    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Contains _text:"), "find_text");
     table_add (table, dialog->priv->find_text_check, 0, 3, GTK_FILL);
 
     dialog->priv->find_text_combo = create_combo_box_entry (window);
