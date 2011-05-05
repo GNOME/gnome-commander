@@ -70,15 +70,13 @@ struct GnomeCmdData
         std::string name;
         std::string filename_pattern;
         Filter::Type syntax;
-        gboolean recursive;
+        int max_depth;
         std::string text_pattern;
         gboolean match_case;
 
         void reset();
 
-        Selection(): syntax(Filter::TYPE_REGEX),
-                     recursive(TRUE),
-                     match_case(FALSE)                          {}
+        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), match_case(FALSE)       {}
 
         friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
     };

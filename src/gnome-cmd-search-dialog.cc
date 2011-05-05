@@ -553,7 +553,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
-    gnome_cmd_data.search_defaults.default_profile.recursive = data->recurse;
+    gnome_cmd_data.search_defaults.default_profile.max_depth = data->recurse ? -1 : 0;
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
 
     if (data->content_search)
@@ -718,7 +718,7 @@ static void gnome_cmd_search_dialog_finalize (GObject *object)
     gnome_cmd_data.search_defaults.height = allocation.height;
 
     gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
-
+    gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check)) ? -1 : 0;
     g_free (dialog->priv);
 
     G_OBJECT_CLASS (gnome_cmd_search_dialog_parent_class)->finalize (object);
@@ -781,7 +781,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     // recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.recursive);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.max_depth==-1);
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 

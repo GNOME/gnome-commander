@@ -81,7 +81,7 @@ void GnomeCmdData::Selection::reset()
     name.clear();
     filename_pattern.clear();
     syntax = Filter::TYPE_REGEX;
-    recursive = TRUE;
+    max_depth = -1;
     text_pattern.clear();
     match_case = FALSE;
 }
@@ -792,7 +792,7 @@ inline void GnomeCmdData::load_search_defaults()
 
     search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
     search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
-    search_defaults.default_profile.recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
+    search_defaults.default_profile.max_depth = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE) ? -1 : 0;
     search_defaults.default_profile.match_case = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
 }
 
@@ -1979,7 +1979,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
 
         xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
                                    << XML::attr("match-case") << 0 << XML::chardata() << XML::escape(cfg.filename_pattern) << XML::endtag();
-        xml << XML::tag("Path") << XML::attr("recursive") << cfg.recursive << XML::endtag();
+        xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
         xml << XML::tag("Text") << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
 
     xml << XML::endtag();
