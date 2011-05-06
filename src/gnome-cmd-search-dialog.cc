@@ -702,9 +702,9 @@ inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
 /*
  * callback function for 'g_list_foreach' to add default value to dropdownbox
  */
-static void combo_box_insert_text (gpointer  data, gpointer  user_data)
+static void combo_box_insert_text (const gchar *text, GtkComboBox *widget)
 {
-    gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
+    gtk_combo_box_append_text (widget, text);
 }
 
 
@@ -762,7 +762,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     if (!defaults.name_patterns.empty())
-        g_list_foreach (defaults.name_patterns.ents, combo_box_insert_text, dialog->priv->pattern_combo);
+        g_list_foreach (defaults.name_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->pattern_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
@@ -806,7 +806,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     table_add (table, dialog->priv->find_text_combo, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
     if (!defaults.content_patterns.empty())
-        g_list_foreach (defaults.content_patterns.ents, combo_box_insert_text, dialog->priv->find_text_combo);
+        g_list_foreach (defaults.content_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->find_text_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
