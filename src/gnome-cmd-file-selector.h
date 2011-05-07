@@ -133,7 +133,12 @@ inline GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, gboolean activ
 }
 
 GtkType gnome_cmd_file_selector_get_type ();
-GtkWidget *gnome_cmd_file_selector_new ();
+
+inline GtkWidget *gnome_cmd_file_selector_new ()
+{
+    GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL);
+    return *fs;
+}
 
 void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);
 

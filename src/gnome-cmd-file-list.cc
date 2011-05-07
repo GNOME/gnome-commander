@@ -582,24 +582,19 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 }
 
 
-inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens, gboolean mode)
+void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    Filter filter(pattern, case_sens, gnome_cmd_data.filter_type);
-
-    for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
+    for (GList *i=get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-        if (f && f->info)
-            if (filter.match(f->info->name))
-            {
-                if (mode)
-                    fl->select_file(f);
-                else
-                    fl->unselect_file(f);
-            }
+        if (f && f->info && pattern.match(f->info->name))
+        {
+            if (mode)
+                select_file(f);
+            else
+                unselect_file(f);
+        }
     }
 }
 
@@ -1974,18 +1969,6 @@ void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_fi
 void GnomeCmdFileList::select_row(gint row)
 {
     focus_file_at_row (this, row==-1 ? 0 : row);
-}
-
-
-void GnomeCmdFileList::select_pattern(const gchar *pattern, gboolean case_sens)
-{
-    toggle_with_pattern (this, pattern, case_sens, TRUE);
-}
-
-
-void GnomeCmdFileList::unselect_pattern(const gchar *pattern, gboolean case_sens)
-{
-    toggle_with_pattern (this, pattern, case_sens, FALSE);
 }
 
 

@@ -41,24 +41,26 @@ struct GnomeCmdPatternselDialogPrivate
 };
 
 
-static GnomeCmdDialogClass *parent_class = NULL;
+G_DEFINE_TYPE (GnomeCmdPatternselDialog, gnome_cmd_patternsel_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
+    gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
+    gnome_cmd_data.search_defaults.default_profile.syntax = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
 
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
-    gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
+    Filter pattern(s, case_sens, gnome_cmd_data.search_defaults.default_profile.syntax);
+    
     if (dialog->priv->mode)
-        dialog->priv->fl->select_pattern(s, case_sens);
+        dialog->priv->fl->select(pattern);
     else
-        dialog->priv->fl->unselect_pattern(s, case_sens);
+        dialog->priv->fl->unselect(pattern);
 
-    defaults.name_patterns.add(s);
+    gnome_cmd_data.search_defaults.name_patterns.add(s);
 
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
@@ -74,61 +76,28 @@ static void on_cancel (GtkButton *button, GnomeCmdPatternselDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void gnome_cmd_patternsel_dialog_finalize (GObject *object)
 {
     GnomeCmdPatternselDialog *dialog = GNOME_CMD_PATTERNSEL_DIALOG (object);
 
     g_free (dialog->priv);
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_patternsel_dialog_parent_class)->finalize (object);
 }
 
 
-static void map (GtkWidget *widget)
+static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
-}
-
-
-static void class_init (GnomeCmdPatternselDialogClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdDialogClass *) gtk_type_class (GNOME_CMD_TYPE_DIALOG);
-    object_class->destroy = destroy;
-    widget_class->map = ::map;
-}
-
-
-static void init (GnomeCmdPatternselDialog *dialog)
-{
-    dialog->priv = g_new0 (GnomeCmdPatternselDialogPrivate, 1);
-}
-
-
-/***********************************
- * Public functions
- ***********************************/
-
-GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
-{
-    GtkWidget *hbox, *vbox, *label;
     GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
-    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) g_object_new (GNOME_CMD_TYPE_PATTERNSEL_DIALOG, NULL);
-    dialog->priv->mode = mode;
-    dialog->priv->fl = fl;
+    GtkWidget *hbox, *vbox, *label, *radio;
 
-    gnome_cmd_dialog_setup ( GNOME_CMD_DIALOG (dialog), mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
+    dialog->priv = g_new0 (GnomeCmdPatternselDialogPrivate, 1);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
 
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 6);
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
-    label = create_label (GTK_WIDGET (dialog), _("Pattern:"));
 
     dialog->priv->pattern_combo = create_combo (GTK_WIDGET (dialog));
     gtk_combo_disable_activate (GTK_COMBO (dialog->priv->pattern_combo));
@@ -138,40 +107,53 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
     gtk_entry_select_region (GTK_ENTRY (dialog->priv->pattern_entry), 0, -1);
 
-    dialog->priv->case_check = create_check (GTK_WIDGET (dialog), _("Case sensitive"), "case_sens");
+    label = create_label_with_mnemonic (GTK_WIDGET (dialog), _("_Pattern:"), dialog->priv->pattern_entry);
+
+    dialog->priv->case_check = create_check_with_mnemonic (GTK_WIDGET (dialog), _("Case _sensitive"), "case_sens");
 
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->pattern_combo, TRUE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->case_check, TRUE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->pattern_combo, TRUE, TRUE, 0);
+
+    hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
+    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->case_check, TRUE, FALSE, 0);
+
+    radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), NULL, _("She_ll syntax"), "shell_radio");
+    gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
+    if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_FNMATCH)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
+    gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
+    if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_REGEX)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), vbox);
 
     gtk_widget_grab_focus (dialog->priv->pattern_entry);
-
-    return GTK_WIDGET (dialog);
 }
 
 
-GtkType gnome_cmd_patternsel_dialog_get_type ()
+static void gnome_cmd_patternsel_dialog_class_init (GnomeCmdPatternselDialogClass *klass)
 {
-    static GtkType dlg_type = 0;
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    if (dlg_type == 0)
-    {
-        GtkTypeInfo dlg_info =
-        {
-            "GnomeCmdPatternselDialog",
-            sizeof (GnomeCmdPatternselDialog),
-            sizeof (GnomeCmdPatternselDialogClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
+    object_class->finalize = gnome_cmd_patternsel_dialog_finalize;
+}
 
-        dlg_type = gtk_type_unique (GNOME_CMD_TYPE_DIALOG, &dlg_info);
-    }
-    return dlg_type;
+
+/***********************************
+ * Public functions
+ ***********************************/
+
+GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
+{
+    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) g_object_new (GNOME_CMD_TYPE_PATTERNSEL_DIALOG, NULL);
+
+    dialog->priv->mode = mode;
+    dialog->priv->fl = fl;
+
+    gnome_cmd_dialog_setup (GNOME_CMD_DIALOG (dialog), mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
+
+    return GTK_WIDGET (dialog);
 }

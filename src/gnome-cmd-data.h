@@ -55,7 +55,7 @@ struct GnomeCmdData
         RIGHT_BUTTON_POPUPS_MENU,
         RIGHT_BUTTON_SELECTS
     };
-    
+
     enum TabLockIndicator
     {
         TAB_LOCK_ICON,
@@ -70,15 +70,13 @@ struct GnomeCmdData
         std::string name;
         std::string filename_pattern;
         Filter::Type syntax;
-        gboolean recursive;
+        int max_depth;
         std::string text_pattern;
         gboolean match_case;
 
         void reset();
 
-        Selection(): syntax(Filter::TYPE_REGEX),
-                     recursive(TRUE),
-                     match_case(FALSE)                          {}
+        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), match_case(FALSE)       {}
 
         friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
     };
@@ -90,13 +88,9 @@ struct GnomeCmdData
         Selection default_profile;
 
         History name_patterns;
-        History directories;
         History content_patterns;
 
-        SearchConfig(): width(600), height(400),
-                        name_patterns(SEARCH_HISTORY_SIZE),
-                        directories(SEARCH_HISTORY_SIZE),
-                        content_patterns(SEARCH_HISTORY_SIZE)   {  default_profile.name = "Default";  }
+        SearchConfig(): width(600), height(400), name_patterns(SEARCH_HISTORY_SIZE), content_patterns(SEARCH_HISTORY_SIZE)   {  default_profile.name = "Default";  }
 
         friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
     };
@@ -211,7 +205,6 @@ struct GnomeCmdData
     gboolean                     quick_search_exact_match_begin;
     gboolean                     quick_search_exact_match_end;
 
-    Filter::Type                 filter_type;
     FilterSettings               filter_settings;
 
     std::vector<Selection>       selections;

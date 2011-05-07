@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander docs master\n"
-"POT-Creation-Date: 2011-04-08 19:13+0000\n"
-"PO-Revision-Date: 2011-04-18 21:20+0100\n"
+"POT-Creation-Date: 2011-05-02 09:43+0000\n"
+"PO-Revision-Date: 2011-05-03 20:06+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -336,8 +336,8 @@ msgstr "Coudeur"
 msgid "GNOME Commander Manual V1.2.3;"
 msgstr "GNOME-Commander-Handbuch V1.2.3;"
 
-#: C/gnome-commander.xml:105(date) C/gnome-commander.xml:8433(para)
-#: C/gnome-commander.xml:8447(para)
+#: C/gnome-commander.xml:105(date) C/gnome-commander.xml:8444(para)
+#: C/gnome-commander.xml:8458(para)
 msgid "2006-12-11"
 msgstr "2006-12-11"
 
@@ -357,7 +357,7 @@ msgstr "Piotr Eljasiak <email>epiotr@cvs.gnome.org</email>"
 msgid "GNOME Commander Manual V1.2.4;"
 msgstr "GNOME-Commander-Handbuch V1.2.4;"
 
-#: C/gnome-commander.xml:114(date) C/gnome-commander.xml:8332(para)
+#: C/gnome-commander.xml:114(date) C/gnome-commander.xml:8343(para)
 msgid "2007-06-09"
 msgstr "9. Juni 2007"
 
@@ -365,7 +365,7 @@ msgstr "9. Juni 2007"
 msgid "GNOME Commander Manual V1.2.5;"
 msgstr "GNOME-Commander-Handbuch V1.2.5;"
 
-#: C/gnome-commander.xml:123(date) C/gnome-commander.xml:8209(para)
+#: C/gnome-commander.xml:123(date) C/gnome-commander.xml:8220(para)
 msgid "2008-02-29"
 msgstr "29. Februar 2008"
 
@@ -373,7 +373,7 @@ msgstr "29. Februar 2008"
 msgid "GNOME Commander Manual V1.2.6;"
 msgstr "GNOME-Commander-Handbuch V1.2.6;"
 
-#: C/gnome-commander.xml:132(date) C/gnome-commander.xml:8140(para)
+#: C/gnome-commander.xml:132(date) C/gnome-commander.xml:8151(para)
 msgid "2008-06-01"
 msgstr "1. Juni 2008"
 
@@ -381,7 +381,7 @@ msgstr "1. Juni 2008"
 msgid "GNOME Commander Manual V1.2.7;"
 msgstr "GNOME-Commander-Handbuch V1.2.7;"
 
-#: C/gnome-commander.xml:141(date) C/gnome-commander.xml:8082(para)
+#: C/gnome-commander.xml:141(date) C/gnome-commander.xml:8093(para)
 msgid "2008-07-28"
 msgstr "28. Juli 2008"
 
@@ -389,7 +389,7 @@ msgstr "28. Juli 2008"
 msgid "GNOME Commander Manual V1.2.8;"
 msgstr "GNOME-Commander-Handbuch V1.2.8;"
 
-#: C/gnome-commander.xml:150(date) C/gnome-commander.xml:7953(para)
+#: C/gnome-commander.xml:150(date) C/gnome-commander.xml:7964(para)
 msgid "2009-06-29"
 msgstr "29. Juni 2009"
 
@@ -397,7 +397,7 @@ msgstr "29. Juni 2009"
 msgid "GNOME Commander Manual V1.2.8.1;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.1;"
 
-#: C/gnome-commander.xml:159(date) C/gnome-commander.xml:7930(para)
+#: C/gnome-commander.xml:159(date) C/gnome-commander.xml:7941(para)
 msgid "2009-08-10"
 msgstr "10. August 2001"
 
@@ -405,7 +405,7 @@ msgstr "10. August 2001"
 msgid "GNOME Commander Manual V1.2.8.2;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.2;"
 
-#: C/gnome-commander.xml:168(date) C/gnome-commander.xml:7907(para)
+#: C/gnome-commander.xml:168(date) C/gnome-commander.xml:7918(para)
 msgid "2009-09-22"
 msgstr "22. September 2009"
 
@@ -413,7 +413,7 @@ msgstr "22. September 2009"
 msgid "GNOME Commander Manual V1.2.8.3;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.3;"
 
-#: C/gnome-commander.xml:177(date) C/gnome-commander.xml:7872(para)
+#: C/gnome-commander.xml:177(date) C/gnome-commander.xml:7883(para)
 msgid "2009-10-28"
 msgstr "28. Oktober 2009"
 
@@ -421,7 +421,7 @@ msgstr "28. Oktober 2009"
 msgid "GNOME Commander Manual V1.2.8.4;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.4;"
 
-#: C/gnome-commander.xml:186(date) C/gnome-commander.xml:7846(para)
+#: C/gnome-commander.xml:186(date) C/gnome-commander.xml:7857(para)
 msgid "2009-12-03"
 msgstr "3. Dezember 2009"
 
@@ -429,7 +429,7 @@ msgstr "3. Dezember 2009"
 msgid "GNOME Commander Manual V1.2.8.5;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.5;"
 
-#: C/gnome-commander.xml:195(date) C/gnome-commander.xml:7820(para)
+#: C/gnome-commander.xml:195(date) C/gnome-commander.xml:7831(para)
 msgid "2010-02-13"
 msgstr "13. Februar 2010"
 
@@ -437,7 +437,7 @@ msgstr "13. Februar 2010"
 msgid "GNOME Commander Manual V1.2.8.6;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.6;"
 
-#: C/gnome-commander.xml:204(date) C/gnome-commander.xml:7789(para)
+#: C/gnome-commander.xml:204(date) C/gnome-commander.xml:7800(para)
 msgid "2010-06-01"
 msgstr "1. Juni 2010"
 
@@ -445,7 +445,7 @@ msgstr "1. Juni 2010"
 msgid "GNOME Commander Manual V1.2.8.7;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.7;"
 
-#: C/gnome-commander.xml:214(date) C/gnome-commander.xml:7763(para)
+#: C/gnome-commander.xml:214(date) C/gnome-commander.xml:7774(para)
 msgid "2010-07-27"
 msgstr "27. Juli 2010"
 
@@ -453,7 +453,7 @@ msgstr "27. Juli 2010"
 msgid "GNOME Commander Manual V1.2.8.8;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.8;"
 
-#: C/gnome-commander.xml:224(date) C/gnome-commander.xml:7743(para)
+#: C/gnome-commander.xml:224(date) C/gnome-commander.xml:7754(para)
 msgid "2010-09-09"
 msgstr "9. September 2010"
 
@@ -469,15 +469,18 @@ msgstr "??-??-2010"
 msgid "GNOME Commander Manual V1.2.8.10;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.10;"
 
-#: C/gnome-commander.xml:244(date) C/gnome-commander.xml:254(date)
-#: C/gnome-commander.xml:264(date) C/gnome-commander.xml:7579(para)
-#: C/gnome-commander.xml:7669(para)
+#: C/gnome-commander.xml:244(date) C/gnome-commander.xml:264(date)
+#: C/gnome-commander.xml:7579(para)
 msgid "2011-??-??"
 msgstr "??-??-2011"
 
 #: C/gnome-commander.xml:253(revnumber)
 msgid "GNOME Commander Manual V1.2.8.11;"
 msgstr "GNOME-Commander-Handbuch V1.2.8.11;"
+
+#: C/gnome-commander.xml:254(date) C/gnome-commander.xml:7669(para)
+msgid "2011-05-01"
+msgstr "1. Mai 2011"
 
 #: C/gnome-commander.xml:263(revnumber)
 msgid "GNOME Commander Manual V1.4;"
@@ -1580,7 +1583,7 @@ msgstr ""
 msgid "Using multiple tabs"
 msgstr "Verwendung mehrerer Reiter"
 
-#: C/gnome-commander.xml:893(Para)
+#: C/gnome-commander.xml:893(para)
 msgid ""
 "You can open multiple tabs in both panels to speed up navigation. GNOME "
 "Commander can store the open tabs location upon closing. When you restart the "
@@ -11584,7 +11587,7 @@ msgstr "Unbekannte Platzhalter werden direkt ohne jegliche Ersetzung kopiert."
 msgid "command.open_folder"
 msgstr "command.open_folder"
 
-#: C/gnome-commander.xml:6210(para) C/gnome-commander.xml:8178(para)
+#: C/gnome-commander.xml:6210(para) C/gnome-commander.xml:8189(para)
 msgid "Open the current location in Nautilus file manager"
 msgstr "Öffnen des aktuellen Ortes im Nautilus-Dateimanager"
 
@@ -11592,7 +11595,7 @@ msgstr "Öffnen des aktuellen Ortes im Nautilus-Dateimanager"
 msgid "command.open_terminal"
 msgstr "command.open_terminal"
 
-#: C/gnome-commander.xml:6215(para) C/gnome-commander.xml:8298(para)
+#: C/gnome-commander.xml:6215(para) C/gnome-commander.xml:8309(para)
 msgid "Open terminal in the current directory"
 msgstr "Terminal im aktiven Ordner öffnen"
 
@@ -11797,7 +11800,7 @@ msgstr "Dateien umbenennen"
 msgid "file.sendto"
 msgstr "file.sendto"
 
-#: C/gnome-commander.xml:6380(para) C/gnome-commander.xml:8307(para)
+#: C/gnome-commander.xml:6380(para) C/gnome-commander.xml:8318(para)
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Senden von Dateien via E-Mail oder Sofortnachrichten unter Verwendung von "
@@ -11819,7 +11822,7 @@ msgstr "file.view"
 msgid "help.about"
 msgstr "help.about"
 
-#: C/gnome-commander.xml:6395(para) C/gnome-commander.xml:9176(title)
+#: C/gnome-commander.xml:6395(para) C/gnome-commander.xml:9187(title)
 msgid "About GNOME Commander"
 msgstr "Info zu GNOME-Commander"
 
@@ -13224,20 +13227,20 @@ msgid "1.4"
 msgstr "1.4"
 
 #: C/gnome-commander.xml:7581(para) C/gnome-commander.xml:7671(para)
-#: C/gnome-commander.xml:7691(para) C/gnome-commander.xml:7720(para)
-#: C/gnome-commander.xml:7745(para) C/gnome-commander.xml:7765(para)
-#: C/gnome-commander.xml:7791(para) C/gnome-commander.xml:7822(para)
-#: C/gnome-commander.xml:7848(para) C/gnome-commander.xml:7874(para)
-#: C/gnome-commander.xml:7909(para) C/gnome-commander.xml:7932(para)
-#: C/gnome-commander.xml:7955(para) C/gnome-commander.xml:8084(para)
-#: C/gnome-commander.xml:8142(para) C/gnome-commander.xml:8211(para)
-#: C/gnome-commander.xml:8334(para) C/gnome-commander.xml:8435(para)
-#: C/gnome-commander.xml:8449(para) C/gnome-commander.xml:8500(para)
-#: C/gnome-commander.xml:8572(para) C/gnome-commander.xml:8662(para)
-#: C/gnome-commander.xml:8745(para) C/gnome-commander.xml:8808(para)
-#: C/gnome-commander.xml:8842(para) C/gnome-commander.xml:8874(para)
-#: C/gnome-commander.xml:8933(para) C/gnome-commander.xml:8958(para)
-#: C/gnome-commander.xml:9015(para)
+#: C/gnome-commander.xml:7702(para) C/gnome-commander.xml:7731(para)
+#: C/gnome-commander.xml:7756(para) C/gnome-commander.xml:7776(para)
+#: C/gnome-commander.xml:7802(para) C/gnome-commander.xml:7833(para)
+#: C/gnome-commander.xml:7859(para) C/gnome-commander.xml:7885(para)
+#: C/gnome-commander.xml:7920(para) C/gnome-commander.xml:7943(para)
+#: C/gnome-commander.xml:7966(para) C/gnome-commander.xml:8095(para)
+#: C/gnome-commander.xml:8153(para) C/gnome-commander.xml:8222(para)
+#: C/gnome-commander.xml:8345(para) C/gnome-commander.xml:8446(para)
+#: C/gnome-commander.xml:8460(para) C/gnome-commander.xml:8511(para)
+#: C/gnome-commander.xml:8583(para) C/gnome-commander.xml:8673(para)
+#: C/gnome-commander.xml:8756(para) C/gnome-commander.xml:8819(para)
+#: C/gnome-commander.xml:8853(para) C/gnome-commander.xml:8885(para)
+#: C/gnome-commander.xml:8944(para) C/gnome-commander.xml:8969(para)
+#: C/gnome-commander.xml:9026(para)
 msgid "Bug fixes:"
 msgstr "Fehlerkorrekturen:"
 
@@ -13271,15 +13274,16 @@ msgstr ""
 "Beseitigtes Problem mit der rechten Maustaste, wenn die Auswahl nicht präzise "
 "ist"
 
-#: C/gnome-commander.xml:7601(para) C/gnome-commander.xml:7731(para)
-#: C/gnome-commander.xml:7808(para) C/gnome-commander.xml:8029(para)
-#: C/gnome-commander.xml:8110(para) C/gnome-commander.xml:8168(para)
-#: C/gnome-commander.xml:8279(para) C/gnome-commander.xml:8363(para)
-#: C/gnome-commander.xml:8472(para) C/gnome-commander.xml:8523(para)
-#: C/gnome-commander.xml:8601(para) C/gnome-commander.xml:8690(para)
-#: C/gnome-commander.xml:8762(para) C/gnome-commander.xml:8828(para)
-#: C/gnome-commander.xml:8904(para) C/gnome-commander.xml:8944(para)
-#: C/gnome-commander.xml:8981(para) C/gnome-commander.xml:8995(para)
+#: C/gnome-commander.xml:7601(para) C/gnome-commander.xml:7688(para)
+#: C/gnome-commander.xml:7742(para) C/gnome-commander.xml:7819(para)
+#: C/gnome-commander.xml:8040(para) C/gnome-commander.xml:8121(para)
+#: C/gnome-commander.xml:8179(para) C/gnome-commander.xml:8290(para)
+#: C/gnome-commander.xml:8374(para) C/gnome-commander.xml:8483(para)
+#: C/gnome-commander.xml:8534(para) C/gnome-commander.xml:8612(para)
+#: C/gnome-commander.xml:8701(para) C/gnome-commander.xml:8773(para)
+#: C/gnome-commander.xml:8839(para) C/gnome-commander.xml:8915(para)
+#: C/gnome-commander.xml:8955(para) C/gnome-commander.xml:8992(para)
+#: C/gnome-commander.xml:9006(para)
 msgid "New features:"
 msgstr "Neue Funktionen:"
 
@@ -13335,11 +13339,11 @@ msgstr ""
 "Neue oder aktualisierte Übersetzungen: cs, da, eo, es, eu, fr, hu, ko, nb, "
 "pl, pt_BR, ro, ru, sl, uk, zh_CN"
 
-#: C/gnome-commander.xml:7638(para) C/gnome-commander.xml:8058(para)
-#: C/gnome-commander.xml:8196(para) C/gnome-commander.xml:8316(para)
-#: C/gnome-commander.xml:8411(para) C/gnome-commander.xml:8485(para)
-#: C/gnome-commander.xml:8557(para) C/gnome-commander.xml:8638(para)
-#: C/gnome-commander.xml:8718(para) C/gnome-commander.xml:8787(para)
+#: C/gnome-commander.xml:7638(para) C/gnome-commander.xml:8069(para)
+#: C/gnome-commander.xml:8207(para) C/gnome-commander.xml:8327(para)
+#: C/gnome-commander.xml:8422(para) C/gnome-commander.xml:8496(para)
+#: C/gnome-commander.xml:8568(para) C/gnome-commander.xml:8649(para)
+#: C/gnome-commander.xml:8729(para) C/gnome-commander.xml:8798(para)
 msgid "New key bindings:"
 msgstr "Neue Tastenkürzel:"
 
@@ -13414,25 +13418,33 @@ msgstr ""
 "Beseitigtes Problem #640387 (Verwendung veralteter Python-Module: md5, sha1)"
 
 #: C/gnome-commander.xml:7681(para)
+msgid "Fixed problem with starting GNOME Commander as root"
+msgstr "Fehlerkorrektur beim Starten von GNOME Commander als Root"
+
+#: C/gnome-commander.xml:7684(para)
 msgid "Fixed problem with Traditional Chinese translation"
 msgstr "Beseitigtes Problem mit chinesischer (traditionell) Übersetzung"
 
-#: C/gnome-commander.xml:7688(para)
+#: C/gnome-commander.xml:7692(para)
+msgid "Support for backward/forward mouse buttons"
+msgstr "Unterstützung für Vorwärts/Rückwärts-Maustasten"
+
+#: C/gnome-commander.xml:7699(para)
 msgid "1.2.8.10"
 msgstr "1.2.8.10"
 
-#: C/gnome-commander.xml:7689(para)
+#: C/gnome-commander.xml:7700(para)
 msgid "2011-01-15"
 msgstr "15. Januar 2011"
 
-#: C/gnome-commander.xml:7695(para)
+#: C/gnome-commander.xml:7706(para)
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
 "Beseitigtes Problem #448941 (Pfeile des Nummernblocks funktionieren im "
 "Hauptfenster nicht)"
 
-#: C/gnome-commander.xml:7698(para)
+#: C/gnome-commander.xml:7709(para)
 msgid ""
 "Fixed problem #620275 (add menu item to copy full path and file name to "
 "clipboard)"
@@ -13440,13 +13452,13 @@ msgstr ""
 "Fehlerkorrektur #620275 (Menüeintrag zum Kopieren des vollständigen Pfades "
 "und Dateinamens in die Zwischenablage)"
 
-#: C/gnome-commander.xml:7701(para)
+#: C/gnome-commander.xml:7712(para)
 msgid "Fixed problem #637501 (advrename: metatag popup menu shows wrong items)"
 msgstr ""
 "Fehlerkorrektur #637501 (advrename: Metatag-Kontextmenü zeigt falsche "
 "Einträge)"
 
-#: C/gnome-commander.xml:7704(para)
+#: C/gnome-commander.xml:7715(para)
 msgid ""
 "Fixed problem with toggling path/basename/filename selections in copy/move "
 "dialogs"
@@ -13454,45 +13466,45 @@ msgstr ""
 "Beseitigtes Problem mit dem Umschalten von Pfad-/Basisnamen-/Dateinamen-"
 "Auswahlen im Kopieren/Verschieben-Dialog"
 
-#: C/gnome-commander.xml:7707(para)
+#: C/gnome-commander.xml:7718(para)
 msgid "Fixed problem with searching path for devices"
 msgstr "Beseitigtes Problem mit dem Suchpfad für Geräte"
 
-#: C/gnome-commander.xml:7710(para)
+#: C/gnome-commander.xml:7721(para)
 msgid "Updated translations: de"
 msgstr "Aktualisierte Übersetzungen: de"
 
-#: C/gnome-commander.xml:7717(para)
+#: C/gnome-commander.xml:7728(para)
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
-#: C/gnome-commander.xml:7718(para)
+#: C/gnome-commander.xml:7729(para)
 msgid "2010-12-03"
 msgstr "3. Dezember 2010"
 
-#: C/gnome-commander.xml:7724(para)
+#: C/gnome-commander.xml:7735(para)
 msgid "Fixed problem #352024 (F10 key doesn't work)"
 msgstr "Fehlerkorrektur #352024 (Taste F10 funktioniert nicht)"
 
-#: C/gnome-commander.xml:7727(para)
+#: C/gnome-commander.xml:7738(para)
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
 msgstr ""
 "Fehlerkorrektur #631243 (Einschränkung in $c(width) regression in "
 "Mehrfachumbenennung)"
 
-#: C/gnome-commander.xml:7735(para)
+#: C/gnome-commander.xml:7746(para)
 msgid "Support for shell-style wildcards in quick search"
 msgstr "Unterstützung für Shell-Platzhalter in der Schnellsuche"
 
-#: C/gnome-commander.xml:7742(para)
+#: C/gnome-commander.xml:7753(para)
 msgid "1.2.8.8"
 msgstr "1.2.8.8"
 
-#: C/gnome-commander.xml:7749(para)
+#: C/gnome-commander.xml:7760(para)
 msgid "Fixed problem #610764 (menu item won't stay checked)"
 msgstr "Fehlerkorrektur #610764 (Menüeintrag bleibt nicht markiert)"
 
-#: C/gnome-commander.xml:7752(para)
+#: C/gnome-commander.xml:7763(para)
 msgid ""
 "Fixed problem #626469 (add support for other su-like programs: xdg-su, "
 "gnomesu)"
@@ -13500,175 +13512,175 @@ msgstr ""
 "Fehlerkorrektur #626469 (Unterstützung für andere su-ähnliche Programme, wie "
 "xdg-su und gnomesu)"
 
-#: C/gnome-commander.xml:7755(para)
+#: C/gnome-commander.xml:7766(para)
 msgid "Fixed problem with broken Spanish translation"
 msgstr "Beseitigtes Problem mit spanischer Übersetzung"
 
-#: C/gnome-commander.xml:7762(para)
+#: C/gnome-commander.xml:7773(para)
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
-#: C/gnome-commander.xml:7769(para)
+#: C/gnome-commander.xml:7780(para)
 msgid "Fixed problem #540438 (no GUI message if meld cannot be executed)"
 msgstr ""
 "Fehlerkorrektur #540438 (keine GUI-Nachricht, falls Meld nicht ausgeführt "
 "werden kann)"
 
-#: C/gnome-commander.xml:7772(para)
+#: C/gnome-commander.xml:7783(para)
 msgid "Fixed problem #616367 (\"File not found\" dialog after startup)"
 msgstr ""
 "Beseitigtes Problem #616367 (»Datei nicht gefunden«-Dialog nach dem Start)"
 
-#: C/gnome-commander.xml:7775(para)
+#: C/gnome-commander.xml:7786(para)
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr "Fehlerkorrektur #620650 (Speicherüberlauf in load_fav_apps())"
 
-#: C/gnome-commander.xml:7778(para)
+#: C/gnome-commander.xml:7789(para)
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
 msgstr ""
 "Fehlerkorrektur #622456 (Plugins nicht als gemeinsame Bibliotheksobjekte "
 "erstellen)"
 
-#: C/gnome-commander.xml:7781(para)
+#: C/gnome-commander.xml:7792(para)
 msgid "Fixed problem with editing options for favourite apps and devices"
 msgstr ""
 "Fehlerkorrektur beim Bearbeiten von Optionen für bevorzugte Anwendungen und "
 "Geräte"
 
-#: C/gnome-commander.xml:7788(para)
+#: C/gnome-commander.xml:7799(para)
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
-#: C/gnome-commander.xml:7795(para)
+#: C/gnome-commander.xml:7806(para)
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
 "Fehlerkorrekturen #600292, #612685 (Absturz beim Doppelklick auf ein "
 "Lesezeichen)"
 
-#: C/gnome-commander.xml:7798(para)
+#: C/gnome-commander.xml:7809(para)
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Fehlerkorrektur #602795 (Suche in Dateiinhalten)"
 
-#: C/gnome-commander.xml:7801(para)
+#: C/gnome-commander.xml:7812(para)
 msgid "Fixed problem #609912 (build error with --as-needed)"
 msgstr "Fehlerkorrektur #609912 (Build-Fehler mit --as-needed)"
 
-#: C/gnome-commander.xml:7804(para)
+#: C/gnome-commander.xml:7815(para)
 msgid "Fixed problem #616891 (build error on RHEL 5.5)"
 msgstr "Fehlerkorrektur #616891 (Build-Fehler unter RHEL 5.5)"
 
-#: C/gnome-commander.xml:7812(para)
+#: C/gnome-commander.xml:7823(para)
 msgid "New translations: ko"
 msgstr "Neue Übersetzungen: ko"
 
-#: C/gnome-commander.xml:7819(para)
+#: C/gnome-commander.xml:7830(para)
 msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
-#: C/gnome-commander.xml:7826(para)
+#: C/gnome-commander.xml:7837(para)
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr "Fehlerkorrektur #604558 (Cursor verloren/falsch platziert)"
 
-#: C/gnome-commander.xml:7829(para)
+#: C/gnome-commander.xml:7840(para)
 msgid "Fixed problem #604904 (build error on OpenSolaris)"
 msgstr "Fehlerkorrektur #604904 (Build-Fehler unter OpenSolaris)"
 
-#: C/gnome-commander.xml:7832(para)
+#: C/gnome-commander.xml:7843(para)
 msgid "Fixed problem #609342 (do not show mtime for '..')"
 msgstr "Beseitigtes Problem #609342 (keine mtime anzeigen für »..«)"
 
-#: C/gnome-commander.xml:7835(para)
+#: C/gnome-commander.xml:7846(para)
 msgid "Fixed problem with editing connections to Windows network"
 msgstr "Fehlerkorrektur beim Bearbeiten von Verbindungen zum Windows-Netzwerk"
 
-#: C/gnome-commander.xml:7838(para)
+#: C/gnome-commander.xml:7849(para)
 msgid "Fixed problem with nonexistent user actions"
 msgstr "Beseitigtes Problem mit nicht existierenden Benutzeraktionen"
 
-#: C/gnome-commander.xml:7845(para)
+#: C/gnome-commander.xml:7856(para)
 msgid "1.2.8.4"
 msgstr "1.2.8.4"
 
-#: C/gnome-commander.xml:7852(para)
+#: C/gnome-commander.xml:7863(para)
 msgid "Fixed problem #602916 (not working menu entry)"
 msgstr "Beseitigtes Problem #602916 (nicht funktionierender Menüeintrag)"
 
-#: C/gnome-commander.xml:7855(para)
+#: C/gnome-commander.xml:7866(para)
 msgid "Fixed problem #603301 (crash when cancelling symlink creation by ESC)"
 msgstr ""
 "Fehlerkorrektur #603301 (Absturz beim Abbruch der Verknüpfungserstellung "
 "durch ESC)"
 
-#: C/gnome-commander.xml:7858(para)
+#: C/gnome-commander.xml:7869(para)
 msgid "Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)"
 msgstr ""
 "Fehlerkorrektur #347817 aus Ubuntu (unkorrekte Sortierung nach Größe im Panel)"
 
-#: C/gnome-commander.xml:7861(para)
+#: C/gnome-commander.xml:7872(para)
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
 "Beseitigtes Problem mit nicht funktionierenden Nummernblock im Kopieren/"
 "Verschieben-Dialog"
 
-#: C/gnome-commander.xml:7864(para)
+#: C/gnome-commander.xml:7875(para)
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
 "Beseitigtes Problem mit blockierter Tastatur nach ALT+1/2 mit verborgener "
 "Geräteliste"
 
-#: C/gnome-commander.xml:7871(para)
+#: C/gnome-commander.xml:7882(para)
 msgid "1.2.8.3"
 msgstr "1.2.8.3"
 
-#: C/gnome-commander.xml:7878(para)
+#: C/gnome-commander.xml:7889(para)
 msgid "Fixed problem #541891 (file names with % in advanced file rename tool)"
 msgstr ""
 "Fehlerkorrektur #541891 (Dateinamen mit % in der erweiterten "
 "Mehrfachumbenennung)"
 
-#: C/gnome-commander.xml:7881(para)
+#: C/gnome-commander.xml:7892(para)
 msgid "Fixed problem #581645 (uncomfortable quick search)"
 msgstr "Fehlerkorrektur #581645 (unkomfortable Schnellsuche)"
 
-#: C/gnome-commander.xml:7884(para)
+#: C/gnome-commander.xml:7895(para)
 msgid "Fixed problem #596768 (build warnings for python)"
 msgstr "Fehlerkorrektur #539753 (Build-Warnungen von Python)"
 
-#: C/gnome-commander.xml:7887(para)
+#: C/gnome-commander.xml:7898(para)
 msgid "Fixed problem #596973 (documentation build error)"
 msgstr "Fehlerkorrektur #596973 (Fehler bei der Dokumentationserstellung)"
 
-#: C/gnome-commander.xml:7890(para)
+#: C/gnome-commander.xml:7901(para)
 msgid "Fixed problem #597144 (missing call to pclose)"
 msgstr "Fehlerkorrektur #597144 (Fehlender Aufruf zu pclose)"
 
-#: C/gnome-commander.xml:7893(para)
+#: C/gnome-commander.xml:7904(para)
 msgid "Fixed problem #597233 (validating of doc translations)"
 msgstr "Fehlerkorrektur #597233 (Überprüfung der Hanbuchübersetzungen)"
 
-#: C/gnome-commander.xml:7896(para)
+#: C/gnome-commander.xml:7907(para)
 msgid "Fixed problem #597890 (wrong arguments passed to meld)"
 msgstr "Fehlerkorrektur #597890 (falsche an Meld übergebene Argumente)"
 
-#: C/gnome-commander.xml:7899(para)
+#: C/gnome-commander.xml:7910(para)
 msgid "Fixed problem #598278 (memory leak)"
 msgstr "Fehlerkorrektur #598278 (Speicherleck)"
 
-#: C/gnome-commander.xml:7906(para)
+#: C/gnome-commander.xml:7917(para)
 msgid "1.2.8.2"
 msgstr "1.2.8.2"
 
-#: C/gnome-commander.xml:7913(para)
+#: C/gnome-commander.xml:7924(para)
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
 msgstr "Fixed problem #591944 (permissions set to 000 after chmod)"
 
-#: C/gnome-commander.xml:7916(para)
+#: C/gnome-commander.xml:7927(para)
 msgid "Fixed problem #595097 (build error for poppler &gt;= 0.11.3)"
 msgstr "Fehlerkorrektur #595097 (Build-Fehler für poppler &gt;= 0.11.3)"
 
-#: C/gnome-commander.xml:7919(para)
+#: C/gnome-commander.xml:7930(para)
 msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
@@ -13676,107 +13688,107 @@ msgstr ""
 "Debian-Fehlerkorrektur #438884 (falsche Gerätebezeichnung beim Wechsel der "
 "Ansicht mit Strg-U)"
 
-#: C/gnome-commander.xml:7922(para)
+#: C/gnome-commander.xml:7933(para)
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
 msgstr ""
 "Beseitigtes Problem mit falschem Dateisymbol beim Umbenennen einer "
 "symbolischen Verknüpfung"
 
-#: C/gnome-commander.xml:7929(para)
+#: C/gnome-commander.xml:7940(para)
 msgid "1.2.8.1"
 msgstr "1.2.8.1"
 
-#: C/gnome-commander.xml:7936(para)
+#: C/gnome-commander.xml:7947(para)
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr "Fehlerkorrektur #587325 (Absturz in sauberer Chroot-Umgebung)"
 
-#: C/gnome-commander.xml:7939(para)
+#: C/gnome-commander.xml:7950(para)
 msgid "Fixed problem #589108 (build error on openSUSE)"
 msgstr "Fehlerkorrektur #589108 (Build-Fehler unter openSUSE)"
 
-#: C/gnome-commander.xml:7942(para)
+#: C/gnome-commander.xml:7953(para)
 msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr "Fehlerkorrektur #351952 (Absturz während sysconf() unter FreeBSD)"
 
-#: C/gnome-commander.xml:7945(para)
+#: C/gnome-commander.xml:7956(para)
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename templates"
 msgstr ""
 "Beseitigtes Problem mit der Zählerformatierung $c(16) im erweiterten "
 "Umbenennungswerkzeug"
 
-#: C/gnome-commander.xml:7952(para)
+#: C/gnome-commander.xml:7963(para)
 msgid "1.2.8"
 msgstr "1.2.8"
 
-#: C/gnome-commander.xml:7959(para)
+#: C/gnome-commander.xml:7970(para)
 msgid ""
 "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
 "Fehlerkorrektur #375357 (Absturz beim Abbruch der Ermittlung der "
 "Ordnereigenschaften)"
 
-#: C/gnome-commander.xml:7962(para)
+#: C/gnome-commander.xml:7973(para)
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr ""
 "Fehlerkorrektur #536446 (Dateiname wird beim direkten Umbenennen in der "
 "Dateiansicht nicht fokussiert)"
 
-#: C/gnome-commander.xml:7965(para)
+#: C/gnome-commander.xml:7976(para)
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgstr ""
 "Fehlerkorrektur #539812 (Absturz beim Löschen von Dateien: beschädigte it.po)"
 
-#: C/gnome-commander.xml:7968(para)
+#: C/gnome-commander.xml:7979(para)
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr "Fehlerkorrektur #548947 (Zeitproblem für Nicht-UTF8-Spracheinstellung)"
 
-#: C/gnome-commander.xml:7971(para)
+#: C/gnome-commander.xml:7982(para)
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 characters)"
 msgstr ""
 "Fehlerkorrektur #548948 (Absturz, wenn persönlicher Ordner Nicht-UTF8-Zeichen "
 "enthält)"
 
-#: C/gnome-commander.xml:7974(para)
+#: C/gnome-commander.xml:7985(para)
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
 "Fehlerkorrektur #548961 (Unterstützung für Eingabemethoden in Umbenennung "
 "oder Schnellsuche)"
 
-#: C/gnome-commander.xml:7977(para)
+#: C/gnome-commander.xml:7988(para)
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
 msgstr "Fehlerkorrektur #554586 (Problem mit dem Makro AC_PROG_CXX)"
 
-#: C/gnome-commander.xml:7980(para)
+#: C/gnome-commander.xml:7991(para)
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
 msgstr "Fehlerkorrektur #554598 (GNOME Goal: LINGUAS)"
 
-#: C/gnome-commander.xml:7983(para)
+#: C/gnome-commander.xml:7994(para)
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr ""
 "Fehlerkorrektur #556664 (Lesezeichen für eingehängte Geräte können nicht "
 "gespeichert werden)"
 
-#: C/gnome-commander.xml:7986(para)
+#: C/gnome-commander.xml:7997(para)
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
 msgstr "Fehlerkorrektur #567404 (Absturz bei INSERT über einem Unterordner)"
 
-#: C/gnome-commander.xml:7989(para)
+#: C/gnome-commander.xml:8000(para)
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr "Fehlerkorrektur #556836 (Rollen der Ansicht beim Ansichtswechsel)"
 
-#: C/gnome-commander.xml:7992(para)
+#: C/gnome-commander.xml:8003(para)
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr ""
 "Fehlerkorrektur #567506 (langsamer Start auf Systemen mit vielen Benutzern)"
 
-#: C/gnome-commander.xml:7995(para)
+#: C/gnome-commander.xml:8006(para)
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
 msgstr "Beseitigtes Problem #570727 (Verwendung des veralteten gnome_url_show)"
 
-#: C/gnome-commander.xml:7998(para)
+#: C/gnome-commander.xml:8009(para)
 msgid ""
 "Fixed problem #571239 (replacing obsoleted GnomeColorPicker with "
 "GtkColorButton)"
@@ -13784,12 +13796,12 @@ msgstr ""
 "Fehlerkorrektur #571239 (Ersetzen des veralteten GnomeColorPicker durch "
 "GtkColorButton)"
 
-#: C/gnome-commander.xml:8001(para)
+#: C/gnome-commander.xml:8012(para)
 msgid "Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)"
 msgstr ""
 "Fehlerkorrektur #571247 (Ersetzen des veralteten GnomePixmap durch GtkImage)"
 
-#: C/gnome-commander.xml:8004(para)
+#: C/gnome-commander.xml:8015(para)
 msgid ""
 "Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with "
 "GTK_STOCK_* counterparts)"
@@ -13797,7 +13809,7 @@ msgstr ""
 "Beseitigtes Problem #571558 (Ersetzen veralteter GNOME_STOCK_*-Knöpfe durch "
 "GTK_STOCK_*-Zähler)"
 
-#: C/gnome-commander.xml:8007(para)
+#: C/gnome-commander.xml:8018(para)
 msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
@@ -13805,45 +13817,45 @@ msgstr ""
 "Fehlerkorrektur #576174 (Berücksichtigung von Groß-/Kleinschreibung bei der "
 "Dateinamensortierung in Nicht-en_US.utf8-Spracheinstellung)"
 
-#: C/gnome-commander.xml:8010(para)
+#: C/gnome-commander.xml:8021(para)
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
 msgstr ""
 "Fehlerkorrektur #579633 (Zugriff mit Systemverwalterrechten mittels gksudo)"
 
-#: C/gnome-commander.xml:8013(para)
+#: C/gnome-commander.xml:8024(para)
 msgid "Fixed problem #583135 (disabled 'Go to' button in search dialog)"
 msgstr "Fehlerkorrektur #583135 (deaktivierter Knopf »Gehe zu« im Suchdialog)"
 
-#: C/gnome-commander.xml:8016(para)
+#: C/gnome-commander.xml:8027(para)
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr ""
 "Fehlerkorrektur #583711 (Absturz beim Drücken der Esc-Taste im "
 "Lesezeichendialog)"
 
-#: C/gnome-commander.xml:8019(para)
+#: C/gnome-commander.xml:8030(para)
 msgid "Fixed problem #584727 (wrong positioning of file popup menu)"
 msgstr ""
 "Fehlerkorrektur #584727 (falsche Positionierung des Kontextmenüs einer Datei)"
 
-#: C/gnome-commander.xml:8022(para)
+#: C/gnome-commander.xml:8033(para)
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
 "Beseitigtes Problem beim Angleichen der Ansichtsgrößen in horizontaler "
 "Anordnung"
 
-#: C/gnome-commander.xml:8025(para)
+#: C/gnome-commander.xml:8036(para)
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr ""
 "Beseitigtes Problem bei der Aktualisierung der MIME-Information nach dem "
 "Umbenennen von Dateien"
 
-#: C/gnome-commander.xml:8033(para)
+#: C/gnome-commander.xml:8044(para)
 msgid "Support for PDF metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für PDF-Metatags in den Vorlagen des erweiterten "
 "Dateiumbenennungswerkzeugs"
 
-#: C/gnome-commander.xml:8036(para)
+#: C/gnome-commander.xml:8047(para)
 msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
@@ -13852,34 +13864,34 @@ msgstr ""
 "Rückreferenzen ('\\number'), Profile, Umwandlung Groß-/Kleinschreibung, "
 "Entfernung von Leerzeichen und vieles mehr)"
 
-#: C/gnome-commander.xml:8040(para)
+#: C/gnome-commander.xml:8051(para)
 msgid "Support for metadata tags in internal viewer"
 msgstr "Unterstützung für Metadaten-Tags im internen Betrachter"
 
-#: C/gnome-commander.xml:8043(para)
+#: C/gnome-commander.xml:8054(para)
 msgid "Support for single-click open mode"
 msgstr "Unterstützung für Öffnen mit einfachem Klick"
 
-#: C/gnome-commander.xml:8046(para)
+#: C/gnome-commander.xml:8057(para)
 msgid "Support for row alternate background in colour themes"
 msgstr "Unterstützung für alternative Hintergründe in Themenfarben"
 
-#: C/gnome-commander.xml:8049(para)
+#: C/gnome-commander.xml:8060(para)
 msgid "New colour theme: cafezinho"
 msgstr "Neues Farbthema: Cafezinhoh"
 
-#: C/gnome-commander.xml:8052(para)
+#: C/gnome-commander.xml:8063(para)
 msgid "New or updated docs: de, en, es"
 msgstr "Neue oder aktualisierte Dokumentation: Deutsch, Englisch, Spanisch"
 
-#: C/gnome-commander.xml:8055(para)
+#: C/gnome-commander.xml:8066(para)
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, sv"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: ar, cs, de, es, eu, fr, it, ja, pl, "
 "pt_BR, sl, sv"
 
-#: C/gnome-commander.xml:8061(para)
+#: C/gnome-commander.xml:8072(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the history "
 "list for the command line"
@@ -13887,11 +13899,11 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>E</keycap></keycombo> Öffnet die "
 "Chronik der Befehlszeile"
 
-#: C/gnome-commander.xml:8066(para)
+#: C/gnome-commander.xml:8077(para)
 msgid "New internal viewer key bindings:"
 msgstr "Neue Tastenkürzel des internen Betrachters:"
 
-#: C/gnome-commander.xml:8069(para)
+#: C/gnome-commander.xml:8080(para)
 msgid ""
 "<keycombo><keycap>T</keycap></keycombo> Show metadata tags (replaces the old "
 "E)"
@@ -13899,7 +13911,7 @@ msgstr ""
 "<keycombo><keycap>T</keycap></keycombo> Metadaten-Tags anzeigen (ersetzt das "
 "ursprüngliche E)"
 
-#: C/gnome-commander.xml:8072(para)
+#: C/gnome-commander.xml:8083(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo> Show metadata "
 "tags"
@@ -13907,55 +13919,55 @@ msgstr ""
 "<keycombo><keycap>Alt</keycap><keycap>Eingabetaste</keycap></keycombo> Zeigt "
 "die Metadaten-Tags"
 
-#: C/gnome-commander.xml:8081(para)
+#: C/gnome-commander.xml:8092(para)
 msgid "1.2.7"
 msgstr "1.2.7"
 
-#: C/gnome-commander.xml:8088(para)
+#: C/gnome-commander.xml:8099(para)
 msgid "Fixed problem #522430 (quick search for files starting with uppercase)"
 msgstr ""
 "Fehlerkorrektur #522430 (Schnellsuche nach Dateinamen, die mit Großbuchstaben "
 "beginnen)"
 
-#: C/gnome-commander.xml:8091(para)
+#: C/gnome-commander.xml:8102(para)
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr "Fehlerkorrektur #532615 (Dateioperationen an der falschen Datei)"
 
-#: C/gnome-commander.xml:8094(para)
+#: C/gnome-commander.xml:8105(para)
 msgid "Fixed problem #538806 (quick search in root dir)"
 msgstr "Fehlerkorrektur #538806 (Schnellsuche im Basisordner)"
 
-#: C/gnome-commander.xml:8097(para)
+#: C/gnome-commander.xml:8108(para)
 msgid "Fixed problem #539753 (build error on Solaris)"
 msgstr "Fehlerkorrektur #539753 (Build-Fehler unter Solaris)"
 
-#: C/gnome-commander.xml:8100(para)
+#: C/gnome-commander.xml:8111(para)
 msgid "Fixed problem #541404 (update of host names)"
 msgstr "Fehlerkorrektur #541404 (Aktualisierung von Rechnernamen)"
 
-#: C/gnome-commander.xml:8103(para)
+#: C/gnome-commander.xml:8114(para)
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr ""
 "Beseitigtes Problem mit der Sortierung von Dateien im erweiterten "
 "Umbenennungswerkzeug"
 
-#: C/gnome-commander.xml:8106(para) C/gnome-commander.xml:8275(para)
-#: C/gnome-commander.xml:8359(para)
+#: C/gnome-commander.xml:8117(para) C/gnome-commander.xml:8286(para)
+#: C/gnome-commander.xml:8370(para)
 msgid "Build fixes"
 msgstr "Fehlerkorrekturen:"
 
-#: C/gnome-commander.xml:8114(para)
+#: C/gnome-commander.xml:8125(para)
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
 "Unterstützung für alle GnomeVFS-Netzwerkprotokolle (einschließlich SSH+FTP "
 "und WebDAV)"
 
-#: C/gnome-commander.xml:8117(para)
+#: C/gnome-commander.xml:8128(para)
 msgid "User defined shortcuts to arbitrary programs"
 msgstr "Benutzerdefinierte Tastenkürzel für beliebige Programme"
 
-#: C/gnome-commander.xml:8120(para)
+#: C/gnome-commander.xml:8131(para)
 msgid ""
 "Copying selected URIs to clipboard with <keycombo><keycap>ALT</"
 "keycap><keycap>click</keycap></keycombo> on toolbar button"
@@ -13963,62 +13975,62 @@ msgstr ""
 "Kopieren ausgewählter URIs in die Zwischenablage durch Anklicken des "
 "Werkzeugleisten-Knopfes bei gedrückter <keycap>Alt</keycap>-Taste"
 
-#: C/gnome-commander.xml:8123(para) C/gnome-commander.xml:8184(para)
+#: C/gnome-commander.xml:8134(para) C/gnome-commander.xml:8195(para)
 msgid "Revamped search dialog"
 msgstr "Überarbeiteter Suchdialog"
 
-#: C/gnome-commander.xml:8126(para)
+#: C/gnome-commander.xml:8137(para)
 msgid "Revamped transfer progress dialog"
 msgstr "Überarbeiteteter Fortschrittsanzeige-Dialog für Übertragungen"
 
-#: C/gnome-commander.xml:8129(para) C/gnome-commander.xml:8190(para)
-#: C/gnome-commander.xml:8310(para) C/gnome-commander.xml:8405(para)
-#: C/gnome-commander.xml:8479(para) C/gnome-commander.xml:8551(para)
+#: C/gnome-commander.xml:8140(para) C/gnome-commander.xml:8201(para)
+#: C/gnome-commander.xml:8321(para) C/gnome-commander.xml:8416(para)
+#: C/gnome-commander.xml:8490(para) C/gnome-commander.xml:8562(para)
 msgid "Updated help docs"
 msgstr "Aktualisierte Hilfedokumentation"
 
-#: C/gnome-commander.xml:8132(para)
+#: C/gnome-commander.xml:8143(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: Tschechisch, Deutsch, Spanisch, "
 "Französisch, Italienisch, Japanisch, Okzitanisch, Polnisch, Brasilianisches "
 "Portugiesisch"
 
-#: C/gnome-commander.xml:8139(para)
+#: C/gnome-commander.xml:8150(para)
 msgid "1.2.6"
 msgstr "1.2.6"
 
-#: C/gnome-commander.xml:8146(para)
+#: C/gnome-commander.xml:8157(para)
 msgid "Fixed problem #392959 (dynamically changing user to root)"
 msgstr ""
 "Fehlerkorrektur #392959 (dynamischer Wechsel von Benutzer- zu "
 "Administratorrechten)"
 
-#: C/gnome-commander.xml:8149(para)
+#: C/gnome-commander.xml:8160(para)
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
 msgstr "Fehlerkorrektur #496150 (Rollen mit dem Mausrad)"
 
-#: C/gnome-commander.xml:8152(para)
+#: C/gnome-commander.xml:8163(para)
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
 msgstr ""
 "Fehlerkorrektur #499761 (Suchfenster wird nach der Sortierung von Spalten "
 "gelöscht)"
 
-#: C/gnome-commander.xml:8155(para)
+#: C/gnome-commander.xml:8166(para)
 msgid "Fixed problem #499764 (multiple selection problem)"
 msgstr "Fehlerkorrektur #499764 (Problem bei Mehrfachauswahl)"
 
-#: C/gnome-commander.xml:8158(para)
+#: C/gnome-commander.xml:8169(para)
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgstr "Beseitigtes Problem beim Sortieren UTF-8-kodierter Dateinamen"
 
-#: C/gnome-commander.xml:8161(para)
+#: C/gnome-commander.xml:8172(para)
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr ""
 "Beseitigtes Problem beim Kopieren von Dateien symbolische Verknüpfungen zu "
 "Ordnern"
 
-#: C/gnome-commander.xml:8164(para)
+#: C/gnome-commander.xml:8175(para)
 msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
@@ -14026,23 +14038,23 @@ msgstr ""
 "Beseitigtes Problem beim Verarbeiten voller Dateipfade während des Kopierens/"
 "Verschiebens zu eingehängten Laufwerken"
 
-#: C/gnome-commander.xml:8172(para)
+#: C/gnome-commander.xml:8183(para)
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
 msgstr ""
 "Systemverwalter-Modus, um GNOME-Commander mit Administratorrechten zu starten."
 
-#: C/gnome-commander.xml:8175(para)
+#: C/gnome-commander.xml:8186(para)
 msgid "GUI for keyboard shortcuts management"
 msgstr "Benutzeroberfläche für die Verwaltung von Tastenkürzeln"
 
-#: C/gnome-commander.xml:8181(para)
+#: C/gnome-commander.xml:8192(para)
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
 "Mehrfachumbenennungswerkzeug - neue Platzhalter $x und $X für hexadezimale "
 "Zufallszahlen"
 
-#: C/gnome-commander.xml:8187(para)
+#: C/gnome-commander.xml:8198(para)
 msgid ""
 "Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since GTK"
 "+ 2.10)"
@@ -14050,7 +14062,7 @@ msgstr ""
 "Unterstützung für &lt;super&gt;, &lt;hyper&gt; und &lt;meta&gt;-"
 "Umschalttasten (seit GTK+ 2.10)"
 
-#: C/gnome-commander.xml:8193(para)
+#: C/gnome-commander.xml:8204(para)
 msgid ""
 "New or updated translations: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, pl, sl"
 msgstr ""
@@ -14058,28 +14070,28 @@ msgstr ""
 "Englisch, Spanisch, Baskisch, Finnisch, Französisch, Ungarisch, Italienisch, "
 "Okzitanisch, Polnisch, Slowenisch"
 
-#: C/gnome-commander.xml:8199(para)
+#: C/gnome-commander.xml:8210(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgstr ""
 "<keycombo><keycap>Super</keycap><keycap>F</keycap></keycombo> Dateisuche"
 
-#: C/gnome-commander.xml:8208(para)
+#: C/gnome-commander.xml:8219(para)
 msgid "1.2.5"
 msgstr "1.2.5"
 
-#: C/gnome-commander.xml:8215(para)
+#: C/gnome-commander.xml:8226(para)
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr ""
 "Fehlerkorrektur #345314 (Cursor bleibt beim Umbenennen nicht im Dateinamen)"
 
-#: C/gnome-commander.xml:8218(para)
+#: C/gnome-commander.xml:8229(para)
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr ""
 "Fehlerkorrektur #353889 (verschwindende Dateien nach gescheitertem "
 "Verschieben (F6))"
 
-#: C/gnome-commander.xml:8221(para)
+#: C/gnome-commander.xml:8232(para)
 msgid ""
 "Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in "
 "renaming tool)"
@@ -14087,133 +14099,133 @@ msgstr ""
 "Fehlerkorrekturen #346286, #424447, #447882, #467058 (Absturz bei Verwendung "
 "regulärer Ausdrücke im Umbenennungswerkzeug)"
 
-#: C/gnome-commander.xml:8224(para)
+#: C/gnome-commander.xml:8235(para)
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr "Fehlerkorrekturen #365227 und #446361 (Build-Ausgaben auf Solaris)"
 
-#: C/gnome-commander.xml:8227(para)
+#: C/gnome-commander.xml:8238(para)
 msgid "Fixed problem #424159 (column sort problem)"
 msgstr "Fehlerkorrektur #424159 (Problem beim Sortieren der Spalten)"
 
-#: C/gnome-commander.xml:8230(para)
+#: C/gnome-commander.xml:8241(para)
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr "Fehlerkorrektur #434545 (Debian-Fehler #421480: RIESIGE Gerätesymbole)"
 
-#: C/gnome-commander.xml:8233(para)
+#: C/gnome-commander.xml:8244(para)
 msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr ""
 "Fehlerkorrektur #447415 (ausführbare Dateien können nicht ausgeführt werden)"
 
-#: C/gnome-commander.xml:8236(para)
+#: C/gnome-commander.xml:8247(para)
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
 "Fehlerkorrektur #448942 (Umschalt+Eingabetaste: Ausführen eines Befehls in "
 "einem separaten Terminal)"
 
-#: C/gnome-commander.xml:8239(para)
+#: C/gnome-commander.xml:8250(para)
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
 "Fehlerkorrektur #449137 (umbenannte Ordner sind nicht über deren Namen "
 "erreichbar)"
 
-#: C/gnome-commander.xml:8242(para)
+#: C/gnome-commander.xml:8253(para)
 msgid "Fixed problem #468685 (crash in python module)"
 msgstr "Fehlerkorrektur #468685 (Absturz im Python-Modul)"
 
-#: C/gnome-commander.xml:8245(para)
+#: C/gnome-commander.xml:8256(para)
 msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr ""
 "Fehlerkorrektur #490431 (Betrachten von Dateien, die im Namen ein '%' "
 "enthalten)"
 
-#: C/gnome-commander.xml:8248(para)
+#: C/gnome-commander.xml:8259(para)
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
 "Fehlerkorrektur #508565 (unsauberer Umgang mit UTF-8-Namen im erweiterten "
 "Umbenennungswerkzeug)"
 
-#: C/gnome-commander.xml:8251(para)
+#: C/gnome-commander.xml:8262(para)
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
 msgstr "Beseitigtes Problem #510567 (Löschen von Ordnern)"
 
-#: C/gnome-commander.xml:8254(para)
+#: C/gnome-commander.xml:8265(para)
 msgid "Fixed problem when creating ~/dir"
 msgstr "Beseitigtes Problem bei der Erzeugung von ~/dir"
 
-#: C/gnome-commander.xml:8257(para)
+#: C/gnome-commander.xml:8268(para)
 msgid "Fixed problem with updating of internal viewer status bar"
 msgstr ""
 "Beseitigtes Problem der Aktualisierung der Statuszeile des internen "
 "Betrachters"
 
-#: C/gnome-commander.xml:8260(para)
+#: C/gnome-commander.xml:8271(para)
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
 "Beseitigtes Problem bei der Erstellung von Ordnern mit vollem Dateipfad auf "
 "SMB-Freigaben"
 
-#: C/gnome-commander.xml:8263(para)
+#: C/gnome-commander.xml:8274(para)
 msgid "Fixed crash when moving file with % in the name"
 msgstr "Beseitigtes Problem beim Absturz durch eine Datei mit % im Namen"
 
-#: C/gnome-commander.xml:8266(para)
+#: C/gnome-commander.xml:8277(para)
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr ""
 "Beseitigtes Problem mit gelegentlich verschwundenem Cursor in der Dateiansicht"
 
-#: C/gnome-commander.xml:8269(para)
+#: C/gnome-commander.xml:8280(para)
 msgid "Fixed problem with mounting of devices with spaces in the name"
 msgstr ""
 "Beseitigtes Problem beim Einbinden von Geräten, deren Namen Leerzeichen "
 "enthalten"
 
-#: C/gnome-commander.xml:8272(para)
+#: C/gnome-commander.xml:8283(para)
 msgid "Fixed problem with history of advrename templates"
 msgstr ""
 "Fehlerkorrektur in der Chronik der Vorlagen der erweiterten Dateiumbenennung"
 
-#: C/gnome-commander.xml:8283(para)
+#: C/gnome-commander.xml:8294(para)
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für APE-, FLAC- und Vorbis-Metatags in den Vorlagen der "
 "erweiterten Dateiumbenennung"
 
-#: C/gnome-commander.xml:8286(para)
+#: C/gnome-commander.xml:8297(para)
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für Exif-Makernotes-Tags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
-#: C/gnome-commander.xml:8289(para)
+#: C/gnome-commander.xml:8300(para)
 msgid "Support for file metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung von Metadaten-Tags in den Vorlagen des "
 "Mehrfachumbenennungswerkzeugs"
 
-#: C/gnome-commander.xml:8292(para)
+#: C/gnome-commander.xml:8303(para)
 msgid "Use the GNOME authentication manager for user's security credentials"
 msgstr ""
 "GNOME-Legitimierungsverwaltung wird für Angelegenheiten der "
 "Benutzersicherheit verwendet"
 
-#: C/gnome-commander.xml:8295(para)
+#: C/gnome-commander.xml:8306(para)
 msgid "Metadata tags in file properties dialog"
 msgstr "Metadaten-Tags im Datei-Eigenschaftsdialog"
 
-#: C/gnome-commander.xml:8301(para)
+#: C/gnome-commander.xml:8312(para)
 msgid "Default GNOME theme icons for home, SMB and FTP locations"
 msgstr ""
 "Standardsymbole des GNOME-Themas für den persönlichen Ordner sowie FTP-Server "
 "und Orte im SMB-Netzwerk."
 
-#: C/gnome-commander.xml:8304(para)
+#: C/gnome-commander.xml:8315(para)
 msgid "User defined shortcuts to bookmarks"
 msgstr "Benutzerdefinierte Tastenkürzel für Lesezeichen"
 
-#: C/gnome-commander.xml:8313(para)
+#: C/gnome-commander.xml:8324(para)
 msgid ""
 "New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
@@ -14222,7 +14234,7 @@ msgstr ""
 "Deutsch, Dzongkha, Esperanto, Spanisch, Baskisch, Französisch, Okzitanisch, "
 "Polnisch, Brasilianisches Portugiesisch, Rumänisch, Slowenisch, Schwedisch"
 
-#: C/gnome-commander.xml:8319(para)
+#: C/gnome-commander.xml:8330(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>LEFT/RIGHT</keycap></keycombo> Copying "
 "the current working directory from the active file list to the inactive one"
@@ -14231,7 +14243,7 @@ msgstr ""
 "Kopiert den aktuellen Arbeitsordner aus der aktiven Dateiliste in die "
 "inaktive Dateiliste"
 
-#: C/gnome-commander.xml:8322(para)
+#: C/gnome-commander.xml:8333(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> Open new "
 "connection to remote server (replaces the old <keycombo><keycap>CTRL</"
@@ -14241,91 +14253,91 @@ msgstr ""
 "Verbindung zu einem entfernten Server (ersetzt die alte Kombination "
 "<keycombo><keycap>Strg</keycap><keycap>G</keycap></keycombo>)"
 
-#: C/gnome-commander.xml:8331(para)
+#: C/gnome-commander.xml:8342(para)
 msgid "1.2.4"
 msgstr "1.2.4"
 
-#: C/gnome-commander.xml:8338(para)
+#: C/gnome-commander.xml:8349(para)
 msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Fehlerkorrektur beim Öffnen von Ordnern im internen Betrachter"
 
-#: C/gnome-commander.xml:8341(para)
+#: C/gnome-commander.xml:8352(para)
 msgid "Fixed problem with editing dirs by GNOME Commander"
 msgstr ""
 "Fehlerkorrektur beim Bearbeiten von Ordnern durch <application>GNOME "
 "Commander</application>"
 
-#: C/gnome-commander.xml:8344(para)
+#: C/gnome-commander.xml:8355(para)
 msgid "Fixed problem #351952 (crash while doing a content search)"
 msgstr "Fehlerkorrektur #351952 (Absturz während der Suche in Dateiinhalten)"
 
-#: C/gnome-commander.xml:8347(para)
+#: C/gnome-commander.xml:8358(para)
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr "Fehlerkorrektur #352253 (Bildlaufverhalten des Betrachters)"
 
-#: C/gnome-commander.xml:8350(para)
+#: C/gnome-commander.xml:8361(para)
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
 msgstr "Fehlerkorrektur #360175 (Absturz beim Öffnen eines Ordners mit %)"
 
-#: C/gnome-commander.xml:8353(para)
+#: C/gnome-commander.xml:8364(para)
 msgid "Fixed problem #371948 and #388970 (file path not escaped)"
 msgstr "Fehlerkorrekturen #371948 und #388970 (Dateipfad nicht maskiert)"
 
-#: C/gnome-commander.xml:8356(para)
+#: C/gnome-commander.xml:8367(para)
 msgid "Fixed problem #412162 (build with --enable-python=no)"
 msgstr "Fehlerkorrektur #412162 (Erstellung mit --enable-python=no)"
 
-#: C/gnome-commander.xml:8367(para)
+#: C/gnome-commander.xml:8378(para)
 msgid "Support for python plugins"
 msgstr "Unterstützung für Python-Plugins"
 
-#: C/gnome-commander.xml:8370(para)
+#: C/gnome-commander.xml:8381(para)
 msgid "New python plugins:"
 msgstr "Neue Python-Plugins:"
 
-#: C/gnome-commander.xml:8373(para)
+#: C/gnome-commander.xml:8384(para)
 msgid "<command>md5sum</command> Create MD5 (128-bit) checksum"
 msgstr "<command>md5sum</command> Erzeugen der MD5(128-bit)-Checksumme"
 
-#: C/gnome-commander.xml:8376(para)
+#: C/gnome-commander.xml:8387(para)
 msgid "<command>sha1sum</command> Create SHA-1 (160-bit) checksum"
 msgstr "<command>sha1sum</command> Erzeugen der SHA-1(160-bit)-Checksumme"
 
-#: C/gnome-commander.xml:8381(para)
+#: C/gnome-commander.xml:8392(para)
 msgid "Support for OLE and ODF metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für OLE- und ODF-Metatags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
-#: C/gnome-commander.xml:8384(para)
+#: C/gnome-commander.xml:8395(para)
 msgid "User defined shortcuts"
 msgstr "Benutzerdefinierte Tastenkürzel"
 
-#: C/gnome-commander.xml:8387(para)
+#: C/gnome-commander.xml:8398(para)
 msgid "SMB authentication"
 msgstr "SMB-Authentifizierung"
 
-#: C/gnome-commander.xml:8390(para)
+#: C/gnome-commander.xml:8401(para)
 msgid "Displaying total size of files in selected subirs"
 msgstr "Anzeige der Gesamtgröße der Dateien in ausgewählten Unterordnern"
 
-#: C/gnome-commander.xml:8393(para)
+#: C/gnome-commander.xml:8404(para)
 msgid "'cd -' for changing to the previous working directory"
 msgstr "'cd -' zum Wechseln in den vorherigen Arbeitsordner"
 
-#: C/gnome-commander.xml:8396(para)
+#: C/gnome-commander.xml:8407(para)
 msgid "More intuitive usage of diff tool"
 msgstr "Intuitivere Benutzung des Diff-Werkzeugs"
 
-#: C/gnome-commander.xml:8399(para)
+#: C/gnome-commander.xml:8410(para)
 msgid "Directory synchronizing"
 msgstr "Abgleichen von Ordnern"
 
-#: C/gnome-commander.xml:8402(para)
+#: C/gnome-commander.xml:8413(para)
 msgid "Creating directories 'mkdir -p' like"
 msgstr "Erzeugen von Verzeichnissen mittels 'mkdir -p'"
 
-#: C/gnome-commander.xml:8408(para)
+#: C/gnome-commander.xml:8419(para)
 msgid ""
 "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
@@ -14333,7 +14345,7 @@ msgstr ""
 "Dzongkha, Britisches Englisch, Französisch., Italienisch, Okzitanisch, "
 "Polnisch, Slowenisch, Schwedisch"
 
-#: C/gnome-commander.xml:8414(para)
+#: C/gnome-commander.xml:8425(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Go to the root "
 "directory"
@@ -14341,7 +14353,7 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>\\</keycap></keycombo> Gehe zur "
 "Verzeichnisbaumwurzel"
 
-#: C/gnome-commander.xml:8417(para)
+#: C/gnome-commander.xml:8428(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Go to the home "
 "directory"
@@ -14349,7 +14361,7 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>`</keycap></keycombo> Gehe zum "
 "persönlichen Ordner"
 
-#: C/gnome-commander.xml:8420(para)
+#: C/gnome-commander.xml:8431(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Create MD5 (128-"
 "bit) checksum"
@@ -14357,7 +14369,7 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>5</keycap></keycombo> Erzeuge MD5(128-"
 "bit)-Checksumme"
 
-#: C/gnome-commander.xml:8423(para)
+#: C/gnome-commander.xml:8434(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo> Copy selected file names to clipboard"
@@ -14365,58 +14377,58 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>Umschalt</keycap><keycap>C</keycap></"
 "keycombo> Kopieren ausgewählter Dateinamen in die Zwischenablage"
 
-#: C/gnome-commander.xml:8432(para)
+#: C/gnome-commander.xml:8443(para)
 msgid "1.2.3"
 msgstr "1.2.3"
 
-#: C/gnome-commander.xml:8439(para)
+#: C/gnome-commander.xml:8450(para)
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr "Fehlerkorrektur #384752 (falsche Zugriffsrechte für neue Ordner)"
 
-#: C/gnome-commander.xml:8446(para)
+#: C/gnome-commander.xml:8457(para)
 msgid "1.2.2"
 msgstr "1.2.2"
 
-#: C/gnome-commander.xml:8453(para)
+#: C/gnome-commander.xml:8464(para)
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr ""
 "Fehlerkorrektur für Erzeugung symbolischer Verknüpfungen bei Datei-"
 "Mehrfachauswahl"
 
-#: C/gnome-commander.xml:8456(para)
+#: C/gnome-commander.xml:8467(para)
 msgid "Fixed problem with grouping of file size digits"
 msgstr "Beseitigtes Problem bei der Gruppierung der Ziffern für die Dateigröße"
 
-#: C/gnome-commander.xml:8459(para)
+#: C/gnome-commander.xml:8470(para)
 msgid "Fixed problem with SMB UNC handling"
 msgstr "Beseitigtes Problem mit der Verarbeitung von SMB-UNC"
 
-#: C/gnome-commander.xml:8462(para)
+#: C/gnome-commander.xml:8473(para)
 msgid "Fixed problem #367744 (filename not correctly displayed)"
 msgstr "Fehlerkorrektur #367744 (Unkorrekte Anzeige des Dateinamens) "
 
-#: C/gnome-commander.xml:8465(para)
+#: C/gnome-commander.xml:8476(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr ""
 "fehlerkorrektur #374282 (Suche mit rekursiven symbolischen Verknüpfungen)"
 
-#: C/gnome-commander.xml:8468(para)
+#: C/gnome-commander.xml:8479(para)
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
 msgstr "Fehlerkorrektur #377706 (Dateiauswahl mit Umschalt+Bild ab)"
 
-#: C/gnome-commander.xml:8476(para)
+#: C/gnome-commander.xml:8487(para)
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für ID3-Metatags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
-#: C/gnome-commander.xml:8482(para)
+#: C/gnome-commander.xml:8493(para)
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: Arabisch, Britisches Englisch, "
 "Spanisch, Finnisch, Italienisch, Polnisch, Schwedisch"
 
-#: C/gnome-commander.xml:8488(para)
+#: C/gnome-commander.xml:8499(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo> Set both panels equal"
@@ -14424,45 +14436,45 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>Umschalttaste</keycap><keycap>=</"
 "keycap></keycombo> Gleicht die Größe beider Ansichten einander an"
 
-#: C/gnome-commander.xml:8497(para)
+#: C/gnome-commander.xml:8508(para)
 msgid "1.2.1"
 msgstr "1.2.1"
 
-#: C/gnome-commander.xml:8498(para)
+#: C/gnome-commander.xml:8509(para)
 msgid "2006-10-16"
 msgstr "16. Oktober 2006"
 
-#: C/gnome-commander.xml:8504(para)
+#: C/gnome-commander.xml:8515(para)
 msgid "Fixed problem with scrollkeeper database update"
 msgstr "Beseitigtes Problem bei der Aktualisierung der Scrollkeeper-Datenbank"
 
-#: C/gnome-commander.xml:8507(para)
+#: C/gnome-commander.xml:8518(para)
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr ""
 "Beseitigtes Absturzproblem, wenn der Ordnerindikator der Befehlszeile leer "
 "ist."
 
-#: C/gnome-commander.xml:8510(para)
+#: C/gnome-commander.xml:8521(para)
 msgid "Fixed problem with refreshing after chown or chmod"
 msgstr ""
 "Beseitigtes Problem bei der Aktualisierung nach dem Ausführen von chown oder "
 "chmod"
 
-#: C/gnome-commander.xml:8513(para)
+#: C/gnome-commander.xml:8524(para)
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
 "Fehlerkorrektur #333898 (abgelehntes Symbol-Suffix in der Desktop-Datei)"
 
-#: C/gnome-commander.xml:8516(para)
+#: C/gnome-commander.xml:8527(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr "Fehlerkorrektur #347561 (Plugin-Ordner wird unkorrekt gesetzt))"
 
-#: C/gnome-commander.xml:8519(para)
+#: C/gnome-commander.xml:8530(para)
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr ""
 "Fehlerkorrektur #347817 (unkorrekte Verwendung der Linker-Flags im Makefile)"
 
-#: C/gnome-commander.xml:8527(para)
+#: C/gnome-commander.xml:8538(para)
 msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
@@ -14470,40 +14482,40 @@ msgstr ""
 "Unterstützung für Archive (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) "
 "über das Archivmanager-Plugin"
 
-#: C/gnome-commander.xml:8530(para)
+#: C/gnome-commander.xml:8541(para)
 msgid "New python-like indices for advanced file rename templates"
 msgstr ""
 "Neue Python-ähnliche Indizes für die Vorlagen der erweiterten Dateiumbenennung"
 
-#: C/gnome-commander.xml:8533(para)
+#: C/gnome-commander.xml:8544(para)
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für EXIF- und ITPC-Metatags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
-#: C/gnome-commander.xml:8536(para)
+#: C/gnome-commander.xml:8547(para)
 msgid "Fast access to advrename template placeholders"
 msgstr ""
 "Schneller Zugriff auf Platzhalter in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
-#: C/gnome-commander.xml:8539(para)
+#: C/gnome-commander.xml:8550(para)
 msgid "In-place rename (SHIFT+F6)"
 msgstr "Direktumbenennung in der Dateiansicht (Umschalttaste+F6)"
 
-#: C/gnome-commander.xml:8542(para)
+#: C/gnome-commander.xml:8553(para)
 msgid "Revamped application menus"
 msgstr "Überarbeitete Anwendungs-Menüs"
 
-#: C/gnome-commander.xml:8545(para)
+#: C/gnome-commander.xml:8556(para)
 msgid "\"Find\" feature for internal viewer"
 msgstr "Suchfunktion für den internen Betrachter"
 
-#: C/gnome-commander.xml:8548(para)
+#: C/gnome-commander.xml:8559(para)
 msgid "New icon for internal viewer"
 msgstr "Neues Symbol für den internen Betrachter"
 
-#: C/gnome-commander.xml:8554(para)
+#: C/gnome-commander.xml:8565(para)
 msgid ""
 "New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, "
 "pl, ru, sv, vi"
@@ -14512,7 +14524,7 @@ msgstr ""
 "Griechisch, Britisches Englisch, Spanisch, Baskisch, Finnisch, Ungarisch, "
 "Italienisch, Nepalesisch, Polnisch, Russisch, Schwedisch, Vietnamesisch"
 
-#: C/gnome-commander.xml:8560(para)
+#: C/gnome-commander.xml:8571(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo> Toggle hidden files on/off"
@@ -14520,35 +14532,35 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>Umschalt</keycap><keycap>H</keycap></"
 "keycombo> Verborgene Dateien anzeigen/verbergen"
 
-#: C/gnome-commander.xml:8569(para)
+#: C/gnome-commander.xml:8580(para)
 msgid "1.2.0"
 msgstr "1.2.0"
 
-#: C/gnome-commander.xml:8570(para)
+#: C/gnome-commander.xml:8581(para)
 msgid "2006-05-12"
 msgstr "12. Mai 2006"
 
-#: C/gnome-commander.xml:8576(para)
+#: C/gnome-commander.xml:8587(para)
 msgid "Fixed problem #171051 (crashes on search with non-existent path)"
 msgstr "Fehlerkorrektur #171051 (Absturz bei nicht existierendem Suchpfad)"
 
-#: C/gnome-commander.xml:8579(para)
+#: C/gnome-commander.xml:8590(para)
 msgid "Fixed problem with the lack of gnome menu entry"
 msgstr "Beseitigtes Problem mit dem mangelhaften Eintrag im GNOME-Menü"
 
-#: C/gnome-commander.xml:8582(para)
+#: C/gnome-commander.xml:8593(para)
 msgid "Fixed a crash when viewing SMB connections"
 msgstr "Beseitigung eines Absturzfehlers beim Betrachten von SMB-Verbindungen"
 
-#: C/gnome-commander.xml:8585(para)
+#: C/gnome-commander.xml:8596(para)
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr "Fehlerkorrektur #309877 (Starke Artefakte beim horizontalen Rollen)  "
 
-#: C/gnome-commander.xml:8588(para)
+#: C/gnome-commander.xml:8599(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr "Fehlerkorrektur #332258 (Parameter für rechten/linken Startordner)"
 
-#: C/gnome-commander.xml:8591(para)
+#: C/gnome-commander.xml:8602(para)
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
@@ -14556,12 +14568,12 @@ msgstr ""
 "Fehlerkorrektur #332261 (exec_prefix wird während configure/make nicht sauber "
 "geparst)"
 
-#: C/gnome-commander.xml:8594(para)
+#: C/gnome-commander.xml:8605(para)
 msgid "Fixed problem #336649 (permission numbers presentation)"
 msgstr ""
 "Fehlerkorrektur #336649 (Anzeige der Zugriffsrechte in der Zahlenansicht)"
 
-#: C/gnome-commander.xml:8597(para)
+#: C/gnome-commander.xml:8608(para)
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern in "
 "advrename"
@@ -14570,74 +14582,74 @@ msgstr ""
 "zutreffender Muster für reguläre Ausdrücke im erweiterten "
 "Dateiumbenennungswerkzeug"
 
-#: C/gnome-commander.xml:8605(para)
+#: C/gnome-commander.xml:8616(para)
 msgid "Monitoring of mounted volumes"
 msgstr "Überwachung eingebundener Datenträger"
 
-#: C/gnome-commander.xml:8608(para)
+#: C/gnome-commander.xml:8619(para)
 msgid "Rewritten internal viewer"
 msgstr "Neu geschriebener interner Betrachter"
 
-#: C/gnome-commander.xml:8611(para)
+#: C/gnome-commander.xml:8622(para)
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
 msgstr ""
 "Externe Werkzeuge und Exif/IPTC-Tags-Funktion für den internen Betrachter"
 
-#: C/gnome-commander.xml:8614(para)
+#: C/gnome-commander.xml:8625(para)
 msgid "Zooming for internal viewer"
 msgstr "Zoomfunktion für den internen Betrachter"
 
-#: C/gnome-commander.xml:8617(para)
+#: C/gnome-commander.xml:8628(para)
 msgid "Text selection for internal viewer"
 msgstr "Textauswahl für den internen Betrachter"
 
-#: C/gnome-commander.xml:8620(para)
+#: C/gnome-commander.xml:8631(para)
 msgid "Revamped toolbar layout"
 msgstr "Überarbeitung des Erscheinungsbildes der Werkzeugleiste"
 
-#: C/gnome-commander.xml:8623(para)
+#: C/gnome-commander.xml:8634(para)
 msgid "Options for controlling copy and move overwriting"
 msgstr "optionen für das Überschreiben beim Kopieren und Verschieben"
 
-#: C/gnome-commander.xml:8626(para)
+#: C/gnome-commander.xml:8637(para)
 msgid "Copying selected full file paths with SHIFT+click on toolbar button"
 msgstr ""
 "Kopieren ausgewählter kompletter Dateipfade durch Klicken auf den "
 "Werkzeugleisten-Knopf bei gedrückter Umschalttaste"
 
-#: C/gnome-commander.xml:8629(para)
+#: C/gnome-commander.xml:8640(para)
 msgid "Better handling the change of the column sorting key"
 msgstr "Besserer Umgang mit der Taste für die Sortierung der Spalten"
 
-#: C/gnome-commander.xml:8632(para)
+#: C/gnome-commander.xml:8643(para)
 msgid "Initial doc framework"
 msgstr "Erste Dokumentationsumgebung"
 
-#: C/gnome-commander.xml:8635(para)
+#: C/gnome-commander.xml:8646(para)
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: Deutsch, Spanisch, Baskisch, "
 "Ungarisch, Polnisch, Rumänisch, Slowenisch, Schwedisch, Vietnamesisch"
 
-#: C/gnome-commander.xml:8641(para)
+#: C/gnome-commander.xml:8652(para)
 msgid ""
 "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal viewer"
 msgstr ""
 "<keycombo><keycap>Umschalt</keycap><keycap>F3</keycap></keycombo> Interner "
 "Betrachter"
 
-#: C/gnome-commander.xml:8644(para)
+#: C/gnome-commander.xml:8655(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External viewer"
 msgstr ""
 "<keycombo><keycap>Alt</keycap><keycap>F3</keycap></keycombo> Externer "
 "Betrachter"
 
-#: C/gnome-commander.xml:8647(para)
+#: C/gnome-commander.xml:8658(para)
 msgid "<keycap>ALT+letters</keycap> Quick search"
 msgstr "<keycap>Alt+Buchstaben</keycap> Schnellsuche"
 
-#: C/gnome-commander.xml:8650(para)
+#: C/gnome-commander.xml:8661(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo> Deselecting all files"
@@ -14645,35 +14657,35 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>Umschalt</keycap><keycap>A</keycap></"
 "keycombo> Alle Dateien abwählen"
 
-#: C/gnome-commander.xml:8659(para)
+#: C/gnome-commander.xml:8670(para)
 msgid "1.1.7"
 msgstr "1.1.7"
 
-#: C/gnome-commander.xml:8660(para)
+#: C/gnome-commander.xml:8671(para)
 msgid "2006-02-12"
 msgstr "12. Februar 2006"
 
-#: C/gnome-commander.xml:8666(para)
+#: C/gnome-commander.xml:8677(para)
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr ""
 "Beseitigtes Problem beim Versuch, die gegenwärtig ausgewählten Dateien zu "
 "kopieren"
 
-#: C/gnome-commander.xml:8669(para)
+#: C/gnome-commander.xml:8680(para)
 msgid "Fixed filename escaping"
 msgstr "Korrektur der Maskierung von Dateinamen"
 
-#: C/gnome-commander.xml:8672(para)
+#: C/gnome-commander.xml:8683(para)
 msgid "Fixed CTRL+ALT+letter bad responsiveness when typing too fast"
 msgstr ""
 "Verbesserung der Reaktionsgeschwindigkeit von Strg+Alt+Buchstabe bei zu "
 "schnellem Schreiben"
 
-#: C/gnome-commander.xml:8675(para)
+#: C/gnome-commander.xml:8686(para)
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
 msgstr "Debian-Fehlerkorrektur #288933 (Kompilierungsfehler bei amd64/gcc-4.0)"
 
-#: C/gnome-commander.xml:8678(para)
+#: C/gnome-commander.xml:8689(para)
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to "
 "itself)"
@@ -14681,7 +14693,7 @@ msgstr ""
 "Fehlerkorrektur #138933 (anfängliche Rekursion beim Ziehen-und-Ablegen eines "
 "Ordners in sich selbst)"
 
-#: C/gnome-commander.xml:8681(para)
+#: C/gnome-commander.xml:8692(para)
 msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
@@ -14689,23 +14701,23 @@ msgstr ""
 "Beseitigtes Problem mit dem Trennen-Knopf bei Verbindungen zu FTP-Servern im "
 "Supermount-Modus."
 
-#: C/gnome-commander.xml:8686(para)
+#: C/gnome-commander.xml:8697(para)
 msgid "Fixed update after renaming without FAM"
 msgstr "Beseitigtes Problem nach dem Umbenennen ohne FAM"
 
-#: C/gnome-commander.xml:8694(para)
+#: C/gnome-commander.xml:8705(para)
 msgid "New GNOME Commander logo"
 msgstr "Neues Logo für GNOME-Commander"
 
-#: C/gnome-commander.xml:8697(para)
+#: C/gnome-commander.xml:8708(para)
 msgid "Added internal F3 viewer"
 msgstr "Interner Betrachter, erreichbar über F3"
 
-#: C/gnome-commander.xml:8700(para)
+#: C/gnome-commander.xml:8711(para)
 msgid "Copying selected filename(s) to clipboard"
 msgstr "Kopieren ausgewählter Dateinamen in die Zwischenablage"
 
-#: C/gnome-commander.xml:8703(para)
+#: C/gnome-commander.xml:8714(para)
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <keycap>CTRL"
 "+SHIFT+ENTER</keycap>"
@@ -14713,26 +14725,26 @@ msgstr ""
 "Einfügen des kompletten ausgewählten Dateipfades in die Befehlszeile beim "
 "Drücken von <keycap>Strg+Umschalttaste+Eingabetaste</keycap>"
 
-#: C/gnome-commander.xml:8706(para)
+#: C/gnome-commander.xml:8717(para)
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 "Mehrfachumbenennungswerkzeug - neuer Platzhalter $g für Großeltern-Ordner"
 
-#: C/gnome-commander.xml:8709(para)
+#: C/gnome-commander.xml:8720(para)
 msgid ""
 "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
 "Werkzeugleisten-Knöpfe (Ausschneiden, Kopieren, Einfügen) beziehen sich auf "
 "den aktuellen Status"
 
-#: C/gnome-commander.xml:8712(para)
+#: C/gnome-commander.xml:8723(para)
 msgid ""
 "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
 "Der Dialog zur Bearbeitung der Lesezeichen ist nun auch über das Lesezeichen-"
 "Tastenkürzel erreichbar"
 
-#: C/gnome-commander.xml:8715(para)
+#: C/gnome-commander.xml:8726(para)
 msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
@@ -14742,14 +14754,14 @@ msgstr ""
 "Nepalesisch, Norwegisch (Nynorsk), Punjabi, Brasilianisches Portugiesisch, "
 "Kinyarwanda, Ukrainisch, Chinesisch (Taiwan)"
 
-#: C/gnome-commander.xml:8721(para)
+#: C/gnome-commander.xml:8732(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Multi-Rename-Tool"
 msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>M</keycap></keycombo> "
 "Mehrfachumbenennungs-Werkzeug"
 
-#: C/gnome-commander.xml:8724(para)
+#: C/gnome-commander.xml:8735(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></"
 "keycombo> Copying the current working directory from the active file list to "
@@ -14759,14 +14771,14 @@ msgstr ""
 "keycap></keycombo> Kopiert den aktuellen Ordner aus der aktiven Dateiansicht "
 "in die inaktive Ansicht."
 
-#: C/gnome-commander.xml:8727(para)
+#: C/gnome-commander.xml:8738(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all files"
 msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>=</keycap></keycombo> Alle Dateien "
 "auswählen"
 
-#: C/gnome-commander.xml:8730(para)
+#: C/gnome-commander.xml:8741(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Unselect all "
 "files"
@@ -14774,37 +14786,37 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>-</keycap></keycombo> Alle Dateien "
 "abwählen"
 
-#: C/gnome-commander.xml:8733(para)
+#: C/gnome-commander.xml:8744(para)
 msgid "<keycap>=</keycap> Select files using a pattern"
 msgstr "<keycap>=</keycap> Dateien anhand eines Musters auswählen"
 
-#: C/gnome-commander.xml:8742(para)
+#: C/gnome-commander.xml:8753(para)
 msgid "1.1.6"
 msgstr "1.1.6"
 
-#: C/gnome-commander.xml:8743(para)
+#: C/gnome-commander.xml:8754(para)
 msgid "2004-01-20"
 msgstr "20. Januar 2004"
 
-#: C/gnome-commander.xml:8749(para)
+#: C/gnome-commander.xml:8760(para)
 msgid ""
 "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
 "Beseitigtes Problem beim Zurückspringen in der Chronik und nachfolgendem "
 "Öffnen eines anderen Ordners"
 
-#: C/gnome-commander.xml:8752(para)
+#: C/gnome-commander.xml:8763(para)
 msgid "Fixed ftp-quick-connect problems"
 msgstr "Beseitigter Fehler beim schnellen Verbinden mit FTP-Servern"
 
-#: C/gnome-commander.xml:8755(para)
+#: C/gnome-commander.xml:8766(para)
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr ""
 "Die Schnellsuche kann nun auch durch Eingabe von Großbuchstaben gestartet "
 "werden"
 
-#: C/gnome-commander.xml:8758(para)
+#: C/gnome-commander.xml:8769(para)
 msgid ""
 "<keycap>CTRL+ALT</keycap> no longer needs to be used to activate quick-search "
 "when the cmdline is hidden"
@@ -14812,11 +14824,11 @@ msgstr ""
 "<keycap>Strg+Alt</keycap> ist für die Aktivierung der Schnellsuche bei "
 "verborgener Befehlszeile nicht mehr erforderlich"
 
-#: C/gnome-commander.xml:8766(para)
+#: C/gnome-commander.xml:8777(para)
 msgid "Updated the cvs-plugin so that it can be used to diff and log files"
 msgstr "Aktualisierung des CVS-Plugins zur Verwendung von Diff- und Logdateien"
 
-#: C/gnome-commander.xml:8769(para)
+#: C/gnome-commander.xml:8780(para)
 msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
@@ -14824,11 +14836,11 @@ msgstr ""
 "Verwendung von fettem anstelle von unterstrichenem Text im Ordner-Indikator "
 "beim Fokussieren mit dem Mauszeiger"
 
-#: C/gnome-commander.xml:8772(para)
+#: C/gnome-commander.xml:8783(para)
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr "Das cwd-Widget ist nun auswählbar (links von der Befehlszeile)"
 
-#: C/gnome-commander.xml:8775(para)
+#: C/gnome-commander.xml:8786(para)
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
@@ -14836,25 +14848,25 @@ msgstr ""
 "Entfernen des Menüeintrags »Position speichern«. Größe und Position werden "
 "nun automatisch gespeichert."
 
-#: C/gnome-commander.xml:8778(para)
+#: C/gnome-commander.xml:8789(para)
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr "Knopf für die Ordnerchronik wurde zur Ordneranzeige hinzugefügt"
 
-#: C/gnome-commander.xml:8781(para)
+#: C/gnome-commander.xml:8792(para)
 msgid "Added history to the select and unselect by pattern dialogs"
 msgstr ""
 "Hinzufügen einer Chronik zu den Dialogen »Mit Schablone auswählen« und »Mit "
 "Schablone abwählen«"
 
-#: C/gnome-commander.xml:8784(para)
+#: C/gnome-commander.xml:8795(para)
 msgid "Sorting column and direction is now remembered"
 msgstr "Spaltensortierung und Sortierrichtung werden nun zwischengespeichert"
 
-#: C/gnome-commander.xml:8790(para)
+#: C/gnome-commander.xml:8801(para)
 msgid "<keycap>F2</keycap> Open the rename dialog"
 msgstr "<keycap>F2</keycap> Öffnen des Umbenennen-Dialogs"
 
-#: C/gnome-commander.xml:8793(para)
+#: C/gnome-commander.xml:8804(para)
 msgid ""
 "<keycap>SHIFT+F10</keycap> Bring up the file context menu (the windows menu "
 "key also works)"
@@ -14862,7 +14874,7 @@ msgstr ""
 "<keycap>Umschalt+F10</keycap> Öffnet das Kontextmenü (Windows-Taste "
 "funktioniert ebenfalls)"
 
-#: C/gnome-commander.xml:8796(para)
+#: C/gnome-commander.xml:8807(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Copy the current "
 "working directory from the inactive file list to the active one"
@@ -14870,15 +14882,15 @@ msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>.</keycap></keycombo> Kopiert den "
 "aktuellen Ordner aus der inaktiven Ansicht in die aktive Ansicht."
 
-#: C/gnome-commander.xml:8805(para)
+#: C/gnome-commander.xml:8816(para)
 msgid "1.1.5"
 msgstr "1.1.5"
 
-#: C/gnome-commander.xml:8806(para)
+#: C/gnome-commander.xml:8817(para)
 msgid "2004-01-12"
 msgstr "12. Januar 2004"
 
-#: C/gnome-commander.xml:8812(para)
+#: C/gnome-commander.xml:8823(para)
 msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
@@ -14886,13 +14898,13 @@ msgstr ""
 "Die ext-Spalte wird jetzt verborgen, wenn die Dateinamenerweiterung nur "
 "zusammen mit dem Dateinamen angezeigt wird"
 
-#: C/gnome-commander.xml:8815(para)
+#: C/gnome-commander.xml:8826(para)
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr ""
 "Beseitigung unnötigen Neuzeichnens der Dateiliste, wenn Dateien darüber "
 "hinweggezogen werden"
 
-#: C/gnome-commander.xml:8818(para)
+#: C/gnome-commander.xml:8829(para)
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
@@ -14900,17 +14912,17 @@ msgstr ""
 "Beseitigtes Problem mit FTP-Verbindungen, die beim Beenden der Verbindung "
 "nicht aus der Verbindungs-Symbolleiste verschwinden"
 
-#: C/gnome-commander.xml:8821(para)
+#: C/gnome-commander.xml:8832(para)
 msgid "The program no longer tries to center itself on the desktop"
 msgstr ""
 "Die Anwendung versucht nun nicht mehr, das Fenster auf dem Desktop zu "
 "zentrieren"
 
-#: C/gnome-commander.xml:8824(para)
+#: C/gnome-commander.xml:8835(para)
 msgid "Fixed problems when renaming directories"
 msgstr "Fehlerkorrekturen für das Umbenennen von Ordnern"
 
-#: C/gnome-commander.xml:8832(para)
+#: C/gnome-commander.xml:8843(para)
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards in "
 "the directory structure"
@@ -14918,19 +14930,19 @@ msgstr ""
 "Der dir-Indikator oberhalb jeder Dateiliste kann nun zum Navigieren nach oben "
 "in der Ordnerstruktur benutzt werden"
 
-#: C/gnome-commander.xml:8839(para)
+#: C/gnome-commander.xml:8850(para)
 msgid "1.1.4"
 msgstr "1.1.4"
 
-#: C/gnome-commander.xml:8840(para)
+#: C/gnome-commander.xml:8851(para)
 msgid "2003-11-24"
 msgstr "24. November 2003"
 
-#: C/gnome-commander.xml:8846(para)
+#: C/gnome-commander.xml:8857(para)
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr "Fehlerkorrektur beim Auswählen mehrerer Dateien mit Umschalt+Maustaste"
 
-#: C/gnome-commander.xml:8849(para)
+#: C/gnome-commander.xml:8860(para)
 msgid ""
 "Stopped superfluous updates of the file list on machines with the imon kernel "
 "patch applied"
@@ -14938,11 +14950,11 @@ msgstr ""
 "Stoppen überflüssiger Aktualisierungen der Dateiliste auf Rechnern mit "
 "aktiviertem Imon-Kernelpatch."
 
-#: C/gnome-commander.xml:8852(para)
+#: C/gnome-commander.xml:8863(para)
 msgid "Cleaned up the file-popup menu"
 msgstr "Entschlackung des Datei-Kontextmenüs"
 
-#: C/gnome-commander.xml:8855(para)
+#: C/gnome-commander.xml:8866(para)
 msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
@@ -14950,30 +14962,30 @@ msgstr ""
 "Beseitigter »Datei nicht gefunden«-Fehler beim Wechseln zum Elternordner, "
 "wenn dieser Leerzeichen enthält"
 
-#: C/gnome-commander.xml:8858(para)
+#: C/gnome-commander.xml:8869(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr ""
 "Beseitigung eines möglichen async-Fehlers beim Abbruch einer xfer-Operation"
 
-#: C/gnome-commander.xml:8861(para)
+#: C/gnome-commander.xml:8872(para)
 msgid "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
 "Überarbeiteter Layout-Reiter und Entfernen des Farben-Reiters im "
 "Einstellungsdialog."
 
-#: C/gnome-commander.xml:8864(para)
+#: C/gnome-commander.xml:8875(para)
 msgid "Improved plugin-system"
 msgstr "Verbessertes Plugin-System"
 
-#: C/gnome-commander.xml:8871(para)
+#: C/gnome-commander.xml:8882(para)
 msgid "1.1.3"
 msgstr "1.1.3"
 
-#: C/gnome-commander.xml:8872(para)
+#: C/gnome-commander.xml:8883(para)
 msgid "2003-11-14"
 msgstr "14. November 2003"
 
-#: C/gnome-commander.xml:8878(para)
+#: C/gnome-commander.xml:8889(para)
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same file "
@@ -14983,15 +14995,15 @@ msgstr ""
 "unkorrekter FAM-Installation. Das führte dazu, dass <application>GNOME "
 "Commander</application> eine Datei zweimal aus der Liste zu löschen versuchte"
 
-#: C/gnome-commander.xml:8885(para)
+#: C/gnome-commander.xml:8896(para)
 msgid "Accessing files on mounted devices should now work better"
 msgstr "Besserer Zugriff auf Dateien auf eingehängte Geräte"
 
-#: C/gnome-commander.xml:8888(para)
+#: C/gnome-commander.xml:8899(para)
 msgid "Devices without the device filename should not disappear anymore"
 msgstr "Geräte ohne Gerätedateinamen verschwinden nun nicht mehr"
 
-#: C/gnome-commander.xml:8891(para)
+#: C/gnome-commander.xml:8902(para)
 msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
@@ -14999,7 +15011,7 @@ msgstr ""
 "Beseitigtes Problem: Bei geöffnetem Terminalfenster dieses geöffnet lassen, "
 "wenn das Programm beendet ist"
 
-#: C/gnome-commander.xml:8897(para)
+#: C/gnome-commander.xml:8908(para)
 msgid ""
 "Fixes bug where a new directory would appear many times in the same file list "
 "until reloaded"
@@ -15007,15 +15019,15 @@ msgstr ""
 "Fehlerkorrektur: Ein neuer Ordner wurde mehrfach in der gleichen Dateiliste "
 "angezeigt, bis diese neu geladen wurde."
 
-#: C/gnome-commander.xml:8908(para)
+#: C/gnome-commander.xml:8919(para)
 msgid "The delete confirmation can now be disabled"
 msgstr "Die Bestätigung beim Löschen von Dateien kann nun deaktiviert werden"
 
-#: C/gnome-commander.xml:8911(para)
+#: C/gnome-commander.xml:8922(para)
 msgid "Better error messages when a mount fails"
 msgstr "Verbesserte Fehlermeldung, wenn Einbinden eines Geräts fehlschlägt"
 
-#: C/gnome-commander.xml:8914(para)
+#: C/gnome-commander.xml:8925(para)
 msgid ""
 "Made the calculation of a directory's total size start automatically when the "
 "file prefs dialog is shown"
@@ -15023,7 +15035,7 @@ msgstr ""
 "Automatischer Start der Größenberechnung von Ordnern während der Anzeige des "
 "Einstellungsdialogs "
 
-#: C/gnome-commander.xml:8920(para)
+#: C/gnome-commander.xml:8931(para)
 msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
@@ -15031,52 +15043,52 @@ msgstr ""
 "Hinzufügen eines Filters für Sicherungsdateien. Hinzufügen desselben und "
 "eines Filters für verborgene Dateien zum Hauptmenü für schnelleren Zugriff."
 
-#: C/gnome-commander.xml:8930(para)
+#: C/gnome-commander.xml:8941(para)
 msgid "1.1.2"
 msgstr "1.1.2"
 
-#: C/gnome-commander.xml:8931(para)
+#: C/gnome-commander.xml:8942(para)
 msgid "2003-11-07"
 msgstr "7. November 2003"
 
-#: C/gnome-commander.xml:8937(para)
+#: C/gnome-commander.xml:8948(para)
 msgid "Much better handling of non UTF8 filenames"
 msgstr "Bessere Unterstützung von Nicht-UTF8-Dateinamen"
 
-#: C/gnome-commander.xml:8940(para)
+#: C/gnome-commander.xml:8951(para)
 msgid "Removed unsafe uri-creation"
 msgstr "Entfernen der unsicheren Erzeugung von URIs "
 
-#: C/gnome-commander.xml:8948(para)
+#: C/gnome-commander.xml:8959(para)
 msgid "Three ways to show with file extensions"
 msgstr "Drei Möglichkeiten der Anzeige von Dateinamenerweiterungen"
 
-#: C/gnome-commander.xml:8955(para)
+#: C/gnome-commander.xml:8966(para)
 msgid "1.1.1"
 msgstr "1.1.1"
 
-#: C/gnome-commander.xml:8956(para)
+#: C/gnome-commander.xml:8967(para)
 msgid "2003-11-05"
 msgstr "5. November 2003"
 
-#: C/gnome-commander.xml:8962(para)
+#: C/gnome-commander.xml:8973(para)
 msgid ""
 "Stopped showing the file extension in both the name column and the ext column"
 msgstr ""
 "Dateinamenerweiterung wird nicht mehr in der Name-Spalte und der Ext-Spalte "
 "angezeigt"
 
-#: C/gnome-commander.xml:8965(para)
+#: C/gnome-commander.xml:8976(para)
 msgid "Fixed crashes that happened when browsing directories"
 msgstr "Fehlerkorrekturen für Abstürze beim Durchsuchen von Ordnern"
 
-#: C/gnome-commander.xml:8968(para)
+#: C/gnome-commander.xml:8979(para)
 msgid "Fixed update problems when copying and moving files"
 msgstr ""
 "Beseitigung von Problemen bei der Aktualisierung beim Kopieren und "
 "Verschieben von Dateien"
 
-#: C/gnome-commander.xml:8971(para)
+#: C/gnome-commander.xml:8982(para)
 msgid ""
 "The connection combo boxes should now show the correct connection as selected "
 "all the time"
@@ -15084,66 +15096,66 @@ msgstr ""
 "Die Verbindungs-Kombinationsfelder sollten nun immer die korrekte Verbindung "
 "anzeigen, wie ausgewählt"
 
-#: C/gnome-commander.xml:8974(para)
+#: C/gnome-commander.xml:8985(para)
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr "Beseitigung einiger Fehler bei der Auswahl von Dateien mit der Tastatur"
 
-#: C/gnome-commander.xml:8977(para)
+#: C/gnome-commander.xml:8988(para)
 msgid "Fixed the edit mime-types feature"
 msgstr "Korrektur in der Funktion zum Bearbeiten der MIME-Typen"
 
-#: C/gnome-commander.xml:8985(para)
+#: C/gnome-commander.xml:8996(para)
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
 "Hinzufügen eines Knopfes zum Ändern der vorgegebenen MIME-Anwendung im Datei-"
 "Eigenschaftsdialog"
 
-#: C/gnome-commander.xml:8992(para)
+#: C/gnome-commander.xml:9003(para)
 msgid "1.1.0"
 msgstr "1.1.0"
 
-#: C/gnome-commander.xml:8993(para)
+#: C/gnome-commander.xml:9004(para)
 msgid "2003-11-01"
 msgstr "1. November 2003"
 
-#: C/gnome-commander.xml:8999(para)
+#: C/gnome-commander.xml:9010(para)
 msgid "SMB browsing"
 msgstr "Durchsuchen des SMB-Netzwerks"
 
-#: C/gnome-commander.xml:9002(para)
+#: C/gnome-commander.xml:9013(para)
 msgid "Plugins"
 msgstr "Plugins"
 
-#: C/gnome-commander.xml:9005(para)
+#: C/gnome-commander.xml:9016(para)
 msgid "Major rewrite of a lot of code"
 msgstr "Umfangreiche Überarbeitung großer Teile des Codes"
 
-#: C/gnome-commander.xml:9012(para)
+#: C/gnome-commander.xml:9023(para)
 msgid "1.0.1"
 msgstr "1.0.1"
 
-#: C/gnome-commander.xml:9013(para)
+#: C/gnome-commander.xml:9024(para)
 msgid "2003-06-27"
 msgstr "27. Juni 2003"
 
-#: C/gnome-commander.xml:9019(para)
+#: C/gnome-commander.xml:9030(para)
 msgid "Improved file list update in non-fam mode"
 msgstr "Verbesserte Dateilisten-Aktualisierung im Nicht-FAM-Modus"
 
-#: C/gnome-commander.xml:9022(para)
+#: C/gnome-commander.xml:9033(para)
 msgid "Empty directories can now be entered on ftp servers"
 msgstr "Leere Ordner auf FTP-Servern können geöffnet werden"
 
-#: C/gnome-commander.xml:9029(para)
+#: C/gnome-commander.xml:9040(para)
 msgid "1.0"
 msgstr "1.0"
 
-#: C/gnome-commander.xml:9030(para)
+#: C/gnome-commander.xml:9041(para)
 msgid "2003-06-05"
 msgstr "5. Juni 2003"
 
-#: C/gnome-commander.xml:9032(para)
+#: C/gnome-commander.xml:9043(para)
 msgid ""
 "This is the \"production stable\" 1.0 release. Mainly small bugfixes from "
 "previous version."
@@ -15151,27 +15163,27 @@ msgstr ""
 "Dies ist die »stabile« Version 1.0. Hauptsächlich Fehlerkorrekturen gegenüber "
 "der vorherigen Version."
 
-#: C/gnome-commander.xml:9038(para)
+#: C/gnome-commander.xml:9049(para)
 msgid "0.9.12"
 msgstr "0.9.12"
 
-#: C/gnome-commander.xml:9039(para)
+#: C/gnome-commander.xml:9050(para)
 msgid "2003-03-18"
 msgstr "18. März 2003"
 
-#: C/gnome-commander.xml:9041(para)
+#: C/gnome-commander.xml:9052(para)
 msgid "Bugfixes"
 msgstr "Fehlerkorrekturen"
 
-#: C/gnome-commander.xml:9045(para)
+#: C/gnome-commander.xml:9056(para)
 msgid "0.9.11"
 msgstr "0.9.11"
 
-#: C/gnome-commander.xml:9046(para)
+#: C/gnome-commander.xml:9057(para)
 msgid "2003-03-13"
 msgstr "13. März 2003"
 
-#: C/gnome-commander.xml:9048(para)
+#: C/gnome-commander.xml:9059(para)
 msgid ""
 "Added support for $p in advrename dialog. This will give you the parent "
 "directory. Fixed a bug where deleting a directory sometimes only emptied the "
@@ -15183,15 +15195,15 @@ msgstr ""
 "Inhalt gelöscht wurde und nicht der Ordner selbst. In FTP-Sitzungen ist der "
 "Ordner »..« nun sichtbar."
 
-#: C/gnome-commander.xml:9056(para)
+#: C/gnome-commander.xml:9067(para)
 msgid "0.9.10"
 msgstr "0.9.10"
 
-#: C/gnome-commander.xml:9057(para)
+#: C/gnome-commander.xml:9068(para)
 msgid "2003-03-24"
 msgstr "24. März 2003"
 
-#: C/gnome-commander.xml:9059(para)
+#: C/gnome-commander.xml:9070(para)
 msgid ""
 "Fixed an imageloading bug when using themes other than the default one. New "
 "bookmark feature. New template feature in the advanced-rename dialog. See doc/"
@@ -15207,15 +15219,15 @@ msgstr ""
 "in den Ordner »..« ist nun möglich. Werkzeugleiste und Knopfleiste können nun "
 "auch verborgen werden."
 
-#: C/gnome-commander.xml:9070(para)
+#: C/gnome-commander.xml:9081(para)
 msgid "0.9.9"
 msgstr "0.9.9"
 
-#: C/gnome-commander.xml:9071(para)
+#: C/gnome-commander.xml:9082(para)
 msgid "2003-01-19"
 msgstr "19. Januar 2003"
 
-#: C/gnome-commander.xml:9073(para)
+#: C/gnome-commander.xml:9084(para)
 msgid ""
 "Improved the advanced rename tool Added quick connect feature. Improved "
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
@@ -15225,15 +15237,15 @@ msgstr ""
 "Funktionsmerkmals zum schnellen Verbinden. Hinzufügen eines Symbolthemas in "
 "geringer Auflösung für MIME-Typen. Vereinfachung des Kontextmenüs für Dateien."
 
-#: C/gnome-commander.xml:9083(para)
+#: C/gnome-commander.xml:9094(para)
 msgid "0.9.8"
 msgstr "0.9.8"
 
-#: C/gnome-commander.xml:9084(para)
+#: C/gnome-commander.xml:9095(para)
 msgid "2002-07-16"
 msgstr "16. Juli 2002"
 
-#: C/gnome-commander.xml:9086(para)
+#: C/gnome-commander.xml:9097(para)
 msgid ""
 "New things in this release are autoscroll at DND, better quicksearch, "
 "mounting and unmounting, file lists refresh without FAM, last visited "
@@ -15243,60 +15255,60 @@ msgstr ""
 "Ziehen-und-Ablegen, Einbinden und Aushängen, Aktualisierung der Dateilisten "
 "ohne FAM, Chronik zuletzt geöffneter Ordner und mehr."
 
-#: C/gnome-commander.xml:9094(para)
+#: C/gnome-commander.xml:9105(para)
 msgid "0.9.7"
 msgstr "0.9.7"
 
-#: C/gnome-commander.xml:9095(para)
+#: C/gnome-commander.xml:9106(para)
 msgid "2002-06-07"
 msgstr "7. Juni 2002"
 
-#: C/gnome-commander.xml:9100(para)
+#: C/gnome-commander.xml:9111(para)
 msgid "0.9.6"
 msgstr "0.9.6"
 
-#: C/gnome-commander.xml:9101(para)
+#: C/gnome-commander.xml:9112(para)
 msgid "2002-04-04"
 msgstr "4. April 2002"
 
-#: C/gnome-commander.xml:9103(para)
+#: C/gnome-commander.xml:9114(para)
 msgid "MIME support has been added and bugs have been fixed."
 msgstr "MIME-Unterstützung, einige Fehlerkorrekturen."
 
-#: C/gnome-commander.xml:9107(para)
+#: C/gnome-commander.xml:9118(para)
 msgid "0.9.5"
 msgstr "0.9.5"
 
-#: C/gnome-commander.xml:9108(para)
+#: C/gnome-commander.xml:9119(para)
 msgid "2002-03-27"
 msgstr "27. März 2002"
 
-#: C/gnome-commander.xml:9110(para)
+#: C/gnome-commander.xml:9121(para)
 msgid "Added an embedded terminal and fixed some bugs."
 msgstr ""
 "Hinzufügen eines eingebetteten Terminals sowie einige Fehlerkorrekturen."
 
-#: C/gnome-commander.xml:9114(para)
+#: C/gnome-commander.xml:9125(para)
 msgid "0.9.4"
 msgstr "0.9.4"
 
-#: C/gnome-commander.xml:9115(para)
+#: C/gnome-commander.xml:9126(para)
 msgid "2002-03-21"
 msgstr "21. März 2002"
 
-#: C/gnome-commander.xml:9117(para)
+#: C/gnome-commander.xml:9128(para)
 msgid "Added FAM support, DnD and more."
 msgstr "Unterstützung für FAM, Ziehen-und-Ablegen und mehr."
 
-#: C/gnome-commander.xml:9121(para)
+#: C/gnome-commander.xml:9132(para)
 msgid "0.9.2"
 msgstr "0.9.2"
 
-#: C/gnome-commander.xml:9122(para)
+#: C/gnome-commander.xml:9133(para)
 msgid "2002-03-09"
 msgstr "9. März 2002"
 
-#: C/gnome-commander.xml:9124(para)
+#: C/gnome-commander.xml:9135(para)
 msgid ""
 "Improved stability and less memory leaks. CVS is disabled until it actually "
 "works well."
@@ -15304,37 +15316,37 @@ msgstr ""
 "Verbesserte Stabilität und weniger Speicherlecks. CVS ist vorläufig "
 "deaktiviert, bis es wirklich funktioniert."
 
-#: C/gnome-commander.xml:9128(para)
+#: C/gnome-commander.xml:9139(para)
 msgid "0.91-pre1"
 msgstr "0.91-pre1"
 
-#: C/gnome-commander.xml:9129(para)
+#: C/gnome-commander.xml:9140(para)
 msgid "2002-02-06"
 msgstr "6. Februar 2002"
 
-#: C/gnome-commander.xml:9131(para)
+#: C/gnome-commander.xml:9142(para)
 msgid "Improved user interface and lots of other small hacks."
 msgstr "Verbesserte Benutzeroberfläche und zahlreiche anderer kleinerer Hacks."
 
-#: C/gnome-commander.xml:9135(para)
+#: C/gnome-commander.xml:9146(para)
 msgid "0.90-pre1"
 msgstr "0.90-pre1"
 
-#: C/gnome-commander.xml:9136(para)
+#: C/gnome-commander.xml:9147(para)
 msgid "2001-08-02"
 msgstr "2. August 2001"
 
-#: C/gnome-commander.xml:9138(para)
+#: C/gnome-commander.xml:9149(para)
 msgid "The first public version of GNOME Commander."
 msgstr ""
 "Die erste veröffentlichte Version von <application>GNOME Commander</"
 "application>."
 
-#: C/gnome-commander.xml:9153(title)
+#: C/gnome-commander.xml:9164(title)
 msgid "Known Bugs and Limitations"
 msgstr "Bekannte Fehler und Einschränkungen"
 
-#: C/gnome-commander.xml:9154(para)
+#: C/gnome-commander.xml:9165(para)
 msgid ""
 "You can report or view GNOME Commander bugs at the <ulink type=\"http\" url="
 "\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander\">the gnome."
@@ -15345,7 +15357,7 @@ msgstr ""
 "bugzilla.gnome.org/browse.cgi?product=gnome-commander\">GNOME-Bugzilla-"
 "Website</ulink>."
 
-#: C/gnome-commander.xml:9155(para)
+#: C/gnome-commander.xml:9166(para)
 msgid ""
 "Though GNOME Commander is relatively free from bugs and is a quite mature "
 "program, no programs will ever be totally bug free. New bugs can be "
@@ -15374,15 +15386,15 @@ msgstr ""
 "anzuregen und/oder Patches an die Entwickler zu senden, und dies alles im "
 "Geiste freier und quelloffener Software."
 
-#: C/gnome-commander.xml:9164(emphasis)
+#: C/gnome-commander.xml:9175(emphasis)
 msgid "Given enough eyeballs, all bugs are shallow."
 msgstr "Given enough eyeballs, all bugs are shallow."
 
-#: C/gnome-commander.xml:9166(foreignphrase)
+#: C/gnome-commander.xml:9177(foreignphrase)
 msgid "Linus law."
 msgstr "Linus law."
 
-#: C/gnome-commander.xml:9177(para)
+#: C/gnome-commander.xml:9188(para)
 msgid ""
 "GNOME Commander was primarily written by the former maintainer - Marcus "
 "Bjurman, who where the one that initiated this project publicly in 2001 and "
@@ -15404,7 +15416,7 @@ msgstr ""
 "Informationen über GNOME Commander besuchen Sie bitte die <ulink url=\"http://"
 "www.nongnu.org/gcmd/\" type=\"http\">GNOME Commander-Website</ulink>."
 
-#: C/gnome-commander.xml:9185(para)
+#: C/gnome-commander.xml:9196(para)
 msgid ""
 "To report a bug or make a suggestion regarding this application or this "
 "manual, follow the directions in this <ulink type=\"help\" url=\"ghelp:gnome-"
@@ -15414,7 +15426,7 @@ msgstr ""
 "Handbuch zu machen, folgen Sie den Anweisungen in diesem <ulink type=\"help\" "
 "url=\"ghelp:gnome-feedback\">Dokument</ulink>."
 
-#: C/gnome-commander.xml:9190(para)
+#: C/gnome-commander.xml:9201(para)
 msgid ""
 "This program is distributed under the terms of the GNU General Public license "
 "as published by the Free Software Foundation; either version 2 of the "
@@ -15436,4 +15448,3 @@ msgid "translator-credits"
 msgstr ""
 "Mario Blättermann <mariobl@freenet.de>, 2008-2011\n"
 "Andre Klapper <ak47@gmx.net>, 2009"
-

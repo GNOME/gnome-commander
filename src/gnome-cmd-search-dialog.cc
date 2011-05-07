@@ -29,6 +29,7 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-con-list.h"
 #include "filter.h"
 #include "utils.h"
 
@@ -65,7 +66,6 @@ struct SearchData
 
     const gchar *name_pattern;              // the pattern that file names should match to end up in the file list
     const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file list
-    const gchar *dir;                       // the current dir of the search routine
 
     gboolean recurse;                       // should we recurse or just search in the selected directory?
     Filter::Type name_filter_type;
@@ -105,9 +105,9 @@ struct GnomeCmdSearchDialogPrivate
 
     GnomeCmdCon *con;
 
+    GtkWidget *filter_type_combo;
     GtkWidget *pattern_combo;
     GtkWidget *dir_browser;
-    GtkWidget *dir_entry;
     GtkWidget *find_text_combo;
     GtkWidget *find_text_check;
     GnomeCmdFileList *result_list;
@@ -260,7 +260,7 @@ inline gboolean name_matches (gchar *name, SearchData *data)
  * Searches a given directory for files that matches the criteria given by data.
  *
  */
-static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
+static void search_dir_r (GnomeCmdDir *dir, SearchData *data, long level)
 {
     if (!dir)
         return;
@@ -292,7 +292,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         // if the current file is a directory, let's continue our recursion
-        if (GNOME_CMD_IS_DIR (f) && data->recurse)
+        if (GNOME_CMD_IS_DIR (f) && level!=0)
         {
             // we don't want to go backwards or to follow symlinks
             if (!f->is_dotdot && strcmp (f->info->name, ".") != 0 && !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
@@ -302,7 +302,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
                 if (new_dir)
                 {
                     gnome_cmd_dir_ref (new_dir);
-                    search_dir_r (new_dir, data);
+                    search_dir_r (new_dir, data, level-1);
                     gnome_cmd_dir_unref (new_dir);
                 }
             }
@@ -342,7 +342,7 @@ static gpointer perform_search_operation (SearchData *data)
         data->match_dirs = NULL;
     }
 
-    search_dir_r (data->start_dir, data);
+    search_dir_r (data->start_dir, data, data->recurse ? -1 : 0);
 
     // free regexps
     delete data->name_filter;
@@ -357,7 +357,6 @@ static gpointer perform_search_operation (SearchData *data)
 
     gnome_cmd_dir_unref (data->start_dir);
     data->start_dir = NULL;
-    data->dir = NULL;
 
     data->search_done = TRUE;
 
@@ -463,17 +462,47 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
             g_mutex_unlock (data->pdata.mutex);
         }
     }
+
+    GtkAllocation allocation;
+
+    gtk_widget_get_allocation (GTK_WIDGET (dialog), &allocation);
+    gnome_cmd_data.search_defaults.width = allocation.width;
+    gnome_cmd_data.search_defaults.height = allocation.height;
+
+    gnome_cmd_data.search_defaults.default_profile.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
+    gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check)) ? -1 : 0;
 }
 
 
-static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog)
+static gboolean start_generic_search (SearchData *data)
 {
-    gnome_cmd_data.search_defaults.width = allocation->width;
-    gnome_cmd_data.search_defaults.height = allocation->height;
+    // create an re for file name matching
+    data->name_filter = new Filter(data->name_pattern, data->case_sens, data->name_filter_type);
+
+    // if we're going to search through file content create an re for that too
+    if (data->content_search)
+    {
+        data->content_regex = g_new0 (regex_t, 1);
+        regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
+    }
+
+    if (!data->search_mem)
+        data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
+
+    if (!data->pdata.mutex)
+        data->pdata.mutex = g_mutex_new ();
+
+    data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
+
+    return FALSE;
 }
 
 
-static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
+/**
+ * The user has clicked on the search button
+ *
+ */
+static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
     SearchData *data = dialog->priv->data;
 
@@ -486,21 +515,56 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
     data->dialog = dialog;
     data->name_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->pattern_combo));
     data->content_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->find_text_combo));
-    data->dir = gtk_entry_get_text (GTK_ENTRY (dialog->priv->dir_entry));
-    data->context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (data->dialog->priv->statusbar), "info");
+    data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
+    data->name_filter_type = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
+    data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
+
+    data->context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (dialog->priv->statusbar), "info");
     data->content_regex = NULL;
     data->match_dirs = NULL;
+
+    gchar *dir_str = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser));
+    GnomeVFSURI *uri = gnome_vfs_uri_new (dir_str);
+    g_free (dir_str);
+
+    dir_str = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
+    gchar *dir_path = g_strconcat (dir_str, G_DIR_SEPARATOR_S, NULL);
+    g_free (dir_str);
+
+    if (strncmp(dir_path, gnome_cmd_con_get_root_path (dialog->priv->con), dialog->priv->con->root_path->len)!=0)
+    {
+        if (!gnome_vfs_uri_is_local (uri))
+        {
+            gnome_cmd_show_message (GTK_WINDOW (dialog), stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
+                                                                                    gnome_cmd_con_get_root_path (dialog->priv->con))));
+            gnome_vfs_uri_unref (uri);
+            g_free (dir_path);
+
+            data->search_done = TRUE;
+            data->stopped = TRUE;
+
+            return;
+        }
+        else
+            data->start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dir_path));
+    }
+    else
+        data->start_dir = gnome_cmd_dir_new (dialog->priv->con, gnome_cmd_con_create_path (dialog->priv->con, dir_path + dialog->priv->con->root_path->len));
+
+    gnome_cmd_dir_ref (data->start_dir);
+
+    gnome_vfs_uri_unref (uri);
+    g_free (dir_path);
+
+    data->search_done = FALSE;
     data->stopped = FALSE;
     data->dialog_destroyed = FALSE;
-    data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
-    data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
-    gnome_cmd_data.search_defaults.default_profile.recursive = data->recurse;
+    gnome_cmd_data.search_defaults.default_profile.max_depth = data->recurse ? -1 : 0;
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
-    gnome_cmd_data.search_defaults.directories.add(data->dir);
 
     if (data->content_search)
     {
@@ -510,53 +574,14 @@ static gboolean start_generic_search (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->result_list->remove_all_files();
 
-    // create an re for file name matching
-    GtkWidget *regex_radio = lookup_widget (GTK_WIDGET (dialog), "regex_radio");
-
-    data->name_filter = new Filter(data->name_pattern, data->case_sens,
-                                   gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (regex_radio)) ? Filter::TYPE_REGEX
-                                                                                                  : Filter::TYPE_FNMATCH);
-
-    // if we're going to search through file content create an re for that too
-    if (data->content_search)
-    {
-        data->content_regex = g_new0 (regex_t, 1);
-        regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
-    }
-
-    if (!data->search_mem)
-        data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
-
-    // start the search
-    GnomeCmdPath *path = gnome_cmd_con_create_path (dialog->priv->con, data->dir);
-    data->start_dir = gnome_cmd_dir_new (dialog->priv->con, path);
-    gnome_cmd_dir_ref (data->start_dir);
-
-    data->search_done = FALSE;
-
-    if (!data->pdata.mutex)
-        data->pdata.mutex = g_mutex_new ();
-
-    data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
-
     gtk_widget_show (data->dialog->priv->pbar);
     data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
-
-    return FALSE;
-}
-
-
-/**
- * The user has clicked on the search button
- *
- */
-static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
-{
-    g_timeout_add (1, (GSourceFunc) start_generic_search, dialog);
 
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
     gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
+
+    g_timeout_add (1, (GSourceFunc) start_generic_search, data);
 }
 
 
@@ -653,6 +678,12 @@ static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event,
 }
 
 
+static void on_filter_type_changed (GtkComboBox *combo, GnomeCmdSearchDialog *dialog)
+{
+    gtk_widget_grab_focus (dialog->priv->pattern_combo);
+}
+
+
 // the user has clicked on the "search by content" checkbutton
 static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDialog *dialog)
 {
@@ -672,55 +703,6 @@ static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDial
 
 
 /*
- * create a label with keyboard shortcut and a widget to activate if shortcut is pressed.
- */
-inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget)
-{
-    GtkWidget *label = gtk_label_new_with_mnemonic (text);
-
-    if (for_widget)
-        gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
-
-    g_object_ref (label);
-    g_object_set_data_full (G_OBJECT (parent), "label", label, g_object_unref);
-    gtk_widget_show (label);
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-
-    return label;
-}
-
-
-/*
- * create a check_box_button with keyboard shortcut
- */
-inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name)
-{
-    GtkWidget *btn = gtk_check_button_new_with_mnemonic (text);
-
-    g_object_ref (btn);
-    g_object_set_data_full (G_OBJECT (parent), name, btn, g_object_unref);
-    gtk_widget_show (btn);
-
-    return btn;
-}
-
-
-/*
- * create a GtkRadioButton with keyboard shortcut
- */
-inline GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, gchar *name)
-{
-    GtkWidget *radio = gtk_radio_button_new_with_mnemonic (group, text);
-
-    g_object_ref (radio);
-    g_object_set_data_full (G_OBJECT (parent), name, radio, g_object_unref);
-    gtk_widget_show (radio);
-
-    return radio;
-}
-
-
-/*
  * create a gtk_combo_box_entry_new_text. gtk_combo is deprecated.
  */
 inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
@@ -736,9 +718,9 @@ inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
 /*
  * callback function for 'g_list_foreach' to add default value to dropdownbox
  */
-static void combo_box_insert_text (gpointer  data, gpointer  user_data)
+static void combo_box_insert_text (const gchar *text, GtkComboBox *widget)
 {
-    gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
+    gtk_combo_box_append_text (widget, text);
 }
 
 
@@ -762,7 +744,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     GtkWidget *table;
     GtkWidget *label;
     GtkWidget *sw;
-    GtkWidget *radio;
     GtkWidget *pbar;
 
     dialog->priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
@@ -782,62 +763,52 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_table_set_col_spacings (GTK_TABLE (table), 6);
     gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
 
-    // search for
-    dialog->priv->pattern_combo = create_combo_box_entry (window);
-    label = create_label_with_mnemonic (window, _("Search _for: "), dialog->priv->pattern_combo);
-    table_add (table, label, 0, 0, GTK_FILL);
 
+    // search for
+    dialog->priv->filter_type_combo = gtk_combo_box_new_text ();
+    gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->filter_type_combo), _("Name matches regex:"));
+    gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->filter_type_combo), _("Name contains:"));
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo), (int) gnome_cmd_data.search_defaults.default_profile.syntax);
+    gtk_widget_show (dialog->priv->filter_type_combo);
+    dialog->priv->pattern_combo = create_combo_box_entry (window);
+    table_add (table, dialog->priv->filter_type_combo, 0, 0, GTK_FILL);
     table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+
     if (!defaults.name_patterns.empty())
-        g_list_foreach (defaults.name_patterns.ents, combo_box_insert_text, dialog->priv->pattern_combo);
+        g_list_foreach (defaults.name_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->pattern_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
 
+
     // search in
-    dialog->priv->dir_browser = create_file_entry (window, "dir_browser", "");
-    label = create_label_with_mnemonic (window, _("Search _in: "), dialog->priv->dir_browser);
-    table_add (table, label, 0, 1, GTK_FILL);
+    dialog->priv->dir_browser =  gtk_file_chooser_button_new (_("Select Directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog->priv->dir_browser), FALSE);
+    gtk_widget_show (dialog->priv->dir_browser);
+    table_add (table, create_label_with_mnemonic (window, _("_Look in folder:"), dialog->priv->dir_browser), 0, 1, GTK_FILL);
 
     table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    if (!defaults.directories.empty())
-        gtk_combo_set_popdown_strings (
-            GTK_COMBO (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser))),
-            defaults.directories.ents);
-
-    dialog->priv->dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser));
 
     hbox = create_hbox (window, FALSE, 0);
 
 
     // recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.recursive);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.max_depth==-1);
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
-
-
-    // file name matching
-    radio = create_radio_with_mnemonic (window, NULL, _("Rege_x syntax"), "regex_radio");
-    gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio_with_mnemonic (window, get_radio_group (radio), _("She_ll syntax"), "shell_radio");
-    gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     table_add (table, hbox, 1, 2, GTK_FILL);
 
 
     // find text
-    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Find _text: "), "find_text");
+    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Contains _text:"), "find_text");
     table_add (table, dialog->priv->find_text_check, 0, 3, GTK_FILL);
 
     dialog->priv->find_text_combo = create_combo_box_entry (window);
     table_add (table, dialog->priv->find_text_combo, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
     if (!defaults.content_patterns.empty())
-        g_list_foreach (defaults.content_patterns.ents, combo_box_insert_text, dialog->priv->find_text_combo);
+        g_list_foreach (defaults.content_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->find_text_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
@@ -889,11 +860,10 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_box_pack_start (GTK_BOX (dialog->priv->statusbar), pbar, FALSE, TRUE, 0);
     dialog->priv->pbar = pbar;
 
-
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), NULL);
-    g_signal_connect (dialog, "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
     g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
 
+    g_signal_connect (dialog->priv->filter_type_combo, "changed", G_CALLBACK (on_filter_type_changed), dialog);
     g_signal_connect (dialog->priv->find_text_check, "toggled", G_CALLBACK (find_text_toggled), dialog);
 
     gtk_window_set_keep_above (GTK_WINDOW (dialog), FALSE);
@@ -913,23 +883,15 @@ static void gnome_cmd_search_dialog_class_init (GnomeCmdSearchDialogClass *klass
 
 GtkWidget *gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
 {
-    gchar *new_path;
     GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) g_object_new (GNOME_CMD_TYPE_SEARCH_DIALOG, NULL);
 
-    gchar *path = gnome_cmd_dir_is_local (default_dir) ? GNOME_CMD_FILE (default_dir)->get_real_path() : GNOME_CMD_FILE (default_dir)->get_path();
-    if (path[strlen(path)-1] != '/')
-    {
-        new_path = g_strdup_printf ("%s/", path);
-        g_free (path);
-    }
-    else
-        new_path = path;
-
-    gtk_entry_set_text (GTK_ENTRY (dialog->priv->dir_entry), new_path);
-
-    g_free (new_path);
-
     dialog->priv->con = gnome_cmd_dir_get_connection (default_dir);
+
+    gchar *uri = gnome_cmd_dir_get_uri_str (default_dir);
+
+    gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog->priv->dir_browser), uri);
+
+    g_free (uri);
 
     return GTK_WIDGET (dialog);
 }

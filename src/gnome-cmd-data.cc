@@ -81,7 +81,7 @@ void GnomeCmdData::Selection::reset()
     name.clear();
     filename_pattern.clear();
     syntax = Filter::TYPE_REGEX;
-    recursive = TRUE;
+    max_depth = -1;
     text_pattern.clear();
     match_case = FALSE;
 }
@@ -786,16 +786,13 @@ inline void GnomeCmdData::load_search_defaults()
     list = load_string_history ("/search-history/name_pattern%d", -1);
     search_defaults.name_patterns.ents = list;
     search_defaults.name_patterns.pos = list;
-    list = load_string_history ("/search-history/directory%d", -1);
-    search_defaults.directories.ents = list;
-    search_defaults.directories.pos = list;
     list = load_string_history ("/search-history/content_pattern%d", -1);
     search_defaults.content_patterns.ents = list;
     search_defaults.content_patterns.pos = list;
 
     search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
     search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
-    search_defaults.default_profile.recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
+    search_defaults.default_profile.max_depth = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE) ? -1 : 0;
     search_defaults.default_profile.match_case = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
 }
 
@@ -910,7 +907,6 @@ GnomeCmdData::GnomeCmdData()
     quick_search_exact_match_begin = TRUE;
     quick_search_exact_match_end = FALSE;
 
-    filter_type = Filter::TYPE_FNMATCH;
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
@@ -1167,7 +1163,6 @@ void GnomeCmdData::load()
     g_free (document_icon_dir);
     cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
-    filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
@@ -1589,7 +1584,6 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
     gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
-    gnome_cmd_data_set_int    ("/options/filter_type", filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
@@ -1982,7 +1976,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
 
         xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
                                    << XML::attr("match-case") << 0 << XML::chardata() << XML::escape(cfg.filename_pattern) << XML::endtag();
-        xml << XML::tag("Path") << XML::attr("recursive") << cfg.recursive << XML::endtag();
+        xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
         xml << XML::tag("Text") << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
 
     xml << XML::endtag();
@@ -2002,9 +1996,6 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchConfig &cfg)
 
         for (GList *i=cfg.name_patterns.ents; i; i=i->next)
             xml << XML::tag("Pattern") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
-
-        for (GList *i=cfg.directories.ents; i; i=i->next)
-            xml << XML::tag("Path") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
 
         for (GList *i=cfg.content_patterns.ents; i; i=i->next)
             xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();

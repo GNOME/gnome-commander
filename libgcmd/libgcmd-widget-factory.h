@@ -47,6 +47,8 @@ inline GtkWidget *create_tabhbox (GtkWidget *parent)
 
 GtkWidget *create_label (GtkWidget *parent, const gchar *text);
 
+GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget);
+
 GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text);
 
 GtkWidget *create_hsep (GtkWidget *parent);
@@ -95,7 +97,11 @@ GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *valu
 
 GtkWidget *create_check (GtkWidget *parent, const gchar *text, const gchar *name);
 
+GtkWidget *create_check_with_mnemonic (GtkWidget *parent, const gchar *text, const gchar *name);
+
 GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, const gchar *name);
+
+GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, gchar *name);
 
 GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value);
 

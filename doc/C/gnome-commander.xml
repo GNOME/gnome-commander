@@ -251,7 +251,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.11;</revnumber>
-        <date>2011-??-??</date>
+        <date>2011-05-01</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -7100,13 +7100,6 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>filter_type</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>hidden_filter</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -7629,7 +7622,7 @@
                             <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: de, en, es, fr, sl</para>
+                            <para>New or updated docs: cs, de, en, es, fr, sl</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN</para>
@@ -7666,7 +7659,7 @@
         </row>
         <row valign="top">
             <entry><para>1.2.8.11</para></entry>
-            <entry><para>2011-??-??</para></entry>
+            <entry><para>2011-05-01</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -7678,7 +7671,18 @@
                             <para>Fixed problem #640387 (usage of deprecated python modules: md5, sha1)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem with starting &app; as root</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with Traditional Chinese translation</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Support for backward/forward mouse buttons</para>
                         </listitem>
                     </itemizedlist>
                 </para>

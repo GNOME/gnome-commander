@@ -116,21 +116,6 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-    // FilterType settings
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Match file names using"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
-
-    radio = create_radio (parent, NULL, _("Shell syntax"), "ft_shell_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Regex syntax"), "ft_regex_radio");
-    gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-
-
     // Sort options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Sorting options"));
@@ -215,11 +200,6 @@ inline void store_general_options (GtkWidget *dialog)
 
     gnome_cmd_data.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
                                                                                                                 : GnomeCmdData::RIGHT_BUTTON_SELECTS;
-
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ft_regex_radio)))
-        gnome_cmd_data.filter_type = Filter::TYPE_REGEX;
-    else
-        gnome_cmd_data.filter_type = Filter::TYPE_FNMATCH;
 
     gnome_cmd_data.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
     gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));

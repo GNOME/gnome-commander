@@ -351,11 +351,10 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SEARCHTOOL_WINDOWSIZE,
       XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE,
       XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATTERN,
-      XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATH,
+      XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_SUBDIRECTORIES,
       XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN,
-      XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE,
@@ -365,7 +364,7 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SELECTIONS,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN,
-      XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATH,
+      XML_GNOMECOMMANDER_SELECTIONS_PROFILE_SUBDIRECTORIES,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE_TEXT,
       XML_GNOMECOMMANDER_KEYBINDINGS,
       XML_GNOMECOMMANDER_KEYBINDINGS_KEY};
@@ -588,12 +587,12 @@ static void xml_start(GMarkupParseContext *context,
             }
             break;
 
-        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATH:
-        case XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATH:
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_SUBDIRECTORIES:
+        case XML_GNOMECOMMANDER_SELECTIONS_PROFILE_SUBDIRECTORIES:
             if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
-                                             G_MARKUP_COLLECT_BOOLEAN, "recursive", &param4,
+                                             G_MARKUP_COLLECT_STRING, "max-depth", &param1,
                                              G_MARKUP_COLLECT_INVALID))
-                xml_search_profile.recursive = param4;
+                xml_search_profile.max_depth = atoi(param1);
             break;
 
         case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT:
@@ -699,7 +698,6 @@ static void xml_end (GMarkupParseContext *context,
 
         case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY:
             cfg->search_defaults.name_patterns.reverse();
-            cfg->search_defaults.directories.reverse();
             cfg->search_defaults.content_patterns.reverse();
             break;
 
@@ -748,10 +746,6 @@ static void xml_end (GMarkupParseContext *context,
             cfg->search_defaults.name_patterns.add(text);
             break;
 
-        case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH:
-            cfg->search_defaults.directories.add(text);
-            break;
-
         case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT:
             cfg->search_defaults.content_patterns.add(text);
             break;
@@ -793,11 +787,10 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SEARCHTOOL_WINDOWSIZE, "/GnomeCommander/SearchTool/WindowSize"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE, "/GnomeCommander/SearchTool/Profile"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATTERN, "/GnomeCommander/SearchTool/Profile/Pattern"},
-                        {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATH, "/GnomeCommander/SearchTool/Profile/Path"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_SUBDIRECTORIES, "/GnomeCommander/SearchTool/Profile/Subdirectories"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT, "/GnomeCommander/SearchTool/Profile/Text"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY, "/GnomeCommander/SearchTool/History"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN, "/GnomeCommander/SearchTool/History/Pattern"},
-                        {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH, "/GnomeCommander/SearchTool/History/Path"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL, "/GnomeCommander/BookmarksTool"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE, "/GnomeCommander/BookmarksTool/WindowSize"},
@@ -807,7 +800,7 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SELECTIONS, "/GnomeCommander/Selections"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE, "/GnomeCommander/Selections/Profile"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN, "/GnomeCommander/Selections/Profile/Pattern"},
-                        {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATH, "/GnomeCommander/Selections/Profile/Path"},
+                        {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_SUBDIRECTORIES, "/GnomeCommander/Selections/Profile/Subdirectories"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_TEXT, "/GnomeCommander/Selections/Profile/Text"},
                         {XML_GNOMECOMMANDER_KEYBINDINGS, "/GnomeCommander/KeyBindings"},
                         {XML_GNOMECOMMANDER_KEYBINDINGS_KEY, "/GnomeCommander/KeyBindings/Key"}
