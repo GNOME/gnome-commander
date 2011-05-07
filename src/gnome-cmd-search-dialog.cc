@@ -105,6 +105,7 @@ struct GnomeCmdSearchDialogPrivate
 
     GnomeCmdCon *con;
 
+    GtkWidget *filter_type_combo;
     GtkWidget *pattern_combo;
     GtkWidget *dir_browser;
     GtkWidget *find_text_combo;
@@ -461,6 +462,15 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
             g_mutex_unlock (data->pdata.mutex);
         }
     }
+
+    GtkAllocation allocation;
+
+    gtk_widget_get_allocation (GTK_WIDGET (dialog), &allocation);
+    gnome_cmd_data.search_defaults.width = allocation.width;
+    gnome_cmd_data.search_defaults.height = allocation.height;
+
+    gnome_cmd_data.filter_type = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
+    gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check)) ? -1 : 0;
 }
 
 
@@ -506,7 +516,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
     data->name_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->pattern_combo));
     data->content_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->find_text_combo));
     data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
-    data->name_filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+    data->name_filter_type = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
@@ -668,6 +678,11 @@ static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event,
 }
 
 
+static void on_filter_type_changed (GtkComboBox *combo, GnomeCmdSearchDialog *dialog)
+{
+    gtk_widget_grab_focus (dialog->priv->pattern_combo);
+}
+
 
 // the user has clicked on the "search by content" checkbutton
 static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDialog *dialog)
@@ -712,14 +727,7 @@ static void combo_box_insert_text (const gchar *text, GtkComboBox *widget)
 static void gnome_cmd_search_dialog_finalize (GObject *object)
 {
     GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
-    GtkAllocation allocation;
 
-    gtk_widget_get_allocation (GTK_WIDGET (dialog), &allocation);
-    gnome_cmd_data.search_defaults.width = allocation.width;
-    gnome_cmd_data.search_defaults.height = allocation.height;
-
-    gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
-    gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check)) ? -1 : 0;
     g_free (dialog->priv);
 
     G_OBJECT_CLASS (gnome_cmd_search_dialog_parent_class)->finalize (object);
@@ -736,7 +744,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     GtkWidget *table;
     GtkWidget *label;
     GtkWidget *sw;
-    GtkWidget *radio;
     GtkWidget *pbar;
 
     dialog->priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
@@ -758,11 +765,15 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
 
     // search for
+    dialog->priv->filter_type_combo = gtk_combo_box_new_text ();
+    gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->filter_type_combo), _("Name matches regex:"));
+    gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->filter_type_combo), _("Name contains:"));
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo), (int) gnome_cmd_data.filter_type);
+    gtk_widget_show (dialog->priv->filter_type_combo);
     dialog->priv->pattern_combo = create_combo_box_entry (window);
-    label = create_label_with_mnemonic (window, _("Search _for: "), dialog->priv->pattern_combo);
-    table_add (table, label, 0, 0, GTK_FILL);
-
+    table_add (table, dialog->priv->filter_type_combo, 0, 0, GTK_FILL);
     table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+
     if (!defaults.name_patterns.empty())
         g_list_foreach (defaults.name_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->pattern_combo);
 
@@ -785,17 +796,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.max_depth==-1);
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
-
-
-    // file name matching
-    radio = create_radio_with_mnemonic (window, NULL, _("Rege_x syntax"), "regex_radio");
-    gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio_with_mnemonic (window, get_radio_group (radio), _("She_ll syntax"), "shell_radio");
-    gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     table_add (table, hbox, 1, 2, GTK_FILL);
 
@@ -863,6 +863,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), NULL);
     g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
 
+    g_signal_connect (dialog->priv->filter_type_combo, "changed", G_CALLBACK (on_filter_type_changed), dialog);
     g_signal_connect (dialog->priv->find_text_check, "toggled", G_CALLBACK (find_text_toggled), dialog);
 
     gtk_window_set_keep_above (GTK_WINDOW (dialog), FALSE);
