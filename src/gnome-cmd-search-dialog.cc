@@ -668,6 +668,7 @@ static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event,
 }
 
 
+
 // the user has clicked on the "search by content" checkbutton
 static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDialog *dialog)
 {
@@ -755,6 +756,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_table_set_col_spacings (GTK_TABLE (table), 6);
     gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, TRUE, 0);
 
+
     // search for
     dialog->priv->pattern_combo = create_combo_box_entry (window);
     label = create_label_with_mnemonic (window, _("Search _for: "), dialog->priv->pattern_combo);
@@ -767,12 +769,12 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
 
+
     // search in
     dialog->priv->dir_browser =  gtk_file_chooser_button_new (_("Select Directory"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog->priv->dir_browser), FALSE);
     gtk_widget_show (dialog->priv->dir_browser);
-    label = create_label_with_mnemonic (window, _("_Look in folder:"), dialog->priv->dir_browser);
-    table_add (table, label, 0, 1, GTK_FILL);
+    table_add (table, create_label_with_mnemonic (window, _("_Look in folder:"), dialog->priv->dir_browser), 0, 1, GTK_FILL);
 
     table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
@@ -857,7 +859,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     gtk_progress_configure (GTK_PROGRESS (pbar), 0, 0, PBAR_MAX);
     gtk_box_pack_start (GTK_BOX (dialog->priv->statusbar), pbar, FALSE, TRUE, 0);
     dialog->priv->pbar = pbar;
-
 
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), NULL);
     g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
