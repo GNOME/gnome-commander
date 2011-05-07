@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-03 21:23+0000\n"
-"PO-Revision-Date: 2011-05-04 09:52+0200\n"
+"POT-Creation-Date: 2011-05-07 07:56+0000\n"
+"PO-Revision-Date: 2011-05-07 12:32+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -931,15 +931,15 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:1388
+#: ../src/gnome-cmd-file-list.cc:1383
 msgid "Directory listing failed."
 msgstr "Falló al listar la carpeta."
 
-#: ../src/gnome-cmd-file-list.cc:1441
+#: ../src/gnome-cmd-file-list.cc:1436
 msgid "Failed to open connection."
 msgstr "Fallo al abrir conexión."
 
-#: ../src/gnome-cmd-file-list.cc:2199 ../src/gnome-cmd-file-list.cc:2214
+#: ../src/gnome-cmd-file-list.cc:2182 ../src/gnome-cmd-file-list.cc:2197
 msgid "Not an ordinary file"
 msgstr "No es un archivo ordinario"
 
@@ -2208,34 +2208,29 @@ msgstr "Red"
 msgid "Programs"
 msgstr "Programas"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:125
-msgid "Select Using Pattern"
-msgstr "Seleccionar usando patrones"
-
-#: ../src/gnome-cmd-patternsel-dialog.cc:125
-msgid "Unselect Using Pattern"
-msgstr "Deseleccionar usando patrones"
-
-#: ../src/gnome-cmd-patternsel-dialog.cc:141
-#| msgid "Pattern:"
+#: ../src/gnome-cmd-patternsel-dialog.cc:110
 msgid "_Pattern:"
 msgstr "_Patrón:"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:143
-#| msgid "Case sensitive"
+#: ../src/gnome-cmd-patternsel-dialog.cc:112
 msgid "Case _sensitive"
 msgstr "_Sensible a capitalización"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:153
-#: ../src/gnome-cmd-search-dialog.cc:793
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
 msgid "She_ll syntax"
 msgstr "Sin_taxis de Shell"
 
-#. file name matching
-#: ../src/gnome-cmd-patternsel-dialog.cc:157
-#: ../src/gnome-cmd-search-dialog.cc:789
+#: ../src/gnome-cmd-patternsel-dialog.cc:126
 msgid "Rege_x syntax"
 msgstr "Sintaxis e_xpreg"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:156
+msgid "Select Using Pattern"
+msgstr "Seleccionar usando patrones"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:156
+msgid "Unselect Using Pattern"
+msgstr "Deseleccionar usando patrones"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:98
 #: ../src/gnome-cmd-prepare-move-dialog.cc:91
@@ -2616,78 +2611,84 @@ msgstr "Profundidad _limitada"
 msgid "Files _not containing text"
 msgstr "Archivos que _no contengan texto"
 
-#: ../src/gnome-cmd-search-dialog.cc:164
+#: ../src/gnome-cmd-search-dialog.cc:165
 #, c-format
 msgid "Failed to open file %s: %s"
 msgstr "Falló al abrir el archivo %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:205
+#: ../src/gnome-cmd-search-dialog.cc:206
 #, c-format
 msgid "Failed to seek in file %s: %s"
 msgstr "Falló al buscar en el archivo %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:212
+#: ../src/gnome-cmd-search-dialog.cc:213
 #, c-format
 msgid "Failed to read from file %s: %s"
 msgstr "Fallo al leer del archivo %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:273
+#: ../src/gnome-cmd-search-dialog.cc:274
 #, c-format
 msgid "Searching in: %s"
 msgstr "Buscando en: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:394
+#: ../src/gnome-cmd-search-dialog.cc:395
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
 msgstr[0] "Se encontró %d coincidencia - búsqueda abortada"
 msgstr[1] "Se encontraron %d coincidencias - búsqueda abortada"
 
-#: ../src/gnome-cmd-search-dialog.cc:395
+#: ../src/gnome-cmd-search-dialog.cc:396
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Se encontró %d coincidencia"
 msgstr[1] "Se encontraron %d coincidencias"
 
-#: ../src/gnome-cmd-search-dialog.cc:529
+#: ../src/gnome-cmd-search-dialog.cc:539
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Falló al cambiar a la carpeta fuera de %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:746
+#: ../src/gnome-cmd-search-dialog.cc:754
 msgid "Search..."
 msgstr "Buscar…"
 
-#: ../src/gnome-cmd-search-dialog.cc:760
-msgid "Search _for: "
-msgstr "Buscar _por:"
+#: ../src/gnome-cmd-search-dialog.cc:769
+msgid "Name matches regex:"
+msgstr "El nombre coincide con la expresión regular:"
+
+#: ../src/gnome-cmd-search-dialog.cc:770
+#| msgid "New connection"
+msgid "Name contains:"
+msgstr "El nombre contiene:"
 
 #. search in
-#: ../src/gnome-cmd-search-dialog.cc:771
+#: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Select Directory"
 msgstr "Seleccionar carpeta"
 
-#: ../src/gnome-cmd-search-dialog.cc:774
-msgid "Search _in: "
-msgstr "Buscar _en:"
+#: ../src/gnome-cmd-search-dialog.cc:788
+msgid "_Look in folder:"
+msgstr "_Buscar en la carpeta:"
 
 #. recurse check
-#: ../src/gnome-cmd-search-dialog.cc:783
+#: ../src/gnome-cmd-search-dialog.cc:796
 msgid "Search _recursively"
 msgstr "Buscar _recursivamente"
 
 #. find text
-#: ../src/gnome-cmd-search-dialog.cc:802
-msgid "Find _text: "
-msgstr "Buscar _texto:"
+#: ../src/gnome-cmd-search-dialog.cc:804
+#| msgid "Find _text: "
+msgid "Contains _text:"
+msgstr "Contiene el _texto:"
 
 #. case check
-#: ../src/gnome-cmd-search-dialog.cc:815
+#: ../src/gnome-cmd-search-dialog.cc:817
 msgid "Case sensiti_ve"
 msgstr "Sensible a _capitalización"
 
-#: ../src/gnome-cmd-search-dialog.cc:823
+#: ../src/gnome-cmd-search-dialog.cc:825
 msgid "_Go to"
 msgstr "_Ir a"
 
@@ -3178,8 +3179,8 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Imposible encontrar la imagen. Verifique que se haya instalado el programa o "
-"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-%"
-"s/src"
+"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-"
+"%s/src"
 
 #: ../src/imageloader.cc:135
 #, c-format
@@ -4053,8 +4054,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo lectura "
-"forzado» o «Bloquedao para anotaciones»."
+"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo "
+"lectura forzado» o «Bloquedao para anotaciones»."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Slide Count"
@@ -6794,8 +6795,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
-"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y «S» "
-"para recuadro."
+"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y "
+"«S» para recuadro."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Image Type"
@@ -7259,8 +7260,8 @@ msgid ""
 "Set to \"1\" if inserting, rotating, or deleting pages and creating "
 "navigation elements is allowed."
 msgstr ""
-"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y crear "
-"elementos de navegación."
+"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y "
+"crear elementos de navegación."
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Commenting"
@@ -7740,6 +7741,12 @@ msgstr "No se pudo leer de la carpeta %s: %s"
 #: ../src/utils.h:293
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
+
+#~ msgid "Search _for: "
+#~ msgstr "Buscar _por:"
+
+#~ msgid "Search _in: "
+#~ msgstr "Buscar _en:"
 
 #~ msgid "Match file names using"
 #~ msgstr "Filtrar nombres de archivo usando"
