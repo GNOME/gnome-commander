@@ -48,8 +48,10 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
+    gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+
+    const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
 
     if (dialog->priv->mode)
         dialog->priv->fl->select_pattern(s, case_sens);
@@ -75,8 +77,6 @@ static void on_cancel (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 static void gnome_cmd_patternsel_dialog_finalize (GObject *object)
 {
     GnomeCmdPatternselDialog *dialog = GNOME_CMD_PATTERNSEL_DIALOG (object);
-
-    gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (object), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
 
     g_free (dialog->priv);
 
