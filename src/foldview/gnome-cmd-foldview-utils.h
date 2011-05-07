@@ -140,6 +140,8 @@ template <typename T> struct GcmdStruct : public T
     template <typename U1, typename U2, typename U3> GcmdStruct(U1 u1, U2 u2, U3 u3) : T(u1, u2, u3) {}
     template <typename U1, typename U2, typename U3, typename U4> GcmdStruct(U1 u1, U2 u2, U3 u3, U4 u4) : T(u1, u2, u3, u4) {}
     template <typename U1, typename U2, typename U3, typename U4, typename U5> GcmdStruct(U1 u1, U2 u2, U3 u3, U4 u4, U5 u5) : T(u1, u2, u3, u4, u5) {}
+    template <typename U1, typename U2, typename U3, typename U4, typename U5, typename U6> GcmdStruct(U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6) : T(u1, u2, u3, u4, u5, u6) {}
+    template <typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7> GcmdStruct(U1 u1, U2 u2, U3 u3, U4 u4, U5 u5, U6 u6, U7 u7) : T(u1, u2, u3, u4, u5, u6, u7) {}
 
     virtual     ~GcmdStruct<T>() {}
 };

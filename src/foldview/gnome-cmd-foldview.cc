@@ -384,25 +384,27 @@ void GcmdGtkFoldview::init_instance()
     //
     //
 
-    // common
-    sLogger.channel_create(eLogGcmd,      "GCMD     ", GCMD_B8(111000));
-    sLogger.channel_create(eLogLeaks,     "LEAKS    ", GCMD_B8(111111));
-    // control
-    sLogger.channel_create(eLogFifo,      "FIFO     ", GCMD_B8(000000));
-    sLogger.channel_create(eLogMsg,       "MESSAGES ", GCMD_B8(111011));
-    // model
-    sLogger.channel_create(eLogFiles,     "FILES    ", GCMD_B8(000000));
-    sLogger.channel_create(eLogRefresh,   "REFRESH  ", GCMD_B8(011011));
-    sLogger.channel_create(eLogSort,      "SORT     ", GCMD_B8(111111));
-    sLogger.channel_create(eLogEnumerate, "ENUMERATE", GCMD_B8(111000));
-    sLogger.channel_create(eLogCheck,     "CHECK    ", GCMD_B8(111000));
-    sLogger.channel_create(eLogExpand,    "EXPAND   ", GCMD_B8(111000));
-    sLogger.channel_create(eLogMonitor,   "MONITOR  ", GCMD_B8(000000));
+    if ( ! sLogger.channel(eLogGcmd) )
+    {
+        // common
+        sLogger.channel_create(eLogGcmd,      "GCMD     ", GCMD_B8(011000));
+        sLogger.channel_create(eLogLeaks,     "LEAKS    ", GCMD_B8(111111));
+        // control
+        sLogger.channel_create(eLogFifo,      "FIFO     ", GCMD_B8(011000));
+        sLogger.channel_create(eLogMsg,       "MESSAGES ", GCMD_B8(011000));
+        // model
+        sLogger.channel_create(eLogFiles,     "FILES    ", GCMD_B8(000000));
+        sLogger.channel_create(eLogRefresh,   "REFRESH  ", GCMD_B8(011011));
+        sLogger.channel_create(eLogSort,      "SORT     ", GCMD_B8(011111));
+        sLogger.channel_create(eLogEnumerate, "ENUMERATE", GCMD_B8(011000));
+        sLogger.channel_create(eLogCheck,     "CHECK    ", GCMD_B8(011000));
+        sLogger.channel_create(eLogExpand,    "EXPAND   ", GCMD_B8(011000));
+        sLogger.channel_create(eLogMonitor,   "MONITOR  ", GCMD_B8(000000));
 
-    sLogger.channel_create(eLogTreeNode,  "TREENODE ", GCMD_B8(111011));
-    sLogger.channel_create(eLogTreeBlock, "TREEBLOCK", GCMD_B8(111100));
-    sLogger.channel_create(eLogTreeStore, "TREESTORE", GCMD_B8(111100));
-
+        sLogger.channel_create(eLogTreeNode,  "TREENODE ", GCMD_B8(111011));
+        sLogger.channel_create(eLogTreeBlock, "TREEBLOCK", GCMD_B8(111011));
+        sLogger.channel_create(eLogTreeStore, "TREESTORE", GCMD_B8(111011));
+    }
     //.........................................................................
     //
     //  Images

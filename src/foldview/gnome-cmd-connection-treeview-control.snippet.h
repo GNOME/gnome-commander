@@ -131,10 +131,14 @@ struct Control
 	//  wrappers on GnomeCmdConnectionTreeview
     //  =======================================================================
     public:
-    inline  gboolean		    is_samba()      { return a_connection_treeview->is_samba();     }
-    inline  gboolean		    is_local()      { return a_connection_treeview->is_local();     }
-    inline  gboolean		    host_redmond()  { return a_connection_treeview->host_redmond(); }
-    inline  GnomeCmdCon     *   connection()    { return a_connection_treeview->connection();   }
+    inline  gboolean		    is_con_device()         { return a_connection_treeview->is_con_device();        }
+    inline  gboolean		    is_con_samba()          { return a_connection_treeview->is_con_samba();         }
+    inline  gboolean		    is_con_local()          { return a_connection_treeview->is_con_local();         }
+    inline  gboolean		    host_redmond()          { return a_connection_treeview->host_redmond();         }
+    inline  GnomeCmdCon     *   gnome_cmd_connection()  { return a_connection_treeview->connection();           }
+    inline  GnomeCmdConDevice*  con_device()            { return a_connection_treeview->con_device();           }
+
+    inline  eAccessCheckMode    access_check_mode()     { return a_connection_treeview->access_check_mode();    }
     //  =======================================================================
 	//  Widgets signals
     //  =======================================================================

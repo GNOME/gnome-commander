@@ -214,6 +214,9 @@ struct Model
     inline  GnomeCmdFoldviewTreestore	*   treestore()		{ return d_treestore;					}
     inline  GtkTreeModel				*   treemodel()		{ return GTK_TREE_MODEL(d_treestore);	}
     inline  GtkTreeSortable				*   treesortable()	{ return GTK_TREE_SORTABLE(d_treestore);}
+    //  =======================================================================
+	//  divers
+    //  =======================================================================
 
     //  =======================================================================
     //  NO LOCK : GtkTreeModelIface impl

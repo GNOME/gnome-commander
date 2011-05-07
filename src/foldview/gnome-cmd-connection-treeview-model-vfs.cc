@@ -42,13 +42,30 @@
 //  ###########################################################################
 GnomeCmdConnectionTreeview::eFileAccess
 GnomeCmdConnectionTreeview::Model::GnomeVFS::Access_from_GnomeVFSFilePermissions(
-	GnomeVFSFilePermissions _permissions)
+	GnomeVFSFilePermissions     _permissions,
+    eAccessCheckMode            _mode)
 {
-	return Access_from_read_write
-			(
-				( ( _permissions & GNOME_VFS_PERM_ACCESS_READABLE ) != 0 ),
-				( ( _permissions & GNOME_VFS_PERM_ACCESS_WRITABLE ) != 0 )
-			);
+    gboolean    r    = FALSE;
+    gboolean    w    = FALSE;
+    //.........................................................................
+    if ( _mode == eAccessCheckNone )
+    {
+        r = TRUE;
+        w = TRUE;
+    }
+
+    if ( _mode | eAccessCheckClientPerm )
+    {
+		r = r | ( ( _permissions & GNOME_VFS_PERM_ACCESS_READABLE )    != 0 );
+		w = w | ( ( _permissions & GNOME_VFS_PERM_ACCESS_WRITABLE )    != 0 );
+    }
+    if ( _mode | eAccessCheckOwnerPerm )
+    {
+		r = r | ( ( _permissions & GNOME_VFS_PERM_USER_READ )   != 0 );
+		w = w | ( ( _permissions & GNOME_VFS_PERM_USER_WRITE )  != 0 );
+    }
+
+	return Access_from_read_write(r, w);
 }
 
 GnomeCmdConnectionTreeview::eFileType
@@ -375,7 +392,7 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::Iter_get_file_info_callback(
     gfi->a_is_symlink	= GNOME_VFS_FILE_INFO_SYMLINK(info);
     gfi->a_symlink_name	= info->symlink_name;
     gfi->a_type         = Type_from_GnomeVFSFileType(info->type);
-    gfi->a_access       = Access_from_GnomeVFSFilePermissions(info->permissions);
+    gfi->a_access       = Access_from_GnomeVFSFilePermissions(info->permissions, gfi->get_access_check_mode());
 
 lab_call_caller:
 	(gfi->caller_data()->callback())(gfi);
@@ -418,8 +435,6 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::Iter_enumerate_children_callback(
 	FoldviewFile						*   file						= NULL;
 	const gchar							*	file_display_name			= NULL;
 	const gchar							*	file_display_name_ck		= NULL;
-	gboolean								b_read;
-	gboolean								b_write;
 	eFileAccess								file_access					= eAccessUN;
 	gboolean								file_has_flag_symlink		= FALSE;
 	const gchar							*	file_symlink_target_name	= NULL;
@@ -442,8 +457,6 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::Iter_enumerate_children_callback(
 
 lab_loop:
 
-	b_read = b_write = FALSE;
-
 	count++;
 
 	info	= (GnomeVFSFileInfo*)(l->data);
@@ -453,9 +466,7 @@ lab_loop:
 	file_display_name		= info->name;
 	file_display_name_ck	= g_utf8_collate_key(file_display_name, -1);
 
-	if ( ( info->permissions & GNOME_VFS_PERM_ACCESS_READABLE ) != 0 )	b_read  = TRUE;
-	if ( ( info->permissions & GNOME_VFS_PERM_ACCESS_WRITABLE ) != 0 )	b_write = TRUE;
-	file_access = Access_from_read_write(b_read,b_write);
+    file_access = Access_from_GnomeVFSFilePermissions(info->permissions, vaec->get_access_check_mode());
 
 	file_has_flag_symlink		= ( ( info->flags & GNOME_VFS_FILE_FLAGS_SYMLINK ) != 0 );
 	file_symlink_target_name	= info->symlink_name;
@@ -505,9 +516,6 @@ lab_loop:
 		if ( strcmp(GnomeCmdConnectionTreeview::Collate_key_dot,	file_display_name_ck ) &&
 			 strcmp(GnomeCmdConnectionTreeview::Collate_key_dotdot,	file_display_name_ck ))
 		{
-            ENUMERATE_INF("strcmp:%i", strcmp(GnomeCmdConnectionTreeview::Collate_key_dot,	    file_display_name_ck ));
-            ENUMERATE_INF("strcmp:%i", strcmp(GnomeCmdConnectionTreeview::Collate_key_dotdot,	file_display_name_ck ));
-
 			added++;
 
 			ENUMERATE_INF("alsc:[%03i][0x%16x] [%03i][%03i][%03i] +<%s>", vaec->handle(), l, count, added, vaec->max_result(), file_display_name);
@@ -858,7 +866,7 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::Monitor_callback_child_new(
 
 	name			= info->name;
 	type			= Type_from_GnomeVFSFileType(info->type);
-	access			= Access_from_GnomeVFSFilePermissions(info->permissions);
+	access			= Access_from_GnomeVFSFilePermissions(info->permissions, eAccessCheckClientPerm);
 	is_symlink		= GNOME_VFS_FILE_INFO_SYMLINK(info);
 	symlink_name	= info->symlink_name;
 
@@ -1014,7 +1022,7 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::Monitor_callback_child_acc(
 
 	name			= info->name;
 	type			= Type_from_GnomeVFSFileType(info->type);
-	access			= Access_from_GnomeVFSFilePermissions(info->permissions);
+	access			= Access_from_GnomeVFSFilePermissions(info->permissions, eAccessCheckClientPerm);
 	is_symlink		= GNOME_VFS_FILE_INFO_SYMLINK(info);
 	symlink_name	= info->symlink_name;
 
@@ -1041,12 +1049,14 @@ abort:
 void
 GnomeCmdConnectionTreeview::Model::GnomeVFS::iter_check_if_empty(
 	AsyncCallerData  *  _acd,
-    const Uri           _uri)
+    const Uri           _uri,
+    eAccessCheckMode    _mode)
 {
 	GnomeVFSAsyncEnumerateChildren  * vaec = NULL;
 	//.........................................................................
 	//vaec = new GnomeVFSAsyncEnumerateChildren(_acd, _uri, 1, TRUE);
 	vaec = GCMD_STRUCT_NEW(GnomeVFSAsyncEnumerateChildren, _acd, _uri, 1, TRUE);
+    vaec->set_access_check_mode(_mode);
 
 	// Launch gvfs async op !
 	// uri ref_count is not incremented
@@ -1071,11 +1081,13 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::iter_check_if_empty(
 void
 GnomeCmdConnectionTreeview::Model::GnomeVFS::iter_enumerate_children(
 	AsyncCallerData  *  _acd,
-    const Uri           _uri)
+    const Uri           _uri,
+    eAccessCheckMode    _mode)
 {
 	GnomeVFSAsyncEnumerateChildren  * vaec = NULL;
 	//.........................................................................
 	vaec = GCMD_STRUCT_NEW(GnomeVFSAsyncEnumerateChildren, _acd, _uri, -1, TRUE);
+    vaec->set_access_check_mode(_mode);
 
 	// Launch gvfs async op !
 	// uri ref_count is not incremented
@@ -1100,12 +1112,14 @@ GnomeCmdConnectionTreeview::Model::GnomeVFS::iter_enumerate_children(
 void
 GnomeCmdConnectionTreeview::Model::GnomeVFS::iter_get_file_info(
 	AsyncCallerData  *  _acd,
-    const Uri           _uri)
+    const Uri           _uri,
+    eAccessCheckMode    _mode)
 {
 	GnomeVFSAsyncGetFileInfo    * gfi   = NULL;
     GList                       * list  = NULL;
 	//.........................................................................
 	gfi = GCMD_STRUCT_NEW(GnomeVFSAsyncGetFileInfo, _acd, _uri);
+    gfi->set_access_check_mode(_mode);
     list = g_list_append(list, gfi->gnomevfs_uri());
 	//GCMD_INF_vfs("als :[%03i] [0x%16x][0x%16x][%03i] Launch", hi, ga, ls, max_result);
 

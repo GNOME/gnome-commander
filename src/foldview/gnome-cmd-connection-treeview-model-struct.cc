@@ -940,7 +940,7 @@ GnomeCmdConnectionTreeview::Model::AsyncCallerData::~AsyncCallerData()
 //  Model::AsyncCore
 //=============================================================================
 GnomeCmdConnectionTreeview::Model::AsyncCore::AsyncCore(
-	AsyncCallerData * _acd)
+	AsyncCallerData     *   _acd)
 {
 	a_caller_data	    = _acd;
 
@@ -966,13 +966,25 @@ GnomeCmdConnectionTreeview::Model::AsyncCore::error_set(
 }
 
 //=============================================================================
+//  Model::AsyncGet
+//=============================================================================
+GnomeCmdConnectionTreeview::Model::AsyncGet::AsyncGet(
+	AsyncCallerData     *   _acd) : AsyncCore(_acd)
+{
+}
+
+GnomeCmdConnectionTreeview::Model::AsyncGet::~AsyncGet()
+{
+}
+
+//=============================================================================
 //  Model::AsyncEnumerateChildren
 //=============================================================================
 GnomeCmdConnectionTreeview::Model::AsyncEnumerateChildren::AsyncEnumerateChildren(
 	AsyncCallerData	  *		_caller_data,
     const Uri               _uri,
 	gint					_max_result,
-	gboolean				_follow_links) : AsyncCore(_caller_data)
+	gboolean				_follow_links) : AsyncGet(_caller_data)
 {
     d_uri               = g_strdup(_uri);
 	a_max_result		= _max_result;
@@ -1027,7 +1039,7 @@ GnomeCmdConnectionTreeview::Model::AsyncEnumerateChildren::list_append(
 //=============================================================================
 GnomeCmdConnectionTreeview::Model::AsyncGetFileInfo::AsyncGetFileInfo(
 	AsyncCallerData	  *		_caller_data,
-    const Uri               _uri) : AsyncCore(_caller_data)
+    const Uri               _uri) : AsyncGet(_caller_data)
 {
     d_uri                   = g_strdup(_uri);
     a_name                  = NULL;

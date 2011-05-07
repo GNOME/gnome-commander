@@ -356,14 +356,17 @@ struct  AsyncCallerData
     Model					*   model()		{ return a_model;		}
     AsyncCallerCallback			callback()	{ return a_callback;	}
 };
-//.....................................................................
+//.............................................................................
 struct AsyncCore
 {
+    private:
     eFileError              a_error;
     gchar               *   d_error_str;
 
     protected:
     AsyncCallerData		*   a_caller_data;
+    gboolean                a_check_client_perm;
+    gboolean                a_check_owner_perm;
 
     protected:
                 AsyncCore(AsyncCallerData*);
@@ -377,6 +380,26 @@ struct AsyncCore
     gboolean        error()                 { return ( a_error != eErrorNone ); }
     const gchar*    error_str()             { return d_error_str;               }
 
+    inline  gboolean        check_client_perm() { return a_check_client_perm;   }
+    inline  gboolean        check_owner_perm()  { return a_check_owner_perm;    }
+};
+//.............................................................................
+struct AsyncGet : public AsyncCore
+{
+    private:
+    eAccessCheckMode    a_access_check_mode;
+
+    protected:
+                AsyncGet(AsyncCallerData*);
+    virtual		~AsyncGet();
+
+    public:
+    inline  void                set_access_check_mode(eAccessCheckMode _m)  { a_access_check_mode = _m;     }
+    inline  eAccessCheckMode    get_access_check_mode()                     { return a_access_check_mode;   }
+};
+//.............................................................................
+struct AsyncSet : public AsyncCore
+{
 };
 //  ###########################################################################
 //  Filesystem access structs : Get file info
@@ -384,7 +407,7 @@ struct AsyncCore
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //    Filesystem access structs : Get file info : Core ( GIO & GnomeVFS independant )
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-struct AsyncGetFileInfo : AsyncCore
+struct AsyncGetFileInfo : AsyncGet
 {
     friend struct GnomeVFS;
     friend struct GIO;
@@ -416,7 +439,7 @@ struct AsyncGetFileInfo : AsyncCore
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //    Filesystem access structs : Enumerate : Core ( GIO & GnomeVFS independant )
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-struct AsyncEnumerateChildren : AsyncCore
+struct AsyncEnumerateChildren : AsyncGet
 {
     private:
     Uri                     d_uri;
@@ -427,7 +450,7 @@ struct AsyncEnumerateChildren : AsyncCore
     gint					a_list_card;
 
     protected:
-                 AsyncEnumerateChildren(AsyncCallerData*, const Uri, gint _max_result, gboolean _follow_links) ;
+                 AsyncEnumerateChildren(AsyncCallerData*, const Uri, gint _max_result, gboolean _follow_links);
     virtual	    ~AsyncEnumerateChildren();
 
     public:
@@ -472,7 +495,7 @@ struct GnomeVFS
     friend struct GnomeVFSMonitor;
 
     private:
-    static  eFileAccess		Access_from_GnomeVFSFilePermissions (GnomeVFSFilePermissions);
+    static  eFileAccess		Access_from_GnomeVFSFilePermissions (GnomeVFSFilePermissions, eAccessCheckMode);
     static  eFileType		Type_from_GnomeVFSFileType          (GnomeVFSFileType);
     static  eFileError      Error_from_GnomeVFSResult           (GnomeVFSResult);
 
@@ -482,9 +505,9 @@ struct GnomeVFS
     static  void		Iter_enumerate_children_callback(GnomeVFSAsyncHandle*, GnomeVFSResult, GList*, guint, gpointer);
 
     public:
-            void		iter_enumerate_children	(AsyncCallerData*, const Uri);
-            void		iter_check_if_empty	    (AsyncCallerData*, const Uri);
-            void        iter_get_file_info      (AsyncCallerData*, const Uri);
+            void		iter_enumerate_children	(AsyncCallerData*, const Uri, eAccessCheckMode);
+            void		iter_check_if_empty	    (AsyncCallerData*, const Uri, eAccessCheckMode);
+            void        iter_get_file_info      (AsyncCallerData*, const Uri, eAccessCheckMode);
             // no need for this one for instant
             //void        iter_get_file_info        (AsyncCallerData*, const Uri);
     //.................................................................

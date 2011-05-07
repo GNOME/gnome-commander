@@ -33,15 +33,19 @@
 
         Check all g_list_append / prepend, doc says it works with NULL pointers
 
-        ReEnable double-click
-
-        Separators between multiples trees
-
         Effective sorting in GtkTreeView
 
         Test with GIO
 
         Show broken symlinks
+
+        Broken access for gnome_cmd_con_device connections : seems that is
+        a bug in gcmd code
+
+        Is sorting realy useful ?
+
+        Set_connection on active pane fail as it seems there is no active pane
+        at the start of the program !
 
 		..................... facultative  / later ............................
 
@@ -55,6 +59,23 @@
         depth info in uids ? seems impossible with actual code...
 
 		.......................................................................
+DONE    20.12.2010
+        fixed pb gnome_cmd_file_get_path in gnome-cmd-file.cc
+
+DONE    20.12.2010
+        removed sort button, sort is not yet effective and confuse users
+
+DONE    19.12.2010
+        File permissions on ftp connections :
+            - owner perms instead of client perms
+            - root folder has permissions 0, unable to browse...
+
+DONE    Separators between multiples trees
+        -> headband above treeview control
+
+DONE    ReEnable double-click
+
+
 DONE    _GWR_BUG_#01_
 
 DONE    Notification from filesystem, GIO based ( half coded )

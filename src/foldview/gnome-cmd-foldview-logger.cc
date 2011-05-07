@@ -41,6 +41,7 @@ Logger::LogFunction     Logger::Log_function[6] =
 static char			s1  [1024];
 static char			s2  [1024];
 
+
 /*
 	Prompt color format : <ESC>[{attr};{fg};{bg}m
 

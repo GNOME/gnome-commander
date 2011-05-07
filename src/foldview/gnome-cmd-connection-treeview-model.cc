@@ -395,7 +395,7 @@ GtkTreeIter	 *iter_tree_out)
 	return iter_add_tree(
         rw->uri_utf8(), rw->utf8_name_display(), rw->utf8_symlink_target_uri(),
         rw->access(), rw->is_link(),
-        control()->is_samba(), control()->is_local(), control()->host_redmond(),
+        control()->is_con_samba(), control()->is_con_local(), control()->host_redmond(),
         iter_tree_out);
 }
 //  ===========================================================================
@@ -1423,8 +1423,8 @@ GnomeCmdConnectionTreeview::Model::iter_refresh(
         // create a struct for knowing what to do with GVFS answers
         acd = GCMD_STRUCT_NEW(AsyncCallerData, this, Iter_refresh_callback, row->path()->dup());
 
-        _USE_GIO_   ?   a_GIO.iter_get_file_info(acd, row->uri_utf8())          :
-                        a_GnomeVFS.iter_get_file_info(acd, row->uri_utf8())     ;
+        _USE_GIO_   ?   a_GIO.iter_get_file_info(acd, row->uri_utf8())                                          :
+                        a_GnomeVFS.iter_get_file_info(acd, row->uri_utf8(), control()->access_check_mode())     ;
 
         return;
     }
@@ -1442,8 +1442,8 @@ GnomeCmdConnectionTreeview::Model::iter_refresh(
         // create a struct for knowing what to do with GVFS answers
         acd = GCMD_STRUCT_NEW(AsyncCallerData, this, Iter_refresh_callback, row->path()->dup());
 
-        _USE_GIO_   ?   a_GIO.iter_get_file_info(acd, row->uri_utf8())          :
-                        a_GnomeVFS.iter_get_file_info(acd, row->uri_utf8())     ;
+        _USE_GIO_   ?   a_GIO.iter_get_file_info(acd, row->uri_utf8())                                          :
+                        a_GnomeVFS.iter_get_file_info(acd, row->uri_utf8(), control()->access_check_mode())     ;
     }
     while ( treestore()->iter_next(treemodel(), &child) );
 
@@ -1594,8 +1594,8 @@ GnomeCmdConnectionTreeview::Model::iter_check_if_empty(
 	// create a struct for knowing what to do with async answers
 	acd = GCMD_STRUCT_NEW(AsyncCallerData, this, Iter_check_if_empty_callback, row->path()->dup());
 
-	_USE_GIO_   ?	a_GIO.iter_check_if_empty(acd, row->uri_utf8())         :
-                    a_GnomeVFS.iter_check_if_empty(acd, row->uri_utf8())    ;
+	_USE_GIO_   ?	a_GIO.iter_check_if_empty(acd, row->uri_utf8())                                         :
+                    a_GnomeVFS.iter_check_if_empty(acd, row->uri_utf8(), control()->access_check_mode())    ;
 }
 
 //  ###########################################################################
@@ -1727,8 +1727,8 @@ GnomeCmdConnectionTreeview::Model::iter_expanded_from_ui(
 	// create a struct for knowing what to do with async answers
 	acd = GCMD_STRUCT_NEW(AsyncCallerData, this, Iter_expanded_from_ui_callback, row->path()->dup());
 
-	_USE_GIO_   ?   a_GIO.iter_enumerate_children(acd, row->uri_utf8())     :
-                    a_GnomeVFS.iter_enumerate_children(acd, row->uri_utf8());
+	_USE_GIO_   ?   a_GIO.iter_enumerate_children(acd, row->uri_utf8())                                     :
+                    a_GnomeVFS.iter_enumerate_children(acd, row->uri_utf8(), control()->access_check_mode());
 }
 
 //  ###########################################################################
@@ -1759,8 +1759,8 @@ GnomeCmdConnectionTreeview::Model::iter_enumerate_children(
 	// create a struct for knowing what to do with async answers
 	acd = GCMD_STRUCT_NEW(AsyncCallerData, this, _callback, row->path()->dup());
 
-	_USE_GIO_   ?   a_GIO.iter_enumerate_children(acd, row->uri_utf8())     :
-                    a_GnomeVFS.iter_enumerate_children(acd, row->uri_utf8());
+	_USE_GIO_   ?   a_GIO.iter_enumerate_children(acd, row->uri_utf8())                                     :
+                    a_GnomeVFS.iter_enumerate_children(acd, row->uri_utf8(), control()->access_check_mode());
 }
 
 //  ###########################################################################
@@ -1894,14 +1894,14 @@ GnomeCmdConnectionTreeview::Model::add_first_tree(
     // create the first iter
     row = new Row(eRowRoot, _uri, _alias, NULL,
         eAccessRW, FALSE,
-        control()->is_samba(), control()->is_local(), control()->host_redmond());
+        control()->is_con_samba(), control()->is_con_local(), control()->host_redmond());
     iter_add_child(NULL, &iter_child, row);
 
   	// create a struct for knowing what to do with async answer
 	acd = GCMD_STRUCT_NEW(AsyncCallerData, this, Add_first_tree_callback, treestore()->ext_path_from_iter(&iter_child));
 
-	_USE_GIO_   ?   a_GIO.iter_get_file_info(acd, _uri)         :
-                    a_GnomeVFS.iter_get_file_info(acd, _uri)    ;
+	_USE_GIO_   ?   a_GIO.iter_get_file_info(acd, _uri)                                         :
+                    a_GnomeVFS.iter_get_file_info(acd, _uri, control()->access_check_mode())    ;
 }
 
 //  ###########################################################################

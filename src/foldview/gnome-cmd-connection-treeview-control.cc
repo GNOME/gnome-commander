@@ -366,11 +366,27 @@ void GnomeCmdConnectionTreeview::Control::set_active_tab(GtkTreePath *_path)
 	row = model()->iter_get_treerow(&iter);
 	g_return_if_fail( row );
 
-	// open the new tab
+	// create a temporary GnomeVFSURI for getting rid of scheme, using uri->text
     uri     = gnome_vfs_uri_new(row->uri_utf8());
-	path    = gnome_cmd_con_create_path(connection_treeview()->connection(), uri->text);
-	dir	    = gnome_cmd_dir_new(connection_treeview()->connection(), path);
-	fs->file_list()->set_connection(connection_treeview()->connection(), dir);
+
+    // special case of GnomeCmdConDevice, with mount point
+    if ( is_con_device() )
+	{
+        gchar * v = g_utf8_offset_to_pointer(uri->text, connection_treeview()->con_device_mount_point_len());
+
+        GCMD_WNG("Control::set_active_tab():path [%s]", v);
+
+        path    = gnome_cmd_con_create_path(gnome_cmd_connection(), v);
+    }
+    // normal case
+    else
+    {
+        path    = gnome_cmd_con_create_path(gnome_cmd_connection(), uri->text);
+    }
+
+    // go
+	dir	    = gnome_cmd_dir_new(gnome_cmd_connection(), path);
+	fs->file_list()->set_connection(gnome_cmd_connection(), dir);
     gnome_vfs_uri_unref(uri);
 }
 //  ===========================================================================
@@ -890,14 +906,14 @@ GnomeCmdConnectionTreeview::Control::iter_message_add_first_tree(
         row_new = new Model::Row(
             Model::eRowRoot, info.row()->uri_utf8(), _msg->file()->name_utf8(), (gchar*)((Model::Symlink*)_msg->file())->target_uri(),
             _msg->file()->access(), TRUE,
-            is_samba(), is_local(), host_redmond());
+            is_con_samba(), is_con_local(), host_redmond());
     }
     else
     {
         row_new = new Model::Row(
             Model::eRowRoot, info.row()->uri_utf8(), _msg->file()->name_utf8(), NULL,
             _msg->file()->access(), FALSE,
-            is_samba(), is_local(), host_redmond());
+            is_con_samba(), is_con_local(), host_redmond());
     }
 
 	// replace treerow by the new one, signal will be emitted
@@ -1036,6 +1052,8 @@ GnomeCmdConnectionTreeview::Control::iter_message_add_dummy_child(
             MSG_WNG("iter_message_add_dummy_child():iter has an unique child, but not a dummy");
             goto lab_exit_false;
         }
+        // here already dummy child, silently exir
+        goto lab_exit_true;
     }
 
     //.........................................................................

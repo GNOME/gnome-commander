@@ -88,12 +88,12 @@ GnomeCmdConnectionTreeview::View::HeadBand::init_instance(
     gtk_entry_set_has_frame(GTK_ENTRY(d_entry_path), TRUE);
     gtk_entry_set_alignment(GTK_ENTRY(d_entry_path), 0.0f);
     gtk_entry_set_editable(GTK_ENTRY(d_entry_path), FALSE);
-    gtk_entry_set_text(GTK_ENTRY(d_entry_path), view()->control()->connection()->alias);
+    gtk_entry_set_text(GTK_ENTRY(d_entry_path), view()->control()->gnome_cmd_connection()->alias);
     //.........................................................................
     //
     // Buttons setup
     //
-    gtk_button_set_image(GTK_BUTTON(d_button_connection_image), gtk_image_new_from_pixbuf(gnome_cmd_con_get_open_pixmap(view()->control()->connection())->pixbuf));
+    gtk_button_set_image(GTK_BUTTON(d_button_connection_image), gtk_image_new_from_pixbuf(gnome_cmd_con_get_open_pixmap(view()->control()->gnome_cmd_connection())->pixbuf));
     gtk_button_set_image(GTK_BUTTON(d_button_refresh),          gtk_image_new_from_pixbuf(GnomeCmdConnectionTreeview::s_gdk_pixbuf[eIconGtkRefresh]));
     gtk_button_set_image(GTK_BUTTON(d_button_sort),             gtk_image_new_from_pixbuf(GnomeCmdConnectionTreeview::s_gdk_pixbuf[eIconGtkSortDescending]));
     gtk_button_set_image(GTK_BUTTON(d_button_show_hide),        gtk_image_new_from_pixbuf(GnomeCmdConnectionTreeview::s_gdk_pixbuf[eIconFolderOpened]));
@@ -112,7 +112,7 @@ GnomeCmdConnectionTreeview::View::HeadBand::init_instance(
     gtk_box_pack_start(GTK_BOX(d_hbox_main), d_entry_path,              TRUE , TRUE , 0);
     //gtk_box_pack_start(GTK_BOX(d_hbox_main), d_alignement_padder,       TRUE , TRUE, 0);
     gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_refresh,          FALSE, FALSE, 0);
-    gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_sort,             FALSE, FALSE, 0);
+    //gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_sort,             FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_show_hide,        FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(d_hbox_main), d_button_close,            FALSE, FALSE, 0);
 }

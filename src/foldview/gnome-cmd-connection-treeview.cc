@@ -32,6 +32,10 @@
 */
 #include    "gnome-cmd-connection-treeview.h"
 
+#include    "gnome-cmd-con-device.h"
+#include    "gnome-cmd-con-home.h"
+#include    "gnome-cmd-con-smb.h"
+
 //  ###########################################################################
 //
 //  			    GnomeCmdConnectionTreeview
@@ -74,8 +78,26 @@ GnomeCmdConnectionTreeview::GnomeCmdConnectionTreeview(
         Collate_key_uri_01  = g_utf8_collate_key(_("file:///"),  -1);
     }
 
-    a_foldview      = _foldview;
-    a_connection    = _con;
+    a_foldview                      = _foldview;
+    a_connection                    = _con;
+    a_con_device_mount_point        = NULL;
+    a_con_device_mount_point_len    = 0;
+
+    // for device connections, we need to know the mount point because the way
+    // gnome_cmd_path is coded
+    if ( GNOME_CMD_IS_CON_DEVICE(_con) )
+    {
+        a_con_device_mount_point        = g_strdup( gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE(_con)) );
+        a_con_device_mount_point_len    = g_utf8_strlen(a_con_device_mount_point, -1);
+    }
+
+    // access check mode
+    a_access_check_mode = eAccessCheckClientPerm;
+
+    if ( a_connection->method == CON_FTP )
+    {
+        a_access_check_mode = eAccessCheckNone;
+    }
 
     // create the control
     d_control   = GCMD_STRUCT_NEW(Control, this);
@@ -87,7 +109,7 @@ GnomeCmdConnectionTreeview::GnomeCmdConnectionTreeview(
     d_view      = GCMD_STRUCT_NEW(View, d_control, model()->treemodel());
 
     // go !
-    if ( gnome_cmd_con_is_local(a_connection) )
+    //if ( gnome_cmd_con_is_local(a_connection) )
     {
         p = gnome_cmd_con_create_path(a_connection, "");
         u = gnome_cmd_con_create_uri(a_connection, p);
@@ -196,20 +218,32 @@ GnomeCmdConnectionTreeview::Pixbuf_unload_all()
 //
 //  ***************************************************************************
 gboolean
-GnomeCmdConnectionTreeview::is_samba()
+GnomeCmdConnectionTreeview::is_con_device()
 {
-    return ( a_connection->method == CON_SMB );
+    return GNOME_CMD_IS_CON_DEVICE( connection() );
 }
 gboolean
-GnomeCmdConnectionTreeview::is_local()
+GnomeCmdConnectionTreeview::is_con_samba()
 {
-    return ( a_connection->method == CON_LOCAL );
+    return GNOME_CMD_IS_CON_SMB( connection() );
+}
+gboolean
+GnomeCmdConnectionTreeview::is_con_local()
+{
+    return GNOME_CMD_IS_CON_HOME( connection() );
 }
 
 gboolean
 GnomeCmdConnectionTreeview::host_redmond()
 {
     return FALSE;                                                               // _GWR_TODO_
+}
+
+
+GnomeCmdConDevice*
+GnomeCmdConnectionTreeview::con_device()
+{
+    return GNOME_CMD_CON_DEVICE( connection() );
 }
 
 //  ***************************************************************************

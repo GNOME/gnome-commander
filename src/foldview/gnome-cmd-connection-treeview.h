@@ -48,6 +48,7 @@
 //  ...........................................................................
 #include	"gnome-cmd-includes.h"
 #include	"gnome-cmd-con.h"
+#include	"gnome-cmd-con-device.h"
 //  ...........................................................................
 #include    "gnome-cmd-foldview-utils.h"
 #include    "gnome-cmd-foldview-logger.h"
@@ -102,6 +103,17 @@ struct GnomeCmdConnectionTreeview
 
 		eAccessUN		=   4
 	};
+
+    public:
+    enum eAccessCheckMode
+    {
+        eAccessCheckNone          = (guint32)(GCMD_B8(00000000)),
+
+        eAccessCheckClientPerm    = (guint32)(GCMD_B8(00000000)),
+        eAccessCheckOwnerPerm     = (guint32)(GCMD_B8(00000000)),
+
+        eAccessCheckAll           = (guint32)((eAccessCheckClientPerm + eAccessCheckOwnerPerm))
+    };
 
     public  : enum eFileType
 	{
@@ -194,7 +206,12 @@ struct GnomeCmdConnectionTreeview
     static  gboolean            s_gdk_pixbuf_loaded;
 
     GnomeCmdCon             *   a_connection;
+    gchar                   *   a_con_device_mount_point;
+    gint                        a_con_device_mount_point_len;
+
     GcmdGtkFoldview         *   a_foldview;
+
+    eAccessCheckMode            a_access_check_mode;
 
     GcmdStruct<Model>       *   d_model;
     GcmdStruct<View>        *   d_view;
@@ -219,11 +236,12 @@ struct GnomeCmdConnectionTreeview
 	//  accessors
     //  =======================================================================
     public:
-    inline  GcmdGtkFoldview *   foldview()      { return a_foldview;    }
-    inline  GnomeCmdCon     *   connection()    { return a_connection;  }
-    inline  Model           *   model()         { return d_model;       }
-    inline  View            *   view()          { return d_view;        }
-    inline  Control         *   control()       { return d_control;     }
+    inline  GcmdGtkFoldview *   foldview()          { return a_foldview;    }
+    inline  GnomeCmdCon     *   connection()        { return a_connection;  }
+    inline  Model           *   model()             { return d_model;       }
+    inline  View            *   view()              { return d_view;        }
+    inline  Control         *   control()           { return d_control;     }
+    inline  eAccessCheckMode    access_check_mode() { return a_access_check_mode;   }
     //  =======================================================================
 	//  wrappers
     //  =======================================================================
@@ -243,9 +261,14 @@ struct GnomeCmdConnectionTreeview
 	//  connection infos
     //  =======================================================================
     public:
-    gboolean		is_samba();
-    gboolean		is_local();
+    gboolean		is_con_device();
+    gboolean		is_con_samba();
+    gboolean		is_con_local();
     gboolean		host_redmond();
+
+    GnomeCmdConDevice   *   con_device();
+    const gchar*            con_device_mount_point()        { return a_con_device_mount_point;      }
+          gint              con_device_mount_point_len()    { return a_con_device_mount_point_len;  }
     //  =======================================================================
 	//  some stuff
     //  =======================================================================
