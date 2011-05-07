@@ -742,7 +742,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     GtkWidget *vbox;
     GtkWidget *hbox;
     GtkWidget *table;
-    GtkWidget *label;
     GtkWidget *sw;
     GtkWidget *pbar;
 
