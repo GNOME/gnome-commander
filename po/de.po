@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-03 21:23+0000\n"
-"PO-Revision-Date: 2011-05-04 21:43+0100\n"
+"POT-Creation-Date: 2011-05-07 07:56+0000\n"
+"PO-Revision-Date: 2011-05-07 21:00+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -934,15 +934,15 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:1388
+#: ../src/gnome-cmd-file-list.cc:1383
 msgid "Directory listing failed."
 msgstr "Ordnerauflistung ist gescheitert."
 
-#: ../src/gnome-cmd-file-list.cc:1441
+#: ../src/gnome-cmd-file-list.cc:1436
 msgid "Failed to open connection."
 msgstr "Verbindung konnte nicht geöffnet werden."
 
-#: ../src/gnome-cmd-file-list.cc:2199 ../src/gnome-cmd-file-list.cc:2214
+#: ../src/gnome-cmd-file-list.cc:2182 ../src/gnome-cmd-file-list.cc:2197
 msgid "Not an ordinary file"
 msgstr "Keine reguläre Datei"
 
@@ -2207,32 +2207,29 @@ msgstr "Netzwerk"
 msgid "Programs"
 msgstr "Programme"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:125
-msgid "Select Using Pattern"
-msgstr "Mit Schablone auswählen"
-
-#: ../src/gnome-cmd-patternsel-dialog.cc:125
-msgid "Unselect Using Pattern"
-msgstr "Mit Schablone abwählen"
-
-#: ../src/gnome-cmd-patternsel-dialog.cc:141
+#: ../src/gnome-cmd-patternsel-dialog.cc:110
 msgid "_Pattern:"
 msgstr "Scha_blone:"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:143
+#: ../src/gnome-cmd-patternsel-dialog.cc:112
 msgid "Case _sensitive"
 msgstr "Groß-/Klein_schreibung beachten"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:153
-#: ../src/gnome-cmd-search-dialog.cc:793
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
 msgid "She_ll syntax"
 msgstr "She_ll-Syntax"
 
-#. file name matching
-#: ../src/gnome-cmd-patternsel-dialog.cc:157
-#: ../src/gnome-cmd-search-dialog.cc:789
+#: ../src/gnome-cmd-patternsel-dialog.cc:126
 msgid "Rege_x syntax"
 msgstr "Reguläre _Ausdrücke verwenden"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:156
+msgid "Select Using Pattern"
+msgstr "Mit Schablone auswählen"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:156
+msgid "Unselect Using Pattern"
+msgstr "Mit Schablone abwählen"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:98
 #: ../src/gnome-cmd-prepare-move-dialog.cc:91
@@ -2613,78 +2610,82 @@ msgstr "_Begrenzte Tiefe"
 msgid "Files _not containing text"
 msgstr "Dateien, die _keinen Text enthalten"
 
-#: ../src/gnome-cmd-search-dialog.cc:164
+#: ../src/gnome-cmd-search-dialog.cc:165
 #, c-format
 msgid "Failed to open file %s: %s"
 msgstr "Datei %s konnte nicht geöffnet werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:205
+#: ../src/gnome-cmd-search-dialog.cc:206
 #, c-format
 msgid "Failed to seek in file %s: %s"
 msgstr "In Datei %s konnte nicht gesucht werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:212
+#: ../src/gnome-cmd-search-dialog.cc:213
 #, c-format
 msgid "Failed to read from file %s: %s"
 msgstr "Datei %s konnte nicht gelesen werden: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:273
+#: ../src/gnome-cmd-search-dialog.cc:274
 #, c-format
 msgid "Searching in: %s"
 msgstr "Suche in: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:394
+#: ../src/gnome-cmd-search-dialog.cc:395
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
 msgstr[0] "Vor dem Abbruch der Suche wurde %d Treffer gefunden"
 msgstr[1] "Vor dem Abbruch der Suche wurden %d Treffer gefunden"
 
-#: ../src/gnome-cmd-search-dialog.cc:395
+#: ../src/gnome-cmd-search-dialog.cc:396
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d Treffer gefunden"
 msgstr[1] "%d Treffer gefunden"
 
-#: ../src/gnome-cmd-search-dialog.cc:529
+#: ../src/gnome-cmd-search-dialog.cc:539
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "In den Ordner außerhalb von %s konnte nicht gewechselt werden"
 
-#: ../src/gnome-cmd-search-dialog.cc:746
+#: ../src/gnome-cmd-search-dialog.cc:754
 msgid "Search..."
 msgstr "Suchen …"
 
-#: ../src/gnome-cmd-search-dialog.cc:760
-msgid "Search _for: "
-msgstr "Suche _nach: "
+#: ../src/gnome-cmd-search-dialog.cc:769
+msgid "Name matches regex:"
+msgstr "Name entspricht regulärem Ausdruck:"
+
+#: ../src/gnome-cmd-search-dialog.cc:770
+msgid "Name contains:"
+msgstr "Name enthält:"
 
 #. search in
-#: ../src/gnome-cmd-search-dialog.cc:771
+#: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Select Directory"
 msgstr "Ordner wählen"
 
-#: ../src/gnome-cmd-search-dialog.cc:774
-msgid "Search _in: "
-msgstr "Suche _in: "
+#: ../src/gnome-cmd-search-dialog.cc:788
+msgid "_Look in folder:"
+msgstr "Suchen im _Ordner:"
 
 #. recurse check
-#: ../src/gnome-cmd-search-dialog.cc:783
+#: ../src/gnome-cmd-search-dialog.cc:796
 msgid "Search _recursively"
 msgstr "_Rekursive Suche"
 
 #. find text
-#: ../src/gnome-cmd-search-dialog.cc:802
-msgid "Find _text: "
-msgstr "_Text suchen: "
+#: ../src/gnome-cmd-search-dialog.cc:804
+msgid "Contains _text:"
+msgstr "Enthaltener _Text:"
 
 #. case check
-#: ../src/gnome-cmd-search-dialog.cc:815
+#: ../src/gnome-cmd-search-dialog.cc:817
 msgid "Case sensiti_ve"
 msgstr "_Groß-/Kleinschreibung beachten"
 
-#: ../src/gnome-cmd-search-dialog.cc:823
+#: ../src/gnome-cmd-search-dialog.cc:825
 msgid "_Go to"
 msgstr "_Gehe zu"
 
@@ -7723,6 +7724,12 @@ msgstr "Aus dem Ordner %s konnte nicht gelesen werden: %s"
 #: ../src/utils.h:293
 msgid "There was an error displaying help."
 msgstr "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten."
+
+#~ msgid "Search _for: "
+#~ msgstr "Suche _nach: "
+
+#~ msgid "Search _in: "
+#~ msgstr "Suche _in: "
 
 #~ msgid "Match file names using"
 #~ msgstr "Dateinamen suchen nach Übereinstimmung mit"
