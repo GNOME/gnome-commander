@@ -49,11 +49,11 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
-    gnome_cmd_data.filter_type = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+    gnome_cmd_data.search_defaults.default_profile.syntax = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "regex_radio"))) ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
 
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
 
-    Filter pattern(s, case_sens, gnome_cmd_data.filter_type);
+    Filter pattern(s, case_sens, gnome_cmd_data.search_defaults.default_profile.syntax);
     
     if (dialog->priv->mode)
         dialog->priv->fl->select(pattern);
@@ -121,11 +121,11 @@ static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
 
     radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), NULL, _("She_ll syntax"), "shell_radio");
     gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
+    if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio_with_mnemonic (GTK_WIDGET (dialog), get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
     gtk_box_pack_end (GTK_BOX (hbox), radio, TRUE, FALSE, 0);
-    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
+    if (gnome_cmd_data.search_defaults.default_profile.syntax == Filter::TYPE_REGEX)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), vbox);

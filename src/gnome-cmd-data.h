@@ -205,7 +205,6 @@ struct GnomeCmdData
     gboolean                     quick_search_exact_match_begin;
     gboolean                     quick_search_exact_match_end;
 
-    Filter::Type                 filter_type;
     FilterSettings               filter_settings;
 
     std::vector<Selection>       selections;

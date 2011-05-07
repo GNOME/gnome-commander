@@ -469,7 +469,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
     gnome_cmd_data.search_defaults.width = allocation.width;
     gnome_cmd_data.search_defaults.height = allocation.height;
 
-    gnome_cmd_data.filter_type = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
+    gnome_cmd_data.search_defaults.default_profile.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
     gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check)) ? -1 : 0;
 }
 
@@ -768,7 +768,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     dialog->priv->filter_type_combo = gtk_combo_box_new_text ();
     gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->filter_type_combo), _("Name matches regex:"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->filter_type_combo), _("Name contains:"));
-    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo), (int) gnome_cmd_data.filter_type);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo), (int) gnome_cmd_data.search_defaults.default_profile.syntax);
     gtk_widget_show (dialog->priv->filter_type_combo);
     dialog->priv->pattern_combo = create_combo_box_entry (window);
     table_add (table, dialog->priv->filter_type_combo, 0, 0, GTK_FILL);

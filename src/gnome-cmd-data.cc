@@ -907,7 +907,6 @@ GnomeCmdData::GnomeCmdData()
     quick_search_exact_match_begin = TRUE;
     quick_search_exact_match_end = FALSE;
 
-    filter_type = Filter::TYPE_FNMATCH;
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
@@ -1164,7 +1163,6 @@ void GnomeCmdData::load()
     g_free (document_icon_dir);
     cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
-    filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
@@ -1586,7 +1584,6 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
     gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
-    gnome_cmd_data_set_int    ("/options/filter_type", filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
