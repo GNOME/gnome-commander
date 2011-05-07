@@ -53,10 +53,12 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
 
+    Filter pattern(s, case_sens, gnome_cmd_data.filter_type);
+    
     if (dialog->priv->mode)
-        dialog->priv->fl->select_pattern(s, case_sens);
+        dialog->priv->fl->select(pattern);
     else
-        dialog->priv->fl->unselect_pattern(s, case_sens);
+        dialog->priv->fl->unselect(pattern);
 
     gnome_cmd_data.search_defaults.name_patterns.add(s);
 

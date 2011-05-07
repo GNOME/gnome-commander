@@ -26,6 +26,7 @@
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-collection.h"
 #include "gnome-cmd-xml-config.h"
+#include "filter.h"
 
 #define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())
 #define GNOME_CMD_FILE_LIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList))
@@ -127,8 +128,13 @@ struct GnomeCmdFileList
     void select_all();
     void unselect_all();
 
-    void select_pattern(const gchar *pattern, gboolean case_sens);
-    void unselect_pattern(const gchar *pattern, gboolean case_sens);
+    void toggle_file(GnomeCmdFile *f);
+    void toggle();
+    void toggle_and_step();
+    void toggle_with_pattern (Filter &pattern, gboolean mode);
+
+    void select(Filter &pattern)                       {  toggle_with_pattern(pattern, TRUE);                           }
+    void unselect(Filter &pattern)                     {  toggle_with_pattern(pattern, FALSE);                          }
     void select_all_with_same_extension();
     void unselect_all_with_same_extension();
     void invert_selection();
@@ -138,10 +144,6 @@ struct GnomeCmdFileList
     GnomeCmdFile *get_file_at_row(gint row)            {  return (GnomeCmdFile *) gtk_clist_get_row_data (*this, row);  }
     gint get_row_from_file(GnomeCmdFile *f)            {  return gtk_clist_find_row_from_data (*this, f);               }
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
-
-    void toggle_file(GnomeCmdFile *f);
-    void toggle();
-    void toggle_and_step();
 
     void sort();
     GList *sort_selection(GList *list);
