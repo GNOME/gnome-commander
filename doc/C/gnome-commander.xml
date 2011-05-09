@@ -6088,6 +6088,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #649375 (bookmarks not updated for newly added ones)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
