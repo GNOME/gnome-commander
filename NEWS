@@ -36,6 +36,7 @@ gnome-commander 1.2.8.12
 ---------------
 
 Bug fixes:
+ * Fixed problem #649375 (bookmarks not updated for newly added ones)
 
 
 ===================================
