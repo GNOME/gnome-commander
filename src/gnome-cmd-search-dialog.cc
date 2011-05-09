@@ -37,11 +37,7 @@ using namespace std;
 
 
 #if 0
-static char *msgs[] = {N_("Search _recursively:"),
-                       N_("_Unlimited depth"),
-                       N_("Current _directory only"),
-                       N_("_Limited depth"),
-//                       N_("Search local directories only"),
+static char *msgs[] = {N_("Search local directories only"),
                        N_("Files _not containing text")};
 #endif
 
@@ -67,7 +63,7 @@ struct SearchData
     const gchar *name_pattern;              // the pattern that file names should match to end up in the file list
     const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file list
 
-    gboolean recurse;                       // should we recurse or just search in the selected directory?
+    int max_depth;                          // should we recurse or just search in the selected directory ?
     Filter::Type name_filter_type;
     gboolean content_search;                // should we do content search ?
     gboolean case_sens;                     // case sensitive content search ?
@@ -108,6 +104,7 @@ struct GnomeCmdSearchDialogPrivate
     GtkWidget *filter_type_combo;
     GtkWidget *pattern_combo;
     GtkWidget *dir_browser;
+    GtkWidget *recurse_combo;
     GtkWidget *find_text_combo;
     GtkWidget *find_text_check;
     GnomeCmdFileList *result_list;
@@ -117,7 +114,6 @@ struct GnomeCmdSearchDialogPrivate
     GtkWidget *stop_button;
     GtkWidget *search_button;
 
-    GtkWidget *recurse_check;
     GtkWidget *case_check;
     GtkWidget *pbar;
 };
@@ -342,7 +338,7 @@ static gpointer perform_search_operation (SearchData *data)
         data->match_dirs = NULL;
     }
 
-    search_dir_r (data->start_dir, data, data->recurse ? -1 : 0);
+    search_dir_r (data->start_dir, data, data->max_depth);
 
     // free regexps
     delete data->name_filter;
@@ -470,7 +466,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
     gnome_cmd_data.search_defaults.height = allocation.height;
 
     gnome_cmd_data.search_defaults.default_profile.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
-    gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check)) ? -1 : 0;
+    gnome_cmd_data.search_defaults.default_profile.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->recurse_combo)) - 1;
 }
 
 
@@ -513,7 +509,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
     data->dialog = dialog;
     data->name_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->pattern_combo));
     data->content_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->find_text_combo));
-    data->recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
+    data->max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->recurse_combo)) - 1;
     data->name_filter_type = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->filter_type_combo));
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
@@ -561,7 +557,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
-    gnome_cmd_data.search_defaults.default_profile.max_depth = data->recurse ? -1 : 0;
+    gnome_cmd_data.search_defaults.default_profile.max_depth = data->max_depth;
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
 
     if (data->content_search)
@@ -738,7 +734,6 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     GtkWidget *window;
     GtkWidget *vbox;
-    GtkWidget *hbox;
     GtkWidget *table;
     GtkWidget *sw;
     GtkWidget *pbar;
@@ -786,15 +781,24 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 
     table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    hbox = create_hbox (window, FALSE, 0);
-
 
     // recurse check
-    dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.max_depth==-1);
-    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
+    dialog->priv->recurse_combo = gtk_combo_box_new_text ();
 
-    table_add (table, hbox, 1, 2, GTK_FILL);
+    gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->recurse_combo), _("Unlimited depth"));
+    gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->recurse_combo), _("Current directory only"));
+    for (int i=1; i<=40; ++i)
+    {
+       gchar *item = g_strdup_printf (ngettext("%i level", "%i levels", i), i);
+       gtk_combo_box_append_text (GTK_COMBO_BOX (dialog->priv->recurse_combo), item);
+       g_free (item);
+    }
+
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->recurse_combo), defaults.default_profile.max_depth+1);
+    gtk_widget_show (dialog->priv->recurse_combo);
+
+    table_add (table, create_label_with_mnemonic (window, _("Search _recursively:"), dialog->priv->recurse_combo), 0, 2, GTK_FILL);
+    table_add (table, dialog->priv->recurse_combo, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
 
     // find text
