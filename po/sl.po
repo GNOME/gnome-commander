@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-09 07:49+0000\n"
-"PO-Revision-Date: 2011-05-09 11:43+0100\n"
+"POT-Creation-Date: 2011-05-09 18:34+0000\n"
+"PO-Revision-Date: 2011-05-09 20:39+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -886,11 +886,11 @@ msgstr "Prekliči"
 msgid "OK"
 msgstr "_V redu"
 
-#: ../src/gnome-cmd-dir-indicator.cc:431
+#: ../src/gnome-cmd-dir-indicator.cc:432
 msgid "Add current dir"
 msgstr "Dodaj trenutno mapo"
 
-#: ../src/gnome-cmd-dir-indicator.cc:432
+#: ../src/gnome-cmd-dir-indicator.cc:433
 msgid "Manage bookmarks..."
 msgstr "Uredi zaznamke ..."
 
@@ -2633,47 +2633,34 @@ msgid "Anonymous FTP password:"
 msgstr "Brezimno FTP geslo:"
 
 #: ../src/gnome-cmd-search-dialog.cc:40
-msgid "Search _recursively:"
-msgstr "Išči po strukturi map:"
+msgid "Search local directories only"
+msgstr "Preišči le krajevne mape"
 
 #: ../src/gnome-cmd-search-dialog.cc:41
-msgid "_Unlimited depth"
-msgstr "_Neomejena globina"
-
-#: ../src/gnome-cmd-search-dialog.cc:42
-msgid "Current _directory only"
-msgstr "Le _trenutno mapo"
-
-#: ../src/gnome-cmd-search-dialog.cc:43
-msgid "_Limited depth"
-msgstr "_Omejena globina"
-
-#. N_("Search local directories only"),
-#: ../src/gnome-cmd-search-dialog.cc:45
 msgid "Files _not containing text"
 msgstr "Datoteke, ki _ne vsebujejo besedila"
 
-#: ../src/gnome-cmd-search-dialog.cc:165
+#: ../src/gnome-cmd-search-dialog.cc:161
 #, c-format
 msgid "Failed to open file %s: %s"
 msgstr "Ni mogoče odpreti datoteke %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:206
+#: ../src/gnome-cmd-search-dialog.cc:202
 #, c-format
 msgid "Failed to seek in file %s: %s"
 msgstr "Ni mogoče iskati v datoteki %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:213
+#: ../src/gnome-cmd-search-dialog.cc:209
 #, c-format
 msgid "Failed to read from file %s: %s"
 msgstr "Ni mogoče brati iz datoteke %s: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:274
+#: ../src/gnome-cmd-search-dialog.cc:270
 #, c-format
 msgid "Searching in: %s"
 msgstr "Iskanje v: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:395
+#: ../src/gnome-cmd-search-dialog.cc:391
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -2682,7 +2669,7 @@ msgstr[1] "Najden %d zadetek - iskanje preklicano."
 msgstr[2] "Najdena %d zadetka - iskanje preklicano."
 msgstr[3] "Najdeni %d zadetki - iskanje preklicano."
 
-#: ../src/gnome-cmd-search-dialog.cc:396
+#: ../src/gnome-cmd-search-dialog.cc:392
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2691,48 +2678,64 @@ msgstr[1] "Najden %d zadetek"
 msgstr[2] "Najdena %d zadetka"
 msgstr[3] "Najdeni %d zadetki"
 
-#: ../src/gnome-cmd-search-dialog.cc:539
+#: ../src/gnome-cmd-search-dialog.cc:533
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Spreminjanje mape izven %s je spodletelo"
 
-#: ../src/gnome-cmd-search-dialog.cc:753
+#: ../src/gnome-cmd-search-dialog.cc:746
 msgid "Search..."
 msgstr "Iskanje ..."
 
-#: ../src/gnome-cmd-search-dialog.cc:768
+#: ../src/gnome-cmd-search-dialog.cc:761
 msgid "Name matches regex:"
 msgstr "Ime je skladno z logičnim izrazom:"
 
-#: ../src/gnome-cmd-search-dialog.cc:769
+#: ../src/gnome-cmd-search-dialog.cc:762
 msgid "Name contains:"
 msgstr "Ime vsebuje:"
 
 #. search in
-#: ../src/gnome-cmd-search-dialog.cc:784
+#: ../src/gnome-cmd-search-dialog.cc:777
 msgid "Select Directory"
 msgstr "Izbor mape"
 
-#: ../src/gnome-cmd-search-dialog.cc:787
+#: ../src/gnome-cmd-search-dialog.cc:780
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#. recurse check
-#: ../src/gnome-cmd-search-dialog.cc:795
-msgid "Search _recursively"
-msgstr "Poišči po _strukturi map"
+#: ../src/gnome-cmd-search-dialog.cc:788
+msgid "Unlimited depth"
+msgstr "Neomejena globina"
+
+#: ../src/gnome-cmd-search-dialog.cc:789
+msgid "Current directory only"
+msgstr "Le trenutno mapo"
+
+#: ../src/gnome-cmd-search-dialog.cc:792
+#, c-format
+msgid "%i level"
+msgid_plural "%i levels"
+msgstr[0] "%i ravni"
+msgstr[1] "%i raven"
+msgstr[2] "%i ravni"
+msgstr[3] "%i ravni"
+
+#: ../src/gnome-cmd-search-dialog.cc:800
+msgid "Search _recursively:"
+msgstr "Išči po strukturi map:"
 
 #. find text
-#: ../src/gnome-cmd-search-dialog.cc:803
+#: ../src/gnome-cmd-search-dialog.cc:805
 msgid "Contains _text:"
 msgstr "Vsebuje _besedilo:"
 
 #. case check
-#: ../src/gnome-cmd-search-dialog.cc:816
+#: ../src/gnome-cmd-search-dialog.cc:818
 msgid "Case sensiti_ve"
 msgstr "_Razlikovanje velikosti črk"
 
-#: ../src/gnome-cmd-search-dialog.cc:824
+#: ../src/gnome-cmd-search-dialog.cc:826
 msgid "_Go to"
 msgstr "_Pojdi na"
 
@@ -7021,6 +7024,12 @@ msgstr "Ni mogoče brati iz mape %s: %s"
 #: ../src/utils.h:293
 msgid "There was an error displaying help."
 msgstr "Prišlo je do napake med prikazovanjem pomoči."
+
+#~ msgid "_Limited depth"
+#~ msgstr "_Omejena globina"
+
+#~ msgid "Search _recursively"
+#~ msgstr "Poišči po _strukturi map"
 
 #~ msgid "Match file names using"
 #~ msgstr "Primerjaj imena datotek z"
