@@ -474,7 +474,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
 }
 
 
-static gboolean start_generic_search (SearchData *data)
+static void start_generic_search (SearchData *data)
 {
     // create an re for file name matching
     data->name_filter = new Filter(data->name_pattern, data->case_sens, data->name_filter_type);
@@ -493,8 +493,6 @@ static gboolean start_generic_search (SearchData *data)
         data->pdata.mutex = g_mutex_new ();
 
     data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
-
-    return FALSE;
 }
 
 
@@ -577,11 +575,11 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
     gtk_widget_show (data->dialog->priv->pbar);
     data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
 
+    start_generic_search (data);
+
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
     gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
-
-    g_timeout_add (1, (GSourceFunc) start_generic_search, data);
 }
 
 
