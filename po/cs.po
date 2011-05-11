@@ -3447,7 +3447,7 @@ msgstr "Hlasitost alba"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Gain adjustment of the album."
-msgstr "Přizpůsobení úrovně zesílení alba"
+msgstr "Přizpůsobení úrovně zesílení alba."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Album Peak Gain"
@@ -3455,7 +3455,7 @@ msgstr "Špičková hlasitost alba"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Peak gain adjustment of album."
-msgstr "Přizpůsobení špičkové úrovně zesílení alba"
+msgstr "Přizpůsobení špičkové úrovně zesílení alba."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Album Track Count"
@@ -3715,7 +3715,7 @@ msgstr "Hlasitost stopy"
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Gain adjustment of the track."
-msgstr "Přizpůsobení úrovně zesílení stopy"
+msgstr "Přizpůsobení úrovně zesílení stopy."
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Track Number"
@@ -4042,11 +4042,11 @@ msgstr "Ukazuje jméno osoby, která naposledy dokument vytiskla."
 
 #: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Revision Count"
-msgstr "Číslo revize"
+msgstr "Počet revizí"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Number of revision on the document."
-msgstr "Číslo revize dokumentu."
+msgstr "Počet revizí na dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:189
 msgid "Scale"
