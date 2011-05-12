@@ -20,18 +20,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 
-import warnings
-
-warnings.simplefilter("ignore", DeprecationWarning)
-
 try:
     import gnomevfs
 except ImportError:
     import gnome.vfs as gnomevfs
 
 import os
+import sys
 import string
-import sha
+if sys.version_info[0] == 2 and sys.version_info[1] < 6:
+    import sha
+    sha_new = sha.new
+else:
+    from hashlib import sha1
+    sha_new = sha1
 
 
 def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
@@ -44,7 +46,7 @@ def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
             f = file(active_cwd+os.sep+uri.short_name, 'rb')
             file_content = f.read()
             f.close()
-            sha1sum = sha.new(file_content).hexdigest()
+            sha1sum = sha1_new(file_content).hexdigest()
             f_sha1sum.write('%s  %s\n' % (sha1sum, uri.short_name))
     f_sha1sum.close()
     return True
