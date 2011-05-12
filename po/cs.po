@@ -5549,7 +5549,7 @@ msgid ""
 msgstr ""
 "Počet pixelů na jednotku <Exif.ResolutionUnit> ve směru délky <Exif."
 "ImageLenth>. Pokud není uvedeno, předpokládá se stejná hodnota jako u  <Exif."
-"XResolution>"
+"XResolution>."
 
 #: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Accessed"
@@ -5979,7 +5979,7 @@ msgstr "Původní text skladby."
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Original Release Time"
-msgstr "Původní datum vydání"
+msgstr "Původní čas vydání"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Original release time."
@@ -6151,7 +6151,7 @@ msgstr "Synchronizovaný text"
 
 #: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Synchronized lyric."
-msgstr "Synchronizovaný text skladby"
+msgstr "Synchronizovaný text skladby."
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Synchronized Tempo"
@@ -6247,7 +6247,7 @@ msgstr "Oficiální webová stránka zvukového souboru."
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 msgid "WWW Audio Source"
-msgstr "WWW původního zvuku"
+msgstr "WWW zdroje zvuku"
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 msgid "Official audio source webpage."
@@ -6504,11 +6504,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid "By-line Title"
-msgstr "Titulek s názvem autora"
+msgstr "Titulek se jménem autora"
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid "Title of the creator or creators of the object."
-msgstr "Název tvůrce nebo tvůrců objektu"
+msgstr "Jméno tvůrce nebo tvůrců objektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:445
 msgid "Caption, Abstract"
@@ -6526,7 +6526,7 @@ msgstr "Určuje předmět objektu podle názoru poskytovatele (zastaralé)."
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Coded Character Set"
-msgstr "Znaková sada"
+msgstr "Kódová znaková sada"
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid ""
@@ -7078,11 +7078,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "Time Sent"
-msgstr "Datum odeslání"
+msgstr "Čas odeslání"
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "The time the service sent the material."
-msgstr "Datum, kdy služba materiál odeslala."
+msgstr "Čas, kdy služba materiál odeslala."
 
 #: ../src/tags/gnome-cmd-tags.cc:510
 msgid "Unique Name of Object"
@@ -7227,7 +7227,7 @@ msgstr "Komentování"
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Set to \"1\" if adding or modifying text annotations is allowed."
 msgstr ""
-"Nastaveno na „1“, pokud je dovoleno přidávat nebo upravovat text poznámek"
+"Nastaveno na „1“, pokud je dovoleno přidávat nebo upravovat text poznámek."
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Form Filling"
