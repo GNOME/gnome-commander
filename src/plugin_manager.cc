@@ -161,14 +161,14 @@ static void scan_plugins_in_dir (const gchar *dpath)
     {
         struct stat buf;
 
-        if (strcmp (ent->d_name+strlen(ent->d_name)-3, ".so") != 0)
+        if (strcmp (ent->d_name+strlen(ent->d_name)-strlen("." G_MODULE_SUFFIX), "." G_MODULE_SUFFIX) != 0)
             continue;
 
         if (stat (ent->d_name, &buf) == 0)
         {
             if (buf.st_mode & S_IFREG)
             {
-                // the direntry has the .so extension and is a regular file, lets accept it
+                // the direntry has the correct extension and is a regular file, let's accept it
                 PluginData *data = g_new0 (PluginData, 1);
                 data->fname = g_strdup (ent->d_name);
                 data->fpath = g_build_filename (dpath, ent->d_name, NULL);
