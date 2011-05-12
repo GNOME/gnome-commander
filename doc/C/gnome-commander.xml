@@ -6089,6 +6089,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #618214 (crash when cancel a search)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #640387 (yet another fix for deprecated python modules: md5, sha1)</para>
                         </listitem>
                         <listitem>

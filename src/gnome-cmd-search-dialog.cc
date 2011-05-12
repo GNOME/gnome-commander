@@ -369,7 +369,6 @@ static gpointer perform_search_operation (SearchData *data)
     data->dir = NULL;
 
     data->search_done = TRUE;
-    gtk_widget_set_sensitive (data->dialog->priv->goto_button, TRUE);
 
     return NULL;
 }
@@ -421,6 +420,7 @@ static gboolean update_search_status_widgets (SearchData *data)
             set_statusmsg (data, msg);
             g_free (msg);
 
+            gtk_widget_set_sensitive (data->dialog->priv->goto_button, data->matches > 0);
             gtk_widget_set_sensitive (data->dialog->priv->search_button, TRUE);
             gtk_widget_set_sensitive (data->dialog->priv->stop_button, FALSE);
 
