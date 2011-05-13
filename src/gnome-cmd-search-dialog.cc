@@ -123,10 +123,9 @@ struct GnomeCmdSearchDialogPrivate
  * Puts a string in the statusbar.
  *
  */
-inline void set_statusmsg (SearchData *data, gchar *msg)
+inline void set_statusmsg (SearchData *data, const gchar *msg=NULL)
 {
-    if (msg)
-        gtk_statusbar_push (GTK_STATUSBAR (data->dialog->priv->statusbar), data->context_id, msg);
+    gtk_statusbar_push (GTK_STATUSBAR (data->dialog->priv->statusbar), data->context_id, msg ? msg : "");
 }
 
 
