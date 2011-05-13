@@ -3390,6 +3390,7 @@ msgid "Disable"
 msgstr "Zakázat"
 
 #: ../src/plugin_manager.cc:336
+msgid "Enable"
 msgstr "Povolit"
 
 #: ../src/plugin_manager.cc:398
