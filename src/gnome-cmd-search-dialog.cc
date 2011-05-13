@@ -468,7 +468,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
 }
 
 
-static void start_generic_search (SearchData *data)
+static gboolean start_generic_search (SearchData *data)
 {
     // create an re for file name matching
     data->name_filter = new Filter(data->name_pattern, data->case_sens, data->name_filter_type);
@@ -487,6 +487,8 @@ static void start_generic_search (SearchData *data)
         data->pdata.mutex = g_mutex_new ();
 
     data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
+
+    return TRUE;
 }
 
 
