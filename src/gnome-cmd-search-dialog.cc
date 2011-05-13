@@ -272,8 +272,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data, long level)
         g_mutex_unlock (data->pdata.mutex);
     }
 
-    // if the stop button was pressed, let's abort here
-    if (data->stopped)
+    if (data->stopped)    // if the stop button was pressed, let's abort here
         return;
 
     gnome_cmd_dir_list_files (dir, FALSE);
@@ -281,8 +280,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data, long level)
     // let's iterate through all files
     for (GList *i=gnome_cmd_dir_get_files (dir); i; i=i->next)
     {
-        // if the stop button was pressed, let's abort here
-        if (data->stopped)
+        if (data->stopped)        // if the stop button was pressed, let's abort here
             return;
 
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
@@ -506,6 +504,10 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
         data->thread = NULL;
     }
 
+    data->search_done = TRUE;
+    data->stopped = TRUE;
+    data->dialog_destroyed = FALSE;
+
     data->dialog = dialog;
     data->name_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->pattern_combo));
     data->content_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->find_text_combo));
@@ -535,9 +537,6 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
             gnome_vfs_uri_unref (uri);
             g_free (dir_path);
 
-            data->search_done = TRUE;
-            data->stopped = TRUE;
-
             return;
         }
         else
@@ -553,7 +552,6 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     data->search_done = FALSE;
     data->stopped = FALSE;
-    data->dialog_destroyed = FALSE;
 
     // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
