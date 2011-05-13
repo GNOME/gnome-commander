@@ -3262,7 +3262,7 @@ msgstr "_Zavřít"
 
 #: ../src/intviewer/viewer-window.cc:666
 msgid "_Binary"
-msgstr "_Dvojkově"
+msgstr "_Binární data"
 
 #: ../src/intviewer/viewer-window.cc:674 ../src/intviewer/viewer-window.cc:869
 msgid "_Image"
@@ -3334,7 +3334,7 @@ msgstr "Překlopit _vodorovně"
 
 #: ../src/intviewer/viewer-window.cc:800
 msgid "_Binary Mode"
-msgstr "_Dvojkový režim"
+msgstr "Režim _binárních dat"
 
 #: ../src/intviewer/viewer-window.cc:806
 msgid "_Hexadecimal Offset"
