@@ -3390,7 +3390,6 @@ msgid "Disable"
 msgstr "Zakázat"
 
 #: ../src/plugin_manager.cc:336
-msgid "Enable"
 msgstr "Povolit"
 
 #: ../src/plugin_manager.cc:398
@@ -6878,7 +6877,7 @@ msgstr "Reference původního přenosu"
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 msgid "A code representing the location of original transmission."
-msgstr "Kód představující umístění původního přenosu"
+msgstr "Kód představující umístění původního přenosu."
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid "Preview Data"
