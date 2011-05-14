@@ -41,7 +41,6 @@
 #include "gnome-cmd-prepare-copy-dialog.h"
 #include "gnome-cmd-prepare-move-dialog.h"
 #include "gnome-cmd-python-plugin.h"
-#include "gnome-cmd-search-dialog.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-user-actions.h"
@@ -52,6 +51,7 @@
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
+#include "dialogs/gnome-cmd-search-dialog.h"
 
 using namespace std;
 
