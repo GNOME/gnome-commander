@@ -3250,7 +3250,7 @@ msgstr[2] "bitů na vzorek"
 
 #: ../src/intviewer/viewer-widget.cc:246
 msgid "(fit to window)"
-msgstr "(přizpůsobit velikosti okna)"
+msgstr "(přizpůsobeno velikosti okna)"
 
 #: ../src/intviewer/viewer-widget.cc:261
 msgid "_Copy selection"
