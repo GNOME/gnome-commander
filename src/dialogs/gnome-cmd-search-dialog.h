@@ -31,20 +31,13 @@
 #define GNOME_CMD_SEARCH_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_SEARCH_DIALOG, GnomeCmdSearchDialogClass))
 
 
-struct GnomeCmdSearchDialogPrivate;
-
-
 struct GnomeCmdSearchDialog
 {
     GnomeCmdDialog parent;
 
-    GnomeCmdSearchDialogPrivate *priv;
-};
+    class Private;
 
-
-struct GnomeCmdSearchDialogClass
-{
-    GnomeCmdDialogClass parent_class;
+    Private *priv;
 };
 
 

@@ -48,8 +48,6 @@ static char *msgs[] = {N_("Search local directories only"),
 #define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
 
 
-G_DEFINE_TYPE (GnomeCmdSearchDialog, gnome_cmd_search_dialog, GNOME_CMD_TYPE_DIALOG)
-
 
 struct SearchData
 {
@@ -95,7 +93,13 @@ struct SearchFileData
 };
 
 
-struct GnomeCmdSearchDialogPrivate
+struct GnomeCmdSearchDialogClass
+{
+    GnomeCmdDialogClass parent_class;
+};
+
+
+struct GnomeCmdSearchDialog::Private
 {
     SearchData *data;                       // holds data needed by the search routines
 
@@ -117,6 +121,9 @@ struct GnomeCmdSearchDialogPrivate
     GtkWidget *case_check;
     GtkWidget *pbar;
 };
+
+
+G_DEFINE_TYPE (GnomeCmdSearchDialog, gnome_cmd_search_dialog, GNOME_CMD_TYPE_DIALOG)
 
 
 /**
@@ -737,7 +744,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     GtkWidget *sw;
     GtkWidget *pbar;
 
-    dialog->priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
+    dialog->priv = g_new0 (GnomeCmdSearchDialog::Private, 1);
     dialog->priv->data = g_new0 (SearchData, 1);
 
     window = GTK_WIDGET (dialog);
