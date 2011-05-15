@@ -750,7 +750,8 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     window = GTK_WIDGET (dialog);
     g_object_set_data (G_OBJECT (window), "window", window);
     gtk_window_set_title (GTK_WINDOW (window), _("Search..."));
-    gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
     gtk_window_set_default_size (GTK_WINDOW (window), defaults.width, defaults.height);
 
     vbox = create_vbox (window, FALSE, 0);
