@@ -104,7 +104,7 @@ static void gnome_cmd_patternsel_dialog_init (GnomeCmdPatternselDialog *dialog)
     if (!defaults.name_patterns.empty())
         gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults.name_patterns.ents);
     dialog->priv->pattern_entry = GTK_COMBO (dialog->priv->pattern_combo)->entry;
-    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
+    g_signal_connect_swapped (dialog->priv->pattern_entry, "activate", G_CALLBACK (gtk_window_activate_default), dialog);
     gtk_entry_select_region (GTK_ENTRY (dialog->priv->pattern_entry), 0, -1);
 
     label = create_label_with_mnemonic (GTK_WIDGET (dialog), _("_Pattern:"), dialog->priv->pattern_entry);

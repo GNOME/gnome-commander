@@ -776,7 +776,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
         g_list_foreach (defaults.name_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->pattern_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
-    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo)), "activate", G_CALLBACK (gtk_window_activate_default), dialog);
 
 
     // search in
@@ -818,7 +818,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
         g_list_foreach (defaults.content_patterns.ents, (GFunc) combo_box_insert_text, dialog->priv->find_text_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
-    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo)), "activate", G_CALLBACK (gtk_window_activate_default), dialog);
 
     // case check
     dialog->priv->case_check = create_check_with_mnemonic (window, _("Case sensiti_ve"), "case_check");

@@ -197,12 +197,3 @@ void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget 
 
     gtk_box_pack_start (GTK_BOX (dialog->priv->content), category, TRUE, TRUE, 0);
 }
-
-
-void gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog, GtkEditable *editable)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-    g_return_if_fail (GTK_IS_EDITABLE (editable));
-
-    g_signal_connect_swapped(editable, "activate", G_CALLBACK(gtk_window_activate_default), dialog);
-}
