@@ -401,7 +401,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit Colors..."));
     g_object_ref (dlg);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dlg));
+    gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
     gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
@@ -536,7 +536,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit LS_COLORS Palette"));
     g_object_ref (dlg);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dlg));
+    gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
     gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
@@ -1359,7 +1359,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     g_object_ref (dialog);
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     hbox = create_hbox (dialog, FALSE, 6);
@@ -1764,7 +1764,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     gtk_window_set_title (GTK_WINDOW (dialog), "");
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     table = create_table (dialog, 4, 2);

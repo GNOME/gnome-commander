@@ -61,11 +61,6 @@ void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category)
 
 void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget *category);
 
-inline void gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog)
-{
-    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
-}
-
 inline void gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog, gboolean value)
 {
     gtk_window_set_resizable (GTK_WINDOW (dialog), value);
