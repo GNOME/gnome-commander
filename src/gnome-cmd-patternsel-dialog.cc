@@ -153,7 +153,7 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
 
-    gnome_cmd_dialog_setup (GNOME_CMD_DIALOG (dialog), mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
+    gtk_window_set_title (GTK_WINDOW (dialog), mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
 
     return GTK_WIDGET (dialog);
 }

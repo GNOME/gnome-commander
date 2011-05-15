@@ -147,18 +147,10 @@ GtkWidget *gnome_cmd_dialog_new (const gchar *title)
 {
     GnomeCmdDialog *dialog = (GnomeCmdDialog *) g_object_new (GNOME_CMD_TYPE_DIALOG, NULL);
 
-    gnome_cmd_dialog_setup (dialog, title);
-
-    return GTK_WIDGET (dialog);
-}
-
-
-void gnome_cmd_dialog_setup (GnomeCmdDialog *dialog, const gchar *title)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);
+
+    return GTK_WIDGET (dialog);
 }
 
 
