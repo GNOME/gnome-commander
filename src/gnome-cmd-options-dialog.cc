@@ -402,7 +402,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     g_object_ref (dlg);
 
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dlg));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dlg), GTK_WINDOW (parent));
+    gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
@@ -537,7 +537,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     g_object_ref (dlg);
 
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dlg));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dlg), GTK_WINDOW (parent));
+    gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
@@ -1360,7 +1360,7 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (options_dialog));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     hbox = create_hbox (dialog, FALSE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
@@ -1765,7 +1765,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (options_dialog));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     table = create_table (dialog, 4, 2);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), table);

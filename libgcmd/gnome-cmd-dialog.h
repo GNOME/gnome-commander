@@ -63,11 +63,6 @@ void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category)
 
 void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget *category);
 
-inline void gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog, GtkWindow *win)
-{
-    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (win));
-}
-
 inline void gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog)
 {
     gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);

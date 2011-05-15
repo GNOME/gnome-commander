@@ -1494,7 +1494,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), vbox);
 
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), *main_win);
+    gtk_window_set_transient_for (GTK_WINDOW (fl->priv->con_open_dialog), *main_win);
     gtk_widget_show_all (fl->priv->con_open_dialog);
 }
 

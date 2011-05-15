@@ -514,7 +514,7 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
     gtk_box_pack_start (GTK_BOX (vbox), dir->pbar, FALSE, TRUE, 0);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dir->dialog), vbox);
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dir->dialog), *main_win);
+    gtk_window_set_transient_for (GTK_WINDOW (dir->dialog), *main_win);
 
     gtk_widget_show_all (dir->dialog);
 }
