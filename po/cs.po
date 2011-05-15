@@ -1645,7 +1645,7 @@ msgstr "Zobrazit kontextovou nabídku"
 
 #: ../src/gnome-cmd-options-dialog.cc:113
 msgid "Selects files"
-msgstr "Výběr souborů"
+msgstr "Vybrat soubory"
 
 #: ../src/gnome-cmd-options-dialog.cc:121
 msgid "Sorting options"
