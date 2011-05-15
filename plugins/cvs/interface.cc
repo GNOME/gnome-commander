@@ -284,7 +284,6 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
-    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
