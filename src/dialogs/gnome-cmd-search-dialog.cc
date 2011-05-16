@@ -17,6 +17,31 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+/*
+ *GNOME Search Tool
+ *
+ * File:  gsearchtool.c
+ *
+ * (C) 1998,2002 the Free Software Foundation
+ *
+ * Authors:    Dennis Cranston  <dennis_cranston@yahoo.com>
+ *             George Lebl
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
+ *
+ */
 
 #include <config.h>
 #include <sys/types.h>
@@ -47,6 +72,7 @@ static char *msgs[] = {N_("Search local directories only"),
 #define SEARCH_JUMP_SIZE     4096U
 #define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
 
+#define GNOME_SEARCH_TOOL_REFRESH_DURATION  50000
 
 
 struct SearchData
@@ -489,6 +515,260 @@ static gboolean start_generic_search (SearchData *data)
 }
 
 
+//  local search - using findutils
+
+static gchar *build_search_command (SearchData *data)
+{
+    gchar *file_pattern_utf8 = g_strdup (data->name_pattern);
+    GError *error = NULL;
+
+    switch (data->name_filter_type)
+    {
+        case Filter::TYPE_FNMATCH:
+            if (!file_pattern_utf8 || !*file_pattern_utf8)
+            {
+                g_free (file_pattern_utf8);
+                file_pattern_utf8 = g_strdup ("*");
+            }
+            else
+                if (!g_utf8_strchr (file_pattern_utf8, -1, '*') && !g_utf8_strchr (file_pattern_utf8, -1, '?'))
+                {
+                    gchar *tmp = file_pattern_utf8;
+                    file_pattern_utf8 = g_strconcat ("*", file_pattern_utf8, "*", NULL);
+                    g_free (tmp);
+                }
+            break;
+
+        case Filter::TYPE_REGEX:
+            break;
+
+        default:
+            break;
+    }
+
+    gchar *file_pattern_locale = g_locale_from_utf8 (file_pattern_utf8, -1, NULL, NULL, &error);
+
+    if (!file_pattern_locale)
+    {
+        gnome_cmd_error_message (file_pattern_utf8, error);
+        g_free (file_pattern_utf8);
+        return NULL;
+    }
+
+    gchar *file_pattern_quoted = quote_if_needed (file_pattern_locale);
+    gchar *look_in_folder_utf8 = GNOME_CMD_FILE (data->start_dir)->get_real_path();
+    gchar *look_in_folder_locale = g_locale_from_utf8 (look_in_folder_utf8, -1, NULL, NULL, NULL);
+
+    if (!look_in_folder_locale)     // if for some reason a path was not returned, fallback to the user's home directory
+        look_in_folder_locale = g_strconcat (g_get_home_dir (), G_DIR_SEPARATOR_S, NULL);
+
+    gchar *look_in_folder_quoted = quote_if_needed (look_in_folder_locale);
+
+    GString *command = g_string_sized_new (512);
+
+    g_string_append (command, "find ");
+    g_string_append (command, look_in_folder_quoted);
+
+    if (data->max_depth!=-1)
+        g_string_append_printf (command, " -maxdepth %i", data->max_depth);
+
+    switch (data->name_filter_type)
+    {
+        case Filter::TYPE_FNMATCH:
+            g_string_append_printf (command, " -iname '%s'", file_pattern_utf8);
+            break;
+
+        case Filter::TYPE_REGEX:
+            g_string_append_printf (command, " -regextype posix-extended -iregex '.*/.*%s.*'", file_pattern_utf8);
+            break;
+    }
+
+    if (data->content_search)
+    {
+        static const gchar GREP_COMMAND[] = "grep";
+
+        if (data->case_sens)
+            g_string_append_printf (command, " '!' -type p -exec %s -E -q '%s' {} \\;", GREP_COMMAND, data->content_pattern);
+        else
+            g_string_append_printf (command, " '!' -type p -exec %s -E -q -i '%s' {} \\;", GREP_COMMAND, data->content_pattern);
+    }
+
+    g_string_append (command, " -print");
+
+    g_free (file_pattern_utf8);
+    g_free (file_pattern_locale);
+    g_free (file_pattern_quoted);
+    g_free (look_in_folder_utf8);
+    g_free (look_in_folder_locale);
+    g_free (look_in_folder_quoted);
+
+    return g_string_free (command, FALSE);
+}
+
+
+static void child_command_set_pgid_cb (gpointer unused)
+{
+    if (setpgid (0, 0) < 0)
+        g_print (_("Failed to set process group id of child %d: %s.\n"), getpid (), g_strerror (errno));
+}
+
+
+static gboolean handle_search_command_stdout_io (GIOChannel *ioc, GIOCondition condition, SearchData *data)
+{
+    gboolean broken_pipe = FALSE;
+
+    if (condition & G_IO_IN)
+    {
+        GError *error = NULL;
+
+        GString *string = g_string_new (NULL);
+
+        GTimer *timer = g_timer_new ();
+        g_timer_start (timer);
+
+        while (!ioc->is_readable);
+
+        do
+        {
+            gint status;
+
+            if (data->stopped)
+            {
+                broken_pipe = TRUE;
+                break;
+            }
+
+            do
+            {
+                status = g_io_channel_read_line_string (ioc, string, NULL, &error);
+
+                if (status == G_IO_STATUS_EOF)
+                    broken_pipe = TRUE;
+                else
+                    if (status == G_IO_STATUS_AGAIN)
+                        while (gtk_events_pending ())
+                        {
+                            if (data->stopped)
+                                return FALSE;
+
+                            gtk_main_iteration ();
+                        }
+            }
+            while (status == G_IO_STATUS_AGAIN && !broken_pipe);
+
+            if (broken_pipe)
+                break;
+
+            if (status != G_IO_STATUS_NORMAL)
+            {
+                if (error)
+                {
+                    g_warning ("handle_search_command_stdout_io(): %s", error->message);
+                    g_error_free (error);
+                }
+                continue;
+            }
+
+            string = g_string_truncate (string, string->len - 1);
+
+            if (string->len <= 1)
+                continue;
+
+            gchar *utf8 = g_filename_display_name (string->str);
+
+            GnomeCmdFile *f = gnome_cmd_file_new (utf8);
+
+            if (f)
+                data->dialog->priv->result_list->append_file(f);
+
+            g_free (utf8);
+
+            gulong duration;
+
+            g_timer_elapsed (timer, &duration);
+
+            if (duration > GNOME_SEARCH_TOOL_REFRESH_DURATION)
+            {
+                while (gtk_events_pending ())
+                {
+                    if (data->stopped)
+                        return FALSE;
+
+                    gtk_main_iteration ();
+                }
+
+                g_timer_reset (timer);
+            }
+        }
+        while (g_io_channel_get_buffer_condition (ioc) & G_IO_IN);
+
+        g_string_free (string, TRUE);
+        g_timer_destroy (timer);
+    }
+
+    if (!(condition & G_IO_IN) || broken_pipe)
+    {
+        g_io_channel_shutdown (ioc, TRUE, NULL);
+
+        data->search_done = TRUE;
+
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+
+static gboolean start_local_search (SearchData *data)
+{
+    gchar *command = build_search_command (data);
+
+    g_return_val_if_fail (command!=NULL, FALSE);
+
+    DEBUG ('g', "running: %s\n", command);
+
+    GError *error = NULL;
+    gchar **argv  = NULL;
+    gint child_stdout;
+
+    if (!g_shell_parse_argv (command, NULL, &argv, &error))
+    {
+        gnome_cmd_error_message (_("Error parsing the search command."), error);
+
+        g_free (command);
+        g_strfreev (argv);
+
+        return FALSE;
+    }
+
+    g_free (command);
+
+    if (!g_spawn_async_with_pipes (NULL, argv, NULL, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDERR_TO_DEV_NULL), child_command_set_pgid_cb, NULL, NULL, NULL, &child_stdout, NULL, &error))
+    {
+        gnome_cmd_error_message (_("Error running the search command."), error);
+
+        g_strfreev (argv);
+
+        return FALSE;
+    }
+
+#ifdef G_OS_WIN32
+    GIOChannel *ioc_stdout = g_io_channel_win32_new_fd (child_stdout);
+#else
+    GIOChannel *ioc_stdout = g_io_channel_unix_new (child_stdout);
+#endif
+
+    g_io_channel_set_encoding (ioc_stdout, NULL, NULL);
+    g_io_channel_set_flags (ioc_stdout, G_IO_FLAG_NONBLOCK, NULL);
+    g_io_add_watch (ioc_stdout, GIOCondition (G_IO_IN | G_IO_HUP), (GIOFunc) handle_search_command_stdout_io, data);
+
+    g_io_channel_unref (ioc_stdout);
+    g_strfreev (argv);
+
+    return TRUE;
+}
+
+
 /**
  * The user has clicked on the search button
  *
@@ -549,9 +829,6 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
     gnome_vfs_uri_unref (uri);
     g_free (dir_path);
 
-    data->search_done = FALSE;
-    data->stopped = FALSE;
-
     // save default settings
     gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
     gnome_cmd_data.search_defaults.default_profile.max_depth = data->max_depth;
@@ -563,16 +840,21 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
         gnome_cmd_data.intviewer_defaults.text_patterns.add(data->content_pattern);
     }
 
+    data->search_done = FALSE;
+    data->stopped = FALSE;
+
     dialog->priv->result_list->remove_all_files();
 
-    gtk_widget_show (data->dialog->priv->pbar);
-    data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
+    if (gnome_cmd_con_is_local (dialog->priv->con) ? start_local_search (data) : start_generic_search (data))
+    {
+        set_statusmsg (data);
+        gtk_widget_show (data->dialog->priv->pbar);
+        data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
 
-    start_generic_search (data);
-
-    gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
-    gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
-    gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
+        gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
+        gtk_widget_set_sensitive (dialog->priv->stop_button, TRUE);
+        gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
+    }
 }
 
 
