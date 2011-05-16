@@ -151,9 +151,6 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
  */
 static SearchFileData *read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
 {
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
     GnomeVFSResult  result;
 
     if (!searchfile_data)
@@ -228,6 +225,9 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
  */
 inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
 {
+    g_return_val_if_fail (f != NULL, FALSE);
+    g_return_val_if_fail (f->info != NULL, FALSE);
+
     gint ret = REG_NOMATCH;
 
     if (f->info->size > 0)
