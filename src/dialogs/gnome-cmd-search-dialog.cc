@@ -228,23 +228,14 @@ inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
     g_return_val_if_fail (f != NULL, FALSE);
     g_return_val_if_fail (f->info != NULL, FALSE);
 
-    gint ret = REG_NOMATCH;
+    regmatch_t match;
 
     if (f->info->size > 0)
-    {
-        regmatch_t       match;
-        SearchFileData  *search_file = NULL;
+        for (SearchFileData *search_file=NULL; (search_file = read_search_file (data, search_file, f)); )
+            if (regexec (data->content_regex, data->search_mem, 1, &match, 0) != REG_NOMATCH)
+                return TRUE;        // stop on first match
 
-        while ((search_file = read_search_file (data, search_file, f)))
-        {
-            ret = regexec (data->content_regex, data->search_mem, 1, &match, 0);
-            // stop on first match
-            if (ret != REG_NOMATCH)
-                break;
-        }
-    }
-
-    return ret != REG_NOMATCH;
+    return FALSE;
 }
 
 
