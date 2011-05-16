@@ -161,9 +161,9 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
 
         if (result != GNOME_VFS_OK)
         {
-           g_warning (_("Failed to open file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
-           search_file_data_free (searchfile_data);
-           return NULL;
+            g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+            search_file_data_free (searchfile_data);
+            return NULL;
         }
     }
 
@@ -202,14 +202,14 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
     result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
     if (result != GNOME_VFS_OK)
     {
-        g_warning (_("Failed to seek in file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
     result = gnome_vfs_read (searchfile_data->handle, data->search_mem, searchfile_data->len, &ret);
     if (result != GNOME_VFS_OK)
     {
-        g_warning (_("Failed to read from file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
