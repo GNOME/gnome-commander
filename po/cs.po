@@ -17,14 +17,14 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-14 18:07+0000\n"
-"PO-Revision-Date: 2011-05-15 22:36+0200\n"
+"POT-Creation-Date: 2011-05-16 19:36+0000\n"
+"PO-Revision-Date: 2011-05-18 22:11+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
@@ -88,35 +88,35 @@ msgstr "Jinou verzí"
 msgid "CVS Diff"
 msgstr "CVS Diff"
 
-#: ../plugins/cvs/interface.cc:407
+#: ../plugins/cvs/interface.cc:408
 msgid "revision"
 msgstr "revize"
 
-#: ../plugins/cvs/interface.cc:421
+#: ../plugins/cvs/interface.cc:422
 msgid "Revision:"
 msgstr "Revize:"
 
-#: ../plugins/cvs/interface.cc:439
+#: ../plugins/cvs/interface.cc:440
 msgid "Compare..."
 msgstr "Porovnat…"
 
-#: ../plugins/cvs/interface.cc:442
+#: ../plugins/cvs/interface.cc:443
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../plugins/cvs/interface.cc:456
+#: ../plugins/cvs/interface.cc:457
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../plugins/cvs/interface.cc:470
+#: ../plugins/cvs/interface.cc:471
 msgid "State:"
 msgstr "Stav:"
 
-#: ../plugins/cvs/interface.cc:484
+#: ../plugins/cvs/interface.cc:485
 msgid "Lines:"
 msgstr "Řádků:"
 
-#: ../plugins/cvs/interface.cc:498
+#: ../plugins/cvs/interface.cc:499
 msgid "Message:"
 msgstr "Zpráva:"
 
@@ -469,35 +469,28 @@ msgstr "Vytvořit složku"
 msgid "Directory name:"
 msgstr "Název složky:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:40
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:65
 msgid "Search local directories only"
 msgstr "Prohledávat pouze místní složky"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:41
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:66
 msgid "Files _not containing text"
 msgstr "Soubory _neobsahující text"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:160
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:190
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:231
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:238
 #, c-format
-msgid "Failed to open file %s: %s"
-msgstr "Selhalo otevření souboru %s: %s"
-
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:201
-#, c-format
-msgid "Failed to seek in file %s: %s"
-msgstr "Selhalo nastavení pozice v souboru %s: %s"
-
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:208
-#, c-format
-msgid "Failed to read from file %s: %s"
+#| msgid "Failed to read from file %s: %s"
+msgid "Failed to read file %s: %s"
 msgstr "Selhalo čtení ze souboru %s: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:269
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:293
 #, c-format
 msgid "Searching in: %s"
 msgstr "Hledá se v: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:388
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:412
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -505,7 +498,7 @@ msgstr[0] "Nalezen %d výskyt - vyhledávání přerušeno"
 msgstr[1] "Nalezeny %d výskyty - vyhledávání přerušeno"
 msgstr[2] "Nalezeno %d výskytů - vyhledávání přerušeno"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:389
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:413
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -513,41 +506,55 @@ msgstr[0] "Nalezen %d výskyt"
 msgstr[1] "Nalezeny %d výskyty"
 msgstr[2] "Nalezeno %d výskytů"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:536
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:612
+#, c-format
+#| msgid "Failed to seek in file %s: %s"
+msgid "Failed to set process group id of child %d: %s.\n"
+msgstr "Selhalo nastavení id skupiny procesů %d: %s.\n"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:736
+msgid "Error parsing the search command."
+msgstr "Chyba při zpracování příkazu vyhledávání."
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:748
+msgid "Error running the search command."
+msgstr "Chyba při spuštění příkazu vyhledávání."
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:814
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Selhala změna složky mimo %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:745
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1025
 msgid "Search..."
 msgstr "Hledat…"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:760
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1041
 msgid "Name matches regex:"
 msgstr "Název odpovídá regulárnímu výrazu:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:761
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1042
 msgid "Name contains:"
 msgstr "Název obsahuje:"
 
 #. search in
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:776
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1057
 msgid "Select Directory"
 msgstr "Vybrat složku"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:779
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1060
 msgid "_Look in folder:"
 msgstr "H_ledat ve složce:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:787
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1068
 msgid "Unlimited depth"
 msgstr "Neomezené zanoření"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:788
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1069
 msgid "Current directory only"
 msgstr "Pouze aktuální složka"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:791
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1072
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
@@ -555,21 +562,21 @@ msgstr[0] "%i úroveň"
 msgstr[1] "%i úrovně"
 msgstr[2] "%i úrovní"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:799
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1080
 msgid "Search _recursively:"
 msgstr "Hledat _rekurzivně:"
 
 #. find text
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:804
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1085
 msgid "Contains _text:"
 msgstr "Obsahuje _text: "
 
 #. case check
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:817
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1098
 msgid "Case sensiti_ve"
 msgstr "Rozlišo_vat velikost písmen"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:825
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1106
 msgid "_Go to"
 msgstr "_Přejít na"
 
@@ -1877,7 +1884,7 @@ msgstr "Výchozí:"
 
 #: ../src/gnome-cmd-options-dialog.cc:451
 msgid "Alternate:"
-msgstr "Alternativní:"
+msgstr "Střídající:"
 
 #: ../src/gnome-cmd-options-dialog.cc:453
 msgid "Selected file:"
@@ -7700,6 +7707,9 @@ msgstr "Nelze číst ze složky %s: %s"
 #: ../src/utils.h:293
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
+
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "Selhalo otevření souboru %s: %s"
 
 #~ msgid "_Limited depth"
 #~ msgstr "O_mezené zanoření"
