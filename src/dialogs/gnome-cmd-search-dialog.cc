@@ -102,8 +102,6 @@ struct SearchData
     ProtectedData pdata;
     gint update_gui_timeout_id;
 
-    gchar *search_mem;                      // memory to search in the content of a file
-
     gboolean search_done;
     gboolean stopped;                       // stops the search routine if set to TRUE. This is done by the stop_button
     gboolean dialog_destroyed;              // set when the search dialog is destroyed, also stops the search of course
@@ -116,6 +114,7 @@ struct SearchFileData
     GnomeVFSHandle *handle;
     gint            offset;
     guint           len;
+    gchar           mem[SEARCH_BUFFER_SIZE];     // memory to search in the content of a file
 };
 
 
@@ -232,14 +231,14 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
         search_file_data_free (searchfile_data);
         return NULL;
     }
-    result = gnome_vfs_read (searchfile_data->handle, data->search_mem, searchfile_data->len, &ret);
+    result = gnome_vfs_read (searchfile_data->handle, searchfile_data->mem, searchfile_data->len, &ret);
     if (result != GNOME_VFS_OK)
     {
         g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
-    data->search_mem[searchfile_data->len] = '\0';
+    searchfile_data->mem[searchfile_data->len] = '\0';
 
     return searchfile_data;
 }
@@ -258,7 +257,7 @@ inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
 
     if (f->info->size > 0)
         for (SearchFileData *search_file=NULL; (search_file = read_search_file (data, search_file, f)); )
-            if (regexec (data->content_regex, data->search_mem, 1, &match, 0) != REG_NOMATCH)
+            if (regexec (data->content_regex, search_file->mem, 1, &match, 0) != REG_NOMATCH)
                 return TRUE;        // stop on first match
 
     return FALSE;
@@ -444,8 +443,6 @@ static gboolean join_thread_func (SearchData *data)
     if (data->pdata.mutex)
         g_mutex_free (data->pdata.mutex);
 
-    g_free (data->search_mem);
-
     g_free (data);
 
     return FALSE;
@@ -502,9 +499,6 @@ static gboolean start_generic_search (SearchData *data)
         data->content_regex = g_new0 (regex_t, 1);
         regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
     }
-
-    if (!data->search_mem)
-        data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
 
     if (!data->pdata.mutex)
         data->pdata.mutex = g_mutex_new ();
