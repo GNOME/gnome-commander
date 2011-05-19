@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <stdio.h>
 #include <glib-object.h>
 #include <libgnomeui/gnome-popup-menu.h>
 
