@@ -175,13 +175,13 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
 /**
  * Loads a file in chunks and returns the content.
  */
-static SearchFileData *read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
+static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
 {
     // if the stop button was pressed, let's abort here
     if (data->stopped)
     {
         search_file_data_free (searchfile_data);
-        return NULL;
+        return FALSE;
     }
 
     if (searchfile_data->len)
@@ -189,16 +189,15 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
       if ((searchfile_data->offset + searchfile_data->len) >= f->info->size)
       {   // end, all has been read
           search_file_data_free (searchfile_data);
-          return NULL;
+          return FALSE;
       }
+
+      // jump a big step backward to give the regex a chance
+      searchfile_data->offset += searchfile_data->len - SEARCH_JUMP_SIZE;
+      if (f->info->size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
+          searchfile_data->len = f->info->size - searchfile_data->offset;
       else
-      {   // jump a big step backward to give the regex a chance
-          searchfile_data->offset += searchfile_data->len - SEARCH_JUMP_SIZE;
-          if (f->info->size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
-              searchfile_data->len = f->info->size - searchfile_data->offset;
-          else
-              searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
-      }
+          searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
     else
     {   // first time call of this function
@@ -214,18 +213,18 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
     {
         g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
         search_file_data_free (searchfile_data);
-        return NULL;
+        return FALSE;
     }
     searchfile_data->result = gnome_vfs_read (searchfile_data->handle, searchfile_data->mem, searchfile_data->len, &ret);
     if (searchfile_data->result != GNOME_VFS_OK)
     {
         g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
         search_file_data_free (searchfile_data);
-        return NULL;
+        return FALSE;
     }
     searchfile_data->mem[searchfile_data->len] = '\0';
 
-    return searchfile_data;
+    return TRUE;
 }
 
 
