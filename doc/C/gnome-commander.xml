@@ -7632,6 +7632,9 @@
                             <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>
+                            <para>New colour theme: green tiger</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: cs, de, en, es, fr, sl</para>
                         </listitem>
                         <listitem>

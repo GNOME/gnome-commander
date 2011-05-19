@@ -19,6 +19,7 @@ New features:
  * Open terminal with administrator privileges
  * Context popup menu for internal viewer
  * --config-dir command line option for customized location of config files
+ * New colour theme: green tiger
  * New or updated docs: cs, de, en, es, fr, sl
  * New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN
  * New key bindings:
