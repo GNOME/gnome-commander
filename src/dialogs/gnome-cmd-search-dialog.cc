@@ -177,8 +177,7 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
  */
 static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
 {
-    // if the stop button was pressed, let's abort here
-    if (data->stopped)
+    if (data->stopped)    // if the stop button was pressed, let's abort here
     {
         search_file_data_free (searchfile_data);
         return FALSE;
@@ -186,8 +185,8 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
 
     if (searchfile_data->len)
     {
-      if ((searchfile_data->offset + searchfile_data->len) >= f->info->size)
-      {   // end, all has been read
+      if ((searchfile_data->offset + searchfile_data->len) >= f->info->size)   // end, all has been read
+      {
           search_file_data_free (searchfile_data);
           return FALSE;
       }
@@ -199,15 +198,14 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
       else
           searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
-    else
-    {   // first time call of this function
+    else   // first time call of this function
+    {
         if (f->info->size < (SEARCH_BUFFER_SIZE - 1))
             searchfile_data->len = f->info->size;
         else
             searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
 
-    GnomeVFSFileSize ret;
     searchfile_data->result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
     if (searchfile_data->result != GNOME_VFS_OK)
     {
@@ -215,6 +213,8 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
         search_file_data_free (searchfile_data);
         return FALSE;
     }
+
+    GnomeVFSFileSize ret;
     searchfile_data->result = gnome_vfs_read (searchfile_data->handle, searchfile_data->mem, searchfile_data->len, &ret);
     if (searchfile_data->result != GNOME_VFS_OK)
     {
@@ -222,6 +222,7 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
         search_file_data_free (searchfile_data);
         return FALSE;
     }
+
     searchfile_data->mem[searchfile_data->len] = '\0';
 
     return TRUE;
