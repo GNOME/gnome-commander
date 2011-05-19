@@ -199,12 +199,7 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
           searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
     else   // first time call of this function
-    {
-        if (f->info->size < (SEARCH_BUFFER_SIZE - 1))
-            searchfile_data->len = f->info->size;
-        else
-            searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
-    }
+        searchfile_data->len = MIN (f->info->size, SEARCH_BUFFER_SIZE - 1);
 
     searchfile_data->result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
     if (searchfile_data->result != GNOME_VFS_OK)
