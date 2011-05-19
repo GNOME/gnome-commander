@@ -177,20 +177,6 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
  */
 static SearchFileData *read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
 {
-    if (!searchfile_data)
-    {
-        searchfile_data          = g_new0 (SearchFileData, 1);
-        searchfile_data->uri_str = f->get_uri_str();
-        searchfile_data->result  = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
-
-        if (searchfile_data->result != GNOME_VFS_OK)
-        {
-            g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
-            search_file_data_free (searchfile_data);
-            return NULL;
-        }
-    }
-
     // if the stop button was pressed, let's abort here
     if (data->stopped)
     {
@@ -252,12 +238,25 @@ inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
     g_return_val_if_fail (f != NULL, FALSE);
     g_return_val_if_fail (f->info != NULL, FALSE);
 
+    if (f->info->size==0)
+        return FALSE;
+
+    SearchFileData *search_file = g_new0 (SearchFileData, 1);
+    search_file->uri_str = f->get_uri_str();
+    search_file->result  = gnome_vfs_open (&search_file->handle, search_file->uri_str, GNOME_VFS_OPEN_READ);
+
+    if (search_file->result != GNOME_VFS_OK)
+    {
+        g_warning (_("Failed to read file %s: %s"), search_file->uri_str, gnome_vfs_result_to_string (search_file->result));
+        search_file_data_free (search_file);
+        return FALSE;
+    }
+
     regmatch_t match;
 
-    if (f->info->size > 0)
-        for (SearchFileData *search_file=NULL; (search_file = read_search_file (data, search_file, f)); )
-            if (regexec (data->content_regex, search_file->mem, 1, &match, 0) != REG_NOMATCH)
-                return TRUE;        // stop on first match
+    while (read_search_file (data, search_file, f))
+        if (regexec (data->content_regex, search_file->mem, 1, &match, 0) != REG_NOMATCH)
+            return TRUE;        // stop on first match
 
     return FALSE;
 }
