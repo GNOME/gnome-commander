@@ -182,7 +182,6 @@ inline void store_general_options (GtkWidget *dialog)
     GtkWidget *lmb_unselects_check = lookup_widget (dialog, "lmb_unselects_check");
     GtkWidget *mmb_cd_up_radio = lookup_widget (dialog, "mmb_cd_up_radio");
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
-    GtkWidget *ft_regex_radio = lookup_widget (dialog, "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
     GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
