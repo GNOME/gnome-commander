@@ -110,6 +110,7 @@ struct SearchData
 
 struct SearchFileData
 {
+    GnomeVFSResult  result;
     gchar          *uri_str;
     GnomeVFSHandle *handle;
     gint            offset;
@@ -176,17 +177,15 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
  */
 static SearchFileData *read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
 {
-    GnomeVFSResult  result;
-
     if (!searchfile_data)
     {
         searchfile_data          = g_new0 (SearchFileData, 1);
         searchfile_data->uri_str = f->get_uri_str();
-        result                   = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
+        searchfile_data->result  = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
 
-        if (result != GNOME_VFS_OK)
+        if (searchfile_data->result != GNOME_VFS_OK)
         {
-            g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+            g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
             search_file_data_free (searchfile_data);
             return NULL;
         }
@@ -224,17 +223,17 @@ static SearchFileData *read_search_file (SearchData *data, SearchFileData *searc
     }
 
     GnomeVFSFileSize ret;
-    result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
-    if (result != GNOME_VFS_OK)
+    searchfile_data->result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
+    if (searchfile_data->result != GNOME_VFS_OK)
     {
-        g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
-    result = gnome_vfs_read (searchfile_data->handle, searchfile_data->mem, searchfile_data->len, &ret);
-    if (result != GNOME_VFS_OK)
+    searchfile_data->result = gnome_vfs_read (searchfile_data->handle, searchfile_data->mem, searchfile_data->len, &ret);
+    if (searchfile_data->result != GNOME_VFS_OK)
     {
-        g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
         search_file_data_free (searchfile_data);
         return NULL;
     }
