@@ -6122,6 +6122,14 @@
                         </listitem>
                     </itemizedlist>
                 </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Support for backward/forward mouse buttons</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
             </entry>
         </row>
         <row valign="top">
@@ -6232,13 +6240,13 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #602795 (file content search)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem #609912 (build error with --as-needed)</para>
-                        </listitem>
-                        <listitem>
-                            <para>Fixed problem #612685 (crashes when double-clicking on a bookmark)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem #616891 (build error on RHEL 5.5)</para>
@@ -7460,14 +7468,6 @@
                         </listitem>
                         <listitem>
                             <para>Empty directories can now be entered on ftp servers</para>
-                        </listitem>
-                    </itemizedlist>
-                </para>
-                <para>New features:</para>
-                <para>
-                    <itemizedlist>
-                        <listitem>
-                            <para>Support for backward/forward mouse buttons</para>
                         </listitem>
                     </itemizedlist>
                 </para>
