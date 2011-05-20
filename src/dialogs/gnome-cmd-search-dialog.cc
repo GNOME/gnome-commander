@@ -162,7 +162,7 @@ inline void set_statusmsg (SearchData *data, const gchar *msg=NULL)
 }
 
 
-inline void search_file_data_free (SearchFileData  *searchfile_data)
+inline void free_search_file_data (SearchFileData *searchfile_data)
 {
     if (searchfile_data->handle)
         gnome_vfs_close (searchfile_data->handle);
@@ -179,7 +179,7 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
 {
     if (data->stopped)    // if the stop button was pressed, let's abort here
     {
-        search_file_data_free (searchfile_data);
+        free_search_file_data (searchfile_data);
         return FALSE;
     }
 
@@ -187,7 +187,7 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
     {
       if ((searchfile_data->offset + searchfile_data->len) >= f->info->size)   // end, all has been read
       {
-          search_file_data_free (searchfile_data);
+          free_search_file_data (searchfile_data);
           return FALSE;
       }
 
@@ -205,7 +205,7 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
     if (searchfile_data->result != GNOME_VFS_OK)
     {
         g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
-        search_file_data_free (searchfile_data);
+        free_search_file_data (searchfile_data);
         return FALSE;
     }
 
@@ -214,7 +214,7 @@ static gboolean read_search_file (SearchData *data, SearchFileData *searchfile_d
     if (searchfile_data->result != GNOME_VFS_OK)
     {
         g_warning (_("Failed to read file %s: %s"), searchfile_data->uri_str, gnome_vfs_result_to_string (searchfile_data->result));
-        search_file_data_free (searchfile_data);
+        free_search_file_data (searchfile_data);
         return FALSE;
     }
 
@@ -243,7 +243,7 @@ inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
     if (search_file->result != GNOME_VFS_OK)
     {
         g_warning (_("Failed to read file %s: %s"), search_file->uri_str, gnome_vfs_result_to_string (search_file->result));
-        search_file_data_free (search_file);
+        free_search_file_data (search_file);
         return FALSE;
     }
 
