@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-07 07:56+0000\n"
-"PO-Revision-Date: 2011-05-07 21:00+0100\n"
+"POT-Creation-Date: 2011-05-19 22:29+0000\n"
+"PO-Revision-Date: 2011-05-21 18:52+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -88,35 +88,35 @@ msgstr "Andere Revision"
 msgid "CVS Diff"
 msgstr "CVS-Diff"
 
-#: ../plugins/cvs/interface.cc:407
+#: ../plugins/cvs/interface.cc:408
 msgid "revision"
 msgstr "Revision"
 
-#: ../plugins/cvs/interface.cc:421
+#: ../plugins/cvs/interface.cc:422
 msgid "Revision:"
 msgstr "Revision:"
 
-#: ../plugins/cvs/interface.cc:439
+#: ../plugins/cvs/interface.cc:440
 msgid "Compare..."
 msgstr "Vergleich …"
 
-#: ../plugins/cvs/interface.cc:442
+#: ../plugins/cvs/interface.cc:443
 msgid "Author:"
 msgstr "Autor:"
 
-#: ../plugins/cvs/interface.cc:456
+#: ../plugins/cvs/interface.cc:457
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../plugins/cvs/interface.cc:470
+#: ../plugins/cvs/interface.cc:471
 msgid "State:"
 msgstr "Status:"
 
-#: ../plugins/cvs/interface.cc:484
+#: ../plugins/cvs/interface.cc:485
 msgid "Lines:"
 msgstr "Zeilen:"
 
-#: ../plugins/cvs/interface.cc:498
+#: ../plugins/cvs/interface.cc:499
 msgid "Message:"
 msgstr "Nachricht:"
 
@@ -249,21 +249,21 @@ msgstr "Profile …"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:93
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:94
 msgid "_Search for:"
 msgstr "Suche _nach: "
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:104
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:105
 msgid "_Replace with:"
 msgstr "E_rsetzen durch:"
 
 #. Case-Sensitive Checkbox
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:119
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:120
 #: ../src/intviewer/search-dlg.cc:284
 msgid "_Match case"
 msgstr "_Groß-/Kleinschreibung berücksichtigen"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:125
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:126
 msgid ""
 "Some regular expressions functionality is disabled. To enable it's necessary "
 "to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
@@ -468,6 +468,113 @@ msgstr "Ordner erstellen"
 #: ../src/gnome-cmd-file-props-dialog.cc:377
 msgid "Directory name:"
 msgstr "Ordnername:"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:65
+msgid "Search local directories only"
+msgstr "Nur lokale Ordner durchsuchen"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:66
+msgid "Files _not containing text"
+msgstr "Dateien, die _keinen Text enthalten"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:207
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:216
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:245
+#, c-format
+msgid "Failed to read file %s: %s"
+msgstr "Datei %s konnte nicht gelesen werden: %s"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:285
+#, c-format
+msgid "Searching in: %s"
+msgstr "Suche in: %s"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:404
+#, c-format
+msgid "Found %d match - search aborted"
+msgid_plural "Found %d matches - search aborted"
+msgstr[0] "Vor dem Abbruch der Suche wurde %d Treffer gefunden"
+msgstr[1] "Vor dem Abbruch der Suche wurden %d Treffer gefunden"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:405
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "%d Treffer gefunden"
+msgstr[1] "%d Treffer gefunden"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:599
+#, c-format
+msgid "Failed to set process group id of child %d: %s.\n"
+msgstr ""
+"Prozessgruppenkennung des Kindprozesses %d konnte nicht gesetzt werden: %s.\n"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:723
+msgid "Error parsing the search command."
+msgstr "Fehler beim Verarbeiten des Suchbefehls."
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:735
+msgid "Error running the search command."
+msgstr "Fehler beim Ausführen des Suchbefehls."
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:801
+#, c-format
+msgid "Failed to change directory outside of %s"
+msgstr "In den Ordner außerhalb von %s konnte nicht gewechselt werden"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1012
+msgid "Search..."
+msgstr "Suchen …"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1028
+msgid "Name matches regex:"
+msgstr "Name entspricht regulärem Ausdruck:"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1029
+msgid "Name contains:"
+msgstr "Name enthält:"
+
+#. search in
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1044
+msgid "Select Directory"
+msgstr "Ordner wählen"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1047
+msgid "_Look in folder:"
+msgstr "Suchen im _Ordner:"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1055
+msgid "Unlimited depth"
+msgstr "Unbegrenzte Tiefe"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1056
+msgid "Current directory only"
+msgstr "Nur aktueller Ordner"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1059
+#, c-format
+msgid "%i level"
+msgid_plural "%i levels"
+msgstr[0] "%i Ebene"
+msgstr[1] "%i Ebenen"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1067
+msgid "Search _recursively:"
+msgstr "_Rekursiv suchen:"
+
+#. find text
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1072
+msgid "Contains _text:"
+msgstr "Enthaltener _Text:"
+
+#. case check
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1085
+msgid "Case sensiti_ve"
+msgstr "_Groß-/Kleinschreibung beachten"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1093
+msgid "_Go to"
+msgstr "_Gehe zu"
 
 #: ../src/dirlist.cc:74
 #, c-format
@@ -809,17 +916,17 @@ msgstr "Arbeitsgruppen und Rechner werden gesucht"
 msgid "Go to: Samba Network"
 msgstr "Gehe zu: Samba-Netzwerk"
 
-#: ../src/gnome-cmd-data.cc:1192 ../src/gnome-cmd-data.cc:1193
-#: ../src/gnome-cmd-data.cc:1607 ../src/gnome-cmd-data.cc:1910
+#: ../src/gnome-cmd-data.cc:1200 ../src/gnome-cmd-data.cc:1201
+#: ../src/gnome-cmd-data.cc:1614 ../src/gnome-cmd-data.cc:1917
 #, c-format
 msgid "link to %s"
 msgstr "Link zu %s"
 
-#: ../src/gnome-cmd-data.cc:1471
+#: ../src/gnome-cmd-data.cc:1479
 msgid "Audio Files"
 msgstr "Audiodateien"
 
-#: ../src/gnome-cmd-data.cc:1479
+#: ../src/gnome-cmd-data.cc:1487
 msgid "CamelCase"
 msgstr "Zusammenschreibung ohne Leerzeichen (CamelCase)"
 
@@ -890,11 +997,11 @@ msgstr "Abbrechen"
 msgid "OK"
 msgstr "OK"
 
-#: ../src/gnome-cmd-dir-indicator.cc:431
+#: ../src/gnome-cmd-dir-indicator.cc:432
 msgid "Add current dir"
 msgstr "Aktuellen Ordner hinzufügen"
 
-#: ../src/gnome-cmd-dir-indicator.cc:432
+#: ../src/gnome-cmd-dir-indicator.cc:433
 msgid "Manage bookmarks..."
 msgstr "Lesezeichen _verwalten …"
 
@@ -902,47 +1009,47 @@ msgstr "Lesezeichen _verwalten …"
 msgid "Waiting for file list"
 msgstr "Warte auf Dateiliste"
 
-#: ../src/gnome-cmd-file-list.cc:115
+#: ../src/gnome-cmd-file-list.cc:116
 msgid "name"
 msgstr "Name"
 
-#: ../src/gnome-cmd-file-list.cc:116
+#: ../src/gnome-cmd-file-list.cc:117
 msgid "ext"
 msgstr "Ext"
 
-#: ../src/gnome-cmd-file-list.cc:117
+#: ../src/gnome-cmd-file-list.cc:118
 msgid "dir"
 msgstr "Ordner"
 
-#: ../src/gnome-cmd-file-list.cc:118
+#: ../src/gnome-cmd-file-list.cc:119
 msgid "size"
 msgstr "Größe"
 
-#: ../src/gnome-cmd-file-list.cc:119
+#: ../src/gnome-cmd-file-list.cc:120
 msgid "date"
 msgstr "Datum"
 
-#: ../src/gnome-cmd-file-list.cc:120
+#: ../src/gnome-cmd-file-list.cc:121
 msgid "perm"
 msgstr "Rechte"
 
-#: ../src/gnome-cmd-file-list.cc:121
+#: ../src/gnome-cmd-file-list.cc:122
 msgid "uid"
 msgstr "uid"
 
-#: ../src/gnome-cmd-file-list.cc:122
+#: ../src/gnome-cmd-file-list.cc:123
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:1383
+#: ../src/gnome-cmd-file-list.cc:1384
 msgid "Directory listing failed."
 msgstr "Ordnerauflistung ist gescheitert."
 
-#: ../src/gnome-cmd-file-list.cc:1436
+#: ../src/gnome-cmd-file-list.cc:1437
 msgid "Failed to open connection."
 msgstr "Verbindung konnte nicht geöffnet werden."
 
-#: ../src/gnome-cmd-file-list.cc:2182 ../src/gnome-cmd-file-list.cc:2197
+#: ../src/gnome-cmd-file-list.cc:2183 ../src/gnome-cmd-file-list.cc:2198
 msgid "Not an ordinary file"
 msgstr "Keine reguläre Datei"
 
@@ -1690,190 +1797,194 @@ msgstr "Ordner"
 msgid "Tabs"
 msgstr "Reiter"
 
-#: ../src/gnome-cmd-options-dialog.cc:252
+#: ../src/gnome-cmd-options-dialog.cc:251
 msgid "Size display mode"
 msgstr "Größenanzeige"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: ../src/gnome-cmd-options-dialog.cc:256
+#: ../src/gnome-cmd-options-dialog.cc:255
 msgid "Powered"
 msgstr "Gekürzt"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: ../src/gnome-cmd-options-dialog.cc:262
+#: ../src/gnome-cmd-options-dialog.cc:261
 msgid "<locale>"
 msgstr "<locale>"
 
-#: ../src/gnome-cmd-options-dialog.cc:267
+#: ../src/gnome-cmd-options-dialog.cc:266
 msgid "Grouped"
 msgstr "Gruppiert"
 
-#: ../src/gnome-cmd-options-dialog.cc:272
+#: ../src/gnome-cmd-options-dialog.cc:271
 msgid "Plain"
 msgstr "Einfach"
 
-#: ../src/gnome-cmd-options-dialog.cc:280
+#: ../src/gnome-cmd-options-dialog.cc:279
 msgid "Permission display mode"
 msgstr "Anzeigeweise der Zugriffsrechte"
 
-#: ../src/gnome-cmd-options-dialog.cc:283
+#: ../src/gnome-cmd-options-dialog.cc:282
 msgid "Text (rw-r--r--)"
 msgstr "Text (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:288
+#: ../src/gnome-cmd-options-dialog.cc:287
 msgid "Number (644)"
 msgstr "Zahlen (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:296
+#: ../src/gnome-cmd-options-dialog.cc:295
 msgid "Date format"
 msgstr "Datumsformat"
 
-#: ../src/gnome-cmd-options-dialog.cc:299
+#: ../src/gnome-cmd-options-dialog.cc:298
 msgid "Format:"
 msgstr "Format:"
 
-#: ../src/gnome-cmd-options-dialog.cc:310
+#: ../src/gnome-cmd-options-dialog.cc:309
 msgid "Test result:"
 msgstr "Testergebnis:"
 
-#: ../src/gnome-cmd-options-dialog.cc:317
+#: ../src/gnome-cmd-options-dialog.cc:316
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format string."
 msgstr ""
 "Genauere Angaben zur Formatierung werden durch\n"
 "Eingabe von »man strftime« angezeigt."
 
-#: ../src/gnome-cmd-options-dialog.cc:401
+#: ../src/gnome-cmd-options-dialog.cc:400
 msgid "Edit Colors..."
 msgstr "Farben bearbeiten …"
 
-#: ../src/gnome-cmd-options-dialog.cc:414
+#: ../src/gnome-cmd-options-dialog.cc:413
 msgid "Colors"
 msgstr "Farben"
 
-#: ../src/gnome-cmd-options-dialog.cc:445
+#: ../src/gnome-cmd-options-dialog.cc:444
 msgid "Foreground"
 msgstr "Vordergrund"
 
-#: ../src/gnome-cmd-options-dialog.cc:447
+#: ../src/gnome-cmd-options-dialog.cc:446
 msgid "Background"
 msgstr "Hintergrund"
 
-#: ../src/gnome-cmd-options-dialog.cc:449
+#: ../src/gnome-cmd-options-dialog.cc:448
 msgid "Default:"
 msgstr "Standard:"
 
-#: ../src/gnome-cmd-options-dialog.cc:451
+#: ../src/gnome-cmd-options-dialog.cc:450
 msgid "Alternate:"
 msgstr "Alternativ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:453
+#: ../src/gnome-cmd-options-dialog.cc:452
 msgid "Selected file:"
 msgstr "Ausgewählte Datei:"
 
-#: ../src/gnome-cmd-options-dialog.cc:455
+#: ../src/gnome-cmd-options-dialog.cc:454
 msgid "Cursor:"
 msgstr "Cursor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:536
+#: ../src/gnome-cmd-options-dialog.cc:535
 msgid "Edit LS_COLORS Palette"
 msgstr "LS_COLORS-Palette bearbeiten"
 
-#: ../src/gnome-cmd-options-dialog.cc:548
+#: ../src/gnome-cmd-options-dialog.cc:547
 msgid "Palette"
 msgstr "Palette"
 
-#: ../src/gnome-cmd-options-dialog.cc:603
+#: ../src/gnome-cmd-options-dialog.cc:602
 msgid "Foreground:"
 msgstr "Vordergrund:"
 
-#: ../src/gnome-cmd-options-dialog.cc:605
+#: ../src/gnome-cmd-options-dialog.cc:604
 msgid "Background:"
 msgstr "Hintergrund:"
 
-#: ../src/gnome-cmd-options-dialog.cc:607
+#: ../src/gnome-cmd-options-dialog.cc:606
 msgid "Black"
 msgstr "Schwarz"
 
-#: ../src/gnome-cmd-options-dialog.cc:610
+#: ../src/gnome-cmd-options-dialog.cc:609
 msgid "Red"
 msgstr "Rot"
 
-#: ../src/gnome-cmd-options-dialog.cc:613
+#: ../src/gnome-cmd-options-dialog.cc:612
 msgid "Green"
 msgstr "Grün"
 
-#: ../src/gnome-cmd-options-dialog.cc:616
+#: ../src/gnome-cmd-options-dialog.cc:615
 msgid "Yellow"
 msgstr "Gelb"
 
-#: ../src/gnome-cmd-options-dialog.cc:619
+#: ../src/gnome-cmd-options-dialog.cc:618
 msgid "Blue"
 msgstr "Blau"
 
-#: ../src/gnome-cmd-options-dialog.cc:622
+#: ../src/gnome-cmd-options-dialog.cc:621
 msgid "Magenta"
 msgstr "Magenta"
 
-#: ../src/gnome-cmd-options-dialog.cc:625
+#: ../src/gnome-cmd-options-dialog.cc:624
 msgid "Cyan"
 msgstr "Cyan"
 
-#: ../src/gnome-cmd-options-dialog.cc:628
+#: ../src/gnome-cmd-options-dialog.cc:627
 msgid "White"
 msgstr "Weiß"
 
-#: ../src/gnome-cmd-options-dialog.cc:632
+#: ../src/gnome-cmd-options-dialog.cc:631
 msgid "_Reset"
 msgstr "Zu_rücksetzen"
 
-#: ../src/gnome-cmd-options-dialog.cc:646
+#: ../src/gnome-cmd-options-dialog.cc:645
 msgid "With file name"
 msgstr "Mit dem Dateinamen"
 
-#: ../src/gnome-cmd-options-dialog.cc:647
+#: ../src/gnome-cmd-options-dialog.cc:646
 msgid "In separate column"
 msgstr "In einer eigenen Spalte"
 
-#: ../src/gnome-cmd-options-dialog.cc:648
+#: ../src/gnome-cmd-options-dialog.cc:647
 msgid "In both columns"
 msgstr "In beiden Spalten"
 
-#: ../src/gnome-cmd-options-dialog.cc:652
+#: ../src/gnome-cmd-options-dialog.cc:651
 msgid "No icons"
 msgstr "Keine Symbole"
 
-#: ../src/gnome-cmd-options-dialog.cc:653
+#: ../src/gnome-cmd-options-dialog.cc:652
 msgid "File type icons"
 msgstr "Datei-Symbole"
 
-#: ../src/gnome-cmd-options-dialog.cc:654
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "MIME icons"
 msgstr "MIME-Typen-Symbole"
 
-#: ../src/gnome-cmd-options-dialog.cc:658
+#: ../src/gnome-cmd-options-dialog.cc:657
 msgid "Respect theme colors"
 msgstr "Themenfarben berücksichtigen"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:658
 msgid "Modern"
 msgstr "Modern"
 
-#: ../src/gnome-cmd-options-dialog.cc:660
+#: ../src/gnome-cmd-options-dialog.cc:659
 msgid "Fusion"
 msgstr "Fusion"
 
-#: ../src/gnome-cmd-options-dialog.cc:661
+#: ../src/gnome-cmd-options-dialog.cc:660
 msgid "Classic"
 msgstr "Klassisch"
 
-#: ../src/gnome-cmd-options-dialog.cc:662
+#: ../src/gnome-cmd-options-dialog.cc:661
 msgid "Deep blue"
 msgstr "Dunkelblau"
 
-#: ../src/gnome-cmd-options-dialog.cc:663
+#: ../src/gnome-cmd-options-dialog.cc:662
 msgid "Cafezinho"
 msgstr "Cafezinho"
+
+#: ../src/gnome-cmd-options-dialog.cc:663
+msgid "Green tiger"
+msgstr "Grün gestreift"
 
 #: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Custom"
@@ -2588,106 +2699,6 @@ msgstr "Verbindungen"
 #: ../src/gnome-cmd-remote-dialog.cc:474
 msgid "Anonymous FTP password:"
 msgstr "Passwort für anonymen FTP-Zugriff:"
-
-#: ../src/gnome-cmd-search-dialog.cc:40
-msgid "Search _recursively:"
-msgstr "_Rekursiv suchen:"
-
-#: ../src/gnome-cmd-search-dialog.cc:41
-msgid "_Unlimited depth"
-msgstr "_Unbegrenzte Tiefe"
-
-#: ../src/gnome-cmd-search-dialog.cc:42
-msgid "Current _directory only"
-msgstr "Nur aktueller _Ordner"
-
-#: ../src/gnome-cmd-search-dialog.cc:43
-msgid "_Limited depth"
-msgstr "_Begrenzte Tiefe"
-
-#. N_("Search local directories only"),
-#: ../src/gnome-cmd-search-dialog.cc:45
-msgid "Files _not containing text"
-msgstr "Dateien, die _keinen Text enthalten"
-
-#: ../src/gnome-cmd-search-dialog.cc:165
-#, c-format
-msgid "Failed to open file %s: %s"
-msgstr "Datei %s konnte nicht geöffnet werden: %s"
-
-#: ../src/gnome-cmd-search-dialog.cc:206
-#, c-format
-msgid "Failed to seek in file %s: %s"
-msgstr "In Datei %s konnte nicht gesucht werden: %s"
-
-#: ../src/gnome-cmd-search-dialog.cc:213
-#, c-format
-msgid "Failed to read from file %s: %s"
-msgstr "Datei %s konnte nicht gelesen werden: %s"
-
-#: ../src/gnome-cmd-search-dialog.cc:274
-#, c-format
-msgid "Searching in: %s"
-msgstr "Suche in: %s"
-
-#: ../src/gnome-cmd-search-dialog.cc:395
-#, c-format
-msgid "Found %d match - search aborted"
-msgid_plural "Found %d matches - search aborted"
-msgstr[0] "Vor dem Abbruch der Suche wurde %d Treffer gefunden"
-msgstr[1] "Vor dem Abbruch der Suche wurden %d Treffer gefunden"
-
-#: ../src/gnome-cmd-search-dialog.cc:396
-#, c-format
-msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] "%d Treffer gefunden"
-msgstr[1] "%d Treffer gefunden"
-
-#: ../src/gnome-cmd-search-dialog.cc:539
-#, c-format
-msgid "Failed to change directory outside of %s"
-msgstr "In den Ordner außerhalb von %s konnte nicht gewechselt werden"
-
-#: ../src/gnome-cmd-search-dialog.cc:754
-msgid "Search..."
-msgstr "Suchen …"
-
-#: ../src/gnome-cmd-search-dialog.cc:769
-msgid "Name matches regex:"
-msgstr "Name entspricht regulärem Ausdruck:"
-
-#: ../src/gnome-cmd-search-dialog.cc:770
-msgid "Name contains:"
-msgstr "Name enthält:"
-
-#. search in
-#: ../src/gnome-cmd-search-dialog.cc:785
-msgid "Select Directory"
-msgstr "Ordner wählen"
-
-#: ../src/gnome-cmd-search-dialog.cc:788
-msgid "_Look in folder:"
-msgstr "Suchen im _Ordner:"
-
-#. recurse check
-#: ../src/gnome-cmd-search-dialog.cc:796
-msgid "Search _recursively"
-msgstr "_Rekursive Suche"
-
-#. find text
-#: ../src/gnome-cmd-search-dialog.cc:804
-msgid "Contains _text:"
-msgstr "Enthaltener _Text:"
-
-#. case check
-#: ../src/gnome-cmd-search-dialog.cc:817
-msgid "Case sensiti_ve"
-msgstr "_Groß-/Kleinschreibung beachten"
-
-#: ../src/gnome-cmd-search-dialog.cc:825
-msgid "_Go to"
-msgstr "_Gehe zu"
 
 #: ../src/gnome-cmd-smb-auth.cc:36
 msgid "Enter password"
@@ -7724,6 +7735,15 @@ msgstr "Aus dem Ordner %s konnte nicht gelesen werden: %s"
 #: ../src/utils.h:293
 msgid "There was an error displaying help."
 msgstr "Beim Anzeigen der Hilfe ist ein Fehler aufgetreten."
+
+#~ msgid "_Limited depth"
+#~ msgstr "_Begrenzte Tiefe"
+
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "Datei %s konnte nicht geöffnet werden: %s"
+
+#~ msgid "Search _recursively"
+#~ msgstr "_Rekursive Suche"
 
 #~ msgid "Search _for: "
 #~ msgstr "Suche _nach: "
