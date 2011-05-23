@@ -57,6 +57,7 @@ Requires:      gnome-vfs2-smb >= @GNOMEVFS_REQ@
 Requires:      libgnomeui >= @GNOMEUI_REQ@
 Requires:      unique >= @UNIQUE_REQ@
 
+Requires:         findutils, grep
 Requires:         meld
 Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
@@ -164,6 +165,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Mon May 23 2011 Piotr Eljasiak <epiotr@use.pl>
+- added findutils and grep dependencies
+
 * Fri Sep 10 2010 Piotr Eljasiak <epiotr@use.pl>
 - set epoch to 2
 
