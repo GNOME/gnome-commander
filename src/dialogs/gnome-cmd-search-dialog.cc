@@ -77,17 +77,17 @@ static char *msgs[] = {N_("Search local directories only"),
 
 struct SearchData
 {
-    GnomeCmdSearchDialog *dialog;
-
-    GnomeCmdCon *con;
-    GnomeCmdDir *start_dir;                 // the directory to start searching from
-
     struct ProtectedData
     {
         GList *files;
         gchar *msg;
         GMutex *mutex;
     };
+
+    GnomeCmdSearchDialog *dialog;
+
+    GnomeCmdCon *con;
+    GnomeCmdDir *start_dir;                 // the directory to start searching from
 
     const gchar *name_pattern;              // the pattern that file names should match to end up in the file list
     const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file list
