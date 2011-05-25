@@ -77,6 +77,11 @@ static char *msgs[] = {N_("Search local directories only"),
 
 struct SearchData
 {
+    GnomeCmdSearchDialog *dialog;
+
+    GnomeCmdCon *con;
+    GnomeCmdDir *start_dir;                 // the directory to start searching from
+
     struct ProtectedData
     {
         GList *files;
@@ -95,9 +100,7 @@ struct SearchData
     Filter *name_filter;
     regex_t *content_regex;
     gint context_id;                        // the context id of the status bar
-    GnomeCmdSearchDialog *dialog;
     GList *match_dirs;                      // the directories which we found matching files in
-    GnomeCmdDir *start_dir;                 // the directory to start searching from
     GThread *thread;
     ProtectedData pdata;
     gint update_gui_timeout_id;
@@ -128,8 +131,6 @@ struct GnomeCmdSearchDialogClass
 struct GnomeCmdSearchDialog::Private
 {
     SearchData *data;                       // holds data needed by the search routines
-
-    GnomeCmdCon *con;
 
     GtkWidget *filter_type_combo;
     GtkWidget *pattern_combo;
@@ -794,12 +795,12 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
     gchar *dir_path = g_strconcat (dir_str, G_DIR_SEPARATOR_S, NULL);
     g_free (dir_str);
 
-    if (strncmp(dir_path, gnome_cmd_con_get_root_path (dialog->priv->con), dialog->priv->con->root_path->len)!=0)
+    if (strncmp(dir_path, gnome_cmd_con_get_root_path (data->con), data->con->root_path->len)!=0)
     {
         if (!gnome_vfs_uri_is_local (uri))
         {
             gnome_cmd_show_message (GTK_WINDOW (dialog), stringify(g_strdup_printf (_("Failed to change directory outside of %s"),
-                                                                                    gnome_cmd_con_get_root_path (dialog->priv->con))));
+                                                                                    gnome_cmd_con_get_root_path (data->con))));
             gnome_vfs_uri_unref (uri);
             g_free (dir_path);
 
@@ -809,7 +810,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
             data->start_dir = gnome_cmd_dir_new (get_home_con (), gnome_cmd_con_create_path (get_home_con (), dir_path));
     }
     else
-        data->start_dir = gnome_cmd_dir_new (dialog->priv->con, gnome_cmd_con_create_path (dialog->priv->con, dir_path + dialog->priv->con->root_path->len));
+        data->start_dir = gnome_cmd_dir_new (data->con, gnome_cmd_con_create_path (data->con, dir_path + data->con->root_path->len));
 
     gnome_cmd_dir_ref (data->start_dir);
 
@@ -832,7 +833,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     dialog->priv->result_list->remove_all_files();
 
-    if (gnome_cmd_con_is_local (dialog->priv->con) ? start_local_search (data) : start_generic_search (data))
+    if (gnome_cmd_con_is_local (data->con) ? start_local_search (data) : start_generic_search (data))
     {
         set_statusmsg (data);
         gtk_widget_show (data->dialog->priv->pbar);
@@ -1153,7 +1154,7 @@ GtkWidget *gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
 {
     GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) g_object_new (GNOME_CMD_TYPE_SEARCH_DIALOG, NULL);
 
-    dialog->priv->con = gnome_cmd_dir_get_connection (default_dir);
+    dialog->priv->data->con = gnome_cmd_dir_get_connection (default_dir);
 
     gchar *uri = gnome_cmd_dir_get_uri_str (default_dir);
 
