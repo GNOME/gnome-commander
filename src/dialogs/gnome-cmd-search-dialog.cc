@@ -557,7 +557,7 @@ static gchar *build_search_command (SearchData *data)
     g_string_append (command, look_in_folder_quoted);
 
     if (data->max_depth!=-1)
-        g_string_append_printf (command, " -maxdepth %i", data->max_depth);
+        g_string_append_printf (command, " -maxdepth %i", data->max_depth+1);
 
     switch (data->name_filter_type)
     {
