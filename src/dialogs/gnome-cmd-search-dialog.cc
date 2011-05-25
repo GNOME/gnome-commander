@@ -908,7 +908,7 @@ static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 }
 
 
-inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDialog *dialog)
+inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event)
 {
     switch (event->keyval)
     {
@@ -925,10 +925,10 @@ inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, 
 }
 
 
-static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event, gpointer dialog)
+static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event, gpointer unused)
 {
     if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(event) ||
-        handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event, GNOME_CMD_SEARCH_DIALOG (dialog)))
+        handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event))
     {
         stop_kp (GTK_OBJECT (result_list));
         return TRUE;
@@ -1129,7 +1129,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
     dialog->priv->pbar = pbar;
 
     g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), NULL);
-    g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
+    g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), NULL);
 
     g_signal_connect (dialog->priv->filter_type_combo, "changed", G_CALLBACK (on_filter_type_changed), dialog);
     g_signal_connect (dialog->priv->find_text_check, "toggled", G_CALLBACK (find_text_toggled), dialog);
