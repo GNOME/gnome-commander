@@ -836,7 +836,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
     if (gnome_cmd_con_is_local (data->con) ? start_local_search (data) : start_generic_search (data))
     {
         set_statusmsg (data);
-        gtk_widget_show (data->dialog->priv->pbar);
+        gtk_widget_show (dialog->priv->pbar);
         data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_search_status_widgets, data);
 
         gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
