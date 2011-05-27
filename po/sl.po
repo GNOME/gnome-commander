@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-16 19:36+0000\n"
-"PO-Revision-Date: 2011-05-18 11:55+0100\n"
+"POT-Creation-Date: 2011-05-27 08:23+0000\n"
+"PO-Revision-Date: 2011-05-27 22:41+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -240,21 +240,21 @@ msgstr "Profili ..."
 msgid "Reset"
 msgstr "Ponastavi"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:93
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:94
 msgid "_Search for:"
 msgstr "_Poišči:"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:104
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:105
 msgid "_Replace with:"
 msgstr "_Zamenjaj z:"
 
 #. Case-Sensitive Checkbox
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:119
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:120
 #: ../src/intviewer/search-dlg.cc:284
 msgid "_Match case"
 msgstr "_Upoštevaj velikost črk"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:125
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:126
 msgid "Some regular expressions functionality is disabled. To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your package maintainer about that."
 msgstr "Nekatere možnosti logičnih izrazov so onemogočene. V primeru, da želite omogočiti polno delovanje, mora program GNOME Commander delovati na osnovi knjižnic GLib ≥ 2.14."
 
@@ -452,19 +452,19 @@ msgstr "Preišči le krajevne mape"
 msgid "Files _not containing text"
 msgstr "Datoteke, ki _ne vsebujejo besedila"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:190
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:231
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:238
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:208
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:217
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:246
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Ni mogoče prebrati datoteke %s: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:293
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:286
 #, c-format
 msgid "Searching in: %s"
 msgstr "Iskanje v: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:412
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -473,7 +473,7 @@ msgstr[1] "Najden %d zadetek - iskanje preklicano."
 msgstr[2] "Najdena %d zadetka - iskanje preklicano."
 msgstr[3] "Najdeni %d zadetki - iskanje preklicano."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:413
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -482,54 +482,54 @@ msgstr[1] "Najden %d zadetek"
 msgstr[2] "Najdena %d zadetka"
 msgstr[3] "Najdeni %d zadetki"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:612
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:595
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Ni mogoče določiti skupine podrejenega opravila %d: %s.\n"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:736
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:719
 msgid "Error parsing the search command."
 msgstr "Napaka razčlenjevanja ukaza iskanja."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:748
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:731
 msgid "Error running the search command."
 msgstr "Napaka izvajanja ukaza iskanja."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:814
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:797
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Spreminjanje mape izven %s je spodletelo"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1025
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1006
 msgid "Search..."
 msgstr "Iskanje ..."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1041
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1022
 msgid "Name matches regex:"
 msgstr "Ime je skladno z logičnim izrazom:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1042
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1023
 msgid "Name contains:"
 msgstr "Ime vsebuje:"
 
 #. search in
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1057
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1038
 msgid "Select Directory"
 msgstr "Izbor mape"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1060
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1041
 msgid "_Look in folder:"
 msgstr "_Preišči v mapi:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1068
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1049
 msgid "Unlimited depth"
 msgstr "Neomejena globina"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1069
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1050
 msgid "Current directory only"
 msgstr "Le trenutno mapo"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1072
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1053
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
@@ -538,21 +538,21 @@ msgstr[1] "%i raven"
 msgstr[2] "%i ravni"
 msgstr[3] "%i ravni"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1080
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1061
 msgid "Search _recursively:"
 msgstr "Išči po strukturi map:"
 
 #. find text
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1085
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1066
 msgid "Contains _text:"
 msgstr "Vsebuje _besedilo:"
 
 #. case check
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1098
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1079
 msgid "Case sensiti_ve"
 msgstr "_Razlikovanje velikosti črk"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1106
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1087
 msgid "_Go to"
 msgstr "_Pojdi na"
 
@@ -901,19 +901,19 @@ msgstr "Iskanje delovnih skupin in gostiteljev"
 msgid "Go to: Samba Network"
 msgstr "Skoči na: samba omrežje"
 
-#: ../src/gnome-cmd-data.cc:1190
-#: ../src/gnome-cmd-data.cc:1191
-#: ../src/gnome-cmd-data.cc:1604
-#: ../src/gnome-cmd-data.cc:1907
+#: ../src/gnome-cmd-data.cc:1200
+#: ../src/gnome-cmd-data.cc:1201
+#: ../src/gnome-cmd-data.cc:1614
+#: ../src/gnome-cmd-data.cc:1917
 #, c-format
 msgid "link to %s"
 msgstr "povezava do %s"
 
-#: ../src/gnome-cmd-data.cc:1469
+#: ../src/gnome-cmd-data.cc:1479
 msgid "Audio Files"
 msgstr "Zvočne datoteke"
 
-#: ../src/gnome-cmd-data.cc:1477
+#: ../src/gnome-cmd-data.cc:1487
 msgid "CamelCase"
 msgstr "EnoBesedno"
 
@@ -1010,48 +1010,48 @@ msgstr "Uredi zaznamke ..."
 msgid "Waiting for file list"
 msgstr "Čakanje na izpis datotek"
 
-#: ../src/gnome-cmd-file-list.cc:115
+#: ../src/gnome-cmd-file-list.cc:116
 msgid "name"
 msgstr "ime"
 
-#: ../src/gnome-cmd-file-list.cc:116
+#: ../src/gnome-cmd-file-list.cc:117
 msgid "ext"
 msgstr "pri"
 
-#: ../src/gnome-cmd-file-list.cc:117
+#: ../src/gnome-cmd-file-list.cc:118
 msgid "dir"
 msgstr "mapa"
 
-#: ../src/gnome-cmd-file-list.cc:118
+#: ../src/gnome-cmd-file-list.cc:119
 msgid "size"
 msgstr "velikost"
 
-#: ../src/gnome-cmd-file-list.cc:119
+#: ../src/gnome-cmd-file-list.cc:120
 msgid "date"
 msgstr "datum"
 
-#: ../src/gnome-cmd-file-list.cc:120
+#: ../src/gnome-cmd-file-list.cc:121
 msgid "perm"
 msgstr "dov"
 
-#: ../src/gnome-cmd-file-list.cc:121
+#: ../src/gnome-cmd-file-list.cc:122
 msgid "uid"
 msgstr "uid"
 
-#: ../src/gnome-cmd-file-list.cc:122
+#: ../src/gnome-cmd-file-list.cc:123
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:1383
+#: ../src/gnome-cmd-file-list.cc:1384
 msgid "Directory listing failed."
 msgstr "Izpis map ni uspel."
 
-#: ../src/gnome-cmd-file-list.cc:1436
+#: ../src/gnome-cmd-file-list.cc:1437
 msgid "Failed to open connection."
 msgstr "Napaka med odpiranjem povezave."
 
-#: ../src/gnome-cmd-file-list.cc:2182
-#: ../src/gnome-cmd-file-list.cc:2197
+#: ../src/gnome-cmd-file-list.cc:2183
+#: ../src/gnome-cmd-file-list.cc:2198
 msgid "Not an ordinary file"
 msgstr "Ni običajna datoteka"
 
@@ -1839,191 +1839,195 @@ msgstr "Mape"
 msgid "Tabs"
 msgstr "Zavihki"
 
-#: ../src/gnome-cmd-options-dialog.cc:252
+#: ../src/gnome-cmd-options-dialog.cc:251
 msgid "Size display mode"
 msgstr "Prikaz stolpca velikosti"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: ../src/gnome-cmd-options-dialog.cc:256
+#: ../src/gnome-cmd-options-dialog.cc:255
 msgid "Powered"
 msgstr "napredno"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: ../src/gnome-cmd-options-dialog.cc:262
+#: ../src/gnome-cmd-options-dialog.cc:261
 msgid "<locale>"
 msgstr "<locale>"
 
-#: ../src/gnome-cmd-options-dialog.cc:267
+#: ../src/gnome-cmd-options-dialog.cc:266
 msgid "Grouped"
 msgstr "skupinsko"
 
-#: ../src/gnome-cmd-options-dialog.cc:272
+#: ../src/gnome-cmd-options-dialog.cc:271
 msgid "Plain"
 msgstr "Običajno"
 
-#: ../src/gnome-cmd-options-dialog.cc:280
+#: ../src/gnome-cmd-options-dialog.cc:279
 msgid "Permission display mode"
 msgstr "Način prikazovanja dovoljenj"
 
-#: ../src/gnome-cmd-options-dialog.cc:283
+#: ../src/gnome-cmd-options-dialog.cc:282
 msgid "Text (rw-r--r--)"
 msgstr "črkovno (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:288
+#: ../src/gnome-cmd-options-dialog.cc:287
 msgid "Number (644)"
 msgstr "številčno (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:296
+#: ../src/gnome-cmd-options-dialog.cc:295
 msgid "Date format"
 msgstr "Zapis datuma"
 
-#: ../src/gnome-cmd-options-dialog.cc:299
+#: ../src/gnome-cmd-options-dialog.cc:298
 msgid "Format:"
 msgstr "Zapis:"
 
-#: ../src/gnome-cmd-options-dialog.cc:310
+#: ../src/gnome-cmd-options-dialog.cc:309
 msgid "Test result:"
 msgstr "Rezultat preizkusa:"
 
-#: ../src/gnome-cmd-options-dialog.cc:317
+#: ../src/gnome-cmd-options-dialog.cc:316
 msgid "See the manual page for \"strftime\" for help on how to set the format string."
 msgstr "Več podrobnosti o vrstici \"strftime\" je zapisanih v priročnik za nastavitve oblike zapisa."
 
-#: ../src/gnome-cmd-options-dialog.cc:401
+#: ../src/gnome-cmd-options-dialog.cc:400
 msgid "Edit Colors..."
 msgstr "Uredi barve ..."
 
-#: ../src/gnome-cmd-options-dialog.cc:414
+#: ../src/gnome-cmd-options-dialog.cc:413
 msgid "Colors"
 msgstr "Barve"
 
-#: ../src/gnome-cmd-options-dialog.cc:445
+#: ../src/gnome-cmd-options-dialog.cc:444
 msgid "Foreground"
 msgstr "Pisava"
 
-#: ../src/gnome-cmd-options-dialog.cc:447
+#: ../src/gnome-cmd-options-dialog.cc:446
 msgid "Background"
 msgstr "Ozadje"
 
-#: ../src/gnome-cmd-options-dialog.cc:449
+#: ../src/gnome-cmd-options-dialog.cc:448
 msgid "Default:"
 msgstr "Privzeto:"
 
-#: ../src/gnome-cmd-options-dialog.cc:451
+#: ../src/gnome-cmd-options-dialog.cc:450
 msgid "Alternate:"
 msgstr "Izmenično:"
 
-#: ../src/gnome-cmd-options-dialog.cc:453
+#: ../src/gnome-cmd-options-dialog.cc:452
 msgid "Selected file:"
 msgstr "Izbrana datoteka:"
 
-#: ../src/gnome-cmd-options-dialog.cc:455
+#: ../src/gnome-cmd-options-dialog.cc:454
 msgid "Cursor:"
 msgstr "Tipalo miške:"
 
-#: ../src/gnome-cmd-options-dialog.cc:536
+#: ../src/gnome-cmd-options-dialog.cc:535
 msgid "Edit LS_COLORS Palette"
 msgstr "Uredi LS_COLORS paleto"
 
-#: ../src/gnome-cmd-options-dialog.cc:548
+#: ../src/gnome-cmd-options-dialog.cc:547
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../src/gnome-cmd-options-dialog.cc:603
+#: ../src/gnome-cmd-options-dialog.cc:602
 msgid "Foreground:"
 msgstr "Barva besedila:"
 
-#: ../src/gnome-cmd-options-dialog.cc:605
+#: ../src/gnome-cmd-options-dialog.cc:604
 msgid "Background:"
 msgstr "Ozadje:"
 
-#: ../src/gnome-cmd-options-dialog.cc:607
+#: ../src/gnome-cmd-options-dialog.cc:606
 msgid "Black"
 msgstr "Črna"
 
-#: ../src/gnome-cmd-options-dialog.cc:610
+#: ../src/gnome-cmd-options-dialog.cc:609
 msgid "Red"
 msgstr "Rdeča"
 
-#: ../src/gnome-cmd-options-dialog.cc:613
+#: ../src/gnome-cmd-options-dialog.cc:612
 msgid "Green"
 msgstr "Zelena"
 
-#: ../src/gnome-cmd-options-dialog.cc:616
+#: ../src/gnome-cmd-options-dialog.cc:615
 msgid "Yellow"
 msgstr "Rumena"
 
-#: ../src/gnome-cmd-options-dialog.cc:619
+#: ../src/gnome-cmd-options-dialog.cc:618
 msgid "Blue"
 msgstr "Modra"
 
-#: ../src/gnome-cmd-options-dialog.cc:622
+#: ../src/gnome-cmd-options-dialog.cc:621
 msgid "Magenta"
 msgstr "Škrlatna"
 
-#: ../src/gnome-cmd-options-dialog.cc:625
+#: ../src/gnome-cmd-options-dialog.cc:624
 msgid "Cyan"
 msgstr "Sinja"
 
-#: ../src/gnome-cmd-options-dialog.cc:628
+#: ../src/gnome-cmd-options-dialog.cc:627
 msgid "White"
 msgstr "Bela"
 
-#: ../src/gnome-cmd-options-dialog.cc:632
+#: ../src/gnome-cmd-options-dialog.cc:631
 msgid "_Reset"
 msgstr "_Počisti"
 
-#: ../src/gnome-cmd-options-dialog.cc:646
+#: ../src/gnome-cmd-options-dialog.cc:645
 msgid "With file name"
 msgstr "Z imenom datoteke"
 
-#: ../src/gnome-cmd-options-dialog.cc:647
+#: ../src/gnome-cmd-options-dialog.cc:646
 msgid "In separate column"
 msgstr "V ločenih stolpcih"
 
-#: ../src/gnome-cmd-options-dialog.cc:648
+#: ../src/gnome-cmd-options-dialog.cc:647
 msgid "In both columns"
 msgstr "V obeh stolpcih"
 
-#: ../src/gnome-cmd-options-dialog.cc:652
+#: ../src/gnome-cmd-options-dialog.cc:651
 msgid "No icons"
 msgstr "Brez ikon"
 
-#: ../src/gnome-cmd-options-dialog.cc:653
+#: ../src/gnome-cmd-options-dialog.cc:652
 msgid "File type icons"
 msgstr "Vrstne ikone datotek"
 
-#: ../src/gnome-cmd-options-dialog.cc:654
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "MIME icons"
 msgstr "MIME ikone"
 
-#: ../src/gnome-cmd-options-dialog.cc:658
+#: ../src/gnome-cmd-options-dialog.cc:657
 msgid "Respect theme colors"
 msgstr "Upoštevaj barve teme"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:658
 msgid "Modern"
-msgstr "Moderno"
+msgstr "moderna"
+
+#: ../src/gnome-cmd-options-dialog.cc:659
+msgid "Fusion"
+msgstr "fuzija"
 
 #: ../src/gnome-cmd-options-dialog.cc:660
-msgid "Fusion"
-msgstr "Fuzija"
+msgid "Classic"
+msgstr "običajna"
 
 #: ../src/gnome-cmd-options-dialog.cc:661
-msgid "Classic"
-msgstr "Običajno"
+msgid "Deep blue"
+msgstr "modra tema"
 
 #: ../src/gnome-cmd-options-dialog.cc:662
-msgid "Deep blue"
-msgstr "Globoka modrina"
+msgid "Cafezinho"
+msgstr "cafezinho"
 
 #: ../src/gnome-cmd-options-dialog.cc:663
-msgid "Cafezinho"
-msgstr "Cafezinho"
+msgid "Green tiger"
+msgstr "zelena tema"
 
 #: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Custom"
-msgstr "Po meri"
+msgstr "po meri"
 
 #: ../src/gnome-cmd-options-dialog.cc:678
 msgid "File panes"
