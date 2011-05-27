@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-16 19:36+0000\n"
+"POT-Creation-Date: 2011-05-19 22:29+0000\n"
 "PO-Revision-Date: 2011-05-18 22:11+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -249,21 +249,21 @@ msgstr "Profily…"
 msgid "Reset"
 msgstr "Obnovit"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:93
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:94
 msgid "_Search for:"
 msgstr "Vy_hledat: "
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:104
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:105
 msgid "_Replace with:"
 msgstr "Nah_radit za:"
 
 #. Case-Sensitive Checkbox
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:119
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:120
 #: ../src/intviewer/search-dlg.cc:284
 msgid "_Match case"
 msgstr "_Shoda velikosti písmen"
 
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:125
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:126
 msgid ""
 "Some regular expressions functionality is disabled. To enable it's necessary "
 "to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
@@ -477,20 +477,19 @@ msgstr "Prohledávat pouze místní složky"
 msgid "Files _not containing text"
 msgstr "Soubory _neobsahující text"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:190
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:231
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:238
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:207
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:216
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:245
 #, c-format
-#| msgid "Failed to read from file %s: %s"
 msgid "Failed to read file %s: %s"
 msgstr "Selhalo čtení ze souboru %s: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:293
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:285
 #, c-format
 msgid "Searching in: %s"
 msgstr "Hledá se v: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:412
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:404
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -498,7 +497,7 @@ msgstr[0] "Nalezen %d výskyt - vyhledávání přerušeno"
 msgstr[1] "Nalezeny %d výskyty - vyhledávání přerušeno"
 msgstr[2] "Nalezeno %d výskytů - vyhledávání přerušeno"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:413
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -506,55 +505,54 @@ msgstr[0] "Nalezen %d výskyt"
 msgstr[1] "Nalezeny %d výskyty"
 msgstr[2] "Nalezeno %d výskytů"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:612
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:599
 #, c-format
-#| msgid "Failed to seek in file %s: %s"
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Selhalo nastavení id skupiny procesů %d: %s.\n"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:736
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:723
 msgid "Error parsing the search command."
 msgstr "Chyba při zpracování příkazu vyhledávání."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:748
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:735
 msgid "Error running the search command."
 msgstr "Chyba při spuštění příkazu vyhledávání."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:814
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:801
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Selhala změna složky mimo %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1025
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1012
 msgid "Search..."
 msgstr "Hledat…"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1041
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1028
 msgid "Name matches regex:"
 msgstr "Název odpovídá regulárnímu výrazu:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1042
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1029
 msgid "Name contains:"
 msgstr "Název obsahuje:"
 
 #. search in
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1057
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1044
 msgid "Select Directory"
 msgstr "Vybrat složku"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1060
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1047
 msgid "_Look in folder:"
 msgstr "H_ledat ve složce:"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1068
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1055
 msgid "Unlimited depth"
 msgstr "Neomezené zanoření"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1069
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1056
 msgid "Current directory only"
 msgstr "Pouze aktuální složka"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1072
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1059
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
@@ -562,21 +560,21 @@ msgstr[0] "%i úroveň"
 msgstr[1] "%i úrovně"
 msgstr[2] "%i úrovní"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1080
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1067
 msgid "Search _recursively:"
 msgstr "Hledat _rekurzivně:"
 
 #. find text
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1085
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1072
 msgid "Contains _text:"
 msgstr "Obsahuje _text: "
 
 #. case check
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1098
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1085
 msgid "Case sensiti_ve"
 msgstr "Rozlišo_vat velikost písmen"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1106
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1093
 msgid "_Go to"
 msgstr "_Přejít na"
 
@@ -919,17 +917,17 @@ msgstr "Hledají se pracovní skupiny a počítače"
 msgid "Go to: Samba Network"
 msgstr "Přejít na síť Samba"
 
-#: ../src/gnome-cmd-data.cc:1190 ../src/gnome-cmd-data.cc:1191
-#: ../src/gnome-cmd-data.cc:1604 ../src/gnome-cmd-data.cc:1907
+#: ../src/gnome-cmd-data.cc:1200 ../src/gnome-cmd-data.cc:1201
+#: ../src/gnome-cmd-data.cc:1614 ../src/gnome-cmd-data.cc:1917
 #, c-format
 msgid "link to %s"
 msgstr "Symbolický odkaz na %s"
 
-#: ../src/gnome-cmd-data.cc:1469
+#: ../src/gnome-cmd-data.cc:1479
 msgid "Audio Files"
 msgstr "Zvukové soubory"
 
-#: ../src/gnome-cmd-data.cc:1477
+#: ../src/gnome-cmd-data.cc:1487
 msgid "CamelCase"
 msgstr "První písmena velká"
 
@@ -1016,47 +1014,47 @@ msgstr "Spravovat záložky…"
 msgid "Waiting for file list"
 msgstr "Čeká se na seznam souborů"
 
-#: ../src/gnome-cmd-file-list.cc:115
+#: ../src/gnome-cmd-file-list.cc:116
 msgid "name"
 msgstr "název"
 
-#: ../src/gnome-cmd-file-list.cc:116
+#: ../src/gnome-cmd-file-list.cc:117
 msgid "ext"
 msgstr "příp"
 
-#: ../src/gnome-cmd-file-list.cc:117
+#: ../src/gnome-cmd-file-list.cc:118
 msgid "dir"
 msgstr "složka"
 
-#: ../src/gnome-cmd-file-list.cc:118
+#: ../src/gnome-cmd-file-list.cc:119
 msgid "size"
 msgstr "velikost"
 
-#: ../src/gnome-cmd-file-list.cc:119
+#: ../src/gnome-cmd-file-list.cc:120
 msgid "date"
 msgstr "datum"
 
-#: ../src/gnome-cmd-file-list.cc:120
+#: ../src/gnome-cmd-file-list.cc:121
 msgid "perm"
 msgstr "práva"
 
-#: ../src/gnome-cmd-file-list.cc:121
+#: ../src/gnome-cmd-file-list.cc:122
 msgid "uid"
 msgstr "id uživatele (uid)"
 
-#: ../src/gnome-cmd-file-list.cc:122
+#: ../src/gnome-cmd-file-list.cc:123
 msgid "gid"
 msgstr "id skupiny (gid)"
 
-#: ../src/gnome-cmd-file-list.cc:1383
+#: ../src/gnome-cmd-file-list.cc:1384
 msgid "Directory listing failed."
 msgstr "Výpis složky selhal."
 
-#: ../src/gnome-cmd-file-list.cc:1436
+#: ../src/gnome-cmd-file-list.cc:1437
 msgid "Failed to open connection."
 msgstr "Nelze otevřít spojení."
 
-#: ../src/gnome-cmd-file-list.cc:2182 ../src/gnome-cmd-file-list.cc:2197
+#: ../src/gnome-cmd-file-list.cc:2183 ../src/gnome-cmd-file-list.cc:2198
 msgid "Not an ordinary file"
 msgstr "Není normální soubor"
 
@@ -1808,53 +1806,53 @@ msgstr "Složky"
 msgid "Tabs"
 msgstr "Karty"
 
-#: ../src/gnome-cmd-options-dialog.cc:252
+#: ../src/gnome-cmd-options-dialog.cc:251
 msgid "Size display mode"
 msgstr "Režim zobrazení velikosti"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: ../src/gnome-cmd-options-dialog.cc:256
+#: ../src/gnome-cmd-options-dialog.cc:255
 msgid "Powered"
 msgstr "Násobky bajtů"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: ../src/gnome-cmd-options-dialog.cc:262
+#: ../src/gnome-cmd-options-dialog.cc:261
 msgid "<locale>"
 msgstr "<národní prostředí>"
 
-#: ../src/gnome-cmd-options-dialog.cc:267
+#: ../src/gnome-cmd-options-dialog.cc:266
 msgid "Grouped"
 msgstr "Seskupený"
 
-#: ../src/gnome-cmd-options-dialog.cc:272
+#: ../src/gnome-cmd-options-dialog.cc:271
 msgid "Plain"
 msgstr "Jednoduchý"
 
-#: ../src/gnome-cmd-options-dialog.cc:280
+#: ../src/gnome-cmd-options-dialog.cc:279
 msgid "Permission display mode"
 msgstr "Režim zobrazení přístupových práv"
 
-#: ../src/gnome-cmd-options-dialog.cc:283
+#: ../src/gnome-cmd-options-dialog.cc:282
 msgid "Text (rw-r--r--)"
 msgstr "Textově (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:288
+#: ../src/gnome-cmd-options-dialog.cc:287
 msgid "Number (644)"
 msgstr "Číselně (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:296
+#: ../src/gnome-cmd-options-dialog.cc:295
 msgid "Date format"
 msgstr "Formát data"
 
-#: ../src/gnome-cmd-options-dialog.cc:299
+#: ../src/gnome-cmd-options-dialog.cc:298
 msgid "Format:"
 msgstr "Formát:"
 
-#: ../src/gnome-cmd-options-dialog.cc:310
+#: ../src/gnome-cmd-options-dialog.cc:309
 msgid "Test result:"
 msgstr "Výsledek testu:"
 
-#: ../src/gnome-cmd-options-dialog.cc:317
+#: ../src/gnome-cmd-options-dialog.cc:316
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
@@ -1862,137 +1860,143 @@ msgstr ""
 "Nápovědu k nastavení formátovacího řetězce najdete v manuálové stránce o "
 "„strftime“."
 
-#: ../src/gnome-cmd-options-dialog.cc:401
+#: ../src/gnome-cmd-options-dialog.cc:400
 msgid "Edit Colors..."
 msgstr "Upravit barvy…"
 
-#: ../src/gnome-cmd-options-dialog.cc:414
+#: ../src/gnome-cmd-options-dialog.cc:413
 msgid "Colors"
 msgstr "Barvy"
 
-#: ../src/gnome-cmd-options-dialog.cc:445
+#: ../src/gnome-cmd-options-dialog.cc:444
 msgid "Foreground"
 msgstr "Popředí"
 
-#: ../src/gnome-cmd-options-dialog.cc:447
+#: ../src/gnome-cmd-options-dialog.cc:446
 msgid "Background"
 msgstr "Pozadí"
 
-#: ../src/gnome-cmd-options-dialog.cc:449
+#: ../src/gnome-cmd-options-dialog.cc:448
 msgid "Default:"
 msgstr "Výchozí:"
 
-#: ../src/gnome-cmd-options-dialog.cc:451
+#: ../src/gnome-cmd-options-dialog.cc:450
 msgid "Alternate:"
 msgstr "Střídající:"
 
-#: ../src/gnome-cmd-options-dialog.cc:453
+#: ../src/gnome-cmd-options-dialog.cc:452
 msgid "Selected file:"
 msgstr "Vybraný soubor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:455
+#: ../src/gnome-cmd-options-dialog.cc:454
 msgid "Cursor:"
 msgstr "Kurzor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:536
+#: ../src/gnome-cmd-options-dialog.cc:535
 msgid "Edit LS_COLORS Palette"
 msgstr "Upravit paletu LS_COLORS"
 
-#: ../src/gnome-cmd-options-dialog.cc:548
+#: ../src/gnome-cmd-options-dialog.cc:547
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../src/gnome-cmd-options-dialog.cc:603
+#: ../src/gnome-cmd-options-dialog.cc:602
 msgid "Foreground:"
 msgstr "Popředí:"
 
-#: ../src/gnome-cmd-options-dialog.cc:605
+#: ../src/gnome-cmd-options-dialog.cc:604
 msgid "Background:"
 msgstr "Pozadí:"
 
-#: ../src/gnome-cmd-options-dialog.cc:607
+#: ../src/gnome-cmd-options-dialog.cc:606
 msgid "Black"
 msgstr "Černá"
 
-#: ../src/gnome-cmd-options-dialog.cc:610
+#: ../src/gnome-cmd-options-dialog.cc:609
 msgid "Red"
 msgstr "Červená"
 
-#: ../src/gnome-cmd-options-dialog.cc:613
+#: ../src/gnome-cmd-options-dialog.cc:612
 msgid "Green"
 msgstr "Zelená"
 
-#: ../src/gnome-cmd-options-dialog.cc:616
+#: ../src/gnome-cmd-options-dialog.cc:615
 msgid "Yellow"
 msgstr "Žlutá"
 
-#: ../src/gnome-cmd-options-dialog.cc:619
+#: ../src/gnome-cmd-options-dialog.cc:618
 msgid "Blue"
 msgstr "Modrá"
 
-#: ../src/gnome-cmd-options-dialog.cc:622
+#: ../src/gnome-cmd-options-dialog.cc:621
 msgid "Magenta"
 msgstr "Purpurová"
 
-#: ../src/gnome-cmd-options-dialog.cc:625
+#: ../src/gnome-cmd-options-dialog.cc:624
 msgid "Cyan"
 msgstr "Azurová"
 
-#: ../src/gnome-cmd-options-dialog.cc:628
+#: ../src/gnome-cmd-options-dialog.cc:627
 msgid "White"
 msgstr "Bílá"
 
-#: ../src/gnome-cmd-options-dialog.cc:632
+#: ../src/gnome-cmd-options-dialog.cc:631
 msgid "_Reset"
 msgstr "_Výchozí"
 
-#: ../src/gnome-cmd-options-dialog.cc:646
+#: ../src/gnome-cmd-options-dialog.cc:645
 msgid "With file name"
 msgstr "S názvem souboru"
 
-#: ../src/gnome-cmd-options-dialog.cc:647
+#: ../src/gnome-cmd-options-dialog.cc:646
 msgid "In separate column"
 msgstr "V samostatném sloupci"
 
-#: ../src/gnome-cmd-options-dialog.cc:648
+#: ../src/gnome-cmd-options-dialog.cc:647
 msgid "In both columns"
 msgstr "V obou sloupcích"
 
-#: ../src/gnome-cmd-options-dialog.cc:652
+#: ../src/gnome-cmd-options-dialog.cc:651
 msgid "No icons"
 msgstr "Žádné ikony"
 
-#: ../src/gnome-cmd-options-dialog.cc:653
+#: ../src/gnome-cmd-options-dialog.cc:652
 msgid "File type icons"
 msgstr "Ikony typů souborů"
 
-#: ../src/gnome-cmd-options-dialog.cc:654
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "MIME icons"
 msgstr "Ikony MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:658
+#: ../src/gnome-cmd-options-dialog.cc:657
 msgid "Respect theme colors"
 msgstr "Brát ohled na barvy motivu"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:658
 msgid "Modern"
 msgstr "Moderní"
 
-#: ../src/gnome-cmd-options-dialog.cc:660
+#: ../src/gnome-cmd-options-dialog.cc:659
 msgid "Fusion"
 msgstr "Fusion"
 
-#: ../src/gnome-cmd-options-dialog.cc:661
+#: ../src/gnome-cmd-options-dialog.cc:660
 msgid "Classic"
 msgstr "Klasické"
 
-#: ../src/gnome-cmd-options-dialog.cc:662
+#: ../src/gnome-cmd-options-dialog.cc:661
 msgid "Deep blue"
 msgstr "Tmavě modrá"
 
-#: ../src/gnome-cmd-options-dialog.cc:663
+#: ../src/gnome-cmd-options-dialog.cc:662
 msgid "Cafezinho"
 msgstr "Cafezinho"
+
+#: ../src/gnome-cmd-options-dialog.cc:663
+#, fuzzy
+#| msgid "Green"
+msgid "Green tiger"
+msgstr "Zelená"
 
 #: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Custom"
@@ -4409,8 +4413,8 @@ msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
-"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu "
-"-99,99 až 99,99."
+"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu -"
+"99,99 až 99,99."
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid "Exposure Index"
