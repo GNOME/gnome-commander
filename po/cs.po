@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-05-19 22:29+0000\n"
-"PO-Revision-Date: 2011-05-18 22:11+0200\n"
+"PO-Revision-Date: 2011-05-27 10:22+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1993,10 +1993,9 @@ msgid "Cafezinho"
 msgstr "Cafezinho"
 
 #: ../src/gnome-cmd-options-dialog.cc:663
-#, fuzzy
 #| msgid "Green"
 msgid "Green tiger"
-msgstr "Zelená"
+msgstr "Zelený tygr"
 
 #: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Custom"
@@ -4413,8 +4412,8 @@ msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
-"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu -"
-"99,99 až 99,99."
+"Korekce expozice. Jednotkou je hodnota APEX. Obvykle je uvedeno v rozsahu "
+"-99,99 až 99,99."
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid "Exposure Index"
