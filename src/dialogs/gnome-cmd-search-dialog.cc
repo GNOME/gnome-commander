@@ -429,13 +429,13 @@ static gboolean update_search_status_widgets (SearchData &data)
  * data structure that has been shared between the search threads and the
  * main thread.
  */
-static gboolean join_thread_func (SearchData &data)
+static gboolean join_thread_func (SearchData *data)
 {
-    if (data.thread)
-        g_thread_join (data.thread);
+    if (data->thread)
+        g_thread_join (data->thread);
 
-    if (data.pdata.mutex)
-        g_mutex_free (data.pdata.mutex);
+    if (data->pdata.mutex)
+        g_mutex_free (data->pdata.mutex);
 
     return FALSE;
 }
