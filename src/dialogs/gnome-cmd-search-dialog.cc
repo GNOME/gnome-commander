@@ -374,49 +374,49 @@ static gpointer perform_search_operation (SearchData *data)
 }
 
 
-static gboolean update_search_status_widgets (SearchData &data)
+static gboolean update_search_status_widgets (SearchData *data)
 {
-    progress_bar_update (data.dialog->priv->pbar, PBAR_MAX);        // update the progress bar
+    progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);        // update the progress bar
 
-    if (data.pdata.mutex)
+    if (data->pdata.mutex)
     {
-        g_mutex_lock (data.pdata.mutex);
+        g_mutex_lock (data->pdata.mutex);
 
-        GList *files = data.pdata.files;
-        data.pdata.files = NULL;
+        GList *files = data->pdata.files;
+        data->pdata.files = NULL;
 
-        set_statusmsg (data, data.pdata.msg);                       // update status bar with the latest message
+        set_statusmsg (*data, data->pdata.msg);                       // update status bar with the latest message
 
-        g_mutex_unlock (data.pdata.mutex);
+        g_mutex_unlock (data->pdata.mutex);
 
         for (GList *i = files; i; i = i->next)                      // add all files found since last update to the list
-            data.dialog->priv->result_list->append_file(GNOME_CMD_FILE (i->data));
+            data->dialog->priv->result_list->append_file(GNOME_CMD_FILE (i->data));
 
         gnome_cmd_file_list_free (files);
     }
 
-    if (!data.search_done && !data.stopped || data.pdata.files)
+    if (!data->search_done && !data->stopped || data->pdata.files)
         return TRUE;
 
-    if (!data.dialog_destroyed)
+    if (!data->dialog_destroyed)
     {
-        int matches = data.dialog->priv->result_list->size();
+        int matches = data->dialog->priv->result_list->size();
 
-        gchar *fmt = data.stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
+        gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
                                      ngettext("Found %d match", "Found %d matches", matches);
 
         gchar *msg = g_strdup_printf (fmt, matches);
 
-        set_statusmsg (data, msg);
+        set_statusmsg (*data, msg);
         g_free (msg);
 
-        gtk_widget_hide (data.dialog->priv->pbar);
+        gtk_widget_hide (data->dialog->priv->pbar);
 
-        gtk_widget_set_sensitive (data.dialog->priv->goto_button, matches>0);
-        gtk_widget_set_sensitive (data.dialog->priv->stop_button, FALSE);
-        gtk_widget_set_sensitive (data.dialog->priv->search_button, TRUE);
+        gtk_widget_set_sensitive (data->dialog->priv->goto_button, matches>0);
+        gtk_widget_set_sensitive (data->dialog->priv->stop_button, FALSE);
+        gtk_widget_set_sensitive (data->dialog->priv->search_button, TRUE);
 
-        gtk_widget_grab_focus (GTK_WIDGET (data.dialog->priv->result_list));         // set focus to result list
+        gtk_widget_grab_focus (GTK_WIDGET (data->dialog->priv->result_list));         // set focus to result list
     }
 
     return FALSE;    // returning FALSE here stops the timeout callbacks
