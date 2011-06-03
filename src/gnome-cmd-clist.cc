@@ -585,12 +585,6 @@ gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 }
 
 
-void gnome_cmd_clist_update_style (GnomeCmdCList *clist)
-{
-    gtk_widget_set_style (GTK_WIDGET (clist), list_style);
-}
-
-
 void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset)
 {
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
@@ -601,12 +595,11 @@ void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset)
 
 gint gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
 {
-    gint row;
-
     g_return_val_if_fail (GNOME_CMD_IS_CLIST (clist), -1);
 
-    if (gtk_clist_get_selection_info (GTK_CLIST (clist), x, y, &row, NULL) == 0)
-        row = -1;
+    gint row = -1;
+
+    gtk_clist_get_selection_info (GTK_CLIST (clist), x, y, &row, NULL);
 
     return row;
 }
