@@ -72,11 +72,12 @@ struct GnomeCmdData
         Filter::Type syntax;
         int max_depth;
         std::string text_pattern;
+        gboolean content_search;
         gboolean match_case;
 
         void reset();
 
-        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), match_case(FALSE)       {}
+        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
 
         friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
     };

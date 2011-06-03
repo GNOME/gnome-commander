@@ -83,6 +83,7 @@ void GnomeCmdData::Selection::reset()
     syntax = Filter::TYPE_REGEX;
     max_depth = -1;
     text_pattern.clear();
+    content_search = FALSE;
     match_case = FALSE;
 }
 
@@ -1987,7 +1988,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
         xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
                                    << XML::attr("match-case") << 0 << XML::chardata() << XML::escape(cfg.filename_pattern) << XML::endtag();
         xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
-        xml << XML::tag("Text") << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
+        xml << XML::tag("Text") << XML::attr("content-search") << cfg.content_search << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
 
     xml << XML::endtag();
 
