@@ -21,6 +21,7 @@
 #ifndef __GNOME_CMD_SEARCH_DIALOG_H__
 #define __GNOME_CMD_SEARCH_DIALOG_H__
 
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 
 #define GNOME_CMD_TYPE_SEARCH_DIALOG              (gnome_cmd_search_dialog_get_type ())
@@ -31,18 +32,30 @@
 #define GNOME_CMD_SEARCH_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_SEARCH_DIALOG, GnomeCmdSearchDialogClass))
 
 
+GType gnome_cmd_search_dialog_get_type ();
+
+
 struct GnomeCmdSearchDialog
 {
-    GnomeCmdDialog parent;
+    GtkDialog parent;
 
     class Private;
 
     Private *priv;
+
+    operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
+    operator GtkWindow * () const       {  return GTK_WINDOW (this);  }
+    operator GtkDialog * () const       {  return GTK_DIALOG (this);  }
+
+    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_SEARCH_DIALOG, NULL);  }
+    void operator delete (void *p)      {  g_object_unref (p);  }
+
+    enum {GCMD_RESPONSE_GOTO=123, GCMD_RESPONSE_STOP, GCMD_RESPONSE_FIND};
+
+    GnomeCmdData::SearchConfig &defaults;
+
+    GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &defaults);
+    ~GnomeCmdSearchDialog();
 };
-
-
-GType gnome_cmd_search_dialog_get_type ();
-
-GtkWidget *gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir);
 
 #endif // __GNOME_CMD_SEARCH_DIALOG_H__

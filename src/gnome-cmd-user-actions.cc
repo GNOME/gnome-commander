@@ -1004,9 +1004,10 @@ void edit_cap_paste (GtkMenuItem *menuitem, gpointer not_used)
 
 void edit_search (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
-    GtkWidget *dialog = gnome_cmd_search_dialog_new (fs->get_directory());
-    gtk_widget_show (dialog);
+    if (!main_win->file_search_dlg)
+        main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
+
+    gtk_widget_show (*main_win->file_search_dlg);
 }
 
 
