@@ -53,7 +53,7 @@ struct GnomeCmdAdvrenameDialog::Private
     gboolean template_has_counters;
 
     GtkWidget *vbox;
-    GnomeCmdProfileComponent *profile_component;
+    GnomeCmdAdvrenameProfileComponent *profile_component;
     GtkWidget *files_view;
     GtkWidget *profile_menu_button;
 
@@ -70,9 +70,9 @@ struct GnomeCmdAdvrenameDialog::Private
 
     void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event=NULL);
 
-    static void on_profile_template_changed (GnomeCmdProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
-    static void on_profile_counter_changed (GnomeCmdProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
-    static void on_profile_regex_changed (GnomeCmdProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
+    static void on_profile_template_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
+    static void on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
+    static void on_profile_regex_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_model_row_deleted (GtkTreeModel *files, GtkTreePath *path, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_popup_menu__remove (GtkWidget *menuitem, GtkTreeView *treeview);
     static void on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview);
@@ -219,21 +219,21 @@ inline GtkWidget *create_files_view ();
 G_DEFINE_TYPE (GnomeCmdAdvrenameDialog, gnome_cmd_advrename_dialog, GTK_TYPE_DIALOG)
 
 
-void GnomeCmdAdvrenameDialog::Private::on_profile_template_changed (GnomeCmdProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_profile_template_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
 {
     gnome_cmd_advrename_parse_template (component->get_template_entry(), dialog->priv->template_has_counters);
     dialog->update_new_filenames();
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_profile_counter_changed (GnomeCmdProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_profile_counter_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
 {
     if (dialog->priv->template_has_counters)
         dialog->update_new_filenames();
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::on_profile_regex_changed (GnomeCmdProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
+void GnomeCmdAdvrenameDialog::Private::on_profile_regex_changed (GnomeCmdAdvrenameProfileComponent *component, GnomeCmdAdvrenameDialog *dialog)
 {
     dialog->update_new_filenames();
 }
@@ -625,7 +625,7 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
         GnomeCmd::RegexReplace *r;
 
         gtk_tree_model_get (regexes, &i,
-                            GnomeCmdProfileComponent::COL_REGEX, &r,
+                            GnomeCmdAdvrenameProfileComponent::COL_REGEX, &r,
                             -1);
         if (r && *r)                            //  ignore regex pattern if it can't be retrieved or if it is malformed
             rx.push_back(r);
@@ -680,7 +680,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     gtk_dialog_set_default_response (*this, GTK_RESPONSE_APPLY);
 
-    priv->profile_component = new GnomeCmdProfileComponent(cfg.default_profile);
+    priv->profile_component = new GnomeCmdAdvrenameProfileComponent(cfg.default_profile);
 
     gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, FALSE, FALSE, 0);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);

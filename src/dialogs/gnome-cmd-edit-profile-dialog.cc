@@ -31,7 +31,7 @@ using namespace std;
 enum {GCMD_RESPONSE_RESET=123};
 
 
-static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdProfileComponent *profile)
+static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdAdvrenameProfileComponent *profile)
 {
     switch (response_id)
     {
@@ -117,7 +117,7 @@ gboolean gnome_cmd_edit_profile_dialog_new (GtkWindow *parent, GnomeCmdData::Adv
     gtk_entry_set_text (GTK_ENTRY (entry), profile.name.c_str());
     gtk_container_add (GTK_CONTAINER (align), entry);
 
-    GnomeCmdProfileComponent *profile_component = new GnomeCmdProfileComponent(profile);
+    GnomeCmdAdvrenameProfileComponent *profile_component = new GnomeCmdAdvrenameProfileComponent(profile);
     gtk_container_add (GTK_CONTAINER (vbox), *profile_component);
 
 #if GTK_CHECK_VERSION (2, 14, 0)
