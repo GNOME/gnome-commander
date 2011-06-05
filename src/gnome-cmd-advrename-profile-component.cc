@@ -23,7 +23,7 @@
 #include <vector>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-profile-component.h"
+#include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-menu-button.h"

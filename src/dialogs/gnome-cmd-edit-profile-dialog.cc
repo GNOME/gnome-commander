@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-profile-component.h"
+#include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-edit-profile-dialog.h"
 #include "utils.h"
 
