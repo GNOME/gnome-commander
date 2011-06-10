@@ -782,15 +782,8 @@ inline void GnomeCmdData::load_cmdline_history()
 
 inline void GnomeCmdData::load_search_defaults()
 {
-    GList *list = NULL;
-
-    list = load_string_history ("/search-history/name_pattern%d", -1);
-    search_defaults.name_patterns.ents = list;
-    search_defaults.name_patterns.pos = list;
-    list = load_string_history ("/search-history/content_pattern%d", -1);
-    search_defaults.content_patterns.ents = list;
-    search_defaults.content_patterns.pos = list;
-
+    search_defaults.name_patterns = load_string_history ("/search-history/name_pattern%d", -1);
+    search_defaults.content_patterns = load_string_history ("/search-history/content_pattern%d", -1);
     search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
     search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
     search_defaults.default_profile.max_depth = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE) ? -1 : 0;
@@ -800,15 +793,8 @@ inline void GnomeCmdData::load_search_defaults()
 
 inline void GnomeCmdData::load_intviewer_defaults()
 {
-    GList *list = NULL;
-
-    list = load_string_history ("/internal_viewer/text_pattern%d", -1);
-    intviewer_defaults.text_patterns.ents = list;
-    intviewer_defaults.text_patterns.pos = list;
-    list = load_string_history ("/internal_viewer/hex_pattern%d", -1);
-    intviewer_defaults.hex_patterns.ents = list;
-    intviewer_defaults.hex_patterns.pos = list;
-
+    intviewer_defaults.text_patterns = load_string_history ("/internal_viewer/text_pattern%d", -1);
+    intviewer_defaults.hex_patterns.ents = load_string_history ("/internal_viewer/hex_pattern%d", -1);
     intviewer_defaults.case_sensitive = gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE);
     intviewer_defaults.search_mode = gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0);
 }
@@ -823,10 +809,7 @@ inline void GnomeCmdData::load_rename_history()
     advrename_defaults.height = gnome_cmd_data_get_int ("/advrename/height", 400);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
-    GList *templates = load_string_history ("/template-history/template%d", size);
-
-    advrename_defaults.templates.ents = templates;
-    advrename_defaults.templates.pos = templates;
+    advrename_defaults.templates = load_string_history ("/template-history/template%d", size);
 
     advrename_defaults.default_profile.counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
     advrename_defaults.default_profile.counter_width = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
