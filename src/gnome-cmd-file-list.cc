@@ -2379,7 +2379,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 set_cursor_busy ();
                 toggle();
                 show_dir_tree_size(get_selected_file());
-                stop_kp (*this);
+                g_signal_stop_emission_by_name (this, "key-press-event");
                 g_signal_emit (this, signals[FILES_CHANGED], 0);
                 set_cursor_default ();
                 return TRUE;

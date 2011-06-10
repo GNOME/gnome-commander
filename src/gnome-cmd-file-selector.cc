@@ -576,7 +576,7 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
         !gcmd_user_actions.handle_key_event(main_win, fs->file_list(), event))
         return FALSE;
 
-    stop_kp (GTK_OBJECT (clist));
+    g_signal_stop_emission_by_name (clist, "key-press-event");
 
     return TRUE;
 }
@@ -1182,13 +1182,13 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Left:
             case GDK_KP_Left:
                 back();
-                stop_kp (*list);
+                g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
             case GDK_Right:
             case GDK_KP_Right:
                 forward();
-                stop_kp (*list);
+                g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
         }
     }
@@ -1244,7 +1244,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 f = list->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (list, f);
-                stop_kp (*list);
+                g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
 
             case GDK_Return:

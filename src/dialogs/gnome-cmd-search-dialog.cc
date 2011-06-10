@@ -778,7 +778,7 @@ gboolean GnomeCmdSearchDialog::Private::on_list_keypressed(GtkWidget *result_lis
     if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(event) ||
         handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event))
     {
-        stop_kp (GTK_OBJECT (result_list));
+        g_signal_stop_emission_by_name (result_list, "key-press-event");
         return TRUE;
     }
 
