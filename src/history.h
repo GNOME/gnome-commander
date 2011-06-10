@@ -26,12 +26,13 @@ class History
     gint max;
     gboolean is_locked;
 
+    GList *pos;
+
   public:
 
     GList *ents;
-    GList *pos;
 
-    History(gint max): is_locked(FALSE), ents(NULL), pos(NULL)       {  this->max = max;  }
+    History(gint max): is_locked(FALSE), pos(NULL), ents(NULL)       {  this->max = max;  }
     ~History();
 
     History &operator = (GList *list);
