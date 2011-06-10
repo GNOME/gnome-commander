@@ -174,7 +174,7 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 }
 
 
-int gv_file_open(ViewerFileOps *ops, const gchar* _file)
+int gv_file_open(ViewerFileOps *ops, const gchar *_file)
 {
     g_free (ops->filename);
 

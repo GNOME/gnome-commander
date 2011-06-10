@@ -150,10 +150,10 @@ GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *ini
 
     GtkWidget *w = gviewer_window_new ();
 
-    gviewer_window_load_file (GVIEWER_WINDOW(w), f);
+    gviewer_window_load_file (GVIEWER_WINDOW (w), f);
 
     if (initial_settings)
-        gviewer_window_set_settings(GVIEWER_WINDOW(w), initial_settings);
+        gviewer_window_set_settings(GVIEWER_WINDOW (w), initial_settings);
 
     return w;
 }
@@ -170,7 +170,7 @@ void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f)
     obj->priv->filename = f->get_real_path();
     gviewer_load_file (obj->priv->viewer, obj->priv->filename);
 
-    gtk_window_set_title (GTK_WINDOW(obj), obj->priv->filename);
+    gtk_window_set_title (GTK_WINDOW (obj), obj->priv->filename);
 }
 
 
@@ -275,7 +275,7 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status
 
 void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings)
 {
-    g_return_if_fail (IS_GVIEWER_WINDOW(obj));
+    g_return_if_fail (IS_GVIEWER_WINDOW (obj));
     g_return_if_fail (settings!=NULL);
     g_return_if_fail (obj->priv->viewer!=NULL);
 
@@ -322,7 +322,7 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
 
 void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWindowSettings *settings)
 {
-    g_return_if_fail (IS_GVIEWER_WINDOW(obj));
+    g_return_if_fail (IS_GVIEWER_WINDOW (obj));
     g_return_if_fail (settings!=NULL);
     g_return_if_fail (obj->priv->viewer!=NULL);
 
@@ -1246,15 +1246,15 @@ void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
 {
     g_return_if_fail (settings!=NULL);
 
-    gchar *temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "charset", "ASCII");
+    gchar *temp = gviewer_get_string (GVIEWER_DEFAULT_PATH_PREFIX "charset", "ASCII");
     strncpy(settings->charset, temp, sizeof(settings->charset));
     g_free (temp);
 
-    temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name", "Monospace");
+    temp = gviewer_get_string (GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name", "Monospace");
     strncpy(settings->fixed_font_name, temp, sizeof(settings->fixed_font_name));
     g_free (temp);
 
-    temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name", "Sans");
+    temp = gviewer_get_string (GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name", "Sans");
     strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name));
     g_free (temp);
 

@@ -85,8 +85,8 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 
     // Progress Bar
     sdlg->priv->progressbar = gtk_progress_bar_new();
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sdlg->priv->progressbar), "0.0");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sdlg->priv->progressbar), 0.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (sdlg->priv->progressbar), "0.0");
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (sdlg->priv->progressbar), 0.0);
 
     gtk_box_pack_start(GTK_BOX(dlg->vbox), sdlg->priv->progressbar, TRUE, TRUE, 0);
 
@@ -98,9 +98,9 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 
 static void search_progress_dlg_destroy (GtkObject *object)
 {
-    g_return_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG(object));
+    g_return_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG (object));
 
-    GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG(object);
+    GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG (object);
 
     g_free (w->priv);
     w->priv = NULL;
@@ -145,18 +145,18 @@ GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
 
 gboolean search_progress_dlg_timeout(gpointer data)
 {
-    g_return_val_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG(data), FALSE);
+    g_return_val_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG (data), FALSE);
 
     gdouble progress;
     gchar text[20];
 
-    GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG(data);
+    GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG (data);
 
     progress = g_atomic_int_get (w->priv->progress_value);
 
     g_snprintf(text, sizeof(text), "%3.1f%%", progress/10.0);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(w->priv->progressbar), text);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(w->priv->progressbar), progress/1000.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (w->priv->progressbar), text);
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (w->priv->progressbar), progress/1000.0);
 
     if (g_atomic_int_get (w->priv->completed_indicator)!=0)
     {
@@ -180,10 +180,10 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
     gchar text[20];
 
     GtkWidget *w = gviewer_search_progress_dlg_new(parent);
-    GViewerSearchProgressDlg *dlg = GVIEWER_SEARCH_PROGRESS_DLG(w);
+    GViewerSearchProgressDlg *dlg = GVIEWER_SEARCH_PROGRESS_DLG (w);
 
-    gchar *str = g_strdup_printf(_("Searching for \"%s\""), searching_text);
-    gtk_label_set_text(GTK_LABEL(dlg->priv->label), str);
+    gchar *str = g_strdup_printf (_("Searching for \"%s\""), searching_text);
+    gtk_label_set_text (GTK_LABEL (dlg->priv->label), str);
 
     dlg->priv->abort_indicator = abort;
     dlg->priv->progress_value = progress;
@@ -193,8 +193,8 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     dprogress = g_atomic_int_get (dlg->priv->progress_value);
     g_snprintf(text, sizeof(text), "%3.1f%%", dprogress/10.0);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(dlg->priv->progressbar), text);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(dlg->priv->progressbar), dprogress/1000.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR (dlg->priv->progressbar), text);
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (dlg->priv->progressbar), dprogress/1000.0);
 
     gtk_dialog_run(GTK_DIALOG(dlg));
 
