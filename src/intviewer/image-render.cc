@@ -152,7 +152,7 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 
     if (obj->priv->h_adjustment)
     {
-        gtk_signal_disconnect_by_data (GTK_OBJECT (obj->priv->h_adjustment), (gpointer) obj);
+        g_signal_handlers_disconnect_matched (obj->priv->h_adjustment, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, obj);
         g_object_unref (obj->priv->h_adjustment);
     }
 
@@ -181,7 +181,7 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 
     if (obj->priv->v_adjustment)
     {
-        gtk_signal_disconnect_by_data (GTK_OBJECT (obj->priv->v_adjustment), (gpointer) obj);
+        g_signal_handlers_disconnect_matched (obj->priv->v_adjustment, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, obj);
         g_object_unref (obj->priv->v_adjustment);
     }
 
