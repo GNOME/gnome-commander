@@ -59,36 +59,36 @@ GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content);
 
 GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, gchar *title);
 
-GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GtkSignalFunc func, gpointer data);
+GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GCallback func, gpointer data);
 
-inline GtkWidget *create_button_with_data (GtkWidget *parent, const gchar *label, GtkSignalFunc func, gpointer data)
+inline GtkWidget *create_button_with_data (GtkWidget *parent, const gchar *label, GCallback func, gpointer data)
 {
     return create_named_button_with_data (parent, label, "button", func, data);
 }
 
-inline GtkWidget *create_button (GtkWidget *parent, const gchar *label, GtkSignalFunc func)
+inline GtkWidget *create_button (GtkWidget *parent, const gchar *label, GCallback func)
 {
     return create_button_with_data (parent, label, func, parent);
 }
 
-inline GtkWidget *create_named_button (GtkWidget *parent, const gchar *label, const gchar *name, GtkSignalFunc func)
+inline GtkWidget *create_named_button (GtkWidget *parent, const gchar *label, const gchar *name, GCallback func)
 {
     return create_named_button_with_data (parent, label, name, func, parent);
 }
 
-GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GtkSignalFunc func, gpointer data);
+GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GCallback func, gpointer data);
 
-inline GtkWidget *create_stock_button_with_data (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func, gpointer data)
+inline GtkWidget *create_stock_button_with_data (GtkWidget *parent, gconstpointer stock, GCallback func, gpointer data)
 {
     return create_named_stock_button_with_data (parent, stock, "button", func, data);
 }
 
-inline GtkWidget *create_named_stock_button (GtkWidget *parent, gconstpointer stock, const gchar *name, GtkSignalFunc func)
+inline GtkWidget *create_named_stock_button (GtkWidget *parent, gconstpointer stock, const gchar *name, GCallback func)
 {
     return create_named_stock_button_with_data (parent, stock, name, func, parent);
 }
 
-inline GtkWidget *create_stock_button (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func)
+inline GtkWidget *create_stock_button (GtkWidget *parent, gconstpointer stock, GCallback func)
 {
     return create_stock_button_with_data (parent, stock, func, parent);
 }
