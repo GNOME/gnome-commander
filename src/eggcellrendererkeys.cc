@@ -550,7 +550,7 @@ static void ungrab_stuff (GtkWidget *widget, EggCellRendererKeys *keys)
     gdk_display_keyboard_ungrab (display, GDK_CURRENT_TIME);
     gdk_display_pointer_ungrab (display, GDK_CURRENT_TIME);
 
-    g_signal_handlers_disconnect_by_func (keys->grab_widget, (gpointer) G_CALLBACK (grab_key_callback), keys);
+    g_signal_handlers_disconnect_by_func (keys->grab_widget, (gpointer) grab_key_callback, keys);
 }
 
 

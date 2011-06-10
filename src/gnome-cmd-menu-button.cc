@@ -79,10 +79,10 @@ GtkWidget *gnome_cmd_button_menu_new_from_stock (const gchar *stock_id, const gc
 
 gulong gnome_cmd_button_menu_connect_handler (GtkWidget *button, GtkWidget *menu)
 {
-    return g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (on_menu_button_clicked), menu);
+    return g_signal_connect (button, "clicked", G_CALLBACK (on_menu_button_clicked), menu);
 }
 
 void gnome_cmd_button_menu_disconnect_handler (GtkWidget *button, GtkWidget *menu)
 {
-    g_signal_handlers_disconnect_by_func (G_OBJECT (button), gpointer (on_menu_button_clicked), menu);
+    g_signal_handlers_disconnect_by_func (button, (gpointer) on_menu_button_clicked, menu);
 }

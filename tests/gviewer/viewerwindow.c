@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 
     gtk_widget_show (w);
 
-    g_signal_connect(G_OBJECT(w), "delete-event", G_CALLBACK(destroy), NULL);
+    g_signal_connect(w, "delete-event", G_CALLBACK (destroy), NULL);
 
     gtk_main ();
 
