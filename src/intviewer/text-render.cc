@@ -201,7 +201,6 @@ GtkWidget* text_render_new ()
 
 void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
-    g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_TEXT_RENDER(obj));
 
     if (obj->priv->h_adjustment)
@@ -226,7 +225,6 @@ void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 
 void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
-    g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_TEXT_RENDER(obj));
 
     if (obj->priv->v_adjustment)
@@ -327,10 +325,9 @@ static void text_render_init (TextRender *w)
 
 void text_render_notify_status_changed(TextRender *w)
 {
-    TextRenderStatus stat;
-
-    g_return_if_fail (w!= NULL);
     g_return_if_fail (IS_TEXT_RENDER (w));
+
+    TextRenderStatus stat;
 
     memset(&stat, 0, sizeof(stat));
 
@@ -348,7 +345,6 @@ void text_render_notify_status_changed(TextRender *w)
 
 static void text_render_destroy (GtkObject *object)
 {
-    g_return_if_fail (object != NULL);
     g_return_if_fail (IS_TEXT_RENDER (object));
 
     TextRender *w = TEXT_RENDER (object);
@@ -418,7 +414,6 @@ static void text_render_redraw(TextRender *w)
 
 static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-    g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
 
     TextRender *obj = TEXT_RENDER(widget);
@@ -483,7 +478,6 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
 
 static void text_render_realize (GtkWidget *widget)
 {
-    g_return_if_fail (widget != NULL);
     g_return_if_fail (IS_TEXT_RENDER (widget));
 
     GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
@@ -529,7 +523,6 @@ static void text_render_size_request (GtkWidget *widget, GtkRequisition *requisi
 
 static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
-    g_return_if_fail (widget != NULL);
     g_return_if_fail (IS_TEXT_RENDER (widget));
     g_return_if_fail (allocation != NULL);
 
@@ -552,7 +545,6 @@ static void text_render_size_allocate (GtkWidget *widget, GtkAllocation *allocat
 
 static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
 {
-    g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
@@ -606,7 +598,6 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
 
 static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
 {
-    g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
@@ -640,7 +631,7 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
 void  text_render_copy_selection(TextRender *w)
 {
     g_return_if_fail (w!=NULL);
-    g_return_if_fail (w->priv);
+    g_return_if_fail (w->priv!=NULL);
     g_return_if_fail (w->priv->copy_to_clipboard!=NULL);
 
     offset_type marker_start;
@@ -665,7 +656,6 @@ void  text_render_copy_selection(TextRender *w)
 
 static gboolean text_render_button_press(GtkWidget *widget, GdkEventButton *event)
 {
-    g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
@@ -688,7 +678,6 @@ static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *ev
 {
     TextRender *w;
 
-    g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
@@ -711,7 +700,6 @@ static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *ev
 
 static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *event)
 {
-    g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
@@ -747,12 +735,9 @@ static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *eve
 
 static void text_render_h_adjustment_update (TextRender *obj)
 {
-    gfloat new_value;
-
-    g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_TEXT_RENDER(obj));
 
-    new_value = obj->priv->h_adjustment->value;
+    gfloat new_value = obj->priv->h_adjustment->value;
 
     if (new_value < obj->priv->h_adjustment->lower)
     new_value = obj->priv->h_adjustment->lower;
@@ -875,7 +860,6 @@ static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, g
 
 static void text_render_free_data(TextRender *w)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     if (w->priv->dp)
@@ -925,7 +909,6 @@ static void text_render_internal_load(TextRender *w)
 
 void text_render_load_filedesc(TextRender *w, int filedesc)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     text_render_free_data(w);
@@ -943,7 +926,6 @@ void text_render_load_filedesc(TextRender *w, int filedesc)
 
 void text_render_load_file(TextRender *w, const gchar *filename)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     text_render_free_data(w);
@@ -961,7 +943,6 @@ void text_render_load_file(TextRender *w, const gchar *filename)
 
 static void text_render_update_adjustments_limits(TextRender *w)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     if (!w->priv->fops)
@@ -1034,7 +1015,6 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
 
 void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
 {
-    g_return_if_fail (obj!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(obj));
     g_return_if_fail (range!=NULL);
 
@@ -1044,7 +1024,6 @@ void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
 
 static void text_render_free_font(TextRender*w)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     if (w->priv->disp_font_metrics)
@@ -1143,7 +1122,6 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
 
 static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fontsize)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
     g_return_if_fail (fontname!=NULL);
     g_return_if_fail (fontsize>0);
@@ -1241,7 +1219,6 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 
 void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
     g_return_if_fail (w->priv->fops!=NULL);
     g_return_if_fail (w->priv->im!=NULL);
@@ -1303,7 +1280,6 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 
 TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, TR_DISP_MODE_TEXT);
     g_return_val_if_fail (IS_TEXT_RENDER(w), TR_DISP_MODE_TEXT);
 
     return w->priv->dispmode;
@@ -1312,7 +1288,6 @@ TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w)
 
 ViewerFileOps *text_render_get_file_ops(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, NULL);
     g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
     g_return_val_if_fail (w->priv->fops!=NULL, NULL);
 
@@ -1322,7 +1297,6 @@ ViewerFileOps *text_render_get_file_ops(TextRender *w)
 
 GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, NULL);
     g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
     g_return_val_if_fail (w->priv->im!=NULL, NULL);
 
@@ -1332,7 +1306,6 @@ GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 
 GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, NULL);
     g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
     g_return_val_if_fail (w->priv->dp!=NULL, NULL);
 
@@ -1342,7 +1315,6 @@ GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 
 void text_render_set_tab_size(TextRender *w, int tab_size)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     if (w->priv->dp==NULL)
@@ -1360,7 +1332,6 @@ void text_render_set_tab_size(TextRender *w, int tab_size)
 
 int text_render_get_tab_size(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, 0);
     g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
 
     return w->priv->tab_size;
@@ -1388,7 +1359,6 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
 
 gboolean text_render_get_wrap_mode(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER(w), FALSE);
 
     return w->priv->wrapmode;
@@ -1397,7 +1367,6 @@ gboolean text_render_get_wrap_mode(TextRender *w)
 
 void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     // this is saved later, for binary display mode. Hex display mode always use 16 bytes
@@ -1415,7 +1384,6 @@ void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 
 int text_render_get_fixed_limit(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, 0);
     g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
 
     return w->priv->fixed_limit;
@@ -1424,7 +1392,6 @@ int text_render_get_fixed_limit(TextRender *w)
 
 offset_type text_render_get_current_offset(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, 0);
     g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
 
     return w->priv->current_offset;
@@ -1433,7 +1400,6 @@ offset_type text_render_get_current_offset(TextRender *w)
 
 offset_type text_render_get_last_displayed_offset(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, 0);
     g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
 
     return w->priv->last_displayed_offset;
@@ -1442,7 +1408,6 @@ offset_type text_render_get_last_displayed_offset(TextRender *w)
 
 void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     if (offset < w->priv->current_offset || offset > w->priv->last_displayed_offset)
@@ -1459,7 +1424,6 @@ void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
 
 void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     w->priv->marker_start = start;
@@ -1470,7 +1434,6 @@ void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 
 void text_render_set_encoding(TextRender *w, const char *encoding)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     if (w->priv->im==NULL)
@@ -1494,7 +1457,6 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
 
 const gchar *text_render_get_encoding(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, NULL);
     g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
 
     return w->priv->encoding;
@@ -1503,7 +1465,6 @@ const gchar *text_render_get_encoding(TextRender *w)
 
 void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
 {
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
 
     w->priv->hex_offset_display = HEX_OFFSET;
@@ -1513,7 +1474,6 @@ void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
 
 gboolean text_render_get_hex_offset_display(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, FALSE);
     g_return_val_if_fail (IS_TEXT_RENDER(w), FALSE);
 
     return w->priv->hex_offset_display;
@@ -1522,14 +1482,11 @@ gboolean text_render_get_hex_offset_display(TextRender *w)
 
 void text_render_set_font_size(TextRender *w, int font_size)
 {
-    gchar *font;
-
-    g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));
     g_return_if_fail (font_size>=4);
 
     w->priv->font_size = font_size;
-    font = w->priv->fixed_font_name;
+    gchar *font = w->priv->fixed_font_name;
 
     text_render_setup_font(w, font, font_size);
     text_render_redraw(w);
@@ -1538,7 +1495,6 @@ void text_render_set_font_size(TextRender *w, int font_size)
 
 int  text_render_get_font_size(TextRender *w)
 {
-    g_return_val_if_fail (w!=NULL, 0);
     g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
 
     return w->priv->font_size;
@@ -1610,13 +1566,13 @@ static void marker_closer (TextRender *w, gboolean marker_shown)
 
 static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
 {
+    g_return_val_if_fail (obj!=NULL, 0);
+    g_return_val_if_fail (obj->priv->dp!=NULL, 0);
+
     int line = 0;
     int column = 0;
     offset_type offset;
     offset_type next_line_offset;
-
-    g_return_val_if_fail (obj!=NULL, 0);
-    g_return_val_if_fail (obj->priv->dp!=NULL, 0);
 
     if (x<0)
         x = 0;
@@ -1676,7 +1632,6 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 
 static int text_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (w!=NULL, -1);
     g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
 
     offset_type current;
@@ -1759,7 +1714,6 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
 
 static int binary_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (w!=NULL, -1);
     g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
 
     offset_type current;
@@ -1924,6 +1878,8 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 
 static int hex_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
+    g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
+
     int byte_value;
     char_type value;
     offset_type current;
@@ -1932,9 +1888,6 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
     offset_type marker_end;
     gboolean show_marker;
     gboolean marker_shown = FALSE;
-
-    g_return_val_if_fail (w!=NULL, -1);
-    g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
 
     marker_start = w->priv->marker_start;
     marker_end = w->priv->marker_end;
