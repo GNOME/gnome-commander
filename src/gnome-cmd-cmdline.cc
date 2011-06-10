@@ -187,9 +187,9 @@ static void on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, Gnome
 
 static void destroy (GtkObject *object)
 {
-    gtk_signal_disconnect_by_func (GTK_OBJECT (main_win), GTK_SIGNAL_FUNC (on_switch_fs), object);
-    gtk_signal_disconnect_by_func (GTK_OBJECT (main_win->fs(LEFT)), GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
-    gtk_signal_disconnect_by_func (GTK_OBJECT (main_win->fs(RIGHT)), GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
+    g_signal_handlers_disconnect_by_func (main_win, (gpointer) on_switch_fs, object);
+    g_signal_handlers_disconnect_by_func (main_win->fs(LEFT), (gpointer) on_fs_changed_dir, object);
+    g_signal_handlers_disconnect_by_func (main_win->fs(RIGHT), (gpointer) on_fs_changed_dir, object);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);

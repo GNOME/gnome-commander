@@ -249,7 +249,7 @@ void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *f
     con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
     con_list->priv->ftp_cons = g_list_remove (con_list->priv->ftp_cons, ftp_con);
 
-    gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con), GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    g_signal_handlers_disconnect_by_func (ftp_con, (gpointer) on_con_updated, con_list);
 
     if (!con_list->priv->update_lock)
     {
@@ -297,7 +297,7 @@ void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdCon
     con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
     con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, ftp_con);
 
-    gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con), GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    g_signal_handlers_disconnect_by_func (ftp_con, (gpointer) on_con_updated, con_list);
 
     if (!con_list->priv->update_lock)
     {
@@ -343,7 +343,7 @@ void gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDev
 
     con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, device_con);
     con_list->priv->device_cons = g_list_remove (con_list->priv->device_cons, device_con);
-    gtk_signal_disconnect_by_func (GTK_OBJECT (device_con), GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    g_signal_handlers_disconnect_by_func (device_con, (gpointer) on_con_updated, con_list);
 
     if (!con_list->priv->update_lock)
     {
