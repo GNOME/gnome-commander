@@ -191,7 +191,7 @@ GtkType text_render_get_type ()
     return type;
 }
 
-GtkWidget* text_render_new ()
+GtkWidget *text_render_new ()
 {
     TextRender *w = (TextRender *) g_object_new (text_render_get_type (), NULL);
 
@@ -201,7 +201,7 @@ GtkWidget* text_render_new ()
 
 void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
-    g_return_if_fail (IS_TEXT_RENDER(obj));
+    g_return_if_fail (IS_TEXT_RENDER (obj));
 
     if (obj->priv->h_adjustment)
     {
@@ -225,7 +225,7 @@ void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 
 void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
-    g_return_if_fail (IS_TEXT_RENDER(obj));
+    g_return_if_fail (IS_TEXT_RENDER (obj));
 
     if (obj->priv->v_adjustment)
     {
@@ -735,7 +735,7 @@ static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *eve
 
 static void text_render_h_adjustment_update (TextRender *obj)
 {
-    g_return_if_fail (IS_TEXT_RENDER(obj));
+    g_return_if_fail (IS_TEXT_RENDER (obj));
 
     gfloat new_value = obj->priv->h_adjustment->value;
 
@@ -795,7 +795,7 @@ static void text_render_h_adjustment_value_changed (GtkAdjustment *adjustment, g
 static void text_render_v_adjustment_update (TextRender *obj)
 {
     g_return_if_fail (obj != NULL);
-    g_return_if_fail (IS_TEXT_RENDER(obj));
+    g_return_if_fail (IS_TEXT_RENDER (obj));
 
     gfloat new_value = obj->priv->v_adjustment->value;
 
@@ -860,7 +860,7 @@ static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, g
 
 static void text_render_free_data(TextRender *w)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (w->priv->dp)
         gv_free_data_presentation(w->priv->dp);
@@ -909,7 +909,7 @@ static void text_render_internal_load(TextRender *w)
 
 void text_render_load_filedesc(TextRender *w, int filedesc)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     text_render_free_data(w);
 
@@ -926,7 +926,7 @@ void text_render_load_filedesc(TextRender *w, int filedesc)
 
 void text_render_load_file(TextRender *w, const gchar *filename)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     text_render_free_data(w);
 
@@ -943,7 +943,7 @@ void text_render_load_file(TextRender *w, const gchar *filename)
 
 static void text_render_update_adjustments_limits(TextRender *w)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (!w->priv->fops)
         return;
@@ -1015,7 +1015,7 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
 
 void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
 {
-    g_return_if_fail (IS_TEXT_RENDER(obj));
+    g_return_if_fail (IS_TEXT_RENDER (obj));
     g_return_if_fail (range!=NULL);
 
     g_signal_connect (range, "change-value", G_CALLBACK (text_render_vscroll_change_value), obj);
@@ -1024,7 +1024,7 @@ void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
 
 static void text_render_free_font(TextRender*w)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (w->priv->disp_font_metrics)
         pango_font_metrics_unref(w->priv->disp_font_metrics);
@@ -1122,7 +1122,7 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
 
 static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fontsize)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
     g_return_if_fail (fontname!=NULL);
     g_return_if_fail (fontsize>0);
 
@@ -1219,7 +1219,7 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 
 void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
     g_return_if_fail (w->priv->fops!=NULL);
     g_return_if_fail (w->priv->im!=NULL);
     g_return_if_fail (w->priv->dp!=NULL);
@@ -1280,7 +1280,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 
 TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), TR_DISP_MODE_TEXT);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), TR_DISP_MODE_TEXT);
 
     return w->priv->dispmode;
 }
@@ -1288,7 +1288,7 @@ TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w)
 
 ViewerFileOps *text_render_get_file_ops(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
     g_return_val_if_fail (w->priv->fops!=NULL, NULL);
 
     return w->priv->fops;
@@ -1297,7 +1297,7 @@ ViewerFileOps *text_render_get_file_ops(TextRender *w)
 
 GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
     g_return_val_if_fail (w->priv->im!=NULL, NULL);
 
     return w->priv->im;
@@ -1306,7 +1306,7 @@ GVInputModesData *text_render_get_input_mode_data(TextRender *w)
 
 GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
     g_return_val_if_fail (w->priv->dp!=NULL, NULL);
 
     return w->priv->dp;
@@ -1315,7 +1315,7 @@ GVDataPresentation *text_render_get_data_presentation(TextRender *w)
 
 void text_render_set_tab_size(TextRender *w, int tab_size)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (w->priv->dp==NULL)
         return;
@@ -1332,7 +1332,7 @@ void text_render_set_tab_size(TextRender *w, int tab_size)
 
 int text_render_get_tab_size(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
 
     return w->priv->tab_size;
 }
@@ -1341,7 +1341,7 @@ int text_render_get_tab_size(TextRender *w)
 void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
 {
     g_return_if_fail (w!=NULL);
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (w->priv->dp==NULL)
         return;
@@ -1359,7 +1359,7 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
 
 gboolean text_render_get_wrap_mode(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), FALSE);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), FALSE);
 
     return w->priv->wrapmode;
 }
@@ -1367,7 +1367,7 @@ gboolean text_render_get_wrap_mode(TextRender *w)
 
 void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     // this is saved later, for binary display mode. Hex display mode always use 16 bytes
     w->priv->fixed_limit = fixed_limit;
@@ -1384,7 +1384,7 @@ void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
 
 int text_render_get_fixed_limit(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
 
     return w->priv->fixed_limit;
 }
@@ -1392,7 +1392,7 @@ int text_render_get_fixed_limit(TextRender *w)
 
 offset_type text_render_get_current_offset(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
 
     return w->priv->current_offset;
 }
@@ -1400,7 +1400,7 @@ offset_type text_render_get_current_offset(TextRender *w)
 
 offset_type text_render_get_last_displayed_offset(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
 
     return w->priv->last_displayed_offset;
 }
@@ -1408,7 +1408,7 @@ offset_type text_render_get_last_displayed_offset(TextRender *w)
 
 void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (offset < w->priv->current_offset || offset > w->priv->last_displayed_offset)
     {
@@ -1424,7 +1424,7 @@ void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
 
 void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     w->priv->marker_start = start;
     w->priv->marker_end = end;
@@ -1434,7 +1434,7 @@ void text_render_set_marker(TextRender *w, offset_type start, offset_type end)
 
 void text_render_set_encoding(TextRender *w, const char *encoding)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     if (w->priv->im==NULL)
         return;
@@ -1457,7 +1457,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
 
 const gchar *text_render_get_encoding(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), NULL);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), NULL);
 
     return w->priv->encoding;
 }
@@ -1465,7 +1465,7 @@ const gchar *text_render_get_encoding(TextRender *w)
 
 void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
 
     w->priv->hex_offset_display = HEX_OFFSET;
     text_render_redraw(w);
@@ -1474,7 +1474,7 @@ void text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET)
 
 gboolean text_render_get_hex_offset_display(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), FALSE);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), FALSE);
 
     return w->priv->hex_offset_display;
 }
@@ -1482,7 +1482,7 @@ gboolean text_render_get_hex_offset_display(TextRender *w)
 
 void text_render_set_font_size(TextRender *w, int font_size)
 {
-    g_return_if_fail (IS_TEXT_RENDER(w));
+    g_return_if_fail (IS_TEXT_RENDER (w));
     g_return_if_fail (font_size>=4);
 
     w->priv->font_size = font_size;
@@ -1495,7 +1495,7 @@ void text_render_set_font_size(TextRender *w, int font_size)
 
 int  text_render_get_font_size(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), 0);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), 0);
 
     return w->priv->font_size;
 }
@@ -1632,7 +1632,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 
 static int text_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
     offset_type current;
     char_type value;
@@ -1714,7 +1714,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
 
 static int binary_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
     offset_type current;
     char_type value;
@@ -1878,7 +1878,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 
 static int hex_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER(w), -1);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
     int byte_value;
     char_type value;
