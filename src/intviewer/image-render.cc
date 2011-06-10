@@ -779,10 +779,9 @@ static void image_render_free_pixbuf (ImageRender *obj)
 }
 
 
-static gpointer image_render_pixbuf_loading_thread (gpointer data)
+static gpointer image_render_pixbuf_loading_thread (ImageRender *obj)
 {
     GError *err = NULL;
-    ImageRender *obj = (ImageRender *) data;
 
     obj->priv->orig_pixbuf = gdk_pixbuf_new_from_file (obj->priv->filename, &err);
 
@@ -857,7 +856,7 @@ inline void image_render_start_background_pixbuf_loading (ImageRender *obj)
 
     // Start background loading
     g_object_ref (obj);
-    obj->priv->pixbuf_loading_thread = g_thread_create(image_render_pixbuf_loading_thread, (gpointer) obj, FALSE, NULL);
+    obj->priv->pixbuf_loading_thread = g_thread_create((GThreadFunc) image_render_pixbuf_loading_thread, (gpointer) obj, FALSE, NULL);
 }
 
 
