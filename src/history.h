@@ -34,6 +34,8 @@ class History
     History(gint max): is_locked(FALSE), ents(NULL), pos(NULL)       {  this->max = max;  }
     ~History();
 
+    History &operator = (GList *list);
+
     guint size()                                         {  return g_list_length (ents);  }
     gboolean empty()                                     {  return ents==NULL;            }
 
@@ -55,5 +57,18 @@ class History
 
     gboolean locked() const                                 {  return is_locked;         }
 };
+
+inline History &History::operator = (GList *list)
+{
+    if (ents)
+    {
+        g_list_foreach (ents, (GFunc) g_free, NULL);
+        g_list_free (ents);
+    }
+
+    pos = ents = list;      //  FIXME: no check for max and dups...
+
+    return *this;
+}
 
 #endif // __HISTORY_H__
