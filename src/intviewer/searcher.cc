@@ -550,7 +550,6 @@ gboolean search_text_backward (GViewerSearcher *src)
 
 gpointer search_func (gpointer user_data)
 {
-    g_return_val_if_fail (user_data!=NULL, NULL);
     g_return_val_if_fail (G_IS_VIEWERSEARCHER(user_data), NULL);
 
     GViewerSearcher *src = G_VIEWERSEARCHER(user_data);
@@ -578,7 +577,6 @@ void g_viewer_searcher_join(GViewerSearcher *src)
 {
     g_return_if_fail (src!=NULL);
     g_return_if_fail (src->priv!=NULL);
-
     g_return_if_fail (src->priv->search_thread!=NULL);
 
     g_thread_join(src->priv->search_thread);
@@ -590,7 +588,6 @@ void g_viewer_searcher_start_search(GViewerSearcher *src, gboolean forward)
 {
     g_return_if_fail (src!=NULL);
     g_return_if_fail (src->priv!=NULL);
-
     g_return_if_fail (src->priv->search_thread==NULL);
 
     // Reset indicators

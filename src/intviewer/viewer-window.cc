@@ -259,7 +259,6 @@ static void gviewer_window_init (GViewerWindow *w)
 
 static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status_line, GViewerWindow *wnd)
 {
-    g_return_if_fail (wnd != NULL);
     g_return_if_fail (IS_GVIEWER_WINDOW (wnd));
 
     GViewerWindow *w = GVIEWER_WINDOW (wnd);
@@ -276,7 +275,6 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status
 
 void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings)
 {
-    g_return_if_fail (obj!=NULL);
     g_return_if_fail (IS_GVIEWER_WINDOW(obj));
     g_return_if_fail (settings!=NULL);
     g_return_if_fail (obj->priv->viewer!=NULL);
@@ -324,7 +322,6 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
 
 void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWindowSettings *settings)
 {
-    g_return_if_fail (obj!=NULL);
     g_return_if_fail (IS_GVIEWER_WINDOW(obj));
     g_return_if_fail (settings!=NULL);
     g_return_if_fail (obj->priv->viewer!=NULL);
@@ -355,7 +352,6 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 
 static void gviewer_window_destroy (GtkObject *widget)
 {
-    g_return_if_fail (widget!= NULL);
     g_return_if_fail (IS_GVIEWER_WINDOW (widget));
 
     GViewerWindow *w = GVIEWER_WINDOW (widget);
@@ -378,7 +374,6 @@ static void gviewer_window_destroy (GtkObject *widget)
 
 static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-    g_return_val_if_fail (widget!= NULL, FALSE);
     g_return_val_if_fail (IS_GVIEWER_WINDOW (widget), FALSE);
 
     GViewerWindow *w = GVIEWER_WINDOW (widget);

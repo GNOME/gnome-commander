@@ -84,9 +84,11 @@ GVInputModesData *gv_input_modes_new()
 void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_byte_user_data)
 {
     g_return_if_fail (imd!=NULL);
+
     memset(imd, 0, sizeof(GVInputModesData));
 
     g_return_if_fail (proc!=NULL);
+
     imd->get_byte = proc;
     imd->get_byte_user_data = get_byte_user_data;
 
@@ -114,7 +116,7 @@ void gv_free_input_modes(GVInputModesData *imd)
 }
 
 
-const char*gv_get_input_mode(GVInputModesData *imd)
+const char *gv_get_input_mode(GVInputModesData *imd)
 {
     g_return_val_if_fail (imd!=NULL, "");
     g_return_val_if_fail (imd->input_mode_name!=NULL, "");
@@ -364,7 +366,7 @@ static void inputmode_utf8_activate(GVInputModesData *imd)
 inline guint utf8_get_char_len(GVInputModesData *imd, offset_type offset)
 {
     int value = gv_input_mode_get_byte(imd, offset);
-    
+
     if (value<0 || value>255)  return 0;
 
     if (UTF8_SINGLE_CHAR(value))  return 1;
@@ -387,7 +389,7 @@ inline guint utf8_get_char_len(GVInputModesData *imd, offset_type offset)
 inline gboolean utf8_is_valid_char(GVInputModesData *imd, offset_type offset)
 {
     int len = utf8_get_char_len(imd, offset);
-    
+
     if (len==0 || (gv_input_mode_get_byte(imd, offset+len)==INVALID_CHAR))
         return FALSE;
 

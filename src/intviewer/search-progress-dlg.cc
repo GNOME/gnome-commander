@@ -49,7 +49,6 @@ static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GView
 {
     g_return_if_fail (sdlg!=NULL);
     g_return_if_fail (sdlg->priv!=NULL);
-
     g_return_if_fail (sdlg->priv->abort_indicator!=NULL);
 
     g_atomic_int_add(sdlg->priv->abort_indicator, 1);
@@ -99,7 +98,6 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 
 static void search_progress_dlg_destroy (GtkObject *object)
 {
-    g_return_if_fail (object != NULL);
     g_return_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG(object));
 
     GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG(object);
@@ -147,7 +145,6 @@ GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
 
 gboolean search_progress_dlg_timeout(gpointer data)
 {
-    g_return_val_if_fail (data != NULL, FALSE);
     g_return_val_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG(data), FALSE);
 
     gdouble progress;

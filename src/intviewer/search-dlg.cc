@@ -310,7 +310,6 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
 
 static void search_dlg_destroy (GtkObject *object)
 {
-    g_return_if_fail (object != NULL);
     g_return_if_fail (IS_GVIEWER_SEARCH_DLG(object));
 
     GViewerSearchDlg *w = GVIEWER_SEARCH_DLG(object);
