@@ -214,8 +214,7 @@ GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label,
     GtkWidget *w = gtk_button_new_with_label ("");
 
     key = gtk_label_parse_uline (GTK_LABEL (GTK_BIN (w)->child), label);
-    gtk_widget_add_accelerator (w, "clicked", accel_group,
-                                key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
+    gtk_widget_add_accelerator (w, "clicked", accel_group, key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
     gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
