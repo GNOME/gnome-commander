@@ -150,7 +150,7 @@ static gboolean delete_event_callback (gpointer data, gpointer user_data)
 {
     g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
 
-    gtk_signal_emit_stop_by_name (GTK_OBJECT (data), "delete-event");
+    g_signal_stop_emission_by_name (data, "delete-event");
 
     return TRUE;
 }

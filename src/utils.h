@@ -189,7 +189,7 @@ gchar *unquote_if_needed (const gchar *in);
 
 inline void stop_kp (GtkObject *obj)
 {
-    gtk_signal_emit_stop_by_name (obj, "key-press-event");
+    g_signal_stop_emission_by_name (obj, "key-press-event");
 }
 
 GList *string_history_add (GList *in, const gchar *value, guint maxsize);
