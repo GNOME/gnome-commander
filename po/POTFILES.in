@@ -52,6 +52,7 @@ src/gnome-cmd-python-plugin.cc
 src/gnome-cmd-quicksearch-popup.cc
 src/gnome-cmd-remote-dialog.cc
 src/gnome-cmd-rename-dialog.cc
+src/gnome-cmd-selection-profile-component.cc
 src/gnome-cmd-smb-auth.cc
 src/gnome-cmd-smb-path.cc
 src/gnome-cmd-user-actions.cc

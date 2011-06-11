@@ -70,6 +70,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.cc \
+	gnome-cmd-selection-profile-component.h gnome-cmd-selection-profile-component.cc \
 	gnome-cmd-smb-auth.h gnome-cmd-smb-auth.cc \
 	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc \
