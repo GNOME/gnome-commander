@@ -871,7 +871,7 @@ inline void GnomeCmdData::load_auto_load_plugins()
 }
 
 
-GnomeCmdData::GnomeCmdData()
+GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 {
     quick_connect = NULL;
 
