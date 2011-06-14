@@ -150,7 +150,7 @@ struct GnomeCmdSearchDialog::Private
     Private(GnomeCmdSearchDialog *dlg);
     ~Private();
 
-    static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event, gpointer unused);
+    static gboolean on_list_keypressed (GtkWidget *result_list, GdkEventKey *event, gpointer unused);
 
     static void on_dialog_show (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
     static void on_dialog_hide (GtkWidget *widget, GnomeCmdSearchDialog *dialog);
@@ -748,7 +748,7 @@ gboolean SearchData::start_local_search()
 }
 
 
-gboolean GnomeCmdSearchDialog::Private::on_list_keypressed(GtkWidget *result_list,  GdkEventKey *event, gpointer unused)
+gboolean GnomeCmdSearchDialog::Private::on_list_keypressed(GtkWidget *result_list, GdkEventKey *event, gpointer unused)
 {
     if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(event) ||
         handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event))
