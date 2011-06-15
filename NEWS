@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem #618214 (crash when cancel a search)
  * Fixed problem #640387 (yet another fix for deprecated python modules: md5, sha1)
  * Fixed problem #649375 (bookmarks not updated for newly added ones)
+ * Fixed problem with mkdir permissions
 
 
 ===================================

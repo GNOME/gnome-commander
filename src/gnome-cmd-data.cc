@@ -1099,6 +1099,9 @@ GnomeCmdData::GnomeCmdData()
     editor = NULL;
     differ = NULL;
     term = NULL;
+
+    umask = ::umask(0);
+    ::umask(umask);
 }
 
 

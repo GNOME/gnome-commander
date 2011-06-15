@@ -204,6 +204,8 @@ struct GnomeCmdData
     gint                         main_win_height;
     GdkWindowState               main_win_state;
 
+    mode_t                       umask;
+
     GnomeCmdData();
 
     void free();                // FIXME: free() -> ~GnomeCmdData()
