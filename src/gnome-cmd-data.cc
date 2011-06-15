@@ -943,6 +943,9 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     editor = NULL;
     differ = NULL;
     term = NULL;
+
+    umask = ::umask(0);
+    ::umask(umask);
 }
 
 

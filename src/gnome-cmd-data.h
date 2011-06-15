@@ -262,6 +262,8 @@ struct GnomeCmdData
 
     std::map<guint,std::vector<Tab> > tabs;
 
+    mode_t                       umask;
+
     GnomeCmdData();
 
     void free();                // FIXME: free() -> ~GnomeCmdData()
