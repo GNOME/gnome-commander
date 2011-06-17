@@ -10,7 +10,7 @@ plugins/test/test-plugin.cc
 src/dialogs/gnome-cmd-advrename-dialog.cc
 src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 src/dialogs/gnome-cmd-edit-bookmark-dialog.cc
-src/dialogs/gnome-cmd-edit-profile-dialog.cc
+src/dialogs/gnome-cmd-edit-profile-dialog.h
 src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.cc

@@ -23,6 +23,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-manage-profiles-dialog.h"
+#include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-edit-profile-dialog.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-menu-button.h"
@@ -348,7 +349,7 @@ static void edit_clicked_callback (GtkButton *button, GtkWidget *view)
 
         GnomeCmdData::AdvrenameConfig::Profile p = profiles[idx];
 
-        if (gnome_cmd_edit_profile_dialog_new (GTK_WINDOW (dialog), p))
+        if (GnomeCmd::EditProfileDialog<GnomeCmdData::AdvrenameConfig::Profile,GnomeCmdAdvrenameProfileComponent>(GTK_WINDOW (dialog), p, "gnome-commander-advanced-rename"))
         {
             profiles[idx] = p;
 
