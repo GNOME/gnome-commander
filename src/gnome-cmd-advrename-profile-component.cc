@@ -1077,8 +1077,6 @@ static void gnome_cmd_advrename_profile_component_finalize (GObject *object)
 {
     GnomeCmdAdvrenameProfileComponent *component = GNOME_CMD_ADVRENAME_PROFILE_COMPONENT (object);
 
-    component->copy();
-
     delete component->priv;
 
     G_OBJECT_CLASS (gnome_cmd_advrename_profile_component_parent_class)->finalize (object);

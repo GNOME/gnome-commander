@@ -86,6 +86,7 @@ struct GnomeCmdAdvrenameDialog::Private
     static gboolean on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer data);
+    static void on_dialog_destroy (GnomeCmdAdvrenameDialog *dialog, gpointer data);
 };
 
 
@@ -493,6 +494,12 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
 }
 
 
+void GnomeCmdAdvrenameDialog::Private::on_dialog_destroy (GnomeCmdAdvrenameDialog *dialog, gpointer)
+{
+    dialog->priv->profile_component->copy();
+}
+
+
 static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
 {
     dialog->priv = new GnomeCmdAdvrenameDialog::Private;
@@ -703,6 +710,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (this, "delete-event", G_CALLBACK (Private::on_dialog_delete), this);
     g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
+    g_signal_connect (this, "destroy", G_CALLBACK (Private::on_dialog_destroy), this);
 
     gnome_cmd_advrename_parse_template (priv->profile_component->get_template_entry(), priv->template_has_counters);
 }
