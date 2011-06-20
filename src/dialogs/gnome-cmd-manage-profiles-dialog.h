@@ -73,7 +73,7 @@ namespace GnomeCmd
         gtk_list_store_set (GTK_LIST_STORE (model), &i,
                             COL_PROFILE_IDX, idx,
                             COL_NAME, p.name.c_str(),
-                            COL_TEMPLATE, p.template_string.c_str(),
+                            COL_TEMPLATE, p.description().c_str(),
                             -1);
 
         GtkTreePath *path = gtk_tree_model_get_path (model, &i);
@@ -98,7 +98,7 @@ namespace GnomeCmd
             gtk_list_store_set (store, &i,
                                 COL_PROFILE_IDX, p-profiles.begin(),
                                 COL_NAME, p->name.c_str(),
-                                COL_TEMPLATE, p->template_string.c_str(),
+                                COL_TEMPLATE, p->description().c_str(),
                                 -1);
         }
 
@@ -233,7 +233,7 @@ namespace GnomeCmd
 
                 gtk_list_store_set (GTK_LIST_STORE (model), &i,
                                     COL_NAME, p.name.c_str(),
-                                    COL_TEMPLATE, p.template_string.c_str(),
+                                    COL_TEMPLATE, p.description().c_str(),
                                     -1);
             }
         }

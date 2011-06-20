@@ -75,9 +75,10 @@ struct GnomeCmdData
         gboolean content_search;
         gboolean match_case;
 
-        void reset();
-
         Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
+
+        const std::string &description() const    {  return filename_pattern;  }
+        void reset();
 
         friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
     };
@@ -113,11 +114,12 @@ struct GnomeCmdData
             guint case_conversion;
             guint trim_blanks;
 
-            void reset();
-
             Profile(): template_string("$N"),
                        counter_start(1), counter_width(1), counter_step(1),
                        case_conversion(0), trim_blanks(3)                     {}
+
+            const std::string &description() const {  return template_string;  }
+            void reset();
         };
 
         gint width, height;
