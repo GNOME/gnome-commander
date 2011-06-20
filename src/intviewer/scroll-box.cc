@@ -108,7 +108,7 @@ static void scroll_box_init (ScrollBox *w)
 
     w->priv->vscroll = gtk_vscrollbar_new (NULL);
     gtk_widget_show (w->priv->vscroll);
-    gtk_table_attach (GTK_TABLE(w), w->priv->vscroll, 1, 2, 0, 1,
+    gtk_table_attach (GTK_TABLE (w), w->priv->vscroll, 1, 2, 0, 1,
         (GtkAttachOptions) (GTK_FILL),
         (GtkAttachOptions) (GTK_FILL), 0, 0);
 

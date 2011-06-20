@@ -149,8 +149,8 @@ static void gviewer_init (GViewer *w)
 {
     w->priv = g_new0 (GViewerPrivate, 1);
 
-    gtk_table_resize(GTK_TABLE(w), 1, 1);
-    gtk_table_set_homogeneous(GTK_TABLE(w), FALSE);
+    gtk_table_resize (GTK_TABLE (w), 1, 1);
+    gtk_table_set_homogeneous(GTK_TABLE (w), FALSE);
 
     w->priv->img_initialized = FALSE;
     w->priv->dispmode = DISP_MODE_TEXT_FIXED;
@@ -185,7 +185,7 @@ static void gviewer_init (GViewer *w)
     g_object_ref (w->priv->iscrollbox);
 
     w->priv->last_client = w->priv->tscrollbox;
-    gtk_table_attach (GTK_TABLE(w), GTK_WIDGET (w->priv->tscrollbox), 0, 1, 0, 1,
+    gtk_table_attach (GTK_TABLE (w), GTK_WIDGET (w->priv->tscrollbox), 0, 1, 0, 1,
                       (GtkAttachOptions)(GTK_FILL|GTK_EXPAND),
                       (GtkAttachOptions)(GTK_FILL|GTK_EXPAND), 0, 0);
 
@@ -213,7 +213,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
                status->column,
                status->wrap_mode?_("Wrap"):"");
 
-    gtk_signal_emit (GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
+    gtk_signal_emit (GTK_OBJECT (viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
 }
 
 
@@ -244,7 +244,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *sta
                     status->best_fit?_("(fit to window)"):zoom);
     }
 
-    gtk_signal_emit (GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
+    gtk_signal_emit (GTK_OBJECT (viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
 }
 
 
@@ -299,7 +299,7 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 
     const char *mime = gnome_vfs_get_mime_type_for_data(data, len);
 
-    if (g_strncasecmp(mime, "image/", 6)==0)
+    if (g_strncasecmp (mime, "image/", 6)==0)
         return DISP_MODE_IMAGE;
 
     /* Hex File ?  */

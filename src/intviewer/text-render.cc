@@ -153,7 +153,7 @@ static void text_render_free_font(TextRender*w);
 static void text_render_reserve_utf8buf(TextRender *w, int minlength);
 
 static void text_render_utf8_clear_buf(TextRender *w);
-static int text_render_utf8_printf(TextRender *w, const char *format, ...);
+static int text_render_utf8_printf (TextRender *w, const char *format, ...);
 static int text_render_utf8_print_char(TextRender *w, char_type value);
 
 static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset);
@@ -317,7 +317,7 @@ static void text_render_init (TextRender *w)
 
     g_signal_connect (w, "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
 
-    w->priv->layout = gtk_widget_create_pango_layout(GTK_WIDGET (w), NULL);
+    w->priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (w), NULL);
 
     GTK_WIDGET_SET_FLAGS(GTK_WIDGET (w), GTK_CAN_FOCUS);
 }
@@ -424,24 +424,24 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
     {
     case GDK_Up:
         obj->priv->current_offset =
-            gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, -1);
+            gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, -1);
         break;
 
     case GDK_Page_Up:
         obj->priv->current_offset =
-            gv_scroll_lines(obj->priv->dp, obj->priv->current_offset,
+            gv_scroll_lines (obj->priv->dp, obj->priv->current_offset,
                 -1 *(obj->priv->lines_displayed-1));
         break;
 
     case GDK_Page_Down:
         obj->priv->current_offset =
-            gv_scroll_lines(obj->priv->dp, obj->priv->current_offset,
+            gv_scroll_lines (obj->priv->dp, obj->priv->current_offset,
                 (obj->priv->lines_displayed-1));
         break;
 
     case GDK_Down:
         obj->priv->current_offset =
-            gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, 1);
+            gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, 1);
         break;
 
     case GDK_Left:
@@ -561,10 +561,7 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
     if (w->priv->dp==NULL)
         return FALSE;
 
-    gdk_window_clear_area (widget->window,
-                0, 0,
-                widget->allocation.width,
-                widget->allocation.height);
+    gdk_window_clear_area (widget->window, 0, 0, widget->allocation.width, widget->allocation.height);
 
     ofs = w->priv->current_offset;
     y = 0;
@@ -577,7 +574,7 @@ static gboolean text_render_expose(GtkWidget *widget, GdkEventExpose *event)
         if (eol_offset == ofs)
             break;
 
-        rc=  w->priv->display_line(w, y, w->priv->column, ofs, eol_offset);
+        rc = w->priv->display_line(w, y, w->priv->column, ofs, eol_offset);
 
         if (rc==-1)
             break;
@@ -610,11 +607,11 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
     switch (event->direction)
     {
         case GDK_SCROLL_UP:
-            w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, -4);
+            w->priv->current_offset = gv_scroll_lines (w->priv->dp, w->priv->current_offset, -4);
             break;
 
         case GDK_SCROLL_DOWN:
-            w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, 4);
+            w->priv->current_offset = gv_scroll_lines (w->priv->dp, w->priv->current_offset, 4);
             break;
 
         default:
@@ -634,14 +631,11 @@ void  text_render_copy_selection(TextRender *w)
     g_return_if_fail (w->priv!=NULL);
     g_return_if_fail (w->priv->copy_to_clipboard!=NULL);
 
-    offset_type marker_start;
-    offset_type marker_end;
-
     if (w->priv->marker_start==w->priv->marker_end)
         return;
 
-    marker_start = w->priv->marker_start;
-    marker_end   = w->priv->marker_end;
+    offset_type marker_start = w->priv->marker_start;
+    offset_type marker_end   = w->priv->marker_end;
 
     if (marker_start > marker_end)
     {
@@ -676,12 +670,10 @@ static gboolean text_render_button_press(GtkWidget *widget, GdkEventButton *even
 
 static gboolean text_render_button_release(GtkWidget *widget, GdkEventButton *event)
 {
-    TextRender *w;
-
     g_return_val_if_fail (IS_TEXT_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    w = TEXT_RENDER (widget);
+    TextRender *w = TEXT_RENDER (widget);
 
     g_return_val_if_fail (w->priv->pixel_to_offset!=NULL, FALSE);
 
@@ -800,10 +792,10 @@ static void text_render_v_adjustment_update (TextRender *obj)
     gfloat new_value = obj->priv->v_adjustment->value;
 
     if (new_value < obj->priv->v_adjustment->lower)
-    new_value = obj->priv->v_adjustment->lower;
+        new_value = obj->priv->v_adjustment->lower;
 
     if (new_value > obj->priv->v_adjustment->upper-1)
-    new_value = obj->priv->v_adjustment->upper-1;
+        new_value = obj->priv->v_adjustment->upper-1;
 
     if ((offset_type)new_value==obj->priv->current_offset)
         return;
@@ -916,7 +908,7 @@ void text_render_load_filedesc(TextRender *w, int filedesc)
     w->priv->fops = gv_fileops_new();
     if (gv_file_open_fd(w->priv->fops, filedesc)==-1)
     {
-        g_warning("Failed to load file descriptor (%d)", filedesc);
+        g_warning ("Failed to load file descriptor (%d)", filedesc);
         return;
     }
 
@@ -933,7 +925,7 @@ void text_render_load_file(TextRender *w, const gchar *filename)
     w->priv->fops = gv_fileops_new();
     if (gv_file_open(w->priv->fops, filename)==-1)
     {
-        g_warning("Failed to load file (%s)", filename);
+        g_warning ("Failed to load file (%s)", filename);
         return;
     }
 
@@ -981,23 +973,23 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
     {
         case GTK_SCROLL_STEP_BACKWARD:
             obj->priv->current_offset =
-                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, -4);
+                gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, -4);
             break;
 
         case GTK_SCROLL_STEP_FORWARD:
             obj->priv->current_offset =
-                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, 4);
+                gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, 4);
             break;
 
         case GTK_SCROLL_PAGE_BACKWARD:
             obj->priv->current_offset =
-                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset,
+                gv_scroll_lines (obj->priv->dp, obj->priv->current_offset,
                     -1 *(obj->priv->lines_displayed-1));
             break;
 
         case GTK_SCROLL_PAGE_FORWARD:
             obj->priv->current_offset =
-                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset,
+                gv_scroll_lines (obj->priv->dp, obj->priv->current_offset,
                     (obj->priv->lines_displayed-1));
             break;
 
@@ -1061,9 +1053,8 @@ static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_de
     guint maxwidth = 0;
     PangoRectangle logical_rect;
     gchar str[2];
-    guint i;
 
-    for (i=1; i<0x100; i++)
+    for (guint i=1; i<0x100; i++)
     {
         logical_rect.width = 0;
         // Check if the char is displayable. Caused trouble to pango
@@ -1083,31 +1074,30 @@ static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_de
 
 static guint text_render_filter_undisplayable_chars(TextRender *obj)
 {
-    PangoRectangle logical_rect;
-    guint i;
-
     if (!obj->priv->im)
         return 0;
+
+    PangoRectangle logical_rect;
 
     PangoLayout *layout = gtk_widget_create_pango_layout (GTK_WIDGET (obj), "");
     pango_layout_set_font_description (layout, obj->priv->font_desc);
 
-    for (i=0; i<256; i++)
+    for (guint i=0; i<256; i++)
     {
-        char_type value = gv_input_mode_byte_to_utf8(obj->priv->im, (unsigned char)i);
+        char_type value = gv_input_mode_byte_to_utf8(obj->priv->im, (unsigned char) i);
         text_render_utf8_clear_buf(obj);
         text_render_utf8_print_char(obj, value);
         pango_layout_set_text(layout, (char *) obj->priv->utf8buf, obj->priv->utf8buf_length);
         pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
 #if 0
         printf("char (%03d, %02x), utf8buf_len(%d) utf8((%02x %02x %02x %02x), width = %d\n",
-            i, i,
-            obj->priv->utf8buf_length,
-            obj->priv->utf8buf[0],
-            obj->priv->utf8buf[1],
-            obj->priv->utf8buf[2],
-            obj->priv->utf8buf[3],
-            logical_rect.width);
+               i, i,
+               obj->priv->utf8buf_length,
+               obj->priv->utf8buf[0],
+               obj->priv->utf8buf[1],
+               obj->priv->utf8buf[2],
+               obj->priv->utf8buf[3],
+               logical_rect.width);
 #endif
 
         // Pango can't display this UTF8 character, so filter it out
@@ -1128,7 +1118,7 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
 
     text_render_free_font(w);
 
-    gchar *fontlabel = g_strdup_printf("%s %d", fontname, fontsize);
+    gchar *fontlabel = g_strdup_printf ("%s %d", fontname, fontsize);
 
     w->priv->disp_font_metrics = load_font (fontlabel);
     w->priv->font_desc = pango_font_description_from_string (fontlabel);
@@ -1179,7 +1169,7 @@ static void text_render_utf8_clear_buf(TextRender *w)
 }
 
 
-static int text_render_utf8_printf(TextRender *w, const char *format, ...)
+static int text_render_utf8_printf (TextRender *w, const char *format, ...)
 {
     va_list ap;
     int new_length;
@@ -1232,8 +1222,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
     switch (mode)
     {
     case TR_DISP_MODE_TEXT:
-        gv_set_data_presentation_mode(w->priv->dp,
-            w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
+        gv_set_data_presentation_mode(w->priv->dp, w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
         w->priv->display_line = text_mode_display_line;
         w->priv->pixel_to_offset = text_mode_pixel_to_offset;
@@ -1269,10 +1258,9 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
         break;
     }
 
-    text_render_setup_font(w, w->priv->fixed_font_name, w->priv->font_size);
+    text_render_setup_font (w, w->priv->fixed_font_name, w->priv->font_size);
     w->priv->dispmode = mode;
-    w->priv->current_offset = gv_align_offset_to_line_start(
-            w->priv->dp, w->priv->current_offset);
+    w->priv->current_offset = gv_align_offset_to_line_start (w->priv->dp, w->priv->current_offset);
 
     text_render_redraw(w);
 }
@@ -1413,7 +1401,7 @@ void text_render_ensure_offset_visible(TextRender *w, offset_type offset)
     if (offset < w->priv->current_offset || offset > w->priv->last_displayed_offset)
     {
         offset = gv_align_offset_to_line_start(w->priv->dp, offset);
-        offset = gv_scroll_lines(w->priv->dp, offset, -w->priv->lines_displayed/2);
+        offset = gv_scroll_lines (w->priv->dp, offset, -w->priv->lines_displayed/2);
 
         w->priv->current_offset = offset;
         text_render_redraw(w);
@@ -1443,7 +1431,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
     if (g_strcasecmp(encoding, "UTF8")==0 && (
         w->priv->dispmode==TR_DISP_MODE_BINARY || w->priv->dispmode==TR_DISP_MODE_HEXDUMP))
         {
-            g_warning("Can't set UTF8 encoding when in Binary or HexDump display mode");
+            g_warning ("Can't set UTF8 encoding when in Binary or HexDump display mode");
             return;
         }
 
@@ -1515,14 +1503,14 @@ static gboolean marker_helper(TextRender *w, gboolean marker_shown, offset_type 
         if (current >= marker_start && current<marker_end)
         {
             marker_shown = TRUE;
-            text_render_utf8_printf(w, "<span background=\"blue\">");
+            text_render_utf8_printf (w, "<span background=\"blue\">");
         }
     }
     else
         if (current >= marker_end)
         {
             marker_shown = FALSE;
-            text_render_utf8_printf(w, "</span>");
+            text_render_utf8_printf (w, "</span>");
         }
 
 
@@ -1539,15 +1527,14 @@ static gboolean hex_marker_helper(TextRender *w, gboolean marker_shown, offset_t
         if (current >= marker_start && current<marker_end)
         {
             marker_shown = TRUE;
-            text_render_utf8_printf(w, "<span %s=\"blue\">",
-            primary_color?"background":"foreground");
+            text_render_utf8_printf (w, "<span %s=\"blue\">", primary_color?"background":"foreground");
         }
     }
     else
         if (current >= marker_end)
         {
             marker_shown = FALSE;
-            text_render_utf8_printf(w, "</span>");
+            text_render_utf8_printf (w, "</span>");
         }
 
 
@@ -1560,7 +1547,7 @@ static void marker_closer (TextRender *w, gboolean marker_shown)
     g_return_if_fail (w!=NULL);
 
     if (marker_shown)
-        text_render_utf8_printf(w, "</span>");
+        text_render_utf8_printf (w, "</span>");
 }
 
 
@@ -1591,8 +1578,8 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     if (!start_marker)
         column++;
 
-    offset = gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, line);
-    next_line_offset = gv_scroll_lines(obj->priv->dp, offset, 1);
+    offset = gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, line);
+    next_line_offset = gv_scroll_lines (obj->priv->dp, offset, 1);
 
     while (column>0 && offset<next_line_offset)
     {
@@ -1626,7 +1613,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
         text_render_utf8_print_char(obj, value);
     }
 
-    gtk_clipboard_set_text(clip, (const gchar *) obj->priv->utf8buf, obj->priv->utf8buf_length);
+    gtk_clipboard_set_text (clip, (const gchar *) obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 
@@ -1689,7 +1676,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         }
 
         if (NEED_PANGO_ESCAPING(value))
-            text_render_utf8_printf(w, escape_pango_char(value));
+            text_render_utf8_printf (w, escape_pango_char(value));
         else
             text_render_utf8_print_char(w, value);
 
@@ -1706,7 +1693,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout(GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    gdk_draw_layout (GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
 }
@@ -1760,7 +1747,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
             value = gv_input_mode_byte_to_utf8(w->priv->im, (unsigned char)value);
 
         if (NEED_PANGO_ESCAPING(value))
-            text_render_utf8_printf(w, escape_pango_char(value));
+            text_render_utf8_printf (w, escape_pango_char(value));
         else
             text_render_utf8_print_char(w, value);
     }
@@ -1769,7 +1756,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout(GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    gdk_draw_layout (GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
 }
@@ -1799,8 +1786,8 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
     line = y / obj->priv->char_height;
     column = x / obj->priv->char_width;
 
-    offset = gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, line);
-    next_line_offset = gv_scroll_lines(obj->priv->dp, offset, 1);
+    offset = gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, line);
+    next_line_offset = gv_scroll_lines (obj->priv->dp, offset, 1);
 
     if (column<10)
         return offset;
@@ -1869,10 +1856,10 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         char_type value = gv_input_mode_get_raw_byte(obj->priv->im, current);
         if (value==INVALID_CHAR)
             break;
-        text_render_utf8_printf(obj, "%02x ", (unsigned char) value);
+        text_render_utf8_printf (obj, "%02x ", (unsigned char) value);
     }
 
-    gtk_clipboard_set_text(clip, (const gchar *) obj->priv->utf8buf, obj->priv->utf8buf_length);
+    gtk_clipboard_set_text (clip, (const gchar *) obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 
@@ -1903,9 +1890,9 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
     text_render_utf8_clear_buf(w);
 
     if (w->priv->hex_offset_display)
-        text_render_utf8_printf(w, "%08lx  ", (unsigned long)start_of_line);
+        text_render_utf8_printf (w, "%08lx  ", (unsigned long)start_of_line);
     else
-        text_render_utf8_printf(w, "%09lu ", (unsigned long)start_of_line);
+        text_render_utf8_printf (w, "%09lu ", (unsigned long)start_of_line);
 
     current = start_of_line;
     while (current < end_of_line)
@@ -1922,7 +1909,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
             break;
         current++;
 
-        text_render_utf8_printf(w, "%02x ", (unsigned char)byte_value);
+        text_render_utf8_printf (w, "%02x ", (unsigned char)byte_value);
     }
     if (show_marker)
         marker_closer(w, marker_shown);
@@ -1945,7 +1932,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         value = gv_input_mode_byte_to_utf8(w->priv->im, (unsigned char)byte_value);
 
         if (NEED_PANGO_ESCAPING(value))
-            text_render_utf8_printf(w, escape_pango_char(value));
+            text_render_utf8_printf (w, escape_pango_char(value));
         else
             text_render_utf8_print_char(w, value);
 
@@ -1955,7 +1942,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout(GTK_WIDGET (w)->window, w->priv->gc, 0, y, w->priv->layout);
+    gdk_draw_layout (GTK_WIDGET (w)->window, w->priv->gc, 0, y, w->priv->layout);
 
     return 0;
 }
