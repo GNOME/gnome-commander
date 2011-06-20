@@ -13,7 +13,7 @@ src/dialogs/gnome-cmd-edit-bookmark-dialog.cc
 src/dialogs/gnome-cmd-edit-profile-dialog.h
 src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
-src/dialogs/gnome-cmd-manage-profiles-dialog.cc
+src/dialogs/gnome-cmd-manage-profiles-dialog.h
 src/dialogs/gnome-cmd-mkdir-dialog.cc
 src/dialogs/gnome-cmd-search-dialog.cc
 src/dirlist.cc

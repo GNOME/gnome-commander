@@ -185,7 +185,7 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
     if (new_profile)
         priv->profile_component->copy();
 
-    if (gnome_cmd_manage_profiles_dialog_new (_("Profiles"), GTK_WINDOW (dialog), cfg,  new_profile))
+    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::AdvrenameConfig,GnomeCmdData::AdvrenameConfig::Profile,GnomeCmdAdvrenameProfileComponent> (GTK_WINDOW (dialog),cfg,new_profile,_("Profiles"),"gnome-commander-advanced-rename"))
     {
         GtkWidget *menu = widget->parent;
 
