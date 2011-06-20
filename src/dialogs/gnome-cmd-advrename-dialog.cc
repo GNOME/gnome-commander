@@ -32,9 +32,8 @@
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file.h"
-#include "gnome-cmd-manage-profiles-dialog.h"
-#include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-advrename-profile-component.h"
+#include "gnome-cmd-manage-profiles-dialog.h"
 #include "utils.h"
 #include "tags/gnome-cmd-tags.h"
 

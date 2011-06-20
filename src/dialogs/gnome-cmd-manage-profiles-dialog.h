@@ -22,6 +22,7 @@
 #define __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
 
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-edit-profile-dialog.h"
 #include "gnome-cmd-hintbox.h"
