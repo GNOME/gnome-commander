@@ -37,16 +37,16 @@ inline void GnomeCmdSmbPath::set_resources(const gchar *workgroup, const gchar *
         if (resource)
         {
             this->resource = g_strdup (resource);
-            this->resource_path = g_strdup (resource_path);
-            path = g_strconcat (G_DIR_SEPARATOR_S, resource, resource_path, NULL);
+            this->resource_path = g_strdup (path);
+            this->path = g_strconcat (G_DIR_SEPARATOR_S, resource, path, NULL);
         }
         else
-            path = g_strconcat (G_DIR_SEPARATOR_S, workgroup, NULL);
+            this->path = g_strconcat (G_DIR_SEPARATOR_S, workgroup, NULL);
     }
     else
-        path = g_strdup (G_DIR_SEPARATOR_S);
+        this->path = g_strdup (G_DIR_SEPARATOR_S);
 
-    display_path = unix_to_unc (path);
+    display_path = unix_to_unc (this->path);
 }
 
 
