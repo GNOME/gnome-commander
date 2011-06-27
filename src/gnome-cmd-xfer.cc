@@ -160,7 +160,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gchar *msg = g_strdup_printf (_("The file \"%s\" already exists.\n\nDo you want to overwrite it?\n"), fn);
 
         gdk_threads_enter ();
-        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, " ",
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, " ",
                                       1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
         g_free (msg);
         g_free (fn);
