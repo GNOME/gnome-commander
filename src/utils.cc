@@ -742,12 +742,9 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     if (!dir_uri)
         return -1;
 
-    gchar *dir_uri_str;
+    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
 
-    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
-
-    if (!dir_uri_str)
-        return -1;
+    g_return_val_if_fail (dir_uri_str != NULL, -1);
 
     GList *list = NULL;
     GnomeVFSFileSize size = 0;
