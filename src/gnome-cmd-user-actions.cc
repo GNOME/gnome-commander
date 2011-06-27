@@ -825,7 +825,7 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
                                                selected_files),
                                       selected_files, gnome_cmd_dir_get_display_path (inactive_fs->get_directory()));
 
-        gint choice = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), NULL);
+        gint choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), NULL);
 
         g_free (msg);
 
@@ -979,7 +979,7 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
             break;
     }
 
-    gtk_widget_destroy (GTK_WIDGET (main_win));
+    gtk_widget_destroy (*main_win);
 }
 
 

@@ -501,7 +501,7 @@ void mime_exec_single (GnomeCmdFile *f)
         {
             gchar *fname = get_utf8 (f->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
-            gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg,
+            gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
                                           _("Make Executable?"),
                                           -1, _("Cancel"), _("OK"), NULL);
             g_free (fname);
@@ -530,7 +530,7 @@ void mime_exec_single (GnomeCmdFile *f)
             {
                 gchar *fname = get_utf8 (f->info->name);
                 gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
-                gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
+                gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                                               -1, _("Cancel"), _("Display"), _("Run"), NULL);
                 g_free (fname);
                 g_free (msg);
@@ -658,7 +658,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
                                                            "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
                                                   gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
+                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
                     asked = TRUE;
                 }
 
@@ -922,13 +922,13 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 
 void set_cursor_busy ()
 {
-    set_cursor_busy_for_widget (GTK_WIDGET (main_win));
+    set_cursor_busy_for_widget (*main_win);
 }
 
 
 void set_cursor_default ()
 {
-    set_cursor_default_for_widget (GTK_WIDGET (main_win));
+    set_cursor_default_for_widget (*main_win);
 }
 
 

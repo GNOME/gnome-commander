@@ -1321,7 +1321,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
                 if (choice != 1)  // choice != SKIP_ALL
                 {
                     gchar *msg = g_strdup (gnome_vfs_result_to_string (result));
-                    choice = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 3, _("Skip"), _("Skip all"), _("Cancel"), _("Retry"), NULL);
+                    choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 3, _("Skip"), _("Skip all"), _("Cancel"), _("Retry"), NULL);
                     g_free (msg);
                 }
         }
@@ -1394,7 +1394,7 @@ void GnomeCmdFileSelector::show_filter()
     priv->filter_box = create_hbox (*this, FALSE, 0);
     GtkWidget *label = create_label (*this, _("Filter:"));
     GtkWidget *entry = create_entry (*this, "entry", "");
-    GtkWidget *close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), this);
+    GtkWidget *close_btn = create_button_with_data (*main_win, "x", GTK_SIGNAL_FUNC (on_filter_box_close), this);
 
     g_signal_connect (entry, "key-press-event", G_CALLBACK (on_filter_box_keypressed), this);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 6);

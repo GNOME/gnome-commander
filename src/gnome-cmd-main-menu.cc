@@ -162,23 +162,21 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 
         case MENU_TYPE_ITEM:
             item = gtk_image_menu_item_new ();
-            content = create_hbox (GTK_WIDGET (main_win), FALSE, 12);
+            content = create_hbox (*main_win, FALSE, 12);
 
             desc = gtk_label_new_with_mnemonic (spec->label);
             g_object_ref (desc);
             gtk_widget_show (desc);
             gtk_box_pack_start (GTK_BOX (content), desc, FALSE, FALSE, 0);
 
-            shortcut = create_label (GTK_WIDGET (main_win), spec->shortcut);
+            shortcut = create_label (*main_win, spec->shortcut);
             gtk_misc_set_alignment (GTK_MISC (shortcut), 1.0, 0.5);
             gtk_box_pack_start (GTK_BOX (content), shortcut, TRUE, TRUE, 0);
 
             if (spec->pixmap_type != 0 && spec->pixmap_info)
             {
-                pixmap = create_ui_pixmap (GTK_WIDGET (main_win),
-                                           spec->pixmap_type,
-                                           spec->pixmap_info,
-                                           GTK_ICON_SIZE_MENU);
+                pixmap = create_ui_pixmap (*main_win, spec->pixmap_type, spec->pixmap_info, GTK_ICON_SIZE_MENU);
+
                 if (pixmap)
                 {
                     gtk_widget_show (pixmap);
