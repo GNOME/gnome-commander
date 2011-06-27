@@ -46,7 +46,7 @@ inline void GnomeCmdSmbPath::set_resources(const gchar *workgroup, const gchar *
     else
         this->path = g_strdup (G_DIR_SEPARATOR_S);
 
-    display_path = unix_to_unc (this->path);
+    this->display_path = unix_to_unc (this->path);
 }
 
 
@@ -142,13 +142,13 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
 }
 
 
-GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *workgroup, const gchar *resource, const gchar *resource_path)
+GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *workgroup, const gchar *resource, const gchar *resource_path): resource(0), resource_path(0)
 {
     set_resources(workgroup,resource,resource_path);
 }
 
 
-GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str)
+GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(0), resource_path(0), path(0), display_path(0)
 {
     g_return_if_fail (path_str != NULL);
 
