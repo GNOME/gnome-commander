@@ -753,9 +753,9 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
     if (result==GNOME_VFS_OK && list)
     {
-        for (GList *tmp = list; tmp; tmp = tmp->next)
+        for (GList *i = list; i; i = i->next)
         {
-            GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
+            GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
             if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
             {
                 if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
@@ -769,8 +769,8 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
             }
         }
 
-        for (GList *tmp = list; tmp; tmp = tmp->next)
-            gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) tmp->data);
+        for (GList *i = list; i; i = i->next)
+            gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) i->data);
 
         g_list_free (list);
     }

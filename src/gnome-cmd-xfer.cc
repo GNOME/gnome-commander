@@ -84,9 +84,9 @@ inline void free_xfer_data (XferData *data)
     g_list_free (data->src_uri_list);
 
     //  free the list with target uris
-    for (GList *tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
+    for (GList *i = data->dest_uri_list; i; i = i->next)
     {
-        GnomeVFSURI *uri = (GnomeVFSURI *) tmp_list->data;
+        GnomeVFSURI *uri = (GnomeVFSURI *) i->data;
         gnome_vfs_uri_unref (uri);
     }
 
@@ -373,9 +373,9 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     GnomeVFSURI *src_uri, *dest_uri;
 
     // Sanity check
-    for (GList *tmp = src_uri_list; tmp; tmp = tmp->next)
+    for (GList *i = src_uri_list; i; i = i->next)
     {
-        src_uri = (GnomeVFSURI *) tmp->data;
+        src_uri = (GnomeVFSURI *) i->data;
         if (uri_is_parent_to_dir_or_equal (src_uri, to_dir))
         {
             gnome_cmd_show_message (*main_win, _("Copying a directory into itself is a bad idea."), _("The whole operation was cancelled."));
