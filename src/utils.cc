@@ -817,11 +817,11 @@ gchar *create_nice_size_str (GnomeVFSFileSize size)
 
     if (gnome_cmd_data.size_disp_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED && size>=1000)
     {
-        g_string_printf (s, "%s ", size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED));
-        g_string_append_printf (s, ngettext("(%s byte)","(%s bytes)",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
+        g_string_printf (s, "%s", size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED));
+        g_string_append_printf (s, ngettext("(%sbyte)","(%sbytes)",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
     }
     else
-        g_string_printf (s, ngettext("%s byte","%s bytes",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
+        g_string_printf (s, ngettext("%sbyte","%sbytes",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
 
     return g_string_free (s, FALSE);
 }
