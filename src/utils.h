@@ -178,7 +178,7 @@ inline gboolean state_is_ctrl_alt_shift (gint state)
 GList *strings_to_uris (gchar *data);
 
 GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri);
-const gchar *create_nice_size_str (GnomeVFSFileSize size);
+gchar *create_nice_size_str (GnomeVFSFileSize size);
 
 inline gchar *quote_if_needed (const gchar *in)
 {

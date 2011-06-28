@@ -66,18 +66,6 @@ struct GnomeCmdFilePropsDialogPrivate
 };
 
 
-inline const gchar *get_size_disp_string (GnomeVFSFileSize size)
-{
-    static gchar s[64];
-
-    if (gnome_cmd_data.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
-        return create_nice_size_str (size);
-
-    snprintf (s, sizeof (s), ngettext("%s byte","%s bytes",size), size2string (size, gnome_cmd_data.size_disp_mode));
-    return s;
-}
-
-
 static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 {
     GList *list = NULL;
@@ -126,7 +114,7 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
 
     g_mutex_lock (data->mutex);
     g_free (data->msg);
-    data->msg = g_strdup (get_size_disp_string (data->size));
+    data->msg = create_nice_size_str (data->size);
     g_mutex_unlock (data->mutex);
 }
 
@@ -509,8 +497,10 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Size:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, get_size_disp_string (data->f->info->size));
+    gchar *s = create_nice_size_str (data->f->info->size);
+    label = create_label (dialog, s);
     table_add (table, label, 1, y++, GTK_FILL);
+    g_free (s);
     if (data->f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         do_calc_tree_size (data);
 

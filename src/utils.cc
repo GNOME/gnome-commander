@@ -811,21 +811,19 @@ GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 }
 
 
-const gchar *create_nice_size_str (GnomeVFSFileSize size)
+gchar *create_nice_size_str (GnomeVFSFileSize size)
 {
-    static gchar str1[64];
-    const gchar *s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
-    snprintf (str1, sizeof (str1), ngettext("%s byte","%s bytes",size), s1);
+    GString *s = g_string_sized_new (64);
 
-    if (size >= 1000)
+    if (gnome_cmd_data.size_disp_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED && size>=1000)
     {
-        static gchar str2[128];
-        const gchar *s2 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED);
-        snprintf (str2, sizeof (str2), "%s (%s)", s2, str1);
-        return str2;
+        g_string_printf (s, "%s ", size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED));
+        g_string_append_printf (s, ngettext("(%s byte)","(%s bytes)",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
     }
+    else
+        g_string_printf (s, ngettext("%s byte","%s bytes",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
 
-    return str1;
+    return g_string_free (s, FALSE);
 }
 
 
