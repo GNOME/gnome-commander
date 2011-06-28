@@ -1018,11 +1018,9 @@ gchar *get_temp_download_filepath (const gchar *fname)
 
 void remove_temp_download_dir ()
 {
-    const gchar *tmp_dir = g_get_tmp_dir ();
-
     if (tmp_file_dir)
     {
-        gchar *path = g_build_filename (tmp_dir, tmp_file_dir, NULL);
+        gchar *path = g_build_filename (g_get_tmp_dir (), tmp_file_dir, NULL);
         gchar *command = g_strdup_printf ("rm -rf %s", path);
         g_free (path);
         system (command);
