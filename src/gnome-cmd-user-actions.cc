@@ -202,6 +202,7 @@ static UserActionData user_actions_data[] = {
                                              {view_close_tab, "view.close_tab", N_("Close the current tab")},
                                              {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
                                              {view_close_duplicate_tabs, "view.close_duplicate_tabs", N_("Close duplicate tabs")},
+                                             {view_directory, "view.directory", N_("Change directory")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
@@ -379,6 +380,12 @@ void GnomeCmdUserActions::init()
     {
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_Up, "view.in_inactive_tab");
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KP_Up, "view.in_inactive_tab");
+    }
+
+    if (!registered("view.directory"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_Page_Down, "view.directory");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Page_Down, "view.directory");
     }
 
     if (!registered("view.home"))
@@ -1495,6 +1502,17 @@ void view_in_active_pane (GtkMenuItem *menuitem, gpointer not_used)
 void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
     main_win->set_fs_directory_to_opposite(INACTIVE);
+}
+
+
+void view_directory (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    GnomeCmdFile *f = fl->get_selected_file();
+    if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        fs->do_file_specific_action (fl, f);
 }
 
 

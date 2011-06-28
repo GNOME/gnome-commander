@@ -5793,7 +5793,7 @@
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
             <entry><para>Change directory</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6508,6 +6508,11 @@
                         <entry><para>view.close_duplicate_tabs</para></entry>
                         <entry><para>Close duplicate tabs</para></entry>
                         <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.directory</para></entry>
+                        <entry><para>Change directory</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>view.equal_panes</para></entry>

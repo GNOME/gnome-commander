@@ -1206,13 +1206,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 add_cwd_to_cmdline (list);
                 return TRUE;
 
-            case GDK_Page_Down:
-            case GDK_KP_Page_Down:
-                f = list->get_selected_file();
-                if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (list, f);
-                return TRUE;
-
             case GDK_Tab:
                 view_next_tab ();
                 return TRUE;
