@@ -36,6 +36,7 @@
 #include "gnome-cmd-user-actions.h"
 #include "filter.h"
 #include "utils.h"
+#include "owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;
@@ -1114,7 +1115,8 @@ void GnomeCmdData::load()
         g_free (tmp);
     }
 
-    color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
+    color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", gcmd_owner.is_root() ? GNOME_CMD_COLOR_GREEN_TIGER :
+                                                                                                    GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
