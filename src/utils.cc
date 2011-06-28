@@ -193,7 +193,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     g_free (button_titles);
 
     if (def_response>=0)
-        gtk_dialog_set_default_response(GTK_DIALOG (dialog), def_response);
+        gtk_dialog_set_default_response (GTK_DIALOG (dialog), def_response);
 
     // Allow close.
     if (ignore_close_box)
