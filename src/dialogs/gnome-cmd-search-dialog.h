@@ -50,7 +50,7 @@ struct GnomeCmdSearchDialog
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_SEARCH_DIALOG, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    enum {GCMD_RESPONSE_GOTO=123, GCMD_RESPONSE_STOP, GCMD_RESPONSE_FIND};
+    enum {GCMD_RESPONSE_PROFILES=123, GCMD_RESPONSE_GOTO, GCMD_RESPONSE_STOP, GCMD_RESPONSE_FIND};
 
     GnomeCmdData::SearchConfig &defaults;
 

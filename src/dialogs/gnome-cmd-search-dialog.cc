@@ -56,6 +56,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-selection-profile-component.h"
+#include "gnome-cmd-manage-profiles-dialog.h"
 #include "filter.h"
 #include "utils.h"
 
@@ -146,9 +147,18 @@ struct GnomeCmdSearchDialog::Private
     GnomeCmdFileList *result_list;
     GtkWidget *statusbar;
     GtkWidget *pbar;
+    GtkWidget *profile_menu_button;
 
     Private(GnomeCmdSearchDialog *dlg);
     ~Private();
+
+    static gchar *translate_menu(const gchar *path, gpointer data);
+
+    GtkWidget *create_placeholder_menu(GnomeCmdData::SearchConfig &cfg);
+    GtkWidget *create_button_with_menu(gchar *label_text, GnomeCmdData::SearchConfig &cfg);
+
+    static void manage_profiles(GnomeCmdSearchDialog::Private *priv, guint unused, GtkWidget *menu);
+    static void load_profile(GnomeCmdSearchDialog::Private *priv, guint profile_idx, GtkWidget *menu);
 
     static gboolean on_list_keypressed (GtkWidget *result_list, GdkEventKey *event, gpointer unused);
 
@@ -173,6 +183,105 @@ inline GnomeCmdSearchDialog::Private::Private(GnomeCmdSearchDialog *dlg): data(d
 
 inline GnomeCmdSearchDialog::Private::~Private()
 {
+}
+
+
+gchar *GnomeCmdSearchDialog::Private::translate_menu(const gchar *path, gpointer data)
+{
+    return _(path);
+}
+
+
+inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCmdData::SearchConfig &cfg)
+{
+    guint items_size = cfg.profiles.empty() ? 1 : cfg.profiles.size()+3;
+    GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, items_size);
+    GtkItemFactoryEntry *i = items;
+
+    g_return_val_if_fail (items!=NULL, NULL);
+
+    i->path = g_strdup (_("/_Save Profile As..."));
+    i->callback = (GtkItemFactoryCallback) manage_profiles;
+    i->callback_action = TRUE;
+    i->item_type = "<StockItem>";
+    i->extra_data = GTK_STOCK_SAVE_AS;
+    ++i;
+
+    if (!cfg.profiles.empty())
+    {
+        i->path = g_strdup (_("/_Manage Profiles..."));
+        i->callback = (GtkItemFactoryCallback) manage_profiles;
+        i->item_type = "<StockItem>";
+        i->extra_data = GTK_STOCK_EDIT;
+        ++i;
+
+        i->path = g_strdup ("/");
+        i->item_type = "<Separator>";
+        ++i;
+
+        for (vector<GnomeCmdData::Selection>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
+        {
+            i->path = g_strconcat ("/", p->name.c_str(), NULL);
+            i->callback = (GtkItemFactoryCallback) load_profile;
+            i->callback_action = (i-items)-3;
+            i->item_type = "<StockItem>";
+            i->extra_data = GTK_STOCK_REVERT_TO_SAVED;
+        }
+    }
+
+    GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+
+    gtk_item_factory_create_items (ifac, items_size, items, this);
+
+    for (guint i=0; i<items_size; ++i)
+        g_free (items[i].path);
+
+    g_free (items);
+
+    return gtk_item_factory_get_widget (ifac, "<main>");
+}
+
+
+inline GtkWidget *GnomeCmdSearchDialog::Private::create_button_with_menu(gchar *label_text, GnomeCmdData::SearchConfig &cfg)
+{
+    profile_menu_button = gnome_cmd_button_menu_new (label_text, create_placeholder_menu(cfg));
+
+    return profile_menu_button;
+}
+
+
+void GnomeCmdSearchDialog::Private::manage_profiles(GnomeCmdSearchDialog::Private *priv, guint new_profile, GtkWidget *widget)
+{
+    GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_SEARCH_DIALOG);
+
+    g_return_if_fail (dialog!=NULL);
+
+    if (new_profile)
+        priv->profile_component->copy();
+
+    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::Selection,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"helpid..."))
+    {
+        GtkWidget *menu = widget->parent;
+
+        gnome_cmd_button_menu_disconnect_handler (priv->profile_menu_button, menu);
+        g_object_unref (gtk_item_factory_from_widget (menu));
+        gnome_cmd_button_menu_connect_handler (priv->profile_menu_button, priv->create_placeholder_menu(dialog->defaults));
+    }
+}
+
+
+void GnomeCmdSearchDialog::Private::load_profile(GnomeCmdSearchDialog::Private *priv, guint profile_idx, GtkWidget *widget)
+{
+    GtkWidget *dialog = gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_SEARCH_DIALOG);
+
+    g_return_if_fail (dialog!=NULL);
+
+    GnomeCmdData::SearchConfig &cfg = GNOME_CMD_SEARCH_DIALOG(dialog)->defaults;
+
+    g_return_if_fail (profile_idx<cfg.profiles.size());
+
+    cfg.default_profile = cfg.profiles[profile_idx];
+    priv->profile_component->update();
 }
 
 
@@ -920,6 +1029,9 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
             g_signal_stop_emission_by_name (dialog, "response");
             break;
 
+        case GCMD_RESPONSE_PROFILES:
+            break;
+
         default :
             g_assert_not_reached ();
     }
@@ -1019,6 +1131,10 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
 
+    GtkWidget *button = priv->create_button_with_menu(_("Profiles..."), cfg);
+
+    gtk_dialog_add_action_widget (*this, button, GCMD_RESPONSE_PROFILES);
+
     gtk_dialog_add_buttons (*this,
                             GTK_STOCK_HELP, GTK_RESPONSE_HELP,
                             GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
@@ -1046,6 +1162,7 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 
     priv->profile_component->set_content_patterns_history(defaults.content_patterns.ents);
 
+    gtk_widget_show_all (button);
     gtk_widget_show (*priv->profile_component);
 
     g_signal_connect (priv->result_list, "key-press-event", G_CALLBACK (Private::on_list_keypressed), this);
