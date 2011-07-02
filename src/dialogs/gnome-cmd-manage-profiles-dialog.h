@@ -227,7 +227,7 @@ namespace GnomeCmd
 
             PROFILE p = profiles[idx];
 
-            if (GnomeCmd::EditProfileDialog<PROFILE,COMPONENT> (GTK_WINDOW (dialog), p, "gnome-commander-advanced-rename"))     //  FIXME:    help_id
+            if (GnomeCmd::EditProfileDialog<PROFILE,COMPONENT> (GTK_WINDOW (dialog), p, help_id))
             {
                 profiles[idx] = p;
 

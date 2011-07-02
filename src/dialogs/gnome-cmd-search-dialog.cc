@@ -259,7 +259,7 @@ void GnomeCmdSearchDialog::Private::manage_profiles(GnomeCmdSearchDialog::Privat
     if (new_profile)
         priv->profile_component->copy();
 
-    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::Selection,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"helpid..."))
+    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::Selection,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"gnome-commander-search"))
     {
         GtkWidget *menu = widget->parent;
 
