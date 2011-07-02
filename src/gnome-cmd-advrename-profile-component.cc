@@ -1124,23 +1124,16 @@ static void gnome_cmd_advrename_profile_component_class_init (GnomeCmdAdvrenameP
 GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &p): profile(p)
 {
     // Template
-    gtk_entry_set_text (GTK_ENTRY (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
-    gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_widget_grab_focus (priv->template_entry);
-    gtk_entry_select_region (GTK_ENTRY (priv->template_entry), -1, -1);
     g_signal_connect (priv->template_combo, "changed", G_CALLBACK (Private::on_template_entry_changed), this);
 
     // Counter
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), profile.counter_start);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), profile.counter_step);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_digits_spin), profile.counter_width);
     g_signal_connect (priv->counter_start_spin, "value-changed", G_CALLBACK (Private::on_counter_start_spin_value_changed), this);
     g_signal_connect (priv->counter_step_spin, "value-changed", G_CALLBACK (Private::on_counter_step_spin_value_changed), this);
     g_signal_connect (priv->counter_digits_spin, "value-changed", G_CALLBACK (Private::on_counter_digits_spin_value_changed), this);
 
     // Regex
     priv->regex_model = create_regex_model ();
-    priv->fill_regex_model(profile);
     gtk_tree_view_set_model (GTK_TREE_VIEW (priv->regex_view), priv->regex_model);
 
     g_signal_connect (priv->regex_model, "row-deleted", G_CALLBACK (Private::on_regex_model_row_deleted), this);
@@ -1151,8 +1144,6 @@ GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdDat
     g_signal_connect (priv->regex_remove_all_button, "clicked", G_CALLBACK (Private::on_regex_remove_all_btn_clicked), this);
 
     // Case conversion & blank triming
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), profile.case_conversion);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), profile.trim_blanks);
     g_signal_connect (priv->case_combo, "changed", G_CALLBACK (Private::on_case_combo_changed), this);
     g_signal_connect (priv->trim_combo, "changed", G_CALLBACK (Private::on_trim_combo_changed), this);
 }
@@ -1252,6 +1243,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
 {
     gtk_entry_set_text (GTK_ENTRY (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
+    gtk_editable_select_region (GTK_EDITABLE (priv->template_entry), -1, -1);
 
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), profile.counter_start);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), profile.counter_step);

@@ -133,6 +133,8 @@ namespace GnomeCmd
         component = new COMPONENT(profile);
         gtk_container_add (GTK_CONTAINER (vbox), *component);
 
+        component->update();
+
 #if GTK_CHECK_VERSION (2, 14, 0)
         gtk_widget_show_all (content_area);
 #else

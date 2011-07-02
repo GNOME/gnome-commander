@@ -81,6 +81,7 @@ struct GnomeCmdAdvrenameDialog::Private
     static void on_files_view_row_activated (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_cursor_changed (GtkTreeView *view, GnomeCmdAdvrenameDialog *dialog);
 
+    static void on_dialog_show (GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog);
     static gboolean on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer data);
@@ -416,6 +417,12 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_cursor_changed (GtkTreeView
 }
 
 
+void GnomeCmdAdvrenameDialog::Private::on_dialog_show(GtkWidget *widget, GnomeCmdAdvrenameDialog *dialog)
+{
+    dialog->priv->profile_component->update();
+}
+
+
 gboolean GnomeCmdAdvrenameDialog::Private::on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog)
 {
     return event->type==GDK_DELETE;
@@ -705,6 +712,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->files_view, "row-activated", G_CALLBACK (Private::on_files_view_row_activated), this);
     g_signal_connect (priv->files_view, "cursor-changed", G_CALLBACK (Private::on_files_view_cursor_changed), this);
 
+    g_signal_connect (this, "show", G_CALLBACK (Private::on_dialog_show), this);
     g_signal_connect (this, "delete-event", G_CALLBACK (Private::on_dialog_delete), this);
     g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
