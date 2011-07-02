@@ -149,7 +149,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
     gtk_entry_set_text (dialog->priv->textbox, fname);
 
     gtk_widget_grab_focus (GTK_WIDGET (dialog->priv->textbox));
-    gtk_entry_select_region (dialog->priv->textbox, 0, -1);
+    gtk_editable_select_region (GTK_EDITABLE (dialog->priv->textbox), 0, -1);
     gtk_widget_show (GTK_WIDGET (dialog->priv->textbox));
 
     g_free (fname);
