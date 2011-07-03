@@ -1000,13 +1000,18 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 if (!f)
                     break;
 
-                gchar *fpath = f->get_path();
-                gchar *dpath = g_path_get_dirname (fpath);
-
                 GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+                GnomeCmdCon *con = fs->get_connection();
+
+                gchar *fpath = f->get_path();
+                gsize offset = strncmp(fpath, gnome_cmd_con_get_root_path (con), con->root_path->len)==0 ? con->root_path->len : 0;
+                gchar *dpath = g_path_get_dirname (fpath + offset);
 
                 if (fs->file_list()->locked)
-                    fs->new_tab(f->get_parent_dir());
+                {
+                    GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dpath));
+                    fs->new_tab(dir);
+                }
                 else
                     fs->file_list()->goto_directory(dpath);
 
