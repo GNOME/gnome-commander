@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <stdio.h>
 #include <regex.h>
 
 #include "gnome-cmd-includes.h"

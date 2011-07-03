@@ -163,7 +163,7 @@ offset_type gv_align_offset_to_line_start(GVDataPresentation *dp, offset_type of
 }
 
 
-offset_type gv_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
+offset_type gv_scroll_lines (GVDataPresentation *dp, offset_type current_offset, int delta)
 {
     g_return_val_if_fail (dp!=NULL, 0);
     g_return_val_if_fail (dp->scroll_lines!=NULL, 0);

@@ -169,7 +169,7 @@ int main (int argc, char *argv[])
         unique_app_watch_window (app, *main_win);
         g_signal_connect (app, "message-received", G_CALLBACK (on_message_received), NULL);
 
-        gtk_widget_show (GTK_WIDGET (main_win));
+        gtk_widget_show (*main_win);
         gcmd_owner.load_async();
 
         gcmd_tags_init();

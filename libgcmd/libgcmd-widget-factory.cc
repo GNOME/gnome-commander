@@ -207,34 +207,33 @@ GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, gchar *title)
 }
 
 
-GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GtkSignalFunc func, gpointer data)
+GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GCallback func, gpointer data)
 {
     guint key;
     GtkAccelGroup *accel_group = gtk_accel_group_new ();
     GtkWidget *w = gtk_button_new_with_label ("");
 
     key = gtk_label_parse_uline (GTK_LABEL (GTK_BIN (w)->child), label);
-    gtk_widget_add_accelerator (w, "clicked", accel_group,
-                                key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
+    gtk_widget_add_accelerator (w, "clicked", accel_group, key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
     gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
     if (func)
-        gtk_signal_connect (GTK_OBJECT (w), "clicked", func, data);
+        g_signal_connect (w, "clicked", func, data);
 
     return w;
 }
 
 
-GtkWidget * create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GtkSignalFunc func, gpointer data)
+GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, const gchar *name, GCallback func, gpointer data)
 {
     GtkWidget *w = gtk_button_new_from_stock ((const gchar *) stock);
     g_object_ref (w);
     g_object_set_data_full (G_OBJECT (parent), name, w, g_object_unref);
     gtk_widget_show (w);
     if (func)
-        gtk_signal_connect (GTK_OBJECT (w), "clicked", func, data);
+        g_signal_connect (w, "clicked", func, data);
     return w;
 }
 

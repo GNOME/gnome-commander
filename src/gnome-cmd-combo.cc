@@ -275,7 +275,7 @@ static gboolean on_list_button_press (GtkCList *clist, GdkEventButton *event, Gn
         clist->focus_row = row;
     }
     else
-        gtk_signal_emit_stop_by_name (GTK_OBJECT (clist), "button-press-event");
+        g_signal_stop_emission_by_name (clist, "button-press-event");
 
     return TRUE;
 }

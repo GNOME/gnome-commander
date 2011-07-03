@@ -36,6 +36,7 @@
 #include "gnome-cmd-user-actions.h"
 #include "filter.h"
 #include "utils.h"
+#include "owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 
 using namespace std;
@@ -83,6 +84,7 @@ void GnomeCmdData::Selection::reset()
     syntax = Filter::TYPE_REGEX;
     max_depth = -1;
     text_pattern.clear();
+    content_search = FALSE;
     match_case = FALSE;
 }
 
@@ -781,15 +783,8 @@ inline void GnomeCmdData::load_cmdline_history()
 
 inline void GnomeCmdData::load_search_defaults()
 {
-    GList *list = NULL;
-
-    list = load_string_history ("/search-history/name_pattern%d", -1);
-    search_defaults.name_patterns.ents = list;
-    search_defaults.name_patterns.pos = list;
-    list = load_string_history ("/search-history/content_pattern%d", -1);
-    search_defaults.content_patterns.ents = list;
-    search_defaults.content_patterns.pos = list;
-
+    search_defaults.name_patterns = load_string_history ("/search-history/name_pattern%d", -1);
+    search_defaults.content_patterns = load_string_history ("/search-history/content_pattern%d", -1);
     search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
     search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
     search_defaults.default_profile.max_depth = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE) ? -1 : 0;
@@ -799,15 +794,8 @@ inline void GnomeCmdData::load_search_defaults()
 
 inline void GnomeCmdData::load_intviewer_defaults()
 {
-    GList *list = NULL;
-
-    list = load_string_history ("/internal_viewer/text_pattern%d", -1);
-    intviewer_defaults.text_patterns.ents = list;
-    intviewer_defaults.text_patterns.pos = list;
-    list = load_string_history ("/internal_viewer/hex_pattern%d", -1);
-    intviewer_defaults.hex_patterns.ents = list;
-    intviewer_defaults.hex_patterns.pos = list;
-
+    intviewer_defaults.text_patterns = load_string_history ("/internal_viewer/text_pattern%d", -1);
+    intviewer_defaults.hex_patterns.ents = load_string_history ("/internal_viewer/hex_pattern%d", -1);
     intviewer_defaults.case_sensitive = gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE);
     intviewer_defaults.search_mode = gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0);
 }
@@ -822,10 +810,7 @@ inline void GnomeCmdData::load_rename_history()
     advrename_defaults.height = gnome_cmd_data_get_int ("/advrename/height", 400);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
-    GList *templates = load_string_history ("/template-history/template%d", size);
-
-    advrename_defaults.templates.ents = templates;
-    advrename_defaults.templates.pos = templates;
+    advrename_defaults.templates = load_string_history ("/template-history/template%d", size);
 
     advrename_defaults.default_profile.counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
     advrename_defaults.default_profile.counter_width = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
@@ -887,7 +872,7 @@ inline void GnomeCmdData::load_auto_load_plugins()
 }
 
 
-GnomeCmdData::GnomeCmdData()
+GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 {
     quick_connect = NULL;
 
@@ -959,6 +944,9 @@ GnomeCmdData::GnomeCmdData()
     editor = NULL;
     differ = NULL;
     term = NULL;
+
+    umask = ::umask(0);
+    ::umask(umask);
 }
 
 
@@ -1065,6 +1053,16 @@ void GnomeCmdData::load()
     priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
     priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_bg = gdk_color_new (0x4d4d,0x4d4d,0x4d4d);
 
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].respect_theme = FALSE;
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].norm_fg = gdk_color_new (0xffff,0xc644,0);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].norm_bg = gdk_color_new (0x1919,0x2e2e,0);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].alt_fg = gdk_color_new (0xffff,0xc6c6,0);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].alt_bg = gdk_color_new (0x1f1f,0x3939,0x101);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_bg = gdk_color_new (0,0,0x4444);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_fg = gdk_color_new (0,0,0);
+    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
+
     priv->color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     priv->color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
     priv->color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
@@ -1117,7 +1115,8 @@ void GnomeCmdData::load()
         g_free (tmp);
     }
 
-    color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
+    color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", gcmd_owner.is_root() ? GNOME_CMD_COLOR_GREEN_TIGER :
+                                                                                                    GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -1977,7 +1976,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
         xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
                                    << XML::attr("match-case") << 0 << XML::chardata() << XML::escape(cfg.filename_pattern) << XML::endtag();
         xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
-        xml << XML::tag("Text") << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
+        xml << XML::tag("Text") << XML::attr("content-search") << cfg.content_search << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
 
     xml << XML::endtag();
 

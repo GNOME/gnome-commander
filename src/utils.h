@@ -178,7 +178,7 @@ inline gboolean state_is_ctrl_alt_shift (gint state)
 GList *strings_to_uris (gchar *data);
 
 GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri);
-const gchar *create_nice_size_str (GnomeVFSFileSize size);
+gchar *create_nice_size_str (GnomeVFSFileSize size);
 
 inline gchar *quote_if_needed (const gchar *in)
 {
@@ -186,11 +186,6 @@ inline gchar *quote_if_needed (const gchar *in)
 }
 
 gchar *unquote_if_needed (const gchar *in);
-
-inline void stop_kp (GtkObject *obj)
-{
-    gtk_signal_emit_stop_by_name (obj, "key-press-event");
-}
 
 GList *string_history_add (GList *in, const gchar *value, guint maxsize);
 

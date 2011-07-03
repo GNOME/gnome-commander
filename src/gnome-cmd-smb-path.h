@@ -52,7 +52,6 @@ class GnomeCmdSmbPath: public GnomeCmdPath
 
 inline GnomeCmdSmbPath::GnomeCmdSmbPath(const GnomeCmdSmbPath &thePath)
 {
-    path = g_strdup (thePath.path);
     workgroup = g_strdup (thePath.workgroup);
     resource = g_strdup (thePath.resource);
     resource_path = g_strdup (thePath.resource_path);

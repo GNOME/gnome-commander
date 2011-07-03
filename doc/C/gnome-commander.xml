@@ -231,7 +231,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.9;</revnumber>
-        <date>2010-??-??</date>
+        <date>2010-12-03</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -241,7 +241,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.10;</revnumber>
-        <date>2011-??-??</date>
+        <date>2011-01-15</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -252,6 +252,16 @@
       <revision>
         <revnumber>GNOME Commander Manual V1.2.8.11;</revnumber>
         <date>2011-05-01</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.12;</revnumber>
+        <date>2011-06-15</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -5783,7 +5793,7 @@
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
             <entry><para>Change directory</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6498,6 +6508,11 @@
                         <entry><para>view.close_duplicate_tabs</para></entry>
                         <entry><para>Close duplicate tabs</para></entry>
                         <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.directory</para></entry>
+                        <entry><para>Change directory</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>view.equal_panes</para></entry>
@@ -7622,6 +7637,9 @@
                             <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>
+                            <para>New colour theme: green tiger</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: cs, de, en, es, fr, sl</para>
                         </listitem>
                         <listitem>
@@ -7652,6 +7670,29 @@
                                     <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo>   Change right connection</para>
                                 </listitem>
                             </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.12</para></entry>
+            <entry><para>2011-06-15</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #618214 (crash when cancel a search)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #640387 (yet another fix for deprecated python modules: md5, sha1)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #649375 (bookmarks not updated for newly added ones)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with mkdir permissions</para>
                         </listitem>
                     </itemizedlist>
                 </para>

@@ -95,7 +95,7 @@ static void init (GnomeCmdDialog *dialog)
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), " ");
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win_widget));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win_widget));
     gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
@@ -148,19 +148,9 @@ GtkWidget *gnome_cmd_dialog_new (const gchar *title)
     GnomeCmdDialog *dialog = (GnomeCmdDialog *) g_object_new (GNOME_CMD_TYPE_DIALOG, NULL);
 
     if (title)
-        gnome_cmd_dialog_setup (dialog, title);
+        gtk_window_set_title (GTK_WINDOW (dialog), title);
 
     return GTK_WIDGET (dialog);
-}
-
-
-void gnome_cmd_dialog_setup (GnomeCmdDialog *dialog, const gchar *title)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-    g_return_if_fail (title != NULL);
-
-    if (title)
-        gtk_window_set_title (GTK_WINDOW (dialog), title);
 }
 
 
@@ -196,13 +186,4 @@ void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget 
     g_return_if_fail (GTK_IS_WIDGET (category));
 
     gtk_box_pack_start (GTK_BOX (dialog->priv->content), category, TRUE, TRUE, 0);
-}
-
-
-void gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog, GtkEditable *editable)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-    g_return_if_fail (GTK_IS_EDITABLE (editable));
-
-    g_signal_connect_swapped(editable, "activate", G_CALLBACK(gtk_window_activate_default), dialog);
 }

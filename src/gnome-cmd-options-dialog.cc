@@ -182,7 +182,6 @@ inline void store_general_options (GtkWidget *dialog)
     GtkWidget *lmb_unselects_check = lookup_widget (dialog, "lmb_unselects_check");
     GtkWidget *mmb_cd_up_radio = lookup_widget (dialog, "mmb_cd_up_radio");
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
-    GtkWidget *ft_regex_radio = lookup_widget (dialog, "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
     GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
@@ -401,8 +400,8 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit Colors..."));
     g_object_ref (dlg);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dlg));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dlg), GTK_WINDOW (parent));
+    gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
+    gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
@@ -536,8 +535,8 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
     GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit LS_COLORS Palette"));
     g_object_ref (dlg);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dlg));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dlg), GTK_WINDOW (parent));
+    gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
+    gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (parent));
 
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
@@ -661,6 +660,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
         _("Classic"),
         _("Deep blue"),
         _("Cafezinho"),
+        _("Green tiger"),
         _("Custom"),
         NULL
     };
@@ -1359,8 +1359,8 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     g_object_ref (dialog);
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (options_dialog));
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     hbox = create_hbox (dialog, FALSE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
@@ -1764,8 +1764,8 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     gtk_window_set_title (GTK_WINDOW (dialog), "");
     g_object_set_data (G_OBJECT (dialog), "options_dialog", options_dialog);
 
-    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (options_dialog));
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (options_dialog));
 
     table = create_table (dialog, 4, 2);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), table);

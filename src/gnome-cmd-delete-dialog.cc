@@ -204,7 +204,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
         gchar *msg = g_strdup_printf (_("Error while deleting \"%s\"\n\n%s"), data->problem_file, error);
 
         data->problem_action = run_simple_dialog (
-            GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
+            *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
             -1, _("Abort"), _("Retry"), _("Skip"), NULL);
         g_free (msg);
 
@@ -282,7 +282,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
                                             n_files),
                                    n_files);
 
-        response = run_simple_dialog (GTK_WIDGET (main_win), FALSE,
+        response = run_simple_dialog (*main_win, FALSE,
                                       GTK_MESSAGE_QUESTION, msg, _("Delete"),
                                       1, _("Cancel"), _("OK"), NULL);
 

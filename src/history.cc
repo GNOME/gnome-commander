@@ -42,6 +42,9 @@ void History::add(const gchar *text)
     if (is_locked)
         return;
 
+    if (!text || !*text)
+        return;
+
     // If we are in the middle of the history list, lets kill all items that are in front of us
     GList *l = ents;
     while (l && l != pos)
@@ -62,7 +65,7 @@ const gchar *History::first()
     g_return_val_if_fail (pos != NULL, NULL);
 
     if (pos->next)
-        pos = g_list_last(pos);
+        pos = g_list_last (pos);
 
     return (const gchar *) pos->data;
 }
@@ -95,7 +98,7 @@ const gchar *History::last()
     g_return_val_if_fail (pos != NULL, NULL);
 
     if (pos->prev)
-        pos = g_list_first(pos);
+        pos = g_list_first (pos);
 
     return (const gchar *) pos->data;
 }

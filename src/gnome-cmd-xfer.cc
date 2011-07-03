@@ -84,9 +84,9 @@ inline void free_xfer_data (XferData *data)
     g_list_free (data->src_uri_list);
 
     //  free the list with target uris
-    for (GList *tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
+    for (GList *i = data->dest_uri_list; i; i = i->next)
     {
-        GnomeVFSURI *uri = (GnomeVFSURI *) tmp_list->data;
+        GnomeVFSURI *uri = (GnomeVFSURI *) i->data;
         gnome_vfs_uri_unref (uri);
     }
 
@@ -127,6 +127,19 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
 }
 
 
+inline gchar *file_details(const gchar *text_uri)
+{
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+    GnomeVFSResult result = gnome_vfs_get_file_info (text_uri, info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+    gchar *size = create_nice_size_str (info->size);
+    gchar *details = result==GNOME_VFS_OK ? g_strdup_printf ("%s, %s", size, time2string (info->mtime, gnome_cmd_data_get_date_format ())) : g_strdup ("");
+    gnome_vfs_file_info_unref (info);
+    g_free (size);
+
+    return details;
+}
+
+
 static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgressInfo *info, XferData *data)
 {
     data->cur_phase = info->phase;
@@ -154,17 +167,29 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
     {
-        gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) :
-                                                           str_uri_basename (info->target_name);
-        gchar *fn = get_utf8 (t);
-        gchar *msg = g_strdup_printf (_("The file \"%s\" already exists.\n\nDo you want to overwrite it?\n"), fn);
+        gchar *s = gnome_cmd_dir_is_local (data->src_fl->cwd) ? gnome_vfs_get_local_path_from_uri (info->source_name) : str_uri_basename (info->source_name);
+        gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) : str_uri_basename (info->target_name);
+
+        gchar *source_filename = get_utf8 (s);
+        gchar *target_filename = get_utf8 (t);
+
+        g_free (s);
+        g_free (t);
+
+        gchar *source_details = file_details (info->source_name);
+        gchar *target_details = file_details (info->target_name);
+
+        gchar *msg = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"),
+                                      target_filename, target_details, source_filename, source_details);
+        g_free (source_filename);
+        g_free (target_filename);
+        g_free (source_details);
+        g_free (target_details);
 
         gdk_threads_enter ();
-        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, " ",
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, " ",
                                       1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
         g_free (msg);
-        g_free (fn);
-        g_free (t);
         data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE;
         gdk_threads_leave ();
         return ret==-1 ? 0 : ret;
@@ -373,9 +398,9 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     GnomeVFSURI *src_uri, *dest_uri;
 
     // Sanity check
-    for (GList *tmp = src_uri_list; tmp; tmp = tmp->next)
+    for (GList *i = src_uri_list; i; i = i->next)
     {
-        src_uri = (GnomeVFSURI *) tmp->data;
+        src_uri = (GnomeVFSURI *) i->data;
         if (uri_is_parent_to_dir_or_equal (src_uri, to_dir))
         {
             gnome_cmd_show_message (*main_win, _("Copying a directory into itself is a bad idea."), _("The whole operation was cancelled."));

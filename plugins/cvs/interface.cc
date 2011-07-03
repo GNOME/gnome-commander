@@ -251,7 +251,8 @@ GtkWidget *create_diff_win (CvsPlugin *plugin)
 
     dialog = gnome_cmd_dialog_new (_("CVS Diff"));
     g_object_ref (dialog);
-    gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
 
     gnome_cmd_dialog_add_button (
@@ -280,9 +281,9 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
 
     dialog = gnome_cmd_dialog_new ("CVS Log");
     g_object_ref (dialog);
-    gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
-    gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
+    gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+    gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,

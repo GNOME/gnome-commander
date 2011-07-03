@@ -22,7 +22,8 @@ libgcmd_dialogs_a_SOURCES = \
 	gnome-cmd-manage-bookmarks-dialog.h gnome-cmd-manage-bookmarks-dialog.cc \
 	gnome-cmd-mkdir-dialog.h gnome-cmd-mkdir-dialog.cc \
 	gnome-cmd-key-shortcuts-dialog.h gnome-cmd-key-shortcuts-dialog.cc \
-	gnome-cmd-edit-profile-dialog.h gnome-cmd-edit-profile-dialog.cc \
-	gnome-cmd-manage-profiles-dialog.h gnome-cmd-manage-profiles-dialog.cc
+	gnome-cmd-edit-profile-dialog.h \
+	gnome-cmd-manage-profiles-dialog.h \
+	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.cc
 
 -include $(top_srcdir)/git.mk

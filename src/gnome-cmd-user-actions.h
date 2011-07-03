@@ -295,6 +295,7 @@ GNOME_CMD_USER_ACTION(view_in_left_pane);
 GNOME_CMD_USER_ACTION(view_in_right_pane);
 GNOME_CMD_USER_ACTION(view_in_active_pane);
 GNOME_CMD_USER_ACTION(view_in_inactive_pane);
+GNOME_CMD_USER_ACTION(view_directory);
 GNOME_CMD_USER_ACTION(view_home);
 GNOME_CMD_USER_ACTION(view_root);
 GNOME_CMD_USER_ACTION(view_new_tab);

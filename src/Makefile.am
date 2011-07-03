@@ -29,6 +29,7 @@ gnome_commander_SOURCES = \
 	foldview/gnome-cmd-foldview-view.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \
 	gnome-cmd-advrename-lexer.h gnome-cmd-advrename-lexer.ll \
+	gnome-cmd-advrename-profile-component.h gnome-cmd-advrename-profile-component.cc \
 	gnome-cmd-app.h gnome-cmd-app.cc \
 	gnome-cmd-chmod-component.h gnome-cmd-chmod-component.cc \
 	gnome-cmd-chmod-dialog.h gnome-cmd-chmod-dialog.cc \
@@ -72,12 +73,11 @@ gnome_commander_SOURCES = \
 	gnome-cmd-prepare-copy-dialog.h gnome-cmd-prepare-copy-dialog.cc \
 	gnome-cmd-prepare-move-dialog.h gnome-cmd-prepare-move-dialog.cc \
 	gnome-cmd-prepare-xfer-dialog.h gnome-cmd-prepare-xfer-dialog.cc \
-	gnome-cmd-profile-component.h gnome-cmd-profile-component.cc \
 	gnome-cmd-regex.h \
 	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.cc \
-	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.cc \
+	gnome-cmd-selection-profile-component.h gnome-cmd-selection-profile-component.cc \
 	gnome-cmd-smb-auth.h gnome-cmd-smb-auth.cc \
 	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc \

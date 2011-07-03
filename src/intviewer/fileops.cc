@@ -122,7 +122,7 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
     if (fstat (fd, &ops->s) == -1)
     {
         close (fd);
-        g_warning("Cannot stat fileno(%d): %s ",
+        g_warning ("Cannot stat fileno(%d): %s ",
             fd, unix_error_string (errno));
         return -1;
     }
@@ -130,7 +130,7 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
     if (!S_ISREG (ops->s.st_mode))
     {
         close (fd);
-        g_warning("Cannot view: not a regular file ");
+        g_warning ("Cannot view: not a regular file ");
         return -1;
     }
 
@@ -146,7 +146,7 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
     if (error)
     {
         close(fd);
-        g_warning("Failed to open file: %s", error);
+        g_warning ("Failed to open file: %s", error);
         return -1;
     }
 
@@ -166,7 +166,7 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 
     if (fd==-1)
     {
-        g_warning("file_open_fd failed, 'dup' returned -1");
+        g_warning ("file_open_fd failed, 'dup' returned -1");
         return -1;
     }
 
@@ -174,7 +174,7 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 }
 
 
-int gv_file_open(ViewerFileOps *ops, const gchar* _file)
+int gv_file_open(ViewerFileOps *ops, const gchar *_file)
 {
     g_free (ops->filename);
 
@@ -188,7 +188,7 @@ int gv_file_open(ViewerFileOps *ops, const gchar* _file)
     // Open the file
     if ((fd = open (_file, O_RDONLY | O_NONBLOCK)) == -1)
     {
-        g_warning("Cannot open \"%s\"\n %s ", _file, unix_error_string (errno));
+        g_warning ("Cannot open \"%s\"\n %s ", _file, unix_error_string (errno));
         return -1;
     }
 

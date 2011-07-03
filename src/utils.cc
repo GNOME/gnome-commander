@@ -150,7 +150,7 @@ static gboolean delete_event_callback (gpointer data, gpointer user_data)
 {
     g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
 
-    gtk_signal_emit_stop_by_name (GTK_OBJECT (data), "delete-event");
+    g_signal_stop_emission_by_name (data, "delete-event");
 
     return TRUE;
 }
@@ -183,7 +183,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     button_titles = convert_varargs_to_name_array (button_title_args);
     va_end (button_title_args);
 
-    dialog = gtk_message_dialog_new (*main_win, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, text);
+    dialog = gtk_message_dialog_new_with_markup (*main_win, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, text);
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);
 
@@ -193,7 +193,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     g_free (button_titles);
 
     if (def_response>=0)
-        gtk_dialog_set_default_response(GTK_DIALOG (dialog), def_response);
+        gtk_dialog_set_default_response (GTK_DIALOG (dialog), def_response);
 
     // Allow close.
     if (ignore_close_box)
@@ -501,7 +501,7 @@ void mime_exec_single (GnomeCmdFile *f)
         {
             gchar *fname = get_utf8 (f->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
-            gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg,
+            gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
                                           _("Make Executable?"),
                                           -1, _("Cancel"), _("OK"), NULL);
             g_free (fname);
@@ -530,7 +530,7 @@ void mime_exec_single (GnomeCmdFile *f)
             {
                 gchar *fname = get_utf8 (f->info->name);
                 gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
-                gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
+                gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                                               -1, _("Cancel"), _("Display"), _("Run"), NULL);
                 g_free (fname);
                 g_free (msg);
@@ -658,7 +658,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
                                                            "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
                                                   gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
+                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
                     asked = TRUE;
                 }
 
@@ -742,12 +742,9 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     if (!dir_uri)
         return -1;
 
-    gchar *dir_uri_str;
+    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
 
-    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
-
-    if (!dir_uri_str)
-        return -1;
+    g_return_val_if_fail (dir_uri_str != NULL, -1);
 
     GList *list = NULL;
     GnomeVFSFileSize size = 0;
@@ -756,9 +753,9 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
     if (result==GNOME_VFS_OK && list)
     {
-        for (GList *tmp = list; tmp; tmp = tmp->next)
+        for (GList *i = list; i; i = i->next)
         {
-            GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
+            GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
             if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
             {
                 if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
@@ -772,8 +769,8 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
             }
         }
 
-        for (GList *tmp = list; tmp; tmp = tmp->next)
-            gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) tmp->data);
+        for (GList *i = list; i; i = i->next)
+            gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) i->data);
 
         g_list_free (list);
     }
@@ -814,21 +811,19 @@ GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 }
 
 
-const gchar *create_nice_size_str (GnomeVFSFileSize size)
+gchar *create_nice_size_str (GnomeVFSFileSize size)
 {
-    static gchar str1[64];
-    const gchar *s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
-    snprintf (str1, sizeof (str1), ngettext("%s byte","%s bytes",size), s1);
+    GString *s = g_string_sized_new (64);
 
-    if (size >= 1000)
+    if (gnome_cmd_data.size_disp_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED && size>=1000)
     {
-        static gchar str2[128];
-        const gchar *s2 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED);
-        snprintf (str2, sizeof (str2), "%s (%s)", s2, str1);
-        return str2;
+        g_string_printf (s, "%s", size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED));
+        g_string_append_printf (s, ngettext("(%sbyte)","(%sbytes)",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
     }
+    else
+        g_string_printf (s, ngettext("%sbyte","%sbytes",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
 
-    return str1;
+    return g_string_free (s, FALSE);
 }
 
 
@@ -925,13 +920,13 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 
 void set_cursor_busy ()
 {
-    set_cursor_busy_for_widget (GTK_WIDGET (main_win));
+    set_cursor_busy_for_widget (*main_win);
 }
 
 
 void set_cursor_default ()
 {
-    set_cursor_default_for_widget (GTK_WIDGET (main_win));
+    set_cursor_default_for_widget (*main_win);
 }
 
 
@@ -1021,11 +1016,9 @@ gchar *get_temp_download_filepath (const gchar *fname)
 
 void remove_temp_download_dir ()
 {
-    const gchar *tmp_dir = g_get_tmp_dir ();
-
     if (tmp_file_dir)
     {
-        gchar *path = g_build_filename (tmp_dir, tmp_file_dir, NULL);
+        gchar *path = g_build_filename (g_get_tmp_dir (), tmp_file_dir, NULL);
         gchar *command = g_strdup_printf ("rm -rf %s", path);
         g_free (path);
         system (command);
@@ -1153,7 +1146,7 @@ gchar *unc_to_unix (const gchar *path)
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
 {
     GdkColor *c = g_new0 (GdkColor, 1);
-    c->pixel = 0;
+    // c->pixel = 0;
     c->red = r;
     c->green = g;
     c->blue = b;

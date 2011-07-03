@@ -126,7 +126,7 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int *a
         pos = g_utf8_next_char(pos);
         if (!pos)
         {
-            g_warning("unexpected NULL found in UTF8 string");
+            g_warning ("unexpected NULL found in UTF8 string");
             break;
         }
     }

@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <stdio.h>
 #include <glib-object.h>
 #include <libgnomeui/gnome-popup-menu.h>
 
@@ -1494,7 +1495,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileList *fl)
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), vbox);
 
-    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (fl->priv->con_open_dialog), *main_win);
+    gtk_window_set_transient_for (GTK_WINDOW (fl->priv->con_open_dialog), *main_win);
     gtk_widget_show_all (fl->priv->con_open_dialog);
 }
 
@@ -2378,7 +2379,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 set_cursor_busy ();
                 toggle();
                 show_dir_tree_size(get_selected_file());
-                stop_kp (*this);
+                g_signal_stop_emission_by_name (this, "key-press-event");
                 g_signal_emit (this, signals[FILES_CHANGED], 0);
                 set_cursor_default ();
                 return TRUE;

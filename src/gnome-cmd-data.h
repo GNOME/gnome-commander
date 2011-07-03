@@ -72,11 +72,13 @@ struct GnomeCmdData
         Filter::Type syntax;
         int max_depth;
         std::string text_pattern;
+        gboolean content_search;
         gboolean match_case;
 
-        void reset();
+        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
 
-        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), match_case(FALSE)       {}
+        const std::string &description() const    {  return filename_pattern;  }
+        void reset();
 
         friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
     };
@@ -90,7 +92,9 @@ struct GnomeCmdData
         History name_patterns;
         History content_patterns;
 
-        SearchConfig(): width(600), height(400), name_patterns(SEARCH_HISTORY_SIZE), content_patterns(SEARCH_HISTORY_SIZE)   {  default_profile.name = "Default";  }
+        std::vector<Selection> &profiles;
+
+        SearchConfig(std::vector<Selection> &selections): width(600), height(400), name_patterns(SEARCH_HISTORY_SIZE), content_patterns(SEARCH_HISTORY_SIZE), profiles(selections)   {  default_profile.name = "Default";  }
 
         friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
     };
@@ -110,11 +114,12 @@ struct GnomeCmdData
             guint case_conversion;
             guint trim_blanks;
 
-            void reset();
-
             Profile(): template_string("$N"),
                        counter_start(1), counter_width(1), counter_step(1),
                        case_conversion(0), trim_blanks(3)                     {}
+
+            const std::string &description() const {  return template_string;  }
+            void reset();
         };
 
         gint width, height;
@@ -258,6 +263,8 @@ struct GnomeCmdData
     GdkWindowState               main_win_state;
 
     std::map<guint,std::vector<Tab> > tabs;
+
+    mode_t                       umask;
 
     GnomeCmdData();
 

@@ -17,23 +17,23 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
-#ifndef __GNOME_CMD_PROFILE_COMPONENT_H__
-#define __GNOME_CMD_PROFILE_COMPONENT_H__
+#ifndef __GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_H__
+#define __GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_H__
 
 #include "gnome-cmd-data.h"
 
-#define GNOME_CMD_TYPE_PROFILE_COMPONENT              (gnome_cmd_profile_component_get_type ())
-#define GNOME_CMD_PROFILE_COMPONENT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponent))
-#define GNOME_CMD_PROFILE_COMPONENT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponentClass))
-#define GNOME_CMD_IS_PROFILE_COMPONENT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT))
-#define GNOME_CMD_IS_PROFILE_COMPONENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_PROFILE_COMPONENT))
-#define GNOME_CMD_PROFILE_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_PROFILE_COMPONENT, GnomeCmdProfileComponentClass))
+#define GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT              (gnome_cmd_advrename_profile_component_get_type ())
+#define GNOME_CMD_ADVRENAME_PROFILE_COMPONENT(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, GnomeCmdAdvrenameProfileComponent))
+#define GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, GnomeCmdAdvrenameProfileComponentClass))
+#define GNOME_CMD_IS_ADVRENAME_PROFILE_COMPONENT(obj)           (G_TYPE_CHECK_INSTANCE_TYPE((obj), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT))
+#define GNOME_CMD_IS_ADVRENAME_PROFILE_COMPONENT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT))
+#define GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, GnomeCmdAdvrenameProfileComponentClass))
 
 
-GType gnome_cmd_profile_component_get_type ();
+GType gnome_cmd_advrename_profile_component_get_type ();
 
 
-struct GnomeCmdProfileComponent
+struct GnomeCmdAdvrenameProfileComponent
 {
     GtkVBox parent;
 
@@ -43,15 +43,15 @@ struct GnomeCmdProfileComponent
 
     operator GtkWidget * () const       {  return GTK_WIDGET (this);  }
 
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_PROFILE_COMPONENT, NULL);  }
+    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_PROFILE_COMPONENT, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
     enum {COL_REGEX, COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, NUM_REGEX_COLS};
 
     GnomeCmdData::AdvrenameConfig::Profile &profile;
 
-    GnomeCmdProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile);
-    ~GnomeCmdProfileComponent()     {}
+    GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile);
+    ~GnomeCmdAdvrenameProfileComponent()     {}
 
     void update();
     void copy();                                                    //  copies component to associated profile
@@ -66,4 +66,4 @@ struct GnomeCmdProfileComponent
     GtkTreeModel *get_regex_model() const;
 };
 
-#endif // __GNOME_CMD_PROFILE_COMPONENT_H__
+#endif // __GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_H__

@@ -205,11 +205,11 @@ static void class_init (GViewerSearchDlgClass *klass)
 
 void entry_changed (GtkEntry *entry, gpointer  user_data)
 {
-    g_return_if_fail (IS_GVIEWER_SEARCH_DLG(user_data));
+    g_return_if_fail (IS_GVIEWER_SEARCH_DLG (user_data));
 
     gboolean enable = FALSE;
 
-    GViewerSearchDlg *sdlg = GVIEWER_SEARCH_DLG(user_data);
+    GViewerSearchDlg *sdlg = GVIEWER_SEARCH_DLG (user_data);
     g_return_if_fail (sdlg->priv!=NULL);
 
     if (sdlg->priv->searchmode==SEARCH_MODE_HEX)
@@ -272,7 +272,7 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
 
     // Search mode radio buttons
     sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL, _("_Text"));
-    sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(sdlg->priv->text_mode), _("_Hexadecimal"));
+    sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON (sdlg->priv->text_mode), _("_Hexadecimal"));
 
     g_signal_connect (sdlg->priv->text_mode, "toggled", G_CALLBACK (search_mode_text), sdlg);
     g_signal_connect (sdlg->priv->hex_mode, "toggled", G_CALLBACK (search_mode_hex), sdlg);
@@ -310,10 +310,9 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
 
 static void search_dlg_destroy (GtkObject *object)
 {
-    g_return_if_fail (object != NULL);
-    g_return_if_fail (IS_GVIEWER_SEARCH_DLG(object));
+    g_return_if_fail (IS_GVIEWER_SEARCH_DLG (object));
 
-    GViewerSearchDlg *w = GVIEWER_SEARCH_DLG(object);
+    GViewerSearchDlg *w = GVIEWER_SEARCH_DLG (object);
 
     if (w->priv)
     {

@@ -101,15 +101,13 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
 
                     GnomeVFSResult result = GNOME_VFS_OK;
 
+                    guint perm = (GNOME_VFS_PERM_USER_ALL | GNOME_VFS_PERM_GROUP_ALL | GNOME_VFS_PERM_OTHER_ALL) & ~gnome_cmd_data.umask | GNOME_VFS_PERM_USER_WRITE | GNOME_VFS_PERM_USER_EXEC;
+
                     for (GSList *i = uri_list; i; i = g_slist_next (i))
                     {
                         GnomeVFSURI *mkdir_uri = (GnomeVFSURI *) i->data;
 
-                        result = gnome_vfs_make_directory_for_uri (mkdir_uri,
-                                                                   GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
-                                                                   GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
-                                                                   GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
-
+                        result = gnome_vfs_make_directory_for_uri (mkdir_uri, perm);
 
                         if (result!=GNOME_VFS_OK)
                         {
