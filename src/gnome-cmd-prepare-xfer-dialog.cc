@@ -122,7 +122,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                 gchar *t = g_path_get_dirname (dest_path);
                 dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, t));
                 g_free (t);
-                dest_fn = g_strdup (g_basename (dest_path));
+                dest_fn = g_path_get_basename (dest_path);
             }
             else
             {
@@ -134,7 +134,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                     // yup, xfer to it
                     dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
                     g_free (parent_dir);
-                    dest_fn = g_strdup (g_basename (dest_path));
+                    dest_fn = g_path_get_basename (dest_path);
                 }
                 else
                     if (res == GNOME_VFS_OK)
@@ -166,7 +166,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
                         dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
                         g_free (parent_dir);
-                        dest_fn = g_strdup (g_basename (dest_path));
+                        dest_fn = g_path_get_basename (dest_path);
                     }
             }
     }
