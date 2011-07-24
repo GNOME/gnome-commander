@@ -154,8 +154,6 @@ inline void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 
 static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMotion *event, gpointer user_data)
 {
-    gint i, iX, iY;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
     if (indicator->priv->slashCharPosition == NULL)
@@ -164,17 +162,17 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
         return FALSE;
 
     // find out where in the label the pointer is at
-    iX = (gint)event->x;
-    iY = (gint)event->y;
+    gint iX = (gint) event->x;
+    gint iY = (gint) event->y;
 
-    for (i=0; i < indicator->priv->numPositions; i++)
+    for (gint i=0; i < indicator->priv->numPositions; i++)
     {
         if (iX < indicator->priv->slashPixelPosition[i])
         {
             // underline the part that is selected
-            GdkCursor *cursor = gdk_cursor_new(GDK_HAND2);
-            gdk_window_set_cursor(GTK_WIDGET(indicator)->window, cursor);
-            gdk_cursor_destroy(cursor);
+            GdkCursor *cursor = gdk_cursor_new (GDK_HAND2);
+            gdk_window_set_cursor (GTK_WIDGET (indicator)->window, cursor);
+            gdk_cursor_destroy (cursor);
 
             update_markup (indicator, i);
 
@@ -183,7 +181,7 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
 
         // clear underline, cursor=pointer
         update_markup (indicator, -1);
-        gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
+        gdk_window_set_cursor (GTK_WIDGET (indicator)->window, NULL);
     }
 
     return TRUE;
@@ -196,7 +194,7 @@ static gint on_dir_indicator_leave (GnomeCmdDirIndicator *indicator, GdkEventMot
 
     // clear underline, cursor=pointer
     update_markup (indicator, -1);
-    gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
+    gdk_window_set_cursor (GTK_WIDGET (indicator)->window, NULL);
 
     return TRUE;
 }
