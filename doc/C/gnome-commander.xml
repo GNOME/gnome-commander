@@ -270,6 +270,16 @@
         </revdescription>
       </revision>
       <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.13;</revnumber>
+        <date>2011-07-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
         <revnumber>GNOME Commander Manual V1.4;</revnumber>
         <date>2011-??-??</date>
         <revdescription>
@@ -7670,6 +7680,20 @@
                                     <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo>   Change right connection</para>
                                 </listitem>
                             </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.13</para></entry>
+            <entry><para>2011-07-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem ...</para>
                         </listitem>
                     </itemizedlist>
                 </para>
