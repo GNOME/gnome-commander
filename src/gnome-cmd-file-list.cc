@@ -2679,7 +2679,7 @@ static gboolean do_scroll (GnomeCmdFileList *fl)
     gint row_height;
     GtkCList *clist = *fl;
 
-    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+    gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     offset = (0-clist->voffset);
     row_height = gnome_cmd_data.list_row_height;
@@ -2714,7 +2714,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
     GtkCList *clist = *fl;
     gint w, h;
 
-    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+    gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     gint smin = h/8;
     gint smax = h-smin;

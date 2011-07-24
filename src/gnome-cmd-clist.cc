@@ -366,12 +366,12 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
         switch (clist_row->cell[i].type)
         {
             case GTK_CELL_PIXMAP:
-                gdk_window_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap, &pixmap_width, &height);
+                gdk_drawable_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width;
                 break;
 
             case GTK_CELL_PIXTEXT:
-                gdk_window_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
+                gdk_drawable_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width + GTK_CELL_PIXTEXT (clist_row->cell[i])->spacing;
                 break;
 
