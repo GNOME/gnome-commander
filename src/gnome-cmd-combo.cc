@@ -416,7 +416,7 @@ static void init (GnomeCmdCombo *combo)
 
     cursor = gdk_cursor_new (GDK_TOP_LEFT_ARROW);
     gdk_window_set_cursor (event_box->window, cursor);
-    gdk_cursor_destroy (cursor);
+    gdk_cursor_unref (cursor);
 
     frame = gtk_frame_new (NULL);
     g_object_ref (frame);

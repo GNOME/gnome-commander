@@ -172,7 +172,7 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
             // underline the part that is selected
             GdkCursor *cursor = gdk_cursor_new (GDK_HAND2);
             gdk_window_set_cursor (GTK_WIDGET (indicator)->window, cursor);
-            gdk_cursor_destroy (cursor);
+            gdk_cursor_unref (cursor);
 
             update_markup (indicator, i);
 
