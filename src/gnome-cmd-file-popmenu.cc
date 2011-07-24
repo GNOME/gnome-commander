@@ -398,7 +398,7 @@ inline gchar *string_double_underscores (const gchar *string)
 inline gchar *get_default_application_action_name (GList *files)
 {
     if (g_list_length(files)>1)
-        return g_strdup(_("_Open"));
+        return g_strdup (_("_Open"));
 
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
     gchar *uri_str = gnome_cmd_file_get_uri_str (f);
@@ -407,7 +407,7 @@ inline gchar *get_default_application_action_name (GList *files)
     g_free (uri_str);
 
     if (!app)
-        return g_strdup(_("_Open"));
+        return g_strdup (_("_Open"));
 
     gchar *escaped_app_name = string_double_underscores (app->name);
     gnome_vfs_mime_application_free (app);

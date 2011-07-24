@@ -403,23 +403,23 @@ static void text_render_position_changed(TextRender *w)
     if (w->priv->v_adjustment)
     {
         w->priv->v_adjustment->value = w->priv->current_offset;
-        gtk_adjustment_changed(w->priv->v_adjustment);
+        gtk_adjustment_changed (w->priv->v_adjustment);
     }
 
     if (w->priv->h_adjustment)
     {
         w->priv->h_adjustment->value = w->priv->column;
-        gtk_adjustment_changed(w->priv->h_adjustment);
+        gtk_adjustment_changed (w->priv->h_adjustment);
     }
 }
 
 
 static void text_render_redraw(TextRender *w)
 {
-    if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
+    if (!GTK_WIDGET_REALIZED (GTK_WIDGET (w)))
         return;
 
-    gdk_window_invalidate_rect(GTK_WIDGET (w)->window, NULL, FALSE);
+    gdk_window_invalidate_rect (GTK_WIDGET (w)->window, NULL, FALSE);
 }
 
 
@@ -473,8 +473,7 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
 
     case GDK_End:
         obj->priv->current_offset =
-            gv_align_offset_to_line_start(
-                obj->priv->dp, gv_file_get_max_offset(obj->priv->fops)-1);
+            gv_align_offset_to_line_start(obj->priv->dp, gv_file_get_max_offset(obj->priv->fops)-1);
         break;
 
     default:
@@ -520,8 +519,8 @@ static void text_render_realize (GtkWidget *widget)
 
     gtk_style_set_background (widget->style, widget->window, GTK_STATE_ACTIVE);
 
-    obj->priv->gc = gdk_gc_new(GTK_WIDGET (obj)->window);
-    gdk_gc_set_exposures(obj->priv->gc, TRUE);
+    obj->priv->gc = gdk_gc_new (GTK_WIDGET (obj)->window);
+    gdk_gc_set_exposures (obj->priv->gc, TRUE);
 
     text_render_setup_font(obj, obj->priv->fixed_font_name, obj->priv->font_size);
 }
@@ -978,7 +977,7 @@ static void text_render_update_adjustments_limits(TextRender *w)
     {
         w->priv->v_adjustment->lower = 0;
         w->priv->v_adjustment->upper = gv_file_get_max_offset(w->priv->fops)-1;
-        gtk_adjustment_changed(w->priv->v_adjustment);
+        gtk_adjustment_changed (w->priv->v_adjustment);
     }
 
     if (w->priv->h_adjustment)
@@ -991,7 +990,7 @@ static void text_render_update_adjustments_limits(TextRender *w)
             w->priv->h_adjustment->upper = w->priv->max_column; // TODO: find our the real horz limit
         else
             w->priv->h_adjustment->upper = 0;
-        gtk_adjustment_changed(w->priv->h_adjustment);
+        gtk_adjustment_changed (w->priv->h_adjustment);
     }
 }
 
@@ -1068,7 +1067,7 @@ static void text_render_free_font(TextRender*w)
 static PangoFontMetrics *load_font (const char *font_name)
 {
     PangoFontDescription *new_desc = pango_font_description_from_string (font_name);
-    PangoContext *context = gdk_pango_context_get();
+    PangoContext *context = gdk_pango_context_get ();
     PangoFont *new_font = pango_context_load_font (context, new_desc);
     PangoFontMetrics *new_metrics = pango_font_get_metrics (new_font, pango_context_get_language (context));
 
@@ -1182,7 +1181,7 @@ static void text_render_reserve_utf8buf(TextRender *w, int minlength)
     if (w->priv->utf8alloc < minlength)
     {
         w->priv->utf8alloc = minlength*2;
-        w->priv->utf8buf = (unsigned char*) g_realloc(w->priv->utf8buf, w->priv->utf8alloc);
+        w->priv->utf8buf = (unsigned char*) g_realloc (w->priv->utf8buf, w->priv->utf8alloc);
     }
 }
 
