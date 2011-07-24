@@ -362,7 +362,7 @@ static void text_render_destroy (GtkObject *object)
 
     if (w->priv)
     {
-        g_free(w->priv->fixed_font_name);
+        g_free (w->priv->fixed_font_name);
         w->priv->fixed_font_name = NULL;
 
         if (w->priv->v_adjustment)
@@ -373,17 +373,17 @@ static void text_render_destroy (GtkObject *object)
             g_object_unref (w->priv->h_adjustment);
         w->priv->h_adjustment = NULL;
 
-        g_free(w->priv->encoding);
+        g_free (w->priv->encoding);
         w->priv->encoding = NULL;
 
         text_render_free_font(w);
 
         text_render_free_data(w);
 
-        g_free(w->priv->utf8buf);
+        g_free (w->priv->utf8buf);
         w->priv->utf8buf = NULL;
 
-        g_free(w->priv);
+        g_free (w->priv);
         w->priv = NULL;
     }
 
@@ -1173,7 +1173,7 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
        PANGO_PIXELS(pango_font_metrics_get_ascent(w->priv->disp_font_metrics)) +
        PANGO_PIXELS(pango_font_metrics_get_descent(w->priv->disp_font_metrics));
 
-    g_free(fontlabel);
+    g_free (fontlabel);
 }
 
 
@@ -1492,7 +1492,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
             return;
         }
 
-    g_free(w->priv->encoding);
+    g_free (w->priv->encoding);
     w->priv->encoding = g_strdup (encoding);
     gv_set_input_mode(w->priv->im, encoding);
     text_render_filter_undisplayable_chars(w);
