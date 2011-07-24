@@ -3,9 +3,9 @@
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Piotr Eljasiak">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.2.8.12">
-  <!ENTITY manrevision "1.2.8.12">
-  <!ENTITY date "June 2011">
+  <!ENTITY appversion "1.2.8.13">
+  <!ENTITY manrevision "1.2.8.13">
+  <!ENTITY date "July 2011">
   <!ENTITY app "GNOME Commander">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
