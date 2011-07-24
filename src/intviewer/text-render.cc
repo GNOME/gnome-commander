@@ -1484,7 +1484,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
         return;
 
     // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
-    if (g_strcasecmp(encoding, "UTF8")==0 && (
+    if (g_ascii_strcasecmp (encoding, "UTF8")==0 && (
         w->priv->dispmode==TR_DISP_MODE_BINARY || w->priv->dispmode==TR_DISP_MODE_HEXDUMP))
         {
             g_warning("Can't set UTF8 encoding when in Binary or HexDump display mode");
