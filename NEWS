@@ -37,7 +37,7 @@ gnome-commander 1.2.8.13
 ---------------
 
 Bug fixes:
- * Fixed problem ...
+ * Fixed problem #646871 (crash on file properties when connected to FTP)
 
 
 ===================================

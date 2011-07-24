@@ -7693,7 +7693,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem ...</para>
+                            <para>Fixed problem #646871 (crash on file properties when connected to FTP)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
