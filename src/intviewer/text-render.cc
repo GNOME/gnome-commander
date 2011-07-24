@@ -1866,17 +1866,8 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
-    int byte_value;
-    char_type value;
-    offset_type current;
-
-    offset_type marker_start;
-    offset_type marker_end;
-    gboolean show_marker;
-    gboolean marker_shown = FALSE;
-
-    marker_start = w->priv->marker_start;
-    marker_end = w->priv->marker_end;
+    offset_type marker_start = w->priv->marker_start;
+    offset_type marker_end = w->priv->marker_end;
 
     if (marker_start > marker_end)
     {
@@ -1885,7 +1876,8 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         marker_start = temp;
     }
 
-    show_marker = (marker_start!=marker_end);
+    gboolean marker_shown = FALSE;
+    gboolean show_marker = marker_start!=marker_end;
     text_render_utf8_clear_buf(w);
 
     if (w->priv->hex_offset_display)
@@ -1893,8 +1885,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
     else
         text_render_utf8_printf (w, "%09lu ", (unsigned long)start_of_line);
 
-    current = start_of_line;
-    while (current < end_of_line)
+    for (offset_type current=start_of_line; current<end_of_line; ++current)
     {
         if (show_marker)
         {
@@ -1903,20 +1894,20 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
                 w->priv->hexmode_marker_on_hexdump);
         }
 
-        byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+        int byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+
         if (byte_value==-1)
             break;
-        current++;
 
-        text_render_utf8_printf (w, "%02x ", (unsigned char)byte_value);
+        text_render_utf8_printf (w, "%02x ", (unsigned char) byte_value);
     }
+
     if (show_marker)
         marker_closer(w, marker_shown);
 
     marker_shown = FALSE;
 
-    current = start_of_line;
-    while (current < end_of_line)
+    for (offset_type current=start_of_line; current<end_of_line; ++current)
     {
         if (show_marker)
         {
@@ -1925,18 +1916,19 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
                 !w->priv->hexmode_marker_on_hexdump);
         }
 
-        byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+        int byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+
         if (byte_value==-1)
             break;
-        value = gv_input_mode_byte_to_utf8(w->priv->im, (unsigned char)byte_value);
+
+        char_type value = gv_input_mode_byte_to_utf8(w->priv->im, (unsigned char) byte_value);
 
         if (NEED_PANGO_ESCAPING(value))
             text_render_utf8_printf (w, escape_pango_char(value));
         else
             text_render_utf8_print_char(w, value);
-
-        current++;
     }
+
     if (show_marker)
         marker_closer(w, marker_shown);
 
