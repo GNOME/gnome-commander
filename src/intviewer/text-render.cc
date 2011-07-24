@@ -1663,7 +1663,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
     g_return_if_fail (obj->priv->dp!=NULL);
     g_return_if_fail (obj->priv->im!=NULL);
 
-    GtkClipboard *clip = gtk_clipboard_get_for_display(gdk_display_get_default(), GDK_SELECTION_CLIPBOARD);
+    GtkClipboard *clip = gtk_clipboard_get_for_display (gdk_display_get_default (), GDK_SELECTION_CLIPBOARD);
     g_return_if_fail (clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
@@ -1788,7 +1788,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
         marker_start = temp;
     }
 
-    show_marker = (marker_start!=marker_end);
+    show_marker = marker_start!=marker_end;
     text_render_utf8_clear_buf(w);
 
     current = start_of_line;
@@ -1869,7 +1869,7 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
         else
         {
             // the user selected the ascii portion
-            column = (column-10-16*3);
+            column = column-10-16*3;
             obj->priv->hexmode_marker_on_hexdump = FALSE;
         }
     }
@@ -1913,7 +1913,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         return;
     }
 
-    GtkClipboard *clip = gtk_clipboard_get_for_display(gdk_display_get_default(), GDK_SELECTION_CLIPBOARD);
+    GtkClipboard *clip = gtk_clipboard_get_for_display (gdk_display_get_default (), GDK_SELECTION_CLIPBOARD);
     g_return_if_fail (clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
