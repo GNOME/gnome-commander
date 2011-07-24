@@ -152,8 +152,13 @@ GtkType gnome_cmd_chown_component_get_type ()
 
 void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid_t gid)
 {
-    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), gcmd_owner.users[uid]);
-    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gcmd_owner.groups[gid]);
+    const gchar *uid_name = gcmd_owner.users[uid];
+    const gchar *gid_name = gcmd_owner.groups[gid];
+
+    if (uid_name)
+        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), uid_name);
+    if (gid_name)
+        gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gid_name);
 }
 
 
