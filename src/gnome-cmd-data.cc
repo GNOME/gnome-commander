@@ -368,9 +368,8 @@ inline gboolean vfs_is_uri_local (const char *uri)
     gboolean b = gnome_vfs_uri_is_local (pURI);
     gnome_vfs_uri_unref (pURI);
 
-    /* make sure this is actually a local path
-           (gnome treats "burn://" as local, too and we don't want that)  */
-    if (g_strncasecmp (uri,"file:/", 6)!=0)
+    // make sure this is actually a local path (gnome treats "burn://" as local too, and we don't want that)
+    if (g_ascii_strncasecmp (uri, "file:/", 6)!=0)
         b = FALSE;
 
     DEBUG('m',"uri (%s) is %slocal\n", uri, b?"":"NOT ");

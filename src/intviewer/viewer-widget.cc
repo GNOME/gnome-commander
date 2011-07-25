@@ -299,7 +299,7 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 
     const char *mime = gnome_vfs_get_mime_type_for_data(data, len);
 
-    if (g_strncasecmp (mime, "image/", 6)==0)
+    if (g_ascii_strncasecmp (mime, "image/", 6)==0)
         return DISP_MODE_IMAGE;
 
     /* Hex File ?  */
