@@ -452,10 +452,9 @@ void GnomeCmdUserActions::load(const gchar *section)
             g_strstrip (++action_options);
         }
 
-        g_strstrip (action_name);
-        g_strdown (action_name);
+        gchar *action_name__lowercase = g_ascii_strdown (g_strstrip (action_name), -1);
 
-        if (action_func[action_name])
+        if (action_func[action_name__lowercase])
         {
             guint keyval;
             guint state;
@@ -463,15 +462,16 @@ void GnomeCmdUserActions::load(const gchar *section)
             str2key(key, state, keyval);
 
             if (keyval!=GDK_VoidSymbol)
-                register_action(state, keyval, action_name, action_options);
+                register_action(state, keyval, action_name__lowercase, action_options);
             else
                 g_warning ("[%s] invalid key name: '%s' - ignored", section, key);
         }
         else
-            g_warning ("[%s] unknown user action: '%s' - ignored", section, action_name);
+            g_warning ("[%s] unknown user action: '%s' - ignored", section, action_name__lowercase);
 
         g_free (key);
         g_free (action_name);
+        g_free (action_name__lowercase);
     }
 }
 
