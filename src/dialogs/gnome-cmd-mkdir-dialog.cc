@@ -88,7 +88,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                 // don't create any directory if no name was passed or cancel was selected
                 if (!filename || *filename==0)
                 {
-                    gnome_cmd_show_message(GTK_WINDOW (dialog), _("A directory name must be entered"));
+                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("A directory name must be entered"));
                     g_signal_stop_emission_by_name (dialog, "response");
                 }
                 else
@@ -112,7 +112,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                         if (result!=GNOME_VFS_OK)
                         {
                             string dirname = stringify (gnome_vfs_uri_extract_short_name (mkdir_uri));
-                            gnome_cmd_show_message(GTK_WINDOW (dialog), dirname, gnome_vfs_result_to_string (result));
+                            gnome_cmd_show_message (GTK_WINDOW (dialog), dirname, gnome_vfs_result_to_string (result));
                             g_signal_stop_emission_by_name (dialog, "response");
                             break;
                         }

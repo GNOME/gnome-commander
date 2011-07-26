@@ -465,7 +465,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
  ****/
 static void on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
-    gtk_widget_draw (GTK_WIDGET(clist), NULL);
+    gtk_widget_draw (GTK_WIDGET (clist), NULL);
 }
 
 

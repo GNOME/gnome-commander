@@ -122,8 +122,8 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
     GtkWidget *btn;
 
     string_dialog->rows = rows;
-    string_dialog->labels = (GtkWidget**)g_new (gpointer, rows);
-    string_dialog->entries = (GtkWidget**)g_new (gpointer, rows);
+    string_dialog->labels = (GtkWidget**) g_new (gpointer, rows);
+    string_dialog->entries = (GtkWidget**) g_new (gpointer, rows);
     string_dialog->priv->error_desc = g_strdup (_("No error description available"));
 
     table = create_table (dialog, rows, 2);
@@ -136,7 +136,7 @@ inline void setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 
         string_dialog->entries[i] = create_entry (dialog, "entry", "");
         gtk_entry_set_activates_default (GTK_ENTRY (string_dialog->entries[i]), TRUE);
-        table_add (table, string_dialog->entries[i], 1, i, GtkAttachOptions(GTK_FILL|GTK_EXPAND));
+        table_add (table, string_dialog->entries[i], 1, i, GtkAttachOptions (GTK_FILL|GTK_EXPAND));
     }
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), string_dialog);
