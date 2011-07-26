@@ -161,7 +161,7 @@ GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *ini
 
 void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f)
 {
-    g_return_if_fail(obj!=NULL);
+    g_return_if_fail (obj!=NULL);
     g_return_if_fail (f!=NULL);
 
     g_free (obj->priv->filename);
@@ -209,7 +209,7 @@ static void gviewer_window_class_init (GViewerWindowClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkWindowClass *) gtk_type_class(gtk_window_get_type ());
+    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
     object_class->destroy = gviewer_window_destroy;
     widget_class->map = gviewer_window_map;
@@ -249,7 +249,7 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_widget_show (w->priv->statusbar);
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->statusbar, FALSE, FALSE, 0);
 
-    w->priv->statusbar_ctx_id  = gtk_statusbar_get_context_id(GTK_STATUSBAR(w->priv->statusbar), "info");
+    w->priv->statusbar_ctx_id  = gtk_statusbar_get_context_id (GTK_STATUSBAR (w->priv->statusbar), "info");
 
     gtk_widget_grab_focus (GTK_WIDGET (w->priv->viewer));
 
@@ -264,10 +264,10 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status
     GViewerWindow *w = GVIEWER_WINDOW (wnd);
 
     if (w->priv->status_bar_msg)
-        gtk_statusbar_pop(GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id);
+        gtk_statusbar_pop (GTK_STATUSBAR (w->priv->statusbar), w->priv->statusbar_ctx_id);
 
     if (status_line)
-        gtk_statusbar_push(GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id, status_line);
+        gtk_statusbar_push (GTK_STATUSBAR (w->priv->statusbar), w->priv->statusbar_ctx_id, status_line);
 
     w->priv->status_bar_msg = status_line!=NULL;
 }
@@ -314,9 +314,9 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
 #if 0
     // This doesn't work because the window is not shown yet
     if (GTK_WIDGET (obj)->window)
-        gdk_window_move(GTK_WIDGET (obj)->window, settings->rect.x, settings->rect.y);
+        gdk_window_move (GTK_WIDGET (obj)->window, settings->rect.x, settings->rect.y);
 #endif
-    gtk_window_set_position(GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
+    gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
 }
 
 
@@ -547,7 +547,7 @@ static GtkWidget *create_radio_menu_item (GSList **group,
 {
     GtkWidget *menuitem = gtk_radio_menu_item_new_with_mnemonic (*group, _(name));
 
-    *group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
+    *group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (menuitem));
 
     if (accel && keyval)
         gtk_widget_add_accelerator (menuitem, "activate", accel, keyval, (GdkModifierType) modifier, GTK_ACCEL_VISIBLE);
@@ -621,7 +621,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         }
 
         if (menudata->gobj_key)
-            g_object_set_data(G_OBJECT (item), menudata->gobj_key, menudata->gobj_val);
+            g_object_set_data (G_OBJECT (item), menudata->gobj_key, menudata->gobj_val);
 
         if (menudata->menu_item_widget)
             *menudata->menu_item_widget = item;
@@ -892,7 +892,7 @@ static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj)
     if (gviewer_get_display_mode(obj->priv->viewer) != DISP_MODE_IMAGE)
         return;
 
-    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (item)))
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item)))
         gviewer_window_show_metadata(obj);
     else
         gviewer_window_hide_metadata(obj);
@@ -904,14 +904,14 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (item)))
+    if (!gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item)))
         return;
 
     VIEWERDISPLAYMODE dispmode = (VIEWERDISPLAYMODE) GPOINTER_TO_UINT (g_object_get_data(G_OBJECT (item), G_OBJ_DISPMODE_KEY));
 
     if (dispmode==DISP_MODE_IMAGE)
     {
-        if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (obj->priv->show_exif_menu_item)))
+        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (obj->priv->show_exif_menu_item)))
             gviewer_window_show_metadata(obj);
         else
             gviewer_window_hide_metadata(obj);
@@ -922,7 +922,7 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
     gviewer_set_display_mode(obj->priv->viewer, dispmode);
     gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
 
-    gtk_widget_draw(GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
 }
 
 
@@ -931,17 +931,17 @@ static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (item)))
+    if (!gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item)))
         return;
 
-    gchar *charset = (gchar *) g_object_get_data(G_OBJECT (item), G_OBJ_CHARSET_KEY);
+    gchar *charset = (gchar *) g_object_get_data (G_OBJECT (item), G_OBJ_CHARSET_KEY);
     g_return_if_fail (charset!=NULL);
 
     // ASCII is set implicitly when setting a charset
-    //gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM (w->priv->ascii_menu_item), TRUE);
+    // gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (w->priv->ascii_menu_item), TRUE);
 
     gviewer_set_encoding(obj->priv->viewer, charset);
-    gtk_widget_draw(GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
 }
 
 
@@ -950,11 +950,11 @@ static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    IMAGEOPERATION imageop = (IMAGEOPERATION) GPOINTER_TO_UINT (g_object_get_data(G_OBJECT (item), G_OBJ_IMAGE_OP_KEY));
+    IMAGEOPERATION imageop = (IMAGEOPERATION) GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (item), G_OBJ_IMAGE_OP_KEY));
 
     gviewer_image_operation(obj->priv->viewer, imageop);
 
-    gtk_widget_draw(GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
 }
 
 
@@ -1076,13 +1076,13 @@ static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (item)))
+    if (!gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item)))
         return;
 
-    int bytes_per_line = GPOINTER_TO_INT (g_object_get_data(G_OBJECT (item), G_OBJ_BYTES_PER_LINE_KEY));
+    int bytes_per_line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), G_OBJ_BYTES_PER_LINE_KEY));
 
     gviewer_set_fixed_limit(obj->priv->viewer, bytes_per_line);
-    gtk_widget_draw(GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
 }
 
 
