@@ -468,13 +468,14 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
             }
             dialog->update_new_filenames();
             dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());
+            dialog->priv->profile_component->set_template_history(dialog->defaults.templates.ents);
             break;
 
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
         case GTK_RESPONSE_CLOSE:
-            dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());
+            dialog->priv->profile_component->copy();
             gtk_widget_hide (*dialog);
             dialog->unset();
             g_signal_stop_emission_by_name (dialog, "response");        //  FIXME:  ???
@@ -696,9 +697,6 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
 
     gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, FALSE, FALSE, 0);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
-
-    // Template
-    priv->profile_component->set_template_history(defaults.templates.ents);
 
     // Results
     files = create_files_model ();
