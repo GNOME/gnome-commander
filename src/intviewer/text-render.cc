@@ -45,8 +45,8 @@
 using namespace std;
 
 
-#define HEXDUMP_FIXED_LIMIT 16
-#define MAX_CLIPBOARD_COPY_LENGTH 0xFFFFFF
+#define HEXDUMP_FIXED_LIMIT              16
+#define MAX_CLIPBOARD_COPY_LENGTH  0xFFFFFF
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
 
