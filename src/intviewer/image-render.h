@@ -65,24 +65,24 @@ enum IMAGEOPERATION
     FLIP_HORIZONTAL
 };
 
-GtkWidget     *image_render_new ();
-GtkType        image_render_get_type ();
+GtkWidget *image_render_new ();
+GtkType image_render_get_type ();
 
 GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj);
-void           image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
+void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
 GtkAdjustment *image_render_get_v_adjustment (ImageRender *obj);
-void           image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
+void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
 
-void           image_render_load_file (ImageRender *obj, const gchar *filename);
+void image_render_load_file (ImageRender *obj, const gchar *filename);
 
-void           image_render_notify_status_changed (ImageRender *w);
+void image_render_notify_status_changed (ImageRender *w);
 
-void           image_render_set_best_fit (ImageRender *obj, gboolean active);
-gboolean       image_render_get_best_fit (ImageRender *obj);
+void image_render_set_best_fit (ImageRender *obj, gboolean active);
+gboolean image_render_get_best_fit (ImageRender *obj);
 
-void           image_render_set_scale_factor (ImageRender *obj, double scalefactor);
-double         image_render_get_scale_factor (ImageRender *obj);
+void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
+double image_render_get_scale_factor (ImageRender *obj);
 
-void           image_render_operation (ImageRender *obj, IMAGEOPERATION op);
+void image_render_operation (ImageRender *obj, IMAGEOPERATION op);
 
 #endif /* __IMAGE_RENDER_H__ */
