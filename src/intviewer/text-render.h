@@ -33,6 +33,9 @@
 #define TEXT_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_TEXT_RENDER, TextRenderClass))
 
 
+GType text_render_get_type ();
+
+
 struct TextRenderPrivate;
 struct TextRenderStatus;
 
@@ -59,8 +62,10 @@ struct TextRenderStatus
 };
 
 
-GtkWidget     *text_render_new ();
-GtkType        text_render_get_type ();
+inline GtkWidget *text_render_new ()
+{
+    return (GtkWidget *) g_object_new (TYPE_TEXT_RENDER, NULL);
+}
 
 GtkAdjustment *text_render_get_h_adjustment (TextRender *obj);
 void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment);

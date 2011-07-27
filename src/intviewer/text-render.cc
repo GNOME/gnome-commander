@@ -53,8 +53,6 @@ using namespace std;
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
 
-static GtkWidgetClass *parent_class = NULL;
-
 enum
 {
   TEXT_STATUS_CHANGED,
@@ -132,11 +130,11 @@ struct TextRenderPrivate
     copy_to_clipboard_proc copy_to_clipboard;
 };
 
-// Gtk class related static functions
-static void text_render_init (TextRender *w);
-static void text_render_class_init (TextRenderClass *klass);
-static void text_render_destroy (GtkObject *object);
 
+G_DEFINE_TYPE (TextRender, text_render, GTK_TYPE_WIDGET)
+
+
+// Gtk class related static functions
 static void text_render_redraw(TextRender *w);
 static void text_render_position_changed(TextRender *w);
 
@@ -180,35 +178,6 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
     public functions
     (defined in the header file)
 *****************************************/
-GtkType text_render_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "TextRender",
-            sizeof (TextRender),
-            sizeof (TextRenderClass),
-            (GtkClassInitFunc) text_render_class_init,
-            (GtkObjectInitFunc) text_render_init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-        type = gtk_type_unique (gtk_widget_get_type(), &info);
-    }
-    return type;
-}
-
-GtkWidget *text_render_new ()
-{
-    TextRender *w = (TextRender *) g_object_new (text_render_get_type (), NULL);
-
-    return GTK_WIDGET (w);
-}
-
-
 void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
@@ -257,39 +226,6 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 }
 
 
-static void text_render_class_init (TextRenderClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
-
-    object_class->destroy = text_render_destroy;
-
-    widget_class->scroll_event = text_render_scroll;
-    widget_class->button_press_event = text_render_button_press;
-    widget_class->button_release_event = text_render_button_release;
-    widget_class->motion_notify_event = text_render_motion_notify;
-
-    widget_class->expose_event = text_render_expose;
-
-    widget_class->size_request = text_render_size_request;
-    widget_class->size_allocate = text_render_size_allocate;
-
-    widget_class->realize = text_render_realize;
-
-    text_render_signals[TEXT_STATUS_CHANGED] =
-        g_signal_new ("text-status-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-}
-
-
 static void text_render_init (TextRender *w)
 {
     w->priv = g_new0 (TextRenderPrivate, 1);
@@ -333,6 +269,66 @@ static void text_render_init (TextRender *w)
 }
 
 
+static void text_render_finalize (GObject *object)
+{
+    TextRender *w = TEXT_RENDER (object);
+
+    if (w->priv)
+    {
+        g_free (w->priv->fixed_font_name);
+
+        if (w->priv->v_adjustment)
+            g_object_unref (w->priv->v_adjustment);
+
+        if (w->priv->h_adjustment)
+            g_object_unref (w->priv->h_adjustment);
+
+        g_free (w->priv->encoding);
+
+        text_render_free_font(w);
+
+        text_render_free_data(w);
+
+        g_free (w->priv->utf8buf);
+
+        g_free (w->priv);
+    }
+
+    G_OBJECT_CLASS (text_render_parent_class)->finalize (object);
+}
+
+
+static void text_render_class_init (TextRenderClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    object_class->finalize = text_render_finalize;
+
+    widget_class->scroll_event = text_render_scroll;
+    widget_class->button_press_event = text_render_button_press;
+    widget_class->button_release_event = text_render_button_release;
+    widget_class->motion_notify_event = text_render_motion_notify;
+
+    widget_class->expose_event = text_render_expose;
+
+    widget_class->size_request = text_render_size_request;
+    widget_class->size_allocate = text_render_size_allocate;
+
+    widget_class->realize = text_render_realize;
+
+    text_render_signals[TEXT_STATUS_CHANGED] =
+        g_signal_new ("text-status-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
+}
+
+
 void text_render_notify_status_changed(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
@@ -350,44 +346,6 @@ void text_render_notify_status_changed(TextRender *w)
     stat.encoding = w->priv->encoding;
 
     g_signal_emit (w, text_render_signals[TEXT_STATUS_CHANGED], 0, &stat);
-}
-
-
-static void text_render_destroy (GtkObject *object)
-{
-    g_return_if_fail (IS_TEXT_RENDER (object));
-
-    TextRender *w = TEXT_RENDER (object);
-
-    if (w->priv)
-    {
-        g_free (w->priv->fixed_font_name);
-        w->priv->fixed_font_name = NULL;
-
-        if (w->priv->v_adjustment)
-            g_object_unref (w->priv->v_adjustment);
-        w->priv->v_adjustment = NULL;
-
-        if (w->priv->h_adjustment)
-            g_object_unref (w->priv->h_adjustment);
-        w->priv->h_adjustment = NULL;
-
-        g_free (w->priv->encoding);
-        w->priv->encoding = NULL;
-
-        text_render_free_font(w);
-
-        text_render_free_data(w);
-
-        g_free (w->priv->utf8buf);
-        w->priv->utf8buf = NULL;
-
-        g_free (w->priv);
-        w->priv = NULL;
-    }
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
