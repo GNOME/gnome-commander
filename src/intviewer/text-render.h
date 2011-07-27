@@ -25,9 +25,12 @@
 #ifndef __TEXT_RENDER_H__
 #define __TEXT_RENDER_H__
 
-#define TEXT_RENDER(obj)          GTK_CHECK_CAST (obj, text_render_get_type (), TextRender)
-#define TEXT_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, text_render_get_type (), TextRenderClass)
-#define IS_TEXT_RENDER(obj)       GTK_CHECK_TYPE (obj, text_render_get_type ())
+#define TYPE_TEXT_RENDER               (text_render_get_type ())
+#define TEXT_RENDER(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_TEXT_RENDER, TextRender))
+#define TEXT_RENDER_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass), TYPE_TEXT_RENDER, TextRenderClass))
+#define IS_TEXT_RENDER(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_TEXT_RENDER))
+#define IS_TEXT_RENDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_TEXT_RENDER))
+#define TEXT_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_TEXT_RENDER, TextRenderClass))
 
 #define TEXT_RENDER_DEFAULT_WIDTH   (100)
 #define TEXT_RENDER_DEFAULT_HEIGHT  (200)
