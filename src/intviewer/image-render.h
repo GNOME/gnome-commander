@@ -33,6 +33,9 @@
 #define IMAGE_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_IMAGE_RENDER, ImageRenderClass))
 
 
+GType image_render_get_type ();
+
+
 struct ImageRender
 {
     GtkWidget parent;
@@ -60,8 +63,10 @@ enum IMAGEOPERATION
     FLIP_HORIZONTAL
 };
 
-GtkWidget *image_render_new ();
-GtkType image_render_get_type ();
+inline GtkWidget *image_render_new ()
+{
+    return (GtkWidget *) g_object_new (TYPE_IMAGE_RENDER, NULL);
+}
 
 GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj);
 void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);

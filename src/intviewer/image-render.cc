@@ -47,8 +47,6 @@ using namespace std;
 #define IMAGE_RENDER_DEFAULT_HEIGHT     200
 
 
-static GtkWidgetClass *parent_class = NULL;
-
 enum {
   IMAGE_STATUS_CHANGED,
   LAST_SIGNAL
@@ -91,11 +89,11 @@ struct ImageRender::Private
     gint        orig_pixbuf_loaded;
 };
 
-// Gtk class related static functions
-static void image_render_init (ImageRender *w);
-static void image_render_class_init (ImageRenderClass *klass);
-static void image_render_destroy (GtkObject *object);
 
+G_DEFINE_TYPE (ImageRender, image_render, GTK_TYPE_WIDGET)
+
+
+// Gtk class related static functions
 static void image_render_redraw (ImageRender *w);
 
 static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event);
@@ -126,36 +124,6 @@ static void image_render_update_adjustments (ImageRender *obj);
     public functions
     (defined in the header file)
 *****************************************/
-GtkType image_render_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "ImageRender",
-            sizeof (ImageRender),
-            sizeof (ImageRenderClass),
-            (GtkClassInitFunc) image_render_class_init,
-            (GtkObjectInitFunc) image_render_init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-        type = gtk_type_unique (gtk_widget_get_type(), &info);
-    }
-    return type;
-}
-
-
-GtkWidget *image_render_new ()
-{
-    ImageRender *w = (ImageRender *) g_object_new (image_render_get_type (), NULL);
-
-    return GTK_WIDGET (w);
-}
-
-
 void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
@@ -214,39 +182,6 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 }
 
 
-static void image_render_class_init (ImageRenderClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
-
-    object_class->destroy = image_render_destroy;
-
-    widget_class->key_press_event = image_render_key_press;
-    widget_class->button_press_event = image_render_button_press;
-    widget_class->button_release_event = image_render_button_release;
-    widget_class->motion_notify_event = image_render_motion_notify;
-
-    widget_class->expose_event = image_render_expose;
-
-    widget_class->size_request = image_render_size_request;
-    widget_class->size_allocate = image_render_size_allocate;
-
-    widget_class->realize = image_render_realize;
-
-    image_render_signals[IMAGE_STATUS_CHANGED] =
-        g_signal_new ("image-status-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (ImageRenderClass, image_status_changed),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-}
-
-
 static void image_render_init (ImageRender *w)
 {
     w->priv = g_new0 (ImageRender::Private, 1);
@@ -271,14 +206,12 @@ static void image_render_init (ImageRender *w)
     w->priv->orig_pixbuf = NULL;
     w->priv->disp_pixbuf = NULL;
 
-    GTK_WIDGET_SET_FLAGS(GTK_WIDGET (w), GTK_CAN_FOCUS);
+    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (w), GTK_CAN_FOCUS);
 }
 
 
-static void image_render_destroy (GtkObject *object)
+static void image_render_finalize (GObject *object)
 {
-    g_return_if_fail (IS_IMAGE_RENDER (object));
-
     ImageRender *w = IMAGE_RENDER (object);
 
     if (w->priv)
@@ -303,19 +236,46 @@ static void image_render_destroy (GtkObject *object)
 
             if (w->priv->v_adjustment)
                 g_object_unref (w->priv->v_adjustment);
-            w->priv->v_adjustment = NULL;
 
             if (w->priv->h_adjustment)
                 g_object_unref (w->priv->h_adjustment);
-            w->priv->h_adjustment = NULL;
 
             g_free (w->priv);
-            w->priv = NULL;
         }
     }
 
-    if (GTK_OBJECT_CLASS(parent_class)->destroy)
-        (*GTK_OBJECT_CLASS(parent_class)->destroy) (object);
+    G_OBJECT_CLASS (image_render_parent_class)->finalize (object);
+}
+
+
+static void image_render_class_init (ImageRenderClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    object_class->finalize = image_render_finalize;
+
+    widget_class->key_press_event = image_render_key_press;
+    widget_class->button_press_event = image_render_button_press;
+    widget_class->button_release_event = image_render_button_release;
+    widget_class->motion_notify_event = image_render_motion_notify;
+
+    widget_class->expose_event = image_render_expose;
+
+    widget_class->size_request = image_render_size_request;
+    widget_class->size_allocate = image_render_size_allocate;
+
+    widget_class->realize = image_render_realize;
+
+    image_render_signals[IMAGE_STATUS_CHANGED] =
+        g_signal_new ("image-status-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (ImageRenderClass, image_status_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 
