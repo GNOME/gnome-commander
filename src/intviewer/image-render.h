@@ -41,12 +41,6 @@ struct ImageRender
     ImageRenderPrivate *priv;
 };
 
-struct ImageRenderClass
-{
-    GtkWidgetClass parent_class;
-    void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
-};
-
 struct ImageRenderStatus
 {
     gboolean best_fit;

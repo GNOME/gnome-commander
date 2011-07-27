@@ -53,6 +53,12 @@ enum {
 static guint image_render_signals[LAST_SIGNAL] = { 0 };
 
 
+struct ImageRenderClass
+{
+    GtkWidgetClass parent_class;
+    void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
+};
+
 // Class Private Data
 struct ImageRenderPrivate
 {
