@@ -42,13 +42,6 @@ struct TextRender
     TextRenderPrivate *priv;
 };
 
-struct TextRenderClass
-{
-    GtkWidgetClass parent_class;
-
-    void (* text_status_changed)  (TextRender *obj, TextRenderStatus *status);
-};
-
 enum TEXTDISPLAYMODE
 {
     TR_DISP_MODE_TEXT,

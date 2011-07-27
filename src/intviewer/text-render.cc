@@ -68,6 +68,13 @@ typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboo
 typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
 
 
+struct TextRenderClass
+{
+    GtkWidgetClass parent_class;
+
+    void (* text_status_changed) (TextRender *obj, TextRenderStatus *status);
+};
+
 // Class Private Data
 struct TextRenderPrivate
 {
