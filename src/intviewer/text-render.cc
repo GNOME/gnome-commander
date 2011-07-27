@@ -70,11 +70,11 @@ struct TextRenderClass
 {
     GtkWidgetClass parent_class;
 
-    void (* text_status_changed) (TextRender *obj, TextRenderStatus *status);
+    void (* text_status_changed) (TextRender *obj, TextRender::Status *status);
 };
 
 // Class Private Data
-struct TextRenderPrivate
+struct TextRender::Private
 {
     guint8 button; // The button pressed in "button_press_event"
 
@@ -228,7 +228,7 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 
 static void text_render_init (TextRender *w)
 {
-    w->priv = g_new0 (TextRenderPrivate, 1);
+    w->priv = g_new0 (TextRender::Private, 1);
 
     w->priv->button = 0;
     w->priv->dispmode = TR_DISP_MODE_TEXT;
@@ -333,7 +333,7 @@ void text_render_notify_status_changed(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
 
-    TextRenderStatus stat;
+    TextRender::Status stat;
 
     memset(&stat, 0, sizeof(stat));
 

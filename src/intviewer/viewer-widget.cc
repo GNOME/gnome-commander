@@ -83,7 +83,7 @@ static void gviewer_init (GViewer *w);
 static void gviewer_class_init (GViewerClass *klass);
 static void gviewer_destroy (GtkObject *object);
 
-static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer);
+static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer);
 static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer);
 static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
 
@@ -199,7 +199,7 @@ static void gviewer_init (GViewer *w)
 
 
 #define MAX_STATUS_LENGTH 128
-static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer)
+static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer)
 {
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);

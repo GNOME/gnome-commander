@@ -36,13 +36,22 @@
 GType text_render_get_type ();
 
 
-struct TextRenderPrivate;
-struct TextRenderStatus;
-
 struct TextRender
 {
-    GtkWidget widget;
-    TextRenderPrivate *priv;
+    GtkWidget parent;
+
+    struct Private;
+
+    Private *priv;
+
+    struct Status
+    {
+        offset_type current_offset;
+        offset_type size;
+        int         column;
+        const char *encoding;
+        gboolean    wrap_mode;
+    };
 };
 
 enum TEXTDISPLAYMODE
@@ -51,16 +60,6 @@ enum TEXTDISPLAYMODE
     TR_DISP_MODE_BINARY,
     TR_DISP_MODE_HEXDUMP
 };
-
-struct TextRenderStatus
-{
-    offset_type current_offset;
-    offset_type size;
-    int         column;
-    const char *encoding;
-    gboolean    wrap_mode;
-};
-
 
 inline GtkWidget *text_render_new ()
 {
