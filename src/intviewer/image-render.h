@@ -29,8 +29,6 @@
 #define IMAGE_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, image_render_get_type (), ImageRenderClass)
 #define IS_IMAGE_RENDER(obj)       GTK_CHECK_TYPE (obj, image_render_get_type ())
 
-#define IMAGE_RENDER_DEFAULT_WIDTH    (100)
-#define IMAGE_RENDER_DEFAULT_HEIGHT   (200)
 
 struct ImageRender
 {

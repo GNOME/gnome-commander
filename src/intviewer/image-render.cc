@@ -43,6 +43,10 @@
 using namespace std;
 
 
+#define IMAGE_RENDER_DEFAULT_WIDTH      100
+#define IMAGE_RENDER_DEFAULT_HEIGHT     200
+
+
 static GtkWidgetClass *parent_class = NULL;
 
 enum {
