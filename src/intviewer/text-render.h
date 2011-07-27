@@ -32,8 +32,6 @@
 #define IS_TEXT_RENDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_TEXT_RENDER))
 #define TEXT_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_TEXT_RENDER, TextRenderClass))
 
-#define TEXT_RENDER_DEFAULT_WIDTH   (100)
-#define TEXT_RENDER_DEFAULT_HEIGHT  (200)
 
 struct TextRenderPrivate;
 struct TextRenderStatus;

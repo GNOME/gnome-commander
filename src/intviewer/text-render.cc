@@ -45,6 +45,9 @@
 using namespace std;
 
 
+#define TEXT_RENDER_DEFAULT_WIDTH       100
+#define TEXT_RENDER_DEFAULT_HEIGHT      200
+
 #define HEXDUMP_FIXED_LIMIT              16
 #define MAX_CLIPBOARD_COPY_LENGTH  0xFFFFFF
 
