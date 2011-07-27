@@ -25,9 +25,12 @@
 #ifndef __IMAGE_RENDER_H__
 #define __IMAGE_RENDER_H__
 
-#define IMAGE_RENDER(obj)          GTK_CHECK_CAST (obj, image_render_get_type (), ImageRender)
-#define IMAGE_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, image_render_get_type (), ImageRenderClass)
-#define IS_IMAGE_RENDER(obj)       GTK_CHECK_TYPE (obj, image_render_get_type ())
+#define TYPE_IMAGE_RENDER               (image_render_get_type ())
+#define IMAGE_RENDER(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_IMAGE_RENDER, ImageRender))
+#define IMAGE_RENDER_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass), TYPE_IMAGE_RENDER, ImageRenderClass))
+#define IS_IMAGE_RENDER(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_IMAGE_RENDER))
+#define IS_IMAGE_RENDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_IMAGE_RENDER))
+#define IMAGE_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_IMAGE_RENDER, ImageRenderClass))
 
 
 struct ImageRender
