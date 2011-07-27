@@ -56,11 +56,11 @@ static guint image_render_signals[LAST_SIGNAL] = { 0 };
 struct ImageRenderClass
 {
     GtkWidgetClass parent_class;
-    void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
+    void (*image_status_changed)  (ImageRender *obj, ImageRender::Status *status);
 };
 
 // Class Private Data
-struct ImageRenderPrivate
+struct ImageRender::Private
 {
     guint8 button; // The button pressed in "button_press_event"
 
@@ -245,7 +245,7 @@ static void image_render_class_init (ImageRenderClass *klass)
 
 static void image_render_init (ImageRender *w)
 {
-    w->priv = g_new0 (ImageRenderPrivate, 1);
+    w->priv = g_new0 (ImageRender::Private, 1);
 
     w->priv->button = 0;
 
@@ -319,7 +319,7 @@ void image_render_notify_status_changed (ImageRender *w)
 {
     g_return_if_fail (IS_IMAGE_RENDER (w));
 
-    ImageRenderStatus stat;
+    ImageRender::Status stat;
 
     memset(&stat, 0, sizeof(stat));
 

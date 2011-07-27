@@ -32,22 +32,22 @@
 #define IMAGE_RENDER_DEFAULT_WIDTH    (100)
 #define IMAGE_RENDER_DEFAULT_HEIGHT   (200)
 
-struct ImageRenderPrivate;
-struct ImageRenderStatus;
-
 struct ImageRender
 {
-    GtkWidget widget;
-    ImageRenderPrivate *priv;
-};
+    GtkWidget parent;
 
-struct ImageRenderStatus
-{
-    gboolean best_fit;
-    gdouble  scale_factor;
-    gint     image_width;
-    gint     image_height;
-    gint     bits_per_sample;
+    struct Private;
+
+    Private *priv;
+
+    struct Status
+    {
+        gboolean best_fit;
+        gdouble  scale_factor;
+        gint     image_width;
+        gint     image_height;
+        gint     bits_per_sample;
+    };
 };
 
 enum IMAGEOPERATION

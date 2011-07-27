@@ -84,7 +84,7 @@ static void gviewer_class_init (GViewerClass *klass);
 static void gviewer_destroy (GtkObject *object);
 
 static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer);
-static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer);
+static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer);
 static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
 
 static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len);
@@ -217,7 +217,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRender::Status *stat
 }
 
 
-static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer)
+static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer)
 {
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
