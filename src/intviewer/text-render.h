@@ -52,13 +52,13 @@ struct TextRender
         const char *encoding;
         gboolean    wrap_mode;
     };
-};
 
-enum TEXTDISPLAYMODE
-{
-    TR_DISP_MODE_TEXT,
-    TR_DISP_MODE_BINARY,
-    TR_DISP_MODE_HEXDUMP
+    enum DISPLAYMODE
+    {
+        DISPLAYMODE_TEXT,
+        DISPLAYMODE_BINARY,
+        DISPLAYMODE_HEXDUMP
+    };
 };
 
 inline GtkWidget *text_render_new ()
@@ -78,8 +78,8 @@ void text_render_load_filedesc(TextRender *w, int filedesc);
 
 void text_render_notify_status_changed(TextRender *w);
 
-void text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode);
-TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w);
+void text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode);
+TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w);
 
 ViewerFileOps *text_render_get_file_ops(TextRender *w);
 GVInputModesData *text_render_get_input_mode_data(TextRender *w);

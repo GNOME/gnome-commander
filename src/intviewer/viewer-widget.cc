@@ -364,17 +364,17 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
     {
         case DISP_MODE_TEXT_FIXED:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_TEXT);
+            text_render_set_display_mode (obj->priv->textr, TextRender::DISPLAYMODE_TEXT);
             break;
 
         case DISP_MODE_BINARY:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_BINARY);
+            text_render_set_display_mode (obj->priv->textr, TextRender::DISPLAYMODE_BINARY);
             break;
 
         case DISP_MODE_HEXDUMP:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_HEXDUMP);
+            text_render_set_display_mode (obj->priv->textr, TextRender::DISPLAYMODE_HEXDUMP);
             break;
 
         case DISP_MODE_IMAGE:

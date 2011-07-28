@@ -103,7 +103,7 @@ struct TextRender::Private
     int max_column;
     offset_type current_offset;
     offset_type last_displayed_offset;
-    TEXTDISPLAYMODE dispmode;
+    DISPLAYMODE dispmode;
     gboolean hex_offset_display;
     gchar *fixed_font_name;
 
@@ -231,7 +231,7 @@ static void text_render_init (TextRender *w)
     w->priv = g_new0 (TextRender::Private, 1);
 
     w->priv->button = 0;
-    w->priv->dispmode = TR_DISP_MODE_TEXT;
+    w->priv->dispmode = TextRender::DISPLAYMODE_TEXT;
     w->priv->h_adjustment = NULL;
     w->priv->old_h_adj_value = 0.0;
     w->priv->old_h_adj_lower = 0.0;
@@ -860,7 +860,7 @@ static void text_render_internal_load(TextRender *w)
     gv_set_fixed_count(w->priv->dp, w->priv->fixed_limit);
     gv_set_tab_size(w->priv->dp, w->priv->tab_size);
 
-    text_render_set_display_mode (w, TR_DISP_MODE_TEXT);
+    text_render_set_display_mode (w, TextRender::DISPLAYMODE_TEXT);
 
     text_render_update_adjustments_limits(w);
 }
@@ -1174,7 +1174,7 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 }
 
 
-void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
+void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
     g_return_if_fail (w->priv->fops!=NULL);
@@ -1188,7 +1188,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 
     switch (mode)
     {
-    case TR_DISP_MODE_TEXT:
+    case TextRender::DISPLAYMODE_TEXT:
         gv_set_data_presentation_mode(w->priv->dp, w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
         w->priv->display_line = text_mode_display_line;
@@ -1196,7 +1196,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
         w->priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
-    case TR_DISP_MODE_BINARY:
+    case TextRender::DISPLAYMODE_BINARY:
 
         // Binary display mode doesn't support UTF8
         // TODO: switch back to the previous encoding, not just ASCII
@@ -1210,7 +1210,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
         w->priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
-    case TR_DISP_MODE_HEXDUMP:
+    case TextRender::DISPLAYMODE_HEXDUMP:
 
         // HEX display mode doesn't support UTF8
         // TODO: switch back to the previous encoding, not just ASCII
@@ -1233,9 +1233,9 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 }
 
 
-TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w)
+TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (w), TR_DISP_MODE_TEXT);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), TextRender::DISPLAYMODE_TEXT);
 
     return w->priv->dispmode;
 }
@@ -1302,7 +1302,7 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
         return;
 
     w->priv->wrapmode = ACTIVE;
-    if (w->priv->dispmode==TR_DISP_MODE_TEXT)
+    if (w->priv->dispmode==TextRender::DISPLAYMODE_TEXT)
     {
         w->priv->column = 0;
         gv_set_data_presentation_mode(w->priv->dp, w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
@@ -1328,7 +1328,7 @@ void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
     w->priv->fixed_limit = fixed_limit;
 
     // always 16 bytes in hex dump
-    if (w->priv->dispmode==TR_DISP_MODE_HEXDUMP)
+    if (w->priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP)
         fixed_limit = HEXDUMP_FIXED_LIMIT;
 
     if (w->priv->dp)
@@ -1396,7 +1396,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
 
     // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
     if (g_ascii_strcasecmp (encoding, "UTF8")==0 && (
-        w->priv->dispmode==TR_DISP_MODE_BINARY || w->priv->dispmode==TR_DISP_MODE_HEXDUMP))
+        w->priv->dispmode==TextRender::DISPLAYMODE_BINARY || w->priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP))
         {
             g_warning ("Can't set UTF8 encoding when in Binary or HexDump display mode");
             return;
