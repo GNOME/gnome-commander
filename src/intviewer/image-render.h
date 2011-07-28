@@ -52,15 +52,15 @@ struct ImageRender
         gint     image_height;
         gint     bits_per_sample;
     };
-};
 
-enum IMAGEOPERATION
-{
-    ROTATE_CLOCKWISE,
-    ROTATE_COUNTERCLOCKWISE,
-    ROTATE_UPSIDEDOWN,
-    FLIP_VERTICAL,
-    FLIP_HORIZONTAL
+    enum DISPLAYMODE
+    {
+        ROTATE_CLOCKWISE,
+        ROTATE_COUNTERCLOCKWISE,
+        ROTATE_UPSIDEDOWN,
+        FLIP_VERTICAL,
+        FLIP_HORIZONTAL
+    };
 };
 
 inline GtkWidget *image_render_new ()
@@ -83,6 +83,6 @@ gboolean image_render_get_best_fit (ImageRender *obj);
 void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
 double image_render_get_scale_factor (ImageRender *obj);
 
-void image_render_operation (ImageRender *obj, IMAGEOPERATION op);
+void image_render_operation (ImageRender *obj, ImageRender::DISPLAYMODE op);
 
 #endif /* __IMAGE_RENDER_H__ */

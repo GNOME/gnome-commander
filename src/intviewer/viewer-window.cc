@@ -765,27 +765,27 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         {MI_NORMAL, _("_Rotate Clockwise"), GDK_R, GDK_CONTROL_MASK,
                 G_CALLBACK (menu_image_operation),
                 GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-90-16.xpm",
-                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER(ROTATE_CLOCKWISE),
+                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER (ImageRender::ROTATE_COUNTERCLOCKWISE),
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NORMAL, _("Rotate Counter Clockwis_e"), NO_KEYVAL, NO_MODIFIER,
                 G_CALLBACK (menu_image_operation),
                 GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-270-16.xpm",
-                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER(ROTATE_COUNTERCLOCKWISE),
+                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER (ImageRender::ROTATE_COUNTERCLOCKWISE),
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NORMAL, _("_Rotate 180\xC2\xB0"), GDK_r, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                 G_CALLBACK (menu_image_operation),
                 GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-180-16.xpm",
-                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER(ROTATE_UPSIDEDOWN),
+                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER (ImageRender::ROTATE_UPSIDEDOWN),
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NORMAL, _("Flip _Vertical"), NO_KEYVAL, NO_MODIFIER,
                 G_CALLBACK (menu_image_operation),
                 GNOME_APP_PIXMAP_FILENAME, "gnome-commander/flip-vertical-16.xpm",
-                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER(FLIP_VERTICAL),
+                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER (ImageRender::FLIP_VERTICAL),
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NORMAL, _("Flip _Horizontal"), NO_KEYVAL, NO_MODIFIER,
                 G_CALLBACK (menu_image_operation),
                 GNOME_APP_PIXMAP_FILENAME, "gnome-commander/flip-horizontal-16.xpm",
-                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER(FLIP_HORIZONTAL),
+                G_OBJ_IMAGE_OP_KEY, (gpointer *) GUINT_TO_POINTER (ImageRender::FLIP_HORIZONTAL),
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NONE}
     };
@@ -950,7 +950,7 @@ static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    IMAGEOPERATION imageop = (IMAGEOPERATION) GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (item), G_OBJ_IMAGE_OP_KEY));
+    ImageRender::DISPLAYMODE imageop = (ImageRender::DISPLAYMODE) GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (item), G_OBJ_IMAGE_OP_KEY));
 
     gviewer_image_operation(obj->priv->viewer, imageop);
 

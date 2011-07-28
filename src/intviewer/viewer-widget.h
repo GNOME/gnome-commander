@@ -94,7 +94,7 @@ gboolean    gviewer_get_best_fit(GViewer *obj);
 void        gviewer_set_scale_factor(GViewer *obj, double scalefactor);
 double      gviewer_get_scale_factor(GViewer *obj);
 
-void        gviewer_image_operation(GViewer *obj, IMAGEOPERATION op);
+void        gviewer_image_operation(GViewer *obj, ImageRender::DISPLAYMODE op);
 void        gviewer_copy_selection(GtkMenuItem *item, GViewer *obj);
 
 TextRender  *gviewer_get_text_render(GViewer *obj);

@@ -1013,7 +1013,7 @@ double image_render_get_scale_factor(ImageRender *obj)
 }
 
 
-void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
+void image_render_operation(ImageRender *obj, ImageRender::DISPLAYMODE op)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
     g_return_if_fail (obj->priv->orig_pixbuf);
@@ -1022,19 +1022,19 @@ void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
 
     switch (op)
     {
-        case ROTATE_CLOCKWISE:
+        case ImageRender::ROTATE_CLOCKWISE:
             temp = gdk_pixbuf_rotate_simple (obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_CLOCKWISE);
             break;
-        case ROTATE_COUNTERCLOCKWISE:
+        case ImageRender::ROTATE_COUNTERCLOCKWISE:
             temp = gdk_pixbuf_rotate_simple (obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
             break;
-        case ROTATE_UPSIDEDOWN:
+        case ImageRender::ROTATE_UPSIDEDOWN:
             temp = gdk_pixbuf_rotate_simple (obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
             break;
-        case FLIP_VERTICAL:
+        case ImageRender::FLIP_VERTICAL:
             temp = gdk_pixbuf_flip (obj->priv->orig_pixbuf, FALSE);
             break;
-        case FLIP_HORIZONTAL:
+        case ImageRender::FLIP_HORIZONTAL:
             temp = gdk_pixbuf_flip (obj->priv->orig_pixbuf, TRUE);
             break;
         default:

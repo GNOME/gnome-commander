@@ -615,7 +615,7 @@ TextRender *gviewer_get_text_render(GViewer *obj)
 }
 
 
-void gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
+void gviewer_image_operation(GViewer *obj, ImageRender::DISPLAYMODE op)
 {
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->imgr);
