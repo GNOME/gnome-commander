@@ -208,6 +208,9 @@ GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdDat
 
 void GnomeCmdSelectionProfileComponent::update()
 {
+    set_name_patterns_history(gnome_cmd_data.search_defaults.name_patterns.ents);
+    set_content_patterns_history(gnome_cmd_data.search_defaults.content_patterns.ents);
+
     gtk_entry_set_text (GTK_ENTRY (gtk_bin_get_child (GTK_BIN (priv->pattern_combo))), profile.filename_pattern.c_str());
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->filter_type_combo), (int) profile.syntax);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->recurse_combo), profile.max_depth+1);
@@ -240,6 +243,9 @@ void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::Selection &profile)
 
 void GnomeCmdSelectionProfileComponent::set_name_patterns_history(GList *history)
 {
+    GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->pattern_combo));
+    gtk_list_store_clear (GTK_LIST_STORE (store));
+
     g_list_foreach (history, (GFunc) combo_box_insert_text, priv->pattern_combo);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->pattern_combo), 0);
 }
@@ -247,5 +253,8 @@ void GnomeCmdSelectionProfileComponent::set_name_patterns_history(GList *history
 
 void GnomeCmdSelectionProfileComponent::set_content_patterns_history(GList *history)
 {
+    GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->find_text_combo));
+    gtk_list_store_clear (GTK_LIST_STORE (store));
+
     g_list_foreach (history, (GFunc) combo_box_insert_text, priv->find_text_combo);
 }

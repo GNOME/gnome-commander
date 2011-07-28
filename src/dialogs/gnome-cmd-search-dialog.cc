@@ -967,12 +967,16 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 // save default settings
                 dialog->priv->profile_component->copy();
                 if (!dialog->defaults.default_profile.filename_pattern.empty())
+                {
                     gnome_cmd_data.search_defaults.name_patterns.add(dialog->defaults.default_profile.filename_pattern.c_str());
+                    dialog->priv->profile_component->set_name_patterns_history(dialog->defaults.name_patterns.ents);
+                }
 
                 if (dialog->defaults.default_profile.content_search && !dialog->defaults.default_profile.text_pattern.empty())
                 {
                     gnome_cmd_data.search_defaults.content_patterns.add(dialog->defaults.default_profile.text_pattern.c_str());
                     gnome_cmd_data.intviewer_defaults.text_patterns.add(dialog->defaults.default_profile.text_pattern.c_str());
+                    dialog->priv->profile_component->set_content_patterns_history(dialog->defaults.content_patterns.ents);
                 }
 
                 data.search_done = FALSE;
