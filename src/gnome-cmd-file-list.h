@@ -215,8 +215,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
     return !f || f->is_dotdot ? NULL : f;
 }
 
-void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
-
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);

@@ -2009,62 +2009,6 @@ void GnomeCmdFileList::restore_selection()
 }
 
 
-static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
-{
-    return strcmp (f1->info->name, f2->info->name);
-}
-
-
-void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl1));
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl2));
-
-    fl1->unselect_all();
-    fl2->select_all();
-
-    for (GList *i=fl1->get_visible_files(); i; i=i->next)
-    {
-        GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
-        GnomeCmdFile *f2;
-
-        GList *sel2 = fl2->priv->selected_files.get_list();
-        GList *gl2 = g_list_find_custom (sel2, f1, (GCompareFunc) compare_filename);
-
-        g_list_free (sel2);
-
-        if (!gl2)
-        {
-            fl1->select_file(f1);
-            continue;
-        }
-
-        f2 = (GnomeCmdFile *) gl2->data;
-
-        if (f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY || f2->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
-        {
-            fl2->unselect_file(f2);
-            continue;
-        }
-
-        if (f1->info->mtime > f2->info->mtime)
-        {
-            fl1->select_file(f1);
-            fl2->unselect_file(f2);
-            continue;
-        }
-
-        if (f1->info->mtime == f2->info->mtime)
-        {
-            if (f1->info->size == f2->info->size)
-                fl2->unselect_file(f2);
-            else
-                fl1->select_file(f1);
-        }
-    }
-}
-
-
 void GnomeCmdFileList::sort()
 {
     GnomeCmdFile *selfile = get_selected_file();
