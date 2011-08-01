@@ -1666,8 +1666,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
     }
 
     // If we have been waiting for this file to show up, focus it
-    if (fl->priv->focus_later &&
-        strcmp (f->get_name(), fl->priv->focus_later) == 0)
+    if (fl->priv->focus_later && strcmp (f->get_name(), fl->priv->focus_later)==0)
         focus_file_at_row (fl, row);
 }
 
