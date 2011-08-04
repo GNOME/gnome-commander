@@ -88,7 +88,7 @@ inline std::string key2str(const GdkEventKey &event)
 
 inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
 {
-    g_strdown (s);
+    s = g_ascii_strdown (s, -1);
 
     gchar *key = strrchr(s, '>');       // find last '>'
     key = key ? key+1 : s;
@@ -113,6 +113,8 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
         key_val = GDK_VoidSymbol;
         break;
     }
+
+    g_free (s);
 
     GdkEventKey event;
 

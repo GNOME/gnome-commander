@@ -452,10 +452,9 @@ void GnomeCmdUserActions::load(const gchar *section)
             g_strstrip (++action_options);
         }
 
-        g_strstrip (action_name);
-        g_strdown (action_name);
+        gchar *action_name__lowercase = g_ascii_strdown (g_strstrip (action_name), -1);
 
-        if (action_func[action_name])
+        if (action_func[action_name__lowercase])
         {
             guint keyval;
             guint state;
@@ -463,15 +462,16 @@ void GnomeCmdUserActions::load(const gchar *section)
             str2key(key, state, keyval);
 
             if (keyval!=GDK_VoidSymbol)
-                register_action(state, keyval, action_name, action_options);
+                register_action(state, keyval, action_name__lowercase, action_options);
             else
                 g_warning ("[%s] invalid key name: '%s' - ignored", section, key);
         }
         else
-            g_warning ("[%s] unknown user action: '%s' - ignored", section, action_name);
+            g_warning ("[%s] unknown user action: '%s' - ignored", section, action_name__lowercase);
 
         g_free (key);
         g_free (action_name);
+        g_free (action_name__lowercase);
     }
 }
 
@@ -1350,11 +1350,59 @@ void mark_restore_selection (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
+static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
 {
-    gnome_cmd_file_list_compare_directories (get_fl (ACTIVE), get_fl (INACTIVE));
+    return strcmp (f1->info->name, f2->info->name);
 }
 
+
+void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileList *fl1 = get_fl (ACTIVE);
+    GnomeCmdFileList *fl2 = get_fl (INACTIVE);
+
+    fl1->unselect_all();
+    fl2->select_all();
+
+    for (GList *i=fl1->get_visible_files(); i; i=i->next)
+    {
+        GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
+
+        GList *sel2 = fl2->get_marked_files().get_list();
+        GList *gl2 = g_list_find_custom (sel2, f1, (GCompareFunc) compare_filename);
+
+        g_list_free (sel2);
+
+        if (!gl2)
+        {
+            fl1->select_file(f1);
+            continue;
+        }
+
+        GnomeCmdFile *f2 = (GnomeCmdFile *) gl2->data;
+
+        if (f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY || f2->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
+        {
+            fl2->unselect_file(f2);
+            continue;
+        }
+
+        if (f1->info->mtime > f2->info->mtime)
+        {
+            fl1->select_file(f1);
+            fl2->unselect_file(f2);
+            continue;
+        }
+
+        if (f1->info->mtime == f2->info->mtime)
+        {
+            if (f1->info->size == f2->info->size)
+                fl2->unselect_file(f2);
+            else
+                fl1->select_file(f1);
+        }
+    }
+}
 
 /************** View Menu **************/
 

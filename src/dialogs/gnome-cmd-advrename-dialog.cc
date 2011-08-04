@@ -85,7 +85,6 @@ struct GnomeCmdAdvrenameDialog::Private
     static gboolean on_dialog_delete (GtkWidget *widget, GdkEvent *event, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog);
     static void on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer data);
-    static void on_dialog_destroy (GnomeCmdAdvrenameDialog *dialog, gpointer data);
 };
 
 
@@ -468,13 +467,14 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
             }
             dialog->update_new_filenames();
             dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());
+            dialog->priv->profile_component->set_template_history(dialog->defaults.templates.ents);
             break;
 
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
         case GTK_RESPONSE_CLOSE:
-            dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());
+            dialog->priv->profile_component->copy();
             gtk_widget_hide (*dialog);
             dialog->unset();
             g_signal_stop_emission_by_name (dialog, "response");        //  FIXME:  ???
@@ -496,12 +496,6 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
         default :
             g_assert_not_reached ();
     }
-}
-
-
-void GnomeCmdAdvrenameDialog::Private::on_dialog_destroy (GnomeCmdAdvrenameDialog *dialog, gpointer)
-{
-    dialog->priv->profile_component->copy();
 }
 
 
@@ -697,9 +691,6 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_box_pack_start (GTK_BOX (priv->vbox), *priv->profile_component, FALSE, FALSE, 0);
     gtk_box_reorder_child (GTK_BOX (priv->vbox), *priv->profile_component, 0);
 
-    // Template
-    priv->profile_component->set_template_history(defaults.templates.ents);
-
     // Results
     files = create_files_model ();
 
@@ -716,7 +707,6 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (this, "delete-event", G_CALLBACK (Private::on_dialog_delete), this);
     g_signal_connect (this, "size-allocate", G_CALLBACK (Private::on_dialog_size_allocate), this);
     g_signal_connect (this, "response", G_CALLBACK (Private::on_dialog_response), this);
-    g_signal_connect (this, "destroy", G_CALLBACK (Private::on_dialog_destroy), this);
 
     gnome_cmd_advrename_parse_template (priv->profile_component->get_template_entry(), priv->template_has_counters);
 }

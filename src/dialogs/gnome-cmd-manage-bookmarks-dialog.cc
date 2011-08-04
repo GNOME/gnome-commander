@@ -534,7 +534,7 @@ void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
         return;
     }
 
-    gchar *name = g_strdup (g_basename (path));
+    gchar *name = g_path_get_basename (path);
 
     if (gnome_cmd_edit_bookmark_dialog (NULL, _("New Bookmark"), name, path))
     {

@@ -159,7 +159,7 @@ draw_cell_pixmap (GdkWindow    *window,
     if (y + height > clip_rectangle->y + clip_rectangle->height)
         height = clip_rectangle->y + clip_rectangle->height - y;
 
-    gdk_draw_pixmap (window, fg_gc, pixmap, xsrc, ysrc, x, y, width, height);
+    gdk_draw_drawable (window, fg_gc, pixmap, xsrc, ysrc, x, y, width, height);
     gdk_gc_set_clip_origin (fg_gc, 0, 0);
     if (mask)
         gdk_gc_set_clip_mask (fg_gc, NULL);
@@ -366,12 +366,12 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
         switch (clist_row->cell[i].type)
         {
             case GTK_CELL_PIXMAP:
-                gdk_window_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap, &pixmap_width, &height);
+                gdk_drawable_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width;
                 break;
 
             case GTK_CELL_PIXTEXT:
-                gdk_window_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
+                gdk_drawable_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width + GTK_CELL_PIXTEXT (clist_row->cell[i])->spacing;
                 break;
 
@@ -465,7 +465,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
  ****/
 static void on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
-    gtk_widget_draw (GTK_WIDGET(clist), NULL);
+    gtk_widget_draw (GTK_WIDGET (clist), NULL);
 }
 
 

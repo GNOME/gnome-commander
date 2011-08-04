@@ -36,7 +36,7 @@
 #define GNOME_CMD_FILE_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileListClass))
 
 
-GtkType gnome_cmd_file_list_get_type ();
+GType gnome_cmd_file_list_get_type ();
 
 
 /* DnD target names */
@@ -214,8 +214,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 
     return !f || f->is_dotdot ? NULL : f;
 }
-
-void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);

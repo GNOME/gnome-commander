@@ -111,7 +111,7 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 
 
-GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
+static GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
 {{GnomeCmdFileList::COLUMN_ICON,"",16,GTK_JUSTIFY_CENTER,GTK_SORT_ASCENDING, NULL},
  {GnomeCmdFileList::COLUMN_NAME, N_("name"), 140, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_name},
  {GnomeCmdFileList::COLUMN_EXT, N_("ext"), 40, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_ext},
@@ -1666,8 +1666,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
     }
 
     // If we have been waiting for this file to show up, focus it
-    if (fl->priv->focus_later &&
-        strcmp (f->get_name(), fl->priv->focus_later) == 0)
+    if (fl->priv->focus_later && strcmp (f->get_name(), fl->priv->focus_later)==0)
         focus_file_at_row (fl, row);
 }
 
@@ -2006,62 +2005,6 @@ void GnomeCmdFileList::unselect_all_with_same_extension()
 
 void GnomeCmdFileList::restore_selection()
 {
-}
-
-
-static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
-{
-    return strcmp (f1->info->name, f2->info->name);
-}
-
-
-void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl1));
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl2));
-
-    fl1->unselect_all();
-    fl2->select_all();
-
-    for (GList *i=fl1->get_visible_files(); i; i=i->next)
-    {
-        GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
-        GnomeCmdFile *f2;
-
-        GList *sel2 = fl2->priv->selected_files.get_list();
-        GList *gl2 = g_list_find_custom (sel2, f1, (GCompareFunc) compare_filename);
-
-        g_list_free (sel2);
-
-        if (!gl2)
-        {
-            fl1->select_file(f1);
-            continue;
-        }
-
-        f2 = (GnomeCmdFile *) gl2->data;
-
-        if (f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY || f2->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
-        {
-            fl2->unselect_file(f2);
-            continue;
-        }
-
-        if (f1->info->mtime > f2->info->mtime)
-        {
-            fl1->select_file(f1);
-            fl2->unselect_file(f2);
-            continue;
-        }
-
-        if (f1->info->mtime == f2->info->mtime)
-        {
-            if (f1->info->size == f2->info->size)
-                fl2->unselect_file(f2);
-            else
-                fl1->select_file(f1);
-        }
-    }
 }
 
 
@@ -2679,7 +2622,7 @@ static gboolean do_scroll (GnomeCmdFileList *fl)
     gint row_height;
     GtkCList *clist = *fl;
 
-    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+    gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     offset = (0-clist->voffset);
     row_height = gnome_cmd_data.list_row_height;
@@ -2714,7 +2657,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileList *fl, gint x, gint y)
     GtkCList *clist = *fl;
     gint w, h;
 
-    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+    gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     gint smin = h/8;
     gint smax = h-smin;

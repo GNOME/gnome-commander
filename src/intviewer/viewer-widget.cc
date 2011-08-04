@@ -83,8 +83,8 @@ static void gviewer_init (GViewer *w);
 static void gviewer_class_init (GViewerClass *klass);
 static void gviewer_destroy (GtkObject *object);
 
-static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer);
-static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer);
+static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer);
+static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer);
 static gboolean on_text_viewer_button_pressed (GtkWidget *treeview, GdkEventButton *event, GViewer *viewer);
 
 static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len);
@@ -199,7 +199,7 @@ static void gviewer_init (GViewer *w)
 
 
 #define MAX_STATUS_LENGTH 128
-static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer)
+static void gviewer_text_status_update(TextRender *obj, TextRender::Status *status, GViewer *viewer)
 {
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
@@ -217,7 +217,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
 }
 
 
-static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer)
+static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *status, GViewer *viewer)
 {
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
@@ -299,7 +299,7 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 
     const char *mime = gnome_vfs_get_mime_type_for_data(data, len);
 
-    if (g_strncasecmp (mime, "image/", 6)==0)
+    if (g_ascii_strncasecmp (mime, "image/", 6)==0)
         return DISP_MODE_IMAGE;
 
     /* Hex File ?  */
@@ -364,17 +364,17 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
     {
         case DISP_MODE_TEXT_FIXED:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_TEXT);
+            text_render_set_display_mode (obj->priv->textr, TextRender::DISPLAYMODE_TEXT);
             break;
 
         case DISP_MODE_BINARY:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_BINARY);
+            text_render_set_display_mode (obj->priv->textr, TextRender::DISPLAYMODE_BINARY);
             break;
 
         case DISP_MODE_HEXDUMP:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_HEXDUMP);
+            text_render_set_display_mode (obj->priv->textr, TextRender::DISPLAYMODE_HEXDUMP);
             break;
 
         case DISP_MODE_IMAGE:
@@ -615,7 +615,7 @@ TextRender *gviewer_get_text_render(GViewer *obj)
 }
 
 
-void gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
+void gviewer_image_operation(GViewer *obj, ImageRender::DISPLAYMODE op)
 {
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->imgr);

@@ -1241,6 +1241,8 @@ inline GtkWidget *create_regex_view ()
 
 void GnomeCmdAdvrenameProfileComponent::update()
 {
+    set_template_history(gnome_cmd_data.advrename_defaults.templates.ents);
+
     gtk_entry_set_text (GTK_ENTRY (priv->template_entry), profile.template_string.empty() ? "$N" : profile.template_string.c_str());
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_editable_select_region (GTK_EDITABLE (priv->template_entry), -1, -1);
@@ -1275,6 +1277,9 @@ const gchar *GnomeCmdAdvrenameProfileComponent::get_template_entry() const
 
 void GnomeCmdAdvrenameProfileComponent::set_template_history(GList *history)
 {
+    GtkTreeModel *store = gtk_combo_box_get_model (GTK_COMBO_BOX (priv->template_combo));
+    gtk_list_store_clear (GTK_LIST_STORE (store));
+
     for (GList *i=history; i; i=i->next)
         gtk_combo_box_append_text (GTK_COMBO_BOX (priv->template_combo), (const gchar *) i->data);
 }

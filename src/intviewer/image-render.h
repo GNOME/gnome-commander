@@ -25,64 +25,64 @@
 #ifndef __IMAGE_RENDER_H__
 #define __IMAGE_RENDER_H__
 
-#define IMAGE_RENDER(obj)          GTK_CHECK_CAST (obj, image_render_get_type (), ImageRender)
-#define IMAGE_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, image_render_get_type (), ImageRenderClass)
-#define IS_IMAGE_RENDER(obj)       GTK_CHECK_TYPE (obj, image_render_get_type ())
+#define TYPE_IMAGE_RENDER               (image_render_get_type ())
+#define IMAGE_RENDER(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_IMAGE_RENDER, ImageRender))
+#define IMAGE_RENDER_CLASS(klass)       (G_TYPE_CHECK_CLASS_CAST((klass), TYPE_IMAGE_RENDER, ImageRenderClass))
+#define IS_IMAGE_RENDER(obj)            (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_IMAGE_RENDER))
+#define IS_IMAGE_RENDER_CLASS(klass)    (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_IMAGE_RENDER))
+#define IMAGE_RENDER_GET_CLASS(obj)     (G_TYPE_INSTANCE_GET_CLASS((obj), TYPE_IMAGE_RENDER, ImageRenderClass))
 
-#define IMAGE_RENDER_DEFAULT_WIDTH    (100)
-#define IMAGE_RENDER_DEFAULT_HEIGHT   (200)
 
-struct ImageRenderPrivate;
-struct ImageRenderStatus;
+GType image_render_get_type ();
+
 
 struct ImageRender
 {
-    GtkWidget widget;
-    ImageRenderPrivate *priv;
+    GtkWidget parent;
+
+    struct Private;
+
+    Private *priv;
+
+    struct Status
+    {
+        gboolean best_fit;
+        gdouble  scale_factor;
+        gint     image_width;
+        gint     image_height;
+        gint     bits_per_sample;
+    };
+
+    enum DISPLAYMODE
+    {
+        ROTATE_CLOCKWISE,
+        ROTATE_COUNTERCLOCKWISE,
+        ROTATE_UPSIDEDOWN,
+        FLIP_VERTICAL,
+        FLIP_HORIZONTAL
+    };
 };
 
-struct ImageRenderClass
+inline GtkWidget *image_render_new ()
 {
-    GtkWidgetClass parent_class;
-    void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
-};
-
-struct ImageRenderStatus
-{
-    gboolean best_fit;
-    gdouble  scale_factor;
-    gint     image_width;
-    gint     image_height;
-    gint     bits_per_sample;
-};
-
-enum IMAGEOPERATION
-{
-    ROTATE_CLOCKWISE,
-    ROTATE_COUNTERCLOCKWISE,
-    ROTATE_UPSIDEDOWN,
-    FLIP_VERTICAL,
-    FLIP_HORIZONTAL
-};
-
-GtkWidget     *image_render_new ();
-GtkType        image_render_get_type ();
+    return (GtkWidget *) g_object_new (TYPE_IMAGE_RENDER, NULL);
+}
 
 GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj);
-void           image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
+void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
 GtkAdjustment *image_render_get_v_adjustment (ImageRender *obj);
-void           image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
+void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
 
-void           image_render_load_file (ImageRender *obj, const gchar *filename);
+void image_render_load_file (ImageRender *obj, const gchar *filename);
 
-void           image_render_notify_status_changed (ImageRender *w);
+void image_render_notify_status_changed (ImageRender *w);
 
-void           image_render_set_best_fit (ImageRender *obj, gboolean active);
-gboolean       image_render_get_best_fit (ImageRender *obj);
+void image_render_set_best_fit (ImageRender *obj, gboolean active);
+gboolean image_render_get_best_fit (ImageRender *obj);
 
-void           image_render_set_scale_factor (ImageRender *obj, double scalefactor);
-double         image_render_get_scale_factor (ImageRender *obj);
+void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
+double image_render_get_scale_factor (ImageRender *obj);
 
-void           image_render_operation (ImageRender *obj, IMAGEOPERATION op);
+void image_render_operation (ImageRender *obj, ImageRender::DISPLAYMODE op);
 
 #endif /* __IMAGE_RENDER_H__ */

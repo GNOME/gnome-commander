@@ -121,14 +121,34 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
 
         gdk_window_get_origin (tab->window, &x_root, &y_root);
 
-        int max_x = x_root + tab->allocation.x + tab->allocation.width;
-        int max_y = y_root + tab->allocation.y + tab->allocation.height;
+        switch (tab_pos)
+        {
+            case GTK_POS_TOP:
+            case GTK_POS_BOTTOM:
+                {
+                    gint y = screen_y - y_root - tab->allocation.y;
 
-        if ((tab_pos == GTK_POS_TOP || tab_pos == GTK_POS_BOTTOM) && screen_x <= max_x)
-            return page_num;
+                    if (y < 0 || y > tab->allocation.height)
+                        return -1;
 
-        if ((tab_pos == GTK_POS_LEFT || tab_pos == GTK_POS_RIGHT) && screen_y <= max_y)
-            return page_num;
+                    if (screen_x <= x_root + tab->allocation.x + tab->allocation.width)
+                        return page_num;
+                }
+                break;
+
+            case GTK_POS_LEFT:
+            case GTK_POS_RIGHT:
+                {
+                    gint x = screen_x - x_root - tab->allocation.x;
+
+                    if (x < 0 || x > tab->allocation.width)
+                        return -1;
+
+                    if (screen_y <= y_root + tab->allocation.y + tab->allocation.height)
+                        return page_num;
+                }
+                break;
+        }
     }
 
     return -1;

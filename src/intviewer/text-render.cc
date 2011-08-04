@@ -45,12 +45,13 @@
 using namespace std;
 
 
-#define HEXDUMP_FIXED_LIMIT 16
-#define MAX_CLIPBOARD_COPY_LENGTH 0xFFFFFF
+#define TEXT_RENDER_DEFAULT_WIDTH       100
+#define TEXT_RENDER_DEFAULT_HEIGHT      200
+
+#define HEXDUMP_FIXED_LIMIT              16
+#define MAX_CLIPBOARD_COPY_LENGTH  0xFFFFFF
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
-
-static GtkWidgetClass *parent_class = NULL;
 
 enum
 {
@@ -65,8 +66,15 @@ typedef offset_type (*pixel_to_offset_proc) (TextRender *obj, int x, int y, gboo
 typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset, offset_type end_offset);
 
 
+struct TextRenderClass
+{
+    GtkWidgetClass parent_class;
+
+    void (* text_status_changed) (TextRender *obj, TextRender::Status *status);
+};
+
 // Class Private Data
-struct TextRenderPrivate
+struct TextRender::Private
 {
     guint8 button; // The button pressed in "button_press_event"
 
@@ -95,7 +103,7 @@ struct TextRenderPrivate
     int max_column;
     offset_type current_offset;
     offset_type last_displayed_offset;
-    TEXTDISPLAYMODE dispmode;
+    DISPLAYMODE dispmode;
     gboolean hex_offset_display;
     gchar *fixed_font_name;
 
@@ -122,11 +130,11 @@ struct TextRenderPrivate
     copy_to_clipboard_proc copy_to_clipboard;
 };
 
-// Gtk class related static functions
-static void text_render_init (TextRender *w);
-static void text_render_class_init (TextRenderClass *klass);
-static void text_render_destroy (GtkObject *object);
 
+G_DEFINE_TYPE (TextRender, text_render, GTK_TYPE_WIDGET)
+
+
+// Gtk class related static functions
 static void text_render_redraw(TextRender *w);
 static void text_render_position_changed(TextRender *w);
 
@@ -170,35 +178,6 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
     public functions
     (defined in the header file)
 *****************************************/
-GtkType text_render_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "TextRender",
-            sizeof (TextRender),
-            sizeof (TextRenderClass),
-            (GtkClassInitFunc) text_render_class_init,
-            (GtkObjectInitFunc) text_render_init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-        type = gtk_type_unique (gtk_widget_get_type(), &info);
-    }
-    return type;
-}
-
-GtkWidget *text_render_new ()
-{
-    TextRender *w = (TextRender *) g_object_new (text_render_get_type (), NULL);
-
-    return GTK_WIDGET (w);
-}
-
-
 void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_TEXT_RENDER (obj));
@@ -247,45 +226,12 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 }
 
 
-static void text_render_class_init (TextRenderClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
-
-    object_class->destroy = text_render_destroy;
-
-    widget_class->scroll_event = text_render_scroll;
-    widget_class->button_press_event = text_render_button_press;
-    widget_class->button_release_event = text_render_button_release;
-    widget_class->motion_notify_event = text_render_motion_notify;
-
-    widget_class->expose_event = text_render_expose;
-
-    widget_class->size_request = text_render_size_request;
-    widget_class->size_allocate = text_render_size_allocate;
-
-    widget_class->realize = text_render_realize;
-
-    text_render_signals[TEXT_STATUS_CHANGED] =
-        g_signal_new ("text-status-changed",
-            G_TYPE_FROM_CLASS (klass),
-            G_SIGNAL_RUN_LAST,
-            G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
-            NULL, NULL,
-            g_cclosure_marshal_VOID__POINTER,
-            G_TYPE_NONE,
-            1, G_TYPE_POINTER);
-}
-
-
 static void text_render_init (TextRender *w)
 {
-    w->priv = g_new0 (TextRenderPrivate, 1);
+    w->priv = g_new0 (TextRender::Private, 1);
 
     w->priv->button = 0;
-    w->priv->dispmode = TR_DISP_MODE_TEXT;
+    w->priv->dispmode = TextRender::DISPLAYMODE_TEXT;
     w->priv->h_adjustment = NULL;
     w->priv->old_h_adj_value = 0.0;
     w->priv->old_h_adj_lower = 0.0;
@@ -323,11 +269,71 @@ static void text_render_init (TextRender *w)
 }
 
 
+static void text_render_finalize (GObject *object)
+{
+    TextRender *w = TEXT_RENDER (object);
+
+    if (w->priv)
+    {
+        g_free (w->priv->fixed_font_name);
+
+        if (w->priv->v_adjustment)
+            g_object_unref (w->priv->v_adjustment);
+
+        if (w->priv->h_adjustment)
+            g_object_unref (w->priv->h_adjustment);
+
+        g_free (w->priv->encoding);
+
+        text_render_free_font(w);
+
+        text_render_free_data(w);
+
+        g_free (w->priv->utf8buf);
+
+        g_free (w->priv);
+    }
+
+    G_OBJECT_CLASS (text_render_parent_class)->finalize (object);
+}
+
+
+static void text_render_class_init (TextRenderClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+    object_class->finalize = text_render_finalize;
+
+    widget_class->scroll_event = text_render_scroll;
+    widget_class->button_press_event = text_render_button_press;
+    widget_class->button_release_event = text_render_button_release;
+    widget_class->motion_notify_event = text_render_motion_notify;
+
+    widget_class->expose_event = text_render_expose;
+
+    widget_class->size_request = text_render_size_request;
+    widget_class->size_allocate = text_render_size_allocate;
+
+    widget_class->realize = text_render_realize;
+
+    text_render_signals[TEXT_STATUS_CHANGED] =
+        g_signal_new ("text-status-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (TextRenderClass, text_status_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
+}
+
+
 void text_render_notify_status_changed(TextRender *w)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
 
-    TextRenderStatus stat;
+    TextRender::Status stat;
 
     memset(&stat, 0, sizeof(stat));
 
@@ -343,44 +349,6 @@ void text_render_notify_status_changed(TextRender *w)
 }
 
 
-static void text_render_destroy (GtkObject *object)
-{
-    g_return_if_fail (IS_TEXT_RENDER (object));
-
-    TextRender *w = TEXT_RENDER (object);
-
-    if (w->priv)
-    {
-        g_free(w->priv->fixed_font_name);
-        w->priv->fixed_font_name = NULL;
-
-        if (w->priv->v_adjustment)
-            g_object_unref (w->priv->v_adjustment);
-        w->priv->v_adjustment = NULL;
-
-        if (w->priv->h_adjustment)
-            g_object_unref (w->priv->h_adjustment);
-        w->priv->h_adjustment = NULL;
-
-        g_free(w->priv->encoding);
-        w->priv->encoding = NULL;
-
-        text_render_free_font(w);
-
-        text_render_free_data(w);
-
-        g_free(w->priv->utf8buf);
-        w->priv->utf8buf = NULL;
-
-        g_free(w->priv);
-        w->priv = NULL;
-    }
-
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
 static void text_render_position_changed(TextRender *w)
 {
     if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
@@ -392,23 +360,23 @@ static void text_render_position_changed(TextRender *w)
     if (w->priv->v_adjustment)
     {
         w->priv->v_adjustment->value = w->priv->current_offset;
-        gtk_adjustment_changed(w->priv->v_adjustment);
+        gtk_adjustment_changed (w->priv->v_adjustment);
     }
 
     if (w->priv->h_adjustment)
     {
         w->priv->h_adjustment->value = w->priv->column;
-        gtk_adjustment_changed(w->priv->h_adjustment);
+        gtk_adjustment_changed (w->priv->h_adjustment);
     }
 }
 
 
 static void text_render_redraw(TextRender *w)
 {
-    if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
+    if (!GTK_WIDGET_REALIZED (GTK_WIDGET (w)))
         return;
 
-    gdk_window_invalidate_rect(GTK_WIDGET (w)->window, NULL, FALSE);
+    gdk_window_invalidate_rect (GTK_WIDGET (w)->window, NULL, FALSE);
 }
 
 
@@ -461,8 +429,7 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
 
     case GDK_End:
         obj->priv->current_offset =
-            gv_align_offset_to_line_start(
-                obj->priv->dp, gv_file_get_max_offset(obj->priv->fops)-1);
+            gv_align_offset_to_line_start(obj->priv->dp, gv_file_get_max_offset(obj->priv->fops)-1);
         break;
 
     default:
@@ -507,8 +474,8 @@ static void text_render_realize (GtkWidget *widget)
 
     gtk_style_set_background (widget->style, widget->window, GTK_STATE_ACTIVE);
 
-    obj->priv->gc = gdk_gc_new(GTK_WIDGET (obj)->window);
-    gdk_gc_set_exposures(obj->priv->gc, TRUE);
+    obj->priv->gc = gdk_gc_new (GTK_WIDGET (obj)->window);
+    gdk_gc_set_exposures (obj->priv->gc, TRUE);
 
     text_render_setup_font(obj, obj->priv->fixed_font_name, obj->priv->font_size);
 }
@@ -893,7 +860,7 @@ static void text_render_internal_load(TextRender *w)
     gv_set_fixed_count(w->priv->dp, w->priv->fixed_limit);
     gv_set_tab_size(w->priv->dp, w->priv->tab_size);
 
-    text_render_set_display_mode (w, TR_DISP_MODE_TEXT);
+    text_render_set_display_mode (w, TextRender::DISPLAYMODE_TEXT);
 
     text_render_update_adjustments_limits(w);
 }
@@ -944,7 +911,7 @@ static void text_render_update_adjustments_limits(TextRender *w)
     {
         w->priv->v_adjustment->lower = 0;
         w->priv->v_adjustment->upper = gv_file_get_max_offset(w->priv->fops)-1;
-        gtk_adjustment_changed(w->priv->v_adjustment);
+        gtk_adjustment_changed (w->priv->v_adjustment);
     }
 
     if (w->priv->h_adjustment)
@@ -957,7 +924,7 @@ static void text_render_update_adjustments_limits(TextRender *w)
             w->priv->h_adjustment->upper = w->priv->max_column; // TODO: find our the real horz limit
         else
             w->priv->h_adjustment->upper = 0;
-        gtk_adjustment_changed(w->priv->h_adjustment);
+        gtk_adjustment_changed (w->priv->h_adjustment);
     }
 }
 
@@ -1031,7 +998,7 @@ static void text_render_free_font(TextRender*w)
 static PangoFontMetrics *load_font (const char *font_name)
 {
     PangoFontDescription *new_desc = pango_font_description_from_string (font_name);
-    PangoContext *context = gdk_pango_context_get();
+    PangoContext *context = gdk_pango_context_get ();
     PangoFont *new_font = pango_context_load_font (context, new_desc);
     PangoFontMetrics *new_metrics = pango_font_get_metrics (new_font, pango_context_get_language (context));
 
@@ -1133,7 +1100,7 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
        PANGO_PIXELS(pango_font_metrics_get_ascent(w->priv->disp_font_metrics)) +
        PANGO_PIXELS(pango_font_metrics_get_descent(w->priv->disp_font_metrics));
 
-    g_free(fontlabel);
+    g_free (fontlabel);
 }
 
 
@@ -1142,7 +1109,7 @@ static void text_render_reserve_utf8buf(TextRender *w, int minlength)
     if (w->priv->utf8alloc < minlength)
     {
         w->priv->utf8alloc = minlength*2;
-        w->priv->utf8buf = (unsigned char*) g_realloc(w->priv->utf8buf, w->priv->utf8alloc);
+        w->priv->utf8buf = (unsigned char*) g_realloc (w->priv->utf8buf, w->priv->utf8alloc);
     }
 }
 
@@ -1207,7 +1174,7 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 }
 
 
-void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
+void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
 {
     g_return_if_fail (IS_TEXT_RENDER (w));
     g_return_if_fail (w->priv->fops!=NULL);
@@ -1221,7 +1188,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 
     switch (mode)
     {
-    case TR_DISP_MODE_TEXT:
+    case TextRender::DISPLAYMODE_TEXT:
         gv_set_data_presentation_mode(w->priv->dp, w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
 
         w->priv->display_line = text_mode_display_line;
@@ -1229,7 +1196,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
         w->priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
-    case TR_DISP_MODE_BINARY:
+    case TextRender::DISPLAYMODE_BINARY:
 
         // Binary display mode doesn't support UTF8
         // TODO: switch back to the previous encoding, not just ASCII
@@ -1243,7 +1210,7 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
         w->priv->copy_to_clipboard = text_mode_copy_to_clipboard;
         break;
 
-    case TR_DISP_MODE_HEXDUMP:
+    case TextRender::DISPLAYMODE_HEXDUMP:
 
         // HEX display mode doesn't support UTF8
         // TODO: switch back to the previous encoding, not just ASCII
@@ -1266,9 +1233,9 @@ void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 }
 
 
-TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w)
+TextRender::DISPLAYMODE text_render_get_display_mode(TextRender *w)
 {
-    g_return_val_if_fail (IS_TEXT_RENDER (w), TR_DISP_MODE_TEXT);
+    g_return_val_if_fail (IS_TEXT_RENDER (w), TextRender::DISPLAYMODE_TEXT);
 
     return w->priv->dispmode;
 }
@@ -1335,7 +1302,7 @@ void text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE)
         return;
 
     w->priv->wrapmode = ACTIVE;
-    if (w->priv->dispmode==TR_DISP_MODE_TEXT)
+    if (w->priv->dispmode==TextRender::DISPLAYMODE_TEXT)
     {
         w->priv->column = 0;
         gv_set_data_presentation_mode(w->priv->dp, w->priv->wrapmode ? PRSNT_WRAP : PRSNT_NO_WRAP);
@@ -1361,7 +1328,7 @@ void text_render_set_fixed_limit(TextRender *w, int fixed_limit)
     w->priv->fixed_limit = fixed_limit;
 
     // always 16 bytes in hex dump
-    if (w->priv->dispmode==TR_DISP_MODE_HEXDUMP)
+    if (w->priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP)
         fixed_limit = HEXDUMP_FIXED_LIMIT;
 
     if (w->priv->dp)
@@ -1428,14 +1395,14 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
         return;
 
     // Ugly hack: UTF-8 is not acceptable encoding in Binary/Hexdump modes
-    if (g_strcasecmp(encoding, "UTF8")==0 && (
-        w->priv->dispmode==TR_DISP_MODE_BINARY || w->priv->dispmode==TR_DISP_MODE_HEXDUMP))
+    if (g_ascii_strcasecmp (encoding, "UTF8")==0 && (
+        w->priv->dispmode==TextRender::DISPLAYMODE_BINARY || w->priv->dispmode==TextRender::DISPLAYMODE_HEXDUMP))
         {
             g_warning ("Can't set UTF8 encoding when in Binary or HexDump display mode");
             return;
         }
 
-    g_free(w->priv->encoding);
+    g_free (w->priv->encoding);
     w->priv->encoding = g_strdup (encoding);
     gv_set_input_mode(w->priv->im, encoding);
     text_render_filter_undisplayable_chars(w);
@@ -1598,7 +1565,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
     g_return_if_fail (obj->priv->dp!=NULL);
     g_return_if_fail (obj->priv->im!=NULL);
 
-    GtkClipboard *clip = gtk_clipboard_get_for_display(gdk_display_get_default(), GDK_SELECTION_CLIPBOARD);
+    GtkClipboard *clip = gtk_clipboard_get_for_display (gdk_display_get_default (), GDK_SELECTION_CLIPBOARD);
     g_return_if_fail (clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
@@ -1721,7 +1688,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
         marker_start = temp;
     }
 
-    show_marker = (marker_start!=marker_end);
+    show_marker = marker_start!=marker_end;
     text_render_utf8_clear_buf(w);
 
     current = start_of_line;
@@ -1802,7 +1769,7 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
         else
         {
             // the user selected the ascii portion
-            column = (column-10-16*3);
+            column = column-10-16*3;
             obj->priv->hexmode_marker_on_hexdump = FALSE;
         }
     }
@@ -1846,7 +1813,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         return;
     }
 
-    GtkClipboard *clip = gtk_clipboard_get_for_display(gdk_display_get_default(), GDK_SELECTION_CLIPBOARD);
+    GtkClipboard *clip = gtk_clipboard_get_for_display (gdk_display_get_default (), GDK_SELECTION_CLIPBOARD);
     g_return_if_fail (clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
@@ -1867,17 +1834,8 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
 {
     g_return_val_if_fail (IS_TEXT_RENDER (w), -1);
 
-    int byte_value;
-    char_type value;
-    offset_type current;
-
-    offset_type marker_start;
-    offset_type marker_end;
-    gboolean show_marker;
-    gboolean marker_shown = FALSE;
-
-    marker_start = w->priv->marker_start;
-    marker_end = w->priv->marker_end;
+    offset_type marker_start = w->priv->marker_start;
+    offset_type marker_end = w->priv->marker_end;
 
     if (marker_start > marker_end)
     {
@@ -1886,7 +1844,8 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         marker_start = temp;
     }
 
-    show_marker = (marker_start!=marker_end);
+    gboolean marker_shown = FALSE;
+    gboolean show_marker = marker_start!=marker_end;
     text_render_utf8_clear_buf(w);
 
     if (w->priv->hex_offset_display)
@@ -1894,8 +1853,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
     else
         text_render_utf8_printf (w, "%09lu ", (unsigned long)start_of_line);
 
-    current = start_of_line;
-    while (current < end_of_line)
+    for (offset_type current=start_of_line; current<end_of_line; ++current)
     {
         if (show_marker)
         {
@@ -1904,20 +1862,20 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
                 w->priv->hexmode_marker_on_hexdump);
         }
 
-        byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+        int byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+
         if (byte_value==-1)
             break;
-        current++;
 
-        text_render_utf8_printf (w, "%02x ", (unsigned char)byte_value);
+        text_render_utf8_printf (w, "%02x ", (unsigned char) byte_value);
     }
+
     if (show_marker)
         marker_closer(w, marker_shown);
 
     marker_shown = FALSE;
 
-    current = start_of_line;
-    while (current < end_of_line)
+    for (offset_type current=start_of_line; current<end_of_line; ++current)
     {
         if (show_marker)
         {
@@ -1926,18 +1884,19 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
                 !w->priv->hexmode_marker_on_hexdump);
         }
 
-        byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+        int byte_value = gv_input_mode_get_raw_byte(w->priv->im, current);
+
         if (byte_value==-1)
             break;
-        value = gv_input_mode_byte_to_utf8(w->priv->im, (unsigned char)byte_value);
+
+        char_type value = gv_input_mode_byte_to_utf8(w->priv->im, (unsigned char) byte_value);
 
         if (NEED_PANGO_ESCAPING(value))
             text_render_utf8_printf (w, escape_pango_char(value));
         else
             text_render_utf8_print_char(w, value);
-
-        current++;
     }
+
     if (show_marker)
         marker_closer(w, marker_shown);
 

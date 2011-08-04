@@ -129,7 +129,7 @@ const gchar *get_combo_text (GtkWidget *combo);
 
 inline GSList *get_radio_group (GtkWidget *radio)
 {
-    return gtk_radio_button_group (GTK_RADIO_BUTTON (radio));
+    return gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio));
 }
 
 inline void table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts)

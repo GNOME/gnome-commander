@@ -43,7 +43,9 @@
 using namespace std;
 
 
-static GtkWidgetClass *parent_class = NULL;
+#define IMAGE_RENDER_DEFAULT_WIDTH      100
+#define IMAGE_RENDER_DEFAULT_HEIGHT     200
+
 
 enum {
   IMAGE_STATUS_CHANGED,
@@ -53,8 +55,14 @@ enum {
 static guint image_render_signals[LAST_SIGNAL] = { 0 };
 
 
+struct ImageRenderClass
+{
+    GtkWidgetClass parent_class;
+    void (*image_status_changed)  (ImageRender *obj, ImageRender::Status *status);
+};
+
 // Class Private Data
-struct ImageRenderPrivate
+struct ImageRender::Private
 {
     guint8 button; // The button pressed in "button_press_event"
 
@@ -81,11 +89,11 @@ struct ImageRenderPrivate
     gint        orig_pixbuf_loaded;
 };
 
-// Gtk class related static functions
-static void image_render_init (ImageRender *w);
-static void image_render_class_init (ImageRenderClass *klass);
-static void image_render_destroy (GtkObject *object);
 
+G_DEFINE_TYPE (ImageRender, image_render, GTK_TYPE_WIDGET)
+
+
+// Gtk class related static functions
 static void image_render_redraw (ImageRender *w);
 
 static gboolean image_render_key_press (GtkWidget *widget, GdkEventKey *event);
@@ -116,36 +124,6 @@ static void image_render_update_adjustments (ImageRender *obj);
     public functions
     (defined in the header file)
 *****************************************/
-GtkType image_render_get_type ()
-{
-    static GtkType type = 0;
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "ImageRender",
-            sizeof (ImageRender),
-            sizeof (ImageRenderClass),
-            (GtkClassInitFunc) image_render_class_init,
-            (GtkObjectInitFunc) image_render_init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-        type = gtk_type_unique (gtk_widget_get_type(), &info);
-    }
-    return type;
-}
-
-
-GtkWidget *image_render_new ()
-{
-    ImageRender *w = (ImageRender *) g_object_new (image_render_get_type (), NULL);
-
-    return GTK_WIDGET (w);
-}
-
-
 void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
@@ -204,14 +182,78 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 }
 
 
+static void image_render_init (ImageRender *w)
+{
+    w->priv = g_new0 (ImageRender::Private, 1);
+
+    w->priv->button = 0;
+
+    w->priv->scaled_pixbuf_loaded = FALSE;
+    w->priv->filename = NULL;
+
+    w->priv->h_adjustment = NULL;
+    w->priv->old_h_adj_value = 0.0;
+    w->priv->old_h_adj_lower = 0.0;
+    w->priv->old_h_adj_upper = 0.0;
+
+    w->priv->v_adjustment = NULL;
+    w->priv->old_v_adj_value = 0.0;
+    w->priv->old_v_adj_lower = 0.0;
+    w->priv->old_v_adj_upper = 0.0;
+
+    w->priv->best_fit = FALSE;
+    w->priv->scale_factor = 1.3;
+    w->priv->orig_pixbuf = NULL;
+    w->priv->disp_pixbuf = NULL;
+
+    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (w), GTK_CAN_FOCUS);
+}
+
+
+static void image_render_finalize (GObject *object)
+{
+    ImageRender *w = IMAGE_RENDER (object);
+
+    if (w->priv)
+    {
+        /* there are TWO references to the ImageRender object:
+            one in the parent widget, the other in the loader thread.
+
+            "Destroy" might be called twice (don't know why, yet) - if the viewer is closed (by the user)
+            before the loader thread finishes.
+
+           If this is the case, we don't want to block while waiting for the loader thread (bad user responsiveness).
+           So if "destroy" is called while the loader thread is still running, we simply exit, know "destroy" will be called again
+          once the loader thread is done (because it calls "g_object_unref" on the ImageRender object).
+        */
+        if (w->priv->pixbuf_loading_thread && g_atomic_int_get (&w->priv->orig_pixbuf_loaded)==0)
+        {
+                // Loader thread still running, so do nothing
+        }
+        else
+        {
+            image_render_free_pixbuf (w);
+
+            if (w->priv->v_adjustment)
+                g_object_unref (w->priv->v_adjustment);
+
+            if (w->priv->h_adjustment)
+                g_object_unref (w->priv->h_adjustment);
+
+            g_free (w->priv);
+        }
+    }
+
+    G_OBJECT_CLASS (image_render_parent_class)->finalize (object);
+}
+
+
 static void image_render_class_init (ImageRenderClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
-
-    object_class->destroy = image_render_destroy;
+    object_class->finalize = image_render_finalize;
 
     widget_class->key_press_event = image_render_key_press;
     widget_class->button_press_event = image_render_button_press;
@@ -237,83 +279,11 @@ static void image_render_class_init (ImageRenderClass *klass)
 }
 
 
-static void image_render_init (ImageRender *w)
-{
-    w->priv = g_new0 (ImageRenderPrivate, 1);
-
-    w->priv->button = 0;
-
-    w->priv->scaled_pixbuf_loaded = FALSE;
-    w->priv->filename = NULL;
-
-    w->priv->h_adjustment = NULL;
-    w->priv->old_h_adj_value = 0.0;
-    w->priv->old_h_adj_lower = 0.0;
-    w->priv->old_h_adj_upper = 0.0;
-
-    w->priv->v_adjustment = NULL;
-    w->priv->old_v_adj_value = 0.0;
-    w->priv->old_v_adj_lower = 0.0;
-    w->priv->old_v_adj_upper = 0.0;
-
-    w->priv->best_fit = FALSE;
-    w->priv->scale_factor = 1.3;
-    w->priv->orig_pixbuf = NULL;
-    w->priv->disp_pixbuf = NULL;
-
-    GTK_WIDGET_SET_FLAGS(GTK_WIDGET (w), GTK_CAN_FOCUS);
-}
-
-
-static void image_render_destroy (GtkObject *object)
-{
-    g_return_if_fail (IS_IMAGE_RENDER (object));
-
-    ImageRender *w = IMAGE_RENDER (object);
-
-    if (w->priv)
-    {
-        /* there are TWO references to the ImageRender object:
-            one in the parent widget, the other in the loader thread.
-
-            "Destroy" might be called twice (don't know why, yet) - if the viewer is closed (by the user)
-            before the loader thread finishes.
-
-           If this is the case, we don't want to block while waiting for the loader thread (bad user responsiveness).
-           So if "destroy" is called while the loader thread is still running, we simply exit, know "destroy" will be called again
-          once the loader thread is done (because it calls "g_object_unref" on the ImageRender object).
-        */
-        if (w->priv->pixbuf_loading_thread && g_atomic_int_get (&w->priv->orig_pixbuf_loaded)==0)
-        {
-                // Loader thread still running, so do nothing
-        }
-        else
-        {
-            image_render_free_pixbuf (w);
-
-            if (w->priv->v_adjustment)
-                g_object_unref (w->priv->v_adjustment);
-            w->priv->v_adjustment = NULL;
-
-            if (w->priv->h_adjustment)
-                g_object_unref (w->priv->h_adjustment);
-            w->priv->h_adjustment = NULL;
-
-            g_free (w->priv);
-            w->priv = NULL;
-        }
-    }
-
-    if (GTK_OBJECT_CLASS(parent_class)->destroy)
-        (*GTK_OBJECT_CLASS(parent_class)->destroy) (object);
-}
-
-
 void image_render_notify_status_changed (ImageRender *w)
 {
     g_return_if_fail (IS_IMAGE_RENDER (w));
 
-    ImageRenderStatus stat;
+    ImageRender::Status stat;
 
     memset(&stat, 0, sizeof(stat));
 
@@ -1043,7 +1013,7 @@ double image_render_get_scale_factor(ImageRender *obj)
 }
 
 
-void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
+void image_render_operation(ImageRender *obj, ImageRender::DISPLAYMODE op)
 {
     g_return_if_fail (IS_IMAGE_RENDER(obj));
     g_return_if_fail (obj->priv->orig_pixbuf);
@@ -1052,19 +1022,19 @@ void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
 
     switch (op)
     {
-        case ROTATE_CLOCKWISE:
+        case ImageRender::ROTATE_CLOCKWISE:
             temp = gdk_pixbuf_rotate_simple (obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_CLOCKWISE);
             break;
-        case ROTATE_COUNTERCLOCKWISE:
+        case ImageRender::ROTATE_COUNTERCLOCKWISE:
             temp = gdk_pixbuf_rotate_simple (obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
             break;
-        case ROTATE_UPSIDEDOWN:
+        case ImageRender::ROTATE_UPSIDEDOWN:
             temp = gdk_pixbuf_rotate_simple (obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
             break;
-        case FLIP_VERTICAL:
+        case ImageRender::FLIP_VERTICAL:
             temp = gdk_pixbuf_flip (obj->priv->orig_pixbuf, FALSE);
             break;
-        case FLIP_HORIZONTAL:
+        case ImageRender::FLIP_HORIZONTAL:
             temp = gdk_pixbuf_flip (obj->priv->orig_pixbuf, TRUE);
             break;
         default:
