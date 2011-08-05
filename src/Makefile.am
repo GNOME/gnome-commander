@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = dialogs tags intviewer treeview
+SUBDIRS = dialogs tags intviewer foldview
 
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
@@ -20,13 +20,6 @@ gnome_commander_SOURCES = \
 	dirlist.h dirlist.cc \
 	eggcellrendererkeys.h eggcellrendererkeys.cc \
 	filter.h filter.cc \
-	foldview/gnome-cmd-foldview.h \
-	foldview/gnome-cmd-foldview-control.cc \
-	foldview/gnome-cmd-foldview-gvfs.h gnome-cmd-foldview-gvfs.cc \
-	foldview/gnome-cmd-foldview-model.cc \
-	foldview/gnome-cmd-foldview-private.h  gnome-cmd-foldview.cc \
-	foldview/gnome-cmd-foldview-treestore.h gnome-cmd-foldview-treestore.cc \
-	foldview/gnome-cmd-foldview-view.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \
 	gnome-cmd-advrename-lexer.h gnome-cmd-advrename-lexer.ll \
 	gnome-cmd-advrename-profile-component.h gnome-cmd-advrename-profile-component.cc \
@@ -108,8 +101,8 @@ gnome_commander_LDADD = \
 	$(top_builddir)/libgcmd/libgcmd.la \
 	dialogs/libgcmd-dialogs.a \
 	tags/libgcmd-tags.a \
-	intviewer/libgviewer.a \
 	foldview/libtreview.a \
+	intviewer/libgviewer.a \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
 	$(UNIQUE_LIBS) \

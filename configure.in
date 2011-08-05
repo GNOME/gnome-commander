@@ -397,8 +397,9 @@ plugins/test/Makefile
 po/Makefile.in
 src/Makefile
 src/dialogs/Makefile
-src/tags/Makefile
+src/foldview/Makefile
 src/intviewer/Makefile
+src/tags/Makefile
 tests/Makefile
 README
 ])
