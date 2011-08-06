@@ -230,8 +230,6 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     priv->sort_func = file_list_column[sort_col].sort_func;
 
     create_column_titles();
-
-    init_dnd();
 }
 
 
@@ -1595,6 +1593,8 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     fl->priv = new GnomeCmdFileList::Private(fl);
+
+    fl->init_dnd();
 
     g_signal_connect_after (fl, "scroll-vertical", G_CALLBACK (on_scroll_vertical), fl);
     g_signal_connect (fl, "click-column", G_CALLBACK (on_column_clicked), fl);
