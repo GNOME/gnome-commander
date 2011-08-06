@@ -234,6 +234,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     init_dnd();
 }
 
+
 inline gchar *strip_extension (const gchar *fname)
 {
     gchar *s = g_strdup (fname);
@@ -2858,7 +2859,7 @@ static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, G
 
 void GnomeCmdFileList::init_dnd()
 {
-    // Set up drag source
+    // set up drag source
     gtk_drag_source_set (*this,
                          GDK_BUTTON1_MASK,
                          drag_types, G_N_ELEMENTS (drag_types),
@@ -2869,11 +2870,11 @@ void GnomeCmdFileList::init_dnd()
     g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
     g_signal_connect (this, "drag-data-delete", G_CALLBACK (drag_data_delete), this);
 
-    // Set up drag destination
+    // set up drag destination
     gtk_drag_dest_set (*this,
                        GTK_DEST_DEFAULT_DROP,
                        drop_types, G_N_ELEMENTS (drop_types),
-                       (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
+                       (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
 
     g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
     g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
