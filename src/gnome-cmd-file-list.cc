@@ -2863,7 +2863,7 @@ void GnomeCmdFileList::init_dnd()
     gtk_drag_source_set (*this,
                          GDK_BUTTON1_MASK,
                          drag_types, G_N_ELEMENTS (drag_types),
-                         (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
+                         (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK));
 
     g_signal_connect (this, "drag-data-get", G_CALLBACK (drag_data_get), this);
     g_signal_connect (this, "drag-end", G_CALLBACK (drag_end), this);
