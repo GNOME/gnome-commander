@@ -2771,17 +2771,14 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     uri_list = strings_to_uris ((gchar *) selection_data->data);
 
     if (g_list_length (uri_list) == 1)
-    {
-        GnomeVFSURI *uri = (GnomeVFSURI *) uri_list->data;
-        to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (uri), 0);
-    }
+        to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name ((GnomeVFSURI *) uri_list->data), 0);
 
     f = fl->get_file_at_row(row);
     cwd = fl->cwd;
 
     if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        // The drop was over a directory in the list, which means that the
+        // the drop was over a directory in the list, which means that the
         // xfer should be done to that directory instead of the current one in the list
         to = f->is_dotdot ? gnome_cmd_dir_get_parent (cwd) : gnome_cmd_dir_get_child (cwd, f->info->name);
     }
@@ -2790,7 +2787,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     g_return_if_fail (GNOME_CMD_IS_DIR (to));
 
-    // Start the xfer
+    // start the xfer
     gnome_cmd_xfer_uris_start (uri_list,
                                gnome_cmd_dir_ref (to),
                                NULL,
