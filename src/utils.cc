@@ -1271,7 +1271,7 @@ void fix_uri (GnomeVFSURI *uri)
     pw = gnome_vfs_uri_get_password (uri);
 
     t = g_strdup (hn);
-    p = g_strrstr (t, "@");
+    p = strrchr(t,'@');
     if (p && p[1] != '\0')
     {
         gchar *hn2;
