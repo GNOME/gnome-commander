@@ -236,7 +236,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 inline gchar *strip_extension (const gchar *fname)
 {
     gchar *s = g_strdup (fname);
-    gchar *p = g_strrstr (s, ".");
+    gchar *p = strrchr(s,'.');
     if (p && p != s)
         *p = '\0';
     return s;
