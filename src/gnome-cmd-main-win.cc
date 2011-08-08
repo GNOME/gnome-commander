@@ -455,7 +455,7 @@ static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event,
         // Check that the handle was clicked and not one of the children
         if (paned->handle == event->window)
         {
-            gtk_menu_popup (GTK_MENU(create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
+            gtk_menu_popup (GTK_MENU (create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
             return TRUE;
         }
     }

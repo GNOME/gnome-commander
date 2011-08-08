@@ -2740,7 +2740,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     gchar *to_fn = NULL;
     GnomeVFSXferOptions xferOptions;
 
-    // Find out what operation to perform
+    // find out what operation to perform
     switch (context->action)
     {
         case GDK_ACTION_MOVE:
