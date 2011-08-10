@@ -141,7 +141,6 @@ struct GnomeCmdFileList::Private
 {
     GtkWidget *column_pixmaps[GnomeCmdFileList::NUM_COLUMNS];
     GtkWidget *column_labels[GnomeCmdFileList::NUM_COLUMNS];
-    GtkWidget *popup_menu;
 
     gint cur_file;
     GnomeCmdFileCollection visible_files;
@@ -183,7 +182,6 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     memset(column_pixmaps, NULL, sizeof(column_pixmaps));
     memset(column_labels, NULL, sizeof(column_labels));
 
-    popup_menu = NULL;
     quicksearch_popup = NULL;
     selpat_dialog = NULL;
 
