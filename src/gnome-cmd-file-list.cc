@@ -171,8 +171,12 @@ class GnomeCmdFileList::Private
     GtkWidget *con_open_dialog_label;
     GtkWidget *con_open_dialog_pbar;
 
+    GtkItemFactory *ifac;
+
     Private(GnomeCmdFileList *fl);
     ~Private();
+
+    static void on_dnd_popup_menu (GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget);
 };
 
 
@@ -205,11 +209,39 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 
     for (gint i=0; i<NUM_COLUMNS; i++)
         gtk_clist_set_column_resizeable (*fl, i, TRUE);
+
+    static GtkItemFactoryEntry items[] = {
+                                            {_("/_Copy here"), "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_RECURSIVE, "<StockItem>", GTK_STOCK_COPY},
+                                            {_("/_Move here"), "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_REMOVESOURCE, "<StockItem>", GTK_STOCK_COPY},
+                                            {_("/_Link here"), "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu,GNOME_VFS_XFER_LINK_ITEMS,"<StockItem>", GTK_STOCK_CONVERT},
+                                            {"/", NULL, NULL, 0, "<Separator>"},
+                                            {_("/C_ancel"), "Esc", (GtkItemFactoryCallback) on_dnd_popup_menu, 0, "<StockItem>", GTK_STOCK_CANCEL}
+                                         };
+
+    ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+    gtk_item_factory_create_items (ifac, G_N_ELEMENTS (items), items, fl);
 }
 
 
 GnomeCmdFileList::Private::~Private()
 {
+    g_object_unref (ifac);
+}
+
+
+void GnomeCmdFileList::Private::on_dnd_popup_menu (GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    gpointer *data = (gpointer *) gtk_item_factory_popup_data_from_widget (widget);
+    GList *uri_list = (GList *) data[0];
+    GnomeCmdDir *to = (GnomeCmdDir *) data[1];
+
+    if (xferOptions)
+    {
+        data[0] = NULL;
+        fl->drop_files(xferOptions,uri_list,to);
+    }
 }
 
 
@@ -2731,13 +2763,52 @@ static void unref_uri_list (GList *list)
 }
 
 
+void free_dnd_popup_data (gpointer *data)
+{
+    if (data)
+    {
+        GList *uri_list = (GList *) data[0];
+        unref_uri_list (uri_list);
+    }
+
+    g_free (data);
+}
+
+
 static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint x, gint y, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
 {
     GtkCList *clist = *fl;
-    GnomeCmdFile *f;
-    GnomeCmdDir *to, *cwd;
-    GList *uri_list = NULL;
-    gchar *to_fn = NULL;
+
+    // find the row that the file was dropped on
+    y -= clist->column_title_area.height - GTK_CONTAINER (clist)->border_width;
+    if (y < 0) return;
+
+    GnomeCmdFile *f = fl->get_file_at_row (gnome_cmd_clist_get_row (*fl, x, y));
+    GnomeCmdDir *to = fl->cwd;
+
+    // the drop was over a directory in the list, which means that the
+    // xfer should be done to that directory instead of the current one in the list
+    if (f && f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
+        to = f->is_dotdot ? gnome_cmd_dir_get_parent (to) : gnome_cmd_dir_get_child (to, f->info->name);
+
+    // transform the drag data to a list with URIs
+    GList *uri_list = strings_to_uris ((gchar *) selection_data->data);
+
+    if (gnome_cmd_data.confirm_mouse_dnd)
+    {
+        gpointer *arr = g_new (gpointer, 2);
+
+        arr[0] = uri_list;
+        arr[1] = to;
+
+        int x, y;
+
+        gdk_display_get_pointer (gdk_display_get_default (), NULL, &x, &y, NULL);
+        gtk_item_factory_popup_with_data (fl->priv->ifac, arr, (GDestroyNotify) free_dnd_popup_data, x, y, 0, time);
+
+        return;
+    }
+
     GnomeVFSXferOptions xferOptions;
 
     // find out what operation to perform
@@ -2760,43 +2831,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
             return;
     }
 
-
-    // Find the row that the file was dropped on
-    y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
-    if (y < 0) return;
-
-    int row = gnome_cmd_clist_get_row (*fl, x, y);
-
-    // Transform the drag data to a list with uris
-    uri_list = strings_to_uris ((gchar *) selection_data->data);
-
-    if (g_list_length (uri_list) == 1)
-        to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name ((GnomeVFSURI *) uri_list->data), 0);
-
-    f = fl->get_file_at_row(row);
-    cwd = fl->cwd;
-
-    if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-    {
-        // the drop was over a directory in the list, which means that the
-        // xfer should be done to that directory instead of the current one in the list
-        to = f->is_dotdot ? gnome_cmd_dir_get_parent (cwd) : gnome_cmd_dir_get_child (cwd, f->info->name);
-    }
-    else
-        to = cwd;
-
-    g_return_if_fail (GNOME_CMD_IS_DIR (to));
-
-    // start the xfer
-    gnome_cmd_xfer_uris_start (uri_list,
-                               gnome_cmd_dir_ref (to),
-                               NULL,
-                               NULL,
-                               to_fn,
-                               xferOptions,
-                               GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
-                               GTK_SIGNAL_FUNC (unref_uri_list),
-                               uri_list);
+    fl->drop_files(xferOptions,uri_list,to);
 }
 
 
@@ -2875,6 +2910,23 @@ void GnomeCmdFileList::init_dnd()
     g_signal_connect (this, "drag-motion", G_CALLBACK (drag_motion), this);
     g_signal_connect (this, "drag-leave", G_CALLBACK (drag_leave), this);
     g_signal_connect (this, "drag-data-received", G_CALLBACK (drag_data_received), this);
+}
+
+
+void GnomeCmdFileList::drop_files(GnomeVFSXferOptions xferOptions, GList *uri_list, GnomeCmdDir *dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+
+    // start the xfer
+    gnome_cmd_xfer_uris_start (uri_list,
+                               gnome_cmd_dir_ref (dir),
+                               NULL,
+                               NULL,
+                               g_list_length (uri_list) == 1 ? gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name ((GnomeVFSURI *) uri_list->data), 0) : NULL,
+                               xferOptions,
+                               GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
+                               GTK_SIGNAL_FUNC (unref_uri_list),
+                               uri_list);
 }
 
 

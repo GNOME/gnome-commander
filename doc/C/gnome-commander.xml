@@ -7326,6 +7326,13 @@
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>confirm_mouse_dnd</para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para>If enabled, confirm drag &amp; drop operations</para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
                                     <entry><para>[colors]</para></entry>
                                     <entry><para>curs_bg</para></entry>
                                     <entry><para></para></entry>
@@ -7639,6 +7646,9 @@
                         </listitem>
                         <listitem>
                             <para>Open terminal with administrator privileges</para>
+                        </listitem>
+                        <listitem>
+                            <para>Prompt to confirm drag &amp; drop operations</para>
                         </listitem>
                         <listitem>
                             <para>Context popup menu for internal viewer</para>

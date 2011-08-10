@@ -199,6 +199,7 @@ struct GnomeCmdData
     gboolean                     confirm_delete;
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
+    gboolean                     confirm_mouse_dnd;
     LeftMouseButtonMode          left_mouse_button_mode;
     gboolean                     left_mouse_button_unselects;
     MiddleMouseButtonMode        middle_mouse_button_mode;
