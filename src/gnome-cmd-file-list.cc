@@ -137,10 +137,8 @@ struct GnomeCmdFileListClass
 };
 
 
-class GnomeCmdFileList::Private
+struct GnomeCmdFileList::Private
 {
-  public:
-
     GtkWidget *column_pixmaps[GnomeCmdFileList::NUM_COLUMNS];
     GtkWidget *column_labels[GnomeCmdFileList::NUM_COLUMNS];
     GtkWidget *popup_menu;
@@ -415,7 +413,7 @@ inline void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 }
 
 
-// Given a GnomeFileList, returns the upper-left corner of the selected file
+// given a GnomeFileList, returns the upper-left corner of the selected file
 static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, gint &width, gint &height)
 {
     #define CELL_SPACING 1
@@ -1621,6 +1619,7 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 }
+
 
 static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
@@ -2934,4 +2933,3 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
 {
     return xml << XML::tag("Tab") << XML::attr("dir") << GNOME_CMD_FILE (fl.cwd)->get_real_path() << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::attr("lock") << fl.locked << XML::endtag();
 }
-
