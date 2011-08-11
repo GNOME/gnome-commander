@@ -139,8 +139,8 @@ struct GnomeCmdFileListClass
 
 struct GnomeCmdFileList::Private
 {
-    GtkWidget *column_pixmaps[GnomeCmdFileList::NUM_COLUMNS];
-    GtkWidget *column_labels[GnomeCmdFileList::NUM_COLUMNS];
+    GtkWidget *column_pixmaps[NUM_COLUMNS];
+    GtkWidget *column_labels[NUM_COLUMNS];
 
     gint cur_file;
     GnomeCmdFileCollection visible_files;
@@ -148,7 +148,7 @@ struct GnomeCmdFileList::Private
 
     GCompareDataFunc sort_func;
     gint current_col;
-    gboolean sort_raising[GnomeCmdFileList::NUM_COLUMNS];
+    gboolean sort_raising[NUM_COLUMNS];
 
     gboolean shift_down;
     gint shift_down_row;
@@ -1642,7 +1642,7 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
  * Public functions
  ***********************************/
 
-guint GnomeCmdFileList::get_column_default_width (GnomeCmdFileList::ColumnID col)
+guint GnomeCmdFileList::get_column_default_width (ColumnID col)
 {
     return file_list_column[col].default_width;
 }
@@ -1797,7 +1797,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 
     FileFormatData data(f, FALSE);
 
-    for (gint i=1; i<GnomeCmdFileList::NUM_COLUMNS; i++)
+    for (gint i=1; i<NUM_COLUMNS; i++)
         gtk_clist_set_text (*this, row, i, data.text[i]);
 
     if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
@@ -2324,19 +2324,19 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_F3:
-                on_column_clicked (*this, GnomeCmdFileList::COLUMN_NAME, this);
+                on_column_clicked (*this, COLUMN_NAME, this);
                 return TRUE;
 
             case GDK_F4:
-                on_column_clicked (*this, GnomeCmdFileList::COLUMN_EXT, this);
+                on_column_clicked (*this, COLUMN_EXT, this);
                 return TRUE;
 
             case GDK_F5:
-                on_column_clicked (*this, GnomeCmdFileList::COLUMN_DATE, this);
+                on_column_clicked (*this, COLUMN_DATE, this);
                 return TRUE;
 
             case GDK_F6:
-                on_column_clicked (*this, GnomeCmdFileList::COLUMN_SIZE, this);
+                on_column_clicked (*this, COLUMN_SIZE, this);
                 return TRUE;
         }
     }
