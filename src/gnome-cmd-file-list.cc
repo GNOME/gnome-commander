@@ -2791,16 +2791,17 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     // transform the drag data to a list with URIs
     GList *uri_list = strings_to_uris ((gchar *) selection_data->data);
 
-    if (gnome_cmd_data.confirm_mouse_dnd)
+    GdkModifierType mask;
+
+    gdk_display_get_pointer (gdk_display_get_default (), NULL, &x, &y, &mask);
+
+    if (gnome_cmd_data.confirm_mouse_dnd && !(mask&(GDK_SHIFT_MASK|GDK_CONTROL_MASK)))
     {
         gpointer *arr = g_new (gpointer, 2);
 
         arr[0] = uri_list;
         arr[1] = to;
 
-        int x, y;
-
-        gdk_display_get_pointer (gdk_display_get_default (), NULL, &x, &y, NULL);
         gtk_item_factory_popup_with_data (fl->priv->ifac, arr, (GDestroyNotify) free_dnd_popup_data, x, y, 0, time);
 
         return;
