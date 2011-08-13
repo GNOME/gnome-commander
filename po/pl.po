@@ -1296,21 +1296,21 @@ msgstr "gid"
 #: ../src/gnome-cmd-file-list.cc:214
 #| msgid "Copy overwrite"
 msgid "/_Copy here"
-msgstr "_Kopiuj tutaj"
+msgstr "/_Kopiuj tutaj"
 
 #: ../src/gnome-cmd-file-list.cc:215
 #| msgid "Move overwrite"
 msgid "/_Move here"
-msgstr "_Przenieś tutaj"
+msgstr "/_Przenieś tutaj"
 
 #: ../src/gnome-cmd-file-list.cc:216
 msgid "/_Link here"
-msgstr "_Dowiąż tutaj"
+msgstr "/_Dowiąż tutaj"
 
 #: ../src/gnome-cmd-file-list.cc:218
 #| msgid "Cancel"
 msgid "/C_ancel"
-msgstr "_Anuluj"
+msgstr "/_Anuluj"
 
 #: ../src/gnome-cmd-file-list.cc:1415
 #, fuzzy
