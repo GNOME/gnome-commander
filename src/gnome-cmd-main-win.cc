@@ -1118,7 +1118,10 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
             dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_info (file->info, dir);
     }
 
-    fs->file_list()->set_connection(other->get_connection(), dir);
+    if (fs->file_list()->locked)
+        fs->new_tab(dir);
+    else
+        fs->file_list()->set_connection(other->get_connection(), dir);
 
     other->set_active(!fs_is_active);
     fs->set_active(fs_is_active);
