@@ -173,6 +173,8 @@ struct GnomeCmdFileList::Private
     Private(GnomeCmdFileList *fl);
     ~Private();
 
+    static gchar *translate_menu(const gchar *path, gpointer);
+
     static void on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget);
 };
 
@@ -207,14 +209,15 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
         gtk_clist_set_column_resizeable (*fl, i, TRUE);
 
     static GtkItemFactoryEntry items[] = {
-                                            {_("/_Copy here"), "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_RECURSIVE, "<StockItem>", GTK_STOCK_COPY},
-                                            {_("/_Move here"), "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_REMOVESOURCE, "<StockItem>", GTK_STOCK_COPY},
-                                            {_("/_Link here"), "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu,GNOME_VFS_XFER_LINK_ITEMS,"<StockItem>", GTK_STOCK_CONVERT},
+                                            {N_("/_Copy here"), "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_RECURSIVE, "<StockItem>", GTK_STOCK_COPY},
+                                            {N_("/_Move here"), "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_REMOVESOURCE, "<StockItem>", GTK_STOCK_COPY},
+                                            {N_("/_Link here"), "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu,GNOME_VFS_XFER_LINK_ITEMS,"<StockItem>", GTK_STOCK_CONVERT},
                                             {"/", NULL, NULL, 0, "<Separator>"},
-                                            {_("/C_ancel"), "Esc", (GtkItemFactoryCallback) on_dnd_popup_menu, 0, "<StockItem>", GTK_STOCK_CANCEL}
+                                            {N_("/C_ancel"), "Esc", (GtkItemFactoryCallback) on_dnd_popup_menu, 0, "<StockItem>", GTK_STOCK_CANCEL}
                                          };
 
     ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+    gtk_item_factory_set_translate_func (ifac, translate_menu, NULL, NULL);
     gtk_item_factory_create_items (ifac, G_N_ELEMENTS (items), items, fl);
 }
 
@@ -222,6 +225,12 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 GnomeCmdFileList::Private::~Private()
 {
     g_object_unref (ifac);
+}
+
+
+gchar *GnomeCmdFileList::Private::translate_menu(const gchar *path, gpointer unused)
+{
+    return _(path);
 }
 
 
