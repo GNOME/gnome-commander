@@ -173,7 +173,7 @@ struct GnomeCmdFileList::Private
     Private(GnomeCmdFileList *fl);
     ~Private();
 
-    static void on_dnd_popup_menu (GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget);
+    static void on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget);
 };
 
 
@@ -225,7 +225,7 @@ GnomeCmdFileList::Private::~Private()
 }
 
 
-void GnomeCmdFileList::Private::on_dnd_popup_menu (GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget)
+void GnomeCmdFileList::Private::on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFSXferOptions xferOptions, GtkWidget *widget)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
