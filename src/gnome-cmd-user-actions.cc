@@ -1370,7 +1370,7 @@ inline select2nd<typename T::value_type> make_select2nd(T const& m)
 }
 
 
-inline void delta(GnomeCmdFileList &fl, set<GnomeCmdFile *> &prev_selection, set<GnomeCmdFile *> &new_selection)
+inline void selection_delta(GnomeCmdFileList &fl, set<GnomeCmdFile *> &prev_selection, set<GnomeCmdFile *> &new_selection)
 {
     vector<GnomeCmdFile *> a;
 
@@ -1446,8 +1446,8 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     transform (files2.begin(), files2.end(), inserter(new_selection2,new_selection2.begin()), make_select2nd(files2));    // copy left files2 --> new_selection2
 
-    delta (*fl1, fl1->get_marked_files(), new_selection1);
-    delta (*fl2, fl2->get_marked_files(), new_selection2);
+    selection_delta (*fl1, fl1->get_marked_files(), new_selection1);
+    selection_delta (*fl2, fl2->get_marked_files(), new_selection2);
 }
 
 /************** View Menu **************/
