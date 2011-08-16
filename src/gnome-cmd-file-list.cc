@@ -469,9 +469,6 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
     if (f->is_dotdot)
         return;
 
-    if (priv->selected_files.contain(f))
-        return;
-
     if (row == -1)
         row = get_row_from_file(f);
     if (row == -1)
@@ -489,6 +486,9 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
             gtk_clist_set_background (*this, row, colors->sel_bg);
         }
     }
+
+    if (priv->selected_files.contain(f))
+        return;
 
     priv->selected_files.add(f);
 
