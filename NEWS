@@ -17,6 +17,7 @@ New features:
  * User defined LS_COLORS colours
  * Enhanced file name matching in quick search
  * Open terminal with administrator privileges
+ * Prompt to confirm drag & drop operations
  * Context popup menu for internal viewer
  * --config-dir command line option for customized location of config files
  * New colour theme: green tiger

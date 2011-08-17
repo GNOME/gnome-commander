@@ -1350,9 +1350,47 @@ void mark_restore_selection (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
+struct ltstr
 {
-    return strcmp (f1->info->name, f2->info->name);
+    bool operator() (const char *s1, const char *s2) const   {  return strcmp(s1,s2) < 0;  }
+};
+
+
+template <typename T>
+struct select2nd
+{
+    typename T::second_type operator()(T const& value) const    {  return value.second;  }
+};
+
+
+template <typename T>
+inline select2nd<typename T::value_type> make_select2nd(T const& m)
+{
+    return select2nd<typename T::value_type>();
+}
+
+
+inline void selection_delta(GnomeCmdFileList &fl, set<GnomeCmdFile *> &prev_selection, set<GnomeCmdFile *> &new_selection)
+{
+    vector<GnomeCmdFile *> a;
+
+    a.reserve(max(prev_selection.size(),new_selection.size()));
+
+    set_difference(prev_selection.begin(),prev_selection.end(),
+                   new_selection.begin(),new_selection.end(),
+                   back_inserter(a));
+
+    for (vector<GnomeCmdFile *>::iterator i=a.begin(); i!=a.end(); ++i)
+        fl.unselect_file(*i);
+
+    a.clear();
+
+    set_difference(new_selection.begin(),new_selection.end(),
+                   prev_selection.begin(),prev_selection.end(),
+                   back_inserter(a));
+
+    for (vector<GnomeCmdFile *>::iterator i=a.begin(); i!=a.end(); ++i)
+        fl.select_file(*i);
 }
 
 
@@ -1361,47 +1399,55 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileList *fl1 = get_fl (ACTIVE);
     GnomeCmdFileList *fl2 = get_fl (INACTIVE);
 
-    fl1->unselect_all();
-    fl2->select_all();
+    map<const char *,GnomeCmdFile *,ltstr> files2;          //  map (fname -> GnomeCmdFile *) of visible files (non dirs!) in fl2
 
-    for (GList *i=fl1->get_visible_files(); i; i=i->next)
+    for (GList *i2=fl2->get_visible_files(); i2; i2=i2->next)
     {
-        GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
+        GnomeCmdFile *f2 = (GnomeCmdFile *) i2->data;
 
-        GList *sel2 = fl2->get_marked_files().get_list();
-        GList *gl2 = g_list_find_custom (sel2, f1, (GCompareFunc) compare_filename);
+        if (!f2->is_dotdot && f2->info->type!=GNOME_VFS_FILE_TYPE_DIRECTORY)
+            files2[f2->get_name()] = f2;
+    }
 
-        g_list_free (sel2);
+    set<GnomeCmdFile *> new_selection1, new_selection2;
 
-        if (!gl2)
+    for (GList *i1=fl1->get_visible_files(); i1; i1=i1->next)
+    {
+        GnomeCmdFile *f1 = (GnomeCmdFile *) i1->data;
+
+        if (f1->is_dotdot || f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
+            continue;
+
+        map<const char *,GnomeCmdFile *,ltstr>::iterator i2 = files2.find(f1->get_name());
+
+        if (i2==files2.end())                           //  if f1 is not found in visible fl2 files...
         {
-            fl1->select_file(f1);
+            new_selection1.insert(f1);                  //  ... add f1 to files to be selected in fl1
             continue;
         }
 
-        GnomeCmdFile *f2 = (GnomeCmdFile *) gl2->data;
+        GnomeCmdFile *f2 = i2->second;
 
-        if (f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY || f2->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (f1->info->mtime > f2->info->mtime)          //  if f1 is newer than f2...
         {
-            fl2->unselect_file(f2);
+            new_selection1.insert(f1);                  //  ... add f1 to files to be selected in fl1...
+            files2.erase(i2);                           //  ... and remove f2 from fl2 files
             continue;
         }
 
-        if (f1->info->mtime > f2->info->mtime)
+        if (f1->info->mtime == f2->info->mtime)         //  if the same mtime for f1, f2
         {
-            fl1->select_file(f1);
-            fl2->unselect_file(f2);
-            continue;
-        }
-
-        if (f1->info->mtime == f2->info->mtime)
-        {
-            if (f1->info->size == f2->info->size)
-                fl2->unselect_file(f2);
+            if (f1->info->size == f2->info->size)       //  ... then check f1, f2 sizes
+                files2.erase(i2);                       //  ... and remove f2 from fl2 files
             else
-                fl1->select_file(f1);
+                new_selection1.insert(f1);              //  ... or add f1 to files to be selected in fl1
         }
     }
+
+    transform (files2.begin(), files2.end(), inserter(new_selection2,new_selection2.begin()), make_select2nd(files2));    // copy left files2 --> new_selection2
+
+    selection_delta (*fl1, fl1->get_marked_files(), new_selection1);
+    selection_delta (*fl2, fl2->get_marked_files(), new_selection2);
 }
 
 /************** View Menu **************/

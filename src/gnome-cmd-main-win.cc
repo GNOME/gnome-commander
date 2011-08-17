@@ -458,7 +458,7 @@ static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event,
         // Check that the handle was clicked and not one of the children
         if (paned->handle == event->window)
         {
-            gtk_menu_popup (GTK_MENU(create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
+            gtk_menu_popup (GTK_MENU (create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
             return TRUE;
         }
     }
@@ -1127,7 +1127,10 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
             dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_info (file->info, dir);
     }
 
-    fs->file_list()->set_connection(other->get_connection(), dir);
+    if (fs->file_list()->locked)
+        fs->new_tab(dir);
+    else
+        fs->file_list()->set_connection(other->get_connection(), dir);
 
     other->set_active(!fs_is_active);
     fs->set_active(fs_is_active);

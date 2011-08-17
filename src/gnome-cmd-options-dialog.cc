@@ -947,6 +947,17 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
+    /* Drag and Drop options
+     */
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Drag and Drop"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Confirm mouse operation"), "confirm_mouse_dnd_check");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.confirm_mouse_dnd);
+
+
     return frame;
 }
 
@@ -960,6 +971,7 @@ inline void store_confirmation_options (GtkWidget *dialog)
     GtkWidget *confirm_move_silent = lookup_widget (dialog, "move_overwrite_silently");
     GtkWidget *confirm_move_query = lookup_widget (dialog, "move_overwrite_query");
     GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
+    GtkWidget *confirm_mouse_dnd_check = lookup_widget (dialog, "confirm_mouse_dnd_check");
 
     gnome_cmd_data.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
 
@@ -976,6 +988,8 @@ inline void store_confirmation_options (GtkWidget *dialog)
         gnome_cmd_data.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
         gnome_cmd_data.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+
+    gnome_cmd_data.confirm_mouse_dnd = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_mouse_dnd_check));
 }
 
 

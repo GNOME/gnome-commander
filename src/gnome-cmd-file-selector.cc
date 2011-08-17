@@ -107,7 +107,7 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
     GtkWidget *menu = gnome_cmd_list_popmenu_new (fs);
     g_object_ref (menu);
 
-    gtk_menu_popup (GTK_MENU(menu), NULL, NULL, NULL, fs, 3, GDK_CURRENT_TIME);
+    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, fs, 3, GDK_CURRENT_TIME);
 }
 
 

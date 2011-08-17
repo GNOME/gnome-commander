@@ -880,6 +880,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     confirm_delete = TRUE;
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+    confirm_mouse_dnd = TRUE;
     left_mouse_button_mode = LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
     left_mouse_button_unselects = TRUE;
     middle_mouse_button_mode = MIDDLE_BUTTON_GOES_UP_DIR;
@@ -1090,6 +1091,7 @@ void GnomeCmdData::load()
     confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
     confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
 
     filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
     filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = gnome_cmd_data_get_bool ("/options/show_regular", FALSE);
@@ -1523,6 +1525,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/confirm/delete", confirm_delete);
     gnome_cmd_data_set_int    ("/confirm/copy_overwrite", confirm_copy_overwrite);
     gnome_cmd_data_set_int    ("/confirm/move_overwrite", confirm_move_overwrite);
+    gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", confirm_mouse_dnd);
 
     gnome_cmd_data_set_bool   ("/options/show_unknown", filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
     gnome_cmd_data_set_bool   ("/options/show_regular", filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
