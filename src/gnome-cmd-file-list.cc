@@ -257,6 +257,7 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     realized = FALSE;
     modifier_click = FALSE;
     locked = FALSE;
+
     con = NULL;
     cwd = NULL;
     lwd = NULL;
@@ -720,7 +721,6 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
             const gchar *fn = NULL;
-            gchar *uri_str;
 
             if (gnome_vfs_uri_is_local (f->get_uri()))
             {
@@ -732,7 +732,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             if (!fn)
                 fn = f->get_uri_str();
 
-            uri_str = g_strconcat (fn, "\r\n", NULL);
+            gchar *uri_str = g_strconcat (fn, "\r\n", NULL);
             uri_str_list = g_list_append (uri_str_list, uri_str);
             total_len += strlen (uri_str);
         }
@@ -772,6 +772,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 
     *file_list_len = 0;
     g_list_free (sel_files);
+
     return NULL;
 }
 
@@ -933,20 +934,7 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f1->info->type < f2->info->type)
         return 1;
 
-    // gchar *t1 = f1->get_path();
-    // gchar *t2 = f2->get_path();
-    // gchar *d1 = g_path_get_dirname (t1);
-    // gchar *d2 = g_path_get_dirname (t2);
-
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    // gint ret = my_strcmp (d1, d2, raising);
-
-    // g_free (t1);
-    // g_free (t2);
-    // g_free (d1);
-    // g_free (d2);
-
-    // return ret;
 
     return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
 }
@@ -2639,9 +2627,9 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
 
 void GnomeCmdFileList::invalidate_tree_size()
 {
-    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *i = get_visible_files(); i; i = i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
         if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
             f->invalidate_tree_size();
     }
