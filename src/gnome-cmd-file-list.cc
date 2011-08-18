@@ -407,20 +407,6 @@ static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
 }
 
 
-inline void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
-{
-    if (fl->priv->selpat_dialog)  return;
-
-    GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
-
-    g_object_ref (dialog);
-    g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
-    gtk_widget_show (dialog);
-
-    fl->priv->selpat_dialog = dialog;
-}
-
-
 // given a GnomeFileList, returns the upper-left corner of the selected file
 static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, gint &width, gint &height)
 {
@@ -2109,7 +2095,15 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
 
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 {
-    show_selpat_dialog (fl, mode);
+    if (fl->priv->selpat_dialog)  return;
+
+    GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
+
+    g_object_ref (dialog);
+    g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
+    gtk_widget_show (dialog);
+
+    fl->priv->selpat_dialog = dialog;
 }
 
 
@@ -2357,12 +2351,12 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_Add:
             case GDK_plus:
             case GDK_equal:
-                show_selpat_dialog (this, TRUE);
+                gnome_cmd_file_list_show_selpat_dialog (this, TRUE);
                 return TRUE;
 
             case GDK_KP_Subtract:
             case GDK_minus:
-                show_selpat_dialog (this, FALSE);
+                gnome_cmd_file_list_show_selpat_dialog (this, FALSE);
                 return TRUE;
 
             case GDK_KP_Multiply:
