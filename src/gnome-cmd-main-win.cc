@@ -25,7 +25,6 @@
 #include <libgnomeui/gnome-stock-icons.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-main-win.h"
