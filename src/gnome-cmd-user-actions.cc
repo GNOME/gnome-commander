@@ -32,7 +32,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-main-win.h"

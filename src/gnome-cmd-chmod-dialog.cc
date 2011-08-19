@@ -26,7 +26,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chmod-component.h"
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"

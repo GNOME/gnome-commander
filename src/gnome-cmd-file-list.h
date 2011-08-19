@@ -21,7 +21,6 @@
 #ifndef __GNOME_CMD_FILE_LIST_H__
 #define __GNOME_CMD_FILE_LIST_H__
 
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-collection.h"
