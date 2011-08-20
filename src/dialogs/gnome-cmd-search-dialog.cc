@@ -1173,6 +1173,8 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
 
     priv->profile_component->set_content_patterns_history(defaults.content_patterns.ents);
 
+    priv->profile_component->set_default_activation(*this);
+
     gtk_widget_show_all (button);
     gtk_widget_show (*priv->profile_component);
 
