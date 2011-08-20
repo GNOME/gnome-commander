@@ -1139,6 +1139,7 @@ static void gnome_cmd_search_dialog_class_init (GnomeCmdSearchDialogClass *klass
 GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
+    gtk_window_set_transient_for (*this, *main_win);
 
     GtkWidget *button = priv->create_button_with_menu(_("Profiles..."), cfg);
 
