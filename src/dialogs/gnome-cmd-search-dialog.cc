@@ -544,7 +544,7 @@ static gboolean update_search_status_widgets (SearchData *data)
         int matches = data->dialog->priv->result_list->size();
 
         gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
-                                    ngettext("Found %d match", "Found %d matches", matches);
+                                     ngettext("Found %d match", "Found %d matches", matches);
 
         gchar *msg = g_strdup_printf (fmt, matches);
 
