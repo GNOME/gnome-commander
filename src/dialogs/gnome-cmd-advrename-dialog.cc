@@ -34,6 +34,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-manage-profiles-dialog.h"
+#include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "tags/gnome-cmd-tags.h"
 
@@ -672,6 +673,7 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, cfg.width, cfg.height);
+    gtk_window_set_transient_for (*this, *main_win);
 
     gtk_dialog_add_action_widget (*this,
                                   priv->create_button_with_menu (_("Profiles..."), &cfg),
