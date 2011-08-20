@@ -557,7 +557,8 @@ static gboolean update_search_status_widgets (SearchData *data)
         gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_STOP, FALSE);
         gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_FIND, TRUE);
 
-        gtk_widget_grab_focus (*data->dialog->priv->result_list);         // set focus to result list
+        if (matches)
+            gtk_widget_grab_focus (*data->dialog->priv->result_list);         // set focus to result list
     }
 
     return FALSE;    // returning FALSE here stops the timeout callbacks
