@@ -648,6 +648,7 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, cfg.width, cfg.height);
+    gtk_window_set_transient_for (*this, *main_win);
 
     gtk_dialog_add_action_widget (*this,
                                   priv->create_button_with_menu (_("Profiles..."), &cfg),
