@@ -34,6 +34,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-advrename-profile-component.h"
 #include "gnome-cmd-manage-profiles-dialog.h"
+#include "gnome-cmd-main-win.h"
 #include "utils.h"
 #include "tags/gnome-cmd-tags.h"
 
