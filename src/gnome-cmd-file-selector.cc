@@ -1159,6 +1159,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
         switch (event->keyval)
         {
             case GDK_Tab:
+            case GDK_ISO_Left_Tab:
                 view_prev_tab ();
                 return TRUE;
 
@@ -1205,6 +1206,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Tab:
+            case GDK_ISO_Left_Tab:
                 view_next_tab ();
                 return TRUE;
 

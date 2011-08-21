@@ -1034,6 +1034,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             switch (event->keyval)
             {
                 case GDK_Tab:
+                case GDK_ISO_Left_Tab:
                     // hack to avoid the default handling of TAB
                     clear_event_key (event);
                     switch_fs(fs(INACTIVE));
