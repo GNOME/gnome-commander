@@ -7569,14 +7569,6 @@
           </para>
         </listitem>
       </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>~/.gnome2/gnome-commander-size</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
     </variablelist>
   </sect1>
 
