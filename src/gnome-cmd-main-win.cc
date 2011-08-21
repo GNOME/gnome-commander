@@ -1076,10 +1076,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                     return TRUE;
             }
 
-    if (fs(ACTIVE)->key_pressed(event))
-        return TRUE;
-
-    return FALSE;
+    return fs(ACTIVE)->key_pressed(event);
 }
 
 
