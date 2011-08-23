@@ -826,6 +826,8 @@ static void init (GnomeCmdMainWin *mw)
         mw->fs(RIGHT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
 
+    gnome_cmd_data.tabs.clear();        //  free unused memory
+
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
     g_signal_connect (mw, "delete-event", G_CALLBACK (on_delete_event), mw);
     g_signal_connect (mw->priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), mw);
