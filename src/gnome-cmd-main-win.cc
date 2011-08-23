@@ -24,6 +24,8 @@
 #include <unistd.h>
 #include <libgnomeui/gnome-stock-icons.h>
 
+#include <algorithm>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-user-actions.h"
@@ -1073,12 +1075,13 @@ inline void GnomeCmdMainWin::open_tabs(FileSelectorID id)
     if (gnome_cmd_data.tabs[id].empty())
         gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
 
-    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[id].begin(); i!=gnome_cmd_data.tabs[id].end(); ++i)
+    vector<GnomeCmdData::Tab>::const_iterator last_tab = unique(gnome_cmd_data.tabs[id].begin(),gnome_cmd_data.tabs[id].end());
+
+    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[id].begin(); i!=last_tab; ++i)
     {
         GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
         fs(id)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
-
 }
 
 
