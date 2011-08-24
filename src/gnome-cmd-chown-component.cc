@@ -164,7 +164,7 @@ void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid
 
 uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
-    const gchar *owner = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->user_combo)->entry));
+    const gchar *owner = get_combo_text (component->priv->user_combo);
 
     return gcmd_owner.users[owner];
 }
@@ -172,7 +172,7 @@ uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 
 gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
-    const gchar *group = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->group_combo)->entry));
+    const gchar *group = get_combo_text (component->priv->group_combo);
 
     return gcmd_owner.groups[group];
 }
