@@ -33,28 +33,28 @@ vfs_full_authentication_callback (const GnomeVFSModuleCallbackFullAuthentication
                                   GnomeVFSModuleCallbackFullAuthenticationOut *out_args, size_t out_size,
                                   gpointer user_data)
 {
-    GnomePasswordDialog *gpwd =  GNOME_PASSWORD_DIALOG (gnome_password_dialog_new (_("Enter password"),
-                                                                                   _("Problem: access not permitted\n\n"
-                                                                                     "please supply user credentials\n\n"
-                                                                                     "Remember: wrong credentials may lead to account locking"),
-                                                                                     "", "", FALSE));
+    GnomePasswordDialog *dlg = GNOME_PASSWORD_DIALOG (gnome_password_dialog_new (_("Enter password"),
+                                                                                 _("Problem: access not permitted\n\n"
+                                                                                   "please supply user credentials\n\n"
+                                                                                   "Remember: wrong credentials may lead to account locking"),
+                                                                                   "", "", FALSE));
 
-    gnome_password_dialog_set_show_domain (gpwd, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN);
-    gnome_password_dialog_set_domain (gpwd, in_args->domain);
-    gnome_password_dialog_set_show_remember (gpwd, FALSE);
-    gnome_password_dialog_set_show_username (gpwd, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME);
-    gnome_password_dialog_set_username (gpwd, in_args->username);
-    gnome_password_dialog_set_show_userpass_buttons (gpwd, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_ANON_SUPPORTED);
-    gnome_password_dialog_set_show_password (gpwd, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_PASSWORD);
+    gnome_password_dialog_set_show_domain (dlg, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN);
+    gnome_password_dialog_set_domain (dlg, in_args->domain);
+    gnome_password_dialog_set_show_remember (dlg, FALSE);
+    gnome_password_dialog_set_show_username (dlg, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME);
+    gnome_password_dialog_set_username (dlg, in_args->username);
+    gnome_password_dialog_set_show_userpass_buttons (dlg, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_ANON_SUPPORTED);
+    gnome_password_dialog_set_show_password (dlg, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_PASSWORD);
 
-    out_args->abort_auth = gnome_password_dialog_run_and_block (GNOME_PASSWORD_DIALOG (gpwd)) == FALSE;
+    out_args->abort_auth = gnome_password_dialog_run_and_block (GNOME_PASSWORD_DIALOG (dlg)) == FALSE;
 
     if (out_args->abort_auth)
         return;
 
-    out_args->username = g_strdup (gnome_password_dialog_get_username (gpwd));
-    out_args->password = g_strdup (gnome_password_dialog_get_password (gpwd));
-    out_args->domain = g_strdup (gnome_password_dialog_get_domain (gpwd));
+    out_args->username = g_strdup (gnome_password_dialog_get_username (dlg));
+    out_args->password = g_strdup (gnome_password_dialog_get_password (dlg));
+    out_args->domain = g_strdup (gnome_password_dialog_get_domain (dlg));
 }
 
 
