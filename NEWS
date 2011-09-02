@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem #377463 (mkdir dialog loses focus)
  * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
  * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)
+ * Fixed problem #657780 (bugs in nl.po)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
 

@@ -7608,6 +7608,9 @@
                             <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #657780 (bugs in nl.po)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
                         <listitem>
