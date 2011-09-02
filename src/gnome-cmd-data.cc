@@ -1672,6 +1672,18 @@ void GnomeCmdData::save()
         xml << search_defaults;
         xml << bookmarks_defaults;
 
+        xml << XML::tag("Connections");
+
+        for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
+        {
+            GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+
+            if (con)
+                xml << *con;
+        }
+
+        xml << XML::endtag("Connections");
+
         xml << XML::tag("Bookmarks");
 
         write (xml, gnome_cmd_con_list_get_home (priv->con_list), "Home");

@@ -527,3 +527,17 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_a
 
     return s;
 }
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con)
+{
+    if (!con.alias || !*con.alias || !con.uri || !*con.uri)
+        return xml;
+
+    xml << XML::tag("Connection");
+
+    xml << XML::attr("name") << XML::escape(con.alias);
+    xml << XML::attr("uri") << XML::escape(con.uri);
+
+    return xml << XML::endtag();
+}

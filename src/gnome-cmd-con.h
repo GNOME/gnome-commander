@@ -104,6 +104,8 @@ struct GnomeCmdCon
     gchar            *open_failed_msg;
 
     GnomeCmdConPrivate *priv;
+
+    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
 };
 
 struct GnomeCmdConClass
