@@ -80,7 +80,6 @@ void gnome_cmd_con_list_remove_device (GnomeCmdConList *list, GnomeCmdConDevice 
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);
-void gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *list, GList *ftp_cons);
 GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
