@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <libgnomeui/libgnomeui.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con.h"
@@ -538,6 +539,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con)
 
     xml << XML::attr("name") << XML::escape(con.alias);
     xml << XML::attr("uri") << XML::escape(con.uri);
+    xml << XML::attr("auth") << con.gnome_auth;
 
     return xml << XML::endtag();
 }
