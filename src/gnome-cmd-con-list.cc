@@ -412,17 +412,17 @@ GnomeCmdCon *gnome_cmd_con_list_find_alias (GnomeCmdConList *list, const gchar *
 }
 
 
-GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list)
+GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (list), NULL);
 
-    return con_list->priv->home_con;
+    return list->priv->home_con;
 }
 
 
-GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list)
+GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (list), NULL);
 
-    return con_list->priv->smb_con;
+    return list->priv->smb_con;
 }

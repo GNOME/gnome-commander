@@ -94,7 +94,7 @@ inline gboolean gnome_cmd_con_list_has_alias (GnomeCmdConList *list, const gchar
 }
 
 GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list);
-GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
+GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list);
 
 inline GnomeCmdCon *get_home_con ()
 {
