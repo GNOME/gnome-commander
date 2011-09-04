@@ -532,13 +532,13 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 if (param4) //  if remote...
-                    xml_con = gnome_cmd_con_list_find_alias ((GnomeCmdConList *) gnome_cmd_data_get_con_list (), param1);
+                    xml_con = gnome_cmd_con_list_find_alias (gnome_cmd_con_list_get (), param1);
                 else
                     if (strcmp(param1,"Home")==0)
-                        xml_con = gnome_cmd_con_list_get_home ((GnomeCmdConList *) gnome_cmd_data_get_con_list ());
+                        xml_con = gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());
                     else
                         if (strcmp(param1,"SMB")==0)
-                            xml_con = gnome_cmd_con_list_get_smb ((GnomeCmdConList *) gnome_cmd_data_get_con_list ());
+                            xml_con = gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
                         else
                             xml_con = NULL;
 
