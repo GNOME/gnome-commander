@@ -871,6 +871,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 {
     quick_connect = NULL;
 
+    XML_cfg_has_connections = FALSE;
     XML_cfg_has_bookmarks = FALSE;
 
     confirm_delete = TRUE;
@@ -1237,19 +1238,6 @@ void GnomeCmdData::load()
         priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
     }
 
-    priv->con_list = gnome_cmd_con_list_new ();
-
-    gnome_cmd_con_list_begin_update (priv->con_list);
-    load_devices ("devices");
-    load_connections ("connections");
-    gnome_cmd_con_list_end_update (priv->con_list);
-
-    // "/quick-connect/uri" must be read AFTER retrieving anonymous password
-
-    gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
-    quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
-    g_free (quick_connect_uri);
-
     static struct
     {
         guint code;
@@ -1453,6 +1441,11 @@ void GnomeCmdData::load()
     load_cmdline_history();
     //load_dir_history ();
 
+    priv->con_list = gnome_cmd_con_list_new ();
+
+    gnome_cmd_con_list_begin_update (priv->con_list);
+    load_devices ("devices");
+
     if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
         load_rename_history();
@@ -1481,6 +1474,17 @@ void GnomeCmdData::load()
 
         load_search_defaults();
     }
+
+    if (!XML_cfg_has_connections)
+        load_connections ("connections");
+
+    gnome_cmd_con_list_end_update (priv->con_list);
+
+    // "/quick-connect/uri" must be read AFTER retrieving anonymous password
+
+    gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
+    quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
+    g_free (quick_connect_uri);
 
     // if number of registered user actions does not exceed 10 (nothing has been read), try to read old cfg file
     if (gcmd_user_actions.size()<10)

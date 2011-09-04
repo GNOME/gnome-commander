@@ -194,6 +194,7 @@ struct GnomeCmdData
 
   public:
 
+    gboolean                     XML_cfg_has_connections;
     gboolean                     XML_cfg_has_bookmarks;
 
     gboolean                     confirm_delete;
