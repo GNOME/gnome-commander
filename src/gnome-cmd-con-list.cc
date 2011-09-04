@@ -374,14 +374,6 @@ GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *con_list)
 }
 
 
-void gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *con_list, GList *ftp_cons)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-
-    con_list->priv->ftp_cons = ftp_cons;
-}
-
-
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
