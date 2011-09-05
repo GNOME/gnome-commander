@@ -184,12 +184,6 @@ GtkType gnome_cmd_con_list_get_type ()
 }
 
 
-GnomeCmdConList *gnome_cmd_con_list_new ()
-{
-    return (GnomeCmdConList *) g_object_new (GNOME_CMD_TYPE_CON_LIST, NULL);
-}
-
-
 void gnome_cmd_con_list_begin_update (GnomeCmdConList *con_list)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));

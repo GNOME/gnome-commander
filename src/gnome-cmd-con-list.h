@@ -59,7 +59,10 @@ struct GnomeCmdConListClass
 
 GtkType gnome_cmd_con_list_get_type ();
 
-GnomeCmdConList *gnome_cmd_con_list_new ();
+inline GnomeCmdConList *gnome_cmd_con_list_new ()
+{
+    return (GnomeCmdConList *) g_object_new (GNOME_CMD_TYPE_CON_LIST, NULL);
+}
 
 inline GnomeCmdConList *gnome_cmd_con_list_get ()
 {
