@@ -311,7 +311,7 @@ inline gboolean load_connections (const gchar *fname)
                                 //  ????
                             }
                             else
-                                gnome_cmd_con_list_add_ftp (gnome_cmd_data.priv->con_list, server);
+                                gnome_cmd_data.priv->con_list->add(server);
                         }
 
                         g_free (alias);
@@ -347,7 +347,7 @@ inline gboolean load_connections (const gchar *fname)
     if (!g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list)))
     {
         GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (_("GNOME Commander"), "ftp://anonymous@ftp.gnome.org/pub/GNOME/sources/gnome-commander/");
-        gnome_cmd_con_list_add_ftp (gnome_cmd_data.priv->con_list, server);
+        gnome_cmd_data.priv->con_list->add(server);
     }
 
     return fd!=NULL && g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list))>prev_ftp_cons_no;

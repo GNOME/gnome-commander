@@ -51,6 +51,10 @@ struct GnomeCmdConList
     void lock();
     void unlock();
 
+    void add(GnomeCmdConFtp *con);
+
+    void remove(GnomeCmdConFtp *con);
+
     GnomeCmdCon *find_alias(const gchar *alias) const;
     gboolean has_alias(const gchar *alias) const            {  return find_alias(alias)!=NULL;  }
 };
@@ -76,9 +80,6 @@ inline GnomeCmdConList *gnome_cmd_con_list_get ()
 {
     return (GnomeCmdConList *) gnome_cmd_data_get_con_list ();
 }
-
-void gnome_cmd_con_list_add_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
-void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 
 void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);

@@ -206,50 +206,48 @@ void GnomeCmdConList::unlock()
 }
 
 
-void gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void GnomeCmdConList::add(GnomeCmdConFtp *con)
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) == -1);
-    g_return_if_fail (g_list_index (con_list->priv->ftp_cons, ftp_con) == -1);
+    g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
+    g_return_if_fail (g_list_index (priv->ftp_cons, con) == -1);
 
-    con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
-    con_list->priv->ftp_cons = g_list_append (con_list->priv->ftp_cons, ftp_con);
+    priv->all_cons = g_list_append (priv->all_cons, con);
+    priv->ftp_cons = g_list_append (priv->ftp_cons, con);
 
-    g_signal_connect (ftp_con, "updated", G_CALLBACK (on_con_updated), con_list);
+    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), this);
 
-    if (con_list->priv->update_lock)
+    if (priv->update_lock)
     {
-        con_list->priv->changed = TRUE;
-        con_list->priv->ftp_cons_changed = TRUE;
+        priv->changed = TRUE;
+        priv->ftp_cons_changed = TRUE;
     }
     else
     {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
     }
 }
 
 
-void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void GnomeCmdConList::remove(GnomeCmdConFtp *con)
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) != -1);
-    g_return_if_fail (g_list_index (con_list->priv->ftp_cons, ftp_con) != -1);
+    g_return_if_fail (g_list_index (priv->all_cons, con) != -1);
+    g_return_if_fail (g_list_index (priv->ftp_cons, con) != -1);
 
-    con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
-    con_list->priv->ftp_cons = g_list_remove (con_list->priv->ftp_cons, ftp_con);
+    priv->all_cons = g_list_remove (priv->all_cons, con);
+    priv->ftp_cons = g_list_remove (priv->ftp_cons, con);
 
-    g_signal_handlers_disconnect_by_func (ftp_con, (gpointer) on_con_updated, con_list);
+    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, this);
 
-    if (con_list->priv->update_lock)
+    if (priv->update_lock)
     {
-        con_list->priv->changed = TRUE;
-        con_list->priv->ftp_cons_changed = TRUE;
+        priv->changed = TRUE;
+        priv->ftp_cons_changed = TRUE;
     }
     else
     {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
     }
 }
 

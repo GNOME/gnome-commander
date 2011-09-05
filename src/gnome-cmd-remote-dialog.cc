@@ -175,7 +175,7 @@ static void on_new_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dia
     GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list)));
     GtkTreeIter iter;
 
-    gnome_cmd_con_list_add_ftp (gnome_cmd_con_list_get (), server);
+    gnome_cmd_con_list_get()->add(server);
     gtk_list_store_append (store, &iter);
     set_server (store, &iter, server);
 }
@@ -209,7 +209,7 @@ static void on_remove_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dial
 
         gtk_tree_model_get (model, &iter, COL_FTP_CON, &server, -1);
         gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-        gnome_cmd_con_list_remove_ftp (gnome_cmd_con_list_get (), server);
+        gnome_cmd_con_list_get()->remove(server);
     }
     else
         g_printerr (_("No server selected"));
