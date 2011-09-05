@@ -532,7 +532,7 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 if (param4) //  if remote...
-                    xml_con = gnome_cmd_con_list_find_alias (gnome_cmd_con_list_get (), param1);
+                    xml_con = gnome_cmd_con_list_get()->find_alias(param1);
                 else
                     if (strcmp(param1,"Home")==0)
                         xml_con = gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());

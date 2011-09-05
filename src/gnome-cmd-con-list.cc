@@ -184,29 +184,25 @@ GtkType gnome_cmd_con_list_get_type ()
 }
 
 
-void gnome_cmd_con_list_begin_update (GnomeCmdConList *con_list)
+void GnomeCmdConList::lock()
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-
-    con_list->priv->update_lock = TRUE;
-    con_list->priv->changed = FALSE;
-    con_list->priv->ftp_cons_changed = FALSE;
-    con_list->priv->device_cons_changed = FALSE;
+    priv->update_lock = TRUE;
+    priv->changed = FALSE;
+    priv->ftp_cons_changed = FALSE;
+    priv->device_cons_changed = FALSE;
 }
 
 
-void gnome_cmd_con_list_end_update (GnomeCmdConList *con_list)
+void GnomeCmdConList::unlock()
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
+    if (priv->changed)
+        gtk_signal_emit (*this, signals[LIST_CHANGED]);
+    if (priv->ftp_cons_changed)
+        gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
+    if (priv->device_cons_changed)
+        gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
 
-    if (con_list->priv->changed)
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-    if (con_list->priv->ftp_cons_changed)
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
-    if (con_list->priv->device_cons_changed)
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
-
-    con_list->priv->update_lock = FALSE;
+    priv->update_lock = FALSE;
 }
 
 
@@ -384,15 +380,14 @@ void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
 }
 
 
-GnomeCmdCon *gnome_cmd_con_list_find_alias (GnomeCmdConList *list, const gchar *alias)
+GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
 {
-    g_return_val_if_fail (list!=NULL, NULL);
     g_return_val_if_fail (alias!=NULL, NULL);
 
-    GnomeCmdCon c;          // used as reference element to be looked for, no allocation necessary
-    c.alias = (gchar *) alias;
+    GnomeCmdCon con;                // used as reference element to be looked for, no allocation necessary
+    con.alias = (gchar *) alias;
 
-    GList *elem = g_list_find_custom (list->priv->all_cons, &c, (GCompareFunc) compare_alias);
+    GList *elem = g_list_find_custom (priv->all_cons, &con, (GCompareFunc) compare_alias);
 
     return elem ? (GnomeCmdCon *) elem->data : NULL;
 }

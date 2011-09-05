@@ -297,7 +297,7 @@ inline gboolean load_connections (const gchar *fname)
 
                         gchar *alias = gnome_vfs_unescape_string (a[1].c_str(), NULL);
 
-                        if (gnome_cmd_con_list_has_alias (gnome_cmd_data.priv->con_list, alias))
+                        if (gnome_cmd_data.priv->con_list->has_alias(alias))
                             g_warning ("%s: ignored duplicate entry: %s", path, alias);
                         else
                         {
@@ -1443,7 +1443,7 @@ void GnomeCmdData::load()
 
     priv->con_list = gnome_cmd_con_list_new ();
 
-    gnome_cmd_con_list_begin_update (priv->con_list);
+    priv->con_list->lock();
     load_devices ("devices");
 
     if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
@@ -1478,7 +1478,7 @@ void GnomeCmdData::load()
     if (!XML_cfg_has_connections)
         load_connections ("connections");
 
-    gnome_cmd_con_list_end_update (priv->con_list);
+    priv->con_list->unlock();
 
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
 
