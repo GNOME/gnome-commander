@@ -102,7 +102,7 @@ static void class_init (GnomeCmdConListClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
-    signals[LIST_CHANGED]          = gtk_signal_new ("list-changed",
+    signals[LIST_CHANGED]           = gtk_signal_new ("list-changed",
                                                               GTK_RUN_LAST,
                                                               G_OBJECT_CLASS_TYPE (object_class),
                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, list_changed),
@@ -227,15 +227,15 @@ void gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_
 
     g_signal_connect (ftp_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
-    if (!con_list->priv->update_lock)
-    {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
-    }
-    else
+    if (con_list->priv->update_lock)
     {
         con_list->priv->changed = TRUE;
         con_list->priv->ftp_cons_changed = TRUE;
+    }
+    else
+    {
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
     }
 }
 
@@ -251,15 +251,15 @@ void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *f
 
     g_signal_handlers_disconnect_by_func (ftp_con, (gpointer) on_con_updated, con_list);
 
-    if (!con_list->priv->update_lock)
-    {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
-    }
-    else
+    if (con_list->priv->update_lock)
     {
         con_list->priv->changed = TRUE;
         con_list->priv->ftp_cons_changed = TRUE;
+    }
+    else
+    {
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
     }
 }
 
@@ -275,15 +275,15 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp
 
     g_signal_connect (ftp_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
-    if (!con_list->priv->update_lock)
-    {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[QUICK_FTP_LIST_CHANGED]);
-    }
-    else
+    if (con_list->priv->update_lock)
     {
         con_list->priv->changed = TRUE;
         con_list->priv->quick_ftp_cons_changed = TRUE;
+    }
+    else
+    {
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[QUICK_FTP_LIST_CHANGED]);
     }
 }
 
@@ -299,15 +299,15 @@ void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdCon
 
     g_signal_handlers_disconnect_by_func (ftp_con, (gpointer) on_con_updated, con_list);
 
-    if (!con_list->priv->update_lock)
-    {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[QUICK_FTP_LIST_CHANGED]);
-    }
-    else
+    if (con_list->priv->update_lock)
     {
         con_list->priv->changed = TRUE;
         con_list->priv->quick_ftp_cons_changed = TRUE;
+    }
+    else
+    {
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[QUICK_FTP_LIST_CHANGED]);
     }
 }
 
@@ -322,15 +322,15 @@ void gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice
     con_list->priv->device_cons = g_list_append (con_list->priv->device_cons, device_con);
     g_signal_connect (device_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
-    if (!con_list->priv->update_lock)
-    {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
-    }
-    else
+    if (con_list->priv->update_lock)
     {
         con_list->priv->changed = TRUE;
         con_list->priv->device_cons_changed = TRUE;
+    }
+    else
+    {
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
     }
 }
 
@@ -345,15 +345,15 @@ void gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDev
     con_list->priv->device_cons = g_list_remove (con_list->priv->device_cons, device_con);
     g_signal_handlers_disconnect_by_func (device_con, (gpointer) on_con_updated, con_list);
 
-    if (!con_list->priv->update_lock)
-    {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
-    }
-    else
+    if (con_list->priv->update_lock)
     {
         con_list->priv->changed = TRUE;
         con_list->priv->device_cons_changed = TRUE;
+    }
+    else
+    {
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
     }
 }
 
