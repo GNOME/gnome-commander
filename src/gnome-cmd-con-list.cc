@@ -67,12 +67,12 @@ static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
     if (GNOME_CMD_IS_CON_FTP (con))
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*con_list, signals[FTP_LIST_CHANGED]);
     else
         if (GNOME_CMD_IS_CON_DEVICE (con))
-            gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
+            gtk_signal_emit (*con_list, signals[DEVICE_LIST_CHANGED]);
 
-    gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
+    gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
 }
 
 
@@ -270,8 +270,8 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp
     }
     else
     {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[QUICK_FTP_LIST_CHANGED]);
+        gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
+        gtk_signal_emit (*con_list, signals[QUICK_FTP_LIST_CHANGED]);
     }
 }
 
@@ -294,8 +294,8 @@ void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdCon
     }
     else
     {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[QUICK_FTP_LIST_CHANGED]);
+        gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
+        gtk_signal_emit (*con_list, signals[QUICK_FTP_LIST_CHANGED]);
     }
 }
 
@@ -389,17 +389,13 @@ GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
 }
 
 
-GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list)
+GnomeCmdCon *GnomeCmdConList::get_home()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (list), NULL);
-
-    return list->priv->home_con;
+    return priv->home_con;
 }
 
 
-GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list)
+GnomeCmdCon *GnomeCmdConList::get_smb()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (list), NULL);
-
-    return list->priv->smb_con;
+    return priv->smb_con;
 }

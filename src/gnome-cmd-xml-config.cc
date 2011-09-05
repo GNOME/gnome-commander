@@ -535,10 +535,10 @@ static void xml_start(GMarkupParseContext *context,
                     xml_con = gnome_cmd_con_list_get()->find_alias(param1);
                 else
                     if (strcmp(param1,"Home")==0)
-                        xml_con = gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());
+                        xml_con = gnome_cmd_con_list_get()->get_home();
                     else
                         if (strcmp(param1,"SMB")==0)
-                            xml_con = gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
+                            xml_con = gnome_cmd_con_list_get()->get_smb();
                         else
                             xml_con = NULL;
 

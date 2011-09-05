@@ -59,6 +59,9 @@ struct GnomeCmdConList
 
     GnomeCmdCon *find_alias(const gchar *alias) const;
     gboolean has_alias(const gchar *alias) const            {  return find_alias(alias)!=NULL;  }
+
+    GnomeCmdCon *get_home();
+    GnomeCmdCon *get_smb();
 };
 
 struct GnomeCmdConListClass
@@ -93,17 +96,14 @@ GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
-GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list);
-GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *list);
-
 inline GnomeCmdCon *get_home_con ()
 {
-    return gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());
+    return gnome_cmd_con_list_get()->get_home();
 }
 
 inline GnomeCmdCon *get_smb_con ()
 {
-    return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
+    return gnome_cmd_con_list_get()->get_smb();
 }
 
 inline GList *get_ftp_cons ()

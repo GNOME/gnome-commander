@@ -837,7 +837,7 @@ inline void GnomeCmdData::load_local_bookmarks()
     GList *names = load_string_history ("/local_bookmarks/name%d", size);
     GList *paths = load_string_history ("/local_bookmarks/path%d", size);
 
-    GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
+    GnomeCmdCon *con = priv->con_list->get_home();
 
     for (gint i=0; i<size; i++)
         gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
@@ -850,7 +850,7 @@ inline void GnomeCmdData::load_smb_bookmarks()
     GList *names = load_string_history ("/smb_bookmarks/name%d", size);
     GList *paths = load_string_history ("/smb_bookmarks/path%d", size);
 
-    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (priv->con_list);
+    GnomeCmdCon *con = priv->con_list->get_smb();
 
     for (gint i=0; i<size; i++)
         gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
@@ -1688,8 +1688,8 @@ void GnomeCmdData::save()
 
         xml << XML::tag("Bookmarks");
 
-        write (xml, gnome_cmd_con_list_get_home (priv->con_list), "Home");
-        write (xml, gnome_cmd_con_list_get_smb (priv->con_list), "SMB");
+        write (xml, priv->con_list->get_home(), "Home");
+        write (xml, priv->con_list->get_smb(), "SMB");
 
         for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
         {
