@@ -28,7 +28,7 @@
 using namespace std;
 
 
-struct GnomeCmdConListPrivate
+struct GnomeCmdConList::Private
 {
     gboolean update_lock;
     gboolean changed;
@@ -140,7 +140,7 @@ static void class_init (GnomeCmdConListClass *klass)
 
 static void init (GnomeCmdConList *con_list)
 {
-    con_list->priv = g_new0 (GnomeCmdConListPrivate, 1);
+    con_list->priv = g_new0 (GnomeCmdConList::Private, 1);
 
     con_list->priv->update_lock = FALSE;
 

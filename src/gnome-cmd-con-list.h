@@ -34,16 +34,20 @@
 #define GNOME_CMD_CON_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConListClass))
 
 
-struct GnomeCmdConListPrivate;
+GtkType gnome_cmd_con_list_get_type ();
 
 
 struct GnomeCmdConList
 {
     GtkObject parent;
 
-    GnomeCmdConListPrivate *priv;
-};
+    class Private;
 
+    Private *priv;
+
+    operator GObject * () const         {  return G_OBJECT (this);    }
+    operator GtkObject * () const       {  return GTK_OBJECT (this);  }
+};
 
 struct GnomeCmdConListClass
 {
@@ -56,8 +60,6 @@ struct GnomeCmdConListClass
     void (* quick_ftp_list_changed) (GnomeCmdConList *list);
 };
 
-
-GtkType gnome_cmd_con_list_get_type ();
 
 inline GnomeCmdConList *gnome_cmd_con_list_new ()
 {
