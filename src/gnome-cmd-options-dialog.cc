@@ -1740,7 +1740,7 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (dev));
     gtk_widget_destroy (dialog);
 
-    gnome_cmd_con_list_add_device (gnome_cmd_con_list_get (), dev);
+    gnome_cmd_con_list_get()->add(dev);
 
     g_free (icon_path);
 }
@@ -1856,9 +1856,9 @@ static void on_device_remove (GtkWidget *button, GtkWidget *frame)
     if (clist->focus_row >= 0)
     {
         GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
-        gnome_cmd_con_list_remove_device (gnome_cmd_con_list_get (), dev);
+        gnome_cmd_con_list_get()->remove(dev);
         gtk_clist_remove (clist, clist->focus_row);
-        gnome_cmd_con_list_remove_device (gnome_cmd_con_list_get (), dev);
+        gnome_cmd_con_list_get()->remove(dev);
     }
 }
 

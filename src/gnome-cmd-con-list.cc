@@ -300,48 +300,46 @@ void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdCon
 }
 
 
-void gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice *device_con)
+void GnomeCmdConList::add(GnomeCmdConDevice *con)
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, device_con) == -1);
-    g_return_if_fail (g_list_index (con_list->priv->device_cons, device_con) == -1);
+    g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
+    g_return_if_fail (g_list_index (priv->device_cons, con) == -1);
 
-    con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, device_con);
-    con_list->priv->device_cons = g_list_append (con_list->priv->device_cons, device_con);
-    g_signal_connect (device_con, "updated", G_CALLBACK (on_con_updated), con_list);
+    priv->all_cons = g_list_append (priv->all_cons, con);
+    priv->device_cons = g_list_append (priv->device_cons, con);
+    g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), this);
 
-    if (con_list->priv->update_lock)
+    if (priv->update_lock)
     {
-        con_list->priv->changed = TRUE;
-        con_list->priv->device_cons_changed = TRUE;
+        priv->changed = TRUE;
+        priv->device_cons_changed = TRUE;
     }
     else
     {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
     }
 }
 
 
-void gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDevice *device_con)
+void GnomeCmdConList::remove(GnomeCmdConDevice *con)
 {
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, device_con) != -1);
-    g_return_if_fail (g_list_index (con_list->priv->device_cons, device_con) != -1);
+    g_return_if_fail (g_list_index (priv->all_cons, con) != -1);
+    g_return_if_fail (g_list_index (priv->device_cons, con) != -1);
 
-    con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, device_con);
-    con_list->priv->device_cons = g_list_remove (con_list->priv->device_cons, device_con);
-    g_signal_handlers_disconnect_by_func (device_con, (gpointer) on_con_updated, con_list);
+    priv->all_cons = g_list_remove (priv->all_cons, con);
+    priv->device_cons = g_list_remove (priv->device_cons, con);
+    g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, this);
 
-    if (con_list->priv->update_lock)
+    if (priv->update_lock)
     {
-        con_list->priv->changed = TRUE;
-        con_list->priv->device_cons_changed = TRUE;
+        priv->changed = TRUE;
+        priv->device_cons_changed = TRUE;
     }
     else
     {
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[LIST_CHANGED]);
-        gtk_signal_emit (GTK_OBJECT (con_list), signals[DEVICE_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
     }
 }
 

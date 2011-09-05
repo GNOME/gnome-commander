@@ -52,8 +52,10 @@ struct GnomeCmdConList
     void unlock();
 
     void add(GnomeCmdConFtp *con);
+    void add(GnomeCmdConDevice *con);
 
     void remove(GnomeCmdConFtp *con);
+    void remove(GnomeCmdConDevice *con);
 
     GnomeCmdCon *find_alias(const gchar *alias) const;
     gboolean has_alias(const gchar *alias) const            {  return find_alias(alias)!=NULL;  }
@@ -83,9 +85,6 @@ inline GnomeCmdConList *gnome_cmd_con_list_get ()
 
 void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
-
-void gnome_cmd_con_list_add_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
-void gnome_cmd_con_list_remove_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);

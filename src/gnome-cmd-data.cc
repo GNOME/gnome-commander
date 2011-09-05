@@ -403,7 +403,7 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
             {
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
-                gnome_cmd_con_list_remove_device (gnome_cmd_data.priv->con_list, device);
+                gnome_cmd_data.priv->con_list->remove(device);
                 break;
             }
         }
@@ -484,7 +484,7 @@ inline void add_vfs_volume (GnomeVFSVolume *volume)
         GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_vfs_volume (ConDev, volume);
-        gnome_cmd_con_list_add_device (gnome_cmd_data.priv->con_list, ConDev);
+        gnome_cmd_data.priv->con_list->add(ConDev);
     }
     else
         DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
@@ -525,7 +525,7 @@ inline void add_vfs_drive (GnomeVFSDrive *drive)
 
     gnome_cmd_con_device_set_autovol (ConDev, TRUE);
 
-    gnome_cmd_con_list_add_device (gnome_cmd_data.priv->con_list, ConDev);
+    gnome_cmd_data.priv->con_list->add(ConDev);
 
     g_free (path);
     g_free (uri);
@@ -623,9 +623,7 @@ inline void load_devices (const gchar *fname)
                 if (strcmp (icon_path, "x") != 0)
                     icon_path2  = gnome_vfs_unescape_string (icon_path, NULL);
 
-                gnome_cmd_con_list_add_device (
-                    gnome_cmd_data.priv->con_list,
-                    gnome_cmd_con_device_new (alias2, device_fn2, mountp2, icon_path2));
+                gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias2, device_fn2, mountp2, icon_path2));
 
                 g_free (alias2);
                 g_free (device_fn2);
