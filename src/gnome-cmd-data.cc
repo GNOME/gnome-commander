@@ -136,39 +136,6 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 }
 
 
-inline void save_connections (const gchar *fname)
-{
-    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    FILE  *fd = fopen (path, "w");
-
-    if (fd)
-    {
-        chmod (path, S_IRUSR|S_IWUSR);
-
-        for (GList *tmp = gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); tmp; tmp = tmp->next)
-        {
-            GnomeCmdConFtp *server = GNOME_CMD_CON_FTP (tmp->data);
-            GnomeCmdCon *con = GNOME_CMD_CON (server);
-
-            if (server)
-            {
-                string alias;
-
-                stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_get_alias (con)));
-
-                fprintf (fd, "U:\t%s\t%s\n", alias.c_str(), con->uri?con->uri:"");
-            }
-        }
-
-        fclose (fd);
-    }
-    else
-        g_warning ("Failed to open the file %s for writing", path);
-
-    g_free (path);
-}
-
-
 inline void save_devices (const gchar *fname)
 {
     gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
@@ -1654,7 +1621,6 @@ void GnomeCmdData::save()
     save_cmdline_history();
     //write_dir_history ();
 
-    save_connections ("connections");
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_intviewer_defaults();

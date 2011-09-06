@@ -6994,14 +6994,6 @@
     <variablelist>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/connections</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <guilabel>~/.gnome-commander/devices</guilabel>
         </term>
         <listitem>
