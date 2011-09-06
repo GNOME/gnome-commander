@@ -358,6 +358,8 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE,
+      XML_GNOMECOMMANDER_CONNECTIONS,
+      XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION,
       XML_GNOMECOMMANDER_BOOKMARKS,
       XML_GNOMECOMMANDER_BOOKMARKS_GROUP,
       XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK,
@@ -518,6 +520,33 @@ static void xml_start(GMarkupParseContext *context,
             {
                 cfg->bookmarks_defaults.width = atoi(param1);
                 cfg->bookmarks_defaults.height = atoi(param2);
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_CONNECTIONS:
+            cfg->XML_cfg_has_connections = TRUE;
+            break;
+
+        case XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "name", &param1,
+                                             G_MARKUP_COLLECT_STRING, "uri", &param2,
+                                             G_MARKUP_COLLECT_STRING, "auth", &param3,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                if (gnome_cmd_con_list_get()->has_alias(param1))
+                    g_warning ("<Connections> duplicate entry: '%s' - ignored", param1);
+                else
+                {
+                    GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (param1, param2);
+
+                    if (server)
+                        gnome_cmd_con_list_get()->add(server);
+                    else
+                        g_warning ("<Connection> invalid URI: '%s' - ignored", param2);
+                }
+
+                // xml_adv_profile.counter_width = atoi(param3);        //  TODO:  FIXME
             }
             break;
 
@@ -796,6 +825,8 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL, "/GnomeCommander/BookmarksTool"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE, "/GnomeCommander/BookmarksTool/WindowSize"},
+                        {XML_GNOMECOMMANDER_CONNECTIONS, "/GnomeCommander/Connections"},
+                        {XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION, "/GnomeCommander/Connections/Connection"},
                         {XML_GNOMECOMMANDER_BOOKMARKS, "/GnomeCommander/Bookmarks"},
                         {XML_GNOMECOMMANDER_BOOKMARKS_GROUP, "/GnomeCommander/Bookmarks/Group"},
                         {XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK, "/GnomeCommander/Bookmarks/Group/Bookmark"},
