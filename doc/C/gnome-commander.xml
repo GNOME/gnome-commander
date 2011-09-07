@@ -6870,16 +6870,6 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Opening a full terminal</guilabel>
-        </term>
-        <listitem>
-          <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
-        Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
-        in the &app; command line and press <keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo> - there you have it.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <guilabel>Using Nautilus icon theme</guilabel>
         </term>
         <listitem>
