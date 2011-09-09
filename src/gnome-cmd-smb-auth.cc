@@ -47,7 +47,7 @@ vfs_full_authentication_callback (const GnomeVFSModuleCallbackFullAuthentication
     gnome_password_dialog_set_show_userpass_buttons (dlg, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_ANON_SUPPORTED);
     gnome_password_dialog_set_show_password (dlg, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_PASSWORD);
 
-    out_args->abort_auth = gnome_password_dialog_run_and_block (GNOME_PASSWORD_DIALOG (dlg)) == FALSE;
+    out_args->abort_auth = gnome_password_dialog_run_and_block (dlg) == FALSE;
 
     if (out_args->abort_auth)
         return;
@@ -62,5 +62,5 @@ void gnome_cmd_smb_auth_init ()
 {
     gnome_vfs_module_callback_set_default (GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION,
                                            (GnomeVFSModuleCallback) vfs_full_authentication_callback,
-                                           GINT_TO_POINTER (0), NULL);
+                                           NULL, NULL);
 }
