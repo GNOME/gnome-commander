@@ -1174,17 +1174,6 @@ static GtkWidget *create_network_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    // GNOME Keyring Manager
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Authentication"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
-
-    check = create_check (parent, _("Use GNOME Keyring Manager for authentication"), "use_auth_manager");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gnome_auth_manager);
-
-
     // Anonymous FTP password options
 
     table = create_table (parent, 1, 2);
@@ -1203,10 +1192,8 @@ static GtkWidget *create_network_tab (GtkWidget *parent)
 
 inline void store_network_options (GtkWidget *dialog)
 {
-    GtkWidget *use_auth_manager_check = lookup_widget (dialog, "use_auth_manager");
     GtkWidget *entry = lookup_widget (dialog, "anonymous_ftp_password");
 
-    gnome_cmd_data.use_gnome_auth_manager = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_auth_manager_check));
     gnome_cmd_data_set_ftp_anonymous_password (gtk_entry_get_text (GTK_ENTRY (entry)));
 }
 

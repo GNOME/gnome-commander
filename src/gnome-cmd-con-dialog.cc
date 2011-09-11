@@ -560,7 +560,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (conndlg->priv->type_combo), CON_SSH);
 
-    conndlg->priv->use_auth = gnome_cmd_data.use_gnome_auth_manager;
+    conndlg->priv->use_auth = FALSE;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (conndlg->priv->auth_check), conndlg->priv->use_auth);
 
     gint response = gtk_dialog_run (GTK_DIALOG (dialog));

@@ -255,7 +255,6 @@ struct GnomeCmdData
     gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
-    gboolean                     use_gnome_auth_manager;
 
     gboolean                     honor_expect_uris;
     gboolean                     skip_mounting;

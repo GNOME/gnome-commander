@@ -892,7 +892,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
-    use_gnome_auth_manager = FALSE;
 
     honor_expect_uris = FALSE;
     skip_mounting = FALSE;
@@ -1194,7 +1193,6 @@ void GnomeCmdData::load()
 
     main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
-    use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", FALSE);
     priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
 
     if (strcmp (priv->ftp_anonymous_password, "you@provider.com")==0)   // if '/network/ftp_anonymous_password' entry undefined, try to read '/ftp/anonymous_password'
@@ -1614,7 +1612,6 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int ("/options/main_win_state", (gint) main_win_state);
 
-    gnome_cmd_data_set_bool ("/network/use_gnome_auth_manager", use_gnome_auth_manager);
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", priv->ftp_anonymous_password);
     gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
 
