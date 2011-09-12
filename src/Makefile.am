@@ -7,6 +7,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
+	$(GNOME_KEYRING_CFLAGS) \
 	$(UNIQUE_CFLAGS) \
 	$(PYTHON_CFLAGS) \
 	-DDATADIR=\""$(datadir)"\"\
@@ -103,6 +104,7 @@ gnome_commander_LDADD = \
 	intviewer/libgviewer.a \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
+	$(GNOME_KEYRING_LIBS) \
 	$(UNIQUE_LIBS) \
 	$(EXIV2_LIBS) \
 	$(TAGLIB_LIBS) \
