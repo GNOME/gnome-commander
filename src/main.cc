@@ -18,6 +18,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+extern "C"
+{
+    void gnome_authentication_manager_init ();
+}
+
 #include <config.h>
 #include <locale.h>
 #include <unique/unique.h>
@@ -149,6 +154,8 @@ int main (int argc, char *argv[])
         gcmd_user_actions.set_defaults();
         ls_colors_init ();
         gnome_cmd_data.load_more();
+
+        gnome_authentication_manager_init ();
 
         gnome_cmd_style_create ();
 
