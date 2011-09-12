@@ -154,7 +154,7 @@ static void on_connect_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp
 
 static void on_close_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog)
 {
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    gtk_widget_destroy (*dialog);
 }
 
 
@@ -228,8 +228,8 @@ static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, Gn
 {
     if (model_is_empty (tree_model))
     {
-        gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), FALSE);
-        gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), FALSE);
+        gtk_widget_set_sensitive (lookup_widget (*dialog, "remove_button"), FALSE);
+        gtk_widget_set_sensitive (lookup_widget (*dialog, "edit_button"), FALSE);
         gtk_widget_set_sensitive (GTK_WIDGET (dialog->priv->connect_button), FALSE);
     }
 }
@@ -237,8 +237,8 @@ static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, Gn
 
 static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, GnomeCmdRemoteDialog *dialog)
 {
-    gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), TRUE);
-    gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), TRUE);
+    gtk_widget_set_sensitive (lookup_widget (*dialog, "remove_button"), TRUE);
+    gtk_widget_set_sensitive (lookup_widget (*dialog, "edit_button"), TRUE);
     gtk_widget_set_sensitive (GTK_WIDGET (dialog->priv->connect_button), TRUE);
 }
 
@@ -441,14 +441,14 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *ftp_dialog)
 
     cat_box = create_hbox (dialog, FALSE, 12);
     cat = create_category (dialog, cat_box, _("Connections"));
-    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), cat);
+    gnome_cmd_dialog_add_expanding_category (*ftp_dialog, cat);
 
     sw = create_sw (dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), sw, TRUE, TRUE, 0);
 
     ftp_dialog->priv->connection_list = create_view_and_model (get_ftp_cons ());
     g_object_ref (ftp_dialog->priv->connection_list);
-    g_object_set_data_full (G_OBJECT (dialog), "connection_list", ftp_dialog->priv->connection_list, g_object_unref);
+    g_object_set_data_full (*ftp_dialog, "connection_list", ftp_dialog->priv->connection_list, g_object_unref);
     gtk_widget_show (ftp_dialog->priv->connection_list);
     gtk_container_add (GTK_CONTAINER (sw), ftp_dialog->priv->connection_list);
     gtk_widget_set_size_request (ftp_dialog->priv->connection_list, -1, 240);
@@ -469,7 +469,7 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *ftp_dialog)
 
     table = create_table (dialog, 1, 2);
     cat = create_category (dialog, table, _("Options"));
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
+    gnome_cmd_dialog_add_category (*ftp_dialog, cat);
 
     label = create_label (dialog, _("Anonymous FTP password:"));
     table_add (table, label, 0, 0, (GtkAttachOptions) 0);
@@ -477,19 +477,19 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *ftp_dialog)
     ftp_dialog->priv->anonymous_pw_entry = create_entry (dialog, "anonymous_pw_entry", gnome_cmd_data_get_ftp_anonymous_password ());
     table_add (table, ftp_dialog->priv->anonymous_pw_entry, 1, 0, GTK_FILL);
 
-    button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help_btn_clicked), dialog);
-    button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close_btn_clicked), dialog);
-    button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CONNECT, GTK_SIGNAL_FUNC (on_connect_btn_clicked), dialog);
+    button = gnome_cmd_dialog_add_button (*ftp_dialog, GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help_btn_clicked), ftp_dialog);
+    button = gnome_cmd_dialog_add_button (*ftp_dialog, GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close_btn_clicked), ftp_dialog);
+    button = gnome_cmd_dialog_add_button (*ftp_dialog, GTK_STOCK_CONNECT, GTK_SIGNAL_FUNC (on_connect_btn_clicked), ftp_dialog);
 
     ftp_dialog->priv->connect_button = button;
     gtk_widget_set_sensitive (button, !empty_view);
 
-    g_signal_connect (ftp_dialog->priv->connection_list, "row-activated", G_CALLBACK (on_list_row_activated), dialog);
+    g_signal_connect (ftp_dialog->priv->connection_list, "row-activated", G_CALLBACK (on_list_row_activated), ftp_dialog);
 
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
 
-    g_signal_connect (model, "row-inserted", G_CALLBACK (on_list_row_inserted), dialog);
-    g_signal_connect (model, "row-deleted", G_CALLBACK (on_list_row_deleted), dialog);
+    g_signal_connect (model, "row-inserted", G_CALLBACK (on_list_row_inserted), ftp_dialog);
+    g_signal_connect (model, "row-deleted", G_CALLBACK (on_list_row_deleted), ftp_dialog);
 
     gtk_widget_grab_focus (ftp_dialog->priv->connection_list);
 }
