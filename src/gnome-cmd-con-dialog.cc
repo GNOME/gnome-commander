@@ -342,15 +342,12 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
 
     show_entry (table, dialog->priv->alias_entry, _("_Alias:"), i);
 
-    if (type == CON_URI)
-    {
-        show_entry (table, dialog->priv->uri_entry, _("_Location (URI):"), i);
-
-        return;
-    }
-
     switch (type)
     {
+        case CON_URI:
+            show_entry (table, dialog->priv->uri_entry, _("_Location (URI):"), i);
+            return;
+
         default:
         case CON_SSH:
         case CON_FTP:
@@ -417,8 +414,7 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
     if (show_port)
         show_entry (table, dialog->priv->port_entry, _("_Port:"), i);
 
-    /* Translators: 'Dir' in the sense of 'Directory' */
-    show_entry (table, dialog->priv->folder_entry, _("_Remote dir:"), i);
+    show_entry (table, dialog->priv->folder_entry, _("_Folder:"), i);
 
     if (show_user)
         show_entry (table, dialog->priv->user_entry, _("_User name:"), i);

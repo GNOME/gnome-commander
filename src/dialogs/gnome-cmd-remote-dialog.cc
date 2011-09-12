@@ -106,7 +106,7 @@ inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *
                         COL_AUTH, con->gnome_auth,
                         COL_NAME, gnome_cmd_con_get_alias (con),
                         COL_CON, con,
-                        COL_FTP_CON, server,                // later: to be removed
+                        COL_FTP_CON, server,                // FIXME: to be removed
                         -1);
 }
 
