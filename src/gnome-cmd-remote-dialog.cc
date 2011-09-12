@@ -115,12 +115,11 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (server);
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
-    GnomeCmdFileList *fl = fs->file_list();
 
-    if (fl->locked)
-        fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (fs->new_tab()));     //  new_tab() retrieves scrolled_window, we must use gtk_bin_get_child() to get fl
+    if (fs->file_list()->locked)
+        fs->new_tab();
 
-    fl->set_connection(con);
+    fs->set_connection(con);
 
     return FALSE;
 }
