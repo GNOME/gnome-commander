@@ -35,11 +35,11 @@
 using namespace std;
 
 
-struct GnomeCmdRemoteDialogPrivate
+struct GnomeCmdRemoteDialog::Private
 {
-    GtkWidget         *connection_list;
-    GtkWidget         *anonymous_pw_entry;
-    GtkWidget         *connect_button;
+    GtkWidget *connection_list;
+    GtkWidget *anonymous_pw_entry;
+    GtkWidget *connect_button;
 };
 
 
@@ -431,7 +431,7 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *ftp_dialog)
 
     GtkWidget *dialog = GTK_WIDGET (ftp_dialog);
 
-    ftp_dialog->priv = g_new0 (GnomeCmdRemoteDialogPrivate, 1);
+    ftp_dialog->priv = g_new0 (GnomeCmdRemoteDialog::Private, 1);
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Connections"));

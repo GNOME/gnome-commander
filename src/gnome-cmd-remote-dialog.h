@@ -28,14 +28,13 @@
 #define GNOME_CMD_REMOTE_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_REMOTE_DIALOG, GnomeCmdRemoteDialogClass))
 
 
-struct GnomeCmdRemoteDialogPrivate;
-
-
 struct GnomeCmdRemoteDialog
 {
     GnomeCmdDialog parent;
 
-    GnomeCmdRemoteDialogPrivate *priv;
+    struct Private;
+
+    Private *priv;
 };
 
 
