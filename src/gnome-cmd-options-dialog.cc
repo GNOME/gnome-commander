@@ -1157,49 +1157,6 @@ inline void store_filter_options (GtkWidget *dialog)
 
 /***********************************************************************
  *
- *  The Network tab
- *
- **********************************************************************/
-
-static GtkWidget *create_network_tab (GtkWidget *parent)
-{
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
-    GtkWidget *table, *label, *entry;
-    GtkWidget *check;
-
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
-    vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
-
-
-    // Anonymous FTP password options
-
-    table = create_table (parent, 1, 2);
-    cat = create_category (parent, table, _("Anonymous FTP access"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
-
-    label = create_label (parent, _("Password:"));
-    table_add (table, label, 0, 0, GTK_FILL);
-
-    entry = create_entry (parent, "anonymous_ftp_password", gnome_cmd_data_get_ftp_anonymous_password ());
-    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-
-    return frame;
-}
-
-
-inline void store_network_options (GtkWidget *dialog)
-{
-    GtkWidget *entry = lookup_widget (dialog, "anonymous_ftp_password");
-
-    gnome_cmd_data_set_ftp_anonymous_password (gtk_entry_get_text (GTK_ENTRY (entry)));
-}
-
-
-/***********************************************************************
- *
  *  The Programs tab
  *
  **********************************************************************/
@@ -2053,7 +2010,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_tabs_tab (dialog), _("Tabs"));
     notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog), _("Filters"));
-    notebook->append_page(create_network_tab (dialog), _("Network"));
     notebook->append_page(create_programs_tab (dialog), _("Programs"));
     notebook->append_page(create_devices_tab (dialog), _("Devices"));
 
@@ -2077,7 +2033,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_tabs_options (dialog);
         store_confirmation_options (dialog);
         store_filter_options (dialog);
-        store_network_options (dialog);
         store_programs_options (dialog);
         store_devices_options (dialog);
 

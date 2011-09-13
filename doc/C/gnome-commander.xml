@@ -5096,37 +5096,6 @@
         </tgroup>
       </table>
    </sect2>
-    <!--network preferences -->
-    <sect2 id="gnome-commander-prefs-network">
-      <title>Network</title>
-      <!--brief desciption-->
-      <para>The network section of the option dialog lets you configure parameters for
-      FTP and the use of the GNOME keyring.</para>
-      <itemizedlist>
-        <listitem>
-          <para><guilabel>Authentication</guilabel> there is only one option <guilabel>Use GNOME keyring manager for authentication</guilabel> when this is activated &app; uses the GNOME keyring to authenticate the user on remote servers.</para>
-        </listitem>
-        <listitem>
-          <para><guilabel>Anonymous FTP access</guilabel> <guilabel>Password</guilabel> this contains the address used as password to access anonymous FTP server.</para>
-        </listitem>
-      </itemizedlist>
-      <!-- ==== Figure ==== -->
-      <figure id="options-network-fig">
-        <title>Network options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_network.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; network preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
-      <para/>
-    </sect2>
     <!-- Preferred programs settings-->
     <sect2 id="gnome-commander-prefs-programs">
       <title>Programs</title>
