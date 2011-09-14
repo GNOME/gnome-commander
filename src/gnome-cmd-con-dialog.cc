@@ -65,7 +65,10 @@ using namespace std;
 struct GnomeCmdConnectDialog
 {
     GtkDialog parent;
-    GnomeCmdConnectDialogPrivate *priv;
+
+    class Private;
+
+    Private *priv;
 };
 
 struct GnomeCmdConnectDialogClass
@@ -74,7 +77,7 @@ struct GnomeCmdConnectDialogClass
 };
 
 
-struct GnomeCmdConnectDialogPrivate
+struct GnomeCmdConnectDialog::Private
 {
     string *alias;
     string uri_str;
@@ -97,12 +100,12 @@ struct GnomeCmdConnectDialogPrivate
     GtkWidget *user_entry;
     GtkWidget *password_entry;
 
-    GnomeCmdConnectDialogPrivate();
-    ~GnomeCmdConnectDialogPrivate();
+    Private();
+    ~Private();
 };
 
 
-inline GnomeCmdConnectDialogPrivate::GnomeCmdConnectDialogPrivate()
+inline GnomeCmdConnectDialog::Private::Private()
 {
     alias = NULL;
 
@@ -148,7 +151,7 @@ inline GnomeCmdConnectDialogPrivate::GnomeCmdConnectDialogPrivate()
 }
 
 
-inline GnomeCmdConnectDialogPrivate::~GnomeCmdConnectDialogPrivate()
+inline GnomeCmdConnectDialog::Private::~Private()
 {
     g_object_unref (alias_entry);
     g_object_unref (uri_entry);
@@ -453,7 +456,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     GtkWidget *hbox;
     GtkWidget *vbox;
 
-    dialog->priv = new GnomeCmdConnectDialogPrivate;
+    dialog->priv = new GnomeCmdConnectDialog::Private;
 
     g_return_if_fail (dialog->priv != NULL);
 
