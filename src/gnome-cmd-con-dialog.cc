@@ -551,16 +551,15 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     g_return_val_if_fail (dialog != NULL, NULL);
 
-
     if (has_alias)
-        conndlg->priv->alias = new string;
+        dialog->priv->alias = new string;
     else
-        gtk_widget_set_sensitive (conndlg->priv->alias_entry, FALSE);
+        gtk_widget_set_sensitive (dialog->priv->alias_entry, FALSE);
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (conndlg->priv->type_combo), CON_SSH);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), CON_SSH);
 
-    conndlg->priv->use_auth = FALSE;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (conndlg->priv->auth_check), conndlg->priv->use_auth);
+    dialog->priv->use_auth = FALSE;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), dialog->priv->use_auth);
 
     gint response = gtk_dialog_run (*dialog);
 
@@ -568,14 +567,14 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     if (response==GTK_RESPONSE_OK)
     {
-        const gchar *alias = conndlg->priv->alias && !conndlg->priv->alias->empty() ? conndlg->priv->alias->c_str() : NULL;
+        const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : NULL;
 
-        server = gnome_cmd_con_ftp_new (alias, conndlg->priv->uri_str);
+        server = gnome_cmd_con_ftp_new (alias, dialog->priv->uri_str);
 
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-        con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (conndlg->priv->type_combo));
-        con->gnome_auth = conndlg->priv->use_auth;
+        con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
+        con->gnome_auth = dialog->priv->use_auth;
     }
 
     gtk_widget_destroy (*dialog);
@@ -595,32 +594,32 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
     // Service type
-    gtk_combo_box_set_active (GTK_COMBO_BOX (conndlg->priv->type_combo), con->method);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
     // Use GNOME Keyring Manager for authentication
-    conndlg->priv->use_auth = con->gnome_auth;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (conndlg->priv->auth_check), con->gnome_auth);
+    dialog->priv->use_auth = con->gnome_auth;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->gnome_auth);
 
     // Alias
     if (con->alias)
     {
-        conndlg->priv->alias = new string(con->alias);
-        gtk_entry_set_text (GTK_ENTRY (conndlg->priv->alias_entry), con->alias);
+        dialog->priv->alias = new string(con->alias);
+        gtk_entry_set_text (GTK_ENTRY (dialog->priv->alias_entry), con->alias);
     }
     else
-        gtk_widget_set_sensitive (conndlg->priv->alias_entry, FALSE);
+        gtk_widget_set_sensitive (dialog->priv->alias_entry, FALSE);
 
     if (con->uri)
     {
-        conndlg->priv->uri_str = con->uri;
+        dialog->priv->uri_str = con->uri;
 
         GnomeVFSURI *uri = gnome_vfs_uri_new (con->uri);
 
         if (uri)
         {
-            gtk_entry_set_text (GTK_ENTRY (conndlg->priv->uri_entry), con->uri);
+            gtk_entry_set_text (GTK_ENTRY (dialog->priv->uri_entry), con->uri);
 
-            gtk_entry_set_text (GTK_ENTRY (conndlg->priv->server_entry), gnome_vfs_uri_get_host_name (uri));
+            gtk_entry_set_text (GTK_ENTRY (dialog->priv->server_entry), gnome_vfs_uri_get_host_name (uri));
 
             const gchar *path = gnome_vfs_uri_get_path (uri);
             const gchar *user_name = gnome_vfs_uri_get_user_name (uri);
@@ -633,11 +632,11 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
                 if (g_strv_length (a) > 2)
                 {
-                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->share_entry), a[1]);
-                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), a[2]);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->share_entry), a[1]);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), a[2]);
                 }
                 else
-                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), path);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
 
                 g_strfreev(a);
 
@@ -645,25 +644,25 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
                 if (g_strv_length (a) > 1)
                 {
-                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->domain_entry), a[0]);
-                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), a[1]);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->domain_entry), a[0]);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), a[1]);
                 }
                 else
-                    gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), user_name);
+                    gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
 
                 g_strfreev(a);
             }
             else
             {
-                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->folder_entry), path);
-                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->user_entry), user_name);
+                gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
+                gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
             }
 
             if (password)
-                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->password_entry), password);
+                gtk_entry_set_text (GTK_ENTRY (dialog->priv->password_entry), password);
 
             if (port)
-                gtk_entry_set_text (GTK_ENTRY (conndlg->priv->port_entry), stringify(port).c_str());
+                gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());
 
             gnome_vfs_uri_unref (uri);
         }
@@ -673,16 +672,16 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
     if (response==GTK_RESPONSE_OK)
     {
-        GnomeVFSURI *uri = gnome_vfs_uri_new (conndlg->priv->uri_str.c_str());
+        GnomeVFSURI *uri = gnome_vfs_uri_new (dialog->priv->uri_str.c_str());
 
-        const gchar *alias = conndlg->priv->alias ? conndlg->priv->alias->c_str() : NULL;
+        const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : NULL;
         const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free !!
 
         gnome_cmd_con_set_alias (con, alias);
-        gnome_cmd_con_set_uri (con, conndlg->priv->uri_str);
+        gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
         gnome_cmd_con_set_host_name (con, host);
-        con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (conndlg->priv->type_combo));
-        con->gnome_auth = conndlg->priv->use_auth;
+        con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
+        con->gnome_auth = dialog->priv->use_auth;
 
         gnome_cmd_con_ftp_set_host_name (server, host);
 
