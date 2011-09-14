@@ -7549,6 +7549,9 @@
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #621756 (custom port for ftp is not saved)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>

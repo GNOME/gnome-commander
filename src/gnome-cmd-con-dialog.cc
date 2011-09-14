@@ -442,11 +442,11 @@ static void port_insert_text (GtkEditable *editable, const gchar *new_text, gint
     if (new_text_length < 0)
         new_text_length = strlen (new_text);
 
-    if (new_text_length != 1 || !g_ascii_isdigit (new_text[0]))
-    {
-        gdk_display_beep (gtk_widget_get_display (GTK_WIDGET (editable)));
-        g_signal_stop_emission_by_name (editable, "insert-text");
-    }
+    if (new_text_length!=1 || g_ascii_isdigit (new_text[0]))
+        return;
+
+    gdk_display_beep (gtk_widget_get_display (GTK_WIDGET (editable)));
+    g_signal_stop_emission_by_name (editable, "insert-text");
 }
 
 
