@@ -70,6 +70,7 @@ struct GnomeCmdConnectDialog
 
     Private *priv;
 
+    operator GtkWidget * () const         {  return GTK_WIDGET (this);    }
     operator GtkWindow * () const         {  return GTK_WINDOW (this);    }
     operator GtkDialog * () const         {  return GTK_DIALOG (this);    }
 };
@@ -546,11 +547,10 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 
 GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 {
-    GtkWidget *dialog = (GtkWidget *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
+    GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
 
     g_return_val_if_fail (dialog != NULL, NULL);
 
-    GnomeCmdConnectDialog *conndlg = GNOME_CMD_CONNECT_DIALOG (dialog);
 
     if (has_alias)
         conndlg->priv->alias = new string;
@@ -578,7 +578,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
         con->gnome_auth = conndlg->priv->use_auth;
     }
 
-    gtk_widget_destroy (dialog);
+    gtk_widget_destroy (*dialog);
 
     return server;
 }
@@ -588,11 +588,9 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 {
     g_return_val_if_fail (server != NULL, FALSE);
 
-    GtkWidget *dialog = gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
+    GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
 
     g_return_val_if_fail (dialog != NULL, FALSE);
-
-    GnomeCmdConnectDialog *conndlg = GNOME_CMD_CONNECT_DIALOG (dialog);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
@@ -691,7 +689,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         gnome_vfs_uri_unref (uri);
     }
 
-    gtk_widget_destroy (dialog);
+    gtk_widget_destroy (*dialog);
 
     return response==GTK_RESPONSE_OK;
 }
