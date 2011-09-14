@@ -61,23 +61,20 @@ using namespace std;
 #define GNOME_CMD_CONNECT_DIALOG_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_CMD_TYPE_CONNECT_DIALOG, GnomeCmdConnectDialogClass))
 #define GNOME_CMD_IS_CONNECT_DIALOG(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GNOME_CMD_TYPE_CONNECT_DIALOG)
 
-typedef struct _GnomeCmdConnectDialog        GnomeCmdConnectDialog;
-typedef struct _GnomeCmdConnectDialogClass   GnomeCmdConnectDialogClass;
-typedef struct _GnomeCmdConnectDialogPrivate GnomeCmdConnectDialogPrivate;
 
-struct _GnomeCmdConnectDialog
+struct GnomeCmdConnectDialog
 {
     GtkDialog parent;
     GnomeCmdConnectDialogPrivate *priv;
 };
 
-struct _GnomeCmdConnectDialogClass
+struct GnomeCmdConnectDialogClass
 {
     GtkDialogClass parent_class;
 };
 
 
-struct _GnomeCmdConnectDialogPrivate
+struct GnomeCmdConnectDialogPrivate
 {
     string *alias;
     string uri_str;
@@ -100,12 +97,12 @@ struct _GnomeCmdConnectDialogPrivate
     GtkWidget *user_entry;
     GtkWidget *password_entry;
 
-    _GnomeCmdConnectDialogPrivate();
-    ~_GnomeCmdConnectDialogPrivate();
+    GnomeCmdConnectDialogPrivate();
+    ~GnomeCmdConnectDialogPrivate();
 };
 
 
-inline _GnomeCmdConnectDialogPrivate::_GnomeCmdConnectDialogPrivate()
+inline GnomeCmdConnectDialogPrivate::GnomeCmdConnectDialogPrivate()
 {
     alias = NULL;
 
@@ -151,7 +148,7 @@ inline _GnomeCmdConnectDialogPrivate::_GnomeCmdConnectDialogPrivate()
 }
 
 
-inline _GnomeCmdConnectDialogPrivate::~_GnomeCmdConnectDialogPrivate()
+inline GnomeCmdConnectDialogPrivate::~GnomeCmdConnectDialogPrivate()
 {
     g_object_unref (alias_entry);
     g_object_unref (uri_entry);
