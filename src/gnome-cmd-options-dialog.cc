@@ -1941,7 +1941,6 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNoteb
                                     "gnome-commander-prefs-tabs",
                                     "gnome-commander-prefs-confirmation",
                                     "gnome-commander-prefs-filters",
-                                    "gnome-commander-prefs-network",
                                     "gnome-commander-prefs-programs",
                                     "gnome-commander-prefs-devices"};
 
