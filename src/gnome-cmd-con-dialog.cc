@@ -69,6 +69,9 @@ struct GnomeCmdConnectDialog
     class Private;
 
     Private *priv;
+
+    operator GtkWindow * () const         {  return GTK_WINDOW (this);    }
+    operator GtkDialog * () const         {  return GTK_DIALOG (this);    }
 };
 
 struct GnomeCmdConnectDialogClass
@@ -219,7 +222,7 @@ inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
 
     if (type!=CON_URI && server.empty())
     {
-        gnome_cmd_show_message (GTK_WINDOW (dialog), _("You must enter a name for the server"), _("Please enter a name and try again."));
+        gnome_cmd_show_message (*dialog, _("You must enter a name for the server"), _("Please enter a name and try again."));
 
         return FALSE;
     }
@@ -233,7 +236,7 @@ inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
 
     if (type==CON_URI && uri.empty())
     {
-            gnome_cmd_show_message (GTK_WINDOW (dialog),
+            gnome_cmd_show_message (*dialog,
                                     stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
                                     _("Please check the spelling and try again."));
             return FALSE;
@@ -460,11 +463,11 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 
     g_return_if_fail (dialog->priv != NULL);
 
-    gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Server"));
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+    gtk_window_set_title (*dialog, _("Remote Server"));
+    gtk_dialog_set_has_separator (*dialog, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_window_set_resizable (*dialog, FALSE);
 
     vbox = gtk_vbox_new (FALSE, 6);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
@@ -529,13 +532,13 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 
     setup_for_type (dialog);
 
-    gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+    gtk_dialog_add_buttons (*dialog,
                             GTK_STOCK_HELP, GTK_RESPONSE_HELP,
                             GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                             GTK_STOCK_OK, GTK_RESPONSE_OK,
                             NULL);
 
-    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+    gtk_dialog_set_default_response (*dialog, GTK_RESPONSE_OK);
 
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dialog);
 }
@@ -559,7 +562,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
     conndlg->priv->use_auth = FALSE;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (conndlg->priv->auth_check), conndlg->priv->use_auth);
 
-    gint response = gtk_dialog_run (GTK_DIALOG (dialog));
+    gint response = gtk_dialog_run (*dialog);
 
     GnomeCmdConFtp *server = NULL;
 
@@ -668,7 +671,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         }
     }
 
-    gint response = gtk_dialog_run (GTK_DIALOG (dialog));
+    gint response = gtk_dialog_run (*dialog);
 
     if (response==GTK_RESPONSE_OK)
     {
