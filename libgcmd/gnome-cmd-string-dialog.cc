@@ -24,7 +24,7 @@
 #include "gnome-cmd-string-dialog.h"
 #include "libgcmd-widget-factory.h"
 
-struct _GnomeCmdStringDialogPrivate
+struct GnomeCmdStringDialogPrivate
 {
     GnomeCmdStringDialogCallback ok_cb;
     GFunc cancel_cb;

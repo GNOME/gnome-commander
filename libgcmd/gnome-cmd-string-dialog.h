@@ -29,13 +29,7 @@
 #define GNOME_CMD_STRING_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_STRING_DIALOG, GnomeCmdStringDialogClass))
 
 
-typedef struct _GnomeCmdStringDialog GnomeCmdStringDialog;
-typedef struct _GnomeCmdStringDialogPrivate GnomeCmdStringDialogPrivate;
-typedef struct _GnomeCmdStringDialogClass GnomeCmdStringDialogClass;
-
-
-
-struct _GnomeCmdStringDialog
+xstruct GnomeCmdStringDialog
 {
     GnomeCmdDialog parent;
 
@@ -47,7 +41,7 @@ struct _GnomeCmdStringDialog
 };
 
 
-struct _GnomeCmdStringDialogClass
+struct GnomeCmdStringDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };
