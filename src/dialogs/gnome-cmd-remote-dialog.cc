@@ -125,21 +125,19 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
 }
 
 
-inline void do_connect (GnomeCmdRemoteDialog *ftp_dialog, GnomeCmdConFtp *server=NULL)
+inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConFtp *server)
 {
     if (!server)
-        server = get_selected_server (ftp_dialog);
+        server = get_selected_server (this);
 
     if (!server)        // exit as there is no server selected
         return;
 
     // store the anonymous ftp password as the user might have changed it
-    const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (ftp_dialog->priv->anonymous_pw_entry));
+    const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (priv->anonymous_pw_entry));
     gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
 
-    GnomeCmdCon *con = GNOME_CMD_CON (server);
-
-    gtk_widget_destroy (GTK_WIDGET (ftp_dialog));
+    gtk_widget_destroy (*ftp_dialog);
 
     g_timeout_add (1, (GtkFunction) do_connect_real, server);
 }
@@ -147,7 +145,7 @@ inline void do_connect (GnomeCmdRemoteDialog *ftp_dialog, GnomeCmdConFtp *server
 
 static void on_connect_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
 {
-    do_connect (ftp_dialog);
+    ftp_dialog->do_connect();
 }
 
 
@@ -244,7 +242,7 @@ static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, G
 
 static void on_list_row_activated (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GnomeCmdRemoteDialog *dialog)
 {
-    do_connect (dialog);
+    dialog->do_connect();
 }
 
 

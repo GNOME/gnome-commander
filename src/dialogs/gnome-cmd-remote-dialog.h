@@ -39,6 +39,8 @@ struct GnomeCmdRemoteDialog
     operator GObject * () const             {  return G_OBJECT (this);          }
     operator GtkWidget * () const           {  return GTK_WIDGET (this);        }
     operator GnomeCmdDialog * () const      {  return GNOME_CMD_DIALOG (this);  }
+
+    void do_connect(GnomeCmdConFtp *server=NULL);
 };
 
 
