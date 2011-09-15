@@ -137,7 +137,7 @@ inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConFtp *server)
     const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (priv->anonymous_pw_entry));
     gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
 
-    gtk_widget_destroy (*ftp_dialog);
+    gtk_widget_destroy (*this);
 
     g_timeout_add (1, (GtkFunction) do_connect_real, server);
 }
