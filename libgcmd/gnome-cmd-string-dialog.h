@@ -29,15 +29,17 @@
 #define GNOME_CMD_STRING_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_STRING_DIALOG, GnomeCmdStringDialogClass))
 
 
-xstruct GnomeCmdStringDialog
+struct GnomeCmdStringDialog
 {
     GnomeCmdDialog parent;
+
+    struct Private;
+
+    Private *priv;
 
     gint rows;
     GtkWidget **labels;
     GtkWidget **entries;
-
-    GnomeCmdStringDialogPrivate *priv;
 };
 
 
