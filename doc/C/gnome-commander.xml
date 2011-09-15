@@ -7546,6 +7546,9 @@
                             <para>Fixed problem #377463 (mkdir dialog loses focus)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #492479 (file replace prompt must show date and size of files)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>

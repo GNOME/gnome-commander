@@ -4,6 +4,7 @@ gnome-commander 1.4
 
 Bug fixes:
  * Fixed problem #377463 (mkdir dialog loses focus)
+ * Fixed problem #492479 (file replace prompt must show date and size of files)
  * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
  * Fixed problem #621756 (custom port for ftp is not saved)
  * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)
