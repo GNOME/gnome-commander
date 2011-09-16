@@ -27,7 +27,7 @@
 #define GNOME_CMD_IS_REMOTE_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_REMOTE_DIALOG))
 #define GNOME_CMD_REMOTE_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_REMOTE_DIALOG, GnomeCmdRemoteDialogClass))
 
-#include "gnome-cmd-data.h"
+#include "gnome-cmd-con-ftp.h"
 
 struct GnomeCmdRemoteDialog
 {
