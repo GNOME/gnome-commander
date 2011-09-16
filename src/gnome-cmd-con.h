@@ -73,6 +73,12 @@ struct GnomeCmdCon
         OPEN_NOT_STARTED
     };
 
+    enum Authentication
+    {
+        REMEMBER_SESSION,
+        REMEMBER_FOREVER
+    };
+
     gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
     ConnectionMethodID  method;
