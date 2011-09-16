@@ -86,7 +86,7 @@ struct GnomeCmdConnectDialog::Private
     string *alias;
     string uri_str;
 
-    gboolean use_auth;
+    gboolean auth;
 
     GtkWidget *required_table;
     GtkWidget *optional_table;
@@ -113,7 +113,7 @@ inline GnomeCmdConnectDialog::Private::Private()
 {
     alias = NULL;
 
-    use_auth = FALSE;
+    auth = FALSE;
 
     required_table = NULL;
     optional_table = NULL;
@@ -228,12 +228,12 @@ inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
         return FALSE;
     }
 
-    dialog->priv->use_auth = type!=CON_ANON_FTP && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check));
+    dialog->priv->auth = type!=CON_ANON_FTP && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check));
 
     if (type==CON_ANON_FTP)
         user = "anonymous";
 
-    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, dialog->priv->use_auth, uri, server, share, port, folder, domain, user, password);
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, dialog->priv->auth, uri, server, share, port, folder, domain, user, password);
 
     if (type==CON_URI && uri.empty())
     {
@@ -558,8 +558,8 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), CON_SSH);
 
-    dialog->priv->use_auth = FALSE;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), dialog->priv->use_auth);
+    dialog->priv->auth = FALSE;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), dialog->priv->auth);
 
     gint response = gtk_dialog_run (*dialog);
 
@@ -574,7 +574,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        con->auth = dialog->priv->use_auth;
+        con->auth = dialog->priv->auth;
     }
 
     gtk_widget_destroy (*dialog);
@@ -597,7 +597,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
     // Use GNOME Keyring Manager for authentication
-    dialog->priv->use_auth = con->auth;
+    dialog->priv->auth = con->auth;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->auth);
 
     // Alias
@@ -681,7 +681,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
         gnome_cmd_con_set_host_name (con, host);
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        con->auth = dialog->priv->use_auth;
+        con->auth = dialog->priv->auth;
 
         gnome_cmd_con_ftp_set_host_name (server, host);
 
