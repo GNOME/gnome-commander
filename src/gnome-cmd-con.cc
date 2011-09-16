@@ -168,7 +168,7 @@ static void init (GnomeCmdCon *con)
     con->alias = NULL;
     con->uri = NULL;
     con->method = CON_URI;
-    con->gnome_auth = FALSE;
+    con->auth = FALSE;
 
     con->base_path = NULL;
     con->base_info = NULL;
@@ -539,7 +539,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con)
 
     xml << XML::attr("name") << XML::escape(con.alias);
     xml << XML::attr("uri") << XML::escape(con.uri);
-    xml << XML::attr("auth") << con.gnome_auth;
+    xml << XML::attr("auth") << con.auth;
 
     return xml << XML::endtag();
 }

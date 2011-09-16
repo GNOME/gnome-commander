@@ -574,7 +574,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        con->gnome_auth = dialog->priv->use_auth;
+        con->auth = dialog->priv->use_auth;
     }
 
     gtk_widget_destroy (*dialog);
@@ -597,8 +597,8 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
     // Use GNOME Keyring Manager for authentication
-    dialog->priv->use_auth = con->gnome_auth;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->gnome_auth);
+    dialog->priv->use_auth = con->auth;
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->auth);
 
     // Alias
     if (con->alias)
@@ -681,7 +681,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
         gnome_cmd_con_set_host_name (con, host);
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-        con->gnome_auth = dialog->priv->use_auth;
+        con->auth = dialog->priv->use_auth;
 
         gnome_cmd_con_ftp_set_host_name (server, host);
 

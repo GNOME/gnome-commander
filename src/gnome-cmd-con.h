@@ -82,7 +82,7 @@ struct GnomeCmdCon
     gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
     ConnectionMethodID  method;
-    gboolean            gnome_auth;
+    gboolean            auth;
 
     gchar               *open_msg;
     GnomeCmdPath        *base_path;

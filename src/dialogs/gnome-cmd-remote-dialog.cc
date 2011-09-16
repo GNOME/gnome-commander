@@ -102,8 +102,8 @@ inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *
 
     gtk_list_store_set (store, iter,
                         COL_METHOD, gnome_cmd_con_get_icon_name (con->method),
-                        COL_LOCK, con->gnome_auth ? GTK_STOCK_DIALOG_AUTHENTICATION : NULL,
-                        COL_AUTH, con->gnome_auth,
+                        COL_LOCK, con->auth ? GTK_STOCK_DIALOG_AUTHENTICATION : NULL,
+                        COL_AUTH, con->auth,
                         COL_NAME, gnome_cmd_con_get_alias (con),
                         COL_CON, con,
                         COL_FTP_CON, server,                // FIXME: to be removed
