@@ -703,9 +703,9 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         GList *uri_str_list = NULL;
 
         // create a list with the uri's of the selected files and calculate the total_length needed
-        for (GList *tmp=sel_files; tmp; tmp=tmp->next)
+        for (GList *i=sel_files; i; i=i->next)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
             const gchar *fn = NULL;
 
             if (gnome_vfs_uri_is_local (f->get_uri()))
@@ -731,9 +731,9 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         data = copy = (gchar *) g_malloc (total_len+1);
 
         // put the uri_str_list in the allocated memory
-        for (GList *tmp=uri_str_list; tmp; tmp=tmp->next)
+        for (GList *i=uri_str_list; i; i=i->next)
         {
-            gchar *uri_str = (gchar *) tmp->data;
+            gchar *uri_str = (gchar *) i->data;
 
             strcpy (copy, uri_str);
             copy += strlen (uri_str);
@@ -1912,8 +1912,8 @@ void GnomeCmdFileList::select_all()
 {
     priv->selected_files.clear();
 
-    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
-        select_file((GnomeCmdFile *) tmp->data);
+    for (GList *i=get_visible_files(); i; i=i->next)
+        select_file((GnomeCmdFile *) i->data);
 }
 
 
@@ -1951,9 +1951,9 @@ void GnomeCmdFileList::toggle_and_step()
 
 void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_file)
 {
-    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *i=get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         g_return_if_fail (f != NULL);
         g_return_if_fail (f->info != NULL);
