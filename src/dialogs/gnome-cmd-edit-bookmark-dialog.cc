@@ -39,7 +39,7 @@ static void response_callback (GtkDialog *dialog, int response_id, gpointer unus
                 if (!name || !*name)
                 {
                     g_signal_stop_emission_by_name (dialog, "response");
-                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("Bookmark name is missing"));
+                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("Bookmark name is missing."));
                     break;
                 }
 
@@ -48,7 +48,7 @@ static void response_callback (GtkDialog *dialog, int response_id, gpointer unus
                 if (!path || !*path)
                 {
                     g_signal_stop_emission_by_name (dialog, "response");
-                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("Bookmark target is missing"));
+                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("Bookmark target is missing."));
                     break;
                 }
             }

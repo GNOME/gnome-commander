@@ -1220,12 +1220,12 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
         GError *error = NULL;
 
         if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
-            gnome_cmd_error_message (_("Unable to open terminal in root mode"), error);
+            gnome_cmd_error_message (_("Unable to open terminal in root mode."), error);
 
         g_free (dpath);
     }
     else
-        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
+        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
 
     g_strfreev (argv);
 }

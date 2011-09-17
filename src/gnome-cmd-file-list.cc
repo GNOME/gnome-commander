@@ -2144,7 +2144,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
     if (!f)  return;
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file"), f->info->name);
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
     else
         gnome_cmd_file_view (f, internal_viewer);
 }
@@ -2159,7 +2159,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
     if (!f)  return;
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file"), f->info->name);
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
     else
         gnome_cmd_file_edit (f);
 }
