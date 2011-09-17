@@ -586,9 +586,9 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     const gchar *ext1 = f->get_extension();
     if (!ext1) return;
 
-    for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
+    for (GList *i=fl->get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         if (f && f->info)
         {
@@ -1989,9 +1989,9 @@ void GnomeCmdFileList::invert_selection()
 {
     GnomeCmd::Collection<GnomeCmdFile *> sel = priv->selected_files;
 
-    for (GList *tmp=get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *i=get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         if (f && f->info)
         {
