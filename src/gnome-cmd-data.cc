@@ -1445,7 +1445,7 @@ void GnomeCmdData::load()
 
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
 
-    gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
+    gchar *quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
     quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
