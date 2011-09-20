@@ -545,8 +545,6 @@ static void xml_start(GMarkupParseContext *context,
                     else
                         g_warning ("<Connection> invalid URI: '%s' - ignored", param2);
                 }
-
-                // xml_adv_profile.counter_width = atoi(param3);        //  TODO:  FIXME
             }
             break;
 

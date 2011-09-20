@@ -274,8 +274,6 @@ inline gboolean load_connections (const gchar *fname)
                             {
                                 g_warning ("Invalid URI in the '%s' file", path);
                                 g_warning ("\t... %s", line);
-
-                                //  ????
                             }
                             else
                                 gnome_cmd_data.priv->con_list->add(server);
