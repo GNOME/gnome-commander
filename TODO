@@ -53,6 +53,7 @@
 // Advrename tool
 
 * Support for file meta tags (icc, *ml, video, ...)
+* Support for rename conflicts (file01->file02, file02->file03, ...)
 
 
 // Internal viewer
