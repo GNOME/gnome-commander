@@ -42,6 +42,7 @@
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-user-actions.h"
+#include "gnome-cmd-dir-indicator.h"
 #include "plugin_manager.h"
 #include "cap.h"
 #include "utils.h"
@@ -202,6 +203,7 @@ static UserActionData user_actions_data[] = {
                                              {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
                                              {view_close_duplicate_tabs, "view.close_duplicate_tabs", N_("Close duplicate tabs")},
                                              {view_directory, "view.directory", N_("Change directory")},
+                                             {view_dir_history, "view.dir_history", N_("Show directory history")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
@@ -340,6 +342,12 @@ void GnomeCmdUserActions::init()
         register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
+    }
+
+    if (!registered("dir_history"))
+    {
+        register_action(GDK_MOD1_MASK, GDK_Down, "view.dir_history");
+        register_action(GDK_MOD1_MASK, GDK_KP_Down, "view.dir_history");
     }
 
     if (!registered("view.up"))
@@ -1500,6 +1508,12 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.cmdline_visibility = checkitem->active;
     main_win->update_cmdline_visibility();
+}
+
+
+void view_dir_history (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
 }
 
 

@@ -1173,11 +1173,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Down:
-            case GDK_KP_Down:
-                gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (dir_indicator));
-                return TRUE;
-
             case GDK_Left:
             case GDK_KP_Left:
                 back();
