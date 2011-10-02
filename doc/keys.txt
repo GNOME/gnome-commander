@@ -20,6 +20,8 @@ ALT+F3          View with external viewer
 ALT+F7          Search
 ALT+F8          Open the history list for the command line
 
+ALT+DOWN        Open the history list of visited directories
+
 SHIFT+F2        Compare directories
 SHIFT+F3        View with internal viewer
 SHIFT+F4        Edit a new file

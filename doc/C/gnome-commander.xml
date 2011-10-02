@@ -5599,6 +5599,16 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></entry>
+            <entry><para>Open the history list of visited directories</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F2</keycap></keycombo></entry>
             <entry><para>Compare directories</para></entry>
             <entry><para></para></entry>
@@ -6487,6 +6497,11 @@
                         <entry><para>view.close_duplicate_tabs</para></entry>
                         <entry><para>Close duplicate tabs</para></entry>
                         <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.dir_history</para></entry>
+                        <entry><para>Open the history list of visited directories</para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>view.directory</para></entry>
@@ -7559,6 +7574,9 @@
                         </listitem>
                         <listitem>
                             <para>Fixed problem #657780 (bugs in nl.po)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #660043 (shortcut ALT+DOWN not documented)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>

@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed problem #621756 (custom port for ftp is not saved)
  * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)
  * Fixed problem #657780 (bugs in nl.po)
+ * Fixed problem #660043 (shortcut ALT+DOWN not documented)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
 
