@@ -871,7 +871,6 @@ inline void store_tabs_options (GtkWidget *dialog)
     GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
     GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
     GtkWidget *tab_lock_asterisk_radio = lookup_widget (dialog, "tab_lock_asterisk_radio");
-    GtkWidget *tab_lock_style_radio = lookup_widget (dialog, "tab_lock_style_radio");
 
     gnome_cmd_data.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
 
