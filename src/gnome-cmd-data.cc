@@ -883,6 +883,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 
     save_dirs_on_exit = FALSE;
     save_tabs_on_exit = TRUE;
+    save_dir_history_on_exit = TRUE;
 
     always_show_tabs = FALSE;
     tab_lock_indicator = TAB_LOCK_ICON;
@@ -1181,6 +1182,7 @@ void GnomeCmdData::load()
 
     save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
     save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
+    save_dir_history_on_exit = gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE);
 
     always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
     tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
@@ -1601,6 +1603,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", save_dirs_on_exit);
     gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
+    gnome_cmd_data_set_bool ("/options/save_dir_history_on_exit", save_dir_history_on_exit);
 
     gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
     gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) tab_lock_indicator);

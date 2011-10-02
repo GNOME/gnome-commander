@@ -248,6 +248,7 @@ struct GnomeCmdData
 
     gboolean                     save_dirs_on_exit;
     gboolean                     save_tabs_on_exit;
+    gboolean                     save_dir_history_on_exit;
 
     gboolean                     always_show_tabs;
     int                          tab_lock_indicator;
