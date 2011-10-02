@@ -171,6 +171,10 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_tabs_on_exit);
 
+    check = create_check (parent, _("Directory history"), "save_dir_history");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_dir_history_on_exit);
+
 
     return frame;
 }
@@ -189,6 +193,7 @@ inline void store_general_options (GtkWidget *dialog)
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
     GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
     GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
+    GtkWidget *save_dir_history = lookup_widget (dialog, "save_dir_history");
 
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -207,6 +212,7 @@ inline void store_general_options (GtkWidget *dialog)
     gnome_cmd_data.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
     gnome_cmd_data.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
     gnome_cmd_data.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
+    gnome_cmd_data.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
 }
 
 
