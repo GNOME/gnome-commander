@@ -7579,6 +7579,9 @@
                             <para>Fixed problem #660043 (shortcut ALT+DOWN not documented)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #660268 (remember directory history between sessions)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
                         <listitem>

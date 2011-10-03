@@ -336,6 +336,9 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_LAYOUT,
       XML_GNOMECOMMANDER_LAYOUT_PANEL,
       XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB,
+      XML_GNOMECOMMANDER_HISTORY,
+      XML_GNOMECOMMANDER_HISTORY_DIRECTORIES,
+      XML_GNOMECOMMANDER_HISTORY_DIRECTORIES_DIRECTORY,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE,
@@ -435,6 +438,15 @@ static void xml_start(GMarkupParseContext *context,
 
                 if (!dir.empty() && sort<GnomeCmdFileList::NUM_COLUMNS)
                     cfg->tabs[xml_fs].push_back(make_pair(string(param1),make_triple((GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4,param5)));
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_HISTORY_DIRECTORIES_DIRECTORY:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "path", &param1,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                gnome_cmd_con_get_dir_history (get_home_con())->add(param1);
             }
             break;
 
@@ -698,6 +710,10 @@ static void xml_end (GMarkupParseContext *context,
 
     switch (xml_elem_names[xml_paths.top()])
     {
+        case XML_GNOMECOMMANDER_HISTORY_DIRECTORIES:
+            gnome_cmd_con_get_dir_history (get_home_con())->reverse();
+            break;
+
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE:
             cfg->advrename_defaults.profiles.push_back(xml_adv_profile);
             break;
@@ -800,6 +816,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_LAYOUT_PANEL, "/GnomeCommander/Layout/Panel"},
                         {XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB, "/GnomeCommander/Layout/Panel/Tab"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL, "/GnomeCommander/AdvancedRenameTool"},
+                        {XML_GNOMECOMMANDER_HISTORY, "/GnomeCommander/History"},
+                        {XML_GNOMECOMMANDER_HISTORY_DIRECTORIES, "/GnomeCommander/History/Directories"},
+                        {XML_GNOMECOMMANDER_HISTORY_DIRECTORIES_DIRECTORY, "/GnomeCommander/History/Directories/Directory"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE, "/GnomeCommander/AdvancedRenameTool/WindowSize"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE, "/GnomeCommander/AdvancedRenameTool/Profile"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/Profile/Template"},
