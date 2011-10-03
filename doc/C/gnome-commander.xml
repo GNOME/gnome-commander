@@ -6108,6 +6108,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #621756 (custom port for ftp is not saved)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>

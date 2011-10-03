@@ -3,6 +3,7 @@ gnome-commander 1.2.8.14
 ---------------
 
 Bug fixes:
+ * Fixed problem #621756 (custom port for ftp is not saved)
 
 
 ===================================
