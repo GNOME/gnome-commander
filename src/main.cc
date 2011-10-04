@@ -35,7 +35,6 @@ extern "C"
 #include "owner.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-smb-auth.h"
 #include "utils.h"
 #include "ls_colors.h"
 #include "imageloader.h"
@@ -156,10 +155,7 @@ int main (int argc, char *argv[])
         ls_colors_init ();
         gnome_cmd_data.load_more();
 
-        if (gnome_cmd_data.use_gnome_auth_manager)
-            gnome_authentication_manager_init ();
-        else
-            gnome_cmd_smb_auth_init ();
+        gnome_authentication_manager_init ();
 
         gnome_cmd_style_create ();
 

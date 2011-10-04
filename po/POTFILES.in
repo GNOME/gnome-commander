@@ -15,6 +15,7 @@ src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.h
 src/dialogs/gnome-cmd-mkdir-dialog.cc
+src/dialogs/gnome-cmd-remote-dialog.cc
 src/dialogs/gnome-cmd-search-dialog.cc
 src/dirlist.cc
 src/eggcellrendererkeys.cc
@@ -52,10 +53,8 @@ src/gnome-cmd-prepare-move-dialog.cc
 src/gnome-cmd-prepare-xfer-dialog.cc
 src/gnome-cmd-python-plugin.cc
 src/gnome-cmd-quicksearch-popup.cc
-src/gnome-cmd-remote-dialog.cc
 src/gnome-cmd-rename-dialog.cc
 src/gnome-cmd-selection-profile-component.cc
-src/gnome-cmd-smb-auth.cc
 src/gnome-cmd-smb-path.cc
 src/gnome-cmd-user-actions.cc
 src/gnome-cmd-xfer.cc

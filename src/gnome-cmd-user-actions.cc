@@ -32,9 +32,7 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-con-dialog.h"
-#include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-options-dialog.h"
 #include "gnome-cmd-make-copy-dialog.h"
@@ -44,10 +42,12 @@
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-user-actions.h"
+#include "gnome-cmd-dir-indicator.h"
 #include "plugin_manager.h"
 #include "cap.h"
 #include "utils.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
+#include "dialogs/gnome-cmd-remote-dialog.h"
 #include "dialogs/gnome-cmd-key-shortcuts-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
@@ -203,6 +203,7 @@ static UserActionData user_actions_data[] = {
                                              {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
                                              {view_close_duplicate_tabs, "view.close_duplicate_tabs", N_("Close duplicate tabs")},
                                              {view_directory, "view.directory", N_("Change directory")},
+                                             {view_dir_history, "view.dir_history", N_("Show directory history")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
@@ -341,6 +342,12 @@ void GnomeCmdUserActions::init()
         register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
+    }
+
+    if (!registered("dir_history"))
+    {
+        register_action(GDK_MOD1_MASK, GDK_Down, "view.dir_history");
+        register_action(GDK_MOD1_MASK, GDK_KP_Down, "view.dir_history");
     }
 
     if (!registered("view.up"))
@@ -1221,12 +1228,12 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
         GError *error = NULL;
 
         if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_STDOUT_TO_DEV_NULL, NULL, NULL, NULL, &error))
-            gnome_cmd_error_message (_("Unable to open terminal in root mode"), error);
+            gnome_cmd_error_message (_("Unable to open terminal in root mode."), error);
 
         g_free (dpath);
     }
     else
-        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
+        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
 
     g_strfreev (argv);
 }
@@ -1511,6 +1518,12 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.cmdline_visibility = checkitem->active;
     main_win->update_cmdline_visibility();
+}
+
+
+void view_dir_history (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
 }
 
 

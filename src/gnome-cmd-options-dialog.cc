@@ -171,6 +171,10 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_tabs_on_exit);
 
+    check = create_check (parent, _("Directory history"), "save_dir_history");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.save_dir_history_on_exit);
+
 
     return frame;
 }
@@ -189,6 +193,7 @@ inline void store_general_options (GtkWidget *dialog)
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
     GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
     GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
+    GtkWidget *save_dir_history = lookup_widget (dialog, "save_dir_history");
 
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -207,6 +212,7 @@ inline void store_general_options (GtkWidget *dialog)
     gnome_cmd_data.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
     gnome_cmd_data.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
     gnome_cmd_data.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
+    gnome_cmd_data.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
 }
 
 
@@ -865,7 +871,6 @@ inline void store_tabs_options (GtkWidget *dialog)
     GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
     GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
     GtkWidget *tab_lock_asterisk_radio = lookup_widget (dialog, "tab_lock_asterisk_radio");
-    GtkWidget *tab_lock_style_radio = lookup_widget (dialog, "tab_lock_style_radio");
 
     gnome_cmd_data.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
 
@@ -1152,62 +1157,6 @@ inline void store_filter_options (GtkWidget *dialog)
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
 
     gnome_cmd_data_set_backup_pattern (gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
-}
-
-
-/***********************************************************************
- *
- *  The Network tab
- *
- **********************************************************************/
-
-static GtkWidget *create_network_tab (GtkWidget *parent)
-{
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
-    GtkWidget *table, *label, *entry;
-    GtkWidget *check;
-
-    frame = create_tabframe (parent);
-    hbox = create_tabhbox (parent);
-    gtk_container_add (GTK_CONTAINER (frame), hbox);
-    vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
-
-
-    // GNOME Keyring Manager
-
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Authentication"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
-
-    check = create_check (parent, _("Use GNOME Keyring Manager for authentication"), "use_auth_manager");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gnome_auth_manager);
-
-
-    // Anonymous FTP password options
-
-    table = create_table (parent, 1, 2);
-    cat = create_category (parent, table, _("Anonymous FTP access"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
-
-    label = create_label (parent, _("Password:"));
-    table_add (table, label, 0, 0, GTK_FILL);
-
-    entry = create_entry (parent, "anonymous_ftp_password", gnome_cmd_data_get_ftp_anonymous_password ());
-    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-
-    return frame;
-}
-
-
-inline void store_network_options (GtkWidget *dialog)
-{
-    GtkWidget *use_auth_manager_check = lookup_widget (dialog, "use_auth_manager");
-    GtkWidget *entry = lookup_widget (dialog, "anonymous_ftp_password");
-
-    gnome_cmd_data.use_gnome_auth_manager = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_auth_manager_check));
-    gnome_cmd_data_set_ftp_anonymous_password (gtk_entry_get_text (GTK_ENTRY (entry)));
 }
 
 
@@ -1740,7 +1689,7 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (dev));
     gtk_widget_destroy (dialog);
 
-    gnome_cmd_con_list_add_device (gnome_cmd_con_list_get (), dev);
+    gnome_cmd_con_list_get()->add(dev);
 
     g_free (icon_path);
 }
@@ -1856,9 +1805,9 @@ static void on_device_remove (GtkWidget *button, GtkWidget *frame)
     if (clist->focus_row >= 0)
     {
         GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
-        gnome_cmd_con_list_remove_device (gnome_cmd_con_list_get (), dev);
+        gnome_cmd_con_list_get()->remove(dev);
         gtk_clist_remove (clist, clist->focus_row);
-        gnome_cmd_con_list_remove_device (gnome_cmd_con_list_get (), dev);
+        gnome_cmd_con_list_get()->remove(dev);
     }
 }
 
@@ -1997,7 +1946,6 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNoteb
                                     "gnome-commander-prefs-tabs",
                                     "gnome-commander-prefs-confirmation",
                                     "gnome-commander-prefs-filters",
-                                    "gnome-commander-prefs-network",
                                     "gnome-commander-prefs-programs",
                                     "gnome-commander-prefs-devices"};
 
@@ -2066,7 +2014,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_tabs_tab (dialog), _("Tabs"));
     notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog), _("Filters"));
-    notebook->append_page(create_network_tab (dialog), _("Network"));
     notebook->append_page(create_programs_tab (dialog), _("Programs"));
     notebook->append_page(create_devices_tab (dialog), _("Devices"));
 
@@ -2090,7 +2037,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_tabs_options (dialog);
         store_confirmation_options (dialog);
         store_filter_options (dialog);
-        store_network_options (dialog);
         store_programs_options (dialog);
         store_devices_options (dialog);
 

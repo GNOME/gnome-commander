@@ -407,20 +407,6 @@ static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
 }
 
 
-inline void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
-{
-    if (fl->priv->selpat_dialog)  return;
-
-    GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
-
-    g_object_ref (dialog);
-    g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
-    gtk_widget_show (dialog);
-
-    fl->priv->selpat_dialog = dialog;
-}
-
-
 // given a GnomeFileList, returns the upper-left corner of the selected file
 static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, gint &width, gint &height)
 {
@@ -600,9 +586,9 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     const gchar *ext1 = f->get_extension();
     if (!ext1) return;
 
-    for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
+    for (GList *i=fl->get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         if (f && f->info)
         {
@@ -717,9 +703,9 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         GList *uri_str_list = NULL;
 
         // create a list with the uri's of the selected files and calculate the total_length needed
-        for (GList *tmp=sel_files; tmp; tmp=tmp->next)
+        for (GList *i=sel_files; i; i=i->next)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
             const gchar *fn = NULL;
 
             if (gnome_vfs_uri_is_local (f->get_uri()))
@@ -745,9 +731,9 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         data = copy = (gchar *) g_malloc (total_len+1);
 
         // put the uri_str_list in the allocated memory
-        for (GList *tmp=uri_str_list; tmp; tmp=tmp->next)
+        for (GList *i=uri_str_list; i; i=i->next)
         {
-            gchar *uri_str = (gchar *) tmp->data;
+            gchar *uri_str = (gchar *) i->data;
 
             strcpy (copy, uri_str);
             copy += strlen (uri_str);
@@ -1926,8 +1912,8 @@ void GnomeCmdFileList::select_all()
 {
     priv->selected_files.clear();
 
-    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
-        select_file((GnomeCmdFile *) tmp->data);
+    for (GList *i=get_visible_files(); i; i=i->next)
+        select_file((GnomeCmdFile *) i->data);
 }
 
 
@@ -1965,9 +1951,9 @@ void GnomeCmdFileList::toggle_and_step()
 
 void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_file)
 {
-    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *i=get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         g_return_if_fail (f != NULL);
         g_return_if_fail (f->info != NULL);
@@ -2003,9 +1989,9 @@ void GnomeCmdFileList::invert_selection()
 {
     GnomeCmd::Collection<GnomeCmdFile *> sel = priv->selected_files;
 
-    for (GList *tmp=get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *i=get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         if (f && f->info)
         {
@@ -2109,7 +2095,15 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
 
 void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 {
-    show_selpat_dialog (fl, mode);
+    if (fl->priv->selpat_dialog)  return;
+
+    GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
+
+    g_object_ref (dialog);
+    g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
+    gtk_widget_show (dialog);
+
+    fl->priv->selpat_dialog = dialog;
 }
 
 
@@ -2150,7 +2144,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
     if (!f)  return;
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file"), f->info->name);
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
     else
         gnome_cmd_file_view (f, internal_viewer);
 }
@@ -2165,7 +2159,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
     if (!f)  return;
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        gnome_cmd_show_message (*main_win, _("Not an ordinary file"), f->info->name);
+        gnome_cmd_show_message (*main_win, _("Not an ordinary file."), f->info->name);
     else
         gnome_cmd_file_edit (f);
 }
@@ -2357,12 +2351,12 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_Add:
             case GDK_plus:
             case GDK_equal:
-                show_selpat_dialog (this, TRUE);
+                gnome_cmd_file_list_show_selpat_dialog (this, TRUE);
                 return TRUE;
 
             case GDK_KP_Subtract:
             case GDK_minus:
-                show_selpat_dialog (this, FALSE);
+                gnome_cmd_file_list_show_selpat_dialog (this, FALSE);
                 return TRUE;
 
             case GDK_KP_Multiply:

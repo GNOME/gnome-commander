@@ -24,8 +24,9 @@
 #include <unistd.h>
 #include <libgnomeui/gnome-stock-icons.h>
 
+#include <algorithm>
+
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-main-win.h"
@@ -814,25 +815,10 @@ static void init (GnomeCmdMainWin *mw)
     mw->fs(LEFT)->update_connections();
     mw->fs(RIGHT)->update_connections();
 
-    GnomeCmdCon *home = get_home_con ();
+    mw->open_tabs(LEFT);
+    mw->open_tabs(RIGHT);
 
-    if (gnome_cmd_data.tabs[LEFT].empty())
-        gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
-
-    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[LEFT].begin(); i!=gnome_cmd_data.tabs[LEFT].end(); ++i)
-    {
-        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(LEFT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
-    }
-
-    if (gnome_cmd_data.tabs[RIGHT].empty())
-        gnome_cmd_data.tabs[RIGHT].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING,FALSE)));
-
-    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[RIGHT].begin(); i!=gnome_cmd_data.tabs[RIGHT].end(); ++i)
-    {
-        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
-        mw->fs(RIGHT)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
-    }
+    gnome_cmd_data.tabs.clear();        //  free unused memory
 
     g_signal_connect (mw, "size-allocate", G_CALLBACK (on_size_allocate), mw);
     g_signal_connect (mw, "delete-event", G_CALLBACK (on_delete_event), mw);
@@ -1044,6 +1030,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             switch (event->keyval)
             {
                 case GDK_Tab:
+                case GDK_ISO_Left_Tab:
                     // hack to avoid the default handling of TAB
                     clear_event_key (event);
                     switch_fs(fs(INACTIVE));
@@ -1086,10 +1073,24 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                     return TRUE;
             }
 
-    if (fs(ACTIVE)->key_pressed(event))
-        return TRUE;
+    return fs(ACTIVE)->key_pressed(event);
+}
 
-    return FALSE;
+
+inline void GnomeCmdMainWin::open_tabs(FileSelectorID id)
+{
+    GnomeCmdCon *home = get_home_con ();
+
+    if (gnome_cmd_data.tabs[id].empty())
+        gnome_cmd_data.tabs[id].push_back(make_pair(string(g_get_home_dir ()), make_triple(GnomeCmdFileList::COLUMN_NAME, GTK_SORT_ASCENDING, FALSE)));
+
+    vector<GnomeCmdData::Tab>::const_iterator last_tab = unique(gnome_cmd_data.tabs[id].begin(),gnome_cmd_data.tabs[id].end());
+
+    for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[id].begin(); i!=last_tab; ++i)
+    {
+        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
+        fs(id)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
+    }
 }
 
 

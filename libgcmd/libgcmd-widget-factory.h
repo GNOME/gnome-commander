@@ -125,7 +125,10 @@ GtkWidget *create_combo (GtkWidget *parent);
 
 GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items);
 
-const gchar *get_combo_text (GtkWidget *combo);
+inline const gchar *get_combo_text (GtkWidget *combo)
+{
+    return gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (combo)->entry));
+}
 
 inline GSList *get_radio_group (GtkWidget *radio)
 {

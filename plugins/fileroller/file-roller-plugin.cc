@@ -345,8 +345,7 @@ static void update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state
 
 static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 {
-    plugin->priv->default_ext = g_strdup (gtk_entry_get_text (
-        GTK_ENTRY (GTK_COMBO (plugin->priv->conf_combo)->entry)));
+    plugin->priv->default_ext = g_strdup (get_combo_text (plugin->priv->conf_combo));
 
     gnome_cmd_data_set_string ("/file-runner-plugin/default_type", plugin->priv->default_ext);
 

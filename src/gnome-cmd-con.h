@@ -73,10 +73,16 @@ struct GnomeCmdCon
         OPEN_NOT_STARTED
     };
 
+    enum Authentication
+    {
+        SAVE_FOR_SESSION,
+        SAVE_PERMANENTLY
+    };
+
     gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
     ConnectionMethodID  method;
-    gboolean            gnome_auth;
+    gboolean            auth;
 
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
@@ -104,6 +110,8 @@ struct GnomeCmdCon
     gchar            *open_failed_msg;
 
     GnomeCmdConPrivate *priv;
+
+    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
 };
 
 struct GnomeCmdConClass

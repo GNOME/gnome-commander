@@ -336,6 +336,9 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_LAYOUT,
       XML_GNOMECOMMANDER_LAYOUT_PANEL,
       XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB,
+      XML_GNOMECOMMANDER_HISTORY,
+      XML_GNOMECOMMANDER_HISTORY_DIRECTORIES,
+      XML_GNOMECOMMANDER_HISTORY_DIRECTORIES_DIRECTORY,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE,
@@ -358,6 +361,8 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL,
       XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE,
+      XML_GNOMECOMMANDER_CONNECTIONS,
+      XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION,
       XML_GNOMECOMMANDER_BOOKMARKS,
       XML_GNOMECOMMANDER_BOOKMARKS_GROUP,
       XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK,
@@ -433,6 +438,15 @@ static void xml_start(GMarkupParseContext *context,
 
                 if (!dir.empty() && sort<GnomeCmdFileList::NUM_COLUMNS)
                     cfg->tabs[xml_fs].push_back(make_pair(string(param1),make_triple((GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4,param5)));
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_HISTORY_DIRECTORIES_DIRECTORY:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "path", &param1,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                gnome_cmd_con_get_dir_history (get_home_con())->add(param1);
             }
             break;
 
@@ -521,6 +535,31 @@ static void xml_start(GMarkupParseContext *context,
             }
             break;
 
+        case XML_GNOMECOMMANDER_CONNECTIONS:
+            cfg->XML_cfg_has_connections = TRUE;
+            break;
+
+        case XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "name", &param1,
+                                             G_MARKUP_COLLECT_STRING, "uri", &param2,
+                                             G_MARKUP_COLLECT_STRING, "auth", &param3,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                if (gnome_cmd_con_list_get()->has_alias(param1))
+                    g_warning ("<Connections> duplicate entry: '%s' - ignored", param1);
+                else
+                {
+                    GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (param1, param2);
+
+                    if (server)
+                        gnome_cmd_con_list_get()->add(server);
+                    else
+                        g_warning ("<Connection> invalid URI: '%s' - ignored", param2);
+                }
+            }
+            break;
+
         case XML_GNOMECOMMANDER_BOOKMARKS:
             cfg->XML_cfg_has_bookmarks = TRUE;
             break;
@@ -532,13 +571,13 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 if (param4) //  if remote...
-                    xml_con = gnome_cmd_con_list_find_alias ((GnomeCmdConList *) gnome_cmd_data_get_con_list (), param1);
+                    xml_con = gnome_cmd_con_list_get()->find_alias(param1);
                 else
                     if (strcmp(param1,"Home")==0)
-                        xml_con = gnome_cmd_con_list_get_home ((GnomeCmdConList *) gnome_cmd_data_get_con_list ());
+                        xml_con = gnome_cmd_con_list_get()->get_home();
                     else
                         if (strcmp(param1,"SMB")==0)
-                            xml_con = gnome_cmd_con_list_get_smb ((GnomeCmdConList *) gnome_cmd_data_get_con_list ());
+                            xml_con = gnome_cmd_con_list_get()->get_smb();
                         else
                             xml_con = NULL;
 
@@ -671,6 +710,10 @@ static void xml_end (GMarkupParseContext *context,
 
     switch (xml_elem_names[xml_paths.top()])
     {
+        case XML_GNOMECOMMANDER_HISTORY_DIRECTORIES:
+            gnome_cmd_con_get_dir_history (get_home_con())->reverse();
+            break;
+
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE:
             cfg->advrename_defaults.profiles.push_back(xml_adv_profile);
             break;
@@ -773,6 +816,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_LAYOUT_PANEL, "/GnomeCommander/Layout/Panel"},
                         {XML_GNOMECOMMANDER_LAYOUT_PANEL_TAB, "/GnomeCommander/Layout/Panel/Tab"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL, "/GnomeCommander/AdvancedRenameTool"},
+                        {XML_GNOMECOMMANDER_HISTORY, "/GnomeCommander/History"},
+                        {XML_GNOMECOMMANDER_HISTORY_DIRECTORIES, "/GnomeCommander/History/Directories"},
+                        {XML_GNOMECOMMANDER_HISTORY_DIRECTORIES_DIRECTORY, "/GnomeCommander/History/Directories/Directory"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_WINDOWSIZE, "/GnomeCommander/AdvancedRenameTool/WindowSize"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE, "/GnomeCommander/AdvancedRenameTool/Profile"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/Profile/Template"},
@@ -796,6 +842,8 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL, "/GnomeCommander/BookmarksTool"},
                         {XML_GNOMECOMMANDER_BOOKMARKSTOOL_WINDOWSIZE, "/GnomeCommander/BookmarksTool/WindowSize"},
+                        {XML_GNOMECOMMANDER_CONNECTIONS, "/GnomeCommander/Connections"},
+                        {XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION, "/GnomeCommander/Connections/Connection"},
                         {XML_GNOMECOMMANDER_BOOKMARKS, "/GnomeCommander/Bookmarks"},
                         {XML_GNOMECOMMANDER_BOOKMARKS_GROUP, "/GnomeCommander/Bookmarks/Group"},
                         {XML_GNOMECOMMANDER_BOOKMARKS_GROUP_BOOKMARK, "/GnomeCommander/Bookmarks/Group/Bookmark"},

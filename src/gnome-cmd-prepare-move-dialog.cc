@@ -27,7 +27,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 

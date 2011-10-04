@@ -27,15 +27,21 @@
 #define GNOME_CMD_IS_REMOTE_DIALOG_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_REMOTE_DIALOG))
 #define GNOME_CMD_REMOTE_DIALOG_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_REMOTE_DIALOG, GnomeCmdRemoteDialogClass))
 
-
-struct GnomeCmdRemoteDialogPrivate;
-
+#include "gnome-cmd-con-ftp.h"
 
 struct GnomeCmdRemoteDialog
 {
     GnomeCmdDialog parent;
 
-    GnomeCmdRemoteDialogPrivate *priv;
+    struct Private;
+
+    Private *priv;
+
+    operator GObject * () const             {  return G_OBJECT (this);          }
+    operator GtkWidget * () const           {  return GTK_WIDGET (this);        }
+    operator GnomeCmdDialog * () const      {  return GNOME_CMD_DIALOG (this);  }
+
+    void do_connect(GnomeCmdConFtp *server=NULL);
 };
 
 

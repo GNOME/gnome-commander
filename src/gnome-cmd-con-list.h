@@ -34,16 +34,35 @@
 #define GNOME_CMD_CON_LIST_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_CON_LIST, GnomeCmdConListClass))
 
 
-struct GnomeCmdConListPrivate;
+GtkType gnome_cmd_con_list_get_type ();
 
 
 struct GnomeCmdConList
 {
     GtkObject parent;
 
-    GnomeCmdConListPrivate *priv;
-};
+    class Private;
 
+    Private *priv;
+
+    operator GObject * () const         {  return G_OBJECT (this);    }
+    operator GtkObject * () const       {  return GTK_OBJECT (this);  }
+
+    void lock();
+    void unlock();
+
+    void add(GnomeCmdConFtp *con);
+    void add(GnomeCmdConDevice *con);
+
+    void remove(GnomeCmdConFtp *con);
+    void remove(GnomeCmdConDevice *con);
+
+    GnomeCmdCon *find_alias(const gchar *alias) const;
+    gboolean has_alias(const gchar *alias) const            {  return find_alias(alias)!=NULL;  }
+
+    GnomeCmdCon *get_home();
+    GnomeCmdCon *get_smb();
+};
 
 struct GnomeCmdConListClass
 {
@@ -57,53 +76,34 @@ struct GnomeCmdConListClass
 };
 
 
-GtkType gnome_cmd_con_list_get_type ();
-
-GnomeCmdConList *gnome_cmd_con_list_new ();
+inline GnomeCmdConList *gnome_cmd_con_list_new ()
+{
+    return (GnomeCmdConList *) g_object_new (GNOME_CMD_TYPE_CON_LIST, NULL);
+}
 
 inline GnomeCmdConList *gnome_cmd_con_list_get ()
 {
     return (GnomeCmdConList *) gnome_cmd_data_get_con_list ();
 }
 
-void gnome_cmd_con_list_begin_update (GnomeCmdConList *list);
-void gnome_cmd_con_list_end_update (GnomeCmdConList *list);
-
-void gnome_cmd_con_list_add_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
-void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
-
 void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 
-void gnome_cmd_con_list_add_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
-void gnome_cmd_con_list_remove_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
-
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);
-void gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *list, GList *ftp_cons);
 GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
-GnomeCmdCon *gnome_cmd_con_list_find_alias (GnomeCmdConList *list, const gchar *alias);
-
-inline gboolean gnome_cmd_con_list_has_alias (GnomeCmdConList *list, const gchar *alias)
-{
-    return gnome_cmd_con_list_find_alias (list, alias)!=NULL;
-}
-
-GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list);
-GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
-
 inline GnomeCmdCon *get_home_con ()
 {
-    return gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());
+    return gnome_cmd_con_list_get()->get_home();
 }
 
 inline GnomeCmdCon *get_smb_con ()
 {
-    return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
+    return gnome_cmd_con_list_get()->get_smb();
 }
 
 inline GList *get_ftp_cons ()

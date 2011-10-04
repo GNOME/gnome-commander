@@ -455,12 +455,6 @@ GtkWidget *create_option_menu (GtkWidget *parent, const gchar **items)
 }
 
 
-const gchar *get_combo_text (GtkWidget *combo)
-{
-    return gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (combo)->entry));
-}
-
-
 GtkWidget *create_progress_bar (GtkWidget *parent)
 {
     GtkWidget *w = gtk_progress_bar_new ();

@@ -1004,7 +1004,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
         {
             g_free (tmp_file_dir_template);
 
-            gnome_cmd_show_message (NULL, _("Failed to create a directory in which to store temporary files"), strerror (errno));
+            gnome_cmd_show_message (NULL, _("Failed to create a directory in which to store temporary files."), strerror (errno));
 
             return NULL;
         }

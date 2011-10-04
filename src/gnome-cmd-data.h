@@ -194,6 +194,7 @@ struct GnomeCmdData
 
   public:
 
+    gboolean                     XML_cfg_has_connections;
     gboolean                     XML_cfg_has_bookmarks;
 
     gboolean                     confirm_delete;
@@ -247,6 +248,7 @@ struct GnomeCmdData
 
     gboolean                     save_dirs_on_exit;
     gboolean                     save_tabs_on_exit;
+    gboolean                     save_dir_history_on_exit;
 
     gboolean                     always_show_tabs;
     int                          tab_lock_indicator;
@@ -254,7 +256,6 @@ struct GnomeCmdData
     gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
-    gboolean                     use_gnome_auth_manager;
 
     gboolean                     honor_expect_uris;
     gboolean                     skip_mounting;

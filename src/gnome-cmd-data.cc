@@ -27,14 +27,10 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
-#include "gnome-cmd-con-device.h"
-#include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
-#include "filter.h"
 #include "utils.h"
 #include "owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
@@ -137,39 +133,6 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
         xml << *(GnomeCmdBookmark *) i->data;
 
     xml << XML::endtag("Group");
-}
-
-
-inline void save_connections (const gchar *fname)
-{
-    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    FILE  *fd = fopen (path, "w");
-
-    if (fd)
-    {
-        chmod (path, S_IRUSR|S_IWUSR);
-
-        for (GList *tmp = gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); tmp; tmp = tmp->next)
-        {
-            GnomeCmdConFtp *server = GNOME_CMD_CON_FTP (tmp->data);
-            GnomeCmdCon *con = GNOME_CMD_CON (server);
-
-            if (server)
-            {
-                string alias;
-
-                stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_get_alias (con)));
-
-                fprintf (fd, "U:\t%s\t%s\n", alias.c_str(), con->uri?con->uri:"");
-            }
-        }
-
-        fclose (fd);
-    }
-    else
-        g_warning ("Failed to open the file %s for writing", path);
-
-    g_free (path);
 }
 
 
@@ -301,7 +264,7 @@ inline gboolean load_connections (const gchar *fname)
 
                         gchar *alias = gnome_vfs_unescape_string (a[1].c_str(), NULL);
 
-                        if (gnome_cmd_con_list_has_alias (gnome_cmd_data.priv->con_list, alias))
+                        if (gnome_cmd_data.priv->con_list->has_alias(alias))
                             g_warning ("%s: ignored duplicate entry: %s", path, alias);
                         else
                         {
@@ -311,11 +274,9 @@ inline gboolean load_connections (const gchar *fname)
                             {
                                 g_warning ("Invalid URI in the '%s' file", path);
                                 g_warning ("\t... %s", line);
-
-                                //  ????
                             }
                             else
-                                gnome_cmd_con_list_add_ftp (gnome_cmd_data.priv->con_list, server);
+                                gnome_cmd_data.priv->con_list->add(server);
                         }
 
                         g_free (alias);
@@ -351,7 +312,7 @@ inline gboolean load_connections (const gchar *fname)
     if (!g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list)))
     {
         GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (_("GNOME Commander"), "ftp://anonymous@ftp.gnome.org/pub/GNOME/sources/gnome-commander/");
-        gnome_cmd_con_list_add_ftp (gnome_cmd_data.priv->con_list, server);
+        gnome_cmd_data.priv->con_list->add(server);
     }
 
     return fd!=NULL && g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list))>prev_ftp_cons_no;
@@ -407,7 +368,7 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
             {
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
-                gnome_cmd_con_list_remove_device (gnome_cmd_data.priv->con_list, device);
+                gnome_cmd_data.priv->con_list->remove(device);
                 break;
             }
         }
@@ -488,7 +449,7 @@ inline void add_vfs_volume (GnomeVFSVolume *volume)
         GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_vfs_volume (ConDev, volume);
-        gnome_cmd_con_list_add_device (gnome_cmd_data.priv->con_list, ConDev);
+        gnome_cmd_data.priv->con_list->add(ConDev);
     }
     else
         DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
@@ -529,7 +490,7 @@ inline void add_vfs_drive (GnomeVFSDrive *drive)
 
     gnome_cmd_con_device_set_autovol (ConDev, TRUE);
 
-    gnome_cmd_con_list_add_device (gnome_cmd_data.priv->con_list, ConDev);
+    gnome_cmd_data.priv->con_list->add(ConDev);
 
     g_free (path);
     g_free (uri);
@@ -627,9 +588,7 @@ inline void load_devices (const gchar *fname)
                 if (strcmp (icon_path, "x") != 0)
                     icon_path2  = gnome_vfs_unescape_string (icon_path, NULL);
 
-                gnome_cmd_con_list_add_device (
-                    gnome_cmd_data.priv->con_list,
-                    gnome_cmd_con_device_new (alias2, device_fn2, mountp2, icon_path2));
+                gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias2, device_fn2, mountp2, icon_path2));
 
                 g_free (alias2);
                 g_free (device_fn2);
@@ -843,7 +802,7 @@ inline void GnomeCmdData::load_local_bookmarks()
     GList *names = load_string_history ("/local_bookmarks/name%d", size);
     GList *paths = load_string_history ("/local_bookmarks/path%d", size);
 
-    GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
+    GnomeCmdCon *con = priv->con_list->get_home();
 
     for (gint i=0; i<size; i++)
         gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
@@ -856,7 +815,7 @@ inline void GnomeCmdData::load_smb_bookmarks()
     GList *names = load_string_history ("/smb_bookmarks/name%d", size);
     GList *paths = load_string_history ("/smb_bookmarks/path%d", size);
 
-    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (priv->con_list);
+    GnomeCmdCon *con = priv->con_list->get_smb();
 
     for (gint i=0; i<size; i++)
         gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
@@ -875,6 +834,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 {
     quick_connect = NULL;
 
+    XML_cfg_has_connections = FALSE;
     XML_cfg_has_bookmarks = FALSE;
 
     confirm_delete = TRUE;
@@ -923,6 +883,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 
     save_dirs_on_exit = FALSE;
     save_tabs_on_exit = TRUE;
+    save_dir_history_on_exit = TRUE;
 
     always_show_tabs = FALSE;
     tab_lock_indicator = TAB_LOCK_ICON;
@@ -930,7 +891,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
-    use_gnome_auth_manager = FALSE;
 
     honor_expect_uris = FALSE;
     skip_mounting = FALSE;
@@ -1222,6 +1182,7 @@ void GnomeCmdData::load()
 
     save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
     save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
+    save_dir_history_on_exit = gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE);
 
     always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
     tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
@@ -1232,7 +1193,6 @@ void GnomeCmdData::load()
 
     main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
-    use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", FALSE);
     priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
 
     if (strcmp (priv->ftp_anonymous_password, "you@provider.com")==0)   // if '/network/ftp_anonymous_password' entry undefined, try to read '/ftp/anonymous_password'
@@ -1240,19 +1200,6 @@ void GnomeCmdData::load()
         g_free (priv->ftp_anonymous_password);
         priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
     }
-
-    priv->con_list = gnome_cmd_con_list_new ();
-
-    gnome_cmd_con_list_begin_update (priv->con_list);
-    load_devices ("devices");
-    load_connections ("connections");
-    gnome_cmd_con_list_end_update (priv->con_list);
-
-    // "/quick-connect/uri" must be read AFTER retrieving anonymous password
-
-    gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
-    quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
-    g_free (quick_connect_uri);
 
     static struct
     {
@@ -1457,6 +1404,11 @@ void GnomeCmdData::load()
     load_cmdline_history();
     //load_dir_history ();
 
+    priv->con_list = gnome_cmd_con_list_new ();
+
+    priv->con_list->lock();
+    load_devices ("devices");
+
     if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
         load_rename_history();
@@ -1485,6 +1437,17 @@ void GnomeCmdData::load()
 
         load_search_defaults();
     }
+
+    if (!XML_cfg_has_connections)
+        load_connections ("connections");
+
+    priv->con_list->unlock();
+
+    // "/quick-connect/uri" must be read AFTER retrieving anonymous password
+
+    gchar *quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
+    quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
+    g_free (quick_connect_uri);
 
     // if number of registered user actions does not exceed 10 (nothing has been read), try to read old cfg file
     if (gcmd_user_actions.size()<10)
@@ -1640,6 +1603,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", save_dirs_on_exit);
     gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
+    gnome_cmd_data_set_bool ("/options/save_dir_history_on_exit", save_dir_history_on_exit);
 
     gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
     gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) tab_lock_indicator);
@@ -1649,14 +1613,12 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int ("/options/main_win_state", (gint) main_win_state);
 
-    gnome_cmd_data_set_bool ("/network/use_gnome_auth_manager", use_gnome_auth_manager);
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", priv->ftp_anonymous_password);
     gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
 
     save_cmdline_history();
     //write_dir_history ();
 
-    save_connections ("connections");
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_intviewer_defaults();
@@ -1672,14 +1634,40 @@ void GnomeCmdData::save()
 
         xml << *main_win;
 
+        xml << XML::tag("History");
+
+        if (save_dir_history_on_exit)
+        {
+            xml << XML::tag("Directories");
+
+            for (GList *i=gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents; i; i=i=i->next)
+                xml << XML::tag("Directory") << XML::attr("path") << XML::escape((const gchar *) i->data) << XML::endtag();
+
+            xml << XML::endtag("Directories");
+        }
+
+        xml << XML::endtag("History");
+
         xml << advrename_defaults;
         xml << search_defaults;
         xml << bookmarks_defaults;
 
+        xml << XML::tag("Connections");
+
+        for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
+        {
+            GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+
+            if (con)
+                xml << *con;
+        }
+
+        xml << XML::endtag("Connections");
+
         xml << XML::tag("Bookmarks");
 
-        write (xml, gnome_cmd_con_list_get_home (priv->con_list), "Home");
-        write (xml, gnome_cmd_con_list_get_smb (priv->con_list), "SMB");
+        write (xml, priv->con_list->get_home(), "Home");
+        write (xml, priv->con_list->get_smb(), "SMB");
 
         for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
         {

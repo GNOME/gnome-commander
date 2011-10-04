@@ -47,6 +47,7 @@ GTK_REQ=2.8.0
 GNOME_REQ=2.0.0
 GNOMEUI_REQ=2.4.0
 GNOMEVFS_REQ=2.0.0
+GNOME_KEYRING_REQ=2.22
 UNIQUE_REQ=0.9.3
 PYTHON_REQ=2.5
 EXIV2_REQ=0.14
@@ -59,6 +60,7 @@ AC_SUBST(GTK_REQ)
 AC_SUBST(GNOME_REQ)
 AC_SUBST(GNOMEUI_REQ)
 AC_SUBST(GNOMEVFS_REQ)
+AC_SUBST(GNOME_KEYRING_REQ)
 AC_SUBST(UNIQUE_REQ)
 AC_SUBST(PYTHON_REQ)
 AC_SUBST(EXIV2_REQ)
@@ -193,8 +195,20 @@ else
 fi
 
 
+dnl Check for gnome-keyring
+PKG_CHECK_MODULES(GNOME_KEYRING, [ gnome-keyring-1 >= ${GNOME_KEYRING_REQ} ])
+GNOME_KEYRING_PREFIX=`pkg-config --variable=prefix gnome-keyring-1`
+GNOME_KEYRING_VERSION=`pkg-config --modversion gnome-keyring-1`
+AC_SUBST([GNOME_KEYRING_PREFIX])
+AC_SUBST([GNOME_KEYRING_VERSION])
+
+
 dnl Check for libUnique
 PKG_CHECK_MODULES(UNIQUE, [ unique-1.0 >= ${UNIQUE_REQ} ])
+UNIQUE_PREFIX=`pkg-config --variable=prefix unique-1.0`
+UNIQUE_VERSION=`pkg-config --modversion unique-1.0`
+AC_SUBST([UNIQUE_PREFIX])
+AC_SUBST([UNIQUE_VERSION])
 
 
 dnl Check for exiv2 support
@@ -439,13 +453,15 @@ echo ""
 echo ""
 echo "The following libraries will be used:"
 echo ""
-echo "  glib     : ${GLIB_VERSION}	in ${GLIB_PREFIX}"
-echo "  gtk+     : ${GTK_VERSION}	in ${GTK_PREFIX}"
-echo "  gnome    : ${GNOME_VERSION}	in ${GNOME_PREFIX}"
-echo "  gnomeui  : ${GNOMEUI_VERSION}	in ${GNOMEUI_PREFIX}"
-echo "  gnome-vfs: ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
+echo "  glib           : ${GLIB_VERSION}	in ${GLIB_PREFIX}"
+echo "  gtk+           : ${GTK_VERSION}	in ${GTK_PREFIX}"
+echo "  gnome          : ${GNOME_VERSION}	in ${GNOME_PREFIX}"
+echo "  gnomeui        : ${GNOMEUI_VERSION}	in ${GNOMEUI_PREFIX}"
+echo "  gnome-vfs      : ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
+echo "  gnome-keyring  : ${GNOME_KEYRING_VERSION}	in ${GNOME_KEYRING_PREFIX}"
+echo "  libUnique      : ${UNIQUE_VERSION}	in ${UNIQUE_PREFIX}"
 if test "x$have_python" = "xyes"; then
-echo "  python   : ${PYTHON_VERSION}	in ${PY_EXEC_PREFIX}"
+echo "  python         : ${PYTHON_VERSION}  	in ${PY_EXEC_PREFIX}"
 fi
 echo ""
 echo ""

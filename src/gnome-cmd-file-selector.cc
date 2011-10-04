@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-dir.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-combo.h"
@@ -1161,6 +1159,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
         switch (event->keyval)
         {
             case GDK_Tab:
+            case GDK_ISO_Left_Tab:
                 view_prev_tab ();
                 return TRUE;
 
@@ -1174,11 +1173,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_Down:
-            case GDK_KP_Down:
-                gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (dir_indicator));
-                return TRUE;
-
             case GDK_Left:
             case GDK_KP_Left:
                 back();
@@ -1207,6 +1201,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Tab:
+            case GDK_ISO_Left_Tab:
                 view_next_tab ();
                 return TRUE;
 

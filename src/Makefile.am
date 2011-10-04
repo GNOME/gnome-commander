@@ -7,6 +7,7 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
+	$(GNOME_KEYRING_CFLAGS) \
 	$(UNIQUE_CFLAGS) \
 	$(PYTHON_CFLAGS) \
 	-DDATADIR=\""$(datadir)"\"\
@@ -67,11 +68,9 @@ gnome_commander_SOURCES = \
 	gnome-cmd-prepare-move-dialog.h gnome-cmd-prepare-move-dialog.cc \
 	gnome-cmd-prepare-xfer-dialog.h gnome-cmd-prepare-xfer-dialog.cc \
 	gnome-cmd-regex.h \
-	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.cc \
 	gnome-cmd-selection-profile-component.h gnome-cmd-selection-profile-component.cc \
-	gnome-cmd-smb-auth.h gnome-cmd-smb-auth.cc \
 	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc \
 	gnome-cmd-style.h gnome-cmd-style.cc \
@@ -105,6 +104,7 @@ gnome_commander_LDADD = \
 	intviewer/libgviewer.a \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
+	$(GNOME_KEYRING_LIBS) \
 	$(UNIQUE_LIBS) \
 	$(EXIV2_LIBS) \
 	$(TAGLIB_LIBS) \

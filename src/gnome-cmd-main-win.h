@@ -71,6 +71,8 @@ struct GnomeCmdMainWin
 
     gboolean key_pressed (GdkEventKey *event);
 
+    void open_tabs(FileSelectorID id);
+
     void switch_fs(GnomeCmdFileSelector *fs);
     void change_connection(FileSelectorID id);
 

@@ -280,6 +280,16 @@
         </revdescription>
       </revision>
       <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.14;</revnumber>
+        <date>2011-10-04</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
         <revnumber>GNOME Commander Manual V1.4;</revnumber>
         <date>2011-??-??</date>
         <revdescription>
@@ -5096,37 +5106,6 @@
         </tgroup>
       </table>
    </sect2>
-    <!--network preferences -->
-    <sect2 id="gnome-commander-prefs-network">
-      <title>Network</title>
-      <!--brief desciption-->
-      <para>The network section of the option dialog lets you configure parameters for
-      FTP and the use of the GNOME keyring.</para>
-      <itemizedlist>
-        <listitem>
-          <para><guilabel>Authentication</guilabel> there is only one option <guilabel>Use GNOME keyring manager for authentication</guilabel> when this is activated &app; uses the GNOME keyring to authenticate the user on remote servers.</para>
-        </listitem>
-        <listitem>
-          <para><guilabel>Anonymous FTP access</guilabel> <guilabel>Password</guilabel> this contains the address used as password to access anonymous FTP server.</para>
-        </listitem>
-      </itemizedlist>
-      <!-- ==== Figure ==== -->
-      <figure id="options-network-fig">
-        <title>Network options</title>
-        <screenshot>
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="figures/gnome-commander_options_network.png" format="PNG"/>
-            </imageobject>
-            <textobject>
-              <phrase>Shows &app; network preferences dialog.</phrase>
-            </textobject>
-          </mediaobject>
-        </screenshot>
-      </figure>
-      <!-- ==== End of Figure ==== -->
-      <para/>
-    </sect2>
     <!-- Preferred programs settings-->
     <sect2 id="gnome-commander-prefs-programs">
       <title>Programs</title>
@@ -5623,6 +5602,16 @@
             <entry><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></entry>
             <entry><para>Open the history list for the command line</para></entry>
             <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></entry>
+            <entry><para>Open the history list of visited directories</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -6520,6 +6509,11 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.dir_history</para></entry>
+                        <entry><para>Open the history list of visited directories</para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.directory</para></entry>
                         <entry><para>Change directory</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
@@ -6870,16 +6864,6 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Opening a full terminal</guilabel>
-        </term>
-        <listitem>
-          <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
-        Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
-        in the &app; command line and press <keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo> - there you have it.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <guilabel>Using Nautilus icon theme</guilabel>
         </term>
         <listitem>
@@ -6994,14 +6978,6 @@
     <variablelist>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/connections</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           <guilabel>~/.gnome-commander/devices</guilabel>
         </term>
         <listitem>
@@ -7041,13 +7017,6 @@
                             <tbody>
                                 <row valign="top">
                                     <entry><para>[network]</para></entry>
-                                    <entry><para>use_gnome_auth_manager</para></entry>
-                                    <entry><para>boolean</para></entry>
-                                    <entry><para>Usage of GNOME authentication manager for password handling. Defaults to FALSE.</para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>ftp_anonymous_password</para></entry>
                                     <entry><para>string</para></entry>
                                     <entry><para></para></entry>
@@ -7569,14 +7538,6 @@
           </para>
         </listitem>
       </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>~/.gnome2/gnome-commander-size</guilabel>
-        </term>
-        <listitem>
-          <para/>
-        </listitem>
-      </varlistentry>
     </variablelist>
   </sect1>
 
@@ -7599,7 +7560,7 @@
         </row>
     </thead>
     <tbody>
-         <row valign="top">
+        <row valign="top">
             <entry><para>1.4</para></entry>
             <entry><para>2011-??-??</para></entry>
             <entry>
@@ -7610,10 +7571,19 @@
                             <para>Fixed problem #377463 (mkdir dialog loses focus)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #492479 (file replace prompt must show date and size of files)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #660043 (shortcut ALT+DOWN not documented)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #660268 (remember directory history between sessions)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
@@ -7690,6 +7660,23 @@
                                     <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo>   Change right connection</para>
                                 </listitem>
                             </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.14</para></entry>
+            <entry><para>2011-10-04</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #621756 (custom port for ftp is not saved)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #657780 (bugs in nl.po)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

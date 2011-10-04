@@ -544,7 +544,7 @@ static gboolean update_search_status_widgets (SearchData *data)
         int matches = data->dialog->priv->result_list->size();
 
         gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
-                                    ngettext("Found %d match", "Found %d matches", matches);
+                                     ngettext("Found %d match", "Found %d matches", matches);
 
         gchar *msg = g_strdup_printf (fmt, matches);
 
@@ -557,7 +557,8 @@ static gboolean update_search_status_widgets (SearchData *data)
         gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_STOP, FALSE);
         gtk_dialog_set_response_sensitive (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_FIND, TRUE);
 
-        gtk_widget_grab_focus (*data->dialog->priv->result_list);         // set focus to result list
+        if (matches)
+            gtk_widget_grab_focus (*data->dialog->priv->result_list);         // set focus to result list
     }
 
     return FALSE;    // returning FALSE here stops the timeout callbacks
@@ -1139,6 +1140,7 @@ static void gnome_cmd_search_dialog_class_init (GnomeCmdSearchDialogClass *klass
 GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
+    gtk_window_set_transient_for (*this, *main_win);
 
     GtkWidget *button = priv->create_button_with_menu(_("Profiles..."), cfg);
 
@@ -1170,6 +1172,8 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
         priv->profile_component->set_name_patterns_history(defaults.name_patterns.ents);
 
     priv->profile_component->set_content_patterns_history(defaults.content_patterns.ents);
+
+    priv->profile_component->set_default_activation(*this);
 
     gtk_widget_show_all (button);
     gtk_widget_show (*priv->profile_component);

@@ -24,7 +24,7 @@
 #include "gnome-cmd-string-dialog.h"
 #include "libgcmd-widget-factory.h"
 
-struct _GnomeCmdStringDialogPrivate
+struct GnomeCmdStringDialog::Private
 {
     GnomeCmdStringDialogCallback ok_cb;
     GFunc cancel_cb;
@@ -110,7 +110,7 @@ static void class_init (GnomeCmdStringDialogClass *klass)
 
 static void init (GnomeCmdStringDialog *string_dialog)
 {
-    string_dialog->priv = g_new0 (GnomeCmdStringDialogPrivate, 1);
+    string_dialog->priv = g_new0 (GnomeCmdStringDialog::Private, 1);
     string_dialog->rows = -1;
 }
 

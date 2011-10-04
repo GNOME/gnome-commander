@@ -1533,7 +1533,7 @@ msgstr "_Hulp"
 
 #: ../src/gnome-cmd-main-win.cc:433
 msgid "F3 View"
-msgstr "F3 tonen"
+msgstr "F3 Tonen"
 
 #: ../src/gnome-cmd-main-win.cc:435
 msgid "F4 Edit"
@@ -1545,11 +1545,11 @@ msgstr "F5 Kopie"
 
 #: ../src/gnome-cmd-main-win.cc:439
 msgid "F6 Move"
-msgstr "F5 Verpl"
+msgstr "F6 Verpl"
 
 #: ../src/gnome-cmd-main-win.cc:441
 msgid "F7 Mkdir"
-msgstr "F7Mkmap"
+msgstr "F7 Mkmap"
 
 #: ../src/gnome-cmd-main-win.cc:443
 msgid "F8 Delete"

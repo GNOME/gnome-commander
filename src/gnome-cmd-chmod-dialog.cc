@@ -26,7 +26,6 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chmod-component.h"
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
@@ -103,7 +102,7 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
-        const gchar *mode_text = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (dialog->priv->recurse_combo)->entry));
+        const gchar *mode_text = get_combo_text (dialog->priv->recurse_combo);
         ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :
                                                                                            CHMOD_DIRS_ONLY;
 

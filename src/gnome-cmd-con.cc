@@ -19,12 +19,10 @@
 */
 
 #include <config.h>
+#include <libgnomeui/libgnomeui.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-dir.h"
-#include "utils.h"
 
 using namespace std;
 
@@ -170,7 +168,7 @@ static void init (GnomeCmdCon *con)
     con->alias = NULL;
     con->uri = NULL;
     con->method = CON_URI;
-    con->gnome_auth = FALSE;
+    con->auth = FALSE;
 
     con->base_path = NULL;
     con->base_info = NULL;
@@ -529,4 +527,19 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_a
         s += '/' + folder;
 
     return s;
+}
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con)
+{
+    if (!con.alias || !*con.alias || !con.uri || !*con.uri)
+        return xml;
+
+    xml << XML::tag("Connection");
+
+    xml << XML::attr("name") << XML::escape(con.alias);
+    xml << XML::attr("uri") << XML::escape(con.uri);
+    xml << XML::attr("auth") << con.auth;
+
+    return xml << XML::endtag();
 }

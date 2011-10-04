@@ -24,7 +24,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-selection-profile-component.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-menu-button.h"
 #include "utils.h"
 
@@ -200,9 +199,6 @@ GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdDat
 
     g_signal_connect (priv->filter_type_combo, "changed", G_CALLBACK (Private::on_filter_type_changed), this);
     g_signal_connect (priv->find_text_check, "toggled", G_CALLBACK (Private::on_find_text_toggled), this);
-
-    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->pattern_combo)), "activate", G_CALLBACK (gtk_window_activate_default), this);
-    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->find_text_combo)), "activate", G_CALLBACK (gtk_window_activate_default), this);
 }
 
 
@@ -257,4 +253,11 @@ void GnomeCmdSelectionProfileComponent::set_content_patterns_history(GList *hist
     gtk_list_store_clear (GTK_LIST_STORE (store));
 
     g_list_foreach (history, (GFunc) combo_box_insert_text, priv->find_text_combo);
+}
+
+
+void GnomeCmdSelectionProfileComponent::set_default_activation(GtkWindow *w)
+{
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->pattern_combo)), "activate", G_CALLBACK (gtk_window_activate_default), w);
+    g_signal_connect_swapped (gtk_bin_get_child (GTK_BIN (priv->find_text_combo)), "activate", G_CALLBACK (gtk_window_activate_default), w);
 }

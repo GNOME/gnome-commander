@@ -284,6 +284,7 @@ GNOME_CMD_USER_ACTION(view_toolbar);
 GNOME_CMD_USER_ACTION(view_buttonbar);
 GNOME_CMD_USER_ACTION(view_treeview);
 GNOME_CMD_USER_ACTION(view_cmdline);
+GNOME_CMD_USER_ACTION(view_dir_history);
 GNOME_CMD_USER_ACTION(view_hidden_files);
 GNOME_CMD_USER_ACTION(view_backup_files);
 GNOME_CMD_USER_ACTION(view_up);

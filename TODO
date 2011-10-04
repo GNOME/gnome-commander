@@ -53,19 +53,14 @@
 // Advrename tool
 
 * Support for file meta tags (icc, *ml, video, ...)
+* Support for rename conflicts (file01->file02, file02->file03, ...)
 
 
 // Internal viewer
 
-* Selecting text in browser (CTRL-C and xbuffer)
 * Adding the toolbar
 * Multiple files browsing
 * Preloading consecutive images
-
-
-// Documentation
-
-* Help button for every dialog
 
 
 Discussed stuff

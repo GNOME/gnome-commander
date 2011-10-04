@@ -54,9 +54,11 @@ struct GnomeCmdSelectionProfileComponent
     void update();
     void copy();                                        //  copies component to associated profile
     void copy(GnomeCmdData::Selection &profile);        //  copies component to specified profile
-    
+
     void set_name_patterns_history(GList *history);
     void set_content_patterns_history(GList *history);
+
+    void set_default_activation(GtkWindow *w);
 };
 
 #endif // __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__
