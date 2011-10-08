@@ -5,7 +5,7 @@ man1_MANS = gnome-commander.1
 EXTRA_DIST = \
 	keys.txt \
 	internal_viewer_hacking.txt \
-        $(man1_MANS)
+	$(man1_MANS)
 
 
 include $(top_srcdir)/gnome-doc-utils.make
