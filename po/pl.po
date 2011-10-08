@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-10 19:44+0000\n"
-"PO-Revision-Date: 2011-08-12 23:05+0100\n"
+"POT-Creation-Date: 2011-10-02 17:59+0000\n"
+"PO-Revision-Date: 2011-10-08 15:58+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,8 @@ msgid "A two paned file manager"
 msgstr "Dwupanelowy menadżer plików"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
-#: ../src/gnome-cmd-data.cc:353
-#: ../src/gnome-cmd-main-win.cc:760
+#: ../src/gnome-cmd-data.cc:314
+#: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -33,13 +33,13 @@ msgstr "Brak opisu błędu"
 
 #. destroy model automatically with view
 #: ../plugins/cvs/cvs-plugin.cc:276
-#: ../plugins/fileroller/file-roller-plugin.cc:362
+#: ../plugins/fileroller/file-roller-plugin.cc:361
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:357
-#: ../src/gnome-cmd-options-dialog.cc:1410
-#: ../src/gnome-cmd-options-dialog.cc:2027
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:129
-#: ../src/gnome-cmd-prepare-move-dialog.cc:115
-#: ../src/gnome-cmd-remote-dialog.cc:471
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:465
+#: ../src/gnome-cmd-options-dialog.cc:1359
+#: ../src/gnome-cmd-options-dialog.cc:1975
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:128
+#: ../src/gnome-cmd-prepare-move-dialog.cc:114
 #: ../src/gnome-cmd-user-actions.cc:196
 msgid "Options"
 msgstr "Opcje"
@@ -134,15 +134,15 @@ msgstr "Rozpakuj w bieżącym katalogu"
 msgid "Extract to '%s'"
 msgstr "Rozpakuj do '%s'"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:374
+#: ../plugins/fileroller/file-roller-plugin.cc:373
 msgid "File-roller options"
 msgstr "Opcje aplikacji File Roller"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:377
+#: ../plugins/fileroller/file-roller-plugin.cc:376
 msgid "Default type"
 msgstr "Typ domyślny"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:487
+#: ../plugins/fileroller/file-roller-plugin.cc:486
 msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
 msgstr "Wtyczka, która dodaje skróty aplikacji File Roller dla pakowania i rozpakowania skompresowanych archiwów"
 
@@ -150,91 +150,91 @@ msgstr "Wtyczka, która dodaje skróty aplikacji File Roller dla pakowania i roz
 msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
 msgstr "To jest przykładowa wtyczka, która jest najbardziej przydatna jako prosty przykład dla kandydatów na twórców wtyczek"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:125
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:126
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:203
 msgid "/_Save Profile As..."
 msgstr "/Zapisz _profil jako..."
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:134
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:135
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:212
 msgid "/_Manage Profiles..."
 msgstr "/_Zarządzanie profilami..."
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:186
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:187
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:262
 msgid "Profiles"
 msgstr "Profile"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:330
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:331
 msgid "Remove from file list"
 msgstr "Usuń z listy plików"
 
 #. {file_umount, "file.umount"},
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:334
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:335
 #: ../src/gnome-cmd-user-actions.cc:183
 msgid "View file"
 msgstr "Podgląd pliku"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:338
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:339
 msgid "File properties"
 msgstr "Właściwości pliku"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:344
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:345
 msgid "Update file list"
 msgstr "Aktualizuj listę plików"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:506
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:507
 msgid "Advanced Rename Tool"
 msgstr "Zaawansowana zmiana nazwy"
 
 #. Results
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:517
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:518
 msgid "Results"
 msgstr "Wyniki"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:590
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:591
 msgid "Old name"
 msgstr "Stara nazwa"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:594
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:595
 msgid "Current file name"
 msgstr "Obecna nazwa pliku"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:596
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:597
 msgid "New name"
 msgstr "Nowa nazwa"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:600
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:601
 msgid "New file name"
 msgstr "Nowa nazwa pliku"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:602
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:603
 #: ../src/tags/gnome-cmd-tags.cc:326
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "Rozmiar"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:606
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:607
 msgid "File size"
 msgstr "Rozmiar pliku"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:608
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:609
 #: ../src/gnome-cmd-advrename-profile-component.cc:916
 #: ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Data"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:612
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:613
 msgid "File modification date"
 msgstr "Data modyfikacji pliku"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:677
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1143
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:679
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1145
 msgid "Profiles..."
 msgstr "Profile..."
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:682
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:684
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Przywróć"
@@ -258,11 +258,14 @@ msgid "Some regular expressions functionality is disabled. To enable it's necess
 msgstr "Część funkcjonalności obsługi wyrażeń regularnych jest niedostępna. Uaktywnienie wymaga kompilacji GNOME Commander z biblioteką GLib ≥ 2.14. W tej sprawie skonaktuj się z opiekunem pakietu."
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:42
-msgid "Bookmark name is missing"
-msgstr "Brak nazwy zakładki"
+#| msgid "Bookmark name is missing"
+msgid "Bookmark name is missing."
+msgstr "Brak nazwy zakładki."
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:51
-msgid "Bookmark target is missing"
+#, fuzzy
+#| msgid "Bookmark target is missing"
+msgid "Bookmark target is missing."
 msgstr "Brak docelowej ścieżki"
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:108
@@ -351,8 +354,8 @@ msgstr "Grupa zakładek"
 #. "foreground", "DarkGray",
 #. NULL);
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:249
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:376
 #: ../src/gnome-cmd-file-props-dialog.cc:646
-#: ../src/gnome-cmd-remote-dialog.cc:380
 #: ../src/intviewer/viewer-window.cc:1458
 #: ../src/plugin_manager.cc:404
 #: ../src/tags/gnome-cmd-tags.cc:321
@@ -413,7 +416,7 @@ msgstr "Nowy profil"
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:342
 msgid "To rename a profile, click on the corresponding row and type a new name, or press escape to cancel."
-msgstr "Aby nazwę profilu, kliknij na odpowiedni wiersz i wprowadź nową nazwę lub anuluj naciskając Escape."
+msgstr "Aby zmienić nazwę profilu, kliknij na odpowiedni wiersz i wprowadź nową nazwę lub anuluj naciskając Escape."
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:350
 msgid "_Duplicate"
@@ -444,6 +447,35 @@ msgstr "Utwórz katalog"
 msgid "Directory name:"
 msgstr "Nazwa katalogu:"
 
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:211
+#, c-format
+msgid "No server selected"
+msgstr "Nie wybrano serwera"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:362
+msgid "Save password in GNOME keyring"
+msgstr "Zapamiętanie hasła w bazie kluczy GNOME"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:366
+msgid "Network protocol"
+msgstr "Protokół sieciowy"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:377
+msgid "Connection name"
+msgstr "Nazwa połączenia"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:431
+msgid "Remote Connections"
+msgstr "Zdalne połączenia"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:437
+msgid "Connections"
+msgstr "Połączenia"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:468
+msgid "Anonymous FTP password:"
+msgstr "Hasło anonimowego FTP:"
+
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:67
 #, fuzzy
 #| msgid "Directories only"
@@ -457,10 +489,10 @@ msgstr "Aby edytować klawisz skrótu, kliknij na odpowiedni rząd i wprowadź n
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:347
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:356
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:381
-#, fuzzy, c-format
+#, c-format
 #| msgid "Failed to read from file %s: %s\n"
 msgid "Failed to read file %s: %s"
-msgstr "Nie można czytać z pliku %s: %s\n"
+msgstr "Nie można odczytać pliku %s: %s"
 
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:433
 #, c-format
@@ -483,38 +515,37 @@ msgstr[0] "Znaleziono %d pasujący"
 msgstr[1] "Znaleziono %d pasujące"
 msgstr[2] "Znaleziono %d pasujących"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:700
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:701
 #, fuzzy, c-format
 #| msgid "Failed to seek in file %s: %s\n"
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Nie powiodło się ustawienie id grupy procesu potomka %d: %s.\n"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:824
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:825
 msgid "Error parsing the search command."
 msgstr "Błąd przy analizowaniu polecenia wyszukiwania."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:836
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:837
 msgid "Error running the search command."
 msgstr "Błąd przy uruchamianiu polecenia wyszukiwania."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:949
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:950
 #, fuzzy, c-format
 #| msgid "Failed to create the directory %s"
 msgid "Failed to change directory outside of %s"
 msgstr "Nie powiodła się zmiana katalogu roboczego na"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1054
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1055
 msgid "Search..."
 msgstr "Szukaj..."
 
 #. search in
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1161
-#, fuzzy
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1163
 #| msgid "Make Directory"
 msgid "Select Directory"
-msgstr "Wybierz folder"
+msgstr "Wybierz katalog"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1164
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1166
 msgid "_Look in folder:"
 msgstr "_Wyszukiwanie w folderze:"
 
@@ -713,7 +744,7 @@ msgstr "/Czas/SS"
 #: ../src/gnome-cmd-advrename-profile-component.cc:416
 #: ../src/gnome-cmd-advrename-profile-component.cc:733
 #: ../src/gnome-cmd-advrename-profile-component.cc:765
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:150
 #: ../src/utils.cc:661
 msgid "Yes"
 msgstr "Tak"
@@ -721,7 +752,7 @@ msgstr "Tak"
 #: ../src/gnome-cmd-advrename-profile-component.cc:416
 #: ../src/gnome-cmd-advrename-profile-component.cc:733
 #: ../src/gnome-cmd-advrename-profile-component.cc:765
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:150
 #: ../src/utils.cc:661
 msgid "No"
 msgstr "Nie"
@@ -904,20 +935,20 @@ msgstr "Tekstowo:"
 msgid "Number view:"
 msgstr "Ósemkowo:"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:45
-#: ../src/gnome-cmd-options-dialog.cc:1431
+#: ../src/gnome-cmd-chmod-dialog.cc:44
+#: ../src/gnome-cmd-options-dialog.cc:1380
 msgid "All files"
 msgstr "Wszystkie pliki"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:46
+#: ../src/gnome-cmd-chmod-dialog.cc:45
 msgid "Directories only"
 msgstr "Tylko katalogi"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:178
+#: ../src/gnome-cmd-chmod-dialog.cc:177
 msgid "Access Permissions"
 msgstr "Prawa dostępu"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:194
+#: ../src/gnome-cmd-chmod-dialog.cc:193
 msgid "Apply Recursively for"
 msgstr "Zastosuj rekursywnie do"
 
@@ -934,31 +965,31 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Zastosuj do podkatalogów"
 
-#: ../src/gnome-cmd-con.h:191
+#: ../src/gnome-cmd-con.h:199
 msgid "<New connection>"
 msgstr "<Nowe połączenie>"
 
-#: ../src/gnome-cmd-con.h:193
+#: ../src/gnome-cmd-con.h:201
 #, c-format
 msgid "Go to: %s"
 msgstr "Idź do: %s"
 
-#: ../src/gnome-cmd-con.h:194
+#: ../src/gnome-cmd-con.h:202
 #, c-format
 msgid "Connect to: %s"
 msgstr "Połącz z %s"
 
-#: ../src/gnome-cmd-con.h:195
+#: ../src/gnome-cmd-con.h:203
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Rozłącz z: %s"
 
-#: ../src/gnome-cmd-con.h:202
+#: ../src/gnome-cmd-con.h:210
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Dołączanie do %s\n"
 
-#: ../src/gnome-cmd-con.h:365
+#: ../src/gnome-cmd-con.h:373
 msgid "Unknown disk usage"
 msgstr "Nieznana zajętość dysku"
 
@@ -1020,51 +1051,51 @@ msgstr "Montowanie: %s"
 msgid "Unmount: %s"
 msgstr "Odmontuj: %s"
 
-#: ../src/gnome-cmd-con-dialog.cc:222
+#: ../src/gnome-cmd-con-dialog.cc:226
 msgid "You must enter a name for the server"
 msgstr "Proszę podać nazwę serwera"
 
-#: ../src/gnome-cmd-con-dialog.cc:222
+#: ../src/gnome-cmd-con-dialog.cc:226
 msgid "Please enter a name and try again."
 msgstr "Proszę podać nazwę i spróbować ponownie."
 
-#: ../src/gnome-cmd-con-dialog.cc:237
+#: ../src/gnome-cmd-con-dialog.cc:241
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr "\"%s\" nie określa poprawnego położenia"
 
-#: ../src/gnome-cmd-con-dialog.cc:238
+#: ../src/gnome-cmd-con-dialog.cc:242
 msgid "Please check the spelling and try again."
 msgstr "Proszę sprawdzić pisownię i spróbować ponownie."
 
-#: ../src/gnome-cmd-con-dialog.cc:343
+#: ../src/gnome-cmd-con-dialog.cc:347
 msgid "_Alias:"
 msgstr "_Alias:"
 
-#: ../src/gnome-cmd-con-dialog.cc:347
+#: ../src/gnome-cmd-con-dialog.cc:352
 msgid "_Location (URI):"
 msgstr "Położenie (U_RI):"
 
-#: ../src/gnome-cmd-con-dialog.cc:380
+#: ../src/gnome-cmd-con-dialog.cc:381
 msgid "_Server:"
 msgstr "_Serwer:"
 
-#: ../src/gnome-cmd-con-dialog.cc:391
+#: ../src/gnome-cmd-con-dialog.cc:392
 msgid "Optional information"
 msgstr "Informacje dodatkowe"
 
-#: ../src/gnome-cmd-con-dialog.cc:415
+#: ../src/gnome-cmd-con-dialog.cc:416
 msgid "S_hare:"
 msgstr "_Zasób:"
 
-#: ../src/gnome-cmd-con-dialog.cc:418
+#: ../src/gnome-cmd-con-dialog.cc:419
 msgid "_Port:"
 msgstr "_Port:"
 
-#. Translators: 'Dir' in the sense of 'Directory'
 #: ../src/gnome-cmd-con-dialog.cc:421
-msgid "_Remote dir:"
-msgstr "Zdalny _katalog:"
+#| msgid "Filter:"
+msgid "_Folder:"
+msgstr "_Katalog:"
 
 #: ../src/gnome-cmd-con-dialog.cc:424
 msgid "_User name:"
@@ -1079,7 +1110,7 @@ msgid "_Domain name:"
 msgstr "Nazwa _domeny:"
 
 #: ../src/gnome-cmd-con-dialog.cc:467
-#: ../src/gnome-cmd-main-win.cc:1178
+#: ../src/gnome-cmd-main-win.cc:1182
 msgid "Remote Server"
 msgstr "Zdalny serwer"
 
@@ -1154,19 +1185,19 @@ msgstr "Szukanie grup roboczych i hostów"
 msgid "Go to: Samba Network"
 msgstr "Idź do: Sieć Samby"
 
-#: ../src/gnome-cmd-data.cc:1190
-#: ../src/gnome-cmd-data.cc:1191
-#: ../src/gnome-cmd-data.cc:1605
-#: ../src/gnome-cmd-data.cc:1908
+#: ../src/gnome-cmd-data.cc:1150
+#: ../src/gnome-cmd-data.cc:1151
+#: ../src/gnome-cmd-data.cc:1568
+#: ../src/gnome-cmd-data.cc:1882
 #, c-format
 msgid "link to %s"
 msgstr "dowiązanie do %s"
 
-#: ../src/gnome-cmd-data.cc:1469
+#: ../src/gnome-cmd-data.cc:1421
 msgid "Audio Files"
 msgstr "Pliki audio"
 
-#: ../src/gnome-cmd-data.cc:1477
+#: ../src/gnome-cmd-data.cc:1429
 msgid "CamelCase"
 msgstr "Pierwsza Litera Wielka"
 
@@ -1204,13 +1235,13 @@ msgid "Abort"
 msgstr "Przerwij"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1317
+#: ../src/gnome-cmd-file-selector.cc:1312
 #: ../src/gnome-cmd-xfer.cc:209
 msgid "Retry"
 msgstr "Ponów"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1317
+#: ../src/gnome-cmd-file-selector.cc:1312
 #: ../src/gnome-cmd-xfer.cc:191
 #: ../src/gnome-cmd-xfer.cc:209
 msgid "Skip"
@@ -1230,15 +1261,15 @@ msgstr[1] "Czy chcesz usunąć %d zaznaczone pliki ?"
 msgstr[2] "Czy chcesz usunąć %d zaznaczonych plików ?"
 
 #: ../src/gnome-cmd-delete-dialog.cc:286
-#: ../src/gnome-cmd-main-win.cc:1172
-#: ../src/gnome-cmd-options-dialog.cc:902
+#: ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-options-dialog.cc:907
 #: ../src/gnome-cmd-user-actions.cc:157
 msgid "Delete"
 msgstr "Usuń"
 
 #: ../src/gnome-cmd-delete-dialog.cc:287
-#: ../src/gnome-cmd-file-selector.cc:1317
-#: ../src/gnome-cmd-user-actions.cc:835
+#: ../src/gnome-cmd-file-selector.cc:1312
+#: ../src/gnome-cmd-user-actions.cc:842
 #: ../src/utils.cc:506
 #: ../src/utils.cc:534
 msgid "Cancel"
@@ -1257,7 +1288,7 @@ msgstr "Dodaj bieżący katalog"
 msgid "Manage bookmarks..."
 msgstr "Zarządzanie zakładkami..."
 
-#: ../src/gnome-cmd-dir.cc:506
+#: ../src/gnome-cmd-dir.cc:505
 msgid "Waiting for file list"
 msgstr "Oczekiwanie na listę plików"
 
@@ -1293,38 +1324,36 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:214
-#| msgid "Copy overwrite"
+#: ../src/gnome-cmd-file-list.cc:212
 msgid "/_Copy here"
 msgstr "/_Kopiuj tutaj"
 
-#: ../src/gnome-cmd-file-list.cc:215
-#| msgid "Move overwrite"
+#: ../src/gnome-cmd-file-list.cc:213
 msgid "/_Move here"
 msgstr "/_Przenieś tutaj"
 
-#: ../src/gnome-cmd-file-list.cc:216
+#: ../src/gnome-cmd-file-list.cc:214
 msgid "/_Link here"
 msgstr "/_Dowiąż tutaj"
 
-#: ../src/gnome-cmd-file-list.cc:218
-#| msgid "Cancel"
+#: ../src/gnome-cmd-file-list.cc:216
 msgid "/C_ancel"
 msgstr "/_Anuluj"
 
-#: ../src/gnome-cmd-file-list.cc:1415
+#: ../src/gnome-cmd-file-list.cc:1394
 #, fuzzy
 msgid "Directory listing failed."
 msgstr "Wypisywanie certyfikatów zakończyło się niepowodzeniem"
 
-#: ../src/gnome-cmd-file-list.cc:1468
+#: ../src/gnome-cmd-file-list.cc:1447
 msgid "Failed to open connection."
 msgstr "Nie można otworzyć połączenia."
 
-#: ../src/gnome-cmd-file-list.cc:2159
-#: ../src/gnome-cmd-file-list.cc:2174
-msgid "Not an ordinary file"
-msgstr "To nie jest zwykły plik"
+#: ../src/gnome-cmd-file-list.cc:2147
+#: ../src/gnome-cmd-file-list.cc:2162
+#| msgid "Not an ordinary file"
+msgid "Not an ordinary file."
+msgstr "To nie jest zwykły plik."
 
 #: ../src/gnome-cmd-file-popmenu.cc:116
 msgid "Couldn't retrieve MIME type of the file."
@@ -1358,7 +1387,6 @@ msgid "_Open with \"%s\""
 msgstr "_Otwórz za pomocą \"%s\""
 
 #: ../src/gnome-cmd-file-popmenu.cc:437
-#, fuzzy
 #| msgid "Open With..."
 msgid "Open Wit_h"
 msgstr "Otwórz za po_mocą"
@@ -1393,7 +1421,7 @@ msgstr "Zmień nazwę"
 
 #. {file_run, "file.run"},
 #: ../src/gnome-cmd-file-popmenu.cc:461
-#: ../src/gnome-cmd-main-win.cc:1175
+#: ../src/gnome-cmd-main-win.cc:1179
 #: ../src/gnome-cmd-user-actions.cc:180
 msgid "Send files"
 msgstr "Wyślij pliki"
@@ -1429,7 +1457,7 @@ msgid "Image:"
 msgstr "Obraz:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:365
-#: ../src/gnome-cmd-file-selector.cc:1125
+#: ../src/gnome-cmd-file-selector.cc:1123
 msgid "File name:"
 msgstr "Nazwa pliku:"
 
@@ -1543,7 +1571,7 @@ msgstr "Uprawnienia"
 msgid "Metadata"
 msgstr "Metadane"
 
-#: ../src/gnome-cmd-file-selector.cc:184
+#: ../src/gnome-cmd-file-selector.cc:182
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
@@ -1551,7 +1579,7 @@ msgstr[0] "%s z %s kB w %d z %d zaznaczonym pliku"
 msgstr[1] "%s z %s kB w %d z %d zaznaczonych plikach"
 msgstr[2] "%s z %s kB w %d z %d zaznaczonych plikach"
 
-#: ../src/gnome-cmd-file-selector.cc:188
+#: ../src/gnome-cmd-file-selector.cc:186
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
@@ -1559,92 +1587,90 @@ msgstr[0] "%s, %d z %d zaznaczonych katalogów"
 msgstr[1] "%s, %d z %d zaznaczonych katalogów"
 msgstr[2] "%s, %d z %d zaznaczonych katalogów"
 
-#: ../src/gnome-cmd-file-selector.cc:243
+#: ../src/gnome-cmd-file-selector.cc:241
 #, c-format
 msgid "%s free"
 msgstr "wolne %s"
 
-#: ../src/gnome-cmd-file-selector.cc:629
-#: ../src/gnome-cmd-file-selector.cc:704
-#: ../src/gnome-cmd-user-actions.cc:1610
-#: ../src/gnome-cmd-user-actions.cc:1618
+#: ../src/gnome-cmd-file-selector.cc:627
+#: ../src/gnome-cmd-file-selector.cc:702
+#: ../src/gnome-cmd-user-actions.cc:1669
+#: ../src/gnome-cmd-user-actions.cc:1677
 msgid "The tab is locked, close anyway ?"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:647
+#: ../src/gnome-cmd-file-selector.cc:645
 #: ../src/gnome-cmd-main-menu.cc:613
 msgid "Open in New _Tab"
 msgstr "Otwórz w nowej _karcie"
 
-#: ../src/gnome-cmd-file-selector.cc:654
+#: ../src/gnome-cmd-file-selector.cc:652
 #, fuzzy
 #| msgid "_Close Tab"
 msgid "_Unlock Tab"
 msgstr "_Dodaj zakładkę"
 
-#: ../src/gnome-cmd-file-selector.cc:654
+#: ../src/gnome-cmd-file-selector.cc:652
 #, fuzzy
 #| msgid "_Close Tab"
 msgid "_Lock Tab"
 msgstr "_Dodaj zakładkę"
 
-#: ../src/gnome-cmd-file-selector.cc:659
+#: ../src/gnome-cmd-file-selector.cc:657
 #, fuzzy
 #| msgid "_Refresh"
 msgid "_Refresh Tab"
 msgstr "_Dodaj zakładkę"
 
-#: ../src/gnome-cmd-file-selector.cc:664
+#: ../src/gnome-cmd-file-selector.cc:662
 #, fuzzy
 msgid "Copy Tab to Other _Pane"
 msgstr "Kopiuj Msgstr do innych form liczby &mnogiej"
 
-#: ../src/gnome-cmd-file-selector.cc:670
+#: ../src/gnome-cmd-file-selector.cc:668
 #: ../src/gnome-cmd-main-menu.cc:619
 msgid "_Close Tab"
 msgstr "Z_amknij kartę"
 
-#: ../src/gnome-cmd-file-selector.cc:675
+#: ../src/gnome-cmd-file-selector.cc:673
 #: ../src/gnome-cmd-main-menu.cc:625
-#| msgid "_Close Tab"
 msgid "Close _All Tabs"
 msgstr "Zamknij wszystkie karty"
 
-#: ../src/gnome-cmd-file-selector.cc:680
-#| msgid "_Duplicate"
+#: ../src/gnome-cmd-file-selector.cc:678
 msgid "Close _Duplicate Tabs"
 msgstr "Zamknij powtórzone karty"
 
-#: ../src/gnome-cmd-file-selector.cc:1063
+#: ../src/gnome-cmd-file-selector.cc:1061
 #: ../src/gnome-cmd-make-copy-dialog.cc:67
 msgid "No file name entered"
 msgstr "Nie wprowadzono nazwy pliku"
 
-#: ../src/gnome-cmd-file-selector.cc:1097
+#: ../src/gnome-cmd-file-selector.cc:1095
 msgid "No file name given"
 msgstr "Nie wprowadzono nazwy pliku"
 
-#: ../src/gnome-cmd-file-selector.cc:1128
+#: ../src/gnome-cmd-file-selector.cc:1126
 msgid "New Text File"
 msgstr "Nowy plik tekstowy"
 
-#: ../src/gnome-cmd-file-selector.cc:1265
+#: ../src/gnome-cmd-file-selector.cc:1260
 msgid "Symbolic link name:"
 msgstr "Nazwa linku symbolicznego"
 
-#: ../src/gnome-cmd-file-selector.cc:1271
-#: ../src/gnome-cmd-file-selector.cc:1317
-#: ../src/gnome-cmd-user-actions.cc:835
+#: ../src/gnome-cmd-file-selector.cc:1266
+#: ../src/gnome-cmd-file-selector.cc:1312
+#: ../src/gnome-cmd-user-actions.cc:842
 msgid "Create Symbolic Link"
 msgstr "Utwórz link symboliczny"
 
-#: ../src/gnome-cmd-file-selector.cc:1317
-#: ../src/gnome-cmd-options-dialog.cc:924
-#: ../src/gnome-cmd-options-dialog.cc:944
+#: ../src/gnome-cmd-file-selector.cc:1312
+#: ../src/gnome-cmd-options-dialog.cc:929
+#: ../src/gnome-cmd-options-dialog.cc:949
 msgid "Skip all"
 msgstr "Pomiń wszystkie"
 
-#: ../src/gnome-cmd-file-selector.cc:1388
+#: ../src/gnome-cmd-file-selector.cc:1383
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -1685,7 +1711,6 @@ msgid "_Text File"
 msgstr "_Plik tekstowy"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
-#| msgid "_New..."
 msgid "_New"
 msgstr "_Nowy"
 
@@ -1919,99 +1944,99 @@ msgstr "_Wtyczki"
 msgid "_Help"
 msgstr "Pomo_c"
 
-#: ../src/gnome-cmd-main-win.cc:421
+#: ../src/gnome-cmd-main-win.cc:422
 msgid "F3 View"
 msgstr "F3 Podgląd"
 
-#: ../src/gnome-cmd-main-win.cc:423
+#: ../src/gnome-cmd-main-win.cc:424
 msgid "F4 Edit"
 msgstr "F4 Edycja"
 
-#: ../src/gnome-cmd-main-win.cc:425
+#: ../src/gnome-cmd-main-win.cc:426
 msgid "F5 Copy"
 msgstr "F5 Kopiowanie"
 
-#: ../src/gnome-cmd-main-win.cc:427
+#: ../src/gnome-cmd-main-win.cc:428
 msgid "F6 Move"
 msgstr "F6 ZmPrzs"
 
-#: ../src/gnome-cmd-main-win.cc:429
+#: ../src/gnome-cmd-main-win.cc:430
 msgid "F7 Mkdir"
 msgstr "F7 UtwKat"
 
-#: ../src/gnome-cmd-main-win.cc:431
+#: ../src/gnome-cmd-main-win.cc:432
 msgid "F8 Delete"
 msgstr "F8 Usuń"
 
-#: ../src/gnome-cmd-main-win.cc:433
+#: ../src/gnome-cmd-main-win.cc:434
 msgid "F9 Search"
 msgstr "F9 Wyszukaj"
 
-#: ../src/gnome-cmd-main-win.cc:759
+#: ../src/gnome-cmd-main-win.cc:760
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME Commander - TRYB ADMINISTRATORA"
 
-#: ../src/gnome-cmd-main-win.cc:1161
-#: ../src/gnome-cmd-user-actions.cc:220
+#: ../src/gnome-cmd-main-win.cc:1165
+#: ../src/gnome-cmd-user-actions.cc:221
 msgid "Refresh"
 msgstr "Odśwież"
 
-#: ../src/gnome-cmd-main-win.cc:1162
+#: ../src/gnome-cmd-main-win.cc:1166
 #: ../src/gnome-cmd-options-dialog.cc:94
-#: ../src/gnome-cmd-user-actions.cc:226
+#: ../src/gnome-cmd-user-actions.cc:227
 msgid "Up one directory"
 msgstr "Katalog wyżej"
 
-#: ../src/gnome-cmd-main-win.cc:1163
+#: ../src/gnome-cmd-main-win.cc:1167
 msgid "Go to the oldest"
 msgstr "Przejdź do pierwszego"
 
-#: ../src/gnome-cmd-main-win.cc:1164
+#: ../src/gnome-cmd-main-win.cc:1168
 msgid "Go back"
 msgstr "Wstecz"
 
-#: ../src/gnome-cmd-main-win.cc:1165
+#: ../src/gnome-cmd-main-win.cc:1169
 msgid "Go forward"
 msgstr "Dalej"
 
-#: ../src/gnome-cmd-main-win.cc:1166
+#: ../src/gnome-cmd-main-win.cc:1170
 msgid "Go to the latest"
 msgstr "Przejdź do ostatniego"
 
-#: ../src/gnome-cmd-main-win.cc:1168
+#: ../src/gnome-cmd-main-win.cc:1172
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopiuj nazwy plików (SHIFT - całe ścieżki, ALT - URI)"
 
-#: ../src/gnome-cmd-main-win.cc:1169
+#: ../src/gnome-cmd-main-win.cc:1173
 #: ../src/gnome-cmd-user-actions.cc:156
 msgid "Cut"
 msgstr "Wytnij"
 
-#: ../src/gnome-cmd-main-win.cc:1170
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:85
+#: ../src/gnome-cmd-main-win.cc:1174
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:84
 #: ../src/gnome-cmd-user-actions.cc:154
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: ../src/gnome-cmd-main-win.cc:1171
+#: ../src/gnome-cmd-main-win.cc:1175
 #: ../src/gnome-cmd-user-actions.cc:159
 msgid "Paste"
 msgstr "Wklej"
 
-#: ../src/gnome-cmd-main-win.cc:1174
+#: ../src/gnome-cmd-main-win.cc:1178
 msgid "Edit (SHIFT for new document)"
 msgstr "Edytuj (SHIFT dla utworzenia nowego dokumentu)"
 
-#: ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-main-win.cc:1180
 msgid "Open terminal (SHIFT for root privileges)"
 msgstr ""
 
-#: ../src/gnome-cmd-main-win.cc:1179
+#: ../src/gnome-cmd-main-win.cc:1183
 msgid "Drop connection"
 msgstr "Rozłącz"
 
 #: ../src/gnome-cmd-make-copy-dialog.cc:137
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:140
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:139
 #, c-format
 msgid "Copy \"%s\" to"
 msgstr "Kopiuj \"%s\" do"
@@ -2037,12 +2062,10 @@ msgid "Single click unselects files"
 msgstr "Pojedyncze kliknięcie usuwa zaznaczenie"
 
 #: ../src/gnome-cmd-options-dialog.cc:91
-#| msgid "Left mouse button"
 msgid "Middle mouse button"
 msgstr "Środkowy przycisk myszy"
 
 #: ../src/gnome-cmd-options-dialog.cc:98
-#| msgid "Open in New _Tab"
 msgid "Opens new tab"
 msgstr "Otwórz nową kartę"
 
@@ -2104,552 +2127,537 @@ msgid "Save on exit"
 msgstr "Zapisz przy wyjściu"
 
 #: ../src/gnome-cmd-options-dialog.cc:165
-#: ../src/gnome-cmd-options-dialog.cc:1045
+#: ../src/gnome-cmd-options-dialog.cc:1050
 msgid "Directories"
 msgstr "Katalogi"
 
 #: ../src/gnome-cmd-options-dialog.cc:169
-#: ../src/gnome-cmd-options-dialog.cc:2066
+#: ../src/gnome-cmd-options-dialog.cc:2014
 msgid "Tabs"
 msgstr "Karty"
 
-#: ../src/gnome-cmd-options-dialog.cc:251
+#: ../src/gnome-cmd-options-dialog.cc:174
+#, fuzzy
+#| msgid "Directories only"
+msgid "Directory history"
+msgstr "Tylko katalogi"
+
+#: ../src/gnome-cmd-options-dialog.cc:257
 msgid "Size display mode"
 msgstr "Wyświetlanie wielkości plików"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: ../src/gnome-cmd-options-dialog.cc:255
+#: ../src/gnome-cmd-options-dialog.cc:261
 msgid "Powered"
 msgstr "Potęgowe"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: ../src/gnome-cmd-options-dialog.cc:261
+#: ../src/gnome-cmd-options-dialog.cc:267
 msgid "<locale>"
 msgstr "<locale>"
 
-#: ../src/gnome-cmd-options-dialog.cc:266
+#: ../src/gnome-cmd-options-dialog.cc:272
 msgid "Grouped"
 msgstr "Zgrupowane"
 
-#: ../src/gnome-cmd-options-dialog.cc:271
+#: ../src/gnome-cmd-options-dialog.cc:277
 msgid "Plain"
 msgstr "Niesformatowane"
 
-#: ../src/gnome-cmd-options-dialog.cc:279
+#: ../src/gnome-cmd-options-dialog.cc:285
 msgid "Permission display mode"
 msgstr "Wyświetlanie praw dostępu"
 
-#: ../src/gnome-cmd-options-dialog.cc:282
+#: ../src/gnome-cmd-options-dialog.cc:288
 msgid "Text (rw-r--r--)"
 msgstr "Tekst (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:287
+#: ../src/gnome-cmd-options-dialog.cc:293
 msgid "Number (644)"
 msgstr "Ósemkowo (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:295
+#: ../src/gnome-cmd-options-dialog.cc:301
 msgid "Date format"
 msgstr "Format daty"
 
-#: ../src/gnome-cmd-options-dialog.cc:298
+#: ../src/gnome-cmd-options-dialog.cc:304
 msgid "Format:"
 msgstr "Format:"
 
-#: ../src/gnome-cmd-options-dialog.cc:309
+#: ../src/gnome-cmd-options-dialog.cc:315
 msgid "Test result:"
 msgstr "Wynik testu:"
 
-#: ../src/gnome-cmd-options-dialog.cc:316
+#: ../src/gnome-cmd-options-dialog.cc:322
 msgid "See the manual page for \"strftime\" for help on how to set the format string."
-msgstr "Zajrzyj do manuala dla \"strftime\" aby uzyskać pomoc odnośnie formatu."
+msgstr "Zajrzyj do manuala dla \"strftime\", aby uzyskać pomoc odnośnie formatu."
 
-#: ../src/gnome-cmd-options-dialog.cc:400
+#: ../src/gnome-cmd-options-dialog.cc:406
 msgid "Edit Colors..."
 msgstr "Edycja kolorów..."
 
-#: ../src/gnome-cmd-options-dialog.cc:413
+#: ../src/gnome-cmd-options-dialog.cc:419
 msgid "Colors"
 msgstr "Kolory"
 
-#: ../src/gnome-cmd-options-dialog.cc:444
+#: ../src/gnome-cmd-options-dialog.cc:450
 msgid "Foreground"
 msgstr "Czcionki"
 
-#: ../src/gnome-cmd-options-dialog.cc:446
+#: ../src/gnome-cmd-options-dialog.cc:452
 msgid "Background"
 msgstr "Tła"
 
-#: ../src/gnome-cmd-options-dialog.cc:448
+#: ../src/gnome-cmd-options-dialog.cc:454
 msgid "Default:"
 msgstr "Domyślny:"
 
-#: ../src/gnome-cmd-options-dialog.cc:450
+#: ../src/gnome-cmd-options-dialog.cc:456
 msgid "Alternate:"
 msgstr "Alternatywny:"
 
-#: ../src/gnome-cmd-options-dialog.cc:452
+#: ../src/gnome-cmd-options-dialog.cc:458
 msgid "Selected file:"
 msgstr "Wybrany plik:"
 
-#: ../src/gnome-cmd-options-dialog.cc:454
+#: ../src/gnome-cmd-options-dialog.cc:460
 msgid "Cursor:"
 msgstr "Kursor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:535
+#: ../src/gnome-cmd-options-dialog.cc:541
 #, fuzzy
 msgid "Edit LS_COLORS Palette"
 msgstr "* Kolory użytkownika *"
 
-#: ../src/gnome-cmd-options-dialog.cc:547
+#: ../src/gnome-cmd-options-dialog.cc:553
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../src/gnome-cmd-options-dialog.cc:602
+#: ../src/gnome-cmd-options-dialog.cc:608
 msgid "Foreground:"
 msgstr "Czcionki:"
 
-#: ../src/gnome-cmd-options-dialog.cc:604
+#: ../src/gnome-cmd-options-dialog.cc:610
 msgid "Background:"
 msgstr "Tło:"
 
-#: ../src/gnome-cmd-options-dialog.cc:606
+#: ../src/gnome-cmd-options-dialog.cc:612
 msgid "Black"
 msgstr "Czarny"
 
-#: ../src/gnome-cmd-options-dialog.cc:609
+#: ../src/gnome-cmd-options-dialog.cc:615
 msgid "Red"
 msgstr "Czerwony"
 
-#: ../src/gnome-cmd-options-dialog.cc:612
+#: ../src/gnome-cmd-options-dialog.cc:618
 msgid "Green"
 msgstr "Zielony"
 
-#: ../src/gnome-cmd-options-dialog.cc:615
+#: ../src/gnome-cmd-options-dialog.cc:621
 msgid "Yellow"
 msgstr "Żółty"
 
-#: ../src/gnome-cmd-options-dialog.cc:618
+#: ../src/gnome-cmd-options-dialog.cc:624
 msgid "Blue"
 msgstr "Niebieski"
 
-#: ../src/gnome-cmd-options-dialog.cc:621
+#: ../src/gnome-cmd-options-dialog.cc:627
 msgid "Magenta"
 msgstr "Karmazynowy"
 
-#: ../src/gnome-cmd-options-dialog.cc:624
+#: ../src/gnome-cmd-options-dialog.cc:630
 msgid "Cyan"
 msgstr "Niebieskozielony"
 
-#: ../src/gnome-cmd-options-dialog.cc:627
+#: ../src/gnome-cmd-options-dialog.cc:633
 msgid "White"
 msgstr "Biały "
 
-#: ../src/gnome-cmd-options-dialog.cc:631
+#: ../src/gnome-cmd-options-dialog.cc:637
 msgid "_Reset"
 msgstr "_Przywróć"
 
-#: ../src/gnome-cmd-options-dialog.cc:645
+#: ../src/gnome-cmd-options-dialog.cc:651
 msgid "With file name"
 msgstr "Z nazwą pliku"
 
-#: ../src/gnome-cmd-options-dialog.cc:646
+#: ../src/gnome-cmd-options-dialog.cc:652
 msgid "In separate column"
 msgstr "W oddzielnej kolumnie"
 
-#: ../src/gnome-cmd-options-dialog.cc:647
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "In both columns"
 msgstr "W obu kolumnach"
 
-#: ../src/gnome-cmd-options-dialog.cc:651
+#: ../src/gnome-cmd-options-dialog.cc:657
 msgid "No icons"
 msgstr "Bez ikon"
 
-#: ../src/gnome-cmd-options-dialog.cc:652
+#: ../src/gnome-cmd-options-dialog.cc:658
 msgid "File type icons"
 msgstr "Ikony typów plików"
 
-#: ../src/gnome-cmd-options-dialog.cc:653
+#: ../src/gnome-cmd-options-dialog.cc:659
 msgid "MIME icons"
 msgstr "Ikony MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:657
+#: ../src/gnome-cmd-options-dialog.cc:663
 msgid "Respect theme colors"
 msgstr "Uwględniaj kolory motywu"
 
-#: ../src/gnome-cmd-options-dialog.cc:658
+#: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Modern"
 msgstr "Współczesny"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:665
 msgid "Fusion"
 msgstr "Fuzja"
 
-#: ../src/gnome-cmd-options-dialog.cc:660
+#: ../src/gnome-cmd-options-dialog.cc:666
 msgid "Classic"
 msgstr "Klasyczny"
 
-#: ../src/gnome-cmd-options-dialog.cc:661
+#: ../src/gnome-cmd-options-dialog.cc:667
 msgid "Deep blue"
 msgstr "Wielki błękit"
 
-#: ../src/gnome-cmd-options-dialog.cc:662
+#: ../src/gnome-cmd-options-dialog.cc:668
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: ../src/gnome-cmd-options-dialog.cc:663
-#| msgid "Green"
+#: ../src/gnome-cmd-options-dialog.cc:669
 msgid "Green tiger"
 msgstr "Zielony tygrys"
 
-#: ../src/gnome-cmd-options-dialog.cc:664
+#: ../src/gnome-cmd-options-dialog.cc:670
 msgid "Custom"
 msgstr "Użytkownika"
 
-#: ../src/gnome-cmd-options-dialog.cc:678
+#: ../src/gnome-cmd-options-dialog.cc:684
 msgid "File panes"
 msgstr "Panele plików"
 
-#: ../src/gnome-cmd-options-dialog.cc:688
+#: ../src/gnome-cmd-options-dialog.cc:694
 msgid "Font:"
 msgstr "Czcionka:"
 
-#: ../src/gnome-cmd-options-dialog.cc:690
+#: ../src/gnome-cmd-options-dialog.cc:696
 msgid "Row height:"
 msgstr "Wysokość wiersza:"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.cc:694
+#: ../src/gnome-cmd-options-dialog.cc:700
 msgid "Display file extensions:"
 msgstr "Wyświetl rozszerzenia plików:"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.cc:702
+#: ../src/gnome-cmd-options-dialog.cc:708
 msgid "Graphical mode:"
 msgstr "Tryb graficzny:"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.cc:711
+#: ../src/gnome-cmd-options-dialog.cc:717
 msgid "Color scheme:"
 msgstr "Kolory motywu:"
 
-#: ../src/gnome-cmd-options-dialog.cc:723
+#: ../src/gnome-cmd-options-dialog.cc:729
 msgid "Edit..."
 msgstr "Edycja..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.cc:730
+#: ../src/gnome-cmd-options-dialog.cc:736
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Użyj kolorów zdefiniowanych w zmiennej LS_COLORS"
 
-#: ../src/gnome-cmd-options-dialog.cc:738
+#: ../src/gnome-cmd-options-dialog.cc:744
 #, fuzzy
 msgid "Edit colors..."
 msgstr "Zmień kolory"
 
-#: ../src/gnome-cmd-options-dialog.cc:746
+#: ../src/gnome-cmd-options-dialog.cc:752
 msgid "MIME icon settings"
 msgstr "Ustawienia ikon MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:759
+#: ../src/gnome-cmd-options-dialog.cc:765
 msgid "Icon size:"
 msgstr "Rozmiar ikony:"
 
-#: ../src/gnome-cmd-options-dialog.cc:761
+#: ../src/gnome-cmd-options-dialog.cc:767
 msgid "Scaling quality:"
 msgstr "Jakość skalowania:"
 
-#: ../src/gnome-cmd-options-dialog.cc:763
+#: ../src/gnome-cmd-options-dialog.cc:769
 msgid "Theme icon directory:"
 msgstr "Katalog z ikonami motywów:"
 
-#: ../src/gnome-cmd-options-dialog.cc:765
+#: ../src/gnome-cmd-options-dialog.cc:771
 msgid "Document icon directory:"
 msgstr "Katalog z ikonami dokumentów:"
 
-#: ../src/gnome-cmd-options-dialog.cc:831
+#: ../src/gnome-cmd-options-dialog.cc:837
 msgid "Tab bar"
 msgstr "Pasek kart"
 
-#: ../src/gnome-cmd-options-dialog.cc:834
+#: ../src/gnome-cmd-options-dialog.cc:840
 #, fuzzy
 msgid "Always show the tab bar"
 msgstr "Pokaż przycisk zamykania na pasku kart"
 
-#: ../src/gnome-cmd-options-dialog.cc:841
+#: ../src/gnome-cmd-options-dialog.cc:847
 #, fuzzy
 #| msgid "Back one directory"
 msgid "Tab lock indicator"
 msgstr "Nowy wskaźnik pola widzenia"
 
-#: ../src/gnome-cmd-options-dialog.cc:844
+#: ../src/gnome-cmd-options-dialog.cc:850
 #, fuzzy
 #| msgid "No icons"
 msgid "Lock icon"
 msgstr "Ikona kategorii"
 
-#: ../src/gnome-cmd-options-dialog.cc:849
+#: ../src/gnome-cmd-options-dialog.cc:855
 msgid "* (asterisk)"
 msgstr "* (gwiazdka)"
 
-#: ../src/gnome-cmd-options-dialog.cc:854
+#: ../src/gnome-cmd-options-dialog.cc:860
 #, fuzzy
 msgid "Styled text"
 msgstr "Kierunek tekstu"
 
-#: ../src/gnome-cmd-options-dialog.cc:905
+#: ../src/gnome-cmd-options-dialog.cc:910
 msgid "Confirm before delete"
 msgstr "Potwierdzanie usunięcia pliku"
 
-#: ../src/gnome-cmd-options-dialog.cc:913
+#: ../src/gnome-cmd-options-dialog.cc:918
 msgid "Copy overwrite"
 msgstr "Nadpisz kopiowane pliki"
 
 #. Create prepare copy specific widgets
-#: ../src/gnome-cmd-options-dialog.cc:916
-#: ../src/gnome-cmd-options-dialog.cc:936
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:91
-#: ../src/gnome-cmd-prepare-move-dialog.cc:84
+#: ../src/gnome-cmd-options-dialog.cc:921
+#: ../src/gnome-cmd-options-dialog.cc:941
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:90
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Silently"
 msgstr "Bez pytania"
 
-#: ../src/gnome-cmd-options-dialog.cc:920
-#: ../src/gnome-cmd-options-dialog.cc:940
+#: ../src/gnome-cmd-options-dialog.cc:925
+#: ../src/gnome-cmd-options-dialog.cc:945
 msgid "Query first"
 msgstr "Z potwierdzeniem"
 
-#: ../src/gnome-cmd-options-dialog.cc:933
+#: ../src/gnome-cmd-options-dialog.cc:938
 msgid "Move overwrite"
 msgstr "Nadpisz przenoszone pliki"
 
-#: ../src/gnome-cmd-options-dialog.cc:953
+#: ../src/gnome-cmd-options-dialog.cc:958
 #, fuzzy
 #| msgid "Owner and group"
 msgid "Drag and Drop"
 msgstr "przeciąganie i upuszczanie"
 
-#: ../src/gnome-cmd-options-dialog.cc:956
+#: ../src/gnome-cmd-options-dialog.cc:961
 #, fuzzy
 #| msgid "Confirmation"
 msgid "Confirm mouse operation"
 msgstr "Operacja anulowana przez użytkownika."
 
-#: ../src/gnome-cmd-options-dialog.cc:1034
+#: ../src/gnome-cmd-options-dialog.cc:1039
 msgid "Filetypes to hide"
 msgstr "Typy plików do ukrycia"
 
-#: ../src/gnome-cmd-options-dialog.cc:1037
+#: ../src/gnome-cmd-options-dialog.cc:1042
 msgid "Unknown"
 msgstr "Nieznany"
 
-#: ../src/gnome-cmd-options-dialog.cc:1041
+#: ../src/gnome-cmd-options-dialog.cc:1046
 msgid "Regular files"
 msgstr "Normalne pliki"
 
-#: ../src/gnome-cmd-options-dialog.cc:1049
+#: ../src/gnome-cmd-options-dialog.cc:1054
 msgid "Fifo files"
 msgstr "Pliki FIFO"
 
-#: ../src/gnome-cmd-options-dialog.cc:1053
+#: ../src/gnome-cmd-options-dialog.cc:1058
 msgid "Socket files"
 msgstr "Pliki gniazd"
 
-#: ../src/gnome-cmd-options-dialog.cc:1057
+#: ../src/gnome-cmd-options-dialog.cc:1062
 msgid "Character devices"
 msgstr "Urządzenia znakowe"
 
-#: ../src/gnome-cmd-options-dialog.cc:1061
+#: ../src/gnome-cmd-options-dialog.cc:1066
 msgid "Block devices"
 msgstr "Urządzenia blokowe"
 
-#: ../src/gnome-cmd-options-dialog.cc:1068
+#: ../src/gnome-cmd-options-dialog.cc:1073
 msgid "Also hide"
 msgstr "Ukryj także"
 
-#: ../src/gnome-cmd-options-dialog.cc:1071
+#: ../src/gnome-cmd-options-dialog.cc:1076
 msgid "Hidden files"
 msgstr "Pliki ukryte"
 
-#: ../src/gnome-cmd-options-dialog.cc:1074
-#: ../src/gnome-cmd-options-dialog.cc:1085
+#: ../src/gnome-cmd-options-dialog.cc:1079
+#: ../src/gnome-cmd-options-dialog.cc:1090
 msgid "Backup files"
 msgstr "Pliki zapasowe"
 
-#: ../src/gnome-cmd-options-dialog.cc:1078
+#: ../src/gnome-cmd-options-dialog.cc:1083
 msgid "Symlinks"
 msgstr "Linki symboliczne"
 
-#: ../src/gnome-cmd-options-dialog.cc:1180
-msgid "Authentication"
-msgstr "Uwierzytelnianie"
-
-#: ../src/gnome-cmd-options-dialog.cc:1183
-msgid "Use GNOME Keyring Manager for authentication"
-msgstr "Użyj menedżera haseł GNOME do uwierzytelniania"
-
-#: ../src/gnome-cmd-options-dialog.cc:1191
-msgid "Anonymous FTP access"
-msgstr "Anonimowy dostęp FTP"
-
-#: ../src/gnome-cmd-options-dialog.cc:1194
-msgid "Password:"
-msgstr "Hasło:"
-
-#: ../src/gnome-cmd-options-dialog.cc:1388
+#: ../src/gnome-cmd-options-dialog.cc:1337
 msgid "Label:"
 msgstr "Nazwa:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1390
+#: ../src/gnome-cmd-options-dialog.cc:1339
 msgid "Command:"
 msgstr "Polecenie:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1392
-#: ../src/gnome-cmd-options-dialog.cc:1793
+#: ../src/gnome-cmd-options-dialog.cc:1341
+#: ../src/gnome-cmd-options-dialog.cc:1742
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1413
+#: ../src/gnome-cmd-options-dialog.cc:1362
 msgid "Can handle multiple files"
 msgstr "Obsługa wielu plików"
 
-#: ../src/gnome-cmd-options-dialog.cc:1417
+#: ../src/gnome-cmd-options-dialog.cc:1366
 msgid "Can handle URIs"
 msgstr "Obsługa URI"
 
-#: ../src/gnome-cmd-options-dialog.cc:1421
+#: ../src/gnome-cmd-options-dialog.cc:1370
 msgid "Requires terminal"
 msgstr "Uruchom w terminalu"
 
-#: ../src/gnome-cmd-options-dialog.cc:1428
+#: ../src/gnome-cmd-options-dialog.cc:1377
 msgid "Show for"
 msgstr "Pokaż"
 
-#: ../src/gnome-cmd-options-dialog.cc:1437
+#: ../src/gnome-cmd-options-dialog.cc:1386
 msgid "All directories"
 msgstr "Wszytkie katalogi"
 
-#: ../src/gnome-cmd-options-dialog.cc:1442
+#: ../src/gnome-cmd-options-dialog.cc:1391
 msgid "All directories and files"
 msgstr "Wszystkie katalogi i pliki"
 
-#: ../src/gnome-cmd-options-dialog.cc:1447
+#: ../src/gnome-cmd-options-dialog.cc:1396
 msgid "Some files"
 msgstr "Niektóre pliki"
 
-#: ../src/gnome-cmd-options-dialog.cc:1456
+#: ../src/gnome-cmd-options-dialog.cc:1405
 msgid "File patterns"
 msgstr "Wzorzec plików"
 
-#: ../src/gnome-cmd-options-dialog.cc:1478
+#: ../src/gnome-cmd-options-dialog.cc:1427
 msgid "New Application"
 msgstr "Nowa aplikacja"
 
-#: ../src/gnome-cmd-options-dialog.cc:1488
+#: ../src/gnome-cmd-options-dialog.cc:1437
 msgid "Edit Application"
 msgstr "Edycja"
 
-#: ../src/gnome-cmd-options-dialog.cc:1565
+#: ../src/gnome-cmd-options-dialog.cc:1514
 msgid "Always download remote files before opening in external programs"
 msgstr "Zawsze pobierz zdalne pliki przed ich otwarciem przez program zewnętrzny"
 
-#: ../src/gnome-cmd-options-dialog.cc:1567
+#: ../src/gnome-cmd-options-dialog.cc:1516
 msgid "MIME applications"
 msgstr "Aplikacje MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:1571
+#: ../src/gnome-cmd-options-dialog.cc:1520
 msgid "Standard programs"
 msgstr "Programy standardowe"
 
-#: ../src/gnome-cmd-options-dialog.cc:1574
+#: ../src/gnome-cmd-options-dialog.cc:1523
 msgid "Viewer:"
 msgstr "Przeglądarka:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1576
+#: ../src/gnome-cmd-options-dialog.cc:1525
 msgid "Editor:"
 msgstr "Edytor:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1578
+#: ../src/gnome-cmd-options-dialog.cc:1527
 msgid "Differ:"
 msgstr "Diff:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1580
+#: ../src/gnome-cmd-options-dialog.cc:1529
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1586
+#: ../src/gnome-cmd-options-dialog.cc:1535
 msgid "Use Internal Viewer"
 msgstr "Wewnętrzna przeglądarka"
 
-#: ../src/gnome-cmd-options-dialog.cc:1601
+#: ../src/gnome-cmd-options-dialog.cc:1550
 msgid "Other favorite apps"
 msgstr "Inne ulubione aplikacje"
 
-#: ../src/gnome-cmd-options-dialog.cc:1608
+#: ../src/gnome-cmd-options-dialog.cc:1557
 msgid "Label"
 msgstr "Nazwa"
 
-#: ../src/gnome-cmd-options-dialog.cc:1787
+#: ../src/gnome-cmd-options-dialog.cc:1736
 msgid "Alias:"
 msgstr "Alias:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1789
+#: ../src/gnome-cmd-options-dialog.cc:1738
 msgid "Device:"
 msgstr "Urządzenie:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1791
+#: ../src/gnome-cmd-options-dialog.cc:1740
 msgid "Mount point:"
 msgstr "Miejsce montowania:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1834
+#: ../src/gnome-cmd-options-dialog.cc:1783
 msgid "New Device"
 msgstr "Nowe urządzenie"
 
-#: ../src/gnome-cmd-options-dialog.cc:1847
+#: ../src/gnome-cmd-options-dialog.cc:1796
 msgid "Edit Device"
 msgstr "Edycja"
 
-#: ../src/gnome-cmd-options-dialog.cc:1924
-#: ../src/gnome-cmd-options-dialog.cc:2071
+#: ../src/gnome-cmd-options-dialog.cc:1873
+#: ../src/gnome-cmd-options-dialog.cc:2018
 msgid "Devices"
 msgstr "Urządzenia"
 
-#: ../src/gnome-cmd-options-dialog.cc:1934
+#: ../src/gnome-cmd-options-dialog.cc:1883
 msgid "Alias"
 msgstr "Alias"
 
-#: ../src/gnome-cmd-options-dialog.cc:1964
+#: ../src/gnome-cmd-options-dialog.cc:1913
 msgid "Show only the icons"
 msgstr "Pokaż tylko ikony"
 
-#: ../src/gnome-cmd-options-dialog.cc:1968
+#: ../src/gnome-cmd-options-dialog.cc:1917
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Pomiń montowanie (przydatne dla super-mount)"
 
-#: ../src/gnome-cmd-options-dialog.cc:2063
+#: ../src/gnome-cmd-options-dialog.cc:2011
 msgid "General"
 msgstr "Ogólne"
 
-#: ../src/gnome-cmd-options-dialog.cc:2064
+#: ../src/gnome-cmd-options-dialog.cc:2012
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid "Format"
 msgstr "Format"
 
-#: ../src/gnome-cmd-options-dialog.cc:2065
+#: ../src/gnome-cmd-options-dialog.cc:2013
 msgid "Layout"
 msgstr "Ustawienia"
 
-#: ../src/gnome-cmd-options-dialog.cc:2067
+#: ../src/gnome-cmd-options-dialog.cc:2015
 msgid "Confirmation"
 msgstr "Potwierdzenia"
 
-#: ../src/gnome-cmd-options-dialog.cc:2068
+#: ../src/gnome-cmd-options-dialog.cc:2016
 msgid "Filters"
 msgstr "Filtry"
 
-#: ../src/gnome-cmd-options-dialog.cc:2069
-msgid "Network"
-msgstr "Sieć"
-
-#: ../src/gnome-cmd-options-dialog.cc:2070
+#: ../src/gnome-cmd-options-dialog.cc:2017
 msgid "Programs"
 msgstr "Programy"
 
@@ -2681,28 +2689,28 @@ msgstr "Zaznacz wybór"
 msgid "Unselect Using Pattern"
 msgstr "Odznacz wybór"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:98
-#: ../src/gnome-cmd-prepare-move-dialog.cc:91
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:97
+#: ../src/gnome-cmd-prepare-move-dialog.cc:90
 msgid "Query First"
 msgstr "Z potwierdzeniem"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:105
-#: ../src/gnome-cmd-prepare-move-dialog.cc:98
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:104
+#: ../src/gnome-cmd-prepare-move-dialog.cc:97
 #: ../src/gnome-cmd-xfer.cc:191
 msgid "Skip All"
 msgstr "Pomiń wszystkie"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:115
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:114
 msgid "Follow Links"
 msgstr "Podążanie za dowiązaniami"
 
 #. Customize prepare xfer widgets
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:124
-#: ../src/gnome-cmd-prepare-move-dialog.cc:110
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:123
+#: ../src/gnome-cmd-prepare-move-dialog.cc:109
 msgid "Overwrite Files"
 msgstr "Nadpisywanie plików"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:144
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:143
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
@@ -2710,16 +2718,16 @@ msgstr[0] "kopiuj %d plik do"
 msgstr[1] "kopiuj %d pliki do"
 msgstr[2] "kopiuj %d plików do"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:78
+#: ../src/gnome-cmd-prepare-move-dialog.cc:77
 msgid "Move"
 msgstr "Przenieś"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:126
+#: ../src/gnome-cmd-prepare-move-dialog.cc:125
 #, c-format
 msgid "Move \"%s\" to"
 msgstr "Przenieś \"%s\" do"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:130
+#: ../src/gnome-cmd-prepare-move-dialog.cc:129
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
@@ -2728,8 +2736,8 @@ msgstr[1] "przenieś %d pliki do"
 msgstr[2] "przenieś %d plików do"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:149
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:189
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:147
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:187
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "Katalog '%s' nie istnieje, czy chcesz go utworzyć?"
@@ -2743,58 +2751,28 @@ msgstr "Nie można załadować modułu pythona 'gnomevfs' ('gnome.vfs')"
 msgid "Search"
 msgstr "Szukaj..."
 
-#: ../src/gnome-cmd-remote-dialog.cc:215
-#, c-format
-msgid "No server selected"
-msgstr "Nie wybrano serwera"
-
-#: ../src/gnome-cmd-remote-dialog.cc:366
-msgid "GNOME authentication manager usage"
-msgstr "Użyj menedżera haseł GNOME do uwierzytelniania"
-
-#: ../src/gnome-cmd-remote-dialog.cc:370
-msgid "Network protocol"
-msgstr "Protokół sieciowy"
-
-#: ../src/gnome-cmd-remote-dialog.cc:381
-msgid "Connection name"
-msgstr "Nazwa połączenia"
-
-#: ../src/gnome-cmd-remote-dialog.cc:437
-msgid "Remote Connections"
-msgstr "Zdalne połączenia"
-
-#: ../src/gnome-cmd-remote-dialog.cc:443
-msgid "Connections"
-msgstr "Połączenia"
-
-#: ../src/gnome-cmd-remote-dialog.cc:474
-msgid "Anonymous FTP password:"
-msgstr "Hasło anonimowego FTP:"
-
-#: ../src/gnome-cmd-selection-profile-component.cc:118
+#: ../src/gnome-cmd-selection-profile-component.cc:117
 #, fuzzy
 msgid "Name matches regex:"
 msgstr "Sortuj wyniki według nazwy"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:119
-#| msgid "New connection"
+#: ../src/gnome-cmd-selection-profile-component.cc:118
 msgid "Name contains:"
 msgstr "Nazwa zawiera"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:128
+#: ../src/gnome-cmd-selection-profile-component.cc:127
 #, fuzzy
 #| msgid "_Unlimited depth"
 msgid "Unlimited depth"
 msgstr "Maks. głębia:"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:129
+#: ../src/gnome-cmd-selection-profile-component.cc:128
 #, fuzzy
 #| msgid "Current _directory only"
 msgid "Current directory only"
 msgstr "&Tylko aktualna sesja"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:132
+#: ../src/gnome-cmd-selection-profile-component.cc:131
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
@@ -2802,39 +2780,21 @@ msgstr[0] "%i poziom"
 msgstr[1] "%i poziomy"
 msgstr[2] "%i poziomów"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:137
+#: ../src/gnome-cmd-selection-profile-component.cc:136
 msgid "Search _recursively:"
 msgstr "Zastosuj do pod_katalogów:"
 
 #. find text
-#: ../src/gnome-cmd-selection-profile-component.cc:142
+#: ../src/gnome-cmd-selection-profile-component.cc:141
 #, fuzzy
 #| msgid "Find _text: "
 msgid "Contains _text:"
 msgstr "Zawiera _napis"
 
 #. case check
-#: ../src/gnome-cmd-selection-profile-component.cc:153
+#: ../src/gnome-cmd-selection-profile-component.cc:152
 msgid "Case sensiti_ve"
 msgstr "_Rozróżnianie wielkości liter"
-
-#: ../src/gnome-cmd-smb-auth.cc:36
-msgid "Enter password"
-msgstr "Wprowadź hasło"
-
-#: ../src/gnome-cmd-smb-auth.cc:37
-msgid ""
-"Problem: access not permitted\n"
-"\n"
-"please supply user credentials\n"
-"\n"
-"Remember: wrong credentials may lead to account locking"
-msgstr ""
-"Problem: brak dostępu\n"
-"\n"
-"proszę wprowadzić uwierzytelnienia\n"
-"\n"
-"Uwaga: niewłaściwe dane mogą prowadzić do zablokowania konta"
 
 #: ../src/gnome-cmd-user-actions.cc:79
 msgid "No file selected"
@@ -3056,80 +3016,84 @@ msgid "Change directory"
 msgstr "Zmień katalog"
 
 #: ../src/gnome-cmd-user-actions.cc:206
+#, fuzzy
+#| msgid "Directories only"
+msgid "Show directory history"
+msgstr "Obsługiwane są tylko pliki lokalne."
+
+#: ../src/gnome-cmd-user-actions.cc:207
 msgid "Equal panel size"
 msgstr "Równaj wielkość paneli"
 
-#: ../src/gnome-cmd-user-actions.cc:207
+#: ../src/gnome-cmd-user-actions.cc:208
 #, fuzzy
 msgid "Back to the first directory"
 msgstr "Niemożliwy powrót do katalogu startowego."
 
-#: ../src/gnome-cmd-user-actions.cc:208
+#: ../src/gnome-cmd-user-actions.cc:209
 msgid "Forward one directory"
 msgstr "Katalog w przód"
 
-#: ../src/gnome-cmd-user-actions.cc:209
+#: ../src/gnome-cmd-user-actions.cc:210
 msgid "Home directory"
 msgstr "Katalog domowy"
 
-#: ../src/gnome-cmd-user-actions.cc:210
+#: ../src/gnome-cmd-user-actions.cc:211
 msgid "Open directory in the active window"
 msgstr "Otwórz katalog w aktywnym oknie"
 
-#: ../src/gnome-cmd-user-actions.cc:211
+#: ../src/gnome-cmd-user-actions.cc:212
 msgid "Open directory in the inactive window"
 msgstr "Otwórz katalog w nieaktywnym oknie"
 
-#: ../src/gnome-cmd-user-actions.cc:212
+#: ../src/gnome-cmd-user-actions.cc:213
 msgid "Open directory in the left window"
 msgstr "Otwórz katalog w lewym oknie"
 
-#: ../src/gnome-cmd-user-actions.cc:213
+#: ../src/gnome-cmd-user-actions.cc:214
 msgid "Open directory in the right window"
 msgstr "Otwórz katalog w prawym oknie"
 
-#: ../src/gnome-cmd-user-actions.cc:214
-#| msgid "Open directory in a new tab"
+#: ../src/gnome-cmd-user-actions.cc:215
 msgid "Open directory in the new tab"
 msgstr "Otwórz katalog w nowej karcie"
 
-#: ../src/gnome-cmd-user-actions.cc:215
+#: ../src/gnome-cmd-user-actions.cc:216
 #, fuzzy
 #| msgid "Open directory in the inactive window"
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Otwórz odnośniki w nowej &karcie, a nie w nowym oknie"
 
-#: ../src/gnome-cmd-user-actions.cc:216
+#: ../src/gnome-cmd-user-actions.cc:217
 #, fuzzy
 msgid "Forward to the last directory"
 msgstr "Ostatni katalog eksportu HTML"
 
-#: ../src/gnome-cmd-user-actions.cc:217
+#: ../src/gnome-cmd-user-actions.cc:218
 msgid "Next tab"
 msgstr "Następna karta"
 
-#: ../src/gnome-cmd-user-actions.cc:218
+#: ../src/gnome-cmd-user-actions.cc:219
 msgid "Open directory in a new tab"
 msgstr "Otwórz katalog w nowej karcie"
 
-#: ../src/gnome-cmd-user-actions.cc:219
-#| msgid "Preview Data"
+#: ../src/gnome-cmd-user-actions.cc:220
 msgid "Previous tab"
 msgstr "Poprzednia karta"
 
-#: ../src/gnome-cmd-user-actions.cc:221
+#: ../src/gnome-cmd-user-actions.cc:222
 msgid "Root directory"
 msgstr "Katalog główny"
 
-#: ../src/gnome-cmd-user-actions.cc:222
+#: ../src/gnome-cmd-user-actions.cc:223
 msgid "Lock/unlock tab"
 msgstr "Zablokowanie/odblokowanie karty"
 
-#: ../src/gnome-cmd-user-actions.cc:224
+#: ../src/gnome-cmd-user-actions.cc:225
 msgid "Show terminal"
 msgstr "Pokaż okno terminala"
 
-#: ../src/gnome-cmd-user-actions.cc:830
+#: ../src/gnome-cmd-user-actions.cc:837
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
@@ -3137,80 +3101,83 @@ msgstr[0] "Utwórz %i link symboliczny w %s?"
 msgstr[1] "Utwórz %i linki symboliczne w %s?"
 msgstr[2] "Utwórz %i linków symbolicznych w %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:835
+#: ../src/gnome-cmd-user-actions.cc:842
 msgid "Create"
 msgstr "Utwórz"
 
-#: ../src/gnome-cmd-user-actions.cc:899
-#: ../src/gnome-cmd-user-actions.cc:916
-#: ../src/gnome-cmd-user-actions.cc:955
+#: ../src/gnome-cmd-user-actions.cc:906
+#: ../src/gnome-cmd-user-actions.cc:923
+#: ../src/gnome-cmd-user-actions.cc:962
 msgid "Operation not supported on remote file systems"
 msgstr "Operacja nieobsługiwana dla zdalnego systemu plików"
 
-#: ../src/gnome-cmd-user-actions.cc:931
+#: ../src/gnome-cmd-user-actions.cc:938
 msgid "Too many selected files"
 msgstr "Za dużo zaznaczonych plików"
 
-#: ../src/gnome-cmd-user-actions.cc:1179
+#: ../src/gnome-cmd-user-actions.cc:1186
 msgid "Unable to execute command."
 msgstr "Nie można wykonać polecenia."
 
-#: ../src/gnome-cmd-user-actions.cc:1204
-#| msgid "Open terminal"
+#: ../src/gnome-cmd-user-actions.cc:1211
 msgid "Unable to open terminal"
 msgstr "Nie można otworzyć terminala"
 
-#: ../src/gnome-cmd-user-actions.cc:1224
+#: ../src/gnome-cmd-user-actions.cc:1231
 #, fuzzy
 #| msgid "Unable to start GNOME Commander in root mode."
-msgid "Unable to open terminal in root mode"
+msgid "Unable to open terminal in root mode."
 msgstr "Nie można uruchomić GNOME Commander'a w trybie administratora."
 
-#: ../src/gnome-cmd-user-actions.cc:1229
-#: ../src/gnome-cmd-user-actions.cc:1286
-#| msgid "gksu or kdesu is not found."
-msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+#: ../src/gnome-cmd-user-actions.cc:1236
+#, fuzzy
+#| msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "Nie znaleziono xdg-su, gksu, gnomesu, kdesu lub beesu"
 
-#: ../src/gnome-cmd-user-actions.cc:1251
+#: ../src/gnome-cmd-user-actions.cc:1258
 msgid "Unable to start Nautilus."
 msgstr "Nie można uruchomić Nautliusa."
 
-#: ../src/gnome-cmd-user-actions.cc:1283
+#: ../src/gnome-cmd-user-actions.cc:1290
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Nie można uruchomić GNOME Commander'a w trybie administratora."
 
-#: ../src/gnome-cmd-user-actions.cc:1817
+#: ../src/gnome-cmd-user-actions.cc:1293
+msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+msgstr "Nie znaleziono xdg-su, gksu, gnomesu, kdesu lub beesu"
+
+#: ../src/gnome-cmd-user-actions.cc:1876
 msgid "Bookmarks"
 msgstr "Zakładki"
 
-#: ../src/gnome-cmd-user-actions.cc:1919
-#: ../src/gnome-cmd-user-actions.cc:1922
+#: ../src/gnome-cmd-user-actions.cc:1978
+#: ../src/gnome-cmd-user-actions.cc:1981
 msgid "There was an error opening home page."
 msgstr "Wystąpił błąd przy próbie otwarcia strony domowej."
 
-#: ../src/gnome-cmd-user-actions.cc:1933
-#: ../src/gnome-cmd-user-actions.cc:1936
+#: ../src/gnome-cmd-user-actions.cc:1992
+#: ../src/gnome-cmd-user-actions.cc:1995
 msgid "There was an error reporting problem."
 msgstr "Wystąpił błąd przy próbie zgłoszenia problemu."
 
-#: ../src/gnome-cmd-user-actions.cc:1960
+#: ../src/gnome-cmd-user-actions.cc:2019
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Szybki i efektywny menedżer plików dla GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1964
+#: ../src/gnome-cmd-user-actions.cc:2023
 msgid "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr "GNOME Commander jest wolnym oprogramowaniem; można go rozprowadzać dalej lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundację Wolnego Oprogramowania - według wersji 2 tej Licencji lub (według Twojego wyboru) którejś z późniejszych wersji. "
 
-#: ../src/gnome-cmd-user-actions.cc:1968
+#: ../src/gnome-cmd-user-actions.cc:2027
 msgid "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
 msgstr "GNOME Commander jest rozpowszechniany z nadzieją, iż będzie on użyteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI, nawet domyślnej gwarancji PRZYDATNOŚCI HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ. W celu uzyskania bliższych informacji sięgnij do Powszechnej Licencji Publicznej GNU."
 
-#: ../src/gnome-cmd-user-actions.cc:1972
+#: ../src/gnome-cmd-user-actions.cc:2031
 msgid "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr "Kopia licencji GNU GPL powinna zostać dostarczona wraz z tym programem. Jeśli jej brak, napisz na adres Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1989
+#: ../src/gnome-cmd-user-actions.cc:2048
 msgid "translator-credits"
 msgstr "Piotr Eljasiak <epiotr@use.pl>"
 
@@ -3371,7 +3338,6 @@ msgid "(fit to window)"
 msgstr "(dopasuj do okna)"
 
 #: ../src/intviewer/viewer-widget.cc:259
-#| msgid "_Copy Text Selection"
 msgid "_Copy selection"
 msgstr "Kopiuj zaznaczenie"
 
@@ -3485,25 +3451,25 @@ msgstr "Szybka pomoc"
 msgid "Pattern \"%s\" was not found"
 msgstr "Wzorzec \"%s\" nie został znaleziony"
 
-#: ../src/main.cc:67
+#: ../src/main.cc:66
 msgid "Specify debug flags to use"
 msgstr "Określ flagi debugowania"
 
-#: ../src/main.cc:68
+#: ../src/main.cc:67
 msgid "Specify the start directory for the left pane"
 msgstr "Podaj katalog startowy dla lewego panelu"
 
-#: ../src/main.cc:69
+#: ../src/main.cc:68
 msgid "Specify the start directory for the right pane"
 msgstr "Podaj katalog startowy dla prawego panelu"
 
-#: ../src/main.cc:70
+#: ../src/main.cc:69
 #, fuzzy
 #| msgid "Specify the start directory for the right pane"
 msgid "Specify the directory for configuration files"
 msgstr "Sprawdzanie plików konfiguracji dla $prog: "
 
-#: ../src/main.cc:125
+#: ../src/main.cc:124
 msgid "File Manager"
 msgstr "Menadżer plików"
 
@@ -7202,31 +7168,28 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: ../src/utils.cc:821
-#, fuzzy, c-format
+#, c-format
 #| msgid "%s byte"
 #| msgid_plural "%s bytes"
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
-msgstr[0] "SByte"
-msgstr[1] "%s bajty"
-msgstr[2] "%s bajtów"
+msgstr[0] "%sbajt"
+msgstr[1] "%sbajty"
+msgstr[2] "%sbajtów"
 
 #: ../src/utils.cc:824
-#, fuzzy, c-format
+#, c-format
 #| msgid "%s byte"
 #| msgid_plural "%s bytes"
 msgid "%sbyte"
 msgid_plural "%sbytes"
-msgstr[0] "SByte"
-msgstr[1] "%s bajty"
-msgstr[2] "%s bajtów"
+msgstr[0] "bajt"
+msgstr[1] "%sbajty"
+msgstr[2] "%sbajtów"
 
 #: ../src/utils.cc:1007
-#, fuzzy
-msgid "Failed to create a directory in which to store temporary files"
-msgstr ""
-"Nie można utworzyć katalogu do przechowywania plików tymczasowych.\n"
-"Komunikat błędu: %s\n"
+msgid "Failed to create a directory in which to store temporary files."
+msgstr "Nie można utworzyć katalogu do przechowywania plików tymczasowych."
 
 #: ../src/utils.cc:1201
 #, c-format
@@ -7246,6 +7209,43 @@ msgstr "Nie można czytać z katalogu %s: %s"
 #: ../src/utils.h:288
 msgid "There was an error displaying help."
 msgstr "Wystąpił błąd podczas wyświetlania pomocy."
+
+#~ msgid "_Remote dir:"
+#~ msgstr "Zdalny _katalog:"
+
+#~ msgid "Authentication"
+#~ msgstr "Uwierzytelnianie"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "Użyj menedżera haseł GNOME do uwierzytelniania"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "Anonimowy dostęp FTP"
+
+#~ msgid "Password:"
+#~ msgstr "Hasło:"
+
+#~ msgid "Network"
+#~ msgstr "Sieć"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "Użyj menedżera haseł GNOME do uwierzytelniania"
+
+#~ msgid "Enter password"
+#~ msgstr "Wprowadź hasło"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Problem: brak dostępu\n"
+#~ "\n"
+#~ "proszę wprowadzić uwierzytelnienia\n"
+#~ "\n"
+#~ "Uwaga: niewłaściwe dane mogą prowadzić do zablokowania konta"
 
 #~ msgid "Other..."
 #~ msgstr "Inni..."
