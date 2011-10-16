@@ -1,410 +1,412 @@
+# gnome-commander ja.po
+# Copyright (c) 2008, 2011 gnome-commander's COPYRIGHT HOLDER
+# Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>, 2008.
+# Takayoshi OKANO <kano@na.rim.or.jp>, 2011.
+# Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2011.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-25 23:26+0900\n"
-"PO-Revision-Date: 2008-06-26 23:01+0900\n"
-"Last-Translator: Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>\n"
-"Language-Team: Japanese Translation Team <translation@gnome.gr.jp>\n"
+"Project-Id-Version: gnome-commander master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
+"commander&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-10-10 08:42+0000\n"
+"PO-Revision-Date: 2011-10-16 12:48+0900\n"
+"Last-Translator: Kiyotaka NISHIBORI <ml.nishibori.kiyotaka@gmail.com>\n"
+"Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Japanese\n"
-"X-Poedit-Country: JAPAN\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"Plural-Forms: nplurals=2; plural=n>1\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "2ペインのファイルマネージャー"
 
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:424
-#: ../src/gnome-cmd-main-win.cc:776
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:314
+#: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../libgcmd/gnome-cmd-string-dialog.c:131
+#: ../libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
 msgstr "エラーメッセージが得られません"
 
 #. destroy model automatically with view
-#: ../plugins/cvs/cvs-plugin.c:275
-#: ../plugins/fileroller/file-roller-plugin.c:356
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:359
-#: ../src/gnome-cmd-options-dialog.cc:1113
-#: ../src/gnome-cmd-options-dialog.cc:1771
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:131
-#: ../src/gnome-cmd-prepare-move-dialog.cc:120
-#: ../src/gnome-cmd-remote-dialog.cc:485 ../src/gnome-cmd-user-actions.cc:186
+#: ../plugins/cvs/cvs-plugin.cc:276
+#: ../plugins/fileroller/file-roller-plugin.cc:361
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:357
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:465
+#: ../src/gnome-cmd-options-dialog.cc:1359
+#: ../src/gnome-cmd-options-dialog.cc:1975
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:128
+#: ../src/gnome-cmd-prepare-move-dialog.cc:114
+#: ../src/gnome-cmd-user-actions.cc:196
 msgid "Options"
 msgstr "オプション"
 
-#: ../plugins/cvs/cvs-plugin.c:289
+#: ../plugins/cvs/cvs-plugin.cc:290
 msgid "CVS options"
 msgstr "CVSのオプション"
 
-#: ../plugins/cvs/cvs-plugin.c:292
+#: ../plugins/cvs/cvs-plugin.cc:293
 msgid "Compression level"
 msgstr "圧縮のレベル"
 
-#: ../plugins/cvs/cvs-plugin.c:300
+#: ../plugins/cvs/cvs-plugin.cc:301
 msgid "Unified diff format"
 msgstr "Unifiled形式の差分"
 
-#: ../plugins/cvs/cvs-plugin.c:402
+#: ../plugins/cvs/cvs-plugin.cc:403
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr ""
 
-#: ../plugins/cvs/interface.c:170
+#: ../plugins/cvs/interface.cc:167
 msgid "Compare with"
 msgstr "次と比較"
 
-#: ../plugins/cvs/interface.c:173
+#: ../plugins/cvs/interface.cc:170
 msgid "HEAD"
 msgstr "ヘッド"
 
-#: ../plugins/cvs/interface.c:176
+#: ../plugins/cvs/interface.cc:173
 msgid "The previous revision"
 msgstr "前のリビジョン"
 
-#: ../plugins/cvs/interface.c:181
+#: ../plugins/cvs/interface.cc:178
 msgid "Other revision"
 msgstr "他のリビジョン"
 
-#: ../plugins/cvs/interface.c:255
+#: ../plugins/cvs/interface.cc:252
 msgid "CVS Diff"
 msgstr "CVS差分"
 
-#: ../plugins/cvs/interface.c:414
+#: ../plugins/cvs/interface.cc:408
 msgid "revision"
 msgstr "リビジョン"
 
-#: ../plugins/cvs/interface.c:428
+#: ../plugins/cvs/interface.cc:422
 msgid "Revision:"
 msgstr "リビジョン:"
 
-#: ../plugins/cvs/interface.c:446
+#: ../plugins/cvs/interface.cc:440
 msgid "Compare..."
 msgstr "比較..."
 
-#: ../plugins/cvs/interface.c:449
+#: ../plugins/cvs/interface.cc:443
 msgid "Author:"
 msgstr "作者:"
 
-#: ../plugins/cvs/interface.c:463
+#: ../plugins/cvs/interface.cc:457
 msgid "Date:"
 msgstr "日時:"
 
-#: ../plugins/cvs/interface.c:477
+#: ../plugins/cvs/interface.cc:471
 msgid "State:"
 msgstr "状態:"
 
-#: ../plugins/cvs/interface.c:491
+#: ../plugins/cvs/interface.cc:485
 msgid "Lines:"
 msgstr "行:"
 
-#: ../plugins/cvs/interface.c:505
+#: ../plugins/cvs/interface.cc:499
 msgid "Message:"
 msgstr "メッセージ:"
 
-#: ../plugins/fileroller/file-roller-plugin.c:185
+#: ../plugins/fileroller/file-roller-plugin.cc:192
 msgid "What file name should the new archive have?"
-msgstr "新規書庫ファイルのファイル名は何ですか？"
+msgstr "新規書庫ファイルのファイル名は何ですか?"
 
-#: ../plugins/fileroller/file-roller-plugin.c:187
+#: ../plugins/fileroller/file-roller-plugin.cc:194
 msgid "Create Archive"
 msgstr "書庫ファイルを作成"
 
-#: ../plugins/fileroller/file-roller-plugin.c:288
+#: ../plugins/fileroller/file-roller-plugin.cc:295
 msgid "Create Archive..."
 msgstr "書庫ファイルを作成..."
 
-#: ../plugins/fileroller/file-roller-plugin.c:300
+#: ../plugins/fileroller/file-roller-plugin.cc:307
 msgid "Extract in Current Directory"
 msgstr "現在のディレクトリに展開"
 
-#: ../plugins/fileroller/file-roller-plugin.c:307
-#: ../plugins/fileroller/file-roller-plugin.c:317
+#: ../plugins/fileroller/file-roller-plugin.cc:314
+#: ../plugins/fileroller/file-roller-plugin.cc:324
 #, c-format
 msgid "Extract to '%s'"
 msgstr "'%s'に展開"
 
-#: ../plugins/fileroller/file-roller-plugin.c:368
+#: ../plugins/fileroller/file-roller-plugin.cc:373
 msgid "File-roller options"
 msgstr "File-rollerのオプション"
 
-#: ../plugins/fileroller/file-roller-plugin.c:371
+#: ../plugins/fileroller/file-roller-plugin.cc:376
 msgid "Default type"
 msgstr "デフォルトの種類"
 
-#: ../plugins/fileroller/file-roller-plugin.c:481
+#: ../plugins/fileroller/file-roller-plugin.cc:486
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
-msgstr "圧縮された書庫ファイルを作成・展開するためのFile Rollerのショートカットを"
-"追加するプラグイン"
+msgstr ""
+"圧縮された書庫ファイルを作成・展開するためのFile Rollerのショートカットを追加"
+"するプラグイン"
 
-#: ../plugins/test/test-plugin.c:223
+#: ../plugins/test/test-plugin.cc:224
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
-msgstr "これはプラグインの一例で、プラグインを作成したいハッカーの役に立つ"
-"簡単な例になるでしょう."
-
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:80
-msgid "_Search for:"
-msgstr "次を検索:"
-
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:91
-msgid "_Replace with:"
-msgstr "次を置換:"
-
-#. Case-Sensitive Checkbox
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:106
-#: ../src/intviewer/search-dlg.cc:285
-msgid "_Match case"
-msgstr "大/小文字を区別(_M)"
-
-#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:112
-msgid ""
-"Some regular expressions functionality is disabled. To enable it's necessary "
-"to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
-"maintainer about that."
-msgstr "正規表現の機能が一部無効になっています."
-"有効にするにはGNOME CommanderをGLib 2.14以上でリビルドする必要があります."
-"パッケージのメンテナに尋ねてみてください."
-
-#: ../src/dialogs/gnome-cmd-edit-profile-dialog.cc:67
-msgid "Edit Profile"
-msgstr "ファイルを編集"
-
-#: ../src/dialogs/gnome-cmd-edit-profile-dialog.cc:70
-#: ../src/gnome-cmd-advrename-dialog.cc:687
-msgid "Reset"
-msgstr "リセット"
-
-#: ../src/dialogs/gnome-cmd-edit-profile-dialog.cc:88
-msgid "_Name"
-msgstr "名前(_N)"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:87
-msgid "New profile"
-msgstr "新しいプロファイル"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:121
-msgid ""
-"To rename a profile, click on the corresponding row and type a new name, or "
-"press escape to cancel."
 msgstr ""
-"プロファイルの名前を変更するには、編集する列をクリックして新しい名前を入力してください."
-"ESCキーを押すと中止します."
+"これはプラグインの一例で、プラグインを作成したいハッカーの役に立つ簡単な例に"
+"なるでしょう."
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:129
-msgid "_Duplicate"
-msgstr "複製(_D)"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:146
-msgid "/Local path..."
-msgstr "/ローカルのパス名..."
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:147
-msgid "/Remote location..."
-msgstr "/リモートの場所..."
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:154
-msgid "_Import"
-msgstr "インポート(_I):"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:236
-msgid "Profile"
-msgstr "プロファイル"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:237
-msgid "Profile name"
-msgstr "プロファイル名"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:244
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.cc:245
-#: ../src/tags/gnome-cmd-tags.cc:195
-msgid "Template"
-msgstr "テンプレート"
-
-#: ../src/dirlist.cc:74
-#, c-format
-msgid "%d file listed"
-msgid_plural "%d files listed"
-msgstr[0] "%d 個のファイルがリストされています"
-msgstr[1] "%d 個のファイルがリストされています"
-
-#: ../src/eggcellrendererkeys.cc:182 ../src/eggcellrendererkeys.cc:183
-msgid "Accelerator key"
-msgstr "アクセレレータのキー"
-
-#: ../src/eggcellrendererkeys.cc:192 ../src/eggcellrendererkeys.cc:193
-msgid "Accelerator modifiers"
-msgstr "アクセレレータの修正子"
-
-#: ../src/eggcellrendererkeys.cc:201
-msgid "Accelerator Mode"
-msgstr "アクセレレータのモード"
-
-#: ../src/eggcellrendererkeys.cc:202
-msgid "The type of accelerator."
-msgstr "アクセレレータのタイプ"
-
-#: ../src/eggcellrendererkeys.cc:237
-msgid "Disabled"
-msgstr "無効"
-
-#: ../src/eggcellrendererkeys.cc:434 ../src/eggcellrendererkeys.cc:649
-msgid "New accelerator..."
-msgstr "新しいアクセレレータ..."
-
-#: ../src/gnome-cmd-about-plugin.cc:184
-msgid "Credits"
-msgstr "クレジット"
-
-#: ../src/gnome-cmd-about-plugin.cc:211
-msgid "Written by"
-msgstr "製作者"
-
-#: ../src/gnome-cmd-about-plugin.cc:224
-msgid "Documented by"
-msgstr "ドキュメント製作者"
-
-#: ../src/gnome-cmd-about-plugin.cc:237
-msgid "Translated by"
-msgstr "翻訳者"
-
-#: ../src/gnome-cmd-about-plugin.cc:291
-msgid "Plugin Webpage"
-msgstr "プラグインのWebページ"
-
-#: ../src/gnome-cmd-about-plugin.cc:303
-msgid "C_redits"
-msgstr "クレジット(_r)"
-
-#: ../src/gnome-cmd-about-plugin.cc:505
-#, c-format
-msgid "About %s"
-msgstr "%s について"
-
-#: ../src/gnome-cmd-advrename-dialog.cc:125
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:126
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:203
 msgid "/_Save Profile As..."
 msgstr "/プロファイルを次の名前で保存(_S)..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:134
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:135
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:212
 msgid "/_Manage Profiles..."
 msgstr "/プロファイルの編集(_M)..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:186
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:187
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:262
 msgid "Profiles"
 msgstr "プロファイル"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:330
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:331
 msgid "Remove from file list"
 msgstr "ファイルリストから消去"
 
 #. {file_umount, "file.umount"},
-#: ../src/gnome-cmd-advrename-dialog.cc:334
-#: ../src/gnome-cmd-user-actions.cc:173
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:335
+#: ../src/gnome-cmd-user-actions.cc:183
 msgid "View file"
 msgstr "ファイルを表示"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:338
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:339
 msgid "File properties"
 msgstr "ファイルのプロパティ"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:344
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:345
 msgid "Update file list"
 msgstr "ファイルリストを更新"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:482
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:507
 msgid "Advanced Rename Tool"
 msgstr "高度な名前変更ツール"
 
 #. Results
-#: ../src/gnome-cmd-advrename-dialog.cc:493
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:518
 msgid "Results"
 msgstr "結果"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:566
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:591
 msgid "Old name"
 msgstr "古い名前"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:570
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:595
 msgid "Current file name"
 msgstr "現在のファイル名"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:572
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:597
 msgid "New name"
 msgstr "新しい名前"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:576
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:601
 msgid "New file name"
 msgstr "新しいファイル名"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:578 ../src/tags/gnome-cmd-tags.cc:326
-#: ../src/tags/gnome-cmd-tags.cc:390
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:603
+#: ../src/tags/gnome-cmd-tags.cc:326 ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "サイズ"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:582
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:607
 msgid "File size"
 msgstr "ファイルのサイズ"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:584
-#: ../src/gnome-cmd-profile-component.cc:779 ../src/tags/gnome-cmd-tags.cc:341
-#: ../src/tags/gnome-cmd-tags.cc:417
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:609
+#: ../src/gnome-cmd-advrename-profile-component.cc:916
+#: ../src/tags/gnome-cmd-tags.cc:341 ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "日時"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:588
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:613
 msgid "File modification date"
 msgstr "ファイルの修正日時"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:682
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:679
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1145
 msgid "Profiles..."
 msgstr "プロファイル..."
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:76
-msgid "Bookmark name is missing"
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:684
+#: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:83
+msgid "Reset"
+msgstr "リセット"
+
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:94
+msgid "_Search for:"
+msgstr "次を検索(_S):"
+
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:105
+msgid "_Replace with:"
+msgstr "次を置換(_R):"
+
+#. Case-Sensitive Checkbox
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:120
+#: ../src/intviewer/search-dlg.cc:284
+msgid "_Match case"
+msgstr "大/小文字を区別(_M)"
+
+#: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:126
+msgid ""
+"Some regular expressions functionality is disabled. To enable it's necessary "
+"to build GNOME Commander with GLib ≥ 2.14. Please contact your package "
+"maintainer about that."
+msgstr ""
+"正規表現の機能が一部無効になっています.有効にするにはGNOME CommanderをGLib "
+"2.14以上でリビルドする必要があります.パッケージのメンテナに尋ねてみてくださ"
+"い."
+
+#: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:42
+#, fuzzy
+#| msgid "Bookmark name is missing"
+msgid "Bookmark name is missing."
 msgstr "ブックマークの名前がありません"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:85
-msgid "Bookmark target is missing"
+#: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:51
+#, fuzzy
+#| msgid "Bookmark target is missing"
+msgid "Bookmark target is missing."
 msgstr "ブックマークの対象がありません"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:128
+#: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:108
 msgid "Bookmark _name:"
-msgstr "ブックマーク名(_n):"
+msgstr "ブックマーク名(_N):"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:139
+#: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:119
 msgid "Bookmark _target:"
-msgstr "ブックマークの対象(_t):"
+msgstr "ブックマークの対象(_T):"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:238
+#: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:80
+msgid "Edit Profile"
+msgstr "ファイルを編集"
+
+#: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:115
+msgid "_Name"
+msgstr "名前(_N)"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:187
+msgid "Keyboard Shortcuts"
+msgstr "キーボードショートカット"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:213
+msgid ""
+"To edit a shortcut key, click on the corresponding row and type a new "
+"accelerator, or press escape to cancel."
+msgstr ""
+"ショートカットキーを編集するには,編集する列をクリックして新たなアクセラレータ"
+"をタイプしてください.ESCキーを押すと中止します."
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:342
+msgid "Shortcut Key"
+msgstr "ショートカットキー"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:343
+msgid "Keyboard shortcut for selected action"
+msgstr "選択された動作へのキーボードショートカット"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:350
+msgid "Action"
+msgstr "アクション"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:351
+msgid "User action"
+msgstr "ユーザーのアクション"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:358
+msgid "Optional data"
+msgstr "追加的なデータ"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:485
+#, c-format
+msgid "Shortcut \"%s\" is already taken by \"%s\"."
+msgstr "ショートカット\"%s\"は既に\"%s\"に使われています."
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:488
+msgid "_Reassign shortcut"
+msgstr "ショートカットの再割り当て(_R)"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:491
+msgid "Conflicting Shortcuts"
+msgstr "矛盾するショートカット"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:492
+#, c-format
+msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+msgstr "ショートカットを再割り当てすると、\"%s\"から取り除かれます"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:548
+msgid "Invalid shortcut."
+msgstr "不正なショートカット"
+
+#: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:625
+#: ../src/gnome-cmd-user-actions.cc:195
+msgid "Do nothing"
+msgstr "何もしない"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:241
+#, fuzzy
+msgid "Group"
+msgstr "グループ"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:242
+#, fuzzy
+msgid "Bookmark group"
+msgstr "ブックマークのグループ"
+
+#. col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+#. g_object_set (renderer,
+#. "foreground-set", TRUE,
+#. "foreground", "DarkGray",
+#. NULL);
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:249
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:376
+#: ../src/gnome-cmd-file-props-dialog.cc:646
+#: ../src/intviewer/viewer-window.cc:1458 ../src/plugin_manager.cc:404
+#: ../src/tags/gnome-cmd-tags.cc:321
+msgid "Name"
+msgstr "名前"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:250
+msgid "Bookmark name"
+msgstr "ブックマーク名"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:252
+msgid "Shortcut"
+msgstr "ショートカット"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:253
+msgid "Keyboard shortcut for selected bookmark"
+msgstr "選択されたブックマークへのキーボードショートカット"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:260
+#: ../src/tags/gnome-cmd-tags.cc:322
+msgid "Path"
+msgstr "パス名"
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:261
+msgid "Bookmarked path"
+msgstr ""
+
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:333
 msgid "Edit Bookmark"
 msgstr "ブックマークを編集"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:495
-#: ../src/gnome-cmd-bookmark-dialog.cc:513
-msgid "Bookmarks"
-msgstr "ブックマーク"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:504
-msgid "Bookmark Groups"
-msgstr "ブックマークのグループ"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:520 ../src/gnome-cmd-file-list.cc:105
-msgid "name"
-msgstr "名前"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:521
-msgid "path"
-msgstr "パス名"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:626
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:532
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding"
@@ -412,9 +414,494 @@ msgstr ""
 "ディレクトリをブックマークする時は、そのディレクトリの全パス名が正当なUTF-8名"
 "でなくてはいけません"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:633
+#: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:539
 msgid "New Bookmark"
 msgstr "新規ブックマーク"
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:125
+msgid "Profile"
+msgstr "プロファイル"
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:126
+msgid "Profile name"
+msgstr "プロファイル名"
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:133
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:134
+#: ../src/tags/gnome-cmd-tags.cc:195
+msgid "Template"
+msgstr "テンプレート"
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:295
+msgid "New profile"
+msgstr "新しいプロファイル"
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:342
+msgid ""
+"To rename a profile, click on the corresponding row and type a new name, or "
+"press escape to cancel."
+msgstr ""
+"プロファイルの名前を変更するには、編集する列をクリックして新しい名前を入力し"
+"てください.ESCキーを押すと中止します."
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:350
+msgid "_Duplicate"
+msgstr "複製(_D)"
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:367
+msgid "/Local path..."
+msgstr "/ローカルのパス名..."
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:368
+msgid "/Remote location..."
+msgstr "/リモートの場所..."
+
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:375
+msgid "_Import"
+msgstr "インポート(_I):"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:91
+msgid "A directory name must be entered"
+msgstr "ディレクトリ名を入力してください"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:154
+msgid "Make Directory"
+msgstr "ディレクトリを作成"
+
+#: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:190
+#: ../src/gnome-cmd-file-props-dialog.cc:365
+msgid "Directory name:"
+msgstr "ディレクトリ名:"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:211
+#, c-format
+msgid "No server selected"
+msgstr "サーバが何も選択されていません"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:362
+msgid "Save password in GNOME keyring"
+msgstr ""
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:366
+msgid "Network protocol"
+msgstr "ネットワークプロトコル"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:377
+msgid "Connection name"
+msgstr "接続名"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:431
+msgid "Remote Connections"
+msgstr "リモート接続"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:437
+msgid "Connections"
+msgstr "接続"
+
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:468
+msgid "Anonymous FTP password:"
+msgstr "AnonymousでのFTPのパスワード:"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:67
+#, fuzzy
+msgid "Search local directories only"
+msgstr "ディレクトリのみ"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:68
+msgid "Files _not containing text"
+msgstr "テキストを含まないファイル(_N)"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:347
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:356
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:381
+#, fuzzy, c-format
+msgid "Failed to read file %s: %s"
+msgstr "ファイル %sを読み込めませんでした: %s\n"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:433
+#, c-format
+msgid "Searching in: %s"
+msgstr "%s の中を検索中"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:546
+#, c-format
+msgid "Found %d match - search aborted"
+msgid_plural "Found %d matches - search aborted"
+msgstr[0] "%d 件一致しました - 検索は中断しました"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:547
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "%d 件一致しました"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:701
+#, fuzzy, c-format
+msgid "Failed to set process group id of child %d: %s.\n"
+msgstr "ファイル %sの中を検索出来ませんでした: %s\n"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:825
+msgid "Error parsing the search command."
+msgstr ""
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:837
+msgid "Error running the search command."
+msgstr ""
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:950
+#, fuzzy, c-format
+msgid "Failed to change directory outside of %s"
+msgstr "ディレクトリ%sを作成出来ませんでした"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1055
+msgid "Search..."
+msgstr "検索..."
+
+#. search in
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1163
+#, fuzzy
+msgid "Select Directory"
+msgstr "ディレクトリを作成"
+
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1166
+msgid "_Look in folder:"
+msgstr ""
+
+#: ../src/dirlist.cc:74
+#, c-format
+msgid "%d file listed"
+msgid_plural "%d files listed"
+msgstr[0] "%d 個のファイルがリストされています"
+
+#: ../src/eggcellrendererkeys.cc:182 ../src/eggcellrendererkeys.cc:183
+msgid "Accelerator key"
+msgstr "アクセラレータのキー"
+
+#: ../src/eggcellrendererkeys.cc:192 ../src/eggcellrendererkeys.cc:193
+msgid "Accelerator modifiers"
+msgstr "アクセラレータの修正子"
+
+#: ../src/eggcellrendererkeys.cc:201
+msgid "Accelerator Mode"
+msgstr "アクセラレータのモード"
+
+#: ../src/eggcellrendererkeys.cc:202
+msgid "The type of accelerator."
+msgstr "アクセラレータのタイプ"
+
+#: ../src/eggcellrendererkeys.cc:237
+msgid "Disabled"
+msgstr "無効"
+
+#: ../src/eggcellrendererkeys.cc:434 ../src/eggcellrendererkeys.cc:649
+msgid "New accelerator..."
+msgstr "新しいアクセラレータ..."
+
+#: ../src/gnome-cmd-about-plugin.cc:186
+msgid "Credits"
+msgstr "クレジット"
+
+#: ../src/gnome-cmd-about-plugin.cc:213
+msgid "Written by"
+msgstr "製作者"
+
+#: ../src/gnome-cmd-about-plugin.cc:226
+msgid "Documented by"
+msgstr "ドキュメント製作者"
+
+#: ../src/gnome-cmd-about-plugin.cc:239
+msgid "Translated by"
+msgstr "翻訳者"
+
+#: ../src/gnome-cmd-about-plugin.cc:293
+msgid "Plugin Webpage"
+msgstr "プラグインのWebページ"
+
+#: ../src/gnome-cmd-about-plugin.cc:305
+msgid "C_redits"
+msgstr "クレジット(_R)"
+
+#: ../src/gnome-cmd-about-plugin.cc:507
+#, c-format
+msgid "About %s"
+msgstr "%s について"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:125
+msgid "/Grandparent"
+msgstr "/現在のディレクトリの親のディレクトリ名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:126
+msgid "/Parent"
+msgstr "/ディレクトリ名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:129
+msgid "/File name"
+msgstr "/ファイル名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:130
+#, fuzzy
+msgid "/File name (range)"
+msgstr "/ファイル名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:131
+msgid "/File name without extension"
+msgstr "/拡張子を除いたファイル名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:132
+#, fuzzy
+msgid "/File name without extension (range)"
+msgstr "/拡張子を除いたファイル名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:133
+msgid "/File extension"
+msgstr "/ファイル名"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:136
+msgid "/Counter"
+msgstr "/カウンタ"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:137
+msgid "/Counter (width)"
+msgstr "/カウンタ (長さ)"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:138
+msgid "/Hexadecimal random number (width)"
+msgstr "/16進数での乱数字 (長さ)"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:141
+msgid "/Date"
+msgstr "/日時"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:142
+msgid "/Date/<locale>"
+msgstr "/日時/<ロケール依存>"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:143
+msgid "/Date/yyyy-mm-dd"
+msgstr "/日時/yyyy-mm-dd"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:144
+msgid "/Date/yy-mm-dd"
+msgstr "/日時/yy-mm-dd"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:145
+msgid "/Date/yy.mm.dd"
+msgstr "/日時/yy.mm.dd"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:146
+msgid "/Date/yymmdd"
+msgstr "/日時/yymmdd"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:147
+msgid "/Date/dd.mm.yy"
+msgstr "/日時/dd.mm.yy"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:148
+msgid "/Date/mm-dd-yy"
+msgstr "/日時/mm-dd-yy"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:149
+msgid "/Date/yyyy"
+msgstr "/日時/yyyy"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:150
+msgid "/Date/yy"
+msgstr "/日時/yy"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:151
+msgid "/Date/mm"
+msgstr "/日時/mm"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:152
+msgid "/Date/mmm"
+msgstr "/日時/mmm"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:153
+msgid "/Date/dd"
+msgstr "/日時/dd"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:154
+msgid "/Time"
+msgstr "/時刻"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:155
+msgid "/Time/<locale>"
+msgstr "/時刻/<ロケール依存>"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:156
+msgid "/Time/HH.MM.SS"
+msgstr "/時刻/HH.MM.SS"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:157
+msgid "/Time/HH-MM-SS"
+msgstr "/時刻/HH-MM-SS"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:158
+msgid "/Time/HHMMSS"
+msgstr "/時刻/HHMMSS"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:159
+msgid "/Time/HH"
+msgstr "/時刻/HH"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:160
+msgid "/Time/MM"
+msgstr "/時刻/MM"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:161
+msgid "/Time/SS"
+msgstr "/時刻/SS"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:416
+#: ../src/gnome-cmd-advrename-profile-component.cc:733
+#: ../src/gnome-cmd-advrename-profile-component.cc:765
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:150 ../src/utils.cc:661
+msgid "Yes"
+msgstr "はい"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:416
+#: ../src/gnome-cmd-advrename-profile-component.cc:733
+#: ../src/gnome-cmd-advrename-profile-component.cc:765
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:150 ../src/utils.cc:661
+msgid "No"
+msgstr "いいえ"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:595
+msgid "_Select range:"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:605
+msgid "_Inverse selection"
+msgstr "選択を反転(_I)"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:673
+msgid "Range Selection"
+msgstr "範囲の選択"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:723
+msgid "Add Rule"
+msgstr "ルールを追加"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:758
+msgid "Edit Rule"
+msgstr "ルールを編集"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:885
+msgid "_Template"
+msgstr "テンプレート(_T)"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:913
+#: ../src/gnome-cmd-file.cc:592
+msgid "Directory"
+msgstr "ディレクトリ"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:914
+#: ../src/plugin_manager.cc:406 ../src/tags/gnome-cmd-tags.cc:687
+msgid "File"
+msgstr "ファイル"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:915
+#: ../src/gnome-cmd-advrename-profile-component.cc:927
+msgid "Counter"
+msgstr "カウンタ"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:917
+msgid "Metatag"
+msgstr "メタタグ"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:944
+msgid "_Start:"
+msgstr "スタート(_S):"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:951
+msgid "Ste_p:"
+msgstr "ステップ(_P):"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:958
+msgid "Di_gits:"
+msgstr "数字(_G):"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:969
+msgid "Regex replacing"
+msgstr "正規表現での置換"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1008
+msgid "Remove A_ll"
+msgstr "すべて削除(_L)"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1021
+msgid "Case"
+msgstr "大/小文字"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1033
+msgid "<unchanged>"
+msgstr "<無変更>"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1034
+msgid "lowercase"
+msgstr "小文字"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1035
+msgid "UPPERCASE"
+msgstr "大文字"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1037
+msgid "Sentence case"
+msgstr "大/小文字を区別"
+
+#. FIXME
+#: ../src/gnome-cmd-advrename-profile-component.cc:1038
+msgid "Initial Caps"
+msgstr "先頭を大文字"
+
+#. FIXME
+#: ../src/gnome-cmd-advrename-profile-component.cc:1039
+msgid "tOGGLE cASE"
+msgstr "大/小文字をトグル"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1049
+msgid "Trim blanks"
+msgstr "空白のトリム"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1061
+msgid "<none>"
+msgstr "<なし>"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1062
+msgid "leading"
+msgstr "リーディング"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1063
+msgid "trailing"
+msgstr "トレーリング"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1064
+msgid "leading and trailing"
+msgstr "両方"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1219
+msgid "Search for"
+msgstr "以下を検索:"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1222
+msgid "Regex pattern"
+msgstr "正規表現のパターン"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1224
+msgid "Replace with"
+msgstr "以下に置換"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1227
+msgid "Replacement"
+msgstr "置換"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1229
+msgid "Match case"
+msgstr "大/小文字を区別"
+
+#: ../src/gnome-cmd-advrename-profile-component.cc:1232
+msgid "Case sensitive matching"
+msgstr "大/小文字を区別"
 
 #: ../src/gnome-cmd-chmod-component.cc:120
 msgid "Read"
@@ -442,94 +929,97 @@ msgstr "グループ"
 msgid "Others:"
 msgstr "他人:"
 
-#: ../src/gnome-cmd-chmod-component.cc:154
+#: ../src/gnome-cmd-chmod-component.cc:153
 msgid "Text view:"
 msgstr "テキスト表示:"
 
-#: ../src/gnome-cmd-chmod-component.cc:157
+#: ../src/gnome-cmd-chmod-component.cc:156
 msgid "Number view:"
 msgstr "数値表示:"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:45 ../src/gnome-cmd-options-dialog.cc:1134
+#: ../src/gnome-cmd-chmod-dialog.cc:44 ../src/gnome-cmd-options-dialog.cc:1380
 msgid "All files"
 msgstr "全ファイル"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:46
+#: ../src/gnome-cmd-chmod-dialog.cc:45
 msgid "Directories only"
 msgstr "ディレクトリのみ"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:197
+#: ../src/gnome-cmd-chmod-dialog.cc:177
 msgid "Access Permissions"
 msgstr "アクセスのパーミッション"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:215
+#: ../src/gnome-cmd-chmod-dialog.cc:193
 msgid "Apply Recursively for"
 msgstr "次のものに再帰的に適用"
 
-#: ../src/gnome-cmd-chown-dialog.cc:58
-#, c-format
-msgid ""
-"Could not chown %s\n"
-"%s"
+#: ../src/gnome-cmd-chown-dialog.cc:56
+#, fuzzy, c-format
+msgid "Could not chown %s"
 msgstr ""
 "%sの所有者/グループを変更できませんでした:\n"
 "%s"
 
-#: ../src/gnome-cmd-chown-dialog.cc:177
+#: ../src/gnome-cmd-chown-dialog.cc:152
 msgid "Chown"
 msgstr "所有者/グループ変更"
 
-#: ../src/gnome-cmd-chown-dialog.cc:190
+#: ../src/gnome-cmd-chown-dialog.cc:163
 msgid "Apply Recursively"
 msgstr "再帰的に適用"
 
-#: ../src/gnome-cmd-con.h:191
+#: ../src/gnome-cmd-con.h:199
 msgid "<New connection>"
 msgstr "<新規接続>"
 
-#: ../src/gnome-cmd-con.h:193
+#: ../src/gnome-cmd-con.h:201
 #, c-format
 msgid "Go to: %s"
 msgstr "%s へ移動"
 
-#: ../src/gnome-cmd-con.h:194
+#: ../src/gnome-cmd-con.h:202
 #, c-format
 msgid "Connect to: %s"
 msgstr "%s に接続"
 
-#: ../src/gnome-cmd-con.h:195
+#: ../src/gnome-cmd-con.h:203
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "%s への接続を遮断"
 
-#: ../src/gnome-cmd-con.h:202
+#: ../src/gnome-cmd-con.h:210
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "%sに接続\n"
 
+#: ../src/gnome-cmd-con.h:373
+msgid "Unknown disk usage"
+msgstr "ディスク使用量が分かりません"
+
 #: ../src/gnome-cmd-con-device.cc:117
-#, c-format
 msgid "Failed to execute the mount command"
 msgstr "mountコマンドを実行出来ませんでした"
 
 #: ../src/gnome-cmd-con-device.cc:125
-msgid "Mount failed: Permission denied"
+#, fuzzy
+msgid "Mount failed: permission denied"
 msgstr "マウントに失敗しました:権限がありません"
 
 #: ../src/gnome-cmd-con-device.cc:128
-msgid "Mount failed: No medium found"
+#, fuzzy
+msgid "Mount failed: no medium found"
 msgstr "マウントに失敗しました:メディアが見つかりません"
 
-#: ../src/gnome-cmd-con-device.cc:132
+#: ../src/gnome-cmd-con-device.cc:131
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "マウントに失敗しました:mountはコード %d で終了しました"
 
-#: ../src/gnome-cmd-con-device.cc:208
+#: ../src/gnome-cmd-con-device.cc:202
 msgid "Device is now safe to remove"
 msgstr "今、デバイスは安全に取り外せます"
 
-#: ../src/gnome-cmd-con-device.cc:216
+#: ../src/gnome-cmd-con-device.cc:208
 #, c-format
 msgid ""
 "Cannot unmount the volume:\n"
@@ -538,75 +1028,76 @@ msgstr ""
 "%sをアンマウント出来ませんでした:\n"
 "%s"
 
-#: ../src/gnome-cmd-con-device.cc:217
+#: ../src/gnome-cmd-con-device.cc:209
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: ../src/gnome-cmd-con-device.cc:405
+#: ../src/gnome-cmd-con-device.cc:398
 #, c-format
 msgid "Mounting %s"
 msgstr "%sをマウント中"
 
-#: ../src/gnome-cmd-con-device.cc:421
+#: ../src/gnome-cmd-con-device.cc:414
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "%s (%s)に移動"
 
-#: ../src/gnome-cmd-con-device.cc:422
+#: ../src/gnome-cmd-con-device.cc:415
 #, c-format
 msgid "Mount: %s"
 msgstr "%s をマウント"
 
-#: ../src/gnome-cmd-con-device.cc:423
+#: ../src/gnome-cmd-con-device.cc:416
 #, c-format
 msgid "Unmount: %s"
 msgstr "%s をアンマウント"
 
-#: ../src/gnome-cmd-con-dialog.cc:222
+#: ../src/gnome-cmd-con-dialog.cc:226
 msgid "You must enter a name for the server"
 msgstr "サーバーへの名前を入力しなければいけません"
 
-#: ../src/gnome-cmd-con-dialog.cc:222
+#: ../src/gnome-cmd-con-dialog.cc:226
 msgid "Please enter a name and try again."
 msgstr "名前を入力してから改めて実行してください"
 
-#: ../src/gnome-cmd-con-dialog.cc:237
+#: ../src/gnome-cmd-con-dialog.cc:241
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr "\"%s\"は有効な場所ではありません"
 
-#: ../src/gnome-cmd-con-dialog.cc:238
+#: ../src/gnome-cmd-con-dialog.cc:242
 msgid "Please check the spelling and try again."
 msgstr "スペルを確認してから改めて実行してください"
 
-#: ../src/gnome-cmd-con-dialog.cc:343
+#: ../src/gnome-cmd-con-dialog.cc:347
 msgid "_Alias:"
 msgstr "エイリアス(_A):"
 
-#: ../src/gnome-cmd-con-dialog.cc:347
+#: ../src/gnome-cmd-con-dialog.cc:352
 msgid "_Location (URI):"
 msgstr "場所(_L) (URI)"
 
-#: ../src/gnome-cmd-con-dialog.cc:380
+#: ../src/gnome-cmd-con-dialog.cc:381
 msgid "_Server:"
 msgstr "サーバ(_S):"
 
-#: ../src/gnome-cmd-con-dialog.cc:391
+#: ../src/gnome-cmd-con-dialog.cc:392
 msgid "Optional information"
 msgstr "追加的な情報"
 
-#: ../src/gnome-cmd-con-dialog.cc:415
+#: ../src/gnome-cmd-con-dialog.cc:416
 msgid "S_hare:"
-msgstr "共有(_h)"
+msgstr "共有(_H)"
 
-#: ../src/gnome-cmd-con-dialog.cc:418
+#: ../src/gnome-cmd-con-dialog.cc:419
 msgid "_Port:"
 msgstr "ポート(_P):"
 
-#. Translators: 'Dir' in the sense of 'Directory'
 #: ../src/gnome-cmd-con-dialog.cc:421
-msgid "_Remote dir:"
-msgstr "リモートディレクトリ(_R):"
+#, fuzzy
+#| msgid "Filter:"
+msgid "_Folder:"
+msgstr "フィルター:"
 
 #: ../src/gnome-cmd-con-dialog.cc:424
 msgid "_User name:"
@@ -620,13 +1111,13 @@ msgstr "パスワード(_P):"
 msgid "_Domain name:"
 msgstr "ドメイン名(_D):"
 
-#: ../src/gnome-cmd-con-dialog.cc:467 ../src/gnome-cmd-main-win.cc:1175
+#: ../src/gnome-cmd-con-dialog.cc:467 ../src/gnome-cmd-main-win.cc:1182
 msgid "Remote Server"
 msgstr "リモートサーバ"
 
 #: ../src/gnome-cmd-con-dialog.cc:482
 msgid "Service _type:"
-msgstr "サービスの種類(_t)"
+msgstr "サービスの種類(_T)"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: ../src/gnome-cmd-con-dialog.cc:494
@@ -661,29 +1152,29 @@ msgstr "独自設定の場所"
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "_GNOME Keyring Managerを認証に用いる"
 
-#: ../src/gnome-cmd-con-ftp.cc:331
+#: ../src/gnome-cmd-con-ftp.cc:278
 #, c-format
 msgid "Opens remote connection to %s"
 msgstr "%sへのリモート接続を開く"
 
-#: ../src/gnome-cmd-con-ftp.cc:332
+#: ../src/gnome-cmd-con-ftp.cc:279
 #, c-format
 msgid "Closes remote connection to %s"
 msgstr "%sへのリモート接続を閉じる"
 
-#: ../src/gnome-cmd-con-home.cc:113
+#: ../src/gnome-cmd-con-home.cc:111
 msgid "Home"
 msgstr "ホーム"
 
-#: ../src/gnome-cmd-con-home.cc:122
+#: ../src/gnome-cmd-con-home.cc:120
 msgid "Go to: Home"
 msgstr "ホームに移動"
 
-#: ../src/gnome-cmd-con-smb.cc:93
+#: ../src/gnome-cmd-con-smb.cc:95
 msgid "Failed to browse the network. Is the SMB module installed?"
 msgstr ""
 "ネットワークを見るのに失敗しました. SMBモジュールはインストールされています"
-"か？"
+"か?"
 
 #: ../src/gnome-cmd-con-smb.cc:201
 msgid "SMB"
@@ -697,13 +1188,18 @@ msgstr "ワークグループとホストを検索中"
 msgid "Go to: Samba Network"
 msgstr "Sambaネットワークに移動"
 
-#: ../src/gnome-cmd-data.cc:1319 ../src/gnome-cmd-data.cc:1320
-#: ../src/gnome-cmd-data.cc:1688 ../src/gnome-cmd-data.cc:2007
+#: ../src/gnome-cmd-data.cc:1150 ../src/gnome-cmd-data.cc:1151
+#: ../src/gnome-cmd-data.cc:1568 ../src/gnome-cmd-data.cc:1896
 #, c-format
 msgid "link to %s"
 msgstr "%s へリンク"
 
-#: ../src/gnome-cmd-data.cc:1378
+#: ../src/gnome-cmd-data.cc:1421
+#, fuzzy
+msgid "Audio Files"
+msgstr "FIFO"
+
+#: ../src/gnome-cmd-data.cc:1429
 msgid "CamelCase"
 msgstr "キャメルケース"
 
@@ -712,7 +1208,6 @@ msgstr "キャメルケース"
 msgid "Deleted %ld of %ld file"
 msgid_plural "Deleted %ld of %ld files"
 msgstr[0] "%ld (%ld 中)のファイルを削除しました"
-msgstr[1] "%ld (%ld 中)のファイルを削除しました"
 
 #: ../src/gnome-cmd-delete-dialog.cc:132
 msgid "Deleting..."
@@ -733,454 +1228,449 @@ msgstr ""
 msgid "Delete problem"
 msgstr "削除時に問題"
 
-#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-xfer.cc:170
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-delete-dialog.cc:208 ../src/gnome-cmd-xfer.cc:191
+#: ../src/gnome-cmd-xfer.cc:209
 msgid "Abort"
 msgstr "中止"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1954 ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:1312 ../src/gnome-cmd-xfer.cc:209
 msgid "Retry"
 msgstr "再試行"
 
 #: ../src/gnome-cmd-delete-dialog.cc:208
-#: ../src/gnome-cmd-file-selector.cc:1954 ../src/gnome-cmd-xfer.cc:170
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:1312 ../src/gnome-cmd-xfer.cc:191
+#: ../src/gnome-cmd-xfer.cc:209
 msgid "Skip"
 msgstr "スキップ"
 
 #: ../src/gnome-cmd-delete-dialog.cc:276
 #, c-format
 msgid "Do you want to delete \"%s\"?"
-msgstr "\"%s\"を削除しますか？"
+msgstr "\"%s\"を削除しますか?"
 
 #: ../src/gnome-cmd-delete-dialog.cc:280
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "選択したファイルを削除しますか？"
-msgstr[1] "選択した %d個のファイルを削除しますか？"
+msgstr[0] "選択した %d個のファイルを削除しますか?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:286 ../src/gnome-cmd-main-win.cc:1169
-#: ../src/gnome-cmd-options-dialog.cc:614 ../src/gnome-cmd-user-actions.cc:148
+#: ../src/gnome-cmd-delete-dialog.cc:286 ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-options-dialog.cc:907 ../src/gnome-cmd-user-actions.cc:157
 msgid "Delete"
 msgstr "削除"
 
 #: ../src/gnome-cmd-delete-dialog.cc:287
-#: ../src/gnome-cmd-file-selector.cc:1954 ../src/gnome-cmd-user-actions.cc:729
-#: ../src/utils.cc:529 ../src/utils.cc:557
+#: ../src/gnome-cmd-file-selector.cc:1312 ../src/gnome-cmd-user-actions.cc:842
+#: ../src/utils.cc:506 ../src/utils.cc:534
 msgid "Cancel"
 msgstr "中止"
 
-#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/utils.cc:529
+#: ../src/gnome-cmd-delete-dialog.cc:287 ../src/utils.cc:506
 msgid "OK"
 msgstr "OK"
 
-#: ../src/gnome-cmd-dir-indicator.cc:404
+#: ../src/gnome-cmd-dir-indicator.cc:430
 msgid "Add current dir"
 msgstr "現在のディレクトリを追加"
 
-#: ../src/gnome-cmd-dir-indicator.cc:405
+#: ../src/gnome-cmd-dir-indicator.cc:431
 msgid "Manage bookmarks..."
 msgstr "ブックマークの編集..."
 
-#: ../src/gnome-cmd-dir.cc:536
+#: ../src/gnome-cmd-dir.cc:505
 msgid "Waiting for file list"
 msgstr "ファイルリストを待っています"
 
-#: ../src/gnome-cmd-file-list.cc:106
+#: ../src/gnome-cmd-file-list.cc:116
+msgid "name"
+msgstr "名前"
+
+#: ../src/gnome-cmd-file-list.cc:117
 msgid "ext"
 msgstr "拡張子"
 
-#: ../src/gnome-cmd-file-list.cc:107
+#: ../src/gnome-cmd-file-list.cc:118
 msgid "dir"
 msgstr "ディレクトリ"
 
-#: ../src/gnome-cmd-file-list.cc:108
+#: ../src/gnome-cmd-file-list.cc:119
 msgid "size"
 msgstr "サイズ"
 
-#: ../src/gnome-cmd-file-list.cc:109
+#: ../src/gnome-cmd-file-list.cc:120
 msgid "date"
 msgstr "日時"
 
-#: ../src/gnome-cmd-file-list.cc:110
+#: ../src/gnome-cmd-file-list.cc:121
 msgid "perm"
 msgstr "パーミッション"
 
-#: ../src/gnome-cmd-file-list.cc:111
+#: ../src/gnome-cmd-file-list.cc:122
 msgid "uid"
 msgstr "UID"
 
-#: ../src/gnome-cmd-file-list.cc:112
+#: ../src/gnome-cmd-file-list.cc:123
 msgid "gid"
 msgstr "GID"
 
-#: ../src/gnome-cmd-file-list.cc:1951 ../src/gnome-cmd-file-list.cc:1966
-#, c-format
-msgid "Not an ordinary file: %s"
+#: ../src/gnome-cmd-file-list.cc:212
+#, fuzzy
+#| msgid "Copy overwrite"
+msgid "/_Copy here"
+msgstr "コピーが上書きになるの時の動作"
+
+#: ../src/gnome-cmd-file-list.cc:213
+#, fuzzy
+#| msgid "Move overwrite"
+msgid "/_Move here"
+msgstr "移動が上書きになる時の動作"
+
+#: ../src/gnome-cmd-file-list.cc:214
+msgid "/_Link here"
+msgstr ""
+
+#: ../src/gnome-cmd-file-list.cc:216
+#, fuzzy
+#| msgid "Cancel"
+msgid "/C_ancel"
+msgstr "中止"
+
+#: ../src/gnome-cmd-file-list.cc:1394
+#, fuzzy
+msgid "Directory listing failed."
+msgstr "ディレクトリ名:"
+
+#: ../src/gnome-cmd-file-list.cc:1447
+#, fuzzy
+msgid "Failed to open connection."
+msgstr "%s への接続が開けませんでした\n"
+
+#: ../src/gnome-cmd-file-list.cc:2147 ../src/gnome-cmd-file-list.cc:2162
+#, fuzzy
+msgid "Not an ordinary file."
 msgstr "通常のファイルではありません: %s"
 
-#: ../src/gnome-cmd-file-popmenu.cc:113
+#: ../src/gnome-cmd-file-popmenu.cc:116
 msgid "Couldn't retrieve MIME type of the file."
-msgstr "ファイルのMIMEタイプが得られません."
+msgstr "ファイルのMIME 型が得られません."
 
-#: ../src/gnome-cmd-file-popmenu.cc:128
+#: ../src/gnome-cmd-file-popmenu.cc:131
 msgid "Invalid command"
 msgstr "不正なコマンド"
 
-#: ../src/gnome-cmd-file-popmenu.cc:152
+#: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Application:"
 msgstr "アプリケーション:"
 
-#: ../src/gnome-cmd-file-popmenu.cc:155
+#: ../src/gnome-cmd-file-popmenu.cc:158
 msgid "Open with other..."
 msgstr "別のもので開く..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:160
+#: ../src/gnome-cmd-file-popmenu.cc:163
 msgid "Needs terminal"
 msgstr "端末内で開く"
 
-#: ../src/gnome-cmd-file-popmenu.cc:399 ../src/gnome-cmd-file-popmenu.cc:408
-#: ../src/gnome-cmd-file-popmenu.cc:433
+#: ../src/gnome-cmd-file-popmenu.cc:402 ../src/gnome-cmd-file-popmenu.cc:411
+#: ../src/gnome-cmd-file-popmenu.cc:436
 msgid "_Open"
 msgstr "開く(_O)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:412
+#: ../src/gnome-cmd-file-popmenu.cc:415
 #, c-format
 msgid "_Open with \"%s\""
 msgstr "\"%s\" で開く(_O)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:434
-msgid "Open With..."
-msgstr "次で開く..."
+#: ../src/gnome-cmd-file-popmenu.cc:437
+msgid "Open Wit_h"
+msgstr "次で開く(_H)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:440
+#: ../src/gnome-cmd-file-popmenu.cc:443
 msgid "E_xecute"
-msgstr "実行(_x)"
+msgstr "実行(_X)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:549
+#: ../src/gnome-cmd-file-popmenu.cc:455 ../src/gnome-cmd-main-menu.cc:539
 msgid "Cu_t"
-msgstr "カット(_t)"
+msgstr "カット(_T)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:555
+#: ../src/gnome-cmd-file-popmenu.cc:456 ../src/gnome-cmd-main-menu.cc:545
 msgid "_Copy"
 msgstr "コピー(_C)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:567
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-user-actions.cc:155
+msgid "Copy file names"
+msgstr "ファイル名をコピー"
+
+#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-main-menu.cc:557
 msgid "_Delete"
 msgstr "削除(_D)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:456
+#: ../src/gnome-cmd-file-popmenu.cc:460
 msgid "Rename"
 msgstr "名前を変更"
 
 #. {file_run, "file.run"},
-#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1172
-#: ../src/gnome-cmd-user-actions.cc:170
+#: ../src/gnome-cmd-file-popmenu.cc:461 ../src/gnome-cmd-main-win.cc:1179
+#: ../src/gnome-cmd-user-actions.cc:180
 msgid "Send files"
 msgstr "ファイルを送る"
 
-#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-list-popmenu.cc:117
+#: ../src/gnome-cmd-file-popmenu.cc:462 ../src/gnome-cmd-list-popmenu.cc:117
 msgid "Open this _folder"
-msgstr "このフォルダを開く(_f)"
+msgstr "このフォルダを開く(_F)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:459 ../src/gnome-cmd-list-popmenu.cc:118
+#: ../src/gnome-cmd-file-popmenu.cc:463 ../src/gnome-cmd-list-popmenu.cc:118
 msgid "Open _terminal here"
-msgstr "この場所を端末で開く(_t)"
+msgstr "この場所を端末で開く(_T)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:461 ../src/gnome-cmd-main-menu.cc:463
+#: ../src/gnome-cmd-file-popmenu.cc:465 ../src/gnome-cmd-main-menu.cc:453
 msgid "_Properties..."
 msgstr "プロパティ(_P)..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:504
-msgid "Other..."
-msgstr "その他..."
+#: ../src/gnome-cmd-file-popmenu.cc:508
+msgid "Other _Application..."
+msgstr "他のアプリケーション(_A)..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:75 ../src/utils.cc:846
-#, c-format
-msgid "%s byte"
-msgid_plural "%s bytes"
-msgstr[0] "%s バイト"
-msgstr[1] "%s バイト"
-
-#: ../src/gnome-cmd-file-props-dialog.cc:202
-#: ../src/gnome-cmd-file-props-dialog.cc:423
+#: ../src/gnome-cmd-file-props-dialog.cc:191
+#: ../src/gnome-cmd-file-props-dialog.cc:468
 msgid "No default application registered"
 msgstr "デフォルトのアプリケーションは何も設定されていません"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:349
+#: ../src/gnome-cmd-file-props-dialog.cc:338
 msgid "Image:"
 msgstr "画像:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:376
-#: ../src/gnome-cmd-file-selector.cc:1745
+#: ../src/gnome-cmd-file-props-dialog.cc:365
+#: ../src/gnome-cmd-file-selector.cc:1123
 msgid "File name:"
 msgstr "ファイル名:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:387
+#: ../src/gnome-cmd-file-props-dialog.cc:376
 msgid "Symlink target:"
 msgstr "シンボリックリンク先:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:396
+#: ../src/gnome-cmd-file-props-dialog.cc:391
+msgid "Location:"
+msgstr "場所:"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:399
+msgid "Volume:"
+msgstr ""
+
+#: ../src/gnome-cmd-file-props-dialog.cc:429
+msgid "Free space:"
+msgstr ""
+
+#: ../src/gnome-cmd-file-props-dialog.cc:441
 msgid "Type:"
 msgstr "種類:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:403
+#: ../src/gnome-cmd-file-props-dialog.cc:448
 msgid "MIME Type:"
-msgstr "MIMEタイプ:"
+msgstr "MIME 型:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:412
+#: ../src/gnome-cmd-file-props-dialog.cc:457
 msgid "Opens with:"
 msgstr "次で開く:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:425
+#: ../src/gnome-cmd-file-props-dialog.cc:470
 msgid "_Change"
 msgstr "変更(_C)"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:437
+#: ../src/gnome-cmd-file-props-dialog.cc:481
 msgid "Modified:"
 msgstr "変更時刻:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:443
+#: ../src/gnome-cmd-file-props-dialog.cc:487
 msgid "Accessed:"
 msgstr "アクセス時刻:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:453
+#: ../src/gnome-cmd-file-props-dialog.cc:497
 msgid "Size:"
 msgstr "サイズ:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:498
+#: ../src/gnome-cmd-file-props-dialog.cc:542
 msgid "Owner and group"
 msgstr "所有者とグループ"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:508
+#: ../src/gnome-cmd-file-props-dialog.cc:552
 msgid "Access permissions"
 msgstr "パーミッション"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:594
-#: ../src/intviewer/viewer-window.cc:1457
+#: ../src/gnome-cmd-file-props-dialog.cc:638
+#: ../src/intviewer/viewer-window.cc:1450
 msgid "Type"
 msgstr "種類"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:595
-#: ../src/intviewer/viewer-window.cc:1458
+#: ../src/gnome-cmd-file-props-dialog.cc:639
+#: ../src/intviewer/viewer-window.cc:1451
 msgid "Metadata namespace"
 msgstr "メタデータの名前空間"
 
-#. col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
-#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
-#. g_object_set (renderer,
-#. "foreground-set", TRUE,
-#. "foreground", "DarkGray",
-#. NULL);
-#: ../src/gnome-cmd-file-props-dialog.cc:602
-#: ../src/gnome-cmd-remote-dialog.cc:378
-#: ../src/intviewer/viewer-window.cc:1465 ../src/plugin_manager.cc:411
-#: ../src/tags/gnome-cmd-tags.cc:321
-msgid "Name"
-msgstr "名前"
-
-#: ../src/gnome-cmd-file-props-dialog.cc:603
-#: ../src/intviewer/viewer-window.cc:1466
+#: ../src/gnome-cmd-file-props-dialog.cc:647
+#: ../src/intviewer/viewer-window.cc:1459
 msgid "Tag name"
 msgstr "タグ名"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:605
-#: ../src/intviewer/viewer-window.cc:1468
+#: ../src/gnome-cmd-file-props-dialog.cc:649
+#: ../src/intviewer/viewer-window.cc:1461
 msgid "Value"
 msgstr "値"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:606
-#: ../src/intviewer/viewer-window.cc:1469
+#: ../src/gnome-cmd-file-props-dialog.cc:650
+#: ../src/intviewer/viewer-window.cc:1462
 msgid "Tag value"
 msgstr "タグ名"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:608
-#: ../src/intviewer/viewer-window.cc:1471 ../src/tags/gnome-cmd-tags.cc:165
+#: ../src/gnome-cmd-file-props-dialog.cc:652
+#: ../src/intviewer/viewer-window.cc:1464 ../src/tags/gnome-cmd-tags.cc:165
 #: ../src/tags/gnome-cmd-tags.cc:316 ../src/tags/gnome-cmd-tags.cc:418
 #: ../src/tags/gnome-cmd-tags.cc:529
 msgid "Description"
 msgstr "説明"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:609
-#: ../src/intviewer/viewer-window.cc:1472
+#: ../src/gnome-cmd-file-props-dialog.cc:653
+#: ../src/intviewer/viewer-window.cc:1465
 msgid "Metadata tag description"
 msgstr "メタデータタグの説明"
 
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:664
+#: ../src/gnome-cmd-file-props-dialog.cc:708
 msgid "File Properties"
 msgstr "ファイルのプロパティ"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:687
-#: ../src/gnome-cmd-user-actions.cc:167
+#: ../src/gnome-cmd-file-props-dialog.cc:731
+#: ../src/gnome-cmd-user-actions.cc:177
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:688 ../src/tags/gnome-cmd-tags.cc:323
+#: ../src/gnome-cmd-file-props-dialog.cc:732 ../src/tags/gnome-cmd-tags.cc:323
 msgid "Permissions"
 msgstr "パーミッション"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:689
+#: ../src/gnome-cmd-file-props-dialog.cc:733
 msgid "Metadata"
 msgstr "メタデータ"
 
-#: ../src/gnome-cmd-file-selector.cc:213
+#: ../src/gnome-cmd-file-selector.cc:182
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
 msgstr[0] "%s/%skB (%d/%d個)の file"
-msgstr[1] "%s/%skB (%d/%d個)の file"
 
-#: ../src/gnome-cmd-file-selector.cc:217
+#: ../src/gnome-cmd-file-selector.cc:186
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] "%s, %d/%d個の directoryを選択"
-msgstr[1] "%s, %d/%d個の directoryを選択"
+msgstr[0] "%s, %d/%d個の ディレクトリを選択"
 
-#: ../src/gnome-cmd-file-selector.cc:629
+#: ../src/gnome-cmd-file-selector.cc:241
 #, c-format
 msgid "%s free"
 msgstr "%s 空き"
 
-#: ../src/gnome-cmd-file-selector.cc:633
-msgid "Unknown disk usage"
-msgstr "ディスク使用量が分かりません"
+#: ../src/gnome-cmd-file-selector.cc:627 ../src/gnome-cmd-file-selector.cc:702
+#: ../src/gnome-cmd-user-actions.cc:1669 ../src/gnome-cmd-user-actions.cc:1677
+msgid "The tab is locked, close anyway ?"
+msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1051
-#, c-format
-msgid "Listing failed: %s\n"
-msgstr "リスト作成に失敗しました: %s\n"
+#: ../src/gnome-cmd-file-selector.cc:645 ../src/gnome-cmd-main-menu.cc:613
+msgid "Open in New _Tab"
+msgstr "新しいタブで開く(_T)"
 
-#: ../src/gnome-cmd-file-selector.cc:1509
-#, c-format
-msgid "Failed to open connection: %s\n"
-msgstr "%s への接続が開けませんでした\n"
+#: ../src/gnome-cmd-file-selector.cc:652
+#, fuzzy
+msgid "_Unlock Tab"
+msgstr "タブを閉じる(_C)"
 
-#: ../src/gnome-cmd-file-selector.cc:1683
+#: ../src/gnome-cmd-file-selector.cc:652
+#, fuzzy
+msgid "_Lock Tab"
+msgstr "タブを閉じる(_C)"
+
+#: ../src/gnome-cmd-file-selector.cc:657
+#, fuzzy
+msgid "_Refresh Tab"
+msgstr "再読み込み(_R)"
+
+#: ../src/gnome-cmd-file-selector.cc:662
+msgid "Copy Tab to Other _Pane"
+msgstr ""
+
+#: ../src/gnome-cmd-file-selector.cc:668 ../src/gnome-cmd-main-menu.cc:619
+msgid "_Close Tab"
+msgstr "タブを閉じる(_C)"
+
+#: ../src/gnome-cmd-file-selector.cc:673 ../src/gnome-cmd-main-menu.cc:625
+#, fuzzy
+msgid "Close _All Tabs"
+msgstr "タブを閉じる(_C)"
+
+#: ../src/gnome-cmd-file-selector.cc:678
+#, fuzzy
+msgid "Close _Duplicate Tabs"
+msgstr "複製(_D)"
+
+#: ../src/gnome-cmd-file-selector.cc:1061
 #: ../src/gnome-cmd-make-copy-dialog.cc:67
 msgid "No file name entered"
 msgstr "ファイル名が入力されていません"
 
-#: ../src/gnome-cmd-file-selector.cc:1717
+#: ../src/gnome-cmd-file-selector.cc:1095
 msgid "No file name given"
 msgstr "ファイル名がありません"
 
-#: ../src/gnome-cmd-file-selector.cc:1748
+#: ../src/gnome-cmd-file-selector.cc:1126
 msgid "New Text File"
 msgstr "次のファイル名"
 
-#: ../src/gnome-cmd-file-selector.cc:1902
-msgid "Symlink name:"
+#: ../src/gnome-cmd-file-selector.cc:1260
+#, fuzzy
+msgid "Symbolic link name:"
 msgstr "シンボリック名:"
 
-#: ../src/gnome-cmd-file-selector.cc:1908
-#: ../src/gnome-cmd-file-selector.cc:1954 ../src/gnome-cmd-user-actions.cc:729
+#: ../src/gnome-cmd-file-selector.cc:1266
+#: ../src/gnome-cmd-file-selector.cc:1312 ../src/gnome-cmd-user-actions.cc:842
 msgid "Create Symbolic Link"
 msgstr "シンボリックリンクを作成"
 
-#: ../src/gnome-cmd-file-selector.cc:1954
-#: ../src/gnome-cmd-options-dialog.cc:636
-#: ../src/gnome-cmd-options-dialog.cc:656
+#: ../src/gnome-cmd-file-selector.cc:1312
+#: ../src/gnome-cmd-options-dialog.cc:929
+#: ../src/gnome-cmd-options-dialog.cc:949
 msgid "Skip all"
-msgstr "全てスキップ"
+msgstr "すべてスキップ"
 
-#: ../src/gnome-cmd-file-selector.cc:2025
+#: ../src/gnome-cmd-file-selector.cc:1383
 msgid "Filter:"
 msgstr "フィルター:"
 
-#: ../src/gnome-cmd-file.cc:629
+#: ../src/gnome-cmd-file.cc:590
 msgid "Unknown file type"
 msgstr "不明なファイルの種類"
 
-#: ../src/gnome-cmd-file.cc:630
+#: ../src/gnome-cmd-file.cc:591
 msgid "Regular file"
 msgstr "普通のファイル"
 
-#: ../src/gnome-cmd-file.cc:631 ../src/gnome-cmd-profile-component.cc:776
-msgid "Directory"
-msgstr "ディレクトリ"
-
-#: ../src/gnome-cmd-file.cc:632
+#: ../src/gnome-cmd-file.cc:593
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:633
+#: ../src/gnome-cmd-file.cc:594
 msgid "UNIX Socket"
 msgstr "ソケット"
 
-#: ../src/gnome-cmd-file.cc:634
+#: ../src/gnome-cmd-file.cc:595
 msgid "Character device"
 msgstr "キャラクタデバイス"
 
-#: ../src/gnome-cmd-file.cc:635
+#: ../src/gnome-cmd-file.cc:596
 msgid "Block device"
 msgstr "ブロックデバイス"
 
-#: ../src/gnome-cmd-file.cc:636
+#: ../src/gnome-cmd-file.cc:597
 msgid "Symbolic link"
 msgstr "シンボリックリンク"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:189
-msgid "Keyboard Shortcuts"
-msgstr "キーボードショートカット"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:215
-msgid ""
-"To edit a shortcut key, click on the corresponding row and type a new "
-"accelerator, or press escape to cancel."
-msgstr ""
-"ショートカットキーを編集するには,編集する列をクリックして新たなアクセレレータ"
-"をタイプしてください.ESCキーを押すと中止します."
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
-msgid "Shortcut Key"
-msgstr "ショートカットキー"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:345
-msgid "Keyboard shortcut for selected action"
-msgstr "選択された動作へのキーボードショートカット"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:352
-msgid "Action"
-msgstr "アクション"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:353
-msgid "User action"
-msgstr "ユーザーのアクション"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:360
-msgid "Optional data"
-msgstr "追加的なデータ"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:487
-#, c-format
-msgid "Shortcut \"%s\" is already taken by \"%s\"."
-msgstr "ショートカット\"%s\"は既に\"%s\"に使われています."
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
-msgid "_Reassign shortcut"
-msgstr "ショートカットの再割り当て(_R)"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
-msgid "Conflicting Shortcuts"
-msgstr "矛盾するショートカット"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
-#, c-format
-msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
-msgstr "ショートカットを再割り当てすると、\"%s\"から取り除かれます"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:550
-msgid "Invalid shortcut."
-msgstr "不正なショートカット"
-
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:627
-#: ../src/gnome-cmd-user-actions.cc:185
-msgid "Do nothing"
-msgstr "何もしない"
 
 #: ../src/gnome-cmd-list-popmenu.cc:107
 msgid "_Directory"
@@ -1191,465 +1681,473 @@ msgid "_Text File"
 msgstr "テキストファイル(_T)"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
-msgid "_New..."
+#, fuzzy
+msgid "_New"
 msgstr "新規作成(_N)..."
 
-#: ../src/gnome-cmd-list-popmenu.cc:115 ../src/gnome-cmd-main-menu.cc:561
+#: ../src/gnome-cmd-list-popmenu.cc:115 ../src/gnome-cmd-main-menu.cc:551
 msgid "_Paste"
 msgstr "ペースト(_P)"
 
-#: ../src/gnome-cmd-list-popmenu.cc:120 ../src/gnome-cmd-main-menu.cc:616
+#: ../src/gnome-cmd-list-popmenu.cc:120 ../src/gnome-cmd-main-menu.cc:606
 msgid "_Refresh"
 msgstr "再読み込み(_R)"
 
-#: ../src/gnome-cmd-main-menu.cc:374
+#: ../src/gnome-cmd-main-menu.cc:364
 msgid "Switch to Vertical Layout"
 msgstr "縦方向のレイアウトへ変える"
 
-#: ../src/gnome-cmd-main-menu.cc:380
+#: ../src/gnome-cmd-main-menu.cc:370
 msgid "Switch to Horizontal Layout"
 msgstr "水平方向のレイアウトへ変える"
 
-#: ../src/gnome-cmd-main-menu.cc:439
+#: ../src/gnome-cmd-main-menu.cc:429
 msgid "Change _Owner/Group"
 msgstr "所有者とグループを変更(_O)"
 
-#: ../src/gnome-cmd-main-menu.cc:445
+#: ../src/gnome-cmd-main-menu.cc:435
 msgid "Change Per_missions"
-msgstr "パーミッションを変更(_m)"
+msgstr "パーミッションを変更(_M)"
 
-#: ../src/gnome-cmd-main-menu.cc:451
+#: ../src/gnome-cmd-main-menu.cc:441
 msgid "Advanced _Rename Tool"
 msgstr "高度な名前変更ツール(_R)"
 
-#: ../src/gnome-cmd-main-menu.cc:457
+#: ../src/gnome-cmd-main-menu.cc:447
 msgid "Create _Symbolic Link"
-msgstr "シンポリックリンクを作成(_S)"
+msgstr "シンボリックリンクを作成(_S)"
 
-#: ../src/gnome-cmd-main-menu.cc:470
+#: ../src/gnome-cmd-main-menu.cc:460
 msgid "_Diff"
 msgstr "差分(_D)"
 
-#: ../src/gnome-cmd-main-menu.cc:476
+#: ../src/gnome-cmd-main-menu.cc:466
 msgid "S_ynchronize Directories"
-msgstr "ディレクトリを同期(_y)"
+msgstr "ディレクトリを同期(_Y)"
 
-#: ../src/gnome-cmd-main-menu.cc:483
+#: ../src/gnome-cmd-main-menu.cc:473
 msgid "Start _GNOME Commander as Root"
 msgstr "ルート権限でGNOME Commanderを起動(_G)"
 
-#: ../src/gnome-cmd-main-menu.cc:490
+#: ../src/gnome-cmd-main-menu.cc:480
 msgid "_Quit"
 msgstr "終了(_Q)"
 
-#: ../src/gnome-cmd-main-menu.cc:501
+#: ../src/gnome-cmd-main-menu.cc:491
 msgid "_Select All"
-msgstr "全てを選択(_S)"
+msgstr "すべてを選択(_S)"
 
-#: ../src/gnome-cmd-main-menu.cc:507
+#: ../src/gnome-cmd-main-menu.cc:497
 msgid "_Unselect All"
-msgstr "全てを非選択(_U)"
+msgstr "すべてを非選択(_U)"
 
-#: ../src/gnome-cmd-main-menu.cc:513
+#: ../src/gnome-cmd-main-menu.cc:503
 msgid "Select with _Pattern"
 msgstr "パターンで選択(_P)"
 
-#: ../src/gnome-cmd-main-menu.cc:519
+#: ../src/gnome-cmd-main-menu.cc:509
 msgid "Unselect with P_attern"
-msgstr "パターンで非選択(_a)"
+msgstr "パターンで非選択(_A)"
 
-#: ../src/gnome-cmd-main-menu.cc:525
+#: ../src/gnome-cmd-main-menu.cc:515
 msgid "_Invert Selection"
 msgstr "選択を反転(_I)"
 
-#: ../src/gnome-cmd-main-menu.cc:531
+#: ../src/gnome-cmd-main-menu.cc:521
 msgid "_Restore Selection"
 msgstr "選択を復元(_R)"
 
-#: ../src/gnome-cmd-main-menu.cc:538
+#: ../src/gnome-cmd-main-menu.cc:528
 msgid "_Compare Directories"
 msgstr "ディレクトリを比較(_C)"
 
-#: ../src/gnome-cmd-main-menu.cc:574
+#: ../src/gnome-cmd-main-menu.cc:564
 msgid "Copy _File Names"
 msgstr "ファイル名をコピー(_F)"
 
-#: ../src/gnome-cmd-main-menu.cc:581
+#: ../src/gnome-cmd-main-menu.cc:571
 msgid "_Search..."
 msgstr "検索(_S)..."
 
-#: ../src/gnome-cmd-main-menu.cc:587
+#: ../src/gnome-cmd-main-menu.cc:577
 msgid "_Quick Search..."
 msgstr "クィックサーチ(_Q)..."
 
-#: ../src/gnome-cmd-main-menu.cc:593
+#: ../src/gnome-cmd-main-menu.cc:583
 msgid "_Enable Filter..."
 msgstr "フィルターを有効にする(_E)..."
 
-#: ../src/gnome-cmd-main-menu.cc:604
+#: ../src/gnome-cmd-main-menu.cc:594
 msgid "_Back"
 msgstr "前へ(_B)"
 
-#: ../src/gnome-cmd-main-menu.cc:610
+#: ../src/gnome-cmd-main-menu.cc:600
 msgid "_Forward"
 msgstr "次へ(_F)"
 
-#: ../src/gnome-cmd-main-menu.cc:623
-msgid "Open in New _Tab"
-msgstr "新しいタブで開く(_T)"
-
-#: ../src/gnome-cmd-main-menu.cc:629
-msgid "_Close Tab"
-msgstr "タブを閉じる(_C)"
-
-#: ../src/gnome-cmd-main-menu.cc:636
+#: ../src/gnome-cmd-main-menu.cc:632
 msgid "Show Toolbar"
 msgstr "ツールバーを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:642
+#: ../src/gnome-cmd-main-menu.cc:638
 msgid "Show Device Buttons"
 msgstr "デバイスボタンを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:648
+#: ../src/gnome-cmd-main-menu.cc:644
 msgid "Show Device List"
 msgstr "デバイスリストを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:654
+#: ../src/gnome-cmd-main-menu.cc:650
 msgid "Show Command Line"
 msgstr "コマンドラインを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:660
+#: ../src/gnome-cmd-main-menu.cc:656
 msgid "Show Buttonbar"
 msgstr "ボタンバーを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:667
+#: ../src/gnome-cmd-main-menu.cc:663
 msgid "Show Hidden Files"
 msgstr "隠しファイルを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:673
+#: ../src/gnome-cmd-main-menu.cc:669
 msgid "Show Backup Files"
 msgstr "バックアップファイルを表示"
 
-#: ../src/gnome-cmd-main-menu.cc:680
+#: ../src/gnome-cmd-main-menu.cc:676
 msgid "_Equal Panel Size"
 msgstr "パネルの大きさを等しくする(_E)"
 
-#: ../src/gnome-cmd-main-menu.cc:691
+#: ../src/gnome-cmd-main-menu.cc:687
 msgid "_Bookmark this Directory..."
 msgstr "このディレクトリをブックマーク(_B)..."
 
-#: ../src/gnome-cmd-main-menu.cc:697
+#: ../src/gnome-cmd-main-menu.cc:693
 msgid "_Manage Bookmarks..."
 msgstr "ブックマークの編集(_M)..."
 
-#: ../src/gnome-cmd-main-menu.cc:709
+#: ../src/gnome-cmd-main-menu.cc:705
 msgid "_Configure Plugins..."
 msgstr "プラグインの設定(_C)..."
 
-#: ../src/gnome-cmd-main-menu.cc:721
+#: ../src/gnome-cmd-main-menu.cc:717
 msgid "_Options..."
 msgstr "オプション(_O)"
 
-#: ../src/gnome-cmd-main-menu.cc:727
+#: ../src/gnome-cmd-main-menu.cc:723
 msgid "_Keyboard Shortcuts..."
 msgstr "キーボード・ショートカット(_K)..."
 
-#: ../src/gnome-cmd-main-menu.cc:733
+#: ../src/gnome-cmd-main-menu.cc:729
 msgid "_MIME Types..."
-msgstr "_MIMEタイプ..."
+msgstr "_MIME 型..."
 
-#: ../src/gnome-cmd-main-menu.cc:744
+#: ../src/gnome-cmd-main-menu.cc:740
 msgid "_Remote Server..."
 msgstr "リモートサーバ(_R)..."
 
-#: ../src/gnome-cmd-main-menu.cc:750
+#: ../src/gnome-cmd-main-menu.cc:746
 msgid "New Connection..."
 msgstr "新規に接続..."
 
-#: ../src/gnome-cmd-main-menu.cc:761
+#: ../src/gnome-cmd-main-menu.cc:757
 msgid "_Contents"
 msgstr "内容(_C)"
 
-#: ../src/gnome-cmd-main-menu.cc:767 ../src/intviewer/viewer-window.cc:848
+#: ../src/gnome-cmd-main-menu.cc:763 ../src/intviewer/viewer-window.cc:841
 msgid "_Keyboard Shortcuts"
 msgstr "キーボード・ショートカット(_K)"
 
-#: ../src/gnome-cmd-main-menu.cc:773
+#: ../src/gnome-cmd-main-menu.cc:769
 msgid "GNOME Commander on the _Web"
 msgstr "Web上のヘルプを見る(_W)"
 
-#: ../src/gnome-cmd-main-menu.cc:779
+#: ../src/gnome-cmd-main-menu.cc:775
 msgid "Report a _Problem"
 msgstr "問題を報告(_P)"
 
-#: ../src/gnome-cmd-main-menu.cc:786 ../src/plugin_manager.cc:427
+#: ../src/gnome-cmd-main-menu.cc:782 ../src/plugin_manager.cc:420
 msgid "_About"
 msgstr "このプログラムについて(_A)"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:808 ../src/intviewer/viewer-window.cc:860
+#: ../src/gnome-cmd-main-menu.cc:804 ../src/intviewer/viewer-window.cc:853
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../src/gnome-cmd-main-menu.cc:812
+#: ../src/gnome-cmd-main-menu.cc:808
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../src/gnome-cmd-main-menu.cc:816
+#: ../src/gnome-cmd-main-menu.cc:812
 msgid "_Mark"
 msgstr "選択(_M)"
 
-#: ../src/gnome-cmd-main-menu.cc:820 ../src/intviewer/viewer-window.cc:863
+#: ../src/gnome-cmd-main-menu.cc:816 ../src/intviewer/viewer-window.cc:856
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../src/gnome-cmd-main-menu.cc:825 ../src/intviewer/viewer-window.cc:874
+#: ../src/gnome-cmd-main-menu.cc:821 ../src/intviewer/viewer-window.cc:867
 msgid "_Settings"
 msgstr "設定(_S)"
 
-#: ../src/gnome-cmd-main-menu.cc:829
+#: ../src/gnome-cmd-main-menu.cc:825
 msgid "_Connections"
 msgstr "接続(_C)"
 
-#: ../src/gnome-cmd-main-menu.cc:833
+#: ../src/gnome-cmd-main-menu.cc:829
 msgid "_Bookmarks"
 msgstr "ブックマーク(_B)"
 
-#: ../src/gnome-cmd-main-menu.cc:837
+#: ../src/gnome-cmd-main-menu.cc:833
 msgid "_Plugins"
 msgstr "プラグイン(_P)"
 
-#: ../src/gnome-cmd-main-menu.cc:841 ../src/intviewer/viewer-window.cc:879
+#: ../src/gnome-cmd-main-menu.cc:837 ../src/intviewer/viewer-window.cc:872
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../src/gnome-cmd-main-win.cc:429
+#: ../src/gnome-cmd-main-win.cc:422
 msgid "F3 View"
 msgstr "F3 表示"
 
-#: ../src/gnome-cmd-main-win.cc:431
+#: ../src/gnome-cmd-main-win.cc:424
 msgid "F4 Edit"
 msgstr "F4 編集"
 
-#: ../src/gnome-cmd-main-win.cc:433
+#: ../src/gnome-cmd-main-win.cc:426
 msgid "F5 Copy"
 msgstr "F5 コピー"
 
-#: ../src/gnome-cmd-main-win.cc:435
+#: ../src/gnome-cmd-main-win.cc:428
 msgid "F6 Move"
 msgstr "F6 移動"
 
-#: ../src/gnome-cmd-main-win.cc:437
+#: ../src/gnome-cmd-main-win.cc:430
 msgid "F7 Mkdir"
 msgstr "F7 ディレクトリ作成"
 
-#: ../src/gnome-cmd-main-win.cc:439
+#: ../src/gnome-cmd-main-win.cc:432
 msgid "F8 Delete"
 msgstr "F8 削除"
 
-#: ../src/gnome-cmd-main-win.cc:441
+#: ../src/gnome-cmd-main-win.cc:434
 msgid "F9 Search"
 msgstr "F9 検索"
 
-#: ../src/gnome-cmd-main-win.cc:443
-msgid "F10 Quit"
-msgstr "F10 終了"
-
-#: ../src/gnome-cmd-main-win.cc:775
+#: ../src/gnome-cmd-main-win.cc:760
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME Commander - ルート権限"
 
-#: ../src/gnome-cmd-main-win.cc:1158 ../src/gnome-cmd-user-actions.cc:203
+#: ../src/gnome-cmd-main-win.cc:1165 ../src/gnome-cmd-user-actions.cc:221
 msgid "Refresh"
 msgstr "再読み込み"
 
-#: ../src/gnome-cmd-main-win.cc:1159 ../src/gnome-cmd-user-actions.cc:208
+#: ../src/gnome-cmd-main-win.cc:1166 ../src/gnome-cmd-options-dialog.cc:94
+#: ../src/gnome-cmd-user-actions.cc:227
 msgid "Up one directory"
 msgstr "上のディレクトリへ"
 
-#: ../src/gnome-cmd-main-win.cc:1160
+#: ../src/gnome-cmd-main-win.cc:1167
 msgid "Go to the oldest"
 msgstr "最初へ"
 
-#: ../src/gnome-cmd-main-win.cc:1161
+#: ../src/gnome-cmd-main-win.cc:1168
 msgid "Go back"
 msgstr "前へ"
 
-#: ../src/gnome-cmd-main-win.cc:1162
+#: ../src/gnome-cmd-main-win.cc:1169
 msgid "Go forward"
 msgstr "次へ"
 
-#: ../src/gnome-cmd-main-win.cc:1163
+#: ../src/gnome-cmd-main-win.cc:1170
 msgid "Go to the latest"
 msgstr "最後へ"
 
-#: ../src/gnome-cmd-main-win.cc:1165
+#: ../src/gnome-cmd-main-win.cc:1172
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 "ファイル名をコピー (SHIFTキーを押すとフルパス名に、ALTキーを押すとURL名になり"
 "ます)"
 
-#: ../src/gnome-cmd-main-win.cc:1166 ../src/gnome-cmd-user-actions.cc:147
+#: ../src/gnome-cmd-main-win.cc:1173 ../src/gnome-cmd-user-actions.cc:156
 msgid "Cut"
 msgstr "切り取り"
 
-#: ../src/gnome-cmd-main-win.cc:1167
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:87
-#: ../src/gnome-cmd-user-actions.cc:145
+#: ../src/gnome-cmd-main-win.cc:1174
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:84
+#: ../src/gnome-cmd-user-actions.cc:154
 msgid "Copy"
 msgstr "コピー"
 
-#: ../src/gnome-cmd-main-win.cc:1168 ../src/gnome-cmd-user-actions.cc:150
+#: ../src/gnome-cmd-main-win.cc:1175 ../src/gnome-cmd-user-actions.cc:159
 msgid "Paste"
 msgstr "ペースト"
 
-#: ../src/gnome-cmd-main-win.cc:1171
+#: ../src/gnome-cmd-main-win.cc:1178
 msgid "Edit (SHIFT for new document)"
-msgstr "編集 (SHIFTキーを押すと新規ドキュメントを開きます）"
+msgstr "編集 (SHIFTキーを押すと新規ドキュメントを開きます)"
 
-#: ../src/gnome-cmd-main-win.cc:1173 ../src/gnome-cmd-user-actions.cc:140
-msgid "Open terminal"
-msgstr "端末を開く"
+#: ../src/gnome-cmd-main-win.cc:1180
+msgid "Open terminal (SHIFT for root privileges)"
+msgstr ""
 
-#: ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-main-win.cc:1183
 msgid "Drop connection"
 msgstr "接続を落とす"
 
-#: ../src/gnome-cmd-make-copy-dialog.cc:139
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:144
+#: ../src/gnome-cmd-make-copy-dialog.cc:137
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:139
 #, c-format
 msgid "Copy \"%s\" to"
 msgstr "\"%s\"を次の場所へコピー"
 
-#: ../src/gnome-cmd-make-copy-dialog.cc:146
+#: ../src/gnome-cmd-make-copy-dialog.cc:144
 msgid "Copy File"
 msgstr "ファイルをコピー"
 
-#: ../src/gnome-cmd-mkdir-dialog.cc:96
-msgid "A directory name must be entered"
-msgstr "ディレクトリ名を入力してください"
-
-#: ../src/gnome-cmd-mkdir-dialog.cc:195
-msgid "Directory name:"
-msgstr "ディレクトリ名:"
-
-#: ../src/gnome-cmd-mkdir-dialog.cc:203
-msgid "Make Directory"
-msgstr "ディレクトリを作成"
-
-#: ../src/gnome-cmd-options-dialog.cc:77
+#: ../src/gnome-cmd-options-dialog.cc:72
 msgid "Left mouse button"
 msgstr "マウスの左ボタンでの動作"
 
-#: ../src/gnome-cmd-options-dialog.cc:80
+#: ../src/gnome-cmd-options-dialog.cc:75
 msgid "Single click to open items"
-msgstr "シングルクイックでアイテムを開く"
+msgstr "シングルクリックでアイテムを開く"
+
+#: ../src/gnome-cmd-options-dialog.cc:79
+msgid "Double click to open items"
+msgstr "ダブルクリックでアイテムを開く"
 
 #: ../src/gnome-cmd-options-dialog.cc:84
-msgid "Double click to open items"
-msgstr "ダブルクイックでアイテムを開く"
-
-#: ../src/gnome-cmd-options-dialog.cc:89
 msgid "Single click unselects files"
-msgstr "シングルクイックでファイル選択を解除"
+msgstr "シングルクリックでファイル選択を解除"
 
-#: ../src/gnome-cmd-options-dialog.cc:96
+#: ../src/gnome-cmd-options-dialog.cc:91
+#, fuzzy
+msgid "Middle mouse button"
+msgstr "マウスの左ボタンでの動作"
+
+#: ../src/gnome-cmd-options-dialog.cc:98
+#, fuzzy
+msgid "Opens new tab"
+msgstr "新しいタブで開く"
+
+#: ../src/gnome-cmd-options-dialog.cc:106
 msgid "Right mouse button"
 msgstr "マウスの右ボタンでの動作"
 
-#: ../src/gnome-cmd-options-dialog.cc:99
+#: ../src/gnome-cmd-options-dialog.cc:109
 msgid "Shows popup menu"
 msgstr "ポップアップメニューを表示"
 
-#: ../src/gnome-cmd-options-dialog.cc:103
+#: ../src/gnome-cmd-options-dialog.cc:113
 msgid "Selects files"
 msgstr "ファイルを選択"
 
-#: ../src/gnome-cmd-options-dialog.cc:111
-msgid "Match file names using"
-msgstr "ファイル名のパターンマッチングに用いる文法"
-
-#: ../src/gnome-cmd-options-dialog.cc:114
-msgid "Shell syntax"
-msgstr "シェルの文法"
-
-#: ../src/gnome-cmd-options-dialog.cc:118
-msgid "Regex syntax"
-msgstr "正規表現の文法"
-
-#: ../src/gnome-cmd-options-dialog.cc:126
+#: ../src/gnome-cmd-options-dialog.cc:121
 msgid "Sorting options"
 msgstr "ソート方法のオプション"
 
-#: ../src/gnome-cmd-options-dialog.cc:129
-#: ../src/gnome-cmd-patternsel-dialog.cc:141
+#: ../src/gnome-cmd-options-dialog.cc:124
 msgid "Case sensitive"
 msgstr "大/小文字を区別"
 
-#: ../src/gnome-cmd-options-dialog.cc:136
-msgid "Quick search using"
-msgstr "クイックサーチを行うキー操作"
+#: ../src/gnome-cmd-options-dialog.cc:131 ../src/gnome-cmd-user-actions.cc:160
+msgid "Quick search"
+msgstr "クイックサーチ"
 
-#: ../src/gnome-cmd-options-dialog.cc:139
+#: ../src/gnome-cmd-options-dialog.cc:134
 msgid "CTRL+ALT+letters"
 msgstr "CTRL+ALT+文字列"
 
-#: ../src/gnome-cmd-options-dialog.cc:142
+#: ../src/gnome-cmd-options-dialog.cc:137
 msgid "ALT+letters (menu access with F10)"
 msgstr "ALT+文字列 (F10でメニューアクセス)"
 
-#: ../src/gnome-cmd-options-dialog.cc:216
+#: ../src/gnome-cmd-options-dialog.cc:141
+msgid "Match beginning of the file name"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:145
+#, fuzzy
+msgid "Match end of the file name"
+msgstr "ファイル名のパターンマッチングに用いる文法"
+
+#: ../src/gnome-cmd-options-dialog.cc:152
+msgid "Multiple instances"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:155
+msgid "Don't start a new instance"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:162
+msgid "Save on exit"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:165
+#: ../src/gnome-cmd-options-dialog.cc:1050
+msgid "Directories"
+msgstr "ディレクトリ"
+
+#: ../src/gnome-cmd-options-dialog.cc:169
+#: ../src/gnome-cmd-options-dialog.cc:2014
+msgid "Tabs"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:174
+#, fuzzy
+#| msgid "Directories only"
+msgid "Directory history"
+msgstr "ディレクトリのみ"
+
+#: ../src/gnome-cmd-options-dialog.cc:257
 msgid "Size display mode"
 msgstr "サイズの表示方法"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: ../src/gnome-cmd-options-dialog.cc:220
+#: ../src/gnome-cmd-options-dialog.cc:261
 msgid "Powered"
 msgstr "kB等の単位を用いる"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: ../src/gnome-cmd-options-dialog.cc:226
+#: ../src/gnome-cmd-options-dialog.cc:267
 msgid "<locale>"
 msgstr "ロケール依存"
 
-#: ../src/gnome-cmd-options-dialog.cc:231
+#: ../src/gnome-cmd-options-dialog.cc:272
 msgid "Grouped"
 msgstr "数値区切りを入れる"
 
-#: ../src/gnome-cmd-options-dialog.cc:236
+#: ../src/gnome-cmd-options-dialog.cc:277
 msgid "Plain"
 msgstr "単純表示"
 
-#: ../src/gnome-cmd-options-dialog.cc:244
+#: ../src/gnome-cmd-options-dialog.cc:285
 msgid "Permission display mode"
 msgstr "パーミッションの表示モード"
 
-#: ../src/gnome-cmd-options-dialog.cc:247
+#: ../src/gnome-cmd-options-dialog.cc:288
 msgid "Text (rw-r--r--)"
 msgstr "テキスト (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:252
+#: ../src/gnome-cmd-options-dialog.cc:293
 msgid "Number (644)"
 msgstr "数値 (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:260
+#: ../src/gnome-cmd-options-dialog.cc:301
 msgid "Date format"
 msgstr "日時のフォーマット"
 
-#: ../src/gnome-cmd-options-dialog.cc:263
+#: ../src/gnome-cmd-options-dialog.cc:304
 msgid "Format:"
 msgstr "フォーマット:"
 
-#: ../src/gnome-cmd-options-dialog.cc:272
-msgid "_Test"
-msgstr "テスト(_T)"
-
-#: ../src/gnome-cmd-options-dialog.cc:275
+#: ../src/gnome-cmd-options-dialog.cc:315
 msgid "Test result:"
 msgstr "テストの結果:"
 
-#: ../src/gnome-cmd-options-dialog.cc:284
+#: ../src/gnome-cmd-options-dialog.cc:322
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
@@ -1657,1144 +2155,952 @@ msgstr ""
 "文字列のフォーマットを設定する方法については、strftime(3)の man ページも参照"
 "してください."
 
-#: ../src/gnome-cmd-options-dialog.cc:369
+#: ../src/gnome-cmd-options-dialog.cc:406
 msgid "Edit Colors..."
 msgstr "色を編集..."
 
-#: ../src/gnome-cmd-options-dialog.cc:379
+#: ../src/gnome-cmd-options-dialog.cc:419
 msgid "Colors"
 msgstr "色"
 
-#: ../src/gnome-cmd-options-dialog.cc:410
+#: ../src/gnome-cmd-options-dialog.cc:450
 msgid "Foreground"
 msgstr "前面色"
 
-#: ../src/gnome-cmd-options-dialog.cc:412
+#: ../src/gnome-cmd-options-dialog.cc:452
 msgid "Background"
 msgstr "背景色"
 
-#: ../src/gnome-cmd-options-dialog.cc:414
+#: ../src/gnome-cmd-options-dialog.cc:454
 msgid "Default:"
 msgstr "デフォルト:"
 
-#: ../src/gnome-cmd-options-dialog.cc:416
+#: ../src/gnome-cmd-options-dialog.cc:456
 msgid "Alternate:"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:418
+#: ../src/gnome-cmd-options-dialog.cc:458
 msgid "Selected file:"
 msgstr "選択されたファイル:"
 
-#: ../src/gnome-cmd-options-dialog.cc:420
+#: ../src/gnome-cmd-options-dialog.cc:460
 msgid "Cursor:"
 msgstr "カーソル:"
 
-#: ../src/gnome-cmd-options-dialog.cc:436
+#: ../src/gnome-cmd-options-dialog.cc:541
+msgid "Edit LS_COLORS Palette"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:553
+msgid "Palette"
+msgstr "パレット"
+
+#: ../src/gnome-cmd-options-dialog.cc:608
+msgid "Foreground:"
+msgstr "文字色:"
+
+#: ../src/gnome-cmd-options-dialog.cc:610
+msgid "Background:"
+msgstr "背景色:"
+
+#: ../src/gnome-cmd-options-dialog.cc:612
+msgid "Black"
+msgstr "黒"
+
+#: ../src/gnome-cmd-options-dialog.cc:615
+msgid "Red"
+msgstr "赤"
+
+#: ../src/gnome-cmd-options-dialog.cc:618
+msgid "Green"
+msgstr "緑"
+
+#: ../src/gnome-cmd-options-dialog.cc:621
+msgid "Yellow"
+msgstr "黄"
+
+#: ../src/gnome-cmd-options-dialog.cc:624
+msgid "Blue"
+msgstr "青"
+
+#: ../src/gnome-cmd-options-dialog.cc:627
+msgid "Magenta"
+msgstr "マゼンタ"
+
+#: ../src/gnome-cmd-options-dialog.cc:630
+msgid "Cyan"
+msgstr "シアン"
+
+#: ../src/gnome-cmd-options-dialog.cc:633
+msgid "White"
+msgstr "白"
+
+#: ../src/gnome-cmd-options-dialog.cc:637
+msgid "_Reset"
+msgstr "リセット(_R)"
+
+#: ../src/gnome-cmd-options-dialog.cc:651
 msgid "With file name"
 msgstr "ファイル名とともに表示"
 
-#: ../src/gnome-cmd-options-dialog.cc:437
+#: ../src/gnome-cmd-options-dialog.cc:652
 msgid "In separate column"
 msgstr "別コラムに表示"
 
-#: ../src/gnome-cmd-options-dialog.cc:438
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "In both columns"
 msgstr "両方のコラムに表示"
 
-#: ../src/gnome-cmd-options-dialog.cc:442
+#: ../src/gnome-cmd-options-dialog.cc:657
 msgid "No icons"
 msgstr "アイコンなし"
 
-#: ../src/gnome-cmd-options-dialog.cc:443
+#: ../src/gnome-cmd-options-dialog.cc:658
 msgid "File type icons"
 msgstr "ファイルタイプのアイコン"
 
-#: ../src/gnome-cmd-options-dialog.cc:444
+#: ../src/gnome-cmd-options-dialog.cc:659
 msgid "MIME icons"
-msgstr "MIMEタイプのアイコン"
+msgstr "MIME 型のアイコン"
 
-#: ../src/gnome-cmd-options-dialog.cc:448
+#: ../src/gnome-cmd-options-dialog.cc:663
 msgid "Respect theme colors"
 msgstr "テーマ色を反映する"
 
-#: ../src/gnome-cmd-options-dialog.cc:449
+#: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Modern"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:450
+#: ../src/gnome-cmd-options-dialog.cc:665
 msgid "Fusion"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:451
+#: ../src/gnome-cmd-options-dialog.cc:666
 msgid "Classic"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:452
+#: ../src/gnome-cmd-options-dialog.cc:667
 msgid "Deep blue"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:453
+#: ../src/gnome-cmd-options-dialog.cc:668
 msgid "Cafezinho"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:454
+#: ../src/gnome-cmd-options-dialog.cc:669
+#, fuzzy
+#| msgid "Green"
+msgid "Green tiger"
+msgstr "緑"
+
+#: ../src/gnome-cmd-options-dialog.cc:670
 msgid "Custom"
 msgstr "独自に設定"
 
-#: ../src/gnome-cmd-options-dialog.cc:468
+#: ../src/gnome-cmd-options-dialog.cc:684
 msgid "File panes"
 msgstr "ファイルペイン"
 
-#: ../src/gnome-cmd-options-dialog.cc:478
+#: ../src/gnome-cmd-options-dialog.cc:694
 msgid "Font:"
 msgstr "フォント:"
 
-#: ../src/gnome-cmd-options-dialog.cc:480
+#: ../src/gnome-cmd-options-dialog.cc:696
 msgid "Row height:"
 msgstr "列の高さ"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.cc:484
+#: ../src/gnome-cmd-options-dialog.cc:700
 msgid "Display file extensions:"
 msgstr "拡張子の表示:"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.cc:492
+#: ../src/gnome-cmd-options-dialog.cc:708
 msgid "Graphical mode:"
 msgstr "グラフィカルモード:"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.cc:501
+#: ../src/gnome-cmd-options-dialog.cc:717
 msgid "Color scheme:"
 msgstr "色のスキーム:"
 
-#: ../src/gnome-cmd-options-dialog.cc:513
+#: ../src/gnome-cmd-options-dialog.cc:729
 msgid "Edit..."
 msgstr "編集..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.cc:520
+#: ../src/gnome-cmd-options-dialog.cc:736
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "環境変数LS_COLORSに従って色をつける"
 
-#: ../src/gnome-cmd-options-dialog.cc:527
+#: ../src/gnome-cmd-options-dialog.cc:744
+#, fuzzy
+msgid "Edit colors..."
+msgstr "色を編集..."
+
+#: ../src/gnome-cmd-options-dialog.cc:752
 msgid "MIME icon settings"
 msgstr "MIMEアイコンの設定"
 
-#: ../src/gnome-cmd-options-dialog.cc:540
+#: ../src/gnome-cmd-options-dialog.cc:765
 msgid "Icon size:"
 msgstr "アイコンのサイズ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:542
+#: ../src/gnome-cmd-options-dialog.cc:767
 msgid "Scaling quality:"
 msgstr "質のスケーリング:"
 
-#: ../src/gnome-cmd-options-dialog.cc:544
+#: ../src/gnome-cmd-options-dialog.cc:769
 msgid "Theme icon directory:"
 msgstr "テーマアイコンのディレクトリ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:546
+#: ../src/gnome-cmd-options-dialog.cc:771
 msgid "Document icon directory:"
 msgstr "ドキュメントアイコンのディレクトリ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:617
+#: ../src/gnome-cmd-options-dialog.cc:837
+msgid "Tab bar"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:840
+msgid "Always show the tab bar"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:847
+#, fuzzy
+msgid "Tab lock indicator"
+msgstr "前のディレクトリに戻る"
+
+#: ../src/gnome-cmd-options-dialog.cc:850
+#, fuzzy
+msgid "Lock icon"
+msgstr "アイコンなし"
+
+#: ../src/gnome-cmd-options-dialog.cc:855
+msgid "* (asterisk)"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:860
+msgid "Styled text"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:910
 msgid "Confirm before delete"
 msgstr "削除する前に確認する"
 
-#: ../src/gnome-cmd-options-dialog.cc:625
+#: ../src/gnome-cmd-options-dialog.cc:918
 msgid "Copy overwrite"
 msgstr "コピーが上書きになるの時の動作"
 
 #. Create prepare copy specific widgets
-#: ../src/gnome-cmd-options-dialog.cc:628
-#: ../src/gnome-cmd-options-dialog.cc:648
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:93
-#: ../src/gnome-cmd-prepare-move-dialog.cc:89
+#: ../src/gnome-cmd-options-dialog.cc:921
+#: ../src/gnome-cmd-options-dialog.cc:941
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:90
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Silently"
 msgstr "確認せずに行う"
 
-#: ../src/gnome-cmd-options-dialog.cc:632
-#: ../src/gnome-cmd-options-dialog.cc:652
+#: ../src/gnome-cmd-options-dialog.cc:925
+#: ../src/gnome-cmd-options-dialog.cc:945
 msgid "Query first"
 msgstr "初めに確認を行う"
 
-#: ../src/gnome-cmd-options-dialog.cc:645
+#: ../src/gnome-cmd-options-dialog.cc:938
 msgid "Move overwrite"
 msgstr "移動が上書きになる時の動作"
 
-#: ../src/gnome-cmd-options-dialog.cc:732
+#: ../src/gnome-cmd-options-dialog.cc:958
+#, fuzzy
+#| msgid "Owner and group"
+msgid "Drag and Drop"
+msgstr "所有者とグループ"
+
+#: ../src/gnome-cmd-options-dialog.cc:961
+#, fuzzy
+#| msgid "Confirmation"
+msgid "Confirm mouse operation"
+msgstr "確認方法"
+
+#: ../src/gnome-cmd-options-dialog.cc:1039
 msgid "Filetypes to hide"
 msgstr "表示を隠すファイルの種類"
 
-#: ../src/gnome-cmd-options-dialog.cc:735
+#: ../src/gnome-cmd-options-dialog.cc:1042
 msgid "Unknown"
 msgstr "ファイルタイプ不明"
 
-#: ../src/gnome-cmd-options-dialog.cc:739
+#: ../src/gnome-cmd-options-dialog.cc:1046
 msgid "Regular files"
 msgstr "通常のファイル"
 
-#: ../src/gnome-cmd-options-dialog.cc:743
-msgid "Directories"
-msgstr "ディレクトリ"
-
-#: ../src/gnome-cmd-options-dialog.cc:747
+#: ../src/gnome-cmd-options-dialog.cc:1054
 msgid "Fifo files"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-options-dialog.cc:751
+#: ../src/gnome-cmd-options-dialog.cc:1058
 msgid "Socket files"
 msgstr "ソケット"
 
-#: ../src/gnome-cmd-options-dialog.cc:755
+#: ../src/gnome-cmd-options-dialog.cc:1062
 msgid "Character devices"
 msgstr "キャラクタデバイス"
 
-#: ../src/gnome-cmd-options-dialog.cc:759
+#: ../src/gnome-cmd-options-dialog.cc:1066
 msgid "Block devices"
 msgstr "ブロックデバイス"
 
-#: ../src/gnome-cmd-options-dialog.cc:766
+#: ../src/gnome-cmd-options-dialog.cc:1073
 msgid "Also hide"
 msgstr "次のファイルも隠す"
 
-#: ../src/gnome-cmd-options-dialog.cc:769
+#: ../src/gnome-cmd-options-dialog.cc:1076
 msgid "Hidden files"
 msgstr "隠しファイル"
 
-#: ../src/gnome-cmd-options-dialog.cc:772
-#: ../src/gnome-cmd-options-dialog.cc:783
+#: ../src/gnome-cmd-options-dialog.cc:1079
+#: ../src/gnome-cmd-options-dialog.cc:1090
 msgid "Backup files"
 msgstr "バックアップファイル"
 
-#: ../src/gnome-cmd-options-dialog.cc:776
+#: ../src/gnome-cmd-options-dialog.cc:1083
 msgid "Symlinks"
 msgstr "シンボリックリンク"
 
-#: ../src/gnome-cmd-options-dialog.cc:879
-msgid "Authentication"
-msgstr "認証"
-
-#: ../src/gnome-cmd-options-dialog.cc:882
-msgid "Use GNOME Keyring Manager for authentication"
-msgstr "GNOME Keyring Managerを認証に用いる"
-
-#: ../src/gnome-cmd-options-dialog.cc:890
-msgid "Anonymous FTP access"
-msgstr "AnonymousでのFTP接続"
-
-#: ../src/gnome-cmd-options-dialog.cc:893
-msgid "Password:"
-msgstr "パスワード:"
-
-#: ../src/gnome-cmd-options-dialog.cc:1091
+#: ../src/gnome-cmd-options-dialog.cc:1337
 msgid "Label:"
 msgstr "ラベル:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1093
+#: ../src/gnome-cmd-options-dialog.cc:1339
 msgid "Command:"
 msgstr "コマンド:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1095
-#: ../src/gnome-cmd-options-dialog.cc:1503
+#: ../src/gnome-cmd-options-dialog.cc:1341
+#: ../src/gnome-cmd-options-dialog.cc:1742
 msgid "Icon:"
 msgstr "アイコン:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1116
+#: ../src/gnome-cmd-options-dialog.cc:1362
 msgid "Can handle multiple files"
-msgstr "複数のファイルを同時に（引数として）扱う"
+msgstr "複数のファイルを同時に(引数として)扱う"
 
-#: ../src/gnome-cmd-options-dialog.cc:1120
+#: ../src/gnome-cmd-options-dialog.cc:1366
 msgid "Can handle URIs"
-msgstr "URLも（引数として）扱う"
+msgstr "URLも(引数として)扱う"
 
-#: ../src/gnome-cmd-options-dialog.cc:1124
+#: ../src/gnome-cmd-options-dialog.cc:1370
 msgid "Requires terminal"
 msgstr "端末内で開く"
 
-#: ../src/gnome-cmd-options-dialog.cc:1131
+#: ../src/gnome-cmd-options-dialog.cc:1377
 msgid "Show for"
 msgstr "次のファイルを対象とする"
 
-#: ../src/gnome-cmd-options-dialog.cc:1140
+#: ../src/gnome-cmd-options-dialog.cc:1386
 msgid "All directories"
 msgstr "全ディレクトリ"
 
-#: ../src/gnome-cmd-options-dialog.cc:1146
+#: ../src/gnome-cmd-options-dialog.cc:1391
 msgid "All directories and files"
-msgstr "全てのディレクトリとファイル"
+msgstr "すべてのディレクトリとファイル"
 
-#: ../src/gnome-cmd-options-dialog.cc:1152
+#: ../src/gnome-cmd-options-dialog.cc:1396
 msgid "Some files"
 msgstr "次の種類のファイル"
 
-#: ../src/gnome-cmd-options-dialog.cc:1163
+#: ../src/gnome-cmd-options-dialog.cc:1405
 msgid "File patterns"
 msgstr "ファイルのパターン"
 
-#: ../src/gnome-cmd-options-dialog.cc:1185
+#: ../src/gnome-cmd-options-dialog.cc:1427
 msgid "New Application"
 msgstr "新規アプリケーション"
 
-#: ../src/gnome-cmd-options-dialog.cc:1195
+#: ../src/gnome-cmd-options-dialog.cc:1437
 msgid "Edit Application"
 msgstr "アプリケーションを編集"
 
-#: ../src/gnome-cmd-options-dialog.cc:1272
+#: ../src/gnome-cmd-options-dialog.cc:1514
 msgid "Always download remote files before opening in external programs"
 msgstr "外部プログラムで開く前に、必ずファイルをダウンロードする"
 
-#: ../src/gnome-cmd-options-dialog.cc:1274
+#: ../src/gnome-cmd-options-dialog.cc:1516
 msgid "MIME applications"
 msgstr "MIMEアプリケーション"
 
-#: ../src/gnome-cmd-options-dialog.cc:1278
+#: ../src/gnome-cmd-options-dialog.cc:1520
 msgid "Standard programs"
 msgstr "標準プログラム"
 
-#: ../src/gnome-cmd-options-dialog.cc:1281
+#: ../src/gnome-cmd-options-dialog.cc:1523
 msgid "Viewer:"
 msgstr "ビューア:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1283
+#: ../src/gnome-cmd-options-dialog.cc:1525
 msgid "Editor:"
 msgstr "エディタ:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1285
+#: ../src/gnome-cmd-options-dialog.cc:1527
 msgid "Differ:"
 msgstr "差分表示:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1287
+#: ../src/gnome-cmd-options-dialog.cc:1529
 msgid "Terminal:"
 msgstr "端末:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1293
+#: ../src/gnome-cmd-options-dialog.cc:1535
 msgid "Use Internal Viewer"
 msgstr "内部ビューアを用いる"
 
-#: ../src/gnome-cmd-options-dialog.cc:1308
+#: ../src/gnome-cmd-options-dialog.cc:1550
 msgid "Other favorite apps"
 msgstr "その他のアプリケーション"
 
-#: ../src/gnome-cmd-options-dialog.cc:1315
+#: ../src/gnome-cmd-options-dialog.cc:1557
 msgid "Label"
 msgstr "ラベル"
 
-#: ../src/gnome-cmd-options-dialog.cc:1497
+#: ../src/gnome-cmd-options-dialog.cc:1736
 msgid "Alias:"
 msgstr "エイリアス:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1499
+#: ../src/gnome-cmd-options-dialog.cc:1738
 msgid "Device:"
 msgstr "デバイス:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1501
+#: ../src/gnome-cmd-options-dialog.cc:1740
 msgid "Mount point:"
 msgstr "マウントポイント:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1544
+#: ../src/gnome-cmd-options-dialog.cc:1783
 msgid "New Device"
 msgstr "新規デバイス"
 
-#: ../src/gnome-cmd-options-dialog.cc:1557
+#: ../src/gnome-cmd-options-dialog.cc:1796
 msgid "Edit Device"
 msgstr "デバイスを編集"
 
-#: ../src/gnome-cmd-options-dialog.cc:1634
-#: ../src/gnome-cmd-options-dialog.cc:1827
+#: ../src/gnome-cmd-options-dialog.cc:1873
+#: ../src/gnome-cmd-options-dialog.cc:2018
 msgid "Devices"
 msgstr "デバイス"
 
-#: ../src/gnome-cmd-options-dialog.cc:1644
+#: ../src/gnome-cmd-options-dialog.cc:1883
 msgid "Alias"
 msgstr "エイリアス"
 
-#: ../src/gnome-cmd-options-dialog.cc:1674
+#: ../src/gnome-cmd-options-dialog.cc:1913
 msgid "Show only the icons"
 msgstr "アイコンのみを表示"
 
-#: ../src/gnome-cmd-options-dialog.cc:1678
+#: ../src/gnome-cmd-options-dialog.cc:1917
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "マウントをスキップ (super-mountを用いるとき便利です)"
 
-#: ../src/gnome-cmd-options-dialog.cc:1792
+#: ../src/gnome-cmd-options-dialog.cc:2011
 msgid "General"
 msgstr "一般"
 
-#: ../src/gnome-cmd-options-dialog.cc:1797 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-options-dialog.cc:2012 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Format"
 msgstr "フォーマット"
 
-#: ../src/gnome-cmd-options-dialog.cc:1802
+#: ../src/gnome-cmd-options-dialog.cc:2013
 msgid "Layout"
 msgstr "レイアウト"
 
-#: ../src/gnome-cmd-options-dialog.cc:1807
+#: ../src/gnome-cmd-options-dialog.cc:2015
 msgid "Confirmation"
 msgstr "確認方法"
 
-#: ../src/gnome-cmd-options-dialog.cc:1812
+#: ../src/gnome-cmd-options-dialog.cc:2016
 msgid "Filters"
 msgstr "フィルタ"
 
-#: ../src/gnome-cmd-options-dialog.cc:1817
-msgid "Network"
-msgstr "ネットワーク"
-
-#: ../src/gnome-cmd-options-dialog.cc:1822
+#: ../src/gnome-cmd-options-dialog.cc:2017
 msgid "Programs"
 msgstr "外部プログラム"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:124
+#: ../src/gnome-cmd-patternsel-dialog.cc:110
+msgid "_Pattern:"
+msgstr "パターン(_P):"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:112
+msgid "Case _sensitive"
+msgstr "大/小文字を区別(_S)"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
+msgid "She_ll syntax"
+msgstr "シェルの文法(_L)"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:126
+msgid "Rege_x syntax"
+msgstr "正規表現の文法(_X)"
+
+#: ../src/gnome-cmd-patternsel-dialog.cc:156
 msgid "Select Using Pattern"
 msgstr "次のパターンを選択"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:124
+#: ../src/gnome-cmd-patternsel-dialog.cc:156
 msgid "Unselect Using Pattern"
 msgstr "次のパターンを非選択"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:131
-msgid "Pattern:"
-msgstr "パターン:"
-
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:100
-#: ../src/gnome-cmd-prepare-move-dialog.cc:96
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:97
+#: ../src/gnome-cmd-prepare-move-dialog.cc:90
 msgid "Query First"
 msgstr "初めに確認する"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:107
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:104
+#: ../src/gnome-cmd-prepare-move-dialog.cc:97 ../src/gnome-cmd-xfer.cc:191
 msgid "Skip All"
-msgstr "全てスキップ"
+msgstr "すべてスキップ"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:117
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:114
 msgid "Follow Links"
 msgstr "リンクをたどる"
 
 #. Customize prepare xfer widgets
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:126
-#: ../src/gnome-cmd-prepare-move-dialog.cc:115
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:123
+#: ../src/gnome-cmd-prepare-move-dialog.cc:109
 msgid "Overwrite Files"
 msgstr "ファイルを上書きする"
 
-#: ../src/gnome-cmd-prepare-copy-dialog.cc:148
+#: ../src/gnome-cmd-prepare-copy-dialog.cc:143
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
 msgstr[0] "%d 個のファイルを次へコピー"
-msgstr[1] "%d 個のファイルを次へコピー"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:83
+#: ../src/gnome-cmd-prepare-move-dialog.cc:77
 msgid "Move"
 msgstr "移動"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:133
+#: ../src/gnome-cmd-prepare-move-dialog.cc:125
 #, c-format
 msgid "Move \"%s\" to"
 msgstr "\"%s\" を次へ移動"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:137
+#: ../src/gnome-cmd-prepare-move-dialog.cc:129
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
 msgstr[0] "%d 個のファイルを次へ移動"
-msgstr[1] "%d 個のファイルを次へ移動"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:149
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:189
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:147
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:187
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr "ディレクトリ'%s'は存在しません.作成しますか？"
-
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
-#: ../src/gnome-cmd-profile-component.cc:406
-#: ../src/gnome-cmd-profile-component.cc:596
-#: ../src/gnome-cmd-profile-component.cc:628 ../src/utils.cc:685
-msgid "No"
-msgstr "いいえ"
-
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:152
-#: ../src/gnome-cmd-profile-component.cc:406
-#: ../src/gnome-cmd-profile-component.cc:596
-#: ../src/gnome-cmd-profile-component.cc:628 ../src/utils.cc:685
-msgid "Yes"
-msgstr "はい"
-
-#: ../src/gnome-cmd-profile-component.cc:120
-msgid "/Grandparent"
-msgstr "/現在のディレクトリの親のディレクトリ名"
-
-#: ../src/gnome-cmd-profile-component.cc:121
-msgid "/Parent"
-msgstr "/ディレクトリ名"
-
-#: ../src/gnome-cmd-profile-component.cc:124
-msgid "/File name"
-msgstr "/ファイル名"
-
-#: ../src/gnome-cmd-profile-component.cc:125
-msgid "/File name without extension"
-msgstr "/拡張子を除いたファイル名"
-
-#: ../src/gnome-cmd-profile-component.cc:126
-msgid "/File extension"
-msgstr "/ファイル名"
-
-#: ../src/gnome-cmd-profile-component.cc:129
-msgid "/Counter"
-msgstr "/カウンタ"
-
-#: ../src/gnome-cmd-profile-component.cc:130
-msgid "/Counter (width)"
-msgstr "/カウンタ (長さ)"
-
-#: ../src/gnome-cmd-profile-component.cc:131
-msgid "/Hexadecimal random number (width)"
-msgstr "/16進数での乱数字 (長さ)"
-
-#: ../src/gnome-cmd-profile-component.cc:134
-msgid "/Date"
-msgstr "/日時"
-
-#: ../src/gnome-cmd-profile-component.cc:135
-msgid "/Date/<locale>"
-msgstr "/日時/<ロケール依存>"
-
-#: ../src/gnome-cmd-profile-component.cc:136
-msgid "/Date/yyyy-mm-dd"
-msgstr "/日時/yyyy-mm-dd"
-
-#: ../src/gnome-cmd-profile-component.cc:137
-msgid "/Date/yy-mm-dd"
-msgstr "/日時/yy-mm-dd"
-
-#: ../src/gnome-cmd-profile-component.cc:138
-msgid "/Date/yy.mm.dd"
-msgstr "/日時/yy.mm.dd"
-
-#: ../src/gnome-cmd-profile-component.cc:139
-msgid "/Date/yymmdd"
-msgstr "/日時/yymmdd"
-
-#: ../src/gnome-cmd-profile-component.cc:140
-msgid "/Date/dd.mm.yy"
-msgstr "/日時/dd.mm.yy"
-
-#: ../src/gnome-cmd-profile-component.cc:141
-msgid "/Date/mm-dd-yy"
-msgstr "/日時/mm-dd-yy"
-
-#: ../src/gnome-cmd-profile-component.cc:142
-msgid "/Date/yyyy"
-msgstr "/日時/yyyy"
-
-#: ../src/gnome-cmd-profile-component.cc:143
-msgid "/Date/yy"
-msgstr "/日時/yy"
-
-#: ../src/gnome-cmd-profile-component.cc:144
-msgid "/Date/mm"
-msgstr "/日時/mm"
-
-#: ../src/gnome-cmd-profile-component.cc:145
-msgid "/Date/mmm"
-msgstr "/日時/mmm"
-
-#: ../src/gnome-cmd-profile-component.cc:146
-msgid "/Date/dd"
-msgstr "/日時/dd"
-
-#: ../src/gnome-cmd-profile-component.cc:147
-msgid "/Time"
-msgstr "/時刻"
-
-#: ../src/gnome-cmd-profile-component.cc:148
-msgid "/Time/<locale>"
-msgstr "/時刻/<ロケール依存>"
-
-#: ../src/gnome-cmd-profile-component.cc:149
-msgid "/Time/HH.MM.SS"
-msgstr "/時刻/HH.MM.SS"
-
-#: ../src/gnome-cmd-profile-component.cc:150
-msgid "/Time/HH-MM-SS"
-msgstr "/時刻/HH-MM-SS"
-
-#: ../src/gnome-cmd-profile-component.cc:151
-msgid "/Time/HHMMSS"
-msgstr "/時刻/HHMMSS"
-
-#: ../src/gnome-cmd-profile-component.cc:152
-msgid "/Time/HH"
-msgstr "/時刻/HH"
-
-#: ../src/gnome-cmd-profile-component.cc:153
-msgid "/Time/MM"
-msgstr "/時刻/MM"
-
-#: ../src/gnome-cmd-profile-component.cc:154
-msgid "/Time/SS"
-msgstr "/時刻/SS"
-
-#: ../src/gnome-cmd-profile-component.cc:586
-msgid "Add Rule"
-msgstr "ルールを追加"
-
-#: ../src/gnome-cmd-profile-component.cc:621
-msgid "Edit Rule"
-msgstr "ルールを編集"
-
-#: ../src/gnome-cmd-profile-component.cc:748
-msgid "_Template"
-msgstr "テンプレート(_T)"
-
-#: ../src/gnome-cmd-profile-component.cc:777 ../src/plugin_manager.cc:413
-#: ../src/tags/gnome-cmd-tags.cc:687
-msgid "File"
-msgstr "ファイル"
-
-#: ../src/gnome-cmd-profile-component.cc:778
-#: ../src/gnome-cmd-profile-component.cc:790
-msgid "Counter"
-msgstr "カウンタ"
-
-#: ../src/gnome-cmd-profile-component.cc:780
-msgid "Metatag"
-msgstr "メタタグ"
-
-#: ../src/gnome-cmd-profile-component.cc:807
-msgid "_Start:"
-msgstr "スタート(_S):"
-
-#: ../src/gnome-cmd-profile-component.cc:814
-msgid "Ste_p:"
-msgstr "ステップ(_p):"
-
-#: ../src/gnome-cmd-profile-component.cc:821
-msgid "Di_gits:"
-msgstr "数字(_g):"
-
-#: ../src/gnome-cmd-profile-component.cc:832
-msgid "Regex replacing"
-msgstr "正規表現での置換"
-
-#: ../src/gnome-cmd-profile-component.cc:871
-msgid "Remove A_ll"
-msgstr "全て削除(_l)"
-
-#: ../src/gnome-cmd-profile-component.cc:884
-msgid "Case"
-msgstr "大/小文字"
-
-#: ../src/gnome-cmd-profile-component.cc:896
-msgid "<unchanged>"
-msgstr "<無変更>"
-
-#: ../src/gnome-cmd-profile-component.cc:897
-msgid "lowercase"
-msgstr "小文字"
-
-#: ../src/gnome-cmd-profile-component.cc:898
-msgid "UPPERCASE"
-msgstr "大文字"
-
-#: ../src/gnome-cmd-profile-component.cc:900
-msgid "Sentence case"
-msgstr "大/小文字を区別"
-
-#. FIXME
-#: ../src/gnome-cmd-profile-component.cc:901
-msgid "Initial Caps"
-msgstr "先頭を大文字"
-
-#. FIXME
-#: ../src/gnome-cmd-profile-component.cc:902
-msgid "tOGGLE cASE"
-msgstr "大/小文字をトグル"
-
-#: ../src/gnome-cmd-profile-component.cc:912
-msgid "Trim blanks"
-msgstr "空白のトリム"
-
-#: ../src/gnome-cmd-profile-component.cc:924
-msgid "<none>"
-msgstr "<なし>"
-
-#: ../src/gnome-cmd-profile-component.cc:925
-msgid "leading"
-msgstr "リーディング"
-
-#: ../src/gnome-cmd-profile-component.cc:926
-msgid "trailing"
-msgstr "トレーリング"
-
-#: ../src/gnome-cmd-profile-component.cc:927
-msgid "leading and trailing"
-msgstr "両方"
-
-#: ../src/gnome-cmd-profile-component.cc:1097
-msgid "Search for"
-msgstr "以下を検索:"
-
-#: ../src/gnome-cmd-profile-component.cc:1100
-msgid "Regex pattern"
-msgstr "正規表現のパターン"
-
-#: ../src/gnome-cmd-profile-component.cc:1102
-msgid "Replace with"
-msgstr "以下に置換"
-
-#: ../src/gnome-cmd-profile-component.cc:1105
-msgid "Replacement"
-msgstr "置換"
-
-#: ../src/gnome-cmd-profile-component.cc:1107
-msgid "Match case"
-msgstr "大/小文字を区別"
-
-#: ../src/gnome-cmd-profile-component.cc:1110
-msgid "Case sensitive matching"
-msgstr "大/小文字を区別"
+msgstr "ディレクトリ'%s'は存在しません.作成しますか?"
 
 #: ../src/gnome-cmd-python-plugin.cc:214
-msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
+#, fuzzy
+msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr "python モジュール 'gnomevfs' ('gnome.vfs')をロードできません\n"
 
-#: ../src/gnome-cmd-quicksearch-popup.cc:262
-#: ../src/gnome-cmd-user-actions.cc:152
+#: ../src/gnome-cmd-quicksearch-popup.cc:268
+#: ../src/gnome-cmd-user-actions.cc:161
 msgid "Search"
 msgstr "検索"
 
-#: ../src/gnome-cmd-remote-dialog.cc:213
-#, c-format
-msgid "No server selected"
-msgstr "サーバが何も選択されていません"
-
-#: ../src/gnome-cmd-remote-dialog.cc:364
-msgid "GNOME authentication manager usage"
-msgstr "GNOME認証マネージャの使い方"
-
-#: ../src/gnome-cmd-remote-dialog.cc:368
-msgid "Network protocol"
-msgstr "ネットワークプロトコル"
-
-#: ../src/gnome-cmd-remote-dialog.cc:379
-msgid "Connection name"
-msgstr "接続名"
-
-#: ../src/gnome-cmd-remote-dialog.cc:451
-msgid "Remote Connections"
-msgstr "リモート接続"
-
-#: ../src/gnome-cmd-remote-dialog.cc:457
-msgid "Connections"
-msgstr "接続"
-
-#: ../src/gnome-cmd-remote-dialog.cc:488
-msgid "Anonymous FTP password:"
-msgstr "AnonymousでのFTPのパスワード:"
-
-#: ../src/gnome-cmd-search-dialog.cc:39
-msgid "Search _recursively:"
-msgstr "再帰的に検索(_r):"
-
-#: ../src/gnome-cmd-search-dialog.cc:40
-msgid "_Unlimited depth"
-msgstr "深さを制限しない(_U)"
-
-#: ../src/gnome-cmd-search-dialog.cc:41
-msgid "Current _directory only"
-msgstr "現在のディレクトリのみ(_d)"
-
-#: ../src/gnome-cmd-search-dialog.cc:42
-msgid "_Limited depth"
-msgstr "深さを制限(_L)"
-
-#. N_("Search local directories only"),
-#: ../src/gnome-cmd-search-dialog.cc:44
-msgid "Files _not containing text"
-msgstr "テキストを含まないファイル(_n)"
-
-#: ../src/gnome-cmd-search-dialog.cc:161
-#, c-format
-msgid "Failed to open file %s: %s\n"
-msgstr "ファイル %sを開けませんでした: %s\n"
-
-#: ../src/gnome-cmd-search-dialog.cc:202
-#, c-format
-msgid "Failed to seek in file %s: %s\n"
-msgstr "ファイル %sの中を検索出来ませんでした: %s\n"
-
-#: ../src/gnome-cmd-search-dialog.cc:209
-#, c-format
-msgid "Failed to read from file %s: %s\n"
-msgstr "ファイル %sを読み込めませんでした: %s\n"
-
-#: ../src/gnome-cmd-search-dialog.cc:265
-#, c-format
-msgid "Searching in: %s"
-msgstr "%s の中を検索中"
-
-#: ../src/gnome-cmd-search-dialog.cc:403
-#, c-format
-msgid "Found %d match - search aborted"
-msgid_plural "Found %d matches - search aborted"
-msgstr[0] "%d 件一致しました - 検索は中断しました"
-msgstr[1] "%d 件一致しました - 検索は中断しました"
-
-#: ../src/gnome-cmd-search-dialog.cc:410
-#, c-format
-msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] "%d 件一致しました"
-msgstr[1] "%d 件一致しました"
-
-#: ../src/gnome-cmd-search-dialog.cc:805
-msgid "Search..."
-msgstr "検索..."
-
-#: ../src/gnome-cmd-search-dialog.cc:819
-msgid "Search _for: "
-msgstr "次の名前を検索(_f):"
-
-#: ../src/gnome-cmd-search-dialog.cc:831
-msgid "Search _in: "
-msgstr "次の場所を検索(_i):"
-
-#. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:846
-msgid "Search _recursively"
-msgstr "再帰的に検索(_r)"
-
-#. File name matching
-#: ../src/gnome-cmd-search-dialog.cc:852
-msgid "Rege_x syntax"
-msgstr "正規表現の文法(_x)"
-
-#: ../src/gnome-cmd-search-dialog.cc:856
-msgid "She_ll syntax"
-msgstr "シェルの文法(_l)"
-
-#. Find text
-#: ../src/gnome-cmd-search-dialog.cc:865
-msgid "Find _text: "
-msgstr "テキストを探す(_t):"
-
-#. Case check
-#: ../src/gnome-cmd-search-dialog.cc:878
-msgid "Case sensiti_ve"
-msgstr "大/小文字を区別(_v)"
-
-#: ../src/gnome-cmd-search-dialog.cc:886
-msgid "_Go to"
-msgstr "次へ移動(_G)"
-
-#: ../src/gnome-cmd-smb-auth.cc:35
-msgid "Enter password"
-msgstr "パスワードを入力"
-
-#: ../src/gnome-cmd-smb-auth.cc:36
-msgid ""
-"Problem: access not permitted\n"
-"\n"
-"please supply user credentials\n"
-"\n"
-"Remember: wrong credentials may lead to account locking"
+#: ../src/gnome-cmd-selection-profile-component.cc:117
+msgid "Name matches regex:"
 msgstr ""
-"問題が生じました: アクセスが許可されませんでした\n"
-"\n"
-"ユーザーの証明書を提供してください\n"
-"\n"
-"注意: 間違った証明書を提供すると, アカウントがロックされることがあります."
 
-#: ../src/gnome-cmd-smb-path.cc:323
+#: ../src/gnome-cmd-selection-profile-component.cc:118
+#, fuzzy
+msgid "Name contains:"
+msgstr "新規接続をする"
+
+#: ../src/gnome-cmd-selection-profile-component.cc:127
+#, fuzzy
+msgid "Unlimited depth"
+msgstr "深さを制限しない"
+
+#: ../src/gnome-cmd-selection-profile-component.cc:128
+#, fuzzy
+msgid "Current directory only"
+msgstr "現在のディレクトリのみ"
+
+#: ../src/gnome-cmd-selection-profile-component.cc:131
 #, c-format
-msgid "Can't find a host or workgroup named %s\n"
-msgstr "%s という名のホストまたはワークグループは見つかりませでした\n"
+msgid "%i level"
+msgid_plural "%i levels"
+msgstr[0] ""
 
-#: ../src/gnome-cmd-user-actions.cc:73
+#: ../src/gnome-cmd-selection-profile-component.cc:136
+msgid "Search _recursively:"
+msgstr "再帰的に検索(_R):"
+
+#. find text
+#: ../src/gnome-cmd-selection-profile-component.cc:141
+#, fuzzy
+msgid "Contains _text:"
+msgstr "テキストを探す(_T):"
+
+#. case check
+#: ../src/gnome-cmd-selection-profile-component.cc:152
+msgid "Case sensiti_ve"
+msgstr "大/小文字を区別(_V)"
+
+#: ../src/gnome-cmd-user-actions.cc:79
 msgid "No file selected"
 msgstr "ファイルが一つも選択されていません"
 
-#: ../src/gnome-cmd-user-actions.cc:135
+#: ../src/gnome-cmd-user-actions.cc:141
 msgid "Bookmark current directory"
 msgstr "現在のディレクトリをブックマーク"
 
-#: ../src/gnome-cmd-user-actions.cc:136
+#: ../src/gnome-cmd-user-actions.cc:142
 msgid "Manage bookmarks"
 msgstr "ブックマークを編集"
 
-#: ../src/gnome-cmd-user-actions.cc:137
+#: ../src/gnome-cmd-user-actions.cc:143
 msgid "Go to bookmarked location"
 msgstr "ブックマークした場所へ移動"
 
-#: ../src/gnome-cmd-user-actions.cc:138
+#: ../src/gnome-cmd-user-actions.cc:144
 msgid "Execute command"
 msgstr "コマンドを実行"
 
-#: ../src/gnome-cmd-user-actions.cc:139
+#: ../src/gnome-cmd-user-actions.cc:145
 msgid "Open folder"
 msgstr "フォルダを開く"
 
-#: ../src/gnome-cmd-user-actions.cc:141
+#: ../src/gnome-cmd-user-actions.cc:146
+msgid "Open terminal"
+msgstr "端末を開く"
+
+#: ../src/gnome-cmd-user-actions.cc:147
+#, fuzzy
+msgid "Open terminal as root"
+msgstr "端末を開く"
+
+#: ../src/gnome-cmd-user-actions.cc:148
 msgid "Start GNOME Commander as root"
 msgstr "ルート権限でGNOME Commanderを起動"
 
-#: ../src/gnome-cmd-user-actions.cc:142
+#: ../src/gnome-cmd-user-actions.cc:149
 msgid "Close connection"
 msgstr "接続を閉じる"
 
-#: ../src/gnome-cmd-user-actions.cc:143
+#: ../src/gnome-cmd-user-actions.cc:150
 msgid "New connection"
 msgstr "新規接続をする"
 
-#: ../src/gnome-cmd-user-actions.cc:144
+#: ../src/gnome-cmd-user-actions.cc:151
 msgid "Open connection"
 msgstr "接続を開く"
 
-#: ../src/gnome-cmd-user-actions.cc:146
-msgid "Copy file names"
-msgstr "ファイル名をコピー"
+#: ../src/gnome-cmd-user-actions.cc:152
+#, fuzzy
+msgid "Change left connection"
+msgstr "接続を閉じる"
 
-#: ../src/gnome-cmd-user-actions.cc:149
+#: ../src/gnome-cmd-user-actions.cc:153
+#, fuzzy
+msgid "Change right connection"
+msgstr "接続を閉じる"
+
+#: ../src/gnome-cmd-user-actions.cc:158
 msgid "Show user defined files"
 msgstr "ユーザーが設定したファイルを表示"
 
-#: ../src/gnome-cmd-user-actions.cc:151
-msgid "Quick search"
-msgstr "クイックサーチ"
-
-#: ../src/gnome-cmd-user-actions.cc:153
+#: ../src/gnome-cmd-user-actions.cc:162
 msgid "Advanced rename tool"
 msgstr "高度な名前変更ツール"
 
-#: ../src/gnome-cmd-user-actions.cc:154
+#: ../src/gnome-cmd-user-actions.cc:163
 msgid "Change permissions"
 msgstr "パーミッションを変更"
 
-#: ../src/gnome-cmd-user-actions.cc:155
+#: ../src/gnome-cmd-user-actions.cc:164
 msgid "Change owner/group"
 msgstr "所有者やグループを変更"
 
-#: ../src/gnome-cmd-user-actions.cc:156
+#: ../src/gnome-cmd-user-actions.cc:165
 msgid "Copy files"
 msgstr "ファイルをコピー"
 
-#: ../src/gnome-cmd-user-actions.cc:157
+#: ../src/gnome-cmd-user-actions.cc:166
+#, fuzzy
+msgid "Copy files with rename"
+msgstr "ファイル名をコピー"
+
+#: ../src/gnome-cmd-user-actions.cc:167
 msgid "Create symbolic link"
 msgstr "シンボリックリンクを作成"
 
-#: ../src/gnome-cmd-user-actions.cc:158
+#: ../src/gnome-cmd-user-actions.cc:168
 msgid "Delete files"
 msgstr "ファイルを削除"
 
-#: ../src/gnome-cmd-user-actions.cc:159
+#: ../src/gnome-cmd-user-actions.cc:169
 msgid "Compare files (diff)"
 msgstr "ファイルを比較 (diff)"
 
-#: ../src/gnome-cmd-user-actions.cc:160
+#: ../src/gnome-cmd-user-actions.cc:170
 msgid "Edit file"
 msgstr "ファイルを編集"
 
-#: ../src/gnome-cmd-user-actions.cc:161
+#: ../src/gnome-cmd-user-actions.cc:171
 msgid "Edit a new file"
 msgstr "新規ファイルを編集"
 
-#: ../src/gnome-cmd-user-actions.cc:162
+#: ../src/gnome-cmd-user-actions.cc:172
 msgid "Quit"
 msgstr "終了"
 
-#: ../src/gnome-cmd-user-actions.cc:163
+#: ../src/gnome-cmd-user-actions.cc:173
 msgid "View with external viewer"
 msgstr "外部ビューアで見る"
 
-#: ../src/gnome-cmd-user-actions.cc:164
+#: ../src/gnome-cmd-user-actions.cc:174
 msgid "View with internal viewer"
 msgstr "内部ビューアで見る"
 
-#: ../src/gnome-cmd-user-actions.cc:165
+#: ../src/gnome-cmd-user-actions.cc:175
 msgid "Create directory"
 msgstr "ディレクトリを作成"
 
-#: ../src/gnome-cmd-user-actions.cc:166
+#: ../src/gnome-cmd-user-actions.cc:176
 msgid "Move files"
 msgstr "ファイルを移動"
 
-#: ../src/gnome-cmd-user-actions.cc:168
+#: ../src/gnome-cmd-user-actions.cc:178
 msgid "Rename files"
 msgstr "ファイル名を変更"
 
-#: ../src/gnome-cmd-user-actions.cc:171
+#: ../src/gnome-cmd-user-actions.cc:181
 msgid "Synchronize directories"
 msgstr "ディレクトリを同期する"
 
-#: ../src/gnome-cmd-user-actions.cc:174
+#: ../src/gnome-cmd-user-actions.cc:184
 msgid "About GNOME Commander"
 msgstr "GNOME Commanderについて"
 
-#: ../src/gnome-cmd-user-actions.cc:175
+#: ../src/gnome-cmd-user-actions.cc:185
 msgid "Help contents"
 msgstr "内容のヘルプ"
 
-#: ../src/gnome-cmd-user-actions.cc:176
+#: ../src/gnome-cmd-user-actions.cc:186
 msgid "Help on keyboard shortcuts"
 msgstr "キーボードショートカットのヘルプ"
 
-#: ../src/gnome-cmd-user-actions.cc:177
+#: ../src/gnome-cmd-user-actions.cc:187
 msgid "Report a problem"
 msgstr "問題を報告する"
 
-#: ../src/gnome-cmd-user-actions.cc:178
+#: ../src/gnome-cmd-user-actions.cc:188
 msgid "GNOME Commander on the web"
 msgstr "Web上のヘルプを見る"
 
-#: ../src/gnome-cmd-user-actions.cc:179
+#: ../src/gnome-cmd-user-actions.cc:189
 msgid "Compare directories"
 msgstr "ディレクトリを比較"
 
-#: ../src/gnome-cmd-user-actions.cc:180
+#: ../src/gnome-cmd-user-actions.cc:190
 msgid "Invert selection"
 msgstr "選択を戻す"
 
-#: ../src/gnome-cmd-user-actions.cc:181
+#: ../src/gnome-cmd-user-actions.cc:191
 msgid "Select all"
-msgstr "全てを選択"
+msgstr "すべてを選択"
 
-#: ../src/gnome-cmd-user-actions.cc:182
+#: ../src/gnome-cmd-user-actions.cc:192
 msgid "Toggle selection"
 msgstr "トグル選択"
 
-#: ../src/gnome-cmd-user-actions.cc:183
+#: ../src/gnome-cmd-user-actions.cc:193
 msgid "Toggle selection and move cursor downward"
 msgstr "トグル選択して、カーソルを下に動かす"
 
-#: ../src/gnome-cmd-user-actions.cc:184
+#: ../src/gnome-cmd-user-actions.cc:194
 msgid "Unselect all"
-msgstr "全てを非選択"
+msgstr "すべてを非選択"
 
-#: ../src/gnome-cmd-user-actions.cc:187
+#: ../src/gnome-cmd-user-actions.cc:197
 msgid "MIME types"
-msgstr "MIMEタイプ"
+msgstr "MIME 型"
 
-#: ../src/gnome-cmd-user-actions.cc:188
+#: ../src/gnome-cmd-user-actions.cc:198
 msgid "Keyboard shortcuts"
 msgstr "キーボードショートカット"
 
-#: ../src/gnome-cmd-user-actions.cc:189
+#: ../src/gnome-cmd-user-actions.cc:199
 msgid "Configure plugins"
 msgstr "プラグインを設定"
 
-#: ../src/gnome-cmd-user-actions.cc:190
+#: ../src/gnome-cmd-user-actions.cc:200
 msgid "Execute python plugin"
 msgstr "pythonプラグインを実行"
 
-#: ../src/gnome-cmd-user-actions.cc:191
+#: ../src/gnome-cmd-user-actions.cc:201
 msgid "Back one directory"
 msgstr "前のディレクトリに戻る"
 
-#: ../src/gnome-cmd-user-actions.cc:192
+#: ../src/gnome-cmd-user-actions.cc:202
 msgid "Close the current tab"
 msgstr "現在のタブを閉じる"
 
-#: ../src/gnome-cmd-user-actions.cc:193
+#: ../src/gnome-cmd-user-actions.cc:203
+msgid "Close all tabs"
+msgstr "すべてのタブを閉じる"
+
+#: ../src/gnome-cmd-user-actions.cc:204
+msgid "Close duplicate tabs"
+msgstr ""
+
+#: ../src/gnome-cmd-user-actions.cc:205
+#, fuzzy
+#| msgid "Create directory"
+msgid "Change directory"
+msgstr "ディレクトリを作成"
+
+#: ../src/gnome-cmd-user-actions.cc:206
+#, fuzzy
+msgid "Show directory history"
+msgstr "ディレクトリのみ"
+
+#: ../src/gnome-cmd-user-actions.cc:207
 msgid "Equal panel size"
 msgstr "パネルのサイズを等しくする"
 
-#: ../src/gnome-cmd-user-actions.cc:194
+#: ../src/gnome-cmd-user-actions.cc:208
 msgid "Back to the first directory"
 msgstr "最初のディレクトリに戻る"
 
-#: ../src/gnome-cmd-user-actions.cc:195
+#: ../src/gnome-cmd-user-actions.cc:209
 msgid "Forward one directory"
 msgstr "次のディレクトリに進む"
 
-#: ../src/gnome-cmd-user-actions.cc:196
+#: ../src/gnome-cmd-user-actions.cc:210
 msgid "Home directory"
 msgstr "ホームディレクトリ"
 
-#: ../src/gnome-cmd-user-actions.cc:197
+#: ../src/gnome-cmd-user-actions.cc:211
 msgid "Open directory in the active window"
 msgstr "アクティブなウィンドウでディレクトリを開く"
 
-#: ../src/gnome-cmd-user-actions.cc:198
+#: ../src/gnome-cmd-user-actions.cc:212
 msgid "Open directory in the inactive window"
 msgstr "アクティブでないウィンドウでディレクトリを開く"
 
-#: ../src/gnome-cmd-user-actions.cc:199
+#: ../src/gnome-cmd-user-actions.cc:213
 msgid "Open directory in the left window"
 msgstr "左ウィンドウでディレクトリを開く"
 
-#: ../src/gnome-cmd-user-actions.cc:200
+#: ../src/gnome-cmd-user-actions.cc:214
 msgid "Open directory in the right window"
 msgstr "右ウィンドウでディレクトリを開く"
 
-#: ../src/gnome-cmd-user-actions.cc:201
+#: ../src/gnome-cmd-user-actions.cc:215
+#, fuzzy
+msgid "Open directory in the new tab"
+msgstr "新しいタブでディレクトリを開く"
+
+#: ../src/gnome-cmd-user-actions.cc:216
+#, fuzzy
+msgid "Open directory in the new tab (inactive window)"
+msgstr "アクティブでないウィンドウでディレクトリを開く"
+
+#: ../src/gnome-cmd-user-actions.cc:217
 msgid "Forward to the last directory"
 msgstr "最後のディレクトリに戻る"
 
-#: ../src/gnome-cmd-user-actions.cc:202
+#: ../src/gnome-cmd-user-actions.cc:218
+msgid "Next tab"
+msgstr ""
+
+#: ../src/gnome-cmd-user-actions.cc:219
 msgid "Open directory in a new tab"
 msgstr "新しいタブでディレクトリを開く"
 
-#: ../src/gnome-cmd-user-actions.cc:204
+#: ../src/gnome-cmd-user-actions.cc:220
+#, fuzzy
+msgid "Previous tab"
+msgstr "前を検索"
+
+#: ../src/gnome-cmd-user-actions.cc:222
 msgid "Root directory"
 msgstr "ルートディレクトリ"
 
-#: ../src/gnome-cmd-user-actions.cc:206
+#: ../src/gnome-cmd-user-actions.cc:223
+msgid "Lock/unlock tab"
+msgstr ""
+
+#: ../src/gnome-cmd-user-actions.cc:225
 msgid "Show terminal"
 msgstr "端末を開く"
 
-#: ../src/gnome-cmd-user-actions.cc:724
+#: ../src/gnome-cmd-user-actions.cc:837
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] "%i個のシンボリックリンクを %sに作成しますか？"
-msgstr[1] "%i個のシンボリックリンクを %sに作成しますか？"
+msgstr[0] "%i個のシンボリックリンクを %sに作成しますか?"
 
-#: ../src/gnome-cmd-user-actions.cc:729
+#: ../src/gnome-cmd-user-actions.cc:842
 msgid "Create"
 msgstr "作成"
 
-#: ../src/gnome-cmd-user-actions.cc:793 ../src/gnome-cmd-user-actions.cc:810
-#: ../src/gnome-cmd-user-actions.cc:850
+#: ../src/gnome-cmd-user-actions.cc:906 ../src/gnome-cmd-user-actions.cc:923
+#: ../src/gnome-cmd-user-actions.cc:962
 msgid "Operation not supported on remote file systems"
 msgstr "リモートのファイルシステム上の動作をサポートしていません"
 
-#: ../src/gnome-cmd-user-actions.cc:825
+#: ../src/gnome-cmd-user-actions.cc:938
 msgid "Too many selected files"
 msgstr "選択したファイルが多過ぎます"
 
-#: ../src/gnome-cmd-user-actions.cc:835 ../src/gnome-cmd-user-actions.cc:872
-#, c-format
-msgid "running `%s'\n"
-msgstr "%s を実行中\n"
+#: ../src/gnome-cmd-user-actions.cc:1186
+#, fuzzy
+msgid "Unable to execute command."
+msgstr "mountコマンドを実行出来ませんでした"
 
-#: ../src/gnome-cmd-user-actions.cc:1111
+#: ../src/gnome-cmd-user-actions.cc:1211
+#, fuzzy
+msgid "Unable to open terminal"
+msgstr "端末を開く"
+
+#: ../src/gnome-cmd-user-actions.cc:1231
+#, fuzzy
+msgid "Unable to open terminal in root mode."
+msgstr "ルート権限でGNOME Commanderを起動できません."
+
+#: ../src/gnome-cmd-user-actions.cc:1236
+#, fuzzy
+msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
+msgstr "gksu, kdesu または beesu が見つかりませんでした."
+
+#: ../src/gnome-cmd-user-actions.cc:1258
 msgid "Unable to start Nautilus."
 msgstr "Nautilusを起動できません."
 
-#: ../src/gnome-cmd-user-actions.cc:1141
-msgid "gksu, kdesu or beesu is not found."
-msgstr "gksu, kdesu または beesu が見つかりませんでした."
-
-#: ../src/gnome-cmd-user-actions.cc:1154
+#: ../src/gnome-cmd-user-actions.cc:1290
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "ルート権限でGNOME Commanderを起動できません."
 
-#: ../src/gnome-cmd-user-actions.cc:1573 ../src/gnome-cmd-user-actions.cc:1576
+#: ../src/gnome-cmd-user-actions.cc:1293
+#, fuzzy
+msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
+msgstr "gksu, kdesu または beesu が見つかりませんでした."
+
+#: ../src/gnome-cmd-user-actions.cc:1876
+msgid "Bookmarks"
+msgstr "ブックマーク"
+
+#: ../src/gnome-cmd-user-actions.cc:1978 ../src/gnome-cmd-user-actions.cc:1981
 msgid "There was an error opening home page."
 msgstr "ホームページを表示するときエラーが生じました."
 
-#: ../src/gnome-cmd-user-actions.cc:1587 ../src/gnome-cmd-user-actions.cc:1590
+#: ../src/gnome-cmd-user-actions.cc:1992 ../src/gnome-cmd-user-actions.cc:1995
 msgid "There was an error reporting problem."
 msgstr "問題を報告する時にエラーが生じました."
 
-#: ../src/gnome-cmd-user-actions.cc:1613
+#: ../src/gnome-cmd-user-actions.cc:2019
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOMEデスクトップ用の高速で強力なファイルマネージャ"
 
-#: ../src/gnome-cmd-user-actions.cc:1617
+#: ../src/gnome-cmd-user-actions.cc:2023
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2805,7 +3111,7 @@ msgstr ""
 "によって発行された GNU一般公衆利用許諾契約書(バージョン2,またはそれ以降のバー"
 "ジョン)の定める条件の下で再頒布または改変することができます."
 
-#: ../src/gnome-cmd-user-actions.cc:1621
+#: ../src/gnome-cmd-user-actions.cc:2027
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2816,7 +3122,7 @@ msgstr ""
 "業可能性の保証や特定の目的への適合性は,言外に示されたものも含め全く存在しませ"
 "ん.詳しくはGNU 一般公衆利用許諾契約書をご覧ください"
 
-#: ../src/gnome-cmd-user-actions.cc:1625
+#: ../src/gnome-cmd-user-actions.cc:2031
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2827,29 +3133,36 @@ msgstr ""
 "い(宛先は the Free Software Foundation, Inc., 51 Franklin Street, Fifth "
 "Floor, Boston, MA 02110-1301 USA)"
 
-#: ../src/gnome-cmd-user-actions.cc:1642
+#: ../src/gnome-cmd-user-actions.cc:2048
 msgid "translator-credits"
-msgstr "Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>"
+msgstr ""
+"Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>\n"
+"Takayoshi OKANO <kano@na.rim.or.jp>\n"
+"草野 貴之 <AE5T-KSN@asahi-net.or.jp>"
 
-#: ../src/gnome-cmd-xfer.cc:166
+#: ../src/gnome-cmd-xfer.cc:182
 #, c-format
 msgid ""
-"The file \"%s\" already exists.\n"
+"Overwrite file:\n"
 "\n"
-"Do you want to overwrite it?\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>\n"
+"\n"
+"With:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>"
 msgstr ""
-"ファイル\"%s\"は既に存在します.\n"
-"上書きしますか？\n"
 
-#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:191
 msgid "Replace"
 msgstr "上書きする"
 
-#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:191
 msgid "Replace All"
-msgstr "全て上書きする"
+msgstr "すべて上書きする"
 
-#: ../src/gnome-cmd-xfer.cc:186
+#: ../src/gnome-cmd-xfer.cc:205
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2860,32 +3173,35 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:208
 msgid "Transfer problem"
 msgstr "転送に問題"
 
-#: ../src/gnome-cmd-xfer.cc:228
+#: ../src/gnome-cmd-xfer.cc:247
 msgid "copying..."
 msgstr "コピー中..."
 
-#: ../src/gnome-cmd-xfer.cc:236
+#: ../src/gnome-cmd-xfer.cc:255
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[ファイル %ld / %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:386
-msgid ""
-"Copying a directory into itself is a bad idea.\n"
-"The whole operation was cancelled."
+#: ../src/gnome-cmd-xfer.cc:406
+#, fuzzy
+msgid "Copying a directory into itself is a bad idea."
 msgstr ""
 "ディレクトリをその内部にコピーすることはよくありません.\n"
-"この動作は全て中止されました."
+"この動作はすべて中止されました."
 
-#: ../src/gnome-cmd-xfer.cc:427
+#: ../src/gnome-cmd-xfer.cc:406
+msgid "The whole operation was cancelled."
+msgstr ""
+
+#: ../src/gnome-cmd-xfer.cc:447
 msgid "preparing..."
 msgstr "準備中..."
 
-#: ../src/gnome-cmd-xfer.cc:512
+#: ../src/gnome-cmd-xfer.cc:526
 msgid "downloading to /tmp"
 msgstr "/tmp以下にダウンロード"
 
@@ -2908,227 +3224,232 @@ msgid "%.0f%% copied"
 msgstr "%.0f%% コピーしました"
 
 #: ../src/imageloader.cc:110
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+#, fuzzy, c-format
+msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgstr ""
 "ファイルタイプのピクセルマップをインストールした場所から読み込めませんでし"
 "た. ソースディレクトリから読み込んでみます\n"
 
-#: ../src/imageloader.cc:111 ../src/imageloader.cc:137
-#, c-format
-msgid "Trying to load %s instead\n"
-msgstr "代わりに%sを呼び込んでみます\n"
-
-#: ../src/imageloader.cc:115 ../src/imageloader.cc:140
-#, c-format
+#: ../src/imageloader.cc:114 ../src/imageloader.cc:138
+#, fuzzy, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-%s/src directory\n"
+"is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "ピクセルマップが見つかりません.プログラムがインストールされている, もしくは "
 "gnome-commanderを gnome-commander-%s/src ディレクトリで実行していることを確認"
 "してください.\n"
 
-#: ../src/imageloader.cc:136
-msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+#: ../src/imageloader.cc:135
+#, fuzzy, c-format
+msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
 "インストールされたピクセルマップを読み込めませんでした, ソースディレクトリか"
 "ら読み込んでみます\n"
 
-#: ../src/intviewer/search-dlg.cc:245
+#: ../src/intviewer/search-dlg.cc:244
 msgid "Find"
 msgstr "検索"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:275 ../src/intviewer/viewer-window.cc:664
-#: ../src/intviewer/viewer-window.cc:866
+#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:657
+#: ../src/intviewer/viewer-window.cc:859
 msgid "_Text"
 msgstr "テキスト表示(_T)"
 
-#: ../src/intviewer/search-dlg.cc:276 ../src/intviewer/viewer-window.cc:672
+#: ../src/intviewer/search-dlg.cc:275 ../src/intviewer/viewer-window.cc:665
 msgid "_Hexadecimal"
 msgstr "16進表示(_H)"
 
-#: ../src/intviewer/search-progress-dlg.cc:77
+#. sdlg->priv->progress = 0;
+#: ../src/intviewer/search-progress-dlg.cc:75
 msgid "Searching..."
 msgstr "検索中..."
 
-#: ../src/intviewer/search-progress-dlg.cc:189
+#: ../src/intviewer/search-progress-dlg.cc:185
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "\"%s\"を検索中"
 
-#: ../src/intviewer/viewer-widget.cc:211
+#: ../src/intviewer/viewer-widget.cc:210
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "位置: %lu (%lu 中)\tコラム: %d\t%s"
 
-#: ../src/intviewer/viewer-widget.cc:215
+#: ../src/intviewer/viewer-widget.cc:214
 msgid "Wrap"
 msgstr "折り返す"
 
-#: ../src/intviewer/viewer-widget.cc:242
+#: ../src/intviewer/viewer-widget.cc:240
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "ピクセル"
-msgstr[1] "ピクセル"
 
-#: ../src/intviewer/viewer-widget.cc:244
+#: ../src/intviewer/viewer-widget.cc:242
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "ビット/サンプル"
-msgstr[1] "ビット/サンプル"
 
-#: ../src/intviewer/viewer-widget.cc:246
+#: ../src/intviewer/viewer-widget.cc:244
 msgid "(fit to window)"
-msgstr "（ウィンドウに合わせる）"
+msgstr "(ウィンドウに合わせる)"
 
-#: ../src/intviewer/viewer-window.cc:654
+#: ../src/intviewer/viewer-widget.cc:259
+#, fuzzy
+msgid "_Copy selection"
+msgstr "選択したテキストをコピー(_C)"
+
+#: ../src/intviewer/viewer-window.cc:647
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../src/intviewer/viewer-window.cc:668
+#: ../src/intviewer/viewer-window.cc:661
 msgid "_Binary"
 msgstr "バイナリモード(_B)"
 
-#: ../src/intviewer/viewer-window.cc:676 ../src/intviewer/viewer-window.cc:871
+#: ../src/intviewer/viewer-window.cc:669 ../src/intviewer/viewer-window.cc:864
 msgid "_Image"
 msgstr "画像(_I)"
 
-#: ../src/intviewer/viewer-window.cc:681
+#: ../src/intviewer/viewer-window.cc:674
 msgid "_Zoom In"
 msgstr "ズームイン(_Z)"
 
-#: ../src/intviewer/viewer-window.cc:685
+#: ../src/intviewer/viewer-window.cc:678
 msgid "Zoom _Out"
 msgstr "ズームアウト(_O)"
 
-#: ../src/intviewer/viewer-window.cc:689
+#: ../src/intviewer/viewer-window.cc:682
 msgid "_Normal Size"
 msgstr "通常のサイズ(_N)"
 
-#: ../src/intviewer/viewer-window.cc:693
+#: ../src/intviewer/viewer-window.cc:686
 msgid "Best _Fit"
 msgstr "ベストフィット(_F)"
 
-#: ../src/intviewer/viewer-window.cc:703
+#: ../src/intviewer/viewer-window.cc:696
 msgid "_Copy Text Selection"
 msgstr "選択したテキストをコピー(_C)"
 
-#: ../src/intviewer/viewer-window.cc:707
+#: ../src/intviewer/viewer-window.cc:700
 msgid "Find..."
 msgstr "検索..."
 
-#: ../src/intviewer/viewer-window.cc:711
+#: ../src/intviewer/viewer-window.cc:704
 msgid "Find Next"
 msgstr "次を検索"
 
-#: ../src/intviewer/viewer-window.cc:715
+#: ../src/intviewer/viewer-window.cc:708
 msgid "Find Previous"
 msgstr "前を検索"
 
-#: ../src/intviewer/viewer-window.cc:720
+#: ../src/intviewer/viewer-window.cc:713
 msgid "_Wrap lines"
 msgstr "行を折り返す(_W)"
 
-#: ../src/intviewer/viewer-window.cc:725
+#: ../src/intviewer/viewer-window.cc:718
 msgid "_Encoding"
 msgstr "エンコーディング(_E)"
 
-#: ../src/intviewer/viewer-window.cc:766
+#: ../src/intviewer/viewer-window.cc:759
 msgid "Show Metadata _Tags"
 msgstr ""
 
-#: ../src/intviewer/viewer-window.cc:772
+#: ../src/intviewer/viewer-window.cc:765
 msgid "_Rotate Clockwise"
 msgstr "右回りに回転(_R)"
 
-#: ../src/intviewer/viewer-window.cc:777
+#: ../src/intviewer/viewer-window.cc:770
 msgid "Rotate Counter Clockwis_e"
-msgstr "左回りに回転(_e)"
+msgstr "左回りに回転(_E)"
 
-#: ../src/intviewer/viewer-window.cc:782
+#: ../src/intviewer/viewer-window.cc:775
 msgid "_Rotate 180°"
 msgstr "180°回転(_R)"
 
-#: ../src/intviewer/viewer-window.cc:787
+#: ../src/intviewer/viewer-window.cc:780
 msgid "Flip _Vertical"
 msgstr "上下反転(_V)"
 
-#: ../src/intviewer/viewer-window.cc:792
+#: ../src/intviewer/viewer-window.cc:785
 msgid "Flip _Horizontal"
 msgstr "左右反転(_H)"
 
-#: ../src/intviewer/viewer-window.cc:802
+#: ../src/intviewer/viewer-window.cc:795
 msgid "_Binary Mode"
 msgstr "バイナリモード(_B)"
 
-#: ../src/intviewer/viewer-window.cc:808
+#: ../src/intviewer/viewer-window.cc:801
 msgid "_Hexadecimal Offset"
 msgstr "オフセットを16進表示(_H)"
 
-#: ../src/intviewer/viewer-window.cc:814
+#: ../src/intviewer/viewer-window.cc:807
 msgid "_Save Current Settings"
 msgstr "現在の設定を保存(_S)"
 
-#: ../src/intviewer/viewer-window.cc:824
+#: ../src/intviewer/viewer-window.cc:817
 msgid "_20 chars/line"
 msgstr "1行あたり _20文字"
 
-#: ../src/intviewer/viewer-window.cc:829
+#: ../src/intviewer/viewer-window.cc:822
 msgid "_40 chars/line"
 msgstr "1行あたり _40文字"
 
-#: ../src/intviewer/viewer-window.cc:834
+#: ../src/intviewer/viewer-window.cc:827
 msgid "_80 chars/line"
 msgstr "1行あたり _80文字"
 
-#: ../src/intviewer/viewer-window.cc:843
+#: ../src/intviewer/viewer-window.cc:836
 msgid "Quick _Help"
 msgstr "クイックヘルプ(_H)"
 
-#: ../src/intviewer/viewer-window.cc:1121
+#: ../src/intviewer/viewer-window.cc:1114
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "パターン\"%s\"は見つかりませんでした"
 
-#: ../src/main.cc:62 ../src/main.cc:71
+#: ../src/main.cc:66
 msgid "Specify debug flags to use"
 msgstr "利用するデバッグ用のフラグを選んでください"
 
-#: ../src/main.cc:63 ../src/main.cc:72
+#: ../src/main.cc:67
 msgid "Specify the start directory for the left pane"
 msgstr "左ペインでの開始ディレクトリを選んでください"
 
-#: ../src/main.cc:64 ../src/main.cc:73
+#: ../src/main.cc:68
 msgid "Specify the start directory for the right pane"
 msgstr "右ペインでの開始ディレクトリを選んでください"
 
-#: ../src/main.cc:112
+#: ../src/main.cc:69
+#, fuzzy
+msgid "Specify the directory for configuration files"
+msgstr "右ペインでの開始ディレクトリを選んでください"
+
+#: ../src/main.cc:124
 msgid "File Manager"
 msgstr "ファイルマネージャ"
 
-#: ../src/plugin_manager.cc:342
+#: ../src/plugin_manager.cc:336
 msgid "Disable"
 msgstr "無効にする"
 
-#: ../src/plugin_manager.cc:342
+#: ../src/plugin_manager.cc:336
 msgid "Enable"
 msgstr "有効にする"
 
-#: ../src/plugin_manager.cc:405
+#: ../src/plugin_manager.cc:398
 msgid "Available plugins"
 msgstr "利用可能なプラグイン"
 
-#: ../src/plugin_manager.cc:412
+#: ../src/plugin_manager.cc:405
 msgid "Version"
 msgstr "バージョン"
 
-#: ../src/plugin_manager.cc:418
+#: ../src/plugin_manager.cc:411
 msgid "_Enable"
 msgstr "有効にする(_E)"
 
-#: ../src/plugin_manager.cc:422
+#: ../src/plugin_manager.cc:415
 msgid "_Configure"
 msgstr "設定(_C)"
 
@@ -3988,7 +4309,7 @@ msgstr "画像が作成された日時"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "Date and Time (digitized)"
-msgstr "（デジタル化された）日時"
+msgstr "(デジタル化された)日時"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "The date and time when the image was stored as digital data."
@@ -3996,7 +4317,7 @@ msgstr "画像がデジタルデータとして保存された日時"
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid "Date and Time (original)"
-msgstr "（オリジナルの）日時"
+msgstr "(オリジナルの)日時"
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid ""
@@ -4118,8 +4439,8 @@ msgid ""
 "Indicates the image source. If a DSC recorded the image, this tag value of "
 "this tag always be set to 3, indicating that the image was recorded on a DSC."
 msgstr ""
-"画像のソースを示します. DSC（デジタルスティールカメラ）が画像を記録した場合"
-"は, このタグの値は 3になり, 画像が DSCで撮影されたことを示します."
+"画像のソースを示します. DSC(デジタルスティールカメラ)が画像を記録した場合は, "
+"このタグの値は 3になり, 画像が DSCで撮影されたことを示します."
 
 #: ../src/tags/gnome-cmd-tags.cc:226
 msgid "Fill Order"
@@ -4154,7 +4475,7 @@ msgstr "フラッシュピックスのバージョン"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid "The FlashPix format version supported by a FPXR file."
-msgstr "FPXRファイルがサポートしているFlasPix形式のバージョンを表します."
+msgstr "FPXRファイルがサポートしているFlashPix形式のバージョンを表します."
 
 #: ../src/tags/gnome-cmd-tags.cc:230 ../src/tags/gnome-cmd-tags.cc:422
 msgid "F Number"
@@ -4438,7 +4759,7 @@ msgid ""
 "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
 "is not used for primary image JPEG data."
 msgstr ""
-"JPEG形式のサムネイルが記録されいているバイト(SOI)へのオフセット値です. 最初の"
+"JPEG形式のサムネイルが記録されているバイト(SOI)へのオフセット値です. 最初の"
 "JPEG画像データには使われません."
 
 #: ../src/tags/gnome-cmd-tags.cc:258
@@ -4737,8 +5058,8 @@ msgid ""
 "The type of scene. If a DSC recorded the image, this tag value must always "
 "be set to 1, indicating that the image was directly photographed."
 msgstr ""
-"画像のソースを示します. DSC（デジタルスティールカメラ）が画像を記録した場合"
-"は, このタグの値は 3になり, 画像が DSCで撮影されたことを示します."
+"画像のソースを示します. DSC(デジタルスティールカメラ)が画像を記録した場合は, "
+"このタグの値は 3になり, 画像が DSCで撮影されたことを示します."
 
 #: ../src/tags/gnome-cmd-tags.cc:286
 msgid "Sensing Method"
@@ -5051,7 +5372,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid ""
 "MIME type of the file or if a directory it should contain value \"Folder\"."
-msgstr "ファイルのMIMEタイプ. ディレクトリの時は\"フォルダ\"となっています"
+msgstr "ファイルのMIME 型. ディレクトリの時は\"フォルダ\"となっています"
 
 #: ../src/tags/gnome-cmd-tags.cc:318
 msgid "Editable array of keywords."
@@ -5076,10 +5397,6 @@ msgstr "ファイルが最後に修正された時刻."
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "File name excluding path but including the file extension."
 msgstr "パス名を含めず拡張子名を含めた名前"
-
-#: ../src/tags/gnome-cmd-tags.cc:322
-msgid "Path"
-msgstr "パス名"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Full file path of file excluding the file name."
@@ -6886,11 +7203,11 @@ msgstr "ロシア語"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:140
 msgid "Croato-Serbian (Latin)"
-msgstr "クロアチア・セルビア語（ラテン文字）"
+msgstr "クロアチア・セルビア語(ラテン文字)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:142
 msgid "Serbo-Croatian (Cyrillic)"
-msgstr "セルビア・クロアチア語（キリル文字）"
+msgstr "セルビア・クロアチア語(キリル文字)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:144
 msgid "Slovak"
@@ -7028,50 +7345,46 @@ msgstr ""
 msgid "10-15ms"
 msgstr "10-15ms"
 
-#: ../src/utils.cc:446
-#, c-format
-msgid ""
-"No default application found for the MIME type %s.\n"
-"Open the \"File types and programs\" page in the Control Center to add one."
-msgstr ""
-"MIMEタイプ\"%s\"には、デフォルトのアプリケーションが設定されてありません.\n"
-"コントロールセンターの\"ファイルの種類とプログラム\"を開いて設定してください."
+#: ../src/utils.cc:425
+#, fuzzy, c-format
+msgid "No default application found for the MIME type %s."
+msgstr "デフォルトのアプリケーションは何も設定されていません"
 
-#: ../src/utils.cc:526
+#: ../src/utils.cc:503
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
 "\"%s\"は実行可能なバイナリのようですが,実行可能ビットがありません.実行可能"
-"ビットを立てて,このファイルを実行しますか？"
+"ビットを立てて,このファイルを実行しますか?"
 
-#: ../src/utils.cc:528
+#: ../src/utils.cc:505
 msgid "Make Executable?"
-msgstr "実行可能にしますか？"
+msgstr "実行可能にしますか?"
 
-#: ../src/utils.cc:555
+#: ../src/utils.cc:532
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 "\"%s\"は実行可能なテキストファイルです.これを実行しますか,それとも内容を表示"
-"しますか？"
+"しますか?"
 
-#: ../src/utils.cc:556
+#: ../src/utils.cc:533
 msgid "Run or Display"
 msgstr "実行または表示"
 
-#: ../src/utils.cc:557
+#: ../src/utils.cc:534
 msgid "Display"
 msgstr "表示"
 
-#: ../src/utils.cc:557
+#: ../src/utils.cc:534
 msgid "Run"
 msgstr "実行"
 
-#: ../src/utils.cc:600 ../src/utils.cc:682
+#: ../src/utils.cc:577 ../src/utils.cc:658
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -7081,38 +7394,158 @@ msgid_plural ""
 "to a temporary location and then open them?"
 msgstr[0] ""
 "%sには,リモートにあるファイルを開く方法が分かりません.ファイルを一時的な場所"
-"にダウンロードして開きますか？"
-msgstr[1] ""
-"%sには,リモートにあるファイルを開く方法が分かりません.ファイルを一時的な場所"
-"にダウンロードして開きますか？"
+"にダウンロードして開きますか?"
 
-#: ../src/utils.cc:1045
-#, c-format
-msgid ""
-"Failed to create a directory in which to store temporary files.\n"
-"Error message: %s\n"
+#: ../src/utils.cc:821
+#, fuzzy, c-format
+#| msgid "%s byte"
+#| msgid_plural "%s bytes"
+msgid "(%sbyte)"
+msgid_plural "(%sbytes)"
+msgstr[0] "%s バイト"
+
+#: ../src/utils.cc:824
+#, fuzzy, c-format
+#| msgid "%s byte"
+#| msgid_plural "%s bytes"
+msgid "%sbyte"
+msgid_plural "%sbytes"
+msgstr[0] "%s バイト"
+
+#: ../src/utils.cc:1007
+#, fuzzy
+msgid "Failed to create a directory in which to store temporary files."
 msgstr ""
 "一時ファイルを保存するディレクトリの作成に失敗しました.\n"
 "エラーメッセージ: %s\n"
 
-#: ../src/utils.cc:1241
+#: ../src/utils.cc:1201
 #, c-format
 msgid "Creating directory %s... "
 msgstr "ディレクトリ%sを作成中..."
 
-#: ../src/utils.cc:1244
+#: ../src/utils.cc:1204
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "ディレクトリ%sを作成出来ませんでした"
 
-#: ../src/utils.cc:1250
+#: ../src/utils.cc:1210
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "次のファイルはディレクトリ%sから読めませんでした: %s"
 
-#: ../src/utils.h:261
+#: ../src/utils.h:288
 msgid "There was an error displaying help."
 msgstr "ヘルプを表示するときエラーが生じました."
+
+#~ msgid "_Remote dir:"
+#~ msgstr "リモートディレクトリ(_R):"
+
+#~ msgid "Authentication"
+#~ msgstr "認証"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "GNOME Keyring Managerを認証に用いる"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "AnonymousでのFTP接続"
+
+#~ msgid "Password:"
+#~ msgstr "パスワード:"
+
+#~ msgid "Network"
+#~ msgstr "ネットワーク"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "GNOME認証マネージャの使い方"
+
+#, fuzzy
+#~ msgid "Failed to open file %s: %s"
+#~ msgstr "ファイル %sを開けませんでした: %s\n"
+
+#~ msgid "_Go to"
+#~ msgstr "次へ移動(_G)"
+
+#~ msgid "Enter password"
+#~ msgstr "パスワードを入力"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "問題が生じました: アクセスが許可されませんでした\n"
+#~ "\n"
+#~ "ユーザーの証明書を提供してください\n"
+#~ "\n"
+#~ "注意: 間違った証明書を提供すると, アカウントがロックされることがあります."
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "ファイル\"%s\"は既に存在します.\n"
+#~ "上書きしますか?\n"
+
+#~ msgid "Match file names using"
+#~ msgstr "ファイル名のパターンマッチングに用いる文法"
+
+#~ msgid "Shell syntax"
+#~ msgstr "シェルの文法"
+
+#~ msgid "Regex syntax"
+#~ msgstr "正規表現の文法"
+
+#~ msgid "_Limited depth"
+#~ msgstr "深さを制限(_L)"
+
+#~ msgid "Search _for: "
+#~ msgstr "次の名前を検索(_F):"
+
+#~ msgid "Search _in: "
+#~ msgstr "次の場所を検索(_I):"
+
+#~ msgid "Search _recursively"
+#~ msgstr "再帰的に検索(_R)"
+
+#~ msgid "path"
+#~ msgstr "パス名"
+
+#~ msgid "Other..."
+#~ msgstr "その他..."
+
+#~ msgid "Listing failed: %s\n"
+#~ msgstr "リスト作成に失敗しました: %s\n"
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 終了"
+
+#~ msgid "Quick search using"
+#~ msgstr "クイックサーチを行うキー操作"
+
+#~ msgid "_Test"
+#~ msgstr "テスト(_T)"
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "%s という名のホストまたはワークグループは見つかりませでした\n"
+
+#~ msgid "running `%s'\n"
+#~ msgstr "%s を実行中\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "代わりに%sを呼び込んでみます\n"
+
+#~ msgid ""
+#~ "No default application found for the MIME type %s.\n"
+#~ "Open the \"File types and programs\" page in the Control Center to add "
+#~ "one."
+#~ msgstr ""
+#~ "MIME 型\"%s\"には、デフォルトのアプリケーションが設定されてありません.\n"
+#~ "コントロールセンターの\"ファイルの種類とプログラム\"を開いて設定してくださ"
+#~ "い."
 
 #~ msgid "Invalid source pattern"
 #~ msgstr "不正なソースパターン"
@@ -7139,7 +7572,7 @@ msgstr "ヘルプを表示するときエラーが生じました."
 #~ msgstr "テンプレートが入力されたとき自動更新する"
 
 #~ msgid "O_ptions..."
-#~ msgstr "オプション(_p)..."
+#~ msgstr "オプション(_P)..."
 
 #~ msgid "With this"
 #~ msgstr "次へ置換"
@@ -7154,5 +7587,4 @@ msgstr "ヘルプを表示するときエラーが生じました."
 #~ msgstr "EXIF/IPTCの情報を表示(_S)"
 
 #~ msgid "_Decimal Offset in Hexdump"
-#~ msgstr "Hexdump時にオフセットを10進表示にする"
-
+#~ msgstr "Hexdump時にオフセットを10進表示にする(_D)"
