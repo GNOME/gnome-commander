@@ -437,7 +437,7 @@ static void xml_start(GMarkupParseContext *context,
                 gint sort = atoi(param2);
 
                 if (!dir.empty() && sort<GnomeCmdFileList::NUM_COLUMNS)
-                    cfg->tabs[xml_fs].push_back(make_pair(string(param1),make_triple((GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4,param5)));
+                    cfg->tabs[xml_fs].push_back(make_pair(dir,make_triple((GnomeCmdFileList::ColumnID) sort,(GtkSortType) param4,param5)));
             }
             break;
 
