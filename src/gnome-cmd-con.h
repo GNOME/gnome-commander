@@ -75,8 +75,10 @@ struct GnomeCmdCon
 
     enum Authentication
     {
+        SAVE_NEVER,
         SAVE_FOR_SESSION,
-        SAVE_PERMANENTLY
+        SAVE_PERMANENTLY,
+        NOT_REQUIRED
     };
 
     gchar               *alias;                 // coded as UTF-8
