@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-08 17:08+0000\n"
-"PO-Revision-Date: 2011-10-10 10:41+0200\n"
+"POT-Creation-Date: 2011-10-21 19:59+0000\n"
+"PO-Revision-Date: 2011-10-24 17:15+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -161,8 +161,9 @@ msgid "New colour theme: green tiger"
 msgstr "Nuevo tema de color: tigre verde"
 
 #: C/releases.xml:93(para)
-msgid "New or updated docs: cs, de, en, es, fr, sl"
-msgstr "Documentos nuevos o actualizados: cs, de, en, es, fr, sl"
+#| msgid "New or updated docs: cs, de, en, es, fr, sl"
+msgid "New or updated docs: cs, de, en, es, fr, ru, sl"
+msgstr "Documentos nuevos o actualizados: cs, de, en, es, fr, ru, sl"
 
 #: C/releases.xml:96(para)
 msgid ""
@@ -313,7 +314,6 @@ msgstr ""
 "Error nº 640387 corregido (uso de módulos de python obsoletos: md5, sha1)"
 
 #: C/releases.xml:196(para)
-#| msgid "Fixed problem with starting GNOME Commander as root"
 msgid "Fixed problem with starting &app; as root"
 msgstr "Corregido el error al iniciar &app; como root"
 
@@ -1227,7 +1227,6 @@ msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Corregido el error al abrir carpetas con el visor interno"
 
 #: C/releases.xml:867(para)
-#| msgid "Fixed problem with editing dirs by GNOME Commander"
 msgid "Fixed problem with editing dirs by &app;"
 msgstr "Corregido el error al editar carpetas con &app;"
 
@@ -1963,10 +1962,6 @@ msgid "2003-11-14"
 msgstr "2003-11-14"
 
 #: C/releases.xml:1404(para)
-#| msgid ""
-#| "Fixed a crash that happened when moving files on a machine with a snappy "
-#| "FAM installation. This lead to that GNOME Commander tried to remove the "
-#| "same file twice from a list"
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that &app; tried to remove the same file twice "
@@ -2322,7 +2317,6 @@ msgid "2001-08-02"
 msgstr "2001-08-02"
 
 #: C/releases.xml:1664(para)
-#| msgid "The first public version of GNOME Commander."
 msgid "The first public version of &app;."
 msgstr "La primera versión pública de &app;."
 
@@ -2446,9 +2440,6 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:999(None)
-#| msgid ""
-#| "@@image: 'figures/gnome-commander_dialog_search.png'; "
-#| "md5=3b24682936cbdd0f8e222528ec49a208"
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_search.png'; "
 "md5=5f84da5e59672f0260db3ebb3eb49120"
