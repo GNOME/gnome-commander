@@ -261,7 +261,8 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     gnome_cmd_con_ftp_set_host_name (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri);
-    con->auth = !password && con->method!=CON_ANON_FTP;          // ?????????
+    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED :
+                                            password ? GnomeCmdCon::SAVE_FOR_SESSION : GnomeCmdCon::SAVE_PERMANENTLY;
 
     g_free (path);
     gnome_vfs_uri_unref (uri);

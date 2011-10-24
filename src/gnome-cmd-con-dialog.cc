@@ -86,7 +86,7 @@ struct GnomeCmdConnectDialog::Private
     string *alias;
     string uri_str;
 
-    gboolean auth;
+    GnomeCmdCon::Authentication auth;
 
     GtkWidget *required_table;
     GtkWidget *optional_table;
@@ -113,7 +113,7 @@ inline GnomeCmdConnectDialog::Private::Private()
 {
     alias = NULL;
 
-    auth = FALSE;
+    auth = GnomeCmdCon::SAVE_PERMANENTLY;
 
     required_table = NULL;
     optional_table = NULL;
@@ -228,12 +228,13 @@ inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
         return FALSE;
     }
 
-    dialog->priv->auth = type!=CON_ANON_FTP && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check));
+    dialog->priv->auth = type==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED :
+                                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check)) ? GnomeCmdCon::SAVE_PERMANENTLY : GnomeCmdCon::SAVE_FOR_SESSION;
 
     if (type==CON_ANON_FTP)
         user = "anonymous";
 
-    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, dialog->priv->auth, uri, server, share, port, folder, domain, user, password);
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, dialog->priv->auth==GnomeCmdCon::SAVE_PERMANENTLY, uri, server, share, port, folder, domain, user, password);
 
     if (type==CON_URI && uri.empty())
     {
@@ -558,8 +559,8 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), CON_SSH);
 
-    dialog->priv->auth = FALSE;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), dialog->priv->auth);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), dialog->priv->auth==GnomeCmdCon::SAVE_PERMANENTLY);
+    dialog->priv->auth = GnomeCmdCon::SAVE_PERMANENTLY;
 
     gint response = gtk_dialog_run (*dialog);
 
@@ -598,7 +599,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
     // Use GNOME Keyring Manager for authentication
     dialog->priv->auth = con->auth;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->auth);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->auth==GnomeCmdCon::SAVE_PERMANENTLY);
 
     // Alias
     if (con->alias)

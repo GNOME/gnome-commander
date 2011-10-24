@@ -168,7 +168,7 @@ static void init (GnomeCmdCon *con)
     con->alias = NULL;
     con->uri = NULL;
     con->method = CON_URI;
-    con->auth = FALSE;
+    con->auth = GnomeCmdCon::NOT_REQUIRED;
 
     con->base_path = NULL;
     con->base_info = NULL;
