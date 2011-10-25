@@ -46,7 +46,7 @@ G_DEFINE_TYPE (GnomeCmdRemoteDialog, gnome_cmd_remote_dialog, GNOME_CMD_TYPE_DIA
 
 
 /******************************************************
-    The main ftp dialog
+    The main remote dialog
 ******************************************************/
 
 enum
@@ -75,7 +75,7 @@ inline gboolean tree_is_empty (GtkTreeView *tree_view)
 }
 
 
-inline GnomeCmdConFtp *get_selected_server (GnomeCmdRemoteDialog *dialog, GtkTreeIter *iter=NULL)
+inline GnomeCmdConRemote *get_selected_server (GnomeCmdRemoteDialog *dialog, GtkTreeIter *iter=NULL)
 {
     GtkTreeView *tree_view = GTK_TREE_VIEW (dialog->priv->connection_list);
     GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
@@ -84,7 +84,7 @@ inline GnomeCmdConFtp *get_selected_server (GnomeCmdRemoteDialog *dialog, GtkTre
     if (!iter)
         iter = &priv_iter;
 
-    GnomeCmdConFtp *server = NULL;
+    GnomeCmdConRemote *server = NULL;
 
     if (!gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, iter))
         return server;
@@ -95,7 +95,7 @@ inline GnomeCmdConFtp *get_selected_server (GnomeCmdRemoteDialog *dialog, GtkTre
 }
 
 
-inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *server)
+inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConRemote *server)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
@@ -110,7 +110,7 @@ inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *
 }
 
 
-static gboolean do_connect_real (GnomeCmdConFtp *server)
+static gboolean do_connect_real (GnomeCmdConRemote *server)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (server);
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
@@ -124,7 +124,7 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
 }
 
 
-inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConFtp *server)
+inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConRemote *server)
 {
     if (!server)
         server = get_selected_server (this);
@@ -142,9 +142,9 @@ inline void GnomeCmdRemoteDialog::do_connect(GnomeCmdConFtp *server)
 }
 
 
-static void on_connect_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
+static void on_connect_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *remote_dialog)
 {
-    ftp_dialog->do_connect();
+    remote_dialog->do_connect();
 }
 
 
@@ -160,15 +160,15 @@ static void on_help_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog
 }
 
 
-static void on_new_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
+static void on_new_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *remote_dialog)
 {
-    GnomeCmdConFtp *server = gnome_cmd_connect_dialog_new ();
+    GnomeCmdConRemote *server = gnome_cmd_connect_dialog_new ();
 
     if (!server)
         return;
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
-    GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list)));
+    GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (remote_dialog->priv->connection_list)));
     GtkTreeIter iter;
 
     gnome_cmd_con_list_get()->add(server);
@@ -177,17 +177,17 @@ static void on_new_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dia
 }
 
 
-static void on_edit_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
+static void on_edit_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *remote_dialog)
 {
     GtkTreeIter iter;
-    GnomeCmdConFtp *server = get_selected_server (ftp_dialog, &iter);
+    GnomeCmdConRemote *server = get_selected_server (remote_dialog, &iter);
 
     if (!server)        // exit as there is no server selected
         return;
 
     if (gnome_cmd_connect_dialog_edit (server))
     {
-        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
+        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (remote_dialog->priv->connection_list));
         set_server (GTK_LIST_STORE (model), &iter, server);
     }
 }
@@ -201,7 +201,7 @@ static void on_remove_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dial
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &iter))
     {
         GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
-        GnomeCmdConFtp *server = NULL;
+        GnomeCmdConRemote *server = NULL;
 
         gtk_tree_model_get (model, &iter, COL_FTP_CON, &server, -1);
         gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
@@ -326,7 +326,7 @@ inline GtkTreeModel *create_and_fill_model (GList *list)
         GnomeCmdCon *con = GNOME_CMD_CON (list->data);
 
         gtk_list_store_append (store, &iter);
-        set_server (store, &iter, GNOME_CMD_CON_FTP (list->data));
+        set_server (store, &iter, GNOME_CMD_CON_REMOTE (list->data));
     }
 
     GtkTreeSortable *sortable = GTK_TREE_SORTABLE (store);
@@ -440,7 +440,7 @@ static void gnome_cmd_remote_dialog_init (GnomeCmdRemoteDialog *dialog)
     sw = create_sw (*dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), sw, TRUE, TRUE, 0);
 
-    dialog->priv->connection_list = create_view_and_model (get_ftp_cons ());
+    dialog->priv->connection_list = create_view_and_model (get_remote_cons ());
     g_object_ref (dialog->priv->connection_list);
     g_object_set_data_full (*dialog, "connection_list", dialog->priv->connection_list, g_object_unref);
     gtk_widget_show (dialog->priv->connection_list);
@@ -507,7 +507,7 @@ GtkWidget *gnome_cmd_remote_dialog_new ()
 
 void show_quick_connect_dialog ()
 {
-    GnomeCmdConFtp *con = gnome_cmd_data.get_quick_connect();
+    GnomeCmdConRemote *con = gnome_cmd_data.get_quick_connect();
 
     if (gnome_cmd_connect_dialog_edit (con))
         do_connect_real (con);

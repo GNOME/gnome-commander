@@ -26,9 +26,9 @@
 #include <string>
 
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-con-ftp.h"
+#include "gnome-cmd-con-remote.h"
 
-GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias=TRUE);
-gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server);
+GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias=TRUE);
+gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server);
 
 #endif // __GNOME_CMD_CON_DIALOG_H__

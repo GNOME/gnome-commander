@@ -551,7 +551,7 @@ static void xml_start(GMarkupParseContext *context,
                     g_warning ("<Connections> duplicate entry: '%s' - ignored", param1);
                 else
                 {
-                    GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (param1, param2);
+                    GnomeCmdConRemote *server = gnome_cmd_con_remote_new (param1, param2);
 
                     if (server)
                         gnome_cmd_con_list_get()->add(server);

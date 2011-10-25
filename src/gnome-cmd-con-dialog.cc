@@ -546,7 +546,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 }
 
 
-GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
+GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 {
     GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
 
@@ -564,13 +564,13 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gint response = gtk_dialog_run (*dialog);
 
-    GnomeCmdConFtp *server = NULL;
+    GnomeCmdConRemote *server = NULL;
 
     if (response==GTK_RESPONSE_OK)
     {
         const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : NULL;
 
-        server = gnome_cmd_con_ftp_new (alias, dialog->priv->uri_str);
+        server = gnome_cmd_con_remote_new (alias, dialog->priv->uri_str);
 
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 
@@ -584,7 +584,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 }
 
 
-gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
+gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 {
     g_return_val_if_fail (server != NULL, FALSE);
 
@@ -684,7 +684,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
         con->auth = dialog->priv->auth;
 
-        gnome_cmd_con_ftp_set_host_name (server, host);
+        gnome_cmd_con_remote_set_host_name (server, host);
 
         gnome_vfs_uri_unref (uri);
     }

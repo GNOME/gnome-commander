@@ -126,7 +126,7 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 
     xml << XML::tag("Group") << XML::attr("name") << name;
 
-    if (GNOME_CMD_IS_CON_FTP (con))
+    if (GNOME_CMD_IS_CON_REMOTE (con))
         xml << XML::attr("remote") << TRUE;
 
     for (GList *i=bookmarks; i; i=i->next)
@@ -225,7 +225,7 @@ inline void save_fav_apps (const gchar *fname)
 
 inline gboolean load_connections (const gchar *fname)
 {
-    guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list));
+    guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list));
 
     gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE  *fd = fopen (path, "r");
@@ -236,7 +236,7 @@ inline gboolean load_connections (const gchar *fname)
 
         while (fgets (line, sizeof(line), fd) != NULL)
         {
-            GnomeCmdConFtp *server = NULL;
+            GnomeCmdConRemote *server = NULL;
 
             gchar *s = strchr (line, '\n');             // g_utf8_strchr (line, -1, '\n') ???
 
@@ -268,7 +268,7 @@ inline gboolean load_connections (const gchar *fname)
                             g_warning ("%s: ignored duplicate entry: %s", path, alias);
                         else
                         {
-                            server = gnome_cmd_con_ftp_new (alias, a[2]);
+                            server = gnome_cmd_con_remote_new (alias, a[2]);
 
                             if (!server)
                             {
@@ -309,13 +309,13 @@ inline gboolean load_connections (const gchar *fname)
 
     g_free (path);
 
-    if (!g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list)))
+    if (!g_list_length (gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list)))
     {
-        GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (_("GNOME Commander"), "ftp://anonymous@ftp.gnome.org/pub/GNOME/sources/gnome-commander/");
+        GnomeCmdConRemote *server = gnome_cmd_con_remote_new (_("GNOME Commander"), "ftp://anonymous@ftp.gnome.org/pub/GNOME/sources/gnome-commander/");
         gnome_cmd_data.priv->con_list->add(server);
     }
 
-    return fd!=NULL && g_list_length (gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list))>prev_ftp_cons_no;
+    return fd!=NULL && g_list_length (gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list))>prev_ftp_cons_no;
 }
 
 
@@ -1446,7 +1446,7 @@ void GnomeCmdData::load()
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
 
     gchar *quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
-    quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
+    quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
     // if number of registered user actions does not exceed 10 (nothing has been read), try to read old cfg file
@@ -1654,7 +1654,7 @@ void GnomeCmdData::save()
 
         xml << XML::tag("Connections");
 
-        for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
+        for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
         {
             GnomeCmdCon *con = GNOME_CMD_CON (i->data);
 
@@ -1669,7 +1669,7 @@ void GnomeCmdData::save()
         write (xml, priv->con_list->get_home(), "Home");
         write (xml, priv->con_list->get_smb(), "SMB");
 
-        for (GList *i=gnome_cmd_con_list_get_all_ftp (gnome_cmd_data.priv->con_list); i; i=i->next)
+        for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
         {
             GnomeCmdCon *con = GNOME_CMD_CON (i->data);
             write (xml, con, XML::escape(gnome_cmd_con_get_alias (con)));

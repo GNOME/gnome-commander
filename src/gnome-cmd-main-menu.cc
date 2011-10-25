@@ -909,7 +909,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     GtkMenuShell *connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
     GList *all_cons = gnome_cmd_con_list_get_all (con_list);
-    // GList *ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
+    // GList *remote_cons = gnome_cmd_con_list_get_all_remote (con_list);
     // GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
     // Remove all old items
@@ -926,7 +926,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     for (GList *tmp = all_cons; tmp; tmp = tmp->next)
     {
         GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
-        if (!GNOME_CMD_IS_CON_FTP (con) || gnome_cmd_con_is_open (con))
+        if (!GNOME_CMD_IS_CON_REMOTE (con) || gnome_cmd_con_is_open (con))
         {
             add_connection (main_menu, con,
                             gnome_cmd_con_get_go_text (con),

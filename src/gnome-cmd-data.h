@@ -34,7 +34,7 @@
 #include "dict.h"
 #include "tuple.h"
 
-struct GnomeCmdConFtp;
+struct GnomeCmdConRemote;
 
 struct GnomeCmdData
 {
@@ -174,7 +174,7 @@ struct GnomeCmdData
 
   private:
 
-    GnomeCmdConFtp              *quick_connect;
+    GnomeCmdConRemote           *quick_connect;
 
     gchar *viewer;
     gchar *editor;
@@ -277,7 +277,7 @@ struct GnomeCmdData
     void save();
 
     gboolean hide_type(GnomeVFSFileType type) const {  return filter_settings.file_types[type];  }
-    GnomeCmdConFtp *get_quick_connect() const       {  return quick_connect;                     }
+    GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 
     GnomeCmdFileList::ColumnID get_sort_col(FileSelectorID id) const;
     GtkSortType get_sort_direction(FileSelectorID id) const;

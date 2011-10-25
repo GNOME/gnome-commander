@@ -23,7 +23,7 @@
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-con-ftp.h"
+#include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-con-device.h"
 
 #define GNOME_CMD_TYPE_CON_LIST              (gnome_cmd_con_list_get_type ())
@@ -51,10 +51,10 @@ struct GnomeCmdConList
     void lock();
     void unlock();
 
-    void add(GnomeCmdConFtp *con);
+    void add(GnomeCmdConRemote *con);
     void add(GnomeCmdConDevice *con);
 
-    void remove(GnomeCmdConFtp *con);
+    void remove(GnomeCmdConRemote *con);
     void remove(GnomeCmdConDevice *con);
 
     GnomeCmdCon *find_alias(const gchar *alias) const;
@@ -86,11 +86,11 @@ inline GnomeCmdConList *gnome_cmd_con_list_get ()
     return (GnomeCmdConList *) gnome_cmd_data_get_con_list ();
 }
 
-void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
-void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
+void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
-GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);
+GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
@@ -106,9 +106,9 @@ inline GnomeCmdCon *get_smb_con ()
     return gnome_cmd_con_list_get()->get_smb();
 }
 
-inline GList *get_ftp_cons ()
+inline GList *get_remote_cons ()
 {
-    return gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ());
+    return gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ());
 }
 
 #endif // __GNOME_CMD_CON_LIST_H__

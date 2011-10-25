@@ -32,11 +32,11 @@ struct GnomeCmdConList::Private
 {
     gboolean update_lock;
     gboolean changed;
-    gboolean ftp_cons_changed;
+    gboolean remote_cons_changed;
     gboolean device_cons_changed;
     gboolean quick_ftp_cons_changed;
 
-    GList *ftp_cons;
+    GList *remote_cons;
     GList *device_cons;
     GList *quick_ftp_cons;
 
@@ -66,7 +66,7 @@ static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
-    if (GNOME_CMD_IS_CON_FTP (con))
+    if (GNOME_CMD_IS_CON_REMOTE (con))
         gtk_signal_emit (*con_list, signals[FTP_LIST_CHANGED]);
     else
         if (GNOME_CMD_IS_CON_DEVICE (con))
@@ -147,7 +147,7 @@ static void init (GnomeCmdConList *con_list)
     con_list->priv->home_con = gnome_cmd_con_home_new ();
     con_list->priv->smb_con = gnome_cmd_con_smb_new ();
 
-    // con_list->priv->ftp_cons = NULL;
+    // con_list->priv->remote_cons = NULL;
     // con_list->priv->device_cons = NULL;
     // con_list->priv->quick_ftp_cons = NULL;
     con_list->priv->all_cons = g_list_append (NULL, con_list->priv->home_con);
@@ -188,7 +188,7 @@ void GnomeCmdConList::lock()
 {
     priv->update_lock = TRUE;
     priv->changed = FALSE;
-    priv->ftp_cons_changed = FALSE;
+    priv->remote_cons_changed = FALSE;
     priv->device_cons_changed = FALSE;
 }
 
@@ -197,7 +197,7 @@ void GnomeCmdConList::unlock()
 {
     if (priv->changed)
         gtk_signal_emit (*this, signals[LIST_CHANGED]);
-    if (priv->ftp_cons_changed)
+    if (priv->remote_cons_changed)
         gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
     if (priv->device_cons_changed)
         gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
@@ -206,20 +206,20 @@ void GnomeCmdConList::unlock()
 }
 
 
-void GnomeCmdConList::add(GnomeCmdConFtp *con)
+void GnomeCmdConList::add(GnomeCmdConRemote *con)
 {
     g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
-    g_return_if_fail (g_list_index (priv->ftp_cons, con) == -1);
+    g_return_if_fail (g_list_index (priv->remote_cons, con) == -1);
 
     priv->all_cons = g_list_append (priv->all_cons, con);
-    priv->ftp_cons = g_list_append (priv->ftp_cons, con);
+    priv->remote_cons = g_list_append (priv->remote_cons, con);
 
     g_signal_connect (con, "updated", G_CALLBACK (on_con_updated), this);
 
     if (priv->update_lock)
     {
         priv->changed = TRUE;
-        priv->ftp_cons_changed = TRUE;
+        priv->remote_cons_changed = TRUE;
     }
     else
     {
@@ -229,20 +229,20 @@ void GnomeCmdConList::add(GnomeCmdConFtp *con)
 }
 
 
-void GnomeCmdConList::remove(GnomeCmdConFtp *con)
+void GnomeCmdConList::remove(GnomeCmdConRemote *con)
 {
     g_return_if_fail (g_list_index (priv->all_cons, con) != -1);
-    g_return_if_fail (g_list_index (priv->ftp_cons, con) != -1);
+    g_return_if_fail (g_list_index (priv->remote_cons, con) != -1);
 
     priv->all_cons = g_list_remove (priv->all_cons, con);
-    priv->ftp_cons = g_list_remove (priv->ftp_cons, con);
+    priv->remote_cons = g_list_remove (priv->remote_cons, con);
 
     g_signal_handlers_disconnect_by_func (con, (gpointer) on_con_updated, this);
 
     if (priv->update_lock)
     {
         priv->changed = TRUE;
-        priv->ftp_cons_changed = TRUE;
+        priv->remote_cons_changed = TRUE;
     }
     else
     {
@@ -252,16 +252,16 @@ void GnomeCmdConList::remove(GnomeCmdConFtp *con)
 }
 
 
-void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRemote *remote_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) == -1);
-    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, ftp_con) == -1);
+    g_return_if_fail (g_list_index (con_list->priv->all_cons, remote_con) == -1);
+    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, remote_con) == -1);
 
-    con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
-    con_list->priv->quick_ftp_cons = g_list_append (con_list->priv->quick_ftp_cons, ftp_con);
+    con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, remote_con);
+    con_list->priv->quick_ftp_cons = g_list_append (con_list->priv->quick_ftp_cons, remote_con);
 
-    g_signal_connect (ftp_con, "updated", G_CALLBACK (on_con_updated), con_list);
+    g_signal_connect (remote_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
     if (con_list->priv->update_lock)
     {
@@ -276,16 +276,16 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp
 }
 
 
-void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRemote *remote_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) != -1);
-    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, ftp_con) != -1);
+    g_return_if_fail (g_list_index (con_list->priv->all_cons, remote_con) != -1);
+    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, remote_con) != -1);
 
-    con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
-    con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, ftp_con);
+    con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, remote_con);
+    con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, remote_con);
 
-    g_signal_handlers_disconnect_by_func (ftp_con, (gpointer) on_con_updated, con_list);
+    g_signal_handlers_disconnect_by_func (remote_con, (gpointer) on_con_updated, con_list);
 
     if (con_list->priv->update_lock)
     {
@@ -352,11 +352,11 @@ GList *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 }
 
 
-GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *con_list)
+GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
 
-    return con_list->priv->ftp_cons;
+    return con_list->priv->remote_cons;
 }
 
 

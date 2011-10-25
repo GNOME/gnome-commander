@@ -33,13 +33,13 @@ gnome_commander_SOURCES = \
 	gnome-cmd-cmdline.h gnome-cmd-cmdline.cc \
 	gnome-cmd-collection.h \
 	gnome-cmd-combo.h gnome-cmd-combo.cc \
+	gnome-cmd-con.h gnome-cmd-con.cc \
 	gnome-cmd-con-device.h gnome-cmd-con-device.cc \
 	gnome-cmd-con-dialog.h gnome-cmd-con-dialog.cc \
-	gnome-cmd-con-ftp.h gnome-cmd-con-ftp.cc \
 	gnome-cmd-con-home.h gnome-cmd-con-home.cc \
 	gnome-cmd-con-list.h gnome-cmd-con-list.cc \
+	gnome-cmd-con-remote.h gnome-cmd-con-remote.cc \
 	gnome-cmd-con-smb.h gnome-cmd-con-smb.cc \
-	gnome-cmd-con.h gnome-cmd-con.cc \
 	gnome-cmd-convert.h gnome-cmd-convert.cc \
 	gnome-cmd-data.h gnome-cmd-data.cc \
 	gnome-cmd-delete-dialog.h gnome-cmd-delete-dialog.cc \

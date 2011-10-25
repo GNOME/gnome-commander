@@ -1009,7 +1009,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             case GDK_f:
             case GDK_F:
             {
-                GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ())->data);
+                GnomeCmdConRemote *con = GNOME_CMD_CON_REMOTE (gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ())->data);
 
                 fs(ACTIVE)->set_connection(GNOME_CMD_CON (con));
             }

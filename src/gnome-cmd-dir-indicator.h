@@ -21,7 +21,7 @@
 #define __GNOME_CMD_DIR_INDICATOR_H__
 
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-con-ftp.h"
+#include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-file-selector.h"
 

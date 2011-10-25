@@ -28,8 +28,8 @@ src/gnome-cmd-chown-dialog.cc
 src/gnome-cmd-con.h
 src/gnome-cmd-con-device.cc
 src/gnome-cmd-con-dialog.cc
-src/gnome-cmd-con-ftp.cc
 src/gnome-cmd-con-home.cc
+src/gnome-cmd-con-remote.cc
 src/gnome-cmd-con-smb.cc
 src/gnome-cmd-data.cc
 src/gnome-cmd-delete-dialog.cc

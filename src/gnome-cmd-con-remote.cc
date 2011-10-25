@@ -22,7 +22,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-con-ftp.h"
+#include "gnome-cmd-con-remote.h"
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
 #include "utils.h"
@@ -77,7 +77,7 @@ static gboolean start_get_file_info (GnomeCmdCon *con)
 }
 
 
-static void ftp_open (GnomeCmdCon *con)
+static void remote_open (GnomeCmdCon *con)
 {
     DEBUG('m', "Opening remote connection\n");
 
@@ -91,7 +91,7 @@ static void ftp_open (GnomeCmdCon *con)
 }
 
 
-static gboolean ftp_close (GnomeCmdCon *con)
+static gboolean remote_close (GnomeCmdCon *con)
 {
     gnome_cmd_con_set_default_dir (con, NULL);
     delete con->base_path;
@@ -103,20 +103,20 @@ static gboolean ftp_close (GnomeCmdCon *con)
 }
 
 
-static void ftp_cancel_open (GnomeCmdCon *con)
+static void remote_cancel_open (GnomeCmdCon *con)
 {
     DEBUG('m', "Setting state CANCELLING\n");
     con->state = GnomeCmdCon::STATE_CANCELLING;
 }
 
 
-static gboolean ftp_open_is_needed (GnomeCmdCon *con)
+static gboolean remote_open_is_needed (GnomeCmdCon *con)
 {
     return TRUE;
 }
 
 
-static GnomeVFSURI *ftp_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
+static GnomeVFSURI *remote_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     g_return_val_if_fail (con->uri != NULL, NULL);
 
@@ -129,7 +129,7 @@ static GnomeVFSURI *ftp_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
-static GnomeCmdPath *ftp_create_path (GnomeCmdCon *con, const gchar *path_str)
+static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     return new GnomeCmdPlainPath(path_str);
 }
@@ -146,7 +146,7 @@ static void destroy (GtkObject *object)
 }
 
 
-static void class_init (GnomeCmdConFtpClass *klass)
+static void class_init (GnomeCmdConRemoteClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
@@ -155,23 +155,23 @@ static void class_init (GnomeCmdConFtpClass *klass)
 
     object_class->destroy = destroy;
 
-    con_class->open = ftp_open;
-    con_class->close = ftp_close;
-    con_class->cancel_open = ftp_cancel_open;
-    con_class->open_is_needed = ftp_open_is_needed;
-    con_class->create_uri = ftp_create_uri;
-    con_class->create_path = ftp_create_path;
+    con_class->open = remote_open;
+    con_class->close = remote_close;
+    con_class->cancel_open = remote_cancel_open;
+    con_class->open_is_needed = remote_open_is_needed;
+    con_class->create_uri = remote_create_uri;
+    con_class->create_path = remote_create_path;
 }
 
 
-static void init (GnomeCmdConFtp *ftp_con)
+static void init (GnomeCmdConRemote *remote_con)
 {
     guint dev_icon_size = gnome_cmd_data.dev_icon_size;
     gint icon_size;
 
     g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, NULL));
 
-    GnomeCmdCon *con = GNOME_CMD_CON (ftp_con);
+    GnomeCmdCon *con = GNOME_CMD_CON (remote_con);
 
     con->method = CON_FTP;
     con->should_remember_dir = TRUE;
@@ -213,7 +213,7 @@ static void init (GnomeCmdConFtp *ftp_con)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_con_ftp_get_type ()
+GtkType gnome_cmd_con_remote_get_type ()
 {
     static GtkType type = 0;
 
@@ -221,9 +221,9 @@ GtkType gnome_cmd_con_ftp_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdConFtp",
-            sizeof (GnomeCmdConFtp),
-            sizeof (GnomeCmdConFtpClass),
+            "GnomeCmdConRemote",
+            sizeof (GnomeCmdConRemote),
+            sizeof (GnomeCmdConRemoteClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
             /* reserved_1 */ NULL,
@@ -237,7 +237,7 @@ GtkType gnome_cmd_con_ftp_get_type ()
 }
 
 
-GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_uri)
+GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &text_uri)
 {
     GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri.c_str());
 
@@ -247,7 +247,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
 
-    GnomeCmdConFtp *server = (GnomeCmdConFtp *) g_object_new (GNOME_CMD_TYPE_CON_FTP, NULL);
+    GnomeCmdConRemote *server = (GnomeCmdConRemote *) g_object_new (GNOME_CMD_TYPE_CON_REMOTE, NULL);
 
     g_return_val_if_fail (server != NULL, NULL);
 
@@ -258,7 +258,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     gnome_cmd_con_set_host_name (con, host);
     gnome_cmd_con_set_root_path (con, path);
 
-    gnome_cmd_con_ftp_set_host_name (server, host);
+    gnome_cmd_con_remote_set_host_name (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri);
     con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED :
@@ -271,7 +271,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 }
 
 
-void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_name)
+void gnome_cmd_con_remote_set_host_name (GnomeCmdConRemote *con, const gchar *host_name)
 {
     g_return_if_fail (con != NULL);
     g_return_if_fail (host_name != NULL);
