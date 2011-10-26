@@ -52,7 +52,7 @@ static GtkObjectClass *parent_class = NULL;
 enum
 {
     LIST_CHANGED,
-    FTP_LIST_CHANGED,
+    REMOTE_LIST_CHANGED,
     DEVICE_LIST_CHANGED,
     QUICK_FTP_LIST_CHANGED,
     LAST_SIGNAL
@@ -67,7 +67,7 @@ static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
     if (GNOME_CMD_IS_CON_REMOTE (con))
-        gtk_signal_emit (*con_list, signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*con_list, signals[REMOTE_LIST_CHANGED]);
     else
         if (GNOME_CMD_IS_CON_DEVICE (con))
             gtk_signal_emit (*con_list, signals[DEVICE_LIST_CHANGED]);
@@ -110,7 +110,7 @@ static void class_init (GnomeCmdConListClass *klass)
                                                               GTK_TYPE_NONE,
                                                               0);
 
-    signals[FTP_LIST_CHANGED]       = gtk_signal_new ("ftp-list-changed",
+    signals[REMOTE_LIST_CHANGED]    = gtk_signal_new ("remote-list-changed",
                                                                GTK_RUN_LAST,
                                                                G_OBJECT_CLASS_TYPE (object_class),
                                                                GTK_SIGNAL_OFFSET (GnomeCmdConListClass, ftp_list_changed),
@@ -198,7 +198,7 @@ void GnomeCmdConList::unlock()
     if (priv->changed)
         gtk_signal_emit (*this, signals[LIST_CHANGED]);
     if (priv->remote_cons_changed)
-        gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[REMOTE_LIST_CHANGED]);
     if (priv->device_cons_changed)
         gtk_signal_emit (*this, signals[DEVICE_LIST_CHANGED]);
 
@@ -224,7 +224,7 @@ void GnomeCmdConList::add(GnomeCmdConRemote *con)
     else
     {
         gtk_signal_emit (*this, signals[LIST_CHANGED]);
-        gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[REMOTE_LIST_CHANGED]);
     }
 }
 
@@ -247,7 +247,7 @@ void GnomeCmdConList::remove(GnomeCmdConRemote *con)
     else
     {
         gtk_signal_emit (*this, signals[LIST_CHANGED]);
-        gtk_signal_emit (*this, signals[FTP_LIST_CHANGED]);
+        gtk_signal_emit (*this, signals[REMOTE_LIST_CHANGED]);
     }
 }
 
