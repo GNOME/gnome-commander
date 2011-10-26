@@ -20,9 +20,6 @@
 #ifndef __GNOME_CMD_DIR_INDICATOR_H__
 #define __GNOME_CMD_DIR_INDICATOR_H__
 
-#include "gnome-cmd-con.h"
-#include "gnome-cmd-con-remote.h"
-#include "gnome-cmd-con-device.h"
 #include "gnome-cmd-file-selector.h"
 
 #define GNOME_CMD_TYPE_DIR_INDICATOR              (gnome_cmd_dir_indicator_get_type ())
