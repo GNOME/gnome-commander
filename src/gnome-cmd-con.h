@@ -107,11 +107,11 @@ struct GnomeCmdCon
     gchar               *close_tooltip;
     GnomeCmdPixmap      *close_pixmap;
 
-    OpenResult       open_result;
-    GnomeVFSResult   open_failed_reason;
-    gchar            *open_failed_msg;
+    OpenResult          open_result;
+    GnomeVFSResult      open_failed_reason;
+    gchar               *open_failed_msg;
 
-    GnomeCmdConPrivate *priv;
+    GnomeCmdConPrivate  *priv;
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
 };
