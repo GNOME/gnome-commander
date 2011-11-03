@@ -238,10 +238,10 @@ inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
 
     if (type==CON_URI && uri.empty())
     {
-            gnome_cmd_show_message (*dialog,
-                                    stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
-                                    _("Please check the spelling and try again."));
-            return FALSE;
+        gnome_cmd_show_message (*dialog,
+                                stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
+                                _("Please check the spelling and try again."));
+        return FALSE;
     }
 
     if (dialog->priv->alias)
@@ -594,14 +594,11 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-    // Service type
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
-    // Use GNOME Keyring Manager for authentication
     dialog->priv->auth = con->auth;
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->auth==GnomeCmdCon::SAVE_PERMANENTLY);
 
-    // Alias
     if (con->alias)
     {
         dialog->priv->alias = new string(con->alias);
