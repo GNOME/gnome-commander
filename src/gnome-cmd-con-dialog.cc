@@ -636,7 +636,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
                 else
                     gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
 
-                g_strfreev(a);
+                g_strfreev (a);
 
                 a = g_strsplit (user_name, ";", 2);
 
@@ -648,7 +648,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
                 else
                     gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
 
-                g_strfreev(a);
+                g_strfreev (a);
             }
             else
             {
