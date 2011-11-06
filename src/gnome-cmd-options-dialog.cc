@@ -889,7 +889,7 @@ inline void store_tabs_options (GtkWidget *dialog, GnomeCmdData &cfg)
  *
  **********************************************************************/
 
-static GtkWidget *create_confirmation_tab (GtkWidget *parent)
+static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -909,7 +909,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.confirm_delete);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete);
 
 
     /* Copy overwrite options
@@ -920,15 +920,15 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("Silently"), "copy_overwrite_silently");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (gnome_cmd_data.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Query first"), "copy_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "copy_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -940,15 +940,15 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("Silently"), "move_overwrite_silently");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (gnome_cmd_data.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Query first"), "move_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "move_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -960,7 +960,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Confirm mouse operation"), "confirm_mouse_dnd_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.confirm_mouse_dnd);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_mouse_dnd);
 
 
     return frame;
@@ -2012,7 +2012,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_format_tab (dialog, cfg), _("Format"));
     notebook->append_page(create_layout_tab (dialog, cfg), _("Layout"));
     notebook->append_page(create_tabs_tab (dialog, cfg), _("Tabs"));
-    notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
+    notebook->append_page(create_confirmation_tab (dialog, cfg), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog), _("Filters"));
     notebook->append_page(create_programs_tab (dialog), _("Programs"));
     notebook->append_page(create_devices_tab (dialog), _("Devices"));
