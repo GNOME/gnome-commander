@@ -1907,13 +1907,13 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData &cfg)
 }
 
 
-inline void store_devices_options (GtkWidget *dialog)
+inline void store_devices_options (GtkWidget *dialog, GnomeCmdData &cfg)
 {
     GtkWidget *device_only_icon = lookup_widget (dialog, "device_only_icon");
     GtkWidget *skip_mounting = lookup_widget (dialog, "skip_mounting");
 
-    gnome_cmd_data.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
-    gnome_cmd_data.skip_mounting = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (skip_mounting));
+    cfg.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
+    cfg.skip_mounting = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (skip_mounting));
 }
 
 
@@ -2017,7 +2017,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_confirmation_options (dialog, cfg);
         store_filter_options (dialog, cfg);
         store_programs_options (dialog, cfg);
-        store_devices_options (dialog);
+        store_devices_options (dialog, cfg);
 
         gnome_cmd_style_create ();
         main_win->update_style();
