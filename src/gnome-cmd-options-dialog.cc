@@ -1836,7 +1836,7 @@ static void on_device_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *button, *clist, *bbox, *check;
