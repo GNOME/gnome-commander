@@ -34,10 +34,8 @@ GtkStyle *sel_list_style = NULL;
 GtkStyle *alt_sel_list_style = NULL;
 
 
-inline GtkStyle *create_list_style ()
+inline GtkStyle *create_list_style (GnomeCmdColorTheme *cols, const gchar *font_name)
 {
-    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
-    const gchar *font_name = gnome_cmd_data_get_list_font ();
     GtkStyle *style = gtk_style_new ();
 
     if (strcmp (font_name, "default") != 0)
@@ -68,10 +66,8 @@ inline GtkStyle *create_list_style ()
 }
 
 
-inline GtkStyle *create_alt_list_style ()
+inline GtkStyle *create_alt_list_style (GnomeCmdColorTheme *cols, const gchar *font_name)
 {
-    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
-    const gchar *font_name = gnome_cmd_data_get_list_font ();
     GtkStyle *style = gtk_style_new ();
 
     if (strcmp (font_name, "default") != 0)
@@ -101,10 +97,8 @@ inline GtkStyle *create_alt_list_style ()
 }
 
 
-inline GtkStyle *create_sel_list_style ()
+inline GtkStyle *create_sel_list_style (GnomeCmdColorTheme *cols, const gchar *font_name)
 {
-    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
-    const gchar *font_name = gnome_cmd_data_get_list_font ();
     GtkStyle *style = gtk_style_new ();
 
     if (strcmp (font_name, "default") != 0)
@@ -135,10 +129,8 @@ inline GtkStyle *create_sel_list_style ()
 }
 
 
-inline GtkStyle *create_alt_sel_list_style ()
+inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gchar *font_name)
 {
-    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
-    const gchar *font_name = gnome_cmd_data_get_list_font ();
     GtkStyle *style = gtk_style_new ();
 
     if (strcmp (font_name, "default") != 0)
@@ -176,8 +168,11 @@ void gnome_cmd_style_create ()
     if (sel_list_style) g_object_unref (sel_list_style);
     if (alt_sel_list_style) g_object_unref (alt_sel_list_style);
 
-    list_style = create_list_style ();
-    alt_list_style = create_alt_list_style ();
-    sel_list_style = create_sel_list_style ();
-    alt_sel_list_style = create_alt_sel_list_style ();
+    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
+    const gchar *font_name = gnome_cmd_data_get_list_font ();
+
+    list_style = create_list_style (cols, font_name);
+    alt_list_style = create_alt_list_style (cols, font_name);
+    sel_list_style = create_sel_list_style (cols, font_name);
+    alt_sel_list_style = create_alt_sel_list_style (cols, font_name);
 }
