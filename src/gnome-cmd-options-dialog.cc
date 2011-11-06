@@ -642,7 +642,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 }
 
 
-static GtkWidget *create_layout_tab (GtkWidget *parent)
+static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
@@ -688,7 +688,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, fpicker, 1, 0, GTK_FILL);
     gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), gnome_cmd_data_get_list_font ());
 
-    spin = create_spin (parent, "row_height_spin", 8, 64, gnome_cmd_data.list_row_height);
+    spin = create_spin (parent, "row_height_spin", 8, 64, cfg.list_row_height);
     table_add (table, spin, 1, 1, GTK_FILL);
 
     label = create_label (parent, _("Font:"));
@@ -729,12 +729,12 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "color_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
-    gtk_widget_set_sensitive (btn, gnome_cmd_data.color_mode == GNOME_CMD_COLOR_CUSTOM);
+    gtk_widget_set_sensitive (btn, cfg.color_mode == GNOME_CMD_COLOR_CUSTOM);
 
 
     // LS_COLORS
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_ls_colors);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_ls_colors);
     hbox = create_hbox (parent, FALSE, 6);
     gtk_table_attach (GTK_TABLE (table), hbox, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
@@ -744,7 +744,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     btn = create_button_with_data (parent, _("Edit colors..."), GTK_SIGNAL_FUNC (on_ls_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "ls_colors_edit_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
-    gtk_widget_set_sensitive (btn, gnome_cmd_data.use_ls_colors);
+    gtk_widget_set_sensitive (btn, cfg.use_ls_colors);
 
 
      // MIME icon settings
@@ -753,9 +753,9 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     g_object_set_data (G_OBJECT (parent), "mime_icon_settings_frame", cat);
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    spin = create_spin (parent, "iconsize_spin", 8, 64, gnome_cmd_data.icon_size);
+    spin = create_spin (parent, "iconsize_spin", 8, 64, cfg.icon_size);
     table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
-    scale = create_scale (parent, "iconquality_scale", gnome_cmd_data.icon_scale_quality, 0, 3);
+    scale = create_scale (parent, "iconquality_scale", cfg.icon_scale_quality, 0, 3);
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", gnome_cmd_data_get_theme_icon_dir ());
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
@@ -772,9 +772,9 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
 
 
-    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) gnome_cmd_data.ext_disp_mode);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) gnome_cmd_data.layout);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) gnome_cmd_data.color_mode);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) cfg.ext_disp_mode);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) cfg.layout);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) cfg.color_mode);
 
     return frame;
 }
@@ -2010,7 +2010,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
 
     notebook->append_page(create_general_tab (dialog, cfg), _("General"));
     notebook->append_page(create_format_tab (dialog, cfg), _("Format"));
-    notebook->append_page(create_layout_tab (dialog), _("Layout"));
+    notebook->append_page(create_layout_tab (dialog, cfg), _("Layout"));
     notebook->append_page(create_tabs_tab (dialog), _("Tabs"));
     notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog), _("Filters"));
