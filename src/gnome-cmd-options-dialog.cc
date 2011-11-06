@@ -1018,7 +1018,7 @@ static void on_filter_backup_files_toggled (GtkToggleButton *btn, GtkWidget *dia
 }
 
 
-static GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame;
     GtkWidget *hbox;
