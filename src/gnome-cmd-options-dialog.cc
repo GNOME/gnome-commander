@@ -1836,7 +1836,7 @@ static void on_device_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-static GtkWidget *create_devices_tab (GtkWidget *parent)
+static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *button, *clist, *bbox, *check;
@@ -1891,11 +1891,11 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Show only the icons"), "device_only_icon");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.device_only_icon);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.device_only_icon);
 
     check = create_check (parent, _("Skip mounting (useful when using super-mount)"), "skip_mounting");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.skip_mounting);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.skip_mounting);
 
 
     clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "device_clist");
@@ -1994,7 +1994,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_confirmation_tab (dialog, cfg), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog, cfg), _("Filters"));
     notebook->append_page(create_programs_tab (dialog, cfg), _("Programs"));
-    notebook->append_page(create_devices_tab (dialog), _("Devices"));
+    notebook->append_page(create_devices_tab (dialog, cfg), _("Devices"));
 
 #if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
