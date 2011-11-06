@@ -43,6 +43,7 @@
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
+#include "gnome-cmd-style.h"
 #include "plugin_manager.h"
 #include "cap.h"
 #include "utils.h"
@@ -1789,7 +1790,13 @@ void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
 /************** Options Menu **************/
 void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_options_dialog (*main_win, gnome_cmd_data);
+    if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data))
+    {
+        gnome_cmd_style_create ();
+        main_win->update_style();
+
+        gnome_cmd_data.save();
+    }
 }
 
 

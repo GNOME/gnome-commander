@@ -2018,11 +2018,6 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_filter_options (dialog, cfg);
         store_programs_options (dialog, cfg);
         store_devices_options (dialog, cfg);
-
-        gnome_cmd_style_create ();
-        main_win->update_style();
-
-        cfg.save();
     }
 
     gtk_widget_destroy (dialog);
