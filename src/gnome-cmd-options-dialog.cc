@@ -1478,7 +1478,7 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *table;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
