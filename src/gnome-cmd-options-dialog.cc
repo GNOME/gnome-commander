@@ -241,7 +241,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 }
 
 
-static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box, *table;
     GtkWidget *radio, *label, *entry;
