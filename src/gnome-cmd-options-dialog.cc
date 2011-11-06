@@ -889,7 +889,7 @@ inline void store_tabs_options (GtkWidget *dialog, GnomeCmdData &cfg)
  *
  **********************************************************************/
 
-static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
