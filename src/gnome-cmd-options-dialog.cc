@@ -1571,7 +1571,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData &cfg)
 }
 
 
-inline void store_programs_options (GtkWidget *dialog)
+inline void store_programs_options (GtkWidget *dialog, GnomeCmdData &cfg)
 {
     GtkWidget *entry1 = lookup_widget (dialog, "viewer");
     GtkWidget *entry2 = lookup_widget (dialog, "editor");
@@ -1580,13 +1580,13 @@ inline void store_programs_options (GtkWidget *dialog)
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
 
-    gnome_cmd_data.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
-    gnome_cmd_data.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
-    gnome_cmd_data.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
-    gnome_cmd_data.set_term(gtk_entry_get_text (GTK_ENTRY (entry5)));
+    cfg.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
+    cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
+    cfg.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
+    cfg.set_term(gtk_entry_get_text (GTK_ENTRY (entry5)));
 
-    gnome_cmd_data.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
-    gnome_cmd_data.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
+    cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
+    cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
 }
 
 
@@ -2016,7 +2016,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_tabs_options (dialog, cfg);
         store_confirmation_options (dialog, cfg);
         store_filter_options (dialog, cfg);
-        store_programs_options (dialog);
+        store_programs_options (dialog, cfg);
         store_devices_options (dialog);
 
         gnome_cmd_style_create ();
