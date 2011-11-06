@@ -642,7 +642,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 }
 
 
-static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
