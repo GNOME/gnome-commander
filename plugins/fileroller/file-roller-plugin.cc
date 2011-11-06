@@ -92,8 +92,8 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gchar *target_arg, *archive_arg;
     gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
-    gchar *target_name = (gchar *) gtk_object_get_data (GTK_OBJECT (item), "target_name");
-    gchar *target_dir = (gchar *) gtk_object_get_data (GTK_OBJECT (item), "target_dir");
+    gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), "target_name");
+    gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), "target_dir");
     gchar *cmd, *t;
     gint argc;
     gchar **argv;

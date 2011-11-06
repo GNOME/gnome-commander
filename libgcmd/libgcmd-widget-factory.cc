@@ -37,7 +37,7 @@ GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name)
         widget = parent;
     }
 
-    found_widget = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (widget), widget_name);
+    found_widget = (GtkWidget *) g_object_get_data (G_OBJECT (widget), widget_name);
     if (!found_widget)
         g_warning ("Widget not found: %s", widget_name);
     return found_widget;
@@ -393,7 +393,7 @@ GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint r
 
 void create_clist_column (GtkWidget *sw, gint col, gint width, const gchar *label)
 {
-    GtkWidget *clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (sw), "clist");
+    GtkWidget *clist = (GtkWidget *) g_object_get_data (G_OBJECT (sw), "clist");
     gtk_clist_set_column_width (GTK_CLIST (clist), col, width);
     gtk_clist_set_column_title (GTK_CLIST (clist), col, label);
 }

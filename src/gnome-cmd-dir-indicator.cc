@@ -281,7 +281,7 @@ static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
     GdkModifierType mask;
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
-    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) gtk_object_get_data (GTK_OBJECT (item), "indicator");
+    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) g_object_get_data (G_OBJECT (item), "indicator");
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
@@ -305,7 +305,7 @@ static void on_bookmark_item_selected (GtkMenuItem *item, GnomeCmdBookmark *bm)
     GdkModifierType mask;
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
-    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) gtk_object_get_data (GTK_OBJECT (item), "indicator");
+    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) g_object_get_data (G_OBJECT (item), "indicator");
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 

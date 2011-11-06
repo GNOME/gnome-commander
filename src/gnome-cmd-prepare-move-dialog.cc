@@ -107,12 +107,12 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     // Customize prepare xfer widgets
 
     text = get_bold_text (_("Overwrite Files"));
-    label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->left_vbox_frame), "label");
+    label = (GtkWidget *) g_object_get_data (G_OBJECT (data->dialog->left_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
     text = get_bold_text (_("Options"));
-    label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->right_vbox_frame), "label");
+    label = (GtkWidget *) g_object_get_data (G_OBJECT (data->dialog->right_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
@@ -129,7 +129,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
         dest_dir_frame_msg = g_strdup_printf (ngettext("move %d file to","move %d files to",num_files), num_files);
 
     text = get_bold_text (dest_dir_frame_msg);
-    label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->dest_dir_frame), "label");
+    label = (GtkWidget *) g_object_get_data (G_OBJECT (data->dialog->dest_dir_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 

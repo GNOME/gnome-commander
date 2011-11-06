@@ -103,7 +103,7 @@ static gboolean change_cwd (const gchar *fpath)
 static void on_diff (GtkMenuItem *item, GnomeCmdState *state)
 {
     GList *files = state->active_dir_selected_files;
-    CvsPlugin *plugin = (CvsPlugin *) gtk_object_get_data (GTK_OBJECT (item), "plugin");
+    CvsPlugin *plugin = (CvsPlugin *) g_object_get_data (G_OBJECT (item), "plugin");
 
     if (files && !plugin->diff_win)
         plugin->diff_win = create_diff_win (plugin);
@@ -129,7 +129,7 @@ static void on_diff (GtkMenuItem *item, GnomeCmdState *state)
 static void on_log (GtkMenuItem *item, GnomeCmdState *state)
 {
     GList *files = state->active_dir_selected_files;
-    CvsPlugin *plugin = (CvsPlugin *) gtk_object_get_data (GTK_OBJECT (item), "plugin");
+    CvsPlugin *plugin = (CvsPlugin *) g_object_get_data (G_OBJECT (item), "plugin");
 
     if (files && !plugin->log_win)
         plugin->log_win = create_log_win (plugin);

@@ -1293,7 +1293,7 @@ static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                            &handles_uris, &handles_multiple, &requires_terminal);
     if (!name || strlen (name) < 1) return;
 
-    GnomeCmdApp *app = (GnomeCmdApp *) gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_app");
+    GnomeCmdApp *app = (GnomeCmdApp *) g_object_get_data (G_OBJECT (options_dialog), "selected_app");
     if (!app) return;
 
     gnome_cmd_app_set_name (app, name);
@@ -1430,7 +1430,7 @@ static void on_app_add (GtkWidget *button, GtkWidget *parent)
 
 static void on_app_edit (GtkWidget *button, GtkWidget *parent)
 {
-    GnomeCmdApp *app = (GnomeCmdApp *) gtk_object_get_data (GTK_OBJECT (parent), "selected_app");
+    GnomeCmdApp *app = (GnomeCmdApp *) g_object_get_data (G_OBJECT (parent), "selected_app");
     if (app)
     {
         GtkWidget *dialog = create_app_dialog (app, GTK_SIGNAL_FUNC (on_edit_app_dialog_ok), GTK_SIGNAL_FUNC (on_app_dialog_cancel), parent);
@@ -1584,7 +1584,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "app_clist");
+    clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_clist");
     for (GList *apps = gnome_cmd_data_get_fav_apps (); apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
@@ -1705,7 +1705,7 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     get_device_dialog_values (dialog, &alias, &device, &mountp, &icon_path);
     if (!alias || strlen (alias) < 1) return;
 
-    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_device"));
+    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (g_object_get_data (G_OBJECT (options_dialog), "selected_device"));
     if (!dev) return;
 
     update_device_in_list (GTK_CLIST (clist), dev, alias, device, mountp, icon_path);
@@ -1786,8 +1786,8 @@ static void on_device_add (GtkWidget *button, GtkWidget *parent)
 
 static void on_device_edit (GtkWidget *button, GtkWidget *parent)
 {
-    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_object_get_data (
-        GTK_OBJECT (parent), "selected_device"));
+    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (g_object_get_data (G_OBJECT (parent), "selected_device"));
+
     if (dev)
     {
         GtkWidget *dialog = create_device_dialog (
@@ -1919,7 +1919,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.skip_mounting);
 
 
-    clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
+    clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "device_clist");
     for (GList *devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ()); devices; devices = devices->next)
         if (!gnome_cmd_con_device_get_autovol ((GnomeCmdConDevice *) devices->data))
             add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));

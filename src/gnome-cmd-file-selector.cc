@@ -342,7 +342,7 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
     if (event->button!=1 && event->button!=2)
         return;
 
-    GnomeCmdCon *con = (GnomeCmdCon *) gtk_object_get_data (GTK_OBJECT (widget), "con");
+    GnomeCmdCon *con = (GnomeCmdCon *) g_object_get_data (G_OBJECT (widget), "con");
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
