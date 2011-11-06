@@ -1092,7 +1092,7 @@ static GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
 }
 
 
-inline void store_filter_options (GtkWidget *dialog)
+inline void store_filter_options (GtkWidget *dialog, GnomeCmdData &cfg)
 {
     GtkWidget *hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
     GtkWidget *hide_regular_check = lookup_widget (dialog, "hide_regular_check");
@@ -1106,33 +1106,33 @@ inline void store_filter_options (GtkWidget *dialog)
     GtkWidget *hide_backup_check = lookup_widget (dialog, "hide_backup_check");
     GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_unknown_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_regular_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_directory_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_FIFO] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_FIFO] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_fifo_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_SOCKET] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_SOCKET] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_socket_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_char_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_block_check));
 
-    gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] =
+    cfg.filter_settings.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_symlink_check));
 
-    gnome_cmd_data.filter_settings.hidden =
+    cfg.filter_settings.hidden =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_hidden_check));
-    gnome_cmd_data.filter_settings.backup =
+    cfg.filter_settings.backup =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
 
     gnome_cmd_data_set_backup_pattern (gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
@@ -2015,7 +2015,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_layout_options (dialog, cfg);
         store_tabs_options (dialog, cfg);
         store_confirmation_options (dialog, cfg);
-        store_filter_options (dialog);
+        store_filter_options (dialog, cfg);
         store_programs_options (dialog);
         store_devices_options (dialog);
 
