@@ -2043,7 +2043,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         gnome_cmd_style_create ();
         main_win->update_style();
 
-        gnome_cmd_data.save();
+        cfg.save();
     }
 
     gtk_widget_destroy (dialog);
