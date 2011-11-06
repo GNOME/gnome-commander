@@ -1094,29 +1094,17 @@ static GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
 inline void store_filter_options (GtkWidget *dialog)
 {
-    GtkWidget *hide_unknown_check;
-    GtkWidget *hide_directory_check;
-    GtkWidget *hide_regular_check;
-    GtkWidget *hide_socket_check;
-    GtkWidget *hide_fifo_check;
-    GtkWidget *hide_block_check;
-    GtkWidget *hide_char_check;
-    GtkWidget *hide_hidden_check;
-    GtkWidget *hide_backup_check;
-    GtkWidget *hide_symlink_check;
-    GtkWidget *backup_pattern_entry;
-
-    hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
-    hide_regular_check = lookup_widget (dialog, "hide_regular_check");
-    hide_directory_check = lookup_widget (dialog, "hide_directory_check");
-    hide_fifo_check = lookup_widget (dialog, "hide_fifo_check");
-    hide_socket_check = lookup_widget (dialog, "hide_socket_check");
-    hide_char_check = lookup_widget (dialog, "hide_char_check");
-    hide_block_check = lookup_widget (dialog, "hide_block_check");
-    hide_symlink_check = lookup_widget (dialog, "hide_symlink_check");
-    hide_hidden_check = lookup_widget (dialog, "hide_hidden_check");
-    hide_backup_check = lookup_widget (dialog, "hide_backup_check");
-    backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
+    GtkWidget *hide_unknown_check = lookup_widget (dialog, "hide_unknown_check");
+    GtkWidget *hide_regular_check = lookup_widget (dialog, "hide_regular_check");
+    GtkWidget *hide_directory_check = lookup_widget (dialog, "hide_directory_check");
+    GtkWidget *hide_fifo_check = lookup_widget (dialog, "hide_fifo_check");
+    GtkWidget *hide_socket_check = lookup_widget (dialog, "hide_socket_check");
+    GtkWidget *hide_char_check = lookup_widget (dialog, "hide_char_check");
+    GtkWidget *hide_block_check = lookup_widget (dialog, "hide_block_check");
+    GtkWidget *hide_symlink_check = lookup_widget (dialog, "hide_symlink_check");
+    GtkWidget *hide_hidden_check = lookup_widget (dialog, "hide_hidden_check");
+    GtkWidget *hide_backup_check = lookup_widget (dialog, "hide_backup_check");
+    GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
 
     gnome_cmd_data.filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_unknown_check));
