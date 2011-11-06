@@ -967,7 +967,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 }
 
 
-inline void store_confirmation_options (GtkWidget *dialog)
+inline void store_confirmation_options (GtkWidget *dialog, GnomeCmdData &cfg)
 {
     GtkWidget *confirm_delete_check = lookup_widget (dialog, "confirm_delete_check");
     GtkWidget *confirm_copy_silent = lookup_widget (dialog, "copy_overwrite_silently");
@@ -978,23 +978,23 @@ inline void store_confirmation_options (GtkWidget *dialog)
     GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
     GtkWidget *confirm_mouse_dnd_check = lookup_widget (dialog, "confirm_mouse_dnd_check");
 
-    gnome_cmd_data.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
+    cfg.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_silent)))
-        gnome_cmd_data.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
+        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_query)))
-        gnome_cmd_data.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_skip_all)))
-        gnome_cmd_data.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_silent)))
-        gnome_cmd_data.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
+        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_query)))
-        gnome_cmd_data.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
-        gnome_cmd_data.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
-    gnome_cmd_data.confirm_mouse_dnd = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_mouse_dnd_check));
+    cfg.confirm_mouse_dnd = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_mouse_dnd_check));
 }
 
 
@@ -2035,7 +2035,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_format_options (dialog, cfg);
         store_layout_options (dialog, cfg);
         store_tabs_options (dialog, cfg);
-        store_confirmation_options (dialog);
+        store_confirmation_options (dialog, cfg);
         store_filter_options (dialog);
         store_programs_options (dialog);
         store_devices_options (dialog);
