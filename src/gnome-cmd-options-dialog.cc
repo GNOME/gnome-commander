@@ -821,7 +821,7 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData &cfg)
  *
  **********************************************************************/
 
-static GtkWidget *create_tabs_tab (GtkWidget *parent)
+static GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -839,7 +839,7 @@ static GtkWidget *create_tabs_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Always show the tab bar"), "always_show_tabs");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.always_show_tabs);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.always_show_tabs);
 
 
     // Size display mode
@@ -849,17 +849,17 @@ static GtkWidget *create_tabs_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("Lock icon"), "tab_lock_icon_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ICON)
+    if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ICON)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("* (asterisk)"), "tab_lock_asterisk_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ASTERISK)
+    if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_ASTERISK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Styled text"), "tab_lock_style_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data.tab_lock_indicator == GnomeCmdData::TAB_LOCK_STYLED_TEXT)
+    if (cfg.tab_lock_indicator == GnomeCmdData::TAB_LOCK_STYLED_TEXT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     return frame;
@@ -2011,7 +2011,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_general_tab (dialog, cfg), _("General"));
     notebook->append_page(create_format_tab (dialog, cfg), _("Format"));
     notebook->append_page(create_layout_tab (dialog, cfg), _("Layout"));
-    notebook->append_page(create_tabs_tab (dialog), _("Tabs"));
+    notebook->append_page(create_tabs_tab (dialog, cfg), _("Tabs"));
     notebook->append_page(create_confirmation_tab (dialog), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog), _("Filters"));
     notebook->append_page(create_programs_tab (dialog), _("Programs"));
