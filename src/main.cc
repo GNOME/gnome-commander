@@ -157,7 +157,7 @@ int main (int argc, char *argv[])
 
         gnome_authentication_manager_init ();
 
-        gnome_cmd_style_create ();
+        gnome_cmd_style_create (gnome_cmd_data);
 
         main_win = new GnomeCmdMainWin;
         main_win_widget = *main_win;

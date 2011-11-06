@@ -161,7 +161,7 @@ inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gcha
 }
 
 
-void gnome_cmd_style_create ()
+void gnome_cmd_style_create (GnomeCmdData &cfg)
 {
     if (list_style) g_object_unref (list_style);
     if (alt_list_style) g_object_unref (alt_list_style);
