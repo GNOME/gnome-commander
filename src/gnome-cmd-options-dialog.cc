@@ -866,20 +866,20 @@ static GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData &cfg)
 }
 
 
-inline void store_tabs_options (GtkWidget *dialog)
+inline void store_tabs_options (GtkWidget *dialog, GnomeCmdData &cfg)
 {
     GtkWidget *always_show_tabs = lookup_widget (dialog, "always_show_tabs");
     GtkWidget *tab_lock_icon_radio = lookup_widget (dialog, "tab_lock_icon_radio");
     GtkWidget *tab_lock_asterisk_radio = lookup_widget (dialog, "tab_lock_asterisk_radio");
 
-    gnome_cmd_data.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
+    cfg.always_show_tabs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (always_show_tabs));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tab_lock_icon_radio)))
-        gnome_cmd_data.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ICON;
+        cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ICON;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (tab_lock_asterisk_radio)))
-        gnome_cmd_data.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ASTERISK;
+        cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_ASTERISK;
     else
-        gnome_cmd_data.tab_lock_indicator = GnomeCmdData::TAB_LOCK_STYLED_TEXT;
+        cfg.tab_lock_indicator = GnomeCmdData::TAB_LOCK_STYLED_TEXT;
 }
 
 
@@ -2034,7 +2034,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
         store_general_options (dialog, cfg);
         store_format_options (dialog, cfg);
         store_layout_options (dialog, cfg);
-        store_tabs_options (dialog);
+        store_tabs_options (dialog, cfg);
         store_confirmation_options (dialog);
         store_filter_options (dialog);
         store_programs_options (dialog);
