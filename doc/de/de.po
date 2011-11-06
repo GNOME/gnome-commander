@@ -2424,7 +2424,6 @@ msgstr "translated"
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:999(None)
-#, fuzzy
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_search.png'; "
 "md5=5f84da5e59672f0260db3ebb3eb49120"
