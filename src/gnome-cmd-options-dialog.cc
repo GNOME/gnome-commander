@@ -327,7 +327,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData &cfg)
 }
 
 
-inline void store_format_options (GtkWidget *dialog)
+inline void store_format_options (GtkWidget *dialog, GnomeCmdData &cfg)
 {
     GtkWidget *size_powered_radio = lookup_widget (dialog, "size_powered_radio");
     GtkWidget *size_locale_radio = lookup_widget (dialog, "size_locale_radio");
@@ -337,18 +337,18 @@ inline void store_format_options (GtkWidget *dialog)
     const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
-        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
+        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_locale_radio)))
-        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_LOCALE;
+        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_LOCALE;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_grouped_radio)))
-        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
+        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
     else
-        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_PLAIN;
+        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_PLAIN;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (perm_text_radio)))
-        gnome_cmd_data.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
+        cfg.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     else
-        gnome_cmd_data.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
+        cfg.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
 
     gnome_cmd_data_set_date_format (g_locale_from_utf8 (format, -1, NULL, NULL, NULL));
 }
@@ -2032,7 +2032,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     if (result==GTK_RESPONSE_OK)
     {
         store_general_options (dialog, cfg);
-        store_format_options (dialog);
+        store_format_options (dialog, cfg);
         store_layout_options (dialog);
         store_tabs_options (dialog);
         store_confirmation_options (dialog);
