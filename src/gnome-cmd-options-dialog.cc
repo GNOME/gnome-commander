@@ -55,7 +55,7 @@ static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dial
  *
  **********************************************************************/
 
-static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
