@@ -821,7 +821,7 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData &cfg)
  *
  **********************************************************************/
 
-static GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData &cfg)
+inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
