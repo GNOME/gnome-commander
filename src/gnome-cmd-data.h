@@ -65,6 +65,38 @@ struct GnomeCmdData
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
+    struct Options
+    {
+        //  Layout
+        LeftMouseButtonMode   left_mouse_button_mode;
+        gboolean              left_mouse_button_unselects;
+        MiddleMouseButtonMode middle_mouse_button_mode;
+        RightMouseButtonMode  right_mouse_button_mode;
+        gboolean              case_sens_sort;
+        gboolean              alt_quick_search;
+        gboolean              quick_search_exact_match_begin;
+        gboolean              quick_search_exact_match_end;
+        gboolean              allow_multiple_instances;
+        gboolean              save_dirs_on_exit;
+        gboolean              save_tabs_on_exit;
+        gboolean              save_dir_history_on_exit;
+
+        Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
+                   left_mouse_button_unselects(TRUE),
+                   middle_mouse_button_mode(MIDDLE_BUTTON_GOES_UP_DIR),
+                   right_mouse_button_mode(RIGHT_BUTTON_POPUPS_MENU),
+                   case_sens_sort(TRUE),
+                   alt_quick_search(FALSE),
+                   quick_search_exact_match_begin(TRUE),
+                   quick_search_exact_match_end(FALSE),
+                   allow_multiple_instances(FALSE),
+                   save_dirs_on_exit(FALSE),
+                   save_tabs_on_exit(TRUE),
+                   save_dir_history_on_exit(TRUE)
+        {
+        }
+    };
+
     struct Selection
     {
         std::string name;
@@ -201,16 +233,11 @@ struct GnomeCmdData
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     gboolean                     confirm_mouse_dnd;
-    LeftMouseButtonMode          left_mouse_button_mode;
-    gboolean                     left_mouse_button_unselects;
-    MiddleMouseButtonMode        middle_mouse_button_mode;
-    RightMouseButtonMode         right_mouse_button_mode;
     GnomeCmdColorMode            color_mode;
     GnomeCmdSizeDispMode         size_disp_mode;
     GnomeCmdPermDispMode         perm_disp_mode;
-    gboolean                     alt_quick_search;
-    gboolean                     quick_search_exact_match_begin;
-    gboolean                     quick_search_exact_match_end;
+
+    Options                      options;
 
     FilterSettings               filter_settings;
 
@@ -221,7 +248,6 @@ struct GnomeCmdData
     IntViewerConfig              intviewer_defaults;
     BookmarksConfig              bookmarks_defaults;
 
-    gboolean                     case_sens_sort;
     GnomeCmdLayout               layout;
     GnomeCmdExtDispMode          ext_disp_mode;
     gboolean                     list_orientation;
@@ -246,14 +272,9 @@ struct GnomeCmdData
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
 
-    gboolean                     save_dirs_on_exit;
-    gboolean                     save_tabs_on_exit;
-    gboolean                     save_dir_history_on_exit;
-
     gboolean                     always_show_tabs;
     int                          tab_lock_indicator;
 
-    gboolean                     allow_multiple_instances;
     gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
 

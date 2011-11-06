@@ -841,22 +841,14 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_mouse_dnd = TRUE;
-    left_mouse_button_mode = LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
-    left_mouse_button_unselects = TRUE;
-    middle_mouse_button_mode = MIDDLE_BUTTON_GOES_UP_DIR;
-    right_mouse_button_mode = RIGHT_BUTTON_POPUPS_MENU;
     color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
     size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
     perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
-    alt_quick_search = FALSE;
-    quick_search_exact_match_begin = TRUE;
-    quick_search_exact_match_end = FALSE;
 
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
 
-    case_sens_sort = TRUE;
     layout = GNOME_CMD_LAYOUT_MIME_ICONS;
     ext_disp_mode = GNOME_CMD_EXT_DISP_BOTH;
     list_orientation = FALSE;
@@ -881,14 +873,9 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
-    save_dirs_on_exit = FALSE;
-    save_tabs_on_exit = TRUE;
-    save_dir_history_on_exit = TRUE;
-
     always_show_tabs = FALSE;
     tab_lock_indicator = TAB_LOCK_ICON;
 
-    allow_multiple_instances = FALSE;
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
 
@@ -1064,7 +1051,7 @@ void GnomeCmdData::load()
     filter_settings.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
     filter_settings.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
 
-    case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
+    options.case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
 
     main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
@@ -1110,10 +1097,10 @@ void GnomeCmdData::load()
     priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
     ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
-    left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
-    left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
-    middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
-    right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
+    options.left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
+    options.left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
+    options.middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
+    options.right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
     icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
@@ -1140,11 +1127,11 @@ void GnomeCmdData::load()
         gui_update_rate = MAX_GUI_UPDATE_RATE;
 
     honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
-    allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
+    options.allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
     use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
-    alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
-    quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
-    quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
+    options.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
+    options.quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
+    options.quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
     skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
     priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
@@ -1180,9 +1167,9 @@ void GnomeCmdData::load()
     gnome_cmd_data_get_color ("/colors/ls_colors_white_fg", priv->ls_colors_palette.white_fg);
     gnome_cmd_data_get_color ("/colors/ls_colors_white_bg", priv->ls_colors_palette.white_bg);
 
-    save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
-    save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
-    save_dir_history_on_exit = gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE);
+    options.save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
+    options.save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
+    options.save_dir_history_on_exit = gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE);
 
     always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
     tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
@@ -1502,7 +1489,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/options/hidden_filter", filter_settings.hidden);
     gnome_cmd_data_set_bool   ("/options/backup_filter", filter_settings.backup);
 
-    gnome_cmd_data_set_bool   ("/sort/case_sensitive", case_sens_sort);
+    gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);
 
     gnome_cmd_data_set_int    ("/colors/mode", color_mode);
 
@@ -1537,10 +1524,10 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/options/list_font", priv->list_font);
 
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", ext_disp_mode);
-    gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", left_mouse_button_mode);
-    gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", left_mouse_button_unselects);
-    gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", middle_mouse_button_mode);
-    gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", right_mouse_button_mode);
+    gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", options.left_mouse_button_mode);
+    gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", options.left_mouse_button_unselects);
+    gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", options.middle_mouse_button_mode);
+    gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", options.right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", icon_scale_quality);
@@ -1552,11 +1539,11 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", honor_expect_uris);
-    gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", allow_multiple_instances);
+    gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", options.allow_multiple_instances);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", use_internal_viewer);
-    gnome_cmd_data_set_bool   ("/programs/alt_quick_search", alt_quick_search);
-    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", quick_search_exact_match_begin);
-    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", quick_search_exact_match_end);
+    gnome_cmd_data_set_bool   ("/programs/alt_quick_search", options.alt_quick_search);
+    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", options.quick_search_exact_match_begin);
+    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", options.quick_search_exact_match_end);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
@@ -1601,9 +1588,9 @@ void GnomeCmdData::save()
         g_free (tmp);
     }
 
-    gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", save_dirs_on_exit);
-    gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", save_tabs_on_exit);
-    gnome_cmd_data_set_bool ("/options/save_dir_history_on_exit", save_dir_history_on_exit);
+    gnome_cmd_data_set_bool ("/options/save_dirs_on_exit", options.save_dirs_on_exit);
+    gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", options.save_tabs_on_exit);
+    gnome_cmd_data_set_bool ("/options/save_dir_history_on_exit", options.save_dir_history_on_exit);
 
     gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
     gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) tab_lock_indicator);
@@ -1636,7 +1623,7 @@ void GnomeCmdData::save()
 
         xml << XML::tag("History");
 
-        if (save_dir_history_on_exit)
+        if (options.save_dir_history_on_exit)
         {
             xml << XML::tag("Directories");
 

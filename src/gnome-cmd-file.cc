@@ -203,7 +203,7 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 
     gchar *utf8_name;
 
-    if (!gnome_cmd_data.case_sens_sort)
+    if (!gnome_cmd_data.options.case_sens_sort)
     {
         gchar *s = get_utf8 (info->name);
         utf8_name = g_utf8_casefold (s, -1);
@@ -762,7 +762,7 @@ void GnomeCmdFile::update_info(GnomeVFSFileInfo *info)
 
     gchar *utf8_name;
 
-    if (!gnome_cmd_data.case_sens_sort)
+    if (!gnome_cmd_data.options.case_sens_sort)
     {
         gchar *s = get_utf8 (info->name);
         utf8_name = g_utf8_casefold (s, -1);

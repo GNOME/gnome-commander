@@ -141,7 +141,7 @@ int main (int argc, char *argv[])
 
     app = unique_app_new ("org.gnome.GnomeCommander", NULL);
 
-    if (!gnome_cmd_data.allow_multiple_instances && unique_app_is_running (app))
+    if (!gnome_cmd_data.options.allow_multiple_instances && unique_app_is_running (app))
         unique_app_send_message (app, UNIQUE_ACTIVATE, NULL);
     else
     {

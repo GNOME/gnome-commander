@@ -74,16 +74,16 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("Single click to open items"), "lmb_singleclick_radio");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+    if (cfg.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Double click to open items"), "lmb_doubleclick_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+    if (cfg.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     check = create_check (parent, _("Single click unselects files"), "lmb_unselects_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.left_mouse_button_unselects);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.left_mouse_button_unselects);
 
 
     // Middle mouse button settings
@@ -93,11 +93,11 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("Up one directory"), "mmb_cd_up_radio");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
+    if (cfg.options.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Opens new tab"), "mmb_new_tab_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB)
+    if (cfg.options.middle_mouse_button_mode == GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -108,11 +108,11 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("Shows popup menu"), "rmb_popup_radio");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
+    if (cfg.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Selects files"), "rmb_sel_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
+    if (cfg.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -123,7 +123,7 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Case sensitive"), "case_sens_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.case_sens_sort);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.case_sens_sort);
 
 
     // Quick search options
@@ -133,18 +133,18 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.alt_quick_search);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.options.alt_quick_search);
     radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.alt_quick_search);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.options.alt_quick_search);
 
     check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_begin);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.quick_search_exact_match_begin);
 
     check = create_check (parent, _("Match end of the file name"), "qsearch_exact_match_end");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_end);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.quick_search_exact_match_end);
 
 
     // Multiple instances
@@ -154,7 +154,7 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Don't start a new instance"), "multiple_instance_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.allow_multiple_instances);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.options.allow_multiple_instances);
 
 
     // Save on exit
@@ -164,16 +164,16 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Directories"), "save_dirs");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dirs_on_exit);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.save_dirs_on_exit);
 
     check = create_check (parent, _("Tabs"), "save_tabs");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     g_signal_connect (check, "toggled", G_CALLBACK (on_save_tabs_toggled), parent);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_tabs_on_exit);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.save_tabs_on_exit);
 
     check = create_check (parent, _("Directory history"), "save_dir_history");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dir_history_on_exit);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.save_dir_history_on_exit);
 
 
     return frame;
@@ -195,24 +195,24 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData &cfg)
     GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
     GtkWidget *save_dir_history = lookup_widget (dialog, "save_dir_history");
 
-    cfg.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
+    cfg.options.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
-    cfg.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselects_check));
+    cfg.options.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselects_check));
 
-    cfg.middle_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mmb_cd_up_radio)) ? GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR
-                                                                                                      : GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB;
+    cfg.options.middle_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (mmb_cd_up_radio)) ? GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR
+                                                                                                              : GnomeCmdData::MIDDLE_BUTTON_OPENS_NEW_TAB;
 
-    cfg.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
-                                                                                                     : GnomeCmdData::RIGHT_BUTTON_SELECTS;
+    cfg.options.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
+                                                                                                             : GnomeCmdData::RIGHT_BUTTON_SELECTS;
 
-    cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    cfg.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
-    cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
-    cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
-    cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
-    cfg.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
-    cfg.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
-    cfg.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
+    cfg.options.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
+    cfg.options.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
+    cfg.options.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
+    cfg.options.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
+    cfg.options.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
+    cfg.options.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
+    cfg.options.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
+    cfg.options.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
 }
 
 

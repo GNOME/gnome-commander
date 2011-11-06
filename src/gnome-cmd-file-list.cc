@@ -1152,7 +1152,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
 
     fl->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
 
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
         mime_exec_file (f);
     }
@@ -1174,7 +1174,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
                 else
                     if (event->state & GDK_CONTROL_MASK)
                     {
-                        if (!fl->priv->selected_files.empty() || gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+                        if (!fl->priv->selected_files.empty() || gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
                             toggle_file_at_row (fl, row);
                         else
                         {
@@ -1189,7 +1189,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
                 if (event->button == 3)
                     if (!f->is_dotdot)
                     {
-                        if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
+                        if (gnome_cmd_data.options.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
                         {
                             if (!fl->priv->selected_files.contain(f))
                             {
@@ -1219,7 +1219,7 @@ static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventBut
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (event != NULL);
 
-    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         mime_exec_file (f);
 }
 
@@ -1269,7 +1269,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
     {
         if (event->button == 1 && state_is_blank (event->state))
         {
-            if (f && !fl->priv->selected_files.contain(f) && gnome_cmd_data.left_mouse_button_unselects)
+            if (f && !fl->priv->selected_files.contain(f) && gnome_cmd_data.options.left_mouse_button_unselects)
                 fl->unselect_all();
             return TRUE;
         }

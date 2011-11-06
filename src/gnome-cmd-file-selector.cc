@@ -452,14 +452,14 @@ static void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *pag
 
 static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
         fs->do_file_specific_action (fl, f);
 }
 
 
 static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.options.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
         fs->do_file_specific_action (fl, f);
 }
 
@@ -475,7 +475,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
                 break;
 
             case 2:
-                if (gnome_cmd_data.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
+                if (gnome_cmd_data.options.middle_mouse_button_mode==GnomeCmdData::MIDDLE_BUTTON_GOES_UP_DIR)
                 {
                     if (fl->locked)
                         fs->new_tab(gnome_cmd_dir_get_parent (fl->cwd));
@@ -1506,7 +1506,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
 {
     GList *tabs = gtk_container_get_children (*fs.notebook);
 
-    if (gnome_cmd_data.save_tabs_on_exit)
+    if (gnome_cmd_data.options.save_tabs_on_exit)
         for (GList *i=tabs; i; i=i->next)
         {
             GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
@@ -1515,7 +1515,7 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
                 xml << *fl;
         }
     else
-        if (gnome_cmd_data.save_dirs_on_exit)
+        if (gnome_cmd_data.options.save_dirs_on_exit)
             for (GList *i=tabs; i; i=i->next)
             {
                 GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
