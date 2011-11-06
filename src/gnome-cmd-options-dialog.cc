@@ -1478,7 +1478,7 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-static GtkWidget *create_programs_tab (GtkWidget *parent)
+static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *table;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
@@ -1491,7 +1491,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
 
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !gnome_cmd_data.honor_expect_uris);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1508,17 +1508,17 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     label = create_label (parent, _("Terminal:"));
     table_add (table, label, 0, 4, GTK_FILL);
 
-    entry = create_entry (parent, "viewer", gnome_cmd_data.get_viewer());
+    entry = create_entry (parent, "viewer", cfg.get_viewer());
     table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_internal_viewer);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_viewer);
     table_add (table, check, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "editor", gnome_cmd_data.get_editor());
+    entry = create_entry (parent, "editor", cfg.get_editor());
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "differ", gnome_cmd_data.get_differ());
+    entry = create_entry (parent, "differ", cfg.get_differ());
     table_add (table, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "term", gnome_cmd_data.get_term());
+    entry = create_entry (parent, "term", cfg.get_term());
     table_add (table, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
 
@@ -1993,7 +1993,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg)
     notebook->append_page(create_tabs_tab (dialog, cfg), _("Tabs"));
     notebook->append_page(create_confirmation_tab (dialog, cfg), _("Confirmation"));
     notebook->append_page(create_filter_tab (dialog, cfg), _("Filters"));
-    notebook->append_page(create_programs_tab (dialog), _("Programs"));
+    notebook->append_page(create_programs_tab (dialog, cfg), _("Programs"));
     notebook->append_page(create_devices_tab (dialog), _("Devices"));
 
 #if GTK_CHECK_VERSION (2, 14, 0)
