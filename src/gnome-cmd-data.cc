@@ -1627,7 +1627,7 @@ void GnomeCmdData::save()
         {
             xml << XML::tag("Directories");
 
-            for (GList *i=gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents; i; i=i=i->next)
+            for (GList *i=gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents; i; i=i->next)
                 xml << XML::tag("Directory") << XML::attr("path") << XML::escape((const gchar *) i->data) << XML::endtag();
 
             xml << XML::endtag("Directories");
