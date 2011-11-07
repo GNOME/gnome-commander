@@ -132,7 +132,7 @@ inline gchar *file_details(const gchar *text_uri)
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
     GnomeVFSResult result = gnome_vfs_get_file_info (text_uri, info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
     gchar *size = create_nice_size_str (info->size);
-    gchar *details = result==GNOME_VFS_OK ? g_strdup_printf ("%s, %s", size, time2string (info->mtime, gnome_cmd_data_get_date_format ())) : g_strdup ("");
+    gchar *details = result==GNOME_VFS_OK ? g_strdup_printf ("%s, %s", size, time2string (info->mtime, gnome_cmd_data.options.date_format)) : g_strdup ("");
     gnome_vfs_file_info_unref (info);
     g_free (size);
 

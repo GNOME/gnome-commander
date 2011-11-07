@@ -1737,20 +1737,6 @@ void gnome_cmd_data_set_fav_apps (GList *apps)
 }
 
 
-GnomeCmdDateFormat gnome_cmd_data_get_date_format ()
-{
-    return gnome_cmd_data.options.date_format;
-}
-
-
-void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format)
-{
-    g_free (gnome_cmd_data.options.date_format);
-
-    gnome_cmd_data.options.date_format = g_strdup (format);
-}
-
-
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 {
     return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.color_mode];

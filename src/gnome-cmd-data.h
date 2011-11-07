@@ -107,6 +107,12 @@ struct GnomeCmdData
         {
             g_free (date_format);
         }
+
+        void set_date_format (const GnomeCmdDateFormat format)
+        {
+            g_free (date_format);
+            date_format = g_strdup (format);
+        }
     };
 
     struct Selection
@@ -333,9 +339,6 @@ void gnome_cmd_data_set_fav_apps (GList *apps);
 
 const gchar *gnome_cmd_data_get_ftp_anonymous_password ();
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
-
-GnomeCmdDateFormat gnome_cmd_data_get_date_format ();
-void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format);
 
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
