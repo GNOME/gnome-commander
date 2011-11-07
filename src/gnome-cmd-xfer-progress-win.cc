@@ -170,8 +170,8 @@ void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *wi
         gtk_progress_set_percentage (GTK_PROGRESS (win->fileprog), file_prog);
     }
 
-    gchar *bytes_total_str = g_strdup (size2string (bytes_total, gnome_cmd_data.size_disp_mode));
-    const gchar *bytes_copied_str = size2string (bytes_copied, gnome_cmd_data.size_disp_mode);
+    gchar *bytes_total_str = g_strdup (size2string (bytes_total, gnome_cmd_data.options.size_disp_mode));
+    const gchar *bytes_copied_str = size2string (bytes_copied, gnome_cmd_data.options.size_disp_mode);
 
     gchar text[128];
 

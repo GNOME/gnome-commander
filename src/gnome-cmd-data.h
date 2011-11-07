@@ -80,6 +80,10 @@ struct GnomeCmdData
         gboolean              save_dirs_on_exit;
         gboolean              save_tabs_on_exit;
         gboolean              save_dir_history_on_exit;
+        // Format
+        GnomeCmdSizeDispMode  size_disp_mode;
+        GnomeCmdPermDispMode  perm_disp_mode;
+        GnomeCmdDateFormat    date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -92,8 +96,16 @@ struct GnomeCmdData
                    allow_multiple_instances(FALSE),
                    save_dirs_on_exit(FALSE),
                    save_tabs_on_exit(TRUE),
-                   save_dir_history_on_exit(TRUE)
+                   save_dir_history_on_exit(TRUE),
+                   size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
+                   perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
+                   date_format(NULL)
         {
+        }
+
+        ~Options()
+        {
+            g_free (date_format);
         }
     };
 
@@ -234,8 +246,6 @@ struct GnomeCmdData
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     gboolean                     confirm_mouse_dnd;
     GnomeCmdColorMode            color_mode;
-    GnomeCmdSizeDispMode         size_disp_mode;
-    GnomeCmdPermDispMode         perm_disp_mode;
 
     Options                      options;
 

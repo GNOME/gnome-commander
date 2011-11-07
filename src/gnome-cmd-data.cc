@@ -49,7 +49,6 @@ struct GnomeCmdData::Private
 {
     GnomeCmdConList      *con_list;
     GList                *fav_apps;
-    GnomeCmdDateFormat   date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
     gchar                *list_font;
     gchar                *theme_icon_dir;
@@ -842,8 +841,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_mouse_dnd = TRUE;
     color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
-    size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
-    perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
+    options.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT; //  ???
 
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
@@ -919,9 +917,6 @@ void GnomeCmdData::free()
 
         // free the anonymous password string
         g_free (priv->ftp_anonymous_password);
-
-        // free the date_format string
-        g_free (priv->date_format);
 
         // free the font name strings
         g_free (priv->list_font);
@@ -1020,15 +1015,15 @@ void GnomeCmdData::load()
     priv->color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
     priv->color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
 
-    size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
-    perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
+    options.size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
+    options.perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
     gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R");
 #else
     gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%D %R");
 #endif
-    priv->date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
+    options.date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
     g_free (utf8_date_format);
 
     layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
@@ -1463,12 +1458,12 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
-    gnome_cmd_data_set_int    ("/options/size_disp_mode", size_disp_mode);
-    gnome_cmd_data_set_int    ("/options/perm_disp_mode", perm_disp_mode);
+    gnome_cmd_data_set_int    ("/options/size_disp_mode", options.size_disp_mode);
+    gnome_cmd_data_set_int    ("/options/perm_disp_mode", options.perm_disp_mode);
     gnome_cmd_data_set_int    ("/options/layout", layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", list_row_height);
 
-    gchar *utf8_date_format = g_locale_to_utf8 (priv->date_format, -1, NULL, NULL, NULL);
+    gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
     gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
     g_free (utf8_date_format);
 
@@ -1744,15 +1739,15 @@ void gnome_cmd_data_set_fav_apps (GList *apps)
 
 GnomeCmdDateFormat gnome_cmd_data_get_date_format ()
 {
-    return gnome_cmd_data.priv->date_format;
+    return gnome_cmd_data.options.date_format;
 }
 
 
 void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format)
 {
-    g_free (gnome_cmd_data.priv->date_format);
+    g_free (gnome_cmd_data.options.date_format);
 
-    gnome_cmd_data.priv->date_format = g_strdup (format);
+    gnome_cmd_data.options.date_format = g_strdup (format);
 }
 
 

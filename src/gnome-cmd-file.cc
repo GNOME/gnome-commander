@@ -525,7 +525,7 @@ const gchar *GnomeCmdFile::get_size()
     if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         return dir_indicator;
 
-    return size2string (info->size, gnome_cmd_data.size_disp_mode);
+    return size2string (info->size, gnome_cmd_data.options.size_disp_mode);
 }
 
 
@@ -558,7 +558,7 @@ const gchar *GnomeCmdFile::get_tree_size_as_str()
     if (is_dotdot)
         return get_size();
 
-    return size2string (get_tree_size(), gnome_cmd_data.size_disp_mode);
+    return size2string (get_tree_size(), gnome_cmd_data.options.size_disp_mode);
 }
 
 

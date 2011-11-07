@@ -260,23 +260,23 @@ inline GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData &cfg)
     // Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
     radio = create_radio (parent, NULL, _("Powered"), "size_powered_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
+    if (cfg.options.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     // Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
     radio = create_radio (parent, get_radio_group (radio), _("<locale>"), "size_locale_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
+    if (cfg.options.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Grouped"), "size_grouped_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
+    if (cfg.options.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Plain"), "size_plain_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_PLAIN)
+    if (cfg.options.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_PLAIN)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -287,12 +287,12 @@ inline GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("Text (rw-r--r--)"), "perm_text_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_TEXT)
+    if (cfg.options.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_TEXT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Number (644)"), "perm_num_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_NUMBER)
+    if (cfg.options.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_NUMBER)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -337,18 +337,18 @@ inline void store_format_options (GtkWidget *dialog, GnomeCmdData &cfg)
     const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
-        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
+        cfg.options.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_locale_radio)))
-        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_LOCALE;
+        cfg.options.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_LOCALE;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_grouped_radio)))
-        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
+        cfg.options.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
     else
-        cfg.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_PLAIN;
+        cfg.options.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_PLAIN;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (perm_text_radio)))
-        cfg.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
+        cfg.options.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     else
-        cfg.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
+        cfg.options.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
 
     gnome_cmd_data_set_date_format (g_locale_from_utf8 (format, -1, NULL, NULL, NULL));
 }

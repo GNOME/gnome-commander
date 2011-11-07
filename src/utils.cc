@@ -287,7 +287,7 @@ const gchar *name2string (gchar *filename, gchar *buf, guint max)
 
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
-    switch (gnome_cmd_data.perm_disp_mode)
+    switch (gnome_cmd_data.options.perm_disp_mode)
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
             return perm2textstring (p, buf, max);
@@ -815,7 +815,7 @@ gchar *create_nice_size_str (GnomeVFSFileSize size)
 {
     GString *s = g_string_sized_new (64);
 
-    if (gnome_cmd_data.size_disp_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED && size>=1000)
+    if (gnome_cmd_data.options.size_disp_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED && size>=1000)
     {
         g_string_printf (s, "%s", size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED));
         g_string_append_printf (s, ngettext("(%sbyte)","(%sbytes)",size), size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
