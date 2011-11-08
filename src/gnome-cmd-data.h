@@ -67,7 +67,7 @@ struct GnomeCmdData
 
     struct Options
     {
-        //  Layout
+        //  General
         LeftMouseButtonMode   left_mouse_button_mode;
         gboolean              left_mouse_button_unselects;
         MiddleMouseButtonMode middle_mouse_button_mode;
