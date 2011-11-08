@@ -304,7 +304,7 @@ inline GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData &cfg)
     label = create_label (parent, _("Format:"));
     table_add (table, label, 0, 0, GTK_FILL);
 
-    gchar *utf8_date_format = g_locale_to_utf8 (gnome_cmd_data.options.date_format, -1, NULL, NULL, NULL);
+    gchar *utf8_date_format = g_locale_to_utf8 (cfg.options.date_format, -1, NULL, NULL, NULL);
     entry = create_entry (parent, "date_format_entry", utf8_date_format);
     g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
@@ -350,7 +350,7 @@ inline void store_format_options (GtkWidget *dialog, GnomeCmdData &cfg)
     else
         cfg.options.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
 
-    gnome_cmd_data.options.set_date_format(g_locale_from_utf8 (format, -1, NULL, NULL, NULL));
+    cfg.options.set_date_format(g_locale_from_utf8 (format, -1, NULL, NULL, NULL));
 }
 
 
