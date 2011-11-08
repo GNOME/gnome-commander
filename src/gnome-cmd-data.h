@@ -68,22 +68,22 @@ struct GnomeCmdData
     struct Options
     {
         //  General
-        LeftMouseButtonMode   left_mouse_button_mode;
-        gboolean              left_mouse_button_unselects;
-        MiddleMouseButtonMode middle_mouse_button_mode;
-        RightMouseButtonMode  right_mouse_button_mode;
-        gboolean              case_sens_sort;
-        gboolean              alt_quick_search;
-        gboolean              quick_search_exact_match_begin;
-        gboolean              quick_search_exact_match_end;
-        gboolean              allow_multiple_instances;
-        gboolean              save_dirs_on_exit;
-        gboolean              save_tabs_on_exit;
-        gboolean              save_dir_history_on_exit;
+        LeftMouseButtonMode     left_mouse_button_mode;
+        gboolean                left_mouse_button_unselects;
+        MiddleMouseButtonMode   middle_mouse_button_mode;
+        RightMouseButtonMode    right_mouse_button_mode;
+        gboolean                case_sens_sort;
+        gboolean                alt_quick_search;
+        gboolean                quick_search_exact_match_begin;
+        gboolean                quick_search_exact_match_end;
+        gboolean                allow_multiple_instances;
+        gboolean                save_dirs_on_exit;
+        gboolean                save_tabs_on_exit;
+        gboolean                save_dir_history_on_exit;
         // Format
-        GnomeCmdSizeDispMode  size_disp_mode;
-        GnomeCmdPermDispMode  perm_disp_mode;
-        GnomeCmdDateFormat    date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
+        GnomeCmdSizeDispMode    size_disp_mode;
+        GnomeCmdPermDispMode    perm_disp_mode;
+        GnomeCmdDateFormat      date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
