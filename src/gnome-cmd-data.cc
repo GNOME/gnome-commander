@@ -841,7 +841,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_mouse_dnd = TRUE;
     color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
-    options.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT; //  ???
 
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
