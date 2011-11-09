@@ -1738,20 +1738,6 @@ GnomeCmdLsColorsPalette *gnome_cmd_data_get_ls_colors_palette ()
 }
 
 
-const gchar *gnome_cmd_data_get_theme_icon_dir ()
-{
-    return gnome_cmd_data.options.theme_icon_dir;
-}
-
-
-void gnome_cmd_data_set_theme_icon_dir (const gchar *dir)
-{
-    g_free (gnome_cmd_data.options.theme_icon_dir);
-
-    gnome_cmd_data.options.theme_icon_dir = g_strdup (dir);
-}
-
-
 const gchar *gnome_cmd_data_get_document_icon_dir ()
 {
     return gnome_cmd_data.options.document_icon_dir;
