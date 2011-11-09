@@ -84,6 +84,19 @@ struct GnomeCmdData
         GnomeCmdSizeDispMode    size_disp_mode;
         GnomeCmdPermDispMode    perm_disp_mode;
         GnomeCmdDateFormat      date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
+        //  Layout
+        gchar                  *list_font;
+        gint                    list_row_height;
+        GnomeCmdExtDispMode     ext_disp_mode;
+        GnomeCmdLayout          layout;
+        GnomeCmdColorMode       color_mode;
+        gboolean                use_ls_colors;
+        GnomeCmdLsColorsPalette ls_colors_palette;
+        guint                   icon_size;
+        GdkInterpType           icon_scale_quality;
+        gchar                  *theme_icon_dir;
+        gchar                  *document_icon_dir;
+
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -99,19 +112,37 @@ struct GnomeCmdData
                    save_dir_history_on_exit(TRUE),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
-                   date_format(NULL)
+                   date_format(NULL),
+                   list_font(NULL),
+                   list_row_height(16),
+                   ext_disp_mode(GNOME_CMD_EXT_DISP_BOTH),
+                   layout(GNOME_CMD_LAYOUT_MIME_ICONS),
+                   color_mode(GNOME_CMD_COLOR_DEEP_BLUE),
+                   use_ls_colors(FALSE),
+                   icon_size(16),
+                   icon_scale_quality(GDK_INTERP_HYPER),
+                   theme_icon_dir(NULL),
+                   document_icon_dir(NULL)
         {
+            memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
 
         ~Options()
         {
             g_free (date_format);
+            g_free (list_font);
         }
 
         void set_date_format (const GnomeCmdDateFormat format)
         {
             g_free (date_format);
             date_format = g_strdup (format);
+        }
+
+        void set_list_font (const gchar *font)
+        {
+            g_free (list_font);
+            list_font = g_strdup (font);
         }
     };
 
@@ -251,7 +282,6 @@ struct GnomeCmdData
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     gboolean                     confirm_mouse_dnd;
-    GnomeCmdColorMode            color_mode;
 
     Options                      options;
 
@@ -264,8 +294,6 @@ struct GnomeCmdData
     IntViewerConfig              intviewer_defaults;
     BookmarksConfig              bookmarks_defaults;
 
-    GnomeCmdLayout               layout;
-    GnomeCmdExtDispMode          ext_disp_mode;
     gboolean                     list_orientation;
 
     gboolean                     toolbar_visibility;
@@ -274,14 +302,9 @@ struct GnomeCmdData
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
 
-    gboolean                     use_ls_colors;
-
-    guint                        icon_size;
     guint                        dev_icon_size;
     gboolean                     device_only_icon;
-    gint                         list_row_height;
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
-    GdkInterpType                icon_scale_quality;
     guint                        gui_update_rate;
     GtkReliefStyle               button_relief;
 
@@ -368,9 +391,6 @@ inline void GnomeCmdData::set_term(const gchar *command)
     g_free (term);
     term = g_strdup (command);
 }
-
-const gchar *gnome_cmd_data_get_list_font ();
-void gnome_cmd_data_set_list_font (const gchar *list_font);
 
 const gchar *gnome_cmd_data_get_theme_icon_dir ();
 void gnome_cmd_data_set_theme_icon_dir (const gchar *dir);

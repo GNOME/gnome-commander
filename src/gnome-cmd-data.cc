@@ -50,9 +50,6 @@ struct GnomeCmdData::Private
     GnomeCmdConList      *con_list;
     GList                *fav_apps;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
-    gchar                *list_font;
-    gchar                *theme_icon_dir;
-    gchar                *document_icon_dir;
     gchar                *last_pattern;
     GList                *auto_load_plugins;
     gint                 sort_column[2];
@@ -63,8 +60,6 @@ struct GnomeCmdData::Private
     gchar                *symlink_prefix;
 
     gchar                *ftp_anonymous_password;
-
-    GnomeCmdLsColorsPalette ls_colors_palette;
 };
 
 
@@ -840,14 +835,11 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_mouse_dnd = TRUE;
-    color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
 
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
 
-    layout = GNOME_CMD_LAYOUT_MIME_ICONS;
-    ext_disp_mode = GNOME_CMD_EXT_DISP_BOTH;
     list_orientation = FALSE;
 
     toolbar_visibility = TRUE;
@@ -856,14 +848,9 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
 
-    use_ls_colors = FALSE;
-
-    icon_size = 16;
     dev_icon_size = 16;
     device_only_icon = FALSE;
-    list_row_height = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
-    icon_scale_quality = GDK_INTERP_HYPER;
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
     button_relief = GTK_RELIEF_NONE;
 
@@ -916,9 +903,6 @@ void GnomeCmdData::free()
 
         // free the anonymous password string
         g_free (priv->ftp_anonymous_password);
-
-        // free the font name strings
-        g_free (priv->list_font);
 
         g_free (priv);
     }
@@ -1025,9 +1009,9 @@ void GnomeCmdData::load()
     options.date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
     g_free (utf8_date_format);
 
-    layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
+    options.layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
 
-    list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
+    options.list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
     confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
     confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
@@ -1057,8 +1041,8 @@ void GnomeCmdData::load()
         g_free (tmp);
     }
 
-    color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", gcmd_owner.is_root() ? GNOME_CMD_COLOR_GREEN_TIGER :
-                                                                                                    GNOME_CMD_COLOR_DEEP_BLUE);
+    options.color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", gcmd_owner.is_root() ? GNOME_CMD_COLOR_GREEN_TIGER :
+                                                                                                            GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -1069,38 +1053,38 @@ void GnomeCmdData::load()
     gnome_cmd_data_get_color ("/colors/curs_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
     gnome_cmd_data_get_color ("/colors/curs_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
 
-    use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
+    options.use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
 
-    priv->ls_colors_palette.black_fg = gdk_color_new (0, 0, 0);
-    priv->ls_colors_palette.black_bg = gdk_color_new (0, 0, 0);
-    priv->ls_colors_palette.red_fg = gdk_color_new (0xffff, 0, 0);
-    priv->ls_colors_palette.red_bg = gdk_color_new (0xffff, 0, 0);
-    priv->ls_colors_palette.green_fg = gdk_color_new (0, 0xffff, 0);
-    priv->ls_colors_palette.green_bg = gdk_color_new (0, 0xffff, 0);
-    priv->ls_colors_palette.yellow_fg = gdk_color_new (0xffff, 0xffff, 0);
-    priv->ls_colors_palette.yellow_bg = gdk_color_new (0xffff, 0xffff, 0);
-    priv->ls_colors_palette.blue_fg = gdk_color_new (0, 0, 0xffff);
-    priv->ls_colors_palette.blue_bg = gdk_color_new (0, 0, 0xffff);
-    priv->ls_colors_palette.magenta_fg = gdk_color_new (0xffff, 0, 0xffff);
-    priv->ls_colors_palette.magenta_bg = gdk_color_new (0xffff, 0, 0xffff);
-    priv->ls_colors_palette.cyan_fg = gdk_color_new (0, 0xffff, 0xffff);
-    priv->ls_colors_palette.cyan_bg = gdk_color_new (0, 0xffff, 0xffff);
-    priv->ls_colors_palette.white_fg = gdk_color_new (0xffff, 0xffff, 0xffff);
-    priv->ls_colors_palette.white_bg = gdk_color_new (0xffff, 0xffff, 0xffff);
+    options.ls_colors_palette.black_fg = gdk_color_new (0, 0, 0);
+    options.ls_colors_palette.black_bg = gdk_color_new (0, 0, 0);
+    options.ls_colors_palette.red_fg = gdk_color_new (0xffff, 0, 0);
+    options.ls_colors_palette.red_bg = gdk_color_new (0xffff, 0, 0);
+    options.ls_colors_palette.green_fg = gdk_color_new (0, 0xffff, 0);
+    options.ls_colors_palette.green_bg = gdk_color_new (0, 0xffff, 0);
+    options.ls_colors_palette.yellow_fg = gdk_color_new (0xffff, 0xffff, 0);
+    options.ls_colors_palette.yellow_bg = gdk_color_new (0xffff, 0xffff, 0);
+    options.ls_colors_palette.blue_fg = gdk_color_new (0, 0, 0xffff);
+    options.ls_colors_palette.blue_bg = gdk_color_new (0, 0, 0xffff);
+    options.ls_colors_palette.magenta_fg = gdk_color_new (0xffff, 0, 0xffff);
+    options.ls_colors_palette.magenta_bg = gdk_color_new (0xffff, 0, 0xffff);
+    options.ls_colors_palette.cyan_fg = gdk_color_new (0, 0xffff, 0xffff);
+    options.ls_colors_palette.cyan_bg = gdk_color_new (0, 0xffff, 0xffff);
+    options.ls_colors_palette.white_fg = gdk_color_new (0xffff, 0xffff, 0xffff);
+    options.ls_colors_palette.white_bg = gdk_color_new (0xffff, 0xffff, 0xffff);
 
-    priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
+    options.list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
-    ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
+    options.ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     options.left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
     options.left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
     options.right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
-    icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
+    options.icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
-    icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
-    priv->theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
+    options.icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
+    options.theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
-    priv->document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
+    options.document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
     g_free (document_icon_dir);
     cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
@@ -1144,22 +1128,22 @@ void GnomeCmdData::load()
 
     device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
 
-    gnome_cmd_data_get_color ("/colors/ls_colors_black_fg", priv->ls_colors_palette.black_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_black_bg", priv->ls_colors_palette.black_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_red_fg", priv->ls_colors_palette.red_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_red_bg", priv->ls_colors_palette.red_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_green_fg", priv->ls_colors_palette.green_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_green_bg", priv->ls_colors_palette.green_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_yellow_fg", priv->ls_colors_palette.yellow_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_yellow_bg", priv->ls_colors_palette.yellow_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_blue_fg", priv->ls_colors_palette.blue_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_blue_bg", priv->ls_colors_palette.blue_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_magenta_fg", priv->ls_colors_palette.magenta_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_magenta_bg", priv->ls_colors_palette.magenta_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_cyan_fg", priv->ls_colors_palette.cyan_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_cyan_bg", priv->ls_colors_palette.cyan_bg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_white_fg", priv->ls_colors_palette.white_fg);
-    gnome_cmd_data_get_color ("/colors/ls_colors_white_bg", priv->ls_colors_palette.white_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_red_fg", options.ls_colors_palette.red_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_red_bg", options.ls_colors_palette.red_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_green_fg", options.ls_colors_palette.green_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_green_bg", options.ls_colors_palette.green_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_yellow_fg", options.ls_colors_palette.yellow_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_yellow_bg", options.ls_colors_palette.yellow_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_blue_fg", options.ls_colors_palette.blue_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_blue_bg", options.ls_colors_palette.blue_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_magenta_fg", options.ls_colors_palette.magenta_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_magenta_bg", options.ls_colors_palette.magenta_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_cyan_fg", options.ls_colors_palette.cyan_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_cyan_bg", options.ls_colors_palette.cyan_bg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_white_fg", options.ls_colors_palette.white_fg);
+    gnome_cmd_data_get_color ("/colors/ls_colors_white_bg", options.ls_colors_palette.white_bg);
 
     options.save_dirs_on_exit = gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE);
     options.save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
@@ -1459,8 +1443,8 @@ void GnomeCmdData::save()
 {
     gnome_cmd_data_set_int    ("/options/size_disp_mode", options.size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", options.perm_disp_mode);
-    gnome_cmd_data_set_int    ("/options/layout", layout);
-    gnome_cmd_data_set_int    ("/options/list_row_height", list_row_height);
+    gnome_cmd_data_set_int    ("/options/layout", options.layout);
+    gnome_cmd_data_set_int    ("/options/list_row_height", options.list_row_height);
 
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
     gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
@@ -1485,7 +1469,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);
 
-    gnome_cmd_data_set_int    ("/colors/mode", color_mode);
+    gnome_cmd_data_set_int    ("/colors/mode", options.color_mode);
 
     gnome_cmd_data_set_color  ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_set_color  ("/colors/norm_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -1496,37 +1480,37 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_color  ("/colors/curs_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
     gnome_cmd_data_set_color  ("/colors/curs_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
 
-    gnome_cmd_data_set_bool   ("/colors/use_ls_colors", use_ls_colors);
+    gnome_cmd_data_set_bool   ("/colors/use_ls_colors", options.use_ls_colors);
 
-    gnome_cmd_data_set_color ("/colors/ls_colors_black_fg", priv->ls_colors_palette.black_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_black_bg", priv->ls_colors_palette.black_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_red_fg", priv->ls_colors_palette.red_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_red_bg", priv->ls_colors_palette.red_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_green_fg", priv->ls_colors_palette.green_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_green_bg", priv->ls_colors_palette.green_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_yellow_fg", priv->ls_colors_palette.yellow_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_yellow_bg", priv->ls_colors_palette.yellow_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_blue_fg", priv->ls_colors_palette.blue_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_blue_bg", priv->ls_colors_palette.blue_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_magenta_fg", priv->ls_colors_palette.magenta_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_magenta_bg", priv->ls_colors_palette.magenta_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_cyan_fg", priv->ls_colors_palette.cyan_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_cyan_bg", priv->ls_colors_palette.cyan_bg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_white_fg", priv->ls_colors_palette.white_fg);
-    gnome_cmd_data_set_color ("/colors/ls_colors_white_bg", priv->ls_colors_palette.white_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_red_fg", options.ls_colors_palette.red_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_red_bg", options.ls_colors_palette.red_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_green_fg", options.ls_colors_palette.green_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_green_bg", options.ls_colors_palette.green_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_yellow_fg", options.ls_colors_palette.yellow_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_yellow_bg", options.ls_colors_palette.yellow_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_blue_fg", options.ls_colors_palette.blue_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_blue_bg", options.ls_colors_palette.blue_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_magenta_fg", options.ls_colors_palette.magenta_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_magenta_bg", options.ls_colors_palette.magenta_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_cyan_fg", options.ls_colors_palette.cyan_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_cyan_bg", options.ls_colors_palette.cyan_bg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_white_fg", options.ls_colors_palette.white_fg);
+    gnome_cmd_data_set_color ("/colors/ls_colors_white_bg", options.ls_colors_palette.white_bg);
 
-    gnome_cmd_data_set_string ("/options/list_font", priv->list_font);
+    gnome_cmd_data_set_string ("/options/list_font", options.list_font);
 
-    gnome_cmd_data_set_int    ("/options/ext_disp_mode", ext_disp_mode);
+    gnome_cmd_data_set_int    ("/options/ext_disp_mode", options.ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", options.left_mouse_button_mode);
     gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", options.left_mouse_button_unselects);
     gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", options.middle_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", options.right_mouse_button_mode);
-    gnome_cmd_data_set_int    ("/options/icon_size", icon_size);
+    gnome_cmd_data_set_int    ("/options/icon_size", options.icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);
-    gnome_cmd_data_set_int    ("/options/icon_scale_quality", icon_scale_quality);
-    gnome_cmd_data_set_string ("/options/theme_icon_dir", priv->theme_icon_dir);
-    gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
+    gnome_cmd_data_set_int    ("/options/icon_scale_quality", options.icon_scale_quality);
+    gnome_cmd_data_set_string ("/options/theme_icon_dir", options.theme_icon_dir);
+    gnome_cmd_data_set_string ("/options/document_icon_dir", options.document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
     gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
@@ -1738,7 +1722,7 @@ void gnome_cmd_data_set_fav_apps (GList *apps)
 
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 {
-    return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.color_mode];
+    return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.options.color_mode];
 }
 
 
@@ -1750,48 +1734,35 @@ GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
 
 GnomeCmdLsColorsPalette *gnome_cmd_data_get_ls_colors_palette ()
 {
-    return &gnome_cmd_data.priv->ls_colors_palette;
-}
-
-
-const gchar *gnome_cmd_data_get_list_font ()
-{
-    return gnome_cmd_data.priv->list_font;
-}
-
-
-void gnome_cmd_data_set_list_font (const gchar *list_font)
-{
-    g_free (gnome_cmd_data.priv->list_font);
-    gnome_cmd_data.priv->list_font = g_strdup (list_font);
+    return &gnome_cmd_data.options.ls_colors_palette;
 }
 
 
 const gchar *gnome_cmd_data_get_theme_icon_dir ()
 {
-    return gnome_cmd_data.priv->theme_icon_dir;
+    return gnome_cmd_data.options.theme_icon_dir;
 }
 
 
 void gnome_cmd_data_set_theme_icon_dir (const gchar *dir)
 {
-    g_free (gnome_cmd_data.priv->theme_icon_dir);
+    g_free (gnome_cmd_data.options.theme_icon_dir);
 
-    gnome_cmd_data.priv->theme_icon_dir = g_strdup (dir);
+    gnome_cmd_data.options.theme_icon_dir = g_strdup (dir);
 }
 
 
 const gchar *gnome_cmd_data_get_document_icon_dir ()
 {
-    return gnome_cmd_data.priv->document_icon_dir;
+    return gnome_cmd_data.options.document_icon_dir;
 }
 
 
 void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
 {
-    g_free (gnome_cmd_data.priv->document_icon_dir);
+    g_free (gnome_cmd_data.options.document_icon_dir);
 
-    gnome_cmd_data.priv->document_icon_dir = g_strdup (dir);
+    gnome_cmd_data.options.document_icon_dir = g_strdup (dir);
 }
 
 

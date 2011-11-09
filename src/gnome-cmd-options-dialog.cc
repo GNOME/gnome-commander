@@ -686,9 +686,9 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     fpicker = create_font_picker (parent, "list_font_picker");
     table_add (table, fpicker, 1, 0, GTK_FILL);
-    gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), gnome_cmd_data_get_list_font ());
+    gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), cfg.options.list_font);
 
-    spin = create_spin (parent, "row_height_spin", 8, 64, cfg.list_row_height);
+    spin = create_spin (parent, "row_height_spin", 8, 64, cfg.options.list_row_height);
     table_add (table, spin, 1, 1, GTK_FILL);
 
     label = create_label (parent, _("Font:"));
@@ -729,12 +729,12 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
     btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "color_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
-    gtk_widget_set_sensitive (btn, cfg.color_mode == GNOME_CMD_COLOR_CUSTOM);
+    gtk_widget_set_sensitive (btn, cfg.options.color_mode == GNOME_CMD_COLOR_CUSTOM);
 
 
     // LS_COLORS
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_ls_colors);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.use_ls_colors);
     hbox = create_hbox (parent, FALSE, 6);
     gtk_table_attach (GTK_TABLE (table), hbox, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
@@ -744,7 +744,7 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
     btn = create_button_with_data (parent, _("Edit colors..."), GTK_SIGNAL_FUNC (on_ls_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "ls_colors_edit_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
-    gtk_widget_set_sensitive (btn, cfg.use_ls_colors);
+    gtk_widget_set_sensitive (btn, cfg.options.use_ls_colors);
 
 
      // MIME icon settings
@@ -753,9 +753,9 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
     g_object_set_data (G_OBJECT (parent), "mime_icon_settings_frame", cat);
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    spin = create_spin (parent, "iconsize_spin", 8, 64, cfg.icon_size);
+    spin = create_spin (parent, "iconsize_spin", 8, 64, cfg.options.icon_size);
     table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
-    scale = create_scale (parent, "iconquality_scale", cfg.icon_scale_quality, 0, 3);
+    scale = create_scale (parent, "iconquality_scale", cfg.options.icon_scale_quality, 0, 3);
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", gnome_cmd_data_get_theme_icon_dir ());
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
@@ -772,9 +772,9 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
     table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
 
 
-    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) cfg.ext_disp_mode);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) cfg.layout);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) cfg.color_mode);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) cfg.options.ext_disp_mode);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) cfg.options.layout);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) cfg.options.color_mode);
 
     return frame;
 }
@@ -795,23 +795,23 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData &cfg)
 
     GtkWidget *list_font_picker = lookup_widget (dialog, "list_font_picker");
 
-    cfg.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
-    cfg.layout = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu));
-    cfg.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
+    cfg.options.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
+    cfg.options.layout = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu));
+    cfg.options.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
 
-    cfg.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
+    cfg.options.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
 
     const gchar *list_font = gtk_font_button_get_font_name (GTK_FONT_BUTTON (list_font_picker));
-    gnome_cmd_data_set_list_font (list_font);
+    cfg.options.set_list_font (list_font);
 
     gnome_cmd_data_set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
     gnome_cmd_data_set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
-    cfg.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
+    cfg.options.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
-    cfg.icon_scale_quality = (GdkInterpType) adj->value;
+    cfg.options.icon_scale_quality = (GdkInterpType) adj->value;
 
-    cfg.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
+    cfg.options.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
 }
 
 

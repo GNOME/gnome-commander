@@ -302,7 +302,7 @@ gchar FileFormatData::empty_string[] = "";
 inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
 {
     // If the user wants a character instead of icon for filetype set it now
-    if (gnome_cmd_data.layout == GNOME_CMD_LAYOUT_TEXT)
+    if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
         text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) f->get_type_string();
     else
         text[GnomeCmdFileList::COLUMN_ICON] = NULL;
@@ -314,7 +314,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     g_free (t1);
     g_free (t2);
 
-    if (gnome_cmd_data.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
+    if (gnome_cmd_data.options.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         gchar *t = strip_extension (f->get_name());
@@ -324,7 +324,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     else
         fname = get_utf8 (f->get_name());
 
-    if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
+    if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (f->get_extension());
     else
         fext = NULL;
@@ -425,7 +425,7 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
     y = y0 + row*rowh + GTK_CLIST (fl)->voffset;
 
     width = GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_NAME].area.width + 2*COLUMN_INSET;
-    if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
+    if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
         width += GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_EXT].area.width + 2*COLUMN_INSET + CELL_SPACING;
 
     height = rowh + 2*CELL_SPACING;
@@ -462,7 +462,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
         return;
 
 
-    if (!gnome_cmd_data.use_ls_colors)
+    if (!gnome_cmd_data.options.use_ls_colors)
         gtk_clist_set_row_style (*this, row, row%2 ? alt_sel_list_style : sel_list_style);
     else
     {
@@ -497,7 +497,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
 
     priv->selected_files.remove(f);
 
-    if (!gnome_cmd_data.use_ls_colors)
+    if (!gnome_cmd_data.options.use_ls_colors)
         gtk_clist_set_row_style (*this, row, row%2 ? alt_list_style : list_style);
     else
         if (LsColor *col = ls_colors_get (f))
@@ -1652,7 +1652,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
     gint row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
 
     // Setup row data and color
-    if (!gnome_cmd_data.use_ls_colors)
+    if (!gnome_cmd_data.options.use_ls_colors)
         gtk_clist_set_row_style (clist, row, row%2 ? alt_list_style : list_style);
     else
     {
@@ -1669,7 +1669,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
     gtk_clist_set_row_data (clist, row, f);
 
     // If the use wants icons to show file types set it now
-    if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
+    if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
     {
         GdkPixmap *pixmap;
         GdkBitmap *mask;
@@ -1783,7 +1783,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
     for (gint i=1; i<NUM_COLUMNS; i++)
         gtk_clist_set_text (*this, row, i, data.text[i]);
 
-    if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
+    if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
     {
         GdkPixmap *pixmap;
         GdkBitmap *mask;
@@ -2540,7 +2540,7 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
 
 void GnomeCmdFileList::update_style()
 {
-    gtk_clist_set_row_height (*this, gnome_cmd_data.list_row_height);
+    gtk_clist_set_row_height (*this, gnome_cmd_data.options.list_row_height);
     gnome_cmd_clist_update_style (*this);
 }
 
@@ -2646,7 +2646,7 @@ static gboolean do_scroll (GnomeCmdFileList *fl)
     gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     offset = (0-clist->voffset);
-    row_height = gnome_cmd_data.list_row_height;
+    row_height = gnome_cmd_data.options.list_row_height;
     row_count = clist->rows;
     focus_row = gnome_cmd_clist_get_row (*fl, 1, fl->priv->autoscroll_y);
     top_row = gnome_cmd_clist_get_row (*fl, 1, 0);

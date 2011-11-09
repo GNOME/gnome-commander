@@ -282,13 +282,13 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
 
 
     // Scale the pixmap if needed
-    h = gnome_cmd_data.icon_size;
+    h = gnome_cmd_data.options.icon_size;
     if (h != gdk_pixbuf_get_height (pixbuf))
     {
         scale = (gfloat)h/(gfloat)gdk_pixbuf_get_height (pixbuf);
         w = (gint)(scale*(gfloat)gdk_pixbuf_get_width (pixbuf));
 
-        GdkPixbuf *tmp = gdk_pixbuf_scale_simple (pixbuf, w, h, gnome_cmd_data.icon_scale_quality);
+        GdkPixbuf *tmp = gdk_pixbuf_scale_simple (pixbuf, w, h, gnome_cmd_data.options.icon_scale_quality);
         g_object_unref (pixbuf);
         pixbuf = tmp;
     }
@@ -424,7 +424,7 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     GdkPixmap **pixmap,
                                     GdkBitmap **mask)
 {
-    switch (gnome_cmd_data.layout)
+    switch (gnome_cmd_data.options.layout)
     {
         case GNOME_CMD_LAYOUT_TYPE_ICONS:
             return get_type_icon (type, symlink, pixmap, mask);
