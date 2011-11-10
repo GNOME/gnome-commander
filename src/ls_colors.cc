@@ -46,27 +46,27 @@ static LsColor *type_colors[8];
 */
 inline GdkColor *code2color (gint code)
 {
-    GnomeCmdLsColorsPalette *palette = gnome_cmd_data_get_ls_colors_palette ();
+    GnomeCmdLsColorsPalette &palette = gnome_cmd_data.options.ls_colors_palette;
 
     switch (code)
     {
-        case 30: return palette->black_fg;
-        case 31: return palette->red_fg;
-        case 32: return palette->green_fg;
-        case 33: return palette->yellow_fg;
-        case 34: return palette->blue_fg;
-        case 35: return palette->magenta_fg;
-        case 36: return palette->cyan_fg;
-        case 37: return palette->white_fg;
+        case 30: return palette.black_fg;
+        case 31: return palette.red_fg;
+        case 32: return palette.green_fg;
+        case 33: return palette.yellow_fg;
+        case 34: return palette.blue_fg;
+        case 35: return palette.magenta_fg;
+        case 36: return palette.cyan_fg;
+        case 37: return palette.white_fg;
 
-        case 40: return palette->black_bg;
-        case 41: return palette->red_bg;
-        case 42: return palette->green_bg;
-        case 43: return palette->yellow_bg;
-        case 44: return palette->blue_bg;
-        case 45: return palette->magenta_bg;
-        case 46: return palette->cyan_bg;
-        case 47: return palette->white_bg;
+        case 40: return palette.black_bg;
+        case 41: return palette.red_bg;
+        case 42: return palette.green_bg;
+        case 43: return palette.yellow_bg;
+        case 44: return palette.blue_bg;
+        case 45: return palette.magenta_bg;
+        case 46: return palette.cyan_bg;
+        case 47: return palette.white_bg;
     }
 
     return NULL;

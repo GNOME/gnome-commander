@@ -97,7 +97,6 @@ struct GnomeCmdData
         gchar                  *theme_icon_dir;
         gchar                  *document_icon_dir;
 
-
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
                    middle_mouse_button_mode(MIDDLE_BUTTON_GOES_UP_DIR),
@@ -371,8 +370,6 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
-
-GnomeCmdLsColorsPalette *gnome_cmd_data_get_ls_colors_palette ();
 
 inline void GnomeCmdData::set_viewer(const gchar *command)
 {

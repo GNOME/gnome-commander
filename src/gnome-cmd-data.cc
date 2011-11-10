@@ -1732,12 +1732,6 @@ GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
 }
 
 
-GnomeCmdLsColorsPalette *gnome_cmd_data_get_ls_colors_palette ()
-{
-    return &gnome_cmd_data.options.ls_colors_palette;
-}
-
-
 const gchar *gnome_cmd_data_get_document_icon_dir ()
 {
     return gnome_cmd_data.options.document_icon_dir;
