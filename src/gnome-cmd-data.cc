@@ -50,7 +50,6 @@ struct GnomeCmdData::Private
     GnomeCmdConList      *con_list;
     GList                *fav_apps;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
-    gchar                *last_pattern;
     GList                *auto_load_plugins;
     gint                 sort_column[2];
     gboolean             sort_direction[2];
@@ -1152,7 +1151,6 @@ void GnomeCmdData::load()
     always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
     tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
 
-    priv->last_pattern = gnome_cmd_data_get_string ("/defaults/last_pattern", "");
     priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
     priv->backup_pattern_list = patlist_new (priv->backup_pattern);
 
@@ -1573,7 +1571,6 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
     gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) tab_lock_indicator);
 
-    gnome_cmd_data_set_string ("/defaults/last_pattern", priv->last_pattern);
     gnome_cmd_data_set_string ("/defaults/backup_pattern", priv->backup_pattern);
 
     gnome_cmd_data_set_int ("/options/main_win_state", (gint) main_win_state);
@@ -1729,18 +1726,6 @@ GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
 {
     return &gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM];
-}
-
-
-void gnome_cmd_data_set_last_pattern (const gchar *value)
-{
-    gnome_cmd_data.priv->last_pattern = g_strdup (value);
-}
-
-
-const gchar *gnome_cmd_data_get_last_pattern ()
-{
-    return gnome_cmd_data.priv->last_pattern;
 }
 
 

@@ -401,9 +401,6 @@ inline void GnomeCmdData::set_term(const gchar *command)
     term = g_strdup (command);
 }
 
-const gchar *gnome_cmd_data_get_last_pattern ();
-void gnome_cmd_data_set_last_pattern (const gchar *value);
-
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
 
