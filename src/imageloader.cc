@@ -400,7 +400,7 @@ static gboolean get_mime_icon (GnomeVFSFileType type,
     if (get_mime_icon_in_dir (gnome_cmd_data.options.theme_icon_dir, type, mime_type, symlink, pixmap, mask))
         return TRUE;
 
-    return get_mime_icon_in_dir (gnome_cmd_data_get_document_icon_dir(), type, mime_type, symlink, pixmap, mask);
+    return get_mime_icon_in_dir (gnome_cmd_data.options.document_icon_dir, type, mime_type, symlink, pixmap, mask);
 }
 
 

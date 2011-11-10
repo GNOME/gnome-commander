@@ -1732,20 +1732,6 @@ GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
 }
 
 
-const gchar *gnome_cmd_data_get_document_icon_dir ()
-{
-    return gnome_cmd_data.options.document_icon_dir;
-}
-
-
-void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
-{
-    g_free (gnome_cmd_data.options.document_icon_dir);
-
-    gnome_cmd_data.options.document_icon_dir = g_strdup (dir);
-}
-
-
 void gnome_cmd_data_set_last_pattern (const gchar *value)
 {
     gnome_cmd_data.priv->last_pattern = g_strdup (value);

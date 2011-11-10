@@ -759,7 +759,7 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData &cfg)
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", cfg.options.theme_icon_dir);
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
-    entry = create_file_entry (parent, "doc_icondir_entry", gnome_cmd_data_get_document_icon_dir ());
+    entry = create_file_entry (parent, "doc_icondir_entry", cfg.options.document_icon_dir);
     table_add (table, entry, 1, 3, (GtkAttachOptions)0);
 
     label = create_label (parent, _("Icon size:"));
@@ -805,7 +805,7 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData &cfg)
     cfg.options.set_list_font (list_font);
 
     cfg.options.set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
-    gnome_cmd_data_set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
+    cfg.options.set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
     cfg.options.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));

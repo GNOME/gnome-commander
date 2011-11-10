@@ -149,6 +149,12 @@ struct GnomeCmdData
             g_free (theme_icon_dir);
             theme_icon_dir = g_strdup (dir);
         }
+
+        void set_document_icon_dir (const gchar *dir)
+        {
+            g_free (document_icon_dir);
+            document_icon_dir = g_strdup (dir);
+        }
     };
 
     struct Selection
@@ -394,9 +400,6 @@ inline void GnomeCmdData::set_term(const gchar *command)
     g_free (term);
     term = g_strdup (command);
 }
-
-const gchar *gnome_cmd_data_get_document_icon_dir ();
-void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
 
 const gchar *gnome_cmd_data_get_last_pattern ();
 void gnome_cmd_data_set_last_pattern (const gchar *value);
