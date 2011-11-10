@@ -909,7 +909,7 @@ inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.confirm_delete);
 
 
     /* Copy overwrite options
@@ -920,15 +920,15 @@ inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("Silently"), "copy_overwrite_silently");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+    if (cfg.options.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Query first"), "copy_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    if (cfg.options.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "copy_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+    if (cfg.options.confirm_copy_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -940,15 +940,15 @@ inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     radio = create_radio (parent, NULL, _("Silently"), "move_overwrite_silently");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+    if (cfg.options.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Query first"), "move_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    if (cfg.options.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group (radio), _("Skip all"), "move_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (cfg.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+    if (cfg.options.confirm_move_overwrite==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -960,7 +960,7 @@ inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Confirm mouse operation"), "confirm_mouse_dnd_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_mouse_dnd);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.confirm_mouse_dnd);
 
 
     return frame;
@@ -978,23 +978,23 @@ inline void store_confirmation_options (GtkWidget *dialog, GnomeCmdData &cfg)
     GtkWidget *confirm_move_skip_all = lookup_widget (dialog, "move_overwrite_skip_all");
     GtkWidget *confirm_mouse_dnd_check = lookup_widget (dialog, "confirm_mouse_dnd_check");
 
-    cfg.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
+    cfg.options.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_silent)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
+        cfg.options.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_query)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+        cfg.options.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_skip_all)))
-        cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+        cfg.options.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_silent)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
+        cfg.options.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_query)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+        cfg.options.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
-        cfg.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
+        cfg.options.confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL;
 
-    cfg.confirm_mouse_dnd = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_mouse_dnd_check));
+    cfg.options.confirm_mouse_dnd = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_mouse_dnd_check));
 }
 
 

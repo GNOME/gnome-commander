@@ -101,7 +101,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data.confirm_move_overwrite)), TRUE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data.options.confirm_move_overwrite)), TRUE);
 
 
     // Customize prepare xfer widgets

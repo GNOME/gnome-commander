@@ -259,7 +259,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
 
     gint response = 1;
 
-    if (gnome_cmd_data.confirm_delete)
+    if (gnome_cmd_data.options.confirm_delete)
     {
         gchar *msg = NULL;
 

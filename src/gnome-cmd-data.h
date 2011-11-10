@@ -99,6 +99,11 @@ struct GnomeCmdData
         //  Tabs
         gboolean                     always_show_tabs;
         int                          tab_lock_indicator;
+        //  Confirmation
+        gboolean                     confirm_delete;
+        GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
+        GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
+        gboolean                     confirm_mouse_dnd;
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -126,7 +131,11 @@ struct GnomeCmdData
                    theme_icon_dir(NULL),
                    document_icon_dir(NULL),
                    always_show_tabs(FALSE),
-                   tab_lock_indicator(TAB_LOCK_ICON)
+                   tab_lock_indicator(TAB_LOCK_ICON),
+                   confirm_delete(TRUE),
+                   confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
+                   confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
+                   confirm_mouse_dnd(TRUE)
         {
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
@@ -293,11 +302,6 @@ struct GnomeCmdData
 
     gboolean                     XML_cfg_has_connections;
     gboolean                     XML_cfg_has_bookmarks;
-
-    gboolean                     confirm_delete;
-    GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
-    GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
-    gboolean                     confirm_mouse_dnd;
 
     Options                      options;
 

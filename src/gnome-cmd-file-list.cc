@@ -2786,7 +2786,7 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
 
     gdk_display_get_pointer (gdk_display_get_default (), NULL, &x, &y, &mask);
 
-    if (gnome_cmd_data.confirm_mouse_dnd && !(mask&(GDK_SHIFT_MASK|GDK_CONTROL_MASK)))
+    if (gnome_cmd_data.options.confirm_mouse_dnd && !(mask&(GDK_SHIFT_MASK|GDK_CONTROL_MASK)))
     {
         gpointer *arr = g_new (gpointer, 2);
 

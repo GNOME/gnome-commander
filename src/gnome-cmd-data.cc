@@ -830,11 +830,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     XML_cfg_has_connections = FALSE;
     XML_cfg_has_bookmarks = FALSE;
 
-    confirm_delete = TRUE;
-    confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
-    confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
-    confirm_mouse_dnd = TRUE;
-
     memset(&filter_settings, 0, sizeof(filter_settings));
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
@@ -1009,10 +1004,10 @@ void GnomeCmdData::load()
 
     options.list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
-    confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
-    confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
-    confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
-    confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
+    options.confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
+    options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    options.confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
 
     filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
     filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = gnome_cmd_data_get_bool ("/options/show_regular", FALSE);
@@ -1445,10 +1440,10 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
     g_free (utf8_date_format);
 
-    gnome_cmd_data_set_bool   ("/confirm/delete", confirm_delete);
-    gnome_cmd_data_set_int    ("/confirm/copy_overwrite", confirm_copy_overwrite);
-    gnome_cmd_data_set_int    ("/confirm/move_overwrite", confirm_move_overwrite);
-    gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", confirm_mouse_dnd);
+    gnome_cmd_data_set_bool   ("/confirm/delete", options.confirm_delete);
+    gnome_cmd_data_set_int    ("/confirm/copy_overwrite", options.confirm_copy_overwrite);
+    gnome_cmd_data_set_int    ("/confirm/move_overwrite", options.confirm_move_overwrite);
+    gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", options.confirm_mouse_dnd);
 
     gnome_cmd_data_set_bool   ("/options/show_unknown", filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
     gnome_cmd_data_set_bool   ("/options/show_regular", filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
