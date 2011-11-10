@@ -856,9 +856,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
-    always_show_tabs = FALSE;
-    tab_lock_indicator = TAB_LOCK_ICON;
-
     use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
 
@@ -1148,8 +1145,8 @@ void GnomeCmdData::load()
     options.save_tabs_on_exit = gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE);
     options.save_dir_history_on_exit = gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE);
 
-    always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
-    tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
+    options.always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
+    options.tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
 
     priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
     priv->backup_pattern_list = patlist_new (priv->backup_pattern);
@@ -1568,8 +1565,8 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool ("/options/save_tabs_on_exit", options.save_tabs_on_exit);
     gnome_cmd_data_set_bool ("/options/save_dir_history_on_exit", options.save_dir_history_on_exit);
 
-    gnome_cmd_data_set_bool ("/options/always_show_tabs", always_show_tabs);
-    gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) tab_lock_indicator);
+    gnome_cmd_data_set_bool ("/options/always_show_tabs", options.always_show_tabs);
+    gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) options.tab_lock_indicator);
 
     gnome_cmd_data_set_string ("/defaults/backup_pattern", priv->backup_pattern);
 

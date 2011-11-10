@@ -1023,7 +1023,7 @@ static void update_style_notebook_tab (GtkWidget *widget, GnomeCmdFileSelector *
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    if (gnome_cmd_data.tab_lock_indicator!=GnomeCmdData::TAB_LOCK_ICON)
+    if (gnome_cmd_data.options.tab_lock_indicator!=GnomeCmdData::TAB_LOCK_ICON)
         gtk_widget_hide (fl->tab_label_pin);
 
     if (fl->locked)
@@ -1041,7 +1041,7 @@ void GnomeCmdFileSelector::update_style()
     if (priv->realized)
         update_files();
 
-    notebook->show_tabs(gnome_cmd_data.always_show_tabs ? GnomeCmdNotebook::SHOW_TABS : GnomeCmdNotebook::HIDE_TABS_IF_ONE);
+    notebook->show_tabs(gnome_cmd_data.options.always_show_tabs ? GnomeCmdNotebook::SHOW_TABS : GnomeCmdNotebook::HIDE_TABS_IF_ONE);
 
     gtk_container_foreach (*notebook, (GtkCallback) update_style_notebook_tab, this);
 
@@ -1428,7 +1428,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     gtk_box_pack_start (GTK_BOX (hbox), list->tab_label_pin, FALSE, FALSE, 3);
     gtk_box_pack_start (GTK_BOX (hbox), list->tab_label_text, FALSE, FALSE, 0);
 
-    if (locked && gnome_cmd_data.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
+    if (locked && gnome_cmd_data.options.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
         gtk_widget_show (list->tab_label_pin);
     gtk_widget_show (list->tab_label_text);
 
@@ -1468,7 +1468,7 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
 {
     const gchar *name = GNOME_CMD_FILE (fl->cwd)->get_name();
 
-    switch (gnome_cmd_data.tab_lock_indicator)
+    switch (gnome_cmd_data.options.tab_lock_indicator)
     {
         case GnomeCmdData::TAB_LOCK_ICON:
             if (fl->locked)

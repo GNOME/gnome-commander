@@ -96,6 +96,9 @@ struct GnomeCmdData
         GdkInterpType           icon_scale_quality;
         gchar                  *theme_icon_dir;
         gchar                  *document_icon_dir;
+        //  Tabs
+        gboolean                always_show_tabs;
+        int                     tab_lock_indicator;
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -121,7 +124,9 @@ struct GnomeCmdData
                    icon_size(16),
                    icon_scale_quality(GDK_INTERP_HYPER),
                    theme_icon_dir(NULL),
-                   document_icon_dir(NULL)
+                   document_icon_dir(NULL),
+                   always_show_tabs(FALSE),
+                   tab_lock_indicator(TAB_LOCK_ICON)
         {
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
@@ -321,9 +326,6 @@ struct GnomeCmdData
 
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
-
-    gboolean                     always_show_tabs;
-    int                          tab_lock_indicator;
 
     gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
