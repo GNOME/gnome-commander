@@ -169,25 +169,25 @@ struct GnomeCmdData
             patlist_free (backup_pattern_list);
         }
 
-        void set_date_format (const GnomeCmdDateFormat format)
+        void set_date_format(const GnomeCmdDateFormat format)
         {
             g_free (date_format);
             date_format = g_strdup (format);
         }
 
-        void set_list_font (const gchar *font)
+        void set_list_font(const gchar *font)
         {
             g_free (list_font);
             list_font = g_strdup (font);
         }
 
-        void set_theme_icon_dir (const gchar *dir)
+        void set_theme_icon_dir(const gchar *dir)
         {
             g_free (theme_icon_dir);
             theme_icon_dir = g_strdup (dir);
         }
 
-        void set_document_icon_dir (const gchar *dir)
+        void set_document_icon_dir(const gchar *dir)
         {
             g_free (document_icon_dir);
             document_icon_dir = g_strdup (dir);
