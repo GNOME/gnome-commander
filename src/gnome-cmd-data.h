@@ -71,8 +71,6 @@ struct GnomeCmdData
 
         gboolean hidden;
         gboolean backup;
-        gboolean other;
-        gchar *other_value;
 
         FilterSettings()
         {
