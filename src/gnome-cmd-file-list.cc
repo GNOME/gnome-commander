@@ -2561,7 +2561,7 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
         return FALSE;
     if (info->name[0] == '.' && gnome_cmd_data.options.filter.hidden)
         return FALSE;
-    if (gnome_cmd_data.options.filter.backup && patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
+    if (gnome_cmd_data.options.filter.backup && patlist_matches (gnome_cmd_data.options.backup_pattern_list, info->name))
         return FALSE;
 
     return TRUE;

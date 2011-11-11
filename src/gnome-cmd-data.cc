@@ -1741,28 +1741,6 @@ void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 }
 
 
-void gnome_cmd_data_set_backup_pattern (const gchar *value)
-{
-    g_free (gnome_cmd_data.options.backup_pattern);
-    patlist_free (gnome_cmd_data.options.backup_pattern_list);
-
-    gnome_cmd_data.options.backup_pattern = g_strdup (value);
-    gnome_cmd_data.options.backup_pattern_list = patlist_new (gnome_cmd_data.options.backup_pattern);
-}
-
-
-const gchar *gnome_cmd_data_get_backup_pattern ()
-{
-    return gnome_cmd_data.options.backup_pattern;
-}
-
-
-GList *gnome_cmd_data_get_backup_pattern_list ()
-{
-    return gnome_cmd_data.options.backup_pattern_list;
-}
-
-
 const gchar *gnome_cmd_data_get_symlink_prefix ()
 {
     return gnome_cmd_data.priv->symlink_prefix ? gnome_cmd_data.priv->symlink_prefix : _("link to %s");

@@ -1081,7 +1081,7 @@ inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
     cat = create_category (parent, cat_box, _("Backup files"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    entry = create_entry (parent, "backup_pattern_entry", gnome_cmd_data_get_backup_pattern ());
+    entry = create_entry (parent, "backup_pattern_entry", cfg.options.backup_pattern);
     gtk_box_pack_start (GTK_BOX (cat_box), entry, TRUE, FALSE, 0);
     gtk_widget_set_sensitive (entry, cfg.options.filter.backup);
 
@@ -1135,7 +1135,7 @@ inline void store_filter_options (GtkWidget *dialog, GnomeCmdData &cfg)
     cfg.options.filter.backup =
         gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
 
-    gnome_cmd_data_set_backup_pattern (gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
+    cfg.options.set_backup_pattern(gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
 }
 
 

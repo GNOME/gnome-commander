@@ -192,6 +192,15 @@ struct GnomeCmdData
             g_free (document_icon_dir);
             document_icon_dir = g_strdup (dir);
         }
+
+        void set_backup_pattern(const gchar *value)
+        {
+            g_free (backup_pattern);
+            patlist_free (backup_pattern_list);
+
+            backup_pattern = g_strdup (value);
+            backup_pattern_list = patlist_new (backup_pattern);
+        }
     };
 
     struct Selection
@@ -423,11 +432,6 @@ void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
 
 void gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
 void gnome_cmd_data_set_main_win_pos (gint x, gint y);
-
-const gchar *gnome_cmd_data_get_backup_pattern ();
-void gnome_cmd_data_set_backup_pattern (const gchar *value);
-
-GList *gnome_cmd_data_get_backup_pattern_list ();
 
 const gchar *gnome_cmd_data_get_symlink_prefix ();
 void gnome_cmd_data_set_symlink_prefix (const gchar *value);
