@@ -1281,7 +1281,7 @@ GList *patlist_new (const gchar *pattern_string)
 
 void patlist_free (GList *pattern_list)
 {
-    g_return_if_fail (pattern_list != NULL);
+    if (!pattern_list)  return;
 
     g_list_foreach (pattern_list, (GFunc) g_free, NULL);
     g_list_free (pattern_list);
