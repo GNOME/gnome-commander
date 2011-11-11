@@ -830,10 +830,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     XML_cfg_has_connections = FALSE;
     XML_cfg_has_bookmarks = FALSE;
 
-    memset(&filter_settings, 0, sizeof(filter_settings));
-    filter_settings.hidden = TRUE;
-    filter_settings.backup = TRUE;
-
     list_orientation = FALSE;
 
     toolbar_visibility = TRUE;

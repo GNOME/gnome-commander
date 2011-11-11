@@ -65,6 +65,23 @@ struct GnomeCmdData
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
+    struct FilterSettings
+    {
+        gboolean file_types[8];
+
+        gboolean hidden;
+        gboolean backup;
+        gboolean other;
+        gchar *other_value;
+
+        FilterSettings()
+        {
+            memset(file_types, 0, sizeof(file_types));
+            hidden = TRUE;
+            backup = TRUE;
+        }
+    };
+
     struct Options
     {
         //  General
@@ -260,16 +277,6 @@ struct GnomeCmdData
         BookmarksConfig(): width(400), height(250)   {}
 
         friend XML::xstream &operator << (XML::xstream &xml, BookmarksConfig &cfg);
-    };
-
-    struct FilterSettings
-    {
-        gboolean file_types[8];
-
-        gboolean hidden;
-        gboolean backup;
-        gboolean other;
-        gchar *other_value;
     };
 
     typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
