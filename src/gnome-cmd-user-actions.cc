@@ -1523,7 +1523,7 @@ void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.filter_settings.hidden = !checkitem->active;
+    gnome_cmd_data.options.filter.hidden = !checkitem->active;
     get_fl (ACTIVE)->reload();
     get_fl (INACTIVE)->reload();
 }
@@ -1534,7 +1534,7 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.filter_settings.backup = !checkitem->active;
+    gnome_cmd_data.options.filter.backup = !checkitem->active;
     get_fl (ACTIVE)->reload();
     get_fl (INACTIVE)->reload();
 }

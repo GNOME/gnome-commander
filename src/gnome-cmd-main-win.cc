@@ -946,7 +946,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
         {
             case GDK_H:
             case GDK_h:
-                gnome_cmd_data.filter_settings.hidden = !gnome_cmd_data.filter_settings.hidden;
+                gnome_cmd_data.options.filter.hidden = !gnome_cmd_data.options.filter.hidden;
                 gnome_cmd_style_create (gnome_cmd_data);
                 update_style();
                 gnome_cmd_data.save();

@@ -119,6 +119,10 @@ struct GnomeCmdData
         GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
         GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
         gboolean                     confirm_mouse_dnd;
+        //  Filters
+        FilterSettings               filter;
+        gchar                       *backup_pattern;
+        GList                       *backup_pattern_list;
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -150,7 +154,9 @@ struct GnomeCmdData
                    confirm_delete(TRUE),
                    confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                   confirm_mouse_dnd(TRUE)
+                   confirm_mouse_dnd(TRUE),
+                   backup_pattern(NULL),
+                   backup_pattern_list(NULL)
         {
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
@@ -159,6 +165,8 @@ struct GnomeCmdData
         {
             g_free (date_format);
             g_free (list_font);
+            g_free (backup_pattern);
+            patlist_free (backup_pattern_list);
         }
 
         void set_date_format (const GnomeCmdDateFormat format)
@@ -309,8 +317,6 @@ struct GnomeCmdData
     gboolean                     XML_cfg_has_bookmarks;
 
     Options                      options;
-
-    FilterSettings               filter_settings;
 
     std::vector<Selection>       selections;
 

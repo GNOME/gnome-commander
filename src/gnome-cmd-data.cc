@@ -54,8 +54,6 @@ struct GnomeCmdData::Private
     gint                 sort_column[2];
     gboolean             sort_direction[2];
     gint                 main_win_pos[2];
-    gchar                *backup_pattern;
-    GList                *backup_pattern_list;
     gchar                *symlink_prefix;
 
     gchar                *ftp_anonymous_password;
@@ -1005,16 +1003,16 @@ void GnomeCmdData::load()
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
 
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = gnome_cmd_data_get_bool ("/options/show_regular", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] = gnome_cmd_data_get_bool ("/options/show_directory", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_FIFO] = gnome_cmd_data_get_bool ("/options/show_fifo", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = gnome_cmd_data_get_bool ("/options/show_socket", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = gnome_cmd_data_get_bool ("/options/show_char_device", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = gnome_cmd_data_get_bool ("/options/show_block_device", FALSE);
-    filter_settings.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = gnome_cmd_data_get_bool ("/options/show_symbolic_link", FALSE);
-    filter_settings.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
-    filter_settings.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = gnome_cmd_data_get_bool ("/options/show_regular", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] = gnome_cmd_data_get_bool ("/options/show_directory", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO] = gnome_cmd_data_get_bool ("/options/show_fifo", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = gnome_cmd_data_get_bool ("/options/show_socket", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = gnome_cmd_data_get_bool ("/options/show_char_device", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = gnome_cmd_data_get_bool ("/options/show_block_device", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = gnome_cmd_data_get_bool ("/options/show_symbolic_link", FALSE);
+    options.filter.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
+    options.filter.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
 
     options.case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
 
@@ -1139,8 +1137,8 @@ void GnomeCmdData::load()
     options.always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
     options.tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
 
-    priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
-    priv->backup_pattern_list = patlist_new (priv->backup_pattern);
+    options.backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
+    options.backup_pattern_list = patlist_new (options.backup_pattern);
 
     main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
@@ -1441,17 +1439,17 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/confirm/move_overwrite", options.confirm_move_overwrite);
     gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", options.confirm_mouse_dnd);
 
-    gnome_cmd_data_set_bool   ("/options/show_unknown", filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
-    gnome_cmd_data_set_bool   ("/options/show_regular", filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
-    gnome_cmd_data_set_bool   ("/options/show_directory", filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
-    gnome_cmd_data_set_bool   ("/options/show_fifo", filter_settings.file_types[GNOME_VFS_FILE_TYPE_FIFO]);
-    gnome_cmd_data_set_bool   ("/options/show_socket", filter_settings.file_types[GNOME_VFS_FILE_TYPE_SOCKET]);
-    gnome_cmd_data_set_bool   ("/options/show_char_device", filter_settings.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]);
-    gnome_cmd_data_set_bool   ("/options/show_block_device", filter_settings.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]);
-    gnome_cmd_data_set_bool   ("/options/show_symbolic_link", filter_settings.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
+    gnome_cmd_data_set_bool   ("/options/show_unknown", options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
+    gnome_cmd_data_set_bool   ("/options/show_regular", options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
+    gnome_cmd_data_set_bool   ("/options/show_directory", options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
+    gnome_cmd_data_set_bool   ("/options/show_fifo", options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO]);
+    gnome_cmd_data_set_bool   ("/options/show_socket", options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET]);
+    gnome_cmd_data_set_bool   ("/options/show_char_device", options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]);
+    gnome_cmd_data_set_bool   ("/options/show_block_device", options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]);
+    gnome_cmd_data_set_bool   ("/options/show_symbolic_link", options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
 
-    gnome_cmd_data_set_bool   ("/options/hidden_filter", filter_settings.hidden);
-    gnome_cmd_data_set_bool   ("/options/backup_filter", filter_settings.backup);
+    gnome_cmd_data_set_bool   ("/options/hidden_filter", options.filter.hidden);
+    gnome_cmd_data_set_bool   ("/options/backup_filter", options.filter.backup);
 
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);
 
@@ -1559,7 +1557,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool ("/options/always_show_tabs", options.always_show_tabs);
     gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) options.tab_lock_indicator);
 
-    gnome_cmd_data_set_string ("/defaults/backup_pattern", priv->backup_pattern);
+    gnome_cmd_data_set_string ("/defaults/backup_pattern", options.backup_pattern);
 
     gnome_cmd_data_set_int ("/options/main_win_state", (gint) main_win_state);
 
@@ -1745,26 +1743,23 @@ void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 
 void gnome_cmd_data_set_backup_pattern (const gchar *value)
 {
-    g_free (gnome_cmd_data.priv->backup_pattern);
+    g_free (gnome_cmd_data.options.backup_pattern);
+    patlist_free (gnome_cmd_data.options.backup_pattern_list);
 
-    gnome_cmd_data.priv->backup_pattern = g_strdup (value);
-
-    if (gnome_cmd_data.priv->backup_pattern_list)
-        patlist_free (gnome_cmd_data.priv->backup_pattern_list);
-
-    gnome_cmd_data.priv->backup_pattern_list = patlist_new (gnome_cmd_data.priv->backup_pattern);
+    gnome_cmd_data.options.backup_pattern = g_strdup (value);
+    gnome_cmd_data.options.backup_pattern_list = patlist_new (gnome_cmd_data.options.backup_pattern);
 }
 
 
 const gchar *gnome_cmd_data_get_backup_pattern ()
 {
-    return gnome_cmd_data.priv->backup_pattern;
+    return gnome_cmd_data.options.backup_pattern;
 }
 
 
 GList *gnome_cmd_data_get_backup_pattern_list ()
 {
-    return gnome_cmd_data.priv->backup_pattern_list;
+    return gnome_cmd_data.options.backup_pattern_list;
 }
 
 
