@@ -98,9 +98,9 @@ static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean r
 
 inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
 {
-    for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
+    for (GList *i = dialog->priv->files; i; i = i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
         const gchar *mode_text = get_combo_text (dialog->priv->recurse_combo);
         ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :

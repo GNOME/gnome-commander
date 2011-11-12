@@ -609,9 +609,9 @@ static void set_value_array_from_list (GValue *value, GSList *list)
 
     GValue tmp_value = { 0 };
 
-    for (GSList *tmp = list; tmp; tmp = tmp->next)
+    for (GSList *i = list; i; i = i->next)
     {
-        char *str = (char *) tmp->data;
+        char *str = (char *) i->data;
 
         g_value_init (&tmp_value, G_TYPE_STRING);
         g_value_set_string (&tmp_value, str);

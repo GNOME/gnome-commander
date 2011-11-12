@@ -62,10 +62,10 @@ inline gint word_is_roman_numeral (gchar *text)
 {
     gint len = 0;
 
-    for (gchar *tmp = text; *tmp; ++tmp, ++len)
-        if (*tmp != (gunichar)'i' && *tmp != (gunichar)'v' && *tmp != (gunichar)'x' && *tmp != (gunichar)'l' &&
-            *tmp != (gunichar)'c' && *tmp != (gunichar)'d' && *tmp != (gunichar)'m')
-            return *tmp == ' ' || *tmp == '_' ? len : 0;
+    for (gchar *i = text; *i; ++i, ++len)
+        if (*i != (gunichar)'i' && *i != (gunichar)'v' && *i != (gunichar)'x' && *i != (gunichar)'l' &&
+            *i != (gunichar)'c' && *i != (gunichar)'d' && *i != (gunichar)'m')
+            return *i == ' ' || *i == '_' ? len : 0;
 
     return len;
 }

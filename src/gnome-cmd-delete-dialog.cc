@@ -220,9 +220,9 @@ static gboolean update_delete_status_widgets (DeleteData *data)
             gnome_cmd_show_message (*main_win, gnome_vfs_result_to_string (data->vfs_status));
 
         if (data->files)
-            for (GList *tmp = data->files; tmp; tmp = tmp->next)
+            for (GList *i = data->files; i; i = i->next)
             {
-                GnomeCmdFile *f = GNOME_CMD_FILE (tmp->data);
+                GnomeCmdFile *f = GNOME_CMD_FILE (i->data);
                 GnomeVFSURI *uri = f->get_uri();
 
                 if (!gnome_vfs_uri_exists (uri))
@@ -233,7 +233,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
 
         cleanup (data);
 
-        return FALSE;  // Returning FALSE here stops the timeout callbacks
+        return FALSE;  // returning FALSE here stops the timeout callbacks
     }
 
     return TRUE;

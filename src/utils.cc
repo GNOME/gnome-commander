@@ -973,9 +973,9 @@ gboolean app_needs_terminal (GnomeCmdFile *f)
     GList *libs = app_get_linked_libs (f);
     if  (!libs) return FALSE;
 
-    for (GList *tmp = libs; tmp; tmp = tmp->next)
+    for (GList *i = libs; i; i = i->next)
     {
-        gchar *lib = (gchar *) tmp->data;
+        gchar *lib = (gchar *) i->data;
         lib = g_strstrip (lib);
         if (g_str_has_prefix (lib, "libX11"))
         {
@@ -1290,11 +1290,11 @@ void patlist_free (GList *pattern_list)
 
 gboolean patlist_matches (GList *pattern_list, const gchar *s)
 {
-    for (GList *tmp = pattern_list; tmp; tmp = tmp->next)
+    for (GList *i=pattern_list; i; i=i->next)
 #ifdef FNM_CASEFOLD
-        if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
+        if (fnmatch ((gchar *) i->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
 #else
-        if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE) == 0)   // omit FNM_CASEFOLD as it is a GNU extension.
+        if (fnmatch ((gchar *) i->data, s, FNM_NOESCAPE) == 0)   // omit FNM_CASEFOLD as it is a GNU extension.
 #endif
             return TRUE;
 

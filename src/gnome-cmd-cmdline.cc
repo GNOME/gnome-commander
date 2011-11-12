@@ -51,9 +51,9 @@ inline void update_history_combo (GnomeCmdCmdline *cmdline)
 
     text[1] = NULL;
 
-    for (GList *tmp = cmdline->priv->history; tmp; tmp = tmp->next)
+    for (GList *i = cmdline->priv->history; i; i = i->next)
     {
-        gchar *command = text[0] = (gchar *) tmp->data;
+        gchar *command = text[0] = (gchar *) i->data;
 
         cmdline->priv->combo->append(text, command);
     }
@@ -408,8 +408,8 @@ void gnome_cmd_cmdline_set_history (GnomeCmdCmdline *cmdline, GList *history)
 
     // free the old history
 
-    for (GList *tmp = cmdline->priv->history; tmp; tmp = tmp->next)
-        g_free (tmp->data);
+    for (GList *i = cmdline->priv->history; i; i = i->next)
+        g_free (i->data);
 
     cmdline->priv->history = history;
 }

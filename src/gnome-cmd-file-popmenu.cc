@@ -539,9 +539,9 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Add favorite applications
     match_count = 0;
-    for (GList *tmp=gnome_cmd_data.options.fav_apps; tmp; tmp = tmp->next)
+    for (GList *i=gnome_cmd_data.options.fav_apps; i; i = i->next)
     {
-        GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
+        GnomeCmdApp *app = (GnomeCmdApp *) i->data;
         if (fav_app_matches_files (app, files))
         {
             add_fav_app_menu_item (menu, app, pos++, files);
@@ -549,9 +549,9 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         }
     }
 
-    for (GList *tmp=plugin_manager_get_all (); tmp; tmp = tmp->next)
+    for (GList *i=plugin_manager_get_all (); i; i = i->next)
     {
-        PluginData *data = (PluginData *) tmp->data;
+        PluginData *data = (PluginData *) i->data;
         if (data->active)
         {
             GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin, main_win->get_state());

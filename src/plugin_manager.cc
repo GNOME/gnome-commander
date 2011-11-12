@@ -273,9 +273,9 @@ static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
     gint row = 0;
     gboolean only_update = (list->rows > 0);
 
-    for (GList *tmp=plugins; tmp; tmp=tmp->next, ++row)
+    for (GList *i=plugins; i; i=i->next, ++row)
     {
-        PluginData *data = (PluginData *) tmp->data;
+        PluginData *data = (PluginData *) i->data;
         gchar *text[5];
 
         text[0] = NULL;

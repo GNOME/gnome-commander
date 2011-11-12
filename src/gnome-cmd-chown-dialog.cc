@@ -98,9 +98,9 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 
     gboolean recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
 
-    for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
+    for (GList *i = dialog->priv->files; i; i = i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         g_return_if_fail (f != NULL);
 

@@ -133,9 +133,9 @@ inline void save_devices (const gchar *fname)
 
     if (fd)
     {
-        for (GList *tmp = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); tmp; tmp = tmp->next)
+        for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
         {
-            GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
+            GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (i->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
                 gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
@@ -346,9 +346,9 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
     path = gnome_vfs_volume_get_device_path (volume);
     localpath = gnome_vfs_get_local_path_from_uri (uri);
 
-    for (GList *tmp = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); tmp; tmp = tmp->next)
+    for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
     {
-        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
+        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (i->data);
         if (device && gnome_cmd_con_device_get_autovol (device))
         {
             gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);

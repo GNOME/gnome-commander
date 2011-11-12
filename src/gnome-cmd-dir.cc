@@ -392,9 +392,9 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
 
     // create a new list with GnomeCmdFile objects
 
-    for (GList *tmp = info_list; tmp; tmp = tmp->next)
+    for (GList *i = info_list; i; i = i->next)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
+        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) i->data;
 
         if (info && info->name)
         {

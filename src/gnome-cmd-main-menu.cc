@@ -923,9 +923,9 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     // Add all open connections
     gint match_count = 0;
 
-    for (GList *tmp = all_cons; tmp; tmp = tmp->next)
+    for (GList *i = all_cons; i; i = i->next)
     {
-        GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
         if (!GNOME_CMD_IS_CON_REMOTE (con) || gnome_cmd_con_is_open (con))
         {
             add_connection (main_menu, con,
@@ -943,9 +943,9 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
             add_separator (main_menu, connections_menu));
 
     // Add all open connections that are not permanent
-    for (GList *tmp = all_cons; tmp; tmp = tmp->next)
+    for (GList *i = all_cons; i; i = i->next)
     {
-        GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
+        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
         if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open (con))
             add_connection (main_menu, con,
                             gnome_cmd_con_get_close_text (con),
