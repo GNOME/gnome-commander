@@ -1792,7 +1792,7 @@ void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data))
     {
-        gnome_cmd_style_create (gnome_cmd_data);
+        gnome_cmd_style_create (gnome_cmd_data.options);
         main_win->update_style();
 
         gnome_cmd_data.save();
