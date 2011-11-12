@@ -1071,7 +1071,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_return_val_if_fail (filepath, TRUE);
 
     gchar *escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
-    gchar *cmd = g_strdup_printf (gnome_cmd_data.get_editor(), escaped_filepath);
+    gchar *cmd = g_strdup_printf (gnome_cmd_data.options.editor, escaped_filepath);
     g_free (filepath);
     g_free (escaped_filepath);
 

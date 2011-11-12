@@ -647,7 +647,7 @@ void gnome_cmd_file_show_properties (GnomeCmdFile *f)
 inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 {
     if (internal_viewer==-1)
-        internal_viewer = gnome_cmd_data.use_internal_viewer;
+        internal_viewer = gnome_cmd_data.options.use_internal_viewer;
 
     switch (internal_viewer)
     {
@@ -662,7 +662,7 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 
         case FALSE: {
                         gchar *filename = f->get_quoted_real_path();
-                        gchar *command = g_strdup_printf (gnome_cmd_data.get_viewer(), filename);
+                        gchar *command = g_strdup_printf (gnome_cmd_data.options.viewer, filename);
                         run_command (command);
                         g_free (filename);
                     }
@@ -726,7 +726,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
 
     gchar *fpath = f->get_quoted_real_path();
     gchar *dpath = f->get_unescaped_dirname();
-    gchar *command = g_strdup_printf (gnome_cmd_data.get_editor(), fpath);
+    gchar *command = g_strdup_printf (gnome_cmd_data.options.editor, fpath);
 
     run_command_indir (command, dpath, FALSE);
 

@@ -48,7 +48,6 @@ GnomeVFSVolumeMonitor *monitor = NULL;
 struct GnomeCmdData::Private
 {
     GnomeCmdConList      *con_list;
-    GList                *fav_apps;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
     GList                *auto_load_plugins;
     gint                 sort_column[2];
@@ -179,9 +178,9 @@ inline void save_fav_apps (const gchar *fname)
 
     if (fd)
     {
-        for (GList *tmp = gnome_cmd_data.priv->fav_apps; tmp; tmp = tmp->next)
+        for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
         {
-            GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
+            GnomeCmdApp *app = (GnomeCmdApp *) i->data;
             if (app)
             {
                 gchar *name = gnome_vfs_escape_string (gnome_cmd_app_get_name (app));
@@ -602,7 +601,7 @@ inline void load_devices (const gchar *fname)
 
 inline void load_fav_apps (const gchar *fname)
 {
-    gnome_cmd_data.priv->fav_apps = NULL;
+    gnome_cmd_data.options.fav_apps = NULL;
     gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
 
     ifstream f(path);
@@ -626,8 +625,8 @@ inline void load_fav_apps (const gchar *fname)
                 gchar *icon_path = gnome_vfs_unescape_string (a[2], NULL);
                 gchar *pattern   = gnome_vfs_unescape_string (a[4], NULL);
 
-                gnome_cmd_data.priv->fav_apps = g_list_append (
-                    gnome_cmd_data.priv->fav_apps,
+                gnome_cmd_data.options.fav_apps = g_list_append (
+                    gnome_cmd_data.options.fav_apps,
                     gnome_cmd_app_new_with_values (
                         name, cmd, icon_path, (AppTarget) target, pattern, handles_uris, handles_multiple, requires_terminal));
 
@@ -845,21 +844,14 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
-    use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
 
-    honor_expect_uris = FALSE;
     skip_mounting = FALSE;
 
     main_win_width = 600;
     main_win_height = 400;
 
     main_win_state = GDK_WINDOW_STATE_MAXIMIZED;
-
-    viewer = NULL;
-    editor = NULL;
-    differ = NULL;
-    term = NULL;
 
     umask = ::umask(0);
     ::umask(umask);
@@ -868,12 +860,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 
 void GnomeCmdData::free()
 {
-    // free the external programs strings
-    g_free (viewer);
-    g_free (editor);
-    g_free (differ);
-    g_free (term);
-
     if (priv)
     {
         // free the connections
@@ -1089,9 +1075,9 @@ void GnomeCmdData::load()
     if (gui_update_rate > MAX_GUI_UPDATE_RATE)
         gui_update_rate = MAX_GUI_UPDATE_RATE;
 
-    honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
+    options.honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
     options.allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
-    use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
+    options.use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     options.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     options.quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
     options.quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
@@ -1104,10 +1090,10 @@ void GnomeCmdData::load()
         priv->symlink_prefix = NULL;
     }
 
-    viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
-    editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
-    differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
-    term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
+    options.viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
+    options.editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
+    options.differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
+    options.term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
 
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
@@ -1500,9 +1486,9 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
-    gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", honor_expect_uris);
+    gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", options.honor_expect_uris);
     gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", options.allow_multiple_instances);
-    gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", use_internal_viewer);
+    gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", options.use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", options.alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", options.quick_search_exact_match_begin);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", options.quick_search_exact_match_end);
@@ -1522,10 +1508,10 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/main_win_pos_x", priv->main_win_pos[0]);
     gnome_cmd_data_set_int    ("/options/main_win_pos_y", priv->main_win_pos[1]);
 
-    gnome_cmd_data_set_string ("/programs/viewer", viewer);
-    gnome_cmd_data_set_string ("/programs/editor", editor);
-    gnome_cmd_data_set_string ("/programs/differ", differ);
-    gnome_cmd_data_set_string ("/programs/terminal", term);
+    gnome_cmd_data_set_string ("/programs/viewer", options.viewer);
+    gnome_cmd_data_set_string ("/programs/editor", options.editor);
+    gnome_cmd_data_set_string ("/programs/differ", options.differ);
+    gnome_cmd_data_set_string ("/programs/terminal", options.term);
 
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
@@ -1679,7 +1665,7 @@ void gnome_cmd_data_add_fav_app (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);
 
-    gnome_cmd_data.priv->fav_apps = g_list_append (gnome_cmd_data.priv->fav_apps, app);
+    gnome_cmd_data.options.fav_apps = g_list_append (gnome_cmd_data.options.fav_apps, app);
 }
 
 
@@ -1687,19 +1673,19 @@ void gnome_cmd_data_remove_fav_app (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);
 
-    gnome_cmd_data.priv->fav_apps = g_list_remove (gnome_cmd_data.priv->fav_apps, app);
+    gnome_cmd_data.options.fav_apps = g_list_remove (gnome_cmd_data.options.fav_apps, app);
 }
 
 
 GList *gnome_cmd_data_get_fav_apps ()
 {
-    return gnome_cmd_data.priv->fav_apps;
+    return gnome_cmd_data.options.fav_apps;
 }
 
 
 void gnome_cmd_data_set_fav_apps (GList *apps)
 {
-    gnome_cmd_data.priv->fav_apps = apps;
+    gnome_cmd_data.options.fav_apps = apps;
 }
 
 

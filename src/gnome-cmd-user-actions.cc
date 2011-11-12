@@ -944,7 +944,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
     if (!s.empty())
     {
-        gchar *cmd = g_strdup_printf (gnome_cmd_data.get_differ(), s.c_str(), "");
+        gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, s.c_str(), "");
 
         run_command (cmd);
 
@@ -969,7 +969,7 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
     append_real_path (s, GNOME_CMD_FILE (active_fs->get_directory()));
     append_real_path (s, GNOME_CMD_FILE (inactive_fs->get_directory()));
 
-    gchar *cmd = g_strdup_printf (gnome_cmd_data.get_differ(), s.c_str(), "");
+    gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, s.c_str(), "");
 
     run_command (cmd);
 

@@ -123,6 +123,14 @@ struct GnomeCmdData
         FilterSettings               filter;
         gchar                       *backup_pattern;
         GList                       *backup_pattern_list;
+        //  Programs
+        gboolean                     honor_expect_uris;
+        gchar                       *viewer;
+        gboolean                     use_internal_viewer;
+        gchar                       *editor;
+        gchar                       *differ;
+        gchar                       *term;
+        GList                       *fav_apps;
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -156,7 +164,14 @@ struct GnomeCmdData
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_mouse_dnd(TRUE),
                    backup_pattern(NULL),
-                   backup_pattern_list(NULL)
+                   backup_pattern_list(NULL),
+                   honor_expect_uris(FALSE),
+                   viewer(NULL),
+                   use_internal_viewer(TRUE),
+                   editor(NULL),
+                   differ(NULL),
+                   term(NULL),
+                   fav_apps(NULL)
         {
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
@@ -167,6 +182,10 @@ struct GnomeCmdData
             g_free (list_font);
             g_free (backup_pattern);
             patlist_free (backup_pattern_list);
+            g_free (viewer);
+            g_free (editor);
+            g_free (differ);
+            g_free (term);
         }
 
         void set_date_format(const GnomeCmdDateFormat format)
@@ -200,6 +219,30 @@ struct GnomeCmdData
 
             backup_pattern = g_strdup (value);
             backup_pattern_list = patlist_new (backup_pattern);
+        }
+
+        void set_viewer(const gchar *command)
+        {
+            g_free (viewer);
+            viewer = g_strdup (command);
+        }
+
+        void set_editor(const gchar *command)
+        {
+            g_free (editor);
+            editor = g_strdup (command);
+        }
+
+        void set_differ(const gchar *command)
+        {
+            g_free (differ);
+            differ = g_strdup (command);
+        }
+
+        void set_term(const gchar *command)
+        {
+            g_free (term);
+            term = g_strdup (command);
         }
     };
 
@@ -304,11 +347,6 @@ struct GnomeCmdData
 
     GnomeCmdConRemote           *quick_connect;
 
-    gchar *viewer;
-    gchar *editor;
-    gchar *differ;
-    gchar *term;
-
     void load_auto_load_plugins();
     void load_cmdline_history();
     void load_local_bookmarks();
@@ -351,10 +389,8 @@ struct GnomeCmdData
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
 
-    gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
 
-    gboolean                     honor_expect_uris;
     gboolean                     skip_mounting;
 
     gint                         main_win_width;
@@ -378,16 +414,6 @@ struct GnomeCmdData
 
     GnomeCmdFileList::ColumnID get_sort_col(FileSelectorID id) const;
     GtkSortType get_sort_direction(FileSelectorID id) const;
-
-    const gchar *get_viewer() const                 {  return viewer;                            }
-    const gchar *get_editor() const                 {  return editor;                            }
-    const gchar *get_differ() const                 {  return differ;                            }
-    const gchar *get_term() const                   {  return term;                              }
-
-    void set_viewer(const gchar *command);
-    void set_editor(const gchar *command);
-    void set_differ(const gchar *command);
-    void set_term(const gchar *command);
 };
 
 gpointer gnome_cmd_data_get_con_list ();
@@ -402,30 +428,6 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
-
-inline void GnomeCmdData::set_viewer(const gchar *command)
-{
-    g_free (viewer);
-    viewer = g_strdup (command);
-}
-
-inline void GnomeCmdData::set_editor(const gchar *command)
-{
-    g_free (editor);
-    editor = g_strdup (command);
-}
-
-inline void GnomeCmdData::set_differ(const gchar *command)
-{
-    g_free (differ);
-    differ = g_strdup (command);
-}
-
-inline void GnomeCmdData::set_term(const gchar *command)
-{
-    g_free (term);
-    term = g_strdup (command);
-}
 
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
