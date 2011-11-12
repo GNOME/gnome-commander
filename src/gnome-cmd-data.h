@@ -131,6 +131,9 @@ struct GnomeCmdData
         gchar                       *differ;
         gchar                       *term;
         GList                       *fav_apps;
+        //  Devices
+        gboolean                     device_only_icon;
+        gboolean                     skip_mounting;
 
         Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
@@ -171,7 +174,9 @@ struct GnomeCmdData
                    editor(NULL),
                    differ(NULL),
                    term(NULL),
-                   fav_apps(NULL)
+                   fav_apps(NULL),
+                   device_only_icon(FALSE),
+                   skip_mounting(FALSE)
         {
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
@@ -399,7 +404,6 @@ struct GnomeCmdData
     gboolean                     buttonbar_visibility;
 
     guint                        dev_icon_size;
-    gboolean                     device_only_icon;
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
     GtkReliefStyle               button_relief;
@@ -408,8 +412,6 @@ struct GnomeCmdData
     gint                         cmdline_history_length;
 
     gboolean                     use_gcmd_block;
-
-    gboolean                     skip_mounting;
 
     gint                         main_win_width;
     gint                         main_win_height;

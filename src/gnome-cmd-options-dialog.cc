@@ -1891,11 +1891,11 @@ inline GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Show only the icons"), "device_only_icon");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.device_only_icon);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.device_only_icon);
 
     check = create_check (parent, _("Skip mounting (useful when using super-mount)"), "skip_mounting");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.skip_mounting);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.skip_mounting);
 
 
     clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "device_clist");
@@ -1912,8 +1912,8 @@ inline void store_devices_options (GtkWidget *dialog, GnomeCmdData &cfg)
     GtkWidget *device_only_icon = lookup_widget (dialog, "device_only_icon");
     GtkWidget *skip_mounting = lookup_widget (dialog, "skip_mounting");
 
-    cfg.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
-    cfg.skip_mounting = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (skip_mounting));
+    cfg.options.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
+    cfg.options.skip_mounting = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (skip_mounting));
 }
 
 

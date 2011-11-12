@@ -570,7 +570,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         return;
 
     if (!gnome_cmd_data.toolbar_visibility
-        || (gnome_cmd_data.skip_mounting && GNOME_CMD_IS_CON_DEVICE (con)))
+        || (gnome_cmd_data.options.skip_mounting && GNOME_CMD_IS_CON_DEVICE (con)))
         return;
 
     GtkWidget *btn = priv->tb_con_drop_btn;

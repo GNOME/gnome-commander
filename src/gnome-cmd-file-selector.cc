@@ -405,7 +405,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             }
         }
 
-        if (!gnome_cmd_data.device_only_icon || !pm)
+        if (!gnome_cmd_data.options.device_only_icon || !pm)
         {
             GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
             g_object_ref (label);

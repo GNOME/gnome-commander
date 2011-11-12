@@ -836,7 +836,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     buttonbar_visibility = TRUE;
 
     dev_icon_size = 16;
-    device_only_icon = FALSE;
     memset(fs_col_width, 0, sizeof(fs_col_width));
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
     button_relief = GTK_RELIEF_NONE;
@@ -845,8 +844,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_history_length = 0;
 
     use_gcmd_block = FALSE;
-
-    skip_mounting = FALSE;
 
     main_win_width = 600;
     main_win_height = 400;
@@ -1081,7 +1078,7 @@ void GnomeCmdData::load()
     options.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     options.quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
     options.quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
-    skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
+    options.skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
     priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
     if (!*priv->symlink_prefix || strcmp(priv->symlink_prefix, _("link to %s"))==0)
@@ -1097,7 +1094,7 @@ void GnomeCmdData::load()
 
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
-    device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
+    options.device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
 
     gnome_cmd_data_get_color ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
     gnome_cmd_data_get_color ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
@@ -1492,7 +1489,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", options.alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", options.quick_search_exact_match_begin);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", options.quick_search_exact_match_end);
-    gnome_cmd_data_set_bool   ("/programs/skip_mounting", skip_mounting);
+    gnome_cmd_data_set_bool   ("/programs/skip_mounting", options.skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
     gnome_cmd_data_set_bool   ("/options/conbuttons_visibility", conbuttons_visibility);
@@ -1515,7 +1512,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
-    gnome_cmd_data_set_bool   ("/devices/only_icon", device_only_icon);
+    gnome_cmd_data_set_bool   ("/devices/only_icon", options.device_only_icon);
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
 
