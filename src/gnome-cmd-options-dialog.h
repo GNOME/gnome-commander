@@ -22,6 +22,6 @@
 
 #include "gnome-cmd-data.h"
 
-gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData &cfg);
+gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg);
 
 #endif // __GNOME_CMD_OPTIONS_DIALOG_H__

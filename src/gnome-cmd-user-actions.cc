@@ -1790,7 +1790,7 @@ void view_toggle_tab_lock (GtkMenuItem *menuitem, gpointer page)
 /************** Options Menu **************/
 void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data))
+    if (gnome_cmd_options_dialog (*main_win, gnome_cmd_data.options))
     {
         gnome_cmd_style_create (gnome_cmd_data.options);
         main_win->update_style();
