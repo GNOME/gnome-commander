@@ -2555,9 +2555,9 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
         return FALSE;
     if (f->is_dotdot)
         return FALSE;
-    if (gnome_cmd_data.hide_type(info->type))
+    if (gnome_cmd_data.options.filter.file_types[info->type])
         return FALSE;
-    if (info->symlink_name && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
+    if (info->symlink_name && gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK])
         return FALSE;
     if (info->name[0] == '.' && gnome_cmd_data.options.filter.hidden)
         return FALSE;

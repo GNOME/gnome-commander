@@ -1041,25 +1041,25 @@ inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
 
     check = create_check (parent, _("Unknown"), "hide_unknown_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_UNKNOWN));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
     check = create_check (parent, _("Regular files"), "hide_regular_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_REGULAR));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
     check = create_check (parent, _("Directories"), "hide_directory_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_DIRECTORY));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
     check = create_check (parent, _("Fifo files"), "hide_fifo_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_FIFO));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO]);
     check = create_check (parent, _("Socket files"), "hide_socket_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_SOCKET));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET]);
     check = create_check (parent, _("Character devices"), "hide_char_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]);
     check = create_check (parent, _("Block devices"), "hide_block_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_BLOCK_DEVICE));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]);
 
 
     cat_box = create_vbox (parent, FALSE, 0);
@@ -1074,7 +1074,7 @@ inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData &cfg)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (backup_check), cfg.options.filter.backup);
     check = create_check (parent, _("Symlinks"), "hide_symlink_check");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.hide_type(GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
 
 
     cat_box = create_vbox (parent, FALSE, 0);

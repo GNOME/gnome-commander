@@ -429,7 +429,6 @@ struct GnomeCmdData
     void load_more();
     void save();
 
-    gboolean hide_type(GnomeVFSFileType type) const    {  return options.filter.file_types[type];   }
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 
     GnomeCmdFileList::ColumnID get_sort_col(FileSelectorID id) const;
