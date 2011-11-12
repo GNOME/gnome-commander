@@ -1250,7 +1250,7 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                                                       (AppTarget) target,
                                                       pattern_string,
                                                       handles_uris, handles_multiple, requires_terminal);
-    gnome_cmd_data_add_fav_app (app);
+    gnome_cmd_data.options.add_fav_app(app);
     add_app_to_list (GTK_CLIST (clist), app);
     gtk_widget_destroy (dialog);
 
@@ -1430,7 +1430,7 @@ static void on_app_selected (GtkCList *clist, gint row, gint column, GdkEventBut
 
 static void on_app_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *frame)
 {
-    GList *apps = gnome_cmd_data_get_fav_apps ();
+    GList *apps = gnome_cmd_data.options.fav_apps;
 
     if (!apps
         || MAX (arg1, arg2) >= g_list_length (apps)
@@ -1443,7 +1443,7 @@ static void on_app_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *fram
 
     apps = g_list_insert (apps, data, arg2);
 
-    gnome_cmd_data_set_fav_apps (apps);
+    gnome_cmd_data.options.set_fav_apps(apps);
 }
 
 
@@ -1454,7 +1454,7 @@ static void on_app_remove (GtkWidget *button, GtkWidget *frame)
     if (clist->focus_row >= 0)
     {
         GnomeCmdApp *app = (GnomeCmdApp *) gtk_clist_get_row_data (clist, clist->focus_row);
-        gnome_cmd_data_remove_fav_app (app);
+        gnome_cmd_data.options.remove_fav_app(app);
         gtk_clist_remove (clist, clist->focus_row);
     }
 }
@@ -1564,7 +1564,7 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData &cfg)
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_clist");
-    for (GList *apps = gnome_cmd_data_get_fav_apps (); apps; apps = apps->next)
+    for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
     return frame;

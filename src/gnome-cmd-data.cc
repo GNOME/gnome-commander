@@ -1661,34 +1661,6 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
 }
 
 
-void gnome_cmd_data_add_fav_app (GnomeCmdApp *app)
-{
-    g_return_if_fail (app != NULL);
-
-    gnome_cmd_data.options.fav_apps = g_list_append (gnome_cmd_data.options.fav_apps, app);
-}
-
-
-void gnome_cmd_data_remove_fav_app (GnomeCmdApp *app)
-{
-    g_return_if_fail (app != NULL);
-
-    gnome_cmd_data.options.fav_apps = g_list_remove (gnome_cmd_data.options.fav_apps, app);
-}
-
-
-GList *gnome_cmd_data_get_fav_apps ()
-{
-    return gnome_cmd_data.options.fav_apps;
-}
-
-
-void gnome_cmd_data_set_fav_apps (GList *apps)
-{
-    gnome_cmd_data.options.fav_apps = apps;
-}
-
-
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 {
     return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.options.color_mode];

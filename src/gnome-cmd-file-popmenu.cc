@@ -539,7 +539,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Add favorite applications
     match_count = 0;
-    for (GList *tmp=gnome_cmd_data_get_fav_apps (); tmp; tmp = tmp->next)
+    for (GList *tmp=gnome_cmd_data.options.fav_apps; tmp; tmp = tmp->next)
     {
         GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
         if (fav_app_matches_files (app, files))

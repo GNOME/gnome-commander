@@ -244,6 +244,24 @@ struct GnomeCmdData
             g_free (term);
             term = g_strdup (command);
         }
+
+        void add_fav_app(GnomeCmdApp *app)
+        {
+            g_return_if_fail (app != NULL);
+            fav_apps = g_list_append (fav_apps, app);
+        }
+
+        void remove_fav_app(GnomeCmdApp *app)
+        {
+            g_return_if_fail (app != NULL);
+            fav_apps = g_list_remove (fav_apps, app);
+        }
+
+        void set_fav_apps(GList *apps)
+        {
+            // FIXME:   free fav_apps
+            fav_apps = apps;
+        }
     };
 
     struct Selection
@@ -417,11 +435,6 @@ struct GnomeCmdData
 };
 
 gpointer gnome_cmd_data_get_con_list ();
-
-void gnome_cmd_data_add_fav_app (GnomeCmdApp *app);
-void gnome_cmd_data_remove_fav_app (GnomeCmdApp *app);
-GList *gnome_cmd_data_get_fav_apps ();
-void gnome_cmd_data_set_fav_apps (GList *apps);
 
 const gchar *gnome_cmd_data_get_ftp_anonymous_password ();
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
