@@ -82,6 +82,10 @@ struct GnomeCmdData
 
     struct Options
     {
+      // private:
+        GnomeCmdColorTheme           color_themes[GNOME_CMD_NUM_COLOR_MODES];
+
+      public:
         //  General
         LeftMouseButtonMode          left_mouse_button_mode;
         gboolean                     left_mouse_button_unselects;
@@ -178,6 +182,7 @@ struct GnomeCmdData
                    device_only_icon(FALSE),
                    skip_mounting(FALSE)
         {
+            memset(&color_themes, 0, sizeof(color_themes));
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
 
@@ -191,6 +196,16 @@ struct GnomeCmdData
             g_free (editor);
             g_free (differ);
             g_free (term);
+        }
+
+        GnomeCmdColorTheme *get_current_color_theme()
+        {
+            return &color_themes[color_mode];
+        }
+
+        GnomeCmdColorTheme *get_custom_color_theme()
+        {
+            return &color_themes[GNOME_CMD_COLOR_CUSTOM];
         }
 
         void set_date_format(const GnomeCmdDateFormat format)
@@ -439,9 +454,6 @@ gpointer gnome_cmd_data_get_con_list ();
 
 const gchar *gnome_cmd_data_get_ftp_anonymous_password ();
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
-
-GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
-GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
 
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);

@@ -168,7 +168,7 @@ void gnome_cmd_style_create (GnomeCmdData::Options &cfg)
     if (sel_list_style) g_object_unref (sel_list_style);
     if (alt_sel_list_style) g_object_unref (alt_sel_list_style);
 
-    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
+    GnomeCmdColorTheme *cols = gnome_cmd_data.options.get_current_color_theme();
     const gchar *font_name = gnome_cmd_data.options.list_font;
 
     list_style = create_list_style (cols, font_name);

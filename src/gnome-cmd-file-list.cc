@@ -466,7 +466,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
         gtk_clist_set_row_style (*this, row, row%2 ? alt_sel_list_style : sel_list_style);
     else
     {
-        GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
+        GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
         if (!colors->respect_theme)
         {
             gtk_clist_set_foreground (*this, row, colors->sel_fg);
@@ -502,7 +502,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
     else
         if (LsColor *col = ls_colors_get (f))
         {
-            GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
+            GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
             GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
             GdkColor *bg = col->bg ? col->bg : colors->norm_bg;
 

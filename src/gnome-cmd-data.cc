@@ -48,7 +48,6 @@ GnomeVFSVolumeMonitor *monitor = NULL;
 struct GnomeCmdData::Private
 {
     GnomeCmdConList      *con_list;
-    GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
     GList                *auto_load_plugins;
     gint                 sort_column[2];
     gboolean             sort_direction[2];
@@ -886,85 +885,85 @@ void GnomeCmdData::load()
 
     priv = g_new0 (Private, 1);
 
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg = gdk_color_new (0xffff,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg = gdk_color_new (0xffff,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg = gdk_color_new (0,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg = gdk_color_new (0xffff,0,0);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].norm_fg = gdk_color_new (0,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].norm_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].alt_fg = gdk_color_new (0,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].alt_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].sel_fg = gdk_color_new (0xffff,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].sel_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_fg = gdk_color_new (0xffff,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_MODERN].norm_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].norm_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].alt_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].alt_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].sel_fg = gdk_color_new (0xffff,0,0);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].sel_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].curs_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_MODERN].curs_bg = gdk_color_new (0,0,0x4444);
 
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_fg = gdk_color_new (0x8080,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_bg = gdk_color_new (0,0x4040,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].alt_fg = gdk_color_new (0x8080,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].alt_bg = gdk_color_new (0,0x4040,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_fg = gdk_color_new (0xffff,0xffff,0);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_bg = gdk_color_new (0,0x4040,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_fg = gdk_color_new (0,0,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_bg = gdk_color_new (0,0x8080,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_FUSION].norm_fg = gdk_color_new (0x8080,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].norm_bg = gdk_color_new (0,0x4040,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].alt_fg = gdk_color_new (0x8080,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].alt_bg = gdk_color_new (0,0x4040,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].sel_fg = gdk_color_new (0xffff,0xffff,0);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].sel_bg = gdk_color_new (0,0x4040,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].curs_fg = gdk_color_new (0,0,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_FUSION].curs_bg = gdk_color_new (0,0x8080,0x8080);
 
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].norm_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].alt_fg = gdk_color_new (0xffff,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].alt_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].sel_fg = gdk_color_new (0xffff,0xffff,0);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].sel_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].curs_fg = gdk_color_new (0,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_CLASSIC].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].norm_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].alt_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].alt_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].sel_fg = gdk_color_new (0xffff,0xffff,0);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].sel_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_CLASSIC].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_fg = gdk_color_new (0,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_bg = gdk_color_new (0,0,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].alt_fg = gdk_color_new (0,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].alt_bg = gdk_color_new (0,0,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_fg = gdk_color_new (0xffff,0xffff,0);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_bg = gdk_color_new (0,0,0x8080);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_fg = gdk_color_new (0,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_fg = gdk_color_new (0,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_bg = gdk_color_new (0,0,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].alt_fg = gdk_color_new (0,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].alt_bg = gdk_color_new (0,0,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_fg = gdk_color_new (0xffff,0xffff,0);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_bg = gdk_color_new (0,0,0x8080);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].norm_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].norm_bg = gdk_color_new (0x199a,0x1530,0x11a8);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].alt_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].alt_bg = gdk_color_new (0x199a,0x1530,0x11a8);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].sel_fg = gdk_color_new (0xffff,0xcfcf,0x3636);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].sel_bg = gdk_color_new (0x199a,0x1530,0x11a8);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
-    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_bg = gdk_color_new (0x4d4d,0x4d4d,0x4d4d);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].norm_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].norm_bg = gdk_color_new (0x199a,0x1530,0x11a8);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].alt_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].alt_bg = gdk_color_new (0x199a,0x1530,0x11a8);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].sel_fg = gdk_color_new (0xffff,0xcfcf,0x3636);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].sel_bg = gdk_color_new (0x199a,0x1530,0x11a8);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
+    options.color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_bg = gdk_color_new (0x4d4d,0x4d4d,0x4d4d);
 
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].respect_theme = FALSE;
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].norm_fg = gdk_color_new (0xffff,0xc644,0);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].norm_bg = gdk_color_new (0x1919,0x2e2e,0);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].alt_fg = gdk_color_new (0xffff,0xc6c6,0);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].alt_bg = gdk_color_new (0x1f1f,0x3939,0x101);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_fg = gdk_color_new (0xffff,0xffff,0xffff);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_bg = gdk_color_new (0,0,0x4444);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_fg = gdk_color_new (0,0,0);
-    priv->color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].norm_fg = gdk_color_new (0xffff,0xc644,0);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].norm_bg = gdk_color_new (0x1919,0x2e2e,0);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].alt_fg = gdk_color_new (0xffff,0xc6c6,0);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].alt_bg = gdk_color_new (0x1f1f,0x3939,0x101);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_fg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_bg = gdk_color_new (0,0,0x4444);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
-    priv->color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].alt_fg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].alt_bg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].sel_fg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].sel_bg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
-    priv->color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
+    options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].alt_fg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].alt_bg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].sel_fg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].sel_bg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
 
     options.size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
     options.perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
@@ -1012,14 +1011,14 @@ void GnomeCmdData::load()
     options.color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", gcmd_owner.is_root() ? GNOME_CMD_COLOR_GREEN_TIGER :
                                                                                                             GNOME_CMD_COLOR_DEEP_BLUE);
 
-    gnome_cmd_data_get_color ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
-    gnome_cmd_data_get_color ("/colors/norm_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
-    gnome_cmd_data_get_color ("/colors/alt_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg);
-    gnome_cmd_data_get_color ("/colors/alt_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg);
-    gnome_cmd_data_get_color ("/colors/sel_fg",  priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
-    gnome_cmd_data_get_color ("/colors/sel_bg",  priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
-    gnome_cmd_data_get_color ("/colors/curs_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
-    gnome_cmd_data_get_color ("/colors/curs_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
+    gnome_cmd_data_get_color ("/colors/norm_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
+    gnome_cmd_data_get_color ("/colors/norm_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
+    gnome_cmd_data_get_color ("/colors/alt_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg);
+    gnome_cmd_data_get_color ("/colors/alt_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg);
+    gnome_cmd_data_get_color ("/colors/sel_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
+    gnome_cmd_data_get_color ("/colors/sel_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
+    gnome_cmd_data_get_color ("/colors/curs_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
+    gnome_cmd_data_get_color ("/colors/curs_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
 
     options.use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
 
@@ -1438,14 +1437,14 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int    ("/colors/mode", options.color_mode);
 
-    gnome_cmd_data_set_color  ("/colors/norm_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
-    gnome_cmd_data_set_color  ("/colors/norm_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
-    gnome_cmd_data_set_color  ("/colors/alt_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg);
-    gnome_cmd_data_set_color  ("/colors/alt_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg);
-    gnome_cmd_data_set_color  ("/colors/sel_fg",  priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
-    gnome_cmd_data_set_color  ("/colors/sel_bg",  priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
-    gnome_cmd_data_set_color  ("/colors/curs_fg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
-    gnome_cmd_data_set_color  ("/colors/curs_bg", priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
+    gnome_cmd_data_set_color  ("/colors/norm_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
+    gnome_cmd_data_set_color  ("/colors/norm_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
+    gnome_cmd_data_set_color  ("/colors/alt_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg);
+    gnome_cmd_data_set_color  ("/colors/alt_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg);
+    gnome_cmd_data_set_color  ("/colors/sel_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
+    gnome_cmd_data_set_color  ("/colors/sel_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
+    gnome_cmd_data_set_color  ("/colors/curs_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
+    gnome_cmd_data_set_color  ("/colors/curs_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
 
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors", options.use_ls_colors);
 
@@ -1655,18 +1654,6 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
     g_free (gnome_cmd_data.priv->ftp_anonymous_password);
 
     gnome_cmd_data.priv->ftp_anonymous_password = g_strdup (pw);
-}
-
-
-GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
-{
-    return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.options.color_mode];
-}
-
-
-GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
-{
-    return &gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM];
 }
 
 

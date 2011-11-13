@@ -386,7 +386,7 @@ static void on_color_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
 
 static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 {
-    GnomeCmdColorTheme *colors = gnome_cmd_data_get_custom_color_theme ();
+    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_custom_color_theme();
 
     gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "default_fg")), colors->norm_fg);
     gtk_color_button_get_color (GTK_COLOR_BUTTON (lookup_widget (dlg, "default_bg")), colors->norm_bg);
@@ -412,7 +412,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     GtkWidget *cat, *cat_box;
     GtkWidget *table, *label;
     GtkWidget *cbutton;
-    GnomeCmdColorTheme *colors = gnome_cmd_data_get_custom_color_theme ();
+    GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_custom_color_theme();
 
     // The color buttons
     cat_box = create_vbox (dlg, FALSE, 12);
