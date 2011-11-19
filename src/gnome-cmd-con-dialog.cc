@@ -122,7 +122,7 @@ inline GnomeCmdConnectDialog::Private::Private()
     auth_check = NULL;
 
     alias_entry = gtk_entry_new ();
-    uri_entry = gtk_entry_new();
+    uri_entry = gtk_entry_new ();
     server_entry = gtk_entry_new ();
     share_entry = gtk_entry_new ();
     port_entry = gtk_entry_new ();
