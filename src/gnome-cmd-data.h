@@ -188,8 +188,11 @@ struct GnomeCmdData
 
         ~Options()
         {
+            // free color_themes    //  FIXME
             g_free (date_format);
             g_free (list_font);
+            g_free (theme_icon_dir);
+            g_free (document_icon_dir);
             g_free (backup_pattern);
             patlist_free (backup_pattern_list);
             g_free (viewer);
