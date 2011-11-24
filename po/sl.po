@@ -59,7 +59,7 @@ msgstr "Raven skrčenja"
 
 #: ../plugins/cvs/cvs-plugin.cc:300
 msgid "Unified diff format"
-msgstr "Poenoten diff zapis"
+msgstr "Poenoten zapis diff"
 
 #: ../plugins/cvs/cvs-plugin.cc:402
 msgid "A plugin that eventually will be a simple CVS client"
@@ -2852,7 +2852,7 @@ msgid ""
 msgstr ""
 "Datoteka \"%s\" že obstaja.\n"
 "\n"
-"Ali jo želite prepisati?"
+"Ali jo želite prepisati?\n"
 
 #: ../src/gnome-cmd-xfer.cc:164
 msgid "Replace"
