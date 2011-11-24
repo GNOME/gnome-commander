@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-07 15:39+0000\n"
-"PO-Revision-Date: 2011-11-10 21:25+0100\n"
+"POT-Creation-Date: 2011-11-16 20:40+0000\n"
+"PO-Revision-Date: 2011-11-24 15:46+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -1908,9 +1908,8 @@ msgid "Authentication"
 msgstr "Overitev"
 
 #: ../src/gnome-cmd-options-dialog.cc:882
-#, fuzzy
 msgid "Use GNOME Keyring Manager for authentication"
-msgstr "Uporabi _GNOME upravljalnik zbirke ključev za overitev"
+msgstr "Za overitev uporabi GNOME upravljalnik zbirke ključev"
 
 #: ../src/gnome-cmd-options-dialog.cc:890
 msgid "Anonymous FTP access"
@@ -2400,9 +2399,8 @@ msgid "Case sensitive matching"
 msgstr "Upoštevanje velikost črk"
 
 #: ../src/gnome-cmd-python-plugin.cc:214
-#, fuzzy
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
-msgstr "Ni mogoče naložiti python modula 'gnomevfs' ('gnome.vfs')"
+msgstr "Ni mogoče naložiti modula python 'gnomevfs' ('gnome.vfs')\n"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:263
 #: ../src/gnome-cmd-user-actions.cc:152
@@ -2415,9 +2413,8 @@ msgid "No server selected"
 msgstr "Ni izbranega strežnika"
 
 #: ../src/gnome-cmd-remote-dialog.cc:364
-#, fuzzy
 msgid "GNOME authentication manager usage"
-msgstr "Uporabi _GNOME upravljalnik zbirke ključev za overitev"
+msgstr "Uporaba GNOME upravljalnika overitve"
 
 #: ../src/gnome-cmd-remote-dialog.cc:368
 msgid "Network protocol"
@@ -2461,19 +2458,19 @@ msgid "Files _not containing text"
 msgstr "Datoteke, ki _ne vsebujejo besedila"
 
 #: ../src/gnome-cmd-search-dialog.cc:162
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr "Datoteke '%s' ni mogoče odpreti: %s"
+msgstr "Odpiranje datoteke %s je spodletelo: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:203
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to seek in file %s: %s\n"
-msgstr "Shranjevanju pošte v začasno datoteko %s  je spodletelo: %s"
+msgstr "Iskanje po datoteki %s je spodletelo: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:210
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr "Ni mogoče brati iz datoteke '%s': %s"
+msgstr "Branje podatkov iz datoteke %s je spodletelo: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:271
 #, c-format
@@ -2847,13 +2844,14 @@ msgid "translator-credits"
 msgstr "Matej Urbančič"
 
 #: ../src/gnome-cmd-xfer.cc:160
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
 msgstr ""
-"Datoteka '%s' že obstaja.\n"
+"Datoteka \"%s\" že obstaja.\n"
+"\n"
 "Ali jo želite prepisati?"
 
 #: ../src/gnome-cmd-xfer.cc:164
@@ -2889,11 +2887,12 @@ msgid "[file %ld of %ld] \"%s\""
 msgstr "[datoteka %ld od %ld] \"%s\""
 
 #: ../src/gnome-cmd-xfer.cc:380
-#, fuzzy
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
-msgstr "Kopiranje mape v samo sebe ni mogoče."
+msgstr ""
+"Kopiranje mape v samo sebe ni mogoče.\n"
+"Opravilo je preklicano."
 
 #: ../src/gnome-cmd-xfer.cc:421
 msgid "preparing..."
@@ -2922,9 +2921,8 @@ msgid "%.0f%% copied"
 msgstr "%.0f%% kopirano"
 
 #: ../src/imageloader.cc:110
-#, fuzzy
 msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
-msgstr "Ni mogoče naložiti nameščene sličice vrste datotek, zato bo naložena datoteka %s"
+msgstr "Ni mogoče naložiti nameščene sličice vrste datotek, zato bo naložena sličica iz izvorne mape\n"
 
 #: ../src/imageloader.cc:111
 #: ../src/imageloader.cc:137
