@@ -2852,7 +2852,7 @@ msgid ""
 msgstr ""
 "Datoteka \"%s\" že obstaja.\n"
 "\n"
-"Ali jo želite prepisati?"
+"Ali jo želite prepisati?\n"
 
 #: ../src/gnome-cmd-xfer.cc:164
 msgid "Replace"
