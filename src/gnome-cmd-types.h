@@ -93,6 +93,31 @@ struct GnomeCmdColorTheme
     GdkColor *norm_fg, *norm_bg;
     GdkColor *curs_fg, *curs_bg;
     GdkColor *alt_fg, *alt_bg;
+
+    GnomeCmdColorTheme()
+    {
+        // respect_theme = TRUE;    // FIXME
+        // sel_fg = NULL;           // FIXME
+        // sel_bg = NULL;           // FIXME
+        // norm_fg = NULL;          // FIXME
+        // norm_bg = NULL;          // FIXME
+        // curs_fg = NULL;          // FIXME
+        // curs_bg = NULL;          // FIXME
+        // alt_fg = NULL;           // FIXME
+        // alt_bg = NULL;           // FIXME
+    }
+
+    ~GnomeCmdColorTheme()
+    {
+        if (sel_fg)     gdk_color_free (sel_fg);
+        if (sel_bg)     gdk_color_free (sel_bg);
+        if (norm_fg)    gdk_color_free (norm_fg);
+        if (norm_bg)    gdk_color_free (norm_bg);
+        if (curs_fg)    gdk_color_free (curs_fg);
+        if (curs_bg)    gdk_color_free (curs_bg);
+        if (alt_fg)     gdk_color_free (alt_fg);
+        if (alt_bg)     gdk_color_free (alt_bg);
+    }
 };
 
 
