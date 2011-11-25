@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-14 17:37+0000\n"
-"PO-Revision-Date: 2011-11-16 21:30+0100\n"
+"POT-Creation-Date: 2011-11-25 14:57+0000\n"
+"PO-Revision-Date: 2011-11-25 18:00+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -240,9 +240,8 @@ msgid "GNOME Commander Manual"
 msgstr "Manual de GNOME Commander"
 
 #: C/gnome-commander.xml:31(subtitle)
-#, fuzzy
 msgid "GNOME Commander Desktop Application Manual V1.2.8.14"
-msgstr "Manual de aplicación de escritorio GNOME Commander V1.4"
+msgstr "Manual de aplicación de escritorio GNOME Commander v1.2.8.14"
 
 #: C/gnome-commander.xml:33(year)
 msgid "2011"
@@ -473,16 +472,14 @@ msgid "2011-10-04"
 msgstr "2011-10-04"
 
 #: C/gnome-commander.xml:302(releaseinfo)
-#, fuzzy
 msgid "This manual describes version 1.2.8.14 of GNOME Commander."
-msgstr "Este manual describe la versión 1.4 de GNOME Commander."
+msgstr "Este manual describe la versión 1.2.8.14 de GNOME Commander."
 
 #: C/gnome-commander.xml:305(title)
 msgid "Feedback"
 msgstr "Comentarios"
 
 #: C/gnome-commander.xml:306(para)
-#, fuzzy
 msgid ""
 "To report a bug or make a suggestion regarding the GNOME Commander "
 "application or this manual, follow the directions in the <ulink url=\"ghelp:"
@@ -490,11 +487,10 @@ msgid ""
 msgstr ""
 "Para informar de un error o hacer una sugerencia concerniente a la "
 "aplicación GNOME Commander o este manual, siga las indicaciones en la <ulink "
-"type=\"help\" url=\"ghelp:gnome-feedback\">página de contacto de GNOME</"
+"url=\"ghelp:gnome-feedback\" type=\"help\">página de contacto de GNOME</"
 "ulink>."
 
 #: C/gnome-commander.xml:313(para)
-#, fuzzy
 msgid ""
 "GNOME Commander is a lighweight and fast file manager for the GNOME desktop."
 msgstr ""
@@ -514,7 +510,6 @@ msgid "Introduction"
 msgstr "Introducción"
 
 #: C/gnome-commander.xml:330(para)
-#, fuzzy
 msgid ""
 "The GNOME Commander application is a fast and powerful graphical file "
 "manager for the Gnome desktop environment, it has a \"two-pane\" interface "
@@ -525,7 +520,7 @@ msgstr ""
 "La aplicación GNOME Commander es un rápido y potente gestor de archivos "
 "gráfico para el entorno de escritorio GNOME. Tiene una interfaz de «dos "
 "paneles» basada en el principio de administrador de archivos ortodoxo (OFM), "
-"en la línea de Norton y Midnight Commander.GNOME Commander proporciona las "
+"en la línea de Norton y Midnight Commander. GNOME Commander proporciona las "
 "siguientes funcionalidades:"
 
 #: C/gnome-commander.xml:337(para)
@@ -591,7 +586,6 @@ msgstr ""
 "OLE2, ODF y PDF"
 
 #: C/gnome-commander.xml:376(para)
-#, fuzzy
 msgid ""
 "Tools for advanced batch renaming of files, searching, quick file name "
 "searching in current dir, symlinking, comparing directories"
@@ -613,7 +607,6 @@ msgid "Support for 40 languages"
 msgstr "Soporte para 40 idiomas"
 
 #: C/gnome-commander.xml:390(para)
-#, fuzzy
 msgid ""
 "If you are using code from git repository, it is possible that the latest "
 "new features are not yet in this manual. Please read the <ulink url=\"http://"
@@ -622,8 +615,8 @@ msgid ""
 "about the new features."
 msgstr ""
 "Si está usando código de un repositorio git, es posible que las últimas "
-"funcionalidades no estén todavía en este manual. Lea los <ulink type=\"http"
-"\" url=\"http://git.gnome.org/cgit/gnome-commander/plain/ChangeLog\">cambios "
+"funcionalidades no estén todavía en este manual. Lea los <ulink url=\"http://"
+"git.gnome.org/cgit/gnome-commander/plain/ChangeLog\" type=\"http\">cambios "
 "detallados en línea</ulink> o en las fuentes de GNOME Commander para saber "
 "más acerca de las nuevas funcionalidades."
 
@@ -782,9 +775,8 @@ msgid "Possible flags:"
 msgstr "Opciones posibles:"
 
 #: C/gnome-commander.xml:524(para)
-#, fuzzy
 msgid "<guilabel>a</guilabel> user actions debugging"
-msgstr "<guilabel>u</guilabel> depurado de acciones de usuario"
+msgstr "<guilabel>a</guilabel> depurado de acciones de usuario"
 
 #: C/gnome-commander.xml:527(para)
 msgid "<guilabel>c</guilabel> file and directory counting"
@@ -891,11 +883,12 @@ msgid "Usage"
 msgstr "Uso"
 
 #: C/gnome-commander.xml:610(para)
-#, fuzzy
 msgid ""
 "You can use the GNOME Commander application to perform the following tasks: "
 "<placeholder-1/>"
-msgstr "Puede iniciar GNOME Commander de las siguientes maneras:"
+msgstr ""
+"Puede usar la aplicación GNOME Commander para realizar las siguientes "
+"tareas: <placeholder-1/>"
 
 #: C/gnome-commander.xml:661(title)
 msgid "Selecting Files and Folders"
@@ -1119,14 +1112,13 @@ msgid "Select files using a pattern"
 msgstr "Seleccionar archivos utilizando un patrón"
 
 #: C/gnome-commander.xml:765(para)
-#, fuzzy
 msgid ""
 "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select with Pattern</"
 "guimenuitem></menuchoice>. GNOME Commander selects files matching a pattern "
 "based upon their filename using either wildcards or regular expressions."
 msgstr ""
 "Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Seleccionar con "
-"patrón</guimenuitem></menuchoice>.GNOME Commander selecciona los archivos "
+"patrón</guimenuitem></menuchoice>. GNOME Commander selecciona los archivos "
 "que coincidan con un patrón basado en el nombre de archivo usando comodines "
 "o expresiones regulares."
 
@@ -1135,7 +1127,6 @@ msgid "Unselect files using a pattern"
 msgstr "Deseleccionar archivos utilizando un patrón"
 
 #: C/gnome-commander.xml:777(para)
-#, fuzzy
 msgid ""
 "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect with "
 "Pattern</guimenuitem></menuchoice>. GNOME Commander unselects files matching "
@@ -1199,7 +1190,6 @@ msgid "Searching For Files"
 msgstr "Buscar archivos"
 
 #: C/gnome-commander.xml:833(para)
-#, fuzzy
 msgid ""
 "The file search enables you to search for files on your system. To perform a "
 "basic search, you can type a filename or a partial filename, with or without "
@@ -1224,14 +1214,13 @@ msgstr "Mostrar la ventana de búsqueda de archivos."
 
 #. ==== End of Figure ====
 #: C/gnome-commander.xml:854(para)
-#, fuzzy
 msgid ""
 "GNOME Commander searches in the directory that you specify and optionally in "
 "the subdirectories. The search results are displayed in the results file "
 "list."
 msgstr ""
 "GNOME Commander busca en la carpeta que le especifique y, opcionalmente, en "
-"sus subcarpetas. Los resultados de la búsqueda se muestran en la lista de "
+"sus subcarpetas. Los resultados de la búsqueda se muestran en la lista de "
 "archivos resultado."
 
 #: C/gnome-commander.xml:860(para)
@@ -1349,11 +1338,11 @@ msgid ""
 "You can change the read, write, and execute settings for a file. For more "
 "information on permissions, see Chapter xxx."
 msgstr ""
-"En la pestaña Permisos (consulte la <xref linkend=\"permission-tab-fig\"/>), "
-"puede cambiar los permisos y el propietario de un archivo (si tiene los "
-"permisos adecuados para hacerlo). Puede cambiar los permisos de lectura, "
-"escritura y ejecución de un archivo. Para obtener más información sobre los "
-"permisos, consulte la <xref linkend=\"gnome-commander-permissions\"/>."
+"En la pestaña Permisos (consulte la figura xxx), puede cambiar los permisos "
+"y el propietario de un archivo (si tiene los permisos adecuados para "
+"hacerlo). Puede cambiar los permisos de lectura, escritura y ejecución de un "
+"archivo. Para obtener más información sobre los permisos, consulte el "
+"capítulo xxx."
 
 #: C/gnome-commander.xml:916(para)
 msgid ""
@@ -1582,7 +1571,6 @@ msgid "Template"
 msgstr "Plantilla"
 
 #: C/gnome-commander.xml:1078(para)
-#, fuzzy
 msgid ""
 "Specifies template for file renaming. All ordinary characters placed in the "
 "format string go into the new name without conversion. Conversion specifiers "
@@ -1596,11 +1584,11 @@ msgstr ""
 "Especifica una plantilla para renombrar el archivo. Todos los caracteres "
 "ordinarios situados en la cadena de formato van dentro del nombre nuevo sin "
 "conversión. Los especificadores de conversión se introducen con unos pocos "
-"<link linkend=\"gnome-commander-advanced-rename-placeholders\">parámetros de "
-"sustitución</link> (vea debajo la lista detallada). Adicionalmente, los "
-"<link linkend=\"gnome-commander-advanced-rename-strftime\">controles de "
-"formato strftime()</link> también están aceptados: excepto para «%D», «%n» y "
-"«%t» por razones obvias. Si se los encuentra, déjelos intactos."
+"<link linkend=\"gnome-commander-advanced-rename-placeholders\">marcadores de "
+"posición</link> (vea debajo la lista detallada). Adicionalmente, los <link "
+"linkend=\"gnome-commander-advanced-rename-strftime\">controles de formato "
+"strftime()</link> también están aceptados: excepto para «%D», «%n» y «%t» por "
+"razones obvias. Si se los encuentra, déjelos intactos."
 
 #: C/gnome-commander.xml:1089(guilabel)
 msgid "Counter"
@@ -1863,8 +1851,8 @@ msgid ""
 "Broken - like $n(), $e(0,-3) or $N(abc) - or unknown placeholders are copied "
 "verbatim without any substitution."
 msgstr ""
-"Roto: igual que «$n()», «$e(0,-3)» o «$N(abc)»; o los parámetros de "
-"sustitución desconocidos se copian literalmente sin ninguna sustitución."
+"Roto: igual que «$n()», «$e(0,-3)» o «$N(abc)»; o los parámetros de sustitución "
+"desconocidos se copian literalmente sin ninguna sustitución."
 
 #: C/gnome-commander.xml:1265(title)
 msgid "Metadata Tags (Metatags)"
@@ -2143,8 +2131,7 @@ msgstr "Es nuevo"
 
 #: C/gnome-commander.xml:1385(para)
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr ""
-"Establecer a «1» si la pista es nueva para el usuario («0» por omisión)."
+msgstr "Establecer a «1» si la pista es nueva para el usuario («0» por omisión)."
 
 #: C/gnome-commander.xml:1388(para)
 msgid "Audio.ISRC"
@@ -2885,8 +2872,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo "
-"lectura forzado» o «Bloqueado para anotaciones»."
+"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo lectura "
+"forzado» o «Bloqueado para anotaciones»."
 
 #: C/gnome-commander.xml:1693(para)
 msgid "Doc.SlideCount"
@@ -3083,8 +3070,8 @@ msgstr ""
 "especificador de espacio de color. Normalmente se usa sRGB para definir el "
 "espacio de color basado en las condiciones de la pantalla del PC y del "
 "entorno. Si se usa un espacio de color diferente a sRGB, se configura como "
-"«sin calibrar». Los datos de la imagen guardados como «sin calibrar» se "
-"pueden tratar como sRGB cuando se convierten a FlashPix."
+"«sin calibrar». Los datos de la imagen guardados como «sin calibrar» se pueden "
+"tratar como sRGB cuando se convierten a FlashPix."
 
 #: C/gnome-commander.xml:1768(para)
 msgid "Exif.ComponentsConfiguration"
@@ -4310,8 +4297,8 @@ msgstr ""
 "solo, el formato anterior se usa para grabar un único nombre de archivo de "
 "sonido. Si hay varios archivos de sonido, se muestra el primero grabado. "
 "Cuando hay tres archivos de sonido Exif «SND00001.WAV», «SND00002.WAV» y "
-"«SND00003.WAV», se indica el nombre de la imagen Exif para cada uno de "
-"ellos, «DSC00001.JPG». Combinando múltiple información relacional, se pueden "
+"«SND00003.WAV», se indica el nombre de la imagen Exif para cada uno de ellos, "
+"«DSC00001.JPG». Combinando múltiple información relacional, se pueden "
 "soportar varias posibilidades de reproducción. El método para usar "
 "información relacional corresponde a la implementación de la reproducción. "
 "Puesto que esta información es una cadena de caracteres ASCII, termina en "
@@ -6782,8 +6769,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
-"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y "
-"«S» para recuadro."
+"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y «S» "
+"para recuadro."
 
 #: C/gnome-commander.xml:3098(para)
 msgid "IPTC.ImageType"
@@ -7291,8 +7278,8 @@ msgid ""
 "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
 msgstr ""
 "Especifica la urgencia editorial del contenido y no necesariamente la "
-"prioridad de manejo del sobre. «1» es el más urgente, «5» normal y «8» el "
-"menos urgente."
+"prioridad de manejo del sobre. «1» es el más urgente, «5» normal y «8» el menos "
+"urgente."
 
 #: C/gnome-commander.xml:3293(para)
 msgid "IPTC.WriterEditor"
@@ -7943,8 +7930,8 @@ msgstr "%U"
 #: C/gnome-commander.xml:3601(para)
 msgid ""
 "The week number of the current year as a decimal number, range 00 to 53, "
-"starting with the first Sunday as the first day of week 01. See also %V and "
-"%W"
+"starting with the first Sunday as the first day of week 01. See also %V and %"
+"W"
 msgstr ""
 "El número de semana del año actual como un número decimal, rango de 00 a 53, "
 "comenzando por el primer domingo como el primer día de la semana 01. Véase "
@@ -7958,8 +7945,8 @@ msgstr "%V"
 msgid ""
 "The ISO 8601:1988 week number of the current year as a decimal number, range "
 "01 to 53, where week 1 is the first week that has at least 4 days in the "
-"current year, and with Monday as the first day of the week. See also %U and "
-"%W"
+"current year, and with Monday as the first day of the week. See also %U and %"
+"W"
 msgstr ""
 "El número ISO 8601:1988 de la semana del año actual como un número decimal, "
 "rango de 01 a 53, donde la semana 1 es la primera semana que tiene al menos "
@@ -8069,8 +8056,8 @@ msgid ""
 "modifier to indicate that an alternative format should be used. If the "
 "alternative format or specification does not exist for the current locale, "
 "the behaviour will be as if the unmodified conversion specification were "
-"used. The Single Unix Specification mentions %Ec, %EC, %Ex, %EX, %Ey, %EY, "
-"%Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, where the "
+"used. The Single Unix Specification mentions %Ec, %EC, %Ex, %EX, %Ey, %EY, %"
+"Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, where the "
 "effect of the O modifier is to use alternative numeric symbols (say, roman "
 "numerals), and that of the E modifier is to use a locale-dependent "
 "alternative representation."
@@ -8080,8 +8067,8 @@ msgstr ""
 "el formato alternativo o la especificación no existen en la configuración "
 "regional actual, el comportamiento será como si se hubiera usado una "
 "especificación de conversión sin modificar. La certificación Single Unix "
-"Specification menciona %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, "
-"%Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, donde el efecto del modificador "
+"Specification menciona %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, %"
+"Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, donde el efecto del modificador "
 "O es usar símbolos numéricos alternativos (es decir, números romanos), y que "
 "el modificador E es para usar una representación alternativa dependiente de "
 "la configuración regional."
@@ -8652,7 +8639,6 @@ msgid "Edit a new file"
 msgstr "Editar un archivo nuevo"
 
 #: C/gnome-commander.xml:4168(para)
-#, fuzzy
 msgid "Make a copy a file in the current directory."
 msgstr "Hacer una copia del archivo en la carpeta actual."
 
@@ -10945,9 +10931,8 @@ msgstr ""
 "Error nº 640387 corregido (uso de módulos de python obsoletos: md5, sha1)"
 
 #: C/gnome-commander.xml:6172(para)
-#, fuzzy
 msgid "Fixed problem with starting GNOME Commander as root"
-msgstr "Corregido el error al iniciar &app; como root"
+msgstr "Corregido el error al iniciar GNOME Commander como root"
 
 #: C/gnome-commander.xml:6175(para)
 msgid "Fixed problem with Traditional Chinese translation"
@@ -11599,8 +11584,8 @@ msgstr "IGU para la gestión de los atajos de teclado"
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
-"Herramienta de multi-renombrado: nuevos parámetros de sustitución «$x» y "
-"«$X» para números decimales aleatorios"
+"Herramienta de multi-renombrado: nuevos parámetros de sustitución «$x» y «$X» "
+"para números decimales aleatorios"
 
 #: C/gnome-commander.xml:6689(para)
 msgid ""
@@ -11806,9 +11791,8 @@ msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Corregido el error al abrir carpetas con el visor interno"
 
 #: C/gnome-commander.xml:6843(para)
-#, fuzzy
 msgid "Fixed problem with editing dirs by GNOME Commander"
-msgstr "Corregido el error al editar carpetas con &app;"
+msgstr "Corregido el error al editar carpetas con GNOME Commander"
 
 #: C/gnome-commander.xml:6846(para)
 msgid "Fixed problem #351952 (crash while doing a content search)"
@@ -12772,8 +12756,7 @@ msgstr ""
 "plantillas en el diálogo de renombrado avanzado. Vea doc/advrename.txt en el "
 "archivo tarball para obtener más detalles. Mejor diálogo de propiedades de "
 "archivo con soporte de renombrado. Ahora es posible arrastrar archivos a la "
-"carpeta «..». Ahora las barras de herramientas y de botones se pueden "
-"ocultar."
+"carpeta «..». Ahora las barras de herramientas y de botones se pueden ocultar."
 
 #: C/gnome-commander.xml:7572(para)
 msgid "0.9.9"
@@ -14035,15 +14018,15 @@ msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2010"
 #~ msgid ""
 #~ "<placeholder-1/><placeholder-2/><placeholder-3/><placeholder-4/"
 #~ "><placeholder-5/><placeholder-6/>. <placeholder-7/><placeholder-8/><table "
-#~ "frame=\"topbot\" id=\"gcmd-TBL-setting1\"><placeholder-9/><tgroup cols="
-#~ "\"2\" colsep=\"0\" rowsep=\"0\"><colspec colname=\"colspec0\" colwidth="
+#~ "frame=\"topbot\" id=\"gcmd-TBL-setting1\"><placeholder-9/><tgroup cols=\"2"
+#~ "\" colsep=\"0\" rowsep=\"0\"><colspec colname=\"colspec0\" colwidth="
 #~ "\"50.36*\"/><colspec colname=\"colspec1\" colwidth=\"63.64*\"/"
 #~ "><placeholder-10/><placeholder-11/></tgroup></table>"
 #~ msgstr ""
 #~ "<placeholder-1/><placeholder-2/><placeholder-3/><placeholder-4/"
 #~ "><placeholder-5/><placeholder-6/>. <placeholder-7/><placeholder-8/><table "
-#~ "frame=\"topbot\" id=\"gcmd-TBL-setting1\"><placeholder-9/><tgroup cols="
-#~ "\"2\" colsep=\"0\" rowsep=\"0\"><colspec colname=\"colspec0\" colwidth="
+#~ "frame=\"topbot\" id=\"gcmd-TBL-setting1\"><placeholder-9/><tgroup cols=\"2"
+#~ "\" colsep=\"0\" rowsep=\"0\"><colspec colname=\"colspec0\" colwidth="
 #~ "\"50.36*\"/><colspec colname=\"colspec1\" colwidth=\"63.64*\"/"
 #~ "><placeholder-10/><placeholder-11/></tgroup></table>"
 
@@ -14266,8 +14249,8 @@ msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2010"
 #~ "list. There are three options available: <placeholder-1/>"
 #~ msgstr ""
 #~ "En esta lista desplegable puede seleccionar cómo se muestran las "
-#~ "extensiones de los archivos. Hay tres opciones disponibles: "
-#~ "<placeholder-1/>"
+#~ "extensiones de los archivos. Hay tres opciones disponibles: <placeholder-"
+#~ "1/>"
 
 #~ msgid "Graphical mode"
 #~ msgstr "Modo gráfico"
