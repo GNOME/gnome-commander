@@ -118,7 +118,28 @@ struct GnomeCmdColorTheme
         if (alt_fg)     gdk_color_free (alt_fg);
         if (alt_bg)     gdk_color_free (alt_bg);
     }
+
+    GnomeCmdColorTheme &operator = (const GnomeCmdColorTheme &colors);
 };
+
+
+inline GnomeCmdColorTheme &GnomeCmdColorTheme::operator = (const GnomeCmdColorTheme &colors)
+{
+    if (this != &colors)
+    {
+        respect_theme = colors.respect_theme;
+        sel_fg = gdk_color_copy (colors.sel_fg);
+        sel_bg = gdk_color_copy (colors.sel_bg);
+        norm_fg = gdk_color_copy (colors.norm_fg);
+        norm_bg = gdk_color_copy (colors.norm_bg);
+        curs_fg = gdk_color_copy (colors.curs_fg);
+        curs_bg = gdk_color_copy (colors.curs_bg);
+        alt_fg = gdk_color_copy (colors.alt_fg);
+        alt_bg = gdk_color_copy (colors.alt_bg);
+    }
+
+    return *this;
+}
 
 
 struct GnomeCmdLsColorsPalette
