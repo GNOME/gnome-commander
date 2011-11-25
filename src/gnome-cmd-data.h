@@ -186,6 +186,8 @@ struct GnomeCmdData
             memset(&ls_colors_palette, 0, sizeof(ls_colors_palette));
         }
 
+        Options(const Options &cfg);
+
         ~Options()
         {
             g_free (date_format);
@@ -199,6 +201,8 @@ struct GnomeCmdData
             g_free (differ);
             g_free (term);
         }
+
+        Options &operator = (const Options &cfg);
 
         GnomeCmdColorTheme *get_current_color_theme()
         {

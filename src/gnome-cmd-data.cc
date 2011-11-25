@@ -23,6 +23,7 @@
 #include <libgnomevfs/gnome-vfs-volume-monitor.h>
 
 #include <fstream>
+#include <algorithm>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
@@ -60,6 +61,113 @@ struct GnomeCmdData::Private
 
 DICT<guint> gdk_key_names(GDK_VoidSymbol);
 DICT<guint> gdk_modifiers_names;
+
+
+GnomeCmdData::Options::Options(const Options &cfg)
+{
+    copy (cfg.color_themes, cfg.color_themes+G_N_ELEMENTS(cfg.color_themes), color_themes);
+    left_mouse_button_mode = cfg.left_mouse_button_mode;
+    left_mouse_button_unselects = cfg.left_mouse_button_unselects;
+    middle_mouse_button_mode = cfg.middle_mouse_button_mode;
+    right_mouse_button_mode = cfg.right_mouse_button_mode;
+    case_sens_sort = cfg.case_sens_sort;
+    alt_quick_search = cfg.alt_quick_search;
+    quick_search_exact_match_begin = cfg.quick_search_exact_match_begin;
+    quick_search_exact_match_end = cfg.quick_search_exact_match_end;
+    allow_multiple_instances = cfg.allow_multiple_instances;
+    save_dirs_on_exit = cfg.save_dirs_on_exit;
+    save_tabs_on_exit = cfg.save_tabs_on_exit;
+    save_dir_history_on_exit = cfg.save_dir_history_on_exit;
+    size_disp_mode = cfg.size_disp_mode;
+    perm_disp_mode = cfg.perm_disp_mode;
+    date_format = g_strdup (cfg.date_format);
+    list_font = g_strdup (cfg.list_font);
+    list_row_height = cfg.list_row_height;
+    ext_disp_mode = cfg.ext_disp_mode;
+    layout = cfg.layout;
+    color_mode = cfg.color_mode;
+    use_ls_colors = cfg.use_ls_colors;
+    ls_colors_palette = cfg.ls_colors_palette;
+    icon_size = cfg.icon_size;
+    icon_scale_quality = cfg.icon_scale_quality;
+    theme_icon_dir = cfg.theme_icon_dir;
+    document_icon_dir = cfg.document_icon_dir;
+    always_show_tabs = cfg.always_show_tabs;
+    tab_lock_indicator = cfg.tab_lock_indicator;
+    confirm_delete = cfg.confirm_delete;
+    confirm_copy_overwrite = cfg.confirm_copy_overwrite;
+    confirm_move_overwrite = cfg.confirm_move_overwrite;
+    confirm_mouse_dnd = cfg.confirm_mouse_dnd;
+    filter = cfg.filter;
+    backup_pattern = g_strdup (cfg.backup_pattern);
+    backup_pattern_list = patlist_new (cfg.backup_pattern);
+    honor_expect_uris = cfg.honor_expect_uris;
+    viewer = g_strdup (cfg.viewer);
+    use_internal_viewer = cfg.use_internal_viewer;
+    editor = g_strdup (cfg.editor);
+    differ = g_strdup (cfg.differ);
+    term = g_strdup (cfg.term);
+    fav_apps = cfg.fav_apps;
+    device_only_icon = cfg.device_only_icon;
+    skip_mounting = cfg.skip_mounting;
+}
+
+
+GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
+{
+    if (this != &cfg)
+    {
+        this->~Options();       //  free allocated data
+
+        copy (cfg.color_themes, cfg.color_themes+G_N_ELEMENTS(cfg.color_themes), color_themes);
+        left_mouse_button_mode = cfg.left_mouse_button_mode;
+        left_mouse_button_unselects = cfg.left_mouse_button_unselects;
+        middle_mouse_button_mode = cfg.middle_mouse_button_mode;
+        right_mouse_button_mode = cfg.right_mouse_button_mode;
+        case_sens_sort = cfg.case_sens_sort;
+        alt_quick_search = cfg.alt_quick_search;
+        quick_search_exact_match_begin = cfg.quick_search_exact_match_begin;
+        quick_search_exact_match_end = cfg.quick_search_exact_match_end;
+        allow_multiple_instances = cfg.allow_multiple_instances;
+        save_dirs_on_exit = cfg.save_dirs_on_exit;
+        save_tabs_on_exit = cfg.save_tabs_on_exit;
+        save_dir_history_on_exit = cfg.save_dir_history_on_exit;
+        size_disp_mode = cfg.size_disp_mode;
+        perm_disp_mode = cfg.perm_disp_mode;
+        date_format = g_strdup (cfg.date_format);
+        list_font = g_strdup (cfg.list_font);
+        list_row_height = cfg.list_row_height;
+        ext_disp_mode = cfg.ext_disp_mode;
+        layout = cfg.layout;
+        color_mode = cfg.color_mode;
+        use_ls_colors = cfg.use_ls_colors;
+        ls_colors_palette = cfg.ls_colors_palette;
+        icon_size = cfg.icon_size;
+        icon_scale_quality = cfg.icon_scale_quality;
+        theme_icon_dir = cfg.theme_icon_dir;
+        document_icon_dir = cfg.document_icon_dir;
+        always_show_tabs = cfg.always_show_tabs;
+        tab_lock_indicator = cfg.tab_lock_indicator;
+        confirm_delete = cfg.confirm_delete;
+        confirm_copy_overwrite = cfg.confirm_copy_overwrite;
+        confirm_move_overwrite = cfg.confirm_move_overwrite;
+        confirm_mouse_dnd = cfg.confirm_mouse_dnd;
+        filter = cfg.filter;
+        backup_pattern = g_strdup (cfg.backup_pattern);
+        backup_pattern_list = patlist_new (cfg.backup_pattern);
+        honor_expect_uris = cfg.honor_expect_uris;
+        viewer = g_strdup (cfg.viewer);
+        use_internal_viewer = cfg.use_internal_viewer;
+        editor = g_strdup (cfg.editor);
+        differ = g_strdup (cfg.differ);
+        term = g_strdup (cfg.term);
+        fav_apps = cfg.fav_apps;
+        device_only_icon = cfg.device_only_icon;
+        skip_mounting = cfg.skip_mounting;
+    }
+
+    return *this;
+}
 
 
 void GnomeCmdData::Selection::reset()
