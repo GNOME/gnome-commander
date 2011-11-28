@@ -73,7 +73,10 @@ struct GnomeCmdConnectDialog
     operator GtkWidget * () const         {  return GTK_WIDGET (this);    }
     operator GtkWindow * () const         {  return GTK_WINDOW (this);    }
     operator GtkDialog * () const         {  return GTK_DIALOG (this);    }
+
+    gboolean verify_uri();
 };
+
 
 struct GnomeCmdConnectDialogClass
 {
@@ -106,6 +109,9 @@ struct GnomeCmdConnectDialog::Private
 
     Private();
     ~Private();
+
+    void setup_for_type();
+    void show_entry(GtkWidget *table, GtkWidget *entry, const gchar *text, gint &i);
 };
 
 
@@ -171,186 +177,56 @@ inline GnomeCmdConnectDialog::Private::~Private()
 }
 
 
-G_DEFINE_TYPE (GnomeCmdConnectDialog, gnome_cmd_connect_dialog, GTK_TYPE_DIALOG)
-
-
-static void gnome_cmd_connect_dialog_finalize (GObject *object)
+void GnomeCmdConnectDialog::Private::setup_for_type()
 {
-    GnomeCmdConnectDialog *dialog = GNOME_CMD_CONNECT_DIALOG (object);
-
-    delete dialog->priv;
-
-    G_OBJECT_CLASS (gnome_cmd_connect_dialog_parent_class)->finalize (object);
-}
-
-
-inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
-{
-    string uri;
-    string server;
-    string share;
-    string port;
-    string folder;
-    string domain;
-    string user;
-    string password;
-
-    if (dialog->priv->uri_entry->parent)
-        stringify (uri, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->uri_entry), 0, -1));
-
-    if (dialog->priv->server_entry->parent)
-        stringify (server, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->server_entry), 0, -1));
-
-    if (dialog->priv->share_entry->parent)
-        stringify (share, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->share_entry), 0, -1));
-
-    if (dialog->priv->port_entry->parent)
-        stringify (port, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->port_entry), 0, -1));
-
-    if (dialog->priv->folder_entry->parent)
-        stringify (folder, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->folder_entry), 0, -1));
-
-    if (dialog->priv->domain_entry->parent)
-        stringify (domain, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->domain_entry), 0, -1));
-
-    if (dialog->priv->user_entry->parent)
-        stringify (user, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->user_entry), 0, -1));
-
-    if (dialog->priv->password_entry->parent)
-        stringify (password, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->password_entry), 0, -1));
-
-    int type = gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-
-    if (type!=CON_URI && server.empty())
-    {
-        gnome_cmd_show_message (*dialog, _("You must enter a name for the server"), _("Please enter a name and try again."));
-
-        return FALSE;
-    }
-
-    dialog->priv->auth = type==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED :
-                                              gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check)) ? GnomeCmdCon::SAVE_PERMANENTLY : GnomeCmdCon::SAVE_FOR_SESSION;
+    gint type = gtk_combo_box_get_active (GTK_COMBO_BOX (type_combo));
 
     if (type==CON_ANON_FTP)
-        user = "anonymous";
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auth_check), FALSE);
 
-    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, dialog->priv->auth==GnomeCmdCon::SAVE_PERMANENTLY, uri, server, share, port, folder, domain, user, password);
+    gtk_widget_set_sensitive (auth_check, type!=CON_ANON_FTP);
 
-    if (type==CON_URI && uri.empty())
-    {
-        gnome_cmd_show_message (*dialog,
-                                stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
-                                _("Please check the spelling and try again."));
-        return FALSE;
-    }
+    if (alias_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (required_table), alias_entry);
 
-    if (dialog->priv->alias)
-        stringify (*dialog->priv->alias, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->alias_entry), 0, -1));
+    if (uri_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (required_table), uri_entry);
 
-    dialog->priv->uri_str = uri;
+    if (server_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (required_table), server_entry);
 
-    return TRUE;
-}
+    if (share_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (optional_table), share_entry);
 
+    if (port_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (optional_table), port_entry);
 
-static void response_callback (GnomeCmdConnectDialog *dialog, int response_id, gpointer data)
-{
-    switch (response_id)
-    {
-        case GTK_RESPONSE_OK:
-            if (!verify_uri (dialog))
-                g_signal_stop_emission_by_name (dialog, "response");
-            break;
+    if (folder_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (optional_table), folder_entry);
 
-        case GTK_RESPONSE_NONE:
-        case GTK_RESPONSE_DELETE_EVENT:
-        case GTK_RESPONSE_CANCEL:
-            break;
+    if (user_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (optional_table), user_entry);
 
-        case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-file-properties");
-            g_signal_stop_emission_by_name (dialog, "response");
-            break;
+    if (password_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (optional_table), password_entry);
 
-        default :
-            g_assert_not_reached ();
-    }
-}
-
-
-static void gnome_cmd_connect_dialog_class_init (GnomeCmdConnectDialogClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gnome_cmd_connect_dialog_finalize;
-}
-
-
-inline void show_entry (GtkWidget *table, GtkWidget *entry, const gchar *text, gint &i)
-{
-    GtkWidget *label = gtk_label_new_with_mnemonic (text);
-    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-    gtk_widget_show (label);
-    gtk_table_attach (GTK_TABLE (table), label, 0, 1, i, i+1, GTK_FILL, GTK_FILL, 0, 0);
-
-    gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_widget_show (entry);
-    gtk_table_attach (GTK_TABLE (table), entry, 1, 2, i, i+1, GtkAttachOptions (GTK_FILL | GTK_EXPAND), GTK_FILL, 0, 0);
-
-    i++;
-}
-
-
-static void setup_for_type (GnomeCmdConnectDialog *dialog)
-{
-    gint type = gtk_combo_box_get_active (GTK_COMBO_BOX (dialog->priv->type_combo));
-
-    if (type==CON_ANON_FTP)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), FALSE);
-
-    gtk_widget_set_sensitive (dialog->priv->auth_check, type!=CON_ANON_FTP);
-
-    if (dialog->priv->alias_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->required_table), dialog->priv->alias_entry);
-
-    if (dialog->priv->uri_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->required_table), dialog->priv->uri_entry);
-
-    if (dialog->priv->server_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->required_table), dialog->priv->server_entry);
-
-    if (dialog->priv->share_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->optional_table), dialog->priv->share_entry);
-
-    if (dialog->priv->port_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->optional_table), dialog->priv->port_entry);
-
-    if (dialog->priv->folder_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->optional_table), dialog->priv->folder_entry);
-
-    if (dialog->priv->user_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->optional_table), dialog->priv->user_entry);
-
-    if (dialog->priv->password_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->optional_table), dialog->priv->password_entry);
-
-    if (dialog->priv->domain_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (dialog->priv->optional_table), dialog->priv->domain_entry);
+    if (domain_entry->parent)
+        gtk_container_remove (GTK_CONTAINER (optional_table), domain_entry);
 
     // Destroy all labels
-    gtk_container_foreach (GTK_CONTAINER (dialog->priv->required_table), (GtkCallback) gtk_widget_destroy, NULL);
+    gtk_container_foreach (GTK_CONTAINER (required_table), (GtkCallback) gtk_widget_destroy, NULL);
 
     gint i = 1;
-    GtkWidget *table = dialog->priv->required_table;
+    GtkWidget *table = required_table;
 
     gboolean show_share, show_port, show_user, show_domain;
 
-    show_entry (table, dialog->priv->alias_entry, _("_Alias:"), i);
+    show_entry (table, alias_entry, _("_Alias:"), i);
 
     switch (type)
     {
         case CON_URI:
-            show_entry (table, dialog->priv->uri_entry, _("_Location (URI):"), i);
+            show_entry (table, uri_entry, _("_Location (URI):"), i);
             return;
 
         default:
@@ -379,7 +255,7 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
             break;
     }
 
-    show_entry (table, dialog->priv->server_entry, _("_Server:"), i);
+    show_entry (table, server_entry, _("_Server:"), i);
 
     GtkWidget *align;
 
@@ -405,7 +281,7 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
     gtk_widget_show (align);
 
 
-    dialog->priv->optional_table = table = gtk_table_new (1, 2, FALSE);
+    optional_table = table = gtk_table_new (1, 2, FALSE);
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 12);
     gtk_widget_show (table);
@@ -414,27 +290,157 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
     i = 0;
 
     if (show_share)
-        show_entry (table, dialog->priv->share_entry, _("S_hare:"), i);
+        show_entry (table, share_entry, _("S_hare:"), i);
 
     if (show_port)
-        show_entry (table, dialog->priv->port_entry, _("_Port:"), i);
+        show_entry (table, port_entry, _("_Port:"), i);
 
-    show_entry (table, dialog->priv->folder_entry, _("_Folder:"), i);
+    show_entry (table, folder_entry, _("_Folder:"), i);
 
     if (show_user)
-        show_entry (table, dialog->priv->user_entry, _("_User name:"), i);
+        show_entry (table, user_entry, _("_User name:"), i);
 
-    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check)) && type!=CON_ANON_FTP)
-        show_entry (table, dialog->priv->password_entry, _("_Password:"), i);
+    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (auth_check)) && type!=CON_ANON_FTP)
+        show_entry (table, password_entry, _("_Password:"), i);
 
     if (show_domain)
-        show_entry (table, dialog->priv->domain_entry, _("_Domain name:"), i);
+        show_entry (table, domain_entry, _("_Domain name:"), i);
+}
+
+
+inline void GnomeCmdConnectDialog::Private::show_entry(GtkWidget *table, GtkWidget *entry, const gchar *text, gint &i)
+{
+    GtkWidget *label = gtk_label_new_with_mnemonic (text);
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_show (label);
+    gtk_table_attach (GTK_TABLE (table), label, 0, 1, i, i+1, GTK_FILL, GTK_FILL, 0, 0);
+
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
+    gtk_widget_show (entry);
+    gtk_table_attach (GTK_TABLE (table), entry, 1, 2, i, i+1, GtkAttachOptions (GTK_FILL | GTK_EXPAND), GTK_FILL, 0, 0);
+
+    ++i;
+}
+
+
+inline gboolean GnomeCmdConnectDialog::verify_uri()
+{
+    string uri;
+    string server;
+    string share;
+    string port;
+    string folder;
+    string domain;
+    string user;
+    string password;
+
+    if (priv->uri_entry->parent)
+        stringify (uri, gtk_editable_get_chars (GTK_EDITABLE (priv->uri_entry), 0, -1));
+
+    if (priv->server_entry->parent)
+        stringify (server, gtk_editable_get_chars (GTK_EDITABLE (priv->server_entry), 0, -1));
+
+    if (priv->share_entry->parent)
+        stringify (share, gtk_editable_get_chars (GTK_EDITABLE (priv->share_entry), 0, -1));
+
+    if (priv->port_entry->parent)
+        stringify (port, gtk_editable_get_chars (GTK_EDITABLE (priv->port_entry), 0, -1));
+
+    if (priv->folder_entry->parent)
+        stringify (folder, gtk_editable_get_chars (GTK_EDITABLE (priv->folder_entry), 0, -1));
+
+    if (priv->domain_entry->parent)
+        stringify (domain, gtk_editable_get_chars (GTK_EDITABLE (priv->domain_entry), 0, -1));
+
+    if (priv->user_entry->parent)
+        stringify (user, gtk_editable_get_chars (GTK_EDITABLE (priv->user_entry), 0, -1));
+
+    if (priv->password_entry->parent)
+        stringify (password, gtk_editable_get_chars (GTK_EDITABLE (priv->password_entry), 0, -1));
+
+    int type = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->type_combo));
+
+    if (type!=CON_URI && server.empty())
+    {
+        gnome_cmd_show_message (*this, _("You must enter a name for the server"), _("Please enter a name and try again."));
+
+        return FALSE;
+    }
+
+    priv->auth = type==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED :
+                                      gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auth_check)) ? GnomeCmdCon::SAVE_PERMANENTLY : GnomeCmdCon::SAVE_FOR_SESSION;
+
+    if (type==CON_ANON_FTP)
+        user = "anonymous";
+
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, priv->auth==GnomeCmdCon::SAVE_PERMANENTLY, uri, server, share, port, folder, domain, user, password);
+
+    if (type==CON_URI && uri.empty())
+    {
+        gnome_cmd_show_message (*this,
+                                stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
+                                _("Please check the spelling and try again."));
+        return FALSE;
+    }
+
+    if (priv->alias)
+        stringify (*priv->alias, gtk_editable_get_chars (GTK_EDITABLE (priv->alias_entry), 0, -1));
+
+    priv->uri_str = uri;
+
+    return TRUE;
+}
+
+
+G_DEFINE_TYPE (GnomeCmdConnectDialog, gnome_cmd_connect_dialog, GTK_TYPE_DIALOG)
+
+
+static void gnome_cmd_connect_dialog_finalize (GObject *object)
+{
+    GnomeCmdConnectDialog *dialog = GNOME_CMD_CONNECT_DIALOG (object);
+
+    delete dialog->priv;
+
+    G_OBJECT_CLASS (gnome_cmd_connect_dialog_parent_class)->finalize (object);
+}
+
+
+static void response_callback (GnomeCmdConnectDialog *dialog, int response_id, gpointer data)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            if (!dialog->verify_uri())
+                g_signal_stop_emission_by_name (dialog, "response");
+            break;
+
+        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_CANCEL:
+            break;
+
+        case GTK_RESPONSE_HELP:
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-file-properties");
+            g_signal_stop_emission_by_name (dialog, "response");
+            break;
+
+        default :
+            g_assert_not_reached ();
+    }
+}
+
+
+static void gnome_cmd_connect_dialog_class_init (GnomeCmdConnectDialogClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gnome_cmd_connect_dialog_finalize;
 }
 
 
 static void dlg_changed_callback (GtkComboBox *combo_box, GnomeCmdConnectDialog *dialog)
 {
-    setup_for_type (dialog);
+    dialog->priv->setup_for_type();
 }
 
 
@@ -532,7 +538,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 
     g_signal_connect (dialog->priv->port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
 
-    setup_for_type (dialog);
+    dialog->priv->setup_for_type();
 
     gtk_dialog_add_buttons (*dialog,
                             GTK_STOCK_HELP, GTK_RESPONSE_HELP,
