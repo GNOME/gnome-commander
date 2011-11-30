@@ -929,19 +929,19 @@
 		</note>
 		<itemizedlist>
         <listitem>
-        <para>To open a new tab press <keycombo><keycap>Ctrl</keycap><keycap>t</keycap></keycombo> this opens a new tab in the current panel with the same folder opened.</para>
+        <para>To open a new tab press <keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> this opens a new tab in the current panel with the same folder opened.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>Ctrl</keycap><keycap>Up arrow</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para>
+       	 <para>To open a new tab displaying the selected folder in the current pane press the <keycombo><keycap>CTRL</keycap><keycap>UP</keycap></keycombo>. If you have configured the mouse middle click option to open a new tab (<xref linkend="gnome-commander-prefs-general"/>), then using the middle mouse button on a folder will also open a new tab displaying it in the current pane.</para>
         </listitem>
         <listitem>
-       	 <para>To open a new tab displaying the selected folder in the inactive pane press the <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Up arrow</keycap></keycombo>.</para>
+       	 <para>To open a new tab displaying the selected folder in the inactive pane press the <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>UP</keycap></keycombo>.</para>
         </listitem>
         <listitem>
-     	   <para>To navigate between tab you can you the mouse or use <keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> as many time as needed to select the tab element. If the tabs are selected you can also use the <keycap>right arrow</keycap> or <keycap>left arrow</keycap> to select the desired tab.</para>
+     	   <para>To navigate between tab you can you the mouse or use <keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> as many time as needed to select the tab element. If the tabs are selected you can also use the <keycap>RIGHT</keycap> or <keycap>LEFT</keycap> to select the desired tab.</para>
         </listitem>
         <listitem>
-     	   <para>To close a tab you can use the mouse and double click the tab or right click on it and from the menu select <guimenu>Close tab</guimenu>. You can also close the current tab using the keyboard shortcut <keycombo><keycap>Ctrl</keycap><keycap>w</keycap></keycombo></para>
+     	   <para>To close a tab you can use the mouse and double click the tab or right click on it and from the menu select <guimenu>Close tab</guimenu>. You can also close the current tab using the keyboard shortcut <keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></para>
         </listitem>
       </itemizedlist>
     	  <para>Right clicking on any tab will open a tab specific menu</para>
@@ -4269,7 +4269,7 @@
                 <para>CTRL+ALT+Letters</para>
               </entry>
               <entry colname="colspec3" valign="top">
-                <para>By selecting this option when you press <keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
+                <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
                    pane to the first item using that letter. You can then enter more
                    letters after the first one to refine the search.</para>
               </entry>
