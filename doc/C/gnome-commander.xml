@@ -920,7 +920,7 @@
 	 <!-- ================ Tab subsection ================================= -->
 	 <sect2 id="gnome-commander-tabs">
 		<title>Using multiple tabs</title>
-		<para>You can open multiple tabs in both panels to speed up navigation. GNOME Commander can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </para>
+		<para>You can open multiple tabs in both panels to speed up navigation. &app; can store the open tabs location upon closing. When you restart the application the tabs are reopened as they were before. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. </para>
 		<para>Using the mouse the middle click can be configured to open a new tab. This option can be set in <xref linkend="gnome-commander-prefs-general"/>. When it is set a middle click on a folder will open it in a new tab in the same pane.
 		</para>
 		<note>
@@ -961,10 +961,10 @@
         </para>
         </listitem>
 		  <listitem>
-        <para><guimenu>Close all tabs</guimenu> GNOME Commander will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
+        <para><guimenu>Close all tabs</guimenu> &app; will close all open tabs in the current pane. This leaves the current tab as the only open folder.</para>
         </listitem>
         <listitem>
-        <para><guimenu>Close duplicate tabs</guimenu> GNOME Commander will search for duplicated open tabs in the current pane and close them.</para>
+        <para><guimenu>Close duplicate tabs</guimenu> &app; will search for duplicated open tabs in the current pane and close them.</para>
         </listitem>
       </itemizedlist>
 	 </sect2>
@@ -4718,8 +4718,8 @@
 
 		<sect3 id="gnome-commander-prefs-layout-colors">
 		<title>Configuring custom colors</title>
-		<para>To configure the custom colors for GNOME Commander click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, Select <guilabel>Custom</guilabel> in the <guilabel>Color scheme:</guilabel> drop down list then click the <guilabel>Edit</guilabel> button.</para>
-		<para>This feature allows you to configure how GNOME commander displays elements to suit your needs. By default the unselected elements are all displayed in the same way. This can become confusing, to solve this you can configure alternate colors for alternate rows.</para>
+		<para>To configure the custom colors for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, Select <guilabel>Custom</guilabel> in the <guilabel>Color scheme:</guilabel> drop down list then click the <guilabel>Edit</guilabel> button.</para>
+		<para>This feature allows you to configure how &app; displays elements to suit your needs. By default the unselected elements are all displayed in the same way. This can become confusing, to solve this you can configure alternate colors for alternate rows.</para>
 		<para><guilabel>Foreground</guilabel> describes the color used for the text, and <guilabel>background</guilabel> is the background color used for the row.</para>
 		<itemizedlist>
 			<listitem><guilabel>Default</guilabel> this is the text and background colors used by default. These colors are used for standard unselected items.
@@ -4735,9 +4735,9 @@
 		</sect3>
 		<sect3 id="gnome-commander-prefs-layout-ls_colors">
 			<title>Configuring Custom LS_COLORS</title>
-			 <para>Gnome Commander does not differentiate files types by default.</para>
+			 <para>&app; does not differentiate files types by default.</para>
 			 <para>You can configure it to differentiate files types like LS_COLORS does when using the command shell.</para>
-			 <para>To configure the custom colors for GNOME Commander click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box, then click the <guilabel>Edit colors...</guilabel> button.</para>
+			 <para>To configure the custom colors for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box, then click the <guilabel>Edit colors...</guilabel> button.</para>
 		</sect3>
 <!-- ====Confirmation==== -->
     </sect2>
