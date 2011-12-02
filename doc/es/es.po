@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-25 14:57+0000\n"
-"PO-Revision-Date: 2011-11-25 18:00+0100\n"
+"POT-Creation-Date: 2011-11-26 16:18+0000\n"
+"PO-Revision-Date: 2011-12-02 18:01+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1639,7 +1639,6 @@ msgid "Results"
 msgstr "Resultados"
 
 #: C/gnome-commander.xml:1127(para)
-#, fuzzy
 msgid ""
 "List of the new file names. The list can de reordered using drag-and-drop. "
 "The context menu provides options for: removing file from the list, viewing "
@@ -1649,7 +1648,7 @@ msgstr ""
 "Lista de los nombres de archivo nuevos. La lista se puede reordenar usando "
 "arrastrar y soltar. El menú contextual proporciona opciones para: quitar un "
 "archivo de la lista, ver un archivo o sus propiedades y actualizar la lista. "
-"Los renombrados en conflicto se marcan en rojo."
+"Los renombrados en conflicto se marcarán en rojo."
 
 #: C/gnome-commander.xml:1135(guibutton)
 msgid "Apply"
@@ -8078,7 +8077,6 @@ msgid "Using the Internal Viewer"
 msgstr "Utilizar el visor interno"
 
 #: C/gnome-commander.xml:3670(para)
-#, fuzzy
 msgid ""
 "The internal viewer allows viewing contents of files in text, unicode, "
 "binary, hex or graphical mode."
@@ -8385,16 +8383,14 @@ msgid "Settings"
 msgstr "Ajustes"
 
 #: C/gnome-commander.xml:3847(para)
-#, fuzzy
 msgid ""
 "To configure GNOME Commander, choose <menuchoice><guimenu>Settings</"
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice> The "
 "<guilabel>Options</guilabel> dialog contains the following tabbed sections:"
 msgstr ""
-"Para configurar GNOME Commander, seleccione en la barra de menú "
-"<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en pestañas:"
+"Para configurar GNOME Commander, elija <menuchoice><guimenu>Configuración</"
+"guimenu><guimenuitem>Opciones...</guimenuitem></menuchoice>. El diálogo "
+"<guilabel>Opciones</guilabel> contiene las siguientes secciones en pestañas:"
 
 #: C/gnome-commander.xml:3881(title)
 msgid "General"
@@ -8491,7 +8487,6 @@ msgid "Shows GNOME Commander devices preferences dialog."
 msgstr "Muestra el diálogo de preferencias de dispositivos de GNOME Commander."
 
 #: C/gnome-commander.xml:4047(para)
-#, fuzzy
 msgid ""
 "Some keyboard shortcuts may not work as expected under the Gnome "
 "environment. The reason for that is that Gnome uses some global shortcuts (i."
@@ -9065,14 +9060,13 @@ msgid "Managing user actions"
 msgstr "Gestionar las acciones del usuario"
 
 #: C/gnome-commander.xml:4617(para)
-#, fuzzy
 msgid ""
 "Key bindings reside in [key-bindings] section of GNOME Commander config file "
 "(<guilabel>~/.gnome2/gnome-commander</guilabel>)."
 msgstr ""
-"Las asociaciones de teclas residen en la sección &lt;KeyBindings&gt; del "
-"archivo de configuración de GNOME Commander (<guilabel>~/.gnome-commander/"
-"gnome-commander.xml</guilabel>)."
+"Las asociaciones de teclas residen en la sección [key-bindings] del archivo "
+"de configuración de GNOME Commander (<guilabel>~/.gnome2/gnome-commander</"
+"guilabel>)."
 
 #: C/gnome-commander.xml:4619(para)
 msgid "Config file syntax:"
@@ -9734,15 +9728,14 @@ msgstr ""
 "super.l, super.r, sys.req, tab, terminate.server, undo, up"
 
 #: C/gnome-commander.xml:5088(para)
-#, fuzzy
 msgid ""
 "The list is based on GDK key symbols taken from <ulink url=\"http://git."
 "gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h\" type=\"http\"> gdkkeysyms.h</"
 "ulink>."
 msgstr ""
-"La lista está basada en símbolos clave de GDK obtenidos de <ulink type=\"http"
-"\" url=\"http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h\"> gdkkeysyms."
-"h</ulink>."
+"La lista está basada en símbolos clave de GDK obtenidos de <ulink url="
+"\"http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h\" type=\"http\"> "
+"gdkkeysyms.h</ulink>."
 
 #: C/gnome-commander.xml:5098(title)
 msgid "Python plugins"
@@ -9953,15 +9946,14 @@ msgstr ""
 "            "
 
 #: C/gnome-commander.xml:5226(para)
-#, fuzzy
 msgid ""
 "The latest version of md5sum code can be found in <ulink url=\"http://git."
 "gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py\" type="
 "\"http\">git GNOME Commander repository.</ulink>"
 msgstr ""
-"La última versión del código de md5sum se puede encontrar en <ulink type="
-"\"http\" url=\"http://git.gnome.org/cgit/gnome-commander/plain/plugins/"
-"python/md5sum/md5sum.py\">repositorio git de GNOME Commander.</ulink>"
+"La última versión del código de md5sum se puede encontrar en <ulink url="
+"\"http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/"
+"md5sum.py\" type=\"http\">repositorio git de GNOME Commander.</ulink>"
 
 #: C/gnome-commander.xml:5232(title)
 msgid "Python resources"
@@ -10030,7 +10022,6 @@ msgstr ""
 "<guimenuitem>Programas</guimenuitem>."
 
 #: C/gnome-commander.xml:5278(para)
-#, fuzzy
 msgid "Add two favourite apps using the values shown here and here."
 msgstr ""
 "Añadir dos aplicaciones favoritas usando los valores mostrados aquí y aquí."
@@ -10122,7 +10113,6 @@ msgid "Using Nautilus icon theme"
 msgstr "Usar el tema de iconos de Nautilus"
 
 #: C/gnome-commander.xml:5328(para)
-#, fuzzy
 msgid ""
 "This is outdated info since Nautilus and later Gnome versions no longer use "
 "these kind of themes."
@@ -10192,7 +10182,6 @@ msgstr ""
 "página web."
 
 #: C/gnome-commander.xml:5366(para)
-#, fuzzy
 msgid ""
 "It's recommended to use the GNOME Commander package that is provided by your "
 "distribution. Refer to GNOME Commander for the <ulink url=\"http://www."
@@ -10200,19 +10189,18 @@ msgid ""
 "ulink> supporting GNOME Commander packages."
 msgstr ""
 "Se recomienda usar el paquete de GNOME Commander proporcionado con su "
-"distribución. Consulte en GNOME Commander la <ulink type=\"http\" url="
-"\"http://www.nongnu.org/gcmd/download.html#distro\">lista de distribuciones</"
+"distribución. Consulte en GNOME Commander la <ulink url=\"http://www.nongnu."
+"org/gcmd/download.html#distro\" type=\"http\">lista de distribuciones</"
 "ulink> que soportan paquetes de GNOME Commander."
 
 #: C/gnome-commander.xml:5371(para)
-#, fuzzy
 msgid ""
 "All current and historical releases can be found on the <ulink url=\"http://"
 "ftp.gnome.org/pub/GNOME/sources/gnome-commander/\" type=\"http\">Gnome FTP "
 "server</ulink>."
 msgstr ""
 "Se pueden encontrar todas las versiones actuales e históricas en el <ulink "
-"type=\"http\" url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/"
+"url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\" type=\"http"
 "\">Servidor FTP de GNOME</ulink>."
 
 #: C/gnome-commander.xml:5376(title)
@@ -10285,7 +10273,6 @@ msgstr ""
 "solamente."
 
 #: C/gnome-commander.xml:5414(para)
-#, fuzzy
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots can be downloaded "
@@ -10295,10 +10282,10 @@ msgid ""
 msgstr ""
 "Aquellos que se sienten aventurados, o que tal vez quieren hackear el código "
 "más reciente, se pueden descargar las últimas capturas del código fuente de "
-"desarrollo desde la <ulink type=\"http\" url=\"http://www.nongnu.org/gcmd/"
-"download.html#testing\">Página principal de GNOME Commander</ulink> (tan "
-"sólo recuerde ejecutar <command>./autogen.sh</command> antes de construir). "
-"<placeholder-1/>"
+"desarrollo desde la <ulink url=\"http://www.nongnu.org/gcmd/download."
+"html#testing\" type=\"http\">página principal de GNOME Commander</ulink> "
+"(tan sólo recuerde ejecutar <command>./autogen.sh</command> antes de "
+"construir). <placeholder-1/>"
 
 #: C/gnome-commander.xml:5428(title)
 msgid "Compilation and installation"
@@ -10763,7 +10750,7 @@ msgstr "last_pattern"
 
 #: C/gnome-commander.xml:5985(para)
 msgid "[search-history]"
-msgstr ""
+msgstr "[search-history]"
 
 #: C/gnome-commander.xml:5986(para)
 msgid "case_sens"
@@ -10774,7 +10761,6 @@ msgid "height"
 msgstr "altura"
 
 #: C/gnome-commander.xml:6000(para)
-#, fuzzy
 msgid "name_pattern<emphasis><subscript>n</subscript></emphasis>"
 msgstr "nombre<emphasis><subscript>n</subscript></emphasis>"
 
@@ -12521,15 +12507,14 @@ msgid "2003-11-14"
 msgstr "2003-11-14"
 
 #: C/gnome-commander.xml:7380(para)
-#, fuzzy
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same "
 "file twice from a list"
 msgstr ""
 "Corregido el error al mover archivos en una máquina con una instalación "
-"rápida de FAM. Esto llevó a que &app; tratase de quitar el mismo archivo dos "
-"veces de una lista."
+"rápida de FAM. Esto llevó a que GNOME Commander tratase de quitar el mismo "
+"archivo dos veces de una lista."
 
 #: C/gnome-commander.xml:7387(para)
 msgid "Accessing files on mounted devices should now work better"
@@ -12885,18 +12870,16 @@ msgid "Known Bugs and Limitations"
 msgstr "Errores conocidos y limitaciones"
 
 #: C/gnome-commander.xml:7656(para)
-#, fuzzy
 msgid ""
 "You can report or view GNOME Commander bugs at the <ulink url=\"http://"
 "bugzilla.gnome.org/browse.cgi?product=gnome-commander\" type=\"http\">the "
 "gnome.org Bugzilla</ulink>."
 msgstr ""
-"Puede ver o informar de un error de GNOME Commander en <ulink type=\"http\" "
-"url=\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander\">el "
-"Bugzilla de gnome.org</ulink>."
+"Puede informar de un error de GNOME Commander o ver los existentes en <ulink "
+"url=\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander\" type="
+"\"http\">el Bugzilla de gnome.org</ulink>."
 
 #: C/gnome-commander.xml:7658(para)
-#, fuzzy
 msgid ""
 "Though GNOME Commander is relatively free from bugs and is a quite mature "
 "program, no programs will ever be totally bugfree. New bugs can be "
@@ -12911,19 +12894,19 @@ msgid ""
 "fixes and/or send patches to the developers, all in the spirit of free and "
 "open source software."
 msgstr ""
-"Aunque GNOME Commander está, relativamente, libre de errores y es un "
-"programa maduro, ningún programa está totalmente libre de errores. Se pueden "
-"introducir nuevos errores al introducir nuevas funcionalidades, o a través "
+"Aunque GNOME Commander está, relativamente, libre de errores y es un "
+"programa maduro, ningún programa está totalmente libre de errores. Se pueden "
+"introducir nuevos errores al introducir nuevas funcionalidades, o a través "
 "de programas y bibliotecas de las que depende, especialmente en versiones de "
 "desarrollo y pruebas. La calidad del informe de errores es muy importante y "
 "puede ser una muy buena ayuda para los desarrolladores para hacer un buen "
-"programa. El informe de errores no es un acto de insatisfacción, por lo que "
+"programa. El informe de errores no es un acto de insatisfacción, por lo que "
 "es bienvenido para ayudarnos para encontrar, cazar y eliminar los errores. "
 "Probar las nuevas versiones e informar de sus errores es la mejor manera de "
-"que usuarios sin conocimientos de programación puedan ayudar al desarrollo "
-"del programa, y aquellos con conocimientos de programación son bienvenidos "
+"que usuarios sin conocimientos de programación puedan ayudar al desarrollo "
+"del programa, y aquellos con conocimientos de programación son bienvenidos "
 "para sugerir correcciones y/o enviar parches a los desarrolladores, todo "
-"ello dentro del espíritu del software libre y abierto."
+"ello dentro del espíritu del software libre y abierto."
 
 #: C/gnome-commander.xml:7667(emphasis)
 msgid "Given enough eyeballs, all bugs are shallow."
@@ -12934,7 +12917,6 @@ msgid "Linus law."
 msgstr "Ley de Linus."
 
 #: C/gnome-commander.xml:7680(para)
-#, fuzzy
 msgid ""
 "GNOME Commander was primarily written by the former maintainer - Marcus "
 "Bjurman, who where the one that initiated this project publicly in 2001 and "
@@ -12952,23 +12934,21 @@ msgstr ""
 "Assaf Gordon (<email>agordon88@gmail.com</email>) con la ayuda adicional de "
 "Magnus Stålnacke (<email>jemamo@telia.com</email>) y Michael "
 "(<email>codejodler@gmx.ch</email>) desarrollan <application>GNOME Commander</"
-"application>. Para encontrar más información acerca de <application>GNOME "
-"Commander</application>, visite la <ulink url=\"http://www.nongnu.org/gcmd/"
-"\" type=\"http\">Página principal de GNOME Commander</ulink>."
+"application>. Para encontrar más información acerca de GNOME Commander, "
+"visite la <ulink url=\"http://www.nongnu.org/gcmd/\" type=\"http\">Página "
+"principal de GNOME Commander</ulink>."
 
 #: C/gnome-commander.xml:7688(para)
-#, fuzzy
 msgid ""
 "To report a bug or make a suggestion regarding this application or this "
 "manual, follow the directions in this <ulink url=\"ghelp:gnome-feedback\" "
 "type=\"help\">document</ulink>."
 msgstr ""
-"Para informar de un fallo, o hacer alguna sugerencia acerca de esta "
-"aplicación o este manual, siga las instrucciones en este <ulink type=\"help"
-"\" url=\"ghelp:gnome-feedback\">documento</ulink>."
+"Para informar de un error, o hacer alguna sugerencia acerca de esta "
+"aplicación o este manual, siga las instrucciones de este <ulink url=\"ghelp:"
+"gnome-feedback\" type=\"help\">documento</ulink>."
 
 #: C/gnome-commander.xml:7694(para)
-#, fuzzy
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
@@ -12978,8 +12958,8 @@ msgid ""
 msgstr ""
 "Este programa se distribuye bajo los términos de la Licencia Pública General "
 "GNU (GPL) tal y como fue publicada por la Free Software Foundation, en la "
-"versión 2 ó (a su elección) cualquier versión posterior. Una copia de esta "
-"licencia puede encontrarse en <ulink url=\"ghelp:gpl\" type=\"help\">este "
+"versión 2 ó (a su elección) cualquier versión posterior. Se puede encontrar "
+"una copia de esta licencia en <ulink url=\"ghelp:gpl\" type=\"help\">este "
 "enlace</ulink>, o en el archivo COPYING incluido con el código fuente de "
 "este programa."
 
