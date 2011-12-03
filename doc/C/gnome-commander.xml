@@ -907,10 +907,9 @@
         </listitem>
       </orderedlist>
       <tip>
-      <para>On the Permissions tab (see Figure xxx), you can change the permissions and ownership of a file
-      (that is, if you have the right permissions yourself).
-      You can change the read, write, and execute settings for a file.
-      For more information on permissions, see Chapter xxx.</para>
+      <para>On the Permissions tab, you can change the permissions and ownership of a file
+      (that is, if you have the right permissions yourself). You can change the read, write, and execute settings for a file.
+      For more information on permissions, see <xref linkend="gnome-commander-permissions"/>.</para>
       </tip>
 
       <para>The following table lists the properties that you can view or set for files and folders,
