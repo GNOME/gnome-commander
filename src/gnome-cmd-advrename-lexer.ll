@@ -265,7 +265,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-\$[c]                           {
+\$c                             {
                                   CHUNK *p = g_new0 (CHUNK,1);
 
                                   p->type = COUNTER;
@@ -273,7 +273,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   p->counter.init_step = GLOBAL_COUNTER_STEP;
                                   p->counter.step = 1;                      //  default counter step
                                   p->counter.init_prec = GLOBAL_COUNTER_PREC;
-                                  p->counter.prec = 1;                      //  default counter prec]
+                                  p->counter.prec = 1;                      //  default counter prec
                                   sprintf(p->counter.fmt,"%%0%ili",p->counter.prec);
 
                                   fname_template.push_back(p);
