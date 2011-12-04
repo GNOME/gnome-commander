@@ -75,7 +75,6 @@ struct CHUNK
     struct
     {
       long n;
-      long start;
       int step;
       int prec;
       int init_step;
@@ -194,7 +193,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   sscanf(yytext+3,"%d",&precision);
 
                                   p->type = COUNTER;
-                                  p->counter.n = p->counter.start = 1;      //  default counter value
+                                  p->counter.n = 1;                         //  default counter value
                                   p->counter.init_step = GLOBAL_COUNTER_STEP;
                                   p->counter.step = 1;                      //  default counter step
                                   p->counter.prec = p->counter.init_prec = yytext[3]=='a' ? AUTO_COUNTER_PREC : min (precision, MAX_PRECISION);
@@ -270,7 +269,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   CHUNK *p = g_new0 (CHUNK,1);
 
                                   p->type = COUNTER;
-                                  p->counter.n = p->counter.start = 1;      //  default counter value
+                                  p->counter.n = 1;                         //  default counter value
                                   p->counter.init_step = GLOBAL_COUNTER_STEP;
                                   p->counter.step = 1;                      //  default counter step
                                   p->counter.init_prec = GLOBAL_COUNTER_PREC;
@@ -325,7 +324,7 @@ void gnome_cmd_advrename_reset_counter(long start, int precision, int auto_preci
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     if ((*i)->type==COUNTER)
     {
-      (*i)->counter.n = (*i)->counter.start = start;
+      (*i)->counter.n = start;
       (*i)->counter.step = (*i)->counter.init_step==GLOBAL_COUNTER_STEP ? step : (*i)->counter.init_step;
       switch ((*i)->counter.init_prec)
       {
