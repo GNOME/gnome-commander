@@ -187,7 +187,8 @@ void GnomeCmdData::AdvrenameConfig::Profile::reset()
     name.clear();
     template_string = "$N";
     regexes.clear();
-    counter_start = counter_width = counter_step = 1;
+    counter_start = counter_step = 1;
+    counter_width = 0;
     case_conversion = 0;
     trim_blanks = 3;
 }

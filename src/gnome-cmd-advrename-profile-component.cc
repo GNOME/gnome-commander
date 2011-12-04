@@ -60,7 +60,7 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 
     GtkWidget *counter_start_spin;
     GtkWidget *counter_step_spin;
-    GtkWidget *counter_digits_spin;
+    GtkWidget *counter_digits_combo;
 
     GtkTreeModel *regex_model;
     GtkWidget *regex_view;
@@ -107,7 +107,7 @@ struct GnomeCmdAdvrenameProfileComponent::Private
 
     static void on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
     static void on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
-    static void on_counter_digits_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
+    static void on_counter_digits_combo_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component);
 
     static void on_regex_model_row_deleted (GtkTreeModel *treemodel, GtkTreePath *path, GnomeCmdAdvrenameProfileComponent *component);
     static void on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameProfileComponent *component);
@@ -135,6 +135,7 @@ GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::name_items[] =
 GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::counter_items[] =
     {{N_("/Counter"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 5},
      {N_("/Counter (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 6},
+     {N_("/Counter (auto)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 27},
      {N_("/Hexadecimal random number (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag, 7}};
 
 GtkItemFactoryEntry GnomeCmdAdvrenameProfileComponent::Private::date_items[] =
@@ -546,8 +547,9 @@ void GnomeCmdAdvrenameProfileComponent::Private::insert_text_tag(GnomeCmdAdvrena
                                          "%H%M%S",      // 23
                                          "%H",          // 24
                                          "%M",          // 25
-                                         "%S"};         // 26
-
+                                         "%S",          // 26
+                                         "$c(a)"};      // 27
+    
     g_return_if_fail (n < G_N_ELEMENTS(placeholder));
 
     priv->insert_tag(placeholder[n]);
@@ -703,9 +705,10 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_counter_step_spin_value_chan
 }
 
 
-void GnomeCmdAdvrenameProfileComponent::Private::on_counter_digits_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
+void GnomeCmdAdvrenameProfileComponent::Private::on_counter_digits_combo_value_changed (GtkWidget *combo, GnomeCmdAdvrenameProfileComponent *component)
 {
-    component->profile.counter_width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+    component->profile.counter_width = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
+    component->profile.counter_width = CLAMP(component->profile.counter_width, 0, 16);
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
@@ -957,10 +960,16 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
         label = gtk_label_new_with_mnemonic (_("Di_gits:"));
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
-        component->priv->counter_digits_spin = spin = gtk_spin_button_new_with_range (1, 16, 1);
-        gtk_label_set_mnemonic_widget (GTK_LABEL (label), spin);
+        component->priv->counter_digits_combo = combo = gtk_combo_box_new_text ();
+
+        static const char *digit_widths[] = {N_("auto"),"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+
+        for (const char **i=digit_widths; *i; ++i)
+            gtk_combo_box_append_text (GTK_COMBO_BOX (combo), *i);
+
+        gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
         gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 2, 3);
-        gtk_table_attach_defaults (GTK_TABLE (table), spin, 1, 2, 2, 3);
+        gtk_table_attach_defaults (GTK_TABLE (table), combo, 1, 2, 2, 3);
     }
 
 
@@ -1130,7 +1139,7 @@ GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdDat
     // Counter
     g_signal_connect (priv->counter_start_spin, "value-changed", G_CALLBACK (Private::on_counter_start_spin_value_changed), this);
     g_signal_connect (priv->counter_step_spin, "value-changed", G_CALLBACK (Private::on_counter_step_spin_value_changed), this);
-    g_signal_connect (priv->counter_digits_spin, "value-changed", G_CALLBACK (Private::on_counter_digits_spin_value_changed), this);
+    g_signal_connect (priv->counter_digits_combo, "changed", G_CALLBACK (Private::on_counter_digits_combo_value_changed), this);
 
     // Regex
     priv->regex_model = create_regex_model ();
@@ -1249,7 +1258,7 @@ void GnomeCmdAdvrenameProfileComponent::update()
 
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), profile.counter_start);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), profile.counter_step);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_digits_spin), profile.counter_width);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->counter_digits_combo), profile.counter_width);
 
     if (!model_is_empty(priv->regex_model))
     {

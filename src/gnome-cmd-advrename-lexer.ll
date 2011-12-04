@@ -50,6 +50,7 @@ enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,XRANDOM,XXRANDOM,PARENT_DIR,GRANDP
 
 const int GLOBAL_COUNTER_STEP = -1;
 const int GLOBAL_COUNTER_PREC = -1;
+const int AUTO_COUNTER_PREC = 0;
 
 const int MAX_PRECISION = 16;
 const int MAX_XRANDOM_PRECISION = 8;
@@ -185,7 +186,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-\$[c]\({uint}\)                 {
+\$c\(({uint}|a)\)               {
                                   CHUNK *p = g_new0 (CHUNK,1);
 
                                   int precision = 1;
@@ -196,7 +197,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   p->counter.n = p->counter.start = 1;      //  default counter value
                                   p->counter.init_step = GLOBAL_COUNTER_STEP;
                                   p->counter.step = 1;                      //  default counter step
-                                  p->counter.prec = p->counter.init_prec = min (precision, MAX_PRECISION);
+                                  p->counter.prec = p->counter.init_prec = yytext[3]=='a' ? AUTO_COUNTER_PREC : min (precision, MAX_PRECISION);
                                   sprintf(p->counter.fmt,"%%0%ili",p->counter.prec);
 
                                   fname_template.push_back(p);
@@ -312,16 +313,34 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 %%
 
 
-void gnome_cmd_advrename_reset_counter(long start, int precision, int step)
+void gnome_cmd_advrename_reset_counter(long start, int precision, int auto_precision, int step)
 {
-  precision = precision<MAX_PRECISION ? precision : MAX_PRECISION;
+  auto_precision = CLAMP(auto_precision,1,MAX_PRECISION);
+  if (!precision)
+    precision = auto_precision;
+  else
+    if (precision>MAX_PRECISION)
+      precision = MAX_PRECISION;
 
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     if ((*i)->type==COUNTER)
     {
       (*i)->counter.n = (*i)->counter.start = start;
       (*i)->counter.step = (*i)->counter.init_step==GLOBAL_COUNTER_STEP ? step : (*i)->counter.init_step;
-      (*i)->counter.prec = (*i)->counter.init_prec==GLOBAL_COUNTER_PREC ? precision : (*i)->counter.init_prec;
+      switch ((*i)->counter.init_prec)
+      {
+        case GLOBAL_COUNTER_PREC:
+          (*i)->counter.prec = precision;
+          break;
+
+        case AUTO_COUNTER_PREC:
+          (*i)->counter.prec = auto_precision;
+          break;
+
+        default:
+          (*i)->counter.prec = (*i)->counter.init_prec;
+          break;
+      }
       sprintf((*i)->counter.fmt,"%%0%ili",(*i)->counter.prec);
     }
 }
