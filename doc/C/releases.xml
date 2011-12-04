@@ -72,6 +72,9 @@
                             <para>User defined LS_COLORS colours</para>
                         </listitem>
                         <listitem>
+                            <para>Support for automatic width counters in advanced file rename</para>
+                        </listitem>
+                        <listitem>
                             <para>Enhanced file name matching in quick search</para>
                         </listitem>
                         <listitem>

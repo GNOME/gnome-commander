@@ -18,6 +18,7 @@ New features:
  * Revamped file properties dialog
  * One instance mode
  * User defined LS_COLORS colours
+ * Support for automatic width counters in advanced file rename
  * Enhanced file name matching in quick search
  * Open terminal with administrator privileges
  * Prompt to confirm drag & drop operations
