@@ -1434,6 +1434,10 @@
                         <entry><para>File counter with specified digit number (width)</para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>$c(a)</para></entry>
+                        <entry><para>File counter with digit number (width) calculated automatically</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>$x</para></entry>
                         <entry><para>Hexadecimal random number (8 lowercase digits)</para></entry>
                     </row>
