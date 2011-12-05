@@ -290,6 +290,16 @@
         </revdescription>
       </revision>
       <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.15;</revnumber>
+        <date>2011-12-06</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
         <revnumber>GNOME Commander Manual V1.4;</revnumber>
         <date>2011-??-??</date>
         <revdescription>

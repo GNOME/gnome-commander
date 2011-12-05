@@ -129,6 +129,26 @@
             </entry>
         </row>
         <row valign="top">
+            <entry><para>1.2.8.15</para></entry>
+            <entry><para>2011-12-06</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, es, fr</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated translations: eo, es, sl</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.2.8.14</para></entry>
             <entry><para>2011-10-04</para></entry>
             <entry>
