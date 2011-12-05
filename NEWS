@@ -38,6 +38,16 @@ New features:
 
 
 ===================================
+gnome-commander 1.2.8.15
+---------------
+
+Bug fixes:
+ * Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)
+ * New or updated docs: cs, de, es, fr
+ * Updated translations: eo, es, sl
+
+
+===================================
 gnome-commander 1.2.8.14
 ---------------
 
