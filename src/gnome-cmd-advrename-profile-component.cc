@@ -962,7 +962,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
         component->priv->counter_digits_combo = combo = gtk_combo_box_new_text ();
 
-        static const char *digit_widths[] = {N_("auto"),"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+        static const char *digit_widths[] = {N_("auto"),"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16",NULL};
 
         for (const char **i=digit_widths; *i; ++i)
             gtk_combo_box_append_text (GTK_COMBO_BOX (combo), *i);
