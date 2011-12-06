@@ -466,7 +466,7 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   fmt.reserve(256);
 
   char *fname = get_utf8 (f->info->name);
-  char *ext = g_utf8_strrchr (fname, -1, '.');
+  const char *ext = g_utf8_strrchr (fname, -1, '.');
 
   int full_name_len = g_utf8_strlen (fname, -1);
   int name_len = full_name_len;
