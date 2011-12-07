@@ -2578,7 +2578,7 @@ msgstr "Formát"
 
 #: ../src/gnome-cmd-options-dialog.cc:2013
 msgid "Layout"
-msgstr "Uspořádání"
+msgstr "Vzhled"
 
 #: ../src/gnome-cmd-options-dialog.cc:2015
 msgid "Confirmation"
