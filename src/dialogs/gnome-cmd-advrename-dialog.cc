@@ -20,7 +20,6 @@
 
 #include <config.h>
 #include <sys/types.h>
-#include <math.h>
 #include <regex.h>
 #include <unistd.h>
 #include <errno.h>
@@ -619,11 +618,9 @@ inline GtkWidget *create_files_view ()
 
 void GnomeCmdAdvrenameDialog::update_new_filenames()
 {
-    gint n = gtk_tree_model_iter_n_children (files, NULL);
-
-    gnome_cmd_advrename_reset_counter (defaults.default_profile.counter_start,
+    gnome_cmd_advrename_reset_counter (gtk_tree_model_iter_n_children (files, NULL),
+                                       defaults.default_profile.counter_start,
                                        defaults.default_profile.counter_width,
-                                       n ? log10(n)+1 : 1,
                                        defaults.default_profile.counter_step);
     GtkTreeIter i;
 

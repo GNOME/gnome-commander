@@ -29,10 +29,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 #include <string>
 #include <vector>
-
+#include <algorithm>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
@@ -312,9 +313,14 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 %%
 
 
-void gnome_cmd_advrename_reset_counter(long start, int precision, int auto_precision, int step)
+void gnome_cmd_advrename_reset_counter(int n, long start, int precision, int step)
 {
+  n = std::max(abs(start),abs(--n*step+start));
+
+  int auto_precision = n ? log10(n)+1 : 1;
+
   auto_precision = CLAMP(auto_precision,1,MAX_PRECISION);
+
   if (!precision)
     precision = auto_precision;
   else
