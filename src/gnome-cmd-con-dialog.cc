@@ -379,7 +379,7 @@ inline gboolean GnomeCmdConnectDialog::verify_uri()
     {
         gnome_cmd_show_message (*this,
                                 stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
-                                _("Please check the spelling and try again."));
+                                _("Please check spelling and try again."));
         return FALSE;
     }
 
