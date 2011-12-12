@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-12-04 22:56+0000\n"
-"PO-Revision-Date: 2011-12-05 17:00+0100\n"
+"POT-Creation-Date: 2011-12-10 12:19+0000\n"
+"PO-Revision-Date: 2011-12-12 13:59+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -163,89 +163,89 @@ msgstr ""
 "Este es un complemento de ejemplo que es útil como un ejemplo sencillo para "
 "los aspirantes a hackers de complementos"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:127
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:126
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:203
 msgid "/_Save Profile As..."
 msgstr "/_Guardar perfil como…"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:136
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:135
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:212
 msgid "/_Manage Profiles..."
 msgstr "/_Gestionar perfiles…"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:188
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:187
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:262
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:332
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:331
 msgid "Remove from file list"
 msgstr "Quitar de la lista de archivos"
 
 #. {file_umount, "file.umount"},
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:336
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:335
 #: ../src/gnome-cmd-user-actions.cc:184
 msgid "View file"
 msgstr "Ver archivo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:340
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:339
 msgid "File properties"
 msgstr "Propiedades del archivo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:346
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:345
 msgid "Update file list"
 msgstr "Actualizar lista de archivos"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:508
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:507
 msgid "Advanced Rename Tool"
 msgstr "Herramienta de renombrado avanzado"
 
 #. Results
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:519
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:518
 msgid "Results"
 msgstr "Resultados"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:592
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:591
 msgid "Old name"
 msgstr "Nombre antiguo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:596
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:595
 msgid "Current file name"
 msgstr "Nombre actual del archivo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:598
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:597
 msgid "New name"
 msgstr "Nuevo nombre"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:602
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:601
 msgid "New file name"
 msgstr "Nombre de archivo nuevo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:604
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:603
 #: ../src/tags/gnome-cmd-tags.cc:326 ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:608
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:607
 msgid "File size"
 msgstr "Tamaño del archivo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:610
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:609
 #: ../src/gnome-cmd-advrename-profile-component.cc:919
 #: ../src/tags/gnome-cmd-tags.cc:341 ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Fecha"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:614
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:613
 msgid "File modification date"
 msgstr "Fecha de modificación del archivo"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:683
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:680
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:1145
 msgid "Profiles..."
 msgstr "_Propiedades…"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:688
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:685
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Restablecer"
@@ -662,7 +662,6 @@ msgid "/Counter (width)"
 msgstr "/Contador (anchura)"
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:138
-#| msgid "/Counter (width)"
 msgid "/Counter (auto)"
 msgstr "/Contador (automático)"
 
@@ -824,7 +823,6 @@ msgid "Di_gits:"
 msgstr "_Dígitos:"
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:965
-#| msgid "Custom"
 msgid "auto"
 msgstr "automático"
 
@@ -1109,7 +1107,8 @@ msgid "\"%s\" is not a valid location"
 msgstr "«%s» no es un lugar válido"
 
 #: ../src/gnome-cmd-con-dialog.cc:382
-msgid "Please check the spelling and try again."
+#| msgid "Please check the spelling and try again."
+msgid "Please check spelling and try again."
 msgstr "Compruebe la ortografía y pruebe de nuevo."
 
 #: ../src/gnome-cmd-con-dialog.cc:474 ../src/gnome-cmd-main-win.cc:1182
