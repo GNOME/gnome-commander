@@ -44,7 +44,7 @@ struct GnomeCmdConRemoteClass
 
 GtkType gnome_cmd_con_remote_get_type ();
 
-GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const std::string &uri);
+GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const std::string &uri_str);
 
 void gnome_cmd_con_remote_set_host_name (GnomeCmdConRemote *con, const gchar *host_name);
 

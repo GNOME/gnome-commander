@@ -237,9 +237,9 @@ GtkType gnome_cmd_con_remote_get_type ()
 }
 
 
-GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &text_uri)
+GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &uri_str)
 {
-    GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri.c_str());
+    GnomeVFSURI *uri = gnome_vfs_uri_new (uri_str.c_str());
 
     g_return_val_if_fail (uri != NULL, NULL);
 
@@ -254,7 +254,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &t
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
     gnome_cmd_con_set_alias (con, alias);
-    gnome_cmd_con_set_uri (con, text_uri);
+    gnome_cmd_con_set_uri (con, uri_str);
     gnome_cmd_con_set_host_name (con, host);
     gnome_cmd_con_set_root_path (con, path);
 
