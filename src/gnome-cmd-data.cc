@@ -48,14 +48,14 @@ GnomeVFSVolumeMonitor *monitor = NULL;
 
 struct GnomeCmdData::Private
 {
-    GnomeCmdConList      *con_list;
-    GList                *auto_load_plugins;
-    gint                 sort_column[2];
-    gboolean             sort_direction[2];
-    gint                 main_win_pos[2];
-    gchar                *symlink_prefix;
+    GnomeCmdConList *con_list;
+    GList           *auto_load_plugins;
+    gint             sort_column[2];
+    gboolean         sort_direction[2];
+    gint             main_win_pos[2];
+    gchar           *symlink_prefix;
 
-    gchar                *ftp_anonymous_password;
+    gchar           *ftp_anonymous_password;
 };
 
 
