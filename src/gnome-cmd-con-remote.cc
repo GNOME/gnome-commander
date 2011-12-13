@@ -243,13 +243,13 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 
     g_return_val_if_fail (uri != NULL, NULL);
 
-    const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
-    const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
-    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
-
     GnomeCmdConRemote *server = (GnomeCmdConRemote *) g_object_new (GNOME_CMD_TYPE_CON_REMOTE, NULL);
 
     g_return_val_if_fail (server != NULL, NULL);
+
+    const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
+    const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
+    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
