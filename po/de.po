@@ -2931,7 +2931,7 @@ msgstr ""
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Die installierte Grafik konnte nicht geladen werden, Laden aus dem "
-"Quellordner wird versucht"
+"Quellordner wird versucht\n"
 
 #: ../src/intviewer/search-dlg.cc:245
 msgid "Find"
