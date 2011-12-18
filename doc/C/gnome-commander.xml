@@ -4082,7 +4082,7 @@
             matching system used.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Sorting options</guilabel> configures whether sorting is
+            <para><guilabel>Sorting</guilabel> configures whether sorting is
             case sensitive.</para>
           </listitem>
           <listitem>
