@@ -70,6 +70,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     left_mouse_button_unselects = cfg.left_mouse_button_unselects;
     middle_mouse_button_mode = cfg.middle_mouse_button_mode;
     right_mouse_button_mode = cfg.right_mouse_button_mode;
+    select_dirs = cfg.select_dirs;
     case_sens_sort = cfg.case_sens_sort;
     alt_quick_search = cfg.alt_quick_search;
     quick_search_exact_match_begin = cfg.quick_search_exact_match_begin;
@@ -124,6 +125,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         left_mouse_button_unselects = cfg.left_mouse_button_unselects;
         middle_mouse_button_mode = cfg.middle_mouse_button_mode;
         right_mouse_button_mode = cfg.right_mouse_button_mode;
+        select_dirs = cfg.select_dirs;
         case_sens_sort = cfg.case_sens_sort;
         alt_quick_search = cfg.alt_quick_search;
         quick_search_exact_match_begin = cfg.quick_search_exact_match_begin;
@@ -1105,6 +1107,7 @@ void GnomeCmdData::load()
     options.filter.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
     options.filter.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
 
+    options.select_dirs = gnome_cmd_data_get_bool ("/sort/select_dirs", TRUE);
     options.case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
 
     main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
@@ -1542,6 +1545,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/options/hidden_filter", options.filter.hidden);
     gnome_cmd_data_set_bool   ("/options/backup_filter", options.filter.backup);
 
+    gnome_cmd_data_set_bool   ("/sort/select_dirs", options.select_dirs);
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);
 
     gnome_cmd_data_set_int    ("/colors/mode", options.color_mode);

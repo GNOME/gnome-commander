@@ -4082,6 +4082,9 @@
             matching system used.</para>
           </listitem>
           <listitem>
+            <para><guilabel>Selection</guilabel> makes directories selectable also by keyboard shortcuts.</para>
+          </listitem>
+          <listitem>
             <para><guilabel>Sorting</guilabel> configures whether sorting is
             case sensitive.</para>
           </listitem>
@@ -7201,6 +7204,13 @@
                                     <entry><para></para></entry>
                                     <entry><para>right_mouse_button_mode</para></entry>
                                     <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>select_dirs</para></entry>
+                                    <entry><para>boolean</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>

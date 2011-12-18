@@ -116,6 +116,16 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
+    // Selection options
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Selection"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Select directories"), "select_dirs");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.select_dirs);
+
+
     // Sort options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Sorting"));
@@ -186,6 +196,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     GtkWidget *lmb_unselects_check = lookup_widget (dialog, "lmb_unselects_check");
     GtkWidget *mmb_cd_up_radio = lookup_widget (dialog, "mmb_cd_up_radio");
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
+    GtkWidget *select_dirs = lookup_widget (dialog, "select_dirs");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
     GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
@@ -205,6 +216,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     cfg.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
                                                                                                      : GnomeCmdData::RIGHT_BUTTON_SELECTS;
 
+    cfg.select_dirs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (select_dirs));
     cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
     cfg.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
     cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
@@ -1584,7 +1596,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
     cfg.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
     cfg.set_term(gtk_entry_get_text (GTK_ENTRY (entry5)));
-        
+
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
     cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
 }

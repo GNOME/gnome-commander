@@ -91,6 +91,7 @@ struct GnomeCmdData
         gboolean                     left_mouse_button_unselects;
         MiddleMouseButtonMode        middle_mouse_button_mode;
         RightMouseButtonMode         right_mouse_button_mode;
+        gboolean                     select_dirs;
         gboolean                     case_sens_sort;
         gboolean                     alt_quick_search;
         gboolean                     quick_search_exact_match_begin;
@@ -143,6 +144,7 @@ struct GnomeCmdData
                    left_mouse_button_unselects(TRUE),
                    middle_mouse_button_mode(MIDDLE_BUTTON_GOES_UP_DIR),
                    right_mouse_button_mode(RIGHT_BUTTON_POPUPS_MENU),
+                   select_dirs(TRUE),
                    case_sens_sort(TRUE),
                    alt_quick_search(FALSE),
                    quick_search_exact_match_begin(TRUE),

@@ -608,18 +608,32 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
 void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
 {
-    for (GList *i=get_visible_files(); i; i=i->next)
-    {
-        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
-
-        if (f && f->info && pattern.match(f->info->name))
+    if (gnome_cmd_data.options.select_dirs)
+        for (GList *i=get_visible_files(); i; i=i->next)
         {
-            if (mode)
-                select_file(f);
-            else
-                unselect_file(f);
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+
+            if (f && f->info && pattern.match(f->info->name))
+            {
+                if (mode)
+                    select_file(f);
+                else
+                    unselect_file(f);
+            }
         }
-    }
+    else
+        for (GList *i=get_visible_files(); i; i=i->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+
+            if (f && !GNOME_CMD_IS_DIR (f) && f->info && pattern.match(f->info->name))
+            {
+                if (mode)
+                    select_file(f);
+                else
+                    unselect_file(f);
+            }
+        }
 }
 
 
@@ -1912,8 +1926,17 @@ void GnomeCmdFileList::select_all()
 {
     priv->selected_files.clear();
 
-    for (GList *i=get_visible_files(); i; i=i->next)
-        select_file((GnomeCmdFile *) i->data);
+    if (gnome_cmd_data.options.select_dirs)
+        for (GList *i=get_visible_files(); i; i=i->next)
+            select_file((GnomeCmdFile *) i->data);
+    else
+        for (GList *i=get_visible_files(); i; i=i->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+
+            if (!GNOME_CMD_IS_DIR (f))
+                select_file(f);
+        }
 }
 
 
@@ -1989,18 +2012,32 @@ void GnomeCmdFileList::invert_selection()
 {
     GnomeCmd::Collection<GnomeCmdFile *> sel = priv->selected_files;
 
-    for (GList *i=get_visible_files(); i; i=i->next)
-    {
-        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
-
-        if (f && f->info)
+    if (gnome_cmd_data.options.select_dirs)
+        for (GList *i=get_visible_files(); i; i=i->next)
         {
-            if (!sel.contain(f))
-                select_file(f);
-            else
-                unselect_file(f);
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+
+            if (f && f->info)
+            {
+                if (!sel.contain(f))
+                    select_file(f);
+                else
+                    unselect_file(f);
+            }
         }
-    }
+    else
+        for (GList *i=get_visible_files(); i; i=i->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+
+            if (f && !GNOME_CMD_IS_DIR (f) && f->info)
+            {
+                if (!sel.contain(f))
+                    select_file(f);
+                else
+                    unselect_file(f);
+            }
+        }
 }
 
 
