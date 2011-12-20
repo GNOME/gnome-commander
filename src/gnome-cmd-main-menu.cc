@@ -678,6 +678,12 @@ static void init (GnomeCmdMainMenu *main_menu)
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },
+        {
+            MENU_TYPE_ITEM, _("Maximize Panel Size"), "", NULL,
+            (gpointer) view_maximize_pane, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
         MENUTYPE_END
     };
 

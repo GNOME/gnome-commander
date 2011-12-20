@@ -79,6 +79,7 @@ struct GnomeCmdMainWin
     void set_fs_directory_to_opposite(FileSelectorID fsID);
 
     void set_equal_panes();
+    void maximize_pane();
     GnomeCmdState *get_state() const;
     void set_cap_state(gboolean state);
 

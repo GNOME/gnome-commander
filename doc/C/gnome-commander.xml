@@ -6541,6 +6541,11 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.maximize_pane</para></entry>
+                        <entry><para>Maximize panel size</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.first</para></entry>
                         <entry><para>Go forward to the first visited directory</para></entry>
                         <entry><para></para></entry>

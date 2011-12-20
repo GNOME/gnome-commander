@@ -1326,6 +1326,15 @@ void GnomeCmdMainWin::set_equal_panes()
 }
 
 
+void GnomeCmdMainWin::maximize_pane()
+{
+    if (priv->current_fs==LEFT)
+        slide_set_100_0 (NULL, NULL);
+    else
+        slide_set_0_100 (NULL, NULL);
+}
+
+
 XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw)
 {
     xml << XML::tag("Layout");

@@ -206,6 +206,7 @@ static UserActionData user_actions_data[] = {
                                              {view_directory, "view.directory", N_("Change directory")},
                                              {view_dir_history, "view.dir_history", N_("Show directory history")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
+                                             {view_maximize_pane, "view.maximize_pane", N_("Maximize panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
                                              {view_home, "view.home", N_("Home directory")},
@@ -1586,6 +1587,12 @@ void view_refresh (GtkMenuItem *menuitem, gpointer file_list)
 void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
 {
     main_win->set_equal_panes();
+}
+
+
+void view_maximize_pane (GtkMenuItem *menuitem, gpointer not_used)
+{
+    main_win->maximize_pane();
 }
 
 
