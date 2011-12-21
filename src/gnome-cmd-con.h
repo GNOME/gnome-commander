@@ -171,12 +171,14 @@ inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const gchar *uri=NULL)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->uri);
-    con->uri = g_strdup (uri);
+    con->uri = (gchar *) uri;
 }
 
 inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const std::string &uri)
 {
-    gnome_cmd_con_set_uri (con, uri.empty() ? NULL : uri.c_str());
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->uri);
+    con->uri = uri.empty() ? NULL : g_strdup (uri.c_str());
 }
 
 GnomeVFSURI *gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path);
