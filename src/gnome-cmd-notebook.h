@@ -71,26 +71,26 @@ struct GnomeCmdNotebook
 
     gint insert_page(GtkWidget *page, gint n, GtkWidget *label=NULL);
     gint insert_page(GtkWidget *page, gint n, const gchar *label)           {  return insert_page(page, n, label ? gtk_label_new (label) : NULL);  }
-    gint prepend_page(GtkWidget *page, GtkWidget *label=NULL)               {  return insert_page(page, 0, label);   }
+    gint prepend_page(GtkWidget *page, GtkWidget *label=NULL)               {  return insert_page(page, 0, label);                                 }
     gint prepend_page(GtkWidget *page, const gchar *label)                  {  return insert_page(page, 0, label);   }
-    gint append_page(GtkWidget *page, GtkWidget *label=NULL)                {  return insert_page(page, -1, label);  }
+    gint append_page(GtkWidget *page, GtkWidget *label=NULL)                {  return insert_page(page, -1, label);                                }
     gint append_page(GtkWidget *page, const gchar *label)                   {  return insert_page(page, -1, label);  }
 
     void remove_page(gint n);
-    void remove_page()                  {  remove_page (get_current_page());  }
+    void remove_page()                                                      {  remove_page (get_current_page());                                   }
 
     GtkWidget *get_label() const                                            {  return gtk_notebook_get_tab_label (*this, page());   }
-    GtkWidget *get_label(gint n) const                                      {  return gtk_notebook_get_tab_label (*this, page(n));  }
+    GtkWidget *get_label(gint n) const                                      {  return gtk_notebook_get_tab_label (*this, page(n));                 }
     void set_label(GtkWidget *label=NULL)                                   {  gtk_notebook_set_tab_label (*this, page(), label);   }
-    void set_label(gint n, GtkWidget *label=NULL)                           {  gtk_notebook_set_tab_label (*this, page(n), label);  }
+    void set_label(gint n, GtkWidget *label=NULL)                           {  gtk_notebook_set_tab_label (*this, page(n), label);                 }
     void set_label(const gchar *label)                                      {  set_label(label ? gtk_label_new (label) : NULL);     }
-    void set_label(gint n, const gchar *label)                              {  set_label(n, label ? gtk_label_new (label) : NULL);  }
+    void set_label(gint n, const gchar *label)                              {  set_label(n, label ? gtk_label_new (label) : NULL);                 }
 
     void prev_page();
     void next_page();
 
     void show_tabs(TabBarVisibility show);
-    void show_tabs(gboolean show)                                           {  show_tabs(show ? SHOW_TABS : HIDE_TABS);             }
+    void show_tabs(gboolean show)                                           {  show_tabs(show ? SHOW_TABS : HIDE_TABS);                            }
 
     int find_tab_num_at_pos(gint screen_x, gint screen_y) const;
 };
