@@ -854,7 +854,6 @@ inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.always_show_tabs);
 
 
-    // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab lock indicator"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
