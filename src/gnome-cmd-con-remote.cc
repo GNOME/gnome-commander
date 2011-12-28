@@ -81,11 +81,13 @@ static void remote_open (GnomeCmdCon *con)
 {
     DEBUG('m', "Opening remote connection\n");
 
-    if (!con->base_path)
-        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
+    g_return_if_fail (con->uri!=NULL);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
+
+    if (!con->base_path)
+        con->base_path = new GnomeCmdPlainPath(G_DIR_SEPARATOR_S);
 
     g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 }
