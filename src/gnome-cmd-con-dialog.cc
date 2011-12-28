@@ -679,7 +679,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
         GnomeVFSURI *uri = gnome_vfs_uri_new (dialog->priv->uri_str.c_str());
 
         const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : NULL;
-        const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free !!
+        const gchar *host = gnome_vfs_uri_get_host_name (uri);
 
         gnome_cmd_con_set_alias (con, alias);
         gnome_cmd_con_set_uri (con, dialog->priv->uri_str);
