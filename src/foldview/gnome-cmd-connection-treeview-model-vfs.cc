@@ -1,8 +1,8 @@
 /*
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
-    Copyright (C) 2007-2011 Piotr Eljasiak
-    Copyleft      2010-2011 Guillaume Wardavoir
+    Copyright (C) 2007-2012 Piotr Eljasiak
+    Copyleft      2010-2012 Guillaume Wardavoir
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
