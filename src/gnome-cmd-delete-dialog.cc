@@ -284,7 +284,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
 
         response = run_simple_dialog (*main_win, FALSE,
                                       GTK_MESSAGE_QUESTION, msg, _("Delete"),
-                                      1, _("Cancel"), _("OK"), NULL);
+                                      gnome_cmd_data.options.confirm_delete_default==GTK_BUTTONS_CANCEL ? 0 : 1, _("Cancel"), _("OK"), NULL);
 
         g_free (msg);
     }

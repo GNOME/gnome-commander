@@ -121,6 +121,7 @@ struct GnomeCmdData
         int                          tab_lock_indicator;
         //  Confirmation
         gboolean                     confirm_delete;
+        GtkButtonsType               confirm_delete_default;
         GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
         GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
         gboolean                     confirm_mouse_dnd;
@@ -169,6 +170,7 @@ struct GnomeCmdData
                    always_show_tabs(FALSE),
                    tab_lock_indicator(TAB_LOCK_ICON),
                    confirm_delete(TRUE),
+                   confirm_delete_default(GTK_BUTTONS_OK),
                    confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_mouse_dnd(TRUE),

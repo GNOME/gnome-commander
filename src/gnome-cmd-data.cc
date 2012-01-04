@@ -96,6 +96,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     always_show_tabs = cfg.always_show_tabs;
     tab_lock_indicator = cfg.tab_lock_indicator;
     confirm_delete = cfg.confirm_delete;
+    confirm_delete_default = cfg.confirm_delete_default;
     confirm_copy_overwrite = cfg.confirm_copy_overwrite;
     confirm_move_overwrite = cfg.confirm_move_overwrite;
     confirm_mouse_dnd = cfg.confirm_mouse_dnd;
@@ -1092,6 +1093,7 @@ void GnomeCmdData::load()
     options.list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
     options.confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
+    options.confirm_delete_default = (GtkButtonsType) gnome_cmd_data_get_int ("/confirm/delete_default", GTK_BUTTONS_OK);
     options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
@@ -1529,6 +1531,7 @@ void GnomeCmdData::save()
     g_free (utf8_date_format);
 
     gnome_cmd_data_set_bool   ("/confirm/delete", options.confirm_delete);
+    gnome_cmd_data_set_int    ("/confirm/delete_default", options.confirm_delete_default);
     gnome_cmd_data_set_int    ("/confirm/copy_overwrite", options.confirm_copy_overwrite);
     gnome_cmd_data_set_int    ("/confirm/move_overwrite", options.confirm_move_overwrite);
     gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", options.confirm_mouse_dnd);

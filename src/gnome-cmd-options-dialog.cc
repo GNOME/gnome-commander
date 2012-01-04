@@ -49,6 +49,14 @@ static void on_save_tabs_toggled (GtkToggleButton *togglebutton, GtkWidget *dial
 }
 
 
+static void on_confirm_delete_toggled (GtkToggleButton *togglebutton, GtkWidget *dialog)
+{
+    GtkWidget *check = lookup_widget (dialog, "delete_default_check");
+
+    gtk_widget_set_sensitive (check, gtk_toggle_button_get_active (togglebutton));
+}
+
+
 /***********************************************************************
  *
  *  The General tab
@@ -921,6 +929,12 @@ inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
     check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete);
+    g_signal_connect (check, "toggled", G_CALLBACK (on_confirm_delete_toggled), parent);
+
+    check = create_check (parent, _("Confirm defaults to OK"), "delete_default_check");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.confirm_delete_default!=GTK_BUTTONS_CANCEL);
+    gtk_widget_set_sensitive (check, cfg.confirm_delete);
 
 
     /* Copy overwrite options
@@ -981,6 +995,7 @@ inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
 inline void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 {
     GtkWidget *confirm_delete_check = lookup_widget (dialog, "confirm_delete_check");
+    GtkWidget *delete_default_check = lookup_widget (dialog, "delete_default_check");
     GtkWidget *confirm_copy_silent = lookup_widget (dialog, "copy_overwrite_silently");
     GtkWidget *confirm_copy_query = lookup_widget (dialog, "copy_overwrite_query");
     GtkWidget *confirm_copy_skip_all = lookup_widget (dialog, "copy_overwrite_skip_all");
@@ -990,6 +1005,8 @@ inline void store_confirmation_options (GtkWidget *dialog, GnomeCmdData::Options
     GtkWidget *confirm_mouse_dnd_check = lookup_widget (dialog, "confirm_mouse_dnd_check");
 
     cfg.confirm_delete = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check));
+
+    cfg.confirm_delete_default = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (delete_default_check)) ? GTK_BUTTONS_OK : GTK_BUTTONS_CANCEL;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_silent)))
         cfg.confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY;

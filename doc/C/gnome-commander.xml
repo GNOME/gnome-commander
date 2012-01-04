@@ -4863,6 +4863,17 @@
             </row>
             <row>
               <entry>
+                <para></para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Confirm defaults to OK</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Selects default action in the dialog.</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
                 <para>
                   <guilabel>Copy overwrite</guilabel>
                 </para>
