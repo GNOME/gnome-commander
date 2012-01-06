@@ -867,22 +867,23 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     if (f1->info->type < f2->info->type)
         return 1;
 
-    // gchar *t1 = gnome_cmd_file_get_path (f1);
-    // gchar *t2 = gnome_cmd_file_get_path (f2);
-    // gchar *d1 = g_path_get_dirname (t1);
-    // gchar *d2 = g_path_get_dirname (t2);
-
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    // gint ret = my_strcmp (d1, d2, raising);
+    gchar *t1 = gnome_cmd_file_get_path (f1);
+    gchar *t2 = gnome_cmd_file_get_path (f2);
+    gchar *d1 = g_path_get_dirname (t1);
+    gchar *d2 = g_path_get_dirname (t2);
 
-    // g_free (t1);
-    // g_free (t2);
-    // g_free (d1);
-    // g_free (d2);
+    gint ret = my_strcmp (d1, d2, raising);
 
-    // return ret;
+    g_free (t1);
+    g_free (t2);
+    g_free (d1);
+    g_free (d2);
 
-    return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), raising);
+    if (!ret)
+        ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), raising);
+
+    return ret;
 }
 
 
