@@ -935,8 +935,18 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
         return 1;
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    gchar *dirname1 = f1->get_dirname();
+    gchar *dirname2 = f2->get_dirname();
 
-    return my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
+    gint ret = my_strcmp (dirname1, dirname2, raising);
+
+    g_free (dirname1);
+    g_free (dirname2);
+
+    if (!ret)
+        ret = my_strcmp (f1->get_collation_fname(), f2->get_collation_fname(), raising);
+
+    return ret;
 }
 
 
