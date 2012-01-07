@@ -591,6 +591,8 @@ GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar 
     if (path)
         gnome_keyring_attribute_list_append_string (attributes, "object", path);
 
+    gnome_keyring_attribute_list_append_string (attributes, "authtype", "password");
+
     gnome_keyring_attribute_list_append_string (attributes, "application", "GNOME Commander");
 
     {
