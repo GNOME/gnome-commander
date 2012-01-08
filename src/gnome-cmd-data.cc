@@ -412,7 +412,7 @@ inline gboolean load_connections (const gchar *fname)
 
     if (!g_list_length (gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list)))
     {
-        GnomeCmdConRemote *server = gnome_cmd_con_remote_new (_("GNOME Commander"), "ftp://anonymous@ftp.gnome.org/pub/GNOME/sources/gnome-commander/");
+        GnomeCmdConRemote *server = gnome_cmd_con_remote_new (_("GNOME Commander"), "ftp://anonymous@ftp.gnome.org/pub/GNOME/sources/gnome-commander/", GnomeCmdCon::NOT_REQUIRED);
         gnome_cmd_data.priv->con_list->add(server);
     }
 
