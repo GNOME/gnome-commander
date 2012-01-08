@@ -57,18 +57,17 @@ struct GViewerSearchDlgPrivate
 };
 
 
-guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint *buflen)
+guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen)
 {
     g_return_val_if_fail (sdlg!=NULL, NULL);
     g_return_val_if_fail (sdlg->priv!=NULL, NULL);
-    g_return_val_if_fail (buflen!=NULL, NULL);
     g_return_val_if_fail (sdlg->priv->search_hex_buffer!=NULL, NULL);
     g_return_val_if_fail (sdlg->priv->search_hex_buflen>0, NULL);
 
     guint8 *result = g_new0 (guint8, sdlg->priv->search_hex_buflen);
     memcpy (result, sdlg->priv->search_hex_buffer, sdlg->priv->search_hex_buflen);
 
-    *buflen = sdlg->priv->search_hex_buflen;
+    buflen = sdlg->priv->search_hex_buflen;
 
     return result;
 }

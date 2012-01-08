@@ -1170,7 +1170,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
     {
         // Hex Search
         guint buflen;
-        guint8 *buffer = gviewer_search_dlg_get_search_hex_buffer (srch_dlg, &buflen);
+        guint8 *buffer = gviewer_search_dlg_get_search_hex_buffer (srch_dlg, buflen);
 
         g_return_if_fail (buffer!=NULL);
 

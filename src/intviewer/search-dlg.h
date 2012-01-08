@@ -58,7 +58,7 @@ SEARCHMODE gviewer_search_dlg_get_search_mode (GViewerSearchDlg *sdlg);
 gchar *gviewer_search_dlg_get_search_text_string (GViewerSearchDlg *sdlg);
 
 /* returned buffer is "g_new0-ed", caller must "g_free" it */
-guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint *buflen);
+guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen);
 
 gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg);
 
