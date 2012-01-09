@@ -32,7 +32,7 @@ gint     gviewer_get_int (const gchar *path, int def);
 gboolean gviewer_get_bool (const gchar *path, gboolean def);
 
 int unicode2utf8(unsigned int unicode, unsigned char *out);
-char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length);
+char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int &array_length);
 
 guint8 *mem_reverse(const guint8 *buffer, guint buflen);
 

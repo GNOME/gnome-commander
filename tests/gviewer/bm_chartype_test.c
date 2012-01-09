@@ -84,7 +84,7 @@ int main()
     printf("(All other characters have value of %d)\n\n", data->pattern_len);
 
     // Convert the UTF8 text string to a chartype array
-    ct_text = convert_utf8_to_chartype_array(text, &ct_text_len);
+    ct_text = convert_utf8_to_chartype_array(text, ct_text_len);
     if (!ct_text) {
         fprintf(stderr,"failed to convert text to 'char_type' array (maybe 'text' is not a valid UTF8 string?)\n");
         exit(-1);

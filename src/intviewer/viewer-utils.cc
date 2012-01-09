@@ -98,11 +98,9 @@ int unicode2utf8 (unsigned int unicode, unsigned char *out)
 }
 
 
-char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int *array_length)
+char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int &array_length)
 {
     g_return_val_if_fail (utf8text!=NULL, NULL);
-    g_return_val_if_fail (array_length!=NULL, NULL);
-
     g_return_val_if_fail (g_utf8_validate(utf8text, -1, NULL), NULL);
 
     guint32 unicode_char;
@@ -110,8 +108,8 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int *a
     glong length = g_utf8_strlen(utf8text, -1);
     g_return_val_if_fail (length>0, NULL);
 
-    *array_length = length;
     char_type *result = g_new0 (char_type, length);
+    array_length = length;
 
     const gchar *pos = utf8text;
 

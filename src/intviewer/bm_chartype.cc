@@ -123,7 +123,7 @@ GViewerBMChartypeData *create_bm_chartype_data(const gchar *pattern, gboolean ca
 
     data->case_sensitive = case_sensitive;
 
-    data->pattern = convert_utf8_to_chartype_array(pattern, &data->pattern_len);
+    data->pattern = convert_utf8_to_chartype_array(pattern, data->pattern_len);
     if (!data->pattern)
         goto error;
 
