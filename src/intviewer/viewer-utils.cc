@@ -105,19 +105,17 @@ char_type *convert_utf8_to_chartype_array (const gchar *utf8text, /*out*/ int *a
 
     g_return_val_if_fail (g_utf8_validate(utf8text, -1, NULL), NULL);
 
-    glong index;
     guint32 unicode_char;
-    const gchar *pos;
-    char_type *result;
 
     glong length = g_utf8_strlen(utf8text, -1);
     g_return_val_if_fail (length>0, NULL);
 
-    result = g_new0 (char_type, length);
     *array_length = length;
+    char_type *result = g_new0 (char_type, length);
 
-    pos = utf8text;
-    for (index=0; index<length; ++index)
+    const gchar *pos = utf8text;
+
+    for (glong index=0; index<length; ++index)
     {
         unicode_char = g_utf8_get_char(pos);
 

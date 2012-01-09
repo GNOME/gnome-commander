@@ -30,11 +30,11 @@
 void print_badchar(gpointer key, gpointer value, gpointer user_data)
 {
     printf("%02x %02x %02x %02x\t%d\n",
-        GV_FIRST_BYTE((guint32)key),
-        GV_SECOND_BYTE((guint32)key),
-        GV_THIRD_BYTE((guint32)key),
-        GV_FOURTH_BYTE((guint32)key),
-        (guint32)value);
+           GV_FIRST_BYTE((guint32)key),
+           GV_SECOND_BYTE((guint32)key),
+           GV_THIRD_BYTE((guint32)key),
+           GV_FOURTH_BYTE((guint32)key),
+           (guint32)value);
 }
 
 int main()
@@ -94,9 +94,12 @@ int main()
     m = data->pattern_len;
     n = ct_text_len;
     j = 0;
-    while (j <= n - m) {
+    while (j <= n - m)
+    {
         for (i = m - 1; i >= 0 && bm_chartype_equal(data,i,ct_text[i + j]); --i);
-        if (i < 0) {
+
+        if (i < 0)
+        {
             printf(" Found match at offset = %d\n", j);
             j += bm_chartype_get_good_match_advancement(data);
         }
