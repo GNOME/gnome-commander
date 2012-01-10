@@ -217,7 +217,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
         guint len;
         guint8 *buf = text2hex (gtk_entry_get_text (entry), &len);
 
-        enable = (buf!=NULL) && (len>0);
+        enable = buf!=NULL && len>0;
         g_free (buf);
     }
     else

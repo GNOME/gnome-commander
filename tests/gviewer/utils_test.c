@@ -10,11 +10,10 @@ void test_text2hex()
 
     const gchar *text = "00 0102 03 04 05 06 AA BB CC FE";
     guint len;
-    int i;
 
     guint8 *buf = text2hex(text,&len);
 
-    for (i=0;i<len;i++)
+    for (int i=0; i<len; ++i)
         printf("%02x ", buf[i]);
     printf("\n");
 }
