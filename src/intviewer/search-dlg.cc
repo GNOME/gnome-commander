@@ -185,7 +185,7 @@ static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearch
     }
     else    // hex mode search
     {
-        sdlg->priv->search_hex_buffer = text2hex(pattern, &sdlg->priv->search_hex_buflen);
+        sdlg->priv->search_hex_buffer = text2hex (pattern, sdlg->priv->search_hex_buflen);
         g_return_if_fail (sdlg->priv->search_hex_buffer!=NULL);
 
         gnome_cmd_data.intviewer_defaults.hex_patterns.add(pattern);
@@ -215,7 +215,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
     {
         // Only if the use entered a valid hex string, enable the "find" button
         guint len;
-        guint8 *buf = text2hex (gtk_entry_get_text (entry), &len);
+        guint8 *buf = text2hex (gtk_entry_get_text (entry), len);
 
         enable = buf!=NULL && len>0;
         g_free (buf);

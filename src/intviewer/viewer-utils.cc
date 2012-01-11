@@ -147,10 +147,9 @@ guint8 *mem_reverse (const guint8 *buffer, guint buflen)
 }
 
 
-guint8 *text2hex (const gchar *text, /*out*/ guint *buflen)
+guint8 *text2hex (const gchar *text, /*out*/ guint &buflen)
 {
     g_return_val_if_fail (text!=NULL, NULL);
-    g_return_val_if_fail (buflen!=NULL, NULL);
 
     guint8 *result;
     int len;
@@ -192,6 +191,6 @@ guint8 *text2hex (const gchar *text, /*out*/ guint *buflen)
             }
             high_nib = !high_nib;
         };
-    *buflen = len;
+    buflen = len;
     return result;
 }
