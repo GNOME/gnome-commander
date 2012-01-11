@@ -78,6 +78,7 @@ static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, Un
         case UNIQUE_ACTIVATE:
             gtk_window_set_screen (*main_win, unique_message_data_get_screen (msg));
             gtk_window_present_with_time (*main_win, t);
+            gdk_beep ();
             break;
 
         default:
