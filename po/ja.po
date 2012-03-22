@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-08 22:28+0000\n"
-"PO-Revision-Date: 2012-01-01 19:55+0900\n"
+"POT-Creation-Date: 2012-02-28 19:38+0000\n"
+"PO-Revision-Date: 2012-03-05 12:27+0900\n"
 "Last-Translator: Jiro Matsuzawa <jmatsuzawa@src.gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +19,14 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
-msgid "A two paned file manager"
-msgstr "2ペインのファイルマネージャー"
-
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:415
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:415
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.desktop.in.in.h:2
+msgid "A two paned file manager"
+msgstr "2ペインのファイルマネージャー"
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
@@ -115,15 +115,15 @@ msgstr "メッセージ:"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:192
 msgid "What file name should the new archive have?"
-msgstr "新規書庫ファイルのファイル名は何ですか?"
+msgstr "新規アーカイブのファイル名は何ですか?"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:194
 msgid "Create Archive"
-msgstr "書庫ファイルを作成"
+msgstr "アーカイブを作成"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:295
 msgid "Create Archive..."
-msgstr "書庫ファイルを作成..."
+msgstr "アーカイブを作成..."
 
 #: ../plugins/fileroller/file-roller-plugin.cc:307
 msgid "Extract in Current Directory"
@@ -148,8 +148,8 @@ msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
 msgstr ""
-"圧縮された書庫ファイルを作成・展開するためのFile Rollerのショートカットを追加"
-"するプラグイン"
+"圧縮されたアーカイブを作成・展開するためのFile Rollerのショートカットを追加す"
+"るプラグイン"
 
 #: ../plugins/test/test-plugin.cc:224
 msgid ""
@@ -3468,7 +3468,7 @@ msgstr "右ペインでの開始ディレクトリを選んでください"
 msgid "Specify the directory for configuration files"
 msgstr "右ペインでの開始ディレクトリを選んでください"
 
-#: ../src/main.cc:124
+#: ../src/main.cc:125
 msgid "File Manager"
 msgstr "ファイルマネージャー"
 
