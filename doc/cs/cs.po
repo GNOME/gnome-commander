@@ -12154,7 +12154,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4869(para)
 msgid "Confirm defaults to OK"
-msgstr "Výchozí volbou v potvrzení na „Budiž“"
+msgstr "Výchozí volbu v potvrzení na „Budiž“"
 
 #: C/gnome-commander.xml:4872(para)
 msgid "Selects default action in the dialog."
