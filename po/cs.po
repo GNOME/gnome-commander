@@ -2384,7 +2384,7 @@ msgstr "Potvrzovat před odstraněním"
 
 #: ../src/gnome-cmd-options-dialog.cc:934
 msgid "Confirm defaults to OK"
-msgstr "Výchozí volbou v potvrzení na „Budiž“"
+msgstr "Výchozí volbu v potvrzení na „Budiž“"
 
 #: ../src/gnome-cmd-options-dialog.cc:943
 msgid "Copy overwrite"
