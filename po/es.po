@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-04 18:23+0000\n"
+"POT-Creation-Date: 2012-03-20 02:11+0000\n"
 "PO-Revision-Date: 2012-01-05 13:06+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -23,14 +23,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/gnome-commander.desktop.in.in.h:1
-msgid "A two paned file manager"
-msgstr "Un administrador de archivos con dos paneles"
-
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:415
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:415
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.desktop.in.in.h:2
+msgid "A two paned file manager"
+msgstr "Un administrador de archivos con dos paneles"
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
@@ -260,7 +260,7 @@ msgstr "_Reemplazar con:"
 
 #. Case-Sensitive Checkbox
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:120
-#: ../src/intviewer/search-dlg.cc:284
+#: ../src/intviewer/search-dlg.cc:283
 msgid "_Match case"
 msgstr "_Coincidir con capitalización"
 
@@ -1328,15 +1328,15 @@ msgstr "/En_lazar aquí"
 msgid "/C_ancel"
 msgstr "/C_ancelar"
 
-#: ../src/gnome-cmd-file-list.cc:1408
+#: ../src/gnome-cmd-file-list.cc:1418
 msgid "Directory listing failed."
 msgstr "Falló al listar la carpeta."
 
-#: ../src/gnome-cmd-file-list.cc:1461
+#: ../src/gnome-cmd-file-list.cc:1471
 msgid "Failed to open connection."
 msgstr "Fallo al abrir conexión."
 
-#: ../src/gnome-cmd-file-list.cc:2184 ../src/gnome-cmd-file-list.cc:2199
+#: ../src/gnome-cmd-file-list.cc:2194 ../src/gnome-cmd-file-list.cc:2209
 msgid "Not an ordinary file."
 msgstr "No es un archivo ordinario."
 
@@ -1545,8 +1545,8 @@ msgstr "Metadatos"
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
-msgstr[0] "%s de %s KiB en %d de %d archivo"
-msgstr[1] "%s de %s KiB en %d de %d archivos"
+msgstr[0] "%s de %s KB en %d de %d archivo"
+msgstr[1] "%s de %s KB en %d de %d archivos"
 
 #: ../src/gnome-cmd-file-selector.cc:186
 #, c-format
@@ -3223,8 +3223,8 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Imposible encontrar la imagen. Verifique que se haya instalado el programa o "
-"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-"
-"%s/src"
+"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-%"
+"s/src"
 
 #: ../src/imageloader.cc:135
 #, c-format
@@ -3232,17 +3232,17 @@ msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
 "No se pudo cargar la imagen instalada, intentando cargar %s en su lugar"
 
-#: ../src/intviewer/search-dlg.cc:244
+#: ../src/intviewer/search-dlg.cc:243
 msgid "Find"
 msgstr "Buscar"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:657
+#: ../src/intviewer/search-dlg.cc:273 ../src/intviewer/viewer-window.cc:657
 #: ../src/intviewer/viewer-window.cc:859
 msgid "_Text"
 msgstr "_Texto"
 
-#: ../src/intviewer/search-dlg.cc:275 ../src/intviewer/viewer-window.cc:665
+#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:665
 msgid "_Hexadecimal"
 msgstr "_Hexadecimal"
 
@@ -3410,7 +3410,7 @@ msgstr "Especifique la carpeta de inicio para el panel derecho"
 msgid "Specify the directory for configuration files"
 msgstr "Especificar la carpeta para los archivos de configuración"
 
-#: ../src/main.cc:124
+#: ../src/main.cc:125
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
@@ -4098,8 +4098,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo "
-"lectura forzado» o «Bloquedao para anotaciones»."
+"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo lectura "
+"forzado» o «Bloquedao para anotaciones»."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Slide Count"
@@ -6839,8 +6839,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
-"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y "
-"«S» para recuadro."
+"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y «S» "
+"para recuadro."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Image Type"
@@ -7304,8 +7304,8 @@ msgid ""
 "Set to \"1\" if inserting, rotating, or deleting pages and creating "
 "navigation elements is allowed."
 msgstr ""
-"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y "
-"crear elementos de navegación."
+"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y crear "
+"elementos de navegación."
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Commenting"
