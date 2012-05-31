@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-03-20 02:11+0000\n"
+"POT-Creation-Date: 2012-05-27 07:54+0000\n"
 "PO-Revision-Date: 2012-01-05 13:06+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -1346,7 +1346,7 @@ msgstr "No se pudo recuperar el tipo MIME del archivo."
 
 #: ../src/gnome-cmd-file-popmenu.cc:131
 msgid "Invalid command"
-msgstr "Comando inválido"
+msgstr "Comando no válido"
 
 #: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Application:"
