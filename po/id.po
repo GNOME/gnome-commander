@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-04-09 11:41+0000\n"
-"PO-Revision-Date: 2012-10-13 18:38+0700\n"
+"PO-Revision-Date: 2012-10-16 23:54+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
@@ -679,14 +679,12 @@ msgid "Closes remote connection to %s"
 msgstr "Menutup koneksi jauh ke %s"
 
 #: ../src/gnome-cmd-con-home.cc:113
-#, fuzzy
 msgid "Home"
-msgstr "Rumah"
+msgstr "Beranda"
 
 #: ../src/gnome-cmd-con-home.cc:122
-#, fuzzy
 msgid "Go to: Home"
-msgstr "Kembali ke home page"
+msgstr "Ke: Beranda"
 
 #: ../src/gnome-cmd-con-smb.cc:94
 msgid "Failed to browse the network. Is the SMB module installed?"
@@ -804,17 +802,17 @@ msgstr "dir"
 #: ../src/gnome-cmd-file-list.cc:108
 #, fuzzy
 msgid "size"
-msgstr "ukuran"
+msgstr "size"
 
 #: ../src/gnome-cmd-file-list.cc:109
 #, fuzzy
 msgid "date"
-msgstr "tanggal"
+msgstr "date"
 
 #: ../src/gnome-cmd-file-list.cc:110
 #, fuzzy
 msgid "perm"
-msgstr "Perm'"
+msgstr "perm"
 
 #: ../src/gnome-cmd-file-list.cc:111
 msgid "uid"
@@ -1064,9 +1062,9 @@ msgid "Unknown disk usage"
 msgstr "Pemakaian disk tak diketahui"
 
 #: ../src/gnome-cmd-file-selector.cc:1059
-#, fuzzy, c-format
+#, c-format
 msgid "Listing failed: %s\n"
-msgstr "Entri Gagal"
+msgstr "Gagal menampilkan daftar: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1517
 #, c-format
@@ -1403,9 +1401,8 @@ msgid "_Edit"
 msgstr "_Sunting"
 
 #: ../src/gnome-cmd-main-menu.cc:803
-#, fuzzy
 msgid "_Mark"
-msgstr "menandai"
+msgstr "_Tandai"
 
 #: ../src/gnome-cmd-main-menu.cc:807 ../src/intviewer/viewer-window.cc:863
 msgid "_View"
@@ -1460,9 +1457,8 @@ msgid "F9 Search"
 msgstr "F9 Cari"
 
 #: ../src/gnome-cmd-main-win.cc:765
-#, fuzzy
 msgid "GNOME Commander - ROOT PRIVILEGES"
-msgstr "Mulai _GNOME Commander sebagai Root"
+msgstr "GNOME Commander - PRIVILESE ROOT"
 
 #: ../src/gnome-cmd-main-win.cc:1159 ../src/gnome-cmd-user-actions.cc:201
 msgid "Refresh"
@@ -1599,13 +1595,12 @@ msgstr "ALT+huruf (akses menu dengan F10)"
 
 #: ../src/gnome-cmd-options-dialog.cc:216
 msgid "Size display mode"
-msgstr ""
+msgstr "Mode tampilan ukuran"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
 #: ../src/gnome-cmd-options-dialog.cc:220
-#, fuzzy
 msgid "Powered"
-msgstr "Dinyalakan:"
+msgstr "Berpangkat"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
 #: ../src/gnome-cmd-options-dialog.cc:226
@@ -1613,9 +1608,8 @@ msgid "<locale>"
 msgstr "<locale>"
 
 #: ../src/gnome-cmd-options-dialog.cc:231
-#, fuzzy
 msgid "Grouped"
-msgstr "Dikelompokkan menurut:"
+msgstr "Dikelompokkan"
 
 #: ../src/gnome-cmd-options-dialog.cc:236
 msgid "Plain"
@@ -1623,7 +1617,7 @@ msgstr "Polos"
 
 #: ../src/gnome-cmd-options-dialog.cc:244
 msgid "Permission display mode"
-msgstr ""
+msgstr "Mode tampilan hak akses"
 
 #: ../src/gnome-cmd-options-dialog.cc:247
 msgid "Text (rw-r--r--)"
@@ -1654,6 +1648,8 @@ msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
 msgstr ""
+"Lihat halaman manual bagi \"strftime\" untuk bantuan tentang bagaimana "
+"menata string format."
 
 #: ../src/gnome-cmd-options-dialog.cc:369
 msgid "Edit Colors..."
@@ -1712,9 +1708,8 @@ msgid "MIME icons"
 msgstr "Ikon MIME"
 
 #: ../src/gnome-cmd-options-dialog.cc:448
-#, fuzzy
 msgid "Respect theme colors"
-msgstr "G_unakan warna tema standar"
+msgstr "Hormati warna tema "
 
 #: ../src/gnome-cmd-options-dialog.cc:449
 msgid "Modern"
@@ -1722,16 +1717,15 @@ msgstr "Modern"
 
 #: ../src/gnome-cmd-options-dialog.cc:450
 msgid "Fusion"
-msgstr ""
+msgstr "Fusi"
 
 #: ../src/gnome-cmd-options-dialog.cc:451
 msgid "Classic"
 msgstr "Klasik"
 
 #: ../src/gnome-cmd-options-dialog.cc:452
-#, fuzzy
 msgid "Deep blue"
-msgstr "biru keabuan"
+msgstr "Biru kelam"
 
 #: ../src/gnome-cmd-options-dialog.cc:453
 msgid "Cafezinho"
@@ -1775,7 +1769,7 @@ msgstr "Sunting…"
 #. LS_COLORS
 #: ../src/gnome-cmd-options-dialog.cc:520
 msgid "Colorize files according to the LS_COLORS environment variable"
-msgstr ""
+msgstr "Warnai berkas menurut variabel lingkungan LS_COLORS"
 
 #: ../src/gnome-cmd-options-dialog.cc:527
 msgid "MIME icon settings"
@@ -1802,9 +1796,8 @@ msgid "Confirm before delete"
 msgstr "Konfirmasi sebelum hapus"
 
 #: ../src/gnome-cmd-options-dialog.cc:625
-#, fuzzy
 msgid "Copy overwrite"
-msgstr "Timpa file?"
+msgstr "Salin timpa"
 
 #. Create prepare copy specific widgets
 #: ../src/gnome-cmd-options-dialog.cc:628
@@ -1820,9 +1813,8 @@ msgid "Query first"
 msgstr "Tanya dulu"
 
 #: ../src/gnome-cmd-options-dialog.cc:645
-#, fuzzy
 msgid "Move overwrite"
-msgstr "Timpa file?"
+msgstr "Pindah timpa"
 
 #: ../src/gnome-cmd-options-dialog.cc:732
 msgid "Filetypes to hide"
@@ -1915,9 +1907,8 @@ msgid "Requires terminal"
 msgstr "Memerlukan terminal"
 
 #: ../src/gnome-cmd-options-dialog.cc:1125
-#, fuzzy
 msgid "Show for"
-msgstr "Mencari"
+msgstr "Tunjukkan untuk"
 
 #: ../src/gnome-cmd-options-dialog.cc:1134
 msgid "All directories"
@@ -1965,7 +1956,7 @@ msgstr "Penyunting:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1279
 msgid "Differ:"
-msgstr ""
+msgstr "Berbeda:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1281
 msgid "Terminal:"
@@ -2018,7 +2009,7 @@ msgstr "Tampilkan hanya ikon"
 
 #: ../src/gnome-cmd-options-dialog.cc:1666
 msgid "Skip mounting (useful when using super-mount)"
-msgstr ""
+msgstr "Lewati pengaitan (berguna ketika memakai super-mount)"
 
 #: ../src/gnome-cmd-options-dialog.cc:1780
 msgid "General"
@@ -2270,25 +2261,23 @@ msgstr "_Mulai:"
 
 #: ../src/gnome-cmd-profile-component.cc:823
 msgid "Ste_p:"
-msgstr ""
+msgstr "_Langkah:"
 
 #: ../src/gnome-cmd-profile-component.cc:830
 msgid "Di_gits:"
 msgstr "Di_jit:"
 
 #: ../src/gnome-cmd-profile-component.cc:841
-#, fuzzy
 msgid "Regex replacing"
-msgstr "Regex yang Cocok"
+msgstr "Penggantian regex"
 
 #: ../src/gnome-cmd-profile-component.cc:880
 msgid "Remove A_ll"
 msgstr "Hapus Se_mua"
 
 #: ../src/gnome-cmd-profile-component.cc:893
-#, fuzzy
 msgid "Case"
-msgstr "Peka huruf besar kecil"
+msgstr "Huruf besar kecil"
 
 #: ../src/gnome-cmd-profile-component.cc:905
 msgid "<unchanged>"
@@ -2303,15 +2292,13 @@ msgid "UPPERCASE"
 msgstr "HURUF BESAR"
 
 #: ../src/gnome-cmd-profile-component.cc:909
-#, fuzzy
 msgid "Sentence case"
-msgstr "Peka huruf besar kecil"
+msgstr "Kapitalisasi kalimat"
 
 #. FIXME
 #: ../src/gnome-cmd-profile-component.cc:910
-#, fuzzy
 msgid "Initial Caps"
-msgstr "Perbaiki-otomatis caps pendahuluan"
+msgstr "Kapitalisasi Awal"
 
 #. FIXME
 #: ../src/gnome-cmd-profile-component.cc:911
@@ -2340,7 +2327,7 @@ msgstr "depan dan belakang"
 
 #: ../src/gnome-cmd-profile-component.cc:1106
 msgid "Search for"
-msgstr "Cari"
+msgstr "Cari tentang"
 
 #: ../src/gnome-cmd-profile-component.cc:1109
 msgid "Regex pattern"
@@ -2355,18 +2342,16 @@ msgid "Replacement"
 msgstr "Pengganti"
 
 #: ../src/gnome-cmd-profile-component.cc:1116
-#, fuzzy
 msgid "Match case"
-msgstr "Cocokkan huruf"
+msgstr "Cocok huruf besar kecil"
 
 #: ../src/gnome-cmd-profile-component.cc:1119
-#, fuzzy
 msgid "Case sensitive matching"
-msgstr "Abaikan kapitalisasi karakter"
+msgstr "Pencocokan yang peka huruf besar kecil"
 
 #: ../src/gnome-cmd-python-plugin.cc:214
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
-msgstr ""
+msgstr "Tak bisa memuat modul python 'gnomevfs' ('gnome.vfs')\n"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:263
 #: ../src/gnome-cmd-user-actions.cc:152
@@ -2380,7 +2365,7 @@ msgstr "Tak ada server yang dipilih"
 
 #: ../src/gnome-cmd-remote-dialog.cc:364
 msgid "GNOME authentication manager usage"
-msgstr ""
+msgstr "Penggunaan manajer otentikasi GNOME"
 
 #: ../src/gnome-cmd-remote-dialog.cc:368
 msgid "Network protocol"
@@ -2421,7 +2406,7 @@ msgstr "Keda_laman terbatas"
 #. N_("Search local directories only"),
 #: ../src/gnome-cmd-search-dialog.cc:44
 msgid "Files _not containing text"
-msgstr ""
+msgstr "Berkas ya_ng tak memuat teks"
 
 #: ../src/gnome-cmd-search-dialog.cc:162
 #, c-format
@@ -2431,7 +2416,7 @@ msgstr "Gagal membuka berkas %s: %s\n"
 #: ../src/gnome-cmd-search-dialog.cc:203
 #, c-format
 msgid "Failed to seek in file %s: %s\n"
-msgstr ""
+msgstr "Gagal seek dalam berkas %s: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.cc:210
 #, c-format
@@ -2460,9 +2445,8 @@ msgid "Search..."
 msgstr "Cari…"
 
 #: ../src/gnome-cmd-search-dialog.cc:822
-#, fuzzy
 msgid "Search _for: "
-msgstr "_Cari untuk:"
+msgstr "_Cari tentang:"
 
 #: ../src/gnome-cmd-search-dialog.cc:834
 msgid "Search _in: "
@@ -2490,10 +2474,9 @@ msgstr "Cari _teks:"
 #. Case check
 #: ../src/gnome-cmd-search-dialog.cc:881
 msgid "Case sensiti_ve"
-msgstr ""
+msgstr "_Peka huruf besar kecil"
 
 #: ../src/gnome-cmd-search-dialog.cc:889
-#, fuzzy
 msgid "_Go to"
 msgstr "_Ke"
 
@@ -2509,46 +2492,44 @@ msgid ""
 "\n"
 "Remember: wrong credentials may lead to account locking"
 msgstr ""
+"Masalah: akses tak diijinkan\n"
+"\n"
+"harap berikan kredensial pengguna\n"
+"\n"
+"Ingat: kredensial yang salah dapat menyebabkan penguncian akun"
 
 #: ../src/gnome-cmd-smb-path.cc:325
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
-msgstr ""
+msgstr "Tak bisa temukan host atau workgroup bernama %s\n"
 
 #: ../src/gnome-cmd-user-actions.cc:73
-#, fuzzy
 msgid "No file selected"
-msgstr "Tidak ada file yang dipilih"
+msgstr "Tak ada berkas yang dipilih"
 
 #: ../src/gnome-cmd-user-actions.cc:135
-#, fuzzy
 msgid "Bookmark current directory"
-msgstr "<direktori saat ini>"
+msgstr "Tandabukui direktori saat ini"
 
 #: ../src/gnome-cmd-user-actions.cc:136
-#, fuzzy
 msgid "Manage bookmarks"
-msgstr "Mengelola penanda taut."
+msgstr "Mengelola penanda taut"
 
 #: ../src/gnome-cmd-user-actions.cc:137
-#, fuzzy
 msgid "Go to bookmarked location"
-msgstr "Buka alamat"
+msgstr "Ke lokasi yang ditandatauti"
 
 #: ../src/gnome-cmd-user-actions.cc:138
-#, fuzzy
 msgid "Execute command"
-msgstr "Tidak dapat menjalankan perintah: \"%s\""
+msgstr "Jalankan perintah"
 
 #: ../src/gnome-cmd-user-actions.cc:139
-#, fuzzy
 msgid "Open folder"
 msgstr "Buka folder"
 
 #: ../src/gnome-cmd-user-actions.cc:141
-#, fuzzy
 msgid "Start GNOME Commander as root"
-msgstr "Mulai _GNOME Commander sebagai Root"
+msgstr "Mulai GNOME Commander sebagai root"
 
 #: ../src/gnome-cmd-user-actions.cc:142
 msgid "Close connection"
@@ -2564,35 +2545,31 @@ msgstr "Buka koneksi"
 
 #: ../src/gnome-cmd-user-actions.cc:149
 msgid "Show user defined files"
-msgstr ""
+msgstr "Tampilkan berkas yang didefinisikan oleh pengguna"
 
 #: ../src/gnome-cmd-user-actions.cc:151
-#, fuzzy
 msgid "Quick search"
-msgstr "Pencarian _Kilat"
+msgstr "Pencarian cepat"
 
 #: ../src/gnome-cmd-user-actions.cc:153
 msgid "Advanced rename tool"
 msgstr "Alat ubah nama tingkat lanjut"
 
 #: ../src/gnome-cmd-user-actions.cc:154
-#, fuzzy
 msgid "Change permissions"
-msgstr "Tak Jadi Meng_ubah Hak Akses"
+msgstr "Ubah hak akses"
 
 #: ../src/gnome-cmd-user-actions.cc:155
-#, fuzzy
 msgid "Change owner/group"
-msgstr "Ubah _Pemilik/Grup"
+msgstr "Ubah pemilik/grup"
 
 #: ../src/gnome-cmd-user-actions.cc:156
 msgid "Copy files"
 msgstr "Salin berkas"
 
 #: ../src/gnome-cmd-user-actions.cc:157
-#, fuzzy
 msgid "Create symbolic link"
-msgstr "Buat Taut Simbolik"
+msgstr "Buat taut simbolik"
 
 #: ../src/gnome-cmd-user-actions.cc:158
 msgid "Delete files"
@@ -2616,159 +2593,141 @@ msgstr "Keluar"
 
 #: ../src/gnome-cmd-user-actions.cc:163
 msgid "View with external viewer"
-msgstr ""
+msgstr "Tilik dengan penampil eksternal"
 
 #: ../src/gnome-cmd-user-actions.cc:164
 msgid "View with internal viewer"
-msgstr ""
+msgstr "Tilik dengan penampil internal"
 
 #: ../src/gnome-cmd-user-actions.cc:165
 msgid "Create directory"
 msgstr "Buat direktori"
 
 #: ../src/gnome-cmd-user-actions.cc:166
-#, fuzzy
 msgid "Move files"
-msgstr "Tak bisa memindah berkas"
+msgstr "Memindah berkas"
 
 #: ../src/gnome-cmd-user-actions.cc:168
 msgid "Rename files"
 msgstr "Ubah nama berkas"
 
 #: ../src/gnome-cmd-user-actions.cc:171
-#, fuzzy
 msgid "Synchronize directories"
-msgstr "Direktori instalasi:"
+msgstr "Selaraskan direktori"
 
 #: ../src/gnome-cmd-user-actions.cc:174
 msgid "About GNOME Commander"
 msgstr "Tentang GNOME Commander"
 
 #: ../src/gnome-cmd-user-actions.cc:175
-#, fuzzy
 msgid "Help contents"
-msgstr "Daftar isi bantuan"
+msgstr "Isi bantuan"
 
 #: ../src/gnome-cmd-user-actions.cc:176
 msgid "Help on keyboard shortcuts"
-msgstr ""
+msgstr "Bantuan tentang pintasan papan tik"
 
 #: ../src/gnome-cmd-user-actions.cc:177
 msgid "Report a problem"
 msgstr "Laporkan suatu masalah"
 
 #: ../src/gnome-cmd-user-actions.cc:178
-#, fuzzy
 msgid "GNOME Commander on the web"
-msgstr "GNOME Commander di _Web"
+msgstr "GNOME Commander di Web"
 
 #: ../src/gnome-cmd-user-actions.cc:179
 msgid "Compare directories"
 msgstr "Bandingkan direktori"
 
 #: ../src/gnome-cmd-user-actions.cc:180
-#, fuzzy
 msgid "Invert selection"
-msgstr "Balik P_ilihan"
+msgstr "Balik pilihan"
 
 #: ../src/gnome-cmd-user-actions.cc:181
 msgid "Select all"
 msgstr "Pilih semua"
 
 #: ../src/gnome-cmd-user-actions.cc:182
-#, fuzzy
 msgid "Toggle selection"
-msgstr "Bersihkan Pi_lihan"
+msgstr "Jungkitkan pilihan"
 
 #: ../src/gnome-cmd-user-actions.cc:183
 msgid "Toggle selection and move cursor downward"
-msgstr ""
+msgstr "Jungkitkan pilihan dan pindahkan kursor ke bawah"
 
 #: ../src/gnome-cmd-user-actions.cc:184
-#, fuzzy
 msgid "Unselect all"
 msgstr "Tidak pilih semua"
 
 #: ../src/gnome-cmd-user-actions.cc:187
-#, fuzzy
 msgid "MIME types"
 msgstr "Tipe MIME"
 
 #: ../src/gnome-cmd-user-actions.cc:188
-#, fuzzy
 msgid "Keyboard shortcuts"
 msgstr "Pintasan papan tik"
 
 #: ../src/gnome-cmd-user-actions.cc:189
-#, fuzzy
 msgid "Configure plugins"
-msgstr "Mengatur Plugin"
+msgstr "Mengatur pengaya"
 
 #: ../src/gnome-cmd-user-actions.cc:190
-#, fuzzy
 msgid "Execute python plugin"
-msgstr "Plugin Uji Python"
+msgstr "Jalankan pengaya python"
 
 #: ../src/gnome-cmd-user-actions.cc:191
 msgid "Back one directory"
 msgstr "Mundur satu direktori"
 
 #: ../src/gnome-cmd-user-actions.cc:192
-#, fuzzy
 msgid "Equal panel size"
-msgstr "Ukuran Pan_el Sama"
+msgstr "Ukuran panel sama"
 
 #: ../src/gnome-cmd-user-actions.cc:193
 msgid "Back to the first directory"
 msgstr "Kembali ke direktori pertama"
 
 #: ../src/gnome-cmd-user-actions.cc:194
-#, fuzzy
 msgid "Forward one directory"
-msgstr "Pilih satu direktori"
+msgstr "Maju satu direktori"
 
 #: ../src/gnome-cmd-user-actions.cc:195
-#, fuzzy
 msgid "Home directory"
-msgstr "Direktori home"
+msgstr "Direktori rumah"
 
 #: ../src/gnome-cmd-user-actions.cc:196
-#, fuzzy
 msgid "Open directory in the active window"
-msgstr "Buka berkas dalam jendela aktif"
+msgstr "Buka direktori dalam jendela aktif"
 
 #: ../src/gnome-cmd-user-actions.cc:197
 msgid "Open directory in the inactive window"
-msgstr ""
+msgstr "Buka direktori dalam jendela yang tak aktif"
 
 #: ../src/gnome-cmd-user-actions.cc:198
 msgid "Open directory in the left window"
-msgstr ""
+msgstr "Buka direktori di jendela kiri"
 
 #: ../src/gnome-cmd-user-actions.cc:199
 msgid "Open directory in the right window"
-msgstr ""
+msgstr "Buka direktori di jendela kanan"
 
 #: ../src/gnome-cmd-user-actions.cc:200
 msgid "Forward to the last directory"
-msgstr ""
+msgstr "Maju ke direktori terakhir"
 
 #: ../src/gnome-cmd-user-actions.cc:202
-#, fuzzy
 msgid "Root directory"
-msgstr "Direktori root projek:"
+msgstr "Direktori root"
 
 #: ../src/gnome-cmd-user-actions.cc:204
-#, fuzzy
 msgid "Show terminal"
-msgstr "Menunjukkan opsi terminal"
+msgstr "Tampilkan terminal"
 
 #: ../src/gnome-cmd-user-actions.cc:708
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Buat taut simbolik dari %i berkas dalam %s?"
 
 #: ../src/gnome-cmd-user-actions.cc:713
 msgid "Create"
@@ -2777,60 +2736,56 @@ msgstr "Buat"
 #: ../src/gnome-cmd-user-actions.cc:777 ../src/gnome-cmd-user-actions.cc:794
 #: ../src/gnome-cmd-user-actions.cc:833
 msgid "Operation not supported on remote file systems"
-msgstr ""
+msgstr "Operasi tak didukung pada sistem berkas jauh"
 
 #: ../src/gnome-cmd-user-actions.cc:809
-#, fuzzy
 msgid "Too many selected files"
-msgstr "File terbuka terlalu banyak"
+msgstr "File yang dipilih terlalu banyak"
 
 #: ../src/gnome-cmd-user-actions.cc:1082
-#, fuzzy
 msgid "Unable to start Nautilus."
-msgstr "Tidak dapat memulai lokasi"
+msgstr "Tak bisa memulai Nautilus."
 
 #: ../src/gnome-cmd-user-actions.cc:1118
 msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
-msgstr ""
+msgstr "xdg-su, gksu, gnomesu, kdesu, atau beesu tak ditemukan."
 
 #: ../src/gnome-cmd-user-actions.cc:1139
 msgid "Unable to start GNOME Commander in root mode."
-msgstr ""
+msgstr "Tak bisa memulai GNOME Commander dalam mode root."
 
 #: ../src/gnome-cmd-user-actions.cc:1559 ../src/gnome-cmd-user-actions.cc:1562
 msgid "There was an error opening home page."
-msgstr ""
+msgstr "Ada galat saat membuka laman web."
 
 #: ../src/gnome-cmd-user-actions.cc:1573 ../src/gnome-cmd-user-actions.cc:1576
 msgid "There was an error reporting problem."
-msgstr ""
+msgstr "Ada galat saat melaporkan masalah."
 
 #: ../src/gnome-cmd-user-actions.cc:1599
 msgid "A fast and powerful file manager for the GNOME desktop"
-msgstr ""
+msgstr "Manajer berkas yang cepat dan bertenaga bagi desktop GNOME"
 
 #: ../src/gnome-cmd-user-actions.cc:1603
-#, fuzzy
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
 msgstr ""
-"Terminal GNOME adalah perangkat lunak bebas; Anda dapat mendistribusikan "
+"GNOME Commander adalah perangkat lunak bebas; Anda dapat mendistribusikan "
 "ulang dan/atau mengubahnya di bawah ketentuan GNU General Public License "
-"sebagaimana dipublikasikan oleh Free Software Foundation; Lisensi versi 2, "
-"atau (sesuai pilihan Anda) menggunakan versi selanjutnya."
+"sebagaimana dipublikasikan oleh Free Software Foundation; Lisensi versi 2 "
+"atau (sesuai pilihan Anda) sebarang versi setelahnya."
 
 #: ../src/gnome-cmd-user-actions.cc:1607
-#, fuzzy
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
 "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 msgstr ""
-"Terminal GNOME didistribusikan dengan harapan dapat berguna, tetapi TANPA "
+"GNOME Commander didistribusikan dengan harapan dapat berguna, tetapi TANPA "
 "ADANYA JAMINAN; termasuk tanpa jaminan DAYA JUAL atau KELAIKAN UNTUK TUJUAN "
 "TERTENTU. Lihat GNU General Public License untuk rincian lebih lanjut."
 
@@ -2849,14 +2804,15 @@ msgid "translator-credits"
 msgstr "Andika Triwidada <andika@gmail.com>, 2012"
 
 #: ../src/gnome-cmd-xfer.cc:160
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
 msgstr ""
-"Berkas '%s' sudah ada.\n"
-"Apakah Anda ingin menimpanya?"
+"Berkas \"%s\" sudah ada.\n"
+"\n"
+"Apakah Anda ingin menimpanya?\n"
 
 #: ../src/gnome-cmd-xfer.cc:164
 msgid "Replace"
@@ -2867,22 +2823,23 @@ msgid "Replace All"
 msgstr "Ganti Semua"
 
 #: ../src/gnome-cmd-xfer.cc:180
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while copying to %s\n"
 "\n"
 "%s"
-msgstr "Galat sewaktu menyalin ke \"%B\"."
+msgstr ""
+"Galat sewaktu menyalin ke %s\n"
+"\n"
+"%s"
 
 #: ../src/gnome-cmd-xfer.cc:183
-#, fuzzy
 msgid "Transfer problem"
-msgstr "Jenis Masalah:"
+msgstr "Masalah transfer"
 
 #: ../src/gnome-cmd-xfer.cc:222
-#, fuzzy
 msgid "copying..."
-msgstr "menyalin..."
+msgstr "menyalin…"
 
 #: ../src/gnome-cmd-xfer.cc:230
 #, c-format
@@ -2894,6 +2851,8 @@ msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
 msgstr ""
+"Menyalin suatu direktori ke dirinya sendiri adalah ide buruk.\n"
+"Seluruh operasi dibatalkan."
 
 #: ../src/gnome-cmd-xfer.cc:421
 msgid "preparing..."
@@ -2904,9 +2863,8 @@ msgid "downloading to /tmp"
 msgstr "mengunduh ke /tmp"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:41
-#, fuzzy
 msgid "stopping..."
-msgstr "Menghentikan..."
+msgstr "menghentikan…"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:84
 msgid "Progress"
@@ -2926,11 +2884,13 @@ msgstr "%.0f%% disalin"
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
+"Tak bisa memuat pixmap tipe berkas yang dipasang, mencoba memuat dari source-"
+"dir\n"
 
 #: ../src/imageloader.cc:111 ../src/imageloader.cc:137
 #, c-format
 msgid "Trying to load %s instead\n"
-msgstr ""
+msgstr "Mencoba memuat %s sebagai gantinya\n"
 
 #: ../src/imageloader.cc:115 ../src/imageloader.cc:140
 #, c-format
@@ -2938,13 +2898,15 @@ msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr ""
+"Tak bisa temukan pixmap dimanapun. Pastikan bahwa Anda telah memasang "
+"program tersebut atau sedang mengeksekusi gnome-commander dari direktori "
+"gnome-commander-%s/src\n"
 
 #: ../src/imageloader.cc:136
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
-msgstr ""
+msgstr "Tak bisa memuat pixmap yang dipasang, mencoba memuat dari source-dir\n"
 
 #: ../src/intviewer/search-dlg.cc:245
-#, fuzzy
 msgid "Find"
 msgstr "Cari"
 
@@ -2955,42 +2917,36 @@ msgid "_Text"
 msgstr "_Teks"
 
 #: ../src/intviewer/search-dlg.cc:276 ../src/intviewer/viewer-window.cc:672
-#, fuzzy
 msgid "_Hexadecimal"
-msgstr "Heksadesimal"
+msgstr "_Heksadesimal"
 
 #: ../src/intviewer/search-progress-dlg.cc:77
 msgid "Searching..."
 msgstr "Mencari…"
 
 #: ../src/intviewer/search-progress-dlg.cc:189
-#, fuzzy, c-format
+#, c-format
 msgid "Searching for \"%s\""
-msgstr "Mencari"
+msgstr "Mencari \"%s\""
 
 #: ../src/intviewer/viewer-widget.cc:211
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
-msgstr ""
+msgstr "Posisi: %lu dari %lu\tKolom: %d\t%s"
 
 #: ../src/intviewer/viewer-widget.cc:215
-#, fuzzy
 msgid "Wrap"
-msgstr "Genap"
+msgstr ""
 
 #: ../src/intviewer/viewer-widget.cc:242
-#, fuzzy
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "piksel"
-msgstr[1] ""
 
 #: ../src/intviewer/viewer-widget.cc:244
-#, fuzzy
 msgid "bit/sample"
 msgid_plural "bits/sample"
-msgstr[0] "Contoh Plugin"
-msgstr[1] ""
+msgstr[0] "bit/cuplikan"
 
 #: ../src/intviewer/viewer-widget.cc:246
 msgid "(fit to window)"
@@ -3005,7 +2961,6 @@ msgid "_Binary"
 msgstr "_Biner"
 
 #: ../src/intviewer/viewer-window.cc:676 ../src/intviewer/viewer-window.cc:871
-#, fuzzy
 msgid "_Image"
 msgstr "_Gambar"
 
@@ -3018,86 +2973,72 @@ msgid "Zoom _Out"
 msgstr "Per_kecil"
 
 #: ../src/intviewer/viewer-window.cc:689
-#, fuzzy
 msgid "_Normal Size"
 msgstr "Ukuran _Normal"
 
 #: ../src/intviewer/viewer-window.cc:693
-#, fuzzy
 msgid "Best _Fit"
-msgstr "Sesuai Jende_la"
+msgstr "Pas _Ukuran"
 
 #: ../src/intviewer/viewer-window.cc:703
-#, fuzzy
 msgid "_Copy Text Selection"
-msgstr "Pilihan teks penyunting"
+msgstr "_Salin Pilihan Teks"
 
 #: ../src/intviewer/viewer-window.cc:707
-#, fuzzy
 msgid "Find..."
-msgstr "Cari..."
+msgstr "Cari…"
 
 #: ../src/intviewer/viewer-window.cc:711
-#, fuzzy
 msgid "Find Next"
-msgstr "Temukan Selanjutnya"
+msgstr "Cari Selanjutnya"
 
 #: ../src/intviewer/viewer-window.cc:715
-#, fuzzy
 msgid "Find Previous"
-msgstr "Temukan Sebelumnya"
+msgstr "Cari Sebelumnya"
 
 #: ../src/intviewer/viewer-window.cc:720
-#, fuzzy
 msgid "_Wrap lines"
-msgstr "Lipat baris"
+msgstr "_Lipat baris"
 
 #: ../src/intviewer/viewer-window.cc:725
-#, fuzzy
 msgid "_Encoding"
-msgstr "_Enkoding"
+msgstr "M_engode"
 
 #: ../src/intviewer/viewer-window.cc:766
-#, fuzzy
 msgid "Show Metadata _Tags"
-msgstr "Tampilkan semua tag"
+msgstr "Tampilkan _Tag Metadata"
 
 #: ../src/intviewer/viewer-window.cc:772
-#, fuzzy
 msgid "_Rotate Clockwise"
 msgstr "Puta_r Searah Jarum Jam"
 
 #: ../src/intviewer/viewer-window.cc:777
 msgid "Rotate Counter Clockwis_e"
-msgstr ""
+msgstr "Putar B_erlawanan Arah Jarum Jam"
 
 #: ../src/intviewer/viewer-window.cc:782
 msgid "_Rotate 180°"
 msgstr "Puta_r 180°"
 
 #: ../src/intviewer/viewer-window.cc:787
-#, fuzzy
 msgid "Flip _Vertical"
-msgstr "Lipat _Vertikal"
+msgstr "Jungkir _Vertikal"
 
 #: ../src/intviewer/viewer-window.cc:792
-#, fuzzy
 msgid "Flip _Horizontal"
-msgstr "Lipat _Horisontal"
+msgstr "Jungkir _Horisontal"
 
 #: ../src/intviewer/viewer-window.cc:802
 msgid "_Binary Mode"
 msgstr "Mode _Biner"
 
 #: ../src/intviewer/viewer-window.cc:808
-#, fuzzy
 msgid "_Hexadecimal Offset"
-msgstr "Offset tombol"
+msgstr "Offset _Heksadesimal"
 
 #: ../src/intviewer/viewer-window.cc:814
-#, fuzzy
 msgid "_Save Current Settings"
-msgstr "Tetap pada settingan saat ini"
+msgstr "_Simpan Pengaturan Saat Ini"
 
 #: ../src/intviewer/viewer-window.cc:824
 msgid "_20 chars/line"
@@ -3112,55 +3053,49 @@ msgid "_80 chars/line"
 msgstr "_80 kar/baris"
 
 #: ../src/intviewer/viewer-window.cc:843
-#, fuzzy
 msgid "Quick _Help"
-msgstr "Teks bantuan"
+msgstr "_Bantuan Cepat"
 
 #: ../src/intviewer/viewer-window.cc:1121
-#, fuzzy, c-format
+#, c-format
 msgid "Pattern \"%s\" was not found"
-msgstr "String tidak ditemukan!\n"
+msgstr "Pola \"%s\" tak ditemukan"
 
 #: ../src/main.cc:66 ../src/main.cc:75
 msgid "Specify debug flags to use"
-msgstr ""
+msgstr "Nyatakan flag debug yang akan dipakai"
 
 #: ../src/main.cc:67 ../src/main.cc:76
 msgid "Specify the start directory for the left pane"
-msgstr ""
+msgstr "Nyatakan direktori awal bagi panel kiri"
 
 #: ../src/main.cc:68 ../src/main.cc:77
 msgid "Specify the start directory for the right pane"
-msgstr ""
+msgstr "Nyatakan direktori awal bagi panel kanan"
 
 #: ../src/main.cc:116
-#, fuzzy
 msgid "File Manager"
 msgstr "Manajer Berkas"
 
 #: ../src/plugin_manager.cc:342
-#, fuzzy
 msgid "Disable"
-msgstr "Matikan"
+msgstr "Mematikan"
 
 #: ../src/plugin_manager.cc:342
-#, fuzzy
 msgid "Enable"
-msgstr "Aktifkan"
+msgstr "Memfungsikan"
 
 #: ../src/plugin_manager.cc:406
-#, fuzzy
 msgid "Available plugins"
-msgstr "Plugin tersedia"
+msgstr "Plugin yang tersedia"
 
 #: ../src/plugin_manager.cc:413
 msgid "Version"
 msgstr "Versi"
 
 #: ../src/plugin_manager.cc:419
-#, fuzzy
 msgid "_Enable"
-msgstr "_Aktifkan"
+msgstr "M_emfungsikan"
 
 #: ../src/plugin_manager.cc:423
 msgid "_Configure"
@@ -3187,36 +3122,32 @@ msgid "Album"
 msgstr "Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
-#, fuzzy
 msgid "Name of the album."
-msgstr "Nama album"
+msgstr "Nama album."
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Album Artist"
 msgstr "Artis Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:113
-#, fuzzy
 msgid "Artist of the album."
-msgstr "Artis Album"
+msgstr "Artis album."
 
 #: ../src/tags/gnome-cmd-tags.cc:114
-#, fuzzy
 msgid "Album Gain"
-msgstr "Cari La_gi"
+msgstr "Penguatan Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
-#, fuzzy
 msgid "Gain adjustment of the album."
-msgstr "menangkap penyesuaian bati"
+msgstr "Penyesuaian penguatan dari album."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Album Peak Gain"
-msgstr ""
+msgstr "Penguatan Puncak Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Peak gain adjustment of album."
-msgstr ""
+msgstr "Penyesuaian penguatan puncak dari album."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Album Track Count"
@@ -3224,34 +3155,31 @@ msgstr "Cacah Trek Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Total number of tracks on the album."
-msgstr ""
+msgstr "Cacah trek total pada album."
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:199
 msgid "Artist"
 msgstr "Artis"
 
 #: ../src/tags/gnome-cmd-tags.cc:117
-#, fuzzy
 msgid "Artist of the track."
-msgstr "Artis Trek"
+msgstr "Artis trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-#, fuzzy
 msgid "Bitrate"
 msgstr "Laju bit"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "Bitrate in kbps."
-msgstr ""
+msgstr "Laju bit dalam kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:119
-#, fuzzy
 msgid "Channels"
 msgstr "Kanal"
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Cacah kanal dalam audio (2 = stereo)."
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Codec"
@@ -3259,7 +3187,7 @@ msgstr "Kodek:"
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Codec encoding description."
-msgstr ""
+msgstr "Deskripsi pengkodean kodek."
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 msgid "Codec Version"
@@ -3275,35 +3203,32 @@ msgstr "Komentar"
 
 #: ../src/tags/gnome-cmd-tags.cc:122
 msgid "Comments on the track."
-msgstr ""
+msgstr "Komentar pada trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:123 ../src/tags/gnome-cmd-tags.cc:210
 #: ../src/tags/gnome-cmd-tags.cc:339 ../src/tags/gnome-cmd-tags.cc:415
-#, fuzzy
 msgid "Copyright"
-msgstr "Hak cipta"
+msgstr "Hak Cipta"
 
 #: ../src/tags/gnome-cmd-tags.cc:123 ../src/tags/gnome-cmd-tags.cc:339
-#, fuzzy
 msgid "Copyright message."
-msgstr "Pesan Tanpa Judul"
+msgstr "Pesan hak cipta."
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "Cover Album Thumbnail Path"
-msgstr ""
+msgstr "Path Gambar Mini Sampul Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "File path to thumbnail image of the cover album."
-msgstr ""
+msgstr "Path berkas ke gambar mini dari album sampul."
 
 #: ../src/tags/gnome-cmd-tags.cc:125
-#, fuzzy
 msgid "Disc Number"
 msgstr "Nomor Cakram"
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Specifies which disc the track is on."
-msgstr ""
+msgstr "Menyatakan bahwa trek ada di disk mana."
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Duration"
@@ -3328,132 +3253,120 @@ msgstr "Aliran"
 #: ../src/tags/gnome-cmd-tags.cc:128 ../src/tags/gnome-cmd-tags.cc:338
 msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr ""
+"Tipe klasifikasi musik bagi trek sebagaimana didefinisikan dalam spek ID3."
 
 #: ../src/tags/gnome-cmd-tags.cc:129
-#, fuzzy
 msgid "Is New"
-msgstr "Kontak Baru?"
+msgstr "Baru"
 
 #: ../src/tags/gnome-cmd-tags.cc:129
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr ""
+msgstr "Isi dengan \"1\" bila trek baru bagi pengguna (bakunya \"0\")."
 
 #: ../src/tags/gnome-cmd-tags.cc:130
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../src/tags/gnome-cmd-tags.cc:130
 msgid "ISRC (international standard recording code)."
-msgstr ""
+msgstr "ISRC (international standard recording code)."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-#, fuzzy
 msgid "Last Play"
-msgstr "Waktu Terakhir Diputar"
+msgstr "Terakhir Diputar"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 msgid "When track was last played."
-msgstr ""
+msgstr "Kapan trek terakhir diputar."
 
 #: ../src/tags/gnome-cmd-tags.cc:132
-#, fuzzy
 msgid "Lyrics"
 msgstr "Lirik"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
-#, fuzzy
 msgid "Lyrics of the track."
-msgstr "Judul Trek"
+msgstr "Lirik trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:133
-#, fuzzy
 msgid "MB album artist ID"
-msgstr "ID artis album MusicBrainz"
+msgstr "ID artis album MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "MusicBrainz album artist ID in UUID format."
-msgstr ""
+msgstr "ID artis album MusicBrainz dalam format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-#, fuzzy
 msgid "MB Album ID"
-msgstr "ID album MusicBrainz"
+msgstr "ID Album MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "MusicBrainz album ID in UUID format."
-msgstr ""
+msgstr "ID album MusicBrainz dalam format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:135
-#, fuzzy
 msgid "MB Artist ID"
-msgstr "ID artis MusicBrainz"
+msgstr "ID Artis MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:135
 msgid "MusicBrainz artist ID in UUID format."
-msgstr ""
+msgstr "ID artis MusicBrainz dalam format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:136
-#, fuzzy
 msgid "MB Track ID"
-msgstr "ID jalur MusicBrainz"
+msgstr "ID Trek MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "MusicBrainz track ID in UUID format."
-msgstr ""
+msgstr "ID trek MusicBrainz dalam format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:137
-#, fuzzy
 msgid "Channel Mode"
-msgstr "_Moda impor:"
+msgstr "Mode Kanal"
 
 #: ../src/tags/gnome-cmd-tags.cc:137
 msgid "MPEG channel mode."
-msgstr ""
+msgstr "Mode kanal MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:138
 msgid "Copyrighted"
-msgstr ""
+msgstr "Memiliki hak cipta"
 
 #: ../src/tags/gnome-cmd-tags.cc:138
 msgid "\"1\" if the copyrighted bit is set."
-msgstr ""
+msgstr "\"1\" bila bit berhakcipta ditata."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
-#, fuzzy
 msgid "Layer"
 msgstr "Lapisan"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
-#, fuzzy
 msgid "MPEG layer."
-msgstr "Tapis Akses"
+msgstr "Lapisan MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:140
-#, fuzzy
 msgid "Original Audio"
-msgstr "Kualitas audio"
+msgstr "Audio Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "\"1\" if the \"original\" bit is set."
-msgstr ""
+msgstr "\"1\" bila bit \"asli\" ditata."
 
 #: ../src/tags/gnome-cmd-tags.cc:141
-#, fuzzy
 msgid "MPEG Version"
-msgstr "DivX MPEG-4 Versi %d"
+msgstr "Versi MPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:141
-#, fuzzy
 msgid "MPEG version."
-msgstr "DivX MPEG-4 Versi %d"
+msgstr "Versi MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Performer"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:142
+#, fuzzy
 msgid "Name of the performer/conductor of the music."
-msgstr ""
+msgstr "Nama pe../konduktor musik."
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Play Count"
@@ -3461,7 +3374,7 @@ msgstr "Cacah Putar"
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Number of times the track has been played."
-msgstr ""
+msgstr "Berapa kali trek telah diputar."
 
 #: ../src/tags/gnome-cmd-tags.cc:144 ../src/tags/gnome-cmd-tags.cc:497
 msgid "Release Date"
@@ -3469,54 +3382,48 @@ msgstr "Tanggal Rilis"
 
 #: ../src/tags/gnome-cmd-tags.cc:144
 msgid "Date track was released."
-msgstr ""
+msgstr "Tanggal rilis trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:145
-#, fuzzy
 msgid "Sample Rate"
 msgstr "Laju Cuplikan"
 
 #: ../src/tags/gnome-cmd-tags.cc:145
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Laju cuplikan dalam Hz."
 
 #: ../src/tags/gnome-cmd-tags.cc:146 ../src/tags/gnome-cmd-tags.cc:196
 #: ../src/tags/gnome-cmd-tags.cc:432
-#, fuzzy
 msgid "Title"
 msgstr "Judul"
 
 #: ../src/tags/gnome-cmd-tags.cc:146
-#, fuzzy
 msgid "Title of the track."
-msgstr "Judul Trek"
+msgstr "Judul trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:147
-#, fuzzy
 msgid "Track Gain"
-msgstr "Cari La_gi"
+msgstr "Penguatan Trek"
 
 #: ../src/tags/gnome-cmd-tags.cc:147
-#, fuzzy
 msgid "Gain adjustment of the track."
-msgstr "menangkap penyesuaian bati"
+msgstr "Penyesuaian penguatan dari trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:148
-#, fuzzy
 msgid "Track Number"
 msgstr "Nomor Trek"
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Position of track on the album."
-msgstr ""
+msgstr "Posisi trek pada album."
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Track Peak Gain"
-msgstr ""
+msgstr "Penguatan Puncak Trek"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Peak gain adjustment of track."
-msgstr ""
+msgstr "Penyesuaian penguatan puncak dari trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:150
 msgid "Year"
@@ -3527,34 +3434,29 @@ msgid "Year."
 msgstr "Tahun."
 
 #: ../src/tags/gnome-cmd-tags.cc:151 ../src/tags/gnome-cmd-tags.cc:160
-#, fuzzy
 msgid "Author"
-msgstr "Penulis"
+msgstr "Pengarang"
 
 #: ../src/tags/gnome-cmd-tags.cc:151 ../src/tags/gnome-cmd-tags.cc:160
 #: ../src/tags/gnome-cmd-tags.cc:416
-#, fuzzy
 msgid "Name of the author."
-msgstr "Nama Pengarang:"
+msgstr "Nama pengarang."
 
 #: ../src/tags/gnome-cmd-tags.cc:152
 msgid "Byte Count"
 msgstr "Cacah Byte"
 
 #: ../src/tags/gnome-cmd-tags.cc:152
-#, fuzzy
 msgid "Number of bytes in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Cacah byte dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:153
-#, fuzzy
 msgid "Case Sensitive"
 msgstr "Peka Huruf Besar Kecil"
 
 #: ../src/tags/gnome-cmd-tags.cc:153
-#, fuzzy
 msgid "Case sensitive."
-msgstr "Peka huruf besar kecil"
+msgstr "Peka huruf besar kecil."
 
 #: ../src/tags/gnome-cmd-tags.cc:154 ../src/tags/gnome-cmd-tags.cc:446
 msgid "Category"
@@ -3565,23 +3467,20 @@ msgid "Category."
 msgstr "Katagori."
 
 #: ../src/tags/gnome-cmd-tags.cc:155
-#, fuzzy
 msgid "Cell Count"
-msgstr "Cacah anak"
+msgstr "Cacah Sel"
 
 #: ../src/tags/gnome-cmd-tags.cc:155
 msgid "Number of cells in the spreadsheet document."
-msgstr ""
+msgstr "Cacah sel dalam dokumen lembar kerja."
 
 #: ../src/tags/gnome-cmd-tags.cc:156
-#, fuzzy
 msgid "Character Count"
-msgstr "%(count)d %(repeatChar)s karakter"
+msgstr "Cacah Karakter"
 
 #: ../src/tags/gnome-cmd-tags.cc:156
-#, fuzzy
 msgid "Number of characters in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Cacah karakter dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:157
 msgid "Codepage"
@@ -3589,7 +3488,7 @@ msgstr "Codepage"
 
 #: ../src/tags/gnome-cmd-tags.cc:157
 msgid "The MS codepage to encode strings for metadata."
-msgstr ""
+msgstr "Codepage MS untuk mengenkode string bagi metadata."
 
 #: ../src/tags/gnome-cmd-tags.cc:158 ../src/tags/gnome-cmd-tags.cc:414
 msgid "Comments"
@@ -3597,7 +3496,7 @@ msgstr "Komentar"
 
 #: ../src/tags/gnome-cmd-tags.cc:158 ../src/tags/gnome-cmd-tags.cc:414
 msgid "User definable free text."
-msgstr ""
+msgstr "Teks bebas yang dapat didefinisikan oleh pengguna."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 msgid "Company"
@@ -3605,7 +3504,7 @@ msgstr "Perusahaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr ""
+msgstr "Organisasi dimana entitas <Doc.Creator> berasosiasi dengannya."
 
 #: ../src/tags/gnome-cmd-tags.cc:161 ../src/tags/gnome-cmd-tags.cc:416
 msgid "Creator"
@@ -3616,6 +3515,8 @@ msgid ""
 "An entity primarily responsible for making the content of the resource, "
 "typically a person, organization, or service."
 msgstr ""
+"Suatu entitas yang secara utama bertanggungjawab membuat isi sumber daya, "
+"biasanya suatu orang, organisasi, atau layanan."
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Created"
@@ -3623,7 +3524,7 @@ msgstr "Dibuat"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Datetime document was originally created."
-msgstr ""
+msgstr "Tanggal-waktu saat dokumen aslinya dibuat."
 
 #: ../src/tags/gnome-cmd-tags.cc:163 ../src/tags/gnome-cmd-tags.cc:457
 msgid "Date Created"
@@ -3634,6 +3535,8 @@ msgid ""
 "Date associated with an event in the life cycle of the resource (creation/"
 "publication date)."
 msgstr ""
+"Tanggal yang dikaitkan dengan peristiwa dalam siklus hidup sumber daya "
+"(tanggal pembuatan/publikasi)."
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid "Date Modified"
@@ -3641,11 +3544,11 @@ msgstr "Tanggal Diubah"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid "The last time the document was saved."
-msgstr ""
+msgstr "Waktu terakhir dokumen disimpan."
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "An account of the content of the resource."
-msgstr ""
+msgstr "Suatu akun dari isi sumber daya."
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "Dictionary"
@@ -3656,282 +3559,250 @@ msgid "Dictionary."
 msgstr "Kamus."
 
 #: ../src/tags/gnome-cmd-tags.cc:167
-#, fuzzy
 msgid "Editing Duration"
-msgstr "Durasi penyorotan"
+msgstr "Durasi Penyuntingan"
 
 #: ../src/tags/gnome-cmd-tags.cc:167
 msgid "The total time taken until the last modification."
-msgstr ""
+msgstr "Total waktu yang ditempuh sampai modifikasi terakhir."
 
 #: ../src/tags/gnome-cmd-tags.cc:168
-#, fuzzy
 msgid "Generator"
-msgstr "Penjangkit Kelas"
+msgstr "Penjangkit"
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "The application that generated this document."
-msgstr ""
+msgstr "Aplikasi yang menghasilkan dokumen ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:169
-#, fuzzy
 msgid "Hidden Slide Count"
-msgstr "salindia %(position)d dari %(count)d"
+msgstr "Cacah Salindia Tersembunyi"
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Number of hidden slides in the presentation document."
-msgstr ""
+msgstr "Banyaknya salindia tersembunyi dalam dokumen presentasi."
 
 #: ../src/tags/gnome-cmd-tags.cc:170
-#, fuzzy
 msgid "Image Count"
-msgstr "Cacah anak"
+msgstr "Cacah Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:170
-#, fuzzy
 msgid "Number of images in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Banyaknya gambar dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:171
-#, fuzzy
 msgid "Initial Creator"
-msgstr "Pembuat Stasiun:"
+msgstr "Pembuat Awal"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Specifies the name of the person who created the document initially."
-msgstr ""
+msgstr "Menyatakan nama orang yang pada awalnya membuat dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:172 ../src/tags/gnome-cmd-tags.cc:318
 #: ../src/tags/gnome-cmd-tags.cc:426 ../src/tags/gnome-cmd-tags.cc:474
-#, fuzzy
 msgid "Keywords"
 msgstr "Kata kunci"
 
 #: ../src/tags/gnome-cmd-tags.cc:172
 msgid "Searchable, indexable keywords."
-msgstr ""
+msgstr "Kata kunci yang dapat dicari, dapat diindeks."
 
 #: ../src/tags/gnome-cmd-tags.cc:173 ../src/tags/gnome-cmd-tags.cc:357
-#, fuzzy
 msgid "Language"
 msgstr "Bahasa"
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "The locale language of the intellectual content of the resource."
-msgstr ""
+msgstr "Bahasa locale dari isi intelektual dari sumber daya."
 
 #: ../src/tags/gnome-cmd-tags.cc:174
-#, fuzzy
 msgid "Last Printed"
-msgstr "Terakhir dicetak"
+msgstr "Terakhir Dicetak"
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "The last time this document was printed."
-msgstr ""
+msgstr "Waktu terakhir dokumen ini dicetak."
 
 #: ../src/tags/gnome-cmd-tags.cc:175
 msgid "Last Saved By"
-msgstr ""
+msgstr "Terakhir Disimpan Oleh"
 
 #: ../src/tags/gnome-cmd-tags.cc:175
 msgid ""
 "The entity that made the last change to the document, typically a person, "
 "organization, or service."
 msgstr ""
+"Entitas yang membuat perubahan terakhir ke dokumen, biasanya seseorang, "
+"organisasi, atau layanan."
 
 #: ../src/tags/gnome-cmd-tags.cc:176
-#, fuzzy
 msgid "Line Count"
-msgstr "%s: jumlah baris tidak valid"
+msgstr "Cacah Baris"
 
 #: ../src/tags/gnome-cmd-tags.cc:176
-#, fuzzy
 msgid "Number of lines in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Banyaknya baris dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:177
-#, fuzzy
 msgid "Links Dirty"
-msgstr "Kotoran privat"
+msgstr "Taut Kotor"
 
 #: ../src/tags/gnome-cmd-tags.cc:177
-#, fuzzy
 msgid "Links dirty."
-msgstr "Kotoran privat"
+msgstr "Taut kotor."
 
 #: ../src/tags/gnome-cmd-tags.cc:178
-#, fuzzy
 msgid "Locale System Default"
-msgstr "Sistem standarmu"
+msgstr "Baku Sistem Locale"
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Identifier representing the default system locale."
-msgstr ""
+msgstr "Identifier yang merepresentasikan locale sistem baku."
 
 #: ../src/tags/gnome-cmd-tags.cc:179
-#, fuzzy
 msgid "Manager"
 msgstr "Manajer"
 
 #: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Name of the manager of <Doc.Creator> entity."
-msgstr ""
+msgstr "Nama manajer dari entitas <Doc.Creator>."
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Multimedia Clip Count"
-msgstr ""
+msgstr "Cacah Klip Multimedia"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Number of multimedia clips in the document."
-msgstr ""
+msgstr "Banyaknya klip multimedia dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
-#, fuzzy
 msgid "Note Count"
-msgstr "Cacah anak"
+msgstr "Cacah Catatan"
 
 #: ../src/tags/gnome-cmd-tags.cc:181
-#, fuzzy
 msgid "Number of \"notes\" in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Cacah \"catatan\" dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:182
-#, fuzzy
 msgid "Object Count"
-msgstr "Cacah anak"
+msgstr "Cacah Objek"
 
 #: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Number of objects (OLE and other graphics) in the document."
-msgstr ""
+msgstr "Banyaknya objek (OLE dan grafik lain) dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:183
-#, fuzzy
 msgid "Page Count"
-msgstr "Cacah halaman:"
+msgstr "Cacah Halaman"
 
 #: ../src/tags/gnome-cmd-tags.cc:183 ../src/tags/gnome-cmd-tags.cc:192
-#, fuzzy
 msgid "Number of pages in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Banyaknya halaman dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:184
-#, fuzzy
 msgid "Paragraph Count"
-msgstr "Cacah anak"
+msgstr "Cacah Paragraf"
 
 #: ../src/tags/gnome-cmd-tags.cc:184
-#, fuzzy
 msgid "Number of paragraphs in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Banyaknya paragraf dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:185
-#, fuzzy
 msgid "Presentation Format"
-msgstr "_Format = Dialirkan"
+msgstr "Format Presentasi"
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
-msgstr ""
+msgstr "Tipe presentasi, seperti \"Pertunjukan Di Layar\", \"SlideView\", dsb."
 
 #: ../src/tags/gnome-cmd-tags.cc:186
-#, fuzzy
 msgid "Print Date"
-msgstr "Cetak tanggal foto"
+msgstr "Tanggal Cetak"
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Specifies the date and time when the document was last printed."
-msgstr ""
+msgstr "Menyatakan tanggal dan waktu kapan dokumen terakhir dicetak."
 
 #: ../src/tags/gnome-cmd-tags.cc:187
-#, fuzzy
 msgid "Printed By"
-msgstr "Urut Berdasar"
+msgstr "Dicetak Oleh"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Specifies the name of the last person who printed the document."
-msgstr ""
+msgstr "Menyatakan nama orang terakhir yang mencetak dokumen tersebut."
 
 #: ../src/tags/gnome-cmd-tags.cc:188
-#, fuzzy
 msgid "Revision Count"
-msgstr "Cacah anak"
+msgstr "Cacah Revisi"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Number of revision on the document."
-msgstr ""
+msgstr "Banyaknya revisi pada dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:189
-#, fuzzy
 msgid "Scale"
 msgstr "Skala"
 
 #: ../src/tags/gnome-cmd-tags.cc:189
-#, fuzzy
 msgid "Scale."
-msgstr "Skala X"
+msgstr "Skala."
+
+#: ../src/tags/gnome-cmd-tags.cc:190
+msgid "Security"
+msgstr "Keamanan"
 
 #: ../src/tags/gnome-cmd-tags.cc:190
 #, fuzzy
-msgid "Security"
-msgstr "Securiti"
-
-#: ../src/tags/gnome-cmd-tags.cc:190
 msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
+"Satu dari: \"Password protected\", \"Read-only recommended\", \"Read-only "
+"enforced\", atau \"Locked for annotations\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
-#, fuzzy
 msgid "Slide Count"
-msgstr "salindia %(position)d dari %(count)d"
+msgstr "Cacah Salindia"
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Number of slides in the presentation document."
-msgstr ""
+msgstr "Banyaknya salindia dalam dokumen presentasi."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
-#, fuzzy
 msgid "Spreadsheet Count"
-msgstr "Cacah anak"
+msgstr "Cacah Lembar Kerja"
 
 #: ../src/tags/gnome-cmd-tags.cc:193
-#, fuzzy
 msgid "Subject"
 msgstr "Perihal"
 
 #: ../src/tags/gnome-cmd-tags.cc:193
-#, fuzzy
 msgid "Document subject."
-msgstr "(Tanpa subjek)"
+msgstr "Subjek dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-#, fuzzy
 msgid "Table Count"
-msgstr "Cacah anak"
+msgstr "Cacah Tabel"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-#, fuzzy
 msgid "Number of tables in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Banyaknya tabel dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "The template file that is been used to generate this document."
-msgstr ""
+msgstr "Berkas templat yang dipakai untuk menghasilkan dokumen ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:196
-#, fuzzy
 msgid "Title of the document."
-msgstr "Judul dokumen"
+msgstr "Judul dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:197
 msgid "Word Count"
 msgstr "Cacah Kata"
 
 #: ../src/tags/gnome-cmd-tags.cc:197
-#, fuzzy
 msgid "Number of words in the document."
-msgstr "Cacah halaman dalam dokumen."
+msgstr "Cacah kata dalam dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "Aperture"
@@ -3939,7 +3810,7 @@ msgstr "Bukaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "The lens aperture. The unit is the APEX value."
-msgstr ""
+msgstr "Bukaan lensa. Satuan adalah nilai APEX."
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid ""
@@ -3958,9 +3829,8 @@ msgid "Battery level."
 msgstr "Tingkat baterai."
 
 #: ../src/tags/gnome-cmd-tags.cc:201
-#, fuzzy
 msgid "Bits per Sample"
-msgstr "Bit Per Cuplikan"
+msgstr "Bit per Cuplikan."
 
 #: ../src/tags/gnome-cmd-tags.cc:201
 msgid ""
@@ -3968,6 +3838,9 @@ msgid ""
 "bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
 "is used instead of this tag."
 msgstr ""
+"Cacah bit per komponen gambar. Setiap komponen gambar adalah 8 bit, sehingga "
+"nilai untuk tag ini adalah 8. Dalam data terkompresi JPEG, suatu penanda "
+"JPEG dipakai menggantikan tag ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid "Brightness"
@@ -3978,11 +3851,12 @@ msgid ""
 "The value of brightness. The unit is the APEX value. Ordinarily it is given "
 "in the range of -99.99 to 99.99."
 msgstr ""
+"Nilai kecerahan. Satuan adalah nilai APEX. Biasanya ini diberikan dalam "
+"jangkauan -99,99 sampai 99,99."
 
 #: ../src/tags/gnome-cmd-tags.cc:203 ../src/tags/gnome-cmd-tags.cc:266
-#, fuzzy
 msgid "CFA Pattern"
-msgstr "_Pola nama berkas"
+msgstr "Pola CFA"
 
 #: ../src/tags/gnome-cmd-tags.cc:203 ../src/tags/gnome-cmd-tags.cc:266
 msgid ""
@@ -4027,13 +3901,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:207
 msgid "Compressed Bits per Pixel"
-msgstr ""
+msgstr "Bit per Piksel Terkompresi"
 
 #: ../src/tags/gnome-cmd-tags.cc:207
 msgid ""
 "Information specific to compressed data. The compression mode used for a "
 "compressed image is indicated in unit bits per pixel."
 msgstr ""
+"Informasi spesifik ke data yang dikompresi. Mode kompresi yang dipakai bagi "
+"gambar terkompresi diindikasikan dalam unit bit per piksel."
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid "Compression"
@@ -4045,6 +3921,9 @@ msgid ""
 "compressed, this designation is not necessary and is omitted. When "
 "thumbnails use JPEG compression, this tag value is set to 6."
 msgstr ""
+"Skema kompresi yang dipakai untuk data gambar. Ketika gambar primer "
+"dikompresi JPEG, penamaan ini tak perlu dan diabaikan. Ketika gambar mini "
+"memakai kompresi JPEG, nilai tag ini diisi 6."
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid "Contrast"
@@ -4055,6 +3934,7 @@ msgid ""
 "The direction of contrast processing applied by the camera when the image "
 "was shot."
 msgstr ""
+"Arah pemrosesan kontras yang diterapkan oleh kamera ketika gambar diambil."
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid ""
@@ -4085,57 +3965,62 @@ msgid ""
 "output. When special processing is performed, the reader is expected to "
 "disable or minimize any further processing."
 msgstr ""
+"Penggunaan pemrosesan khusus pada data gambar, seperti perenderan ke arah "
+"keluaran. Ketika pemrosesan khusus dilakukan, pembaca diharapkan mematikan "
+"atau meminimalkan pemrosesan lebih jauh."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
-#, fuzzy
 msgid "Date and Time"
 msgstr "Tanggal dan Waktu"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid "The date and time of image creation."
-msgstr ""
+msgstr "Tanggal dan waktu pembuatan gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:213
-#, fuzzy
 msgid "Date and Time (digitized)"
-msgstr "Pilih Tanggal dan Waktu"
+msgstr "Tanggal dan Waktu (terdigitasi)"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "The date and time when the image was stored as digital data."
-msgstr ""
+msgstr "Tanggal dan waktu ketika gambar disimpan sebagai data digital."
 
 #: ../src/tags/gnome-cmd-tags.cc:214
-#, fuzzy
 msgid "Date and Time (original)"
-msgstr "Pilih Tanggal dan Waktu"
+msgstr "Tanggal dan Waktu (asli)"
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid ""
 "The date and time when the original image data was generated. For a digital "
 "still camera the date and time the picture was taken are recorded."
 msgstr ""
+"Tanggal dan waktu ketika gambar asli dihasilkan. Bagi suatu kamera digital "
+"tanggal dan waktu kapan gambar diambil direkam."
 
 #: ../src/tags/gnome-cmd-tags.cc:215
-#, fuzzy
 msgid "Device Setting Description"
-msgstr "Menyetel Label untuk Perangkat"
+msgstr "Deskripsi Pengaturan Perangkat"
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid ""
 "Information on the picture-taking conditions of a particular camera model. "
 "The tag is used only to indicate the picture-taking conditions in the reader."
 msgstr ""
+"Informasi tentang kondisi pengambilan gambar dari suatu model kamera "
+"tertentu. Tag hanya dipakai untuk mengindikasikan kondisi pengambilan gambar "
+"dalam pembaca."
 
 #: ../src/tags/gnome-cmd-tags.cc:216
-#, fuzzy
 msgid "Digital Zoom Ratio"
-msgstr "menangkap rasio pembesaran digital"
+msgstr "Rasio Zum Digital"
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid ""
 "The digital zoom ratio when the image was shot. If the numerator of the "
 "recorded value is 0, this indicates that digital zoom was not used."
 msgstr ""
+"Rasio zum digital ketika gambar diambil. Jika bilangan yang dibagi pada "
+"nilai yang direkam adalah 0, berarti zum digital tak dipakai."
 
 #: ../src/tags/gnome-cmd-tags.cc:217
 msgid "Document Name"
@@ -4147,13 +4032,15 @@ msgstr "Nama dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Exif IFD Pointer"
-msgstr ""
+msgstr "Pointer IFD Exif"
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid ""
 "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure "
 "as that of the IFD specified in TIFF."
 msgstr ""
+"Pointer ke IFD Exif. Interoperabilitas, IFD Exif memiliki struktur yang sama "
+"dengan IFD yang dinyatakan dalam TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 msgid "Exif Version"
@@ -4164,22 +4051,24 @@ msgid ""
 "The version of Exif standard supported. Nonexistence of this field is taken "
 "to mean nonconformance to the standard."
 msgstr ""
+"Versi standar Exif yang didukung. Ketiadaan ruas ini dianggap ketidakpatuhan "
+"terhadap standar."
 
 #: ../src/tags/gnome-cmd-tags.cc:220
-#, fuzzy
 msgid "Exposure Bias"
-msgstr "Bias Pencahayaan:"
+msgstr "Bias Pencahayaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
+"Bias pencahayaan. Satuan adalah nilai APEX. Biasanya diberikan dalam "
+"jangkauan -99,99 sampai 99,99."
 
 #: ../src/tags/gnome-cmd-tags.cc:221
-#, fuzzy
 msgid "Exposure Index"
-msgstr "Indeks akhir"
+msgstr "Indeks Pencahayaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid ""
@@ -4188,9 +4077,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:222
-#, fuzzy
 msgid "Exposure Mode"
-msgstr "modus Pencahayaan"
+msgstr "Mode Pencahayaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid ""
@@ -4200,7 +4088,6 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:223 ../src/tags/gnome-cmd-tags.cc:419
-#, fuzzy
 msgid "Exposure Program"
 msgstr "Program Pencahayaan"
 
@@ -4211,13 +4098,12 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:420
-#, fuzzy
 msgid "Exposure Time"
 msgstr "Waktu Pencahayaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:224
 msgid "Exposure time, given in seconds."
-msgstr ""
+msgstr "Waktu pencahayaan, diberikan dalam detik."
 
 #: ../src/tags/gnome-cmd-tags.cc:225
 msgid "File Source"
@@ -4228,21 +4114,20 @@ msgid ""
 "Indicates the image source. If a DSC recorded the image, this tag value of "
 "this tag always be set to 3, indicating that the image was recorded on a DSC."
 msgstr ""
+"Mengindikasikan sumber gambar. Bila suatu DSC merekam gambar, nilai tag ini "
+"selalu diisi 3, mengindikasikan bahwa gambar direkam pada suatu DSC."
 
 #: ../src/tags/gnome-cmd-tags.cc:226
-#, fuzzy
 msgid "Fill Order"
-msgstr "MDI-Z-order"
+msgstr "Urutan Mengisi"
 
 #: ../src/tags/gnome-cmd-tags.cc:226
-#, fuzzy
 msgid "Fill order."
-msgstr "MDI-Z-order"
+msgstr "Urutan mengisi."
 
 #: ../src/tags/gnome-cmd-tags.cc:227 ../src/tags/gnome-cmd-tags.cc:421
-#, fuzzy
 msgid "Flash"
-msgstr "Flash"
+msgstr "Lampu Kilat"
 
 #: ../src/tags/gnome-cmd-tags.cc:227
 msgid ""
@@ -4250,9 +4135,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:228
-#, fuzzy
 msgid "Flash Energy"
-msgstr "Energi (disain)"
+msgstr "Energi Lampu Kilat"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid ""
@@ -4261,26 +4145,23 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:229
-#, fuzzy
 msgid "FlashPix Version"
-msgstr "Versi Scratchbox:"
+msgstr "Versi FlashPix"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid "The FlashPix format version supported by a FPXR file."
-msgstr ""
+msgstr "Versi format FlashPix yang didukung oleh suatu berkas FPXR."
 
 #: ../src/tags/gnome-cmd-tags.cc:230 ../src/tags/gnome-cmd-tags.cc:422
-#, fuzzy
 msgid "F Number"
-msgstr "Nomor"
+msgstr "Angka F"
 
 #: ../src/tags/gnome-cmd-tags.cc:230 ../src/tags/gnome-cmd-tags.cc:422
 msgid ""
 "Diameter of the aperture relative to the effective focal length of the lens."
-msgstr ""
+msgstr "Diameter bukaan relatif terhadap panjang fokus efektif lensa."
 
 #: ../src/tags/gnome-cmd-tags.cc:231 ../src/tags/gnome-cmd-tags.cc:423
-#, fuzzy
 msgid "Focal Length"
 msgstr "Panjang Fokus"
 
@@ -4292,7 +4173,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid "Focal Length In 35mm Film"
-msgstr ""
+msgstr "Panjang Fokus Dalam Film 35mm"
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid ""
@@ -4303,7 +4184,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid "Focal Plane Resolution Unit"
-msgstr ""
+msgstr "Unit Resolusi Bidang Fokus"
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid ""
@@ -4313,32 +4194,36 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid "Focal Plane x-Resolution"
-msgstr ""
+msgstr "Resolusi x Bidang Fokus"
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid ""
 "The number of pixels in the image width (X) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
+"Banyaknya piksel dalam lebar gambar arah (X) menurut <Exif."
+"FocalPlaneResolutionUnit> pada bidang fokal kamera."
 
 #: ../src/tags/gnome-cmd-tags.cc:235
 msgid "Focal Plane y-Resolution"
-msgstr ""
+msgstr "Resolusi y Bidang Fokus"
 
 #: ../src/tags/gnome-cmd-tags.cc:235
 msgid ""
 "The number of pixels in the image height (Y) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
+"Banyaknya piksel dalam tinggi gambar arah (Y) menurut <Exif."
+"FocalPlaneResolutionUnit> pada bidang fokal kamera."
 
 #: ../src/tags/gnome-cmd-tags.cc:236
-#, fuzzy
 msgid "Gain Control"
-msgstr "Kendali Penguatan Otomatis (AGC)"
+msgstr "Kendali Penguatan"
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "This tag indicates the degree of overall image gain adjustment."
 msgstr ""
+"Tag ini mengindikasikan derajat penyesuaian penguatan gambar keseluruhan."
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Gamma"
@@ -4346,7 +4231,7 @@ msgstr "Gamma"
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Indicates the value of coefficient gamma."
-msgstr ""
+msgstr "Mengindikasikan nilai dari koefisien gamma."
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid "Altitude"
@@ -4357,11 +4242,12 @@ msgid ""
 "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The "
 "reference unit is meters."
 msgstr ""
+"Mengindikasikan ketinggian berbasis pada acuan dalam <Exif.GPS.AltitudeRef>. "
+"Satuan acuan adalah meter."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-#, fuzzy
 msgid "Altitude Reference"
-msgstr "Referensi _API"
+msgstr "Referensi Ketinggian"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid ""
@@ -4371,16 +4257,23 @@ msgid ""
 "an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
 "meters."
 msgstr ""
+"Mengindikasikan ketinggian yang dipakai sebagai tinggi acuan. Bila acuan "
+"adalah permukaan laut dan ketinggian di atas permukaan laut, 0 diberikan. "
+"Bila ketinggian di bawah permukaan laut, nilai 1 diberikan dan ketinggian "
+"diindikasikan sebagai nilai absolut dalam tag <Exif.GPS.Altitude>. Satuan "
+"acuan adalah meter."
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid "GPS Info IFDPointer"
-msgstr ""
+msgstr "GPS Info IFDPointer"
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid ""
 "A pointer to the GPS Info IFD. The Interoperability structure of the GPS "
 "Info IFD, like that of Exif IFD, has no image data."
 msgstr ""
+"Pointer ke IFD Info GPS. Struktur interoperabilitas dari IFD Info GPS, "
+"seperti IFD Exif, tak memiliki data gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Latitude"
@@ -4394,16 +4287,24 @@ msgid ""
 "degrees and minutes are used and, for example, fractions of minutes are "
 "given up to two decimal places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
+"Mengindikasikan lintang. Lintang dinyatakan sebagai nilai RASIONAL yang "
+"masing-masing memberikan derajat, menit, dan detik. Ketika derajat, menit, "
+"dan detik dinyatakan, formatnya adalah dd/1,mm/1,ss/1. Ketika derajat dan "
+"menit dipakai, dan misalnya, pecahan menit diberikan sampai dua tempat "
+"desimal, formatnya adalah dd/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid "North or South Latitude"
-msgstr ""
+msgstr "Lintang Utara atau Selatan"
 
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "'N' indicates north latitude, and 'S' is south latitude."
 msgstr ""
+"Mengindikasikan apakah lintang adalah lintang utara atau selatan. Nilai "
+"ASCII 'N' mengindikasikan lintang utara (North), dan 'S' adalah lintang "
+"selatan (South)."
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Longitude"
@@ -4417,6 +4318,11 @@ msgid ""
 "degrees and minutes are used and, for example, fractions of minutes are "
 "given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
+"Mengindikasikan bujur. Bujur dinyatakan sebagai nilai RASIONAL yang masing-"
+"masing memberikan derajat, menit, dan detik. Ketika derajat, menit, dan "
+"detik dinyatakan, formatnya adalah ddd/1,mm/1,ss/1. Ketika derajat dan menit "
+"dipakai, dan misalnya, pecahan menit diberikan sampai dua tempat desimal, "
+"formatnya adalah ddd/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid "East or West Longitude"
@@ -4427,21 +4333,24 @@ msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII 'E' "
 "indicates east longitude, and 'W' is west longitude."
 msgstr ""
+"Mengindikasikan apakah bujur adalah bujur timur atau barat. ASCII 'E' "
+"menandakan bujur timur (East), dan 'W' adalah bujur barat (West)."
 
 #: ../src/tags/gnome-cmd-tags.cc:245
 msgid "GPS Tag Version"
-msgstr ""
+msgstr "Versi Tag GPS"
 
 #: ../src/tags/gnome-cmd-tags.cc:245
 msgid ""
 "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
 "<Exif.GPS.Info> tag is present."
 msgstr ""
+"Mengindikasikan versi <Exif.GPS.InfoIFD>. Tag ini wajib ketika tag <Exif.GPS."
+"Info> ada."
 
 #: ../src/tags/gnome-cmd-tags.cc:246
-#, fuzzy
 msgid "Image Description"
-msgstr "(tanpa deskripsi)"
+msgstr "Deskripsi Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid ""
@@ -4449,30 +4358,33 @@ msgid ""
 "cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif."
 "UserComment> is to be used."
 msgstr ""
+"Suatu string karakter yang memberi judul gambar. Kode karakter dua byte tak "
+"dapat dipakai. Ketika kode 2-byte diperlukan, tag Privat Exif <Exif."
+"UserComment> perlu dipakai."
 
 #: ../src/tags/gnome-cmd-tags.cc:247
-#, fuzzy
 msgid "Image Length"
-msgstr "Jeda panjang:"
+msgstr "Panjang Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid ""
 "The number of rows of image data. In JPEG compressed data a JPEG marker is "
 "used instead of this tag."
 msgstr ""
+"Banyaknya baris data gambar. Dalam data terkompresi JPEG, suatu penanda JPEG "
+"dipakai menggantikan tag ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Image Resources Block"
-msgstr ""
+msgstr "Blok Sumber Daya Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Image Resources Block."
-msgstr ""
+msgstr "Blok Sumber Daya Gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:249
-#, fuzzy
 msgid "Image Unique ID"
-msgstr "ID Unik Yang Mengeluarkan"
+msgstr "ID Unik Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
 msgid ""
@@ -4480,31 +4392,33 @@ msgid ""
 "recorded as an ASCII string equivalent to hexadecimal notation and 128-bit "
 "fixed length."
 msgstr ""
+"Tag ini mengindikasikan suatu identifier yang diberikan secara unik ke "
+"setiap gambar. Ini direkam sebagai suatu string ASCII yang ekuivalen dengan "
+"notasi heksadesimal dan panjang tetap 128 bit."
 
 #: ../src/tags/gnome-cmd-tags.cc:250
-#, fuzzy
 msgid "Image Width"
-msgstr "Lebar citra:"
+msgstr "Lebar Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:250
 msgid ""
 "The number of columns of image data, equal to the number of pixels per row. "
 "In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
+"Banyaknya kolom data gambar, sama dengan banyaknya piksel per baris. Dalam "
+"data terkompresi JPEG, suatu penanda JPEG dipakai menggantikan tag ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:251
-#, fuzzy
 msgid "Inter Color Profile"
-msgstr "Judul Profil Warna"
+msgstr "Antar Profil Warna"
 
 #: ../src/tags/gnome-cmd-tags.cc:251
-#, fuzzy
 msgid "Inter Color Profile."
-msgstr "Judul Profil Warna"
+msgstr "Antar Profil Warna."
 
 #: ../src/tags/gnome-cmd-tags.cc:252
 msgid "Interoperability IFD Pointer"
-msgstr ""
+msgstr "Pointer IFD Interoperabilitas"
 
 #: ../src/tags/gnome-cmd-tags.cc:252
 msgid ""
@@ -4516,55 +4430,56 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-#, fuzzy
 msgid "Interoperability Index"
-msgstr "Indeks akhir"
+msgstr "Indeks Interoperabilitas"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid ""
 "Indicates the identification of the Interoperability rule. Use \"R98\" for "
 "stating ExifR98 Rules."
 msgstr ""
+"Mengindikasikan identifikasi dari aturan Interoperabilitas. Gunakan \"R98\" "
+"untuk menyatakan Aturan ExifR98."
 
 #: ../src/tags/gnome-cmd-tags.cc:254
-#, fuzzy
 msgid "Interoperability Version"
-msgstr "Versi Scratchbox:"
+msgstr "Versi Interoperabilitas"
 
 #: ../src/tags/gnome-cmd-tags.cc:254
-#, fuzzy
 msgid "Interoperability version."
-msgstr "Versi Scratchbox:"
+msgstr "Versi interoperabilitas."
 
 #: ../src/tags/gnome-cmd-tags.cc:255
 msgid "An IPTC/NAA record."
-msgstr ""
+msgstr "Suatu rekaman IPTC/NAA."
 
 #: ../src/tags/gnome-cmd-tags.cc:256
-#, fuzzy
 msgid "ISO Speed Ratings"
-msgstr "Rating Kecepatan ISO:"
+msgstr "Rating Kecepatan ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:256
 msgid ""
 "The ISO Speed and ISO Latitude of the camera or input device as specified in "
 "ISO 12232."
 msgstr ""
+"Kecepatan ISO dan Latitude ISO dari kamera atau perangkat masukan seperti "
+"yang dispesifikasikan dalam ISO 12232."
 
 #: ../src/tags/gnome-cmd-tags.cc:257
-#, fuzzy
 msgid "JPEG Interchange Format"
-msgstr "Format gambar JPEG"
+msgstr "Format Interchange JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:257
 msgid ""
 "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
 "is not used for primary image JPEG data."
 msgstr ""
+"Ofset ke byte awal dari data gambar mini terkompresi JPEG. Ini tak dipakai "
+"bagi data JPEG gambar primer."
 
 #: ../src/tags/gnome-cmd-tags.cc:258
 msgid "JPEG Interchange Format Length"
-msgstr ""
+msgstr "Panjang Format Interchange JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:258
 msgid ""
@@ -4576,28 +4491,24 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:259
-#, fuzzy
 msgid "JPEG Procedure"
-msgstr "Kembalian prosedur"
+msgstr "Prosedur JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:259
-#, fuzzy
 msgid "JPEG procedure."
-msgstr "Kembalian prosedur"
+msgstr "Prosedur JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:260
-#, fuzzy
 msgid "Light Source"
-msgstr "Berkas Sumber:"
+msgstr "Sumber Cahaya"
 
 #: ../src/tags/gnome-cmd-tags.cc:260
 msgid "The kind of light source."
-msgstr ""
+msgstr "Jenis sumber cahaya."
 
 #: ../src/tags/gnome-cmd-tags.cc:261
-#, fuzzy
 msgid "Manufacturer"
-msgstr "Pabrikan:"
+msgstr "Pabrikan"
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid ""
@@ -4605,9 +4516,11 @@ msgid ""
 "DSC, scanner, video digitizer or other equipment that generated the image. "
 "When the field is left blank, it is treated as unknown."
 msgstr ""
+"Pabrikan dari peralatan perekaman. Ini adalah pabrikan dari DSC, pelarik, "
+"digitizer video, atau peralatan lain yang menghasilkan gambar. Ketika ruas "
+"dibiarkan kosong, itu ditangani sebagai tak diketahui."
 
 #: ../src/tags/gnome-cmd-tags.cc:262
-#, fuzzy
 msgid "Maker Note"
 msgstr "Catatan Pembuat"
 
@@ -4616,10 +4529,12 @@ msgid ""
 "A tag for manufacturers of Exif writers to record any desired information. "
 "The contents are up to the manufacturer."
 msgstr ""
+"Suatu tag bagi pabrikan penulis Exif untuk merekam sebarang informasi yang "
+"diinginkan. Isi tergantung dari pabrikan."
 
 #: ../src/tags/gnome-cmd-tags.cc:263
 msgid "Max Aperture Value"
-msgstr ""
+msgstr "Nilai Bukaan Maks"
 
 #: ../src/tags/gnome-cmd-tags.cc:263
 msgid ""
@@ -4628,17 +4543,14 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:264 ../src/tags/gnome-cmd-tags.cc:428
-#, fuzzy
 msgid "Metering Mode"
 msgstr "Mode Pengukuran"
 
 #: ../src/tags/gnome-cmd-tags.cc:264
-#, fuzzy
 msgid "The metering mode."
-msgstr "Mode Pengukuran:"
+msgstr "Mode pengukuran cahaya."
 
 #: ../src/tags/gnome-cmd-tags.cc:265 ../src/tags/gnome-cmd-tags.cc:429
-#, fuzzy
 msgid "Model"
 msgstr "Model"
 
@@ -4650,17 +4562,17 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:267
-#, fuzzy
 msgid "New Subfile Type"
-msgstr "Tuliskan akselerator baru"
+msgstr "Tipe Sub Berkas Baru"
 
 #: ../src/tags/gnome-cmd-tags.cc:267
 msgid "A general indication of the kind of data contained in this subfile."
 msgstr ""
+"Suatu indikasi umum tentang macam data yang dimuat dalam sub berkas ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:268
 msgid "OECF"
-msgstr ""
+msgstr "OECF"
 
 #: ../src/tags/gnome-cmd-tags.cc:268
 msgid ""
@@ -4678,20 +4590,20 @@ msgid "The image orientation viewed in terms of rows and columns."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-#, fuzzy
 msgid "Photometric Interpretation"
-msgstr "Penafsiran nilai"
+msgstr "Penafsiran Fotometri"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 msgid ""
 "The pixel composition. In JPEG compressed data a JPEG marker is used instead "
 "of this tag."
 msgstr ""
+"Komposisi piksel. Dalam data terkompresi JPEG, suatu penanda JPEG dipakai "
+"menggantikan tag ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-#, fuzzy
 msgid "Pixel X Dimension"
-msgstr "Asal Dimensi"
+msgstr "Dimensi X Piksel"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid ""
@@ -4702,9 +4614,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-#, fuzzy
 msgid "Pixel Y Dimension"
-msgstr "Asal Dimensi"
+msgstr "Dimensi Y Piksel"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid ""
@@ -4717,9 +4628,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:273
-#, fuzzy
 msgid "Planar Configuration"
-msgstr "Pilih Konfigurasi"
+msgstr "Konfigurasi Planar"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid ""
@@ -4727,22 +4637,26 @@ msgid ""
 "format. In JPEG compressed files a JPEG marker is used instead of this tag. "
 "If this field does not exist, the TIFF default of 1 (chunky) is assumed."
 msgstr ""
+"Mengindikasikan apakah komponen piksel direkam dalam suatu format 'chunky' "
+"atau 'planar'. Dalam berkas JPEG terkompresi, suatu penanda JPEG dipakai "
+"sebagai ganti tag ini. Bila ruas ini tak ada, nilai baku TIFF 1 (chunky) "
+"diasumsikan."
 
 #: ../src/tags/gnome-cmd-tags.cc:274
-#, fuzzy
 msgid "Primary Chromaticities"
-msgstr "Telepon Utama"
+msgstr "Kromatisitas Primer"
 
 #: ../src/tags/gnome-cmd-tags.cc:274
 msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag "
 "is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
+"Kromatisitas dari tiga warna utama dari gambar. Biasanya tag ini tak perlu, "
+"karena ruang warna dinyatakan dalam tag <Exif.ColorSpace>."
 
 #: ../src/tags/gnome-cmd-tags.cc:275
-#, fuzzy
 msgid "Reference Black/White"
-msgstr "Hitam atas putih"
+msgstr "Hitam/Putih Acuan"
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid ""
@@ -4754,37 +4668,32 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:276
-#, fuzzy
 msgid "Related Image File Format"
-msgstr "Format berkas gambar tidak dikenali"
+msgstr "Format Berkas Gambar Terkait"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
-#, fuzzy
 msgid "Related image file format."
-msgstr "Format berkas gambar tidak dikenali"
+msgstr "Format berkas gambar terkait."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Related Image Length"
-msgstr ""
+msgstr "Panjang Gambar Terkait"
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Related image length."
-msgstr ""
+msgstr "Panjang gambar terkait."
 
 #: ../src/tags/gnome-cmd-tags.cc:278
-#, fuzzy
 msgid "Related Image Width"
-msgstr "Gambar memiliki lebar nol"
+msgstr "Lebar Gambar Terkait"
 
 #: ../src/tags/gnome-cmd-tags.cc:278
-#, fuzzy
 msgid "Related image width."
-msgstr "Gambar memiliki lebar nol"
+msgstr "Lebar gambar terkait."
 
 #: ../src/tags/gnome-cmd-tags.cc:279
-#, fuzzy
 msgid "Related Sound File"
-msgstr "Pilih berkas suara"
+msgstr "Berkas Suara Terkait"
 
 #: ../src/tags/gnome-cmd-tags.cc:279
 msgid ""
@@ -4809,9 +4718,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:280
-#, fuzzy
 msgid "Resolution Unit"
-msgstr "Unit Organisasi:"
+msgstr "Satuan Resolusi"
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid ""
@@ -4821,9 +4729,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:281
-#, fuzzy
 msgid "Rows per Strip"
-msgstr "baris per _contoh:"
+msgstr "Baris per Strip"
 
 #: ../src/tags/gnome-cmd-tags.cc:281
 msgid ""
@@ -4834,7 +4741,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
 msgid "Samples per Pixel"
-msgstr ""
+msgstr "Cuplikan per Piksel"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
 msgid ""
@@ -4852,11 +4759,12 @@ msgid ""
 "The direction of saturation processing applied by the camera when the image "
 "was shot."
 msgstr ""
+"Arah pemrosesan saturasi yang diterapkan oleh kamera ketika gambar diambil."
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 #, fuzzy
 msgid "Scene Capture Type"
-msgstr "menangkap tipe pengambilan scene"
+msgstr "Tipe Tangkapan Scene"
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid ""
@@ -4867,7 +4775,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:285
 #, fuzzy
 msgid "Scene Type"
-msgstr "Jenis server:"
+msgstr "Tipe Scene"
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid ""
@@ -4876,18 +4784,16 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:286
-#, fuzzy
 msgid "Sensing Method"
-msgstr "Metode mengiris"
+msgstr "Metode Penginderaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:286
 msgid "The image sensor type on the camera or input device."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:287
-#, fuzzy
 msgid "Sharpness"
-msgstr "menangkap ketajaman"
+msgstr "Ketajaman"
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid ""
@@ -4896,18 +4802,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:288
-#, fuzzy
 msgid "Shutter Speed"
-msgstr "kecepatan Pengatur cahaya"
+msgstr "Kecepatan Shutter"
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid ""
 "Shutter speed. The unit is the APEX (Additive System of Photographic "
 "Exposure) setting."
 msgstr ""
+"Kecepatan shutter. Satuannya adalah pengaturan APEX (Additive System of "
+"Photographic Exposure)."
 
 #: ../src/tags/gnome-cmd-tags.cc:289 ../src/tags/gnome-cmd-tags.cc:431
-#, fuzzy
 msgid "Software"
 msgstr "Perangkat Lunak"
 
@@ -4920,7 +4826,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid "Spatial Frequency Response"
-msgstr ""
+msgstr "Respon Frekuensi Spasial"
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid ""
@@ -4930,9 +4836,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:291
-#, fuzzy
 msgid "Spectral Sensitivity"
-msgstr "Laporan Sensitivitas"
+msgstr "Sensitivitas Spektral"
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "The spectral sensitivity of each channel of the camera used."
@@ -4940,7 +4845,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid "Strip Byte Count"
-msgstr ""
+msgstr "Cacah Byte Strip"
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid ""
@@ -4949,9 +4854,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:293
-#, fuzzy
 msgid "Strip Offsets"
-msgstr "Kolom ofset kursor"
+msgstr "Ofset Strip"
 
 #: ../src/tags/gnome-cmd-tags.cc:293
 msgid ""
@@ -4962,11 +4866,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid "Sub IFD Offsets"
-msgstr ""
+msgstr "Ofset IFD Sub"
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
 msgstr ""
+"Didefinisikan oleh Adobe Corporation untuk memfungsikan TIFF Trees dalam "
+"suatu berkas TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 #, fuzzy
@@ -4978,9 +4884,8 @@ msgid "The location and area of the main subject in the overall scene."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:296
-#, fuzzy
 msgid "Subject Distance"
-msgstr "Jarak Maksimum"
+msgstr "Jarak Subjek"
 
 #: ../src/tags/gnome-cmd-tags.cc:296
 msgid "The distance to the subject, given in meters."
@@ -4988,7 +4893,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 msgid "Subject Distance Range"
-msgstr ""
+msgstr "Jangkauan Jarak Subjek"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 #, fuzzy
@@ -4998,9 +4903,8 @@ msgstr ""
 "  Subyek: %s\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-#, fuzzy
 msgid "Subject Location"
-msgstr "Lokasi dicapai\n"
+msgstr "Lokasi Subjek"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid ""
@@ -5020,16 +4924,18 @@ msgid "Fractions of seconds for the <Exif.DateTime> tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:300
+#, fuzzy
 msgid "Subsec Time Digitized"
-msgstr ""
+msgstr "Tanggal dan Waktu (terdigitasi)"
 
 #: ../src/tags/gnome-cmd-tags.cc:300
 msgid "Fractions of seconds for the <Exif.DateTimeDigitized> tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:301
+#, fuzzy
 msgid "Subsec Time Original"
-msgstr ""
+msgstr "Waktu Rilis Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:301
 msgid "Fractions of seconds for the <Exif.DateTimeOriginal> tag."
@@ -5037,16 +4943,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:302
 msgid "TIFF/EP Standard ID"
-msgstr ""
+msgstr "ID Standar TIFF/EP"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
 msgid "TIFF/EP Standard ID."
-msgstr ""
+msgstr "ID Standar TIFF/EP."
 
 #: ../src/tags/gnome-cmd-tags.cc:303
-#, fuzzy
 msgid "Transfer Function"
-msgstr "Fungsi berisi"
+msgstr "Fungsi Transfer"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid ""
@@ -5054,21 +4959,20 @@ msgid ""
 "tag is not necessary, since color space is specified in <Exif.ColorSpace> "
 "tag."
 msgstr ""
+"Suatu fungsi transfer bagi gambar, dijelaskan dalam gaya tabel. Biasanya tag "
+"ini tak perlu, karena ruang warna dinyatakan dalam tag <Exif.ColorSpace>."
 
 #: ../src/tags/gnome-cmd-tags.cc:304
-#, fuzzy
 msgid "Transfer Range"
-msgstr "Jangkauan tidak sah"
+msgstr "Jangkauan Transfer"
 
 #: ../src/tags/gnome-cmd-tags.cc:304
-#, fuzzy
 msgid "Transfer range."
-msgstr "Jangkauan tidak sah"
+msgstr "Jangkauan transfer."
 
 #: ../src/tags/gnome-cmd-tags.cc:305
-#, fuzzy
 msgid "User Comment"
-msgstr "Beri/Hapus Komentar"
+msgstr "Komentar Pengguna"
 
 #: ../src/tags/gnome-cmd-tags.cc:305
 msgid ""
@@ -5092,9 +4996,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:306 ../src/tags/gnome-cmd-tags.cc:433
-#, fuzzy
 msgid "White Balance"
-msgstr "Koreksi white balance"
+msgstr "White Balance"
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 msgid "The white balance mode set when the image was shot."
@@ -5116,9 +5019,8 @@ msgid "XML Packet"
 msgstr "Paket XML"
 
 #: ../src/tags/gnome-cmd-tags.cc:308
-#, fuzzy
 msgid "XMP metadata."
-msgstr "Perbaikan Metadata"
+msgstr "Metadata XMP."
 
 #: ../src/tags/gnome-cmd-tags.cc:309
 msgid "x Resolution"
@@ -5129,6 +5031,8 @@ msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
 "direction. When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
+"Banyaknya piksel per <Exif.ResolutionUnit> dalam arah <Exif.ImageWidth>. "
+"Ketika resolusi gambar tak diketahui, diisikan 72 [dpi]."
 
 #: ../src/tags/gnome-cmd-tags.cc:310
 msgid "YCbCr Coefficients"
@@ -5145,7 +5049,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:311
 msgid "YCbCr Positioning"
-msgstr ""
+msgstr "Penempatan YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
 msgid ""
@@ -5164,7 +5068,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid "YCbCr Sub-Sampling"
-msgstr ""
+msgstr "Sub Cuplikan YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid ""
@@ -5188,7 +5092,7 @@ msgstr "Diakses"
 
 #: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Last access datetime."
-msgstr ""
+msgstr "Tanggal-waktu akses terakhir."
 
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Content"
@@ -5196,44 +5100,42 @@ msgstr "Isi"
 
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "File's contents filtered as plain text."
-msgstr ""
+msgstr "Isi berkas disaring sebagai teks polos."
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Editable free text/notes."
-msgstr ""
+msgstr "Teks bebas/catatan yang dapat disunting."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid ""
 "MIME type of the file or if a directory it should contain value \"Folder\"."
 msgstr ""
+"Tipe MIME dari berkas atau bila suatu direktori, itu mesti memuat nilai "
+"\"Folder\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:318
 msgid "Editable array of keywords."
-msgstr ""
+msgstr "Larik kata kunci yang dapat disunting."
 
 #: ../src/tags/gnome-cmd-tags.cc:319
-#, fuzzy
 msgid "Link"
 msgstr "Taut"
 
 #: ../src/tags/gnome-cmd-tags.cc:319
-#, fuzzy
 msgid "URI of link target."
-msgstr "%(uri)s menaut ke %(file)s"
+msgstr "URI dari target taut."
 
 #: ../src/tags/gnome-cmd-tags.cc:320
-#, fuzzy
 msgid "Modified"
 msgstr "Diubah"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
-#, fuzzy
 msgid "Last modified datetime."
-msgstr "tanggal Pengubahan terakhir"
+msgstr "Tanggal-waktu pengubahan terakhir."
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "File name excluding path but including the file extension."
-msgstr ""
+msgstr "Nama berkas tak termasuk path tapi termasuk ekstensi berkas."
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Path"
@@ -5241,14 +5143,13 @@ msgstr "Path"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Full file path of file excluding the file name."
-msgstr ""
+msgstr "Path lengkap dari berkas tak termasuk nama berkas."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
-msgstr ""
+msgstr "String hak akses dalam format unix, mis \"-rw-r--r--\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:324 ../src/tags/gnome-cmd-tags.cc:383
-#, fuzzy
 msgid "Publisher"
 msgstr "Penerbit"
 
@@ -5267,11 +5168,15 @@ msgid ""
 "Editable file rank for grading favourites. Value should be in the range "
 "1..10."
 msgstr ""
+"Peringkat berkas yang dapat disunting untuk menilai favorit. Nilai mesti "
+"dalam jangkauan 1..10."
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
+"Ukuran berkas dalam byte atau bila suatu direktori, cacah butir yang "
+"dikandung."
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid "Album Sort Order"
@@ -5281,19 +5186,21 @@ msgstr "Urutan Album"
 msgid ""
 "String which should be used instead of the album name for sorting purposes."
 msgstr ""
+"String yang mesti dipakai sebagai ganti dari nama album untuk tujuan "
+"pengurutan."
 
 #: ../src/tags/gnome-cmd-tags.cc:328
-#, fuzzy
 msgid "Audio Encryption"
-msgstr "Kunci penyandian:"
+msgstr "Penyandian Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Frame indicates if the audio stream is encrypted, and by whom."
 msgstr ""
+"Bingkai yang mengindikasikan apakah stream audio dienkripsi, dan oleh siapa."
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Audio Seek Point"
-msgstr ""
+msgstr "Titik Seek Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid ""
@@ -5303,11 +5210,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Band"
-msgstr ""
+msgstr "Band"
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Additional information about the performers in the recording."
 msgstr ""
+"Informasi tambahan tentang para pelaku (pemusik, penyanyi, dsb) dalam "
+"rekaman."
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "BPM"
@@ -5323,25 +5232,23 @@ msgstr "Ukuran Penyangga"
 
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Recommended buffer size."
-msgstr ""
+msgstr "Ukuran penyangga yang direkomendasikan."
 
 #: ../src/tags/gnome-cmd-tags.cc:333
-#, fuzzy
 msgid "CD ID"
-msgstr "Tanpa-Id"
+msgstr "ID CD"
 
 #: ../src/tags/gnome-cmd-tags.cc:333
 msgid "Music CD identifier."
-msgstr ""
+msgstr "Identifier CD musik."
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Commercial"
 msgstr "Komersil"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
-#, fuzzy
 msgid "Commercial frame."
-msgstr "bingkai desktop"
+msgstr "Bingkai komersil."
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Composer"
@@ -5360,46 +5267,40 @@ msgid "Conductor."
 msgstr "Konduktor."
 
 #: ../src/tags/gnome-cmd-tags.cc:337
-#, fuzzy
 msgid "Content Group"
-msgstr "Grup Snippet:"
+msgstr "Grup Isi"
 
 #: ../src/tags/gnome-cmd-tags.cc:337
-#, fuzzy
 msgid "Content group description."
-msgstr "Deskripsi (isi tetap)"
+msgstr "Deskripsi grup isi."
 
 #: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Content Type"
 msgstr "Tipe Isi"
 
 #: ../src/tags/gnome-cmd-tags.cc:340
-#, fuzzy
 msgid "Encryption Registration"
-msgstr "Pendaftaran Akun"
+msgstr "Pendaftaran Enkripsi"
 
 #: ../src/tags/gnome-cmd-tags.cc:340
 msgid "Encryption method registration."
-msgstr ""
+msgstr "Pendaftaran metode enkripsi."
 
 #: ../src/tags/gnome-cmd-tags.cc:341
 msgid "Date."
 msgstr "Tanggal."
 
 #: ../src/tags/gnome-cmd-tags.cc:342
-#, fuzzy
 msgid "Emphasis"
-msgstr "Tekanan"
+msgstr "Penekanan"
 
 #: ../src/tags/gnome-cmd-tags.cc:342
-#, fuzzy
 msgid "Emphasis."
-msgstr "Tekanan"
+msgstr "Penekanan."
 
 #: ../src/tags/gnome-cmd-tags.cc:343
-#, fuzzy
 msgid "Encoded By"
-msgstr "Urut Berdasar"
+msgstr "Dienkode Oleh"
 
 #: ../src/tags/gnome-cmd-tags.cc:343
 msgid ""
@@ -5408,49 +5309,44 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:344
-#, fuzzy
 msgid "Encoder Settings"
-msgstr "Pengaturan Surel"
+msgstr "Pengaturan Pengode"
 
 #: ../src/tags/gnome-cmd-tags.cc:344
-#, fuzzy
 msgid "Software."
-msgstr "Perangkat Lunak"
+msgstr "Perangkat lunak."
 
 #: ../src/tags/gnome-cmd-tags.cc:345
-#, fuzzy
 msgid "Encoding Time"
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu Pengodean"
 
 #: ../src/tags/gnome-cmd-tags.cc:345
-#, fuzzy
 msgid "Encoding time."
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu pengodean."
 
 #: ../src/tags/gnome-cmd-tags.cc:346
 msgid "Equalization"
-msgstr ""
+msgstr "Equalisasi"
 
 #: ../src/tags/gnome-cmd-tags.cc:346
 msgid "Equalization."
-msgstr ""
+msgstr "Equalisasi."
 
 #: ../src/tags/gnome-cmd-tags.cc:347
 msgid "Equalization 2"
-msgstr ""
+msgstr "Equalisasi 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:347
 msgid "Equalisation curve predefine within the audio file."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:348
-#, fuzzy
 msgid "Event Timing"
-msgstr "Pemantau kejadian"
+msgstr "Pewaktuan Kejadian"
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Event timing codes."
-msgstr ""
+msgstr "Kode pewaktuan kejadian."
 
 #: ../src/tags/gnome-cmd-tags.cc:349
 msgid "File Owner"
@@ -5469,106 +5365,92 @@ msgid "File type."
 msgstr "Tipe berkas."
 
 #: ../src/tags/gnome-cmd-tags.cc:351
-#, fuzzy
 msgid "Frames"
-msgstr "<b>Bingkai</b>"
+msgstr "Bingkai"
 
 #: ../src/tags/gnome-cmd-tags.cc:351
-#, fuzzy
 msgid "Number of frames."
-msgstr "Tidak ada bingkai"
+msgstr "Banyaknya bingkai."
 
 #: ../src/tags/gnome-cmd-tags.cc:352
-#, fuzzy
 msgid "General Object"
-msgstr "Objek berisi"
+msgstr "Objek Umum"
 
 #: ../src/tags/gnome-cmd-tags.cc:352
 msgid "General encapsulated object."
-msgstr ""
+msgstr "Objek terenkapsulasi umum."
 
 #: ../src/tags/gnome-cmd-tags.cc:353
-#, fuzzy
 msgid "Grouping Registration"
-msgstr "Pendaftaran Akun"
+msgstr "Pendaftaran Pengelompokan"
 
 #: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Group identification registration."
-msgstr ""
+msgstr "Pendaftaran identifikasi grup."
 
 #: ../src/tags/gnome-cmd-tags.cc:354
-#, fuzzy
 msgid "Initial Key"
-msgstr "Kunci penyandian:"
+msgstr "Kunci Awal"
 
 #: ../src/tags/gnome-cmd-tags.cc:354
-#, fuzzy
 msgid "Initial key."
-msgstr "Kunci penyandian:"
+msgstr "Kunci awal."
 
 #: ../src/tags/gnome-cmd-tags.cc:355
-#, fuzzy
 msgid "Involved People"
-msgstr "Orang-orang Berada di Sekitar"
+msgstr "Orang Yang Terlibat"
 
 #: ../src/tags/gnome-cmd-tags.cc:355 ../src/tags/gnome-cmd-tags.cc:356
-#, fuzzy
 msgid "Involved people list."
-msgstr "Daftar orang yang menulis dokumentasi program ini"
+msgstr "Daftar orang yang terlibat."
 
 #: ../src/tags/gnome-cmd-tags.cc:356
 msgid "InvolvedPeople2"
-msgstr ""
+msgstr "InvolvedPeople2"
 
 #: ../src/tags/gnome-cmd-tags.cc:357
-#, fuzzy
 msgid "Language."
-msgstr "_Bahasa"
+msgstr "Bahasa."
 
 #: ../src/tags/gnome-cmd-tags.cc:358
-#, fuzzy
 msgid "Linked Info"
-msgstr "Dokumentasi Info"
+msgstr "Info Tertaut"
 
 #: ../src/tags/gnome-cmd-tags.cc:358
-#, fuzzy
 msgid "Linked information."
-msgstr "Informasi Tabel"
+msgstr "Informasi tertaut."
 
 #: ../src/tags/gnome-cmd-tags.cc:359
 msgid "Lyricist"
-msgstr ""
+msgstr "Penulis lirik"
 
 #: ../src/tags/gnome-cmd-tags.cc:359
 msgid "Lyricist."
-msgstr ""
+msgstr "Penulis lirik."
 
 #: ../src/tags/gnome-cmd-tags.cc:360
-#, fuzzy
 msgid "Media Type"
-msgstr "Jenis Media"
+msgstr "Tipe Media"
 
 #: ../src/tags/gnome-cmd-tags.cc:360
-#, fuzzy
 msgid "Media type."
-msgstr "Jenis Media"
+msgstr "Tipe media."
 
 #: ../src/tags/gnome-cmd-tags.cc:361
-#, fuzzy
 msgid "Mix Artist"
-msgstr "Nama Artis"
+msgstr "Artis Pencampur"
 
 #: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Interpreted, remixed, or otherwise modified by."
-msgstr ""
+msgstr "Diinterpretasi, diremix, atau dengan cara apapun dimodifikasi oleh."
 
 #: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Mood"
-msgstr ""
+msgstr "Mood"
 
 #: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Mood."
-msgstr ""
+msgstr "Mood."
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
@@ -5581,101 +5463,87 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Musician Credit List"
-msgstr ""
+msgstr "Daftar Kredit Pemusik"
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Musician credits list."
-msgstr ""
+msgstr "Daftar kredit pemusik."
 
 #: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Net Radio Owner"
-msgstr ""
+msgstr "Pemilik Radio Net"
 
 #: ../src/tags/gnome-cmd-tags.cc:365
-#, fuzzy
 msgid "Internet radio station owner."
-msgstr "Tambah Stasiun Radio Internet"
+msgstr "Pemilik stasiun radio Internet"
 
 #: ../src/tags/gnome-cmd-tags.cc:366
-#, fuzzy
 msgid "Net Radiostation"
-msgstr "Box.net"
+msgstr "Stasiun Radio Net"
 
 #: ../src/tags/gnome-cmd-tags.cc:366
-#, fuzzy
 msgid "Internet radio station name."
-msgstr "Tambah Stasiun Radio Internet"
+msgstr "Nama stasiun radio Internet."
 
 #: ../src/tags/gnome-cmd-tags.cc:367
-#, fuzzy
 msgid "Original Album"
-msgstr "Judul Album"
+msgstr "Album Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:367
-#, fuzzy
 msgid "Original album."
-msgstr "Judul Album"
+msgstr "Album asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:368
-#, fuzzy
 msgid "Original Artist"
-msgstr "Nama Artis"
+msgstr "Artis Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:368
-#, fuzzy
 msgid "Original artist."
-msgstr "Nama Artis"
+msgstr "Artis asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:369
-#, fuzzy
 msgid "Original File Name"
-msgstr "Nama berkas tema"
+msgstr "Nama berkas asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:369
-#, fuzzy
 msgid "Original file name."
-msgstr "Nama berkas tema"
+msgstr "Nama berkas asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:370
-#, fuzzy
 msgid "Original Lyricist"
-msgstr "String asli"
+msgstr "Penulis Lirik Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:370
-#, fuzzy
 msgid "Original lyricist."
-msgstr "String asli"
+msgstr "Penulis lirik asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Original Release Time"
-msgstr ""
+msgstr "Waktu Rilis Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Original release time."
-msgstr ""
+msgstr "Waktu rilis asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:372
-#, fuzzy
 msgid "Original Year"
-msgstr "{0} tahun yang lalu"
+msgstr "Tahun Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:372
 msgid "Original release year."
-msgstr ""
+msgstr "Tahun rilis asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:373
 msgid "Ownership"
-msgstr ""
+msgstr "Kepemilikan"
 
 #: ../src/tags/gnome-cmd-tags.cc:373
-#, fuzzy
 msgid "Ownership frame."
-msgstr "bingkai desktop"
+msgstr "Bingkai kepemilikan."
 
 #: ../src/tags/gnome-cmd-tags.cc:374
-#, fuzzy
 msgid "Part of a Set"
-msgstr "Tak Ditata"
+msgstr "Bagian dari suatu Set"
 
 #: ../src/tags/gnome-cmd-tags.cc:374
 msgid "Part of a set the audio came from."
@@ -5692,95 +5560,80 @@ msgid "Performer sort order."
 msgstr "Urutan baku"
 
 #: ../src/tags/gnome-cmd-tags.cc:376
-#, fuzzy
 msgid "Picture"
 msgstr "Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:376
-#, fuzzy
 msgid "Attached picture."
-msgstr "Kecerahan foto"
+msgstr "Gambar yang dilampirkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:377
-#, fuzzy
 msgid "Play Counter"
-msgstr "Counter-proposal"
+msgstr "Pencacah Putar"
 
 #: ../src/tags/gnome-cmd-tags.cc:377
 msgid "Number of times a file has been played."
-msgstr ""
+msgstr "Berapa kali suatu berkas telah diputar."
 
 #: ../src/tags/gnome-cmd-tags.cc:378
-#, fuzzy
 msgid "Playlist Delay"
-msgstr "Tundaan detik"
+msgstr "Tundaan Daftar Putar"
 
 #: ../src/tags/gnome-cmd-tags.cc:378
-#, fuzzy
 msgid "Playlist delay."
-msgstr "Tundaan detik"
+msgstr "Tundaan daftar putar."
 
 #: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Popularimeter"
-msgstr ""
+msgstr "Popularimeter"
 
 #: ../src/tags/gnome-cmd-tags.cc:379
-#, fuzzy
 msgid "Rating of the audio file."
-msgstr "URI berkas audio"
+msgstr "Peringkat dari berkas audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:380
-#, fuzzy
 msgid "Position Sync"
-msgstr "Preferensi Penyelarasan"
+msgstr "Penyelarasan Posisi"
 
 #: ../src/tags/gnome-cmd-tags.cc:380
 msgid "Position synchronisation frame."
-msgstr ""
+msgstr "Bingkai penyelarasan posisi."
 
 #: ../src/tags/gnome-cmd-tags.cc:381
 msgid "Private"
 msgstr "Pribadi"
 
 #: ../src/tags/gnome-cmd-tags.cc:381
-#, fuzzy
 msgid "Private frame."
-msgstr "bingkai desktop"
+msgstr "Bingkai pribadi."
 
 #: ../src/tags/gnome-cmd-tags.cc:382
-#, fuzzy
 msgid "Produced Notice"
-msgstr "_Kirim Pemberitahuan"
+msgstr "Pemberitahuan Yang Dihasilkan"
 
 #: ../src/tags/gnome-cmd-tags.cc:382
-#, fuzzy
 msgid "Produced notice."
-msgstr "_Kirim Pemberitahuan"
+msgstr "Pemberitahuan yang dihasilkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:383
-#, fuzzy
 msgid "Publisher."
-msgstr "Penerbit:"
+msgstr "Penerbit."
 
 #: ../src/tags/gnome-cmd-tags.cc:384
-#, fuzzy
 msgid "Recording Dates"
-msgstr "Lebih banyak tanggal"
+msgstr "Tanggal Merekam"
 
 #: ../src/tags/gnome-cmd-tags.cc:384
-#, fuzzy
 msgid "Recording dates."
-msgstr "Lebih banyak tanggal"
+msgstr "Tanggal saat merekam."
 
 #: ../src/tags/gnome-cmd-tags.cc:385
-#, fuzzy
 msgid "Recording Time"
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu Merekam"
 
 #: ../src/tags/gnome-cmd-tags.cc:385
-#, fuzzy
 msgid "Recording time."
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu saat merekam."
 
 #: ../src/tags/gnome-cmd-tags.cc:386 ../src/tags/gnome-cmd-tags.cc:498
 msgid "Release Time"
@@ -5792,44 +5645,39 @@ msgstr "Waktu rilis."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Reverb"
-msgstr ""
+msgstr "Gema"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Reverb."
-msgstr ""
+msgstr "Gema."
 
 #: ../src/tags/gnome-cmd-tags.cc:388
-#, fuzzy
 msgid "Set Subtitle"
-msgstr "URI subtitel"
+msgstr "Tata Subtitel"
 
 #: ../src/tags/gnome-cmd-tags.cc:388
 msgid "Subtitle of the part of a set this track belongs to."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:389
-#, fuzzy
 msgid "Signature"
-msgstr "Tandatangan"
+msgstr "Tanda tangan"
 
 #: ../src/tags/gnome-cmd-tags.cc:389
-#, fuzzy
 msgid "Signature frame."
-msgstr "bingkai desktop"
+msgstr "Bingkai tanda tangan."
 
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size of the audio file in bytes, excluding the ID3 tag."
-msgstr ""
+msgstr "Ukuran berkas audio dalam byte, tak termasuk tag ID3."
 
 #: ../src/tags/gnome-cmd-tags.cc:391
-#, fuzzy
 msgid "Song length"
-msgstr "Jeda panjang:"
+msgstr "Panjang lagu"
 
 #: ../src/tags/gnome-cmd-tags.cc:391
-#, fuzzy
 msgid "Length of the song in milliseconds."
-msgstr "Panjang waktu klik ganda dalam milidetik."
+msgstr "Lama lagu dalam mili detik."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 #, fuzzy
@@ -5842,187 +5690,164 @@ msgid "Subtitle."
 msgstr "Subjudul #%d"
 
 #: ../src/tags/gnome-cmd-tags.cc:393
-#, fuzzy
 msgid "Synchronized Lyrics"
-msgstr "Lirik Lagu"
+msgstr "Lirik Yang Diselaraskan"
 
 #: ../src/tags/gnome-cmd-tags.cc:393
-#, fuzzy
 msgid "Synchronized lyric."
-msgstr "Beres Diselaraskan"
+msgstr "Lirik yang diselaraskan."
 
 #: ../src/tags/gnome-cmd-tags.cc:394
-#, fuzzy
 msgid "Synchronized Tempo"
-msgstr "Beres Diselaraskan"
+msgstr "Tempo Yang Diselaraskan"
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Synchronized tempo codes."
-msgstr ""
+msgstr "Kode tempo yang diselaraskan."
 
 #: ../src/tags/gnome-cmd-tags.cc:395
-#, fuzzy
 msgid "Tagging Time"
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu Tag"
 
 #: ../src/tags/gnome-cmd-tags.cc:395
-#, fuzzy
 msgid "Tagging time."
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu tag."
 
 #: ../src/tags/gnome-cmd-tags.cc:396
-#, fuzzy
 msgid "Terms of Use"
-msgstr "Gunakan penyandian:"
+msgstr "Syarat Penggunaan"
 
 #: ../src/tags/gnome-cmd-tags.cc:396
-#, fuzzy
 msgid "Terms of use."
-msgstr "Gunakan penyandian:"
+msgstr "Syarat penggunaan."
 
 #: ../src/tags/gnome-cmd-tags.cc:397
-#, fuzzy
 msgid "Time"
 msgstr "Waktu"
 
 #: ../src/tags/gnome-cmd-tags.cc:397
-#, fuzzy
 msgid "Time."
-msgstr "Waktu"
+msgstr "Waktu."
 
 #: ../src/tags/gnome-cmd-tags.cc:398
-#, fuzzy
 msgid "Title Sort Order"
-msgstr "Urutan baku"
+msgstr "Urutan Judul"
 
 #: ../src/tags/gnome-cmd-tags.cc:398
-#, fuzzy
 msgid "Title sort order."
-msgstr "Urutan baku"
+msgstr "Urutan judul."
 
 #: ../src/tags/gnome-cmd-tags.cc:399
-#, fuzzy
 msgid "Unique File ID"
-msgstr "ID Unik Yang Mengeluarkan"
+msgstr "ID Berkas Unik"
 
 #: ../src/tags/gnome-cmd-tags.cc:399
-#, fuzzy
 msgid "Unique file identifier."
-msgstr "Identifier unik dari perangkat"
+msgstr "Identifier berkas unik."
 
 #: ../src/tags/gnome-cmd-tags.cc:400
-#, fuzzy
 msgid "Unsynchronized Lyrics"
-msgstr "Lirik Lagu"
+msgstr "Lirik Tak Diselaraskan"
 
 #: ../src/tags/gnome-cmd-tags.cc:400
 msgid "Unsynchronized lyric."
-msgstr ""
+msgstr "Lirik tak diselaraskan."
 
 #: ../src/tags/gnome-cmd-tags.cc:401
-#, fuzzy
 msgid "User Text"
-msgstr "Berkas Teks"
+msgstr "Teks Pengguna"
 
 #: ../src/tags/gnome-cmd-tags.cc:401
 msgid "User defined text information."
-msgstr ""
+msgstr "Informasi teks yang didefinisikan oleh pengguna."
 
 #: ../src/tags/gnome-cmd-tags.cc:402
-#, fuzzy
 msgid "Volume Adjustment"
-msgstr "Kolom penyesuaian"
+msgstr "Penyesuaian Volume"
 
 #: ../src/tags/gnome-cmd-tags.cc:402 ../src/tags/gnome-cmd-tags.cc:403
 msgid "Relative volume adjustment."
-msgstr ""
+msgstr "Penyesuaian volume relatif."
 
 #: ../src/tags/gnome-cmd-tags.cc:403
-#, fuzzy
 msgid "Volume Adjustment 2"
-msgstr "Kolom penyesuaian"
+msgstr "Penyesuaian Volume 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:404
-#, fuzzy
 msgid "WWW Artist"
-msgstr "Nama Artis"
+msgstr "Artis WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:404
-#, fuzzy
 msgid "Official artist."
-msgstr "Nama Artis"
+msgstr "Artis resmi."
 
 #: ../src/tags/gnome-cmd-tags.cc:405
-#, fuzzy
 msgid "WWW Audio File"
-msgstr "URI berkas audio"
+msgstr "Berkas Audio WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:405
 msgid "Official audio file webpage."
-msgstr ""
+msgstr "Laman web resmi berkas audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:406
-#, fuzzy
 msgid "WWW Audio Source"
-msgstr "Audio Open Source"
+msgstr "Sumber Audio WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 msgid "Official audio source webpage."
-msgstr ""
+msgstr "Laman web resmi sumber audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:407
 msgid "WWW Commercial Info"
-msgstr ""
+msgstr "Info Komersil WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:407
 msgid "URL pointing at a webpage containing commercial information."
-msgstr ""
+msgstr "URL yang menunjuk ke suatu laman web yang memuat informasi komersil."
 
 #: ../src/tags/gnome-cmd-tags.cc:408
-#, fuzzy
 msgid "WWW Copyright"
-msgstr "Hak cipta profil"
+msgstr "Hak Cipta WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:408
 msgid "URL pointing at a webpage that holds copyright."
-msgstr ""
+msgstr "URL yang menunjuk ke suatu laman web yang memuat hak cipta."
 
 #: ../src/tags/gnome-cmd-tags.cc:409
-#, fuzzy
 msgid "WWW Payment"
-msgstr "_Pembayaran Berkala:"
+msgstr "Pembayaran WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:409
 msgid ""
 "URL pointing at a webpage that will handle the process of paying for this "
 "file."
 msgstr ""
+"URL yang menunjuk ke suatu laman web yang akan menangani proses pembayaran "
+"bagi berkas ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:410
-#, fuzzy
 msgid "WWW Publisher"
-msgstr "server WWW"
+msgstr "Penerbit WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid "URL pointing at the official webpage for the publisher."
-msgstr ""
+msgstr "URL yang menunjuk ke laman web resmi bagi penerbit."
 
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "WWW Radio Page"
-msgstr ""
+msgstr "Halaman Radio WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Official internet radio station homepage."
-msgstr ""
+msgstr "Laman web resmi stasiun radio internet."
 
 #: ../src/tags/gnome-cmd-tags.cc:412
-#, fuzzy
 msgid "WWW User"
-msgstr "Manual Pengg_una"
+msgstr "Pengguna WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:412
 msgid "User defined URL link."
-msgstr ""
+msgstr "Taut URL yang didefinisikan oleh pengguna."
 
 #: ../src/tags/gnome-cmd-tags.cc:413
 msgid "Name of an album the image belongs to."
@@ -6030,16 +5855,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:415
 msgid "Embedded copyright message."
-msgstr ""
+msgstr "Pesan hak cipta yang tertanam."
 
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Datetime image was originally created."
-msgstr ""
+msgstr "Tanggal-waktu saat gambar aslinya dibuat."
 
 #: ../src/tags/gnome-cmd-tags.cc:418
-#, fuzzy
 msgid "Description of the image."
-msgstr "Render citra"
+msgstr "Deskripsi dari gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:419
 msgid ""
@@ -6049,50 +5873,47 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:420
 msgid "Exposure time used to capture the photo in seconds."
-msgstr ""
+msgstr "Waktu pencahayaan yang dipakai untuk menangkap foto dalam detik."
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Set to \"1\" if flash was fired."
-msgstr ""
+msgstr "Isi dengan \"1\" bila lampu kilat ditembakkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:423
 msgid "Focal length of lens in mm."
-msgstr ""
+msgstr "Panjang fokus lensa dalam mm."
 
 #: ../src/tags/gnome-cmd-tags.cc:424
-#, fuzzy
 msgid "Height"
 msgstr "Tinggi"
 
 #: ../src/tags/gnome-cmd-tags.cc:424
-#, fuzzy
 msgid "Height in pixels."
-msgstr "Tinggi jendela dalam piksel"
+msgstr "Tinggi dalam piksel."
 
 #: ../src/tags/gnome-cmd-tags.cc:425
-#, fuzzy
 msgid "ISO Speed"
-msgstr "Kecepatan ISO:"
+msgstr "Kecepatan ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:425
 msgid ""
 "ISO speed used to acquire the document contents. For example, 100, 200, 400, "
 "etc."
 msgstr ""
+"Kecepatan ISO yang dipakai untuk mendapatkan isi dokumen. Sebagai contoh, "
+"100, 200, 400, dsb."
 
 #: ../src/tags/gnome-cmd-tags.cc:426
-#, fuzzy
 msgid "String of keywords."
-msgstr "_Sunting kata kunci"
+msgstr "Kalimat kata kunci."
 
 #: ../src/tags/gnome-cmd-tags.cc:427
-#, fuzzy
 msgid "Make"
-msgstr "Jadikan _Bawaan"
+msgstr "Pembuat"
 
 #: ../src/tags/gnome-cmd-tags.cc:427
 msgid "Make of camera used to take the image."
-msgstr ""
+msgstr "Pembuat kamera yang dipakai untuk mengambil gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:428
 msgid ""
@@ -6102,22 +5923,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "Model of camera used to take the image."
-msgstr ""
+msgstr "Model dari kamera yang dipakai untuk mengambil gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:430
 msgid ""
 "Represents the orientation of the image wrt camera (IE \"top,left\" or "
 "\"bottom,right\")."
 msgstr ""
+"Merepresentasikan orientasi gambar terhadap kamera (yaitu \"kiri,atas\" atau "
+"\"bawah,kanan\")."
 
 #: ../src/tags/gnome-cmd-tags.cc:431
 msgid "Software used to produce/enhance the image."
-msgstr ""
+msgstr "Perangkat lunak yang dipakai untuk menghasilkan/meningkatkan gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:432
-#, fuzzy
 msgid "Title of image."
-msgstr "Judul Gambar"
+msgstr "Judul gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:433
 msgid ""
@@ -6126,14 +5948,12 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:434
-#, fuzzy
 msgid "Width"
 msgstr "Lebar"
 
 #: ../src/tags/gnome-cmd-tags.cc:434
-#, fuzzy
 msgid "Width in pixels."
-msgstr "Lebar kursor, dalam piksel"
+msgstr "Lebar dalam piksel."
 
 #: ../src/tags/gnome-cmd-tags.cc:435
 msgid "Action Advised"
@@ -6146,13 +5966,12 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:436
-#, fuzzy
 msgid "ARM Identifier"
-msgstr "Pengenal Obyek (%s)"
+msgstr "Pengenal ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:436
 msgid "Identifies the Abstract Relationship Method (ARM)."
-msgstr ""
+msgstr "Mengidentifikasi Abstract Relationship Method (ARM)."
 
 #: ../src/tags/gnome-cmd-tags.cc:437
 msgid "ARM Version"
@@ -6160,16 +5979,15 @@ msgstr "Versi ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:437
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
-msgstr ""
+msgstr "Mengidentifikasi versi dari Abstract Relationship Method (ARM)."
 
 #: ../src/tags/gnome-cmd-tags.cc:438
-#, fuzzy
 msgid "Audio Duration"
-msgstr "Durasi penyorotan"
+msgstr "Durasi Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:438
 msgid "The running time of the audio data in the form HHMMSS."
-msgstr ""
+msgstr "Lama waktu putar data audio dalam bentuk JJMMDD."
 
 #: ../src/tags/gnome-cmd-tags.cc:439
 #, fuzzy
@@ -6178,24 +5996,23 @@ msgstr "Kualitas audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:439
 msgid "The content at the end of the audio data."
-msgstr ""
+msgstr "Isi di akhir data audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:440
-#, fuzzy
 msgid "Audio Sampling Rate"
-msgstr "Laju Cuplikan Audio:"
+msgstr "Laju Cuplikan Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:440
 msgid "The sampling rate in Hz of the audio data."
-msgstr ""
+msgstr "Laju cuplikan data audio dalam Hz."
 
 #: ../src/tags/gnome-cmd-tags.cc:441
 msgid "Audio Sampling Resolution"
-msgstr ""
+msgstr "Resolusi Cuplikan Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:441
 msgid "The number of bits in each audio sample."
-msgstr ""
+msgstr "Banyaknya bit dalam setiap cuplikan audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid "Audio Type"
@@ -6204,7 +6021,7 @@ msgstr "Tipe Audio"
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid ""
 "The number of channels and type of audio (music, text, etc.) in the object."
-msgstr ""
+msgstr "Banyaknya kanal dan tipe audio (musik, teks, dsb.) dalam objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 #, fuzzy
@@ -6216,6 +6033,8 @@ msgid ""
 "Name of the creator of the object, e.g. writer, photographer or graphic "
 "artist (multiple values allowed)."
 msgstr ""
+"Nama pembuat objek, mis. penulis, fotografer, atau artis grafik (nilai "
+"berganda diijinkan)."
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 #, fuzzy
@@ -6224,17 +6043,15 @@ msgstr "disaring berdasarkan judul"
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid "Title of the creator or creators of the object."
-msgstr ""
+msgstr "Gelar dari para pembuat objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:445
-#, fuzzy
 msgid "Caption, Abstract"
-msgstr "Abstrak - \\begin{abstract}"
+msgstr "Kapsi, Abstrak"
 
 #: ../src/tags/gnome-cmd-tags.cc:445 ../src/tags/gnome-cmd-tags.cc:529
-#, fuzzy
 msgid "A textual description of the data."
-msgstr "Keterangan sumber data"
+msgstr "Suatu keterangan tekstual tentang data."
 
 #: ../src/tags/gnome-cmd-tags.cc:446
 msgid ""
@@ -6243,15 +6060,16 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:447
-#, fuzzy
 msgid "Coded Character Set"
-msgstr "Gugus karakter tidak dikenal: %s"
+msgstr "Gugus Karakter Yang Dikodekan"
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid ""
 "Control functions used for the announcement, invocation or designation of "
 "coded character sets."
 msgstr ""
+"Fungsi kendali yang dipakai untuk pengumuman, invokasi, atau penentuan set "
+"karakter yang dikodekan."
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "City"
@@ -6259,16 +6077,15 @@ msgstr "Kota"
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "City of object origin."
-msgstr ""
+msgstr "Kota asal objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:449
-#, fuzzy
 msgid "Confirmed Data Size"
-msgstr "ukuran data saat membaca"
+msgstr "Ukuran Data Yang Terkonfirmasi"
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "Total size of the object data."
-msgstr ""
+msgstr "Ukuran total dari data objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:450 ../src/tags/gnome-cmd-tags.cc:528
 msgid "Contact"
@@ -6281,9 +6098,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:451
-#, fuzzy
 msgid "Content Location Code"
-msgstr "Tipe isi code"
+msgstr "Kode Lokasi Isi"
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
@@ -6293,22 +6109,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "Content Location Name"
-msgstr ""
+msgstr "Nama Lokasi Isi"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
+"Suatu nama lengkap yang dapat diterbitkan dari lokasi geografis/negara yang "
+"diacu oleh isi objek (nilai berganda diijinkan)."
 
 #: ../src/tags/gnome-cmd-tags.cc:453
-#, fuzzy
 msgid "Copyright Notice"
-msgstr "_Kirim Pemberitahuan"
+msgstr "Catatan Hak Cipta"
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Any necessary copyright notice."
-msgstr ""
+msgstr "Sebarang catatan hak cipta yang perlu."
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "Country Code"
@@ -6316,7 +6133,7 @@ msgstr "Kode Negara"
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "The code of the country/primary location where the object was created."
-msgstr ""
+msgstr "Kode dari negara/lokasi primer dimana objek dibuat."
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "Country Name"
@@ -6324,7 +6141,7 @@ msgstr "Nama Negara"
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "The name of the country/primary location where the object was created."
-msgstr ""
+msgstr "Nama dari negara/lokasi primer dimana objek dibuat."
 
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid "Credit"
@@ -6333,7 +6150,7 @@ msgstr "Kredit"
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid ""
 "Identifies the provider of the object, not necessarily the owner/creator."
-msgstr ""
+msgstr "Mengidentifikasikan penyedia objek, belum tentu pemilik/pembuatnya."
 
 #: ../src/tags/gnome-cmd-tags.cc:457
 msgid ""
@@ -6347,39 +6164,35 @@ msgstr "Tanggal Dikirim:"
 
 #: ../src/tags/gnome-cmd-tags.cc:458
 msgid "The day the service sent the material."
-msgstr ""
+msgstr "Hari saat layanan mengirim material."
 
 #: ../src/tags/gnome-cmd-tags.cc:459
 msgid "Destination"
 msgstr "Tujuan"
 
 #: ../src/tags/gnome-cmd-tags.cc:459
-#, fuzzy
 msgid "Routing information."
-msgstr "Informasi Tabel Routing"
+msgstr "Informasi routing."
 
 #: ../src/tags/gnome-cmd-tags.cc:460
-#, fuzzy
 msgid "Digital Creation Date"
-msgstr "tanggal pembuatan Gambar"
+msgstr "Tanggal Pembuatan Digital"
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "The date the digital representation of the object was created."
-msgstr ""
+msgstr "Tanggal saat representasi digital dari objek dibuat."
 
 #: ../src/tags/gnome-cmd-tags.cc:461
-#, fuzzy
 msgid "Digital Creation Time"
-msgstr "Tampilkan waktu pembuatan"
+msgstr "Waktu Pembuatan Digital"
 
 #: ../src/tags/gnome-cmd-tags.cc:461
 msgid "The time the digital representation of the object was created."
-msgstr ""
+msgstr "Waktu saat representasi digital dari objek dibuat."
 
 #: ../src/tags/gnome-cmd-tags.cc:462
-#, fuzzy
 msgid "Editorial Update"
-msgstr "Upd_ate otomatis"
+msgstr "Pemutakhiran Editorial"
 
 #: ../src/tags/gnome-cmd-tags.cc:462
 msgid ""
@@ -6397,18 +6210,16 @@ msgid "Status of the object, according to the practice of the provider."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:464
-#, fuzzy
 msgid "Envelope Number"
-msgstr "Jumlah Jangkar/Anchor"
+msgstr "Nomor Amplop"
 
 #: ../src/tags/gnome-cmd-tags.cc:464
 msgid "A number unique for the date and the service ID."
-msgstr ""
+msgstr "Suatu angka yang unik bagi tanggal dan ID layanan."
 
 #: ../src/tags/gnome-cmd-tags.cc:465
-#, fuzzy
 msgid "Envelope Priority"
-msgstr "Prioritas Awal:"
+msgstr "Prioritas Amplop"
 
 #: ../src/tags/gnome-cmd-tags.cc:465
 msgid ""
@@ -6426,31 +6237,28 @@ msgid "Designates the latest date the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:467
-#, fuzzy
 msgid "Expiration Time"
-msgstr "Sisipkan Wak_tu"
+msgstr "Waktu Kedaluarsa"
 
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:468
-#, fuzzy
 msgid "File Format"
 msgstr "Format Berkas"
 
 #: ../src/tags/gnome-cmd-tags.cc:468
 msgid "File format of the data described by this metadata."
-msgstr ""
+msgstr "Format berkas dari data yang dideskripsikan oleh metadata ini."
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid "File Version"
 msgstr "Versi Berkas"
 
 #: ../src/tags/gnome-cmd-tags.cc:469
-#, fuzzy
 msgid "Version of the file format."
-msgstr "Format berkas tidak benar."
+msgstr "Versi format berkas."
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 #, fuzzy
@@ -6470,11 +6278,12 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:471
 msgid "A publishable entry providing a synopsis of the contents of the object."
 msgstr ""
+"Suatu entri yang dapat diterbitkan, yang menyediakan suatu sinopsis atas isi "
+"objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:472
-#, fuzzy
 msgid "Image Orientation"
-msgstr "Orientasi tata letak"
+msgstr "Orientasi Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:472
 msgid ""
@@ -6483,9 +6292,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:473
-#, fuzzy
 msgid "Image Type"
-msgstr "Jenis Gambar"
+msgstr "Tipe Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "The data format of the image object."
@@ -6496,11 +6304,12 @@ msgid ""
 "Used to indicate specific information retrieval words (multiple values "
 "allowed)."
 msgstr ""
+"Dipakai untuk mengindikasikan kata pengambilan informasi spesifik (nilai "
+"berganda diijinkan)."
 
 #: ../src/tags/gnome-cmd-tags.cc:475
-#, fuzzy
 msgid "Language Identifier"
-msgstr "Pengenal Obyek (%s)"
+msgstr "Identifier Bahasa"
 
 #: ../src/tags/gnome-cmd-tags.cc:475
 msgid ""
@@ -6528,13 +6337,12 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:478
-#, fuzzy
 msgid "Model Version"
-msgstr "Versi Scratchbox:"
+msgstr "Versi Model"
 
 #: ../src/tags/gnome-cmd-tags.cc:478
 msgid "Version of IIM part 1."
-msgstr ""
+msgstr "Versi IIM bagian 1."
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 #, fuzzy
@@ -6546,24 +6354,24 @@ msgid ""
 "Defines the nature of the object independent of the subject (multiple values "
 "allowed)."
 msgstr ""
+"Mendefinisikan alami dari ketidakbergantungan objek dari subjek (nilai "
+"berganda diijinkan)."
 
 #: ../src/tags/gnome-cmd-tags.cc:480
-#, fuzzy
 msgid "Object Cycle"
-msgstr "Objek berisi"
+msgstr "Siklus Objek"
 
 #: ../src/tags/gnome-cmd-tags.cc:480
 msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
-msgstr ""
+msgstr "Dimana 'a' adalah pagi, 'p' adalah malam, 'b' adalah keduanya."
 
 #: ../src/tags/gnome-cmd-tags.cc:481
-#, fuzzy
 msgid "Object Name"
-msgstr "Nama objek"
+msgstr "Nama Objek"
 
 #: ../src/tags/gnome-cmd-tags.cc:481
 msgid "A shorthand reference for the object."
-msgstr ""
+msgstr "Suatu acuan singkatan bagi objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:482
 msgid "Object Size Announced"
@@ -6580,12 +6388,11 @@ msgstr "Referensi tipe blok"
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Distinguishes between different types of objects within the IIM."
-msgstr ""
+msgstr "Membedakan antara tipe objek yang berbeda dalam IIM."
 
 #: ../src/tags/gnome-cmd-tags.cc:484
-#, fuzzy
 msgid "Originating Program"
-msgstr "Jalankan program"
+msgstr "Program Asal"
 
 #: ../src/tags/gnome-cmd-tags.cc:484
 msgid "The type of program used to originate the object."
@@ -6597,7 +6404,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 msgid "A code representing the location of original transmission."
-msgstr ""
+msgstr "Suatu kode yang merepresentasikan transmisi asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 #, fuzzy
@@ -6617,6 +6424,7 @@ msgstr "Format berkas tidak benar."
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Binary value indicating the file format of the object preview data."
 msgstr ""
+"Nilai biner yang mengindikasikan format berkas dari data pratilik objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "Preview File Format Version"
@@ -6633,6 +6441,8 @@ msgstr "ID Produk"
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Allows a provider to identify subsets of its overall service."
 msgstr ""
+"Mengijinkan suatu penyedia untuk mengidentifikasikan subset dari keseluruhan "
+"layanannya."
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Program Version"
@@ -6671,9 +6481,8 @@ msgid "Identifies the version of the IIM, Part 2."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:494
-#, fuzzy
 msgid "Reference Date"
-msgstr "Pilih Tanggal"
+msgstr "Tanggal Acuan"
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "The date of a prior envelope to which the current object refers."
@@ -6689,9 +6498,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:496
-#, fuzzy
 msgid "Reference Service"
-msgstr "Referensi tipe layanan"
+msgstr "Layanan Acuan"
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid ""
@@ -6710,22 +6518,20 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:499
-#, fuzzy
 msgid "Service Identifier"
-msgstr "Pengenal Obyek (%s)"
+msgstr "Identifier Layanan"
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid "Identifies the provider and product."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:500
-#, fuzzy
 msgid "Size Mode"
-msgstr "_Moda impor:"
+msgstr "Mode Ukuran"
 
 #: ../src/tags/gnome-cmd-tags.cc:500
 msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr ""
+msgstr "Isi dengan 0 bila ukuran objek diketahui dan 1 bila tak diketahui."
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Source"
@@ -6736,9 +6542,8 @@ msgid "The original owner of the intellectual content of the object."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:502
-#, fuzzy
 msgid "Special Instructions"
-msgstr "Folder Khusus"
+msgstr "Instruksi Khusus"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid "Other editorial instructions concerning the use of the object."
@@ -6755,9 +6560,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:505
-#, fuzzy
 msgid "Subject Reference"
-msgstr "Referensi _API"
+msgstr "Acuan Subjek"
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid ""
@@ -6765,20 +6569,22 @@ msgid ""
 "digit Subject Reference Number and an optional Subject Name, Subject Matter "
 "Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
+"Suatu definisi terstruktur dari subject matter. Ini mesti memuat suatu IPR, "
+"Nomor Acuan Subjek 8 dijit, dan beberapa info opsional yaitu Nama Subjek, "
+"Nama Subject Matter, dan Nama Rinci Subjek yang dipisahkan dengan titik dua "
+"(:)."
 
 #: ../src/tags/gnome-cmd-tags.cc:506
-#, fuzzy
 msgid "Sub-location"
-msgstr "Lokasi dicapai\n"
+msgstr "Sub lokasi"
 
 #: ../src/tags/gnome-cmd-tags.cc:506
 msgid "The location within a city from which the object originates."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:507
-#, fuzzy
 msgid "Supplemental Category"
-msgstr "Kategori Baru"
+msgstr "Kategori Pelengkap"
 
 #: ../src/tags/gnome-cmd-tags.cc:507
 msgid "Further refines the subject of the object (Deprecated)."
@@ -6806,20 +6612,20 @@ msgid "The time the service sent the material."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Unique Name of Object"
-msgstr "Nama unik aplikasi"
+msgstr "Nama Unik dari Objek"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
 msgid ""
 "An eternal, globally unique identification for the object, independent of "
 "provider and for any media form."
 msgstr ""
+"Suatu identifikasi unik secara global dan selamanya bagi objek, tak "
+"bergantung kepada penyedia dan bagi sebarang bentuk media."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Urgency"
-msgstr "_Urgensi:"
+msgstr "Urgensi"
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid ""
@@ -6828,9 +6634,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:512
-#, fuzzy
 msgid "Writer/Editor"
-msgstr "Penyunting Scintilla"
+msgstr "Penulis/Penyunting"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid ""
@@ -6843,9 +6648,8 @@ msgid "Page Size"
 msgstr "Ukuran Halaman"
 
 #: ../src/tags/gnome-cmd-tags.cc:513
-#, fuzzy
 msgid "Page size format."
-msgstr "Ukuran halaman baku"
+msgstr "Format ukuran halaman."
 
 #: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Page Width"
@@ -6853,7 +6657,7 @@ msgstr "Lebar Halaman"
 
 #: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Page width in mm."
-msgstr ""
+msgstr "Lebar halaman dalam mm."
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Page Height"
@@ -6861,7 +6665,7 @@ msgstr "Tinggi Halaman"
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Page height in mm."
-msgstr ""
+msgstr "Tinggi halaman dalam mm."
 
 #: ../src/tags/gnome-cmd-tags.cc:516
 msgid "PDF Version"
@@ -6882,22 +6686,20 @@ msgid "The application that converted the document to PDF."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:518
-#, fuzzy
 msgid "Embedded Files"
-msgstr "Berkas Teks"
+msgstr "Berkas Tertanam"
 
 #: ../src/tags/gnome-cmd-tags.cc:518
 msgid "Number of embedded files in the document."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:519
-#, fuzzy
 msgid "Fast Web View"
-msgstr "Pengkodean bawaan dari tilikan web"
+msgstr "Tilikan Web Cepat"
 
 #: ../src/tags/gnome-cmd-tags.cc:519
 msgid "Set to \"1\" if optimized for network access."
-msgstr ""
+msgstr "Isi dengan \"1\" bila dioptimasi untuk akses jaringan."
 
 #: ../src/tags/gnome-cmd-tags.cc:520
 #, fuzzy
@@ -6906,7 +6708,7 @@ msgstr "Pencetakan"
 
 #: ../src/tags/gnome-cmd-tags.cc:520
 msgid "Set to \"1\" if printing is allowed."
-msgstr ""
+msgstr "Isi dengan \"1\" bila mencetak diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Printing in High Resolution"
@@ -6914,44 +6716,44 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Set to \"1\" if high resolution printing is allowed."
-msgstr ""
+msgstr "Isi dengan \"1\" bila pencetakan resolusi tinggi diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:522
-#, fuzzy
 msgid "Copying"
-msgstr "menyalin..."
+msgstr "Menyalin"
 
 #: ../src/tags/gnome-cmd-tags.cc:522
 msgid "Set to \"1\" if copying the contents is allowed."
-msgstr ""
+msgstr "Isi dengan \"1\" bila menyalin isi diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:523
-#, fuzzy
 msgid "Modifying"
-msgstr "Mengubah kontak..."
+msgstr "Mengubah"
 
 #: ../src/tags/gnome-cmd-tags.cc:523
 msgid "Set to \"1\" if modifying the contents is allowed."
-msgstr ""
+msgstr "Isi dengan \"1\" bila mengubah isi diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:524
-#, fuzzy
 msgid "Document Assembly"
-msgstr "Nama Assembly"
+msgstr "Assembly Dokumen"
 
 #: ../src/tags/gnome-cmd-tags.cc:524
 msgid ""
 "Set to \"1\" if inserting, rotating, or deleting pages and creating "
 "navigation elements is allowed."
 msgstr ""
+"Isi dengan \"1\" bila menyisipkan, memutar, atau menghapus halaman dan "
+"membuat elemen navigasi diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Commenting"
-msgstr ""
+msgstr "Mengomentari"
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Set to \"1\" if adding or modifying text annotations is allowed."
 msgstr ""
+"Isi dengan \"1\" bila menambah atau mengubah anotasi teks diperbolehkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 #, fuzzy
@@ -6960,7 +6762,7 @@ msgstr "Menyimpan formulir"
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Set to \"1\" if filling of form fields is allowed."
-msgstr ""
+msgstr "Isi dengan \"1\" bila mengisi ruas-ruas formulir diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:527
 msgid "Accessibility Support"
@@ -6969,6 +6771,8 @@ msgstr "Dukungan Aksesibilitas"
 #: ../src/tags/gnome-cmd-tags.cc:527
 msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
 msgstr ""
+"Isi dengan \"1\" bila dukungan aksesibilitas (mis. pembaca layar) "
+"difungsikan."
 
 #: ../src/tags/gnome-cmd-tags.cc:528
 msgid "Contact information for the creators or distributors of the track."
@@ -6979,9 +6783,8 @@ msgid "License"
 msgstr "Lisensi"
 
 #: ../src/tags/gnome-cmd-tags.cc:530
-#, fuzzy
 msgid "License information."
-msgstr "Tambahkan Informasi Lisensi:"
+msgstr "Informasi lisensi."
 
 #: ../src/tags/gnome-cmd-tags.cc:531
 msgid "Location"
@@ -6989,7 +6792,7 @@ msgstr "Lokasi"
 
 #: ../src/tags/gnome-cmd-tags.cc:531
 msgid "Location where track was recorded."
-msgstr ""
+msgstr "Lokasi dimana trek direkam."
 
 #: ../src/tags/gnome-cmd-tags.cc:532
 #, fuzzy
@@ -7033,29 +6836,25 @@ msgstr "Vendor"
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Vorbis vendor ID."
-msgstr ""
+msgstr "ID vendor Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:537
-#, fuzzy
 msgid "Vorbis Version"
-msgstr "Versi Scratchbox:"
+msgstr "Versi Vorbis"
 
 #: ../src/tags/gnome-cmd-tags.cc:537
-#, fuzzy
 msgid "Vorbis version."
-msgstr "Versi Scratchbox:"
+msgstr "Versi Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:675
 msgid "Audio"
 msgstr "Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:681
-#, fuzzy
 msgid "Doc"
-msgstr "gtk-doc"
+msgstr "Dok"
 
 #: ../src/tags/gnome-cmd-tags.cc:699
-#, fuzzy
 msgid "Image"
 msgstr "Citra"
 
@@ -7293,9 +7092,9 @@ msgid "Malayalam"
 msgstr "Malayalam"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:66
-#, c-format
+#, fuzzy, c-format
 msgid "unsupported tag (suppressed %u B of binary data)"
-msgstr ""
+msgstr "tag tak didukung ()"
 
 #. Note to translators: first placeholder is the paper name (eg. * A4)
 #: ../src/tags/gnome-cmd-tags-poppler.cc:251
@@ -7329,9 +7128,8 @@ msgid "Single channel"
 msgstr "Kanal tunggal"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:79
-#, fuzzy
 msgid "Undefined"
-msgstr "Belum didefinisikan"
+msgstr "Tak terdefinisi"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:80
 msgid "Layer I"
@@ -7371,11 +7169,12 @@ msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
+"\"%s\" nampaknya adalah berkas executable biner tapi tak memiliki bit "
+"executable. Apakah Anda ingin menatanya lalu menjalankan berkas tersebut?"
 
 #: ../src/utils.cc:519
-#, fuzzy
 msgid "Make Executable?"
-msgstr "Jalankan Executable..."
+msgstr "Jadikan Executable?"
 
 #: ../src/utils.cc:546
 #, c-format
@@ -7383,14 +7182,14 @@ msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
+"\"%s\" adalah berkas teks executable. Apakah Anda ingin menjalankannya atau "
+"menampilkan isinya?"
 
 #: ../src/utils.cc:547
-#, fuzzy
 msgid "Run or Display"
-msgstr "Jalankan atau Sta_rt Ulang"
+msgstr "Jalankan atau Tampilkan"
 
 #: ../src/utils.cc:548
-#, fuzzy
 msgid "Display"
 msgstr "Tampilan"
 
@@ -7407,7 +7206,8 @@ msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr[0] ""
-msgstr[1] ""
+"%s tak tahu bagaimana cara membuka berkas jauh. Apakah Anda ingin mengunduh "
+"berkas tersebut ke lokasi temporer lalu membukanya?"
 
 #: ../src/utils.cc:1031
 #, c-format
@@ -7415,6 +7215,8 @@ msgid ""
 "Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
 msgstr ""
+"Gagal membuat suatu direktori tempat menyimpan berkas temporer.\n"
+"Pesan galat: %s\n"
 
 #: ../src/utils.cc:1227
 #, c-format
