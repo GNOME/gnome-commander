@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-01-07 12:30+0000\n"
-"PO-Revision-Date: 2012-01-07 21:53+0100\n"
+"PO-Revision-Date: 2012-10-20 00:04+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -4028,11 +4028,11 @@ msgstr "Ime upravljalnika predmeta <Doc.Creator>."
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Multimedia Clip Count"
-msgstr "Štetje medijskih klipov"
+msgstr "Štetje predstavnih klipov"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Number of multimedia clips in the document."
-msgstr "Število medijskih klipov v dokumentu."
+msgstr "Število predstavnih klipov v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Note Count"
@@ -5400,11 +5400,11 @@ msgstr "Pisec besedila."
 
 #: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Media Type"
-msgstr "Vrsta medija"
+msgstr "Vrsta predstavne vsebine"
 
 #: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Media type."
-msgstr "Vrsta medija."
+msgstr "Vrsta predstavne vsebine."
 
 #: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Mix Artist"
@@ -6486,7 +6486,7 @@ msgstr "Enoznačno ime predmeta"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
 msgid "An eternal, globally unique identification for the object, independent of provider and for any media form."
-msgstr "Notranji, splošno enoznačno določilo predmeta, neodvisno od ponudnika in določeno za vsako obliko medija."
+msgstr "Notranji, splošno enoznačno določilo predmeta, neodvisno od ponudnika in določeno za vsako obliko predstavne vsebine."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Urgency"
