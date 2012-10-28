@@ -198,7 +198,7 @@ static UserActionData user_actions_data[] = {
                                              {options_edit_mime_types, "options.edit_mime_types", N_("MIME types")},
                                              {options_edit_shortcuts, "options.shortcuts", N_("Keyboard shortcuts")},
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
-                                             {plugins_execute_python, "plugins.execute_python", N_("Execute python plugin")},
+                                             {plugins_execute_python, "plugins.execute_python", N_("Execute Python plugin")},
                                              {view_back, "view.back", N_("Back one directory")},
                                              {view_close_tab, "view.close_tab", N_("Close the current tab")},
                                              {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},

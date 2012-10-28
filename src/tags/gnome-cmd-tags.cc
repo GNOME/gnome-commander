@@ -524,7 +524,7 @@ void gcmd_tags_init()
                        {TAG_PDF_DOCASSEMBLY, {"PDF.DocAssembly", TAG_PDF, N_("Document Assembly"), N_("Set to \"1\" if inserting, rotating, or deleting pages and creating navigation elements is allowed.")}},
                        {TAG_PDF_COMMENTING, {"PDF.Commenting", TAG_PDF, N_("Commenting"), N_("Set to \"1\" if adding or modifying text annotations is allowed.")}},
                        {TAG_PDF_FORMFILLING, {"PDF.FormFilling", TAG_PDF, N_("Form Filling"), N_("Set to \"1\" if filling of form fields is allowed.")}},
-                       {TAG_PDF_ACCESSIBILITYSUPPORT, {"PDF.AccessibilitySupport", TAG_PDF, N_("Accessibility Support"), N_("Set to \"1\" if accessibility support (eg. screen readers) is enabled.")}},
+                       {TAG_PDF_ACCESSIBILITYSUPPORT, {"PDF.AccessibilitySupport", TAG_PDF, N_("Accessibility Support"), N_("Set to \"1\" if accessibility support (e.g. screen readers) is enabled.")}},
                        {TAG_VORBIS_CONTACT, {"Vorbis.Contact", TAG_VORBIS, N_("Contact"), N_("Contact information for the creators or distributors of the track.")}},
                        {TAG_VORBIS_DESCRIPTION, {"Vorbis.Description", TAG_VORBIS, N_("Description"), N_("A textual description of the data.")}},
                        {TAG_VORBIS_LICENSE, {"Vorbis.License", TAG_VORBIS, N_("License"), N_("License information.")}},
