@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-07 12:30+0000\n"
-"PO-Revision-Date: 2012-10-20 00:04+0100\n"
+"POT-Creation-Date: 2012-10-29 12:06+0000\n"
+"PO-Revision-Date: 2012-10-29 22:32+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -23,14 +23,14 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
-msgid "A two paned file manager"
-msgstr "Dvostrani urejevalnik datotek"
-
-#: ../data/gnome-commander.desktop.in.in.h:2
 #: ../src/gnome-cmd-data.cc:415
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.desktop.in.in.h:2
+msgid "A two paned file manager"
+msgstr "Dvostrani urejevalnik datotek"
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
@@ -254,7 +254,7 @@ msgstr "_Zamenjaj z:"
 
 #. Case-Sensitive Checkbox
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:120
-#: ../src/intviewer/search-dlg.cc:284
+#: ../src/intviewer/search-dlg.cc:283
 msgid "_Match case"
 msgstr "_Upoštevaj velikost črk"
 
@@ -2954,8 +2954,8 @@ msgid "Configure plugins"
 msgstr "Nastavitve vstavkov"
 
 #: ../src/gnome-cmd-user-actions.cc:201
-msgid "Execute python plugin"
-msgstr "Izvedi python vstavek"
+msgid "Execute Python plugin"
+msgstr "Izvedi vstavek Python"
 
 #: ../src/gnome-cmd-user-actions.cc:202
 msgid "Back one directory"
@@ -3243,18 +3243,18 @@ msgstr "Ni mogoče najti sličice. Prepričajte se, da je program pravilno name�
 msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr "Ni mogoče naložiti nameščene sličice, zato bo naložena sličica %s"
 
-#: ../src/intviewer/search-dlg.cc:244
+#: ../src/intviewer/search-dlg.cc:243
 msgid "Find"
 msgstr "Poišči"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:274
+#: ../src/intviewer/search-dlg.cc:273
 #: ../src/intviewer/viewer-window.cc:657
 #: ../src/intviewer/viewer-window.cc:859
 msgid "_Text"
 msgstr "_Besedilo"
 
-#: ../src/intviewer/search-dlg.cc:275
+#: ../src/intviewer/search-dlg.cc:274
 #: ../src/intviewer/viewer-window.cc:665
 msgid "_Hexadecimal"
 msgstr "_Šestnajstiško"
@@ -3428,7 +3428,7 @@ msgstr "Določite začetno mapo za desno okno"
 msgid "Specify the directory for configuration files"
 msgstr "Določite mapo nastavitvenih datotek"
 
-#: ../src/main.cc:124
+#: ../src/main.cc:125
 msgid "File Manager"
 msgstr "Upravljalnik datotek"
 
@@ -6621,7 +6621,7 @@ msgid "Accessibility Support"
 msgstr "Podpora dostopnosti"
 
 #: ../src/tags/gnome-cmd-tags.cc:527
-msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
+msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
 msgstr "Nastavitev na vrednost \"1\" omogoči podporo dostopnosti (bralnik zaslona, zaslonska tipkovnica)"
 
 #: ../src/tags/gnome-cmd-tags.cc:528
