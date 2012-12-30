@@ -2922,7 +2922,7 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr ""
 "Sehol sem találom a képet. Győződjön meg arról, hogy a program telepítve "
-"van-e vagy a gnome-commander a gnome-commander-x.y.z/src könyvtárból lett "
+"van-e vagy a gnome-commander a gnome-commander-%s/src könyvtárból lett "
 "indítva\n"
 
 #: ../src/imageloader.cc:136
