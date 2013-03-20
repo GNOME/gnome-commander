@@ -247,6 +247,11 @@ if test x$with_libgsf != xno; then
     PKG_CHECK_MODULES(GSF, libgsf-1 >= $LIBGSF_REQ, have_gsf=yes, have_gsf=no)
 fi
 if test "x$have_gsf" = "xyes"; then
+    PKG_CHECK_MODULES(GSF_1_14_26, libgsf-1 >= 1.14.26,
+		      AC_DEFINE(HAVE_GSF_1_14_26,1,[Define to 1 if you have libgsf >= 1.14.26]),
+		      have_gsf_1_14_26=no)
+fi
+if test "x$have_gsf" = "xyes"; then
    AC_DEFINE(HAVE_GSF, 1, [Define to 1 if you have libgsf (OLE and ODF) support])
 fi
 
