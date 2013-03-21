@@ -6863,8 +6863,8 @@ msgid ""
 "input and the image values."
 msgstr ""
 "Optoelektronická převodní funkce OECF (Opto-Electronic Conversion Function) "
-"specifikovaná v ISO 14524. <Exif.OECF> je vztahem mezi optickým vstupem "
-"fotoaparátu a obrazovými hodnotami."
+"specifikovaná v ISO 14524. <literal>Exif.OECF</literal> je vztahem mezi "
+"optickým vstupem fotoaparátu a obrazovými hodnotami."
 
 #: C/gnome-commander.xml:2298(para)
 msgid "Exif.Orientation"
