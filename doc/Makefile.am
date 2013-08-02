@@ -39,7 +39,7 @@ DOC_FIGURES = \
 	figures/gnome-commander_window.png                      \
 	figures/mounting.png
 
-DOC_LINGUAS = cs de es fr ru sl
+DOC_LINGUAS = cs de el es fr ru sl
 
 
 -include $(top_srcdir)/git.mk
