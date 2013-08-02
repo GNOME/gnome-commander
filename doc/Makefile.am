@@ -38,5 +38,5 @@ DOC_FIGURES = \
 	figures/gnome-commander_window.png                      \
 	figures/mounting.png
 
-DOC_LINGUAS = de es fr sl
+DOC_LINGUAS = de el es fr sl
 
