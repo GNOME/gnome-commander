@@ -1589,7 +1589,7 @@ msgstr "_Zamknout kartu"
 
 #: ../src/gnome-cmd-file-selector.cc:657
 msgid "_Refresh Tab"
-msgstr "_Občerstvit karty"
+msgstr "_Aktualizivat karty"
 
 #: ../src/gnome-cmd-file-selector.cc:662
 msgid "Copy Tab to Other _Pane"
@@ -1685,7 +1685,7 @@ msgstr "V_ložit"
 
 #: ../src/gnome-cmd-list-popmenu.cc:120 ../src/gnome-cmd-main-menu.cc:606
 msgid "_Refresh"
-msgstr "Obče_rstvit"
+msgstr "_Aktualizovat"
 
 #: ../src/gnome-cmd-main-menu.cc:364
 msgid "Switch to Vertical Layout"
@@ -1939,7 +1939,7 @@ msgstr "GNOME Commander - PRÁVA SPRÁVCE ROOT"
 
 #: ../src/gnome-cmd-main-win.cc:1165 ../src/gnome-cmd-user-actions.cc:223
 msgid "Refresh"
-msgstr "Občerstvit"
+msgstr "Aktualizovat"
 
 #: ../src/gnome-cmd-main-win.cc:1166 ../src/gnome-cmd-options-dialog.cc:102
 #: ../src/gnome-cmd-user-actions.cc:229
@@ -4860,14 +4860,14 @@ msgstr "Záznam IPTC/NAA."
 
 #: ../src/tags/gnome-cmd-tags.cc:256
 msgid "ISO Speed Ratings"
-msgstr "Hodnocení rychlosti dle ISO"
+msgstr "Hodnocení citlivosti dle ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:256
 msgid ""
 "The ISO Speed and ISO Latitude of the camera or input device as specified in "
 "ISO 12232."
 msgstr ""
-"Rychlost ISO a rozsah ISO fotoaparátu nebo vstupního zařízení, jak určuje "
+"Citlivost ISO a rozsah ISO fotoaparátu nebo vstupního zařízení, jak určuje "
 "ISO 12232."
 
 #: ../src/tags/gnome-cmd-tags.cc:257
@@ -6394,14 +6394,14 @@ msgstr "Výška v pixelech."
 
 #: ../src/tags/gnome-cmd-tags.cc:425
 msgid "ISO Speed"
-msgstr "Rychlost ISO"
+msgstr "Citlivost ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:425
 msgid ""
 "ISO speed used to acquire the document contents. For example, 100, 200, 400, "
 "etc."
 msgstr ""
-"Rychlost dle ISO použitá pro získání obsahu dokumentu. Například 100, 200, "
+"Citlivost dle ISO použitá pro získání obsahu dokumentu. Například 100, 200, "
 "400, atd."
 
 #: ../src/tags/gnome-cmd-tags.cc:426
