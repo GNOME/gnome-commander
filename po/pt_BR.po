@@ -6,24 +6,23 @@
 # Leonardo Ferreira Fontenelle <leonardof@gnome.org>, 2008.
 # Michel Recondo <mrecondo@gmail.com>, 2008.
 # Adorilson Bezerra <adorilson@gmail.com>, 2013.
+# Juan Diego Martins da Costa Cruz <juan.martins@ifrn.edu.br>, 2013.
+# Avelino <adelino.avelino@academico.ifrn.edu.br>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-19 20:24+0000\n"
-"PO-Revision-Date: 2013-03-28 01:59-0300\n"
-"Last-Translator: Adorilson Bezerra <adorilson@gmail.com>\n"
+"POT-Creation-Date: 2013-08-02 13:18+0000\n"
+"PO-Revision-Date: 2013-09-25 09:15-0300\n"
+"Last-Translator: Avelino <adelino.avelino@academico.ifrn.edu.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
-"Language: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Poedit-Language: Portuguese\n"
-"X-Poedit-Country: BRAZIL\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:425
 #: ../src/gnome-cmd-main-win.cc:766
@@ -5968,7 +5967,7 @@ msgstr "Uma descrição textual do dado."
 msgid ""
 "Identifies the subject of the object in the opinion of the provider "
 "(Deprecated)."
-msgstr ""
+msgstr "Identifica o sujeito do objeto, na opinião do provedor (Obsoleto)."
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Coded Character Set"
@@ -5979,6 +5978,8 @@ msgid ""
 "Control functions used for the announcement, invocation or designation of "
 "coded character sets."
 msgstr ""
+"Funções de controle usadas para o anúncio, a invocação ou designação de "
+"conjuntos de caracteres codificados."
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "City"
@@ -6005,10 +6006,12 @@ msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
 msgstr ""
+"A pessoa ou organização que pode fornecer mais informações básicas sobre o "
+"objeto (vários valores permitidos)."
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid "Content Location Code"
-msgstr ""
+msgstr "Código de localização do conteúdo"
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
@@ -6203,6 +6206,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
+"A disposição da área de imagem: \"P\" para retrato, \"L\" para a paisagem, e \"S\" "
+"para a quadrado."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Image Type"
@@ -6217,6 +6222,8 @@ msgid ""
 "Used to indicate specific information retrieval words (multiple values "
 "allowed)."
 msgstr ""
+"Usado para indicar palavras específicas de recuperação de informação (múltiplos valores "
+"permitidos)."
 
 #: ../src/tags/gnome-cmd-tags.cc:475
 msgid "Language Identifier"
@@ -6227,6 +6234,8 @@ msgid ""
 "The major national language of the object, according to the 2-letter codes "
 "of ISO 639:1988."
 msgstr ""
+"A principal língua nacional do objeto, de acordo com os códigos de duas "
+"letras da ISO 639:1988."
 
 #: ../src/tags/gnome-cmd-tags.cc:476
 msgid "Maximum Object Size"
@@ -6266,7 +6275,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:480
 msgid "Object Cycle"
-msgstr ""
+msgstr "Ciclo de objeto"
 
 #: ../src/tags/gnome-cmd-tags.cc:480
 msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
@@ -6290,7 +6299,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Object Type Reference"
-msgstr ""
+msgstr "Referência do tipo de objeto"
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Distinguishes between different types of objects within the IIM."
@@ -6306,7 +6315,7 @@ msgstr "O tipo de programa usado para originar o objeto."
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 msgid "Original Transmission Reference"
-msgstr ""
+msgstr "Referência da transmissão original"
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 msgid "A code representing the location of original transmission."
@@ -6314,15 +6323,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid "Preview Data"
-msgstr ""
+msgstr "Dados de visualização"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid "The object preview data."
-msgstr ""
+msgstr "Os dados de visualização de objeto"
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Preview File Format"
-msgstr ""
+msgstr "Formato de arquivo de visualização"
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Binary value indicating the file format of the object preview data."
@@ -6494,6 +6503,8 @@ msgid ""
 "date of the creation of the physical representation (multiple values "
 "allowed)."
 msgstr ""
+"A hora em que o conteúdo intelectual do objeto foi criado e não a data de "
+"criação da representação física (vários valores permitidos)."
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "Time Sent"
@@ -6512,6 +6523,8 @@ msgid ""
 "An eternal, globally unique identification for the object, independent of "
 "provider and for any media form."
 msgstr ""
+"Uma eterna identificação, globalmente exclusiva para o objeto, independente "
+"do provedor e para qualquer forma de mídia."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Urgency"
