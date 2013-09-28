@@ -1,23 +1,23 @@
 # Indonesian translation for gnome-commander.
 # Copyright (C) 2012 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Andika Triwidada <andika@gmail.com>, 2012.
+# Andika Triwidada <andika@gmail.com>, 2012, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1-2-8\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-04-09 11:41+0000\n"
-"PO-Revision-Date: 2012-10-16 23:54+0700\n"
+"POT-Creation-Date: 2013-07-24 16:33+0000\n"
+"PO-Revision-Date: 2013-09-28 14:45+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language: id\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:425
 #: ../src/gnome-cmd-main-win.cc:766
@@ -805,9 +805,8 @@ msgid "size"
 msgstr "size"
 
 #: ../src/gnome-cmd-file-list.cc:109
-#, fuzzy
 msgid "date"
-msgstr "date"
+msgstr "tanggal"
 
 #: ../src/gnome-cmd-file-list.cc:110
 #, fuzzy
@@ -2801,7 +2800,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:1628
 msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2012"
+msgstr "Andika Triwidada <andika@gmail.com>, 2012, 2013"
 
 #: ../src/gnome-cmd-xfer.cc:160
 #, c-format
@@ -4875,9 +4874,8 @@ msgstr ""
 "suatu berkas TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:295
-#, fuzzy
 msgid "Subject Area"
-msgstr "area gambar"
+msgstr "Area Subjek"
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid "The location and area of the main subject in the overall scene."
@@ -4896,11 +4894,8 @@ msgid "Subject Distance Range"
 msgstr "Jangkauan Jarak Subjek"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
-#, fuzzy
 msgid "The distance to the subject."
-msgstr ""
-"Dikeluarkan kepada:\n"
-"  Subyek: %s\n"
+msgstr "Jarak ke subjek."
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Subject Location"
@@ -5004,9 +4999,8 @@ msgid "The white balance mode set when the image was shot."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:307
-#, fuzzy
 msgid "White Point"
-msgstr "Titik putih"
+msgstr "Titik Putih"
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid ""
@@ -5680,14 +5674,12 @@ msgid "Length of the song in milliseconds."
 msgstr "Lama lagu dalam mili detik."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-#, fuzzy
 msgid "Subtitle"
 msgstr "Subjudul"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-#, fuzzy
 msgid "Subtitle."
-msgstr "Subjudul #%d"
+msgstr "Subjudul."
 
 #: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Synchronized Lyrics"
@@ -6290,6 +6282,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
+"Tata letak area gambar: 'P' untuk potret, 'L' untuk lansekap, dan 'S' untuk "
+"bujur sangkar."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Image Type"
@@ -6297,7 +6291,7 @@ msgstr "Tipe Gambar"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "The data format of the image object."
-msgstr ""
+msgstr "Format data dari objek gambar."
 
 #: ../src/tags/gnome-cmd-tags.cc:474
 msgid ""
@@ -6318,13 +6312,12 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:476
-#, fuzzy
 msgid "Maximum Object Size"
-msgstr "Ukuran BibTeX Maksimum"
+msgstr "Ukuran Objek Maksimum"
 
 #: ../src/tags/gnome-cmd-tags.cc:476
 msgid "The largest possible size of the object if the size is not known."
-msgstr ""
+msgstr "Ukuran terbesar yang mungkin dari objek bila ukuran tak diketahui."
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Max Subfile Size"
@@ -6345,9 +6338,8 @@ msgid "Version of IIM part 1."
 msgstr "Versi IIM bagian 1."
 
 #: ../src/tags/gnome-cmd-tags.cc:479
-#, fuzzy
 msgid "Object Attribute Reference"
-msgstr "Referensi objek data"
+msgstr "Acuan Atribut Objek"
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid ""
@@ -6375,16 +6367,15 @@ msgstr "Suatu acuan singkatan bagi objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:482
 msgid "Object Size Announced"
-msgstr ""
+msgstr "Ukuran Objek Diumumkan"
 
 #: ../src/tags/gnome-cmd-tags.cc:482
 msgid "The total size of the object data if it is known."
-msgstr ""
+msgstr "Ukuran total dari data objek bila diketahui."
 
 #: ../src/tags/gnome-cmd-tags.cc:483
-#, fuzzy
 msgid "Object Type Reference"
-msgstr "Referensi tipe blok"
+msgstr "Acuan Tipe Objek"
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Distinguishes between different types of objects within the IIM."
@@ -6400,26 +6391,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 msgid "Original Transmission Reference"
-msgstr ""
+msgstr "Acuan Transmisi Asli"
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 msgid "A code representing the location of original transmission."
 msgstr "Suatu kode yang merepresentasikan transmisi asli."
 
 #: ../src/tags/gnome-cmd-tags.cc:486
-#, fuzzy
 msgid "Preview Data"
-msgstr "Lihat contoh data tercetak"
+msgstr "Data Pratinjau"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
-#, fuzzy
 msgid "The object preview data."
-msgstr "Lihat contoh data tercetak"
+msgstr "Data pratinjau objek."
 
 #: ../src/tags/gnome-cmd-tags.cc:487
-#, fuzzy
 msgid "Preview File Format"
-msgstr "Format berkas tidak benar."
+msgstr "Pratinjau Format Berkas"
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Binary value indicating the file format of the object preview data."
@@ -6428,11 +6416,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "Preview File Format Version"
-msgstr ""
+msgstr "Versi Format Berkas Pratinjau"
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "The version of the preview file format."
-msgstr ""
+msgstr "Versi dari format berkas pratinjau"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Product ID"
@@ -6449,9 +6437,8 @@ msgid "Program Version"
 msgstr "Versi Program"
 
 #: ../src/tags/gnome-cmd-tags.cc:490
-#, fuzzy
 msgid "The version of the originating program."
-msgstr "Tampilkan versi program"
+msgstr "Versi program asal"
 
 #: ../src/tags/gnome-cmd-tags.cc:491 ../src/tags/gnome-cmd-tags.cc:503
 msgid "Province, State"
@@ -6459,7 +6446,7 @@ msgstr "Propinsi, Negara Bagian"
 
 #: ../src/tags/gnome-cmd-tags.cc:491 ../src/tags/gnome-cmd-tags.cc:503
 msgid "The Province/State where the object originates."
-msgstr ""
+msgstr "Propinsi/negara bagian tempat objek berasal."
 
 #: ../src/tags/gnome-cmd-tags.cc:492
 #, fuzzy
@@ -6478,7 +6465,7 @@ msgstr "Versi Rekaman"
 
 #: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Identifies the version of the IIM, Part 2."
-msgstr ""
+msgstr "Mengidentifikasi versi IIM, Bagian 2."
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Reference Date"
@@ -6591,9 +6578,8 @@ msgid "Further refines the subject of the object (Deprecated)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:508
-#, fuzzy
 msgid "Time Created"
-msgstr "Dibuat pada "
+msgstr "Waktu Dibuat"
 
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid ""
@@ -6603,7 +6589,6 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "Time Sent"
 msgstr "Tanggal Dikirim:"
 
@@ -6672,9 +6657,8 @@ msgid "PDF Version"
 msgstr "Versi PDF"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "The PDF version of the document."
-msgstr "Docs;PDF;Document;"
+msgstr "Versi PDF dari dokumen."
 
 #: ../src/tags/gnome-cmd-tags.cc:517
 #, fuzzy
@@ -6702,7 +6686,6 @@ msgid "Set to \"1\" if optimized for network access."
 msgstr "Isi dengan \"1\" bila dioptimasi untuk akses jaringan."
 
 #: ../src/tags/gnome-cmd-tags.cc:520
-#, fuzzy
 msgid "Printing"
 msgstr "Pencetakan"
 
@@ -6712,7 +6695,7 @@ msgstr "Isi dengan \"1\" bila mencetak diijinkan."
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Printing in High Resolution"
-msgstr ""
+msgstr "Mencetak dalam Resolusi Tinggi"
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Set to \"1\" if high resolution printing is allowed."
@@ -6795,32 +6778,28 @@ msgid "Location where track was recorded."
 msgstr "Lokasi dimana trek direkam."
 
 #: ../src/tags/gnome-cmd-tags.cc:532
-#, fuzzy
 msgid "Maximum bitrate"
-msgstr "Laju Bit Konstan"
+msgstr "Laju bit maksimum"
 
 #: ../src/tags/gnome-cmd-tags.cc:532
-#, fuzzy
 msgid "Maximum bitrate in kbps."
-msgstr "Laju _bit video maksimum (dalam kbit/d)"
+msgstr "Laju bit maksimum dalam kbps"
 
 #: ../src/tags/gnome-cmd-tags.cc:533
-#, fuzzy
 msgid "Minimum bitrate"
-msgstr "Laju Bit Konstan"
+msgstr "Laju bit minimum"
 
 #: ../src/tags/gnome-cmd-tags.cc:533
 msgid "Minimum bitrate in kbps."
-msgstr ""
+msgstr "Laju bit minimum dalam kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:534
-#, fuzzy
 msgid "Nominal bitrate"
-msgstr "Laju Bit Konstan"
+msgstr "Laju bit normal"
 
 #: ../src/tags/gnome-cmd-tags.cc:534
 msgid "Nominal bitrate in kbps."
-msgstr ""
+msgstr "Lajut bit nominal dalam kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:535
 msgid "Organization"
@@ -6828,7 +6807,7 @@ msgstr "Organisasi"
 
 #: ../src/tags/gnome-cmd-tags.cc:535
 msgid "Organization producing the track."
-msgstr ""
+msgstr "Organisasi yang memproduksi trek."
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Vendor"
@@ -7092,9 +7071,9 @@ msgid "Malayalam"
 msgstr "Malayalam"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:66
-#, fuzzy, c-format
+#, c-format
 msgid "unsupported tag (suppressed %u B of binary data)"
-msgstr "tag tak didukung ()"
+msgstr "tag tak didukung (%u B data biner diredam)"
 
 #. Note to translators: first placeholder is the paper name (eg. * A4)
 #: ../src/tags/gnome-cmd-tags-poppler.cc:251
@@ -7115,9 +7094,8 @@ msgid "Stereo"
 msgstr "Stereo"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:72
-#, fuzzy
 msgid "Joint stereo"
-msgstr "Analog Stereo"
+msgstr "Stereo gabungan"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:73
 msgid "Dual channel"
