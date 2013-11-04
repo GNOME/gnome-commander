@@ -40,8 +40,11 @@ using namespace std;
 #ifdef HAVE_PDF
 static regex_t rxDate;
 static gboolean rxDate_OK;
-
+#ifdef POPPLER_HAS_SET_ERROR_CALLBACK
+static void noErrorReporting(void *, ErrorCategory, int pos, char *msg)
+#else
 static void noErrorReporting(int pos, char *msg, va_list args)
+#endif
 {
 }
 #endif
@@ -52,7 +55,11 @@ void gcmd_tags_poppler_init()
 #ifdef HAVE_PDF
     rxDate_OK = regcomp (&rxDate, "^(D:)?([12][019][0-9][0-9]([01][0-9]([0-3][0-9]([012][0-9]([0-5][0-9]([0-5][0-9])?)?)?)?)?)", REG_EXTENDED)==0;
 
+#ifdef POPPLER_HAS_SET_ERROR_CALLBACK
+    setErrorCallback(noErrorReporting, NULL);
+#else
     setErrorFunction(noErrorReporting);
+#endif
 #endif
 }
 
