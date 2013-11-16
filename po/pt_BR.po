@@ -9,25 +9,24 @@
 # Juan Diego Martins da Costa Cruz <juan.martins@ifrn.edu.br>, 2013.
 # Avelino <adelino.avelino@academico.ifrn.edu.br>, 2013.
 # Gabriel F. Vilar <cogumm@gmail.com>, 2013.
-#
+# Mateus Zenaide <mateus@mateuszenaide.com.br>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-09-26 02:54+0000\n"
-"PO-Revision-Date: 2013-09-29 11:57-0300\n"
-"Last-Translator: Gabriel F. Vilar <cogumm@gmail.com>\n"
+"POT-Creation-Date: 2013-10-03 06:33+0000\n"
+"PO-Revision-Date: 2013-11-04 22:58-0300\n"
+"Last-Translator: Mateus Zenaide <mateus@mateuszenaide.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Poedit-Language: Portuguese\n"
-"X-Poedit-Country: BRAZIL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Gtranslator 2.91.5\n"
+"X-Project-Style: gnome\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:415
 #: ../src/gnome-cmd-main-win.cc:761
@@ -1611,7 +1610,7 @@ msgstr "%s livre"
 #: ../src/gnome-cmd-file-selector.cc:627 ../src/gnome-cmd-file-selector.cc:702
 #: ../src/gnome-cmd-user-actions.cc:1677 ../src/gnome-cmd-user-actions.cc:1685
 msgid "The tab is locked, close anyway ?"
-msgstr ""
+msgstr "A aba está bloqueada, fechar mesmo assim ?"
 
 #: ../src/gnome-cmd-file-selector.cc:645 ../src/gnome-cmd-main-menu.cc:613
 msgid "Open in New _Tab"
@@ -2425,8 +2424,9 @@ msgid "Confirm before delete"
 msgstr "Confirmar antes de excluir"
 
 #: ../src/gnome-cmd-options-dialog.cc:934
+#, fuzzy
 msgid "Confirm defaults to OK"
-msgstr ""
+msgstr "Confirmar padrão para Ok"
 
 #: ../src/gnome-cmd-options-dialog.cc:943
 msgid "Copy overwrite"
@@ -3145,6 +3145,10 @@ msgid ""
 "Software Foundation; either version 2 of the License, or (at your option) "
 "any later version."
 msgstr ""
+"GNOME Commander é software livre; você pode redistribuí-lo e/ou modificá-lo "
+"sob os termos da Licença Pública Geral GNU (GNU General Public License), "
+"conforme publicada pela Free Software Foundation; tanto a versão 2 da "
+"Licença como (a seu critério) qualquer versão mais nova."
 
 #: ../src/gnome-cmd-user-actions.cc:2041
 msgid ""
@@ -3153,6 +3157,10 @@ msgid ""
 "or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
 "more details."
 msgstr ""
+"GNOME Commander é distribuído na expectativa de que seja útil, mas SEM "
+"NENHUMA GARANTIA; sem mesmo implicar garantias de COMERCIALIZAÇÃO ou de "
+"ADEQUAÇÃO A UM FIM ESPECÍFICO. Veja a Licença Pública Geral GNU (GPL) para "
+"mais detalhes."
 
 #: ../src/gnome-cmd-user-actions.cc:2045
 msgid ""
@@ -3160,6 +3168,9 @@ msgid ""
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
+"Você deve ter recebido uma cópia da Licença Pública Geral GNU junto com o "
+"GNOME Commander; caso contrário, escreva para Free Software Foundation, "
+"Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
 #: ../src/gnome-cmd-user-actions.cc:2062
 msgid "translator-credits"
@@ -3184,6 +3195,15 @@ msgid ""
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 msgstr ""
+"Sobrescrever arquivo:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>\n"
+"\n"
+"Com:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>"
 
 #: ../src/gnome-cmd-xfer.cc:191
 msgid "Replace"
@@ -4140,6 +4160,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
+"Um de: \"Protegido por senha\", \"Recomendado somente leitura\", \"Forçar "
+"somente leitura\" ou \"Bloqueado para anotações\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Slide Count"
@@ -4379,7 +4401,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid "Device Setting Description"
-msgstr ""
+msgstr "Descrição da configuração do dispositivo"
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid ""
@@ -5433,7 +5455,7 @@ msgstr "Modificado"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
 msgid "Last modified datetime."
-msgstr ""
+msgstr "Data e hora da última modificação"
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "File name excluding path but including the file extension."
@@ -5633,7 +5655,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Event Timing"
-msgstr ""
+msgstr "Temporização do evento"
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Event timing codes."
@@ -6146,7 +6168,7 @@ msgstr "Mensagem de copyright embutida."
 
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Datetime image was originally created."
-msgstr ""
+msgstr "Data e hora que a imagem foi originalmente criada."
 
 #: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Description of the image."
@@ -6621,13 +6643,15 @@ msgstr "O maior tamanho possível do objeto se o tamanho é desconhecido."
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Max Subfile Size"
-msgstr ""
+msgstr "Tamanho máximo do subarquivo"
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid ""
 "The maximum size for a subfile dataset containing a portion of the object "
 "data."
 msgstr ""
+"O tamanho máximo para uma coleção de dados de subarquivo contendo uma porção "
+"dos dados do objeto."
 
 #: ../src/tags/gnome-cmd-tags.cc:478
 msgid "Model Version"
@@ -6800,7 +6824,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid "Service Identifier"
-msgstr ""
+msgstr "Identificador de serviço"
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid "Identifies the provider and product."
@@ -6832,17 +6856,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Subfile"
-msgstr ""
+msgstr "Subarquivo"
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid ""
 "The object data itself. Subfiles must be sequential so that the subfiles may "
 "be reassembled."
 msgstr ""
+"Os dados do objeto em si. Subarquivos devem ser sequenciais, de forma que os "
+"subarquivos possam ser remontados."
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid "Subject Reference"
-msgstr ""
+msgstr "Referência dos Objetos"
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid ""
