@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2011-12-16 19:17+0000\n"
-"PO-Revision-Date: 2011-12-17 10:44+0100\n"
+"PO-Revision-Date: 2013-10-31 13:56+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -796,7 +796,7 @@ msgstr "Aktuellen Ordner hinzufügen"
 
 #: ../src/gnome-cmd-dir-indicator.cc:407
 msgid "Manage bookmarks..."
-msgstr "Lesezeichen _verwalten …"
+msgstr "Lesezeichen verwalten …"
 
 #: ../src/gnome-cmd-dir.cc:537
 msgid "Waiting for file list"
