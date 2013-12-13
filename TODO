@@ -3,6 +3,30 @@
 +---------------------------------------------------------+
 
 
+// Shortcuts (testet with gcmd 1.2.8.15)
+
+* The working status may depend on the window manager shortcuts!
+* F1 is not working in xfce4 (error message pops up)
+* = does not select files with a pattern, instead "+" does this now
+* CTRL+= does not work
+* It is unclear what SHIFT+ENTER does (It should "Execute command 
+  line in the defined terminal and leaves the terminal window open")
+* CTRL+` (Go to home directory) is not working
+* SUPER+1 (Change left connection) and SUPER+2 (Change right connection show no reaction, ALT+1 and ALT+2 do
+* CTRL+SHIFT+C seams not to copy anything...
+* CTRL+SHIFT+. (Copy the current working directory from the active file list to the inactive one) -> nothing happens
+* CTRL+5 (Create MD5 checksum) -> Error message "Python module gnomevfs ('gnome.vfs') could not be loaded"
+* CTRL+K (Delete to the end of the command line) -> no reaction
+* CTRL+W (Delete the word to the left of the cursor) -> no reaction
+* CTRL+T (Delete the word to the right of the cursor) -> no reaction
+
+* ALT+F8 -> no reaction (A list with the latest command lines (history
+                list) is opened.  Use the UP and DOWN cursor keys to
+                select an entry. By pressing the LEFT or RIGHT key, you
+                can edit the command line. This automatically closes the
+                list) -> The LEFT and RIGHT key is not workin
+                either. Just use the ENTER key here.
+
 // General
 
 * MIME configuration
