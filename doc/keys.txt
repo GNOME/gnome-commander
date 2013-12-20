@@ -1,5 +1,5 @@
-Default keyboard mapping for GNOME Commander v1.2
------------------------------------------
+Default keyboard mapping for GNOME Commander
+--------------------------------------------
 
 F1              Help
 F2              Rename a file
@@ -93,10 +93,10 @@ CTRL+SHIFT+C    Copy selected file names to clipboard
 CTRL+D          Open favourite directories (bookmarks)
 CTRL+M          Multi-Rename-Tool
 
-TAB             Switch between left and right file list
-CTRL+U          Switch between left and right file list
-CTRL+.          Copy the current working directory from the inactive file list
-                to the active one
+TAB             Switch cursor between left and right file list
+CTRL+U          Switch left and right file list
+CTRL+.          Open the current working directory from the inactive file list
+                in the active one
 CTRL+SHIFT+.    Copy the current working directory from the active file list
                 to the inactive one
 CTRL+LEFT/RIGHT Copy the current working directory from the active file list
