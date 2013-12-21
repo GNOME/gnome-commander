@@ -41,7 +41,12 @@ using namespace std;
 static regex_t rxDate;
 static gboolean rxDate_OK;
 #ifdef POPPLER_HAS_SET_ERROR_CALLBACK
-static void noErrorReporting(void *, ErrorCategory, int pos, char *msg)
+#ifdef POPPLER_HAS_GOFFSET
+typedef Goffset gcmd_poppler_offset_t;
+#else
+typedef int gcmd_poppler_offset_t;
+#endif
+static void noErrorReporting(void *, ErrorCategory, gcmd_poppler_offset_t pos, char *msg)
 #else
 static void noErrorReporting(int pos, char *msg, va_list args)
 #endif
