@@ -145,7 +145,8 @@ static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdMainMen
 static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
 {
     GtkWidget *item=NULL;
-    GtkWidget *desc, *shortcut;
+    GtkWidget *desc=NULL;
+    GtkWidget *shortcut=NULL;
     GtkWidget *content = NULL;
     GtkWidget *pixmap = NULL;
 
@@ -189,8 +190,19 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
             break;
 
         case MENU_TYPE_TOGGLEITEM:
-            item = gtk_check_menu_item_new_with_label (spec->label);
-            g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
+            item = gtk_check_menu_item_new ();
+            content = create_hbox (*main_win, FALSE, 12);
+
+            desc = create_label (*main_win, spec->label);
+            gtk_misc_set_alignment (GTK_MISC (desc), 0.0, 0.5);
+            gtk_box_pack_start (GTK_BOX (content), desc, TRUE, TRUE, 0);
+
+            shortcut = create_label (*main_win, spec->shortcut);
+            gtk_misc_set_alignment (GTK_MISC (shortcut), 1.0, 0.5);
+            gtk_box_pack_start (GTK_BOX (content), shortcut, TRUE, TRUE, 0);
+
+            gtk_container_add (GTK_CONTAINER (item), content);
+	    g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
             break;
 
         case MENU_TYPE_SEPARATOR:
@@ -660,7 +672,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Hidden Files"), "", NULL,
+            MENU_TYPE_TOGGLEITEM, _("Show Hidden Files"), "Ctrl+Shift+H", NULL,
             (gpointer) view_hidden_files, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
