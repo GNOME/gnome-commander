@@ -39,6 +39,7 @@
 #include "dict.h"
 
 #ifdef HAVE_GSF
+#include <gsf/gsf-doc-meta-data.h>
 #include <gsf/gsf-infile.h>
 #include <gsf/gsf-infile-msole.h>
 #include <gsf/gsf-infile-zip.h>
