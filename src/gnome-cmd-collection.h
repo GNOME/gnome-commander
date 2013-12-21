@@ -35,9 +35,9 @@ namespace GnomeCmd
     template <typename T>
     struct Collection<T *>: std::set<T *>
     {
-        void add(T *t)            {  insert(t);                          }
-        void remove(T *t)         {  erase(t);                           }
-        bool contain(T *t) const  {  return find(t)!=Collection::end();  }
+        void add(T *t)            {  this->insert(t);                          }
+        void remove(T *t)         {  this->erase(t);                           }
+        bool contain(T *t) const  {  return this->find(t)!=Collection::end();  }
 
         GList *get_list();
     };
