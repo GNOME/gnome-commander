@@ -1,4 +1,4 @@
-#
+# 
 # No modifications of this Makefile should be necessary.
 #
 # This file contains the build instructions for installing OMF files.  It is
@@ -10,7 +10,7 @@
 #
 # If it is impossible to configure with --localstatedir=/var, then
 # modify the definition of scrollkeeper_localstate_dir so that
-# it points to the correct location. Note that you must still use
+# it points to the correct location. Note that you must still use 
 # $(localstatedir) in this or when people build RPMs it will update
 # the real database on their system instead of the one under RPM_BUILD_ROOT.
 #
@@ -22,7 +22,7 @@
 #	This file was derived from scrollkeeper_example2, a package
 #	illustrating how to install documentation and OMF files for use with
 #	ScrollKeeper 0.3.x and 0.4.x.  For more information, see:
-#		http://scrollkeeper.sourceforge.net/
+#		http://scrollkeeper.sourceforge.net/	
 # 	Version: 0.1.3 (last updated: March 20, 2002)
 #
 
@@ -36,19 +36,23 @@ omf: omf_timestamp
 
 omf_timestamp: $(omffile)
 	-for file in $(omffile); do \
-	  scrollkeeper-preinstall $(docdir)/$(docname).xml $(srcdir)/$$file $$file.out; \
+	  absfile=$(srcdir)/$$file; \
+	  test -r $$file && absfile=$$file; \
+	  scrollkeeper-preinstall $(docdir)/$(docname).xml $$absfile $$file.out; \
 	done; \
 	touch omf_timestamp
 
 install-data-hook-omf:
 	$(mkinstalldirs) $(DESTDIR)$(omf_dest_dir)
 	for file in $(omffile); do \
-		$(INSTALL_DATA) $$file.out $(DESTDIR)$(omf_dest_dir)/$$file; \
+		absfile=$(srcdir)/$$file.out; \
+		test -r $$file.out && absfile=$$file.out; \
+		$(INSTALL_DATA) $$absfile $(DESTDIR)$(omf_dest_dir)/$$file; \
 	done
 	-scrollkeeper-update -p $(DESTDIR)$(scrollkeeper_localstate_dir) -o $(DESTDIR)$(omf_dest_dir)
 
 uninstall-local-omf:
-	-for file in $(srcdir)/*.omf; do \
+	-for file in $(omffile); do \
 		basefile=`basename $$file`; \
 		rm -f $(DESTDIR)$(omf_dest_dir)/$$basefile; \
 	done
