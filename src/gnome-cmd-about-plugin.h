@@ -2,6 +2,7 @@
 
     Copyright (C) 2003-2006 Marcus Bjurman
     Copyright (C) 2007-2012 Piotr Eljasiak
+    Copyright (C) 2013 Uwe Scholz
 */
 
  /* gnome-about.h - An about box widget for gnome.
