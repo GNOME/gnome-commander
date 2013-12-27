@@ -194,7 +194,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     button_titles = convert_varargs_to_name_array (button_title_args);
     va_end (button_title_args);
 
-    dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, text);
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, "%s", text);
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);
 
@@ -591,7 +591,7 @@ void mime_exec_single (GnomeCmdFile *f)
         {
             gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
             GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), GTK_DIALOG_MODAL,
-                                                        GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, msg);
+                                                        GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s", msg);
             TmpDlData *dldata = g_new0 (TmpDlData, 1);
             args[0] = (gpointer) app;
             // args[2] is NULL here (don't set exec dir for temporarily downloaded files)

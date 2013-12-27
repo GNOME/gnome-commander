@@ -193,6 +193,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                                                             (GtkDialogFlags) 0,
                                                             GTK_MESSAGE_QUESTION,
                                                             GTK_BUTTONS_OK_CANCEL,
+                                                            "%s",
                                                             msg);
                 gint choice = gtk_dialog_run (GTK_DIALOG (dialog));
                 gtk_widget_destroy (dialog);

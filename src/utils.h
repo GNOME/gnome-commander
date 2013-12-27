@@ -257,10 +257,11 @@ inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, cons
                                              GTK_DIALOG_DESTROY_WITH_PARENT,
                                              GTK_MESSAGE_ERROR,
                                              GTK_BUTTONS_OK,
+                                             "%s",
                                              message.c_str());
 
     if (secondary_text)
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), secondary_text);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), "%s", secondary_text);
 
     gtk_dialog_run (GTK_DIALOG (dlg));
     gtk_widget_destroy (dlg);
