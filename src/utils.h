@@ -259,10 +259,10 @@ gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv);
 
 inline gint gnome_cmd_prompt_message (GtkWindow *parent, GtkMessageType type, GtkButtonsType buttons, const gchar *message, const gchar *secondary_text=NULL)
 {
-    GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, message);
+    GtkWidget *dlg = gtk_message_dialog_new (parent, GTK_DIALOG_DESTROY_WITH_PARENT, type, buttons, "%s", message);
 
     if (secondary_text)
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), secondary_text);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), "%s", secondary_text);
 
     gint result = gtk_dialog_run (GTK_DIALOG (dlg));
 

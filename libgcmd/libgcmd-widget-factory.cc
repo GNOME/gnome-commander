@@ -523,7 +523,7 @@ void create_error_dialog (const gchar *msg, ...)
     vsprintf (string, msg, argptr);
     va_end (argptr);
 
-    dialog = gtk_message_dialog_new (GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, string);
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "%s", string);
 
     g_signal_connect (dialog, "response", G_CALLBACK (on_response), dialog);
 
