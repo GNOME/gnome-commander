@@ -1,22 +1,22 @@
 # translation of gnome-commander-help.master.po to Español
 #
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010, 2011.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010, 2011, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-05 21:40+0000\n"
-"PO-Revision-Date: 2011-12-06 14:12+0100\n"
+"POT-Creation-Date: 2014-01-07 09:35+0000\n"
+"PO-Revision-Date: 2014-01-07 13:31+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
 #: C/legal.xml:2(para)
 msgid ""
@@ -240,7 +240,6 @@ msgid "GNOME Commander Manual"
 msgstr "Manual de GNOME Commander"
 
 #: C/gnome-commander.xml:31(subtitle)
-#| msgid "GNOME Commander Desktop Application Manual V1.2.8.14"
 msgid "GNOME Commander Desktop Application Manual V1.2.8.15"
 msgstr "Manual de aplicación de escritorio GNOME Commander v1.2.8.15"
 
@@ -475,17 +474,14 @@ msgid "2011-10-04"
 msgstr "2011-10-04"
 
 #: C/gnome-commander.xml:301(revnumber)
-#| msgid "GNOME Commander Manual V1.2.8.1;"
 msgid "GNOME Commander Manual V1.2.8.15;"
 msgstr "Manual de GNOME Commander v1.2.8.15;"
 
 #: C/gnome-commander.xml:302(date) C/gnome-commander.xml:6115(para)
-#| msgid "2010-12-03"
 msgid "2011-12-06"
 msgstr "2011-12-06"
 
 #: C/gnome-commander.xml:312(releaseinfo)
-#| msgid "This manual describes version 1.2.8.14 of GNOME Commander."
 msgid "This manual describes version 1.2.8.15 of GNOME Commander."
 msgstr "Este manual describe la versión 1.2.8.15 de GNOME Commander."
 
@@ -10196,16 +10192,21 @@ msgstr ""
 "página web."
 
 #: C/gnome-commander.xml:5375(para)
+#| msgid ""
+#| "It's recommended to use the GNOME Commander package that is provided by "
+#| "your distribution. Refer to GNOME Commander for the <ulink url=\"http://"
+#| "www.nongnu.org/gcmd/download.html#distro\" type=\"http\">list of "
+#| "distributions</ulink> supporting GNOME Commander packages."
 msgid ""
 "It's recommended to use the GNOME Commander package that is provided by your "
-"distribution. Refer to GNOME Commander for the <ulink url=\"http://www."
-"nongnu.org/gcmd/download.html#distro\" type=\"http\">list of distributions</"
-"ulink> supporting GNOME Commander packages."
+"distribution. Refer to GNOME Commander for the <ulink url=\"http://gcmd."
+"github.io/download.html#distro\" type=\"http\">list of distributions</ulink> "
+"supporting GNOME Commander packages."
 msgstr ""
-"Se recomienda usar el paquete de GNOME Commander proporcionado con su "
-"distribución. Consulte en GNOME Commander la <ulink url=\"http://www.nongnu."
-"org/gcmd/download.html#distro\" type=\"http\">lista de distribuciones</"
-"ulink> que soportan paquetes de GNOME Commander."
+"Se recomienda usar el paquete de GNOME Commander proporcionado por su "
+"distribución. Consulte en GNOME Commander la <ulink url=\"http://gcmd.github."
+"io/download.html#distro\" type=\"http\">lista de distribuciones</ulink> que "
+"soportan paquetes de GNOME Commander."
 
 #: C/gnome-commander.xml:5380(para)
 msgid ""
@@ -10290,16 +10291,16 @@ msgstr ""
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots can be downloaded "
-"from <ulink url=\"http://gcmd.github.io/download.html#testing\" type="
-"\"http\">GNOME Commander home page</ulink> (just remember to run <command>./"
+"from <ulink url=\"http://gcmd.github.io/download.html#testing\" type=\"http"
+"\">GNOME Commander home page</ulink> (just remember to run <command>./"
 "autogen.sh</command> before building). <placeholder-1/>"
 msgstr ""
 "Aquellos que se sienten aventurados, o que tal vez quieren hackear el código "
 "más reciente, se pueden descargar las últimas capturas del código fuente de "
-"desarrollo desde la <ulink url=\"http://gcmd.github.io/download."
-"html#testing\" type=\"http\">página principal de GNOME Commander</ulink> "
-"(tan sólo recuerde ejecutar <command>./autogen.sh</command> antes de "
-"construir). <placeholder-1/>"
+"desarrollo desde la <ulink url=\"http://gcmd.github.io/download.html#testing"
+"\" type=\"http\">página principal de GNOME Commander</ulink> (tan sólo "
+"recuerde ejecutar <command>./autogen.sh</command> antes de construir). "
+"<placeholder-1/>"
 
 #: C/gnome-commander.xml:5437(title)
 msgid "Compilation and installation"
@@ -10852,7 +10853,6 @@ msgid "What's new"
 msgstr "Qué hay nuevo"
 
 #: C/gnome-commander.xml:6114(para)
-#| msgid "1.2.8.5"
 msgid "1.2.8.15"
 msgstr "1.2.8.15"
 
@@ -10876,18 +10876,15 @@ msgid "Bug fixes:"
 msgstr "Correcciones de errores:"
 
 #: C/gnome-commander.xml:6121(para)
-#| msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgid "Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)"
 msgstr ""
 "Error nº 65372 corregido (faltaban enlaces en la documentación de gcmd-1.2.8)"
 
 #: C/gnome-commander.xml:6124(para)
-#| msgid "New or updated docs: cs, de, en, es, fr, ru, sl"
 msgid "New or updated docs: cs, de, es, fr"
 msgstr "Documentos nuevos o actualizados: cs, de, es, fr"
 
 #: C/gnome-commander.xml:6127(para)
-#| msgid "Updated translations: de"
 msgid "Updated translations: eo, es, sl"
 msgstr "Traducciones actualizadas: eo, es, sl"
 
@@ -12961,8 +12958,8 @@ msgid ""
 "Assaf Gordon (<email>agordon88@gmail.com</email>) with additional help of "
 "Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael "
 "(<email>codejodler@gmx.ch</email>). To find more information about GNOME "
-"Commander, please visit the <ulink url=\"http://gcmd.github.io/\" type="
-"\"http\">GNOME Commander homepage</ulink>."
+"Commander, please visit the <ulink url=\"http://gcmd.github.io/\" type=\"http"
+"\">GNOME Commander homepage</ulink>."
 msgstr ""
 "Marcus Bjurman, anterior mantenedor, escribió GNOME Commander quién inició "
 "públicamente este proyecto en 2001 y lo desarrolló hasta la versión 1.1.6 en "
