@@ -14,9 +14,9 @@
 
   <maintainer>
     <foaf:Person>
-      <foaf:name>Piotr Eljasiak</foaf:name>
-      <foaf:mbox rdf:resource="mailto:epiotr@src.gnome.org" />
-      <gnome:userid>epiotr</gnome:userid>
+      <foaf:name>Uwe Scholz</foaf:name>
+      <foaf:mbox rdf:resource="mailto:uwescholz@src.gnome.org" />
+      <gnome:userid>uwescholz</gnome:userid>
     </foaf:Person>
   </maintainer>
 
