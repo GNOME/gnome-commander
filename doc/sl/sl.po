@@ -9371,7 +9371,7 @@ msgid "The very latest information about can be found on GNOME Commander website
 msgstr ""
 
 #: C/gnome-commander.xml:5375(para)
-msgid "It's recommended to use the GNOME Commander package that is provided by your distribution. Refer to GNOME Commander for the <ulink url=\"http://www.nongnu.org/gcmd/download.html#distro\" type=\"http\">list of distributions</ulink> supporting GNOME Commander packages."
+msgid "It's recommended to use the GNOME Commander package that is provided by your distribution. Refer to GNOME Commander for the <ulink url=\"http://gcmd.github.io/download.html#distro\" type=\"http\">list of distributions</ulink> supporting GNOME Commander packages."
 msgstr ""
 
 #: C/gnome-commander.xml:5380(para)
@@ -9427,7 +9427,7 @@ msgid "Be aware that there can be serious bugs in code from GNOME git repository
 msgstr ""
 
 #: C/gnome-commander.xml:5423(para)
-msgid "For those of you who feel really adventurous, or maybe want to hack on the freshest code, the latest development source snapshots can be downloaded from <ulink url=\"http://www.nongnu.org/gcmd/download.html#testing\" type=\"http\">GNOME Commander home page</ulink> (just remember to run <command>./autogen.sh</command> before building). <placeholder-1/>"
+msgid "For those of you who feel really adventurous, or maybe want to hack on the freshest code, the latest development source snapshots can be downloaded from <ulink url=\"http://gcmd.github.io/download.html#testing\" type=\"http\">GNOME Commander home page</ulink> (just remember to run <command>./autogen.sh</command> before building). <placeholder-1/>"
 msgstr ""
 
 #: C/gnome-commander.xml:5437(title)
@@ -11692,7 +11692,7 @@ msgid "Linus law."
 msgstr "Linusov zakon."
 
 #: C/gnome-commander.xml:7709(para)
-msgid "GNOME Commander was primarily written by the former maintainer - Marcus Bjurman, who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in January 2004. Currently GNOME Commander is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>) with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>). To find more information about GNOME Commander, please visit the <ulink url=\"http://www.nongnu.org/gcmd/\" type=\"http\">GNOME Commander homepage</ulink>."
+msgid "GNOME Commander was primarily written by the former maintainer - Marcus Bjurman, who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in January 2004. Currently GNOME Commander is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>) with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>). To find more information about GNOME Commander, please visit the <ulink url=\"http://gcmd.github.io/\" type=\"http\">GNOME Commander homepage</ulink>."
 msgstr ""
 
 #: C/gnome-commander.xml:7717(para)

@@ -603,7 +603,7 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
         return;
 
     fputs("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", f);
-    fputs("<!-- Created with GNOME Commander (http://www.nongnu.org/gcmd/) -->\n", f);
+    fputs("<!-- Created with GNOME Commander (http://gcmd.github.io/) -->\n", f);
     fputs("<GnomeCommander version=\"" VERSION "\">\n", f);
     fputs("\t<AdvancedRenameTool>\n", f);
     fprintf (f, "\t\t<WindowSize width=\"%i\" height=\"%i\" />\n", cfg.advrename_defaults.width, cfg.advrename_defaults.height);

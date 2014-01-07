@@ -29,7 +29,7 @@ Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 
 Group:         Applications/File
 License:       GPLv2+
-URL:           http://www.nongnu.org/gcmd/
+URL:           http://gcmd.github.io/
 Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 

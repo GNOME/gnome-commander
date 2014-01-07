@@ -2263,7 +2263,7 @@ msgstr "Arquivo"
 msgid "Counter"
 msgstr "Contador"
 
-# http://www.nongnu.org/gcmd/tags.html
+# http://gcmd.github.io/tags.html
 #: ../src/gnome-cmd-profile-component.cc:790
 msgid "Metatag"
 msgstr "Metaetiqueta"
