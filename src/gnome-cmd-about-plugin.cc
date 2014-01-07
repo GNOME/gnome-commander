@@ -2,6 +2,7 @@
 
     Copyright (C) 2003-2006 Marcus Bjurman <marbj499@student.liu.se>
     Copyright (C) 2007-2012 Piotr Eljasiak
+    Copyright (C) 2013-2014 Uwe Scholz
 */
 /* gnome-about.c - An about box widget for gnome.
 
