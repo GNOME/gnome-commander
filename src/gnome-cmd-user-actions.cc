@@ -1585,17 +1585,20 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
         "Assaf Gordon <agordon88@gmail.com>",
+        "Uwe Scholz <u.scholz83@gmx.de>",
         NULL
     };
 
     static const gchar *documenters[] = {
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
+        "Uwe Scholz <u.scholz83@gmx.de>",
         NULL
     };
 
     static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
-                                     "Copyright \xc2\xa9 2007-2012 Piotr Eljasiak";
+                                     "Copyright \xc2\xa9 2007-2012 Piotr Eljasiak\n"
+                                     "Copyright \xc2\xa9 2013-2014 Uwe Scholz";
 
     static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 
