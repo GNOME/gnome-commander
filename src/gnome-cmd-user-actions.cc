@@ -1630,7 +1630,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
                            "documenters", documenters,
                            "logo-icon-name", PACKAGE_NAME,
                            "translator-credits", _("translator-credits"),
-                           "website", "http://www.nongnu.org/gcmd",
+                           "website", "http://gcmd.github.io",
                            "website-label", "GNOME Commander Website",
                            NULL);
 
