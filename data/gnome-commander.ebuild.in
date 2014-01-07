@@ -7,7 +7,7 @@ inherit gnome2 flag-o-matic
 EAPI="2"
 
 DESCRIPTION="A full featured, dual-pane file manager for Gnome2"
-HOMEPAGE="http://www.nongnu.org/gcmd/"
+HOMEPAGE="http://gcmd.github.io/"
 
 SRC_URI="http://ftp.gnome.org/pub/GNOME/sources/${PN}/1.4/${P}.tar.bz2";
 

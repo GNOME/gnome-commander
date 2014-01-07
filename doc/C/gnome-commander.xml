@@ -6941,7 +6941,7 @@
         </para>
       <para>
             It&apos;s recommended to use the &app; package that is provided by your distribution.
-            Refer to &app; for the <ulink type="http" url="http://www.nongnu.org/gcmd/download.html#distro">list of distributions</ulink>
+            Refer to &app; for the <ulink type="http" url="http://gcmd.github.io/download.html#distro">list of distributions</ulink>
             supporting &app; packages.
         </para>
       <para>
@@ -6990,7 +6990,7 @@
       <para>
         For those of you who feel really adventurous, or maybe want to hack on the freshest code,
         the latest development source snapshots can be downloaded from
-        <ulink type="http" url="http://www.nongnu.org/gcmd/download.html#testing">&app; home page</ulink>
+        <ulink type="http" url="http://gcmd.github.io/download.html#testing">&app; home page</ulink>
 
         (just remember to run <command>./autogen.sh</command> before building).
 
@@ -7614,7 +7614,7 @@
     with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>).
 
     To find more information about &app;, please visit the
-    <ulink type="http" url="http://www.nongnu.org/gcmd/">&app; homepage</ulink>.
+    <ulink type="http" url="http://gcmd.github.io/">&app; homepage</ulink>.
     </para>
     <para>
       To report a bug or make a suggestion regarding this application or
