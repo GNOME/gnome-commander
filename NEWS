@@ -1,4 +1,16 @@
 ===================================
+gnome-commander 1.2.8.17
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#721132 (Support build with -Werror=format-security)
+ * Updated GCMD home page location
+ * New or updated translations: 
+       es (Daniel Mustieles), 
+       id (Andika Triwidada), 
+       pt_BR (Adorilson Bezerra)
+
+===================================
 gnome-commander 1.2.8.16
 ---------------
 
