@@ -10,12 +10,13 @@ EXTRA_DIST =                \
 	autogen.sh              \
 	mkinstalldirs           \
 	ChangeLog-20090629      \
-	*/ChangeLog-20090629    \
-	intltool-*.in           \
 	xmldocs.make            \
 	omf.make                \
-	m4/*.m4                 \
+	m4/                     \
 	gnome-doc-utils.make
+
+dist-hook:
+	rm -rf `find $(distdir)/m4 -type f -name .cvsignore`
 
 DISTCLEANFILES =            \
 	gnome-doc-utils.make    \
