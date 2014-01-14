@@ -212,7 +212,7 @@ AC_SUBST([UNIQUE_VERSION])
 
 
 dnl Check for exiv2 support
-AC_ARG_WITH(libexiv2, [  --without-exiv2         disable EXIF and IPTC support])
+AC_ARG_WITH(exiv2, [  --without-exiv2         disable EXIF and IPTC support])
 have_exiv2=no
 if test x$with_exiv2 != xno; then
     PKG_CHECK_MODULES(EXIV2, exiv2 >= $EXIV2_REQ, have_exiv2=yes, have_exiv2=no)
