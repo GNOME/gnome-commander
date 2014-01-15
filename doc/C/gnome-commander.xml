@@ -4104,8 +4104,8 @@
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>General</guilabel> tab.
        </para>
-      <para>The options available are described in more details in
-         <xref linkend="gcmd-TBL-setting1">General settings</xref></para>.
+       <para>The options available are described in more details in General settings
+         <xref linkend="gcmd-TBL-setting1"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-general-fig">
         <title>General options</title>
@@ -4375,8 +4375,8 @@
       </para>
       <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
-      <para>The options available are described in more details in
-       <xref linkend="gcmd-TBL-setting2">Format settings</xref></para>
+      <para>The options available are described in more details in Format settings
+       <xref linkend="gcmd-TBL-setting2"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-format-fig">
         <title>Format options</title>
@@ -4517,8 +4517,8 @@
       <para>To modify the Panes layout options click on <menuchoice><guimenu>
          Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>Layout</guilabel> tab.</para>
-      <para>The options available are described in more details in
-       <xref linkend="gcmd-TBL-setting3">Layout settings</xref></para>
+      <para>The options available are described in more details in Layout settings
+       <xref linkend="gcmd-TBL-setting3"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-layout-fig">
         <title>Layout options</title>
@@ -4740,13 +4740,13 @@
 		<para>This feature allows you to configure how &app; displays elements to suit your needs. By default the unselected elements are all displayed in the same way. This can become confusing, to solve this you can configure alternate colors for alternate rows.</para>
 		<para><guilabel>Foreground</guilabel> describes the color used for the text, and <guilabel>background</guilabel> is the background color used for the row.</para>
 		<itemizedlist>
-			<listitem><guilabel>Default</guilabel> this is the text and background colors used by default. These colors are used for standard unselected items.
+			<listitem><para><guilabel>Default</guilabel> this is the text and background colors used by default. These colors are used for standard unselected items.</para>
 			</listitem>
-			<listitem><guilabel>Alternate</guilabel> If you wish to have a different color on alternate rows to help distinguish the files you can change the colors defined here. By default they are set to the same colors as the default.
+			<listitem><para><guilabel>Alternate</guilabel> If you wish to have a different color on alternate rows to help distinguish the files you can change the colors defined here. By default they are set to the same colors as the default.</para>
 			</listitem>
-			<listitem><guilabel>Selected File</guilabel>, all selected items will be marked using the colors defined here. They differ from the default to help visualization of the marked items.
+			<listitem><para><guilabel>Selected File</guilabel>, all selected items will be marked using the colors defined here. They differ from the default to help visualization of the marked items.</para>
 			</listitem>
-			<listitem><guilabel>Cursor</guilabel> is the row currently activated. This highlights the position and is useful when navigating files with the keyboard.
+			<listitem><para><guilabel>Cursor</guilabel> is the row currently activated. This highlights the position and is useful when navigating files with the keyboard.</para>
 			</listitem>
 		</itemizedlist>
 
@@ -4810,8 +4810,8 @@
       <para>To modify the confirmation settings click on <menuchoice><guimenu>
        Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
        then click on the <guilabel>Confirmation</guilabel> tab.</para>
-      <para>The options available are described in more details in
-       <xref linkend="gcmd-TBL-setting4">Confirmation settings</xref>.</para>
+      <para>The options available are described in more details in Confirmation settings
+       <xref linkend="gcmd-TBL-setting4"/>.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-confirmation-fig">
         <title>Confirmation options</title>
@@ -5149,7 +5149,7 @@
        		<listitem><para><guilabel>Differ</guilabel> You can configure here your favourite comparison tool.</para></listitem>
        		<listitem><para><guilabel>Terminal</guilabel> You can configure here the terminal of your choice.</para></listitem>
        	</itemizedlist>
-      	<note>You can specify the application to use as well as the command line options. To use specific options please refer yourself to the application help or man page.</note>
+      	<note><para>You can specify the application to use as well as the command line options. To use specific options please refer yourself to the application help or man page.</para></note>
        </para>
        <para>You can also add more applications in the <guilabel>Other favorite apps</guilabel> section described further below.</para>
       <!-- == Figure ==== -->
@@ -5302,7 +5302,7 @@
             </para>
       <para>The section below describes the process of adding or modifying other applications to the contextual menu</para>
       <para>In the following dialog box you can input a number of different parameters to run the application as you want it to. You will probably need to check the various options available to the application in its manual pages.</para>
-      <note>The dialog box used to modify existing applications is the same as the one described below.</note>
+      <note><para>The dialog box used to modify existing applications is the same as the one described below.</para></note>
          <!-- ==== Figure ==== -->
       <figure id="options-application-fig">
         <title>Application options</title>
@@ -5366,7 +5366,7 @@
               					<entry colname="colspec3">
                 					<para>This text box contains the command line used to start the application and open the selected items.
                 					</para>
-                					<para><note>It is recommended that you read the help or the manual pages of the application to start it properly and to configure it with the correct options.</note></para>
+                					<para><note><para>It is recommended that you read the help or the manual pages of the application to start it properly and to configure it with the correct options.</para></note></para>
               					</entry>
             				</row>
             				<row>
@@ -5480,7 +5480,7 @@
                 					</para>
               					</entry>
               					<entry colname="colspec3">
-                					<para>When this option is selected right clicking on the files specified in the <guiitem>File patterns</guiitem> below will display the application in the contextual menu.
+                					<para>When this option is selected right clicking on the files specified in the <guimenu>File patterns</guimenu> below will display the application in the contextual menu.
                 					</para>
               					</entry>
             				</row><row>
