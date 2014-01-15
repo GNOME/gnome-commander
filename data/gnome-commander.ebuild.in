@@ -15,19 +15,19 @@ KEYWORDS="~amd64 ~x86"
 IUSE="chm doc exif +gsf id3 nls pdf python taglib"
 
 DEPEND="app-text/gnome-doc-utils
-	dev-libs/glib:2
+        dev-libs/glib:2
+        dev-util/intltool
         gnome-base/gnome-vfs
         gnome-base/libgnome
         gnome-base/libgnomeui
         x11-libs/gtk+:2
         chm? ( dev-libs/chmlib )
-        exif? ( media-gfx/exiv2)
+        doc? ( gnome-extra/yelp )
+        exif? ( media-gfx/exiv2 )
         gsf? ( gnome-extra/libgsf )
         pdf? ( app-text/poppler )
         python? ( =dev-lang/python-2* )
-        taglib? ( media-libs/taglib )"
-DEPEND="${ALL_DEPEND}
-        dev-util/intltool
+        taglib? ( media-libs/taglib ) 
         virtual/pkgconfig"
 RDEPEND="${ALL_DEPEND}"
 
