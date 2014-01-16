@@ -58,7 +58,6 @@
 // Shortcuts (testet with gcmd 1.2.8.15)
 
 * The working status may depend on the window manager shortcuts!
-* F1 is not working in xfce4 (error message pops up)
 * = does not select files with a pattern, instead "+" does this now
 * CTRL+= does not work
 * It is unclear what SHIFT+ENTER does (It should "Execute command 
