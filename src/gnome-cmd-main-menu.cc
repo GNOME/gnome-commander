@@ -773,7 +773,7 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData help_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Contents"), "F1", NULL,
+            MENU_TYPE_ITEM, _("_Documentation"), "F1", NULL,
             (gpointer) help_help, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
             NULL
