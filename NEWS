@@ -12,22 +12,31 @@ Bug fixes:
  * Fixed problem #667080 (delete confirmation defaults to YES/OK)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
+ * Fixed problem bgo#696227 (detect and support libgsf >= 1.14.26)
+ * Fixed problem bgo#684527 (Fixed typos in strings)
+ * Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view.dir_history)
+ * Fixed problem bgo#642178 (lock tabs for prev/next buttons)
 
 New features:
  * Support for tabs
  * Revamped bookmarks dialog
  * Revamped file properties dialog
  * One instance mode
+ * New colour theme: green tiger
  * User defined LS_COLORS colours
+ * Possibility to select/deselect files only
  * Support for automatic width counters in advanced file rename
  * Enhanced file name matching in quick search
  * Open terminal with administrator privileges
  * Prompt to confirm drag & drop operations
  * Context popup menu for internal viewer
  * --config-dir command line option for customized location of config files
- * New colour theme: green tiger
- * New or updated docs: cs, de, en, es, fr, ru, sl
- * New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN
+ * Several speed improvements including C++ rework and code cleanups
+ * New python plugin: 'apply_patch'
+ * Dropped support for cvs plugin
+ * New or updated docs: cs, de, en, es, el, fr, ru, sl
+ * New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, 
+                                nb, pl, pt_BR, ro, ru, sl, sr, sv, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
