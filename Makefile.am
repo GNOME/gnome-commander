@@ -15,9 +15,6 @@ EXTRA_DIST =                \
 	m4/                     \
 	gnome-doc-utils.make
 
-dist-hook:
-	rm -rf `find $(distdir)/m4 -type f -name .cvsignore`
-
 DISTCLEANFILES =            \
 	gnome-doc-utils.make    \
 	intltool-extract        \
