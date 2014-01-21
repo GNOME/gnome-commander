@@ -27,9 +27,9 @@ New features:
  * Possibility to select/deselect files only
  * Support for automatic width counters in advanced file rename
  * Enhanced file name matching in quick search
- * Open terminal with administrator privileges
+ * Open terminal with administrator privileges 
  * Prompt to confirm drag & drop operations
- * Context popup menu for internal viewer
+ * Right click popup menu for copying in internal viewer
  * --config-dir command line option for customized location of config files
  * Several speed improvements including C++ rework and code cleanups
  * New python plugin: 'apply_patch'
