@@ -1225,10 +1225,10 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 
     gnome_prepend_terminal_to_vector (&argc, &argv);
 
-    // insert quotes into the string to get
+    // Insert quotes into the string of argv to get, e.g.
     // /usr/bin/gksu 'roxterm -e /bin/bash' instead of
     // /usr/bin/gksu roxterm -e /bin/bash
-    // for example (the first case doesn't work)
+    // (the second case doesn't work in some cases)
     gchar *cmd = g_strjoinv (" ", argv);
     g_strfreev (argv);
     argc = 1;
