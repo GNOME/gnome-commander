@@ -1225,6 +1225,16 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 
     gnome_prepend_terminal_to_vector (&argc, &argv);
 
+    // insert quotes into the string to get
+    // /usr/bin/gksu 'roxterm -e /bin/bash' instead of
+    // /usr/bin/gksu roxterm -e /bin/bash
+    // for example (the first case doesn't work)
+    gchar *cmd = g_strjoinv (" ", argv);
+    g_strfreev (argv);
+    argc = 1;
+    argv = g_new0 (char *, argc+1);
+    argv[0] = cmd;
+
     if (gnome_cmd_prepend_su_to_vector (argc, argv))
     {
         gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
