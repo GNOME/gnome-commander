@@ -1219,8 +1219,8 @@
           <para>Select the file that needs its permission modified.</para>
         </listitem>
         <listitem>
-            <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>.
-            The <link linkend="gnome-commander-file-properties">properties window</link> for the item is displayed.</para>
+            <para>Open the <link linkend="gnome-commander-file-properties">properties window</link>
+	    with your favorite method (e.g. <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>).</para>
         </listitem>
         <listitem>
           <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
@@ -1326,7 +1326,7 @@
     </sect2>
     <!-- ================ Hidden Files Subsection ======================= -->
     <sect2 id="gnome-commander-hidden-files">
-      <title>Hidden Files</title>
+      <title>Hidden Files and Folders</title>
       <para>By default, &app; does not display certain system and backup files in folders.
         This prevents accidental modification or deletion of them, which can impair the operation of your computer,
         and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
@@ -1335,7 +1335,11 @@
             <listitem><para>Backup files, whose file name ends with a tilde (~) or with extension <filename>'.bak'</filename></para></listitem>
             <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
         </itemizedlist>
-      <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
+      <para>You may hide or show hidden files in all folders by:</para> 
+      <itemizedlist>
+            <listitem><para>Selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>,</para></listitem>
+            <listitem><para>Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></keycombo>.</para></listitem>
+        </itemizedlist>
     </sect2>
     <!-- ================ Advanced Rename Subsection ======================= -->
     <sect2 id="gnome-commander-advanced-rename">
