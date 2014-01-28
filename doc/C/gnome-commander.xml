@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-  <!ENTITY author "Piotr Eljasiak">
+  <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.4">
   <!ENTITY manrevision "1.4">
-  <!ENTITY date "??? 2011">
+  <!ENTITY date "??? 2014">
   <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
@@ -38,6 +38,11 @@
       <year>2006</year>
       <holder>Piotr Eljasiak</holder>
     </copyright>
+    <copyright>
+      <year>2014</year>
+      <year>2013</year>
+      <holder>Uwe Scholz</holder>
+    </copyright>
 <!-- translators: uncomment this:
 
   <copyright>
@@ -67,6 +72,10 @@
       <author>
         <firstname>Laurent</firstname>
         <surname>Coudeur</surname>
+      </author>
+      <author>
+        <firstname>Uwe</firstname>
+        <surname>Scholz</surname>
       </author>
 
 
@@ -302,13 +311,16 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.4;</revnumber>
-        <date>2011-??-??</date>
+        <date>2014-??-??</date>
         <revdescription>
           <para role="author">Laurent Coudeur
                 <email>laurentc@iol.ie</email></para>
           <para role="publisher">GNOME Documentation Project</para>
           <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
       </revision>
@@ -349,6 +361,12 @@
         <para>GTK-2 GUI with standard mouse interactions</para>
       </listitem>
       <listitem>
+        <para>Support for tabs</para>
+      </listitem>
+      <listitem>
+        <para>One instance mode</para>
+      </listitem>
+      <listitem>
         <para>GNOME MIME types</para>
       </listitem>
       <listitem>
@@ -379,7 +397,7 @@
         <para>Plugin support</para>
       </listitem>
       <listitem>
-        <para>Fast file viewer for text and images</para>
+        <para>Fast internal file viewer for text and images</para>
       </listitem>
       <listitem>
         <para>Meta data support for Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2, ODF and PDF tags</para>
@@ -913,13 +931,25 @@
         on the file or folder to which the symbolic link points.
         However, when you delete a symbolic link, you delete the link file,
         not the file to which the symbolic link points.</para>
-      <para>To create a symbolic link to a file or folder, select the file or folder
-        to which you want to create a link.
-        Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>.
-        A link to the file or folder is added to the current folder.</para>
-      <para>Alternatively, grab the item to which you want to create a link, then
-        press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>.
-        Drag the item to the location where you want to place the link.</para>
+      <para>There are three different ways to create a symbolic link to
+      a file or folder:
+      <itemizedlist>
+        <listitem>
+          <para>Select the file or folder to which you want to create a
+          link. Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create
+          Symbolic Link</guimenuitem></menuchoice>.</para>
+        </listitem>
+        <listitem>
+          <para>Grab the item to which you want to create a link, then
+          press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>.
+          Drag the item to the location where you want to place the link.</para>
+        </listitem>
+        <listitem>
+	  <para>Select the file or folder to which you want to create
+        a link. Press
+        <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo>.</para>
+	</listitem>
+      </itemizedlist></para>
       <note>
         <para>The permissions of a symbolic link are determined by the file
             or folder to which a symbolic link points.</para>
@@ -1033,12 +1063,21 @@
       </para>
       <orderedlist>
         <listitem>
-          <para>Select the file or folder whose properties you want to view.</para>
-        </listitem>
-        <listitem>
-          <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</guimenuitem></menuchoice>. A properties dialog is displayed.</para>
+          <para>Select the file or folder whose properties you want to
+	  view. Now you can</para>
         </listitem>
       </orderedlist>
+      <itemizedlist>
+        <listitem>
+          <para>Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>.</para>
+        </listitem>
+        <listitem>
+          <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</guimenuitem></menuchoice>.</para>
+        </listitem>
+        <listitem>
+          <para>Right-click on the file or folder and choose <guimenuitem>Properties...</guimenuitem>.</para>
+        </listitem>
+      </itemizedlist>
       <!-- ==== Figure ==== -->
       <figure id="properties-dlg-fig">
         <title>File Properties dialog</title>
@@ -1089,6 +1128,31 @@
             </row>
             <row>
               <entry valign="top">
+                <para>Location</para>
+              </entry>
+              <entry valign="top">
+                <para>The location of the file or folder.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
+                <para>Volume</para>
+              </entry>
+              <entry valign="top">
+                <para>The name of the volume in which the file or folder
+		is located.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
+                <para>Free space</para>
+              </entry>
+              <entry valign="top">
+                <para>The amount of free space on the volume.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
                 <para>Type</para>
               </entry>
               <entry valign="top">
@@ -1127,6 +1191,21 @@
                 <para>The amount of data occupied by object, file or folder.</para>
               </entry>
             </row>
+            <row>
+              <entry valign="top">
+                <para>Metadata</para>
+              </entry>
+              <entry valign="top">
+                <para>If available, additional metadata information is
+                shown for file types like images, documents or audio
+                files. The shown tags are: File.Description,
+                File.Publisher, Doc.Title, Doc.Pagecount,
+                Audio.Albumartist, Audio.Title, Audio.Bitrate and
+                Audio.Durationmmss. For more information, see 
+		<link linkend="gnome-commander-advanced-rename-metadata-tags">metadata tags</link>.
+		</para>
+	      </entry>
+	    </row>
           </tbody>
         </tgroup>
       </informaltable>
