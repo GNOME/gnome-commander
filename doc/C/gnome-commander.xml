@@ -3979,35 +3979,30 @@
       </para>
       <sect3 id="gnome-commander-internal-viewer-modes">
         <title>View Modes</title>
-        <para>The
-          <guilabel>View Modes</guilabel> group contains the preferences
-          that you can set to view images in image windows.</para>
-        <variablelist>
-          <varlistentry>
-            <term><guilabel>Character Encodings</guilabel></term>
-            <term><guilabel>Text Display Mode</guilabel></term>
-            <term><guilabel>Binary Display Mode</guilabel></term>
-            <term><guilabel>Hex dump Display Mode</guilabel></term>
-            <term><guilabel>Image Display Mode</guilabel></term>
-            <listitem>
-              <para>Use this drop-down list box to specify when to use
-            scrollbars to scroll through an image. Select one of
-            the following options:</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><guilabel>Pick window size and zoom factor automatically</guilabel></term>
-            <listitem>
-              <para>Select this option to resize the image window to fit the
-            image or to resize the image to fit the image
-            window. If the image is small,
-            &app; resizes the image window to fit the image. If
-            the image is large, &app; resizes the image to fit
-            the image window.</para>
-              <para>Default: unselected.</para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
+        <para>The <guilabel>View Modes</guilabel> group (In the <menuchoice><guimenu>View</guimenu></menuchoice> menu) 
+	contains the preferences that you can set to view images and texts in the internal viewer window:</para>
+	<para>
+	  <orderedlist>
+            <listitem><para>Text mode</para></listitem>
+            <listitem><para>Binary mode</para></listitem>
+            <listitem><para>Hex dump mode</para></listitem>
+            <listitem><para>Image mode</para></listitem>
+	  </orderedlist>
+	</para>
+	<para>For all of the three text modes (mode 1 to 3) you can change the text encoding in 
+	<menuchoice><guimenu>Text</guimenu><guimenuitem>Encoding</guimenuitem></menuchoice>.</para>
+	<para>For the image display mode you can choose if additional meta data should be shown below the image by selecting
+	<menuchoice><guimenu>Image</guimenu><guimenuitem>Show Metadata Tags</guimenuitem></menuchoice>.</para>
+	<para>Below of the <guilabel>View Modes</guilabel> in the menuchoice><guimenu>View</guimenu></menuchoice> menu you can
+	set the zoom factor. You can</para>
+	<para>
+	  <itemizedlist>
+            <listitem><para>Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),</para></listitem>
+            <listitem><para>Zoom out (<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo>),</para></listitem>
+            <listitem><para>Zoom to normal size (<keycombo><keycap>CTRL</keycap><keycap>0</keycap></keycombo>), or</para></listitem>
+            <listitem><para>Fit the image into the window of the internal viewer.</para></listitem>
+	  </itemizedlist>
+	</para>
       </sect3>
       <sect3 id="gnome-commander-internal-viewer-scroll-image">
         <title>To Scroll an Image</title>
@@ -4018,12 +4013,11 @@
             <para>Use the arrow keys on the keyboard.</para>
           </listitem>
           <listitem>
-            <para>Drag the image in the opposite direction to the direction in
-                which you want to scroll. For example, if you want to
-                scroll down the image, drag the image upwards in the window.</para>
+            <para>Drag the scrollbars on the window borders.</para>
           </listitem>
           <listitem>
-            <para>Use the scrollbars on the window.</para>
+            <para>Click at a random position of the image and drag it by pulling your mouse in the opposite direction 
+	    to which you want to scroll. For example, if you want to scroll down the image, drag the image upwards.</para>
           </listitem>
         </itemizedlist>
       </sect3>
