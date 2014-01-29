@@ -1388,7 +1388,7 @@
                   <guilabel>Counter</guilabel>
               </term>
               <listitem>
-                  <para>Specifies settings for counters: start value, step and width.</para>
+                  <para>Specifies settings for counters: start value, step and width ('auto' = automatic width, '1',..., '16': fixed width).</para>
               </listitem>
           </varlistentry>
           <varlistentry>
