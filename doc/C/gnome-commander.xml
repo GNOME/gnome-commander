@@ -3993,7 +3993,7 @@
 	<menuchoice><guimenu>Text</guimenu><guimenuitem>Encoding</guimenuitem></menuchoice>.</para>
 	<para>For the image display mode you can choose if additional meta data should be shown below the image by selecting
 	<menuchoice><guimenu>Image</guimenu><guimenuitem>Show Metadata Tags</guimenuitem></menuchoice>.</para>
-	<para>Below of the <guilabel>View Modes</guilabel> in the menuchoice><guimenu>View</guimenu></menuchoice> menu you can
+	<para>Below of the <guilabel>View Modes</guilabel> in the <menuchoice><guimenu>View</guimenu></menuchoice> menu you can
 	set the zoom factor. You can</para>
 	<para>
 	  <itemizedlist>
@@ -4254,7 +4254,7 @@
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When selecting this option, a single left mouse button click
-                on a file will unselect the current selection. If the option is not active
+                on an unselected file or folder will unselect the current selection. If the option is not active
 		a left click on any file will not affect the current selection.</para>
               </entry>
             </row>
@@ -4314,34 +4314,6 @@
             <row>
               <entry colname="colspec0" valign="top">
                 <para>
-                  <guilabel>Match file names using</guilabel>
-                </para>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Shell syntax</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>By selecting this option you will be using the same pattern
-                matching as you would in the command line shell.</para>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
-                <para/>
-              </entry>
-              <entry colname="colspec2" valign="top">
-                <para>Regex syntax</para>
-              </entry>
-              <entry colname="colspec3" valign="top">
-                <para>By selecting this option you will be using regular expression
-                matching patterns. For more information about regular expressions see
-                <ulink type="" url="http://en.wikipedia.org/wiki/Regular_expression">
-                Regular expression</ulink></para>
-              </entry>
-            </row>
-            <row>
-              <entry colname="colspec0" valign="top">
-                <para>
                   <guilabel>Sorting options</guilabel>
                 </para>
               </entry>
@@ -4374,7 +4346,7 @@
                 <para/>
               </entry>
               <entry colname="colspec2" valign="top">
-                <para>Alt+letters (menu access with F10)</para>
+                <para>Alt+letters (menu access with <keycap>F10</keycap>)</para>
               </entry>
               <entry colname="colspec3" valign="top">
                 <para>When you press <keycombo><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
@@ -4385,6 +4357,30 @@
                   and to access the menus with the keyboard you will need to use the
                   <keycap>F10</keycap>.</para>
                 </note>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Match beginning of the file name</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By selecting this option when you start to search for a letter or a letter combination, &app; will scroll down the selection cursor in the active
+                   pane to the first item beginning with that letter or that letter combination.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Match end of the file name</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By selecting this option when you start to search for a letter or a letter combination, &app; will scroll down the selection cursor in the active
+                   pane to the first item ending with that letter or that letter combination.</para>
               </entry>
             </row>
             <row>
@@ -4421,6 +4417,17 @@
               </entry>
               <entry colname="colspec3" valign="top">
 	              <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+	              <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+					<para>Directory history</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+	              <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible in the next session.</para>
               </entry>
             </row>
           </tbody>
