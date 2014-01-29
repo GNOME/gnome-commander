@@ -1048,8 +1048,13 @@
       <!-- ==== End of Figure ==== -->
       <para>&app; searches in the directory that you specify and optionally in the sub directories.
         The search results are displayed in the results file list.</para>
-      <para>Additional options for file search include:
-        <itemizedlist><listitem><para>recursive search</para></listitem><listitem><para>search for the specified text in files</para></listitem></itemizedlist></para>
+	<para>Additional options for file search include:
+	<itemizedlist>
+	  <listitem><para>Name matches regex / Name contains</para></listitem>
+	  <listitem><para>Look in the specified folder</para></listitem>
+	  <listitem><para>Recursive search</para></listitem>
+	  <listitem><para>Search for the specified text in files</para></listitem>
+	</itemizedlist></para>
       <para>Use Stop button to stop a search before &app; completes the search.</para>
       <warning>
         <para>The files in the results list are actually the original ones.
