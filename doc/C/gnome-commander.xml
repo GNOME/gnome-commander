@@ -4136,9 +4136,9 @@
 <!-- Use this section to describe how to customize the application. -->
   <sect1 id="gnome-commander-prefs">
     <title>Settings</title>
-    <para>To configure &app;, in the menubar choose
+    <para>To configure &app;, hit <keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo> or in the menubar choose
         <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>
-      The <guilabel>Options</guilabel> dialog contains the following tabbed sections.</para>
+      The <guilabel>Options</guilabel> dialog contains the following tabbed sections:</para>
     <!-- general preferences section -->
     <sect2 id="gnome-commander-prefs-general">
       <title>General</title>
@@ -4186,8 +4186,8 @@
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>General</guilabel> tab.
        </para>
-       <para>The options available are described in more details in General settings
-         <xref linkend="gcmd-TBL-setting1"/></para>
+       <para>The options available are described in more details in
+         <xref linkend="gcmd-TBL-setting1"/>.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-general-fig">
         <title>General options</title>
@@ -4432,7 +4432,7 @@
 					<para>Directory history</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible in the next session.</para>
+	              <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible again.</para>
               </entry>
             </row>
           </tbody>
