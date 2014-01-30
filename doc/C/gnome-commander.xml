@@ -4444,7 +4444,7 @@
     <!-- Format options-->
     <sect2 id="gnome-commander-prefs-format">
       <title>Format</title>
-      <para>The Format tab contains the options on How file informations are displayed.
+      <para>The Format tab contains the options on how file informations are displayed.
        </para>
       <para>
         <itemizedlist>
@@ -4454,7 +4454,7 @@
           </listitem>
           <listitem>
             <para><guilabel>Permission display mode</guilabel> select the permissions
-            display format</para>
+            display format.</para>
           </listitem>
           <listitem>
             <para><guilabel>Date format</guilabel> select the date display format.
@@ -4464,7 +4464,7 @@
       </para>
       <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
-      <para>The options available are described in more details in Format settings
+      <para>The options available are described in more details in
        <xref linkend="gcmd-TBL-setting2"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-format-fig">
