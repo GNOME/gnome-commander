@@ -134,6 +134,52 @@
             </entry>
         </row>
         <row valign="top">
+            <entry><para>1.2.8.17</para></entry>
+            <entry><para>2014-01-12</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#721132 (Support build with -Werror=format-security)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated GCMD home page location in source code</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated translations: es, id, pt_BR</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.16</para></entry>
+            <entry><para>2013-12-23</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed gcc-4.7 compiling problem</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#705724 (poppler >= 0.24)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#676303 (poppler >= 0.20.0)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: de, el, fr</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated translations: da, de, el, fr, hu, id, pt_br, ru, sl, th</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.2.8.15</para></entry>
             <entry><para>2011-12-06</para></entry>
             <entry>
