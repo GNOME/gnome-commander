@@ -4859,10 +4859,19 @@
     <sect2 id="gnome-commander-prefs-tabs">
       <title>Tabs</title>
       <!--brief desciption-->
-      <para>This section of the option dialog lets you configure parameters for tabs.</para>
+      <para>The tabs preferences tab allows you to configure parameters for tabs.</para>
       <itemizedlist>
         <listitem>
-          <para><guilabel>Always show the tab bar</guilabel> If you're only viewing one file list in a &app; window, the tab bar is not normally shown. Check this preference to always show the tab bar, including when the &app; window contains only file list</para>
+          <para>By checking <guilabel>Always show the tab bar</guilabel> in the tab bar section, &app; will always show the tab bar, even if only one tab is opened.</para>
+        </listitem>
+        <listitem>
+          <para>In the tab lock indicator section, you can configure the way how a locked tab will by indicated. There are three different possibilities:
+          <itemizedlist>
+            <listitem><para><guilabel>Lock icon</guilabel>: An icon is shown,</para></listitem>
+            <listitem><para><guilabel>* (asterix)</guilabel>: An asterix is shown,</para></listitem>
+            <listitem><para><guilabel>Styled text</guilabel>: The name of the tab is colored.</para></listitem>
+          </itemizedlist>
+	  </para>
         </listitem>
       </itemizedlist>
       <!-- ==== Figure ==== -->
