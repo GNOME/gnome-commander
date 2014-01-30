@@ -30,31 +30,43 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #377463 (mkdir dialog loses focus)</para>
+                            <para>Fixed problem bgo#377463 (mkdir dialog loses focus)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #492479 (file replace prompt must show date and size of files)</para>
+                            <para>Fixed problem bgo#492479 (file replace prompt must show date and size of files)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)</para>
+                            <para>Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct access)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)</para>
+                            <para>Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #660043 (shortcut ALT+DOWN not documented)</para>
+                            <para>Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #660268 (remember directory history between sessions)</para>
+                            <para>Fixed problem bgo#660268 (remember directory history between sessions)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #667080 (delete confirmation defaults to YES/OK)</para>
+                            <para>Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed Ubuntu problem #117226 (bookmarks unification)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem with right mouse button selection not being precise</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#696227 (detect and support libgsf >= 1.14.26)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#684527 (Fixed typos in strings)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view.dir_history)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#642178 (lock tabs for prev/next buttons)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -74,7 +86,13 @@
                             <para>One instance mode</para>
                         </listitem>
                         <listitem>
+                            <para>New colour theme: green tiger</para>
+                        </listitem>
+                        <listitem>
                             <para>User defined LS_COLORS colours</para>
+                        </listitem>
+                        <listitem>
+                            <para>Possibility to select/deselect files only</para>
                         </listitem>
                         <listitem>
                             <para>Support for automatic width counters in advanced file rename</para>
@@ -89,19 +107,25 @@
                             <para>Prompt to confirm drag &amp; drop operations</para>
                         </listitem>
                         <listitem>
-                            <para>Context popup menu for internal viewer</para>
+                            <para>Right click popup menu for copying in internal viewer</para>
                         </listitem>
                         <listitem>
                             <para>--config-dir command line option for customized location of config files</para>
                         </listitem>
                         <listitem>
-                            <para>New colour theme: green tiger</para>
+                            <para>Several speed improvements including C++ rework and code cleanups</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: cs, de, en, es, fr, ru, sl</para>
+                            <para>New python plugin: 'apply_patch'</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: cs, da, eo, es, eu, fr, hu, ko, nb, pl, pt_BR, ro, ru, sl, uk, zh_CN</para>
+                            <para>Dropped support for cvs plugin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, en, es, el, fr, ru, sl</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, nb, pl, pt_BR, ro, ru, sl, sr, sv, uk, zh_CN</para>
                         </listitem>
                         <listitem>
                             <para>New key bindings:</para>
