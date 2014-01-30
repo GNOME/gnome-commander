@@ -4589,11 +4589,11 @@
     <sect2 id="gnome-commander-prefs-layout">
       <title>Layout</title>
       <para>The layout preferences tab allows you to configure the appearance of &app;.
-       You can allocate Fonts, row heights, icons and color theme.</para>
+       You can allocate fonts, row heights, icons and color theme.</para>
       <para>
         <itemizedlist>
           <listitem>
-            <para><guilabel>File Panes</guilabel> in this section you can modify the
+            <para><guilabel>File Panes</guilabel>: In this section you can modify the
             way &app; is displayed.</para>
           </listitem>
           <listitem>
@@ -4606,7 +4606,7 @@
       <para>To modify the Panes layout options click on <menuchoice><guimenu>
          Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>Layout</guilabel> tab.</para>
-      <para>The options available are described in more details in Layout settings
+      <para>The options available are described in more details in
        <xref linkend="gcmd-TBL-setting3"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-layout-fig">
@@ -4645,7 +4645,7 @@
             <row>
               <entry>
                 <para>
-                  <guilabel>File Panes</guilabel>
+                  <guilabel>File panes</guilabel>
                 </para>
               </entry>
               <entry colname="colspec2">
@@ -4729,10 +4729,10 @@
                 <para>Color scheme</para>
               </entry>
               <entry colname="colspec3">
-                <para>&app; comes with five color themes, You can also use the theme
-                as defined by your current GNOME theme  (<guibutton>Respect theme
+                <para>&app; comes with six color themes. You can also use the theme
+                as defined by your current GNOME theme (<guibutton>Respect theme
                 colors</guibutton>). There is also an option to customize the theme
-                <guibutton>Custom</guibutton>, this option activates the <guibutton>
+                (<guibutton>Custom</guibutton>). This option activates the <guibutton>
                 Edit</guibutton> button.</para>
               </entry>
             </row>
@@ -4749,7 +4749,7 @@
                 button activates. Clicking on it will open a dialog box where you can
                 select row and alternate row colors for the foreground (text color)
                 and background, the alternate colors are used by every other row,
-                the selected file colors and the cursor position colors.</para>
+                the selected file colors and the cursor position colors. For more information see below at <xref linkend="gnome-commander-prefs-layout-colors"/>.</para>
               </entry>
             </row>
             <row>
@@ -4762,8 +4762,7 @@
               </entry>
               <entry colname="colspec3">
                 <para>This option uses LS_COLORS variable to highlight file types just
-                 like the command &quot;ls&quot;. For more information on this You can
-                 look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
+                 like the command &quot;ls&quot;. For more information see below at <xref linkend="gnome-commander-prefs-layout-ls_colors"/>.</para>
               </entry>
             </row>
             <row>
@@ -4843,8 +4842,16 @@
 		<sect3 id="gnome-commander-prefs-layout-ls_colors">
 			<title>Configuring Custom LS_COLORS</title>
 			 <para>&app; does not differentiate files types by default.</para>
-			 <para>You can configure it to differentiate files types like LS_COLORS does when using the command shell.</para>
-			 <para>To configure the custom colors for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box, then click the <guilabel>Edit colors...</guilabel> button.</para>
+			 <para>You can configure it to differentiate file types like LS_COLORS does when using the command shell. For more information on this you can look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
+			 <para>To enable the use of LS_COLORS for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, than on the <guilabel>Layout</guilabel> tab and activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box.</para>
+			 <para>If you prefer other shades of colors than the given ones by the LS_COLOR variable you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
+			 <para>Some users reported that the use of custom LS_COLORS, defined in ~/.dir_colors, does not work if &app; was started by clicking on a .desktop file or by using the GNOME menu. In this case you have to make sure that LS_COLORS is set in the file ~/.profile. A possible entry in ~/.profile might look like this:</para>
+			 <programlisting>
+   # Set colors for xterm
+   export TERM=xterm
+   test -r ~/.dir_colors &amp;&amp; eval &quot;$(dircolors -b ~/.dir_colors)&quot;
+   unset TERM</programlisting>
+
 		</sect3>
 <!-- ====Confirmation==== -->
     </sect2>
