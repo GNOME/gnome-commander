@@ -4893,8 +4893,8 @@
     </sect2>
     <sect2 id="gnome-commander-prefs-confirmation">
       <title>Confirmation</title>
-      <para>The Confirmation tab allows You to configure when a confirmation dialog
-      is displayed. You also configure the behavior of &app; when the confirmation
+      <para>The Confirmation tab allows you to configure when a confirmation dialog
+      is displayed. You may also configure the behavior of &app; when the confirmation
       dialog does not appear.</para>
       <para>
         <itemizedlist>
@@ -4903,19 +4903,23 @@
             confirmed</para>
           </listitem>
           <listitem>
-            <para><guilabel>Copy overwrite</guilabel> configure the action when a file
+            <para><guilabel>Copy overwrite</guilabel> configure the action when an item
             copied already exists in the target location</para>
           </listitem>
           <listitem>
-            <para><guilabel>Move overwrite</guilabel> configure the action when a file
+            <para><guilabel>Move overwrite</guilabel> configure the action when an item
             moved already exists in the target location</para>
+          </listitem>
+          <listitem>
+            <para><guilabel>Drag and Drop</guilabel> configure the action when an item
+	    is dropped after dragging it with the mouse</para>
           </listitem>
         </itemizedlist>
       </para>
       <para>To modify the confirmation settings click on <menuchoice><guimenu>
        Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
        then click on the <guilabel>Confirmation</guilabel> tab.</para>
-      <para>The options available are described in more details in Confirmation settings
+      <para>The options available are described in more details in
        <xref linkend="gcmd-TBL-setting4"/>.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-confirmation-fig">
@@ -4987,8 +4991,8 @@
                 <para>Silently</para>
               </entry>
               <entry colname="colspec3">
-                <para>When this option is selected if a file name in the target
-						location is the same as one of the files copied it will be
+                <para>When this option is selected and if a file name in the target
+						location is the same as one of the files copied it will be silently
 						overwritten.</para>
               </entry>
             </row>
@@ -5000,7 +5004,7 @@
                 <para>Query first</para>
               </entry>
               <entry colname="colspec3">
-                <para>When this option is selected if a file name in the target
+                <para>When this option is selected and if a file name in the target
 						location is the same as one of the files copied &app; will open a
 						dialog asking for user confirmation. The user can authorize the
 						overwriting of the file or skip the file.</para>
@@ -5014,7 +5018,7 @@
                 <para>Skip all</para>
               </entry>
               <entry colname="colspec3">
-                <para>When this option is selected if a file name in the target
+                <para>When this option is selected and if a file name in the target
 						location is the same as one of the files copied, the files will be
 						skipped and not copied into the target directory.</para>
               </entry>
@@ -5029,8 +5033,8 @@
                 <para>Silently</para>
               </entry>
               <entry colname="colspec3">
-                <para>When this option is selected if a file name in the target
-						location is the same as one of the files moved it will be
+                <para>When this option is selected and if a file name in the target
+						location is the same as one of the files moved it will be silently
 						overwritten.</para>
               </entry>
             </row>
@@ -5042,7 +5046,7 @@
                 <para>Query first</para>
               </entry>
               <entry colname="colspec3">
-                <para>When this option is selected if a file name in the target
+                <para>When this option is selected and if a file name in the target
 						location is the same as one of the files moved &app; will open a
 						dialog asking for user confirmation. The user can authorize the
 						overwriting of the file or skip the file. The skipped file will then be still
@@ -5057,10 +5061,30 @@
                 <para>Skip all</para>
               </entry>
               <entry colname="colspec3">
-                <para>When this option is selected if a file name in the target
+                <para>When this option is selected and if a file name in the target
 						location is the same as one of the files copied, the file will be
 						skipped and not moved into the target directory. The selected files
 						will not be moved</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para>
+                  <guilabel>Drag and Drop</guilabel>
+                </para>
+              </entry>
+              <entry colname="cospec2">
+                <para>Confirm mouse operation</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>When this option is selected and if an item is dragged and dropped by using the mouse, a dialog opens in which the user is asked what should happen:
+		<itemizedlist>
+		  <listitem><para><guilabel>Copy here</guilabel>: A copy of the item is created</para></listitem>
+		  <listitem><para><guilabel>Move here</guilabel>: The item is moved</para></listitem>
+		  <listitem><para><guilabel>Link here</guilabel>: A link to the item is created</para></listitem>
+		  <listitem><para><guilabel>Cancel</guilabel>: No action is performed</para></listitem>
+		</itemizedlist>
+		</para>
               </entry>
             </row>
           </tbody>
