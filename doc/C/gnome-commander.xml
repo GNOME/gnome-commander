@@ -4844,13 +4844,13 @@
 			 <para>&app; does not differentiate files types by default.</para>
 			 <para>You can configure it to differentiate file types like LS_COLORS does when using the command shell. For more information on this you can look up the <ulink url="http://linux.die.net/man/5/dir_colors">dir_colors man page</ulink>.</para>
 			 <para>To enable the use of LS_COLORS for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, than on the <guilabel>Layout</guilabel> tab and activate the <guilabel>Colorize files according to the LS_COLORS environment variable</guilabel> check box.</para>
-			 <para>If you prefer other shades of colors than the given ones by the LS_COLOR variable you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
-			 <para>Some users reported that the use of custom LS_COLORS, defined in ~/.dir_colors, does not work if &app; was started by clicking on a .desktop file or by using the GNOME menu. In this case you have to make sure that LS_COLORS is set in the file ~/.profile. A possible entry in ~/.profile might look like this:</para>
+			 <para>If you prefer other shades of colors than given by the LS_COLOR variable you may change them by clicking on the <guilabel>Edit colors...</guilabel> button.</para>
+			 <note><para>Some users reported that custom LS_COLORS, defined in ~/.dir_colors, are not applied if &app; was started by clicking on a .desktop file or by starting it using the GNOME menu. In that case you have to make sure that LS_COLORS is set in the file ~/.profile or ~/.xprofile.</para>
+			 <para>For this you will need to find out the default TERM value of your system. Therefore, login to a virtual terminal by pressing <keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>F1</keycap></keycombo> and execute the command <keycombo><keycap>echo $TERM</keycap></keycombo>. If the output is <keycombo><keycap>linux</keycap></keycombo>, the entry in ~/.profile might look like this:</para>
 			 <programlisting>
-   # Set colors for xterm
-   export TERM=xterm
-   test -r ~/.dir_colors &amp;&amp; eval &quot;$(dircolors -b ~/.dir_colors)&quot;
-   unset TERM</programlisting>
+   # Set colors
+   export TERM=linux
+   test -r ~/.dir_colors &amp;&amp; eval &quot;$(dircolors -b ~/.dir_colors)&quot;</programlisting></note>
 
 		</sect3>
 <!-- ====Confirmation==== -->
