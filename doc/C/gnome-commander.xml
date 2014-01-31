@@ -4186,7 +4186,7 @@
       <para>To modify the general options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>General</guilabel> tab.
        </para>
-       <para>The options available are described in more details in
+       <para>The options available are described in more details in the
          <xref linkend="gcmd-TBL-setting1"/>.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-general-fig">
@@ -4464,7 +4464,7 @@
       </para>
       <para>To modify the Format options click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on
          the <guilabel>Format</guilabel> tab.</para>
-      <para>The options available are described in more details in
+      <para>The options available are described in more details in the
        <xref linkend="gcmd-TBL-setting2"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-format-fig">
@@ -4606,7 +4606,7 @@
       <para>To modify the Panes layout options click on <menuchoice><guimenu>
          Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
          then click on the <guilabel>Layout</guilabel> tab.</para>
-      <para>The options available are described in more details in
+      <para>The options available are described in more details in the
        <xref linkend="gcmd-TBL-setting3"/></para>
       <!-- ==== Figure ==== -->
       <figure id="options-layout-fig">
@@ -4919,7 +4919,7 @@
       <para>To modify the confirmation settings click on <menuchoice><guimenu>
        Settings</guimenu><guimenuitem>Options...</guimenuitem></menuchoice>,
        then click on the <guilabel>Confirmation</guilabel> tab.</para>
-      <para>The options available are described in more details in
+      <para>The options available are described in more details in the
        <xref linkend="gcmd-TBL-setting4"/>.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-confirmation-fig">
@@ -5167,7 +5167,7 @@
                 <para>Directories</para>
               </entry>
               <entry colname="colspec3">
-                <para>Directories or folders are special type of files that contains a list of other files.</para>
+                <para>Directories or folders are special types of files that contain a list of other files.</para>
               </entry>
             </row>
             <row>
@@ -5224,7 +5224,7 @@
                 <para>Hidden Files</para>
               </entry>
               <entry colname="colspec3">
-                <para>Hidden files and directory in linux are preceded by the "." hidden files usually contain application settings</para>
+                <para>Hidden files and directory in linux are preceded by the ".". Hidden files usually contain application settings</para>
               </entry>
             </row>
             <row>
@@ -5235,7 +5235,7 @@
                 <para>Backup files</para>
               </entry>
               <entry colname="colspec3">
-                <para>Backup files are standard files they contain a previous version of a file using the same name the extension of this file is usually changed to "~" or "bak".</para>
+                <para>Backup files are standard files. They contain a previous version of a file using the same name. The extension of this file is usually changed to "~" or "bak".</para>
               </entry>
             </row>
             <row>
@@ -5246,7 +5246,7 @@
                 <para>Symlinks</para>
               </entry>
               <entry colname="colspec3">
-                <para>A symlink is a file linking to another it can link to a file or a folder</para>
+                <para>A symlink is an object linking to a file or a folder.</para>
               </entry>
             </row>
             <row>
@@ -5257,7 +5257,7 @@
                 <para>Backup files</para>
               </entry>
               <entry colname="colspec3">
-                <para>If backup file are hidden you can add more filename extensions here that are used as backup files on your system.</para>
+                <para>If backup files are hidden you can add more filename extensions here that are used as backup files on your system.</para>
               </entry>
             </row>
           </tbody>
@@ -5357,7 +5357,7 @@
             						<para>Editor:</para>
             					</entry>
             					<entry colname="colspec3">
-            						<para>In this text box You can type in the command line used to start your favourite text editor. %s is the variable containing the selected items. The default application is the GNOME default Gedit.</para>
+            						<para>In this text box you can type in the command line used to start your favourite text editor. %s is the variable containing the selected items. The default application is the GNOME default Gedit.</para>
             					</entry>
             				</row>
             				<row>
@@ -5366,7 +5366,7 @@
             						<para>Differ:</para>
             					</entry>
             					<entry colname="colspec3">
-            						<para>In this text box You can type in the command line used to start your favourite comparison tool. %s is the variable containing the selected files to compare. The default application is Meld.</para>
+            						<para>In this text box you can type in the command line used to start your favourite comparison tool. %s is the variable containing the selected files to compare. The default application is Meld.</para>
             					</entry>
             				</row>
             				<row>
@@ -5375,7 +5375,7 @@
             						<para>Terminal:</para>
             					</entry>
             					<entry colname="colspec3">
-            						<para>In this text box You can type in the command line used to start you favourite terminal application. %s is the variable used to pass the current path to start the terminal into. The Default application is xterm.</para>
+            						<para>In this text box you can type in the command line used to start you favourite terminal application. %s is the variable used to pass the current path to start the terminal into. The Default application is xterm.</para>
             					</entry>
             				</row>
 								<row>
@@ -5386,7 +5386,7 @@
             						<para>Add</para>
             					</entry>
             					<entry colname="colspec3">
-            						<para>You can add any other application in this section the applications defined here will appear in the contextual menu. A dialog box is opened when you click on this button. This dialog box options are described below.</para>
+            						<para>You can add any other application in this section. The applications defined here will appear in the contextual menu. A dialog box is opened when you click on this button. This dialog box options are described below.</para>
             					</entry>
             				</row>
             				<row>
