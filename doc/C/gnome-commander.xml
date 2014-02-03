@@ -5866,13 +5866,16 @@
 <!-- ============= Keyboard shortcuts ===================== -->
 <!-- This section contains info about the keyboard mappings.-->
   <sect1 id="gnome-commander-keyboard">
-    <title>Keyboard Mappings</title>
+    <title>Keyboard Shortcuts</title>
+    <para>In this section the keyboard shortcuts in &app; are presented. In the table below you will find each keyboard shortcut, its mappings and an info if it is user definable.</para>
+    <para>If you want the know more about how to change a keyboard shortcut or how to assign a new one, go directly to the section <xref linkend="gnome-commander-user-actions"></xref>.</para>
+    <note><para>The daily usage of &app; is very effective if you know at least the most important keyboard shortcuts for moving and file handling. Learn them by heart and &app; will be an even more effective tool for you.</para></note>
     <note>
-      <para>Some keyboard shortcuts may not work as expected under the GNOME
-                environment. The reason for that is that GNOME uses some global
-                shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> moves the entire application window),
-                which suppresses assigned keyboard mapping of &app;. Use the GNOME
-                Keyboard Shortcuts preference tool to customize the default keyboard
+      <para>Some keyboard shortcuts may not work as expected under your environment, e.g. GNOME.
+                The reason for that is that the environment uses some global
+                shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> moves the entire application window in GNOME),
+                which suppresses assigned keyboard mapping of &app;. Use the
+                keyboard shortcuts preference tool of your environment to customize the default keyboard
                 shortcuts to your requirements.</para>
     </note>
     <informaltable frame="topbot">
@@ -5985,7 +5988,7 @@
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F2</keycap></keycombo></entry>
             <entry><para>Compare directories</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo></entry>
@@ -6005,7 +6008,7 @@
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F6</keycap></keycombo></entry>
             <entry><para>Rename a file</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo></para></entry>
