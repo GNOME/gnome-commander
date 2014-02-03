@@ -6923,8 +6923,7 @@
 <!-- This section contains info about the python plugins.-->
   <sect1 id="gnome-commander-python-plugins">
     <title>Python Plugins</title>
-        <para>Since version 1.2.4 &app; is capable of executing python plugins.
-        Python plugin is a normal python application containing predefined entry function.</para>
+        <para>&app; is capable of executing python plugins. A Python plugin is a normal python application containing a predefined entry function.</para>
     <para>&app; comes with built-in plugins:</para>
     <itemizedlist>
       <listitem>
@@ -6932,6 +6931,9 @@
       </listitem>
       <listitem>
         <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
+      </listitem>
+      <listitem>
+        <para><filename>apply_patch</filename> - The plugin applies selected patches to the opposite pane using &quot;patch -p1 --directory='%%s' --input='%%s' --quiet&qout;</para>
       </listitem>
     </itemizedlist>
     <sect2 id="gnome-commander-python-plugins-working-with">
@@ -7009,21 +7011,27 @@
     except ImportError:
         import gnome.vfs as gnomevfs
 
-    import md5
-
+    import os
+    import string
+    import hashlib
 
     def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
 
+       parent_dir = string.split(active_cwd, os.sep)[-1]
+        if parent_dir=='':
+            parent_dir = 'root'
+        f_md5sum = file(inactive_cwd+os.sep+parent_dir+'.md5sum', 'w')
         for uri in selected_files:
-            fname = gnomevfs.get_file_info(uri).name
-            f = file.open(fname,'rb')
-            file_content = f.read()
-            f.close()
-            md5sum = md5.new(file_content).hexdigest()
-            print md5sum, fname
-
-        return True
-            </programlisting>
+            if gnomevfs.get_file_info(uri).type==gnomevfs.FILE_TYPE_REGULAR:
+                f = file(active_cwd+os.sep+uri.short_name, 'rb')
+                file_content = f.read()
+                f.close()
+                md5sum = hashlib.md5(file_content).hexdigest()
+                f_md5sum.write('%s  %s\n' % (md5sum, uri.short_name))
+        f_md5sum.close()
+ 
+       return True
+             </programlisting>
       </para>
       <note>
         <para>The latest version of md5sum code can be found in
