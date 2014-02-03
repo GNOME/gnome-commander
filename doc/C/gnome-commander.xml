@@ -1290,7 +1290,7 @@
               <imagedata fileref="figures/gnome-commander_dialog_file_permissions.png" format="PNG"/>
             </imageobject>
             <textobject>
-              <phrase>Shows file properties dialog.</phrase>
+              <phrase>Shows file permissions dialog.</phrase>
             </textobject>
           </mediaobject>
         </screenshot>
@@ -5868,8 +5868,8 @@
   <sect1 id="gnome-commander-keyboard">
     <title>Keyboard Shortcuts</title>
     <para>In this section the keyboard shortcuts in &app; are presented. In the table below you will find each keyboard shortcut, its mappings and an info if it is user definable.</para>
-    <para>If you want the know more about how to change a keyboard shortcut or how to assign a new one, go directly to the section <xref linkend="gnome-commander-user-actions"></xref>.</para>
-    <note><para>The daily usage of &app; is very effective if you know at least the most important keyboard shortcuts for moving and file handling. Learn them by heart and &app; will be an even more effective tool for you.</para></note>
+    <para>If you want to know more about how to change a keyboard shortcut or how to assign a new one (if user definable), look at the section <xref linkend="gnome-commander-user-actions"></xref>.</para>
+    <tip><para>The daily usage of &app; is very effective if you know at least the most important keyboard shortcuts for moving and file handling. Learn them by heart and &app; will be an even more effective tool for you.</para></tip>
     <note>
       <para>Some keyboard shortcuts may not work as expected under your environment, e.g. GNOME.
                 The reason for that is that the environment uses some global
@@ -6495,55 +6495,178 @@
 <!-- This section contains info about the user actions.-->
   <sect1 id="gnome-commander-user-actions">
     <title>User Actions</title>
-    <para>User actions allow user assigning a key or set of keys to trigger predefined &app;
-          functions (actions). For example, <command>plugins.execute_python|sha1.sum</command>
-          will compute SHA1 checksums for selected files.</para>
-    <para>User actions are supported since version 1.2.4</para>
+    <para>User actions trigger predefined functions (actions) and make &app; very flexible. They are accessed by a key or set of keys (shortcut key). </para>
     <sect2 id="gnome-commander-user-actions-managing">
       <title>Managing user actions</title>
-      <para>Key bindings reside in &lt;KeyBindings&gt; section of &app; config file (<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>).</para>
+      <para>The menu for user actions and associated keyboard shortcuts can be opened by clicking on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard Shortcuts...</guimenuitem></menuchoice>. Below, the usage of the dialog is <guimenuitem>Keyboard Shortcuts...</guimenuitem> explained.</para>
+      <para>In the keyboard shortcut dialog a table with three columns is shown:
+      <orderedlist>
+	<listitem><para><guilabel>Shortcut Key</guilabel>: Key combination the user has to press to perform the action.</para></listitem>
+	<listitem><para><guilabel>Action</guilabel>: Action to perform by pressing the shortcut key.</para></listitem>
+	<listitem><para><guilabel>Options</guilabel>: Some user actions require an option to perform the action, e.g. the command to be executed by the &quot;Execute command&quot; action.</para></listitem>
+      </orderedlist></para>
+      <para>You can <guilabel>Add</guilabel> a new shortcut and <guilabel>Remove</guilabel> a selected one with the related buttons on the right.</para>
+      <para>The default dialog window is shown in the figure <xref linkend="keyboard-shortcuts"></xref> below.</para>
+      <para>Available user actions are shown in the table <xref linkend="gnome-commander-user-actions-list"></xref> below.</para> 
+      <para>Find the default key bindings in the previous section <xref linkend="gnome-commander-keyboard"></xref>.</para>
       <tip>
-        <para>It&apos;s possible to assign one action to more than one key.</para>
+        <para>It&apos;s possible to assign more than one key combinations to an action. 
+	To do so, click on the <guilabel>Add</guilabel> button, choose a new shortcut 
+	and choose the action which is already assigned to another shortcut. Some actions 
+	are already assigned to multiple shortcuts by default.</para>
       </tip>
-      <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
-      <note>
-        <para>&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10.</para>
-      </note>
+      <para>Key bindings are stored in the &lt;KeyBindings&gt; section of &app; config file (<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>).</para>
+         <!-- ==== Figure ==== -->
+      <figure id="keyboard-shortcuts">
+        <title>Keyboard Shortcuts</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/gnome-commander_dialog_keyboard_shortcuts.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; keyboard shortcuts.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
     </sect2>
     <sect2 id="gnome-commander-user-actions-list">
         <title>List of user actions</title>
         <informaltable frame="topbot">
-            <tgroup cols="3">
+            <tgroup cols="2">
                 <colspec colname="col1"/>
                 <colspec colname="col2"/>
-                <colspec colname="col3"/>
                 <thead>
                     <row valign="top">
                         <entry colname="col1" colsep="0" valign="top"><para>User action</para></entry>
                         <entry colname="col2" valign="top"><para>Description</para></entry>
-                        <entry colname="col3" valign="top"><para>Default key bindings</para></entry>
                     </row>
                 </thead>
                 <tbody>
                     <row valign="top">
-                        <entry><para>bookmarks.add_current</para></entry>
+                        <entry><para>About &app;</para></entry>
+                        <entry><para>About &app;</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Advanced rename tool</para></entry>
+                        <entry><para>Advanced rename tool</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Back one directory</para></entry>
+                        <entry><para>Go back to the last visited directory</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Back to the first directory</para></entry>
+                        <entry><para>Go forward to the first visited directory</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>Bookmark current directory</para></entry>
-                        <entry><para></para></entry>
+                        <entry><para>Bookmark current directory</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>bookmarks.edit</para></entry>
-                        <entry><para>Open favourite directories (bookmarks) dialog</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></para></entry>
+                        <entry><para>Change directory</para></entry>
+                        <entry><para>Change directory</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>bookmarks.goto<option>|bookmark_name</option></para></entry>
-                        <entry><para>Go to bookmarked location</para>
-                               <para>For SMB bookmarks use bookmarks.goto<option>|smb|bookmark_name</option> syntax.</para>
-                               <note><para>Nonexistent bookmark names are ignored.</para></note></entry>
-                        <entry><para></para></entry>
+                        <entry><para>Change left connection</para></entry>
+                        <entry><para>Change left connection</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>command.execute<option>|user_command</option></para></entry>
+                        <entry><para>Change owner/group</para></entry>
+                        <entry><para>Change file ownership</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Change permissions</para></entry>
+                        <entry><para>Change file access permissions</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Change right connection</para></entry>
+                        <entry><para>Change right connection</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Close all tabs</para></entry>
+                        <entry><para>Close all tabs</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Close connection</para></entry>
+                        <entry><para>Disconnect from remote server</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Close duplicate tabs</para></entry>
+                        <entry><para>Close duplicate tabs</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Close the current tab</para></entry>
+                        <entry><para>Close the current tab</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Compare directories</para></entry>
+                        <entry><para>Compare directories</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Compare files (diff)</para></entry>
+                        <entry><para>Compare files using the differ in <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</guimenuitem><guimenuitem>Programs</guimenuitem></menuchoice></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Configure plugins</para></entry>
+                        <entry><para>Configure plugins</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Copy</para></entry>
+                        <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Copy files</para></entry>
+                        <entry><para>Copy files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Copy file names</para></entry>
+                        <entry><para>Copy file names to clipboard</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Copy files with rename</para></entry>
+                        <entry><para>Copy file with rename</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Create directory</para></entry>
+                        <entry><para>Create directory</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Create symbolic link</para></entry>
+                        <entry><para>Create symbolic link</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Cut</para></entry>
+                        <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Delete</para></entry>
+                        <entry><para>Delete files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Delete files</para></entry>
+                        <entry><para>Delete files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Do nothing</para></entry>
+                        <entry><para>Do nothing (use to block key bindings)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Edit a new file</para></entry>
+                        <entry><para>Edit a new file</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Edit file</para></entry>
+                        <entry><para>Edit file</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Equal panel size</para></entry>
+                        <entry><para>Set equal panes (50/50)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Execute command</para></entry>
                         <entry><para>Execute user defined command. &app; replaces found placeholders with:</para>
                                <para></para>
                                     <itemizedlist>
@@ -6577,467 +6700,222 @@
                                     </itemizedlist>
                                     <note>
                                         <para>Unknown placeholders are copied verbatim without any substitution.</para>
-                                    </note>
-                        </entry>
-                        <entry><para></para></entry>
+                                    </note></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>command.open_folder</para></entry>
+                        <entry><para>Execute Python plugin</para></entry>
+                        <entry><para>Execute python plugin with the given name.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Forward one directory</para></entry>
+                        <entry><para>Go forward to the next visited directory</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Forward to the last directory</para></entry>
+                        <entry><para>Go forward to the last visited directory</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>&app; on the web</para></entry>
+                        <entry><para>Visit &app; home page</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Go to bookmarked location</para></entry>
+                        <entry><para>Go to bookmarked location.</para>
+                               <note><para>Nonexistent bookmark names are ignored.</para></note></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Help contents</para></entry>
+                        <entry><para>Help</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Help on keyboard shortcuts</para></entry>
+                        <entry><para>Help on keyboard shortcuts</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Home directory</para></entry>
+                        <entry><para>Go to the home directory</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Invert selection</para></entry>
+                        <entry><para>Invert selection</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Keyboard shortcuts</para></entry>
+                        <entry><para>Configure keyboard shortcuts</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Lock/unlock tab</para></entry>
+                        <entry><para>Lock/unlock tab</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Manage bookmarks</para></entry>
+                        <entry><para>Open favourite directories (bookmarks) dialog</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Maximize panel size</para></entry>
+                        <entry><para>Maximize panel size</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>MIME types</para></entry>
+                        <entry><para>Configure MIME types</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Move files</para></entry>
+                        <entry><para>Move files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>New connection</para></entry>
+                        <entry><para>Open new remote connection</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Next tab</para></entry>
+                        <entry><para>Next tab</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open connection</para></entry>
+                        <entry><para>Open remote connection</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in a new tab</para></entry>
+                        <entry><para>Open directory in a new tab</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in the active window</para></entry>
+                        <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in the inactive window</para></entry>
+                        <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in the left window</para></entry>
+                        <entry><para>Copy the current working directory from the active right file list to the left one</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in the new tab</para></entry>
+                        <entry><para>Open directory in the new tab</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in the new tab (inactive window)</para></entry>
+                        <entry><para>Open directory in the new tab (inactive window)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open directory in the right window</para></entry>
+                        <entry><para>Copy the current working directory from the active left file list to the right one</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Open folder</para></entry>
                         <entry><para>Open the current location in Nautilus file manager</para></entry>
-                        <entry><para></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>command.open_terminal</para></entry>
+                        <entry><para>Open terminal</para></entry>
                         <entry><para>Open terminal in the current directory</para></entry>
-                        <entry><para></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>command.root_mode</para></entry>
+                        <entry><para>Open terminal as root</para></entry>
+                        <entry><para>Opens a terminal with root privileges.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Options</para></entry>
+                        <entry><para>Options dialog</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Paste</para></entry>
+                        <entry><para>Paste from clipboard to current directory (not a global one yet)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Previous tab</para></entry>
+                        <entry><para>Previous tab</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Properties</para></entry>
+                        <entry><para>Show properties for the selected file</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Quick search</para></entry>
+                        <entry><para>Quick search</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Quit</para></entry>
+                        <entry><para>Exit &app;</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Refresh</para></entry>
+                        <entry><para>Refresh the active file list</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Rename files</para></entry>
+                        <entry><para>Rename files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Report a problem</para></entry>
+                        <entry><para>Report problem to Bugzilla</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Root directory</para></entry>
+                        <entry><para>Go to the root directory</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Search</para></entry>
+                        <entry><para>File search</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Select all</para></entry>
+                        <entry><para>Select all files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Send files</para></entry>
+                        <entry><para>Send files via email or instant messenger (using nautilus-sendto)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Show directory history</para></entry>
+                        <entry><para>Open the history list of visited directories</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Show user defined files</para></entry>
+                        <entry><para>Use file selection filter</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Start &app; as root</para></entry>
                         <entry><para>Start &app; in root mode at the same location</para>
                                <warning><para>Be careful while running &app; with root privileges
                                               as you may damage your system.</para></warning></entry>
-                        <entry><para></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>connections.close</para></entry>
-                        <entry><para>Disconnect from remote server</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>connections.open</para></entry>
-                        <entry><para>Open remote connection</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>connections.new</para></entry>
-                        <entry><para>Open new remote connection</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>connections.change_left</para></entry>
-                        <entry><para>Change left connection</para></entry>
-                        <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para>
-                               <para><keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>connections.change_right</para></entry>
-                        <entry><para>Change right connection</para></entry>
-                        <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para>
-                               <para><keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.copy</para></entry>
-                        <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.copy_filenames</para></entry>
-                        <entry><para>Copy file names to clipboard</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.cut</para></entry>
-                        <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.delete</para></entry>
-                        <entry><para>Delete files</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.filter</para></entry>
-                        <entry><para>Use file selection filter</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>F12</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.paste</para></entry>
-                        <entry><para>Paste from clipboard to current directory (not a global one yet)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.quick_search</para></entry>
-                        <entry><para>Quick search</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>edit.search</para></entry>
-                        <entry><para>File search</para></entry>
-                        <entry><para><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></para>
-                               <para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.advrename</para></entry>
-                        <entry><para>Multi-Rename-Tool</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.chmod</para></entry>
-                        <entry><para>Show file access permissions</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.chown</para></entry>
-                        <entry><para>Show file ownership</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.copy</para></entry>
-                        <entry><para>Copy files</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.copy_as</para></entry>
-                        <entry><para>Copy file with rename</para></entry>
-                        <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.create_symlink</para></entry>
-                        <entry><para>Create symbolic link</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.delete</para></entry>
-                        <entry><para>Delete files</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.diff</para></entry>
-                        <entry><para>Compare files (diff)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.edit</para></entry>
-                        <entry><para>Edit file</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.edit_new_doc</para></entry>
-                        <entry><para>Edit a new file</para></entry>
-                        <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F4</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.exit</para></entry>
-                        <entry><para>Exit &app;</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.external_view</para></entry>
-                        <entry><para>View with external viewer</para></entry>
-                        <entry><para><keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.internal_view</para></entry>
-                        <entry><para>View with internal viewer</para></entry>
-                        <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.mkdir</para></entry>
-                        <entry><para>Create directory</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.move</para></entry>
-                        <entry><para>Move files</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.properties</para></entry>
-                        <entry><para>Show properties for the selected file</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.rename</para></entry>
-                        <entry><para>Rename files</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.sendto</para></entry>
-                        <entry><para>Send files via email or instant messenger (using nautilus-sendto)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>file.synchronize_directories</para></entry>
+                        <entry><para>Synchronize directories</para></entry>
                         <entry><para>Synchronize directories (using meld)</para></entry>
-                        <entry><para></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>file.view</para></entry>
-                        <entry><para>View files</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>help.about</para></entry>
-                        <entry><para>About &app;</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>help.help</para></entry>
-                        <entry><para>Help</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>help.keyboard</para></entry>
-                        <entry><para>Help on keyboard shortcuts</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>help.problem</para></entry>
-                        <entry><para>Report problem to Bugzilla</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>help.web</para></entry>
-                        <entry><para>Visit &app; home page</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>mark.compare_directories</para></entry>
-                        <entry><para>Compare directories</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>mark.invert</para></entry>
-                        <entry><para>Invert selection</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>mark.select_all</para></entry>
-                        <entry><para>Select all files</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para>
-                               <para><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo></para>
-                               <para><keycombo><keycap>CTRL</keycap><keycap>NUM +</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>mark.toggle</para></entry>
+                        <entry><para>Toggle selection</para></entry>
                         <entry><para>Toggle selection for cursor</para></entry>
-                        <entry><para></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>mark.toggle_and_step</para></entry>
+                        <entry><para>Toggle selection and move cursor downward</para></entry>
                         <entry><para>Select file or directory and move cursor downward</para></entry>
-                        <entry><para></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>mark.unselect_all</para></entry>
+                        <entry><para>Unselect all</para></entry>
                         <entry><para>Unselect all files</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para>
-                               <para><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></para>
-                               <para><keycombo><keycap>CTRL</keycap><keycap>NUM -</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>no.action</para></entry>
-                        <entry><para>Do nothing (use to block key bindings)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>options.edit</para></entry>
-                        <entry><para>Options dialog</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>options.edit_mime_types</para></entry>
-                        <entry><para>Configure MIME types</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>options.shortcuts</para></entry>
-                        <entry><para>Configure keyboard shortcuts</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>plugins.configure</para></entry>
-                        <entry><para>Configure plugins</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>plugins.execute_python</para></entry>
-                        <entry><para>Execute python plugin</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.back</para></entry>
-                        <entry><para>Go back to the last visited directory</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.close_tab</para></entry>
-                        <entry><para>Close the current tab</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.close_all_tabs</para></entry>
-                        <entry><para>Close all tabs</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.close_duplicate_tabs</para></entry>
-                        <entry><para>Close duplicate tabs</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.dir_history</para></entry>
-                        <entry><para>Open the history list of visited directories</para></entry>
-                        <entry><para><keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.directory</para></entry>
-                        <entry><para>Change directory</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.equal_panes</para></entry>
-                        <entry><para>Set equal panes (50/50)</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.maximize_pane</para></entry>
-                        <entry><para>Maximize panel size</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.first</para></entry>
-                        <entry><para>Go forward to the first visited directory</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.forward</para></entry>
-                        <entry><para>Go forward to the next visited directory</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.home</para></entry>
-                        <entry><para>Go to the home directory</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>~</keycap></keycombo></para>
-                               <para><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.in_active_pane</para></entry>
-                        <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.in_inactive_pane</para></entry>
-                        <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.in_left_pane</para></entry>
-                        <entry><para>Copy the current working directory from the active right file list to the left one</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.in_right_pane</para></entry>
-                        <entry><para>Copy the current working directory from the active left file list to the right one</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.in_new_tab</para></entry>
-                        <entry><para>Open directory in the new tab</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.in_inactive_tab</para></entry>
-                        <entry><para>Open directory in the new tab (inactive window)</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.last</para></entry>
-                        <entry><para>Go forward to the last visited directory</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.next_tab</para></entry>
-                        <entry><para>Next tab</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.new_tab</para></entry>
-                        <entry><para>Open directory in a new tab</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.prev_tab</para></entry>
-                        <entry><para>Previous tab</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.refresh</para></entry>
-                        <entry><para>Refresh the active file list</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.root</para></entry>
-                        <entry><para>Go to the root directory</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.toggle_lock_tab</para></entry>
-                        <entry><para>Lock/unlock tab</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>view.up</para></entry>
+                        <entry><para>Up one directory</para></entry>
                         <entry><para>Go forward to the parent directory</para></entry>
-                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>View file</para></entry>
+                        <entry><para>View files</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>View with external viewer</para></entry>
+                        <entry><para>View with external viewer</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>View with internal viewer</para></entry>
+                        <entry><para>View with internal viewer</para></entry>
                     </row>
                 </tbody>
             </tgroup>
         </informaltable>
-      <tip>
-        <para>Action names are case insensitive.</para>
-      </tip>
-    </sect2>
-    <sect2 id="gnome-commander-user-actions-keys">
-      <title>List of key symbols</title>
-      <tip>
-        <para>Key names are case insensitive (&lt;ctrl&gt; a&#x2261; &lt;CtRl&gt;A).</para>
-      </tip>
-      <itemizedlist>
-        <listitem>
-          <para>a..z, 0..9</para>
-        </listitem>
-        <listitem>
-          <para>ampersand, apostrophe, asciicircum, asciitilde, asterisk, at,
-                backslash, bar, braceleft, braceright, bracketleft,
-                bracketright, colon, comma, dollar, equal, exclam, grave, greater,
-                less, minus, numbersign, parenleft, parenright, percent, period,
-                plus, question, quotedbl, quoteleft, quoteright, semicolon,
-                slash, space, underscore</para>
-        </listitem>
-        <listitem>
-          <para>f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14,
-                f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27,
-                f28, f29, f30, f31, f32, f33, f34, f35</para>
-        </listitem>
-        <listitem>
-          <para>kp.0, kp.1, kp.2, kp.3, kp.4, kp.5, kp.6, kp.7, kp.8, kp.9,
-                kp.add, kp.begin, kp.decimal, kp.delete, kp.divide, kp.down,
-                kp.end, kp.enter, kp.equal, kp.f1, kp.f2, kp.f3, kp.f4, kp.home,
-                kp.insert, kp.left, kp.multiply, kp.next, kp.page.down,
-                kp.page.up, kp.prior, kp.right, kp.separator, kp.space,
-                kp.subtract, kp.tab, kp.up
-                (&apos;kp&apos; stands for keypad)</para>
-        </listitem>
-        <listitem>
-          <para>caps.lock, num.lock, scroll.lock, shift.lock</para>
-        </listitem>
-        <listitem>
-          <para>backspace, begin, break, cancel, clear, codeinput, delete, down,
-                eisu.shift, eisu.toggle, end, escape, execute, find,
-                first.virtual.screen, help, home, hyper.l, hyper.r, insert,
-                last.virtual.screen, left, linefeed, menu, meta.l, meta.r,
-                mode.switch, multiplecandidate, multi.key, next,
-                next.virtual.screen, page.down, page.up, pause,
-                previouscandidate, prev.virtual.screen, print, prior, redo,
-                return, right, script.switch, select, singlecandidate, super.l,
-                super.r, sys.req, tab, terminate.server, undo, up</para>
-        </listitem>
-      </itemizedlist>
-      <note>
-        <para>The list is based on GDK key symbols taken from
-            <ulink type="http" url="http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h"> gdkkeysyms.h</ulink>.</para>
-      </note>
     </sect2>
   </sect1>
 
