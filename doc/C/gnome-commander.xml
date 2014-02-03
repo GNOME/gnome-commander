@@ -5635,9 +5635,16 @@
     <sect2 id="gnome-commander-prefs-devices">
       <title>Devices</title>
       <!--Brief description -->
-      <para>This tab of the option dialog lets you configure devices so that you can
-    have access to a button in the device buttons toolbar and an entry in the
-    connections menu.</para>
+      <para>This section of the option dialog lets you configure devices so that you can access them by pressing a button in the device buttons toolbar or an entry in the connections menu.</para>
+      <itemizedlist>
+	<listitem><para>In the <guilabel>Devices</guilabel> window all devices which have been added manually are shown together with their icon.</para></listitem>
+       	<listitem><para>Below the <guilabel>Devices</guilabel> window you have two options:
+	<itemizedlist>
+	  <listitem><para><guilabel>Show only the icons</guilabel>: If activated, device icons are shown without their alias name in the device buttons toolbar.</para></listitem>
+	  <listitem><para><guilabel>Skip mounting</guilabel>: If activated, &app; will not try to mount the devices by clicking on them.</para></listitem>
+	</itemizedlist></para></listitem>
+      </itemizedlist>
+      <para>On the right hand side there are five buttons, described in the <xref linkend="gcmd-dev"></xref> table below.</para>
       <!-- ==== Figure ==== -->
       <figure id="options-devices-fig">
         <title>Devices options</title>
@@ -5653,7 +5660,206 @@
         </screenshot>
       </figure>
       <!-- ==== End of Figure ==== -->
-      <para/>
+      <para>
+      	<table frame="topbot" id="gcmd-dev">
+          <title>Devices tab</title>
+          <tgroup cols="2" colsep="0" rowsep="0">
+            <colspec colname="colspec0" colwidth="50.36*"/>
+            <colspec colname="colspec1" colwidth="63.64*"/>
+            <thead>
+              <row rowsep="1">
+              	<entry>
+                  <para>Header</para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Option</para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Description</para>
+              	</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+              	<entry>
+                  <para>
+		    <guilabel>Devices:</guilabel>
+               	  </para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Add:
+                  </para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>You can add a device by pressing this button. The device defined here will appear in the device buttons toolbar and an entry in the connections menu. A dialog box is opened when you click on this button.
+                  </para>
+              	</entry>
+              </row>
+              <row>
+              	<entry>
+                  <para>
+		    <guilabel></guilabel>
+               	  </para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Edit:
+                  </para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Clicking this button will open a dialog were you can modify a device which is selected in the <guimenu>Devices</guimenu> window list.
+                  </para>
+              	</entry>
+              </row>
+              <row>
+              	<entry>
+                  <para>
+		    <guilabel></guilabel>
+               	  </para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Remove:
+                  </para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Clicking this button will remove the application selected from the <guimenu>Devices</guimenu> window list.
+                  </para>
+              	</entry>
+              </row>
+              <row>
+              	<entry>
+                  <para>
+		    <guilabel></guilabel>
+               	  </para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Up:
+                  </para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Clicking this button will move the device up in the list. This will also affect the order in which the list is displayed in the contextual menu.
+                  </para>
+              	</entry>
+            	</row><row>
+              	<entry>
+                  <para>
+		    <guilabel></guilabel>
+               	  </para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Down:
+                  </para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Clicking this button will move the device down in the list. This will also affect the order in which the list is displayed in the contextual menu.
+                  </para>
+              	</entry>
+	      </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
+      <note><para>The dialog box used to add new and to modify existing devices is the same. Look at the figure <xref linkend="options-edit-dev"></xref> and the explanation below.</para></note>
+      <para>
+         <!-- ==== Figure ==== -->
+      <figure id="options-edit-dev">
+        <title>Application options</title>
+        <screenshot>
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="figures/dev_cd.png" format="PNG"/>
+            </imageobject>
+            <textobject>
+              <phrase>Shows &app; new devices dialog.</phrase>
+            </textobject>
+          </mediaobject>
+        </screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      </para>
+            <para>
+      	<table frame="topbot" id="options-edit-dev-tab">
+        		<title>Devices option tab</title>
+        			<tgroup cols="2" colsep="0" rowsep="0">
+          			<colspec colname="colspec0" colwidth="50.36*"/>
+          			<colspec colname="colspec1" colwidth="63.64*"/>
+          				<thead>
+            				<row rowsep="1">
+              					<entry>
+                					<para>Header</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>Option</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Description</para>
+              					</entry>
+            				</row>
+          				</thead>
+          				<tbody>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Alias:</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>This text box contains the label that is displayed in the contextual menu.
+                					</para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Device:</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>This text box contains the device which should be accessed. Usually it is located in the /dev directory.
+                					</para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Mount point:</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>Here you specify where the device should be mounted to. Usually this is a directory in /mnt
+                					</para>
+              					</entry>
+            				</row>
+            				<row>
+              					<entry>
+                					<para>
+					                  <guilabel>Icon</guilabel>
+               					</para>
+              					</entry>
+              					<entry colname="colspec2">
+                					<para>
+                					</para>
+              					</entry>
+              					<entry colname="colspec3">
+                					<para>By clicking on the button you can specify the icon which should be displayed in the contextual menu.
+                					</para>
+              					</entry>
+            				</row>
+            			</tbody>
+            		</tgroup>
+            	</table>
+            	</para>
     </sect2>
   </sect1>
 
