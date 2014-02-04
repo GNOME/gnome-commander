@@ -367,9 +367,6 @@
         <para>One instance mode</para>
       </listitem>
       <listitem>
-        <para>GNOME MIME types</para>
-      </listitem>
-      <listitem>
         <para>Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS (Samba)</para>
       </listitem>
       <listitem>
@@ -6789,10 +6786,6 @@
                         <entry><para>Maximize panel size</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>MIME types</para></entry>
-                        <entry><para>Configure MIME types</para></entry>
-                    </row>
-                    <row valign="top">
                         <entry><para>Move files</para></entry>
                         <entry><para>Move files</para></entry>
                     </row>
@@ -7220,6 +7213,14 @@
             </listitem>
           </itemizedlist>
     </sect2>
+	<sect2 id="gnome-commander-mime-types">
+	  <title>Handling MIME types</title>
+	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing 
+	  of preferred programs in GNOME Commander is broken (since v1.1.7). You have still some possibilities 
+	  to change preferred default programs. For more informations please have a look at the 
+	  <ulink type="http" url="http://gcmd.github.io/doc.html#mime">Tips and Tricks section</ulink> of 
+	  the &app; home page.</para></note>
+	</sect2>
   </sect1>
 
 <!-- ============= Installation =========================== -->

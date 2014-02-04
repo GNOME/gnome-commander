@@ -196,7 +196,6 @@ static UserActionData user_actions_data[] = {
                                              {mark_unselect_all, "mark.unselect_all", N_("Unselect all")},
                                              {no_action, "no.action", N_("Do nothing")},
                                              {options_edit, "options.edit", N_("Options")},
-                                             {options_edit_mime_types, "options.edit_mime_types", N_("MIME types")},
                                              {options_edit_shortcuts, "options.shortcuts", N_("Keyboard shortcuts")},
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
                                              {plugins_execute_python, "plugins.execute_python", N_("Execute Python plugin")},
@@ -1823,12 +1822,12 @@ void options_edit_shortcuts (GtkMenuItem *menuitem, gpointer not_used)
     gnome_cmd_key_shortcuts_dialog_new (gcmd_user_actions);
 }
 
-
+/* // commented out since it might be used again far in the future again
 void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
 {
     edit_mimetypes (NULL, FALSE);
 }
-
+*/
 
 /************** Connections Menu **************/
 void connections_open (GtkMenuItem *menuitem, gpointer not_used)

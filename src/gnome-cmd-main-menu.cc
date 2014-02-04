@@ -744,12 +744,6 @@ static void init (GnomeCmdMainMenu *main_menu)
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC,
             NULL
         },
-        {
-            MENU_TYPE_ITEM, _("_MIME Types..."), "", NULL,
-            (gpointer) options_edit_mime_types, NULL,
-            GNOME_APP_PIXMAP_NONE, 0,
-            NULL
-        },
         MENUTYPE_END
     };
 

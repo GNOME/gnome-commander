@@ -319,7 +319,6 @@ GNOME_CMD_USER_ACTION(bookmarks_goto);
 
 /************** Options Menu **************/
 GNOME_CMD_USER_ACTION(options_edit);
-GNOME_CMD_USER_ACTION(options_edit_mime_types);
 GNOME_CMD_USER_ACTION(options_edit_shortcuts);
 
 /************** Connections Menu **************/
