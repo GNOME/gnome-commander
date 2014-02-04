@@ -1303,9 +1303,12 @@
       <para>You can use bookmarks to speed up navigation within your local files or to
        access remote servers.</para>
       <para>To add a folder to the bookmarks, navigate to the folder&apos;s location
-       in the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this directory</guimenu></menuchoice>.</para>
-      <para>Managing your bookmarks is done with the bookmark manager.</para>
-      <para>To start the bookmark manager select the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press the <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>.</para>
+       in the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this 
+      directory</guimenu></menuchoice>. Once you have added a bookmark, it will be added 
+      in its respective group in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.</para>
+      <para>Managing your bookmarks is done with the bookmark manager, started by selecting 
+      <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> 
+      or pressing <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>.</para>
       <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
       bookmark in the selected group.</para>
       <!-- ==== Figure ==== -->
@@ -1323,8 +1326,6 @@
         </screenshot>
       </figure>
       <!-- ==== End of Figure ==== -->
-      <para>Once You have added bookmarks to &app; these will be added in their
-       respective groups in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.</para>
     </sect2>
     <!-- ================ Hidden Files Subsection ======================= -->
     <sect2 id="gnome-commander-hidden-files">
