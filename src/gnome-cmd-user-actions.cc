@@ -1822,13 +1822,6 @@ void options_edit_shortcuts (GtkMenuItem *menuitem, gpointer not_used)
     gnome_cmd_key_shortcuts_dialog_new (gcmd_user_actions);
 }
 
-/* // commented out since it might be used again far in the future again
-void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
-{
-    edit_mimetypes (NULL, FALSE);
-}
-*/
-
 /************** Connections Menu **************/
 void connections_open (GtkMenuItem *menuitem, gpointer not_used)
 {
