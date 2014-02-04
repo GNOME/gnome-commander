@@ -1302,15 +1302,30 @@
       <title>Using Bookmarks</title>
       <para>You can use bookmarks to speed up navigation within your local files or to
        access remote servers.</para>
-      <para>To add a folder to the bookmarks, navigate to the folder&apos;s location
-       in the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this 
+      <para>Managing your bookmarks is done with the bookmark manager, started by selecting 
+      <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks...</guimenuitem></menuchoice> 
+      or pressing <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>. See an example screenshot
+      below.</para>
+      <para>To add a folder to the bookmarks, navigate to the folder&apos;s location.
+      In the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this 
       directory</guimenu></menuchoice>. Once you have added a bookmark, it will be added 
       in its respective group in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.</para>
-      <para>Managing your bookmarks is done with the bookmark manager, started by selecting 
-      <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> 
-      or pressing <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>.</para>
+      <note><para>Currently (in &app; v1.4), only two groups are possible: Home and SMB. They are assigned
+      automatically to each bookmark depending on the path they are pointing to.</para></note>
       <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
       bookmark in the selected group.</para>
+      <para>In the bookmark list there are four different columns displayed:
+      <orderedlist>
+	<listitem><para>The name of the bookmark group,</para></listitem>
+	<listitem><para>The name of the bookmark,</para></listitem>
+	<listitem><para>The shortcut of the bookmark,</para></listitem>
+	<listitem><para>The path to which the bookmark points to.</para></listitem>
+      </orderedlist></para>
+      <para>The name and the path of a bookmark are editable by pressing the <guimenu>Edit</guimenu> 
+      button. In contrast, the shortcut of a bookmark in the third column is taken from 
+      the associated user action <guimenu>Go to bookmarked location</guimenu>, adjustable by clicking on 
+      the  menu entry <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard Shortcuts...</guimenuitem>
+      </menuchoice>. In the bookmarks window it is only shown as a reference but it is not editable.</para>
       <!-- ==== Figure ==== -->
       <figure id="bookmark-dlg-mgmt-fig">
         <title>Bookmark Management Dialog</title>
