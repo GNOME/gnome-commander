@@ -153,7 +153,7 @@ static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_
             break;
 
         case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-user-actions");
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-keyboard");
             g_signal_stop_emission_by_name (dialog, "response");
             break;
 
