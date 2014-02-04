@@ -3972,6 +3972,39 @@
         </note>
     </sect3>
     </sect2>
+    <!-- ================ Remote Server Subsection ======================= -->
+    <sect2 id="gnome-commander-remote-server">
+      <title>Remote Server Connections</title>
+      <para></para>
+        <!-- ==== Figure ==== -->
+        <figure id="remote-connections-example">
+             <title>Remote Connections Overview</title>
+             <screenshot>
+                <mediaobject>
+                   <imageobject>
+                     <imagedata fileref="figures/gnome-commander_dialog_remote_connections.png" format="PNG"/>
+                        </imageobject>
+                   <textobject><phrase>Overview of remote servers.</phrase>
+                   </textobject>
+               </mediaobject>
+             </screenshot>
+           </figure>
+        <!-- ==== End of Figure ==== -->
+        <!-- ==== Figure ==== -->
+        <figure id="remote-connections-new">
+             <title>Creating Server Connection</title>
+             <screenshot>
+                <mediaobject>
+                   <imageobject>
+                     <imagedata fileref="figures/gnome-commander_dialog_remote_server.png" format="PNG"/>
+                        </imageobject>
+                   <textobject><phrase>Creating a new remote server connection.</phrase>
+                   </textobject>
+               </mediaobject>
+             </screenshot>
+           </figure>
+        <!-- ==== End of Figure ==== -->
+    </sect2>
     <!-- ================ Internal Viewer Subsection ======================= -->
     <sect2 id="gnome-commander-internal-viewer">
       <title>Using the Internal Viewer</title>
