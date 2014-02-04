@@ -7877,24 +7877,46 @@
       manual, this is the place to put it. Alternatively, you can put this information in the title page.-->
   <sect1 id="gnome-commander-about">
     <title>About &app;</title>
-    <para> &app; was primarily written by the former maintainer - Marcus Bjurman,
-    who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in January 2004.
-    Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>)
-    with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>).
-
-    To find more information about &app;, please visit the
-    <ulink type="http" url="http://gcmd.github.io/">&app; homepage</ulink>.
-    </para>
+    <sect2 id="gnome-commander-history">
+      <title>History of &app;</title>
+      <para> &app; was primarily written by Marcus Bjurman, who was the one initiating this 
+      project in 2001 and developed it up to version 1.1.6 in January 2004.</para>
+      <para>Later on, since 2004, &app; was maintained by the new lead developer Piotr Eljasiak, 
+      working at the project already since 2002. In this time, Assaf Gordon contributed by 
+      implementing the internal file viewer.</para>
+      <para>Piotr conducted the development until version 1.2.8.15. In this time Magnus Stålnacke 
+      was responsible for the homepage. On the mailing list, Amongst others, Michael and Magnus 
+      contributed with many great ideas and by helping finding bugs and other inconsistencies. 
+      After Magnus resigned from the project, Thomas Jost helped to maintain the homepage at 
+      Savannah.org</para>
+      <para>Unfortunately, Piotr suddenly passed away in the beginning of 2012 and &app; had no 
+      maintainer for nearly two years. Late in 2013, Uwe Scholz, a user of &app; since the 
+      days before version 1.0, took over the project as project maintainer.</para>
+    </sect2>
+    <sect2 id="gnome-commander-location">
+      <title>Location</title>
+      <para>In the beginning, &app; had its home at Sourceforge. Later, the project moved to
+      Savannah.org, where it got its own homepage and its mailing lists. In the end 
+      of 2003, the source tree moved to Gnome.org. Though, the homepage and mailing lists were 
+      still hosted at Savannah.</para>
+      <para>Since 2013, the location of the &app; home page has been moved to GitHub.org.</para>
+    </sect2>
+    <sect2 id="gnome-commander-bug-reporting">
+      <title>Bug Reporting</title>
     <para>
-      To report a bug or make a suggestion regarding this application or
-      this manual, follow the directions in this
-      <ulink type="help" url="ghelp:gnome-feedback">document</ulink>.
-    </para>
-    <para> This program is distributed under the terms of the GNU
+      If you found a bug, you can check if it is already reported on our 
+      <ulink type="http" url="https://bugzilla.gnome.org/browse.cgi?product=gnome-commander">Bugzilla</ulink> 
+      page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
+      have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
+    </sect2>
+    <sect2 id="gnome-commander-License">
+      <title>License</title>
+      <para> This program is distributed under the terms of the GNU
       General Public license as published by the Free Software
       Foundation; either version 2 of the License, or (at your option)
       any later version. A copy of this license can be found at this
       <ulink type="help" url="ghelp:gpl">link</ulink>, or in the file
       COPYING included with the source code of this program.</para>
+    </sect2>
   </sect1>
 </article>
