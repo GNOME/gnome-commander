@@ -37,7 +37,7 @@ New features:
  * Dropped support for cvs plugin
  * New or updated docs: cs, de, en, es, el, fr, ru, sl
  * New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, 
-                                nb, pl, pt_BR, ro, ru, sl, sr, sv, uk, zh_CN
+                                nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
