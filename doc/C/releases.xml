@@ -119,6 +119,9 @@
                             <para>New python plugin: 'apply_patch'</para>
                         </listitem>
                         <listitem>
+                            <para>Dropped broken MIME type configuration</para>
+                        </listitem>
+                        <listitem>
                             <para>Dropped support for cvs plugin</para>
                         </listitem>
                         <listitem>

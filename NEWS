@@ -33,6 +33,7 @@ New features:
  * --config-dir command line option for customized location of config files
  * Several speed improvements including C++ rework and code cleanups
  * New python plugin: 'apply_patch'
+ * Dropped broken MIME type configuration
  * Dropped support for cvs plugin
  * New or updated docs: cs, de, en, es, el, fr, ru, sl
  * New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, 
