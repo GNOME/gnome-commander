@@ -5869,7 +5869,7 @@
     <title>Keyboard Shortcuts</title>
     <para>In this section the keyboard shortcuts in &app; are presented. In the table below you will find each keyboard shortcut, its mappings and an info if it is user definable.</para>
     <para>If you want to know more about how to change a keyboard shortcut or how to assign a new one (if user definable), look at the section <xref linkend="gnome-commander-user-actions"></xref>.</para>
-    <tip><para>The daily usage of &app; is very effective if you know at least the most important keyboard shortcuts for moving and file handling. Learn them by heart and &app; will be an even more effective tool for you.</para></tip>
+    <tip><para>The daily usage of &app; is very effective if you know by heart at least the most important keyboard shortcuts for moving and file handling (see section <xref linkend="gnome-commander-usage"></xref>). Learn them and &app; will be an even more effective tool for you.</para></tip>
     <note>
       <para>Some keyboard shortcuts may not work as expected under your environment, e.g. GNOME.
                 The reason for that is that the environment uses some global
