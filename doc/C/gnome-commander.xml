@@ -6933,7 +6933,7 @@
         <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
       </listitem>
       <listitem>
-        <para><filename>apply_patch</filename> - The plugin applies selected patches to the opposite pane using 'patch -p1'</para>
+        <para><filename>apply_patch</filename> - The plugin applies selected patches to the opposite pane using <command>patch -p1</command></para>
       </listitem>
     </itemizedlist>
     <sect2 id="gnome-commander-python-plugins-working-with">
