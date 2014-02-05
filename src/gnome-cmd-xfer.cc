@@ -180,11 +180,9 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gchar *source_details = file_details (info->source_name);
         gchar *target_details = file_details (info->target_name);
 
-        gchar *msg1 = g_strdup_printf (_("Overwrite file:\n\n"));
-        gchar *msg2 = g_strdup_printf (_("%s\n"),target_filename);
-        gchar *msg3 = g_strdup_printf (_("%s\n\nWith:\n\n"),target_details);
-        gchar *msg4 = g_strdup_printf (_("%s\n"),source_filename);
-        gchar *msg5 = g_strdup_printf (_("%s"), source_details);
+	GtkWidget *msg;
+
+        gchar *text = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"), target_filename, target_details, source_filename, source_details);
 
         g_free (source_filename);
         g_free (target_filename);
@@ -192,13 +190,11 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         g_free (target_details);
 
         gdk_threads_enter ();
-        gint ret = run_overwrite_warning_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg1, msg2, msg3, msg4, msg5, " ",
+
+        gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, text, " ",
 						 1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
-        g_free (msg1);
-        g_free (msg2);
-        g_free (msg3);
-        g_free (msg4);
-        g_free (msg5);
+	g_free(text);
+
         data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE;
         gdk_threads_leave ();
         return ret==-1 ? 0 : ret;
