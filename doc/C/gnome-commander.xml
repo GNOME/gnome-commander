@@ -1309,9 +1309,8 @@
       <para>To add a folder to the bookmarks, navigate to the folder&apos;s location.
       In the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark this 
       directory</guimenu></menuchoice>. Once you have added a bookmark, it will be added 
-      in its respective group in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.</para>
-      <note><para>Currently (in &app; v1.4), only two groups are possible: Home and SMB. They are assigned
-      automatically to each bookmark depending on the path they are pointing to.</para></note>
+      in its respective group in the <menuchoice><guimenu>Bookmarks</guimenu></menuchoice> menu.
+      A bookmark is automatically assigned to a group, depending on where the bookmark is pointing to.</para>
       <para>You can then Jump to a bookmark, Edit, Remove, or modify the position of a
       bookmark in the selected group.</para>
       <para>In the bookmark list there are four different columns displayed:
