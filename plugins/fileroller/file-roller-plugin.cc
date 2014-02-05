@@ -63,6 +63,7 @@ static const gchar *handled_extensions[] =
     ".tar.bz2",     // tar+bz2
     ".tar.gz",      // tar+gz
     ".tar.lzo",     // tar+lzop
+    ".tar.xz",      // tar.xz
     ".taz",         // tar+compress
     ".tbz",         // tar+bz
     ".tbz2",        // tar+bz2
