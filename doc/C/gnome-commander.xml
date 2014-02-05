@@ -3986,37 +3986,81 @@
     </sect3>
     </sect2>
     <!-- ================ Remote Server Subsection ======================= -->
-    <sect2 id="gnome-commander-remote-server">
-      <title>Remote Server Connections</title>
-      <para></para>
-        <!-- ==== Figure ==== -->
-        <figure id="remote-connections-example">
-             <title>Remote Connections Overview</title>
-             <screenshot>
-                <mediaobject>
-                   <imageobject>
-                     <imagedata fileref="figures/gnome-commander_dialog_remote_connections.png" format="PNG"/>
-                        </imageobject>
-                   <textobject><phrase>Overview of remote servers.</phrase>
-                   </textobject>
-               </mediaobject>
-             </screenshot>
-           </figure>
-        <!-- ==== End of Figure ==== -->
-        <!-- ==== Figure ==== -->
-        <figure id="remote-connections-new">
-             <title>Creating Server Connection</title>
-             <screenshot>
-                <mediaobject>
-                   <imageobject>
-                     <imagedata fileref="figures/gnome-commander_dialog_remote_server.png" format="PNG"/>
-                        </imageobject>
-                   <textobject><phrase>Creating a new remote server connection.</phrase>
-                   </textobject>
-               </mediaobject>
-             </screenshot>
-           </figure>
-        <!-- ==== End of Figure ==== -->
+    <sect2 id="gnome-commander-remote-connections">
+      <title>Remote Connections</title>
+      <para>The Remote Connections dialog gives an overview about the stored connections to remote servers. It is also your starting point for opening a connection to a remote server.</para>
+      <para>Open the dialog by clicking <menuchoice><guimenu>Connections</guimenu><guimenuitem>Remote Server...</guimenuitem></menuchoice> in the menu bar or by hitting <keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo>.</para>
+      <para>It is divided into four parts:
+      <orderedlist>
+	<listitem><para>Connections list,</para></listitem>
+	<listitem><para>Buttons to <guimenuitem>Add</guimenuitem>, <guimenuitem>Edit</guimenuitem> and to <guimenuitem>Remove</guimenuitem> a selected connection,</para></listitem>
+	<listitem><para>Option for setting the anonymous FTP password globally.</para></listitem>
+      <listitem><para>A <guimenuitem>Close</guimenuitem> and a <guimenuitem>Connect</guimenuitem> button.</para></listitem></orderedlist></para>
+      <para>Double click on a connection or select a connection and hit <keycombo><keycap>ENTER</keycap></keycombo> will open the remote connection in the active pane of &app;.</para>
+      <para> An example figure with three anonymous FTP and one secure SSH connection is shown below.</para>
+      <para> In the subsection <xref linkend="gnome-commander-config-remote-connections"></xref> it is shown how to edit a connection by clicking on the <guimenuitem>Add</guimenuitem> or <guimenuitem>Edit</guimenuitem> button.</para>
+      <!-- ==== Figure ==== -->
+      <figure id="remote-connections-example">
+	<title>Remote Connections Overview</title>
+	<screenshot>
+          <mediaobject>
+            <imageobject>
+	      <imagedata fileref="figures/gnome-commander_dialog_remote_connections.png" format="PNG"/>
+            </imageobject>
+            <textobject><phrase>Overview of remote servers.</phrase>
+            </textobject>
+	  </mediaobject>
+	</screenshot>
+      </figure>
+      <!-- ==== End of Figure ==== -->
+      <!-- ================ Remote Server Subsection ======================= -->
+      <sect3 id="gnome-commander-config-remote-connections">
+	<title>Adding and Configuring Remote Connections</title>
+	<para>Remote connection details can be set up temporarily or permanently, depending on how they are added to &app;:
+	<itemizedlist>
+	  <listitem><para>By hitting the shortcut <keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> a
+	  temporary connection is configured. That's why no connection alias is needed in this case. If you 
+	  restart &app;, the connection details have to be entered again to connect to the same 
+	  server.</para></listitem>
+	  <listitem><para>By adding a remote connection via the <guimenuitem>Add</guimenuitem> button in the 
+	  Remote Connections dialog (see above), the connection is stored permanently in this dialog. If you
+	  restart &app; the stored connection is available again.</para></listitem>
+	</itemizedlist>
+	</para>
+	<para>Currently, (&app; version 1.4) there are six different connection types available:
+	<orderedlist>
+	  <listitem><para>SSH</para></listitem>
+	  <listitem><para>Public FTP</para></listitem>
+	  <listitem><para>FTP (with login)</para></listitem>
+	  <listitem><para>Windows share</para></listitem>
+	  <listitem><para>WebDAV (HTTP)</para></listitem>
+	  <listitem><para>Secure WebDAV (HTTPS)</para></listitem>
+	  <listitem><para>Custom location</para></listitem>
+	</orderedlist></para>
+	<para>Depending on the choice, different login details have to be entered in the 
+	Remote Server dialog.</para>
+	<warning>
+          <para>If you are <emphasis>not</emphasis> using GNOME Keyring Manager for authentication, the 
+	  password for a secure connection is stored in plain text in 
+	  <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>. Therefore, it is recommended to use 
+	  GNOME Keyring Manager for secure connections.</para>
+	</warning>
+	<para>See an example for a public FTP server in the figure below.</para>
+	<!-- ==== Figure ==== -->
+	<figure id="remote-connections-new">
+          <title>Creating Server Connection</title>
+          <screenshot>
+            <mediaobject>
+              <imageobject>
+		<imagedata fileref="figures/gnome-commander_dialog_remote_server.png" format="PNG"/>
+              </imageobject>
+              <textobject><phrase>Creating a new remote server connection.</phrase>
+              </textobject>
+            </mediaobject>
+          </screenshot>
+	</figure>
+	<!-- ==== End of Figure ==== -->
+      </sect3>
     </sect2>
     <!-- ================ Internal Viewer Subsection ======================= -->
     <sect2 id="gnome-commander-internal-viewer">
