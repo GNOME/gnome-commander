@@ -7357,6 +7357,14 @@
       </varlistentry>
       <varlistentry>
         <term>
+          <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>
+        </term>
+        <listitem>
+          <para/>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
           <guilabel>~/.gnome2/gnome-commander</guilabel>
         </term>
         <listitem>
