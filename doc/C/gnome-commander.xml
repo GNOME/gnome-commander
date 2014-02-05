@@ -7171,7 +7171,14 @@
 	<sect2 id="gnome-commander-handling-archives">
 	  <title>Handling Archives</title>
 	  <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
-	  that working with archives becomes quite practical anyway. This is how you do it:</para>
+	  that working with archives becomes quite practical anyway.</para> 
+	  <para>There are two different ways: The preferred one is to activate the build in 
+	  <application>Fileroller</application> plugin in the menu 
+	  <menuchoice><guimenu>Plugins</guimenu><guimenuitem>Configure Plugins...</guimenuitem></menuchoice>. By 
+	  activating this plugin you get additional entries in the popup menu by right clicking on selected files 
+	  and folders (make sure that <application>Fileroller</application> is installed in your system). 
+	  By clicking on an archive, the popup menu lets you choose where to extract the archive to.</para>
+	  <para>The second, outdated but still working way is the following:</para>
 	  <itemizedlist>
             <listitem>
 	      <para>
