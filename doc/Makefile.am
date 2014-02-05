@@ -37,6 +37,7 @@ DOC_FIGURES = \
 	figures/gnome-commander_options_network.png             \
 	figures/gnome-commander_options_programs.png            \
 	figures/gnome-commander_options_tabs.png                \
+	figures/gnome-commander_options_layout_colors.png	\
 	figures/gnome-commander_window.png                      \
 	figures/mounting.png
 

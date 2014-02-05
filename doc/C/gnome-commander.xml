@@ -4912,7 +4912,7 @@
       <para/>
 
 		<sect3 id="gnome-commander-prefs-layout-colors">
-		<title>Configuring custom colors</title>
+		<title>Configuring Custom Colors</title>
 		<para>To configure the custom colors for &app; click on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Options</guimenuitem></menuchoice>, click on the <guilabel>Layout</guilabel> tab, Select <guilabel>Custom</guilabel> in the <guilabel>Color scheme:</guilabel> drop down list then click the <guilabel>Edit</guilabel> button.</para>
 		<para>This feature allows you to configure how &app; displays elements to suit your needs. By default the unselected elements are all displayed in the same way. This can become confusing, to solve this you can configure alternate colors for alternate rows.</para>
 		<para><guilabel>Foreground</guilabel> describes the color used for the text, and <guilabel>background</guilabel> is the background color used for the row.</para>
@@ -4926,7 +4926,22 @@
 			<listitem><para><guilabel>Cursor</guilabel> is the row currently activated. This highlights the position and is useful when navigating files with the keyboard.</para>
 			</listitem>
 		</itemizedlist>
-
+		<para>See the example figure of the Edit Colors... dialog below.</para>
+		<!-- ==== Figure ==== -->
+		<figure id="options-layout-colors">
+		  <title>Configuring Custom Colors</title>
+		  <screenshot>
+		    <mediaobject>
+		      <imageobject>
+			<imagedata fileref="figures/gnome-commander_options_layout_colors.png" format="PNG"/>
+		      </imageobject>
+		      <textobject>
+			<phrase>Shows &app; dialog for editing custom colors.</phrase>
+		      </textobject>
+		    </mediaobject>
+		  </screenshot>
+		</figure>
+		<!-- ==== End of Figure ==== -->
 		</sect3>
 		<sect3 id="gnome-commander-prefs-layout-ls_colors">
 			<title>Configuring Custom LS_COLORS</title>
