@@ -185,6 +185,58 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     va_end (button_title_args);
 
     dialog = gtk_message_dialog_new_with_markup (*main_win, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, "%s", text);
+
+    if (title)
+        gtk_window_set_title (GTK_WINDOW (dialog), title);
+
+    for (int i=0; button_titles[i]; i++)
+        gtk_dialog_add_button (GTK_DIALOG (dialog), button_titles[i], i);
+
+    g_free (button_titles);
+
+    if (def_response>=0)
+        gtk_dialog_set_default_response (GTK_DIALOG (dialog), def_response);
+
+    // Allow close.
+    if (ignore_close_box)
+        g_signal_connect (dialog, "delete-event", G_CALLBACK (delete_event_callback), NULL);
+    else
+        g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_run_dialog_keypress), dialog);
+
+    gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
+
+    // Run it.
+    do
+    {
+        gtk_widget_show (dialog);
+        result = gtk_dialog_run (GTK_DIALOG (dialog));
+    }
+    while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
+
+    gtk_widget_destroy (dialog);
+
+    return result;
+}
+
+gint run_overwrite_warning_dialog (GtkWidget *parent, gboolean ignore_close_box,
+				   GtkMessageType msg_type,
+				   const char *textmsg1, const char *textmsg2, 
+				   const char *textmsg3, const char *textmsg4, 
+				   const char *textmsg5, const char *title, gint def_response, ...)
+{
+    va_list button_title_args;
+    const char **button_titles;
+    GtkWidget *dialog;
+    // GtkWidget *top_widget;
+    int result;
+
+    // Create the dialog.
+    va_start (button_title_args, def_response);
+    button_titles = convert_varargs_to_name_array (button_title_args);
+    va_end (button_title_args);
+
+    dialog = gtk_message_dialog_new_with_markup (*main_win, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, "%s<b>%s</b><span color='dimgray' size='smaller'>%s</span><b>%s</b><span color='dimgray' size='smaller'>%s</span>", textmsg1, textmsg2, textmsg3, textmsg4, textmsg5);
+
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);
 

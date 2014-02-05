@@ -67,6 +67,12 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
                         GtkMessageType msg_type,
                         const char *text, const char *title, gint def_response, ...);
 
+gint run_overwrite_warning_dialog (GtkWidget *parent, gboolean ignore_close_box,
+				   GtkMessageType msg_type,
+				   const char *textmsg1, const char *textmsg2, 
+				   const char *textmsg3, const char *textmsg4, 
+				   const char *textmsg5, const char *title, gint def_response, ...);
+
 inline gboolean string2int (const gchar *s, gint &i)
 {
     return sscanf (s, "%d", &i) == 1;
