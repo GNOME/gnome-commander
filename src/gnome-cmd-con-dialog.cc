@@ -421,7 +421,7 @@ static void response_callback (GnomeCmdConnectDialog *dialog, int response_id, g
             break;
 
         case GTK_RESPONSE_HELP:
-            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-file-properties");
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-config-remote-connections");
             g_signal_stop_emission_by_name (dialog, "response");
             break;
 
