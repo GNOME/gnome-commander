@@ -413,7 +413,6 @@ pixmaps/device-icons/Makefile
 pixmaps/file-type-icons/Makefile
 pixmaps/mime-icons/Makefile
 plugins/Makefile
-plugins/cvs/Makefile
 plugins/fileroller/Makefile
 plugins/python/Makefile
 plugins/python/md5sum/Makefile

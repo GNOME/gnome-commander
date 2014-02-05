@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in.
 
-SUBDIRS = test cvs fileroller
+SUBDIRS = test fileroller
 
 if HAVE_PYTHON
 SUBDIRS += python
