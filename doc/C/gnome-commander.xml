@@ -7944,7 +7944,7 @@
   <sect1 id="gnome-commander-bugs">
     <title>Known Bugs and Limitations</title>
     <para>You can report or view &app; bugs at the <ulink type="http" url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander">the gnome.org Bugzilla</ulink>.</para>
-    <para>Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
+    <para>Some words about bugs: Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
         this goes especially for development and testing versions. Quality bug reporting is very important
         and can be a very good help for the developers to make a better program.
@@ -7952,7 +7952,11 @@
         Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
         and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers,
         all in the spirit of free and open source software.</para>
-
+    <para>Known limitation:
+    <itemizedlist>
+    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS. This might be the cause that some Python plugins won't run on your system..</para></listitem>
+    <listitem><para>Configuration of default application depending on the files MIME type is broken and was finally removed in v1.4. See section <xref linkend="gnome-commander-mime-types"></xref> for more information.</para></listitem>
+    </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
   <para><foreignphrase>Linus law.</foreignphrase></para>
