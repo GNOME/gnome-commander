@@ -3,8 +3,6 @@
 [encoding: UTF-8]
 data/gnome-commander.desktop.in.in
 libgcmd/gnome-cmd-string-dialog.cc
-plugins/cvs/cvs-plugin.cc
-plugins/cvs/interface.cc
 plugins/fileroller/file-roller-plugin.cc
 plugins/test/test-plugin.cc
 src/dialogs/gnome-cmd-advrename-dialog.cc
