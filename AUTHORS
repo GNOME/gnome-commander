@@ -1,18 +1,31 @@
 Developers:
-		Marcus Bjurman <marbj499@student.liu.se>
-		Piotr Eljasiak <epiotr@use.pl>
 		Assaf Gordon <agordon88@gmail.com>
+		Dominique Leuenberger <dimstar@opensuse.org>
+		Marcus Bjurman <marbj499@student.liu.se>
+		Marek Kašík <mkasik@redhat.com>
+		Pino Toscano <pino@debian.org>
+		Piotr Eljasiak (†) <epiotr@src.gnome.org>
+		Thomas Jost <thomas.jost@gmail.com>
 		Uwe Scholz <u.scholz83@gmx.de>
 
-Project home maintainer:
+Project Maintainer:
+		Uwe Scholz <u.scholz83@gmx.de>
+
+Former Project Maintainers:
+		Marcus Bjurman <marbj499@student.liu.se>
 		Magnus Stålnacke <jemamo@telia.com>
+		Piotr Eljasiak (†) <epiotr@src.gnome.org>
 
 Translators:
 		Albanian - Laurent Dhima <laurenti@alblinux.net>
 		Arabic  - Anas Husseini <linux.anas@gmail.com>
 		Arabic  - Djihed Afifi <djihed@gmail.com>
 		Basque  - Inaki Larranaga <dooteo@euskalgnu.org>
+		Brazilian Portuguese - Adorilson Bezerra <adorilson@gmail.com>
+		Brazilian Portuguese - Mateus Zenaide <mateus@mateuszenaide.com.br>
 		Brazilian Portuguese - Fábio Nogueira
+		Brazilian Portuguese - Gabriel F. Vilar <cogumm@gmail.com>
+		Brazilian Portuguese - Juan Diego Martins da Costa Cruz <juan.martins@ifrn.edu.br>
 		Brazilian Portuguese - Leonardo Ferreira Fontenelle <leonardof@svn.gnome.org>
 		Brazilian Portuguese - Michel Recondo <mrecondo@gmail.com>
 		Brazilian Portuguese - Og Maciel <ogmaciel@gnome.org>
@@ -23,6 +36,7 @@ Translators:
 		British English - Philip Withnall <pwithnall@svn.gnome.org>
 		Bulgarian - sstanev <sstpr@narod.ru>
 		Canadian English - Adam Weinberger <adamw@gnome.org>
+		Catalan - Gil Forcada <gforcada@gnome.org>
 		Catalan - Jordi Mallach <jordi@sindominio.net>
 		Catalan - Jordi Mas <jmas@gnome.org>
 		Croatian - Robert Sedak <robert.sedak@sk.htnet.hr>
@@ -34,6 +48,7 @@ Translators:
 		Czech   - Miloslav Trmac <mitr@volny.cz>
 		Czech   - Petr Kovar <pknbe@volny.cz>
 		Danish  - Ask Hjorth Larsen <asklarsen@gmail.com>
+		Dutch	- Hannie Dumoleyn <hannie@ubuntu-nl.org>
 		Dutch   - Tino Meinen
 		Dutch   - Vincent van Adrighem <adrighem@gnome.org>
 		Dutch   - Wouter Bolsterlee <wbolster@gnome.org>
@@ -41,6 +56,7 @@ Translators:
 		Esperanto - Antono Vasiljev <vasiljeff@gmail.com>
 		Esperanto - Kristjan Schmidt <kristjan.schmidt@googlemail.com>
 		Finnish - Ilkka Tuohela <hile@iki.fi>
+		French  - Alexandre Franke <alexandre.franke@gmail.com>
 		French  - Bruno Brouard <annoa.b@gmail.com>
 		French  - Christophe Merlet <redfox@redfoxcenter.org>
 		French  - Claude Paroz <claude@2xlibre.net>
@@ -55,16 +71,21 @@ Translators:
 		German  - Hendrik Richter <hendrikr@gnome.org>
 		German  - Jens Seidel <jensseidel@users.sf.net>
 		German  - Mario Blättermann <mariobl@gnome.org>
+		German  - Piotr Drąg <piotrdrag@gmail.com>
 		German  - Walter Muellner <walter.muellner@telering.at>
+		Greek   - Dimitris Spingos <dmtrs32@gmail.com>
 		Greek   - Kostas Papadimas <pkst@gnome.org>
 		Hungarian - Andras Timar <timar@gnome.hu>
+		Hungarian - Balázs Úr <urbalazs@src.gnome.org>
 		Hungarian - Csimbi <csimbi@gmail.com>
 		Hungarian - Gabor Kelemen <kelemeng@gnome.hu>
 		Hungarian - Németh Tamás <ntomasz@vipmail.hu>
+		Indonesian - Andika Triwidada <andika@gmail.com>
 		Irish - Alastair McKinstry <mckinstry@computer.org>
 		Italian - Alberto Bertoncini <bertux66@libero.it>
 		Japanese - Jiro Matsuzawa <jmatsuzawa@src.gnome.org>
 		Japanese - Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>
+		Japanese - OKANO Takayoshi <kano@na.rim.or.jp>
 		Japanese - Takayuki Kusano <AE5T-KSN@asahi-net.or.jp>
 		Korean - Sewon Jang <jangblue@gmail.com>
 		Kinyarwanda - Steve Murphy <murf@e-tools.com>
@@ -76,8 +97,10 @@ Translators:
 		Portuguese - Duarte Loreto <happyguy_pt@hotmail.com>
 		Punjabi - Amanpreet Singh Alam <aalam@redhat.com>
 		Romanian - Cosmin Humeniuc <cosmin@mandrivausers.ro>
+		Romanian - Daniel Șerbănescu <daniel@serbanescu.dk>
 		Romanian - Lucian Grijincu <lucian.grijincu@gmail.com>
 		Romanian - Remus Boara <rem@eclipsedesign.net>
+		Russian - Aleksej Kabanov <ak099@mail.ru>
 		Russian - Dmitriy Kodanev <dkodanev@gmail.com>
 		Russian - Pavlo Bohmat <bohm@ukr.net>
 		Russian - Radik Usupov <radik@altlinux.org>
@@ -86,6 +109,7 @@ Translators:
 		Russian - Victor Vislobokov <victor_v@permonline.ru>
 		Russian - Yuri Kozlov <yuray@komyakino.ru>
 		Serbian - Danilo Šegan <dsegan@gmx.net>
+		Serbian - Мирослав Николић <miroslavnikolic@rocketmail.com>
 		Simplified Chinese - Aron Xu <happyaron.xu@gmail.com>
 		Simplified Chinese - Funda Wang <fundawang@linux.net.cn>
 		Simplified Chinese - lainme <lainme993@gmail.com>
@@ -102,6 +126,7 @@ Translators:
 		Swedish - Daniel Nylander <po@danielnylander.se>
 		Swedish - Magnus Stålnacke <jemamo@telia.com>
 		Swedish - Marcus Bjurman <marbj499@student.liu.se>
+		Thai    - Akom Chotiphantawanon <knight2000@gmail.com>
 		Traditional Chinese - Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>
 		Ukrainian - Maxim Dziumanenko <mvd@mylinux.com.ua>
 		Vietnamese - Clytie Siddall <clytie@riverland.net.au>

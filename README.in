@@ -21,9 +21,9 @@ Topics:
 
 GNOME Commander is a fast and powerful twin-panel file manager for the GNOME desktop.
 
-Read the sections "FAQ" and "Known problems" to see if there are some known
-problems with the version you are using. The TODO file might also contain
-some clues when running into problems.
+Read the section "Known Bugs and Limitations" in the documentation (by pressing F1)
+to see if there are some known problems with the version you are using. The TODO file 
+might also contain some clues when running into problems.
 
 The ChangeLog contains a detailed description on what has changed. For most
 users the NEWS file might be a better place to look since it contains
@@ -51,7 +51,7 @@ Ideas:
   welcome to start a discussion on the mailing lists.
 
 Translations:
-  * Since now this program is in the GNOME git repository, translations should be
+  * This program is in the GNOME git repository, translations should be
     commited directly to the tree there.
 
 Cool hacks:
@@ -59,6 +59,7 @@ Cool hacks:
   * Please use the -u flag when generating the patch as it makes the patch
     more readable.
   * Write a good explanation of what the patch does.
+  * See also README.commits if you plan to use git for contributing.
 
 Plugins:
   * If you have created a new plugin let us know about it on the mailing list.
