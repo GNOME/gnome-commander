@@ -18,8 +18,6 @@
 * Editing remote files
 * Optional file deselection after completed action (copy, rename, ...)
 * More plugins:
-    - creating tarballs from selected files
-    - compressing/decompressing (gz & bz2)
     - converting gz <-> bz2, tar.gz <-> tar.bz2
     - image operations (rotation, scaling, etc.) on selected files
     - batch file processing
