@@ -182,22 +182,6 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
-static void on_change_default_app (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
-{
-
-    edit_mimetypes (data->f->info->mime_type, TRUE);
-
-    GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->f->info->mime_type);
-
-    gchar *appname = vfs_app ? vfs_app->name : g_strdup (_("No default application registered"));
-
-    gtk_label_set_text (GTK_LABEL (data->app_label), appname);
-
-    if (vfs_app)
-        gnome_vfs_mime_application_free (vfs_app);
-}
-
-
 //----------------------------------------------------------------------------------
 
 
@@ -468,12 +452,10 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         else
             label = create_label (dialog, _("No default application registered"));
 
-        btn = create_button_with_data (dialog, _("_Change"), GTK_SIGNAL_FUNC (on_change_default_app), data);
         hbox = create_hbox (dialog, FALSE, 6);
         gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);
         label = create_label (dialog, " ");
         gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-        gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
         table_add (table, hbox, 1, y++, GTK_FILL);
     }
 

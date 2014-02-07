@@ -229,7 +229,6 @@ GList *file_list_to_uri_list (GList *files);
 GList *file_list_to_info_list (GList *files);
 
 gboolean create_dir_if_needed (const gchar *dpath);
-void edit_mimetypes (const gchar *mime_type, gboolean blocking);
 void fix_uri (GnomeVFSURI *uri);
 
 inline gboolean uri_is_valid (const gchar *uri)

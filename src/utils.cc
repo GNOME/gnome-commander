@@ -1219,22 +1219,6 @@ gboolean create_dir_if_needed (const gchar *dpath)
 }
 
 
-void edit_mimetypes (const gchar *mime_type, gboolean blocking)
-{
-    if (!mime_type)
-        mime_type = "";
-
-    gchar *arg = g_shell_quote (mime_type);
-    gchar *cmd = g_strdup_printf ("gnome-file-types-properties %s\n", arg);
-    g_free (arg);
-    if (blocking)
-        system (cmd);
-    else
-        run_command (cmd);
-    g_free (cmd);
-}
-
-
 void fix_uri (GnomeVFSURI *uri)
 {
 #ifdef FIX_PW_HACK
