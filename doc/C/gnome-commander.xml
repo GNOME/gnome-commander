@@ -1171,6 +1171,14 @@
             </row>
             <row>
               <entry valign="top">
+                <para>Opens with</para>
+              </entry>
+              <entry valign="top">
+                <para>Default application to open the file with. See section <xref linkend="gnome-commander-mime-types"></xref> for information about how to change the default behavior.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
                 <para>Modified</para>
               </entry>
               <entry valign="top">
@@ -7954,7 +7962,7 @@
         all in the spirit of free and open source software.</para>
     <para>Known limitation:
     <itemizedlist>
-    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS. This might be the cause that some Python plugins won't run on your system..</para></listitem>
+    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS. This might be the cause that some Python plugins won't run on your system.</para></listitem>
     <listitem><para>Configuration of default application depending on the files MIME type is broken and was finally removed in v1.4. See section <xref linkend="gnome-commander-mime-types"></xref> for more information.</para></listitem>
     </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
