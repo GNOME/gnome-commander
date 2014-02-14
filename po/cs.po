@@ -1363,7 +1363,7 @@ msgstr "Aplikace:"
 
 #: ../src/gnome-cmd-file-popmenu.cc:159
 msgid "Open with other..."
-msgstr "Otevřít s…"
+msgstr "Otevřít pomocí…"
 
 #: ../src/gnome-cmd-file-popmenu.cc:164
 msgid "Needs terminal"
@@ -1377,11 +1377,11 @@ msgstr "_Otevřít"
 #: ../src/gnome-cmd-file-popmenu.cc:416
 #, c-format
 msgid "_Open with \"%s\""
-msgstr "_Otevřít s „%s“"
+msgstr "_Otevřít pomocí „%s“"
 
 #: ../src/gnome-cmd-file-popmenu.cc:438
 msgid "Open Wit_h"
-msgstr "Otevřít _s"
+msgstr "Otevřít _pomocí"
 
 #: ../src/gnome-cmd-file-popmenu.cc:444
 msgid "E_xecute"
