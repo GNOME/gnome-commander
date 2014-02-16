@@ -2769,11 +2769,11 @@ msgstr "Otevřít terminál"
 
 #: ../src/gnome-cmd-user-actions.cc:149
 msgid "Open terminal as root"
-msgstr "Otevřít terminál jako root"
+msgstr "Otevřít terminál jako superuživatel"
 
 #: ../src/gnome-cmd-user-actions.cc:150
 msgid "Start GNOME Commander as root"
-msgstr "Spustit GNOME Commander pod správcem root"
+msgstr "Spustit GNOME Commander jako superuživatel"
 
 #: ../src/gnome-cmd-user-actions.cc:151
 msgid "Close connection"
