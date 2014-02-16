@@ -325,7 +325,7 @@ msgstr "Klávesová zkratka pro vybranou akci"
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:351
 msgid "Action"
-msgstr "Akce"
+msgstr "Činnost"
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:352
 msgid "User action"
