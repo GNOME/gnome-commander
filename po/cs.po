@@ -2873,7 +2873,7 @@ msgstr "O aplikaci GNOME Commander"
 
 #: ../src/gnome-cmd-user-actions.cc:187
 msgid "Help contents"
-msgstr "Obsah"
+msgstr "Obsah nápovědy"
 
 #: ../src/gnome-cmd-user-actions.cc:188
 msgid "Help on keyboard shortcuts"
