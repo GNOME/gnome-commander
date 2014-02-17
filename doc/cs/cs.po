@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "POT-Creation-Date: 2014-02-14 07:20+0000\n"
-"PO-Revision-Date: 2014-02-17 09:29+0100\n"
+"PO-Revision-Date: 2014-02-17 10:11+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -13467,30 +13467,40 @@ msgid ""
 "In the <guilabel>Devices</guilabel> window all devices which have been added "
 "manually are shown together with their icon."
 msgstr ""
+"V okne <guilabel>Zařízení</guilabel> jsou zobrazena spolu s ikonami všechna "
+"zařízení, která byla přidána ručně."
 
 #: C/gnome-commander.xml:5755(para)
 msgid ""
 "<guilabel>Show only the icons</guilabel>: If activated, device icons are "
 "shown without their alias name in the device buttons toolbar."
 msgstr ""
+"<guilabel>Zobrazovat pouze ikony</guilabel>: když je zapnuto, jsou v liště "
+"zařízení zobrazeny jen ikony bez přezdívek zařízení"
 
 #: C/gnome-commander.xml:5756(para)
 msgid ""
 "<guilabel>Skip mounting</guilabel>: If activated, GNOME Commander will not "
 "try to mount the devices by clicking on them."
 msgstr ""
+"<guilabel>Přeskočit připojování</guilabel>: když je zapnuto, nebude GNOME "
+"Commander po kliknutí na zařízení zkoušet toto zařízení připojit"
 
 #: C/gnome-commander.xml:5753(para)
 msgid ""
 "Below the <guilabel>Devices</guilabel> window you have two options: "
 "<placeholder-1/>"
 msgstr ""
+"V dolní části okna <guilabel>Zařízení</guilabel> máte dvě volby: "
+"<placeholder-1/>"
 
 #: C/gnome-commander.xml:5759(para)
 msgid ""
 "On the right hand side there are five buttons, described in the <xref "
 "linkend=\"gcmd-dev\"/> table below."
 msgstr ""
+"Po pravé straně je pět tlačítek popsaných v tabulce <xref linkend=\"gcmd-dev"
+"\"/> níže."
 
 #: C/gnome-commander.xml:5762(title)
 msgid "Devices options"
@@ -14343,6 +14353,11 @@ msgid ""
 "choose the action which is already assigned to another shortcut. Some "
 "actions are already assigned to multiple shortcuts by default."
 msgstr ""
+"Jedné činnosti je možné přiřadit i více než jednu kombinaci kláves. Uděláte "
+"to tak, že kliknete na tlačítko <guilabel>Přidat</guilabel>, zvolíte novou "
+"klávesovou zkratku a akci, která je již přiřazena jiné klávesové zkratce. "
+"Některé činnosti jsou více klávesovým zkratkám přiřazeny již ve výchozím "
+"stavu."
 
 #: C/gnome-commander.xml:6630(para)
 msgid ""
@@ -14690,7 +14705,7 @@ msgstr "Otevírání terminálu s oprávněním superuživatele root"
 
 #: C/gnome-commander.xml:6931(para)
 msgid "Paste"
-msgstr ""
+msgstr "Vložit"
 
 #: C/gnome-commander.xml:6932(para)
 msgid "Paste from clipboard to current directory (not a global one yet)"
@@ -14850,6 +14865,8 @@ msgid ""
 "<filename>apply_patch</filename> - The plugin applies selected patches to "
 "the opposite pane using <command>patch -p1</command>"
 msgstr ""
+"<filename>apply_patch</filename> – zásuvný modul, který použije záplatu vůči "
+"protějšímu panelu zapomocí příkazu <command>patch -p1</command>"
 
 #: C/gnome-commander.xml:7048(title)
 msgid "Working with plugins"
@@ -15168,6 +15185,9 @@ msgid ""
 "This info might be partially outdated since modern desktop environments or "
 "Linux distributions use automounters to mount devices into /media."
 msgstr ""
+"Tyto informace mohou být částečně neaktuální, protože moderní grafická "
+"pracovní prostředí a Linuxové distribuce používají k připojování zařízení "
+"do /media démony pro automatické připojování."
 
 #: C/gnome-commander.xml:7242(para)
 msgid ""
@@ -15957,6 +15977,9 @@ msgid ""
 "GnomeVFS. This might be the cause that some Python plugins won't run on your "
 "system."
 msgstr ""
+"GNOME Commander stále postrádá podporu GVFS/GIO. Místo toho používá "
+"GnomeVFS. To může způsobit, že některé zásuvné moduly v jazyce Python nemusí "
+"ve vašem systému pracovat."
 
 #: C/gnome-commander.xml:7966(para)
 msgid ""
