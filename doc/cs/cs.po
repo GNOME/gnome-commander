@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "POT-Creation-Date: 2014-02-14 07:20+0000\n"
-"PO-Revision-Date: 2014-02-17 17:41+0100\n"
+"PO-Revision-Date: 2014-02-20 18:57+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
-"Language-Team: čeština <gnome-cs-list@gnome.org>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -190,7 +190,8 @@ msgstr "Výzva k potvrzení operací „táhni a upusť“"
 
 #: C/releases.xml:110(para)
 msgid "Right click popup menu for copying in internal viewer"
-msgstr "Rozbalovací nabídka pod pravým kliknutím pro interní prohlížeč"
+msgstr ""
+"Rozbalovací nabídka pod pravým kliknutím pro kopírování v interním prohlížeči"
 
 #: C/releases.xml:113(para)
 msgid ""
@@ -204,11 +205,11 @@ msgstr "Řada vylepšení rychlosti, včetně přepsání a pročištění kódu
 
 #: C/releases.xml:119(para)
 msgid "New python plugin: 'apply_patch'"
-msgstr "Nový zásuvný moduly v jazyce Python: „apply_patch“"
+msgstr "Nový zásuvný modul v jazyce Python: „apply_patch“"
 
 #: C/releases.xml:122(para)
 msgid "Dropped broken MIME type configuration"
-msgstr "Odstraněno vadné nastavení typů MIME"
+msgstr "Odstraněno nefunkční nastavování typů MIME"
 
 #: C/releases.xml:125(para)
 msgid "Dropped support for cvs plugin"
@@ -559,8 +560,8 @@ msgstr ""
 #: C/releases.xml:402(para)
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr ""
-"Opraven problém #620650 (přetečení vyrovnávací paměti ve funkci load_fav_apps"
-"())"
+"Opraven problém #620650 (přetečení vyrovnávací paměti ve funkci "
+"load_fav_apps())"
 
 #: C/releases.xml:405(para)
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
@@ -4399,9 +4400,10 @@ msgid ""
 msgstr ""
 "Pokud jsou k dispozici, jsou pro soubory jako obrázky, dokumenty nebo zvuky, "
 "zobrazovány doplňkové informace podle metadat. Zobrazovanými štítky jsou: "
-"File.Description (popis), File.Publisher (vydavatel), Doc.Title (název), Doc."
-"Pagecount (počet stran), Audio.Albumartist (umělec alba), Audio.Title "
-"(název), Audio.Bitrate (datový tok) a Audio.Durationmmss (délka)."
+"File.Description (popis souboru), File.Publisher (vydavatel souboru), Doc."
+"Title (název dokumentu), Doc.Pagecount (počet stran dokumentu), Audio."
+"Albumartist (umělec alba), Audio.Title (název zvuku), Audio.Bitrate (datový "
+"tok zvuku) a Audio.Durationmmss (délka zvuku)."
 
 #: C/gnome-commander.xml:1225(title)
 msgid "Changing Permissions"
@@ -4498,7 +4500,7 @@ msgid ""
 "bookmarks...</guimenuitem></menuchoice> or pressing <keycombo><keycap>CTRL</"
 "keycap><keycap>D</keycap></keycombo>. See an example screenshot below."
 msgstr ""
-"Své záložky spravujte pomocí správce záložek, kterého spustíte pomocí "
+"Své záložky spravujte pomocí správce záložek, kterého spustíte přes "
 "<menuchoice><guimenu>Záložky</guimenu><guimenuitem>Spravovat záložky…</"
 "guimenuitem></menuchoice> nebo zmáčknutím <keycombo><keycap>Ctrl</"
 "keycap><keycap>D</keycap></keycombo>. Viz ukázkový snímek obrazovky níže."
@@ -4697,7 +4699,7 @@ msgid ""
 "automatic width, '1',..., '16': fixed width)."
 msgstr ""
 "Určuje nastavení pro počitadla: počáteční hodnotu, krok a počet číslic "
-"„auto“ = automatický počet číslic; „1“, …, 16“ = pevný počet číslic)."
+"„auto“ = automatický počet číslic; „1“, …, „16“ = pevný počet číslic)."
 
 #: C/gnome-commander.xml:1421(guilabel)
 msgid "Regex replacing"
@@ -11207,7 +11209,7 @@ msgid ""
 "connection is available again."
 msgstr ""
 "Přidáním vzdáleného připojení přes tlačítko <guimenuitem>Přidat</"
-"guimenuitem> v dialogovém okně vzdálených připojení (viz víše) se připojení "
+"guimenuitem> v dialogovém okně vzdálených připojení (viz výše) se připojení "
 "trvale uloží a je k dispozici i při následujících spuštěních GNOME "
 "Commanderu."
 
@@ -11277,7 +11279,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4055(para)
 msgid "See an example for a public FTP server in the figure below."
-msgstr "Na obrázku níže se podívejte se na příklad serveru veřejného FTP."
+msgstr "Na obrázku níže se podívejte na příklad serveru veřejného FTP."
 
 #: C/gnome-commander.xml:4058(title)
 msgid "Creating Server Connection"
@@ -11325,8 +11327,9 @@ msgid ""
 "view images and texts in the internal viewer window:"
 msgstr ""
 "Skupina <guilabel>Režimy zobrazení</guilabel> (v nabídce "
-"<menuchoice><guimenu>View</guimenu></menuchoice>) obsahuje předvolby, přes "
-"které můžete nastavit zobrazení obrázků a textů v okně interního prohlížeče."
+"<menuchoice><guimenu>Zobrazit</guimenu></menuchoice>) obsahuje předvolby, "
+"přes které můžete nastavit zobrazení obrázků a textů v okně interního "
+"prohlížeče."
 
 #: C/gnome-commander.xml:4088(para)
 msgid "Text mode"
@@ -11966,8 +11969,8 @@ msgid ""
 msgstr ""
 "Když je vybraná tato volba a a začnete vyhledávat podle písmena či více "
 "písmen, přesune GNOME Commander kurzor výběru v aktivním panelu na první "
-"položku začínající tímto písmenem. Psaním dalších písmen za toto první "
-"můžete hledání upřesnit."
+"položku končící tímto písmenem. Psaním dalších písmen za toto první můžete "
+"hledání upřesnit."
 
 #: C/gnome-commander.xml:4490(guilabel)
 msgid "Multiple instances"
@@ -12204,7 +12207,7 @@ msgid ""
 "how and which icons display when they are enabled in the previous section."
 msgstr ""
 "<guilabel>Nastavení ikon MIME</guilabel> je část, ve které můžete nastavit, "
-"jak a které ikony se zobrazují, pokud to povolíte v předchozím oddíle."
+"jak a které ikony se zobrazují, pokud to povolíte v předchozím části."
 
 #: C/gnome-commander.xml:4703(para)
 msgid ""
@@ -12633,7 +12636,7 @@ msgstr "<guilabel>* (hvězdička)</guilabel>: je zobrazena hvězdička"
 
 #: C/gnome-commander.xml:4984(para)
 msgid "<guilabel>Styled text</guilabel>: The name of the tab is colored."
-msgstr "<guilabel>Nastalovaný text</guilabel>: název karty je barevně"
+msgstr "<guilabel>Nastylovaný text</guilabel>: název karty je barevně"
 
 #: C/gnome-commander.xml:4980(para)
 msgid ""
@@ -12642,7 +12645,7 @@ msgid ""
 "<placeholder-1/>"
 msgstr ""
 "V části týkající se indikátoru zámčených karet můžete nastavit, jakým "
-"způsobme je signalizováno zamknutí karty. Jsou tři různé možnosti: "
+"způsobem je signalizováno zamknutí karty. Jsou tři různé možnosti: "
 "<placeholder-1/>"
 
 #: C/gnome-commander.xml:4991(title)
@@ -13473,7 +13476,7 @@ msgid ""
 "In the <guilabel>Devices</guilabel> window all devices which have been added "
 "manually are shown together with their icon."
 msgstr ""
-"V okne <guilabel>Zařízení</guilabel> jsou zobrazena spolu s ikonami všechna "
+"V okně <guilabel>Zařízení</guilabel> jsou zobrazena spolu s ikonami všechna "
 "zařízení, která byla přidána ručně."
 
 #: C/gnome-commander.xml:5755(para)
@@ -14431,7 +14434,7 @@ msgstr "Změnit vlastníka/skupinu"
 
 #: C/gnome-commander.xml:6690(para)
 msgid "Change file ownership"
-msgstr "Změnit vlastnictví souborů"
+msgstr "Změnit vlastnictví souboru"
 
 #: C/gnome-commander.xml:6693(para)
 msgid "Change permissions"
@@ -14509,7 +14512,7 @@ msgstr "Stejná velikost panelů"
 
 #: C/gnome-commander.xml:6778(para)
 msgid "Set equal panes (50/50)"
-msgstr "Nastavit panely, aby byla stejně velké (50/50)"
+msgstr "Nastavit panely, aby byly stejně velké (50/50)"
 
 #: C/gnome-commander.xml:6781(para)
 msgid "Execute command"
@@ -14720,7 +14723,7 @@ msgstr "Otevřít terminál jako superuživatel"
 
 #: C/gnome-commander.xml:6924(para)
 msgid "Opens a terminal with root privileges."
-msgstr "Otevírání terminálu s oprávněním superuživatele root"
+msgstr "Otevře terminál s oprávněním superuživatele root"
 
 #: C/gnome-commander.xml:6931(para)
 msgid "Paste"
@@ -15427,7 +15430,7 @@ msgid ""
 "explained in detail there."
 msgstr ""
 "Po jeho rozbalení se nejdříve podívejte do souboru <guimenu>README</"
-"guimenu>, ve kterém najdete přehled od staženém vydání. Také si najděte "
+"guimenu>, ve kterém najdete přehled o staženém vydání. Také si najděte "
 "soubor <guimenu>INSTALL</guimenu>, ve kterém je vysvětlem postup instalace."
 
 #: C/gnome-commander.xml:7348(title)
@@ -15947,11 +15950,11 @@ msgstr "[key-bindings]"
 
 #: C/gnome-commander.xml:7930(para)
 msgid ""
-"[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;win&gt;]"
-"<emphasis>key_name</emphasis>"
+"[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
+"win&gt;]<emphasis>key_name</emphasis>"
 msgstr ""
-"[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;win&gt;]"
-"<emphasis>key_name</emphasis>"
+"[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
+"win&gt;]<emphasis>název_klávesy</emphasis>"
 
 #: C/gnome-commander.xml:7932(command)
 msgid "action[|options]"
