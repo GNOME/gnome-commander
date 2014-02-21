@@ -270,6 +270,10 @@ if test x$with_poppler != xno; then
 fi
 if test "x$have_pdf" = "xyes"; then
    AC_DEFINE(HAVE_PDF, 1, [Define to 1 if you have PDF support])
+   POPPLER_PREFIX=`pkg-config --variable=prefix poppler`
+   POPPLER_VERSION=`pkg-config --modversion poppler`
+   AC_SUBST(POPPLER_VERSION)
+   AC_SUBST(POPPLER_PREFIX)
 fi
 
 
@@ -467,6 +471,9 @@ echo "  gnomeui        : ${GNOMEUI_VERSION}	in ${GNOMEUI_PREFIX}"
 echo "  gnome-vfs      : ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
 echo "  gnome-keyring  : ${GNOME_KEYRING_VERSION}	in ${GNOME_KEYRING_PREFIX}"
 echo "  libUnique      : ${UNIQUE_VERSION}	in ${UNIQUE_PREFIX}"
+if test "x$have_pdf" = "xyes"; then
+echo "  poppler        : ${POPPLER_VERSION}  	in ${POPPLER_PREFIX}"
+fi
 if test "x$have_python" = "xyes"; then
 echo "  python         : ${PYTHON_VERSION}  	in ${PY_EXEC_PREFIX}"
 fi
