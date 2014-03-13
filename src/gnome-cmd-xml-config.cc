@@ -809,8 +809,6 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TRIMBLANKS, "/GnomeCommander/AdvancedRenameTool/Profile/TrimBlanks"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY, "/GnomeCommander/AdvancedRenameTool/History"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/History/Template"},
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY, "/GnomeCommander/AdvancedRenameTool/TemplateHistory"},                      //  FIXME: for compatibility, to be removed after 1.2.8 release
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/TemplateHistory/Template"},    //  FIXME: for compatibility, to be removed after 1.2.8 release
                         {XML_GNOMECOMMANDER_SEARCHTOOL, "/GnomeCommander/SearchTool"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_WINDOWSIZE, "/GnomeCommander/SearchTool/WindowSize"},
                         {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE, "/GnomeCommander/SearchTool/Profile"},
