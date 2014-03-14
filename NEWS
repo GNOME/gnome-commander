@@ -1,15 +1,15 @@
 ===================================
-gnome-commander 1.4
+gnome-commander 1.4.0
 ---------------
 
 Bug fixes:
- * Fixed problem #377463 (mkdir dialog loses focus)
- * Fixed problem #492479 (file replace prompt must show date and size of files)
- * Fixed problem #617140 (GNOME Goal: Use accessor functions instead direct access)
- * Fixed problems #632064, #632208, #633107, #633167, #633331, #634972, #637873, #638059 (bugs in gnome-commander-help.master.po)
- * Fixed problem #660043 (shortcut ALT+DOWN not documented)
- * Fixed problem #660268 (remember directory history between sessions)
- * Fixed problem #667080 (delete confirmation defaults to YES/OK)
+ * Fixed problem bgo#377463 (mkdir dialog loses focus)
+ * Fixed problem bgo#492479 (file replace prompt must show date and size of files)
+ * Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct access)
+ * Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)
+ * Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)
+ * Fixed problem bgo#660268 (remember directory history between sessions)
+ * Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)
  * Fixed Ubuntu problem #117226 (bookmarks unification)
  * Fixed problem with right mouse button selection not being precise
  * Fixed problem bgo#696227 (detect and support libgsf >= 1.14.26)
