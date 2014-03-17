@@ -35,9 +35,6 @@ New features:
  * New python plugin: 'apply_patch'
  * Dropped broken MIME type configuration
  * Dropped support for cvs plugin
- * New or updated docs: cs, de, en, es, el, fr, ru, sl
- * New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, 
-                                nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN
  * New key bindings:
       CTRL+T         Open directory in a new tab (replaces the old Multi-Rename-Tool binding)
       CTRL+W         Close current tab
@@ -46,7 +43,46 @@ New features:
       CTRL+SHIFT+TAB Switch to the previous tab
       SUPER+1        Change left connection
       SUPER+2        Change right connection
-
+ * New or updated docs:
+       cs (Marek Černocký)
+       de (Mario Blättermann, Niklas Mattisson, Piotr Drąg)
+       es (Daniel Mustieles, Jorge González)
+       el (Dimitris Spingos)
+       fr (Alexandre Franke, Bruno Brouard, Claude Paroz)
+       ru (Aleksej Kabanov, Radik Usupov)
+       sl (Matej Urbančič)
+ * New or updated translations:
+       ca (Gil Forcada)
+       cs (Marek Černocký, Petr Kovar, Piotr Eljasiak)
+       da (Ask H. Larsen)
+       de (Mario Blättermann)
+       dz (Daniel Mustieles)
+       en_GB (Piotr Eljasiak)
+       eo (Kristjan SCHMIDT)
+       el (Dimitris Spingos)
+       es (Daniel Mustieles, Jorge González)
+       eu (Inaki Larranaga Murgoitio, Piotr Eljasiak)
+       fr (Bruno Brouard, Claude Paroz, Laurent Coudeur)
+       hu (Balázs Úr, Gabor Kelemen)
+       id (Andika Triwidada)
+       it (Alberto Bertoncini, Piotr Eljasiak) 
+       ja (Jiro Matsuzawa, OKANO Takayoshi, Piotr Eljasiak, Takayuki KUSANO)
+       ko (Sewon Jang)
+       nb (Kjartan Maraas)
+       nl (Hannie Dumoleyn, Piotr Eljasiak, Wouter Bolsterlee)
+       pl (Piotr Eljasiak)
+       pt_BR (Adorilson Bezerra, Gabriel F. Vilar, Juan Diego Martins da Costa Cruz, 
+       	      Mateus Zenaide, Michel Recondo, Piotr Eljasiak)
+       ro (Daniel Șerbănescu, Lucian Grijincu)
+       ru (Aleksej Kabanov, Dmitriy Kodanev, Radik Usupov, Yuri Kozlov)
+       sl (Martin Srebotnjak, Matej Urbančič)
+       sr (Мирослав Николић )
+       sr@latin (Мирослав Николић)
+       sv (Daniel Nylander, Piotr Eljasiak)
+       th (Akom Chotiphantawanon)
+       uk (Maxim V. Dziumanenko)
+       zh_CN (Aron Xu, lainme)
+       TW (RayCherng Yu zh)
 
 ===================================
 gnome-commander 1.2.8.17
