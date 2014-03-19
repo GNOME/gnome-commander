@@ -35,6 +35,9 @@
                         <listitem>
                            <para>Support for utf8 encoded creation and modification dates in document metadata</para>
                        </listitem>
+                        <listitem>
+                           <para>Moved Search, Quick Search and Enable Filter from Edit to File menu</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

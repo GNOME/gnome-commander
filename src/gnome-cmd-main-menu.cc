@@ -470,6 +470,25 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         MENUTYPE_SEPARATOR,
         {
+            MENU_TYPE_ITEM, _("_Search..."), "Alt+F7", NULL,
+            (gpointer) edit_search, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("_Quick Search..."), "", NULL,
+            (gpointer) edit_quick_search, NULL,
+            GNOME_APP_PIXMAP_NONE, 0,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("_Enable Filter..."), "", NULL,
+            (gpointer) edit_filter, NULL,
+            GNOME_APP_PIXMAP_NONE, 0,
+            NULL
+        },
+        MENUTYPE_SEPARATOR,
+        {
             MENU_TYPE_ITEM, _("_Diff"), "", NULL,
             (gpointer) file_diff, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
@@ -576,25 +595,6 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("Copy _File Names"), "", NULL,
             (gpointer) edit_copy_fnames, NULL,
-            GNOME_APP_PIXMAP_NONE, 0,
-            NULL
-        },
-        MENUTYPE_SEPARATOR,
-        {
-            MENU_TYPE_ITEM, _("_Search..."), "Alt+F7", NULL,
-            (gpointer) edit_search, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
-            NULL
-        },
-        {
-            MENU_TYPE_ITEM, _("_Quick Search..."), "", NULL,
-            (gpointer) edit_quick_search, NULL,
-            GNOME_APP_PIXMAP_NONE, 0,
-            NULL
-        },
-        {
-            MENU_TYPE_ITEM, _("_Enable Filter..."), "", NULL,
-            (gpointer) edit_filter, NULL,
             GNOME_APP_PIXMAP_NONE, 0,
             NULL
         },
