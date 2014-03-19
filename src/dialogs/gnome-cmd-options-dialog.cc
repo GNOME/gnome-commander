@@ -22,7 +22,7 @@
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-options-dialog.h"
+#include "dialogs/gnome-cmd-options-dialog.h"
 #include "utils.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"

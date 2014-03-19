@@ -24,6 +24,7 @@ libgcmd_dialogs_a_SOURCES = \
 	gnome-cmd-key-shortcuts-dialog.h gnome-cmd-key-shortcuts-dialog.cc \
 	gnome-cmd-edit-profile-dialog.h \
 	gnome-cmd-manage-profiles-dialog.h \
+	gnome-cmd-options-dialog.h gnome-cmd-options-dialog.cc \
 	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.cc \
 	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc
 
