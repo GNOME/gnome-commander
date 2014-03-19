@@ -115,7 +115,7 @@ static void gnome_cmd_selection_profile_component_init (GnomeCmdSelectionProfile
 
     // search for
     component->priv->filter_type_combo = gtk_combo_box_new_text ();
-    gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->filter_type_combo), _("Name matches regex:"));
+    gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->filter_type_combo), _("Path matches regex:"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (component->priv->filter_type_combo), _("Name contains:"));
     component->priv->pattern_combo = gtk_combo_box_entry_new_text ();
     table_add (component->priv->table, component->priv->filter_type_combo, 0, 0, GTK_FILL);
