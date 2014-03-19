@@ -219,7 +219,7 @@ scrollkeeper-update -q || :
 * Wed Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added build and runtime deps for python and gnome-python2-gnomevfs
 
-* Tue Jan 20 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-5
+* Sat Jan 20 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-5
 - Require meld (#225324)
 
 * Wed Jan 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
@@ -259,7 +259,7 @@ scrollkeeper-update -q || :
 * Sun Apr 9 2006 Piotr Eljasiak <epiotr@use.pl>
 - minor cleanups
 
-* Thu Mar 5 2006 Piotr Eljasiak <epiotr@use.pl>
+* Sun Mar 5 2006 Piotr Eljasiak <epiotr@use.pl>
 - added OMF files
 
 * Mon Feb 13 2006 Piotr Eljasiak <epiotr@use.pl>
