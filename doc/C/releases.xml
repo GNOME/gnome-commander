@@ -36,9 +36,6 @@
                             <para>Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)</para>
-                        </listitem>
-                        <listitem>
                            <para>Support for utf8 encoded creation and modification dates in document metadata</para>
                        </listitem>
                         <listitem>
