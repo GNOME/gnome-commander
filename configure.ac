@@ -257,21 +257,21 @@ fi
 
 
 dnl Check for poppler support
-AC_ARG_WITH(poppler, [  --without-poppler        disable PDF support])
+AC_ARG_WITH(poppler-glib, [  --without-poppler        disable PDF support])
 have_pdf=no
 if test x$with_poppler != xno; then
-    PKG_CHECK_MODULES(POPPLER, poppler >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
-    if pkg-config --atleast-version=0.19.0 poppler; then
-        AC_DEFINE(POPPLER_HAS_SET_ERROR_CALLBACK, 1, [Define to 1 if poppler has support for setErrorCallback()])
+    PKG_CHECK_MODULES(POPPLER, poppler-glib >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
+    if pkg-config --atleast-version=0.19.0 poppler-glib; then
+        AC_DEFINE(POPPLER_HAS_SET_ERROR_CALLBACK, 1, [Define to 1 if poppler-glib has support for setErrorCallback()])
     fi
-    if pkg-config --atleast-version=0.23.0 poppler; then
-        AC_DEFINE(POPPLER_HAS_GOFFSET, 1, [Define to 1 if poppler has Goffset])
+    if pkg-config --atleast-version=0.23.0 poppler-glib; then
+        AC_DEFINE(POPPLER_HAS_GOFFSET, 1, [Define to 1 if poppler-glib has Goffset])
     fi
 fi
 if test "x$have_pdf" = "xyes"; then
    AC_DEFINE(HAVE_PDF, 1, [Define to 1 if you have PDF support])
-   POPPLER_PREFIX=`pkg-config --variable=prefix poppler`
-   POPPLER_VERSION=`pkg-config --modversion poppler`
+   POPPLER_PREFIX=`pkg-config --variable=prefix poppler-glib`
+   POPPLER_VERSION=`pkg-config --modversion poppler-glib`
    AC_SUBST(POPPLER_VERSION)
    AC_SUBST(POPPLER_PREFIX)
 fi
@@ -472,7 +472,7 @@ echo "  gnome-vfs      : ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
 echo "  gnome-keyring  : ${GNOME_KEYRING_VERSION}	in ${GNOME_KEYRING_PREFIX}"
 echo "  libUnique      : ${UNIQUE_VERSION}	in ${UNIQUE_PREFIX}"
 if test "x$have_pdf" = "xyes"; then
-echo "  poppler        : ${POPPLER_VERSION}  	in ${POPPLER_PREFIX}"
+echo "  poppler-glib   : ${POPPLER_VERSION}  	in ${POPPLER_PREFIX}"
 fi
 if test "x$have_python" = "xyes"; then
 echo "  python         : ${PYTHON_VERSION}  	in ${PY_EXEC_PREFIX}"

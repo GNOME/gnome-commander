@@ -29,152 +29,27 @@
 #include "dict.h"
 
 #ifdef HAVE_PDF
-#include <regex.h>
-#include <poppler/PDFDoc.h>
-#include <poppler/PDFDocEncoding.h>
-#include <poppler/Error.h>
+#include <poppler/glib/poppler.h>
 #endif
 
 using namespace std;
 
-
 #ifdef HAVE_PDF
-static regex_t rxDate;
-static gboolean rxDate_OK;
-#ifdef POPPLER_HAS_SET_ERROR_CALLBACK
-#ifdef POPPLER_HAS_GOFFSET
-typedef Goffset gcmd_poppler_offset_t;
-#else
-typedef int gcmd_poppler_offset_t;
-#endif
-static void noErrorReporting(void *, ErrorCategory, gcmd_poppler_offset_t pos, char *msg)
-#else
-static void noErrorReporting(int pos, char *msg, va_list args)
-#endif
+
+static void add_date(GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, time_t date)
 {
-}
-#endif
+    gchar buf[32];
+    struct tm lt;
 
-
-void gcmd_tags_poppler_init()
-{
-#ifdef HAVE_PDF
-    rxDate_OK = regcomp (&rxDate, "^(D:)?([12][019][0-9][0-9]([01][0-9]([0-3][0-9]([012][0-9]([0-5][0-9]([0-5][0-9])?)?)?)?)?)", REG_EXTENDED)==0;
-
-#ifdef POPPLER_HAS_SET_ERROR_CALLBACK
-    setErrorCallback(noErrorReporting, NULL);
-#else
-    setErrorFunction(noErrorReporting);
-#endif
-#endif
+    localtime_r(&date, &lt);
+    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &lt);
+ 
+    metadata.add(tag, buf);
 }
 
-
-void gcmd_tags_poppler_shutdown()
+inline guint enum_bit_to_01(int enum_value, int enum_bit)
 {
-#ifdef HAVE_PDF
-    if (rxDate_OK)
-        regfree(&rxDate);
-#endif
-}
-
-
-#ifdef HAVE_PDF
-static gchar *convert_to_utf8(GooString *s)
-{
-    guint len = s->getLength();
-
-    if (s->hasUnicodeMarker())
-        return g_convert (s->getCString()+2, len-2, "UTF-8", "UTF-16BE", NULL, NULL, NULL);
-    else
-    {
-        static vector<gunichar> buff(64);
-
-        if (len>buff.size())
-            buff.resize(len);
-
-        gunichar *ucs4 = &buff[0];
-
-        for (guint i=0; i<len; ++i, ++ucs4)
-            *ucs4 = pdfDocEncoding[(unsigned char) s->getChar(i)];
-
-        return g_ucs4_to_utf8 (&buff[0], len, NULL, NULL, NULL);
-    }
-}
-
-
-inline void add(GnomeCmdFileMetadata &metadata, const GnomeCmdTag tag, GooString *s)
-{
-    if (!s)  return;
-
-    char *value = convert_to_utf8(s);
-
-    metadata.add(tag, value);
-
-    g_free (value);
-}
-
-
-inline void add(GnomeCmdFileMetadata &metadata, const GnomeCmdTag tag1, const GnomeCmdTag tag2, GooString *s)
-{
-    if (!s)  return;
-
-    char *value = convert_to_utf8(s);
-
-    metadata.add(tag1, value);
-    metadata.add(tag2, value);
-
-    g_free (value);
-}
-
-
-static void add_date(GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, GooString *date)
-{
-    // PDF date format:     D:YYYYMMDDHHmmSSOHH'mm'
-
-    gchar *s = convert_to_utf8(date);
-
-    if (!s)  return;
-
-    regmatch_t m[3];
-
-    if (rxDate_OK && regexec(&rxDate, s, G_N_ELEMENTS(m), m, 0) == 0)
-    {
-        static char buff[32];
-
-        strcpy(buff, "YYYY-01-01 00:00:00");
-
-        gchar *src = s + m[2].rm_so;
-
-        switch (m[2].rm_eo-m[2].rm_so)
-        {
-            case 14:    //  SS
-                memcpy(buff+17,src+12,2);
-
-            case 12:    // mm
-                memcpy(buff+14,src+10,2);
-
-            case 10:    //  HH
-                memcpy(buff+11,src+8,2);
-
-            case 8:     //  DD
-                memcpy(buff+8,src+6,2);
-
-            case 6:     //  MM
-                memcpy(buff+5,src+4,2);
-
-            case 4:     //  YYYY
-                memcpy(buff,src,4);
-                break;
-
-            default:
-                break;
-        }
-
-        metadata.add(tag, buff);
-    }
-
-    g_free (s);
+    return (enum_value & enum_bit) ? 1 : 0;
 }
 
 
@@ -324,35 +199,97 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 
     DEBUG('t', "Loading PDF metadata for '%s'\n", fname);
 
-    PDFDoc doc(new GooString(fname));
-
+    GError *error = NULL;
+    gchar *uri = g_filename_to_uri(fname, NULL, &error);
     g_free (fname);
 
-    if (!doc.isOk())
+    if (error)
+    {
+	g_error_free(error);
         return;
+    }
+    PopplerDocument *document = poppler_document_new_from_file(uri, NULL, &error);
+    g_free(uri);
+    if (error)
+    {
+        if (error->code == POPPLER_ERROR_ENCRYPTED)
+        {
+            f->metadata->mark_as_accessed(TAG_DOC);
+            f->metadata->addf(TAG_DOC_SECURITY, "%u", 1);
+        }
+	g_error_free(error);
+        return;
+    }
 
     f->metadata->mark_as_accessed(TAG_DOC);
 
-    f->metadata->addf(TAG_PDF_VERSION, "%u.%u", doc.getPDFMajorVersion(), doc.getPDFMinorVersion());
+    gchar *title, *author, *subject, *keywords, *creator, *producer;
+    GTime creation_date, mod_date;
+    PopplerPermissions permissions;
+    guint format_major, format_minor;
+    g_object_get(document,
+                 "title", &title,
+                 "author", &author,
+                 "subject", &subject,
+                 "keywords", &keywords,
+                 "creator", &creator,
+                 "producer", &producer,
+                 "creation-date", &creation_date,
+                 "mod-date", &mod_date,
+                 "permissions", &permissions,
+                 "format-major", &format_major,
+                 "format-minor", &format_minor,
+                 NULL);
 
-    f->metadata->addf(TAG_DOC_PAGECOUNT, "%i", doc.getNumPages());
-    f->metadata->addf(TAG_PDF_OPTIMIZED, "%u", doc.isLinearized());
+    f->metadata->addf(TAG_PDF_VERSION, "%u.%u", format_major, format_minor);
 
-    f->metadata->addf(TAG_DOC_SECURITY, "%u", doc.isEncrypted());   //  FIXME: 1 -> "Password protected", 0 -> "No protection" ???
+    f->metadata->addf(TAG_DOC_PAGECOUNT, "%i", poppler_document_get_n_pages(document));
 
-    f->metadata->addf(TAG_PDF_PRINTING, "%u", doc.okToPrint());
-    f->metadata->addf(TAG_PDF_HIRESPRINTING, "%u", doc.okToPrintHighRes());
-    f->metadata->addf(TAG_PDF_MODIFYING, "%u", doc.okToChange());
-    f->metadata->addf(TAG_PDF_COPYING, "%u", doc.okToCopy());
-    f->metadata->addf(TAG_PDF_COMMENTING, "%u", doc.okToAddNotes());
-    f->metadata->addf(TAG_PDF_FORMFILLING, "%u", doc.okToFillForm());
-    f->metadata->addf(TAG_PDF_ACCESSIBILITYSUPPORT, "%u", doc.okToAccessibility());
-    f->metadata->addf(TAG_PDF_DOCASSEMBLY, "%u", doc.okToAssemble());
+    f->metadata->addf(TAG_PDF_OPTIMIZED, "%u", poppler_document_is_linearized(document));
 
-    if (doc.getNumPages()>0)
+    f->metadata->addf(TAG_DOC_SECURITY, "%u", 0);
+
+    f->metadata->addf(TAG_PDF_PRINTING, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_PRINT));
+    f->metadata->addf(TAG_PDF_MODIFYING, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_MODIFY));
+    f->metadata->addf(TAG_PDF_COPYING, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_COPY));
+    f->metadata->addf(TAG_PDF_COMMENTING, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_ADD_NOTES));
+    f->metadata->addf(TAG_PDF_FORMFILLING, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_FILL_FORM));
+    f->metadata->addf(TAG_PDF_HIRESPRINTING, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_PRINT_HIGH_RESOLUTION));
+    f->metadata->addf(TAG_PDF_DOCASSEMBLY, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_ASSEMBLE));
+    f->metadata->addf(TAG_PDF_ACCESSIBILITYSUPPORT, "%u", enum_bit_to_01(permissions, POPPLER_PERMISSIONS_OK_TO_EXTRACT_CONTENTS));
+
+    f->metadata->add(TAG_DOC_TITLE, title);
+    g_free(title);
+
+    f->metadata->add(TAG_DOC_SUBJECT, subject);
+    g_free(subject);
+
+    // FIXME:  split keywords here
+    f->metadata->add(TAG_DOC_KEYWORDS, keywords);
+    f->metadata->add(TAG_FILE_KEYWORDS, keywords);
+    g_free(keywords);
+
+    f->metadata->add(TAG_DOC_AUTHOR, author);
+    f->metadata->add(TAG_FILE_PUBLISHER, author);
+    g_free(author);
+
+    f->metadata->add(TAG_PDF_PRODUCER, creator);
+    g_free(creator);
+
+    f->metadata->add(TAG_DOC_GENERATOR, producer);
+    g_free(producer);
+
+    add_date(*f->metadata, TAG_DOC_DATECREATED, creation_date);
+    add_date(*f->metadata, TAG_DOC_DATEMODIFIED, mod_date);
+
+    if (poppler_document_get_n_pages(document) > 0)
     {
-        double width = doc.getPageCropWidth(1)/72.0f*25.4f;
-        double height = doc.getPageCropHeight(1)/72.0f*25.4f;
+        PopplerPage *page = poppler_document_get_page(document, 0);
+        double page_width, page_height;
+        poppler_page_get_size(page, &page_width, &page_height);
+
+        double width = page_width/72.0f*25.4f;
+        double height = page_height/72.0f*25.4f;
 
         f->metadata->addf(TAG_PDF_PAGEWIDTH, "%.0f", width);
         f->metadata->addf(TAG_PDF_PAGEHEIGHT, "%.0f", height);
@@ -361,59 +298,28 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 
         f->metadata->add(TAG_PDF_PAGESIZE, paper_size);
 
+	g_object_unref(page);
         g_free (paper_size);
     }
 
-    Catalog *catalog = doc.getCatalog();
-
-    if (catalog)
-        f->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%i", catalog->numEmbeddedFiles());
-
-    // GooString *xmp = doc.readMetadata();         // FIXME: future access to XMP metadata
-
-    // if (xmp)
-    // {
-        // TRACE(xmp->getCString());
-    // }
-
-    // delete xmp;
-
-    Object info;
-
-    doc.getDocInfo(&info);
-
-    if (info.isDict())
+    if (poppler_document_has_attachments(document))
     {
-        Object obj;
-        Dict *dict = info.getDict();
+	GList *list = poppler_document_get_attachments(document);
 
-        if (dict->lookup("Title", &obj)->isString())
-            add(*f->metadata, TAG_DOC_TITLE, obj.getString());
+        f->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%u", g_list_length(list));
 
-        if (dict->lookup("Subject", &obj)->isString())
-            add(*f->metadata, TAG_DOC_SUBJECT, obj.getString());
-
-        if (dict->lookup("Keywords", &obj)->isString())
-            add(*f->metadata, TAG_DOC_KEYWORDS, TAG_FILE_KEYWORDS, obj.getString());        //  FIXME:  split keywords here
-
-        if (dict->lookup("Author", &obj)->isString())
-            add(*f->metadata, TAG_DOC_AUTHOR, TAG_FILE_PUBLISHER, obj.getString());
-
-        if (dict->lookup("Creator", &obj)->isString())
-            add(*f->metadata, TAG_PDF_PRODUCER, obj.getString());
-
-        if (dict->lookup("Producer", &obj)->isString())
-            add(*f->metadata, TAG_DOC_GENERATOR, obj.getString());
-
-        if (dict->lookup("CreationDate", &obj)->isString())
-            add_date(*f->metadata, TAG_DOC_DATECREATED, obj.getString());
-
-        if (dict->lookup("ModDate", &obj)->isString())
-            add_date(*f->metadata, TAG_DOC_DATEMODIFIED, obj.getString());
-
-        obj.free();
+#if GLIB_CHECK_VERSION(2, 28, 0)
+        g_list_free_full(list, g_object_unref);
+#else
+        g_list_foreach(list, (GFunc)g_object_unref, NULL);
+        g_list_free(list);
+#endif
+    }
+    else
+    {
+        f->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%u", 0);
     }
 
-    info.free();
+    g_object_unref(document);
 #endif
 }

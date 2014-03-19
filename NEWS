@@ -3,7 +3,7 @@ gnome-commander 1.4.1
 ---------------
 
 Bug fixes:
- * Fixed problem bgo#... (...)
+ * Fixed problem bgo#641842 (use poppler-glib instead of poppler internal API)
 New features:
 * New or updated translations: 
      ...

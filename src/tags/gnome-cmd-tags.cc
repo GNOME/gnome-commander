@@ -543,7 +543,6 @@ void gcmd_tags_init()
     gcmd_tags_exiv2_init();
     gcmd_tags_taglib_init();
     gcmd_tags_libgsf_init();
-    gcmd_tags_poppler_init();
 }
 
 
@@ -552,7 +551,6 @@ void gcmd_tags_shutdown()
     gcmd_tags_exiv2_shutdown();
     gcmd_tags_taglib_shutdown();
     gcmd_tags_libgsf_shutdown();
-    gcmd_tags_poppler_shutdown();
 }
 
 

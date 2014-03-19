@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>???</para>
+                            <para>Fixed problem bgo#641842 (use poppler-glib instead of poppler internal API)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
