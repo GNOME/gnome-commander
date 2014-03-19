@@ -1,30 +1,22 @@
-/* Ripped from libgnomeui and adjusted to my needs. Original comments left intact below.
-
-    Copyright (C) 2003-2006 Marcus Bjurman <marbj499@student.liu.se>
+/*
+    GNOME Commander - A GNOME based file manager
+    Copyright (C) 2001-2006 Marcus Bjurman
     Copyright (C) 2007-2012 Piotr Eljasiak
     Copyright (C) 2013-2014 Uwe Scholz
-*/
-/* gnome-about.c - An about box widget for gnome.
 
-   Copyright (C) 2001 CodeFactory AB
-   Copyright (C) 2001, 2002 Anders Carlsson
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+ 
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-   The Gnome Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
-
-   The Gnome Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public
-   License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-
-   Author: Anders Carlsson <andersca@gnu.org>
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
