@@ -35,7 +35,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-options-dialog.h"
 #include "gnome-cmd-make-copy-dialog.h"
 #include "gnome-cmd-prepare-copy-dialog.h"
 #include "gnome-cmd-prepare-move-dialog.h"
@@ -54,6 +53,7 @@
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "dialogs/gnome-cmd-mkdir-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
+#include "dialogs/gnome-cmd-options-dialog.h"
 
 using namespace std;
 
