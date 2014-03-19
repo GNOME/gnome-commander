@@ -23,7 +23,35 @@
     </thead>
     <tbody>
         <row valign="top">
-            <entry><para>1.4</para></entry>
+            <entry><para>1.4.1</para></entry>
+            <entry><para>2014-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>???</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>???</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ??</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ??</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.0</para></entry>
             <entry><para>2014-03-17</para></entry>
             <entry>
                 <para>Bug fixes:</para>
