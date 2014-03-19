@@ -261,12 +261,6 @@ AC_ARG_WITH(poppler-glib, [  --without-poppler        disable PDF support])
 have_pdf=no
 if test x$with_poppler != xno; then
     PKG_CHECK_MODULES(POPPLER, poppler-glib >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
-    if pkg-config --atleast-version=0.19.0 poppler-glib; then
-        AC_DEFINE(POPPLER_HAS_SET_ERROR_CALLBACK, 1, [Define to 1 if poppler-glib has support for setErrorCallback()])
-    fi
-    if pkg-config --atleast-version=0.23.0 poppler-glib; then
-        AC_DEFINE(POPPLER_HAS_GOFFSET, 1, [Define to 1 if poppler-glib has Goffset])
-    fi
 fi
 if test "x$have_pdf" = "xyes"; then
    AC_DEFINE(HAVE_PDF, 1, [Define to 1 if you have PDF support])
