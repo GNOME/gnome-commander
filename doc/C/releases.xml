@@ -32,6 +32,9 @@
                         <listitem>
                             <para>Fixed problem bgo#641842 (use poppler-glib instead of poppler internal API)</para>
                         </listitem>
+                        <listitem>
+                           <para>Support for utf8 encoded creation and modification dates in document metadata</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

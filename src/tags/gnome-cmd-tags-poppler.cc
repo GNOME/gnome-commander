@@ -36,15 +36,25 @@ using namespace std;
 
 #ifdef HAVE_PDF
 
-static void add_date(GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, time_t date)
+gchar * pgd_format_date (time_t utime)
 {
-    gchar buf[32];
-    struct tm lt;
-
-    localtime_r(&date, &lt);
-    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &lt);
- 
-    metadata.add(tag, buf);
+	time_t time = (time_t) utime;
+        char s[256];
+        const char *fmt_hack = "%c";
+        size_t len;
+#ifdef HAVE_LOCALTIME_R
+        struct tm t;
+        if (time == 0 || !localtime_r (&time, &t)) return NULL;
+	len = strftime (s, sizeof (s), fmt_hack, &t);
+#else
+        struct tm *t;
+        if (time == 0 || !(t = localtime (&time)) ) return NULL;
+        len = strftime (s, sizeof (s), fmt_hack, t);
+#endif
+	
+        if (len == 0 || s[0] == '\0') return NULL;
+	
+        return g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
 }
 
 inline guint enum_bit_to_01(int enum_value, int enum_bit)
@@ -224,6 +234,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
     f->metadata->mark_as_accessed(TAG_DOC);
 
     gchar *title, *author, *subject, *keywords, *creator, *producer;
+    gchar *str;
     GTime creation_date, mod_date;
     PopplerPermissions permissions;
     guint format_major, format_minor;
@@ -279,8 +290,13 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
     f->metadata->add(TAG_DOC_GENERATOR, producer);
     g_free(producer);
 
-    add_date(*f->metadata, TAG_DOC_DATECREATED, creation_date);
-    add_date(*f->metadata, TAG_DOC_DATEMODIFIED, mod_date);
+    str = pgd_format_date (creation_date);
+    f->metadata->add(TAG_DOC_DATECREATED, str);
+
+    str = pgd_format_date (mod_date);
+    f->metadata->add(TAG_DOC_DATEMODIFIED, str);
+
+    g_free (str);
 
     if (poppler_document_get_n_pages(document) > 0)
     {

@@ -4,6 +4,7 @@ gnome-commander 1.4.1
 
 Bug fixes:
  * Fixed problem bgo#641842 (use poppler-glib instead of poppler internal API)
+ * Support for utf8 encoded creation and modification dates in document metadata
 New features:
 * New or updated translations: 
      ...
