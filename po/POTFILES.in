@@ -13,6 +13,7 @@ src/dialogs/gnome-cmd-key-shortcuts-dialog.cc
 src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc
 src/dialogs/gnome-cmd-manage-profiles-dialog.h
 src/dialogs/gnome-cmd-mkdir-dialog.cc
+src/dialogs/gnome-cmd-options-dialog.cc
 src/dialogs/gnome-cmd-remote-dialog.cc
 src/dialogs/gnome-cmd-search-dialog.cc
 src/dirlist.cc
@@ -42,7 +43,6 @@ src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc
 src/gnome-cmd-make-copy-dialog.cc
-src/gnome-cmd-options-dialog.cc
 src/gnome-cmd-patternsel-dialog.cc
 src/gnome-cmd-prepare-copy-dialog.cc
 src/gnome-cmd-prepare-move-dialog.cc
