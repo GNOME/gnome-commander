@@ -5,6 +5,7 @@ gnome-commander 1.6.0
 Bug fixes:
  * ... 
 New features:
+* Always reopen the tab which was previously closed in the options dialog
 * New or updated translations: 
      ...
 * New key bindings:

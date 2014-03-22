@@ -1980,6 +1980,9 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdNoteb
 
 gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg)
 {
+    // variable for storing the last active tab
+    static gint activetab = 0;
+
     GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Options"), parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                                                      GTK_STOCK_HELP, GTK_RESPONSE_HELP,
@@ -2025,6 +2028,9 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     notebook->append_page(create_programs_tab (dialog, cfg), _("Programs"));
     notebook->append_page(create_devices_tab (dialog, cfg), _("Devices"));
 
+    // open the tab which was actinve when closing the options notebook last time 
+    notebook->set_current_page (activetab);
+
 #if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
 #else
@@ -2048,6 +2054,9 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
         store_programs_options (dialog, cfg);
         store_devices_options (dialog, cfg);
     }
+
+    // store the current active tab
+    activetab = notebook->get_current_page();
 
     gtk_widget_destroy (dialog);
 
