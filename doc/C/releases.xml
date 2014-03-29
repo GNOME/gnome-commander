@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.4.1</para></entry>
-            <entry><para>2014-??-??</para></entry>
+            <entry><para>2014-04-05</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -41,19 +41,11 @@
                         <listitem>
                            <para>Moved Search, Quick Search and Enable Filter from Edit to File menu</para>
                        </listitem>
-                    </itemizedlist>
-                </para>
-                <para>New features:</para>
-                <para>
-                    <itemizedlist>
                         <listitem>
-                            <para>???</para>
+                            <para>New or updated docs: cs, es, id, pt_BR, sl</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ??</para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated translations: ??</para>
+                            <para>New or updated translations: cs</para>
                         </listitem>
                     </itemizedlist>
                 </para>

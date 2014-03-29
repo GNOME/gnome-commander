@@ -7,11 +7,15 @@ Bug fixes:
  * Fixed problem bgo#726682 (Fix for undefined reference to vtable)
  * Support for utf8 encoded creation and modification dates in document metadata
  * Moved Search, Quick Search and Enable Filter from Edit to File menu
-New features:
-* New or updated translations: 
-     ...
-* New key bindings:
-     ...            ...
+
+New or updated translations: 
+    cs (Marek Černocký)
+    es (Daniel Mustieles)
+    id (Andika Triwidada)
+    pt_BR (Rafael Ferreira)
+    sl (Matej Urbančič)
+New or updated docs:
+    cs (Marek Černocký)
 
 
 ===================================
@@ -98,7 +102,7 @@ New features:
        th (Akom Chotiphantawanon)
        uk (Maxim V. Dziumanenko)
        zh_CN (Aron Xu, lainme)
-       TW (RayCherng Yu zh)
+       zh_TW (RayCherng Yu)
 
 ===================================
 gnome-commander 1.2.8.17
