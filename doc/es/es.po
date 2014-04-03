@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-31 06:38+0000\n"
-"PO-Revision-Date: 2014-03-31 18:23+0200\n"
+"POT-Creation-Date: 2014-04-03 06:40+0000\n"
+"PO-Revision-Date: 2014-04-03 14:26+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -39,7 +39,6 @@ msgid "1.4.1"
 msgstr "1.4.1"
 
 #: C/releases.xml:27(para)
-#| msgid "2014-03-17"
 msgid "2014-04-05"
 msgstr "05/04/2014"
 
@@ -87,14 +86,14 @@ msgstr ""
 "menú Editar al menú Archivo"
 
 #: C/releases.xml:45(para)
-#| msgid "New or updated docs: cs, de, es, fr"
-msgid "New or updated docs: cs, es, id, pt_BR, sl"
-msgstr "Documentos nuevos o actualizados: cs, es, id, pt_BR, sl"
+#| msgid "New or updated docs: cs, es, id, pt_BR, sl"
+msgid "New or updated docs: cs, es, fr, id, pt_BR, sl"
+msgstr "Documentos nuevos o actualizados: cs, es, fr, id, pt_BR, sl"
 
 #: C/releases.xml:48(para)
-#| msgid "Updated translations: de"
-msgid "New or updated translations: cs"
-msgstr "Traducciones nuevas: cs"
+#| msgid "New or updated translations: cs"
+msgid "New or updated translations: cs, es"
+msgstr "Traducciones nuevas: cs, es"
 
 #: C/releases.xml:55(para)
 msgid "1.4.0"
@@ -2828,7 +2827,6 @@ msgid "GNOME Commander Manual"
 msgstr "Manual de GNOME Commander"
 
 #: C/gnome-commander.xml:30(subtitle)
-#| msgid "GNOME Commander Desktop Application Manual V1.4"
 msgid "GNOME Commander Desktop Application Manual V1.4.1"
 msgstr "Manual de aplicación de escritorio GNOME Commander V1.4.1"
 
@@ -3032,17 +3030,14 @@ msgid "Uwe Scholz <email>u.scholz83@gmx.de</email>"
 msgstr "Uwe Scholz <email>u.scholz83@gmx.de</email>"
 
 #: C/gnome-commander.xml:328(revnumber)
-#| msgid "GNOME Commander Manual V1.4;"
 msgid "GNOME Commander Manual V1.4.1;"
 msgstr "Manual de GNOME Commander v1.4.1;"
 
 #: C/gnome-commander.xml:329(date)
-#| msgid "2014-??-??"
 msgid "2014-???-???"
 msgstr "??/??/2014"
 
 #: C/gnome-commander.xml:337(releaseinfo)
-#| msgid "This manual describes version 1.4 of GNOME Commander."
 msgid "This manual describes version 1.4.1 of GNOME Commander."
 msgstr "Este manual describe la versión 1.4.1 de GNOME Commander."
 
@@ -3141,7 +3136,6 @@ msgid "Plugin support"
 msgstr "Soporte para complementos"
 
 #: C/gnome-commander.xml:406(para)
-#| msgid "Fast file viewer for text and images"
 msgid "Fast internal file viewer for text and images"
 msgstr "Rápido visor interno de archivos para texto y fotos"
 
@@ -4052,11 +4046,6 @@ msgstr ""
 "del enlace, no el archivo al que el enlace simbólico apunta."
 
 #: C/gnome-commander.xml:944(para)
-#| msgid ""
-#| "To create a symbolic link to a file or folder, select the file or folder "
-#| "to which you want to create a link. Choose <menuchoice><guimenu>File</"
-#| "guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>. A "
-#| "link to the file or folder is added to the current folder."
 msgid ""
 "Select the file or folder to which you want to create a link. Choose "
 "<menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</"
@@ -4067,10 +4056,6 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:949(para)
-#| msgid ""
-#| "Alternatively, grab the item to which you want to create a link, then "
-#| "press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></"
-#| "keycombo>. Drag the item to the location where you want to place the link."
 msgid ""
 "Grab the item to which you want to create a link, then press-and-hold "
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>. Drag the "
@@ -4082,10 +4067,6 @@ msgstr ""
 "enlace."
 
 #: C/gnome-commander.xml:954(para)
-#| msgid ""
-#| "To open a new tab displaying the selected folder in the inactive pane "
-#| "press the <keycombo><keycap>CTRL</keycap><keycap>SHIFT</"
-#| "keycap><keycap>UP</keycap></keycombo>."
 msgid ""
 "Select the file or folder to which you want to create a link. Press "
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></"
@@ -4312,9 +4293,6 @@ msgid "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgstr "Use <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 
 #: C/gnome-commander.xml:1038(para)
-#| msgid ""
-#| "In the menubar select <menuchoice><guimenuitem>Edit</"
-#| "guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>."
 msgid ""
 "In the menubar select <menuchoice><guimenuitem>File</"
 "guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>."
@@ -4353,7 +4331,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1059(para)
 msgid "Name matches regex / Name contains"
-msgstr ""
+msgstr "El nombre coincide con la expresión regular / el nombre contiene"
 
 #: C/gnome-commander.xml:1060(para)
 msgid "Look in the specified folder"
@@ -4364,7 +4342,6 @@ msgid "Recursive search"
 msgstr "Búsqueda recursiva"
 
 #: C/gnome-commander.xml:1062(para)
-#| msgid "search for the specified text in files"
 msgid "Search for the specified text in files"
 msgstr "Buscar el texto especificado en los archivos"
 
@@ -4399,7 +4376,6 @@ msgstr ""
 "pasos:"
 
 #: C/gnome-commander.xml:1077(para)
-#| msgid "Select the file or folder whose properties you want to view."
 msgid ""
 "Select the file or folder whose properties you want to view. Now you can"
 msgstr ""
@@ -4407,15 +4383,10 @@ msgstr ""
 "puede"
 
 #: C/gnome-commander.xml:1083(para)
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgstr "Pulse <keycombo><keycap>Alt</keycap><keycap>Intro</keycap></keycombo>."
 
 #: C/gnome-commander.xml:1086(para)
-#| msgid ""
-#| "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select All</"
-#| "guimenuitem></menuchoice>."
 msgid ""
 "Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</"
 "guimenuitem></menuchoice>."
@@ -4428,6 +4399,8 @@ msgid ""
 "Right-click on the file or folder and choose <guimenuitem>Properties...</"
 "guimenuitem>."
 msgstr ""
+"Pulse con el botón derecho sobre el archivo o la carpeta y elija "
+"<guimenuitem>Propiedades...</guimenuitem>."
 
 #: C/gnome-commander.xml:1094(title)
 msgid "File Properties dialog"
@@ -4499,7 +4472,6 @@ msgid "Volume"
 msgstr "Volumen"
 
 #: C/gnome-commander.xml:1153(para)
-#| msgid "The name of the file or folder."
 msgid "The name of the volume in which the file or folder is located."
 msgstr "El nombre del volumen en el que está el archivo o la carpeta."
 
@@ -4508,7 +4480,6 @@ msgid "Free space"
 msgstr "Espacio libre"
 
 #: C/gnome-commander.xml:1162(para)
-#| msgid "An account of the content of the resource."
 msgid "The amount of free space on the volume."
 msgstr "La cantidad de espacio libre en el volumen."
 
@@ -4538,6 +4509,9 @@ msgid ""
 "commander-mime-types\"/> for information about how to change the default "
 "behavior."
 msgstr ""
+"Aplicación predeterminada con la que abrir el archivo. Consulte la <xref "
+"linkend=\"gnome-commander-mime-types\"/> para obtener más información sobre "
+"cómo cambiar el comportamiento predeterminado."
 
 #: C/gnome-commander.xml:1191(para) C/gnome-commander.xml:2671(para)
 msgid "Modified"
@@ -4576,6 +4550,12 @@ msgid ""
 "Bitrate and Audio.Durationmmss. For more information, see <link linkend="
 "\"gnome-commander-advanced-rename-metadata-tags\">metadata tags</link>."
 msgstr ""
+"Si está disponible, se mostrará la información adicional sobre los metadatos "
+"para tipos de archivos de imagen, documentos y de sonido. Las etiquetas que "
+"se muestran son: File.Description, File.Publisher, Doc.Title, Doc.Pagecount, "
+"Audio.Albumartist, Audio.Title, Audio.Bitrate and Audio.Durationmmss.. Para "
+"obtener más información, consulte las <link linkend=\"gnome-commander-"
+"advanced-rename-metadata-tags\">etiquetas de los metadatos</link>."
 
 #: C/gnome-commander.xml:1234(title)
 msgid "Changing Permissions"
@@ -4598,6 +4578,9 @@ msgid ""
 "window</link> with your favorite method (e.g. <keycombo><keycap>ALT</"
 "keycap><keycap>ENTER</keycap></keycombo>)."
 msgstr ""
+"Abra la <link linkend=\"gnome-commander-file-properties\">ventana de "
+"propiedades</link> usando su método favorito (ej. <keycombo><keycap>Alt</"
+"keycap><keycap>Intro</keycap></keycombo>)."
 
 #: C/gnome-commander.xml:1245(para)
 msgid "Click on the <guilabel>Permissions</guilabel> tab."
@@ -4664,10 +4647,6 @@ msgstr ""
 "para acceder a servidores remotos."
 
 #: C/gnome-commander.xml:1322(para)
-#| msgid ""
-#| "To start the bookmark manager select the <menuchoice><guimenu>Bookmarks</"
-#| "guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press "
-#| "the <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>."
 msgid ""
 "Managing your bookmarks is done with the bookmark manager, started by "
 "selecting <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Manage "
@@ -4680,7 +4659,6 @@ msgstr ""
 "pulsando <keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>."
 
 #: C/gnome-commander.xml:1326(para)
-#, fuzzy
 #| msgid ""
 #| "To add a folder to the bookmarks, navigate to the folder's location in "
 #| "the menu select <menuchoice><guimenu>Bookmarks</guimenu><guimenu>Bookmark "
@@ -4695,7 +4673,10 @@ msgid ""
 msgstr ""
 "Para añadir una carpeta a los marcadores, navegue hasta la ubicación de la "
 "carpeta y seleccione en el menú <menuchoice><guimenu>Marcadores</"
-"guimenu><guimenu>Marcar esta carpeta</guimenu></menuchoice>."
+"guimenu><guimenu>Marcar esta carpeta</guimenu></menuchoice>. Cuando haya "
+"añadido el marcador, este se añadirá a su grupo respectivo en el menú "
+"<menuchoice><guimenu>Marcadores</guimenu></menuchoice>. Un marcador se "
+"asigna automáticamente a un grupo, dependiendo de a dónde apunta."
 
 #: C/gnome-commander.xml:1331(para)
 msgid ""
@@ -4706,17 +4687,14 @@ msgstr ""
 "grupo seleccionado."
 
 #: C/gnome-commander.xml:1335(para)
-#| msgid "The name of the file or folder."
 msgid "The name of the bookmark group,"
 msgstr "El nombre del grupo de marcadores,"
 
 #: C/gnome-commander.xml:1336(para)
-#| msgid "The name of the file or folder."
 msgid "The name of the bookmark,"
 msgstr "El nombre del marcador,"
 
 #: C/gnome-commander.xml:1337(para)
-#| msgid "User defined shortcuts to bookmarks"
 msgid "The shortcut of the bookmark,"
 msgstr "El atajo del marcador,"
 
@@ -4729,6 +4707,8 @@ msgid ""
 "In the bookmark list there are four different columns displayed: "
 "<placeholder-1/>"
 msgstr ""
+"En la lista de marcadores se muestran cuatro columnas diferentes: "
+"<placeholder-1/>"
 
 #: C/gnome-commander.xml:1340(para)
 msgid ""
@@ -4740,6 +4720,13 @@ msgid ""
 "guimenuitem></menuchoice>. In the bookmarks window it is only shown as a "
 "reference but it is not editable."
 msgstr ""
+"El nombre y la ruta de un marcador se pueden cambiar pulsando el botón "
+"<guimenu>Editar</guimenu>. En contraste, el atajo de un marcador en la "
+"tercera columna se toma de la acción de usuario <guimenu>Ir a la ubicación "
+"marcada</guimenu>, ajustable pulsando en la entrada de menú "
+"<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Atajos de teclado..."
+"</guimenuitem></menuchoice>. En la ventana de marcadores, esto se muestra "
+"sólo como una referencia, pero no es editable."
 
 #: C/gnome-commander.xml:1347(title)
 msgid "Bookmark Management Dialog"
@@ -4789,11 +4776,10 @@ msgstr ""
 #: C/gnome-commander.xml:1372(para)
 msgid "You may hide or show hidden files in all folders by:"
 msgstr ""
+"Puede ocultar o mostrar los archivos ocultos en todas las carpetas de las "
+"siguientes maneras:"
 
 #: C/gnome-commander.xml:1374(para)
-#| msgid ""
-#| "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select All</"
-#| "guimenuitem></menuchoice>."
 msgid ""
 "Selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</"
 "guimenuitem></menuchoice>,"
@@ -4802,9 +4788,6 @@ msgstr ""
 "archivos ocultos</guimenuitem></menuchoice>,"
 
 #: C/gnome-commander.xml:1375(para)
-#| msgid ""
-#| "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
-#| "keycombo> Close all tabs"
 msgid ""
 "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
 "keycap></keycombo>."
@@ -4872,7 +4855,6 @@ msgid "Counter"
 msgstr "Contador"
 
 #: C/gnome-commander.xml:1425(para)
-#| msgid "Specifies settings for counters: start value, step and width."
 msgid ""
 "Specifies settings for counters: start value, step and width ('auto' = "
 "automatic width, '1',..., '16': fixed width)."
@@ -11378,9 +11360,11 @@ msgid ""
 "to remote servers. It is also your starting point for opening a connection "
 "to a remote server."
 msgstr ""
+"El diálogo de conexiones remotas ofrece una visión general de las conexiones "
+"a servidores remotos guardadas. También es su punto de inicio para abrir una "
+"conexión a un servidor remoto."
 
 #: C/gnome-commander.xml:4008(para)
-#, fuzzy
 #| msgid ""
 #| "To start the bookmark manager select the <menuchoice><guimenu>Bookmarks</"
 #| "guimenu><guimenuitem>Manage bookmarks</guimenuitem></menuchoice> or press "
@@ -11391,17 +11375,16 @@ msgid ""
 "bar or by hitting <keycombo><keycap>CTRL</keycap><keycap>F</keycap></"
 "keycombo>."
 msgstr ""
-"Para iniciar el administrador de marcadores seleccione "
-"<menuchoice><guimenu>Marcadores</guimenu><guimenuitem>Administrar "
-"marcadores</guimenuitem></menuchoice> o pulse <keycombo><keycap>CTRL</"
-"keycap><keycap>D</keycap></keycombo>."
+"Abra el diálogo pulsando <menuchoice><guimenu>Conexiones</"
+"guimenu><guimenuitem>Servidor remoto...</guimenuitem></menuchoice> en la "
+"barra de menú o pulsando <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></"
+"keycombo>."
 
 #: C/gnome-commander.xml:4011(para)
 msgid "Connections list,"
 msgstr "Lista de conexiones,"
 
 #: C/gnome-commander.xml:4012(para)
-#, fuzzy
 #| msgid ""
 #| "In the menubar select <menuchoice><guimenuitem>Edit</"
 #| "guimenuitem><guimenuitem>Search</guimenuitem></menuchoice>."
@@ -11409,15 +11392,14 @@ msgid ""
 "Buttons to <guimenuitem>Add</guimenuitem>, <guimenuitem>Edit</guimenuitem> "
 "and to <guimenuitem>Remove</guimenuitem> a selected connection,"
 msgstr ""
-"En la barra de menú, seleccione <menuchoice><guimenuitem>Editar</"
-"guimenuitem><guimenuitem>Buscar</guimenuitem></menuchoice>."
+"botones para <guimenuitem>Añadir</guimenuitem>, <guimenuitem>Editar</"
+"guimenuitem> y <guimenuitem>Quitar</guimenuitem> una conexión seleccionada,"
 
 #: C/gnome-commander.xml:4013(para)
 msgid "Option for setting the anonymous FTP password globally."
-msgstr ""
+msgstr "Opción para configurar la contraseña de FTP anónimo globalmente."
 
 #: C/gnome-commander.xml:4014(para)
-#, fuzzy
 #| msgid ""
 #| "Open the <guimenu>Options</guimenu> dialog and go to the "
 #| "<guimenuitem>Devices</guimenuitem> tab."
@@ -11425,12 +11407,12 @@ msgid ""
 "A <guimenuitem>Close</guimenuitem> and a <guimenuitem>Connect</guimenuitem> "
 "button."
 msgstr ""
-"Abra el diálogo <guimenu>Opciones</guimenu> y vaya a la pestaña "
-"<guimenuitem>Dispositivos</guimenuitem>."
+"Un botón para <guimenuitem>Cerar</guimenuitem> y uno para "
+"<guimenuitem>Conectar</guimenuitem>."
 
 #: C/gnome-commander.xml:4009(para)
 msgid "It is divided into four parts: <placeholder-1/>"
-msgstr ""
+msgstr "Se divide en cuatro partes: <placeholder-1/>"
 
 #: C/gnome-commander.xml:4015(para)
 msgid ""
@@ -11438,12 +11420,17 @@ msgid ""
 "<keycombo><keycap>ENTER</keycap></keycombo> will open the remote connection "
 "in the active pane of GNOME Commander."
 msgstr ""
+"Pulse dos veces en una conexión o seleccione una conexión y pulse "
+"<keycombo><keycap>Intro</keycap></keycombo> para abrir la conexión remota en "
+"el panel activo de GNOME Commander."
 
 #: C/gnome-commander.xml:4016(para)
 msgid ""
 "An example figure with three anonymous FTP and one secure SSH connection is "
 "shown below."
 msgstr ""
+"A continuación se muestra una figura de ejemplo con 3 conexiones FTP "
+"anónimas y una conexión SSH segura"
 
 #: C/gnome-commander.xml:4017(para)
 msgid ""
@@ -11451,22 +11438,23 @@ msgid ""
 "\"/> it is shown how to edit a connection by clicking on the "
 "<guimenuitem>Add</guimenuitem> or <guimenuitem>Edit</guimenuitem> button."
 msgstr ""
+"En la <xref linkend=\"gnome-commander-config-remote-connections\"/> se "
+"muestra cómo editar una conexión pulsando los botones <guimenuitem>Añadir</"
+"guimenuitem> o <guimenuitem>Editar</guimenuitem>."
 
 #: C/gnome-commander.xml:4020(title)
-#, fuzzy
 #| msgid "Open remote connection"
 msgid "Remote Connections Overview"
-msgstr "Abrir conexión remota"
+msgstr "Vista general de las conexiones remotas"
 
 #: C/gnome-commander.xml:4026(phrase)
-#, fuzzy
 #| msgid "Connect to remote server"
 msgid "Overview of remote servers."
-msgstr "Conectar con un servidor remoto"
+msgstr "Vista general de los servidores remotos"
 
 #: C/gnome-commander.xml:4034(title)
 msgid "Adding and Configuring Remote Connections"
-msgstr ""
+msgstr "Añadir y configurar conexiones remotas"
 
 #: C/gnome-commander.xml:4037(para)
 msgid ""
@@ -11475,6 +11463,11 @@ msgid ""
 "alias is needed in this case. If you restart GNOME Commander, the connection "
 "details have to be entered again to connect to the same server."
 msgstr ""
+"Al pulsar el atajo <keycombo><keycap>Ctrl</keycap><keycap>N</keycap></"
+"keycombo> se configura una conexión temporal. Es por esto por lo que no se "
+"necesita un alias para conexión en este caso. si reinicia GNOME Commander, "
+"tendrá que volver a introducir los detalles para conectarse al mismo "
+"servidor."
 
 #: C/gnome-commander.xml:4041(para)
 msgid ""
@@ -11483,12 +11476,18 @@ msgid ""
 "permanently in this dialog. If you restart GNOME Commander the stored "
 "connection is available again."
 msgstr ""
+"Al añadir una conexión remota mediante el botón <guimenuitem>Añadir</"
+"guimenuitem> en el diálogo de conexiones remotas (ver arriba), la conexión "
+"se guarda permanentemente en este diálogo. si reinicia GNOME Commander, la "
+"conexión guardada seguirá estando disponible."
 
 #: C/gnome-commander.xml:4035(para)
 msgid ""
 "Remote connection details can be set up temporarily or permanently, "
 "depending on how they are added to GNOME Commander: <placeholder-1/>"
 msgstr ""
+"Los detalles de la conexión remota se puede configurar de manera temporal o "
+"permanente, dependiendo de cómo se añadan a GNOME Commander: <placeholder-1/>"
 
 #: C/gnome-commander.xml:4048(para)
 msgid "SSH"
@@ -11523,12 +11522,16 @@ msgid ""
 "Currently, (GNOME Commander version 1.4) there are six different connection "
 "types available: <placeholder-1/>"
 msgstr ""
+"Actualmente, (GNOME Commander 1.4) hay seis tipos diferentes de conexiones "
+"disponibles: <placeholder-1/>"
 
 #: C/gnome-commander.xml:4056(para)
 msgid ""
 "Depending on the choice, different login details have to be entered in the "
 "Remote Server dialog."
 msgstr ""
+"Dependiendo del que elija, tendrá que introducir información diferente sobre "
+"el inicio de sesión en el diálogo del servidor remoto."
 
 #: C/gnome-commander.xml:4059(para)
 msgid ""
@@ -11537,18 +11540,21 @@ msgid ""
 "in <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>. Therefore, "
 "it is recommended to use GNOME Keyring Manager for secure connections."
 msgstr ""
+"Si <emphasis>no</emphasis> usa el depósito de claves de GNOME para la "
+"autenticación, la contraseña para una conexión segura se guarda en texto "
+"plano en <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>. Por lo "
+"tanto, se recomienda usar el depósito de claves de GNOME para las conexiones "
+"seguras."
 
 #: C/gnome-commander.xml:4064(para)
 msgid "See an example for a public FTP server in the figure below."
-msgstr ""
+msgstr "Vea un ejemplo de un servidor FTP público en la siguiente figura."
 
 #: C/gnome-commander.xml:4067(title)
-#| msgid "Change left connection"
 msgid "Creating Server Connection"
 msgstr "Crear una conexión a un servidor"
 
 #: C/gnome-commander.xml:4073(phrase)
-#| msgid "Open new remote connection"
 msgid "Creating a new remote server connection."
 msgstr "Crear una nueva conexión remota a un servidor."
 
@@ -11584,7 +11590,6 @@ msgid "View Modes"
 msgstr "Modos de vista"
 
 #: C/gnome-commander.xml:4093(para)
-#, fuzzy
 #| msgid ""
 #| "The <guilabel>View Modes</guilabel> group contains the preferences that "
 #| "you can set to view images in image windows."
@@ -11593,8 +11598,10 @@ msgid ""
 "guimenu></menuchoice> menu) contains the preferences that you can set to "
 "view images and texts in the internal viewer window:"
 msgstr ""
-"El grupo <guilabel>Ver modos</guilabel> contiene las preferencias que puede "
-"configurar para ver imágenes en ventanas de imágenes."
+"El grupo <guilabel>Ver modos</guilabel> (En el menú "
+"<menuchoice><guimenu>Ver</guimenu></menuchoice>) contiene las preferencias "
+"que puede configurar para ver imágenes y textos en la ventana del visor "
+"interno:"
 
 #: C/gnome-commander.xml:4097(para)
 msgid "Text mode"
@@ -11613,7 +11620,6 @@ msgid "Image mode"
 msgstr "Modo imagen"
 
 #: C/gnome-commander.xml:4103(para)
-#, fuzzy
 #| msgid ""
 #| "You may hide or show hidden files in a particular folder by selecting "
 #| "<menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</"
@@ -11623,12 +11629,11 @@ msgid ""
 "encoding in <menuchoice><guimenu>Text</guimenu><guimenuitem>Encoding</"
 "guimenuitem></menuchoice>."
 msgstr ""
-"Puede ocultar o mostrar los archivos ocultos de una carpeta determinada "
-"seleccionando <menuchoice><guimenu>Ver</guimenu><guimenuitem>Mostrar "
-"archivos ocultos</guimenuitem></menuchoice>."
+"En los tres modos de texto (modos 1 a 3) puede cambiar la codificación del "
+"texto en <menuchoice><guimenu>Texto</guimenu><guimenuitem>Codificación</"
+"guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:4105(para)
-#, fuzzy
 #| msgid ""
 #| "You may hide or show hidden files in a particular folder by selecting "
 #| "<menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</"
@@ -11638,9 +11643,10 @@ msgid ""
 "shown below the image by selecting <menuchoice><guimenu>Image</"
 "guimenu><guimenuitem>Show Metadata Tags</guimenuitem></menuchoice>."
 msgstr ""
-"Puede ocultar o mostrar los archivos ocultos de una carpeta determinada "
-"seleccionando <menuchoice><guimenu>Ver</guimenu><guimenuitem>Mostrar "
-"archivos ocultos</guimenuitem></menuchoice>."
+"Para el modo de visualización de imágenes puede elegir si se muestran los "
+"metadatos adicionales debajo de la imagen seleccionando "
+"<menuchoice><guimenu>Imagen</guimenu><guimenuitem>Mostrar etiquetas de "
+"metadatos</guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:4107(para)
 msgid ""
@@ -11648,34 +11654,37 @@ msgid ""
 "<menuchoice><guimenu>View</guimenu></menuchoice> menu you can set the zoom "
 "factor. You can"
 msgstr ""
+"Debajo de <guilabel>Ver modos</guilabel> en el menú "
+"<menuchoice><guimenu>Ver</guimenu></menuchoice> puede establecer el factor "
+"de ampliación. Puede"
 
 #: C/gnome-commander.xml:4111(para)
-#, fuzzy
 #| msgid ""
 #| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
-msgstr "Use <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
+msgstr ""
+"Acercar (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
 
 #: C/gnome-commander.xml:4112(para)
-#, fuzzy
 #| msgid ""
 #| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid ""
 "Zoom out (<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo>),"
-msgstr "Use <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
+msgstr "Alejar (<keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo>),"
 
 #: C/gnome-commander.xml:4113(para)
-#, fuzzy
 #| msgid ""
 #| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid ""
 "Zoom to normal size (<keycombo><keycap>CTRL</keycap><keycap>0</keycap></"
 "keycombo>), or"
-msgstr "Use <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
+msgstr ""
+"Restaurar el tamaño normal (<keycombo><keycap>Ctrl</keycap><keycap>0</"
+"keycap></keycombo>), o"
 
 #: C/gnome-commander.xml:4114(para)
 msgid "Fit the image into the window of the internal viewer."
-msgstr ""
+msgstr "Ajustar la imagen a la ventana del visor interno."
 
 #: C/gnome-commander.xml:4119(title)
 msgid "To Scroll an Image"
@@ -11694,7 +11703,6 @@ msgid "Use the arrow keys on the keyboard."
 msgstr "Use las teclas de flechas en el teclado."
 
 #: C/gnome-commander.xml:4127(para)
-#| msgid "Use the scrollbars on the window."
 msgid "Drag the scrollbars on the window borders."
 msgstr "Arrastre las barras de desplazamiento a los bordes de la ventana."
 
@@ -11908,7 +11916,6 @@ msgid "Settings"
 msgstr "Ajustes"
 
 #: C/gnome-commander.xml:4245(para)
-#, fuzzy
 #| msgid ""
 #| "To configure GNOME Commander, in the menubar choose "
 #| "<menuchoice><guimenu>Settings</guimenu><guimenuitem>Options...</"
@@ -11920,10 +11927,11 @@ msgid ""
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice> The "
 "<guilabel>Options</guilabel> dialog contains the following tabbed sections:"
 msgstr ""
-"Para configurar GNOME Commander, seleccione en la barra de menú "
+"Para configurar GNOME Commander, pulse <keycombo><keycap>Ctrl</"
+"keycap><keycap>O</keycap></keycombo> o seleccione "
 "<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
-"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
-"las siguientes secciones en pestañas:"
+"guimenuitem></menuchoice> en la barra de menú. El diálogo "
+"<guilabel>Opciones</guilabel> contiene las siguientes secciones en pestañas:"
 
 #: C/gnome-commander.xml:4250(title)
 msgid "General"
@@ -12029,9 +12037,6 @@ msgstr ""
 "guilabel>."
 
 #: C/gnome-commander.xml:4295(para)
-#| msgid ""
-#| "The options available are described in more details in Format settings "
-#| "<xref linkend=\"gcmd-TBL-setting2\"/>"
 msgid ""
 "The options available are described in more details in the <xref linkend="
 "\"gcmd-TBL-setting1\"/>."
@@ -12100,7 +12105,6 @@ msgid "Single click unselects files"
 msgstr "Un sola pulsación deselecciona archivos"
 
 #: C/gnome-commander.xml:4367(para)
-#, fuzzy
 #| msgid ""
 #| "When selecting this option, a single left mouse button click on a file "
 #| "will unselect the current selection. If the option is not active a left "
@@ -12111,9 +12115,9 @@ msgid ""
 "is not active a left click on any file will not affect the current selection."
 msgstr ""
 "Al seleccionar esta opción, una sola pulsación con el botón izquierdo del "
-"ratón sobre un archivo lo quitará de la selección actual. Si la opción no "
-"está activa, una pulsación con el botón izquierdo no afectará a la selección "
-"actual."
+"ratón sobre un archivo no seleccionado quitará la selección actual. Si la "
+"opción no está activa, una pulsación con el botón izquierdo no afectará a la "
+"selección actual."
 
 #: C/gnome-commander.xml:4375(guilabel)
 msgid "Middle Mouse button"
@@ -12222,7 +12226,6 @@ msgstr ""
 "primera para refinar la búsqueda."
 
 #: C/gnome-commander.xml:4460(para)
-#| msgid "Alt+letters (menu access with F10)"
 msgid "Alt+letters (menu access with <keycap>F10</keycap>)"
 msgstr "ALT+letras (acceso al menú con <keycap>F10</keycap>)"
 
@@ -12248,10 +12251,9 @@ msgstr ""
 "<keycap>F10</keycap>."
 
 #: C/gnome-commander.xml:4478(para)
-#, fuzzy
 #| msgid "Much better handling of non UTF8 filenames"
 msgid "Match beginning of the file name"
-msgstr "Manejo mucho de mejor de nombres de archivo que no son UTF8"
+msgstr "Coincidir con el principio del nombre del archivo"
 
 #: C/gnome-commander.xml:4481(para)
 #, fuzzy
@@ -12274,10 +12276,9 @@ msgstr ""
 "primera para refinar la búsqueda."
 
 #: C/gnome-commander.xml:4490(para)
-#, fuzzy
 #| msgid "Changes the case of the selected file names."
 msgid "Match end of the file name"
-msgstr "Cambia la capitalización de los nombres de archivo seleccionados."
+msgstr "Coincidir con el final del nombre del archivo"
 
 #: C/gnome-commander.xml:4493(para)
 #, fuzzy
@@ -12419,9 +12420,6 @@ msgstr ""
 "guilabel>."
 
 #: C/gnome-commander.xml:4573(para)
-#| msgid ""
-#| "The options available are described in more details in Format settings "
-#| "<xref linkend=\"gcmd-TBL-setting2\"/>"
 msgid ""
 "The options available are described in more details in the <xref linkend="
 "\"gcmd-TBL-setting2\"/>"
@@ -12534,7 +12532,6 @@ msgid "Layout"
 msgstr "Distribución"
 
 #: C/gnome-commander.xml:4697(para)
-#, fuzzy
 #| msgid ""
 #| "The layout preferences tab allows you to configure the appearance of "
 #| "GNOME Commander. You can allocate Fonts, row heights, icons and color "
@@ -12548,7 +12545,6 @@ msgstr ""
 "iconos y tema de color."
 
 #: C/gnome-commander.xml:4702(para)
-#, fuzzy
 #| msgid ""
 #| "<guilabel>File Panes</guilabel> in this section you can modify the way "
 #| "GNOME Commander is displayed."
@@ -12556,7 +12552,7 @@ msgid ""
 "<guilabel>File Panes</guilabel>: In this section you can modify the way "
 "GNOME Commander is displayed."
 msgstr ""
-"<guilabel>Paneles de archivos</guilabel> en esta sección puede modificar la "
+"<guilabel>Paneles de archivos</guilabel>: en esta sección puede modificar la "
 "forma en que se muestra GNOME Commander."
 
 #: C/gnome-commander.xml:4706(para)
@@ -12580,7 +12576,6 @@ msgstr ""
 "guilabel>."
 
 #: C/gnome-commander.xml:4715(para)
-#, fuzzy
 #| msgid ""
 #| "The options available are described in more details in Layout settings "
 #| "<xref linkend=\"gcmd-TBL-setting3\"/>"
@@ -12589,7 +12584,7 @@ msgid ""
 "\"gcmd-TBL-setting3\"/>"
 msgstr ""
 "Las opciones disponibles se describen con más detalles en la <xref linkend="
-"\"gcmd-TBL-setting3\"> configuración de la apariencia"
+"\"gcmd-TBL-setting3\"/>"
 
 #: C/gnome-commander.xml:4719(title)
 msgid "Layout options"
@@ -12718,7 +12713,6 @@ msgid "Color scheme"
 msgstr "Espacio de color"
 
 #: C/gnome-commander.xml:4838(para)
-#, fuzzy
 #| msgid ""
 #| "GNOME Commander comes with five color themes, You can also use the theme "
 #| "as defined by your current GNOME theme (<guibutton>Respect theme colors</"
@@ -12732,10 +12726,10 @@ msgid ""
 "(<guibutton>Custom</guibutton>). This option activates the <guibutton> Edit</"
 "guibutton> button."
 msgstr ""
-"GNOME Commander viene con cinco temas de colores. También puede usar el tema "
+"GNOME Commander incluye seis temas de colores. También puede usar el tema "
 "definido por su tema actual de GNOME (<guibutton>Respetar colores del tema</"
 "guibutton>). También hay una opción para personalizar el tema "
-"<guibutton>Personalizado</guibutton>, esta opción activa el botón "
+"(<guibutton>Personalizado</guibutton>). Eesta opción activa el botón "
 "<guibutton>Editar</guibutton>."
 
 #: C/gnome-commander.xml:4851(para) C/gnome-commander.xml:5516(para)
@@ -12743,7 +12737,6 @@ msgid "Edit"
 msgstr "Editar"
 
 #: C/gnome-commander.xml:4854(para)
-#, fuzzy
 #| msgid ""
 #| "When the <guibutton>Custom</guibutton> option is selected this button "
 #| "activates. Clicking on it will open a dialog box where you can select row "
@@ -12762,7 +12755,9 @@ msgstr ""
 "activa este botón. Al pulsarlo se abrirá un cuadro de diálogo donde puede "
 "seleccionar y alternar los colores de primer plano (color del texto) y de "
 "fondo de la fila, los colores alternos usado por el resto de filas, el color "
-"del archivo seleccionado y los colores de posición del cursor."
+"del archivo seleccionado y los colores de posición del cursor. Para obtener "
+"más información, consulte la <xref linkend=\"gnome-commander-prefs-layout-"
+"colors\"/>."
 
 #: C/gnome-commander.xml:4867(para)
 msgid "Colorize files according to the LS_COLORS environment variable"
@@ -12906,14 +12901,13 @@ msgstr ""
 
 #: C/gnome-commander.xml:4946(para)
 msgid "See the example figure of the Edit Colors... dialog below."
-msgstr ""
+msgstr "Vea la figura de ejemplo del diálogo Editar colores... más abajo"
 
 #: C/gnome-commander.xml:4956(phrase)
-#, fuzzy
 #| msgid "Shows GNOME Commander layout preferences dialog."
 msgid "Shows GNOME Commander dialog for editing custom colors."
 msgstr ""
-"Muestra el diálogo de las preferencias de disposición de GNOME Commander."
+"Muestra el diálogo para editar colores personalizados de GNOME Commander."
 
 #: C/gnome-commander.xml:4964(title)
 msgid "Configuring Custom LS_COLORS"
@@ -13005,13 +12999,12 @@ msgstr ""
 
 #. brief desciption
 #: C/gnome-commander.xml:4983(para)
-#, fuzzy
 #| msgid ""
 #| "This section of the option dialog lets you configure parameters for tabs."
 msgid "The tabs preferences tab allows you to configure parameters for tabs."
 msgstr ""
-"Esta sección del diálogo de opciones le permite configurar parámetros para "
-"pestañas."
+"La pestaña de preferencias de pestañas le permite configurar los parámetros "
+"de las pestañas."
 
 #: C/gnome-commander.xml:4986(para)
 msgid ""
@@ -13021,22 +13014,19 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:4991(para)
-#, fuzzy
 #| msgid "<guilabel>n</guilabel> directory monitoring"
 msgid "<guilabel>Lock icon</guilabel>: An icon is shown,"
-msgstr "<guilabel>n</guilabel> monitorización de carpetas"
+msgstr "<guilabel>Icono de bloqueo</guilabel>: se muestra un icono,"
 
 #: C/gnome-commander.xml:4992(para)
 msgid "<guilabel>* (asterix)</guilabel>: An asterix is shown,"
 msgstr "<guilabel>* (asterisco)</guilabel>: se muestra un asterisco,"
 
 #: C/gnome-commander.xml:4993(para)
-#, fuzzy
 #| msgid "<guilabel>Date format</guilabel> select the date display format."
 msgid "<guilabel>Styled text</guilabel>: The name of the tab is colored."
 msgstr ""
-"<guilabel>Formato de fecha</guilabel> selecciona el formato de la fecha que "
-"mostrar."
+"<guilabel>Texto con estilo</guilabel>: se colorea el nombre de la pestaña."
 
 #: C/gnome-commander.xml:4989(para)
 msgid ""
@@ -13058,7 +13048,6 @@ msgid "Confirmation"
 msgstr "Confirmación"
 
 #: C/gnome-commander.xml:5017(para)
-#, fuzzy
 #| msgid ""
 #| "The Confirmation tab allows You to configure when a confirmation dialog "
 #| "is displayed. You also configure the behavior of GNOME Commander when the "
@@ -13127,7 +13116,6 @@ msgstr ""
 "guilabel>"
 
 #: C/gnome-commander.xml:5043(para)
-#, fuzzy
 #| msgid ""
 #| "The options available are described in more details in Format settings "
 #| "<xref linkend=\"gcmd-TBL-setting2\"/>"
@@ -13136,7 +13124,7 @@ msgid ""
 "\"gcmd-TBL-setting4\"/>."
 msgstr ""
 "Las opciones disponibles se describen con más detalles en la <xref linkend="
-"\"gcmd-TBL-setting2\"/> Configuración de formato"
+"\"gcmd-TBL-setting4\"/>."
 
 #: C/gnome-commander.xml:5047(title)
 msgid "Confirmation options"
@@ -13263,11 +13251,11 @@ msgid ""
 "skip the file. The skipped file will then be still present in the source "
 "location."
 msgstr ""
-"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
-"nombre de archivo igual que uno de los archivos que se copiarán, GNOME "
-"Commander abrirá un diálogo pidiendo la confirmación del usuario. El usuario "
-"puede autorizar que el archivo se sobreescriba o que se omita. El archivo "
-"omitido seguirá presente en la ubicación de origen."
+"Cuando esta opción esta seleccionada, si en la ubicación de destino hay un "
+"nombre de archivo igual que uno de los archivos movidos, GNOME Commander "
+"abrirá un diálogo pidiendo la confirmación del usuario. El usuario puede "
+"autorizar que el archivo se sobrescriba o que se omita. El archivo omitido "
+"seguirá presente en la ubicación de origen."
 
 #: C/gnome-commander.xml:5185(para)
 #, fuzzy
@@ -13386,7 +13374,6 @@ msgstr ""
 "Todos los archivos normales que contienen texto o un binario ejecutable."
 
 #: C/gnome-commander.xml:5291(para)
-#, fuzzy
 #| msgid ""
 #| "Directories or folders are special type of files that contains a list of "
 #| "other files."
@@ -14000,18 +13987,24 @@ msgid ""
 "<guilabel>Skip mounting</guilabel>: If activated, GNOME Commander will not "
 "try to mount the devices by clicking on them."
 msgstr ""
+"<guilabel>Saltar el montaje</guilabel>: si está activada, GNOME Commander no "
+"intentará montar los dispositivos al pulsar sobre ellos."
 
 #: C/gnome-commander.xml:5762(para)
 msgid ""
 "Below the <guilabel>Devices</guilabel> window you have two options: "
 "<placeholder-1/>"
 msgstr ""
+"Debajo de la ventana <guilabel>Dispositivo</guilabel> tiene dos opciones: "
+"<placeholder-1/>"
 
 #: C/gnome-commander.xml:5768(para)
 msgid ""
 "On the right hand side there are five buttons, described in the <xref "
 "linkend=\"gcmd-dev\"/> table below."
 msgstr ""
+"En la parte derecha hay cinco botones, descritos en la tabla de la <xref "
+"linkend=\"gcmd-dev\"/>."
 
 #: C/gnome-commander.xml:5771(title)
 msgid "Devices options"
@@ -14022,10 +14015,9 @@ msgid "Shows GNOME Commander devices preferences dialog."
 msgstr "Muestra el diálogo de preferencias de dispositivos de GNOME Commander."
 
 #: C/gnome-commander.xml:5786(title)
-#, fuzzy
 #| msgid "Devices"
 msgid "Devices tab"
-msgstr "Dispositivos"
+msgstr "Pestaña de dispositivos"
 
 #: C/gnome-commander.xml:5807(guilabel)
 msgid "Devices:"
@@ -14073,14 +14065,14 @@ msgid "Remove:"
 msgstr "Quitar:"
 
 #: C/gnome-commander.xml:5845(para)
-#, fuzzy
 #| msgid ""
 #| "Clicking this button will remove the application selected from the list."
 msgid ""
 "Clicking this button will remove the application selected from the "
 "<guimenu>Devices</guimenu> window list."
 msgstr ""
-"Al pulsar este botón se quitará de la lista la aplicación seleccionada."
+"Al pulsar este botón se quitará la aplicación seleccionada de la lista de "
+"<guimenu>Dispositivos</guimenu>."
 
 #: C/gnome-commander.xml:5856(para)
 msgid "Up:"
@@ -14130,16 +14122,14 @@ msgstr ""
 "mismo que el que se describe a continuación."
 
 #: C/gnome-commander.xml:5893(phrase)
-#, fuzzy
 #| msgid "Shows GNOME Commander network preferences dialog."
 msgid "Shows GNOME Commander new devices dialog."
-msgstr "Muestra el diálogo de preferencias de red de GNOME Commander."
+msgstr "Muestra el diálogo de nuevos dispositivos de GNOME Commander."
 
 #: C/gnome-commander.xml:5902(title)
-#, fuzzy
 #| msgid "Devices options"
 msgid "Devices option tab"
-msgstr "Opciones de dispositivos"
+msgstr "Pestaña de opciones de dispositivos"
 
 #: C/gnome-commander.xml:5923(guilabel)
 msgid "Alias:"
@@ -14154,6 +14144,8 @@ msgid ""
 "This text box contains the device which should be accessed. Usually it is "
 "located in the /dev directory."
 msgstr ""
+"Esta caja de texto contiene el dispositivo al que se debe acceder. "
+"Normalmente está ubicado en la carpeta /dev."
 
 #: C/gnome-commander.xml:5953(guilabel)
 msgid "Mount point:"
@@ -14852,15 +14844,14 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6626(para)
-#, fuzzy
 #| msgid ""
 #| "<guilabel>Selection</guilabel> makes directories selectable also by "
 #| "keyboard shortcuts."
 msgid ""
 "<guilabel>Action</guilabel>: Action to perform by pressing the shortcut key."
 msgstr ""
-"<guilabel>Selección</guilabel> hace las carpetas seleccionables con atajos "
-"de teclado."
+"<guilabel>Acción</guilabel>: acción que realizar al pulsar un atajo del "
+"teclado."
 
 #: C/gnome-commander.xml:6627(para)
 msgid ""
@@ -14888,15 +14879,14 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6631(para)
-#, fuzzy
 #| msgid ""
 #| "For more on dragging items, see <xref linkend=\"gnome-commander-dnd\"/>."
 msgid ""
 "Available user actions are shown in the table <xref linkend=\"gnome-"
 "commander-user-actions-list\"/> below."
 msgstr ""
-"Para conocer más sobre arrastrar objetos, consulte la <xref linkend=\"gnome-"
-"commander-dnd\"/>."
+"Las acciones de usuario disponibles se muestran en la tabla de la <xref "
+"linkend=\"gnome-commander-user-actions-list\"/>."
 
 #: C/gnome-commander.xml:6632(para)
 #, fuzzy
@@ -14918,7 +14908,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:6639(para)
-#, fuzzy
 #| msgid ""
 #| "Key bindings reside in &lt;KeyBindings&gt; section of GNOME Commander "
 #| "config file (<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>)."
@@ -15381,10 +15370,9 @@ msgid "Toggle selection for cursor"
 msgstr "Cambiar la selección por el cursor"
 
 #: C/gnome-commander.xml:7010(para)
-#, fuzzy
 #| msgid "Toggle selection for cursor"
 msgid "Toggle selection and move cursor downward"
-msgstr "Cambiar la selección por el cursor"
+msgstr "Cambiar la selección y baja el cursor"
 
 #: C/gnome-commander.xml:7011(para)
 msgid "Select file or directory and move cursor downward"
@@ -15439,6 +15427,8 @@ msgid ""
 "<filename>apply_patch</filename> - The plugin applies selected patches to "
 "the opposite pane using <command>patch -p1</command>"
 msgstr ""
+"<filename>apply_patch</filename>: el complemento aplica los parches "
+"seleccionados en el panel opuesto usando <command>patch -p1</command>"
 
 #: C/gnome-commander.xml:7057(title)
 msgid "Working with plugins"
@@ -16635,11 +16625,11 @@ msgstr ""
 msgid ""
 "Since 2013, the location of the GNOME Commander home page has been moved to "
 "GitHub.org."
-msgstr ""
+msgstr "Desde 2013, la página de GNOME Commander se ha movido a GitHub.org."
 
 #: C/gnome-commander.xml:8015(title)
 msgid "Bug Reporting"
-msgstr ""
+msgstr "Informes de error"
 
 #: C/gnome-commander.xml:8016(para)
 msgid ""
