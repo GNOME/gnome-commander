@@ -7316,7 +7316,7 @@
 	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing 
 	  of preferred programs in GNOME Commander is broken (since v1.1.7). You have still some possibilities 
 	  to change preferred default programs. For more informations please have a look at the 
-	  <ulink type="http" url="http://gcmd.github.io/doc.html#mime">Tips and Tricks section</ulink> of 
+	  <ulink type="http" url="http://gcmd.github.io/doc.html#tips">Tips and Tricks section</ulink> of 
 	  the &app; home page.</para></note>
 	</sect2>
   </sect1>
