@@ -23,6 +23,26 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.4.2</para></entry>
+            <entry><para>2014-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>???</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ??</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ??</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.4.1</para></entry>
             <entry><para>2014-04-05</para></entry>
             <entry>
