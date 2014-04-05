@@ -98,12 +98,12 @@ Additionally GNOME Commander may require:
 
 Simple install procedure:
 
-  % gzip -cd gnome-commander-@VERSION@.tar.gz | tar xvf - 	# unpack the sources
-  % cd gnome-commander-@VERSION@		# change to the toplevel directory
-  % ./configure							# run the `configure' script
-  % make								# build GNOME Commander
+  % tar -xf gnome-commander-@VERSION@.tar.xz	# unpack the sources
+  % cd gnome-commander-@VERSION@			# change to the toplevel directory
+  % ./configure					# run the `configure' script
+  % make					# build GNOME Commander
   [ Become root if necessary ]
-  % make install						# install GNOME Commander
+  % make install				# install GNOME Commander
 
 See the file 'INSTALL' for more detailed information.
 
