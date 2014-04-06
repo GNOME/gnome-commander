@@ -27,7 +27,6 @@
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-chmod-component.h"
 #include "gnome-cmd-data.h"
@@ -35,6 +34,7 @@
 #include "utils.h"
 #include "imageloader.h"
 #include "tags/gnome-cmd-tags.h"
+#include "dialogs/gnome-cmd-file-props-dialog.h"
 
 using namespace std;
 

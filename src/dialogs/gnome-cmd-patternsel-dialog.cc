@@ -23,9 +23,9 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-patternsel-dialog.h"
 #include "gnome-cmd-file-list.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-patternsel-dialog.h"
 
 using namespace std;
 

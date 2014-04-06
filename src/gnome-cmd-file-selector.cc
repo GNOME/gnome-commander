@@ -28,7 +28,6 @@
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-cmdline.h"
-#include "gnome-cmd-patternsel-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-dir-indicator.h"
@@ -37,6 +36,7 @@
 #include "history.h"
 #include "cap.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-patternsel-dialog.h"
 
 using namespace std;
 

@@ -24,10 +24,10 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
-#include "gnome-cmd-delete-dialog.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-delete-dialog.h"
 
 using namespace std;
 

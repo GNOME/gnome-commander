@@ -28,12 +28,12 @@
 #include "imageloader.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-plain-path.h"
-#include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
 #include "tags/gnome-cmd-tags.h"
 #include "intviewer/libgviewer.h"
+#include "dialogs/gnome-cmd-file-props-dialog.h"
 
 using namespace std;
 
