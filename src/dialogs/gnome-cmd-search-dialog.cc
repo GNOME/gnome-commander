@@ -888,6 +888,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
             {
                 dialog->priv->data.stopped = TRUE;
                 gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_STOP, FALSE);
+		gtk_dialog_set_default_response (*dialog, GCMD_RESPONSE_FIND);
             }
             break;
 
@@ -970,6 +971,7 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                     gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_GOTO, FALSE);
                     gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_STOP, TRUE);
                     gtk_dialog_set_response_sensitive (*dialog, GCMD_RESPONSE_FIND, FALSE);
+		    gtk_dialog_set_default_response (*dialog, GCMD_RESPONSE_STOP);
                 }
             }
             break;
