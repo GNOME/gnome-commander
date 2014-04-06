@@ -23,7 +23,6 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-remote-dialog.h"
-#include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-treeview.h"
@@ -31,6 +30,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-con-dialog.h"
 
 using namespace std;
 

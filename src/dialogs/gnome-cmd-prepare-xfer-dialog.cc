@@ -22,13 +22,13 @@
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-prepare-xfer-dialog.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-prepare-xfer-dialog.h"
 
 using namespace std;
 

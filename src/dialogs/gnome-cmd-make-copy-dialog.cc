@@ -22,9 +22,9 @@
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-make-copy-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
+#include "dialogs/gnome-cmd-make-copy-dialog.h"
 
 using namespace std;
 

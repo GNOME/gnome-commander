@@ -22,11 +22,11 @@
 #include <config.h>
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-rename-dialog.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-rename-dialog.h"
 
 using namespace std;
 

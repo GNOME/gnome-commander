@@ -33,16 +33,16 @@
 #include "utils.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-xfer.h"
-#include "gnome-cmd-patternsel-dialog.h"
 #include "imageloader.h"
 #include "cap.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-file-popmenu.h"
-#include "gnome-cmd-rename-dialog.h"
-#include "gnome-cmd-delete-dialog.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
 #include "ls_colors.h"
+#include "dialogs/gnome-cmd-delete-dialog.h"
+#include "dialogs/gnome-cmd-patternsel-dialog.h"
+#include "dialogs/gnome-cmd-rename-dialog.h"
 
 using namespace std;
 

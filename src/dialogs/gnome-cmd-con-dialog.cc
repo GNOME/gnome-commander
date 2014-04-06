@@ -22,8 +22,8 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-con-dialog.h"
 #include "utils.h"
+#include "dialogs/gnome-cmd-con-dialog.h"
 
 using namespace std;
 
