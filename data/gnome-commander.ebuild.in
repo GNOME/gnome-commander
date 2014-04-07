@@ -28,7 +28,8 @@ DEPEND="app-text/gnome-doc-utils
         exif? ( media-gfx/exiv2 )
         gsf? ( gnome-extra/libgsf )
         pdf? ( app-text/poppler )
-        python? ( =dev-lang/python-2* )
+        python? ( =dev-lang/python-2*
+		  dev-python/gnome-vfs-python )
         taglib? ( media-libs/taglib ) 
         virtual/pkgconfig"
 RDEPEND="${ALL_DEPEND}"
