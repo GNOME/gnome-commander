@@ -30,7 +30,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para> Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)</para>
+                            <para>Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)</para>
+                        <listitem>
+                        </listitem>
+                            <para>Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)</para>
                         </listitem>
                         <listitem>
                             <para>New or updated docs: ??</para>
@@ -50,7 +53,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem bgo#641842 (use poppler-glib instead of poppler internal API)</para>
+                            <para>Fixed problem bgo#641842 (Use poppler-glib instead of poppler internal API)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)</para>
