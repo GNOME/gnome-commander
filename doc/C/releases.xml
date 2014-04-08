@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>???</para>
+                            <para> Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)</para>
                         </listitem>
                         <listitem>
                             <para>New or updated docs: ??</para>

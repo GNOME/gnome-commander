@@ -124,6 +124,19 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
     data->done = FALSE;
     data->aborted = FALSE;
 
+    // If this is a move-operation, determine totals
+    // The async_xfer_callback-results for file and byte totals are not reliable
+    if (xferOptions == GNOME_VFS_XFER_REMOVESOURCE) {
+        GList *uris;
+        GnomeVFSURI *uri;
+        data->bytes_total = 0;
+        data->files_total = 0;
+        for (uris = data->src_uri_list; uris != NULL; uris = uris->next) {
+            uri = (GnomeVFSURI*)uris->data;
+            data->bytes_total += calc_tree_size(uri,&(data->files_total));
+        }
+    }
+
     return data;
 }
 
@@ -145,8 +158,9 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 {
     data->cur_phase = info->phase;
     data->cur_file = info->file_index;
-    data->files_total = info->files_total;
-    data->bytes_total = info->bytes_total;
+    // only update totals if larger than current value
+    if (data->files_total < info->files_total) data->files_total = info->files_total;
+    if (data->bytes_total < info->bytes_total) data->bytes_total = info->bytes_total;
     data->file_size = info->file_size;
     data->bytes_copied = info->bytes_copied;
     data->total_bytes_copied = info->total_bytes_copied;

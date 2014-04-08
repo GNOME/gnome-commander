@@ -3,7 +3,7 @@ gnome-commander 1.4.2
 ---------------
 
 Bug fixes:
- * Fixed problem bgo#... (...)
+ * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)
 New features:
 * New or updated translations: 
      ...
