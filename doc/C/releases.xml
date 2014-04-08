@@ -51,8 +51,39 @@
             </entry>
         </row>
         <row valign="top">
-            <entry><para>1.4.1</para></entry>
+            <entry><para>1.4.2</para></entry>
             <entry><para>2014-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para> Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)</para>
+                        </listitem>
+                        <listitem>
+                            <para> Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)</para>
+                       </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>???</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ??</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ??</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.1</para></entry>
+            <entry><para>2014-04-05</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>

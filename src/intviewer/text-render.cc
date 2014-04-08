@@ -1528,6 +1528,8 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
     int column = 0;
     offset_type offset;
     offset_type next_line_offset;
+    char_type choff; // character at offset
+    int choffcol = 0; // last column occupied by choff
 
     if (x<0)
         x = 0;
@@ -1541,19 +1543,26 @@ static offset_type text_mode_pixel_to_offset(TextRender *obj, int x, int y, gboo
         return obj->priv->current_offset;
 
     line = y / obj->priv->char_height;
-    column = x / obj->priv->char_width;
+    column = x / obj->priv->char_width + obj->priv->column;
 
-    if (!start_marker)
-        column++;
-
+    // Determine offset corresponding to start of line, the character at this offset and the last column occupied by character
     offset = gv_scroll_lines (obj->priv->dp, obj->priv->current_offset, line);
+    choff = gv_input_mode_get_utf8_char(obj->priv->im, offset);
+    choffcol = (choff=='\t') ? obj->priv->tab_size-1 : 0;
+
     next_line_offset = gv_scroll_lines (obj->priv->dp, offset, 1);
 
-    while (column>0 && offset<next_line_offset)
+    // While the current character does not occupy column 'column', check next character
+    while (column>choffcol && offset<next_line_offset)
     {
         offset = gv_input_get_next_char_offset(obj->priv->im, offset);
-        column--;
+	choff = gv_input_mode_get_utf8_char(obj->priv->im, offset);
+	choffcol += (choff=='\t') ? obj->priv->tab_size : 1;
     }
+
+    // Increment offset if doing end-marker
+    if (!start_marker)
+        offset++;
 
     return offset;
 }
