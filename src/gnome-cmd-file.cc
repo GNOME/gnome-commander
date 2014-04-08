@@ -542,7 +542,7 @@ GnomeVFSFileSize GnomeCmdFile::get_tree_size()
         return priv->tree_size;
 
     GnomeVFSURI *uri = get_uri();
-    priv->tree_size = calc_tree_size (uri);
+    priv->tree_size = calc_tree_size (uri,NULL);
     gnome_vfs_uri_unref (uri);
 
     return priv->tree_size;
