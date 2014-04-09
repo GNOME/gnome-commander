@@ -1247,7 +1247,7 @@ void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
 {
     g_return_if_fail (settings!=NULL);
 
-    gchar *temp = gviewer_get_string (GVIEWER_DEFAULT_PATH_PREFIX "charset", "ASCII");
+    gchar *temp = gviewer_get_string (GVIEWER_DEFAULT_PATH_PREFIX "charset", "UTF8");
     strncpy(settings->charset, temp, sizeof(settings->charset));
     g_free (temp);
 
