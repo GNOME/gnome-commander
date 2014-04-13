@@ -3,26 +3,12 @@ gnome-commander 1.4.2
 ---------------
 
 Bug fixes:
- * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)
-New features:
+ * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving folders)
+ * Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TANew features:
 * New or updated translations: 
      ...
 * New key bindings:
      ...            ...
-
-===================================
-gnome-commander 1.4.2
----------------
-
-Bug fixes:
- * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)
- * Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)
-New features:
-* New or updated translations: 
-     ...
-* New key bindings:
-     ...            ...
-
 
 ===================================
 gnome-commander 1.4.1
