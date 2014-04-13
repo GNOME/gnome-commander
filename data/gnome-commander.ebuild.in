@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_DEPEND="2:2.6"
+PYTHON_DEPEND="python? 2:2.6"
 
 inherit eutils gnome2 python autotools
 
@@ -14,34 +14,40 @@ HOMEPAGE="http://gcmd.github.io/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chm doc exif +gsf id3 nls pdf python taglib"
+IUSE="chm doc exif gsf pdf python taglib"
 
-DEPEND="app-text/gnome-doc-utils
-        dev-libs/glib:2
-        dev-util/intltool
-        gnome-base/gnome-vfs
-        gnome-base/libgnome
-        gnome-base/libgnomeui
-        x11-libs/gtk+:2
-        chm? ( dev-libs/chmlib )
-        doc? ( gnome-extra/yelp )
-        exif? ( media-gfx/exiv2 )
-        gsf? ( gnome-extra/libgsf )
-        pdf? ( app-text/poppler )
-        python? ( =dev-lang/python-2*
-		  dev-python/gnome-vfs-python )
-        taglib? ( media-libs/taglib ) 
-        virtual/pkgconfig"
-RDEPEND="${ALL_DEPEND}"
+RDEPEND="app-text/gnome-doc-utils
+	>=dev-libs/glib-@GLIB_REQ@:2
+	>=dev-libs/libunique-@UNIQUE_REQ@
+	dev-util/meld
+	gnome-base/gnome-keyring
+	>=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
+	>=gnome-base/libgnome-@GNOME_REQ@
+	>=gnome-base/libgnomeui-@GNOMEUI_REQ@
+	>=x11-libs/gtk+-@GTK_REQ@:2
+	chm? ( dev-libs/chmlib )
+	doc? ( app-text/scrollkeeper
+		gnome-extra/yelp )
+	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
+	gsf? ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
+	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
+	python? ( >=dev-python/gnome-vfs-python-@GNOMEVFS_REQ@ )
+	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@ )"
+DEPEND="${RDEPEND}
+	>=dev-util/intltool-0.35.0
+	sys-devel/gettext
+	virtual/pkgconfig"
 
 DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
 
-pkg_setup() {
-        G2CONF="$(use_enable doc scrollkeeper )
-                $(use_enable python)
-                $(use_with chm libchm)
-                $(use_with exif exiv2)
-                $(use_with gsf libgsf)
-                $(use_with taglib)
-                $(use_with pdf poppler)"
+src_configure() { 
+	G2CONF="$(use_enable doc scrollkeeper )
+		$(use_enable python)
+		$(use_with chm libchm)
+		$(use_with exif exiv2)
+		$(use_with gsf libgsf)
+		$(use_with taglib)
+		$(use_with pdf poppler)"
+	filter-ldflags -Wl,--as-needed
+	gnome2_src_configure 
 }
