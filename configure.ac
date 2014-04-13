@@ -257,7 +257,7 @@ fi
 
 
 dnl Check for poppler support
-AC_ARG_WITH(poppler-glib, [  --without-poppler        disable PDF support])
+AC_ARG_WITH(poppler, [  --without-poppler        disable PDF support])
 have_pdf=no
 if test x$with_poppler != xno; then
     PKG_CHECK_MODULES(POPPLER, poppler-glib >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
