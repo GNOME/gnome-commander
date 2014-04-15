@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-03-19 10:51+0000\n"
+"POT-Creation-Date: 2014-03-19 14:39+0000\n"
 "PO-Revision-Date: 2014-03-19 14:05+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -2572,7 +2572,7 @@ msgstr "Seguir enlaces"
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:124
 #: ../src/gnome-cmd-prepare-move-dialog.cc:110
 msgid "Overwrite Files"
-msgstr "Sobreescribir archivos"
+msgstr "Sobrescribir archivos"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:144
 #, c-format
@@ -2614,7 +2614,6 @@ msgid "Search"
 msgstr "Buscar"
 
 #: ../src/gnome-cmd-selection-profile-component.cc:118
-#| msgid "Name matches regex:"
 msgid "Path matches regex:"
 msgstr "La ruta coincide con la expresión regular:"
 
@@ -3054,7 +3053,7 @@ msgid ""
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 msgstr ""
-"Sobreescribir archivo:\n"
+"Sobrescribir archivo:\n"
 "\n"
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>\n"
@@ -7835,7 +7834,7 @@ msgstr "Hubo un error al mostrar la ayuda."
 #~ msgstr ""
 #~ "El archivo «%s» ya existe.\n"
 #~ "\n"
-#~ "¿Quiere sobreescribirlo?\n"
+#~ "¿Quiere sobrescribirlo?\n"
 
 #~ msgid "Failed to open file %s: %s"
 #~ msgstr "Falló al abrir el archivo %s: %s"
