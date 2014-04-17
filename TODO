@@ -5,6 +5,8 @@
 
 // General
 
+* Switch from gnome-vfs to gvfs
+* Presentation of address bar via string or as icons as in thunar
 * MIME configuration
 * Browsing of compressed archives
 * Tab completion at the built-in command line
