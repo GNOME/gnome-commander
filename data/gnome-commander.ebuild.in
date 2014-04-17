@@ -48,6 +48,5 @@ src_configure() {
 		$(use_with gsf libgsf)
 		$(use_with taglib)
 		$(use_with pdf poppler)"
-	filter-ldflags -Wl,--as-needed
 	gnome2_src_configure 
 }
