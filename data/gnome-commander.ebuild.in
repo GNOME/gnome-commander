@@ -6,7 +6,7 @@ EAPI=5
 
 PYTHON_DEPEND="python? 2:2.6"
 
-inherit eutils gnome2 python autotools
+inherit eutils gnome2 python
 
 DESCRIPTION="A full featured, twin-panel file manager for Gnome2"
 HOMEPAGE="http://gcmd.github.io/"
