@@ -18,7 +18,7 @@ IUSE="chm doc exif gsf pdf python taglib"
 
 RDEPEND="app-text/gnome-doc-utils
 	>=dev-libs/glib-@GLIB_REQ@:2
-	>=dev-libs/libunique-@UNIQUE_REQ@
+	>=dev-libs/libunique-@UNIQUE_REQ@:1
 	dev-util/meld
 	gnome-base/gnome-keyring
 	>=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
