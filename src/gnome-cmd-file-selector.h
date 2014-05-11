@@ -115,7 +115,7 @@ struct GnomeCmdFileSelector
 
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const
 {
-    return (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (notebook->page(n)));
+    return reinterpret_cast<GnomeCmdFileList *>(gtk_bin_get_child (GTK_BIN (notebook->page(n))));
 }
 
 inline void GnomeCmdFileSelector::set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir)
@@ -137,7 +137,7 @@ GtkType gnome_cmd_file_selector_get_type ();
 
 inline GtkWidget *gnome_cmd_file_selector_new ()
 {
-    GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL);
+    GnomeCmdFileSelector *fs = static_cast<GnomeCmdFileSelector *>(g_object_new (GNOME_CMD_TYPE_FILE_SELECTOR, NULL));
     return *fs;
 }
 

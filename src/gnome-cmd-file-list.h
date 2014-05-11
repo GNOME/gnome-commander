@@ -141,7 +141,7 @@ struct GnomeCmdFileList
     void restore_selection();
 
     void select_row(gint row);
-    GnomeCmdFile *get_file_at_row(gint row)            {  return (GnomeCmdFile *) gtk_clist_get_row_data (*this, row);  }
+    GnomeCmdFile *get_file_at_row(gint row)            {  return static_cast<GnomeCmdFile *>(gtk_clist_get_row_data (*this, row));  }
     gint get_row_from_file(GnomeCmdFile *f)            {  return gtk_clist_find_row_from_data (*this, f);               }
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
 
@@ -201,7 +201,7 @@ inline GnomeCmdFileList::~GnomeCmdFileList()
 inline void GnomeCmdFileList::remove_files (GList *files)
 {
     for (; files; files = files->next)
-        remove_file((GnomeCmdFile *) files->data);
+	    remove_file(static_cast<GnomeCmdFile *>(files->data));
 }
 
 inline gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
