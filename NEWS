@@ -3,10 +3,15 @@ gnome-commander 1.4.2
 ---------------
 
 Bug fixes:
+ * Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in ebuild)
  * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving folders)
  * Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TANew features:
-* New or updated translations: 
-     ...
+ * Text selection in int. viewer works on lines with TAB characters (Thanks to Jan Vleeshouwers)
+New or updated translations: 
+    cs (Marek Černocký)
+    el (Dimitris Spingos)
+    sr (Мирослав Николић)
+    sr@latin (Мирослав Николић)
 * New key bindings:
      ...            ...
 
