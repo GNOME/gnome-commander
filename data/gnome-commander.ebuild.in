@@ -19,15 +19,13 @@ IUSE="chm doc exif gsf pdf python taglib"
 RDEPEND="app-text/gnome-doc-utils
 	>=dev-libs/glib-@GLIB_REQ@:2
 	>=dev-libs/libunique-@UNIQUE_REQ@:1
-	dev-util/meld
 	gnome-base/gnome-keyring
 	>=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
 	>=gnome-base/libgnome-@GNOME_REQ@
 	>=gnome-base/libgnomeui-@GNOMEUI_REQ@
 	>=x11-libs/gtk+-@GTK_REQ@:2
 	chm? ( dev-libs/chmlib )
-	doc? ( app-text/scrollkeeper
-		gnome-extra/yelp )
+	doc? ( app-text/scrollkeeper )
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
 	gsf? ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
 	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
@@ -49,4 +47,10 @@ src_configure() {
 		$(use_with taglib)
 		$(use_with pdf poppler)"
 	gnome2_src_configure
+}
+
+pkg_postinst() {
+        gnome2_pkg_postinst
+        has_version dev-util/meld || elog "You need dev-util/meld to synchronize files and directories."
+        has_version gnome-extra/yelp || elog "You need gnome-extra/yelp to view the docs."
 }
