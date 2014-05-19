@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.4.2</para></entry>
-            <entry><para>2014-??-??</para></entry>
+            <entry><para>2014-05-23</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -40,9 +40,6 @@
                         </listitem>
                         <listitem>
                             <para>Text selection in int. viewer works on lines with TAB characters (Thanks to Jan Vleeshouwers)</para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated docs: ??</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: cs, el, sr, sr@latin</para>
