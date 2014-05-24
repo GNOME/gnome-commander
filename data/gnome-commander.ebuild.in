@@ -50,7 +50,7 @@ src_configure() {
 }
 
 pkg_postinst() {
-        gnome2_pkg_postinst
-        has_version dev-util/meld || elog "You need dev-util/meld to synchronize files and directories."
-        has_version gnome-extra/yelp || elog "You need gnome-extra/yelp to view the docs."
+	gnome2_pkg_postinst
+	has_version dev-util/meld || elog "You need dev-util/meld to synchronize files and directories."
+	has_version gnome-extra/yelp || elog "You need gnome-extra/yelp to view the docs."
 }
