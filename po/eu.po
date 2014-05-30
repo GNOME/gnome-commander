@@ -7,9 +7,9 @@
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2010, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: eu_to_be_translate\n"
+"Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-30 16:24+0200\n"
+"POT-Creation-Date: 2014-05-30 16:43+0200\n"
 "PO-Revision-Date: 2014-05-30 16:41+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
@@ -62,7 +62,7 @@ msgstr "Atera hona: '%s'"
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1367
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:1986
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:1983
 #: ../src/dialogs/gnome-cmd-remote-dialog.cc:466
 #: ../src/gnome-cmd-user-actions.cc:198
 msgid "Options"
@@ -929,7 +929,7 @@ msgid "Directories"
 msgstr "Direktorioak"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:188
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2025
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2022
 msgid "Tabs"
 msgstr "Fitxak"
 
@@ -1410,7 +1410,7 @@ msgid "Edit Device"
 msgstr "Editatu gailua"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1881
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2029
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2026
 msgid "Devices"
 msgstr "Gailuak"
 
@@ -1426,28 +1426,28 @@ msgstr "Erakutsi ikonoak soilik"
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Saltatu muntatzea (erosoa 'super-mount'ekin)"
 
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2022
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2019
 msgid "General"
 msgstr "Orokorra"
 
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2023
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2020
 #: ../src/tags/gnome-cmd-tags.cc:318
 msgid "Format"
 msgstr "Formatua"
 
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2024
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2021
 msgid "Layout"
 msgstr "Diseinua"
 
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2026
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2023
 msgid "Confirmation"
 msgstr "Berrespena"
 
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2027
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2024
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:2028
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:2025
 msgid "Programs"
 msgstr "Programak"
 
@@ -3127,8 +3127,8 @@ msgstr "%%%.0f kopiatuta"
 #, c-format
 msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgstr ""
-"Ezin izan da instalatutako pixmapa motako fitxategia kargatu; "
-"'%s' kargatzen saiatuko da"
+"Ezin izan da instalatutako pixmapa motako fitxategia kargatu; '%s' kargatzen "
+"saiatuko da"
 
 #: ../src/imageloader.cc:115 ../src/imageloader.cc:139
 #, c-format
@@ -3137,16 +3137,15 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Ezin da pix-mapa inon aurkitu. Egiazta ezazu programa instalatuta daukazula, "
-"edo "
-"gnome-commander aplikazioa 'gnome-commander-%s/src' direktoriotik "
+"edo gnome-commander aplikazioa 'gnome-commander-%s/src' direktoriotik "
 "exekutatzen ari dela"
 
 #: ../src/imageloader.cc:136
 #, c-format
 msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
-"Ezin izan da instalatutako pix-mapa kargatu; horren ordez "
-"'%s' kargatzen saiatuko da"
+"Ezin izan da instalatutako pix-mapa kargatu; horren ordez '%s' kargatzen "
+"saiatuko da"
 
 #: ../src/intviewer/search-dlg.cc:244
 msgid "Find"
