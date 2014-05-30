@@ -186,11 +186,14 @@ if pkg-config --exists gnome-vfs-2.0 ; then
     AC_SUBST(GNOMEVFS_LIBS)
 
     if pkg-config --exists gnome-vfs-2.0 '>=' ${GNOMEVFS_REQ} ; then
+        have_gnomevfs=yes
         AC_MSG_RESULT(yes)
     else
+	have_gnomevfs=no
         AC_MSG_ERROR("only ${GNOMEVFS_VERSION} found")
     fi
 else
+    have_gnomevfs=no
     AC_MSG_ERROR(no)
 fi
 
@@ -209,6 +212,15 @@ UNIQUE_PREFIX=`pkg-config --variable=prefix unique-1.0`
 UNIQUE_VERSION=`pkg-config --modversion unique-1.0`
 AC_SUBST([UNIQUE_PREFIX])
 AC_SUBST([UNIQUE_VERSION])
+
+
+dnl Check for samba support
+AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support], have_samba=no, have_samba=yes)
+if test "x$with_samba" != xno; then
+   if test "x$have_gnomevfs" != xyes; then
+   have_samba=no
+   fi
+fi
 
 
 dnl Check for exiv2 support
@@ -454,6 +466,7 @@ echo "  FLAC support   : ${have_taglib}"
 echo "  OLE2 support   : ${have_gsf}"
 echo "  ODF support    : ${have_gsf}"
 echo "  PDF support    : ${have_pdf}"
+echo "  SAMBA support  : ${have_samba}"
 echo ""
 echo ""
 echo "The following libraries will be used:"
