@@ -23,8 +23,10 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con-home.h"
-#include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-con-list.h"
+#ifdef HAVE_SAMBA
+#include "gnome-cmd-con-smb.h"
+#endif
 
 using namespace std;
 
@@ -42,8 +44,9 @@ struct GnomeCmdConList::Private
     GList *quick_ftp_cons;
 
     GnomeCmdCon *home_con;
+#ifdef HAVE_SAMBA
     GnomeCmdCon *smb_con;
-
+#endif
     GList *all_cons;
 };
 
@@ -398,8 +401,9 @@ GnomeCmdCon *GnomeCmdConList::get_home()
     return priv->home_con;
 }
 
-
+#ifdef HAVE_SAMBA
 GnomeCmdCon *GnomeCmdConList::get_smb()
 {
     return priv->smb_con;
 }
+#endif

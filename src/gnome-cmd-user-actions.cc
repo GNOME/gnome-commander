@@ -1921,6 +1921,7 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
 
         g_warning ("[%s] Unknown bookmark name: '%s' - ignored", (char *) bookmark_name, name.c_str());
     }
+#ifdef HAVE_SAMBA
     else
         if (group=="smb" || group=="samba")
         {
@@ -1937,6 +1938,7 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
 
             g_warning ("[%s] Unknown bookmark name: '%s' - ignored", (char *) bookmark_name, name.c_str());
         }
+#endif
         else
             g_warning ("[%s] Unsupported bookmark group: '%s' - ignored", (char *) bookmark_name, group.c_str());
 }

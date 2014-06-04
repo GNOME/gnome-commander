@@ -6,6 +6,7 @@ Bug fixes:
  * ... 
 New features:
 * Always reopen the tab which was previously closed in the options dialog
+* Samba support is now optionally available via configure option
 * New or updated translations: 
      ...
 * New key bindings:

@@ -2646,6 +2646,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
         if (dir[0] == '/')
             new_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dir));
         else
+#ifdef HAVE_SAMBA
             if (g_str_has_prefix (dir, "\\\\"))
             {
                 GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
@@ -2653,6 +2654,7 @@ void GnomeCmdFileList::goto_directory(const gchar *in_dir)
                     new_dir = gnome_cmd_dir_new (get_smb_con (), path);
             }
             else
+#endif
                 new_dir = gnome_cmd_dir_get_child (cwd, dir);
     }
 

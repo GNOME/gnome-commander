@@ -556,9 +556,11 @@ static void xml_start(GMarkupParseContext *context,
                     if (strcmp(param1,"Home")==0)
                         xml_con = gnome_cmd_con_list_get()->get_home();
                     else
+#ifdef HAVE_SAMBA
                         if (strcmp(param1,"SMB")==0)
                             xml_con = gnome_cmd_con_list_get()->get_smb();
                         else
+#endif
                             xml_con = NULL;
 
                 if (!xml_con)

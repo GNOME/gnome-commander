@@ -41,6 +41,7 @@ inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
         else
             filename.erase(0,1);
 
+#ifdef HAVE_SAMBA
     // smb exception handling: test if we are in a samba share...
     // if not - change filename so that we can get a proper error message
     GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
@@ -53,6 +54,7 @@ inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
             filename.erase(0,1);
     }
     gnome_vfs_uri_unref (dir_uri);
+#endif
 
     GSList *uri_list = NULL;
 

@@ -36,7 +36,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-con-home.h gnome-cmd-con-home.cc \
 	gnome-cmd-con-list.h gnome-cmd-con-list.cc \
 	gnome-cmd-con-remote.h gnome-cmd-con-remote.cc \
-	gnome-cmd-con-smb.h gnome-cmd-con-smb.cc \
 	gnome-cmd-convert.h gnome-cmd-convert.cc \
 	gnome-cmd-data.h gnome-cmd-data.cc \
 	gnome-cmd-dir-indicator.h gnome-cmd-dir-indicator.cc \
@@ -59,8 +58,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-regex.h \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-selection-profile-component.h gnome-cmd-selection-profile-component.cc \
-	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
-	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc \
 	gnome-cmd-style.h gnome-cmd-style.cc \
 	gnome-cmd-treeview.h gnome-cmd-treeview.cc \
 	gnome-cmd-types.h \
@@ -82,6 +79,13 @@ gnome_commander_SOURCES = \
 if HAVE_PYTHON
 gnome_commander_SOURCES += \
 	gnome-cmd-python-plugin.h gnome-cmd-python-plugin.cc
+endif
+
+if HAVE_SAMBA
+gnome_commander_SOURCES += \
+	gnome-cmd-con-smb.h gnome-cmd-con-smb.cc \
+	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
+	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc
 endif
 
 gnome_commander_LDADD = \

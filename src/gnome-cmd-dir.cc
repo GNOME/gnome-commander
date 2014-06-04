@@ -24,7 +24,9 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
+#ifdef HAVE_SAMBA
 #include "gnome-cmd-con-smb.h"
+#endif
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-file-collection.h"
@@ -407,6 +409,7 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
                 continue;
             }
 
+#ifdef HAVE_SAMBA
             if (GNOME_CMD_IS_CON_SMB (con)
                 && info->mime_type
                 && (strcmp (info->mime_type, "application/x-gnome-app-info") == 0 ||
@@ -422,6 +425,7 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
                 info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :
                                                                      g_strdup ("x-directory/smb-server");
             }
+#endif
 
             GnomeCmdFile *f = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
                                                                             gnome_cmd_file_new (info, dir);
@@ -641,6 +645,7 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
+#ifdef HAVE_SAMBA
     // include workgroups and shares for smb uris
     GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
 
@@ -665,6 +670,7 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
     }
 
     gnome_vfs_uri_unref (dir_uri);
+#endif
 
     GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);

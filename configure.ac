@@ -227,6 +227,7 @@ fi
 if test "x$have_samba" = "xyes"; then
    AC_DEFINE(HAVE_SAMBA, 1, [Define to 1 if you have SAMBA support])
 fi
+AM_CONDITIONAL([HAVE_SAMBA],[test "x$have_samba" = "xyes"])
 
 
 dnl Check for exiv2 support

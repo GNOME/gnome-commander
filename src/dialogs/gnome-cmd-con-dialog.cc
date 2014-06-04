@@ -212,19 +212,21 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
             show_domain = FALSE;
             break;
 
-        case CON_ANON_FTP:
+       case CON_ANON_FTP:
             show_share = FALSE;
             show_port = TRUE;
             show_user = FALSE;
             show_domain = FALSE;
             break;
 
+#ifdef HAVE_SAMBA
         case CON_SMB:
             show_share = TRUE;
             show_port = FALSE;
             show_user = TRUE;
             show_domain = TRUE;
             break;
+#endif
     }
 
     show_entry (table, server_entry, _("_Server:"), i);
@@ -473,7 +475,9 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("SSH"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("FTP (with login)"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Public FTP"));
+#ifdef HAVE_SAMBA
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Windows share"));
+#endif
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("WebDAV (HTTP)"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Secure WebDAV (HTTPS)"));
     gtk_combo_box_append_text (GTK_COMBO_BOX (combo), _("Custom location"));
@@ -602,6 +606,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             const gchar *password = gnome_vfs_uri_get_password (uri);
             guint port = gnome_vfs_uri_get_host_port (uri);
 
+#ifdef HAVE_SAMBA
             if (con->method==CON_SMB)
             {
                 gchar **a = g_strsplit (path, "/", 3);
@@ -630,9 +635,12 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
             }
             else
             {
+#endif
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
+#ifdef HAVE_SAMBA
             }
+#endif
 
             if (password)
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->password_entry), password);

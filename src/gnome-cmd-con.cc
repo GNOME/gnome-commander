@@ -55,7 +55,9 @@ static GtkObjectClass *parent_class = NULL;
 const gchar *icon_name[] = {"gnome-fs-ssh",            // CON_SSH
                             "gnome-fs-ftp",            // CON_FTP
                             "gnome-fs-ftp",            // CON_ANON_FTP
+#ifdef HAVE_SAMBA
                             "gnome-fs-smb",            // CON_SMB
+#endif
                             "gnome-fs-web",            // CON_DAV
                             "gnome-fs-web",            // CON_DAVS
                             "gnome-fs-network",        // CON_URI
@@ -559,6 +561,7 @@ GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar 
 
     gchar **a = NULL;
 
+#ifdef HAVE_SAMBA
     if (method==CON_SMB)
     {
         a = g_strsplit (user, ";", 2);
@@ -569,6 +572,7 @@ GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar 
             user = a[1];
         }
     }
+#endif
 
     GnomeKeyringAttributeList *attributes = gnome_keyring_attribute_list_new ();
 
