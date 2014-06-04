@@ -215,11 +215,17 @@ AC_SUBST([UNIQUE_VERSION])
 
 
 dnl Check for samba support
-AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support], have_samba=no, have_samba=yes)
+AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support])
+have_samba=no
 if test "x$with_samba" != xno; then
    if test "x$have_gnomevfs" != xyes; then
    have_samba=no
+   else
+   have_samba=yes
    fi
+fi
+if test "x$have_samba" = "xyes"; then
+   AC_DEFINE(HAVE_SAMBA, 1, [Define to 1 if you have SAMBA support])
 fi
 
 

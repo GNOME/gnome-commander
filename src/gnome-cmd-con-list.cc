@@ -146,13 +146,16 @@ static void init (GnomeCmdConList *con_list)
     con_list->priv->update_lock = FALSE;
 
     con_list->priv->home_con = gnome_cmd_con_home_new ();
+#ifdef HAVE_SAMBA
     con_list->priv->smb_con = gnome_cmd_con_smb_new ();
-
+#endif
     // con_list->priv->remote_cons = NULL;
     // con_list->priv->device_cons = NULL;
     // con_list->priv->quick_ftp_cons = NULL;
     con_list->priv->all_cons = g_list_append (NULL, con_list->priv->home_con);
+#ifdef HAVE_SAMBA
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);
+#endif
 }
 
 
