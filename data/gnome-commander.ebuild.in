@@ -14,7 +14,7 @@ HOMEPAGE="http://gcmd.github.io/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chm doc exif gsf pdf python taglib"
+IUSE="chm doc exif gsf pdf python taglib samba"
 
 RDEPEND="app-text/gnome-doc-utils
 	>=dev-libs/glib-@GLIB_REQ@:2
@@ -28,6 +28,7 @@ RDEPEND="app-text/gnome-doc-utils
 	doc? ( app-text/scrollkeeper )
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )
 	gsf? ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
+	samba? ( >=gnome-base/gnome-vfs-@GNOMEVFS_REQ@[samba] )
 	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
 	python? ( >=dev-python/gnome-vfs-python-@GNOMEVFS_REQ@ )
 	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@ )"
@@ -44,6 +45,7 @@ src_configure() {
 		$(use_with chm libchm)
 		$(use_with exif exiv2)
 		$(use_with gsf libgsf)
+		$(use_with samba)
 		$(use_with taglib)
 		$(use_with pdf poppler)"
 	gnome2_src_configure
