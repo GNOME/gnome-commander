@@ -400,6 +400,7 @@ Makefile
 data/gnome-commander.ebuild
 data/gnome-commander.spec
 data/gnome-commander.desktop.in
+data/gnome-commander.appdata.xml
 data/Makefile
 doc/Makefile
 libgcmd/Makefile

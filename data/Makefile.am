@@ -4,7 +4,12 @@
 desktopdir = $(datadir)/applications
 desktop_in_files = @PACKAGE@.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+
 @INTLTOOL_DESKTOP_RULE@
+
+appdatadir = $(datadir)/appdata
+appdata_in_files = @PACKAGE@.appdata.xml.in
+appdata_DATA = $(appdata_in_files:.xml.in=.xml)
 
 #BUILT_SOURCES = @PACKAGE@-@VERSION@.ebuild
 
@@ -14,8 +19,8 @@ ebuild_DATA_NOINST = @PACKAGE@-@VERSION@.ebuild
 @PACKAGE@-@VERSION@.ebuild: $(ebuild_files)
 	ln -sf @PACKAGE@.ebuild @PACKAGE@-@VERSION@.ebuild
 
-EXTRA_DIST = $(desktop_in_files) @PACKAGE@.spec $(ebuild_files) $(ebuild_DATA_NOINST)
+EXTRA_DIST = $(appdata_in_files) $(desktop_in_files) @PACKAGE@.spec $(ebuild_files) $(ebuild_DATA_NOINST)
 
-DISTCLEANFILES = $(desktop_DATA)
+DISTCLEANFILES = $(appdata_DATA) $(desktop_DATA)
 
 -include $(top_srcdir)/git.mk
