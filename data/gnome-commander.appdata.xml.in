@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Uwe Scholz <u.scholz83@gmx.de> -->
+<application>
+ <id type="desktop">gnome-commander.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-2.0+</project_license>
+ <name>Gnome Commander</name>
+ <summary>Two-pane file manager</summary>
+ <description>
+  <p>
+    GNOME Commander is a "two-pane" graphical file manager for the GNOME
+    desktop environment. It features separate tabs for each pane,
+    setting up custom device buttons, bookmark manager, fully integrated
+    commandline, file quick search, an internal image viewer, a powerful
+    batch renaming tool, and FTP and Samba access.
+  </p>
+  <p>
+    GNOME Commander aims to advanced users who like to focus on precise
+    file management, working in parallel through special applications,
+    and running smart commands.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="1280" height="720">https://gcmd.github.io/ss/MainWin-Classic.png</screenshot>
+  <screenshot width="950" height="540">http://gcmd.github.io/ss/adv_ren.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://gcmd.github.io/index.html</url>
+ <updatecontact>gcmd-devel@nongnu.org</updatecontact>
+ <project_group>GNOME</project_group>
+</application>
