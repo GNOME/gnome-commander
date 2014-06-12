@@ -147,6 +147,8 @@ struct GnomeCmdFileList::Private
     GnomeCmdFileCollection visible_files;
     GnomeCmd::Collection<GnomeCmdFile *> selected_files;      // contains GnomeCmdFile pointers, no refing
 
+    gchar *base_dir;
+
     GCompareDataFunc sort_func;
     gint current_col;
     gboolean sort_raising[NUM_COLUMNS];
@@ -184,6 +186,8 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
 {
     memset(column_pixmaps, NULL, sizeof(column_pixmaps));
     memset(column_labels, NULL, sizeof(column_labels));
+
+    base_dir = NULL;
 
     quicksearch_popup = NULL;
     selpat_dialog = NULL;
@@ -292,7 +296,7 @@ struct FileFormatData
 
     static gchar empty_string[];
 
-    FileFormatData(GnomeCmdFile *f, gboolean tree_size);
+    FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size);
     ~FileFormatData();
 };
 
@@ -300,7 +304,7 @@ struct FileFormatData
 gchar FileFormatData::empty_string[] = "";
 
 
-inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
+inline FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
 {
     // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
@@ -325,6 +329,13 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     else
         fname = get_utf8 (f->get_name());
 
+    if (fl->priv->base_dir != NULL)
+	text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), NULL);
+    else 
+	text[GnomeCmdFileList::COLUMN_DIR] = dpath;
+
+    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);	
+
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (f->get_extension());
     else
@@ -333,7 +344,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     //Set other file information
     text[GnomeCmdFileList::COLUMN_NAME]  = fname;
     text[GnomeCmdFileList::COLUMN_EXT]   = fext;
-    text[GnomeCmdFileList::COLUMN_DIR]   = dpath;
+
     text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
 
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
@@ -1672,7 +1683,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
 {
     GtkCList *clist = *fl;
 
-    FileFormatData data(f,FALSE);
+    FileFormatData data(fl, f,FALSE);
 
     gint row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
 
@@ -1803,7 +1814,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
     if (row == -1)
         return;
 
-    FileFormatData data(f, FALSE);
+    FileFormatData data(this, f, FALSE);
 
     for (gint i=1; i<NUM_COLUMNS; i++)
         gtk_clist_set_text (*this, row, i, data.text[i]);
@@ -1827,7 +1838,7 @@ void GnomeCmdFileList::show_dir_tree_size(GnomeCmdFile *f)
     if (row == -1)
         return;
 
-    FileFormatData data(f,TRUE);
+    FileFormatData data(this, f,TRUE);
 
     for (gint i=1; i<NUM_COLUMNS; i++)
         gtk_clist_set_text (*this, row, i, data.text[i]);
@@ -2471,6 +2482,14 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 GList *GnomeCmdFileList::sort_selection(GList *list)
 {
     return g_list_sort_with_data (list, (GCompareDataFunc) priv->sort_func, this);
+}
+
+
+void GnomeCmdFileList::set_base_dir (gchar *dir)
+{
+    g_return_if_fail (dir != NULL);
+    if (priv->base_dir) { g_free (priv->base_dir); }
+    priv->base_dir = dir;
 }
 
 

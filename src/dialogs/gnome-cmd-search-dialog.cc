@@ -962,6 +962,9 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
 
                 dialog->priv->result_list->remove_all_files();
 
+                gchar *base_dir_utf8 = GNOME_CMD_FILE (data.start_dir)->get_real_path();
+                dialog->priv->result_list->set_base_dir(base_dir_utf8); 
+
                 if (gnome_cmd_con_is_local (con) ? data.start_local_search() : data.start_generic_search())
                 {
                     data.set_statusmsg();

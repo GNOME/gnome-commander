@@ -172,6 +172,7 @@ struct GnomeCmdFileList
 
     void invalidate_tree_size();
 
+    void set_base_dir(gchar *dir);
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
