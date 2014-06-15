@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready exists)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

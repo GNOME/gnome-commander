@@ -3,7 +3,7 @@ gnome-commander 1.4.3
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready exists)
 
 ===================================
 gnome-commander 1.4.2
