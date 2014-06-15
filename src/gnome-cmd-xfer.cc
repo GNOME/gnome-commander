@@ -182,7 +182,9 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
     {
-        gchar *s = gnome_cmd_dir_is_local (data->src_fl->cwd) ? gnome_vfs_get_local_path_from_uri (info->source_name) : str_uri_basename (info->source_name);
+	gchar *s = NULL;
+	// Check if the src uri is from local ('file:///...'). If not, just use the base name.
+	if ( !(s = gnome_vfs_get_local_path_from_uri (info->source_name) )) s = str_uri_basename (info->source_name);
         gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) : str_uri_basename (info->target_name);
 
         gchar *source_filename = get_utf8 (s);
