@@ -14,7 +14,7 @@ HOMEPAGE="http://gcmd.github.io/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chm doc exif gsf pdf python taglib samba"
+IUSE="chm doc exif gsf pdf python taglib samba test"
 
 RDEPEND="app-text/gnome-doc-utils
 	>=dev-libs/glib-@GLIB_REQ@:2
@@ -35,7 +35,8 @@ RDEPEND="app-text/gnome-doc-utils
 DEPEND="${RDEPEND}
 	>=dev-util/intltool-0.35.0
 	sys-devel/gettext
-	virtual/pkgconfig"
+	virtual/pkgconfig
+	test? ( dev-util/cppunit-@CPPUNIT_REQ@ )"
 
 DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
 

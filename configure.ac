@@ -54,6 +54,7 @@ EXIV2_REQ=0.14
 TAGLIB_REQ=1.4
 LIBGSF_REQ=1.12.0
 POPPLER_REQ=0.18
+CPPUNIT_REQ=1.13.1
 
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
@@ -289,6 +290,15 @@ if test "x$have_pdf" = "xyes"; then
    AC_SUBST(POPPLER_PREFIX)
 fi
 
+
+dnl =====================
+dnl Check for check
+dnl =====================
+
+PKG_CHECK_MODULES(CPPUNIT, [cppunit >= $CPPUNIT_REQ],,[AC_MSG_RESULT([no, testing is disabled])]) 
+AM_CONDITIONAL(HAVE_CPPUNIT, [test "x$CHECK_LIBS" != "x"])
+AC_SUBST(CHECK_CFLAGS)
+AC_SUBST(CHECK_LIBS)
 
 dnl =============================
 dnl Checks for library functions
