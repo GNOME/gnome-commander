@@ -33,7 +33,7 @@
                             <para>Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready exists)</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: de, eu, fi</para>
+                            <para>New or updated translations: cs, de, eu, fi</para>
                         </listitem>
                         <listitem>
                             <para>New or updated docs: cs</para>

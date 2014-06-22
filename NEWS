@@ -5,6 +5,7 @@ gnome-commander 1.4.3
 Bug fixes:
  * Fixed problem bgo#731557 (Crash when drag 'n drop objects via mouse)
 New or updated translations: 
+    cs (Marek Černocký)
     de (Benjamin Steinwender)
     eu (Inaki Larranaga Murgoitio)
     fi (Lasse Liehu)
