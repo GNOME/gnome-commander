@@ -1,12 +1,10 @@
-#
-#  <>, 2011.
 # Aleksey Kabanov <ak099@mail.ru>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNOME Commander Manual\n"
 "POT-Creation-Date: 2012-01-16 09:42+0000\n"
-"PO-Revision-Date: 2012-01-18 20:14+0300\n"
+"PO-Revision-Date: 2014-06-22 17:57+0200\n"
 "Last-Translator: Aleksey Kabanov <ak099@mail.ru>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -2807,9 +2805,7 @@ msgstr "Меню <guimenu>«Приложения»</guimenu>"
 msgid ""
 "Choose <menuchoice><guisubmenu>Accessories</guisubmenu><guimenuitem>GNOME "
 "Commander</guimenuitem></menuchoice>."
-msgstr ""
-"Выберите в меню <menuchoice><guisubmenu>«Приложения»</guisubmenu> пункт "
-"<guimenuitem>«GNOME Commander»</guimenuitem></menuchoice>."
+msgstr "Выберите в меню <menuchoice><guisubmenu>«Приложения»</guisubmenu><guimenuitem>«GNOME Commander»</guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:435(term)
 msgid "Command line"
