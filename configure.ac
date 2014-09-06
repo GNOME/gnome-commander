@@ -292,7 +292,7 @@ fi
 
 
 dnl =====================
-dnl Check for check
+dnl Check for CppUnit
 dnl =====================
 
 PKG_CHECK_MODULES(CPPUNIT, [cppunit >= $CPPUNIT_REQ],,[AC_MSG_RESULT([no, testing is disabled])]) 
