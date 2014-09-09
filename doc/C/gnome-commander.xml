@@ -7337,7 +7337,7 @@
               and you should see Unscalable Gorilla being used.</para>
             </listitem>
           </itemizedlist>
-    </sect2>
+	</sect2>
 	<sect2 id="gnome-commander-mime-types">
 	  <title>Handling MIME types</title>
 	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing 
@@ -7345,6 +7345,28 @@
 	  to change preferred default programs. For more informations please have a look at the 
 	  <ulink type="http" url="http://gcmd.github.io/doc.html#tips">Tips and Tricks section</ulink> of 
 	  the &app; home page.</para></note>
+	</sect2>
+	<sect2 id="gnome-commander-copy-path-names">
+	  <title>Copying File Names and Paths</title>
+          <itemizedlist>
+            <listitem>
+	      <para>To copy names of selected files to the environment's clipboard, use the Copy File Names action 
+	      on the <guimenu>Edit</guimenu> menu or the "**" icon on the toolbar.</para>
+            </listitem>
+            <listitem>
+	      <para>To copy full paths of selected files to the environment's clipboard, hold down 
+	      <keycap>SHIFT</keycap> while activating either the Copy File Names action on the <guimenu>Edit</guimenu> 
+	      menu or the "**" icon on the toolbar.</para>
+            </listitem>
+            <listitem>
+	      <para>To insert the current file's path in Gnome Commander's command line, press 
+	      <keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></keycombo>.</para>
+            </listitem>
+            <listitem>
+	      <para>To insert the current file's name in Gnome Commander's command line, press 
+	      <keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>.</para>
+            </listitem>
+          </itemizedlist>
 	</sect2>
   </sect1>
 
