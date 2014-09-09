@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2014-08-21 06:18+0000\n"
-"PO-Revision-Date: 2014-08-21 08:35+0100\n"
+"Project-Id-Version: gnome-commander gcmd-1.4\n"
+"POT-Creation-Date: 2014-09-09 19:09+0000\n"
+"PO-Revision-Date: 2014-09-09 23:39+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -4453,7 +4453,7 @@ msgid "The name of the file or folder."
 msgstr "Název souboru nebo složky."
 
 #: C/gnome-commander.xml:1169(para) C/gnome-commander.xml:3753(para)
-#: C/gnome-commander.xml:8034(title)
+#: C/gnome-commander.xml:8056(title)
 msgid "Location"
 msgstr "Umístění"
 
@@ -4477,7 +4477,7 @@ msgstr "Volné místo"
 msgid "The amount of free space on the volume."
 msgstr "Množství volného místa na svazku."
 
-#: C/gnome-commander.xml:1194(para) C/gnome-commander.xml:7448(para)
+#: C/gnome-commander.xml:1194(para) C/gnome-commander.xml:7470(para)
 msgid "Type"
 msgstr "Typ"
 
@@ -10690,7 +10690,7 @@ msgstr "Vorbis.Description"
 msgid "Vorbis.License"
 msgstr "Vorbis.License"
 
-#: C/gnome-commander.xml:3748(para) C/gnome-commander.xml:8050(title)
+#: C/gnome-commander.xml:3748(para) C/gnome-commander.xml:8072(title)
 msgid "License"
 msgstr "Licence"
 
@@ -14549,7 +14549,7 @@ msgid "User action"
 msgstr "Uživatelská akce"
 
 #: C/gnome-commander.xml:6697(para) C/gnome-commander.xml:6698(para)
-#: C/gnome-commander.xml:8016(title)
+#: C/gnome-commander.xml:8038(title)
 msgid "About GNOME Commander"
 msgstr "O aplikaci GNOME Commander"
 
@@ -15501,15 +15501,59 @@ msgstr ""
 "najdete v části <ulink type=\"http\" url=\"http://gcmd.github.io/doc."
 "html#tips\">Tipy a triky</ulink> na domovské stránce GNOME Commanderu."
 
-#: C/gnome-commander.xml:7354(title)
+#: C/gnome-commander.xml:7350(title)
+msgid "Copying File Names and Paths"
+msgstr "Kopírování názvů souborů a cest"
+
+#: C/gnome-commander.xml:7353(para)
+msgid ""
+"To copy names of selected files to the environment's clipboard, use the Copy "
+"File Names action on the <guimenu>Edit</guimenu> menu or the \"**\" icon on "
+"the toolbar."
+msgstr ""
+"Když chcete zkopírovat názvy vybraných souborů do schránky, použijte činnost "
+"Kopírovat názvy souborů v nabídce <guimenu>Upravit</guimenu> nebo ikonu „**“ "
+"na nástrojové liště."
+
+#: C/gnome-commander.xml:7357(para)
+msgid ""
+"To copy full paths of selected files to the environment's clipboard, hold "
+"down <keycap>SHIFT</keycap> while activating either the Copy File Names "
+"action on the <guimenu>Edit</guimenu> menu or the \"**\" icon on the toolbar."
+msgstr ""
+"Když chcete zkopírovat celé cesty k vybraným souborům do schránky, držte "
+"zmáčknutý <keycap>Shift</keycap> při vyvolání činnosti Kopírovat názvy "
+"souborů v nabídce <guimenu>Upravit</guimenu> nebo při zmáčknutí ikony „**“ "
+"na nástrojové liště."
+
+#: C/gnome-commander.xml:7362(para)
+msgid ""
+"To insert the current file's path in Gnome Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"keycombo>."
+msgstr ""
+"Když chcete vložit cestu k aktuálnímu souboru do příkazové řádky GNOME "
+"Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap> <keycap>Shift</keycap> "
+"<keycap>Enter</keycap></keycombo>."
+
+#: C/gnome-commander.xml:7366(para)
+msgid ""
+"To insert the current file's name in Gnome Commander's command line, press "
+"<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
+msgstr ""
+"Když chcete vložit název aktuálního souboru do příkazové řádky GNOME "
+"Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap> <keycap>Enter</"
+"keycap></keycombo>."
+
+#: C/gnome-commander.xml:7376(title)
 msgid "GNOME Commander Installation"
 msgstr "Instalace aplikace GNOME Commander"
 
-#: C/gnome-commander.xml:7356(title)
+#: C/gnome-commander.xml:7378(title)
 msgid "Getting GNOME Commander"
 msgstr "Kde získat GNOME Commander"
 
-#: C/gnome-commander.xml:7357(para)
+#: C/gnome-commander.xml:7379(para)
 msgid ""
 "It's recommended to use the GNOME Commander package that is provided by your "
 "distribution. Refer to GNOME Commander for the <ulink type=\"http\" url="
@@ -15521,7 +15565,7 @@ msgstr ""
 "nongnu.org/gcmd/download.html#distro\">seznamu distribucí</ulink>, které "
 "balík GNOME Commander podporují."
 
-#: C/gnome-commander.xml:7362(para)
+#: C/gnome-commander.xml:7384(para)
 msgid ""
 "All current and historical releases can be found on the <ulink type=\"http\" "
 "url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\">GNOME FTP "
@@ -15531,11 +15575,11 @@ msgstr ""
 "\" url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\">serveru "
 "FTP GNOME</ulink>."
 
-#: C/gnome-commander.xml:7367(title)
+#: C/gnome-commander.xml:7389(title)
 msgid "Versioning"
 msgstr "Verzování"
 
-#: C/gnome-commander.xml:7368(para)
+#: C/gnome-commander.xml:7390(para)
 msgid ""
 "GNOME Commander is being developed in a stable and a testing branch, where "
 "the test releases fill the purpose of testing new ideas. Successful ones "
@@ -15552,11 +15596,11 @@ msgstr ""
 "verze je pro nestabilní vydání a větve se sudým číslování jsou s důkladně "
 "otestovanými zpětně přenesenými funkcemi."
 
-#: C/gnome-commander.xml:7375(title)
+#: C/gnome-commander.xml:7397(title)
 msgid "Current stable version"
 msgstr "Aktuální stabilní verze"
 
-#: C/gnome-commander.xml:7376(para)
+#: C/gnome-commander.xml:7398(para)
 msgid ""
 "If you'd like to compile the latest stable version of GNOME Commander "
 "yourself, get it as a tar.xz file from the <ulink type=\"http\" url=\"http://"
@@ -15567,7 +15611,7 @@ msgstr ""
 "stáhněte si ze stránky <ulink type=\"http\" url=\"http://gcmd.github.io/"
 "download.html\">download</ulink> na webu GNOME Commanderu soubor tar.xz."
 
-#: C/gnome-commander.xml:7379(para)
+#: C/gnome-commander.xml:7401(para)
 msgid ""
 "After extracting the archive, first have a look at the <guimenu>README</"
 "guimenu> file, where you get an overview of the downloaded release. Also, "
@@ -15578,11 +15622,11 @@ msgstr ""
 "guimenu>, ve kterém najdete přehled o staženém vydání. Také si najděte "
 "soubor <guimenu>INSTALL</guimenu>, ve kterém je vysvětlem postup instalace."
 
-#: C/gnome-commander.xml:7384(title)
+#: C/gnome-commander.xml:7406(title)
 msgid "Development version"
 msgstr "Vývojová verze"
 
-#: C/gnome-commander.xml:7385(para)
+#: C/gnome-commander.xml:7407(para)
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
@@ -15592,11 +15636,11 @@ msgstr ""
 "nejčerstvějšího kódu, je k dispozici nejnovější vývojový zdrojový kód přes "
 "GIT:"
 
-#: C/gnome-commander.xml:7388(command)
+#: C/gnome-commander.xml:7410(command)
 msgid "git clone git://git.gnome.org/gnome-commander"
 msgstr "git clone git://git.gnome.org/gnome-commander"
 
-#: C/gnome-commander.xml:7391(para)
+#: C/gnome-commander.xml:7413(para)
 msgid ""
 "The above works only to do a first time download and not for updating the "
 "code, if you already have a version of the code simply run <command>git "
@@ -15606,7 +15650,7 @@ msgstr ""
 "již máte nějakou verzi kódu, spusťte jen <command>git pull</command> a "
 "provede se aktualizace na nejnovější verzi."
 
-#: C/gnome-commander.xml:7394(para)
+#: C/gnome-commander.xml:7416(para)
 msgid ""
 "Just remember to run <command>./autogen.sh</command> before building by "
 "<command>make</command>."
@@ -15614,7 +15658,7 @@ msgstr ""
 "Před sestavením pomocí <command>make</command> nezapomeňte spustit "
 "<command>./autogen.sh</command>."
 
-#: C/gnome-commander.xml:7395(para)
+#: C/gnome-commander.xml:7417(para)
 msgid ""
 "Be aware that there can be serious bugs in code from GNOME git repository. "
 "This code is intended for hacking, development and testing purposes only."
@@ -15622,11 +15666,11 @@ msgstr ""
 "Berte na vědomí, že v kódu z repozitáře git GNOME může být řada chyb. Tento "
 "kód je určen jen pro programátory, vývojáře a testovací účely."
 
-#: C/gnome-commander.xml:7403(title)
+#: C/gnome-commander.xml:7425(title)
 msgid "Configuration Files"
 msgstr "Soubory nastavení"
 
-#: C/gnome-commander.xml:7404(para)
+#: C/gnome-commander.xml:7426(para)
 msgid ""
 "This section gives an overview of the configuration files used by GNOME "
 "Commander:"
@@ -15634,232 +15678,232 @@ msgstr ""
 "Tento oddíl poskytuje přehled o souborech s nastavením používaných aplikací "
 "GNOME Commander:"
 
-#: C/gnome-commander.xml:7409(guilabel)
+#: C/gnome-commander.xml:7431(guilabel)
 msgid "~/.gnome-commander/devices"
 msgstr "~/.gnome-commander/devices"
 
-#: C/gnome-commander.xml:7417(guilabel)
+#: C/gnome-commander.xml:7439(guilabel)
 msgid "~/.gnome-commander/fav-apps"
 msgstr "~/.gnome-commander/fav-apps"
 
-#: C/gnome-commander.xml:7425(guilabel)
+#: C/gnome-commander.xml:7447(guilabel)
 msgid "~/.gnome-commander/gnome-commander.xml"
 msgstr "~/.gnome-commander/gnome-commander.xml"
 
-#: C/gnome-commander.xml:7433(guilabel)
+#: C/gnome-commander.xml:7455(guilabel)
 msgid "~/.gnome2/gnome-commander"
 msgstr "~/.gnome2/gnome-commander"
 
-#: C/gnome-commander.xml:7446(para)
+#: C/gnome-commander.xml:7468(para)
 msgid "Section"
 msgstr "Oddíl"
 
-#: C/gnome-commander.xml:7447(para)
+#: C/gnome-commander.xml:7469(para)
 msgid "Key"
 msgstr "Klíč"
 
-#: C/gnome-commander.xml:7449(para)
+#: C/gnome-commander.xml:7471(para)
 msgid "Value"
 msgstr "Hodnota"
 
-#: C/gnome-commander.xml:7450(para)
+#: C/gnome-commander.xml:7472(para)
 msgid "Refer to"
 msgstr "Odkaz na"
 
-#: C/gnome-commander.xml:7455(para)
+#: C/gnome-commander.xml:7477(para)
 msgid "[network]"
 msgstr "[network]"
 
-#: C/gnome-commander.xml:7456(para)
+#: C/gnome-commander.xml:7478(para)
 msgid "ftp_anonymous_password"
 msgstr "ftp_anonymous_password"
 
-#: C/gnome-commander.xml:7457(para) C/gnome-commander.xml:7709(para)
-#: C/gnome-commander.xml:7911(para) C/gnome-commander.xml:7967(para)
+#: C/gnome-commander.xml:7479(para) C/gnome-commander.xml:7731(para)
+#: C/gnome-commander.xml:7933(para) C/gnome-commander.xml:7989(para)
 msgid "string"
 msgstr "řetězec"
 
-#: C/gnome-commander.xml:7462(para)
+#: C/gnome-commander.xml:7484(para)
 msgid "[options]"
 msgstr "[options]"
 
-#: C/gnome-commander.xml:7463(para)
+#: C/gnome-commander.xml:7485(para)
 msgid "backup_filter"
 msgstr "backup_filter"
 
-#: C/gnome-commander.xml:7470(para)
+#: C/gnome-commander.xml:7492(para)
 msgid "btn_relief"
 msgstr "btn_relief"
 
-#: C/gnome-commander.xml:7477(para)
+#: C/gnome-commander.xml:7499(para)
 msgid "cmdline_history_length"
 msgstr "cmdline_history_length"
 
-#: C/gnome-commander.xml:7484(para)
+#: C/gnome-commander.xml:7506(para)
 msgid "cmdline_visibility"
 msgstr "cmdline_visibility"
 
-#: C/gnome-commander.xml:7485(para) C/gnome-commander.xml:7492(para)
-#: C/gnome-commander.xml:7499(para) C/gnome-commander.xml:7632(para)
-#: C/gnome-commander.xml:7743(para) C/gnome-commander.xml:7813(para)
-#: C/gnome-commander.xml:7848(para) C/gnome-commander.xml:7869(para)
+#: C/gnome-commander.xml:7507(para) C/gnome-commander.xml:7514(para)
+#: C/gnome-commander.xml:7521(para) C/gnome-commander.xml:7654(para)
+#: C/gnome-commander.xml:7765(para) C/gnome-commander.xml:7835(para)
+#: C/gnome-commander.xml:7870(para) C/gnome-commander.xml:7891(para)
 msgid "boolean"
 msgstr "pravdivostní"
 
-#: C/gnome-commander.xml:7486(para)
+#: C/gnome-commander.xml:7508(para)
 msgid "Show commandline."
 msgstr "Zobrazovat příkazový řádek."
 
-#: C/gnome-commander.xml:7491(para)
+#: C/gnome-commander.xml:7513(para)
 msgid "conbuttons_visibility"
 msgstr "conbuttons_visibility"
 
-#: C/gnome-commander.xml:7493(para)
+#: C/gnome-commander.xml:7515(para)
 msgid "Show connection/device buttons."
 msgstr "Zobrazovat tlačítka připojení/zařízení."
 
-#: C/gnome-commander.xml:7498(para)
+#: C/gnome-commander.xml:7520(para)
 msgid "con_list_visibility"
 msgstr "con_list_visibility"
 
-#: C/gnome-commander.xml:7500(para)
+#: C/gnome-commander.xml:7522(para)
 msgid "Show connection/device list."
 msgstr "Zobrazovat seznam připojení/zařízení."
 
-#: C/gnome-commander.xml:7505(para)
+#: C/gnome-commander.xml:7527(para)
 msgid "date_disp_mode"
 msgstr "date_disp_mode"
 
-#: C/gnome-commander.xml:7512(para)
+#: C/gnome-commander.xml:7534(para)
 msgid "dir_cache_size"
 msgstr "dir_cache_size"
 
-#: C/gnome-commander.xml:7519(para)
+#: C/gnome-commander.xml:7541(para)
 msgid "document_icon_dir"
 msgstr "document_icon_dir"
 
-#: C/gnome-commander.xml:7526(para)
+#: C/gnome-commander.xml:7548(para)
 msgid "ext_disp_mode"
 msgstr "ext_disp_mode"
 
-#: C/gnome-commander.xml:7533(para)
+#: C/gnome-commander.xml:7555(para)
 msgid "hidden_filter"
 msgstr "hidden_filter"
 
-#: C/gnome-commander.xml:7540(para)
+#: C/gnome-commander.xml:7562(para)
 msgid "icon_size"
 msgstr "icon_size"
 
-#: C/gnome-commander.xml:7541(para) C/gnome-commander.xml:7548(para)
-#: C/gnome-commander.xml:7855(para)
+#: C/gnome-commander.xml:7563(para) C/gnome-commander.xml:7570(para)
+#: C/gnome-commander.xml:7877(para)
 msgid "integer"
 msgstr "celé číslo"
 
-#: C/gnome-commander.xml:7547(para)
+#: C/gnome-commander.xml:7569(para)
 msgid "dev_icon_size"
 msgstr "dev_icon_size"
 
-#: C/gnome-commander.xml:7549(para)
+#: C/gnome-commander.xml:7571(para)
 msgid "Size of device icons. Defaults to 16."
 msgstr "Velikost ikony zařízení. Výchozí je 16."
 
-#: C/gnome-commander.xml:7554(para)
+#: C/gnome-commander.xml:7576(para)
 msgid "icon_scale_quality"
 msgstr "icon_scale_quality"
 
-#: C/gnome-commander.xml:7561(para)
+#: C/gnome-commander.xml:7583(para)
 msgid "layout"
 msgstr "layout"
 
-#: C/gnome-commander.xml:7568(para)
+#: C/gnome-commander.xml:7590(para)
 msgid "list_font"
 msgstr "list_font"
 
-#: C/gnome-commander.xml:7575(para)
+#: C/gnome-commander.xml:7597(para)
 msgid "list_orientation"
 msgstr "list_orientation"
 
-#: C/gnome-commander.xml:7582(para)
+#: C/gnome-commander.xml:7604(para)
 msgid "list_row_height"
 msgstr "list_row_height"
 
-#: C/gnome-commander.xml:7589(para)
+#: C/gnome-commander.xml:7611(para)
 msgid "main_win_pos_x"
 msgstr "main_win_pos_x"
 
-#: C/gnome-commander.xml:7596(para)
+#: C/gnome-commander.xml:7618(para)
 msgid "main_win_pos_y"
 msgstr "main_win_pos_y"
 
-#: C/gnome-commander.xml:7603(para)
+#: C/gnome-commander.xml:7625(para)
 msgid "perm_disp_mode"
 msgstr "perm_disp_mode"
 
-#: C/gnome-commander.xml:7610(para)
+#: C/gnome-commander.xml:7632(para)
 msgid "left_mouse_button_mode"
 msgstr "left_mouse_button_mode"
 
-#: C/gnome-commander.xml:7617(para)
+#: C/gnome-commander.xml:7639(para)
 msgid "left_mouse_button_unselects"
 msgstr "left_mouse_button_unselects"
 
-#: C/gnome-commander.xml:7624(para)
+#: C/gnome-commander.xml:7646(para)
 msgid "right_mouse_button_mode"
 msgstr "right_mouse_button_mode"
 
-#: C/gnome-commander.xml:7631(para)
+#: C/gnome-commander.xml:7653(para)
 msgid "select_dirs"
 msgstr "select_dirs"
 
-#: C/gnome-commander.xml:7638(para)
+#: C/gnome-commander.xml:7660(para)
 msgid "show_block_device"
 msgstr "show_block_device"
 
-#: C/gnome-commander.xml:7645(para)
+#: C/gnome-commander.xml:7667(para)
 msgid "show_char_device"
 msgstr "show_char_device"
 
-#: C/gnome-commander.xml:7652(para)
+#: C/gnome-commander.xml:7674(para)
 msgid "show_directory"
 msgstr "show_directory"
 
-#: C/gnome-commander.xml:7659(para)
+#: C/gnome-commander.xml:7681(para)
 msgid "show_fifo"
 msgstr "show_fifo"
 
-#: C/gnome-commander.xml:7666(para)
+#: C/gnome-commander.xml:7688(para)
 msgid "show_regular"
 msgstr "show_regular"
 
-#: C/gnome-commander.xml:7673(para)
+#: C/gnome-commander.xml:7695(para)
 msgid "show_socket"
 msgstr "show_socket"
 
-#: C/gnome-commander.xml:7680(para)
+#: C/gnome-commander.xml:7702(para)
 msgid "show_symbolic_link"
 msgstr "show_symbolic_link"
 
-#: C/gnome-commander.xml:7687(para)
+#: C/gnome-commander.xml:7709(para)
 msgid "show_toolbar"
 msgstr "show_toolbar"
 
-#: C/gnome-commander.xml:7694(para)
+#: C/gnome-commander.xml:7716(para)
 msgid "show_unknown"
 msgstr "show_unknown"
 
-#: C/gnome-commander.xml:7701(para)
+#: C/gnome-commander.xml:7723(para)
 msgid "size_disp_mode"
 msgstr "size_disp_mode"
 
-#: C/gnome-commander.xml:7708(para)
+#: C/gnome-commander.xml:7730(para)
 msgid "symlink_prefix"
 msgstr "symlink_prefix"
 
-#: C/gnome-commander.xml:7714(para)
+#: C/gnome-commander.xml:7736(para)
 msgid "\"%s\" is crucial here - it is expanded to original filename."
 msgstr "„%s“ je zde podstatné – je rozvinuto do původního názvu souboru."
 
-#: C/gnome-commander.xml:7710(para)
+#: C/gnome-commander.xml:7732(para)
 msgid ""
 "Empty value means 'use \"link to %s\" for symlink' (or translation if "
 "available), other values = use given string for symlink name. <placeholder-1/"
@@ -15869,231 +15913,231 @@ msgstr ""
 "překlad, pokud je dostupný), jiné hodnoty = použít zadaný řetězec pro "
 "symbolický odkaz. <placeholder-1/>"
 
-#: C/gnome-commander.xml:7721(para)
+#: C/gnome-commander.xml:7743(para)
 msgid "theme_icon_dir"
 msgstr "theme_icon_dir"
 
-#: C/gnome-commander.xml:7727(para)
+#: C/gnome-commander.xml:7749(para)
 msgid "[sort]"
 msgstr "[sort]"
 
-#: C/gnome-commander.xml:7728(para)
+#: C/gnome-commander.xml:7750(para)
 msgid "case_sensitive"
 msgstr "case_sensitive"
 
-#: C/gnome-commander.xml:7734(para)
+#: C/gnome-commander.xml:7756(para)
 msgid "[confirm]"
 msgstr "[confirm]"
 
-#: C/gnome-commander.xml:7735(para)
+#: C/gnome-commander.xml:7757(para)
 msgid "delete"
 msgstr "delete"
 
-#: C/gnome-commander.xml:7742(para)
+#: C/gnome-commander.xml:7764(para)
 msgid "confirm_mouse_dnd"
 msgstr "confirm_mouse_dnd"
 
-#: C/gnome-commander.xml:7744(para)
+#: C/gnome-commander.xml:7766(para)
 msgid "If enabled, confirm drag &amp; drop operations"
 msgstr "Pokud je zapnuto, musí se potvrzovat operace „táhni a upusť“"
 
-#: C/gnome-commander.xml:7748(para)
+#: C/gnome-commander.xml:7770(para)
 msgid "[colors]"
 msgstr "[colors]"
 
-#: C/gnome-commander.xml:7749(para)
+#: C/gnome-commander.xml:7771(para)
 msgid "curs_bg"
 msgstr "curs_bg"
 
-#: C/gnome-commander.xml:7751(para)
+#: C/gnome-commander.xml:7773(para)
 msgid "Cursor background"
 msgstr "Pozadí kurzoru"
 
-#: C/gnome-commander.xml:7756(para)
+#: C/gnome-commander.xml:7778(para)
 msgid "curs_fg"
 msgstr "curs_fg"
 
-#: C/gnome-commander.xml:7758(para)
+#: C/gnome-commander.xml:7780(para)
 msgid "Cursor foreground"
 msgstr "Popředí kurzoru"
 
-#: C/gnome-commander.xml:7763(para)
+#: C/gnome-commander.xml:7785(para)
 msgid "mode"
 msgstr "mode"
 
-#: C/gnome-commander.xml:7770(para)
+#: C/gnome-commander.xml:7792(para)
 msgid "norm_bg"
 msgstr "norm_bg"
 
-#: C/gnome-commander.xml:7772(para)
+#: C/gnome-commander.xml:7794(para)
 msgid "Current background"
 msgstr "Aktuální pozadí"
 
-#: C/gnome-commander.xml:7777(para)
+#: C/gnome-commander.xml:7799(para)
 msgid "norm_fg"
 msgstr "norm_fg"
 
-#: C/gnome-commander.xml:7779(para)
+#: C/gnome-commander.xml:7801(para)
 msgid "Current foreground"
 msgstr "Aktuální popředí"
 
-#: C/gnome-commander.xml:7784(para)
+#: C/gnome-commander.xml:7806(para)
 msgid "alt_bg"
 msgstr "alt_bg"
 
-#: C/gnome-commander.xml:7786(para)
+#: C/gnome-commander.xml:7808(para)
 msgid "Alternate background"
 msgstr "Střídající pozadí"
 
-#: C/gnome-commander.xml:7791(para)
+#: C/gnome-commander.xml:7813(para)
 msgid "alt_fg"
 msgstr "alt_fg"
 
-#: C/gnome-commander.xml:7793(para)
+#: C/gnome-commander.xml:7815(para)
 msgid "Alternate foreground"
 msgstr "Střídající popředí"
 
-#: C/gnome-commander.xml:7798(para)
+#: C/gnome-commander.xml:7820(para)
 msgid "sel_bg"
 msgstr "sel_bg"
 
-#: C/gnome-commander.xml:7800(para)
+#: C/gnome-commander.xml:7822(para)
 msgid "Selected background"
 msgstr "Vybrané pozadí"
 
-#: C/gnome-commander.xml:7805(para)
+#: C/gnome-commander.xml:7827(para)
 msgid "sel_fg"
 msgstr "sel_fg"
 
-#: C/gnome-commander.xml:7807(para)
+#: C/gnome-commander.xml:7829(para)
 msgid "Selected foreground"
 msgstr "Vybrané popředí"
 
-#: C/gnome-commander.xml:7812(para)
+#: C/gnome-commander.xml:7834(para)
 msgid "use_ls_colors"
 msgstr "use_ls_colors"
 
-#: C/gnome-commander.xml:7814(para)
+#: C/gnome-commander.xml:7836(para)
 msgid ""
 "Colorize files according to the LS_COLORS environment variable. Defaults to "
 "FALSE."
 msgstr ""
 "Obarvovat soubory podle proměnné prostředí LS_COLORS. Výchozí je VYPNUTO."
 
-#: C/gnome-commander.xml:7818(para)
+#: C/gnome-commander.xml:7840(para)
 msgid "[programs]"
 msgstr "[programs]"
 
-#: C/gnome-commander.xml:7819(para)
+#: C/gnome-commander.xml:7841(para)
 msgid "buttonbar_visibility"
 msgstr "buttonbar_visibility"
 
-#: C/gnome-commander.xml:7826(para)
+#: C/gnome-commander.xml:7848(para)
 msgid "differ"
 msgstr "differ"
 
-#: C/gnome-commander.xml:7833(para)
+#: C/gnome-commander.xml:7855(para)
 msgid "editor"
 msgstr "editor"
 
-#: C/gnome-commander.xml:7840(para)
+#: C/gnome-commander.xml:7862(para)
 msgid "honor_expect_uris"
 msgstr "honor_expect_uris"
 
-#: C/gnome-commander.xml:7847(para)
+#: C/gnome-commander.xml:7869(para)
 msgid "always_show_tabs"
 msgstr "always_show_tabs"
 
-#: C/gnome-commander.xml:7854(para)
+#: C/gnome-commander.xml:7876(para)
 msgid "tab_lock_indicator"
 msgstr "tab_lock_indicator"
 
-#: C/gnome-commander.xml:7861(para)
+#: C/gnome-commander.xml:7883(para)
 msgid "allow_multiple_instances"
 msgstr "allow_multiple_instances"
 
-#: C/gnome-commander.xml:7868(para)
+#: C/gnome-commander.xml:7890(para)
 msgid "skip_mounting"
 msgstr "skip_mounting"
 
-#: C/gnome-commander.xml:7875(para)
+#: C/gnome-commander.xml:7897(para)
 msgid "terminal"
 msgstr "terminal"
 
-#: C/gnome-commander.xml:7882(para)
+#: C/gnome-commander.xml:7904(para)
 msgid "toolbar_visibility"
 msgstr "toolbar_visibility"
 
-#: C/gnome-commander.xml:7889(para)
+#: C/gnome-commander.xml:7911(para)
 msgid "use_internal_viewer"
 msgstr "use_internal_viewer"
 
-#: C/gnome-commander.xml:7896(para)
+#: C/gnome-commander.xml:7918(para)
 msgid "viewer"
 msgstr "viewer"
 
-#: C/gnome-commander.xml:7902(para)
+#: C/gnome-commander.xml:7924(para)
 msgid "[devices]"
 msgstr "[devices]"
 
-#: C/gnome-commander.xml:7903(para)
+#: C/gnome-commander.xml:7925(para)
 msgid "only_icon"
 msgstr "only_icon"
 
-#: C/gnome-commander.xml:7909(para)
+#: C/gnome-commander.xml:7931(para)
 msgid "[quick-connect]"
 msgstr "[quick-connect]"
 
-#: C/gnome-commander.xml:7910(para)
+#: C/gnome-commander.xml:7932(para)
 msgid "uri"
 msgstr "uri"
 
-#: C/gnome-commander.xml:7912(para)
+#: C/gnome-commander.xml:7934(para)
 msgid "URI for the last entered location."
 msgstr "Adresa URI pro naposledy zadané umístění."
 
-#: C/gnome-commander.xml:7916(para)
+#: C/gnome-commander.xml:7938(para)
 msgid "[defaults]"
 msgstr "[defaults]"
 
-#: C/gnome-commander.xml:7917(para)
+#: C/gnome-commander.xml:7939(para)
 msgid "backup_pattern"
 msgstr "backup_pattern"
 
-#: C/gnome-commander.xml:7923(para)
+#: C/gnome-commander.xml:7945(para)
 msgid "[local_bookmarks]"
 msgstr "[local_bookmarks]"
 
-#: C/gnome-commander.xml:7924(para) C/gnome-commander.xml:7945(para)
-#: C/gnome-commander.xml:7959(para)
+#: C/gnome-commander.xml:7946(para) C/gnome-commander.xml:7967(para)
+#: C/gnome-commander.xml:7981(para)
 msgid "count"
 msgstr "count"
 
-#: C/gnome-commander.xml:7931(para)
+#: C/gnome-commander.xml:7953(para)
 msgid "name<emphasis><subscript>n</subscript></emphasis>"
 msgstr "name<emphasis><subscript>n</subscript></emphasis>"
 
-#: C/gnome-commander.xml:7938(para)
+#: C/gnome-commander.xml:7960(para)
 msgid "path<emphasis><subscript>n</subscript></emphasis>"
 msgstr "path<emphasis><subscript>n</subscript></emphasis>"
 
-#: C/gnome-commander.xml:7944(para)
+#: C/gnome-commander.xml:7966(para)
 msgid "[smb_bookmarks]"
 msgstr "[smb_bookmarks]"
 
-#: C/gnome-commander.xml:7951(para)
+#: C/gnome-commander.xml:7973(para)
 msgid "[plugins]"
 msgstr "[plugins]"
 
-#: C/gnome-commander.xml:7952(para)
+#: C/gnome-commander.xml:7974(para)
 msgid "auto_load<emphasis><subscript>n</subscript></emphasis>"
 msgstr "auto_load<emphasis><subscript>n</subscript></emphasis>"
 
-#: C/gnome-commander.xml:7965(para)
+#: C/gnome-commander.xml:7987(para)
 msgid "[key-bindings]"
 msgstr "[key-bindings]"
 
-#: C/gnome-commander.xml:7966(para)
+#: C/gnome-commander.xml:7988(para)
 msgid ""
 "[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
 "win&gt;]<emphasis>key_name</emphasis>"
@@ -16101,15 +16145,15 @@ msgstr ""
 "[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
 "win&gt;]<emphasis>název_klávesy</emphasis>"
 
-#: C/gnome-commander.xml:7968(command)
+#: C/gnome-commander.xml:7990(command)
 msgid "action[|options]"
 msgstr "akce[|volby]"
 
-#: C/gnome-commander.xml:7989(title)
+#: C/gnome-commander.xml:8011(title)
 msgid "Known Bugs and Limitations"
 msgstr "Známé chyby a omezení"
 
-#: C/gnome-commander.xml:7990(para)
+#: C/gnome-commander.xml:8012(para)
 msgid ""
 "You can report or view GNOME Commander bugs at the <ulink type=\"http\" url="
 "\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander\">the gnome."
@@ -16119,7 +16163,7 @@ msgstr ""
 "\"http\" url=\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander"
 "\">gnome.org Bugzilla</ulink>."
 
-#: C/gnome-commander.xml:7991(para)
+#: C/gnome-commander.xml:8013(para)
 msgid ""
 "Some words about bugs: Though GNOME Commander is relatively free from bugs "
 "and is a quite mature program, no programs will ever be totally bug free. "
@@ -16147,7 +16191,7 @@ msgstr ""
 "doporučování oprav a/nebo zasílání záplat vývojářům, vše v duchu svobodného "
 "a otevřeného softwaru."
 
-#: C/gnome-commander.xml:8001(para)
+#: C/gnome-commander.xml:8023(para)
 msgid ""
 "GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
 "GnomeVFS. This might be the cause that some Python plugins won't run on your "
@@ -16157,7 +16201,7 @@ msgstr ""
 "GnomeVFS. To může způsobit, že některé zásuvné moduly v jazyce Python nemusí "
 "ve vašem systému pracovat."
 
-#: C/gnome-commander.xml:8002(para)
+#: C/gnome-commander.xml:8024(para)
 msgid ""
 "Configuration of default application depending on the files MIME type is "
 "broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
@@ -16167,23 +16211,23 @@ msgstr ""
 "ve verzi 1.4 bylo definitivně odstraněno. Více informací viz oddíl <xref "
 "linkend=\"gnome-commander-mime-types\"/>."
 
-#: C/gnome-commander.xml:7999(para)
+#: C/gnome-commander.xml:8021(para)
 msgid "Known limitation: <placeholder-1/>"
 msgstr "Známá omezení: <placeholder-1/>"
 
-#: C/gnome-commander.xml:8004(emphasis)
+#: C/gnome-commander.xml:8026(emphasis)
 msgid "Given enough eyeballs, all bugs are shallow."
 msgstr "Je-li dost očí, jsou všechny chyby průhledné."
 
-#: C/gnome-commander.xml:8006(foreignphrase)
+#: C/gnome-commander.xml:8028(foreignphrase)
 msgid "Linus law."
 msgstr "Linusův zákon"
 
-#: C/gnome-commander.xml:8018(title)
+#: C/gnome-commander.xml:8040(title)
 msgid "History of GNOME Commander"
 msgstr "Historie GNOME Commanderu"
 
-#: C/gnome-commander.xml:8019(para)
+#: C/gnome-commander.xml:8041(para)
 msgid ""
 "GNOME Commander was primarily written by Marcus Bjurman, who was the one "
 "initiating this project in 2001 and developed it up to version 1.1.6 in "
@@ -16192,7 +16236,7 @@ msgstr ""
 "GNOME Commander původně napsal Marcus Bjurman, který byl zakladatelem tohoto "
 "projektu v roce 2001 a vyvíjel jej až po verzi 1.1.6 v lednu 2004."
 
-#: C/gnome-commander.xml:8021(para)
+#: C/gnome-commander.xml:8043(para)
 msgid ""
 "Later on, since 2004, GNOME Commander was maintained by the new lead "
 "developer Piotr Eljasiak, working at the project already since 2002. In this "
@@ -16202,7 +16246,7 @@ msgstr ""
 "Piotrem Eljasiakem, který se na projektu podílel už od roku 2002. V této "
 "době přispěl Assaf Gordon implementací interního prohlížeče souborů."
 
-#: C/gnome-commander.xml:8024(para)
+#: C/gnome-commander.xml:8046(para)
 msgid ""
 "Piotr conducted the development until version 1.2.8.15. In this time Magnus "
 "Stålnacke was responsible for the homepage. On the mailing list, amongst "
@@ -16216,7 +16260,7 @@ msgstr ""
 "té, co Magnus od projektu ustoupil, začal se o domovskou stránku na savannah."
 "org starta Thomas Jost."
 
-#: C/gnome-commander.xml:8029(para)
+#: C/gnome-commander.xml:8051(para)
 msgid ""
 "Unfortunately, Piotr suddenly passed away in the beginning of 2012 and GNOME "
 "Commander had no maintainer for nearly two years. Late in 2013, Uwe Scholz, "
@@ -16227,7 +16271,7 @@ msgstr ""
 "neměl GNOME Commander žádného správce. Později, v roce 2013 převzal vedení "
 "projektu Uwe Scholz, který byl uživatelem GNOME Commanderu už před verzí 1.0."
 
-#: C/gnome-commander.xml:8035(para)
+#: C/gnome-commander.xml:8057(para)
 msgid ""
 "In the beginning, GNOME Commander had its home at Sourceforge. Later, the "
 "project moved to Savannah.org, where it got its own homepage and its mailing "
@@ -16239,18 +16283,18 @@ msgstr ""
 "konferenci. Na konci roku 2003 byl zdrojový kód přesunut na Gnome.org. "
 "Domovská stránka a poštovní konference ale zůstaly hostovány na Savannah."
 
-#: C/gnome-commander.xml:8039(para)
+#: C/gnome-commander.xml:8061(para)
 msgid ""
 "Since 2013, the location of the GNOME Commander home page has been moved to "
 "GitHub.org."
 msgstr ""
 "Od roku 2013 byla domovská stránka GNOME Commanderu přesunuta na GitHub.org."
 
-#: C/gnome-commander.xml:8042(title)
+#: C/gnome-commander.xml:8064(title)
 msgid "Bug Reporting"
 msgstr "Hlášení chyb"
 
-#: C/gnome-commander.xml:8043(para)
+#: C/gnome-commander.xml:8065(para)
 msgid ""
 "If you found a bug, you can check if it is already reported on our <ulink "
 "type=\"http\" url=\"https://bugzilla.gnome.org/browse.cgi?product=gnome-"
@@ -16265,7 +16309,7 @@ msgstr ""
 "opravit, podívejte se prosím na oddíl <xref linkend=\"gnome-commander-"
 "development-version\"/>."
 
-#: C/gnome-commander.xml:8051(para)
+#: C/gnome-commander.xml:8073(para)
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
