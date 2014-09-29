@@ -136,6 +136,14 @@ inline GSList *get_radio_group (GtkWidget *radio)
     return gtk_radio_button_get_group (GTK_RADIO_BUTTON (radio));
 }
 
+/**
+ * Wrapper function for <a href="https://developer.gnome.org/gtk3/stable/GtkTable.html#gtk-table-attach">gtk_table_attach</a> to easily add a widget to a GtkTable table.
+ * \param *table A table widget.
+ * \param *w The widget which should be added to the table.
+ * \param x The column number to attach the left side of a child widget to.
+ * \param y The row number to attach the top of a child widget to.
+ * \param x_opts Used to specify the properties of the child widget when the table is resized.
+ */
 inline void table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts)
 {
     gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, (GtkAttachOptions)0, 0, 0);
