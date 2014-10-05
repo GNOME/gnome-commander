@@ -1206,8 +1206,8 @@ void GnomeCmdData::load()
     options.viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     options.editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
     options.differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
-    options.termopen = gnome_cmd_data_get_string ("/programs/terminal_open", "xterm -hold");
-    options.termexec = gnome_cmd_data_get_string ("/programs/terminal_exec", "xterm -hold -e %s");
+    options.termopen = gnome_cmd_data_get_string ("/programs/terminal_open", "gnome-terminal");
+    options.termexec = gnome_cmd_data_get_string ("/programs/terminal_exec", "gnome-terminal -e %s");
 
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
