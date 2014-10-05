@@ -95,7 +95,15 @@ void DEBUG (gchar flag, const gchar *format, ...)
 }
 
 
-void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term)
+/**
+ * This function executes a command in the active directory in a
+ * terminal window, if desired.
+ * \param in_command Command to be executed.
+ * \param dpath Directory in which the command should be executed.
+ * \param term If TRUE, the command is executed in a terminal window. 
+ * \sa GnomeCmdData::Options::termexec
+ */
+void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
 {
     gchar *command;
 
@@ -120,8 +128,16 @@ void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term
         command = g_strdup (in_command);
 
     DEBUG ('g', "running%s: %s\n", (term?" in terminal":""), command);
+ 
+    gint argc;
+    gchar **argv;
+    GError *error = NULL;
 
-    gnome_execute_shell (dir, command);
+    g_shell_parse_argv (command, &argc, &argv, NULL);
+    if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+        gnome_cmd_error_message (_("Unable to execute command."), error);
+
+    g_strfreev (argv);
     g_free (command);
 }
 
