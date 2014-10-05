@@ -3,7 +3,10 @@ gnome-commander 1.4.4
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed problem bgo#737088 (Support for user's terminal different from gnome-terminal)
+New or updated translations: 
+    cs (Marek Černocký)
+    es (Daniel Mustieles)
 
 ===================================
 gnome-commander 1.4.3
