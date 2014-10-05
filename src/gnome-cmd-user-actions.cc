@@ -1188,7 +1188,6 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
         gnome_cmd_error_message (_("Unable to execute command."), error);
 
     g_strfreev (argv);
-    g_free (error);
     g_list_free (sfl);
 }
 
