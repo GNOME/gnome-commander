@@ -1186,8 +1186,9 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
     if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
         gnome_cmd_error_message (_("Unable to execute command."), error);
-    g_strfreev (argv);
 
+    g_strfreev (argv);
+    g_free (error);
     g_list_free (sfl);
 }
 
@@ -1204,16 +1205,30 @@ void command_open_terminal__internal (GtkMenuItem *menuitem, gpointer not_used) 
         command_open_terminal (menuitem, NULL);
 }
 
-
+/** 
+ * Executes the command stored in gnome_cmd_data.options.termopen in the
+ * active directory.
+ */
 void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
+    gint argc;
+    gchar **argv;
+    gchar *command;
     gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
+    GError *error = NULL;
 
-    if (gnome_execute_terminal_shell (dpath, NULL) == -1)
-        gnome_cmd_show_message (NULL, _("Unable to open terminal"), g_strerror (errno));
+    command = g_strdup (gnome_cmd_data.options.termopen);
+
+    DEBUG ('g', "running: %s\n", command);
+
+    g_shell_parse_argv (command, &argc, &argv, NULL);
+    if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+        gnome_cmd_error_message (_("Unable to execute command."), error);
+
+    g_strfreev (argv);
+    g_free (command);
     g_free (dpath);
 }
-
 
 void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 {

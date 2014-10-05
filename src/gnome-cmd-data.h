@@ -136,7 +136,8 @@ struct GnomeCmdData
         gboolean                     use_internal_viewer;
         gchar                       *editor;
         gchar                       *differ;
-        gchar                       *term;
+        gchar                       *termopen;
+        gchar                       *termexec;
         GList                       *fav_apps;
         //  Devices
         gboolean                     device_only_icon;
@@ -182,7 +183,8 @@ struct GnomeCmdData
                    use_internal_viewer(TRUE),
                    editor(NULL),
                    differ(NULL),
-                   term(NULL),
+                   termopen(NULL),
+                   termexec(NULL),
                    fav_apps(NULL),
                    device_only_icon(FALSE),
                    skip_mounting(FALSE)
@@ -204,7 +206,8 @@ struct GnomeCmdData
             g_free (viewer);
             g_free (editor);
             g_free (differ);
-            g_free (term);
+            g_free (termopen);
+            g_free (termexec);
         }
 
         Options &operator = (const Options &cfg);
@@ -270,10 +273,16 @@ struct GnomeCmdData
             differ = g_strdup (command);
         }
 
-        void set_term(const gchar *command)
+        void set_termexec(const gchar *command)
         {
-            g_free (term);
-            term = g_strdup (command);
+            g_free (termexec);
+            termexec = g_strdup (command);
+        }
+
+        void set_termopen(const gchar *command)
+        {
+            g_free (termopen);
+            termopen = g_strdup (command);
         }
 
         void add_fav_app(GnomeCmdApp *app)

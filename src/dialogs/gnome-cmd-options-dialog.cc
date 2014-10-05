@@ -1524,7 +1524,7 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    table = create_table (parent, 5, 2);
+    table = create_table (parent, 6, 2);
     cat = create_category (parent, table, _("Standard programs"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1536,6 +1536,8 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     table_add (table, label, 0, 3, GTK_FILL);
     label = create_label (parent, _("Terminal:"));
     table_add (table, label, 0, 4, GTK_FILL);
+    label = create_label (parent, _("Terminal for executing a program:"));
+    table_add (table, label, 0, 5, GTK_FILL);
 
     entry = create_entry (parent, "viewer", cfg.viewer);
     table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
@@ -1547,8 +1549,10 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "differ", cfg.differ);
     table_add (table, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "term", cfg.term);
+    entry = create_entry (parent, "termopen", cfg.termopen);
     table_add (table, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    entry = create_entry (parent, "termexec", cfg.termexec);
+    table_add (table, entry, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
 
     //Other favorite apps frame
@@ -1605,14 +1609,16 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     GtkWidget *entry1 = lookup_widget (dialog, "viewer");
     GtkWidget *entry2 = lookup_widget (dialog, "editor");
     GtkWidget *entry3 = lookup_widget (dialog, "differ");
-    GtkWidget *entry5 = lookup_widget (dialog, "term");
+    GtkWidget *entry5 = lookup_widget (dialog, "termopen");
+    GtkWidget *entry6 = lookup_widget (dialog, "termexec");
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
 
     cfg.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
     cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
     cfg.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
-    cfg.set_term(gtk_entry_get_text (GTK_ENTRY (entry5)));
+    cfg.set_termopen(gtk_entry_get_text (GTK_ENTRY (entry5)));
+    cfg.set_termexec(gtk_entry_get_text (GTK_ENTRY (entry6)));
 
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
     cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
