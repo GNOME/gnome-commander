@@ -1524,7 +1524,7 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    table = create_table (parent, 6, 2);
+    table = create_table (parent, 7, 2);
     cat = create_category (parent, table, _("Standard programs"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1534,10 +1534,12 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     table_add (table, label, 0, 2, GTK_FILL);
     label = create_label (parent, _("Differ:"));
     table_add (table, label, 0, 3, GTK_FILL);
-    label = create_label (parent, _("Terminal:"));
+    label = create_label (parent, _("Send-to:"));
     table_add (table, label, 0, 4, GTK_FILL);
-    label = create_label (parent, _("Terminal for executing a program:"));
+    label = create_label (parent, _("Terminal:"));
     table_add (table, label, 0, 5, GTK_FILL);
+    label = create_label (parent, _("Terminal for executing a program:"));
+    table_add (table, label, 0, 6, GTK_FILL);
 
     entry = create_entry (parent, "viewer", cfg.viewer);
     table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
@@ -1549,10 +1551,12 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "differ", cfg.differ);
     table_add (table, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "termopen", cfg.termopen);
+    entry = create_entry (parent, "sendto", cfg.sendto);
     table_add (table, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "termexec", cfg.termexec);
+    entry = create_entry (parent, "termopen", cfg.termopen);
     table_add (table, entry, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    entry = create_entry (parent, "termexec", cfg.termexec);
+    table_add (table, entry, 1, 6, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
 
     //Other favorite apps frame
@@ -1609,6 +1613,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     GtkWidget *entry1 = lookup_widget (dialog, "viewer");
     GtkWidget *entry2 = lookup_widget (dialog, "editor");
     GtkWidget *entry3 = lookup_widget (dialog, "differ");
+    GtkWidget *entry4 = lookup_widget (dialog, "sendto");
     GtkWidget *entry5 = lookup_widget (dialog, "termopen");
     GtkWidget *entry6 = lookup_widget (dialog, "termexec");
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
@@ -1617,6 +1622,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     cfg.set_viewer(gtk_entry_get_text (GTK_ENTRY (entry1)));
     cfg.set_editor(gtk_entry_get_text (GTK_ENTRY (entry2)));
     cfg.set_differ(gtk_entry_get_text (GTK_ENTRY (entry3)));
+    cfg.set_sendto(gtk_entry_get_text (GTK_ENTRY (entry4)));
     cfg.set_termopen(gtk_entry_get_text (GTK_ENTRY (entry5)));
     cfg.set_termexec(gtk_entry_get_text (GTK_ENTRY (entry6)));
 

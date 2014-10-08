@@ -109,6 +109,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     use_internal_viewer = cfg.use_internal_viewer;
     editor = g_strdup (cfg.editor);
     differ = g_strdup (cfg.differ);
+    sendto = g_strdup (cfg.sendto);
     termopen = g_strdup (cfg.termopen);
     termexec = g_strdup (cfg.termexec);
     fav_apps = cfg.fav_apps;
@@ -165,6 +166,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         use_internal_viewer = cfg.use_internal_viewer;
         editor = g_strdup (cfg.editor);
         differ = g_strdup (cfg.differ);
+        sendto = g_strdup (cfg.sendto);
         termopen = g_strdup (cfg.termopen);
         termexec = g_strdup (cfg.termexec);
         fav_apps = cfg.fav_apps;
@@ -1206,6 +1208,7 @@ void GnomeCmdData::load()
     options.viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     options.editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
     options.differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
+    options.sendto = gnome_cmd_data_get_string ("/programs/sendto", "nautilus-sendto %s");
     options.termopen = gnome_cmd_data_get_string ("/programs/terminal_open", "gnome-terminal");
     options.termexec = gnome_cmd_data_get_string ("/programs/terminal_exec", "gnome-terminal -e %s");
 
@@ -1629,6 +1632,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/programs/viewer", options.viewer);
     gnome_cmd_data_set_string ("/programs/editor", options.editor);
     gnome_cmd_data_set_string ("/programs/differ", options.differ);
+    gnome_cmd_data_set_string ("/programs/sendto", options.sendto);
     gnome_cmd_data_set_string ("/programs/terminal_open", options.termopen);
     gnome_cmd_data_set_string ("/programs/terminal_exec", options.termexec);
 

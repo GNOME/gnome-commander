@@ -136,6 +136,7 @@ struct GnomeCmdData
         gboolean                     use_internal_viewer;
         gchar                       *editor;
         gchar                       *differ;
+        gchar                       *sendto;
         gchar                       *termopen;
         gchar                       *termexec;
         GList                       *fav_apps;
@@ -183,6 +184,7 @@ struct GnomeCmdData
                    use_internal_viewer(TRUE),
                    editor(NULL),
                    differ(NULL),
+                   sendto(NULL),
                    termopen(NULL),
                    termexec(NULL),
                    fav_apps(NULL),
@@ -206,6 +208,7 @@ struct GnomeCmdData
             g_free (viewer);
             g_free (editor);
             g_free (differ);
+            g_free (sendto);
             g_free (termopen);
             g_free (termexec);
         }
@@ -271,6 +274,12 @@ struct GnomeCmdData
         {
             g_free (differ);
             differ = g_strdup (command);
+        }
+
+        void set_sendto(const gchar *command)
+        {
+            g_free (sendto);
+            sendto = g_strdup (command);
         }
 
         void set_termexec(const gchar *command)

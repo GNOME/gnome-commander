@@ -891,7 +891,23 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    command_execute (menuitem, (gpointer) "nautilus-sendto %s");
+    gint argc;
+    gchar **argv;
+    gchar *command;
+    gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
+    GError *error = NULL;
+
+    command = g_strdup (gnome_cmd_data.options.sendto);
+
+    DEBUG ('g', "running: %s\n", command);
+
+    g_shell_parse_argv (command, &argc, &argv, NULL);
+    if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+        gnome_cmd_error_message (_("Unable to execute command."), error);
+
+    g_strfreev (argv);
+    g_free (command);
+    g_free (dpath);
 }
 
 
