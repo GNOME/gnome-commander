@@ -1229,24 +1229,25 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
     g_free (dpath);
 }
 
+/** 
+ * Combines the command stored in gnome_cmd_data.options.termopen with a
+ * command for a GUI for root login screen. The command is executed in
+ * the active directory afterwards.
+ */
 void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 {
+    
     int argc = 1;
-    char **argv = g_new0 (char *, argc+1);
+    char **argv = g_new0 (char *, argc+1);  //initialize argv
+    gchar *command;
 
-    argv[0] = gnome_util_user_shell ();
+    command = g_strdup (gnome_cmd_data.options.termopen);
+    // Parse the termopen string to get the number of arguments in argc
+    g_shell_parse_argv (command, &argc, &argv, NULL);
+    g_free (argv);
 
-    gnome_prepend_terminal_to_vector (&argc, &argv);
-
-    // Insert quotes into the string of argv to get, e.g.
-    // /usr/bin/gksu 'roxterm -e /bin/bash' instead of
-    // /usr/bin/gksu roxterm -e /bin/bash
-    // (the second case doesn't work in some cases)
-    gchar *cmd = g_strjoinv (" ", argv);
-    g_strfreev (argv);
-    argc = 1;
     argv = g_new0 (char *, argc+1);
-    argv[0] = cmd;
+    argv[0] = command;
 
     if (gnome_cmd_prepend_su_to_vector (argc, argv))
     {
@@ -1261,7 +1262,8 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
     else
         gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
 
-    g_strfreev (argv);
+    g_free (argv);
+    g_free (command);
 }
 
 
