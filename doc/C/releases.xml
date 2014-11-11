@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.4.4</para></entry>
-            <entry><para>2014-??-??</para></entry>
+            <entry><para>2014-11-11</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -36,7 +36,10 @@
                             <para>Fixed problem bgo#737088 (Support for user's terminal different from gnome-terminal)</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: cs, es</para>
+                            <para>New or updated translations: cs, de, eu, fi, id, sr, sr@latin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>

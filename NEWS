@@ -7,6 +7,14 @@ Bug fixes:
  * Fixed problem bgo#737088 (Support for user's terminal different from gnome-terminal)
 New or updated translations: 
     cs (Marek Černocký)
+    de (Benjamin Steinwender)
+    eu (Inaki Larranaga Murgoitio)
+    fi (Lasse Liehu)
+    id (Andika Triwidada)
+    sr (Мирослав Николић) (sr@latin)
+    sr@latin (Мирослав Николић)
+New or updated docs:
+    cs (Marek Černocký)
     es (Daniel Mustieles)
 
 ===================================
