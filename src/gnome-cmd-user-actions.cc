@@ -891,18 +891,101 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gint argc;
-    gchar **argv;
+    gboolean percent = FALSE;
     gchar *command;
     gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
-    GError *error = NULL;
+
+    string cmd;
+    string filename;
+    string quoted_filename;
+    string file_path;
+    string quoted_file_path;
+    string dir_path;
+    string quoted_dir_path;
+    string uri;
+
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GList *sfl = fl->get_selected_files();
+    GnomeCmdDir *dir = NULL;
 
     command = g_strdup (gnome_cmd_data.options.sendto);
 
-    DEBUG ('g', "running: %s\n", command);
+    cmd.reserve(2000);
 
-    g_shell_parse_argv (command, &argc, &argv, NULL);
-    if (!g_spawn_async (dpath, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+    for (const char *s=(const char *) command; *s; ++s)
+    {
+        if (!percent)
+        {
+            percent = *s=='%';
+
+            if (!percent)
+                cmd += *s;
+
+            continue;
+        }
+
+        switch (*s)
+        {
+            case 'f':           // %f  file name (or list for multiple selections)
+                if (filename.empty())
+                    get_file_list (filename, sfl, gnome_cmd_file_get_name);
+                cmd += filename;
+                break;
+
+            case 'F':           // %F  quoted filename (or list for multiple selections)
+                if (quoted_filename.empty())
+                    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
+                cmd += quoted_filename;
+                break;
+
+            case 'p':           // %p  full file system path (or list for multiple selections)
+                if (file_path.empty())
+                    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
+                cmd += file_path;
+                break;
+
+            case 'P':           // %P  quoted full file system path (or list for multiple selections)
+            case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
+                if (quoted_file_path.empty())
+                    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
+                cmd += quoted_file_path;
+                break;
+
+            case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
+                if (uri.empty())
+                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
+                cmd += uri;
+                break;
+
+            case 'd':           // %d  full path to the directory containing file
+                cmd += dir_path;
+                break;
+
+            case 'D':           // %D  quoted full path to the directory containg file
+                cmd += quoted_dir_path;
+                break;
+
+            default:
+                cmd += '%';
+            case '%':           // %%  percent sign
+                cmd += *s;
+                break;
+        }
+
+        percent = FALSE;
+    }
+
+    if (percent)
+        cmd += '%';
+
+    DEBUG ('g', "file_sendto: %s\n", cmd.c_str());
+
+    gint argc;
+    gchar **argv;
+    GError *error = NULL;
+
+    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+    if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
         gnome_cmd_error_message (_("Unable to execute command."), error);
 
     g_strfreev (argv);
