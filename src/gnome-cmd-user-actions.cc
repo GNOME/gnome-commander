@@ -108,6 +108,8 @@ inline gboolean append_real_path (string &s, GnomeCmdFile *f)
 }
 
 
+void parse_command(string *cmd, gchar * command);
+
 GnomeCmdUserActions gcmd_user_actions;
 
 
@@ -891,94 +893,20 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gboolean percent = FALSE;
     gchar *command;
-    gchar *dpath = GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_real_path();
-
-    string cmd;
-    string filename;
-    string quoted_filename;
-    string file_path;
-    string quoted_file_path;
-    string dir_path;
-    string quoted_dir_path;
-    string uri;
-
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
-    GList *sfl = fl->get_selected_files();
-    GnomeCmdDir *dir = NULL;
 
     command = g_strdup (gnome_cmd_data.options.sendto);
+    g_return_if_fail (command != NULL);
+    g_return_if_fail (command[0] != '\0');
+    DEBUG ('g', "Invoking 'Send files': %s\n", command);
+
+    GnomeCmdDir *dir = NULL;
+    string dir_path;
+    string cmd;
 
     cmd.reserve(2000);
-
-    for (const char *s=(const char *) command; *s; ++s)
-    {
-        if (!percent)
-        {
-            percent = *s=='%';
-
-            if (!percent)
-                cmd += *s;
-
-            continue;
-        }
-
-        switch (*s)
-        {
-            case 'f':           // %f  file name (or list for multiple selections)
-                if (filename.empty())
-                    get_file_list (filename, sfl, gnome_cmd_file_get_name);
-                cmd += filename;
-                break;
-
-            case 'F':           // %F  quoted filename (or list for multiple selections)
-                if (quoted_filename.empty())
-                    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
-                cmd += quoted_filename;
-                break;
-
-            case 'p':           // %p  full file system path (or list for multiple selections)
-                if (file_path.empty())
-                    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
-                cmd += file_path;
-                break;
-
-            case 'P':           // %P  quoted full file system path (or list for multiple selections)
-            case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
-                if (quoted_file_path.empty())
-                    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
-                cmd += quoted_file_path;
-                break;
-
-            case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
-                if (uri.empty())
-                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
-                cmd += uri;
-                break;
-
-            case 'd':           // %d  full path to the directory containing file
-                cmd += dir_path;
-                break;
-
-            case 'D':           // %D  quoted full path to the directory containg file
-                cmd += quoted_dir_path;
-                break;
-
-            default:
-                cmd += '%';
-            case '%':           // %%  percent sign
-                cmd += *s;
-                break;
-        }
-
-        percent = FALSE;
-    }
-
-    if (percent)
-        cmd += '%';
-
-    DEBUG ('g', "file_sendto: %s\n", cmd.c_str());
+    parse_command(&cmd, g_strdup(gnome_cmd_data.options.sendto));
+    DEBUG ('g', "Send files: %s\n", cmd.c_str());
 
     gint argc;
     gchar **argv;
@@ -990,7 +918,6 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 
     g_strfreev (argv);
     g_free (command);
-    g_free (dpath);
 }
 
 
@@ -1174,14 +1101,8 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     DEBUG ('g', "invoking: %s\n", command);
 
-    string cmd;
-    string filename;
-    string quoted_filename;
-    string file_path;
-    string quoted_file_path;
     string dir_path;
     string quoted_dir_path;
-    string uri;
 
     GnomeCmdDir *dir = NULL;
 
@@ -1206,76 +1127,10 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
         stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
     }
 
-    gboolean percent = FALSE;
-
+    string cmd;
     cmd.reserve(2000);
-
-    for (const char *s=(const char *) command; *s; ++s)
-    {
-        if (!percent)
-        {
-            percent = *s=='%';
-
-            if (!percent)
-                cmd += *s;
-
-            continue;
-        }
-
-        switch (*s)
-        {
-            case 'f':           // %f  file name (or list for multiple selections)
-                if (filename.empty())
-                    get_file_list (filename, sfl, gnome_cmd_file_get_name);
-                cmd += filename;
-                break;
-
-            case 'F':           // %F  quoted filename (or list for multiple selections)
-                if (quoted_filename.empty())
-                    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
-                cmd += quoted_filename;
-                break;
-
-            case 'p':           // %p  full file system path (or list for multiple selections)
-                if (file_path.empty())
-                    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
-                cmd += file_path;
-                break;
-
-            case 'P':           // %P  quoted full file system path (or list for multiple selections)
-            case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
-                if (quoted_file_path.empty())
-                    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
-                cmd += quoted_file_path;
-                break;
-
-            case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
-                if (uri.empty())
-                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
-                cmd += uri;
-                break;
-
-            case 'd':           // %d  full path to the directory containing file
-                cmd += dir_path;
-                break;
-
-            case 'D':           // %D  quoted full path to the directory containg file
-                cmd += quoted_dir_path;
-                break;
-
-            default:
-                cmd += '%';
-            case '%':           // %%  percent sign
-                cmd += *s;
-                break;
-        }
-
-        percent = FALSE;
-    }
-
-    if (percent)
-        cmd += '%';
-
+    parse_command(&cmd, (gchar*) command);
+    
     DEBUG ('g', "running: %s\n", cmd.c_str());
 
     gint argc;
@@ -1316,6 +1171,7 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
     GError *error = NULL;
 
     command = g_strdup (gnome_cmd_data.options.termopen);
+    g_return_if_fail (command[0] != '\0');
 
     DEBUG ('g', "running: %s\n", command);
 
@@ -2188,4 +2044,168 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
                            NULL);
 
     g_free (license_trans);
+}
+
+/** 
+ * Parses a command, stored in a char array, and substitutes a certain
+ * symbol with path or URI names. The result is stored in a string
+ * variable, which is expanded if needed. Possible symbols are:<BR>
+ * \%f: file name (or list for multiple selections)<BR>
+ * \%F: quoted filename (or list for multiple selections)<BR>
+ * \%p: full file system path (or list for multiple selections)<BR>
+ * \%P: quoted full file system path (or list for multiple selections)<BR>
+ * \%s: synonym for %P (for compatibility with previous versions of gcmd)<BR>
+ * \%u: fully qualified URI for the file (or list for multiple selections)<BR>
+ * \%d: full path to the directory containing file<BR>
+ * \%D: quoted full path to the directory containg file<BR>
+ * \%%: percent sign<BR>
+ * \param[in] command A char array to be parsed
+ * \param[out] cmd A string with parsed symbols listed above
+ */
+void parse_command(string *cmd, gchar *command)
+{
+    gboolean percent = FALSE;
+    string filename;
+    string quoted_filename;
+    string file_path;
+    string quoted_file_path;
+    string dir_path;
+    string quoted_dir_path;
+    string uri;
+    unsigned cmdcap;
+    unsigned cmdlen;
+
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GList *sfl = fl->get_selected_files();
+
+    cmdcap = cmd->capacity();
+    cmdlen = cmd->length();
+
+    for (const char *s=(const char *) command; *s; ++s)
+    {
+        if (!percent)
+        {
+            percent = (*s == '%');
+
+            if (!percent)
+	    {
+		if (cmdcap < cmdlen + 1)
+		{
+		    cmd->reserve(cmdlen +1);
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += *s;
+		cmdlen = cmd->length();
+	    }
+
+            continue;
+        }
+
+        switch (*s)
+        {
+            case 'f':           // %f  file name (or list for multiple selections)
+                if (filename.empty())
+                    get_file_list (filename, sfl, gnome_cmd_file_get_name);
+		if (cmdcap < cmdlen + filename.length())
+		{
+		    cmd->reserve(cmdlen + filename.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += filename;
+		cmdlen = cmd->length();
+                break;
+
+            case 'F':           // %F  quoted filename (or list for multiple selections)
+                if (quoted_filename.empty())
+                    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
+		if (cmdcap < cmdlen + quoted_filename.length())
+		{
+		    cmd->reserve(cmdlen + quoted_filename.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += quoted_filename;
+		cmdlen = cmd->length();
+                break;
+
+            case 'p':           // %p  full file system path (or list for multiple selections)
+                if (file_path.empty())
+                    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
+		if (cmdcap < cmdlen + file_path.length())
+		{
+		    cmd->reserve(cmdlen + file_path.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += file_path;
+		cmdlen = cmd->length();
+                break;
+
+            case 'P':           // %P  quoted full file system path (or list for multiple selections)
+            case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
+                if (quoted_file_path.empty())
+                    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
+		if (cmdcap < cmdlen + quoted_file_path.length())
+		{
+		    cmd->reserve(cmdlen + quoted_file_path.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += quoted_file_path;
+		cmdlen = cmd->length();
+                break;
+
+            case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
+                if (uri.empty())
+                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
+		if (cmdcap < cmdlen + uri.length())
+		{
+		    cmd->reserve(cmdlen + uri.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += uri;
+		cmdlen = cmd->length();
+                break;
+
+            case 'd':           // %d  full path to the directory containing file
+		if (cmdcap < cmdlen + dir_path.length())
+		{
+		    cmd->reserve(cmdlen + dir_path.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += dir_path;
+		cmdlen = cmd->length();
+                break;
+
+            case 'D':           // %D  quoted full path to the directory containg file
+		if (cmdcap < cmdlen + quoted_dir_path.length())
+		{
+		    cmd->reserve(cmdlen + quoted_dir_path.length());
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += quoted_dir_path;
+		cmdlen = cmd->length();
+                break;
+
+            default:
+		if (cmdcap < cmdlen + 1)
+		{
+		    cmd->reserve(cmdlen +1);
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += '%';
+		cmdlen = cmd->length();
+            case '%':           // %%  percent sign
+		if (cmdcap < cmdlen + 1)
+		{
+		    cmd->reserve(cmdlen +1);
+		    cmdcap = cmd->capacity();
+		}
+                *cmd += *s;
+		cmdlen = cmd->length();
+                break;
+        }
+
+        percent = FALSE;
+    }
+
+    if (percent)
+        *cmd += '%';
 }
