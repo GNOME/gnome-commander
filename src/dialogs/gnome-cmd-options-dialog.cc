@@ -1534,7 +1534,7 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     table_add (table, label, 0, 2, GTK_FILL);
     label = create_label (parent, _("Differ:"));
     table_add (table, label, 0, 3, GTK_FILL);
-    label = create_label (parent, _("Send-to:"));
+    label = create_label (parent, _("Send files:"));
     table_add (table, label, 0, 4, GTK_FILL);
     label = create_label (parent, _("Terminal:"));
     table_add (table, label, 0, 5, GTK_FILL);
