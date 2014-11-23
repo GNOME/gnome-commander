@@ -1563,7 +1563,7 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     hbox = create_hbox (parent, FALSE, 0);
     gtk_box_set_spacing (GTK_BOX (hbox), 12);
-    cat = create_category (parent, hbox, _("Other favorite apps"));
+    cat = create_category (parent, hbox, _("Other favourite apps"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
 
