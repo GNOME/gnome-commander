@@ -7,6 +7,7 @@ Bug fixes:
 New features:
 * Always reopen the tab which was previously closed in the options dialog
 * Samba support is now optionally available via configure option
+* Configurable command for sending files to a preferred application
 * New or updated translations: 
      ...
 * New key bindings:

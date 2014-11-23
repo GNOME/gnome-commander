@@ -44,6 +44,9 @@
                             <para>Samba support is now optionally available via configure option</para>
                         </listitem>
                         <listitem>
+                            <para>Configurable command for sending files to a preferred application</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: ??</para>
                         </listitem>
                         <listitem>
