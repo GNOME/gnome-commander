@@ -20,6 +20,7 @@
 */
 
 #include <config.h>
+#include <gtk/gtk.h>
 
 #include "gnome-cmd-includes.h"
 #include "dialogs/gnome-cmd-options-dialog.h"
@@ -1509,8 +1510,9 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 
 inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *table;
+    GtkWidget *frame, *hbox, *vbox, *cat, *table1, *table2;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
+    GtkWidget *separator;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
@@ -1524,40 +1526,38 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    table = create_table (parent, 7, 2);
-    cat = create_category (parent, table, _("Standard programs"));
+    table1 = create_table (parent, 6, 2);
+    cat = create_category (parent, table1, _("Standard programs"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     label = create_label (parent, _("Viewer:"));
-    table_add (table, label, 0, 0, GTK_FILL);
+    table_add (table1, label, 0, 0, GTK_FILL);
     label = create_label (parent, _("Editor:"));
-    table_add (table, label, 0, 2, GTK_FILL);
+    table_add (table1, label, 0, 2, GTK_FILL);
     label = create_label (parent, _("Differ:"));
-    table_add (table, label, 0, 3, GTK_FILL);
+    table_add (table1, label, 0, 3, GTK_FILL);
     label = create_label (parent, _("Send files:"));
-    table_add (table, label, 0, 4, GTK_FILL);
+    table_add (table1, label, 0, 4, GTK_FILL);
     label = create_label (parent, _("Terminal:"));
-    table_add (table, label, 0, 5, GTK_FILL);
-    label = create_label (parent, _("Terminal for executing a program:"));
-    table_add (table, label, 0, 6, GTK_FILL);
+    table_add (table1, label, 0, 5, GTK_FILL);
 
     entry = create_entry (parent, "viewer", cfg.viewer);
-    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    table_add (table1, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.use_internal_viewer);
-    table_add (table, check, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    table_add (table1, check, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "editor", cfg.editor);
-    table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    table_add (table1, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "differ", cfg.differ);
-    table_add (table, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    table_add (table1, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "sendto", cfg.sendto);
-    table_add (table, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    table_add (table1, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "termopen", cfg.termopen);
-    table_add (table, entry, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    entry = create_entry (parent, "termexec", cfg.termexec);
-    table_add (table, entry, 1, 6, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    table_add (table1, entry, 1, 5, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
+    separator = gtk_separator_menu_item_new ();
+    gtk_box_pack_start (GTK_BOX (vbox), separator, FALSE, FALSE, 0);
 
     //Other favorite apps frame
 
@@ -1603,6 +1603,16 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     clist = (GtkWidget *) g_object_get_data (G_OBJECT (parent), "app_clist");
     for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
+
+    table2 = create_table (parent, 1, 2);
+    cat = create_category (parent, table2, _("Global app options"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
+
+    label = create_label (parent, _("Terminal command for apps in the list above:"));
+    table_add (table2, label, 0, 0, GTK_FILL);
+
+    entry = create_entry (parent, "termexec", cfg.termexec);
+    table_add (table2, entry, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     return frame;
 }
