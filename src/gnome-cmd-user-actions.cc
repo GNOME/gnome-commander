@@ -2059,6 +2059,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
  * \li \%d: full path to the directory containing file
  * \li \%D: quoted full path to the directory containg file
  * \li \%%: percent sign
+ * 
  * \param[in] command A char array to be parsed
  * \param[out] cmd A string with parsed symbols listed above
  */
