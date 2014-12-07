@@ -2049,16 +2049,16 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
 /** 
  * Parses a command, stored in a char array, and substitutes a certain
  * symbol with path or URI names. The result is stored in a string
- * variable, which is expanded if needed. Possible symbols are:<BR>
- * \%f: file name (or list for multiple selections)<BR>
- * \%F: quoted filename (or list for multiple selections)<BR>
- * \%p: full file system path (or list for multiple selections)<BR>
- * \%P: quoted full file system path (or list for multiple selections)<BR>
- * \%s: synonym for %P (for compatibility with previous versions of gcmd)<BR>
- * \%u: fully qualified URI for the file (or list for multiple selections)<BR>
- * \%d: full path to the directory containing file<BR>
- * \%D: quoted full path to the directory containg file<BR>
- * \%%: percent sign<BR>
+ * variable, which is expanded if needed. Possible symbols are:
+ * \li \%f: file name (or list for multiple selections)
+ * \li \%F: quoted filename (or list for multiple selections)
+ * \li \%p: full file system path (or list for multiple selections)
+ * \li \%P: quoted full file system path (or list for multiple selections)
+ * \li \%s: synonym for %P (for compatibility with previous versions of gcmd)
+ * \li \%u: fully qualified URI for the file (or list for multiple selections)
+ * \li \%d: full path to the directory containing file
+ * \li \%D: quoted full path to the directory containg file
+ * \li \%%: percent sign
  * \param[in] command A char array to be parsed
  * \param[out] cmd A string with parsed symbols listed above
  */
