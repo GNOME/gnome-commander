@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-11-24 19:07+0000\n"
-"PO-Revision-Date: 2014-11-24 20:15+0100\n"
+"POT-Creation-Date: 2014-12-13 19:10+0000\n"
+"PO-Revision-Date: 2014-12-13 22:26+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -27,6 +27,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Gtranslator 2.91.6\n"
+
+#: ../data/gnome-commander.appdata.xml.in.h:1
+msgid ""
+"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
+"desktop environment. It features separate tabs for each pane, setting up "
+"custom device buttons, bookmark manager, fully integrated commandline, file "
+"quick search, an internal image viewer, a powerful batch renaming tool, and "
+"FTP and Samba access."
+msgstr ""
+"GNOME Commander je dvoupanelový grafický správce souborů pro pracovní "
+"prostředí GNOME. Jeho schopnosti zahrnují karty pro každý panel zvlášť, "
+"nastavení vlastních tlačítek se zařízeními, správu záložek, plně integrovaný "
+"příkazový řádek, rychlé vyhledávání souborů, interní prohlížeč obrázků, "
+"mocný nástroj pro hromadné přejmenování a přístup k FTP a Sambě."
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
+msgid ""
+"GNOME Commander aims to advanced users who like to focus on precise file "
+"management, working in parallel through special applications, and running "
+"smart commands."
+msgstr ""
+"GNOME Commander cílí na pokročilé uživatele, kteří mají rádi pravě takovéto "
+"správce souborů, pracují souběžně ve specializovaných aplikacích a spouští "
+"promyšlené příkazy."
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:420
 #: ../src/gnome-cmd-main-win.cc:762
@@ -196,7 +220,7 @@ msgstr "Nah_radit za:"
 
 #. Case-Sensitive Checkbox
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:121
-#: ../src/intviewer/search-dlg.cc:284
+#: ../src/intviewer/search-dlg.cc:283
 msgid "_Match case"
 msgstr "_Shoda velikosti písmen"
 
@@ -240,102 +264,102 @@ msgstr "Změnit vlastníka"
 msgid "Apply Recursively"
 msgstr "Provést rekurzivně"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:196
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:197
 msgid "_Alias:"
 msgstr "Přezdívk_a:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:201
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:202
 msgid "_Location (URI):"
 msgstr "U_místění (URI):"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:232
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:233
 msgid "_Server:"
 msgstr "_Server:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:243
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:244
 msgid "Optional information"
 msgstr "Nepovinné informace"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:267
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:268
 msgid "S_hare:"
 msgstr "S_dílení:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:270
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:271
 msgid "_Port:"
 msgstr "_Port:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:272
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:273
 msgid "_Folder:"
 msgstr "_Složka:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:275
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:276
 msgid "_User name:"
 msgstr "Jméno _uživatele:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:278
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:279
 msgid "_Password:"
 msgstr "_Heslo:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:281
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:282
 msgid "_Domain name:"
 msgstr "Název _domény:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:339
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:340
 msgid "You must enter a name for the server"
 msgstr "Musíte zadat název serveru"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:339
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:340
 msgid "Please enter a name and try again."
 msgstr "Zadejte prosím jméno a zkuste to znovu."
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:355
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:356
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr "„%s“ není platné umístění"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:356
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:357
 msgid "Please check spelling and try again."
 msgstr "Zkontrolujte prosím překlepy a zkuste to znovu."
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:448
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:449
 #: ../src/gnome-cmd-main-win.cc:1183
 msgid "Remote Server"
 msgstr "Vzdálený server"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:463
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:464
 msgid "Service _type:"
 msgstr "_Typ služby:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:475
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:476
 msgid "SSH"
 msgstr "SSH"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:476
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:477
 msgid "FTP (with login)"
 msgstr "FTP (s přihlášením)"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:477
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:478
 msgid "Public FTP"
 msgstr "Veřejné FTP"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:479
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:480
 msgid "Windows share"
 msgstr "Sdílení Windows"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:481
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:482
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:482
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:483
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Zabezpečené WebDAV (HTTPS)"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:483
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:484
 msgid "Custom location"
 msgstr "Vlastní umístění"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:494
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:495
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "Používat k ověření identity Správce klíčenek _GNOME"
 
@@ -403,11 +427,11 @@ msgstr "Odstranit"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:846
-#: ../src/utils.cc:524 ../src/utils.cc:552
+#: ../src/utils.cc:523 ../src/utils.cc:551
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../src/dialogs/gnome-cmd-delete-dialog.cc:288 ../src/utils.cc:524
+#: ../src/dialogs/gnome-cmd-delete-dialog.cc:288 ../src/utils.cc:523
 msgid "OK"
 msgstr "Budiž"
 
@@ -502,12 +526,12 @@ msgid "Access permissions"
 msgstr "Přístupová práva"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:621
-#: ../src/intviewer/viewer-window.cc:1451
+#: ../src/intviewer/viewer-window.cc:1450
 msgid "Type"
 msgstr "Typ"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:622
-#: ../src/intviewer/viewer-window.cc:1452
+#: ../src/intviewer/viewer-window.cc:1451
 msgid "Metadata namespace"
 msgstr "Jmenný prostor metadat"
 
@@ -520,35 +544,35 @@ msgstr "Jmenný prostor metadat"
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:629
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:250
 #: ../src/dialogs/gnome-cmd-remote-dialog.cc:377
-#: ../src/intviewer/viewer-window.cc:1459 ../src/plugin_manager.cc:405
+#: ../src/intviewer/viewer-window.cc:1458 ../src/plugin_manager.cc:405
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Name"
 msgstr "Název"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:630
-#: ../src/intviewer/viewer-window.cc:1460
+#: ../src/intviewer/viewer-window.cc:1459
 msgid "Tag name"
 msgstr "Název štítku"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:632
-#: ../src/intviewer/viewer-window.cc:1462
+#: ../src/intviewer/viewer-window.cc:1461
 msgid "Value"
 msgstr "Hodnota"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:633
-#: ../src/intviewer/viewer-window.cc:1463
+#: ../src/intviewer/viewer-window.cc:1462
 msgid "Tag value"
 msgstr "Hodnota štítku"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:635
-#: ../src/intviewer/viewer-window.cc:1465 ../src/tags/gnome-cmd-tags.cc:166
+#: ../src/intviewer/viewer-window.cc:1464 ../src/tags/gnome-cmd-tags.cc:166
 #: ../src/tags/gnome-cmd-tags.cc:317 ../src/tags/gnome-cmd-tags.cc:419
 #: ../src/tags/gnome-cmd-tags.cc:530
 msgid "Description"
 msgstr "Popis"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:636
-#: ../src/intviewer/viewer-window.cc:1466
+#: ../src/intviewer/viewer-window.cc:1465
 msgid "Metadata tag description"
 msgstr "Popis metadat štítku"
 
@@ -832,14 +856,14 @@ msgstr "Složka „%s“ neexistuje, chcete jej vytvořit?"
 #: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/gnome-cmd-advrename-profile-component.cc:418
 #: ../src/gnome-cmd-advrename-profile-component.cc:737
-#: ../src/gnome-cmd-advrename-profile-component.cc:769 ../src/utils.cc:679
+#: ../src/gnome-cmd-advrename-profile-component.cc:769 ../src/utils.cc:678
 msgid "No"
 msgstr "Ne"
 
 #: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/gnome-cmd-advrename-profile-component.cc:418
 #: ../src/gnome-cmd-advrename-profile-component.cc:737
-#: ../src/gnome-cmd-advrename-profile-component.cc:769 ../src/utils.cc:679
+#: ../src/gnome-cmd-advrename-profile-component.cc:769 ../src/utils.cc:678
 msgid "Yes"
 msgstr "Ano"
 
@@ -2502,7 +2526,7 @@ msgstr "Nové připojení…"
 msgid "_Documentation"
 msgstr "_Dokumentace"
 
-#: ../src/gnome-cmd-main-menu.cc:776 ../src/intviewer/viewer-window.cc:842
+#: ../src/gnome-cmd-main-menu.cc:776 ../src/intviewer/viewer-window.cc:841
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
@@ -2520,7 +2544,7 @@ msgstr "O _aplikaci"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:817 ../src/intviewer/viewer-window.cc:854
+#: ../src/gnome-cmd-main-menu.cc:817 ../src/intviewer/viewer-window.cc:853
 msgid "_File"
 msgstr "_Soubor"
 
@@ -2532,11 +2556,11 @@ msgstr "_Upravit"
 msgid "_Mark"
 msgstr "_Označit"
 
-#: ../src/gnome-cmd-main-menu.cc:829 ../src/intviewer/viewer-window.cc:857
+#: ../src/gnome-cmd-main-menu.cc:829 ../src/intviewer/viewer-window.cc:856
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: ../src/gnome-cmd-main-menu.cc:834 ../src/intviewer/viewer-window.cc:868
+#: ../src/gnome-cmd-main-menu.cc:834 ../src/intviewer/viewer-window.cc:867
 msgid "_Settings"
 msgstr "Na_stavení"
 
@@ -2552,7 +2576,7 @@ msgstr "Zá_ložky"
 msgid "_Plugins"
 msgstr "Zásuvné _moduly"
 
-#: ../src/gnome-cmd-main-menu.cc:850 ../src/intviewer/viewer-window.cc:873
+#: ../src/gnome-cmd-main-menu.cc:850 ../src/intviewer/viewer-window.cc:872
 msgid "_Help"
 msgstr "_Nápověda"
 
@@ -2972,7 +2996,7 @@ msgid "Create"
 msgstr "Vytvořit"
 
 #: ../src/gnome-cmd-user-actions.cc:917 ../src/gnome-cmd-user-actions.cc:1142
-#: ../src/gnome-cmd-user-actions.cc:1180 ../src/utils.cc:138
+#: ../src/gnome-cmd-user-actions.cc:1180 ../src/utils.cc:137
 msgid "Unable to execute command."
 msgstr "Nelze spustit příkaz."
 
@@ -3177,166 +3201,166 @@ msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
 "Nelze načíst nainstalovanou pixelovou mapu, místo ní se zkouší načíst %s"
 
-#: ../src/intviewer/search-dlg.cc:244
+#: ../src/intviewer/search-dlg.cc:243
 msgid "Find"
 msgstr "Najít"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:658
-#: ../src/intviewer/viewer-window.cc:860
+#: ../src/intviewer/search-dlg.cc:273 ../src/intviewer/viewer-window.cc:657
+#: ../src/intviewer/viewer-window.cc:859
 msgid "_Text"
 msgstr "_Text"
 
-#: ../src/intviewer/search-dlg.cc:275 ../src/intviewer/viewer-window.cc:666
+#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:665
 msgid "_Hexadecimal"
 msgstr "Še_stnáctkově"
 
 #. sdlg->priv->progress = 0;
-#: ../src/intviewer/search-progress-dlg.cc:76
+#: ../src/intviewer/search-progress-dlg.cc:75
 msgid "Searching..."
 msgstr "Hledá se…"
 
-#: ../src/intviewer/search-progress-dlg.cc:186
+#: ../src/intviewer/search-progress-dlg.cc:185
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "Hledá se „%s“"
 
-#: ../src/intviewer/viewer-widget.cc:211
+#: ../src/intviewer/viewer-widget.cc:210
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Pozice: %lu z %lu\tSloupec: %d\t%s"
 
-#: ../src/intviewer/viewer-widget.cc:215
+#: ../src/intviewer/viewer-widget.cc:214
 msgid "Wrap"
 msgstr "Zalamovat"
 
-#: ../src/intviewer/viewer-widget.cc:241
+#: ../src/intviewer/viewer-widget.cc:240
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pixel"
 msgstr[1] "pixely"
 msgstr[2] "pixelů"
 
-#: ../src/intviewer/viewer-widget.cc:243
+#: ../src/intviewer/viewer-widget.cc:242
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "bit na vzorek"
 msgstr[1] "bity na vzorek"
 msgstr[2] "bitů na vzorek"
 
-#: ../src/intviewer/viewer-widget.cc:245
+#: ../src/intviewer/viewer-widget.cc:244
 msgid "(fit to window)"
 msgstr "(přizpůsobeno velikosti okna)"
 
-#: ../src/intviewer/viewer-widget.cc:260
+#: ../src/intviewer/viewer-widget.cc:259
 msgid "_Copy selection"
 msgstr "_Kopírovat výběr"
 
-#: ../src/intviewer/viewer-window.cc:648
+#: ../src/intviewer/viewer-window.cc:647
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../src/intviewer/viewer-window.cc:662
+#: ../src/intviewer/viewer-window.cc:661
 msgid "_Binary"
 msgstr "_Binární data"
 
-#: ../src/intviewer/viewer-window.cc:670 ../src/intviewer/viewer-window.cc:865
+#: ../src/intviewer/viewer-window.cc:669 ../src/intviewer/viewer-window.cc:864
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: ../src/intviewer/viewer-window.cc:675
+#: ../src/intviewer/viewer-window.cc:674
 msgid "_Zoom In"
 msgstr "Př_iblížit"
 
-#: ../src/intviewer/viewer-window.cc:679
+#: ../src/intviewer/viewer-window.cc:678
 msgid "Zoom _Out"
 msgstr "_Oddálit"
 
-#: ../src/intviewer/viewer-window.cc:683
+#: ../src/intviewer/viewer-window.cc:682
 msgid "_Normal Size"
 msgstr "_Normální velikost"
 
-#: ../src/intviewer/viewer-window.cc:687
+#: ../src/intviewer/viewer-window.cc:686
 msgid "Best _Fit"
 msgstr "Přizpůsobit _velikosti okna"
 
-#: ../src/intviewer/viewer-window.cc:697
+#: ../src/intviewer/viewer-window.cc:696
 msgid "_Copy Text Selection"
 msgstr "_Zkopírovat vybraný text"
 
-#: ../src/intviewer/viewer-window.cc:701
+#: ../src/intviewer/viewer-window.cc:700
 msgid "Find..."
 msgstr "Najít…"
 
-#: ../src/intviewer/viewer-window.cc:705
+#: ../src/intviewer/viewer-window.cc:704
 msgid "Find Next"
 msgstr "Najít následující"
 
-#: ../src/intviewer/viewer-window.cc:709
+#: ../src/intviewer/viewer-window.cc:708
 msgid "Find Previous"
 msgstr "Najít předchozí"
 
-#: ../src/intviewer/viewer-window.cc:714
+#: ../src/intviewer/viewer-window.cc:713
 msgid "_Wrap lines"
 msgstr "_Zalamovat řádky"
 
-#: ../src/intviewer/viewer-window.cc:719
+#: ../src/intviewer/viewer-window.cc:718
 msgid "_Encoding"
 msgstr "_Kódování"
 
-#: ../src/intviewer/viewer-window.cc:760
+#: ../src/intviewer/viewer-window.cc:759
 msgid "Show Metadata _Tags"
 msgstr "Zobrazit š_títky metadat"
 
-#: ../src/intviewer/viewer-window.cc:766
+#: ../src/intviewer/viewer-window.cc:765
 msgid "_Rotate Clockwise"
 msgstr "_Otočit ve směru hodinových ručiček"
 
-#: ../src/intviewer/viewer-window.cc:771
+#: ../src/intviewer/viewer-window.cc:770
 msgid "Rotate Counter Clockwis_e"
 msgstr "Otočit _proti směru hodinových ručiček"
 
-#: ../src/intviewer/viewer-window.cc:776
+#: ../src/intviewer/viewer-window.cc:775
 msgid "_Rotate 180°"
 msgstr "_Otočit o 180°"
 
-#: ../src/intviewer/viewer-window.cc:781
+#: ../src/intviewer/viewer-window.cc:780
 msgid "Flip _Vertical"
 msgstr "Překlopit _svisle"
 
-#: ../src/intviewer/viewer-window.cc:786
+#: ../src/intviewer/viewer-window.cc:785
 msgid "Flip _Horizontal"
 msgstr "Překlopit _vodorovně"
 
-#: ../src/intviewer/viewer-window.cc:796
+#: ../src/intviewer/viewer-window.cc:795
 msgid "_Binary Mode"
 msgstr "Režim _binárních dat"
 
-#: ../src/intviewer/viewer-window.cc:802
+#: ../src/intviewer/viewer-window.cc:801
 msgid "_Hexadecimal Offset"
 msgstr "_Pozice šestnáctkově"
 
-#: ../src/intviewer/viewer-window.cc:808
+#: ../src/intviewer/viewer-window.cc:807
 msgid "_Save Current Settings"
 msgstr "_Uložit současné nastavení"
 
-#: ../src/intviewer/viewer-window.cc:818
+#: ../src/intviewer/viewer-window.cc:817
 msgid "_20 chars/line"
 msgstr "_20 znaků na řádek"
 
-#: ../src/intviewer/viewer-window.cc:823
+#: ../src/intviewer/viewer-window.cc:822
 msgid "_40 chars/line"
 msgstr "_40 znaků na řádek"
 
-#: ../src/intviewer/viewer-window.cc:828
+#: ../src/intviewer/viewer-window.cc:827
 msgid "_80 chars/line"
 msgstr "_80 znaků na řádek"
 
-#: ../src/intviewer/viewer-window.cc:837
+#: ../src/intviewer/viewer-window.cc:836
 msgid "Quick _Help"
 msgstr "Rychlá _nápověda"
 
-#: ../src/intviewer/viewer-window.cc:1115
+#: ../src/intviewer/viewer-window.cc:1114
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "Vzor „%s“ nebyl nalezen"
@@ -7599,12 +7623,12 @@ msgstr "Žádné"
 msgid "10-15ms"
 msgstr "10 – 15 ms"
 
-#: ../src/utils.cc:443
+#: ../src/utils.cc:442
 #, c-format
 msgid "No default application found for the MIME type %s."
 msgstr "Pro typ MIME %s nebyla nalezena výchozí aplikace."
 
-#: ../src/utils.cc:521
+#: ../src/utils.cc:520
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -7613,11 +7637,11 @@ msgstr ""
 "„%s“ vypadá jako binární spustitelný soubor, ale nemá nastaven příznak "
 "spustitelnosti. Chcete jej nastavit a pak soubor spustit?"
 
-#: ../src/utils.cc:523
+#: ../src/utils.cc:522
 msgid "Make Executable?"
 msgstr "Nastavit jako spustitelný?"
 
-#: ../src/utils.cc:550
+#: ../src/utils.cc:549
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -7626,19 +7650,19 @@ msgstr ""
 "„%s“ je spustitelný textový soubor. Chcete jej spustit nebo zobrazit jeho "
 "obsah?"
 
-#: ../src/utils.cc:551
+#: ../src/utils.cc:550
 msgid "Run or Display"
 msgstr "Spustit nebo zobrazit"
 
-#: ../src/utils.cc:552
+#: ../src/utils.cc:551
 msgid "Display"
 msgstr "Zobrazit"
 
-#: ../src/utils.cc:552
+#: ../src/utils.cc:551
 msgid "Run"
 msgstr "Spustit"
 
-#: ../src/utils.cc:595 ../src/utils.cc:676
+#: ../src/utils.cc:594 ../src/utils.cc:675
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -7656,7 +7680,7 @@ msgstr[2] ""
 "Aplikace %s neumí otevřít vzdálené soubory. Chcete soubor stáhnout do složky "
 "pro dočasné soubory a poté jej otevřít?"
 
-#: ../src/utils.cc:859
+#: ../src/utils.cc:858
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
@@ -7664,7 +7688,7 @@ msgstr[0] "(%s bajt)"
 msgstr[1] "(%s bajty)"
 msgstr[2] "(%s bajtů)"
 
-#: ../src/utils.cc:862
+#: ../src/utils.cc:861
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
@@ -7672,25 +7696,25 @@ msgstr[0] "%s bajt"
 msgstr[1] "%s bajty"
 msgstr[2] "%s bajtů"
 
-#: ../src/utils.cc:1045
+#: ../src/utils.cc:1044
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Selhalo vytvoření složky, do které se ukládají dočasné soubory."
 
-#: ../src/utils.cc:1239
+#: ../src/utils.cc:1238
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Vytváří se složka %s… "
 
-#: ../src/utils.cc:1242
+#: ../src/utils.cc:1241
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Selhalo vytvoření složky %s"
 
-#: ../src/utils.cc:1248
+#: ../src/utils.cc:1247
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Nelze číst ze složky %s: %s"
 
-#: ../src/utils.h:288
+#: ../src/utils.h:287
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
