@@ -10,6 +10,7 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 appdatadir = $(datadir)/appdata
 appdata_in_files = @PACKAGE@.appdata.xml.in
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
+@INTLTOOL_XML_RULE@
 
 #BUILT_SOURCES = @PACKAGE@-@VERSION@.ebuild
 

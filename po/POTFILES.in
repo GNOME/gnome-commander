@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 [encoding: UTF-8]
+data/gnome-commander.appdata.xml.in
 data/gnome-commander.desktop.in.in
 libgcmd/gnome-cmd-string-dialog.cc
 plugins/fileroller/file-roller-plugin.cc
