@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem bgo#741316 (Appdata missing in POT)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

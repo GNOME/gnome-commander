@@ -3,7 +3,7 @@ gnome-commander 1.4.5
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed problem bgo#741316 (Appdata missing in POT) 
 
 ===================================
 gnome-commander 1.4.4
