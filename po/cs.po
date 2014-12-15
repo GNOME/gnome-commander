@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-12-13 19:10+0000\n"
-"PO-Revision-Date: 2014-12-13 22:26+0100\n"
+"POT-Creation-Date: 2014-12-14 20:30+0000\n"
+"PO-Revision-Date: 2014-12-15 01:31+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -29,6 +29,10 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.6\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
+msgid "Two-pane file manager"
+msgstr "Dvoupanelový správce souborů"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -42,7 +46,7 @@ msgstr ""
 "příkazový řádek, rychlé vyhledávání souborů, interní prohlížeč obrázků, "
 "mocný nástroj pro hromadné přejmenování a přístup k FTP a Sambě."
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -59,7 +63,7 @@ msgstr "GNOME Commander"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
-msgstr "Správce souborů se dvěma panely"
+msgstr "Dvoupanelový správce souborů"
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:128
 msgid "No error description available"
