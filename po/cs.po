@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1.4\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-10-11 08:14+0000\n"
-"PO-Revision-Date: 2014-10-18 16:00+0200\n"
+"POT-Creation-Date: 2014-12-14 20:32+0000\n"
+"PO-Revision-Date: 2014-12-15 01:32+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -28,6 +28,34 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
+#: ../data/gnome-commander.appdata.xml.in.h:1
+msgid "Two-pane file manager"
+msgstr "Dvoupanelový správce souborů"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
+msgid ""
+"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
+"desktop environment. It features separate tabs for each pane, setting up "
+"custom device buttons, bookmark manager, fully integrated commandline, file "
+"quick search, an internal image viewer, a powerful batch renaming tool, and "
+"FTP and Samba access."
+msgstr ""
+"GNOME Commander je dvoupanelový grafický správce souborů pro pracovní "
+"prostředí GNOME. Jeho schopnosti zahrnují karty pro každý panel zvlášť, "
+"nastavení vlastních tlačítek se zařízeními, správu záložek, plně integrovaný "
+"příkazový řádek, rychlé vyhledávání souborů, interní prohlížeč obrázků, "
+"mocný nástroj pro hromadné přejmenování a přístup k FTP a Sambě."
+
+#: ../data/gnome-commander.appdata.xml.in.h:3
+msgid ""
+"GNOME Commander aims to advanced users who like to focus on precise file "
+"management, working in parallel through special applications, and running "
+"smart commands."
+msgstr ""
+"GNOME Commander cílí na pokročilé uživatele, kteří mají rádi pravě takovéto "
+"správce souborů, pracují souběžně ve specializovaných aplikacích a spouští "
+"promyšlené příkazy."
+
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:418
 #: ../src/gnome-cmd-main-win.cc:762
 msgid "GNOME Commander"
@@ -35,7 +63,7 @@ msgstr "GNOME Commander"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
-msgstr "Správce souborů se dvěma panely"
+msgstr "Dvoupanelový správce souborů"
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:128
 msgid "No error description available"
