@@ -1,6 +1,7 @@
 [Desktop Entry]
 _Name=GNOME Commander
 _Comment=A two paned file manager
+_Keywords=File;Manager;
 Exec=gnome-commander
 Icon=gnome-commander
 Terminal=false
