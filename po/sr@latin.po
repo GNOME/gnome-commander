@@ -1,15 +1,15 @@
 # Serbian translation of gnome-commander
 # Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003—2014.
 # This file is distributed under the same license as the gnome-commander package.
-# Maintainer: Danilo Šegan <dsegan@gmx.net>
+# Danilo Šegan <dsegan@gmx.net>
 # Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2013—2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-10-11 06:28+0000\n"
-"PO-Revision-Date: 2014-10-11 10:06+0200\n"
+"POT-Creation-Date: 2014-12-25 07:11+0000\n"
+"PO-Revision-Date: 2014-12-25 11:53+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -19,6 +19,35 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
+
+#: ../data/gnome-commander.appdata.xml.in.h:1
+#| msgid "A two paned file manager"
+msgid "Two-pane file manager"
+msgstr "Upravnik datotekama sa dve površi"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
+msgid ""
+"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
+"desktop environment. It features separate tabs for each pane, setting up "
+"custom device buttons, bookmark manager, fully integrated commandline, file "
+"quick search, an internal image viewer, a powerful batch renaming tool, and "
+"FTP and Samba access."
+msgstr ""
+"Gnomov narednik je „dvo-površinski“ grafički upravnik datoteka za Gnomovo "
+"radno okruženje. Odlikuju ga odvojeni jezičci za svaku površ, podešavanje "
+"proizvoljnih dugmadi uređaja, upravnik obeleživačima, potpuno objedinjena "
+"konzola naredbi, brza pretraga datoteka, unutrašnji pregledač slika, moćan "
+"alat za grupno preimenovanje, kao i pristup FTP-u i Sambi."
+
+#: ../data/gnome-commander.appdata.xml.in.h:3
+msgid ""
+"GNOME Commander aims to advanced users who like to focus on precise file "
+"management, working in parallel through special applications, and running "
+"smart commands."
+msgstr ""
+"Gnomov narednik je namenjen naprednim korisnicima koji vole da se usredsrede "
+"na preciznom upravljanju datotekama, radeći uporedno kroz posebne programe, i "
+"pokrećući pametne naredbe."
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:418
 #: ../src/gnome-cmd-main-win.cc:762
@@ -4056,9 +4085,9 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Jedno od: „Password protected“ (zaštićeno lozinkom), „Read-only recommended“ "
-"(samo-čitanje preporučeno), „Read-only enforced“ (samo-čitanje prisiljeno) ili „"
-"Locked for annotations“ (zaključano za zabeleške)."
+"Jedno od: „Password protected“ (zaštićeno lozinkom), „Read-only "
+"recommended“ (samo-čitanje preporučeno), „Read-only enforced“ (samo-čitanje "
+"prisiljeno) ili „Locked for annotations“ (zaključano za zabeleške)."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Slide Count"
