@@ -1,12 +1,12 @@
 #       md5sum python plugin
 #       Copyright (C) 2007-2012 Piotr Eljasiak
-#       Copyright (C) 2013-2014 Uwe Scholz
+#       Copyright (C) 2013-2015 Uwe Scholz
 #
 #    Part of
 #       GNOME Commander - A GNOME based file manager
 #       Copyright (C) 2001-2006 Marcus Bjurman
 #       Copyright (C) 2007-2012 Piotr Eljasiak
-#       Copyright (C) 2013-2014 Uwe Scholz
+#       Copyright (C) 2013-2015 Uwe Scholz
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
