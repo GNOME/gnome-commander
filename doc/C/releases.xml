@@ -32,6 +32,9 @@
                         <listitem>
                             <para>Fixed problem bgo#741316 (Appdata missing in POT)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>

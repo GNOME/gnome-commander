@@ -4,6 +4,7 @@ gnome-commander 1.4.5
 
 Bug fixes:
  * Fixed problem bgo#741316 (Appdata missing in POT) 
+ * Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)
 
 ===================================
 gnome-commander 1.4.4
