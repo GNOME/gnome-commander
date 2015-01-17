@@ -5410,156 +5410,250 @@
       <para/>
       <para>
       	<table frame="topbot" id="gcmd-TBL-setting6">
-        		<title>Programs option tab</title>
-        			<tgroup cols="2" colsep="0" rowsep="0">
-          			<colspec colname="colspec0" colwidth="50.36*"/>
-          			<colspec colname="colspec1" colwidth="63.64*"/>
-          				<thead>
-            				<row rowsep="1">
-              					<entry>
-                					<para>Header</para>
-              					</entry>
-              					<entry colname="colspec2">
-                					<para>Option</para>
-              					</entry>
-              					<entry colname="colspec3">
-                					<para>Description</para>
-              					</entry>
-            				</row>
-          				</thead>
-          				<tbody>
-            				<row>
-              					<entry>
-                					<para>
-					                  <guilabel>MIME application</guilabel>
-               					</para>
-              					</entry>
-              					<entry colname="colspec2">
-                					<para>Always download remote files before opening in external program</para>
-              					</entry>
-              					<entry colname="colspec3">
-                					<para>Whether the associated application is started before the remote file is downloaded locally.</para>
-              					</entry>
-            				</row>
-            				<row>
-            					<entry>
-	            					<para><guilabel>Standard programs</guilabel>
-   	         					</para>
-            					</entry>
-            					<entry colname="cospec2">
-            						<para>Viewer:</para>
-            					</entry>
-            					<entry colname="colspec3">
-										<para>Set which application is used when the command view is used when the <keycap>F3</keycap> key is pressed. By default &app; uses an internal viewer</para>
-            					</entry>
-            				</row>
-            				<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Use internal viewer</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>When this option is activated (default) &app; uses its internal viewer to display the selected item, if it is deactivated the application defined above will be used instead.</para>
-            					</entry>
-            				</row>
-            				<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Editor:</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>In this text box you can type in the command line used to start your favourite text editor. %s is the variable containing the selected items. The default application is the GNOME default Gedit.</para>
-            					</entry>
-            				</row>
-            				<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Differ:</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>In this text box you can type in the command line used to start your favourite comparison tool. %s is the variable containing the selected files to compare. The default application is Meld.</para>
-            					</entry>
-            				</row>
-            				<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Send files:</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>In this text box you can type in the command line used to send files to a preferred application. %s is the variable containing the selected files to be sent. The default application is nautilus-sendto.</para>
-            					</entry>
-            				</row>
-            				<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Terminal:</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>In this text box you can type in the command line used to start you favourite terminal application. The Default application is gnome-terminal.</para>
-            					</entry>
-            				</row>
-								<row>
-            					<entry>
-            						<para><guilabel>Other favorite apps</guilabel></para>
-            					</entry>
-            					<entry colname="colspec2">
-            						<para>Add</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>You can add any other application in this section. The applications defined here will appear in the contextual menu. A dialog box is opened when you click on this button. This dialog box options are described below.</para>
-            					</entry>
-            				</row>
-            				<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Edit</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>Clicking this button will open a dialog were you can modify the parameters used to launch the application selected. The same dialog box as above is opened when you click on this button. This dialog box options are described below.</para>
-            					</entry>
-            				</row>
-								<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Remove</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>Clicking this button will remove the application selected from the list.</para>
-            					</entry>
-            				</row>
-								<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Up</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>Clicking this button will move the application up in the list, this will also affect the order in which the list is displayed in the contextual menu.</para>
-            					</entry>
-            				</row>
-								<row>
-            					<entry><para></para></entry>
-            					<entry colname="colspec2">
-            						<para>Down</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>Clicking this button will move the application down in the list, this will also affect the order in which the list is displayed in the contextual menu.</para>
-            					</entry>
-            				</row>
-								<row>
-            					<entry>
-            						<para><guilabel>Global app options</guilabel></para>
-            					</entry>
-            					<entry colname="colspec2">
-            						<para>Terminal command for apps in the list above</para>
-            					</entry>
-            					<entry colname="colspec3">
-            						<para>In this text box you can type in the command line used to start your app from the list above with a favourite terminal application. %s is the variable used to pass the command to be executed  in the terminal. The Default application is gnome-terminal -e %s.</para>
-            					</entry>
-            				</row>
-            			</tbody>
-            	</tgroup>
-            </table>
-            </para>
+          <title>Programs option tab</title>
+          <tgroup cols="2" colsep="0" rowsep="0">
+            <colspec colname="colspec0" colwidth="50.36*"/>
+            <colspec colname="colspec1" colwidth="63.64*"/>
+            <thead>
+              <row rowsep="1">
+              	<entry>
+                  <para>Header</para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Option</para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Description</para>
+              	</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+              	<entry>
+                  <para>
+		    <guilabel>MIME application</guilabel>
+               	  </para>
+              	</entry>
+              	<entry colname="colspec2">
+                  <para>Always download remote files before opening in external program</para>
+              	</entry>
+              	<entry colname="colspec3">
+                  <para>Whether the associated application is started before the remote file is downloaded locally.</para>
+              	</entry>
+              </row>
+              <row>
+            	<entry>
+	          <para><guilabel>Standard programs</guilabel>
+   	          </para>
+            	</entry>
+            	<entry colname="cospec2">
+            	  <para>Viewer:</para>
+            	</entry>
+            	<entry colname="colspec3">
+		  <para>Set which application is used when the view command is used by pressing the <keycap>F3</keycap> key. Default value: "gedit %s". %s is the variable containing the selected items. See <xref linkend="gcmd-TBL-setting7"></xref> tab for more information. By default &app; uses an internal viewer. See next row.</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Use internal viewer</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>When this option is activated (default) &app; uses its internal viewer to display the selected item, if it is deactivated the application defined above will be used instead.</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Editor:</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>In this text box you can type in the command line used to start your favourite text editor. Default value: "gedit %s"</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Differ:</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>In this text box you can type in the command line used to start your favourite comparison tool. %s is the variable containing the selected files to compare. Default value: "meld %s"</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Send files:</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>In this text box you can type in the command line used to send files to a preferred application. %s is the variable containing the selected files to be sent. Default value: "nautilus-sendto %s"</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Terminal:</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>In this text box you can type in the command line used to start you favourite terminal application. Default value: "gnome-terminal".</para>
+            	</entry>
+              </row>
+	      <row>
+            	<entry>
+            	  <para><guilabel>Other favorite apps</guilabel></para>
+            	</entry>
+            	<entry colname="colspec2">
+            	  <para>Add</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>You can add any other application in this section. The applications defined here will appear in the contextual menu. A dialog box is opened when you click on this button. This dialog box options are described below.</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Edit</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>Clicking this button will open a dialog were you can modify the parameters used to launch the application selected. The same dialog box as above is opened when you click on this button. This dialog box options are described below.</para>
+            	</entry>
+              </row>
+	      <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Remove</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>Clicking this button will remove the application selected from the list.</para>
+            	</entry>
+              </row>
+	      <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Up</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>Clicking this button will move the application up in the list, this will also affect the order in which the list is displayed in the contextual menu.</para>
+            	</entry>
+              </row>
+	      <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Down</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>Clicking this button will move the application down in the list, this will also affect the order in which the list is displayed in the contextual menu.</para>
+            	</entry>
+              </row>
+	      <row>
+            	<entry>
+            	  <para><guilabel>Global app options</guilabel></para>
+            	</entry>
+            	<entry colname="colspec2">
+            	  <para>Terminal command for apps in the list above</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>In this text box you can type in the command line used to start your app from the list above with a favourite terminal application. %s is the variable used to pass the command to be executed  in the terminal. Default value: "gnome-terminal -e %s".</para>
+            	</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
+      <para>As you can see in the list above, "%s" can be used for filename expansion. All possible expansion types are listed in the table below:</para>
+      <para>
+      	<table frame="topbot" id="gcmd-TBL-setting7">
+          <title>String expansion</title>
+          <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="50.36*"/>
+          <colspec colname="colspec1" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry colname="colspec0">
+                <para>String</para>
+              </entry>
+              <entry colname="colspec1">
+                <para>Expands to...</para>
+              </entry>
+            </row>
+            </thead>
+            <tbody>
+              <row>
+            	<entry colname="cospec0">
+            	  <para>%f</para>
+            	</entry>
+            	<entry colname="colspec1">
+		  <para>File name (or list for multiple selections)</para>
+            	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%F</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Quoted filename (or list for multiple selections)</para>
+              	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%p</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Full file system path (or list for multiple selections)</para>
+              	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%P</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Quoted full file system path (or list for multiple selections)</para>
+              	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%s</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Synonym for %P (for compatibility with previous versions of &app;)</para>
+              	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%u</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Fully qualified URI for the file (or list for multiple selections)</para>
+              	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%d</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Full path to the directory containing file</para>
+              	</entry>
+              </row>
+              <row>
+              	<entry colname="colspec0">
+                  <para>%D</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Quoted full path to the directory containg file</para>
+              	</entry>
+              </row>
+              <row rowsep="1">
+              	<entry colname="colspec0">
+                  <para>%%</para>
+              	</entry>
+              	<entry colname="colspec1">
+                  <para>Percent sign</para>
+              	</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </para>
       <para>The section below describes the process of adding or modifying other applications to the contextual menu</para>
       <para>In the <xref linkend="options-application-fig"></xref> box you can input a number of different parameters to run 
       the application you want. You will probably need to check the various options available for the application in its manual 
