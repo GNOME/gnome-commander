@@ -1,13 +1,13 @@
 # Czech translation for gnome-commander.
 # Copyright (C) 2011 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2014-11-24 19:07+0000\n"
-"PO-Revision-Date: 2014-11-24 20:29+0100\n"
+"POT-Creation-Date: 2015-01-18 19:10+0000\n"
+"PO-Revision-Date: 2015-01-19 01:28+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -1189,7 +1189,7 @@ msgstr ""
 msgid "GUI for keyboard shortcuts management"
 msgstr "Uživatelské rozhraní pro správu klávesových zkratek"
 
-#: C/releases.xml:907(para) C/gnome-commander.xml:6937(para)
+#: C/releases.xml:907(para) C/gnome-commander.xml:7031(para)
 msgid "Open the current location in Nautilus file manager"
 msgstr "Otevřít aktuální umístění ve správci souborů Nautilus"
 
@@ -1352,7 +1352,7 @@ msgstr "Použit autentizační správce pro bezpečnostní ověřování uživat
 msgid "Metadata tags in file properties dialog"
 msgstr "Metadata štítků v dialogovém okně vlastností souboru"
 
-#: C/releases.xml:1027(para) C/gnome-commander.xml:6941(para)
+#: C/releases.xml:1027(para) C/gnome-commander.xml:7035(para)
 msgid "Open terminal in the current directory"
 msgstr "Otevřít terminál v aktuální složce"
 
@@ -1364,7 +1364,7 @@ msgstr "Výchozí ikony motivu GNOME pro umístění Domů, SMB a FTP"
 msgid "User defined shortcuts to bookmarks"
 msgstr "Uživatelem definovatelné klávesové zkratky pro záložky"
 
-#: C/releases.xml:1036(para) C/gnome-commander.xml:6997(para)
+#: C/releases.xml:1036(para) C/gnome-commander.xml:7091(para)
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Odeslat soubory přes e-mail nebo rychlou komunikaci (pomocí nautilus-sendto)"
@@ -2516,8 +2516,8 @@ msgstr ""
 "Mnoho názvů použitých firmami k zviditelnění produktů nebo služeb jsou "
 "ochranné známky. Na místech, kde jsou tyto názvy v dokumentaci použity a "
 "členové Dokumentačního projektu GNOME jsou si vědomi skutečnosti, že se "
-"jedná o ochrannou známku, je takovýto název psán velkými písmeny celý nebo "
-"s velkým písmenem na začátku."
+"jedná o ochrannou známku, je takovýto název psán velkými písmeny celý nebo s "
+"velkým písmenem na začátku."
 
 #: C/legal.xml:35(para)
 msgid ""
@@ -2739,7 +2739,7 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:5574(None)
+#: C/gnome-commander.xml:5668(None)
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_application.png'; "
 "md5=c1fb163d4ee65209417f823ba2c98b4e"
@@ -2749,7 +2749,7 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:5787(None)
+#: C/gnome-commander.xml:5881(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_devices.png'; "
 "md5=fbdf9bba8db4c825e0569bb2b452c663"
@@ -2759,13 +2759,13 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:5902(None)
+#: C/gnome-commander.xml:5996(None)
 msgid "@@image: 'figures/dev_cd.png'; md5=850af2dafa3ebb0a8f89dde129e3cd67"
 msgstr "@@image: 'figures/dev_cd.png'; md5=850af2dafa3ebb0a8f89dde129e3cd67"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:6658(None)
+#: C/gnome-commander.xml:6752(None)
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_keyboard_shortcuts.png'; "
 "md5=5ad238759551ba3621c582effdb5ff17"
@@ -2775,7 +2775,7 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:7233(None)
+#: C/gnome-commander.xml:7327(None)
 msgid ""
 "@@image: 'figures/create_archive.png'; md5=de309126a7a7a1a44fc1be6562d9dded"
 msgstr ""
@@ -2783,7 +2783,7 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:7248(None)
+#: C/gnome-commander.xml:7342(None)
 msgid ""
 "@@image: 'figures/extract_archive.png'; md5=663ef84479147e02e7091bad46cb2cad"
 msgstr ""
@@ -2791,7 +2791,7 @@ msgstr ""
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
-#: C/gnome-commander.xml:7277(None)
+#: C/gnome-commander.xml:7371(None)
 msgid "@@image: 'figures/mounting.png'; md5=8f178168a69c055b3c559acefd287091"
 msgstr "@@image: 'figures/mounting.png'; md5=8f178168a69c055b3c559acefd287091"
 
@@ -3257,8 +3257,8 @@ msgstr ""
 msgid "Command Line Options"
 msgstr "Přepínače příkazové řádky"
 
-#: C/gnome-commander.xml:520(guilabel) C/gnome-commander.xml:5652(guilabel)
-#: C/gnome-commander.xml:6948(para)
+#: C/gnome-commander.xml:520(guilabel) C/gnome-commander.xml:5746(guilabel)
+#: C/gnome-commander.xml:7042(para)
 msgid "Options"
 msgstr "Přepínače"
 
@@ -3469,11 +3469,11 @@ msgstr "Vybrat položku"
 msgid "Click on the item."
 msgstr "Klikněte na položku."
 
-#: C/gnome-commander.xml:683(keycap) C/gnome-commander.xml:6339(keycap)
+#: C/gnome-commander.xml:683(keycap) C/gnome-commander.xml:6433(keycap)
 msgid "SPACE"
 msgstr "MEZERNÍK"
 
-#: C/gnome-commander.xml:684(keycap) C/gnome-commander.xml:6334(keycap)
+#: C/gnome-commander.xml:684(keycap) C/gnome-commander.xml:6428(keycap)
 msgid "INSERT"
 msgstr "INSERT"
 
@@ -3530,37 +3530,37 @@ msgstr ""
 #: C/gnome-commander.xml:4149(keycap) C/gnome-commander.xml:4202(keycap)
 #: C/gnome-commander.xml:4206(keycap) C/gnome-commander.xml:4210(keycap)
 #: C/gnome-commander.xml:4217(keycap) C/gnome-commander.xml:4221(keycap)
-#: C/gnome-commander.xml:4228(keycap) C/gnome-commander.xml:6157(keycap)
-#: C/gnome-commander.xml:6162(keycap) C/gnome-commander.xml:6167(keycap)
-#: C/gnome-commander.xml:6172(keycap) C/gnome-commander.xml:6177(keycap)
-#: C/gnome-commander.xml:6187(keycap) C/gnome-commander.xml:6242(keycap)
-#: C/gnome-commander.xml:6247(keycap) C/gnome-commander.xml:6268(keycap)
-#: C/gnome-commander.xml:6293(keycap) C/gnome-commander.xml:6318(keycap)
-#: C/gnome-commander.xml:6323(keycap) C/gnome-commander.xml:6324(keycap)
-#: C/gnome-commander.xml:6382(keycap) C/gnome-commander.xml:6387(keycap)
-#: C/gnome-commander.xml:6392(keycap) C/gnome-commander.xml:6402(keycap)
-#: C/gnome-commander.xml:6412(keycap) C/gnome-commander.xml:6417(keycap)
-#: C/gnome-commander.xml:6422(keycap) C/gnome-commander.xml:6427(keycap)
-#: C/gnome-commander.xml:6442(keycap) C/gnome-commander.xml:6447(keycap)
-#: C/gnome-commander.xml:6452(keycap) C/gnome-commander.xml:6457(keycap)
-#: C/gnome-commander.xml:6462(keycap) C/gnome-commander.xml:6472(keycap)
-#: C/gnome-commander.xml:6477(keycap) C/gnome-commander.xml:6482(keycap)
-#: C/gnome-commander.xml:6487(keycap) C/gnome-commander.xml:6492(keycap)
-#: C/gnome-commander.xml:6502(keycap) C/gnome-commander.xml:6507(keycap)
-#: C/gnome-commander.xml:6512(keycap) C/gnome-commander.xml:6517(keycap)
-#: C/gnome-commander.xml:6527(keycap) C/gnome-commander.xml:6532(keycap)
-#: C/gnome-commander.xml:6537(keycap) C/gnome-commander.xml:6547(keycap)
-#: C/gnome-commander.xml:6558(keycap) C/gnome-commander.xml:6578(keycap)
-#: C/gnome-commander.xml:6583(keycap) C/gnome-commander.xml:6588(keycap)
-#: C/gnome-commander.xml:6593(keycap) C/gnome-commander.xml:6598(keycap)
-#: C/gnome-commander.xml:6603(keycap) C/gnome-commander.xml:6613(keycap)
-#: C/gnome-commander.xml:6614(keycap)
+#: C/gnome-commander.xml:4228(keycap) C/gnome-commander.xml:6251(keycap)
+#: C/gnome-commander.xml:6256(keycap) C/gnome-commander.xml:6261(keycap)
+#: C/gnome-commander.xml:6266(keycap) C/gnome-commander.xml:6271(keycap)
+#: C/gnome-commander.xml:6281(keycap) C/gnome-commander.xml:6336(keycap)
+#: C/gnome-commander.xml:6341(keycap) C/gnome-commander.xml:6362(keycap)
+#: C/gnome-commander.xml:6387(keycap) C/gnome-commander.xml:6412(keycap)
+#: C/gnome-commander.xml:6417(keycap) C/gnome-commander.xml:6418(keycap)
+#: C/gnome-commander.xml:6476(keycap) C/gnome-commander.xml:6481(keycap)
+#: C/gnome-commander.xml:6486(keycap) C/gnome-commander.xml:6496(keycap)
+#: C/gnome-commander.xml:6506(keycap) C/gnome-commander.xml:6511(keycap)
+#: C/gnome-commander.xml:6516(keycap) C/gnome-commander.xml:6521(keycap)
+#: C/gnome-commander.xml:6536(keycap) C/gnome-commander.xml:6541(keycap)
+#: C/gnome-commander.xml:6546(keycap) C/gnome-commander.xml:6551(keycap)
+#: C/gnome-commander.xml:6556(keycap) C/gnome-commander.xml:6566(keycap)
+#: C/gnome-commander.xml:6571(keycap) C/gnome-commander.xml:6576(keycap)
+#: C/gnome-commander.xml:6581(keycap) C/gnome-commander.xml:6586(keycap)
+#: C/gnome-commander.xml:6596(keycap) C/gnome-commander.xml:6601(keycap)
+#: C/gnome-commander.xml:6606(keycap) C/gnome-commander.xml:6611(keycap)
+#: C/gnome-commander.xml:6621(keycap) C/gnome-commander.xml:6626(keycap)
+#: C/gnome-commander.xml:6631(keycap) C/gnome-commander.xml:6641(keycap)
+#: C/gnome-commander.xml:6652(keycap) C/gnome-commander.xml:6672(keycap)
+#: C/gnome-commander.xml:6677(keycap) C/gnome-commander.xml:6682(keycap)
+#: C/gnome-commander.xml:6687(keycap) C/gnome-commander.xml:6692(keycap)
+#: C/gnome-commander.xml:6697(keycap) C/gnome-commander.xml:6707(keycap)
+#: C/gnome-commander.xml:6708(keycap)
 msgid "CTRL"
 msgstr "Ctrl"
 
 #: C/gnome-commander.xml:715(keycap) C/gnome-commander.xml:727(keycap)
-#: C/gnome-commander.xml:4164(keycap) C/gnome-commander.xml:6412(keycap)
-#: C/gnome-commander.xml:6417(keycap)
+#: C/gnome-commander.xml:4164(keycap) C/gnome-commander.xml:6506(keycap)
+#: C/gnome-commander.xml:6511(keycap)
 msgid "A"
 msgstr "A"
 
@@ -3581,55 +3581,55 @@ msgstr ""
 "guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:727(keycap) C/gnome-commander.xml:4221(keycap)
-#: C/gnome-commander.xml:6122(keycap) C/gnome-commander.xml:6127(keycap)
-#: C/gnome-commander.xml:6132(keycap) C/gnome-commander.xml:6137(keycap)
-#: C/gnome-commander.xml:6142(keycap) C/gnome-commander.xml:6147(keycap)
-#: C/gnome-commander.xml:6187(keycap) C/gnome-commander.xml:6283(keycap)
-#: C/gnome-commander.xml:6361(keycap) C/gnome-commander.xml:6402(keycap)
-#: C/gnome-commander.xml:6417(keycap) C/gnome-commander.xml:6462(keycap)
-#: C/gnome-commander.xml:6482(keycap) C/gnome-commander.xml:6492(keycap)
-#: C/gnome-commander.xml:6512(keycap) C/gnome-commander.xml:6517(keycap)
-#: C/gnome-commander.xml:6537(keycap) C/gnome-commander.xml:6603(keycap)
+#: C/gnome-commander.xml:6216(keycap) C/gnome-commander.xml:6221(keycap)
+#: C/gnome-commander.xml:6226(keycap) C/gnome-commander.xml:6231(keycap)
+#: C/gnome-commander.xml:6236(keycap) C/gnome-commander.xml:6241(keycap)
+#: C/gnome-commander.xml:6281(keycap) C/gnome-commander.xml:6377(keycap)
+#: C/gnome-commander.xml:6455(keycap) C/gnome-commander.xml:6496(keycap)
+#: C/gnome-commander.xml:6511(keycap) C/gnome-commander.xml:6556(keycap)
+#: C/gnome-commander.xml:6576(keycap) C/gnome-commander.xml:6586(keycap)
+#: C/gnome-commander.xml:6606(keycap) C/gnome-commander.xml:6611(keycap)
+#: C/gnome-commander.xml:6631(keycap) C/gnome-commander.xml:6697(keycap)
 msgid "SHIFT"
 msgstr "Shift"
 
 #: C/gnome-commander.xml:728(keycap) C/gnome-commander.xml:4206(keycap)
-#: C/gnome-commander.xml:6247(keycap)
+#: C/gnome-commander.xml:6341(keycap)
 msgid "-"
 msgstr "-"
 
-#: C/gnome-commander.xml:733(para) C/gnome-commander.xml:6253(para)
+#: C/gnome-commander.xml:733(para) C/gnome-commander.xml:6347(para)
 msgid "Select all files with the same extension"
 msgstr "Vybrat všechny položky se stejnou příponou"
 
 #: C/gnome-commander.xml:737(keycap) C/gnome-commander.xml:746(keycap)
-#: C/gnome-commander.xml:4157(keycap) C/gnome-commander.xml:6077(keycap)
-#: C/gnome-commander.xml:6082(keycap) C/gnome-commander.xml:6092(keycap)
-#: C/gnome-commander.xml:6097(keycap) C/gnome-commander.xml:6102(keycap)
-#: C/gnome-commander.xml:6112(keycap) C/gnome-commander.xml:6252(keycap)
-#: C/gnome-commander.xml:6257(keycap) C/gnome-commander.xml:6303(keycap)
-#: C/gnome-commander.xml:6308(keycap) C/gnome-commander.xml:6351(keycap)
-#: C/gnome-commander.xml:6361(keycap) C/gnome-commander.xml:6557(keycap)
-#: C/gnome-commander.xml:6558(keycap) C/gnome-commander.xml:6615(keycap)
+#: C/gnome-commander.xml:4157(keycap) C/gnome-commander.xml:6171(keycap)
+#: C/gnome-commander.xml:6176(keycap) C/gnome-commander.xml:6186(keycap)
+#: C/gnome-commander.xml:6191(keycap) C/gnome-commander.xml:6196(keycap)
+#: C/gnome-commander.xml:6206(keycap) C/gnome-commander.xml:6346(keycap)
+#: C/gnome-commander.xml:6351(keycap) C/gnome-commander.xml:6397(keycap)
+#: C/gnome-commander.xml:6402(keycap) C/gnome-commander.xml:6445(keycap)
+#: C/gnome-commander.xml:6455(keycap) C/gnome-commander.xml:6651(keycap)
+#: C/gnome-commander.xml:6652(keycap) C/gnome-commander.xml:6709(keycap)
 msgid "ALT"
 msgstr "Alt"
 
 #: C/gnome-commander.xml:737(keycap) C/gnome-commander.xml:758(keycap)
-#: C/gnome-commander.xml:6222(keycap) C/gnome-commander.xml:6252(keycap)
+#: C/gnome-commander.xml:6316(keycap) C/gnome-commander.xml:6346(keycap)
 msgid "NUM +"
 msgstr "NUM +"
 
-#: C/gnome-commander.xml:742(para) C/gnome-commander.xml:6258(para)
+#: C/gnome-commander.xml:742(para) C/gnome-commander.xml:6352(para)
 msgid "Unselect all files with the same extension"
 msgstr "Zrušit výběr všech položek se stejnou příponou"
 
 #: C/gnome-commander.xml:746(keycap) C/gnome-commander.xml:771(keycap)
-#: C/gnome-commander.xml:6227(keycap) C/gnome-commander.xml:6257(keycap)
+#: C/gnome-commander.xml:6321(keycap) C/gnome-commander.xml:6351(keycap)
 msgid "NUM -"
 msgstr "NUM -"
 
-#: C/gnome-commander.xml:751(para) C/gnome-commander.xml:6218(para)
-#: C/gnome-commander.xml:6223(para)
+#: C/gnome-commander.xml:751(para) C/gnome-commander.xml:6312(para)
+#: C/gnome-commander.xml:6317(para)
 msgid "Select files using a pattern"
 msgstr "Vybrat soubory podle vzoru"
 
@@ -3643,7 +3643,7 @@ msgstr ""
 "guimenuitem></menuchoice>. GNOME Commander vybere soubory odpovídajích vzoru "
 "založeném buď na divokých znacích nebo regulárním výrazu."
 
-#: C/gnome-commander.xml:763(para) C/gnome-commander.xml:6228(para)
+#: C/gnome-commander.xml:763(para) C/gnome-commander.xml:6322(para)
 msgid "Unselect files using a pattern"
 msgstr "Zrušit výběr souborů podle vzoru"
 
@@ -3658,8 +3658,8 @@ msgstr ""
 "vzoru</guimenuitem></menuchoice>. GNOME Commander zruší výběr souborů "
 "odpovídajích vzoru založeném buď na divokých znacích nebo regulárním výrazu."
 
-#: C/gnome-commander.xml:776(para) C/gnome-commander.xml:6233(para)
-#: C/gnome-commander.xml:6872(para) C/gnome-commander.xml:6873(para)
+#: C/gnome-commander.xml:776(para) C/gnome-commander.xml:6327(para)
+#: C/gnome-commander.xml:6966(para) C/gnome-commander.xml:6967(para)
 msgid "Invert selection"
 msgstr "Invertovat výběr"
 
@@ -3671,7 +3671,7 @@ msgstr ""
 "Zvolte <menuchoice><guimenu>Označit</guimenu><guimenuitem>Invertovat výběr</"
 "guimenuitem></menuchoice>."
 
-#: C/gnome-commander.xml:782(keycap) C/gnome-commander.xml:6232(keycap)
+#: C/gnome-commander.xml:782(keycap) C/gnome-commander.xml:6326(keycap)
 msgid "NUM *"
 msgstr "NUM *"
 
@@ -4391,9 +4391,9 @@ msgstr "Vlastnost"
 #: C/gnome-commander.xml:3716(para) C/gnome-commander.xml:4327(para)
 #: C/gnome-commander.xml:4604(para) C/gnome-commander.xml:4746(para)
 #: C/gnome-commander.xml:5075(para) C/gnome-commander.xml:5253(para)
-#: C/gnome-commander.xml:5426(para) C/gnome-commander.xml:5598(para)
-#: C/gnome-commander.xml:5811(para) C/gnome-commander.xml:5927(para)
-#: C/gnome-commander.xml:6677(para)
+#: C/gnome-commander.xml:5426(para) C/gnome-commander.xml:5692(para)
+#: C/gnome-commander.xml:5905(para) C/gnome-commander.xml:6021(para)
+#: C/gnome-commander.xml:6771(para)
 msgid "Description"
 msgstr "Popis"
 
@@ -4407,7 +4407,7 @@ msgid "The name of the file or folder."
 msgstr "Název souboru nebo složky."
 
 #: C/gnome-commander.xml:1142(para) C/gnome-commander.xml:3726(para)
-#: C/gnome-commander.xml:8041(title)
+#: C/gnome-commander.xml:8135(title)
 msgid "Location"
 msgstr "Umístění"
 
@@ -4431,7 +4431,7 @@ msgstr "Volné místo"
 msgid "The amount of free space on the volume."
 msgstr "Množství volného místa na svazku."
 
-#: C/gnome-commander.xml:1167(para) C/gnome-commander.xml:7455(para)
+#: C/gnome-commander.xml:1167(para) C/gnome-commander.xml:7549(para)
 msgid "Type"
 msgstr "Typ"
 
@@ -10644,7 +10644,7 @@ msgstr "Vorbis.Description"
 msgid "Vorbis.License"
 msgstr "Vorbis.License"
 
-#: C/gnome-commander.xml:3721(para) C/gnome-commander.xml:8057(title)
+#: C/gnome-commander.xml:3721(para) C/gnome-commander.xml:8151(title)
 msgid "License"
 msgstr "Licence"
 
@@ -10832,7 +10832,7 @@ msgstr "%C"
 msgid "The century number (year/100) as a 2-digit integer"
 msgstr "Číslo století (rok/100) jako 2číselné celé číslo"
 
-#: C/gnome-commander.xml:3840(para)
+#: C/gnome-commander.xml:3840(para) C/gnome-commander.xml:5631(para)
 msgid "%d"
 msgstr "%d"
 
@@ -10860,7 +10860,7 @@ msgstr "%E"
 msgid "Modifier: use alternative format, see below"
 msgstr "Modifikátor: použít alternativní formát, viz dále"
 
-#: C/gnome-commander.xml:3852(para)
+#: C/gnome-commander.xml:3852(para) C/gnome-commander.xml:5591(para)
 msgid "%F"
 msgstr "%F"
 
@@ -10968,7 +10968,7 @@ msgstr "Minuta jako desítkové číslo (rozsah 00 až 59)"
 msgid "%O"
 msgstr "%O"
 
-#: C/gnome-commander.xml:3904(para)
+#: C/gnome-commander.xml:3904(para) C/gnome-commander.xml:5599(para)
 msgid "%p"
 msgstr "%p"
 
@@ -10982,7 +10982,7 @@ msgstr ""
 "jiný text podle aktuálního národního prostředí. Poledne je uváděno jako „PM“ "
 "a půlnoc jako „AM“"
 
-#: C/gnome-commander.xml:3909(para)
+#: C/gnome-commander.xml:3909(para) C/gnome-commander.xml:5607(para)
 msgid "%P"
 msgstr "%P"
 
@@ -11018,7 +11018,7 @@ msgstr ""
 "Čas ve 24hodinové notaci (%H:%M). Pokud potřebujete verzi se sekundami, "
 "poohlédněte se po %T"
 
-#: C/gnome-commander.xml:3921(para)
+#: C/gnome-commander.xml:3921(para) C/gnome-commander.xml:5615(para)
 msgid "%s"
 msgstr "%s"
 
@@ -11043,7 +11043,7 @@ msgstr "%T"
 msgid "The time in 24-hour notation (%H:%M:%S)"
 msgstr "Čas ve 24hodinové notaci (%H:%M:%S)"
 
-#: C/gnome-commander.xml:3933(para)
+#: C/gnome-commander.xml:3933(para) C/gnome-commander.xml:5623(para)
 msgid "%u"
 msgstr "%u"
 
@@ -11165,7 +11165,7 @@ msgstr "%+"
 msgid "The date and time in date format"
 msgstr "Datum a čas ve formátu data"
 
-#: C/gnome-commander.xml:3987(para)
+#: C/gnome-commander.xml:3987(para) C/gnome-commander.xml:5647(para)
 msgid "%%"
 msgstr "%%"
 
@@ -11533,11 +11533,11 @@ msgstr ""
 msgid "Keyboard mappings"
 msgstr "Mapování kláves"
 
-#: C/gnome-commander.xml:4143(para) C/gnome-commander.xml:6020(para)
+#: C/gnome-commander.xml:4143(para) C/gnome-commander.xml:6114(para)
 msgid "Shortcut"
 msgstr "Klávesová zkratka"
 
-#: C/gnome-commander.xml:4144(para) C/gnome-commander.xml:6021(para)
+#: C/gnome-commander.xml:4144(para) C/gnome-commander.xml:6115(para)
 msgid "Mapping"
 msgstr "Mapování"
 
@@ -11546,8 +11546,8 @@ msgid "Escape"
 msgstr "Esc"
 
 #: C/gnome-commander.xml:4149(keycap) C/gnome-commander.xml:4153(keycap)
-#: C/gnome-commander.xml:6477(keycap) C/gnome-commander.xml:6482(keycap)
-#: C/gnome-commander.xml:6583(keycap)
+#: C/gnome-commander.xml:6571(keycap) C/gnome-commander.xml:6576(keycap)
+#: C/gnome-commander.xml:6677(keycap)
 msgid "W"
 msgstr "W"
 
@@ -11559,15 +11559,15 @@ msgstr "Zavřít okno interního prohlížeče"
 msgid "Toggles line wrapping (applicable only in text display modes)"
 msgstr "Přepnout zalamování řádků (použitelné jen v režimu zobrazení textu)"
 
-#: C/gnome-commander.xml:4157(keycap) C/gnome-commander.xml:6472(keycap)
-#: C/gnome-commander.xml:6588(keycap)
+#: C/gnome-commander.xml:4157(keycap) C/gnome-commander.xml:6566(keycap)
+#: C/gnome-commander.xml:6682(keycap)
 msgid "T"
 msgstr "T"
 
-#: C/gnome-commander.xml:4157(keycap) C/gnome-commander.xml:6278(keycap)
-#: C/gnome-commander.xml:6283(keycap) C/gnome-commander.xml:6351(keycap)
-#: C/gnome-commander.xml:6361(keycap) C/gnome-commander.xml:6598(keycap)
-#: C/gnome-commander.xml:6603(keycap)
+#: C/gnome-commander.xml:4157(keycap) C/gnome-commander.xml:6372(keycap)
+#: C/gnome-commander.xml:6377(keycap) C/gnome-commander.xml:6445(keycap)
+#: C/gnome-commander.xml:6455(keycap) C/gnome-commander.xml:6692(keycap)
+#: C/gnome-commander.xml:6697(keycap)
 msgid "ENTER"
 msgstr "Enter"
 
@@ -11599,7 +11599,7 @@ msgstr ""
 "Nastavit režim vstupu na ASCII, s kódováním codepage 437 (vhodné pro režim "
 "zobrazení binárních dat a šestnáctkového výpisu)"
 
-#: C/gnome-commander.xml:4173(keycap) C/gnome-commander.xml:6442(keycap)
+#: C/gnome-commander.xml:4173(keycap) C/gnome-commander.xml:6536(keycap)
 msgid "U"
 msgstr "U"
 
@@ -11611,8 +11611,8 @@ msgstr "Nastavit režim vstupu na UTF-8"
 msgid "Display modes:"
 msgstr "Režimy zobrazení:"
 
-#: C/gnome-commander.xml:4180(keycap) C/gnome-commander.xml:6077(keycap)
-#: C/gnome-commander.xml:6197(keycap)
+#: C/gnome-commander.xml:4180(keycap) C/gnome-commander.xml:6171(keycap)
+#: C/gnome-commander.xml:6291(keycap)
 msgid "1"
 msgstr "1"
 
@@ -11620,8 +11620,8 @@ msgstr "1"
 msgid "Sets display mode to text, with fixed width font"
 msgstr "Nastavit režim zobrazení textu s pevnou šířkou písma"
 
-#: C/gnome-commander.xml:4184(keycap) C/gnome-commander.xml:6082(keycap)
-#: C/gnome-commander.xml:6202(keycap)
+#: C/gnome-commander.xml:4184(keycap) C/gnome-commander.xml:6176(keycap)
+#: C/gnome-commander.xml:6296(keycap)
 msgid "2"
 msgstr "2"
 
@@ -11686,7 +11686,7 @@ msgid "Image manipulation:"
 msgstr "Manipulace s obrázkem:"
 
 #: C/gnome-commander.xml:4217(keycap) C/gnome-commander.xml:4221(keycap)
-#: C/gnome-commander.xml:6502(keycap)
+#: C/gnome-commander.xml:6596(keycap)
 msgid "R"
 msgstr "R"
 
@@ -11854,16 +11854,16 @@ msgstr "Tabulka obecných voleb"
 #: C/gnome-commander.xml:4321(para) C/gnome-commander.xml:4598(para)
 #: C/gnome-commander.xml:4740(para) C/gnome-commander.xml:5069(para)
 #: C/gnome-commander.xml:5247(para) C/gnome-commander.xml:5420(para)
-#: C/gnome-commander.xml:5592(para) C/gnome-commander.xml:5805(para)
-#: C/gnome-commander.xml:5921(para)
+#: C/gnome-commander.xml:5686(para) C/gnome-commander.xml:5899(para)
+#: C/gnome-commander.xml:6015(para)
 msgid "Header"
 msgstr "Oddíl"
 
 #: C/gnome-commander.xml:4324(para) C/gnome-commander.xml:4601(para)
 #: C/gnome-commander.xml:4743(para) C/gnome-commander.xml:5072(para)
 #: C/gnome-commander.xml:5250(para) C/gnome-commander.xml:5423(para)
-#: C/gnome-commander.xml:5595(para) C/gnome-commander.xml:5808(para)
-#: C/gnome-commander.xml:5924(para)
+#: C/gnome-commander.xml:5689(para) C/gnome-commander.xml:5902(para)
+#: C/gnome-commander.xml:6018(para)
 msgid "Option"
 msgstr "Volba"
 
@@ -11914,7 +11914,7 @@ msgstr ""
 msgid "Middle Mouse button"
 msgstr "Prostřední tlačítko myši"
 
-#: C/gnome-commander.xml:4379(para) C/gnome-commander.xml:7030(para)
+#: C/gnome-commander.xml:4379(para) C/gnome-commander.xml:7124(para)
 msgid "Up one directory"
 msgstr "O úroveň výš"
 
@@ -12826,7 +12826,7 @@ msgid "Shows GNOME Commander confirmation preferences dialog."
 msgstr ""
 "Ukazuje dialogové okno předvoleb potvrzování v aplikaci GNOME Commander."
 
-#: C/gnome-commander.xml:5083(guilabel) C/gnome-commander.xml:6778(para)
+#: C/gnome-commander.xml:5083(guilabel) C/gnome-commander.xml:6872(para)
 msgid "Delete"
 msgstr "Odstranit"
 
@@ -13187,13 +13187,14 @@ msgstr "Prohlížeč:"
 
 #: C/gnome-commander.xml:5453(para)
 msgid ""
-"Set which application is used when the command view is used when the "
-"<keycap>F3</keycap> key is pressed. By default GNOME Commander uses an "
-"internal viewer"
+"Set which application is used when the view command is used by pressing the "
+"<keycap>F3</keycap> key. Default value: \"gedit %s\". %s is the variable "
+"containing the selected items. See <xref linkend=\"gcmd-TBL-setting7\"/> tab "
+"for more information. By default GNOME Commander uses an internal viewer. "
+"See next row."
 msgstr ""
 "Nastavuje, která aplikace je použita, když je zmáčknutím <keycap>F3</keycap> "
-"použit příkaz k prohlížení. Jako výchozí používá GNOME Commander interní "
-"prohlížeč."
+"použit příkaz k prohlížení. Výchozí hodnota: „gedit %s“. %s je proměnná "
 
 #: C/gnome-commander.xml:5459(para)
 msgid "Use internal viewer"
@@ -13216,12 +13217,10 @@ msgstr "Editor:"
 #: C/gnome-commander.xml:5471(para)
 msgid ""
 "In this text box you can type in the command line used to start your "
-"favourite text editor. %s is the variable containing the selected items. The "
-"default application is the GNOME default Gedit."
+"favourite text editor. Default value: \"gedit %s\""
 msgstr ""
 "Do tohoto textového pole můžete zapsat příkaz, který se má použít ke "
-"spuštění vašeho oblíbeného textového editoru. %s je proměnná obsahující "
-"vybrané položky. Výchozí aplikací je výchozí textový editor GNOME Gedit."
+"spuštění vašeho oblíbeného textového editoru. Výchozí hodnota: „gedit %s“."
 
 #: C/gnome-commander.xml:5477(para)
 msgid "Differ:"
@@ -13231,11 +13230,12 @@ msgstr "Zjištění rozdílů (diff):"
 msgid ""
 "In this text box you can type in the command line used to start your "
 "favourite comparison tool. %s is the variable containing the selected files "
-"to compare. The default application is Meld."
+"to compare. Default value: \"meld %s\""
 msgstr ""
 "Do tohoto textového pole můžete zapsat příkaz, který se má použít ke "
 "spuštění vašeho oblíbeného nástroje na porovnávání. %s je proměnná "
-"obsahující vybrané položky, které se mají porovnat. Výchozí aplikací je Meld."
+"obsahující vybrané položky, které se mají porovnat. Výchozí hodnota: „meld "
+"%s“."
 
 #: C/gnome-commander.xml:5486(para)
 msgid "Send files:"
@@ -13245,11 +13245,11 @@ msgstr "Odeslat soubory:"
 msgid ""
 "In this text box you can type in the command line used to send files to a "
 "preferred application. %s is the variable containing the selected files to "
-"be sent. The default application is nautilus-sendto."
+"be sent. Default value: \"nautilus-sendto %s\""
 msgstr ""
 "Do tohoto textového pole můžete zapsat příkaz, který se má použít k odeslání "
 "souborů do upřednostňované aplikace. %s je proměnná obsahující vybrané "
-"soubory, které se mají odeslat. Výchozí aplikací je nautilus-sendto."
+"soubory, které se mají odeslat. Výchozí hodnota: „nautilus-sendto %s“."
 
 #: C/gnome-commander.xml:5495(para)
 msgid "Terminal:"
@@ -13258,11 +13258,11 @@ msgstr "Terminál:"
 #: C/gnome-commander.xml:5498(para)
 msgid ""
 "In this text box you can type in the command line used to start you "
-"favourite terminal application. The Default application is gnome-terminal."
+"favourite terminal application. Default value: \"gnome-terminal\"."
 msgstr ""
 "Do tohoto textového pole můžete zapsat příkaz, který se má použít ke "
-"spuštění vaší oblíbené terminálové aplikace. Výchozí aplikací je gnome-"
-"terminal."
+"spuštění vaší oblíbené terminálové aplikace. Výchozí hodnota: „gnome-"
+"terminal“."
 
 #: C/gnome-commander.xml:5503(guilabel)
 msgid "Other favorite apps"
@@ -13338,15 +13338,86 @@ msgstr "Terminálový příkaz pro aplikace v seznamu výše"
 msgid ""
 "In this text box you can type in the command line used to start your app "
 "from the list above with a favourite terminal application. %s is the "
-"variable used to pass the command to be executed in the terminal. The "
-"Default application is gnome-terminal -e %s."
+"variable used to pass the command to be executed in the terminal. Default "
+"value: \"gnome-terminal -e %s\"."
 msgstr ""
 "Do tohoto textového pole můžete zapsat příkaz, který se má použít ke "
 "spuštění vaší aplikace ze seznamu výše spolu s oblíbenou terminálovou "
 "aplikací. %s je proměnná použitá k předání příkazu, který se má v terminálu "
-"spustit. Výchozí aplikací je gnome-terminal."
+"spustit. Výchozí hodnota: „gnome-terminal -e %s“."
 
 #: C/gnome-commander.xml:5563(para)
+msgid ""
+"As you can see in the list above, \"%s\" can be used for filename expansion. "
+"All possible expansion types are listed in the table below:"
+msgstr ""
+"Jak můžete vidět v seznamu výše, „%s“ je možné použít k rozvinutí názvu "
+"souboru. Všechny dostupné typy rozvinutí jsou vypsány v tabulce níže:"
+
+#: C/gnome-commander.xml:5566(title)
+msgid "String expansion"
+msgstr "Rozvinutí řetězců"
+
+#: C/gnome-commander.xml:5573(para)
+msgid "String"
+msgstr "Řetězec"
+
+#: C/gnome-commander.xml:5576(para)
+msgid "Expands to..."
+msgstr "Rozvine se na…"
+
+#: C/gnome-commander.xml:5583(para)
+msgid "%f"
+msgstr "%f"
+
+#: C/gnome-commander.xml:5586(para)
+msgid "File name (or list for multiple selections)"
+msgstr "Název souboru (nebo seznam při vícenásobném výběru)"
+
+#: C/gnome-commander.xml:5594(para)
+msgid "Quoted filename (or list for multiple selections)"
+msgstr "Název souboru v úvozovkách (nebo seznam při vícenásobném výběru)"
+
+#: C/gnome-commander.xml:5602(para)
+msgid "Full file system path (or list for multiple selections)"
+msgstr "Plná systémová cesta k souboru (nebo seznam při vícenásobném výběru)"
+
+#: C/gnome-commander.xml:5610(para)
+msgid "Quoted full file system path (or list for multiple selections)"
+msgstr ""
+"Plná systémová cesta k souboru v uvozovkách (nebo seznam při vícenásobném "
+"výběru)"
+
+#: C/gnome-commander.xml:5618(para)
+msgid ""
+"Synonym for %P (for compatibility with previous versions of GNOME Commander)"
+msgstr ""
+"Synonymum pro <guilabel>%P</guilabel> (pro úplnou kompatibilitu s "
+"předchozími verzemi aplikace GNOME Commander)"
+
+#: C/gnome-commander.xml:5626(para)
+msgid "Fully qualified URI for the file (or list for multiple selections)"
+msgstr ""
+"Plně kvalifikovaná adresa URI pro soubor (nebo seznam při vícenásobném "
+"výběru)"
+
+#: C/gnome-commander.xml:5634(para)
+msgid "Full path to the directory containing file"
+msgstr "Úplná cesta ke složce obsahující soubor"
+
+#: C/gnome-commander.xml:5639(para)
+msgid "%D"
+msgstr "%D"
+
+#: C/gnome-commander.xml:5642(para)
+msgid "Quoted full path to the directory containg file"
+msgstr "Úplná cesta ke složce obsahující soubor"
+
+#: C/gnome-commander.xml:5650(para)
+msgid "Percent sign"
+msgstr "Znak procenta"
+
+#: C/gnome-commander.xml:5657(para)
 msgid ""
 "The section below describes the process of adding or modifying other "
 "applications to the contextual menu"
@@ -13354,7 +13425,7 @@ msgstr ""
 "Následující oddíl popisuje proces přidávání a úprav dalších aplikací pro "
 "kontextovou nabídku."
 
-#: C/gnome-commander.xml:5564(para)
+#: C/gnome-commander.xml:5658(para)
 msgid ""
 "In the <xref linkend=\"options-application-fig\"/> box you can input a "
 "number of different parameters to run the application you want. You will "
@@ -13366,7 +13437,7 @@ msgstr ""
 "Pravděpodobně budete potřebovat zjistit v manuálové stránce aplikace, jaké "
 "různé přepínače má."
 
-#: C/gnome-commander.xml:5567(para)
+#: C/gnome-commander.xml:5661(para)
 msgid ""
 "The dialog box used to modify existing applications is the same as the one "
 "described below."
@@ -13374,33 +13445,33 @@ msgstr ""
 "Dialogové okno používané pro změny stávajících aplikací je stejné, jako to "
 "popsané níže."
 
-#: C/gnome-commander.xml:5570(title)
+#: C/gnome-commander.xml:5664(title)
 msgid "New Application dialog"
 msgstr "Dialogové okno nové aplikace"
 
-#: C/gnome-commander.xml:5577(phrase)
+#: C/gnome-commander.xml:5671(phrase)
 msgid "Shows GNOME Commander new application dialog."
 msgstr "Ukazuje dialogové okno nové aplikace v GNOME Commanderu."
 
-#: C/gnome-commander.xml:5585(title)
+#: C/gnome-commander.xml:5679(title)
 msgid "New Application tab"
 msgstr "Karta nové aplikace"
 
-#: C/gnome-commander.xml:5606(guilabel)
+#: C/gnome-commander.xml:5700(guilabel)
 msgid "Label:"
 msgstr "Popisek:"
 
-#: C/gnome-commander.xml:5614(para) C/gnome-commander.xml:5943(para)
+#: C/gnome-commander.xml:5708(para) C/gnome-commander.xml:6037(para)
 msgid ""
 "This text box contains the label that is displayed in the contextual menu."
 msgstr ""
 "Toto textové pole obsahuje popis, který se zobrazuje v kontextové nabídce."
 
-#: C/gnome-commander.xml:5621(guilabel)
+#: C/gnome-commander.xml:5715(guilabel)
 msgid "Command:"
 msgstr "Příkaz:"
 
-#: C/gnome-commander.xml:5629(para)
+#: C/gnome-commander.xml:5723(para)
 msgid ""
 "This text box contains the command line used to start the application and "
 "open the selected items."
@@ -13408,7 +13479,7 @@ msgstr ""
 "Toto textové pole obsahuje příkazový řádek použitý ke spuštění aplikace a "
 "otevření vybraných položek."
 
-#: C/gnome-commander.xml:5631(para)
+#: C/gnome-commander.xml:5725(para)
 msgid ""
 "It is recommended that you read the help or the manual pages of the "
 "application to start it properly and to configure it with the correct "
@@ -13417,15 +13488,15 @@ msgstr ""
 "Doporučuje se, abyste si přečetli nápovědu nebo manuálové stránky aplikace, "
 "aby se spouštěla správně a byla nastavena správnými přepínači."
 
-#: C/gnome-commander.xml:5637(guilabel)
+#: C/gnome-commander.xml:5731(guilabel)
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: C/gnome-commander.xml:5641(para)
+#: C/gnome-commander.xml:5735(para)
 msgid "Choose Icon"
 msgstr "Vybrat ikonu"
 
-#: C/gnome-commander.xml:5645(para)
+#: C/gnome-commander.xml:5739(para)
 msgid ""
 "Clicking on this button opens a dialog box where you can choose the Icon "
 "that will displayed in the contextual menu."
@@ -13433,11 +13504,11 @@ msgstr ""
 "Kliknutím na toto tlačítko se otevře dialogové okno, ve kterém můžete zvolit "
 "ikonu, která se bude zobrazovat kontextové nabídce."
 
-#: C/gnome-commander.xml:5656(para)
+#: C/gnome-commander.xml:5750(para)
 msgid "Can handle multiple files"
 msgstr "Umí zpracovávat více souborů"
 
-#: C/gnome-commander.xml:5660(para)
+#: C/gnome-commander.xml:5754(para)
 msgid ""
 "Whether the application can handle multiple file names to be passed in the "
 "command used to start it."
@@ -13445,11 +13516,11 @@ msgstr ""
 "Zda aplikace umí zpracovávat více názvů souborů předaných příkazu, kterým se "
 "spouští."
 
-#: C/gnome-commander.xml:5670(para)
+#: C/gnome-commander.xml:5764(para)
 msgid "Can handle URIs"
 msgstr "Umí zpracovávat adresy URI"
 
-#: C/gnome-commander.xml:5674(para)
+#: C/gnome-commander.xml:5768(para)
 msgid ""
 "Whether the application can handle a file name provided as a URI. This is "
 "especially important when you work on remote files. You can get more "
@@ -13460,11 +13531,11 @@ msgstr ""
 "důležité především, když pracujete se vzdálenými soubory. Více informací na "
 "toto téma můžete najít v nápovědě a manuálových stránkách dané aplikace."
 
-#: C/gnome-commander.xml:5684(para)
+#: C/gnome-commander.xml:5778(para)
 msgid "Requires terminal"
 msgstr "Vyžaduje terminál"
 
-#: C/gnome-commander.xml:5688(para)
+#: C/gnome-commander.xml:5782(para)
 msgid ""
 "Whether the application requires a terminal to be opened. In this case GNOME "
 "Commander starts the application in an independent terminal."
@@ -13472,15 +13543,15 @@ msgstr ""
 "Zda aplikace vyžaduje k otevření terminál. V takovém případě GNOME Commander "
 "aplikaci spustí v nezávislém terminálu."
 
-#: C/gnome-commander.xml:5695(guilabel)
+#: C/gnome-commander.xml:5789(guilabel)
 msgid "Show for"
 msgstr "Zobrazovat pro"
 
-#: C/gnome-commander.xml:5699(para)
+#: C/gnome-commander.xml:5793(para)
 msgid "All files"
 msgstr "Všechny soubory"
 
-#: C/gnome-commander.xml:5703(para)
+#: C/gnome-commander.xml:5797(para)
 msgid ""
 "When this option is selected right clicking on any file will display the "
 "application in the contextual menu."
@@ -13488,11 +13559,11 @@ msgstr ""
 "Když je tato volba vybrána, kliknutí pravým tlačítkem na libovolném souboru "
 "zobrazí aplikaci v kontextové nabídce."
 
-#: C/gnome-commander.xml:5713(para)
+#: C/gnome-commander.xml:5807(para)
 msgid "All directories"
 msgstr "Všechny složky"
 
-#: C/gnome-commander.xml:5717(para)
+#: C/gnome-commander.xml:5811(para)
 msgid ""
 "When this option is selected right clicking on any directory will display "
 "the application in the contextual menu."
@@ -13500,11 +13571,11 @@ msgstr ""
 "Když je tato volba vybrána, kliknutí pravým tlačítkem na libovolnou složku "
 "zobrazí aplikaci v kontextové nabídce."
 
-#: C/gnome-commander.xml:5727(para)
+#: C/gnome-commander.xml:5821(para)
 msgid "All directories and files"
 msgstr "Všechny soubory a složky"
 
-#: C/gnome-commander.xml:5731(para)
+#: C/gnome-commander.xml:5825(para)
 msgid ""
 "When this option is selected right clicking on any file or directory will "
 "display the application in the contextual menu."
@@ -13512,11 +13583,11 @@ msgstr ""
 "Když je tato volba vybrána, kliknutí pravým tlačítkem na libovolném souboru "
 "nebo složce zobrazí aplikaci v kontextové nabídce."
 
-#: C/gnome-commander.xml:5741(para)
+#: C/gnome-commander.xml:5835(para)
 msgid "Some files"
 msgstr "Některé soubory"
 
-#: C/gnome-commander.xml:5745(para)
+#: C/gnome-commander.xml:5839(para)
 msgid ""
 "When this option is selected right clicking on the files specified in the "
 "<guimenu>File patterns</guimenu> below will display the application in the "
@@ -13525,11 +13596,11 @@ msgstr ""
 "Když je tato volba vybrána, kliknutí pravým tlačítkem na souborech určených "
 "<guimenu>Vzory souborů</guimenu> níže zobrazí aplikaci v kontextové nabídce."
 
-#: C/gnome-commander.xml:5755(para)
+#: C/gnome-commander.xml:5849(para)
 msgid "File patterns"
 msgstr "Vzory souborů"
 
-#: C/gnome-commander.xml:5759(para)
+#: C/gnome-commander.xml:5853(para)
 msgid ""
 "This contains the file extensions specific to the application. The syntax is "
 "as follow: \"*.extension\" use \";\" as a separator between the different "
@@ -13538,12 +13609,12 @@ msgstr ""
 "Obsahuje přípony souborů specifické pro aplikaci. Syntaxe je následující: „*."
 "přípona“, pokud zadáte více různých přípon, použijte k oddělení „;“."
 
-#: C/gnome-commander.xml:5769(title)
+#: C/gnome-commander.xml:5863(title)
 msgid "Devices"
 msgstr "Zařízení"
 
 #. Brief description
-#: C/gnome-commander.xml:5771(para)
+#: C/gnome-commander.xml:5865(para)
 msgid ""
 "This section of the option dialog lets you configure devices so that you can "
 "access them by pressing a button in the device buttons toolbar or an entry "
@@ -13553,7 +13624,7 @@ msgstr ""
 "máte přístup v podobě tlačítek na liště tlačítek zařízení a položek v "
 "nabídce připojení."
 
-#: C/gnome-commander.xml:5773(para)
+#: C/gnome-commander.xml:5867(para)
 msgid ""
 "In the <guilabel>Devices</guilabel> window all devices which have been added "
 "manually are shown together with their icon."
@@ -13561,7 +13632,7 @@ msgstr ""
 "V okně <guilabel>Zařízení</guilabel> jsou zobrazena spolu s ikonami všechna "
 "zařízení, která byla přidána ručně."
 
-#: C/gnome-commander.xml:5776(para)
+#: C/gnome-commander.xml:5870(para)
 msgid ""
 "<guilabel>Show only the icons</guilabel>: If activated, device icons are "
 "shown without their alias name in the device buttons toolbar."
@@ -13569,7 +13640,7 @@ msgstr ""
 "<guilabel>Zobrazovat pouze ikony</guilabel>: když je zapnuto, jsou v liště "
 "zařízení zobrazeny jen ikony bez přezdívek zařízení"
 
-#: C/gnome-commander.xml:5777(para)
+#: C/gnome-commander.xml:5871(para)
 msgid ""
 "<guilabel>Skip mounting</guilabel>: If activated, GNOME Commander will not "
 "try to mount the devices by clicking on them."
@@ -13577,7 +13648,7 @@ msgstr ""
 "<guilabel>Přeskočit připojování</guilabel>: když je zapnuto, nebude GNOME "
 "Commander po kliknutí na zařízení zkoušet toto zařízení připojit"
 
-#: C/gnome-commander.xml:5774(para)
+#: C/gnome-commander.xml:5868(para)
 msgid ""
 "Below the <guilabel>Devices</guilabel> window you have two options: "
 "<placeholder-1/>"
@@ -13585,7 +13656,7 @@ msgstr ""
 "V dolní části okna <guilabel>Zařízení</guilabel> máte dvě volby: "
 "<placeholder-1/>"
 
-#: C/gnome-commander.xml:5780(para)
+#: C/gnome-commander.xml:5874(para)
 msgid ""
 "On the right hand side there are five buttons, described in the <xref "
 "linkend=\"gcmd-dev\"/> table below."
@@ -13593,27 +13664,27 @@ msgstr ""
 "Po pravé straně je pět tlačítek popsaných v tabulce <xref linkend=\"gcmd-dev"
 "\"/> níže."
 
-#: C/gnome-commander.xml:5783(title)
+#: C/gnome-commander.xml:5877(title)
 msgid "Devices options"
 msgstr "Volby zařízení"
 
-#: C/gnome-commander.xml:5790(phrase)
+#: C/gnome-commander.xml:5884(phrase)
 msgid "Shows GNOME Commander devices preferences dialog."
 msgstr "Ukazuje dialogové okno předvoleb zařízení v aplikaci GNOME Commander."
 
-#: C/gnome-commander.xml:5798(title)
+#: C/gnome-commander.xml:5892(title)
 msgid "Devices tab"
 msgstr "Karta Zařízení"
 
-#: C/gnome-commander.xml:5819(guilabel)
+#: C/gnome-commander.xml:5913(guilabel)
 msgid "Devices:"
 msgstr "Zařízení"
 
-#: C/gnome-commander.xml:5823(para)
+#: C/gnome-commander.xml:5917(para)
 msgid "Add:"
 msgstr "Přidat"
 
-#: C/gnome-commander.xml:5827(para)
+#: C/gnome-commander.xml:5921(para)
 msgid ""
 "You can add a device by pressing this button. The device defined here will "
 "appear in the device buttons toolbar and an entry in the connections menu. A "
@@ -13623,11 +13694,11 @@ msgstr ""
 "se budou objevovat jako tlačítka na liště zařízení a jako položky v "
 "kontextové nabídce. Po kliknutí na toto tlačíko se objeví dialogové okno."
 
-#: C/gnome-commander.xml:5838(para)
+#: C/gnome-commander.xml:5932(para)
 msgid "Edit:"
 msgstr "Upravit"
 
-#: C/gnome-commander.xml:5842(para)
+#: C/gnome-commander.xml:5936(para)
 msgid ""
 "Clicking this button will open a dialog were you can modify a device which "
 "is selected in the <guimenu>Devices</guimenu> window list."
@@ -13635,11 +13706,11 @@ msgstr ""
 "Kliknutím na toto tlačítko se otevře dialogové okno, ve kterém můžete "
 "upravit zařízení právě vybrané v seznamu <guimenu>Zařízení</guimenu>."
 
-#: C/gnome-commander.xml:5853(para)
+#: C/gnome-commander.xml:5947(para)
 msgid "Remove:"
 msgstr "Odstranit"
 
-#: C/gnome-commander.xml:5857(para)
+#: C/gnome-commander.xml:5951(para)
 msgid ""
 "Clicking this button will remove the application selected from the "
 "<guimenu>Devices</guimenu> window list."
@@ -13647,11 +13718,11 @@ msgstr ""
 "Kliknutím na toto tlačítko se odstraní ze seznamu <guimenu>Zařízení</"
 "guimenu> právě vybrané zařízení."
 
-#: C/gnome-commander.xml:5868(para)
+#: C/gnome-commander.xml:5962(para)
 msgid "Up:"
 msgstr "Výš"
 
-#: C/gnome-commander.xml:5872(para)
+#: C/gnome-commander.xml:5966(para)
 msgid ""
 "Clicking this button will move the device up in the list. This will also "
 "affect the order in which the list is displayed in the contextual menu."
@@ -13659,11 +13730,11 @@ msgstr ""
 "Kliknutím na toto tlačítko přesunete zařízení v seznamu na vyšší pozici, což "
 "má mimo jiné vliv na pořadí, v jakém je seznam zobrazen v kontextové nabídce."
 
-#: C/gnome-commander.xml:5882(para)
+#: C/gnome-commander.xml:5976(para)
 msgid "Down:"
 msgstr "Níž"
 
-#: C/gnome-commander.xml:5886(para)
+#: C/gnome-commander.xml:5980(para)
 msgid ""
 "Clicking this button will move the device down in the list. This will also "
 "affect the order in which the list is displayed in the contextual menu."
@@ -13671,7 +13742,7 @@ msgstr ""
 "Kliknutím na toto tlačítko přesunete zařízení v seznamu na nižší pozici, což "
 "má mimo jiné vliv na pořadí, v jakém je seznam zobrazen v kontextové nabídce."
 
-#: C/gnome-commander.xml:5894(para)
+#: C/gnome-commander.xml:5988(para)
 msgid ""
 "The dialog box used to add new and to modify existing devices is the same. "
 "Look at the figure <xref linkend=\"options-edit-dev\"/> and the explanation "
@@ -13681,27 +13752,27 @@ msgstr ""
 "stávajícího zařízení je to samé. Podívejte se na obrázek <xref linkend="
 "\"options-edit-dev\"/> a vysvětlení níže."
 
-#: C/gnome-commander.xml:5898(title)
+#: C/gnome-commander.xml:5992(title)
 msgid "Application options"
 msgstr "Volby aplikací"
 
-#: C/gnome-commander.xml:5905(phrase)
+#: C/gnome-commander.xml:5999(phrase)
 msgid "Shows GNOME Commander new devices dialog."
 msgstr "Ukazuje okno nového zařízní v aplikaci GNOME Commander."
 
-#: C/gnome-commander.xml:5914(title)
+#: C/gnome-commander.xml:6008(title)
 msgid "Devices option tab"
 msgstr "Karta s volbami zařízení"
 
-#: C/gnome-commander.xml:5935(guilabel)
+#: C/gnome-commander.xml:6029(guilabel)
 msgid "Alias:"
 msgstr "Přezdívka"
 
-#: C/gnome-commander.xml:5950(guilabel)
+#: C/gnome-commander.xml:6044(guilabel)
 msgid "Device:"
 msgstr "Zařízení"
 
-#: C/gnome-commander.xml:5958(para)
+#: C/gnome-commander.xml:6052(para)
 msgid ""
 "This text box contains the device which should be accessed. Usually it is "
 "located in the /dev directory."
@@ -13709,22 +13780,22 @@ msgstr ""
 "Toto textové pole obsahuje zařízení, ke kterému se má přistupovat. Obvykle "
 "se nachází ve složce /dev."
 
-#: C/gnome-commander.xml:5965(guilabel)
+#: C/gnome-commander.xml:6059(guilabel)
 msgid "Mount point:"
 msgstr "Přípojný bod"
 
-#: C/gnome-commander.xml:5973(para)
+#: C/gnome-commander.xml:6067(para)
 msgid ""
 "Here you specify where the device should be mounted to. Usually this is a "
 "directory in /mnt"
 msgstr ""
 "Zde se určuje, kam se má zařízení připojit. Obvykle se jedná o složku /mnt."
 
-#: C/gnome-commander.xml:5980(guilabel)
+#: C/gnome-commander.xml:6074(guilabel)
 msgid "Icon"
 msgstr "Ikona"
 
-#: C/gnome-commander.xml:5988(para)
+#: C/gnome-commander.xml:6082(para)
 msgid ""
 "By clicking on the button you can specify the icon which should be displayed "
 "in the contextual menu."
@@ -13732,11 +13803,11 @@ msgstr ""
 "Kliknutím na toto tlačítko můžete určit ikonu, která se bude zobrazovat "
 "kontextové nabídce."
 
-#: C/gnome-commander.xml:6002(title) C/gnome-commander.xml:6654(title)
+#: C/gnome-commander.xml:6096(title) C/gnome-commander.xml:6748(title)
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
-#: C/gnome-commander.xml:6003(para)
+#: C/gnome-commander.xml:6097(para)
 msgid ""
 "In this section the keyboard shortcuts in GNOME Commander are presented. In "
 "the table below you will find each keyboard shortcut, its mappings and an "
@@ -13746,7 +13817,7 @@ msgstr ""
 "následující tabulce můžete najít všechny klávesové zkratky, jejich "
 "namapování a informaci, jestli jsou uživatelsky definovatelné."
 
-#: C/gnome-commander.xml:6004(para)
+#: C/gnome-commander.xml:6098(para)
 msgid ""
 "If you want to know more about how to change a keyboard shortcut or how to "
 "assign a new one (if user definable), look at the section <xref linkend="
@@ -13756,7 +13827,7 @@ msgstr ""
 "jak vytvořit novou (musí být uživatelsky definovatelná), podívejte se na "
 "oddíl <xref linkend=\"gnome-commander-user-actions\"/>."
 
-#: C/gnome-commander.xml:6005(para)
+#: C/gnome-commander.xml:6099(para)
 msgid ""
 "The daily usage of GNOME Commander is very effective if you know by heart at "
 "least the most important keyboard shortcuts for moving and file handling "
@@ -13768,7 +13839,7 @@ msgstr ""
 "oddíl <xref linkend=\"gnome-commander-usage\"/>). Naučte se je a GNOME "
 "Commander se pro vás stane velmi účinným nástrojem."
 
-#: C/gnome-commander.xml:6007(para)
+#: C/gnome-commander.xml:6101(para)
 msgid ""
 "Some keyboard shortcuts may not work as expected under your environment, e."
 "g. GNOME. The reason for that is that the environment uses some global "
@@ -13786,251 +13857,251 @@ msgstr ""
 "klávesových zkratek vašeho pracovního prostředí k přizpůsobení výchozích "
 "klávesových zkratek tak, jak potřebujete."
 
-#: C/gnome-commander.xml:6022(para)
+#: C/gnome-commander.xml:6116(para)
 msgid "User definable"
 msgstr "Definovatelné uživatelem"
 
-#: C/gnome-commander.xml:6027(keycap)
+#: C/gnome-commander.xml:6121(keycap)
 msgid "F1"
 msgstr "F1"
 
-#: C/gnome-commander.xml:6028(para) C/gnome-commander.xml:6861(para)
+#: C/gnome-commander.xml:6122(para) C/gnome-commander.xml:6955(para)
 msgid "Help"
 msgstr "Nápověda"
 
-#: C/gnome-commander.xml:6032(keycap) C/gnome-commander.xml:6122(keycap)
+#: C/gnome-commander.xml:6126(keycap) C/gnome-commander.xml:6216(keycap)
 msgid "F2"
 msgstr "F2"
 
-#: C/gnome-commander.xml:6033(para) C/gnome-commander.xml:6143(para)
+#: C/gnome-commander.xml:6127(para) C/gnome-commander.xml:6237(para)
 msgid "Rename a file"
 msgstr "Přejmenovat soubor"
 
-#: C/gnome-commander.xml:6037(keycap) C/gnome-commander.xml:6092(keycap)
-#: C/gnome-commander.xml:6127(keycap) C/gnome-commander.xml:6157(keycap)
+#: C/gnome-commander.xml:6131(keycap) C/gnome-commander.xml:6186(keycap)
+#: C/gnome-commander.xml:6221(keycap) C/gnome-commander.xml:6251(keycap)
 msgid "F3"
 msgstr "F3"
 
-#: C/gnome-commander.xml:6038(para) C/gnome-commander.xml:7035(para)
+#: C/gnome-commander.xml:6132(para) C/gnome-commander.xml:7129(para)
 msgid "View files"
 msgstr "Zobrazit soubory"
 
-#: C/gnome-commander.xml:6042(keycap) C/gnome-commander.xml:6132(keycap)
-#: C/gnome-commander.xml:6162(keycap)
+#: C/gnome-commander.xml:6136(keycap) C/gnome-commander.xml:6226(keycap)
+#: C/gnome-commander.xml:6256(keycap)
 msgid "F4"
 msgstr "F4"
 
-#: C/gnome-commander.xml:6043(para) C/gnome-commander.xml:6794(para)
-#: C/gnome-commander.xml:6795(para)
+#: C/gnome-commander.xml:6137(para) C/gnome-commander.xml:6888(para)
+#: C/gnome-commander.xml:6889(para)
 msgid "Edit file"
 msgstr "Upravit soubor"
 
-#: C/gnome-commander.xml:6047(keycap) C/gnome-commander.xml:6137(keycap)
-#: C/gnome-commander.xml:6167(keycap) C/gnome-commander.xml:6187(keycap)
+#: C/gnome-commander.xml:6141(keycap) C/gnome-commander.xml:6231(keycap)
+#: C/gnome-commander.xml:6261(keycap) C/gnome-commander.xml:6281(keycap)
 msgid "F5"
 msgstr "F5"
 
-#: C/gnome-commander.xml:6048(para) C/gnome-commander.xml:6754(para)
-#: C/gnome-commander.xml:6755(para)
+#: C/gnome-commander.xml:6142(para) C/gnome-commander.xml:6848(para)
+#: C/gnome-commander.xml:6849(para)
 msgid "Copy files"
 msgstr "Kopírovat soubory"
 
-#: C/gnome-commander.xml:6052(keycap) C/gnome-commander.xml:6142(keycap)
-#: C/gnome-commander.xml:6172(keycap)
+#: C/gnome-commander.xml:6146(keycap) C/gnome-commander.xml:6236(keycap)
+#: C/gnome-commander.xml:6266(keycap)
 msgid "F6"
 msgstr "F6"
 
-#: C/gnome-commander.xml:6053(para)
+#: C/gnome-commander.xml:6147(para)
 msgid "Rename or move files"
 msgstr "Přejmenovat nebo přesunout soubory"
 
-#: C/gnome-commander.xml:6057(keycap) C/gnome-commander.xml:6097(keycap)
-#: C/gnome-commander.xml:6177(keycap)
+#: C/gnome-commander.xml:6151(keycap) C/gnome-commander.xml:6191(keycap)
+#: C/gnome-commander.xml:6271(keycap)
 msgid "F7"
 msgstr "F7"
 
-#: C/gnome-commander.xml:6058(para) C/gnome-commander.xml:6766(para)
-#: C/gnome-commander.xml:6767(para)
+#: C/gnome-commander.xml:6152(para) C/gnome-commander.xml:6860(para)
+#: C/gnome-commander.xml:6861(para)
 msgid "Create directory"
 msgstr "Vytvořit složku"
 
-#: C/gnome-commander.xml:6062(keycap) C/gnome-commander.xml:6102(keycap)
-#: C/gnome-commander.xml:6615(keycap)
+#: C/gnome-commander.xml:6156(keycap) C/gnome-commander.xml:6196(keycap)
+#: C/gnome-commander.xml:6709(keycap)
 msgid "F8"
 msgstr "F8"
 
-#: C/gnome-commander.xml:6063(para) C/gnome-commander.xml:6373(para)
-#: C/gnome-commander.xml:6779(para) C/gnome-commander.xml:6782(para)
-#: C/gnome-commander.xml:6783(para)
+#: C/gnome-commander.xml:6157(para) C/gnome-commander.xml:6467(para)
+#: C/gnome-commander.xml:6873(para) C/gnome-commander.xml:6876(para)
+#: C/gnome-commander.xml:6877(para)
 msgid "Delete files"
 msgstr "Odstranit soubory"
 
-#: C/gnome-commander.xml:6067(keycap)
+#: C/gnome-commander.xml:6161(keycap)
 msgid "F9"
 msgstr "F9"
 
-#: C/gnome-commander.xml:6068(para) C/gnome-commander.xml:6098(para)
-#: C/gnome-commander.xml:6988(para)
+#: C/gnome-commander.xml:6162(para) C/gnome-commander.xml:6192(para)
+#: C/gnome-commander.xml:7082(para)
 msgid "Search"
 msgstr "Hledat"
 
-#: C/gnome-commander.xml:6078(para) C/gnome-commander.xml:6198(para)
-#: C/gnome-commander.xml:6706(para) C/gnome-commander.xml:6707(para)
+#: C/gnome-commander.xml:6172(para) C/gnome-commander.xml:6292(para)
+#: C/gnome-commander.xml:6800(para) C/gnome-commander.xml:6801(para)
 msgid "Change left connection"
 msgstr "Změnit připojení v levém panelu"
 
-#: C/gnome-commander.xml:6079(para) C/gnome-commander.xml:6084(para)
-#: C/gnome-commander.xml:6094(para) C/gnome-commander.xml:6099(para)
-#: C/gnome-commander.xml:6114(para) C/gnome-commander.xml:6124(para)
-#: C/gnome-commander.xml:6129(para) C/gnome-commander.xml:6134(para)
-#: C/gnome-commander.xml:6139(para) C/gnome-commander.xml:6144(para)
-#: C/gnome-commander.xml:6189(para) C/gnome-commander.xml:6199(para)
-#: C/gnome-commander.xml:6204(para) C/gnome-commander.xml:6209(para)
-#: C/gnome-commander.xml:6219(para) C/gnome-commander.xml:6224(para)
-#: C/gnome-commander.xml:6229(para) C/gnome-commander.xml:6234(para)
-#: C/gnome-commander.xml:6244(para) C/gnome-commander.xml:6249(para)
-#: C/gnome-commander.xml:6295(para) C/gnome-commander.xml:6320(para)
-#: C/gnome-commander.xml:6326(para) C/gnome-commander.xml:6414(para)
-#: C/gnome-commander.xml:6419(para) C/gnome-commander.xml:6424(para)
-#: C/gnome-commander.xml:6429(para) C/gnome-commander.xml:6449(para)
-#: C/gnome-commander.xml:6454(para) C/gnome-commander.xml:6459(para)
-#: C/gnome-commander.xml:6464(para) C/gnome-commander.xml:6474(para)
-#: C/gnome-commander.xml:6479(para) C/gnome-commander.xml:6484(para)
-#: C/gnome-commander.xml:6504(para) C/gnome-commander.xml:6509(para)
-#: C/gnome-commander.xml:6519(para) C/gnome-commander.xml:6529(para)
-#: C/gnome-commander.xml:6534(para) C/gnome-commander.xml:6539(para)
-#: C/gnome-commander.xml:6549(para)
+#: C/gnome-commander.xml:6173(para) C/gnome-commander.xml:6178(para)
+#: C/gnome-commander.xml:6188(para) C/gnome-commander.xml:6193(para)
+#: C/gnome-commander.xml:6208(para) C/gnome-commander.xml:6218(para)
+#: C/gnome-commander.xml:6223(para) C/gnome-commander.xml:6228(para)
+#: C/gnome-commander.xml:6233(para) C/gnome-commander.xml:6238(para)
+#: C/gnome-commander.xml:6283(para) C/gnome-commander.xml:6293(para)
+#: C/gnome-commander.xml:6298(para) C/gnome-commander.xml:6303(para)
+#: C/gnome-commander.xml:6313(para) C/gnome-commander.xml:6318(para)
+#: C/gnome-commander.xml:6323(para) C/gnome-commander.xml:6328(para)
+#: C/gnome-commander.xml:6338(para) C/gnome-commander.xml:6343(para)
+#: C/gnome-commander.xml:6389(para) C/gnome-commander.xml:6414(para)
+#: C/gnome-commander.xml:6420(para) C/gnome-commander.xml:6508(para)
+#: C/gnome-commander.xml:6513(para) C/gnome-commander.xml:6518(para)
+#: C/gnome-commander.xml:6523(para) C/gnome-commander.xml:6543(para)
+#: C/gnome-commander.xml:6548(para) C/gnome-commander.xml:6553(para)
+#: C/gnome-commander.xml:6558(para) C/gnome-commander.xml:6568(para)
+#: C/gnome-commander.xml:6573(para) C/gnome-commander.xml:6578(para)
+#: C/gnome-commander.xml:6598(para) C/gnome-commander.xml:6603(para)
+#: C/gnome-commander.xml:6613(para) C/gnome-commander.xml:6623(para)
+#: C/gnome-commander.xml:6628(para) C/gnome-commander.xml:6633(para)
+#: C/gnome-commander.xml:6643(para)
 msgid "yes"
 msgstr "ano"
 
-#: C/gnome-commander.xml:6083(para) C/gnome-commander.xml:6203(para)
-#: C/gnome-commander.xml:6718(para) C/gnome-commander.xml:6719(para)
+#: C/gnome-commander.xml:6177(para) C/gnome-commander.xml:6297(para)
+#: C/gnome-commander.xml:6812(para) C/gnome-commander.xml:6813(para)
 msgid "Change right connection"
 msgstr "Změnit připojení v pravém panelu"
 
-#: C/gnome-commander.xml:6093(para) C/gnome-commander.xml:7038(para)
-#: C/gnome-commander.xml:7039(para)
+#: C/gnome-commander.xml:6187(para) C/gnome-commander.xml:7132(para)
+#: C/gnome-commander.xml:7133(para)
 msgid "View with external viewer"
 msgstr "Zobrazit v externím prohlížeči"
 
-#: C/gnome-commander.xml:6103(para)
+#: C/gnome-commander.xml:6197(para)
 msgid "Open the history list for the command line"
 msgstr "Otevřít seznam historie pro příkazový řádek"
 
-#: C/gnome-commander.xml:6112(keycap) C/gnome-commander.xml:6613(keycap)
+#: C/gnome-commander.xml:6206(keycap) C/gnome-commander.xml:6707(keycap)
 msgid "DOWN"
 msgstr "šipka dolů"
 
-#: C/gnome-commander.xml:6113(para) C/gnome-commander.xml:7001(para)
+#: C/gnome-commander.xml:6207(para) C/gnome-commander.xml:7095(para)
 msgid "Open the history list of visited directories"
 msgstr "Otevřít seznam historie navštívených složek"
 
-#: C/gnome-commander.xml:6123(para) C/gnome-commander.xml:6738(para)
-#: C/gnome-commander.xml:6739(para)
+#: C/gnome-commander.xml:6217(para) C/gnome-commander.xml:6832(para)
+#: C/gnome-commander.xml:6833(para)
 msgid "Compare directories"
 msgstr "Porovnat složky"
 
-#: C/gnome-commander.xml:6128(para) C/gnome-commander.xml:7042(para)
-#: C/gnome-commander.xml:7043(para)
+#: C/gnome-commander.xml:6222(para) C/gnome-commander.xml:7136(para)
+#: C/gnome-commander.xml:7137(para)
 msgid "View with internal viewer"
 msgstr "Zobrazit v interním prohlížeči"
 
-#: C/gnome-commander.xml:6133(para) C/gnome-commander.xml:6790(para)
-#: C/gnome-commander.xml:6791(para)
+#: C/gnome-commander.xml:6227(para) C/gnome-commander.xml:6884(para)
+#: C/gnome-commander.xml:6885(para)
 msgid "Edit a new file"
 msgstr "Upravit nový soubor"
 
-#: C/gnome-commander.xml:6138(para)
+#: C/gnome-commander.xml:6232(para)
 msgid "Make a copy of the file in the current directory."
 msgstr "Vytvořit kopii souboru v aktuální složce"
 
-#: C/gnome-commander.xml:6147(keycap)
+#: C/gnome-commander.xml:6241(keycap)
 msgid "F10"
 msgstr "F10"
 
-#: C/gnome-commander.xml:6148(para)
+#: C/gnome-commander.xml:6242(para)
 msgid "Bring up the context menu for the selected files."
 msgstr "Zobrazit kontextovou nabídku pro vybrané soubory"
 
-#: C/gnome-commander.xml:6158(para)
+#: C/gnome-commander.xml:6252(para)
 msgid "Sort by name"
 msgstr "Řadit podle názvu"
 
-#: C/gnome-commander.xml:6163(para)
+#: C/gnome-commander.xml:6257(para)
 msgid "Sort by extension"
 msgstr "Řadit podle přípony"
 
-#: C/gnome-commander.xml:6168(para)
+#: C/gnome-commander.xml:6262(para)
 msgid "Sort by date/time"
 msgstr "Řadit podle data/času"
 
-#: C/gnome-commander.xml:6173(para)
+#: C/gnome-commander.xml:6267(para)
 msgid "Sort by size"
 msgstr "Řadit podle velikosti"
 
-#: C/gnome-commander.xml:6178(para)
+#: C/gnome-commander.xml:6272(para)
 msgid "Unsorted"
 msgstr "Neřadit"
 
-#: C/gnome-commander.xml:6188(para) C/gnome-commander.xml:6770(para)
-#: C/gnome-commander.xml:6771(para)
+#: C/gnome-commander.xml:6282(para) C/gnome-commander.xml:6864(para)
+#: C/gnome-commander.xml:6865(para)
 msgid "Create symbolic link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: C/gnome-commander.xml:6197(keycap) C/gnome-commander.xml:6202(keycap)
-#: C/gnome-commander.xml:6207(keycap)
+#: C/gnome-commander.xml:6291(keycap) C/gnome-commander.xml:6296(keycap)
+#: C/gnome-commander.xml:6301(keycap)
 msgid "SUPER"
 msgstr "SUPER"
 
-#: C/gnome-commander.xml:6207(keycap) C/gnome-commander.xml:6532(keycap)
-#: C/gnome-commander.xml:6537(keycap)
+#: C/gnome-commander.xml:6301(keycap) C/gnome-commander.xml:6626(keycap)
+#: C/gnome-commander.xml:6631(keycap)
 msgid "F"
 msgstr "F"
 
-#: C/gnome-commander.xml:6208(para)
+#: C/gnome-commander.xml:6302(para)
 msgid "Search files"
 msgstr "Hledat soubory"
 
-#: C/gnome-commander.xml:6217(keycap) C/gnome-commander.xml:6242(keycap)
-#: C/gnome-commander.xml:6517(keycap)
+#: C/gnome-commander.xml:6311(keycap) C/gnome-commander.xml:6336(keycap)
+#: C/gnome-commander.xml:6611(keycap)
 msgid "="
 msgstr "="
 
-#: C/gnome-commander.xml:6237(keycap)
+#: C/gnome-commander.xml:6331(keycap)
 msgid "NUM /"
 msgstr "číselné /"
 
-#: C/gnome-commander.xml:6238(para)
+#: C/gnome-commander.xml:6332(para)
 msgid "Restore selection"
 msgstr "Obnovit výběr"
 
-#: C/gnome-commander.xml:6243(para) C/gnome-commander.xml:6413(para)
-#: C/gnome-commander.xml:6993(para)
+#: C/gnome-commander.xml:6337(para) C/gnome-commander.xml:6507(para)
+#: C/gnome-commander.xml:7087(para)
 msgid "Select all files"
 msgstr "Vybrat všechny soubory"
 
-#: C/gnome-commander.xml:6248(para) C/gnome-commander.xml:6418(para)
-#: C/gnome-commander.xml:7027(para)
+#: C/gnome-commander.xml:6342(para) C/gnome-commander.xml:6512(para)
+#: C/gnome-commander.xml:7121(para)
 msgid "Unselect all files"
 msgstr "Zrušit výběr všech souborů"
 
-#: C/gnome-commander.xml:6267(keycap)
+#: C/gnome-commander.xml:6361(keycap)
 msgid "BACKSPACE"
 msgstr "BACKSPACE"
 
-#: C/gnome-commander.xml:6268(keycap)
+#: C/gnome-commander.xml:6362(keycap)
 msgid "PageUp"
 msgstr "PageUp"
 
-#: C/gnome-commander.xml:6269(para)
+#: C/gnome-commander.xml:6363(para)
 msgid "Change to parent directory (cd ..)"
 msgstr "Přepnout do rodičovské složky (cd ..)"
 
-#: C/gnome-commander.xml:6279(para)
+#: C/gnome-commander.xml:6373(para)
 msgid "Change directory or execute command line if not empty"
 msgstr "Změnit složku nebo provést příkazový řádek, jestliže není prázdný"
 
-#: C/gnome-commander.xml:6284(para)
+#: C/gnome-commander.xml:6378(para)
 msgid ""
 "Execute command line in the defined terminal and leaves the terminal window "
 "open"
@@ -14038,56 +14109,56 @@ msgstr ""
 "Provést příkazový řádek v definovaném terminálu a okno s terminálem ponechat "
 "otevřené"
 
-#: C/gnome-commander.xml:6293(keycap)
+#: C/gnome-commander.xml:6387(keycap)
 msgid "PageDown"
 msgstr "PageDown"
 
-#: C/gnome-commander.xml:6294(para) C/gnome-commander.xml:6702(para)
-#: C/gnome-commander.xml:6703(para)
+#: C/gnome-commander.xml:6388(para) C/gnome-commander.xml:6796(para)
+#: C/gnome-commander.xml:6797(para)
 msgid "Change directory"
 msgstr "Změnit složku"
 
-#: C/gnome-commander.xml:6303(keycap) C/gnome-commander.xml:6447(keycap)
+#: C/gnome-commander.xml:6397(keycap) C/gnome-commander.xml:6541(keycap)
 msgid "LEFT"
 msgstr "šipka vlevo"
 
-#: C/gnome-commander.xml:6304(para) C/gnome-commander.xml:6691(para)
+#: C/gnome-commander.xml:6398(para) C/gnome-commander.xml:6785(para)
 msgid "Go back to the last visited directory"
 msgstr "Vrátit se zpět do poslední navštívené složky"
 
-#: C/gnome-commander.xml:6308(keycap) C/gnome-commander.xml:6452(keycap)
+#: C/gnome-commander.xml:6402(keycap) C/gnome-commander.xml:6546(keycap)
 msgid "RIGHT"
 msgstr "šipka vpravo"
 
-#: C/gnome-commander.xml:6309(para) C/gnome-commander.xml:6844(para)
+#: C/gnome-commander.xml:6403(para) C/gnome-commander.xml:6938(para)
 msgid "Go forward to the next visited directory"
 msgstr "Přejít vpřed do následující navštívené složky"
 
-#: C/gnome-commander.xml:6318(keycap)
+#: C/gnome-commander.xml:6412(keycap)
 msgid "\\"
 msgstr "\\"
 
-#: C/gnome-commander.xml:6319(para) C/gnome-commander.xml:6985(para)
+#: C/gnome-commander.xml:6413(para) C/gnome-commander.xml:7079(para)
 msgid "Go to the root directory"
 msgstr "Přejít do kořenové složky"
 
-#: C/gnome-commander.xml:6323(keycap)
+#: C/gnome-commander.xml:6417(keycap)
 msgid "~"
 msgstr "~"
 
-#: C/gnome-commander.xml:6324(keycap)
+#: C/gnome-commander.xml:6418(keycap)
 msgid "`"
 msgstr "`"
 
-#: C/gnome-commander.xml:6325(para) C/gnome-commander.xml:6869(para)
+#: C/gnome-commander.xml:6419(para) C/gnome-commander.xml:6963(para)
 msgid "Go to the home directory"
 msgstr "Přejít do domovské složky"
 
-#: C/gnome-commander.xml:6335(para)
+#: C/gnome-commander.xml:6429(para)
 msgid "Select file or directory"
 msgstr "Vybrat soubor nebo složku"
 
-#: C/gnome-commander.xml:6340(para)
+#: C/gnome-commander.xml:6434(para)
 msgid ""
 "Select file or directory (as <keycombo><keycap>INSERT</keycap></keycombo>). "
 "If <keycombo><keycap>SPACE</keycap></keycombo> is used on an unselected "
@@ -14099,11 +14170,11 @@ msgstr ""
 "nevybrané složce pod kurzorem, je obsah v této složce spočítán a velikost je "
 "v „úplném“ zobrazení zobrazena namísto textu DIR"
 
-#: C/gnome-commander.xml:6352(para) C/gnome-commander.xml:6961(para)
+#: C/gnome-commander.xml:6446(para) C/gnome-commander.xml:7055(para)
 msgid "Show properties for the selected file"
 msgstr "Zobrazit vlastnosti pro vybraný soubor"
 
-#: C/gnome-commander.xml:6362(para)
+#: C/gnome-commander.xml:6456(para)
 msgid ""
 "The contents of all directories in the current directory are counted. The "
 "sizes of the directories are then shown in the \"full\" view instead of the "
@@ -14112,64 +14183,64 @@ msgstr ""
 "Je spočítán obsah všech složek v aktuální složce. Velikost je v „úplném“ "
 "zobrazení zobrazena namísto textu DIR"
 
-#: C/gnome-commander.xml:6372(keycap)
+#: C/gnome-commander.xml:6466(keycap)
 msgid "DELETE"
 msgstr "DELETE"
 
-#: C/gnome-commander.xml:6382(keycap) C/gnome-commander.xml:6402(keycap)
+#: C/gnome-commander.xml:6476(keycap) C/gnome-commander.xml:6496(keycap)
 msgid "C"
 msgstr "C"
 
-#: C/gnome-commander.xml:6383(para) C/gnome-commander.xml:6751(para)
+#: C/gnome-commander.xml:6477(para) C/gnome-commander.xml:6845(para)
 msgid "Copy files to clipboard (not a global one yet)"
 msgstr "Kopírovat soubory do schránky (ale ne té globální)"
 
-#: C/gnome-commander.xml:6387(keycap)
+#: C/gnome-commander.xml:6481(keycap)
 msgid "X"
 msgstr "X"
 
-#: C/gnome-commander.xml:6388(para) C/gnome-commander.xml:6775(para)
+#: C/gnome-commander.xml:6482(para) C/gnome-commander.xml:6869(para)
 msgid "Cut files to clipboard (not a global one yet)"
 msgstr "Vyjmout soubory do schránky (ale ne té globální)"
 
-#: C/gnome-commander.xml:6392(keycap)
+#: C/gnome-commander.xml:6486(keycap)
 msgid "V"
 msgstr "V"
 
-#: C/gnome-commander.xml:6393(para)
+#: C/gnome-commander.xml:6487(para)
 msgid "Paste from clipboard to current dir (not a global one yet)"
 msgstr "Vložit ze schránky do aktuální složky (ale ne z té globální)"
 
-#: C/gnome-commander.xml:6403(para)
+#: C/gnome-commander.xml:6497(para)
 msgid "Copy selected file names to clipboard"
 msgstr "Kopírovat názvy vybraných souborů do schránky"
 
-#: C/gnome-commander.xml:6422(keycap)
+#: C/gnome-commander.xml:6516(keycap)
 msgid "D"
 msgstr "D"
 
-#: C/gnome-commander.xml:6423(para)
+#: C/gnome-commander.xml:6517(para)
 msgid "Open favorite directories (bookmarks)"
 msgstr "Otevřít oblíbené složky (záložky)"
 
-#: C/gnome-commander.xml:6427(keycap)
+#: C/gnome-commander.xml:6521(keycap)
 msgid "M"
 msgstr "M"
 
-#: C/gnome-commander.xml:6428(para)
+#: C/gnome-commander.xml:6522(para)
 msgid "Multi-Rename-Tool"
 msgstr "Nástroj vícenásobného přejmenování"
 
-#: C/gnome-commander.xml:6437(keycap) C/gnome-commander.xml:6487(keycap)
-#: C/gnome-commander.xml:6492(keycap)
+#: C/gnome-commander.xml:6531(keycap) C/gnome-commander.xml:6581(keycap)
+#: C/gnome-commander.xml:6586(keycap)
 msgid "TAB"
 msgstr "TAB"
 
-#: C/gnome-commander.xml:6438(para) C/gnome-commander.xml:6443(para)
+#: C/gnome-commander.xml:6532(para) C/gnome-commander.xml:6537(para)
 msgid "Switch between left and right file list"
 msgstr "Přepnout mezi levým a pravým seznamem souborů"
 
-#: C/gnome-commander.xml:6448(para) C/gnome-commander.xml:6933(para)
+#: C/gnome-commander.xml:6542(para) C/gnome-commander.xml:7027(para)
 msgid ""
 "Copy the current working directory from the active left file list to the "
 "right one"
@@ -14177,7 +14248,7 @@ msgstr ""
 "Kopírovat aktuální pracovní složku z levého aktivního seznamu souborů do "
 "pravého"
 
-#: C/gnome-commander.xml:6453(para) C/gnome-commander.xml:6921(para)
+#: C/gnome-commander.xml:6547(para) C/gnome-commander.xml:7015(para)
 msgid ""
 "Copy the current working directory from the active right file list to the "
 "left one"
@@ -14185,99 +14256,99 @@ msgstr ""
 "Kopírovat aktuální pracovní složku z pravého aktivního seznamu souborů do "
 "levého"
 
-#: C/gnome-commander.xml:6457(keycap) C/gnome-commander.xml:6462(keycap)
+#: C/gnome-commander.xml:6551(keycap) C/gnome-commander.xml:6556(keycap)
 msgid "."
 msgstr "."
 
-#: C/gnome-commander.xml:6458(para) C/gnome-commander.xml:6913(para)
+#: C/gnome-commander.xml:6552(para) C/gnome-commander.xml:7007(para)
 msgid ""
 "Copy the current working directory from the inactive file list to the active "
 "one"
 msgstr ""
 "Kopírovat aktuální pracovní složku z neaktivního seznamu souborů do aktivního"
 
-#: C/gnome-commander.xml:6463(para) C/gnome-commander.xml:6917(para)
+#: C/gnome-commander.xml:6557(para) C/gnome-commander.xml:7011(para)
 msgid ""
 "Copy the current working directory from the active file list to the inactive "
 "one"
 msgstr ""
 "Kopírovat aktuální pracovní složku z aktivního seznamu souborů do neaktivního"
 
-#: C/gnome-commander.xml:6473(para) C/gnome-commander.xml:6908(para)
-#: C/gnome-commander.xml:6909(para)
+#: C/gnome-commander.xml:6567(para) C/gnome-commander.xml:7002(para)
+#: C/gnome-commander.xml:7003(para)
 msgid "Open directory in a new tab"
 msgstr "Otevřít složku v nové kartě"
 
-#: C/gnome-commander.xml:6478(para)
+#: C/gnome-commander.xml:6572(para)
 msgid "Close current tab"
 msgstr "Zavřít aktuální kartu"
 
-#: C/gnome-commander.xml:6483(para) C/gnome-commander.xml:6722(para)
-#: C/gnome-commander.xml:6723(para)
+#: C/gnome-commander.xml:6577(para) C/gnome-commander.xml:6816(para)
+#: C/gnome-commander.xml:6817(para)
 msgid "Close all tabs"
 msgstr "Zavřít všechny karty"
 
-#: C/gnome-commander.xml:6488(para)
+#: C/gnome-commander.xml:6582(para)
 msgid "Switch to the next tab"
 msgstr "Přepnout na následující kartu"
 
-#: C/gnome-commander.xml:6493(para)
+#: C/gnome-commander.xml:6587(para)
 msgid "Switch to the previous tab"
 msgstr "Přepnout na předchozí kartu"
 
-#: C/gnome-commander.xml:6503(para) C/gnome-commander.xml:6973(para)
+#: C/gnome-commander.xml:6597(para) C/gnome-commander.xml:7067(para)
 msgid "Refresh the active file list"
 msgstr "Aktualizovat aktivní seznam souborů"
 
-#: C/gnome-commander.xml:6507(keycap)
+#: C/gnome-commander.xml:6601(keycap)
 msgid "O"
 msgstr "O"
 
-#: C/gnome-commander.xml:6508(para) C/gnome-commander.xml:6949(para)
+#: C/gnome-commander.xml:6602(para) C/gnome-commander.xml:7043(para)
 msgid "Options dialog"
 msgstr "Dialogové okno voleb"
 
-#: C/gnome-commander.xml:6512(keycap)
+#: C/gnome-commander.xml:6606(keycap)
 msgid "H"
 msgstr "H"
 
-#: C/gnome-commander.xml:6513(para)
+#: C/gnome-commander.xml:6607(para)
 msgid "Toggle hidden files on/off"
 msgstr "Přepnout zobrazování skrytých souborů"
 
-#: C/gnome-commander.xml:6518(para)
+#: C/gnome-commander.xml:6612(para)
 msgid "Set both panels equal"
 msgstr "Nastavit oba panely jako stejné"
 
-#: C/gnome-commander.xml:6527(keycap)
+#: C/gnome-commander.xml:6621(keycap)
 msgid "N"
 msgstr "N"
 
-#: C/gnome-commander.xml:6528(para) C/gnome-commander.xml:6897(para)
+#: C/gnome-commander.xml:6622(para) C/gnome-commander.xml:6991(para)
 msgid "Open new remote connection"
 msgstr "Otevřít nové vzdálené připojení"
 
-#: C/gnome-commander.xml:6533(para)
+#: C/gnome-commander.xml:6627(para)
 msgid "Connect to remote server"
 msgstr "Připojit se ke vzdálenému serveru"
 
-#: C/gnome-commander.xml:6538(para) C/gnome-commander.xml:6727(para)
+#: C/gnome-commander.xml:6632(para) C/gnome-commander.xml:6821(para)
 msgid "Disconnect from remote server"
 msgstr "Odpojit se od vzdáleného serveru"
 
-#: C/gnome-commander.xml:6547(keycap)
+#: C/gnome-commander.xml:6641(keycap)
 msgid "5"
 msgstr "5"
 
-#: C/gnome-commander.xml:6548(para)
+#: C/gnome-commander.xml:6642(para)
 msgid "Create MD5 (128-bit) checksum"
 msgstr "Vytvořit kontrolní součet MD5 (128bitový)"
 
-#: C/gnome-commander.xml:6557(keycap) C/gnome-commander.xml:6558(keycap)
+#: C/gnome-commander.xml:6651(keycap) C/gnome-commander.xml:6652(keycap)
 msgid "Letter(s)"
 msgstr "Písmeno(a)"
 
-#: C/gnome-commander.xml:6559(para)
+#: C/gnome-commander.xml:6653(para)
 msgid ""
 "Quick search for a file name (starting with specified letter) in the current "
 "directory"
@@ -14285,47 +14356,47 @@ msgstr ""
 "Rychlé hledání názvu souboru (začínajícího zadaným písmenem) v aktuální "
 "složce"
 
-#: C/gnome-commander.xml:6568(keycap)
+#: C/gnome-commander.xml:6662(keycap)
 msgid "Letter"
 msgstr "Písmeno"
 
-#: C/gnome-commander.xml:6569(para)
+#: C/gnome-commander.xml:6663(para)
 msgid "Redirect to command line, cursor jumps to command line"
 msgstr "Přesměrovat na příkazový řádek, kurzor skočí na příkazový řádek"
 
-#: C/gnome-commander.xml:6573(keycap)
+#: C/gnome-commander.xml:6667(keycap)
 msgid "ESC"
 msgstr "ESC"
 
-#: C/gnome-commander.xml:6574(para)
+#: C/gnome-commander.xml:6668(para)
 msgid "Clear the command line"
 msgstr "Vymazat příkazový řádek"
 
-#: C/gnome-commander.xml:6578(keycap)
+#: C/gnome-commander.xml:6672(keycap)
 msgid "K"
 msgstr "K"
 
-#: C/gnome-commander.xml:6579(para)
+#: C/gnome-commander.xml:6673(para)
 msgid "Delete to the end of line"
 msgstr "Smazat konec řádku"
 
-#: C/gnome-commander.xml:6584(para)
+#: C/gnome-commander.xml:6678(para)
 msgid "Delete the word to the left of the cursor"
 msgstr "Smazat slovo nalevo od kurzoru"
 
-#: C/gnome-commander.xml:6589(para)
+#: C/gnome-commander.xml:6683(para)
 msgid "Delete the word to the right of the cursor"
 msgstr "Smazat slovo napravo od kurzoru"
 
-#: C/gnome-commander.xml:6593(keycap)
+#: C/gnome-commander.xml:6687(keycap)
 msgid "P"
 msgstr "P"
 
-#: C/gnome-commander.xml:6594(para)
+#: C/gnome-commander.xml:6688(para)
 msgid "The full path of the current directory is added to the command line"
 msgstr "Přidat úplnou cestu k aktuální složce na konec příkazového řádku"
 
-#: C/gnome-commander.xml:6599(para)
+#: C/gnome-commander.xml:6693(para)
 msgid ""
 "The file name under the cursor in the source directory is added to the end "
 "of the command line"
@@ -14333,18 +14404,18 @@ msgstr ""
 "Přidat název souboru pod kurzorem ve zdrojové složce na konec příkazového "
 "řádku"
 
-#: C/gnome-commander.xml:6604(para)
+#: C/gnome-commander.xml:6698(para)
 msgid ""
 "The file name under the cursor including its path is added to the end of the "
 "command line"
 msgstr ""
 "Přidat název souboru pod kurzorem včetně cesty na konec příkazového řádku"
 
-#: C/gnome-commander.xml:6614(keycap)
+#: C/gnome-commander.xml:6708(keycap)
 msgid "E"
 msgstr "E"
 
-#: C/gnome-commander.xml:6616(para)
+#: C/gnome-commander.xml:6710(para)
 msgid ""
 "A list with the latest command lines (history list) is opened. Use the "
 "<keycombo><keycap>UP</keycap></keycombo> and <keycombo><keycap>DOWN</"
@@ -14360,11 +14431,11 @@ msgstr ""
 "keycap></keycombo> můžete příkazový řádek upravit. Tím se seznam automaticky "
 "zavře"
 
-#: C/gnome-commander.xml:6630(title)
+#: C/gnome-commander.xml:6724(title)
 msgid "User Actions"
 msgstr "Uživatelské akce"
 
-#: C/gnome-commander.xml:6631(para)
+#: C/gnome-commander.xml:6725(para)
 msgid ""
 "User actions trigger predefined functions (actions) and make GNOME Commander "
 "very flexible. They are accessed by a key or set of keys (shortcut key)."
@@ -14373,11 +14444,11 @@ msgstr ""
 "Commander nadmíru přizpůsobitelným. Dostanete se k nim přes některou z "
 "kláves nebo skupiny kláves (tzv. klávesovou zkratku)."
 
-#: C/gnome-commander.xml:6633(title)
+#: C/gnome-commander.xml:6727(title)
 msgid "Managing user actions"
 msgstr "Správa uživatelských akcí"
 
-#: C/gnome-commander.xml:6634(para)
+#: C/gnome-commander.xml:6728(para)
 msgid ""
 "The menu for user actions and associated keyboard shortcuts can be opened by "
 "clicking on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard "
@@ -14390,7 +14461,7 @@ msgstr ""
 "popsána práce s příslušným dialogovým oknem <guimenuitem>Klávesové zkratky…</"
 "guimenuitem>"
 
-#: C/gnome-commander.xml:6637(para)
+#: C/gnome-commander.xml:6731(para)
 msgid ""
 "<guilabel>Shortcut Key</guilabel>: Key combination the user has to press to "
 "perform the action."
@@ -14398,14 +14469,14 @@ msgstr ""
 "<guilabel>Klávesová zkratka</guilabel>: kombinace kláves, které musí "
 "uživatel zmáčknout"
 
-#: C/gnome-commander.xml:6638(para)
+#: C/gnome-commander.xml:6732(para)
 msgid ""
 "<guilabel>Action</guilabel>: Action to perform by pressing the shortcut key."
 msgstr ""
 "<guilabel>Činnost</guilabel>: akce, která se po zmáčknutí klávesové zkratky "
 "provede"
 
-#: C/gnome-commander.xml:6639(para)
+#: C/gnome-commander.xml:6733(para)
 msgid ""
 "<guilabel>Options</guilabel>: Some user actions require an option to perform "
 "the action, e.g. the command to be executed by the \"Execute command\" "
@@ -14414,7 +14485,7 @@ msgstr ""
 "<guilabel>Volby</guilabel>: některé činnosti vyžadují k provedení nějaký "
 "parametr, např. příkaz, který se má spustit u činnosti „Spustit příkaz“."
 
-#: C/gnome-commander.xml:6635(para)
+#: C/gnome-commander.xml:6729(para)
 msgid ""
 "In the keyboard shortcut dialog a table with three columns is shown: "
 "<placeholder-1/>"
@@ -14422,7 +14493,7 @@ msgstr ""
 "V dialogovém okně klávesových zkratek jsou zobrazeny tři sloupce: "
 "<placeholder-1/>"
 
-#: C/gnome-commander.xml:6641(para)
+#: C/gnome-commander.xml:6735(para)
 msgid ""
 "You can <guilabel>Add</guilabel> a new shortcut and <guilabel>Remove</"
 "guilabel> a selected one with the related buttons on the right."
@@ -14430,7 +14501,7 @@ msgstr ""
 "Pomocí tlačítek po pravé straně můžete <guilabel>Přidat</guilabel> novou "
 "klávesovou zkratku nebo právě vybranou <guilabel>Odstranit</guilabel>."
 
-#: C/gnome-commander.xml:6642(para)
+#: C/gnome-commander.xml:6736(para)
 msgid ""
 "The default dialog window is shown in the figure <xref linkend=\"keyboard-"
 "shortcuts\"/> below."
@@ -14438,7 +14509,7 @@ msgstr ""
 "Na obrázku <xref linkend=\"keyboard-shortcuts\"/> níže je ukázáno výchozí "
 "dialogové okno."
 
-#: C/gnome-commander.xml:6643(para)
+#: C/gnome-commander.xml:6737(para)
 msgid ""
 "Available user actions are shown in the table <xref linkend=\"gnome-"
 "commander-user-actions-list\"/> below."
@@ -14446,7 +14517,7 @@ msgstr ""
 "V tabulce <xref linkend=\"gnome-commander-user-actions-list\"/> níže jsou "
 "uvedeny činnosti, které můžete využít."
 
-#: C/gnome-commander.xml:6644(para)
+#: C/gnome-commander.xml:6738(para)
 msgid ""
 "Find the default key bindings in the previous section <xref linkend=\"gnome-"
 "commander-keyboard\"/>."
@@ -14454,7 +14525,7 @@ msgstr ""
 "Výchozí klávesové zkratky najdete v předchozím oddíle <xref linkend=\"gnome-"
 "commander-keyboard\"/>."
 
-#: C/gnome-commander.xml:6646(para)
+#: C/gnome-commander.xml:6740(para)
 msgid ""
 "It's possible to assign more than one key combinations to an action. To do "
 "so, click on the <guilabel>Add</guilabel> button, choose a new shortcut and "
@@ -14467,7 +14538,7 @@ msgstr ""
 "Některé činnosti jsou více klávesovým zkratkám přiřazeny již ve výchozím "
 "stavu."
 
-#: C/gnome-commander.xml:6651(para)
+#: C/gnome-commander.xml:6745(para)
 msgid ""
 "Key bindings are stored in the &lt;KeyBindings&gt; section of GNOME "
 "Commander config file (<guilabel>~/.gnome-commander/gnome-commander.xml</"
@@ -14477,76 +14548,76 @@ msgstr ""
 "kapitole o souboru nastavení aplikaceGNOME Commander (<guilabel>~/.gnome-"
 "commander/gnome-commander.xml</guilabel>)."
 
-#: C/gnome-commander.xml:6661(phrase)
+#: C/gnome-commander.xml:6755(phrase)
 msgid "Shows GNOME Commander keyboard shortcuts."
 msgstr "Ukazuje klávesové zkratky v aplikaci GNOME Commander."
 
-#: C/gnome-commander.xml:6669(title)
+#: C/gnome-commander.xml:6763(title)
 msgid "List of user actions"
 msgstr "Seznam uživatelských akcí"
 
-#: C/gnome-commander.xml:6676(para)
+#: C/gnome-commander.xml:6770(para)
 msgid "User action"
 msgstr "Uživatelská akce"
 
-#: C/gnome-commander.xml:6682(para) C/gnome-commander.xml:6683(para)
-#: C/gnome-commander.xml:8023(title)
+#: C/gnome-commander.xml:6776(para) C/gnome-commander.xml:6777(para)
+#: C/gnome-commander.xml:8117(title)
 msgid "About GNOME Commander"
 msgstr "O aplikaci GNOME Commander"
 
-#: C/gnome-commander.xml:6686(para) C/gnome-commander.xml:6687(para)
+#: C/gnome-commander.xml:6780(para) C/gnome-commander.xml:6781(para)
 msgid "Advanced rename tool"
 msgstr "Nástroj pokročilého přejmenování"
 
-#: C/gnome-commander.xml:6690(para)
+#: C/gnome-commander.xml:6784(para)
 msgid "Back one directory"
 msgstr "Zpět o jednu složku"
 
-#: C/gnome-commander.xml:6694(para)
+#: C/gnome-commander.xml:6788(para)
 msgid "Back to the first directory"
 msgstr "Přejít do první složky"
 
-#: C/gnome-commander.xml:6695(para)
+#: C/gnome-commander.xml:6789(para)
 msgid "Go forward to the first visited directory"
 msgstr "Přejít vpřed do první navštívené složky"
 
-#: C/gnome-commander.xml:6698(para) C/gnome-commander.xml:6699(para)
+#: C/gnome-commander.xml:6792(para) C/gnome-commander.xml:6793(para)
 msgid "Bookmark current directory"
 msgstr "Aktuální složku do záložek"
 
-#: C/gnome-commander.xml:6710(para)
+#: C/gnome-commander.xml:6804(para)
 msgid "Change owner/group"
 msgstr "Změnit vlastníka/skupinu"
 
-#: C/gnome-commander.xml:6711(para)
+#: C/gnome-commander.xml:6805(para)
 msgid "Change file ownership"
 msgstr "Změnit vlastnictví souboru"
 
-#: C/gnome-commander.xml:6714(para)
+#: C/gnome-commander.xml:6808(para)
 msgid "Change permissions"
 msgstr "Změnit oprávnění"
 
-#: C/gnome-commander.xml:6715(para)
+#: C/gnome-commander.xml:6809(para)
 msgid "Change file access permissions"
 msgstr "Změnit přístupová práva souboru"
 
-#: C/gnome-commander.xml:6726(para)
+#: C/gnome-commander.xml:6820(para)
 msgid "Close connection"
 msgstr "Změnit připojení"
 
-#: C/gnome-commander.xml:6730(para) C/gnome-commander.xml:6731(para)
+#: C/gnome-commander.xml:6824(para) C/gnome-commander.xml:6825(para)
 msgid "Close duplicate tabs"
 msgstr "Zavřít duplicitní karty"
 
-#: C/gnome-commander.xml:6734(para) C/gnome-commander.xml:6735(para)
+#: C/gnome-commander.xml:6828(para) C/gnome-commander.xml:6829(para)
 msgid "Close the current tab"
 msgstr "Zavřít aktuální kartu"
 
-#: C/gnome-commander.xml:6742(para)
+#: C/gnome-commander.xml:6836(para)
 msgid "Compare files (diff)"
 msgstr "Porovnat soubory (diff)"
 
-#: C/gnome-commander.xml:6743(para)
+#: C/gnome-commander.xml:6837(para)
 msgid ""
 "Compare files using the differ in <menuchoice><guimenu>Settings</"
 "guimenu><guimenuitem>Options...</guimenuitem><guimenuitem>Programs</"
@@ -14556,55 +14627,55 @@ msgstr ""
 "<menuchoice><guimenu>Nastavení</guimenu><guimenuitem>Volby…</"
 "guimenuitem><guimenuitem>Programy</guimenuitem></menuchoice>"
 
-#: C/gnome-commander.xml:6746(para) C/gnome-commander.xml:6747(para)
+#: C/gnome-commander.xml:6840(para) C/gnome-commander.xml:6841(para)
 msgid "Configure plugins"
 msgstr "Nastavovat zásuvné moduly"
 
-#: C/gnome-commander.xml:6750(para)
+#: C/gnome-commander.xml:6844(para)
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: C/gnome-commander.xml:6758(para)
+#: C/gnome-commander.xml:6852(para)
 msgid "Copy file names"
 msgstr "Kopírovat názvy souborů"
 
-#: C/gnome-commander.xml:6759(para)
+#: C/gnome-commander.xml:6853(para)
 msgid "Copy file names to clipboard"
 msgstr "Kopírovat názvy souborů do schránky"
 
-#: C/gnome-commander.xml:6762(para)
+#: C/gnome-commander.xml:6856(para)
 msgid "Copy files with rename"
 msgstr "Kopírovat a zároveň přejmenovat soubory"
 
-#: C/gnome-commander.xml:6763(para)
+#: C/gnome-commander.xml:6857(para)
 msgid "Copy file with rename"
 msgstr "Kopírovat soubor s přejmenováním"
 
-#: C/gnome-commander.xml:6774(para)
+#: C/gnome-commander.xml:6868(para)
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: C/gnome-commander.xml:6786(para)
+#: C/gnome-commander.xml:6880(para)
 msgid "Do nothing"
 msgstr "Nedělat nic"
 
-#: C/gnome-commander.xml:6787(para)
+#: C/gnome-commander.xml:6881(para)
 msgid "Do nothing (use to block key bindings)"
 msgstr "Nedělat nic (použijte pro blokování klávesové zkratky)"
 
-#: C/gnome-commander.xml:6798(para)
+#: C/gnome-commander.xml:6892(para)
 msgid "Equal panel size"
 msgstr "Stejná velikost panelů"
 
-#: C/gnome-commander.xml:6799(para)
+#: C/gnome-commander.xml:6893(para)
 msgid "Set equal panes (50/50)"
 msgstr "Nastavit panely, aby byly stejně velké (50/50)"
 
-#: C/gnome-commander.xml:6802(para)
+#: C/gnome-commander.xml:6896(para)
 msgid "Execute command"
 msgstr "Spustit příkaz"
 
-#: C/gnome-commander.xml:6803(para)
+#: C/gnome-commander.xml:6897(para)
 msgid ""
 "Execute user defined command. GNOME Commander replaces found placeholders "
 "with:"
@@ -14612,19 +14683,19 @@ msgstr ""
 "Provést uživatelem definovaný příkaz. GNOME Commander nahradí následující "
 "zástupné proměnné:"
 
-#: C/gnome-commander.xml:6807(para)
+#: C/gnome-commander.xml:6901(para)
 msgid "<guilabel>%f</guilabel> file name (or list for multiple selections)"
 msgstr ""
 "<guilabel>%f</guilabel> název souboru (nebo seznam při vícenásobném výběru)"
 
-#: C/gnome-commander.xml:6810(para)
+#: C/gnome-commander.xml:6904(para)
 msgid ""
 "<guilabel>%F</guilabel> quoted filename (or list for multiple selections)"
 msgstr ""
 "<guilabel>%F</guilabel> název souboru v úvozovkách (nebo seznam při "
 "vícenásobném výběru)"
 
-#: C/gnome-commander.xml:6813(para)
+#: C/gnome-commander.xml:6907(para)
 msgid ""
 "<guilabel>%p</guilabel> full file system path (or list for multiple "
 "selections)"
@@ -14632,7 +14703,7 @@ msgstr ""
 "<guilabel>%p</guilabel> plná systémová cesta k souboru (nebo seznam při "
 "vícenásobném výběru)"
 
-#: C/gnome-commander.xml:6816(para)
+#: C/gnome-commander.xml:6910(para)
 msgid ""
 "<guilabel>%P</guilabel> quoted full file system path (or list for multiple "
 "selections)"
@@ -14640,7 +14711,7 @@ msgstr ""
 "<guilabel>%P</guilabel> plná systémová cesta k souboru v uvozovkách (nebo "
 "seznam při vícenásobném výběru)"
 
-#: C/gnome-commander.xml:6819(para)
+#: C/gnome-commander.xml:6913(para)
 msgid ""
 "<guilabel>%u</guilabel> fully qualified URI for the file (or list for "
 "multiple selections)"
@@ -14648,18 +14719,18 @@ msgstr ""
 "<guilabel>%u</guilabel> plně kvalifikovaná adresa URI pro soubor (nebo "
 "seznam při vícenásobném výběru)"
 
-#: C/gnome-commander.xml:6822(para)
+#: C/gnome-commander.xml:6916(para)
 msgid "<guilabel>%d</guilabel> full path to the directory containing file"
 msgstr "<guilabel>%d</guilabel> úplná cesta ke složce obsahující soubor"
 
-#: C/gnome-commander.xml:6825(para)
+#: C/gnome-commander.xml:6919(para)
 msgid ""
 "<guilabel>%D</guilabel> quoted full path to the directory containing file"
 msgstr ""
 "<guilabel>%D</guilabel> úplná cesta ke složce obsahující soubor uzavřená do "
 "uvozovek"
 
-#: C/gnome-commander.xml:6828(para)
+#: C/gnome-commander.xml:6922(para)
 msgid ""
 "<guilabel>%s</guilabel> synonym for <guilabel>%P</guilabel> (for "
 "compatibility with previous versions of GNOME Commander)"
@@ -14667,232 +14738,232 @@ msgstr ""
 "<guilabel>%s</guilabel> synonymum pro <guilabel>%P</guilabel> (pro úplnou "
 "kompatibilitu s předchozími verzemi aplikace GNOME Commander)"
 
-#: C/gnome-commander.xml:6831(para)
+#: C/gnome-commander.xml:6925(para)
 msgid "<guilabel>%%</guilabel> percent sign"
 msgstr "<guilabel>%%</guilabel> znak procenta"
 
-#: C/gnome-commander.xml:6835(para)
+#: C/gnome-commander.xml:6929(para)
 msgid "Unknown placeholders are copied verbatim without any substitution."
 msgstr "Neznámé zástupné proměnné jsou zkopírovány doslovně bez nahrazování."
 
-#: C/gnome-commander.xml:6839(para)
+#: C/gnome-commander.xml:6933(para)
 msgid "Execute Python plugin"
 msgstr "Spustit zásuvný modul Python"
 
-#: C/gnome-commander.xml:6840(para)
+#: C/gnome-commander.xml:6934(para)
 msgid "Execute python plugin with the given name."
 msgstr "Spustit zásuvný modul v jazyce Python zadaného názvu."
 
-#: C/gnome-commander.xml:6843(para)
+#: C/gnome-commander.xml:6937(para)
 msgid "Forward one directory"
 msgstr "Vpřed o jednu složku"
 
-#: C/gnome-commander.xml:6847(para)
+#: C/gnome-commander.xml:6941(para)
 msgid "Forward to the last directory"
 msgstr "Vpřed do poslední složky"
 
-#: C/gnome-commander.xml:6848(para)
+#: C/gnome-commander.xml:6942(para)
 msgid "Go forward to the last visited directory"
 msgstr "Přejít vpřed do naposledy navštívené složky"
 
-#: C/gnome-commander.xml:6851(para)
+#: C/gnome-commander.xml:6945(para)
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander na webu"
 
-#: C/gnome-commander.xml:6852(para)
+#: C/gnome-commander.xml:6946(para)
 msgid "Visit GNOME Commander home page"
 msgstr "Navštívit domovskou stránku GNOME Commander"
 
-#: C/gnome-commander.xml:6855(para)
+#: C/gnome-commander.xml:6949(para)
 msgid "Go to bookmarked location"
 msgstr "Go to bookmarked location"
 
-#: C/gnome-commander.xml:6856(para)
+#: C/gnome-commander.xml:6950(para)
 msgid "Go to bookmarked location."
 msgstr "Přejít na umístění podle záložky."
 
-#: C/gnome-commander.xml:6857(para)
+#: C/gnome-commander.xml:6951(para)
 msgid "Nonexistent bookmark names are ignored."
 msgstr "Neexistující názvy záložek jsou ignorovány."
 
-#: C/gnome-commander.xml:6860(para)
+#: C/gnome-commander.xml:6954(para)
 msgid "Help contents"
 msgstr "Obsah nápovědy"
 
-#: C/gnome-commander.xml:6864(para) C/gnome-commander.xml:6865(para)
+#: C/gnome-commander.xml:6958(para) C/gnome-commander.xml:6959(para)
 msgid "Help on keyboard shortcuts"
 msgstr "Nápověda ke klávesovým zkratkám"
 
-#: C/gnome-commander.xml:6868(para)
+#: C/gnome-commander.xml:6962(para)
 msgid "Home directory"
 msgstr "Domovská složka"
 
-#: C/gnome-commander.xml:6876(para)
+#: C/gnome-commander.xml:6970(para)
 msgid "Keyboard shortcuts"
 msgstr "Klávesové zkratky"
 
-#: C/gnome-commander.xml:6877(para)
+#: C/gnome-commander.xml:6971(para)
 msgid "Configure keyboard shortcuts"
 msgstr "Nastavovat klávesové zkratky"
 
-#: C/gnome-commander.xml:6880(para) C/gnome-commander.xml:6881(para)
+#: C/gnome-commander.xml:6974(para) C/gnome-commander.xml:6975(para)
 msgid "Lock/unlock tab"
 msgstr "Zamknout/odemknout kartu"
 
-#: C/gnome-commander.xml:6884(para)
+#: C/gnome-commander.xml:6978(para)
 msgid "Manage bookmarks"
 msgstr "Spravovat záložky"
 
-#: C/gnome-commander.xml:6885(para)
+#: C/gnome-commander.xml:6979(para)
 msgid "Open favourite directories (bookmarks) dialog"
 msgstr "Otevřít dialogové okno oblíbených složek (záložek)"
 
-#: C/gnome-commander.xml:6888(para) C/gnome-commander.xml:6889(para)
+#: C/gnome-commander.xml:6982(para) C/gnome-commander.xml:6983(para)
 msgid "Maximize panel size"
 msgstr "Maximalizovat velikost panelů"
 
-#: C/gnome-commander.xml:6892(para) C/gnome-commander.xml:6893(para)
+#: C/gnome-commander.xml:6986(para) C/gnome-commander.xml:6987(para)
 msgid "Move files"
 msgstr "Přesunout soubory"
 
-#: C/gnome-commander.xml:6896(para)
+#: C/gnome-commander.xml:6990(para)
 msgid "New connection"
 msgstr "Nové připojení"
 
-#: C/gnome-commander.xml:6900(para) C/gnome-commander.xml:6901(para)
+#: C/gnome-commander.xml:6994(para) C/gnome-commander.xml:6995(para)
 msgid "Next tab"
 msgstr "Následující karta"
 
-#: C/gnome-commander.xml:6904(para)
+#: C/gnome-commander.xml:6998(para)
 msgid "Open connection"
 msgstr "Otevřít připojení"
 
-#: C/gnome-commander.xml:6905(para)
+#: C/gnome-commander.xml:6999(para)
 msgid "Open remote connection"
 msgstr "Otevřít vzdálené připojení"
 
-#: C/gnome-commander.xml:6912(para)
+#: C/gnome-commander.xml:7006(para)
 msgid "Open directory in the active window"
 msgstr "Otevřít složku v aktivním okně"
 
-#: C/gnome-commander.xml:6916(para)
+#: C/gnome-commander.xml:7010(para)
 msgid "Open directory in the inactive window"
 msgstr "Otevřít složku v neaktivním okně"
 
-#: C/gnome-commander.xml:6920(para)
+#: C/gnome-commander.xml:7014(para)
 msgid "Open directory in the left window"
 msgstr "Otevřít složku v levém okně"
 
-#: C/gnome-commander.xml:6924(para) C/gnome-commander.xml:6925(para)
+#: C/gnome-commander.xml:7018(para) C/gnome-commander.xml:7019(para)
 msgid "Open directory in the new tab"
 msgstr "Otevřít složku v nové kartě"
 
-#: C/gnome-commander.xml:6928(para) C/gnome-commander.xml:6929(para)
+#: C/gnome-commander.xml:7022(para) C/gnome-commander.xml:7023(para)
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Otevřít složku v nové kartě (neaktivní okno)"
 
-#: C/gnome-commander.xml:6932(para)
+#: C/gnome-commander.xml:7026(para)
 msgid "Open directory in the right window"
 msgstr "Otevřít složku v pravém okně"
 
-#: C/gnome-commander.xml:6936(para)
+#: C/gnome-commander.xml:7030(para)
 msgid "Open folder"
 msgstr "Otevřít složku"
 
-#: C/gnome-commander.xml:6940(para)
+#: C/gnome-commander.xml:7034(para)
 msgid "Open terminal"
 msgstr "Otevřít terminál"
 
-#: C/gnome-commander.xml:6944(para)
+#: C/gnome-commander.xml:7038(para)
 msgid "Open terminal as root"
 msgstr "Otevřít terminál jako superuživatel"
 
-#: C/gnome-commander.xml:6945(para)
+#: C/gnome-commander.xml:7039(para)
 msgid "Opens a terminal with root privileges."
 msgstr "Otevře terminál s oprávněním superuživatele root"
 
-#: C/gnome-commander.xml:6952(para)
+#: C/gnome-commander.xml:7046(para)
 msgid "Paste"
 msgstr "Vložit"
 
-#: C/gnome-commander.xml:6953(para)
+#: C/gnome-commander.xml:7047(para)
 msgid "Paste from clipboard to current directory (not a global one yet)"
 msgstr "Vložit ze schránky do aktuální složky (ale ne té globální)"
 
-#: C/gnome-commander.xml:6956(para) C/gnome-commander.xml:6957(para)
+#: C/gnome-commander.xml:7050(para) C/gnome-commander.xml:7051(para)
 msgid "Previous tab"
 msgstr "Předchozí karta"
 
-#: C/gnome-commander.xml:6960(para)
+#: C/gnome-commander.xml:7054(para)
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: C/gnome-commander.xml:6964(para) C/gnome-commander.xml:6965(para)
+#: C/gnome-commander.xml:7058(para) C/gnome-commander.xml:7059(para)
 msgid "Quick search"
 msgstr "Rychlé hledání"
 
-#: C/gnome-commander.xml:6968(para)
+#: C/gnome-commander.xml:7062(para)
 msgid "Quit"
 msgstr "Ukončit"
 
-#: C/gnome-commander.xml:6969(para)
+#: C/gnome-commander.xml:7063(para)
 msgid "Exit GNOME Commander"
 msgstr "Ukončit GNOME Commander"
 
-#: C/gnome-commander.xml:6972(para)
+#: C/gnome-commander.xml:7066(para)
 msgid "Refresh"
 msgstr "Aktualizovat"
 
-#: C/gnome-commander.xml:6976(para) C/gnome-commander.xml:6977(para)
+#: C/gnome-commander.xml:7070(para) C/gnome-commander.xml:7071(para)
 msgid "Rename files"
 msgstr "Přejmenovat soubory"
 
-#: C/gnome-commander.xml:6980(para)
+#: C/gnome-commander.xml:7074(para)
 msgid "Report a problem"
 msgstr "Nahlásit chybu"
 
-#: C/gnome-commander.xml:6981(para)
+#: C/gnome-commander.xml:7075(para)
 msgid "Report problem to Bugzilla"
 msgstr "Nahlásit problém do systému Bugzilla"
 
-#: C/gnome-commander.xml:6984(para)
+#: C/gnome-commander.xml:7078(para)
 msgid "Root directory"
 msgstr "Kořenová složka"
 
-#: C/gnome-commander.xml:6989(para)
+#: C/gnome-commander.xml:7083(para)
 msgid "File search"
 msgstr "Hledat soubor"
 
-#: C/gnome-commander.xml:6992(para)
+#: C/gnome-commander.xml:7086(para)
 msgid "Select all"
 msgstr "Vybrat vše"
 
-#: C/gnome-commander.xml:6996(para)
+#: C/gnome-commander.xml:7090(para)
 msgid "Send files"
 msgstr "Odeslat soubory"
 
-#: C/gnome-commander.xml:7000(para)
+#: C/gnome-commander.xml:7094(para)
 msgid "Show directory history"
 msgstr "Zobrazit historii složky"
 
-#: C/gnome-commander.xml:7004(para)
+#: C/gnome-commander.xml:7098(para)
 msgid "Show user defined files"
 msgstr "Zobrazit uživatelem definované soubory"
 
-#: C/gnome-commander.xml:7005(para)
+#: C/gnome-commander.xml:7099(para)
 msgid "Use file selection filter"
 msgstr "Použít filtr pro výběr souborů"
 
-#: C/gnome-commander.xml:7008(para)
+#: C/gnome-commander.xml:7102(para)
 msgid "Start GNOME Commander as root"
 msgstr "Spustit GNOME Commander jako superuživatel"
 
-#: C/gnome-commander.xml:7009(para)
+#: C/gnome-commander.xml:7103(para)
 msgid "Start GNOME Commander in root mode at the same location"
 msgstr ""
 "Spustit GNOME Commander s právy superuživatele root ve stejném umístění"
 
-#: C/gnome-commander.xml:7010(para)
+#: C/gnome-commander.xml:7104(para)
 msgid ""
 "Be careful while running GNOME Commander with root privileges as you may "
 "damage your system."
@@ -14900,47 +14971,47 @@ msgstr ""
 "Při spuštění aplikace GNOME Commander s právy superuživatele root buďte "
 "obezřetní, protože snadno můžete v systému napáchat škody."
 
-#: C/gnome-commander.xml:7014(para)
+#: C/gnome-commander.xml:7108(para)
 msgid "Synchronize directories"
 msgstr "Synchronizovat složky"
 
-#: C/gnome-commander.xml:7015(para)
+#: C/gnome-commander.xml:7109(para)
 msgid "Synchronize directories (using meld)"
 msgstr "Synchronizovat složky (pomocí programu meld)"
 
-#: C/gnome-commander.xml:7018(para)
+#: C/gnome-commander.xml:7112(para)
 msgid "Toggle selection"
 msgstr "Přepnout výběr"
 
-#: C/gnome-commander.xml:7019(para)
+#: C/gnome-commander.xml:7113(para)
 msgid "Toggle selection for cursor"
 msgstr "Přepnout výběr pod kurzorem"
 
-#: C/gnome-commander.xml:7022(para)
+#: C/gnome-commander.xml:7116(para)
 msgid "Toggle selection and move cursor downward"
 msgstr "Přepnout výběr a přesunout kurzor níž"
 
-#: C/gnome-commander.xml:7023(para)
+#: C/gnome-commander.xml:7117(para)
 msgid "Select file or directory and move cursor downward"
 msgstr "Vybrat soubor nebo složku a kurzor posunout dolů"
 
-#: C/gnome-commander.xml:7026(para)
+#: C/gnome-commander.xml:7120(para)
 msgid "Unselect all"
 msgstr "Zrušit výběr"
 
-#: C/gnome-commander.xml:7031(para)
+#: C/gnome-commander.xml:7125(para)
 msgid "Go forward to the parent directory"
 msgstr "Přejít vpřed do rodičovské složky"
 
-#: C/gnome-commander.xml:7034(para)
+#: C/gnome-commander.xml:7128(para)
 msgid "View file"
 msgstr "Zobrazit soubor"
 
-#: C/gnome-commander.xml:7054(title)
+#: C/gnome-commander.xml:7148(title)
 msgid "Python Plugins"
 msgstr "Zásuvné moduly v jazyce Pythnon"
 
-#: C/gnome-commander.xml:7055(para)
+#: C/gnome-commander.xml:7149(para)
 msgid ""
 "GNOME Commander is capable of executing python plugins. A Python plugin is a "
 "normal python application containing a predefined entry function."
@@ -14949,18 +15020,18 @@ msgstr ""
 "zásuvné moduly jsou normálními aplikacemi v jazyce Python, akorát musí "
 "obsahovat předdefinovanou vstupní funkci."
 
-#: C/gnome-commander.xml:7056(para)
+#: C/gnome-commander.xml:7150(para)
 msgid "GNOME Commander comes with built-in plugins:"
 msgstr "GNOME Commander je šířen s několika vestavěnými zásuvnými moduly:"
 
-#: C/gnome-commander.xml:7059(para)
+#: C/gnome-commander.xml:7153(para)
 msgid ""
 "<filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files"
 msgstr ""
 "<filename>md5sum</filename> – kontrolní součet MD5 (128bitový) vybraných "
 "souborů"
 
-#: C/gnome-commander.xml:7062(para)
+#: C/gnome-commander.xml:7156(para)
 msgid ""
 "<filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected "
 "files"
@@ -14968,7 +15039,7 @@ msgstr ""
 "<filename>sha1sum</filename> – kontrolní součet SHA-1 (160bitový) vybraných "
 "souborů"
 
-#: C/gnome-commander.xml:7065(para)
+#: C/gnome-commander.xml:7159(para)
 msgid ""
 "<filename>apply_patch</filename> - The plugin applies selected patches to "
 "the opposite pane using <command>patch -p1</command>"
@@ -14976,11 +15047,11 @@ msgstr ""
 "<filename>apply_patch</filename> – zásuvný modul, který použije záplatu vůči "
 "protějšímu panelu zapomocí příkazu <command>patch -p1</command>"
 
-#: C/gnome-commander.xml:7069(title)
+#: C/gnome-commander.xml:7163(title)
 msgid "Working with plugins"
 msgstr "Práce se zásuvnými moduly"
 
-#: C/gnome-commander.xml:7070(para)
+#: C/gnome-commander.xml:7164(para)
 msgid ""
 "To start - simply place your plugin in <filename>~/.gnome-commander/plugins/"
 "</filename> directory. If the plugin is meant to be accessed system widely, "
@@ -14991,14 +15062,14 @@ msgstr ""
 "pro celý systém, do alternativní složky <filename>$(libdir)/$(PACKAGE)/"
 "plugins/</filename>."
 
-#: C/gnome-commander.xml:7072(para)
+#: C/gnome-commander.xml:7166(para)
 msgid ""
 "Plugins will be added as new entries to the GNOME Commander context menus."
 msgstr ""
 "Zásuvné moduly budou přidány jako nové položky do kontextové nabídky GNOME "
 "Commander."
 
-#: C/gnome-commander.xml:7074(para)
+#: C/gnome-commander.xml:7168(para)
 msgid ""
 "Keyboard shortcuts can be assigned to execute specific python plugins (eg. "
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> → "
@@ -15008,43 +15079,43 @@ msgstr ""
 "(např. <keycombo><keycap>Ctrl</keycap><keycap>5</keycap></keycombo> → "
 "<filename>md5sum</filename>)."
 
-#: C/gnome-commander.xml:7079(title)
+#: C/gnome-commander.xml:7173(title)
 msgid "Python plugins requirements"
 msgstr "Požadavky zásuvných modulů python"
 
-#: C/gnome-commander.xml:7081(term)
+#: C/gnome-commander.xml:7175(term)
 msgid "build"
 msgstr "sestavení"
 
-#: C/gnome-commander.xml:7083(para)
+#: C/gnome-commander.xml:7177(para)
 msgid "python-devel ⩾ 2.4"
 msgstr "python-devel ⩾ 2.4"
 
-#: C/gnome-commander.xml:7087(term)
+#: C/gnome-commander.xml:7181(term)
 msgid "run"
 msgstr "běh"
 
-#: C/gnome-commander.xml:7089(para)
+#: C/gnome-commander.xml:7183(para)
 msgid "python ⩾ 2.4"
 msgstr "python ⩾ 2.4"
 
-#: C/gnome-commander.xml:7090(para)
+#: C/gnome-commander.xml:7184(para)
 msgid "gnome-python2-gnomevfs"
 msgstr "gnome-python2-gnomevfs"
 
-#: C/gnome-commander.xml:7091(para)
+#: C/gnome-commander.xml:7185(para)
 msgid "pygtk (for GUI)"
 msgstr "pygtk (pro grafické uživatelské rozhraní)"
 
-#: C/gnome-commander.xml:7098(title)
+#: C/gnome-commander.xml:7192(title)
 msgid "Plugins API"
 msgstr "API zásuvných modulů"
 
-#: C/gnome-commander.xml:7099(para)
+#: C/gnome-commander.xml:7193(para)
 msgid "The entry (start) point for plugin is always main() function:"
 msgstr "Vstupní (počátečním) bodem zásuvného modulu je vždy funkce main():"
 
-#: C/gnome-commander.xml:7100(programlisting)
+#: C/gnome-commander.xml:7194(programlisting)
 #, no-wrap
 msgid ""
 "\n"
@@ -15055,39 +15126,39 @@ msgstr ""
 "    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)\n"
 "            "
 
-#: C/gnome-commander.xml:7104(para)
+#: C/gnome-commander.xml:7198(para)
 msgid "where parameters are:"
 msgstr "kde parametry jsou"
 
-#: C/gnome-commander.xml:7112(para)
+#: C/gnome-commander.xml:7206(para)
 msgid "main_wnd_xid"
 msgstr "main_wnd_xid"
 
-#: C/gnome-commander.xml:7113(para)
+#: C/gnome-commander.xml:7207(para)
 msgid "XID of GNOME Commander main toplevel window"
 msgstr "XID hlavního okna aplikace GNOME Commander"
 
-#: C/gnome-commander.xml:7116(para)
+#: C/gnome-commander.xml:7210(para)
 msgid "active_cwd"
 msgstr "active_cwd"
 
-#: C/gnome-commander.xml:7117(para)
+#: C/gnome-commander.xml:7211(para)
 msgid "full path of current dir of active pane"
 msgstr "úplná cesta aktuální složky aktivního panelu"
 
-#: C/gnome-commander.xml:7120(para)
+#: C/gnome-commander.xml:7214(para)
 msgid "inactive_cwd"
 msgstr "inactive_cwd"
 
-#: C/gnome-commander.xml:7121(para)
+#: C/gnome-commander.xml:7215(para)
 msgid "full path of current dir of inactive pane"
 msgstr "úplná cesta aktuální složky neaktivního panelu"
 
-#: C/gnome-commander.xml:7124(para)
+#: C/gnome-commander.xml:7218(para)
 msgid "selected_files"
 msgstr "selected_files"
 
-#: C/gnome-commander.xml:7125(para)
+#: C/gnome-commander.xml:7219(para)
 msgid ""
 "list of selected <ulink url=\"http://www.pygtk.org/pygnomevfs/class-gnomevfs-"
 "uri.html\" type=\"http\">file uris</ulink> in active pane"
@@ -15095,11 +15166,11 @@ msgstr ""
 "seznam vybraných <ulink url=\"http://www.pygtk.org/pygnomevfs/class-gnomevfs-"
 "uri.html\" type=\"http\">adres URI souborů</ulink> v aktivním panelu"
 
-#: C/gnome-commander.xml:7133(title)
+#: C/gnome-commander.xml:7227(title)
 msgid "Sample plugin: md5sum"
 msgstr "Ukázkový zásuvný modul: md5sum"
 
-#: C/gnome-commander.xml:7135(programlisting)
+#: C/gnome-commander.xml:7229(programlisting)
 #, no-wrap
 msgid ""
 "\n"
@@ -15162,7 +15233,7 @@ msgstr ""
 "       return True\n"
 "             "
 
-#: C/gnome-commander.xml:7166(para)
+#: C/gnome-commander.xml:7260(para)
 msgid ""
 "The latest version of md5sum code can be found in <ulink type=\"http\" url="
 "\"http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/"
@@ -15172,46 +15243,46 @@ msgstr ""
 "gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py"
 "\">repozitáři git aplikace GNOME Commander</ulink>."
 
-#: C/gnome-commander.xml:7172(title)
+#: C/gnome-commander.xml:7266(title)
 msgid "Python resources"
 msgstr "Zdroje k jazyku Python"
 
-#: C/gnome-commander.xml:7176(ulink)
+#: C/gnome-commander.xml:7270(ulink)
 msgid "Python documentation"
 msgstr "Dokumentace Python"
 
-#: C/gnome-commander.xml:7179(ulink)
+#: C/gnome-commander.xml:7273(ulink)
 msgid "Python gnomevfs reference manual"
 msgstr "Referenční příručka Python gnomevfs"
 
-#: C/gnome-commander.xml:7182(ulink)
+#: C/gnome-commander.xml:7276(ulink)
 msgid "PyGTK: GTK+ for Python"
 msgstr "PyGTK: GTK+ pro Python"
 
-#: C/gnome-commander.xml:7185(ulink)
+#: C/gnome-commander.xml:7279(ulink)
 msgid "Creating a GUI using PyGTK and Glade"
 msgstr "Vytváření grafické uživatelského rozhraní pomocí PyGTK a Glade"
 
-#: C/gnome-commander.xml:7188(ulink)
+#: C/gnome-commander.xml:7282(ulink)
 msgid "Python code snippets"
 msgstr "Útržky kódu v jazyce Python"
 
-#: C/gnome-commander.xml:7198(title)
+#: C/gnome-commander.xml:7292(title)
 msgid "Tips and Tricks"
 msgstr "Tipy a triky"
 
-#: C/gnome-commander.xml:7199(para)
+#: C/gnome-commander.xml:7293(para)
 msgid ""
 "Some very simple tips and tricks on using and getting the most out of GNOME "
 "Commander."
 msgstr ""
 "Některé velmi jednoduché tipy a triky k používání aplikace GNOME Commander"
 
-#: C/gnome-commander.xml:7201(title)
+#: C/gnome-commander.xml:7295(title)
 msgid "Handling Archives"
 msgstr "Práce s archivy"
 
-#: C/gnome-commander.xml:7202(para)
+#: C/gnome-commander.xml:7296(para)
 msgid ""
 "GNOME Commander still lacks built in browsing of compressed archives. "
 "However the program can be configured so that working with archives becomes "
@@ -15220,7 +15291,7 @@ msgstr ""
 "GNOME Commander zatím postrádá vestavěné procházení komprimovaných archivů. "
 "Lze jej ale nastavit tak, aby byla práce s archivy praktičtější."
 
-#: C/gnome-commander.xml:7204(para)
+#: C/gnome-commander.xml:7298(para)
 msgid ""
 "There are two different ways: The preferred one is to activate the build in "
 "<application>Fileroller</application> plugin in the menu "
@@ -15241,11 +15312,11 @@ msgstr ""
 "archivů</application>, nainstalován). Po kliknutí na archiv si můžete ve "
 "vyskakovací nabídce zvolit, kam chcete archiv rozbalit."
 
-#: C/gnome-commander.xml:7210(para)
+#: C/gnome-commander.xml:7304(para)
 msgid "The second, outdated but still working way is the following:"
 msgstr "Druhý, sice zastaralý, ale stále funkční způsob je:"
 
-#: C/gnome-commander.xml:7213(para)
+#: C/gnome-commander.xml:7307(para)
 msgid ""
 "If you don't already have the program <application>Fileroller</application>, "
 "download it and install it."
@@ -15253,7 +15324,7 @@ msgstr ""
 "Pokud nemáte program <application>Správce archivů</application> "
 "(fileroller), tak si jej stáhněte a nainstalujte."
 
-#: C/gnome-commander.xml:7218(para)
+#: C/gnome-commander.xml:7312(para)
 msgid ""
 "Open the <guimenu>Options</guimenu> dialog and go to the "
 "<guimenuitem>Programs</guimenuitem> tab."
@@ -15261,12 +15332,12 @@ msgstr ""
 "Otevřete dialogové okno <guimenu>Volby</guimenu> a přejděte na kartu "
 "<guimenuitem>Programy</guimenuitem>."
 
-#: C/gnome-commander.xml:7221(para)
+#: C/gnome-commander.xml:7315(para)
 msgid "Add two favorite apps using the values shown in the figures below."
 msgstr ""
 "Přidejte dvě oblíbené aplikace pomocí hodnot ukázaných na obrázku níže."
 
-#: C/gnome-commander.xml:7224(para)
+#: C/gnome-commander.xml:7318(para)
 msgid ""
 "You can now right click any file or folder and choose <guimenuitem>Create "
 "archive...</guimenuitem> to compress it and right click compressed files and "
@@ -15277,27 +15348,27 @@ msgstr ""
 "na komprimovaný soubor a zvolit <guimenuitem>Rozbalit archiv…</guimenuitem> "
 "pro jeho rozbalení."
 
-#: C/gnome-commander.xml:7229(title)
+#: C/gnome-commander.xml:7323(title)
 msgid "Create Archive"
 msgstr "Vytvořit archiv"
 
-#: C/gnome-commander.xml:7236(phrase)
+#: C/gnome-commander.xml:7330(phrase)
 msgid "This entry allows creating archives easily."
 msgstr "Tato položka umožňuje jednoduše vytvářet archivy."
 
-#: C/gnome-commander.xml:7244(title) C/gnome-commander.xml:7273(title)
+#: C/gnome-commander.xml:7338(title) C/gnome-commander.xml:7367(title)
 msgid "Extract Archive"
 msgstr "Rozbalit archiv"
 
-#: C/gnome-commander.xml:7251(phrase)
+#: C/gnome-commander.xml:7345(phrase)
 msgid "This entry allows extract archives easily."
 msgstr "Tato položka umožňuje jednoduše rozbalovat archivy"
 
-#: C/gnome-commander.xml:7259(title)
+#: C/gnome-commander.xml:7353(title)
 msgid "Using removable media"
 msgstr "Používání výměnných médií"
 
-#: C/gnome-commander.xml:7261(para)
+#: C/gnome-commander.xml:7355(para)
 msgid ""
 "This info might be partially outdated since modern desktop environments or "
 "Linux distributions use automounters to mount devices into /media."
@@ -15306,7 +15377,7 @@ msgstr ""
 "pracovní prostředí a Linuxové distribuce používají k připojování zařízení "
 "do /media démony pro automatické připojování."
 
-#: C/gnome-commander.xml:7263(para)
+#: C/gnome-commander.xml:7357(para)
 msgid ""
 "If you use removable devices such as CDs, floppies and cameras a lot you can "
 "make GNOME Commander automatically take care of mounting them by following "
@@ -15316,7 +15387,7 @@ msgstr ""
 "fotoaparáty, můžete podle následujícího návodu nastavit GNOME Commander, aby "
 "se automaticky staral o jejich připojování:"
 
-#: C/gnome-commander.xml:7267(para)
+#: C/gnome-commander.xml:7361(para)
 msgid ""
 "Open the <guimenu>Options</guimenu> dialog and go to the "
 "<guimenuitem>Devices</guimenuitem> tab."
@@ -15324,7 +15395,7 @@ msgstr ""
 "Otevřete dialogové okno <guimenu>Volby</guimenu> a přejděte na kartu "
 "<guimenuitem>Zařízení</guimenuitem>."
 
-#: C/gnome-commander.xml:7270(para)
+#: C/gnome-commander.xml:7364(para)
 msgid ""
 "Add the devices that you are using. This is how the program looks with a few "
 "added devices."
@@ -15332,12 +15403,12 @@ msgstr ""
 "Přidejte zařízení, které používáte. Takto program vypadá s několika "
 "přidanými zařízeními."
 
-#: C/gnome-commander.xml:7280(phrase)
+#: C/gnome-commander.xml:7374(phrase)
 msgid "Mounting in GNOME Commander."
 msgstr "Připojování zařízení v GNOME Commanderu"
 
 #. ==== End of Figure ====
-#: C/gnome-commander.xml:7286(para)
+#: C/gnome-commander.xml:7380(para)
 msgid ""
 "In the last image the red circle <guimenu>A</guimenu> shows the available "
 "devices. If a device was mounted by GNOME Commander there is also a button "
@@ -15353,7 +15424,7 @@ msgstr ""
 "měly být dostupné ve složce $(prefix)/share/pixmaps/gnome-commander/device-"
 "icons na vašem počítači."
 
-#: C/gnome-commander.xml:7293(para)
+#: C/gnome-commander.xml:7387(para)
 msgid ""
 "There is also an option to skip mounting in the option device tab. This can "
 "be useful for making shortcuts to directories, or if you have some "
@@ -15366,11 +15437,11 @@ msgstr ""
 "připojí do přípojného bodu, nebo když používáte Supermount, který to dělá na "
 "základě požadavku na zařízení."
 
-#: C/gnome-commander.xml:7300(title)
+#: C/gnome-commander.xml:7394(title)
 msgid "Using Nautilus icon theme"
 msgstr "Použití ikon motivu z aplikace Nautilus"
 
-#: C/gnome-commander.xml:7302(para)
+#: C/gnome-commander.xml:7396(para)
 msgid ""
 "This is outdated info since Nautilus and later GNOME versions no longer use "
 "these kind of themes."
@@ -15378,7 +15449,7 @@ msgstr ""
 "Tyto informace jsou zastaralé, protože Nautilus a novější verze GNOME již "
 "tento druh motivu nepoužívají."
 
-#: C/gnome-commander.xml:7304(para)
+#: C/gnome-commander.xml:7398(para)
 msgid ""
 "The default icon theme that comes with GNOME Commander lacks icons for a lot "
 "of file types and only looks good at icon size 16. There are other themes "
@@ -15392,15 +15463,15 @@ msgstr ""
 "vypadají lépe. Motiv Unscalable Gorilla od autora Jimmac je jedním z nich a "
 "v aplikaci GNOME Commander jej můžete použít následovně:"
 
-#: C/gnome-commander.xml:7309(para)
+#: C/gnome-commander.xml:7403(para)
 msgid "Download the theme."
 msgstr "Stáhněte motiv."
 
-#: C/gnome-commander.xml:7312(para)
+#: C/gnome-commander.xml:7406(para)
 msgid "Unpack the theme to where ever you want."
 msgstr "Rozbalte motiv, kamkoliv chcete."
 
-#: C/gnome-commander.xml:7315(para)
+#: C/gnome-commander.xml:7409(para)
 msgid ""
 "Start GNOME Commander open the <guimenu>Options</guimenu> dialog. In the "
 "<guimenuitem>Layout</guimenuitem> tab set the Theme icon directory to be the "
@@ -15414,7 +15485,7 @@ msgstr ""
 "řádku a Velikost ikon na 20 nebo jinou vytouženou velikost. Na konec se "
 "přesvědčte, že Grafický režim je nastavený na Ikony MIME."
 
-#: C/gnome-commander.xml:7321(para)
+#: C/gnome-commander.xml:7415(para)
 msgid ""
 "When you now close the <guimenu>Options</guimenu> dialog the file listings "
 "should refresh and you should see Unscalable Gorilla being used."
@@ -15422,11 +15493,11 @@ msgstr ""
 "Po zavření dialogového okna <guimenu>Volby</guimenu> byste měli aktualizovat "
 "výpis souborů a pak už bystě měli vidět použitý motiv Unscalable Gorilla."
 
-#: C/gnome-commander.xml:7327(title)
+#: C/gnome-commander.xml:7421(title)
 msgid "Handling MIME types"
 msgstr "Obsluha typů MIME"
 
-#: C/gnome-commander.xml:7328(para)
+#: C/gnome-commander.xml:7422(para)
 msgid ""
 "Since GNOME has changed to follow the freedesktop.org standard of handling "
 "mimetypes, the editing of preferred programs in GNOME Commander is broken "
@@ -15442,11 +15513,11 @@ msgstr ""
 "najdete v části <ulink type=\"http\" url=\"http://gcmd.github.io/doc."
 "html#tips\">Tipy a triky</ulink> na domovské stránce GNOME Commanderu."
 
-#: C/gnome-commander.xml:7335(title)
+#: C/gnome-commander.xml:7429(title)
 msgid "Copying File Names and Paths"
 msgstr "Kopírování názvů souborů a cest"
 
-#: C/gnome-commander.xml:7338(para)
+#: C/gnome-commander.xml:7432(para)
 msgid ""
 "To copy names of selected files to the environment's clipboard, use the Copy "
 "File Names action on the <guimenu>Edit</guimenu> menu or the \"**\" icon on "
@@ -15456,7 +15527,7 @@ msgstr ""
 "Kopírovat názvy souborů v nabídce <guimenu>Upravit</guimenu> nebo ikonu „**“ "
 "na nástrojové liště."
 
-#: C/gnome-commander.xml:7342(para)
+#: C/gnome-commander.xml:7436(para)
 msgid ""
 "To copy full paths of selected files to the environment's clipboard, hold "
 "down <keycap>SHIFT</keycap> while activating either the Copy File Names "
@@ -15467,7 +15538,7 @@ msgstr ""
 "souborů v nabídce <guimenu>Upravit</guimenu> nebo při zmáčknutí ikony „**“ "
 "na nástrojové liště."
 
-#: C/gnome-commander.xml:7347(para)
+#: C/gnome-commander.xml:7441(para)
 msgid ""
 "To insert the current file's path in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
@@ -15477,7 +15548,7 @@ msgstr ""
 "Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap> <keycap>Shift</keycap> "
 "<keycap>Enter</keycap></keycombo>."
 
-#: C/gnome-commander.xml:7351(para)
+#: C/gnome-commander.xml:7445(para)
 msgid ""
 "To insert the current file's name in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
@@ -15486,15 +15557,15 @@ msgstr ""
 "Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap> <keycap>Enter</"
 "keycap></keycombo>."
 
-#: C/gnome-commander.xml:7361(title)
+#: C/gnome-commander.xml:7455(title)
 msgid "GNOME Commander Installation"
 msgstr "Instalace aplikace GNOME Commander"
 
-#: C/gnome-commander.xml:7363(title)
+#: C/gnome-commander.xml:7457(title)
 msgid "Getting GNOME Commander"
 msgstr "Kde získat GNOME Commander"
 
-#: C/gnome-commander.xml:7364(para)
+#: C/gnome-commander.xml:7458(para)
 msgid ""
 "It's recommended to use the GNOME Commander package that is provided by your "
 "distribution. Refer to GNOME Commander for the <ulink type=\"http\" url="
@@ -15506,7 +15577,7 @@ msgstr ""
 "nongnu.org/gcmd/download.html#distro\">seznamu distribucí</ulink>, které "
 "balík GNOME Commander podporují."
 
-#: C/gnome-commander.xml:7369(para)
+#: C/gnome-commander.xml:7463(para)
 msgid ""
 "All current and historical releases can be found on the <ulink type=\"http\" "
 "url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\">GNOME FTP "
@@ -15516,11 +15587,11 @@ msgstr ""
 "\" url=\"http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/\">serveru "
 "FTP GNOME</ulink>."
 
-#: C/gnome-commander.xml:7374(title)
+#: C/gnome-commander.xml:7468(title)
 msgid "Versioning"
 msgstr "Verzování"
 
-#: C/gnome-commander.xml:7375(para)
+#: C/gnome-commander.xml:7469(para)
 msgid ""
 "GNOME Commander is being developed in a stable and a testing branch, where "
 "the test releases fill the purpose of testing new ideas. Successful ones "
@@ -15537,11 +15608,11 @@ msgstr ""
 "verze je pro nestabilní vydání a větve se sudým číslování jsou s důkladně "
 "otestovanými zpětně přenesenými funkcemi."
 
-#: C/gnome-commander.xml:7382(title)
+#: C/gnome-commander.xml:7476(title)
 msgid "Current stable version"
 msgstr "Aktuální stabilní verze"
 
-#: C/gnome-commander.xml:7383(para)
+#: C/gnome-commander.xml:7477(para)
 msgid ""
 "If you'd like to compile the latest stable version of GNOME Commander "
 "yourself, get it as a tar.xz file from the <ulink type=\"http\" url=\"http://"
@@ -15552,7 +15623,7 @@ msgstr ""
 "stáhněte si ze stránky <ulink type=\"http\" url=\"http://gcmd.github.io/"
 "download.html\">download</ulink> na webu GNOME Commanderu soubor tar.xz."
 
-#: C/gnome-commander.xml:7386(para)
+#: C/gnome-commander.xml:7480(para)
 msgid ""
 "After extracting the archive, first have a look at the <guimenu>README</"
 "guimenu> file, where you get an overview of the downloaded release. Also, "
@@ -15563,11 +15634,11 @@ msgstr ""
 "guimenu>, ve kterém najdete přehled o staženém vydání. Také si najděte "
 "soubor <guimenu>INSTALL</guimenu>, ve kterém je vysvětlem postup instalace."
 
-#: C/gnome-commander.xml:7391(title)
+#: C/gnome-commander.xml:7485(title)
 msgid "Development version"
 msgstr "Vývojová verze"
 
-#: C/gnome-commander.xml:7392(para)
+#: C/gnome-commander.xml:7486(para)
 msgid ""
 "For those of you who feel really adventurous, or maybe want to hack on the "
 "freshest code, the latest development source snapshots are available by "
@@ -15577,11 +15648,11 @@ msgstr ""
 "nejčerstvějšího kódu, je k dispozici nejnovější vývojový zdrojový kód přes "
 "GIT:"
 
-#: C/gnome-commander.xml:7395(command)
+#: C/gnome-commander.xml:7489(command)
 msgid "git clone git://git.gnome.org/gnome-commander"
 msgstr "git clone git://git.gnome.org/gnome-commander"
 
-#: C/gnome-commander.xml:7398(para)
+#: C/gnome-commander.xml:7492(para)
 msgid ""
 "The above works only to do a first time download and not for updating the "
 "code, if you already have a version of the code simply run <command>git "
@@ -15591,7 +15662,7 @@ msgstr ""
 "již máte nějakou verzi kódu, spusťte jen <command>git pull</command> a "
 "provede se aktualizace na nejnovější verzi."
 
-#: C/gnome-commander.xml:7401(para)
+#: C/gnome-commander.xml:7495(para)
 msgid ""
 "Just remember to run <command>./autogen.sh</command> before building by "
 "<command>make</command>."
@@ -15599,7 +15670,7 @@ msgstr ""
 "Před sestavením pomocí <command>make</command> nezapomeňte spustit "
 "<command>./autogen.sh</command>."
 
-#: C/gnome-commander.xml:7402(para)
+#: C/gnome-commander.xml:7496(para)
 msgid ""
 "Be aware that there can be serious bugs in code from GNOME git repository. "
 "This code is intended for hacking, development and testing purposes only."
@@ -15607,11 +15678,11 @@ msgstr ""
 "Berte na vědomí, že v kódu z repozitáře git GNOME může být řada chyb. Tento "
 "kód je určen jen pro programátory, vývojáře a testovací účely."
 
-#: C/gnome-commander.xml:7410(title)
+#: C/gnome-commander.xml:7504(title)
 msgid "Configuration Files"
 msgstr "Soubory nastavení"
 
-#: C/gnome-commander.xml:7411(para)
+#: C/gnome-commander.xml:7505(para)
 msgid ""
 "This section gives an overview of the configuration files used by GNOME "
 "Commander:"
@@ -15619,232 +15690,232 @@ msgstr ""
 "Tento oddíl poskytuje přehled o souborech s nastavením používaných aplikací "
 "GNOME Commander:"
 
-#: C/gnome-commander.xml:7416(guilabel)
+#: C/gnome-commander.xml:7510(guilabel)
 msgid "~/.gnome-commander/devices"
 msgstr "~/.gnome-commander/devices"
 
-#: C/gnome-commander.xml:7424(guilabel)
+#: C/gnome-commander.xml:7518(guilabel)
 msgid "~/.gnome-commander/fav-apps"
 msgstr "~/.gnome-commander/fav-apps"
 
-#: C/gnome-commander.xml:7432(guilabel)
+#: C/gnome-commander.xml:7526(guilabel)
 msgid "~/.gnome-commander/gnome-commander.xml"
 msgstr "~/.gnome-commander/gnome-commander.xml"
 
-#: C/gnome-commander.xml:7440(guilabel)
+#: C/gnome-commander.xml:7534(guilabel)
 msgid "~/.gnome2/gnome-commander"
 msgstr "~/.gnome2/gnome-commander"
 
-#: C/gnome-commander.xml:7453(para)
+#: C/gnome-commander.xml:7547(para)
 msgid "Section"
 msgstr "Oddíl"
 
-#: C/gnome-commander.xml:7454(para)
+#: C/gnome-commander.xml:7548(para)
 msgid "Key"
 msgstr "Klíč"
 
-#: C/gnome-commander.xml:7456(para)
+#: C/gnome-commander.xml:7550(para)
 msgid "Value"
 msgstr "Hodnota"
 
-#: C/gnome-commander.xml:7457(para)
+#: C/gnome-commander.xml:7551(para)
 msgid "Refer to"
 msgstr "Odkaz na"
 
-#: C/gnome-commander.xml:7462(para)
+#: C/gnome-commander.xml:7556(para)
 msgid "[network]"
 msgstr "[network]"
 
-#: C/gnome-commander.xml:7463(para)
+#: C/gnome-commander.xml:7557(para)
 msgid "ftp_anonymous_password"
 msgstr "ftp_anonymous_password"
 
-#: C/gnome-commander.xml:7464(para) C/gnome-commander.xml:7716(para)
-#: C/gnome-commander.xml:7918(para) C/gnome-commander.xml:7974(para)
+#: C/gnome-commander.xml:7558(para) C/gnome-commander.xml:7810(para)
+#: C/gnome-commander.xml:8012(para) C/gnome-commander.xml:8068(para)
 msgid "string"
 msgstr "řetězec"
 
-#: C/gnome-commander.xml:7469(para)
+#: C/gnome-commander.xml:7563(para)
 msgid "[options]"
 msgstr "[options]"
 
-#: C/gnome-commander.xml:7470(para)
+#: C/gnome-commander.xml:7564(para)
 msgid "backup_filter"
 msgstr "backup_filter"
 
-#: C/gnome-commander.xml:7477(para)
+#: C/gnome-commander.xml:7571(para)
 msgid "btn_relief"
 msgstr "btn_relief"
 
-#: C/gnome-commander.xml:7484(para)
+#: C/gnome-commander.xml:7578(para)
 msgid "cmdline_history_length"
 msgstr "cmdline_history_length"
 
-#: C/gnome-commander.xml:7491(para)
+#: C/gnome-commander.xml:7585(para)
 msgid "cmdline_visibility"
 msgstr "cmdline_visibility"
 
-#: C/gnome-commander.xml:7492(para) C/gnome-commander.xml:7499(para)
-#: C/gnome-commander.xml:7506(para) C/gnome-commander.xml:7639(para)
-#: C/gnome-commander.xml:7750(para) C/gnome-commander.xml:7820(para)
-#: C/gnome-commander.xml:7855(para) C/gnome-commander.xml:7876(para)
+#: C/gnome-commander.xml:7586(para) C/gnome-commander.xml:7593(para)
+#: C/gnome-commander.xml:7600(para) C/gnome-commander.xml:7733(para)
+#: C/gnome-commander.xml:7844(para) C/gnome-commander.xml:7914(para)
+#: C/gnome-commander.xml:7949(para) C/gnome-commander.xml:7970(para)
 msgid "boolean"
 msgstr "pravdivostní"
 
-#: C/gnome-commander.xml:7493(para)
+#: C/gnome-commander.xml:7587(para)
 msgid "Show commandline."
 msgstr "Zobrazovat příkazový řádek."
 
-#: C/gnome-commander.xml:7498(para)
+#: C/gnome-commander.xml:7592(para)
 msgid "conbuttons_visibility"
 msgstr "conbuttons_visibility"
 
-#: C/gnome-commander.xml:7500(para)
+#: C/gnome-commander.xml:7594(para)
 msgid "Show connection/device buttons."
 msgstr "Zobrazovat tlačítka připojení/zařízení."
 
-#: C/gnome-commander.xml:7505(para)
+#: C/gnome-commander.xml:7599(para)
 msgid "con_list_visibility"
 msgstr "con_list_visibility"
 
-#: C/gnome-commander.xml:7507(para)
+#: C/gnome-commander.xml:7601(para)
 msgid "Show connection/device list."
 msgstr "Zobrazovat seznam připojení/zařízení."
 
-#: C/gnome-commander.xml:7512(para)
+#: C/gnome-commander.xml:7606(para)
 msgid "date_disp_mode"
 msgstr "date_disp_mode"
 
-#: C/gnome-commander.xml:7519(para)
+#: C/gnome-commander.xml:7613(para)
 msgid "dir_cache_size"
 msgstr "dir_cache_size"
 
-#: C/gnome-commander.xml:7526(para)
+#: C/gnome-commander.xml:7620(para)
 msgid "document_icon_dir"
 msgstr "document_icon_dir"
 
-#: C/gnome-commander.xml:7533(para)
+#: C/gnome-commander.xml:7627(para)
 msgid "ext_disp_mode"
 msgstr "ext_disp_mode"
 
-#: C/gnome-commander.xml:7540(para)
+#: C/gnome-commander.xml:7634(para)
 msgid "hidden_filter"
 msgstr "hidden_filter"
 
-#: C/gnome-commander.xml:7547(para)
+#: C/gnome-commander.xml:7641(para)
 msgid "icon_size"
 msgstr "icon_size"
 
-#: C/gnome-commander.xml:7548(para) C/gnome-commander.xml:7555(para)
-#: C/gnome-commander.xml:7862(para)
+#: C/gnome-commander.xml:7642(para) C/gnome-commander.xml:7649(para)
+#: C/gnome-commander.xml:7956(para)
 msgid "integer"
 msgstr "celé číslo"
 
-#: C/gnome-commander.xml:7554(para)
+#: C/gnome-commander.xml:7648(para)
 msgid "dev_icon_size"
 msgstr "dev_icon_size"
 
-#: C/gnome-commander.xml:7556(para)
+#: C/gnome-commander.xml:7650(para)
 msgid "Size of device icons. Defaults to 16."
 msgstr "Velikost ikony zařízení. Výchozí je 16."
 
-#: C/gnome-commander.xml:7561(para)
+#: C/gnome-commander.xml:7655(para)
 msgid "icon_scale_quality"
 msgstr "icon_scale_quality"
 
-#: C/gnome-commander.xml:7568(para)
+#: C/gnome-commander.xml:7662(para)
 msgid "layout"
 msgstr "layout"
 
-#: C/gnome-commander.xml:7575(para)
+#: C/gnome-commander.xml:7669(para)
 msgid "list_font"
 msgstr "list_font"
 
-#: C/gnome-commander.xml:7582(para)
+#: C/gnome-commander.xml:7676(para)
 msgid "list_orientation"
 msgstr "list_orientation"
 
-#: C/gnome-commander.xml:7589(para)
+#: C/gnome-commander.xml:7683(para)
 msgid "list_row_height"
 msgstr "list_row_height"
 
-#: C/gnome-commander.xml:7596(para)
+#: C/gnome-commander.xml:7690(para)
 msgid "main_win_pos_x"
 msgstr "main_win_pos_x"
 
-#: C/gnome-commander.xml:7603(para)
+#: C/gnome-commander.xml:7697(para)
 msgid "main_win_pos_y"
 msgstr "main_win_pos_y"
 
-#: C/gnome-commander.xml:7610(para)
+#: C/gnome-commander.xml:7704(para)
 msgid "perm_disp_mode"
 msgstr "perm_disp_mode"
 
-#: C/gnome-commander.xml:7617(para)
+#: C/gnome-commander.xml:7711(para)
 msgid "left_mouse_button_mode"
 msgstr "left_mouse_button_mode"
 
-#: C/gnome-commander.xml:7624(para)
+#: C/gnome-commander.xml:7718(para)
 msgid "left_mouse_button_unselects"
 msgstr "left_mouse_button_unselects"
 
-#: C/gnome-commander.xml:7631(para)
+#: C/gnome-commander.xml:7725(para)
 msgid "right_mouse_button_mode"
 msgstr "right_mouse_button_mode"
 
-#: C/gnome-commander.xml:7638(para)
+#: C/gnome-commander.xml:7732(para)
 msgid "select_dirs"
 msgstr "select_dirs"
 
-#: C/gnome-commander.xml:7645(para)
+#: C/gnome-commander.xml:7739(para)
 msgid "show_block_device"
 msgstr "show_block_device"
 
-#: C/gnome-commander.xml:7652(para)
+#: C/gnome-commander.xml:7746(para)
 msgid "show_char_device"
 msgstr "show_char_device"
 
-#: C/gnome-commander.xml:7659(para)
+#: C/gnome-commander.xml:7753(para)
 msgid "show_directory"
 msgstr "show_directory"
 
-#: C/gnome-commander.xml:7666(para)
+#: C/gnome-commander.xml:7760(para)
 msgid "show_fifo"
 msgstr "show_fifo"
 
-#: C/gnome-commander.xml:7673(para)
+#: C/gnome-commander.xml:7767(para)
 msgid "show_regular"
 msgstr "show_regular"
 
-#: C/gnome-commander.xml:7680(para)
+#: C/gnome-commander.xml:7774(para)
 msgid "show_socket"
 msgstr "show_socket"
 
-#: C/gnome-commander.xml:7687(para)
+#: C/gnome-commander.xml:7781(para)
 msgid "show_symbolic_link"
 msgstr "show_symbolic_link"
 
-#: C/gnome-commander.xml:7694(para)
+#: C/gnome-commander.xml:7788(para)
 msgid "show_toolbar"
 msgstr "show_toolbar"
 
-#: C/gnome-commander.xml:7701(para)
+#: C/gnome-commander.xml:7795(para)
 msgid "show_unknown"
 msgstr "show_unknown"
 
-#: C/gnome-commander.xml:7708(para)
+#: C/gnome-commander.xml:7802(para)
 msgid "size_disp_mode"
 msgstr "size_disp_mode"
 
-#: C/gnome-commander.xml:7715(para)
+#: C/gnome-commander.xml:7809(para)
 msgid "symlink_prefix"
 msgstr "symlink_prefix"
 
-#: C/gnome-commander.xml:7721(para)
+#: C/gnome-commander.xml:7815(para)
 msgid "\"%s\" is crucial here - it is expanded to original filename."
 msgstr "„%s“ je zde podstatné – je rozvinuto do původního názvu souboru."
 
-#: C/gnome-commander.xml:7717(para)
+#: C/gnome-commander.xml:7811(para)
 msgid ""
 "Empty value means 'use \"link to %s\" for symlink' (or translation if "
 "available), other values = use given string for symlink name. <placeholder-1/"
@@ -15854,231 +15925,231 @@ msgstr ""
 "překlad, pokud je dostupný), jiné hodnoty = použít zadaný řetězec pro "
 "symbolický odkaz. <placeholder-1/>"
 
-#: C/gnome-commander.xml:7728(para)
+#: C/gnome-commander.xml:7822(para)
 msgid "theme_icon_dir"
 msgstr "theme_icon_dir"
 
-#: C/gnome-commander.xml:7734(para)
+#: C/gnome-commander.xml:7828(para)
 msgid "[sort]"
 msgstr "[sort]"
 
-#: C/gnome-commander.xml:7735(para)
+#: C/gnome-commander.xml:7829(para)
 msgid "case_sensitive"
 msgstr "case_sensitive"
 
-#: C/gnome-commander.xml:7741(para)
+#: C/gnome-commander.xml:7835(para)
 msgid "[confirm]"
 msgstr "[confirm]"
 
-#: C/gnome-commander.xml:7742(para)
+#: C/gnome-commander.xml:7836(para)
 msgid "delete"
 msgstr "delete"
 
-#: C/gnome-commander.xml:7749(para)
+#: C/gnome-commander.xml:7843(para)
 msgid "confirm_mouse_dnd"
 msgstr "confirm_mouse_dnd"
 
-#: C/gnome-commander.xml:7751(para)
+#: C/gnome-commander.xml:7845(para)
 msgid "If enabled, confirm drag &amp; drop operations"
 msgstr "Pokud je zapnuto, musí se potvrzovat operace „táhni a upusť“"
 
-#: C/gnome-commander.xml:7755(para)
+#: C/gnome-commander.xml:7849(para)
 msgid "[colors]"
 msgstr "[colors]"
 
-#: C/gnome-commander.xml:7756(para)
+#: C/gnome-commander.xml:7850(para)
 msgid "curs_bg"
 msgstr "curs_bg"
 
-#: C/gnome-commander.xml:7758(para)
+#: C/gnome-commander.xml:7852(para)
 msgid "Cursor background"
 msgstr "Pozadí kurzoru"
 
-#: C/gnome-commander.xml:7763(para)
+#: C/gnome-commander.xml:7857(para)
 msgid "curs_fg"
 msgstr "curs_fg"
 
-#: C/gnome-commander.xml:7765(para)
+#: C/gnome-commander.xml:7859(para)
 msgid "Cursor foreground"
 msgstr "Popředí kurzoru"
 
-#: C/gnome-commander.xml:7770(para)
+#: C/gnome-commander.xml:7864(para)
 msgid "mode"
 msgstr "mode"
 
-#: C/gnome-commander.xml:7777(para)
+#: C/gnome-commander.xml:7871(para)
 msgid "norm_bg"
 msgstr "norm_bg"
 
-#: C/gnome-commander.xml:7779(para)
+#: C/gnome-commander.xml:7873(para)
 msgid "Current background"
 msgstr "Aktuální pozadí"
 
-#: C/gnome-commander.xml:7784(para)
+#: C/gnome-commander.xml:7878(para)
 msgid "norm_fg"
 msgstr "norm_fg"
 
-#: C/gnome-commander.xml:7786(para)
+#: C/gnome-commander.xml:7880(para)
 msgid "Current foreground"
 msgstr "Aktuální popředí"
 
-#: C/gnome-commander.xml:7791(para)
+#: C/gnome-commander.xml:7885(para)
 msgid "alt_bg"
 msgstr "alt_bg"
 
-#: C/gnome-commander.xml:7793(para)
+#: C/gnome-commander.xml:7887(para)
 msgid "Alternate background"
 msgstr "Střídající pozadí"
 
-#: C/gnome-commander.xml:7798(para)
+#: C/gnome-commander.xml:7892(para)
 msgid "alt_fg"
 msgstr "alt_fg"
 
-#: C/gnome-commander.xml:7800(para)
+#: C/gnome-commander.xml:7894(para)
 msgid "Alternate foreground"
 msgstr "Střídající popředí"
 
-#: C/gnome-commander.xml:7805(para)
+#: C/gnome-commander.xml:7899(para)
 msgid "sel_bg"
 msgstr "sel_bg"
 
-#: C/gnome-commander.xml:7807(para)
+#: C/gnome-commander.xml:7901(para)
 msgid "Selected background"
 msgstr "Vybrané pozadí"
 
-#: C/gnome-commander.xml:7812(para)
+#: C/gnome-commander.xml:7906(para)
 msgid "sel_fg"
 msgstr "sel_fg"
 
-#: C/gnome-commander.xml:7814(para)
+#: C/gnome-commander.xml:7908(para)
 msgid "Selected foreground"
 msgstr "Vybrané popředí"
 
-#: C/gnome-commander.xml:7819(para)
+#: C/gnome-commander.xml:7913(para)
 msgid "use_ls_colors"
 msgstr "use_ls_colors"
 
-#: C/gnome-commander.xml:7821(para)
+#: C/gnome-commander.xml:7915(para)
 msgid ""
 "Colorize files according to the LS_COLORS environment variable. Defaults to "
 "FALSE."
 msgstr ""
 "Obarvovat soubory podle proměnné prostředí LS_COLORS. Výchozí je VYPNUTO."
 
-#: C/gnome-commander.xml:7825(para)
+#: C/gnome-commander.xml:7919(para)
 msgid "[programs]"
 msgstr "[programs]"
 
-#: C/gnome-commander.xml:7826(para)
+#: C/gnome-commander.xml:7920(para)
 msgid "buttonbar_visibility"
 msgstr "buttonbar_visibility"
 
-#: C/gnome-commander.xml:7833(para)
+#: C/gnome-commander.xml:7927(para)
 msgid "differ"
 msgstr "differ"
 
-#: C/gnome-commander.xml:7840(para)
+#: C/gnome-commander.xml:7934(para)
 msgid "editor"
 msgstr "editor"
 
-#: C/gnome-commander.xml:7847(para)
+#: C/gnome-commander.xml:7941(para)
 msgid "honor_expect_uris"
 msgstr "honor_expect_uris"
 
-#: C/gnome-commander.xml:7854(para)
+#: C/gnome-commander.xml:7948(para)
 msgid "always_show_tabs"
 msgstr "always_show_tabs"
 
-#: C/gnome-commander.xml:7861(para)
+#: C/gnome-commander.xml:7955(para)
 msgid "tab_lock_indicator"
 msgstr "tab_lock_indicator"
 
-#: C/gnome-commander.xml:7868(para)
+#: C/gnome-commander.xml:7962(para)
 msgid "allow_multiple_instances"
 msgstr "allow_multiple_instances"
 
-#: C/gnome-commander.xml:7875(para)
+#: C/gnome-commander.xml:7969(para)
 msgid "skip_mounting"
 msgstr "skip_mounting"
 
-#: C/gnome-commander.xml:7882(para)
+#: C/gnome-commander.xml:7976(para)
 msgid "terminal"
 msgstr "terminal"
 
-#: C/gnome-commander.xml:7889(para)
+#: C/gnome-commander.xml:7983(para)
 msgid "toolbar_visibility"
 msgstr "toolbar_visibility"
 
-#: C/gnome-commander.xml:7896(para)
+#: C/gnome-commander.xml:7990(para)
 msgid "use_internal_viewer"
 msgstr "use_internal_viewer"
 
-#: C/gnome-commander.xml:7903(para)
+#: C/gnome-commander.xml:7997(para)
 msgid "viewer"
 msgstr "viewer"
 
-#: C/gnome-commander.xml:7909(para)
+#: C/gnome-commander.xml:8003(para)
 msgid "[devices]"
 msgstr "[devices]"
 
-#: C/gnome-commander.xml:7910(para)
+#: C/gnome-commander.xml:8004(para)
 msgid "only_icon"
 msgstr "only_icon"
 
-#: C/gnome-commander.xml:7916(para)
+#: C/gnome-commander.xml:8010(para)
 msgid "[quick-connect]"
 msgstr "[quick-connect]"
 
-#: C/gnome-commander.xml:7917(para)
+#: C/gnome-commander.xml:8011(para)
 msgid "uri"
 msgstr "uri"
 
-#: C/gnome-commander.xml:7919(para)
+#: C/gnome-commander.xml:8013(para)
 msgid "URI for the last entered location."
 msgstr "Adresa URI pro naposledy zadané umístění."
 
-#: C/gnome-commander.xml:7923(para)
+#: C/gnome-commander.xml:8017(para)
 msgid "[defaults]"
 msgstr "[defaults]"
 
-#: C/gnome-commander.xml:7924(para)
+#: C/gnome-commander.xml:8018(para)
 msgid "backup_pattern"
 msgstr "backup_pattern"
 
-#: C/gnome-commander.xml:7930(para)
+#: C/gnome-commander.xml:8024(para)
 msgid "[local_bookmarks]"
 msgstr "[local_bookmarks]"
 
-#: C/gnome-commander.xml:7931(para) C/gnome-commander.xml:7952(para)
-#: C/gnome-commander.xml:7966(para)
+#: C/gnome-commander.xml:8025(para) C/gnome-commander.xml:8046(para)
+#: C/gnome-commander.xml:8060(para)
 msgid "count"
 msgstr "count"
 
-#: C/gnome-commander.xml:7938(para)
+#: C/gnome-commander.xml:8032(para)
 msgid "name<emphasis><subscript>n</subscript></emphasis>"
 msgstr "name<emphasis><subscript>n</subscript></emphasis>"
 
-#: C/gnome-commander.xml:7945(para)
+#: C/gnome-commander.xml:8039(para)
 msgid "path<emphasis><subscript>n</subscript></emphasis>"
 msgstr "path<emphasis><subscript>n</subscript></emphasis>"
 
-#: C/gnome-commander.xml:7951(para)
+#: C/gnome-commander.xml:8045(para)
 msgid "[smb_bookmarks]"
 msgstr "[smb_bookmarks]"
 
-#: C/gnome-commander.xml:7958(para)
+#: C/gnome-commander.xml:8052(para)
 msgid "[plugins]"
 msgstr "[plugins]"
 
-#: C/gnome-commander.xml:7959(para)
+#: C/gnome-commander.xml:8053(para)
 msgid "auto_load<emphasis><subscript>n</subscript></emphasis>"
 msgstr "auto_load<emphasis><subscript>n</subscript></emphasis>"
 
-#: C/gnome-commander.xml:7972(para)
+#: C/gnome-commander.xml:8066(para)
 msgid "[key-bindings]"
 msgstr "[key-bindings]"
 
-#: C/gnome-commander.xml:7973(para)
+#: C/gnome-commander.xml:8067(para)
 msgid ""
 "[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
 "win&gt;]<emphasis>key_name</emphasis>"
@@ -16086,15 +16157,15 @@ msgstr ""
 "[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
 "win&gt;]<emphasis>název_klávesy</emphasis>"
 
-#: C/gnome-commander.xml:7975(command)
+#: C/gnome-commander.xml:8069(command)
 msgid "action[|options]"
 msgstr "akce[|volby]"
 
-#: C/gnome-commander.xml:7996(title)
+#: C/gnome-commander.xml:8090(title)
 msgid "Known Bugs and Limitations"
 msgstr "Známé chyby a omezení"
 
-#: C/gnome-commander.xml:7997(para)
+#: C/gnome-commander.xml:8091(para)
 msgid ""
 "You can report or view GNOME Commander bugs at the <ulink type=\"http\" url="
 "\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander\">the gnome."
@@ -16104,7 +16175,7 @@ msgstr ""
 "\"http\" url=\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander"
 "\">gnome.org Bugzilla</ulink>."
 
-#: C/gnome-commander.xml:7998(para)
+#: C/gnome-commander.xml:8092(para)
 msgid ""
 "Some words about bugs: Though GNOME Commander is relatively free from bugs "
 "and is a quite mature program, no programs will ever be totally bug free. "
@@ -16132,7 +16203,7 @@ msgstr ""
 "doporučování oprav a/nebo zasílání záplat vývojářům, vše v duchu svobodného "
 "a otevřeného softwaru."
 
-#: C/gnome-commander.xml:8008(para)
+#: C/gnome-commander.xml:8102(para)
 msgid ""
 "GNOME Commander is still lacking on GVFS/GIO support. Instead it uses "
 "GnomeVFS. This might be the cause that some Python plugins won't run on your "
@@ -16142,7 +16213,7 @@ msgstr ""
 "GnomeVFS. To může způsobit, že některé zásuvné moduly v jazyce Python nemusí "
 "ve vašem systému pracovat."
 
-#: C/gnome-commander.xml:8009(para)
+#: C/gnome-commander.xml:8103(para)
 msgid ""
 "Configuration of default application depending on the files MIME type is "
 "broken and was finally removed in v1.4. See section <xref linkend=\"gnome-"
@@ -16152,23 +16223,23 @@ msgstr ""
 "ve verzi 1.4 bylo definitivně odstraněno. Více informací viz oddíl <xref "
 "linkend=\"gnome-commander-mime-types\"/>."
 
-#: C/gnome-commander.xml:8006(para)
+#: C/gnome-commander.xml:8100(para)
 msgid "Known limitation: <placeholder-1/>"
 msgstr "Známá omezení: <placeholder-1/>"
 
-#: C/gnome-commander.xml:8011(emphasis)
+#: C/gnome-commander.xml:8105(emphasis)
 msgid "Given enough eyeballs, all bugs are shallow."
 msgstr "Je-li dost očí, jsou všechny chyby průhledné."
 
-#: C/gnome-commander.xml:8013(foreignphrase)
+#: C/gnome-commander.xml:8107(foreignphrase)
 msgid "Linus law."
 msgstr "Linusův zákon"
 
-#: C/gnome-commander.xml:8025(title)
+#: C/gnome-commander.xml:8119(title)
 msgid "History of GNOME Commander"
 msgstr "Historie GNOME Commanderu"
 
-#: C/gnome-commander.xml:8026(para)
+#: C/gnome-commander.xml:8120(para)
 msgid ""
 "GNOME Commander was primarily written by Marcus Bjurman, who was the one "
 "initiating this project in 2001 and developed it up to version 1.1.6 in "
@@ -16177,7 +16248,7 @@ msgstr ""
 "GNOME Commander původně napsal Marcus Bjurman, který byl zakladatelem tohoto "
 "projektu v roce 2001 a vyvíjel jej až po verzi 1.1.6 v lednu 2004."
 
-#: C/gnome-commander.xml:8028(para)
+#: C/gnome-commander.xml:8122(para)
 msgid ""
 "Later on, since 2004, GNOME Commander was maintained by the new lead "
 "developer Piotr Eljasiak, working at the project already since 2002. In this "
@@ -16187,7 +16258,7 @@ msgstr ""
 "Piotrem Eljasiakem, který se na projektu podílel už od roku 2002. V této "
 "době přispěl Assaf Gordon implementací interního prohlížeče souborů."
 
-#: C/gnome-commander.xml:8031(para)
+#: C/gnome-commander.xml:8125(para)
 msgid ""
 "Piotr conducted the development until version 1.2.8.15. In this time Magnus "
 "Stålnacke was responsible for the homepage. On the mailing list, amongst "
@@ -16201,7 +16272,7 @@ msgstr ""
 "té, co Magnus od projektu ustoupil, začal se o domovskou stránku na savannah."
 "org starta Thomas Jost."
 
-#: C/gnome-commander.xml:8036(para)
+#: C/gnome-commander.xml:8130(para)
 msgid ""
 "Unfortunately, Piotr suddenly passed away in the beginning of 2012 and GNOME "
 "Commander had no maintainer for nearly two years. Late in 2013, Uwe Scholz, "
@@ -16212,7 +16283,7 @@ msgstr ""
 "neměl GNOME Commander žádného správce. Později, v roce 2013 převzal vedení "
 "projektu Uwe Scholz, který byl uživatelem GNOME Commanderu už před verzí 1.0."
 
-#: C/gnome-commander.xml:8042(para)
+#: C/gnome-commander.xml:8136(para)
 msgid ""
 "In the beginning, GNOME Commander had its home at Sourceforge. Later, the "
 "project moved to Savannah.org, where it got its own homepage and its mailing "
@@ -16224,18 +16295,18 @@ msgstr ""
 "konferenci. Na konci roku 2003 byl zdrojový kód přesunut na Gnome.org. "
 "Domovská stránka a poštovní konference ale zůstaly hostovány na Savannah."
 
-#: C/gnome-commander.xml:8046(para)
+#: C/gnome-commander.xml:8140(para)
 msgid ""
 "Since 2013, the location of the GNOME Commander home page has been moved to "
 "GitHub.org."
 msgstr ""
 "Od roku 2013 byla domovská stránka GNOME Commanderu přesunuta na GitHub.org."
 
-#: C/gnome-commander.xml:8049(title)
+#: C/gnome-commander.xml:8143(title)
 msgid "Bug Reporting"
 msgstr "Hlášení chyb"
 
-#: C/gnome-commander.xml:8050(para)
+#: C/gnome-commander.xml:8144(para)
 msgid ""
 "If you found a bug, you can check if it is already reported on our <ulink "
 "type=\"http\" url=\"https://bugzilla.gnome.org/browse.cgi?product=gnome-"
@@ -16250,7 +16321,7 @@ msgstr ""
 "opravit, podívejte se prosím na oddíl <xref linkend=\"gnome-commander-"
 "development-version\"/>."
 
-#: C/gnome-commander.xml:8058(para)
+#: C/gnome-commander.xml:8152(para)
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
