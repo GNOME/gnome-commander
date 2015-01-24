@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.4.5</para></entry>
-            <entry><para>2014-??-??</para></entry>
+            <entry><para>2015-01-24</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -34,6 +34,15 @@
                         </listitem>
                         <listitem>
                             <para>Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed python-2.6 support from gentoo ebuild</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, hu, id, sr, sr@latin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
                         </listitem>
                     </itemizedlist>
                 </para>

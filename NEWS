@@ -5,6 +5,14 @@ gnome-commander 1.4.5
 Bug fixes:
  * Fixed problem bgo#741316 (Appdata missing in POT) 
  * Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)
+ * Removed python-2.6 support from gentoo ebuild
+ * New or updated translations:
+       hu (Balázs Úr)
+       id (Andika Triwidada)
+       sr (Мирослав Николић)
+       sr@latin (Мирослав Николић)
+New or updated docs:
+    cs (Marek Černocký)
 
 ===================================
 gnome-commander 1.4.4
