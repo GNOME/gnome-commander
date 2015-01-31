@@ -148,14 +148,44 @@ struct GnomeCmdFileList
     void sort();
     GList *sort_selection(GList *list);
 
-    GList *get_visible_files();                 // Returns a list with all files shown in the file list. The list is the same as that in the file list it self so make a copy and ref the files if needed
-    GList *get_selected_files();                // Returns a list with all selected files. The list returned is a copy and should be freed when no longer needed. The files in the list is however not refed before returning
-    GnomeCmd::Collection<GnomeCmdFile *> &get_marked_files();  // Returns a collection of all selected files.
-                                                // A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked
+    /**
+     * Returns a list with all files shown in the file list. The list is
+     * the same as that in the file list it self so make a copy and ref
+     * the files if needed
+     */    
+    GList *get_visible_files();
 
-    GnomeCmdFile *get_focused_file();           // Returns the currently focused file if any. The returned file is not reffed. The ".." file is returned if focused
-    GnomeCmdFile *get_selected_file();          // Returns the currently focused file if any. The returned file is not reffed. The ".." file is NOT returned if focused
-    GnomeCmdFile *get_first_selected_file();    // Returns the first selected file if any or the focused one otherwise. The returned file is not reffed. The ".." file is NOT returned if focused
+    /**
+     * Returns a list with all selected files. The list returned is a
+     * copy and should be freed when no longer needed. The files in the
+     * list is however not refed before returning
+     */
+    GList *get_selected_files();
+    
+    /**
+     * Returns a collection of all selected files.
+     * A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked.
+     */
+    GnomeCmd::Collection<GnomeCmdFile *> &get_marked_files();
+                                              
+    /**
+     * Returns the currently focused file if any. The returned file is
+     * not reffed. The ".." file is returned if focused
+     */
+    GnomeCmdFile *get_focused_file();
+
+    /**
+     * Returns the currently focused file if any. The returned file is
+     * not reffed. The ".." file is NOT returned if focused
+     */
+    GnomeCmdFile *get_selected_file();
+
+    /**
+     * Returns the first selected file if any or the focused one
+     * otherwise. The returned file is not reffed. The ".." file is NOT
+     * returned if focused
+     */
+    GnomeCmdFile *get_first_selected_file();
 
     gboolean file_is_wanted(GnomeCmdFile *f);
 
