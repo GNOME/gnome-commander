@@ -8,6 +8,7 @@ New features:
 * Always reopen the tab which was previously closed in the options dialog
 * Samba support is now optionally available via configure option
 * Configurable command for sending files to a preferred application
+* Button 'Edit files' accepts more than one selected file at the same time
 * Code cleanup
 * New or updated translations: 
      ...

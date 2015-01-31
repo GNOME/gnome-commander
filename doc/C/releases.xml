@@ -47,6 +47,9 @@
                             <para>Configurable command for sending files to a preferred application</para>
                         </listitem>
                         <listitem>
+                            <para>Button 'Edit files' accepts more than one selected file at the same time</para>
+                        </listitem>
+                        <listitem>
                             <para>Code cleanup</para>
                         </listitem>
                         <listitem>

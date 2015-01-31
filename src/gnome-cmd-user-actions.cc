@@ -767,7 +767,6 @@ void file_external_view (GtkMenuItem *menuitem, gpointer not_used)
     gnome_cmd_file_list_view (get_fl (ACTIVE), FALSE);
 }
 
-
 void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 {
     GdkModifierType mask;
@@ -777,9 +776,34 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
     if (mask & GDK_SHIFT_MASK)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
-        gnome_cmd_file_list_edit (get_fl (ACTIVE));
-}
+    {
+	gchar *command;
 
+	command = g_strdup (gnome_cmd_data.options.editor);
+	g_return_if_fail (command != NULL);
+	g_return_if_fail (command[0] != '\0');
+	DEBUG ('g', "Invoking 'Edit file': %s\n", command);
+	
+	GnomeCmdDir *dir = NULL;
+	string dir_path;
+	string cmd;
+	
+	cmd.reserve(2000);
+	parse_command(&cmd, command);
+	DEBUG ('g', "Edit file: %s\n", cmd.c_str());
+	
+	gint argc;
+	gchar **argv;
+	GError *error = NULL;
+	
+	g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	    gnome_cmd_error_message (_("Unable to execute command."), error);
+	
+	g_strfreev (argv);
+	g_free (command);
+    }
+}
 
 void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 {
