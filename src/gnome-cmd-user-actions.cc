@@ -1253,12 +1253,8 @@ inline void open_uri_in_nautilus (gchar *uri)
 
     char const *argv[5];
 
-    //char argv_test[] = "nautilus --no-desktop --no-default-window";
-    //strcpy(argv[0], "nautilus");
     argv[0] = "nautilus";
-    //strcpy(argv[1], "--no-desktop");
     argv[1] = "--no-desktop";
-    //strcpy(argv[2], "--no-default-window");
     argv[2] = "--no-default-window";
     argv[3] = uri;
     argv[4] = NULL;
