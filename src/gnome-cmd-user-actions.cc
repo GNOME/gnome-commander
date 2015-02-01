@@ -1251,17 +1251,21 @@ inline void open_uri_in_nautilus (gchar *uri)
     if (!uri)
         return;
 
-    char *argv[5];
+    char const *argv[5];
 
+    //char argv_test[] = "nautilus --no-desktop --no-default-window";
+    //strcpy(argv[0], "nautilus");
     argv[0] = "nautilus";
+    //strcpy(argv[1], "--no-desktop");
     argv[1] = "--no-desktop";
+    //strcpy(argv[2], "--no-default-window");
     argv[2] = "--no-default-window";
     argv[3] = uri;
     argv[4] = NULL;
 
     GError *error = NULL;
 
-    if (!g_spawn_async (NULL, argv, NULL, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDOUT_TO_DEV_NULL), NULL, NULL, NULL, &error))
+    if (!g_spawn_async (NULL, (char **) argv, NULL, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDOUT_TO_DEV_NULL), NULL, NULL, NULL, &error))
         gnome_cmd_error_message (_("Unable to start Nautilus."), error);
 
     g_free (uri);
