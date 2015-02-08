@@ -108,7 +108,7 @@ inline gboolean append_real_path (string &s, GnomeCmdFile *f)
 }
 
 
-void parse_command(string *cmd, gchar * command);
+int parse_command(string *cmd, gchar * command);
 
 GnomeCmdUserActions gcmd_user_actions;
 
@@ -777,31 +777,35 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
     {
-	gchar *command;
+	GnomeCmdDir *dir = NULL;
+	gchar       *command;
 
 	command = g_strdup (gnome_cmd_data.options.editor);
 	g_return_if_fail (command != NULL);
-	g_return_if_fail (command[0] != '\0');
-	DEBUG ('g', "Invoking 'Edit file': %s\n", command);
-	
-	GnomeCmdDir *dir = NULL;
+
 	string dir_path;
 	string cmd;
 	
 	cmd.reserve(2000);
-	parse_command(&cmd, command);
-	DEBUG ('g', "Edit file: %s\n", cmd.c_str());
-	
-	gint argc;
-	gchar **argv;
-	GError *error = NULL;
-	
-	g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
-	    gnome_cmd_error_message (_("Unable to execute command."), error);
-	
-	g_strfreev (argv);
-	g_free (command);
+	if (parse_command(&cmd, command) == 0)
+	{
+	    DEBUG ('g', "Edit file command is not valid.\n");
+	    return;
+	}
+	else
+	{
+	    gint     argc;
+	    gchar  **argv  = NULL;
+	    GError  *error = NULL;
+	    DEBUG ('g', "Edit file: %s\n", cmd.c_str());
+	    
+	    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+	    if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+		gnome_cmd_error_message (_("Unable to execute command."), error);
+	    
+	    g_strfreev (argv);
+	    g_free (command);
+	}
     }
 }
 
@@ -917,31 +921,33 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gchar *command;
+    GnomeCmdDir  *dir     = NULL;
+    gchar        *command = NULL;
+    string        dir_path;
+    string        cmd;
 
     command = g_strdup (gnome_cmd_data.options.sendto);
     g_return_if_fail (command != NULL);
-    g_return_if_fail (command[0] != '\0');
-    DEBUG ('g', "Invoking 'Send files': %s\n", command);
-
-    GnomeCmdDir *dir = NULL;
-    string dir_path;
-    string cmd;
-
+    
     cmd.reserve(2000);
-    parse_command(&cmd, g_strdup(gnome_cmd_data.options.sendto));
-    DEBUG ('g', "Send files: %s\n", cmd.c_str());
 
-    gint argc;
-    gchar **argv;
-    GError *error = NULL;
-
-    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-    if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
-        gnome_cmd_error_message (_("Unable to execute command."), error);
-
-    g_strfreev (argv);
-    g_free (command);
+    if (parse_command(&cmd, g_strdup(gnome_cmd_data.options.sendto)) == 0)
+    {
+	DEBUG ('g', "Sendto command is not valid.\n");
+	return;
+    }
+    else
+    {
+	gint     argc;
+	gchar  **argv  = NULL;
+	GError  *error = NULL;
+	DEBUG ('g', "Invoking 'Send files': %s\n", cmd.c_str());
+	g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	    gnome_cmd_error_message (_("Unable to execute command."), error);
+	g_free (command);
+	g_strfreev (argv);
+    }
 }
 
 
@@ -1127,6 +1133,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     string dir_path;
     string quoted_dir_path;
+    string cmd;
 
     GnomeCmdDir *dir = NULL;
 
@@ -1151,22 +1158,27 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
         stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
     }
 
-    string cmd;
     cmd.reserve(2000);
-    parse_command(&cmd, (gchar*) command);
-    
-    DEBUG ('g', "running: %s\n", cmd.c_str());
+    if (parse_command(&cmd, (gchar*) command) == 0)
+    {
+	DEBUG ('g', "Command is not valid.\n");
+	return;
+    }
+    else
+    {
+	gint argc;
+	gchar **argv;
+	GError *error = NULL;
+	
+	DEBUG ('g', "Running: %s\n", cmd.c_str());
 
-    gint argc;
-    gchar **argv;
-    GError *error = NULL;
+	g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+	if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+	    gnome_cmd_error_message (_("Unable to execute command."), error);
 
-    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-    if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
-        gnome_cmd_error_message (_("Unable to execute command."), error);
-
-    g_strfreev (argv);
-    g_list_free (sfl);
+	g_strfreev (argv);
+	g_list_free (sfl);
+    }
 }
 
 
@@ -2083,13 +2095,16 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
  * \li \%d: full path to the directory containing file
  * \li \%D: quoted full path to the directory containg file
  * \li \%%: percent sign
+ * Trailing blanks are removed.
  * 
  * \param[in] command A char array to be parsed
  * \param[out] cmd A string with parsed symbols listed above
+ * \returns Length of the cmd string
  */
-void parse_command(string *cmd, gchar *command)
+int parse_command(string *cmd, gchar *command)
 {
     gboolean percent = FALSE;
+    gboolean blcheck = FALSE;
     string filename;
     string quoted_filename;
     string file_path;
@@ -2119,7 +2134,20 @@ void parse_command(string *cmd, gchar *command)
 		    cmd->reserve(cmdlen +1);
 		    cmdcap = cmd->capacity();
 		}
-                *cmd += *s;
+		if (blcheck) // copy letter by letter, but remove trailing blanks
+		    *cmd += *s;
+		else
+		{
+		    if (*s == ' ' || *s == '\t') 
+		    {
+			continue;
+		    }
+		    else
+		    {
+			blcheck = TRUE;
+			*cmd += *s;
+		    }
+		}
 		cmdlen = cmd->length();
 	    }
 
@@ -2233,4 +2261,6 @@ void parse_command(string *cmd, gchar *command)
 
     if (percent)
         *cmd += '%';
+
+    return cmd->length();
 }
