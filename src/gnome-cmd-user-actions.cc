@@ -790,6 +790,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	if (parse_command(&cmd, command) == 0)
 	{
 	    DEBUG ('g', "Edit file command is not valid.\n");
+	    gnome_cmd_show_message (*main_win, _("No valid command given."));
 	    return;
 	}
 	else
@@ -934,6 +935,7 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
     if (parse_command(&cmd, g_strdup(gnome_cmd_data.options.sendto)) == 0)
     {
 	DEBUG ('g', "Sendto command is not valid.\n");
+	gnome_cmd_show_message (*main_win, _("No valid command given."));
 	return;
     }
     else
@@ -1162,6 +1164,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     if (parse_command(&cmd, (gchar*) command) == 0)
     {
 	DEBUG ('g', "Command is not valid.\n");
+	gnome_cmd_show_message (*main_win, _("No valid command given."));
 	return;
     }
     else
