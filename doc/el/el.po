@@ -6,21 +6,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2014-04-06 20:15+0000\n"
-"PO-Revision-Date: 2014-04-07 07:48+0300\n"
-"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"POT-Creation-Date: 2014-06-09 18:10+0000\n"
+"PO-Revision-Date: 2014-06-11 09:26+0200\n"
+"Last-Translator: Maria Mavridou <mavridou@gmail.com>\n"
 "Language-Team: team@lists.gnome.gr\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.0\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Project-Style: gnome\n"
 
 #: C/releases.xml:9(title)
 msgid "Release Overview"
-msgstr "Επισκόπηση κυκλοφορίας"
+msgstr "Επισκόπηση έκδοσης"
 
 #: C/releases.xml:19(para)
 msgid "Version"
@@ -28,105 +28,147 @@ msgstr "Έκδοση"
 
 #: C/releases.xml:20(para)
 msgid "Release date"
-msgstr "Ημερομηνία κυκλοφορίας"
+msgstr "Ημερομηνία έκδοσης"
 
 #: C/releases.xml:21(para)
 msgid "What's new"
 msgstr "Τι νέο υπάρχει"
 
 #: C/releases.xml:26(para)
-msgid "1.4.2"
-msgstr "1.4.2"
+#| msgid "1.4.2"
+msgid "1.4.3"
+msgstr "1.4.3"
 
 #: C/releases.xml:27(para)
 msgid "2014-??-??"
 msgstr "2014-;;-;;"
 
-#: C/releases.xml:29(para) C/releases.xml:49(para) C/releases.xml:78(para)
-#: C/releases.xml:216(para) C/releases.xml:236(para) C/releases.xml:262(para)
-#: C/releases.xml:282(para) C/releases.xml:299(para) C/releases.xml:313(para)
-#: C/releases.xml:336(para) C/releases.xml:367(para) C/releases.xml:396(para)
-#: C/releases.xml:421(para) C/releases.xml:441(para) C/releases.xml:467(para)
-#: C/releases.xml:498(para) C/releases.xml:524(para) C/releases.xml:550(para)
-#: C/releases.xml:585(para) C/releases.xml:608(para) C/releases.xml:631(para)
-#: C/releases.xml:760(para) C/releases.xml:818(para) C/releases.xml:887(para)
-#: C/releases.xml:1010(para) C/releases.xml:1111(para)
-#: C/releases.xml:1125(para) C/releases.xml:1176(para)
-#: C/releases.xml:1248(para) C/releases.xml:1338(para)
-#: C/releases.xml:1421(para) C/releases.xml:1484(para)
-#: C/releases.xml:1518(para) C/releases.xml:1550(para)
-#: C/releases.xml:1609(para) C/releases.xml:1634(para)
-#: C/releases.xml:1691(para)
+#: C/releases.xml:29(para) C/releases.xml:43(para) C/releases.xml:69(para)
+#: C/releases.xml:98(para) C/releases.xml:236(para) C/releases.xml:256(para)
+#: C/releases.xml:282(para) C/releases.xml:302(para) C/releases.xml:319(para)
+#: C/releases.xml:333(para) C/releases.xml:356(para) C/releases.xml:387(para)
+#: C/releases.xml:416(para) C/releases.xml:441(para) C/releases.xml:461(para)
+#: C/releases.xml:487(para) C/releases.xml:518(para) C/releases.xml:544(para)
+#: C/releases.xml:570(para) C/releases.xml:605(para) C/releases.xml:628(para)
+#: C/releases.xml:651(para) C/releases.xml:780(para) C/releases.xml:838(para)
+#: C/releases.xml:907(para) C/releases.xml:1030(para)
+#: C/releases.xml:1131(para) C/releases.xml:1145(para)
+#: C/releases.xml:1196(para) C/releases.xml:1268(para)
+#: C/releases.xml:1358(para) C/releases.xml:1441(para)
+#: C/releases.xml:1504(para) C/releases.xml:1538(para)
+#: C/releases.xml:1570(para) C/releases.xml:1629(para)
+#: C/releases.xml:1654(para) C/releases.xml:1711(para)
 msgid "Bug fixes:"
 msgstr "Διορθώσεις σφαλμάτων:"
 
 #: C/releases.xml:33(para)
-msgid "???"
-msgstr ";;;"
+#| msgid "1.2.8.9"
+msgid "..."
+msgstr "..."
 
-#: C/releases.xml:36(para)
-msgid "New or updated docs: ??"
-msgstr "Νέα ή ενημερωμένα έγγραφα: ;;"
+#: C/releases.xml:40(para)
+msgid "1.4.2"
+msgstr "1.4.2"
 
-#: C/releases.xml:39(para)
-msgid "New or updated translations: ??"
-msgstr "Νέες ή ενημερωμένες μεταφράσεις: ;;"
+#: C/releases.xml:41(para)
+#| msgid "2014-01-12"
+msgid "2014-05-23"
+msgstr "23-05-2014"
 
-#: C/releases.xml:46(para)
-msgid "1.4.1"
-msgstr "1.4.1"
+#: C/releases.xml:47(para)
+msgid ""
+"Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in "
+"ebuild)"
+msgstr ""
+"Διόρθωση προβλήματος Gentoo #509574 (Αλλαγή στο ebuild από python-r1 σε "
+"python-single-r1) "
 
-#: C/releases.xml:47(para) C/gnome-commander.xml:329(date)
-msgid "2014-04-05"
-msgstr "05-04-2014"
+#: C/releases.xml:50(para)
+msgid ""
+"Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving "
+"folders)"
+msgstr ""
+"Διόρθωση προβλήματος bgo#367949 (διορθώθηκαν τα αγόμενα async_xfer_callback "
+"για την μετακίνηση αρχείων)"
 
 #: C/releases.xml:53(para)
 msgid ""
-"Fixed problem bgo#641842 (use poppler-glib instead of poppler internal API)"
+"Fixed problem bgo#598161 (Selecting text in internal viewer on lines with "
+"TAB characters)"
 msgstr ""
-"Διορθώθηκε το πρόβλημα bgo#641842 (Χρήση του poppler-glib αντί του API "
-"εσωτερικού poppler)"
+"Διόρθωση προβλήματος bgo#598161 (Επιλογή κειμένου σε εσωτερική προβολή κατά "
+"γραμμές με χαρακτήρες TAB)"
 
 #: C/releases.xml:56(para)
-msgid "Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)"
+msgid ""
+"Text selection in int. viewer works on lines with TAB characters (Thanks to "
+"Jan Vleeshouwers)"
 msgstr ""
-"Διορθώθηκε το πρόβλημα bgo#726682 (Μπάλωμα για να διορθωθεί αόριστη αναφορά "
-"σε vtable)"
+"Η επιλογή κειμένου σε εσωτερική προβολή λειτουργεί κατά γραμμές με "
+"χαρακτήρες TAB (Χάρη στον Jan Vleeshouwers)"
 
 #: C/releases.xml:59(para)
+#| msgid "New or updated translations: cs, es"
+msgid "New or updated translations: cs, el, sr, sr@latin"
+msgstr "Νέες ή ενημερωμένες μεταφράσεις: cs, el, sr, sr@latin"
+
+#: C/releases.xml:66(para)
+msgid "1.4.1"
+msgstr "1.4.1"
+
+#: C/releases.xml:67(para) C/gnome-commander.xml:329(date)
+msgid "2014-04-05"
+msgstr "05-04-2014"
+
+#: C/releases.xml:73(para)
+#| msgid ""
+#| "Fixed problem bgo#641842 (use poppler-glib instead of poppler internal "
+#| "API)"
+msgid ""
+"Fixed problem bgo#641842 (Use poppler-glib instead of poppler internal API)"
+msgstr ""
+"Διόρθωση προβλήματος bgo#641842 (Χρήση του poppler-glib αντί του poppler "
+"εσωτερικού API)"
+
+#: C/releases.xml:76(para)
+msgid "Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)"
+msgstr ""
+"Διόρθωση προβλήματος bgo#726682 (Διόρθωση αόριστης αναφοράς στο vtable)"
+
+#: C/releases.xml:79(para)
 msgid ""
 "Support for utf8 encoded creation and modification dates in document metadata"
 msgstr ""
 "Υποστήριξη για κωδικοποιημένες σε utf8 ημερομηνίες δημιουργίας και "
 "τροποποίησης σε μεταδεδομένα εγγράφου"
 
-#: C/releases.xml:62(para)
+#: C/releases.xml:82(para)
 msgid "Moved Search, Quick Search and Enable Filter from Edit to File menu"
 msgstr ""
 "Μετακίνηση των αναζήτηση, γρήγορη αναζήτηση και ενεργοποίηση φίλτρου από "
 "μενού Επεξεργασία στο μενού Αρχείο"
 
-#: C/releases.xml:65(para)
+#: C/releases.xml:85(para)
 msgid "New or updated docs: cs, es, fr, id, pt_BR, sl"
 msgstr "Νέα ή ενημερωμένα έγγραφα: cs, es, fr, id, pt_BR, sl"
 
-#: C/releases.xml:68(para)
+#: C/releases.xml:88(para)
 msgid "New or updated translations: cs, es"
 msgstr "Νέες ή ενημερωμένες μεταφράσεις: cs, es"
 
-#: C/releases.xml:75(para)
+#: C/releases.xml:95(para)
 msgid "1.4.0"
 msgstr "1.4.0"
 
-#: C/releases.xml:76(para) C/gnome-commander.xml:314(date)
+#: C/releases.xml:96(para) C/gnome-commander.xml:314(date)
 msgid "2014-03-17"
 msgstr "17-03-2014"
 
-#: C/releases.xml:82(para)
+#: C/releases.xml:102(para)
 msgid "Fixed problem bgo#377463 (mkdir dialog loses focus)"
 msgstr "Διόρθωση προβλήματος bgo#377463 (ο διάλογος mkdir χάνει την εστίαση)"
 
-#: C/releases.xml:85(para)
+#: C/releases.xml:105(para)
 msgid ""
 "Fixed problem bgo#492479 (file replace prompt must show date and size of "
 "files)"
@@ -134,7 +176,7 @@ msgstr ""
 "Διόρθωση προβλήματος bgo#492479 (η προτροπή αντικατάστασης αρχείου πρέπει να "
 "εμφανίζει ημερομηνία και μέγεθος των αρχείων)"
 
-#: C/releases.xml:88(para)
+#: C/releases.xml:108(para)
 msgid ""
 "Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct "
 "access)"
@@ -142,7 +184,7 @@ msgstr ""
 "Διόρθωση προβλήματος bgo#617140 (Σκοπός GNOME: Χρήση συναρτήσεων accessor "
 "αντί για άμεση πρόσβαση)"
 
-#: C/releases.xml:91(para)
+#: C/releases.xml:111(para)
 msgid ""
 "Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, "
 "bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)"
@@ -151,43 +193,43 @@ msgstr ""
 "bgo#633331, bgo#634972, bgo#637873, bgo#638059 (σφάλματα στο gnome-commander-"
 "help.master.po)"
 
-#: C/releases.xml:94(para)
+#: C/releases.xml:114(para)
 msgid "Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#660043 (η συντόμευση ALT+DOWN δεν τεκμηριώθηκε)"
 
-#: C/releases.xml:97(para)
+#: C/releases.xml:117(para)
 msgid "Fixed problem bgo#660268 (remember directory history between sessions)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#660268 (απομνημόνευση ιστορικού καταλόγου μεταξύ "
 "συνεδριών)"
 
-#: C/releases.xml:100(para)
+#: C/releases.xml:120(para)
 msgid "Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#667080 (προεπιλογή επιβεβαίωσης διαγραφής σε ΝΑΙ/"
 "ΕΝΤΑΞΕΙ)"
 
-#: C/releases.xml:103(para)
+#: C/releases.xml:123(para)
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
 msgstr "Διόρθωση προβλήματος Ουμπούντου #117226 (ενοποίηση σελιδοδεικτών)"
 
-#: C/releases.xml:106(para)
+#: C/releases.xml:126(para)
 msgid "Fixed problem with right mouse button selection not being precise"
 msgstr "Διόρθωση του προβλήματος ανακριβούς επιλογής δεξιού πλήκτρου ποντικιού"
 
-#: C/releases.xml:109(para)
+#: C/releases.xml:129(para)
 msgid "Fixed problem bgo#696227 (detect and support libgsf &gt;= 1.14.26)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#696227 (αναγνώριση και υποστήριξη libgsf &gt;= "
 "1.14.26)"
 
-#: C/releases.xml:112(para)
+#: C/releases.xml:132(para)
 msgid "Fixed problem bgo#684527 (Fixed typos in strings)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#684527 (Διόρθωση τυπογραφικών σε συμβολοσειρές)"
 
-#: C/releases.xml:115(para)
+#: C/releases.xml:135(para)
 msgid ""
 "Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view."
 "dir_history)"
@@ -195,101 +237,101 @@ msgstr ""
 "Διόρθωση προβλήματος bgo#660063 (ορισμός συνδυασμού ALT+DOWN ως οριζόμενου "
 "από τον χρήστη: view.dir_history)"
 
-#: C/releases.xml:118(para)
+#: C/releases.xml:138(para)
 msgid "Fixed problem bgo#642178 (lock tabs for prev/next buttons)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#642178 (κλείδωμα καρτελών για πλήκτρα προηγούμενου/"
 "επόμενου)"
 
-#: C/releases.xml:122(para) C/releases.xml:353(para) C/releases.xml:407(para)
-#: C/releases.xml:484(para) C/releases.xml:705(para) C/releases.xml:786(para)
-#: C/releases.xml:844(para) C/releases.xml:955(para) C/releases.xml:1039(para)
-#: C/releases.xml:1148(para) C/releases.xml:1199(para)
-#: C/releases.xml:1277(para) C/releases.xml:1366(para)
-#: C/releases.xml:1438(para) C/releases.xml:1504(para)
-#: C/releases.xml:1580(para) C/releases.xml:1620(para)
-#: C/releases.xml:1657(para) C/releases.xml:1671(para)
+#: C/releases.xml:142(para) C/releases.xml:373(para) C/releases.xml:427(para)
+#: C/releases.xml:504(para) C/releases.xml:725(para) C/releases.xml:806(para)
+#: C/releases.xml:864(para) C/releases.xml:975(para) C/releases.xml:1059(para)
+#: C/releases.xml:1168(para) C/releases.xml:1219(para)
+#: C/releases.xml:1297(para) C/releases.xml:1386(para)
+#: C/releases.xml:1458(para) C/releases.xml:1524(para)
+#: C/releases.xml:1600(para) C/releases.xml:1640(para)
+#: C/releases.xml:1677(para) C/releases.xml:1691(para)
 msgid "New features:"
 msgstr "Νέα γνωρίσματα:"
 
-#: C/releases.xml:126(para) C/gnome-commander.xml:382(para)
+#: C/releases.xml:146(para) C/gnome-commander.xml:382(para)
 msgid "Support for tabs"
 msgstr "Υποστήριξη για καρτέλες"
 
-#: C/releases.xml:129(para)
+#: C/releases.xml:149(para)
 msgid "Revamped bookmarks dialog"
 msgstr "Διάλογος ανανεωμένων σελιδοδεικτών"
 
-#: C/releases.xml:132(para)
+#: C/releases.xml:152(para)
 msgid "Revamped file properties dialog"
 msgstr "Διάλογος ιδιοτήτων ανανεωμένων αρχείων"
 
-#: C/releases.xml:135(para) C/gnome-commander.xml:385(para)
+#: C/releases.xml:155(para) C/gnome-commander.xml:385(para)
 msgid "One instance mode"
 msgstr "Λειτουργία ενός στιγμιότυπου"
 
-#: C/releases.xml:138(para)
+#: C/releases.xml:158(para)
 msgid "New colour theme: green tiger"
 msgstr "Νέο χρωματικό θέμα: πράσινος τίγρης"
 
-#: C/releases.xml:141(para)
+#: C/releases.xml:161(para)
 msgid "User defined LS_COLORS colours"
 msgstr "Χρώματα LS_COLORS ορισμένα από τον χρήστη"
 
-#: C/releases.xml:144(para)
+#: C/releases.xml:164(para)
 msgid "Possibility to select/deselect files only"
 msgstr "Δυνατότητα επιλογής/αποεπιλογής μόνο αρχείων"
 
-#: C/releases.xml:147(para)
+#: C/releases.xml:167(para)
 msgid "Support for automatic width counters in advanced file rename"
 msgstr ""
 "Υποστήριξη για αυτόματους μετρητές πλάτους σε προχωρημένη μετονομασία αρχείου"
 
-#: C/releases.xml:150(para)
+#: C/releases.xml:170(para)
 msgid "Enhanced file name matching in quick search"
 msgstr "βελτιωμένη συμφωνία ονόματος αρχείου στη γρήγορη αναζήτηση"
 
-#: C/releases.xml:153(para)
+#: C/releases.xml:173(para)
 msgid "Open terminal with administrator privileges"
 msgstr "Άνοιγμα του τερματικού με δικαιώματα διαχειριστή"
 
-#: C/releases.xml:156(para)
+#: C/releases.xml:176(para)
 msgid "Prompt to confirm drag &amp; drop operations"
 msgstr "Προτροπή για επιβεβαίωση λειτουργιών μεταφοράς &amp; απόθεσης"
 
-#: C/releases.xml:159(para)
+#: C/releases.xml:179(para)
 msgid "Right click popup menu for copying in internal viewer"
 msgstr "Δεξιό πάτημα αναδυόμενου μενού για αντιγραφή σε εσωτερική προβολή"
 
-#: C/releases.xml:162(para)
+#: C/releases.xml:182(para)
 msgid ""
 "--config-dir command line option for customized location of config files"
 msgstr ""
 "--config-dir επιλογή γραμμής εντολών για προσαρμοσμένη θέση αρχείων ρυθμίσεων"
 
-#: C/releases.xml:165(para)
+#: C/releases.xml:185(para)
 msgid "Several speed improvements including C++ rework and code cleanups"
 msgstr ""
 "Αρκετές βελτιώσεις ταχύτητας που συμπεριλαμβάνουν ξαναδούλεμα C++ και "
 "καθαρισμούς κώδικα"
 
-#: C/releases.xml:168(para)
+#: C/releases.xml:188(para)
 msgid "New python plugin: 'apply_patch'"
 msgstr "Νέα πρόσθετα python: 'apply_patch'"
 
-#: C/releases.xml:171(para)
+#: C/releases.xml:191(para)
 msgid "Dropped broken MIME type configuration"
 msgstr "Παράλειψη σπασμένης ρύθμισης τύπου MIME"
 
-#: C/releases.xml:174(para)
+#: C/releases.xml:194(para)
 msgid "Dropped support for cvs plugin"
 msgstr "Παράλειψη υποστήριξης για πρόσθετο cvs"
 
-#: C/releases.xml:177(para)
+#: C/releases.xml:197(para)
 msgid "New or updated docs: cs, de, en, es, el, fr, ru, sl"
 msgstr "Νέες ή ενημερωμένες τεκμηριώσεις: cs, de, en, es, el, fr, ru, sl"
 
-#: C/releases.xml:180(para)
+#: C/releases.xml:200(para)
 msgid ""
 "New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, nb, "
 "pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
@@ -297,15 +339,15 @@ msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, "
 "nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
 
-#: C/releases.xml:183(para) C/releases.xml:734(para) C/releases.xml:872(para)
-#: C/releases.xml:992(para) C/releases.xml:1087(para)
-#: C/releases.xml:1161(para) C/releases.xml:1233(para)
-#: C/releases.xml:1314(para) C/releases.xml:1394(para)
-#: C/releases.xml:1463(para)
+#: C/releases.xml:203(para) C/releases.xml:754(para) C/releases.xml:892(para)
+#: C/releases.xml:1012(para) C/releases.xml:1107(para)
+#: C/releases.xml:1181(para) C/releases.xml:1253(para)
+#: C/releases.xml:1334(para) C/releases.xml:1414(para)
+#: C/releases.xml:1483(para)
 msgid "New key bindings:"
 msgstr "Νέοι συνδυασμοί πλήκτρων:"
 
-#: C/releases.xml:186(para)
+#: C/releases.xml:206(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> Open directory "
 "in a new tab (replaces the old Multi-Rename-Tool binding)"
@@ -314,7 +356,7 @@ msgstr ""
 "καταλόγου σε μια νέα καρτέλα (αντικαθιστά τον παλιό συνδυασμό εργαλείου "
 "πολλαπλής μετονομασίας)"
 
-#: C/releases.xml:189(para)
+#: C/releases.xml:209(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Close current "
 "tab"
@@ -322,7 +364,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Κλείσιμο "
 "τρέχουσας καρτέλας"
 
-#: C/releases.xml:192(para)
+#: C/releases.xml:212(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
 "keycombo> Close all tabs"
@@ -330,7 +372,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
 "keycombo> Κλείσιμο όλων των καρτελών"
 
-#: C/releases.xml:195(para)
+#: C/releases.xml:215(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Switch to the "
 "next tab"
@@ -338,7 +380,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Μετάβαση στην "
 "επόμενη καρτέλα"
 
-#: C/releases.xml:198(para)
+#: C/releases.xml:218(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></"
 "keycombo> Switch to the previous tab"
@@ -346,7 +388,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></"
 "keycombo> Μετάβαση στην προηγούμενη καρτέλα"
 
-#: C/releases.xml:201(para)
+#: C/releases.xml:221(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Change left "
 "connection"
@@ -354,7 +396,7 @@ msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Αλλαγή "
 "αριστερής σύνδεσης"
 
-#: C/releases.xml:204(para)
+#: C/releases.xml:224(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Change right "
 "connection"
@@ -362,184 +404,184 @@ msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Αλλαγή δεξιάς "
 "σύνδεσης"
 
-#: C/releases.xml:213(para)
+#: C/releases.xml:233(para)
 msgid "1.2.8.17"
 msgstr "1.2.8.17"
 
-#: C/releases.xml:214(para)
+#: C/releases.xml:234(para)
 msgid "2014-01-12"
 msgstr "12-01-2014"
 
-#: C/releases.xml:220(para)
+#: C/releases.xml:240(para)
 msgid "Fixed problem bgo#721132 (Support build with -Werror=format-security)"
 msgstr ""
 "Διόρθωση προβλήματος bgo#721132 (Υποστήριξη δόμησης με -Werror=format-"
 "security)"
 
-#: C/releases.xml:223(para)
+#: C/releases.xml:243(para)
 msgid "Updated GCMD home page location in source code"
 msgstr "Ενημέρωση θέσης αρχικής σελίδας GCMD σε πηγαίο κώδικα"
 
-#: C/releases.xml:226(para)
+#: C/releases.xml:246(para)
 msgid "Updated translations: es, id, pt_BR"
 msgstr "Ενημερωμένες μεταφράσεις: es, id, pt_BR"
 
-#: C/releases.xml:233(para)
+#: C/releases.xml:253(para)
 msgid "1.2.8.16"
 msgstr "1.2.8.16"
 
-#: C/releases.xml:234(para)
+#: C/releases.xml:254(para)
 msgid "2013-12-23"
 msgstr "23-12-2013"
 
-#: C/releases.xml:240(para)
+#: C/releases.xml:260(para)
 msgid "Fixed gcc-4.7 compiling problem"
 msgstr "Διόρθωση προβλήματος μεταγλώττισης gcc-4.7"
 
-#: C/releases.xml:243(para)
+#: C/releases.xml:263(para)
 msgid "Fixed problem bgo#705724 (poppler &gt;= 0.24)"
 msgstr "Διόρθωση προβλήματος bgo#705724 (poppler &gt;= 0.24)"
 
-#: C/releases.xml:246(para)
+#: C/releases.xml:266(para)
 msgid "Fixed problem bgo#676303 (poppler &gt;= 0.20.0)"
 msgstr "Διόρθωση προβλήματος #676303 (poppler &gt;= 0.20.0)"
 
-#: C/releases.xml:249(para)
+#: C/releases.xml:269(para)
 msgid "New or updated docs: de, el, fr"
 msgstr "Νέα ή ενημερωμένη τεκμηρίωση: de, el, fr"
 
-#: C/releases.xml:252(para)
+#: C/releases.xml:272(para)
 msgid "Updated translations: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 msgstr "Ενημερωμένες μεταφράσεις: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 
-#: C/releases.xml:259(para)
+#: C/releases.xml:279(para)
 msgid "1.2.8.15"
 msgstr "1.2.8.15"
 
-#: C/releases.xml:260(para) C/gnome-commander.xml:304(date)
+#: C/releases.xml:280(para) C/gnome-commander.xml:304(date)
 msgid "2011-12-06"
 msgstr "06-12-2011"
 
-#: C/releases.xml:266(para)
+#: C/releases.xml:286(para)
 msgid "Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)"
 msgstr ""
 "Διόρθωση προβλήματος #65372 (έλλειψη συνδέσμων στην τεκμηρίωση gcmd-1.2.8)"
 
-#: C/releases.xml:269(para)
+#: C/releases.xml:289(para)
 msgid "New or updated docs: cs, de, es, fr"
 msgstr "Νέα ή ενημερωμένη τεκμηρίωση: cs, de, el, es, fr"
 
-#: C/releases.xml:272(para)
+#: C/releases.xml:292(para)
 msgid "Updated translations: eo, es, sl"
 msgstr "Ενημερωμένες μεταφράσεις: eo, es, sl"
 
-#: C/releases.xml:279(para)
+#: C/releases.xml:299(para)
 msgid "1.2.8.14"
 msgstr "1.2.8.14"
 
-#: C/releases.xml:280(para) C/gnome-commander.xml:294(date)
+#: C/releases.xml:300(para) C/gnome-commander.xml:294(date)
 msgid "2011-10-04"
 msgstr "04-10-2011"
 
-#: C/releases.xml:286(para)
+#: C/releases.xml:306(para)
 msgid "Fixed problem #621756 (custom port for ftp is not saved)"
 msgstr ""
 "Διόρθωση προβλήματος #621756 (μη αποθήκευση προσαρμοσμένης θύρας για ftp)"
 
-#: C/releases.xml:289(para)
+#: C/releases.xml:309(para)
 msgid "Fixed problem #657780 (bugs in nl.po)"
 msgstr "Διόρθωση προβλήματος #657780 (σφάλματα στο nl.po)"
 
-#: C/releases.xml:296(para)
+#: C/releases.xml:316(para)
 msgid "1.2.8.13"
 msgstr "1.2.8.13"
 
-#: C/releases.xml:297(para) C/gnome-commander.xml:284(date)
+#: C/releases.xml:317(para) C/gnome-commander.xml:284(date)
 msgid "2011-08-06"
 msgstr "06-08-2011"
 
-#: C/releases.xml:303(para)
+#: C/releases.xml:323(para)
 msgid "Fixed problem #646871 (crash on file properties when connected to FTP)"
 msgstr ""
 "Διόρθωση προβλήματος #646871 (κατάρρευση στις ιδιότητες αρχείου κατά τη "
 "σύνδεση σε FTP)"
 
-#: C/releases.xml:310(para)
+#: C/releases.xml:330(para)
 msgid "1.2.8.12"
 msgstr "1.2.8.12"
 
-#: C/releases.xml:311(para) C/gnome-commander.xml:274(date)
+#: C/releases.xml:331(para) C/gnome-commander.xml:274(date)
 msgid "2011-06-15"
 msgstr "15-06-2011"
 
-#: C/releases.xml:317(para)
+#: C/releases.xml:337(para)
 msgid "Fixed problem #618214 (crash when cancel a search)"
 msgstr "Διόρθωση προβλήματος #618214 (κατάρρευση κατά την ακύρωση αναζήτησης)"
 
-#: C/releases.xml:320(para)
+#: C/releases.xml:340(para)
 msgid ""
 "Fixed problem #640387 (yet another fix for deprecated python modules: md5, "
 "sha1)"
 msgstr ""
-"Διόρθωση προβλήματος #640387 (ακόμα μια διόρθωση για παρωχημένες ενότητες "
+"Διόρθωση προβλήματος #640387 (ακόμα μια διόρθωση για παρωχημένα αρθρώματα "
 "python: md5, sha1)"
 
-#: C/releases.xml:323(para)
+#: C/releases.xml:343(para)
 msgid "Fixed problem #649375 (bookmarks not updated for newly added ones)"
 msgstr ""
 "Διόρθωση προβλήματος #649375 (οι σελιδοδείκτες δεν ανανεώνονται για νέους "
 "πρόσθετους σελιδοδείκτες)"
 
-#: C/releases.xml:326(para)
+#: C/releases.xml:346(para)
 msgid "Fixed problem with mkdir permissions"
 msgstr "Διόρθωση προβλήματος με δικαιώματα mkdir"
 
-#: C/releases.xml:333(para)
+#: C/releases.xml:353(para)
 msgid "1.2.8.11"
 msgstr "1.2.8.11"
 
-#: C/releases.xml:334(para) C/gnome-commander.xml:264(date)
+#: C/releases.xml:354(para) C/gnome-commander.xml:264(date)
 msgid "2011-05-01"
 msgstr "01-05-2011"
 
-#: C/releases.xml:340(para)
+#: C/releases.xml:360(para)
 msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgstr ""
 "Διόρθωση προβλήματος #639243 (παραπλανητικά έγγραφα για τη συντόμευση F2)"
 
-#: C/releases.xml:343(para)
+#: C/releases.xml:363(para)
 msgid "Fixed problem #640387 (usage of deprecated python modules: md5, sha1)"
 msgstr ""
-"Διόρθωση προβλήματος #640387 (χρήση παρωχημένων ενοτήτων python: md5, sha1)"
+"Διόρθωση προβλήματος #640387 (χρήση παρωχημένων αρθρωμάτων python: md5, sha1)"
 
-#: C/releases.xml:346(para)
+#: C/releases.xml:366(para)
 msgid "Fixed problem with starting GNOME Commander as root"
 msgstr "Διόρθωση προβλήματος με έναρξη του GNOME Commander ως υπερχρήστη"
 
-#: C/releases.xml:349(para)
+#: C/releases.xml:369(para)
 msgid "Fixed problem with Traditional Chinese translation"
 msgstr "Διόρθωση προβλήματος με την παραδοσιακή κινέζικη μετάφραση"
 
-#: C/releases.xml:357(para)
+#: C/releases.xml:377(para)
 msgid "Support for backward/forward mouse buttons"
 msgstr "Υποστήριξη για πλήκτρα ποντικιού προς τα πίσω/προς τα εμπρός"
 
-#: C/releases.xml:364(para)
+#: C/releases.xml:384(para)
 msgid "1.2.8.10"
 msgstr "1.2.8.10"
 
-#: C/releases.xml:365(para) C/gnome-commander.xml:254(date)
+#: C/releases.xml:385(para) C/gnome-commander.xml:254(date)
 msgid "2011-01-15"
 msgstr "05-01-2011"
 
-#: C/releases.xml:371(para)
+#: C/releases.xml:391(para)
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
 "Διόρθωση προβλήματος #448941 (τα βέλη αριθμητικού υποπληκτρολογίου δεν "
 "δουλεύουν στο κυρίως παράθυρο)"
 
-#: C/releases.xml:374(para)
+#: C/releases.xml:394(para)
 msgid ""
 "Fixed problem #620275 (add menu item to copy full path and file name to "
 "clipboard)"
@@ -547,13 +589,13 @@ msgstr ""
 "Διόρθωση προβλήματος #620275 (προσθήκη στοιχείου μενού για αντιγραφή πλήρους "
 "διαδρομής και ονόματος αρχείου στο πρόχειρο)"
 
-#: C/releases.xml:377(para)
+#: C/releases.xml:397(para)
 msgid "Fixed problem #637501 (advrename: metatag popup menu shows wrong items)"
 msgstr ""
 "Διόρθωση προβλήματος #637501 (προχωρημένη μετονομασία: το αναδυόμενο μενού "
 "μεταετικέτας εμφανίζει εσφαλμένα στοιχεία)"
 
-#: C/releases.xml:380(para)
+#: C/releases.xml:400(para)
 msgid ""
 "Fixed problem with toggling path/basename/filename selections in copy/move "
 "dialogs"
@@ -561,50 +603,50 @@ msgstr ""
 "Διόρθωση προβλήματος με εναλλαγή επιλογών διαδρομής/ονόματος βάσης/ονόματος "
 "αρχείου σε διαλόγους αντιγραφής/μετακίνησης"
 
-#: C/releases.xml:383(para)
+#: C/releases.xml:403(para)
 msgid "Fixed problem with searching path for devices"
 msgstr "Διόρθωση προβλήματος με διαδρομή αναζήτησης για συσκευές"
 
-#: C/releases.xml:386(para)
+#: C/releases.xml:406(para)
 msgid "Updated translations: de"
 msgstr "Ενημερωμένες μεταφράσεις: de"
 
-#: C/releases.xml:393(para)
+#: C/releases.xml:413(para)
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
-#: C/releases.xml:394(para) C/gnome-commander.xml:244(date)
+#: C/releases.xml:414(para) C/gnome-commander.xml:244(date)
 msgid "2010-12-03"
 msgstr "03-12-2010"
 
-#: C/releases.xml:400(para)
+#: C/releases.xml:420(para)
 msgid "Fixed problem #352024 (F10 key doesn't work)"
 msgstr "Διόρθωση προβλήματος #352024 (το πλήκτρο F10 δεν δουλεύει)"
 
-#: C/releases.xml:403(para)
+#: C/releases.xml:423(para)
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
 msgstr ""
 "Διόρθωση προβλήματος #631243 (προχωρημένη μετονομασία παλινδρόμησης "
 "$c(width))"
 
-#: C/releases.xml:411(para)
+#: C/releases.xml:431(para)
 msgid "Support for shell-style wildcards in quick search"
 msgstr ""
 "Υποστήριξη για σύμβολα υποκατάστασης τεχνοτροπίας φλοιού σε γρήγορη αναζήτηση"
 
-#: C/releases.xml:418(para)
+#: C/releases.xml:438(para)
 msgid "1.2.8.8"
 msgstr "1.2.8.8"
 
-#: C/releases.xml:419(para) C/gnome-commander.xml:234(date)
+#: C/releases.xml:439(para) C/gnome-commander.xml:234(date)
 msgid "2010-09-09"
 msgstr "09-09-2010"
 
-#: C/releases.xml:425(para)
+#: C/releases.xml:445(para)
 msgid "Fixed problem #610764 (menu item won't stay checked)"
 msgstr "Διόρθωση προβλήματος #610764 (το στοιχείο μενού δεν έμενε σημειωμένο)"
 
-#: C/releases.xml:428(para)
+#: C/releases.xml:448(para)
 msgid ""
 "Fixed problem #626469 (add support for other su-like programs: xdg-su, "
 "gnomesu)"
@@ -612,206 +654,206 @@ msgstr ""
 "Διόρθωση προβλήματος #626469 (προσθήκη υποστήριξης για άλλα προγράμματα "
 "παρόμοια με su: xdg-su, gnomesu)"
 
-#: C/releases.xml:431(para)
+#: C/releases.xml:451(para)
 msgid "Fixed problem with broken Spanish translation"
 msgstr "Διόρθωση προβλήματος με την σπασμένη ισπανική μετάφραση"
 
-#: C/releases.xml:438(para)
+#: C/releases.xml:458(para)
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
-#: C/releases.xml:439(para) C/gnome-commander.xml:224(date)
+#: C/releases.xml:459(para) C/gnome-commander.xml:224(date)
 msgid "2010-07-27"
 msgstr "27-07-2010"
 
-#: C/releases.xml:445(para)
+#: C/releases.xml:465(para)
 msgid "Fixed problem #540438 (no GUI message if meld cannot be executed)"
 msgstr ""
 "Διόρθωση προβλήματος #540438 (χωρίς μήνυμα GUI αν το meld δεν μπορεί να "
 "εκτελεστεί)"
 
-#: C/releases.xml:448(para)
+#: C/releases.xml:468(para)
 msgid "Fixed problem #616367 (\"File not found\" dialog after startup)"
 msgstr ""
 "Διόρθωση προβλήματος #616367 (ο διάλογος μετά την εκκίνηση \"Δεν βρέθηκε "
 "αρχείο\")"
 
-#: C/releases.xml:451(para)
+#: C/releases.xml:471(para)
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr ""
 "Διόρθωση προβλήματος #620650 (υπερχείλιση ενδιάμεσης μνήμης στο "
 "load_fav_apps())"
 
-#: C/releases.xml:454(para)
+#: C/releases.xml:474(para)
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
 msgstr ""
 "Διόρθωση προβλήματος #622456 (να μην δομούνται πρόσθετα ως κοινόχρηστα "
 "αντικείμενα βιβλιοθήκης)"
 
-#: C/releases.xml:457(para)
+#: C/releases.xml:477(para)
 msgid "Fixed problem with editing options for favourite apps and devices"
 msgstr ""
 "Διόρθωση προβλήματος με τις επιλογές επεξεργασίας για αγαπημένες εφαρμογές "
 "και συσκευές"
 
-#: C/releases.xml:464(para)
+#: C/releases.xml:484(para)
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
-#: C/releases.xml:465(para) C/gnome-commander.xml:214(date)
+#: C/releases.xml:485(para) C/gnome-commander.xml:214(date)
 msgid "2010-06-01"
 msgstr "01-06-2010"
 
-#: C/releases.xml:471(para)
+#: C/releases.xml:491(para)
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
 "Διόρθωση προβλημάτων #600292, #612685 (καταρρεύσεις κατά το διπλοπάτημα σε "
 "σελιδοδείκτη)"
 
-#: C/releases.xml:474(para)
+#: C/releases.xml:494(para)
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Διόρθωση προβλήματος #602795 (αναζήτηση περιεχομένου αρχείου)"
 
-#: C/releases.xml:477(para)
+#: C/releases.xml:497(para)
 msgid "Fixed problem #609912 (build error with --as-needed)"
 msgstr "Διόρθωση προβλήματος #609912 (σφάλμα δόμησης με --as-needed)"
 
-#: C/releases.xml:480(para)
+#: C/releases.xml:500(para)
 msgid "Fixed problem #616891 (build error on RHEL 5.5)"
 msgstr "Διόρθωση προβλήματος #616891 (σφάλμα δόμησης στο RHEL 5.5)"
 
-#: C/releases.xml:488(para)
+#: C/releases.xml:508(para)
 msgid "New translations: ko"
 msgstr "Νέες μεταφράσεις: ko"
 
-#: C/releases.xml:495(para)
+#: C/releases.xml:515(para)
 msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
-#: C/releases.xml:496(para) C/gnome-commander.xml:205(date)
+#: C/releases.xml:516(para) C/gnome-commander.xml:205(date)
 msgid "2010-02-13"
 msgstr "13-02-2010"
 
-#: C/releases.xml:502(para)
+#: C/releases.xml:522(para)
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr ""
 "Διόρθωση προβλήματος #604558 (χαμένος/τοποθετημένος δρομέας σε εσφαλμένη "
 "θέση)"
 
-#: C/releases.xml:505(para)
+#: C/releases.xml:525(para)
 msgid "Fixed problem #604904 (build error on OpenSolaris)"
 msgstr "Διόρθωση προβλήματος #604904 (σφάλμα δόμησης στο OpenSolaris)"
 
-#: C/releases.xml:508(para)
+#: C/releases.xml:528(para)
 msgid "Fixed problem #609342 (do not show mtime for '..')"
 msgstr "Διόρθωση προβλήματος #609342 (δεν εμφανιζόταν mtime για '..')"
 
-#: C/releases.xml:511(para)
+#: C/releases.xml:531(para)
 msgid "Fixed problem with editing connections to Windows network"
 msgstr "Διόρθωση προβλήματος με την επεξεργασία συνδέσεων στο δίκτυο Windows"
 
-#: C/releases.xml:514(para)
+#: C/releases.xml:534(para)
 msgid "Fixed problem with nonexistent user actions"
 msgstr "Διόρθωση προβλήματος με ανύπαρκτες ενέργειες χρήστη"
 
-#: C/releases.xml:521(para)
+#: C/releases.xml:541(para)
 msgid "1.2.8.4"
 msgstr "1.2.8.4"
 
-#: C/releases.xml:522(para) C/gnome-commander.xml:196(date)
+#: C/releases.xml:542(para) C/gnome-commander.xml:196(date)
 msgid "2009-12-03"
 msgstr "03-12-2009"
 
-#: C/releases.xml:528(para)
+#: C/releases.xml:548(para)
 msgid "Fixed problem #602916 (not working menu entry)"
 msgstr "Διόρθωση προβλήματος #602916 (δεν δούλευε η καταχώριση μενού)"
 
-#: C/releases.xml:531(para)
+#: C/releases.xml:551(para)
 msgid "Fixed problem #603301 (crash when cancelling symlink creation by ESC)"
 msgstr ""
 "Διόρθωση προβλήματος #603301 (κατάρρευση κατά την ακύρωση δημιουργίας "
 "συμβολικού δεσμού με ESC)"
 
-#: C/releases.xml:534(para)
+#: C/releases.xml:554(para)
 msgid "Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)"
 msgstr ""
 "Διόρθωση προβλήματος Ουμπούντου #369818 (εσφαλμένη ταξινόμηση κατά μέγεθος "
 "σε παράθυρο)"
 
-#: C/releases.xml:537(para)
+#: C/releases.xml:557(para)
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
 "Διόρθωση προβλήματος με μη εργαζόμενη είσοδο υποπληκτρολογίου στον διάλογο "
 "αντιγραφής/μετακίνησης"
 
-#: C/releases.xml:540(para)
+#: C/releases.xml:560(para)
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
 "Διόρθωση προβλήματος με κολλημένο πληκτρολόγιο μετά από ALT+1/2 με κρυφή "
 "λίστα συσκευών"
 
-#: C/releases.xml:547(para)
+#: C/releases.xml:567(para)
 msgid "1.2.8.3"
 msgstr "1.2.8.3"
 
-#: C/releases.xml:548(para) C/gnome-commander.xml:187(date)
+#: C/releases.xml:568(para) C/gnome-commander.xml:187(date)
 msgid "2009-10-28"
 msgstr "28-10-2009"
 
-#: C/releases.xml:554(para)
+#: C/releases.xml:574(para)
 msgid "Fixed problem #541891 (file names with % in advanced file rename tool)"
 msgstr ""
 "Διόρθωση προβλήματος #541891 (ονόματα αρχείου με % στο προχωρημένο εργαλείο "
 "μετονομασίας αρχείου)"
 
-#: C/releases.xml:557(para)
+#: C/releases.xml:577(para)
 msgid "Fixed problem #581645 (uncomfortable quick search)"
 msgstr "Διόρθωση προβλήματος #581645 (άβολη γρήγορη αναζήτηση)"
 
-#: C/releases.xml:560(para)
+#: C/releases.xml:580(para)
 msgid "Fixed problem #596768 (build warnings for python)"
 msgstr "Διόρθωση προβλήματος #596768 (προειδοποιήσεις δόμησης για python)"
 
-#: C/releases.xml:563(para)
+#: C/releases.xml:583(para)
 msgid "Fixed problem #596973 (documentation build error)"
 msgstr "Διόρθωση προβλήματος #596973 (σφάλμα δόμησης τεκμηρίωσης)"
 
-#: C/releases.xml:566(para)
+#: C/releases.xml:586(para)
 msgid "Fixed problem #597144 (missing call to pclose)"
 msgstr "Διόρθωση προβλήματος #597144 (έλλειψη κλήσης στο pclose)"
 
-#: C/releases.xml:569(para)
+#: C/releases.xml:589(para)
 msgid "Fixed problem #597233 (validating of doc translations)"
 msgstr "Διόρθωση προβλήματος #597233 (επικύρωση μεταφράσεων εγγράφου)"
 
-#: C/releases.xml:572(para)
+#: C/releases.xml:592(para)
 msgid "Fixed problem #597890 (wrong arguments passed to meld)"
 msgstr "Διόρθωση προβλήματος #597890 (εσφαλμένα ορίσματα που πέρασαν στο meld)"
 
-#: C/releases.xml:575(para)
+#: C/releases.xml:595(para)
 msgid "Fixed problem #598278 (memory leak)"
 msgstr "Διόρθωση προβλήματος #598278 (διαρροή μνήμης)"
 
-#: C/releases.xml:582(para)
+#: C/releases.xml:602(para)
 msgid "1.2.8.2"
 msgstr "1.2.8.2"
 
-#: C/releases.xml:583(para) C/gnome-commander.xml:178(date)
+#: C/releases.xml:603(para) C/gnome-commander.xml:178(date)
 msgid "2009-09-22"
 msgstr "22-09-2009"
 
-#: C/releases.xml:589(para)
+#: C/releases.xml:609(para)
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
 msgstr ""
 "Διόρθωση προβλήματος #591944 (ορισμός δικαιωμάτων σε 000 μετά από chmod)"
 
-#: C/releases.xml:592(para)
+#: C/releases.xml:612(para)
 msgid "Fixed problem #595097 (build error for poppler &gt;= 0.11.3)"
 msgstr "Διόρθωση προβλήματος #595097 (σφάλμα δόμησης για poppler &gt;= 0.11.3)"
 
-#: C/releases.xml:595(para)
+#: C/releases.xml:615(para)
 msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
@@ -819,34 +861,34 @@ msgstr ""
 "Διόρθωση προβλήματος ντέμπιαν #438884 (εσφαλμένη ετικέτα συσκευής κατά την "
 "αλλαγή παραθύρων με CTRL+U)"
 
-#: C/releases.xml:598(para)
+#: C/releases.xml:618(para)
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
 msgstr ""
 "Διόρθωση προβλήματος με σπασμένο εικονίδιο αρχείου μετά τη μετονομασία "
 "συμβολικού δεσμού"
 
-#: C/releases.xml:605(para)
+#: C/releases.xml:625(para)
 msgid "1.2.8.1"
 msgstr "1.2.8.1"
 
-#: C/releases.xml:606(para) C/gnome-commander.xml:169(date)
+#: C/releases.xml:626(para) C/gnome-commander.xml:169(date)
 msgid "2009-08-10"
 msgstr "10-08-2009"
 
-#: C/releases.xml:612(para)
+#: C/releases.xml:632(para)
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr "Διόρθωση προβλήματος #587325 (κατάρρευση σε καθαρό περιβάλλον chroot)"
 
-#: C/releases.xml:615(para)
+#: C/releases.xml:635(para)
 msgid "Fixed problem #589108 (build error on openSUSE)"
 msgstr "Διόρθωση προβλήματος #589108 (σφάλμα δόμησης στο openSUSE)"
 
-#: C/releases.xml:618(para)
+#: C/releases.xml:638(para)
 msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr ""
 "Διόρθωση προβλήματος #591206 (κατάρρευση ενώ το sysconf() ήταν στο FreeBSD)"
 
-#: C/releases.xml:621(para)
+#: C/releases.xml:641(para)
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename "
 "templates"
@@ -854,38 +896,38 @@ msgstr ""
 "Διόρθωση προβλήματος με μορφοποίηση μετρητή $c(16) σε προχωρημένα πρότυπα "
 "μετονομασίας αρχείου"
 
-#: C/releases.xml:628(para)
+#: C/releases.xml:648(para)
 msgid "1.2.8"
 msgstr "1.2.8"
 
-#: C/releases.xml:629(para) C/gnome-commander.xml:160(date)
+#: C/releases.xml:649(para) C/gnome-commander.xml:160(date)
 msgid "2009-06-29"
 msgstr "29-06-2009"
 
-#: C/releases.xml:635(para)
+#: C/releases.xml:655(para)
 msgid ""
 "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
 "Διόρθωση προβλήματος #375357 (κατάρρευση κατά την ακύρωση υπολογισμού των "
 "ιδιοτήτων του dir)"
 
-#: C/releases.xml:638(para)
+#: C/releases.xml:658(para)
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr ""
 "Διόρθωση προβλήματος #536446 (το όνομα αρχείου δεν εστιάζεται για επί τόπου "
 "μετονομασία)"
 
-#: C/releases.xml:641(para)
+#: C/releases.xml:661(para)
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgstr ""
 "Διόρθωση προβλήματος #539812 (κατάρρευση κατά τη διαγραφή αρχείων: σπασμένο "
 "it.po)"
 
-#: C/releases.xml:644(para)
+#: C/releases.xml:664(para)
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr "Διόρθωση προβλήματος #548947 (πρόβλημα ημερομηνίας τοπικών σε μη UTF8)"
 
-#: C/releases.xml:647(para)
+#: C/releases.xml:667(para)
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 "
 "characters)"
@@ -893,49 +935,49 @@ msgstr ""
 "Διόρθωση προβλήματος #548948 (κατάρρευση όταν ο προσωπικός κατάλογος "
 "περιέχει μη UTF8 χαρακτήρες)"
 
-#: C/releases.xml:650(para)
+#: C/releases.xml:670(para)
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
 "Διόρθωση προβλήματος #548961 (υποστήριξη για μέθοδο εισόδου κατά την "
 "μετονομασία ή γρήγορη αναζήτηση)"
 
-#: C/releases.xml:653(para)
+#: C/releases.xml:673(para)
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
 msgstr "Διόρθωση προβλήματος #554586 (AC_PROG_CXX πρόβλημα μακροεντολών)"
 
-#: C/releases.xml:656(para)
+#: C/releases.xml:676(para)
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
 msgstr "Διόρθωση προβλήματος #554598 (Στόχος GNOME: LINGUAS)"
 
-#: C/releases.xml:659(para)
+#: C/releases.xml:679(para)
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr ""
 "Διόρθωση προβλήματος #556664 (οι σελιδοδείκτες δεν μπορούν να αποθηκευτούν "
 "για προσαρτημένες συσκευές)"
 
-#: C/releases.xml:662(para)
+#: C/releases.xml:682(para)
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
 msgstr ""
 "Διόρθωση προβλήματος #567404 (κατάρρευση κατά το πάτημα INSERT πάνω από "
 "subdir)"
 
-#: C/releases.xml:665(para)
+#: C/releases.xml:685(para)
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr ""
 "Διόρθωση προβλήματος #556836 (κύλιση παραθύρου κατά τη μετακίνηση μεταξύ "
 "παραθύρων)"
 
-#: C/releases.xml:668(para)
+#: C/releases.xml:688(para)
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr ""
 "Διόρθωση προβλήματος #567506 (αργή εκκίνηση για συστήματα με πολλούς χρήστες)"
 
-#: C/releases.xml:671(para)
+#: C/releases.xml:691(para)
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
 msgstr "Διόρθωση προβλήματος #570727 (χρήση παρωχημένου gnome_url_show)"
 
-#: C/releases.xml:674(para)
+#: C/releases.xml:694(para)
 msgid ""
 "Fixed problem #571239 (replacing obsoleted GnomeColorPicker with "
 "GtkColorButton)"
@@ -943,13 +985,13 @@ msgstr ""
 "Διόρθωση προβλήματος #571239 (αντικατάσταση καταργημένου GnomeColorPicker με "
 "GtkColorButton)"
 
-#: C/releases.xml:677(para)
+#: C/releases.xml:697(para)
 msgid "Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)"
 msgstr ""
 "Διόρθωση προβλήματος #571247 (αντικατάσταση καταργημένου GnomePixmap με "
 "GtkImage)"
 
-#: C/releases.xml:680(para)
+#: C/releases.xml:700(para)
 msgid ""
 "Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with "
 "GTK_STOCK_* counterparts)"
@@ -957,7 +999,7 @@ msgstr ""
 "Διόρθωση προβλήματος #571558 (αντικατάσταση παρωχημένων κουμπιών "
 "GNOME_STOCK_* με τα αντίστοιχα GTK_STOCK_*)"
 
-#: C/releases.xml:683(para)
+#: C/releases.xml:703(para)
 msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
@@ -965,74 +1007,74 @@ msgstr ""
 "Διόρθωση προβλήματος #576174 (ταξινόμηση ονόματος αρχείων ανεξάρτητα από "
 "πεζά/κεφαλαία σε μη en_US.utf8 τοπικά)"
 
-#: C/releases.xml:686(para)
+#: C/releases.xml:706(para)
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
 msgstr ""
 "Διόρθωση προβλήματος #579633 (πρόσβαση δικαιωμάτων διαχειριστή με gksudo)"
 
-#: C/releases.xml:689(para)
+#: C/releases.xml:709(para)
 msgid "Fixed problem #583135 (disabled 'Go to' button in search dialog)"
 msgstr ""
 "Διόρθωση προβλήματος #583135 (απενεργοποίηση κουμπιού 'Μετάβασης' σε διάλογο "
 "αναζήτησης)"
 
-#: C/releases.xml:692(para)
+#: C/releases.xml:712(para)
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr ""
 "Διόρθωση προβλήματος #583711 (κατάρρευση κατά το πάτημα ESC σε διάλογο "
 "σελιδοδείκτη)"
 
-#: C/releases.xml:695(para)
+#: C/releases.xml:715(para)
 msgid "Fixed problem #584727 (wrong positioning of file popup menu)"
 msgstr ""
 "Διόρθωση προβλήματος #584727 (εσφαλμένη τοποθέτηση αναδυόμενου μενού αρχείου)"
 
-#: C/releases.xml:698(para)
+#: C/releases.xml:718(para)
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
 "Διόρθωση προβλήματος με τη ρύθμιση παραθύρων ίσου μεγέθους σε οριζόντια "
 "κατάσταση"
 
-#: C/releases.xml:701(para)
+#: C/releases.xml:721(para)
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr ""
 "Διόρθωση προβλήματος με ανανέωση πληροφοριών MIME μετά τη μετονομασία αρχείου"
 
-#: C/releases.xml:709(para)
+#: C/releases.xml:729(para)
 msgid "Support for PDF metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες PDF σε προχωρημένα πρότυπα μετονομασίας αρχείου"
 
-#: C/releases.xml:712(para)
+#: C/releases.xml:732(para)
 msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
 msgstr ""
 "Ανανεωμένο προχωρημένο εργαλείο μετονομασίας αρχείου (οπισθοαναφορές "
-"κανονικών εκφράσεων ('\\αριθμός'), κατατομές, μετατροπή κεφαλαίων/πεζών, "
+"κανονικών εκφράσεων ('\\αριθμός'), προφίλ, μετατροπή κεφαλαίων/πεζών, "
 "περικοπή κενών και πολλά περισσότερα)"
 
-#: C/releases.xml:716(para)
+#: C/releases.xml:736(para)
 msgid "Support for metadata tags in internal viewer"
 msgstr "Υποστήριξη για ετικέτες μεταδεδομένων σε εσωτερική προβολή"
 
-#: C/releases.xml:719(para)
+#: C/releases.xml:739(para)
 msgid "Support for single-click open mode"
 msgstr "Υποστήριξη για λειτουργία ανοικτού μονού πατήματος"
 
-#: C/releases.xml:722(para)
+#: C/releases.xml:742(para)
 msgid "Support for row alternate background in colour themes"
 msgstr "Υποστήριξη για εναλλακτικό παρασκήνιο γραμμής σε χρωματικά θέματα"
 
-#: C/releases.xml:725(para)
+#: C/releases.xml:745(para)
 msgid "New colour theme: cafezinho"
 msgstr "Νέο χρωματικό θέμα: cafezinho"
 
-#: C/releases.xml:728(para)
+#: C/releases.xml:748(para)
 msgid "New or updated docs: de, en, es"
 msgstr "Νέα ή ενημερωμένα έγγραφα: de, en, es"
 
-#: C/releases.xml:731(para)
+#: C/releases.xml:751(para)
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, "
 "sv"
@@ -1040,7 +1082,7 @@ msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, "
 "sl, sv"
 
-#: C/releases.xml:737(para)
+#: C/releases.xml:757(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the "
 "history list for the command line"
@@ -1048,11 +1090,11 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Άνοιγμα της "
 "λίστας ιστορικού για τη γραμμή εντολών"
 
-#: C/releases.xml:742(para)
+#: C/releases.xml:762(para)
 msgid "New internal viewer key bindings:"
 msgstr "Νέα εσωτερική προβολή συνδυασμών πλήκτρων:"
 
-#: C/releases.xml:745(para)
+#: C/releases.xml:765(para)
 msgid ""
 "<keycombo><keycap>T</keycap></keycombo> Show metadata tags (replaces the old "
 "E)"
@@ -1060,7 +1102,7 @@ msgstr ""
 "<keycombo><keycap>T</keycap></keycombo> Εμφάνιση ετικετών μεταδεδομένων "
 "(αντικαθιστά το παλιό Ε)"
 
-#: C/releases.xml:748(para)
+#: C/releases.xml:768(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo> Show "
 "metadata tags"
@@ -1068,58 +1110,59 @@ msgstr ""
 "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo> Εμφάνιση "
 "ετικετών μεταδεδομένων"
 
-#: C/releases.xml:757(para)
+#: C/releases.xml:777(para)
 msgid "1.2.7"
 msgstr "1.2.7"
 
-#: C/releases.xml:758(para) C/gnome-commander.xml:151(date)
+#: C/releases.xml:778(para) C/gnome-commander.xml:151(date)
 msgid "2008-07-28"
 msgstr "28-07-2008"
 
-#: C/releases.xml:764(para)
+#: C/releases.xml:784(para)
 msgid "Fixed problem #522430 (quick search for files starting with uppercase)"
 msgstr ""
 "Διόρθωση προβλήματος #522430 (γρήγορη αναζήτηση για αρχεία που ξεκινούν με "
 "κεφαλαία)"
 
-#: C/releases.xml:767(para)
+#: C/releases.xml:787(para)
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr "Διόρθωση προβλήματος #532615 (λειτουργίες αρχείου σε εσφαλμένο αρχείο)"
 
-#: C/releases.xml:770(para)
+#: C/releases.xml:790(para)
 msgid "Fixed problem #538806 (quick search in root dir)"
 msgstr "Διόρθωση προβλήματος #538806 (γρήγορη αναζήτηση σε ριζικό κατάλογο)"
 
-#: C/releases.xml:773(para)
+#: C/releases.xml:793(para)
 msgid "Fixed problem #539753 (build error on Solaris)"
 msgstr "Διόρθωση προβλήματος #539753 (σφάλμα δόμησης σε Solaris)"
 
-#: C/releases.xml:776(para)
+#: C/releases.xml:796(para)
 msgid "Fixed problem #541404 (update of host names)"
-msgstr "Διόρθωση προβλήματος #541404 (ενημέρωση των ονομάτων οικοδεσπότη)"
+msgstr ""
+"Διόρθωση προβλήματος #541404 (ενημέρωση των ονομάτων κεντρικών υπολογιστών)"
 
-#: C/releases.xml:779(para)
+#: C/releases.xml:799(para)
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr ""
 "Διόρθωση προβλήματος με ταξινόμηση αρχείων στο προχωρημένο εργαλείο "
 "μετονομασίας αρχείου"
 
-#: C/releases.xml:782(para) C/releases.xml:951(para) C/releases.xml:1035(para)
+#: C/releases.xml:802(para) C/releases.xml:971(para) C/releases.xml:1055(para)
 msgid "Build fixes"
 msgstr "Διορθώσεις δόμησης"
 
-#: C/releases.xml:790(para)
+#: C/releases.xml:810(para)
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
 "Υποστήριξη για όλα τα πρωτόκολλα δικτύου GnomeVFS (συμπεριλαμβανόμενων των "
 "SSH+FTP και WebDAV)"
 
-#: C/releases.xml:793(para)
+#: C/releases.xml:813(para)
 msgid "User defined shortcuts to arbitrary programs"
 msgstr "Συντομεύσεις χρήστη για ελεύθερα προγράμματα"
 
-#: C/releases.xml:796(para)
+#: C/releases.xml:816(para)
 msgid ""
 "Copying selected URIs to clipboard with <keycombo><keycap>ALT</"
 "keycap><keycap>click</keycap></keycombo> on toolbar button"
@@ -1127,62 +1170,62 @@ msgstr ""
 "Αντιγραφή επιλεγμένων URIs στο πρόχειρο με <keycombo><keycap>ALT</"
 "keycap><keycap>πάτημα</keycap></keycombo> στο κουμπί εργαλειοθήκης"
 
-#: C/releases.xml:799(para) C/releases.xml:860(para)
+#: C/releases.xml:819(para) C/releases.xml:880(para)
 msgid "Revamped search dialog"
 msgstr "Ανανεωμένος διάλογος αναζήτησης"
 
-#: C/releases.xml:802(para)
+#: C/releases.xml:822(para)
 msgid "Revamped transfer progress dialog"
 msgstr "Ανανεωμένος διάλογος προόδου μεταφοράς"
 
-#: C/releases.xml:805(para) C/releases.xml:866(para) C/releases.xml:986(para)
-#: C/releases.xml:1081(para) C/releases.xml:1155(para)
-#: C/releases.xml:1227(para)
+#: C/releases.xml:825(para) C/releases.xml:886(para) C/releases.xml:1006(para)
+#: C/releases.xml:1101(para) C/releases.xml:1175(para)
+#: C/releases.xml:1247(para)
 msgid "Updated help docs"
 msgstr "Ενημερωμένα έγγραφα βοήθειας"
 
-#: C/releases.xml:808(para)
+#: C/releases.xml:828(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr "Νέες ή ενημερωμένες μεταφράσεις: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
-#: C/releases.xml:815(para)
+#: C/releases.xml:835(para)
 msgid "1.2.6"
 msgstr "1.2.6"
 
-#: C/releases.xml:816(para) C/gnome-commander.xml:142(date)
+#: C/releases.xml:836(para) C/gnome-commander.xml:142(date)
 msgid "2008-06-01"
 msgstr "01-06-2008"
 
-#: C/releases.xml:822(para)
+#: C/releases.xml:842(para)
 msgid "Fixed problem #392959 (dynamically changing user to root)"
 msgstr "Διόρθωση προβλήματος #392959 (δυναμική αλλαγή χρήστη σε υπερχρήστη)"
 
-#: C/releases.xml:825(para)
+#: C/releases.xml:845(para)
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
 msgstr "Διόρθωση προβλήματος #496150 (κύλιση με τον τροχό ποντικιού)"
 
-#: C/releases.xml:828(para)
+#: C/releases.xml:848(para)
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
 msgstr ""
 "Διόρθωση προβλήματος #499761 (καθαρισμός παραθύρου αναζήτησης κατά την "
 "ταξινόμηση στήλης)"
 
-#: C/releases.xml:831(para)
+#: C/releases.xml:851(para)
 msgid "Fixed problem #499764 (multiple selection problem)"
 msgstr "Διόρθωση προβλήματος #499764 (πρόβλημα πολλαπλής επιλογής)"
 
-#: C/releases.xml:834(para)
+#: C/releases.xml:854(para)
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgstr ""
 "Διόρθωση προβλήματος με ταξινόμηση ονομάτων αρχείων κωδικοποιημένων με UTF-8"
 
-#: C/releases.xml:837(para)
+#: C/releases.xml:857(para)
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr ""
 "Διόρθωση προβλήματος με αντιγραφή αρχείων σε καταλόγους με συμβολικούς "
 "δεσμούς"
 
-#: C/releases.xml:840(para)
+#: C/releases.xml:860(para)
 msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
@@ -1190,27 +1233,27 @@ msgstr ""
 "Διόρθωση προβλήματος με χειρισμό πλήρους διαδρομής αρχείου κατά την "
 "αντιγραφή/μετακίνηση σε προσαρτημένες συσκευές"
 
-#: C/releases.xml:848(para)
+#: C/releases.xml:868(para)
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
 msgstr ""
 "Λειτουργία υπερχρήστη για έναρξη GNOME Commander με δικαιώματα διαχειριστή"
 
-#: C/releases.xml:851(para)
+#: C/releases.xml:871(para)
 msgid "GUI for keyboard shortcuts management"
 msgstr "GUI για διαχείριση συντομεύσεων πληκτρολογίου"
 
-#: C/releases.xml:854(para) C/gnome-commander.xml:6934(para)
+#: C/releases.xml:874(para) C/gnome-commander.xml:6934(para)
 msgid "Open the current location in Nautilus file manager"
 msgstr "Άνοιγμα της τρέχουσας θέσης σε διαχειριστή αρχείων Ναυτίλο"
 
-#: C/releases.xml:857(para)
+#: C/releases.xml:877(para)
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
 "Εργαλείο πολλαπλής μετονομασίας - νέα δεσμευτικά θέσεων $x και $X για "
 "τυχαίους δεκαεξαδικούς αριθμούς"
 
-#: C/releases.xml:863(para)
+#: C/releases.xml:883(para)
 msgid ""
 "Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since "
 "GTK+ 2.10)"
@@ -1218,7 +1261,7 @@ msgstr ""
 "Υποστήριξη για τροποποιητές &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; "
 "(από το GTK+ 2.10)"
 
-#: C/releases.xml:869(para)
+#: C/releases.xml:889(para)
 msgid ""
 "New or updated translations: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, pl, "
 "sl"
@@ -1226,34 +1269,34 @@ msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, "
 "pl, sl"
 
-#: C/releases.xml:875(para)
+#: C/releases.xml:895(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Αναζήτηση "
 "αρχείων"
 
-#: C/releases.xml:884(para)
+#: C/releases.xml:904(para)
 msgid "1.2.5"
 msgstr "1.2.5"
 
-#: C/releases.xml:885(para) C/gnome-commander.xml:133(date)
+#: C/releases.xml:905(para) C/gnome-commander.xml:133(date)
 msgid "2008-02-29"
 msgstr "29-02-2008"
 
-#: C/releases.xml:891(para)
+#: C/releases.xml:911(para)
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr ""
 "Διόρθωση προβλήματος #345314 (ο δρομέας δεν έμενε στο αρχείο κατά την "
 "μετονομασία)"
 
-#: C/releases.xml:894(para)
+#: C/releases.xml:914(para)
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr ""
 "Διόρθωση προβλήματος #353889 (εξαφάνιση αρχείων μετά από αποτυχημένη "
 "μετακίνηση (F6))"
 
-#: C/releases.xml:897(para)
+#: C/releases.xml:917(para)
 msgid ""
 "Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in "
 "renaming tool)"
@@ -1261,140 +1304,140 @@ msgstr ""
 "Διόρθωση προβλημάτων #346286, #424447, #447882, #467058 (κατάρρευση κατά τη "
 "χρήση κανονικής έκφρασης σε εργαλείο μετονομασίας)"
 
-#: C/releases.xml:900(para)
+#: C/releases.xml:920(para)
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr ""
 "Διόρθωση προβλημάτων #365227 και #446361 (προβλήματα δόμησης σε Solaris)"
 
-#: C/releases.xml:903(para)
+#: C/releases.xml:923(para)
 msgid "Fixed problem #424159 (column sort problem)"
 msgstr "Διόρθωση προβλήματος #424159 (πρόβλημα ταξινόμησης στήλης)"
 
-#: C/releases.xml:906(para)
+#: C/releases.xml:926(para)
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr ""
 "Διόρθωση προβλήματος #434545 (σφάλμα Ντέμπιαν #421480: ΤΕΡΑΣΤΙΑ εικονίδια "
 "για εικονίδια συσκευών)"
 
-#: C/releases.xml:909(para)
+#: C/releases.xml:929(para)
 msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr "Διόρθωση προβλήματος #447415 (αδυναμία εκκίνησης εκτελέσιμων)"
 
-#: C/releases.xml:912(para)
+#: C/releases.xml:932(para)
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
 "Διόρθωση προβλήματος #448942 (SHIFT+ENTER: εκτέλεση εντολής σε ξεχωριστό "
 "τερματικό)"
 
-#: C/releases.xml:915(para)
+#: C/releases.xml:935(para)
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
 "Διόρθωση προβλήματος #449137 (μετονομασμένοι κατάλογοι μη προσπελάσιμοι κατ' "
 "όνομα)"
 
-#: C/releases.xml:918(para)
+#: C/releases.xml:938(para)
 msgid "Fixed problem #468685 (crash in python module)"
-msgstr "Διόρθωση προβλήματος #468685 (κατάρρευση σε ενότητα python)"
+msgstr "Διόρθωση προβλήματος #468685 (κατάρρευση σε άρθρωμα python)"
 
-#: C/releases.xml:921(para)
+#: C/releases.xml:941(para)
 msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr ""
 "Διόρθωση προβλήματος #490431 (προβολή αρχείων με όνομα που περιέχει '%')"
 
-#: C/releases.xml:924(para)
+#: C/releases.xml:944(para)
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
 "Διόρθωση προβλήματος #508565 (λαθεμένος χειρισμός utf-8 στο προχωρημένο "
 "εργαλείο μετονομασίας αρχείου)"
 
-#: C/releases.xml:927(para)
+#: C/releases.xml:947(para)
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
 msgstr ""
 "Διόρθωση προβλήματος #510567 (αποτυχία αναγνώρισης κατά τη διαγραφή "
 "καταλόγου)"
 
-#: C/releases.xml:930(para)
+#: C/releases.xml:950(para)
 msgid "Fixed problem when creating ~/dir"
 msgstr "Διόρθωση προβλήματος κατά τη δημιουργία ~/dir"
 
-#: C/releases.xml:933(para)
+#: C/releases.xml:953(para)
 msgid "Fixed problem with updating of internal viewer status bar"
 msgstr ""
 "Διόρθωση προβλήματος με την ενημέρωση εσωτερικής προβολής γραμμής κατάστασης"
 
-#: C/releases.xml:936(para)
+#: C/releases.xml:956(para)
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
 "Διόρθωση κατάρρευσης κατά τη δημιουργία καταλόγου με απόλυτη διαδρομή σε "
-"κοινό SMB"
+"κοινόχρηστο SMB"
 
-#: C/releases.xml:939(para)
+#: C/releases.xml:959(para)
 msgid "Fixed crash when moving file with % in the name"
 msgstr "Διόρθωση κατάρρευσης κατά τη μετακίνηση αρχείου με % στο όνομα"
 
-#: C/releases.xml:942(para)
+#: C/releases.xml:962(para)
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr "διόρθωση προβλήματος με σποραδική απώλεια δρομέα σε παράθυρο αρχείου"
 
-#: C/releases.xml:945(para)
+#: C/releases.xml:965(para)
 msgid "Fixed problem with mounting of devices with spaces in the name"
 msgstr "Διόρθωση προβλήματος με προσάρτηση συσκευών με διαστήματα στο όνομα"
 
-#: C/releases.xml:948(para)
+#: C/releases.xml:968(para)
 msgid "Fixed problem with history of advrename templates"
 msgstr "Διόρθωση προβλήματος με ιστορικό σε πρότυπα προχωρημένης μετονομασίας"
 
-#: C/releases.xml:959(para)
+#: C/releases.xml:979(para)
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες APE, FLAC και Vorbis σε προχωρημένα πρότυπα "
 "μετονομασίας αρχείου"
 
-#: C/releases.xml:962(para)
+#: C/releases.xml:982(para)
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες σημειώσεων δημιουργού Exif σε προχωρημένα "
 "πρότυπα μετονομασίας αρχείου"
 
-#: C/releases.xml:965(para)
+#: C/releases.xml:985(para)
 msgid "Support for file metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες αρχείων σε προχωρημένα πρότυπα μετονομασίας "
 "αρχείου"
 
-#: C/releases.xml:968(para)
+#: C/releases.xml:988(para)
 msgid "Use the GNOME authentication manager for user's security credentials"
 msgstr ""
 "Χρήση του διαχειριστή πιστοποίησης για διαπιστευτήρια ασφάλειας του χρήστη"
 
-#: C/releases.xml:971(para)
+#: C/releases.xml:991(para)
 msgid "Metadata tags in file properties dialog"
 msgstr "Ετικέτες μεταδεδομένων στον διάλογο ιδιοτήτων αρχείου"
 
-#: C/releases.xml:974(para) C/gnome-commander.xml:6938(para)
+#: C/releases.xml:994(para) C/gnome-commander.xml:6938(para)
 msgid "Open terminal in the current directory"
 msgstr "Άνοιγμα τερματικού στον τρέχοντα κατάλογο"
 
-#: C/releases.xml:977(para)
+#: C/releases.xml:997(para)
 msgid "Default GNOME theme icons for home, SMB and FTP locations"
 msgstr ""
 "Προεπιλεγμένα εικονίδια θέματος GNOME για προσωπικό φάκελο, τοποθεσίες SMB "
 "και FTP"
 
-#: C/releases.xml:980(para)
+#: C/releases.xml:1000(para)
 msgid "User defined shortcuts to bookmarks"
 msgstr "Ορισμένες από τον χρήστη συντομεύσεις σε σελιδοδείκτες"
 
-#: C/releases.xml:983(para) C/gnome-commander.xml:6994(para)
+#: C/releases.xml:1003(para) C/gnome-commander.xml:6994(para)
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Αποστολή αρχείων μέσα από μήνυμα ή άμεσο μήνυμα (χρησιμοποιώντας nautilus-"
 "sendto)"
 
-#: C/releases.xml:989(para)
+#: C/releases.xml:1009(para)
 msgid ""
 "New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
@@ -1402,7 +1445,7 @@ msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
 
-#: C/releases.xml:995(para)
+#: C/releases.xml:1015(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>LEFT/RIGHT</keycap></keycombo> "
 "Copying the current working directory from the active file list to the "
@@ -1412,7 +1455,7 @@ msgstr ""
 "Αντιγραφή του τρέχοντος καταλόγου εργασίας από την ενεργή λίστα αρχείων στην "
 "ανενεργή"
 
-#: C/releases.xml:998(para)
+#: C/releases.xml:1018(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> Open new "
 "connection to remote server (replaces the old <keycombo><keycap>CTRL</"
@@ -1422,108 +1465,108 @@ msgstr ""
 "σύνδεσης σε απομακρυσμένο διακομιστή (αντικαθιστά το παλιό "
 "<keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo>)"
 
-#: C/releases.xml:1007(para)
+#: C/releases.xml:1027(para)
 msgid "1.2.4"
 msgstr "1.2.4"
 
-#: C/releases.xml:1008(para) C/gnome-commander.xml:124(date)
+#: C/releases.xml:1028(para) C/gnome-commander.xml:124(date)
 msgid "2007-06-09"
 msgstr "09-06-2007"
 
-#: C/releases.xml:1014(para)
+#: C/releases.xml:1034(para)
 msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Διόρθωση προβλήματος με το άνοιγμα καταλόγων με την εσωτερική προβολή"
 
-#: C/releases.xml:1017(para)
+#: C/releases.xml:1037(para)
 msgid "Fixed problem with editing dirs by GNOME Commander"
 msgstr "Διόρθωση προβλήματος με επεξεργασία καταλόγων από το GNOME Commander"
 
-#: C/releases.xml:1020(para)
+#: C/releases.xml:1040(para)
 msgid "Fixed problem #351952 (crash while doing a content search)"
 msgstr ""
 "Διόρθωση προβλήματος #351952 (κατάρρευση κατά την εκτέλεση αναζήτησης "
 "περιεχομένου)"
 
-#: C/releases.xml:1023(para)
+#: C/releases.xml:1043(para)
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr "Διόρθωση προβλήματος #352253 (συμπεριφορά κύλισης στην προβολή)"
 
-#: C/releases.xml:1026(para)
+#: C/releases.xml:1046(para)
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
 msgstr ""
 "Διόρθωση προβλήματος #360175 (κατάρρευση κατά την είσοδο καταλόγου με %)"
 
-#: C/releases.xml:1029(para)
+#: C/releases.xml:1049(para)
 msgid "Fixed problem #371948 and #388970 (file path not escaped)"
 msgstr ""
 "Διόρθωση προβλήματος #371948 και #388970 (διαδρομή αρχείου χωρίς διαφυγή)"
 
-#: C/releases.xml:1032(para)
+#: C/releases.xml:1052(para)
 msgid "Fixed problem #412162 (build with --enable-python=no)"
 msgstr "Διόρθωση προβλήματος #412162 (δόμηση με --enable-python=no)"
 
-#: C/releases.xml:1043(para)
+#: C/releases.xml:1063(para)
 msgid "Support for python plugins"
 msgstr "Υποστήριξη για πρόσθετα python"
 
-#: C/releases.xml:1046(para)
+#: C/releases.xml:1066(para)
 msgid "New python plugins:"
 msgstr "Νέα πρόσθετα python:"
 
-#: C/releases.xml:1049(para)
+#: C/releases.xml:1069(para)
 msgid "<command>md5sum</command> Create MD5 (128-bit) checksum"
 msgstr ""
 "<command>md5sum</command> Δημιουργία ελεγκτικού αθροίσματος MD5 (128 "
 "δυαδικών)"
 
-#: C/releases.xml:1052(para)
+#: C/releases.xml:1072(para)
 msgid "<command>sha1sum</command> Create SHA-1 (160-bit) checksum"
 msgstr ""
 "<command>sha1sum</command> Δημιουργία ελεγκτικού αθροίσματος SHA-1 (160 "
 "δυαδικών)"
 
-#: C/releases.xml:1057(para)
+#: C/releases.xml:1077(para)
 msgid "Support for OLE and ODF metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες OLE και ODF σε προχωρημένα πρότυπα μετονομασίας "
 "αρχείου"
 
-#: C/releases.xml:1060(para)
+#: C/releases.xml:1080(para)
 msgid "User defined shortcuts"
 msgstr "Ορισμένες από τον χρήστη συντομεύσεις"
 
-#: C/releases.xml:1063(para)
+#: C/releases.xml:1083(para)
 msgid "SMB authentication"
 msgstr "Πιστοποίηση SMB"
 
-#: C/releases.xml:1066(para)
+#: C/releases.xml:1086(para)
 msgid "Displaying total size of files in selected subirs"
 msgstr "Εμφάνιση συνολικού μεγέθους αρχείων σε επιλεγμένους υποκαταλόγους"
 
-#: C/releases.xml:1069(para)
+#: C/releases.xml:1089(para)
 msgid "'cd -' for changing to the previous working directory"
 msgstr "'cd -' για αλλαγή στον προηγούμενο κατάλογο εργασίας"
 
-#: C/releases.xml:1072(para)
+#: C/releases.xml:1092(para)
 msgid "More intuitive usage of diff tool"
 msgstr "Περισσότερο διαισθητική χρήση του εργαλείου διαφορών"
 
-#: C/releases.xml:1075(para)
+#: C/releases.xml:1095(para)
 msgid "Directory synchronizing"
 msgstr "Συγχρονισμός καταλόγου"
 
-#: C/releases.xml:1078(para)
+#: C/releases.xml:1098(para)
 msgid "Creating directories 'mkdir -p' like"
 msgstr "Δημιουργία καταλόγων όπως 'mkdir -p'"
 
-#: C/releases.xml:1084(para)
+#: C/releases.xml:1104(para)
 msgid ""
 "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, "
 "sv"
 
-#: C/releases.xml:1090(para)
+#: C/releases.xml:1110(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Go to the root "
 "directory"
@@ -1531,7 +1574,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Μετάβαση στον "
 "ριζικό κατάλογο"
 
-#: C/releases.xml:1093(para)
+#: C/releases.xml:1113(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Go to the home "
 "directory"
@@ -1539,7 +1582,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Μετάβαση στον "
 "προσωπικό κατάλογο"
 
-#: C/releases.xml:1096(para)
+#: C/releases.xml:1116(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Create MD5 (128-"
 "bit) checksum"
@@ -1547,7 +1590,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Δημιουργία "
 "ελεγκτικού αθροίσματος MD5 (128 δυαδικών)"
 
-#: C/releases.xml:1099(para)
+#: C/releases.xml:1119(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo> Copy selected file names to clipboard"
@@ -1555,61 +1598,61 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo> Αντιγραφή επιλεγμένων ονομάτων αρχείων στο πρόχειρο"
 
-#: C/releases.xml:1108(para)
+#: C/releases.xml:1128(para)
 msgid "1.2.3"
 msgstr "1.2.3"
 
-#: C/releases.xml:1109(para) C/releases.xml:1123(para)
+#: C/releases.xml:1129(para) C/releases.xml:1143(para)
 #: C/gnome-commander.xml:115(date)
 msgid "2006-12-11"
 msgstr "11-12-2006"
 
-#: C/releases.xml:1115(para)
+#: C/releases.xml:1135(para)
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr ""
 "Διόρθωση προβλήματος #384752 (εσφαλμένα δικαιώματα για νέους καταλόγους)"
 
-#: C/releases.xml:1122(para)
+#: C/releases.xml:1142(para)
 msgid "1.2.2"
 msgstr "1.2.2"
 
-#: C/releases.xml:1129(para)
+#: C/releases.xml:1149(para)
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr ""
 "Διόρθωση προβλήματος με τη δημιουργία συμβολικού δεσμού για πολλαπλή επιλογή "
 "αρχείων"
 
-#: C/releases.xml:1132(para)
+#: C/releases.xml:1152(para)
 msgid "Fixed problem with grouping of file size digits"
 msgstr "Διόρθωση προβλήματος με ομαδοποίηση ψηφίων μεγέθους αρχείων"
 
-#: C/releases.xml:1135(para)
+#: C/releases.xml:1155(para)
 msgid "Fixed problem with SMB UNC handling"
 msgstr "Διόρθωση προβλήματος με χειρισμό UNC SMB"
 
-#: C/releases.xml:1138(para)
+#: C/releases.xml:1158(para)
 msgid "Fixed problem #367744 (filename not correctly displayed)"
 msgstr "Διόρθωση προβλήματος #367744 (λαθεμένη εμφάνιση ονόματος αρχείου)"
 
-#: C/releases.xml:1141(para)
+#: C/releases.xml:1161(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr ""
 "Διόρθωση προβλήματος #374282 (αναζήτηση με κυκλικούς συμβολικούς δεσμούς)"
 
-#: C/releases.xml:1144(para)
+#: C/releases.xml:1164(para)
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
 msgstr "Διόρθωση προβλήματος #377706 (επιλογή αρχείων με SHIFT+PGDN)"
 
-#: C/releases.xml:1152(para)
+#: C/releases.xml:1172(para)
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες ID3 σε προχωρημένα πρότυπα μετονομασίας αρχείου"
 
-#: C/releases.xml:1158(para)
+#: C/releases.xml:1178(para)
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
 msgstr "Νέες ή ενημερωμένες μεταφράσεις: ar, en_GB, es, fi, it, pl, sv"
 
-#: C/releases.xml:1164(para)
+#: C/releases.xml:1184(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo> Set both panels equal"
@@ -1617,42 +1660,42 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo> Ορισμός και των δύο παραθύρων ως ίσοδύναμων"
 
-#: C/releases.xml:1173(para)
+#: C/releases.xml:1193(para)
 msgid "1.2.1"
 msgstr "1.2.1"
 
-#: C/releases.xml:1174(para)
+#: C/releases.xml:1194(para)
 msgid "2006-10-16"
 msgstr "16-10-2006"
 
-#: C/releases.xml:1180(para)
+#: C/releases.xml:1200(para)
 msgid "Fixed problem with scrollkeeper database update"
 msgstr "Διόρθωση προβλήματος με ενημέρωση βάσης δεδομένων scrollkeeper"
 
-#: C/releases.xml:1183(para)
+#: C/releases.xml:1203(para)
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr "Διόρθωση για κατάρρευση όταν ο δείκτης cmd dir είναι κενός"
 
-#: C/releases.xml:1186(para)
+#: C/releases.xml:1206(para)
 msgid "Fixed problem with refreshing after chown or chmod"
 msgstr "Διόρθωση προβλήματος με την ανανέωση μετά από chown ή chmod"
 
-#: C/releases.xml:1189(para)
+#: C/releases.xml:1209(para)
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
 "Διόρθωση προβλήματος #333898 (παρωχημένο επίθεμα εικονιδίου σε αρχείο "
 "επιφάνειας εργασίας)"
 
-#: C/releases.xml:1192(para)
+#: C/releases.xml:1212(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr "Διόρθωση προβλήματος #347561 (λαθεμένος ορισμός καταλόγου προσθέτων)"
 
-#: C/releases.xml:1195(para)
+#: C/releases.xml:1215(para)
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr ""
 "Διόρθωση προβλήματος #347817 (εσφαλμένη χρήση σημαιών συνδέτη Makefile)"
 
-#: C/releases.xml:1203(para)
+#: C/releases.xml:1223(para)
 msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
@@ -1660,39 +1703,39 @@ msgstr ""
 "Υποστήριξη για αρχειοθήκες (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, "
 "rpm) μέσα από το πρόσθετο FileRoller"
 
-#: C/releases.xml:1206(para)
+#: C/releases.xml:1226(para)
 msgid "New python-like indices for advanced file rename templates"
 msgstr ""
 "Νέοι δείκτες μορφής python για προχωρημένα πρότυπα μετονομασίας αρχείου"
 
-#: C/releases.xml:1209(para)
+#: C/releases.xml:1229(para)
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
 msgstr ""
 "Υποστήριξη για μεταετικέτες Exif και IPTC σε προχωρημένα πρότυπα "
 "μετονομασίας αρχείου"
 
-#: C/releases.xml:1212(para)
+#: C/releases.xml:1232(para)
 msgid "Fast access to advrename template placeholders"
 msgstr ""
 "Γρήγορη πρόσβαση σε δεσμευτικά θέσεων προτύπου προχωρημένης μετονομασίας"
 
-#: C/releases.xml:1215(para)
+#: C/releases.xml:1235(para)
 msgid "In-place rename (SHIFT+F6)"
 msgstr "Επί τόπου μετονομασία (SHIFT+F6)"
 
-#: C/releases.xml:1218(para)
+#: C/releases.xml:1238(para)
 msgid "Revamped application menus"
 msgstr "Μενού ανανεωμένων εφαρμογών"
 
-#: C/releases.xml:1221(para)
+#: C/releases.xml:1241(para)
 msgid "\"Find\" feature for internal viewer"
 msgstr "Το χαρακτηριστικό \"εύρεσης\" για εσωτερική προβολή"
 
-#: C/releases.xml:1224(para)
+#: C/releases.xml:1244(para)
 msgid "New icon for internal viewer"
 msgstr "Νέο εικονίδιο για εσωτερική προβολή"
 
-#: C/releases.xml:1230(para)
+#: C/releases.xml:1250(para)
 msgid ""
 "New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, "
 "pl, ru, sv, vi"
@@ -1700,7 +1743,7 @@ msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: ca, cs, de, el, en_GB, es, eu, fi, hu, it, "
 "ne, pl, ru, sv, vi"
 
-#: C/releases.xml:1236(para)
+#: C/releases.xml:1256(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo> Toggle hidden files on/off"
@@ -1708,38 +1751,38 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo> Εναλλαγή κρυφών αρχείων ενεργό/ανενεργό"
 
-#: C/releases.xml:1245(para)
+#: C/releases.xml:1265(para)
 msgid "1.2.0"
 msgstr "1.2.0"
 
-#: C/releases.xml:1246(para)
+#: C/releases.xml:1266(para)
 msgid "2006-05-12"
 msgstr "12-05-2006"
 
-#: C/releases.xml:1252(para)
+#: C/releases.xml:1272(para)
 msgid "Fixed problem #171051 (crashes on search with non-existent path)"
 msgstr ""
 "Διόρθωση προβλήματος #171051 (κατάρρευση στην αναζήτηση με ανύπαρκτη "
 "διαδρομή)"
 
-#: C/releases.xml:1255(para)
+#: C/releases.xml:1275(para)
 msgid "Fixed problem with the lack of gnome menu entry"
 msgstr "Διόρθωση προβλήματος με την έλλειψη καταχώρισης μενού gnome"
 
-#: C/releases.xml:1258(para)
+#: C/releases.xml:1278(para)
 msgid "Fixed a crash when viewing SMB connections"
 msgstr "Διόρθωση κατάρρευσης κατά την προβολή συνδέσεων SMB"
 
-#: C/releases.xml:1261(para)
+#: C/releases.xml:1281(para)
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr "Διόρθωση προβλήματος #309877 (περίεργα παράσιτα με οριζόντια κύλιση)"
 
-#: C/releases.xml:1264(para)
+#: C/releases.xml:1284(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr ""
 "Διόρθωση προβλήματος #332258 (αριστερή/δεξιά παράμετρος καταλόγου έναρξης)"
 
-#: C/releases.xml:1267(para)
+#: C/releases.xml:1287(para)
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
@@ -1747,11 +1790,11 @@ msgstr ""
 "Διόρθωση προβλήματος #332261 (exec_prefix δεν αναλύεται σωστά κατά τη "
 "διάρκεια διαμόρφωσης/makefiles)"
 
-#: C/releases.xml:1270(para)
+#: C/releases.xml:1290(para)
 msgid "Fixed problem #336649 (permission numbers presentation)"
 msgstr "Διόρθωση προβλήματος #336649 (παρουσίαση αριθμών δικαιωμάτων)"
 
-#: C/releases.xml:1273(para)
+#: C/releases.xml:1293(para)
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
@@ -1759,55 +1802,55 @@ msgstr ""
 "Διόρθωση προβλήματος με καταρρεύσεις κατά τη χρήση χαλασμένου ή παράταιρου "
 "μοτίβου κανονικής έκφρασης σε προχωρημένη μετονομασία"
 
-#: C/releases.xml:1281(para)
+#: C/releases.xml:1301(para)
 msgid "Monitoring of mounted volumes"
 msgstr "Παρακολούθηση προσαρτημένων τόμων"
 
-#: C/releases.xml:1284(para)
+#: C/releases.xml:1304(para)
 msgid "Rewritten internal viewer"
 msgstr "Επανεγγραφή με εσωτερική προβολή"
 
-#: C/releases.xml:1287(para)
+#: C/releases.xml:1307(para)
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
 msgstr ""
 "Εξωτερικά εργαλεία και προβολή ετικετών Exif/IPTC για εσωτερική προβολή"
 
-#: C/releases.xml:1290(para)
+#: C/releases.xml:1310(para)
 msgid "Zooming for internal viewer"
 msgstr "Εστίαση για εσωτερική προβολή"
 
-#: C/releases.xml:1293(para)
+#: C/releases.xml:1313(para)
 msgid "Text selection for internal viewer"
 msgstr "Επιλογή κειμένου για εσωτερική προβολή"
 
-#: C/releases.xml:1296(para)
+#: C/releases.xml:1316(para)
 msgid "Revamped toolbar layout"
 msgstr "Ανανεωμένη διάταξη εργαλειοθήκης"
 
-#: C/releases.xml:1299(para)
+#: C/releases.xml:1319(para)
 msgid "Options for controlling copy and move overwriting"
 msgstr "Επιλογές για έλεγχο αντιγραφής και μετακίνηση αντικατάστασης"
 
-#: C/releases.xml:1302(para)
+#: C/releases.xml:1322(para)
 msgid "Copying selected full file paths with SHIFT+click on toolbar button"
 msgstr ""
 "Αντιγραφή επιλεγμένων πλήρων διαδρομών αρχείων με SHIFT+πάτημα σε κουμπί "
 "εργαλειοθήκης"
 
-#: C/releases.xml:1305(para)
+#: C/releases.xml:1325(para)
 msgid "Better handling the change of the column sorting key"
 msgstr "Καλύτερος χειρισμός της αλλαγής του κλειδιού ταξινόμησης στήλης"
 
-#: C/releases.xml:1308(para)
+#: C/releases.xml:1328(para)
 msgid "Initial doc framework"
 msgstr "Αρχικός σκελετός εγγράφου"
 
-#: C/releases.xml:1311(para)
+#: C/releases.xml:1331(para)
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 
-#: C/releases.xml:1317(para)
+#: C/releases.xml:1337(para)
 msgid ""
 "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
 "viewer"
@@ -1815,18 +1858,18 @@ msgstr ""
 "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Εσωτερική "
 "προβολή"
 
-#: C/releases.xml:1320(para)
+#: C/releases.xml:1340(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External viewer"
 msgstr ""
 "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> Εξωτερική "
 "προβολή"
 
-#: C/releases.xml:1323(para)
+#: C/releases.xml:1343(para)
 msgid "<keycap>ALT+letters</keycap> Quick search"
 msgstr "<keycap>ALT+γράμματα</keycap> γρήγορη αναζήτηση"
 
-#: C/releases.xml:1326(para)
+#: C/releases.xml:1346(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo> Deselecting all files"
@@ -1834,36 +1877,36 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo> αποεπιλογή όλων των αρχείων"
 
-#: C/releases.xml:1335(para)
+#: C/releases.xml:1355(para)
 msgid "1.1.7"
 msgstr "1.1.7"
 
-#: C/releases.xml:1336(para)
+#: C/releases.xml:1356(para)
 msgid "2006-02-12"
 msgstr "12-02-2006"
 
-#: C/releases.xml:1342(para)
+#: C/releases.xml:1362(para)
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr ""
 "Διόρθωση κατάρρευσης κατά την προσπάθεια αντιγραφής των τρεχόντων "
 "επιλεγμένων αρχείων"
 
-#: C/releases.xml:1345(para)
+#: C/releases.xml:1365(para)
 msgid "Fixed filename escaping"
 msgstr "Διόρθωση διαφυγής ονόματος αρχείου"
 
-#: C/releases.xml:1348(para)
+#: C/releases.xml:1368(para)
 msgid "Fixed CTRL+ALT+letter bad responsiveness when typing too fast"
 msgstr ""
 "Διόρθωση κακής αποκρισιμότητας CTRL+ALT+γράμμα κατά την υπερβολικά γρήγορη "
 "πληκτρολόγηση"
 
-#: C/releases.xml:1351(para)
+#: C/releases.xml:1371(para)
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
 msgstr ""
 "Διόρθωση σφάλματος ντέμπιαν #288933 (σφάλματα μεταγλώττισης amd64/gcc-4.0)"
 
-#: C/releases.xml:1354(para)
+#: C/releases.xml:1374(para)
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory "
 "to itself)"
@@ -1871,7 +1914,7 @@ msgstr ""
 "Διόρθωση προβλήματος #138933 (άπειρη αναδρομή κατά την μεταφορά και απόθεση "
 "καταλόγου στον εαυτόν του)"
 
-#: C/releases.xml:1357(para)
+#: C/releases.xml:1377(para)
 msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
@@ -1880,23 +1923,23 @@ msgstr ""
 "κατά τη σύνδεση με διακομιστές ftp και ενώ είναι στην κατάσταση "
 "υπερπροσάρτησης"
 
-#: C/releases.xml:1362(para)
+#: C/releases.xml:1382(para)
 msgid "Fixed update after renaming without FAM"
 msgstr "Διόρθωση ενημέρωσης μετά τη μετονομασία χωρίς FAM"
 
-#: C/releases.xml:1370(para)
+#: C/releases.xml:1390(para)
 msgid "New GNOME Commander logo"
 msgstr "Νέος λογότυπος GNOME Commander"
 
-#: C/releases.xml:1373(para)
+#: C/releases.xml:1393(para)
 msgid "Added internal F3 viewer"
 msgstr "Προστέθηκε εσωτερική προβολή F3"
 
-#: C/releases.xml:1376(para)
+#: C/releases.xml:1396(para)
 msgid "Copying selected filename(s) to clipboard"
 msgstr "Αντιγραφή επιλεγμένων ονομάτων αρχείων στο πρόχειρο"
 
-#: C/releases.xml:1379(para)
+#: C/releases.xml:1399(para)
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <keycap>CTRL"
 "+SHIFT+ENTER</keycap>"
@@ -1904,27 +1947,27 @@ msgstr ""
 "Εισαγωγή πλήρους διαδρομής επιλεγμένου αρχείου στη γραμμή εντολών κατά το "
 "πάτημα <keycap>CTRL+SHIFT+ENTER</keycap>"
 
-#: C/releases.xml:1382(para)
+#: C/releases.xml:1402(para)
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 "Εργαλείο πολλαπλής μετονομασίας - νέο δεσμευτικό θέσης $g για δεύτερο "
 "ανιόντα κατάλογο"
 
-#: C/releases.xml:1385(para)
+#: C/releases.xml:1405(para)
 msgid ""
 "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
 "Κουμπιά εργαλειοθήκης (αποκοπή, αντιγραφή και επικόλληση) είναι τώρα "
 "ευαίσθητα στην τρέχουσα κατάσταση"
 
-#: C/releases.xml:1388(para)
+#: C/releases.xml:1408(para)
 msgid ""
 "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
 "Η διαχείριση διαλόγου σελιδοδεικτών είναι τώρα προσβάσιμη επίσης μέσα από τη "
 "συντόμευση σελιδοδεικτών"
 
-#: C/releases.xml:1391(para)
+#: C/releases.xml:1411(para)
 msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
@@ -1932,7 +1975,7 @@ msgstr ""
 "Νέες ή ενημερωμένες μεταφράσεις: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, "
 "pa, pt_BR, rw, uk, zh_TW"
 
-#: C/releases.xml:1397(para)
+#: C/releases.xml:1417(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Multi-Rename-"
 "Tool"
@@ -1940,7 +1983,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Εργαλείο "
 "πολλαπλής μετονομασίας"
 
-#: C/releases.xml:1400(para)
+#: C/releases.xml:1420(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></"
 "keycombo> Copying the current working directory from the active file list to "
@@ -1950,14 +1993,14 @@ msgstr ""
 "keycombo> Αντιγραφή του τρέχοντος καταλόγου εργασίας από την ενεργή λίστα "
 "αρχείων στην ανενεργή"
 
-#: C/releases.xml:1403(para)
+#: C/releases.xml:1423(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all files"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Επιλογή όλων "
 "των αρχείων"
 
-#: C/releases.xml:1406(para)
+#: C/releases.xml:1426(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Unselect all "
 "files"
@@ -1965,37 +2008,37 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Αποεπιλογή όλων "
 "των αρχείων"
 
-#: C/releases.xml:1409(para)
+#: C/releases.xml:1429(para)
 msgid "<keycap>=</keycap> Select files using a pattern"
 msgstr "<keycap>=</keycap> Επιλογή αρχείων χρησιμοποιώντας υπόδειγμα"
 
-#: C/releases.xml:1418(para)
+#: C/releases.xml:1438(para)
 msgid "1.1.6"
 msgstr "1.1.6"
 
-#: C/releases.xml:1419(para)
+#: C/releases.xml:1439(para)
 msgid "2004-01-20"
 msgstr "20-01-2004"
 
-#: C/releases.xml:1425(para)
+#: C/releases.xml:1445(para)
 msgid ""
 "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
 "Διόρθωση κατάρρευσης κατά την περιήγηση πίσω στο ιστορικό και έπειτα είσοδο "
 "σε άλλο κατάλογο"
 
-#: C/releases.xml:1428(para)
+#: C/releases.xml:1448(para)
 msgid "Fixed ftp-quick-connect problems"
 msgstr "Διόρθωση προβλημάτων γρήγορης σύνδεσης ftp"
 
-#: C/releases.xml:1431(para)
+#: C/releases.xml:1451(para)
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr ""
 "Η λειτουργία γρήγορης αναζήτησης μπορεί τώρα να ξεκινήσει επίσης "
 "πληκτρολογώντας κεφαλαία γράμματα"
 
-#: C/releases.xml:1434(para)
+#: C/releases.xml:1454(para)
 msgid ""
 "<keycap>CTRL+ALT</keycap> no longer needs to be used to activate quick-"
 "search when the cmdline is hidden"
@@ -2003,13 +2046,13 @@ msgstr ""
 "Το <keycap>CTRL+ALT</keycap> δεν χρειάζεται πια να χρησιμοποιηθεί για "
 "ενεργοποίηση γρήγορης αναζήτησης όταν η γραμμή εντολών είναι κρυμμένη"
 
-#: C/releases.xml:1442(para)
+#: C/releases.xml:1462(para)
 msgid "Updated the cvs-plugin so that it can be used to diff and log files"
 msgstr ""
 "Ενημέρωση του προσθέτου cvs, έτσι ώστε να μπορεί να χρησιμοποιηθεί σε αρχεία "
 "διαφορών και καταγραφής"
 
-#: C/releases.xml:1445(para)
+#: C/releases.xml:1465(para)
 msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
@@ -2017,12 +2060,12 @@ msgstr ""
 "Χρήση έντονου κειμένου αντί για υπογραμμισμένο στον δείκτη καταλόγου, όταν "
 "εστιάζεται από τον δρομέα ποντικιού"
 
-#: C/releases.xml:1448(para)
+#: C/releases.xml:1468(para)
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr ""
 "Η ετικέτα cwd είναι επιλέξιμη τώρα (η αριστερή ετικέτα στη γραμμή εντολών)"
 
-#: C/releases.xml:1451(para)
+#: C/releases.xml:1471(para)
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
@@ -2030,25 +2073,25 @@ msgstr ""
 "Αφαίρεση του στοιχείου μενού 'Αποθήκευση θέσης'. Το μέγεθος και η θέση "
 "αποθηκεύονται τώρα αυτόματα στη θέση του"
 
-#: C/releases.xml:1454(para)
+#: C/releases.xml:1474(para)
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr ""
 "Προσθήκη κουμπιού στον δείκτη καταλόγου για εμφάνιση ιστορικού καταλόγου"
 
-#: C/releases.xml:1457(para)
+#: C/releases.xml:1477(para)
 msgid "Added history to the select and unselect by pattern dialogs"
 msgstr ""
 "Προσθήκη ιστορικού στους διαλόγους υποδείγματος επιλογής και αποεπιλογής"
 
-#: C/releases.xml:1460(para)
+#: C/releases.xml:1480(para)
 msgid "Sorting column and direction is now remembered"
 msgstr "Η ταξινόμηση στήλης και κατεύθυνσης τώρα διατηρείται"
 
-#: C/releases.xml:1466(para)
+#: C/releases.xml:1486(para)
 msgid "<keycap>F2</keycap> Open the rename dialog"
 msgstr "<keycap>F2</keycap> Άνοιγμα του διαλόγου μετονομασίας"
 
-#: C/releases.xml:1469(para)
+#: C/releases.xml:1489(para)
 msgid ""
 "<keycap>SHIFT+F10</keycap> Bring up the file context menu (the windows menu "
 "key also works)"
@@ -2056,7 +2099,7 @@ msgstr ""
 "<keycap>SHIFT+F10</keycap> Εμφάνιση του μενού περιεχομένων αρχείου (το "
 "κλειδί μενού παραθύρων δουλεύει επίσης)"
 
-#: C/releases.xml:1472(para)
+#: C/releases.xml:1492(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Copy the "
 "current working directory from the inactive file list to the active one"
@@ -2064,15 +2107,15 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Αντιγραφή του "
 "τρέχοντος καταλόγου εργασίας από την ανενεργή λίστα αρχείων στην ενεργή"
 
-#: C/releases.xml:1481(para)
+#: C/releases.xml:1501(para)
 msgid "1.1.5"
 msgstr "1.1.5"
 
-#: C/releases.xml:1482(para)
+#: C/releases.xml:1502(para)
 msgid "2004-01-12"
 msgstr "12-01-2004"
 
-#: C/releases.xml:1488(para)
+#: C/releases.xml:1508(para)
 msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
@@ -2080,13 +2123,13 @@ msgstr ""
 "Η στήλη ext είναι τώρα κρυφή, όταν η επέκταση εμφανίζεται μόνο μαζί με το "
 "όνομα αρχείου"
 
-#: C/releases.xml:1491(para)
+#: C/releases.xml:1511(para)
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr ""
 "Διόρθωση περιττών επανασχεδιασμών της λίστας αρχείων κατά την μεταφορά "
 "αρχείων από πάνω της"
 
-#: C/releases.xml:1494(para)
+#: C/releases.xml:1514(para)
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
@@ -2094,17 +2137,17 @@ msgstr ""
 "Διόρθωση προβλήματος με συνδέσεις ftp που δεν εξαφανίζονται από τις "
 "εργαλειοθήκες σύνδεσης κατά την αποσύνδεση"
 
-#: C/releases.xml:1497(para)
+#: C/releases.xml:1517(para)
 msgid "The program no longer tries to center itself on the desktop"
 msgstr ""
 "Το πρόγραμμα δεν προσπαθεί πια να κεντράρει τον εαυτόν του στην επιφάνεια "
 "εργασίας"
 
-#: C/releases.xml:1500(para)
+#: C/releases.xml:1520(para)
 msgid "Fixed problems when renaming directories"
 msgstr "Διόρθωση προβλημάτων κατά την μετονομασία καταλόγων"
 
-#: C/releases.xml:1508(para)
+#: C/releases.xml:1528(para)
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
@@ -2112,33 +2155,33 @@ msgstr ""
 "Ο δείκτης καταλόγου πάνω από κάθε λίστα αρχείων μπορεί τώρα να "
 "χρησιμοποιηθεί για περιήγηση προς τα πάνω στη δομή καταλόγου"
 
-#: C/releases.xml:1515(para)
+#: C/releases.xml:1535(para)
 msgid "1.1.4"
 msgstr "1.1.4"
 
-#: C/releases.xml:1516(para)
+#: C/releases.xml:1536(para)
 msgid "2003-11-24"
 msgstr "24-11-2003"
 
-#: C/releases.xml:1522(para)
+#: C/releases.xml:1542(para)
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr ""
 "Διόρθωση σφάλματος κατά την επιλογή πολλαπλών αρχείων με το shift+ κουμπί "
 "του ποντικιού"
 
-#: C/releases.xml:1525(para)
+#: C/releases.xml:1545(para)
 msgid ""
 "Stopped superfluous updates of the file list on machines with the imon "
 "kernel patch applied"
 msgstr ""
 "Σταμάτημα περιττών ενημερώσεων της λίστας αρχείων σε μηχανήματα με "
-"εφαρμοσμένο το μπάλωμα πυρήνα imon"
+"εφαρμοσμένη τη διόρθωση πυρήνα imon"
 
-#: C/releases.xml:1528(para)
+#: C/releases.xml:1548(para)
 msgid "Cleaned up the file-popup menu"
 msgstr "Καθαρισμός του μενού αναδυόμενου αρχείου"
 
-#: C/releases.xml:1531(para)
+#: C/releases.xml:1551(para)
 msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
@@ -2146,32 +2189,32 @@ msgstr ""
 "Διόρθωση σφάλματος \"Δεν βρέθηκε το αρχείο\" κατά την περιήγηση στον γονικό "
 "κατάλογο, όταν ο γονικός κατάλογος περιέχει διαστήματα"
 
-#: C/releases.xml:1534(para)
+#: C/releases.xml:1554(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr ""
 "Διόρθωση πιθανού ασύγχρονου σφάλματος κατά την ακύρωση λειτουργίας xfer "
 "(μεταφοράς)"
 
-#: C/releases.xml:1537(para)
+#: C/releases.xml:1557(para)
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
 "Ξαναδούλεμα της καρτέλας διάταξης και αφαίρεση της καρτέλας χρωμάτων στον "
 "διάλογο επιλογών"
 
-#: C/releases.xml:1540(para)
+#: C/releases.xml:1560(para)
 msgid "Improved plugin-system"
 msgstr "Βελτιωμένο σύστημα προσθέτων"
 
-#: C/releases.xml:1547(para)
+#: C/releases.xml:1567(para)
 msgid "1.1.3"
 msgstr "1.1.3"
 
-#: C/releases.xml:1548(para)
+#: C/releases.xml:1568(para)
 msgid "2003-11-14"
 msgstr "14-11-2003"
 
-#: C/releases.xml:1554(para)
+#: C/releases.xml:1574(para)
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same "
@@ -2181,17 +2224,17 @@ msgstr ""
 "μηχάνημα με γρήγορη εγκατάσταση FAM. Αυτό οδηγεί σε προσπάθεια του GNOME "
 "Commander να αφαιρέσει το ίδιο αρχείο δυο φορές από έναν κατάλογο"
 
-#: C/releases.xml:1561(para)
+#: C/releases.xml:1581(para)
 msgid "Accessing files on mounted devices should now work better"
 msgstr ""
 "Η πρόσβαση αρχείων σε προσαρτημένες συσκευές πρέπει τώρα να δουλεύει καλύτερα"
 
-#: C/releases.xml:1564(para)
+#: C/releases.xml:1584(para)
 msgid "Devices without the device filename should not disappear anymore"
 msgstr ""
 "Συσκευές χωρίς το όνομα αρχείου της συσκευής δεν πρέπει να εξαφανίζονται πια"
 
-#: C/releases.xml:1567(para)
+#: C/releases.xml:1587(para)
 msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
@@ -2199,7 +2242,7 @@ msgstr ""
 "Διόρθωση του γνωρίσματος που το παράθυρο τερματικού παραμένει ανοικτό αφού "
 "ένα πρόγραμμα έχει τελειώσει τις εργασίες πιο αξιόπιστα"
 
-#: C/releases.xml:1573(para)
+#: C/releases.xml:1593(para)
 msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
@@ -2207,15 +2250,15 @@ msgstr ""
 "Διορθώνει το σφάλμα όπου ένας νέος κατάλογος μπορεί να εμφανιστεί πολλές "
 "φορές στην ίδια λίστα αρχείου μέχρι την επαναφόρτωση"
 
-#: C/releases.xml:1584(para)
+#: C/releases.xml:1604(para)
 msgid "The delete confirmation can now be disabled"
 msgstr "Η επιβεβαίωση διαγραφής μπορεί τώρα να απενεργοποιηθεί"
 
-#: C/releases.xml:1587(para)
+#: C/releases.xml:1607(para)
 msgid "Better error messages when a mount fails"
 msgstr "Καλύτερα μηνύματα σφάλματος όταν μια προσάρτηση αποτύχει"
 
-#: C/releases.xml:1590(para)
+#: C/releases.xml:1610(para)
 msgid ""
 "Made the calculation of a directory's total size start automatically when "
 "the file prefs dialog is shown"
@@ -2223,7 +2266,7 @@ msgstr ""
 "Η εκτέλεση του υπολογισμού του συνολικού μεγέθους ενός καταλόγου ξεκινά "
 "αυτόματα, όταν ο διάλογος αρχείου προτιμήσεων εμφανίζεται"
 
-#: C/releases.xml:1596(para)
+#: C/releases.xml:1616(para)
 msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
@@ -2231,51 +2274,51 @@ msgstr ""
 "Πρόσθεση φίλτρου για εφεδρικά αρχεία και πρόσθεση φίλτρου για κρυφά αρχεία "
 "στο κυρίως μενού για γρηγορότερη πρόσβαση"
 
-#: C/releases.xml:1606(para)
+#: C/releases.xml:1626(para)
 msgid "1.1.2"
 msgstr "1.1.2"
 
-#: C/releases.xml:1607(para)
+#: C/releases.xml:1627(para)
 msgid "2003-11-07"
 msgstr "07-11-2003"
 
-#: C/releases.xml:1613(para)
+#: C/releases.xml:1633(para)
 msgid "Much better handling of non UTF8 filenames"
 msgstr "Πολύ καλύτερος χειρισμός ονομάτων αρχείων μη UTF8"
 
-#: C/releases.xml:1616(para)
+#: C/releases.xml:1636(para)
 msgid "Removed unsafe uri-creation"
 msgstr "Αφαίρεση επισφαλούς δημιουργίας uri"
 
-#: C/releases.xml:1624(para)
+#: C/releases.xml:1644(para)
 msgid "Three ways to show with file extensions"
 msgstr "Τρεις τρόποι για εμφάνιση με επεκτάσεις αρχείων"
 
-#: C/releases.xml:1631(para)
+#: C/releases.xml:1651(para)
 msgid "1.1.1"
 msgstr "1.1.1"
 
-#: C/releases.xml:1632(para)
+#: C/releases.xml:1652(para)
 msgid "2003-11-05"
 msgstr "05-11-2003"
 
-#: C/releases.xml:1638(para)
+#: C/releases.xml:1658(para)
 msgid ""
 "Stopped showing the file extension in both the name column and the ext column"
 msgstr ""
 "Διακοπή εμφάνισης της επέκτασης αρχείων και στη στήλη ονόματος και στη στήλη "
 "ext"
 
-#: C/releases.xml:1641(para)
+#: C/releases.xml:1661(para)
 msgid "Fixed crashes that happened when browsing directories"
 msgstr "Διόρθωση καταρρεύσεων που συμβαίνουν κατά την περιήγηση καταλόγων"
 
-#: C/releases.xml:1644(para)
+#: C/releases.xml:1664(para)
 msgid "Fixed update problems when copying and moving files"
 msgstr ""
 "Διόρθωση προβλημάτων ενημέρωσης κατά την αντιγραφή και μετακίνηση αρχείων"
 
-#: C/releases.xml:1647(para)
+#: C/releases.xml:1667(para)
 msgid ""
 "The connection combo boxes should now show the correct connection as "
 "selected all the time"
@@ -2283,68 +2326,68 @@ msgstr ""
 "Τα σύνθετα πλαίσια της σύνδεσης πρέπει τώρα να εμφανίζουν τη σωστή σύνδεση "
 "όπως επιλέγεται συνέχεια"
 
-#: C/releases.xml:1650(para)
+#: C/releases.xml:1670(para)
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr ""
 "Αφαίρεση μερικών σφαλμάτων σχετικών με την επιλογή αρχείων που χρησιμοποιούν "
 "το πληκτρολόγιο"
 
-#: C/releases.xml:1653(para)
+#: C/releases.xml:1673(para)
 msgid "Fixed the edit mime-types feature"
 msgstr "Διόρθωση του γνωρίσματος της επεξεργασίας τύπων mime"
 
-#: C/releases.xml:1661(para)
+#: C/releases.xml:1681(para)
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
 "Προσθήκη ενός κουμπιού για αλλαγή της προεπιλεγμένης εφαρμογής MIME στον "
 "διάλογο ιδιοτήτων αρχείων"
 
-#: C/releases.xml:1668(para)
+#: C/releases.xml:1688(para)
 msgid "1.1.0"
 msgstr "1.1.0"
 
-#: C/releases.xml:1669(para)
+#: C/releases.xml:1689(para)
 msgid "2003-11-01"
 msgstr "01-11-2003"
 
-#: C/releases.xml:1675(para)
+#: C/releases.xml:1695(para)
 msgid "SMB browsing"
 msgstr "Περιήγηση SMB"
 
-#: C/releases.xml:1678(para)
+#: C/releases.xml:1698(para)
 msgid "Plugins"
 msgstr "Πρόσθετα"
 
-#: C/releases.xml:1681(para)
+#: C/releases.xml:1701(para)
 msgid "Major rewrite of a lot of code"
 msgstr "Εκτεταμένη επανεγγραφή μεγάλου μέρους του κώδικα"
 
-#: C/releases.xml:1688(para)
+#: C/releases.xml:1708(para)
 msgid "1.0.1"
 msgstr "1.0.1"
 
-#: C/releases.xml:1689(para)
+#: C/releases.xml:1709(para)
 msgid "2003-06-27"
 msgstr "27-06-2003"
 
-#: C/releases.xml:1695(para)
+#: C/releases.xml:1715(para)
 msgid "Improved file list update in non-fam mode"
 msgstr "Βελτιωμένη ενημέρωση λίστας αρχείων σε κατάσταση μη fam"
 
-#: C/releases.xml:1698(para)
+#: C/releases.xml:1718(para)
 msgid "Empty directories can now be entered on ftp servers"
 msgstr "Κενοί κατάλογοι μπορούν τώρα να εισαχθούν σε διακομιστές ftp"
 
-#: C/releases.xml:1705(para)
+#: C/releases.xml:1725(para)
 msgid "1.0"
 msgstr "1.0"
 
-#: C/releases.xml:1706(para)
+#: C/releases.xml:1726(para)
 msgid "2003-06-05"
 msgstr "05-06-2003"
 
-#: C/releases.xml:1708(para)
+#: C/releases.xml:1728(para)
 msgid ""
 "This is the \"production stable\" 1.0 release. Mainly small bugfixes from "
 "previous version."
@@ -2352,27 +2395,27 @@ msgstr ""
 "Αυτή είναι η \"σταθερή\" έκδοση 1.0. Κυρίως μικρές διορθώσεις σφαλμάτων από "
 "την προηγούμενη έκδοση."
 
-#: C/releases.xml:1714(para)
+#: C/releases.xml:1734(para)
 msgid "0.9.12"
 msgstr "0.9.12"
 
-#: C/releases.xml:1715(para)
+#: C/releases.xml:1735(para)
 msgid "2003-03-18"
 msgstr "18-03-2003"
 
-#: C/releases.xml:1717(para)
+#: C/releases.xml:1737(para)
 msgid "Bugfixes"
 msgstr "Διορθώσεις σφαλμάτων"
 
-#: C/releases.xml:1721(para)
+#: C/releases.xml:1741(para)
 msgid "0.9.11"
 msgstr "0.9.11"
 
-#: C/releases.xml:1722(para)
+#: C/releases.xml:1742(para)
 msgid "2003-03-13"
 msgstr "13-03-2003"
 
-#: C/releases.xml:1724(para)
+#: C/releases.xml:1744(para)
 msgid ""
 "Added support for $p in advrename dialog. This will give you the parent "
 "directory. Fixed a bug where deleting a directory sometimes only emptied the "
@@ -2385,15 +2428,15 @@ msgstr ""
 "διαγράφει. Διόρθωση έτσι ώστε ο κατάλογος \".\" να είναι ορατός σε συνεδρίες "
 "ftp."
 
-#: C/releases.xml:1732(para)
+#: C/releases.xml:1752(para)
 msgid "0.9.10"
 msgstr "0.9.10"
 
-#: C/releases.xml:1733(para)
+#: C/releases.xml:1753(para)
 msgid "2003-03-24"
 msgstr "24-03-2003"
 
-#: C/releases.xml:1735(para)
+#: C/releases.xml:1755(para)
 msgid ""
 "Fixed an imageloading bug when using themes other than the default one. New "
 "bookmark feature. New template feature in the advanced-rename dialog. See "
@@ -2408,15 +2451,15 @@ msgstr ""
 "μετονομασίας. Μεταφορά αρχείων στον κατάλογο \"..\" είναι τώρα δυνατός. Η "
 "εργαλειοθήκη και η γραμμή κουμπιών μπορούν τώρα να κρυφτούν."
 
-#: C/releases.xml:1746(para)
+#: C/releases.xml:1766(para)
 msgid "0.9.9"
 msgstr "0.9.9"
 
-#: C/releases.xml:1747(para)
+#: C/releases.xml:1767(para)
 msgid "2003-01-19"
 msgstr "19-01-2003"
 
-#: C/releases.xml:1749(para)
+#: C/releases.xml:1769(para)
 msgid ""
 "Improved the advanced rename tool Added quick connect feature. Improved "
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
@@ -2427,15 +2470,15 @@ msgstr ""
 "σφαλμάτων σε αυτόν. Προσθήκη προεπιλεγμένου θέματος εικονιδίου mime χαμηλής "
 "ανάλυσης. Πιο κανονική συμπεριφορά του αναδυόμενου μενού αρχείων."
 
-#: C/releases.xml:1759(para)
+#: C/releases.xml:1779(para)
 msgid "0.9.8"
 msgstr "0.9.8"
 
-#: C/releases.xml:1760(para)
+#: C/releases.xml:1780(para)
 msgid "2002-07-16"
 msgstr "16-07-2002"
 
-#: C/releases.xml:1762(para)
+#: C/releases.xml:1782(para)
 msgid ""
 "New things in this release are autoscroll at DND, better quicksearch, "
 "mounting and unmounting, file lists refresh without FAM, last visited "
@@ -2445,59 +2488,59 @@ msgstr ""
 "γρήγορη αναζήτηση, προσάρτηση και αποπροσάρτηση, ανανέωση λιστών αρχείων "
 "χωρίς FAM, ιστορικό τελευταίου αναγνωσμένου καταλόγου και άλλα."
 
-#: C/releases.xml:1770(para)
+#: C/releases.xml:1790(para)
 msgid "0.9.7"
 msgstr "0.9.7"
 
-#: C/releases.xml:1771(para)
+#: C/releases.xml:1791(para)
 msgid "2002-06-07"
 msgstr "07-06-2002"
 
-#: C/releases.xml:1776(para)
+#: C/releases.xml:1796(para)
 msgid "0.9.6"
 msgstr "0.9.6"
 
-#: C/releases.xml:1777(para)
+#: C/releases.xml:1797(para)
 msgid "2002-04-04"
 msgstr "04-04-2002"
 
-#: C/releases.xml:1779(para)
+#: C/releases.xml:1799(para)
 msgid "MIME support has been added and bugs have been fixed."
 msgstr "Προσθήκη υποστήριξης MIME και διόρθωση σφαλμάτων."
 
-#: C/releases.xml:1783(para)
+#: C/releases.xml:1803(para)
 msgid "0.9.5"
 msgstr "0.9.5"
 
-#: C/releases.xml:1784(para)
+#: C/releases.xml:1804(para)
 msgid "2002-03-27"
 msgstr "27--03-2002"
 
-#: C/releases.xml:1786(para)
+#: C/releases.xml:1806(para)
 msgid "Added an embedded terminal and fixed some bugs."
 msgstr "Προσθήκη ενσωματωμένου τερματικού και διόρθωση μερικών σφαλμάτων."
 
-#: C/releases.xml:1790(para)
+#: C/releases.xml:1810(para)
 msgid "0.9.4"
 msgstr "0.9.4"
 
-#: C/releases.xml:1791(para)
+#: C/releases.xml:1811(para)
 msgid "2002-03-21"
 msgstr "21-03-2002"
 
-#: C/releases.xml:1793(para)
+#: C/releases.xml:1813(para)
 msgid "Added FAM support, DnD and more."
 msgstr "Προσθήκη υποστήριξης FAM, DnD και άλλα."
 
-#: C/releases.xml:1797(para)
+#: C/releases.xml:1817(para)
 msgid "0.9.2"
 msgstr "0.9.2"
 
-#: C/releases.xml:1798(para)
+#: C/releases.xml:1818(para)
 msgid "2002-03-09"
 msgstr "09-03-2002"
 
-#: C/releases.xml:1800(para)
+#: C/releases.xml:1820(para)
 msgid ""
 "Improved stability and less memory leaks. CVS is disabled until it actually "
 "works well."
@@ -2505,27 +2548,27 @@ msgstr ""
 "Βελτιωμένη σταθερότητα και λιγότερες διαρροές μνήμης. Το CVS έχει "
 "απενεργοποιηθεί μέχρι να δουλεύει καλά."
 
-#: C/releases.xml:1804(para)
+#: C/releases.xml:1824(para)
 msgid "0.91-pre1"
 msgstr "0.91-pre1"
 
-#: C/releases.xml:1805(para)
+#: C/releases.xml:1825(para)
 msgid "2002-02-06"
 msgstr "06-02-2002"
 
-#: C/releases.xml:1807(para)
+#: C/releases.xml:1827(para)
 msgid "Improved user interface and lots of other small hacks."
 msgstr "Βελτιωμένη διεπαφή χρήστη και πολλές άλλες μικρές επεμβάσεις."
 
-#: C/releases.xml:1811(para)
+#: C/releases.xml:1831(para)
 msgid "0.90-pre1"
 msgstr "0.90-pre1"
 
-#: C/releases.xml:1812(para)
+#: C/releases.xml:1832(para)
 msgid "2001-08-02"
 msgstr "02-08-2001"
 
-#: C/releases.xml:1814(para)
+#: C/releases.xml:1834(para)
 msgid "The first public version of GNOME Commander."
 msgstr "Η πρώτη δημόσια έκδοση του GNOME Commander."
 
@@ -2859,8 +2902,9 @@ msgid "GNOME Commander Manual"
 msgstr "Εγχειρίδιο GNOME Commander"
 
 #: C/gnome-commander.xml:30(subtitle)
-msgid "GNOME Commander Desktop Application Manual V1.4.2"
-msgstr "Εγχειρίδιο εφαρμογής επιφάνειας εργασίας GNOME Commander V1.4.2"
+#| msgid "GNOME Commander Desktop Application Manual V1.4.2"
+msgid "GNOME Commander Desktop Application Manual V1.4.3"
+msgstr "Εγχειρίδιο εφαρμογής επιφάνειας εργασίας GNOME Commander V1.4.3"
 
 #: C/gnome-commander.xml:32(year)
 msgid "2012"
@@ -3075,8 +3119,9 @@ msgid "2014-???-???"
 msgstr "2014-;;-;;"
 
 #: C/gnome-commander.xml:346(releaseinfo)
-msgid "This manual describes version 1.4.2 of GNOME Commander."
-msgstr "Αυτό το εγχειρίδιο περιγράφει την έκδοση 1.4.2 του GNOME Commander."
+#| msgid "This manual describes version 1.4.2 of GNOME Commander."
+msgid "This manual describes version 1.4.3 of GNOME Commander."
+msgstr "Αυτό το εγχειρίδιο περιγράφει την έκδοση 1.4.3 του GNOME Commander."
 
 #: C/gnome-commander.xml:348(title)
 msgid "Feedback"
@@ -3165,7 +3210,7 @@ msgstr "Συντομεύσεις πληκτρολογίου του χρήστη"
 
 #: C/gnome-commander.xml:409(para)
 msgid "Python scripting"
-msgstr "Σενάρια Python"
+msgstr "Δέσμες ενεργειών Python"
 
 #: C/gnome-commander.xml:412(para)
 msgid "Plugin support"
@@ -3198,7 +3243,7 @@ msgstr "Ενσωματωμένη γραμμή εντολών"
 
 #: C/gnome-commander.xml:428(para)
 msgid "Color profiles"
-msgstr "Κατατομές χρώματος"
+msgstr "Προφίλ χρώματος"
 
 #: C/gnome-commander.xml:431(para)
 msgid "Support for over 40 languages"
@@ -4984,7 +5029,7 @@ msgstr "Επαναφέρει τις τρέχουσες ρυθμίσεις στι
 
 #: C/gnome-commander.xml:1501(guibutton)
 msgid "Profiles..."
-msgstr "Κατατομές..."
+msgstr "Προφίλ..."
 
 #: C/gnome-commander.xml:1504(para)
 msgid ""
@@ -4993,7 +5038,7 @@ msgid ""
 "conversions and blank trimming) identified by its name. You can define as "
 "many different profiles as you require."
 msgstr ""
-"Εμφανίζει επιλογές για διαχείριση κατατομών. Μια κατατομή είναι μια συλλογή "
+"Εμφανίζει επιλογές για διαχείριση προφίλ. Το προφίλ είναι μια συλλογή "
 "προχωρημένων παραμέτρων μετονομασίας αρχείων (πρότυπα, μετρητές, υποδείγματα "
 "κανονικών εκφράσεων, μετατροπές πεζών/κεφαλαίων και περικοπές κενού) που "
 "ταυτοποιούνται από το όνομά τους. Μπορείτε να ορίσετε πολλές διαφορετικές "
@@ -6189,8 +6234,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Ένα από τα: \"προστασία με κωδικό\", \"συνιστάται μόνο για ανάγνωση\", "
-"\"αναγκαστικά μόνο για ανάγνωση\" ή \"κλειδωμένο για σχόλια\"."
+"Ένα από τα: \"προστασία με κωδικό πρόσβασης\", \"συνιστάται μόνο για ανάγνωση"
+"\", \"αναγκαστικά μόνο για ανάγνωση\" ή \"κλειδωμένο για σχόλια\"."
 
 #: C/gnome-commander.xml:2039(para)
 msgid "Doc.SlideCount"
@@ -7159,11 +7204,11 @@ msgstr "Exif.InterColorProfile"
 
 #: C/gnome-commander.xml:2340(para)
 msgid "Inter Color Profile"
-msgstr "Διαλειτουργική κατατομή χρώματος"
+msgstr "Διαλειτουργικό προφίλ χρώματος"
 
 #: C/gnome-commander.xml:2341(para)
 msgid "Inter Color Profile."
-msgstr "Διαλειτουργική κατατομή χρώματος."
+msgstr "Διαλειτουργικό προφίλ χρώματος."
 
 #: C/gnome-commander.xml:2344(para)
 msgid "Exif.InteroperabilityIFDPointer"
@@ -10820,13 +10865,13 @@ msgstr "PDF.AccessibilitySupport"
 
 #: C/gnome-commander.xml:3715(para)
 msgid "Accessibility Support"
-msgstr "Υποστήριξη προσβασιμότητας"
+msgstr "Υποστήριξη προσιτότητας"
 
 #: C/gnome-commander.xml:3716(para)
 msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
 msgstr ""
-"Ορισμός σε \"1\" αν είναι ενεργή η υποστήριξη προσβασιμότητας (π.χ. "
-"αναγνώστες οθόνης)."
+"Ορισμός σε \"1\" αν είναι ενεργή η υποστήριξη προσσιτότητας (π.χ. αναγνώστες "
+"οθόνης)."
 
 #: C/gnome-commander.xml:3719(para) C/gnome-commander.xml:3739(para)
 #: C/gnome-commander.xml:3744(para) C/gnome-commander.xml:3749(para)
@@ -13379,7 +13424,7 @@ msgid ""
 "Hidden files and directory in linux are preceded by the \".\". Hidden files "
 "usually contain application settings"
 msgstr ""
-"Τα κρυφά αρχεία και κατάλογοι στο Λίνουξ έχουν μπροστά το \".\". Τα κρυφά "
+"Τα κρυφά αρχεία και κατάλογοι στο linux έχουν μπροστά το \".\". Τα κρυφά "
 "αρχεία περιέχουν συνήθως ρυθμίσεις της εφαρμογής."
 
 #: C/gnome-commander.xml:5365(para) C/gnome-commander.xml:5387(para)
@@ -13512,7 +13557,7 @@ msgstr "Εφαρμογή MIME"
 #: C/gnome-commander.xml:5457(para)
 msgid "Always download remote files before opening in external program"
 msgstr ""
-"Να μεταφορτώνονται πάντα απομακρυσμένα αρχεία πριν να ανοιχθούν με εξωτερικό "
+"Να γίνεται πάντα λήψη απομακρυσμένων αρχείων πριν να ανοιχθούν με εξωτερικό "
 "πρόγραμμα"
 
 #: C/gnome-commander.xml:5460(para)
@@ -13520,8 +13565,8 @@ msgid ""
 "Whether the associated application is started before the remote file is "
 "downloaded locally."
 msgstr ""
-"Αν η συσχετισμένη εφαρμογή ξεκινά πριν το απομακρυσμένο αρχείο να "
-"μεταφορτωθεί τοπικά."
+"Αν η συσχετισμένη εφαρμογή ξεκινά πριν γίνει η λήψη του απομακρυσμένου "
+"αρχείου τοπικά."
 
 #: C/gnome-commander.xml:5465(guilabel)
 msgid "Standard programs"
@@ -15593,8 +15638,8 @@ msgid ""
 "If you don't already have the program <application>Fileroller</application>, "
 "download it and install it."
 msgstr ""
-"Αν δεν έχετε ήδη το πρόγραμμα <application>Fileroller</application>, "
-"μεταφορτώστε το και εγκαταστήστε το."
+"Αν δεν έχετε ήδη το πρόγραμμα <application>Fileroller</application>, κάνετε "
+"λήψη και εγκαταστήστε το."
 
 #: C/gnome-commander.xml:7215(para)
 msgid ""
@@ -15647,7 +15692,7 @@ msgid ""
 "Linux distributions use automounters to mount devices into /media."
 msgstr ""
 "Αυτή η πληροφορία μπορεί να είναι μερικώς ξεπερασμένη αφού τα σύγχρονα "
-"περιβάλλοντα επιφάνειας εργασίας ή οι διανομές Λίνουξ χρησιμοποιούν αυτόματη "
+"περιβάλλοντα επιφάνειας εργασίας ή οι διανομές Linux χρησιμοποιούν αυτόματη "
 "προσάρτηση για την προσάρτηση συσκευών στο /media."
 
 #: C/gnome-commander.xml:7260(para)
@@ -15740,7 +15785,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:7306(para)
 msgid "Download the theme."
-msgstr "Μεταφορτώστε το θέμα."
+msgstr "Κάνετε λήψη του θέματος."
 
 #: C/gnome-commander.xml:7309(para)
 msgid "Unpack the theme to where ever you want."
@@ -15856,8 +15901,8 @@ msgid ""
 msgstr ""
 "Αν θα θέλατε να μεταγλωττίσετε την τελευταία σταθερή έκδοση του GNOME "
 "Commander οι ίδιοι, πάρτε την ως ένα αρχείο tar.xz από την <ulink type=\"http"
-"\" url=\"http://gcmd.github.io/download.html\">ενότητα μεταφόρτωσης</ulink> "
-"στην αρχική σελίδα του GNOME Commander."
+"\" url=\"http://gcmd.github.io/download.html\">ενότητα λήψεων</ulink> στην "
+"αρχική σελίδα του GNOME Commander."
 
 #: C/gnome-commander.xml:7361(para)
 msgid ""
@@ -15867,8 +15912,8 @@ msgid ""
 "explained in detail there."
 msgstr ""
 "Μετά την εξαγωγή της αρχειοθήκης, ρίξτε πρώτα μια ματιά στο αρχείο "
-"<guimenu>README</guimenu>, όπου θα πάρετε μια επισκόπηση της μεταφορτωμένης "
-"έκδοσης. Επίσης, ρίξτε μια ματιά στο αρχείο <guimenu>INSTALL</guimenu>. Η "
+"<guimenu>README</guimenu>, όπου θα πάρετε μια επισκόπηση της έκδοσης που "
+"ελήφθη. Επίσης, ρίξτε μια ματιά στο αρχείο <guimenu>INSTALL</guimenu>. Η "
 "εγκατάσταση εξηγείται λεπτομερώς εκεί."
 
 #: C/gnome-commander.xml:7366(title)
@@ -15895,8 +15940,8 @@ msgid ""
 "code, if you already have a version of the code simply run <command>git "
 "pull</command> to get the latest revisions."
 msgstr ""
-"Οι παραπάνω εργασίες μόνο για την πρώτη μεταφόρτωση και όχι για ενημέρωση "
-"του κώδικα. Αν έχετε ήδη μια έκδοση του κώδικα εκτελέστε απλά <command>git "
+"Τα παραπάνω ισχύουν μόνο για την πρώτη λήψη και όχι για ενημέρωση του "
+"κώδικα. Αν έχετε ήδη μια έκδοση του κώδικα εκτελέστε απλά το <command>git "
 "pull</command> για τη λήψη των τελευταίων αναθεωρήσεων."
 
 #: C/gnome-commander.xml:7376(para)
@@ -16443,7 +16488,7 @@ msgstr ""
 "αναφορά σφαλμάτων είναι ο καλύτερος τρόπος για χρήστες χωρίς γνώσεις "
 "προγραμματισμού να βοηθήσουν στην ανάπτυξη ενός προγράμματος και για τους "
 "χρήστες με γνώσεις προγραμματισμού η υποβολή διορθώσεων και/ή αποστολή "
-"μπαλωμάτων στους προγραμματιστές, όλα στο πνεύμα του ελεύθερου και ανοικτού "
+"διόρθωσης στους προγραμματιστές, όλα στο πνεύμα του ελεύθερου και ανοικτού "
 "λογισμικού."
 
 #: C/gnome-commander.xml:7983(para)
@@ -16589,7 +16634,17 @@ msgid "translator-credits"
 msgstr ""
 "Ελληνική μεταφραστική ομάδα GNOME\n"
 " Δημήτρης Σπίγγος <dmtrs32@gmail.com>, 2013, 2014\n"
+" Μαρία Μαυρίδου <mavridou@gmail.com>,2014\n"
 "Για περισσότερες πληροφορίες http://gnome.gr"
+
+#~ msgid "???"
+#~ msgstr ";;;"
+
+#~ msgid "New or updated docs: ??"
+#~ msgstr "Νέα ή ενημερωμένα έγγραφα: ;;"
+
+#~ msgid "New or updated translations: ??"
+#~ msgstr "Νέες ή ενημερωμένες μεταφράσεις: ;;"
 
 #~ msgid "1.4"
 #~ msgstr "1.4"
