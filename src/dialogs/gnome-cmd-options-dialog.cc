@@ -68,13 +68,27 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
-
+    
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
+    GtkWidget *scrolled_window;
+    /* create a new scrolled window. */
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    /* the policy is one of GTK_POLICY AUTOMATIC, or GTK_POLICY_ALWAYS.
+     * GTK_POLICY_AUTOMATIC will automatically decide whether you need
+     * scrollbars, whereas GTK_POLICY_ALWAYS will always leave the scrollbars
+     * there.  The first one is the horizontal scrollbar, the second, 
+     * the vertical. */
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    /* pack the scrolled_window into the hbox */
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    /* pack the vbox into the scrolled window */
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
@@ -264,14 +278,20 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 
 inline GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box, *table;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box, *table;
     GtkWidget *radio, *label, *entry;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
@@ -665,7 +685,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 
 inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
     GtkWidget *lm_optmenu, *cm_optmenu, *fe_optmenu, *check;
     const gchar *ext_modes[] = {
@@ -696,8 +716,13 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     // File panes
     table = create_table (parent, 5, 2);
@@ -844,15 +869,20 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
 inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab bar"));
@@ -911,14 +941,20 @@ inline void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
 inline GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
 
     /* Delete options
@@ -1049,20 +1085,20 @@ static void on_filter_backup_files_toggled (GtkToggleButton *btn, GtkWidget *dia
 
 inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame;
-    GtkWidget *hbox;
-    GtkWidget *vbox;
-    GtkWidget *cat;
-    GtkWidget *cat_box;
-    GtkWidget *check, *backup_check;
-    GtkWidget *entry;
+    GtkWidget *frame, *hbox, *vbox, *scrolled_window, *cat, *cat_box;
+    GtkWidget *check, *backup_check, *entry;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Filetypes to hide"));
@@ -1509,15 +1545,20 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 
 inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *table;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
@@ -1873,15 +1914,20 @@ static void on_device_move_down (GtkWidget *button, GtkWidget *frame)
 
 inline GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *button, *clist, *bbox, *check;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
     vbox = create_tabvbox (parent);
-    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
+    scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolled_window), 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
+                                    GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+    gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
+    gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Devices"));
@@ -1999,8 +2045,8 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 #endif
 
-    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+    gtk_window_set_default_size(GTK_WINDOW (dialog), 560, 600);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
