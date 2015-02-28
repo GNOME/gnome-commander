@@ -1,13 +1,14 @@
 # Czech translation for gnome-commander.
 # Copyright (C) 2011 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
+#
 # Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2015-02-02 19:13+0000\n"
-"PO-Revision-Date: 2015-02-03 07:45+0100\n"
+"POT-Creation-Date: 2015-02-28 22:12+0000\n"
+"PO-Revision-Date: 2015-02-28 23:29+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -37,9 +38,9 @@ msgstr "Co je nového"
 msgid "1.6.0"
 msgstr "1.6.0"
 
-#: C/releases.xml:27(para) C/releases.xml:67(para)
-msgid "2014-??-??"
-msgstr "??.??.2014"
+#: C/releases.xml:27(para)
+msgid "2015-??-??"
+msgstr "??.??.2015"
 
 #: C/releases.xml:29(para) C/releases.xml:69(para) C/releases.xml:100(para)
 #: C/releases.xml:137(para) C/releases.xml:275(para) C/releases.xml:295(para)
@@ -59,9 +60,12 @@ msgstr "??.??.2014"
 msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
-#: C/releases.xml:33(para) C/releases.xml:84(para) C/releases.xml:121(para)
-msgid "???"
-msgstr "???"
+#: C/releases.xml:33(para)
+msgid ""
+"Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)"
+msgstr ""
+"Opraven problém bgo#742752 (umožněna změna velikosti u dialogového okna "
+"předvoleb a přidání posuvníků)"
 
 #: C/releases.xml:37(para) C/releases.xml:80(para) C/releases.xml:117(para)
 #: C/releases.xml:181(para) C/releases.xml:412(para) C/releases.xml:466(para)
@@ -113,6 +117,10 @@ msgstr "Nové nebo aktualizované překlady: ??"
 msgid "1.4.2"
 msgstr "1.4.2"
 
+#: C/releases.xml:67(para)
+msgid "2014-??-??"
+msgstr "??.??.2014"
+
 #: C/releases.xml:73(para)
 msgid ""
 "Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving "
@@ -128,6 +136,10 @@ msgid ""
 msgstr ""
 "Opraven problém bgo#598161 (vybírání textu v interním prohlížeči na řádcích "
 "se znaky TAB)"
+
+#: C/releases.xml:84(para) C/releases.xml:121(para)
+msgid "???"
+msgstr "???"
 
 #: C/releases.xml:97(para)
 msgid "1.4.1"
