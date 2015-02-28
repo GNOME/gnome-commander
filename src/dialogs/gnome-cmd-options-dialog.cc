@@ -1499,7 +1499,7 @@ static void on_app_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *fram
     GList *apps = gnome_cmd_data.options.fav_apps;
 
     if (!apps
-        || MAX (arg1, arg2) >= g_list_length (apps)
+        || MAX (arg1, arg2) >= (gint) g_list_length (apps) // cast will only be problematic for incredibly large lists
         || MIN (arg1, arg2) < 0
         || arg1 == arg2)
         return;
@@ -1898,7 +1898,7 @@ static void on_device_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *f
     GList *list = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ());
 
     if (!list
-        || MAX (arg1, arg2) >= g_list_length (list)
+        || MAX (arg1, arg2) >= (gint) g_list_length (list) // cast will only be problematic for incredibly large lists
         || MIN (arg1, arg2) < 0
         || arg1 == arg2)
         return;
