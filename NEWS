@@ -3,16 +3,16 @@ gnome-commander 1.6.0
 ---------------
 
 Bug fixes:
- * ... 
+ * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
 New features:
-* Always reopen the tab which was previously closed in the options dialog
-* Samba support is now optionally available via configure option
-* Configurable command for sending files to a preferred application
-* Button 'Edit files' accepts more than one selected file at the same time
-* Code cleanup
-* New or updated translations: 
+ * Always reopen the tab which was previously closed in the options dialog
+ * Samba support is now optionally available via configure option
+ * Configurable command for sending files to a preferred application
+ * Button 'Edit files' accepts more than one selected file at the same time
+ * Code cleanup
+New or updated translations: 
      ...
-* New key bindings:
+New key bindings:
      ...            ...
 
 ===================================

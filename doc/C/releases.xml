@@ -24,13 +24,13 @@
     <tbody>
         <row valign="top">
             <entry><para>1.6.0</para></entry>
-            <entry><para>2014-??-??</para></entry>
+            <entry><para>2015-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                           <para>???</para>
+                           <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
                        </listitem>
                     </itemizedlist>
                 </para>
