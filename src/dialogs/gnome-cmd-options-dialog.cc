@@ -1213,10 +1213,11 @@ inline void store_filter_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
 
 inline void add_app_to_list (GtkCList *clist, GnomeCmdApp *app)
 {
-    gchar *text[2];
+    gchar *text[3];
 
     text[0] = NULL;
     text[1] = (gchar *) gnome_cmd_app_get_name (app);
+    text[2] = (gchar *) gnome_cmd_app_get_command (app);
 
     gint row = gtk_clist_append (GTK_CLIST (clist), text);
     GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app);
@@ -1608,10 +1609,11 @@ inline GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
 
-    clist = create_clist (parent, "app_clist", 2, 16,
+    clist = create_clist (parent, "app_clist", 3, 16,
                           GTK_SIGNAL_FUNC (on_app_selected), GTK_SIGNAL_FUNC (on_app_moved));
     create_clist_column (clist, 0, 20, "");
-    create_clist_column (clist, 1, 150, _("Label"));
+    create_clist_column (clist, 1, 100, _("Label"));
+    create_clist_column (clist, 2, 150, _("Command"));
     gtk_box_pack_start (GTK_BOX (hbox), clist, TRUE, TRUE, 0);
 
     bbox = create_vbuttonbox (parent);
