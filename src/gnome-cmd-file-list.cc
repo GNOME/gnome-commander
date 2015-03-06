@@ -1172,14 +1172,15 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
 
 inline gboolean mime_exec_file (GnomeCmdFile *f)
 {
+    g_return_val_if_fail (f != NULL, FALSE);
+
     if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         mime_exec_single (f);
-        return TRUE;
     }
 
-    return FALSE;
-}
+    return TRUE;
+ }
 
 
 static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer data)
