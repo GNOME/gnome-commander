@@ -534,10 +534,12 @@ void GnomeCmdFileList::toggle_file(GnomeCmdFile *f)
         return;
 
     if (row < priv->visible_files.size())
+    {
         if (!priv->selected_files.contain(f))
             select_file(f, row);
         else
             unselect_file(f, row);
+    }
 }
 
 
@@ -2706,20 +2708,15 @@ void GnomeCmdFileList::invalidate_tree_size()
 static gboolean do_scroll (GnomeCmdFileList *fl)
 {
     gint w, h;
-    gint focus_row, top_row, bottom_row;
+    gint focus_row, top_row;
     gint row_count;
-    guint offset;
-    gint row_height;
     GtkCList *clist = *fl;
 
     gdk_drawable_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
-    offset = (0-clist->voffset);
-    row_height = gnome_cmd_data.options.list_row_height;
     row_count = clist->rows;
     focus_row = gnome_cmd_clist_get_row (*fl, 1, fl->priv->autoscroll_y);
     top_row = gnome_cmd_clist_get_row (*fl, 1, 0);
-    bottom_row = gnome_cmd_clist_get_row (*fl, 1, h);
 
     if (!fl->priv->autoscroll_dir)
     {
