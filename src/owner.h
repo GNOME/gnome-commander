@@ -162,8 +162,6 @@ inline const gchar *GnomeCmdOwner::HashTable<T,ID>::operator [] (ID id)
 {
     Entry *entry = lookup(id);
 
-    g_assert (entry != NULL);
-
     return entry ? entry->name : NULL;
 }
 
