@@ -45,7 +45,7 @@ static char *msgs[] = {N_("Search local directories only"),
 #endif
 
 
-#define PBAR_MAX   50
+#define PBAR_MAX   50 /**< Absolute width of a progress bar */
 
 #define SEARCH_JUMP_SIZE     4096U
 #define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
@@ -66,7 +66,7 @@ struct SearchFileData
     GnomeVFSHandle *handle;
     gint            offset;
     guint           len;
-    gchar           mem[SEARCH_BUFFER_SIZE];     // memory to search in the content of a file
+    gchar           mem[SEARCH_BUFFER_SIZE];     /**< memory to search in the content of a file */
 };
 
 
@@ -83,29 +83,29 @@ struct SearchData
 
     GnomeCmdSearchDialog *dialog;
 
-    GnomeCmdDir *start_dir;                     // the directory to start searching from
+    GnomeCmdDir *start_dir;                     /**< the directory to start searching from */
 
     Filter *name_filter;
     regex_t *content_regex;
-    gint context_id;                            // the context id of the status bar
-    GList *match_dirs;                          // the directories which we found matching files in
+    gint context_id;                            /**< the context id of the status bar */
+    GList *match_dirs;                          /**< the directories which we found matching files in */
     GThread *thread;
     ProtectedData pdata;
     gint update_gui_timeout_id;
 
     gboolean search_done;
-    gboolean stopped;                           // stops the search routine if set to TRUE. This is done by the stop_button
-    gboolean dialog_destroyed;                  // set when the search dialog is destroyed, also stops the search of course
+    gboolean stopped;                           /**< stops the search routine if set to TRUE. This is done by the stop_button */
+    gboolean dialog_destroyed;                  /**< set when the search dialog is destroyed, also stops the search of course */
 
     SearchData(GnomeCmdSearchDialog *dlg);
 
     void set_statusmsg(const gchar *msg=NULL);
     gchar *build_search_command();
-    void search_dir_r(GnomeCmdDir *dir, long level);                                // searches a given directory for files that matches the criteria given by data
+    void search_dir_r(GnomeCmdDir *dir, long level);  /**< searches a given directory for files that matches the criteria given by data */
 
-    gboolean name_matches(gchar *name)   {  return name_filter->match(name);  }     // determines if the name of a file matches an regexp
-    gboolean content_matches(GnomeCmdFile *f);                                      // determines if the content of a file matches an regexp
-    gboolean read_search_file(SearchFileData *, GnomeCmdFile *f);                   // loads a file in chunks and returns the content
+    gboolean name_matches(gchar *name)   {  return name_filter->match(name);  }     /**< determines if the name of a file matches an regexp */
+    gboolean content_matches(GnomeCmdFile *f);                                      /**< determines if the content of a file matches an regexp */
+    gboolean read_search_file(SearchFileData *, GnomeCmdFile *f);                   /**< loads a file in chunks and returns the content */
     gboolean start_generic_search();
     gboolean start_local_search();
 
@@ -115,7 +115,7 @@ struct SearchData
 
 struct GnomeCmdSearchDialog::Private
 {
-    SearchData data;                            // holds data needed by the search routines
+    SearchData data;                            /**< holds data needed by the search routines */
 
     GtkWidget *vbox;
     GnomeCmdSelectionProfileComponent *profile_component;
@@ -541,7 +541,7 @@ static gboolean update_search_status_widgets (SearchData *data)
 }
 
 
-/*
+/**
  * This function gets called then the search-dialog is about the be destroyed.
  * The function waits for the last search-thread to finish and then frees the
  * data structure that has been shared between the search threads and the
@@ -580,8 +580,9 @@ gboolean SearchData::start_generic_search()
 }
 
 
-//  local search - using findutils
-
+/**
+ * local search - using findutils
+ */
 gchar *SearchData::build_search_command()
 {
     gchar *file_pattern_utf8 = g_strdup (dialog->defaults.default_profile.filename_pattern.c_str());
