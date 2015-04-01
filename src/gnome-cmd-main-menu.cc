@@ -20,7 +20,6 @@
  */
 
 #include <config.h>
-#include <libgnomeui/gnome-stock-icons.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-menu.h"
@@ -588,7 +587,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Delete"), "Delete", NULL,
             (gpointer) file_delete, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_TRASH,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DELETE,
             NULL
         },
         MENUTYPE_SEPARATOR,
@@ -794,7 +793,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_About"), "", NULL,
             (gpointer) help_about, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_ABOUT,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ABOUT,
             NULL
         },
         MENUTYPE_END

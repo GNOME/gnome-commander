@@ -20,7 +20,6 @@
  */
 
 #include <config.h>
-#include <libgnomeui/gnome-stock-icons.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-popmenu.h"
@@ -456,10 +455,10 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GTK_STOCK_CUT),
         GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GTK_STOCK_COPY),
         GNOMEUIINFO_ITEM(N_("Copy file names"), NULL, edit_copy_fnames, copy_file_names_xpm),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GNOME_STOCK_TRASH),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GTK_STOCK_DELETE),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
-        GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GNOME_STOCK_MAIL_SND),
+        GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GTK_STOCK_EXECUTE),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open this _folder"), NULL, command_open_nautilus, PACKAGE_NAME G_DIR_SEPARATOR_S "nautilus.svg"),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,

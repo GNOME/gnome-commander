@@ -23,7 +23,6 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <libgnomeui/gnome-stock-icons.h>
 
 #include <algorithm>
 
@@ -1177,7 +1176,7 @@ void GnomeCmdMainWin::update_toolbar_visibility()
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Delete"), file_delete, GTK_STOCK_DELETE),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Send files"), file_sendto, GNOME_STOCK_MAIL_SND),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Send files"), file_sendto, GTK_STOCK_EXECUTE),
         GNOMEUIINFO_ITEM_FILENAME(NULL, _("Open terminal (SHIFT for root privileges)"), command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Remote Server"), connections_open, GTK_STOCK_CONNECT),
