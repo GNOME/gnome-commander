@@ -21,7 +21,6 @@
 
 #include <config.h>
 #include <libgnomeui/gnome-href.h>
-#include <libgnomeui/gnome-stock-icons.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-about-plugin.h"
@@ -293,7 +292,7 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_dialog_set_default_response (GTK_DIALOG (about), GTK_RESPONSE_CLOSE);
 
     // Add the credits button
-    image = gtk_image_new_from_stock (GNOME_STOCK_ABOUT, GTK_ICON_SIZE_BUTTON);
+    image = gtk_image_new_from_stock (GTK_STOCK_ABOUT, GTK_ICON_SIZE_BUTTON);
 
     label = gtk_label_new_with_mnemonic (_("C_redits"));
 
