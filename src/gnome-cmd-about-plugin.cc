@@ -682,21 +682,21 @@ static void gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id,
 
 
 /**
- * gnome_cmd_about_plugin_construct:
- * @about: An existing #GnomeCmdAboutPlugin instance.
- * @name: The name of the application.
- * @version: The version string of the application.
- * @copyright: The application's copyright statement.
- * @comments: A short miscellaneous string.
- * @authors: An %NULL terminated array of the application authors.
- * @documenters: An array of the application documenters.
- * @translator_credits: The translator for the current locale.
- * @webpage: The plugins's webpage.
- *
- * Similar to gnome_cmd_about_plugin_new() except that the pre-existing @about widget is
- * used. Note that in this version of the function, @authors is not checked to
- * be non-%NULL, so callers must be careful, since bad things will happen if
- * this condition is not met.
+ * Similar to gnome_cmd_about_plugin_new() except that the pre-existing
+ * GnomeCmdAboutPlugin widget is used. Note that in this version of the
+ * function, @c authors is not checked to be non-NULL, so callers must
+ * be careful, since bad things will happen if this condition is not
+ * met.
+ * 
+ * @param about An existing GnomeCmdAboutPlugin instance.
+ * @param name The name of the application.
+ * @param version The version string of the application.
+ * @param copyright The application's copyright statement.
+ * @param comments A short miscellaneous string.
+ * @param authors An %NULL terminated array of the application authors.
+ * @param documenters An array of the application documenters.
+ * @param translator_credits The translator for the current locale.
+ * @param webpage The plugins's webpage.
  */
 void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
                                        const gchar  *name,
@@ -757,20 +757,11 @@ void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
 
 
 /**
- * gnome_cmd_about_plugin_new:
- * @name: The name of the application.
- * @version: The version string of the application.
- * @copyright: The application's copyright statement.
- * @comments: A short miscellaneous string.
- * @authors: An %NULL terminated array of the application authors.
- * @documenters: An array of the application documenters.
- * @translator_credits: The translator for the current locale.
- *
- * Construct an application's credits box. The @authors array cannot be empty
- * and the @translator_credits should be marked as a translatable string (so
+ * Construct an application's credits box. The authors array cannot be empty
+ * and the translator_credits should be marked as a translatable string (so
  * that only the translator for the currently active locale is displayed).
  *
- * Returns: A new "About" dialog.
+ * @returns A new "About" dialog.
  */
 GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info)
 {
