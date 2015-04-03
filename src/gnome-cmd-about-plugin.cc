@@ -597,21 +597,15 @@ static void gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guin
 static void set_value_array_from_list (GValue *value, GSList *list)
 {
     gint length = g_slist_length (list);
-    GValueArray *array = g_value_array_new (length);
-
-    GValue tmp_value = { 0 };
+    GArray *array = g_array_sized_new (FALSE, TRUE, sizeof(char*), length);
 
     for (GSList *i = list; i; i = i->next)
     {
-        char *str = (char *) i->data;
-
-        g_value_init (&tmp_value, G_TYPE_STRING);
-        g_value_set_string (&tmp_value, str);
-        g_value_array_append (array, &tmp_value);
+        g_array_append_val (array, i->data);
     }
 
     g_value_set_boxed (value, array);
-    g_value_array_free (array);
+    g_array_free (array, TRUE);
 }
 
 
