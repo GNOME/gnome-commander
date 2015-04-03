@@ -708,34 +708,24 @@ void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
                                        const gchar  *translator_credits,
                                        const gchar  *webpage)
 {
-    GValueArray *authors_array = g_value_array_new (0);
-    GValueArray *documenters_array;
+    GArray *authors_array = g_array_new (FALSE, FALSE, sizeof(char*));
+    GArray *documenters_array = NULL;
 
     for (gint i = 0; authors[i] != NULL; i++)
     {
-        GValue value = {0, };
-
-        g_value_init (&value, G_TYPE_STRING);
-        g_value_set_static_string (&value, authors[i]);
-        authors_array = g_value_array_append (authors_array, &value);
+        authors_array = g_array_append_val (authors_array, authors[i]);
     }
 
     if (documenters)
     {
-        documenters_array = g_value_array_new (0);
+        documenters_array = g_array_new (FALSE, FALSE, sizeof(char*));
 
         for (gint i = 0; documenters[i] != NULL; i++)
         {
-            GValue value = {0, };
-
-            g_value_init (&value, G_TYPE_STRING);
-            g_value_set_static_string (&value, documenters[i]);
-            documenters_array = g_value_array_append (documenters_array, &value);
+            documenters_array = g_array_append_val (documenters_array, documenters[i]);
         }
 
     }
-    else
-        documenters_array = NULL;
 
     g_object_set (G_OBJECT (about),
                   "name", name,
@@ -749,10 +739,10 @@ void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
                   NULL);
 
     if (authors_array)
-        g_value_array_free (authors_array);
+        g_array_free (authors_array, TRUE);
 
     if (documenters_array)
-        g_value_array_free (documenters_array);
+        g_array_free (documenters_array, TRUE);
 }
 
 
