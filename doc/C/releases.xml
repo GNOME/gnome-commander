@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
