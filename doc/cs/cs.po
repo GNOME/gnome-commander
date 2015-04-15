@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2015-01-26 19:14+0000\n"
-"PO-Revision-Date: 2015-01-26 20:56+0100\n"
+"POT-Creation-Date: 2015-04-15 06:35+0000\n"
+"PO-Revision-Date: 2015-04-15 13:00+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -61,8 +61,12 @@ msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
 #: C/releases.xml:33(para)
-msgid "..."
-msgstr "…"
+msgid ""
+"Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks "
+"to Dominique Leuenberger)"
+msgstr ""
+"Opraven problém bgo#747771 (soubor appdata.xml nebyl překládán, dík zaslouží "
+"Dominique Leuenberger)"
 
 #: C/releases.xml:40(para)
 msgid "1.4.5"
@@ -16405,3 +16409,6 @@ msgstr ""
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
+
+#~ msgid "..."
+#~ msgstr "…"
