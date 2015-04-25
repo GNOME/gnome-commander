@@ -239,7 +239,9 @@ GtkType gnome_cmd_con_remote_get_type ()
     return type;
 }
 
-
+/**
+ * Logic for setting up a new remote connection accordingly to the given uri_str.
+ */
 GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &uri_str, GnomeCmdCon::Authentication auth)
 {
     gchar *canonical_uri = gnome_vfs_make_uri_canonical (uri_str.c_str());

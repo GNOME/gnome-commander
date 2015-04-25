@@ -529,6 +529,9 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
 }
 
 
+/**
+ * Dialog for setting up a new remote server connection.
+ */
 GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 {
     GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);

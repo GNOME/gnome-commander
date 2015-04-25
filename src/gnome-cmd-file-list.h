@@ -203,6 +203,12 @@ struct GnomeCmdFileList
     void invalidate_tree_size();
 
     void set_base_dir(gchar *dir);
+
+    /**
+     * Establish a connection via gnome_cmd_con_open() if it does not
+     * already exist, or just set the file list to the last or the
+     * current working dir.
+     */
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
