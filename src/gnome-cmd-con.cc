@@ -617,3 +617,98 @@ GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar 
 
     return attributes;
 }
+
+static void response_callback (GtkDialog *dialog, int response_id, std::string &password)
+{
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+	{
+	    const gchar *entry = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "password")));
+	    password.assign(entry);
+	}
+            break;
+
+        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_CANCEL:
+            break;
+
+        default :
+            g_assert_not_reached ();
+    }
+}
+
+const char* enter_callback( GtkWidget *widget, GtkWidget *entry )
+{
+    const gchar *entry_text;
+    entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
+    return entry_text;
+}
+
+/**
+ * A small dialog for setting the password
+ */
+int GnomeCmdCon::gnome_cmd_con_set_password(std::string *password)
+{
+    GtkWidget *table;
+    GtkWidget *entry;
+    GtkWidget *window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Password..."), GTK_WINDOW(window),
+                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     NULL);
+    //essentially, the following was copied from gnome_cmd_mkdir_dialog_new()
+#if GTK_CHECK_VERSION (2, 14, 0)
+    GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+#endif
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+    // HIG defaults
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_box_set_spacing (GTK_BOX (content_area), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
+    gtk_box_set_spacing (GTK_BOX (content_area),6);
+#else
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
+#endif
+    table = gtk_table_new (2, 2, FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER (table), 5);
+    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
+    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_container_add (GTK_CONTAINER (content_area), table);
+#else
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
+#endif
+
+    entry = gtk_entry_new ();
+    g_object_set_data (G_OBJECT (dialog), "password", entry);
+    gtk_entry_set_visibility (GTK_ENTRY (entry), FALSE);
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+    gtk_table_attach_defaults (GTK_TABLE (table), entry, 0, 2, 0, 1);
+
+#if GTK_CHECK_VERSION (2, 14, 0)
+    gtk_widget_show_all (content_area);
+#else
+    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+#endif
+
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), password);
+    
+    g_signal_connect (G_OBJECT (entry), "activate", G_CALLBACK (enter_callback), (gpointer) entry);
+    
+    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    gtk_widget_destroy (dialog);
+
+    return result==GTK_RESPONSE_OK;
+}
