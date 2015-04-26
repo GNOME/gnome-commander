@@ -330,6 +330,7 @@ inline gboolean GnomeCmdConnectDialog::verify_uri()
     if (priv->user_entry->parent)
         stringify (user, gtk_editable_get_chars (GTK_EDITABLE (priv->user_entry), 0, -1));
 
+    //HERE we should arrange using the implemented password dialog instead of password_entry
     if (priv->password_entry->parent)
         stringify (password, gtk_editable_get_chars (GTK_EDITABLE (priv->password_entry), 0, -1));
 
