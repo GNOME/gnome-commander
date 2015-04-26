@@ -121,7 +121,8 @@ struct GnomeCmdCon
     GnomeKeyringAttributeList *create_keyring_attributes();
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
-    int gnome_cmd_con_set_password(std::string *password);
+    const std::string   *password;
+    const std::string   *gnome_cmd_con_set_password();
 };
 
 struct GnomeCmdConClass

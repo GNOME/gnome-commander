@@ -618,14 +618,14 @@ GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar 
     return attributes;
 }
 
-static void response_callback (GtkDialog *dialog, int response_id, std::string &password)
+void response_callback (GtkDialog *dialog, int response_id, std::string *password)
 {
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
 	{
 	    const gchar *entry = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "password")));
-	    password.assign(entry);
+	    password->assign(entry);
 	}
             break;
 
@@ -639,18 +639,12 @@ static void response_callback (GtkDialog *dialog, int response_id, std::string &
     }
 }
 
-const char* enter_callback( GtkWidget *widget, GtkWidget *entry )
-{
-    const gchar *entry_text;
-    entry_text = gtk_entry_get_text (GTK_ENTRY (entry));
-    return entry_text;
-}
-
 /**
  * A small dialog for setting the password
  */
-int GnomeCmdCon::gnome_cmd_con_set_password(std::string *password)
+const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
 {
+    std::string password;
     GtkWidget *table;
     GtkWidget *entry;
     GtkWidget *window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -659,7 +653,6 @@ int GnomeCmdCon::gnome_cmd_con_set_password(std::string *password)
                                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                      GTK_STOCK_OK, GTK_RESPONSE_OK,
                                                      NULL);
-    //essentially, the following was copied from gnome_cmd_mkdir_dialog_new()
 #if GTK_CHECK_VERSION (2, 14, 0)
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 #endif
@@ -702,13 +695,11 @@ int GnomeCmdCon::gnome_cmd_con_set_password(std::string *password)
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
-    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), password);
-    
-    g_signal_connect (G_OBJECT (entry), "activate", G_CALLBACK (enter_callback), (gpointer) entry);
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), &password);
     
     gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 
     gtk_widget_destroy (dialog);
 
-    return result==GTK_RESPONSE_OK;
+    return &password;
 }
