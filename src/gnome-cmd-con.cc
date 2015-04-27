@@ -647,8 +647,9 @@ const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
     std::string password;
     GtkWidget *table;
     GtkWidget *entry;
+    GtkWidget *label;
     GtkWidget *window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Password..."), GTK_WINDOW(window),
+    GtkWidget *dialog = gtk_dialog_new_with_buttons (_("Password for..."), GTK_WINDOW(window),
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                      GTK_STOCK_OK, GTK_RESPONSE_OK,
@@ -671,7 +672,7 @@ const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
     gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
 #endif
-    table = gtk_table_new (2, 2, FALSE);
+    table = gtk_table_new (3, 2, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (table), 5);
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 12);
@@ -681,11 +682,22 @@ const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
     gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
 #endif
 
+    GnomeVFSURI *urivfs = gnome_vfs_uri_new (uri);
+    const gchar *user_name = gnome_vfs_uri_get_user_name (urivfs);
+    const gchar *server = gnome_vfs_uri_get_host_name (urivfs);
+    gchar *con_string = NULL;
+    con_string = g_strdup_printf("%s@%s:",user_name,server);
+
+    label = gtk_label_new (con_string);
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.0);
+    gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 2, 0, 1);
+    g_free(con_string);
+    
     entry = gtk_entry_new ();
     g_object_set_data (G_OBJECT (dialog), "password", entry);
     gtk_entry_set_visibility (GTK_ENTRY (entry), FALSE);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
-    gtk_table_attach_defaults (GTK_TABLE (table), entry, 0, 2, 0, 1);
+    gtk_table_attach_defaults (GTK_TABLE (table), entry, 0, 2, 1, 2);
 
 #if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
@@ -697,7 +709,7 @@ const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
 
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), &password);
     
-    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_dialog_run (GTK_DIALOG (dialog));
 
     gtk_widget_destroy (dialog);
 
