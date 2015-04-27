@@ -644,7 +644,7 @@ void response_callback (GtkDialog *dialog, int response_id, std::string *passwor
  */
 const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
 {
-    std::string password;
+    std::string *password = NULL;
     GtkWidget *table;
     GtkWidget *entry;
     GtkWidget *label;
@@ -707,11 +707,11 @@ const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
-    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), &password);
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), password);
     
     gtk_dialog_run (GTK_DIALOG (dialog));
 
     gtk_widget_destroy (dialog);
 
-    return &password;
+    return password;
 }
