@@ -618,14 +618,30 @@ GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar 
     return attributes;
 }
 
-void response_callback (GtkDialog *dialog, int response_id, std::string *password)
+/**
+ * This callback function takes a const char* pointer and points it to a
+ * newly created char array of the password the user has typed in the
+ * associated dialog entry. The memory where @c password points to has
+ * to be freed elsewhere.
+ */
+void set_password_callback (GtkDialog *dialog, int response_id, const char **password)
 {
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
 	{
+	    const char *passwd = NULL; /* local pointer pointing to const-defined memory area */
+
 	    const gchar *entry = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "password")));
-	    password->assign(entry);
+	    int length = strlen(entry);
+	    if (( passwd = (const char *) malloc(length * sizeof(char) + 1)) == NULL)
+	    {
+                DEBUG ('m', "Not enough memory for temporary storing the password!\n");
+		break;
+	    }
+	
+	    strcpy((char*) passwd, entry);
+	    *password = passwd;
 	}
             break;
 
@@ -640,11 +656,12 @@ void response_callback (GtkDialog *dialog, int response_id, std::string *passwor
 }
 
 /**
- * A small dialog for setting the password
+ * A small dialog for setting the password. The const char pointer to
+ * the password has to be freed outside of this function!
  */
-const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
+const char* GnomeCmdCon::gnome_cmd_con_set_password()
 {
-    std::string *password = NULL;
+    const char *password = NULL;
     GtkWidget *table;
     GtkWidget *entry;
     GtkWidget *label;
@@ -707,7 +724,7 @@ const std::string* GnomeCmdCon::gnome_cmd_con_set_password()
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
-    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), password);
+    g_signal_connect (dialog, "response", G_CALLBACK (set_password_callback), (gpointer) &password);
     
     gtk_dialog_run (GTK_DIALOG (dialog));
 

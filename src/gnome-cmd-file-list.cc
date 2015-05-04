@@ -2519,6 +2519,7 @@ void GnomeCmdFileList::set_connection (GnomeCmdCon *new_con, GnomeCmdDir *start_
 	if (new_con->auth != GnomeCmdCon::NOT_REQUIRED)
 	{
 	    new_con->password = new_con->gnome_cmd_con_set_password(); //TODO: password should be a private member variable of GnomeCmdCon someday!
+	    g_return_if_fail (new_con->password);
 	}
         create_con_open_progress_dialog (this);
         g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_con_open_progress, this);
