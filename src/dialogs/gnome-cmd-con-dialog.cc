@@ -76,7 +76,6 @@ struct GnomeCmdConnectDialog::Private
     GtkWidget *folder_entry;
     GtkWidget *domain_entry;
     GtkWidget *user_entry;
-    GtkWidget *password_entry;
 
     Private();
     ~Private();
@@ -105,7 +104,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     folder_entry = gtk_entry_new ();
     domain_entry = gtk_entry_new ();
     user_entry = gtk_entry_new ();
-    password_entry = gtk_entry_new ();
 
     gtk_entry_set_activates_default (GTK_ENTRY (alias_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (uri_entry), TRUE);
@@ -114,9 +112,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     gtk_entry_set_activates_default (GTK_ENTRY (port_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (folder_entry), TRUE);
     gtk_entry_set_activates_default (GTK_ENTRY (user_entry), TRUE);
-    gtk_entry_set_activates_default (GTK_ENTRY (password_entry), TRUE);
-
-    gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 
     // We need an extra ref so we can remove them from the table
     g_object_ref (alias_entry);
@@ -127,7 +122,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     g_object_ref (folder_entry);
     g_object_ref (domain_entry);
     g_object_ref (user_entry);
-    g_object_ref (password_entry);
 }
 
 
@@ -141,7 +135,6 @@ inline GnomeCmdConnectDialog::Private::~Private()
     g_object_unref (folder_entry);
     g_object_unref (domain_entry);
     g_object_unref (user_entry);
-    g_object_unref (password_entry);
 
     delete alias;
 }
@@ -171,9 +164,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
 
     if (user_entry->parent)
         gtk_container_remove (GTK_CONTAINER (optional_table), user_entry);
-
-    if (password_entry->parent)
-        gtk_container_remove (GTK_CONTAINER (optional_table), password_entry);
 
     if (domain_entry->parent)
         gtk_container_remove (GTK_CONTAINER (optional_table), domain_entry);
@@ -265,9 +255,6 @@ void GnomeCmdConnectDialog::Private::setup_for_type()
     if (show_user)
         show_entry (table, user_entry, _("_User name:"), i);
 
-    if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (auth_check)) && type!=CON_ANON_FTP)
-        show_entry (table, password_entry, _("_Password:"), i);
-
     if (show_domain)
         show_entry (table, domain_entry, _("_Domain name:"), i);
 }
@@ -319,9 +306,6 @@ inline gboolean GnomeCmdConnectDialog::verify_uri()
 
     if (priv->user_entry->parent)
         stringify (user, gtk_editable_get_chars (GTK_EDITABLE (priv->user_entry), 0, -1));
-
-    if (priv->password_entry->parent)
-        stringify (password, gtk_editable_get_chars (GTK_EDITABLE (priv->password_entry), 0, -1));
 
     int type = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->type_combo));
 
@@ -584,7 +568,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
             const gchar *path = gnome_vfs_uri_get_path (uri);
             const gchar *user_name = gnome_vfs_uri_get_user_name (uri);
-            const gchar *password = gnome_vfs_uri_get_password (uri);
             guint port = gnome_vfs_uri_get_host_port (uri);
 
             if (con->method==CON_SMB)
@@ -618,9 +601,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->folder_entry), path);
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->user_entry), user_name);
             }
-
-            if (password)
-                gtk_entry_set_text (GTK_ENTRY (dialog->priv->password_entry), password);
 
             if (port)
                 gtk_entry_set_text (GTK_ENTRY (dialog->priv->port_entry), stringify(port).c_str());
