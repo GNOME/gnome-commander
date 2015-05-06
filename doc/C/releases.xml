@@ -116,7 +116,7 @@
                             <para>Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in ebuild)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)</para>
+                            <para>Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving folders)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)</para>

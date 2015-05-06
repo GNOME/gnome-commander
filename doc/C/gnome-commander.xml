@@ -5025,7 +5025,7 @@
     <!-- Tabs options -->
     <sect2 id="gnome-commander-prefs-tabs">
       <title>Tabs</title>
-      <!--brief desciption-->
+      <!--brief description-->
       <para>The tabs preferences tab allows you to configure parameters for tabs.</para>
       <itemizedlist>
         <listitem>
