@@ -4979,7 +4979,7 @@
     <!-- Tabs options -->
     <sect2 id="gnome-commander-prefs-tabs">
       <title>Tabs</title>
-      <!--brief desciption-->
+      <!--brief description-->
       <para>The tabs preferences tab allows you to configure parameters for tabs.</para>
       <itemizedlist>
         <listitem>
@@ -5639,7 +5639,7 @@
                   <para>%D</para>
               	</entry>
               	<entry colname="colspec1">
-                  <para>Quoted full path to the directory containg file</para>
+                  <para>Quoted full path to the directory containing file</para>
               	</entry>
               </row>
               <row rowsep="1">
