@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2015-02-28 22:12+0000\n"
-"PO-Revision-Date: 2015-02-28 23:29+0100\n"
+"POT-Creation-Date: 2015-05-07 06:19+0000\n"
+"PO-Revision-Date: 2015-05-07 11:10+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -123,7 +123,7 @@ msgstr "??.??.2014"
 
 #: C/releases.xml:73(para)
 msgid ""
-"Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving "
+"Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving "
 "folders)"
 msgstr ""
 "Opraven problém bgo#367949 (správné výsledky z async_xfer_callback pro "
@@ -12733,7 +12733,7 @@ msgstr ""
 "   export TERM=linux\n"
 "   test -r ~/.dir_colors &amp;&amp; eval \"$(dircolors -b ~/.dir_colors)\""
 
-#. brief desciption
+#. brief description
 #: C/gnome-commander.xml:4983(para)
 msgid "The tabs preferences tab allows you to configure parameters for tabs."
 msgstr "Karta s předvolbami karet vám umožňuje nastavit parametry pro karty."
@@ -13433,7 +13433,7 @@ msgid "%D"
 msgstr "%D"
 
 #: C/gnome-commander.xml:5642(para)
-msgid "Quoted full path to the directory containg file"
+msgid "Quoted full path to the directory containing file"
 msgstr "Úplná cesta ke složce obsahující soubor"
 
 #: C/gnome-commander.xml:5650(para)
