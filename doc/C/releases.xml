@@ -30,6 +30,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem bgo#748869 (crash when searching two times consecutively)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)</para>
                         </listitem>
                     </itemizedlist>

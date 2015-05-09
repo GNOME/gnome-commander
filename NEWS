@@ -4,6 +4,7 @@ gnome-commander 1.4.6
 
 Bug fixes:
  * Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)
+ * Fixed problem bgo#748869 (crash when searching two times consecutively)
 
 ===================================
 gnome-commander 1.4.5
