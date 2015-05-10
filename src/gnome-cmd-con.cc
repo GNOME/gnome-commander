@@ -700,15 +700,10 @@ const char* GnomeCmdCon::gnome_cmd_con_set_password()
 #endif
 
     GnomeVFSURI *urivfs = gnome_vfs_uri_new (uri);
-    const gchar *user_name = gnome_vfs_uri_get_user_name (urivfs);
-    const gchar *server = gnome_vfs_uri_get_host_name (urivfs);
-    gchar *con_string = NULL;
-    con_string = g_strdup_printf("%s@%s:",user_name,server);
 
-    label = gtk_label_new (con_string);
+    label = gtk_label_new (gnome_vfs_uri_to_string (urivfs, GNOME_VFS_URI_HIDE_NONE));
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.0);
     gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 2, 0, 1);
-    g_free(con_string);
     
     entry = gtk_entry_new ();
     g_object_set_data (G_OBJECT (dialog), "password", entry);
