@@ -41,6 +41,7 @@ static void get_file_info_func (GnomeCmdCon *con)
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
     DEBUG('m', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+
     con->base_info = gnome_vfs_file_info_new ();
 
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
@@ -255,7 +256,6 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     g_return_val_if_fail (server != NULL, NULL);
 
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
-    const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
@@ -268,7 +268,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_remote_set_host_name (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri);
-    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : password ? GnomeCmdCon::SAVE_FOR_SESSION : GnomeCmdCon::SAVE_PERMANENTLY;
+    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_FOR_SESSION;
 
     g_free (path);
     gnome_vfs_uri_unref (uri);
