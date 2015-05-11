@@ -117,8 +117,6 @@ struct GnomeCmdCon
     GnomeCmdConPrivate  *priv;
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
-    const char          *password;
-    const char          *gnome_cmd_con_set_password();
 };
 
 struct GnomeCmdConClass
