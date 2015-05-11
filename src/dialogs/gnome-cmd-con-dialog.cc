@@ -67,7 +67,6 @@ struct GnomeCmdConnectDialog::Private
     GtkWidget *optional_table;
 
     GtkWidget *type_combo;
-    GtkWidget *auth_check;
 
     GtkWidget *alias_entry;
     GtkWidget *uri_entry;
@@ -97,7 +96,6 @@ inline GnomeCmdConnectDialog::Private::Private()
     optional_table = NULL;
 
     type_combo = NULL;
-    auth_check = NULL;
 
     alias_entry = gtk_entry_new ();
     uri_entry = gtk_entry_new ();
@@ -152,11 +150,6 @@ inline GnomeCmdConnectDialog::Private::~Private()
 void GnomeCmdConnectDialog::Private::setup_for_type()
 {
     gint type = gtk_combo_box_get_active (GTK_COMBO_BOX (type_combo));
-
-    if (type==CON_ANON_FTP)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auth_check), FALSE);
-
-    gtk_widget_set_sensitive (auth_check, type!=CON_ANON_FTP);
 
     if (alias_entry->parent)
         gtk_container_remove (GTK_CONTAINER (required_table), alias_entry);
@@ -339,8 +332,7 @@ inline gboolean GnomeCmdConnectDialog::verify_uri()
         return FALSE;
     }
 
-    priv->auth = type==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED :
-                                      gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->auth_check)) ? GnomeCmdCon::SAVE_PERMANENTLY : GnomeCmdCon::SAVE_FOR_SESSION;
+    priv->auth = type==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_PERMANENTLY;
 
     if (type==CON_ANON_FTP)
         user = "anonymous";
@@ -487,11 +479,6 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_box_pack_start (GTK_BOX (vbox), align, TRUE, TRUE, 0);
     gtk_widget_show (align);
 
-    dialog->priv->auth_check = check = gtk_check_button_new_with_mnemonic (_("Use _GNOME Keyring Manager for authentication"));
-    gtk_widget_show (check);
-    gtk_container_add (GTK_CONTAINER (align), check);
-    g_signal_connect (check, "toggled", G_CALLBACK (dlg_changed_callback), dialog);
-
     hbox = gtk_hbox_new (FALSE, 6);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 0);
     gtk_widget_show (hbox);
@@ -537,7 +524,6 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), CON_SSH);
 
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), dialog->priv->auth==GnomeCmdCon::SAVE_PERMANENTLY);
     dialog->priv->auth = GnomeCmdCon::SAVE_PERMANENTLY;
 
     gint response = gtk_dialog_run (*dialog);
@@ -575,7 +561,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
     dialog->priv->auth = con->auth;
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check), con->auth==GnomeCmdCon::SAVE_PERMANENTLY);
 
     if (con->alias)
     {
