@@ -31,8 +31,6 @@
 
 struct GnomeCmdConPrivate;
 
-#include <gnome-keyring.h>
-
 #include <string>
 
 #include "gnome-cmd-path.h"
@@ -115,8 +113,6 @@ struct GnomeCmdCon
     gchar               *open_failed_msg;
 
     GnomeCmdConPrivate  *priv;
-
-    GnomeKeyringAttributeList *create_keyring_attributes();
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
 };
@@ -490,13 +486,6 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
 
         default:            return s;
     }
-}
-
-GnomeKeyringAttributeList *gnome_cmd_con_create_keyring_attributes (const gchar *uri_str, const gchar *alias, ConnectionMethodID method);
-
-inline GnomeKeyringAttributeList *GnomeCmdCon::create_keyring_attributes()
-{
-    return gnome_cmd_con_create_keyring_attributes (uri, alias, method);
 }
 
 #endif // __GNOME_CMD_CON_H__
