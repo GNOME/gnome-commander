@@ -215,7 +215,6 @@ static void on_remove_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dial
 
 enum
 {
-    SORTID_AUTH,
     SORTID_METHOD,
     SORTID_NAME
 };
@@ -332,7 +331,6 @@ inline GtkTreeModel *create_and_fill_model (GList *list)
 
     GtkTreeSortable *sortable = GTK_TREE_SORTABLE (store);
 
-    gtk_tree_sortable_set_sort_func (sortable, SORTID_AUTH, sort_by_auth, NULL, NULL);
     gtk_tree_sortable_set_sort_func (sortable, SORTID_METHOD, sort_by_method, NULL, NULL);
     gtk_tree_sortable_set_sort_func (sortable, SORTID_NAME, sort_by_name, NULL, NULL);
 
@@ -358,10 +356,6 @@ inline GtkWidget *create_view_and_model (GList *list)
     GtkTooltips *tips = gtk_tooltips_new ();
 
     // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
-
-    col = gnome_cmd_treeview_create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_LOCK);
-    gtk_tooltips_set_tip (tips, col->button, _("Save password in GNOME keyring"), NULL);
-    gtk_tree_view_column_set_sort_column_id (col, SORTID_AUTH);
 
     col = gnome_cmd_treeview_create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
     gtk_tooltips_set_tip (tips, col->button, _("Network protocol"), NULL);
