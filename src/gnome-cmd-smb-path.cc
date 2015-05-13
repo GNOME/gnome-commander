@@ -73,7 +73,7 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
                 GnomeVFSURI *u2 = gnome_vfs_uri_get_parent (u1);
                 g_return_val_if_fail (u2 != NULL, NULL);
 
-                gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_NONE);
+                gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_PASSWORD);
                 gnome_vfs_uri_unref (u2);
 
                 c = gnome_vfs_get_local_path_from_uri (s);

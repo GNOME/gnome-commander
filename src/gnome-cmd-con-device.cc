@@ -148,7 +148,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
     if (!uri)
         return;
 
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     con->base_info = gnome_vfs_file_info_new ();
     GnomeVFSResult result = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
 

@@ -47,7 +47,7 @@ inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
 
     if (strcmp (gnome_vfs_uri_get_scheme (dir_uri), "smb")==0 && g_path_is_absolute (filename.c_str()))
     {
-        string mime_type = stringify (gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE)));
+        string mime_type = stringify (gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD)));
 
         if (mime_type=="x-directory/normal" && !gnome_vfs_uri_has_parent (dir_uri))
             filename.erase(0,1);
@@ -122,7 +122,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                         if (gnome_vfs_uri_equal (gnome_vfs_uri_get_parent (mkdir_uri), dir_uri) == 1 && !new_dir_focused)
                         {
                             string focus_filename = stringify (gnome_vfs_uri_extract_short_name (mkdir_uri));
-                            string mkdir_uri_str = stringify (gnome_vfs_uri_to_string (mkdir_uri, GNOME_VFS_URI_HIDE_NONE));
+                            string mkdir_uri_str = stringify (gnome_vfs_uri_to_string (mkdir_uri, GNOME_VFS_URI_HIDE_PASSWORD));
 
                             gnome_cmd_dir_file_created (dir, mkdir_uri_str.c_str());
                             main_win->fs(ACTIVE)->file_list()->focus_file(focus_filename.c_str(), TRUE);

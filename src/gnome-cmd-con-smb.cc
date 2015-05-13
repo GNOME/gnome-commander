@@ -97,7 +97,7 @@ static void smb_open (GnomeCmdCon *con)
         return;
     }
 
-    DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+    DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri,  GNOME_VFS_URI_HIDE_PASSWORD));
     GList *uri_list = g_list_append (NULL, uri);
 
     con->state = GnomeCmdCon::STATE_OPENING;

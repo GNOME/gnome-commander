@@ -359,8 +359,8 @@ inline gboolean uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *di
 
     gboolean is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
 
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD);
     gboolean is_equal = gnome_vfs_uris_match (uri_str, dir_uri_str);
 
     g_free (uri_str);
@@ -388,7 +388,7 @@ inline gchar *remove_basename (gchar *in)
 
 inline gboolean file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
-    gchar *tmp = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *tmp = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     gchar *uri_str = remove_basename (tmp);
     gchar *dir_uri_str = GNOME_CMD_FILE (dir)->get_uri_str();
 

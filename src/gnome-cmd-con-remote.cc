@@ -40,7 +40,7 @@ static void get_file_info_func (GnomeCmdCon *con)
 
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
-    DEBUG('m', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+    DEBUG('m', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD));
     con->base_info = gnome_vfs_file_info_new ();
 
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
