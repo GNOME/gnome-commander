@@ -1112,7 +1112,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
 
     if (result == GNOME_VFS_OK)
     {
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
         gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
@@ -1312,7 +1312,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
             if (result == GNOME_VFS_OK)
             {
-                gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+                gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
                 gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
                 g_free (uri_str);
             }

@@ -2210,7 +2210,7 @@ int parse_command(string *cmd, gchar *command)
 
             case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
                 if (uri.empty())
-                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
+                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_PASSWORD);
 		if (cmdcap < cmdlen + uri.length())
 		{
 		    cmd->reserve(cmdlen + uri.length());

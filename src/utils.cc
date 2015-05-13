@@ -759,7 +759,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri, gulong *count)
     if (!dir_uri)
         return -1;
 
-    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
     g_return_val_if_fail (dir_uri_str != NULL, -1);
 

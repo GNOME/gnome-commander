@@ -38,7 +38,7 @@ GnomeCmdPath *GnomeCmdPlainPath::get_parent()
 
     if (!u2)  return NULL;
 
-    gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_NONE);
+    gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_PASSWORD);
     gnome_vfs_uri_unref (u2);
 
     GnomeCmdPath *parent_path = new GnomeCmdPlainPath (gnome_vfs_get_local_path_from_uri (s));

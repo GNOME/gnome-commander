@@ -76,7 +76,7 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
         g_thread_exit (NULL);
 
     if (!uri) return;
-    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     if (!uri_str) return;
 
     GnomeVFSResult result = gnome_vfs_directory_list_load (&list, uri_str, GNOME_VFS_FILE_INFO_DEFAULT);

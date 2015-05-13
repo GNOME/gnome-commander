@@ -242,7 +242,7 @@ GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *p
     GnomeCmdPath *path =  gnome_cmd_dir_get_path (parent)->get_child(info->name);
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
     g_free (uri_str);
@@ -274,7 +274,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
     g_return_val_if_fail (con->base_info != NULL, NULL);
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
     if (dir)
@@ -306,7 +306,7 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
     if (!uri) return NULL;
 
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
     if (dir)
@@ -610,7 +610,7 @@ gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
     GnomeVFSURI *uri = gnome_cmd_dir_get_uri (dir);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;
@@ -634,7 +634,7 @@ gchar *gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
     GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (dir, filename);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;
@@ -651,7 +651,7 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
 
     if (strcmp (gnome_vfs_uri_get_scheme (dir_uri), "smb") == 0)
     {
-        gchar *mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE));
+        gchar *mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD));
         while (strcmp (mime_type, "x-directory/normal") == 0)
         {
             g_free (mime_type);
@@ -659,7 +659,7 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
             GnomeVFSURI *tmp_dir_uri = gnome_vfs_uri_get_parent (dir_uri);
             gnome_vfs_uri_unref (dir_uri);
             dir_uri = gnome_vfs_uri_dup (tmp_dir_uri);
-            mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE));
+            mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_PASSWORD));
         }
 
         g_free (mime_type);

@@ -92,7 +92,7 @@ static GnomeCmdPluginClass *parent_class = NULL;
 static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
 {
     gchar *target_arg, *archive_arg;
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
     gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
     gchar *target_name = (gchar *) g_object_get_data (G_OBJECT (item), "target_name");
     gchar *target_dir = (gchar *) g_object_get_data (G_OBJECT (item), "target_dir");
@@ -143,7 +143,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
         GnomeVFSURI *uri = GNOME_CMD_FILE_INFO (files->data)->uri;
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
         gchar *path = gnome_vfs_get_local_path_from_uri (uri_str);
         gchar *tmp = cmd;
         gchar *arg = g_shell_quote (path);
@@ -155,7 +155,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     }
 
     g_printerr ("add: %s\n", cmd);
-    uri_str = gnome_vfs_uri_to_string (state->active_dir_uri, GNOME_VFS_URI_HIDE_NONE);
+    uri_str = gnome_vfs_uri_to_string (state->active_dir_uri, GNOME_VFS_URI_HIDE_PASSWORD);
     active_dir_path = gnome_vfs_get_local_path_from_uri (uri_str);
     g_shell_parse_argv (cmd, &argc, &argv, NULL);
     g_spawn_async (active_dir_path, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
