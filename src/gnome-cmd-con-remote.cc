@@ -256,6 +256,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     g_return_val_if_fail (server != NULL, NULL);
 
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
+    const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
@@ -268,7 +269,7 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
     gnome_cmd_con_remote_set_host_name (server, host);
 
     con->method = gnome_cmd_con_get_scheme (uri);
-    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : GnomeCmdCon::SAVE_FOR_SESSION;
+    con->auth = con->method==CON_ANON_FTP ? GnomeCmdCon::NOT_REQUIRED : password ? GnomeCmdCon::SAVE_FOR_SESSION : GnomeCmdCon::SAVE_PERMANENTLY;
 
     g_free (path);
     gnome_vfs_uri_unref (uri);
