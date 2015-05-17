@@ -42,8 +42,8 @@ static void get_file_info_func (GnomeCmdCon *con)
 
     DEBUG('m', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD));
 
+    // Get basic file info - opens gnome-keyring dialog via libgnome-keyring for password input if needed
     con->base_info = gnome_vfs_file_info_new ();
-
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
 
     gnome_vfs_uri_unref (uri);
