@@ -33,7 +33,16 @@
                             <para>Fixed problem bgo#748869 (crash when searching two times consecutively)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory with "odd" uid)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#747771 (Passwords store in plain text in ./gnome-commander/connections)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
