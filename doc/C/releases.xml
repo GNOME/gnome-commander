@@ -39,7 +39,7 @@
                             <para>Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem bgo#747771 (Passwords store in plain text in ./gnome-commander/connections)</para>
+                            <para>Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/connections)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
