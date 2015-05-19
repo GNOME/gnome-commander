@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.4.6</para></entry>
-            <entry><para>2015-??-??</para></entry>
+            <entry><para>2015-05-19</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -43,6 +43,12 @@
                         </listitem>
                         <listitem>
                             <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: bs, el, pt</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, el</para>
                         </listitem>
                     </itemizedlist>
                 </para>

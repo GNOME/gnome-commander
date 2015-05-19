@@ -8,7 +8,14 @@ Bug fixes:
  * Fixed problem bgo#748869 (crash when searching two times consecutively)
  * Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/connections)
  * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
-
+ * New or updated translations:
+       el (Maria Mavridou)
+       pt (Pedro Albuquerque)
+       bs (Samir Ribic)
+ * New or updated docs:
+       cs (Marek Černocký)
+       el (Maria Mavridou)
+       
 ===================================
 gnome-commander 1.4.5
 ---------------
