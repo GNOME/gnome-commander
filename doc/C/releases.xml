@@ -23,7 +23,21 @@
     </thead>
     <tbody>
         <row valign="top">
-            <entry><para>1.4.6</para></entry>
+            <entry><para>1.4.7</para></entry>
+            <entry><para>2015-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+	  <entry><para>1.4.6</para></entry>
             <entry><para>2015-05-19</para></entry>
             <entry>
                 <para>Bug fixes:</para>
