@@ -237,6 +237,11 @@ void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::Selection &profile)
     profile.match_case = profile.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
 }
 
+void GnomeCmdSelectionProfileComponent::set_focus()
+{
+    gtk_widget_grab_focus (priv->pattern_combo);
+}
+
 
 void GnomeCmdSelectionProfileComponent::set_name_patterns_history(GList *history)
 {

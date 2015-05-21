@@ -1081,7 +1081,7 @@ void edit_search (GtkMenuItem *menuitem, gpointer not_used)
     if (!main_win->file_search_dlg)
         main_win->file_search_dlg = new GnomeCmdSearchDialog(gnome_cmd_data.search_defaults);
 
-    gtk_widget_show (*main_win->file_search_dlg);
+    main_win->file_search_dlg->show_and_set_focus();
 }
 
 
