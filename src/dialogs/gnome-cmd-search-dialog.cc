@@ -1116,6 +1116,12 @@ static void gnome_cmd_search_dialog_class_init (GnomeCmdSearchDialogClass *klass
 }
 
 
+void GnomeCmdSearchDialog::show_and_set_focus()
+{
+    gtk_widget_show(*this);
+    priv->profile_component->set_focus();
+}
+
 GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
