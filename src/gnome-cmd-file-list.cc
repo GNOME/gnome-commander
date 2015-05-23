@@ -1177,9 +1177,10 @@ inline gboolean mime_exec_file (GnomeCmdFile *f)
     if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         mime_exec_single (f);
+	return TRUE;
     }
+    return FALSE;
 
-    return TRUE;
  }
 
 
