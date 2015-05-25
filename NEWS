@@ -3,7 +3,7 @@ gnome-commander 1.4.7
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed problem bgo#745454 (Segmentation fault after find files, thanks to Mamoru Tasaka)
 
 ===================================
 ===================================

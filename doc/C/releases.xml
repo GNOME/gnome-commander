@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed problem bgo#745454 (Segmentation fault after find files, thanks to Mamoru Tasaka)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
