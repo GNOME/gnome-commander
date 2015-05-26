@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1.4\n"
-"POT-Creation-Date: 2015-05-20 18:50+0000\n"
-"PO-Revision-Date: 2015-05-21 11:50+0200\n"
+"POT-Creation-Date: 2015-05-26 06:30+0000\n"
+"PO-Revision-Date: 2015-05-26 12:03+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -62,8 +62,12 @@ msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
 #: C/releases.xml:33(para)
-msgid "..."
-msgstr "…"
+msgid ""
+"Fixed problem bgo#745454 (Segmentation fault after find files, thanks to "
+"Mamoru Tasaka)"
+msgstr ""
+"Opraven problém bgo#745454 (narušení ochrany paměti po vyhledávání souborů; "
+"díky pro Mamoru Tasaka)"
 
 #: C/releases.xml:40(para)
 msgid "1.4.6"
@@ -75,14 +79,14 @@ msgstr "19.5.2015"
 
 #: C/releases.xml:47(para)
 msgid "Fixed problem bgo#748869 (crash when searching two times consecutively)"
-msgstr "Opraven problém #748869 (zhroucení při hledání dvakrát po sobě)"
+msgstr "Opraven problém bgo#748869 (zhroucení při hledání dvakrát po sobě)"
 
 #: C/releases.xml:50(para)
 msgid ""
 "Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory "
 "with \"odd\" uid)"
 msgstr ""
-"Opraven problém #746003 (zhroucení při otevření dialogového okna s "
+"Opraven problém bgo#746003 (zhroucení při otevření dialogového okna s "
 "vlastnostmi pro složku na FTP s „neobvyklým“ uid)"
 
 #: C/releases.xml:53(para)
@@ -16458,3 +16462,6 @@ msgstr ""
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
+
+#~ msgid "..."
+#~ msgstr "…"
