@@ -535,7 +535,15 @@ static gboolean update_search_status_widgets (SearchData *data)
 	gtk_dialog_set_default_response (*data->dialog, GnomeCmdSearchDialog::GCMD_RESPONSE_FIND);
 
         if (matches)
-            gtk_widget_grab_focus (*data->dialog->priv->result_list);         // set focus to result list
+	{
+	    GnomeCmdFileList *fl = data->dialog->priv->result_list;
+	    gtk_widget_grab_focus (*fl);         // set focus to result list
+	    // select one file, as matches is non-zero, there should be at least one entry
+	    if (!fl->get_focused_file())
+	    {
+		fl->select_row(0);
+	    }
+	}
     }
 
     return FALSE;    // returning FALSE here stops the timeout callbacks
