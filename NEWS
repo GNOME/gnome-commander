@@ -4,7 +4,8 @@ gnome-commander 1.4.7
 
 Bug fixes:
  * Fixed problem bgo#745454 (Segmentation fault after find files, thanks to Mamoru Tasaka)
-
+ * Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru Tasaka)
+ 
 ===================================
 ===================================
 gnome-commander 1.4.6
