@@ -419,6 +419,12 @@ AC_DEFINE_UNQUOTED(HELP_DIR, "${PREFIX}/share/gnome/help/${PACKAGE}", "")
 PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
 AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
 
+dnl =====================
+dnl Check for binary
+dnl =====================
+AC_CHECK_PROG(HAVE_UPDATE_MIME_DATABASE, update-mime-database, "yes", "no")
+AC_SUBST(HAVE_UPDATE_MIME_DATABASE)
+
 
 dnl =====================
 dnl Write some output

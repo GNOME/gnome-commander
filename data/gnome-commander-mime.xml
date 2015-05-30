@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="image/png">
+    <comment>PNG image</comment>
+    <magic priority="90">
+      <match type="string" value="\x89PNG" offset="0">
+        <match value="CgBI" type="string" offset="12"/>
+      </match>
+    </magic>
+    <glob weight="10" pattern="*.png"/>
+  </mime-type>
+</mime-info>
