@@ -31,6 +31,7 @@ extern "C"
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-mime-config.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-user-actions.h"
 #include "owner.h"
@@ -117,6 +118,8 @@ int main (int argc, char *argv[])
         g_warning ("Error while processing locales, call to setlocale failed");
     locale_information = localeconv();
 #endif
+
+    gnome_cmd_mime_config();
 
     option_context = g_option_context_new (PACKAGE);
     g_option_context_add_main_entries (option_context, options, NULL);

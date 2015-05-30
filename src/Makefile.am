@@ -11,7 +11,8 @@ AM_CPPFLAGS = \
 	$(UNIQUE_CFLAGS) \
 	$(PYTHON_CFLAGS) \
 	-DDATADIR=\""$(datadir)"\"\
-	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
+	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\" \
+	-DMIMETOP_DIR=\""$(datadir)/@PACKAGE@/"\"
 
 bin_PROGRAMS = gnome-commander gcmd-block
 
@@ -52,6 +53,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-main-menu.h gnome-cmd-main-menu.cc \
 	gnome-cmd-main-win.h gnome-cmd-main-win.cc \
 	gnome-cmd-menu-button.h gnome-cmd-menu-button.cc \
+	gnome-cmd-mime-config.h gnome-cmd-mime-config.cc \
 	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
 	gnome-cmd-path.h \
 	gnome-cmd-pixmap.h gnome-cmd-pixmap.cc \
