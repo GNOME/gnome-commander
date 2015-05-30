@@ -18,6 +18,12 @@
 
 #include <glib.h>
 
+/** 
+ * This function adds a path stored in MIMETOP_DIR to the environment
+ * variable XDG_DATA_DIRS, which contains paths to search for specific
+ * data files. MIMETOP_DIR itself is a preprocessor definition, see
+ * src/Makefile.am.
+ */
 void gnome_cmd_mime_config(void)
 {
 	const gchar *old_xdg_data_dirs = g_getenv("XDG_DATA_DIRS");
