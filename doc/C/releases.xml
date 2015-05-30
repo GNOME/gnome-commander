@@ -35,6 +35,15 @@
                         <listitem>
                             <para>Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru Tasaka)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, thanks to Mamoru Tasaka)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: co</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>

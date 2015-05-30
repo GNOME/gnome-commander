@@ -5,6 +5,11 @@ gnome-commander 1.4.7
 Bug fixes:
  * Fixed problem bgo#745454 (Segmentation fault after find files, thanks to Mamoru Tasaka)
  * Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru Tasaka)
+ * Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, thanks to Mamoru Tasaka)
+ * New or updated translations:
+       oc (Cédric Valmary)
+* New or updated docs:
+       cs (Marek Černocký)
  
 ===================================
 ===================================
