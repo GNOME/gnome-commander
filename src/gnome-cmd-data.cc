@@ -287,7 +287,7 @@ inline void save_devices (const gchar *fname)
 }
 
 
-inline void save_fav_apps (const gchar *fname)
+void save_fav_apps (const gchar *fname)
 {
     gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "w");
