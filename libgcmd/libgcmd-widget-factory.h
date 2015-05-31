@@ -58,7 +58,7 @@ GtkWidget *create_vsep (GtkWidget *parent);
 
 GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content);
 
-GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, gchar *title);
+GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, const gchar *title);
 
 GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GCallback func, gpointer data);
 

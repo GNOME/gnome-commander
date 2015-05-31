@@ -191,7 +191,7 @@ GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content)
 }
 
 
-GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, gchar *title)
+GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, const gchar *title)
 {
     GtkWidget *frame = create_vbox (parent, FALSE, 0);
     GtkWidget *label = create_bold_label (parent, title);
