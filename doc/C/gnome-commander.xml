@@ -4055,12 +4055,6 @@
 	</orderedlist></para>
 	<para>Depending on the choice, different login details have to be entered in the 
 	Remote Server dialog.</para>
-	<warning>
-          <para>If you are <emphasis>not</emphasis> using GNOME Keyring Manager for authentication, the 
-	  password for a secure connection is stored in plain text in 
-	  <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>. Therefore, it is recommended to use 
-	  GNOME Keyring Manager for secure connections.</para>
-	</warning>
 	<para>See an example for a public FTP server in the figure below.</para>
 	<!-- ==== Figure ==== -->
 	<figure id="remote-connections-new">
