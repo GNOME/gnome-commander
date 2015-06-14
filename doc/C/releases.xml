@@ -50,6 +50,9 @@
                             <para>Button 'Edit files' accepts more than one selected file at the same time</para>
                         </listitem>
                         <listitem>
+                            <para>Device buttons and device list entries act as 'home buttons' for that device when it is already active</para>
+                        </listitem>
+                        <listitem>
                             <para>Code cleanup</para>
                         </listitem>
                         <listitem>
