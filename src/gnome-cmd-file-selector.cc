@@ -325,7 +325,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
     if (mask & GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
     else
-        fs->set_connection(con);
+	fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
 }
 
 
@@ -354,7 +354,7 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
     if (event->button==2 || event->state&GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
 
-    fs->set_connection(con);
+    fs->set_connection(con, gnome_cmd_con_get_default_dir (con));
 }
 
 
