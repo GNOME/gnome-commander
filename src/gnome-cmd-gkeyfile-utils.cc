@@ -23,11 +23,9 @@
 #include "config.h"
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <errno.h>
 #include <glib/gstdio.h>
 #include <string.h>
-#include <errno.h>
-#include <fcntl.h>
 
 #include "gnome-cmd-gkeyfile-utils.h"
 
@@ -90,7 +88,6 @@ gboolean gcmd_key_file_save_to_file (const gchar *filename,
 {
     gchar *contents;
     FILE *fd;
-    extern int errno;
     gint length;
     ssize_t written;
     gboolean success = TRUE;
@@ -104,7 +101,7 @@ gboolean gcmd_key_file_save_to_file (const gchar *filename,
     fd = fopen(filename, "w");
     if (fd == NULL)
     {
-	g_critical("Cannot open file %s: %s\n", filename, strerror(errno));
+	g_critical("Cannot open file %s!\n", filename);
 	g_free(contents);
 	return FALSE;
     }
@@ -113,7 +110,7 @@ gboolean gcmd_key_file_save_to_file (const gchar *filename,
     if (written < 0)
     {
 	success = FALSE;
-	g_critical("Cannot write to file %s: %s\n", filename, strerror(errno));
+	g_critical("Cannot write to file %s!\n", filename);
 	fclose(fd);
     }
     else if (written != length)
@@ -126,7 +123,7 @@ gboolean gcmd_key_file_save_to_file (const gchar *filename,
     }
     else if (fclose(fd) == -1)
     {
-	g_warning("Close failed for file %s: %s", filename, strerror(errno));
+	g_warning("Close failed for file %s!", filename);
     }
     g_free(contents);
     return success;
