@@ -19,7 +19,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+
 #include <config.h>
+#include <glib.h>
 #include <libgnomevfs/gnome-vfs-volume.h>
 #include <libgnomevfs/gnome-vfs-volume-monitor.h>
 
@@ -36,6 +38,7 @@
 #include "utils.h"
 #include "owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
+#include "gnome-cmd-gkeyfile-utils.h"
 
 using namespace std;
 
@@ -286,8 +289,14 @@ inline void save_devices (const gchar *fname)
     g_free (path);
 }
 
-
-void save_fav_apps (const gchar *fname)
+/**
+ * Save favourite applications in the given file with the file format
+ * prior to gcmd-v.1.6.
+ *
+ * @note This function should be deleted a while after
+ * the release of gcmd-v1.6, see @link load_fav_apps @endlink.
+ */
+static void save_fav_apps_old (const gchar *fname)
 {
     gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     FILE *fd = fopen (path, "w");
@@ -325,6 +334,75 @@ void save_fav_apps (const gchar *fname)
     else
         g_warning ("Failed to open the file %s for writing", path);
 
+    g_free (path);
+}
+
+/**
+ * Save favourite applications in the given file by means of GKeyFile.
+ */
+static void save_fav_apps (const gchar *fname)
+{
+    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    GKeyFile *key_file;
+    key_file = g_key_file_new ();
+
+    /* Check if there are groups with the same name -> This is not
+       allowed for GKeyFile but can happen when calling save_fav_apps
+       the first time after an upgrade from gcmd-v1.4 to gcmd-v1.6. This
+       loop should be deleted someday!*/
+    for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
+    {
+	GnomeCmdApp *app1 = (GnomeCmdApp *) i->data;
+	if (app1)
+	{
+	    gchar *group_name_to_test = g_strdup(gnome_cmd_app_get_name(app1));
+
+	    for (GList *j = i->next; j; j = j->next)
+	    {
+		GnomeCmdApp *app2 = (GnomeCmdApp *) j->data;
+		if (app2)
+		{
+		    gchar *group_name = g_strdup(gnome_cmd_app_get_name(app2));
+		    int name_occurence = 2;
+
+		    /* Are the names equal? -> Change the name */
+		    if (!strcmp(group_name_to_test, group_name))
+		    {
+			gchar *new_name = g_strdup_printf("%s_%d",gnome_cmd_app_get_name(app2),name_occurence);
+			name_occurence++;
+			gnome_cmd_app_set_name (app2, new_name);
+			g_free (new_name);
+		    }
+		g_free (group_name);
+		}
+	    }
+	    g_free (group_name_to_test);
+	}
+    }
+
+    /* Now save the list */
+    for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
+    {
+	GnomeCmdApp *app = (GnomeCmdApp *) i->data;
+	if (app)
+	{
+	    gchar *group_name = g_strdup(gnome_cmd_app_get_name(app));
+
+	    g_key_file_set_string(key_file,group_name,"cmd",gnome_cmd_app_get_command(app));
+	    g_key_file_set_string(key_file,group_name,"icon",gnome_cmd_app_get_icon_path(app));
+	    g_key_file_set_string(key_file,group_name,"pattern",gnome_cmd_app_get_pattern_string(app));
+	    g_key_file_set_integer(key_file,group_name,"target",gnome_cmd_app_get_target(app));
+	    g_key_file_set_integer(key_file,group_name,"handles_uris",gnome_cmd_app_get_handles_uris(app));
+	    g_key_file_set_integer(key_file,group_name,"handles_multiple",gnome_cmd_app_get_handles_multiple(app));
+	    g_key_file_set_integer(key_file,group_name,"requires_terminal",gnome_cmd_app_get_requires_terminal(app));
+
+	    g_free (group_name);
+	}
+    }
+    
+    gcmd_key_file_save_to_file (path, key_file);
+
+    g_key_file_free(key_file);
     g_free (path);
 }
 
@@ -715,17 +793,114 @@ inline void load_devices (const gchar *fname)
 }
 
 
-inline void load_fav_apps (const gchar *fname)
+/**
+ * This function reads the given file and sets up favourite applications
+ * by means of GKeyFile and by filling
+ * gnome_cmd_data.options.fav_apps.
+ */
+static void load_fav_apps (const gchar *fname)
+{
+   GKeyFile *keyfile;
+   gsize length;
+   gchar **groups;
+   gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+   gnome_cmd_data.options.fav_apps = NULL;
+
+   keyfile = gcmd_key_file_load_from_file(path, 0);
+   g_return_if_fail(keyfile != NULL);
+   
+   groups = g_key_file_get_groups (keyfile, &length);
+
+   for (guint i = 0; i < length; i++)
+   {
+       gchar *name      = NULL;
+       gchar *cmd       = NULL;
+       gchar *icon_path = NULL;
+       gchar *pattern   = NULL;
+       guint target;
+       guint handles_uris;
+       guint handles_multiple;
+       guint requires_terminal;
+       GError *error = NULL;
+       
+       name              = g_strdup(groups[i]);
+       cmd               = g_key_file_get_string (keyfile, groups[i], "cmd", &error);
+       icon_path         = g_key_file_get_string (keyfile, groups[i], "icon", &error);
+       pattern           = g_key_file_get_string (keyfile, groups[i], "pattern", &error);
+       target            = g_key_file_get_integer (keyfile, groups[i], "target", &error);
+       handles_uris      = g_key_file_get_boolean (keyfile, groups[i], "handles_uris", &error);
+       handles_multiple  = g_key_file_get_boolean (keyfile, groups[i], "handles_multiple", &error);
+       requires_terminal = g_key_file_get_boolean (keyfile, groups[i], "requires_terminal", &error);
+
+       if (error != NULL)
+       {
+	   fprintf (stderr, "Unable to read file: %s\n", error->message);
+	   g_error_free (error);
+       }
+       else 
+       {
+	   gnome_cmd_data.options.fav_apps = g_list_append (
+	       gnome_cmd_data.options.fav_apps,
+	       gnome_cmd_app_new_with_values (
+		   name, cmd, icon_path, (AppTarget) target, pattern, handles_uris, handles_multiple, requires_terminal));
+       }
+       
+       g_free (name);
+       g_free (cmd);
+       g_free (icon_path);
+       g_free (pattern);
+   }
+   g_free(path);
+   g_strfreev(groups);
+   g_key_file_free(keyfile);
+}
+
+/**
+ * This function reads the given file and sets up favourite applications
+ * by filling gnome_cmd_data.options.fav_apps.
+ * 
+ * @note Beginning with gcmd-v1.6 GKeyFile is used for storing and
+ * loading configuration files. For compatibility reasons, this
+ * functions tries to load favourite applications from the given file
+ * with the old format prior to gcmd-v1.6. Therefore it checks if the
+ * very first letter in fname is alphanumeric. If yes, the given file
+ * has a pre-v1.6 format and the file is loaded as in gcmd-v1.4. Also, a
+ * backup configuration is stored in @c fav-apps.backup in the old file
+ * format. If the result is no, then nothing happens and FALSE is
+ * returned.
+ * 
+ * @note In later versions of gcmd (later than v1.6), this function
+ * might be removed, because when saving the configuration in @link
+ * save_fav_apps() @endlink, GKeyFile is used and the old file
+ * format isn't used anymore.
+ * 
+ * @returns FALSE if the very first letter of the given file is not
+ * alphanumeric and TRUE if it is alphanumeric.
+ */
+static gboolean load_fav_apps_old (const gchar *fname)
 {
     gnome_cmd_data.options.fav_apps = NULL;
     gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
 
     ifstream f(path);
     string line;
+    int i = 0;
 
     while (getline(f,line))
     {
+	/* Is the file using the old storage format? If yes, stop here and 
+           return FALSE*/
         gchar **a = g_strsplit_set (line.c_str()," \t",-1);
+	if (i == 0)
+	{
+	    if (!isalnum(a[0][0]))
+	    {
+		g_strfreev (a);
+		g_free (path);
+		return FALSE;
+	    }
+	    i++;
+	}
 
         if (g_strv_length (a)==8)
         {
@@ -757,6 +932,8 @@ inline void load_fav_apps (const gchar *fname)
     }
 
     g_free (path);
+    save_fav_apps_old ("fav-apps.backup");
+    return TRUE;
 }
 
 
@@ -1516,8 +1693,9 @@ void GnomeCmdData::load()
 
 void GnomeCmdData::load_more()
 {
-    load_fav_apps ("fav-apps");
-
+    if (load_fav_apps_old ("fav-apps") == FALSE)
+	load_fav_apps("fav-apps");
+    
     if (!XML_cfg_has_bookmarks)
     {
         load_local_bookmarks();
