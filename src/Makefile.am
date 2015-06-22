@@ -46,6 +46,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-file-popmenu.h gnome-cmd-file-popmenu.cc \
 	gnome-cmd-file-selector.h gnome-cmd-file-selector.cc \
 	gnome-cmd-file.h gnome-cmd-file.cc \
+	gnome-cmd-gkeyfile-utils.h gnome-cmd-gkeyfile-utils.cc \
 	gnome-cmd-hintbox.h gnome-cmd-hintbox.cc \
 	gnome-cmd-includes.h \
 	gnome-cmd-list-popmenu.h gnome-cmd-list-popmenu.cc \
