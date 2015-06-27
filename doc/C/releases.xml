@@ -32,6 +32,9 @@
                         <listitem>
                            <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
                        </listitem>
+                        <listitem>
+                           <para>Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

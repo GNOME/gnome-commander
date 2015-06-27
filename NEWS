@@ -4,6 +4,7 @@ gnome-commander 1.6.0
 
 Bug fixes:
  * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
+ * Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)
 New features:
  * Always reopen the tab which was previously closed in the options dialog
  * Samba support is now optionally available via configure option
