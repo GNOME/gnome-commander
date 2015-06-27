@@ -440,11 +440,16 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_size_allocate (GtkWidget *widge
 void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer unused)
 {
     GtkTreeIter i;
+    gchar *old_focused_file_name, *new_focused_file_name;
 
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
         case GTK_RESPONSE_APPLY:
+
+            old_focused_file_name = main_win->fs(ACTIVE)->file_list()->get_focused_file()->get_name();
+            new_focused_file_name = 0;
+
             for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->files, &i))
             {
                 GnomeCmdFile *f;
@@ -455,6 +460,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                                     COL_NEW_NAME, &new_name,
                                     -1);
 
+                gchar *old_name = g_strdup (f->info->name);
                 GnomeVFSResult result = GNOME_VFS_OK;
 
                 if (strcmp (f->info->name, new_name) != 0)
@@ -465,7 +471,16 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                                     COL_RENAME_FAILED, result!=GNOME_VFS_OK,
                                     -1);
 
+                if (!new_focused_file_name && (result == GNOME_VFS_OK) && !strcmp(old_focused_file_name, old_name))
+                    new_focused_file_name = g_strdup(new_name);
+
                 g_free (new_name);
+                g_free (old_name);
+            }
+            if (new_focused_file_name)
+            {
+                main_win->fs(ACTIVE)->file_list()->focus_file(new_focused_file_name, TRUE);
+                g_free (new_focused_file_name);
             }
             dialog->update_new_filenames();
             dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());
