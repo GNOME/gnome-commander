@@ -440,7 +440,8 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_size_allocate (GtkWidget *widge
 void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDialog *dialog, int response_id, gpointer unused)
 {
     GtkTreeIter i;
-    gchar *old_focused_file_name, *new_focused_file_name;
+    gchar *old_focused_file_name = NULL;
+    gchar *new_focused_file_name = NULL;
 
     switch (response_id)
     {
@@ -448,7 +449,6 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
         case GTK_RESPONSE_APPLY:
 
             old_focused_file_name = main_win->fs(ACTIVE)->file_list()->get_focused_file()->get_name();
-            new_focused_file_name = 0;
 
             for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->files, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->files, &i))
             {
@@ -481,6 +481,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
             {
                 main_win->fs(ACTIVE)->file_list()->focus_file(new_focused_file_name, TRUE);
                 g_free (new_focused_file_name);
+		new_focused_file_name = NULL;
             }
             dialog->update_new_filenames();
             dialog->defaults.templates.add(dialog->priv->profile_component->get_template_entry());
