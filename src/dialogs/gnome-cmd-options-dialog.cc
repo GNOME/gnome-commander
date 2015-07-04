@@ -32,7 +32,7 @@
 using namespace std;
 
 
-inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
+inline GtkWidget *create_font_picker (GtkWidget *parent, const gchar *name)
 {
     GtkWidget *w = gtk_font_button_new ();
     g_object_ref (w);
