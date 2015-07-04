@@ -311,6 +311,7 @@ struct GnomeCmdData
             // FIXME:   free fav_apps
             fav_apps = apps;
         }
+        gboolean is_name_double(const gchar *name);
     };
 
     struct Selection

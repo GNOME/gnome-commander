@@ -180,6 +180,30 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
     return *this;
 }
 
+/**
+ * This function takes a char array and compares it against each app
+ * name in the list of gnome_cmd_data.options.fav_apps.
+ *
+ * @returns A TRUE if the given name is already existing in the list of
+ * apps, else FALSE.
+ */
+gboolean GnomeCmdData::Options::is_name_double(const gchar *name_to_test)
+{
+    GList *app_pointer;
+    gboolean foundstate = FALSE;
+    for (app_pointer = gnome_cmd_data.options.fav_apps; app_pointer; app_pointer = app_pointer->next)
+    {
+	GnomeCmdApp *app = (GnomeCmdApp *) app_pointer->data;
+	if (app)
+	{
+	    gchar *app_name = g_strdup(gnome_cmd_app_get_name(app));
+	    if (!strcmp(app_name, name_to_test))
+		foundstate = TRUE;
+	    g_free (app_name);
+	}
+    }
+    return foundstate;
+}
 
 void GnomeCmdData::Selection::reset()
 {
