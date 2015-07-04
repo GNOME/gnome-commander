@@ -1313,6 +1313,13 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                            &handles_uris, &handles_multiple, &requires_terminal);
     if (!name || strlen (name) < 1) return;
 
+    if (gnome_cmd_data.options.is_name_double(name))
+    {
+	gnome_cmd_show_message (GTK_WINDOW (dialog),
+				_("An app with this label exists already.\nPlease choose another label."));
+	return;
+    }
+
     GnomeCmdApp *app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
                                                       (AppTarget) target,
                                                       pattern_string,
