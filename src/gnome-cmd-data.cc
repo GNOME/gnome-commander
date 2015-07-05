@@ -416,9 +416,9 @@ static void save_fav_apps (const gchar *fname)
 	    g_key_file_set_string(key_file,group_name,"icon",gnome_cmd_app_get_icon_path(app));
 	    g_key_file_set_string(key_file,group_name,"pattern",gnome_cmd_app_get_pattern_string(app));
 	    g_key_file_set_integer(key_file,group_name,"target",gnome_cmd_app_get_target(app));
-	    g_key_file_set_integer(key_file,group_name,"handles_uris",gnome_cmd_app_get_handles_uris(app));
-	    g_key_file_set_integer(key_file,group_name,"handles_multiple",gnome_cmd_app_get_handles_multiple(app));
-	    g_key_file_set_integer(key_file,group_name,"requires_terminal",gnome_cmd_app_get_requires_terminal(app));
+	    g_key_file_set_boolean(key_file,group_name,"handles_uris",gnome_cmd_app_get_handles_uris(app));
+	    g_key_file_set_boolean(key_file,group_name,"handles_multiple",gnome_cmd_app_get_handles_multiple(app));
+	    g_key_file_set_boolean(key_file,group_name,"requires_terminal",gnome_cmd_app_get_requires_terminal(app));
 
 	    g_free (group_name);
 	}
