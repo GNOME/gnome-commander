@@ -423,7 +423,9 @@ static void save_fav_apps_old (const gchar *fname)
  */
 static void save_fav_apps (const gchar *fname)
 {
-    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    gchar *path = config_dir ?
+        g_build_filename (config_dir, fname, NULL) :
+        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
 
@@ -433,52 +435,54 @@ static void save_fav_apps (const gchar *fname)
        loop should be deleted someday!*/
     for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
     {
-	GnomeCmdApp *app1 = (GnomeCmdApp *) i->data;
-	if (app1)
-	{
-	    gchar *group_name_to_test = g_strdup(gnome_cmd_app_get_name(app1));
+        GnomeCmdApp *app1 = (GnomeCmdApp *) i->data;
+        if (app1)
+        {
+            gchar *group_name_to_test = g_strdup(gnome_cmd_app_get_name(app1));
 
-	    for (GList *j = i->next; j; j = j->next)
-	    {
-		GnomeCmdApp *app2 = (GnomeCmdApp *) j->data;
-		if (app2)
-		{
-		    gchar *group_name = g_strdup(gnome_cmd_app_get_name(app2));
-		    int name_occurence = 2;
+            for (GList *j = i->next; j; j = j->next)
+            {
+                GnomeCmdApp *app2 = (GnomeCmdApp *) j->data;
+                if (app2)
+                {
+                    gchar *group_name = g_strdup(gnome_cmd_app_get_name(app2));
+                    int name_occurence = 2;
 
-		    /* Are the names equal? -> Change the name */
-		    if (!strcmp(group_name_to_test, group_name))
-		    {
-			gchar *new_name = g_strdup_printf("%s_%d",gnome_cmd_app_get_name(app2),name_occurence);
-			name_occurence++;
-			gnome_cmd_app_set_name (app2, new_name);
-			g_free (new_name);
-		    }
-		g_free (group_name);
-		}
-	    }
-	    g_free (group_name_to_test);
-	}
+                    /* Are the names equal? -> Change the name */
+                    if (!strcmp(group_name_to_test, group_name))
+                    {
+                        gchar *new_name = g_strdup_printf("%s_%d",
+                                            gnome_cmd_app_get_name(app2),
+                                            name_occurence);
+                        name_occurence++;
+                        gnome_cmd_app_set_name (app2, new_name);
+                        g_free (new_name);
+                    }
+                    g_free (group_name);
+                }
+            }
+            g_free (group_name_to_test);
+        }
     }
 
     /* Now save the list */
     for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
     {
-	GnomeCmdApp *app = (GnomeCmdApp *) i->data;
-	if (app)
-	{
-	    gchar *group_name = g_strdup(gnome_cmd_app_get_name(app));
+        GnomeCmdApp *app = (GnomeCmdApp *) i->data;
+        if (app)
+        {
+            gchar *group_name = g_strdup(gnome_cmd_app_get_name(app));
 
-	    g_key_file_set_string(key_file,group_name,"cmd",gnome_cmd_app_get_command(app));
-	    g_key_file_set_string(key_file,group_name,"icon",gnome_cmd_app_get_icon_path(app));
-	    g_key_file_set_string(key_file,group_name,"pattern",gnome_cmd_app_get_pattern_string(app));
-	    g_key_file_set_integer(key_file,group_name,"target",gnome_cmd_app_get_target(app));
-	    g_key_file_set_integer(key_file,group_name,"handles_uris",gnome_cmd_app_get_handles_uris(app));
-	    g_key_file_set_integer(key_file,group_name,"handles_multiple",gnome_cmd_app_get_handles_multiple(app));
-	    g_key_file_set_integer(key_file,group_name,"requires_terminal",gnome_cmd_app_get_requires_terminal(app));
+            g_key_file_set_string(key_file,group_name,"cmd",gnome_cmd_app_get_command(app));
+            g_key_file_set_string(key_file,group_name,"icon",gnome_cmd_app_get_icon_path(app));
+            g_key_file_set_string(key_file,group_name,"pattern",gnome_cmd_app_get_pattern_string(app));
+            g_key_file_set_integer(key_file,group_name,"target",gnome_cmd_app_get_target(app));
+            g_key_file_set_integer(key_file,group_name,"handles_uris",gnome_cmd_app_get_handles_uris(app));
+            g_key_file_set_integer(key_file,group_name,"handles_multiple",gnome_cmd_app_get_handles_multiple(app));
+            g_key_file_set_integer(key_file,group_name,"requires_terminal",gnome_cmd_app_get_requires_terminal(app));
 
-	    g_free (group_name);
-	}
+           g_free (group_name);
+        }
     }
     
     gcmd_key_file_save_to_file (path, key_file);
@@ -950,64 +954,67 @@ static gboolean load_devices_old (const gchar *fname)
 
 /**
  * This function reads the given file and sets up favourite applications
- * by means of GKeyFile and by filling
- * gnome_cmd_data.options.fav_apps.
+ * by means of GKeyFile and by filling gnome_cmd_data.options.fav_apps.
  */
 static void load_fav_apps (const gchar *fname)
 {
-   GKeyFile *keyfile;
-   gsize length;
-   gchar **groups;
-   gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-   gnome_cmd_data.options.fav_apps = NULL;
+    GKeyFile *keyfile;
+    gsize length;
+    gchar **groups;
+    gchar *path = config_dir ?
+        g_build_filename (config_dir, fname, NULL) :
+        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
 
-   keyfile = gcmd_key_file_load_from_file(path, 0);
-   g_return_if_fail(keyfile != NULL);
-   
-   groups = g_key_file_get_groups (keyfile, &length);
+    gnome_cmd_data.options.fav_apps = NULL;
 
-   for (guint i = 0; i < length; i++)
-   {
-       gchar *name      = NULL;
-       gchar *cmd       = NULL;
-       gchar *icon_path = NULL;
-       gchar *pattern   = NULL;
-       guint target;
-       guint handles_uris;
-       guint handles_multiple;
-       guint requires_terminal;
-       GError *error = NULL;
-       
-       name              = g_strdup(groups[i]);
-       cmd               = g_key_file_get_string (keyfile, groups[i], "cmd", &error);
-       icon_path         = g_key_file_get_string (keyfile, groups[i], "icon", &error);
-       pattern           = g_key_file_get_string (keyfile, groups[i], "pattern", &error);
-       target            = g_key_file_get_integer (keyfile, groups[i], "target", &error);
-       handles_uris      = g_key_file_get_boolean (keyfile, groups[i], "handles_uris", &error);
-       handles_multiple  = g_key_file_get_boolean (keyfile, groups[i], "handles_multiple", &error);
-       requires_terminal = g_key_file_get_boolean (keyfile, groups[i], "requires_terminal", &error);
+    keyfile = gcmd_key_file_load_from_file(path, 0);
+    g_return_if_fail(keyfile != NULL);
 
-       if (error != NULL)
-       {
-	   fprintf (stderr, "Unable to read file: %s\n", error->message);
-	   g_error_free (error);
-       }
-       else 
-       {
-	   gnome_cmd_data.options.fav_apps = g_list_append (
-	       gnome_cmd_data.options.fav_apps,
-	       gnome_cmd_app_new_with_values (
-		   name, cmd, icon_path, (AppTarget) target, pattern, handles_uris, handles_multiple, requires_terminal));
-       }
-       
-       g_free (name);
-       g_free (cmd);
-       g_free (icon_path);
-       g_free (pattern);
-   }
-   g_free(path);
-   g_strfreev(groups);
-   g_key_file_free(keyfile);
+    groups = g_key_file_get_groups (keyfile, &length);
+
+    for (guint i = 0; i < length; i++)
+    {
+        gchar *name      = NULL;
+        gchar *cmd       = NULL;
+        gchar *icon_path = NULL;
+        gchar *pattern   = NULL;
+        guint target;
+        guint handles_uris;
+        guint handles_multiple;
+        guint requires_terminal;
+        GError *error = NULL;
+
+        name              = g_strdup(groups[i]);
+        cmd               = g_key_file_get_string (keyfile, groups[i], "cmd", &error);
+        icon_path         = g_key_file_get_string (keyfile, groups[i], "icon", &error);
+        pattern           = g_key_file_get_string (keyfile, groups[i], "pattern", &error);
+        target            = g_key_file_get_integer (keyfile, groups[i], "target", &error);
+        handles_uris      = g_key_file_get_boolean (keyfile, groups[i], "handles_uris", &error);
+        handles_multiple  = g_key_file_get_boolean (keyfile, groups[i], "handles_multiple", &error);
+        requires_terminal = g_key_file_get_boolean (keyfile, groups[i], "requires_terminal", &error);
+
+        if (error != NULL)
+        {
+             fprintf (stderr, "Unable to read file: %s\n", error->message);
+             g_error_free (error);
+        }
+        else
+        {
+             gnome_cmd_data.options.fav_apps = g_list_append (
+                 gnome_cmd_data.options.fav_apps,
+                 gnome_cmd_app_new_with_values (
+                 name, cmd, icon_path, (AppTarget) target, pattern,
+                 handles_uris, handles_multiple, requires_terminal));
+        }
+
+        g_free (name);
+        g_free (cmd);
+        g_free (icon_path);
+        g_free (pattern);
+    }
+    g_free(path);
+    g_strfreev(groups);
+    g_key_file_free(keyfile);
 }
 
 /**
@@ -1043,19 +1050,19 @@ static gboolean load_fav_apps_old (const gchar *fname)
 
     while (getline(f,line))
     {
-	/* Is the file using the old storage format? If yes, stop here and 
-           return FALSE*/
+        /* Is the file using the new storage format? If yes, stop here
+         * and return FALSE, i.e. old file format is not used */
         gchar **a = g_strsplit_set (line.c_str()," \t",-1);
-	if (i == 0)
-	{
-	    if (!isalnum(a[0][0]))
-	    {
-		g_strfreev (a);
-		g_free (path);
-		return FALSE;
-	    }
-	    i++;
-	}
+        if (i == 0)
+        {
+            if (!isalnum(a[0][0]))
+            {
+                g_strfreev (a);
+                g_free (path);
+                return FALSE;
+            }
+            i++;
+        }
 
         if (g_strv_length (a)==8)
         {
