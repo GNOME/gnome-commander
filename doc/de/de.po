@@ -2976,7 +2976,7 @@ msgid ""
 "display area, and scrollbars. Menubar contains File, View, Settings, and "
 "Help menus."
 msgstr ""
-"Zeigt das Hauptfenster von &app;. Enthält Titelleiste, Menüleiste, "
+"Zeigt das Hauptfenster von GNOME Commander. Enthält Titelleiste, Menüleiste, "
 "Werkzeugleiste, Ansichtsbereich und Rollbalken. Die Menüleiste enthält die "
 "Menüs »Datei«, »Ansicht«, »Einstellungen« und »Hilfe«."
 
@@ -3205,7 +3205,7 @@ msgid ""
 "Typically this is achieved by clicking on the files using the mouse, as "
 "explained in <xref linkend=\"gcmd-TBL-10\"/>."
 msgstr ""
-"Sie können Dateien und Ordner in &app; auf verschiedene Arten auswählen. "
+"Sie können Dateien und Ordner in GNOME Commander auf verschiedene Arten auswählen. "
 "Typischerweise geschieht dies durch Anklicken der Dateien mit der Maus, so "
 "wie in <xref linkend=\"gcmd-TBL-10\"/> beschrieben."
 
@@ -4099,7 +4099,7 @@ msgstr "Zusätzliche Optionen für die Dateisuche sind: <placeholder-1/>"
 msgid ""
 "Use Stop button to stop a search before GNOME Commander completes the search."
 msgstr ""
-"Verwenden Sie den Stopp-Knopf, um eine Suche abzubrechen, bevor &app; die "
+"Verwenden Sie den Stopp-Knopf, um eine Suche abzubrechen, bevor GNOME Commander die "
 "Suche beendet hat. "
 
 #: C/gnome-commander.xml:1025(para)
@@ -4383,11 +4383,11 @@ msgid ""
 "can impair the operation of your computer, and also reduces clutter in "
 "locations such as your Home Folder. GNOME Commander does not display:"
 msgstr ""
-"Standardmäßig zeigt &app; bestimmte Systemdateien und Sicherungsdateien in "
+"Standardmäßig zeigt GNOME Commander bestimmte Systemdateien und Sicherungsdateien in "
 "den Ordnern nicht an. Dies vermeidet zufälliges und ungewolltes Ändern oder "
 "Löschen dieser Dateien, wodurch die Funktion Ihres Rechners beeinträchtigt "
 "werden könnte, und vermeidet die »Überfüllung« von Ordnern, wie "
-"beispielsweise Ihres persönlichen Ordners. &app; zeigt nicht an:"
+"beispielsweise Ihres persönlichen Ordners. GNOME Commander zeigt nicht an:"
 
 #: C/gnome-commander.xml:1255(para)
 msgid "Hidden files, whose file name begins with a period (.),"
@@ -11069,9 +11069,9 @@ msgid ""
 msgstr ""
 "Wählen Sie diese Option, um entweder das Bildfenster an die Größe des Bildes "
 "oder die Bildgröße an die Größe des Fensters anzupassen, so dass das "
-"Bildfenster ausgefüllt ist. Falls das Bild klein ist, ändert &app; die "
+"Bildfenster ausgefüllt ist. Falls das Bild klein ist, ändert GNOME Commander die "
 "Fenstergröße so, dass das Bild genau das Fenster ausfüllt. Falls das Bild "
-"groß ist, ändert &app; die Bildgröße, so dass es im Fenster vollständig zu "
+"groß ist, ändert GNOME Commander die Bildgröße, so dass es im Fenster vollständig zu "
 "sehen ist."
 
 #: C/gnome-commander.xml:3924(para)
@@ -11429,7 +11429,7 @@ msgstr "Allgemeine Optionen"
 
 #: C/gnome-commander.xml:4118(phrase)
 msgid "Shows GNOME Commander general preferences dialog."
-msgstr "Zeigt den Dialog der allgemeinen Einstellungen für &app;."
+msgstr "Zeigt den Dialog der allgemeinen Einstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:4126(title)
 msgid "General option tab"
@@ -11779,7 +11779,7 @@ msgstr "Formateinstellungen"
 
 #: C/gnome-commander.xml:4389(phrase)
 msgid "Shows GNOME Commander format preferences dialog."
-msgstr "Zeigt den Dialog der Formateinstellungen für &app;."
+msgstr "Zeigt den Dialog der Formateinstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:4396(title)
 msgid "Format option tab"
@@ -11924,7 +11924,7 @@ msgstr "Layouteinstellungen"
 
 #: C/gnome-commander.xml:4531(phrase)
 msgid "Shows GNOME Commander layout preferences dialog."
-msgstr "Zeigt den Dialog der Layouteinstellungen für &app;."
+msgstr "Zeigt den Dialog der Layouteinstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:4538(title) C/gnome-commander.xml:4832(title)
 msgid "Layout option tab"
@@ -12361,7 +12361,7 @@ msgstr "Einstellungen für Bestätigungen"
 
 #: C/gnome-commander.xml:4824(phrase)
 msgid "Shows GNOME Commander confirmation preferences dialog."
-msgstr "Zeigt den Dialog der Bestätigungseinstellungen für &app;."
+msgstr "Zeigt den Dialog der Bestätigungseinstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:4853(guilabel)
 msgid "Delete"
@@ -12504,7 +12504,7 @@ msgstr "Filteroptionen"
 
 #: C/gnome-commander.xml:4982(phrase)
 msgid "Shows GNOME Commander filters preferences dialog."
-msgstr "Zeigt den Dialog der Filtereinstellungen für &app;."
+msgstr "Zeigt den Dialog der Filtereinstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:4990(title)
 msgid "Filters option tab"
@@ -12712,7 +12712,7 @@ msgstr "Optionen für Programme"
 
 #: C/gnome-commander.xml:5164(phrase)
 msgid "Shows GNOME Commander programs preferences dialog."
-msgstr "Zeigt den Dialog der Programmeinstellungen für &app;."
+msgstr "Zeigt den Dialog der Programmeinstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:5173(title) C/gnome-commander.xml:5323(title)
 msgid "Programs option tab"
@@ -12913,7 +12913,7 @@ msgstr "Anwendungsoptionen"
 
 #: C/gnome-commander.xml:5315(phrase)
 msgid "Shows GNOME Commander new application dialog."
-msgstr "Zeigt den Dialog <guilabel>Neue Anwendung</guilabel> von &app;."
+msgstr "Zeigt den Dialog <guilabel>Neue Anwendung</guilabel> von GNOME Commander."
 
 #: C/gnome-commander.xml:5344(guilabel)
 msgid "Label:"
@@ -13096,7 +13096,7 @@ msgstr "Laufwerkseinstellungen"
 
 #: C/gnome-commander.xml:5521(phrase)
 msgid "Shows GNOME Commander devices preferences dialog."
-msgstr "Zeigt den Dialog der Laufwerkseinstellungen für &app;."
+msgstr "Zeigt den Dialog der Laufwerkseinstellungen für GNOME Commander."
 
 #: C/gnome-commander.xml:5534(title)
 msgid "Keyboard Mappings"
@@ -13711,7 +13711,7 @@ msgid ""
 "files."
 msgstr ""
 "Benutzerdefinierte Aktionen ermöglichen die Zuordnung einer Taste oder "
-"Tastenkombination zu einer Funktion von &app;. Beispielsweise erzeugt "
+"Tastenkombination zu einer Funktion von GNOME Commander. Beispielsweise erzeugt "
 "<command>plugins.execute_python|sha1.sum</command> die SHA1-Prüfsummen der "
 "ausgewählten Dateien."
 
@@ -13742,7 +13742,7 @@ msgid ""
 "start-up and then ignored by GNOME Commander."
 msgstr ""
 "Einträge, die ungültige Tasten oder Benutzeraktionen enthalten, werden "
-"während des Starts in der Konsole ausgegeben und dann von &app; ignoriert."
+"während des Starts in der Konsole ausgegeben und dann von GNOME Commander ignoriert."
 
 #: C/gnome-commander.xml:6172(para)
 msgid "&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10."
@@ -13803,7 +13803,7 @@ msgid ""
 "Execute user defined command. GNOME Commander replaces found placeholders "
 "with:"
 msgstr ""
-"Ausführen eines benutzerdefinierten Befehls. &app; ersetzt gefundene "
+"Ausführen eines benutzerdefinierten Befehls. GNOME Commander ersetzt gefundene "
 "Platzhalter durch:"
 
 #: C/gnome-commander.xml:6213(para)
@@ -13882,14 +13882,14 @@ msgstr "command.root_mode"
 
 #: C/gnome-commander.xml:6258(para)
 msgid "Start GNOME Commander in root mode at the same location"
-msgstr "Start von &app; im Administrator-Modus am gleichen Ort"
+msgstr "Start von GNOME Commander im Administrator-Modus am gleichen Ort"
 
 #: C/gnome-commander.xml:6259(para)
 msgid ""
 "Be careful while running GNOME Commander with root privileges as you may "
 "damage your system."
 msgstr ""
-"Seien Sie vorsichtig bei der Ausführung von &app; mit Administratorrechten, "
+"Seien Sie vorsichtig bei der Ausführung von GNOME Commander mit Administratorrechten, "
 "weil Sie dadurch Ihr System beschädigen könnten."
 
 #: C/gnome-commander.xml:6264(para)
@@ -14120,7 +14120,7 @@ msgstr "help.web"
 
 #: C/gnome-commander.xml:6453(para)
 msgid "Visit GNOME Commander home page"
-msgstr "&app;-Homepage besuchen"
+msgstr "GNOME Commander-Homepage besuchen"
 
 #: C/gnome-commander.xml:6457(para)
 msgid "mark.compare_directories"
@@ -14444,13 +14444,13 @@ msgid ""
 "Python plugin is a normal python application containing predefined entry "
 "function."
 msgstr ""
-"Seit Version 1.2.4 ist &app; in der Lage, Python-Plugins auszuführen. Ein "
+"Seit Version 1.2.4 ist GNOME Commander in der Lage, Python-Plugins auszuführen. Ein "
 "Python-Plugin ist eine normale Python-Anwendung, die vordefinierte "
 "Funktionen enthält."
 
 #: C/gnome-commander.xml:6712(para)
 msgid "GNOME Commander comes with built-in plugins:"
-msgstr "&app; verfügt über eingebaute Plugins:"
+msgstr "GNOME Commander verfügt über eingebaute Plugins:"
 
 #: C/gnome-commander.xml:6715(para)
 msgid ""
@@ -14486,7 +14486,7 @@ msgstr ""
 msgid ""
 "Plugins will be added as new entries to the GNOME Commander context menus."
 msgstr ""
-"Plugins werden als neue Einträge zu den &app;-Kontextmenüs hinzugefügt."
+"Plugins werden als neue Einträge zu den GNOME Commander-Kontextmenüs hinzugefügt."
 
 #: C/gnome-commander.xml:6727(para)
 msgid ""
@@ -14555,7 +14555,7 @@ msgstr "main_wnd_xid"
 
 #: C/gnome-commander.xml:6766(para)
 msgid "XID of GNOME Commander main toplevel window"
-msgstr "XID des Hauptfensters von &app;"
+msgstr "XID des Hauptfensters von GNOME Commander"
 
 #: C/gnome-commander.xml:6769(para)
 msgid "active_cwd"
@@ -14684,7 +14684,7 @@ msgid ""
 "Some very simple tips and tricks on using and getting the most out of GNOME "
 "Commander."
 msgstr ""
-"Einige sehr einfache Tipps und Tricks, um das Meiste aus &app; herauszuholen."
+"Einige sehr einfache Tipps und Tricks, um das Meiste aus GNOME Commander herauszuholen."
 
 #: C/gnome-commander.xml:6850(guilabel)
 msgid "Handling archives"
@@ -14696,7 +14696,7 @@ msgid ""
 "However the program can be configured so that working with archives becomes "
 "quite practical anyway. This is how you do it:"
 msgstr ""
-"&app; mangelt es noch an einer Möglichkeit, komprimierte Archive zu "
+"GNOME Commander mangelt es noch an einer Möglichkeit, komprimierte Archive zu "
 "durchsuchen. Allerdings kann die Anwendung so eingestellt werden, dass Sie "
 "trotzdem mit Archiven arbeiten können. Das können Sie folgendermaßen "
 "einrichten:"
@@ -14743,7 +14743,7 @@ msgid ""
 "this guide:"
 msgstr ""
 "Falls Sie häufig Wechselmedien wie CDs, Disketten oder Kameras verwenden, "
-"können Sie &app; anweisen, diese automatisch einzubinden, indem Sie "
+"können Sie GNOME Commander anweisen, diese automatisch einzubinden, indem Sie "
 "folgendes tun:"
 
 #: C/gnome-commander.xml:6882(para)
@@ -14804,12 +14804,12 @@ msgid ""
 "Unscalable Gorilla by Jimmac is one example and can be used in GNOME "
 "Commander by following these steps:"
 msgstr ""
-"Dem vorgegebenen Symbolthema, das mit &app; geliefert wird, fehlt es an "
+"Dem vorgegebenen Symbolthema, das mit GNOME Commander geliefert wird, fehlt es an "
 "einer Vielzahl von Symbolen für Dateitypen, außerdem sieht es nur in einer "
 "Größe von 16 Pixeln gut aus. Es gibt allerdings noch andere Themen, die "
 "weitaus umfangreicher sind und bei größer gewählten Symbolen besser "
 "aussehen. »Unscalable Gorilla« von Jimmac ist ein Beispiel dafür. Sie können "
-"es in &app; verwenden, indem Sie folgende Schritte ausführen:"
+"es in GNOME Commander verwenden, indem Sie folgende Schritte ausführen:"
 
 #: C/gnome-commander.xml:6912(para)
 msgid "Download the theme."
@@ -14849,12 +14849,14 @@ msgstr "Installation von GNOME-Commander"
 
 #: C/gnome-commander.xml:6938(title)
 msgid "Getting GNOME Commander"
-msgstr "&app; bekommen"
+msgstr "GNOME Commander erhalten"
 
 #: C/gnome-commander.xml:6939(para)
 msgid ""
 "The very latest information about can be found on GNOME Commander website."
-msgstr "Die neuesten Informationen darüber finden Sie auf der &app;-Website."
+msgstr ""
+"Die neuesten Informationen darüber finden Sie auf der Website von "
+"GNOME Commander."
 
 #: C/gnome-commander.xml:6942(para)
 msgid ""
@@ -14892,7 +14894,7 @@ msgid ""
 "the even numbered branch eventually gets the thoroughly tested new functions "
 "backported."
 msgstr ""
-"&app; wird in einem stabilen und einem Testing-Zweig entwickelt, wobei die "
+"GNOME Commander wird in einem stabilen und einem Testing-Zweig entwickelt, wobei die "
 "Testveröffentlichungen den Zweck erfüllen, neue Ideen zu testen. War der "
 "Test erfolgreich, werden diese in den stabilen Zweig zurückportiert. Die "
 "Versionsnummern (major, minor und micro) folgen den üblichen Standards der "
@@ -14937,7 +14939,7 @@ msgstr "git checkout gcmd-1-3"
 
 #: C/gnome-commander.xml:6989(title)
 msgid "GNOME Commander snapshots builds"
-msgstr "&app;-Schnappschüsse"
+msgstr "Schnappschüsse von GNOME Commander"
 
 #: C/gnome-commander.xml:6997(para)
 msgid ""
@@ -14976,7 +14978,7 @@ msgid ""
 "This section gives an overview of the configuration files used by GNOME "
 "Commander:"
 msgstr ""
-"Dieser Abschnitt gibt einen Überblick über die von &app; verwendeten "
+"Dieser Abschnitt gibt einen Überblick über die von GNOME Commander verwendeten "
 "Konfigurationsdateien:"
 
 #: C/gnome-commander.xml:7015(guilabel)
