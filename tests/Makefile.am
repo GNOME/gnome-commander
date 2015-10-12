@@ -14,12 +14,10 @@ INTVLIBS = \
 	$(GNOMEUI_LIBS) \
 	$(top_builddir)/src/intviewer/libgviewer.a
 
-TESTS =
+TESTS = \
+	func_test
 
-TESTS += func_test
-check_PROGRAMS += func_test
 func_test_SOURCES = run_tests.cpp fileops.cpp
-
 func_test_CXXFLAGS = $(INTVLIBS)
 func_test_LDFLAGS = $(INTVLIBS) -lgtest
 
