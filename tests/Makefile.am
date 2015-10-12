@@ -15,10 +15,11 @@ INTVLIBS = \
 	$(top_builddir)/src/intviewer/libgviewer.a
 
 TESTS = \
-	func_test
+	intviewer_fileops
+check_PROGRAMS = $(TESTS)
 
-func_test_SOURCES = run_tests.cpp fileops.cpp
-func_test_CXXFLAGS = $(INTVLIBS)
-func_test_LDFLAGS = $(INTVLIBS) -lgtest
+intviewer_fileops_SOURCES = iv_fileops.cc gcmd_tests_main.cc 
+intviewer_fileops_CXXFLAGS = $(INTVLIBS)
+intviewer_fileops_LDFLAGS = $(INTVLIBS) -lgtest
 
 -include $(top_srcdir)/git.mk
