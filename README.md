@@ -25,8 +25,11 @@ great if you could help translating using [damned lies](https://l10n.gnome.org/)
 ### Cool hacks ###
 
 Send an email with the patch to the [developers mailing list](https://lists.nongnu.org/mailman/listinfo/gcmd-devel).
-Please use the -u flag when generating the patch as it makes the patch
-more readable. Write a good explanation of what the patch does.
+Please create the patch either
+* with the diff-command: ``diff -Naur $OLD_FILE $NEW_FILE > patch.txt``
+* or with git-diff: ``git diff $COMMIT_ID1 $COMMIT_ID2 > patch.txt``
+
+Also, write a good explanation of what the patch does.
 
 ### Plugins ###
 
@@ -36,12 +39,12 @@ If you have created a new plugin let us know about it on the mailing list.
 ## Building ##
 
 ```bash
-~ » tar -xf gnome-commander-$VERSION.tar.xz    # unpack the sources
-~ » cd gnome-commander-$VERSION                # change to the toplevel directory
-~ » ./configure                                # run the `configure' script
-~ » make                                       # build GNOME Commander
+~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
+~ » cd gnome-commander-$VERSION             # change to the toplevel directory
+~ » ./configure                             # run the `configure' script
+~ » make                                    # build GNOME Commander
   [ Become root if necessary ]
-~ » make install                               # install GNOME Commander
+~ » make install                            # install GNOME Commander
 ```
 
 For installing GNOME Commander via git, do the following:
@@ -63,10 +66,10 @@ for detailed information regarding the installation of GNOME Commander.
 This project has two mailing lists, one for users and one for developers.
 Subscription to those mailing lists can be done at:
 
-* https://lists.nongnu.org/mailman/listinfo/gcmd-users -> for users
-* https://lists.nongnu.org/mailman/listinfo/gcmd-devel -> for developers
+* https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
+* https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
 
-You can also find email addresses of the people who have created gnome-commander
+You can also find email addresses of the people who have created GNOME Commander
 in the [AUTHORS](AUTHORS) file.
 
 
