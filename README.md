@@ -72,7 +72,7 @@ in the [AUTHORS](AUTHORS) file.
 
 ## Problem reporting ##
 
-Bugs should be reported to the [GNOME bugzilla](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander).
+Bugs should be reported on [GNOME Bugzilla](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander).
 You will need to create an account for yourself.
 
 In the bug report please include:
@@ -91,4 +91,4 @@ For instance:
   it will be more useful if the stack trace is produced running the test
   program with the --sync command line option.
 
-See the project page [on Bugzilla](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander) for the list of known bugs.
+See the Bugzilla [project page](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander) for the list of known bugs.
