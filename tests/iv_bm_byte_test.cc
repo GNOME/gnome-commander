@@ -47,32 +47,28 @@ TEST_F(BmByteTest, match_test) {
 0xB4,0xFe,0x01,0x01,0x04,0xd8,0xd9,0xda,0xdb,0xdc,0xdd,0xde,0xdf,0xe0,0xe1,
 0xe2,0xe3,0xe4,0xe5,0xe6,0xe7,0xe8,0xe9,0xea,0xeb,0xec,0xed,0xee,0xef,0xf0,
 0xf1,0xf2,0xf3,0xf4,0xf5,0xf6,0xf7,0xf8,0x01,0x04,0xb4,0xfe,0x01,0x01,0x04,0x00}; // match on this line, too
-    int i;
-    int j;
-    int m;
-    int n;
 
     GViewerBMByteData *data;
 
     data = create_bm_byte_data(pattern,sizeof(pattern));
 
     printf("Good suffices table:\n");
-    for (i=0;i<data->pattern_len;i++)
+    for (int i = 0; i<data->pattern_len; i++)
         printf("%d ", data->good[i]);
     printf("\n\n");
 
     printf("Bad characters table:\nChar(ASCII)\tValue\n");
-    for (i=0;i<256;i++) {
+    for (int i = 0; i < 256; i++) {
         if (data->bad[i] != data->pattern_len) {
-            printf("%c(%d)\t\t%d\n",i,i, data->bad[i]);
+            printf("%c(%d)\t\t%d\n",i , i, data->bad[i]);
         }
     }
     printf("(All other characters have value of %d)\n\n", data->pattern_len);
 
-    // Do the actual search
-    m = data->pattern_len;
-    n = sizeof(text);
-    j = 0;
+    int m = data->pattern_len;
+    int n = sizeof(text);
+    int i; 
+    int j = 0;
     while (j <= n - m) {
         for (i = m - 1; i >= 0 && pattern[i] == text[i + j]; --i);
         if (i < 0) {
