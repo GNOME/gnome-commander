@@ -18,7 +18,7 @@ TESTS = \
 	intviewer_fileops
 check_PROGRAMS = $(TESTS)
 
-intviewer_fileops_SOURCES = iv_fileops.cc gcmd_tests_main.cc 
+intviewer_fileops_SOURCES = iv_fileops_test.cc gcmd_tests_main.cc 
 intviewer_fileops_CXXFLAGS = $(INTVLIBS)
 intviewer_fileops_LDFLAGS = $(INTVLIBS) -lgtest
 
