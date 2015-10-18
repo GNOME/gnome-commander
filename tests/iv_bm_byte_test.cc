@@ -65,6 +65,8 @@ TEST_F(BmByteTest, match_test) {
     }
     printf("(All other characters have value of %d)\n\n", data->pattern_len);
 
+    // Do the actual search: The test search should find a match at 
+    // position 142 and 248, nowhere else in the sample text.
     int m = data->pattern_len;
     int n = sizeof(text);
     int i; 
@@ -73,6 +75,7 @@ TEST_F(BmByteTest, match_test) {
         for (i = m - 1; i >= 0 && pattern[i] == text[i + j]; --i);
         if (i < 0) {
             printf(" Found match at offset = %d\n", j);
+            ASSERT_TRUE(j == 142 || j == 248);
             j += data->good[0];
         }
         else
