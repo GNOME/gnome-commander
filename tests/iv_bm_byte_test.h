@@ -1,5 +1,5 @@
 /*
- * @file iv_fileops_test.cc
+ * @file iv_bm_byte_test.h
  * @brief Part of GNOME Commander - A GNOME based file manager
  * 
  * @copyright (C) 2006 Assaf Gordon\n
@@ -21,33 +21,17 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "gtest/gtest.h"
-#include <iv_fileops_test.h>
+#ifndef IV_BM_BYTE_TEST_H
+#define IV_BM_BYTE_TEST_H
 
-FileOpsTest::FileOpsTest() {}
-FileOpsTest::~FileOpsTest() {}
+#include <intviewer/bm_byte.h>
+#include <intviewer/gvtypes.h>
 
-TEST_F(FileOpsTest, gv_file_get_byte_does_read) {
-    const char *file_path = "../INSTALL";
-    ViewerFileOps *fops;
-    offset_type end;
-    offset_type current;
-    int value;
+// The fixture for testing class BmByteTest.
+class BmByteTest : public ::testing::Test {
+ protected:
+  BmByteTest();
+  virtual ~BmByteTest();
+};
 
-    fops = gv_fileops_new();
-
-    ASSERT_NE (-1, gv_file_open(fops, file_path));
-
-    end = gv_file_get_max_offset(fops);
-
-    for (current = 0; current < end; current++)
-    {
-        value = gv_file_get_byte(fops, current);
-        ASSERT_TRUE (0 <= value && value <= 255 );
-    }
-
-    ASSERT_NE(-1, gv_file_open(fops, file_path));
-
-    gv_file_free(fops);
-    g_free(fops);
-}
+#endif
