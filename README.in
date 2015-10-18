@@ -59,7 +59,6 @@ Cool hacks:
   * Please use the -u flag when generating the patch as it makes the patch
     more readable.
   * Write a good explanation of what the patch does.
-  * See also README.commits if you plan to use git for contributing.
 
 Plugins:
   * If you have created a new plugin let us know about it on the mailing list.
