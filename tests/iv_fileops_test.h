@@ -26,7 +26,7 @@
 #include <intviewer/gvtypes.h>
 #include <intviewer/fileops.h>
 
-// The fixture for testing class Foo.
+// The fixture for testing class FileOpsTest.
 class FileOpsTest : public ::testing::Test {
  protected:
   FileOpsTest();

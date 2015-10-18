@@ -2,7 +2,7 @@
   GNOME Commander - A GNOME based file manager
   Copyright (C) 2001-2006 Marcus Bjurman
   Copyright (C) 2007-2012 Piotr Eljasiak
-    Copyright (C) 2013-2015 Uwe Scholz
+  Copyright (C) 2013-2015 Uwe Scholz
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,17 +17,15 @@
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
-
-   Author: Assaf Gordon  <agordon88@gmail.com>
 */
 
-#include <glib.h>
-#include <stdio.h>
-#include <libgviewer/gvtypes.h>
-#include <libgviewer/bm_byte.h>
+#include "gtest/gtest.h"
+#include <iv_bm_byte_test.h>
 
-int main()
-{
+BmByteTest::BmByteTest() {}
+BmByteTest::~BmByteTest() {}
+
+TEST_F(BmByteTest, match_test) {
     const guint8 pattern[] = { 0x01, 0x04, 0xB4, 0xFE, 0x01, 0x01, 0x04};
     const guint8 text[] = {
 0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f,
@@ -84,6 +82,4 @@ int main()
     }
 
     free_bm_byte_data(data);
-
-    return 0;
 }
