@@ -5,22 +5,32 @@
 GNOME Commander is a fast and powerful twin-panel file manager for the GNOME desktop, 
 released under [GPL v2](https://www.gnu.org/licenses/gpl-2.0.html).
 
-* Bugs: http://bugzilla.gnome.org/browse.cgi?product=gnome-commander
-* Download: http://ftp.gnome.org/pub/GNOME/sources/gnome-commander
-* Git: https://git.gnome.org/browse/gnome-commander/
 * Website: https://gcmd.github.io/
+* Bugs: http://bugzilla.gnome.org/browse.cgi?product=gnome-commander
+
+Mailing lists:
+
+* https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
+* https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
+
+You can find email addresses of the people who have created GNOME Commander
+in the [AUTHORS](AUTHORS) file.
+
 
 ## Contributing ##
 
+
 ### Ideas ###
 
-If have some good ideas for stuff that you want to see in this program you
-should check the [TODO](TODO) file first before filing a feature request. 
+If you have some good ideas for stuff you want to see in this program you
+should check the [TODO](TODO) file first before filing a feature request.
+
 
 ### Translations ###
 
 This program is hosted on the GNOME git server. Therefore, it would be 
 great if you could help translating using [damned lies](https://l10n.gnome.org/).
+
 
 ### Cool hacks ###
 
@@ -31,46 +41,10 @@ Please create the patch either
 
 Also, write a good explanation of what the patch does.
 
+
 ### Plugins ###
 
-If you have created a new plugin let us know about it on the mailing list.
-
-
-## Building ##
-
-```bash
-~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
-~ » cd gnome-commander-$VERSION             # change to the toplevel directory
-~ » ./configure                             # run the `configure' script
-~ » make                                    # build GNOME Commander
-  [ Become root if necessary ]
-~ » make install                            # install GNOME Commander
-```
-
-For installing GNOME Commander via git, do the following:
-
-```bash
-~ » git clone git://git.gnome.org/gnome-commander
-~ » cd gnome-commander
-~ » ./autogen.sh
-~ » make
-  [ Become root if necessary ]
-~ » make install
-```
-
-After executing ``./configure`` or ``./autogen.sh`` see the file ``INSTALL``
-for detailed information regarding the installation of GNOME Commander.
-
-## Communication ##
-
-This project has two mailing lists, one for users and one for developers.
-Subscription to those mailing lists can be done at:
-
-* https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
-* https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
-
-You can also find email addresses of the people who have created GNOME Commander
-in the [AUTHORS](AUTHORS) file.
+If you have created a new plugin let us know about it on the [developer mailing list](https://lists.nongnu.org/mailman/listinfo/gcmd-devel).
 
 
 ## Problem reporting ##
@@ -95,3 +69,31 @@ For instance:
   program with the --sync command line option.
 
 See the Bugzilla [project page](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander) for the list of known bugs.
+
+
+## Building ##
+
+Get the latest source from the [GNOME ftp server](ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/).
+
+```bash
+~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
+~ » cd gnome-commander-$VERSION             # change to the toplevel directory
+~ » ./configure                             # run the `configure' script
+~ » make                                    # build GNOME Commander
+  [ Become root if necessary ]
+~ » make install                            # install GNOME Commander
+```
+
+For installing GNOME Commander using the sources in the git repository, do the following:
+
+```bash
+~ » git clone git://git.gnome.org/gnome-commander
+~ » cd gnome-commander
+~ » ./autogen.sh
+~ » make
+  [ Become root if necessary ]
+~ » make install
+```
+
+After executing ``./configure`` or ``./autogen.sh`` see the file ``INSTALL``
+for detailed information regarding the installation of GNOME Commander.
