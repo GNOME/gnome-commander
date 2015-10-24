@@ -47,7 +47,7 @@ Also, write a good explanation of what the patch does.
 If you have created a new plugin let us know about it on the [developer mailing list](https://lists.nongnu.org/mailman/listinfo/gcmd-devel).
 
 
-## Problem reporting ##
+### Problem reporting ###
 
 Bugs should be reported on [GNOME Bugzilla](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander).
 You will need to create an account for yourself.
