@@ -6,6 +6,8 @@
 
 GNOME Commander is a fast and powerful twin-panel file manager for the Linux desktop.
 
+![ScreenShot](https://gcmd.github.io/ss/MainWin-Classic.png)
+
 * Website: https://gcmd.github.io/
 * Bugs: http://bugzilla.gnome.org/browse.cgi?product=gnome-commander
 
