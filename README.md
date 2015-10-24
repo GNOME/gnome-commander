@@ -73,7 +73,7 @@ See the Bugzilla [project page](http://bugzilla.gnome.org/browse.cgi?product=gno
 
 ## Building ##
 
-Get the latest source from the [GNOME ftp server](ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/).
+Get the latest source from the [GNOME ftp server](https://download.gnome.org/sources/gnome-commander/).
 
 ```bash
 ~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
