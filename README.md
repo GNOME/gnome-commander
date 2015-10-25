@@ -11,7 +11,7 @@ GNOME Commander is a fast and powerful twin-panel file manager for the Linux des
 * Website: https://gcmd.github.io/
 * Bugs: http://bugzilla.gnome.org/browse.cgi?product=gnome-commander
 
-Mailing lists:
+### Mailing lists ###
 
 * https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
 * https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
@@ -19,6 +19,12 @@ Mailing lists:
 You can find email addresses of the people who have created GNOME Commander
 in the [AUTHORS](AUTHORS) file.
 
+### Distribution packages ###
+
+GNOME Commander is available in many Linux distributions like Debian, 
+Fedora, Gentoo or Arch. Have a look 
+[here](https://gcmd.github.io/download.html#external) for a broader list
+with direkt links to the binary packages.
 
 ## Contributing ##
 
