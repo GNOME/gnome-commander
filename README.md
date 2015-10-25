@@ -21,10 +21,9 @@ in the [AUTHORS](AUTHORS) file.
 
 ### Distribution packages ###
 
-GNOME Commander is available in many Linux distributions like Debian, 
-Fedora, Gentoo or Arch. Have a look 
-[here](https://gcmd.github.io/download.html#external) for a broader list
-with direkt links to the binary packages.
+GNOME Commander is 
+[available in many distributions](https://gcmd.github.io/download.html#external)
+like Debian, Fedora, Gentoo, Arch, etc.
 
 ## Contributing ##
 
