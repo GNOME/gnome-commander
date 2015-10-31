@@ -30,22 +30,30 @@
 #include "gtest/gtest.h"
 #include <iv_bm_byte_test.h>
 
-
-
 TEST_F(BmByteTest, match_test) {
 
     GViewerBMByteData *data;
+    int expected_good_data[7] {5, 5, 5, 5, 5, 7, 1};
+    int expected_bad_data[4] {1, 5, 4, 3,};
 
     data = create_bm_byte_data(pattern,sizeof(pattern));
 
     printf("Good suffices table:\n");
-    for (int i = 0; i<data->pattern_len; i++)
+    for (int i = 0; i < data->pattern_len; i++)
+    {
+        ASSERT_EQ(data->good[i], expected_good_data[i]) << "Vectors data->good and expected_good_data differ at index " << i;
+
         printf("%d ", data->good[i]);
+    }
     printf("\n\n");
 
     printf("Bad characters table:\nChar(ASCII)\tValue\n");
-    for (int i = 0; i < 256; i++) {
-        if (data->bad[i] != data->pattern_len) {
+    for (int i = 0, j = 0; i < 256; i++)
+    {
+        if (data->bad[i] != data->pattern_len)
+        {
+            ASSERT_EQ(data->bad[i], expected_bad_data[j]) << "Vectors data->bad and expected_bad_data differ at index " << j;
+            j++;
             printf("%c(%d)\t\t%d\n",i , i, data->bad[i]);
         }
     }
