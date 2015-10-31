@@ -1,7 +1,7 @@
-/*
+/**
  * @file iv_fileops_test.cc
  * @brief Part of GNOME Commander - A GNOME based file manager
- * 
+ *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2015 Uwe Scholz\n

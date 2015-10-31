@@ -1,7 +1,13 @@
-/*
+/**
  * @file iv_bm_byte_test.cc
  * @brief Part of GNOME Commander - A GNOME based file manager
- * 
+ *
+ * @details In this file all tests are placed which belong to the
+ * Boyer–Moore string search algorithm, used in the internal viewer of
+ * GCMD. Currently, only a single test is implemented in which a short
+ * pattern of integers is searched inside a bigger array of integers
+ * (see definitions in @link BmByteTest @endlink).
+ *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2015 Uwe Scholz\n

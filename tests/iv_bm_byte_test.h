@@ -1,7 +1,7 @@
-/*
+/**
  * @file iv_bm_byte_test.h
  * @brief Part of GNOME Commander - A GNOME based file manager
- * 
+ *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2015 Uwe Scholz\n
@@ -27,7 +27,9 @@
 #include <intviewer/bm_byte.h>
 #include <intviewer/gvtypes.h>
 
-// The fixture for testing class BmByteTest.
+/**
+ *  The fixture for testing class BmByteTest.
+ */
 class BmByteTest : public ::testing::Test {
   public:
     BmByteTest() : pattern{0x01, 0x04, 0xB4, 0xFE, 0x01, 0x01, 0x04},
