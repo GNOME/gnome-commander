@@ -2360,7 +2360,7 @@ msgid "S_ynchronize Directories"
 msgstr "_Sinkronizatu direktorioak"
 
 #: ../src/gnome-cmd-main-menu.cc:505
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Abiarazi _GNOME Commander 'root' gisa"
 
 #: ../src/gnome-cmd-main-menu.cc:512

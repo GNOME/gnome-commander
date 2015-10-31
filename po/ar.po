@@ -1327,7 +1327,7 @@ msgstr "_زامن المجلدات"
 
 #: ../src/gnome-cmd-main-menu.cc:480
 #, fuzzy
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "فارس جنوم"
 
 #: ../src/gnome-cmd-main-menu.cc:487

@@ -2419,7 +2419,7 @@ msgid "S_ynchronize Directories"
 msgstr "_Usklajevanje map"
 
 #: ../src/gnome-cmd-main-menu.cc:504
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Skrbniški zagon programa GNOME Commander"
 
 #: ../src/gnome-cmd-main-menu.cc:511

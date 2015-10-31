@@ -1728,7 +1728,7 @@ msgid "S_ynchronize Directories"
 msgstr "Mappen s_ynchroniseren"
 
 #: ../src/gnome-cmd-main-menu.cc:473
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "GNOME Commander starten als Root"
 
 #: ../src/gnome-cmd-main-menu.cc:480
