@@ -26,6 +26,8 @@
 
 #include <intviewer/bm_byte.h>
 #include <intviewer/gvtypes.h>
+#include <intviewer/viewer-utils.h>
+#include <intviewer/bm_chartype.h>
 
 /**
  *  The fixture for testing class BmByteTest.

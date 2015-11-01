@@ -23,7 +23,7 @@ intviewer_fileops_SOURCES = iv_fileops_test.cc gcmd_tests_main.cc
 intviewer_fileops_CXXFLAGS = $(INTVLIBS)
 intviewer_fileops_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_bm_byte_SOURCES = iv_bm_byte_test.cc gcmd_tests_main.cc 
+intviewer_bm_byte_SOURCES = iv_bm_search_test.cc gcmd_tests_main.cc 
 intviewer_bm_byte_CXXFLAGS = $(INTVLIBS)
 intviewer_bm_byte_LDFLAGS = $(INTVLIBS) -lgtest
 
