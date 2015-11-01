@@ -1,36 +1,36 @@
-/*
-  GNOME Commander - A GNOME based file manager
-  Copyright (C) 2001-2006 Marcus Bjurman
-  Copyright (C) 2007-2012 Piotr Eljasiak
-    Copyright (C) 2013-2015 Uwe Scholz
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
-
-   Author: Assaf Gordon  <agordon88@gmail.com>
-*/
+/**
+ * @file iv_datapresentation.cc
+ * @brief Part of GNOME Commander - A GNOME based file manager
+ *
+ * @copyright (C) 2006 Assaf Gordon\n
+ * @copyright (C) 2007-2012 Piotr Eljasiak\n
+ * @copyright (C) 2013-2015 Uwe Scholz\n
+ *
+ * @copyright This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * @copyright This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * @copyright You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 
 #include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <libgviewer/libgviewer.h>
-#include <libgviewer/gvtypes.h>
-#include <libgviewer/fileops.h>
-#include <libgviewer/inputmodes.h>
-#include <libgviewer/datapresentation.h>
+#include <intviewer/libgviewer.h>
+#include <intviewer/gvtypes.h>
+#include <intviewer/fileops.h>
+#include <intviewer/inputmodes.h>
+#include <intviewer/datapresentation.h>
 
 static offset_type start_line;
 static offset_type end_line;
@@ -62,7 +62,7 @@ void usage()
     fprintf(stderr,"\tfilename: The file to read. UTF8 output will be sent to STDOUT.\n");
     fprintf(stderr,"\tstart_line: first line to display (default=0).\n");
     fprintf(stderr,"\tend_line: last line to display (default=end-of-file).\n");
-    exit(0);
+    exit(77);
 }
 
 void parse_command_line(int argc, char *argv[])
