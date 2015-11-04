@@ -29,7 +29,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include <libgviewer/libgviewer.h>
+#include <intviewer/libgviewer.h>
 
 static gchar *filename = NULL;
 static gboolean best_fit = TRUE;

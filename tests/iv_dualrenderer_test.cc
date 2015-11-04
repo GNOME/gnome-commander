@@ -30,7 +30,7 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include <libgviewer/libgviewer.h>
+#include <intviewer/libgviewer.h>
 
 
 int main(int argc, char *argv[])
@@ -83,7 +83,11 @@ int main(int argc, char *argv[])
     gtk_widget_show(box);
     gtk_widget_show(window);
 
-    gtk_main();
+    while (g_main_context_pending(NULL))
+    {
+        g_main_context_iteration(NULL, FALSE);
+    }
+    gtk_widget_destroy (window);
 
     return 0;
 }

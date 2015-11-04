@@ -29,26 +29,30 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include <libgviewer/libgviewer.h>
+#include <intviewer/libgviewer.h>
 
 static gchar *filename = NULL;
 static gchar *encoding = NULL;
-static TEXTDISPLAYMODE dispmode = TR_DISP_MODE_TEXT;
+static VIEWERDISPLAYMODE dispmode = DISP_MODE_TEXT_FIXED;
 static guint tab_size;
 static guint fixed_limit;
 static gboolean wrap_mode;
+static gboolean best_fit = TRUE;
+static double scale_factor = 1.0;
+static gboolean auto_detect_display_mode = TRUE;
 
 void usage()
 {
-    fprintf(stderr,"This program tests the text-render widget in 'libgviewer'.\n\n");
+    fprintf(stderr,"This program tests the gviewer widget in 'libgviewer'.\n\n");
 
-    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] filename\n\n");
+    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] [-s scale] filename\n\n");
 
     fprintf(stderr,"\t-e enconding: ASCII, UTF8, CP437, CP1251, etc\n");
-    fprintf(stderr,"\t-d Display Mode:\n\t     Fixed(text)\n\t     Binary\n\t     Hex\n");
+    fprintf(stderr,"\t-d Display Mode:\n\t     auto(default)\n\t     Text\n\t     Binary\n\t     Hex\n\t      Image\n");
     fprintf(stderr,"\t-w In fixed/variable text displays, turns on wrapping.\n");
     fprintf(stderr,"\t-f fixed_limit: In Binary display mode, sets number of Bytes per line.\n");
     fprintf(stderr,"\t-t tab size: In fixed/variable text displays, set number of space per TAB character.\n");
+    fprintf(stderr,"\t-s scale: In Image mode, use fixed scaling factor (0.1 to 3.0)\n\t\t(Default is using best-fit-to-window)\n");
     fprintf(stderr,"\tfilename: The file to display.\n");
     exit(0);
 }
@@ -61,14 +65,25 @@ void parse_command_line(int argc, char *argv[])
 
     tab_size = 8;
     fixed_limit = 40;
-    dispmode = TR_DISP_MODE_TEXT;
+    dispmode = DISP_MODE_TEXT_FIXED;
     encoding = g_strdup("ASCII");
     wrap_mode = FALSE;
+    best_fit = TRUE;
+    scale_factor = 1.0;
+    auto_detect_display_mode = TRUE;
 
-    while ((c=getopt(argc,argv,"d:e:f:t:w")) != -1)
-    {
+    while ((c=getopt(argc,argv,"d:e:f:t:s:w")) != -1) {
         switch(c)
         {
+        case 's':
+            best_fit = FALSE;
+            scale_factor = atof(optarg);
+            if (scale_factor<0.1 || scale_factor>3.0) {
+                g_warning("Invalid scale factor \"%f\".\n", scale_factor);
+                usage();
+            }
+            break;
+
         case 'w':
             wrap_mode = TRUE;
             break;
@@ -79,14 +94,18 @@ void parse_command_line(int argc, char *argv[])
             break;
 
         case 'd':
+            auto_detect_display_mode = FALSE;
             if (g_ascii_strcasecmp(optarg,"fixed")==0)
-                dispmode = TR_DISP_MODE_TEXT;
+                dispmode = DISP_MODE_TEXT_FIXED;
             else if (g_ascii_strcasecmp(optarg,"binary")==0)
-                dispmode = TR_DISP_MODE_BINARY;
+                dispmode = DISP_MODE_BINARY;
             else if (g_ascii_strcasecmp(optarg,"hex")==0)
-                dispmode = TR_DISP_MODE_HEXDUMP;
-            else
-            {
+                dispmode = DISP_MODE_HEXDUMP;
+            else if (g_ascii_strcasecmp(optarg,"image")==0)
+                dispmode = DISP_MODE_IMAGE;
+            else if (g_ascii_strcasecmp(optarg,"auto")==0)
+                auto_detect_display_mode = TRUE;
+            else {
                 g_warning("Invalid display mode \"%s\".\n", optarg);
                 usage();
             }
@@ -94,8 +113,7 @@ void parse_command_line(int argc, char *argv[])
 
         case 't':
             tab_size = atoi(optarg);
-            if (tab_size <=0)
-            {
+            if (tab_size <=0) {
                 g_warning("Invalid tab size \"%s\".\n", optarg);
                 usage();
             }
@@ -115,51 +133,42 @@ void parse_command_line(int argc, char *argv[])
         }
     }
 
-    if (optind == argc)
-    {
+    if (optind == argc) {
         g_warning("Need file name to work with...\n");
         usage();
     }
     filename = g_strdup(argv[optind++]);
 }
 
+
 int main(int argc, char *argv[])
 {
     GtkWidget *window;
-    GtkWidget *scrollbox;
-    GtkWidget *textr;
+    GtkWidget *viewer;
 
     gtk_init(&argc,&argv);
 
     parse_command_line(argc,argv);
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
-    gtk_widget_set_size_request(window,600,400);
+    gtk_container_set_border_width (GTK_CONTAINER (window), 0);
 
-    scrollbox = scroll_box_new();
+    viewer = gviewer_new();
+    gviewer_load_file(GVIEWER(viewer), filename);
 
-    textr = text_render_new();
+    if (!auto_detect_display_mode)
+        gviewer_set_display_mode(GVIEWER(viewer),dispmode);
 
-    text_render_set_v_adjustment(TEXT_RENDER(textr),
-        scroll_box_get_v_adjustment(SCROLL_BOX(scrollbox)));
+    gviewer_set_encoding(GVIEWER(viewer),encoding);
+    gviewer_set_tab_size(GVIEWER(viewer),tab_size);
+    gviewer_set_fixed_limit(GVIEWER(viewer),40);
+    gviewer_set_wrap_mode(GVIEWER(viewer),wrap_mode);
+    gviewer_set_best_fit(GVIEWER(viewer),best_fit);
+    gviewer_set_scale_factor(GVIEWER(viewer),scale_factor);
 
-    text_render_set_h_adjustment(TEXT_RENDER(textr),
-        scroll_box_get_h_adjustment(SCROLL_BOX(scrollbox)));
+    gtk_widget_show(viewer);
 
-    text_render_load_file(TEXT_RENDER(textr), filename);
-    text_render_set_display_mode(TEXT_RENDER(textr), dispmode);
-    text_render_set_tab_size(TEXT_RENDER(textr), tab_size);
-    text_render_set_wrap_mode(TEXT_RENDER(textr), wrap_mode);
-    text_render_set_fixed_limit(TEXT_RENDER(textr), fixed_limit);
-    text_render_set_encoding(TEXT_RENDER(textr), encoding);
-
-    scroll_box_set_client(SCROLL_BOX(scrollbox),textr);
-
-    gtk_container_add(GTK_CONTAINER(window), scrollbox);
-
-    gtk_widget_show(textr);
-    gtk_widget_show(scrollbox);
+    gtk_container_add(GTK_CONTAINER(window), viewer);
     gtk_widget_show(window);
 
     gtk_main();

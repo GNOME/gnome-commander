@@ -24,10 +24,10 @@
 #include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libgviewer/libgviewer.h>
-#include <libgviewer/gvtypes.h>
-#include <libgviewer/fileops.h>
-#include <libgviewer/inputmodes.h>
+#include <intviewer/libgviewer.h>
+#include <intviewer/gvtypes.h>
+#include <intviewer/fileops.h>
+#include <intviewer/inputmodes.h>
 
 static offset_type start;
 static offset_type end;
