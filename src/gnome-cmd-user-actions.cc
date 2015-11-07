@@ -1694,7 +1694,7 @@ void view_close_tab (GtkMenuItem *menuitem, gpointer file_list)
         GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (gtk_widget_get_ancestor (*fl, GNOME_CMD_TYPE_FILE_SELECTOR));
 
         if (fs->notebook->size()>1)
-            if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+            if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
                 fs->close_tab(gtk_notebook_page_num (*fs->notebook, gtk_widget_get_parent (*fl)));
     }
     else
@@ -1702,7 +1702,7 @@ void view_close_tab (GtkMenuItem *menuitem, gpointer file_list)
         GnomeCmdFileSelector *fs = get_fs (ACTIVE);
 
         if (fs->notebook->size()>1)
-            if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+            if (!fs->file_list()->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
                 fs->close_tab();
     }
 }
