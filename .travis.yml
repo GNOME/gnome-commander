@@ -1,0 +1,20 @@
+language: cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+
+install:
+  - sudo apt-get update -qq
+
+script: ./configure && make && make check
+
+branches:
+  only:
+    - master
+
+os:
+  - linux
