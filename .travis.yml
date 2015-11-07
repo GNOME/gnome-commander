@@ -11,6 +11,7 @@ install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq gnome-common gtk-doc-tools
          gnome-doc-utils libgnome2-dev libgnomeui-dev libunique-dev
+         rarian
 
 script:
   - ./autogen.sh
