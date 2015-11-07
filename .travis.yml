@@ -9,8 +9,12 @@ before_install:
 
 install:
   - sudo apt-get update -qq
+  - sudo apt-get install -qq gnome-common
 
-script: ./configure && make && make check
+script:
+  - ./autogen
+  - make
+  - make check
 
 branches:
   only:
