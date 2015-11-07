@@ -9,7 +9,7 @@ before_install:
 
 install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq gnome-common
+  - sudo apt-get install -qq gnome-common gtk-doc-tools
 
 script:
   - ./autogen.sh
