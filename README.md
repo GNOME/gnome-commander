@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)
 
-[![GitHub commits](https://img.shields.io/github/commits-since/SubtitleEdit/subtitleedit/1.4.7.svg)](https://git.gnome.org/browse/gnome-commander/atom/?h=master)
+[![GitHub commits](https://img.shields.io/github/commits-since/SubtitleEdit/subtitleedit/1.4.7.svg)](https://github.com/GNOME/gnome-commander/tree/1.4.7)
 
 ## Introduction ##
 
