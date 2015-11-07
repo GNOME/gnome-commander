@@ -2,6 +2,8 @@
 
 [![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)
 
+[![GitHub commits](https://img.shields.io/github/commits-since/SubtitleEdit/subtitleedit/1.4.7.svg)](https://git.gnome.org/browse/gnome-commander/atom/?h=master)
+
 ## Introduction ##
 
 GNOME Commander is a fast and powerful twin-panel file manager for the Linux desktop.
