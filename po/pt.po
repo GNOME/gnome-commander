@@ -1,17 +1,15 @@
-# Portuguese translation of gnome-commander
-# Copyright (C) 2003 gnome-commander
-# This file is distributed under the same license as the gnome-commander package.
-# Duarte Loreto <happyguy_pt@hotmail.com>, 2003.
-# Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
+#
+#  <>, 2003,x,(g
+# 5, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-19 08:08+0000\n"
-"PO-Revision-Date: 2015-09-19 09:13+0100\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
+"POT-Creation-Date: 2015-11-08 00:07+0000\n"
+"PO-Revision-Date: 2015-11-08 07:56+0000\n"
+"Last-Translator:  <>\n"
 "Language-Team: Português <palbuquerque73@gmail.com>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +49,7 @@ msgstr ""
 "gestão de ficheiros precisa, trabalhando em paralelo através de aplicações "
 "especiais e execução de comandos inteligentes."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:522
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -2070,22 +2068,21 @@ msgstr "A procurar grupos de trabalho e anfitriões"
 msgid "Go to: Samba Network"
 msgstr "Ir para: rede Samba"
 
-#: ../src/gnome-cmd-data.cc:1402 ../src/gnome-cmd-data.cc:1403
-#: ../src/gnome-cmd-data.cc:1826 ../src/gnome-cmd-data.cc:2018
+#: ../src/gnome-cmd-data.cc:1540 ../src/gnome-cmd-data.cc:1541
+#: ../src/gnome-cmd-data.cc:1965 ../src/gnome-cmd-data.cc:2157
 #, c-format
 msgid "link to %s"
 msgstr "Ligar a %s"
 
-#: ../src/gnome-cmd-data.cc:1674
+#: ../src/gnome-cmd-data.cc:1813
 msgid "Audio Files"
 msgstr "Ficheiros áudio"
 
-#: ../src/gnome-cmd-data.cc:1682
+#: ../src/gnome-cmd-data.cc:1821
 msgid "CamelCase"
 msgstr "Camel Case"
 
 #: ../src/gnome-cmd-dir.cc:510
-#| msgid "Update file list"
 msgid "Waiting for file list"
 msgstr "A aguardar pela lista de ficheiros"
 
@@ -2286,7 +2283,8 @@ msgstr "%s livres"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1697 ../src/gnome-cmd-user-actions.cc:1705
-msgid "The tab is locked, close anyway ?"
+#| msgid "The tab is locked, close anyway ?"
+msgid "The tab is locked, close anyway?"
 msgstr "O separador está bloqueado, fechar mesmo assim?"
 
 #: ../src/gnome-cmd-file-selector.cc:652 ../src/gnome-cmd-main-menu.cc:625
