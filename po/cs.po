@@ -2419,7 +2419,7 @@ msgid "S_ynchronize Directories"
 msgstr "S_ynchronizovat složky"
 
 #: ../src/gnome-cmd-main-menu.cc:504
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Spustit _GNOME Commander pod správcem root"
 
 #: ../src/gnome-cmd-main-menu.cc:511

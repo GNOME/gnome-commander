@@ -1796,7 +1796,7 @@ msgstr "_Vertaa kansioita"
 
 #: ../src/gnome-cmd-main-menu.cc:505
 #, fuzzy
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Gnomen komentaja"
 
 #: ../src/gnome-cmd-main-menu.cc:512

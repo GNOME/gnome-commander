@@ -1309,7 +1309,7 @@ msgid "S_ynchronize Directories"
 msgstr "_Порівняти каталоги"
 
 #: ../src/gnome-cmd-main-menu.cc:475
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Запуск _GCommander під Root-ом"
 
 #: ../src/gnome-cmd-main-menu.cc:482

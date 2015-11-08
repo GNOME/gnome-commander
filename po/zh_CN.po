@@ -1305,7 +1305,7 @@ msgid "S_ynchronize Directories"
 msgstr "同步目录(_Y)"
 
 #: ../src/gnome-cmd-main-menu.cc:475
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "以 Root 启动 _GNOME 指挥官"
 
 #: ../src/gnome-cmd-main-menu.cc:482

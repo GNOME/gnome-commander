@@ -2437,7 +2437,7 @@ msgid "S_ynchronize Directories"
 msgstr "Усагласи _директоријуме"
 
 #: ../src/gnome-cmd-main-menu.cc:505
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Покрени Гномовог наредника као администратор"
 
 #: ../src/gnome-cmd-main-menu.cc:512

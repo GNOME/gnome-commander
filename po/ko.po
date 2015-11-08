@@ -1337,7 +1337,7 @@ msgid "S_ynchronize Directories"
 msgstr "디렉토리 동기화(_y)"
 
 #: ../src/gnome-cmd-main-menu.cc:475
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "GNOME 커맨더를 root 권한으로 시작"
 
 #: ../src/gnome-cmd-main-menu.cc:482

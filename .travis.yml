@@ -1,0 +1,25 @@
+language: cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq gnome-common gnome-doc-utils libgnome2-dev
+         libgnomeui-dev libunique-dev scrollkeeper
+
+script:
+  - ./autogen.sh
+  - make
+  - make check
+
+branches:
+  only:
+    - master
+
+os:
+  - linux

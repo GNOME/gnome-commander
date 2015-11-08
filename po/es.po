@@ -2409,7 +2409,7 @@ msgid "S_ynchronize Directories"
 msgstr "S_incronizar carpetas"
 
 #: ../src/gnome-cmd-main-menu.cc:504
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Iniciar GNOME Commander como root"
 
 #: ../src/gnome-cmd-main-menu.cc:511

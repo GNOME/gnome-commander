@@ -2415,7 +2415,7 @@ msgid "S_ynchronize Directories"
 msgstr "Könyvtárak s_zinkronizálása"
 
 #: ../src/gnome-cmd-main-menu.cc:505
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "_GNOME Commander indítása rendszergazdaként"
 
 #: ../src/gnome-cmd-main-menu.cc:512

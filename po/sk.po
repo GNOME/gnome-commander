@@ -2397,7 +2397,7 @@ msgid "S_ynchronize Directories"
 msgstr "S_ynchronizovať adresáre"
 
 #: ../src/gnome-cmd-main-menu.cc:504
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "Spustiť GNOME Commander ako root"
 
 #: ../src/gnome-cmd-main-menu.cc:511
