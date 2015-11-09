@@ -26,7 +26,7 @@ TESTS = \
 
 check_PROGRAMS = $(TESTS)
 
-intviewer_dualrenderer_SOURCES = iv_dualrenderer_test.cc
+intviewer_dualrenderer_SOURCES = iv_dualrenderer_test.cc gcmd_tests_main.cc
 intviewer_dualrenderer_CXXFLAGS = $(INTVLIBS)
 intviewer_dualrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
