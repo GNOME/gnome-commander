@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-21 06:25+0000\n"
-"PO-Revision-Date: 2015-07-21 15:14+0200\n"
+"POT-Creation-Date: 2015-11-09 08:18+0000\n"
+"PO-Revision-Date: 2015-11-09 12:15+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -56,7 +56,7 @@ msgstr ""
 "správce souborů, pracují souběžně ve specializovaných aplikacích a spouští "
 "promyšlené příkazy."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:522
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -325,8 +325,7 @@ msgstr "„%s“ není platné umístění"
 msgid "Please check spelling and try again."
 msgstr "Zkontrolujte prosím překlepy a zkuste to znovu."
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:425
-#: ../src/gnome-cmd-main-win.cc:1182
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:425 ../src/gnome-cmd-main-win.cc:1182
 msgid "Remote Server"
 msgstr "Vzdálený server"
 
@@ -2081,17 +2080,17 @@ msgstr "Hledají se pracovní skupiny a počítače"
 msgid "Go to: Samba Network"
 msgstr "Přejít na síť Samba"
 
-#: ../src/gnome-cmd-data.cc:1402 ../src/gnome-cmd-data.cc:1403
-#: ../src/gnome-cmd-data.cc:1826 ../src/gnome-cmd-data.cc:2018
+#: ../src/gnome-cmd-data.cc:1540 ../src/gnome-cmd-data.cc:1541
+#: ../src/gnome-cmd-data.cc:1965 ../src/gnome-cmd-data.cc:2157
 #, c-format
 msgid "link to %s"
 msgstr "Symbolický odkaz na %s"
 
-#: ../src/gnome-cmd-data.cc:1674
+#: ../src/gnome-cmd-data.cc:1813
 msgid "Audio Files"
 msgstr "Zvukové soubory"
 
-#: ../src/gnome-cmd-data.cc:1682
+#: ../src/gnome-cmd-data.cc:1821
 msgid "CamelCase"
 msgstr "První písmena velká"
 
@@ -2298,7 +2297,7 @@ msgstr "%s volných"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1697 ../src/gnome-cmd-user-actions.cc:1705
-msgid "The tab is locked, close anyway ?"
+msgid "The tab is locked, close anyway?"
 msgstr "Karta je zamknutá. Přesto ji zavřít?"
 
 #: ../src/gnome-cmd-file-selector.cc:652 ../src/gnome-cmd-main-menu.cc:625
