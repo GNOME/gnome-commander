@@ -1,6 +1,10 @@
 /**
  * @file iv_dualrenderer_test.cc
  * @brief Part of GNOME Commander - A GNOME based file manager
+ * 
+ * @details In this single test the creation of a gtk widget is tested
+ * in which two elements are visualized. It is not to be considered to
+ * be a unit test, as individual functions are not fully tested!
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -41,11 +45,15 @@ TEST_F(DualRendererTest, dualrenderer_test) {
 
     // image render
     iscrollbox = scroll_box_new();
+    ASSERT_FALSE(iscrollbox == NULL);
     imgr = image_render_new();
+    ASSERT_FALSE(imgr == NULL);
+
     image_render_set_v_adjustment(IMAGE_RENDER(imgr),
         scroll_box_get_v_adjustment(SCROLL_BOX(iscrollbox)));
     image_render_set_h_adjustment(IMAGE_RENDER(imgr),
         scroll_box_get_h_adjustment(SCROLL_BOX(iscrollbox)));
+        
     image_render_load_file(IMAGE_RENDER(imgr), "../pixmaps/gnome-commander.png");
     image_render_set_best_fit(IMAGE_RENDER(imgr), TRUE);
     image_render_set_scale_factor(IMAGE_RENDER(imgr), 1);
@@ -57,11 +65,15 @@ TEST_F(DualRendererTest, dualrenderer_test) {
 
     // text render
     tscrollbox = scroll_box_new();
+    ASSERT_FALSE(tscrollbox == NULL);
     textr = text_render_new();
+    ASSERT_FALSE(textr == NULL);
+
     text_render_set_v_adjustment(TEXT_RENDER(textr),
         scroll_box_get_v_adjustment(SCROLL_BOX(tscrollbox)));
     text_render_set_h_adjustment(TEXT_RENDER(textr),
         scroll_box_get_h_adjustment(SCROLL_BOX(tscrollbox)));
+
     text_render_load_file(TEXT_RENDER(textr), "../INSTALL");
     scroll_box_set_client(SCROLL_BOX(tscrollbox),textr);
     gtk_widget_show(textr);
