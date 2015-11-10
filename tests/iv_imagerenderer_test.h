@@ -27,7 +27,7 @@
 #include <intviewer/libgviewer.h>
 
 // The fixture for testing class ImageRendererTest
-class ImageRendererTest : public ::testing::Test {
+class ImageRendererTest : public ::testing::TestWithParam<double> {
 };
 
 #endif

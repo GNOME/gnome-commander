@@ -29,13 +29,16 @@
 #include <iv_imagerenderer_test.h>
 
 const gchar *filename = "../pixmaps/gnome-commander.png";
-static gboolean best_fit = TRUE;
-static double scale_factor = 1.0; //0.1 < scale_factor < 3.0
 
-TEST_F(ImageRendererTest, image_render_test) {
+INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+                        ImageRendererTest,
+                        ::testing::Values(-1, 0.1, 0.2, 0.33, 0.5, 0.67, 1, 1.25, 1.50, 2, 3, 4, 5, 6, 7, 8));
+
+TEST_P(ImageRendererTest, image_render_test) {
     GtkWidget *window;
     GtkWidget *scrollbox;
     GtkWidget *imgr;
+    gboolean best_fit;
 
     gtk_init(NULL, NULL);
 
@@ -55,10 +58,15 @@ TEST_F(ImageRendererTest, image_render_test) {
 
     image_render_load_file(IMAGE_RENDER(imgr), filename);
 
-    image_render_set_best_fit(IMAGE_RENDER(imgr),best_fit);
+    if (GetParam() == -1)
+        best_fit = TRUE;
+    else
+        best_fit = FALSE;
 
-    if (!best_fit)
-        image_render_set_scale_factor(IMAGE_RENDER(imgr), scale_factor);
+    if (best_fit)
+        image_render_set_best_fit(IMAGE_RENDER(imgr),best_fit);
+    else
+        image_render_set_scale_factor(IMAGE_RENDER(imgr), GetParam());
 
     scroll_box_set_client(SCROLL_BOX(scrollbox),imgr);
 
