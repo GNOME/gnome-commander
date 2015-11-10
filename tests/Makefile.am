@@ -15,55 +15,60 @@ INTVLIBS = \
 	$(top_builddir)/src/intviewer/libgviewer.a
 
 TESTS = \
-	intviewer_viewerwidget \
-	intviewer_fileops \
-	intviewer_bm_search \
-	intviewer_datapresentation \
-	intviewer_dualrenderer \
-	intviewer_imagerenderer \
-	intviewer_inputmodes \
-	intviewer_textrenderer
+	iv_viewerwidget \
+	iv_fileops \
+	iv_bm_search \
+	iv_datapresentation \
+	iv_dualrenderer \
+	iv_imagerenderer \
+	iv_inputmodes \
+	iv_textrenderer
 
 check_PROGRAMS = $(TESTS)
 
-intviewer_dualrenderer_SOURCES = iv_dualrenderer_test.cc gcmd_tests_main.cc
-intviewer_dualrenderer_CXXFLAGS = $(INTVLIBS)
-intviewer_dualrenderer_LDFLAGS = $(INTVLIBS) -lgtest
+# *** Internal Viewer Tests *** Most of these only consist of serialised
+# function calls for acceptance tests, acutally. Functions of the internal
+# viewer library are not fully tested by unit tests. Currently, I don't
+# feel that there is a need of adding unit tests for this nicely working
+# library. Some of these tests require a running X session.
+iv_dualrenderer_SOURCES = iv_dualrenderer_test.cc gcmd_tests_main.cc
+iv_dualrenderer_CXXFLAGS = $(INTVLIBS)
+iv_dualrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_imagerenderer_SOURCES = iv_imagerenderer_test.cc
-intviewer_imagerenderer_CXXFLAGS = $(INTVLIBS)
-intviewer_imagerenderer_LDFLAGS = $(INTVLIBS) -lgtest
+iv_imagerenderer_SOURCES = iv_imagerenderer_test.cc
+iv_imagerenderer_CXXFLAGS = $(INTVLIBS)
+iv_imagerenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_inputmodes_SOURCES = iv_inputmodes_test.cc
-intviewer_inputmodes_CXXFLAGS = $(INTVLIBS)
-intviewer_inputmodes_LDFLAGS = $(INTVLIBS) -lgtest
+iv_inputmodes_SOURCES = iv_inputmodes_test.cc
+iv_inputmodes_CXXFLAGS = $(INTVLIBS)
+iv_inputmodes_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_search_dlg_SOURCES = iv_search_dlg_test.cc
-intviewer_search_dlg_CXXFLAGS = $(INTVLIBS) -fpermissive
-intviewer_search_dlg_LDFLAGS = $(INTVLIBS) -lgtest
+iv_search_dlg_SOURCES = iv_search_dlg_test.cc
+iv_search_dlg_CXXFLAGS = $(INTVLIBS) -fpermissive
+iv_search_dlg_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_textrenderer_SOURCES = iv_textrenderer_test.cc
-intviewer_textrenderer_CXXFLAGS = $(INTVLIBS)
-intviewer_textrenderer_LDFLAGS = $(INTVLIBS) -lgtest
+iv_textrenderer_SOURCES = iv_textrenderer_test.cc
+iv_textrenderer_CXXFLAGS = $(INTVLIBS)
+iv_textrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_viewerwidget_SOURCES = iv_viewerwidget_test.cc
-intviewer_viewerwidget_CXXFLAGS = $(INTVLIBS)
-intviewer_viewerwidget_LDFLAGS = $(INTVLIBS) -lgtest
+iv_viewerwidget_SOURCES = iv_viewerwidget_test.cc
+iv_viewerwidget_CXXFLAGS = $(INTVLIBS)
+iv_viewerwidget_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_viewerwindow_SOURCES = iv_viewerwindow_test.cc
-intviewer_viewerwindow_CXXFLAGS = $(INTVLIBS)
-intviewer_viewerwindow_LDFLAGS = $(INTVLIBS) -lgtest
+iv_viewerwindow_SOURCES = iv_viewerwindow_test.cc
+iv_viewerwindow_CXXFLAGS = $(INTVLIBS)
+iv_viewerwindow_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_fileops_SOURCES = iv_fileops_test.cc gcmd_tests_main.cc 
-intviewer_fileops_CXXFLAGS = $(INTVLIBS)
-intviewer_fileops_LDFLAGS = $(INTVLIBS) -lgtest
+iv_fileops_SOURCES = iv_fileops_test.cc gcmd_tests_main.cc 
+iv_fileops_CXXFLAGS = $(INTVLIBS)
+iv_fileops_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_bm_search_SOURCES = iv_bm_search_test.cc gcmd_tests_main.cc 
-intviewer_bm_search_CXXFLAGS = $(INTVLIBS)
-intviewer_bm_search_LDFLAGS = $(INTVLIBS) -lgtest
+iv_bm_search_SOURCES = iv_bm_search_test.cc gcmd_tests_main.cc 
+iv_bm_search_CXXFLAGS = $(INTVLIBS)
+iv_bm_search_LDFLAGS = $(INTVLIBS) -lgtest
 
-intviewer_datapresentation_SOURCES = iv_datapresentation.cc
-intviewer_datapresentation_CXXFLAGS = $(INTVLIBS)
-intviewer_datapresentation_LDFLAGS = $(INTVLIBS) -lgtest
+iv_datapresentation_SOURCES = iv_datapresentation.cc
+iv_datapresentation_CXXFLAGS = $(INTVLIBS)
+iv_datapresentation_LDFLAGS = $(INTVLIBS) -lgtest
 
 -include $(top_srcdir)/git.mk
