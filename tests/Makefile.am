@@ -35,7 +35,7 @@ iv_dualrenderer_SOURCES = iv_dualrenderer_test.cc gcmd_tests_main.cc
 iv_dualrenderer_CXXFLAGS = $(INTVLIBS)
 iv_dualrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
-iv_imagerenderer_SOURCES = iv_imagerenderer_test.cc
+iv_imagerenderer_SOURCES = iv_imagerenderer_test.cc gcmd_tests_main.cc
 iv_imagerenderer_CXXFLAGS = $(INTVLIBS)
 iv_imagerenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
