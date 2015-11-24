@@ -25,60 +25,28 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <intviewer/libgviewer.h>
 #include "gtest/gtest.h"
-#include <iv_imagerenderer_test.h>
 
-const gchar *filename = "../pixmaps/gnome-commander.png";
+class ImageRendererBestFitTest : public ::testing::TestWithParam<bool> {};
 
 INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
-                        ImageRendererTest,
-                        ::testing::Values(-1, 0.1, 0.2, 0.33, 0.5, 0.67, 1, 1.25, 1.50, 2, 3, 4, 5, 6, 7, 8));
+                        ImageRendererBestFitTest,
+                        ::testing::Bool());
 
-TEST_P(ImageRendererTest, image_render_test) {
-    GtkWidget *window;
-    GtkWidget *scrollbox;
+TEST_P(ImageRendererBestFitTest, image_renderer_set_best_fit_test) {
     GtkWidget *imgr;
-    gboolean best_fit;
-
-    gtk_init(NULL, NULL);
-
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
-    gtk_widget_set_size_request(window,600,400);
-
-    scrollbox = scroll_box_new();
-
     imgr = image_render_new();
+    image_render_set_best_fit(IMAGE_RENDER(imgr),GetParam());
+    ASSERT_EQ(GetParam(), image_render_get_best_fit(IMAGE_RENDER(imgr)));
+}
 
-    image_render_set_v_adjustment(IMAGE_RENDER(imgr),
-        scroll_box_get_v_adjustment(SCROLL_BOX(scrollbox)));
 
-    image_render_set_h_adjustment(IMAGE_RENDER(imgr),
-        scroll_box_get_h_adjustment(SCROLL_BOX(scrollbox)));
+class ImageRendererScaleFactorTest : public ::testing::Test {};
 
-    image_render_load_file(IMAGE_RENDER(imgr), filename);
-
-    if (GetParam() == -1)
-        best_fit = TRUE;
-    else
-        best_fit = FALSE;
-
-    if (best_fit)
-        image_render_set_best_fit(IMAGE_RENDER(imgr),best_fit);
-    else
-        image_render_set_scale_factor(IMAGE_RENDER(imgr), GetParam());
-
-    scroll_box_set_client(SCROLL_BOX(scrollbox),imgr);
-
-    gtk_container_add(GTK_CONTAINER(window), scrollbox);
-
-    gtk_widget_show(imgr);
-    gtk_widget_show(scrollbox);
-    gtk_widget_show(window);
-
-    while (g_main_context_pending(NULL))
-    {
-        g_main_context_iteration(NULL, FALSE);
-    }
-    gtk_widget_destroy (window);
+TEST_F(ImageRendererScaleFactorTest, image_renderer_set_scale_factor_test) {
+    GtkWidget *imgr;
+    imgr = image_render_new();
+    image_render_set_scale_factor(IMAGE_RENDER(imgr), 1);
+    ASSERT_EQ(1, image_render_get_scale_factor(IMAGE_RENDER(imgr)));
 }
