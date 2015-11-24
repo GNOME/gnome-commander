@@ -108,14 +108,6 @@ fi
 AC_SUBST(GMODULE_AVAIL)
 
 
-dnl Find out if x11 libs are available. The variable X11_LIBS is set
-dnl if libX11 is found.
-PKG_CHECK_MODULES(X11, x11,
-    [AC_MSG_RESULT([x11-libs found, associated tests will be executed if a display is available])],
-    [AC_MSG_WARN([x11 missing, tests which need a display will be skipped by default])])
-AM_CONDITIONAL(HAVE_X11, test -n "$X11_LIBS")
-
-
 dnl Check for gtk+
 AC_MSG_CHECKING(if gtk+ >= ${GTK_REQ} exists)
 if pkg-config --exists gtk+-2.0 ; then

@@ -26,11 +26,10 @@
  */
 
 #include "gtest/gtest.h"
-#include <intviewer/libgviewer.h>
-#include <X11/Xlib.h>  // to check for an available display
+#include <iv_dualrenderer_test.h>
 
-class DualRendererTest : public ::testing::Test {};
 TEST_F(DualRendererTest, dualrenderer_test) {
+
     GtkWidget *window;
     GtkWidget *tscrollbox, *iscrollbox;
     GtkWidget *imgr;
@@ -92,12 +91,4 @@ TEST_F(DualRendererTest, dualrenderer_test) {
         g_main_context_iteration(NULL, FALSE);
     }
     gtk_widget_destroy (window);
-}
-
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  if (XOpenDisplay(NULL))
-      return RUN_ALL_TESTS();
-  else
-      return(77);
 }

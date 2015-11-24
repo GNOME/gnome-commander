@@ -19,29 +19,21 @@ TESTS = \
 	iv_fileops \
 	iv_bm_search \
 	iv_datapresentation \
+	iv_dualrenderer \
 	iv_imagerenderer \
 	iv_inputmodes \
 	iv_textrenderer
-
-if HAVE_X11
-TESTS += \
-	iv_dualrenderer
-endif
-
 
 check_PROGRAMS = $(TESTS)
 
 # *** Internal Viewer Tests *** Most of these only consist of serialised
 # function calls for acceptance tests, acutally. Functions of the internal
-# viewer library are not fully tested by unit tests! Currently, I don't
+# viewer library are not fully tested by unit tests. Currently, I don't
 # feel that there is a need of adding unit tests for this nicely working
-# library. Some of these tests require a running X session. It is checked
-# if a session is running in the binaries. If not, the test is skipped.
-if HAVE_X11
-iv_dualrenderer_SOURCES = iv_dualrenderer_test.cc
+# library. Some of these tests require a running X session.
+iv_dualrenderer_SOURCES = iv_dualrenderer_test.cc gcmd_tests_main.cc
 iv_dualrenderer_CXXFLAGS = $(INTVLIBS)
-iv_dualrenderer_LDFLAGS = $(INTVLIBS) -lX11 -lgtest
-endif
+iv_dualrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
 iv_imagerenderer_SOURCES = iv_imagerenderer_test.cc gcmd_tests_main.cc
 iv_imagerenderer_CXXFLAGS = $(INTVLIBS)
