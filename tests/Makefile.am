@@ -51,10 +51,6 @@ iv_inputmodes_SOURCES = iv_inputmodes_test.cc
 iv_inputmodes_CXXFLAGS = $(INTVLIBS)
 iv_inputmodes_LDFLAGS = $(INTVLIBS) -lgtest
 
-iv_search_dlg_SOURCES = iv_search_dlg_test.cc
-iv_search_dlg_CXXFLAGS = $(INTVLIBS) -fpermissive
-iv_search_dlg_LDFLAGS = $(INTVLIBS) -lgtest
-
 iv_textrenderer_SOURCES = iv_textrenderer_test.cc
 iv_textrenderer_CXXFLAGS = $(INTVLIBS)
 iv_textrenderer_LDFLAGS = $(INTVLIBS) -lgtest
@@ -62,10 +58,6 @@ iv_textrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 iv_viewerwidget_SOURCES = iv_viewerwidget_test.cc
 iv_viewerwidget_CXXFLAGS = $(INTVLIBS)
 iv_viewerwidget_LDFLAGS = $(INTVLIBS) -lgtest
-
-iv_viewerwindow_SOURCES = iv_viewerwindow_test.cc
-iv_viewerwindow_CXXFLAGS = $(INTVLIBS)
-iv_viewerwindow_LDFLAGS = $(INTVLIBS) -lgtest
 
 iv_fileops_SOURCES = iv_fileops_test.cc gcmd_tests_main.cc 
 iv_fileops_CXXFLAGS = $(INTVLIBS)
