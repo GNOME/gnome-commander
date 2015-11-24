@@ -55,7 +55,7 @@ iv_textrenderer_SOURCES = iv_textrenderer_test.cc
 iv_textrenderer_CXXFLAGS = $(INTVLIBS)
 iv_textrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 
-iv_viewerwidget_SOURCES = iv_viewerwidget_test.cc
+iv_viewerwidget_SOURCES = iv_viewerwidget_test.cc gcmd_tests_main.cc
 iv_viewerwidget_CXXFLAGS = $(INTVLIBS)
 iv_viewerwidget_LDFLAGS = $(INTVLIBS) -lgtest
 
