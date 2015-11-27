@@ -30,7 +30,7 @@
 
 class ImageRendererBestFitTest : public ::testing::TestWithParam<bool> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ImageRendererBestFitTest,
                         ::testing::Bool());
 

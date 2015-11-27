@@ -38,7 +38,7 @@ const gchar *filename = "../INSTALL";
 
 class ViewerWidgetDisplayModeTest : public ::testing::TestWithParam<VIEWERDISPLAYMODE> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetDisplayModeTest,
                         ::testing::Values(DISP_MODE_TEXT_FIXED,
                                           DISP_MODE_BINARY,
@@ -58,7 +58,7 @@ TEST_P(ViewerWidgetDisplayModeTest, gviewer_set_display_mode_test)
 
 class ViewerWidgetTabSizeTest : public ::testing::TestWithParam<int> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetTabSizeTest,
                         ::testing::Range(1,10)); //TODO: Add test for x <= 0
 
@@ -75,7 +75,7 @@ TEST_P(ViewerWidgetTabSizeTest, gviewer_set_tab_size_test)
 
 class ViewerWidgetFixedLimitTest : public ::testing::TestWithParam<int> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetFixedLimitTest,
                         ::testing::Range(1,10)); //TODO: Add test for x <= 0
 
@@ -92,7 +92,7 @@ TEST_P(ViewerWidgetFixedLimitTest, gviewer_set_fixed_limit_test)
 
 class ViewerWidgetEncodingTest : public ::testing::TestWithParam<const char *> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetEncodingTest,
                         ::testing::Values("ASCII", "UTF8", "CP437", "CP1251"));
 
@@ -109,7 +109,7 @@ TEST_P(ViewerWidgetEncodingTest, gviewer_set_encoding_test)
 
 class ViewerWidgetWrapModeTest : public ::testing::TestWithParam<bool> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetWrapModeTest,
                         ::testing::Bool());
 
@@ -126,7 +126,7 @@ TEST_P(ViewerWidgetWrapModeTest, gviewer_set_wrap_mode_test)
 
 class ViewerWidgetBestFitTest : public ::testing::TestWithParam<bool> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetBestFitTest,
                         ::testing::Bool());
 
@@ -143,7 +143,7 @@ TEST_P(ViewerWidgetBestFitTest, gviewer_set_best_fit_test)
 
 class ViewerWidgetScaleFactorTest : public ::testing::TestWithParam<double> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         ViewerWidgetScaleFactorTest,
                         ::testing::Values(0.1, 0.5, 1, 2, 3));
 

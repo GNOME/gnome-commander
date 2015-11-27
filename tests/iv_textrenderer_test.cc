@@ -38,7 +38,7 @@ const gchar *filename = "../INSTALL";
 
 class TextRendererDisplayModeTest : public ::testing::TestWithParam<TextRender::DISPLAYMODE> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         TextRendererDisplayModeTest,
                         ::testing::Values(TextRender::DISPLAYMODE_TEXT,
                                           TextRender::DISPLAYMODE_BINARY,
@@ -57,7 +57,7 @@ TEST_P(TextRendererDisplayModeTest, text_render_set_display_mode_test)
 
 class TextRendererTabSizeTest : public ::testing::TestWithParam<int> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         TextRendererTabSizeTest,
                         ::testing::Range(1,10));
 
@@ -74,7 +74,7 @@ TEST_P(TextRendererTabSizeTest, text_render_set_tab_size)
 
 class TextRendererWrapModeTest : public ::testing::TestWithParam<bool> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         TextRendererWrapModeTest,
                         ::testing::Bool());
 
@@ -91,7 +91,7 @@ TEST_P(TextRendererWrapModeTest, gviewer_set_wrap_mode_test)
 
 class TextRendererFixedLimitTest : public ::testing::TestWithParam<int> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         TextRendererFixedLimitTest,
                         ::testing::Values(1,10));
 
@@ -108,7 +108,7 @@ TEST_P(TextRendererFixedLimitTest, gviewer_set_set_fixed_limit)
 
 class TextRendererSetEncodingTest : public ::testing::TestWithParam<const char *> {};
 
-INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+INSTANTIATE_TEST_CASE_P(InstantiationName,
                         TextRendererSetEncodingTest,
                         ::testing::Values("ASCII", "UTF8", "CP437", "CP1251"));
 
