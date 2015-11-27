@@ -38,7 +38,7 @@ iv_inputmodes_SOURCES = iv_inputmodes_test.cc gcmd_tests_main.cc
 iv_inputmodes_CXXFLAGS = $(INTVLIBS)
 iv_inputmodes_LDFLAGS = $(INTVLIBS) -lgtest
 
-iv_textrenderer_SOURCES = iv_textrenderer_test.cc
+iv_textrenderer_SOURCES = iv_textrenderer_test.cc gcmd_tests_main.cc
 iv_textrenderer_CXXFLAGS = $(INTVLIBS)
 iv_textrenderer_LDFLAGS = $(INTVLIBS) -lgtest
 

@@ -1,171 +1,122 @@
-/*
-  GNOME Commander - A GNOME based file manager
-  Copyright (C) 2001-2006 Marcus Bjurman
-  Copyright (C) 2007-2012 Piotr Eljasiak
-    Copyright (C) 2013-2015 Uwe Scholz
+/**
+ * @file iv_textrenderer_test.cc
+ * @brief Part of GNOME Commander - A GNOME based file manager
+ *
+ * @copyright (C) 2006 Assaf Gordon\n
+ * @copyright (C) 2007-2012 Piotr Eljasiak\n
+ * @copyright (C) 2013-2015 Uwe Scholz\n
+ *
+ * @details This module tests gviewer widget setter functions in libgviewer
+ * for text:
+ * @li Enconding: ASCII, UTF8, CP437, CP1251
+ * @li Display Mode: Text, Binary, Hex, Image
+ * @li Wrapping: TRUE, FALSE
+ * @li Fixed_limit: Sets number of Bytes per line
+ * @li Tab size: Set number of space per TAB character
+ *
+ * @copyright This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * @copyright This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * @copyright You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
-
-   Author: Assaf Gordon  <agordon88@gmail.com>
-*/
-
-#include <glib.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include <glib.h>
-#include <gtk/gtk.h>
-
+#include "gtest/gtest.h"
 #include <intviewer/libgviewer.h>
 
-static gchar *filename = NULL;
-static gchar *encoding = NULL;
-static TextRender::DISPLAYMODE dispmode = TextRender::DISPLAYMODE_TEXT;
-static guint tab_size;
-static guint fixed_limit;
-static gboolean wrap_mode;
+const gchar *filename = "../INSTALL";
 
-void usage()
+////////////////////////////////////////////////////////////////////////
+
+class TextRendererDisplayModeTest : public ::testing::TestWithParam<TextRender::DISPLAYMODE> {};
+
+INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+                        TextRendererDisplayModeTest,
+                        ::testing::Values(TextRender::DISPLAYMODE_TEXT,
+                                          TextRender::DISPLAYMODE_BINARY,
+                                          TextRender::DISPLAYMODE_HEXDUMP));
+
+TEST_P(TextRendererDisplayModeTest, text_render_set_display_mode_test)
 {
-    fprintf(stderr,"This program tests the text-render widget in 'libgviewer'.\n\n");
-
-    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] filename\n\n");
-
-    fprintf(stderr,"\t-e enconding: ASCII, UTF8, CP437, CP1251, etc\n");
-    fprintf(stderr,"\t-d Display Mode:\n\t     Fixed(text)\n\t     Binary\n\t     Hex\n");
-    fprintf(stderr,"\t-w In fixed/variable text displays, turns on wrapping.\n");
-    fprintf(stderr,"\t-f fixed_limit: In Binary display mode, sets number of Bytes per line.\n");
-    fprintf(stderr,"\t-t tab size: In fixed/variable text displays, set number of space per TAB character.\n");
-    fprintf(stderr,"\tfilename: The file to display.\n");
-    exit(0);
-}
-
-void parse_command_line(int argc, char *argv[])
-{
-    extern char *optarg;
-    extern int optind, opterr, optopt;
-    int c;
-
-    tab_size = 8;
-    fixed_limit = 40;
-    dispmode = TextRender::DISPLAYMODE_TEXT;
-    encoding = g_strdup("ASCII");
-    wrap_mode = FALSE;
-
-    while ((c=getopt(argc,argv,"d:e:f:t:w")) != -1)
-    {
-        switch(c)
-        {
-        case 'w':
-            wrap_mode = TRUE;
-            break;
-
-        case 'e':
-            g_free(encoding);
-            encoding = g_strdup(optarg);
-            break;
-
-        case 'd':
-            if (g_ascii_strcasecmp(optarg,"fixed")==0)
-                dispmode = TextRender::DISPLAYMODE_TEXT;
-            else if (g_ascii_strcasecmp(optarg,"binary")==0)
-                dispmode = TextRender::DISPLAYMODE_BINARY;
-            else if (g_ascii_strcasecmp(optarg,"hex")==0)
-                dispmode = TextRender::DISPLAYMODE_HEXDUMP;
-            else
-            {
-                g_warning("Invalid display mode \"%s\".\n", optarg);
-                usage();
-            }
-            break;
-
-        case 't':
-            tab_size = atoi(optarg);
-            if (tab_size <=0)
-            {
-                g_warning("Invalid tab size \"%s\".\n", optarg);
-                usage();
-            }
-            break;
-
-        case 'f':
-            fixed_limit = atoi(optarg);
-            if (fixed_limit<=0) {
-                g_warning("Invalid fixed limit \"%s\".\n", optarg);
-                usage();
-            }
-            break;
-
-        default:
-            usage();
-            break;
-        }
-    }
-
-    if (optind == argc)
-    {
-        g_warning("Need file name to work with...\n");
-        usage();
-    }
-    filename = g_strdup(argv[optind++]);
-}
-
-int main(int argc, char *argv[])
-{
-    GtkWidget *window;
-    GtkWidget *scrollbox;
     GtkWidget *textr;
-
-    gtk_init(&argc,&argv);
-
-    parse_command_line(argc,argv);
-
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_position(GTK_WINDOW(window),GTK_WIN_POS_CENTER);
-    gtk_widget_set_size_request(window,600,400);
-
-    scrollbox = scroll_box_new();
-
     textr = text_render_new();
-
-    text_render_set_v_adjustment(TEXT_RENDER(textr),
-        scroll_box_get_v_adjustment(SCROLL_BOX(scrollbox)));
-
-    text_render_set_h_adjustment(TEXT_RENDER(textr),
-        scroll_box_get_h_adjustment(SCROLL_BOX(scrollbox)));
-
     text_render_load_file(TEXT_RENDER(textr), filename);
-    text_render_set_display_mode(TEXT_RENDER(textr), dispmode);
-    text_render_set_tab_size(TEXT_RENDER(textr), tab_size);
-    text_render_set_wrap_mode(TEXT_RENDER(textr), wrap_mode);
-    text_render_set_fixed_limit(TEXT_RENDER(textr), fixed_limit);
-    text_render_set_encoding(TEXT_RENDER(textr), encoding);
+    text_render_set_display_mode(TEXT_RENDER(textr), GetParam());
+    ASSERT_EQ(GetParam(), text_render_get_display_mode(TEXT_RENDER(textr)));
+}
 
-    scroll_box_set_client(SCROLL_BOX(scrollbox),textr);
+////////////////////////////////////////////////////////////////////////
 
-    gtk_container_add(GTK_CONTAINER(window), scrollbox);
+class TextRendererTabSizeTest : public ::testing::TestWithParam<int> {};
 
-    gtk_widget_show(textr);
-    gtk_widget_show(scrollbox);
-    gtk_widget_show(window);
+INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+                        TextRendererTabSizeTest,
+                        ::testing::Range(1,10));
 
-    while (g_main_context_pending(NULL))
-    {
-        g_main_context_iteration(NULL, FALSE);
-    }
-    gtk_widget_destroy (window);
-    return 0;
+TEST_P(TextRendererTabSizeTest, text_render_set_tab_size)
+{
+    GtkWidget *textr;
+    textr = text_render_new();
+    text_render_load_file(TEXT_RENDER(textr), filename);
+    text_render_set_tab_size(TEXT_RENDER(textr), GetParam());
+    ASSERT_EQ(GetParam(), text_render_get_tab_size(TEXT_RENDER(textr)));
+}
+
+////////////////////////////////////////////////////////////////////////
+
+class TextRendererWrapModeTest : public ::testing::TestWithParam<bool> {};
+
+INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+                        TextRendererWrapModeTest,
+                        ::testing::Bool());
+
+TEST_P(TextRendererWrapModeTest, gviewer_set_wrap_mode_test)
+{
+    GtkWidget *textr;
+    textr = text_render_new();
+    text_render_load_file(TEXT_RENDER(textr), filename);
+    text_render_set_wrap_mode(TEXT_RENDER(textr), GetParam());
+    ASSERT_EQ(GetParam(), text_render_get_wrap_mode(TEXT_RENDER(textr)));
+}
+
+////////////////////////////////////////////////////////////////////////
+
+class TextRendererFixedLimitTest : public ::testing::TestWithParam<int> {};
+
+INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+                        TextRendererFixedLimitTest,
+                        ::testing::Values(1,10));
+
+TEST_P(TextRendererFixedLimitTest, gviewer_set_set_fixed_limit)
+{
+    GtkWidget *textr;
+    textr = text_render_new();
+    text_render_load_file(TEXT_RENDER(textr), filename);
+    text_render_set_fixed_limit(TEXT_RENDER(textr), GetParam());
+    ASSERT_EQ(GetParam(), text_render_get_fixed_limit(TEXT_RENDER(textr)));
+}
+
+////////////////////////////////////////////////////////////////////////
+
+class TextRendererSetEncodingTest : public ::testing::TestWithParam<const char *> {};
+
+INSTANTIATE_TEST_CASE_P(InstantiationScaleFactor,
+                        TextRendererSetEncodingTest,
+                        ::testing::Values("ASCII", "UTF8", "CP437", "CP1251"));
+
+TEST_P(TextRendererSetEncodingTest, gviewer_set_encoding_test)
+{
+    GtkWidget *textr;
+    textr = text_render_new();
+    text_render_load_file(TEXT_RENDER(textr), filename);
+    text_render_set_encoding(TEXT_RENDER(textr), GetParam());
+    ASSERT_STREQ(GetParam(), text_render_get_encoding(TEXT_RENDER(textr)));
 }
