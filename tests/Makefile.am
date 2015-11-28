@@ -50,11 +50,11 @@ iv_fileops_SOURCES = iv_fileops_test.cc gcmd_tests_main.cc
 iv_fileops_CXXFLAGS = $(INTVLIBS)
 iv_fileops_LDFLAGS = $(INTVLIBS) -lgtest
 
-iv_bm_search_SOURCES = iv_bm_search_test.cc gcmd_tests_main.cc 
+iv_bm_search_SOURCES = iv_bm_search_test.cc gcmd_tests_main.cc
 iv_bm_search_CXXFLAGS = $(INTVLIBS)
 iv_bm_search_LDFLAGS = $(INTVLIBS) -lgtest
 
-iv_datapresentation_SOURCES = iv_datapresentation.cc
+iv_datapresentation_SOURCES = iv_datapresentation.cc gcmd_tests_main.cc
 iv_datapresentation_CXXFLAGS = $(INTVLIBS)
 iv_datapresentation_LDFLAGS = $(INTVLIBS) -lgtest
 
