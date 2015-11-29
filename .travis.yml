@@ -21,5 +21,12 @@ branches:
   only:
     - master
 
+notifications:
+  recipients:
+    - u.scholz83@gmx.de
+  email:
+    on_success: change
+    on_failure: always
+
 os:
   - linux
