@@ -17,7 +17,7 @@ before_install:
 
 install:
   - sudo apt-get install -qq gnome-common gnome-doc-utils libgnome2-dev
-         libgnomeui-dev libunique-dev scrollkeeper
+         libgnomeui-dev libunique-dev scrollkeeper libglib2.0-dev
 before_script:
   - cd -
 
