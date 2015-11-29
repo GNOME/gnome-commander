@@ -27,9 +27,7 @@ check_PROGRAMS = $(TESTS)
 
 # *** Internal Viewer Tests *** Most of these only consist of serialised
 # function calls for acceptance tests, acutally. Functions of the internal
-# viewer library are not fully tested by unit tests. Currently, I don't
-# feel that there is a need of adding unit tests for this nicely working
-# library. Some of these tests require a running X session.
+# viewer library are not fully tested by unit tests. 
 iv_imagerenderer_SOURCES = iv_imagerenderer_test.cc gcmd_tests_main.cc
 iv_imagerenderer_CXXFLAGS = $(INTVLIBS)
 iv_imagerenderer_LDFLAGS = $(INTVLIBS) -lgtest
