@@ -15,7 +15,8 @@ INTVLIBS = \
 	$(GTK_LIBS) \
 	$(GNOMEUI_LIBS) \
 	$(top_builddir)/src/intviewer/libgviewer.a \
-	-lgtest
+	-lgtest \
+	-lglib-2.0 
 
 TESTS = \
 	iv_viewerwidget \
