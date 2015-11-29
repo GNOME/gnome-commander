@@ -8,11 +8,18 @@ before_install:
   - echo $LC_ALL
   - sudo apt-get update -qq
   - sudo apt-get install libgtest-dev
-  - "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"
+  - sudo mkdir /usr/src/gtest/build
+  - cd /usr/src/gtest/build
+  - sudo cmake .. -DBUILD_SHARED_LIBS=1
+  - sudo make -j4
+  - sudo ln -s /usr/src/gtest/build/libgtest.so /usr/lib/libgtest.so
+  - sudo ln -s /usr/src/gtest/build/libgtest_main.so /usr/lib/libgtest_main.so
 
 install:
   - sudo apt-get install -qq gnome-common gnome-doc-utils libgnome2-dev
          libgnomeui-dev libunique-dev scrollkeeper
+before_script:
+  - cd -
 
 script:
   - ./autogen.sh
