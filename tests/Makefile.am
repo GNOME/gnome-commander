@@ -3,6 +3,7 @@ SUBDIRS =
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
 	$(GLIB_CFLAGS) \
+	$(GOBJECT_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(GNOMEUI_CFLAGS) \
 	$(GTEST_CPPFLAGS) \
@@ -10,11 +11,11 @@ AM_CPPFLAGS = \
 
 INTVLIBS = \
 	$(GLIB_LIBS) \
+	$(GOBJECT_CFLAGS) \
 	$(GTK_LIBS) \
 	$(GNOMEUI_LIBS) \
 	$(top_builddir)/src/intviewer/libgviewer.a \
-	-lgtest \
-	-lgobject-2.0
+	-lgtest
 
 TESTS = \
 	iv_viewerwidget \

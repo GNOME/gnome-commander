@@ -68,6 +68,7 @@ AC_SUBST(EXIV2_REQ)
 AC_SUBST(TAGLIB_REQ)
 AC_SUBST(LIBGSF_REQ)
 AC_SUBST(POPPLER_REQ)
+AC_SUBST(GOBJECT_CFLAGS)
 
 dnl Check for glib
 AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
@@ -90,6 +91,8 @@ else
     AC_MSG_ERROR(no)
 fi
 
+dnl Check for gobject
+PKG_CHECK_MODULES([GOBJECT],[gobject-2.0])
 
 dnl Check for gmodule
 AC_MSG_CHECKING(if gmodule >= ${GMODULE_REQ} exists)
