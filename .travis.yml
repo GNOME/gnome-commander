@@ -3,7 +3,7 @@ language: cpp
 compiler:
   - gcc
 
-before_install:
+before_script:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
   - sudo apt-get update -qq
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
@@ -17,11 +17,8 @@ before_install:
   - sudo make -j4
   - sudo ln -s /usr/src/gtest/build/libgtest.so /usr/lib/libgtest.so
   - sudo ln -s /usr/src/gtest/build/libgtest_main.so /usr/lib/libgtest_main.so
-
-install:
-  - sudo apt-get install -qq gnome-common gnome-doc-utils libgnome2-dev
-         libgnomeui-dev libunique-dev scrollkeeper libglib2.0-dev
-before_script:
+  - sudo apt-get build-dep -qq gnome-commander
+  - sudo apt-get install -qq gnome-common libunique-dev scrollkeeper libglib2.0-dev
   - cd -
 
 script:
