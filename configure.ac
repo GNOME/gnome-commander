@@ -20,13 +20,14 @@ IT_PROG_INTLTOOL([0.35.0])
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
 
+AX_CXX_COMPILE_STDCXX_11
+
 dnl add -Wall to CFLAGS when using gcc
 CC_WARNINGS=
 if test "x$GCC" = "xyes"; then
   CC_WARNINGS="-Wall"
 fi
 AC_SUBST(CC_WARNINGS)
-
 
 dnl ===================
 dnl Gettext stuff
@@ -54,7 +55,6 @@ EXIV2_REQ=0.14
 TAGLIB_REQ=1.4
 LIBGSF_REQ=1.12.0
 POPPLER_REQ=0.18
-CPPUNIT_REQ=1.13.1
 
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
@@ -68,6 +68,7 @@ AC_SUBST(EXIV2_REQ)
 AC_SUBST(TAGLIB_REQ)
 AC_SUBST(LIBGSF_REQ)
 AC_SUBST(POPPLER_REQ)
+AC_SUBST(GOBJECT_CFLAGS)
 
 dnl Check for glib
 AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
@@ -90,6 +91,8 @@ else
     AC_MSG_ERROR(no)
 fi
 
+dnl Check for gobject
+PKG_CHECK_MODULES([GOBJECT],[gobject-2.0])
 
 dnl Check for gmodule
 AC_MSG_CHECKING(if gmodule >= ${GMODULE_REQ} exists)
@@ -292,13 +295,37 @@ fi
 
 
 dnl =====================
-dnl Check for CppUnit
+dnl     Google Test
 dnl =====================
 
-PKG_CHECK_MODULES(CPPUNIT, [cppunit >= $CPPUNIT_REQ],,[AC_MSG_RESULT([no, testing is disabled])]) 
-AM_CONDITIONAL(HAVE_CPPUNIT, [test "x$CHECK_LIBS" != "x"])
-AC_SUBST(CHECK_CFLAGS)
-AC_SUBST(CHECK_LIBS)
+# Configure pthreads.
+# ACX_PTHREAD([have_pthread=yes])
+
+# Define gtest variables
+if test "x$have_pthread" = "xyes"; then
+GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=1"
+GTEST_CXXFLAGS="$PTHREAD_CFLAGS"
+GTEST_LDFLAGS=
+GTEST_LIBS="$PTHREAD_LIBS"
+else
+GTEST_CPPFLAGS="-DGTEST_HAS_PTHREAD=0"
+GTEST_CXXFLAGS=
+GTEST_LDFLAGS=
+GTEST_LIBS=
+fi
+AC_SUBST([GTEST_CPPFLAGS])
+AC_SUBST([GTEST_CXXFLAGS])
+AC_SUBST([GTEST_LDFLAGS])
+AC_SUBST([GTEST_LIBS])
+
+AC_MSG_RESULT([
+Google Test is now configured (for \"make check\")
+
+    GTEST_CPPFLAGS  : $GTEST_CPPFLAGS
+    GTEST_CXXFLAGS  : $GTEST_CXXFLAGS
+    GTEST_LDFLAGS   : $GTEST_LDFLAGS
+    GTEST_LIBS      : $GTEST_LIBS
+])
 
 dnl =============================
 dnl Checks for library functions

@@ -56,6 +56,9 @@
                             <para>Device buttons and device list entries act as 'home buttons' for that device when it is already active</para>
                         </listitem>
                         <listitem>
+                            <para>Started usage of google test framework for unit tests</para>
+                        </listitem>
+                        <listitem>
                             <para>Code cleanup</para>
                         </listitem>
                         <listitem>
