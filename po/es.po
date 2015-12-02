@@ -2,20 +2,21 @@
 # Spanish translation for gnome-commander
 # Copyright (C) 2002, 2003, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the GNOME Commander package.
-#
+# 
 # Edgardo García Hoeffler <edybsd@yahoo.com.ar>, 2002.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003, 2006.
 # Lorenzo nunez <lorenzo.nunez@gmail.com>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015.
+# 
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015., 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-13 06:29+0000\n"
-"PO-Revision-Date: 2015-07-13 \n"
+"POT-Creation-Date: 2015-12-01 08:14+0000\n"
+"PO-Revision-Date: 2015-12-01 14:52+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -54,7 +55,7 @@ msgstr ""
 "gestión de archivos precisa, trabajando en paralelo mediante aplicaciones "
 "especiales y ejecutando comandos inteligentes."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:522
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -2073,17 +2074,17 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: ../src/gnome-cmd-data.cc:1402 ../src/gnome-cmd-data.cc:1403
-#: ../src/gnome-cmd-data.cc:1826 ../src/gnome-cmd-data.cc:2018
+#: ../src/gnome-cmd-data.cc:1540 ../src/gnome-cmd-data.cc:1541
+#: ../src/gnome-cmd-data.cc:1965 ../src/gnome-cmd-data.cc:2157
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
 
-#: ../src/gnome-cmd-data.cc:1674
+#: ../src/gnome-cmd-data.cc:1813
 msgid "Audio Files"
 msgstr "Archivo de sonido"
 
-#: ../src/gnome-cmd-data.cc:1682
+#: ../src/gnome-cmd-data.cc:1821
 msgid "CamelCase"
 msgstr "CamelCase"
 
@@ -2288,8 +2289,9 @@ msgstr "%s libre"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1697 ../src/gnome-cmd-user-actions.cc:1705
-msgid "The tab is locked, close anyway ?"
-msgstr "Esta pestaña esta bloqueada, ¿cerrar de todas formas?"
+#| msgid "The tab is locked, close anyway ?"
+msgid "The tab is locked, close anyway?"
+msgstr "La pestaña esta bloqueada, ¿cerrar de todas formas?"
 
 #: ../src/gnome-cmd-file-selector.cc:652 ../src/gnome-cmd-main-menu.cc:625
 msgid "Open in New _Tab"
@@ -3197,8 +3199,8 @@ msgid ""
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Imposible encontrar la imagen. Verifique que se haya instalado el programa o "
-"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-%"
-"s/src"
+"que se esté ejecutando el gnome-commander desde la carpeta gnome-commander-"
+"%s/src"
 
 #: ../src/imageloader.cc:136
 #, c-format
@@ -4072,8 +4074,8 @@ msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
 msgstr ""
-"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo lectura "
-"forzado» o «Bloquedao para anotaciones»."
+"Uno de: «Protegido por contraseña», «Se recomienda sólo lectura», «Sólo "
+"lectura forzado» o «Bloquedao para anotaciones»."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Slide Count"
@@ -6813,8 +6815,8 @@ msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
-"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y «S» "
-"para recuadro."
+"La orientación del área de la imagen: «P» para retrato, «L» para paisaje, y "
+"«S» para recuadro."
 
 #: ../src/tags/gnome-cmd-tags.cc:474
 msgid "Image Type"
@@ -7278,8 +7280,8 @@ msgid ""
 "Set to \"1\" if inserting, rotating, or deleting pages and creating "
 "navigation elements is allowed."
 msgstr ""
-"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y crear "
-"elementos de navegación."
+"Establecido a «1» si se se permite insertar, rotar o eliminar páginas y "
+"crear elementos de navegación."
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Commenting"
