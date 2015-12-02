@@ -17,7 +17,10 @@ INTVLIBS = \
 	-lgtest
 
 ADDITIONAL_LDADD = \
-	$(top_builddir)/src/intviewer/libgviewer.a
+	$(top_builddir)/src/intviewer/libgviewer.a \
+    $(GOBJECT_LIBS) \
+    $(GTK_LIBS) \
+    $(GNOMEUI_LIBS)
 
 TESTS = \
 	iv_viewerwidget \
