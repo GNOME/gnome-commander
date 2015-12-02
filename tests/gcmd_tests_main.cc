@@ -22,8 +22,11 @@
  */
 
  #include "gtest/gtest.h"
+ #include <glib-object.h>
 
 int main(int argc, char **argv) {
+  if (glib_check_version (2, 36, 0) != NULL)
+    g_type_init ();
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
