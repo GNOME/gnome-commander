@@ -11,6 +11,7 @@ New features:
  * Configurable command for sending files to a preferred application
  * Button 'Edit files' accepts more than one selected file at the same time
  * Device buttons and device list entries act as 'home buttons' for that device when it is already active
+ * Started usage of google test framework for unit tests
  * Code cleanup
 New or updated translations: 
      ...
