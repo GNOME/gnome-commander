@@ -1203,8 +1203,8 @@ msgid "S_ynchronize Directories"
 msgstr "S_ynchronise Directories"
 
 #: ../src/gnome-cmd-main-menu.cc:480
-msgid "Start _GNOME Commander as Root"
-msgstr "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
+msgstr "Start _GNOME Commander as root"
 
 #: ../src/gnome-cmd-main-menu.cc:487
 msgid "_Quit"

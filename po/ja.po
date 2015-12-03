@@ -1711,7 +1711,7 @@ msgid "S_ynchronize Directories"
 msgstr "ディレクトリを同期(_Y)"
 
 #: ../src/gnome-cmd-main-menu.cc:473
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "ルート権限でGNOME Commanderを起動(_G)"
 
 #: ../src/gnome-cmd-main-menu.cc:480

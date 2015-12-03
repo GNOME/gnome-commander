@@ -1,0 +1,41 @@
+language: cpp
+
+compiler:
+  - gcc
+
+before_script:
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -qq
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - echo $LANG
+  - echo $LC_ALL
+  - sudo apt-get install libgtest-dev
+  - sudo mkdir /usr/src/gtest/build
+  - cd /usr/src/gtest/build
+  - sudo cmake .. -DBUILD_SHARED_LIBS=1
+  - sudo make -j4
+  - sudo ln -s /usr/src/gtest/build/libgtest.so /usr/lib/libgtest.so
+  - sudo ln -s /usr/src/gtest/build/libgtest_main.so /usr/lib/libgtest_main.so
+  - sudo apt-get build-dep -qq gnome-commander
+  - sudo apt-get install -qq gnome-common libunique-dev scrollkeeper libglib2.0-dev
+  - cd -
+
+script:
+  - ./autogen.sh
+  - make
+  - make check
+
+branches:
+  only:
+    - master
+
+notifications:
+  recipients:
+    - u.scholz83@gmx.de
+  email:
+    on_success: change
+    on_failure: always
+
+os:
+  - linux

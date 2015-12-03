@@ -631,7 +631,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                     {
                         GnomeCmdFileList *fl = fs->file_list(tab_clicked);
 
-                        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+                        if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
                             fs->close_tab(tab_clicked);
                     }
 
@@ -706,7 +706,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
             {
                 GnomeCmdFileList *fl = fs->file_list(tab_clicked);
 
-                if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway ?"))==GTK_RESPONSE_OK)
+                if (!fl->locked || gnome_cmd_prompt_message (*main_win, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL, _("The tab is locked, close anyway?"))==GTK_RESPONSE_OK)
                     fs->close_tab(tab_clicked);
             }
             else

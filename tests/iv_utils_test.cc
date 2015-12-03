@@ -1,7 +1,7 @@
 #include <glib.h>
 #include <stdio.h>
-#include <libgviewer/gvtypes.h>
-#include <libgviewer/viewer-utils.h>
+#include <intviewer/gvtypes.h>
+#include <intviewer/viewer-utils.h>
 
 
 void test_text2hex()

@@ -2370,8 +2370,8 @@ msgid "S_ynchronize Directories"
 msgstr "Ordner a_bgleichen"
 
 #: ../src/gnome-cmd-main-menu.cc:505
-msgid "Start _GNOME Commander as Root"
-msgstr "_GNOME Commander als Administrator starten"
+msgid "Start _GNOME Commander as root"
+msgstr "_GNOME Commander als root-Benutzer starten"
 
 #: ../src/gnome-cmd-main-menu.cc:512
 msgid "_Quit"

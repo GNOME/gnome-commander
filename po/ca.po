@@ -2639,7 +2639,7 @@ msgstr "_Compara directoris"
 
 #: ../src/gnome-cmd-main-menu.cc:505
 #, fuzzy
-msgid "Start _GNOME Commander as Root"
+msgid "Start _GNOME Commander as root"
 msgstr "GNOME Commander"
 
 # Projecte_Gnome_2.2 [mrproject.HEAD.ca.po]
