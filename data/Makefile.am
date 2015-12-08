@@ -7,6 +7,9 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DESKTOP_RULE@
 
+gsettings_SCHEMAS = org.gnome.gnome-commander.gschema.xml
+@GSETTINGS_RULES@
+
 appdatadir = $(datadir)/appdata
 appdata_in_files = @PACKAGE@.appdata.xml.in
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
