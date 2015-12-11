@@ -133,7 +133,7 @@ int main (int argc, char *argv[])
                                   GNOME_PARAM_NONE);
 
     if (debug_flags && strchr(debug_flags,'a'))
-        debug_flags = "cdfgiklmnpstuvwyzx";
+        debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
 
     gdk_rgb_init ();
     gnome_vfs_init ();
@@ -199,6 +199,7 @@ int main (int argc, char *argv[])
 
     g_object_unref (app);
     g_object_unref (program);
+    g_free (debug_flags);
 
     DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);
     DEBUG ('c', "files total: %d remaining: %d\n", created_files_cnt, created_files_cnt - deleted_files_cnt);
