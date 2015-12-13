@@ -35,9 +35,9 @@ dnl ===================
 dnl Gettext stuff
 dnl ===================
 
-GETTEXT_PACKAGE=gnome-commander
-AC_SUBST(GETTEXT_PACKAGE)
+AC_SUBST([GETTEXT_PACKAGE], [gnome-commander])
 AM_GLIB_GNU_GETTEXT
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], "$GETTEXT_PACKAGE", [Define to the gettext package name.])
 
 
 dnl ===================
