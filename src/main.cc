@@ -43,6 +43,7 @@ extern "C"
 #include "plugin_manager.h"
 #include "gnome-cmd-python-plugin.h"
 #include "tags/gnome-cmd-tags.h"
+#include "gnome-cmd-settings.h"
 
 using namespace std;
 
@@ -96,6 +97,7 @@ int main (int argc, char *argv[])
     GnomeProgram *program;
     GOptionContext *option_context;
     UniqueApp *app;
+    GcmdSettings *settings = NULL;
 
     main_win = NULL;
 
@@ -142,9 +144,11 @@ int main (int argc, char *argv[])
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
 
+    /* Load Settings */
     IMAGE_init ();
     gcmd_user_actions.init();
     gnome_cmd_data.load();
+    settings = gcmd_settings_new ();
 
     app = unique_app_new ("org.gnome.GnomeCommander", NULL);
 

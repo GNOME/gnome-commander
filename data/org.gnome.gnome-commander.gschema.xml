@@ -2,8 +2,23 @@
 
 <schemalist>
 
-  <schema id="org.gnome.gnome-commander" path="/org/gnome/gnome-commander/">
-
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander" path="/org/gnome/gnome-commander/">
+    <child name="preferences" schema="org.gnome.gnome-commander.preferences"/>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences" path="/org/gnome/gnome-commander/preferences/">
+    <child name="layout" schema="org.gnome.gnome-commander.preferences.layout"/>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.layout" path="/org/gnome/gnome-commander/preferences/layout/">
+    <key name="use-default-font" type="b">
+      <default>true</default>
+      <summary>Use Default Font</summary>
+      <description>Whether to use the system's default fixed width font for the file panels instead of a font specific to gnome-commander. If this option is turned off, then the font named in the "File panes" option will be used instead of the system font.</description>
+    </key>
+    <key name="panel-font" type="s">
+      <default l10n="messages">'DejaVu Sans Mono 8'</default>
+      <summary>Panel Font</summary>
+      <description>A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.</description>
+    </key>
   </schema>
 
 </schemalist>
