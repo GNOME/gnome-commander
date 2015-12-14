@@ -19,8 +19,6 @@ mimexml_DATA = gnome-commander-mime.xml
 
 @INTLTOOL_XML_RULE@
 
-#BUILT_SOURCES = @PACKAGE@-@VERSION@.ebuild
-
 ebuild_files = @PACKAGE@.ebuild
 ebuild_DATA_NOINST = @PACKAGE@-@VERSION@.ebuild
 
