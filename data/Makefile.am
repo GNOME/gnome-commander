@@ -25,8 +25,16 @@ ebuild_DATA_NOINST = @PACKAGE@-@VERSION@.ebuild
 @PACKAGE@-@VERSION@.ebuild: $(ebuild_files)
 	ln -sf @PACKAGE@.ebuild @PACKAGE@-@VERSION@.ebuild
 
-EXTRA_DIST = $(appdata_in_files) $(desktop_in_files) @PACKAGE@.spec $(ebuild_files) $(ebuild_DATA_NOINST)
-EXTRA_DIST	+= $(mimexml_DATA)
+EXTRA_DIST =              \
+	$(appdata_in_files)   \
+	$(desktop_in_files)   \
+	@PACKAGE@.spec        \
+	$(ebuild_files)       \
+	$(ebuild_DATA_NOINST) \
+	$(mimexml_DATA)       \
+	$(gsettings_SCHEMAS)
+
+CLEANFILES = org.gnome.@PACKAGE@.gschema.valid
 
 DISTCLEANFILES = $(appdata_DATA) $(desktop_DATA)
 
