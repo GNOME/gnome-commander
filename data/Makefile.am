@@ -1,13 +1,12 @@
 ## Process this file with automake to produce Makefile.in.
 
-
 desktopdir = $(datadir)/applications
 desktop_in_files = @PACKAGE@.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DESKTOP_RULE@
 
-gsettings_SCHEMAS = org.gnome.gnome-commander.gschema.xml
+gsettings_SCHEMAS = org.gnome.@PACKAGE@.gschema.xml
 @GSETTINGS_RULES@
 
 appdatadir = $(datadir)/appdata
