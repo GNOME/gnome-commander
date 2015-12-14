@@ -11,14 +11,16 @@ EXTRA_DIST =                \
 	ChangeLog-20090629      \
 	xmldocs.make            \
 	omf.make                \
-	m4/                     \
-	gnome-doc-utils.make
+	m4                      \
+	gnome-doc-utils.make    \
+	AUTHORS                 \
+	ChangeLog               \
+	INSTALL                 \
+	NEWS                    \
+	README
 
 DISTCLEANFILES =            \
-	gnome-doc-utils.make    \
-	intltool-extract        \
-	intltool-merge          \
-	intltool-update
+	po/.intltool-merge-cache
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 

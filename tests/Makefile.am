@@ -1,4 +1,4 @@
-SUBDIRS =
+## Process this file with automake to produce Makefile.in
 
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
@@ -7,7 +7,11 @@ AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
 	$(GNOMEUI_CFLAGS) \
 	$(GTEST_CPPFLAGS) \
-	-I$(top_builddir)/src
+	-I$(top_builddir)/src \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/src \
+	-I$(top_srcdir)/src/intviewer \
+	-I$(srcdir)
 
 INTVLIBS = \
 	$(GLIB_LIBS) \
@@ -18,9 +22,9 @@ INTVLIBS = \
 
 ADDITIONAL_LDADD = \
 	$(top_builddir)/src/intviewer/libgviewer.a \
-    $(GOBJECT_LIBS) \
-    $(GTK_LIBS) \
-    $(GNOMEUI_LIBS)
+	$(GOBJECT_LIBS) \
+	$(GTK_LIBS) \
+	$(GNOMEUI_LIBS)
 
 TESTS = \
 	iv_viewerwidget \

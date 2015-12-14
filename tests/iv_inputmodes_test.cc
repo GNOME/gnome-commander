@@ -27,7 +27,7 @@
  */
 
 #include "gtest/gtest.h"
-#include <intviewer/libgviewer.h>
+#include <libgviewer.h>
 
 class ViewerInputModeTest : public ::testing::TestWithParam<const char *> {};
 

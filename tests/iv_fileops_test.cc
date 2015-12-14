@@ -22,13 +22,15 @@
  */
 
 #include "gtest/gtest.h"
-#include <iv_fileops_test.h>
+#include <libgviewer.h>
+#include <gvtypes.h>
+#include <fileops.h>
 
-FileOpsTest::FileOpsTest() {}
-FileOpsTest::~FileOpsTest() {}
+// The fixture for testing class FileOpsTest.
+class FileOpsTest : public ::testing::Test {};
 
 TEST_F(FileOpsTest, gv_file_get_byte_does_read) {
-    const char *file_path = "../INSTALL";
+    const char *file_path = "../README";
     ViewerFileOps *fops;
     offset_type end;
     offset_type current;

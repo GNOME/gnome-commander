@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <intviewer/libgviewer.h>
+#include <libgviewer.h>
 #include "gtest/gtest.h"
 
 const gchar *filename = "../INSTALL";
