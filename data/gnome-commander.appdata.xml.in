@@ -20,6 +20,9 @@
     and running smart commands.
   </_p>
  </description>
+ <kudos>
+  <kudo>UserDocs</kudo>
+ </kudos>
  <screenshots>
   <screenshot type="default" width="1280" height="720">https://gcmd.github.io/ss/MainWin-Classic.png</screenshot>
   <screenshot width="950" height="540">http://gcmd.github.io/ss/adv_ren.png</screenshot>
