@@ -44,7 +44,7 @@ dnl ===================
 dnl Check for libraries
 dnl ===================
 
-GLIB_REQ=2.6.0
+GLIB_REQ=2.44.0
 GMODULE_REQ=2.0.0
 GTK_REQ=2.8.0
 GNOME_REQ=2.0.0
