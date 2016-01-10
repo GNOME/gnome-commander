@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2015 Uwe Scholz\n
+ * @copyright (C) 2013-2016 Uwe Scholz\n
  *
  * @details This module tests gviewer widget setter functions in libgviewer.
  * @li Enconding: ASCII, UTF8, CP437, CP1251
