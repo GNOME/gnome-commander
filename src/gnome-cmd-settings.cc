@@ -1,7 +1,7 @@
 /**
  * @file gnome-cmd-settings.cc
  * @brief Functions for storing settings of GCMD using GSettings
- * @copyright (C) 2013-2015 Uwe Scholz\n
+ * @copyright (C) 2013-2016 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
