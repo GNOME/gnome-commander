@@ -5,14 +5,14 @@
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Piotr Eljasiak <epiotr@use.pl>, 2002-2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
+# Aviary.pl <gnomepl@aviary.pl>, 2015-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 23:33+0100\n"
-"PO-Revision-Date: 2015-11-26 23:35+0100\n"
+"POT-Creation-Date: 2016-01-17 15:05+0100\n"
+"PO-Revision-Date: 2016-01-17 15:07+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -51,6 +51,10 @@ msgstr ""
 "GNOME Commander jest przeznaczony dla zaawansowanych użytkowników, którzy "
 "pragną skupić się na dokładnym zarządzaniu plikami, działając jednocześnie w "
 "specjalnych programach i wykonując inteligentne polecenia."
+
+#: ../data/gnome-commander.appdata.xml.in.h:4
+msgid "filemanager"
+msgstr "menedżer plików"
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
@@ -3097,8 +3101,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Piotr Eljasiak <epiotr@use.pl>, 2002-2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2015\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2015\n"
+"Piotr Drąg <piotrdrag@gmail.com>, 2015-2016\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2015-2016\n"
 "\n"
 "In Memory of Piotr Eljasiak"
 
