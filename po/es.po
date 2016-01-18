@@ -8,15 +8,15 @@
 # Lorenzo nunez <lorenzo.nunez@gmail.com>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015., 2015.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-12-01 08:14+0000\n"
-"PO-Revision-Date: 2015-12-01 14:52+0100\n"
+"POT-Creation-Date: 2016-01-13 08:18+0000\n"
+"PO-Revision-Date: 2016-01-13 12:04+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -54,6 +54,11 @@ msgstr ""
 "GNOME Commander se dirige a usuarios avanzados que quieren centrarse en la "
 "gestión de archivos precisa, trabajando en paralelo mediante aplicaciones "
 "especiales y ejecutando comandos inteligentes."
+
+#: ../data/gnome-commander.appdata.xml.in.h:4
+#| msgid "File Manager"
+msgid "filemanager"
+msgstr "gestor de archivos"
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
@@ -2289,7 +2294,6 @@ msgstr "%s libre"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1697 ../src/gnome-cmd-user-actions.cc:1705
-#| msgid "The tab is locked, close anyway ?"
 msgid "The tab is locked, close anyway?"
 msgstr "La pestaña esta bloqueada, ¿cerrar de todas formas?"
 
