@@ -7,7 +7,7 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2005.
 # Allan Jäke <allan@jaeke.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2007-2009.c
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011, 2016.
 # Uwe Scholz <uwescholz@src.gnome.org>, 2013
 # Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 #
@@ -16,9 +16,9 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-12-01 08:14+0000\n"
-"PO-Revision-Date: 2015-12-01 15:04+0100\n"
-"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"POT-Creation-Date: 2016-01-18 08:18+0000\n"
+"PO-Revision-Date: 2016-01-18 21:06+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +56,10 @@ msgstr ""
 "Die Zielgruppe von GNOME Commander sind erfahrene Benutzer, die eine präzise "
 "Dateiverwaltung wünschen, gerne parallel mit Spezialanwendungen arbeiten und "
 "clevere Befehle laufen lassen."
+
+#: ../data/gnome-commander.appdata.xml.in.h:4
+msgid "filemanager"
+msgstr "Dateiverwaltung"
 
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
 #: ../src/gnome-cmd-main-win.cc:761
