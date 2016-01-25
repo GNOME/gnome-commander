@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Uwe Scholz <u.scholz83@gmx.de> -->
-<application>
- <id type="desktop">gnome-commander.desktop</id>
- <metadata_license>CC0-1.0</metadata_license>
- <project_license>GPL-2.0+</project_license>
- <name>Gnome Commander</name>
- <_summary>Two-pane file manager</_summary>
- <description>
-  <_p>
-    GNOME Commander is a "two-pane" graphical file manager for the GNOME
-    desktop environment. It features separate tabs for each pane,
-    setting up custom device buttons, bookmark manager, fully integrated
-    commandline, file quick search, an internal image viewer, a powerful
-    batch renaming tool, and FTP and Samba access.
-  </_p>
-  <_p>
-    GNOME Commander aims to advanced users who like to focus on precise
-    file management, working in parallel through special applications,
-    and running smart commands.
-  </_p>
- </description>
- <kudos>
-  <kudo>UserDocs</kudo>
- </kudos>
- <keywords>
-  <_keyword>filemanager</_keyword>
- </keywords>
- <screenshots>
-  <screenshot type="default" width="1280" height="720">https://gcmd.github.io/ss/MainWin-Classic.png</screenshot>
-  <screenshot width="950" height="540">http://gcmd.github.io/ss/adv_ren.png</screenshot>
- </screenshots>
- <url type="homepage">http://gcmd.github.io/index.html</url>
- <updatecontact>gcmd-devel@nongnu.org</updatecontact>
- <project_group>GNOME</project_group>
-</application>
+<component type="desktop">
+  <id>gnome-commander.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <_name>GNOME Commander</_name>
+  <_summary>Two-pane file manager</_summary>
+  <description>
+    <_p>
+      GNOME Commander is a "two-pane" graphical file manager for the GNOME
+      desktop environment. It features separate tabs for each pane,
+      setting up custom device buttons, bookmark manager, fully integrated
+      commandline, file quick search, an internal image viewer, a powerful
+      batch renaming tool, and FTP and Samba access.
+    </_p>
+    <_p>
+      GNOME Commander aims to advanced users who like to focus on precise
+      file management, working in parallel through special applications,
+      and running smart commands.
+    </_p>
+  </description>
+  <kudos>
+    <kudo>UserDocs</kudo>
+  </kudos>
+  <keywords>
+    <_keyword>filemanager</_keyword>
+  </keywords>
+  <screenshots>
+    <screenshot type="default" width="1280" height="720">
+      <image>https://gcmd.github.io/ss/MainWin-Classic.png</image>
+    </screenshot>
+    <screenshot width="950" height="540">
+      <image>http://gcmd.github.io/ss/adv_ren.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">http://gcmd.github.io/index.html</url>
+  <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander</url>
+  <url type="donation">http://www.gnome.org/friends/</url>
+  <url type="help">http://gcmd.github.io/doc.html</url>
+  <update_contact>gcmd-devel@nongnu.org</update_contact>
+  <project_group>GNOME</project_group>
+  <translation type="gettext">gnome-commander</translation>
+</component>
