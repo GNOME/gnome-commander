@@ -25,6 +25,11 @@
   </kudos>
   <keywords>
     <_keyword>filemanager</_keyword>
+    <_keyword>rename</_keyword>
+    <_keyword>copy</_keyword>
+    <_keyword>SSH</_keyword>
+    <_keyword>FTP</_keyword>
+    <_keyword>Webdav</_keyword>
   </keywords>
   <screenshots>
     <screenshot type="default" width="1280" height="720">
