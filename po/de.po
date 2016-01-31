@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-18 08:18+0000\n"
-"PO-Revision-Date: 2016-01-18 21:06+0100\n"
+"POT-Creation-Date: 2016-01-31 15:36+0000\n"
+"PO-Revision-Date: 2016-01-31 19:38+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -28,10 +28,16 @@ msgstr ""
 "X-Generator: Poedit 1.8.6\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../src/gnome-cmd-main-win.cc:761
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Dateiverwaltung mit zweigeteilter Oberfläche"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -47,7 +53,7 @@ msgstr ""
 "benutzerdefinierten Geräteknöpfen, Verwaltung von Lesezeichen, schnelle "
 "Dateisuche und Zugriff per FTP und Samba."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -57,14 +63,32 @@ msgstr ""
 "Dateiverwaltung wünschen, gerne parallel mit Spezialanwendungen arbeiten und "
 "clevere Befehle laufen lassen."
 
-#: ../data/gnome-commander.appdata.xml.in.h:4
+#: ../data/gnome-commander.appdata.xml.in.h:5
 msgid "filemanager"
 msgstr "Dateiverwaltung"
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
-#: ../src/gnome-cmd-main-win.cc:761
-msgid "GNOME Commander"
-msgstr "GNOME Commander"
+#: ../data/gnome-commander.appdata.xml.in.h:6
+msgid "rename"
+msgstr "Umbenennen"
+
+#: ../data/gnome-commander.appdata.xml.in.h:7
+msgid "copy"
+msgstr "Kopieren"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
+msgid "SSH"
+msgstr "SSH"
+
+#: ../data/gnome-commander.appdata.xml.in.h:9
+msgid "FTP"
+msgstr "FTP"
+
+#: ../data/gnome-commander.appdata.xml.in.h:10
+#| msgid "WebDAV (HTTP)"
+msgid "WebDAV"
+msgstr "WebDAV"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
@@ -338,11 +362,6 @@ msgstr "Entfernter Server"
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:440
 msgid "Service _type:"
 msgstr "_Typ des Dienstes:"
-
-#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
-msgid "SSH"
-msgstr "SSH"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "FTP (with login)"
