@@ -852,7 +852,7 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
     if (!g_markup_parse_context_parse (context, xml, xml_len, &error) ||
         !g_markup_parse_context_end_parse (context, &error))
     {
-        g_warning (error->message);
+        g_warning ("%s", error->message);
         g_error_free (error);
     }
 
@@ -873,7 +873,7 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
 
     if (!g_file_get_contents (path, &xml, &xml_len, &error))
     {
-        g_warning (error->message);
+        g_warning ("%s", error->message);
         g_error_free (error);
 
         return FALSE;
