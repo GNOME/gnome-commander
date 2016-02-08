@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2016-02-03 09:31+0200\n"
-"PO-Revision-Date: 2016-02-03 10:50+0200\n"
+"PO-Revision-Date: 2016-02-08 08:02+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,11 +32,11 @@ msgstr "Dviejų langų failų tvarkyklė"
 
 #: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
-"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
-"desktop environment. It features separate tabs for each pane, setting up "
-"custom device buttons, bookmark manager, fully integrated commandline, file "
-"quick search, an internal image viewer, a powerful batch renaming tool, and "
-"FTP and Samba access."
+"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME desktop "
+"environment. It features separate tabs for each pane, setting up custom device "
+"buttons, bookmark manager, fully integrated commandline, file quick search, an "
+"internal image viewer, a powerful batch renaming tool, and FTP and Samba "
+"access."
 msgstr ""
 
 #: ../data/gnome-commander.appdata.xml.in.h:4
@@ -223,7 +223,7 @@ msgstr "Profiliai..."
 #: ../src/dialogs/gnome-cmd-advrename-dialog.cc:702
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:84
 msgid "Reset"
-msgstr ""
+msgstr "Iš naujo"
 
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:95
 msgid "_Search for:"
@@ -286,7 +286,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:216
 msgid "_Server:"
-msgstr ""
+msgstr "_Serveris:"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:227
 msgid "Optional information"
@@ -298,11 +298,11 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:254
 msgid "_Port:"
-msgstr ""
+msgstr "_Prievadas:"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:256
 msgid "_Folder:"
-msgstr ""
+msgstr "_Aplankas:"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:259
 msgid "_User name:"
@@ -329,14 +329,13 @@ msgstr ""
 msgid "Please check spelling and try again."
 msgstr ""
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:425
-#: ../src/gnome-cmd-main-win.cc:1182
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:425 ../src/gnome-cmd-main-win.cc:1182
 msgid "Remote Server"
 msgstr "Nuotolinis serveris"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:440
 msgid "Service _type:"
-msgstr ""
+msgstr "Serviso tipas:"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "FTP (with login)"
@@ -344,7 +343,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:454
 msgid "Public FTP"
-msgstr ""
+msgstr "Viešas FTP"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:456
 msgid "Windows share"
@@ -372,7 +371,7 @@ msgstr[2] ""
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:133
 msgid "Deleting..."
-msgstr ""
+msgstr "Ištrinama..."
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:205
 #, c-format
@@ -441,28 +440,28 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:109
 msgid "Bookmark _name:"
-msgstr ""
+msgstr "Žymelės pavadinimas:"
 
 #: ../src/dialogs/gnome-cmd-edit-bookmark-dialog.cc:120
 msgid "Bookmark _target:"
-msgstr ""
+msgstr "Žymelės taikinys:"
 
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:81
 msgid "Edit Profile"
-msgstr ""
+msgstr "Keisti profilį"
 
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:116
 msgid "_Name"
-msgstr ""
+msgstr "_Pavadinimas"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:323
 msgid "Image:"
-msgstr ""
+msgstr "Paveikslėlis:"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:350
 #: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
-msgstr ""
+msgstr "Aplanko pavadinimas"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:350
 #: ../src/gnome-cmd-file-selector.cc:1134
@@ -475,7 +474,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:376
 msgid "Location:"
-msgstr ""
+msgstr "Vieta:"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:384
 msgid "Volume:"
@@ -548,7 +547,7 @@ msgstr "Pavadinimas"
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:630
 #: ../src/intviewer/viewer-window.cc:1459
 msgid "Tag name"
-msgstr ""
+msgstr "Etiketės pavadinimas"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:632
 #: ../src/intviewer/viewer-window.cc:1461
@@ -558,7 +557,7 @@ msgstr "Reikšmė"
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:633
 #: ../src/intviewer/viewer-window.cc:1462
 msgid "Tag value"
-msgstr ""
+msgstr "Etiketės reikšmė"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:635
 #: ../src/intviewer/viewer-window.cc:1464 ../src/tags/gnome-cmd-tags.cc:166
@@ -619,7 +618,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:359
 msgid "Optional data"
-msgstr ""
+msgstr "Neprivalomi duomenys"
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:486
 #, c-format
@@ -669,15 +668,15 @@ msgstr "Grupė"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:243
 msgid "Bookmark group"
-msgstr ""
+msgstr "Žymelės grupė"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:251
 msgid "Bookmark name"
-msgstr ""
+msgstr "Žymelės pavadinimas"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:253
 msgid "Shortcut"
-msgstr ""
+msgstr "Nuoroda"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:254
 msgid "Keyboard shortcut for selected bookmark"
@@ -694,7 +693,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:334
 msgid "Edit Bookmark"
-msgstr ""
+msgstr "Keisti žymelę"
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:533
 msgid ""
@@ -704,7 +703,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:540
 msgid "New Bookmark"
-msgstr ""
+msgstr "Nauja žymelė"
 
 #: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:126
 msgid "Profile"
@@ -748,11 +747,11 @@ msgstr "_Importuoti"
 
 #: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:94
 msgid "A directory name must be entered"
-msgstr ""
+msgstr "Neįvestas failo pavadinimas"
 
 #: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:157
 msgid "Make Directory"
-msgstr ""
+msgstr "Sukurti aplanką"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:96
 msgid "Left mouse button"
@@ -772,12 +771,12 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:115
 msgid "Middle mouse button"
-msgstr ""
+msgstr "Vidurinysis pelės mygtukas"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:118
 #: ../src/gnome-cmd-main-win.cc:1166 ../src/gnome-cmd-user-actions.cc:231
 msgid "Up one directory"
-msgstr ""
+msgstr "Aukštyn vienu aplanku"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:122
 msgid "Opens new tab"
@@ -793,7 +792,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:137
 msgid "Selects files"
-msgstr ""
+msgstr "Pasirenka failus"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:145
 msgid "Selection"
@@ -847,7 +846,7 @@ msgstr "Išsaugoti išeinant"
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:199
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1114
 msgid "Directories"
-msgstr ""
+msgstr "Aplankai"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:203
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2102
@@ -906,8 +905,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:364
 msgid ""
-"See the manual page for \"strftime\" for help on how to set the format "
-"string."
+"See the manual page for \"strftime\" for help on how to set the format string."
 msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:448
@@ -928,7 +926,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:496
 msgid "Default:"
-msgstr ""
+msgstr "Numatytasis:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:498
 msgid "Alternate:"
@@ -936,7 +934,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:500
 msgid "Selected file:"
-msgstr ""
+msgstr "Pasirinktas failas:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:502
 msgid "Cursor:"
@@ -980,7 +978,7 @@ msgstr "Mėlynas"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:669
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:672
 msgid "Cyan"
@@ -1016,7 +1014,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:701
 msgid "MIME icons"
-msgstr ""
+msgstr "MIME piktogramos"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:705
 msgid "Respect theme colors"
@@ -1024,7 +1022,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:706
 msgid "Modern"
-msgstr ""
+msgstr "Šiuolaikinis"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:707
 msgid "Fusion"
@@ -1096,7 +1094,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:812
 msgid "Icon size:"
-msgstr ""
+msgstr "Piktogramos dydis:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:814
 msgid "Scaling quality:"
@@ -1163,7 +1161,7 @@ msgstr ""
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1012
 #: ../src/gnome-cmd-file-selector.cc:1323
 msgid "Skip all"
-msgstr ""
+msgstr "Praleisti viską"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1001
 msgid "Move overwrite"
@@ -1183,7 +1181,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1108
 msgid "Unknown"
-msgstr ""
+msgstr "Nežinomas"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1111
 msgid "Regular files"
@@ -1191,7 +1189,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1117
 msgid "Fifo files"
-msgstr ""
+msgstr "Fifo failai"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1120
 msgid "Socket files"
@@ -1211,7 +1209,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1135
 msgid "Hidden files"
-msgstr ""
+msgstr "Paslėpti failai"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1138
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1147
@@ -1230,11 +1228,11 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1390
 msgid "Label:"
-msgstr ""
+msgstr "Etiketė:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1392
 msgid "Command:"
-msgstr ""
+msgstr "Komanda:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1394
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1822
@@ -1259,7 +1257,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1439
 msgid "All directories"
-msgstr ""
+msgstr "Visi aplankai"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1444
 msgid "All directories and files"
@@ -1267,7 +1265,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1449
 msgid "Some files"
-msgstr ""
+msgstr "Keli failai"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1458
 msgid "File patterns"
@@ -1275,11 +1273,11 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1480
 msgid "New Application"
-msgstr ""
+msgstr "Nauja programa"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1490
 msgid "Edit Application"
-msgstr ""
+msgstr "Keisti programą"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1573
 msgid "Always download remote files before opening in external programs"
@@ -1307,11 +1305,11 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1588
 msgid "Send files:"
-msgstr ""
+msgstr "Siųsti failus:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1590
 msgid "Terminal:"
-msgstr ""
+msgstr "Terminalas:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1596
 msgid "Use Internal Viewer"
@@ -1376,7 +1374,7 @@ msgstr ""
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2099
 msgid "General"
-msgstr ""
+msgstr "Bendra"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2100
 #: ../src/tags/gnome-cmd-tags.cc:318
@@ -1385,11 +1383,11 @@ msgstr "Formatas"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2101
 msgid "Layout"
-msgstr ""
+msgstr "Išdėstymas"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2103
 msgid "Confirmation"
-msgstr ""
+msgstr "Patvirtinimas"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2104
 msgid "Filters"
@@ -1401,7 +1399,7 @@ msgstr "Programos"
 
 #: ../src/dialogs/gnome-cmd-patternsel-dialog.cc:111
 msgid "_Pattern:"
-msgstr ""
+msgstr "Šablonas:"
 
 #: ../src/dialogs/gnome-cmd-patternsel-dialog.cc:113
 msgid "Case _sensitive"
@@ -1538,7 +1536,7 @@ msgstr ""
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:409
 #, c-format
 msgid "Searching in: %s"
-msgstr ""
+msgstr "Ieškoma: %s"
 
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:522
 #, c-format
@@ -1581,7 +1579,7 @@ msgstr "Paieška..."
 #. search in
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:1160
 msgid "Select Directory"
-msgstr ""
+msgstr "Ieškoti kataloge"
 
 #: ../src/dialogs/gnome-cmd-search-dialog.cc:1163
 msgid "_Look in folder:"
@@ -1621,23 +1619,23 @@ msgstr ""
 
 #: ../src/gnome-cmd-about-plugin.cc:178
 msgid "Credits"
-msgstr ""
+msgstr "Kreditai"
 
 #: ../src/gnome-cmd-about-plugin.cc:205
 msgid "Written by"
-msgstr ""
+msgstr "Parašė"
 
 #: ../src/gnome-cmd-about-plugin.cc:218
 msgid "Documented by"
-msgstr ""
+msgstr "Dokumentavo"
 
 #: ../src/gnome-cmd-about-plugin.cc:231
 msgid "Translated by"
-msgstr ""
+msgstr "Išvertė"
 
 #: ../src/gnome-cmd-about-plugin.cc:285
 msgid "Plugin Webpage"
-msgstr ""
+msgstr "Plėtinio svetainė"
 
 #: ../src/gnome-cmd-about-plugin.cc:297
 msgid "C_redits"
@@ -1841,7 +1839,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:1018
 msgid "Remove A_ll"
-msgstr ""
+msgstr "Pašalinti viską"
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:1031
 msgid "Case"
@@ -1895,7 +1893,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:1229
 msgid "Search for"
-msgstr ""
+msgstr "Ieškoti"
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:1232
 msgid "Regex pattern"
@@ -2033,7 +2031,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-con-home.cc:112
 msgid "Home"
-msgstr ""
+msgstr "Pradžia"
 
 #: ../src/gnome-cmd-con-home.cc:121
 msgid "Go to: Home"
@@ -2073,11 +2071,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-data.cc:1813
 msgid "Audio Files"
-msgstr ""
+msgstr "Garso failai"
 
 #: ../src/gnome-cmd-data.cc:1821
 msgid "CamelCase"
-msgstr ""
+msgstr "CamelCase"
 
 #: ../src/gnome-cmd-dir.cc:510
 msgid "Waiting for file list"
@@ -2121,35 +2119,35 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-list.cc:117
 msgid "name"
-msgstr ""
+msgstr "pavadinimas"
 
 #: ../src/gnome-cmd-file-list.cc:118
 msgid "ext"
-msgstr ""
+msgstr "ext"
 
 #: ../src/gnome-cmd-file-list.cc:119
 msgid "dir"
-msgstr ""
+msgstr "dir"
 
 #: ../src/gnome-cmd-file-list.cc:120
 msgid "size"
-msgstr ""
+msgstr "dydis"
 
 #: ../src/gnome-cmd-file-list.cc:121
 msgid "date"
-msgstr ""
+msgstr "data"
 
 #: ../src/gnome-cmd-file-list.cc:122
 msgid "perm"
-msgstr ""
+msgstr "perm"
 
 #: ../src/gnome-cmd-file-list.cc:123
 msgid "uid"
-msgstr ""
+msgstr "uid"
 
 #: ../src/gnome-cmd-file-list.cc:124
 msgid "gid"
-msgstr ""
+msgstr "gid"
 
 #: ../src/gnome-cmd-file-list.cc:217
 msgid "/_Copy here"
@@ -2185,24 +2183,24 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-popmenu.cc:131
 msgid "Invalid command"
-msgstr ""
+msgstr "Neteisinga komanda"
 
 #: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Application:"
-msgstr ""
+msgstr "Programa:"
 
 #: ../src/gnome-cmd-file-popmenu.cc:158
 msgid "Open with other..."
-msgstr ""
+msgstr "Atidaryti su kita..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:163
 msgid "Needs terminal"
-msgstr ""
+msgstr "Reikia terminalo"
 
 #: ../src/gnome-cmd-file-popmenu.cc:402 ../src/gnome-cmd-file-popmenu.cc:411
 #: ../src/gnome-cmd-file-popmenu.cc:436
 msgid "_Open"
-msgstr ""
+msgstr "_Atidaryti"
 
 #: ../src/gnome-cmd-file-popmenu.cc:415
 #, c-format
@@ -2215,15 +2213,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-popmenu.cc:443
 msgid "E_xecute"
-msgstr ""
+msgstr "Vykdyti"
 
 #: ../src/gnome-cmd-file-popmenu.cc:455 ../src/gnome-cmd-main-menu.cc:570
 msgid "Cu_t"
-msgstr ""
+msgstr "_Iškirpti"
 
 #: ../src/gnome-cmd-file-popmenu.cc:456 ../src/gnome-cmd-main-menu.cc:576
 msgid "_Copy"
-msgstr ""
+msgstr "Kopijuoti"
 
 #: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-user-actions.cc:159
 msgid "Copy file names"
@@ -2231,7 +2229,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-main-menu.cc:588
 msgid "_Delete"
-msgstr ""
+msgstr "I_štrinti"
 
 #: ../src/gnome-cmd-file-popmenu.cc:460
 msgid "Rename"
@@ -2241,11 +2239,11 @@ msgstr "Pervadinti"
 #: ../src/gnome-cmd-file-popmenu.cc:461 ../src/gnome-cmd-main-win.cc:1179
 #: ../src/gnome-cmd-user-actions.cc:184
 msgid "Send files"
-msgstr ""
+msgstr "Siųsti failus"
 
 #: ../src/gnome-cmd-file-popmenu.cc:462 ../src/gnome-cmd-list-popmenu.cc:118
 msgid "Open this _folder"
-msgstr ""
+msgstr "Atidaryti šį aplanką"
 
 #: ../src/gnome-cmd-file-popmenu.cc:463 ../src/gnome-cmd-list-popmenu.cc:119
 msgid "Open _terminal here"
@@ -2253,7 +2251,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-popmenu.cc:465 ../src/gnome-cmd-main-menu.cc:465
 msgid "_Properties..."
-msgstr ""
+msgstr "_Savybės..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:508
 msgid "Other _Application..."
@@ -2323,14 +2321,14 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:1137
 msgid "New Text File"
-msgstr ""
+msgstr "Naujas tekstinis failas"
 
 #: ../src/gnome-cmd-file-selector.cc:1271
 msgid "Symbolic link name:"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1277
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:875
+#: ../src/gnome-cmd-file-selector.cc:1277 ../src/gnome-cmd-file-selector.cc:1323
+#: ../src/gnome-cmd-user-actions.cc:875
 msgid "Create Symbolic Link"
 msgstr ""
 
@@ -2340,23 +2338,23 @@ msgstr "Filtras:"
 
 #: ../src/gnome-cmd-list-popmenu.cc:108
 msgid "_Directory"
-msgstr ""
+msgstr "Aplankas"
 
 #: ../src/gnome-cmd-list-popmenu.cc:109
 msgid "_Text File"
-msgstr ""
+msgstr "Tekstinis failas"
 
 #: ../src/gnome-cmd-list-popmenu.cc:115
 msgid "_New"
-msgstr ""
+msgstr "_Naujas"
 
 #: ../src/gnome-cmd-list-popmenu.cc:116 ../src/gnome-cmd-main-menu.cc:582
 msgid "_Paste"
-msgstr ""
+msgstr "Įklijuoti"
 
 #: ../src/gnome-cmd-list-popmenu.cc:121 ../src/gnome-cmd-main-menu.cc:618
 msgid "_Refresh"
-msgstr ""
+msgstr "_Atnaujinti"
 
 #: ../src/gnome-cmd-main-menu.cc:376
 msgid "Switch to Vertical Layout"
@@ -2384,7 +2382,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:472
 msgid "_Search..."
-msgstr ""
+msgstr "_Paieška"
 
 #: ../src/gnome-cmd-main-menu.cc:478
 msgid "_Quick Search..."
@@ -2408,15 +2406,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:511
 msgid "_Quit"
-msgstr ""
+msgstr "_Išeiti"
 
 #: ../src/gnome-cmd-main-menu.cc:522
 msgid "_Select All"
-msgstr ""
+msgstr "Pažymėti viską"
 
 #: ../src/gnome-cmd-main-menu.cc:528
 msgid "_Unselect All"
-msgstr ""
+msgstr "Atžymėti viską"
 
 #: ../src/gnome-cmd-main-menu.cc:534
 msgid "Select with _Pattern"
@@ -2444,11 +2442,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:606
 msgid "_Back"
-msgstr ""
+msgstr "Atgal"
 
 #: ../src/gnome-cmd-main-menu.cc:612
 msgid "_Forward"
-msgstr ""
+msgstr "Pirmyn"
 
 #: ../src/gnome-cmd-main-menu.cc:644
 msgid "Show Toolbar"
@@ -2460,11 +2458,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:656
 msgid "Show Device List"
-msgstr ""
+msgstr "Rodyti įrenginių sąrašą"
 
 #: ../src/gnome-cmd-main-menu.cc:662
 msgid "Show Command Line"
-msgstr ""
+msgstr "Rodyti komandinę eilutę"
 
 #: ../src/gnome-cmd-main-menu.cc:668
 msgid "Show Buttonbar"
@@ -2472,7 +2470,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:675
 msgid "Show Hidden Files"
-msgstr ""
+msgstr "Rodyti paslėptus failus"
 
 #: ../src/gnome-cmd-main-menu.cc:681
 msgid "Show Backup Files"
@@ -2492,7 +2490,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:711
 msgid "_Manage Bookmarks..."
-msgstr ""
+msgstr "Tvarkyti žymeles..."
 
 #: ../src/gnome-cmd-main-menu.cc:723
 msgid "_Configure Plugins..."
@@ -2500,7 +2498,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:735
 msgid "_Options..."
-msgstr ""
+msgstr "_Nustatymai..."
 
 #: ../src/gnome-cmd-main-menu.cc:741
 msgid "_Keyboard Shortcuts..."
@@ -2508,15 +2506,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:752
 msgid "_Remote Server..."
-msgstr ""
+msgstr "Nuotolinis serveris..."
 
 #: ../src/gnome-cmd-main-menu.cc:758
 msgid "New Connection..."
-msgstr ""
+msgstr "Naujas prisijungimas..."
 
 #: ../src/gnome-cmd-main-menu.cc:769
 msgid "_Documentation"
-msgstr ""
+msgstr "_Dokumentacija"
 
 #: ../src/gnome-cmd-main-menu.cc:775 ../src/intviewer/viewer-window.cc:841
 msgid "_Keyboard Shortcuts"
@@ -2532,7 +2530,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:794 ../src/plugin_manager.cc:421
 msgid "_About"
-msgstr ""
+msgstr "_Apie"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
@@ -2542,47 +2540,47 @@ msgstr "_Failas"
 
 #: ../src/gnome-cmd-main-menu.cc:820
 msgid "_Edit"
-msgstr ""
+msgstr "_Keisti"
 
 #: ../src/gnome-cmd-main-menu.cc:824
 msgid "_Mark"
-msgstr ""
+msgstr "Žymėti"
 
 #: ../src/gnome-cmd-main-menu.cc:828 ../src/intviewer/viewer-window.cc:856
 msgid "_View"
-msgstr ""
+msgstr "Rodyti"
 
 #: ../src/gnome-cmd-main-menu.cc:833 ../src/intviewer/viewer-window.cc:867
 msgid "_Settings"
-msgstr ""
+msgstr "_Nustatymai"
 
 #: ../src/gnome-cmd-main-menu.cc:837
 msgid "_Connections"
-msgstr ""
+msgstr "_Prisijungimai"
 
 #: ../src/gnome-cmd-main-menu.cc:841
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_Žymelės"
 
 #: ../src/gnome-cmd-main-menu.cc:845
 msgid "_Plugins"
-msgstr ""
+msgstr "_Plėtiniai"
 
 #: ../src/gnome-cmd-main-menu.cc:849 ../src/intviewer/viewer-window.cc:872
 msgid "_Help"
-msgstr ""
+msgstr "_Pagalba"
 
 #: ../src/gnome-cmd-main-win.cc:422
 msgid "F3 View"
-msgstr ""
+msgstr "F3 Rodyti"
 
 #: ../src/gnome-cmd-main-win.cc:424
 msgid "F4 Edit"
-msgstr ""
+msgstr "F4 Keisti"
 
 #: ../src/gnome-cmd-main-win.cc:426
 msgid "F5 Copy"
-msgstr ""
+msgstr "F5 Kopijuoti"
 
 #: ../src/gnome-cmd-main-win.cc:428
 msgid "F6 Move"
@@ -2590,7 +2588,7 @@ msgstr "F6 Perkelti"
 
 #: ../src/gnome-cmd-main-win.cc:430
 msgid "F7 Mkdir"
-msgstr ""
+msgstr "F7 Sukurti aplanką"
 
 #: ../src/gnome-cmd-main-win.cc:432
 msgid "F8 Delete"
@@ -2606,7 +2604,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-win.cc:1165 ../src/gnome-cmd-user-actions.cc:225
 msgid "Refresh"
-msgstr ""
+msgstr "Atnaujinti"
 
 #: ../src/gnome-cmd-main-win.cc:1167
 msgid "Go to the oldest"
@@ -2614,11 +2612,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-win.cc:1168
 msgid "Go back"
-msgstr ""
+msgstr "Grįžti atgal"
 
 #: ../src/gnome-cmd-main-win.cc:1169
 msgid "Go forward"
-msgstr ""
+msgstr "Eiti pirmyn"
 
 #: ../src/gnome-cmd-main-win.cc:1170
 msgid "Go to the latest"
@@ -2634,7 +2632,7 @@ msgstr "Iškirpti"
 
 #: ../src/gnome-cmd-main-win.cc:1175 ../src/gnome-cmd-user-actions.cc:163
 msgid "Paste"
-msgstr ""
+msgstr "Įklijuoti"
 
 #: ../src/gnome-cmd-main-win.cc:1178
 msgid "Edit (SHIFT for new document)"
@@ -2663,7 +2661,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-selection-profile-component.cc:119
 msgid "Name contains:"
-msgstr ""
+msgstr "Pavadinime yra:"
 
 #: ../src/gnome-cmd-selection-profile-component.cc:128
 msgid "Unlimited depth"
@@ -2705,7 +2703,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:146
 msgid "Manage bookmarks"
-msgstr ""
+msgstr "Tvarkyti žymeles"
 
 #: ../src/gnome-cmd-user-actions.cc:147
 msgid "Go to bookmarked location"
@@ -2713,11 +2711,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:148
 msgid "Execute command"
-msgstr ""
+msgstr "Vykdyti komandą"
 
 #: ../src/gnome-cmd-user-actions.cc:149
 msgid "Open folder"
-msgstr ""
+msgstr "Atidaryti aplanką"
 
 #: ../src/gnome-cmd-user-actions.cc:150
 msgid "Open terminal"
@@ -2737,7 +2735,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:154
 msgid "New connection"
-msgstr ""
+msgstr "Naujas prisijungimas"
 
 #: ../src/gnome-cmd-user-actions.cc:155
 msgid "Open connection"
@@ -2793,7 +2791,7 @@ msgstr "Keisti failą"
 
 #: ../src/gnome-cmd-user-actions.cc:175
 msgid "Edit a new file"
-msgstr ""
+msgstr "Keisti naują failą"
 
 #: ../src/gnome-cmd-user-actions.cc:176
 msgid "Quit"
@@ -2809,7 +2807,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:179
 msgid "Create directory"
-msgstr ""
+msgstr "Sukurti aplanką"
 
 #: ../src/gnome-cmd-user-actions.cc:180
 msgid "Move files"
@@ -2817,7 +2815,7 @@ msgstr "Perkelti failus"
 
 #: ../src/gnome-cmd-user-actions.cc:182
 msgid "Rename files"
-msgstr ""
+msgstr "Pervadinti failus"
 
 #: ../src/gnome-cmd-user-actions.cc:185
 msgid "Synchronize directories"
@@ -2837,7 +2835,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:191
 msgid "Report a problem"
-msgstr ""
+msgstr "Pranešti apie problemą"
 
 #: ../src/gnome-cmd-user-actions.cc:192
 msgid "GNOME Commander on the web"
@@ -2961,7 +2959,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:224
 msgid "Previous tab"
-msgstr ""
+msgstr "Ankstesnis skirtukas"
 
 #: ../src/gnome-cmd-user-actions.cc:226
 msgid "Root directory"
@@ -2973,7 +2971,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:229
 msgid "Show terminal"
-msgstr ""
+msgstr "Rodyti terminalą"
 
 #: ../src/gnome-cmd-user-actions.cc:793 ../src/gnome-cmd-user-actions.cc:938
 #: ../src/gnome-cmd-user-actions.cc:1167
@@ -3029,7 +3027,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:1903
 msgid "Bookmarks"
-msgstr ""
+msgstr "Žymelės"
 
 #: ../src/gnome-cmd-user-actions.cc:2007 ../src/gnome-cmd-user-actions.cc:2010
 msgid "There was an error opening home page."
@@ -3047,16 +3045,15 @@ msgstr ""
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
-"Software Foundation; either version 2 of the License, or (at your option) "
-"any later version."
+"Software Foundation; either version 2 of the License, or (at your option) any "
+"later version."
 msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:2059
 msgid ""
-"GNOME Commander is distributed in the hope that it will be useful, but "
-"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
-"or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
-"more details."
+"GNOME Commander is distributed in the hope that it will be useful, but WITHOUT "
+"ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS "
+"FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
 msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:2063
@@ -3090,7 +3087,7 @@ msgstr "Pakeisti"
 
 #: ../src/gnome-cmd-xfer.cc:211
 msgid "Replace All"
-msgstr ""
+msgstr "Pakeisti viską"
 
 #: ../src/gnome-cmd-xfer.cc:226
 #, c-format
@@ -3106,7 +3103,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.cc:268
 msgid "copying..."
-msgstr ""
+msgstr "kopijuojama..."
 
 #: ../src/gnome-cmd-xfer.cc:276
 #, c-format
@@ -3135,7 +3132,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:85
 msgid "Progress"
-msgstr ""
+msgstr "Progresas"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:179
 #, c-format
@@ -3155,8 +3152,8 @@ msgstr ""
 #: ../src/imageloader.cc:115 ../src/imageloader.cc:139
 #, c-format
 msgid ""
-"Can't find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-%s/src directory"
+"Can't find the pixmap anywhere. Make sure you have installed the program or is "
+"executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 
 #: ../src/imageloader.cc:136
@@ -3221,7 +3218,7 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:647
 msgid "_Close"
-msgstr ""
+msgstr "_Uždaryti"
 
 #: ../src/intviewer/viewer-window.cc:661
 msgid "_Binary"
@@ -3229,7 +3226,7 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:669 ../src/intviewer/viewer-window.cc:864
 msgid "_Image"
-msgstr ""
+msgstr "_Vaizdas"
 
 #: ../src/intviewer/viewer-window.cc:674
 msgid "_Zoom In"
@@ -3346,7 +3343,7 @@ msgstr ""
 
 #: ../src/main.cc:129
 msgid "File Manager"
-msgstr ""
+msgstr "Failų tvarkyklė"
 
 #: ../src/plugin_manager.cc:337
 msgid "Disable"
@@ -3607,11 +3604,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "Layer"
-msgstr ""
+msgstr "Sluoksnis"
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "MPEG layer."
-msgstr ""
+msgstr "MPEG sluoksnis."
 
 #: ../src/tags/gnome-cmd-tags.cc:141
 msgid "Original Audio"
@@ -3696,7 +3693,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:151
 msgid "Year"
-msgstr ""
+msgstr "Metai"
 
 #: ../src/tags/gnome-cmd-tags.cc:151
 msgid "Year."
@@ -3729,7 +3726,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:447
 msgid "Category"
-msgstr ""
+msgstr "Kategorija"
 
 #: ../src/tags/gnome-cmd-tags.cc:155
 msgid "Category."
@@ -3900,7 +3897,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Line Count"
-msgstr ""
+msgstr "Linijų skaičius"
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Number of lines in the document."
@@ -3956,7 +3953,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid "Page Count"
-msgstr ""
+msgstr "Puslapių skaičius"
 
 #: ../src/tags/gnome-cmd-tags.cc:184 ../src/tags/gnome-cmd-tags.cc:193
 msgid "Number of pages in the document."
@@ -4016,8 +4013,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid ""
-"One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
-"enforced\" or \"Locked for annotations\"."
+"One of: \"Password protected\", \"Read-only recommended\", \"Read-only enforced"
+"\" or \"Locked for annotations\"."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:192
@@ -4034,11 +4031,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Subject"
-msgstr ""
+msgstr "Tema"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Document subject."
-msgstr ""
+msgstr "Dokumento tema."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "Table Count"
@@ -4058,7 +4055,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "Word Count"
-msgstr ""
+msgstr "Žodžių skaičius"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "Number of words in the document."
@@ -4066,7 +4063,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "Aperture"
-msgstr ""
+msgstr "Apertūra"
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "The lens aperture. The unit is the APEX value."
@@ -4094,9 +4091,9 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid ""
-"The number of bits per image component. Each component of the image is 8 "
-"bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
-"is used instead of this tag."
+"The number of bits per image component. Each component of the image is 8 bits, "
+"so the value for this tag is 8. In JPEG compressed data a JPEG marker is used "
+"instead of this tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:203
@@ -4105,8 +4102,8 @@ msgstr "Šviesumas"
 
 #: ../src/tags/gnome-cmd-tags.cc:203
 msgid ""
-"The value of brightness. The unit is the APEX value. Ordinarily it is given "
-"in the range of -99.99 to 99.99."
+"The value of brightness. The unit is the APEX value. Ordinarily it is given in "
+"the range of -99.99 to 99.99."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:204 ../src/tags/gnome-cmd-tags.cc:267
@@ -4115,8 +4112,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:204 ../src/tags/gnome-cmd-tags.cc:267
 msgid ""
-"The color filter array (CFA) geometric pattern of the image sensor when a "
-"one-chip color area sensor is used. It does not apply to all sensing methods."
+"The color filter array (CFA) geometric pattern of the image sensor when a one-"
+"chip color area sensor is used. It does not apply to all sensing methods."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:205
@@ -4135,9 +4132,9 @@ msgstr ""
 msgid ""
 "The color space information tag is always recorded as the color space "
 "specifier. Normally sRGB is used to define the color space based on the PC "
-"monitor conditions and environment. If a color space other than sRGB is "
-"used, Uncalibrated is set. Image data recorded as Uncalibrated can be "
-"treated as sRGB when it is converted to FlashPix."
+"monitor conditions and environment. If a color space other than sRGB is used, "
+"Uncalibrated is set. Image data recorded as Uncalibrated can be treated as "
+"sRGB when it is converted to FlashPix."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:207
@@ -4147,10 +4144,10 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:207
 msgid ""
 "Information specific to compressed data. The channels of each component are "
-"arranged in order from the 1st component to the 4th. For uncompressed data "
-"the data arrangement is given in the <Exif.PhotometricInterpretation> tag. "
-"However, since <Exif.PhotometricInterpretation> can only express the order "
-"of Y, Cb and Cr, this tag is provided for cases when compressed data uses "
+"arranged in order from the 1st component to the 4th. For uncompressed data the "
+"data arrangement is given in the <Exif.PhotometricInterpretation> tag. "
+"However, since <Exif.PhotometricInterpretation> can only express the order of "
+"Y, Cb and Cr, this tag is provided for cases when compressed data uses "
 "components other than Y, Cb, and Cr and to enable support of other sequences."
 msgstr ""
 
@@ -4166,23 +4163,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid "Compression"
-msgstr ""
+msgstr "Suspaudimas"
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid ""
 "The compression scheme used for the image data. When a primary image is JPEG "
-"compressed, this designation is not necessary and is omitted. When "
-"thumbnails use JPEG compression, this tag value is set to 6."
+"compressed, this designation is not necessary and is omitted. When thumbnails "
+"use JPEG compression, this tag value is set to 6."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid "Contrast"
-msgstr ""
+msgstr "Kontrastas"
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid ""
-"The direction of contrast processing applied by the camera when the image "
-"was shot."
+"The direction of contrast processing applied by the camera when the image was "
+"shot."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:211
@@ -4190,18 +4187,17 @@ msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
 "claiming rights to the image. The Interoperability copyright statement "
-"including date and rights should be written in this field; e.g., "
-"\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
-"both the photographer and editor copyrights, with each recorded in a "
-"separate part of the statement. When there is a clear distinction between "
-"the photographer and editor copyrights, these are to be written in the order "
-"of photographer followed by editor copyright, separated by NULL (in this "
-"case, since the statement also ends with a NULL, there are two NULL codes) "
-"(see example 1). When only the photographer is given, it is terminated by "
-"one NULL code. When only the editor copyright is given, the photographer "
-"copyright part consists of one space followed by a terminating NULL code, "
-"then the editor copyright is given. When the field is left blank, it is "
-"treated as unknown."
+"including date and rights should be written in this field; e.g., \"Copyright, "
+"John Smith, 19xx. All rights reserved.\". The field records both the "
+"photographer and editor copyrights, with each recorded in a separate part of "
+"the statement. When there is a clear distinction between the photographer and "
+"editor copyrights, these are to be written in the order of photographer "
+"followed by editor copyright, separated by NULL (in this case, since the "
+"statement also ends with a NULL, there are two NULL codes) (see example 1). "
+"When only the photographer is given, it is terminated by one NULL code. When "
+"only the editor copyright is given, the photographer copyright part consists "
+"of one space followed by a terminating NULL code, then the editor copyright is "
+"given. When the field is left blank, it is treated as unknown."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -4217,7 +4213,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "Date and Time"
-msgstr ""
+msgstr "Data ir laikas"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "The date and time of image creation."
@@ -4247,8 +4243,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid ""
-"Information on the picture-taking conditions of a particular camera model. "
-"The tag is used only to indicate the picture-taking conditions in the reader."
+"Information on the picture-taking conditions of a particular camera model. The "
+"tag is used only to indicate the picture-taking conditions in the reader."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:217
@@ -4263,11 +4259,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Document Name"
-msgstr ""
+msgstr "Dokumento pavadinimas"
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Document name."
-msgstr ""
+msgstr "Dokumento pavadinimas."
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 msgid "Exif IFD Pointer"
@@ -4285,8 +4281,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid ""
-"The version of Exif standard supported. Nonexistence of this field is taken "
-"to mean nonconformance to the standard."
+"The version of Exif standard supported. Nonexistence of this field is taken to "
+"mean nonconformance to the standard."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:221
@@ -4295,8 +4291,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid ""
-"The exposure bias. The units is the APEX value. Ordinarily it is given in "
-"the range of -99.99 to 99.99."
+"The exposure bias. The units is the APEX value. Ordinarily it is given in the "
+"range of -99.99 to 99.99."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:222
@@ -4361,8 +4357,7 @@ msgid "Flash"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:228
-msgid ""
-"This tag is recorded when an image is taken using a strobe light (flash)."
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:229
@@ -4475,11 +4470,10 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid ""
-"Indicates the altitude used as the reference altitude. If the reference is "
-"sea level and the altitude is above sea level, 0 is given. If the altitude "
-"is below sea level, a value of 1 is given and the altitude is indicated as "
-"an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
-"meters."
+"Indicates the altitude used as the reference altitude. If the reference is sea "
+"level and the altitude is above sea level, 0 is given. If the altitude is "
+"below sea level, a value of 1 is given and the altitude is indicated as an "
+"absolute value in the <Exif.GPS.Altitude> tag. The reference unit is meters."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:241
@@ -4488,8 +4482,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
-"A pointer to the GPS Info IFD. The Interoperability structure of the GPS "
-"Info IFD, like that of Exif IFD, has no image data."
+"A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info "
+"IFD, like that of Exif IFD, has no image data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:242
@@ -4499,10 +4493,10 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid ""
 "Indicates the latitude. The latitude is expressed as three RATIONAL values "
-"giving the degrees, minutes, and seconds, respectively. When degrees, "
-"minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When "
-"degrees and minutes are used and, for example, fractions of minutes are "
-"given up to two decimal places, the format is dd/1,mmmm/100,0/1."
+"giving the degrees, minutes, and seconds, respectively. When degrees, minutes "
+"and seconds are expressed, the format is dd/1,mm/1,ss/1. When degrees and "
+"minutes are used and, for example, fractions of minutes are given up to two "
+"decimal places, the format is dd/1,mmmm/100,0/1."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:243
@@ -4511,8 +4505,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid ""
-"Indicates whether the latitude is north or south latitude. The ASCII value "
-"'N' indicates north latitude, and 'S' is south latitude."
+"Indicates whether the latitude is north or south latitude. The ASCII value 'N' "
+"indicates north latitude, and 'S' is south latitude."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:244
@@ -4522,10 +4516,10 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values "
-"giving the degrees, minutes, and seconds, respectively. When degrees, "
-"minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When "
-"degrees and minutes are used and, for example, fractions of minutes are "
-"given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
+"giving the degrees, minutes, and seconds, respectively. When degrees, minutes "
+"and seconds are expressed, the format is ddd/1,mm/1,ss/1. When degrees and "
+"minutes are used and, for example, fractions of minutes are given up to two "
+"decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:245
@@ -4534,8 +4528,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:245
 msgid ""
-"Indicates whether the longitude is east or west longitude. ASCII 'E' "
-"indicates east longitude, and 'W' is west longitude."
+"Indicates whether the longitude is east or west longitude. ASCII 'E' indicates "
+"east longitude, and 'W' is west longitude."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:246
@@ -4544,8 +4538,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid ""
-"Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
-"<Exif.GPS.Info> tag is present."
+"Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif."
+"GPS.Info> tag is present."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:247
@@ -4561,7 +4555,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Image Length"
-msgstr ""
+msgstr "Paveikslėlio ilgis"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid ""
@@ -4590,12 +4584,12 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:251
 msgid "Image Width"
-msgstr ""
+msgstr "Paveikslėlio plotis"
 
 #: ../src/tags/gnome-cmd-tags.cc:251
 msgid ""
-"The number of columns of image data, equal to the number of pixels per row. "
-"In JPEG compressed data a JPEG marker is used instead of this tag."
+"The number of columns of image data, equal to the number of pixels per row. In "
+"JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:252
@@ -4657,8 +4651,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:258
 msgid ""
-"The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
-"is not used for primary image JPEG data."
+"The offset to the start byte (SOI) of JPEG compressed thumbnail data. This is "
+"not used for primary image JPEG data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:259
@@ -4668,15 +4662,15 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:259
 msgid ""
 "The number of bytes of JPEG compressed thumbnail data. This is not used for "
-"primary image JPEG data. JPEG thumbnails are not divided but are recorded as "
-"a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not "
-"be recorded. Compressed thumbnails must be recorded in no more than 64 "
-"Kbytes, including all other data to be recorded in APP1."
+"primary image JPEG data. JPEG thumbnails are not divided but are recorded as a "
+"continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not be "
+"recorded. Compressed thumbnails must be recorded in no more than 64 Kbytes, "
+"including all other data to be recorded in APP1."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:260
 msgid "JPEG Procedure"
-msgstr ""
+msgstr "JPEG procedūra"
 
 #: ../src/tags/gnome-cmd-tags.cc:260
 msgid "JPEG procedure."
@@ -4684,7 +4678,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "Light Source"
-msgstr ""
+msgstr "Šviesos šaltinis"
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "The kind of light source."
@@ -4707,8 +4701,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:263
 msgid ""
-"A tag for manufacturers of Exif writers to record any desired information. "
-"The contents are up to the manufacturer."
+"A tag for manufacturers of Exif writers to record any desired information. The "
+"contents are up to the manufacturer."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:264
@@ -4731,13 +4725,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:266 ../src/tags/gnome-cmd-tags.cc:430
 msgid "Model"
-msgstr ""
+msgstr "Modelis"
 
 #: ../src/tags/gnome-cmd-tags.cc:266
 msgid ""
 "The model name or model number of the equipment. This is the model name or "
-"number of the DSC, scanner, video digitizer or other equipment that "
-"generated the image. When the field is left blank, it is treated as unknown."
+"number of the DSC, scanner, video digitizer or other equipment that generated "
+"the image. When the field is left blank, it is treated as unknown."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:268
@@ -4784,9 +4778,9 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid ""
 "Information specific to compressed data. When a compressed file is recorded, "
-"the valid width of the meaningful image must be recorded in this tag, "
-"whether or not there is padding data or a restart marker. This tag should "
-"not exist in an uncompressed file."
+"the valid width of the meaningful image must be recorded in this tag, whether "
+"or not there is padding data or a restart marker. This tag should not exist in "
+"an uncompressed file."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4796,11 +4790,11 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid ""
 "Information specific to compressed data. When a compressed file is recorded, "
-"the valid height of the meaningful image must be recorded in this tag, "
-"whether or not there is padding data or a restart marker. This tag should "
-"not exist in an uncompressed file. Since data padding is unnecessary in the "
-"vertical direction, the number of lines recorded in this valid image height "
-"tag will in fact be the same as that recorded in the SOF."
+"the valid height of the meaningful image must be recorded in this tag, whether "
+"or not there is padding data or a restart marker. This tag should not exist in "
+"an uncompressed file. Since data padding is unnecessary in the vertical "
+"direction, the number of lines recorded in this valid image height tag will in "
+"fact be the same as that recorded in the SOF."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:274
@@ -4809,9 +4803,9 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:274
 msgid ""
-"Indicates whether pixel components are recorded in a chunky or planar "
-"format. In JPEG compressed files a JPEG marker is used instead of this tag. "
-"If this field does not exist, the TIFF default of 1 (chunky) is assumed."
+"Indicates whether pixel components are recorded in a chunky or planar format. "
+"In JPEG compressed files a JPEG marker is used instead of this tag. If this "
+"field does not exist, the TIFF default of 1 (chunky) is assumed."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:275
@@ -4831,10 +4825,10 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid ""
 "The reference black point value and reference white point value. No defaults "
-"are given in TIFF, but the values below are given as defaults here. The "
-"color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"are given in TIFF, but the values below are given as defaults here. The color "
+"space is declared in a color space information tag, with the default being the "
+"value that gives the optimal image characteristics Interoperability these "
+"conditions."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:277
@@ -4871,20 +4865,19 @@ msgid ""
 "data. The only relational information recorded here is the Exif audio file "
 "name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
 "characters). The path is not recorded. When using this tag, audio files must "
-"be recorded in conformance to the Exif audio format. Writers are also "
-"allowed to store the data such as Audio within APP2 as FlashPix extension "
-"stream data. Audio files must be recorded in conformance to the Exif audio "
-"format. If multiple files are mapped to one file, the above format is used "
-"to record just one audio file name. If there are multiple audio files, the "
-"first recorded file is given. When there are three Exif audio files "
-"\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file "
-"name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple "
-"relational information, a variety of playback possibilities can be "
-"supported. The method of using relational information is left to the "
-"implementation on the playback side. Since this information is an ASCII "
-"character string, it is terminated by NULL. When this tag is used to map "
-"audio files, the relation of the audio file to image data must also be "
-"indicated on the audio file end."
+"be recorded in conformance to the Exif audio format. Writers are also allowed "
+"to store the data such as Audio within APP2 as FlashPix extension stream data. "
+"Audio files must be recorded in conformance to the Exif audio format. If "
+"multiple files are mapped to one file, the above format is used to record just "
+"one audio file name. If there are multiple audio files, the first recorded "
+"file is given. When there are three Exif audio files \"SND00001.WAV\", "
+"\"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of "
+"them, \"DSC00001.JPG\", is indicated. By combining multiple relational "
+"information, a variety of playback possibilities can be supported. The method "
+"of using relational information is left to the implementation on the playback "
+"side. Since this information is an ASCII character string, it is terminated by "
+"NULL. When this tag is used to map audio files, the relation of the audio file "
+"to image data must also be indicated on the audio file end."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:281
@@ -4894,8 +4887,8 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:281
 msgid ""
 "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same "
-"unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the "
-"image resolution is unknown, 2 (inches) is designated."
+"unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the image "
+"resolution is unknown, 2 (inches) is designated."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4916,8 +4909,8 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:283
 msgid ""
 "The number of components per pixel. Since this standard applies to RGB and "
-"YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
-"JPEG marker is used instead of this tag."
+"YCbCr images, the value set for this tag is 3. In JPEG compressed data a JPEG "
+"marker is used instead of this tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:284
@@ -4946,8 +4939,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:286
 msgid ""
-"The type of scene. If a DSC recorded the image, this tag value must always "
-"be set to 1, indicating that the image was directly photographed."
+"The type of scene. If a DSC recorded the image, this tag value must always be "
+"set to 1, indicating that the image was directly photographed."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:287
@@ -4964,8 +4957,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid ""
-"The direction of sharpness processing applied by the camera when the image "
-"was shot."
+"The direction of sharpness processing applied by the camera when the image was "
+"shot."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:289
@@ -4974,8 +4967,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:289
 msgid ""
-"Shutter speed. The unit is the APEX (Additive System of Photographic "
-"Exposure) setting."
+"Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) "
+"setting."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:290 ../src/tags/gnome-cmd-tags.cc:432
@@ -4996,8 +4989,8 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid ""
 "This tag records the camera or input device spatial frequency table and SFR "
-"values in the direction of image width, image height, and diagonal "
-"direction, as specified in ISO 12233."
+"values in the direction of image width, image height, and diagonal direction, "
+"as specified in ISO 12233."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:292
@@ -5024,9 +5017,9 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid ""
-"For each strip, the byte offset of that strip. It is recommended that this "
-"be selected so the number of strip bytes does not exceed 64 Kbytes. With "
-"JPEG compressed data this designation is not needed and is omitted."
+"For each strip, the byte offset of that strip. It is recommended that this be "
+"selected so the number of strip bytes does not exceed 64 Kbytes. With JPEG "
+"compressed data this designation is not needed and is omitted."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:295
@@ -5112,8 +5105,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:304
 msgid ""
 "A transfer function for the image, described in tabular style. Normally this "
-"tag is not necessary, since color space is specified in <Exif.ColorSpace> "
-"tag."
+"tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:305
@@ -5130,23 +5122,22 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 msgid ""
-"A tag for Exif users to write keywords or comments on the image besides "
-"those in <Exif.ImageDescription>, and without the character code limitations "
-"of the <Exif.ImageDescription> tag. The character code used in the <Exif."
-"UserComment> tag is identified based on an ID code in a fixed 8-byte area at "
-"the start of the tag data area. The unused portion of the area is padded "
-"with NULL (\"00.h\"). ID codes are assigned by means of registration. The "
-"value of CountN is determinated based on the 8 bytes in the character code "
-"area and the number of bytes in the user comment part. Since the TYPE is not "
-"ASCII, NULL termination is not necessary. The ID code for the <Exif."
-"UserComment> area may be a Defined code such as JIS or ASCII, or may be "
-"Undefined. The Undefined name is UndefinedText, and the ID code is filled "
-"with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif."
-"UserComment> tag must have a function for determining the ID code. This "
-"function is not required in Exif readers that do not use the <Exif."
-"UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
-"recommended that the ID code be ASCII and that the following user comment "
-"part be filled with blank characters [20.H]."
+"A tag for Exif users to write keywords or comments on the image besides those "
+"in <Exif.ImageDescription>, and without the character code limitations of the "
+"<Exif.ImageDescription> tag. The character code used in the <Exif.UserComment> "
+"tag is identified based on an ID code in a fixed 8-byte area at the start of "
+"the tag data area. The unused portion of the area is padded with NULL (\"00.h"
+"\"). ID codes are assigned by means of registration. The value of CountN is "
+"determinated based on the 8 bytes in the character code area and the number of "
+"bytes in the user comment part. Since the TYPE is not ASCII, NULL termination "
+"is not necessary. The ID code for the <Exif.UserComment> area may be a Defined "
+"code such as JIS or ASCII, or may be Undefined. The Undefined name is "
+"UndefinedText, and the ID code is filled with 8 bytes of all \"NULL\" (\"00.H"
+"\"). An Exif reader that reads the <Exif.UserComment> tag must have a function "
+"for determining the ID code. This function is not required in Exif readers "
+"that do not use the <Exif.UserComment> tag. When a <Exif.UserComment> area is "
+"set aside, it is recommended that the ID code be ASCII and that the following "
+"user comment part be filled with blank characters [20.H]."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:307 ../src/tags/gnome-cmd-tags.cc:434
@@ -5204,17 +5195,16 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid ""
-"The position of chrominance components in relation to the luminance "
-"component. This field is designated only for JPEG compressed data or "
-"uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr "
-"= 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order "
-"to improve the image quality when viewed on TV systems. When this field does "
-"not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr "
-"= 4:2:0, the TIFF default (centered) is recommended. If the reader does not "
-"have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it "
-"shall follow the TIFF default regardless of the value in this field. It is "
-"preferable that readers be able to support both centered and co-sited "
-"positioning."
+"The position of chrominance components in relation to the luminance component. "
+"This field is designated only for JPEG compressed data or uncompressed YCbCr "
+"data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is "
+"recommended that 2 (co-sited) be used to record data, in order to improve the "
+"image quality when viewed on TV systems. When this field does not exist, the "
+"reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF "
+"default (centered) is recommended. If the reader does not have the capability "
+"of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF "
+"default regardless of the value in this field. It is preferable that readers "
+"be able to support both centered and co-sited positioning."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:313
@@ -5247,7 +5237,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Content"
-msgstr ""
+msgstr "Turinys"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 msgid "File's contents filtered as plain text."
@@ -5268,7 +5258,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:320
 msgid "Link"
-msgstr ""
+msgstr "Nuoroda"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
 msgid "URI of link target."
@@ -5306,17 +5296,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Rank"
-msgstr ""
+msgstr "Rangas"
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid ""
-"Editable file rank for grading favourites. Value should be in the range "
-"1..10."
+"Editable file rank for grading favourites. Value should be in the range 1..10."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:327
-msgid ""
-"Size of the file in bytes or if a directory number of items it contains."
+msgid "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:328
@@ -5342,13 +5330,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid ""
-"Fractional offset within the audio data, providing a starting point from "
-"which to find an appropriate point to start decoding."
+"Fractional offset within the audio data, providing a starting point from which "
+"to find an appropriate point to start decoding."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Band"
-msgstr ""
+msgstr "Juosta"
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Additional information about the performers in the recording."
@@ -5582,11 +5570,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Mood"
-msgstr ""
+msgstr "Nuotaika"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Mood."
-msgstr ""
+msgstr "Nuotaika."
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "MPEG Lookup"
@@ -5694,7 +5682,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:377
 msgid "Picture"
-msgstr ""
+msgstr "Paveikslėlis"
 
 #: ../src/tags/gnome-cmd-tags.cc:377
 msgid "Attached picture."
@@ -5734,7 +5722,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Private"
-msgstr ""
+msgstr "Privatus"
 
 #: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Private frame."
@@ -5750,7 +5738,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:384
 msgid "Publisher."
-msgstr ""
+msgstr "Leidėjas."
 
 #: ../src/tags/gnome-cmd-tags.cc:385
 msgid "Recording Dates"
@@ -5794,7 +5782,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Signature"
-msgstr ""
+msgstr "Parašas"
 
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Signature frame."
@@ -5854,11 +5842,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "Time"
-msgstr ""
+msgstr "Laikas"
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "Time."
-msgstr ""
+msgstr "Laikas."
 
 #: ../src/tags/gnome-cmd-tags.cc:399
 msgid "Title Sort Order"
@@ -5950,8 +5938,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid ""
-"URL pointing at a webpage that will handle the process of paying for this "
-"file."
+"URL pointing at a webpage that will handle the process of paying for this file."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:411
@@ -6074,11 +6061,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:435
 msgid "Width"
-msgstr ""
+msgstr "Plotis"
 
 #: ../src/tags/gnome-cmd-tags.cc:435
 msgid "Width in pixels."
-msgstr ""
+msgstr "Plotis pikseliais."
 
 #: ../src/tags/gnome-cmd-tags.cc:436
 msgid "Action Advised"
@@ -6086,8 +6073,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:436
 msgid ""
-"The type of action that this object provides to a previous object. '01' "
-"Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+"The type of action that this object provides to a previous object. '01' Object "
+"Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:437
@@ -6140,7 +6127,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 msgid "Audio Type"
-msgstr ""
+msgstr "Garso tipas"
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 msgid ""
@@ -6153,8 +6140,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid ""
-"Name of the creator of the object, e.g. writer, photographer or graphic "
-"artist (multiple values allowed)."
+"Name of the creator of the object, e.g. writer, photographer or graphic artist "
+"(multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:445
@@ -6211,8 +6198,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
-"The person or organization which can provide further background information "
-"on the object (multiple values allowed)."
+"The person or organization which can provide further background information on "
+"the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:452
@@ -6231,8 +6218,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid ""
-"A full, publishable name of a country/geographical location referenced by "
-"the content of the object (multiple values allowed)."
+"A full, publishable name of a country/geographical location referenced by the "
+"content of the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:454
@@ -6264,8 +6251,7 @@ msgid "Credit"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:457
-msgid ""
-"Identifies the provider of the object, not necessarily the owner/creator."
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:458
@@ -6312,9 +6298,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:463
 msgid ""
-"The type of update this object provides to a previous object. The link to "
-"the previous object is made using the ARM. '01' indicates an additional "
-"language."
+"The type of update this object provides to a previous object. The link to the "
+"previous object is made using the ARM. '01' indicates an additional language."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:464
@@ -6340,8 +6325,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid ""
 "Specifies the envelope handling priority and not the editorial urgency. '1' "
-"for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
-"defined."
+"for most urgent, '5' for normal, and '8' for least urgent. '9' is user-defined."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:467
@@ -6400,8 +6384,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid ""
-"The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
-"for square."
+"The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' for "
+"square."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:474
@@ -6424,8 +6408,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:476
 msgid ""
-"The major national language of the object, according to the 2-letter codes "
-"of ISO 639:1988."
+"The major national language of the object, according to the 2-letter codes of "
+"ISO 639:1988."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:477
@@ -6442,8 +6426,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:478
 msgid ""
-"The maximum size for a subfile dataset containing a portion of the object "
-"data."
+"The maximum size for a subfile dataset containing a portion of the object data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:479
@@ -6566,8 +6549,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:493
 msgid ""
-"Contains rasterized object description and is used where characters that "
-"have not been coded are required for the caption."
+"Contains rasterized object description and is used where characters that have "
+"not been coded are required for the caption."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:494
@@ -6601,18 +6584,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:497
 msgid ""
-"The Service Identifier of a prior envelope to which the current object "
-"refers."
+"The Service Identifier of a prior envelope to which the current object refers."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:498
-msgid ""
-"Designates the earliest date the provider intends the object to be used."
+msgid "Designates the earliest date the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:499
-msgid ""
-"Designates the earliest time the provider intends the object to be used."
+msgid "Designates the earliest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:500
@@ -6691,8 +6671,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid ""
 "The time the intellectual content of the object was created rather than the "
-"date of the creation of the physical representation (multiple values "
-"allowed)."
+"date of the creation of the physical representation (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:510
@@ -6827,8 +6806,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid ""
-"Set to \"1\" if inserting, rotating, or deleting pages and creating "
-"navigation elements is allowed."
+"Set to \"1\" if inserting, rotating, or deleting pages and creating navigation "
+"elements is allowed."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:526
@@ -7269,8 +7248,8 @@ msgstr ""
 #: ../src/utils.cc:594 ../src/utils.cc:675
 #, c-format
 msgid ""
-"%s does not know how to open remote file. Do you want to download the file "
-"to a temporary location and then open it?"
+"%s does not know how to open remote file. Do you want to download the file to "
+"a temporary location and then open it?"
 msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
