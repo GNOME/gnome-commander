@@ -3,7 +3,7 @@ gnome-commander 1.4.8
 ---------------
 
 Bug fixes:
- * ...
+ * Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to Mamoru Tasaka)
 
 
 ===================================
