@@ -1,15 +1,15 @@
 # Serbian translation of gnome-commander
-# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003—2015.
+# Courtesy of Prevod.org team (http://www.prevod.org/) -- 2003—2016.
 # This file is distributed under the same license as the gnome-commander package.
 # Maintainer: Danilo Šegan <dsegan@gmx.net>
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2013—2015.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2013—2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-12-29 08:17+0000\n"
-"PO-Revision-Date: 2015-12-29 11:58+0200\n"
+"POT-Creation-Date: 2016-02-20 20:20+0000\n"
+"PO-Revision-Date: 2016-02-21 07:26+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -21,10 +21,16 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../src/gnome-cmd-main-win.cc:761
+msgid "GNOME Commander"
+msgstr "Gnomov narednik"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Upravnik datotekama sa dve površi"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -38,7 +44,7 @@ msgstr ""
 "konzola naredbi, brza pretraga datoteka, unutrašnji pregledač slika, moćan "
 "alat za grupno preimenovanje, kao i pristup FTP-u i Sambi."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -48,10 +54,34 @@ msgstr ""
 "na preciznom upravljanju datotekama, radeći uporedno kroz posebne programe, i "
 "pokrećući pametne naredbe."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
-#: ../src/gnome-cmd-main-win.cc:761
-msgid "GNOME Commander"
-msgstr "Gnomov narednik"
+#: ../data/gnome-commander.appdata.xml.in.h:5
+#| msgid "File Manager"
+msgid "filemanager"
+msgstr "upravnik datoteka"
+
+#: ../data/gnome-commander.appdata.xml.in.h:6
+#| msgid "Rename"
+msgid "rename"
+msgstr "preimenuj"
+
+#: ../data/gnome-commander.appdata.xml.in.h:7
+msgid "copy"
+msgstr "umnoži"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
+msgid "SSH"
+msgstr "Bezbedna školjka"
+
+#: ../data/gnome-commander.appdata.xml.in.h:9
+msgid "FTP"
+msgstr "FTP"
+
+#: ../data/gnome-commander.appdata.xml.in.h:10
+#| msgid "WebDAV (HTTP)"
+msgid "WebDAV"
+msgstr "VebDAV"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
@@ -324,11 +354,6 @@ msgstr "Udaljeni server"
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:440
 msgid "Service _type:"
 msgstr "_Vrsta usluge:"
-
-#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
-msgid "SSH"
-msgstr "Bezbedna školjka"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "FTP (with login)"
@@ -1335,7 +1360,6 @@ msgid "Label"
 msgstr "Natpis"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1623
-#| msgid "Command:"
 msgid "Command"
 msgstr "Naredba"
 
@@ -2310,7 +2334,6 @@ msgstr "%s slobodno"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1697 ../src/gnome-cmd-user-actions.cc:1705
-#| msgid "The tab is locked, close anyway ?"
 msgid "The tab is locked, close anyway?"
 msgstr "Jezičak je zaključan, da ipak zatvorim?"
 
@@ -3015,7 +3038,6 @@ msgstr "Prikažite terminal"
 
 #: ../src/gnome-cmd-user-actions.cc:793 ../src/gnome-cmd-user-actions.cc:938
 #: ../src/gnome-cmd-user-actions.cc:1167
-#| msgid "Invalid command"
 msgid "No valid command given."
 msgstr "Nije data ispravna naredba."
 
