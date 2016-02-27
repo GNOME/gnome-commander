@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1.4\n"
-"POT-Creation-Date: 2015-05-31 06:25+0000\n"
+"POT-Creation-Date: 2016-02-27 08:18+0000\n"
 "PO-Revision-Date: 2015-05-31 20:12+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -38,8 +38,8 @@ msgid "1.4.8"
 msgstr "1.4.8"
 
 #: C/releases.xml:27(para)
-msgid "2015-??-??"
-msgstr "??.??.2015"
+msgid "2016-??-??"
+msgstr "??.??.2016"
 
 #: C/releases.xml:29(para) C/releases.xml:43(para) C/releases.xml:69(para)
 #: C/releases.xml:101(para) C/releases.xml:127(para) C/releases.xml:150(para)
@@ -62,8 +62,12 @@ msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
 #: C/releases.xml:33(para)
-msgid "..."
-msgstr "…"
+msgid ""
+"Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to "
+"Mamoru Tasaka)"
+msgstr ""
+"Opraven problém bgo#761580 (podpora gcc6 -Werror=format-security, dík si "
+"zaslouží Mamoru Tasaka)"
 
 #: C/releases.xml:40(para)
 msgid "1.4.7"
@@ -79,7 +83,7 @@ msgid ""
 "Mamoru Tasaka)"
 msgstr ""
 "Opraven problém bgo#745454 (narušení ochrany paměti po vyhledávání souborů; "
-"díky pro Mamoru Tasaka)"
+"dík si zaslouží Mamoru Tasaka)"
 
 #: C/releases.xml:50(para)
 msgid ""
@@ -87,7 +91,7 @@ msgid ""
 "Tasaka)"
 msgstr ""
 "Opraven problém bgo#749869 (narušení ochrany paměti při druhém vyhledávání; "
-"díky pro Mamoru Tasaka)"
+"dík si zaslouží Mamoru Tasaka)"
 
 #: C/releases.xml:53(para)
 msgid ""
@@ -95,7 +99,7 @@ msgid ""
 "thanks to Mamoru Tasaka)"
 msgstr ""
 "Opraven problém bgo#734032 (kliknutí na soubor .png se dívá po špatném typu "
-"MIME; díky pro Mamoru Tasaka)"
+"MIME; dík si zaslouží Mamoru Tasaka)"
 
 #: C/releases.xml:56(para)
 msgid "New or updated translations: co"
@@ -130,7 +134,7 @@ msgid ""
 "Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks "
 "to Dominique Leuenberger)"
 msgstr ""
-"Opraven problém bgo#747771 (soubor appdata.xml nebyl překládán, dík zaslouží "
+"Opraven problém bgo#747771 (soubor appdata.xml nebyl překládán, dík si zaslouží "
 "Dominique Leuenberger)"
 
 #: C/releases.xml:82(para)
@@ -270,8 +274,8 @@ msgid ""
 "Text selection in int. viewer works on lines with TAB characters (Thanks to "
 "Jan Vleeshouwers)"
 msgstr ""
-"Výběr textu v interním prohlížeči funguje u řádků se znaky tabulátor (díky "
-"přispěvateli Jan Vleeshouwers)"
+"Výběr textu v interním prohlížeči funguje u řádků se znaky tabulátor (dík si "
+"zaslouží Jan Vleeshouwers)"
 
 #: C/releases.xml:186(para)
 msgid "New or updated translations: cs, el, sr, sr@latin"
@@ -401,13 +405,12 @@ msgstr "Opraven problém #642178 (zamknutí karty vůči tlačítkům zpět/vpř
 
 #: C/releases.xml:269(para) C/releases.xml:500(para) C/releases.xml:554(para)
 #: C/releases.xml:631(para) C/releases.xml:852(para) C/releases.xml:933(para)
-#: C/releases.xml:991(para) C/releases.xml:1102(para)
-#: C/releases.xml:1186(para) C/releases.xml:1295(para)
-#: C/releases.xml:1346(para) C/releases.xml:1424(para)
-#: C/releases.xml:1513(para) C/releases.xml:1585(para)
-#: C/releases.xml:1651(para) C/releases.xml:1727(para)
-#: C/releases.xml:1767(para) C/releases.xml:1804(para)
-#: C/releases.xml:1818(para)
+#: C/releases.xml:991(para) C/releases.xml:1102(para) C/releases.xml:1186(para)
+#: C/releases.xml:1295(para) C/releases.xml:1346(para)
+#: C/releases.xml:1424(para) C/releases.xml:1513(para)
+#: C/releases.xml:1585(para) C/releases.xml:1651(para)
+#: C/releases.xml:1727(para) C/releases.xml:1767(para)
+#: C/releases.xml:1804(para) C/releases.xml:1818(para)
 msgid "New features:"
 msgstr "Nové funkce:"
 
@@ -1273,8 +1276,7 @@ msgstr "Opraven problém #541404 (aktualizace názvů počítačů)"
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr "Opraven problém s řazením souborů v pokročilém nástroji přejmenování"
 
-#: C/releases.xml:929(para) C/releases.xml:1098(para)
-#: C/releases.xml:1182(para)
+#: C/releases.xml:929(para) C/releases.xml:1098(para) C/releases.xml:1182(para)
 msgid "Build fixes"
 msgstr "Opravy sestavování"
 
@@ -1304,9 +1306,9 @@ msgstr "Přepracováno dialogové okno vyhledávání"
 msgid "Revamped transfer progress dialog"
 msgstr "Přepracováno dialogové okno s průběhem přenosu"
 
-#: C/releases.xml:952(para) C/releases.xml:1013(para)
-#: C/releases.xml:1133(para) C/releases.xml:1228(para)
-#: C/releases.xml:1302(para) C/releases.xml:1374(para)
+#: C/releases.xml:952(para) C/releases.xml:1013(para) C/releases.xml:1133(para)
+#: C/releases.xml:1228(para) C/releases.xml:1302(para)
+#: C/releases.xml:1374(para)
 msgid "Updated help docs"
 msgstr "Aktualizována dokumentace nápovědy"
 
@@ -16503,3 +16505,6 @@ msgstr ""
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
+
+#~ msgid "..."
+#~ msgstr "…"
