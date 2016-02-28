@@ -9,14 +9,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2016-02-03 09:31+0200\n"
-"PO-Revision-Date: 2016-02-08 08:02+0200\n"
+"PO-Revision-Date: 2016-02-19 09:03+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.7\n"
 "Last-Translator: Zygimantus <zygimantus@gmail.com>\n"
 "Language: lt\n"
 
@@ -1439,7 +1439,7 @@ msgstr "Praleisti viską"
 
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:115
 msgid "Follow Links"
-msgstr ""
+msgstr "Sekti nuorodas"
 
 #. Customize prepare xfer widgets
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:124
@@ -1927,13 +1927,11 @@ msgstr "Rašyti"
 msgid "Execute"
 msgstr "Vykdyti"
 
-#: ../src/gnome-cmd-chmod-component.cc:122
-#: ../src/gnome-cmd-chown-component.cc:86
+#: ../src/gnome-cmd-chmod-component.cc:122 ../src/gnome-cmd-chown-component.cc:86
 msgid "Owner:"
 msgstr "Savininkas:"
 
-#: ../src/gnome-cmd-chmod-component.cc:122
-#: ../src/gnome-cmd-chown-component.cc:89
+#: ../src/gnome-cmd-chmod-component.cc:122 ../src/gnome-cmd-chown-component.cc:89
 msgid "Group:"
 msgstr "Grupė:"
 
@@ -1979,7 +1977,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-con-device.cc:210
 msgid "Unknown error"
-msgstr ""
+msgstr "Nežinoma klaida"
 
 #: ../src/gnome-cmd-con-device.cc:399
 #, c-format
@@ -2035,7 +2033,7 @@ msgstr "Pradžia"
 
 #: ../src/gnome-cmd-con-home.cc:121
 msgid "Go to: Home"
-msgstr ""
+msgstr "Eiti į: Pradžia"
 
 #: ../src/gnome-cmd-con-remote.cc:286
 #, c-format
@@ -2067,7 +2065,7 @@ msgstr ""
 #: ../src/gnome-cmd-data.cc:1965 ../src/gnome-cmd-data.cc:2157
 #, c-format
 msgid "link to %s"
-msgstr ""
+msgstr "nuoroda į %s"
 
 #: ../src/gnome-cmd-data.cc:1813
 msgid "Audio Files"
@@ -2083,11 +2081,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-dir-indicator.cc:431
 msgid "Add current dir"
-msgstr ""
+msgstr "Pridėti dabartinę direktoriją"
 
 #: ../src/gnome-cmd-dir-indicator.cc:432
 msgid "Manage bookmarks..."
-msgstr ""
+msgstr "Tvarkyti žymeles"
 
 #: ../src/gnome-cmd-file.cc:591
 msgid "Unknown file type"
@@ -2285,19 +2283,19 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:652 ../src/gnome-cmd-main-menu.cc:625
 msgid "Open in New _Tab"
-msgstr ""
+msgstr "Atidaryti naujoje kortelėje"
 
 #: ../src/gnome-cmd-file-selector.cc:659
 msgid "_Unlock Tab"
-msgstr ""
+msgstr "_Atrakinti kortelę"
 
 #: ../src/gnome-cmd-file-selector.cc:659
 msgid "_Lock Tab"
-msgstr ""
+msgstr "_Užrakinti kortelę"
 
 #: ../src/gnome-cmd-file-selector.cc:664
 msgid "_Refresh Tab"
-msgstr ""
+msgstr "_Perkrauti kortelę"
 
 #: ../src/gnome-cmd-file-selector.cc:669
 msgid "Copy Tab to Other _Pane"
@@ -2526,7 +2524,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:787
 msgid "Report a _Problem"
-msgstr ""
+msgstr "Pranešti apie problemą"
 
 #: ../src/gnome-cmd-main-menu.cc:794 ../src/plugin_manager.cc:421
 msgid "_About"
@@ -2608,7 +2606,7 @@ msgstr "Atnaujinti"
 
 #: ../src/gnome-cmd-main-win.cc:1167
 msgid "Go to the oldest"
-msgstr ""
+msgstr "Eiti į seniausią"
 
 #: ../src/gnome-cmd-main-win.cc:1168
 msgid "Go back"
@@ -2620,7 +2618,7 @@ msgstr "Eiti pirmyn"
 
 #: ../src/gnome-cmd-main-win.cc:1170
 msgid "Go to the latest"
-msgstr ""
+msgstr "Eiti į paskutinį"
 
 #: ../src/gnome-cmd-main-win.cc:1172
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
@@ -2650,8 +2648,7 @@ msgstr ""
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr ""
 
-#: ../src/gnome-cmd-quicksearch-popup.cc:269
-#: ../src/gnome-cmd-user-actions.cc:165
+#: ../src/gnome-cmd-quicksearch-popup.cc:269 ../src/gnome-cmd-user-actions.cc:165
 msgid "Search"
 msgstr "Ieškoti"
 
@@ -2863,7 +2860,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:198
 msgid "Unselect all"
-msgstr ""
+msgstr "Atžymėti viską"
 
 #: ../src/gnome-cmd-user-actions.cc:201
 msgid "Keyboard shortcuts"
@@ -2871,11 +2868,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:202
 msgid "Configure plugins"
-msgstr ""
+msgstr "Keisti plėtinius"
 
 #: ../src/gnome-cmd-user-actions.cc:203
 msgid "Execute Python plugin"
-msgstr ""
+msgstr "Vykdyti Python plėtinį"
 
 #: ../src/gnome-cmd-user-actions.cc:204
 msgid "Back one directory"
@@ -2919,7 +2916,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:214
 msgid "Home directory"
-msgstr ""
+msgstr "Namų direktorija"
 
 #: ../src/gnome-cmd-user-actions.cc:215
 msgid "Open directory in the active window"
@@ -3003,7 +3000,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:998
 msgid "Too many selected files"
-msgstr ""
+msgstr "Per daug pasirinkta failų"
 
 #: ../src/gnome-cmd-user-actions.cc:1252
 msgid "Unable to open terminal in root mode."
@@ -3015,7 +3012,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:1280
 msgid "Unable to start Nautilus."
-msgstr ""
+msgstr "Neina paleisti Nautilus."
 
 #: ../src/gnome-cmd-user-actions.cc:1312
 msgid "Unable to start GNOME Commander in root mode."
@@ -3099,7 +3096,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.cc:229
 msgid "Transfer problem"
-msgstr ""
+msgstr "Perdavimo problema"
 
 #: ../src/gnome-cmd-xfer.cc:268
 msgid "copying..."
@@ -3120,7 +3117,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.cc:468
 msgid "preparing..."
-msgstr ""
+msgstr "ruošiama..."
 
 #: ../src/gnome-cmd-xfer.cc:547
 msgid "downloading to /tmp"
@@ -3128,7 +3125,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:42
 msgid "stopping..."
-msgstr ""
+msgstr "stabdoma..."
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:85
 msgid "Progress"
@@ -3169,7 +3166,7 @@ msgstr "Ieškoti"
 #: ../src/intviewer/search-dlg.cc:273 ../src/intviewer/viewer-window.cc:657
 #: ../src/intviewer/viewer-window.cc:859
 msgid "_Text"
-msgstr ""
+msgstr "_Tekstas"
 
 #: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:665
 msgid "_Hexadecimal"
@@ -3178,7 +3175,7 @@ msgstr ""
 #. sdlg->priv->progress = 0;
 #: ../src/intviewer/search-progress-dlg.cc:75
 msgid "Searching..."
-msgstr ""
+msgstr "Ieškoma..."
 
 #: ../src/intviewer/search-progress-dlg.cc:185
 #, c-format
@@ -3282,7 +3279,7 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:775
 msgid "_Rotate 180°"
-msgstr ""
+msgstr "_Pasukti 180°"
 
 #: ../src/intviewer/viewer-window.cc:780
 msgid "Flip _Vertical"
@@ -3318,7 +3315,7 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:836
 msgid "Quick _Help"
-msgstr ""
+msgstr "Greita _pagalba"
 
 #: ../src/intviewer/viewer-window.cc:1114
 #, c-format
@@ -3644,7 +3641,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:498
 msgid "Release Date"
-msgstr ""
+msgstr "Išleidimo data"
 
 #: ../src/tags/gnome-cmd-tags.cc:145
 msgid "Date track was released."
@@ -3774,7 +3771,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:162 ../src/tags/gnome-cmd-tags.cc:417
 msgid "Creator"
-msgstr ""
+msgstr "Kūrėjas"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid ""
@@ -3784,7 +3781,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Created"
-msgstr ""
+msgstr "Sukurta"
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Datetime document was originally created."
@@ -3792,7 +3789,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:164 ../src/tags/gnome-cmd-tags.cc:458
 msgid "Date Created"
-msgstr ""
+msgstr "Sukūrimo data"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid ""
@@ -3802,7 +3799,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Date Modified"
-msgstr ""
+msgstr "Keitimo data"
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "The last time the document was saved."
@@ -3818,7 +3815,7 @@ msgstr "Žodynas"
 
 #: ../src/tags/gnome-cmd-tags.cc:167
 msgid "Dictionary."
-msgstr ""
+msgstr "Žodynas."
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "Editing Duration"
@@ -3921,7 +3918,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Manager"
-msgstr ""
+msgstr "Tvarkytojas"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Name of the manager of <Doc.Creator> entity."
@@ -3961,7 +3958,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Paragraph Count"
-msgstr ""
+msgstr "Paragrafų skaičius"
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Number of paragraphs in the document."
@@ -3977,7 +3974,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Print Date"
-msgstr ""
+msgstr "Spausdinimo data"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Specifies the date and time when the document was last printed."
@@ -4755,7 +4752,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270 ../src/tags/gnome-cmd-tags.cc:431
 msgid "Orientation"
-msgstr ""
+msgstr "Orientacija"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 msgid "The image orientation viewed in terms of rows and columns."
@@ -5160,7 +5157,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:309
 msgid "XML Packet"
-msgstr ""
+msgstr "XML paketas"
 
 #: ../src/tags/gnome-cmd-tags.cc:309
 msgid "XMP metadata."
@@ -5168,7 +5165,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:310
 msgid "x Resolution"
-msgstr ""
+msgstr "x rezoliucija"
 
 #: ../src/tags/gnome-cmd-tags.cc:310
 msgid ""
@@ -5266,7 +5263,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "Modified"
-msgstr ""
+msgstr "Keista"
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "Last modified datetime."
@@ -5286,7 +5283,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:325 ../src/tags/gnome-cmd-tags.cc:384
 msgid "Publisher"
-msgstr ""
+msgstr "Leidėjas"
 
 #: ../src/tags/gnome-cmd-tags.cc:325
 msgid ""
@@ -6178,7 +6175,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "City"
-msgstr ""
+msgstr "Miestas"
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "City of object origin."
@@ -6194,7 +6191,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:451 ../src/tags/gnome-cmd-tags.cc:529
 msgid "Contact"
-msgstr ""
+msgstr "Kontaktas"
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
@@ -6232,7 +6229,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "Country Code"
-msgstr ""
+msgstr "Šalies kodas"
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "The code of the country/primary location where the object was created."
@@ -6338,7 +6335,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:468
 msgid "Expiration Time"
-msgstr ""
+msgstr "Pabaigos laikas"
 
 #: ../src/tags/gnome-cmd-tags.cc:468
 msgid "Designates the latest time the provider intends the object to be used."
@@ -6346,7 +6343,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid "File Format"
-msgstr ""
+msgstr "Failo formatas"
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid "File format of the data described by this metadata."
@@ -6354,7 +6351,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 msgid "File Version"
-msgstr ""
+msgstr "Failo versija"
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 msgid "Version of the file format."
@@ -6431,7 +6428,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid "Model Version"
-msgstr ""
+msgstr "Modelio versija"
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid "Version of IIM part 1."
@@ -6457,7 +6454,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:482
 msgid "Object Name"
-msgstr ""
+msgstr "Objekto pavadinimas"
 
 #: ../src/tags/gnome-cmd-tags.cc:482
 msgid "A shorthand reference for the object."
@@ -6521,7 +6518,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Product ID"
-msgstr ""
+msgstr "Produkto ID"
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Allows a provider to identify subsets of its overall service."
@@ -6555,7 +6552,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Record Version"
-msgstr ""
+msgstr "Įrašo versija"
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Identifies the version of the IIM, Part 2."
@@ -6605,7 +6602,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Size Mode"
-msgstr ""
+msgstr "Dydžio rėžimas"
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Set to 0 if the size of the object is known and 1 if not known."
@@ -6722,7 +6719,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Page Width"
-msgstr ""
+msgstr "Puslapio plotis"
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Page width in mm."
@@ -6730,7 +6727,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:516
 msgid "Page Height"
-msgstr ""
+msgstr "Puslapio aukštis"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
 msgid "Page height in mm."
@@ -6738,7 +6735,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:517
 msgid "PDF Version"
-msgstr ""
+msgstr "PDF versija"
 
 #: ../src/tags/gnome-cmd-tags.cc:517
 msgid "The PDF version of the document."
@@ -6770,7 +6767,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Printing"
-msgstr ""
+msgstr "Spausdinama"
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Set to \"1\" if printing is allowed."
@@ -6786,7 +6783,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:523
 msgid "Copying"
-msgstr ""
+msgstr "Kopijuojama"
 
 #: ../src/tags/gnome-cmd-tags.cc:523
 msgid "Set to \"1\" if copying the contents is allowed."
@@ -6794,7 +6791,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:524
 msgid "Modifying"
-msgstr ""
+msgstr "Keičiama"
 
 #: ../src/tags/gnome-cmd-tags.cc:524
 msgid "Set to \"1\" if modifying the contents is allowed."
@@ -6812,7 +6809,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Commenting"
-msgstr ""
+msgstr "Komentuojama"
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Set to \"1\" if adding or modifying text annotations is allowed."
@@ -6840,7 +6837,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:531
 msgid "License"
-msgstr ""
+msgstr "Licencija"
 
 #: ../src/tags/gnome-cmd-tags.cc:531
 msgid "License information."
@@ -6848,7 +6845,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:532
 msgid "Location"
-msgstr ""
+msgstr "Vieta"
 
 #: ../src/tags/gnome-cmd-tags.cc:532
 msgid "Location where track was recorded."
@@ -6880,7 +6877,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Organization"
-msgstr ""
+msgstr "Organizacija"
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Organization producing the track."
@@ -6904,7 +6901,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:674
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:680
 msgid "Doc"
@@ -6912,7 +6909,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:698
 msgid "Image"
-msgstr ""
+msgstr "Paveikslėlis"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:67
 msgid "No Proofing"
@@ -6944,11 +6941,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Danish"
-msgstr ""
+msgstr "Danų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:83
 msgid "German"
-msgstr ""
+msgstr "Vokiečių"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "Swiss German"
@@ -6956,7 +6953,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:87
 msgid "Greek"
-msgstr ""
+msgstr "Graikų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "U.S. English"
@@ -6980,11 +6977,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Finnish"
-msgstr ""
+msgstr "Suomių"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:101
 msgid "French"
-msgstr ""
+msgstr "Prancūzų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:103
 msgid "Belgian French"
@@ -7012,7 +7009,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:115
 msgid "Italian"
-msgstr ""
+msgstr "Italų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:117
 msgid "Swiss Italian"
@@ -7020,15 +7017,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:119
 msgid "Japanese"
-msgstr ""
+msgstr "Japonų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Korean"
-msgstr ""
+msgstr "Korėjiečių"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Dutch"
-msgstr ""
+msgstr "Olandų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:125
 msgid "Belgian Dutch"
@@ -7044,7 +7041,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:131
 msgid "Polish"
-msgstr ""
+msgstr "Lenkų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Brazilian Portuguese"
@@ -7052,7 +7049,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:135
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugalų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:137
 msgid "Rhaeto-Romanic"
@@ -7060,11 +7057,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Romanian"
-msgstr ""
+msgstr "Rumunų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Russian"
-msgstr ""
+msgstr "Rusų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:143
 msgid "Croato-Serbian (Latin)"
@@ -7076,15 +7073,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:147
 msgid "Slovak"
-msgstr ""
+msgstr "Slovakų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:149
 msgid "Albanian"
-msgstr ""
+msgstr "Albanų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:151
 msgid "Swedish"
-msgstr ""
+msgstr "Švedų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:153
 msgid "Thai"
@@ -7092,7 +7089,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
 msgid "Turkish"
-msgstr ""
+msgstr "Turkų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Urdu"
@@ -7104,7 +7101,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:161
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainiečių"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:163
 msgid "Byelorussian"
@@ -7116,15 +7113,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:167
 msgid "Estonian"
-msgstr ""
+msgstr "Estų"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Latvian"
-msgstr ""
+msgstr "Latvių"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lietuvių"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:173
 msgid "Farsi"
