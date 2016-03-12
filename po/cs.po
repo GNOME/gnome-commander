@@ -7523,7 +7523,7 @@ msgstr "Chorvatsko-srbština (latinka)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:145
 msgid "Serbo-Croatian (Cyrillic)"
-msgstr "Srbo-chorvatština (cyrilice)"
+msgstr "Srbo-chorvatština (azbuka)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:147
 msgid "Slovak"
