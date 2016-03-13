@@ -105,3 +105,19 @@ For installing GNOME Commander using the sources in the git repository, do the f
 
 After executing ``./configure`` or ``./autogen.sh`` see the file ``INSTALL``
 for detailed information regarding the installation of GNOME Commander.
+
+### Tip for working with git ###
+
+There exists a [pre-commit.sh](pre-commit.sh) script in the main
+directory of the repository. Just type ``ln -s ../../pre-commit.sh
+.git/hooks/pre-commit`` to activate this script. It runs ``make`` and
+``make check`` before your change will be finally committed. This is
+really nice for lazy people.
+
+### Docker ###
+
+There exists also a [Dockerfile](Dockerfile) in the repository. At the
+moment, it is for testing purposes for the Ubuntu distribution only,
+i.e. when you do ``docker build .``, the GCMD sources are compiled on
+the Ubuntu base image. Feel free to push a merge request if you have
+cool ideas using Docker together with GCMD.
