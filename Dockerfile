@@ -1,5 +1,5 @@
 # This is a Docker image for building gnome-commander
-FROM ubuntu:15.04
+FROM ubuntu:15.10
 MAINTAINER Uwe Scholz <u.scholz83@gmx.de>
 
 ENV GCMD_PATH /gnome-commander
@@ -10,7 +10,7 @@ RUN \
   echo $LANG && \
   echo $LC_ALL && \
   sudo apt-get build-dep gnome-commander -y && \
-  sudo apt-get install -y -qq autoconf-archive cmake git-core gnome-common libglib2.0-dev libgtest-dev libunique-dev scrollkeeper
+  sudo apt-get install -y -qq autoconf-archive cmake flex git-core gnome-common libglib2.0-dev libgtest-dev libunique-dev scrollkeeper
 
 RUN \
   cd /usr/src/gtest && \
@@ -25,7 +25,6 @@ RUN \
   export CXX=g++ && \
   export CC=gcc && \
   cd $GCMD_PATH && \
-  git checkout GSettings && \
   ./autogen.sh && \
   make && \
   make check
