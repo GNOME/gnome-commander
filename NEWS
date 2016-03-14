@@ -4,7 +4,16 @@ gnome-commander 1.4.8
 
 Bug fixes:
  * Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to Mamoru Tasaka)
-
+ * New or updated translations:
+       cs (Marek Černocký)
+       de (Wolfgang Stöggl)
+       pl (Piotr Drąg)
+       pt (Pedro Albuquerque)
+       pt_BR (Gustavo Marques)
+       oc (Cédric Valmary)
+* New or updated docs:
+       cs (Marek Černocký)
+       de (Mario Blättermann)
 
 ===================================
 gnome-commander 1.4.7
