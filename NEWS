@@ -2,7 +2,7 @@
 gnome-commander 1.4.9
 ---------------
 Bug fixes:
- * ...
+ * Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to Anders Jonsson)
 
 ===================================
 gnome-commander 1.4.8

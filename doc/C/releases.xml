@@ -30,7 +30,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to Anders Jonsson)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
