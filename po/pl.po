@@ -5,14 +5,14 @@
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Piotr Eljasiak <epiotr@use.pl>, 2002-2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
+# Aviary.pl <gnomepl@aviary.pl>, 2015-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 23:30+0100\n"
-"PO-Revision-Date: 2015-11-26 23:32+0100\n"
+"POT-Creation-Date: 2016-03-31 19:00+0200\n"
+"PO-Revision-Date: 2016-03-31 19:02+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -1981,7 +1981,7 @@ msgstr "Błąd montowania: nie odnaleziono nośnika"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
+msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Błąd montowania: „mount” zakończyło działanie z kodem stanu %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
@@ -3067,8 +3067,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Piotr Eljasiak <epiotr@use.pl>, 2002-2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2015\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2015\n"
+"Piotr Drąg <piotrdrag@gmail.com>, 2015-2016\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2015-2016\n"
 "\n"
 "In Memory of Piotr Eljasiak"
 
@@ -5032,8 +5032,8 @@ msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "Wartości czarnego i białego punktu odniesienia. W formacie TIFF nie ma "
 "wartości domyślnych, ale poniższe są podane tutaj jako domyślne. Przestrzeń "
@@ -5484,7 +5484,7 @@ msgid ""
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "Macierz współczynników przekształcenia danych obrazu z RGB do YCbCr. Dla "
 "TIFF nie ma wartości domyślnych, ale wartości podane w załączniku E „Color "
