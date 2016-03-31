@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-27 08:18+0000\n"
-"PO-Revision-Date: 2016-02-27 17:58+0100\n"
+"POT-Creation-Date: 2016-03-30 19:53+0000\n"
+"PO-Revision-Date: 2016-03-31 09:26+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -63,12 +63,10 @@ msgstr ""
 "promyšlené příkazy."
 
 #: ../data/gnome-commander.appdata.xml.in.h:5
-#| msgid "File Manager"
 msgid "filemanager"
 msgstr "správce souborů"
 
 #: ../data/gnome-commander.appdata.xml.in.h:6
-#| msgid "Rename"
 msgid "rename"
 msgstr "přejmenování"
 
@@ -87,7 +85,6 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../data/gnome-commander.appdata.xml.in.h:10
-#| msgid "WebDAV (HTTP)"
 msgid "WebDAV"
 msgstr "WebDAV"
 
@@ -2003,7 +2000,7 @@ msgstr "Připojení selhalo: nenalezeno médium"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
+msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Připojení selhalo: příkaz mount skončil se stavem %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
@@ -5086,8 +5083,8 @@ msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "Hodnota referenčního černého bodu a referenční hodnota bílého bodu. Pro TIFF "
 "nejsou dány žádné výchozí, ale zde jsou výchozí hodnoty dány následně: "
@@ -5526,7 +5523,7 @@ msgid ""
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "Maticové koeficienty pro převod obrazových dat z RGB na YCbCr. Pro TIFF "
 "nejsou dané žádné výchozí, ale jsou zde jako výchozí použity „Color Space "
