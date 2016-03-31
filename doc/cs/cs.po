@@ -1,13 +1,13 @@
 # Czech translation for gnome-commander.
 # Copyright (C) 2011 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1.4\n"
-"POT-Creation-Date: 2016-03-14 21:11+0000\n"
-"PO-Revision-Date: 2015-05-31 20:12+0200\n"
+"POT-Creation-Date: 2016-03-30 21:39+0000\n"
+"PO-Revision-Date: 2016-03-31 09:25+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: C/releases.xml:9(title)
 msgid "Release Overview"
@@ -62,8 +62,12 @@ msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
 #: C/releases.xml:33(para)
-msgid "..."
-msgstr "…"
+msgid ""
+"Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to "
+"Anders Jonsson)"
+msgstr ""
+"Opraven problém bgo#764306 (Chyby a překlepy v textech, dík si zaslouží "
+"Anders Jonsson)"
 
 #: C/releases.xml:40(para)
 msgid "1.4.8"
@@ -16527,3 +16531,6 @@ msgstr ""
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
+
+#~ msgid "..."
+#~ msgstr "…"
