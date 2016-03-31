@@ -2,13 +2,13 @@
 # Deutsche Übersetzung.
 # Copyright (C) 2002, 2007 Free Software Foundation, Inc.
 #
-# Walter Muellner <walter.muellner@telering.at>, 2002, 2003.
-# Frank Arnold <frank@scirocco-5v-turbo.de>, 2005, 2006.
+# Walter Muellner <walter.muellner@telering.at>, 2002-2003.
+# Frank Arnold <frank@scirocco-5v-turbo.de>, 2005-2006.
 # Hendrik Richter <hendrikr@gnome.org>, 2005.
 # Allan Jäke <allan@jaeke.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2007-2009.c
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011.
-# Uwe Scholz <uwescholz@src.gnome.org>, 2013
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011, 2016.
+# Uwe Scholz <uwescholz@src.gnome.org>, 2013.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 #
 msgid ""
@@ -16,16 +16,16 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-11-30 21:09+0000\n"
-"PO-Revision-Date: 2015-12-01 15:08+0100\n"
-"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"POT-Creation-Date: 2016-03-31 07:36+0000\n"
+"PO-Revision-Date: 2016-03-31 12:28+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
 msgid "Two-pane file manager"
@@ -1979,8 +1979,9 @@ msgstr "Einbinden fehlgeschlagen: Kein Datenträger gefunden"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
-msgstr "Einbinden fehlgeschlagen: Rückgabewert war %d"
+msgid "Mount failed: mount exited with exitstatus %d"
+msgstr ""
+"Einbinden fehlgeschlagen: Einbinden wurde abgebrochen, Rückgabewert war %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
 msgid "Device is now safe to remove"
@@ -5048,8 +5049,8 @@ msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "Die Referenzwerte für Schwarzpunkt und Weißpunkt. In TIFF existieren dafür "
 "keine Vorgaben, aber die nachstehenden Werte werden als Vorgabe angenommen. "
@@ -5503,7 +5504,7 @@ msgid ""
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "Die Matrix-Koeffizienten für die Umwandlung von RGB- in YCbCr-Bilddaten. In "
 "TIFF existiert keine Vorgabe, aber es gibt »Color Space Guidelines«, die als "
