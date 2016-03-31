@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-20 20:20+0000\n"
-"PO-Revision-Date: 2016-02-21 07:26+0200\n"
+"POT-Creation-Date: 2016-03-31 07:37+0000\n"
+"PO-Revision-Date: 2016-03-31 18:46+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -55,12 +55,10 @@ msgstr ""
 "покрећући паметне наредбе."
 
 #: ../data/gnome-commander.appdata.xml.in.h:5
-#| msgid "File Manager"
 msgid "filemanager"
 msgstr "управник датотека"
 
 #: ../data/gnome-commander.appdata.xml.in.h:6
-#| msgid "Rename"
 msgid "rename"
 msgstr "преименуј"
 
@@ -79,7 +77,6 @@ msgid "FTP"
 msgstr "ФТП"
 
 #: ../data/gnome-commander.appdata.xml.in.h:10
-#| msgid "WebDAV (HTTP)"
 msgid "WebDAV"
 msgstr "ВебДАВ"
 
@@ -2009,7 +2006,8 @@ msgstr "Неуспешно прикључење: медиј није нађен"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
+#| msgid "Mount failed: mount exited with existatus %d"
+msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Неуспешно прикључење: „mount“ је завршио са повратним кодом „%d“"
 
 #: ../src/gnome-cmd-con-device.cc:203
@@ -5099,17 +5097,23 @@ msgid "Reference Black/White"
 msgstr "Црно/бела упута"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
+#| msgid ""
+#| "The reference black point value and reference white point value. No "
+#| "defaults are given in TIFF, but the values below are given as defaults "
+#| "here. The color space is declared in a color space information tag, with "
+#| "the default being the value that gives the optimal image characteristics "
+#| "Interoperability these conditions."
 msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "Вредност тачке црне упуте и вредност тачке беле упуте. Нема основности датих "
-"у ТИФФ-у, али доње вредности су овде дате као подразумеване. Простор боје је "
-"објављен у ознаци обавештења простора боје, са основним који је вредност "
-"која даје најбоље међудејство особина слике ових услова."
+"у ТИФФ-у, али вредности испод су овде дате као подразумеване. Простор боје "
+"је објављен у ознаци обавештења простора боје, са основним који је вредност "
+"која даје најбоље одлике слике под овим условима."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Related Image File Format"
@@ -5540,17 +5544,23 @@ msgid "YCbCr Coefficients"
 msgstr "Коефицијенти „YCbCr“"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
+#| msgid ""
+#| "The matrix coefficients for transformation from RGB to YCbCr image data. "
+#| "No default is given in TIFF; but here \"Color Space Guidelines\" is used "
+#| "as the default. The color space is declared in a color space information "
+#| "tag, with the default being the value that gives the optimal image "
+#| "characteristics Interoperability this condition."
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
-"Коефицијенти матрице за преображај из РГБ у „YCbCr“ податке слике. Никаква "
-"основност није дата у ТИФФ-у; али се овде „Вођице простора боје“ користи као "
-"основно. Простор боје је наведен у ознаци податка простора боје, са "
-"вредношћу која даје најбоље међудејство карактеристика слике као основном."
+"Коефицијенти матрице за преображај из РГБ у „YCbCr“ податке слике. Нема "
+"основности датих у ТИФФ-у; али се овде „Вођице простора боје“ користи као "
+"основно. Простор боје је наведен у ознаци податка простора боје, са основним "
+"који је вредност која даје најбоље одлике слике под овим условима."
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid "YCbCr Positioning"
