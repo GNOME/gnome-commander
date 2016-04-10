@@ -2,14 +2,14 @@
 # 
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010, 2011, 2012, 2014, 2015., 2015.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009, 2010, 2011, 2012, 2014, 2015., 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-15 08:19+0000\n"
-"PO-Revision-Date: 2015-12-15 13:13+0100\n"
+"POT-Creation-Date: 2016-04-08 07:35+0000\n"
+"PO-Revision-Date: 2016-04-08 16:37+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -65,12 +65,16 @@ msgstr "Correcciones de errores:"
 msgid ""
 "Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)"
 msgstr ""
+"Error nº742752 corregido (diálogo de opciones redimensionable y añadidas "
+"barras de desplazamiento)"
 
 #: C/releases.xml:36(para)
 msgid ""
 "Preserve focused file after renamed with AdvRenDialog (Thanks to Martin "
 "Mocko)"
 msgstr ""
+"Conservar el archivo con el foco después de renombrarlo con AdvRenDialog "
+"(gracias a Martin Mocko)"
 
 #: C/releases.xml:40(para) C/releases.xml:89(para) C/releases.xml:126(para)
 #: C/releases.xml:190(para) C/releases.xml:421(para) C/releases.xml:475(para)
@@ -99,22 +103,28 @@ msgstr ""
 
 #: C/releases.xml:50(para)
 msgid "Configurable command for sending files to a preferred application"
-msgstr ""
+msgstr "Comando configurable para enviar archivos a una aplicación favorita"
 
 #: C/releases.xml:53(para)
 msgid ""
 "Button 'Edit files' accepts more than one selected file at the same time"
 msgstr ""
+"El botón «Editar archivos» acepta más de un archivo seleccionado al mismo "
+"tiempo"
 
 #: C/releases.xml:56(para)
 msgid ""
 "Device buttons and device list entries act as 'home buttons' for that device "
 "when it is already active"
 msgstr ""
+"Los botones del dispositivo y las listas de entrada de dispositivos actúan "
+"como «botones de inicio» para ese dispositivo cuando ya está activo"
 
 #: C/releases.xml:59(para)
 msgid "Started usage of google test framework for unit tests"
 msgstr ""
+"Iniciado el uso del entorno de trabajo de pruebas de Google para pruebas "
+"unitarias"
 
 #: C/releases.xml:62(para)
 msgid "Code cleanup"
@@ -13417,6 +13427,11 @@ msgid ""
 "types. See <xref linkend=\"gcmd-TBL-setting6\"/> and below for more "
 "information."
 msgstr ""
+"Esta sección del diálogo de opciones le permite configurar sus aplicaciones "
+"favoritas para diferentes tareas. En la sección <guilabel>Otras aplicaciones "
+"favoritas</guilabel> puede especificar más aplicaciones para abrir "
+"determinados tipos de documentos. Consulte la <xref linkend=\"gcmd-TBL-"
+"setting6\"/> y más abajo para obtener más información."
 
 #: C/gnome-commander.xml:5391(title)
 msgid "Programs options"
@@ -13456,7 +13471,6 @@ msgid "Viewer:"
 msgstr "Visor:"
 
 #: C/gnome-commander.xml:5447(para)
-#, fuzzy
 #| msgid ""
 #| "Set which application is used when the command view is used when the "
 #| "<keycap>F3</keycap> key is pressed. By default GNOME Commander uses an "
@@ -13469,8 +13483,11 @@ msgid ""
 "See next row."
 msgstr ""
 "Configurar qué aplicación se utiliza cuando se usa el comando «ver» al "
-"pulsar la tecla <keycap>F3</keycap>. De manera predeterminada, GNOME "
-"Commander usa un visor interno."
+"pulsar la tecla <keycap>F3</keycap>. Valor predeterminado: «gedit %s», donde "
+"%s es la variable que contiene los elementos seleccionados. Consulte la "
+"<xref linkend=\"gcmd-TBL-setting7\"/> para obtener más información. De "
+"manera predeterminada, GNOME Commander usa un visor interno. Consulte la "
+"siguiente fila."
 
 #: C/gnome-commander.xml:5453(para)
 msgid "Use internal viewer"
@@ -13491,10 +13508,6 @@ msgid "Editor:"
 msgstr "Editor:"
 
 #: C/gnome-commander.xml:5465(para)
-#| msgid ""
-#| "In this text box you can type in the command line used to start your "
-#| "favourite text editor. %s is the variable containing the selected items. "
-#| "The default application is the GNOME default Gedit."
 msgid ""
 "In this text box you can type in the command line used to start your "
 "favourite text editor. Default value: \"gedit %s\""
@@ -13507,10 +13520,6 @@ msgid "Differ:"
 msgstr "Diferenciador:"
 
 #: C/gnome-commander.xml:5474(para)
-#| msgid ""
-#| "In this text box you can type in the command line used to start your "
-#| "favourite comparison tool. %s is the variable containing the selected "
-#| "files to compare. The default application is Meld."
 msgid ""
 "In this text box you can type in the command line used to start your "
 "favourite comparison tool. %s is the variable containing the selected files "
@@ -13526,10 +13535,6 @@ msgid "Send files:"
 msgstr "Enviar archivos:"
 
 #: C/gnome-commander.xml:5483(para)
-#| msgid ""
-#| "In this text box you can type in the command line used to start your "
-#| "favourite comparison tool. %s is the variable containing the selected "
-#| "files to compare. The default application is Meld."
 msgid ""
 "In this text box you can type in the command line used to send files to a "
 "preferred application. %s is the variable containing the selected files to "
@@ -13545,10 +13550,6 @@ msgid "Terminal:"
 msgstr "Terminal:"
 
 #: C/gnome-commander.xml:5492(para)
-#| msgid ""
-#| "In this text box you can type in the command line used to start you "
-#| "favourite terminal application. %s is the variable used to pass the "
-#| "current path to start the terminal into. The Default application is xterm."
 msgid ""
 "In this text box you can type in the command line used to start you "
 "favourite terminal application. Default value: \"gnome-terminal\"."
@@ -13626,13 +13627,9 @@ msgstr "Opciones generales de la aplicación"
 
 #: C/gnome-commander.xml:5547(para)
 msgid "Terminal command for apps in the list above"
-msgstr ""
+msgstr "Comando de la terminal para aplicaciones en la lista anterior"
 
 #: C/gnome-commander.xml:5550(para)
-#| msgid ""
-#| "In this text box you can type in the command line used to start you "
-#| "favourite terminal application. %s is the variable used to pass the "
-#| "current path to start the terminal into. The Default application is xterm."
 msgid ""
 "In this text box you can type in the command line used to start your app "
 "from the list above with a favourite terminal application. %s is the "
@@ -13649,12 +13646,14 @@ msgid ""
 "As you can see in the list above, \"%s\" can be used for filename expansion. "
 "All possible expansion types are listed in the table below:"
 msgstr ""
+"Como puede ver en la lista anterior, se puede usar «%s» para expandir "
+"nombres de archivos. Todos los tipos de expasiones posibles se listan en la "
+"siguiente tabla:"
 
 #: C/gnome-commander.xml:5560(title)
-#, fuzzy
 #| msgid "Sorting options"
 msgid "String expansion"
-msgstr "Opciones de ordenacion"
+msgstr "Expansión de cadena"
 
 #: C/gnome-commander.xml:5567(para)
 msgid "String"
@@ -13662,7 +13661,7 @@ msgstr "Cadena"
 
 #: C/gnome-commander.xml:5570(para)
 msgid "Expands to..."
-msgstr ""
+msgstr "Se expande a..."
 
 #: C/gnome-commander.xml:5577(para)
 msgid "%f"
@@ -13724,7 +13723,6 @@ msgstr ""
 "aplicaciones del menú contextual."
 
 #: C/gnome-commander.xml:5652(para)
-#, fuzzy
 #| msgid ""
 #| "In the following dialog box you can input a number of different "
 #| "parameters to run the application as you want it to. You will probably "
@@ -13736,10 +13734,10 @@ msgid ""
 "probably need to check the various options available for the application in "
 "its manual pages."
 msgstr ""
-"En el siguiente cuadro de diálogo puede introducir un número de parámetros "
-"diferentes para ejecutar la aplicación como quiera. Probablemente deberá "
-"comprobar las distintas opciones disponibles para la aplicación en sus "
-"páginas del manual."
+"En la caja de la <xref linkend=\"options-application-fig\"/> puede "
+"introducir un número de parámetros diferentes para ejecutar la aplicación "
+"como quiera. Probablemente deberá comprobar las distintas opciones "
+"disponibles para la aplicación en sus páginas del manual."
 
 #: C/gnome-commander.xml:5655(para)
 msgid ""
@@ -15853,6 +15851,9 @@ msgid ""
 "File Names action on the <guimenu>Edit</guimenu> menu or the \"**\" icon on "
 "the toolbar."
 msgstr ""
+"Para copiar los nombres de los archivos seleccionados al portapapeles, use "
+"la acción Copiar nombres de archivos en el menú <guimenu>Editar</guimenu> o "
+"el icono «**» en la barra de herramientas."
 
 #: C/gnome-commander.xml:7430(para)
 msgid ""
@@ -15860,9 +15861,12 @@ msgid ""
 "down <keycap>SHIFT</keycap> while activating either the Copy File Names "
 "action on the <guimenu>Edit</guimenu> menu or the \"**\" icon on the toolbar."
 msgstr ""
+"Para copiar las rutas completas de los archivos seleccionados al "
+"portapapeles, mantenga pulsada la techa <keycap>Mayús</keycap> mientras "
+"activa la acción Copiar nombres de archivos en el menú <guimenu>Editar</"
+"guimenu> o el icono «**» en la barra de herramientas."
 
 #: C/gnome-commander.xml:7435(para)
-#, fuzzy
 #| msgid ""
 #| "Select the file or folder to which you want to create a link. Press "
 #| "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></"
@@ -15872,12 +15876,11 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
 "keycombo>."
 msgstr ""
-"Seleccione el archivo o la carpeta para la que quiere crear el enlace. Pulse "
-"<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>F5</keycap></"
-"keycombo>."
+"Para insertar la ruta del archivo actual en la línea de comandos de GNOME "
+"Commander pulse <keycombo><keycap>CTRL</keycap><keycap>Mayús</"
+"keycap><keycap>Intro</keycap></keycombo>."
 
 #: C/gnome-commander.xml:7439(para)
-#, fuzzy
 #| msgid ""
 #| "Select the file or folder to which you want to create a link. Press "
 #| "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></"
@@ -15886,8 +15889,8 @@ msgid ""
 "To insert the current file's name in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
 msgstr ""
-"Seleccione el archivo o la carpeta para la que quiere crear el enlace. Pulse "
-"<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>F5</keycap></"
+"Para insertar el nombre del archivo actual en la línea de comandos de GNOME "
+"Commander pulse <keycombo><keycap>CTRL</keycap><keycap>Intro</keycap></"
 "keycombo>."
 
 #: C/gnome-commander.xml:7449(title)
