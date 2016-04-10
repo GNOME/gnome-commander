@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-02-01 08:20+0000\n"
-"PO-Revision-Date: 2016-02-01 15:51+0100\n"
+"POT-Creation-Date: 2016-04-07 07:40+0000\n"
+"PO-Revision-Date: 2016-04-07 12:52+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -66,7 +66,6 @@ msgid "filemanager"
 msgstr "gestor de archivos"
 
 #: ../data/gnome-commander.appdata.xml.in.h:6
-#| msgid "Rename"
 msgid "rename"
 msgstr "renombrar"
 
@@ -85,7 +84,6 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../data/gnome-commander.appdata.xml.in.h:10
-#| msgid "WebDAV (HTTP)"
 msgid "WebDAV"
 msgstr "WebDAV"
 
@@ -1996,7 +1994,8 @@ msgstr "Falló al montar: no se encontró ningún medio"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
+#| msgid "Mount failed: mount exited with existatus %d"
+msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Falló al montar: mount salió con estado %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
@@ -5094,19 +5093,24 @@ msgid "Reference Black/White"
 msgstr "Referencia blanco/negro"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
+#| msgid ""
+#| "The reference black point value and reference white point value. No "
+#| "defaults are given in TIFF, but the values below are given as defaults "
+#| "here. The color space is declared in a color space information tag, with "
+#| "the default being the value that gives the optimal image characteristics "
+#| "Interoperability these conditions."
 msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "El valor de referencia del punto negro y el del punto blanco. No se "
-"proporcionan valores predeterminados en TIFF, pero los valores de debajo se "
-"toman como predeterminados. El espacio de color se declara en la etiqueta de "
-"información de espacio de color, siendo el valor predeterminado el que "
-"ofrece el valor óptimo de características de interoperabilidad de la imagen "
-"en estas condiciones."
+"proporcionan valores predeterminados en TIFF, pero los valores de más abajo "
+"se toman como predeterminados. El espacio de color se declara en la etiqueta "
+"de información de espacio de color, siendo el valor predeterminado el que "
+"ofrece el valor óptimo de características de la imagen en estas condiciones."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Related Image File Format"
@@ -5548,19 +5552,24 @@ msgid "YCbCr Coefficients"
 msgstr "Coeficientes YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
+#| msgid ""
+#| "The matrix coefficients for transformation from RGB to YCbCr image data. "
+#| "No default is given in TIFF; but here \"Color Space Guidelines\" is used "
+#| "as the default. The color space is declared in a color space information "
+#| "tag, with the default being the value that gives the optimal image "
+#| "characteristics Interoperability this condition."
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "La matriz de coeficientes de transformación de RGB a imagen de datos YCbCr. "
 "No se proporciona un valor predeterminado en TIFF; pero aquí se usa «Color "
 "Space Guidelines» como valor predeterminado. El espacio de color se declara "
 "en la etiqueta de información de espacio de color, siendo el valor "
-"predeterminado el que ofrece las mejores características de "
-"interoperabilidad de imagen."
+"predeterminado el que ofrece las mejores características de imagen."
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid "YCbCr Positioning"
