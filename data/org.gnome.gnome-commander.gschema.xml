@@ -1,14 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander" path="/org/gnome/gnome-commander/">
     <child name="preferences" schema="org.gnome.gnome-commander.preferences"/>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences" path="/org/gnome/gnome-commander/preferences/">
-    <child name="layout" schema="org.gnome.gnome-commander.preferences.layout"/>
+    <child name="general" schema="org.gnome.gnome-commander.preferences.general"/>
+    <child name="quick-connect" schema="org.gnome.gnome-commander.preferences.quick-connect"/>
+    <child name="network" schema="org.gnome.gnome-commander.preferences.network"/>
+    <child name="confirmation" schema="org.gnome.gnome-commander.preferences.confirmation"/>
+    <child name="filter" schema="org.gnome.gnome-commander.preferences.filter"/>
+    <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
+    <child name="devices" schema="org.gnome.gnome-commander.preferences.devices"/>
+    <child name="keys-bindings" schema="org.gnome.gnome-commander.preferences.keys-bindings"/>
+    <child name="sorting" schema="org.gnome.gnome-commander.preferences.sorting"/>
+    <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
+    <child name="search-history" schema="org.gnome.gnome-commander.preferences.search-history"/>
+    <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
+    <child name="local-bookmarks" schema="org.gnome.gnome-commander.preferences.local-bookmarks"/>
+    <child name="smb-bookmarks" schema="org.gnome.gnome-commander.preferences.smb-bookmarks"/>
+    <child name="cmdline-history" schema="org.gnome.gnome-commander.preferences.cmdline-history"/>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.layout" path="/org/gnome/gnome-commander/preferences/layout/">
+
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
       <summary>Use Default Font</summary>
@@ -19,6 +32,945 @@
       <summary>Panel Font</summary>
       <description>A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.</description>
     </key>
+    <key name="size-disp-mode" type="i">
+      <default l10n="messages">3</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="perm-disp-mode" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="layout" type="i">
+      <default l10n="messages">2</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="list-row-height" type="i">
+      <default l10n="messages">16</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="date-disp-mode" type="s">
+      <default l10n="messages">'%d-%m-%y %R'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-unknown" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-regular" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-directory" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-fifo" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-socket" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-char-device" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-block-device" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-symbolic-link" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="hidden-filter" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="backup-filter" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="list-font" type="s">
+      <default l10n="messages">'DejaVu Sans Mono 8'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ext-disp-mode" type="i">
+      <default l10n="messages">2</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="left-mouse-button-mode" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="left-mouse-button-unselects" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="right-mouse-button-mode" type="i">
+      <default l10n="messages">0</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="icon-size" type="i">
+      <default l10n="messages">16</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="dev-icon-size" type="i">
+      <default l10n="messages">16</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="icon-scale-quality" type="i">
+      <default l10n="messages">3</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="theme-icon-dir" type="s">
+      <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="document-icon-dir" type="s">
+      <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/file-type-icons'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="cmdline-history-length" type="i">
+      <default l10n="messages">16</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="btn-relief" type="i">
+      <default l10n="messages">2</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="filter-type" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="list-orientation" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="gui-update-rate" type="i">
+      <default l10n="messages">100</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="conbuttons-visibility" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="con-list-visibility" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="cmdline-visibility" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="symlink-prefix" type="s">
+      <default l10n="messages">''</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="main-win-pos-x" type="i">
+      <default l10n="messages">0</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="main-win-pos-y" type="i">
+      <default l10n="messages">25</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sort-column-left" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sort-direction-left" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sort-column-right" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sort-direction-right" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="start-dir-left" type="s">
+      <default l10n="messages">'/home/uwe'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="start-dir-right" type="s">
+      <default l10n="messages">'/home/uwe'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="main-win-state" type="i">
+      <default l10n="messages">4</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="middle-mouse-button-mode" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="save-dirs-on-exit" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="save-tabs-on-exit" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="save-dir-history-on-exit" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="always-show-tabs" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="tab-lock-indicator" type="i">
+      <default l10n="messages">2</default>
+      <summary></summary>
+      <description></description>
+    </key>
   </schema>
-
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">
+    <key name="uri" type="s">
+      <default l10n="messages">'sftp://192.168.1.33'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
+    <key name="use-gnome-auth-manager" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ftp-anonymous-password" type="s">
+      <default l10n="messages">'you@provider.com'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.confirmation" path="/org/gnome/gnome-commander/preferences/confirmation/">
+    <key name="delete" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="copy-overwrite" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="move-overwrite" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="delete-default" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="confirm-mouse-dnd" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.filter" path="/org/gnome/gnome-commander/preferences/filter/">
+    <key name="last-pattern" type="s">
+      <default l10n="messages">''</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="backup-pattern" type="s">
+      <default l10n="messages">'*~;*.bak'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.programs" path="/org/gnome/gnome-commander/preferences/programs/">
+    <key name="honor-expect-uris" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="use-internal-viewer" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="alt-quick-search" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="skip-mounting" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="toolbar-visibility" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="buttonbar-visibility" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="viewer" type="s">
+      <default l10n="messages">'scite %s'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="editor" type="s">
+      <default l10n="messages">'geany -i %s'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="differ" type="s">
+      <default l10n="messages">'meld %s'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="terminal" type="s">
+      <default l10n="messages">'xfce4-terminal -x %s'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="use-gcmd-block" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="allow-multiple-instances" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="quick-search-exact-match-begin" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="quick-search-exact-match-end" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="terminal-open" type="s">
+      <default l10n="messages">'xfce4-terminal'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="terminal-exec" type="s">
+      <default l10n="messages">'xfce4-terminal -e %s'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="mailclient" type="s">
+      <default l10n="messages">'echo %s'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sendto" type="s">
+      <default l10n="messages">'xfce4-terminal -e "mutt -a %s"'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.devices" path="/org/gnome/gnome-commander/preferences/devices/">
+    <key name="only-icon" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.keys-bindings" path="/org/gnome/gnome-commander/preferences/keys-bindings/">
+    <key name="view-equal-panes" type="as">
+      <default><![CDATA[['<Control><Shift>plus']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="mark-unselect-all" type="as">
+      <default><![CDATA[['<Control>minus;<Control><Shift>a;KpSubstract']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-in-active-pane" type="as">
+      <default><![CDATA[['<Control>.']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="plugins-execute-python-md5sum" type="as">
+      <default><![CDATA[['<Control>5;Kp5']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="mark-select-all" type="as">
+      <default><![CDATA[['<Control>=;<Control>a;KpAdd']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-in-inactive-pane" type="as">
+      <default><![CDATA[['<Control><Shift>&gth']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="edit-copy-filenames" type="as">
+      <default><![CDATA[['<Control><Shift>c']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="bookmarks-edit" type="as">
+      <default><![CDATA[['<Control>d']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="connections-open" type="as">
+      <default><![CDATA[['<Control>f']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="connections-close" type="as">
+      <default><![CDATA[['<Control><Shift>f']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="edit-search" type="as">
+      <default><![CDATA[['<Super>f;<Alt>F7']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="file-advrename" type="as">
+      <default><![CDATA[['<Control>m']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="connections-new" type="as">
+      <default><![CDATA[['<Control>n']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="options-edit" type="as">
+      <default><![CDATA[['<Control>o']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="file-exit" type="as">
+      <default><![CDATA[['<Control>q']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-refresh" type="as">
+      <default><![CDATA[['<Control>r']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-root" type="as">
+      <default><![CDATA[['<Control>/']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-home" type="as">
+      <default><![CDATA[['<Control>^;<Control><Shift>~']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-in-left-pane" type="as">
+      <default><![CDATA[['Left;KpLeft']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="view-in-right-pane" type="as">
+      <default><![CDATA[['Right;KpRight']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="mark-compare-directories" type="as">
+      <default><![CDATA[['F2']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="file-internal-view" type="as">
+      <default><![CDATA[['F3']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="file-external-view" type="as">
+      <default><![CDATA[['F3']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="file-edit-new-doc" type="as">
+      <default><![CDATA[['F4']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="file-create-symlink" type="as">
+      <default><![CDATA[['<Shift><Control>F5']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="edit-filter" type="as">
+      <default><![CDATA[['<Control>F12']]]></default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.sorting" path="/org/gnome/gnome-commander/preferences/sorting/">
+    <key name="case-sensitive" type="b">
+        <default>false</default>
+        <summary></summary>
+        <description></description>
+    </key>
+    <key name="select-dirs" type="b">
+        <default>true</default>
+        <summary></summary>
+        <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
+    <key name="mode" type="i">
+      <default l10n="messages">2</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="norm-fg" type="s">
+      <default l10n="messages">'#ffffff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="norm-bg" type="s">
+      <default l10n="messages">'#000000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="alt-fg" type="s">
+      <default l10n="messages">'#ffffff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="alt-bg" type="s">
+      <default l10n="messages">'#000000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sel-fg" type="s">
+      <default l10n="messages">'#ff0000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="sel-bg" type="s">
+      <default l10n="messages">'#0000a4'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="curs-fg" type="s">
+      <default l10n="messages">'#000000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="curs-bg" type="s">
+      <default l10n="messages">'#a4a4a4'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="use-ls-colors" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-black-fg" type="s">
+      <default l10n="messages">'#000000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-black-bg" type="s">
+      <default l10n="messages">'#000000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-red-fg" type="s">
+      <default l10n="messages">'#ffa400'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-red-bg" type="s">
+      <default l10n="messages">'#ff0000'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-green-fg" type="s">
+      <default l10n="messages">'#00ff00'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-green-bg" type="s">
+      <default l10n="messages">'#00ff00'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-yellow-fg" type="s">
+      <default l10n="messages">'#ffff00'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-yellow-bg" type="s">
+      <default l10n="messages">'#ffff00'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-blue-fg" type="s">
+      <default l10n="messages">'#0000ff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-blue-bg" type="s">
+      <default l10n="messages">'#0000ff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-magenta-fg" type="s">
+      <default l10n="messages">'#ff00ff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-magenta-bg" type="s">
+      <default l10n="messages">'#ff00ff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-cyan-fg" type="s">
+      <default l10n="messages">'#00ffff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-cyan-bg" type="s">
+      <default l10n="messages">'#00ffff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-white-fg" type="s">
+      <default l10n="messages">'#ffffff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="ls-colors-white-bg" type="s">
+      <default l10n="messages">'#ffffff'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.search-history" path="/org/gnome/gnome-commander/preferences/colors/search-history/">
+    <key name="width" type="i">
+      <default l10n="messages">640</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="height" type="i">
+      <default l10n="messages">421</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="recursive" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="case-sens" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern0" type="s">
+      <default l10n="messages">'T*'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="directory0" type="s">
+      <default l10n="messages">'/home/'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern1" type="s">
+      <default l10n="messages">'*'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern2" type="s">
+      <default l10n="messages">'INSTALL*'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern3" type="s">
+      <default l10n="messages">'*.ts'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern4" type="s">
+      <default l10n="messages">'*.pdf'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="directory1" type="s">
+      <default l10n="messages">'/media/FD71-883A/'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern5" type="s">
+      <default l10n="messages">'dingsbums'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="name-pattern6" type="s">
+      <default l10n="messages">'Venture.aac'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.internal-viewer" path="/org/gnome/gnome-commander/preferences/colors/internal-viewer/">
+    <key name="case-sens" type="b">
+      <default l10n="messages">false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="last-mode" type="i">
+      <default l10n="messages">0</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="charset" type="s">
+      <default l10n="messages">'UTF8'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="fixed-font-name" type="s">
+      <default l10n="messages">'UTF8'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="variable-font-name" type="s">
+      <default l10n="messages">'UTF8'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="hex-offset-display" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="wrap-mode" type="b">
+      <default l10n="messages">true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="font-size" type="i">
+      <default l10n="messages">8</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="tab-size" type="i">
+      <default l10n="messages">8</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="binary-bytes-per-line" type="i">
+      <default l10n="messages">80</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="x" type="i">
+      <default l10n="messages">330</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="y" type="i">
+      <default l10n="messages">183</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="width" type="i">
+      <default l10n="messages">838</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="height" type="i">
+      <default l10n="messages">451</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern0" type="s">
+      <default l10n="messages">'sans'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern1" type="s">
+      <default l10n="messages">'layout'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="hex-pattern0" type="s">
+      <default l10n="messages">'AB'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern2" type="s">
+      <default l10n="messages">'monospace'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern3" type="s">
+      <default l10n="messages">'FAIL'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern4" type="s">
+      <default l10n="messages">'file'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern5" type="s">
+      <default l10n="messages">'libgviewer.h'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern6" type="s">
+      <default l10n="messages">'gnome-cmd-file-new-from-uri'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern7" type="s">
+      <default l10n="messages">'xinput'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern8" type="s">
+      <default l10n="messages">'fileops.c'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern9" type="s">
+      <default l10n="messages">'libops.c'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern10" type="s">
+      <default l10n="messages">'Selections'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern11" type="s">
+      <default l10n="messages">'fritz'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern12" type="s">
+      <default l10n="messages">'green'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern13" type="s">
+      <default l10n="messages">'colors'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern14" type="s">
+      <default l10n="messages">'color'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="text-pattern15" type="s">
+      <default l10n="messages">'image'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.local-bookmarks" path="/org/gnome/gnome-commander/preferences/colors/local-bookmarks/">
+    <key name="count" type="i">
+      <default l10n="messages">0</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.smb-bookmarks" path="/org/gnome/gnome-commander/preferences/colors/smb-bookmarks/">
+    <key name="count" type="i">
+      <default l10n="messages">0</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.plugins" path="/org/gnome/gnome-commander/preferences/colors/plugins/">
+    <key name="count" type="i">
+      <default l10n="messages">1</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="auto-load0" type="s">
+      <default l10n="messages">'libfileroller.so'</default>
+      <summary></summary>
+      <description></description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.cmdline-history" path="/org/gnome/gnome-commander/preferences/cmdline-history/">
+    <key name="line" type="as">
+      <default>['']</default>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.plugins.file-runner-plugin" path="/org/gnome/gnome-commander/plugins/file-runner-plugin/">
+    <key name="default-type" type="s">
+        <default l10n="messages">'.tar.bz2'</default>
+        <summary></summary>
+        <description></description>
+    </key>
+  </schema>
 </schemalist>
