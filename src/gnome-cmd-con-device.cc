@@ -2,7 +2,7 @@
  * @file gnome-cmd-con-device.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2015 Uwe Scholz\n
+ * @copyright (C) 2013-2016 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,7 +129,7 @@ static void do_mount_thread_func (GnomeCmdCon *con)
                     emsg = g_strdup (_("Mount failed: no medium found"));
                     break;
                 default:
-                    emsg = g_strdup_printf (_("Mount failed: mount exited with existatus %d"), estatus);
+                    emsg = g_strdup_printf (_("Mount failed: mount exited with exitstatus %d"), estatus);
                     break;
             }
 

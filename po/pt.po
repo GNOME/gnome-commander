@@ -60,7 +60,7 @@ msgstr "Um gestor de ficheiros em dois painéis"
 
 #: ../data/gnome-commander.desktop.in.in.h:3
 msgid "File;Manager;"
-msgstr "Ficheiro;Gestor"
+msgstr "Ficheiro;Gestor;"
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:128
 msgid "No error description available"

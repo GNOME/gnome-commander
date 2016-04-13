@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the gnome-commander package.
 #
 # Špela Počkar <spela.pockar@gmail.com>, 2006.
-# Matej Urbančič <mateju@svn.gnome.org>, 2006-2015.
+# Matej Urbančič <mateju@svn.gnome.org>, 2006-2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-08 18:29+0000\n"
-"PO-Revision-Date: 2015-07-08 21:32+0100\n"
+"POT-Creation-Date: 2016-03-12 21:30+0100\n"
+"PO-Revision-Date: 2016-03-12 21:33+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -21,13 +21,19 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../src/gnome-cmd-main-win.cc:761
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Dvostrani urejevalnik datotek"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME desktop "
 "environment. It features separate tabs for each pane, setting up custom device "
@@ -40,7 +46,7 @@ msgstr ""
 "vgrajeni pregledovalnik slik in orodje za paketno preimenovanje. Podpira tudi "
 "različne protokole od FTP do Sambe."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -50,10 +56,31 @@ msgstr ""
 "nadzor nad datotekami, opravljati več nalog hkrati in izvajati naprednejša "
 "opravila."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:522
-#: ../src/gnome-cmd-main-win.cc:761
-msgid "GNOME Commander"
-msgstr "GNOME Commander"
+#: ../data/gnome-commander.appdata.xml.in.h:5
+msgid "filemanager"
+msgstr "upravljalnik datotek"
+
+#: ../data/gnome-commander.appdata.xml.in.h:6
+msgid "rename"
+msgstr "preimenuj"
+
+#: ../data/gnome-commander.appdata.xml.in.h:7
+msgid "copy"
+msgstr "kopiraj"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
+msgid "SSH"
+msgstr "SSH"
+
+#: ../data/gnome-commander.appdata.xml.in.h:9
+msgid "FTP"
+msgstr "FTP"
+
+#: ../data/gnome-commander.appdata.xml.in.h:10
+msgid "WebDAV"
+msgstr "WebDAV"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
@@ -324,11 +351,6 @@ msgstr "Oddaljeni strežnik"
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:440
 msgid "Service _type:"
 msgstr "_Vrsta storitve:"
-
-#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
-msgid "SSH"
-msgstr "SSH"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "FTP (with login)"
@@ -2079,17 +2101,17 @@ msgstr "Iskanje delovnih skupin in gostiteljev"
 msgid "Go to: Samba Network"
 msgstr "Skoči na: samba omrežje"
 
-#: ../src/gnome-cmd-data.cc:1402 ../src/gnome-cmd-data.cc:1403
-#: ../src/gnome-cmd-data.cc:1826 ../src/gnome-cmd-data.cc:2018
+#: ../src/gnome-cmd-data.cc:1540 ../src/gnome-cmd-data.cc:1541
+#: ../src/gnome-cmd-data.cc:1965 ../src/gnome-cmd-data.cc:2157
 #, c-format
 msgid "link to %s"
 msgstr "povezava do %s"
 
-#: ../src/gnome-cmd-data.cc:1674
+#: ../src/gnome-cmd-data.cc:1813
 msgid "Audio Files"
 msgstr "Zvočne datoteke"
 
-#: ../src/gnome-cmd-data.cc:1682
+#: ../src/gnome-cmd-data.cc:1821
 msgid "CamelCase"
 msgstr "EnoBesedno"
 
@@ -2298,8 +2320,8 @@ msgstr "Prosto %s"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1697 ../src/gnome-cmd-user-actions.cc:1705
-msgid "The tab is locked, close anyway ?"
-msgstr "Zavihek je zaklenje. Naj se vseeno zapre?"
+msgid "The tab is locked, close anyway?"
+msgstr "Zavihek je zaklenjen; naj se vseeno zapre?"
 
 #: ../src/gnome-cmd-file-selector.cc:652 ../src/gnome-cmd-main-menu.cc:625
 msgid "Open in New _Tab"
@@ -2420,7 +2442,7 @@ msgstr "_Usklajevanje map"
 
 #: ../src/gnome-cmd-main-menu.cc:504
 msgid "Start _GNOME Commander as root"
-msgstr "Skrbniški zagon programa GNOME Commander"
+msgstr "Zaženi program kot skrbnik"
 
 #: ../src/gnome-cmd-main-menu.cc:511
 msgid "_Quit"
@@ -7632,6 +7654,12 @@ msgstr "Ni mogoče brati iz mape %s: %s"
 #: ../src/utils.h:287
 msgid "There was an error displaying help."
 msgstr "Prišlo je do napake med prikazovanjem pomoči."
+
+#~ msgid "The tab is locked, close anyway ?"
+#~ msgstr "Zavihek je zaklenje. Naj se vseeno zapre?"
+
+#~ msgid "Start _GNOME Commander as Root"
+#~ msgstr "Skrbniški zagon programa GNOME Commander"
 
 #~ msgid "_Password:"
 #~ msgstr "_Geslo:"

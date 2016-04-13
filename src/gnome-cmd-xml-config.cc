@@ -2,7 +2,7 @@
  * @file gnome-cmd-xml-config.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2015 Uwe Scholz\n
+ * @copyright (C) 2013-2016 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -852,7 +852,7 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
     if (!g_markup_parse_context_parse (context, xml, xml_len, &error) ||
         !g_markup_parse_context_end_parse (context, &error))
     {
-        g_warning (error->message);
+        g_warning ("%s", error->message);
         g_error_free (error);
     }
 
@@ -873,7 +873,7 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
 
     if (!g_file_get_contents (path, &xml, &xml_len, &error))
     {
-        g_warning (error->message);
+        g_warning ("%s", error->message);
         g_error_free (error);
 
         return FALSE;

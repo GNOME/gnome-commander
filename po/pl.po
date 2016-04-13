@@ -5,14 +5,14 @@
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # Piotr Eljasiak <epiotr@use.pl>, 2002-2011.
-# Piotr Drąg <piotrdrag@gmail.com>, 2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015-2016.
+# Aviary.pl <gnomepl@aviary.pl>, 2015-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-26 23:33+0100\n"
-"PO-Revision-Date: 2015-11-26 23:35+0100\n"
+"POT-Creation-Date: 2016-03-31 19:02+0200\n"
+"PO-Revision-Date: 2016-03-31 19:03+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -25,10 +25,16 @@ msgstr ""
 "X-Poedit-Country: Poland\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../src/gnome-cmd-main-win.cc:761
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Dwupanelowy menedżer plików"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -42,7 +48,7 @@ msgstr ""
 "szybkie wyszukiwanie plików, wewnętrzną przeglądarkę obrazów, efektywne "
 "narzędzie do zmiany nazw plików oraz dostęp do serwerów FTP i Samba."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -52,10 +58,31 @@ msgstr ""
 "pragną skupić się na dokładnym zarządzaniu plikami, działając jednocześnie w "
 "specjalnych programach i wykonując inteligentne polecenia."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
-#: ../src/gnome-cmd-main-win.cc:761
-msgid "GNOME Commander"
-msgstr "GNOME Commander"
+#: ../data/gnome-commander.appdata.xml.in.h:5
+msgid "filemanager"
+msgstr "menedżer plików"
+
+#: ../data/gnome-commander.appdata.xml.in.h:6
+msgid "rename"
+msgstr "zmień nazwę"
+
+#: ../data/gnome-commander.appdata.xml.in.h:7
+msgid "copy"
+msgstr "skopiuj"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
+msgid "SSH"
+msgstr "SSH"
+
+#: ../data/gnome-commander.appdata.xml.in.h:9
+msgid "FTP"
+msgstr "FTP"
+
+#: ../data/gnome-commander.appdata.xml.in.h:10
+msgid "WebDAV"
+msgstr "WebDAV"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
@@ -328,11 +355,6 @@ msgstr "Zdalny serwer"
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:440
 msgid "Service _type:"
 msgstr "_Typ usługi:"
-
-#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
-msgid "SSH"
-msgstr "SSH"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "FTP (with login)"
@@ -1977,7 +1999,7 @@ msgstr "Błąd montowania: nie odnaleziono nośnika"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
+msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Błąd montowania: „mount” zakończyło działanie z kodem stanu %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
@@ -3097,8 +3119,8 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Piotr Eljasiak <epiotr@use.pl>, 2002-2011\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2015\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2015\n"
+"Piotr Drąg <piotrdrag@gmail.com>, 2015-2016\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2015-2016\n"
 "\n"
 "In Memory of Piotr Eljasiak"
 
@@ -5062,8 +5084,8 @@ msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "Wartości czarnego i białego punktu odniesienia. W formacie TIFF nie ma "
 "wartości domyślnych, ale poniższe są podane tutaj jako domyślne. Przestrzeń "
@@ -5514,7 +5536,7 @@ msgid ""
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "Macierz współczynników przekształcenia danych obrazu z RGB do YCbCr. Dla "
 "TIFF nie ma wartości domyślnych, ale wartości podane w załączniku E „Color "

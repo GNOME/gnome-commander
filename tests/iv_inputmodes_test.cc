@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2015 Uwe Scholz\n
+ * @copyright (C) 2013-2016 Uwe Scholz\n
  *
  * @details This module tests the input mode module in libgviewer.
  * Possible values: ASCII, CP437, UTF8 and all other encodings readable

@@ -2,13 +2,13 @@
 # Deutsche Übersetzung.
 # Copyright (C) 2002, 2007 Free Software Foundation, Inc.
 #
-# Walter Muellner <walter.muellner@telering.at>, 2002, 2003.
-# Frank Arnold <frank@scirocco-5v-turbo.de>, 2005, 2006.
+# Walter Muellner <walter.muellner@telering.at>, 2002-2003.
+# Frank Arnold <frank@scirocco-5v-turbo.de>, 2005-2006.
 # Hendrik Richter <hendrikr@gnome.org>, 2005.
 # Allan Jäke <allan@jaeke.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2007-2009.c
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011.
-# Uwe Scholz <uwescholz@src.gnome.org>, 2013
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2008-2011, 2016.
+# Uwe Scholz <uwescholz@src.gnome.org>, 2013.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2015.
 #
 msgid ""
@@ -16,22 +16,28 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-12-01 08:14+0000\n"
-"PO-Revision-Date: 2015-12-01 15:04+0100\n"
-"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"POT-Creation-Date: 2016-03-31 16:51+0000\n"
+"PO-Revision-Date: 2016-04-06 10:37+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
+#: ../src/gnome-cmd-main-win.cc:761
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: ../data/gnome-commander.appdata.xml.in.h:2
 msgid "Two-pane file manager"
 msgstr "Dateiverwaltung mit zweigeteilter Oberfläche"
 
-#: ../data/gnome-commander.appdata.xml.in.h:2
+#: ../data/gnome-commander.appdata.xml.in.h:3
 msgid ""
 "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
 "desktop environment. It features separate tabs for each pane, setting up "
@@ -47,7 +53,7 @@ msgstr ""
 "benutzerdefinierten Geräteknöpfen, Verwaltung von Lesezeichen, schnelle "
 "Dateisuche und Zugriff per FTP und Samba."
 
-#: ../data/gnome-commander.appdata.xml.in.h:3
+#: ../data/gnome-commander.appdata.xml.in.h:4
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
@@ -57,10 +63,32 @@ msgstr ""
 "Dateiverwaltung wünschen, gerne parallel mit Spezialanwendungen arbeiten und "
 "clevere Befehle laufen lassen."
 
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:583
-#: ../src/gnome-cmd-main-win.cc:761
-msgid "GNOME Commander"
-msgstr "GNOME Commander"
+#: ../data/gnome-commander.appdata.xml.in.h:5
+msgid "filemanager"
+msgstr "Dateiverwaltung"
+
+#: ../data/gnome-commander.appdata.xml.in.h:6
+msgid "rename"
+msgstr "Umbenennen"
+
+#: ../data/gnome-commander.appdata.xml.in.h:7
+msgid "copy"
+msgstr "Kopie"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
+msgid "SSH"
+msgstr "SSH"
+
+#: ../data/gnome-commander.appdata.xml.in.h:9
+msgid "FTP"
+msgstr "FTP"
+
+#: ../data/gnome-commander.appdata.xml.in.h:10
+#| msgid "WebDAV (HTTP)"
+msgid "WebDAV"
+msgstr "WebDAV"
 
 #: ../data/gnome-commander.desktop.in.in.h:2
 msgid "A two paned file manager"
@@ -334,11 +362,6 @@ msgstr "Entfernter Server"
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:440
 msgid "Service _type:"
 msgstr "_Typ des Dienstes:"
-
-#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
-msgid "SSH"
-msgstr "SSH"
 
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "FTP (with login)"
@@ -1345,11 +1368,11 @@ msgstr "Befehl"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1658
 msgid "Global app options"
-msgstr "Globale Anwendungseinstellungen"
+msgstr "Globale Anwendungsoptionen"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1661
 msgid "Terminal command for apps in the list above:"
-msgstr "Terminal-Befehl für Anwendungen in obiger Liste:"
+msgstr "Terminal-Befehl für oben aufgelistete Anwendungen:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1816
 msgid "Alias:"
@@ -1975,8 +1998,9 @@ msgstr "Einbinden fehlgeschlagen: Kein Datenträger gefunden"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
-msgstr "Einbinden fehlgeschlagen: Rückgabewert war %d"
+msgid "Mount failed: mount exited with exitstatus %d"
+msgstr ""
+"Einbinden fehlgeschlagen: Einbinden wurde abgebrochen, Rückgabewert war %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
 msgid "Device is now safe to remove"
@@ -2416,7 +2440,7 @@ msgstr "Ordner a_bgleichen"
 
 #: ../src/gnome-cmd-main-menu.cc:504
 msgid "Start _GNOME Commander as root"
-msgstr "_GNOME Commander als Administrator starten"
+msgstr "GNOME Commander als _Administrator starten"
 
 #: ../src/gnome-cmd-main-menu.cc:511
 msgid "_Quit"
@@ -5078,8 +5102,8 @@ msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
 "Die Referenzwerte für Schwarzpunkt und Weißpunkt. In TIFF existieren dafür "
 "keine Vorgaben, aber die nachstehenden Werte werden als Vorgabe angenommen. "
@@ -5533,7 +5557,7 @@ msgid ""
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "Die Matrix-Koeffizienten für die Umwandlung von RGB- in YCbCr-Bilddaten. In "
 "TIFF existiert keine Vorgabe, aber es gibt »Color Space Guidelines«, die als "
