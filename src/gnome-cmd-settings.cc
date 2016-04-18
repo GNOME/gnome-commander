@@ -26,16 +26,8 @@ struct _GcmdSettings
 {
     GObject parent;
 
+    GSettings *general;
     GSettings *interface;
-    GSettings *layout;
-    GSettings *history;
-    GSettings *advanced_rename_tool;
-    GSettings *search_tool;
-    GSettings *bookmarks_tool;
-    GSettings *connections;
-    GSettings *bookmarks;
-    GSettings *selections;
-    GSettings *key_bindings;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -55,16 +47,8 @@ gcmd_settings_dispose (GObject *object)
 {
     GcmdSettings *gs = GCMD_SETTINGS (object);
 
+    g_clear_object (&gs->general);
     g_clear_object (&gs->interface);
-    g_clear_object (&gs->layout);
-    g_clear_object (&gs->history);
-    g_clear_object (&gs->advanced_rename_tool);
-    g_clear_object (&gs->search_tool);
-    g_clear_object (&gs->bookmarks_tool);
-    g_clear_object (&gs->connections);
-    g_clear_object (&gs->bookmarks);
-    g_clear_object (&gs->selections);
-    g_clear_object (&gs->key_bindings);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -85,7 +69,7 @@ on_system_font_changed (GSettings     *settings,
 
     gboolean use_default_font;
 
-    use_default_font = g_settings_get_boolean (gs->layout,
+    use_default_font = g_settings_get_boolean (gs->general,
                            GCMD_SETTINGS_USE_DEFAULT_FONT);
 
     if (use_default_font)
@@ -115,7 +99,7 @@ on_use_default_font_changed (GSettings     *settings,
     }
     else
     {
-        font = g_settings_get_string (gs->layout,
+        font = g_settings_get_string (gs->general,
                           GCMD_SETTINGS_PANEL_FONT);
     }
 
@@ -125,13 +109,13 @@ on_use_default_font_changed (GSettings     *settings,
 }
 
 static void
-on_layout_font_changed (GSettings     *settings,
+on_general_font_changed (GSettings     *settings,
                         const gchar   *key,
                         GcmdSettings *gs)
 {
     gboolean use_default_font;
 
-    use_default_font = g_settings_get_boolean (gs->layout,
+    use_default_font = g_settings_get_boolean (gs->general,
                            GCMD_SETTINGS_USE_DEFAULT_FONT);
 
     if (!use_default_font)
@@ -163,30 +147,20 @@ static void
 gcmd_settings_init (GcmdSettings *gs)
 {
     gs->interface = g_settings_new ("org.gnome.desktop.interface");
-    gs->layout = g_settings_new ("org.gnome.gnome-commander.preferences.layout");
+    gs->general = g_settings_new ("org.gnome.gnome-commander.preferences.general");
 
     g_signal_connect (gs->interface,
                       "changed::monospace-font-name",
                       G_CALLBACK (on_system_font_changed),
                       gs);
 
-    g_signal_connect (gs->layout,
+    g_signal_connect (gs->general,
                       "changed::use-default-font",
                       G_CALLBACK (on_use_default_font_changed),
                       gs);
 
-    g_signal_connect (gs->layout,
+    g_signal_connect (gs->general,
                       "changed::panel-font",
-                      G_CALLBACK (on_layout_font_changed),
+                      G_CALLBACK (on_general_font_changed),
                       gs);
-
-    //gs->history = g_settings_new ("org.gnome.gnome-commander.preferences.history");
-    //gs->advanced_rename_tool = g_settings_new ("org.gnome.gnome-commander.preferences.rename-tool");
-    //gs->search_tool = g_settings_new ("org.gnome.gnome-commander.preferences.search-tool");
-    //gs->bookmarks_tool = g_settings_new ("org.gnome.gnome-commander.preferences.bookmarks-tool");
-    //gs->connections = g_settings_new ("org.gnome.gnome-commander.preferences.connections");
-    //gs->bookmarks = g_settings_new ("org.gnome.gnome-commander.preferences.bookmarks");
-    //gs->selections = g_settings_new ("org.gnome.gnome-commander.preferences.selections");
-    //gs->key_bindings = g_settings_new ("org.gnome.gnome-commander.preferences.key-bindings");
-    
 }
