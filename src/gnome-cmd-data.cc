@@ -1149,17 +1149,6 @@ inline void GnomeCmdData::save_auto_load_plugins()
 }
 
 
-inline void load_uint_array (const gchar *format, guint *array, gint length)
-{
-    for (gint i=0; i<length; i++)
-    {
-        gchar *name = g_strdup_printf (format, i);
-        array[i] = gnome_cmd_data_get_int (name, array[i]);
-        g_free (name);
-    }
-}
-
-
 inline GList *load_string_history (const gchar *format, gint size)
 {
     GList *list = NULL;
@@ -2091,6 +2080,17 @@ void GnomeCmdData::save()
     save_auto_load_plugins();
 
     gnome_config_sync ();
+}
+
+gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    gint v = get_int (s, def);
+
+    g_free (s);
+
+    return v;
 }
 
 

@@ -473,6 +473,7 @@ struct GnomeCmdData
     void load();
     void load_more();
     void save();
+    gint gnome_cmd_data_get_int (const gchar *path, int def);
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 

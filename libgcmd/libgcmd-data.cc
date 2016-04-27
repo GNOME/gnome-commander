@@ -147,18 +147,6 @@ gchar *gnome_cmd_data_get_string (const gchar *path, const gchar *def)
 }
 
 
-gint gnome_cmd_data_get_int (const gchar *path, int def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    gint v = get_int (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
-
 gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def)
 {
     gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
