@@ -32,8 +32,7 @@ struct _GcmdSettings
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
 
-static void
-gcmd_settings_finalize (GObject *object)
+static void gcmd_settings_finalize (GObject *object)
 {
 //    GcmdSettings *gs = GCMD_SETTINGS (object);
 //
@@ -42,8 +41,7 @@ gcmd_settings_finalize (GObject *object)
     G_OBJECT_CLASS (gcmd_settings_parent_class)->finalize (object);
 }
 
-static void
-gcmd_settings_dispose (GObject *object)
+static void gcmd_settings_dispose (GObject *object)
 {
     GcmdSettings *gs = GCMD_SETTINGS (object);
 
@@ -53,18 +51,16 @@ gcmd_settings_dispose (GObject *object)
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
 
-static void
-set_font (GcmdSettings *gs,
-          const gchar *font)
+static void set_font (GcmdSettings *gs,
+                      const gchar *font)
 {
     //Hier muss jetzt die Schrift in den Panels aktualisiert werden!
     printf("%s\n", font);
 }
 
-static void
-on_system_font_changed (GSettings     *settings,
-                        const gchar   *key,
-                        GcmdSettings *gs)
+static void on_system_font_changed (GSettings     *settings,
+                                    const gchar   *key,
+                                    GcmdSettings *gs)
 {
 
     gboolean use_default_font;
@@ -82,10 +78,9 @@ on_system_font_changed (GSettings     *settings,
     }
 }
 
-static void
-on_use_default_font_changed (GSettings     *settings,
-                             const gchar   *key,
-                             GcmdSettings *gs)
+static void on_use_default_font_changed (GSettings     *settings,
+                                         const gchar   *key,
+                                         GcmdSettings *gs)
 {
     gboolean def;
     gchar *font;
@@ -108,10 +103,9 @@ on_use_default_font_changed (GSettings     *settings,
     g_free (font);
 }
 
-static void
-on_general_font_changed (GSettings     *settings,
-                        const gchar   *key,
-                        GcmdSettings *gs)
+static void on_general_font_changed (GSettings     *settings,
+                                     const gchar   *key,
+                                     GcmdSettings *gs)
 {
     gboolean use_default_font;
 
@@ -128,8 +122,7 @@ on_general_font_changed (GSettings     *settings,
     }
 }
 
-static void
-gcmd_settings_class_init (GcmdSettingsClass *klass)
+static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
@@ -137,14 +130,12 @@ gcmd_settings_class_init (GcmdSettingsClass *klass)
     object_class->dispose = gcmd_settings_dispose;
 }
 
-GcmdSettings *
-gcmd_settings_new ()
+GcmdSettings *gcmd_settings_new ()
 {
     return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, NULL);
 }
 
-static void
-gcmd_settings_init (GcmdSettings *gs)
+static void gcmd_settings_init (GcmdSettings *gs)
 {
     gs->interface = g_settings_new ("org.gnome.desktop.interface");
     gs->general = g_settings_new ("org.gnome.gnome-commander.preferences.general");
