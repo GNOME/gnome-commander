@@ -43,7 +43,6 @@ extern "C"
 #include "plugin_manager.h"
 #include "gnome-cmd-python-plugin.h"
 #include "tags/gnome-cmd-tags.h"
-#include "gnome-cmd-settings.h"
 
 using namespace std;
 

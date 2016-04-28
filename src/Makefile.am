@@ -61,8 +61,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-regex.h \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-selection-profile-component.h gnome-cmd-selection-profile-component.cc \
-	gnome-cmd-settings.h gnome-cmd-settings.cc \
-	gnome-cmd-settings-migrate.h gnome-cmd-settings-migrate.cc \
 	gnome-cmd-style.h gnome-cmd-style.cc \
 	gnome-cmd-treeview.h gnome-cmd-treeview.cc \
 	gnome-cmd-types.h \

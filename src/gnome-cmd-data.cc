@@ -19,7 +19,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-
 #include <config.h>
 #include <glib.h>
 #include <libgnomevfs/gnome-vfs-volume.h>
@@ -1843,6 +1842,60 @@ void GnomeCmdData::load()
 }
 
 
+/**
+ * @note This function returns FALSE if ~/.gnome-commander/gnome-commander.xml
+ * does not exist. If it exists, the function loads most of the settings
+ * into the GSettings path org.gnome.gnome-commander.preferences.
+ * (See gnome-cmd-settings.cc for more info.) When the migration of the
+ * old data is completed, the xml file is renamed into
+ * ~/.gnome-commander/gnome-commander.xml.backup and TRUE is returned.
+ *
+ * @note Beginning with gcmd-v1.6 GSettings is used for storing and
+ * loading gcmd settings. For compatibility reasons, this
+ * functions tries to load settings from the 'old' xml file.
+ *
+ * @note In later versions of gcmd (later than v1.6), this function
+ * might be removed, because when saving the settings, GSettings is used.
+ *
+ * @returns FALSE if ~/.gnome-commander/gnome-commander.xml is not existing
+ * and TRUE if it is existing and most of the settings inside have been moved
+ * into the GSettings path org.gnome.gnome-commander.preferences.
+ * 
+ * @todo
+ * Here the following should be implemented:
+ * @li check if ~/.gnome-commander/gnome-commander.xml exists
+ * @li If yes: (1) load the settings there and store them in GSettings;
+ *     (2) rename data files in *.bak; (3) return TRUE
+ * @li If no: return FALSE
+ */
+gboolean GnomeCmdData::load_data_into_gsettings (const gchar *fname)
+{
+    gboolean xml_was_there;
+    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+
+    FILE *fd = fopen (xml_cfg_path, "r");
+
+    if (fd)
+    {
+        // ToDo: Data migration
+
+        fclose (fd);
+        xml_was_there = TRUE;
+        // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
+        //       à la save_devices_old ("devices.backup");
+    }
+    else
+    {
+        g_warning ("Failed to open the file %s for reading, skipping data migration", xml_cfg_path);
+        xml_was_there = FALSE;
+    }
+
+    g_free (xml_cfg_path);
+
+    return xml_was_there;
+}
+
+
 void GnomeCmdData::load_more()
 {
     if (load_fav_apps_old ("fav-apps") == FALSE)
@@ -2267,4 +2320,138 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::BookmarksConfig &cfg
     xml << XML::endtag();
 
     return xml;
+}
+
+struct _GcmdSettings
+{
+    GObject parent;
+
+    GSettings *general;
+    GSettings *interface;
+};
+
+G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
+
+static void gcmd_settings_finalize (GObject *object)
+{
+//    GcmdSettings *gs = GCMD_SETTINGS (object);
+//
+//    g_free (gs->old_scheme);
+//
+    G_OBJECT_CLASS (gcmd_settings_parent_class)->finalize (object);
+}
+
+static void gcmd_settings_dispose (GObject *object)
+{
+    GcmdSettings *gs = GCMD_SETTINGS (object);
+
+    g_clear_object (&gs->general);
+    g_clear_object (&gs->interface);
+
+    G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
+}
+
+static void set_font (GcmdSettings *gs,
+                      const gchar *font)
+{
+    //Hier muss jetzt die Schrift in den Panels aktualisiert werden!
+    printf("%s\n", font);
+}
+
+static void on_system_font_changed (GSettings     *settings,
+                                    const gchar   *key,
+                                    GcmdSettings *gs)
+{
+
+    gboolean use_default_font;
+
+    use_default_font = g_settings_get_boolean (gs->general,
+                           GCMD_SETTINGS_USE_DEFAULT_FONT);
+
+    if (use_default_font)
+    {
+        gchar *font;
+
+        font = g_settings_get_string (settings, key);
+        set_font (gs, font);
+        g_free (font);
+    }
+}
+
+static void on_use_default_font_changed (GSettings     *settings,
+                                         const gchar   *key,
+                                         GcmdSettings *gs)
+{
+    gboolean def;
+    gchar *font;
+
+    def = g_settings_get_boolean (settings, key);
+
+    if (def)
+    {
+        font = g_settings_get_string (gs->interface,
+                          GCMD_SETTINGS_SYSTEM_FONT);
+    }
+    else
+    {
+        font = g_settings_get_string (gs->general,
+                          GCMD_SETTINGS_PANEL_FONT);
+    }
+
+    set_font (gs, font);
+
+    g_free (font);
+}
+
+static void on_general_font_changed (GSettings     *settings,
+                                     const gchar   *key,
+                                     GcmdSettings *gs)
+{
+    gboolean use_default_font;
+
+    use_default_font = g_settings_get_boolean (gs->general,
+                           GCMD_SETTINGS_USE_DEFAULT_FONT);
+
+    if (!use_default_font)
+    {
+        gchar *font;
+
+        font = g_settings_get_string (settings, key);
+        set_font (gs, font);
+        g_free (font);
+    }
+}
+
+static void gcmd_settings_class_init (GcmdSettingsClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gcmd_settings_finalize;
+    object_class->dispose = gcmd_settings_dispose;
+}
+
+GcmdSettings *gcmd_settings_new ()
+{
+    return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, NULL);
+}
+
+static void gcmd_settings_init (GcmdSettings *gs)
+{
+    gs->interface = g_settings_new ("org.gnome.desktop.interface");
+    gs->general = g_settings_new ("org.gnome.gnome-commander.preferences.general");
+
+    g_signal_connect (gs->interface,
+                      "changed::monospace-font-name",
+                      G_CALLBACK (on_system_font_changed),
+                      gs);
+
+    g_signal_connect (gs->general,
+                      "changed::use-default-font",
+                      G_CALLBACK (on_use_default_font_changed),
+                      gs);
+
+    g_signal_connect (gs->general,
+                      "changed::panel-font",
+                      G_CALLBACK (on_general_font_changed),
+                      gs);
 }

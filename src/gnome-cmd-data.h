@@ -24,6 +24,12 @@
 
 #include <vector>
 #include <string>
+#include <glib-object.h>
+#include <glib.h>
+#include <config.h>
+#include <stdio.h>
+#include <gio/gio.h>
+
 
 #include "gnome-cmd-app.h"
 #include "gnome-cmd-types.h"
@@ -34,6 +40,17 @@
 #include "history.h"
 #include "dict.h"
 #include "tuple.h"
+
+#define GCMD_TYPE_SETTINGS (gcmd_settings_get_type ())
+
+G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
+
+GcmdSettings *gcmd_settings_new (void);
+
+/* key constants */
+#define GCMD_SETTINGS_USE_DEFAULT_FONT                "use-default-font"
+#define GCMD_SETTINGS_PANEL_FONT                      "panel-font"
+#define GCMD_SETTINGS_SYSTEM_FONT                     "monospace-font-name"
 
 struct GnomeCmdConRemote;
 
@@ -471,6 +488,7 @@ struct GnomeCmdData
     void free();                // FIXME: free() -> ~GnomeCmdData()
 
     void load();
+    gboolean load_data_into_gsettings (const gchar *fname);
     void load_more();
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
