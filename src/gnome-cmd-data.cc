@@ -1846,8 +1846,7 @@ void GnomeCmdData::load()
  * @note This function returns FALSE if ~/.gnome-commander/gnome-commander.xml
  * does not exist. If it exists, the function loads most of the settings
  * into the GSettings path org.gnome.gnome-commander.preferences.
- * (See gnome-cmd-settings.cc for more info.) When the migration of the
- * old data is completed, the xml file is renamed into
+ * When the migration of the old data is completed, the xml file is renamed into
  * ~/.gnome-commander/gnome-commander.xml.backup and TRUE is returned.
  *
  * @note Beginning with gcmd-v1.6 GSettings is used for storing and
