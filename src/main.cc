@@ -148,6 +148,7 @@ int main (int argc, char *argv[])
     gcmd_user_actions.init();
     gnome_cmd_data.load();
     settings = gcmd_settings_new ();
+    gnome_cmd_data.migrate_data_into_gsettings(NULL, settings);
 
     app = unique_app_new ("org.gnome.GnomeCommander", NULL);
 

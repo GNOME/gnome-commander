@@ -51,6 +51,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_USE_DEFAULT_FONT                "use-default-font"
 #define GCMD_SETTINGS_PANEL_FONT                      "panel-font"
 #define GCMD_SETTINGS_SYSTEM_FONT                     "monospace-font-name"
+#define GCMD_SETTINGS_SIZE_DISP_MODE                  "size-disp-mode"
+
+#define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
 
 struct GnomeCmdConRemote;
 
@@ -488,7 +491,7 @@ struct GnomeCmdData
     void free();                // FIXME: free() -> ~GnomeCmdData()
 
     void load();
-    gboolean load_data_into_gsettings (const gchar *fname);
+    gboolean migrate_data_into_gsettings (const gchar *fname, GcmdSettings *settings);
     void load_more();
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);

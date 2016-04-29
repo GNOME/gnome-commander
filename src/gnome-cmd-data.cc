@@ -49,6 +49,141 @@ using namespace std;
 GnomeCmdData gnome_cmd_data;
 GnomeVFSVolumeMonitor *monitor = NULL;
 
+struct _GcmdSettings
+{
+    GObject parent;
+
+    GSettings *general;
+    GSettings *interface;
+};
+
+G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
+
+static void gcmd_settings_finalize (GObject *object)
+{
+//    GcmdSettings *gs = GCMD_SETTINGS (object);
+//
+//    g_free (gs->old_scheme);
+//
+    G_OBJECT_CLASS (gcmd_settings_parent_class)->finalize (object);
+}
+
+static void gcmd_settings_dispose (GObject *object)
+{
+    GcmdSettings *gs = GCMD_SETTINGS (object);
+
+    g_clear_object (&gs->general);
+    g_clear_object (&gs->interface);
+
+    G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
+}
+
+static void set_font (GcmdSettings *gs,
+                      const gchar *font)
+{
+    //Hier muss jetzt die Schrift in den Panels aktualisiert werden!
+    printf("%s\n", font);
+}
+
+static void on_system_font_changed (GSettings     *settings,
+                                    const gchar   *key,
+                                    GcmdSettings *gs)
+{
+
+    gboolean use_default_font;
+
+    use_default_font = g_settings_get_boolean (gs->general,
+                           GCMD_SETTINGS_USE_DEFAULT_FONT);
+
+    if (use_default_font)
+    {
+        gchar *font;
+
+        font = g_settings_get_string (settings, key);
+        set_font (gs, font);
+        g_free (font);
+    }
+}
+
+static void on_use_default_font_changed (GSettings     *settings,
+                                         const gchar   *key,
+                                         GcmdSettings *gs)
+{
+    gboolean def;
+    gchar *font;
+
+    def = g_settings_get_boolean (settings, key);
+
+    if (def)
+    {
+        font = g_settings_get_string (gs->interface,
+                          GCMD_SETTINGS_SYSTEM_FONT);
+    }
+    else
+    {
+        font = g_settings_get_string (gs->general,
+                          GCMD_SETTINGS_PANEL_FONT);
+    }
+
+    set_font (gs, font);
+
+    g_free (font);
+}
+
+static void on_general_font_changed (GSettings     *settings,
+                                     const gchar   *key,
+                                     GcmdSettings *gs)
+{
+    gboolean use_default_font;
+
+    use_default_font = g_settings_get_boolean (gs->general,
+                           GCMD_SETTINGS_USE_DEFAULT_FONT);
+
+    if (!use_default_font)
+    {
+        gchar *font;
+
+        font = g_settings_get_string (settings, key);
+        set_font (gs, font);
+        g_free (font);
+    }
+}
+
+static void gcmd_settings_class_init (GcmdSettingsClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gcmd_settings_finalize;
+    object_class->dispose = gcmd_settings_dispose;
+}
+
+GcmdSettings *gcmd_settings_new ()
+{
+    return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, NULL);
+}
+
+static void gcmd_settings_init (GcmdSettings *gs)
+{
+    gs->interface = g_settings_new ("org.gnome.desktop.interface");
+    gs->general = g_settings_new (GCMD_PREF_GENERAL);
+
+    g_signal_connect (gs->interface,
+                      "changed::monospace-font-name",
+                      G_CALLBACK (on_system_font_changed),
+                      gs);
+
+    g_signal_connect (gs->general,
+                      "changed::use-default-font",
+                      G_CALLBACK (on_use_default_font_changed),
+                      gs);
+
+    g_signal_connect (gs->general,
+                      "changed::panel-font",
+                      G_CALLBACK (on_general_font_changed),
+                      gs);
+}
+
+
 struct GnomeCmdData::Private
 {
     GnomeCmdConList *con_list;
@@ -1867,7 +2002,7 @@ void GnomeCmdData::load()
  *     (2) rename data files in *.bak; (3) return TRUE
  * @li If no: return FALSE
  */
-gboolean GnomeCmdData::load_data_into_gsettings (const gchar *fname)
+gboolean GnomeCmdData::migrate_data_into_gsettings (const gchar *fname, GcmdSettings *settings)
 {
     gboolean xml_was_there;
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
@@ -1876,7 +2011,8 @@ gboolean GnomeCmdData::load_data_into_gsettings (const gchar *fname)
 
     if (fd)
     {
-        // ToDo: Data migration
+        // Data migration
+        g_settings_set_int (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
 
         fclose (fd);
         xml_was_there = TRUE;
@@ -2319,138 +2455,4 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::BookmarksConfig &cfg
     xml << XML::endtag();
 
     return xml;
-}
-
-struct _GcmdSettings
-{
-    GObject parent;
-
-    GSettings *general;
-    GSettings *interface;
-};
-
-G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
-
-static void gcmd_settings_finalize (GObject *object)
-{
-//    GcmdSettings *gs = GCMD_SETTINGS (object);
-//
-//    g_free (gs->old_scheme);
-//
-    G_OBJECT_CLASS (gcmd_settings_parent_class)->finalize (object);
-}
-
-static void gcmd_settings_dispose (GObject *object)
-{
-    GcmdSettings *gs = GCMD_SETTINGS (object);
-
-    g_clear_object (&gs->general);
-    g_clear_object (&gs->interface);
-
-    G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
-}
-
-static void set_font (GcmdSettings *gs,
-                      const gchar *font)
-{
-    //Hier muss jetzt die Schrift in den Panels aktualisiert werden!
-    printf("%s\n", font);
-}
-
-static void on_system_font_changed (GSettings     *settings,
-                                    const gchar   *key,
-                                    GcmdSettings *gs)
-{
-
-    gboolean use_default_font;
-
-    use_default_font = g_settings_get_boolean (gs->general,
-                           GCMD_SETTINGS_USE_DEFAULT_FONT);
-
-    if (use_default_font)
-    {
-        gchar *font;
-
-        font = g_settings_get_string (settings, key);
-        set_font (gs, font);
-        g_free (font);
-    }
-}
-
-static void on_use_default_font_changed (GSettings     *settings,
-                                         const gchar   *key,
-                                         GcmdSettings *gs)
-{
-    gboolean def;
-    gchar *font;
-
-    def = g_settings_get_boolean (settings, key);
-
-    if (def)
-    {
-        font = g_settings_get_string (gs->interface,
-                          GCMD_SETTINGS_SYSTEM_FONT);
-    }
-    else
-    {
-        font = g_settings_get_string (gs->general,
-                          GCMD_SETTINGS_PANEL_FONT);
-    }
-
-    set_font (gs, font);
-
-    g_free (font);
-}
-
-static void on_general_font_changed (GSettings     *settings,
-                                     const gchar   *key,
-                                     GcmdSettings *gs)
-{
-    gboolean use_default_font;
-
-    use_default_font = g_settings_get_boolean (gs->general,
-                           GCMD_SETTINGS_USE_DEFAULT_FONT);
-
-    if (!use_default_font)
-    {
-        gchar *font;
-
-        font = g_settings_get_string (settings, key);
-        set_font (gs, font);
-        g_free (font);
-    }
-}
-
-static void gcmd_settings_class_init (GcmdSettingsClass *klass)
-{
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gcmd_settings_finalize;
-    object_class->dispose = gcmd_settings_dispose;
-}
-
-GcmdSettings *gcmd_settings_new ()
-{
-    return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, NULL);
-}
-
-static void gcmd_settings_init (GcmdSettings *gs)
-{
-    gs->interface = g_settings_new ("org.gnome.desktop.interface");
-    gs->general = g_settings_new ("org.gnome.gnome-commander.preferences.general");
-
-    g_signal_connect (gs->interface,
-                      "changed::monospace-font-name",
-                      G_CALLBACK (on_system_font_changed),
-                      gs);
-
-    g_signal_connect (gs->general,
-                      "changed::use-default-font",
-                      G_CALLBACK (on_use_default_font_changed),
-                      gs);
-
-    g_signal_connect (gs->general,
-                      "changed::panel-font",
-                      G_CALLBACK (on_general_font_changed),
-                      gs);
 }
