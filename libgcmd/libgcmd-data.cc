@@ -48,15 +48,6 @@ inline gchar *get_string (const gchar *path, const gchar *def)
     return value;
 }
 
-inline gint get_int (const gchar *path, int def)
-{
-    gboolean b = FALSE;
-    gint value = gnome_config_get_int_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
 inline gboolean get_bool (const gchar *path, gboolean def)
 {
     gboolean b = FALSE;
