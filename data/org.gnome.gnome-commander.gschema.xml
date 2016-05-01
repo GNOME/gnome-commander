@@ -21,6 +21,13 @@
     <child name="cmdline-history" schema="org.gnome.gnome-commander.preferences.cmdline-history"/>
   </schema>
 
+  <enum id="org.gnome.gnome-commander.preferences.size-display-mode-enum">
+    <value nick="plain" value="0"/>
+    <value nick="locale" value="1"/>
+    <value nick="grouped" value="2"/>
+    <value nick="powered" value="3"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -32,10 +39,15 @@
       <summary>Panel Font</summary>
       <description>A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.</description>
     </key>
-    <key name="size-disp-mode" type="i">
-      <default l10n="messages">3</default>
-      <summary></summary>
-      <description></description>
+    <key name='size-display-mode' enum='org.gnome.gnome-commander.preferences.size-display-mode-enum'>
+      <default>'powered'</default>
+      <summary>Defines how the file size will be visualized in the associated pane column.</summary>
+      <description>
+        plain: This option displays the file size in bytes without any separation. locale: This option uses the
+        current local settings number format to display the file size in bytes. grouped: This entry displays the
+        file size in groups of three digits separated by a space. The unit used is byte. powered: This option
+        displays file sizes using units such as B, KB or MB.
+      </description>
     </key>
     <key name="perm-disp-mode" type="i">
       <default l10n="messages">1</default>

@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-data.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -618,7 +618,7 @@ static void save_fav_apps (const gchar *fname)
            g_free (group_name);
         }
     }
-    
+
     gcmd_key_file_save_to_file (path, key_file);
 
     g_key_file_free(key_file);
@@ -1154,7 +1154,7 @@ static void load_fav_apps (const gchar *fname)
 /**
  * This function reads the given file and sets up favourite applications
  * by filling gnome_cmd_data.options.fav_apps.
- * 
+ *
  * @note Beginning with gcmd-v1.6 GKeyFile is used for storing and
  * loading configuration files. For compatibility reasons, this
  * functions tries to load favourite applications from the given file
@@ -1164,12 +1164,12 @@ static void load_fav_apps (const gchar *fname)
  * backup configuration is stored in @c fav-apps.backup in the old file
  * format. If the result is no, then nothing happens and FALSE is
  * returned.
- * 
+ *
  * @note In later versions of gcmd (later than v1.6), this function
  * might be removed, because when saving the configuration in @link
  * save_fav_apps() @endlink, GKeyFile is used and the old file
  * format isn't used anymore.
- * 
+ *
  * @returns FALSE if the very first letter of the given file is not
  * alphanumeric and TRUE if it is alphanumeric.
  */
@@ -1454,6 +1454,61 @@ void GnomeCmdData::free()
     }
 }
 
+/**
+ * This method converts user settings from gcmds old config files prior to v1.6.0 to
+ * GSettings. Therefore, it first looks for those files in question and then converts the data.
+ */
+void GnomeCmdData::migrate_all_data_to_gsettings()
+{
+    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+    gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
+    settings = gcmd_settings_new();
+
+    //TODO: migrate xml stuff
+    /////////////////////////////////////////////////////////////
+    //// Data migration from .gnome-commander/gnome-commander.xml
+    /////////////////////////////////////////////////////////////
+    //FILE *fd = fopen (xml_cfg_path, "r");
+    //if (fd)
+    //{
+    //    // TODO: Data migration from xml-file
+    //    fclose (fd);
+    //
+    //}
+    //else
+    //{
+    //    g_warning ("Failed to open the file %s for reading, skipping data migration", xml_cfg_path);
+    //
+    //    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+    //}
+    g_free (xml_cfg_path);
+
+    ///////////////////////////////////////////////////////////////////////
+    // Data migration from .gnome2/gnome-commander, created by gnome_config
+    ///////////////////////////////////////////////////////////////////////
+    FILE *fd = fopen (package_config_path, "r");
+    if (fd)
+    {
+        int ihelper;
+
+        // size_disp_mode
+        ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
+                                                        settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+        g_settings_set_enum (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
+
+        // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
+        //       à la save_devices_old ("devices.backup");
+        //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
+    }
+    else
+    {
+        g_warning ("Failed to open the file %s for reading, skipping data migration", package_config_path);
+
+        options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+    }
+    g_free(package_config_path);
+}
+
 
 void GnomeCmdData::load()
 {
@@ -1461,6 +1516,8 @@ void GnomeCmdData::load()
 
     gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
     gchar *theme_icon_dir    = g_strconcat (PIXMAPS_DIR, "/mime-icons", NULL);
+
+    settings = gcmd_settings_new();
 
     priv = g_new0 (Private, 1);
 
@@ -1544,7 +1601,7 @@ void GnomeCmdData::load()
     options.color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
     options.color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
 
-    options.size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
+    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_enum (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
     options.perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
@@ -1976,66 +2033,27 @@ void GnomeCmdData::load()
     g_free (xml_cfg_path);
 }
 
-
 /**
- * @note This function returns FALSE if ~/.gnome-commander/gnome-commander.xml
- * does not exist. If it exists, the function loads most of the settings
- * into the GSettings path org.gnome.gnome-commander.preferences.
- * When the migration of the old data is completed, the xml file is renamed into
- * ~/.gnome-commander/gnome-commander.xml.backup and TRUE is returned.
- *
- * @note Beginning with gcmd-v1.6 GSettings is used for storing and
- * loading gcmd settings. For compatibility reasons, this
- * functions tries to load settings from the 'old' xml file.
- *
- * @note In later versions of gcmd (later than v1.6), this function
- * might be removed, because when saving the settings, GSettings is used.
- *
- * @returns FALSE if ~/.gnome-commander/gnome-commander.xml is not existing
- * and TRUE if it is existing and most of the settings inside have been moved
- * into the GSettings path org.gnome.gnome-commander.preferences.
- * 
- * @todo
- * Here the following should be implemented:
- * @li check if ~/.gnome-commander/gnome-commander.xml exists
- * @li If yes: (1) load the settings there and store them in GSettings;
- *     (2) rename data files in *.bak; (3) return TRUE
- * @li If no: return FALSE
+ * This method returns an int value which is either the given user_value or,
+ * the default integer value of the given GSettings key.
+ * @param user_value An integer value
+ * @param settings A GSettings pointer
+ * @param key a GSettings key path given as a char array
  */
-gboolean GnomeCmdData::migrate_data_into_gsettings (const gchar *fname, GcmdSettings *settings)
+int GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettings *settings, const char *key)
 {
-    gboolean xml_was_there;
-    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+    gint default_value;
 
-    FILE *fd = fopen (xml_cfg_path, "r");
+    default_value = *(gint*) g_settings_get_default_value (settings, key);
 
-    if (fd)
-    {
-        // Data migration
-        g_settings_set_int (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
-
-        fclose (fd);
-        xml_was_there = TRUE;
-        // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
-        //       à la save_devices_old ("devices.backup");
-    }
-    else
-    {
-        g_warning ("Failed to open the file %s for reading, skipping data migration", xml_cfg_path);
-        xml_was_there = FALSE;
-    }
-
-    g_free (xml_cfg_path);
-
-    return xml_was_there;
+    return user_value != default_value ? user_value : default_value;
 }
-
 
 void GnomeCmdData::load_more()
 {
     if (load_fav_apps_old ("fav-apps") == FALSE)
 	load_fav_apps("fav-apps");
-    
+
     if (!XML_cfg_has_bookmarks)
     {
         load_local_bookmarks();
@@ -2048,7 +2066,9 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
-    gnome_cmd_data_set_int    ("/options/size_disp_mode", options.size_disp_mode);
+    settings = gcmd_settings_new();
+
+    g_settings_set_enum       (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", options.perm_disp_mode);
     gnome_cmd_data_set_int    ("/options/layout", options.layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", options.list_row_height);
