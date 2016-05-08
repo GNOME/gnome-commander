@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-options-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -69,7 +69,7 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
-    
+
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
     gtk_container_add (GTK_CONTAINER (frame), hbox);
@@ -82,7 +82,7 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     /* the policy is one of GTK_POLICY AUTOMATIC, or GTK_POLICY_ALWAYS.
      * GTK_POLICY_AUTOMATIC will automatically decide whether you need
      * scrollbars, whereas GTK_POLICY_ALWAYS will always leave the scrollbars
-     * there.  The first one is the horizontal scrollbar, the second, 
+     * there.  The first one is the horizontal scrollbar, the second,
      * the vertical. */
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
@@ -709,6 +709,7 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
         _("Deep blue"),
         _("Cafezinho"),
         _("Green tiger"),
+        _("Simple"),
         _("Custom"),
         NULL
     };
@@ -2105,7 +2106,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     notebook->append_page(create_programs_tab (dialog, cfg), _("Programs"));
     notebook->append_page(create_devices_tab (dialog, cfg), _("Devices"));
 
-    // open the tab which was actinve when closing the options notebook last time 
+    // open the tab which was actinve when closing the options notebook last time
     notebook->set_current_page (activetab);
 
 #if GTK_CHECK_VERSION (2, 14, 0)

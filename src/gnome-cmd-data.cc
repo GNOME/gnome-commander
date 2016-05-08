@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-data.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -484,7 +484,7 @@ static void save_fav_apps (const gchar *fname)
            g_free (group_name);
         }
     }
-    
+
     gcmd_key_file_save_to_file (path, key_file);
 
     g_key_file_free(key_file);
@@ -1020,7 +1020,7 @@ static void load_fav_apps (const gchar *fname)
 /**
  * This function reads the given file and sets up favourite applications
  * by filling gnome_cmd_data.options.fav_apps.
- * 
+ *
  * @note Beginning with gcmd-v1.6 GKeyFile is used for storing and
  * loading configuration files. For compatibility reasons, this
  * functions tries to load favourite applications from the given file
@@ -1030,12 +1030,12 @@ static void load_fav_apps (const gchar *fname)
  * backup configuration is stored in @c fav-apps.backup in the old file
  * format. If the result is no, then nothing happens and FALSE is
  * returned.
- * 
+ *
  * @note In later versions of gcmd (later than v1.6), this function
  * might be removed, because when saving the configuration in @link
  * save_fav_apps() @endlink, GKeyFile is used and the old file
  * format isn't used anymore.
- * 
+ *
  * @returns FALSE if the very first letter of the given file is not
  * alphanumeric and TRUE if it is alphanumeric.
  */
@@ -1410,6 +1410,16 @@ void GnomeCmdData::load()
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].sel_bg = gdk_color_new (0,0,0x4444);
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_fg = gdk_color_new (0,0,0);
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
+
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].norm_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].norm_bg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].alt_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].alt_bg = gdk_color_new (0xf0f0, 0xf0f0, 0xf0f0);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].sel_fg = gdk_color_new (0,0,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].sel_bg = gdk_color_new (0xc8c8,0xc8c8,0xc8c8);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_SIMPLE].curs_bg = gdk_color_new (0,0xffff,0xffff);
 
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
@@ -1858,7 +1868,7 @@ void GnomeCmdData::load_more()
 {
     if (load_fav_apps_old ("fav-apps") == FALSE)
 	load_fav_apps("fav-apps");
-    
+
     if (!XML_cfg_has_bookmarks)
     {
         load_local_bookmarks();
