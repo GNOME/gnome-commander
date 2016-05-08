@@ -107,6 +107,7 @@ struct GnomeCmdData
         GnomeCmdColorTheme           color_themes[GNOME_CMD_NUM_COLOR_MODES];
 
       public:
+        GcmdSettings                 *gcmd_settings;
         //  General
         LeftMouseButtonMode          left_mouse_button_mode;
         gboolean                     left_mouse_button_unselects;
@@ -164,7 +165,8 @@ struct GnomeCmdData
         gboolean                     device_only_icon;
         gboolean                     skip_mounting;
 
-        Options(): left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
+        Options(): gcmd_settings(NULL),
+                   left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
                    middle_mouse_button_mode(MIDDLE_BUTTON_GOES_UP_DIR),
                    right_mouse_button_mode(RIGHT_BUTTON_POPUPS_MENU),

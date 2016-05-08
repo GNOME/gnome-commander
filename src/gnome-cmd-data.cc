@@ -1460,9 +1460,9 @@ void GnomeCmdData::free()
  */
 void GnomeCmdData::migrate_all_data_to_gsettings()
 {
+    options.gcmd_settings = gcmd_settings_new();
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
     gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
-    settings = gcmd_settings_new();
 
     //TODO: migrate xml stuff
     /////////////////////////////////////////////////////////////
@@ -1479,7 +1479,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
     //{
     //    g_warning ("Failed to open the file %s for reading, skipping data migration", xml_cfg_path);
     //
-    //    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+    //    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
     //}
     g_free (xml_cfg_path);
 
@@ -1493,8 +1493,8 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
 
         // size_disp_mode
         ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
-                                                        settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-        g_settings_set_enum (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
 
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
@@ -1504,7 +1504,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
     {
         g_warning ("Failed to open the file %s for reading, skipping data migration", package_config_path);
 
-        options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+        options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
     }
     g_free(package_config_path);
 }
@@ -1516,8 +1516,6 @@ void GnomeCmdData::load()
 
     gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
     gchar *theme_icon_dir    = g_strconcat (PIXMAPS_DIR, "/mime-icons", NULL);
-
-    settings = gcmd_settings_new();
 
     priv = g_new0 (Private, 1);
 
@@ -1601,7 +1599,7 @@ void GnomeCmdData::load()
     options.color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
     options.color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
 
-    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_enum (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
     options.perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
@@ -2066,9 +2064,7 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
-    settings = gcmd_settings_new();
-
-    g_settings_set_enum       (settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
+    g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", options.perm_disp_mode);
     gnome_cmd_data_set_int    ("/options/layout", options.layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", options.list_row_height);
