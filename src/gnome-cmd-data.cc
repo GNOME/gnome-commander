@@ -1411,15 +1411,15 @@ void GnomeCmdData::load()
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_fg = gdk_color_new (0,0,0);
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].respect_theme = FALSE;
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].norm_fg = gdk_color_new (0,0,0);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].norm_bg = gdk_color_new (0xffff,0xffff,0xffff);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].alt_fg = gdk_color_new (0,0,0);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].alt_bg = gdk_color_new (0xf0f0, 0xf0f0, 0xf0f0);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].sel_fg = gdk_color_new (0,0,0xffff);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].sel_bg = gdk_color_new (0xc8c8,0xc8c8,0xc8c8);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].curs_fg = gdk_color_new (0,0,0);
-    options.color_themes[GNOME_CMD_COLOR_SIMPLE].curs_bg = gdk_color_new (0,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_WINTER].norm_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].norm_bg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].alt_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].alt_bg = gdk_color_new (0xf0f0, 0xf0f0, 0xf0f0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].sel_fg = gdk_color_new (0,0,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].sel_bg = gdk_color_new (0xc8c8,0xc8c8,0xc8c8);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].curs_bg = gdk_color_new (0,0xffff,0xffff);
 
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;

@@ -709,7 +709,7 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
         _("Deep blue"),
         _("Cafezinho"),
         _("Green tiger"),
-        _("Simple"),
+        _("Winter"),
         _("Custom"),
         NULL
     };
