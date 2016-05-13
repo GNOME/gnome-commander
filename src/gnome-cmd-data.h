@@ -520,6 +520,7 @@ void gnome_cmd_data_set_main_win_pos (gint x, gint y);
 const gchar *gnome_cmd_data_get_symlink_prefix ();
 void gnome_cmd_data_set_symlink_prefix (const gchar *value);
 
+void on_use_default_font_changed();
 
 extern GnomeCmdData gnome_cmd_data;
 

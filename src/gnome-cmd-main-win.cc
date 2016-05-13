@@ -898,6 +898,13 @@ GnomeCmdFileSelector *GnomeCmdMainWin::fs(FileSelectorID id) const
 }
 
 
+void GnomeCmdMainWin::update_view()
+{
+    gnome_cmd_style_create (gnome_cmd_data.options);
+    update_style();
+}
+
+
 void GnomeCmdMainWin::update_style()
 {
     g_return_if_fail (priv != NULL);

@@ -89,6 +89,7 @@ struct GnomeCmdMainWin
     void focus_file_lists();
     void refocus();
 
+    void update_view();
     void update_style();
     void update_bookmarks();
     void update_toolbar_visibility();

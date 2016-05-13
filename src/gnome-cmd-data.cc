@@ -78,75 +78,14 @@ static void gcmd_settings_dispose (GObject *object)
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
 
-static void set_font (GcmdSettings *gs,
-                      const gchar *font)
+void on_size_display_mode_changed ()
 {
-    //Hier muss jetzt die Schrift in den Panels aktualisiert werden!
-    printf("%s\n", font);
-}
+    gint size_disp_mode;
 
-static void on_system_font_changed (GSettings     *settings,
-                                    const gchar   *key,
-                                    GcmdSettings *gs)
-{
+    size_disp_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
+    gnome_cmd_data.options.size_disp_mode = (GnomeCmdSizeDispMode) size_disp_mode;
 
-    gboolean use_default_font;
-
-    use_default_font = g_settings_get_boolean (gs->general,
-                           GCMD_SETTINGS_USE_DEFAULT_FONT);
-
-    if (use_default_font)
-    {
-        gchar *font;
-
-        font = g_settings_get_string (settings, key);
-        set_font (gs, font);
-        g_free (font);
-    }
-}
-
-static void on_use_default_font_changed (GSettings     *settings,
-                                         const gchar   *key,
-                                         GcmdSettings *gs)
-{
-    gboolean def;
-    gchar *font;
-
-    def = g_settings_get_boolean (settings, key);
-
-    if (def)
-    {
-        font = g_settings_get_string (gs->interface,
-                          GCMD_SETTINGS_SYSTEM_FONT);
-    }
-    else
-    {
-        font = g_settings_get_string (gs->general,
-                          GCMD_SETTINGS_PANEL_FONT);
-    }
-
-    set_font (gs, font);
-
-    g_free (font);
-}
-
-static void on_general_font_changed (GSettings     *settings,
-                                     const gchar   *key,
-                                     GcmdSettings *gs)
-{
-    gboolean use_default_font;
-
-    use_default_font = g_settings_get_boolean (gs->general,
-                           GCMD_SETTINGS_USE_DEFAULT_FONT);
-
-    if (!use_default_font)
-    {
-        gchar *font;
-
-        font = g_settings_get_string (settings, key);
-        set_font (gs, font);
-        g_free (font);
-    }
+    main_win->update_view();
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
@@ -167,20 +106,11 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->interface = g_settings_new ("org.gnome.desktop.interface");
     gs->general = g_settings_new (GCMD_PREF_GENERAL);
 
-    g_signal_connect (gs->interface,
-                      "changed::monospace-font-name",
-                      G_CALLBACK (on_system_font_changed),
-                      gs);
-
     g_signal_connect (gs->general,
-                      "changed::use-default-font",
-                      G_CALLBACK (on_use_default_font_changed),
-                      gs);
+                      "changed::size-display-mode",
+                      G_CALLBACK (on_size_display_mode_changed),
+                      NULL);
 
-    g_signal_connect (gs->general,
-                      "changed::panel-font",
-                      G_CALLBACK (on_general_font_changed),
-                      gs);
 }
 
 
@@ -1460,7 +1390,6 @@ void GnomeCmdData::free()
  */
 void GnomeCmdData::migrate_all_data_to_gsettings()
 {
-    options.gcmd_settings = gcmd_settings_new();
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
     gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
 
@@ -1494,7 +1423,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         // size_disp_mode
         ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
+        //g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
 
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
@@ -1512,6 +1441,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
 
 void GnomeCmdData::load()
 {
+    options.gcmd_settings = gcmd_settings_new();
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
     gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
