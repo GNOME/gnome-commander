@@ -43,10 +43,10 @@
       <default>'powered'</default>
       <summary>Defines how the file size will be visualized in the associated pane column.</summary>
       <description>
-        plain: This option displays the file size in bytes without any separation. locale: This option uses the
-        current local settings number format to display the file size in bytes. grouped: This entry displays the
-        file size in groups of three digits separated by a space. The unit used is byte. powered: This option
-        displays file sizes using units such as B, KB or MB.
+        The option "plain" displays the file size in bytes without any separation. The option "locale" uses the
+        current local number format setting to display the file size in bytes. The option "grouped" displays the
+        file size in bytes in groups of three digits separated by a space. The option "powered" displays file sizes
+        using units such as B, KB or MB.
       </description>
     </key>
     <key name="perm-disp-mode" type="i">
