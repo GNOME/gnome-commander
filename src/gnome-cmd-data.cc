@@ -54,7 +54,6 @@ struct _GcmdSettings
     GObject parent;
 
     GSettings *general;
-    GSettings *interface;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -73,7 +72,6 @@ static void gcmd_settings_dispose (GObject *object)
     GcmdSettings *gs = GCMD_SETTINGS (object);
 
     g_clear_object (&gs->general);
-    g_clear_object (&gs->interface);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -103,7 +101,6 @@ GcmdSettings *gcmd_settings_new ()
 
 static void gcmd_settings_init (GcmdSettings *gs)
 {
-    gs->interface = g_settings_new ("org.gnome.desktop.interface");
     gs->general = g_settings_new (GCMD_PREF_GENERAL);
 
     g_signal_connect (gs->general,
