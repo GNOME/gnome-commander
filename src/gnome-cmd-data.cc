@@ -1963,7 +1963,8 @@ void GnomeCmdData::load()
 
 /**
  * This method returns an int value which is either the given user_value or,
- * the default integer value of the given GSettings key.
+ * the default integer value of the given GSettings key. The user_value is returned
+ * if it is different from the default value of the GSettings key.
  * @param user_value An integer value
  * @param settings A GSettings pointer
  * @param key a GSettings key path given as a char array
