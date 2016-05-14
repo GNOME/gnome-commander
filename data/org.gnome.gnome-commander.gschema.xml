@@ -77,10 +77,9 @@
         the files MIME type.
       </description>
     </key>
-    <key name="list-row-height" type="i">
+    <key name="list-row-height" type="u">
       <default l10n="messages">16</default>
-      <summary></summary>
-      <description></description>
+      <summary>Defines the height of a row in the file pane.</summary>
     </key>
     <key name="date-disp-mode" type="s">
       <default l10n="messages">'%d-%m-%y %R'</default>

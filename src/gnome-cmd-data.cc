@@ -106,6 +106,16 @@ void on_graphical_layout_mode_changed ()
     main_win->update_view();
 }
 
+void on_list_row_height_changed ()
+{
+    guint list_row_height;
+
+    list_row_height = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
+    gnome_cmd_data.options.list_row_height = list_row_height;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -135,6 +145,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::graphical-layout-mode",
                       G_CALLBACK (on_graphical_layout_mode_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::list-row-height",
+                      G_CALLBACK (on_list_row_height_changed),
                       NULL);
 }
 
@@ -1453,6 +1468,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
     if (fd)
     {
         int ihelper;
+        guint uihelper;
 
         // size_disp_mode
         ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
@@ -1466,6 +1482,10 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
         g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, ihelper);
+        //list-row-height
+        uihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/list_row_height", 16),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
+        g_settings_set_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, uihelper);
 
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
@@ -1580,7 +1600,7 @@ void GnomeCmdData::load()
 
     options.layout = (GnomeCmdLayout) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
 
-    options.list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
+    options.list_row_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
 
     options.confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
     options.confirm_delete_default = (GtkButtonsType) gnome_cmd_data_get_int ("/confirm/delete_default", GTK_BUTTONS_OK);
@@ -2036,7 +2056,7 @@ void GnomeCmdData::save()
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
-    gnome_cmd_data_set_int    ("/options/list_row_height", options.list_row_height);
+    g_settings_set_uint       (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, options.list_row_height);
 
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
     gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
