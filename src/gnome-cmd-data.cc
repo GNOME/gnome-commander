@@ -2036,7 +2036,6 @@ void GnomeCmdData::save()
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
-    gnome_cmd_data_set_int    ("/options/layout", options.layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", options.list_row_height);
 
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
