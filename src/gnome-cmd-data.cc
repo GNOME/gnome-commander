@@ -96,6 +96,16 @@ void on_perm_display_mode_changed ()
     main_win->update_view();
 }
 
+void on_graphical_layout_mode_changed ()
+{
+    gint graphical_layout_mode;
+
+    graphical_layout_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
+    gnome_cmd_data.options.layout = (GnomeCmdLayout) graphical_layout_mode;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -120,6 +130,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::perm-display-mode",
                       G_CALLBACK (on_perm_display_mode_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::graphical-layout-mode",
+                      G_CALLBACK (on_graphical_layout_mode_changed),
                       NULL);
 }
 
@@ -1447,6 +1462,10 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
         g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, ihelper);
+        // layout
+        ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
+        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, ihelper);
 
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
@@ -1559,7 +1578,7 @@ void GnomeCmdData::load()
     options.date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
     g_free (utf8_date_format);
 
-    options.layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
+    options.layout = (GnomeCmdLayout) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
 
     options.list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
@@ -2016,6 +2035,7 @@ void GnomeCmdData::save()
 {
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
     g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
+    g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
     gnome_cmd_data_set_int    ("/options/layout", options.layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", options.list_row_height);
 
