@@ -145,8 +145,8 @@ int main (int argc, char *argv[])
     /* Load Settings */
     IMAGE_init ();
     gcmd_user_actions.init();
-    gnome_cmd_data.load();
     gnome_cmd_data.migrate_all_data_to_gsettings();
+    gnome_cmd_data.load();
 
     app = unique_app_new ("org.gnome.GnomeCommander", NULL);
 

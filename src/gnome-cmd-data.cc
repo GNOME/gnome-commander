@@ -99,15 +99,21 @@ GcmdSettings *gcmd_settings_new ()
     return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, NULL);
 }
 
-static void gcmd_settings_init (GcmdSettings *gs)
-{
-    gs->general = g_settings_new (GCMD_PREF_GENERAL);
 
+static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
+{
     g_signal_connect (gs->general,
                       "changed::size-display-mode",
                       G_CALLBACK (on_size_display_mode_changed),
                       NULL);
+}
 
+
+static void gcmd_settings_init (GcmdSettings *gs)
+{
+    gs->general = g_settings_new (GCMD_PREF_GENERAL);
+    //TODO: Activate the following function in GCMD > 1.6
+    //gcmd_connect_gsettings_signals(gs);
 }
 
 
@@ -1387,6 +1393,7 @@ void GnomeCmdData::free()
  */
 void GnomeCmdData::migrate_all_data_to_gsettings()
 {
+    options.gcmd_settings = gcmd_settings_new();
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
     gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
 
@@ -1420,25 +1427,21 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         // size_disp_mode
         ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-        //g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
+        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
 
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
     }
-    else
-    {
-        g_warning ("Failed to open the file %s for reading, skipping data migration", package_config_path);
-
-        options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-    }
     g_free(package_config_path);
+
+    // Activate gcmd gsettings signals
+    gcmd_connect_gsettings_signals(gnome_cmd_data.options.gcmd_settings);
 }
 
 
 void GnomeCmdData::load()
 {
-    options.gcmd_settings = gcmd_settings_new();
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
     gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
