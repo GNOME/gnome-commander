@@ -28,6 +28,11 @@
     <value nick="powered" value="3"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.perm-display-mode-enum">
+    <value nick="text" value="0"/>
+    <value nick="numbers" value="1"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -49,10 +54,13 @@
         using units such as B, KB or MB.
       </description>
     </key>
-    <key name="perm-disp-mode" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
+    <key name='perm-display-mode' enum='org.gnome.gnome-commander.preferences.perm-display-mode-enum'>
+      <default l10n="messages">'text'</default>
+      <summary>Defines how the file permission will be displayed in the associated pane column.</summary>
+      <description>
+        The 'text' option results in a symbolic representation (e.g. rw-r--r--), whereas 'numbers'
+        results in an octal number representation (e.g. 644) of the mode bits pattern.
+      </description>
     </key>
     <key name="layout" type="i">
       <default l10n="messages">2</default>

@@ -52,6 +52,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_PANEL_FONT                      "panel-font"
 #define GCMD_SETTINGS_SYSTEM_FONT                     "monospace-font-name"
 #define GCMD_SETTINGS_SIZE_DISP_MODE                  "size-display-mode"
+#define GCMD_SETTINGS_PERM_DISP_MODE                  "perm-display-mode"
 
 #define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
 
