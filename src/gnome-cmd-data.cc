@@ -2027,12 +2027,10 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 
     variant = g_settings_get_default_value (settings, key);
 
-    // Is the GSettings value behind key of type string (e.g. an emum).
     switch (g_variant_classify(variant))
     {
         // In all of the following cases it is assumed that the value behind 'default_value' is the actal
         // default value, i.e. nobody changed the given key before gcmd data migration was started.
-
         case G_VARIANT_CLASS_STRING:
         {
             default_value = g_settings_get_enum (settings, key);
