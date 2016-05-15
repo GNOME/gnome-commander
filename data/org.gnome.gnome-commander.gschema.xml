@@ -79,7 +79,10 @@
     </key>
     <key name="list-row-height" type="u">
       <default l10n="messages">16</default>
-      <summary>Defines the height of a row in the file pane.</summary>
+      <summary>List row heigth</summary>
+      <description>
+        Defines the height of a row in the file pane.
+      </description>
     </key>
     <key name="date-disp-mode" type="s">
       <default l10n="messages">'%d-%m-%y %R'</default>
