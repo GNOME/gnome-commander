@@ -350,6 +350,12 @@ inline gint GnomeCmdData::get_int (const gchar *path, int def)
 }
 
 
+inline void GnomeCmdData::set_int (const gchar *path, int value)
+{
+    gnome_config_set_int (path, value);
+}
+
+
 inline XML::xstream &operator << (XML::xstream &xml, GnomeCmdBookmark &bookmark)
 {
     xml << XML::tag("Bookmark") << XML::attr("name") << XML::escape(bookmark.name);
@@ -2314,6 +2320,16 @@ gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
     g_free (s);
 
     return v;
+}
+
+
+void GnomeCmdData::gnome_cmd_data_set_int (const gchar *path, int value)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    set_int (s, value);
+
+    g_free (s);
 }
 
 

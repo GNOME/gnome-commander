@@ -29,11 +29,6 @@ inline void set_string (const gchar *path, const gchar *value)
     gnome_config_set_string (path, value);
 }
 
-inline void set_int (const gchar *path, int value)
-{
-    gnome_config_set_int (path, value);
-}
-
 inline void set_bool (const gchar *path, gboolean value)
 {
     gnome_config_set_bool (path, value);
@@ -96,15 +91,6 @@ void gnome_cmd_data_set_string (const gchar *path, const gchar *value)
     g_free (s);
 }
 
-
-void gnome_cmd_data_set_int (const gchar *path, int value)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    set_int (s, value);
-
-    g_free (s);
-}
 
 void gnome_cmd_data_set_bool (const gchar *path, gboolean value)
 {

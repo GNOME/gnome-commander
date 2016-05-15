@@ -453,6 +453,7 @@ struct GnomeCmdData
     void save_cmdline_history();
     void save_intviewer_defaults();
     inline gint get_int (const gchar *path, int def);
+    inline void set_int (const gchar *path, int value);
 
   public:
 
@@ -505,6 +506,7 @@ struct GnomeCmdData
     void load_more();
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
+    void gnome_cmd_data_set_int (const gchar *path, int value);
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 
