@@ -1467,26 +1467,18 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
     FILE *fd = fopen (package_config_path, "r");
     if (fd)
     {
-        int ihelper;
-        guint uihelper;
-
         // size_disp_mode
-        ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, ihelper);
         // perm_disp_mode
-        ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
-        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, ihelper);
         // layout
-        ihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS),
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
-        g_settings_set_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, ihelper);
         //list-row-height
-        uihelper = migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/list_row_height", 16),
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/list_row_height", 16),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
-        g_settings_set_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, uihelper);
-
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2027,13 +2019,53 @@ void GnomeCmdData::load()
  * @param settings A GSettings pointer
  * @param key a GSettings key path given as a char array
  */
-int GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettings *settings, const char *key)
+gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettings *settings, const char *key)
 {
+    GVariant *variant;
     gint default_value;
+    gint return_value;
 
-    default_value = *(gint*) g_settings_get_default_value (settings, key);
+    variant = g_settings_get_default_value (settings, key);
 
-    return user_value != default_value ? user_value : default_value;
+    // Is the GSettings value behind key of type string (e.g. an emum).
+    switch (g_variant_classify(variant))
+    {
+        // In all of the following cases it is assumed that the value behind 'default_value' is the actal
+        // default value, i.e. nobody changed the given key before gcmd data migration was started.
+
+        case G_VARIANT_CLASS_STRING:
+        {
+            default_value = g_settings_get_enum (settings, key);
+
+            if (user_value != default_value)
+                g_settings_set_enum (settings, key, user_value);
+
+            return_value = g_settings_get_enum(settings, key);
+
+            break;
+        }
+        case G_VARIANT_CLASS_UINT32:
+        {
+            default_value = g_variant_get_uint32 (variant);
+
+            if (user_value != default_value)
+                g_settings_set_uint (settings, key, user_value);
+
+            return_value = g_settings_get_uint(settings, key);
+
+            break;
+        }
+        default:
+        {
+            g_warning("Could not translate key value of type '%s'\n", g_variant_get_type_string (variant));
+            default_value = -9999;
+            return_value = default_value;
+            break;
+        }
+    }
+    g_variant_unref (variant);
+
+    return return_value;
 }
 
 void GnomeCmdData::load_more()
