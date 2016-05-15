@@ -341,7 +341,7 @@ void GnomeCmdData::AdvrenameConfig::Profile::reset()
 }
 
 
-inline gint get_int (const gchar *path, int def)
+inline gint GnomeCmdData::get_int (const gchar *path, int def)
 {
     gboolean b = FALSE;
     gint value = gnome_config_get_int_with_default (path, &b);

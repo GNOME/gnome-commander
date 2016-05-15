@@ -452,6 +452,7 @@ struct GnomeCmdData
     void save_auto_load_plugins();
     void save_cmdline_history();
     void save_intviewer_defaults();
+    inline gint get_int (const gchar *path, int def);
 
   public:
 
