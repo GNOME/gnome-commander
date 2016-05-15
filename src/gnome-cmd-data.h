@@ -507,6 +507,8 @@ struct GnomeCmdData
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
     void gnome_cmd_data_set_int (const gchar *path, int value);
+    gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
+    gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 

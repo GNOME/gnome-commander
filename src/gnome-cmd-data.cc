@@ -2089,10 +2089,10 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
-    g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
-    g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
-    g_settings_set_enum       (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
-    g_settings_set_uint       (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, options.list_row_height);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE, options.perm_disp_mode);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, &(options.list_row_height));
 
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
     gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
@@ -2330,6 +2330,99 @@ void GnomeCmdData::gnome_cmd_data_set_int (const gchar *path, int value)
     set_int (s, value);
 
     g_free (s);
+}
+
+
+/**
+ * As GSettings enum-type is of GVARIANT_CLASS String, we need a seperate function for
+ * finding out if a key value has changed. This is done here. For storing the other GSettings
+ * types, see @link set_gsettings_when_changed @endlink .
+ * @returns TRUE if new value could be stored, else FALSE
+ */
+gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint new_value)
+{
+    GVariant *default_val;
+    gboolean rv = true;
+
+    default_val = g_settings_get_default_value (settings, key);
+
+    // An enum key must be of type G_VARIANT_CLASS_STRING
+    if (g_variant_classify(default_val) == G_VARIANT_CLASS_STRING)
+    {
+        gint old_value;
+        old_value = g_settings_get_enum(settings, key);
+        if (old_value != new_value)
+            rv = g_settings_set_enum (settings, key, new_value);
+    }
+    else
+    {
+        g_warning("Could not store value of type '%s' for key '%s'\n", g_variant_get_type_string (default_val), key);
+        rv = false;
+    }
+
+    if (default_val)
+        g_variant_unref (default_val);
+
+    return rv;
+}
+
+
+/**
+ * This method stores the value for a given key if the value is different from the  currently stored one
+ * under the keys value. This function is able of storing several types of GSettings values (except enums
+ * which is done in @link set_gsettings_enum_when_changed @endlink ). Therefore, it first checks the type
+ * of GVariant of the default value of the given key. Depending on the result, the gpointer is than casted
+ * to the correct type so that *value can be saved.
+ * @returns TRUE if new value could be stored, else FALSE
+ */
+gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value)
+{
+    GVariant *default_val;
+    gboolean rv = true;
+    default_val = g_settings_get_default_value (settings, key);
+
+    switch (g_variant_classify(default_val))
+    {
+        case G_VARIANT_CLASS_UINT32:
+        {
+            gint old_value;
+            gint new_value = *(gint*) value;
+
+            old_value = g_settings_get_uint (settings, key);
+            if (old_value != new_value)
+                rv = g_settings_set_uint (settings, key, new_value);
+            break;
+        }
+        // For later usage
+        // case SOME_OTHER_CLASS:
+        // {
+        //     GVariant *user_val;
+        //     gint old_value;
+        //     gint new_value = *(gint*) value;
+        //
+        //     user_val = g_settings_get_user_value (settings, key);
+        //     if (user_val)
+        //     {
+        //         old_value = g_variant_get_uint32 (user_val);
+        //
+        //         if (old_value != new_value)
+        //             rv = g_settings_set_int (settings, key, new_value);
+        //
+        //         g_variant_unref (user_val);
+        //     }
+        //     break;
+        // }
+        default:
+        {
+            g_warning("Could not store value of type '%s' for key '%s'\n", g_variant_get_type_string (default_val), key);
+            rv = false;
+            break;
+        }
+    }
+    if (default_val)
+        g_variant_unref (default_val);
+
+    return rv;
 }
 
 
