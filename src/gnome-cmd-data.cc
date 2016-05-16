@@ -54,6 +54,7 @@ struct _GcmdSettings
     GObject parent;
 
     GSettings *general;
+    GSettings *filter;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -72,6 +73,7 @@ static void gcmd_settings_dispose (GObject *object)
     GcmdSettings *gs = GCMD_SETTINGS (object);
 
     g_clear_object (&gs->general);
+    g_clear_object (&gs->filter);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -126,6 +128,16 @@ void on_date_disp_format_changed ()
     main_win->update_view();
 }
 
+void on_filter_changed ()
+{
+    gboolean filter;
+
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
+    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = filter;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -166,12 +178,20 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       "changed::date-disp-format",
                       G_CALLBACK (on_date_disp_format_changed),
                       NULL);
+
+//options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN])
+    g_signal_connect (gs->filter,
+                      "changed::hide-unknown",
+                      G_CALLBACK (on_filter_changed),
+                      NULL);
+
 }
 
 
 static void gcmd_settings_init (GcmdSettings *gs)
 {
     gs->general = g_settings_new (GCMD_PREF_GENERAL);
+    gs->filter  = g_settings_new (GCMD_PREF_FILTER);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -1512,6 +1532,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //date_disp_mode
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R"),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
+        //show_unknown
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_unknown", FALSE) ? 1 : 0,
+                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
 
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
@@ -1630,7 +1653,7 @@ void GnomeCmdData::load()
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
 
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = gnome_cmd_data_get_bool ("/options/show_regular", FALSE);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] = gnome_cmd_data_get_bool ("/options/show_directory", FALSE);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO] = gnome_cmd_data_get_bool ("/options/show_fifo", FALSE);
@@ -2083,6 +2106,20 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 
             break;
         }
+        case G_VARIANT_CLASS_BOOLEAN:
+        {
+            gboolean bdef_value;
+            gboolean buser_value;
+            bdef_value = g_variant_get_boolean (variant);
+            buser_value = user_value == 1 ? TRUE : FALSE;
+
+            if (buser_value != bdef_value)
+                g_settings_set_boolean (settings, key, buser_value);
+
+            return_value = g_settings_get_boolean (settings, key) ? 1 : 0;
+
+            break;
+        }
         default:
         {
             g_warning("Could not translate key value of type '%s'\n", g_variant_get_type_string (variant));
@@ -2161,7 +2198,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/confirm/move_overwrite", options.confirm_move_overwrite);
     gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", options.confirm_mouse_dnd);
 
-    gnome_cmd_data_set_bool   ("/options/show_unknown", options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]));
     gnome_cmd_data_set_bool   ("/options/show_regular", options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
     gnome_cmd_data_set_bool   ("/options/show_directory", options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
     gnome_cmd_data_set_bool   ("/options/show_fifo", options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO]);
@@ -2481,6 +2518,16 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
             if (strcmp(old_value, new_value) != 0)
                 rv = g_settings_set_string (settings, key, new_value);
             g_free(old_value);
+            break;
+        }
+        case G_VARIANT_CLASS_BOOLEAN:
+        {
+            gboolean old_value;
+            gboolean new_value = *(gboolean*) value;
+
+            old_value = g_settings_get_boolean (settings, key);
+            if (old_value != new_value)
+                rv = g_settings_set_boolean (settings, key, new_value);
             break;
         }
         default:
