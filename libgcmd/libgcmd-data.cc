@@ -112,18 +112,6 @@ void gnome_cmd_data_set_color (const gchar *path, GdkColor *color)
 }
 
 
-gchar *gnome_cmd_data_get_string (const gchar *path, const gchar *def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    gchar *v = get_string (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
-
 gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def)
 {
     gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);

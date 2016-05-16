@@ -455,6 +455,7 @@ struct GnomeCmdData
     void save_intviewer_defaults();
     inline gint get_int (const gchar *path, int def);
     inline void set_int (const gchar *path, int value);
+    inline gchar* get_string (const gchar *path, const gchar *def);
 
   public:
 
@@ -506,9 +507,11 @@ struct GnomeCmdData
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);
     gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
     void load_more();
+    inline GList* load_string_history (const gchar *format, gint size);
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
     void gnome_cmd_data_set_int (const gchar *path, int value);
+    gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
 
