@@ -1000,11 +1000,13 @@
       <default>['']</default>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.plugins.file-runner-plugin" path="/org/gnome/gnome-commander/plugins/file-runner-plugin/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.file-roller-plugin" path="/org/gnome/gnome-commander/plugins/file-roller-plugin/">
     <key name="default-type" type="s">
-        <default l10n="messages">'.tar.bz2'</default>
-        <summary></summary>
-        <description></description>
+        <default l10n="messages">'.zip'</default>
+        <summary>File suffix</summary>
+        <description>
+            Default file suffix of archives created with the file roller plugin.
+        </description>
     </key>
   </schema>
 </schemalist>
