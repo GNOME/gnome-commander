@@ -91,56 +91,6 @@
           Format of the date in the file pane.
       </description>
     </key>
-    <key name="show-unknown" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-regular" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-directory" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-fifo" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-socket" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-char-device" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-block-device" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="show-symbolic-link" type="b">
-      <default>false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="hidden-filter" type="b">
-      <default>true</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="backup-filter" type="b">
-      <default>true</default>
-      <summary></summary>
-      <description></description>
-    </key>
     <key name="list-font" type="s">
       <default l10n="messages">'DejaVu Sans Mono 8'</default>
       <summary></summary>
@@ -359,6 +309,56 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.filter" path="/org/gnome/gnome-commander/preferences/filter/">
+    <key name="show-unknown" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-regular" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-directory" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-fifo" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-socket" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-char-device" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-block-device" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="show-symbolic-link" type="b">
+      <default>false</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="hidden-filter" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
+    <key name="backup-filter" type="b">
+      <default>true</default>
+      <summary></summary>
+      <description></description>
+    </key>
     <key name="last-pattern" type="s">
       <default l10n="messages">''</default>
       <summary></summary>
