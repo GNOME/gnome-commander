@@ -456,6 +456,7 @@ struct GnomeCmdData
     inline gint get_int (const gchar *path, int def);
     inline void set_int (const gchar *path, int value);
     inline gchar* get_string (const gchar *path, const gchar *def);
+    inline gboolean get_bool (const gchar *path, gboolean def);
 
   public:
 
@@ -512,6 +513,7 @@ struct GnomeCmdData
     gint gnome_cmd_data_get_int (const gchar *path, int def);
     void gnome_cmd_data_set_int (const gchar *path, int value);
     gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
+    gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
 

@@ -381,6 +381,16 @@ inline gchar* GnomeCmdData::get_string (const gchar *path, const gchar *def)
 }
 
 
+inline gboolean GnomeCmdData::get_bool (const gchar *path, gboolean def)
+{
+    gboolean b = FALSE;
+    gboolean value = gnome_config_get_bool_with_default (path, &b);
+    if (b)
+        return def;
+    return value;
+}
+
+
 inline XML::xstream &operator << (XML::xstream &xml, GnomeCmdBookmark &bookmark)
 {
     xml << XML::tag("Bookmark") << XML::attr("name") << XML::escape(bookmark.name);
@@ -2384,6 +2394,17 @@ gchar* GnomeCmdData::gnome_cmd_data_get_string (const gchar *path, const gchar *
     gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     gchar *v = get_string (s, def);
+
+    g_free (s);
+
+    return v;
+}
+
+gboolean GnomeCmdData::gnome_cmd_data_get_bool (const gchar *path, gboolean def)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    gboolean v = get_bool (s, def);
 
     g_free (s);
 

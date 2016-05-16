@@ -28,8 +28,6 @@ void gnome_cmd_data_set_bool (const gchar *path, gboolean value);
 
 void gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
 
-gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def);
-
 void gnome_cmd_data_get_color (const gchar *path, GdkColor *color);
 
 #endif //__LIBGCMD_DATA_H__

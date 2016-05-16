@@ -43,15 +43,6 @@ inline gchar *get_string (const gchar *path, const gchar *def)
     return value;
 }
 
-inline gboolean get_bool (const gchar *path, gboolean def)
-{
-    gboolean b = FALSE;
-    gboolean value = gnome_config_get_bool_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
 
 inline void set_color (const gchar *path, GdkColor *color)
 {
@@ -109,18 +100,6 @@ void gnome_cmd_data_set_color (const gchar *path, GdkColor *color)
     set_color (s, color);
 
     g_free (s);
-}
-
-
-gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    gboolean v = get_bool (s, def);
-
-    g_free (s);
-
-    return v;
 }
 
 
