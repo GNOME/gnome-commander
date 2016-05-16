@@ -84,10 +84,12 @@
         Defines the height of a row in the file pane.
       </description>
     </key>
-    <key name="date-disp-mode" type="s">
-      <default l10n="messages">'%d-%m-%y %R'</default>
-      <summary></summary>
-      <description></description>
+    <key name="date-disp-format" type="s">
+      <default l10n="messages">'%F %R'</default>
+      <summary>Date format</summary>
+      <description>
+          Format of the date in the file pane.
+      </description>
     </key>
     <key name="show-unknown" type="b">
       <default>false</default>

@@ -55,6 +55,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_PERM_DISP_MODE                  "perm-display-mode"
 #define GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE           "graphical-layout-mode"
 #define GCMD_SETTINGS_LIST_ROW_HEIGHT                 "list-row-height"
+#define GCMD_SETTINGS_DATE_DISP_FORMAT                "date-disp-format"
 
 #define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
 
@@ -503,6 +504,7 @@ struct GnomeCmdData
     void load();
     void migrate_all_data_to_gsettings();
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);
+    gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
     void load_more();
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);

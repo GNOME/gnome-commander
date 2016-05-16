@@ -116,6 +116,16 @@ void on_list_row_height_changed ()
     main_win->update_view();
 }
 
+void on_date_disp_format_changed ()
+{
+    GnomeCmdDateFormat date_format;
+
+    date_format = (GnomeCmdDateFormat) g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
+    gnome_cmd_data.options.date_format = date_format;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -150,6 +160,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::list-row-height",
                       G_CALLBACK (on_list_row_height_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::date-disp-format",
+                      G_CALLBACK (on_date_disp_format_changed),
                       NULL);
 }
 
@@ -1474,6 +1489,10 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //list-row-height
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/list_row_height", 16),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
+        //date_disp_mode
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R"),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
+
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1577,11 +1596,7 @@ void GnomeCmdData::load()
     options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
     options.perm_disp_mode = (GnomeCmdPermDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
 
-#ifdef HAVE_LOCALE_H
-    gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R");
-#else
-    gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%D %R");
-#endif
+    gchar *utf8_date_format = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
     options.date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
     g_free (utf8_date_format);
 
@@ -2061,6 +2076,39 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
     return return_value;
 }
 
+/**
+ * This method returns an char pointer to a string which is either the given user_value or
+ * the default string of the given GSettings key. The user_value is returned if it is different
+ * from the default value.
+ * @returns FALSE if an error occured setting the key value to a new string.
+ */
+gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key)
+{
+    GVariant *variant;
+    gchar *default_value;
+    gint rv = true;
+
+    variant = g_settings_get_default_value (settings, key);
+
+    if (g_variant_classify(variant) == G_VARIANT_CLASS_STRING)
+    {
+        // In the following it is assumed that the value behind 'default_value' is the actual
+        // default value, i.e. nobody changed the given key before gcmd data migration was started.
+        default_value = g_settings_get_string (settings, key);
+
+        if (strcmp(user_value, default_value) != 0)
+            rv = g_settings_set_string (settings, key, user_value);
+    }
+    else
+    {
+        g_warning("Could not translate key value of type '%s'\n", g_variant_get_type_string (variant));
+        rv = false;
+    }
+    g_variant_unref (variant);
+
+    return rv;
+}
+
 void GnomeCmdData::load_more()
 {
     if (load_fav_apps_old ("fav-apps") == FALSE)
@@ -2084,7 +2132,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, &(options.list_row_height));
 
     gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
-    gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT, utf8_date_format);
     g_free (utf8_date_format);
 
     gnome_cmd_data_set_bool   ("/confirm/delete", options.confirm_delete);
@@ -2382,25 +2430,17 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
                 rv = g_settings_set_uint (settings, key, new_value);
             break;
         }
-        // For later usage
-        // case SOME_OTHER_CLASS:
-        // {
-        //     GVariant *user_val;
-        //     gint old_value;
-        //     gint new_value = *(gint*) value;
-        //
-        //     user_val = g_settings_get_user_value (settings, key);
-        //     if (user_val)
-        //     {
-        //         old_value = g_variant_get_uint32 (user_val);
-        //
-        //         if (old_value != new_value)
-        //             rv = g_settings_set_int (settings, key, new_value);
-        //
-        //         g_variant_unref (user_val);
-        //     }
-        //     break;
-        // }
+        case G_VARIANT_CLASS_STRING:
+        {
+            gchar *old_value;
+            gchar *new_value = (char*) value;
+
+            old_value = g_settings_get_string (settings, key);
+            if (strcmp(old_value, new_value) != 0)
+                rv = g_settings_set_string (settings, key, new_value);
+            g_free(old_value);
+            break;
+        }
         default:
         {
             g_warning("Could not store value of type '%s' for key '%s'\n", g_variant_get_type_string (default_val), key);
