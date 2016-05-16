@@ -2049,7 +2049,7 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 
     switch (g_variant_classify(variant))
     {
-        // In all of the following cases it is assumed that the value behind 'default_value' is the actal
+        // In all of the following cases it is assumed that the value behind 'default_value' is the actual
         // default value, i.e. nobody changed the given key before gcmd data migration was started.
         case G_VARIANT_CLASS_STRING:
         {
