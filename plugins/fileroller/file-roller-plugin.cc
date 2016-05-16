@@ -502,7 +502,7 @@ GtkType file_roller_plugin_get_type ()
     {
         GtkTypeInfo info =
         {
-            "FileRollerPlugin",
+            (gchar*) "FileRollerPlugin",
             sizeof (FileRollerPlugin),
             sizeof (FileRollerPluginClass),
             (GtkClassInitFunc) class_init,
@@ -537,7 +537,7 @@ extern "C" PluginInfo *get_plugin_info ()
     if (!plugin_nfo.authors)
     {
         plugin_nfo.authors = g_new0 (gchar *, 2);
-        plugin_nfo.authors[0] = AUTHOR;
+        plugin_nfo.authors[0] = (char*) AUTHOR;
         plugin_nfo.authors[1] = NULL;
         plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
                                           "and extracting compressed archives."));
