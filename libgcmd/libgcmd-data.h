@@ -24,8 +24,6 @@
 
 void gnome_cmd_data_set_string (const gchar *path, const gchar *value);
 
-void gnome_cmd_data_set_int (const gchar *path, int value);
-
 void gnome_cmd_data_set_bool (const gchar *path, gboolean value);
 
 void gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
