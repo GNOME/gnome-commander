@@ -309,42 +309,42 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.filter" path="/org/gnome/gnome-commander/preferences/filter/">
-    <key name="show-unknown" type="b">
+    <key name="hide-unknown" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-regular" type="b">
+    <key name="hide-regular" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-directory" type="b">
+    <key name="hide-directory" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-fifo" type="b">
+    <key name="hide-fifo" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-socket" type="b">
+    <key name="hide-socket" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-char-device" type="b">
+    <key name="hide-char-device" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-block-device" type="b">
+    <key name="hide-block-device" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
     </key>
-    <key name="show-symbolic-link" type="b">
+    <key name="hide-symbolic-link" type="b">
       <default>false</default>
       <summary></summary>
       <description></description>
