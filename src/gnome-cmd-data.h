@@ -48,6 +48,7 @@ G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
 GcmdSettings *gcmd_settings_new (void);
 
 /* key constants */
+#define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
 #define GCMD_SETTINGS_USE_DEFAULT_FONT                "use-default-font"
 #define GCMD_SETTINGS_PANEL_FONT                      "panel-font"
 #define GCMD_SETTINGS_SYSTEM_FONT                     "monospace-font-name"
@@ -56,8 +57,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE           "graphical-layout-mode"
 #define GCMD_SETTINGS_LIST_ROW_HEIGHT                 "list-row-height"
 #define GCMD_SETTINGS_DATE_DISP_FORMAT                "date-disp-format"
-
-#define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
 
 struct GnomeCmdConRemote;
 
