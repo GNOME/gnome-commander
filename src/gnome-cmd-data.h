@@ -47,7 +47,12 @@ G_DECLARE_FINAL_TYPE (GcmdSettings, gcmd_settings, GCMD, SETTINGS, GObject)
 
 GcmdSettings *gcmd_settings_new (void);
 
-/* key constants */
+/* *************
+ * KEY CONSTANTS
+ * *************
+ * Attention: When changing the key names here,
+ * be sure to change them also in gnome-cmd-data.c!
+ */
 #define GCMD_PREF_GENERAL                             "org.gnome.gnome-commander.preferences.general"
 #define GCMD_SETTINGS_USE_DEFAULT_FONT                "use-default-font"
 #define GCMD_SETTINGS_PANEL_FONT                      "panel-font"
