@@ -1229,17 +1229,6 @@ inline void gnome_cmd_data_set_string_history (const gchar *format, GList *strin
 }
 
 
-inline void gnome_cmd_data_set_uint_array (const gchar *format, guint *array, gint length)
-{
-    for (gint i=0; i<length; i++)
-    {
-        gchar *name = g_strdup_printf (format, i);
-        gnome_cmd_data_set_int (name, array[i]);
-        g_free (name);
-    }
-}
-
-
 inline void GnomeCmdData::save_cmdline_history()
 {
     if (!cmdline_visibility)
