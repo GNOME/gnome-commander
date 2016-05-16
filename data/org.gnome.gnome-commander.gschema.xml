@@ -21,19 +21,19 @@
     <child name="cmdline-history" schema="org.gnome.gnome-commander.preferences.cmdline-history"/>
   </schema>
 
-  <enum id="org.gnome.gnome-commander.preferences.size-display-mode-enum">
+  <enum id="org.gnome.gnome-commander.preferences.general.size-display-mode-enum">
     <value nick="plain" value="0"/>
     <value nick="locale" value="1"/>
     <value nick="grouped" value="2"/>
     <value nick="powered" value="3"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.perm-display-mode-enum">
+  <enum id="org.gnome.gnome-commander.preferences.general.perm-display-mode-enum">
     <value nick="text" value="0"/>
     <value nick="numbers" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.graphical-layout-mode">
+  <enum id="org.gnome.gnome-commander.preferences.general.graphical-layout-mode">
     <value nick="off" value="0"/>
     <value nick="file icons" value="1"/>
     <value nick="MIME icons" value="2"/>
@@ -50,7 +50,7 @@
       <summary>Panel Font</summary>
       <description>A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.</description>
     </key>
-    <key name='size-display-mode' enum='org.gnome.gnome-commander.preferences.size-display-mode-enum'>
+    <key name='size-display-mode' enum='org.gnome.gnome-commander.preferences.general.size-display-mode-enum'>
       <default>'powered'</default>
       <summary>Defines how the file size will be visualized in the associated pane column.</summary>
       <description>
@@ -60,7 +60,7 @@
         using units such as B, KB or MB.
       </description>
     </key>
-    <key name='perm-display-mode' enum='org.gnome.gnome-commander.preferences.perm-display-mode-enum'>
+    <key name='perm-display-mode' enum='org.gnome.gnome-commander.preferences.general.perm-display-mode-enum'>
       <default l10n="messages">'text'</default>
       <summary>Defines how the file permission will be displayed in the associated pane column.</summary>
       <description>
@@ -68,7 +68,7 @@
         results in an octal number representation (e.g. 644) of the mode bits pattern.
       </description>
     </key>
-    <key name="graphical-layout-mode" enum='org.gnome.gnome-commander.preferences.graphical-layout-mode'>
+    <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.preferences.general.graphical-layout-mode'>
       <default l10n="messages">'MIME icons'</default>
       <summary>Defines the icon style of files in the file panes.</summary>
       <description>
