@@ -328,7 +328,7 @@
     </key>
     <key name="hide-socket" type="b">
       <default>false</default>
-      <summary></summary>
+      <summary>Hide sockets</summary>
     </key>
     <key name="hide-char-device" type="b">
       <default>false</default>
