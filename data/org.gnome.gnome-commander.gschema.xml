@@ -332,7 +332,7 @@
     </key>
     <key name="hide-char-device" type="b">
       <default>false</default>
-      <summary></summary>
+      <summary>Hide character devices</summary>
     </key>
     <key name="hide-block-device" type="b">
       <default>false</default>

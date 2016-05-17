@@ -69,6 +69,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_HIDE_DIRECTORY           "hide-directory"
 #define GCMD_SETTINGS_FILTER_HIDE_FIFO                "hide-fifo"
 #define GCMD_SETTINGS_FILTER_HIDE_SOCKET              "hide-socket"
+#define GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE    "hide-char-device"
 
 struct GnomeCmdConRemote;
 
