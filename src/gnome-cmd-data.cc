@@ -179,7 +179,6 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_date_disp_format_changed),
                       NULL);
 
-//options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN])
     g_signal_connect (gs->filter,
                       "changed::hide-unknown",
                       G_CALLBACK (on_filter_changed),
