@@ -321,7 +321,7 @@
     </key>
     <key name="hide-directory" type="b">
       <default>false</default>
-      <summary></summary>
+      <summary>Hide directories</summary>
       <description></description>
     </key>
     <key name="hide-fifo" type="b">
