@@ -317,42 +317,34 @@
     <key name="hide-regular" type="b">
       <default>false</default>
       <summary>Hide regular files</summary>
-      <description>Hide regular files</description>
     </key>
     <key name="hide-directory" type="b">
       <default>false</default>
       <summary>Hide directories</summary>
-      <description></description>
     </key>
     <key name="hide-fifo" type="b">
       <default>false</default>
       <summary></summary>
-      <description></description>
     </key>
     <key name="hide-socket" type="b">
       <default>false</default>
       <summary></summary>
-      <description></description>
     </key>
     <key name="hide-char-device" type="b">
       <default>false</default>
       <summary></summary>
-      <description></description>
     </key>
     <key name="hide-block-device" type="b">
       <default>false</default>
       <summary></summary>
-      <description></description>
     </key>
     <key name="hide-symbolic-link" type="b">
       <default>false</default>
       <summary></summary>
-      <description></description>
     </key>
     <key name="hidden-filter" type="b">
       <default>true</default>
       <summary></summary>
-      <description></description>
     </key>
     <key name="backup-filter" type="b">
       <default>true</default>
