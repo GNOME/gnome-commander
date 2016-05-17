@@ -67,6 +67,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
 #define GCMD_SETTINGS_FILTER_HIDE_REGULAR             "hide-regular"
 #define GCMD_SETTINGS_FILTER_HIDE_DIRECTORY           "hide-directory"
+#define GCMD_SETTINGS_FILTER_HIDE_FIFO                "hide-fifo"
 
 struct GnomeCmdConRemote;
 

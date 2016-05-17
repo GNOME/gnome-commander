@@ -324,7 +324,7 @@
     </key>
     <key name="hide-fifo" type="b">
       <default>false</default>
-      <summary></summary>
+      <summary>Hide FIFO pipes</summary>
     </key>
     <key name="hide-socket" type="b">
       <default>false</default>
