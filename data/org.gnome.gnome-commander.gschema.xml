@@ -336,7 +336,7 @@
     </key>
     <key name="hide-block-device" type="b">
       <default>false</default>
-      <summary></summary>
+      <summary>Hide block devices</summary>
     </key>
     <key name="hide-symbolic-link" type="b">
       <default>false</default>

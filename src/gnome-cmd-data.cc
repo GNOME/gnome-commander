@@ -150,6 +150,9 @@ void on_filter_changed ()
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = filter;
 
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
+    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = filter;
+
     main_win->update_view();
 }
 
@@ -221,6 +224,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->filter,
                       "changed::hide-char-device",
+                      G_CALLBACK (on_filter_changed),
+                      NULL);
+
+    g_signal_connect (gs->filter,
+                      "changed::hide-block-device",
                       G_CALLBACK (on_filter_changed),
                       NULL);
 
@@ -1589,6 +1597,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //show_char_device
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_char_device", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
+        //show_block_device
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_block_device", FALSE) ? 1 : 0,
+                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1712,7 +1723,7 @@ void GnomeCmdData::load()
     options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = gnome_cmd_data_get_bool ("/options/show_block_device", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = gnome_cmd_data_get_bool ("/options/show_symbolic_link", FALSE);
     options.filter.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
     options.filter.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
@@ -2257,7 +2268,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]));
-    gnome_cmd_data_set_bool   ("/options/show_block_device", options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]);
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]));
     gnome_cmd_data_set_bool   ("/options/show_symbolic_link", options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
 
     gnome_cmd_data_set_bool   ("/options/hidden_filter", options.filter.hidden);
