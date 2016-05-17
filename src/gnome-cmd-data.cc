@@ -153,6 +153,9 @@ void on_filter_changed ()
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = filter;
 
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
+    gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = filter;
+
     main_win->update_view();
 }
 
@@ -229,6 +232,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->filter,
                       "changed::hide-block-device",
+                      G_CALLBACK (on_filter_changed),
+                      NULL);
+
+    g_signal_connect (gs->filter,
+                      "changed::hide-symbolic-link",
                       G_CALLBACK (on_filter_changed),
                       NULL);
 
@@ -1600,6 +1608,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //show_block_device
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_block_device", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
+        //show_symbolic_link
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_symbolic_link", FALSE) ? 1 : 0,
+                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1724,7 +1735,7 @@ void GnomeCmdData::load()
     options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
-    options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = gnome_cmd_data_get_bool ("/options/show_symbolic_link", FALSE);
+    options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
     options.filter.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
     options.filter.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
 
@@ -2269,7 +2280,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]));
-    gnome_cmd_data_set_bool   ("/options/show_symbolic_link", options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]));
 
     gnome_cmd_data_set_bool   ("/options/hidden_filter", options.filter.hidden);
     gnome_cmd_data_set_bool   ("/options/backup_filter", options.filter.backup);

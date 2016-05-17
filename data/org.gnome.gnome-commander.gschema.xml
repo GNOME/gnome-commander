@@ -340,7 +340,7 @@
     </key>
     <key name="hide-symbolic-link" type="b">
       <default>false</default>
-      <summary></summary>
+      <summary>Hide symbolic links</summary>
     </key>
     <key name="hidden-filter" type="b">
       <default>true</default>
