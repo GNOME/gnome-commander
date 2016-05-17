@@ -311,8 +311,8 @@
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.filter" path="/org/gnome/gnome-commander/preferences/filter/">
     <key name="hide-unknown" type="b">
       <default>false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Hyde unknown filetypes</summary>
+      <description>Hide files which type does not match to one of the other types.</description>
     </key>
     <key name="hide-regular" type="b">
       <default>false</default>
