@@ -342,9 +342,9 @@
       <default>false</default>
       <summary>Hide symbolic links</summary>
     </key>
-    <key name="hidden-filter" type="b">
+    <key name="hide-dotfile" type="b">
       <default>true</default>
-      <summary></summary>
+      <summary>Hide files and folders starting with a dot</summary>
     </key>
     <key name="backup-filter" type="b">
       <default>true</default>

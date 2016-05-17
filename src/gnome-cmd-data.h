@@ -72,6 +72,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE    "hide-char-device"
 #define GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE        "hide-block-device"
 #define GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK       "hide-symbolic-link"
+#define GCMD_SETTINGS_FILTER_DOTFILE                  "hide-dotfile"
 
 struct GnomeCmdConRemote;
 
