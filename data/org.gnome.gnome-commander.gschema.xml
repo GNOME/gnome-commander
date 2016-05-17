@@ -316,8 +316,8 @@
     </key>
     <key name="hide-regular" type="b">
       <default>false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Hide regular files</summary>
+      <description>Hide regular files</description>
     </key>
     <key name="hide-directory" type="b">
       <default>false</default>

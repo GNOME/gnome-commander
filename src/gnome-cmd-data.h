@@ -65,6 +65,7 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
+#define GCMD_SETTINGS_FILTER_HIDE_REGULAR             "hide-regular"
 
 struct GnomeCmdConRemote;
 
