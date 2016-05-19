@@ -159,6 +159,9 @@ void on_filter_changed ()
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
     gnome_cmd_data.options.filter.hidden = filter;
 
+    filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
+    gnome_cmd_data.options.filter.backup = filter;
+
     main_win->update_view();
 }
 
@@ -245,6 +248,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->filter,
                       "changed::hide-dotfile",
+                      G_CALLBACK (on_filter_changed),
+                      NULL);
+
+    g_signal_connect (gs->filter,
+                      "changed::hide-backup-files",
                       G_CALLBACK (on_filter_changed),
                       NULL);
 
@@ -1622,6 +1630,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //hidden_filter
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/hidden_filter", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
+        //hidden_filter
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/backup_filter", FALSE) ? 1 : 0,
+                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1748,7 +1759,7 @@ void GnomeCmdData::load()
     options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
     options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
     options.filter.hidden = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
-    options.filter.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
+    options.filter.backup = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
 
     options.select_dirs = gnome_cmd_data_get_bool ("/sort/select_dirs", TRUE);
     options.case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
@@ -2293,7 +2304,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK, &(options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, &(options.filter.hidden));
-    gnome_cmd_data_set_bool   ("/options/backup_filter", options.filter.backup);
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP, &(options.filter.backup));
 
     gnome_cmd_data_set_bool   ("/sort/select_dirs", options.select_dirs);
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);

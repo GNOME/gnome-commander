@@ -346,7 +346,7 @@
       <default>true</default>
       <summary>Hide files and folders starting with a dot</summary>
     </key>
-    <key name="backup-filter" type="b">
+    <key name="hide-backup-files" type="b">
       <default>true</default>
       <summary></summary>
       <description></description>
