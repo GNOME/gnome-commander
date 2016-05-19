@@ -351,11 +351,6 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="last-pattern" type="s">
-      <default l10n="messages">''</default>
-      <summary></summary>
-      <description></description>
-    </key>
     <key name="backup-pattern" type="s">
       <default l10n="messages">'*~;*.bak'</default>
       <summary></summary>
