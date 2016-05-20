@@ -165,6 +165,16 @@ void on_filter_changed ()
     main_win->update_view();
 }
 
+void on_list_font_changed ()
+{
+    char *list_font;
+
+    list_font = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
+    gnome_cmd_data.options.list_font = list_font;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -204,6 +214,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::date-disp-format",
                       G_CALLBACK (on_date_disp_format_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::list-font",
+                      G_CALLBACK (on_list_font_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
@@ -1633,6 +1648,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //hidden_filter
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/backup_filter", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
+        //list_font
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1"),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1805,7 +1823,7 @@ void GnomeCmdData::load()
     options.ls_colors_palette.white_fg = gdk_color_new (0xffff, 0xffff, 0xffff);
     options.ls_colors_palette.white_bg = gdk_color_new (0xffff, 0xffff, 0xffff);
 
-    options.list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
+    options.list_font = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
 
     options.ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     options.left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
@@ -2339,7 +2357,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_color ("/colors/ls_colors_white_fg", options.ls_colors_palette.white_fg);
     gnome_cmd_data_set_color ("/colors/ls_colors_white_bg", options.ls_colors_palette.white_bg);
 
-    gnome_cmd_data_set_string ("/options/list_font", options.list_font);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT, options.list_font);
 
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", options.ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", options.left_mouse_button_mode);

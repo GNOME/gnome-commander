@@ -93,8 +93,8 @@
     </key>
     <key name="list-font" type="s">
       <default l10n="messages">'DejaVu Sans Mono 8'</default>
-      <summary></summary>
-      <description></description>
+      <summary>List font</summary>
+      <description>The font in the file panes.</description>
     </key>
     <key name="ext-disp-mode" type="i">
       <default l10n="messages">2</default>

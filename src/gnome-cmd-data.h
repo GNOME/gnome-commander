@@ -62,6 +62,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE           "graphical-layout-mode"
 #define GCMD_SETTINGS_LIST_ROW_HEIGHT                 "list-row-height"
 #define GCMD_SETTINGS_DATE_DISP_FORMAT                "date-disp-format"
+#define GCMD_SETTINGS_LIST_FONT                       "list-font"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
