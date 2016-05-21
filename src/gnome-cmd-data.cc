@@ -175,6 +175,16 @@ void on_list_font_changed ()
     main_win->update_view();
 }
 
+void on_ext_disp_mode_changed ()
+{
+    gint ext_disp_mode;
+
+    ext_disp_mode = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
+    gnome_cmd_data.options.ext_disp_mode = (GnomeCmdExtDispMode) ext_disp_mode;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -269,6 +279,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->filter,
                       "changed::hide-backup-files",
                       G_CALLBACK (on_filter_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::extension-display-mode",
+                      G_CALLBACK (on_ext_disp_mode_changed),
                       NULL);
 
 }
@@ -1651,6 +1666,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //list_font
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1"),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
+        //ext_disp_mode
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1825,7 +1843,7 @@ void GnomeCmdData::load()
 
     options.list_font = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
 
-    options.ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
+    options.ext_disp_mode = (GnomeCmdExtDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
     options.left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
     options.left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
@@ -2359,7 +2377,7 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT, options.list_font);
 
-    gnome_cmd_data_set_int    ("/options/ext_disp_mode", options.ext_disp_mode);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE, options.ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", options.left_mouse_button_mode);
     gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", options.left_mouse_button_unselects);
     gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", options.middle_mouse_button_mode);
