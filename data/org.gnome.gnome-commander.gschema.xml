@@ -50,6 +50,11 @@
     <value nick="double" value="1"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode">
+    <value nick="popup" value="0"/>
+    <value nick="select" value="1"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -129,10 +134,12 @@
           Defines if a click on an unselected item unselects already selected items.
       </description>
     </key>
-    <key name="right-mouse-button-mode" type="i">
-      <default l10n="messages">0</default>
-      <summary></summary>
-      <description></description>
+    <key name="right-mouse-btn-mode" enum='org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode'>
+      <default l10n="messages">'popup'</default>
+      <summary>Right mouse button mode</summary>
+      <description>
+        Defines what happens when the right mouse button is clicked on an item.
+      </description>
     </key>
     <key name="icon-size" type="i">
       <default l10n="messages">16</default>
