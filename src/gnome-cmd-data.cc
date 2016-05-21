@@ -185,6 +185,16 @@ void on_ext_disp_mode_changed ()
     main_win->update_view();
 }
 
+void on_icon_size_changed ()
+{
+    guint icon_size;
+
+    icon_size = g_settings_get_uint (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
+    gnome_cmd_data.options.icon_size = icon_size;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -284,6 +294,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::extension-display-mode",
                       G_CALLBACK (on_ext_disp_mode_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::icon-size",
+                      G_CALLBACK (on_icon_size_changed),
                       NULL);
 
 }
@@ -1678,6 +1693,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //right_mouse_button_mode
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/right_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
+        //icon_size
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/icon_size", 16),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1857,7 +1875,7 @@ void GnomeCmdData::load()
     options.left_mouse_button_unselects = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
     options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
-    options.icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
+    options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
     dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     options.icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
     options.theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
@@ -2391,7 +2409,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS, &(options.left_mouse_button_unselects));
     gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", options.middle_mouse_button_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
-    gnome_cmd_data_set_int    ("/options/icon_size", options.icon_size);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE, &(options.icon_size));
     gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", options.icon_scale_quality);
     gnome_cmd_data_set_string ("/options/theme_icon_dir", options.theme_icon_dir);
