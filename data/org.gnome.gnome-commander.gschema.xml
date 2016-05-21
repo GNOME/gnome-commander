@@ -49,38 +49,39 @@
     <key name="use-default-font" type="b">
       <default>true</default>
       <summary>Use Default Font</summary>
-      <description>Whether to use the system's default fixed width font for the file panels instead of a font specific to gnome-commander. If this option is turned off, then the font named in the "File panes" option will be used instead of the system font.</description>
+      <description>
+          Whether to use the system's default fixed width font for the file
+          panels instead of a font specific to gnome-commander. If this option
+          is turned off, then the font named in the "File panes" option will
+          be used instead of the system font.
+      </description>
     </key>
     <key name="panel-font" type="s">
       <default l10n="messages">'DejaVu Sans Mono 8'</default>
       <summary>Panel Font</summary>
-      <description>A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.</description>
+      <description>
+          A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.
+      </description>
     </key>
     <key name='size-display-mode' enum='org.gnome.gnome-commander.preferences.general.size-display-mode-enum'>
       <default>'powered'</default>
-      <summary>Defines how the file size will be visualized in the associated pane column.</summary>
+      <summary>Filesize display mode</summary>
       <description>
-        The option 'plain' displays the file size in bytes without any separation. The option 'locale' uses the
-        current local number format setting to display the file size in bytes. The option 'grouped' displays the
-        file size in bytes in groups of three digits separated by a space. The option 'powered' displays file sizes
-        using units such as B, KB or MB.
+        Defines how the filesize will be displayed in the associated pane column.
       </description>
     </key>
     <key name='perm-display-mode' enum='org.gnome.gnome-commander.preferences.general.perm-display-mode-enum'>
       <default l10n="messages">'text'</default>
-      <summary>Defines how the file permission will be displayed in the associated pane column.</summary>
+      <summary>Permission display mode</summary>
       <description>
-        The 'text' option results in a symbolic representation (e.g. rw-r--r--), whereas 'numbers'
-        results in an octal number representation (e.g. 644) of the mode bits pattern.
+        Defines how the file permission will be displayed in the associated pane column.
       </description>
     </key>
     <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.preferences.general.graphical-layout-mode'>
       <default l10n="messages">'MIME icons'</default>
-      <summary>Defines the icon style of files in the file panes.</summary>
+      <summary>Graphicyl layout mode</summary>
       <description>
-        The option 'off' results in no graphical icon usage. The option 'file icons' results in the usage of
-        the same symbol for all files. The 'MIME icons' option results in a file type icon depending on
-        the files MIME type.
+        Defines the icon style of files and folders in the file panes.
       </description>
     </key>
     <key name="list-row-height" type="u">
