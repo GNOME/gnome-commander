@@ -122,10 +122,12 @@
           Number of clicks for opening a file or folder.
       </description>
     </key>
-    <key name="left-mouse-button-unselects" type="b">
+    <key name="left-mouse-btn-unselects" type="b">
       <default>true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Left mouse button unselects</summary>
+      <description>
+          Defines if a click on an unselected item unselects already selected items.
+      </description>
     </key>
     <key name="right-mouse-button-mode" type="i">
       <default l10n="messages">0</default>

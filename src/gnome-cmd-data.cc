@@ -1672,6 +1672,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //left_mouse_button_mode
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM);
+        //left_mouse_button_unselects
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1848,7 +1851,7 @@ void GnomeCmdData::load()
 
     options.ext_disp_mode = (GnomeCmdExtDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
     options.left_mouse_button_mode = (LeftMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM);
-    options.left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
+    options.left_mouse_button_unselects = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
     options.right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
     options.icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
@@ -2381,8 +2384,8 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT, options.list_font);
 
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE, options.ext_disp_mode);
-    set_gsettings_enum_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM, options.left_mouse_button_mode);
-    gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", options.left_mouse_button_unselects);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM, options.left_mouse_button_mode);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS, &(options.left_mouse_button_unselects));
     gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", options.middle_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", options.right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", options.icon_size);
