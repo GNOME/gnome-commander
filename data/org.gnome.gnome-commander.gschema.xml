@@ -45,6 +45,11 @@
     <value nick="both columns" value="2"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.general.clicks-to-open-item">
+    <value nick="single" value="0"/>
+    <value nick="double" value="1"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -110,10 +115,12 @@
           Defines where the file name extension is displayed.
       </description>
     </key>
-    <key name="left-mouse-button-mode" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
+    <key name="clicks-to-open-item" enum='org.gnome.gnome-commander.preferences.general.clicks-to-open-item'>
+      <default>'double'</default>
+      <summary>Clicks to open an item</summary>
+      <description>
+          Number of clicks for opening a file or folder.
+      </description>
     </key>
     <key name="left-mouse-button-unselects" type="b">
       <default>true</default>
