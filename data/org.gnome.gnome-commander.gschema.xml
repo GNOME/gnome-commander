@@ -89,7 +89,7 @@
     </key>
     <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.preferences.general.graphical-layout-mode'>
       <default l10n="messages">'MIME icons'</default>
-      <summary>Graphicyl layout mode</summary>
+      <summary>Graphical layout mode</summary>
       <description>
         Defines the icon style of files and folders in the file panes.
       </description>
