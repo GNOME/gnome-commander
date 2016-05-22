@@ -146,10 +146,10 @@
       <summary>Icon size</summary>
       <description>Size of icons in the file pane.</description>
     </key>
-    <key name="dev-icon-size" type="i">
-      <default l10n="messages">16</default>
-      <summary></summary>
-      <description></description>
+    <key name="dev-icon-size" type="u">
+      <default>16</default>
+      <summary>Device icon size</summary>
+      <description>Icon size in the device list.</description>
     </key>
     <key name="icon-scale-quality" type="i">
       <default l10n="messages">3</default>

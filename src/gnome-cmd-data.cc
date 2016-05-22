@@ -1557,6 +1557,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
 
+    //TODO: Include into GnomeCmdData::Options
     dev_icon_size = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
@@ -1696,6 +1697,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //icon_size
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/icon_size", 16),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
+        //dev-icon_size
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/dev_icon_size", 16),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1876,7 +1880,7 @@ void GnomeCmdData::load()
     options.middle_mouse_button_mode = (MiddleMouseButtonMode) gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR);
     options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
     options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
-    dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
+    dev_icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
     options.icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
     options.theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
@@ -2410,7 +2414,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/middle_mouse_button_mode", options.middle_mouse_button_mode);
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE, &(options.icon_size));
-    gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE, &(dev_icon_size));
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", options.icon_scale_quality);
     gnome_cmd_data_set_string ("/options/theme_icon_dir", options.theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", options.document_icon_dir);
