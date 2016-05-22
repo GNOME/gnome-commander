@@ -163,10 +163,10 @@
       <summary>Icon scale quality</summary>
       <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
     </key>
-    <key name="theme-icon-dir" type="s">
+    <key name="mime-icon-dir" type="s">
       <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
-      <summary></summary>
-      <description></description>
+      <summary>MIME icon directory</summary>
+      <description>Directory in which MIME icons are located.</description>
     </key>
     <key name="document-icon-dir" type="s">
       <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/file-type-icons'</default>
