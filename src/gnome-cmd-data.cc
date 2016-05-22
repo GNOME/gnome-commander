@@ -1700,6 +1700,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //dev-icon_size
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/dev_icon_size", 16),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
+        //icon_scale_quality
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1881,7 +1884,7 @@ void GnomeCmdData::load()
     options.right_mouse_button_mode = (RightMouseButtonMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
     options.icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
     dev_icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
-    options.icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
+    options.icon_scale_quality = (GdkInterpType) g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
     options.document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
@@ -2415,7 +2418,7 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE, options.right_mouse_button_mode);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE, &(options.icon_size));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE, &(dev_icon_size));
-    gnome_cmd_data_set_int    ("/options/icon_scale_quality", options.icon_scale_quality);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, &(options.icon_scale_quality));
     gnome_cmd_data_set_string ("/options/theme_icon_dir", options.theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", options.document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);

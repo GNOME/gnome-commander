@@ -69,6 +69,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE         "right-mouse-btn-mode"
 #define GCMD_SETTINGS_ICON_SIZE                       "icon-size"
 #define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
+#define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
