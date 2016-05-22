@@ -14,7 +14,6 @@ libgcmd_la_SOURCES = \
 	gnome-cmd-string-dialog.h gnome-cmd-string-dialog.cc \
 	gnome-cmd-state.h \
 	libgcmd-utils.h libgcmd-utils.cc \
-	libgcmd-data.h libgcmd-data.cc \
 	libgcmd-widget-factory.h libgcmd-widget-factory.cc \
 	plugin-info.h \
 	libgcmd-deps.h \

@@ -24,7 +24,6 @@
 
 #include <libgcmd/libgcmd-deps.h>
 #include <libgcmd/libgcmd-utils.h>
-#include <libgcmd/libgcmd-data.h>
 #include <libgcmd/libgcmd-widget-factory.h>
 #include <libgcmd/gnome-cmd-state.h>
 #include <libgcmd/gnome-cmd-plugin.h>

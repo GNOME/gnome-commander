@@ -517,6 +517,12 @@ inline gchar* GnomeCmdData::get_string (const gchar *path, const gchar *def)
 }
 
 
+inline void GnomeCmdData::set_string (const gchar *path, const gchar *value)
+{
+    gnome_config_set_string (path, value);
+}
+
+
 inline gboolean GnomeCmdData::get_bool (const gchar *path, gboolean def)
 {
     gboolean b = FALSE;
@@ -524,6 +530,41 @@ inline gboolean GnomeCmdData::get_bool (const gchar *path, gboolean def)
     if (b)
         return def;
     return value;
+}
+
+
+inline void GnomeCmdData::set_bool (const gchar *path, gboolean value)
+{
+    gnome_config_set_bool (path, value);
+}
+
+
+inline void GnomeCmdData::set_color (const gchar *path, GdkColor *color)
+{
+    gchar *color_str;
+    color_str = g_strdup_printf ("%d %d %d", color->red, color->green, color->blue);
+    set_string (path, color_str);
+    g_free (color_str);
+}
+
+
+inline void GnomeCmdData::get_color (const gchar *path, GdkColor *color)
+{
+    gint red, green, blue;
+    gchar *def = g_strdup_printf ("%d %d %d",
+                                  color->red, color->green, color->blue);
+    gchar *color_str = get_string (path, def);
+    if (sscanf (color_str, "%u %u %u", &red, &green, &blue) != 3)
+        g_printerr ("Illegal color in config file\n");
+
+    if (color_str != def)
+        g_free (color_str);
+
+    color->red   = (gushort) red;
+    color->green = (gushort) green;
+    color->blue  = (gushort) blue;
+
+    g_free (def);
 }
 
 
@@ -1388,7 +1429,7 @@ static gboolean load_fav_apps_old (const gchar *fname)
 }
 
 
-inline void gnome_cmd_data_set_string_history (const gchar *format, GList *strings)
+inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format, GList *strings)
 {
     gchar key[128];
 
@@ -2604,6 +2645,15 @@ gchar* GnomeCmdData::gnome_cmd_data_get_string (const gchar *path, const gchar *
     return v;
 }
 
+void GnomeCmdData::gnome_cmd_data_set_string (const gchar *path, const gchar *value)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    set_string (s, value);
+
+    g_free (s);
+}
+
 gboolean GnomeCmdData::gnome_cmd_data_get_bool (const gchar *path, gboolean def)
 {
     gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
@@ -2615,6 +2665,32 @@ gboolean GnomeCmdData::gnome_cmd_data_get_bool (const gchar *path, gboolean def)
     return v;
 }
 
+void GnomeCmdData::gnome_cmd_data_set_bool (const gchar *path, gboolean value)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    set_bool (s, value);
+
+    g_free (s);
+}
+
+void GnomeCmdData::gnome_cmd_data_set_color (const gchar *path, GdkColor *color)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    set_color (s, color);
+
+    g_free (s);
+}
+
+void GnomeCmdData::gnome_cmd_data_get_color (const gchar *path, GdkColor *color)
+{
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+
+    get_color (s, color);
+
+    g_free (s);
+}
 
 /**
  * As GSettings enum-type is of GVARIANT_CLASS String, we need a seperate function for
