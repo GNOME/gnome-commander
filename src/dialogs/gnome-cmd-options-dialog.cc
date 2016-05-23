@@ -806,8 +806,6 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", cfg.theme_icon_dir);
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
-    entry = create_file_entry (parent, "doc_icondir_entry", cfg.document_icon_dir);
-    table_add (table, entry, 1, 3, (GtkAttachOptions)0);
 
     label = create_label (parent, _("Icon size:"));
     table_add (table, label, 0, 0, (GtkAttachOptions) GTK_FILL);
@@ -815,9 +813,6 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
     label = create_label (parent, _("Theme icon directory:"));
     table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
-    label = create_label (parent, _("Document icon directory:"));
-    table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
-
 
     gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) cfg.ext_disp_mode);
     gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) cfg.layout);
@@ -832,7 +827,6 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *iconsize_spin       = lookup_widget (dialog, "iconsize_spin");
     GtkWidget *iconquality_scale   = lookup_widget (dialog, "iconquality_scale");
     GtkWidget *theme_icondir_entry = lookup_widget (dialog, "theme_icondir_entry");
-    GtkWidget *doc_icondir_entry   = lookup_widget (dialog, "doc_icondir_entry");
     GtkWidget *row_height_spin     = lookup_widget (dialog, "row_height_spin");
     GtkWidget *use_ls              = lookup_widget (dialog, "use_ls_colors");
 
@@ -852,7 +846,6 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.set_list_font (list_font);
 
     cfg.set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
-    cfg.set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
     cfg.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));

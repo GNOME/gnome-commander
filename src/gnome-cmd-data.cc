@@ -359,7 +359,6 @@ GnomeCmdData::Options::Options(const Options &cfg)
     icon_size = cfg.icon_size;
     icon_scale_quality = cfg.icon_scale_quality;
     theme_icon_dir = cfg.theme_icon_dir;
-    document_icon_dir = cfg.document_icon_dir;
     always_show_tabs = cfg.always_show_tabs;
     tab_lock_indicator = cfg.tab_lock_indicator;
     confirm_delete = cfg.confirm_delete;
@@ -417,7 +416,6 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         icon_size = cfg.icon_size;
         icon_scale_quality = cfg.icon_scale_quality;
         theme_icon_dir = cfg.theme_icon_dir;
-        document_icon_dir = cfg.document_icon_dir;
         always_show_tabs = cfg.always_show_tabs;
         tab_lock_indicator = cfg.tab_lock_indicator;
         confirm_delete = cfg.confirm_delete;
@@ -1762,8 +1760,6 @@ void GnomeCmdData::load()
 {
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
-    gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
-
     priv = g_new0 (Private, 1);
 
     options.color_themes[GNOME_CMD_COLOR_CUSTOM].respect_theme = FALSE;
@@ -1929,8 +1925,6 @@ void GnomeCmdData::load()
     dev_icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
-    options.document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
-    g_free (document_icon_dir);
     cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
@@ -2462,7 +2456,6 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE, &(dev_icon_size));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
-    gnome_cmd_data_set_string ("/options/document_icon_dir", options.document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
     gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);

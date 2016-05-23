@@ -70,7 +70,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_ICON_SIZE                       "icon-size"
 #define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
 #define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"
-#define GCMD_SETTINGS_MIME_ICON_DIR                  "mime-icon-dir"
+#define GCMD_SETTINGS_MIME_ICON_DIR                   "mime-icon-dir"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -166,7 +166,6 @@ struct GnomeCmdData
         guint                        icon_size;
         GdkInterpType                icon_scale_quality;
         gchar                       *theme_icon_dir;
-        gchar                       *document_icon_dir;
         //  Tabs
         gboolean                     always_show_tabs;
         int                          tab_lock_indicator;
@@ -220,7 +219,6 @@ struct GnomeCmdData
                    icon_size(16),
                    icon_scale_quality(GDK_INTERP_HYPER),
                    theme_icon_dir(NULL),
-                   document_icon_dir(NULL),
                    always_show_tabs(FALSE),
                    tab_lock_indicator(TAB_LOCK_ICON),
                    confirm_delete(TRUE),
@@ -253,7 +251,6 @@ struct GnomeCmdData
             g_free (date_format);
             g_free (list_font);
             g_free (theme_icon_dir);
-            g_free (document_icon_dir);
             g_free (backup_pattern);
             patlist_free (backup_pattern_list);
             g_free (viewer);
@@ -292,12 +289,6 @@ struct GnomeCmdData
         {
             g_free (theme_icon_dir);
             theme_icon_dir = g_strdup (dir);
-        }
-
-        void set_document_icon_dir(const gchar *dir)
-        {
-            g_free (document_icon_dir);
-            document_icon_dir = g_strdup (dir);
         }
 
         void set_backup_pattern(const gchar *value)

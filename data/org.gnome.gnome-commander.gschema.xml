@@ -168,11 +168,6 @@
       <summary>MIME icon directory</summary>
       <description>Directory in which MIME icons are located.</description>
     </key>
-    <key name="document-icon-dir" type="s">
-      <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/file-type-icons'</default>
-      <summary></summary>
-      <description></description>
-    </key>
     <key name="cmdline-history-length" type="i">
       <default l10n="messages">16</default>
       <summary></summary>
