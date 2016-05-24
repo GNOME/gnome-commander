@@ -1676,7 +1676,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
         // perm_disp_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
         // layout
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS),
@@ -1718,7 +1718,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/backup_filter", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
         //list_font
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1"),
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/list_font", "DejaVu Sans Mono 8"),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
         //ext_disp_mode
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH),
@@ -1730,7 +1730,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
         //right_mouse_button_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/right_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
         //icon_size
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/icon_size", 16),
