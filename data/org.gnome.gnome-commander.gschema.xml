@@ -168,10 +168,9 @@
       <summary>MIME icon directory</summary>
       <description>Directory in which MIME icons are located.</description>
     </key>
-    <key name="cmdline-history-length" type="i">
-      <default l10n="messages">16</default>
-      <summary></summary>
-      <description></description>
+    <key name="cmdline-history-length" type="u">
+      <default>16</default>
+      <summary>Commandline history length</summary>
     </key>
     <key name="btn-relief" type="i">
       <default l10n="messages">2</default>

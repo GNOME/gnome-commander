@@ -1745,6 +1745,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //theme_icon_dir
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/theme_icon_dir", "/usr/local/share/pixmaps/gnome-commander/mime-icons"),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
+        //cmdline_history_length
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/cmdline_history_length", 16),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1925,7 +1928,7 @@ void GnomeCmdData::load()
     dev_icon_size = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
-    cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
+    cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
@@ -2456,7 +2459,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE, &(dev_icon_size));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
-    gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
     gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);

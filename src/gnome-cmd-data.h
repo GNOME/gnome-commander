@@ -71,6 +71,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
 #define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"
 #define GCMD_SETTINGS_MIME_ICON_DIR                   "mime-icon-dir"
+#define GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH          "cmdline-history-length"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
