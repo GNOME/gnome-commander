@@ -1600,7 +1600,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     dev_icon_size = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
-    button_relief = GTK_RELIEF_NONE;
 
     cmdline_history = NULL;
     cmdline_history_length = 0;
@@ -1929,7 +1928,6 @@ void GnomeCmdData::load()
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
-    button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
@@ -2460,7 +2458,6 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
-    gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 

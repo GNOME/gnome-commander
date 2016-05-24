@@ -172,11 +172,6 @@
       <default>16</default>
       <summary>Commandline history length</summary>
     </key>
-    <key name="btn-relief" type="i">
-      <default l10n="messages">2</default>
-      <summary></summary>
-      <description></description>
-    </key>
     <key name="filter-type" type="i">
       <default l10n="messages">1</default>
       <summary></summary>

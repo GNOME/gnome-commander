@@ -505,7 +505,6 @@ struct GnomeCmdData
     guint                        dev_icon_size;
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
-    GtkReliefStyle               button_relief;
 
     GList                       *cmdline_history;
     gint                         cmdline_history_length;

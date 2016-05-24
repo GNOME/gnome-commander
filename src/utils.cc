@@ -887,7 +887,7 @@ GtkWidget *create_styled_button (const gchar *text)
 {
     GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
 
-    gtk_button_set_relief (GTK_BUTTON (w), gnome_cmd_data.button_relief);
+    gtk_button_set_relief (GTK_BUTTON (w), GTK_RELIEF_NONE);
     g_object_ref (w);
     gtk_widget_show (w);
 
