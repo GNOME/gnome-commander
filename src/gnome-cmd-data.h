@@ -67,6 +67,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM             "clicks-to-open-item"
 #define GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS     "left-mouse-btn-unselects"
 #define GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE         "right-mouse-btn-mode"
+#define GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE        "middle-mouse-btn-mode"
 #define GCMD_SETTINGS_ICON_SIZE                       "icon-size"
 #define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
 #define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"

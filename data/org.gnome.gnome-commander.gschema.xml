@@ -55,6 +55,11 @@
     <value nick="select" value="1"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode">
+    <value nick="parent directory" value="0"/>
+    <value nick="new tab" value="1"/>
+  </enum>
+
   <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality">
     <value nick="GDK_INTERP_NEAREST" value="0"/>
     <value nick="GDK_INTERP_TILES" value="1"/>
@@ -247,10 +252,12 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="middle-mouse-button-mode" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
+    <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode">
+      <default l10n="messages">'parent directory'</default>
+      <summary>Middle mouse button mode</summary>
+      <description>
+          Defines what happens when the middle mouse button is clicked.
+      </description>
     </key>
     <key name="save-dirs-on-exit" type="b">
       <default l10n="messages">true</default>
