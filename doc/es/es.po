@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-08 07:35+0000\n"
-"PO-Revision-Date: 2016-04-08 16:37+0200\n"
+"POT-Creation-Date: 2016-05-09 05:04+0000\n"
+"PO-Revision-Date: 2016-05-27 12:47+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -43,21 +43,21 @@ msgstr "1.6.0"
 msgid "2015-??-??"
 msgstr "??/??/2015"
 
-#: C/releases.xml:29(para) C/releases.xml:78(para) C/releases.xml:109(para)
-#: C/releases.xml:146(para) C/releases.xml:284(para) C/releases.xml:304(para)
-#: C/releases.xml:330(para) C/releases.xml:350(para) C/releases.xml:367(para)
-#: C/releases.xml:381(para) C/releases.xml:404(para) C/releases.xml:435(para)
-#: C/releases.xml:464(para) C/releases.xml:489(para) C/releases.xml:509(para)
-#: C/releases.xml:535(para) C/releases.xml:566(para) C/releases.xml:592(para)
-#: C/releases.xml:618(para) C/releases.xml:653(para) C/releases.xml:676(para)
-#: C/releases.xml:699(para) C/releases.xml:828(para) C/releases.xml:886(para)
-#: C/releases.xml:955(para) C/releases.xml:1078(para)
-#: C/releases.xml:1179(para) C/releases.xml:1193(para)
-#: C/releases.xml:1244(para) C/releases.xml:1316(para)
-#: C/releases.xml:1406(para) C/releases.xml:1489(para)
-#: C/releases.xml:1552(para) C/releases.xml:1586(para)
-#: C/releases.xml:1618(para) C/releases.xml:1677(para)
-#: C/releases.xml:1702(para) C/releases.xml:1759(para)
+#: C/releases.xml:29(para) C/releases.xml:81(para) C/releases.xml:112(para)
+#: C/releases.xml:149(para) C/releases.xml:287(para) C/releases.xml:307(para)
+#: C/releases.xml:333(para) C/releases.xml:353(para) C/releases.xml:370(para)
+#: C/releases.xml:384(para) C/releases.xml:407(para) C/releases.xml:438(para)
+#: C/releases.xml:467(para) C/releases.xml:492(para) C/releases.xml:512(para)
+#: C/releases.xml:538(para) C/releases.xml:569(para) C/releases.xml:595(para)
+#: C/releases.xml:621(para) C/releases.xml:656(para) C/releases.xml:679(para)
+#: C/releases.xml:702(para) C/releases.xml:831(para) C/releases.xml:889(para)
+#: C/releases.xml:958(para) C/releases.xml:1081(para)
+#: C/releases.xml:1182(para) C/releases.xml:1196(para)
+#: C/releases.xml:1247(para) C/releases.xml:1319(para)
+#: C/releases.xml:1409(para) C/releases.xml:1492(para)
+#: C/releases.xml:1555(para) C/releases.xml:1589(para)
+#: C/releases.xml:1621(para) C/releases.xml:1680(para)
+#: C/releases.xml:1705(para) C/releases.xml:1762(para)
 msgid "Bug fixes:"
 msgstr "Correcciones de errores:"
 
@@ -76,16 +76,16 @@ msgstr ""
 "Conservar el archivo con el foco después de renombrarlo con AdvRenDialog "
 "(gracias a Martin Mocko)"
 
-#: C/releases.xml:40(para) C/releases.xml:89(para) C/releases.xml:126(para)
-#: C/releases.xml:190(para) C/releases.xml:421(para) C/releases.xml:475(para)
-#: C/releases.xml:552(para) C/releases.xml:773(para) C/releases.xml:854(para)
-#: C/releases.xml:912(para) C/releases.xml:1023(para)
-#: C/releases.xml:1107(para) C/releases.xml:1216(para)
-#: C/releases.xml:1267(para) C/releases.xml:1345(para)
-#: C/releases.xml:1434(para) C/releases.xml:1506(para)
-#: C/releases.xml:1572(para) C/releases.xml:1648(para)
-#: C/releases.xml:1688(para) C/releases.xml:1725(para)
-#: C/releases.xml:1739(para)
+#: C/releases.xml:40(para) C/releases.xml:92(para) C/releases.xml:129(para)
+#: C/releases.xml:193(para) C/releases.xml:424(para) C/releases.xml:478(para)
+#: C/releases.xml:555(para) C/releases.xml:776(para) C/releases.xml:857(para)
+#: C/releases.xml:915(para) C/releases.xml:1026(para)
+#: C/releases.xml:1110(para) C/releases.xml:1219(para)
+#: C/releases.xml:1270(para) C/releases.xml:1348(para)
+#: C/releases.xml:1437(para) C/releases.xml:1509(para)
+#: C/releases.xml:1575(para) C/releases.xml:1651(para)
+#: C/releases.xml:1691(para) C/releases.xml:1728(para)
+#: C/releases.xml:1742(para)
 msgid "New features:"
 msgstr "Nuevas funcionalidades:"
 
@@ -127,26 +127,31 @@ msgstr ""
 "unitarias"
 
 #: C/releases.xml:62(para)
+#| msgid "New colour theme: green tiger"
+msgid "New color theme 'Winter'"
+msgstr "Nuevo tema de color: invierno"
+
+#: C/releases.xml:65(para)
 msgid "Code cleanup"
 msgstr "Limpieza del código"
 
-#: C/releases.xml:65(para) C/releases.xml:96(para) C/releases.xml:133(para)
+#: C/releases.xml:68(para) C/releases.xml:99(para) C/releases.xml:136(para)
 msgid "New or updated docs: ??"
 msgstr "Documentos nuevos o actualizados: ??"
 
-#: C/releases.xml:68(para) C/releases.xml:99(para) C/releases.xml:136(para)
+#: C/releases.xml:71(para) C/releases.xml:102(para) C/releases.xml:139(para)
 msgid "New or updated translations: ??"
 msgstr "Traducciones nuevas: ??"
 
-#: C/releases.xml:75(para)
+#: C/releases.xml:78(para)
 msgid "1.4.2"
 msgstr "1.4.2"
 
-#: C/releases.xml:76(para)
+#: C/releases.xml:79(para)
 msgid "2014-??-??"
 msgstr "??/??/2014"
 
-#: C/releases.xml:82(para)
+#: C/releases.xml:85(para)
 msgid ""
 "Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving "
 "folders)"
@@ -154,7 +159,7 @@ msgstr ""
 "Error nº 367949 corregido (Corregido async_xfer_callback-results para mover "
 "carpetas)"
 
-#: C/releases.xml:85(para)
+#: C/releases.xml:88(para)
 msgid ""
 "Fixed problem bgo#598161 (Selecting text in internal viewer on lines with "
 "TAB characters)"
@@ -162,57 +167,57 @@ msgstr ""
 "Error nº 598161 corregido (Seleccionar texto en el visor interno en líneas "
 "con tabuladores)"
 
-#: C/releases.xml:93(para) C/releases.xml:130(para)
+#: C/releases.xml:96(para) C/releases.xml:133(para)
 msgid "???"
 msgstr "???"
 
-#: C/releases.xml:106(para)
+#: C/releases.xml:109(para)
 msgid "1.4.1"
 msgstr "1.4.1"
 
-#: C/releases.xml:107(para)
+#: C/releases.xml:110(para)
 msgid "2014-04-05"
 msgstr "05/04/2014"
 
-#: C/releases.xml:113(para)
+#: C/releases.xml:116(para)
 msgid ""
 "Fixed problem bgo#641842 (Use poppler-glib instead of poppler internal API)"
 msgstr ""
 "Error nº 641842 corregido (uso de poppler-glib en lugar de la API interna de "
 "poppler)"
 
-#: C/releases.xml:116(para)
+#: C/releases.xml:119(para)
 msgid "Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)"
 msgstr ""
 "Error nº 726682 corregido (Parche para corregir referencia sin definir a "
 "vtable)"
 
-#: C/releases.xml:119(para)
+#: C/releases.xml:122(para)
 msgid ""
 "Support for utf8 encoded creation and modification dates in document metadata"
 msgstr ""
 "Soporte para creación y modificación de fechas codificadas en UTF-8 en los "
 "metadatos del documento"
 
-#: C/releases.xml:122(para)
+#: C/releases.xml:125(para)
 msgid "Moved Search, Quick Search and Enable Filter from Edit to File menu"
 msgstr ""
 "Se han movido los elementos Buscar, Búsqueda rápida y Activar filtro del "
 "menú Editar al menú Archivo"
 
-#: C/releases.xml:143(para)
+#: C/releases.xml:146(para)
 msgid "1.4.0"
 msgstr "1.4.0"
 
-#: C/releases.xml:144(para) C/gnome-commander.xml:314(date)
+#: C/releases.xml:147(para) C/gnome-commander.xml:314(date)
 msgid "2014-03-17"
 msgstr "17/03/2014"
 
-#: C/releases.xml:150(para)
+#: C/releases.xml:153(para)
 msgid "Fixed problem bgo#377463 (mkdir dialog loses focus)"
 msgstr "Error nº 377463 corregido (diálogo mkdir pierde el foco)"
 
-#: C/releases.xml:153(para)
+#: C/releases.xml:156(para)
 msgid ""
 "Fixed problem bgo#492479 (file replace prompt must show date and size of "
 "files)"
@@ -220,7 +225,7 @@ msgstr ""
 "Error nº 492479 corregido (el reemplazo de archivo debe mostrar la fecha y "
 "el tamaño de los archivos)"
 
-#: C/releases.xml:156(para)
+#: C/releases.xml:159(para)
 msgid ""
 "Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct "
 "access)"
@@ -228,7 +233,7 @@ msgstr ""
 "Error nº 617140 corregido (objetivo de GNOME: usar funciones de acceso en "
 "vez de accesos directos)"
 
-#: C/releases.xml:159(para)
+#: C/releases.xml:162(para)
 msgid ""
 "Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, "
 "bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)"
@@ -236,38 +241,38 @@ msgstr ""
 "Errores nº 632064, nº 632208, nº 633107, nº 633167, nº 633331, nº 634972, nº "
 "637873 y nº 638059 corregidos (errores en gnome-commander-help.master.po)"
 
-#: C/releases.xml:162(para)
+#: C/releases.xml:165(para)
 msgid "Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)"
 msgstr "Error nº 660043 corregido (atajo «ALT+Abajo» no documentado)"
 
-#: C/releases.xml:165(para)
+#: C/releases.xml:168(para)
 msgid "Fixed problem bgo#660268 (remember directory history between sessions)"
 msgstr ""
 "Error nº 660268 corregido (recordar el histórico de carpetas entre sesiones)"
 
-#: C/releases.xml:168(para)
+#: C/releases.xml:171(para)
 msgid "Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)"
 msgstr ""
 "Error nº 667080 corregido (valor predeterminado al eliminar es Sí/Aceptar)"
 
-#: C/releases.xml:171(para)
+#: C/releases.xml:174(para)
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
 msgstr "Error de Ubuntu nº 117226 corregido (unificación de marcadores)"
 
-#: C/releases.xml:174(para)
+#: C/releases.xml:177(para)
 msgid "Fixed problem with right mouse button selection not being precise"
 msgstr ""
 "Corregido el error de la selección con el botón derecho del ratón no precisa"
 
-#: C/releases.xml:177(para)
+#: C/releases.xml:180(para)
 msgid "Fixed problem bgo#696227 (detect and support libgsf &gt;= 1.14.26)"
 msgstr "Error nº 696227 corregido (detectar y soportar libgsf &gt;= 1.14.26)"
 
-#: C/releases.xml:180(para)
+#: C/releases.xml:183(para)
 msgid "Fixed problem bgo#684527 (Fixed typos in strings)"
 msgstr "Error nº 684527 corregido (corregidos errores en cadenas)"
 
-#: C/releases.xml:183(para)
+#: C/releases.xml:186(para)
 msgid ""
 "Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view."
 "dir_history)"
@@ -275,93 +280,93 @@ msgstr ""
 "Error nº 660063 corregido (definir ALT+Abajo como definible por el usuario: "
 "view.dir_history)"
 
-#: C/releases.xml:186(para)
+#: C/releases.xml:189(para)
 msgid "Fixed problem bgo#642178 (lock tabs for prev/next buttons)"
 msgstr ""
 "Error nº 642178 corregido (bloquear pestañas para botones anterior/siguiente)"
 
-#: C/releases.xml:194(para) C/gnome-commander.xml:373(para)
+#: C/releases.xml:197(para) C/gnome-commander.xml:373(para)
 msgid "Support for tabs"
 msgstr "Soporte para pestañas"
 
-#: C/releases.xml:197(para)
+#: C/releases.xml:200(para)
 msgid "Revamped bookmarks dialog"
 msgstr "Diálogo de marcadores renovado"
 
-#: C/releases.xml:200(para)
+#: C/releases.xml:203(para)
 msgid "Revamped file properties dialog"
 msgstr "Diálogo de propiedades de archivo renovado"
 
-#: C/releases.xml:203(para) C/gnome-commander.xml:376(para)
+#: C/releases.xml:206(para) C/gnome-commander.xml:376(para)
 msgid "One instance mode"
 msgstr "Modo de una instancia"
 
-#: C/releases.xml:206(para)
+#: C/releases.xml:209(para)
 msgid "New colour theme: green tiger"
 msgstr "Nuevo tema de color: tigre verde"
 
-#: C/releases.xml:209(para)
+#: C/releases.xml:212(para)
 msgid "User defined LS_COLORS colours"
 msgstr "Colores LS_COLORS definidos por el usuario"
 
-#: C/releases.xml:212(para)
+#: C/releases.xml:215(para)
 msgid "Possibility to select/deselect files only"
 msgstr "Posibilidad de seleccionar/deseleccionar archivos solamente"
 
-#: C/releases.xml:215(para)
+#: C/releases.xml:218(para)
 msgid "Support for automatic width counters in advanced file rename"
 msgstr ""
 "Soporte para contadores de anchura automática en el renombrado avanzado de "
 "archivos"
 
-#: C/releases.xml:218(para)
+#: C/releases.xml:221(para)
 msgid "Enhanced file name matching in quick search"
 msgstr "Coincidencia de nombres de archivos mejorada en la búsqueda rápida"
 
-#: C/releases.xml:221(para)
+#: C/releases.xml:224(para)
 msgid "Open terminal with administrator privileges"
 msgstr "Abrir terminal con privilegios de administrador"
 
-#: C/releases.xml:224(para)
+#: C/releases.xml:227(para)
 msgid "Prompt to confirm drag &amp; drop operations"
 msgstr "Preguntar para confirmar las operaciones de «arrastrar y soltar»"
 
-#: C/releases.xml:227(para)
+#: C/releases.xml:230(para)
 msgid "Right click popup menu for copying in internal viewer"
 msgstr ""
 "Pulsar con el botón derecho en el menú contextual para copiar al visor "
 "interno"
 
-#: C/releases.xml:230(para)
+#: C/releases.xml:233(para)
 msgid ""
 "--config-dir command line option for customized location of config files"
 msgstr ""
 "--config-dir opción de línea de comandos para la ubicación personalizada de "
 "los archivos de configuración"
 
-#: C/releases.xml:233(para)
+#: C/releases.xml:236(para)
 msgid "Several speed improvements including C++ rework and code cleanups"
 msgstr ""
 "Varias mejoras en la velocidad, incluyendo reescritura en C++ y limpieza del "
 "código"
 
-#: C/releases.xml:236(para)
+#: C/releases.xml:239(para)
 msgid "New python plugin: 'apply_patch'"
 msgstr "Complementos Python nuevo: «apply_patch»"
 
-#: C/releases.xml:239(para)
+#: C/releases.xml:242(para)
 msgid "Dropped broken MIME type configuration"
 msgstr "Eliminada la configuración de tipo MIME roto"
 
-#: C/releases.xml:242(para)
+#: C/releases.xml:245(para)
 msgid "Dropped support for cvs plugin"
 msgstr "Eliminado el soporte del complemento de csv"
 
-#: C/releases.xml:245(para)
+#: C/releases.xml:248(para)
 msgid "New or updated docs: cs, de, en, es, el, fr, ru, sl"
 msgstr "Documentos nuevos o actualizados: cs, de, en, es, el, fr, ru, sl"
 
-#: C/releases.xml:248(para)
+#: C/releases.xml:251(para)
 msgid ""
 "New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, nb, "
 "pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
@@ -369,15 +374,15 @@ msgstr ""
 "Traducciones nuevas o actualizadas: ca, cs, da, eo, es, eu, fr, hu, it, ja, "
 "ko, nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
 
-#: C/releases.xml:251(para) C/releases.xml:802(para) C/releases.xml:940(para)
-#: C/releases.xml:1060(para) C/releases.xml:1155(para)
-#: C/releases.xml:1229(para) C/releases.xml:1301(para)
-#: C/releases.xml:1382(para) C/releases.xml:1462(para)
-#: C/releases.xml:1531(para)
+#: C/releases.xml:254(para) C/releases.xml:805(para) C/releases.xml:943(para)
+#: C/releases.xml:1063(para) C/releases.xml:1158(para)
+#: C/releases.xml:1232(para) C/releases.xml:1304(para)
+#: C/releases.xml:1385(para) C/releases.xml:1465(para)
+#: C/releases.xml:1534(para)
 msgid "New key bindings:"
 msgstr "Nuevas combinaciones de teclas:"
 
-#: C/releases.xml:254(para)
+#: C/releases.xml:257(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> Open directory "
 "in a new tab (replaces the old Multi-Rename-Tool binding)"
@@ -386,7 +391,7 @@ msgstr ""
 "en una pestaña nueva (reemplaza la antigua asociación Herramienta de multi-"
 "renombrado)"
 
-#: C/releases.xml:257(para)
+#: C/releases.xml:260(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Close current "
 "tab"
@@ -394,7 +399,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Cerrar la "
 "pestaña actual"
 
-#: C/releases.xml:260(para)
+#: C/releases.xml:263(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
 "keycombo> Close all tabs"
@@ -402,7 +407,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>Mayús</keycap><keycap>W</keycap></"
 "keycombo> Cerrar todas las pestañas"
 
-#: C/releases.xml:263(para)
+#: C/releases.xml:266(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Switch to the "
 "next tab"
@@ -410,7 +415,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Cambiar a la "
 "siguiente pestaña"
 
-#: C/releases.xml:266(para)
+#: C/releases.xml:269(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></"
 "keycombo> Switch to the previous tab"
@@ -418,7 +423,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>Mayús</keycap><keycap>TAB</keycap></"
 "keycombo> Cambiar a la pestaña anterior"
 
-#: C/releases.xml:269(para)
+#: C/releases.xml:272(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Change left "
 "connection"
@@ -426,7 +431,7 @@ msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Cambiar "
 "conexión izquierda"
 
-#: C/releases.xml:272(para)
+#: C/releases.xml:275(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Change right "
 "connection"
@@ -434,183 +439,183 @@ msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Cambiar "
 "conexión derecha"
 
-#: C/releases.xml:281(para)
+#: C/releases.xml:284(para)
 msgid "1.2.8.17"
 msgstr "1.2.8.17"
 
-#: C/releases.xml:282(para)
+#: C/releases.xml:285(para)
 msgid "2014-01-12"
 msgstr "12/01/2014"
 
-#: C/releases.xml:288(para)
+#: C/releases.xml:291(para)
 msgid "Fixed problem bgo#721132 (Support build with -Werror=format-security)"
 msgstr ""
 "Error nº 721132 corregido (soporte para construir con -Werror=format-"
 "security)"
 
-#: C/releases.xml:291(para)
+#: C/releases.xml:294(para)
 msgid "Updated GCMD home page location in source code"
 msgstr "Actualizada la ubicación de la página web de GXMD en el código fuente"
 
-#: C/releases.xml:294(para)
+#: C/releases.xml:297(para)
 msgid "Updated translations: es, id, pt_BR"
 msgstr "Traducciones actualizadas: es, id, pt_BR"
 
-#: C/releases.xml:301(para)
+#: C/releases.xml:304(para)
 msgid "1.2.8.16"
 msgstr "1.2.8.16"
 
-#: C/releases.xml:302(para)
+#: C/releases.xml:305(para)
 msgid "2013-12-23"
 msgstr "23/12/2013"
 
-#: C/releases.xml:308(para)
+#: C/releases.xml:311(para)
 msgid "Fixed gcc-4.7 compiling problem"
 msgstr "Corregidos error de compilación con gcc-4.7"
 
-#: C/releases.xml:311(para)
+#: C/releases.xml:314(para)
 msgid "Fixed problem bgo#705724 (poppler &gt;= 0.24)"
 msgstr "Error nº 705724 corregido (poppler &gt;= 0.24)"
 
-#: C/releases.xml:314(para)
+#: C/releases.xml:317(para)
 msgid "Fixed problem bgo#676303 (poppler &gt;= 0.20.0)"
 msgstr "Error nº 676303 corregido (poppler &gt;= 0.20.0)"
 
-#: C/releases.xml:317(para)
+#: C/releases.xml:320(para)
 msgid "New or updated docs: de, el, fr"
 msgstr "Documentos nuevos o actualizados: de, el, fr"
 
-#: C/releases.xml:320(para)
+#: C/releases.xml:323(para)
 msgid "Updated translations: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 msgstr ""
 "Actualizaciones nuevas o actualizadas: da, de, el, fr, hu, id, pt_br, ru, "
 "sl, th"
 
-#: C/releases.xml:327(para)
+#: C/releases.xml:330(para)
 msgid "1.2.8.15"
 msgstr "1.2.8.15"
 
-#: C/releases.xml:328(para) C/gnome-commander.xml:304(date)
+#: C/releases.xml:331(para) C/gnome-commander.xml:304(date)
 msgid "2011-12-06"
 msgstr "2011-12-06"
 
-#: C/releases.xml:334(para)
+#: C/releases.xml:337(para)
 msgid "Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)"
 msgstr ""
 "Error nº 65372 corregido (faltaban enlaces en la documentación de gcmd-1.2.8)"
 
-#: C/releases.xml:337(para)
+#: C/releases.xml:340(para)
 msgid "New or updated docs: cs, de, es, fr"
 msgstr "Documentos nuevos o actualizados: cs, de, es, fr"
 
-#: C/releases.xml:340(para)
+#: C/releases.xml:343(para)
 msgid "Updated translations: eo, es, sl"
 msgstr "Traducciones actualizadas: eo, es, sl"
 
-#: C/releases.xml:347(para)
+#: C/releases.xml:350(para)
 msgid "1.2.8.14"
 msgstr "1.2.8.14"
 
-#: C/releases.xml:348(para) C/gnome-commander.xml:294(date)
+#: C/releases.xml:351(para) C/gnome-commander.xml:294(date)
 msgid "2011-10-04"
 msgstr "2011-10-04"
 
-#: C/releases.xml:354(para)
+#: C/releases.xml:357(para)
 msgid "Fixed problem #621756 (custom port for ftp is not saved)"
 msgstr "Error nº 621756 corregido (puerto de FTP personalizado no guardado)"
 
-#: C/releases.xml:357(para)
+#: C/releases.xml:360(para)
 msgid "Fixed problem #657780 (bugs in nl.po)"
 msgstr "Error nº 657780 corregido (errores en nl.po)"
 
-#: C/releases.xml:364(para)
+#: C/releases.xml:367(para)
 msgid "1.2.8.13"
 msgstr "1.2.8.13"
 
-#: C/releases.xml:365(para) C/gnome-commander.xml:284(date)
+#: C/releases.xml:368(para) C/gnome-commander.xml:284(date)
 msgid "2011-08-06"
 msgstr "2011-08-06"
 
-#: C/releases.xml:371(para)
+#: C/releases.xml:374(para)
 msgid "Fixed problem #646871 (crash on file properties when connected to FTP)"
 msgstr ""
 "Error nº 646871 corregido (error en las propiedades de un archivo estando "
 "conectado a un FTP)"
 
-#: C/releases.xml:378(para)
+#: C/releases.xml:381(para)
 msgid "1.2.8.12"
 msgstr "1.2.8.12"
 
-#: C/releases.xml:379(para) C/gnome-commander.xml:274(date)
+#: C/releases.xml:382(para) C/gnome-commander.xml:274(date)
 msgid "2011-06-15"
 msgstr "2011-06-15"
 
-#: C/releases.xml:385(para)
+#: C/releases.xml:388(para)
 msgid "Fixed problem #618214 (crash when cancel a search)"
 msgstr "Error nº 618214 corregido (error al cancelar una búsqueda)"
 
-#: C/releases.xml:388(para)
+#: C/releases.xml:391(para)
 msgid ""
 "Fixed problem #640387 (yet another fix for deprecated python modules: md5, "
 "sha1)"
 msgstr ""
 "Error nº 640387 (otro parche para módulos de python obsoletos: md5, sha1)"
 
-#: C/releases.xml:391(para)
+#: C/releases.xml:394(para)
 msgid "Fixed problem #649375 (bookmarks not updated for newly added ones)"
 msgstr ""
 "Error nº 649375 corregido (marcadores no actualizados con los últimos "
 "añadidos)"
 
-#: C/releases.xml:394(para)
+#: C/releases.xml:397(para)
 msgid "Fixed problem with mkdir permissions"
 msgstr "Corregido el error con los permisos de «mkdir»"
 
-#: C/releases.xml:401(para)
+#: C/releases.xml:404(para)
 msgid "1.2.8.11"
 msgstr "1.2.8.11"
 
-#: C/releases.xml:402(para) C/gnome-commander.xml:264(date)
+#: C/releases.xml:405(para) C/gnome-commander.xml:264(date)
 msgid "2011-05-01"
 msgstr "2011-05-01"
 
-#: C/releases.xml:408(para)
+#: C/releases.xml:411(para)
 msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgstr "Error nº 639243 corregido (documentos erróneos para el atajo F2)"
 
-#: C/releases.xml:411(para)
+#: C/releases.xml:414(para)
 msgid "Fixed problem #640387 (usage of deprecated python modules: md5, sha1)"
 msgstr ""
 "Error nº 640387 corregido (uso de módulos de python obsoletos: md5, sha1)"
 
-#: C/releases.xml:414(para)
+#: C/releases.xml:417(para)
 msgid "Fixed problem with starting GNOME Commander as root"
 msgstr "Corregido el error al iniciar GNOME Commander como superusuario"
 
-#: C/releases.xml:417(para)
+#: C/releases.xml:420(para)
 msgid "Fixed problem with Traditional Chinese translation"
 msgstr "Corregido un error con la traducción al chino tradicional"
 
-#: C/releases.xml:425(para)
+#: C/releases.xml:428(para)
 msgid "Support for backward/forward mouse buttons"
 msgstr "Soporte para los botones adelante/atrás del ratón"
 
-#: C/releases.xml:432(para)
+#: C/releases.xml:435(para)
 msgid "1.2.8.10"
 msgstr "1.2.8.10"
 
-#: C/releases.xml:433(para) C/gnome-commander.xml:254(date)
+#: C/releases.xml:436(para) C/gnome-commander.xml:254(date)
 msgid "2011-01-15"
 msgstr "2011-01-15"
 
-#: C/releases.xml:439(para)
+#: C/releases.xml:442(para)
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
 "Error nº 448941 corregido (las flechas del teclado numérico no funcionan en "
 "la ventana principal)"
 
-#: C/releases.xml:442(para)
+#: C/releases.xml:445(para)
 msgid ""
 "Fixed problem #620275 (add menu item to copy full path and file name to "
 "clipboard)"
@@ -618,13 +623,13 @@ msgstr ""
 "Error nº 620275 corregido (añadir el elemento de menú para copiar la ruta "
 "completa y nombre de archivo al portapapeles)"
 
-#: C/releases.xml:445(para)
+#: C/releases.xml:448(para)
 msgid "Fixed problem #637501 (advrename: metatag popup menu shows wrong items)"
 msgstr ""
 "Error nº 637501 (renombrado avanzado: la metaetiqueta del menú emergente "
 "muestra elementos erróneos)"
 
-#: C/releases.xml:448(para)
+#: C/releases.xml:451(para)
 msgid ""
 "Fixed problem with toggling path/basename/filename selections in copy/move "
 "dialogs"
@@ -632,48 +637,48 @@ msgstr ""
 "Corregido el error al alternar la ruta/nombre base/nombre del archivo de la "
 "selecciones en los diálogos de copiar/mover"
 
-#: C/releases.xml:451(para)
+#: C/releases.xml:454(para)
 msgid "Fixed problem with searching path for devices"
 msgstr "Corregido el error al buscar rutas de dispositivos"
 
-#: C/releases.xml:454(para)
+#: C/releases.xml:457(para)
 msgid "Updated translations: de"
 msgstr "Traducciones nuevas: de"
 
-#: C/releases.xml:461(para)
+#: C/releases.xml:464(para)
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
-#: C/releases.xml:462(para) C/gnome-commander.xml:244(date)
+#: C/releases.xml:465(para) C/gnome-commander.xml:244(date)
 msgid "2010-12-03"
 msgstr "2010-12-03"
 
-#: C/releases.xml:468(para)
+#: C/releases.xml:471(para)
 msgid "Fixed problem #352024 (F10 key doesn't work)"
 msgstr "Error nº 352024 corregido (la tecla F10 no funciona)"
 
-#: C/releases.xml:471(para)
+#: C/releases.xml:474(para)
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
 msgstr ""
 "Error nº 631243 corregido (regresión de renombrado avanzado de $c(width))"
 
-#: C/releases.xml:479(para)
+#: C/releases.xml:482(para)
 msgid "Support for shell-style wildcards in quick search"
 msgstr "Soporte para comodines tipo shell en la búsqueda rápida"
 
-#: C/releases.xml:486(para)
+#: C/releases.xml:489(para)
 msgid "1.2.8.8"
 msgstr "1.2.8.8"
 
-#: C/releases.xml:487(para) C/gnome-commander.xml:234(date)
+#: C/releases.xml:490(para) C/gnome-commander.xml:234(date)
 msgid "2010-09-09"
 msgstr "2010-09-09"
 
-#: C/releases.xml:493(para)
+#: C/releases.xml:496(para)
 msgid "Fixed problem #610764 (menu item won't stay checked)"
 msgstr "Error nº 610764 corregido (elemento de menú no permanecerá marcado)"
 
-#: C/releases.xml:496(para)
+#: C/releases.xml:499(para)
 msgid ""
 "Fixed problem #626469 (add support for other su-like programs: xdg-su, "
 "gnomesu)"
@@ -681,204 +686,204 @@ msgstr ""
 "Error nº 626469 corregido (añadido soporte para otros programas tipo «su»: "
 "xdg-su, gnomesu)"
 
-#: C/releases.xml:499(para)
+#: C/releases.xml:502(para)
 msgid "Fixed problem with broken Spanish translation"
 msgstr "Corregido el error con traducción al español rota"
 
-#: C/releases.xml:506(para)
+#: C/releases.xml:509(para)
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
-#: C/releases.xml:507(para) C/gnome-commander.xml:224(date)
+#: C/releases.xml:510(para) C/gnome-commander.xml:224(date)
 msgid "2010-07-27"
 msgstr "2010-07-27"
 
-#: C/releases.xml:513(para)
+#: C/releases.xml:516(para)
 msgid "Fixed problem #540438 (no GUI message if meld cannot be executed)"
 msgstr ""
 "Error nº 540438 corregido (sin mensaje en el IGU si no se puede ejecutar "
 "meld)"
 
-#: C/releases.xml:516(para)
+#: C/releases.xml:519(para)
 msgid "Fixed problem #616367 (\"File not found\" dialog after startup)"
 msgstr ""
 "Error nº 616367 corregido (diálogo de \"Archivo no encontrado\" después de "
 "iniciar)"
 
-#: C/releases.xml:519(para)
+#: C/releases.xml:522(para)
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr ""
 "Error nº 620650 corregido (desbordamiento de buffer en load_fav_apps())"
 
-#: C/releases.xml:522(para)
+#: C/releases.xml:525(para)
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
 msgstr ""
 "Error nº 622456 corregido (no construir complementos como objetos de "
 "librería compartida)"
 
-#: C/releases.xml:525(para)
+#: C/releases.xml:528(para)
 msgid "Fixed problem with editing options for favourite apps and devices"
 msgstr ""
 "Corregido el error al editar opciones de aplicaciones favoritas y "
 "dispositivos"
 
-#: C/releases.xml:532(para)
+#: C/releases.xml:535(para)
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
-#: C/releases.xml:533(para) C/gnome-commander.xml:214(date)
+#: C/releases.xml:536(para) C/gnome-commander.xml:214(date)
 msgid "2010-06-01"
 msgstr "2010-06-01"
 
-#: C/releases.xml:539(para)
+#: C/releases.xml:542(para)
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
 "Errores nº 600292 y nº 612685 corregidos (error al hacer doble click en un "
 "marcador)"
 
-#: C/releases.xml:542(para)
+#: C/releases.xml:545(para)
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Error nº 602795 corregido (búsqueda en el contenido de un archivo)"
 
-#: C/releases.xml:545(para)
+#: C/releases.xml:548(para)
 msgid "Fixed problem #609912 (build error with --as-needed)"
 msgstr "Error nº 609912 corregido (error de construcción con --as-needed)"
 
-#: C/releases.xml:548(para)
+#: C/releases.xml:551(para)
 msgid "Fixed problem #616891 (build error on RHEL 5.5)"
 msgstr "Error nº 616891 corregido (error de construcción en RHEL 5.5)"
 
-#: C/releases.xml:556(para)
+#: C/releases.xml:559(para)
 msgid "New translations: ko"
 msgstr "Traducciones nuevas: ko"
 
-#: C/releases.xml:563(para)
+#: C/releases.xml:566(para)
 msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
-#: C/releases.xml:564(para) C/gnome-commander.xml:205(date)
+#: C/releases.xml:567(para) C/gnome-commander.xml:205(date)
 msgid "2010-02-13"
 msgstr "2010-02-13"
 
-#: C/releases.xml:570(para)
+#: C/releases.xml:573(para)
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr "Error nº 604558 corregido (cursor perdido/ubicado en posición errónea)"
 
-#: C/releases.xml:573(para)
+#: C/releases.xml:576(para)
 msgid "Fixed problem #604904 (build error on OpenSolaris)"
 msgstr "Error nº 604904 corregido (error de construcción en OpenSolaris)"
 
-#: C/releases.xml:576(para)
+#: C/releases.xml:579(para)
 msgid "Fixed problem #609342 (do not show mtime for '..')"
 msgstr "Error nº 609342 corregido (no mostrar mtime para «..»)"
 
-#: C/releases.xml:579(para)
+#: C/releases.xml:582(para)
 msgid "Fixed problem with editing connections to Windows network"
 msgstr "Corregido el error al editar conexiones a una red Windows"
 
-#: C/releases.xml:582(para)
+#: C/releases.xml:585(para)
 msgid "Fixed problem with nonexistent user actions"
 msgstr "Corregido el error con acciones de usuarios no existentes"
 
-#: C/releases.xml:589(para)
+#: C/releases.xml:592(para)
 msgid "1.2.8.4"
 msgstr "1.2.8.4"
 
-#: C/releases.xml:590(para) C/gnome-commander.xml:196(date)
+#: C/releases.xml:593(para) C/gnome-commander.xml:196(date)
 msgid "2009-12-03"
 msgstr "2009-12-03"
 
-#: C/releases.xml:596(para)
+#: C/releases.xml:599(para)
 msgid "Fixed problem #602916 (not working menu entry)"
 msgstr "Error nº 602916 corregido (entrada de menú que no funcionaba)"
 
-#: C/releases.xml:599(para)
+#: C/releases.xml:602(para)
 msgid "Fixed problem #603301 (crash when cancelling symlink creation by ESC)"
 msgstr ""
 "Error nº 603301 corregido (error al cancelar con ESC la creación de un "
 "enlace simbólico)"
 
-#: C/releases.xml:602(para)
+#: C/releases.xml:605(para)
 msgid "Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)"
 msgstr ""
 "Error de Ubuntu nº 369818 corregido (ordenación por tamaño incorrecta en el "
 "panel)"
 
-#: C/releases.xml:605(para)
+#: C/releases.xml:608(para)
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
 "Corregido el error de la tecla intro que no funcionaba en el diálogo de "
 "copiar/mover"
 
-#: C/releases.xml:608(para)
+#: C/releases.xml:611(para)
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
 "Arreglado el problema del teclado bloqueado después de ALT+1/2 con la lista "
 "de dispositivos ocultos"
 
-#: C/releases.xml:615(para)
+#: C/releases.xml:618(para)
 msgid "1.2.8.3"
 msgstr "1.2.8.3"
 
-#: C/releases.xml:616(para) C/gnome-commander.xml:187(date)
+#: C/releases.xml:619(para) C/gnome-commander.xml:187(date)
 msgid "2009-10-28"
 msgstr "2009-10-28"
 
-#: C/releases.xml:622(para)
+#: C/releases.xml:625(para)
 msgid "Fixed problem #541891 (file names with % in advanced file rename tool)"
 msgstr ""
 "Error nº 541891 corregido (nombres de archivo con % en herramienta avanzada "
 "de renombrado de archivos)"
 
-#: C/releases.xml:625(para)
+#: C/releases.xml:628(para)
 msgid "Fixed problem #581645 (uncomfortable quick search)"
 msgstr "Error nº 581645 corregido (búsqueda rápida incómoda)"
 
-#: C/releases.xml:628(para)
+#: C/releases.xml:631(para)
 msgid "Fixed problem #596768 (build warnings for python)"
 msgstr "Error nº 596768 corregido (advertencias de construcción en python)"
 
-#: C/releases.xml:631(para)
+#: C/releases.xml:634(para)
 msgid "Fixed problem #596973 (documentation build error)"
 msgstr "Error nº 596973 corregido (error de construcción de la documentación)"
 
-#: C/releases.xml:634(para)
+#: C/releases.xml:637(para)
 msgid "Fixed problem #597144 (missing call to pclose)"
 msgstr "Error nº 597144 corregido (llamada a pclose no encontrada)"
 
-#: C/releases.xml:637(para)
+#: C/releases.xml:640(para)
 msgid "Fixed problem #597233 (validating of doc translations)"
 msgstr "Error nº 597233 corregido (validación de traducciones de documentos)"
 
-#: C/releases.xml:640(para)
+#: C/releases.xml:643(para)
 msgid "Fixed problem #597890 (wrong arguments passed to meld)"
 msgstr "Error nº 597890 corregido (argumentos pasados a meld incorrectos)"
 
-#: C/releases.xml:643(para)
+#: C/releases.xml:646(para)
 msgid "Fixed problem #598278 (memory leak)"
 msgstr "Error nº 598278 corregido (fuga de memoria)"
 
-#: C/releases.xml:650(para)
+#: C/releases.xml:653(para)
 msgid "1.2.8.2"
 msgstr "1.2.8.2"
 
-#: C/releases.xml:651(para) C/gnome-commander.xml:178(date)
+#: C/releases.xml:654(para) C/gnome-commander.xml:178(date)
 msgid "2009-09-22"
 msgstr "2009-09-22"
 
-#: C/releases.xml:657(para)
+#: C/releases.xml:660(para)
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
 msgstr ""
 "Error nº 591944 corregido (permisos establecidos a 000 después de chmod)"
 
-#: C/releases.xml:660(para)
+#: C/releases.xml:663(para)
 msgid "Fixed problem #595097 (build error for poppler &gt;= 0.11.3)"
 msgstr ""
 "Error nº 595097 corregido (error de construcción de poppler &gt;= 0.11.3)"
 
-#: C/releases.xml:663(para)
+#: C/releases.xml:666(para)
 msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
@@ -886,33 +891,33 @@ msgstr ""
 "Corregido el error de Debian nº 438884 (etiqueta de dispositivo incorrecta "
 "al cambiar entre paneles con CTRL+U)"
 
-#: C/releases.xml:666(para)
+#: C/releases.xml:669(para)
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
 msgstr ""
 "Corregido el error de icono de archivo roto después de renombrar un enlace "
 "simbólico"
 
-#: C/releases.xml:673(para)
+#: C/releases.xml:676(para)
 msgid "1.2.8.1"
 msgstr "1.2.8"
 
-#: C/releases.xml:674(para) C/gnome-commander.xml:169(date)
+#: C/releases.xml:677(para) C/gnome-commander.xml:169(date)
 msgid "2009-08-10"
 msgstr "2001-08-02"
 
-#: C/releases.xml:680(para)
+#: C/releases.xml:683(para)
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr "Error nº 587325 corregido (error en un entorno chroot limpio)"
 
-#: C/releases.xml:683(para)
+#: C/releases.xml:686(para)
 msgid "Fixed problem #589108 (build error on openSUSE)"
 msgstr "Error nº 589108 corregido (error de construcción en openSUSE)"
 
-#: C/releases.xml:686(para)
+#: C/releases.xml:689(para)
 msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr "Error nº 591206 corregido (error durante sysconf() en FreeBSD)"
 
-#: C/releases.xml:689(para)
+#: C/releases.xml:692(para)
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename "
 "templates"
@@ -920,38 +925,38 @@ msgstr ""
 "Corregido el error de formato del contador $c(16) en plantillas avanzadas de "
 "renombrado de archivos"
 
-#: C/releases.xml:696(para)
+#: C/releases.xml:699(para)
 msgid "1.2.8"
 msgstr "1.2.8"
 
-#: C/releases.xml:697(para) C/gnome-commander.xml:160(date)
+#: C/releases.xml:700(para) C/gnome-commander.xml:160(date)
 msgid "2009-06-29"
 msgstr "2009-06-29"
 
-#: C/releases.xml:703(para)
+#: C/releases.xml:706(para)
 msgid ""
 "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
 "Error nº 375357 corregido (error al cancelar el cálculo de las propiedades "
 "de la carpeta)"
 
-#: C/releases.xml:706(para)
+#: C/releases.xml:709(para)
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr ""
 "Error nº 536446 corregido (nombre del archivo sin foco en el renombrado "
 "directo)"
 
-#: C/releases.xml:709(para)
+#: C/releases.xml:712(para)
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgstr "Error nº 539812 corregido (error al borrar archivos: it.po roto)"
 
-#: C/releases.xml:712(para)
+#: C/releases.xml:715(para)
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr ""
 "Error nº 548947 corregido (problema con la configuración regional de la "
 "fecha no UTF-8)"
 
-#: C/releases.xml:715(para)
+#: C/releases.xml:718(para)
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 "
 "characters)"
@@ -959,48 +964,48 @@ msgstr ""
 "Error nº 548948 corregido (error cuando la carpeta personal contiene "
 "caracteres que no son UTF-8)"
 
-#: C/releases.xml:718(para)
+#: C/releases.xml:721(para)
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
 "Error nº 548961 corregido (soporte para método de entrada al renombrar o "
 "hacer una búsqueda rápida)"
 
-#: C/releases.xml:721(para)
+#: C/releases.xml:724(para)
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
 msgstr "Error nº 554586 corregido (problema con la macro AC_PROG_CXX)"
 
-#: C/releases.xml:724(para)
+#: C/releases.xml:727(para)
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
 msgstr "Error nº 554598 corregido (objetivo de GNOME: LINGUAS)"
 
-#: C/releases.xml:727(para)
+#: C/releases.xml:730(para)
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr ""
 "Error nº 556664 corregido (no se pueden guardar marcadores de dispositivos "
 "montados)"
 
-#: C/releases.xml:730(para)
+#: C/releases.xml:733(para)
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
 msgstr ""
 "Error nº 567404 corregido (error al pulsar INSERTAR sobre una subcarpeta)"
 
-#: C/releases.xml:733(para)
+#: C/releases.xml:736(para)
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr ""
 "Error nº 556836 corregido (desplazamiento del panel al moverse entre los "
 "paneles)"
 
-#: C/releases.xml:736(para)
+#: C/releases.xml:739(para)
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr ""
 "Error nº 567506 corregido (inicio lento en sistemas con muchos usuarios)"
 
-#: C/releases.xml:739(para)
+#: C/releases.xml:742(para)
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
 msgstr "Error nº 570727 corregido (uso de gnome_url_show obsoleto)"
 
-#: C/releases.xml:742(para)
+#: C/releases.xml:745(para)
 msgid ""
 "Fixed problem #571239 (replacing obsoleted GnomeColorPicker with "
 "GtkColorButton)"
@@ -1008,11 +1013,11 @@ msgstr ""
 "Problema nº 571239 corregido (reemplazo del obsoleto GnomeColorPicker por "
 "GtkColorButton)"
 
-#: C/releases.xml:745(para)
+#: C/releases.xml:748(para)
 msgid "Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)"
 msgstr "Error nº 571247 (reemplazo del obsoleto GnomePixmap por GtkImage)"
 
-#: C/releases.xml:748(para)
+#: C/releases.xml:751(para)
 msgid ""
 "Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with "
 "GTK_STOCK_* counterparts)"
@@ -1020,7 +1025,7 @@ msgstr ""
 "Error nº 571558 corregido (reemplazo de los botones GNOME_STOCK_* obsoletos "
 "por sus GTK_STOCK_* homólogos)"
 
-#: C/releases.xml:751(para)
+#: C/releases.xml:754(para)
 msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
@@ -1028,45 +1033,45 @@ msgstr ""
 "Error nº 576174 corregido (ordenación por nombre de archivo no sensible a "
 "mayúsculas en la configuración regional en_US.utf8)"
 
-#: C/releases.xml:754(para)
+#: C/releases.xml:757(para)
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
 msgstr "Error nº 579633 (acceso a permisos de administrador con gksudo)"
 
-#: C/releases.xml:757(para)
+#: C/releases.xml:760(para)
 msgid "Fixed problem #583135 (disabled 'Go to' button in search dialog)"
 msgstr ""
 "Error nº 583135 corregido (desactivado el botón «Ir a» en el diálogo de "
 "búsqueda)"
 
-#: C/releases.xml:760(para)
+#: C/releases.xml:763(para)
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr ""
 "Error nº 583711 corregido (error al pulsar ESC en el diálogo de marcadores)"
 
-#: C/releases.xml:763(para)
+#: C/releases.xml:766(para)
 msgid "Fixed problem #584727 (wrong positioning of file popup menu)"
 msgstr ""
 "Error nº 584727 corregido (posicionamiento incorrecto del menú emergente)"
 
-#: C/releases.xml:766(para)
+#: C/releases.xml:769(para)
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
 "Corregido el error al establecer el mismo tamaño para los paneles en modo "
 "horizontal"
 
-#: C/releases.xml:769(para)
+#: C/releases.xml:772(para)
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr ""
 "Corregido el error al actualizar la información MIME después de renombrar un "
 "archivo"
 
-#: C/releases.xml:777(para)
+#: C/releases.xml:780(para)
 msgid "Support for PDF metatags in advanced file rename templates"
 msgstr ""
 "Soporte para meta-etiquetas PDF en plantillas avanzadas de renombrado de "
 "archivos"
 
-#: C/releases.xml:780(para)
+#: C/releases.xml:783(para)
 msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
@@ -1075,28 +1080,28 @@ msgstr ""
 "atras en expresiones regulares («\\number»), perfiles, conversión entre "
 "mayúsculas/minúsculas, eliminación de espacios en blanco y mucho más)"
 
-#: C/releases.xml:784(para)
+#: C/releases.xml:787(para)
 msgid "Support for metadata tags in internal viewer"
 msgstr "Soporte para metadatos en el visor interno"
 
-#: C/releases.xml:787(para)
+#: C/releases.xml:790(para)
 msgid "Support for single-click open mode"
 msgstr "Soporte para modo de apertura con una sola pulsación"
 
-#: C/releases.xml:790(para)
+#: C/releases.xml:793(para)
 msgid "Support for row alternate background in colour themes"
 msgstr ""
 "Soporte para alternar el color de fondo de las columnas en temas de color"
 
-#: C/releases.xml:793(para)
+#: C/releases.xml:796(para)
 msgid "New colour theme: cafezinho"
 msgstr "Nuevo tema de color: cafezinho"
 
-#: C/releases.xml:796(para)
+#: C/releases.xml:799(para)
 msgid "New or updated docs: de, en, es"
 msgstr "Documentos nuevos o actualizados: de, en, es"
 
-#: C/releases.xml:799(para)
+#: C/releases.xml:802(para)
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, "
 "sv"
@@ -1104,7 +1109,7 @@ msgstr ""
 "Traducciones nuevas o actualizadas: ar, cs, de, es, eu, fr, it, ja, pl, "
 "pt_BR, sl, sv"
 
-#: C/releases.xml:805(para)
+#: C/releases.xml:808(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the "
 "history list for the command line"
@@ -1112,11 +1117,11 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Abrir el "
 "histórico de la línea de comandos"
 
-#: C/releases.xml:810(para)
+#: C/releases.xml:813(para)
 msgid "New internal viewer key bindings:"
 msgstr "Nuevas asociaciones de teclas para el visor interno"
 
-#: C/releases.xml:813(para)
+#: C/releases.xml:816(para)
 msgid ""
 "<keycombo><keycap>T</keycap></keycombo> Show metadata tags (replaces the old "
 "E)"
@@ -1124,7 +1129,7 @@ msgstr ""
 "<keycombo><keycap>T</keycap></keycombo> Mostrar etiquetas de metadatos "
 "(reemplaza al antiguo E)"
 
-#: C/releases.xml:816(para)
+#: C/releases.xml:819(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo> Show "
 "metadata tags"
@@ -1132,61 +1137,61 @@ msgstr ""
 "<keycombo><keycap>ALT</keycap><keycap>INTRO</keycap></keycombo> Mostrar "
 "etiquetas de metadatos"
 
-#: C/releases.xml:825(para)
+#: C/releases.xml:828(para)
 msgid "1.2.7"
 msgstr "1.2.7"
 
-#: C/releases.xml:826(para) C/gnome-commander.xml:151(date)
+#: C/releases.xml:829(para) C/gnome-commander.xml:151(date)
 msgid "2008-07-28"
 msgstr "2008-07-28"
 
-#: C/releases.xml:832(para)
+#: C/releases.xml:835(para)
 msgid "Fixed problem #522430 (quick search for files starting with uppercase)"
 msgstr ""
 "Erro nº 522430 corregido (búsqueda rápida de archivos que empiezan por "
 "mayúscula)"
 
-#: C/releases.xml:835(para)
+#: C/releases.xml:838(para)
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr ""
 "Error nº 532615 corregido (archivo de operaciones sobre un archivo "
 "incorrecto)"
 
-#: C/releases.xml:838(para)
+#: C/releases.xml:841(para)
 msgid "Fixed problem #538806 (quick search in root dir)"
 msgstr "Error nº 538806 corregido (búsqueda rápida en la carpeta raíz)"
 
-#: C/releases.xml:841(para)
+#: C/releases.xml:844(para)
 msgid "Fixed problem #539753 (build error on Solaris)"
 msgstr "Error nº 539753 corregido (error de construcción en Solaris)"
 
-#: C/releases.xml:844(para)
+#: C/releases.xml:847(para)
 msgid "Fixed problem #541404 (update of host names)"
 msgstr "Error nº 541404 corregido (actualización de nombres de equipos)"
 
-#: C/releases.xml:847(para)
+#: C/releases.xml:850(para)
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr ""
 "Corregido el error al ordenar en la herramienta avanzada de renombrado de "
 "archivos"
 
-#: C/releases.xml:850(para) C/releases.xml:1019(para)
-#: C/releases.xml:1103(para)
+#: C/releases.xml:853(para) C/releases.xml:1022(para)
+#: C/releases.xml:1106(para)
 msgid "Build fixes"
 msgstr "Correcciones de construcción"
 
-#: C/releases.xml:858(para)
+#: C/releases.xml:861(para)
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
 "Soporte para todos los protocolos de red GnomeVFS (incluyendo SSH+FTP y "
 "WebDAV)"
 
-#: C/releases.xml:861(para)
+#: C/releases.xml:864(para)
 msgid "User defined shortcuts to arbitrary programs"
 msgstr "Atajos definidos por el usuario para programas arbitrarios"
 
-#: C/releases.xml:864(para)
+#: C/releases.xml:867(para)
 msgid ""
 "Copying selected URIs to clipboard with <keycombo><keycap>ALT</"
 "keycap><keycap>click</keycap></keycombo> on toolbar button"
@@ -1195,61 +1200,61 @@ msgstr ""
 "keycap><keycap>pulsación</keycap></keycombo> en el botón de la barra de "
 "herramientas"
 
-#: C/releases.xml:867(para) C/releases.xml:928(para)
+#: C/releases.xml:870(para) C/releases.xml:931(para)
 msgid "Revamped search dialog"
 msgstr "Diálogo de búsqueda renovado"
 
-#: C/releases.xml:870(para)
+#: C/releases.xml:873(para)
 msgid "Revamped transfer progress dialog"
 msgstr "Diálogo de progreso de transferencia renovado"
 
-#: C/releases.xml:873(para) C/releases.xml:934(para) C/releases.xml:1054(para)
-#: C/releases.xml:1149(para) C/releases.xml:1223(para)
-#: C/releases.xml:1295(para)
+#: C/releases.xml:876(para) C/releases.xml:937(para) C/releases.xml:1057(para)
+#: C/releases.xml:1152(para) C/releases.xml:1226(para)
+#: C/releases.xml:1298(para)
 msgid "Updated help docs"
 msgstr "Documentos de ayuda actualizados"
 
-#: C/releases.xml:876(para)
+#: C/releases.xml:879(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr ""
 "Traducciones nuevas o actualizadas: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
-#: C/releases.xml:883(para)
+#: C/releases.xml:886(para)
 msgid "1.2.6"
 msgstr "1.2.6"
 
-#: C/releases.xml:884(para) C/gnome-commander.xml:142(date)
+#: C/releases.xml:887(para) C/gnome-commander.xml:142(date)
 msgid "2008-06-01"
 msgstr "2008-06-01"
 
-#: C/releases.xml:890(para)
+#: C/releases.xml:893(para)
 msgid "Fixed problem #392959 (dynamically changing user to root)"
 msgstr "Error nº 392959 corregido (cambio dinámico de usuario a root)"
 
-#: C/releases.xml:893(para)
+#: C/releases.xml:896(para)
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
 msgstr "Error nº 496150 corregido (desplazamiento con la rueda del ratón)"
 
-#: C/releases.xml:896(para)
+#: C/releases.xml:899(para)
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
 msgstr ""
 "Corregido el problema nº 499761 (limpieza de la pantalla de búsqueda al "
 "ordenar las columnas)"
 
-#: C/releases.xml:899(para)
+#: C/releases.xml:902(para)
 msgid "Fixed problem #499764 (multiple selection problem)"
 msgstr "Error nº 499764 corregido (problema de selección múltiple)"
 
-#: C/releases.xml:902(para)
+#: C/releases.xml:905(para)
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgstr "Corregido el error al ordenar nombres de archivos codificados en UTF-8"
 
-#: C/releases.xml:905(para)
+#: C/releases.xml:908(para)
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr ""
 "Corregido el error al copiar archivos a carpetas enlazados simbólicamente"
 
-#: C/releases.xml:908(para)
+#: C/releases.xml:911(para)
 msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
@@ -1257,26 +1262,26 @@ msgstr ""
 "Corregido el error de manejo de la ruta completa del archivo al copiar/mover "
 "a dispositivos montados"
 
-#: C/releases.xml:916(para)
+#: C/releases.xml:919(para)
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
 msgstr "Modo root para iniciar GNOME con privilegios de administrador"
 
-#: C/releases.xml:919(para)
+#: C/releases.xml:922(para)
 msgid "GUI for keyboard shortcuts management"
 msgstr "IGU para la gestión de los atajos de teclado"
 
-#: C/releases.xml:922(para) C/gnome-commander.xml:7025(para)
+#: C/releases.xml:925(para) C/gnome-commander.xml:7025(para)
 msgid "Open the current location in Nautilus file manager"
 msgstr "Abrir la ubicación actual en el gestor de archivos Nautilus"
 
-#: C/releases.xml:925(para)
+#: C/releases.xml:928(para)
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
 "Herramienta de multi-renombrado: nuevos parámetros de sustitución «$x» y "
 "«$X» para números decimales aleatorios"
 
-#: C/releases.xml:931(para)
+#: C/releases.xml:934(para)
 msgid ""
 "Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since "
 "GTK+ 2.10)"
@@ -1284,7 +1289,7 @@ msgstr ""
 "Soporte para los modificadores &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; "
 "(desde GTK+ 2.10)"
 
-#: C/releases.xml:937(para)
+#: C/releases.xml:940(para)
 msgid ""
 "New or updated translations: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, pl, "
 "sl"
@@ -1292,33 +1297,33 @@ msgstr ""
 "Traducciones nuevas o actualizadas: cs, de, en_GB, es, eu, fi, fr, hu, it, "
 "oc, pl, sl"
 
-#: C/releases.xml:943(para)
+#: C/releases.xml:946(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Buscar archivos"
 
-#: C/releases.xml:952(para)
+#: C/releases.xml:955(para)
 msgid "1.2.5"
 msgstr "1.2.5"
 
-#: C/releases.xml:953(para) C/gnome-commander.xml:133(date)
+#: C/releases.xml:956(para) C/gnome-commander.xml:133(date)
 msgid "2008-02-29"
 msgstr "2008-02-29"
 
-#: C/releases.xml:959(para)
+#: C/releases.xml:962(para)
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr ""
 "Error nº 345314 corregido (cursor que no se mantiene sobre el archivo "
 "mientras se renombra)"
 
-#: C/releases.xml:962(para)
+#: C/releases.xml:965(para)
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr ""
 "Error nº 353889 corregido (archivos que desaparecen después de un fallo al "
 "mover (F6))"
 
-#: C/releases.xml:965(para)
+#: C/releases.xml:968(para)
 msgid ""
 "Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in "
 "renaming tool)"
@@ -1326,139 +1331,139 @@ msgstr ""
 "Corregidos los problemas nº 346286, nº 424447, nº 447882 y nº 467058 (error "
 "al usar expresiones regulares en la herramienta de renombrado)"
 
-#: C/releases.xml:968(para)
+#: C/releases.xml:971(para)
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr ""
 "Errores nº 365227 y nº 446361 corregidos (problemas de construcción en "
 "Solaris)"
 
-#: C/releases.xml:971(para)
+#: C/releases.xml:974(para)
 msgid "Fixed problem #424159 (column sort problem)"
 msgstr "Error nº 424159 corregido (problema de ordenación de columnas)"
 
-#: C/releases.xml:974(para)
+#: C/releases.xml:977(para)
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr ""
 "Error nº 434545 corregido (error de Debian nº 421480: iconos de dispositivos "
 "enormes)"
 
-#: C/releases.xml:977(para)
+#: C/releases.xml:980(para)
 msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr "Error nº 447415 corregido (imposibilidad de iniciar ejecutables)"
 
-#: C/releases.xml:980(para)
+#: C/releases.xml:983(para)
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
 "Error nº 448942 corregido (MAYÚS+INTRO: ejecutar un comando en una terminal "
 "aparte)"
 
-#: C/releases.xml:983(para)
+#: C/releases.xml:986(para)
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
 "Error nº 449137 corregido (carpetas renombradas no accedidas por el nombre)"
 
-#: C/releases.xml:986(para)
+#: C/releases.xml:989(para)
 msgid "Fixed problem #468685 (crash in python module)"
 msgstr "Error nº 468685 corregido (error en el módulo de python)"
 
-#: C/releases.xml:989(para)
+#: C/releases.xml:992(para)
 msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr "Error nº 490431 corregido (ver archivos cuyo nombre contiene «%»)"
 
-#: C/releases.xml:992(para)
+#: C/releases.xml:995(para)
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
 "Error nº 508565 corregido (manejo inadecuado de UTF-8 en herramienta "
 "avanzada de renombrado de archivos)"
 
-#: C/releases.xml:995(para)
+#: C/releases.xml:998(para)
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
 msgstr "Error nº 510567 corregido (afirmación fallida al borrar una carpeta)"
 
-#: C/releases.xml:998(para)
+#: C/releases.xml:1001(para)
 msgid "Fixed problem when creating ~/dir"
 msgstr "Corregido el error al crear ~/dir"
 
-#: C/releases.xml:1001(para)
+#: C/releases.xml:1004(para)
 msgid "Fixed problem with updating of internal viewer status bar"
 msgstr "Corregido el error al actualizar la barra de estado del visor interno"
 
-#: C/releases.xml:1004(para)
+#: C/releases.xml:1007(para)
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
 "Corregido el error al crear una carpeta con una ruta absoluta en una carpeta "
 "SMB compartida"
 
-#: C/releases.xml:1007(para)
+#: C/releases.xml:1010(para)
 msgid "Fixed crash when moving file with % in the name"
 msgstr "Corregido el error al mover un archivo con % en el nombre"
 
-#: C/releases.xml:1010(para)
+#: C/releases.xml:1013(para)
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr ""
 "Corregido el error de pérdidas esporádicas del cursor en el panel de archivos"
 
-#: C/releases.xml:1013(para)
+#: C/releases.xml:1016(para)
 msgid "Fixed problem with mounting of devices with spaces in the name"
 msgstr "Corregido el error al montar dispositivos con espacios en el nombre"
 
-#: C/releases.xml:1016(para)
+#: C/releases.xml:1019(para)
 msgid "Fixed problem with history of advrename templates"
 msgstr ""
 "Corregido el problema con el el histórico de plantillas de renombrado "
 "avanzado"
 
-#: C/releases.xml:1027(para)
+#: C/releases.xml:1030(para)
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
 "Soporte para metaetiquetas APE, FLAC y Vorbis en plantillas avanzadas de "
 "renombrado de archivos"
 
-#: C/releases.xml:1030(para)
+#: C/releases.xml:1033(para)
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr ""
 "Soporte para metaetiquetas de notas de marcador Exif en plantillas avanzadas "
 "de renombrado de archivos"
 
-#: C/releases.xml:1033(para)
+#: C/releases.xml:1036(para)
 msgid "Support for file metatags in advanced file rename templates"
 msgstr ""
 "Soporte para metaetiquetas en plantillas avanzadas de renombrado de archivos"
 
-#: C/releases.xml:1036(para)
+#: C/releases.xml:1039(para)
 msgid "Use the GNOME authentication manager for user's security credentials"
 msgstr ""
 "Use el Gestor de autenticación de GNOME para administrar las credenciales de "
 "seguridad del usuario"
 
-#: C/releases.xml:1039(para)
+#: C/releases.xml:1042(para)
 msgid "Metadata tags in file properties dialog"
 msgstr "Etiquetas de metadatos en el diálogo de propiedades del archivo"
 
-#: C/releases.xml:1042(para) C/gnome-commander.xml:7029(para)
+#: C/releases.xml:1045(para) C/gnome-commander.xml:7029(para)
 msgid "Open terminal in the current directory"
 msgstr "Abrir una terminal en la carpeta actual"
 
-#: C/releases.xml:1045(para)
+#: C/releases.xml:1048(para)
 msgid "Default GNOME theme icons for home, SMB and FTP locations"
 msgstr ""
 "Iconos del tema predeterminado de GNOME para las ubicaciones carpeta "
 "personal, SMB y FTP"
 
-#: C/releases.xml:1048(para)
+#: C/releases.xml:1051(para)
 msgid "User defined shortcuts to bookmarks"
 msgstr "Atajos definidos por el usuario para marcadores"
 
-#: C/releases.xml:1051(para) C/gnome-commander.xml:7085(para)
+#: C/releases.xml:1054(para) C/gnome-commander.xml:7085(para)
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Enviar archivos por correo-e o mensajería instantánea (usando nautilus-"
 "sendto)"
 
-#: C/releases.xml:1057(para)
+#: C/releases.xml:1060(para)
 msgid ""
 "New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
@@ -1466,7 +1471,7 @@ msgstr ""
 "Traducciones nuevas o actualizadas: ar, bg, cs, de, dz, eo, es, eu, fr, oc, "
 "pl, pt_BR, ro, sl, sv"
 
-#: C/releases.xml:1063(para)
+#: C/releases.xml:1066(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>LEFT/RIGHT</keycap></keycombo> "
 "Copying the current working directory from the active file list to the "
@@ -1475,7 +1480,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>IZQUIERDA/DERECHA</keycap></keycombo> "
 "Copiar la carpeta actual de la lista de archivos activos a la de inactivos"
 
-#: C/releases.xml:1066(para)
+#: C/releases.xml:1069(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> Open new "
 "connection to remote server (replaces the old <keycombo><keycap>CTRL</"
@@ -1485,102 +1490,102 @@ msgstr ""
 "conexión nueva con un servidor remoto (reemplaza al antiguo "
 "<keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo>)"
 
-#: C/releases.xml:1075(para)
+#: C/releases.xml:1078(para)
 msgid "1.2.4"
 msgstr "1.2.4"
 
-#: C/releases.xml:1076(para) C/gnome-commander.xml:124(date)
+#: C/releases.xml:1079(para) C/gnome-commander.xml:124(date)
 msgid "2007-06-09"
 msgstr "2007-06-09"
 
-#: C/releases.xml:1082(para)
+#: C/releases.xml:1085(para)
 msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Corregido el error al abrir carpetas con el visor interno"
 
-#: C/releases.xml:1085(para)
+#: C/releases.xml:1088(para)
 msgid "Fixed problem with editing dirs by GNOME Commander"
 msgstr "Corregido el error al editar carpetas con GNOME Commander"
 
-#: C/releases.xml:1088(para)
+#: C/releases.xml:1091(para)
 msgid "Fixed problem #351952 (crash while doing a content search)"
 msgstr "Error nº 351952 corregido (error al hacer una búsqueda de contenidos)"
 
-#: C/releases.xml:1091(para)
+#: C/releases.xml:1094(para)
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr ""
 "Error nº 352253 corregido (comportamiento del desplazamiento en el visor)"
 
-#: C/releases.xml:1094(para)
+#: C/releases.xml:1097(para)
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
 msgstr "Error nº 360175 corregido (error al introducir una carpeta con %)"
 
-#: C/releases.xml:1097(para)
+#: C/releases.xml:1100(para)
 msgid "Fixed problem #371948 and #388970 (file path not escaped)"
 msgstr "Errores #371948 y #388970 corregidos (rutas de archivos no escapadas)"
 
-#: C/releases.xml:1100(para)
+#: C/releases.xml:1103(para)
 msgid "Fixed problem #412162 (build with --enable-python=no)"
 msgstr "Error nº 412162 corregido (construcción con --enable-python=no)"
 
-#: C/releases.xml:1111(para)
+#: C/releases.xml:1114(para)
 msgid "Support for python plugins"
 msgstr "Soporte para complementos python"
 
-#: C/releases.xml:1114(para)
+#: C/releases.xml:1117(para)
 msgid "New python plugins:"
 msgstr "Complementos python nuevos:"
 
-#: C/releases.xml:1117(para)
+#: C/releases.xml:1120(para)
 msgid "<command>md5sum</command> Create MD5 (128-bit) checksum"
 msgstr "<command>md5sum</command> Crear resumen MD5 (128-bit)"
 
-#: C/releases.xml:1120(para)
+#: C/releases.xml:1123(para)
 msgid "<command>sha1sum</command> Create SHA-1 (160-bit) checksum"
 msgstr "<command>sha1sum</command> Crear resumen SHA-1 (160-bit)"
 
-#: C/releases.xml:1125(para)
+#: C/releases.xml:1128(para)
 msgid "Support for OLE and ODF metatags in advanced file rename templates"
 msgstr ""
 "Soporte para metaetiquetas OLE y ODF en plantillas avanzadas de renombrado "
 "de archivos"
 
-#: C/releases.xml:1128(para)
+#: C/releases.xml:1131(para)
 msgid "User defined shortcuts"
 msgstr "Atajos definidos por el usuario"
 
-#: C/releases.xml:1131(para)
+#: C/releases.xml:1134(para)
 msgid "SMB authentication"
 msgstr "Autenticación SMB"
 
-#: C/releases.xml:1134(para)
+#: C/releases.xml:1137(para)
 msgid "Displaying total size of files in selected subirs"
 msgstr ""
 "Mostrar el tamaño total de los archivos en las subcarpetas seleccionadas"
 
-#: C/releases.xml:1137(para)
+#: C/releases.xml:1140(para)
 msgid "'cd -' for changing to the previous working directory"
 msgstr "«cd -» para cambiar a la carpeta previa de trabajo"
 
-#: C/releases.xml:1140(para)
+#: C/releases.xml:1143(para)
 msgid "More intuitive usage of diff tool"
 msgstr "Uso más intuitivo de la herramienta diff"
 
-#: C/releases.xml:1143(para)
+#: C/releases.xml:1146(para)
 msgid "Directory synchronizing"
 msgstr "Sincronizar carpetas"
 
-#: C/releases.xml:1146(para)
+#: C/releases.xml:1149(para)
 msgid "Creating directories 'mkdir -p' like"
 msgstr "Crear carpetas de la forma «mkdir -p»"
 
-#: C/releases.xml:1152(para)
+#: C/releases.xml:1155(para)
 msgid ""
 "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
 "Traducciones nuevas o actualizadas: ar, bg, cs, dz, en_GB, fr, it, oc, pl, "
 "sl, sv"
 
-#: C/releases.xml:1158(para)
+#: C/releases.xml:1161(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Go to the root "
 "directory"
@@ -1588,7 +1593,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Ir a la "
 "carpeta raíz"
 
-#: C/releases.xml:1161(para)
+#: C/releases.xml:1164(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Go to the home "
 "directory"
@@ -1596,7 +1601,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Ir a la carpeta "
 "personal"
 
-#: C/releases.xml:1164(para)
+#: C/releases.xml:1167(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Create MD5 (128-"
 "bit) checksum"
@@ -1604,7 +1609,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Crear suma MD5 "
 "(128 bits)"
 
-#: C/releases.xml:1167(para)
+#: C/releases.xml:1170(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo> Copy selected file names to clipboard"
@@ -1612,62 +1617,62 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>C</keycap></"
 "keycombo> Copiar los archivos seleccionados al portapepeles"
 
-#: C/releases.xml:1176(para)
+#: C/releases.xml:1179(para)
 msgid "1.2.3"
 msgstr "1.2.3"
 
-#: C/releases.xml:1177(para) C/releases.xml:1191(para)
+#: C/releases.xml:1180(para) C/releases.xml:1194(para)
 #: C/gnome-commander.xml:115(date)
 msgid "2006-12-11"
 msgstr "2006-12-11"
 
-#: C/releases.xml:1183(para)
+#: C/releases.xml:1186(para)
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr ""
 "Error nº 384752 corregido (permisos incorrectos para las carpetas nuevas)"
 
-#: C/releases.xml:1190(para)
+#: C/releases.xml:1193(para)
 msgid "1.2.2"
 msgstr "1.2.2"
 
-#: C/releases.xml:1197(para)
+#: C/releases.xml:1200(para)
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr ""
 "Corregido el error al crear enlaces simbólicos para múltiples archivos "
 "seleccionados"
 
-#: C/releases.xml:1200(para)
+#: C/releases.xml:1203(para)
 msgid "Fixed problem with grouping of file size digits"
 msgstr "Corregido el error de agrupación de dígitos de tamaño del archivo"
 
-#: C/releases.xml:1203(para)
+#: C/releases.xml:1206(para)
 msgid "Fixed problem with SMB UNC handling"
 msgstr "Corregido el error de manejo de SMB UNC"
 
-#: C/releases.xml:1206(para)
+#: C/releases.xml:1209(para)
 msgid "Fixed problem #367744 (filename not correctly displayed)"
 msgstr ""
 "Error nº 367744 corregido (nombres de archivo mostrados incorrectamente)"
 
-#: C/releases.xml:1209(para)
+#: C/releases.xml:1212(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr "Error nº 374282 corregido (búsqueda con enlaces simbólicos recursivos)"
 
-#: C/releases.xml:1212(para)
+#: C/releases.xml:1215(para)
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
 msgstr "Error nº 377706 corregido (seleccionar archivos con Mayús+AvPág)"
 
-#: C/releases.xml:1220(para)
+#: C/releases.xml:1223(para)
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr ""
 "Soporte para meta-etiquetas ID3 en plantillas avanzadas de renombrado de "
 "archivos"
 
-#: C/releases.xml:1226(para)
+#: C/releases.xml:1229(para)
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
 msgstr "Traducciones nuevas o actualizadas: ar, en_GB, es, fi, it, pl, sv"
 
-#: C/releases.xml:1232(para)
+#: C/releases.xml:1235(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo> Set both panels equal"
@@ -1675,48 +1680,48 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>=</keycap></"
 "keycombo> Configurar igual ambos paneles"
 
-#: C/releases.xml:1241(para)
+#: C/releases.xml:1244(para)
 msgid "1.2.1"
 msgstr "1.2.1"
 
-#: C/releases.xml:1242(para)
+#: C/releases.xml:1245(para)
 msgid "2006-10-16"
 msgstr "2006-10-16"
 
-#: C/releases.xml:1248(para)
+#: C/releases.xml:1251(para)
 msgid "Fixed problem with scrollkeeper database update"
 msgstr ""
 "Corregido el error de actualización de la base de datos de scrollkeeper"
 
-#: C/releases.xml:1251(para)
+#: C/releases.xml:1254(para)
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr ""
 "Corregido el error cuando el indicador de carpeta de la línea de comandos "
 "está vacío"
 
-#: C/releases.xml:1254(para)
+#: C/releases.xml:1257(para)
 msgid "Fixed problem with refreshing after chown or chmod"
 msgstr "Corregido el error al refrescar después de chown o chmod"
 
-#: C/releases.xml:1257(para)
+#: C/releases.xml:1260(para)
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
 "Error nº 333898 corregido (sufijo de icono obsoleto en archivo del "
 "escritorio)"
 
-#: C/releases.xml:1260(para)
+#: C/releases.xml:1263(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr ""
 "Error nº 347561 corregido (carpeta de complementos configurada "
 "incorrectamente)"
 
-#: C/releases.xml:1263(para)
+#: C/releases.xml:1266(para)
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr ""
 "Error nº 347817 corregido (uso incorrecto de las opciones del enlazador del "
 "Makefile)"
 
-#: C/releases.xml:1271(para)
+#: C/releases.xml:1274(para)
 msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
@@ -1724,40 +1729,40 @@ msgstr ""
 "Soporte para archivos (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) a "
 "través del complemento File-Roller"
 
-#: C/releases.xml:1274(para)
+#: C/releases.xml:1277(para)
 msgid "New python-like indices for advanced file rename templates"
 msgstr ""
 "Nuevos índices estilo python para las plantillas avanzadas de renombrado de "
 "archivos"
 
-#: C/releases.xml:1277(para)
+#: C/releases.xml:1280(para)
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
 msgstr ""
 "Soporte para metaetiquetas Exif e IPTC en plantillas avanzadas de renombrado "
 "de archivos"
 
-#: C/releases.xml:1280(para)
+#: C/releases.xml:1283(para)
 msgid "Fast access to advrename template placeholders"
 msgstr ""
 "Acceso rápido a marcadores de posición de plantillas de renombrado avanzado"
 
-#: C/releases.xml:1283(para)
+#: C/releases.xml:1286(para)
 msgid "In-place rename (SHIFT+F6)"
 msgstr "Renombrado directo (Mayús+F6)"
 
-#: C/releases.xml:1286(para)
+#: C/releases.xml:1289(para)
 msgid "Revamped application menus"
 msgstr "Menús de aplicación renovados"
 
-#: C/releases.xml:1289(para)
+#: C/releases.xml:1292(para)
 msgid "\"Find\" feature for internal viewer"
 msgstr "Característica «buscar» para el visor interno"
 
-#: C/releases.xml:1292(para)
+#: C/releases.xml:1295(para)
 msgid "New icon for internal viewer"
 msgstr "Icono nuevo para el visor interno"
 
-#: C/releases.xml:1298(para)
+#: C/releases.xml:1301(para)
 msgid ""
 "New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, "
 "pl, ru, sv, vi"
@@ -1765,7 +1770,7 @@ msgstr ""
 "Traducciones nuevas o actualizadas: ca, cs, de, el, en_GB, es, eu, fi, hu, "
 "it, ne, pl, ru, sv, vi"
 
-#: C/releases.xml:1304(para)
+#: C/releases.xml:1307(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo> Toggle hidden files on/off"
@@ -1773,49 +1778,49 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>H</keycap></"
 "keycombo> Activar/desactivar archivos ocultos"
 
-#: C/releases.xml:1313(para)
+#: C/releases.xml:1316(para)
 msgid "1.2.0"
 msgstr "1.2.0"
 
-#: C/releases.xml:1314(para)
+#: C/releases.xml:1317(para)
 msgid "2006-05-12"
 msgstr "2006-05-12"
 
-#: C/releases.xml:1320(para)
+#: C/releases.xml:1323(para)
 msgid "Fixed problem #171051 (crashes on search with non-existent path)"
 msgstr "Error nº 171051 corregido (error al buscar en una ruta que no existe)"
 
-#: C/releases.xml:1323(para)
+#: C/releases.xml:1326(para)
 msgid "Fixed problem with the lack of gnome menu entry"
 msgstr "Corregido el error de pérdida entradas en el menú de GNOME"
 
-#: C/releases.xml:1326(para)
+#: C/releases.xml:1329(para)
 msgid "Fixed a crash when viewing SMB connections"
 msgstr "Corregido el error al ver conexiones SMB"
 
-#: C/releases.xml:1329(para)
+#: C/releases.xml:1332(para)
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr ""
 "Error nº 309877 corregido (artefactos extraños cuando se hace desplazamiento "
 "horizontal)"
 
-#: C/releases.xml:1332(para)
+#: C/releases.xml:1335(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr ""
 "Error nº 332258 corregido (parámetro de carpeta de inicio derecha/izquierda)"
 
-#: C/releases.xml:1335(para)
+#: C/releases.xml:1338(para)
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
 msgstr ""
 "Error nº 332261 (exec_prefix análisis incorrecto durante configure/makefiles)"
 
-#: C/releases.xml:1338(para)
+#: C/releases.xml:1341(para)
 msgid "Fixed problem #336649 (permission numbers presentation)"
 msgstr "Error nº 336649 corregido (presentación de permisos numéricos)"
 
-#: C/releases.xml:1341(para)
+#: C/releases.xml:1344(para)
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
@@ -1823,72 +1828,72 @@ msgstr ""
 "Corregido un problema de errores al usar expresiones regulares rotas o no "
 "coincidentes en herramienta avanzada de renombrado de archivos"
 
-#: C/releases.xml:1349(para)
+#: C/releases.xml:1352(para)
 msgid "Monitoring of mounted volumes"
 msgstr "Monitorizar los volúmenes montados"
 
-#: C/releases.xml:1352(para)
+#: C/releases.xml:1355(para)
 msgid "Rewritten internal viewer"
 msgstr "Visor interno reescrito"
 
-#: C/releases.xml:1355(para)
+#: C/releases.xml:1358(para)
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
 msgstr ""
 "Herramientas externas y visor de etiquetas Exif/IPTC para el visor interno"
 
-#: C/releases.xml:1358(para)
+#: C/releases.xml:1361(para)
 msgid "Zooming for internal viewer"
 msgstr "Ampliación para el visor interno"
 
-#: C/releases.xml:1361(para)
+#: C/releases.xml:1364(para)
 msgid "Text selection for internal viewer"
 msgstr "Selección de texto para el visor interno"
 
-#: C/releases.xml:1364(para)
+#: C/releases.xml:1367(para)
 msgid "Revamped toolbar layout"
 msgstr "Distribución de la barra de herramientas renovada"
 
-#: C/releases.xml:1367(para)
+#: C/releases.xml:1370(para)
 msgid "Options for controlling copy and move overwriting"
 msgstr "Opciones para controlar la sobreescritura al copiar o mover"
 
-#: C/releases.xml:1370(para)
+#: C/releases.xml:1373(para)
 msgid "Copying selected full file paths with SHIFT+click on toolbar button"
 msgstr ""
 "Copiar las rutas de archivo completas seleccionadas con MAYÚS+pulsación en "
 "la barra de herramientas"
 
-#: C/releases.xml:1373(para)
+#: C/releases.xml:1376(para)
 msgid "Better handling the change of the column sorting key"
 msgstr "Mejor manejo del cambio de clave de ordenación de la columna"
 
-#: C/releases.xml:1376(para)
+#: C/releases.xml:1379(para)
 msgid "Initial doc framework"
 msgstr "Esqueleto inicial del documento"
 
-#: C/releases.xml:1379(para)
+#: C/releases.xml:1382(para)
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 msgstr ""
 "Actualizaciones nuevas o actualizadas: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 
-#: C/releases.xml:1385(para)
+#: C/releases.xml:1388(para)
 msgid ""
 "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
 "viewer"
 msgstr ""
 "<keycombo><keycap>MAYÚS</keycap><keycap>F3</keycap></keycombo> Visor externo"
 
-#: C/releases.xml:1388(para)
+#: C/releases.xml:1391(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External viewer"
 msgstr ""
 "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> Visor externo"
 
-#: C/releases.xml:1391(para)
+#: C/releases.xml:1394(para)
 msgid "<keycap>ALT+letters</keycap> Quick search"
 msgstr "<keycap>ALT+letras</keycap> Búsqueda rápida"
 
-#: C/releases.xml:1394(para)
+#: C/releases.xml:1397(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo> Deselecting all files"
@@ -1896,35 +1901,35 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>A</keycap></"
 "keycombo> Deseleccionar todos los archivos"
 
-#: C/releases.xml:1403(para)
+#: C/releases.xml:1406(para)
 msgid "1.1.7"
 msgstr "1.1.7"
 
-#: C/releases.xml:1404(para)
+#: C/releases.xml:1407(para)
 msgid "2006-02-12"
 msgstr "2006-02-12"
 
-#: C/releases.xml:1410(para)
+#: C/releases.xml:1413(para)
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr ""
 "Corregido el error cuando se intenta copiar los archivos actualmente "
 "seleccionados"
 
-#: C/releases.xml:1413(para)
+#: C/releases.xml:1416(para)
 msgid "Fixed filename escaping"
 msgstr "Corregido el escapado de nombres de archivo"
 
-#: C/releases.xml:1416(para)
+#: C/releases.xml:1419(para)
 msgid "Fixed CTRL+ALT+letter bad responsiveness when typing too fast"
 msgstr ""
 "Corregida la mala capacidad de respuesta de CTRL+ALT+letra cuando se escribe "
 "muy rápido"
 
-#: C/releases.xml:1419(para)
+#: C/releases.xml:1422(para)
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
 msgstr "Error nº 288933 de Debian (errores de compilación en amd64/gcc-4.0)"
 
-#: C/releases.xml:1422(para)
+#: C/releases.xml:1425(para)
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory "
 "to itself)"
@@ -1932,7 +1937,7 @@ msgstr ""
 "Error nº 138933 corregido (recursividad infinita al arrastrar y soltar una "
 "carpeta sobre sí misma)"
 
-#: C/releases.xml:1425(para)
+#: C/releases.xml:1428(para)
 msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
@@ -1940,23 +1945,23 @@ msgstr ""
 "Corregido el error del botón «desconectar», que no se comportaba "
 "correctamente al conectarse a servidores ftp estando en modo supermount"
 
-#: C/releases.xml:1430(para)
+#: C/releases.xml:1433(para)
 msgid "Fixed update after renaming without FAM"
 msgstr "Corregida la actualización después de renombrar sin FAM"
 
-#: C/releases.xml:1438(para)
+#: C/releases.xml:1441(para)
 msgid "New GNOME Commander logo"
 msgstr "Nuevo logo de GNOME Commander"
 
-#: C/releases.xml:1441(para)
+#: C/releases.xml:1444(para)
 msgid "Added internal F3 viewer"
 msgstr "Añadido el visor F3 interno"
 
-#: C/releases.xml:1444(para)
+#: C/releases.xml:1447(para)
 msgid "Copying selected filename(s) to clipboard"
 msgstr "Copiar los nombres de archivo seleccionados al portapapeles"
 
-#: C/releases.xml:1447(para)
+#: C/releases.xml:1450(para)
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <keycap>CTRL"
 "+SHIFT+ENTER</keycap>"
@@ -1964,27 +1969,27 @@ msgstr ""
 "Insertar la ruta completa del archivo seleccionado en la línea de comandos "
 "cuando se pulse <keycap>CTRL+MAYÚS+INTRO</keycap>"
 
-#: C/releases.xml:1450(para)
+#: C/releases.xml:1453(para)
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 "Herramienta de multi-renombrado - nuevo parámetro de sustitución para la "
 "carpeta abuela"
 
-#: C/releases.xml:1453(para)
+#: C/releases.xml:1456(para)
 msgid ""
 "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
 "Ahora los botones de la barra de herramientas (cortar, copiar y pegar) son "
 "sensibles al estado actual"
 
-#: C/releases.xml:1456(para)
+#: C/releases.xml:1459(para)
 msgid ""
 "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
 "El diálogo Administrar marcadores ahora es accesible a través del acceso "
 "directo a marcadores"
 
-#: C/releases.xml:1459(para)
+#: C/releases.xml:1462(para)
 msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
@@ -1992,7 +1997,7 @@ msgstr ""
 "Traducciones nuevas o actualizadas: el, en_CA, en_GB, eu, ga, hu, nb, ne, "
 "no, pa, pt_BR, rw, uk, zh_TW"
 
-#: C/releases.xml:1465(para)
+#: C/releases.xml:1468(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Multi-Rename-"
 "Tool"
@@ -2000,7 +2005,7 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Herramienta de "
 "renombrado múltiple"
 
-#: C/releases.xml:1468(para)
+#: C/releases.xml:1471(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></"
 "keycombo> Copying the current working directory from the active file list to "
@@ -2010,14 +2015,14 @@ msgstr ""
 "keycombo> Copiar la carpeta actual de trabajo de la lista de archivos "
 "activos a la de inactivos"
 
-#: C/releases.xml:1471(para)
+#: C/releases.xml:1474(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all files"
 msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Seleccionar "
 "todos los archivos"
 
-#: C/releases.xml:1474(para)
+#: C/releases.xml:1477(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Unselect all "
 "files"
@@ -2025,37 +2030,37 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Deseleccionar "
 "todos los archivos"
 
-#: C/releases.xml:1477(para)
+#: C/releases.xml:1480(para)
 msgid "<keycap>=</keycap> Select files using a pattern"
 msgstr "<keycap>=</keycap> Seleccionar archivos usando un patrón"
 
-#: C/releases.xml:1486(para)
+#: C/releases.xml:1489(para)
 msgid "1.1.6"
 msgstr "1.1.6"
 
-#: C/releases.xml:1487(para)
+#: C/releases.xml:1490(para)
 msgid "2004-01-20"
 msgstr "2004-01-20"
 
-#: C/releases.xml:1493(para)
+#: C/releases.xml:1496(para)
 msgid ""
 "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
 "Corregido el error al navegar hacia atrás en el histórico y entrar en otra "
 "carpeta"
 
-#: C/releases.xml:1496(para)
+#: C/releases.xml:1499(para)
 msgid "Fixed ftp-quick-connect problems"
 msgstr "Corregidos los errores de conexión ftp rápida"
 
-#: C/releases.xml:1499(para)
+#: C/releases.xml:1502(para)
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr ""
 "Ahora se puede iniciar la función de búsqueda rápida escribiendo letras "
 "mayúsculas"
 
-#: C/releases.xml:1502(para)
+#: C/releases.xml:1505(para)
 msgid ""
 "<keycap>CTRL+ALT</keycap> no longer needs to be used to activate quick-"
 "search when the cmdline is hidden"
@@ -2063,13 +2068,13 @@ msgstr ""
 "ya no se debe usar <keycap> CTRL + ALT </keycap> para activar la búsqueda "
 "rápida cuando la línea de comandos está oculta"
 
-#: C/releases.xml:1510(para)
+#: C/releases.xml:1513(para)
 msgid "Updated the cvs-plugin so that it can be used to diff and log files"
 msgstr ""
 "Actualizado el complemento de cvs para que se pueda usar para obtener "
 "diferencias y registros de archivos"
 
-#: C/releases.xml:1513(para)
+#: C/releases.xml:1516(para)
 msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
@@ -2077,13 +2082,13 @@ msgstr ""
 "Usar texto en negrita en vez de subrayado en el indicador de carpeta cuando "
 "se señala con el cursor del ratón"
 
-#: C/releases.xml:1516(para)
+#: C/releases.xml:1519(para)
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr ""
 "Ahora la etiqueta cwd es seleccionable (la de la izquierda de la línea de "
 "comandos)"
 
-#: C/releases.xml:1519(para)
+#: C/releases.xml:1522(para)
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
@@ -2091,27 +2096,27 @@ msgstr ""
 "Eliminado el elemento de menú «Guardar posición». El tamaño y la posición se "
 "guardan ahora automáticamente."
 
-#: C/releases.xml:1522(para)
+#: C/releases.xml:1525(para)
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr ""
 "Añadido un botón al indicador de carpeta para mostrar el histórico de "
 "carpetas"
 
-#: C/releases.xml:1525(para)
+#: C/releases.xml:1528(para)
 msgid "Added history to the select and unselect by pattern dialogs"
 msgstr ""
 "Añadido el histórico a los diálogos de seleccionar y deseleccionar por "
 "patrones"
 
-#: C/releases.xml:1528(para)
+#: C/releases.xml:1531(para)
 msgid "Sorting column and direction is now remembered"
 msgstr "Ahora se recuerda la ordenación y la dirección de una columna"
 
-#: C/releases.xml:1534(para)
+#: C/releases.xml:1537(para)
 msgid "<keycap>F2</keycap> Open the rename dialog"
 msgstr "<keycap>F2</keycap> Abrir el diálogo de renombrado"
 
-#: C/releases.xml:1537(para)
+#: C/releases.xml:1540(para)
 msgid ""
 "<keycap>SHIFT+F10</keycap> Bring up the file context menu (the windows menu "
 "key also works)"
@@ -2119,7 +2124,7 @@ msgstr ""
 "<keycap>Mayús+F10</keycap> Mostrar el menú contextual del archivo (la tecla "
 "del menú de Windows también funciona)"
 
-#: C/releases.xml:1540(para)
+#: C/releases.xml:1543(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Copy the "
 "current working directory from the inactive file list to the active one"
@@ -2127,15 +2132,15 @@ msgstr ""
 "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Copiar la "
 "carpeta actual de la lista de archivos inactivos a la de activos"
 
-#: C/releases.xml:1549(para)
+#: C/releases.xml:1552(para)
 msgid "1.1.5"
 msgstr "1.1.5"
 
-#: C/releases.xml:1550(para)
+#: C/releases.xml:1553(para)
 msgid "2004-01-12"
 msgstr "2004-01-12"
 
-#: C/releases.xml:1556(para)
+#: C/releases.xml:1559(para)
 msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
@@ -2143,13 +2148,13 @@ msgstr ""
 "La columna «ext» ahora está oculta cuando la extensión sólo se muestra junto "
 "con el nombre del archivo"
 
-#: C/releases.xml:1559(para)
+#: C/releases.xml:1562(para)
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr ""
 "Corregido el redibujado excesivo de la lista de archivos cuando se arrastran "
 "archivos sobre ella"
 
-#: C/releases.xml:1562(para)
+#: C/releases.xml:1565(para)
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
@@ -2157,16 +2162,16 @@ msgstr ""
 "Corregido el error con las conexiones ftp que no desaparecen de la barra de "
 "herramientas de conexiones cuando se desconectan"
 
-#: C/releases.xml:1565(para)
+#: C/releases.xml:1568(para)
 msgid "The program no longer tries to center itself on the desktop"
 msgstr ""
 "El programa no volverá a intentar centrarse a sí mismo en el escritorio"
 
-#: C/releases.xml:1568(para)
+#: C/releases.xml:1571(para)
 msgid "Fixed problems when renaming directories"
 msgstr "Corregidos errores al renombrar carpetas"
 
-#: C/releases.xml:1576(para)
+#: C/releases.xml:1579(para)
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
@@ -2174,21 +2179,21 @@ msgstr ""
 "Ahora se puede usar el indicador de carpeta de debajo de cada lista de "
 "archivos para navegar hacia arriba en la estructura de carpetas"
 
-#: C/releases.xml:1583(para)
+#: C/releases.xml:1586(para)
 msgid "1.1.4"
 msgstr "1.1.4"
 
-#: C/releases.xml:1584(para)
+#: C/releases.xml:1587(para)
 msgid "2003-11-24"
 msgstr "2003-11-24"
 
-#: C/releases.xml:1590(para)
+#: C/releases.xml:1593(para)
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr ""
 "Corregido el error al seleccionar múltiples archivos con mayús+botón del "
 "ratón"
 
-#: C/releases.xml:1593(para)
+#: C/releases.xml:1596(para)
 msgid ""
 "Stopped superfluous updates of the file list on machines with the imon "
 "kernel patch applied"
@@ -2196,11 +2201,11 @@ msgstr ""
 "Detenidas las actualizaciones no relevantes de la lista de archivos en las "
 "máquinas con el parche imon del kernel aplicado"
 
-#: C/releases.xml:1596(para)
+#: C/releases.xml:1599(para)
 msgid "Cleaned up the file-popup menu"
 msgstr "Limpiado el menú emergente de un archivo"
 
-#: C/releases.xml:1599(para)
+#: C/releases.xml:1602(para)
 msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
@@ -2208,31 +2213,31 @@ msgstr ""
 "Corregido el error de «archivo no encontrado» cuando se explora la carpeta "
 "padre y ésta contiene espacios"
 
-#: C/releases.xml:1602(para)
+#: C/releases.xml:1605(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr ""
 "Corregido un posible error de async cuando se cancela una operación xfer"
 
-#: C/releases.xml:1605(para)
+#: C/releases.xml:1608(para)
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
 "Renovada la pestaña de disposición y eliminada la pestaña de colores en el "
 "diálogo de opciones"
 
-#: C/releases.xml:1608(para)
+#: C/releases.xml:1611(para)
 msgid "Improved plugin-system"
 msgstr "Sistema de complementos mejorado"
 
-#: C/releases.xml:1615(para)
+#: C/releases.xml:1618(para)
 msgid "1.1.3"
 msgstr "1.1.3"
 
-#: C/releases.xml:1616(para)
+#: C/releases.xml:1619(para)
 msgid "2003-11-14"
 msgstr "2003-11-14"
 
-#: C/releases.xml:1622(para)
+#: C/releases.xml:1625(para)
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same "
@@ -2242,18 +2247,18 @@ msgstr ""
 "rápida de FAM. Esto hizo que GNOME Commander tratase de quitar el mismo "
 "archivo dos veces de una lista."
 
-#: C/releases.xml:1629(para)
+#: C/releases.xml:1632(para)
 msgid "Accessing files on mounted devices should now work better"
 msgstr ""
 "Ahora debería funcionar mejor el acceso a archivos en dispositivos montados"
 
-#: C/releases.xml:1632(para)
+#: C/releases.xml:1635(para)
 msgid "Devices without the device filename should not disappear anymore"
 msgstr ""
 "Los dispositivos sin el nombre de archivo del dispositivo no deberían volver "
 "a desaparecer"
 
-#: C/releases.xml:1635(para)
+#: C/releases.xml:1638(para)
 msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
@@ -2262,7 +2267,7 @@ msgstr ""
 "permanece abierta después de que termina un programa funciona de manera más "
 "fiable"
 
-#: C/releases.xml:1641(para)
+#: C/releases.xml:1644(para)
 msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
@@ -2270,15 +2275,15 @@ msgstr ""
 "Corrige el error donde una nueva carpeta podría aparecer varias veces en la "
 "misma lista de archivos hasta que se actualiza"
 
-#: C/releases.xml:1652(para)
+#: C/releases.xml:1655(para)
 msgid "The delete confirmation can now be disabled"
 msgstr "Ahora se puede deshabilitar la confirmación al eliminar"
 
-#: C/releases.xml:1655(para)
+#: C/releases.xml:1658(para)
 msgid "Better error messages when a mount fails"
 msgstr "Mejores mensajes de error cuando falla un montaje"
 
-#: C/releases.xml:1658(para)
+#: C/releases.xml:1661(para)
 msgid ""
 "Made the calculation of a directory's total size start automatically when "
 "the file prefs dialog is shown"
@@ -2286,7 +2291,7 @@ msgstr ""
 "El cálculo del tamaño total de una carpeta empieza automáticamente cuando se "
 "muestra el diálogo de preferencias del archivo"
 
-#: C/releases.xml:1664(para)
+#: C/releases.xml:1667(para)
 msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
@@ -2294,50 +2299,50 @@ msgstr ""
 "Añadidos al menú principal los filtros para los archivos de copia de "
 "seguridad y de archivos ocultos para un acceso más rápido"
 
-#: C/releases.xml:1674(para)
+#: C/releases.xml:1677(para)
 msgid "1.1.2"
 msgstr "1.1.2"
 
-#: C/releases.xml:1675(para)
+#: C/releases.xml:1678(para)
 msgid "2003-11-07"
 msgstr "2003-11-07"
 
-#: C/releases.xml:1681(para)
+#: C/releases.xml:1684(para)
 msgid "Much better handling of non UTF8 filenames"
 msgstr "Manejo mucho de mejor de nombres de archivo que no son UTF8"
 
-#: C/releases.xml:1684(para)
+#: C/releases.xml:1687(para)
 msgid "Removed unsafe uri-creation"
 msgstr "Eliminada la creación de URI inseguros"
 
-#: C/releases.xml:1692(para)
+#: C/releases.xml:1695(para)
 msgid "Three ways to show with file extensions"
 msgstr "Tres maneras de mostrarlo con extensiones de archivos"
 
-#: C/releases.xml:1699(para)
+#: C/releases.xml:1702(para)
 msgid "1.1.1"
 msgstr "1.1.1"
 
-#: C/releases.xml:1700(para)
+#: C/releases.xml:1703(para)
 msgid "2003-11-05"
 msgstr "2003-11-05"
 
-#: C/releases.xml:1706(para)
+#: C/releases.xml:1709(para)
 msgid ""
 "Stopped showing the file extension in both the name column and the ext column"
 msgstr ""
 "Detenida la muestra de la extensión del archivo en las columnas de nombre y "
 "extensión"
 
-#: C/releases.xml:1709(para)
+#: C/releases.xml:1712(para)
 msgid "Fixed crashes that happened when browsing directories"
 msgstr "Corregidos los errores producidos al explorar carpetas"
 
-#: C/releases.xml:1712(para)
+#: C/releases.xml:1715(para)
 msgid "Fixed update problems when copying and moving files"
 msgstr "Corregidos los errores de actualización al copiar o mover archivos."
 
-#: C/releases.xml:1715(para)
+#: C/releases.xml:1718(para)
 msgid ""
 "The connection combo boxes should now show the correct connection as "
 "selected all the time"
@@ -2345,68 +2350,68 @@ msgstr ""
 "Las cajas combinadas de conexión deberían mostrar la conexión correcta como "
 "seleccionada todo el tiempo"
 
-#: C/releases.xml:1718(para)
+#: C/releases.xml:1721(para)
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr ""
 "Eliminados algunos errores relativos a la selección de archivos usando el "
 "teclado"
 
-#: C/releases.xml:1721(para)
+#: C/releases.xml:1724(para)
 msgid "Fixed the edit mime-types feature"
 msgstr "Corregida la funcionalidad de editar tipos MIME"
 
-#: C/releases.xml:1729(para)
+#: C/releases.xml:1732(para)
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
 "Añadido un botón para cambiar el MIME-app predeterminado en el diálogo de "
 "propiedades del archivo"
 
-#: C/releases.xml:1736(para)
+#: C/releases.xml:1739(para)
 msgid "1.1.0"
 msgstr "1.1.0"
 
-#: C/releases.xml:1737(para)
+#: C/releases.xml:1740(para)
 msgid "2003-11-01"
 msgstr "2003-11-01"
 
-#: C/releases.xml:1743(para)
+#: C/releases.xml:1746(para)
 msgid "SMB browsing"
 msgstr "Navegación SMB"
 
-#: C/releases.xml:1746(para)
+#: C/releases.xml:1749(para)
 msgid "Plugins"
 msgstr "Complementos"
 
-#: C/releases.xml:1749(para)
+#: C/releases.xml:1752(para)
 msgid "Major rewrite of a lot of code"
 msgstr "Profunda reescritura de gran cantidad de código"
 
-#: C/releases.xml:1756(para)
+#: C/releases.xml:1759(para)
 msgid "1.0.1"
 msgstr "1.0.1"
 
-#: C/releases.xml:1757(para)
+#: C/releases.xml:1760(para)
 msgid "2003-06-27"
 msgstr "2003-06-27"
 
-#: C/releases.xml:1763(para)
+#: C/releases.xml:1766(para)
 msgid "Improved file list update in non-fam mode"
 msgstr "Mejorada la actualización de lista de archivos de modo no-fam"
 
-#: C/releases.xml:1766(para)
+#: C/releases.xml:1769(para)
 msgid "Empty directories can now be entered on ftp servers"
 msgstr "Ahora se puede acceder a carpetas vacíos en servidores ftp"
 
-#: C/releases.xml:1773(para)
+#: C/releases.xml:1776(para)
 msgid "1.0"
 msgstr "1.0"
 
-#: C/releases.xml:1774(para)
+#: C/releases.xml:1777(para)
 msgid "2003-06-05"
 msgstr "2003-06-05"
 
-#: C/releases.xml:1776(para)
+#: C/releases.xml:1779(para)
 msgid ""
 "This is the \"production stable\" 1.0 release. Mainly small bugfixes from "
 "previous version."
@@ -2414,27 +2419,27 @@ msgstr ""
 "Esta es la versión «estable de producción» 1.0. Corregidos algunos pequeños "
 "errores de la versión anterior."
 
-#: C/releases.xml:1782(para)
+#: C/releases.xml:1785(para)
 msgid "0.9.12"
 msgstr "0.9.12"
 
-#: C/releases.xml:1783(para)
+#: C/releases.xml:1786(para)
 msgid "2003-03-18"
 msgstr "2003-03-18"
 
-#: C/releases.xml:1785(para)
+#: C/releases.xml:1788(para)
 msgid "Bugfixes"
 msgstr "Correcciones de errores"
 
-#: C/releases.xml:1789(para)
+#: C/releases.xml:1792(para)
 msgid "0.9.11"
 msgstr "0.9.11"
 
-#: C/releases.xml:1790(para)
+#: C/releases.xml:1793(para)
 msgid "2003-03-13"
 msgstr "2003-03-13"
 
-#: C/releases.xml:1792(para)
+#: C/releases.xml:1795(para)
 msgid ""
 "Added support for $p in advrename dialog. This will give you the parent "
 "directory. Fixed a bug where deleting a directory sometimes only emptied the "
@@ -2446,15 +2451,15 @@ msgstr ""
 "carpeta, a veces sólo se vaciaba la carpeta, pero no se eliminaba. Corregido "
 "el que la carpeta «..» es visible en sesiones FTP."
 
-#: C/releases.xml:1800(para)
+#: C/releases.xml:1803(para)
 msgid "0.9.10"
 msgstr "0.9.10"
 
-#: C/releases.xml:1801(para)
+#: C/releases.xml:1804(para)
 msgid "2003-03-24"
 msgstr "2003-03-24"
 
-#: C/releases.xml:1803(para)
+#: C/releases.xml:1806(para)
 msgid ""
 "Fixed an imageloading bug when using themes other than the default one. New "
 "bookmark feature. New template feature in the advanced-rename dialog. See "
@@ -2470,15 +2475,15 @@ msgstr ""
 "carpeta «..». Ahora las barras de herramientas y de botones se pueden "
 "ocultar."
 
-#: C/releases.xml:1814(para)
+#: C/releases.xml:1817(para)
 msgid "0.9.9"
 msgstr "0.9.9"
 
-#: C/releases.xml:1815(para)
+#: C/releases.xml:1818(para)
 msgid "2003-01-19"
 msgstr "2003-01-19"
 
-#: C/releases.xml:1817(para)
+#: C/releases.xml:1820(para)
 msgid ""
 "Improved the advanced rename tool Added quick connect feature. Improved "
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
@@ -2490,15 +2495,15 @@ msgstr ""
 "resolución. Hecho que el menú emergente de archivos se comporte de manera "
 "más normal."
 
-#: C/releases.xml:1827(para)
+#: C/releases.xml:1830(para)
 msgid "0.9.8"
 msgstr "0.9.8"
 
-#: C/releases.xml:1828(para)
+#: C/releases.xml:1831(para)
 msgid "2002-07-16"
 msgstr "2002-07-16"
 
-#: C/releases.xml:1830(para)
+#: C/releases.xml:1833(para)
 msgid ""
 "New things in this release are autoscroll at DND, better quicksearch, "
 "mounting and unmounting, file lists refresh without FAM, last visited "
@@ -2508,59 +2513,59 @@ msgstr ""
 "mejorada, montar y desmontar, actualizado de listas de archivos sin FAM, "
 "histórico de la última carpeta visitada y más."
 
-#: C/releases.xml:1838(para)
+#: C/releases.xml:1841(para)
 msgid "0.9.7"
 msgstr "0.9.7"
 
-#: C/releases.xml:1839(para)
+#: C/releases.xml:1842(para)
 msgid "2002-06-07"
 msgstr "2002-06-07"
 
-#: C/releases.xml:1844(para)
+#: C/releases.xml:1847(para)
 msgid "0.9.6"
 msgstr "0.9.6"
 
-#: C/releases.xml:1845(para)
+#: C/releases.xml:1848(para)
 msgid "2002-04-04"
 msgstr "2002-04-04"
 
-#: C/releases.xml:1847(para)
+#: C/releases.xml:1850(para)
 msgid "MIME support has been added and bugs have been fixed."
 msgstr "Se ha añadido el soporte MIME y se han corregido los errores."
 
-#: C/releases.xml:1851(para)
+#: C/releases.xml:1854(para)
 msgid "0.9.5"
 msgstr "0.9.5"
 
-#: C/releases.xml:1852(para)
+#: C/releases.xml:1855(para)
 msgid "2002-03-27"
 msgstr "2002-03-27"
 
-#: C/releases.xml:1854(para)
+#: C/releases.xml:1857(para)
 msgid "Added an embedded terminal and fixed some bugs."
 msgstr "Añadido un terminal empotrado y corregidos algunos errores."
 
-#: C/releases.xml:1858(para)
+#: C/releases.xml:1861(para)
 msgid "0.9.4"
 msgstr "0.9.4"
 
-#: C/releases.xml:1859(para)
+#: C/releases.xml:1862(para)
 msgid "2002-03-21"
 msgstr "2002-03-21"
 
-#: C/releases.xml:1861(para)
+#: C/releases.xml:1864(para)
 msgid "Added FAM support, DnD and more."
 msgstr "Añadido soporte para FAM, DnD y más."
 
-#: C/releases.xml:1865(para)
+#: C/releases.xml:1868(para)
 msgid "0.9.2"
 msgstr "0.9.2"
 
-#: C/releases.xml:1866(para)
+#: C/releases.xml:1869(para)
 msgid "2002-03-09"
 msgstr "2002-03-09"
 
-#: C/releases.xml:1868(para)
+#: C/releases.xml:1871(para)
 msgid ""
 "Improved stability and less memory leaks. CVS is disabled until it actually "
 "works well."
@@ -2568,27 +2573,27 @@ msgstr ""
 "Mejorada la estabilidad y menos fugas de memoria. CVS está desactivado hasta "
 "que funcione bien."
 
-#: C/releases.xml:1872(para)
+#: C/releases.xml:1875(para)
 msgid "0.91-pre1"
 msgstr "0.91-pre1"
 
-#: C/releases.xml:1873(para)
+#: C/releases.xml:1876(para)
 msgid "2002-02-06"
 msgstr "2002-02-06"
 
-#: C/releases.xml:1875(para)
+#: C/releases.xml:1878(para)
 msgid "Improved user interface and lots of other small hacks."
 msgstr "Interfaz de usuario mejorada y muchos otros pequeños «hacks»."
 
-#: C/releases.xml:1879(para)
+#: C/releases.xml:1882(para)
 msgid "0.90-pre1"
 msgstr "0.90-pre1"
 
-#: C/releases.xml:1880(para)
+#: C/releases.xml:1883(para)
 msgid "2001-08-02"
 msgstr "2001-08-02"
 
-#: C/releases.xml:1882(para)
+#: C/releases.xml:1885(para)
 msgid "The first public version of GNOME Commander."
 msgstr "La primera versión pública de GNOME Commander."
 
@@ -13471,10 +13476,6 @@ msgid "Viewer:"
 msgstr "Visor:"
 
 #: C/gnome-commander.xml:5447(para)
-#| msgid ""
-#| "Set which application is used when the command view is used when the "
-#| "<keycap>F3</keycap> key is pressed. By default GNOME Commander uses an "
-#| "internal viewer"
 msgid ""
 "Set which application is used when the view command is used by pressing the "
 "<keycap>F3</keycap> key. Default value: \"gedit %s\". %s is the variable "
@@ -13651,7 +13652,6 @@ msgstr ""
 "siguiente tabla:"
 
 #: C/gnome-commander.xml:5560(title)
-#| msgid "Sorting options"
 msgid "String expansion"
 msgstr "Expansión de cadena"
 
@@ -13723,11 +13723,6 @@ msgstr ""
 "aplicaciones del menú contextual."
 
 #: C/gnome-commander.xml:5652(para)
-#| msgid ""
-#| "In the following dialog box you can input a number of different "
-#| "parameters to run the application as you want it to. You will probably "
-#| "need to check the various options available to the application in its "
-#| "manual pages."
 msgid ""
 "In the <xref linkend=\"options-application-fig\"/> box you can input a "
 "number of different parameters to run the application you want. You will "
@@ -15867,10 +15862,6 @@ msgstr ""
 "guimenu> o el icono «**» en la barra de herramientas."
 
 #: C/gnome-commander.xml:7435(para)
-#| msgid ""
-#| "Select the file or folder to which you want to create a link. Press "
-#| "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></"
-#| "keycombo>."
 msgid ""
 "To insert the current file's path in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
@@ -15881,10 +15872,6 @@ msgstr ""
 "keycap><keycap>Intro</keycap></keycombo>."
 
 #: C/gnome-commander.xml:7439(para)
-#| msgid ""
-#| "Select the file or folder to which you want to create a link. Press "
-#| "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></"
-#| "keycombo>."
 msgid ""
 "To insert the current file's name in Gnome Commander's command line, press "
 "<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
