@@ -195,6 +195,16 @@ void on_icon_size_changed ()
     main_win->update_view();
 }
 
+void on_list_orientation_changed ()
+{
+    gboolean list_orientation;
+
+    list_orientation = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_ORIENTATION);
+    gnome_cmd_data.list_orientation = list_orientation;
+
+    main_win->update_list_orientation();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -299,6 +309,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::icon-size",
                       G_CALLBACK (on_icon_size_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::list-orientation",
+                      G_CALLBACK (on_list_orientation_changed),
                       NULL);
 
 }
@@ -1750,6 +1765,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //middle_mouse_button_mode
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE);
+        //list_orientation
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/list_orientation", FALSE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_LIST_ORIENTATION);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1931,7 +1949,7 @@ void GnomeCmdData::load()
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
-    list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
+    list_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ORIENTATION);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
@@ -2461,7 +2479,7 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
-    gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ORIENTATION, &(list_orientation));
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", options.honor_expect_uris);

@@ -177,10 +177,12 @@
       <default>16</default>
       <summary>Commandline history length</summary>
     </key>
-    <key name="list-orientation" type="b">
+    <key name="horizontal-orientation" type="b">
       <default>false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Horizontal orientation</summary>
+      <description>
+          Defines if the orientation of the file panes should be horizontal or not.
+      </description>
     </key>
     <key name="gui-update-rate" type="i">
       <default l10n="messages">100</default>
