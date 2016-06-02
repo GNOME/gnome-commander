@@ -1768,6 +1768,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //list_orientation
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/list_orientation", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
+        //conbuttons_visibility
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/conbuttons_visibility", FALSE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1955,7 +1958,7 @@ void GnomeCmdData::load()
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
 
     toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
-    conbuttons_visibility = gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE);
+    conbuttons_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     concombo_visibility = gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE);
     cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
@@ -2491,7 +2494,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", options.skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
-    gnome_cmd_data_set_bool   ("/options/conbuttons_visibility", conbuttons_visibility);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(conbuttons_visibility));
     gnome_cmd_data_set_bool   ("/options/con_list_visibility", concombo_visibility);
     gnome_cmd_data_set_bool   ("/options/cmdline_visibility", cmdline_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", buttonbar_visibility);

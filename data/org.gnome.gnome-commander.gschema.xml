@@ -189,10 +189,10 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="conbuttons-visibility" type="b">
+    <key name="show-devbuttons" type="b">
       <default>true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Show device buttons</summary>
+      <description>Defines if device buttons are shown.</description>
     </key>
     <key name="con-list-visibility" type="b">
       <default>true</default>
