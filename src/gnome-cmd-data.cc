@@ -312,7 +312,7 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       NULL);
 
     g_signal_connect (gs->general,
-                      "changed::list-orientation",
+                      "changed::horizontal-orientation",
                       G_CALLBACK (on_list_orientation_changed),
                       NULL);
 
