@@ -500,7 +500,7 @@ struct GnomeCmdData
     gboolean                     list_orientation;
 
     gboolean                     toolbar_visibility;
-    gboolean                     conbuttons_visibility;
+    gboolean                     show_devbuttons;
     gboolean                     concombo_visibility;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;

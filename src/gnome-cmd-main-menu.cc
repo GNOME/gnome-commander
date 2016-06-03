@@ -854,7 +854,7 @@ static void init (GnomeCmdMainMenu *main_menu)
     main_menu->priv->menu_view_forward = view_menu_uiinfo[1].widget;
 
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[8].widget), gnome_cmd_data.toolbar_visibility);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[9].widget), gnome_cmd_data.conbuttons_visibility);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[9].widget), gnome_cmd_data.show_devbuttons);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[10].widget), gnome_cmd_data.concombo_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[11].widget), gnome_cmd_data.cmdline_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[12].widget), gnome_cmd_data.buttonbar_visibility);

@@ -1606,7 +1606,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     list_orientation = FALSE;
 
     toolbar_visibility = TRUE;
-    conbuttons_visibility = TRUE;
+    show_devbuttons = TRUE;
     concombo_visibility = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
@@ -1958,7 +1958,7 @@ void GnomeCmdData::load()
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
 
     toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
-    conbuttons_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
+    show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     concombo_visibility = gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE);
     cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
@@ -2494,7 +2494,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", options.skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(conbuttons_visibility));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
     gnome_cmd_data_set_bool   ("/options/con_list_visibility", concombo_visibility);
     gnome_cmd_data_set_bool   ("/options/cmdline_visibility", cmdline_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", buttonbar_visibility);

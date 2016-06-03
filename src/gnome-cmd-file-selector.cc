@@ -362,7 +362,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 {
     static GtkTooltips *tooltips = NULL;
 
-    if (!gnome_cmd_data.conbuttons_visibility)
+    if (!gnome_cmd_data.show_devbuttons)
         return;
 
     for (GList *l = fs->priv->old_btns; l; l=l->next)
@@ -772,7 +772,7 @@ static void init (GnomeCmdFileSelector *fs)
     GtkVBox *vbox = GTK_VBOX (fs);
 
     // create the box used for packing the dir_combo and buttons
-    fs->update_conbuttons_visibility();
+    fs->update_show_devbuttons();
 
     // create the box used for packing the con_combo and information
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
@@ -1331,9 +1331,9 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 }
 
 
-void GnomeCmdFileSelector::update_conbuttons_visibility()
+void GnomeCmdFileSelector::update_show_devbuttons()
 {
-    if (!gnome_cmd_data.conbuttons_visibility)
+    if (!gnome_cmd_data.show_devbuttons)
     {
         if (con_btns_hbox)
         {

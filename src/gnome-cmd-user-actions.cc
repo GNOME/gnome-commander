@@ -1486,9 +1486,9 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.conbuttons_visibility = checkitem->active;
-    get_fs (ACTIVE)->update_conbuttons_visibility();
-    get_fs (INACTIVE)->update_conbuttons_visibility();
+    gnome_cmd_data.show_devbuttons = checkitem->active;
+    get_fs (ACTIVE)->update_show_devbuttons();
+    get_fs (INACTIVE)->update_show_devbuttons();
 }
 
 
