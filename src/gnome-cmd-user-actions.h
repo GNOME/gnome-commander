@@ -285,7 +285,7 @@ GNOME_CMD_USER_ACTION(command_root_mode);
 
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION(view_conbuttons);
-GNOME_CMD_USER_ACTION(view_concombo);
+GNOME_CMD_USER_ACTION(view_devlist);
 GNOME_CMD_USER_ACTION(view_toolbar);
 GNOME_CMD_USER_ACTION(view_buttonbar);
 GNOME_CMD_USER_ACTION(view_cmdline);

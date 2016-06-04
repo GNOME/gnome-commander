@@ -605,7 +605,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         {
             MENU_TYPE_TOGGLEITEM, _("Show Device List"), "", NULL,
-            (gpointer) view_concombo, NULL,
+            (gpointer) view_devlist, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },

@@ -1541,7 +1541,7 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_concombo (GtkMenuItem *menuitem, gpointer not_used)
+void view_devlist (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
