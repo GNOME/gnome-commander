@@ -1547,6 +1547,7 @@ void view_concombo (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.concombo_visibility = checkitem->active;
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, gnome_cmd_data.concombo_visibility);
     get_fs (ACTIVE)->update_concombo_visibility();
     get_fs (INACTIVE)->update_concombo_visibility();
 }

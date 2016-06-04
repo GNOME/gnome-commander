@@ -194,10 +194,10 @@
       <summary>Show device buttons</summary>
       <description>Defines if device buttons are shown.</description>
     </key>
-    <key name="con-list-visibility" type="b">
+    <key name="show-devlist" type="b">
       <default>true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Show device list</summary>
+      <description>Defines if list of devices is shown.</description>
     </key>
     <key name="cmdline-visibility" type="b">
       <default>true</default>
