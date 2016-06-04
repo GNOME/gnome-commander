@@ -269,7 +269,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 static void slide_set_100_0 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.list_orientation ? GTK_WIDGET (main_win)->allocation.height :
+                            gnome_cmd_data.horizontal_orientation ? GTK_WIDGET (main_win)->allocation.height :
                                                               GTK_WIDGET (main_win)->allocation.width);
 }
 
@@ -277,7 +277,7 @@ static void slide_set_100_0 (GtkMenu *menu, gpointer user_data)
 static void slide_set_80_20 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.list_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.8f) :
+                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.8f) :
                                                               (int)(GTK_WIDGET (main_win)->allocation.width*0.8f));
 }
 
@@ -285,7 +285,7 @@ static void slide_set_80_20 (GtkMenu *menu, gpointer user_data)
 static void slide_set_60_40 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.list_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.6f) :
+                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.6f) :
                                                               (int)(GTK_WIDGET (main_win)->allocation.width*0.6f));
 }
 
@@ -293,7 +293,7 @@ static void slide_set_60_40 (GtkMenu *menu, gpointer user_data)
 static void slide_set_50_50 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.list_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.5f) :
+                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.5f) :
                                                               (int)(GTK_WIDGET (main_win)->allocation.width*0.5f));
 }
 
@@ -301,7 +301,7 @@ static void slide_set_50_50 (GtkMenu *menu, gpointer user_data)
 static void slide_set_40_60 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.list_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.4f) :
+                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.4f) :
                                                               (int)(GTK_WIDGET (main_win)->allocation.width*0.4f));
 }
 
@@ -309,7 +309,7 @@ static void slide_set_40_60 (GtkMenu *menu, gpointer user_data)
 static void slide_set_20_80 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            gnome_cmd_data.list_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.2f) :
+                            gnome_cmd_data.horizontal_orientation ? (int)(GTK_WIDGET (main_win)->allocation.height*0.2f) :
                                                               (int)(GTK_WIDGET (main_win)->allocation.width*0.2f));
 }
 
@@ -777,7 +777,7 @@ static void init (GnomeCmdMainWin *mw)
 
     gnome_app_set_contents (GNOME_APP (mw), mw->priv->vbox);
 
-    mw->priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
+    mw->priv->paned = gnome_cmd_data.horizontal_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     g_object_ref (mw->priv->paned);
     g_object_set_data_full (*mw, "paned", mw->priv->paned, g_object_unref);
@@ -1262,7 +1262,7 @@ void GnomeCmdMainWin::update_cmdline_visibility()
 }
 
 
-void GnomeCmdMainWin::update_list_orientation()
+void GnomeCmdMainWin::update_horizontal_orientation()
 {
     gint pos = 2;
 
@@ -1273,7 +1273,7 @@ void GnomeCmdMainWin::update_list_orientation()
 
     gtk_object_destroy (GTK_OBJECT (priv->paned));
 
-    priv->paned = gnome_cmd_data.list_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
+    priv->paned = gnome_cmd_data.horizontal_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     g_object_ref (priv->paned);
     g_object_set_data_full (*this, "paned", priv->paned, g_object_unref);

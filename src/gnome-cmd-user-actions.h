@@ -36,6 +36,10 @@
 
 #define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
 
+#define USER_ACTION_SETTINGS (gcmd_user_action_settings_get_type ())
+G_DECLARE_FINAL_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, GCMD, USER_ACTIONS, GObject)
+GcmdUserActionSettings *gcmd_user_action_settings_new (void);
+
 typedef void (*GnomeCmdUserActionFunc) (GtkMenuItem *menuitem, gpointer user_data);
 
 
@@ -165,6 +169,7 @@ class GnomeCmdUserActions
     void init();
     void set_defaults();
     void shutdown();
+    GcmdUserActionSettings *settings;
 
     void load(const gchar *section);
 
@@ -311,6 +316,7 @@ GNOME_CMD_USER_ACTION(view_next_tab);
 GNOME_CMD_USER_ACTION(view_in_new_tab);
 GNOME_CMD_USER_ACTION(view_in_inactive_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
+GNOME_CMD_USER_ACTION(view_horizontal_orientation);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);

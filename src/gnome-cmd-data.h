@@ -497,7 +497,7 @@ struct GnomeCmdData
     IntViewerConfig              intviewer_defaults;
     BookmarksConfig              bookmarks_defaults;
 
-    gboolean                     list_orientation;
+    gboolean                     horizontal_orientation;
 
     gboolean                     toolbar_visibility;
     gboolean                     show_devbuttons;

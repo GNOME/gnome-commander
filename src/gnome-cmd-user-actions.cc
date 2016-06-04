@@ -57,6 +57,53 @@
 
 using namespace std;
 
+/***********************************
+ * Functions for using GSettings
+ ***********************************/
+
+struct _GcmdUserActionSettings
+{
+    GObject parent;
+    GSettings *general;
+};
+
+G_DEFINE_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, G_TYPE_OBJECT)
+
+static void gcmd_user_action_settings_finalize (GObject *object)
+{
+    G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->finalize (object);
+}
+
+static void gcmd_user_action_settings_dispose (GObject *object)
+{
+    GcmdUserActionSettings *gs = GCMD_USER_ACTIONS (object);
+
+    g_clear_object (&gs->general);
+
+    G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->dispose (object);
+}
+
+static void gcmd_user_action_settings_class_init (GcmdUserActionSettingsClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = gcmd_user_action_settings_finalize;
+    object_class->dispose = gcmd_user_action_settings_dispose;
+}
+
+GcmdUserActionSettings *gcmd_user_action_settings_new ()
+{
+    return (GcmdUserActionSettings *) g_object_new (USER_ACTION_SETTINGS, NULL);
+}
+
+static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
+{
+    gs->general = g_settings_new (GCMD_PREF_GENERAL);
+}
+
+/***********************************
+ * UserActions
+ ***********************************/
 
 inline GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
 {
@@ -247,6 +294,7 @@ void GnomeCmdUserActions::init()
     register_action(GDK_F7, "file.mkdir");
     register_action(GDK_F8, "file.delete");
     // register_action(GDK_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
+    settings = gcmd_user_action_settings_new();
 }
 
 
@@ -1560,6 +1608,15 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
     get_fl (INACTIVE)->reload();
 }
 
+
+void view_horizontal_orientation (GtkMenuItem *menuitem, gpointer not_used)
+{
+    if (!GTK_WIDGET_REALIZED (main_win)) return;
+    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
+    gnome_cmd_data.horizontal_orientation = checkitem->active;
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, gnome_cmd_data.horizontal_orientation);
+    main_win->update_horizontal_orientation();
+}
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
 {

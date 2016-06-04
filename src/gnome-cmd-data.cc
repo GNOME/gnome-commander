@@ -195,14 +195,14 @@ void on_icon_size_changed ()
     main_win->update_view();
 }
 
-void on_list_orientation_changed ()
+void on_horizontal_orientation_changed ()
 {
-    gboolean list_orientation;
+    gboolean horizontal_orientation;
 
-    list_orientation = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
-    gnome_cmd_data.list_orientation = list_orientation;
+    horizontal_orientation = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
+    gnome_cmd_data.horizontal_orientation = horizontal_orientation;
 
-    main_win->update_list_orientation();
+    main_win->update_horizontal_orientation();
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
@@ -313,7 +313,7 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->general,
                       "changed::horizontal-orientation",
-                      G_CALLBACK (on_list_orientation_changed),
+                      G_CALLBACK (on_horizontal_orientation_changed),
                       NULL);
 
 }
@@ -1603,7 +1603,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     XML_cfg_has_connections = FALSE;
     XML_cfg_has_bookmarks = FALSE;
 
-    list_orientation = FALSE;
+    horizontal_orientation = FALSE;
 
     toolbar_visibility = TRUE;
     show_devbuttons = TRUE;
@@ -1952,7 +1952,7 @@ void GnomeCmdData::load()
     options.icon_scale_quality = (GdkInterpType) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
-    list_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
+    horizontal_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
@@ -2482,7 +2482,7 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY, options.icon_scale_quality);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(list_orientation));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(horizontal_orientation));
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", options.honor_expect_uris);
