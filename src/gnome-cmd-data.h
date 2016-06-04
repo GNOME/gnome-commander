@@ -76,6 +76,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_HORIZONTAL_ORIENTATION          "horizontal-orientation"
 #define GCMD_SETTINGS_SHOW_DEVBUTTONS                 "show-devbuttons"
 #define GCMD_SETTINGS_SHOW_DEVLIST                    "show-devlist"
+#define GCMD_SETTINGS_SHOW_CMDLINE                    "show-cmdline"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"

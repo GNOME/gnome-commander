@@ -1579,7 +1579,8 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.cmdline_visibility = checkitem->active;
-    main_win->update_cmdline_visibility();
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, gnome_cmd_data.cmdline_visibility);
+    /* main_win->update_cmdline_visibility(); is executed by on_show_cmdline_changed() */
 }
 
 

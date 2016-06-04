@@ -216,6 +216,15 @@ void on_show_devlist_changed ()
     main_win->fs(INACTIVE)->update_show_devlist();
 }
 
+void on_show_cmdline_changed ()
+{
+    gboolean show_cmdline;
+
+    show_cmdline = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
+    gnome_cmd_data.cmdline_visibility = show_cmdline;
+    main_win->update_cmdline_visibility();
+}
+
 void on_horizontal_orientation_changed ()
 {
     gboolean horizontal_orientation;
@@ -341,6 +350,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::show-devlist",
                       G_CALLBACK (on_show_devlist_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::show-cmdline",
+                      G_CALLBACK (on_show_cmdline_changed),
                       NULL);
 
     g_signal_connect (gs->general,
@@ -1806,6 +1820,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //con_list_visibility
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
+        //cmdline_visibility
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -1995,7 +2012,7 @@ void GnomeCmdData::load()
     toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-    cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
+    cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
     buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
 
     if (gui_update_rate < MIN_GUI_UPDATE_RATE)
@@ -2531,7 +2548,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
-    gnome_cmd_data_set_bool   ("/options/cmdline_visibility", cmdline_visibility);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", buttonbar_visibility);
 
     if (priv->symlink_prefix && *priv->symlink_prefix && strcmp(priv->symlink_prefix, _("link to %s"))!=0)
