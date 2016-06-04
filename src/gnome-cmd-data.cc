@@ -1785,7 +1785,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/list_orientation", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
         //conbuttons_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/conbuttons_visibility", FALSE) ? 1 : 0,
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
