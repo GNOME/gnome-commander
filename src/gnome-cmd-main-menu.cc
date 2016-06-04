@@ -202,7 +202,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
             gtk_box_pack_start (GTK_BOX (content), shortcut, TRUE, TRUE, 0);
 
             gtk_container_add (GTK_CONTAINER (item), content);
-	    g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
+            g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
             break;
 
         case MENU_TYPE_SEPARATOR:
