@@ -502,7 +502,7 @@ struct GnomeCmdData
 
     gboolean                     toolbar_visibility;
     gboolean                     show_devbuttons;
-    gboolean                     concombo_visibility;
+    gboolean                     show_devlist;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
 

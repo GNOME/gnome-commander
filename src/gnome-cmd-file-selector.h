@@ -104,7 +104,7 @@ struct GnomeCmdFileSelector
     void update_style();
     void update_connections();
     void update_show_devbuttons();
-    void update_concombo_visibility();
+    void update_show_devlist();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 

@@ -1105,7 +1105,7 @@ void GnomeCmdMainWin::change_connection(FileSelectorID id)
     GnomeCmdFileSelector *fs = this->fs(id);
 
     switch_fs(fs);
-    if (gnome_cmd_data.concombo_visibility)
+    if (gnome_cmd_data.show_devlist)
         fs->con_combo->popup_list();
 }
 

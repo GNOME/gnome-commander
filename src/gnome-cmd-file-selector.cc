@@ -828,7 +828,7 @@ static void init (GnomeCmdFileSelector *fs)
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
-    fs->update_concombo_visibility();
+    fs->update_show_devlist();
     gtk_widget_show (*fs->con_combo);
     gtk_widget_show (fs->vol_label);
     gtk_widget_show (fs->dir_indicator);
@@ -1355,9 +1355,9 @@ void GnomeCmdFileSelector::update_show_devbuttons()
 }
 
 
-void GnomeCmdFileSelector::update_concombo_visibility()
+void GnomeCmdFileSelector::update_show_devlist()
 {
-    if (gnome_cmd_data.concombo_visibility)
+    if (gnome_cmd_data.show_devlist)
         gtk_widget_show (con_hbox);
     else
         gtk_widget_hide (con_hbox);

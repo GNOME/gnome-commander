@@ -210,10 +210,10 @@ void on_show_devlist_changed ()
     gboolean show_devlist;
 
     show_devlist = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-    gnome_cmd_data.concombo_visibility = show_devlist;
+    gnome_cmd_data.show_devlist = show_devlist;
 
-    main_win->fs(ACTIVE)->update_concombo_visibility();
-    main_win->fs(INACTIVE)->update_concombo_visibility();
+    main_win->fs(ACTIVE)->update_show_devlist();
+    main_win->fs(INACTIVE)->update_show_devlist();
 }
 
 void on_horizontal_orientation_changed ()
@@ -1639,7 +1639,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 
     toolbar_visibility = TRUE;
     show_devbuttons = TRUE;
-    concombo_visibility = TRUE;
+    show_devlist = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
 
@@ -1994,7 +1994,7 @@ void GnomeCmdData::load()
 
     toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
-    concombo_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
+    show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
     cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
 
@@ -2530,7 +2530,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
-    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(concombo_visibility));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
     gnome_cmd_data_set_bool   ("/options/cmdline_visibility", cmdline_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", buttonbar_visibility);
 

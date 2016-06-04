@@ -1546,10 +1546,10 @@ void view_concombo (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.concombo_visibility = checkitem->active;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, gnome_cmd_data.concombo_visibility);
-    get_fs (ACTIVE)->update_concombo_visibility();
-    get_fs (INACTIVE)->update_concombo_visibility();
+    gnome_cmd_data.show_devlist = checkitem->active;
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, gnome_cmd_data.show_devlist);
+    get_fs (ACTIVE)->update_show_devlist();
+    get_fs (INACTIVE)->update_show_devlist();
 }
 
 
