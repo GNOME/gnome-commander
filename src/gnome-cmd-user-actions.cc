@@ -1616,6 +1616,7 @@ void view_horizontal_orientation (GtkMenuItem *menuitem, gpointer not_used)
     gnome_cmd_data.horizontal_orientation = checkitem->active;
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, gnome_cmd_data.horizontal_orientation);
     main_win->update_horizontal_orientation();
+    main_win->focus_file_lists();
 }
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)

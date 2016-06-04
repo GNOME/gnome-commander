@@ -203,6 +203,7 @@ void on_horizontal_orientation_changed ()
     gnome_cmd_data.horizontal_orientation = horizontal_orientation;
 
     main_win->update_horizontal_orientation();
+    main_win->focus_file_lists();
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
