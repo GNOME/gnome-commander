@@ -195,6 +195,16 @@ void on_icon_size_changed ()
     main_win->update_view();
 }
 
+void on_show_devbuttons_changed ()
+{
+    gboolean show_devbuttons;
+
+    show_devbuttons = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
+    gnome_cmd_data.show_devbuttons = show_devbuttons;
+    main_win->fs(ACTIVE)->update_show_devbuttons();
+    main_win->fs(INACTIVE)->update_show_devbuttons();
+}
+
 void on_horizontal_orientation_changed ()
 {
     gboolean horizontal_orientation;
@@ -310,6 +320,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::icon-size",
                       G_CALLBACK (on_icon_size_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::show-devbuttons",
+                      G_CALLBACK (on_show_devbuttons_changed),
                       NULL);
 
     g_signal_connect (gs->general,

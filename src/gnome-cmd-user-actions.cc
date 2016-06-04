@@ -1535,6 +1535,7 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.show_devbuttons = checkitem->active;
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, gnome_cmd_data.show_devbuttons);
     get_fs (ACTIVE)->update_show_devbuttons();
     get_fs (INACTIVE)->update_show_devbuttons();
 }
