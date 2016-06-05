@@ -1536,8 +1536,7 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.show_devbuttons = checkitem->active;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, gnome_cmd_data.show_devbuttons);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, checkitem->active);
 }
 
 
@@ -1546,8 +1545,7 @@ void view_devlist (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.show_devlist = checkitem->active;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, gnome_cmd_data.show_devlist);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, checkitem->active);
 }
 
 
@@ -1574,8 +1572,7 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.cmdline_visibility = checkitem->active;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, gnome_cmd_data.cmdline_visibility);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, checkitem->active);
 }
 
 
@@ -1611,8 +1608,7 @@ void view_horizontal_orientation (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.horizontal_orientation = checkitem->active;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, gnome_cmd_data.horizontal_orientation);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, checkitem->active);
 }
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
