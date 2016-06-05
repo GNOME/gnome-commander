@@ -544,7 +544,7 @@ inline void update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 
     if (fs == mw->fs(ACTIVE))
     {
-        if (gnome_cmd_data.toolbar_visibility)
+        if (gnome_cmd_data.show_toolbar)
         {
             gtk_widget_set_sensitive (mw->priv->tb_first_btn, fs->can_back());
             gtk_widget_set_sensitive (mw->priv->tb_back_btn, fs->can_back());
@@ -569,7 +569,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
     if (!con)
         return;
 
-    if (!gnome_cmd_data.toolbar_visibility
+    if (!gnome_cmd_data.show_toolbar
         || (gnome_cmd_data.options.skip_mounting && GNOME_CMD_IS_CON_DEVICE (con)))
         return;
 
@@ -797,7 +797,7 @@ static void init (GnomeCmdMainWin *mw)
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
-    mw->update_toolbar_visibility();
+    mw->update_show_toolbar();
     mw->update_cmdline_visibility();
     mw->update_buttonbar_visibility();
 
@@ -1165,7 +1165,7 @@ void GnomeCmdMainWin::update_bookmarks()
 }
 
 
-void GnomeCmdMainWin::update_toolbar_visibility()
+void GnomeCmdMainWin::update_show_toolbar()
 {
     static GnomeUIInfo toolbar_uiinfo[] =
     {
@@ -1191,7 +1191,7 @@ void GnomeCmdMainWin::update_toolbar_visibility()
         GNOMEUIINFO_END
     };
 
-    if (gnome_cmd_data.toolbar_visibility)
+    if (gnome_cmd_data.show_toolbar)
     {
         create_toolbar (this, toolbar_uiinfo);
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->toolbar, FALSE, TRUE, 0);
@@ -1243,7 +1243,7 @@ void GnomeCmdMainWin::update_cmdline_visibility()
         g_object_ref (priv->cmdline);
         g_object_set_data_full (*this, "cmdline", priv->cmdline, g_object_unref);
         gtk_widget_show (priv->cmdline);
-        if (gnome_cmd_data.toolbar_visibility)
+        if (gnome_cmd_data.show_toolbar)
             pos += 2;
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->cmdline_sep, FALSE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->cmdline, FALSE, TRUE, 1);
@@ -1282,7 +1282,7 @@ void GnomeCmdMainWin::update_horizontal_orientation()
     gtk_paned_pack1 (GTK_PANED (priv->paned), priv->file_selector[LEFT], TRUE, TRUE);
     gtk_paned_pack2 (GTK_PANED (priv->paned), priv->file_selector[RIGHT], TRUE, TRUE);
 
-    if (gnome_cmd_data.toolbar_visibility)
+    if (gnome_cmd_data.show_toolbar)
         pos += 2;
 
     gtk_box_pack_start (GTK_BOX (priv->vbox), priv->paned, TRUE, TRUE, 0);

@@ -92,7 +92,7 @@ struct GnomeCmdMainWin
     void update_view();
     void update_style();
     void update_bookmarks();
-    void update_toolbar_visibility();
+    void update_show_toolbar();
     void update_cmdline_visibility();
     void update_buttonbar_visibility();
     void update_horizontal_orientation();

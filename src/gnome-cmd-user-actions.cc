@@ -1554,10 +1554,8 @@ void view_devlist (GtkMenuItem *menuitem, gpointer not_used)
 void view_toolbar (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
-
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.toolbar_visibility = checkitem->active;
-    main_win->update_toolbar_visibility();
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, checkitem->active);
 }
 
 

@@ -225,6 +225,15 @@ void on_show_cmdline_changed ()
     main_win->update_cmdline_visibility();
 }
 
+void on_show_toolbar_changed ()
+{
+    if (gnome_cmd_data.show_toolbar != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR))
+    {
+        gnome_cmd_data.show_toolbar = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
+        main_win->update_show_toolbar();
+    }
+}
+
 void on_horizontal_orientation_changed ()
 {
     gboolean horizontal_orientation;
@@ -355,6 +364,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::show-cmdline",
                       G_CALLBACK (on_show_cmdline_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::show-toolbar",
+                      G_CALLBACK (on_show_toolbar_changed),
                       NULL);
 
     g_signal_connect (gs->general,
@@ -1651,7 +1665,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 
     horizontal_orientation = FALSE;
 
-    toolbar_visibility = TRUE;
+    show_toolbar = TRUE;
     show_devbuttons = TRUE;
     show_devlist = TRUE;
     cmdline_visibility = TRUE;
@@ -1823,6 +1837,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //cmdline_visibility
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
+        //toolbar_visibility
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2009,7 +2026,7 @@ void GnomeCmdData::load()
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
 
-    toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
+    show_toolbar = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
     cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
@@ -2545,7 +2562,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", options.quick_search_exact_match_end);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", options.skip_mounting);
 
-    gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
