@@ -383,8 +383,7 @@
     </key>
     <key name="hide-backup-files" type="b">
       <default>true</default>
-      <summary></summary>
-      <description></description>
+      <description>Hide all files with a suffix defined as the backup pattern.</description>
     </key>
     <key name="backup-pattern" type="s">
       <default l10n="messages">'*~;*.bak'</default>
