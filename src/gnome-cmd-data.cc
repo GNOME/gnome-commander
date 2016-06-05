@@ -1732,6 +1732,7 @@ void GnomeCmdData::free()
  */
 void GnomeCmdData::migrate_all_data_to_gsettings()
 {
+    guint temp_value;
     options.gcmd_settings = gcmd_settings_new();
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
     gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
@@ -1857,6 +1858,13 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //buttonbar_visibility
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
+        //gui_update_rate
+        temp_value = gnome_cmd_data_get_int ("/options/gui_update_rate", 100);
+        if (temp_value < MIN_GUI_UPDATE_RATE)
+            temp_value = MIN_GUI_UPDATE_RATE;
+        if (temp_value > MAX_GUI_UPDATE_RATE)
+            temp_value = MAX_GUI_UPDATE_RATE;
+        migrate_data_int_value_into_gsettings(temp_value, options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2039,7 +2047,7 @@ void GnomeCmdData::load()
     options.theme_icon_dir = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     horizontal_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
-    gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
+    gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
 
@@ -2048,11 +2056,6 @@ void GnomeCmdData::load()
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
     cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
     buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
-
-    if (gui_update_rate < MIN_GUI_UPDATE_RATE)
-        gui_update_rate = MIN_GUI_UPDATE_RATE;
-    if (gui_update_rate > MAX_GUI_UPDATE_RATE)
-        gui_update_rate = MAX_GUI_UPDATE_RATE;
 
     options.honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
     options.allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
@@ -2569,7 +2572,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR, options.theme_icon_dir);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(horizontal_orientation));
-    gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", options.honor_expect_uris);
     gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", options.allow_multiple_instances);

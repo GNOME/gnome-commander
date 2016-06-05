@@ -184,10 +184,11 @@
           Defines if the orientation of the file panes should be horizontal or not.
       </description>
     </key>
-    <key name="gui-update-rate" type="i">
+    <key name="gui-update-rate" type="u">
       <default l10n="messages">100</default>
-      <summary></summary>
-      <description></description>
+      <range min="10" max="1000"/>
+      <summary>GUI update rate</summary>
+      <description>Update rate of the graphical user interphase in 1/1000ths of a second.</description>
     </key>
     <key name="show-devbuttons" type="b">
       <default>true</default>
