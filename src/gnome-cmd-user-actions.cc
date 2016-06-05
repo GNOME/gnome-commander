@@ -1527,7 +1527,9 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
     selection_delta (*fl2, fl2->get_marked_files(), new_selection2);
 }
 
-/************** View Menu **************/
+/* ***************************** View Menu ****************************** */
+/* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
+/* ********************************************************************** */
 
 void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
 {
@@ -1536,8 +1538,6 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.show_devbuttons = checkitem->active;
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, gnome_cmd_data.show_devbuttons);
-    get_fs (ACTIVE)->update_show_devbuttons();
-    get_fs (INACTIVE)->update_show_devbuttons();
 }
 
 
@@ -1548,8 +1548,6 @@ void view_devlist (GtkMenuItem *menuitem, gpointer not_used)
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.show_devlist = checkitem->active;
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, gnome_cmd_data.show_devlist);
-    get_fs (ACTIVE)->update_show_devlist();
-    get_fs (INACTIVE)->update_show_devlist();
 }
 
 
@@ -1580,7 +1578,6 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.cmdline_visibility = checkitem->active;
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, gnome_cmd_data.cmdline_visibility);
-    /* main_win->update_cmdline_visibility(); is executed by on_show_cmdline_changed() */
 }
 
 
@@ -1618,8 +1615,6 @@ void view_horizontal_orientation (GtkMenuItem *menuitem, gpointer not_used)
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.horizontal_orientation = checkitem->active;
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, gnome_cmd_data.horizontal_orientation);
-    main_win->update_horizontal_orientation();
-    main_win->focus_file_lists();
 }
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
