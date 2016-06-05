@@ -64,6 +64,7 @@ using namespace std;
 struct _GcmdUserActionSettings
 {
     GObject parent;
+    GSettings *filter;
     GSettings *general;
 };
 
@@ -98,6 +99,7 @@ GcmdUserActionSettings *gcmd_user_action_settings_new ()
 
 static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
 {
+    gs->filter = g_settings_new (GCMD_PREF_FILTER);
     gs->general = g_settings_new (GCMD_PREF_GENERAL);
 }
 
@@ -1586,9 +1588,7 @@ void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.options.filter.hidden = !checkitem->active;
-    get_fl (ACTIVE)->reload();
-    get_fl (INACTIVE)->reload();
+    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, !checkitem->active);
 }
 
 
@@ -1597,9 +1597,7 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.options.filter.backup = !checkitem->active;
-    get_fl (ACTIVE)->reload();
-    get_fl (INACTIVE)->reload();
+    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_BACKUP, !checkitem->active);
 }
 
 
