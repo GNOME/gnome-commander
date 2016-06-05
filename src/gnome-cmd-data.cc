@@ -254,6 +254,11 @@ void on_horizontal_orientation_changed ()
     main_win->focus_file_lists();
 }
 
+void on_symlink_string_changed ()
+{
+    gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -390,6 +395,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_horizontal_orientation_changed),
                       NULL);
 
+    g_signal_connect (gs->general,
+                      "changed::symlink-string",
+                      G_CALLBACK (on_symlink_string_changed),
+                      NULL);
+
 }
 
 
@@ -409,7 +419,6 @@ struct GnomeCmdData::Private
     gint             sort_column[2];
     gboolean         sort_direction[2];
     gint             main_win_pos[2];
-    gchar           *symlink_prefix;
 
     gchar           *ftp_anonymous_password;
 };
@@ -435,6 +444,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_dirs_on_exit = cfg.save_dirs_on_exit;
     save_tabs_on_exit = cfg.save_tabs_on_exit;
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
+    symlink_prefix = g_strdup (cfg.symlink_prefix);
     size_disp_mode = cfg.size_disp_mode;
     perm_disp_mode = cfg.perm_disp_mode;
     date_format = g_strdup (cfg.date_format);
@@ -492,6 +502,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_dirs_on_exit = cfg.save_dirs_on_exit;
         save_tabs_on_exit = cfg.save_tabs_on_exit;
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
+        symlink_prefix = g_strdup (cfg.symlink_prefix);
         size_disp_mode = cfg.size_disp_mode;
         perm_disp_mode = cfg.perm_disp_mode;
         date_format = g_strdup (cfg.date_format);
@@ -1865,6 +1876,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         if (temp_value > MAX_GUI_UPDATE_RATE)
             temp_value = MAX_GUI_UPDATE_RATE;
         migrate_data_int_value_into_gsettings(temp_value, options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
+        //symlink_prefix
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/symlink_prefix", ""),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2065,11 +2079,11 @@ void GnomeCmdData::load()
     options.quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
     options.skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
-    priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
-    if (!*priv->symlink_prefix || strcmp(priv->symlink_prefix, _("link to %s"))==0)
+    options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
+    if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
     {
-        g_free (priv->symlink_prefix);
-        priv->symlink_prefix = NULL;
+        g_free (options.symlink_prefix);
+        options.symlink_prefix = NULL;
     }
 
     options.viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
@@ -2588,11 +2602,6 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
 
-    if (priv->symlink_prefix && *priv->symlink_prefix && strcmp(priv->symlink_prefix, _("link to %s"))!=0)
-        gnome_cmd_data_set_string ("/options/symlink_prefix", priv->symlink_prefix);
-    else
-        gnome_cmd_data_set_string ("/options/symlink_prefix", "");
-
     gnome_cmd_data_set_int    ("/options/main_win_pos_x", priv->main_win_pos[0]);
     gnome_cmd_data_set_int    ("/options/main_win_pos_y", priv->main_win_pos[1]);
 
@@ -2953,13 +2962,9 @@ void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 
 const gchar *gnome_cmd_data_get_symlink_prefix ()
 {
-    return gnome_cmd_data.priv->symlink_prefix ? gnome_cmd_data.priv->symlink_prefix : _("link to %s");
-}
-
-
-void gnome_cmd_data_set_symlink_prefix (const gchar *value)
-{
-    gnome_cmd_data.priv->symlink_prefix = g_strdup (value);
+    char *symlink_prefix;
+    symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
+    return (strlen(symlink_prefix) > 0) ? symlink_prefix : _("link to %s");
 }
 
 

@@ -80,6 +80,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SHOW_TOOLBAR                    "show-toolbar"
 #define GCMD_SETTINGS_SHOW_BUTTONBAR                  "show-buttonbar"
 #define GCMD_SETTINGS_GUI_UPDATE_RATE                 "gui-update-rate"
+#define GCMD_SETTINGS_SYMLINK_PREFIX                  "symlink-string"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -160,6 +161,7 @@ struct GnomeCmdData
         gboolean                     save_dirs_on_exit;
         gboolean                     save_tabs_on_exit;
         gboolean                     save_dir_history_on_exit;
+        gchar                       *symlink_prefix;
         // Format
         GnomeCmdSizeDispMode         size_disp_mode;
         GnomeCmdPermDispMode         perm_disp_mode;
@@ -216,6 +218,7 @@ struct GnomeCmdData
                    save_dirs_on_exit(FALSE),
                    save_tabs_on_exit(TRUE),
                    save_dir_history_on_exit(TRUE),
+                   symlink_prefix(NULL),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
                    date_format(NULL),
@@ -257,6 +260,7 @@ struct GnomeCmdData
 
         ~Options()
         {
+            g_free (symlink_prefix);
             g_free (date_format);
             g_free (list_font);
             g_free (theme_icon_dir);

@@ -215,10 +215,14 @@
       <summary>Show buttonbar</summary>
       <description>Defines if the buttonbar is shown.</description>
     </key>
-    <key name="symlink-prefix" type="s">
+    <key name="symlink-string" type="s">
       <default l10n="messages">''</default>
-      <summary></summary>
-      <description></description>
+      <summary>Symlink string</summary>
+      <description>
+          This string defines the default name of a newly created symlink. Leave the string
+          empty to use the default value which is hard coded into the program code. A '%s'
+          will be expanded to the item name for which a link should be created.
+      </description>
     </key>
     <key name="main-win-pos-x" type="i">
       <default l10n="messages">0</default>
