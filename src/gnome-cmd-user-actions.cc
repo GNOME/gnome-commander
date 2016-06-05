@@ -1562,8 +1562,7 @@ void view_buttonbar (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data.buttonbar_visibility = checkitem->active;
-    main_win->update_buttonbar_visibility();
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, checkitem->active);
 }
 
 

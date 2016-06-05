@@ -78,6 +78,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SHOW_DEVLIST                    "show-devlist"
 #define GCMD_SETTINGS_SHOW_CMDLINE                    "show-cmdline"
 #define GCMD_SETTINGS_SHOW_TOOLBAR                    "show-toolbar"
+#define GCMD_SETTINGS_SHOW_BUTTONBAR                  "show-buttonbar"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"

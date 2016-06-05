@@ -209,6 +209,11 @@
       <summary>Show toolbar</summary>
       <description>Defines if the toolbar is shown.</description>
     </key>
+    <key name="show-buttonbar" type="b">
+      <default l10n="messages">true</default>
+      <summary>Show buttonbar</summary>
+      <description>Defines if the buttonbar is shown.</description>
+    </key>
     <key name="symlink-prefix" type="s">
       <default l10n="messages">''</default>
       <summary></summary>
@@ -404,11 +409,6 @@
       <description></description>
     </key>
     <key name="skip-mounting" type="b">
-      <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="buttonbar-visibility" type="b">
       <default l10n="messages">true</default>
       <summary></summary>
       <description></description>

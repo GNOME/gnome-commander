@@ -234,6 +234,15 @@ void on_show_toolbar_changed ()
     }
 }
 
+void on_show_buttonbar_changed ()
+{
+    if (gnome_cmd_data.buttonbar_visibility != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR))
+    {
+        gnome_cmd_data.buttonbar_visibility = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
+        main_win->update_buttonbar_visibility();
+    }
+}
+
 void on_horizontal_orientation_changed ()
 {
     gboolean horizontal_orientation;
@@ -369,6 +378,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::show-toolbar",
                       G_CALLBACK (on_show_toolbar_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::show-buttonbar",
+                      G_CALLBACK (on_show_buttonbar_changed),
                       NULL);
 
     g_signal_connect (gs->general,
@@ -1840,6 +1854,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //toolbar_visibility
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
+        //buttonbar_visibility
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2030,7 +2047,7 @@ void GnomeCmdData::load()
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
     cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
-    buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
+    buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
 
     if (gui_update_rate < MIN_GUI_UPDATE_RATE)
         gui_update_rate = MIN_GUI_UPDATE_RATE;
@@ -2566,7 +2583,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
-    gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", buttonbar_visibility);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
 
     if (priv->symlink_prefix && *priv->symlink_prefix && strcmp(priv->symlink_prefix, _("link to %s"))!=0)
         gnome_cmd_data_set_string ("/options/symlink_prefix", priv->symlink_prefix);
