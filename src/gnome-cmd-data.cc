@@ -418,7 +418,6 @@ struct GnomeCmdData::Private
     GList           *auto_load_plugins;
     gint             sort_column[2];
     gboolean         sort_direction[2];
-    gint             main_win_pos[2];
 
     gchar           *ftp_anonymous_password;
 };
@@ -445,6 +444,8 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_tabs_on_exit = cfg.save_tabs_on_exit;
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
     symlink_prefix = g_strdup (cfg.symlink_prefix);
+    main_win_pos[0] = cfg.main_win_pos[0];
+    main_win_pos[1] = cfg.main_win_pos[1];
     size_disp_mode = cfg.size_disp_mode;
     perm_disp_mode = cfg.perm_disp_mode;
     date_format = g_strdup (cfg.date_format);
@@ -503,6 +504,8 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_tabs_on_exit = cfg.save_tabs_on_exit;
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
         symlink_prefix = g_strdup (cfg.symlink_prefix);
+        main_win_pos[0] = cfg.main_win_pos[0];
+        main_win_pos[1] = cfg.main_win_pos[1];
         size_disp_mode = cfg.size_disp_mode;
         perm_disp_mode = cfg.perm_disp_mode;
         date_format = g_strdup (cfg.date_format);
@@ -1879,6 +1882,12 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //symlink_prefix
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/symlink_prefix", ""),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
+        //main_win_pos_x
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_pos_x", 0),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X);
+        //main_win_pos_y
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_pos_y", 25),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2062,8 +2071,8 @@ void GnomeCmdData::load()
     cmdline_history_length = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
     horizontal_orientation = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
     gui_update_rate = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
-    priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
-    priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
+    options.main_win_pos[0] = g_settings_get_int (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X);
+    options.main_win_pos[1] = g_settings_get_int (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y);
 
     show_toolbar = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
     show_devbuttons = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
@@ -2437,6 +2446,17 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 
             break;
         }
+        case G_VARIANT_CLASS_INT32:
+        {
+            default_value = g_variant_get_int32 (variant);
+
+            if (user_value != default_value)
+                g_settings_set_int (settings, key, user_value);
+
+            return_value = g_settings_get_int(settings, key);
+
+            break;
+        }
         case G_VARIANT_CLASS_BOOLEAN:
         {
             gboolean bdef_value;
@@ -2602,8 +2622,8 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
 
-    gnome_cmd_data_set_int    ("/options/main_win_pos_x", priv->main_win_pos[0]);
-    gnome_cmd_data_set_int    ("/options/main_win_pos_y", priv->main_win_pos[1]);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X, &(options.main_win_pos[0]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y, &(options.main_win_pos[1]));
 
     gnome_cmd_data_set_string ("/programs/viewer", options.viewer);
     gnome_cmd_data_set_string ("/programs/editor", options.editor);
@@ -2857,6 +2877,16 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
 
     switch (g_variant_classify(default_val))
     {
+        case G_VARIANT_CLASS_INT32:
+        {
+            gint old_value;
+            gint new_value = *(gint*) value;
+
+            old_value = g_settings_get_int (settings, key);
+            if (old_value != new_value)
+                rv = g_settings_set_int (settings, key, new_value);
+            break;
+        }
         case G_VARIANT_CLASS_UINT32:
         {
             gint old_value;
@@ -2948,15 +2978,15 @@ void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 
 void gnome_cmd_data_set_main_win_pos (gint x, gint y)
 {
-    gnome_cmd_data.priv->main_win_pos[0] = x;
-    gnome_cmd_data.priv->main_win_pos[1] = y;
+    gnome_cmd_data.options.main_win_pos[0] = x;
+    gnome_cmd_data.options.main_win_pos[1] = y;
 }
 
 
 void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 {
-    *x = gnome_cmd_data.priv->main_win_pos[0];
-    *y = gnome_cmd_data.priv->main_win_pos[1];
+    *x = gnome_cmd_data.options.main_win_pos[0];
+    *y = gnome_cmd_data.options.main_win_pos[1];
 }
 
 

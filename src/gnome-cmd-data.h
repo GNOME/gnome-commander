@@ -81,6 +81,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SHOW_BUTTONBAR                  "show-buttonbar"
 #define GCMD_SETTINGS_GUI_UPDATE_RATE                 "gui-update-rate"
 #define GCMD_SETTINGS_SYMLINK_PREFIX                  "symlink-string"
+#define GCMD_SETTINGS_MAIN_WIN_POS_X                  "main-win-pos-x"
+#define GCMD_SETTINGS_MAIN_WIN_POS_Y                  "main-win-pos-y"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -162,6 +164,7 @@ struct GnomeCmdData
         gboolean                     save_tabs_on_exit;
         gboolean                     save_dir_history_on_exit;
         gchar                       *symlink_prefix;
+        gint                         main_win_pos[2];
         // Format
         GnomeCmdSizeDispMode         size_disp_mode;
         GnomeCmdPermDispMode         perm_disp_mode;

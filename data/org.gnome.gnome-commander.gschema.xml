@@ -225,14 +225,18 @@
       </description>
     </key>
     <key name="main-win-pos-x" type="i">
-      <default l10n="messages">0</default>
-      <summary></summary>
-      <description></description>
+      <default>0</default>
+      <summary>Main window x-position</summary>
+      <description>
+          Position of the main window in x direction.
+      </description>
     </key>
     <key name="main-win-pos-y" type="i">
-      <default l10n="messages">25</default>
-      <summary></summary>
-      <description></description>
+      <default>25</default>
+      <summary>Main window y-position</summary>
+      <description>
+          Position of the main window in y direction.
+      </description>
     </key>
     <key name="sort-column-left" type="i">
       <default l10n="messages">1</default>
