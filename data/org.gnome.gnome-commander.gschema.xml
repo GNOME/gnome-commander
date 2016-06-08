@@ -303,8 +303,10 @@
     </key>
     <key name="always-show-tabs" type="b">
       <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Always show tab bar</summary>
+      <description>
+          Defines if the tab bar is always shown.
+      </description>
     </key>
     <key name="tab-lock-indicator" type="i">
       <default l10n="messages">2</default>
