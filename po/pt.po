@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the gnome-commander package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2003.
 # Pedro Albuquerque <palbuquerque73@gmail.com>, 2015.
+# Tiago Santos <tiagofsantos81@sapo.pt>, 2014 - 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-09-19 06:36+0000\n"
-"PO-Revision-Date: 2015-09-19 09:02+0100\n"
-"Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
-"Language-Team: Português <palbuquerque73@gmail.com>\n"
+"POT-Creation-Date: 2016-06-06 10:49+0000\n"
+"PO-Revision-Date: 2016-06-08 10:09+0100\n"
+"Last-Translator: Tiago Santos <tiagofsantos81@sapo.pt>\n"
+"Language-Team: Português\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Language: pt_PT\n"
 "X-Source-Language: C\n"
 
@@ -1408,7 +1409,6 @@ msgid "Use Internal Viewer"
 msgstr "Usar o visualizador interno"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1603
-#| msgid "Other favourite apps"
 msgid "Other favorite apps"
 msgstr "Outras aplicações favoritas"
 
@@ -1976,8 +1976,9 @@ msgstr "Montagem falhou: nenhum suporte encontrado"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-msgid "Mount failed: mount exited with existatus %d"
-msgstr "Montagem falhou: terminou com código de saída %d"
+#| msgid "Mount failed: mount exited with existatus %d"
+msgid "Mount failed: mount exited with exitstatus %d"
+msgstr "Montagem falhou: montagem saiu com o código %d"
 
 #: ../src/gnome-cmd-con-device.cc:203
 msgid "Device is now safe to remove"
@@ -5007,18 +5008,24 @@ msgid "Reference Black/White"
 msgstr "Referência Preto/Branco"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
+#| msgid ""
+#| "The reference black point value and reference white point value. No "
+#| "defaults are given in TIFF, but the values below are given as defaults "
+#| "here. The color space is declared in a color space information tag, with "
+#| "the default being the value that gives the optimal image characteristics "
+#| "Interoperability these conditions."
 msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
 "color space is declared in a color space information tag, with the default "
-"being the value that gives the optimal image characteristics "
-"Interoperability these conditions."
+"being the value that gives the optimal image characteristics under these "
+"conditions."
 msgstr ""
-"Os valores de ponto preto e branco. Não há predefinições em TIFF, mas os "
-"valores abaixo são aqui dados como predefinição. O espaço de cor é declarado "
-"numa etiqueta de informação do espaço de cor, sendo a predefinição o valor "
-"que dá estas condições à interoperabilidade ótima de características da "
-"imagem."
+"Os valores de referência dos pontos preto e branco. Não há predefinições em "
+"TIFF, mas os valores abaixo são aqui dados como predefinição. O espaço de "
+"cor é declarado numa etiqueta de informação do espaço de cor, sendo a "
+"predefinição o valor que dá estas condições à interoperabilidade ótima de "
+"características da imagem."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Related Image File Format"
@@ -5449,12 +5456,18 @@ msgid "YCbCr Coefficients"
 msgstr "Coeficientes YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
+#| msgid ""
+#| "The matrix coefficients for transformation from RGB to YCbCr image data. "
+#| "No default is given in TIFF; but here \"Color Space Guidelines\" is used "
+#| "as the default. The color space is declared in a color space information "
+#| "tag, with the default being the value that gives the optimal image "
+#| "characteristics Interoperability this condition."
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
-"Interoperability this condition."
+"under this condition."
 msgstr ""
 "Os coeficientes de matriz para transformação de dados de imagem RGB em "
 "YCbCr. Sem predefinição em TIFF; mas aqui são usadas \"linhas guia de espaço "
@@ -7693,342 +7706,3 @@ msgstr "Ocorreu um erro ao mostrar a ajuda."
 
 #~ msgid "Send files:"
 #~ msgstr "Enviar ficheiros:"
-
-#~| msgid "Command:"
-#~ msgid "Command"
-#~ msgstr "Comando"
-
-#~ msgid "Global app options"
-#~ msgstr "Opções globais da aplicação"
-
-#~ msgid "Terminal command for apps in the list above:"
-#~ msgstr "Comando para as aplicações na lista acima:"
-
-#~| msgid "Invalid command"
-#~ msgid "No valid command given."
-#~ msgstr "Não indicou um comando válido"
-
-#~ msgid "CVS options"
-#~ msgstr "Opções de ordenação"
-
-#~ msgid "A plugin that eventually will be a simple CVS client"
-#~ msgstr "Um plugin que virá a ser um cliente CVS simples"
-
-#~ msgid "Compare with"
-#~ msgstr "Comparar"
-
-#~ msgid "The previous revision"
-#~ msgstr "_Comparar revisões"
-
-#~ msgid "Other revision"
-#~ msgstr "revisão"
-
-#~ msgid "CVS Diff"
-#~ msgstr "_Dif"
-
-#~ msgid "revision"
-#~ msgstr "revisão"
-
-#~ msgid "Revision:"
-#~ msgstr "Revisão"
-
-#~ msgid "Compare..."
-#~ msgstr "Comparar"
-
-#~ msgid "Author:"
-#~ msgstr "Autor:"
-
-#~ msgid "Date:"
-#~ msgstr "Data:"
-
-#~ msgid "Lines:"
-#~ msgstr "Linhas:"
-
-#~ msgid "Message:"
-#~ msgstr "Mensagem:"
-
-#~ msgid "With this:"
-#~ msgstr "Por isto"
-
-#~ msgid "New Rule"
-#~ msgstr "Nova Regra"
-
-#~ msgid "Counter start value:"
-#~ msgstr "Valor inicial do contador:"
-
-#~ msgid "Counter increment:"
-#~ msgstr "Incremento do contador:"
-
-#~ msgid "Counter minimum digit count:"
-#~ msgstr "Número mínimo de dígitos do contador:"
-
-#~ msgid "Template Options"
-#~ msgstr "Opções de Modelo"
-
-#~ msgid "Auto-update when the template is entered"
-#~ msgstr "Actualizar automaticamente ao entrar no modelo"
-
-#~ msgid "O_ptions..."
-#~ msgstr "Opções..."
-
-#~ msgid "With this"
-#~ msgstr "Por isto"
-
-#~ msgid "path"
-#~ msgstr "caminho"
-
-#~ msgid ""
-#~ "Could not chmod %s\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Incapaz de efectuar chmod %s\n"
-#~ "%s"
-
-#~ msgid "_Remote dir:"
-#~ msgstr "_Remover"
-
-#~ msgid "_Password:"
-#~ msgstr "Senha:"
-
-#~ msgid "Removes the FTP connection to %s"
-#~ msgstr "Remove a ligação FTP a %s"
-
-#~ msgid "Other..."
-#~ msgstr "Outro..."
-
-#~ msgid "_Change"
-#~ msgstr "_Alterar"
-
-#~ msgid "Symlink name:"
-#~ msgstr "Nome simbólico:"
-
-#~ msgid "Edit _MIME Types..."
-#~ msgstr "Editar Tipos _Mime..."
-
-#~ msgid "F10 Quit"
-#~ msgstr "F10 Sair"
-
-#~ msgid "Match filenames using"
-#~ msgstr "Coincidir nomes de ficheiros utilizando"
-
-#~ msgid "Directory options"
-#~ msgstr "Opções de directório"
-
-#~ msgid "Directory cache size"
-#~ msgstr "Tamanho de cache de directório"
-
-#~ msgid "_Test"
-#~ msgstr "_Teste"
-
-#~ msgid "Authentication"
-#~ msgstr "Aplicação:"
-
-#~ msgid "Anonymous FTP access"
-#~ msgstr "Senha anónima:"
-
-#~ msgid "Password:"
-#~ msgstr "Senha:"
-
-#~ msgid "Network"
-#~ msgstr "Novo Marcador"
-
-#~ msgid "Failed to open file %s: %s\n"
-#~ msgstr "Falha ao abrir ficheiro %s: %s\n"
-
-#~ msgid "Search in: "
-#~ msgstr "Procurar em: "
-
-#~ msgid "Goto"
-#~ msgstr "Ir Para"
-
-#~ msgid "Enter password"
-#~ msgstr "Introduza Senha"
-
-#~ msgid "Can't find a host or workgroup named %s\n"
-#~ msgstr "Incapaz de encontrar uma máquina ou grupo de trabalho chamado %s\n"
-
-#~ msgid "running `%s'\n"
-#~ msgstr "a executar \"%s\"\n"
-
-#~ msgid ""
-#~ "The file \"%s\" already exists.\n"
-#~ "\n"
-#~ "Do you want to overwrite it?\n"
-#~ msgstr ""
-#~ "O ficheiro \"%s\" já existe.\n"
-#~ "\n"
-#~ "Deseja sobrepo-lo?\n"
-
-#~ msgid "Trying to load %s instead\n"
-#~ msgstr "A tentar ler %s como alternativa\n"
-
-#~ msgid ""
-#~ "When parsing the users and groups on this system it was found that the "
-#~ "user %s is part of the group %s. This user can however not be found.\n"
-#~ msgstr ""
-#~ "Ao parsear os utilizadores e grupos deste sistema descobriu-se que o "
-#~ "utilizador %s é membro do grupo %s. No entanto este utilizador não foi "
-#~ "encontrado.\n"
-
-#~ msgid ""
-#~ "No default application found for the mime-type %s.\n"
-#~ "Open the \"File types and programs\" page in the Control Center to add "
-#~ "one."
-#~ msgstr ""
-#~ "Nenhuma aplicação por omissão encontrada para o tipo mime %s.\n"
-#~ "Abra a página \"Tipos de ficheiros e aplicações\" no Centro de Controlo e "
-#~ "adicione uma."
-
-#~ msgid "Dir"
-#~ msgstr "dir"
-
-#~ msgid "_Add..."
-#~ msgstr "_Adicionar..."
-
-#~ msgid "_Edit..."
-#~ msgstr "_Editar..."
-
-#~ msgid "_Remove"
-#~ msgstr "_Remover"
-
-#~ msgid "_Goto"
-#~ msgstr "_Ir Para"
-
-#~ msgid "No alias specified"
-#~ msgstr "Nenhuma alcunha especificada"
-
-#~ msgid "No host specified"
-#~ msgstr "Nenhum servidor especificado"
-
-#~ msgid "Invalid port number: %s"
-#~ msgstr "Número de porto inválido: %s"
-
-#~ msgid "Host:"
-#~ msgstr "Servidor:"
-
-#~ msgid "Edit Remote Connection"
-#~ msgstr "Ligação FTP"
-
-#~ msgid "Connect"
-#~ msgstr "Ligar"
-
-#~ msgid "_Hex"
-#~ msgstr "_Ajuda"
-
-#~ msgid "Enter password for %s@%s"
-#~ msgstr "Introduza senha para %s@%s"
-
-#~ msgid "Enter Password"
-#~ msgstr "Introduza Senha"
-
-#~ msgid "FTP Connect"
-#~ msgstr "Ligação FTP"
-
-#~ msgid "FTP Quick Connect"
-#~ msgstr "Ligação Rápida FTP"
-
-#~ msgid "FTP _Connect..."
-#~ msgstr "_Ligação FTP..."
-
-#~ msgid "FTP _Quick Connect..."
-#~ msgstr "Ligação _Rápida FTP..."
-
-#~ msgid "_Execute"
-#~ msgstr "_Executar"
-
-#~ msgid "_Cut"
-#~ msgstr "_Cortar"
-
-#~ msgid "No translation is currently in use."
-#~ msgstr "Duarte Loreto <happyguy_pt@hotmail.com>"
-
-#~ msgid "Rename \"%s\" to"
-#~ msgstr "Renomear \"%s\" para"
-
-#~ msgid "About"
-#~ msgstr "_Sobre"
-
-#~ msgid "Compare Revisions..."
-#~ msgstr "Comparar Revisões..."
-
-#~ msgid "CVS"
-#~ msgstr "CVS"
-
-#~ msgid "CVSLogViewer"
-#~ msgstr "Visualizador de Registo CVS"
-
-#~ msgid "Revisions"
-#~ msgstr "Revisões"
-
-#~ msgid "Revision 2:"
-#~ msgstr "Revisão 2:"
-
-#~ msgid "Diff output"
-#~ msgstr "Resultado diff"
-
-#~ msgid "Fixed font"
-#~ msgstr "Fonte fixa"
-
-#~ msgid "Copyright: Marcus Bjurman 2003"
-#~ msgstr "Copyright: Marcus Bjurman 2003"
-
-#~ msgid "Small tool to browse CVS revisions of a single file."
-#~ msgstr "Ferramenta simples para analisar revisões CVS de um ficheiro."
-
-#~ msgid "Program name"
-#~ msgstr "Nome da aplicação"
-
-#~ msgid "Copyright information for the program"
-#~ msgstr "Informação de copyright para a aplicação"
-
-#~ msgid "Authors"
-#~ msgstr "Autores"
-
-#~ msgid "List of authors of the programs"
-#~ msgstr "Lista de autores da aplicação"
-
-#~ msgid "Author entry"
-#~ msgstr "Entrada de autor"
-
-#~ msgid "A single author entry"
-#~ msgstr "Uma entrada única de autor"
-
-#~ msgid "List of people documenting the program"
-#~ msgstr "Lista de pessoas que documentam a aplicação"
-
-#~ msgid "Documenter entry"
-#~ msgstr "Entrada de documentador"
-
-#~ msgid "A single documenter entry"
-#~ msgstr "Uma entrada única de documentador"
-
-#~ msgid ""
-#~ "Credits to the translators. This string should be marked as translatable"
-#~ msgstr ""
-#~ "Créditos para os tradutores. Esta expressão deverá ser marcada como "
-#~ "traduzível"
-
-#~ msgid "Webpage for the plugin"
-#~ msgstr "Página web para o plugin"
-
-#~ msgid "New FTP Server"
-#~ msgstr "Novo Servidor FTP"
-
-#~ msgid "Edit FTP Server"
-#~ msgstr "Editar Servidor FTP"
-
-#~ msgid "User _Manual..."
-#~ msgstr "_Manual Utilizador..."
-
-#~ msgid "_About..."
-#~ msgstr "_Sobre..."
-
-#~ msgid "Chmod"
-#~ msgstr "Chmod"
-
-#~ msgid ""
-#~ "%s does not know how to open remote files. Do you want to download the "
-#~ "files to a temporary location and then open them?"
-#~ msgstr ""
-#~ "%s é incapaz de abrir ficheiros remotos. Deseja fazer download dos "
-#~ "ficheiros para uma localização temporária e depois abri-los?"
