@@ -1894,6 +1894,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //save_tabs_on_exit
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
+        //save_dir_history_on_exit
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2131,7 +2134,7 @@ void GnomeCmdData::load()
 
     options.save_dirs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT);
     options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
-    options.save_dir_history_on_exit = gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE);
+    options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
 
     options.always_show_tabs = gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE);
     options.tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
@@ -2663,7 +2666,7 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT, &(options.save_dirs_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT, &(options.save_tabs_on_exit));
-    gnome_cmd_data_set_bool ("/options/save_dir_history_on_exit", options.save_dir_history_on_exit);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT, &(options.save_dir_history_on_exit));
 
     gnome_cmd_data_set_bool ("/options/always_show_tabs", options.always_show_tabs);
     gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) options.tab_lock_indicator);

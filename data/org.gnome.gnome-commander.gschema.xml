@@ -296,8 +296,10 @@
     </key>
     <key name="save-dir-history-on-exit" type="b">
       <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Save directory history on exit</summary>
+      <description>
+          Defines if the history of visited directories is saved on exit.
+      </description>
     </key>
     <key name="always-show-tabs" type="b">
       <default l10n="messages">false</default>
