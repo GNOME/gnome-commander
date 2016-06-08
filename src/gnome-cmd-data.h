@@ -84,6 +84,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_MAIN_WIN_POS_X                  "main-win-pos-x"
 #define GCMD_SETTINGS_MAIN_WIN_POS_Y                  "main-win-pos-y"
 #define GCMD_SETTINGS_SAVE_DIRS_ON_EXIT               "save-dirs-on-exit"
+#define GCMD_SETTINGS_SAVE_TABS_ON_EXIT               "save-tabs-on-exit"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
