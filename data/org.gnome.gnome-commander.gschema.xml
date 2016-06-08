@@ -282,8 +282,10 @@
     </key>
     <key name="save-dirs-on-exit" type="b">
       <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Save directories on exit</summary>
+      <description>
+          Defines if the current directories are opened again when Gnome Commander is restarted.
+      </description>
     </key>
     <key name="save-tabs-on-exit" type="b">
       <default l10n="messages">true</default>
