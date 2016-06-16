@@ -67,6 +67,12 @@
     <value nick="GDK_INTERP_HYPER" value="3"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.general.tab-lock-indicator-enum">
+    <value nick="icon" value="0"/>
+    <value nick="asterisk" value="1"/>
+    <value nick="styled text" value="2"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -308,10 +314,12 @@
           Defines if the tab bar is always shown.
       </description>
     </key>
-    <key name="tab-lock-indicator" type="i">
-      <default l10n="messages">2</default>
-      <summary></summary>
-      <description></description>
+    <key name="tab-lock-indicator" enum='org.gnome.gnome-commander.preferences.general.tab-lock-indicator-enum'>
+      <default l10n="messages">'icon'</default>
+      <summary>Tab lock indicator</summary>
+      <description>
+          Defines the style of the tab lock indicator.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">

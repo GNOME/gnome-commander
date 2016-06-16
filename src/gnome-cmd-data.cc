@@ -264,6 +264,16 @@ void on_always_show_tabs_changed ()
     main_win->update_style();
 }
 
+void on_tab_lock_indicator_changed ()
+{
+    gint tab_lock_indicator;
+
+    tab_lock_indicator = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
+    gnome_cmd_data.options.tab_lock_indicator = tab_lock_indicator;
+
+    main_win->update_style();
+}
+
 void on_symlink_string_changed ()
 {
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -413,6 +423,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::always-show-tabs",
                       G_CALLBACK (on_always_show_tabs_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::tab-lock-indicator",
+                      G_CALLBACK (on_tab_lock_indicator_changed),
                       NULL);
 
 }
@@ -1915,6 +1930,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //always_show_tabs
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
+        //tab_lock_indicator
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2155,7 +2173,7 @@ void GnomeCmdData::load()
     options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
 
     options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
-    options.tab_lock_indicator = (TabLockIndicator) gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON);
+    options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
 
     options.backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
     options.backup_pattern_list = patlist_new (options.backup_pattern);
@@ -2687,7 +2705,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT, &(options.save_dir_history_on_exit));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
-    gnome_cmd_data_set_int ("/options/tab_lock_indicator", (int) options.tab_lock_indicator);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);
 
     gnome_cmd_data_set_string ("/defaults/backup_pattern", options.backup_pattern);
 
