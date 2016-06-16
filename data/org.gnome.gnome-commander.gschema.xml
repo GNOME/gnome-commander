@@ -33,34 +33,34 @@
     <value nick="numbers" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.graphical-layout-mode">
+  <enum id="org.gnome.gnome-commander.preferences.general.graphical-layout-mode-enum">
     <value nick="off" value="0"/>
     <value nick="file icons" value="1"/>
     <value nick="MIME icons" value="2"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.extension-display-mode">
+  <enum id="org.gnome.gnome-commander.preferences.general.extension-display-mode-enum">
     <value nick="with filename column" value="0"/>
     <value nick="separate column" value="1"/>
     <value nick="both columns" value="2"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.clicks-to-open-item">
+  <enum id="org.gnome.gnome-commander.preferences.general.clicks-to-open-item-enum">
     <value nick="single" value="0"/>
     <value nick="double" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode">
+  <enum id="org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode-enum">
     <value nick="popup" value="0"/>
     <value nick="select" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode">
+  <enum id="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode-enum">
     <value nick="parent directory" value="0"/>
     <value nick="new tab" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality">
+  <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum">
     <value nick="GDK_INTERP_NEAREST" value="0"/>
     <value nick="GDK_INTERP_TILES" value="1"/>
     <value nick="GDK_INTERP_BILINEAR" value="2"/>
@@ -105,7 +105,7 @@
         Defines how the file permission will be displayed in the associated pane column.
       </description>
     </key>
-    <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.preferences.general.graphical-layout-mode'>
+    <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.preferences.general.graphical-layout-mode-enum'>
       <default l10n="messages">'MIME icons'</default>
       <summary>Graphical layout mode</summary>
       <description>
@@ -131,14 +131,14 @@
       <summary>List font</summary>
       <description>The font in the file panes.</description>
     </key>
-    <key name='extension-display-mode' enum='org.gnome.gnome-commander.preferences.general.extension-display-mode'>
+    <key name='extension-display-mode' enum='org.gnome.gnome-commander.preferences.general.extension-display-mode-enum'>
       <default l10n="messages">'both columns'</default>
       <summary>Extension display mode</summary>
       <description>
           Defines where the file name extension is displayed.
       </description>
     </key>
-    <key name="clicks-to-open-item" enum='org.gnome.gnome-commander.preferences.general.clicks-to-open-item'>
+    <key name="clicks-to-open-item" enum='org.gnome.gnome-commander.preferences.general.clicks-to-open-item-enum'>
       <default>'double'</default>
       <summary>Clicks to open an item</summary>
       <description>
@@ -152,7 +152,7 @@
           Defines if a click on an unselected item unselects already selected items.
       </description>
     </key>
-    <key name="right-mouse-btn-mode" enum='org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode'>
+    <key name="right-mouse-btn-mode" enum='org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode-enum'>
       <default l10n="messages">'popup'</default>
       <summary>Right mouse button mode</summary>
       <description>
@@ -169,7 +169,7 @@
       <summary>Device icon size</summary>
       <description>Icon size in the device list.</description>
     </key>
-    <key name="icon-scale-quality" enum='org.gnome.gnome-commander.preferences.general.icon-scale-quality'>
+    <key name="icon-scale-quality" enum='org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum'>
       <default l10n="messages">'GDK_INTERP_HYPER'</default>
       <summary>Icon scale quality</summary>
       <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
@@ -279,7 +279,7 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode">
+    <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode-enum">
       <default l10n="messages">'parent directory'</default>
       <summary>Middle mouse button mode</summary>
       <description>
