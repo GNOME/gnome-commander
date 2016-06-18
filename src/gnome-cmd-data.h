@@ -102,6 +102,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_DOTFILE                  "hide-dotfile"
 #define GCMD_SETTINGS_FILTER_BACKUP                   "hide-backup-files"
 
+#define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmation"
+#define GCMD_SETTINGS_CONFIRM_DELETE                  "confirm-delete"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData

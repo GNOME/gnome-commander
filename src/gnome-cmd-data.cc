@@ -55,6 +55,7 @@ struct _GcmdSettings
 
     GSettings *general;
     GSettings *filter;
+    GSettings *confirm;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -74,6 +75,7 @@ static void gcmd_settings_dispose (GObject *object)
 
     g_clear_object (&gs->general);
     g_clear_object (&gs->filter);
+    g_clear_object (&gs->confirm);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -274,6 +276,14 @@ void on_tab_lock_indicator_changed ()
     main_win->update_style();
 }
 
+void on_confirm_delete_changed ()
+{
+    gboolean confirm_delete;
+
+    confirm_delete = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
+    gnome_cmd_data.options.confirm_delete = confirm_delete;
+}
+
 void on_symlink_string_changed ()
 {
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -430,13 +440,19 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_tab_lock_indicator_changed),
                       NULL);
 
+    g_signal_connect (gs->confirm,
+                      "changed::confirm-delete",
+                      G_CALLBACK (on_confirm_delete_changed),
+                      NULL);
+
 }
 
 
 static void gcmd_settings_init (GcmdSettings *gs)
 {
-    gs->general = g_settings_new (GCMD_PREF_GENERAL);
-    gs->filter  = g_settings_new (GCMD_PREF_FILTER);
+    gs->general  = g_settings_new (GCMD_PREF_GENERAL);
+    gs->filter   = g_settings_new (GCMD_PREF_FILTER);
+    gs->confirm  = g_settings_new (GCMD_PREF_CONFIRM);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2044,7 +2060,7 @@ void GnomeCmdData::load()
 
     options.list_row_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
 
-    options.confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
+    options.confirm_delete = g_settings_get_boolean (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
     options.confirm_delete_default = (GtkButtonsType) gnome_cmd_data_get_int ("/confirm/delete_default", GTK_BUTTONS_OK);
     options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
@@ -2591,7 +2607,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT, utf8_date_format);
     g_free (utf8_date_format);
 
-    gnome_cmd_data_set_bool   ("/confirm/delete", options.confirm_delete);
+    set_gsettings_when_changed      (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE, &(options.confirm_delete));
     gnome_cmd_data_set_int    ("/confirm/delete_default", options.confirm_delete_default);
     gnome_cmd_data_set_int    ("/confirm/copy_overwrite", options.confirm_copy_overwrite);
     gnome_cmd_data_set_int    ("/confirm/move_overwrite", options.confirm_move_overwrite);

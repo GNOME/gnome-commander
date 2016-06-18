@@ -345,10 +345,12 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.confirmation" path="/org/gnome/gnome-commander/preferences/confirmation/">
-    <key name="delete" type="b">
+    <key name="confirm-delete" type="b">
       <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Confirm delete</summary>
+      <description>
+          Defines if deletion of an item should be confirmed.
+      </description>
     </key>
     <key name="copy-overwrite" type="i">
       <default l10n="messages">1</default>
