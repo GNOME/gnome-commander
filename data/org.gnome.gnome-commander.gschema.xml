@@ -274,10 +274,13 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="main-win-state" type="i">
+    <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
+    <key name="main-win-state" type="u">
       <default l10n="messages">4</default>
-      <summary></summary>
-      <description></description>
+      <summary>Main window state</summary>
+      <description>
+          The number represents the main window state, e.g. 'maximized', 'fullscreen', etc. and is calculated internally.
+      </description>
     </key>
     <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode-enum">
       <default l10n="messages">'parent directory'</default>

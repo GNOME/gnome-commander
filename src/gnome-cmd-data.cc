@@ -1933,6 +1933,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //tab_lock_indicator
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
+        //main_win_state
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2178,7 +2181,7 @@ void GnomeCmdData::load()
     options.backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
     options.backup_pattern_list = patlist_new (options.backup_pattern);
 
-    main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
+    main_win_state = (GdkWindowState) g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
 
     priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
 
@@ -2709,7 +2712,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_string ("/defaults/backup_pattern", options.backup_pattern);
 
-    gnome_cmd_data_set_int ("/options/main_win_state", (gint) main_win_state);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &(main_win_state));
 
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", priv->ftp_anonymous_password);
     gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
