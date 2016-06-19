@@ -445,6 +445,7 @@
     </key>
     <key name="hide-backup-files" type="b">
       <default>true</default>
+      <summary>Hide backup files</summary>
       <description>Hide all files with a suffix defined as the backup pattern.</description>
     </key>
     <key name="backup-pattern" type="s">
