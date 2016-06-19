@@ -450,8 +450,11 @@
     </key>
     <key name="backup-pattern" type="s">
       <default l10n="messages">'*~;*.bak'</default>
-      <summary></summary>
-      <description></description>
+      <summary>Backup file pattern</summary>
+      <description>
+          The given string defines suffixes (separated by semicolon) for files which
+          should by filtered out if backup files should by hidden.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.programs" path="/org/gnome/gnome-commander/preferences/programs/">

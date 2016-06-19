@@ -103,6 +103,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK       "hide-symbolic-link"
 #define GCMD_SETTINGS_FILTER_DOTFILE                  "hide-dotfile"
 #define GCMD_SETTINGS_FILTER_BACKUP                   "hide-backup-files"
+#define GCMD_SETTINGS_FILTER_BACKUP_PATTERN           "backup-pattern"
 
 #define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmations"
 #define GCMD_SETTINGS_CONFIRM_DELETE                  "delete"

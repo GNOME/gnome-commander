@@ -167,6 +167,16 @@ void on_filter_changed ()
     main_win->update_view();
 }
 
+void on_backup_pattern_changed ()
+{
+    char *backup_pattern;
+
+    backup_pattern = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN);
+    gnome_cmd_data.options.set_backup_pattern(backup_pattern);
+    main_win->update_view();
+    g_free(backup_pattern);
+}
+
 void on_list_font_changed ()
 {
     char *list_font;
@@ -431,6 +441,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->filter,
                       "changed::hide-backup-files",
                       G_CALLBACK (on_filter_changed),
+                      NULL);
+
+    g_signal_connect (gs->filter,
+                      "changed::backup-pattern",
+                      G_CALLBACK (on_backup_pattern_changed),
                       NULL);
 
     g_signal_connect (gs->general,
@@ -1945,6 +1960,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //hidden_filter
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/backup_filter", FALSE) ? 1 : 0,
                                                         options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
+        //backup_pattern
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak"),
+                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN);
         //list_font
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/list_font", "DejaVu Sans Mono 8"),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
@@ -2293,7 +2311,7 @@ void GnomeCmdData::load()
     options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
     options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
 
-    options.backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
+    options.backup_pattern = g_settings_get_string (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN);
     options.backup_pattern_list = patlist_new (options.backup_pattern);
 
     main_win_state = (GdkWindowState) g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
@@ -2825,7 +2843,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);
 
-    gnome_cmd_data_set_string ("/defaults/backup_pattern", options.backup_pattern);
+    set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN, options.backup_pattern);
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &(main_win_state));
 
