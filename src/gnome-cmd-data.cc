@@ -288,7 +288,7 @@ void on_confirm_delete_default_changed ()
 {
     gint confirm_delete_default;
 
-    confirm_delete_default = g_settings_get_int (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
+    confirm_delete_default = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
     gnome_cmd_data.options.confirm_delete_default = (GtkButtonsType) confirm_delete_default;
 }
 
