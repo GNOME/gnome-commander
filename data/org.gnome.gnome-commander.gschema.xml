@@ -384,10 +384,12 @@
         This option defines the default behavior when items will be overwritten by a move command.
       </description>
     </key>
-    <key name="confirm-mouse-dnd" type="b">
+    <key name="confirm-mouse-drag-and-drop" type="b">
       <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Confirm mouse drag and drop</summary>
+      <description>
+          This options defines the behavior of mouse drag and drop operations.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.filter" path="/org/gnome/gnome-commander/preferences/filter/">
