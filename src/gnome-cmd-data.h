@@ -106,6 +106,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_CONFIRM_DELETE                  "confirm-delete"
 #define GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT          "confirm-delete-default"
 #define GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE          "confirm-copy-overwrite"
+#define GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE          "confirm-move-overwrite"
 
 struct GnomeCmdConRemote;
 
