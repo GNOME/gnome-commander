@@ -1952,6 +1952,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //main_win_state
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED),
                                                         options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
+        //delete
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/confirm/delete", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
