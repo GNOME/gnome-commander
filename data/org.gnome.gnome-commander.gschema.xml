@@ -78,6 +78,12 @@
     <value nick="delete" value="1"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.confirmation.confirm-copy-overwrite-enum">
+    <value nick="skip all" value="0"/>
+    <value nick="query" value="1"/>
+    <value nick="overwrite silently" value="2"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -364,10 +370,12 @@
           This setting defines the default active option in the delete confirmation dialog.
       </description>
     </key>
-    <key name="copy-overwrite" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
+    <key name="confirm-copy-overwrite" enum="org.gnome.gnome-commander.preferences.confirmation.confirm-copy-overwrite-enum">
+      <default l10n="messages">'query'</default>
+      <summary>Confirm copy overwrite</summary>
+      <description>
+          This option defines the default behavior when items will be overwritten by a copy command.
+      </description>
     </key>
     <key name="move-overwrite" type="i">
       <default l10n="messages">1</default>

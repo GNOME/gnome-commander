@@ -105,6 +105,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmation"
 #define GCMD_SETTINGS_CONFIRM_DELETE                  "confirm-delete"
 #define GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT          "confirm-delete-default"
+#define GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE          "confirm-copy-overwrite"
 
 struct GnomeCmdConRemote;
 
