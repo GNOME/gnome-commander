@@ -102,12 +102,12 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILTER_DOTFILE                  "hide-dotfile"
 #define GCMD_SETTINGS_FILTER_BACKUP                   "hide-backup-files"
 
-#define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmation"
-#define GCMD_SETTINGS_CONFIRM_DELETE                  "confirm-delete"
-#define GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT          "confirm-delete-default"
-#define GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE          "confirm-copy-overwrite"
-#define GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE          "confirm-move-overwrite"
-#define GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP     "confirm-mouse-drag-and-drop"
+#define GCMD_PREF_CONFIRM                             "org.gnome.gnome-commander.preferences.confirmations"
+#define GCMD_SETTINGS_CONFIRM_DELETE                  "delete"
+#define GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT          "delete-default"
+#define GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE          "copy-overwrite"
+#define GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE          "move-overwrite"
+#define GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP     "mouse-drag-and-drop"
 
 struct GnomeCmdConRemote;
 

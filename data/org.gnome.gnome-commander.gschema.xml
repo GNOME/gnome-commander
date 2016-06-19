@@ -73,12 +73,12 @@
     <value nick="styled text" value="2"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.confirmation.confirm-delete-default-enum">
+  <enum id="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
     <value nick="cancel" value="3"/>
     <value nick="delete" value="1"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.confirmation.confirm-overwrite-enum">
+  <enum id="org.gnome.gnome-commander.preferences.confirmations.overwrite-enum">
     <value nick="skip all" value="0"/>
     <value nick="query" value="1"/>
     <value nick="overwrite silently" value="2"/>
@@ -355,36 +355,36 @@
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.confirmation" path="/org/gnome/gnome-commander/preferences/confirmation/">
-    <key name="confirm-delete" type="b">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.confirmations" path="/org/gnome/gnome-commander/preferences/confirmations/">
+    <key name="delete" type="b">
       <default l10n="messages">true</default>
       <summary>Confirm delete</summary>
       <description>
           Defines if deletion of an item should be confirmed.
       </description>
     </key>
-    <key name="confirm-delete-default" enum="org.gnome.gnome-commander.preferences.confirmation.confirm-delete-default-enum">
+    <key name="delete-default" enum="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
       <default l10n="messages">'delete'</default>
       <summary>Delete default</summary>
       <description>
           This setting defines the default active option in the delete confirmation dialog.
       </description>
     </key>
-    <key name="confirm-copy-overwrite" enum="org.gnome.gnome-commander.preferences.confirmation.confirm-overwrite-enum">
+    <key name="copy-overwrite" enum="org.gnome.gnome-commander.preferences.confirmations.overwrite-enum">
       <default l10n="messages">'query'</default>
       <summary>Confirm copy overwrite</summary>
       <description>
           This option defines the default behavior when items will be overwritten by a copy command.
       </description>
     </key>
-    <key name="confirm-move-overwrite" enum="org.gnome.gnome-commander.preferences.confirmation.confirm-overwrite-enum">
+    <key name="move-overwrite" enum="org.gnome.gnome-commander.preferences.confirmations.overwrite-enum">
       <default l10n="messages">'query'</default>
       <summary>Confirm move overwrite</summary>
       <description>
         This option defines the default behavior when items will be overwritten by a move command.
       </description>
     </key>
-    <key name="confirm-mouse-drag-and-drop" type="b">
+    <key name="mouse-drag-and-drop" type="b">
       <default l10n="messages">true</default>
       <summary>Confirm mouse drag and drop</summary>
       <description>

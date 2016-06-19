@@ -473,27 +473,27 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       NULL);
 
     g_signal_connect (gs->confirm,
-                      "changed::confirm-delete",
+                      "changed::delete",
                       G_CALLBACK (on_confirm_delete_changed),
                       NULL);
 
     g_signal_connect (gs->confirm,
-                      "changed::confirm-delete-default",
+                      "changed::delete-default",
                       G_CALLBACK (on_confirm_delete_default_changed),
                       NULL);
 
     g_signal_connect (gs->confirm,
-                      "changed::confirm-copy-overwrite",
+                      "changed::copy-overwrite",
                       G_CALLBACK (on_confirm_copy_overwrite_changed),
                       NULL);
 
     g_signal_connect (gs->confirm,
-                      "changed::confirm-move-overwrite",
+                      "changed::move-overwrite",
                       G_CALLBACK (on_confirm_move_overwrite_changed),
                       NULL);
 
     g_signal_connect (gs->confirm,
-                      "changed::confirm-mouse-drag-and-drop",
+                      "changed::mouse-drag-and-drop",
                       G_CALLBACK (on_mouse_drag_and_drop_changed),
                       NULL);
 
