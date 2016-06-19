@@ -73,6 +73,11 @@
     <value nick="styled text" value="2"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.confirmation.confirm-delete-default-enum">
+    <value nick="cancel" value="3"/>
+    <value nick="delete" value="1"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -352,17 +357,19 @@
           Defines if deletion of an item should be confirmed.
       </description>
     </key>
+    <key name="confirm-delete-default" enum="org.gnome.gnome-commander.preferences.confirmation.confirm-delete-default-enum">
+      <default l10n="messages">'delete'</default>
+      <summary>Delete default</summary>
+      <description>
+          This setting defines the default active option in the delete confirmation dialog.
+      </description>
+    </key>
     <key name="copy-overwrite" type="i">
       <default l10n="messages">1</default>
       <summary></summary>
       <description></description>
     </key>
     <key name="move-overwrite" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="delete-default" type="i">
       <default l10n="messages">1</default>
       <summary></summary>
       <description></description>

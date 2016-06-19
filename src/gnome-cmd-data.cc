@@ -284,6 +284,14 @@ void on_confirm_delete_changed ()
     gnome_cmd_data.options.confirm_delete = confirm_delete;
 }
 
+void on_confirm_delete_default_changed ()
+{
+    gint confirm_delete_default;
+
+    confirm_delete_default = g_settings_get_int (gnome_cmd_data.options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
+    gnome_cmd_data.options.confirm_delete_default = (GtkButtonsType) confirm_delete_default;
+}
+
 void on_symlink_string_changed ()
 {
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -443,6 +451,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->confirm,
                       "changed::confirm-delete",
                       G_CALLBACK (on_confirm_delete_changed),
+                      NULL);
+
+    g_signal_connect (gs->confirm,
+                      "changed::confirm-delete-default",
+                      G_CALLBACK (on_confirm_delete_default_changed),
                       NULL);
 
 }
@@ -1955,6 +1968,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //delete
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/confirm/delete", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
+        //delete_default
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/confirm/delete_default", 1),
+                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2064,7 +2080,7 @@ void GnomeCmdData::load()
     options.list_row_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
 
     options.confirm_delete = g_settings_get_boolean (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
-    options.confirm_delete_default = (GtkButtonsType) gnome_cmd_data_get_int ("/confirm/delete_default", GTK_BUTTONS_OK);
+    options.confirm_delete_default = (GtkButtonsType) g_settings_get_enum (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
     options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     options.confirm_mouse_dnd = gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE);
@@ -2611,7 +2627,7 @@ void GnomeCmdData::save()
     g_free (utf8_date_format);
 
     set_gsettings_when_changed      (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE, &(options.confirm_delete));
-    gnome_cmd_data_set_int    ("/confirm/delete_default", options.confirm_delete_default);
+    set_gsettings_enum_when_changed (options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT, options.confirm_delete_default);
     gnome_cmd_data_set_int    ("/confirm/copy_overwrite", options.confirm_copy_overwrite);
     gnome_cmd_data_set_int    ("/confirm/move_overwrite", options.confirm_move_overwrite);
     gnome_cmd_data_set_bool   ("/confirm/confirm_mouse_dnd", options.confirm_mouse_dnd);
