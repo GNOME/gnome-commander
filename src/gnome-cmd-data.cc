@@ -185,6 +185,7 @@ void on_list_font_changed ()
     gnome_cmd_data.options.list_font = list_font;
 
     main_win->update_view();
+    g_free(list_font);
 }
 
 void on_ext_disp_mode_changed ()
