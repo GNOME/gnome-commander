@@ -89,6 +89,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_ALWAYS_SHOW_TABS                "always-show-tabs"
 #define GCMD_SETTINGS_TAB_LOCK_INDICATOR              "tab-lock-indicator"
 #define GCMD_SETTINGS_MAIN_WIN_STATE                  "main-win-state"
+#define GCMD_SETTINGS_SELECT_DIRS                     "select-dirs"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"

@@ -316,6 +316,14 @@ void on_mouse_drag_and_drop_changed ()
     gnome_cmd_data.options.confirm_mouse_dnd = confirm_mouse_dnd;
 }
 
+void on_select_dirs_changed ()
+{
+    gboolean select_dirs;
+
+    select_dirs = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
+    gnome_cmd_data.options.select_dirs = select_dirs;
+}
+
 void on_symlink_string_changed ()
 {
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -495,6 +503,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->confirm,
                       "changed::mouse-drag-and-drop",
                       G_CALLBACK (on_mouse_drag_and_drop_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::select-dirs",
+                      G_CALLBACK (on_select_dirs_changed),
                       NULL);
 
 }
@@ -2019,6 +2032,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //confirm_mouse_dnd
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
+        //select_dirs
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/sort/select_dirs", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2144,7 +2160,7 @@ void GnomeCmdData::load()
     options.filter.hidden = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
     options.filter.backup = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
 
-    options.select_dirs = gnome_cmd_data_get_bool ("/sort/select_dirs", TRUE);
+    options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
 
     main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
@@ -2691,7 +2707,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, &(options.filter.hidden));
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP, &(options.filter.backup));
 
-    gnome_cmd_data_set_bool   ("/sort/select_dirs", options.select_dirs);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);
 
     gnome_cmd_data_set_int    ("/colors/mode", options.color_mode);
