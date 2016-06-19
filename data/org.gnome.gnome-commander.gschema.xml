@@ -343,7 +343,7 @@
     </key>
     <key name="select-dirs" type="b">
         <default>true</default>
-        <summary>Select directories</summary>
+        <summary>Select directories when all is marked</summary>
         <description>
             This option defines if directories will be marked when all items in a file pane should be marked.
         </description>
