@@ -12,7 +12,6 @@
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
     <child name="devices" schema="org.gnome.gnome-commander.preferences.devices"/>
     <child name="keys-bindings" schema="org.gnome.gnome-commander.preferences.keys-bindings"/>
-    <child name="sorting" schema="org.gnome.gnome-commander.preferences.sorting"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
     <child name="search-history" schema="org.gnome.gnome-commander.preferences.search-history"/>
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
@@ -334,6 +333,20 @@
       <description>
           Defines the style of the tab lock indicator.
       </description>
+    </key>
+    <key name="case-sensitive" type="b">
+        <default>false</default>
+        <summary>Case sensitive</summary>
+        <description>
+            This option defines if sorting should be case sensitive.
+        </description>
+    </key>
+    <key name="select-dirs" type="b">
+        <default>true</default>
+        <summary>Select directories</summary>
+        <description>
+            This option defines if directories will be marked when all items in a file pane should be marked.
+        </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">
@@ -659,18 +672,6 @@
       <default><![CDATA[['<Control>F12']]]></default>
       <summary></summary>
       <description></description>
-    </key>
-  </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.sorting" path="/org/gnome/gnome-commander/preferences/sorting/">
-    <key name="case-sensitive" type="b">
-        <default>false</default>
-        <summary></summary>
-        <description></description>
-    </key>
-    <key name="select-dirs" type="b">
-        <default>true</default>
-        <summary></summary>
-        <description></description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
