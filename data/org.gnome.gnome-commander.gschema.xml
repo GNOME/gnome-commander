@@ -810,7 +810,7 @@
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.search-history" path="/org/gnome/gnome-commander/preferences/colors/search-history/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.search-history" path="/org/gnome/gnome-commander/preferences/search-history/">
     <key name="width" type="i">
       <default l10n="messages">640</default>
       <summary></summary>
@@ -877,7 +877,7 @@
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.internal-viewer" path="/org/gnome/gnome-commander/preferences/colors/internal-viewer/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.internal-viewer" path="/org/gnome/gnome-commander/preferences/internal-viewer/">
     <key name="case-sens" type="b">
       <default l10n="messages">false</default>
       <summary></summary>
@@ -1034,21 +1034,21 @@
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.local-bookmarks" path="/org/gnome/gnome-commander/preferences/colors/local-bookmarks/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.local-bookmarks" path="/org/gnome/gnome-commander/preferences/local-bookmarks/">
     <key name="count" type="i">
       <default l10n="messages">0</default>
       <summary></summary>
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.smb-bookmarks" path="/org/gnome/gnome-commander/preferences/colors/smb-bookmarks/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.smb-bookmarks" path="/org/gnome/gnome-commander/preferences/smb-bookmarks/">
     <key name="count" type="i">
       <default l10n="messages">0</default>
       <summary></summary>
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.plugins" path="/org/gnome/gnome-commander/preferences/colors/plugins/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.plugins" path="/org/gnome/gnome-commander/preferences/plugins/">
     <key name="count" type="i">
       <default l10n="messages">1</default>
       <summary></summary>
