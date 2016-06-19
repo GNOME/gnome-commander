@@ -335,8 +335,8 @@
       </description>
     </key>
     <key name="case-sensitive" type="b">
-        <default>false</default>
-        <summary>Case sensitive</summary>
+        <default>true</default>
+        <summary>Case sensitive sorting</summary>
         <description>
             This option defines if sorting should be case sensitive.
         </description>

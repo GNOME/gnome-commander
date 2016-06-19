@@ -324,6 +324,14 @@ void on_select_dirs_changed ()
     gnome_cmd_data.options.select_dirs = select_dirs;
 }
 
+void on_case_sensitive_changed ()
+{
+    gboolean case_sensitive;
+
+    case_sensitive = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
+    gnome_cmd_data.options.case_sens_sort = case_sensitive;
+}
+
 void on_symlink_string_changed ()
 {
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -508,6 +516,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::select-dirs",
                       G_CALLBACK (on_select_dirs_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::case-sensitive",
+                      G_CALLBACK (on_case_sensitive_changed),
                       NULL);
 
 }
@@ -2035,6 +2048,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //select_dirs
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/sort/select_dirs", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
+        //case_sensitive
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE) ? 1 : 0,
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2161,7 +2177,7 @@ void GnomeCmdData::load()
     options.filter.backup = g_settings_get_boolean (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
 
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
-    options.case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
+    options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
 
     main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
@@ -2708,7 +2724,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP, &(options.filter.backup));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
-    gnome_cmd_data_set_bool   ("/sort/case_sensitive", options.case_sens_sort);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));
 
     gnome_cmd_data_set_int    ("/colors/mode", options.color_mode);
 
