@@ -112,6 +112,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE          "move-overwrite"
 #define GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP     "mouse-drag-and-drop"
 
+#define GCMD_PREF_COLORS                              "org.gnome.gnome-commander.preferences.colors"
+#define GCMD_SETTINGS_COLORS_THEME                    "theme"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData

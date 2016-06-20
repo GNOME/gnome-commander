@@ -56,6 +56,7 @@ struct _GcmdSettings
     GSettings *general;
     GSettings *filter;
     GSettings *confirm;
+    GSettings *colors;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -76,6 +77,7 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->general);
     g_clear_object (&gs->filter);
     g_clear_object (&gs->confirm);
+    g_clear_object (&gs->colors);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -348,6 +350,16 @@ void on_symlink_string_changed ()
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
 }
 
+void on_layout_option_changed()
+{
+    gint theme;
+
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
+    gnome_cmd_data.options.color_mode = (GnomeCmdColorMode) theme;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -539,6 +551,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_case_sensitive_changed),
                       NULL);
 
+    g_signal_connect (gs->colors,
+                      "changed::theme",
+                      G_CALLBACK (on_layout_option_changed),
+                      NULL);
+
 }
 
 
@@ -547,6 +564,7 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->general  = g_settings_new (GCMD_PREF_GENERAL);
     gs->filter   = g_settings_new (GCMD_PREF_FILTER);
     gs->confirm  = g_settings_new (GCMD_PREF_CONFIRM);
+    gs->colors   = g_settings_new (GCMD_PREF_COLORS);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2070,6 +2088,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //case_sensitive
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE) ? 1 : 0,
                                                         options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
+        //mode
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_GREEN_TIGER),
+                                                        options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
         //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
@@ -2208,8 +2229,8 @@ void GnomeCmdData::load()
         g_free (tmp);
     }
 
-    options.color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", gcmd_owner.is_root() ? GNOME_CMD_COLOR_GREEN_TIGER :
-                                                                                                            GNOME_CMD_COLOR_DEEP_BLUE);
+    options.color_mode = gcmd_owner.is_root() ? (GnomeCmdColorMode) g_settings_get_enum (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME)
+                                              : (GnomeCmdColorMode) GNOME_CMD_COLOR_DEEP_BLUE;
 
     gnome_cmd_data_get_color ("/colors/norm_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -2745,7 +2766,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS, &(options.select_dirs));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE, &(options.case_sens_sort));
 
-    gnome_cmd_data_set_int    ("/colors/mode", options.color_mode);
+    set_gsettings_enum_when_changed (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME, options.color_mode);
 
     gnome_cmd_data_set_color  ("/colors/norm_fg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_set_color  ("/colors/norm_bg", options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);

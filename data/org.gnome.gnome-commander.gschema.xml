@@ -83,6 +83,18 @@
     <value nick="overwrite silently" value="2"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.colors.theme-enum">
+    <value nick="none" value="0"/>
+    <value nick="modern" value="1"/>
+    <value nick="fusion" value="2"/>
+    <value nick="classic" value="3"/>
+    <value nick="deep blue" value="4"/>
+    <value nick="cafezinho" value="5"/>
+    <value nick="green tiger" value="6"/>
+    <value nick="custom" value="7"/>
+    <value nick="color modes" value="8"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -679,10 +691,12 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
-    <key name="mode" type="i">
-      <default l10n="messages">2</default>
-      <summary></summary>
-      <description></description>
+    <key name="theme" enum="org.gnome.gnome-commander.preferences.colors.theme-enum">
+      <default l10n="messages">'green tiger'</default>
+      <summary>Color theme</summary>
+      <description>
+          This option defines the current color theme.
+      </description>
     </key>
     <key name="norm-fg" type="s">
       <default l10n="messages">'#ffffff'</default>
