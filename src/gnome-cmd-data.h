@@ -114,6 +114,14 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_COLORS                              "org.gnome.gnome-commander.preferences.colors"
 #define GCMD_SETTINGS_COLORS_THEME                    "theme"
+#define GCMD_SETTINGS_COLORS_NORM_FG                  "custom-norm-fg"
+#define GCMD_SETTINGS_COLORS_NORM_BG                  "custom-norm-bg"
+#define GCMD_SETTINGS_COLORS_ALT_FG                   "custom-alt-fg"
+#define GCMD_SETTINGS_COLORS_ALT_BG                   "custom-alt-bg"
+#define GCMD_SETTINGS_COLORS_SEL_FG                   "custom-sel-fg"
+#define GCMD_SETTINGS_COLORS_SEL_BG                   "custom-sel-bg"
+#define GCMD_SETTINGS_COLORS_CURS_FG                  "custom-curs-fg"
+#define GCMD_SETTINGS_COLORS_CURS_BG                  "custom-curs-bg"
 
 struct GnomeCmdConRemote;
 
@@ -511,7 +519,6 @@ struct GnomeCmdData
     inline gboolean get_bool (const gchar *path, gboolean def);
     inline void set_bool (const gchar *path, gboolean value);
     inline void set_color (const gchar *path, GdkColor *color);
-    inline void get_color (const gchar *path, GdkColor *color);
 
   public:
 
@@ -570,11 +577,17 @@ struct GnomeCmdData
     void gnome_cmd_data_set_string (const gchar *path, const gchar *value);
     void gnome_cmd_data_set_bool (const gchar *path, gboolean value);
     void gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
-    void gnome_cmd_data_get_color (const gchar *path, GdkColor *color);
+    gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
+    void gnome_cmd_data_get_color_gnome_config (const gchar *path, GdkColor *color);
     gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
+    gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkColor *color);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
     inline void gnome_cmd_data_set_string_history (const gchar *format, GList *strings);
+    gboolean is_valid_color_string(const char *colorstring);
+    gboolean set_valid_color_string(GSettings *settings, const char* key);
+
+
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 

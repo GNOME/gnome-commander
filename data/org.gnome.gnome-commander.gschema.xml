@@ -92,7 +92,6 @@
     <value nick="cafezinho" value="5"/>
     <value nick="green tiger" value="6"/>
     <value nick="custom" value="7"/>
-    <value nick="color modes" value="8"/>
   </enum>
 
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
@@ -698,45 +697,61 @@
           This option defines the current color theme.
       </description>
     </key>
-    <key name="norm-fg" type="s">
-      <default l10n="messages">'#ffffff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-norm-fg" type="s">
+      <default l10n="messages">'#ffffffffffff'</default>
+      <summary>Normal foreground color</summary>
+      <description>
+          Normal foreground color in custom mode.
+      </description>
     </key>
-    <key name="norm-bg" type="s">
-      <default l10n="messages">'#000000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-norm-bg" type="s">
+      <default l10n="messages">'#000000004444'</default>
+      <summary>Normal background color</summary>
+      <description>
+          Normal background color in custom mode.
+      </description>
     </key>
-    <key name="alt-fg" type="s">
-      <default l10n="messages">'#ffffff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-alt-fg" type="s">
+      <default l10n="messages">'#ffffffffffff'</default>
+      <summary>Alternate foreground color</summary>
+      <description>
+          Alternate foreground color in custom mode.
+      </description>
     </key>
-    <key name="alt-bg" type="s">
-      <default l10n="messages">'#000000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-alt-bg" type="s">
+      <default l10n="messages">'#000000004444'</default>
+      <summary>Alternate background color</summary>
+      <description>
+           Alternate background color in custom mode.
+      </description>
     </key>
-    <key name="sel-fg" type="s">
-      <default l10n="messages">'#ff0000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-sel-fg" type="s">
+      <default l10n="messages">'#ffff00000000'</default>
+      <summary>Selection foreground color</summary>
+      <description>
+           Foreground color for selections in custom mode.
+      </description>
     </key>
-    <key name="sel-bg" type="s">
-      <default l10n="messages">'#0000a4'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-sel-bg" type="s">
+      <default l10n="messages">'#000000004444'</default>
+      <summary>Selection background color</summary>
+      <description>
+           Background color for selections in custom mode.
+      </description>
     </key>
-    <key name="curs-fg" type="s">
-      <default l10n="messages">'#000000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-curs-fg" type="s">
+      <default l10n="messages">'#000000000000'</default>
+      <summary>Cursor foreground color</summary>
+      <description>
+           Cursor foreground color in custom mode.
+      </description>
     </key>
-    <key name="curs-bg" type="s">
-      <default l10n="messages">'#a4a4a4'</default>
-      <summary></summary>
-      <description></description>
+    <key name="custom-curs-bg" type="s">
+      <default l10n="messages">'#aaaaaaaaaaaa'</default>
+      <summary>Cursor background color</summary>
+      <description>
+           Cursor background color in custom mode.
+      </description>
     </key>
     <key name="use-ls-colors" type="b">
       <default l10n="messages">false</default>
