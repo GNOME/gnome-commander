@@ -755,8 +755,11 @@
     </key>
     <key name="use-ls-colors" type="b">
       <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Use LS colors</summary>
+      <description>
+          This option triggers if the value of the environment variable
+          LS_COLORS should be used to dye files and folders.
+      </description>
     </key>
     <key name="ls-colors-black-fg" type="s">
       <default l10n="messages">'#000000'</default>

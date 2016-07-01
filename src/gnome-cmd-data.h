@@ -122,6 +122,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_COLORS_SEL_BG                   "custom-sel-bg"
 #define GCMD_SETTINGS_COLORS_CURS_FG                  "custom-curs-fg"
 #define GCMD_SETTINGS_COLORS_CURS_BG                  "custom-curs-bg"
+#define GCMD_SETTINGS_COLORS_USE_LS_COLORS            "use-ls-colors"
 
 struct GnomeCmdConRemote;
 

@@ -468,6 +468,16 @@ void on_custom_color_changed()
         main_win->update_view();
 }
 
+void on_use_ls_colors_changed()
+{
+    gboolean use_ls_colors;
+
+    use_ls_colors = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS);
+    gnome_cmd_data.options.use_ls_colors = use_ls_colors;
+
+    main_win->update_view();
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -702,6 +712,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->colors,
                       "changed::custom-curs-bg",
                       G_CALLBACK (on_custom_color_changed),
+                      NULL);
+
+    g_signal_connect (gs->colors,
+                      "changed::use-ls-colors",
+                      G_CALLBACK (on_use_ls_colors_changed),
                       NULL);
 }
 
@@ -2251,6 +2266,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         gnome_cmd_data_get_color_gnome_config ("/colors/curs_bg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_BG);
+        //use_ls_colors
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/colors/use_ls_colors", TRUE) ? 1 : 0,
+                                              options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -2476,7 +2494,7 @@ void GnomeCmdData::load()
     options.color_mode = gcmd_owner.is_root() ? (GnomeCmdColorMode) g_settings_get_enum (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME)
                                               : (GnomeCmdColorMode) GNOME_CMD_COLOR_DEEP_BLUE;
 
-    options.use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
+    options.use_ls_colors = g_settings_get_boolean (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS);
 
     options.ls_colors_palette.black_fg = gdk_color_new (0, 0, 0);
     options.ls_colors_palette.black_bg = gdk_color_new (0, 0, 0);
@@ -3012,7 +3030,7 @@ void GnomeCmdData::save()
     set_gsettings_color_when_changed (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_FG, options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
     set_gsettings_color_when_changed (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_BG, options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
 
-    gnome_cmd_data_set_bool   ("/colors/use_ls_colors", options.use_ls_colors);
+    set_gsettings_when_changed      (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS, &(options.use_ls_colors));
 
     gnome_cmd_data_set_color ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
     gnome_cmd_data_set_color ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
