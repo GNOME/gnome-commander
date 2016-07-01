@@ -2234,35 +2234,35 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_GREEN_TIGER),
                                                         options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
         GdkColor *color = g_new0 (GdkColor, 1);
-        //custom.norm_fg
+        //norm_fg
         gnome_cmd_data_get_color_gnome_config ("/colors/norm_fg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_FG);
-        //custom.norm_bg
+        //norm_bg
         gnome_cmd_data_get_color_gnome_config ("/colors/norm_bg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_BG);
-        //custom.alt_fg
+        //alt_fg
         gnome_cmd_data_get_color_gnome_config ("/colors/alt_fg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_FG);
-        //custom.alt_bg
+        //alt_bg
         gnome_cmd_data_get_color_gnome_config ("/colors/alt_bg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_BG);
-        //custom.sel_fg
+        //sel_fg
         gnome_cmd_data_get_color_gnome_config ("/colors/sel_fg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_FG);
-        //custom.sel_bg
+        //sel_bg
         gnome_cmd_data_get_color_gnome_config ("/colors/sel_bg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_BG);
-        //custom.curs_fg
+        //curs_fg
         gnome_cmd_data_get_color_gnome_config ("/colors/curs_fg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_FG);
-        //custom.curs_bg
+        //curs_bg
         gnome_cmd_data_get_color_gnome_config ("/colors/curs_bg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_BG);
