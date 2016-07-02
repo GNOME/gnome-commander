@@ -469,10 +469,12 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.programs" path="/org/gnome/gnome-commander/preferences/programs/">
-    <key name="honor-expect-uris" type="b">
-      <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+    <key name="dont-download" type="b">
+      <default>true</default>
+      <summary>Do not download files</summary>
+      <description>
+          This option defines if remote files should be downloaded before opened by external programs.
+      </description>
     </key>
     <key name="use-internal-viewer" type="b">
       <default l10n="messages">true</default>

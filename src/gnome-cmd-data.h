@@ -140,6 +140,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_LS_COLORS_WHITE_FG              "lscm-white-fg"
 #define GCMD_SETTINGS_LS_COLORS_WHITE_BG              "lscm-white-bg"
 
+#define GCMD_PREF_PROGRAMS                            "org.gnome.gnome-commander.preferences.programs"
+#define GCMD_SETTINGS_DONT_DOWNLOAD                   "dont-download"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData

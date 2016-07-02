@@ -57,6 +57,7 @@ struct _GcmdSettings
     GSettings *filter;
     GSettings *confirm;
     GSettings *colors;
+    GSettings *programs;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -78,6 +79,7 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->filter);
     g_clear_object (&gs->confirm);
     g_clear_object (&gs->colors);
+    g_clear_object (&gs->programs);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -679,6 +681,14 @@ void on_ls_color_changed()
         main_win->update_view();
 }
 
+void on_always_download_changed()
+{
+    gboolean always_download;
+
+    always_download = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
+    gnome_cmd_data.options.honor_expect_uris = always_download;
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -999,6 +1009,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       "changed::lscm-white-bg",
                       G_CALLBACK (on_ls_color_changed),
                       NULL);
+
+    g_signal_connect (gs->programs,
+                      "changed::dont-download",
+                      G_CALLBACK (on_always_download_changed),
+                      NULL);
 }
 
 
@@ -1008,6 +1023,7 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->filter   = g_settings_new (GCMD_PREF_FILTER);
     gs->confirm  = g_settings_new (GCMD_PREF_CONFIRM);
     gs->colors   = g_settings_new (GCMD_PREF_COLORS);
+    gs->programs = g_settings_new (GCMD_PREF_PROGRAMS);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2614,6 +2630,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_white_bg", color);
         migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
                                                  options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_BG);
+        //honor_expect_uris
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -2976,7 +2995,7 @@ void GnomeCmdData::load()
     cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
     buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
 
-    options.honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
+    options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
     options.use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     options.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
@@ -3504,7 +3523,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(horizontal_orientation));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
 
-    gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", options.honor_expect_uris);
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
     gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", options.allow_multiple_instances);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", options.use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", options.alt_quick_search);
