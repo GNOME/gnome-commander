@@ -588,7 +588,7 @@ void on_ls_color_changed()
         g_free(colorstring_old);
     }
     else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
+        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.blue_fg);
     g_free(colorstring_new);
 
     colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_BG);
