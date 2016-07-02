@@ -761,85 +761,117 @@
           LS_COLORS should be used to dye files and folders.
       </description>
     </key>
-    <key name="ls-colors-black-fg" type="s">
-      <default l10n="messages">'#000000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-black-fg" type="s">
+      <default l10n="messages">'#000000000000'</default>
+      <summary>LS_COLORS black foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS black value.
+      </description>
     </key>
-    <key name="ls-colors-black-bg" type="s">
-      <default l10n="messages">'#000000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-black-bg" type="s">
+      <default l10n="messages">'#000000000000'</default>
+      <summary>LS_COLORS black background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS black value.
+      </description>
     </key>
-    <key name="ls-colors-red-fg" type="s">
-      <default l10n="messages">'#ffa400'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-red-fg" type="s">
+      <default l10n="messages">'#ffff00000000'</default>
+      <summary>LS_COLORS red foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS red value.
+      </description>
     </key>
-    <key name="ls-colors-red-bg" type="s">
-      <default l10n="messages">'#ff0000'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-red-bg" type="s">
+      <default l10n="messages">'#ffff00000000'</default>
+      <summary>LS_COLORS red background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS red value.
+      </description>
     </key>
-    <key name="ls-colors-green-fg" type="s">
-      <default l10n="messages">'#00ff00'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-green-fg" type="s">
+      <default l10n="messages">'#0000ffff0000'</default>
+      <summary>LS_COLORS green foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS green value.
+      </description>
     </key>
-    <key name="ls-colors-green-bg" type="s">
-      <default l10n="messages">'#00ff00'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-green-bg" type="s">
+      <default l10n="messages">'#0000ffff0000'</default>
+      <summary>LS_COLORS green background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS green value.
+      </description>
     </key>
-    <key name="ls-colors-yellow-fg" type="s">
-      <default l10n="messages">'#ffff00'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-yellow-fg" type="s">
+      <default l10n="messages">'#ffffffff0000'</default>
+      <summary>LS_COLORS yellow foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS yellow value.
+      </description>
     </key>
-    <key name="ls-colors-yellow-bg" type="s">
-      <default l10n="messages">'#ffff00'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-yellow-bg" type="s">
+      <default l10n="messages">'#ffffffff0000'</default>
+      <summary>LS_COLORS yellow background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS yellow value.
+      </description>
     </key>
-    <key name="ls-colors-blue-fg" type="s">
-      <default l10n="messages">'#0000ff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-blue-fg" type="s">
+      <default l10n="messages">'#00000000ffff'</default>
+      <summary>LS_COLORS blue foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS blue value.
+      </description>
     </key>
-    <key name="ls-colors-blue-bg" type="s">
-      <default l10n="messages">'#0000ff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-blue-bg" type="s">
+      <default l10n="messages">'#00000000ffff'</default>
+      <summary>LS_COLORS blue background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS blue value.
+      </description>
     </key>
-    <key name="ls-colors-magenta-fg" type="s">
-      <default l10n="messages">'#ff00ff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-magenta-fg" type="s">
+      <default l10n="messages">'#ffff0000ffff'</default>
+      <summary>LS_COLORS magenta foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS magenta value.
+      </description>
     </key>
-    <key name="ls-colors-magenta-bg" type="s">
-      <default l10n="messages">'#ff00ff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-magenta-bg" type="s">
+      <default l10n="messages">'#ffff0000ffff'</default>
+      <summary>LS_COLORS magenta background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS magenta value.
+      </description>
     </key>
-    <key name="ls-colors-cyan-fg" type="s">
-      <default l10n="messages">'#00ffff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-cyan-fg" type="s">
+      <default l10n="messages">'#0000ffffffff'</default>
+      <summary>LS_COLORS cyan foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS cyan value.
+      </description>
     </key>
-    <key name="ls-colors-cyan-bg" type="s">
-      <default l10n="messages">'#00ffff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-cyan-bg" type="s">
+      <default l10n="messages">'#0000ffffffff'</default>
+      <summary>LS_COLORS cyan background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS cyan value.
+      </description>
     </key>
-    <key name="ls-colors-white-fg" type="s">
-      <default l10n="messages">'#ffffff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-white-fg" type="s">
+      <default l10n="messages">'#ffffffffffff'</default>
+      <summary>LS_COLORS white foreground mapping</summary>
+      <description>
+          This option adjusts the foreground color mapping for LS_COLORS white value.
+      </description>
     </key>
-    <key name="ls-colors-white-bg" type="s">
-      <default l10n="messages">'#ffffff'</default>
-      <summary></summary>
-      <description></description>
+    <key name="lscm-white-bg" type="s">
+      <default l10n="messages">'#ffffffffffff'</default>
+      <summary>LS_COLORS white background mapping</summary>
+      <description>
+          This option adjusts the background color mapping for LS_COLORS white value.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.search-history" path="/org/gnome/gnome-commander/preferences/search-history/">
