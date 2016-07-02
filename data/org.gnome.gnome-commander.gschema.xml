@@ -359,6 +359,13 @@
             This option defines if directories will be marked when all items in a file pane should be marked.
         </description>
     </key>
+    <key name="allow-multiple-instances" type="b">
+      <default l10n="messages">false</default>
+      <summary>Allow multiple instances</summary>
+      <description>
+          This option defines if multiple instances are allowed.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">
     <key name="uri" type="s">
@@ -512,11 +519,6 @@
       <description></description>
     </key>
     <key name="use-gcmd-block" type="b">
-      <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="allow-multiple-instances" type="b">
       <default l10n="messages">false</default>
       <summary></summary>
       <description></description>

@@ -689,6 +689,14 @@ void on_always_download_changed()
     gnome_cmd_data.options.honor_expect_uris = always_download;
 }
 
+void on_multiple_instances_changed()
+{
+    gboolean allow_multiple_instances;
+
+    allow_multiple_instances = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
+    gnome_cmd_data.options.allow_multiple_instances = allow_multiple_instances;
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1013,6 +1021,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->programs,
                       "changed::dont-download",
                       G_CALLBACK (on_always_download_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::allow-multiple-instances",
+                      G_CALLBACK (on_multiple_instances_changed),
                       NULL);
 }
 
@@ -2633,6 +2646,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //honor_expect_uris
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE) ? 1 : 0,
                                               options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
+        //allow_multiple_instances
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -2996,7 +3012,7 @@ void GnomeCmdData::load()
     buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
 
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
-    options.allow_multiple_instances = gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE);
+    options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     options.use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     options.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     options.quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
@@ -3522,9 +3538,9 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH, &(cmdline_history_length));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(horizontal_orientation));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
-    gnome_cmd_data_set_bool   ("/programs/allow_multiple_instances", options.allow_multiple_instances);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", options.use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", options.alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", options.quick_search_exact_match_begin);
