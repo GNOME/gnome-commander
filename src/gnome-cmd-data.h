@@ -150,6 +150,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
 
+#define GCMD_PREF_DEVICES                             "org.gnome.gnome-commander.preferences.devices"
+#define GCMD_SETTINGS_SKIP_MOUNTING                   "skip-mounting"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData

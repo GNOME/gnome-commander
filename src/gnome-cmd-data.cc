@@ -59,6 +59,7 @@ struct _GcmdSettings
     GSettings *colors;
     GSettings *programs;
     GSettings *keybindings;
+    GSettings *devices;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -82,6 +83,7 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->colors);
     g_clear_object (&gs->programs);
     g_clear_object (&gs->keybindings);
+    g_clear_object (&gs->devices);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -755,6 +757,14 @@ void on_quick_search_exact_match_end_changed()
     gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
 }
 
+void on_skip_mounting_changed()
+{
+    gboolean skip_mounting;
+
+    skip_mounting = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING);
+    gnome_cmd_data.options.skip_mounting = skip_mounting;
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1106,6 +1116,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_quick_search_exact_match_end_changed),
                       NULL);
 
+    g_signal_connect (gs->devices,
+                      "changed::skip-mounting",
+                      G_CALLBACK (on_skip_mounting_changed),
+                      NULL);
+
 }
 
 
@@ -1117,6 +1132,7 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->colors      = g_settings_new (GCMD_PREF_COLORS);
     gs->programs    = g_settings_new (GCMD_PREF_PROGRAMS);
     gs->keybindings = g_settings_new (GCMD_PREF_KEYBINDINGS);
+    gs->devices     = g_settings_new (GCMD_PREF_DEVICES);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2741,6 +2757,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //quick_search_exact_match_end
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
+        //skip_mounting
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3109,7 +3128,8 @@ void GnomeCmdData::load()
     options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
-    options.skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
+
+    options.skip_mounting = g_settings_get_boolean (options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING);
 
     options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
     if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
@@ -3637,7 +3657,8 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER, &(options.use_internal_viewer));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
-    gnome_cmd_data_set_bool   ("/programs/skip_mounting", options.skip_mounting);
+
+    set_gsettings_when_changed      (options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING, &(options.skip_mounting));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
