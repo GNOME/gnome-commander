@@ -605,6 +605,7 @@ struct GnomeCmdData
     void gnome_cmd_data_set_bool (const gchar *path, gboolean value);
     void gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
+    gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
     void gnome_cmd_data_get_color_gnome_config (const gchar *path, GdkColor *color);
     gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);

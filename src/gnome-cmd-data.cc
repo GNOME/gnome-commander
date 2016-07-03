@@ -136,36 +136,99 @@ void on_date_disp_format_changed ()
     main_win->update_view();
 }
 
-void on_filter_changed ()
+void on_filter_hide_unknown_changed()
 {
     gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = filter;
 
+    main_win->update_view();
+}
+
+void on_filter_hide_regular_changed ()
+{
+    gboolean filter;
+
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_REGULAR] = filter;
+
+    main_win->update_view();
+}
+
+void on_filter_hide_directory_changed ()
+{
+    gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY] = filter;
 
+    main_win->update_view();
+}
+
+void on_filter_hide_fifo_changed ()
+{
+    gboolean filter;
+
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_FIFO] = filter;
+
+    main_win->update_view();
+}
+
+void on_filter_hide_socket_changed ()
+{
+    gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SOCKET] = filter;
 
+    main_win->update_view();
+}
+
+void on_filter_hide_character_device_changed ()
+{
+    gboolean filter;
+
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE] = filter;
+
+    main_win->update_view();
+}
+
+void on_filter_hide_block_device_changed ()
+{
+    gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE] = filter;
 
+    main_win->update_view();
+}
+
+void on_filter_hide_symbolic_link_changed ()
+{
+    gboolean filter;
+
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
     gnome_cmd_data.options.filter.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK] = filter;
 
+    main_win->update_view();
+}
+
+void on_filter_dotfile_changed ()
+{
+    gboolean filter;
+
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
     gnome_cmd_data.options.filter.hidden = filter;
+
+    main_win->update_view();
+}
+
+void on_filter_backup_changed ()
+{
+    gboolean filter;
 
     filter = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
     gnome_cmd_data.options.filter.backup = filter;
@@ -364,107 +427,111 @@ void on_theme_changed()
     main_win->update_view();
 }
 
-void on_custom_color_changed()
+void on_custom_color_norm_fg_changed()
 {
     gint theme;
-    gchar *colorstring_new;
-    gchar *colorstring_old;
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
-    g_free(colorstring_new);
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_NORM_FG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
-    g_free(colorstring_new);
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg);
-    g_free(colorstring_new);
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'",  colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg);
-    g_free(colorstring_new);
+void on_custom_color_norm_bg_changed()
+{
+    gint theme;
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'",  colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
-    g_free(colorstring_new);
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_NORM_BG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
-    g_free(colorstring_new);
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
-    g_free(colorstring_new);
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
-    g_free(colorstring_new);
+void on_custom_color_alt_fg_changed()
+{
+    gint theme;
+
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_ALT_FG);
+
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
+
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
+
+void on_custom_color_alt_bg_changed()
+{
+    gint theme;
+
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].alt_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_ALT_BG);
+
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
+
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
+
+void on_custom_color_sel_fg_changed()
+{
+    gint theme;
+
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_SEL_FG);
+
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
+
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
+
+void on_custom_color_sel_bg_changed()
+{
+    gint theme;
+
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_SEL_BG);
+
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
+
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
+
+void on_custom_color_curs_fg_changed()
+{
+    gint theme;
+
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_CURS_FG);
+
+    theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
+
+    if ((GnomeCmdColorMode) theme == GNOME_CMD_COLOR_CUSTOM)
+        main_win->update_view();
+}
+
+void on_custom_color_curs_bg_changed()
+{
+    gint theme;
+
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_COLORS_CURS_BG);
 
     theme = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
 
@@ -482,202 +549,161 @@ void on_use_ls_colors_changed()
     main_win->update_view();
 }
 
-void on_ls_color_changed()
+void on_ls_color_black_fg_changed()
 {
-    gchar *colorstring_new;
-    gchar *colorstring_old;
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.black_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_BLACK_FG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLACK_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.black_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLACK_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.black_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLACK_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.black_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLACK_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.black_bg);
-    g_free(colorstring_new);
+void on_ls_color_black_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.black_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_BLACK_BG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_RED_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.red_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_RED_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.red_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_RED_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.red_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_RED_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.red_bg);
-    g_free(colorstring_new);
+void on_ls_color_red_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.red_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_RED_FG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_GREEN_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.green_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_GREEN_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.green_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_GREEN_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.green_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_GREEN_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.green_bg);
-    g_free(colorstring_new);
+void on_ls_color_red_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.red_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_RED_BG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_YELLOW_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.yellow_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_YELLOW_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.yellow_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_YELLOW_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.yellow_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_YELLOW_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.yellow_bg);
-    g_free(colorstring_new);
+void on_ls_color_green_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.green_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_GREEN_FG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.blue_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.blue_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.blue_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.blue_bg);
-    g_free(colorstring_new);
+void on_ls_color_green_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.green_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_GREEN_BG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_MAGENTA_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.magenta_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_MAGENTA_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.magenta_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_MAGENTA_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.magenta_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_MAGENTA_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.magenta_bg);
-    g_free(colorstring_new);
+void on_ls_color_yellow_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.yellow_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_YELLOW_FG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_CYAN_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.cyan_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_CYAN_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.cyan_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_CYAN_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.cyan_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_CYAN_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.cyan_bg);
-    g_free(colorstring_new);
+void on_ls_color_yellow_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.yellow_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_YELLOW_BG);
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_FG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.white_fg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_FG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.white_fg);
-    g_free(colorstring_new);
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
 
-    colorstring_new = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_BG);
-    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
-    {
-        colorstring_old = gdk_color_to_string (gnome_cmd_data.options.ls_colors_palette.white_bg);
-        g_settings_set_string (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_BG, colorstring_old);
-        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
-        g_free(colorstring_old);
-    }
-    else
-        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, gnome_cmd_data.options.ls_colors_palette.white_bg);
-    g_free(colorstring_new);
+void on_ls_color_blue_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.blue_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_BLUE_FG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_blue_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.blue_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_BLUE_BG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_magenta_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.magenta_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_MAGENTA_FG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_magenta_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.magenta_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_MAGENTA_BG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_cyan_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.cyan_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_CYAN_FG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_cyan_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.cyan_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_CYAN_BG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_white_fg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.white_fg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_WHITE_FG);
+
+    if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
+        main_win->update_view();
+}
+
+void on_ls_color_white_bg_changed()
+{
+    gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.white_bg,
+						gnome_cmd_data.options.gcmd_settings->colors,
+						GCMD_SETTINGS_LS_COLORS_WHITE_BG);
 
     if (g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS))
         main_win->update_view();
@@ -777,52 +803,52 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->filter,
                       "changed::hide-unknown",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_unknown_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-regular",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_regular_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-directory",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_directory_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-fifo",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_fifo_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-socket",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_socket_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-char-device",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_character_device_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-block-device",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_block_device_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-symbolic-link",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_hide_symbolic_link_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-dotfile",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_dotfile_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
                       "changed::hide-backup-files",
-                      G_CALLBACK (on_filter_changed),
+                      G_CALLBACK (on_filter_backup_changed),
                       NULL);
 
     g_signal_connect (gs->filter,
@@ -927,42 +953,42 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->colors,
                       "changed::custom-norm-fg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_norm_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-norm-bg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_norm_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-alt-fg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_alt_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-alt-bg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_alt_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-sel-fg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_sel_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-sel-bg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_sel_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-curs-fg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_curs_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::custom-curs-bg",
-                      G_CALLBACK (on_custom_color_changed),
+                      G_CALLBACK (on_custom_color_curs_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
@@ -972,82 +998,82 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->colors,
                       "changed::lscm-black-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_black_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-black-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_black_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-red-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_red_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-red-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_red_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-green-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_green_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-green-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_green_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-yellow-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_yellow_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-yellow-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_yellow_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-blue-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_blue_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-blue-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_blue_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-magenta-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_magenta_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-magenta-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_magenta_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-cyan-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_cyan_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-cyan-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_cyan_bg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-white-fg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_white_fg_changed),
                       NULL);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-white-bg",
-                      G_CALLBACK (on_ls_color_changed),
+                      G_CALLBACK (on_ls_color_white_bg_changed),
                       NULL);
 
     g_signal_connect (gs->programs,
@@ -3848,6 +3874,38 @@ gboolean GnomeCmdData::gnome_cmd_data_parse_color (const gchar *spec, GdkColor *
         return gdk_color_parse (spec, color);
     else
         return FALSE;
+}
+
+/**
+ * The task of this function is to store red, green and blue color
+ * values in the GdkColor variable to which color is pointing to, based
+ * on the GSettings value of key. First, it is tested if this value is a
+ * valid GdkColor string. If yes, color is updated; if not, the current
+ * string representing color is used to set back the string in the
+ * GSettings key.
+ */
+gboolean GnomeCmdData::set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key)
+{
+    gboolean return_value;
+    gchar *colorstring_new;
+    gchar *colorstring_old;
+
+    colorstring_new = g_settings_get_string (settings, key);
+    if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
+    {
+        colorstring_old = gdk_color_to_string (color);
+        g_settings_set_string (settings, key, colorstring_old);
+        g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
+        g_free(colorstring_old);
+	return_value = TRUE;
+    }
+    else
+    {
+        gnome_cmd_data.gnome_cmd_data_parse_color(colorstring_new, color);
+	return_value = FALSE;
+    }
+    g_free(colorstring_new);
+    return return_value;
 }
 
 /**
