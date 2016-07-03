@@ -697,6 +697,13 @@ void on_multiple_instances_changed()
     gnome_cmd_data.options.allow_multiple_instances = allow_multiple_instances;
 }
 
+void on_use_internal_viewer_changed()
+{
+    gboolean use_internal_viewer;
+    use_internal_viewer = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
+    gnome_cmd_data.options.use_internal_viewer = use_internal_viewer;
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1027,6 +1034,12 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       "changed::allow-multiple-instances",
                       G_CALLBACK (on_multiple_instances_changed),
                       NULL);
+
+    g_signal_connect (gs->programs,
+                      "changed::use-internal-viewer",
+                      G_CALLBACK (on_use_internal_viewer_changed),
+                      NULL);
+
 }
 
 
@@ -2649,6 +2662,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //allow_multiple_instances
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
+        //use_internal_viewer
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE) ? 1 : 0,
+                                              options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3013,7 +3029,7 @@ void GnomeCmdData::load()
 
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
-    options.use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
+    options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
     options.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     options.quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
     options.quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
@@ -3541,7 +3557,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
-    gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", options.use_internal_viewer);
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER, &(options.use_internal_viewer));
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", options.alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", options.quick_search_exact_match_begin);
     gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", options.quick_search_exact_match_end);

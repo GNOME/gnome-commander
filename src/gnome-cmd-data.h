@@ -143,6 +143,7 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_PROGRAMS                            "org.gnome.gnome-commander.preferences.programs"
 #define GCMD_SETTINGS_DONT_DOWNLOAD                   "dont-download"
+#define GCMD_SETTINGS_USE_INTERNAL_VIEWER             "use-internal-viewer"
 
 struct GnomeCmdConRemote;
 
