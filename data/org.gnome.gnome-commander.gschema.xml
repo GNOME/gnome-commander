@@ -11,7 +11,7 @@
     <child name="filter" schema="org.gnome.gnome-commander.preferences.filter"/>
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
     <child name="devices" schema="org.gnome.gnome-commander.preferences.devices"/>
-    <child name="keys-bindings" schema="org.gnome.gnome-commander.preferences.keys-bindings"/>
+    <child name="keybindings" schema="org.gnome.gnome-commander.preferences.keybindings"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
     <child name="search-history" schema="org.gnome.gnome-commander.preferences.search-history"/>
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
@@ -92,6 +92,11 @@
     <value nick="cafezinho" value="5"/>
     <value nick="green tiger" value="6"/>
     <value nick="custom" value="7"/>
+  </enum>
+
+  <enum id="org.gnome.gnome-commander.preferences.keybindings.quick-search-enum">
+    <value nick="CTRL+ALT+letter" value="0"/>
+    <value nick="ALT+letter" value="1"/>
   </enum>
 
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
@@ -490,11 +495,6 @@
           This option defines if the internal viewer should be used by default.
       </description>
     </key>
-    <key name="alt-quick-search" type="b">
-      <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
-    </key>
     <key name="skip-mounting" type="b">
       <default l10n="messages">true</default>
       <summary></summary>
@@ -563,7 +563,14 @@
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.keys-bindings" path="/org/gnome/gnome-commander/preferences/keys-bindings/">
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.keybindings" path="/org/gnome/gnome-commander/preferences/keybindings/">
+    <key name="quick-search" enum="org.gnome.gnome-commander.preferences.keybindings.quick-search-enum">
+      <default>'CTRL+ALT+letter'</default>
+      <summary>Quick search shortcut</summary>
+      <description>
+          This option defines the shortcut for quick search.
+      </description>
+    </key>
     <key name="view-equal-panes" type="as">
       <default><![CDATA[['<Control><Shift>plus']]]></default>
       <summary></summary>

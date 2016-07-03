@@ -145,6 +145,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DONT_DOWNLOAD                   "dont-download"
 #define GCMD_SETTINGS_USE_INTERNAL_VIEWER             "use-internal-viewer"
 
+#define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
+#define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData
@@ -205,7 +208,7 @@ struct GnomeCmdData
         RightMouseButtonMode         right_mouse_button_mode;
         gboolean                     select_dirs;
         gboolean                     case_sens_sort;
-        gboolean                     alt_quick_search;
+        GnomeCmdQuickSearchShortcut  quick_search;
         gboolean                     quick_search_exact_match_begin;
         gboolean                     quick_search_exact_match_end;
         gboolean                     allow_multiple_instances;
@@ -263,7 +266,7 @@ struct GnomeCmdData
                    right_mouse_button_mode(RIGHT_BUTTON_POPUPS_MENU),
                    select_dirs(TRUE),
                    case_sens_sort(TRUE),
-                   alt_quick_search(FALSE),
+                   quick_search(GNOME_CMD_QUICK_SEARCH_CTRL_ALT),
                    quick_search_exact_match_begin(TRUE),
                    quick_search_exact_match_end(FALSE),
                    allow_multiple_instances(FALSE),

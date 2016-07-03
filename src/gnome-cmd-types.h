@@ -57,6 +57,13 @@ enum GnomeCmdPermDispMode
 };
 
 
+enum GnomeCmdQuickSearchShortcut
+{
+    GNOME_CMD_QUICK_SEARCH_CTRL_ALT,
+    GNOME_CMD_QUICK_SEARCH_ALT
+};
+
+
 enum GnomeCmdExtDispMode
 {
     GNOME_CMD_EXT_DISP_WITH_FNAME,

@@ -167,10 +167,10 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.alt_quick_search);
-    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.quick_search);
+    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.alt_quick_search);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.quick_search);
 
     check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
@@ -222,7 +222,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
     GtkWidget *select_dirs = lookup_widget (dialog, "select_dirs");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
-    GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
+    GtkWidget *quick_search = lookup_widget (dialog, "quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
     GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
@@ -242,7 +242,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
 
     cfg.select_dirs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (select_dirs));
     cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    cfg.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
+    cfg.quick_search = (GnomeCmdQuickSearchShortcut) gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (quick_search));
     cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
     cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
     cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));

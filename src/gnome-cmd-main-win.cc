@@ -140,7 +140,7 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
           event->keyval == GDK_period || event->keyval == GDK_question|| event->keyval == GDK_asterisk || event->keyval == GDK_bracketleft))
         return FALSE;
 
-    if (!gnome_cmd_data.options.alt_quick_search)
+    if (!gnome_cmd_data.options.quick_search)
         return FALSE;
 
     if (!state_is_alt (event->state) && !state_is_alt_shift (event->state))
