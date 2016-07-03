@@ -92,6 +92,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SELECT_DIRS                     "select-dirs"
 #define GCMD_SETTINGS_CASE_SENSITIVE                  "case-sensitive"
 #define GCMD_SETTINGS_MULTIPLE_INSTANCES              "allow-multiple-instances"
+#define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN  "quick-search-exact-match-begin"
+#define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END    "quick-search-exact-match-end"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"

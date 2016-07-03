@@ -713,6 +713,22 @@ void on_quick_search_shortcut_changed()
     gnome_cmd_data.options.quick_search = (GnomeCmdQuickSearchShortcut) quick_search;
 }
 
+void on_quick_search_exact_match_begin_changed()
+{
+    gboolean quick_search_exact_match;
+
+    quick_search_exact_match = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
+    gnome_cmd_data.options.quick_search_exact_match_begin = quick_search_exact_match;
+}
+
+void on_quick_search_exact_match_end_changed()
+{
+    gboolean quick_search_exact_match;
+
+    quick_search_exact_match = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
+    gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1052,6 +1068,16 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->keybindings,
                       "changed::quick-search",
                       G_CALLBACK (on_quick_search_shortcut_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::quick-search-exact-match-begin",
+                      G_CALLBACK (on_quick_search_exact_match_begin_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::quick-search-exact-match-end",
+                      G_CALLBACK (on_quick_search_exact_match_end_changed),
                       NULL);
 
 }
@@ -2683,6 +2709,12 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //alt_quick_search
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE) ? 1 : 0,
                                               options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
+        //quick_search_exact_match_begin
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE) ? 1 : 0,
+                                              options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
+        //quick_search_exact_match_end
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3049,8 +3081,8 @@ void GnomeCmdData::load()
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
     options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
-    options.quick_search_exact_match_begin = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE);
-    options.quick_search_exact_match_end = gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE);
+    options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
+    options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
     options.skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
     options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
@@ -3577,8 +3609,8 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER, &(options.use_internal_viewer));
-    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_begin", options.quick_search_exact_match_begin);
-    gnome_cmd_data_set_bool   ("/programs/quick_search_exact_match_end", options.quick_search_exact_match_end);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", options.skip_mounting);
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));

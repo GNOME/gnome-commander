@@ -371,6 +371,20 @@
           This option defines if multiple instances are allowed.
       </description>
     </key>
+    <key name="quick-search-exact-match-begin" type="b">
+      <default l10n="messages">true</default>
+      <summary>Quick search exact match begin</summary>
+      <description>
+          This option defines if quicksearch should match explicitely at the beginning of an item name.
+      </description>
+    </key>
+    <key name="quick-search-exact-match-end" type="b">
+      <default l10n="messages">false</default>
+      <summary>Quick search exact match end</summary>
+      <description>
+          This option defines if quicksearch should match explicitely at the end of an item name.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">
     <key name="uri" type="s">
@@ -522,16 +536,6 @@
     </key>
     <key name="use-gcmd-block" type="b">
       <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="quick-search-exact-match-begin" type="b">
-      <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="quick-search-exact-match-end" type="b">
-      <default l10n="messages">true</default>
       <summary></summary>
       <description></description>
     </key>
