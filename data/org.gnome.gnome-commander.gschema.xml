@@ -509,11 +509,11 @@
           This option defines if the internal viewer should be used by default.
       </description>
     </key>
-    <key name="external-viewer-cmd" type="s">
+    <key name="viewer-cmd" type="s">
       <default l10n="messages">'gedit %s'</default>
-      <summary>External viewer command</summary>
+      <summary>Viewer command</summary>
       <description>
-          This string defines the command for starting the external viewer.
+          This string defines the command for starting the (external) viewer.
       </description>
     </key>
     <key name="editor-cmd" type="s">
