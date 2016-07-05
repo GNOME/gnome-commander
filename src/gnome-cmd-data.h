@@ -149,6 +149,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_VIEWER_CMD                      "viewer-cmd"
 #define GCMD_SETTINGS_EDITOR_CMD                      "editor-cmd"
 #define GCMD_SETTINGS_DIFFER_CMD                      "differ-cmd"
+#define GCMD_SETTINGS_SENDTO_CMD                      "sendto-cmd"
 
 #define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"

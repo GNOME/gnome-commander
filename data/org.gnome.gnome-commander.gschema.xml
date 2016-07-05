@@ -555,10 +555,12 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="sendto" type="s">
-      <default l10n="messages">'xfce4-terminal -e "mutt -a %s"'</default>
-      <summary></summary>
-      <description></description>
+    <key name="sendto-cmd" type="s">
+      <default l10n="messages">'nautilus-sendto %s'</default>
+      <summary>Send to command</summary>
+      <description>
+          This string defines the command for sending files to a receiver.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.devices" path="/org/gnome/gnome-commander/preferences/devices/">
