@@ -799,10 +799,18 @@ void on_sendto_cmd_changed()
 
 void on_terminal_cmd_changed()
 {
-    gchar *terminal_open_cmd;
+    gchar *terminal_cmd;
 
-    terminal_open_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-    gnome_cmd_data.options.sendto = terminal_open_cmd;
+    terminal_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
+    gnome_cmd_data.options.sendto = terminal_cmd;
+}
+
+void on_terminal_exec_cmd_changed()
+{
+    gchar *terminal_exec_cmd;
+
+    terminal_exec_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
+    gnome_cmd_data.options.sendto = terminal_exec_cmd;
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
@@ -1184,6 +1192,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->programs,
                       "changed::terminal-cmd",
                       G_CALLBACK (on_terminal_cmd_changed),
+                      NULL);
+
+    g_signal_connect (gs->programs,
+                      "changed::terminal-exec-cmd",
+                      G_CALLBACK (on_terminal_exec_cmd_changed),
                       NULL);
 
 }
@@ -2840,6 +2853,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //terminal_open
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/terminal_open", "gnome-terminal"),
                                                         options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
+        //terminal_exec
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/terminal_exec", "gnome-terminal -e %s"),
+                                                        options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3223,7 +3239,7 @@ void GnomeCmdData::load()
     options.differ = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD);
     options.sendto = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
     options.termopen = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-    options.termexec = gnome_cmd_data_get_string ("/programs/terminal_exec", "gnome-terminal -e %s");
+    options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
 
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
@@ -3754,7 +3770,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD, options.differ);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD, options.sendto);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD, options.termopen);
-    gnome_cmd_data_set_string ("/programs/terminal_exec", options.termexec);
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
 
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
