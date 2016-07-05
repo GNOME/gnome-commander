@@ -146,8 +146,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_PROGRAMS                            "org.gnome.gnome-commander.preferences.programs"
 #define GCMD_SETTINGS_DONT_DOWNLOAD                   "dont-download"
 #define GCMD_SETTINGS_USE_INTERNAL_VIEWER             "use-internal-viewer"
-#define GCMD_SETTINGS_VIEWER_CMD             "viewer-cmd"
+#define GCMD_SETTINGS_VIEWER_CMD                      "viewer-cmd"
 #define GCMD_SETTINGS_EDITOR_CMD                      "editor-cmd"
+#define GCMD_SETTINGS_DIFFER_CMD                      "differ-cmd"
 
 #define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"

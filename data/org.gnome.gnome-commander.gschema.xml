@@ -523,10 +523,12 @@
           This string defines the command for starting the editor.
       </description>
     </key>
-    <key name="differ" type="s">
+    <key name="differ-cmd" type="s">
       <default l10n="messages">'meld %s'</default>
-      <summary></summary>
-      <description></description>
+      <summary>Differ command</summary>
+      <description>
+          This string defines the command for starting the diff tool.
+      </description>
     </key>
     <key name="terminal" type="s">
       <default l10n="messages">'xfce4-terminal -x %s'</default>
