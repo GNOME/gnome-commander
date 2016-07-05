@@ -540,10 +540,12 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="terminal-open" type="s">
-      <default l10n="messages">'xfce4-terminal'</default>
-      <summary></summary>
-      <description></description>
+    <key name="terminal-cmd" type="s">
+      <default l10n="messages">'gnome-terminal'</default>
+      <summary>Command for opening a terminal</summary>
+      <description>
+          This string defines the command for opening a terminal.
+      </description>
     </key>
     <key name="terminal-exec" type="s">
       <default l10n="messages">'xfce4-terminal -e %s'</default>
