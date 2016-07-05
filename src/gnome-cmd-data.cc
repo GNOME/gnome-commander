@@ -773,6 +773,14 @@ void on_external_viewer_cmd_changed()
     gnome_cmd_data.options.viewer = external_viewer_cmd;
 }
 
+void on_editor_cmd_changed()
+{
+    gchar *editor_cmd;
+
+    editor_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
+    gnome_cmd_data.options.editor = editor_cmd;
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1132,6 +1140,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->programs,
                       "changed::external-viewer-cmd",
                       G_CALLBACK (on_external_viewer_cmd_changed),
+                      NULL);
+
+    g_signal_connect (gs->programs,
+                      "changed::editor-cmd",
+                      G_CALLBACK (on_editor_cmd_changed),
                       NULL);
 
 }
@@ -2776,6 +2789,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //viewer
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/viewer", "gedit %s"),
                                                         options.gcmd_settings->programs, GCMD_SETTINGS_EXTERNAL_VIEWER_CMD);
+        //editor
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/editor", "gedit %s"),
+                                                        options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3155,7 +3171,7 @@ void GnomeCmdData::load()
     }
 
     options.viewer = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_EXTERNAL_VIEWER_CMD);
-    options.editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
+    options.editor = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
     options.differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
     options.sendto = gnome_cmd_data_get_string ("/programs/sendto", "nautilus-sendto %s");
     options.termopen = gnome_cmd_data_get_string ("/programs/terminal_open", "gnome-terminal");
@@ -3686,7 +3702,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y, &(options.main_win_pos[1]));
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EXTERNAL_VIEWER_CMD, options.viewer);
-    gnome_cmd_data_set_string ("/programs/editor", options.editor);
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD, options.editor);
     gnome_cmd_data_set_string ("/programs/differ", options.differ);
     gnome_cmd_data_set_string ("/programs/sendto", options.sendto);
     gnome_cmd_data_set_string ("/programs/terminal_open", options.termopen);

@@ -516,10 +516,12 @@
           This string defines the command for starting the external viewer.
       </description>
     </key>
-    <key name="editor" type="s">
-      <default l10n="messages">'geany -i %s'</default>
-      <summary></summary>
-      <description></description>
+    <key name="editor-cmd" type="s">
+      <default l10n="messages">'gedit %s'</default>
+      <summary>Editor command</summary>
+      <description>
+          This string defines the command for starting the editor.
+      </description>
     </key>
     <key name="differ" type="s">
       <default l10n="messages">'meld %s'</default>
