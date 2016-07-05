@@ -765,12 +765,12 @@ void on_skip_mounting_changed()
     gnome_cmd_data.options.skip_mounting = skip_mounting;
 }
 
-void on_external_viewer_cmd_changed()
+void on_viewer_cmd_changed()
 {
-    gchar *external_viewer_cmd;
+    gchar *viewer_cmd;
 
-    external_viewer_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
-    gnome_cmd_data.options.viewer = external_viewer_cmd;
+    viewer_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
+    gnome_cmd_data.options.viewer = viewer_cmd;
 }
 
 void on_editor_cmd_changed()
@@ -1155,7 +1155,7 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
     g_signal_connect (gs->programs,
                       "changed::viewer-cmd",
-                      G_CALLBACK (on_external_viewer_cmd_changed),
+                      G_CALLBACK (on_viewer_cmd_changed),
                       NULL);
 
     g_signal_connect (gs->programs,
