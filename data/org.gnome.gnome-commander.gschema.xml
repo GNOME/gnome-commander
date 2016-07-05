@@ -530,11 +530,6 @@
           This string defines the command for starting the diff tool.
       </description>
     </key>
-    <key name="terminal" type="s">
-      <default l10n="messages">'xfce4-terminal -x %s'</default>
-      <summary></summary>
-      <description></description>
-    </key>
     <key name="use-gcmd-block" type="b">
       <default l10n="messages">false</default>
       <summary></summary>

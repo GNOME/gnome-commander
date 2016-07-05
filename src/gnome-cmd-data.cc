@@ -802,15 +802,15 @@ void on_terminal_cmd_changed()
     gchar *terminal_cmd;
 
     terminal_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-    gnome_cmd_data.options.sendto = terminal_cmd;
+    gnome_cmd_data.options.termopen = terminal_cmd;
 }
 
 void on_terminal_exec_cmd_changed()
 {
     gchar *terminal_exec_cmd;
 
-    terminal_exec_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-    gnome_cmd_data.options.sendto = terminal_exec_cmd;
+    terminal_exec_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
+    gnome_cmd_data.options.termexec = terminal_exec_cmd;
 }
 
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
