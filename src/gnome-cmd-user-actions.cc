@@ -229,6 +229,8 @@ static UserActionData user_actions_data[] = {
                                              {view_terminal, "view.terminal", N_("Show terminal")},
 #endif
                                              {view_up, "view.up", N_("Up one directory")},
+                                             
+											 {view_main_menu, "view.main.menu", N_("Display main menu")},
                                             };
 
 
@@ -1572,6 +1574,13 @@ void view_up (GtkMenuItem *menuitem, gpointer not_used)
         fs->goto_directory("..");
 }
 
+void view_main_menu (GtkMenuItem *menuitem, gpointer not_used)
+{
+    if (!GTK_WIDGET_REALIZED (main_win)) return;
+
+    gnome_cmd_data.mainmenu_visibility = !gnome_cmd_data.mainmenu_visibility;
+    main_win->update_mainmenu_visibility();
+}
 
 void view_first (GtkMenuItem *menuitem, gpointer not_used)
 {

@@ -95,6 +95,7 @@ struct GnomeCmdMainWin
     void update_cmdline_visibility();
     void update_buttonbar_visibility();
     void update_list_orientation();
+	void update_mainmenu_visibility();
 
     void add_plugin_menu(PluginData *data);
 

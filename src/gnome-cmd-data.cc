@@ -1289,6 +1289,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     concombo_visibility = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
+    mainmenu_visibility = TRUE;
 
     dev_icon_size = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
@@ -1533,6 +1534,7 @@ void GnomeCmdData::load()
     concombo_visibility = gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE);
     cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
+	mainmenu_visibility = gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", TRUE);
 
     if (gui_update_rate < MIN_GUI_UPDATE_RATE)
         gui_update_rate = MIN_GUI_UPDATE_RATE;
@@ -1971,6 +1973,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/options/con_list_visibility", concombo_visibility);
     gnome_cmd_data_set_bool   ("/options/cmdline_visibility", cmdline_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", buttonbar_visibility);
+    gnome_cmd_data_set_bool   ("/programs/mainmenu_visibility", mainmenu_visibility);
 
     if (priv->symlink_prefix && *priv->symlink_prefix && strcmp(priv->symlink_prefix, _("link to %s"))!=0)
         gnome_cmd_data_set_string ("/options/symlink_prefix", priv->symlink_prefix);
