@@ -112,7 +112,7 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
 
         if (gnome_cmd_data.use_gcmd_block)
         {
-            gchar *s = g_strdup_printf ("%s; %s/bin/gcmd-block", in_command, PREFIX);
+            gchar *s = g_strdup_printf ("bash -c \"%s; %s/bin/gcmd-block\"", in_command, PREFIX);
             arg = g_shell_quote (s);
             g_free (s);
         }
