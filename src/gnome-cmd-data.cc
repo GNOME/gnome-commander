@@ -813,6 +813,11 @@ void on_terminal_exec_cmd_changed()
     gnome_cmd_data.options.termexec = terminal_exec_cmd;
 }
 
+void on_use_gcmd_block_changed()
+{
+    gnome_cmd_data.use_gcmd_block = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
+}
+
 static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1197,6 +1202,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->programs,
                       "changed::terminal-exec-cmd",
                       G_CALLBACK (on_terminal_exec_cmd_changed),
+                      NULL);
+
+    g_signal_connect (gs->programs,
+                      "changed::use-gcmd-block",
+                      G_CALLBACK (on_use_gcmd_block_changed),
                       NULL);
 
 }
@@ -2856,6 +2866,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //terminal_exec
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/terminal_exec", "gnome-terminal -e %s"),
                                                         options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
+        //use_gcmd_block
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3240,8 +3253,7 @@ void GnomeCmdData::load()
     options.sendto = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
     options.termopen = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
     options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
-
-    use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
+    use_gcmd_block = g_settings_get_boolean(options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 
     options.device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
 
@@ -3771,8 +3783,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD, options.sendto);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD, options.termopen);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
-
-    gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
+    set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
 
     gnome_cmd_data_set_bool   ("/devices/only_icon", options.device_only_icon);
 

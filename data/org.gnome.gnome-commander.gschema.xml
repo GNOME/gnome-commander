@@ -532,8 +532,10 @@
     </key>
     <key name="use-gcmd-block" type="b">
       <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Use gcmd-block for terminal commands</summary>
+      <description>
+          This option defines if a terminal window should stay open after a command finishes inside of it.
+      </description>
     </key>
     <key name="terminal-cmd" type="s">
       <default l10n="messages">'gnome-terminal'</default>

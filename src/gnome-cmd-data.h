@@ -152,6 +152,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SENDTO_CMD                      "sendto-cmd"
 #define GCMD_SETTINGS_TERMINAL_CMD                    "terminal-cmd"
 #define GCMD_SETTINGS_TERMINAL_EXEC_CMD               "terminal-exec-cmd"
+#define GCMD_SETTINGS_USE_GCMD_BLOCK                  "use-gcmd-block"
 
 #define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
