@@ -118,6 +118,22 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
         g_free (chTo);
         return TRUE;
     }
+	else if (event->button==3)
+	{
+        const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
+        gchar *chTo = g_strdup (labelText);
+        gint x = (gint) event->x;
+
+        for (gint i=0; i < indicator->priv->numPositions; ++i)
+            if (x < indicator->priv->slashPixelPosition[i])
+            {
+                chTo[indicator->priv->slashCharPosition[i]] = 0;
+				gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), chTo, indicator->priv->slashCharPosition[i]);
+                break;
+            }
+        g_free (chTo);
+		return TRUE;
+	}
 
     return FALSE;
 }
