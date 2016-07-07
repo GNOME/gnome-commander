@@ -765,6 +765,14 @@ void on_skip_mounting_changed()
     gnome_cmd_data.options.skip_mounting = skip_mounting;
 }
 
+void on_dev_only_icon_changed()
+{
+    gboolean dev_only_icon;
+
+    dev_only_icon = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON);
+    gnome_cmd_data.options.device_only_icon = dev_only_icon;
+}
+
 void on_viewer_cmd_changed()
 {
     gchar *viewer_cmd;
@@ -1172,6 +1180,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->devices,
                       "changed::skip-mounting",
                       G_CALLBACK (on_skip_mounting_changed),
+                      NULL);
+
+    g_signal_connect (gs->devices,
+                      "changed::only-icon",
+                      G_CALLBACK (on_dev_only_icon_changed),
                       NULL);
 
     g_signal_connect (gs->programs,
@@ -2869,6 +2882,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //use_gcmd_block
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE) ? 1 : 0,
                                               options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
+        //only_icon
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/devices/only_icon", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3255,7 +3271,7 @@ void GnomeCmdData::load()
     options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
     use_gcmd_block = g_settings_get_boolean(options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 
-    options.device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
+    options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON);
 
     gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
     gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
@@ -3785,7 +3801,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
 
-    gnome_cmd_data_set_bool   ("/devices/only_icon", options.device_only_icon);
+    set_gsettings_when_changed      (options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON, &(options.device_only_icon));
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
 

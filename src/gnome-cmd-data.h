@@ -159,6 +159,7 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_DEVICES                             "org.gnome.gnome-commander.preferences.devices"
 #define GCMD_SETTINGS_SKIP_MOUNTING                   "skip-mounting"
+#define GCMD_SETTINGS_ONLY_ICON                       "only-icon"
 
 struct GnomeCmdConRemote;
 

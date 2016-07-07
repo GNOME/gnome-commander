@@ -567,8 +567,10 @@
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.devices" path="/org/gnome/gnome-commander/preferences/devices/">
     <key name="only-icon" type="b">
       <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Only device icons</summary>
+      <description>
+          This option defines if only device icons should be shown instead of icons and text label.
+      </description>
     </key>
     <key name="skip-mounting" type="b">
       <default l10n="messages">false</default>
