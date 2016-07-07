@@ -94,6 +94,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_MULTIPLE_INSTANCES              "allow-multiple-instances"
 #define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN  "quick-search-exact-match-begin"
 #define GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END    "quick-search-exact-match-end"
+#define GCMD_SETTINGS_DEV_SKIP_MOUNTING               "dev-skip-mounting"
+#define GCMD_SETTINGS_DEV_ONLY_ICON                   "dev-only-icon"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -156,10 +158,6 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
-
-#define GCMD_PREF_DEVICES                             "org.gnome.gnome-commander.preferences.devices"
-#define GCMD_SETTINGS_SKIP_MOUNTING                   "skip-mounting"
-#define GCMD_SETTINGS_ONLY_ICON                       "only-icon"
 
 struct GnomeCmdConRemote;
 

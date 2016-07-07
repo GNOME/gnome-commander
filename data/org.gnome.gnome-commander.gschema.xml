@@ -10,7 +10,6 @@
     <child name="confirmation" schema="org.gnome.gnome-commander.preferences.confirmation"/>
     <child name="filter" schema="org.gnome.gnome-commander.preferences.filter"/>
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
-    <child name="devices" schema="org.gnome.gnome-commander.preferences.devices"/>
     <child name="keybindings" schema="org.gnome.gnome-commander.preferences.keybindings"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
     <child name="search-history" schema="org.gnome.gnome-commander.preferences.search-history"/>
@@ -385,6 +384,20 @@
           This option defines if quicksearch should match explicitely at the end of an item name.
       </description>
     </key>
+    <key name="dev-only-icon" type="b">
+      <default l10n="messages">false</default>
+      <summary>Only device icons</summary>
+      <description>
+          This option defines if only device icons should be shown instead of icons and text label.
+      </description>
+    </key>
+    <key name="dev-skip-mounting" type="b">
+      <default l10n="messages">false</default>
+      <summary>Skip device mounting</summary>
+      <description>
+          This option defines if mounting of devices should be skipped when they are opened.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">
     <key name="uri" type="s">
@@ -561,22 +574,6 @@
       <summary>Send to command</summary>
       <description>
           This string defines the command for sending files to a receiver.
-      </description>
-    </key>
-  </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.devices" path="/org/gnome/gnome-commander/preferences/devices/">
-    <key name="only-icon" type="b">
-      <default l10n="messages">false</default>
-      <summary>Only device icons</summary>
-      <description>
-          This option defines if only device icons should be shown instead of icons and text label.
-      </description>
-    </key>
-    <key name="skip-mounting" type="b">
-      <default l10n="messages">false</default>
-      <summary>Skip mounting</summary>
-      <description>
-          This option defines if mounting of devices should be skipped when they are opened.
       </description>
     </key>
   </schema>

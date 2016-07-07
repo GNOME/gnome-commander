@@ -59,7 +59,6 @@ struct _GcmdSettings
     GSettings *colors;
     GSettings *programs;
     GSettings *keybindings;
-    GSettings *devices;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -83,7 +82,6 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->colors);
     g_clear_object (&gs->programs);
     g_clear_object (&gs->keybindings);
-    g_clear_object (&gs->devices);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -757,11 +755,11 @@ void on_quick_search_exact_match_end_changed()
     gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
 }
 
-void on_skip_mounting_changed()
+void on_dev_skip_mounting_changed()
 {
     gboolean skip_mounting;
 
-    skip_mounting = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING);
+    skip_mounting = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING);
     gnome_cmd_data.options.skip_mounting = skip_mounting;
 }
 
@@ -769,7 +767,7 @@ void on_dev_only_icon_changed()
 {
     gboolean dev_only_icon;
 
-    dev_only_icon = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON);
+    dev_only_icon = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
     gnome_cmd_data.options.device_only_icon = dev_only_icon;
 }
 
@@ -1177,13 +1175,13 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_quick_search_exact_match_end_changed),
                       NULL);
 
-    g_signal_connect (gs->devices,
-                      "changed::skip-mounting",
-                      G_CALLBACK (on_skip_mounting_changed),
+    g_signal_connect (gs->general,
+                      "changed::dev-skip-mounting",
+                      G_CALLBACK (on_dev_skip_mounting_changed),
                       NULL);
 
-    g_signal_connect (gs->devices,
-                      "changed::only-icon",
+    g_signal_connect (gs->general,
+                      "changed::dev-only-icon",
                       G_CALLBACK (on_dev_only_icon_changed),
                       NULL);
 
@@ -1233,7 +1231,6 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->colors      = g_settings_new (GCMD_PREF_COLORS);
     gs->programs    = g_settings_new (GCMD_PREF_PROGRAMS);
     gs->keybindings = g_settings_new (GCMD_PREF_KEYBINDINGS);
-    gs->devices     = g_settings_new (GCMD_PREF_DEVICES);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2860,7 +2857,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
                                               options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
         //skip_mounting
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING);
+                                              options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING);
         //viewer
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/viewer", "gedit %s"),
                                                         options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
@@ -2884,7 +2881,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
                                               options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
         //only_icon
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/devices/only_icon", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON);
+                                              options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3254,7 +3251,8 @@ void GnomeCmdData::load()
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
-    options.skip_mounting = g_settings_get_boolean (options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING);
+    options.skip_mounting = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING);
+    options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
 
     options.symlink_prefix = g_settings_get_string(options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
     if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
@@ -3270,8 +3268,6 @@ void GnomeCmdData::load()
     options.termopen = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
     options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
     use_gcmd_block = g_settings_get_boolean(options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
-
-    options.device_only_icon = g_settings_get_boolean(options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON);
 
     gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
     gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
@@ -3782,7 +3778,8 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN, &(options.quick_search_exact_match_begin));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END, &(options.quick_search_exact_match_end));
 
-    set_gsettings_when_changed      (options.gcmd_settings->devices, GCMD_SETTINGS_SKIP_MOUNTING, &(options.skip_mounting));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING, &(options.skip_mounting));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON, &(options.device_only_icon));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, &(show_toolbar));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, &(show_devbuttons));
@@ -3800,8 +3797,6 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD, options.termopen);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD, options.termexec);
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK, &(use_gcmd_block));
-
-    set_gsettings_when_changed      (options.gcmd_settings->devices, GCMD_SETTINGS_ONLY_ICON, &(options.device_only_icon));
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
 
