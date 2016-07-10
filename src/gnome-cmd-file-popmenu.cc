@@ -50,6 +50,12 @@ struct OpenWithData
     GtkPixmap *pm;
 };
 
+struct ScriptData
+{
+    GList *files;
+    const char *name;
+    gboolean term;
+};
 
 static GtkMenuClass *parent_class = NULL;
 
@@ -184,6 +190,44 @@ static void on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data
 #ifdef HAVE_PYTHON
     gnome_cmd_python_plugin_execute(data, main_win);
 #endif
+}
+
+
+static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
+{
+    GdkModifierType mask;
+
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+
+    GList *files = data->files;
+    if (state_is_shift (mask))
+    {
+        // Run script per file
+        for (; files; files = files->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+            string command (data->name);
+            command.append (" ").append (f->get_name ());
+
+            run_command_indir (command.c_str (), f->get_dirname (), data->term);
+        }
+    }
+    else
+    {
+        // Run script with list of files
+        string command (data->name);
+        command.append (" ");
+        for (; files; files = files->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+            command.append(f->get_name ()).append(" ");
+        }
+
+        run_command_indir (command.c_str (), ((GnomeCmdFile *) data->files->data)->get_dirname (), data->term);
+    }
+
+    g_list_free (data->files);
+    g_free ((gpointer) data->name);
 }
 
 
@@ -601,6 +645,84 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
         g_free (py_uiinfo);
     }
+	
+    // Script actions
+    gchar *user_dir = g_build_filename (g_get_home_dir (), "." PACKAGE "/scripts", NULL);
+    DIR *dp = opendir (user_dir);
+    GList *slist = NULL;
+    if (dp != NULL)
+    {
+        struct dirent *ep;
+        while (ep = readdir (dp))
+        {
+            struct stat buf;
+            string s (user_dir);
+            s.append ("/").append (ep->d_name);
+            if (stat (s.c_str(), &buf) == 0)
+            {
+                if (buf.st_mode & S_IFREG)
+                {
+                    slist = g_list_append (slist, g_strdup(ep->d_name));
+                }
+            }
+        }
+        closedir (dp);
+    }
+
+    n = g_list_length(slist);
+    if (n)
+    {
+        GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
+        GnomeUIInfo *tmp = py_uiinfo;
+
+        for (GList *l = slist; l; l = l->next)
+        {
+            ScriptData *data = g_new0 (ScriptData, 1);
+            data->files = files;
+
+            string s (user_dir);
+            s.append ("/").append ((char*) l->data);
+
+            FILE *f = fopen (s.c_str (), "r");
+            if (f)
+            {
+                char buf[256];
+                while (fgets (buf, 256, f))
+                {
+                    if (strncmp (buf, "#name:", 6) == 0)
+                    {
+                        buf[strlen (buf)-1] = '\0';
+                        g_free ((gpointer) l->data);
+                        l->data = g_strdup (buf+7);
+                    }
+                    else if (strncmp (buf, "#term:", 6) == 0)
+                    {
+                        data->term = strncmp (buf + 7, "true", 4) == 0;
+                    }
+                }
+                fclose (f);
+            }
+
+            data->name = g_strdup (s.c_str ());
+            tmp->type = GNOME_APP_UI_ITEM;
+            tmp->label = (gchar*) l->data;
+            tmp->moreinfo = (gpointer) on_execute_script;
+            tmp->user_data = data;
+            tmp->pixmap_type = GNOME_APP_PIXMAP_STOCK;
+            tmp->pixmap_info = GTK_STOCK_EXECUTE;
+            tmp++;
+        }
+        tmp++;
+        tmp->type = GNOME_APP_UI_ENDOFINFO;
+
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, NULL, FALSE, pos);
+        pos += n;
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
+
+        g_free (py_uiinfo);
+    }
+    g_free (user_dir);
+    g_list_free (slist);
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, NULL, FALSE, pos++);
 
