@@ -440,7 +440,7 @@ inline gchar *string_double_underscores (const gchar *string)
 }
 
 
-inline gchar *get_default_application_action_name (GList *files)
+inline gchar *get_default_application_action_name (GList *files, gchar **icon_path)
 {
     if (g_list_length(files)>1)
         return g_strdup (_("_Open"));
@@ -448,7 +448,19 @@ inline gchar *get_default_application_action_name (GList *files)
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
     gchar *uri_str = f->get_uri_str();
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
-
+    
+    if (icon_path)
+    {
+        GnomeCmdApp *gapp = gnome_cmd_app_new_from_vfs_app (app);
+        if (gapp)
+        {
+            *icon_path = g_strdup (gapp->icon_path);
+            gnome_cmd_app_free (gapp);
+        }
+        else
+            *icon_path = NULL;
+    }
+    
     g_free (uri_str);
 
     if (!app)
@@ -539,8 +551,11 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             apps_uiinfo[i].label = g_strdup (gnome_cmd_app_get_name (data->app));
             apps_uiinfo[i].moreinfo = (gpointer) cb_exec_with_app;
             apps_uiinfo[i].user_data = data;
-
-            menu->priv->data_list = g_list_append (menu->priv->data_list, data);
+            if (data->app->icon_path)
+            {
+                apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_FILENAME;
+                apps_uiinfo[i].pixmap_info = g_strdup (data->app->icon_path);
+            }
         }
     }
 
@@ -552,6 +567,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     apps_uiinfo[i].label = g_strdup (_("Other _Application..."));
     apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
+    apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_NONE;
 
     gnome_vfs_mime_application_list_free (tmp);
     apps_uiinfo[++i].type = GNOME_APP_UI_ENDOFINFO;
@@ -565,7 +581,8 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         if (other_uiinfo[i].type == GNOME_APP_UI_ITEM)
             other_uiinfo[i].user_data = fl;
 
-    open_uiinfo[0].label = get_default_application_action_name(files);  // must be freed after gnome_app_fill_menu ()
+    open_uiinfo[0].label = get_default_application_action_name(files, (gchar **) &open_uiinfo[0].pixmap_info);  // must be freed after gnome_app_fill_menu ()
+    open_uiinfo[0].pixmap_type = open_uiinfo[0].pixmap_info ? GNOME_APP_PIXMAP_FILENAME : GNOME_APP_PIXMAP_NONE;
     open_uiinfo[0].user_data = files;
     exec_uiinfo[0].user_data = files;
 
