@@ -146,7 +146,6 @@ static UserActionData user_actions_data[] = {
                                              {bookmarks_edit, "bookmarks.edit", N_("Manage bookmarks")},
                                              {bookmarks_goto, "bookmarks.goto", N_("Go to bookmarked location")},
                                              {command_execute, "command.execute", N_("Execute command")},
-                                             {command_open_nautilus, "command.open_folder", N_("Open folder")},
                                              {command_open_terminal, "command.open_terminal", N_("Open terminal")},
                                              {command_open_terminal_as_root, "command.open_terminal_as_root", N_("Open terminal as root")},
                                              {command_root_mode, "command.root_mode", N_("Start GNOME Commander as root")},
@@ -1260,42 +1259,6 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
 
     g_free (argv);
     g_free (command);
-}
-
-
-inline void open_uri_in_nautilus (gchar *uri)
-{
-    if (!uri)
-        return;
-
-    char const *argv[5];
-
-    argv[0] = "nautilus";
-    argv[1] = "--no-desktop";
-    argv[2] = "--no-default-window";
-    argv[3] = uri;
-    argv[4] = NULL;
-
-    GError *error = NULL;
-
-    if (!g_spawn_async (NULL, (char **) argv, NULL, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDOUT_TO_DEV_NULL), NULL, NULL, NULL, &error))
-        gnome_cmd_error_message (_("Unable to start Nautilus."), error);
-
-    g_free (uri);
-}
-
-
-void command_open_nautilus (GtkMenuItem *menuitem, gpointer not_used)
-{
-    GnomeCmdFile *f = get_fl (ACTIVE)->get_selected_file();
-
-    open_uri_in_nautilus ((GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()))->get_uri_str());
-}
-
-
-void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
-{
-    open_uri_in_nautilus (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())->get_uri_str());
 }
 
 

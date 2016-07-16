@@ -18,6 +18,8 @@ New features:
  * Started usage of google test framework for unit tests
  * New color theme 'Winter'
  * Code cleanup
+Other changes:
+ * Removed "Open folder" command in popup menu and user actions
 New or updated translations: 
      ...
 New key bindings:

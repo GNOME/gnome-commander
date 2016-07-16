@@ -84,6 +84,14 @@
                         </listitem>
                     </itemizedlist>
                 </para>
+                <para>Other changes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Removed "Open folder" command in popup menu and user actions</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
             </entry>
         </row>
         <row valign="top">

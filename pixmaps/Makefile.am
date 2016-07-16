@@ -19,7 +19,6 @@ pixmaps_DATA = \
 	gnome-commander.xpm \
 	internal-viewer.xpm \
 	menu_bookmark.xpm \
-	nautilus.svg \
 	overlay_symlink.xpm \
 	overlay_umount.xpm \
 	pin.png \
