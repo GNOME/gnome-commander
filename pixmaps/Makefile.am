@@ -22,7 +22,6 @@ pixmaps_DATA = \
 	overlay_symlink.xpm \
 	overlay_umount.xpm \
 	pin.png \
-	python.svg \
 	rotate-180-16.xpm \
 	rotate-270-16.xpm \
 	rotate-90-16.xpm \
