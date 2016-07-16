@@ -65,6 +65,9 @@
                             <para>Simple plug-in system for file context menu (Thanks to Puux)</para>
                         </listitem>
                         <listitem>
+                            <para>Display of application icons in the "Open With" popup menu (Thanks to Puux)</para>
+                        </listitem>
+                        <listitem>
                             <para>Started usage of google test framework for unit tests</para>
                         </listitem>
                         <listitem>
