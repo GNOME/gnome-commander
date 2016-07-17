@@ -413,8 +413,10 @@
     </key>
     <key name="ftp-anonymous-password" type="s">
       <default l10n="messages">'you@provider.com'</default>
-      <summary></summary>
-      <description></description>
+      <summary>Password for anonymous ftp connections</summary>
+      <description>
+          This string defines defines the password for anonymous ftp connections.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.confirmations" path="/org/gnome/gnome-commander/preferences/confirmations/">

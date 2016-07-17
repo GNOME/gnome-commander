@@ -49,6 +49,17 @@ using namespace std;
 GnomeCmdData gnome_cmd_data;
 GnomeVFSVolumeMonitor *monitor = NULL;
 
+struct GnomeCmdData::Private
+{
+    GnomeCmdConList *con_list;
+    GList           *auto_load_plugins;
+    gint             sort_column[2];
+    gboolean         sort_direction[2];
+
+    gchar           *ftp_anonymous_password;
+};
+
+
 struct _GcmdSettings
 {
     GObject parent;
@@ -820,6 +831,12 @@ void on_terminal_exec_cmd_changed()
     gnome_cmd_data.options.termexec = terminal_exec_cmd;
 }
 
+void on_ftp_anonymous_password_changed()
+{
+    g_free(gnome_cmd_data.priv->ftp_anonymous_password);
+    gnome_cmd_data.priv->ftp_anonymous_password = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
+}
+
 void on_use_gcmd_block_changed()
 {
     gnome_cmd_data.use_gcmd_block = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
@@ -1221,6 +1238,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_use_gcmd_block_changed),
                       NULL);
 
+    g_signal_connect (gs->network,
+                      "changed::ftp-anonymous-password",
+                      G_CALLBACK (on_ftp_anonymous_password_changed),
+                      NULL);
+
 }
 
 
@@ -1236,17 +1258,6 @@ static void gcmd_settings_init (GcmdSettings *gs)
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
-
-
-struct GnomeCmdData::Private
-{
-    GnomeCmdConList *con_list;
-    GList           *auto_load_plugins;
-    gint             sort_column[2];
-    gboolean         sort_direction[2];
-
-    gchar           *ftp_anonymous_password;
-};
 
 
 DICT<guint> gdk_key_names(GDK_VoidSymbol);
@@ -2888,6 +2899,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //uri
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/"),
                                                         options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
+        //ftp_anonymous_password
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com"),
+                                                        options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3315,13 +3329,7 @@ void GnomeCmdData::load()
 
     main_win_state = (GdkWindowState) g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
 
-    priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
-
-    if (strcmp (priv->ftp_anonymous_password, "you@provider.com")==0)   // if '/network/ftp_anonymous_password' entry undefined, try to read '/ftp/anonymous_password'
-    {
-        g_free (priv->ftp_anonymous_password);
-        priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
-    }
+    priv->ftp_anonymous_password = g_settings_get_string (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
 
     static struct
     {
@@ -3846,8 +3854,7 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE, &(main_win_state));
 
-    gnome_cmd_data_set_string ("/network/ftp_anonymous_password", priv->ftp_anonymous_password);
-    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
+    set_gsettings_when_changed      (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD, priv->ftp_anonymous_password);
 
     save_cmdline_history();
     //write_dir_history ();

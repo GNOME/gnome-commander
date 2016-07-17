@@ -161,6 +161,7 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_NETWORK                             "org.gnome.gnome-commander.preferences.network"
 #define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
+#define GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD          "ftp-anonymous-password"
 
 struct GnomeCmdConRemote;
 
@@ -558,6 +559,7 @@ struct GnomeCmdData
     inline gboolean get_bool (const gchar *path, gboolean def);
     inline void set_bool (const gchar *path, gboolean value);
     inline void set_color (const gchar *path, GdkColor *color);
+
 
   public:
 
