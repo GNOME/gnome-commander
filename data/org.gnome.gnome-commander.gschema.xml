@@ -403,7 +403,7 @@
       <default l10n="messages">'ftp://anonymous@ftp.gnome.org/pub/GNOME/'</default>
       <summary>Quick connect URI</summary>
       <description>
-          Unified resource identifier for quick connects.
+          Unified resource identifier for quick connections.
       </description>
     </key>
     <key name="use-gnome-auth-manager" type="b">
