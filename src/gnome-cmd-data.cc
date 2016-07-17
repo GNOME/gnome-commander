@@ -248,13 +248,10 @@ void on_backup_pattern_changed ()
 
 void on_list_font_changed ()
 {
-    char *list_font;
-
-    list_font = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
-    gnome_cmd_data.options.list_font = list_font;
+    g_free(gnome_cmd_data.options.list_font);
+    gnome_cmd_data.options.list_font = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
 
     main_win->update_view();
-    g_free(list_font);
 }
 
 void on_ext_disp_mode_changed ()
