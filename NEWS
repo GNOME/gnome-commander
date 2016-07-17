@@ -3,6 +3,8 @@ gnome-commander 1.6.0
 ---------------
 
 Bug fixes:
+ * Fixed problem bgo#671616 (Right-Mouse popup menu is displayed in wrong position, Thanks to Puux)
+ * Fixed problem bgo#683087 (Crash opening properties window on certain objects, Thanks to Puux)
  * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
  * Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)
 New features:
