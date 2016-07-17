@@ -397,6 +397,13 @@
           This option defines if mounting of devices should be skipped when they are opened.
       </description>
     </key>
+    <key name="mainmenu-visibility" type="b">
+      <default l10n="messages">true</default>
+      <summary>Main menu visibility</summary>
+      <description>
+          This option defines if the main menu is visible or not.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">

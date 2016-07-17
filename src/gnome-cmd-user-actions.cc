@@ -1588,8 +1588,9 @@ void view_main_menu (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    gnome_cmd_data.mainmenu_visibility = !gnome_cmd_data.mainmenu_visibility;
-    main_win->update_mainmenu_visibility();
+    gboolean mainmenu_visibility;
+    mainmenu_visibility = g_settings_get_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, !mainmenu_visibility);
 }
 
 void view_first (GtkMenuItem *menuitem, gpointer not_used)

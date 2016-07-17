@@ -783,6 +783,15 @@ void on_dev_only_icon_changed()
     gnome_cmd_data.options.device_only_icon = dev_only_icon;
 }
 
+void on_mainmenu_visibility_changed()
+{
+    gboolean mainmenu_visibility;
+
+    mainmenu_visibility = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
+    gnome_cmd_data.mainmenu_visibility = mainmenu_visibility;
+    main_win->update_mainmenu_visibility();
+}
+
 void on_viewer_cmd_changed()
 {
     gchar *viewer_cmd;
@@ -1201,6 +1210,11 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
     g_signal_connect (gs->general,
                       "changed::dev-only-icon",
                       G_CALLBACK (on_dev_only_icon_changed),
+                      NULL);
+
+    g_signal_connect (gs->general,
+                      "changed::mainmenu-visibility",
+                      G_CALLBACK (on_mainmenu_visibility_changed),
                       NULL);
 
     g_signal_connect (gs->programs,
@@ -2896,6 +2910,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //only_icon
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/devices/only_icon", FALSE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
+        //mainmenu_visibility
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
         //uri
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/"),
                                                         options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
@@ -3273,7 +3290,7 @@ void GnomeCmdData::load()
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
     cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
     buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
-    mainmenu_visibility = gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", TRUE);
+    mainmenu_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
 
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
@@ -3811,7 +3828,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
-    gnome_cmd_data_set_bool   ("/programs/mainmenu_visibility", mainmenu_visibility);
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, &(mainmenu_visibility));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X, &(options.main_win_pos[0]));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y, &(options.main_win_pos[1]));

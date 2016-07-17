@@ -1299,11 +1299,11 @@ void GnomeCmdMainWin::update_mainmenu_visibility()
 {
     if (gnome_cmd_data.mainmenu_visibility)
     {
-		gtk_widget_show (priv->menubar);
+        gtk_widget_show (priv->menubar);
     }
     else
     {
-		gtk_widget_hide (priv->menubar);
+        gtk_widget_hide (priv->menubar);
     }
 }
 
