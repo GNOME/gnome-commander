@@ -5,7 +5,6 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences" path="/org/gnome/gnome-commander/preferences/">
     <child name="general" schema="org.gnome.gnome-commander.preferences.general"/>
-    <child name="quick-connect" schema="org.gnome.gnome-commander.preferences.quick-connect"/>
     <child name="network" schema="org.gnome.gnome-commander.preferences.network"/>
     <child name="confirmation" schema="org.gnome.gnome-commander.preferences.confirmation"/>
     <child name="filter" schema="org.gnome.gnome-commander.preferences.filter"/>
@@ -399,14 +398,14 @@
       </description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.quick-connect" path="/org/gnome/gnome-commander/preferences/quick-connect/">
-    <key name="uri" type="s">
-      <default l10n="messages">'sftp://192.168.1.33'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-  </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
+    <key name="quick-connect-uri" type="s">
+      <default l10n="messages">'ftp://anonymous@ftp.gnome.org/pub/GNOME/'</default>
+      <summary>Quick connect URI</summary>
+      <description>
+          Unified resource identifier for quick connects.
+      </description>
+    </key>
     <key name="use-gnome-auth-manager" type="b">
       <default l10n="messages">false</default>
       <summary></summary>

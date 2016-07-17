@@ -59,6 +59,7 @@ struct _GcmdSettings
     GSettings *colors;
     GSettings *programs;
     GSettings *keybindings;
+    GSettings *network;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -82,6 +83,7 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->colors);
     g_clear_object (&gs->programs);
     g_clear_object (&gs->keybindings);
+    g_clear_object (&gs->network);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -1230,6 +1232,7 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->colors      = g_settings_new (GCMD_PREF_COLORS);
     gs->programs    = g_settings_new (GCMD_PREF_PROGRAMS);
     gs->keybindings = g_settings_new (GCMD_PREF_KEYBINDINGS);
+    gs->network     = g_settings_new (GCMD_PREF_NETWORK);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2882,6 +2885,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //only_icon
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/devices/only_icon", FALSE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
+        //uri
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/"),
+                                                        options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
@@ -3562,7 +3568,7 @@ void GnomeCmdData::load()
 
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
 
-    gchar *quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
+    gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
     quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
@@ -3813,7 +3819,7 @@ void GnomeCmdData::save()
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
 
     if (quick_connect_uri)
-        gnome_cmd_data_set_string ("/quick-connect/uri", quick_connect_uri);
+        set_gsettings_when_changed (options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI, (gpointer) quick_connect_uri);
 
     gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/host");
     gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/port");

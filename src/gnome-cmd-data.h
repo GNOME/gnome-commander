@@ -159,6 +159,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
 
+#define GCMD_PREF_NETWORK                             "org.gnome.gnome-commander.preferences.network"
+#define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData
