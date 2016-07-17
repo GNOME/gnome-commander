@@ -50,6 +50,12 @@ struct OpenWithData
     GtkPixmap *pm;
 };
 
+struct ScriptData
+{
+    GList *files;
+    const char *name;
+    gboolean term;
+};
 
 static GtkMenuClass *parent_class = NULL;
 
@@ -184,6 +190,44 @@ static void on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data
 #ifdef HAVE_PYTHON
     gnome_cmd_python_plugin_execute(data, main_win);
 #endif
+}
+
+
+static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
+{
+    GdkModifierType mask;
+
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+
+    GList *files = data->files;
+    if (state_is_shift (mask))
+    {
+        // Run script per file
+        for (; files; files = files->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+            string command (data->name);
+            command.append (" ").append (f->get_name ());
+
+            run_command_indir (command.c_str (), f->get_dirname (), data->term);
+        }
+    }
+    else
+    {
+        // Run script with list of files
+        string command (data->name);
+        command.append (" ");
+        for (; files; files = files->next)
+        {
+            GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+            command.append(f->get_name ()).append(" ");
+        }
+
+        run_command_indir (command.c_str (), ((GnomeCmdFile *) data->files->data)->get_dirname (), data->term);
+    }
+
+    g_list_free (data->files);
+    g_free ((gpointer) data->name);
 }
 
 
@@ -396,7 +440,7 @@ inline gchar *string_double_underscores (const gchar *string)
 }
 
 
-inline gchar *get_default_application_action_name (GList *files)
+inline gchar *get_default_application_action_name (GList *files, gchar **icon_path)
 {
     if (g_list_length(files)>1)
         return g_strdup (_("_Open"));
@@ -404,7 +448,19 @@ inline gchar *get_default_application_action_name (GList *files)
     GnomeCmdFile *f = (GnomeCmdFile *) files->data;
     gchar *uri_str = f->get_uri_str();
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
-
+    
+    if (icon_path)
+    {
+        GnomeCmdApp *gapp = gnome_cmd_app_new_from_vfs_app (app);
+        if (gapp)
+        {
+            *icon_path = g_strdup (gapp->icon_path);
+            gnome_cmd_app_free (gapp);
+        }
+        else
+            *icon_path = NULL;
+    }
+    
     g_free (uri_str);
 
     if (!app)
@@ -459,8 +515,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
         GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GTK_STOCK_EXECUTE),
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open this _folder"), NULL, command_open_nautilus, PACKAGE_NAME G_DIR_SEPARATOR_S "nautilus.svg"),
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PIXMAPS_DIR G_DIR_SEPARATOR_S  "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GTK_STOCK_PROPERTIES),
         GNOMEUIINFO_END
@@ -495,8 +550,11 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             apps_uiinfo[i].label = g_strdup (gnome_cmd_app_get_name (data->app));
             apps_uiinfo[i].moreinfo = (gpointer) cb_exec_with_app;
             apps_uiinfo[i].user_data = data;
-
-            menu->priv->data_list = g_list_append (menu->priv->data_list, data);
+            if (data->app->icon_path)
+            {
+                apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_FILENAME;
+                apps_uiinfo[i].pixmap_info = g_strdup (data->app->icon_path);
+            }
         }
     }
 
@@ -508,6 +566,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     apps_uiinfo[i].label = g_strdup (_("Other _Application..."));
     apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
+    apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_NONE;
 
     gnome_vfs_mime_application_list_free (tmp);
     apps_uiinfo[++i].type = GNOME_APP_UI_ENDOFINFO;
@@ -521,7 +580,8 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         if (other_uiinfo[i].type == GNOME_APP_UI_ITEM)
             other_uiinfo[i].user_data = fl;
 
-    open_uiinfo[0].label = get_default_application_action_name(files);  // must be freed after gnome_app_fill_menu ()
+    open_uiinfo[0].label = get_default_application_action_name(files, (gchar **) &open_uiinfo[0].pixmap_info);  // must be freed after gnome_app_fill_menu ()
+    open_uiinfo[0].pixmap_type = open_uiinfo[0].pixmap_info ? GNOME_APP_PIXMAP_FILENAME : GNOME_APP_PIXMAP_NONE;
     open_uiinfo[0].user_data = files;
     exec_uiinfo[0].user_data = files;
 
@@ -601,6 +661,84 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
         g_free (py_uiinfo);
     }
+	
+    // Script actions
+    gchar *user_dir = g_build_filename (g_get_home_dir (), "." PACKAGE "/scripts", NULL);
+    DIR *dp = opendir (user_dir);
+    GList *slist = NULL;
+    if (dp != NULL)
+    {
+        struct dirent *ep;
+        while (ep = readdir (dp))
+        {
+            struct stat buf;
+            string s (user_dir);
+            s.append ("/").append (ep->d_name);
+            if (stat (s.c_str(), &buf) == 0)
+            {
+                if (buf.st_mode & S_IFREG)
+                {
+                    slist = g_list_append (slist, g_strdup(ep->d_name));
+                }
+            }
+        }
+        closedir (dp);
+    }
+
+    n = g_list_length(slist);
+    if (n)
+    {
+        GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
+        GnomeUIInfo *tmp = py_uiinfo;
+
+        for (GList *l = slist; l; l = l->next)
+        {
+            ScriptData *data = g_new0 (ScriptData, 1);
+            data->files = files;
+
+            string s (user_dir);
+            s.append ("/").append ((char*) l->data);
+
+            FILE *f = fopen (s.c_str (), "r");
+            if (f)
+            {
+                char buf[256];
+                while (fgets (buf, 256, f))
+                {
+                    if (strncmp (buf, "#name:", 6) == 0)
+                    {
+                        buf[strlen (buf)-1] = '\0';
+                        g_free ((gpointer) l->data);
+                        l->data = g_strdup (buf+7);
+                    }
+                    else if (strncmp (buf, "#term:", 6) == 0)
+                    {
+                        data->term = strncmp (buf + 7, "true", 4) == 0;
+                    }
+                }
+                fclose (f);
+            }
+
+            data->name = g_strdup (s.c_str ());
+            tmp->type = GNOME_APP_UI_ITEM;
+            tmp->label = (gchar*) l->data;
+            tmp->moreinfo = (gpointer) on_execute_script;
+            tmp->user_data = data;
+            tmp->pixmap_type = GNOME_APP_PIXMAP_STOCK;
+            tmp->pixmap_info = GTK_STOCK_EXECUTE;
+            tmp++;
+        }
+        tmp++;
+        tmp->type = GNOME_APP_UI_ENDOFINFO;
+
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, NULL, FALSE, pos);
+        pos += n;
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
+
+        g_free (py_uiinfo);
+    }
+    g_free (user_dir);
+    g_list_free (slist);
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, NULL, FALSE, pos++);
 

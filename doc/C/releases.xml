@@ -59,7 +59,22 @@
                             <para>Device buttons and device list entries act as 'home buttons' for that device when it is already active</para>
                         </listitem>
                         <listitem>
+                            <para>Copy directory path to clipboard after right click on dir-indicator (Thanks to Puux)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Show/hide mainmenu can be set as keyboard shortcut now (Thanks to Puux)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Simple plug-in system for file context menu (Thanks to Puux)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Display of application icons in the "Open With" popup menu (Thanks to Puux)</para>
+                        </listitem>
+                        <listitem>
                             <para>Started usage of google test framework for unit tests</para>
+                        </listitem>
+                        <listitem>
+                            <para>New color theme 'Winter'</para>
                         </listitem>
                         <listitem>
                             <para>Code cleanup</para>
@@ -69,6 +84,14 @@
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ??</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>Other changes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Removed "Open folder" command in popup menu and user actions</para>
                         </listitem>
                     </itemizedlist>
                 </para>

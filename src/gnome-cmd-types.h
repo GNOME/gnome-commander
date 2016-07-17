@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-types.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -81,6 +81,7 @@ enum GnomeCmdColorMode
     GNOME_CMD_COLOR_DEEP_BLUE,
     GNOME_CMD_COLOR_CAFEZINHO,
     GNOME_CMD_COLOR_GREEN_TIGER,
+    GNOME_CMD_COLOR_WINTER,
     GNOME_CMD_COLOR_CUSTOM,
     GNOME_CMD_NUM_COLOR_MODES
 };

@@ -771,7 +771,8 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->menubar = gnome_cmd_main_menu_new ();
     g_object_ref (mw->priv->menubar);
     g_object_set_data_full (*mw, "vbox", mw->priv->menubar, g_object_unref);
-    gtk_widget_show (mw->priv->menubar);
+    if(gnome_cmd_data.mainmenu_visibility)
+		gtk_widget_show (mw->priv->menubar);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), create_separator (FALSE), FALSE, TRUE, 0);
 
@@ -1291,6 +1292,19 @@ void GnomeCmdMainWin::update_horizontal_orientation()
 
     g_signal_connect (priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), this);
     slide_set_50_50 (NULL, NULL);
+}
+
+
+void GnomeCmdMainWin::update_mainmenu_visibility()
+{
+    if (gnome_cmd_data.mainmenu_visibility)
+    {
+		gtk_widget_show (priv->menubar);
+    }
+    else
+    {
+		gtk_widget_hide (priv->menubar);
+    }
 }
 
 

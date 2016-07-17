@@ -2501,6 +2501,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     show_devlist = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
+    mainmenu_visibility = TRUE;
 
     //TODO: Include into GnomeCmdData::Options
     dev_icon_size = 16;
@@ -3166,6 +3167,16 @@ void GnomeCmdData::load()
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_fg = gdk_color_new (0,0,0);
     options.color_themes[GNOME_CMD_COLOR_GREEN_TIGER].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
+    options.color_themes[GNOME_CMD_COLOR_WINTER].respect_theme = FALSE;
+    options.color_themes[GNOME_CMD_COLOR_WINTER].norm_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].norm_bg = gdk_color_new (0xffff,0xffff,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].alt_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].alt_bg = gdk_color_new (0xf0f0, 0xf0f0, 0xf0f0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].sel_fg = gdk_color_new (0,0,0xffff);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].sel_bg = gdk_color_new (0xc8c8,0xc8c8,0xc8c8);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].curs_fg = gdk_color_new (0,0,0);
+    options.color_themes[GNOME_CMD_COLOR_WINTER].curs_bg = gdk_color_new (0,0xffff,0xffff);
+
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
     options.color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
@@ -3242,6 +3253,7 @@ void GnomeCmdData::load()
     show_devlist = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
     cmdline_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
     buttonbar_visibility = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
+    mainmenu_visibility = gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", TRUE);
 
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
@@ -3785,6 +3797,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST, &(show_devlist));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE, &(cmdline_visibility));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, &(buttonbar_visibility));
+    gnome_cmd_data_set_bool   ("/programs/mainmenu_visibility", mainmenu_visibility);
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X, &(options.main_win_pos[0]));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y, &(options.main_win_pos[1]));

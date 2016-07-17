@@ -279,8 +279,6 @@ GNOME_CMD_USER_ACTION(command_execute);
 GNOME_CMD_USER_ACTION(command_open_terminal__internal);             // this function is NOT exposed to user as UserAction
 GNOME_CMD_USER_ACTION(command_open_terminal);
 GNOME_CMD_USER_ACTION(command_open_terminal_as_root);
-GNOME_CMD_USER_ACTION(command_open_nautilus);
-GNOME_CMD_USER_ACTION(command_open_nautilus_in_cwd);
 GNOME_CMD_USER_ACTION(command_root_mode);
 
 /************** View Menu **************/
@@ -317,6 +315,7 @@ GNOME_CMD_USER_ACTION(view_in_new_tab);
 GNOME_CMD_USER_ACTION(view_in_inactive_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 GNOME_CMD_USER_ACTION(view_horizontal_orientation);
+GNOME_CMD_USER_ACTION(view_main_menu);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);

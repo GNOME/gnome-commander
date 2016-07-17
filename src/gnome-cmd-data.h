@@ -578,6 +578,7 @@ struct GnomeCmdData
     gboolean                     show_devlist;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
+    gboolean                     mainmenu_visibility;
 
     guint                        dev_icon_size;
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
