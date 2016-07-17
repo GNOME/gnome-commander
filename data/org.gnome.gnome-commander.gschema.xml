@@ -977,10 +977,12 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.internal-viewer" path="/org/gnome/gnome-commander/preferences/internal-viewer/">
-    <key name="case-sens" type="b">
+    <key name="case-sensitive-search" type="b">
       <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
+      <summary>Case sensitive search</summary>
+      <description>
+          This option defines if searching within the internal viewer is case sensitive.
+      </description>
     </key>
     <key name="last-mode" type="i">
       <default l10n="messages">0</default>

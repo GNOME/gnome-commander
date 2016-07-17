@@ -71,6 +71,7 @@ struct _GcmdSettings
     GSettings *programs;
     GSettings *keybindings;
     GSettings *network;
+    GSettings *internalviewer;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -95,6 +96,7 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->programs);
     g_clear_object (&gs->keybindings);
     g_clear_object (&gs->network);
+    g_clear_object (&gs->internalviewer);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -1262,13 +1264,14 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
 static void gcmd_settings_init (GcmdSettings *gs)
 {
-    gs->general     = g_settings_new (GCMD_PREF_GENERAL);
-    gs->filter      = g_settings_new (GCMD_PREF_FILTER);
-    gs->confirm     = g_settings_new (GCMD_PREF_CONFIRM);
-    gs->colors      = g_settings_new (GCMD_PREF_COLORS);
-    gs->programs    = g_settings_new (GCMD_PREF_PROGRAMS);
-    gs->keybindings = g_settings_new (GCMD_PREF_KEYBINDINGS);
-    gs->network     = g_settings_new (GCMD_PREF_NETWORK);
+    gs->general        = g_settings_new (GCMD_PREF_GENERAL);
+    gs->filter         = g_settings_new (GCMD_PREF_FILTER);
+    gs->confirm        = g_settings_new (GCMD_PREF_CONFIRM);
+    gs->colors         = g_settings_new (GCMD_PREF_COLORS);
+    gs->programs       = g_settings_new (GCMD_PREF_PROGRAMS);
+    gs->keybindings    = g_settings_new (GCMD_PREF_KEYBINDINGS);
+    gs->network        = g_settings_new (GCMD_PREF_NETWORK);
+    gs->internalviewer = g_settings_new (GCMD_PREF_INTERNAL_VIEWER);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2388,7 +2391,7 @@ inline void GnomeCmdData::save_intviewer_defaults()
 {
     gnome_cmd_data_set_string_history ("/internal_viewer/text_pattern%d", intviewer_defaults.text_patterns.ents);
     gnome_cmd_data_set_string_history ("/internal_viewer/hex_pattern%d", intviewer_defaults.hex_patterns.ents);
-    gnome_cmd_data_set_bool ("/internal_viewer/case_sens", intviewer_defaults.case_sensitive);
+    set_gsettings_when_changed      (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE, &(intviewer_defaults.case_sensitive));
     gnome_cmd_data_set_int ("/internal_viewer/last_mode", intviewer_defaults.search_mode);
 }
 
@@ -2439,7 +2442,7 @@ inline void GnomeCmdData::load_intviewer_defaults()
 {
     intviewer_defaults.text_patterns = load_string_history ("/internal_viewer/text_pattern%d", -1);
     intviewer_defaults.hex_patterns.ents = load_string_history ("/internal_viewer/hex_pattern%d", -1);
-    intviewer_defaults.case_sensitive = gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE);
+    intviewer_defaults.case_sensitive = g_settings_get_boolean (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
     intviewer_defaults.search_mode = gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0);
 }
 
@@ -2919,6 +2922,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //ftp_anonymous_password
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com"),
                                                         options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
+        //case_sens
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup

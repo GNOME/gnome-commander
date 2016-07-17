@@ -164,6 +164,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
 #define GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD          "ftp-anonymous-password"
 
+#define GCMD_PREF_INTERNAL_VIEWER                     "org.gnome.gnome-commander.preferences.internal-viewer"
+#define GCMD_SETTINGS_IV_CASE_SENSITIVE               "case-sensitive-search"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData
