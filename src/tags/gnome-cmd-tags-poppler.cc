@@ -203,6 +203,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
     if (!f->is_local())  return;
 
     // skip non pdf files, as pdf metatags extraction is very expensive...
+    if (f->info->mime_type == NULL) return;
     if (!strstr (f->info->mime_type, "pdf"))  return;
 
     gchar *fname = f->get_real_path();
