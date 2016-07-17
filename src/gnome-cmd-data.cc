@@ -131,6 +131,7 @@ void on_date_disp_format_changed ()
     GnomeCmdDateFormat date_format;
 
     date_format = (GnomeCmdDateFormat) g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
+    g_free(gnome_cmd_data.options.date_format);
     gnome_cmd_data.options.date_format = date_format;
 
     main_win->update_view();
@@ -411,6 +412,7 @@ void on_case_sensitive_changed ()
 
 void on_symlink_string_changed ()
 {
+    g_free(gnome_cmd_data.options.symlink_prefix);
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
 }
 
@@ -771,7 +773,7 @@ void on_dev_only_icon_changed()
 void on_viewer_cmd_changed()
 {
     gchar *viewer_cmd;
-
+    g_free(gnome_cmd_data.options.viewer);
     viewer_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
     gnome_cmd_data.options.viewer = viewer_cmd;
 }
@@ -779,7 +781,7 @@ void on_viewer_cmd_changed()
 void on_editor_cmd_changed()
 {
     gchar *editor_cmd;
-
+    g_free(gnome_cmd_data.options.editor);
     editor_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
     gnome_cmd_data.options.editor = editor_cmd;
 }
@@ -787,7 +789,7 @@ void on_editor_cmd_changed()
 void on_differ_cmd_changed()
 {
     gchar *differ_cmd;
-
+    g_free(gnome_cmd_data.options.differ);
     differ_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD);
     gnome_cmd_data.options.differ = differ_cmd;
 }
@@ -795,7 +797,7 @@ void on_differ_cmd_changed()
 void on_sendto_cmd_changed()
 {
     gchar *sendto_cmd;
-
+    g_free(gnome_cmd_data.options.sendto);
     sendto_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
     gnome_cmd_data.options.sendto = sendto_cmd;
 }
@@ -803,7 +805,7 @@ void on_sendto_cmd_changed()
 void on_terminal_cmd_changed()
 {
     gchar *terminal_cmd;
-
+    g_free(gnome_cmd_data.options.termopen);
     terminal_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
     gnome_cmd_data.options.termopen = terminal_cmd;
 }
@@ -811,7 +813,7 @@ void on_terminal_cmd_changed()
 void on_terminal_exec_cmd_changed()
 {
     gchar *terminal_exec_cmd;
-
+    g_free(gnome_cmd_data.options.termexec);
     terminal_exec_cmd = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
     gnome_cmd_data.options.termexec = terminal_exec_cmd;
 }
