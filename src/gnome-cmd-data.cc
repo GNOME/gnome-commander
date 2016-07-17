@@ -2392,7 +2392,7 @@ inline void GnomeCmdData::save_intviewer_defaults()
     gnome_cmd_data_set_string_history ("/internal_viewer/text_pattern%d", intviewer_defaults.text_patterns.ents);
     gnome_cmd_data_set_string_history ("/internal_viewer/hex_pattern%d", intviewer_defaults.hex_patterns.ents);
     set_gsettings_when_changed      (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE, &(intviewer_defaults.case_sensitive));
-    gnome_cmd_data_set_int ("/internal_viewer/last_mode", intviewer_defaults.search_mode);
+    set_gsettings_enum_when_changed (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE, intviewer_defaults.search_mode);
 }
 
 
@@ -2443,7 +2443,7 @@ inline void GnomeCmdData::load_intviewer_defaults()
     intviewer_defaults.text_patterns = load_string_history ("/internal_viewer/text_pattern%d", -1);
     intviewer_defaults.hex_patterns.ents = load_string_history ("/internal_viewer/hex_pattern%d", -1);
     intviewer_defaults.case_sensitive = g_settings_get_boolean (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
-    intviewer_defaults.search_mode = gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0);
+    intviewer_defaults.search_mode = g_settings_get_enum (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
 }
 
 
@@ -2925,6 +2925,9 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //case_sens
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE) ? 1 : 0,
                                               options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
+        //last_mode
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0),
+                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
 
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup

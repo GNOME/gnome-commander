@@ -97,6 +97,11 @@
     <value nick="ALT+letter" value="1"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.internal-viewer.search-mode-enum">
+    <value nick="text" value="0"/>
+    <value nick="hexadecimal" value="1"/>
+  </enum>
+
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
@@ -984,10 +989,12 @@
           This option defines if searching within the internal viewer is case sensitive.
       </description>
     </key>
-    <key name="last-mode" type="i">
-      <default l10n="messages">0</default>
-      <summary></summary>
-      <description></description>
+    <key name="search-mode" enum='org.gnome.gnome-commander.preferences.internal-viewer.search-mode-enum'>
+      <default l10n="messages">'text'</default>
+      <summary>Search mode</summary>
+      <description>
+          This options defines the search mode of the internal viewer.
+      </description>
     </key>
     <key name="charset" type="s">
       <default l10n="messages">'UTF8'</default>

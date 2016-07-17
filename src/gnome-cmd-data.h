@@ -166,6 +166,7 @@ GcmdSettings *gcmd_settings_new (void);
 
 #define GCMD_PREF_INTERNAL_VIEWER                     "org.gnome.gnome-commander.preferences.internal-viewer"
 #define GCMD_SETTINGS_IV_CASE_SENSITIVE               "case-sensitive-search"
+#define GCMD_SETTINGS_IV_SEARCH_MODE                  "search-mode"
 
 struct GnomeCmdConRemote;
 
@@ -520,7 +521,7 @@ struct GnomeCmdData
         History text_patterns;
         History hex_patterns;
         gboolean case_sensitive;
-        guint search_mode;
+        gint search_mode;
 
         IntViewerConfig(): text_patterns(INTVIEWER_HISTORY_SIZE),
                            hex_patterns(INTVIEWER_HISTORY_SIZE),
