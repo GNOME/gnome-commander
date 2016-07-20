@@ -29,6 +29,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-user-actions.h"
+#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "imageloader.h"
 #include "utils.h"
 
@@ -400,18 +401,7 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
 
 static void on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
 {
-    GnomeCmdFile *f = GNOME_CMD_FILE (indicator->priv->fs->get_directory());
-    GnomeCmdCon *con = indicator->priv->fs->get_connection();
-    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
-
-    GnomeCmdBookmark *bm = g_new0 (GnomeCmdBookmark, 1);
-
-    bm->name = g_strdup (f->get_name());
-    bm->path = f->get_path();
-    bm->group = group;
-
-    group->bookmarks = g_list_append (group->bookmarks, bm);
-    main_win->update_bookmarks();
+    gnome_cmd_bookmark_add_current (indicator->priv->fs->get_directory());
 }
 
 

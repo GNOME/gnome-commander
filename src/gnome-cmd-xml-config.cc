@@ -528,7 +528,9 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 if (gnome_cmd_con_list_get()->has_alias(param1))
-                    g_warning ("<Connections> duplicate entry: '%s' - ignored", param1);
+                {
+                    gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(param1));
+                }
                 else
                 {
                     GnomeCmdConRemote *server = gnome_cmd_con_remote_new (param1, param2);
