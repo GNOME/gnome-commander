@@ -60,6 +60,9 @@ struct GnomeCmdData::Private
     gchar           *symlink_prefix;
 
     gchar           *ftp_anonymous_password;
+    
+    GFileMonitor    *settings_monitor;
+    gboolean         settings_monitor_enabled;
 };
 
 
@@ -534,7 +537,9 @@ inline gboolean load_connections (const gchar *fname)
                         gchar *alias = gnome_vfs_unescape_string (a[1].c_str(), NULL);
 
                         if (gnome_cmd_data.priv->con_list->has_alias(alias))
-                            g_warning ("%s: ignored duplicate entry: %s", path, alias);
+                        {
+                            gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->find_alias(alias));
+                        }
                         else
                         {
                             server = gnome_cmd_con_remote_new (alias, a[2]);
@@ -1328,8 +1333,39 @@ void GnomeCmdData::free()
         // free the anonymous password string
         g_free (priv->ftp_anonymous_password);
 
+        g_object_unref (priv->settings_monitor);
+
         g_free (priv);
     }
+}
+
+
+static void settings_file_changes (GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event_type, gpointer user_data)
+{
+    if (event_type == G_FILE_MONITOR_EVENT_CHANGED)
+    {
+        if (gnome_cmd_data.priv->settings_monitor_enabled)
+        {
+            gnome_cmd_data.priv->settings_monitor_enabled = false;
+        }
+        else
+        {
+            gnome_cmd_data.load ();
+            main_win->update_bookmarks ();
+        }
+    }
+}
+
+
+void GnomeCmdData::set_settings_monitor (const char *file_path)
+{
+    if (priv->settings_monitor) return;
+
+    GFile *file = g_file_new_for_path (file_path);
+    priv->settings_monitor = g_file_monitor_file (file, G_FILE_MONITOR_NONE, NULL, NULL);
+    g_signal_connect (priv->settings_monitor, "changed", G_CALLBACK(settings_file_changes), NULL);
+
+    g_object_unref (file);
 }
 
 
@@ -1340,7 +1376,8 @@ void GnomeCmdData::load()
     gchar *document_icon_dir = g_strconcat (GNOME_PREFIX, "/share/pixmaps/document-icons/", NULL);
     gchar *theme_icon_dir    = g_strconcat (PIXMAPS_DIR, "/mime-icons", NULL);
 
-    priv = g_new0 (Private, 1);
+    if (!priv)
+        priv = g_new0 (Private, 1);
 
     options.color_themes[GNOME_CMD_COLOR_CUSTOM].respect_theme = FALSE;
     options.color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
@@ -1807,7 +1844,16 @@ void GnomeCmdData::load()
     load_cmdline_history();
     //load_dir_history ();
 
-    priv->con_list = gnome_cmd_con_list_new ();
+    if (!priv->con_list)
+        priv->con_list = gnome_cmd_con_list_new ();
+    else
+    {
+        gnome_cmd_con_erase_bookmark (priv->con_list->get_home());
+#ifdef HAVE_SAMBA
+        gnome_cmd_con_erase_bookmark (priv->con_list->get_smb());
+#endif
+        advrename_defaults.profiles.clear();
+    }
 
     priv->con_list->lock();
     if (load_devices_old ("devices") == FALSE)
@@ -1862,6 +1908,8 @@ void GnomeCmdData::load()
 
     set_vfs_volume_monitor ();
 
+    set_settings_monitor (xml_cfg_path);
+
     g_free (xml_cfg_path);
 }
 
@@ -1878,6 +1926,77 @@ void GnomeCmdData::load_more()
         load_smb_bookmarks();
 #endif
     }
+}
+
+
+void GnomeCmdData::save_xml ()
+{
+    priv->settings_monitor_enabled = true;
+    
+    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+
+    ofstream f(xml_cfg_path);
+    XML::xstream xml(f);
+
+    xml << XML::comment("Created with GNOME Commander (http://gcmd.github.io/)");
+    xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
+
+    xml << *main_win;
+
+    xml << XML::tag("History");
+
+    if (options.save_dir_history_on_exit)
+    {
+        xml << XML::tag("Directories");
+
+        for (GList *i=gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents; i; i=i->next)
+            xml << XML::tag("Directory") << XML::attr("path") << XML::escape((const gchar *) i->data) << XML::endtag();
+
+        xml << XML::endtag("Directories");
+    }
+
+    xml << XML::endtag("History");
+
+    xml << advrename_defaults;
+    xml << search_defaults;
+    xml << bookmarks_defaults;
+
+    xml << XML::tag("Connections");
+
+    for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
+    {
+        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+
+        if (con)
+            xml << *con;
+    }
+
+    xml << XML::endtag("Connections");
+
+    xml << XML::tag("Bookmarks");
+
+    write (xml, priv->con_list->get_home(), "Home");
+#ifdef HAVE_SAMBA
+    write (xml, priv->con_list->get_smb(), "SMB");
+#endif
+    for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
+    {
+        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+        write (xml, con, XML::escape(gnome_cmd_con_get_alias (con)));
+    }
+
+    xml << XML::endtag("Bookmarks");
+
+    xml << XML::tag("Selections");
+    for (vector<Selection>::iterator i=selections.begin(); i!=selections.end(); ++i)
+        xml << *i;
+    xml << XML::endtag("Selections");
+
+    xml << gcmd_user_actions;
+
+    xml << XML::endtag("GnomeCommander");
+
+    g_free (xml_cfg_path);
 }
 
 
@@ -2034,72 +2153,7 @@ void GnomeCmdData::save()
     save_fav_apps ("fav-apps");
     save_intviewer_defaults();
 
-    {
-        gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
-
-        ofstream f(xml_cfg_path);
-        XML::xstream xml(f);
-
-        xml << XML::comment("Created with GNOME Commander (http://gcmd.github.io/)");
-        xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
-
-        xml << *main_win;
-
-        xml << XML::tag("History");
-
-        if (options.save_dir_history_on_exit)
-        {
-            xml << XML::tag("Directories");
-
-            for (GList *i=gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents; i; i=i->next)
-                xml << XML::tag("Directory") << XML::attr("path") << XML::escape((const gchar *) i->data) << XML::endtag();
-
-            xml << XML::endtag("Directories");
-        }
-
-        xml << XML::endtag("History");
-
-        xml << advrename_defaults;
-        xml << search_defaults;
-        xml << bookmarks_defaults;
-
-        xml << XML::tag("Connections");
-
-        for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
-        {
-            GnomeCmdCon *con = GNOME_CMD_CON (i->data);
-
-            if (con)
-                xml << *con;
-        }
-
-        xml << XML::endtag("Connections");
-
-        xml << XML::tag("Bookmarks");
-
-        write (xml, priv->con_list->get_home(), "Home");
-#ifdef HAVE_SAMBA
-        write (xml, priv->con_list->get_smb(), "SMB");
-#endif
-        for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
-        {
-            GnomeCmdCon *con = GNOME_CMD_CON (i->data);
-            write (xml, con, XML::escape(gnome_cmd_con_get_alias (con)));
-        }
-
-        xml << XML::endtag("Bookmarks");
-
-        xml << XML::tag("Selections");
-        for (vector<Selection>::iterator i=selections.begin(); i!=selections.end(); ++i)
-            xml << *i;
-        xml << XML::endtag("Selections");
-
-        xml << gcmd_user_actions;
-
-        xml << XML::endtag("GnomeCommander");
-
-        g_free (xml_cfg_path);
-    }
+    save_xml ();
 
     save_auto_load_plugins();
 

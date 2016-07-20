@@ -383,6 +383,33 @@ void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookm
 }
 
 
+void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, gchar *name, gchar *path)
+{
+    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
+    GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
+    bookmark->name = name;
+    bookmark->path = path;
+    bookmark->group = group;
+    group->bookmarks = g_list_append (group->bookmarks, bookmark);
+}
+
+
+void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con)
+{
+    GnomeCmdBookmarkGroup *group = con->priv->bookmarks;
+    for(GList *l = group->bookmarks; l; l = l->next)
+    {
+        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) l->data;
+        g_free (bookmark->name);
+        g_free (bookmark->path);
+        g_free (bookmark);
+    }
+    g_list_free(group->bookmarks);
+    con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
+    con->priv->bookmarks->con = con;
+}
+
+
 void gnome_cmd_con_updated (GnomeCmdCon *con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));

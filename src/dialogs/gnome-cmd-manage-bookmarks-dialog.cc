@@ -358,6 +358,10 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *view)
             g_free (bookmark->name);
             g_free (bookmark->path);
             g_free (bookmark);
+            
+            main_win->update_bookmarks ();
+            
+            gnome_cmd_data.save_xml ();
         }
     }
 }
@@ -550,6 +554,8 @@ void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
         group->bookmarks = g_list_append (group->bookmarks, bookmark);
 
         main_win->update_bookmarks();
+        
+        gnome_cmd_data.save_xml ();
     }
     else
     {
