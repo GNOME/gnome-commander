@@ -168,6 +168,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_IV_CASE_SENSITIVE               "case-sensitive-search"
 #define GCMD_SETTINGS_IV_SEARCH_MODE                  "search-mode"
 
+#define GCMD_PREF_PLUGINS                             "org.gnome.gnome-commander.plugins.general"
+#define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData
@@ -554,7 +557,7 @@ struct GnomeCmdData
     void load_search_defaults();
     void load_intviewer_defaults();
     void load_smb_bookmarks();
-    void save_auto_load_plugins();
+    gboolean save_auto_load_plugins();
     void save_cmdline_history();
     void save_intviewer_defaults();
     inline gint get_int (const gchar *path, int def);

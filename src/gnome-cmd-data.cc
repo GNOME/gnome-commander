@@ -72,6 +72,7 @@ struct _GcmdSettings
     GSettings *keybindings;
     GSettings *network;
     GSettings *internalviewer;
+    GSettings *plugins;
 };
 
 G_DEFINE_TYPE (GcmdSettings, gcmd_settings, G_TYPE_OBJECT)
@@ -97,6 +98,7 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->keybindings);
     g_clear_object (&gs->network);
     g_clear_object (&gs->internalviewer);
+    g_clear_object (&gs->plugins);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
@@ -1272,6 +1274,7 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->keybindings    = g_settings_new (GCMD_PREF_KEYBINDINGS);
     gs->network        = g_settings_new (GCMD_PREF_NETWORK);
     gs->internalviewer = g_settings_new (GCMD_PREF_INTERNAL_VIEWER);
+    gs->plugins        = g_settings_new (GCMD_PREF_PLUGINS);
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2395,11 +2398,34 @@ inline void GnomeCmdData::save_intviewer_defaults()
     set_gsettings_enum_when_changed (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE, intviewer_defaults.search_mode);
 }
 
-
-inline void GnomeCmdData::save_auto_load_plugins()
+/**
+ * This function saves all entries of the auto load plugin list in the associated GSettings string array.
+ * @returns the return value of the GSettings storage process if there is anything to store, otherwise true.
+ */
+inline gboolean GnomeCmdData::save_auto_load_plugins()
 {
-    gnome_cmd_data_set_int ("/plugins/count", g_list_length (priv->auto_load_plugins));
-    gnome_cmd_data_set_string_history ("/plugins/auto_load%d", priv->auto_load_plugins);
+    gboolean rv = true;
+    guint gl_length = g_list_length (priv->auto_load_plugins);
+    if (gl_length > 0)
+    {
+        gint i;
+        gchar** str_array;
+        str_array = (gchar**) g_malloc ((gl_length+1) * sizeof(char*));
+        GList *alp = priv->auto_load_plugins;
+
+        // build up the string array
+        for (i = 0; alp; alp = alp->next, ++i)
+        {
+            str_array[i] = g_strdup((const gchar*) alp->data);
+        }
+        str_array[i] = NULL;
+
+        // store the NULL terminated str_array in GSettings
+        rv = g_settings_set_strv(options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD, str_array);
+
+        g_free(str_array);
+    }
+    return rv;
 }
 
 
@@ -2510,11 +2536,22 @@ inline void GnomeCmdData::load_smb_bookmarks()
 }
 #endif
 
+/**
+ * This function pushes the list of plugins to be automatically loaded into the
+ * associated Glist.
+ */
 inline void GnomeCmdData::load_auto_load_plugins()
 {
-    gint count = gnome_cmd_data_get_int ("/plugins/count", 0);
+    gchar** autoload_gsettings_array;
+    autoload_gsettings_array = g_settings_get_strv (options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
 
-    priv->auto_load_plugins = load_string_history ("/plugins/auto_load%d", count);
+    for(gint i = 0; autoload_gsettings_array[i]; ++i)
+    {
+        gchar *value;
+        value = g_strdup (autoload_gsettings_array[i]);
+        priv->auto_load_plugins = g_list_append (priv->auto_load_plugins, value);
+    }
+    g_free(autoload_gsettings_array);
 }
 
 
@@ -2928,7 +2965,12 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //last_mode
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0),
                                                         options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
-
+        //auto_load0 -> migrate the string into a gsettings string array
+        if (gnome_cmd_data_get_int ("/plugins/count", 0))
+        {
+            migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/plugins/auto_load0", "libfileroller.so"),
+                                                            options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
+        }
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
@@ -3699,9 +3741,9 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 }
 
 /**
- * This method returns an char pointer to a string which is either the given user_value or
- * the default string of the given GSettings key. The user_value is returned if it is different
- * from the default value.
+ * This method sets the value of a given GSettings key to the string stored in user_value or to the default value,
+ * depending on the value of user_value. If the class of the key is not a string but a string array, the first
+ * entry of the array is set to user_value.
  * @returns FALSE if an error occured setting the key value to a new string.
  */
 gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key)
@@ -3720,6 +3762,17 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
 
         if (strcmp(user_value, default_value) != 0)
             rv = g_settings_set_string (settings, key, user_value);
+    }
+    else if (g_variant_classify(variant) == G_VARIANT_CLASS_ARRAY)
+    {
+        gchar** str_array;
+        str_array = (gchar**) g_malloc (2*sizeof(char*));
+        str_array[0] = g_strdup(user_value);
+        str_array[1] = NULL;
+
+        rv = (gint) g_settings_set_strv(settings, key, str_array);
+
+        g_free(str_array);
     }
     else
     {

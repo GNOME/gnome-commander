@@ -1156,18 +1156,6 @@
       <description></description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.plugins" path="/org/gnome/gnome-commander/preferences/plugins/">
-    <key name="count" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="auto-load0" type="s">
-      <default l10n="messages">'libfileroller.so'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-  </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.cmdline-history" path="/org/gnome/gnome-commander/preferences/cmdline-history/">
     <key name="line" type="as">
       <default>['']</default>
@@ -1180,6 +1168,15 @@
         <description>
             Default file suffix of archives created with the file roller plugin.
         </description>
+    </key>
+  </schema>
+  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.general" path="/org/gnome/gnome-commander/plugins/general/">
+    <key name="autoload" type="as">
+      <default l10n="messages">[]</default>
+      <summary>Automatically loaded plugins</summary>
+      <description>
+          This is the list of automatically loaded plugins, whereas each entry represents the file name of the plugin.
+      </description>
     </key>
   </schema>
 </schemalist>
