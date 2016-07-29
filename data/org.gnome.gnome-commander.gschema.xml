@@ -210,6 +210,7 @@
     </key>
     <key name="cmdline-history-length" type="u">
       <default>16</default>
+      <range min="0" max="16"/>
       <summary>Commandline history length</summary>
     </key>
     <key name="horizontal-orientation" type="b">
