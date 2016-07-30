@@ -38,6 +38,7 @@
 #include "utils.h"
 #include "owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
+#include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "gnome-cmd-gkeyfile-utils.h"
 
 using namespace std;
@@ -1352,6 +1353,7 @@ static void settings_file_changes (GFileMonitor *monitor, GFile *file, GFile *ot
         {
             gnome_cmd_data.load ();
             main_win->update_bookmarks ();
+            gnome_cmd_update_bookmark_dialog ();
         }
     }
 }
