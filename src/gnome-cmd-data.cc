@@ -2431,31 +2431,15 @@ inline void GnomeCmdData::save_intviewer_defaults()
 
 /**
  * This function saves all entries of the auto load plugin list in the associated GSettings string array.
- * @returns the return value of the GSettings storage process if there is anything to store, otherwise true.
+ * @returns the return value of set_gsettings_string_array_from_glist() if there is anything to store, otherwise true.
  */
 inline gboolean GnomeCmdData::save_auto_load_plugins()
 {
     gboolean rv = true;
-    guint gl_length = g_list_length (priv->auto_load_plugins);
-    if (gl_length > 0)
-    {
-        gint i;
-        gchar** str_array;
-        str_array = (gchar**) g_malloc ((gl_length+1) * sizeof(char*));
-        GList *alp = priv->auto_load_plugins;
 
-        // build up the string array
-        for (i = 0; alp; alp = alp->next, ++i)
-        {
-            str_array[i] = g_strdup((const gchar*) alp->data);
-        }
-        str_array[i] = NULL;
+    if (g_list_length (priv->auto_load_plugins) > 0)
+        rv = set_gsettings_string_array_from_glist(options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD, priv->auto_load_plugins);
 
-        // store the NULL terminated str_array in GSettings
-        rv = g_settings_set_strv(options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD, str_array);
-
-        g_free(str_array);
-    }
     return rv;
 }
 
@@ -2592,16 +2576,9 @@ inline void GnomeCmdData::load_smb_bookmarks()
  */
 inline void GnomeCmdData::load_auto_load_plugins()
 {
-    gchar** autoload_gsettings_array;
-    autoload_gsettings_array = g_settings_get_strv (options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
+    g_list_free(priv->auto_load_plugins);
 
-    for(gint i = 0; autoload_gsettings_array[i]; ++i)
-    {
-        gchar *value;
-        value = g_strdup (autoload_gsettings_array[i]);
-        priv->auto_load_plugins = g_list_append (priv->auto_load_plugins, value);
-    }
-    g_free(autoload_gsettings_array);
+    priv->auto_load_plugins = get_list_from_gsettings_string_array (options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
 }
 
 
