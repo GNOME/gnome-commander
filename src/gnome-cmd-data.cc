@@ -2378,6 +2378,37 @@ inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format
     }
 }
 
+/**
+ * This function converts a GList into a NULL terminated array of char pointers.
+ * This array is stored into the given GSettings key.
+ * @returns The return value of g_settings_set_strv if the length of the GList is > 0, else true.
+ */
+gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings)
+{
+    gboolean rv = true;
+    guint number_of_strings = g_list_length (strings);
+    if (number_of_strings > 0)
+    {
+        gint ii;
+        gchar** str_array;
+        str_array = (gchar**) g_malloc ((number_of_strings + 1) * sizeof(char*));
+        GList *str_list = strings;
+
+        // build up a char array for storage in GSettings
+        for (ii = 0; str_list; str_list = str_list->next, ++ii)
+        {
+            str_array[ii] = g_strdup((const gchar*) str_list->data);
+        }
+        str_array[ii] = NULL;
+
+        // store the NULL terminated str_array in GSettings
+        rv = g_settings_set_strv(settings, key, str_array);
+
+        g_free(str_array);
+    }
+    return rv;
+}
+
 
 inline void GnomeCmdData::save_cmdline_history()
 {
@@ -2442,6 +2473,25 @@ inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
             break;
         list = g_list_append (list, value);
     }
+
+    return list;
+}
+
+
+inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings, const gchar *key)
+{
+    GList *list = NULL;
+
+    gchar** gsettings_array;
+    gsettings_array = g_settings_get_strv (settings, key);
+
+    for(gint i = 0; gsettings_array[i]; ++i)
+    {
+        gchar *value;
+        value = g_strdup (gsettings_array[i]);
+        list = g_list_append (list, value);
+    }
+    g_free(gsettings_array);
 
     return list;
 }

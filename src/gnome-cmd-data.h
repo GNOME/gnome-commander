@@ -599,6 +599,8 @@ struct GnomeCmdData
 
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
+    GList                       *get_list_from_gsettings_string_array (GSettings *settings, const gchar *key);
+    gboolean                     set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings);
 
     gboolean                     use_gcmd_block;
 
