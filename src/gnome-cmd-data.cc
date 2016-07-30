@@ -2988,12 +2988,6 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //ftp_anonymous_password
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com"),
                                                         options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
-        //case_sens
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
-        //last_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
         //auto_load0 -> migrate the string into a gsettings string array
         if (gnome_cmd_data_get_int ("/plugins/count", 0))
         {
@@ -3024,6 +3018,13 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
             g_free(str_array);
             g_list_free(cmdline_history_for_migration);
         }
+        /////////////////////// internal viewer specs ///////////////////////
+        //case_sens
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE) ? 1 : 0,
+                                              options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
+        //last_mode
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0),
+                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
