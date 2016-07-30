@@ -65,6 +65,7 @@ enum
 
 const int RESPONSE_JUMP_TO = 123;
 
+GtkWidget *view = NULL;
 
 void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
 {
@@ -79,7 +80,7 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
 #endif
 
-    GtkWidget *vbox, *hbox, *scrolled_window, *view, *button;
+    GtkWidget *vbox, *hbox, *scrolled_window, *button;
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
@@ -158,17 +159,13 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_dialog_run (GTK_DIALOG (dialog));
 
     gtk_widget_destroy (dialog);
+    view = NULL;
 }
 
 
-static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
+static void fill_tree (GtkTreeStore *store, GtkTreePath *&current_group)
 {
-    GtkTreeStore *store = gtk_tree_store_new (NUM_COLUMNS,
-                                              G_TYPE_STRING,
-                                              G_TYPE_STRING,
-                                              G_TYPE_STRING,
-                                              G_TYPE_STRING,
-                                              G_TYPE_POINTER);
+    gtk_tree_store_clear (store);
 
     GnomeCmdCon *current_con = main_win->fs(ACTIVE)->get_connection();
     GtkTreeIter toplevel;
@@ -219,6 +216,19 @@ static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
                                 -1);
         }
     }
+}
+
+
+static GtkTreeModel *create_and_fill_model (GtkTreePath *&current_group)
+{
+    GtkTreeStore *store = gtk_tree_store_new (NUM_COLUMNS,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_POINTER);
+    fill_tree (store, current_group);
+    
 
     return GTK_TREE_MODEL (store);
 }
@@ -287,6 +297,16 @@ static GtkWidget *create_view_and_model ()
     gtk_tree_path_free (group);
 
     return view;
+}
+
+
+void gnome_cmd_update_bookmark_dialog ()
+{
+    if (view)
+    {
+        GtkTreePath *group = NULL;
+        fill_tree (GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view))), group);
+    }
 }
 
 
