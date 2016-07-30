@@ -2417,7 +2417,7 @@ inline void GnomeCmdData::save_cmdline_history()
 
     cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
 
-    gnome_cmd_data_set_string_history ("/cmdline-history/line%d", cmdline_history);
+    set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
 }
 
 
@@ -2499,7 +2499,7 @@ inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *set
 
 inline void GnomeCmdData::load_cmdline_history()
 {
-    cmdline_history = load_string_history ("/cmdline-history/line%d", -1);
+    cmdline_history = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY);
 }
 
 
@@ -3020,6 +3020,30 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         {
             migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/plugins/auto_load0", "libfileroller.so"),
                                                             options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
+        }
+        //cmdline-history/lineXX -> migrate the string into a gsettings string array
+        GList *cmdline_history_for_migration = NULL;
+        cmdline_history_for_migration = load_string_history ("/cmdline-history/line%d", -1);
+        if (cmdline_history_for_migration && cmdline_history_for_migration->data)
+        {
+            GList *list_pointer;
+            list_pointer = cmdline_history_for_migration;
+            gint ii, array_size = 0;
+            for (;list_pointer; list_pointer=list_pointer->next)
+                ++array_size;
+            gchar** str_array;
+            str_array = (gchar**) g_malloc ((array_size + 1)*sizeof(char*));
+
+            list_pointer = cmdline_history_for_migration;
+            for (ii = 0; list_pointer; list_pointer=list_pointer->next, ++ii)
+            {
+                str_array[ii] = g_strdup((const gchar*) list_pointer->data);
+            }
+            str_array[ii] = NULL;
+            g_settings_set_strv(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, str_array);
+
+            g_free(str_array);
+            g_list_free(cmdline_history_for_migration);
         }
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup

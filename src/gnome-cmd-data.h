@@ -72,6 +72,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DEV_ICON_SIZE                   "dev-icon-size"
 #define GCMD_SETTINGS_ICON_SCALE_QUALITY              "icon-scale-quality"
 #define GCMD_SETTINGS_MIME_ICON_DIR                   "mime-icon-dir"
+#define GCMD_SETTINGS_CMDLINE_HISTORY                 "cmdline-history"
 #define GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH          "cmdline-history-length"
 #define GCMD_SETTINGS_HORIZONTAL_ORIENTATION          "horizontal-orientation"
 #define GCMD_SETTINGS_SHOW_DEVBUTTONS                 "show-devbuttons"

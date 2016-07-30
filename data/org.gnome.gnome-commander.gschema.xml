@@ -15,7 +15,6 @@
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
     <child name="local-bookmarks" schema="org.gnome.gnome-commander.preferences.local-bookmarks"/>
     <child name="smb-bookmarks" schema="org.gnome.gnome-commander.preferences.smb-bookmarks"/>
-    <child name="cmdline-history" schema="org.gnome.gnome-commander.preferences.cmdline-history"/>
   </schema>
 
   <enum id="org.gnome.gnome-commander.preferences.general.size-display-mode-enum">
@@ -207,6 +206,13 @@
       <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
       <summary>MIME icon directory</summary>
       <description>Directory in which MIME icons are located.</description>
+    </key>
+    <key name="cmdline-history" type="as">
+      <default>[]</default>
+      <summary>Commandline history</summary>
+      <description>
+          This string array represents the history of commands executed in the command line.
+      </description>
     </key>
     <key name="cmdline-history-length" type="u">
       <default>16</default>
@@ -1155,11 +1161,6 @@
       <default l10n="messages">0</default>
       <summary></summary>
       <description></description>
-    </key>
-  </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.cmdline-history" path="/org/gnome/gnome-commander/preferences/cmdline-history/">
-    <key name="line" type="as">
-      <default>['']</default>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.file-roller-plugin" path="/org/gnome/gnome-commander/plugins/file-roller-plugin/">
