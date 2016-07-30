@@ -2483,6 +2483,8 @@ inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *set
 
 inline void GnomeCmdData::load_cmdline_history()
 {
+    g_list_free(cmdline_history);
+
     cmdline_history = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY);
 }
 
