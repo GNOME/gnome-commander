@@ -425,6 +425,7 @@ struct GnomeCmdData
     void save_auto_load_plugins();
     void save_cmdline_history();
     void save_intviewer_defaults();
+	void set_settings_monitor (const char *file_path);
 
   public:
 
@@ -474,6 +475,8 @@ struct GnomeCmdData
     void load();
     void load_more();
     void save();
+	
+	void save_xml ();
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 
