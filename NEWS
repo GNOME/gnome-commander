@@ -17,6 +17,7 @@ New features:
  * Show/hide mainmenu can be set as keyboard shortcut now (Thanks to Puux)
  * Simple plug-in system for file context menu (Thanks to Puux)
  * Display of application icons in the "Open With" popup menu (Thanks to Puux)
+ * Write bookmark changes immediately to file, Sync bookmarks between all instances (Thanks to Puux)
  * Started usage of google test framework for unit tests
  * New color theme 'Winter'
  * Code cleanup
