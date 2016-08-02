@@ -306,6 +306,8 @@ void gnome_cmd_update_bookmark_dialog ()
     {
         GtkTreePath *group = NULL;
         fill_tree (GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view))), group);
+        if (group)
+            gtk_tree_view_expand_row (GTK_TREE_VIEW (view), group, TRUE);
     }
 }
 
