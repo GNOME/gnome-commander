@@ -168,6 +168,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_INTERNAL_VIEWER                     "org.gnome.gnome-commander.preferences.internal-viewer"
 #define GCMD_SETTINGS_IV_CASE_SENSITIVE               "case-sensitive-search"
 #define GCMD_SETTINGS_IV_SEARCH_MODE                  "search-mode"
+#define GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT          "search-pattern-text"
+#define GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX           "search-pattern-hex"
 
 #define GCMD_PREF_PLUGINS                             "org.gnome.gnome-commander.plugins.general"
 #define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"

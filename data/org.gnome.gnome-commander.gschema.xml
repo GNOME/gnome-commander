@@ -1138,15 +1138,19 @@
       <summary></summary>
       <description></description>
     </key>
-    <key name="text-pattern14" type="s">
-      <default l10n="messages">'color'</default>
-      <summary></summary>
-      <description></description>
+    <key name="search-pattern-text" type="as">
+      <default l10n="messages">[]</default>
+      <summary>Search pattern for text</summary>
+      <description>
+          This string array stores the history of text searches within the internal file viewer.
+      </description>
     </key>
-    <key name="text-pattern15" type="s">
-      <default l10n="messages">'image'</default>
-      <summary></summary>
-      <description></description>
+    <key name="search-pattern-hex" type="as">
+      <default l10n="messages">[]</default>
+      <summary>Search pattern for hex values</summary>
+      <description>
+          This string array stores the history of searches for hex values within the internal file viewer.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.local-bookmarks" path="/org/gnome/gnome-commander/preferences/local-bookmarks/">

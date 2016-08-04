@@ -2423,8 +2423,8 @@ inline void GnomeCmdData::save_cmdline_history()
 
 inline void GnomeCmdData::save_intviewer_defaults()
 {
-    gnome_cmd_data_set_string_history ("/internal_viewer/text_pattern%d", intviewer_defaults.text_patterns.ents);
-    gnome_cmd_data_set_string_history ("/internal_viewer/hex_pattern%d", intviewer_defaults.hex_patterns.ents);
+    set_gsettings_string_array_from_glist(options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, intviewer_defaults.text_patterns.ents);
+    set_gsettings_string_array_from_glist(options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX, intviewer_defaults.hex_patterns.ents);
     set_gsettings_when_changed      (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE, &(intviewer_defaults.case_sensitive));
     set_gsettings_enum_when_changed (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE, intviewer_defaults.search_mode);
 }
@@ -2502,8 +2502,8 @@ inline void GnomeCmdData::load_search_defaults()
 
 inline void GnomeCmdData::load_intviewer_defaults()
 {
-    intviewer_defaults.text_patterns = load_string_history ("/internal_viewer/text_pattern%d", -1);
-    intviewer_defaults.hex_patterns.ents = load_string_history ("/internal_viewer/hex_pattern%d", -1);
+    intviewer_defaults.text_patterns = get_list_from_gsettings_string_array (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT);
+    intviewer_defaults.hex_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
     intviewer_defaults.case_sensitive = g_settings_get_boolean (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
     intviewer_defaults.search_mode = g_settings_get_enum (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
 }
@@ -3025,6 +3025,12 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         //last_mode
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0),
                                                         options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
+        //text_pattern0
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/text_pattern0", ""),
+                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT);
+        //hex_pattern0
+        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/hex_pattern0", ""),
+                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
         g_free(color);
         // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
         //       à la save_devices_old ("devices.backup");
