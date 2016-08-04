@@ -50,6 +50,8 @@ void gnome_cmd_error_message (const gchar *title, GError *error);
 
 void run_command_indir (const gchar *command, const gchar *dir, gboolean term);
 
+gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
+
 inline void run_command (const gchar *command)
 {
     GError *error = NULL;
