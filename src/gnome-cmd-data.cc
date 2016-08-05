@@ -2486,17 +2486,6 @@ inline void GnomeCmdData::load_cmdline_history()
 }
 
 
-inline void GnomeCmdData::load_search_defaults()
-{
-    search_defaults.name_patterns = load_string_history ("/search-history/name_pattern%d", -1);
-    search_defaults.content_patterns = load_string_history ("/search-history/content_pattern%d", -1);
-    search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
-    search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
-    search_defaults.default_profile.max_depth = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE) ? -1 : 0;
-    search_defaults.default_profile.match_case = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
-}
-
-
 inline void GnomeCmdData::load_intviewer_defaults()
 {
     intviewer_defaults.text_patterns = get_list_from_gsettings_string_array (options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT);
@@ -3701,7 +3690,6 @@ void GnomeCmdData::load()
         }
 #endif
 
-        load_search_defaults();
     }
 
     if (!XML_cfg_has_connections)
