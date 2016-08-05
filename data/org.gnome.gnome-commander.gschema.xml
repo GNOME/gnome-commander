@@ -9,11 +9,8 @@
     <child name="confirmation" schema="org.gnome.gnome-commander.preferences.confirmation"/>
     <child name="filter" schema="org.gnome.gnome-commander.preferences.filter"/>
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
-    <child name="keybindings" schema="org.gnome.gnome-commander.preferences.keybindings"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
-    <child name="local-bookmarks" schema="org.gnome.gnome-commander.preferences.local-bookmarks"/>
-    <child name="smb-bookmarks" schema="org.gnome.gnome-commander.preferences.smb-bookmarks"/>
   </schema>
 
   <enum id="org.gnome.gnome-commander.preferences.general.size-display-mode-enum">
@@ -88,11 +85,6 @@
     <value nick="cafezinho" value="5"/>
     <value nick="green tiger" value="6"/>
     <value nick="custom" value="7"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.keybindings.quick-search-enum">
-    <value nick="CTRL+ALT+letter" value="0"/>
-    <value nick="ALT+letter" value="1"/>
   </enum>
 
   <enum id="org.gnome.gnome-commander.preferences.internal-viewer.search-mode-enum">
@@ -561,145 +553,6 @@
       </description>
     </key>
   </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.keybindings" path="/org/gnome/gnome-commander/preferences/keybindings/">
-    <key name="quick-search" enum="org.gnome.gnome-commander.preferences.keybindings.quick-search-enum">
-      <default>'CTRL+ALT+letter'</default>
-      <summary>Quick search shortcut</summary>
-      <description>
-          This option defines the shortcut for quick search.
-      </description>
-    </key>
-    <key name="view-equal-panes" type="as">
-      <default><![CDATA[['<Control><Shift>plus']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="mark-unselect-all" type="as">
-      <default><![CDATA[['<Control>minus;<Control><Shift>a;KpSubstract']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-in-active-pane" type="as">
-      <default><![CDATA[['<Control>.']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="plugins-execute-python-md5sum" type="as">
-      <default><![CDATA[['<Control>5;Kp5']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="mark-select-all" type="as">
-      <default><![CDATA[['<Control>=;<Control>a;KpAdd']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-in-inactive-pane" type="as">
-      <default><![CDATA[['<Control><Shift>&gth']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="edit-copy-filenames" type="as">
-      <default><![CDATA[['<Control><Shift>c']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="bookmarks-edit" type="as">
-      <default><![CDATA[['<Control>d']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="connections-open" type="as">
-      <default><![CDATA[['<Control>f']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="connections-close" type="as">
-      <default><![CDATA[['<Control><Shift>f']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="edit-search" type="as">
-      <default><![CDATA[['<Super>f;<Alt>F7']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="file-advrename" type="as">
-      <default><![CDATA[['<Control>m']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="connections-new" type="as">
-      <default><![CDATA[['<Control>n']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="options-edit" type="as">
-      <default><![CDATA[['<Control>o']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="file-exit" type="as">
-      <default><![CDATA[['<Control>q']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-refresh" type="as">
-      <default><![CDATA[['<Control>r']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-root" type="as">
-      <default><![CDATA[['<Control>/']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-home" type="as">
-      <default><![CDATA[['<Control>^;<Control><Shift>~']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-in-left-pane" type="as">
-      <default><![CDATA[['Left;KpLeft']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="view-in-right-pane" type="as">
-      <default><![CDATA[['Right;KpRight']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="mark-compare-directories" type="as">
-      <default><![CDATA[['F2']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="file-internal-view" type="as">
-      <default><![CDATA[['F3']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="file-external-view" type="as">
-      <default><![CDATA[['F3']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="file-edit-new-doc" type="as">
-      <default><![CDATA[['F4']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="file-create-symlink" type="as">
-      <default><![CDATA[['<Shift><Control>F5']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="edit-filter" type="as">
-      <default><![CDATA[['<Control>F12']]]></default>
-      <summary></summary>
-      <description></description>
-    </key>
-  </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
     <key name="theme" enum="org.gnome.gnome-commander.preferences.colors.theme-enum">
       <default l10n="messages">'green tiger'</default>
@@ -997,20 +850,6 @@
       <description>
           This string array stores the history of searches for hex values within the internal file viewer.
       </description>
-    </key>
-  </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.local-bookmarks" path="/org/gnome/gnome-commander/preferences/local-bookmarks/">
-    <key name="count" type="i">
-      <default l10n="messages">0</default>
-      <summary></summary>
-      <description></description>
-    </key>
-  </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.smb-bookmarks" path="/org/gnome/gnome-commander/preferences/smb-bookmarks/">
-    <key name="count" type="i">
-      <default l10n="messages">0</default>
-      <summary></summary>
-      <description></description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.file-roller-plugin" path="/org/gnome/gnome-commander/plugins/file-roller-plugin/">
