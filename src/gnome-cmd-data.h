@@ -567,11 +567,9 @@ struct GnomeCmdData
 
     void load_auto_load_plugins();
     void load_cmdline_history();
-    void load_local_bookmarks();
     void load_rename_history();
     void load_search_defaults();
     void load_intviewer_defaults();
-    void load_smb_bookmarks();
     gboolean save_auto_load_plugins();
     void save_cmdline_history();
     void save_intviewer_defaults();

@@ -2546,32 +2546,6 @@ inline void GnomeCmdData::load_rename_history()
 }
 
 
-inline void GnomeCmdData::load_local_bookmarks()
-{
-    gint size = gnome_cmd_data_get_int ("/local_bookmarks/count", 0);
-    GList *names = load_string_history ("/local_bookmarks/name%d", size);
-    GList *paths = load_string_history ("/local_bookmarks/path%d", size);
-
-    GnomeCmdCon *con = priv->con_list->get_home();
-
-    for (gint i=0; i<size; i++)
-        gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
-}
-
-#ifdef HAVE_SAMBA
-inline void GnomeCmdData::load_smb_bookmarks()
-{
-    gint size = gnome_cmd_data_get_int ("/smb_bookmarks/count", 0);
-    GList *names = load_string_history ("/smb_bookmarks/name%d", size);
-    GList *paths = load_string_history ("/smb_bookmarks/path%d", size);
-
-    GnomeCmdCon *con = priv->con_list->get_smb();
-
-    for (gint i=0; i<size; i++)
-        gnome_cmd_con_add_bookmark (con, (gchar *) g_list_nth_data (names, i), (gchar *) g_list_nth_data (paths, i));
-}
-#endif
-
 /**
  * This function pushes the list of plugins to be automatically loaded into the
  * associated Glist.
@@ -3884,14 +3858,6 @@ void GnomeCmdData::load_more()
 {
     if (load_fav_apps_old ("fav-apps") == FALSE)
         load_fav_apps("fav-apps");
-
-    if (!XML_cfg_has_bookmarks)
-    {
-        load_local_bookmarks();
-#ifdef HAVE_SAMBA
-        load_smb_bookmarks();
-#endif
-    }
 }
 
 
