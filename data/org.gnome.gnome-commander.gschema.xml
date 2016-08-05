@@ -1005,138 +1005,87 @@
     </key>
     <key name="charset" type="s">
       <default l10n="messages">'UTF8'</default>
-      <summary></summary>
-      <description></description>
+      <summary>Character set</summary>
+      <description>
+          This option defines the default character encoding.
+      </description>
     </key>
     <key name="fixed-font-name" type="s">
-      <default l10n="messages">'UTF8'</default>
-      <summary></summary>
-      <description></description>
+      <default l10n="messages">'Monospace'</default>
+      <summary>Fixed font name</summary>
+      <description>
+          Name of the default font with fixed character width.
+      </description>
     </key>
     <key name="variable-font-name" type="s">
-      <default l10n="messages">'UTF8'</default>
-      <summary></summary>
-      <description></description>
+      <default l10n="messages">'Sans'</default>
+      <summary>Variable font name</summary>
+      <description>
+          Name of the default font with variable character width.
+      </description>
     </key>
-    <key name="hex-offset-display" type="b">
+    <key name="display-hex-offset" type="b">
       <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Display hex offset</summary>
+      <description>
+          This option defines if the hexadecimal offset should be displayed in hex mode.
+      </description>
     </key>
     <key name="wrap-mode" type="b">
       <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
+      <summary>Wrap mode</summary>
+      <description>
+          This option defines if too long text lines should be wrapped.
+      </description>
     </key>
-    <key name="font-size" type="i">
+    <key name="font-size" type="u">
+      <default l10n="messages">12</default>
+      <summary>Font size</summary>
+      <description>
+          This option defines the default font size.
+      </description>
+    </key>
+    <key name="tab-size" type="u">
       <default l10n="messages">8</default>
-      <summary></summary>
-      <description></description>
+      <summary>Tab size</summary>
+      <description>
+          This option defines the indentation width in terms of characters for a tabulator character.
+      </description>
     </key>
-    <key name="tab-size" type="i">
-      <default l10n="messages">8</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="binary-bytes-per-line" type="i">
+    <key name="binary-bytes-per-line" type="u">
       <default l10n="messages">80</default>
-      <summary></summary>
-      <description></description>
+      <summary>Bytes per line in binray mode</summary>
+      <description>
+          This option defines how many bytes should be displayed in one line in binary mode.
+      </description>
     </key>
-    <key name="x" type="i">
-      <default l10n="messages">330</default>
-      <summary></summary>
-      <description></description>
+    <key name="offset-x" type="i">
+      <default l10n="messages">20</default>
+      <summary>Horizontal offset</summary>
+      <description>
+          This option defines the visual offset of the internal file viewer in  horizontal direction.
+      </description>
     </key>
-    <key name="y" type="i">
-      <default l10n="messages">183</default>
-      <summary></summary>
-      <description></description>
+    <key name="offset-y" type="i">
+      <default l10n="messages">20</default>
+      <summary>Vertical offset</summary>
+      <description>
+          This option defines the visual offset of the internal file viewer in vertical direction.
+      </description>
     </key>
-    <key name="width" type="i">
-      <default l10n="messages">838</default>
-      <summary></summary>
-      <description></description>
+    <key name="window-width" type="u">
+      <default l10n="messages">400</default>
+      <summary>Window width</summary>
+      <description>
+          The width of the internal file viewer window.
+      </description>
     </key>
-    <key name="height" type="i">
-      <default l10n="messages">451</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern0" type="s">
-      <default l10n="messages">'sans'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern1" type="s">
-      <default l10n="messages">'layout'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="hex-pattern0" type="s">
-      <default l10n="messages">'AB'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern2" type="s">
-      <default l10n="messages">'monospace'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern3" type="s">
-      <default l10n="messages">'FAIL'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern4" type="s">
-      <default l10n="messages">'file'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern5" type="s">
-      <default l10n="messages">'libgviewer.h'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern6" type="s">
-      <default l10n="messages">'gnome-cmd-file-new-from-uri'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern7" type="s">
-      <default l10n="messages">'xinput'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern8" type="s">
-      <default l10n="messages">'fileops.c'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern9" type="s">
-      <default l10n="messages">'libops.c'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern10" type="s">
-      <default l10n="messages">'Selections'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern11" type="s">
-      <default l10n="messages">'fritz'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern12" type="s">
-      <default l10n="messages">'green'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="text-pattern13" type="s">
-      <default l10n="messages">'colors'</default>
-      <summary></summary>
-      <description></description>
+    <key name="window-height" type="u">
+      <default l10n="messages">400</default>
+      <summary>Window height</summary>
+      <description>
+          The height of the internal file viewer window.
+      </description>
     </key>
     <key name="search-pattern-text" type="as">
       <default l10n="messages">[]</default>
