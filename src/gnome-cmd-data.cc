@@ -3697,8 +3697,6 @@ void GnomeCmdData::load()
 
     priv->con_list->unlock();
 
-    // "/quick-connect/uri" must be read AFTER retrieving anonymous password
-
     gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
     quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
