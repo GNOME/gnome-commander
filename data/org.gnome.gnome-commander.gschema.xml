@@ -11,7 +11,6 @@
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
     <child name="keybindings" schema="org.gnome.gnome-commander.preferences.keybindings"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
-    <child name="search-history" schema="org.gnome.gnome-commander.preferences.search-history"/>
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
     <child name="local-bookmarks" schema="org.gnome.gnome-commander.preferences.local-bookmarks"/>
     <child name="smb-bookmarks" schema="org.gnome.gnome-commander.preferences.smb-bookmarks"/>
@@ -279,36 +278,6 @@
       <description>
           Position of the main window in y direction.
       </description>
-    </key>
-    <key name="sort-column-left" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="sort-direction-left" type="b">
-      <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="sort-column-right" type="i">
-      <default l10n="messages">1</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="sort-direction-right" type="b">
-      <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="start-dir-left" type="s">
-      <default l10n="messages">'/home/uwe'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="start-dir-right" type="s">
-      <default l10n="messages">'/home/uwe'</default>
-      <summary></summary>
-      <description></description>
     </key>
     <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
     <key name="main-win-state" type="u">
@@ -583,11 +552,6 @@
       <description>
           This string defines the command for executing another command in a terminal.
       </description>
-    </key>
-    <key name="mailclient" type="s">
-      <default l10n="messages">'echo %s'</default>
-      <summary></summary>
-      <description></description>
     </key>
     <key name="sendto-cmd" type="s">
       <default l10n="messages">'nautilus-sendto %s'</default>
@@ -919,73 +883,6 @@
       <description>
           This option adjusts the background color mapping for LS_COLORS white value.
       </description>
-    </key>
-  </schema>
-  <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.search-history" path="/org/gnome/gnome-commander/preferences/search-history/">
-    <key name="width" type="i">
-      <default l10n="messages">640</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="height" type="i">
-      <default l10n="messages">421</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="recursive" type="b">
-      <default l10n="messages">true</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="case-sens" type="b">
-      <default l10n="messages">false</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern0" type="s">
-      <default l10n="messages">'T*'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="directory0" type="s">
-      <default l10n="messages">'/home/'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern1" type="s">
-      <default l10n="messages">'*'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern2" type="s">
-      <default l10n="messages">'INSTALL*'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern3" type="s">
-      <default l10n="messages">'*.ts'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern4" type="s">
-      <default l10n="messages">'*.pdf'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="directory1" type="s">
-      <default l10n="messages">'/media/FD71-883A/'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern5" type="s">
-      <default l10n="messages">'dingsbums'</default>
-      <summary></summary>
-      <description></description>
-    </key>
-    <key name="name-pattern6" type="s">
-      <default l10n="messages">'Venture.aac'</default>
-      <summary></summary>
-      <description></description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.internal-viewer" path="/org/gnome/gnome-commander/preferences/internal-viewer/">
