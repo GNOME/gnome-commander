@@ -65,6 +65,11 @@
     <value nick="styled text" value="2"/>
   </enum>
 
+  <enum id="org.gnome.gnome-commander.preferences.general.quick-search-enum">
+    <value nick="CTRL+ALT+letter" value="0"/>
+    <value nick="ALT+letter" value="1"/>
+  </enum>
+
   <enum id="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
     <value nick="cancel" value="3"/>
     <value nick="delete" value="1"/>
@@ -375,6 +380,13 @@
       <summary>Main menu visibility</summary>
       <description>
           This option defines if the main menu is visible or not.
+      </description>
+    </key>
+    <key name="quick-search" enum="org.gnome.gnome-commander.preferences.general.quick-search-enum">
+      <default>'CTRL+ALT+letter'</default>
+      <summary>Quick search shortcut</summary>
+      <description>
+          This option defines the shortcut for quick search.
       </description>
     </key>
   </schema>

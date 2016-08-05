@@ -69,7 +69,6 @@ struct _GcmdSettings
     GSettings *confirm;
     GSettings *colors;
     GSettings *programs;
-    GSettings *keybindings;
     GSettings *network;
     GSettings *internalviewer;
     GSettings *plugins;
@@ -95,7 +94,6 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->confirm);
     g_clear_object (&gs->colors);
     g_clear_object (&gs->programs);
-    g_clear_object (&gs->keybindings);
     g_clear_object (&gs->network);
     g_clear_object (&gs->internalviewer);
     g_clear_object (&gs->plugins);
@@ -751,7 +749,7 @@ void on_use_internal_viewer_changed()
 void on_quick_search_shortcut_changed()
 {
     gint quick_search;
-    quick_search = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
+    quick_search = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     gnome_cmd_data.options.quick_search = (GnomeCmdQuickSearchShortcut) quick_search;
 }
 
@@ -1191,7 +1189,7 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
                       G_CALLBACK (on_use_internal_viewer_changed),
                       NULL);
 
-    g_signal_connect (gs->keybindings,
+    g_signal_connect (gs->general,
                       "changed::quick-search",
                       G_CALLBACK (on_quick_search_shortcut_changed),
                       NULL);
@@ -1271,7 +1269,6 @@ static void gcmd_settings_init (GcmdSettings *gs)
     gs->confirm        = g_settings_new (GCMD_PREF_CONFIRM);
     gs->colors         = g_settings_new (GCMD_PREF_COLORS);
     gs->programs       = g_settings_new (GCMD_PREF_PROGRAMS);
-    gs->keybindings    = g_settings_new (GCMD_PREF_KEYBINDINGS);
     gs->network        = g_settings_new (GCMD_PREF_NETWORK);
     gs->internalviewer = g_settings_new (GCMD_PREF_INTERNAL_VIEWER);
     gs->plugins        = g_settings_new (GCMD_PREF_PLUGINS);
@@ -2919,7 +2916,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
                                               options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
         //alt_quick_search
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
+                                              options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
         //quick_search_exact_match_begin
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
@@ -3416,7 +3413,7 @@ void GnomeCmdData::load()
     options.honor_expect_uris = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
     options.allow_multiple_instances = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
     options.use_internal_viewer = g_settings_get_boolean (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
-    options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
+    options.quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     options.quick_search_exact_match_begin = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
     options.quick_search_exact_match_end = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
 
@@ -3937,7 +3934,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, &(horizontal_orientation));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE, &(gui_update_rate));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES, &(options.allow_multiple_instances));
-    set_gsettings_enum_when_changed (options.gcmd_settings->keybindings, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
+    set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT, options.quick_search);
 
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD, &(options.honor_expect_uris));
     set_gsettings_when_changed      (options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER, &(options.use_internal_viewer));

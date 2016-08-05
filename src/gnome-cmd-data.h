@@ -98,6 +98,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DEV_SKIP_MOUNTING               "dev-skip-mounting"
 #define GCMD_SETTINGS_DEV_ONLY_ICON                   "dev-only-icon"
 #define GCMD_SETTINGS_MAINMENU_VISIBILITY             "mainmenu-visibility"
+#define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -157,9 +158,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_TERMINAL_CMD                    "terminal-cmd"
 #define GCMD_SETTINGS_TERMINAL_EXEC_CMD               "terminal-exec-cmd"
 #define GCMD_SETTINGS_USE_GCMD_BLOCK                  "use-gcmd-block"
-
-#define GCMD_PREF_KEYBINDINGS                         "org.gnome.gnome-commander.preferences.keybindings"
-#define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
 
 #define GCMD_PREF_NETWORK                             "org.gnome.gnome-commander.preferences.network"
 #define GCMD_SETTINGS_QUICK_CONNECT_URI               "quick-connect-uri"
