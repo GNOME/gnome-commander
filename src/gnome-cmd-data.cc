@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <libgnomevfs/gnome-vfs-volume.h>
 #include <libgnomevfs/gnome-vfs-volume-monitor.h>
 
@@ -3029,9 +3030,13 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/hex_pattern0", ""),
                                                         options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
         g_free(color);
-        // ToDo: Move old xml-file to ~/.gnome-commander/gnome-commander.xml.backup
-        //       à la save_devices_old ("devices.backup");
-        //       and move .gnome2/gnome-commander to .gnome2/gnome-commander.backup
+
+        // Rename config file
+        gchar* temp;
+        temp = g_strdup_printf("%s.deprecated", package_config_path);
+        if (g_rename(package_config_path, temp) != 0 )
+            g_warning("Renaming of %s to %s failed!", package_config_path, temp);
+        g_free(temp);
     }
     g_free(package_config_path);
 
