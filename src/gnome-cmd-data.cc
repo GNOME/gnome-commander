@@ -2611,27 +2611,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
 {
     guint temp_value;
     options.gcmd_settings = gcmd_settings_new();
-    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
     gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
-
-    //TODO: migrate xml stuff
-    /////////////////////////////////////////////////////////////
-    //// Data migration from .gnome-commander/gnome-commander.xml
-    /////////////////////////////////////////////////////////////
-    //FILE *fd = fopen (xml_cfg_path, "r");
-    //if (fd)
-    //{
-    //    // TODO: Data migration from xml-file
-    //    fclose (fd);
-    //
-    //}
-    //else
-    //{
-    //    g_warning ("Failed to open the file %s for reading, skipping data migration", xml_cfg_path);
-    //
-    //    options.size_disp_mode = (GnomeCmdSizeDispMode) g_settings_get_int (gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-    //}
-    g_free (xml_cfg_path);
 
     ///////////////////////////////////////////////////////////////////////
     // Data migration from .gnome2/gnome-commander, created by gnome_config
