@@ -2602,8 +2602,9 @@ void GnomeCmdData::free()
 }
 
 /**
- * This method converts user settings from gcmds old config files prior to v1.6.0 to
+ * This method converts user settings from gcmds old config files, created via gnome config to
  * GSettings. Therefore, it first looks for those files in question and then converts the data.
+ * This function should to be deleted in gcmd > 1.6
  */
 void GnomeCmdData::migrate_all_data_to_gsettings()
 {
