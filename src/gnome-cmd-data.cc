@@ -3373,8 +3373,8 @@ void GnomeCmdData::load()
         g_free (tmp);
     }
 
-    options.color_mode = gcmd_owner.is_root() ? (GnomeCmdColorMode) g_settings_get_enum (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME)
-                                              : (GnomeCmdColorMode) GNOME_CMD_COLOR_DEEP_BLUE;
+    options.color_mode = gcmd_owner.is_root() ? (GnomeCmdColorMode) GNOME_CMD_COLOR_DEEP_BLUE
+                                              : (GnomeCmdColorMode) g_settings_get_enum (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
 
     options.list_font = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
 
