@@ -3011,6 +3011,8 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
                                                         options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
         g_free(color);
 
+        fclose (fd);
+
         // Rename config file
         gchar* temp;
         temp = g_strdup_printf("%s.deprecated", package_config_path);
