@@ -3953,10 +3953,6 @@ void GnomeCmdData::save()
     if (quick_connect_uri)
         set_gsettings_when_changed (options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI, (gpointer) quick_connect_uri);
 
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/host");
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/port");
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/user");
-
     gnome_config_set_int ("/gnome-commander-size/main_win/width", main_win_width);
     gnome_config_set_int ("/gnome-commander-size/main_win/height", main_win_height);
 
