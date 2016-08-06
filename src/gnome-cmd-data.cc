@@ -2940,7 +2940,7 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
         migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/devices/only_icon", FALSE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
         //mainmenu_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", FALSE) ? 1 : 0,
+        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", TRUE) ? 1 : 0,
                                               options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
         //uri
         migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/"),
