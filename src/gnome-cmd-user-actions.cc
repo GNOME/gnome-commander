@@ -19,7 +19,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
 #include <gtk/gtkclipboard.h>
 #include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-url.h>
@@ -490,51 +489,6 @@ void GnomeCmdUserActions::shutdown()
     unregister(GDK_F7);
     unregister(GDK_F8);
     unregister(GDK_F9);
-}
-
-
-void GnomeCmdUserActions::load(const gchar *section)
-{
-    string section_path = G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S;
-           section_path += section;
-           section_path += G_DIR_SEPARATOR;
-
-    char *key = NULL;
-    char *action_name = NULL;
-
-    for (gpointer i=gnome_config_init_iterator(section_path.c_str()); (i=gnome_config_iterator_next(i, &key, &action_name)); )
-    {
-        DEBUG('u',"[%s]\t%s=%s\n", section, key, action_name);
-
-        char *action_options = strchr(action_name, '|');
-
-        if (action_options)
-        {
-            *action_options = '\0';
-            g_strstrip (++action_options);
-        }
-
-        gchar *action_name__lowercase = g_ascii_strdown (g_strstrip (action_name), -1);
-
-        if (action_func[action_name__lowercase])
-        {
-            guint keyval;
-            guint state;
-
-            str2key(key, state, keyval);
-
-            if (keyval!=GDK_VoidSymbol)
-                register_action(state, keyval, action_name__lowercase, action_options);
-            else
-                g_warning ("[%s] invalid key name: '%s' - ignored", section, key);
-        }
-        else
-            g_warning ("[%s] unknown user action: '%s' - ignored", section, action_name__lowercase);
-
-        g_free (key);
-        g_free (action_name);
-        g_free (action_name__lowercase);
-    }
 }
 
 

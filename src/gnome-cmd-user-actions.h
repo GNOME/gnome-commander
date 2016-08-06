@@ -171,8 +171,6 @@ class GnomeCmdUserActions
     void shutdown();
     GcmdUserActionSettings *settings;
 
-    void load(const gchar *section);
-
     void clear()                                                            {   action.clear();               }
 
     gboolean has_action(const gchar *a)                                     {  return action_func[a]!=NULL;   }

@@ -3702,10 +3702,6 @@ void GnomeCmdData::load()
     quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
-    // if number of registered user actions does not exceed 10 (nothing has been read), try to read old cfg file
-    if (gcmd_user_actions.size()<10)
-        gcmd_user_actions.load("key-bindings");
-
     load_intviewer_defaults();
     load_auto_load_plugins();
 
