@@ -2157,7 +2157,7 @@ static inline void load_devices (const gchar *fname)
  * with the old format prior to gcmd-v1.6. Therefore it checks if the
  * very first letter in fname is alphanumeric. If "yes", the given file
  * has a pre-v1.6 format and the file is loaded as in gcmd-v1.4. Also, a
- * backup configuration is stored in @c devices.backup in the old file
+ * backup configuration is stored in @c devices.deprecated in the old file
  * format. If "no", then nothing happens and FALSE is returned.
  *
  * @note In later versions of gcmd (later than v1.6), this function
@@ -2213,7 +2213,7 @@ static gboolean load_devices_old (const gchar *fname)
     g_free (path);
 
     load_vfs_auto_devices ();
-    save_devices_old ("devices.backup");
+    save_devices_old ("devices.deprecated");
     return TRUE;
 }
 
@@ -2293,7 +2293,7 @@ static void load_fav_apps (const gchar *fname)
  * with the old format prior to gcmd-v1.6. Therefore it checks if the
  * very first letter in fname is alphanumeric. If yes, the given file
  * has a pre-v1.6 format and the file is loaded as in gcmd-v1.4. Also, a
- * backup configuration is stored in @c fav-apps.backup in the old file
+ * backup configuration is stored in @c fav-apps.deprecated in the old file
  * format. If the result is no, then nothing happens and FALSE is
  * returned.
  *
@@ -2360,7 +2360,7 @@ static gboolean load_fav_apps_old (const gchar *fname)
     }
 
     g_free (path);
-    save_fav_apps_old ("fav-apps.backup");
+    save_fav_apps_old ("fav-apps.deprecated");
     return TRUE;
 }
 
