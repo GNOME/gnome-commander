@@ -198,7 +198,6 @@ struct GnomeCmdFileList
 
     ColumnID get_sort_column() const;
     GtkSortType get_sort_order() const;
-    static guint get_column_default_width(ColumnID col);
 
     void invalidate_tree_size();
 

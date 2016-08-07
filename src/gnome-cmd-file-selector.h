@@ -103,8 +103,8 @@ struct GnomeCmdFileSelector
     void update_selected_files_label();
     void update_style();
     void update_connections();
-    void update_conbuttons_visibility();
-    void update_concombo_visibility();
+    void update_show_devbuttons();
+    void update_show_devlist();
 
     void do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f);
 

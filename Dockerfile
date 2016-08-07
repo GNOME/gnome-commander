@@ -25,6 +25,7 @@ RUN \
   export CXX=g++ && \
   export CC=gcc && \
   cd $GCMD_PATH && \
+  git checkout GSettings && \
   ./autogen.sh && \
   make && \
   make check

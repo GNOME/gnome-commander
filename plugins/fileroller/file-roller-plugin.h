@@ -22,6 +22,10 @@
 #ifndef __FILE_ROLLER_PLUGIN_H__
 #define __FILE_ROLLER_PLUGIN_H__
 
+#define PLUGIN_TYPE_SETTINGS (plugin_settings_get_type ())
+G_DECLARE_FINAL_TYPE (PluginSettings, plugin_settings, GCMD, SETTINGS, GObject)
+PluginSettings *plugin_settings_new (void);
+
 #define FILE_ROLLER_PLUGIN(obj) \
     GTK_CHECK_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
 #define FILE_ROLLER_PLUGIN_CLASS(klass) \

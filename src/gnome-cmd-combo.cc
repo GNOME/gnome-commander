@@ -379,7 +379,7 @@ static void init (GnomeCmdCombo *combo)
 
     combo->button = gtk_button_new ();
     g_object_ref (combo->button);
-    gtk_button_set_relief (GTK_BUTTON (combo->button), gnome_cmd_data.button_relief);
+    gtk_button_set_relief (GTK_BUTTON (combo->button), GTK_RELIEF_NONE);
     g_object_set_data_full (*combo, "button", combo->button, g_object_unref);
     gtk_widget_show (combo->button);
 

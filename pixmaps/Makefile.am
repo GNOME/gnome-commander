@@ -25,8 +25,6 @@ pixmaps_DATA = \
 	rotate-180-16.xpm \
 	rotate-270-16.xpm \
 	rotate-90-16.xpm \
-	toggle_horizontal.xpm \
-	toggle_vertical.xpm \
 	terminal.svg \
 	unpin.png
 

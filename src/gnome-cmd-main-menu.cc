@@ -202,7 +202,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
             gtk_box_pack_start (GTK_BOX (content), shortcut, TRUE, TRUE, 0);
 
             gtk_container_add (GTK_CONTAINER (item), content);
-	    g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
+            g_signal_connect (item, "toggled", G_CALLBACK (spec->moreinfo), spec->user_data);
             break;
 
         case MENU_TYPE_SEPARATOR:
@@ -348,55 +348,6 @@ static void add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu,
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
         add_bookmark_menu_item (main_menu, GTK_MENU_SHELL (submenu), bookmark);
     }
-}
-
-
-static void update_view_menu (GnomeCmdMainMenu *main_menu);
-
-
-static void on_switch_orientation (GtkMenuItem *menu_item, GnomeCmdMainMenu *main_menu)
-{
-    gnome_cmd_data.list_orientation = !gnome_cmd_data.list_orientation;
-
-    main_win->update_list_orientation();
-
-    update_view_menu (main_menu);
-}
-
-
-static void update_view_menu (GnomeCmdMainMenu *main_menu)
-{
-    gchar *label;
-    GtkWidget *item;
-    GdkPixmap *pm;
-    GdkBitmap *bm;
-
-    if (gnome_cmd_data.list_orientation)
-    {
-        label = g_strdup (_("Switch to Vertical Layout"));
-        pm = IMAGE_get_pixmap (PIXMAP_SWITCH_V);
-        bm = IMAGE_get_mask (PIXMAP_SWITCH_V);
-    }
-    else
-    {
-        label = g_strdup (_("Switch to Horizontal Layout"));
-        pm = IMAGE_get_pixmap (PIXMAP_SWITCH_H);
-        bm = IMAGE_get_mask (PIXMAP_SWITCH_H);
-    }
-
-    g_list_foreach (main_menu->priv->view_menuitems, (GFunc) gtk_object_destroy, NULL);
-    g_list_free (main_menu->priv->view_menuitems);
-    main_menu->priv->view_menuitems = NULL;
-
-    item = add_menu_item (main_menu,
-                          GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->view_menu)->submenu),
-                          label, NULL,
-                          pm, bm,
-                          GTK_SIGNAL_FUNC (on_switch_orientation), main_menu);
-
-    g_free (label);
-
-    main_menu->priv->view_menuitems = g_list_append (main_menu->priv->view_menuitems, item);
 }
 
 
@@ -654,7 +605,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         {
             MENU_TYPE_TOGGLEITEM, _("Show Device List"), "", NULL,
-            (gpointer) view_concombo, NULL,
+            (gpointer) view_devlist, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },
@@ -693,6 +644,12 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("Maximize Panel Size"), "", NULL,
             (gpointer) view_maximize_pane, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
+        {
+            MENU_TYPE_TOGGLEITEM, _("Horizontal Orientation"), "", NULL,
+            (gpointer) view_horizontal_orientation, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },
@@ -828,7 +785,6 @@ static void init (GnomeCmdMainMenu *main_menu)
     spec.label = _("_View");
     main_menu->priv->view_menu = create_menu (main_menu, &spec, view_menu_uiinfo);
     gtk_menu_shell_append (GTK_MENU_SHELL (main_menu), main_menu->priv->view_menu);
-    update_view_menu (main_menu);
 
     spec.label = _("_Settings");
     main_menu->priv->options_menu = create_menu (main_menu, &spec, options_menu_uiinfo);
@@ -853,13 +809,14 @@ static void init (GnomeCmdMainMenu *main_menu)
     main_menu->priv->menu_view_back = view_menu_uiinfo[0].widget;
     main_menu->priv->menu_view_forward = view_menu_uiinfo[1].widget;
 
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[8].widget), gnome_cmd_data.toolbar_visibility);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[9].widget), gnome_cmd_data.conbuttons_visibility);
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[10].widget), gnome_cmd_data.concombo_visibility);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[8].widget), gnome_cmd_data.show_toolbar);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[9].widget), gnome_cmd_data.show_devbuttons);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[10].widget), gnome_cmd_data.show_devlist);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[11].widget), gnome_cmd_data.cmdline_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[12].widget), gnome_cmd_data.buttonbar_visibility);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[14].widget), !gnome_cmd_data.options.filter.hidden);
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[15].widget), !gnome_cmd_data.options.filter.backup);
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (view_menu_uiinfo[19].widget), gnome_cmd_data.horizontal_orientation);
 
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), main_menu);
 

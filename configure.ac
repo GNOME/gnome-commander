@@ -11,11 +11,13 @@ AM_CONFIG_HEADER(config.h)
 
 AC_GNU_SOURCE
 
+GLIB_GSETTINGS
+
 AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LEX
 AM_PROG_LIBTOOL
-IT_PROG_INTLTOOL([0.35.0])
+IT_PROG_INTLTOOL([0.50.1])
 
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
@@ -33,16 +35,16 @@ dnl ===================
 dnl Gettext stuff
 dnl ===================
 
-GETTEXT_PACKAGE=gnome-commander
-AC_SUBST(GETTEXT_PACKAGE)
+AC_SUBST([GETTEXT_PACKAGE], [gnome-commander])
 AM_GLIB_GNU_GETTEXT
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], "$GETTEXT_PACKAGE", [Define to the gettext package name.])
 
 
 dnl ===================
 dnl Check for libraries
 dnl ===================
 
-GLIB_REQ=2.6.0
+GLIB_REQ=2.44.0
 GMODULE_REQ=2.0.0
 GTK_REQ=2.8.0
 GNOME_REQ=2.0.0

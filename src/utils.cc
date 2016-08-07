@@ -112,7 +112,7 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
 
         if (gnome_cmd_data.use_gcmd_block)
         {
-            gchar *s = g_strdup_printf ("%s; %s/bin/gcmd-block", in_command, PREFIX);
+            gchar *s = g_strdup_printf ("bash -c \"%s; %s/bin/gcmd-block\"", in_command, PREFIX);
             arg = g_shell_quote (s);
             g_free (s);
         }
@@ -887,7 +887,7 @@ GtkWidget *create_styled_button (const gchar *text)
 {
     GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
 
-    gtk_button_set_relief (GTK_BUTTON (w), gnome_cmd_data.button_relief);
+    gtk_button_set_relief (GTK_BUTTON (w), GTK_RELIEF_NONE);
     g_object_ref (w);
     gtk_widget_show (w);
 
@@ -1374,8 +1374,10 @@ gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
     char *su = NULL;
     gboolean need_c = FALSE;
 
+    if ((su = g_find_program_in_path ("gksudo")))
+       goto without_c_param;
     if ((su = g_find_program_in_path ("xdg-su")))
-       goto with_c_param;
+       goto without_c_param;
     if ((su = g_find_program_in_path ("gksu")))
        goto without_c_param;
     if ((su = g_find_program_in_path ("gnomesu")))

@@ -41,6 +41,9 @@
                         <listitem>
                            <para>Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)</para>
                        </listitem>
+                        <listitem>
+                           <para>Fixed problem bgo#767158 (Shortcuts stop working after changing layout)</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

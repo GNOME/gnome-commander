@@ -24,11 +24,11 @@
 #define __GNOME_CMD_GKEYFILE_UTILS_H__
 
 GKeyFile *gcmd_key_file_load_from_file (const gchar *file,
-					gboolean ignore_error);
+                    gboolean ignore_error);
 
 
 gboolean gcmd_key_file_save_to_file (const gchar *file,
-				     GKeyFile *key_file);
+                     GKeyFile *key_file);
 
 #endif // __GNOME_CMD_GKEYFILE_UTILS_H__
 

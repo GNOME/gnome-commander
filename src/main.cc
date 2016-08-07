@@ -99,7 +99,9 @@ int main (int argc, char *argv[])
 
     main_win = NULL;
 
+#if GLIB_CHECK_VERSION (2, 32, 0)
     g_thread_init (NULL);
+#endif
 
     if (!g_thread_supported ())
     {
@@ -131,7 +133,7 @@ int main (int argc, char *argv[])
                                   GNOME_PARAM_NONE);
 
     if (debug_flags && strchr(debug_flags,'a'))
-        debug_flags = "cdfgiklmnpstuvwyzx";
+        debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
 
     gdk_rgb_init ();
     gnome_vfs_init ();
@@ -140,8 +142,10 @@ int main (int argc, char *argv[])
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
 
+    /* Load Settings */
     IMAGE_init ();
     gcmd_user_actions.init();
+    gnome_cmd_data.migrate_all_data_to_gsettings();
     gnome_cmd_data.load();
 
     app = unique_app_new ("org.gnome.GnomeCommander", NULL);
@@ -197,6 +201,7 @@ int main (int argc, char *argv[])
 
     g_object_unref (app);
     g_object_unref (program);
+    g_free (debug_flags);
 
     DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);
     DEBUG ('c', "files total: %d remaining: %d\n", created_files_cnt, created_files_cnt - deleted_files_cnt);

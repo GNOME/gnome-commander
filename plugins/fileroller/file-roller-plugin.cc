@@ -30,6 +30,8 @@
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define WEBPAGE "http://gcmd.github.io"
 
+#define GCMD_PLUGINS_FILE_ROLLER                     "org.gnome.gnome-commander.plugins.file-roller-plugin"
+#define GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE        "default-type"
 
 static PluginInfo plugin_nfo = {
     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
@@ -76,6 +78,56 @@ static const gchar *handled_extensions[] =
 };
 
 
+/***********************************
+ * Functions for using GSettings
+ ***********************************/
+
+struct _PluginSettings
+{
+    GObject parent;
+    GSettings *file_roller_plugin;
+};
+
+G_DEFINE_TYPE (PluginSettings, plugin_settings, G_TYPE_OBJECT)
+
+static void plugin_settings_finalize (GObject *object)
+{
+    G_OBJECT_CLASS (plugin_settings_parent_class)->finalize (object);
+}
+
+static void plugin_settings_dispose (GObject *object)
+{
+    PluginSettings *gs = GCMD_SETTINGS (object);
+
+    g_clear_object (&gs->file_roller_plugin);
+
+    G_OBJECT_CLASS (plugin_settings_parent_class)->dispose (object);
+}
+
+static void plugin_settings_class_init (PluginSettingsClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = plugin_settings_finalize;
+    object_class->dispose = plugin_settings_dispose;
+}
+
+PluginSettings *plugin_settings_new ()
+{
+    return (PluginSettings *) g_object_new (PLUGIN_TYPE_SETTINGS, NULL);
+}
+
+static void plugin_settings_init (PluginSettings *gs)
+{
+    gs->file_roller_plugin = g_settings_new (GCMD_PLUGINS_FILE_ROLLER);
+}
+
+
+/***********************************
+ * The File-Roller-Plugin
+ ***********************************/
+
+
 struct _FileRollerPluginPrivate
 {
     GtkWidget *conf_dialog;
@@ -84,6 +136,7 @@ struct _FileRollerPluginPrivate
     GnomeCmdState *state;
 
     gchar *default_ext;
+    PluginSettings *settings;
 };
 
 static GnomeCmdPluginClass *parent_class = NULL;
@@ -349,7 +402,7 @@ static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 {
     plugin->priv->default_ext = g_strdup (get_combo_text (plugin->priv->conf_combo));
 
-    gnome_cmd_data_set_string ("/file-runner-plugin/default_type", plugin->priv->default_ext);
+    g_settings_set_string (plugin->priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE, plugin->priv->default_ext);
 
     gtk_widget_hide (plugin->priv->conf_dialog);
 }
@@ -432,7 +485,8 @@ static void init (FileRollerPlugin *plugin)
 {
     plugin->priv = g_new (FileRollerPluginPrivate, 1);
 
-    plugin->priv->default_ext = gnome_cmd_data_get_string ("/file-runner-plugin/default_type", ".zip");
+    plugin->priv->settings = plugin_settings_new();
+    plugin->priv->default_ext = g_settings_get_string (plugin->priv->settings->file_roller_plugin, GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE);
 }
 
 
@@ -448,7 +502,7 @@ GtkType file_roller_plugin_get_type ()
     {
         GtkTypeInfo info =
         {
-            "FileRollerPlugin",
+            (gchar*) "FileRollerPlugin",
             sizeof (FileRollerPlugin),
             sizeof (FileRollerPluginClass),
             (GtkClassInitFunc) class_init,
@@ -483,7 +537,7 @@ extern "C" PluginInfo *get_plugin_info ()
     if (!plugin_nfo.authors)
     {
         plugin_nfo.authors = g_new0 (gchar *, 2);
-        plugin_nfo.authors[0] = AUTHOR;
+        plugin_nfo.authors[0] = (char*) AUTHOR;
         plugin_nfo.authors[1] = NULL;
         plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
                                           "and extracting compressed archives."));

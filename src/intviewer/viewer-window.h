@@ -28,6 +28,10 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
 
+#define INTERNAL_VIEWER_SETTINGS (iv_settings_get_type ())
+G_DECLARE_FINAL_TYPE (InternalViewerSettings, iv_settings, GCMD_IV, SETTINGS, GObject)
+InternalViewerSettings *iv_settings_new (void);
+
 #define GVIEWER_WINDOW(obj) \
     GTK_CHECK_CAST (obj, gviewer_window_get_type (), GViewerWindow)
 #define GVIEWER_WINDOW_CLASS(clss) \

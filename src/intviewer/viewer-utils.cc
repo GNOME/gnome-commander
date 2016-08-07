@@ -22,45 +22,12 @@
  *
  */
 
-#include <config.h>
 #include <glib.h>
-#include <libgnome/gnome-config.h>
 
 #include "gvtypes.h"
 #include "viewer-utils.h"
 
 using namespace std;
-
-
-gchar *gviewer_get_string (const gchar *path, const gchar *def)
-{
-    gboolean b = FALSE;
-    gchar *value = gnome_config_get_string_with_default (path, &b);
-    if (b)
-        return g_strdup (def);
-    return value;
-}
-
-
-gint gviewer_get_int (const gchar *path, int def)
-{
-    gboolean b = FALSE;
-    gint value = gnome_config_get_int_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
-
-gboolean gviewer_get_bool (const gchar *path, gboolean def)
-{
-    gboolean b = FALSE;
-    gboolean value = gnome_config_get_bool_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
 
 int unicode2utf8 (unsigned int unicode, unsigned char *out)
 {

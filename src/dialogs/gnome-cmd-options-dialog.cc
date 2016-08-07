@@ -167,10 +167,10 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.alt_quick_search);
-    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.quick_search);
+    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.alt_quick_search);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.quick_search);
 
     check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
@@ -222,7 +222,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
     GtkWidget *select_dirs = lookup_widget (dialog, "select_dirs");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
-    GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
+    GtkWidget *quick_search = lookup_widget (dialog, "quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
     GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
@@ -242,7 +242,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
 
     cfg.select_dirs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (select_dirs));
     cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    cfg.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
+    cfg.quick_search = (GnomeCmdQuickSearchShortcut) gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (quick_search));
     cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
     cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
     cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
@@ -701,7 +701,7 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
         _("MIME icons"),
         NULL
     };
-    const gchar *color_modes[GNOME_CMD_NUM_COLOR_MODES+1] = {
+    const gchar *color_modes[GNOME_CMD_COLOR_CUSTOM+2] = {
         _("Respect theme colors"),
         _("Modern"),
         _("Fusion"),
@@ -807,8 +807,6 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", cfg.theme_icon_dir);
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
-    entry = create_file_entry (parent, "doc_icondir_entry", cfg.document_icon_dir);
-    table_add (table, entry, 1, 3, (GtkAttachOptions)0);
 
     label = create_label (parent, _("Icon size:"));
     table_add (table, label, 0, 0, (GtkAttachOptions) GTK_FILL);
@@ -816,9 +814,6 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
     label = create_label (parent, _("Theme icon directory:"));
     table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
-    label = create_label (parent, _("Document icon directory:"));
-    table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
-
 
     gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) cfg.ext_disp_mode);
     gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) cfg.layout);
@@ -833,7 +828,6 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     GtkWidget *iconsize_spin       = lookup_widget (dialog, "iconsize_spin");
     GtkWidget *iconquality_scale   = lookup_widget (dialog, "iconquality_scale");
     GtkWidget *theme_icondir_entry = lookup_widget (dialog, "theme_icondir_entry");
-    GtkWidget *doc_icondir_entry   = lookup_widget (dialog, "doc_icondir_entry");
     GtkWidget *row_height_spin     = lookup_widget (dialog, "row_height_spin");
     GtkWidget *use_ls              = lookup_widget (dialog, "use_ls_colors");
 
@@ -853,7 +847,6 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.set_list_font (list_font);
 
     cfg.set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
-    cfg.set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
     cfg.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));

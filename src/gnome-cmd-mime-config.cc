@@ -31,7 +31,7 @@ void gnome_cmd_mime_config(void)
 		g_strdup_printf(
 				"%s:%s",
 				MIMETOP_DIR,
-				(old_xdg_data_dirs ? old_xdg_data_dirs : "/usr/share/:/usr/share/local/")
+				(old_xdg_data_dirs ? old_xdg_data_dirs : "/usr/share/:/usr/local/share/")
 			);
 	g_setenv("XDG_DATA_DIRS", new_xdg_data_dirs, 1);
 	g_free(new_xdg_data_dirs);
