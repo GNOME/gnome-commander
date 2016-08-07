@@ -31,11 +31,11 @@
 
 struct GViewerSearchDlgPrivate;
 
-enum SEARCHMODE
+typedef enum
 {
     SEARCH_MODE_TEXT,
     SEARCH_MODE_HEX
-};
+}SEARCHMODE;
 
 struct GViewerSearchDlg
 {

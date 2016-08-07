@@ -6,6 +6,11 @@ desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DESKTOP_RULE@
 
+gsettings_ENUM_NAMESPACE = org.gnome.gnome-commander
+gsettings_ENUM_FILES = $(top_srcdir)/src/gnome-cmd-types.h \
+                       $(top_srcdir)/src/gnome-cmd-data.h \
+                       $(top_srcdir)/src/intviewer/search-dlg.h
+
 gsettings_SCHEMAS = org.gnome.@PACKAGE@.gschema.xml
 @GSETTINGS_RULES@
 

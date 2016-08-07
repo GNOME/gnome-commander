@@ -199,30 +199,30 @@ struct GnomeCmdConRemote;
 
 struct GnomeCmdData
 {
-    enum LeftMouseButtonMode
+    typedef enum
     {
         LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK,
         LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK
-    };
+    }LeftMouseButtonMode;
 
-    enum MiddleMouseButtonMode
+    typedef enum
     {
         MIDDLE_BUTTON_GOES_UP_DIR,
         MIDDLE_BUTTON_OPENS_NEW_TAB
-    };
+    }MiddleMouseButtonMode;
 
-    enum RightMouseButtonMode
+    typedef enum
     {
         RIGHT_BUTTON_POPUPS_MENU,
         RIGHT_BUTTON_SELECTS
-    };
+    }RightMouseButtonMode;
 
-    enum TabLockIndicator
+    typedef enum
     {
         TAB_LOCK_ICON,
         TAB_LOCK_ASTERISK,
         TAB_LOCK_STYLED_TEXT
-    };
+    }TabLockIndicator;
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
@@ -244,7 +244,7 @@ struct GnomeCmdData
     struct Options
     {
       // private:
-        GnomeCmdColorTheme           color_themes[GNOME_CMD_NUM_COLOR_MODES];
+        GnomeCmdColorTheme           color_themes[GNOME_CMD_COLOR_CUSTOM+1];
 
       public:
         GcmdSettings                 *gcmd_settings;

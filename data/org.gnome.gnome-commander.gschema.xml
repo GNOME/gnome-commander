@@ -13,45 +13,6 @@
     <child name="internal-viewer" schema="org.gnome.gnome-commander.preferences.internal-viewer"/>
   </schema>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.size-display-mode-enum">
-    <value nick="plain" value="0"/>
-    <value nick="locale" value="1"/>
-    <value nick="grouped" value="2"/>
-    <value nick="powered" value="3"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.perm-display-mode-enum">
-    <value nick="text" value="0"/>
-    <value nick="numbers" value="1"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.graphical-layout-mode-enum">
-    <value nick="off" value="0"/>
-    <value nick="file icons" value="1"/>
-    <value nick="MIME icons" value="2"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.extension-display-mode-enum">
-    <value nick="with filename column" value="0"/>
-    <value nick="separate column" value="1"/>
-    <value nick="both columns" value="2"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.clicks-to-open-item-enum">
-    <value nick="single" value="0"/>
-    <value nick="double" value="1"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode-enum">
-    <value nick="popup" value="0"/>
-    <value nick="select" value="1"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode-enum">
-    <value nick="parent directory" value="0"/>
-    <value nick="new tab" value="1"/>
-  </enum>
-
   <enum id="org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum">
     <value nick="GDK_INTERP_NEAREST" value="0"/>
     <value nick="GDK_INTERP_TILES" value="1"/>
@@ -59,42 +20,9 @@
     <value nick="GDK_INTERP_HYPER" value="3"/>
   </enum>
 
-  <enum id="org.gnome.gnome-commander.preferences.general.tab-lock-indicator-enum">
-    <value nick="icon" value="0"/>
-    <value nick="asterisk" value="1"/>
-    <value nick="styled text" value="2"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.general.quick-search-enum">
-    <value nick="CTRL+ALT+letter" value="0"/>
-    <value nick="ALT+letter" value="1"/>
-  </enum>
-
   <enum id="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
     <value nick="cancel" value="3"/>
     <value nick="delete" value="1"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.confirmations.overwrite-enum">
-    <value nick="skip all" value="0"/>
-    <value nick="query" value="1"/>
-    <value nick="overwrite silently" value="2"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.colors.theme-enum">
-    <value nick="none" value="0"/>
-    <value nick="modern" value="1"/>
-    <value nick="fusion" value="2"/>
-    <value nick="classic" value="3"/>
-    <value nick="deep blue" value="4"/>
-    <value nick="cafezinho" value="5"/>
-    <value nick="green tiger" value="6"/>
-    <value nick="custom" value="7"/>
-  </enum>
-
-  <enum id="org.gnome.gnome-commander.preferences.internal-viewer.search-mode-enum">
-    <value nick="text" value="0"/>
-    <value nick="hexadecimal" value="1"/>
   </enum>
 
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
@@ -115,22 +43,22 @@
           A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.
       </description>
     </key>
-    <key name='size-display-mode' enum='org.gnome.gnome-commander.preferences.general.size-display-mode-enum'>
+    <key name='size-display-mode' enum='org.gnome.gnome-commander.GnomeCmdSizeDispMode'>
       <default>'powered'</default>
       <summary>Filesize display mode</summary>
       <description>
         Defines how the filesize will be displayed in the associated pane column.
       </description>
     </key>
-    <key name='perm-display-mode' enum='org.gnome.gnome-commander.preferences.general.perm-display-mode-enum'>
+    <key name='perm-display-mode' enum='org.gnome.gnome-commander.GnomeCmdPermDispMode'>
       <default l10n="messages">'text'</default>
       <summary>Permission display mode</summary>
       <description>
         Defines how the file permission will be displayed in the associated pane column.
       </description>
     </key>
-    <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.preferences.general.graphical-layout-mode-enum'>
-      <default l10n="messages">'MIME icons'</default>
+    <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.GnomeCmdLayout'>
+      <default l10n="messages">'mime-icons'</default>
       <summary>Graphical layout mode</summary>
       <description>
         Defines the icon style of files and folders in the file panes.
@@ -155,15 +83,15 @@
       <summary>List font</summary>
       <description>The font in the file panes.</description>
     </key>
-    <key name='extension-display-mode' enum='org.gnome.gnome-commander.preferences.general.extension-display-mode-enum'>
-      <default l10n="messages">'both columns'</default>
+    <key name='extension-display-mode' enum='org.gnome.gnome-commander.GnomeCmdExtDispMode'>
+      <default l10n="messages">'both'</default>
       <summary>Extension display mode</summary>
       <description>
           Defines where the file name extension is displayed.
       </description>
     </key>
-    <key name="clicks-to-open-item" enum='org.gnome.gnome-commander.preferences.general.clicks-to-open-item-enum'>
-      <default>'double'</default>
+    <key name="clicks-to-open-item" enum='org.gnome.gnome-commander.LeftMouseButtonMode'>
+      <default>'double-click'</default>
       <summary>Clicks to open an item</summary>
       <description>
           Number of clicks for opening a file or folder.
@@ -176,8 +104,8 @@
           Defines if a click on an unselected item unselects already selected items.
       </description>
     </key>
-    <key name="right-mouse-btn-mode" enum='org.gnome.gnome-commander.preferences.general.right-mouse-btn-mode-enum'>
-      <default l10n="messages">'popup'</default>
+    <key name="right-mouse-btn-mode" enum='org.gnome.gnome-commander.RightMouseButtonMode'>
+      <default l10n="messages">'popups-menu'</default>
       <summary>Right mouse button mode</summary>
       <description>
         Defines what happens when the right mouse button is clicked on an item.
@@ -361,8 +289,8 @@
           The number represents the main window state, e.g. 'maximized', 'fullscreen', etc. and is calculated internally.
       </description>
     </key>
-    <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.preferences.general.middle-mouse-btn-mode-enum">
-      <default l10n="messages">'parent directory'</default>
+    <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.MiddleMouseButtonMode">
+      <default l10n="messages">'goes-up-dir'</default>
       <summary>Middle mouse button mode</summary>
       <description>
           Defines what happens when the middle mouse button is clicked.
@@ -396,7 +324,7 @@
           Defines if the tab bar is always shown.
       </description>
     </key>
-    <key name="tab-lock-indicator" enum='org.gnome.gnome-commander.preferences.general.tab-lock-indicator-enum'>
+    <key name="tab-lock-indicator" enum='org.gnome.gnome-commander.TabLockIndicator'>
       <default l10n="messages">'icon'</default>
       <summary>Tab lock indicator</summary>
       <description>
@@ -459,8 +387,8 @@
           This option defines if the main menu is visible or not.
       </description>
     </key>
-    <key name="quick-search" enum="org.gnome.gnome-commander.preferences.general.quick-search-enum">
-      <default>'CTRL+ALT+letter'</default>
+    <key name="quick-search" enum="org.gnome.gnome-commander.GnomeCmdQuickSearchShortcut">
+      <default>'ctrl-alt'</default>
       <summary>Quick search shortcut</summary>
       <description>
           This option defines the shortcut for quick search.
@@ -503,14 +431,14 @@
           This setting defines the default active option in the delete confirmation dialog.
       </description>
     </key>
-    <key name="copy-overwrite" enum="org.gnome.gnome-commander.preferences.confirmations.overwrite-enum">
+    <key name="copy-overwrite" enum="org.gnome.gnome-commander.GnomeCmdConfirmOverwriteMode">
       <default l10n="messages">'query'</default>
       <summary>Confirm copy overwrite</summary>
       <description>
           This option defines the default behavior when items will be overwritten by a copy command.
       </description>
     </key>
-    <key name="move-overwrite" enum="org.gnome.gnome-commander.preferences.confirmations.overwrite-enum">
+    <key name="move-overwrite" enum="org.gnome.gnome-commander.GnomeCmdConfirmOverwriteMode">
       <default l10n="messages">'query'</default>
       <summary>Confirm move overwrite</summary>
       <description>
@@ -643,8 +571,8 @@
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
-    <key name="theme" enum="org.gnome.gnome-commander.preferences.colors.theme-enum">
-      <default l10n="messages">'green tiger'</default>
+    <key name="theme" enum="org.gnome.gnome-commander.GnomeCmdColorMode">
+      <default l10n="messages">'green-tiger'</default>
       <summary>Color theme</summary>
       <description>
           This option defines the current color theme.
@@ -835,7 +763,7 @@
           This option defines if searching within the internal viewer is case sensitive.
       </description>
     </key>
-    <key name="search-mode" enum='org.gnome.gnome-commander.preferences.internal-viewer.search-mode-enum'>
+    <key name="search-mode" enum='org.gnome.gnome-commander.SEARCHMODE'>
       <default l10n="messages">'text'</default>
       <summary>Search mode</summary>
       <description>

@@ -701,7 +701,7 @@ inline GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
         _("MIME icons"),
         NULL
     };
-    const gchar *color_modes[GNOME_CMD_NUM_COLOR_MODES+1] = {
+    const gchar *color_modes[GNOME_CMD_COLOR_CUSTOM+2] = {
         _("Respect theme colors"),
         _("Modern"),
         _("Fusion"),
