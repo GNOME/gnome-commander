@@ -6,7 +6,7 @@
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences" path="/org/gnome/gnome-commander/preferences/">
     <child name="general" schema="org.gnome.gnome-commander.preferences.general"/>
     <child name="network" schema="org.gnome.gnome-commander.preferences.network"/>
-    <child name="confirmation" schema="org.gnome.gnome-commander.preferences.confirmation"/>
+    <child name="confirmations" schema="org.gnome.gnome-commander.preferences.confirmations"/>
     <child name="filter" schema="org.gnome.gnome-commander.preferences.filter"/>
     <child name="programs" schema="org.gnome.gnome-commander.preferences.programs"/>
     <child name="colors" schema="org.gnome.gnome-commander.preferences.colors"/>
