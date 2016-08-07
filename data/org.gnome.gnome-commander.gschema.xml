@@ -276,6 +276,83 @@
           Position of the main window in vertical direction.
       </description>
     </key>
+    <key name="main-win-width" type="u">
+      <default>600</default>
+      <summary>Main window width</summary>
+      <description>
+          This options defines the width of the main window.
+      </description>
+    </key>
+    <key name="main-win-height" type="u">
+      <default>400</default>
+      <summary>Main window heigth</summary>
+      <description>
+          This options defines the heigth of the main window.
+      </description>
+    </key>
+    <key name="column-width-icon" type="u">
+      <default>16</default>
+      <summary>Width of icon column</summary>
+      <description>
+          This options defines the width of the icon column.
+      </description>
+    </key>
+    <key name="column-width-name" type="u">
+      <default>140</default>
+      <summary>Width of name column</summary>
+      <description>
+          This options defines the width of the name column.
+      </description>
+    </key>
+    <key name="column-width-ext" type="u">
+      <default>40</default>
+      <summary>Width of extension column</summary>
+      <description>
+          This options defines the width of the extension column.
+      </description>
+    </key>
+    <key name="column-width-dir" type="u">
+      <default>240</default>
+      <summary>Width of directory column</summary>
+      <description>
+          This options defines the width of the directory column.
+      </description>
+    </key>
+    <key name="column-width-size" type="u">
+      <default>70</default>
+      <summary>Width of size column</summary>
+      <description>
+          This options defines the width of the size column.
+      </description>
+    </key>
+    <key name="column-width-date" type="u">
+      <default>150</default>
+      <summary>Width of date column</summary>
+      <description>
+          This options defines the width of the date column.
+      </description>
+    </key>
+    <key name="column-width-perm" type="u">
+      <default>70</default>
+      <summary>Width of permissions column</summary>
+      <description>
+          This options defines the width of the permissions column.
+      </description>
+    </key>
+    <key name="column-width-owner" type="u">
+      <default>50</default>
+      <summary>Width of owner column</summary>
+      <description>
+          This options defines the width of the owner column.
+      </description>
+    </key>
+    <key name="column-width-group" type="u">
+      <default>50</default>
+      <summary>Width of group column</summary>
+      <description>
+          This options defines the width of the group column.
+      </description>
+    </key>
     <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
     <key name="main-win-state" type="u">
       <default l10n="messages">4</default>

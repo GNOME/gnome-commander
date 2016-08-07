@@ -99,6 +99,17 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DEV_ONLY_ICON                   "dev-only-icon"
 #define GCMD_SETTINGS_MAINMENU_VISIBILITY             "mainmenu-visibility"
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
+#define GCMD_SETTINGS_MAIN_WIN_WIDTH                  "main-win-width"
+#define GCMD_SETTINGS_MAIN_WIN_HEIGHT                 "main-win-height"
+#define GCMD_SETTINGS_COLUMN_WIDTH_ICON               "column-width-icon"
+#define GCMD_SETTINGS_COLUMN_WIDTH_NAME               "column-width-name"
+#define GCMD_SETTINGS_COLUMN_WIDTH_EXT                "column-width-ext"
+#define GCMD_SETTINGS_COLUMN_WIDTH_DIR                "column-width-dir"
+#define GCMD_SETTINGS_COLUMN_WIDTH_SIZE               "column-width-size"
+#define GCMD_SETTINGS_COLUMN_WIDTH_DATE               "column-width-date"
+#define GCMD_SETTINGS_COLUMN_WIDTH_PERM               "column-width-perm"
+#define GCMD_SETTINGS_COLUMN_WIDTH_OWNER              "column-width-owner"
+#define GCMD_SETTINGS_COLUMN_WIDTH_GROUP              "column-width-group"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -614,8 +625,8 @@ struct GnomeCmdData
 
     gboolean                     use_gcmd_block;
 
-    gint                         main_win_width;
-    gint                         main_win_height;
+    guint                        main_win_width;
+    guint                        main_win_height;
     GdkWindowState               main_win_state;
 
     std::map<guint,std::vector<Tab> > tabs;

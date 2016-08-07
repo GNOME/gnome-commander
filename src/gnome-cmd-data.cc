@@ -3022,6 +3022,49 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
     }
     g_free(package_config_path);
 
+    ////////////////////////////////////////////////////////////////////////////
+    // Data migration from .gnome2/gnome-commander-size, created by gnome_config
+    ////////////////////////////////////////////////////////////////////////////
+    package_config_path = g_strdup_printf("%s-size",gnome_config_get_real_path(PACKAGE));
+    fd = fopen (package_config_path, "r");
+    if (fd)
+    {
+        // main_win/width
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/main_win/width", 600),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH);
+        // main_win/height
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/main_win/height", 400),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT);
+        // column-widths/fs_col_width0..8
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width0", 16),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_ICON);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width1", 140),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_NAME);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width2", 40),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_EXT);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width3", 240),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DIR);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width4", 70),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_SIZE);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width5", 150),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DATE);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width6", 70),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_PERM);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width7", 50),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_OWNER);
+        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width8", 50),
+                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_GROUP);
+        fclose (fd);
+
+        // Rename config file
+        gchar* temp;
+        temp = g_strdup_printf("%s.deprecated", package_config_path);
+        if (g_rename(package_config_path, temp) != 0 )
+            g_warning("Renaming of %s to %s failed!", package_config_path, temp);
+        g_free(temp);
+    }
+    g_free(package_config_path);
+
     // Activate gcmd gsettings signals
     gcmd_connect_gsettings_signals(gnome_cmd_data.options.gcmd_settings);
 }
@@ -3350,15 +3393,17 @@ void GnomeCmdData::load()
     options.select_dirs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
     options.case_sens_sort = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
 
-    main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
-    main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
-
-    for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-    {
-        gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        fs_col_width[i] = get_int (tmp, GnomeCmdFileList::get_column_default_width((GnomeCmdFileList::ColumnID) i));
-        g_free (tmp);
-    }
+    main_win_width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH);
+    main_win_height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT);
+    fs_col_width[0] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_ICON);
+    fs_col_width[1] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_NAME);
+    fs_col_width[2] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_EXT);
+    fs_col_width[3] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DIR);
+    fs_col_width[4] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_SIZE);
+    fs_col_width[5] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DATE);
+    fs_col_width[6] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_PERM);
+    fs_col_width[7] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_OWNER);
+    fs_col_width[8] = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_GROUP);
 
     options.color_mode = gcmd_owner.is_root() ? (GnomeCmdColorMode) GNOME_CMD_COLOR_DEEP_BLUE
                                               : (GnomeCmdColorMode) g_settings_get_enum (options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
@@ -3937,15 +3982,17 @@ void GnomeCmdData::save()
     if (quick_connect_uri)
         set_gsettings_when_changed (options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI, (gpointer) quick_connect_uri);
 
-    gnome_config_set_int ("/gnome-commander-size/main_win/width", main_win_width);
-    gnome_config_set_int ("/gnome-commander-size/main_win/height", main_win_height);
-
-    for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-    {
-        gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        gnome_config_set_int (tmp, fs_col_width[i]);
-        g_free (tmp);
-    }
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH, &(main_win_width));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT, &(main_win_height));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_ICON, &(fs_col_width[0]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_NAME, &(fs_col_width[1]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_EXT, &(fs_col_width[2]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DIR, &(fs_col_width[3]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_SIZE, &(fs_col_width[4]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DATE, &(fs_col_width[5]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_PERM, &(fs_col_width[6]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_OWNER, &(fs_col_width[7]));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_GROUP, &(fs_col_width[8]));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT, &(options.save_dirs_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT, &(options.save_tabs_on_exit));
