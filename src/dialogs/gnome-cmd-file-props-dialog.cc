@@ -489,7 +489,8 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     data->size_label = label;
 
-    gcmd_tags_bulk_load (data->f);
+    if (data->f->info->type != GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE) 
+        gcmd_tags_bulk_load (data->f);
 
     if (data->f->metadata)
     {
@@ -559,7 +560,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *f)
                                                   G_TYPE_STRING,
                                                   G_TYPE_STRING);
 
-    if (!gcmd_tags_bulk_load (f))
+    if (f->info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE || !gcmd_tags_bulk_load (f))
         return GTK_TREE_MODEL (treestore);
 
     GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;

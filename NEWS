@@ -3,6 +3,8 @@ gnome-commander 1.6.0
 ---------------
 
 Bug fixes:
+ * Fixed problem bgo#671616 (Right-Mouse popup menu is displayed in wrong position, Thanks to Puux)
+ * Fixed problem bgo#683087 (Crash opening properties window on certain objects, Thanks to Puux)
  * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
  * Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)
  * Fixed problem bgo#767158 (Shortcuts stop working after changing layout)
@@ -16,6 +18,7 @@ New features:
  * Show/hide mainmenu can be set as keyboard shortcut now (Thanks to Puux)
  * Simple plug-in system for file context menu (Thanks to Puux)
  * Display of application icons in the "Open With" popup menu (Thanks to Puux)
+ * Write bookmark changes immediately to file, Sync bookmarks between all instances (Thanks to Puux)
  * Started usage of google test framework for unit tests
  * New color theme 'Winter'
  * Code cleanup

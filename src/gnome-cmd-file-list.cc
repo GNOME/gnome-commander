@@ -790,16 +790,6 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 }
 
 
-static void popup_position_function (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
-{
-    GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (user_data);
-
-    gint unused_x, unused_w, unused_h;
-
-    get_focus_row_coordinates (fl, unused_x, *y, unused_w, unused_h);
-}
-
-
 static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
 {
     // create the popup menu
@@ -809,7 +799,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     g_object_ref (menu);
     g_object_set_data_full (*fl, "file_popup_menu", menu, g_object_unref);
 
-    gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc) popup_position_function, fl, event, fl, NULL);
+    gnome_popup_menu_do_popup (menu, NULL, NULL, event, fl, NULL);
 }
 
 

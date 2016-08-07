@@ -11,7 +11,6 @@
 * Browsing of compressed archives
 * Tab completion at the built-in command line
 * Splitting/merging files
-* Write bookmark changes immediately to file
 * Optional deleting to .Trash
 * Unmounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file

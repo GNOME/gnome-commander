@@ -588,7 +588,7 @@ struct GnomeCmdData
     inline gboolean get_bool (const gchar *path, gboolean def);
     inline void set_bool (const gchar *path, gboolean value);
     inline void set_color (const gchar *path, GdkColor *color);
-
+    void set_settings_monitor (const char *file_path);
 
   public:
 
@@ -660,8 +660,7 @@ struct GnomeCmdData
     inline void gnome_cmd_data_set_string_history (const gchar *format, GList *strings);
     gboolean is_valid_color_string(const char *colorstring);
     gboolean set_valid_color_string(GSettings *settings, const char* key);
-
-
+    void save_xml ();
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
 

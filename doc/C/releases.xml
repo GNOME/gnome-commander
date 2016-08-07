@@ -30,6 +30,12 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                           <para>Fixed problem bgo#671616 (Right-Mouse popup menu is displayed in wrong position, Thanks to Puux)</para>
+                       </listitem>
+                        <listitem>
+                           <para>Fixed problem bgo#683087 (Crash opening properties window on certain objects, Thanks to Puux)</para>
+                       </listitem>
+                        <listitem>
                            <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
                        </listitem>
                         <listitem>
@@ -69,6 +75,9 @@
                         </listitem>
                         <listitem>
                             <para>Display of application icons in the "Open With" popup menu (Thanks to Puux)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Write bookmark changes immediately to file, Sync bookmarks between all instances (Thanks to Puux)</para>
                         </listitem>
                         <listitem>
                             <para>Started usage of google test framework for unit tests</para>

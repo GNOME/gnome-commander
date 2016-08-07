@@ -29,4 +29,6 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent);
 void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir);
 
+void gnome_cmd_update_bookmark_dialog ();
+
 #endif // __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__
