@@ -1374,8 +1374,10 @@ gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
     char *su = NULL;
     gboolean need_c = FALSE;
 
+    if ((su = g_find_program_in_path ("gksudo")))
+       goto without_c_param;
     if ((su = g_find_program_in_path ("xdg-su")))
-       goto with_c_param;
+       goto without_c_param;
     if ((su = g_find_program_in_path ("gksu")))
        goto without_c_param;
     if ((su = g_find_program_in_path ("gnomesu")))

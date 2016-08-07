@@ -1259,7 +1259,7 @@ void command_open_terminal_as_root (GtkMenuItem *menuitem, gpointer not_used)
         g_free (dpath);
     }
     else
-        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
+        gnome_cmd_show_message (NULL, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."));
 
     g_free (argv);
     g_free (command);
@@ -1281,7 +1281,7 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
             gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
     }
     else
-        gnome_cmd_show_message (NULL, _("xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
+        gnome_cmd_show_message (NULL, _("gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"));
 
     g_strfreev (argv);
 }
