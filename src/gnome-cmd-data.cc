@@ -4082,8 +4082,6 @@ void GnomeCmdData::save()
     }
 
     save_auto_load_plugins();
-
-    gnome_config_sync ();
 }
 
 gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
