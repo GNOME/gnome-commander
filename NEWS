@@ -22,7 +22,7 @@ New features:
  * Storage of options is done in the dconf database now instead of a gnome-config file (see bgo#570733)
  * Devices and fav-apps are now stored within the GKeyFile format
  * Started usage of google test framework for unit tests
- * New color theme 'Winter'
+ * New colour theme 'Winter'
  * Code cleanup
 Other changes:
  * Removed "Open folder" command in popup menu and user actions
