@@ -27,9 +27,31 @@ New features:
 Other changes:
  * Removed "Open folder" command in popup menu and user actions
 New or updated translations: 
-     ...
-New key bindings:
-     ...            ...
+       bs (Samir Ribic)
+       ca (Jordi Mas)
+       cs (Marek Černocký)
+       de (Mario Blättermann, Wolfgang Stöggl)
+       es (Daniel Mustieles)
+       eu (Inaki Larranaga Murgoitio)
+       fi (Lasse Liehu)
+       fr (Alexandre Franke)
+       hu (Balázs Meskó, Balázs Úr)
+       id (Andika Triwidada)
+       lt (Zygimantus)
+       nb (Kjartan Maraas)
+       oc (Cédric Valmary)
+       pl (Piotr Drąg)
+       pt (Pedro Albuquerque)
+       pt_BR (Rafael Fontenelle)
+       sk (Dušan Kazik, Tibor Kaputa)
+       sl (Matej Urbančič)
+       sv (Anders Jonsson, Josef Andersson)
+       tr (Necdet Yücel)
+New or updated docs:
+       cs (Daniel Mustieles, Marek Černocký)
+       de (Christian Kirbach, Mario Blättermann)
+       el (Dimitris Spingos, Maria Mavridou)
+       es (Daniel Mustieles)
 
 ===================================
 gnome-commander 1.4.2
