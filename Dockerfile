@@ -1,12 +1,12 @@
 # This is a Docker image for building gnome-commander
-FROM ubuntu:15.10
+FROM ubuntu:16.04
 MAINTAINER Uwe Scholz <u.scholz83@gmx.de>
 
 ENV GCMD_PATH /gnome-commander
 
 RUN \
+  apt-get update -qq && \
   apt-get install -yq sudo && \
-  sudo apt-get update -qq && \
   echo $LANG && \
   echo $LC_ALL && \
   sudo apt-get build-dep gnome-commander -y && \
@@ -25,7 +25,6 @@ RUN \
   export CXX=g++ && \
   export CC=gcc && \
   cd $GCMD_PATH && \
-  git checkout GSettings && \
   ./autogen.sh && \
   make && \
   make check
