@@ -54,18 +54,116 @@ New or updated docs:
        es (Daniel Mustieles)
 
 ===================================
+gnome-commander 1.4.8
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to Mamoru Tasaka)
+ * New or updated translations:
+       cs (Marek Černocký)
+       de (Wolfgang Stöggl)
+       pl (Piotr Drąg)
+       pt (Pedro Albuquerque)
+       pt_BR (Gustavo Marques)
+       oc (Cédric Valmary)
+* New or updated docs:
+       cs (Marek Černocký)
+       de (Mario Blättermann)
+
+===================================
+gnome-commander 1.4.7
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#745454 (Segmentation fault after find files, thanks to Mamoru Tasaka)
+ * Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru Tasaka)
+ * Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, thanks to Mamoru Tasaka)
+ * New or updated translations:
+       oc (Cédric Valmary)
+* New or updated docs:
+       cs (Marek Černocký)
+ 
+===================================
+gnome-commander 1.4.6
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)
+ * Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory with "odd" uid)
+ * Fixed problem bgo#748869 (crash when searching two times consecutively)
+ * Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/connections)
+ * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
+ * New or updated translations:
+       el (Maria Mavridou)
+       pt (Pedro Albuquerque)
+       bs (Samir Ribic)
+ * New or updated docs:
+       cs (Marek Černocký)
+       el (Maria Mavridou)
+       
+===================================
+gnome-commander 1.4.5
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#741316 (Appdata missing in POT) 
+ * Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)
+ * Removed python-2.6 support from gentoo ebuild
+ * New or updated translations:
+       hu (Balázs Úr)
+       id (Andika Triwidada)
+       sr (Мирослав Николић)
+       sr@latin (Мирослав Николић)
+New or updated docs:
+    cs (Marek Černocký)
+
+===================================
+gnome-commander 1.4.4
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#571495 (Migrated from gnome_execute_shell to g_spawn_async)
+ * Fixed problem bgo#737088 (Support for user's terminal different from gnome-terminal)
+New or updated translations: 
+    cs (Marek Černocký)
+    de (Benjamin Steinwender)
+    eu (Inaki Larranaga Murgoitio)
+    fi (Lasse Liehu)
+    id (Andika Triwidada)
+    sr (Мирослав Николић) (sr@latin)
+    sr@latin (Мирослав Николић)
+New or updated docs:
+    cs (Marek Černocký)
+    es (Daniel Mustieles)
+
+===================================
+gnome-commander 1.4.3
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#731557 (Crash when drag 'n drop objects via mouse)
+New or updated translations: 
+    cs (Marek Černocký)
+    de (Benjamin Steinwender)
+    eu (Inaki Larranaga Murgoitio)
+    fi (Lasse Liehu)
+New or updated docs:
+    cs (Marek Černocký)
+
+===================================
 gnome-commander 1.4.2
 ---------------
 
 Bug fixes:
- * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for mooving folders)
- * Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)
-New features:
-* New or updated translations: 
-     ...
-* New key bindings:
-     ...            ...
-
+ * Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in ebuild)
+ * Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving folders)
+ * Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TANew features:
+ * Text selection in int. viewer works on lines with TAB characters (Thanks to Jan Vleeshouwers)
+New or updated translations: 
+    cs (Marek Černocký)
+    el (Dimitris Spingos)
+    sr (Мирослав Николић)
+    sr@latin (Мирослав Николић)
 
 ===================================
 gnome-commander 1.4.1

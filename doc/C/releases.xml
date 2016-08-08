@@ -113,31 +113,173 @@
             </entry>
         </row>
         <row valign="top">
-            <entry><para>1.4.2</para></entry>
-            <entry><para>2014-??-??</para></entry>
+            <entry><para>1.4.8</para></entry>
+            <entry><para>2016-03-14</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para> Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving folders)</para>
+                            <para>Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to Mamoru Tasaka)</para>
                         </listitem>
                         <listitem>
-                            <para> Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)</para>
-                       </listitem>
+                            <para>New or updated translations: cs, de, pl, pt, pt_BR, oc</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
-                <para>New features:</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.7</para></entry>
+            <entry><para>2015-05-30</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>???</para>
+                            <para>Fixed problem bgo#745454 (Segmentation fault after find files, thanks to Mamoru Tasaka)</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ??</para>
+                            <para>Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru Tasaka)</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ??</para>
+                            <para>Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, thanks to Mamoru Tasaka)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: co</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.6</para></entry>
+            <entry><para>2015-05-19</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#748869 (crash when searching two times consecutively)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory with "odd" uid)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks to Dominique Leuenberger)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/connections)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: bs, el, pt</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, el</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.5</para></entry>
+            <entry><para>2015-01-24</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#741316 (Appdata missing in POT)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed python-2.6 support from gentoo ebuild</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, hu, id, sr, sr@latin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.4</para></entry>
+            <entry><para>2014-11-11</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#571495 (Migrated from gnome_execute_shell to g_spawn_async)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#737088 (Support for user's terminal different from gnome-terminal)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, de, eu, fi, id, sr, sr@latin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.3</para></entry>
+            <entry><para>2014-06-22</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready exists)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, de, eu, fi</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.4.2</para></entry>
+            <entry><para>2014-05-23</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in ebuild)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving folders)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#598161 (Selecting text in internal viewer on lines with TAB characters)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Text selection in int. viewer works on lines with TAB characters (Thanks to Jan Vleeshouwers)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, el, sr, sr@latin</para>
                         </listitem>
                     </itemizedlist>
                 </para>
