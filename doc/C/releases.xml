@@ -80,6 +80,12 @@
                             <para>Write bookmark changes immediately to file, Sync bookmarks between all instances (Thanks to Puux)</para>
                         </listitem>
                         <listitem>
+                            <para>Storage of options is done in the dconf database now instead of a gnome-config file (see bgo#570733)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Devices and fav-apps are now stored within the GKeyFile format</para>
+                        </listitem>
+                        <listitem>
                             <para>Started usage of google test framework for unit tests</para>
                         </listitem>
                         <listitem>

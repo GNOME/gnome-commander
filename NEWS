@@ -19,6 +19,8 @@ New features:
  * Simple plug-in system for file context menu (Thanks to Puux)
  * Display of application icons in the "Open With" popup menu (Thanks to Puux)
  * Write bookmark changes immediately to file, Sync bookmarks between all instances (Thanks to Puux)
+ * Storage of options is done in the dconf database now instead of a gnome-config file (see bgo#570733)
+ * Devices and fav-apps are now stored within the GKeyFile format
  * Started usage of google test framework for unit tests
  * New color theme 'Winter'
  * Code cleanup
