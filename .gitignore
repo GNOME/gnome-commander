@@ -52,6 +52,8 @@
 /m4/lt~obsolete.m4
 /missing
 /plugins/cvs/
+/data/org.gnome.gnome-commander.enums.xml
+/data/org.gnome.gnome-commander.gschema.valid
 /po/*.gmo
 /po/*.mo
 /po/.intltool-merge-cache
