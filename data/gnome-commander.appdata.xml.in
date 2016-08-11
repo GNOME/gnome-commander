@@ -41,8 +41,9 @@
   </screenshots>
   <url type="homepage">http://gcmd.github.io/index.html</url>
   <url type="bugtracker">https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander</url>
-  <url type="donation">http://www.gnome.org/friends/</url>
+  <url type="donation">https://gcmd.github.io/#donations</url>
   <url type="help">http://gcmd.github.io/doc.html</url>
+  <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
   <update_contact>gcmd-devel@nongnu.org</update_contact>
   <project_group>GNOME</project_group>
   <translation type="gettext">gnome-commander</translation>
