@@ -66,7 +66,7 @@
     </key>
     <key name="list-row-height" type="u">
       <default l10n="messages">16</default>
-      <summary>List row heigth</summary>
+      <summary>List row height</summary>
       <description>
         Defines the height of a row in the file pane.
       </description>
@@ -133,7 +133,7 @@
     </key>
     <key name="cmdline-history" type="as">
       <default>[]</default>
-      <summary>Commandline history</summary>
+      <summary>Command line history</summary>
       <description>
           This string array represents the history of commands executed in the command line.
       </description>
@@ -141,7 +141,7 @@
     <key name="cmdline-history-length" type="u">
       <default>16</default>
       <range min="0" max="16"/>
-      <summary>Commandline history length</summary>
+      <summary>Command line history length</summary>
     </key>
     <key name="horizontal-orientation" type="b">
       <default>false</default>
@@ -164,7 +164,7 @@
     <key name="show-devlist" type="b">
       <default>true</default>
       <summary>Show device list</summary>
-      <description>Defines if list of devices is shown.</description>
+      <description>Defines if the list of devices is shown.</description>
     </key>
     <key name="show-cmdline" type="b">
       <default>true</default>
@@ -208,77 +208,77 @@
       <default>600</default>
       <summary>Main window width</summary>
       <description>
-          This options defines the width of the main window.
+          This option defines the width of the main window.
       </description>
     </key>
     <key name="main-win-height" type="u">
       <default>400</default>
-      <summary>Main window heigth</summary>
+      <summary>Main window height</summary>
       <description>
-          This options defines the heigth of the main window.
+          This option defines the height of the main window.
       </description>
     </key>
     <key name="column-width-icon" type="u">
       <default>16</default>
       <summary>Width of icon column</summary>
       <description>
-          This options defines the width of the icon column.
+          This option defines the width of the icon column.
       </description>
     </key>
     <key name="column-width-name" type="u">
       <default>140</default>
       <summary>Width of name column</summary>
       <description>
-          This options defines the width of the name column.
+          This option defines the width of the name column.
       </description>
     </key>
     <key name="column-width-ext" type="u">
       <default>40</default>
       <summary>Width of extension column</summary>
       <description>
-          This options defines the width of the extension column.
+          This option defines the width of the extension column.
       </description>
     </key>
     <key name="column-width-dir" type="u">
       <default>240</default>
       <summary>Width of directory column</summary>
       <description>
-          This options defines the width of the directory column.
+          This option defines the width of the directory column.
       </description>
     </key>
     <key name="column-width-size" type="u">
       <default>70</default>
       <summary>Width of size column</summary>
       <description>
-          This options defines the width of the size column.
+          This option defines the width of the size column.
       </description>
     </key>
     <key name="column-width-date" type="u">
       <default>150</default>
       <summary>Width of date column</summary>
       <description>
-          This options defines the width of the date column.
+          This option defines the width of the date column.
       </description>
     </key>
     <key name="column-width-perm" type="u">
       <default>70</default>
       <summary>Width of permissions column</summary>
       <description>
-          This options defines the width of the permissions column.
+          This option defines the width of the permissions column.
       </description>
     </key>
     <key name="column-width-owner" type="u">
       <default>50</default>
       <summary>Width of owner column</summary>
       <description>
-          This options defines the width of the owner column.
+          This option defines the width of the owner column.
       </description>
     </key>
     <key name="column-width-group" type="u">
       <default>50</default>
       <summary>Width of group column</summary>
       <description>
-          This options defines the width of the group column.
+          This option defines the width of the group column.
       </description>
     </key>
     <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
@@ -300,14 +300,14 @@
       <default l10n="messages">true</default>
       <summary>Save directories on exit</summary>
       <description>
-          Defines if the current directories are opened again when Gnome Commander is restarted.
+          Defines if the current directories are opened again when GNOME Commander is restarted.
       </description>
     </key>
     <key name="save-tabs-on-exit" type="b">
       <default l10n="messages">true</default>
       <summary>Save tabs on exit</summary>
       <description>
-          Defines if the current open tabs are opened again when Gnome Commander is restarted.
+          Defines if the current open tabs are opened again when GNOME Commander is restarted.
       </description>
     </key>
     <key name="save-dir-history-on-exit" type="b">
@@ -356,14 +356,14 @@
       <default l10n="messages">true</default>
       <summary>Quick search exact match begin</summary>
       <description>
-          This option defines if quicksearch should match explicitely at the beginning of an item name.
+          This option defines if quick search should match explicitly at the beginning of an item name.
       </description>
     </key>
     <key name="quick-search-exact-match-end" type="b">
       <default l10n="messages">false</default>
       <summary>Quick search exact match end</summary>
       <description>
-          This option defines if quicksearch should match explicitely at the end of an item name.
+          This option defines if quick search should match explicitly at the end of an item name.
       </description>
     </key>
     <key name="dev-only-icon" type="b">
@@ -410,9 +410,9 @@
     </key>
     <key name="ftp-anonymous-password" type="s">
       <default l10n="messages">'you@provider.com'</default>
-      <summary>Password for anonymous ftp connections</summary>
+      <summary>Password for anonymous FTP connections</summary>
       <description>
-          This string defines defines the password for anonymous ftp connections.
+          This string defines the password for anonymous FTP connections.
       </description>
     </key>
   </schema>
@@ -449,14 +449,14 @@
       <default l10n="messages">true</default>
       <summary>Confirm mouse drag and drop</summary>
       <description>
-          This options defines the behavior of mouse drag and drop operations.
+          This option defines the behavior of mouse drag and drop operations.
       </description>
     </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.filter" path="/org/gnome/gnome-commander/preferences/filter/">
     <key name="hide-unknown" type="b">
       <default>false</default>
-      <summary>Hyde unknown filetypes</summary>
+      <summary>Hide unknown filetypes</summary>
       <description>Hide files which type does not match to one of the other types.</description>
     </key>
     <key name="hide-regular" type="b">
@@ -767,7 +767,7 @@
       <default l10n="messages">'text'</default>
       <summary>Search mode</summary>
       <description>
-          This options defines the search mode of the internal viewer.
+          This option defines the search mode of the internal viewer.
       </description>
     </key>
     <key name="charset" type="s">
@@ -821,7 +821,7 @@
     </key>
     <key name="binary-bytes-per-line" type="u">
       <default l10n="messages">80</default>
-      <summary>Bytes per line in binray mode</summary>
+      <summary>Bytes per line in binary mode</summary>
       <description>
           This option defines how many bytes should be displayed in one line in binary mode.
       </description>
@@ -874,7 +874,7 @@
         <default l10n="messages">'.zip'</default>
         <summary>File suffix</summary>
         <description>
-            Default file suffix of archives created with the file roller plugin.
+            Default file suffix of archives created with the File Roller plugin.
         </description>
     </key>
   </schema>
