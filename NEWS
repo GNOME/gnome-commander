@@ -8,6 +8,7 @@ Bug fixes:
  * Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)
  * Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)
  * Fixed problem bgo#767158 (Shortcuts stop working after changing layout)
+ * Fixed string escaping for directories with ampersand (see bgo#769309)
 New features:
  * Always reopen the tab which was previously closed in the options dialog
  * Samba support is now optionally available via configure option
@@ -43,6 +44,7 @@ New or updated translations:
        pl (Piotr Drąg)
        pt (Pedro Albuquerque)
        pt_BR (Rafael Fontenelle)
+       ro (Jobava)
        sk (Dušan Kazik, Tibor Kaputa)
        sl (Matej Urbančič)
        sv (Anders Jonsson, Josef Andersson)
