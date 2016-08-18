@@ -230,13 +230,12 @@ inline int get_string_pixel_size (const char *s, int len)
     gchar *ms = get_mono_text (utf8buf);
     gtk_label_set_markup (label, ms);
     g_free (ms);
-    g_object_ref (label);
+    g_object_ref_sink(G_OBJECT(label));
 
     PangoLayout *layout = gtk_label_get_layout (label);
     pango_layout_get_pixel_size (layout, &xSize, &ySize);
 
-    // we're finished with the label
-    gtk_object_sink (GTK_OBJECT (label));
+    g_object_unref(GTK_OBJECT (label));
     g_free (utf8buf);
     g_free (buf);
 
