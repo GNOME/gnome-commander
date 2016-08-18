@@ -30,6 +30,7 @@ struct GnomeCmdPath
   public:
 
     GnomeCmdPath *clone() const                                 {  return do_clone();  }
+    virtual ~GnomeCmdPath() { }
 
     virtual const gchar *get_path() = 0;
     virtual const gchar *get_display_path() = 0;
