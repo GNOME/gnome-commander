@@ -36,8 +36,9 @@ DOC_FIGURES = \
 	figures/gnome-commander_options_layout.png              \
 	figures/gnome-commander_options_programs.png            \
 	figures/gnome-commander_options_tabs.png                \
-	figures/gnome-commander_options_layout_colors.png	\
+	figures/gnome-commander_options_layout_colors.png       \
 	figures/gnome-commander_window.png                      \
+	figures/gnome-commander_simple_plugins_example.png      \
 	figures/mounting.png
 
 DOC_LINGUAS = cs de el es fr ru sl

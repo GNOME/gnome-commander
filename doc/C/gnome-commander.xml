@@ -6858,6 +6858,10 @@
                         <entry><para>Delete files</para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>Display main menu</para></entry>
+                        <entry><para>Display main menu</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>Do nothing</para></entry>
                         <entry><para>Do nothing (use to block key bindings)</para></entry>
                     </row>
@@ -7123,7 +7127,61 @@
     </sect2>
   </sect1>
 
-<!-- ============= Plugins ================================ -->
+<!-- ================= Additional Popup Menu Actions ================= -->
+<!-- This section contains info about the simple plugin system of gcmd.-->
+  <sect1 id="popup-menu-actions">
+    <title>Additional Pop-up Menu Actions</title>
+    <figure id="popup-menu-actions-example-fig">
+        <title>Example picture of the pop-up menu with four additional entries</title>
+        <screenshot>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="figures/gnome-commander_simple_plugins_example.png" format="PNG"/>
+                </imageobject>
+            </mediaobject>
+        </screenshot>
+    </figure>
+    <para>
+        The pop-up menu of &app;, which can be opened by right clicking on a file or folder, can be easily extended by putting executable files into
+        <guilabel>~/.gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
+        When such a menu entry is clicked, the associated script will be executed with the names of all selected items as arguments. When the
+        <keycap>SHIFT</keycap> key is pressed while clicking the pop-up menu entry, the script will be called separately for each selected file.
+    </para>
+    <sect2 id="popup-menu-actions-file-format">
+        <title>File format</title>
+        <para>
+            The files can be binary or simple text files. In the latter case it is possible to handle some config variables over to &app;
+            by using a key-value format: <guilabel>#[key]: [value]</guilabel>, with '#' being the first character in a text line.
+        </para>
+        <para>Currently, the following keys are implemented:</para>
+        <informaltable frame="topbot">
+            <tgroup cols='3'>
+                <colspec colname="Key"/>
+                <colspec colname="Description"/>
+                <colspec colname="Comment"/>
+                <tbody>
+                    <row valign="top">
+                        <entry><para>name</para></entry>
+                        <entry><para>The label of the menu item</para></entry>
+                        <entry><para>If undefined, the script file name will be used</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>term</para></entry>
+                        <entry><para>Run the script in a terminal window</para></entry>
+                        <entry><para>To activate this, set value to 'true'</para></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+    </sect2>
+    <sect2 id="popup-menu-actions-examples">
+        <title>Example Pop-up menu scripts</title>
+        <para>Some example scripts can be found <ulink url="https://git.gnome.org/browse/gnome-commander/tree/gcmd-scripts" type="https">online</ulink> in
+        the &app; git repository.</para>
+    </sect2>
+  </sect1>
+
+<!-- ============= Python Plugins ================================ -->
 <!-- This section contains info about the python plugins.-->
   <sect1 id="gnome-commander-python-plugins">
     <title>Python Plugins</title>
@@ -7392,6 +7450,10 @@
 	      menu or the "**" icon on the toolbar.</para>
             </listitem>
             <listitem>
+	      <para>To copy the full path of the current directory, right click on the directory indicator at the top
+          of the directory list.</para>
+            </listitem>
+            <listitem>
 	      <para>To insert the current file's path in Gnome Commander's command line, press 
 	      <keycombo><keycap>CTRL</keycap><keycap>Shift</keycap><keycap>Enter</keycap></keycombo>.</para>
             </listitem>
@@ -7484,6 +7546,12 @@
         </listitem>
       </varlistentry>
     </variablelist>
+    <note>
+        <para>
+            Since &app; version  1.6.0 the options file <guilabel>~/.gnome2/gnome-commander</guilabel> is obsolete.
+            The settings of this file are now stored in GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
+        </para>
+    </note>
   </sect1>
 
 <xi:include href="releases.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
