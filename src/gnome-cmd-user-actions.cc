@@ -302,6 +302,9 @@ void GnomeCmdUserActions::init()
 
  void GnomeCmdUserActions::set_defaults()
  {
+    if (!registered("view.main_menu"))
+        register_action(GDK_F12, "view.main_menu");
+
    if (!registered("bookmarks.edit"))
         register_action(GDK_CONTROL_MASK, GDK_D, "bookmarks.edit");
 
