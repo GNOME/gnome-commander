@@ -9,6 +9,9 @@ Bug fixes:
  * Preserve focused file after renamed with AdvRenDialog (Thanks to Martin Mocko)
  * Fixed problem bgo#767158 (Shortcuts stop working after changing layout)
  * Fixed string escaping for directories with ampersand (see bgo#769309)
+ * Fixed problem bgo#770062 (Memory leak in GnomeCmdPlainPath, Thanks to Eric)
+ * Fixed problem bgo#770063 (Memory leak in get_string_pixel_size, Thanks to Eric)
+
 New features:
  * Always reopen the tab which was previously closed in the options dialog
  * Samba support is now optionally available via configure option
