@@ -277,7 +277,7 @@ static UserActionData user_actions_data[] = {
 #endif
                                              {view_up, "view.up", N_("Up one directory")},
                                              
-											 {view_main_menu, "view.main.menu", N_("Display main menu")},
+                                             {view_main_menu, "view.main_menu", N_("Display main menu")},
                                             };
 
 
