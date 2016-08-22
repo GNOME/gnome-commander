@@ -7136,22 +7136,26 @@
 <!-- This section contains info about the simple plugin system of gcmd.-->
   <sect1 id="popup-menu-actions">
     <title>Additional Pop-up Menu Actions</title>
-    <figure id="popup-menu-actions-example-fig">
-        <title>Example picture of the pop-up menu with four additional entries</title>
-        <screenshot>
-            <mediaobject>
-                <imageobject>
-                    <imagedata fileref="figures/gnome-commander_simple_plugins_example.png" format="PNG"/>
-                </imageobject>
-            </mediaobject>
-        </screenshot>
-    </figure>
-    <para>
-        The pop-up menu of &app;, which can be opened by right clicking on a file or folder, can be easily extended by putting executable files into
-        <guilabel>~/.gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
-        When such a menu entry is clicked, the associated script will be executed with the names of all selected items as arguments. When the
-        <keycap>SHIFT</keycap> key is pressed while clicking the pop-up menu entry, the script will be called separately for each selected file.
-    </para>
+    <sect2 id="popup-menu-actions-introduction">
+        <title>Introduction</title>
+        <para>
+            The pop-up menu of &app;, which can be opened by right-clicking on a file or folder or by pressing
+            <keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo>, can be easily extended by putting executable files into
+            <guilabel>~/.gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
+            When such a menu entry is clicked, the associated script will be executed with the names of all selected items as arguments. When the
+            <keycap>SHIFT</keycap> key is pressed while clicking the pop-up menu entry, the script will be called separately for each selected file.
+        </para>
+        <figure id="popup-menu-actions-example-fig">
+            <title>Example picture of the pop-up menu with four additional entries</title>
+            <screenshot>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="figures/gnome-commander_simple_plugins_example.png" format="PNG"/>
+                    </imageobject>
+                </mediaobject>
+            </screenshot>
+        </figure>
+    </sect2>
     <sect2 id="popup-menu-actions-file-format">
         <title>File format</title>
         <para>
