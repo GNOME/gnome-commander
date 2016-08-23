@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
 "POT-Creation-Date: 2016-08-22 18:44+0000\n"
-"PO-Revision-Date: 2016-08-23 12:54+0200\n"
+"PO-Revision-Date: 2016-08-23 14:55+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -106,6 +106,10 @@ msgid ""
 "then the font named in the \"File panes\" option will be used instead of the "
 "system font."
 msgstr ""
+"Indica si se debe usar la tipografía monoespaciada del sistema para los "
+"paneles de archivos en lugar de una tipografía específica de gnome-"
+"commander. Si se desactiva esta opción, se el nombre de la tipografía "
+"indicada en la opción «Paneles de archivos» en su lugar."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:3
 msgid "'DejaVu Sans Mono 8'"
@@ -120,6 +124,9 @@ msgid ""
 "A custom font that will be used for the file panes. This will only take "
 "effect if the \"Use Default Font\" option is turned off."
 msgstr ""
+"Una tipografía personalizada que se usará para los paneles de archivos. Esto "
+"sólo tendrá efecto si se desactiva la opción «Usar tipografía "
+"predeterminada»."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:6
 msgid "Filesize display mode"
@@ -129,6 +136,8 @@ msgstr "Modo de visualización del tamaño del archivo"
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
 msgstr ""
+"Define cómo se mostrará el tamaño del archivo en la columna del panel "
+"asociado."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:8
 msgid "'text'"
@@ -144,6 +153,8 @@ msgid ""
 "Defines how the file permission will be displayed in the associated pane "
 "column."
 msgstr ""
+"Define cómo se mostrarán los permisos del archivo en la columna del panel "
+"asociado."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:11
 msgid "'mime-icons'"
@@ -156,6 +167,8 @@ msgstr "Modo de distribución gráfica"
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:13
 msgid "Defines the icon style of files and folders in the file panes."
 msgstr ""
+"Define el estilo de icono de los archivos y carpetas en los paneles de "
+"archivos."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:14
 msgid "16"
@@ -221,6 +234,8 @@ msgstr "El botón izquierdo del ratón deselecciona"
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
+"Define si una pulsación sobre un elemento no seleccionado desmarca los "
+"elementos previamente seleccionado."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:30
 msgid "'popups-menu'"
@@ -233,6 +248,7 @@ msgstr "Modo de botón derecho del ratón"
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:32
 msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr ""
+"Define qué pasa cuando se pulsa el botón derecho del ratón sobre un elemento."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:33
 msgid "Icon size"
@@ -263,6 +279,8 @@ msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
 msgstr ""
+"Describe los diferentes modos de interpolación que se pueden usar en las "
+"funciones de escalado."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:40
 msgid "'/usr/local/share/pixmaps/gnome-commander/mime-icons'"
@@ -302,6 +320,7 @@ msgstr "Orientación horizontal"
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
 msgstr ""
+"Define si la orientación de los paneles de archivos debe ser o no horizontal."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:48
 msgid "100"
@@ -314,6 +333,8 @@ msgstr "Tasa de actualización de la IGU"
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:50
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr ""
+"Tasa de actualización de la interfaz gráfica de usuario en milésimas de "
+"segundo."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:51
 msgid "Show device buttons"
@@ -376,6 +397,10 @@ msgid ""
 "code. A '%s' will be expanded to the item name for which a link should be "
 "created."
 msgstr ""
+"Esta cadena define el nombre predeterminado de un enlace simbólico nuevo. "
+"Deje la cadena vacía para usar el valor predeterminado incluido en el código "
+"fuente del programa. «%s» se expandirá al nombre del elemento para el que se "
+"creó el enlace."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:66
 msgid "Main window horizontal position"
@@ -506,6 +531,8 @@ msgid ""
 "The number represents the main window state, e.g. 'maximized', 'fullscreen', "
 "etc. and is calculated internally."
 msgstr ""
+"El número representa el estado de la ventana principal. Ej. «maximizada», "
+"«pantalla completa», etc y se calcula internamente."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:95
 msgid "'goes-up-dir'"
@@ -549,7 +576,7 @@ msgstr "Guardar el histórico de carpetas al salir"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:103
 msgid "Defines if the history of visited directories is saved on exit."
-msgstr ""
+msgstr "Define si el histórico de carpetas visitadas se guarda al salir."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:104
 msgid "false"
@@ -574,7 +601,7 @@ msgstr "Indicador de bloqueo de la pestañas"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:109
 msgid "Defines the style of the tab lock indicator."
-msgstr ""
+msgstr "Define el estilo del indicador de pestaña bloqueada."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:110
 msgid "Case sensitive sorting"
@@ -596,6 +623,8 @@ msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
 msgstr ""
+"Esta opción define si las carpetas se marcarán cuando se deban marcar todos "
+"los elementos en un panel de archivos."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:114
 msgid "Allow multiple instances"
@@ -603,7 +632,7 @@ msgstr "Permitir múltiples instancias"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:115
 msgid "This option defines if multiple instances are allowed."
-msgstr ""
+msgstr "Esta opción define si se permiten múltiples instancias."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:116
 #| msgid "Quick search using"
@@ -642,6 +671,8 @@ msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
 msgstr ""
+"Esta opción define si sólo se deben mostrar los iconos de dispositivos en "
+"lugar de iconos y etiqueta de texto."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:122
 msgid "Skip device mounting"
@@ -652,6 +683,8 @@ msgid ""
 "This option defines if mounting of devices should be skipped when they are "
 "opened."
 msgstr ""
+"Esta opción define si el montaje de dispositivos se debe omitir cuando estén "
+"abiertos."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:124
 msgid "Main menu visibility"
@@ -933,7 +966,7 @@ msgstr "Comando para enviar a"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:187
 msgid "This string defines the command for sending files to a receiver."
-msgstr ""
+msgstr "Esta cadena define el comando para enviar archivos a un receptor."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:188
 msgid "'green-tiger'"
@@ -997,7 +1030,7 @@ msgstr "Color de primer plano de la selección"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:203
 msgid "Foreground color for selections in custom mode."
-msgstr ""
+msgstr "Color de primer plano para selecciones en modo personalizado."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:204
 msgid "Selection background color"
@@ -1005,7 +1038,7 @@ msgstr "Color de fondo de la selección"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:205
 msgid "Background color for selections in custom mode."
-msgstr ""
+msgstr "Color de fondo para selecciones en modo personalizado."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:206
 msgid "'#000000000000'"
@@ -1040,6 +1073,8 @@ msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
 msgstr ""
+"Esta opción determina si el valor de la variable de entorno LS_COLORS se "
+"debe usar para colorear archivos y carpetas."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:214
 msgid "LS_COLORS black foreground mapping"
@@ -1246,6 +1281,8 @@ msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
 msgstr ""
+"Esta opción define si la búsqueda en el visor interno debe distinguir entre "
+"mayúsculas y minúsculas."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:253
 msgid "Search mode"
@@ -1295,13 +1332,15 @@ msgstr ""
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:264
 msgid "Display hex offset"
-msgstr ""
+msgstr "Mostrar desplazamiento hexadecimal"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:265
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr ""
+"Esta opción define si el desplazamiento hexadecimal se debe mostrar también "
+"en hexadecimal."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:266
 #| msgid "Graphical mode:"
@@ -1338,6 +1377,8 @@ msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
 msgstr ""
+"Esta opción define la anchura del sangrado en términos de caracteres para un "
+"carácter de tabulador."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:274
 msgid "80"
@@ -1353,6 +1394,8 @@ msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
 msgstr ""
+"Esta opción define cuántos bytes se deben mostrar en una línea en modo "
+"binario."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:277
 msgid "20"
@@ -1415,6 +1458,8 @@ msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr ""
+"Esta cadena almacena el histórico de búsquedas de texto en el visor interno "
+"de archivos."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:290
 msgid "Search pattern for hex values"
@@ -1425,6 +1470,8 @@ msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr ""
+"Esta cadena almacena el histórico de búsquedas de valores hexadecimales en "
+"el visor interno de archivos."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:292
 msgid "'.zip'"
@@ -1438,6 +1485,7 @@ msgstr "Sufijo del archivo"
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:294
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
+"Sufijo predeterminado de los archivos creado con el complemento File Roller."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:295
 msgid "Automatically loaded plugins"
