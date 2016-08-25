@@ -28,19 +28,17 @@
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="use-default-font" type="b">
       <default>true</default>
-      <summary>Use Default Font</summary>
+      <summary>Use default font</summary>
       <description>
           Whether to use the system's default fixed width font for the file
-          panels instead of a font specific to gnome-commander. If this option
-          is turned off, then the font named in the "File panes" option will
-          be used instead of the system font.
+          panels instead of a font specific to gnome-commander.
       </description>
     </key>
     <key name="panel-font" type="s">
-      <default l10n="messages">'DejaVu Sans Mono 8'</default>
-      <summary>Panel Font</summary>
+      <default>'DejaVu Sans Mono 8'</default>
+      <summary>Panel font</summary>
       <description>
-          A custom font that will be used for the file panes. This will only take effect if the "Use Default Font" option is turned off.
+          A custom font that will be used for the file panes if the "Use default font" option is turned off.
       </description>
     </key>
     <key name='size-display-mode' enum='org.gnome.gnome-commander.GnomeCmdSizeDispMode'>
@@ -51,27 +49,29 @@
       </description>
     </key>
     <key name='perm-display-mode' enum='org.gnome.gnome-commander.GnomeCmdPermDispMode'>
-      <default l10n="messages">'text'</default>
+      <default>'text'</default>
       <summary>Permission display mode</summary>
       <description>
         Defines how the file permission will be displayed in the associated pane column.
       </description>
     </key>
     <key name='graphical-layout-mode' enum='org.gnome.gnome-commander.GnomeCmdLayout'>
-      <default l10n="messages">'mime-icons'</default>
+      <default>'mime-icons'</default>
       <summary>Graphical layout mode</summary>
       <description>
         Defines the icon style of files and folders in the file panes.
       </description>
     </key>
     <key name="list-row-height" type="u">
-      <default l10n="messages">16</default>
+      <default>16</default>
       <summary>List row height</summary>
       <description>
         Defines the height of a row in the file pane.
       </description>
     </key>
     <key name="date-disp-format" type="s">
+      <!-- Translators: Feel free to replace the default date format to a common value
+           used in your country. See "man strftime" for details.-->
       <default l10n="messages">'%F %R'</default>
       <summary>Date format</summary>
       <description>
@@ -79,12 +79,12 @@
       </description>
     </key>
     <key name="list-font" type="s">
-      <default l10n="messages">'DejaVu Sans Mono 8'</default>
+      <default>'DejaVu Sans Mono 8'</default>
       <summary>List font</summary>
       <description>The font in the file panes.</description>
     </key>
     <key name='extension-display-mode' enum='org.gnome.gnome-commander.GnomeCmdExtDispMode'>
-      <default l10n="messages">'both'</default>
+      <default>'both'</default>
       <summary>Extension display mode</summary>
       <description>
           Defines where the file name extension is displayed.
@@ -92,9 +92,9 @@
     </key>
     <key name="clicks-to-open-item" enum='org.gnome.gnome-commander.LeftMouseButtonMode'>
       <default>'double-click'</default>
-      <summary>Clicks to open an item</summary>
+      <summary>Left mouse button mode</summary>
       <description>
-          Number of clicks for opening a file or folder.
+          Number of left mouse button clicks for opening a file or folder.
       </description>
     </key>
     <key name="left-mouse-btn-unselects" type="b">
@@ -105,7 +105,7 @@
       </description>
     </key>
     <key name="right-mouse-btn-mode" enum='org.gnome.gnome-commander.RightMouseButtonMode'>
-      <default l10n="messages">'popups-menu'</default>
+      <default>'popups-menu'</default>
       <summary>Right mouse button mode</summary>
       <description>
         Defines what happens when the right mouse button is clicked on an item.
@@ -122,12 +122,12 @@
       <description>Icon size in the device list.</description>
     </key>
     <key name="icon-scale-quality" enum='org.gnome.gnome-commander.preferences.general.icon-scale-quality-enum'>
-      <default l10n="messages">'GDK_INTERP_HYPER'</default>
+      <default>'GDK_INTERP_HYPER'</default>
       <summary>Icon scale quality</summary>
       <description>Describes the different interpolation modes that can be used with the scaling functions.</description>
     </key>
     <key name="mime-icon-dir" type="s">
-      <default l10n="messages">'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
+      <default>'/usr/local/share/pixmaps/gnome-commander/mime-icons'</default>
       <summary>MIME icon directory</summary>
       <description>Directory in which MIME icons are located.</description>
     </key>
@@ -151,7 +151,7 @@
       </description>
     </key>
     <key name="gui-update-rate" type="u">
-      <default l10n="messages">100</default>
+      <default>100</default>
       <range min="10" max="1000"/>
       <summary>GUI update rate</summary>
       <description>Update rate of the graphical user interphase in 1/1000ths of a second.</description>
@@ -172,17 +172,17 @@
       <description>Defines if command line is shown.</description>
     </key>
     <key name="show-toolbar" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Show toolbar</summary>
       <description>Defines if the toolbar is shown.</description>
     </key>
     <key name="show-buttonbar" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Show buttonbar</summary>
       <description>Defines if the buttonbar is shown.</description>
     </key>
     <key name="symlink-string" type="s">
-      <default l10n="messages">''</default>
+      <default>''</default>
       <summary>Symlink string</summary>
       <description>
           This string defines the default name of a newly created symlink. Leave the string
@@ -283,49 +283,49 @@
     </key>
     <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
     <key name="main-win-state" type="u">
-      <default l10n="messages">4</default>
+      <default>4</default>
       <summary>Main window state</summary>
       <description>
           The number represents the main window state, e.g. 'maximized', 'fullscreen', etc. and is calculated internally.
       </description>
     </key>
     <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.MiddleMouseButtonMode">
-      <default l10n="messages">'goes-up-dir'</default>
+      <default>'goes-up-dir'</default>
       <summary>Middle mouse button mode</summary>
       <description>
           Defines what happens when the middle mouse button is clicked.
       </description>
     </key>
     <key name="save-dirs-on-exit" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Save directories on exit</summary>
       <description>
           Defines if the current directories are opened again when GNOME Commander is restarted.
       </description>
     </key>
     <key name="save-tabs-on-exit" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Save tabs on exit</summary>
       <description>
           Defines if the current open tabs are opened again when GNOME Commander is restarted.
       </description>
     </key>
     <key name="save-dir-history-on-exit" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Save directory history on exit</summary>
       <description>
           Defines if the history of visited directories is saved on exit.
       </description>
     </key>
     <key name="always-show-tabs" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Always show tab bar</summary>
       <description>
           Defines if the tab bar is always shown.
       </description>
     </key>
     <key name="tab-lock-indicator" enum='org.gnome.gnome-commander.TabLockIndicator'>
-      <default l10n="messages">'icon'</default>
+      <default>'icon'</default>
       <summary>Tab lock indicator</summary>
       <description>
           Defines the style of the tab lock indicator.
@@ -346,42 +346,42 @@
         </description>
     </key>
     <key name="allow-multiple-instances" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Allow multiple instances</summary>
       <description>
           This option defines if multiple instances are allowed.
       </description>
     </key>
     <key name="quick-search-exact-match-begin" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Quick search exact match begin</summary>
       <description>
           This option defines if quick search should match explicitly at the beginning of an item name.
       </description>
     </key>
     <key name="quick-search-exact-match-end" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Quick search exact match end</summary>
       <description>
           This option defines if quick search should match explicitly at the end of an item name.
       </description>
     </key>
     <key name="dev-only-icon" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Only device icons</summary>
       <description>
           This option defines if only device icons should be shown instead of icons and text label.
       </description>
     </key>
     <key name="dev-skip-mounting" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Skip device mounting</summary>
       <description>
           This option defines if mounting of devices should be skipped when they are opened.
       </description>
     </key>
     <key name="mainmenu-visibility" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Main menu visibility</summary>
       <description>
           This option defines if the main menu is visible or not.
@@ -397,19 +397,19 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">
-      <default l10n="messages">'ftp://anonymous@ftp.gnome.org/pub/GNOME/'</default>
+      <default>'ftp://anonymous@ftp.gnome.org/pub/GNOME/'</default>
       <summary>Quick connect URI</summary>
       <description>
           Unified resource identifier for quick connections.
       </description>
     </key>
     <key name="use-gnome-auth-manager" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary></summary>
       <description></description>
     </key>
     <key name="ftp-anonymous-password" type="s">
-      <default l10n="messages">'you@provider.com'</default>
+      <default>'you@provider.com'</default>
       <summary>Password for anonymous FTP connections</summary>
       <description>
           This string defines the password for anonymous FTP connections.
@@ -418,35 +418,35 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.confirmations" path="/org/gnome/gnome-commander/preferences/confirmations/">
     <key name="delete" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Confirm delete</summary>
       <description>
           Defines if deletion of an item should be confirmed.
       </description>
     </key>
     <key name="delete-default" enum="org.gnome.gnome-commander.preferences.confirmations.delete-default-enum">
-      <default l10n="messages">'delete'</default>
+      <default>'delete'</default>
       <summary>Delete default</summary>
       <description>
           This setting defines the default active option in the delete confirmation dialog.
       </description>
     </key>
     <key name="copy-overwrite" enum="org.gnome.gnome-commander.GnomeCmdConfirmOverwriteMode">
-      <default l10n="messages">'query'</default>
+      <default>'query'</default>
       <summary>Confirm copy overwrite</summary>
       <description>
           This option defines the default behavior when items will be overwritten by a copy command.
       </description>
     </key>
     <key name="move-overwrite" enum="org.gnome.gnome-commander.GnomeCmdConfirmOverwriteMode">
-      <default l10n="messages">'query'</default>
+      <default>'query'</default>
       <summary>Confirm move overwrite</summary>
       <description>
         This option defines the default behavior when items will be overwritten by a move command.
       </description>
     </key>
     <key name="mouse-drag-and-drop" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Confirm mouse drag and drop</summary>
       <description>
           This option defines the behavior of mouse drag and drop operations.
@@ -497,7 +497,7 @@
       <description>Hide all files with a suffix defined as the backup pattern.</description>
     </key>
     <key name="backup-pattern" type="s">
-      <default l10n="messages">'*~;*.bak'</default>
+      <default>'*~;*.bak'</default>
       <summary>Backup file pattern</summary>
       <description>
           The given string defines suffixes (separated by semicolon) for files which
@@ -514,56 +514,56 @@
       </description>
     </key>
     <key name="use-internal-viewer" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Use internal viewer</summary>
       <description>
           This option defines if the internal viewer should be used by default.
       </description>
     </key>
     <key name="viewer-cmd" type="s">
-      <default l10n="messages">'gedit %s'</default>
+      <default>'gedit %s'</default>
       <summary>Viewer command</summary>
       <description>
           This string defines the command for starting the (external) viewer.
       </description>
     </key>
     <key name="editor-cmd" type="s">
-      <default l10n="messages">'gedit %s'</default>
+      <default>'gedit %s'</default>
       <summary>Editor command</summary>
       <description>
           This string defines the command for starting the editor.
       </description>
     </key>
     <key name="differ-cmd" type="s">
-      <default l10n="messages">'meld %s'</default>
+      <default>'meld %s'</default>
       <summary>Differ command</summary>
       <description>
           This string defines the command for starting the diff tool.
       </description>
     </key>
     <key name="use-gcmd-block" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Use gcmd-block for terminal commands</summary>
       <description>
           This option defines if a terminal window should stay open after a command finishes inside of it.
       </description>
     </key>
     <key name="terminal-cmd" type="s">
-      <default l10n="messages">'gnome-terminal'</default>
+      <default>'gnome-terminal'</default>
       <summary>Command for opening a terminal</summary>
       <description>
           This string defines the command for opening a terminal.
       </description>
     </key>
     <key name="terminal-exec-cmd" type="s">
-      <default l10n="messages">'gnome-terminal -e %s'</default>
+      <default>'gnome-terminal -e %s'</default>
       <summary>Command for execution in terminal</summary>
       <description>
           This string defines the command for executing another command in a terminal.
       </description>
     </key>
     <key name="sendto-cmd" type="s">
-      <default l10n="messages">'nautilus-sendto %s'</default>
+      <default>'nautilus-sendto %s'</default>
       <summary>Send to command</summary>
       <description>
           This string defines the command for sending files to a receiver.
@@ -572,70 +572,70 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.colors" path="/org/gnome/gnome-commander/preferences/colors/">
     <key name="theme" enum="org.gnome.gnome-commander.GnomeCmdColorMode">
-      <default l10n="messages">'green-tiger'</default>
+      <default>'green-tiger'</default>
       <summary>Color theme</summary>
       <description>
           This option defines the current color theme.
       </description>
     </key>
     <key name="custom-norm-fg" type="s">
-      <default l10n="messages">'#ffffffffffff'</default>
+      <default>'#ffffffffffff'</default>
       <summary>Normal foreground color</summary>
       <description>
           Normal foreground color in custom mode.
       </description>
     </key>
     <key name="custom-norm-bg" type="s">
-      <default l10n="messages">'#000000004444'</default>
+      <default>'#000000004444'</default>
       <summary>Normal background color</summary>
       <description>
           Normal background color in custom mode.
       </description>
     </key>
     <key name="custom-alt-fg" type="s">
-      <default l10n="messages">'#ffffffffffff'</default>
+      <default>'#ffffffffffff'</default>
       <summary>Alternate foreground color</summary>
       <description>
           Alternate foreground color in custom mode.
       </description>
     </key>
     <key name="custom-alt-bg" type="s">
-      <default l10n="messages">'#000000004444'</default>
+      <default>'#000000004444'</default>
       <summary>Alternate background color</summary>
       <description>
            Alternate background color in custom mode.
       </description>
     </key>
     <key name="custom-sel-fg" type="s">
-      <default l10n="messages">'#ffff00000000'</default>
+      <default>'#ffff00000000'</default>
       <summary>Selection foreground color</summary>
       <description>
            Foreground color for selections in custom mode.
       </description>
     </key>
     <key name="custom-sel-bg" type="s">
-      <default l10n="messages">'#000000004444'</default>
+      <default>'#000000004444'</default>
       <summary>Selection background color</summary>
       <description>
            Background color for selections in custom mode.
       </description>
     </key>
     <key name="custom-curs-fg" type="s">
-      <default l10n="messages">'#000000000000'</default>
+      <default>'#000000000000'</default>
       <summary>Cursor foreground color</summary>
       <description>
            Cursor foreground color in custom mode.
       </description>
     </key>
     <key name="custom-curs-bg" type="s">
-      <default l10n="messages">'#aaaaaaaaaaaa'</default>
+      <default>'#aaaaaaaaaaaa'</default>
       <summary>Cursor background color</summary>
       <description>
            Cursor background color in custom mode.
       </description>
     </key>
     <key name="use-ls-colors" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Use LS colors</summary>
       <description>
           This option triggers if the value of the environment variable
@@ -643,112 +643,112 @@
       </description>
     </key>
     <key name="lscm-black-fg" type="s">
-      <default l10n="messages">'#000000000000'</default>
+      <default>'#000000000000'</default>
       <summary>LS_COLORS black foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS black value.
       </description>
     </key>
     <key name="lscm-black-bg" type="s">
-      <default l10n="messages">'#000000000000'</default>
+      <default>'#000000000000'</default>
       <summary>LS_COLORS black background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS black value.
       </description>
     </key>
     <key name="lscm-red-fg" type="s">
-      <default l10n="messages">'#ffff00000000'</default>
+      <default>'#ffff00000000'</default>
       <summary>LS_COLORS red foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS red value.
       </description>
     </key>
     <key name="lscm-red-bg" type="s">
-      <default l10n="messages">'#ffff00000000'</default>
+      <default>'#ffff00000000'</default>
       <summary>LS_COLORS red background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS red value.
       </description>
     </key>
     <key name="lscm-green-fg" type="s">
-      <default l10n="messages">'#0000ffff0000'</default>
+      <default>'#0000ffff0000'</default>
       <summary>LS_COLORS green foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS green value.
       </description>
     </key>
     <key name="lscm-green-bg" type="s">
-      <default l10n="messages">'#0000ffff0000'</default>
+      <default>'#0000ffff0000'</default>
       <summary>LS_COLORS green background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS green value.
       </description>
     </key>
     <key name="lscm-yellow-fg" type="s">
-      <default l10n="messages">'#ffffffff0000'</default>
+      <default>'#ffffffff0000'</default>
       <summary>LS_COLORS yellow foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS yellow value.
       </description>
     </key>
     <key name="lscm-yellow-bg" type="s">
-      <default l10n="messages">'#ffffffff0000'</default>
+      <default>'#ffffffff0000'</default>
       <summary>LS_COLORS yellow background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS yellow value.
       </description>
     </key>
     <key name="lscm-blue-fg" type="s">
-      <default l10n="messages">'#00000000ffff'</default>
+      <default>'#00000000ffff'</default>
       <summary>LS_COLORS blue foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS blue value.
       </description>
     </key>
     <key name="lscm-blue-bg" type="s">
-      <default l10n="messages">'#00000000ffff'</default>
+      <default>'#00000000ffff'</default>
       <summary>LS_COLORS blue background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS blue value.
       </description>
     </key>
     <key name="lscm-magenta-fg" type="s">
-      <default l10n="messages">'#ffff0000ffff'</default>
+      <default>'#ffff0000ffff'</default>
       <summary>LS_COLORS magenta foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS magenta value.
       </description>
     </key>
     <key name="lscm-magenta-bg" type="s">
-      <default l10n="messages">'#ffff0000ffff'</default>
+      <default>'#ffff0000ffff'</default>
       <summary>LS_COLORS magenta background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS magenta value.
       </description>
     </key>
     <key name="lscm-cyan-fg" type="s">
-      <default l10n="messages">'#0000ffffffff'</default>
+      <default>'#0000ffffffff'</default>
       <summary>LS_COLORS cyan foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS cyan value.
       </description>
     </key>
     <key name="lscm-cyan-bg" type="s">
-      <default l10n="messages">'#0000ffffffff'</default>
+      <default>'#0000ffffffff'</default>
       <summary>LS_COLORS cyan background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS cyan value.
       </description>
     </key>
     <key name="lscm-white-fg" type="s">
-      <default l10n="messages">'#ffffffffffff'</default>
+      <default>'#ffffffffffff'</default>
       <summary>LS_COLORS white foreground mapping</summary>
       <description>
           This option adjusts the foreground color mapping for LS_COLORS white value.
       </description>
     </key>
     <key name="lscm-white-bg" type="s">
-      <default l10n="messages">'#ffffffffffff'</default>
+      <default>'#ffffffffffff'</default>
       <summary>LS_COLORS white background mapping</summary>
       <description>
           This option adjusts the background color mapping for LS_COLORS white value.
@@ -757,20 +757,25 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.internal-viewer" path="/org/gnome/gnome-commander/preferences/internal-viewer/">
     <key name="case-sensitive-search" type="b">
-      <default l10n="messages">false</default>
+      <default>false</default>
       <summary>Case sensitive search</summary>
       <description>
           This option defines if searching within the internal viewer is case sensitive.
       </description>
     </key>
     <key name="search-mode" enum='org.gnome.gnome-commander.SEARCHMODE'>
-      <default l10n="messages">'text'</default>
+      <default>'text'</default>
       <summary>Search mode</summary>
       <description>
           This option defines the search mode of the internal viewer.
       </description>
     </key>
     <key name="charset" type="s">
+      <!--Translators: This is the default string of encoding used by the internal viewer
+          for displaying the file in the given encoding. You may want to customize it by using
+          an encoding that is common in your country.
+          See https://git.gnome.org/browse/gnome-commander/tree/src/intviewer/viewer-window.cc#n781 for
+          a list of supported encodings. -->
       <default l10n="messages">'UTF8'</default>
       <summary>Character set</summary>
       <description>
@@ -778,91 +783,91 @@
       </description>
     </key>
     <key name="fixed-font-name" type="s">
-      <default l10n="messages">'Monospace'</default>
+      <default>'Monospace'</default>
       <summary>Fixed font name</summary>
       <description>
           Name of the default font with fixed character width.
       </description>
     </key>
     <key name="variable-font-name" type="s">
-      <default l10n="messages">'Sans'</default>
+      <default>'Sans'</default>
       <summary>Variable font name</summary>
       <description>
           Name of the default font with variable character width.
       </description>
     </key>
     <key name="display-hex-offset" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Display hex offset</summary>
       <description>
           This option defines if the hexadecimal offset should be displayed in hex mode.
       </description>
     </key>
     <key name="wrap-mode" type="b">
-      <default l10n="messages">true</default>
+      <default>true</default>
       <summary>Wrap mode</summary>
       <description>
           This option defines if too long text lines should be wrapped.
       </description>
     </key>
     <key name="font-size" type="u">
-      <default l10n="messages">12</default>
+      <default>12</default>
       <summary>Font size</summary>
       <description>
           This option defines the default font size.
       </description>
     </key>
     <key name="tab-size" type="u">
-      <default l10n="messages">8</default>
+      <default>8</default>
       <summary>Tab size</summary>
       <description>
           This option defines the indentation width in terms of characters for a tabulator character.
       </description>
     </key>
     <key name="binary-bytes-per-line" type="u">
-      <default l10n="messages">80</default>
+      <default>80</default>
       <summary>Bytes per line in binary mode</summary>
       <description>
           This option defines how many bytes should be displayed in one line in binary mode.
       </description>
     </key>
     <key name="offset-x" type="i">
-      <default l10n="messages">20</default>
+      <default>20</default>
       <summary>Horizontal offset</summary>
       <description>
           This option defines the visual offset of the internal file viewer in  horizontal direction.
       </description>
     </key>
     <key name="offset-y" type="i">
-      <default l10n="messages">20</default>
+      <default>20</default>
       <summary>Vertical offset</summary>
       <description>
           This option defines the visual offset of the internal file viewer in vertical direction.
       </description>
     </key>
     <key name="window-width" type="u">
-      <default l10n="messages">400</default>
+      <default>400</default>
       <summary>Window width</summary>
       <description>
           The width of the internal file viewer window.
       </description>
     </key>
     <key name="window-height" type="u">
-      <default l10n="messages">400</default>
+      <default>400</default>
       <summary>Window height</summary>
       <description>
           The height of the internal file viewer window.
       </description>
     </key>
     <key name="search-pattern-text" type="as">
-      <default l10n="messages">[]</default>
+      <default>[]</default>
       <summary>Search pattern for text</summary>
       <description>
           This string array stores the history of text searches within the internal file viewer.
       </description>
     </key>
     <key name="search-pattern-hex" type="as">
-      <default l10n="messages">[]</default>
+      <default>[]</default>
       <summary>Search pattern for hex values</summary>
       <description>
           This string array stores the history of searches for hex values within the internal file viewer.
@@ -871,7 +876,7 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.file-roller-plugin" path="/org/gnome/gnome-commander/plugins/file-roller-plugin/">
     <key name="default-type" type="s">
-        <default l10n="messages">'.zip'</default>
+        <default>'.zip'</default>
         <summary>File suffix</summary>
         <description>
             Default file suffix of archives created with the File Roller plugin.
@@ -880,7 +885,7 @@
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.general" path="/org/gnome/gnome-commander/plugins/general/">
     <key name="autoload" type="as">
-      <default l10n="messages">[]</default>
+      <default>[]</default>
       <summary>Automatically loaded plugins</summary>
       <description>
           This is the list of automatically loaded plugins, whereas each entry represents the file name of the plugin.
