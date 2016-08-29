@@ -1,4 +1,4 @@
-# Hungarian translation of gnome-commander.
+# Hungarian translation for gnome-commander.
 # Copyright (C) 2003-2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-commander package.
 #
@@ -15,16 +15,16 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2016-08-17 21:12+0000\n"
-"PO-Revision-Date: 2016-08-18 10:47+0200\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"POT-Creation-Date: 2016-08-25 21:13+0000\n"
+"PO-Revision-Date: 2016-08-29 23:22+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Lokalize 1.2\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
 #: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1854
@@ -61,28 +61,27 @@ msgstr ""
 "dolgoznak és okos parancsokat futtatnak."
 
 #: ../data/gnome-commander.appdata.xml.in.h:5
-msgid "filemanager"
+#| msgid "filemanager"
+msgid "file manager"
 msgstr "fájlkezelő"
 
 #: ../data/gnome-commander.appdata.xml.in.h:6
-msgid "rename"
-msgstr "átnevezés"
-
-#: ../data/gnome-commander.appdata.xml.in.h:7
-msgid "copy"
-msgstr "másolás"
+#| msgid "%d file listed"
+#| msgid_plural "%d files listed"
+msgid "file system"
+msgstr "fájlrendszer"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../data/gnome-commander.appdata.xml.in.h:8
+#: ../data/gnome-commander.appdata.xml.in.h:7
 #: ../src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "SSH"
 msgstr "SSH"
 
-#: ../data/gnome-commander.appdata.xml.in.h:9
+#: ../data/gnome-commander.appdata.xml.in.h:8
 msgid "FTP"
 msgstr "FTP"
 
-#: ../data/gnome-commander.appdata.xml.in.h:10
+#: ../data/gnome-commander.appdata.xml.in.h:9
 msgid "WebDAV"
 msgstr "WebDAV"
 
@@ -90,64 +89,62 @@ msgstr "WebDAV"
 msgid "A two paned file manager"
 msgstr "Egy kétpaneles fájlkezelő"
 
-#: ../data/gnome-commander.desktop.in.in.h:3
-msgid "File;Manager;"
-msgstr "Fájl;Kezelő;"
+#. TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: ../data/gnome-commander.desktop.in.in.h:4
+msgid "file;manager;folder;explore;disk;filesystem;"
+msgstr "fájl;kezelő;mappa;felderítés;lemez;fájlrendszer;"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:1
-msgid "Use Default Font"
+#| msgid "Use Default Font"
+msgid "Use default font"
 msgstr "Alapértelmezett betűkészlet használata"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:2
+#| msgid ""
+#| "Whether to use the system's default fixed width font for the file panels "
+#| "instead of a font specific to gnome-commander. If this option is turned "
+#| "off, then the font named in the \"File panes\" option will be used "
+#| "instead of the system font."
 msgid ""
 "Whether to use the system's default fixed width font for the file panels "
-"instead of a font specific to gnome-commander. If this option is turned off, "
-"then the font named in the \"File panes\" option will be used instead of the "
-"system font."
+"instead of a font specific to gnome-commander."
 msgstr ""
 "A rendszer alapértelmezett rögzített szélességű betűkészletét használja-e a "
-"fájlpanelekhez, a gnome-commander saját betűkészlet-beállítása helyett. Ha "
-"ez a beállítás ki van kapcsolva, akkor a „Fájlpanelek” beállításnál megadott "
-"nevű betűkészletet fogja használni a rendszer betűkészlete helyett."
+"fájlpanelekhez a gnome-commander saját betűkészlet-beállítása helyett."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:3
-msgid "'DejaVu Sans Mono 8'"
-msgstr "'DejaVu Sans Mono 8'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:4
-msgid "Panel Font"
+#| msgid "Panel Font"
+msgid "Panel font"
 msgstr "Panel betűkészlete"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:5
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:4
+#| msgid ""
+#| "A custom font that will be used for the file panes. This will only take "
+#| "effect if the \"Use Default Font\" option is turned off."
 msgid ""
-"A custom font that will be used for the file panes. This will only take "
-"effect if the \"Use Default Font\" option is turned off."
+"A custom font that will be used for the file panes if the \"Use default font"
+"\" option is turned off."
 msgstr ""
-"Egy egyéni betűkészlet, amely a fájlpanelekhez lesz használva. Ez csak akkor "
-"lesz érvényes, ha az „Alapértelmezett betűkészlet használata” ki van "
-"kapcsolva."
+"Egy egyéni betűkészlet, amely a fájlpanelekhez lesz használva, ha az "
+"„Alapértelmezett betűkészlet használata” beállítás ki van kapcsolva."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:6
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:5
 msgid "Filesize display mode"
 msgstr "Fájlméretek megjelenítési módja"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:7
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:6
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
 msgstr ""
 "Meghatározza, hogyan jelennek meg a fájlméretek a hozzájuk tartozó "
 "paneloszlopban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:8
-msgid "'text'"
-msgstr "'text'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:9
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:7
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:327
 msgid "Permission display mode"
 msgstr "A jogosultságok megjelenítési módja"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:10
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:8
 msgid ""
 "Defines how the file permission will be displayed in the associated pane "
 "column."
@@ -155,121 +152,105 @@ msgstr ""
 "Meghatározza, hogyan jelennek meg a fájljogosultságok a hozzájuk tartozó "
 "paneloszlopban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:11
-msgid "'mime-icons'"
-msgstr "'mime-icons'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:12
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:9
 msgid "Graphical layout mode"
 msgstr "Grafikus elrendezési mód"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:13
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:10
 msgid "Defines the icon style of files and folders in the file panes."
 msgstr "Meghatározza a fájlok és mappák ikonstílusát a fájlpaneleken."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:14
-msgid "16"
-msgstr "16"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:15
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:11
 msgid "List row height"
 msgstr "Lista sormagassága"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:16
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:12
 msgid "Defines the height of a row in the file pane."
 msgstr "Meghatározza a sorok magasságát a fájlpanelen."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:18
+#. Translators: Feel free to replace the default date format to a common value
+#. used in your country. See "man strftime" for details.
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:16
 #, no-c-format
 msgid "'%F %R'"
 msgstr "'%F %R'"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:19
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:17
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:343
 msgid "Date format"
 msgstr "Dátumformátum"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:20
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:18
 msgid "Format of the date in the file pane."
 msgstr "A dátumformátum a fájlpanelen."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:21
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:19
 msgid "List font"
 msgstr "Lista betűkészlete"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:22
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:20
 msgid "The font in the file panes."
 msgstr "A betűkészlet neve a fájlpaneleken."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:23
-msgid "'both'"
-msgstr "'both'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:24
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:21
 msgid "Extension display mode"
 msgstr "A kiterjesztések megjelenítési módja"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:25
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:22
 msgid "Defines where the file name extension is displayed."
 msgstr "Meghatározza hol jelennek meg a fájlkiterjesztések."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:26
-msgid "Clicks to open an item"
-msgstr "Kattintások az elemek megnyitásához"
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:23
+#| msgid "Left mouse button"
+msgid "Left mouse button mode"
+msgstr "Bal egérgomb mód"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:27
-msgid "Number of clicks for opening a file or folder."
-msgstr "A kattintások száma egy fájl vagy mappa megnyitásához."
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:24
+#| msgid "Number of clicks for opening a file or folder."
+msgid "Number of left mouse button clicks for opening a file or folder."
+msgstr "A bal egérgomb kattintásainak száma egy fájl vagy mappa megnyitásához."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:28
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:25
 msgid "Left mouse button unselects"
 msgstr "A bal egérgomb visszavonja a kiválasztást"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:29
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:26
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
 "Meghatározza, hogy egy nem kiválasztott elemre történő kattintás visszavonja-"
 "e a kijelölt elemek kiválasztását."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:30
-msgid "'popups-menu'"
-msgstr "'popups-menu'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:31
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:27
 msgid "Right mouse button mode"
 msgstr "Jobb egérgomb mód"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:32
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:28
 msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr ""
 "Meghatározza, mi történjen, amikor jobb egérgombbal kattint egy elemre."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:33
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:29
 msgid "Icon size"
 msgstr "Ikonméret"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:34
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:30
 msgid "Size of icons in the file pane."
 msgstr "Az ikonok mérete a fájlpanelen."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:35
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:31
 msgid "Device icon size"
 msgstr "Eszköz ikonmérete"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:36
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:32
 msgid "Icon size in the device list."
 msgstr "Ikonméret az eszközlistában."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:37
-msgid "'GDK_INTERP_HYPER'"
-msgstr "'GDK_INTERP_HYPER'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:38
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:33
 msgid "Icon scale quality"
 msgstr "Ikonméretezés minősége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:39
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:34
 msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
@@ -277,23 +258,19 @@ msgstr ""
 "Leírja a különböző interpolációs módokat, amelyeket a méretezési funkciók "
 "használhatnak."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:40
-msgid "'/usr/local/share/pixmaps/gnome-commander/mime-icons'"
-msgstr "'/usr/local/share/pixmaps/gnome-commander/mime-icons'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:41
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:35
 msgid "MIME icon directory"
 msgstr "MIME ikon könyvtár"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:42
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:36
 msgid "Directory in which MIME icons are located."
 msgstr "A könyvtár, ahol a MIME ikonok találhatóak."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:43
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:37
 msgid "Command line history"
 msgstr "Parancssor-előzmények"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:44
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:38
 msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
@@ -301,85 +278,72 @@ msgstr ""
 "Ez a karakterlánctömb a parancssorban végrehajtott parancsok előzményeit "
 "tartalmazza."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:45
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:39
 msgid "Command line history length"
 msgstr "Parancssor előzmények hossza"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:46
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:40
 msgid "Horizontal orientation"
 msgstr "Vízszintes elhelyezés"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:47
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:41
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
-msgstr ""
-"Meghatározza, hogy a fájlpanelek vízszintesen helyezkednek-e el."
+msgstr "Meghatározza, hogy a fájlpanelek vízszintesen helyezkednek-e el."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:48
-msgid "100"
-msgstr "100"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:49
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:42
 msgid "GUI update rate"
 msgstr "GUI frissítési gyakoriság"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:50
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:43
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "A grafikus felület frissítési gyakorisága ezredmásodpercekben."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:51
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:44
 msgid "Show device buttons"
 msgstr "Eszközgombok megjelenítése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:52
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:45
 msgid "Defines if device buttons are shown."
 msgstr "Meghatározza, hogy megjelennek-e az eszközgombok."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:53
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:46
 msgid "Show device list"
 msgstr "Eszközlista megjelenítése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:54
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:47
 msgid "Defines if the list of devices is shown."
 msgstr "Meghatározza, hogy megjelenik-e az eszközlista."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:55
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:48
 msgid "Show command line"
 msgstr "Parancssor megjelenítése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:56
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:49
 msgid "Defines if command line is shown."
 msgstr "Meghatározza, hogy megjelenik-e a parancssor."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:57
-msgid "true"
-msgstr "true"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:58
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:50
 msgid "Show toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:59
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:51
 msgid "Defines if the toolbar is shown."
 msgstr "Meghatározza, hogy megjelenik-e az eszköztár."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:60
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:52
 msgid "Show buttonbar"
 msgstr "Gombsor megjelenítése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:61
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:53
 msgid "Defines if the buttonbar is shown."
 msgstr "Meghatározza, hogy megjelenik-e a gombsor."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:62
-msgid "''"
-msgstr "''"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:63
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:54
 msgid "Symlink string"
 msgstr "Szimbolikus link karakterlánca"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:65
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:56
 #, no-c-format
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
@@ -392,119 +356,115 @@ msgstr ""
 "alapértelmezést szeretné használni, amely nincs a kódban megadva. Egy „%s” "
 "ki lesz egészítve az elemnévvé, amelyre a link el fog készülni."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:66
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:57
 msgid "Main window horizontal position"
 msgstr "Főablak vízszintes pozíciója"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:67
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:58
 msgid "Position of the main window in horizontal direction."
 msgstr "A főablak pozíciója vízszintes irányban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:68
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:59
 msgid "Main window vertical position"
 msgstr "Főablak függőleges pozíciója"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:69
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:60
 msgid "Position of the main window in vertical direction."
 msgstr "A főablak pozíciója függőleges irányban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:70
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:61
 msgid "Main window width"
 msgstr "Főablak szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:71
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:62
 msgid "This option defines the width of the main window."
 msgstr "Ez a beállítás meghatározza a főablak szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:72
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:63
 msgid "Main window height"
 msgstr "Főablak magassága"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:73
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:64
 msgid "This option defines the height of the main window."
 msgstr "Ez a beállítás meghatározza a főablak magasságát."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:74
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:65
 msgid "Width of icon column"
 msgstr "Az ikon oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:75
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:66
 msgid "This option defines the width of the icon column."
 msgstr "Ez a beállítás meghatározza az ikon oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:76
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:67
 msgid "Width of name column"
 msgstr "A név oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:77
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:68
 msgid "This option defines the width of the name column."
 msgstr "Ez a beállítás meghatározza a név oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:78
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:69
 msgid "Width of extension column"
 msgstr "A kiterjesztés oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:79
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:70
 msgid "This option defines the width of the extension column."
 msgstr "Ez a beállítás meghatározza a kiterjesztés oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:80
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:71
 msgid "Width of directory column"
 msgstr "A könyvtár oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:81
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:72
 msgid "This option defines the width of the directory column."
 msgstr "Ez a beállítás meghatározza a könyvtár oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:82
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:73
 msgid "Width of size column"
 msgstr "A méret oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:83
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:74
 msgid "This option defines the width of the size column."
 msgstr "Ez a beállítás meghatározza a méret oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:84
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:75
 msgid "Width of date column"
 msgstr "A dátum oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:85
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:76
 msgid "This option defines the width of the date column."
 msgstr "Ez a beállítás meghatározza a dátum oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:86
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:77
 msgid "Width of permissions column"
 msgstr "A jogosultságok oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:87
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:78
 msgid "This option defines the width of the permissions column."
 msgstr "Ez a beállítás meghatározza a jogosultságok oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:88
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:79
 msgid "Width of owner column"
 msgstr "A tulajdonos oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:89
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:80
 msgid "This option defines the width of the owner column."
 msgstr "Ez a beállítás meghatározza a tulajdonos oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:90
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:81
 msgid "Width of group column"
 msgstr "A csoport oszlop szélessége"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:91
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:82
 msgid "This option defines the width of the group column."
 msgstr "Ez a beállítás meghatározza a csoport oszlop szélességét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:92
-msgid "4"
-msgstr "4"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:93
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:83
 msgid "Main window state"
 msgstr "Főablak állapota"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:94
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:84
 msgid ""
 "The number represents the main window state, e.g. 'maximized', 'fullscreen', "
 "etc. and is calculated internally."
@@ -512,23 +472,19 @@ msgstr ""
 "A szám a főablak állapotát jelöli, például „maximalizált”, „teljes "
 "képernyős”, stb., és belsőleg számított."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:95
-msgid "'goes-up-dir'"
-msgstr "'goes-up-dir'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:96
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:85
 msgid "Middle mouse button mode"
 msgstr "Középső egérgomb módja"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:97
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:86
 msgid "Defines what happens when the middle mouse button is clicked."
 msgstr "Meghatározza mi történjen, amikor középső egérgombbal kattint."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:98
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:87
 msgid "Save directories on exit"
 msgstr "Könyvtárak mentése kilépéskor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:99
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:88
 msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
@@ -536,11 +492,11 @@ msgstr ""
 "Meghatározza, hogy az aktuális könyvtárak megnyíljanak-e a GNOME Commander "
 "újraindításakor."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:100
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:89
 msgid "Save tabs on exit"
 msgstr "Lapok mentése kilépéskor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:101
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:90
 msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
@@ -548,56 +504,48 @@ msgstr ""
 "Meghatározza, hogy a jelenlegi nyitott lapok nyílnak-e meg a GNOME Commander "
 "újraindításakor."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:102
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:91
 msgid "Save directory history on exit"
 msgstr "Könyvtár előzmények mentése kilépéskor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:103
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:92
 msgid "Defines if the history of visited directories is saved on exit."
 msgstr ""
 "Meghatározza, hogy a megtekintett könyvtárak előzményei mentésre kerülnek-e "
 "kilépéskor."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:104
-msgid "false"
-msgstr "false"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:105
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:93
 msgid "Always show tab bar"
 msgstr "Mindig jelenjen meg a lapsáv"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:106
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:94
 msgid "Defines if the tab bar is always shown."
 msgstr "Meghatározza, hogy a lapsáv mindig megjelenik-e."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:107
-msgid "'icon'"
-msgstr "'icon'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:108
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:95
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:892
 msgid "Tab lock indicator"
 msgstr "Lapzárolás jelző"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:109
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:96
 msgid "Defines the style of the tab lock indicator."
 msgstr "Meghatározza a lapzárolás jelző stílusát."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:110
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:97
 msgid "Case sensitive sorting"
 msgstr "Kis- és nagybetű különbözik"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:111
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:98
 msgid "This option defines if sorting should be case sensitive."
 msgstr ""
-"Ez a beállítás meghatározza, hogy rendezéskor a kis- és nagybetűk megkülönböztetésre "
-"kerülnek-e."
+"Ez a beállítás meghatározza, hogy rendezéskor a kis- és nagybetűk "
+"megkülönböztetésre kerülnek-e."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:112
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:99
 msgid "Select directories when all is marked"
 msgstr "Könyvtárak kijelölése az összes kijelölésekor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:113
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:100
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
@@ -605,19 +553,19 @@ msgstr ""
 "Meghatározza, hogy a könyvtárak is kijelölésre kerülnek-e, amikor az összes "
 "elem kijelölésre kerül a fájlpanelen."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:114
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:101
 msgid "Allow multiple instances"
 msgstr "Több példány engedélyezése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:115
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:102
 msgid "This option defines if multiple instances are allowed."
 msgstr "Ez a beállítás meghatározza, hogy több példány engedélyezett-e."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:116
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:103
 msgid "Quick search exact match begin"
 msgstr "Gyors keresés az elemek kezdetére"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:117
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:104
 msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
@@ -625,11 +573,11 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy a gyors keresés az elemnevek kezdetére "
 "keressen-e."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:118
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:105
 msgid "Quick search exact match end"
 msgstr "Gyors keresés az elemek végére"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:119
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:106
 msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
@@ -637,11 +585,11 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy a gyors keresés az elemnevek végére "
 "keressen-e."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:120
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:107
 msgid "Only device icons"
 msgstr "Csak eszközikonok"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:121
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:108
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
@@ -649,11 +597,11 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy csak az eszközikonok jelenlenek-e meg az "
 "ikonok és a címkék helyett."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:122
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:109
 msgid "Skip device mounting"
 msgstr "Eszközcsatolás kihagyása"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:123
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:110
 msgid ""
 "This option defines if mounting of devices should be skipped when they are "
 "opened."
@@ -661,81 +609,65 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy az eszközök ne kerüljenek csatolásra, "
 "amikor megnyitásra kerülnek."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:124
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:111
 msgid "Main menu visibility"
 msgstr "Főmenü láthatósága"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:125
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:112
 msgid "This option defines if the main menu is visible or not."
 msgstr "Ez a beállítás meghatározza, hogy látható-e a főmenü."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:126
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:113
 msgid "Quick search shortcut"
 msgstr "Gyors keresés gyorsbillentyűje"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:127
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:114
 msgid "This option defines the shortcut for quick search."
 msgstr "Ez a keresés meghatározza a gyors keresés gyorsbillentyűjét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:128
-msgid "'ftp://anonymous@ftp.gnome.org/pub/GNOME/'"
-msgstr "'ftp://anonymous@ftp.gnome.org/pub/GNOME/'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:129
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:115
 msgid "Quick connect URI"
 msgstr "Gyors kapcsolódási URI"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:130
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:116
 msgid "Unified resource identifier for quick connections."
 msgstr "Egységes erőforrás-azonosító a gyors kapcsolatokhoz."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:131
-msgid "'you@provider.com'"
-msgstr "'on@szolgaltato.hu'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:132
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:117
 msgid "Password for anonymous FTP connections"
 msgstr "Jelszó a névtelen FTP kapcsolatokhoz"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:133
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:118
 msgid "This string defines the password for anonymous FTP connections."
 msgstr ""
 "Ez a karakterlánc meghatározza a névtelen FTP kapcsolatokhoz használt "
 "jelszót."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:134
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:119
 msgid "Confirm delete"
 msgstr "Megerősítés törléskor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:135
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:120
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Meghatározza, hogy az elemek törlését meg kell-e erősíteni."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:136
-msgid "'delete'"
-msgstr "'delete'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:137
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:121
 msgid "Delete default"
 msgstr "Alapértelmezés szerint törlés"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:138
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:122
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr ""
-"Ez a beállítás meghatározza az alapértelmezetten aktív választási lehetőséget "
-"a megerősítő párbeszédablakon."
+"Ez a beállítás meghatározza az alapértelmezetten aktív választási "
+"lehetőséget a megerősítő párbeszédablakon."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:139
-msgid "'query'"
-msgstr "'query'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:140
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:123
 msgid "Confirm copy overwrite"
 msgstr "Megerősítés másoláskori felülíráskor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:141
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:124
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -743,11 +675,11 @@ msgstr ""
 "Ez a beállítás meghatározza az alapértelmezett viselkedést, amikor a másolás "
 "parancs felülírást okozna."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:142
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:125
 msgid "Confirm move overwrite"
 msgstr "Megerősítés áthelyezéskori felülíráskor"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:143
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:126
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -755,87 +687,83 @@ msgstr ""
 "Ez a beállítás meghatározza az alapértelmezett viselkedést, amikor az "
 "áthelyezés parancs felülírást okozna."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:144
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:127
 msgid "Confirm mouse drag and drop"
 msgstr "Megerősítés fogd és vidd műveleteknél"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:145
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:128
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr ""
 "Ez a beállítás meghatározza a viselkedést az egér fogd és vidd műveleteinél."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:146
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:129
 msgid "Hide unknown filetypes"
 msgstr "Ismeretlen fájltípusok elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:147
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:130
 msgid "Hide files which type does not match to one of the other types."
 msgstr "A fájlok elrejtése, ha nem egyeznek a típusok egyikével."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:148
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:131
 msgid "Hide regular files"
 msgstr "Szabályos fájlok elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:149
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:132
 msgid "Hide directories"
 msgstr "Könyvtárak elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:150
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:133
 msgid "Hide FIFO pipes"
 msgstr "FIFO csővezetékek elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:151
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:134
 msgid "Hide sockets"
 msgstr "Foglalatok elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:152
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:135
 msgid "Hide character devices"
 msgstr "Karakteres eszközök elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:153
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:136
 msgid "Hide block devices"
 msgstr "Blokkos eszközök elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:154
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:137
 msgid "Hide symbolic links"
 msgstr "Szimbolikus linkek elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:155
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:138
 msgid "Hide files and folders starting with a dot"
 msgstr "Ponttal kezdődő fájlok és mappák elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:156
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:139
 msgid "Hide backup files"
 msgstr "Másolatfájlok elrejtése"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:157
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:140
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
-"Minden olyan fájl elrejtése, amely másolatmintaként meghatározott "
-"utótaggal végződik."
+"Minden olyan fájl elrejtése, amely másolatmintaként meghatározott utótaggal "
+"végződik."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:158
-msgid "'*~;*.bak'"
-msgstr "'*~;*.bak'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:159
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:141
 msgid "Backup file pattern"
 msgstr "Másolatfájl minta"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:160
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:142
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should by filtered out if backup files should by hidden."
 msgstr ""
 "A megadott karakterlánc meghatározza azon utótagokat (pontosvesszővel "
-"elválasztva), amelyeknél a fájlokat ki kell szűrni, ha a másolatfájlokat "
-"el kell rejteni."
+"elválasztva), amelyeknél a fájlokat ki kell szűrni, ha a másolatfájlokat el "
+"kell rejteni."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:161
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:143
 msgid "Do not download files"
 msgstr "Ne töltse le a fájlokat"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:162
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:144
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -843,59 +771,49 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy a távoli fájlok mindig letöltésre "
 "kerüljenek-e, mielőtt egy külső program megnyitná azokat."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:163
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:145
 msgid "Use internal viewer"
 msgstr "Beépített megjelenítő használata"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:164
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:146
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Ez a beállítás meghatározza, hogy a beépített megjelenítő legyen "
 "alapértelmezés szerint használva."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:166
-#, no-c-format
-msgid "'gedit %s'"
-msgstr "'gedit %s'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:167
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:147
 msgid "Viewer command"
 msgstr "Megjelenítő parancs"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:168
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:148
 msgid "This string defines the command for starting the (external) viewer."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot a (külső) megjelenítő "
 "elindításához."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:169
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:149
 msgid "Editor command"
 msgstr "Szerkesztő parancs"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:170
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:150
 msgid "This string defines the command for starting the editor."
 msgstr "Ez a karakterlánc meghatározza a parancsot a szerkesztő elindításához."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:172
-#, no-c-format
-msgid "'meld %s'"
-msgstr "'meld %s'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:173
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:151
 msgid "Differ command"
 msgstr "Összehasonlító parancs"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:174
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:152
 msgid "This string defines the command for starting the diff tool."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot a összehasonlító eszköz "
 "elindításához."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:175
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:153
 msgid "Use gcmd-block for terminal commands"
 msgstr "A gcmd-block használata a terminál parancsokhoz"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:176
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:154
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -903,149 +821,111 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy nyitva maradjon-e a terminálablak a "
 "parancs befejeződése után."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:177
-msgid "'gnome-terminal'"
-msgstr "'gnome-terminal'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:178
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:155
 msgid "Command for opening a terminal"
 msgstr "Parancs a terminál megnyitásához"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:179
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:156
 msgid "This string defines the command for opening a terminal."
 msgstr "Ez a karakterlánc meghatározza a parancsot a terminál elindításához."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:181
-#, no-c-format
-msgid "'gnome-terminal -e %s'"
-msgstr "'gnome-terminal -e %s'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:182
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:157
 msgid "Command for execution in terminal"
 msgstr "A terminálban futtatandó parancs"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:183
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:158
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot egy másik parancs terminálban "
 "történő végrehajtáshoz."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:185
-#, no-c-format
-msgid "'nautilus-sendto %s'"
-msgstr "'nautilus-sendto %s'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:186
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:159
 msgid "Send to command"
 msgstr "Küldés parancs"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:187
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:160
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot egy fogadóhoz történő küldéshez."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:188
-msgid "'green-tiger'"
-msgstr "'green-tiger'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:189
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:161
 msgid "Color theme"
 msgstr "Színséma"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:190
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:162
 msgid "This option defines the current color theme."
 msgstr "Ez a beállítás meghatározza a jelenlegi színsémát."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:191
-msgid "'#ffffffffffff'"
-msgstr "'#ffffffffffff'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:192
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:163
 msgid "Normal foreground color"
 msgstr "Normál előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:193
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:164
 msgid "Normal foreground color in custom mode."
 msgstr "Normál előtérszín egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:194
-msgid "'#000000004444'"
-msgstr "'#000000004444'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:195
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:165
 msgid "Normal background color"
 msgstr "Normál háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:196
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:166
 msgid "Normal background color in custom mode."
 msgstr "Normál háttérszín egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:197
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:167
 msgid "Alternate foreground color"
 msgstr "Alternatív előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:198
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:168
 msgid "Alternate foreground color in custom mode."
 msgstr "Alternatív előtérszín egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:199
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:169
 msgid "Alternate background color"
 msgstr "Alternatív háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:200
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:170
 msgid "Alternate background color in custom mode."
 msgstr "Alternatív háttérszín egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:201
-msgid "'#ffff00000000'"
-msgstr "'#ffff00000000'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:202
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:171
 msgid "Selection foreground color"
 msgstr "Kijelölés előtérszíne"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:203
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:172
 msgid "Foreground color for selections in custom mode."
 msgstr "Kijelölés előtérszíne egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:204
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:173
 msgid "Selection background color"
 msgstr "Kijelölés háttérszíne"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:205
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:174
 msgid "Background color for selections in custom mode."
 msgstr "Kijelölés háttérszíne egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:206
-msgid "'#000000000000'"
-msgstr "'#000000000000'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:207
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:175
 msgid "Cursor foreground color"
 msgstr "Kurzor előtérszíne"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:208
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:176
 msgid "Cursor foreground color in custom mode."
 msgstr "Kurzor előtérszíne egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:209
-msgid "'#aaaaaaaaaaaa'"
-msgstr "'#aaaaaaaaaaaa'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:210
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:177
 msgid "Cursor background color"
 msgstr "Kurzor háttérszíne"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:211
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:178
 msgid "Cursor background color in custom mode."
 msgstr "Kurzor háttérszíne egyéni módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:212
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:179
 msgid "Use LS colors"
 msgstr "LS színek használata"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:213
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:180
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1053,175 +933,155 @@ msgstr ""
 "Ez a beállítás megadja, hogy az LS_COLORS környezeti változó értékét "
 "használja-e a fájlok és mappák színezéséhez."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:214
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:181
 msgid "LS_COLORS black foreground mapping"
 msgstr "LS_COLORS fekete előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:215
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:182
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fekete érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:216
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:183
 msgid "LS_COLORS black background mapping"
 msgstr "LS_COLORS fekete háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:217
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:184
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fekete érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:218
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:185
 msgid "LS_COLORS red foreground mapping"
 msgstr "LS_COLORS vörös előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:219
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:186
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr "Ez a beállítás módosítja az LS_COLORS vörös érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:220
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:187
 msgid "LS_COLORS red background mapping"
 msgstr "LS_COLORS vörös háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:221
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:188
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr "Ez a beállítás módosítja az LS_COLORS vörös érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:222
-msgid "'#0000ffff0000'"
-msgstr "'#0000ffff0000'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:223
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:189
 msgid "LS_COLORS green foreground mapping"
 msgstr "LS_COLORS zöld előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:224
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:190
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr "Ez a beállítás módosítja az LS_COLORS zöld érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:225
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:191
 msgid "LS_COLORS green background mapping"
 msgstr "LS_COLORS zöld háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:226
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:192
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr "Ez a beállítás módosítja az LS_COLORS zöld érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:227
-msgid "'#ffffffff0000'"
-msgstr "'#ffffffff0000'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:228
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:193
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "LS_COLORS sárga előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:229
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:194
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr "Ez a beállítás módosítja az LS_COLORS sárga érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:230
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:195
 msgid "LS_COLORS yellow background mapping"
 msgstr "LS_COLORS sárga háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:231
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:196
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr "Ez a beállítás módosítja az LS_COLORS sárga érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:232
-msgid "'#00000000ffff'"
-msgstr "'#00000000ffff'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:233
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:197
 msgid "LS_COLORS blue foreground mapping"
 msgstr "LS_COLORS kék előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:234
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:198
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr "Ez a beállítás módosítja az LS_COLORS kék érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:235
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:199
 msgid "LS_COLORS blue background mapping"
 msgstr "LS_COLORS kék háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:236
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:200
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr "Ez a beállítás módosítja az LS_COLORS kék érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:237
-msgid "'#ffff0000ffff'"
-msgstr "'#ffff0000ffff'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:238
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:201
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "LS_COLORS bíborvörös előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:239
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:202
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr "Ez a beállítás módosítja az LS_COLORS bíborvörös érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:240
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:203
 msgid "LS_COLORS magenta background mapping"
 msgstr "LS_COLORS bíborvörös háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:241
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:204
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr "Ez a beállítás módosítja az LS_COLORS bíborvörös érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:242
-msgid "'#0000ffffffff'"
-msgstr "'#0000ffffffff'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:243
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:205
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "LS_COLORS ciánkék előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:244
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:206
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr "Ez a beállítás módosítja az LS_COLORS ciánkék érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:245
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:207
 msgid "LS_COLORS cyan background mapping"
 msgstr "LS_COLORS ciánkék háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:246
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:208
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr "Ez a beállítás módosítja az LS_COLORS ciánkék érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:247
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:209
 msgid "LS_COLORS white foreground mapping"
 msgstr "LS_COLORS fehér előtérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:248
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:210
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fehér érték előtérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:249
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:211
 msgid "LS_COLORS white background mapping"
 msgstr "LS_COLORS fehér háttérszín"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:250
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:212
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fehér érték háttérszínét."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:251
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:213
 msgid "Case sensitive search"
 msgstr "Kis- és nagybetű érzékeny keresés"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:252
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:214
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1229,55 +1089,52 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy a beépített megjelenítő keresője "
 "megkülönbözteti-e a kis- és nagybetűket."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:253
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:215
 msgid "Search mode"
 msgstr "Keresési mód"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:254
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:216
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Ez a beállítás meghatározza a beépített megjelenítő keresési módját."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:255
+#. Translators: This is the default string of encoding used by the internal viewer
+#. for displaying the file in the given encoding. You may want to customize it by using
+#. an encoding that is common in your country.
+#. See https://git.gnome.org/browse/gnome-commander/tree/src/intviewer/viewer-window.cc#n781 for
+#. a list of supported encodings.
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:222
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:256
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:223
 msgid "Character set"
 msgstr "Karakterkészlet"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:257
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:224
 msgid "This option defines the default character encoding."
 msgstr "Ez a beállítás meghatározza az alapértelmezett karakterkészletet."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:258
-msgid "'Monospace'"
-msgstr "'Monospace'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:259
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:225
 msgid "Fixed font name"
 msgstr "Rögzített szélességű betűkészlet"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:260
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:226
 msgid "Name of the default font with fixed character width."
 msgstr "Az alapértelmezett rögzített szélességű betűkészlet neve"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:261
-msgid "'Sans'"
-msgstr "'Sans'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:262
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:227
 msgid "Variable font name"
 msgstr "Változó szélességű betűkészlet"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:263
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:228
 msgid "Name of the default font with variable character width."
 msgstr "Az alapértelmezett változó szélességű betűkészlet neve"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:264
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:229
 msgid "Display hex offset"
 msgstr "Alapértelmezett hexa eltolás"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:265
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:230
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1285,37 +1142,29 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy megjelenjen-e a hexadecimális eltolás hexa "
 "módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:266
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:231
 msgid "Wrap mode"
 msgstr "Tördelés módja"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:267
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:232
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Ez a beállítás meghatározza, hogy a túl hosszú szövegű sorokat kell-e "
 "tördelni."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:268
-msgid "12"
-msgstr "12"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:269
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:233
 msgid "Font size"
 msgstr "Betűméret"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:270
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:234
 msgid "This option defines the default font size."
 msgstr "Ez a beállítás meghatározza az alapértelmezett betűméretet."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:271
-msgid "8"
-msgstr "8"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:272
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:235
 msgid "Tab size"
 msgstr "Tabulátor mérete"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:273
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:236
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1323,15 +1172,11 @@ msgstr ""
 "Ez a beállítás meghatározza a tabulátor karakter behúzási szélességét "
 "karakterekben."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:274
-msgid "80"
-msgstr "80"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:275
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:237
 msgid "Bytes per line in binary mode"
 msgstr "Bájtok száma soronként bináris módban"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:276
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:238
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1339,15 +1184,11 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy hány bájt jelenjen meg egy sorban bináris "
 "módban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:277
-msgid "20"
-msgstr "20"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:278
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:239
 msgid "Horizontal offset"
 msgstr "Vízszintes eltolás"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:279
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:240
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1355,11 +1196,11 @@ msgstr ""
 "Ez a beállítás meghatározza a beépített fájlmegjelenítő megjelenített "
 "eltolását vízszintes irányban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:280
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:241
 msgid "Vertical offset"
 msgstr "Függőleges eltolás"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:281
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:242
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1367,35 +1208,27 @@ msgstr ""
 "Ez a beállítás meghatározza a beépített fájlmegjelenítő megjelenített "
 "eltolását függőleges irányban."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:282
-msgid "400"
-msgstr "400"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:283
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:243
 msgid "Window width"
 msgstr "Ablakszélesség"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:284
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:244
 msgid "The width of the internal file viewer window."
 msgstr "A beépített fájlmegjelenítő ablak szélessége."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:285
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:245
 msgid "Window height"
 msgstr "Ablakmagasság"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:286
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:246
 msgid "The height of the internal file viewer window."
 msgstr "A beépített fájlmegjelenítő ablak magassága."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:287
-msgid "[]"
-msgstr "[]"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:288
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:247
 msgid "Search pattern for text"
 msgstr "Szöveg keresési mintája"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:289
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:248
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1403,11 +1236,11 @@ msgstr ""
 "Ez a karakterlánctömb tárolja a szöveges keresések előzményeit a beépített "
 "fájlmegjelenítőben."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:290
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:249
 msgid "Search pattern for hex values"
 msgstr "Keresési minta hexa értékekhez"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:291
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:250
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1415,25 +1248,21 @@ msgstr ""
 "Ez a karakterlánctömb tárolja a hexa értékek keresési előzményeit a "
 "beépített fájlmegjelenítőben."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:292
-msgid "'.zip'"
-msgstr "'.zip'"
-
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:293
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:251
 msgid "File suffix"
 msgstr "Fájlutótag"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:294
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:252
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Az alapértelmezett utótag az Archívumkezelő bővítménnyel létrehozott "
 "fájlokhoz."
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:295
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:253
 msgid "Automatically loaded plugins"
 msgstr "Automatikusan betöltött bővítmények"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:296
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:254
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1791,7 +1620,7 @@ msgid "Delete"
 msgstr "Törlés"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:880
+#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:883
 #: ../src/utils.cc:525 ../src/utils.cc:553
 msgid "Cancel"
 msgstr "Mégse"
@@ -3446,11 +3275,11 @@ msgstr "NagyKezdőBetűk"
 msgid "Waiting for file list"
 msgstr "Várakozás a fájllistára"
 
-#: ../src/gnome-cmd-dir-indicator.cc:437
+#: ../src/gnome-cmd-dir-indicator.cc:436
 msgid "Add current dir"
 msgstr "Jelenlegi könyvtár hozzáadása"
 
-#: ../src/gnome-cmd-dir-indicator.cc:438
+#: ../src/gnome-cmd-dir-indicator.cc:437
 msgid "Manage bookmarks..."
 msgstr "Könyvjelzők kezelése…"
 
@@ -3638,7 +3467,7 @@ msgid "%s free"
 msgstr "%s szabad"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
-#: ../src/gnome-cmd-user-actions.cc:1671 ../src/gnome-cmd-user-actions.cc:1679
+#: ../src/gnome-cmd-user-actions.cc:1674 ../src/gnome-cmd-user-actions.cc:1682
 msgid "The tab is locked, close anyway?"
 msgstr "A lap zárolva van, mindenképp bezárja?"
 
@@ -3687,7 +3516,7 @@ msgid "Symbolic link name:"
 msgstr "Szimbolikus link neve:"
 
 #: ../src/gnome-cmd-file-selector.cc:1277
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:880
+#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:883
 msgid "Create Symbolic Link"
 msgstr "Szimbolikus link létrehozása"
 
@@ -4328,70 +4157,70 @@ msgstr "Terminál megjelenítése"
 msgid "Display main menu"
 msgstr "Főmenü megjelenítése"
 
-#: ../src/gnome-cmd-user-actions.cc:798 ../src/gnome-cmd-user-actions.cc:943
-#: ../src/gnome-cmd-user-actions.cc:1172
+#: ../src/gnome-cmd-user-actions.cc:801 ../src/gnome-cmd-user-actions.cc:946
+#: ../src/gnome-cmd-user-actions.cc:1175
 msgid "No valid command given."
 msgstr "Nem adott meg érvényes parancsot."
 
-#: ../src/gnome-cmd-user-actions.cc:810 ../src/gnome-cmd-user-actions.cc:954
-#: ../src/gnome-cmd-user-actions.cc:1185 ../src/gnome-cmd-user-actions.cc:1224
+#: ../src/gnome-cmd-user-actions.cc:813 ../src/gnome-cmd-user-actions.cc:957
+#: ../src/gnome-cmd-user-actions.cc:1188 ../src/gnome-cmd-user-actions.cc:1227
 #: ../src/utils.cc:137
 msgid "Unable to execute command."
 msgstr "A parancs nem hajtható végre."
 
-#: ../src/gnome-cmd-user-actions.cc:875
+#: ../src/gnome-cmd-user-actions.cc:878
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Létrehoz szimbolikus linkeket a(z) %i fájlra a(z) %s könyvtárban?"
 msgstr[1] "Létrehoz szimbolikus linkeket a(z) %i fájlra a(z) %s könyvtárban?"
 
-#: ../src/gnome-cmd-user-actions.cc:880
+#: ../src/gnome-cmd-user-actions.cc:883
 msgid "Create"
 msgstr "Létrehozás"
 
-#: ../src/gnome-cmd-user-actions.cc:971 ../src/gnome-cmd-user-actions.cc:988
-#: ../src/gnome-cmd-user-actions.cc:1027
+#: ../src/gnome-cmd-user-actions.cc:974 ../src/gnome-cmd-user-actions.cc:991
+#: ../src/gnome-cmd-user-actions.cc:1030
 msgid "Operation not supported on remote file systems"
 msgstr "A művelet nem támogatott távoli fájlrendszeren"
 
-#: ../src/gnome-cmd-user-actions.cc:1003
+#: ../src/gnome-cmd-user-actions.cc:1006
 msgid "Too many selected files"
 msgstr "Túl sok fájl van kijelölve"
 
-#: ../src/gnome-cmd-user-actions.cc:1257
+#: ../src/gnome-cmd-user-actions.cc:1260
 msgid "Unable to open terminal in root mode."
 msgstr "Nem nyitható meg a terminál rendszergazda módban."
 
-#: ../src/gnome-cmd-user-actions.cc:1262
+#: ../src/gnome-cmd-user-actions.cc:1265
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu vagy beesu nem található."
 
-#: ../src/gnome-cmd-user-actions.cc:1281
+#: ../src/gnome-cmd-user-actions.cc:1284
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "A GNOME Commander nem indítható el rendszergazdai módban."
 
-#: ../src/gnome-cmd-user-actions.cc:1284
+#: ../src/gnome-cmd-user-actions.cc:1287
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu vagy beesu nem található"
 
-#: ../src/gnome-cmd-user-actions.cc:1876
+#: ../src/gnome-cmd-user-actions.cc:1879
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
-#: ../src/gnome-cmd-user-actions.cc:1980 ../src/gnome-cmd-user-actions.cc:1983
+#: ../src/gnome-cmd-user-actions.cc:1983 ../src/gnome-cmd-user-actions.cc:1986
 msgid "There was an error opening home page."
 msgstr "Hiba történt a honlap megnyitása közben."
 
-#: ../src/gnome-cmd-user-actions.cc:1994 ../src/gnome-cmd-user-actions.cc:1997
+#: ../src/gnome-cmd-user-actions.cc:1997 ../src/gnome-cmd-user-actions.cc:2000
 msgid "There was an error reporting problem."
 msgstr "Hiba történt a probléma jelentése közben."
 
-#: ../src/gnome-cmd-user-actions.cc:2024
+#: ../src/gnome-cmd-user-actions.cc:2027
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Gyors és hatékony fájlkezelő a GNOME asztali környezethez"
 
-#: ../src/gnome-cmd-user-actions.cc:2028
+#: ../src/gnome-cmd-user-actions.cc:2031
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4402,7 +4231,7 @@ msgstr ""
 "Software Foundation által kiadott GNU General Public License második (vagy "
 "bármely későbbi) változatában foglaltak alapján."
 
-#: ../src/gnome-cmd-user-actions.cc:2032
+#: ../src/gnome-cmd-user-actions.cc:2035
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4414,7 +4243,7 @@ msgstr ""
 "program alkalmas-e a KÖZREADÁSRA vagy EGY BIZONYOS FELADAT ELVÉGZÉSÉRE. "
 "További részletekért tanulmányozza a GNU GPL licencet."
 
-#: ../src/gnome-cmd-user-actions.cc:2036
+#: ../src/gnome-cmd-user-actions.cc:2039
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4424,7 +4253,7 @@ msgstr ""
 "jár, ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. "
 "Levélcímük: 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:2053
+#: ../src/gnome-cmd-user-actions.cc:2056
 msgid "translator-credits"
 msgstr ""
 "Csimbi <csimbi@gmail.com>\n"
@@ -9105,193 +8934,3 @@ msgstr "Nem lehet olvasni a(z) %s könyvtárból: %s"
 #: ../src/utils.h:287
 msgid "There was an error displaying help."
 msgstr "Hiba történt a súgó megjelenítése közben."
-
-#~ msgid "Document icon directory:"
-#~ msgstr "Dokumentum ikon könyvtár:"
-
-#~ msgid "Switch to Vertical Layout"
-#~ msgstr "Váltás függőleges elrendezésre"
-
-#~ msgid "Switch to Horizontal Layout"
-#~ msgstr "Váltás vízszintes elrendezésre"
-
-#~ msgid "Open this _folder"
-#~ msgstr "Ezen _mappa megnyitása"
-
-#~ msgid "Open folder"
-#~ msgstr "Mappa megnyitása"
-
-#~ msgid "Unable to start Nautilus."
-#~ msgstr "A Nautilus nem indítható el."
-
-#~ msgid "_Password:"
-#~ msgstr "_Jelszó:"
-
-#~ msgid "Use _GNOME Keyring Manager for authentication"
-#~ msgstr "A _GNOME kulcskezelő használata a hitelesítéshez"
-
-#~ msgid "Save password in GNOME keyring"
-#~ msgstr "Jelszó mentése a GNOME kulcstartóra"
-
-#~ msgid "CVS options"
-#~ msgstr "CVS beállítások"
-
-#~ msgid "Compression level"
-#~ msgstr "Tömörítési szint"
-
-#~ msgid "Unified diff format"
-#~ msgstr "Egységesített diff formátum"
-
-#~ msgid "A plugin that eventually will be a simple CVS client"
-#~ msgstr "Egy bővítmény, ami egy egyszerű CVS kliensként használható"
-
-#~ msgid "Compare with"
-#~ msgstr "Összehasonlítás ezzel"
-
-#~ msgid "HEAD"
-#~ msgstr "HEAD"
-
-#~ msgid "The previous revision"
-#~ msgstr "Az előző revízió"
-
-#~ msgid "Other revision"
-#~ msgstr "Más revízió"
-
-#~ msgid "CVS Diff"
-#~ msgstr "CVS Diff"
-
-#~ msgid "revision"
-#~ msgstr "revízió"
-
-#~ msgid "Revision:"
-#~ msgstr "Revízió:"
-
-#~ msgid "Compare..."
-#~ msgstr "Összehasonlítás…"
-
-#~ msgid "Author:"
-#~ msgstr "Szerző:"
-
-#~ msgid "Date:"
-#~ msgstr "Dátum:"
-
-#~ msgid "State:"
-#~ msgstr "Állapot:"
-
-#~ msgid "Lines:"
-#~ msgstr "Sorok:"
-
-#~ msgid "Message:"
-#~ msgstr "Üzenet:"
-
-#~ msgid "_Change"
-#~ msgstr "_Módosítás"
-
-#~ msgid "_MIME Types..."
-#~ msgstr "_MIME-típusok…"
-
-#~ msgid "_Contents"
-#~ msgstr "_Tartalom"
-
-#~ msgid "MIME types"
-#~ msgstr "MIME-típusok"
-
-#~ msgid "path"
-#~ msgstr "Hivatkozás"
-
-#~ msgid "_Remote dir:"
-#~ msgstr "_Távoli kvt:"
-
-#~ msgid "Other..."
-#~ msgstr "Egyéb..."
-
-#~ msgid "F10 Quit"
-#~ msgstr "F10 Kilép"
-
-#~ msgid "Shell syntax"
-#~ msgstr "Shell szintaxis"
-
-#~ msgid "Regex syntax"
-#~ msgstr "Regex szintaxis"
-
-#~ msgid "Sorting options"
-#~ msgstr "Rendezési beállítások"
-
-#~ msgid "_Test"
-#~ msgstr "_Teszt"
-
-#~ msgid "Authentication"
-#~ msgstr "Hitelesítés"
-
-#~ msgid "Use GNOME Keyring Manager for authentication"
-#~ msgstr "A GNOME Kulcskezelő használata a hitelesítéshez"
-
-#~ msgid "Anonymous FTP access"
-#~ msgstr "Anonymous FTP hozzáférés"
-
-#~ msgid "Password:"
-#~ msgstr "Jelszó:"
-
-#~ msgid "Network"
-#~ msgstr "Hálózat"
-
-#~ msgid "GNOME authentication manager usage"
-#~ msgstr "GNOME hitelesítés kezelő használata"
-
-#~ msgid "_Limited depth"
-#~ msgstr "K_orlátozott mélység"
-
-#~ msgid "Failed to open file %s: %s\n"
-#~ msgstr "Hiba a(z) %s fájl megnyitása közben: %s\n"
-
-#~ msgid "Search _in: "
-#~ msgstr "_Ebben a könyvtárban: "
-
-#~ msgid "Search _recursively"
-#~ msgstr "_Rekurzív keresés"
-
-#~ msgid "_Go to"
-#~ msgstr "U_grás"
-
-#~ msgid "Enter password"
-#~ msgstr "Írja be a jelszót"
-
-#~ msgid ""
-#~ "Problem: access not permitted\n"
-#~ "\n"
-#~ "please supply user credentials\n"
-#~ "\n"
-#~ "Remember: wrong credentials may lead to account locking"
-#~ msgstr ""
-#~ "Probléma: hozzáférés nem engedélyezett\n"
-#~ "\n"
-#~ "adja meg a felhasználó adatait\n"
-#~ "\n"
-#~ "Emlékeztetőül: rossz adatok megadása fiók zárolásához vezethet"
-
-#~ msgid "Can't find a host or workgroup named %s\n"
-#~ msgstr "Nem található a(z) %s nevű kiszolgáló vagy munkacsoport\n"
-
-#~ msgid "running `%s'\n"
-#~ msgstr "`%s' futtatása\n"
-
-#~ msgid ""
-#~ "The file \"%s\" already exists.\n"
-#~ "\n"
-#~ "Do you want to overwrite it?\n"
-#~ msgstr ""
-#~ "A(z) „%s” fájl már létezik.\n"
-#~ "\n"
-#~ "Felülírja?\n"
-
-#~ msgid "Trying to load %s instead\n"
-#~ msgstr "Megpróbálom betölteni %s-t helyette\n"
-
-#~ msgid ""
-#~ "No default application found for the MIME type %s.\n"
-#~ "Open the \"File types and programs\" page in the Control Center to add "
-#~ "one."
-#~ msgstr ""
-#~ "A(z) %s MIME-típushoz nincs program hozzárendelve.\n"
-#~ "Nyissa meg a „Fájltípusok és programok” oldalt a Vezérlőközpontban és "
-#~ "rendeljen hozzá egyet."
