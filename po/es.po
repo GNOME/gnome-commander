@@ -8,14 +8,14 @@
 # Lorenzo nunez <lorenzo.nunez@gmail.com>, 2007.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2009, 2010, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015., 2016.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2016-08-25 21:13+0000\n"
+"POT-Creation-Date: 2016-08-26 07:05+0000\n"
 "PO-Revision-Date: 2016-08-26 09:03+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
@@ -62,13 +62,10 @@ msgstr ""
 "especiales y ejecutando comandos inteligentes."
 
 #: ../data/gnome-commander.appdata.xml.in.h:5
-#| msgid "filemanager"
 msgid "file manager"
 msgstr "gestor de archivos"
 
 #: ../data/gnome-commander.appdata.xml.in.h:6
-#| msgid "%d file listed"
-#| msgid_plural "%d files listed"
 msgid "file system"
 msgstr "sistema de archivos"
 
@@ -96,16 +93,10 @@ msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "archivo;gestor;carpeta;explorar;disco;sistema;archivos;"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:1
-#| msgid "Use Default Font"
 msgid "Use default font"
 msgstr "Usar tipografía predeterminada"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:2
-#| msgid ""
-#| "Whether to use the system's default fixed width font for the file panels "
-#| "instead of a font specific to gnome-commander. If this option is turned "
-#| "off, then the font named in the \"File panes\" option will be used "
-#| "instead of the system font."
 msgid ""
 "Whether to use the system's default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
@@ -114,14 +105,10 @@ msgstr ""
 "paneles de archivos en lugar de una tipografía específica de gnome-commander."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:3
-#| msgid "Panel Font"
 msgid "Panel font"
 msgstr "Tipografía del panel"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:4
-#| msgid ""
-#| "A custom font that will be used for the file panes. This will only take "
-#| "effect if the \"Use Default Font\" option is turned off."
 msgid ""
 "A custom font that will be used for the file panes if the \"Use default font"
 "\" option is turned off."
@@ -204,12 +191,10 @@ msgid "Defines where the file name extension is displayed."
 msgstr "Define si se muestra la extensión del nombre del archivo."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:23
-#| msgid "Left mouse button"
 msgid "Left mouse button mode"
 msgstr "Modo del botón izquierdo del ratón"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:24
-#| msgid "Number of clicks for opening a file or folder."
 msgid "Number of left mouse button clicks for opening a file or folder."
 msgstr ""
 "Número de pulsaciones con el botón izquierdo para abrir un archivo o carpeta."
@@ -1552,8 +1537,7 @@ msgstr "«%s» no es un lugar válido"
 msgid "Please check spelling and try again."
 msgstr "Compruebe la ortografía y pruebe de nuevo."
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:425
-#: ../src/gnome-cmd-main-win.cc:1188
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:425 ../src/gnome-cmd-main-win.cc:1188
 msgid "Remote Server"
 msgstr "Servidor remoto"
 
@@ -4272,12 +4256,12 @@ msgstr ""
 #: ../src/gnome-cmd-user-actions.cc:2039
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+"GNOME Commander; if not, write to the Free Software Foundation, Inc, 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 "Debistó haber recibido una copia de GNU Licencia Publica General junto con "
 "GNOME Commander, en caso contrario por favor escriba a la Free Software "
-"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
+"Foundation, Inc, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
 #: ../src/gnome-cmd-user-actions.cc:2056
@@ -5475,7 +5459,7 @@ msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
 "claiming rights to the image. The Interoperability copyright statement "
-"including date and rights should be written in this field; e.g., "
+"including date and rights should be written in this field; e.g, "
 "\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
 "both the photographer and editor copyrights, with each recorded in a "
 "separate part of the statement. When there is a clear distinction between "
