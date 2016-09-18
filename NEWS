@@ -3,6 +3,25 @@ gnome-commander 1.4.9
 ---------------
 Bug fixes:
  * Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to Anders Jonsson)
+ * New or updated translations:
+       cs (Marek Černocký)
+       de (Mario Blättermann)
+       es (Daniel Mustieles)
+       hu (Balázs Meskó)
+       hu (Balázs Úr)
+       hu (Gábor Kelemen)
+       id (Andika Triwidada)
+       pl (Piotr Drąg)
+       pt (Tiago Santos)
+       ro (Jobava)
+       sk (Dušan Kazik)
+       sr (Мирослав Николић)
+       sr@latin (Мирослав Николић)
+       sv (Anders Jonsson)
+* New or updated docs:
+       cs (Marek Černocký)
+       de (Mario Blättermann)
+       es (Daniel Mustieles)
 
 ===================================
 gnome-commander 1.4.8

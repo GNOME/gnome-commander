@@ -24,13 +24,19 @@
     <tbody>
         <row valign="top">
             <entry><para>1.4.9</para></entry>
-            <entry><para>2016-??-??</para></entry>
+            <entry><para>2016-09-18</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
                             <para>Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to Anders Jonsson)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, de, es, hu, hu, hu, id, pl, pt, ro, sk, sr, sr@latin, sv</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>
