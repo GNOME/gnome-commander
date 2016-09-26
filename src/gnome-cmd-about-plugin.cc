@@ -146,6 +146,8 @@ static void gnome_cmd_about_plugin_update_translation_information_label (GnomeCm
     g_string_append (string, tmp);
     g_free (tmp);
 
+    g_string_append_c (string, '\n');
+
     gtk_label_set_markup (GTK_LABEL (label), string->str);
     g_string_free (string, TRUE);
 }
@@ -732,8 +734,8 @@ void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
                   "version", version,
                   "copyright", copyright,
                   "comments", comments,
-                  "authors", authors_array,
-                  "documenters", documenters_array,
+//                  "authors", authors_array,
+//                  "documenters", documenters_array,
                   "translator_credits", translator_credits,
                   "webpage", webpage,
                   NULL);

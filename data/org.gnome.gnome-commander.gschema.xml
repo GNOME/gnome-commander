@@ -882,6 +882,13 @@
             Default file suffix of archives created with the File Roller plugin.
         </description>
     </key>
+    <key name="prefix-pattern" type="s">
+        <default>'$N'</default>
+        <summary>Prefix pattern</summary>
+        <description>
+            The prefix pattern is used to build up the name for an archive created with the File Roller plugin.
+        </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.plugins.general" path="/org/gnome/gnome-commander/plugins/general/">
     <key name="autoload" type="as">
