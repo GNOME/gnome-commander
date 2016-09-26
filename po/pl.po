@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-08 23:59+0200\n"
-"PO-Revision-Date: 2016-09-09 00:00+0200\n"
+"POT-Creation-Date: 2016-09-27 01:27+0200\n"
+"PO-Revision-Date: 2016-09-27 01:28+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1238,10 +1238,22 @@ msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Domyślny przyrostek archiwów tworzonych za pomocą wtyczki File Roller."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:253
+msgid "Prefix pattern"
+msgstr "Wzorzec przedrostka"
+
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:254
+msgid ""
+"The prefix pattern is used to build up the name for an archive created with "
+"the File Roller plugin."
+msgstr ""
+"Wzorzec przedrostka używany do tworzenia nazw archiwów tworzonych za pomocą "
+"wtyczki File Roller."
+
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:255
 msgid "Automatically loaded plugins"
 msgstr "Automatycznie wczytywane wtyczki"
 
-#: ../data/org.gnome.gnome-commander.gschema.xml.h:254
+#: ../data/org.gnome.gnome-commander.gschema.xml.h:256
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1253,30 +1265,36 @@ msgstr ""
 msgid "No error description available"
 msgstr "Brak opisu błędu"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:247
+#: ../plugins/fileroller/file-roller-plugin.cc:310
 msgid "What file name should the new archive have?"
 msgstr "Nazwa pliku dla nowego archiwum?"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:249
+#: ../plugins/fileroller/file-roller-plugin.cc:312
 msgid "Create Archive"
 msgstr "Utwórz archiwum"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:350
+#: ../plugins/fileroller/file-roller-plugin.cc:420
 msgid "Create Archive..."
 msgstr "Utwórz archiwum…"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:362
+#: ../plugins/fileroller/file-roller-plugin.cc:432
 msgid "Extract in Current Directory"
 msgstr "Rozpakuj w bieżącym katalogu"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:369
-#: ../plugins/fileroller/file-roller-plugin.cc:379
+#: ../plugins/fileroller/file-roller-plugin.cc:439
+#: ../plugins/fileroller/file-roller-plugin.cc:449
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Rozpakuj do „%s”"
 
+#: ../plugins/fileroller/file-roller-plugin.cc:499
+#: ../src/gnome-cmd-advrename-profile-component.cc:918
+#: ../src/plugin_manager.cc:406 ../src/tags/gnome-cmd-tags.cc:686
+msgid "File"
+msgstr "Plik"
+
 #. destroy model automatically with view
-#: ../plugins/fileroller/file-roller-plugin.cc:416
+#: ../plugins/fileroller/file-roller-plugin.cc:516
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:358
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1406
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2057
@@ -1287,15 +1305,33 @@ msgstr "Rozpakuj do „%s”"
 msgid "Options"
 msgstr "Opcje"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:428
+#: ../plugins/fileroller/file-roller-plugin.cc:528
 msgid "File-roller options"
 msgstr "Opcje programu File Roller"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:431
-msgid "Default type"
-msgstr "Typ domyślny"
+#: ../plugins/fileroller/file-roller-plugin.cc:531
+msgid "Default archive type"
+msgstr "Domyślny typ archiwum"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:542
+#. The pattern defining the file name prefix of the archive to be created
+#: ../plugins/fileroller/file-roller-plugin.cc:539
+msgid "File prefix pattern"
+msgstr "Wzorzec przedrostka plików"
+
+#: ../plugins/fileroller/file-roller-plugin.cc:550
+#: ../src/dialogs/gnome-cmd-options-dialog.cc:357
+msgid "Test result:"
+msgstr "Wynik testu:"
+
+#: ../plugins/fileroller/file-roller-plugin.cc:557
+msgid ""
+"Use $N as a pattern for the original file name. See the manual page for "
+"\"strftime\" for other patterns."
+msgstr ""
+"$N jest wzorcem oryginalnej nazwy pliku. Strona podręcznika „strftime” "
+"zawiera inne wzorce."
+
+#: ../plugins/fileroller/file-roller-plugin.cc:708
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1715,7 +1751,7 @@ msgstr "Przestrzeń nazw metadanych"
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:630
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:260
 #: ../src/dialogs/gnome-cmd-remote-dialog.cc:371
-#: ../src/intviewer/viewer-window.cc:1510 ../src/plugin_manager.cc:405
+#: ../src/intviewer/viewer-window.cc:1510 ../src/plugin_manager.cc:404
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Name"
 msgstr "Nazwa"
@@ -2074,10 +2110,6 @@ msgstr "Ósemkowo (644)"
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:346
 msgid "Format:"
 msgstr "Format:"
-
-#: ../src/dialogs/gnome-cmd-options-dialog.cc:357
-msgid "Test result:"
-msgstr "Wynik testu:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:364
 msgid ""
@@ -2795,31 +2827,31 @@ msgstr "Wyłączony"
 msgid "New accelerator..."
 msgstr "Nowy skrót…"
 
-#: ../src/gnome-cmd-about-plugin.cc:178
+#: ../src/gnome-cmd-about-plugin.cc:180
 msgid "Credits"
 msgstr "Twórcy"
 
-#: ../src/gnome-cmd-about-plugin.cc:205
+#: ../src/gnome-cmd-about-plugin.cc:207
 msgid "Written by"
 msgstr "Autorzy"
 
-#: ../src/gnome-cmd-about-plugin.cc:218
+#: ../src/gnome-cmd-about-plugin.cc:220
 msgid "Documented by"
 msgstr "Dokumentacja"
 
-#: ../src/gnome-cmd-about-plugin.cc:231
+#: ../src/gnome-cmd-about-plugin.cc:233
 msgid "Translated by"
 msgstr "Tłumaczenie"
 
-#: ../src/gnome-cmd-about-plugin.cc:285
+#: ../src/gnome-cmd-about-plugin.cc:287
 msgid "Plugin Webpage"
 msgstr "Strona domowa wtyczki"
 
-#: ../src/gnome-cmd-about-plugin.cc:297
+#: ../src/gnome-cmd-about-plugin.cc:299
 msgid "C_redits"
 msgstr "_Twórcy"
 
-#: ../src/gnome-cmd-about-plugin.cc:499
+#: ../src/gnome-cmd-about-plugin.cc:501
 #, c-format
 msgid "About %s"
 msgstr "O wtyczce „%s”"
@@ -2980,11 +3012,6 @@ msgstr "_Szablon"
 #: ../src/gnome-cmd-file.cc:593
 msgid "Directory"
 msgstr "Katalog"
-
-#: ../src/gnome-cmd-advrename-profile-component.cc:918
-#: ../src/plugin_manager.cc:407 ../src/tags/gnome-cmd-tags.cc:686
-msgid "File"
-msgstr "Plik"
 
 #: ../src/gnome-cmd-advrename-profile-component.cc:919
 #: ../src/gnome-cmd-advrename-profile-component.cc:931
@@ -3699,7 +3726,7 @@ msgstr "_Witryna programu GNOME Commander"
 msgid "Report a _Problem"
 msgstr "Zgłoś p_roblem"
 
-#: ../src/gnome-cmd-main-menu.cc:751 ../src/plugin_manager.cc:421
+#: ../src/gnome-cmd-main-menu.cc:751 ../src/plugin_manager.cc:420
 msgid "_About"
 msgstr "_O programie"
 
@@ -4344,14 +4371,14 @@ msgstr "skopiowano %s z %s"
 msgid "%.0f%% copied"
 msgstr "skopiowano %.0f%%"
 
-#: ../src/imageloader.cc:111
+#: ../src/imageloader.cc:109
 #, c-format
 msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgstr ""
 "Nie można wczytać zainstalowanego pliku typu mapa pikseli, próbowanie "
 "wczytania %s zamiast tego"
 
-#: ../src/imageloader.cc:115 ../src/imageloader.cc:139
+#: ../src/imageloader.cc:113 ../src/imageloader.cc:137
 #, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
@@ -4361,7 +4388,7 @@ msgstr ""
 "zainstalowany, i że gnome-commander jest uruchamiany z katalogu gnome-"
 "commander-%s/src"
 
-#: ../src/imageloader.cc:136
+#: ../src/imageloader.cc:134
 #, c-format
 msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgstr ""
@@ -4552,27 +4579,27 @@ msgstr "Podaje katalog plików konfiguracji"
 msgid "File Manager"
 msgstr "Menedżer plików"
 
-#: ../src/plugin_manager.cc:337
+#: ../src/plugin_manager.cc:336
 msgid "Disable"
 msgstr "Wyłącz"
 
-#: ../src/plugin_manager.cc:337
+#: ../src/plugin_manager.cc:336
 msgid "Enable"
 msgstr "Włącz"
 
-#: ../src/plugin_manager.cc:399
+#: ../src/plugin_manager.cc:398
 msgid "Available plugins"
 msgstr "Dostępne wtyczki"
 
-#: ../src/plugin_manager.cc:406
+#: ../src/plugin_manager.cc:405
 msgid "Version"
 msgstr "Wersja"
 
-#: ../src/plugin_manager.cc:412
+#: ../src/plugin_manager.cc:411
 msgid "_Enable"
 msgstr "_Włącz"
 
-#: ../src/plugin_manager.cc:416
+#: ../src/plugin_manager.cc:415
 msgid "_Configure"
 msgstr "_Konfiguruj"
 
@@ -8182,7 +8209,7 @@ msgstr "Źródło"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid "The original owner of the intellectual content of the object."
-msgstr "Początkowy właściciel intelektualnej treści obiektu."
+msgstr "Oryginalny właściciel intelektualnej treści obiektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "Special Instructions"
