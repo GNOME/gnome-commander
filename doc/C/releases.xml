@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.6.0</para></entry>
-            <entry><para>2016-??-??</para></entry>
+            <entry><para>2016-10-04</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -93,6 +93,9 @@
                         </listitem>
                         <listitem>
                             <para>Devices and fav-apps are now stored within the GKeyFile format</para>
+                        </listitem>
+                        <listitem>
+                            <para>File Roller plugin can use patterns of strftime when creating the archive name</para>
                         </listitem>
                         <listitem>
                             <para>Started usage of google test framework for unit tests</para>

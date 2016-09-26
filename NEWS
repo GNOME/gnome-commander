@@ -25,6 +25,7 @@ New features:
  * Write bookmark changes immediately to file, Sync bookmarks between all instances (Thanks to Puux)
  * Storage of options is done in the dconf database now instead of a gnome-config file (see bgo#570733)
  * Devices and fav-apps are now stored within the GKeyFile format
+ * File Roller plugin can use patterns of strftime when creating the archive name
  * Started usage of google test framework for unit tests
  * New colour theme 'Winter'
  * Code cleanup
