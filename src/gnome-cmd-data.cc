@@ -2189,6 +2189,13 @@ static gboolean load_devices_old (const gchar *fname)
     string line;
     int i = 0;
 
+    //Device file does not exist
+    if(f.fail())
+    {
+        g_free (path);
+        return FALSE;
+    }
+
     while (getline(f,line))
     {
         /* Is the file using the new storage format? If yes, stop here
@@ -2225,6 +2232,7 @@ static gboolean load_devices_old (const gchar *fname)
 
     load_vfs_auto_devices ();
     save_devices_old ("devices.deprecated");
+    save_devices ("devices");
     return TRUE;
 }
 
