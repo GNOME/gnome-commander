@@ -1542,46 +1542,52 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
  */
 inline void save_devices (const gchar *fname)
 {
+    GList *devices;
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
 
-    for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
+    devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list);
+
+    if (devices)
     {
-        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (i->data);
-        if (device && !gnome_cmd_con_device_get_autovol (device))
+        for (; devices; devices = devices->next)
         {
-            gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
+            GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
+            if (device && !gnome_cmd_con_device_get_autovol (device))
+            {
+                gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
 
-            gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
-            if (device_fn && device_fn[0] != '\0')
-                device_fn = gnome_vfs_escape_path_string (device_fn);
-            else
-                device_fn = g_strdup ("x");
+                gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
+                if (device_fn && device_fn[0] != '\0')
+                    device_fn = gnome_vfs_escape_path_string (device_fn);
+                else
+                    device_fn = g_strdup ("x");
 
-            gchar *mountp = gnome_vfs_escape_path_string (gnome_cmd_con_device_get_mountp (device));
+                gchar *mountp = gnome_vfs_escape_path_string (gnome_cmd_con_device_get_mountp (device));
 
-            gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
-            if (icon_path && icon_path[0] != '\0')
-                icon_path = gnome_vfs_escape_path_string (icon_path);
-            else
-                icon_path = g_strdup ("x");
+                gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
+                if (icon_path && icon_path[0] != '\0')
+                    icon_path = gnome_vfs_escape_path_string (icon_path);
+                else
+                    icon_path = g_strdup ("x");
 
-            printf("%s\n",device_fn);
-            g_key_file_set_string(key_file,alias,"device",device_fn);
-            g_key_file_set_string(key_file,alias,"mount_point",mountp);
-            g_key_file_set_string(key_file,alias,"icon_path",icon_path);
+                printf("%s\n",device_fn);
+                g_key_file_set_string(key_file,alias,"device",device_fn);
+                g_key_file_set_string(key_file,alias,"mount_point",mountp);
+                g_key_file_set_string(key_file,alias,"icon_path",icon_path);
 
-            g_free (alias);
-            g_free (device_fn);
-            g_free (mountp);
-            g_free (icon_path);
+                g_free (alias);
+                g_free (device_fn);
+                g_free (mountp);
+                g_free (icon_path);
+            }
         }
-    }
 
-    gcmd_key_file_save_to_file (path, key_file);
+        gcmd_key_file_save_to_file (path, key_file);
+    }
 
     g_key_file_free(key_file);
     g_free (path);
