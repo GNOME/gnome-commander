@@ -2388,6 +2388,7 @@ static gboolean load_fav_apps_old (const gchar *fname)
 
     g_free (path);
     save_fav_apps_old ("fav-apps.deprecated");
+    save_fav_apps ("fav-apps");
     return TRUE;
 }
 
