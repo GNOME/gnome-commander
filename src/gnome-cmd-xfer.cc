@@ -182,9 +182,9 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
     {
-	gchar *s = NULL;
-	// Check if the src uri is from local ('file:///...'). If not, just use the base name.
-	if ( !(s = gnome_vfs_get_local_path_from_uri (info->source_name) )) s = str_uri_basename (info->source_name);
+    gchar *s = NULL;
+    // Check if the src uri is from local ('file:///...'). If not, just use the base name.
+    if ( !(s = gnome_vfs_get_local_path_from_uri (info->source_name) )) s = str_uri_basename (info->source_name);
         gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) : str_uri_basename (info->target_name);
 
         gchar *source_filename = get_utf8 (s);
@@ -196,7 +196,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gchar *source_details = file_details (info->source_name);
         gchar *target_details = file_details (info->target_name);
 
-	GtkWidget *msg;
+        GtkWidget *msg;
 
         gchar *text = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"), target_filename, target_details, source_filename, source_details);
 
@@ -208,8 +208,8 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gdk_threads_enter ();
 
         gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, text, " ",
-						 1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
-	g_free(text);
+                         1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
+        g_free(text);
 
         data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE;
         gdk_threads_leave ();
