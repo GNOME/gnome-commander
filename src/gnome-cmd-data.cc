@@ -1760,7 +1760,8 @@ static void save_fav_apps (const gchar *fname)
         }
     }
 
-    gcmd_key_file_save_to_file (path, key_file);
+    if (gnome_cmd_data.options.fav_apps)
+        gcmd_key_file_save_to_file (path, key_file);
 
     g_key_file_free(key_file);
     g_free (path);
@@ -2332,6 +2333,13 @@ static gboolean load_fav_apps_old (const gchar *fname)
     ifstream f(path);
     string line;
     int i = 0;
+
+    //Device file does not exist
+    if(f.fail())
+    {
+        g_free (path);
+        return FALSE;
+    }
 
     while (getline(f,line))
     {
