@@ -200,9 +200,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     va_end (button_title_args);
 
     dialog = gtk_message_dialog_new (*main_win, GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, NULL);
-    gchar *escaped_text = g_markup_escape_text (text, -1);
-    gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), escaped_text);
-    g_free(escaped_text);
+    gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), text);
 
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);
