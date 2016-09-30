@@ -1574,7 +1574,6 @@ inline void save_devices (const gchar *fname)
                 else
                     icon_path = g_strdup ("x");
 
-                printf("%s\n",device_fn);
                 g_key_file_set_string(key_file,alias,"device",device_fn);
                 g_key_file_set_string(key_file,alias,"mount_point",mountp);
                 g_key_file_set_string(key_file,alias,"icon_path",icon_path);
