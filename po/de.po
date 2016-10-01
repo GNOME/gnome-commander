@@ -166,7 +166,7 @@ msgstr "Legt die Höhe einer Zeile im Dateifenster fest."
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:16
 #, no-c-format
 msgid "'%F %R'"
-msgstr "»%F %R«"
+msgstr "'%F %R'"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:17
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:343

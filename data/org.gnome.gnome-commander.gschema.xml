@@ -71,7 +71,8 @@
     </key>
     <key name="date-disp-format" type="s">
       <!-- Translators: Feel free to replace the default date format to a common value
-           used in your country. See "man strftime" for details.-->
+           used in your country. See "man strftime" for details. Attention: Do not change
+           the single quotes which sourround the string.-->
       <default l10n="messages">'%F %R'</default>
       <summary>Date format</summary>
       <description>
