@@ -228,6 +228,7 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 static gchar* new_string_with_replaced_keyword(const char* string, const char* keyword, const char* replacement)
 {
     gchar* new_string = NULL;
+    gchar* longer_string = NULL;
     gchar* replacement_tmp;
 
     if (keyword == NULL || strlen(keyword) == 0)
@@ -249,7 +250,17 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
         while (in_filename != temp_ptr)
         {
             if (new_string)
-                new_string = (char*) realloc(new_string, strlen(new_string) + 1);
+            {
+                longer_string = (char*) realloc(new_string, strlen(new_string) + 1);
+                if (longer_string)
+                    new_string = longer_string;
+                else
+                {
+                    g_warning("Error (re)allocating memory!");
+                    g_free(replacement_tmp);
+                    return (char*) string;
+                }
+            }
             else
                 new_string = (char*) calloc(1, 2);
             new_string[i] = *(in_filename++);
@@ -257,9 +268,21 @@ static gchar* new_string_with_replaced_keyword(const char* string, const char* k
         }
 
         if (new_string)
-            new_string = (char*) realloc(new_string, strlen(new_string) + strlen(replacement_tmp) + 1);
+        {
+            longer_string = (char*) realloc(new_string, strlen(new_string) + strlen(replacement_tmp) + 1);
+            if (longer_string)
+                new_string = longer_string;
+            else
+            {
+                g_warning("Error (re)allocating memory!");
+                g_free(replacement_tmp);
+                return (char*) string;
+            }
+        }
         else
+        {
             new_string = (char*) calloc(1, strlen(replacement_tmp) + 1);
+        }
 
         strcat(new_string, replacement_tmp);
         i += strlen(replacement_tmp);
