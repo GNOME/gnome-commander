@@ -43,8 +43,6 @@ namespace GnomeCmd
         GtkTreeModel *create_and_fill_model();
         GtkWidget *create_view_and_model();
 
-        static gchar *translate_menu(const gchar *path, gpointer data);
-
         static void add_profile(GtkWidget *view, PROFILE &p, guint idx);
 
         static void cell_edited_callback(GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
@@ -156,12 +154,6 @@ namespace GnomeCmd
             gtk_tree_selection_select_iter (selection, &iter);
 
         return view;
-    }
-
-    template <typename CONFIG, typename PROFILE, typename COMPONENT>
-    gchar *ManageProfilesDialog<CONFIG,PROFILE,COMPONENT>::translate_menu(const gchar *path, gpointer data)
-    {
-        return _(path);
     }
 
     template <typename CONFIG, typename PROFILE, typename COMPONENT>
@@ -361,23 +353,6 @@ namespace GnomeCmd
         button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
         g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
         gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
-
-#if 0
-        {
-            static GtkItemFactoryEntry items[] =
-                {{N_("/Local path..."), NULL, (GtkItemFactoryCallback) import_clicked_callback, TRUE},
-                 {N_("/Remote location..."), NULL, (GtkItemFactoryCallback) import_clicked_callback, FALSE}};
-
-            GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
-
-            gtk_item_factory_set_translate_func (ifac, translate_menu, NULL, NULL);
-            gtk_item_factory_create_items (ifac, G_N_ELEMENTS(items), items, dialog);
-
-            button = gnome_cmd_button_menu_new_from_stock (GTK_STOCK_OPEN, _("_Import"),
-                                                           gtk_item_factory_get_widget (ifac, "<main>"));
-            gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
-        }
-#endif
 
 #if GTK_CHECK_VERSION (2, 14, 0)
         gtk_widget_show_all (content_area);
