@@ -287,10 +287,6 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 {
     gint ret;
     GtkWidget *dialog = NULL;
-    GdkPixbuf *pixbuf;
-    GtkWidget *entry;
-    GtkWidget *hbox;
-    gchar *archive_name;
     const gchar *name;
     gboolean name_ok = FALSE;
     GList *files;
@@ -299,6 +295,11 @@ static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
     do
     {
+        GdkPixbuf *pixbuf;
+        GtkWidget *entry;
+        GtkWidget *hbox;
+        gchar *archive_name;
+
         if (dialog)
             gtk_widget_destroy (dialog);
 
