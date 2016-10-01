@@ -57,6 +57,13 @@ struct GnomeCmdSelectionProfileComponent::Private
 
 inline GnomeCmdSelectionProfileComponent::Private::Private()
 {
+    table = NULL;
+    filter_type_combo = NULL;
+    pattern_combo = NULL;
+    recurse_combo = NULL;
+    find_text_combo = NULL;
+    find_text_check = NULL;
+    case_check = NULL;
 }
 
 

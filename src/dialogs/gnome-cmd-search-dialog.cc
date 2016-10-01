@@ -154,6 +154,7 @@ inline GnomeCmdSearchDialog::Private::Private(GnomeCmdSearchDialog *dlg): data(d
     result_list = NULL;
     statusbar = NULL;
     pbar = NULL;
+    profile_menu_button = NULL;
 }
 
 

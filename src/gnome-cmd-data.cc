@@ -1338,6 +1338,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
     skip_mounting = cfg.skip_mounting;
+    gcmd_settings = NULL;
 }
 
 
@@ -2605,6 +2606,9 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 
     umask = ::umask(0);
     ::umask(umask);
+
+    priv = NULL;
+    settings = NULL;
 }
 
 

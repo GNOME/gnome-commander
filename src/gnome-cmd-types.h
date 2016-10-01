@@ -103,15 +103,15 @@ struct GnomeCmdColorTheme
 
     GnomeCmdColorTheme()
     {
-        // respect_theme = TRUE;    // FIXME
-        // sel_fg = NULL;           // FIXME
-        // sel_bg = NULL;           // FIXME
-        // norm_fg = NULL;          // FIXME
-        // norm_bg = NULL;          // FIXME
-        // curs_fg = NULL;          // FIXME
-        // curs_bg = NULL;          // FIXME
-        // alt_fg = NULL;           // FIXME
-        // alt_bg = NULL;           // FIXME
+        respect_theme = TRUE;
+        sel_fg = NULL;
+        sel_bg = NULL;
+        norm_fg = NULL;
+        norm_bg = NULL;
+        curs_fg = NULL;
+        curs_bg = NULL;
+        alt_fg = NULL;
+        alt_bg = NULL;
     }
 
     ~GnomeCmdColorTheme()

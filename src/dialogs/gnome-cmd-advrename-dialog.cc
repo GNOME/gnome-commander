@@ -94,6 +94,9 @@ inline GnomeCmdAdvrenameDialog::Private::Private()
 {
     profile_menu_button = NULL;
     template_has_counters = FALSE;
+    vbox = NULL;
+    profile_component = NULL;
+    files_view = NULL;
 }
 
 

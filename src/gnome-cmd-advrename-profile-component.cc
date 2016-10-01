@@ -375,6 +375,18 @@ inline GnomeCmdAdvrenameProfileComponent::Private::Private()
     trim_blanks = gcmd_convert_strip;
     regex_model = NULL;
     sample_fname = NULL;
+    template_entry = NULL;
+    template_combo = NULL;
+    counter_start_spin = NULL;
+    counter_step_spin = NULL;
+    counter_digits_combo = NULL;
+    regex_view = NULL;
+    regex_add_button = NULL;
+    regex_edit_button = NULL;
+    regex_remove_button = NULL;
+    regex_remove_all_button = NULL;
+    case_combo = NULL;
+    trim_combo = NULL;
 }
 
 
