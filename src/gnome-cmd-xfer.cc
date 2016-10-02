@@ -196,8 +196,6 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gchar *source_details = file_details (info->source_name);
         gchar *target_details = file_details (info->target_name);
 
-        GtkWidget *msg;
-
         gchar *text = g_strdup_printf (_("Overwrite file:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>\n\nWith:\n\n<b>%s</b>\n<span color='dimgray' size='smaller'>%s</span>"), target_filename, target_details, source_filename, source_details);
 
         g_free (source_filename);

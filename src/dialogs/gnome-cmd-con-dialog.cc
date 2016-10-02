@@ -414,7 +414,6 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     GtkWidget *label;
     GtkWidget *table;
     GtkWidget *combo;
-    GtkWidget *check;
     GtkWidget *hbox;
     GtkWidget *vbox;
 
