@@ -421,8 +421,8 @@ static void up_clicked_callback (GtkButton *button, GtkWidget *view)
 
     gtk_tree_store_swap (GTK_TREE_STORE (model), &prev, &iter);
 
-    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "up-button"), bookmark!=NULL && bookmark->group->bookmarks->data!=bookmark);
-    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "down-button"), bookmark!=NULL && gtk_tree_model_iter_next (model, &iter));
+    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "up-button"), bookmark->group->bookmarks->data!=bookmark);
+    gtk_widget_set_sensitive ((GtkWidget *) g_object_get_data (G_OBJECT (dialog), "down-button"), gtk_tree_model_iter_next (model, &iter));
 }
 
 
