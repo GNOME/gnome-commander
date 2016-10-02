@@ -42,7 +42,7 @@ class GnomeCmdSmbPath: public GnomeCmdPath
 
     GnomeCmdSmbPath(const GnomeCmdSmbPath &thePath);
     GnomeCmdSmbPath(const gchar *workgroup, const gchar *resource, const gchar *path);
-    GnomeCmdSmbPath(const gchar *path_str);
+    explicit GnomeCmdSmbPath(const gchar *path_str);
     virtual ~GnomeCmdSmbPath();
 
     virtual const gchar *get_path()                 {  return path;                   }

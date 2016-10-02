@@ -38,11 +38,11 @@ class GnomeCmdPlainPath: public GnomeCmdPath
   public:
 
     GnomeCmdPlainPath(const GnomeCmdPlainPath &thePath);
-    GnomeCmdPlainPath(const gchar *path)        {  this->path = g_strdup (path);  }
-    virtual ~GnomeCmdPlainPath()                {  g_free (path);                 }
+    explicit GnomeCmdPlainPath(const gchar *path) {  this->path = g_strdup (path);  }
+    virtual ~GnomeCmdPlainPath()                  {  g_free (path);                 }
 
-    virtual const gchar *get_path()             {  return path;                   }
-    virtual const gchar *get_display_path()     {  return path;                   }
+    virtual const gchar *get_path()               {  return path;                   }
+    virtual const gchar *get_display_path()       {  return path;                   }
     virtual GnomeCmdPath *get_parent();
     virtual GnomeCmdPath *get_child(const gchar *child);
 };

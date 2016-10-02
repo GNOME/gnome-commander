@@ -57,7 +57,7 @@ struct GnomeCmdSearchDialog
 
     void show_and_set_focus();
 
-    GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &defaults);
+    explicit GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &defaults);
     ~GnomeCmdSearchDialog();
 };
 

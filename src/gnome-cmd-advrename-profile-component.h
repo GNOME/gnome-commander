@@ -51,7 +51,7 @@ struct GnomeCmdAdvrenameProfileComponent
 
     GnomeCmdData::AdvrenameConfig::Profile &profile;
 
-    GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile);
+    explicit GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &profile);
     ~GnomeCmdAdvrenameProfileComponent()     {}
 
     void update();

@@ -59,7 +59,7 @@ struct GnomeCmdNotebook
 
     TabBarVisibility tabs_visibility;
 
-    GnomeCmdNotebook(TabBarVisibility visibility=HIDE_TABS_IF_ONE);
+    explicit GnomeCmdNotebook(TabBarVisibility visibility=HIDE_TABS_IF_ONE);
 
     int size() const                    {  return gtk_notebook_get_n_pages (*this);       }
     bool empty() const                  {  return size()==0;                              }

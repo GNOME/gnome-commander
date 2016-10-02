@@ -172,7 +172,7 @@ struct GnomeCmdFileList::Private
 
     GtkItemFactory *ifac;
 
-    Private(GnomeCmdFileList *fl);
+    explicit Private(GnomeCmdFileList *fl);
     ~Private();
 
     static gchar *translate_menu(const gchar *path, gpointer);

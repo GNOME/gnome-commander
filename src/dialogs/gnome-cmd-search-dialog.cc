@@ -97,7 +97,7 @@ struct SearchData
     gboolean stopped;                           /**< stops the search routine if set to TRUE. This is done by the stop_button */
     gboolean dialog_destroyed;                  /**< set when the search dialog is destroyed, also stops the search of course */
 
-    SearchData(GnomeCmdSearchDialog *dlg);
+    explicit SearchData(GnomeCmdSearchDialog *dlg);
 
     void set_statusmsg(const gchar *msg=NULL);
     gchar *build_search_command();
@@ -125,7 +125,7 @@ struct GnomeCmdSearchDialog::Private
     GtkWidget *pbar;
     GtkWidget *profile_menu_button;
 
-    Private(GnomeCmdSearchDialog *dlg);
+    explicit Private(GnomeCmdSearchDialog *dlg);
     ~Private();
 
     static gchar *translate_menu(const gchar *path, gpointer data);

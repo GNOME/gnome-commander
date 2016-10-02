@@ -53,7 +53,7 @@ namespace XML
             std::string str;
 
             Controller(const Controller &c) : what(c.what), str(c.str) {}
-            Controller(const what_type _what) : what(_what)            {}
+            explicit Controller(const what_type _what) : what(_what)   {}
 
             // use template constructor because string field <str> may be initialized from different sources: char*, std::string etc
             template <typename T>
@@ -61,7 +61,7 @@ namespace XML
         };
 
         // xstream refers std::ostream object to perform actual output operations
-        xstream(std::ostream &_s) : s(_s), state(stateNone)
+        explicit xstream(std::ostream &_s) : s(_s), state(stateNone)
         {
             s << "<?xml version=\"" << versionMajor << '.' << versionMinor << "\" encoding=\"UTF-8\"?>";
         }
