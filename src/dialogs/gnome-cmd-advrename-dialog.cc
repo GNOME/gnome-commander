@@ -123,9 +123,10 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(Gnom
 {
     guint items_size = cfg->profiles.empty() ? 1 : cfg->profiles.size()+3;
     GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, items_size);
-    GtkItemFactoryEntry *i = items;
 
     g_return_val_if_fail (items!=NULL, NULL);
+
+    GtkItemFactoryEntry *i = items;
 
     i->path = g_strdup (_("/_Save Profile As..."));
     i->callback = (GtkItemFactoryCallback) manage_profiles;
