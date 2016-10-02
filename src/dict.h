@@ -41,20 +41,20 @@ class DICT
 
   public:
 
-    DICT(const KEY no_key=KEY(), const VAL no_val=VAL()): NO_KEY(no_key), NO_VALUE(no_val)   {}
+    DICT(const KEY &no_key=KEY(), const VAL &no_val=VAL()): NO_KEY(no_key), NO_VALUE(no_val)   {}
 
-    void add(const KEY k, const VAL &v);
-    void add(const VAL v, const KEY &k)             {  add(k,v);  }
+    void add(const KEY &k, const VAL &v);
+    void add(const VAL &v, const KEY &k)             {  add(k,v);  }
 
     void clear()                                    {  k_coll.clear(); v_coll.clear();  }
 
-    const VAL &operator [] (const KEY k) const;
-    const KEY &operator [] (const VAL v) const;
+    const VAL &operator [] (const KEY &k) const;
+    const KEY &operator [] (const VAL &v) const;
 };
 
 
 template <typename KEY, typename VAL>
-inline void DICT<KEY,VAL>::add(const KEY k, const VAL &v)
+inline void DICT<KEY,VAL>::add(const KEY &k, const VAL &v)
 {
     std::pair<typename KEY_COLL::iterator,bool> k_pos = k_coll.insert(std::make_pair(k,(const VAL *) NULL));
     std::pair<typename VAL_COLL::iterator,bool> v_pos = v_coll.insert(std::make_pair(v,(const KEY *) NULL));
@@ -68,7 +68,7 @@ inline void DICT<KEY,VAL>::add(const KEY k, const VAL &v)
 
 
 template <typename KEY, typename VAL>
-inline const VAL &DICT<KEY,VAL>::operator [] (const KEY k) const
+inline const VAL &DICT<KEY,VAL>::operator [] (const KEY &k) const
 {
     typename KEY_COLL::const_iterator pos = k_coll.find(k);
 
@@ -80,7 +80,7 @@ inline const VAL &DICT<KEY,VAL>::operator [] (const KEY k) const
 
 
 template <typename KEY, typename VAL>
-inline const KEY &DICT<KEY,VAL>::operator [] (const VAL v) const
+inline const KEY &DICT<KEY,VAL>::operator [] (const VAL &v) const
 {
     typename VAL_COLL::const_iterator pos = v_coll.find(v);
 

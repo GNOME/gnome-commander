@@ -350,7 +350,7 @@ inline std::string stringify(const T &val)
 int split(const std::string &s, std::vector<std::string> &coll, const char *sep);
 
 template <typename Iterator>
-inline std::ostream &join(std::ostream &os, Iterator beg, Iterator end, const std::string sep=" ")
+inline std::ostream &join(std::ostream &os, Iterator beg, Iterator end, const std::string &sep=" ")
 {
     if (beg==end)  return os;
 
@@ -369,13 +369,13 @@ inline std::ostream &join(std::ostream &os, Iterator beg, Iterator end, const st
 // }
 
 template <typename T, typename Compare, typename Allocator, template <typename, typename, typename> class COLL>
-inline std::ostream &join(std::ostream &os, const COLL<T, Compare, Allocator> &coll, const std::string sep=" ")
+inline std::ostream &join(std::ostream &os, const COLL<T, Compare, Allocator> &coll, const std::string &sep=" ")
 {
     return join(os,coll.begin(),coll.end(),sep);
 }
 
 template <typename Iterator>
-inline std::string &join(std::string &s, Iterator beg, Iterator end, const std::string sep=" ")
+inline std::string &join(std::string &s, Iterator beg, Iterator end, const std::string &sep=" ")
 {
     s.clear();
 
@@ -400,13 +400,13 @@ inline std::string &join(std::string &s, Iterator beg, Iterator end, const std::
 // }
 
 template <typename T, typename Compare, typename Allocator, template <typename, typename, typename> class COLL>
-inline std::string &join(std::string &s, const COLL<T, Compare, Allocator> &coll, const std::string sep=" ")
+inline std::string &join(std::string &s, const COLL<T, Compare, Allocator> &coll, const std::string &sep=" ")
 {
     return join(s,coll.begin(),coll.end(),sep);
 }
 
 template <typename Iterator>
-inline std::string join(Iterator beg, Iterator end, const std::string sep=" ")
+inline std::string join(Iterator beg, Iterator end, const std::string &sep=" ")
 {
     std::string s;
 
@@ -422,7 +422,7 @@ inline std::string join(Iterator beg, Iterator end, const std::string sep=" ")
 // }
 
 template <typename T, typename Compare, typename Allocator, template <typename, typename, typename> class COLL>
-inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::string sep=" ")
+inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::string &sep=" ")
 {
     std::string s;
 
