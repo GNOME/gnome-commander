@@ -314,6 +314,8 @@ GNOME_CMD_USER_ACTION(view_in_inactive_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
 GNOME_CMD_USER_ACTION(view_horizontal_orientation);
 GNOME_CMD_USER_ACTION(view_main_menu);
+GNOME_CMD_USER_ACTION(view_step_up);
+GNOME_CMD_USER_ACTION(view_step_down);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);

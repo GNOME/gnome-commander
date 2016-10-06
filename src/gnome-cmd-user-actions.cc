@@ -276,8 +276,9 @@ static UserActionData user_actions_data[] = {
                                              {view_terminal, "view.terminal", N_("Show terminal")},
 #endif
                                              {view_up, "view.up", N_("Up one directory")},
-                                             
                                              {view_main_menu, "view.main_menu", N_("Display main menu")},
+                                             {view_step_up, "view.step_up", N_("Move cursor one step up")},
+                                             {view_step_down, "view.step_down", N_("Move cursor one step down")},
                                             };
 
 
@@ -1528,6 +1529,22 @@ void view_horizontal_orientation (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, checkitem->active);
+}
+
+void view_step_up (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
+}
+
+void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
 }
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)

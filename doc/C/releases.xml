@@ -23,6 +23,19 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.8.0</para></entry>
+            <entry><para>2016-??-??</para></entry>
+            <entry>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Shortcut can be assigned for moving the cursor up or down</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+        </row>
+        <row valign="top">
             <entry><para>1.6.0</para></entry>
             <entry><para>2016-10-04</para></entry>
             <entry>
