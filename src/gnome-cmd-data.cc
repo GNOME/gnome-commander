@@ -1398,6 +1398,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         fav_apps = cfg.fav_apps;
         device_only_icon = cfg.device_only_icon;
         skip_mounting = cfg.skip_mounting;
+        gcmd_settings = NULL;
     }
 
     return *this;
