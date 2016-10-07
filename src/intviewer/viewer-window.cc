@@ -1059,7 +1059,7 @@ static void menu_view_zoom_out(GtkMenuItem *item, GViewerWindow *obj)
             {
                int size = gviewer_get_font_size(obj->priv->viewer);
 
-               if (size==0 || size<4)  return;
+               if (size < 4)  return;
 
                size--;
                gviewer_set_font_size(obj->priv->viewer, size);
