@@ -474,7 +474,7 @@ void GnomeCmdFileList::select_file(GnomeCmdFile *f, gint row)
 
 
     if (!gnome_cmd_data.options.use_ls_colors)
-        gtk_clist_set_row_style (*this, row, row%2 ? alt_sel_list_style : sel_list_style);
+        gtk_clist_set_row_style (*this, row, (row % 2) ? alt_sel_list_style : sel_list_style);
     else
     {
         GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
@@ -509,7 +509,7 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
     priv->selected_files.remove(f);
 
     if (!gnome_cmd_data.options.use_ls_colors)
-        gtk_clist_set_row_style (*this, row, row%2 ? alt_list_style : list_style);
+        gtk_clist_set_row_style (*this, row, (row % 2) ? alt_list_style : list_style);
     else
         if (LsColor *col = ls_colors_get (f))
         {
@@ -1676,7 +1676,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
 
     // Setup row data and color
     if (!gnome_cmd_data.options.use_ls_colors)
-        gtk_clist_set_row_style (clist, row, row%2 ? alt_list_style : list_style);
+        gtk_clist_set_row_style (clist, row, (row % 2) ? alt_list_style : list_style);
     else
     {
         LsColor *col = ls_colors_get (f);
