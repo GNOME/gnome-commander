@@ -493,7 +493,7 @@ static void gnome_cmd_about_plugin_set_name (GnomeCmdAboutPlugin *about, const g
 {
     gchar *title_string;
     gchar *name_string;
-    gchar *tmp_name, *tmp_version;
+    gchar *tmp_name;
 
     g_free (about->priv->name);
     about->priv->name = g_strdup (name ? name : "");
@@ -506,6 +506,7 @@ static void gnome_cmd_about_plugin_set_name (GnomeCmdAboutPlugin *about, const g
 
     if (about->priv->version)
     {
+        gchar *tmp_version;
         tmp_version = g_markup_escape_text (about->priv->version, -1);
         name_string = g_strdup_printf ("<span size=\"xx-large\" weight=\"bold\">%s %s</span>", tmp_name, tmp_version);
         g_free (tmp_version);

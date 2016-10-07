@@ -33,7 +33,6 @@ struct GnomeCmdMakeCopyDialogPrivate
 {
     GnomeCmdFile *f;
     GnomeCmdDir *dir;
-    GnomeCmdMainWin *mw;
 };
 
 

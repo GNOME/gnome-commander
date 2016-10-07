@@ -401,7 +401,6 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
 
         if (info && info->name)
         {
-            GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
 
             if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
             {
@@ -410,6 +409,7 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
             }
 
 #ifdef HAVE_SAMBA
+            GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
             if (GNOME_CMD_IS_CON_SMB (con)
                 && info->mime_type
                 && (strcmp (info->mime_type, "application/x-gnome-app-info") == 0 ||

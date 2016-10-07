@@ -665,10 +665,11 @@ static gboolean text_render_motion_notify(GtkWidget *widget, GdkEventMotion *eve
 
     GdkModifierType mods;
     gint x, y;
-    offset_type new_marker;
 
     if (w->priv->button != 0)
     {
+        offset_type new_marker;
+
         x = event->x;
         y = event->y;
 
@@ -1596,7 +1597,6 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
 
     offset_type current;
     char_type value;
-    int rc=0;
     int char_count = 0;
     offset_type marker_start;
     offset_type marker_end;
@@ -1629,10 +1629,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         // Read a UTF8 character from the input file. The "inputmode" module is responsible for converting the file into UTF8
         value = gv_input_mode_get_utf8_char(w->priv->im, current);
         if (value==INVALID_CHAR)
-        {
-            rc = -1;
             break;
-        }
 
         // move to the next character's offset
         current = gv_input_get_next_char_offset(w->priv->im, current);
@@ -1678,7 +1675,6 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
 
     offset_type current;
     char_type value;
-    int rc=0;
     offset_type marker_start;
     offset_type marker_end;
     gboolean show_marker;
@@ -1708,10 +1704,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
            The "inputmode" module is responsible for converting the file into UTF8 */
         value = gv_input_mode_get_utf8_char(w->priv->im, current);
         if (value==INVALID_CHAR)
-        {
-            rc = -1;
             break;
-        }
 
         // move to the next character's offset
         current = gv_input_get_next_char_offset(w->priv->im, current);

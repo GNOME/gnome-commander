@@ -154,9 +154,7 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(
     g_return_if_fail (path_str != NULL);
 
     gchar *s, *t;
-    gchar *a = NULL,
-          *b = NULL,
-          *c = NULL;
+    gchar *c = NULL;
 
     DEBUG('s', "Creating smb-path for %s\n", path_str);
 
@@ -179,6 +177,9 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(
 
     if (v[0] != NULL)
     {
+        gchar *a = NULL;
+        gchar *b = NULL;
+
         a = g_strdup (v[0]);
         if (v[1] != NULL)
         {

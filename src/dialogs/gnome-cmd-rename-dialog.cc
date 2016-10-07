@@ -34,7 +34,6 @@ using namespace std;
 struct GnomeCmdRenameDialogPrivate
 {
     GnomeCmdFile *f;
-    GnomeCmdMainWin *mw;
     GtkEntry *textbox;
 };
 

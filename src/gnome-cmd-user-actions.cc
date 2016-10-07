@@ -786,7 +786,6 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
         gnome_cmd_file_selector_show_new_textfile_dialog (get_fs (ACTIVE));
     else
     {
-	GnomeCmdDir *dir = NULL;
 	gchar       *command;
 
 	command = g_strdup (gnome_cmd_data.options.editor);
@@ -804,6 +803,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	}
 	else
 	{
+        GnomeCmdDir *dir = NULL;
 	    gint     argc;
 	    gchar  **argv  = NULL;
 	    GError  *error = NULL;
@@ -931,7 +931,6 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdDir  *dir     = NULL;
     gchar        *command = NULL;
     string        dir_path;
     string        cmd;
@@ -949,6 +948,7 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
     }
     else
     {
+    GnomeCmdDir *dir = NULL;
 	gint     argc;
 	gchar  **argv  = NULL;
 	GError  *error = NULL;

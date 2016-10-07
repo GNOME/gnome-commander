@@ -338,7 +338,6 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *dialog = data->dialog;
     GtkWidget *table;
     GtkWidget *label;
-    GtkWidget *hbox;
     gchar *fname;
 
     GtkWidget *space_frame = create_space_frame (dialog, 6);
@@ -438,6 +437,8 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     if (data->f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
+        GtkWidget *hbox;
+
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 

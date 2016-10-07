@@ -1145,9 +1145,6 @@ static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj)
 
 static void start_find_thread(GViewerWindow *obj, gboolean forward)
 {
-    offset_type result;
-    GtkWidget *w;
-
     g_viewer_searcher_start_search(obj->priv->srchr, forward);
     gviewer_show_search_progress_dlg(GTK_WINDOW (obj),
                                      obj->priv->search_pattern,
@@ -1159,12 +1156,16 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
 
     if (g_viewer_searcher_get_end_of_search(obj->priv->srchr))
     {
+        GtkWidget *w;
+
         w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern \"%s\" was not found"), obj->priv->search_pattern);
         gtk_dialog_run (GTK_DIALOG (w));
         gtk_widget_destroy (w);
     }
     else
     {
+        offset_type result;
+
         result = g_viewer_searcher_get_search_result(obj->priv->srchr);
         text_render_set_marker(gviewer_get_text_render(obj->priv->viewer),
                 result,

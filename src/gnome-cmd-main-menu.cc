@@ -148,7 +148,6 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
     GtkWidget *desc=NULL;
     GtkWidget *shortcut=NULL;
     GtkWidget *content = NULL;
-    GtkWidget *pixmap = NULL;
 
     switch (spec->type)
     {
@@ -176,6 +175,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 
             if (spec->pixmap_type != 0 && spec->pixmap_info)
             {
+                GtkWidget *pixmap = NULL;
                 pixmap = create_ui_pixmap (*main_win, spec->pixmap_type, spec->pixmap_info, GTK_ICON_SIZE_MENU);
 
                 if (pixmap)

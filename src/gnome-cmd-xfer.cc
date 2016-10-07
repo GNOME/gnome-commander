@@ -128,10 +128,10 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
     // The async_xfer_callback-results for file and byte totals are not reliable
     if (xferOptions == GNOME_VFS_XFER_REMOVESOURCE) {
         GList *uris;
-        GnomeVFSURI *uri;
         data->bytes_total = 0;
         data->files_total = 0;
         for (uris = data->src_uri_list; uris != NULL; uris = uris->next) {
+            GnomeVFSURI *uri;
             uri = (GnomeVFSURI*)uris->data;
             data->bytes_total += calc_tree_size(uri,&(data->files_total));
         }

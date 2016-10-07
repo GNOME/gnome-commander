@@ -34,7 +34,6 @@ TEST_F(FileOpsTest, gv_file_get_byte_does_read) {
     ViewerFileOps *fops;
     offset_type end;
     offset_type current;
-    int value;
 
     fops = gv_fileops_new();
 
@@ -44,7 +43,7 @@ TEST_F(FileOpsTest, gv_file_get_byte_does_read) {
 
     for (current = 0; current < end; current++)
     {
-        value = gv_file_get_byte(fops, current);
+        int value = gv_file_get_byte(fops, current);
         ASSERT_TRUE (0 <= value && value <= 255 );
     }
 

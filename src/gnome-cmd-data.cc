@@ -1721,11 +1721,11 @@ static void save_fav_apps (const gchar *fname)
                 if (app2)
                 {
                     gchar *group_name = g_strdup(gnome_cmd_app_get_name(app2));
-                    int name_occurence = 2;
 
                     /* Are the names equal? -> Change the name */
                     if (!strcmp(group_name_to_test, group_name))
                     {
+                        int name_occurence = 2;
                         gchar *new_name = g_strdup_printf("%s_%d",
                                             gnome_cmd_app_get_name(app2),
                                             name_occurence);
@@ -3976,13 +3976,14 @@ void GnomeCmdData::save_xml ()
 gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key)
 {
     GVariant *variant;
-    gchar *default_value;
     gint rv = true;
 
     variant = g_settings_get_default_value (settings, key);
 
     if (g_variant_classify(variant) == G_VARIANT_CLASS_STRING)
     {
+        gchar *default_value;
+
         // In the following it is assumed that the value behind 'default_value' is the actual
         // default value, i.e. nobody changed the given key before gcmd data migration was started.
         default_value = g_settings_get_string (settings, key);
@@ -4281,11 +4282,12 @@ gboolean GnomeCmdData::set_color_if_valid_key_value(GdkColor *color, GSettings *
 {
     gboolean return_value;
     gchar *colorstring_new;
-    gchar *colorstring_old;
 
     colorstring_new = g_settings_get_string (settings, key);
     if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
     {
+        gchar *colorstring_old;
+
         colorstring_old = gdk_color_to_string (color);
         g_settings_set_string (settings, key, colorstring_old);
         g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);

@@ -424,7 +424,7 @@ gboolean search_hex_backward (GViewerSearcher *src)
 
 gboolean search_text_forward (GViewerSearcher *src)
 {
-    offset_type m, n, j, t, delta;
+    offset_type m, n, j;
     int i;
     gboolean found = FALSE;
     char_type value;
@@ -437,6 +437,8 @@ gboolean search_text_forward (GViewerSearcher *src)
 
     while (j <= n - m)
     {
+        offset_type t, delta;
+
         delta = m - 1;
         t = j;
         while (delta--)
@@ -486,7 +488,7 @@ gboolean search_text_forward (GViewerSearcher *src)
 
 gboolean search_text_backward (GViewerSearcher *src)
 {
-    offset_type m, n, j, t, delta;
+    offset_type m, n, j;
     int i;
     gboolean found = FALSE;
     int update_counter;
@@ -504,6 +506,8 @@ gboolean search_text_backward (GViewerSearcher *src)
     j = gv_input_get_previous_char_offset(src->priv->imd, j);
     while (j >= m)
     {
+        offset_type t, delta;
+
         delta = m - 1;
         t = j;
         while (delta--)
