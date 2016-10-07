@@ -441,7 +441,6 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     g_return_if_fail (filename);
 
     g_free (obj->priv->filename);
-    obj->priv->filename = NULL;
 
     obj->priv->filename = g_strdup (filename);
 
