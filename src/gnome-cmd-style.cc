@@ -122,8 +122,8 @@ inline GtkStyle *create_sel_list_style (GnomeCmdColorTheme *cols, const gchar *f
 
         style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
         style->bg[GTK_STATE_NORMAL] = *cols->sel_bg;
-        style->base[GTK_STATE_NORMAL] = *cols->norm_bg;
-        style->base[GTK_STATE_ACTIVE] = *cols->norm_bg;
+        style->base[GTK_STATE_NORMAL] = *cols->sel_bg;
+        style->base[GTK_STATE_ACTIVE] = *cols->sel_bg;
     }
 
     return style;
@@ -154,8 +154,8 @@ inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gcha
 
         style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
         style->bg[GTK_STATE_NORMAL] = *cols->sel_bg;
-        style->base[GTK_STATE_NORMAL] = *cols->alt_bg;
-        style->base[GTK_STATE_ACTIVE] = *cols->alt_bg;
+        style->base[GTK_STATE_NORMAL] = *cols->sel_bg;
+        style->base[GTK_STATE_ACTIVE] = *cols->sel_bg;
     }
 
     return style;
