@@ -1,4 +1,11 @@
 ===================================
+gnome-commander 1.6.1
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#638174 (Selection background color not applied when using custom colors)
+
+===================================
 gnome-commander 1.6.0
 ---------------
 

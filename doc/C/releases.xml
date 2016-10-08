@@ -23,6 +23,20 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.6.1</para></entry>
+            <entry><para>2016-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#638174 (Selection background color not applied when using custom colors)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.6.0</para></entry>
             <entry><para>2016-10-04</para></entry>
             <entry>
