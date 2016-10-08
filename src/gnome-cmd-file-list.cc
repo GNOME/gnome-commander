@@ -511,16 +511,25 @@ void GnomeCmdFileList::unselect_file(GnomeCmdFile *f, gint row)
     if (!gnome_cmd_data.options.use_ls_colors)
         gtk_clist_set_row_style (*this, row, row%2 ? alt_list_style : list_style);
     else
+    {
+        GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
         if (LsColor *col = ls_colors_get (f))
         {
-            GnomeCmdColorTheme *colors = gnome_cmd_data.options.get_current_color_theme();
             GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
             GdkColor *bg = col->bg ? col->bg : colors->norm_bg;
 
             if (bg)  gtk_clist_set_background (*this, row, bg);
             if (fg)  gtk_clist_set_foreground (*this, row, fg);
         }
-
+        else
+        {
+            if (!colors->respect_theme)
+            {
+                gtk_clist_set_foreground (*this, row, colors->norm_fg);
+                gtk_clist_set_background (*this, row, colors->norm_bg);
+            }
+        }
+    }
     g_signal_emit (this, signals[FILES_CHANGED], 0);
 }
 
