@@ -106,7 +106,7 @@ gboolean gcmd_key_file_save_to_file (const gchar *filename,
 	return FALSE;
     }
     
-    written = fprintf(fd, contents);
+    written = fprintf(fd, "%s", contents);
     if (written < 0)
     {
 	success = FALSE;
