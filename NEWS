@@ -4,6 +4,10 @@ gnome-commander 1.6.1
 
 Bug fixes:
  * Fixed problem bgo#638174 (Selection background color not applied when using custom colors)
+ * Fixed problem bgo#773063 (Compiles with gcc6 -Werror=format-security, Thanks to Mamoru Tasaka)
+
+New or updated docs:
+       cs (Marek Černocký)
 
 ===================================
 gnome-commander 1.6.0

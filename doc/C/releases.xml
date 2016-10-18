@@ -24,13 +24,19 @@
     <tbody>
         <row valign="top">
             <entry><para>1.6.1</para></entry>
-            <entry><para>2016-??-??</para></entry>
+            <entry><para>2016-10-18</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
                             <para>Fixed problem bgo#638174 (Selection background color not applied when using custom colors)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#773063 (Compiles with gcc6 -Werror=format-security, Thanks to Mamoru Tasaka)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
                         </listitem>
                     </itemizedlist>
                 </para>
