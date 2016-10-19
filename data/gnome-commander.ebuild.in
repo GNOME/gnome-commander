@@ -44,8 +44,6 @@ DEPEND="
 	test? ( dev-util/cppunit-@CPPUNIT_REQ@ )
 "
 
-DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
-
 src_configure() {
 	DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
 	gnome2_src_configure \
