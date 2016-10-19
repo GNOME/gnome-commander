@@ -44,6 +44,7 @@ dnl ===================
 dnl Check for libraries
 dnl ===================
 
+CPPUNIT_REQ=1.13.2
 GLIB_REQ=2.44.0
 GMODULE_REQ=2.0.0
 GTK_REQ=2.8.0
@@ -58,6 +59,7 @@ TAGLIB_REQ=1.4
 LIBGSF_REQ=1.12.0
 POPPLER_REQ=0.18
 
+AC_SUBST(CPPUNIT_REQ)
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
 AC_SUBST(GNOME_REQ)
