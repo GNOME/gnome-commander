@@ -2,10 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
-GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
 inherit eutils gnome2 python-single-r1
@@ -45,7 +44,6 @@ DEPEND="
 "
 
 src_configure() {
-	DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
 	gnome2_src_configure \
 		--disable-static \
 		$(use_enable python) \
