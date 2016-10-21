@@ -62,6 +62,22 @@ inline GtkStyle *create_list_style (GnomeCmdColorTheme *cols, const gchar *font_
         style->base[GTK_STATE_NORMAL] = *cols->norm_bg;
         style->base[GTK_STATE_ACTIVE] = *cols->norm_bg;
     }
+    else
+    {
+        GtkWidget *widget = gtk_combo_new ();
+        GtkStyle *default_style = gtk_rc_get_style(widget);
+        gtk_widget_destroy (widget);
+
+        if(default_style)
+        {
+            gtk_style_lookup_color (default_style, "tooltip_fg_color", &style->fg[GTK_STATE_SELECTED]);
+            gtk_style_lookup_color (default_style, "fg_color", &style->fg[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "fg_color", &style->text[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "tooltip_bg_color", &style->bg[GTK_STATE_SELECTED]);
+            gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_ACTIVE]);
+        }
+    }
 
     return style;
 }
@@ -92,6 +108,22 @@ inline GtkStyle *create_alt_list_style (GnomeCmdColorTheme *cols, const gchar *f
         style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
         style->base[GTK_STATE_NORMAL] = *cols->alt_bg;
         style->base[GTK_STATE_ACTIVE] = *cols->alt_bg;
+    }
+    else
+    {
+        GtkWidget *widget = gtk_combo_new ();
+        GtkStyle *default_style = gtk_rc_get_style(widget);
+        gtk_widget_destroy (widget);
+
+        if(default_style)
+        {
+            gtk_style_lookup_color (default_style, "tooltip_fg_color", &style->fg[GTK_STATE_SELECTED]);
+            gtk_style_lookup_color (default_style, "selected_bg_color", &style->fg[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "selected_bg_color", &style->text[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "tooltip_bg_color", &style->bg[GTK_STATE_SELECTED]);
+            gtk_style_lookup_color (default_style, "selected_fg_color", &style->base[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "selected_fg_color", &style->base[GTK_STATE_ACTIVE]);
+        }
     }
 
     return style;
@@ -125,6 +157,28 @@ inline GtkStyle *create_sel_list_style (GnomeCmdColorTheme *cols, const gchar *f
         style->base[GTK_STATE_NORMAL] = *cols->sel_bg;
         style->base[GTK_STATE_ACTIVE] = *cols->sel_bg;
     }
+    else
+    {
+        GtkWidget *widget = gtk_combo_new ();
+        GtkStyle *default_style = gtk_rc_get_style(widget);
+        gtk_widget_destroy (widget);
+
+        if(default_style)
+        {
+            gtk_style_lookup_color (default_style, "selected_fg_color", &style->fg[GTK_STATE_SELECTED]);
+            if (!gtk_style_lookup_color (default_style, "selected_fg_color", &style->fg[GTK_STATE_NORMAL]))
+                gdk_color_parse("#ffffff", &style->fg[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "text_color", &style->text[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "bg_color", &style->bg[GTK_STATE_SELECTED]);
+            if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->bg[GTK_STATE_NORMAL]))
+                gdk_color_parse("#000000", &style->bg[GTK_STATE_NORMAL]);
+            if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->base[GTK_STATE_NORMAL]))
+                gdk_color_parse("#000000", &style->base[GTK_STATE_NORMAL]);
+            if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->base[GTK_STATE_ACTIVE]))
+                gdk_color_parse("#000000", &style->base[GTK_STATE_ACTIVE]);
+        }
+    }
+
 
     return style;
 }
@@ -156,6 +210,27 @@ inline GtkStyle *create_alt_sel_list_style (GnomeCmdColorTheme *cols, const gcha
         style->bg[GTK_STATE_NORMAL] = *cols->sel_bg;
         style->base[GTK_STATE_NORMAL] = *cols->sel_bg;
         style->base[GTK_STATE_ACTIVE] = *cols->sel_bg;
+    }
+    else
+    {
+        GtkWidget *widget = gtk_combo_new ();
+        GtkStyle *default_style = gtk_rc_get_style(widget);
+        gtk_widget_destroy (widget);
+
+        if(default_style)
+        {
+            gtk_style_lookup_color (default_style, "selected_fg_color", &style->fg[GTK_STATE_SELECTED]);
+            if (!gtk_style_lookup_color (default_style, "selected_fg_color", &style->fg[GTK_STATE_NORMAL]))
+                gdk_color_parse("#ffffff", &style->fg[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "text_color", &style->text[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "bg_color", &style->bg[GTK_STATE_SELECTED]);
+            if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->bg[GTK_STATE_NORMAL]))
+                gdk_color_parse("#000000", &style->bg[GTK_STATE_NORMAL]);
+            if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->base[GTK_STATE_NORMAL]))
+                gdk_color_parse("#000000", &style->base[GTK_STATE_NORMAL]);
+            if(!gtk_style_lookup_color (default_style, "selected_bg_color", &style->base[GTK_STATE_ACTIVE]))
+                gdk_color_parse("#000000", &style->base[GTK_STATE_ACTIVE]);
+        }
     }
 
     return style;
