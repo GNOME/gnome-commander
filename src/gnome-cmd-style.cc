@@ -118,11 +118,11 @@ inline GtkStyle *create_alt_list_style (GnomeCmdColorTheme *cols, const gchar *f
         if(default_style)
         {
             gtk_style_lookup_color (default_style, "tooltip_fg_color", &style->fg[GTK_STATE_SELECTED]);
-            gtk_style_lookup_color (default_style, "selected_bg_color", &style->fg[GTK_STATE_NORMAL]);
-            gtk_style_lookup_color (default_style, "selected_bg_color", &style->text[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "fg_color", &style->fg[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "fg_color", &style->text[GTK_STATE_NORMAL]);
             gtk_style_lookup_color (default_style, "tooltip_bg_color", &style->bg[GTK_STATE_SELECTED]);
-            gtk_style_lookup_color (default_style, "selected_fg_color", &style->base[GTK_STATE_NORMAL]);
-            gtk_style_lookup_color (default_style, "selected_fg_color", &style->base[GTK_STATE_ACTIVE]);
+            gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_NORMAL]);
+            gtk_style_lookup_color (default_style, "bg_color", &style->base[GTK_STATE_ACTIVE]);
         }
     }
 
