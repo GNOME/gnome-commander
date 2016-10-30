@@ -766,7 +766,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 static void init (GnomeCmdFileSelector *fs)
 {
     gint string_size = 0;
-    gint max_string_size = 0;
+    gint max_string_size = 150;
 
     fs->list = NULL;
 
@@ -795,7 +795,7 @@ static void init (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
 #endif
 
-        text = g_strdup_printf("%s ",(gchar *) gnome_cmd_con_get_alias (con));
+        text = g_strdup_printf("%s  ",(gchar *) gnome_cmd_con_get_alias (con));
         string_size = get_string_pixel_size (text, strlen(text));
         max_string_size = string_size > max_string_size ? string_size : max_string_size;
         g_free(text);
@@ -805,7 +805,7 @@ static void init (GnomeCmdFileSelector *fs)
     fs->con_combo = new GnomeCmdCombo(2, 1);
     g_object_ref (fs->con_combo);
     g_object_set_data_full (*fs, "con_combo", fs->con_combo, g_object_unref);
-    gtk_widget_set_size_request (*fs->con_combo, max_string_size + 5, -1);
+    gtk_widget_set_size_request (*fs->con_combo, max_string_size, -1);
     gtk_clist_set_row_height (GTK_CLIST (fs->con_combo->list), 20);
     gtk_entry_set_editable (GTK_ENTRY (fs->con_combo->entry), FALSE);
     gtk_clist_set_column_width (GTK_CLIST (fs->con_combo->list), 0, 20);
