@@ -4,6 +4,7 @@ gnome-commander 1.6.2
 
 Bug fixes:
  * Fixed problem bgo#398734 (Color of marked files does not change when using theme colors)
+ * Device list entry width is set equal to the longest string in the list
 
 ===================================
 gnome-commander 1.6.1

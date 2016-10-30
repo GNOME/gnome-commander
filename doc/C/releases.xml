@@ -32,6 +32,9 @@
                         <listitem>
                             <para>Fixed problem bgo#398734 (Color of marked files does not change when using theme colors)</para>
                         </listitem>
+                        <listitem>
+                            <para>Device list entry width is set equal to the longest string in the list</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
