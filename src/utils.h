@@ -429,4 +429,6 @@ inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::stri
     return join(s,coll.begin(),coll.end(),sep);
 }
 
+gint get_string_pixel_size (const char *s, int len);
+
 #endif // __UTILS_H__
