@@ -524,13 +524,6 @@ void GnomeCmdCombo::set_pixmap(gint row, gint col, GnomeCmdPixmap *pixmap)
 }
 
 
-void GnomeCmdCombo::select_text(const gchar *text)
-{
-    if (text)
-        gtk_entry_set_text (GTK_ENTRY (entry), text);
-}
-
-
 void GnomeCmdCombo::select_data(gpointer data)
 {
     GtkCList *clist = GTK_CLIST (list);

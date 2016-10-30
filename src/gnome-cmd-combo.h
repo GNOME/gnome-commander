@@ -100,7 +100,6 @@ struct GnomeCmdCombo
 
     void popup_list();
 
-    void select_text(const gchar *text);
     void select_data(gpointer data);
 
     void update_style();
