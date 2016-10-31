@@ -837,7 +837,11 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (padding), fs->info_label, FALSE, TRUE, 6);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), *fs->con_combo, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 6);
+    // changing this value has only an effect when restarting gcmd
+    if (gnome_cmd_data.show_devlist)
+        gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 6);
+    else
+        gtk_box_pack_start (GTK_BOX (padding), fs->vol_label, TRUE, TRUE, 6);
 
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
