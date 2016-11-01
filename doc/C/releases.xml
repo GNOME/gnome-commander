@@ -41,6 +41,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Disk free space label is shown in status bar if device list isn't shown (works after restarting gcmd)</para>
+                        </listitem>
+                        <listitem>
                             <para>Shortcut can be assigned for:</para>
                             <itemizedlist>
                                 <listitem>

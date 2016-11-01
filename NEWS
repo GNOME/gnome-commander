@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem bgo#398734 (Color of marked files does not change when using theme colors)
  * Device list entry width is set equal to the longest string in the list
 New features:
+ * Disk free space label is shown in status bar if device list isn't shown (works after restarting gcmd)
  * Shortcut can be assigned for:
    - Moving the cursor up or down ("Move cursor one step up/down")
    - Viewing bookmarks of current device ("Show bookmarks of current device")
