@@ -193,6 +193,7 @@ static UserActionData user_actions_data[] = {
                                              {bookmarks_add_current, "bookmarks.add_current", N_("Bookmark current directory")},
                                              {bookmarks_edit, "bookmarks.edit", N_("Manage bookmarks")},
                                              {bookmarks_goto, "bookmarks.goto", N_("Go to bookmarked location")},
+                                             {bookmarks_view, "bookmarks.view", N_("Show bookmarks of current device")},
                                              {command_execute, "command.execute", N_("Execute command")},
                                              {command_open_terminal, "command.open_terminal", N_("Open terminal")},
                                              {command_open_terminal_as_root, "command.open_terminal_as_root", N_("Open terminal as root")},
@@ -1927,6 +1928,12 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
 #endif
         else
             g_warning ("[%s] Unsupported bookmark group: '%s' - ignored", (char *) bookmark_name, group.c_str());
+}
+
+
+void bookmarks_view (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_dir_indicator_show_bookmarks (GNOME_CMD_DIR_INDICATOR (get_fs (ACTIVE)->dir_indicator));
 }
 
 

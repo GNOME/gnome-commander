@@ -319,6 +319,7 @@ GNOME_CMD_USER_ACTION(view_main_menu);
 GNOME_CMD_USER_ACTION(bookmarks_add_current);
 GNOME_CMD_USER_ACTION(bookmarks_edit);
 GNOME_CMD_USER_ACTION(bookmarks_goto);
+GNOME_CMD_USER_ACTION(bookmarks_view);
 
 /************** Options Menu **************/
 GNOME_CMD_USER_ACTION(options_edit);
