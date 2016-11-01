@@ -277,8 +277,9 @@ static UserActionData user_actions_data[] = {
                                              {view_terminal, "view.terminal", N_("Show terminal")},
 #endif
                                              {view_up, "view.up", N_("Up one directory")},
-                                             
                                              {view_main_menu, "view.main_menu", N_("Display main menu")},
+                                             {view_step_up, "view.step_up", N_("Move cursor one step up")},
+                                             {view_step_down, "view.step_down", N_("Move cursor one step down")},
                                             };
 
 
@@ -1550,6 +1551,23 @@ void view_main_menu (GtkMenuItem *menuitem, gpointer not_used)
     mainmenu_visibility = g_settings_get_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
     g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY, !mainmenu_visibility);
 }
+
+void view_step_up (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
+}
+
+void view_step_down (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFileList *fl = fs->file_list();
+
+    g_signal_emit_by_name (fl, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
+}
+
 
 void view_first (GtkMenuItem *menuitem, gpointer not_used)
 {
