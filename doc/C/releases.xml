@@ -29,6 +29,9 @@
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                           <para>...</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
             </entry>
@@ -145,6 +148,11 @@
                         <listitem>
                             <para>Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to Anders Jonsson)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: cs, de, es, hu, hu, hu, id, pl, pt, ro, sk, sr, sr@latin, sv</para>
                         </listitem>
@@ -165,6 +173,11 @@
                         <listitem>
                             <para>Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to Mamoru Tasaka)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: cs, de, pl, pt, pt_BR, oc</para>
                         </listitem>
@@ -191,6 +204,11 @@
                         <listitem>
                             <para>Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, thanks to Mamoru Tasaka)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: co</para>
                         </listitem>
@@ -223,6 +241,11 @@
                         <listitem>
                             <para>Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: bs, el, pt</para>
                         </listitem>
@@ -249,6 +272,11 @@
                         <listitem>
                             <para>Removed python-2.6 support from gentoo ebuild</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: cs, hu, id, sr, sr@latin</para>
                         </listitem>
@@ -272,6 +300,11 @@
                         <listitem>
                             <para>Fixed problem bgo#737088 (Support for user's terminal different from gnome-terminal)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: cs, de, eu, fi, id, sr, sr@latin</para>
                         </listitem>
@@ -292,6 +325,11 @@
                         <listitem>
                             <para>Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready exists)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: cs, de, eu, fi</para>
                         </listitem>
@@ -321,6 +359,11 @@
                         <listitem>
                             <para>Text selection in int. viewer works on lines with TAB characters (Thanks to Jan Vleeshouwers)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated translations: cs, el, sr, sr@latin</para>
                         </listitem>
@@ -353,13 +396,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>???</para>
+                            <para>New or updated translations: cs, es, fr , id , pt_BR, sl</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ??</para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated translations: ??</para>
+                            <para>New or updated docs: cs, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -516,6 +556,11 @@
                         <listitem>
                             <para>Updated GCMD home page location in source code</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>Updated translations: es, id, pt_BR</para>
                         </listitem>
@@ -539,6 +584,11 @@
                         <listitem>
                             <para>Fixed problem bgo#676303 (poppler >= 0.20.0)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated docs: de, el, fr</para>
                         </listitem>
@@ -559,6 +609,11 @@
                         <listitem>
                             <para>Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)</para>
                         </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
                         <listitem>
                             <para>New or updated docs: cs, de, es, fr</para>
                         </listitem>
