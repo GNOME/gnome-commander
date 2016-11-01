@@ -5,6 +5,10 @@ gnome-commander 1.6.2
 Bug fixes:
  * Fixed problem bgo#398734 (Color of marked files does not change when using theme colors)
  * Device list entry width is set equal to the longest string in the list
+New features:
+ * Shortcut can be assigned for:
+   - Moving the cursor up or down ("Move cursor one step up/down")
+   - Viewing bookmarks of current device ("Show bookmarks of current device")
 
 ===================================
 gnome-commander 1.6.1

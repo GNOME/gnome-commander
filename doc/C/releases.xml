@@ -37,6 +37,22 @@
                         </listitem>
                     </itemizedlist>
                 </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Shortcut can be assigned for:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para>Moving the cursor up or down ("Move cursor one step up/down")</para>
+                                </listitem>
+                                <listitem>
+                                    <para>Viewing bookmarks of current device ("Show bookmarks of current device")</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
             </entry>
         </row>
         <row valign="top">
