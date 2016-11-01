@@ -2,8 +2,8 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.6.0">
-  <!ENTITY manrevision "1.6.0">
+  <!ENTITY appversion "1.6.2">
+  <!ENTITY manrevision "1.6.2">
   <!ENTITY date "??? 2016">
   <!ENTITY app "GNOME Commander">
 ]>
