@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2016-10-07 20:22+0000\n"
-"PO-Revision-Date: 2016-10-23 16:40+0200\n"
+"POT-Creation-Date: 2016-11-03 20:04+0000\n"
+"PO-Revision-Date: 2016-11-04 14:26+0100\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -27,7 +27,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.11\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1861
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1862
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -1308,7 +1308,7 @@ msgstr "Fájl"
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: ../src/dialogs/gnome-cmd-remote-dialog.cc:457
-#: ../src/gnome-cmd-user-actions.cc:247
+#: ../src/gnome-cmd-user-actions.cc:248
 msgid "Options"
 msgstr "Beállítások"
 
@@ -1375,7 +1375,7 @@ msgstr "Eltávolítás a fájllistából"
 
 #. {file_umount, "file.umount"},
 #: ../src/dialogs/gnome-cmd-advrename-dialog.cc:340
-#: ../src/gnome-cmd-user-actions.cc:234
+#: ../src/gnome-cmd-user-actions.cc:235
 msgid "View file"
 msgstr "Fájl megtekintése"
 
@@ -1612,12 +1612,12 @@ msgid "Abort"
 msgstr "Megszakítás"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-xfer.cc:228
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-xfer.cc:228
 msgid "Retry"
 msgstr "Újra"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-xfer.cc:209
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-xfer.cc:209
 #: ../src/gnome-cmd-xfer.cc:228
 msgid "Skip"
 msgstr "Kihagyás"
@@ -1637,12 +1637,12 @@ msgstr[1] "Valóban törölni akarja a kijelölt %d fájlt?"
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:958
-#: ../src/gnome-cmd-main-win.cc:1182 ../src/gnome-cmd-user-actions.cc:208
+#: ../src/gnome-cmd-main-win.cc:1182 ../src/gnome-cmd-user-actions.cc:209
 msgid "Delete"
 msgstr "Törlés"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:884
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:885
 #: ../src/utils.cc:523 ../src/utils.cc:551
 msgid "Cancel"
 msgstr "Mégse"
@@ -1681,7 +1681,7 @@ msgid "Directory name:"
 msgstr "Könyvtárnév:"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:348
-#: ../src/gnome-cmd-file-selector.cc:1134
+#: ../src/gnome-cmd-file-selector.cc:1159
 msgid "File name:"
 msgstr "Fájlnév:"
 
@@ -1794,7 +1794,7 @@ msgid "File Properties"
 msgstr "Fájl tulajdonságai"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:715
-#: ../src/gnome-cmd-user-actions.cc:228
+#: ../src/gnome-cmd-user-actions.cc:229
 msgid "Properties"
 msgstr "Tulajdonságok"
 
@@ -1864,12 +1864,12 @@ msgid "Invalid shortcut."
 msgstr "Hibás gyorsbillentyű."
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:626
-#: ../src/gnome-cmd-user-actions.cc:246
+#: ../src/gnome-cmd-user-actions.cc:247
 msgid "Do nothing"
 msgstr "Ne tegyen semmit"
 
 #: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: ../src/gnome-cmd-file-selector.cc:1072
+#: ../src/gnome-cmd-file-selector.cc:1097
 msgid "No file name entered"
 msgstr "Nem adott meg fájlnevet"
 
@@ -1987,7 +1987,7 @@ msgid "Middle mouse button"
 msgstr "Középső egérgomb"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:118
-#: ../src/gnome-cmd-main-win.cc:1172 ../src/gnome-cmd-user-actions.cc:278
+#: ../src/gnome-cmd-main-win.cc:1172 ../src/gnome-cmd-user-actions.cc:279
 msgid "Up one directory"
 msgstr "Egy könyvtárral feljebb"
 
@@ -2024,7 +2024,7 @@ msgid "Case sensitive"
 msgstr "Kis- és nagybetű"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:165
-#: ../src/gnome-cmd-user-actions.cc:211
+#: ../src/gnome-cmd-user-actions.cc:212
 msgid "Quick search"
 msgstr "Gyors keresés"
 
@@ -2359,7 +2359,7 @@ msgstr "Kérdezzen rá"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:986
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1006
-#: ../src/gnome-cmd-file-selector.cc:1323
+#: ../src/gnome-cmd-file-selector.cc:1348
 msgid "Skip all"
 msgstr "Összes kihagyása"
 
@@ -2625,7 +2625,7 @@ msgid "Unselect Using Pattern"
 msgstr "Kijelölések megszüntetése minta alapján"
 
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: ../src/gnome-cmd-main-win.cc:1180 ../src/gnome-cmd-user-actions.cc:205
+#: ../src/gnome-cmd-main-win.cc:1180 ../src/gnome-cmd-user-actions.cc:206
 msgid "Copy"
 msgstr "Másolás"
 
@@ -3259,16 +3259,16 @@ msgstr "Munkacsoportok és gépek keresése"
 msgid "Go to: Samba Network"
 msgstr "Ugrás a Samba hálózatba"
 
-#: ../src/gnome-cmd-data.cc:3509 ../src/gnome-cmd-data.cc:4513
+#: ../src/gnome-cmd-data.cc:3510 ../src/gnome-cmd-data.cc:4514
 #, c-format
 msgid "link to %s"
 msgstr "hivatkozás erre: %s"
 
-#: ../src/gnome-cmd-data.cc:3781
+#: ../src/gnome-cmd-data.cc:3782
 msgid "Audio Files"
 msgstr "Hangfájlok"
 
-#: ../src/gnome-cmd-data.cc:3789
+#: ../src/gnome-cmd-data.cc:3790
 msgid "CamelCase"
 msgstr "NagyKezdőBetűk"
 
@@ -3276,11 +3276,11 @@ msgstr "NagyKezdőBetűk"
 msgid "Waiting for file list"
 msgstr "Várakozás a fájllistára"
 
-#: ../src/gnome-cmd-dir-indicator.cc:436
+#: ../src/gnome-cmd-dir-indicator.cc:411
 msgid "Add current dir"
 msgstr "Jelenlegi könyvtár hozzáadása"
 
-#: ../src/gnome-cmd-dir-indicator.cc:437
+#: ../src/gnome-cmd-dir-indicator.cc:412
 msgid "Manage bookmarks..."
 msgstr "Könyvjelzők kezelése…"
 
@@ -3360,15 +3360,15 @@ msgstr "/_Hivatkozás ide"
 msgid "/C_ancel"
 msgstr "/Még_se"
 
-#: ../src/gnome-cmd-file-list.cc:1423
+#: ../src/gnome-cmd-file-list.cc:1432
 msgid "Directory listing failed."
 msgstr "A könyvtárlistázás nem sikerült."
 
-#: ../src/gnome-cmd-file-list.cc:1476
+#: ../src/gnome-cmd-file-list.cc:1485
 msgid "Failed to open connection."
 msgstr "A kapcsolat megnyitása nem sikerült."
 
-#: ../src/gnome-cmd-file-list.cc:2193 ../src/gnome-cmd-file-list.cc:2208
+#: ../src/gnome-cmd-file-list.cc:2202 ../src/gnome-cmd-file-list.cc:2217
 msgid "Not an ordinary file."
 msgstr "Nem közönséges fájl."
 
@@ -3418,7 +3418,7 @@ msgstr "_Kivágás"
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: ../src/gnome-cmd-file-popmenu.cc:513 ../src/gnome-cmd-user-actions.cc:206
+#: ../src/gnome-cmd-file-popmenu.cc:513 ../src/gnome-cmd-user-actions.cc:207
 msgid "Copy file names"
 msgstr "Fájlnevek másolása"
 
@@ -3432,7 +3432,7 @@ msgstr "Átnevezés"
 
 #. {file_run, "file.run"},
 #: ../src/gnome-cmd-file-popmenu.cc:517 ../src/gnome-cmd-main-win.cc:1185
-#: ../src/gnome-cmd-user-actions.cc:231
+#: ../src/gnome-cmd-user-actions.cc:232
 msgid "Send files"
 msgstr "Fájlok küldése"
 
@@ -3468,7 +3468,7 @@ msgid "%s free"
 msgstr "%s szabad"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
-#: ../src/gnome-cmd-user-actions.cc:1691 ../src/gnome-cmd-user-actions.cc:1699
+#: ../src/gnome-cmd-user-actions.cc:1692 ../src/gnome-cmd-user-actions.cc:1700
 msgid "The tab is locked, close anyway?"
 msgstr "A lap zárolva van, mindenképp bezárja?"
 
@@ -3504,24 +3504,24 @@ msgstr "_Minden lap bezárása"
 msgid "Close _Duplicate Tabs"
 msgstr "_Kettőzött lapok bezárása"
 
-#: ../src/gnome-cmd-file-selector.cc:1106
+#: ../src/gnome-cmd-file-selector.cc:1131
 msgid "No file name given"
 msgstr "Nem adott meg fájlnevet"
 
-#: ../src/gnome-cmd-file-selector.cc:1137
+#: ../src/gnome-cmd-file-selector.cc:1162
 msgid "New Text File"
 msgstr "Új szöveges fájl"
 
-#: ../src/gnome-cmd-file-selector.cc:1271
+#: ../src/gnome-cmd-file-selector.cc:1296
 msgid "Symbolic link name:"
 msgstr "Szimbolikus link neve:"
 
-#: ../src/gnome-cmd-file-selector.cc:1277
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:884
+#: ../src/gnome-cmd-file-selector.cc:1302
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:885
 msgid "Create Symbolic Link"
 msgstr "Szimbolikus link létrehozása"
 
-#: ../src/gnome-cmd-file-selector.cc:1394
+#: ../src/gnome-cmd-file-selector.cc:1419
 msgid "Filter:"
 msgstr "Szűrő:"
 
@@ -3787,7 +3787,7 @@ msgstr "F9 Keresés"
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME Commander - RENDSZERGAZDAI JOGOSULTSÁGOK"
 
-#: ../src/gnome-cmd-main-win.cc:1171 ../src/gnome-cmd-user-actions.cc:272
+#: ../src/gnome-cmd-main-win.cc:1171 ../src/gnome-cmd-user-actions.cc:273
 msgid "Refresh"
 msgstr "Frissítés"
 
@@ -3812,11 +3812,11 @@ msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr ""
 "Fájlnevek másolása (a Shift a teljes útvonalakhoz, az Alt a URI címekhez)"
 
-#: ../src/gnome-cmd-main-win.cc:1179 ../src/gnome-cmd-user-actions.cc:207
+#: ../src/gnome-cmd-main-win.cc:1179 ../src/gnome-cmd-user-actions.cc:208
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../src/gnome-cmd-main-win.cc:1181 ../src/gnome-cmd-user-actions.cc:210
+#: ../src/gnome-cmd-main-win.cc:1181 ../src/gnome-cmd-user-actions.cc:211
 msgid "Paste"
 msgstr "Beillesztés"
 
@@ -3837,7 +3837,7 @@ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr "A „gnomevfs” („gnome.vfs”) python modul nem tölthető be"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:269
-#: ../src/gnome-cmd-user-actions.cc:212
+#: ../src/gnome-cmd-user-actions.cc:213
 msgid "Search"
 msgstr "Keresés"
 
@@ -3895,341 +3895,345 @@ msgid "Go to bookmarked location"
 msgstr "Ugrás a könyvjelzőbeli helyre"
 
 #: ../src/gnome-cmd-user-actions.cc:196
+msgid "Show bookmarks of current device"
+msgstr "A jelenlegi eszköz könyvjelzőinek megjelenítése"
+
+#: ../src/gnome-cmd-user-actions.cc:197
 msgid "Execute command"
 msgstr "Parancs végrehajtása"
 
-#: ../src/gnome-cmd-user-actions.cc:197
+#: ../src/gnome-cmd-user-actions.cc:198
 msgid "Open terminal"
 msgstr "Terminál megnyitása"
 
-#: ../src/gnome-cmd-user-actions.cc:198
+#: ../src/gnome-cmd-user-actions.cc:199
 msgid "Open terminal as root"
 msgstr "Terminál megnyitása rendszergazdaként"
 
-#: ../src/gnome-cmd-user-actions.cc:199
+#: ../src/gnome-cmd-user-actions.cc:200
 msgid "Start GNOME Commander as root"
 msgstr "GNOME Commander indítása rendszergazdaként"
 
-#: ../src/gnome-cmd-user-actions.cc:200
+#: ../src/gnome-cmd-user-actions.cc:201
 msgid "Close connection"
 msgstr "Kapcsolat lezárása"
 
-#: ../src/gnome-cmd-user-actions.cc:201
+#: ../src/gnome-cmd-user-actions.cc:202
 msgid "New connection"
 msgstr "Új kapcsolat"
 
-#: ../src/gnome-cmd-user-actions.cc:202
+#: ../src/gnome-cmd-user-actions.cc:203
 msgid "Open connection"
 msgstr "Kapcsolat megnyitása"
 
-#: ../src/gnome-cmd-user-actions.cc:203
+#: ../src/gnome-cmd-user-actions.cc:204
 msgid "Change left connection"
 msgstr "Bal kapcsolat módosítása"
 
-#: ../src/gnome-cmd-user-actions.cc:204
+#: ../src/gnome-cmd-user-actions.cc:205
 msgid "Change right connection"
 msgstr "Jobb kapcsolat módosítása"
 
-#: ../src/gnome-cmd-user-actions.cc:209
+#: ../src/gnome-cmd-user-actions.cc:210
 msgid "Show user defined files"
 msgstr "Felhasználó által megadott fájlok megjelenítése"
 
-#: ../src/gnome-cmd-user-actions.cc:213
+#: ../src/gnome-cmd-user-actions.cc:214
 msgid "Advanced rename tool"
 msgstr "Speciális átnevezőeszköz"
 
-#: ../src/gnome-cmd-user-actions.cc:214
+#: ../src/gnome-cmd-user-actions.cc:215
 msgid "Change permissions"
 msgstr "Jogok módosítása"
 
-#: ../src/gnome-cmd-user-actions.cc:215
+#: ../src/gnome-cmd-user-actions.cc:216
 msgid "Change owner/group"
 msgstr "Tulajdonos/csoport módosítása"
 
-#: ../src/gnome-cmd-user-actions.cc:216
+#: ../src/gnome-cmd-user-actions.cc:217
 msgid "Copy files"
 msgstr "Fájlok másolása"
 
-#: ../src/gnome-cmd-user-actions.cc:217
+#: ../src/gnome-cmd-user-actions.cc:218
 msgid "Copy files with rename"
 msgstr "Fájlok másolása átnevezéssel"
 
-#: ../src/gnome-cmd-user-actions.cc:218
+#: ../src/gnome-cmd-user-actions.cc:219
 msgid "Create symbolic link"
 msgstr "Szimbolikus link létrehozása"
 
-#: ../src/gnome-cmd-user-actions.cc:219
+#: ../src/gnome-cmd-user-actions.cc:220
 msgid "Delete files"
 msgstr "Fájlok törlése"
 
-#: ../src/gnome-cmd-user-actions.cc:220
+#: ../src/gnome-cmd-user-actions.cc:221
 msgid "Compare files (diff)"
 msgstr "Fájlok összehasonlítása (diff)"
 
-#: ../src/gnome-cmd-user-actions.cc:221
+#: ../src/gnome-cmd-user-actions.cc:222
 msgid "Edit file"
 msgstr "Fájl szerkesztése"
 
-#: ../src/gnome-cmd-user-actions.cc:222
+#: ../src/gnome-cmd-user-actions.cc:223
 msgid "Edit a new file"
 msgstr "Új fájl szerkesztése"
 
-#: ../src/gnome-cmd-user-actions.cc:223
+#: ../src/gnome-cmd-user-actions.cc:224
 msgid "Quit"
 msgstr "Kilépés"
 
-#: ../src/gnome-cmd-user-actions.cc:224
+#: ../src/gnome-cmd-user-actions.cc:225
 msgid "View with external viewer"
 msgstr "Megtekintés külső megjelenítővel"
 
-#: ../src/gnome-cmd-user-actions.cc:225
+#: ../src/gnome-cmd-user-actions.cc:226
 msgid "View with internal viewer"
 msgstr "Megtekintés beépített megjelenítővel"
 
-#: ../src/gnome-cmd-user-actions.cc:226
+#: ../src/gnome-cmd-user-actions.cc:227
 msgid "Create directory"
 msgstr "Könyvtár létrehozása"
 
-#: ../src/gnome-cmd-user-actions.cc:227
+#: ../src/gnome-cmd-user-actions.cc:228
 msgid "Move files"
 msgstr "Fájlok áthelyezése"
 
-#: ../src/gnome-cmd-user-actions.cc:229
+#: ../src/gnome-cmd-user-actions.cc:230
 msgid "Rename files"
 msgstr "Fájlok átnevezése"
 
-#: ../src/gnome-cmd-user-actions.cc:232
+#: ../src/gnome-cmd-user-actions.cc:233
 msgid "Synchronize directories"
 msgstr "Könyvtárak szinkronizálása"
 
-#: ../src/gnome-cmd-user-actions.cc:235
+#: ../src/gnome-cmd-user-actions.cc:236
 msgid "About GNOME Commander"
 msgstr "A GNOME Commander névjegye"
 
-#: ../src/gnome-cmd-user-actions.cc:236
+#: ../src/gnome-cmd-user-actions.cc:237
 msgid "Help contents"
 msgstr "Súgótartalom"
 
-#: ../src/gnome-cmd-user-actions.cc:237
+#: ../src/gnome-cmd-user-actions.cc:238
 msgid "Help on keyboard shortcuts"
 msgstr "Gyorsbillentyűk súgója"
 
-#: ../src/gnome-cmd-user-actions.cc:238
+#: ../src/gnome-cmd-user-actions.cc:239
 msgid "Report a problem"
 msgstr "Hiba jelentése"
 
-#: ../src/gnome-cmd-user-actions.cc:239
+#: ../src/gnome-cmd-user-actions.cc:240
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander a weben"
 
-#: ../src/gnome-cmd-user-actions.cc:240
+#: ../src/gnome-cmd-user-actions.cc:241
 msgid "Compare directories"
 msgstr "Könyvtárak összehasonlítása"
 
-#: ../src/gnome-cmd-user-actions.cc:241
+#: ../src/gnome-cmd-user-actions.cc:242
 msgid "Invert selection"
 msgstr "Kijelölés megfordítása"
 
-#: ../src/gnome-cmd-user-actions.cc:242
+#: ../src/gnome-cmd-user-actions.cc:243
 msgid "Select all"
 msgstr "Összes kijelölése"
 
-#: ../src/gnome-cmd-user-actions.cc:243
+#: ../src/gnome-cmd-user-actions.cc:244
 msgid "Toggle selection"
 msgstr "Kijelölés átváltása"
 
-#: ../src/gnome-cmd-user-actions.cc:244
+#: ../src/gnome-cmd-user-actions.cc:245
 msgid "Toggle selection and move cursor downward"
 msgstr "Kijelölés átváltása és a kurzor mozgatás alulra"
 
-#: ../src/gnome-cmd-user-actions.cc:245
+#: ../src/gnome-cmd-user-actions.cc:246
 msgid "Unselect all"
 msgstr "Összes kijelölésének megszüntetése"
 
-#: ../src/gnome-cmd-user-actions.cc:248
+#: ../src/gnome-cmd-user-actions.cc:249
 msgid "Keyboard shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: ../src/gnome-cmd-user-actions.cc:249
+#: ../src/gnome-cmd-user-actions.cc:250
 msgid "Configure plugins"
 msgstr "Bővítmények beállítása"
 
-#: ../src/gnome-cmd-user-actions.cc:250
+#: ../src/gnome-cmd-user-actions.cc:251
 msgid "Execute Python plugin"
 msgstr "Python bővítmény végrehajtása"
 
-#: ../src/gnome-cmd-user-actions.cc:251
+#: ../src/gnome-cmd-user-actions.cc:252
 msgid "Back one directory"
 msgstr "Vissza egy könyvtárral"
 
-#: ../src/gnome-cmd-user-actions.cc:252
+#: ../src/gnome-cmd-user-actions.cc:253
 msgid "Close the current tab"
 msgstr "Jelenlegi lap bezárása"
 
-#: ../src/gnome-cmd-user-actions.cc:253
+#: ../src/gnome-cmd-user-actions.cc:254
 msgid "Close all tabs"
 msgstr "Az összes lap bezárása"
 
-#: ../src/gnome-cmd-user-actions.cc:254
+#: ../src/gnome-cmd-user-actions.cc:255
 msgid "Close duplicate tabs"
 msgstr "Kettőzött lapok bezárása"
 
-#: ../src/gnome-cmd-user-actions.cc:255
+#: ../src/gnome-cmd-user-actions.cc:256
 msgid "Change directory"
 msgstr "Könyvtár váltása"
 
-#: ../src/gnome-cmd-user-actions.cc:256
+#: ../src/gnome-cmd-user-actions.cc:257
 msgid "Show directory history"
 msgstr "Könyvtár előzmények megjelenítése"
 
-#: ../src/gnome-cmd-user-actions.cc:257
+#: ../src/gnome-cmd-user-actions.cc:258
 msgid "Equal panel size"
 msgstr "Azonos panelméret"
 
-#: ../src/gnome-cmd-user-actions.cc:258
+#: ../src/gnome-cmd-user-actions.cc:259
 msgid "Maximize panel size"
 msgstr "Panelméret maximalizálása"
 
-#: ../src/gnome-cmd-user-actions.cc:259
+#: ../src/gnome-cmd-user-actions.cc:260
 msgid "Back to the first directory"
 msgstr "Vissza az első könyvtárba"
 
-#: ../src/gnome-cmd-user-actions.cc:260
+#: ../src/gnome-cmd-user-actions.cc:261
 msgid "Forward one directory"
 msgstr "Előre egy könyvtárral"
 
-#: ../src/gnome-cmd-user-actions.cc:261
+#: ../src/gnome-cmd-user-actions.cc:262
 msgid "Home directory"
 msgstr "Saját könyvtár"
 
-#: ../src/gnome-cmd-user-actions.cc:262
+#: ../src/gnome-cmd-user-actions.cc:263
 msgid "Open directory in the active window"
 msgstr "Könyvtár megnyitása az aktív ablakban"
 
-#: ../src/gnome-cmd-user-actions.cc:263
+#: ../src/gnome-cmd-user-actions.cc:264
 msgid "Open directory in the inactive window"
 msgstr "Könyvtár megnyitása az inaktív ablakban"
 
-#: ../src/gnome-cmd-user-actions.cc:264
+#: ../src/gnome-cmd-user-actions.cc:265
 msgid "Open directory in the left window"
 msgstr "Könyvtár megnyitása a bal oldali ablakban"
 
-#: ../src/gnome-cmd-user-actions.cc:265
+#: ../src/gnome-cmd-user-actions.cc:266
 msgid "Open directory in the right window"
 msgstr "Könyvtár megnyitása a jobb oldali ablakban"
 
-#: ../src/gnome-cmd-user-actions.cc:266
+#: ../src/gnome-cmd-user-actions.cc:267
 msgid "Open directory in the new tab"
 msgstr "Könyvtár megnyitása új lapon"
 
-#: ../src/gnome-cmd-user-actions.cc:267
+#: ../src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Könyvtár megnyitása új lapon (inaktív ablakban)"
 
-#: ../src/gnome-cmd-user-actions.cc:268
+#: ../src/gnome-cmd-user-actions.cc:269
 msgid "Forward to the last directory"
 msgstr "Előre a legutolsó könyvtárba"
 
-#: ../src/gnome-cmd-user-actions.cc:269
+#: ../src/gnome-cmd-user-actions.cc:270
 msgid "Next tab"
 msgstr "Következő lap"
 
-#: ../src/gnome-cmd-user-actions.cc:270
+#: ../src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in a new tab"
 msgstr "Könyvtár megnyitása új lapon"
 
-#: ../src/gnome-cmd-user-actions.cc:271
+#: ../src/gnome-cmd-user-actions.cc:272
 msgid "Previous tab"
 msgstr "Előző lap"
 
-#: ../src/gnome-cmd-user-actions.cc:273
+#: ../src/gnome-cmd-user-actions.cc:274
 msgid "Root directory"
 msgstr "Gyökérkönyvtár"
 
-#: ../src/gnome-cmd-user-actions.cc:274
+#: ../src/gnome-cmd-user-actions.cc:275
 msgid "Lock/unlock tab"
 msgstr "Lap zárolása/feloldása"
 
-#: ../src/gnome-cmd-user-actions.cc:276
+#: ../src/gnome-cmd-user-actions.cc:277
 msgid "Show terminal"
 msgstr "Terminál megjelenítése"
 
-#: ../src/gnome-cmd-user-actions.cc:279
+#: ../src/gnome-cmd-user-actions.cc:280
 msgid "Display main menu"
 msgstr "Főmenü megjelenítése"
 
-#: ../src/gnome-cmd-user-actions.cc:280
+#: ../src/gnome-cmd-user-actions.cc:281
 msgid "Move cursor one step up"
 msgstr "A kurzor mozgatása egy lépéssel fel"
 
-#: ../src/gnome-cmd-user-actions.cc:281
+#: ../src/gnome-cmd-user-actions.cc:282
 msgid "Move cursor one step down"
 msgstr "A kurzor mozgatása egy lépéssel le"
 
-#: ../src/gnome-cmd-user-actions.cc:801 ../src/gnome-cmd-user-actions.cc:946
-#: ../src/gnome-cmd-user-actions.cc:1176
+#: ../src/gnome-cmd-user-actions.cc:802 ../src/gnome-cmd-user-actions.cc:947
+#: ../src/gnome-cmd-user-actions.cc:1177
 msgid "No valid command given."
 msgstr "Nem adott meg érvényes parancsot."
 
-#: ../src/gnome-cmd-user-actions.cc:814 ../src/gnome-cmd-user-actions.cc:958
-#: ../src/gnome-cmd-user-actions.cc:1189 ../src/gnome-cmd-user-actions.cc:1228
+#: ../src/gnome-cmd-user-actions.cc:815 ../src/gnome-cmd-user-actions.cc:959
+#: ../src/gnome-cmd-user-actions.cc:1190 ../src/gnome-cmd-user-actions.cc:1229
 #: ../src/utils.cc:137
 msgid "Unable to execute command."
 msgstr "A parancs nem hajtható végre."
 
-#: ../src/gnome-cmd-user-actions.cc:879
+#: ../src/gnome-cmd-user-actions.cc:880
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Létrehoz szimbolikus linkeket a(z) %i fájlra a(z) %s könyvtárban?"
 msgstr[1] "Létrehoz szimbolikus linkeket a(z) %i fájlra a(z) %s könyvtárban?"
 
-#: ../src/gnome-cmd-user-actions.cc:884
+#: ../src/gnome-cmd-user-actions.cc:885
 msgid "Create"
 msgstr "Létrehozás"
 
-#: ../src/gnome-cmd-user-actions.cc:975 ../src/gnome-cmd-user-actions.cc:992
-#: ../src/gnome-cmd-user-actions.cc:1031
+#: ../src/gnome-cmd-user-actions.cc:976 ../src/gnome-cmd-user-actions.cc:993
+#: ../src/gnome-cmd-user-actions.cc:1032
 msgid "Operation not supported on remote file systems"
 msgstr "A művelet nem támogatott távoli fájlrendszeren"
 
-#: ../src/gnome-cmd-user-actions.cc:1007
+#: ../src/gnome-cmd-user-actions.cc:1008
 msgid "Too many selected files"
 msgstr "Túl sok fájl van kijelölve"
 
-#: ../src/gnome-cmd-user-actions.cc:1261
+#: ../src/gnome-cmd-user-actions.cc:1262
 msgid "Unable to open terminal in root mode."
 msgstr "Nem nyitható meg a terminál rendszergazda módban."
 
-#: ../src/gnome-cmd-user-actions.cc:1266
+#: ../src/gnome-cmd-user-actions.cc:1267
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu vagy beesu nem található."
 
-#: ../src/gnome-cmd-user-actions.cc:1285
+#: ../src/gnome-cmd-user-actions.cc:1286
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "A GNOME Commander nem indítható el rendszergazdai módban."
 
-#: ../src/gnome-cmd-user-actions.cc:1288
+#: ../src/gnome-cmd-user-actions.cc:1289
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu vagy beesu nem található"
 
-#: ../src/gnome-cmd-user-actions.cc:1896
+#: ../src/gnome-cmd-user-actions.cc:1897
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
-#: ../src/gnome-cmd-user-actions.cc:2000 ../src/gnome-cmd-user-actions.cc:2003
+#: ../src/gnome-cmd-user-actions.cc:2007 ../src/gnome-cmd-user-actions.cc:2010
 msgid "There was an error opening home page."
 msgstr "Hiba történt a honlap megnyitása közben."
 
-#: ../src/gnome-cmd-user-actions.cc:2014 ../src/gnome-cmd-user-actions.cc:2017
+#: ../src/gnome-cmd-user-actions.cc:2021 ../src/gnome-cmd-user-actions.cc:2024
 msgid "There was an error reporting problem."
 msgstr "Hiba történt a probléma jelentése közben."
 
-#: ../src/gnome-cmd-user-actions.cc:2044
+#: ../src/gnome-cmd-user-actions.cc:2051
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Gyors és hatékony fájlkezelő a GNOME asztali környezethez"
 
-#: ../src/gnome-cmd-user-actions.cc:2048
+#: ../src/gnome-cmd-user-actions.cc:2055
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4240,7 +4244,7 @@ msgstr ""
 "Software Foundation által kiadott GNU General Public License második (vagy "
 "bármely későbbi) változatában foglaltak alapján."
 
-#: ../src/gnome-cmd-user-actions.cc:2052
+#: ../src/gnome-cmd-user-actions.cc:2059
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4252,7 +4256,7 @@ msgstr ""
 "program alkalmas-e a KÖZREADÁSRA vagy EGY BIZONYOS FELADAT ELVÉGZÉSÉRE. "
 "További részletekért tanulmányozza a GNU GPL licencet."
 
-#: ../src/gnome-cmd-user-actions.cc:2056
+#: ../src/gnome-cmd-user-actions.cc:2063
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4262,7 +4266,7 @@ msgstr ""
 "jár, ha nem kapta meg, írjon a Free Software Foundation Inc.-nek. "
 "Levélcímük: 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:2073
+#: ../src/gnome-cmd-user-actions.cc:2080
 msgid "translator-credits"
 msgstr ""
 "Csimbi <csimbi@gmail.com>\n"
