@@ -549,7 +549,7 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
                     // if (tag_value)
                       // append_utf8_chunk (fmt, *i, tag_value, g_utf8_strlen (tag_value, -1));
 
-                    fmt += gcmd_tags_get_value (f, (*i)->tag.tag);
+                    fmt += gcmd_tags_get_value_string (f, (*i)->tag.tag);
                     break;
 
       default :     break;
