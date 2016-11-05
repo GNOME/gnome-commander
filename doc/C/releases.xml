@@ -35,6 +35,9 @@
                         <listitem>
                             <para>Device list entry width is set equal to the longest string in the list</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed a bug in advance rename tool when utilizing METATAGS</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
