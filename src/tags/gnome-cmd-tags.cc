@@ -717,11 +717,11 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 }
 
 
-const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
+const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag tag)
 {
     g_return_val_if_fail (f != NULL, empty_string);
 
-    const gchar *ret_val = empty_string;
+    std::string ret_val = empty_string;
 
     switch (metatags[tag].tag_class)
     {
@@ -777,7 +777,13 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
         default:        break;
     }
 
-    return ret_val ? ret_val : empty_string;
+    return ret_val.length() != 0 ? ret_val : empty_string;
+}
+
+
+const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
+{
+    return gcmd_tags_get_value_string(f, tag).c_str();
 }
 
 
