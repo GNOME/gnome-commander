@@ -490,6 +490,7 @@ const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
 const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag);
+const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
 
