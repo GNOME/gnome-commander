@@ -1,6 +1,6 @@
 # GNOME Commander #
 
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.6.0.svg)](https://git.gnome.org/browse/gnome-commander/atom/?h=master)
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.6.2.svg)](https://git.gnome.org/browse/gnome-commander/atom/?h=master)
 
 ## Introduction ##
 

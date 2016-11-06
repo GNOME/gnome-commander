@@ -11,6 +11,14 @@ New features:
  * Shortcut can be assigned for:
    - Moving the cursor up or down ("Move cursor one step up/down")
    - Viewing bookmarks of current device ("Show bookmarks of current device")
+New or updated translations: 
+ * hu (Balázs Meskó)
+ * de (Mario Blättermann)
+ * pl (Piotr Drąg)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+New or updated docs:
+ * cs (Marek Černocký)
 
 ===================================
 gnome-commander 1.6.1

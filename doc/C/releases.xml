@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.6.2</para></entry>
-            <entry><para>2016-??-??</para></entry>
+            <entry><para>2016-11-06</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -56,6 +56,12 @@
                                     <para>Viewing bookmarks of current device ("Show bookmarks of current device")</para>
                                 </listitem>
                             </itemizedlist>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: hu, de, pl, sr, sl@latin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
                         </listitem>
                     </itemizedlist>
                 </para>
