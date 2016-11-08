@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2016-10-06 22:33+0000\n"
-"PO-Revision-Date: 2016-10-07 00:34+0200\n"
+"POT-Creation-Date: 2016-11-07 20:32+0000\n"
+"PO-Revision-Date: 2016-11-08 08:02+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -41,22 +41,26 @@ msgstr "1.8.0"
 msgid "2016-??-??"
 msgstr "??.??.2016"
 
-#: C/releases.xml:29(para) C/releases.xml:72(para) C/releases.xml:355(para)
-#: C/releases.xml:419(para) C/releases.xml:650(para) C/releases.xml:704(para)
-#: C/releases.xml:781(para) C/releases.xml:1002(para) C/releases.xml:1083(para)
-#: C/releases.xml:1141(para) C/releases.xml:1252(para)
-#: C/releases.xml:1336(para) C/releases.xml:1445(para)
-#: C/releases.xml:1496(para) C/releases.xml:1574(para)
-#: C/releases.xml:1663(para) C/releases.xml:1735(para)
-#: C/releases.xml:1801(para) C/releases.xml:1877(para)
-#: C/releases.xml:1917(para) C/releases.xml:1954(para)
-#: C/releases.xml:1968(para)
+#: C/releases.xml:29(para) C/releases.xml:72(para) C/releases.xml:153(para)
+#: C/releases.xml:178(para) C/releases.xml:209(para) C/releases.xml:246(para)
+#: C/releases.xml:277(para) C/releases.xml:305(para) C/releases.xml:330(para)
+#: C/releases.xml:364(para) C/releases.xml:395(para) C/releases.xml:456(para)
+#: C/releases.xml:561(para) C/releases.xml:589(para) C/releases.xml:614(para)
+#: C/releases.xml:702(para) C/releases.xml:756(para) C/releases.xml:833(para)
+#: C/releases.xml:1054(para) C/releases.xml:1135(para)
+#: C/releases.xml:1193(para) C/releases.xml:1304(para)
+#: C/releases.xml:1388(para) C/releases.xml:1497(para)
+#: C/releases.xml:1548(para) C/releases.xml:1626(para)
+#: C/releases.xml:1715(para) C/releases.xml:1787(para)
+#: C/releases.xml:1853(para) C/releases.xml:1929(para)
+#: C/releases.xml:1969(para) C/releases.xml:2006(para)
+#: C/releases.xml:2020(para)
 msgid "New features:"
 msgstr "Nové funkce:"
 
 #: C/releases.xml:33(para)
-msgid "Shortcut can be assigned for moving the cursor up or down"
-msgstr "Dá se přiřadit klávesová zkratka pro pohyb kurzoru nahoru a dolů"
+msgid "..."
+msgstr "…"
 
 #: C/releases.xml:40(para)
 msgid "1.6.0"
@@ -66,24 +70,24 @@ msgstr "1.6.0"
 msgid "2016-10-04"
 msgstr "4.10.2016"
 
-#: C/releases.xml:43(para) C/releases.xml:145(para) C/releases.xml:165(para)
-#: C/releases.xml:185(para) C/releases.xml:211(para) C/releases.xml:243(para)
-#: C/releases.xml:269(para) C/releases.xml:292(para) C/releases.xml:312(para)
-#: C/releases.xml:338(para) C/releases.xml:375(para) C/releases.xml:513(para)
-#: C/releases.xml:533(para) C/releases.xml:559(para) C/releases.xml:579(para)
-#: C/releases.xml:596(para) C/releases.xml:610(para) C/releases.xml:633(para)
-#: C/releases.xml:664(para) C/releases.xml:693(para) C/releases.xml:718(para)
-#: C/releases.xml:738(para) C/releases.xml:764(para) C/releases.xml:795(para)
-#: C/releases.xml:821(para) C/releases.xml:847(para) C/releases.xml:882(para)
-#: C/releases.xml:905(para) C/releases.xml:928(para) C/releases.xml:1057(para)
-#: C/releases.xml:1115(para) C/releases.xml:1184(para)
-#: C/releases.xml:1307(para) C/releases.xml:1408(para)
-#: C/releases.xml:1422(para) C/releases.xml:1473(para)
-#: C/releases.xml:1545(para) C/releases.xml:1635(para)
-#: C/releases.xml:1718(para) C/releases.xml:1781(para)
-#: C/releases.xml:1815(para) C/releases.xml:1847(para)
-#: C/releases.xml:1906(para) C/releases.xml:1931(para)
-#: C/releases.xml:1988(para)
+#: C/releases.xml:43(para) C/releases.xml:145(para) C/releases.xml:170(para)
+#: C/releases.xml:195(para) C/releases.xml:226(para) C/releases.xml:263(para)
+#: C/releases.xml:294(para) C/releases.xml:322(para) C/releases.xml:347(para)
+#: C/releases.xml:378(para) C/releases.xml:412(para) C/releases.xml:550(para)
+#: C/releases.xml:575(para) C/releases.xml:606(para) C/releases.xml:631(para)
+#: C/releases.xml:648(para) C/releases.xml:662(para) C/releases.xml:685(para)
+#: C/releases.xml:716(para) C/releases.xml:745(para) C/releases.xml:770(para)
+#: C/releases.xml:790(para) C/releases.xml:816(para) C/releases.xml:847(para)
+#: C/releases.xml:873(para) C/releases.xml:899(para) C/releases.xml:934(para)
+#: C/releases.xml:957(para) C/releases.xml:980(para) C/releases.xml:1109(para)
+#: C/releases.xml:1167(para) C/releases.xml:1236(para)
+#: C/releases.xml:1359(para) C/releases.xml:1460(para)
+#: C/releases.xml:1474(para) C/releases.xml:1525(para)
+#: C/releases.xml:1597(para) C/releases.xml:1687(para)
+#: C/releases.xml:1770(para) C/releases.xml:1833(para)
+#: C/releases.xml:1867(para) C/releases.xml:1899(para)
+#: C/releases.xml:1958(para) C/releases.xml:1983(para)
+#: C/releases.xml:2040(para)
 msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
@@ -103,7 +107,7 @@ msgstr ""
 "Opraven problém bgo#683087 (zhroucení při otevření okna s vlastnostmi pro "
 "určité objekty; dík si zaslouží Puux)"
 
-#: C/releases.xml:53(para) C/releases.xml:227(para)
+#: C/releases.xml:53(para) C/releases.xml:242(para)
 msgid ""
 "Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)"
 msgstr ""
@@ -281,7 +285,7 @@ msgstr ""
 "Opraven problém bgo#764306 (překlepy a chybná slova v řetězcích, dík si "
 "zaslouží Anders Jonsson)"
 
-#: C/releases.xml:152(para)
+#: C/releases.xml:157(para)
 msgid ""
 "New or updated translations: cs, de, es, hu, hu, hu, id, pl, pt, ro, sk, sr, "
 "sr@latin, sv"
@@ -289,19 +293,19 @@ msgstr ""
 "Nové a aktualizované překlady: cs, de, es, hu, hu, hu, id, pl, pt, ro, sk, "
 "sr, sr@latin, sv"
 
-#: C/releases.xml:155(para)
+#: C/releases.xml:160(para)
 msgid "New or updated docs: cs, de, es"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, de, es"
 
-#: C/releases.xml:162(para)
+#: C/releases.xml:167(para)
 msgid "1.4.8"
 msgstr "1.4.8"
 
-#: C/releases.xml:163(para) C/gnome-commander.xml:394(date)
+#: C/releases.xml:168(para) C/gnome-commander.xml:394(date)
 msgid "2016-03-14"
 msgstr "14.3.2016"
 
-#: C/releases.xml:169(para)
+#: C/releases.xml:174(para)
 msgid ""
 "Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to "
 "Mamoru Tasaka)"
@@ -309,23 +313,23 @@ msgstr ""
 "Opraven problém bgo#761580 (podpora gcc6 -Werror=format-security; dík si "
 "zaslouží Mamoru Tasaka)"
 
-#: C/releases.xml:172(para)
+#: C/releases.xml:182(para)
 msgid "New or updated translations: cs, de, pl, pt, pt_BR, oc"
 msgstr "Nové nebo aktualizované překlady: cs, de, pl, pt, pt_BR, oc"
 
-#: C/releases.xml:175(para)
+#: C/releases.xml:185(para)
 msgid "New or updated docs: cs, de"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, de"
 
-#: C/releases.xml:182(para)
+#: C/releases.xml:192(para)
 msgid "1.4.7"
 msgstr "1.4.7"
 
-#: C/releases.xml:183(para)
+#: C/releases.xml:193(para)
 msgid "2015-05-30"
 msgstr "30.5.2015"
 
-#: C/releases.xml:189(para)
+#: C/releases.xml:199(para)
 msgid ""
 "Fixed problem bgo#745454 (Segmentation fault after find files, thanks to "
 "Mamoru Tasaka)"
@@ -333,7 +337,7 @@ msgstr ""
 "Opraven problém bgo#745454 (narušení ochrany paměti po vyhledávání souborů; "
 "dík si zaslouží Mamoru Tasaka)"
 
-#: C/releases.xml:192(para)
+#: C/releases.xml:202(para)
 msgid ""
 "Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru "
 "Tasaka)"
@@ -341,7 +345,7 @@ msgstr ""
 "Opraven problém bgo#749869 (narušení ochrany paměti při druhém vyhledávání; "
 "dík si zaslouží Mamoru Tasaka)"
 
-#: C/releases.xml:195(para)
+#: C/releases.xml:205(para)
 msgid ""
 "Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, "
 "thanks to Mamoru Tasaka)"
@@ -349,27 +353,27 @@ msgstr ""
 "Opraven problém bgo#734032 (kliknutí na soubor .png se dívá po špatném typu "
 "MIME; dík si zaslouží Mamoru Tasaka)"
 
-#: C/releases.xml:198(para)
+#: C/releases.xml:213(para)
 msgid "New or updated translations: co"
 msgstr "Nové nebo aktualizované překlady: co"
 
-#: C/releases.xml:201(para) C/releases.xml:259(para) C/releases.xml:302(para)
+#: C/releases.xml:216(para) C/releases.xml:284(para) C/releases.xml:337(para)
 msgid "New or updated docs: cs"
 msgstr "Nová nebo aktualizovaná dokumentace: cs"
 
-#: C/releases.xml:208(para)
+#: C/releases.xml:223(para)
 msgid "1.4.6"
 msgstr "1.4.6"
 
-#: C/releases.xml:209(para) C/gnome-commander.xml:376(date)
+#: C/releases.xml:224(para) C/gnome-commander.xml:376(date)
 msgid "2015-05-19"
 msgstr "19.5.2015"
 
-#: C/releases.xml:215(para)
+#: C/releases.xml:230(para)
 msgid "Fixed problem bgo#748869 (crash when searching two times consecutively)"
 msgstr "Opraven problém bgo#748869 (zhroucení při hledání dvakrát po sobě)"
 
-#: C/releases.xml:218(para)
+#: C/releases.xml:233(para)
 msgid ""
 "Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory "
 "with \"odd\" uid)"
@@ -377,7 +381,7 @@ msgstr ""
 "Opraven problém bgo#746003 (zhroucení při otevření dialogového okna s "
 "vlastnostmi pro složku na FTP s „neobvyklým“ uid)"
 
-#: C/releases.xml:221(para)
+#: C/releases.xml:236(para)
 msgid ""
 "Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks "
 "to Dominique Leuenberger)"
@@ -385,7 +389,7 @@ msgstr ""
 "Opraven problém bgo#747771 (soubor appdata.xml nebyl překládán, dík si "
 "zaslouží Dominique Leuenberger)"
 
-#: C/releases.xml:224(para)
+#: C/releases.xml:239(para)
 msgid ""
 "Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/"
 "connections)"
@@ -393,56 +397,56 @@ msgstr ""
 "Opraven problém bgo#653573 (hesla uložena v prostém textu v ./gnome-"
 "commander/connections)"
 
-#: C/releases.xml:230(para)
+#: C/releases.xml:250(para)
 msgid "New or updated translations: bs, el, pt"
 msgstr "Nové nebo aktualizované překlady: bs, el, pt"
 
-#: C/releases.xml:233(para)
+#: C/releases.xml:253(para)
 msgid "New or updated docs: cs, el"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, el"
 
-#: C/releases.xml:240(para)
+#: C/releases.xml:260(para)
 msgid "1.4.5"
 msgstr "1.4.5"
 
-#: C/releases.xml:241(para) C/gnome-commander.xml:367(date)
+#: C/releases.xml:261(para) C/gnome-commander.xml:367(date)
 msgid "2015-01-24"
 msgstr "24.1.2015"
 
-#: C/releases.xml:247(para)
+#: C/releases.xml:267(para)
 msgid "Fixed problem bgo#741316 (Appdata missing in POT)"
 msgstr "Opraven problém bgo#741316 (Appdata scházela v šabloně POT)"
 
-#: C/releases.xml:250(para)
+#: C/releases.xml:270(para)
 msgid ""
 "Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)"
 msgstr ""
 "Opraven problém bgo#742716 (volba --start-right-dir způsobovala pád aplikace "
 "gnome-commander)"
 
-#: C/releases.xml:253(para)
+#: C/releases.xml:273(para)
 msgid "Removed python-2.6 support from gentoo ebuild"
 msgstr "Z gentoo ebuild byla odstraněna podpora pro python-2.6"
 
-#: C/releases.xml:256(para)
+#: C/releases.xml:281(para)
 msgid "New or updated translations: cs, hu, id, sr, sr@latin"
 msgstr "Nové nebo aktualizované překlady: cs, hu, id, sr, sr@latin"
 
-#: C/releases.xml:266(para)
+#: C/releases.xml:291(para)
 msgid "1.4.4"
 msgstr "1.4.4"
 
-#: C/releases.xml:267(para) C/gnome-commander.xml:358(date)
+#: C/releases.xml:292(para) C/gnome-commander.xml:358(date)
 msgid "2014-11-11"
 msgstr "11.11.2014"
 
-#: C/releases.xml:273(para)
+#: C/releases.xml:298(para)
 msgid ""
 "Fixed problem bgo#571495 (Migrated from gnome_execute_shell to g_spawn_async)"
 msgstr ""
 "Opraven problém bgo#571495 (migrace z gnome_execute_shell na g_spawn_async)"
 
-#: C/releases.xml:276(para)
+#: C/releases.xml:301(para)
 msgid ""
 "Fixed problem bgo#737088 (Support for user's terminal different from gnome-"
 "terminal)"
@@ -450,23 +454,23 @@ msgstr ""
 "Opraven problém bgo#737088 (podpora pro uživatelský terminál jiný než gnome-"
 "terminal)"
 
-#: C/releases.xml:279(para)
+#: C/releases.xml:309(para)
 msgid "New or updated translations: cs, de, eu, fi, id, sr, sr@latin"
 msgstr "Nové a aktualizované překlady: cs, de, eu, fi, id, sr, sr@latin"
 
-#: C/releases.xml:282(para)
+#: C/releases.xml:312(para) C/releases.xml:402(para)
 msgid "New or updated docs: cs, es"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, es"
 
-#: C/releases.xml:289(para)
+#: C/releases.xml:319(para)
 msgid "1.4.3"
 msgstr "1.4.3"
 
-#: C/releases.xml:290(para) C/gnome-commander.xml:349(date)
+#: C/releases.xml:320(para) C/gnome-commander.xml:349(date)
 msgid "2014-06-22"
 msgstr "22.6.2014"
 
-#: C/releases.xml:296(para)
+#: C/releases.xml:326(para)
 msgid ""
 "Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready "
 "exists)"
@@ -474,19 +478,19 @@ msgstr ""
 "Opraven problém #731557 (zhroucení při přetahování myší v situaci, kdy "
 "soubor již existuje)"
 
-#: C/releases.xml:299(para)
+#: C/releases.xml:334(para)
 msgid "New or updated translations: cs, de, eu, fi"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, de, eu, fi"
 
-#: C/releases.xml:309(para)
+#: C/releases.xml:344(para)
 msgid "1.4.2"
 msgstr "1.4.2"
 
-#: C/releases.xml:310(para) C/gnome-commander.xml:340(date)
+#: C/releases.xml:345(para) C/gnome-commander.xml:340(date)
 msgid "2014-05-23"
 msgstr "23.5.2014"
 
-#: C/releases.xml:316(para)
+#: C/releases.xml:351(para)
 msgid ""
 "Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in "
 "ebuild)"
@@ -494,7 +498,7 @@ msgstr ""
 "Opraven problém Gentoo #509574 (v ebuild přehozeno z python-r1 na python-"
 "single-r1)"
 
-#: C/releases.xml:319(para)
+#: C/releases.xml:354(para)
 msgid ""
 "Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving "
 "folders)"
@@ -502,7 +506,7 @@ msgstr ""
 "Opraven problém bgo#367949 (správné výsledky z async_xfer_callback pro "
 "přesouvanou složku)"
 
-#: C/releases.xml:322(para)
+#: C/releases.xml:357(para)
 msgid ""
 "Fixed problem bgo#598161 (Selecting text in internal viewer on lines with "
 "TAB characters)"
@@ -510,7 +514,7 @@ msgstr ""
 "Opraven problém bgo#598161 (vybírání textu v interním prohlížeči na řádcích "
 "se znaky TAB)"
 
-#: C/releases.xml:325(para)
+#: C/releases.xml:360(para)
 msgid ""
 "Text selection in int. viewer works on lines with TAB characters (Thanks to "
 "Jan Vleeshouwers)"
@@ -518,68 +522,60 @@ msgstr ""
 "Výběr textu v interním prohlížeči funguje na řádcích se znaky tabulátor "
 "(díky patří přispěvateli Jan Vleeshouwers)."
 
-#: C/releases.xml:328(para)
+#: C/releases.xml:368(para)
 msgid "New or updated translations: cs, el, sr, sr@latin"
 msgstr "Nové nebo aktualizované překlady: cs, el, sr, sr@latin"
 
-#: C/releases.xml:335(para)
+#: C/releases.xml:375(para)
 msgid "1.4.1"
 msgstr "1.4.1"
 
-#: C/releases.xml:336(para) C/gnome-commander.xml:331(date)
+#: C/releases.xml:376(para) C/gnome-commander.xml:331(date)
 msgid "2014-04-05"
 msgstr "5.4.2014"
 
-#: C/releases.xml:342(para)
+#: C/releases.xml:382(para)
 msgid ""
 "Fixed problem bgo#641842 (Use poppler-glib instead of poppler internal API)"
 msgstr ""
 "Opraven problém bgo#641842 (použita knihovna poppler-glib místo interního "
 "API poppler)"
 
-#: C/releases.xml:345(para)
+#: C/releases.xml:385(para)
 msgid "Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)"
 msgstr ""
 "Opraven problém bgo#726682 (záplata opravující nedefinovaný odkaz do vtable)"
 
-#: C/releases.xml:348(para)
+#: C/releases.xml:388(para)
 msgid ""
 "Support for utf8 encoded creation and modification dates in document metadata"
 msgstr ""
 "Podpora pro vytváření a změnu data v metadatech dokumentu v kódování utf8"
 
-#: C/releases.xml:351(para)
+#: C/releases.xml:391(para)
 msgid "Moved Search, Quick Search and Enable Filter from Edit to File menu"
 msgstr ""
 "Přesunuty položky Hledat, Rychlé hledání a Povolit filtr z nabídky Upravit "
 "do nabídky Soubor"
 
-#: C/releases.xml:359(para)
-msgid "???"
-msgstr "???"
+#: C/releases.xml:399(para)
+msgid "New or updated translations: cs, es, fr , id , pt_BR, sl"
+msgstr "Nové nebo aktualizované překlady: cs, es, fr , id , pt_BR, sl"
 
-#: C/releases.xml:362(para)
-msgid "New or updated docs: ??"
-msgstr "Nová nebo aktualizovaná dokumentace: ??"
-
-#: C/releases.xml:365(para)
-msgid "New or updated translations: ??"
-msgstr "Nové nebo aktualizované překlady: ??"
-
-#: C/releases.xml:372(para)
+#: C/releases.xml:409(para)
 msgid "1.4.0"
 msgstr "1.4.0"
 
-#: C/releases.xml:373(para) C/gnome-commander.xml:316(date)
+#: C/releases.xml:410(para) C/gnome-commander.xml:316(date)
 msgid "2014-03-17"
 msgstr "17.3.2014"
 
-#: C/releases.xml:379(para)
+#: C/releases.xml:416(para)
 msgid "Fixed problem bgo#377463 (mkdir dialog loses focus)"
 msgstr ""
 "Opraven problém bgo#377463 (dialogové okno vytváření složky ztrácí zaměření)"
 
-#: C/releases.xml:382(para)
+#: C/releases.xml:419(para)
 msgid ""
 "Fixed problem bgo#492479 (file replace prompt must show date and size of "
 "files)"
@@ -587,7 +583,7 @@ msgstr ""
 "Opraven problém bgo#492479 (dotaz na smazání souboru musí zobrazovat datum a "
 "velikost souborů)"
 
-#: C/releases.xml:385(para)
+#: C/releases.xml:422(para)
 msgid ""
 "Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct "
 "access)"
@@ -595,7 +591,7 @@ msgstr ""
 "Opraven problém bgo#617140 (cíl GNOME: používat přístupové funkce namísto "
 "přímého přístupu)"
 
-#: C/releases.xml:388(para)
+#: C/releases.xml:425(para)
 msgid ""
 "Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, "
 "bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)"
@@ -604,39 +600,39 @@ msgstr ""
 "bgo#633331, bgo#634972, bgo#637873, bgo#638059 (chyby v gnome-commander-help."
 "master.po)"
 
-#: C/releases.xml:391(para)
+#: C/releases.xml:428(para)
 msgid "Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)"
 msgstr ""
 "Opraven problém bgo#660043 (klávesová zkratka Alt+šipka dolů není "
 "zdokumentována)"
 
-#: C/releases.xml:394(para)
+#: C/releases.xml:431(para)
 msgid "Fixed problem bgo#660268 (remember directory history between sessions)"
 msgstr ""
 "Opraven problém bgo#660268 (zapamatovat si historii složek mezi sezeními)"
 
-#: C/releases.xml:397(para)
+#: C/releases.xml:434(para)
 msgid "Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)"
 msgstr ""
 "Opraven problém bgo#667080 (výchozí volba u potvrzování mazání na Ano/Budiž)"
 
-#: C/releases.xml:400(para)
+#: C/releases.xml:437(para)
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
 msgstr "Opraven problém v Ubuntu #117226 (sjednocení záložek)"
 
-#: C/releases.xml:403(para)
+#: C/releases.xml:440(para)
 msgid "Fixed problem with right mouse button selection not being precise"
 msgstr "Opraven problém s pravým tlačítkem myši, kdy výběr nebyl přesný"
 
-#: C/releases.xml:406(para)
+#: C/releases.xml:443(para)
 msgid "Fixed problem bgo#696227 (detect and support libgsf &gt;= 1.14.26)"
 msgstr "Opraven problém bgo#696227 (detekce a podpora libgsf &gt;= 1.14.26)"
 
-#: C/releases.xml:409(para)
+#: C/releases.xml:446(para)
 msgid "Fixed problem bgo#684527 (Fixed typos in strings)"
 msgstr "Opraven problém bgo#684527 (opraven překlep v řetězci)"
 
-#: C/releases.xml:412(para)
+#: C/releases.xml:449(para)
 msgid ""
 "Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view."
 "dir_history)"
@@ -644,87 +640,87 @@ msgstr ""
 "Opraven problém bgo#660063 (klávesová zkratka Alt+šipka dolů byla "
 "nadefinována jako uživatelsky nastavitelná: view.dir_history)"
 
-#: C/releases.xml:415(para)
+#: C/releases.xml:452(para)
 msgid "Fixed problem bgo#642178 (lock tabs for prev/next buttons)"
 msgstr "Opraven problém #642178 (zamknutí karty vůči tlačítkům zpět/vpřed)"
 
-#: C/releases.xml:423(para) C/gnome-commander.xml:447(para)
+#: C/releases.xml:460(para) C/gnome-commander.xml:447(para)
 msgid "Support for tabs"
 msgstr "Podpora pro karty"
 
-#: C/releases.xml:426(para)
+#: C/releases.xml:463(para)
 msgid "Revamped bookmarks dialog"
 msgstr "Přepracováno dialogové okno záložek"
 
-#: C/releases.xml:429(para)
+#: C/releases.xml:466(para)
 msgid "Revamped file properties dialog"
 msgstr "Přepracováno dialogové okno vlastností souboru"
 
-#: C/releases.xml:432(para) C/gnome-commander.xml:450(para)
+#: C/releases.xml:469(para) C/gnome-commander.xml:450(para)
 msgid "One instance mode"
 msgstr "Režim jedné instance"
 
-#: C/releases.xml:435(para)
+#: C/releases.xml:472(para)
 msgid "New colour theme: green tiger"
 msgstr "Nový barevný motiv: green tiger"
 
-#: C/releases.xml:438(para)
+#: C/releases.xml:475(para)
 msgid "User defined LS_COLORS colours"
 msgstr "Uživatelem definované barvy LS_COLORS"
 
-#: C/releases.xml:441(para)
+#: C/releases.xml:478(para)
 msgid "Possibility to select/deselect files only"
 msgstr "Možnost vybírat/rušit výběr jen souborů"
 
-#: C/releases.xml:444(para)
+#: C/releases.xml:481(para)
 msgid "Support for automatic width counters in advanced file rename"
 msgstr ""
 "Podpora pro automatickou šířku počitadel v pokročilém přejmenování souborů"
 
-#: C/releases.xml:447(para)
+#: C/releases.xml:484(para)
 msgid "Enhanced file name matching in quick search"
 msgstr "Zdokonaleno porovnávání názvů souborů v rychlém hledání"
 
-#: C/releases.xml:450(para)
+#: C/releases.xml:487(para)
 msgid "Open terminal with administrator privileges"
 msgstr "Otevírání terminálu s administrátorským oprávněním"
 
-#: C/releases.xml:453(para)
+#: C/releases.xml:490(para)
 msgid "Prompt to confirm drag &amp; drop operations"
 msgstr "Výzva k potvrzení operací „táhni a upusť“"
 
-#: C/releases.xml:456(para)
+#: C/releases.xml:493(para)
 msgid "Right click popup menu for copying in internal viewer"
 msgstr ""
 "Vyskakovací nabídka pod pravým kliknutím pro kopírování v interním prohlížeči"
 
-#: C/releases.xml:459(para)
+#: C/releases.xml:496(para)
 msgid ""
 "--config-dir command line option for customized location of config files"
 msgstr ""
 "přepínač příkazové řádky --config-dir pro vlastní umístění souborů nastavení"
 
-#: C/releases.xml:462(para)
+#: C/releases.xml:499(para)
 msgid "Several speed improvements including C++ rework and code cleanups"
 msgstr "Řada vylepšení rychlosti, včetně přepsání a pročištění kódu C++"
 
-#: C/releases.xml:465(para)
+#: C/releases.xml:502(para)
 msgid "New python plugin: 'apply_patch'"
 msgstr "Nový zásuvný modul v jazyce Python: „apply_patch“"
 
-#: C/releases.xml:468(para)
+#: C/releases.xml:505(para)
 msgid "Dropped broken MIME type configuration"
 msgstr "Odstraněno nefunkční nastavování typů MIME"
 
-#: C/releases.xml:471(para)
+#: C/releases.xml:508(para)
 msgid "Dropped support for cvs plugin"
 msgstr "Odstraněna podpora pro zásuvný modul cvs"
 
-#: C/releases.xml:474(para)
+#: C/releases.xml:511(para)
 msgid "New or updated docs: cs, de, en, es, el, fr, ru, sl"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, de, en, es, el, fr, ru, sl"
 
-#: C/releases.xml:477(para)
+#: C/releases.xml:514(para)
 msgid ""
 "New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, nb, "
 "pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
@@ -732,15 +728,15 @@ msgstr ""
 "Nové nebo aktualizované překlady: ca, cs, da, eo, es, eu, fr, hu, it, ja, "
 "ko, nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
 
-#: C/releases.xml:480(para) C/releases.xml:1031(para) C/releases.xml:1169(para)
-#: C/releases.xml:1289(para) C/releases.xml:1384(para)
-#: C/releases.xml:1458(para) C/releases.xml:1530(para)
-#: C/releases.xml:1611(para) C/releases.xml:1691(para)
-#: C/releases.xml:1760(para)
+#: C/releases.xml:517(para) C/releases.xml:1083(para) C/releases.xml:1221(para)
+#: C/releases.xml:1341(para) C/releases.xml:1436(para)
+#: C/releases.xml:1510(para) C/releases.xml:1582(para)
+#: C/releases.xml:1663(para) C/releases.xml:1743(para)
+#: C/releases.xml:1812(para)
 msgid "New key bindings:"
 msgstr "Nové klávesové zkratky"
 
-#: C/releases.xml:483(para)
+#: C/releases.xml:520(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> Open directory "
 "in a new tab (replaces the old Multi-Rename-Tool binding)"
@@ -748,7 +744,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo> Otevřít složku "
 "v nové kartě (nahradilo starou zkratku Nástroj vícenásobného přejmenování)"
 
-#: C/releases.xml:486(para)
+#: C/releases.xml:523(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Close current "
 "tab"
@@ -756,7 +752,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo> Zavřít aktuální "
 "kartu"
 
-#: C/releases.xml:489(para)
+#: C/releases.xml:526(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
 "keycombo> Close all tabs"
@@ -764,7 +760,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>W</keycap></"
 "keycombo> Zavřít všechny karty"
 
-#: C/releases.xml:492(para)
+#: C/releases.xml:529(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Switch to the "
 "next tab"
@@ -772,7 +768,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> Přepnout na "
 "následující kartu"
 
-#: C/releases.xml:495(para)
+#: C/releases.xml:532(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></"
 "keycombo> Switch to the previous tab"
@@ -780,7 +776,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Tab</keycap></"
 "keycombo> Přepnout na předchozí kartu"
 
-#: C/releases.xml:498(para)
+#: C/releases.xml:535(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Change left "
 "connection"
@@ -788,7 +784,7 @@ msgstr ""
 "<keycombo><keycap>Super</keycap><keycap>1</keycap></keycombo> Změnit "
 "připojení vlevo"
 
-#: C/releases.xml:501(para)
+#: C/releases.xml:538(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Change right "
 "connection"
@@ -796,118 +792,118 @@ msgstr ""
 "<keycombo><keycap>Super</keycap><keycap>2</keycap></keycombo> Změnit "
 "připojení vpravo"
 
-#: C/releases.xml:510(para)
+#: C/releases.xml:547(para)
 msgid "1.2.8.17"
 msgstr "1.2.8.17"
 
-#: C/releases.xml:511(para)
+#: C/releases.xml:548(para)
 msgid "2014-01-12"
 msgstr "12.1.2014"
 
-#: C/releases.xml:517(para)
+#: C/releases.xml:554(para)
 msgid "Fixed problem bgo#721132 (Support build with -Werror=format-security)"
 msgstr ""
 "Opraven problém bgo#721132 (podpora sestavení s -Werror=format-security)"
 
-#: C/releases.xml:520(para)
+#: C/releases.xml:557(para)
 msgid "Updated GCMD home page location in source code"
 msgstr "Aktualizováno umístění domovské stránky GCMD ve zdrojovém kódu"
 
-#: C/releases.xml:523(para)
+#: C/releases.xml:565(para)
 msgid "Updated translations: es, id, pt_BR"
 msgstr "Aktualizovány překlady: es, id, pt_BR"
 
-#: C/releases.xml:530(para)
+#: C/releases.xml:572(para)
 msgid "1.2.8.16"
 msgstr "1.2.8.16"
 
-#: C/releases.xml:531(para)
+#: C/releases.xml:573(para)
 msgid "2013-12-23"
 msgstr "23.12.2013"
 
-#: C/releases.xml:537(para)
+#: C/releases.xml:579(para)
 msgid "Fixed gcc-4.7 compiling problem"
 msgstr "Opraven problém s překladem pomocí gcc-4.7"
 
-#: C/releases.xml:540(para)
+#: C/releases.xml:582(para)
 msgid "Fixed problem bgo#705724 (poppler &gt;= 0.24)"
 msgstr "Opravena chyba bgo#705724 (poppler &gt;= 0.24)"
 
-#: C/releases.xml:543(para)
+#: C/releases.xml:585(para)
 msgid "Fixed problem bgo#676303 (poppler &gt;= 0.20.0)"
 msgstr "Opravena chyba bgo#676303 (poppler &gt;= 0.20.0)"
 
-#: C/releases.xml:546(para)
+#: C/releases.xml:593(para)
 msgid "New or updated docs: de, el, fr"
 msgstr "Nová nebo aktualizovaná dokumentace: de, el, fr"
 
-#: C/releases.xml:549(para)
+#: C/releases.xml:596(para)
 msgid "Updated translations: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 msgstr "Aktualizovány překlady: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 
-#: C/releases.xml:556(para)
+#: C/releases.xml:603(para)
 msgid "1.2.8.15"
 msgstr "1.2.8.15"
 
-#: C/releases.xml:557(para) C/gnome-commander.xml:306(date)
+#: C/releases.xml:604(para) C/gnome-commander.xml:306(date)
 msgid "2011-12-06"
 msgstr "6.12.2011"
 
-#: C/releases.xml:563(para)
+#: C/releases.xml:610(para)
 msgid "Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)"
 msgstr "Opraven problém #65372 (chybějící odkazy na dokumentaci gcmd-1.2.8)"
 
-#: C/releases.xml:566(para)
+#: C/releases.xml:618(para)
 msgid "New or updated docs: cs, de, es, fr"
 msgstr "Nová nebo aktualizovaná dokumentace: cs, de, es, fr"
 
-#: C/releases.xml:569(para)
+#: C/releases.xml:621(para)
 msgid "Updated translations: eo, es, sl"
 msgstr "Aktualizované překlady: eo, es, sl"
 
-#: C/releases.xml:576(para)
+#: C/releases.xml:628(para)
 msgid "1.2.8.14"
 msgstr "1.2.8.14"
 
-#: C/releases.xml:577(para) C/gnome-commander.xml:296(date)
+#: C/releases.xml:629(para) C/gnome-commander.xml:296(date)
 msgid "2011-10-04"
 msgstr "4.10.2011"
 
-#: C/releases.xml:583(para)
+#: C/releases.xml:635(para)
 msgid "Fixed problem #621756 (custom port for ftp is not saved)"
 msgstr "Opraven problém #621756 (vlastní port pro FTP není ukládán)"
 
-#: C/releases.xml:586(para)
+#: C/releases.xml:638(para)
 msgid "Fixed problem #657780 (bugs in nl.po)"
 msgstr "Opraven problém #657780 (chyba v nl.po)"
 
-#: C/releases.xml:593(para)
+#: C/releases.xml:645(para)
 msgid "1.2.8.13"
 msgstr "1.2.8.13"
 
-#: C/releases.xml:594(para) C/gnome-commander.xml:286(date)
+#: C/releases.xml:646(para) C/gnome-commander.xml:286(date)
 msgid "2011-08-06"
 msgstr "6.8.2011"
 
-#: C/releases.xml:600(para)
+#: C/releases.xml:652(para)
 msgid "Fixed problem #646871 (crash on file properties when connected to FTP)"
 msgstr ""
 "Opraven problém #646871 (zhroucení při zobrazení vlastností souboru, když je "
 "připojeno k FTP)"
 
-#: C/releases.xml:607(para)
+#: C/releases.xml:659(para)
 msgid "1.2.8.12"
 msgstr "1.2.8.12"
 
-#: C/releases.xml:608(para) C/gnome-commander.xml:276(date)
+#: C/releases.xml:660(para) C/gnome-commander.xml:276(date)
 msgid "2011-06-15"
 msgstr "15.6.2011"
 
-#: C/releases.xml:614(para)
+#: C/releases.xml:666(para)
 msgid "Fixed problem #618214 (crash when cancel a search)"
 msgstr "Opraven problém #6182142 (zhroucení při zrušení hledání)"
 
-#: C/releases.xml:617(para)
+#: C/releases.xml:669(para)
 msgid ""
 "Fixed problem #640387 (yet another fix for deprecated python modules: md5, "
 "sha1)"
@@ -915,59 +911,59 @@ msgstr ""
 "Opraven problém #640387 (další oprava ohledně zastaralých modulů python: "
 "md5, sha1)"
 
-#: C/releases.xml:620(para)
+#: C/releases.xml:672(para)
 msgid "Fixed problem #649375 (bookmarks not updated for newly added ones)"
 msgstr "Opraven problém #649375 (záložky se neaktualizují při přidání nové)"
 
-#: C/releases.xml:623(para)
+#: C/releases.xml:675(para)
 msgid "Fixed problem with mkdir permissions"
 msgstr "Opraven problém s oprávněním mkdir"
 
-#: C/releases.xml:630(para)
+#: C/releases.xml:682(para)
 msgid "1.2.8.11"
 msgstr "1.2.8.11"
 
-#: C/releases.xml:631(para) C/gnome-commander.xml:266(date)
+#: C/releases.xml:683(para) C/gnome-commander.xml:266(date)
 msgid "2011-05-01"
 msgstr "1.5.2011"
 
-#: C/releases.xml:637(para)
+#: C/releases.xml:689(para)
 msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgstr ""
 "Opraven problém #639243 (matoucí dokumentace pro klávesovou zkratku F2)"
 
-#: C/releases.xml:640(para)
+#: C/releases.xml:692(para)
 msgid "Fixed problem #640387 (usage of deprecated python modules: md5, sha1)"
 msgstr ""
 "Opraven problém #640387 (používání zastaralých modulů python: md5, sha1)"
 
-#: C/releases.xml:643(para)
+#: C/releases.xml:695(para)
 msgid "Fixed problem with starting GNOME Commander as root"
 msgstr "Opraven problém se spouštěním GNOME Commander pod uživatelem root"
 
-#: C/releases.xml:646(para)
+#: C/releases.xml:698(para)
 msgid "Fixed problem with Traditional Chinese translation"
 msgstr "Opraven problém s překladem do tradiční čínštiny"
 
-#: C/releases.xml:654(para)
+#: C/releases.xml:706(para)
 msgid "Support for backward/forward mouse buttons"
 msgstr "Podpora pro tlačítka myši zpět/vpřed"
 
-#: C/releases.xml:661(para)
+#: C/releases.xml:713(para)
 msgid "1.2.8.10"
 msgstr "1.2.8.10"
 
-#: C/releases.xml:662(para) C/gnome-commander.xml:256(date)
+#: C/releases.xml:714(para) C/gnome-commander.xml:256(date)
 msgid "2011-01-15"
 msgstr "15.1.2011"
 
-#: C/releases.xml:668(para)
+#: C/releases.xml:720(para)
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
 "Opraven problém #448941 (v hlavním okně nepracují šipky z číselné klávesnice)"
 
-#: C/releases.xml:671(para)
+#: C/releases.xml:723(para)
 msgid ""
 "Fixed problem #620275 (add menu item to copy full path and file name to "
 "clipboard)"
@@ -975,13 +971,13 @@ msgstr ""
 "Opraven problém #620275 (přidána položka nabídky pro kopírování úplné cesty "
 "a názvu souboru do schránky)"
 
-#: C/releases.xml:674(para)
+#: C/releases.xml:726(para)
 msgid "Fixed problem #637501 (advrename: metatag popup menu shows wrong items)"
 msgstr ""
 "Opraven problém #637501 (pokročilé přejmenování: kontextová nabídka "
 "metaštítku zobrazuje nesprávné položky)"
 
-#: C/releases.xml:677(para)
+#: C/releases.xml:729(para)
 msgid ""
 "Fixed problem with toggling path/basename/filename selections in copy/move "
 "dialogs"
@@ -989,49 +985,49 @@ msgstr ""
 "Opraven problém s přepínáním výběru cesta/základní název/název souboru v "
 "dialogovém okně kopírování/přejmenování"
 
-#: C/releases.xml:680(para)
+#: C/releases.xml:732(para)
 msgid "Fixed problem with searching path for devices"
 msgstr "Opraven problém s hledáním cesty pro zařízení"
 
-#: C/releases.xml:683(para)
+#: C/releases.xml:735(para)
 msgid "Updated translations: de"
 msgstr "Aktualizované překlady: de"
 
-#: C/releases.xml:690(para)
+#: C/releases.xml:742(para)
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
-#: C/releases.xml:691(para) C/gnome-commander.xml:246(date)
+#: C/releases.xml:743(para) C/gnome-commander.xml:246(date)
 msgid "2010-12-03"
 msgstr "3.12.2010"
 
-#: C/releases.xml:697(para)
+#: C/releases.xml:749(para)
 msgid "Fixed problem #352024 (F10 key doesn't work)"
 msgstr "Opraven problém #352024 (klávesa F10 nepracuje)"
 
-#: C/releases.xml:700(para)
+#: C/releases.xml:752(para)
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
 msgstr ""
 "Opraven problém #631243 (regrese s $c(šířka) v nástroji pokročilého "
 "přejmenování)"
 
-#: C/releases.xml:708(para)
+#: C/releases.xml:760(para)
 msgid "Support for shell-style wildcards in quick search"
 msgstr "Podpora pro divoké znaky ve stylu shellu v rychlém hledání"
 
-#: C/releases.xml:715(para)
+#: C/releases.xml:767(para)
 msgid "1.2.8.8"
 msgstr "1.2.8.8"
 
-#: C/releases.xml:716(para) C/gnome-commander.xml:236(date)
+#: C/releases.xml:768(para) C/gnome-commander.xml:236(date)
 msgid "2010-09-09"
 msgstr "9.9.2010"
 
-#: C/releases.xml:722(para)
+#: C/releases.xml:774(para)
 msgid "Fixed problem #610764 (menu item won't stay checked)"
 msgstr "Opraven problém #610764 (položka nabídky nezůstává zaškrtnuta)"
 
-#: C/releases.xml:725(para)
+#: C/releases.xml:777(para)
 msgid ""
 "Fixed problem #626469 (add support for other su-like programs: xdg-su, "
 "gnomesu)"
@@ -1039,200 +1035,200 @@ msgstr ""
 "Opraven problém #626469 (přidána podpora pro jiné programy typu su: xdg-su, "
 "gnomesu)"
 
-#: C/releases.xml:728(para)
+#: C/releases.xml:780(para)
 msgid "Fixed problem with broken Spanish translation"
 msgstr "Opraven problém s vadným španělským překladem"
 
-#: C/releases.xml:735(para)
+#: C/releases.xml:787(para)
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
-#: C/releases.xml:736(para) C/gnome-commander.xml:226(date)
+#: C/releases.xml:788(para) C/gnome-commander.xml:226(date)
 msgid "2010-07-27"
 msgstr "27.7.2010"
 
-#: C/releases.xml:742(para)
+#: C/releases.xml:794(para)
 msgid "Fixed problem #540438 (no GUI message if meld cannot be executed)"
 msgstr ""
 "Opraven problém #540438 (žádná správa v grafickém rozhraní, když nelze "
 "spustit meld)"
 
-#: C/releases.xml:745(para)
+#: C/releases.xml:797(para)
 msgid "Fixed problem #616367 (\"File not found\" dialog after startup)"
 msgstr ""
 "Opraven problém #616367 (dialogové okno „Soubor nenalezen“ po spuštění)"
 
-#: C/releases.xml:748(para)
+#: C/releases.xml:800(para)
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr ""
 "Opraven problém #620650 (přetečení vyrovnávací paměti ve funkci "
 "load_fav_apps())"
 
-#: C/releases.xml:751(para)
+#: C/releases.xml:803(para)
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
 msgstr ""
 "Opraven problém #622456 (nesestavovat zásuvné moduly jako objekty sdílených "
 "knihoven)"
 
-#: C/releases.xml:754(para)
+#: C/releases.xml:806(para)
 msgid "Fixed problem with editing options for favourite apps and devices"
 msgstr "Opraven problém s úpravou voleb pro oblíbené aplikace a zařízení"
 
-#: C/releases.xml:761(para)
+#: C/releases.xml:813(para)
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
-#: C/releases.xml:762(para) C/gnome-commander.xml:216(date)
+#: C/releases.xml:814(para) C/gnome-commander.xml:216(date)
 msgid "2010-06-01"
 msgstr "1.6.2010"
 
-#: C/releases.xml:768(para)
+#: C/releases.xml:820(para)
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
 "Opraveny problémy #600292, #612685 (zhroucení při dvojitém kliknutí na "
 "záložku)"
 
-#: C/releases.xml:771(para)
+#: C/releases.xml:823(para)
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Opraven problém #602795 (prohledávání obsahu souboru)"
 
-#: C/releases.xml:774(para)
+#: C/releases.xml:826(para)
 msgid "Fixed problem #609912 (build error with --as-needed)"
 msgstr "Opraven problém #609912 (chyba sestavování s --as-needed)"
 
-#: C/releases.xml:777(para)
+#: C/releases.xml:829(para)
 msgid "Fixed problem #616891 (build error on RHEL 5.5)"
 msgstr "Opraven problém #616891 (chyba sestavování pod RHEL 5.5)"
 
-#: C/releases.xml:785(para)
+#: C/releases.xml:837(para)
 msgid "New translations: ko"
 msgstr "Nový překlad: ko"
 
-#: C/releases.xml:792(para)
+#: C/releases.xml:844(para)
 msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
-#: C/releases.xml:793(para) C/gnome-commander.xml:207(date)
+#: C/releases.xml:845(para) C/gnome-commander.xml:207(date)
 msgid "2010-02-13"
 msgstr "13.2.2010"
 
-#: C/releases.xml:799(para)
+#: C/releases.xml:851(para)
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr ""
 "Opraven problém #604558 (kurzor se ztrácí/objevuje se na nesprávném místě)"
 
-#: C/releases.xml:802(para)
+#: C/releases.xml:854(para)
 msgid "Fixed problem #604904 (build error on OpenSolaris)"
 msgstr "Opraven problém #604904 (chyba sestavení pod systémem OpenSolaris)"
 
-#: C/releases.xml:805(para)
+#: C/releases.xml:857(para)
 msgid "Fixed problem #609342 (do not show mtime for '..')"
 msgstr "Opraven problém #609342 (nezobrazovat čas mtime pro „..“)"
 
-#: C/releases.xml:808(para)
+#: C/releases.xml:860(para)
 msgid "Fixed problem with editing connections to Windows network"
 msgstr "Opraven problém s upravováním připojení k síti Windows"
 
-#: C/releases.xml:811(para)
+#: C/releases.xml:863(para)
 msgid "Fixed problem with nonexistent user actions"
 msgstr "Opraven problém s neexistujícími uživatelskými akcemi"
 
-#: C/releases.xml:818(para)
+#: C/releases.xml:870(para)
 msgid "1.2.8.4"
 msgstr "1.2.8.4"
 
-#: C/releases.xml:819(para) C/gnome-commander.xml:198(date)
+#: C/releases.xml:871(para) C/gnome-commander.xml:198(date)
 msgid "2009-12-03"
 msgstr "3.12.2009"
 
-#: C/releases.xml:825(para)
+#: C/releases.xml:877(para)
 msgid "Fixed problem #602916 (not working menu entry)"
 msgstr "Opraven problém #602916 (nepracující položka nabídky)"
 
-#: C/releases.xml:828(para)
+#: C/releases.xml:880(para)
 msgid "Fixed problem #603301 (crash when cancelling symlink creation by ESC)"
 msgstr ""
 "Opraven problém #603301 (zhroucení při zrušení vytváření symbolického odkazu "
 "klávesou ESC)"
 
-#: C/releases.xml:831(para)
+#: C/releases.xml:883(para)
 msgid "Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)"
 msgstr "Opraven problém #369818 (nesprávné řazení podle velikosti v panelu)"
 
-#: C/releases.xml:834(para)
+#: C/releases.xml:886(para)
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
 "Opraven problém s nepracující klávesou Enter v dialogovém okně kopírování/"
 "přesunu"
 
-#: C/releases.xml:837(para)
+#: C/releases.xml:889(para)
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
 "Opraven problém s vynecháváním klávesnice po Alt+1/2 při skrytém seznamu "
 "zařízení"
 
-#: C/releases.xml:844(para)
+#: C/releases.xml:896(para)
 msgid "1.2.8.3"
 msgstr "1.2.8.3"
 
-#: C/releases.xml:845(para) C/gnome-commander.xml:189(date)
+#: C/releases.xml:897(para) C/gnome-commander.xml:189(date)
 msgid "2009-10-28"
 msgstr "28.10.2009"
 
-#: C/releases.xml:851(para)
+#: C/releases.xml:903(para)
 msgid "Fixed problem #541891 (file names with % in advanced file rename tool)"
 msgstr ""
 "Opraven problém #541891 (názvy souborů s % v nástroji pokročilého "
 "přejmenování souborů)"
 
-#: C/releases.xml:854(para)
+#: C/releases.xml:906(para)
 msgid "Fixed problem #581645 (uncomfortable quick search)"
 msgstr "Opraven problém #581645 (nepohodlné rychlé hledání)"
 
-#: C/releases.xml:857(para)
+#: C/releases.xml:909(para)
 msgid "Fixed problem #596768 (build warnings for python)"
 msgstr "Opraven problém #637501 (varování sestavení pro Python)"
 
-#: C/releases.xml:860(para)
+#: C/releases.xml:912(para)
 msgid "Fixed problem #596973 (documentation build error)"
 msgstr "Opraven problém #596973 (chyba sestavení dokumentace)"
 
-#: C/releases.xml:863(para)
+#: C/releases.xml:915(para)
 msgid "Fixed problem #597144 (missing call to pclose)"
 msgstr "Opraven problém #597144 (chybějící volání funkce pclose)"
 
-#: C/releases.xml:866(para)
+#: C/releases.xml:918(para)
 msgid "Fixed problem #597233 (validating of doc translations)"
 msgstr "Opraven problém #597233 (ověřování platnosti překladů dokumentace)"
 
-#: C/releases.xml:869(para)
+#: C/releases.xml:921(para)
 msgid "Fixed problem #597890 (wrong arguments passed to meld)"
 msgstr ""
 "Opraven problém #597890 (do programu meld předávány nesprávné argumenty)"
 
-#: C/releases.xml:872(para)
+#: C/releases.xml:924(para)
 msgid "Fixed problem #598278 (memory leak)"
 msgstr "Opraven problém #598278 (únik paměti)"
 
-#: C/releases.xml:879(para)
+#: C/releases.xml:931(para)
 msgid "1.2.8.2"
 msgstr "1.2.8.2"
 
-#: C/releases.xml:880(para) C/gnome-commander.xml:180(date)
+#: C/releases.xml:932(para) C/gnome-commander.xml:180(date)
 msgid "2009-09-22"
 msgstr "22.9.2009"
 
-#: C/releases.xml:886(para)
+#: C/releases.xml:938(para)
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
 msgstr "Opraven problém #591944 (po chmod oprávnění nastavena na 000)"
 
-#: C/releases.xml:889(para)
+#: C/releases.xml:941(para)
 msgid "Fixed problem #595097 (build error for poppler &gt;= 0.11.3)"
 msgstr "Opravena chyba #595097 (chyba sestavení pro poppler &gt;= 0.11.3)"
 
-#: C/releases.xml:892(para)
+#: C/releases.xml:944(para)
 msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
@@ -1240,32 +1236,32 @@ msgstr ""
 "Opraven problém #438884 z Debianu (nesprávné návěští zařízení při přepínání "
 "panelů pomocí Ctrl+U)"
 
-#: C/releases.xml:895(para)
+#: C/releases.xml:947(para)
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
 msgstr ""
 "Opraven problém s poškozenou ikonou po přejmenování symbolického odkazu"
 
-#: C/releases.xml:902(para)
+#: C/releases.xml:954(para)
 msgid "1.2.8.1"
 msgstr "1.2.8.1"
 
-#: C/releases.xml:903(para) C/gnome-commander.xml:171(date)
+#: C/releases.xml:955(para) C/gnome-commander.xml:171(date)
 msgid "2009-08-10"
 msgstr "10.8.2009"
 
-#: C/releases.xml:909(para)
+#: C/releases.xml:961(para)
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr "Opraven problém #587325 (zhroucení v čistém prostředí chroot)"
 
-#: C/releases.xml:912(para)
+#: C/releases.xml:964(para)
 msgid "Fixed problem #589108 (build error on openSUSE)"
 msgstr "Opraven problém #589108 (chyba sestavování pod openSUSE)"
 
-#: C/releases.xml:915(para)
+#: C/releases.xml:967(para)
 msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr "Opraven problém #591206 (zhroucení při volání sysconf() pod FreeBSD)"
 
-#: C/releases.xml:918(para)
+#: C/releases.xml:970(para)
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename "
 "templates"
@@ -1273,37 +1269,37 @@ msgstr ""
 "Opraven problém s formátováním počítadla $c(16) v šablonách pokročilého "
 "přejmenování souborů"
 
-#: C/releases.xml:925(para)
+#: C/releases.xml:977(para)
 msgid "1.2.8"
 msgstr "1.2.8"
 
-#: C/releases.xml:926(para) C/gnome-commander.xml:162(date)
+#: C/releases.xml:978(para) C/gnome-commander.xml:162(date)
 msgid "2009-06-29"
 msgstr "29.6.2009"
 
-#: C/releases.xml:932(para)
+#: C/releases.xml:984(para)
 msgid ""
 "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
 "Opraven problém #375357 (zhroucení při zrušení výpočtu vlastností složky)"
 
-#: C/releases.xml:935(para)
+#: C/releases.xml:987(para)
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr ""
 "Opraven problém #536446 (nezaměřen název souboru při jeho přejmenování v "
 "místě)"
 
-#: C/releases.xml:938(para)
+#: C/releases.xml:990(para)
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgstr "Opraven problém #539812 (zhroucení při mazání souborů: poškozen it.po)"
 
-#: C/releases.xml:941(para)
+#: C/releases.xml:993(para)
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr ""
 "Opraven problém #548947 (problém s datem v národním prostředí s jiným "
 "kódováním než UTF-8)"
 
-#: C/releases.xml:944(para)
+#: C/releases.xml:996(para)
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 "
 "characters)"
@@ -1311,44 +1307,44 @@ msgstr ""
 "Opraven problém #548948 (zhroucení v případě, kdy domovská složka obsahuje "
 "jiné znaky než UTF-8)"
 
-#: C/releases.xml:947(para)
+#: C/releases.xml:999(para)
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
 "Opraven problém #548961 (podpora pro vstupní metodu při přejmenování nebo "
 "rychlém hledání)"
 
-#: C/releases.xml:950(para)
+#: C/releases.xml:1002(para)
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
 msgstr "Opraven problém #554586 (problém s makrem AC_PROG_CXX)"
 
-#: C/releases.xml:953(para)
+#: C/releases.xml:1005(para)
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
 msgstr "Opraven problém #554598 (cíl GNOME: LINGUAS)"
 
-#: C/releases.xml:956(para)
+#: C/releases.xml:1008(para)
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr "Opraven problém #556664 (nelze uložit záložky pro připojená zařízení)"
 
-#: C/releases.xml:959(para)
+#: C/releases.xml:1011(para)
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
 msgstr ""
 "Opraven problém #567404 (zhroucení když je zmáčknuta klávesa INSERT nad "
 "podsložkou)"
 
-#: C/releases.xml:962(para)
+#: C/releases.xml:1014(para)
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr "Opraven problém #556836 (posuv panelů při přesunu mezi panely)"
 
-#: C/releases.xml:965(para)
+#: C/releases.xml:1017(para)
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr "Opraven problém #567506 (pomalý start u systémů s mnoha uživateli)"
 
-#: C/releases.xml:968(para)
+#: C/releases.xml:1020(para)
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
 msgstr "Opraven problém #570727 (použití zavržené funkce gnome_url_show)"
 
-#: C/releases.xml:971(para)
+#: C/releases.xml:1023(para)
 msgid ""
 "Fixed problem #571239 (replacing obsoleted GnomeColorPicker with "
 "GtkColorButton)"
@@ -1356,11 +1352,11 @@ msgstr ""
 "Opraven problém #571239 (náhrada zastaralého GnomeColorPicker za "
 "GtkColorButton)"
 
-#: C/releases.xml:974(para)
+#: C/releases.xml:1026(para)
 msgid "Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)"
 msgstr "Opraven problém #571247 (náhrada zastaralého GnomePixmap za GtkImage)"
 
-#: C/releases.xml:977(para)
+#: C/releases.xml:1029(para)
 msgid ""
 "Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with "
 "GTK_STOCK_* counterparts)"
@@ -1368,7 +1364,7 @@ msgstr ""
 "Opraven problém #571558 (nahrazení zavržených tlačítek GNOME_STOCK_* za "
 "jejich nové protějšky)"
 
-#: C/releases.xml:980(para)
+#: C/releases.xml:1032(para)
 msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
@@ -1376,42 +1372,42 @@ msgstr ""
 "Opraven problém #576174 (řazení názvů souborů bez ohledu na velikost písmen "
 "při jiném nastavení národním prostředí než en_US.utf8)"
 
-#: C/releases.xml:983(para)
+#: C/releases.xml:1035(para)
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
 msgstr ""
 "Opraven problém #579633 (přístup ke správcovským oprávněním přes gksudo)"
 
-#: C/releases.xml:986(para)
+#: C/releases.xml:1038(para)
 msgid "Fixed problem #583135 (disabled 'Go to' button in search dialog)"
 msgstr ""
 "Opraven problém #583135 (znepřístupněno tlačítko „Přejít na“ v dialogovém "
 "okně hledání)"
 
-#: C/releases.xml:989(para)
+#: C/releases.xml:1041(para)
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr ""
 "Opraven problém #583711 (zhroucení při zmáčknutí ESC v dialogovém okně "
 "záložek)"
 
-#: C/releases.xml:992(para)
+#: C/releases.xml:1044(para)
 msgid "Fixed problem #584727 (wrong positioning of file popup menu)"
 msgstr "Opraven problém #584727 (nesprávná poloha kontextové nabídky souboru)"
 
-#: C/releases.xml:995(para)
+#: C/releases.xml:1047(para)
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
 "Opraven problém s nastavením stejné velikosti panelů ve vodorovném režimu"
 
-#: C/releases.xml:998(para)
+#: C/releases.xml:1050(para)
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr "Opraven problém s aktualizací informace MIME po přejmenování souboru"
 
-#: C/releases.xml:1006(para)
+#: C/releases.xml:1058(para)
 msgid "Support for PDF metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro metaštítky PDF v šablonách pokročilého přejmenování souborů"
 
-#: C/releases.xml:1009(para)
+#: C/releases.xml:1061(para)
 msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
@@ -1420,27 +1416,27 @@ msgstr ""
 "(„\\number“), profily, převody malých/velkých písmen, ořezávání bílých znaků "
 "a další)"
 
-#: C/releases.xml:1013(para)
+#: C/releases.xml:1065(para)
 msgid "Support for metadata tags in internal viewer"
 msgstr "Podpora pro metadata štítků v interním prohlížeči"
 
-#: C/releases.xml:1016(para)
+#: C/releases.xml:1068(para)
 msgid "Support for single-click open mode"
 msgstr "Podpora pro režim otevírání jednoduchým kliknutím"
 
-#: C/releases.xml:1019(para)
+#: C/releases.xml:1071(para)
 msgid "Support for row alternate background in colour themes"
 msgstr "Podpora pro změnu pozadí řádku v barevných motivech"
 
-#: C/releases.xml:1022(para)
+#: C/releases.xml:1074(para)
 msgid "New colour theme: cafezinho"
 msgstr "Nový barevný motiv: cafezinho"
 
-#: C/releases.xml:1025(para)
+#: C/releases.xml:1077(para)
 msgid "New or updated docs: de, en, es"
 msgstr "Nová nebo aktualizovaná dokumentace: de, en, es"
 
-#: C/releases.xml:1028(para)
+#: C/releases.xml:1080(para)
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, "
 "sv"
@@ -1448,7 +1444,7 @@ msgstr ""
 "Nové nebo aktualizované překlady: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, "
 "sl, sv"
 
-#: C/releases.xml:1034(para)
+#: C/releases.xml:1086(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the "
 "history list for the command line"
@@ -1456,11 +1452,11 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>E</keycap></keycombo> Otevřít seznam "
 "s historií pro příkazový řádek"
 
-#: C/releases.xml:1039(para)
+#: C/releases.xml:1091(para)
 msgid "New internal viewer key bindings:"
 msgstr "Nové klávesové zkratky pro interní prohlížeč:"
 
-#: C/releases.xml:1042(para)
+#: C/releases.xml:1094(para)
 msgid ""
 "<keycombo><keycap>T</keycap></keycombo> Show metadata tags (replaces the old "
 "E)"
@@ -1468,7 +1464,7 @@ msgstr ""
 "<keycombo><keycap>T</keycap></keycombo> Zobrazit metadata štítků (nahradilo "
 "původní E)"
 
-#: C/releases.xml:1045(para)
+#: C/releases.xml:1097(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo> Show "
 "metadata tags"
@@ -1476,56 +1472,56 @@ msgstr ""
 "<keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo> Zobrazit "
 "metadata štítků"
 
-#: C/releases.xml:1054(para)
+#: C/releases.xml:1106(para)
 msgid "1.2.7"
 msgstr "1.2.7"
 
-#: C/releases.xml:1055(para) C/gnome-commander.xml:153(date)
+#: C/releases.xml:1107(para) C/gnome-commander.xml:153(date)
 msgid "2008-07-28"
 msgstr "28.7.2008"
 
-#: C/releases.xml:1061(para)
+#: C/releases.xml:1113(para)
 msgid "Fixed problem #522430 (quick search for files starting with uppercase)"
 msgstr ""
 "Opraven problém #522430 (rychlé hledání pro soubory začínající velkým "
 "písmenem)"
 
-#: C/releases.xml:1064(para)
+#: C/releases.xml:1116(para)
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr "Opraven problém #532615 (souborové operace na nesprávných souborech)"
 
-#: C/releases.xml:1067(para)
+#: C/releases.xml:1119(para)
 msgid "Fixed problem #538806 (quick search in root dir)"
 msgstr "Opraven problém #538806 (rychlé hledání v kořenové složce)"
 
-#: C/releases.xml:1070(para)
+#: C/releases.xml:1122(para)
 msgid "Fixed problem #539753 (build error on Solaris)"
 msgstr "Opraven problém #539753 (chyba sestavování pod systémem Solaris)"
 
-#: C/releases.xml:1073(para)
+#: C/releases.xml:1125(para)
 msgid "Fixed problem #541404 (update of host names)"
 msgstr "Opraven problém #541404 (aktualizace názvů počítačů)"
 
-#: C/releases.xml:1076(para)
+#: C/releases.xml:1128(para)
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr "Opraven problém s řazením souborů v pokročilém nástroji přejmenování"
 
-#: C/releases.xml:1079(para) C/releases.xml:1248(para)
-#: C/releases.xml:1332(para)
+#: C/releases.xml:1131(para) C/releases.xml:1300(para)
+#: C/releases.xml:1384(para)
 msgid "Build fixes"
 msgstr "Opravy sestavování"
 
-#: C/releases.xml:1087(para)
+#: C/releases.xml:1139(para)
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
 "Podpora pro všechny síťové protokoly GnomeVFS (včetně SSH+FTP a WebDAV)"
 
-#: C/releases.xml:1090(para)
+#: C/releases.xml:1142(para)
 msgid "User defined shortcuts to arbitrary programs"
 msgstr "Uživatelem definovatelné klávesové zkratky pro libovolné programy"
 
-#: C/releases.xml:1093(para)
+#: C/releases.xml:1145(para)
 msgid ""
 "Copying selected URIs to clipboard with <keycombo><keycap>ALT</"
 "keycap><keycap>click</keycap></keycombo> on toolbar button"
@@ -1533,61 +1529,61 @@ msgstr ""
 "Kopírování vybraných adres URI do schránky pomocí <keycombo><keycap>Alt</"
 "keycap><keycap>klik</keycap></keycombo> na tlačítko na liště nástrojů"
 
-#: C/releases.xml:1096(para) C/releases.xml:1157(para)
+#: C/releases.xml:1148(para) C/releases.xml:1209(para)
 msgid "Revamped search dialog"
 msgstr "Přepracováno dialogové okno vyhledávání"
 
-#: C/releases.xml:1099(para)
+#: C/releases.xml:1151(para)
 msgid "Revamped transfer progress dialog"
 msgstr "Přepracováno dialogové okno s průběhem přenosu"
 
-#: C/releases.xml:1102(para) C/releases.xml:1163(para)
-#: C/releases.xml:1283(para) C/releases.xml:1378(para)
-#: C/releases.xml:1452(para) C/releases.xml:1524(para)
+#: C/releases.xml:1154(para) C/releases.xml:1215(para)
+#: C/releases.xml:1335(para) C/releases.xml:1430(para)
+#: C/releases.xml:1504(para) C/releases.xml:1576(para)
 msgid "Updated help docs"
 msgstr "Aktualizována dokumentace nápovědy"
 
-#: C/releases.xml:1105(para)
+#: C/releases.xml:1157(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr ""
 "Nové nebo aktualizované překlady: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
-#: C/releases.xml:1112(para)
+#: C/releases.xml:1164(para)
 msgid "1.2.6"
 msgstr "1.2.6"
 
-#: C/releases.xml:1113(para) C/gnome-commander.xml:144(date)
+#: C/releases.xml:1165(para) C/gnome-commander.xml:144(date)
 msgid "2008-06-01"
 msgstr "1.6.2008"
 
-#: C/releases.xml:1119(para)
+#: C/releases.xml:1171(para)
 msgid "Fixed problem #392959 (dynamically changing user to root)"
 msgstr ""
 "Opraven problém #392959 (dynamická změna uživatele na superuživatele root)"
 
-#: C/releases.xml:1122(para)
+#: C/releases.xml:1174(para)
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
 msgstr "Opraven problém #496150 (posun kolečkem myši)"
 
-#: C/releases.xml:1125(para)
+#: C/releases.xml:1177(para)
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
 msgstr "Opraven problém #499761 (vymazáno okno hledání při seřazení sloupce)"
 
-#: C/releases.xml:1128(para)
+#: C/releases.xml:1180(para)
 msgid "Fixed problem #499764 (multiple selection problem)"
 msgstr "Opraven problém #499764 (problém vícenásobného výběru)"
 
-#: C/releases.xml:1131(para)
+#: C/releases.xml:1183(para)
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgstr "Opraven problém s řazením názvů souborů v kódování UTF-8"
 
-#: C/releases.xml:1134(para)
+#: C/releases.xml:1186(para)
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr ""
 "Opraven problém s kopírováním souboru do složek, které jsou symbolickými "
 "odkazy"
 
-#: C/releases.xml:1137(para)
+#: C/releases.xml:1189(para)
 msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
@@ -1595,28 +1591,28 @@ msgstr ""
 "Opraven problém při práci s úplnou cestou k souboru při kopírování/přesunu "
 "na připojená zařízení"
 
-#: C/releases.xml:1145(para)
+#: C/releases.xml:1197(para)
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
 msgstr ""
 "Režim superuživatele root pro spouštění aplikace GNOME Commander s právy "
 "správce"
 
-#: C/releases.xml:1148(para)
+#: C/releases.xml:1200(para)
 msgid "GUI for keyboard shortcuts management"
 msgstr "Uživatelské rozhraní pro správu klávesových zkratek"
 
-#: C/releases.xml:1151(para) C/gnome-commander.xml:7095(para)
+#: C/releases.xml:1203(para) C/gnome-commander.xml:7095(para)
 msgid "Open the current location in Nautilus file manager"
 msgstr "Otevřít aktuální umístění ve správci souborů Nautilus"
 
-#: C/releases.xml:1154(para)
+#: C/releases.xml:1206(para)
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
 "Nástroj hromadného přejmenování – nové zástupné proměnné $x a $X pro náhodná "
 "čísla v šestnáctkové soustavě"
 
-#: C/releases.xml:1160(para)
+#: C/releases.xml:1212(para)
 msgid ""
 "Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since "
 "GTK+ 2.10)"
@@ -1624,7 +1620,7 @@ msgstr ""
 "Podpora pro modifikátory &lt;super&gt;, &lt;hyper&gt; a &lt;meta&gt; (od GTK"
 "+ 2.10)"
 
-#: C/releases.xml:1166(para)
+#: C/releases.xml:1218(para)
 msgid ""
 "New or updated translations: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, pl, "
 "sl"
@@ -1632,30 +1628,30 @@ msgstr ""
 "Nové nebo aktualizované překlady: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, "
 "pl, sl"
 
-#: C/releases.xml:1172(para)
+#: C/releases.xml:1224(para)
 msgid ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgstr ""
 "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Hledat soubory"
 
-#: C/releases.xml:1181(para)
+#: C/releases.xml:1233(para)
 msgid "1.2.5"
 msgstr "1.2.5"
 
-#: C/releases.xml:1182(para) C/gnome-commander.xml:135(date)
+#: C/releases.xml:1234(para) C/gnome-commander.xml:135(date)
 msgid "2008-02-29"
 msgstr "29.2.2008"
 
-#: C/releases.xml:1188(para)
+#: C/releases.xml:1240(para)
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr ""
 "Opraven problém #345314 (kurzor nezůstává na souboru během přejmenovávání)"
 
-#: C/releases.xml:1191(para)
+#: C/releases.xml:1243(para)
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr "Opraven problém #353889 (mizející soubory po selhání přesunu (F6))"
 
-#: C/releases.xml:1194(para)
+#: C/releases.xml:1246(para)
 msgid ""
 "Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in "
 "renaming tool)"
@@ -1663,129 +1659,129 @@ msgstr ""
 "Opraveny problémy #346286, #424447, #447882, #467058 (zhroucení při použití "
 "regulárního výrazu v nástroji přejmenování)"
 
-#: C/releases.xml:1197(para)
+#: C/releases.xml:1249(para)
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr ""
 "Opraveny problémy #365227 a #446361 (záležitost sestavování pod systémem "
 "Solaris)"
 
-#: C/releases.xml:1200(para)
+#: C/releases.xml:1252(para)
 msgid "Fixed problem #424159 (column sort problem)"
 msgstr "Opraven problém #424159 (problém řazení sloupců)"
 
-#: C/releases.xml:1203(para)
+#: C/releases.xml:1255(para)
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr ""
 "Opraven problém #434545 (chyba #421480 v Debianu: obrovské ikony pro ikony "
 "zařízení)"
 
-#: C/releases.xml:1206(para)
+#: C/releases.xml:1258(para)
 msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr "Opraven problém #447415 (nemožnost spouštět spustitelné soubory)"
 
-#: C/releases.xml:1209(para)
+#: C/releases.xml:1261(para)
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
 "Opraven problém #448942 (Shift+Enter: spouštění příkazu v samostatném okně)"
 
-#: C/releases.xml:1212(para)
+#: C/releases.xml:1264(para)
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
 "Opraven problém #449137 (přejmenovaná složka není přístupná pod názvem)"
 
-#: C/releases.xml:1215(para)
+#: C/releases.xml:1267(para)
 msgid "Fixed problem #468685 (crash in python module)"
 msgstr "Opraven problém #468685 (zhroucení v modulu python)"
 
-#: C/releases.xml:1218(para)
+#: C/releases.xml:1270(para)
 msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr "Opraven problém #490431 (zobrazení souborů s názvem obsahujícím „%“)"
 
-#: C/releases.xml:1221(para)
+#: C/releases.xml:1273(para)
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
 "Opraven problém #508565 (nesprávná práce s utf-8 v nástroji pro pokročilé "
 "přejmenování souborů)"
 
-#: C/releases.xml:1224(para)
+#: C/releases.xml:1276(para)
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
 msgstr "Opraven problém #510567 (selhala kontrola assert při mazání složky)"
 
-#: C/releases.xml:1227(para)
+#: C/releases.xml:1279(para)
 msgid "Fixed problem when creating ~/dir"
 msgstr "Opraven problém při vytváření ~/složka"
 
-#: C/releases.xml:1230(para)
+#: C/releases.xml:1282(para)
 msgid "Fixed problem with updating of internal viewer status bar"
 msgstr "Opraven problém s aktualizací stavové lišty interního prohlížeče"
 
-#: C/releases.xml:1233(para)
+#: C/releases.xml:1285(para)
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
 "Opraveno zhroucení při vytváření složky s absolutní cestou na sdílení SMB"
 
-#: C/releases.xml:1236(para)
+#: C/releases.xml:1288(para)
 msgid "Fixed crash when moving file with % in the name"
 msgstr "Opraveno zhroucení při přesouvání souboru s % v názvu"
 
-#: C/releases.xml:1239(para)
+#: C/releases.xml:1291(para)
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr "Opraven problém s občasným mizením kurzoru v panelu souborů"
 
-#: C/releases.xml:1242(para)
+#: C/releases.xml:1294(para)
 msgid "Fixed problem with mounting of devices with spaces in the name"
 msgstr "Opraven problém s připojováním zařízení s mezerami v názvu"
 
-#: C/releases.xml:1245(para)
+#: C/releases.xml:1297(para)
 msgid "Fixed problem with history of advrename templates"
 msgstr "Opraven problém s historií šablon v pokročilém přejmenování"
 
-#: C/releases.xml:1256(para)
+#: C/releases.xml:1308(para)
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro metaštítky APE, FLAC a Vorbis v šablonách pokročilého "
 "přejmenování souborů"
 
-#: C/releases.xml:1259(para)
+#: C/releases.xml:1311(para)
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro poznámky tvůrců v metaštítcích Exif v šablonách pokročilého "
 "přejmenování souborů"
 
-#: C/releases.xml:1262(para)
+#: C/releases.xml:1314(para)
 msgid "Support for file metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro metaštítky souboru v šablonách pokročilého přejmenování souborů"
 
-#: C/releases.xml:1265(para)
+#: C/releases.xml:1317(para)
 msgid "Use the GNOME authentication manager for user's security credentials"
 msgstr "Použit autentizační správce pro bezpečnostní ověřování uživatelů"
 
-#: C/releases.xml:1268(para)
+#: C/releases.xml:1320(para)
 msgid "Metadata tags in file properties dialog"
 msgstr "Metadata štítků v dialogovém okně vlastností souboru"
 
-#: C/releases.xml:1271(para) C/gnome-commander.xml:7099(para)
+#: C/releases.xml:1323(para) C/gnome-commander.xml:7099(para)
 msgid "Open terminal in the current directory"
 msgstr "Otevřít terminál v aktuální složce"
 
-#: C/releases.xml:1274(para)
+#: C/releases.xml:1326(para)
 msgid "Default GNOME theme icons for home, SMB and FTP locations"
 msgstr "Výchozí ikony motivu GNOME pro umístění Domů, SMB a FTP"
 
-#: C/releases.xml:1277(para)
+#: C/releases.xml:1329(para)
 msgid "User defined shortcuts to bookmarks"
 msgstr "Uživatelem definovatelné klávesové zkratky pro záložky"
 
-#: C/releases.xml:1280(para) C/gnome-commander.xml:7155(para)
+#: C/releases.xml:1332(para) C/gnome-commander.xml:7155(para)
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Odeslat soubory přes e-mail nebo rychlou komunikaci (pomocí nautilus-sendto)"
 
-#: C/releases.xml:1286(para)
+#: C/releases.xml:1338(para)
 msgid ""
 "New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
@@ -1793,7 +1789,7 @@ msgstr ""
 "Nové nebo aktualizované překlady: ar, bg, cs, de, dz, eo, es, eu, fr, oc, "
 "pl, pt_BR, ro, sl, sv"
 
-#: C/releases.xml:1292(para)
+#: C/releases.xml:1344(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>LEFT/RIGHT</keycap></keycombo> "
 "Copying the current working directory from the active file list to the "
@@ -1803,7 +1799,7 @@ msgstr ""
 "keycombo> Kopírovat aktuální pracovní složku z aktivního seznamu souborů do "
 "toho neaktivního"
 
-#: C/releases.xml:1295(para)
+#: C/releases.xml:1347(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> Open new "
 "connection to remote server (replaces the old <keycombo><keycap>CTRL</"
@@ -1813,101 +1809,101 @@ msgstr ""
 "připojení ke vzdálenému serveru (nahradilo původní <keycombo><keycap>Ctrl</"
 "keycap><keycap>G</keycap></keycombo>)"
 
-#: C/releases.xml:1304(para)
+#: C/releases.xml:1356(para)
 msgid "1.2.4"
 msgstr "1.2.4"
 
-#: C/releases.xml:1305(para) C/gnome-commander.xml:126(date)
+#: C/releases.xml:1357(para) C/gnome-commander.xml:126(date)
 msgid "2007-06-09"
 msgstr "9.6.2007"
 
-#: C/releases.xml:1311(para)
+#: C/releases.xml:1363(para)
 msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Opraven problém s otevíráním složek interním prohlížečem"
 
-#: C/releases.xml:1314(para)
+#: C/releases.xml:1366(para)
 msgid "Fixed problem with editing dirs by GNOME Commander"
 msgstr "Opraven problém s upravováním složek aplikací GNOME Commander"
 
-#: C/releases.xml:1317(para)
+#: C/releases.xml:1369(para)
 msgid "Fixed problem #351952 (crash while doing a content search)"
 msgstr "Opraven problém #351952 (zhroucení při prohledávání obsahu)"
 
-#: C/releases.xml:1320(para)
+#: C/releases.xml:1372(para)
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr "Opraven problém #352253 (chování posuvu v prohlížeči)"
 
-#: C/releases.xml:1323(para)
+#: C/releases.xml:1375(para)
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
 msgstr "Opraven problém #360175 (zhroucení při zadání složky s %)"
 
-#: C/releases.xml:1326(para)
+#: C/releases.xml:1378(para)
 msgid "Fixed problem #371948 and #388970 (file path not escaped)"
 msgstr ""
 "Opraveny problémy #371948 a #388970 (cesta k souboru neošetřena sekvencemi "
 "escape)"
 
-#: C/releases.xml:1329(para)
+#: C/releases.xml:1381(para)
 msgid "Fixed problem #412162 (build with --enable-python=no)"
 msgstr "Opraven problém #412162 (sestavení s --enable-python=no)"
 
-#: C/releases.xml:1340(para)
+#: C/releases.xml:1392(para)
 msgid "Support for python plugins"
 msgstr "Podpora pro zásuvné moduly v jazyce Python"
 
-#: C/releases.xml:1343(para)
+#: C/releases.xml:1395(para)
 msgid "New python plugins:"
 msgstr "Nové zásuvné moduly v jazyce Python:"
 
-#: C/releases.xml:1346(para)
+#: C/releases.xml:1398(para)
 msgid "<command>md5sum</command> Create MD5 (128-bit) checksum"
 msgstr "<command>md5sum</command> Vytváří kontrolní součet MD5 (128bitové)"
 
-#: C/releases.xml:1349(para)
+#: C/releases.xml:1401(para)
 msgid "<command>sha1sum</command> Create SHA-1 (160-bit) checksum"
 msgstr "<command>sha1sum</command> Vytváří kontrolní součet SHA-1 (160bitové)"
 
-#: C/releases.xml:1354(para)
+#: C/releases.xml:1406(para)
 msgid "Support for OLE and ODF metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro metaštítky OLE a ODF v šablonách pokročilého přejmenování souborů"
 
-#: C/releases.xml:1357(para)
+#: C/releases.xml:1409(para)
 msgid "User defined shortcuts"
 msgstr "Uživatelem definované klávesové zkratky"
 
-#: C/releases.xml:1360(para)
+#: C/releases.xml:1412(para)
 msgid "SMB authentication"
 msgstr "Autentizace SMB"
 
-#: C/releases.xml:1363(para)
+#: C/releases.xml:1415(para)
 msgid "Displaying total size of files in selected subirs"
 msgstr "Zobrazování celkové velikosti souborů ve vybraných podsložkách"
 
-#: C/releases.xml:1366(para)
+#: C/releases.xml:1418(para)
 msgid "'cd -' for changing to the previous working directory"
 msgstr "„cd-“ pro změnu na předchozí pracovní složku"
 
-#: C/releases.xml:1369(para)
+#: C/releases.xml:1421(para)
 msgid "More intuitive usage of diff tool"
 msgstr "Více intuitivní použití nástroje diff"
 
-#: C/releases.xml:1372(para)
+#: C/releases.xml:1424(para)
 msgid "Directory synchronizing"
 msgstr "Synchronizace složek"
 
-#: C/releases.xml:1375(para)
+#: C/releases.xml:1427(para)
 msgid "Creating directories 'mkdir -p' like"
 msgstr "Vytváření složek podobně jako „mkdir -p“"
 
-#: C/releases.xml:1381(para)
+#: C/releases.xml:1433(para)
 msgid ""
 "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
 "Nové nebo aktualizované překlady: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, "
 "sv"
 
-#: C/releases.xml:1387(para)
+#: C/releases.xml:1439(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Go to the root "
 "directory"
@@ -1915,7 +1911,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>\\</keycap></keycombo> Přejít do "
 "kořenové složky"
 
-#: C/releases.xml:1390(para)
+#: C/releases.xml:1442(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Go to the home "
 "directory"
@@ -1923,7 +1919,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>`</keycap></keycombo> Přejít do "
 "domovské složky"
 
-#: C/releases.xml:1393(para)
+#: C/releases.xml:1445(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Create MD5 (128-"
 "bit) checksum"
@@ -1931,7 +1927,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>5</keycap></keycombo> Vytvořit "
 "kontrolní součet MD5 (128bitový)"
 
-#: C/releases.xml:1396(para)
+#: C/releases.xml:1448(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo> Copy selected file names to clipboard"
@@ -1939,58 +1935,58 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>C</keycap></"
 "keycombo> Kopírovat názvy vybraných souborů do schránky"
 
-#: C/releases.xml:1405(para)
+#: C/releases.xml:1457(para)
 msgid "1.2.3"
 msgstr "1.2.3"
 
-#: C/releases.xml:1406(para) C/releases.xml:1420(para)
+#: C/releases.xml:1458(para) C/releases.xml:1472(para)
 #: C/gnome-commander.xml:117(date)
 msgid "2006-12-11"
 msgstr "11.12.2006"
 
-#: C/releases.xml:1412(para)
+#: C/releases.xml:1464(para)
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr "Opraven problém #384752 (nesprávná oprávnění pro nové složky)"
 
-#: C/releases.xml:1419(para)
+#: C/releases.xml:1471(para)
 msgid "1.2.2"
 msgstr "1.2.2"
 
-#: C/releases.xml:1426(para)
+#: C/releases.xml:1478(para)
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr ""
 "Opraven problém s vytvářením symbolických odkazů pro více vybraných souborů"
 
-#: C/releases.xml:1429(para)
+#: C/releases.xml:1481(para)
 msgid "Fixed problem with grouping of file size digits"
 msgstr "Opraven problém s číslicemi při seskupování velikostí souborů"
 
-#: C/releases.xml:1432(para)
+#: C/releases.xml:1484(para)
 msgid "Fixed problem with SMB UNC handling"
 msgstr "Opraven problém se zacházením s SMB UNC"
 
-#: C/releases.xml:1435(para)
+#: C/releases.xml:1487(para)
 msgid "Fixed problem #367744 (filename not correctly displayed)"
 msgstr "Opraven problém #367744 (název souboru není zobrazován správně)"
 
-#: C/releases.xml:1438(para)
+#: C/releases.xml:1490(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr "Opraven problém #374282 (hledání s rekurzivními symbolickými odkazy)"
 
-#: C/releases.xml:1441(para)
+#: C/releases.xml:1493(para)
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
 msgstr "Opraven problém #377706 (vybírání souborů s Shift+PageDown)"
 
-#: C/releases.xml:1449(para)
+#: C/releases.xml:1501(para)
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro metaštítky ID3 v šablonách pokročilého přejmenování souborů"
 
-#: C/releases.xml:1455(para)
+#: C/releases.xml:1507(para)
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
 msgstr "Nové a aktualizované překlady: ar, en_GB, es, fi, it, pl, sv"
 
-#: C/releases.xml:1461(para)
+#: C/releases.xml:1513(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo> Set both panels equal"
@@ -1998,42 +1994,42 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>=</keycap></"
 "keycombo> Nastavení obou panelů jako stejné"
 
-#: C/releases.xml:1470(para)
+#: C/releases.xml:1522(para)
 msgid "1.2.1"
 msgstr "1.2.1"
 
-#: C/releases.xml:1471(para)
+#: C/releases.xml:1523(para)
 msgid "2006-10-16"
 msgstr "16.10.2006"
 
-#: C/releases.xml:1477(para)
+#: C/releases.xml:1529(para)
 msgid "Fixed problem with scrollkeeper database update"
 msgstr "Opraven problém s aktualizací databáze scrollkeeper"
 
-#: C/releases.xml:1480(para)
+#: C/releases.xml:1532(para)
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr "Opraveno zhroucení při příkazu, když je indikátor složky prázdný"
 
-#: C/releases.xml:1483(para)
+#: C/releases.xml:1535(para)
 msgid "Fixed problem with refreshing after chown or chmod"
 msgstr ""
 "Opraven problém s aktualizací zobrazení po změně vlastnictví a oprávnění"
 
-#: C/releases.xml:1486(para)
+#: C/releases.xml:1538(para)
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
 "Opraven problém #333898 (zavržená předpona ikony v souboru pracovní plochy)"
 
-#: C/releases.xml:1489(para)
+#: C/releases.xml:1541(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr "Opraven problém #347561 (nesprávně nastavená složka zásuvných modulů)"
 
-#: C/releases.xml:1492(para)
+#: C/releases.xml:1544(para)
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr ""
 "Opraven problém #347817 (nesprávné použití příznaků linkeru v Makefile)"
 
-#: C/releases.xml:1500(para)
+#: C/releases.xml:1552(para)
 msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
@@ -2041,37 +2037,37 @@ msgstr ""
 "Podpora pro archivy (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) přes "
 "zásuvný modul FileRoller"
 
-#: C/releases.xml:1503(para)
+#: C/releases.xml:1555(para)
 msgid "New python-like indices for advanced file rename templates"
 msgstr "Rejstříky ve stylu python pro šablony pokročilého přejmenování souborů"
 
-#: C/releases.xml:1506(para)
+#: C/releases.xml:1558(para)
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
 msgstr ""
 "Podpora pro metaštítky Exif a IPTC v šablonách pokročilého přejmenování "
 "souborů"
 
-#: C/releases.xml:1509(para)
+#: C/releases.xml:1561(para)
 msgid "Fast access to advrename template placeholders"
 msgstr "Rychlý přístup k zástupným proměnným šablon pokročilého přejmenování"
 
-#: C/releases.xml:1512(para)
+#: C/releases.xml:1564(para)
 msgid "In-place rename (SHIFT+F6)"
 msgstr "Přejmenování v místě (Shift+F6)"
 
-#: C/releases.xml:1515(para)
+#: C/releases.xml:1567(para)
 msgid "Revamped application menus"
 msgstr "Přepracována nabídka aplikace"
 
-#: C/releases.xml:1518(para)
+#: C/releases.xml:1570(para)
 msgid "\"Find\" feature for internal viewer"
 msgstr "Funkce „Najít“ pro interní prohlížeč"
 
-#: C/releases.xml:1521(para)
+#: C/releases.xml:1573(para)
 msgid "New icon for internal viewer"
 msgstr "Nová ikona pro interní prohlížeč"
 
-#: C/releases.xml:1527(para)
+#: C/releases.xml:1579(para)
 msgid ""
 "New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, "
 "pl, ru, sv, vi"
@@ -2079,7 +2075,7 @@ msgstr ""
 "Nové nebo aktualizované překlady: ca, cs, de, el, en_GB, es, eu, fi, hu, it, "
 "ne, pl, ru, sv, vi"
 
-#: C/releases.xml:1533(para)
+#: C/releases.xml:1585(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo> Toggle hidden files on/off"
@@ -2087,36 +2083,36 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</keycap></"
 "keycombo> Přepnout zapnutí/vypnutí skrytých souborů"
 
-#: C/releases.xml:1542(para)
+#: C/releases.xml:1594(para)
 msgid "1.2.0"
 msgstr "1.2.0"
 
-#: C/releases.xml:1543(para)
+#: C/releases.xml:1595(para)
 msgid "2006-05-12"
 msgstr "12.5.2006"
 
-#: C/releases.xml:1549(para)
+#: C/releases.xml:1601(para)
 msgid "Fixed problem #171051 (crashes on search with non-existent path)"
 msgstr "Opraven problém #171051 (zhroucení při hledání s neexistující cestou)"
 
-#: C/releases.xml:1552(para)
+#: C/releases.xml:1604(para)
 msgid "Fixed problem with the lack of gnome menu entry"
 msgstr "Opraven problém s nedostatkem položek nabídky gnome"
 
-#: C/releases.xml:1555(para)
+#: C/releases.xml:1607(para)
 msgid "Fixed a crash when viewing SMB connections"
 msgstr "Opraveno zhrouceni při zobrazení připojení SMB"
 
-#: C/releases.xml:1558(para)
+#: C/releases.xml:1610(para)
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr "Opraven problém #309877 (neobvyklé artefakty při vodorovném posuvu)"
 
-#: C/releases.xml:1561(para)
+#: C/releases.xml:1613(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr ""
 "Opraven problém #332258 (parametr s počáteční složkou pro levý/pravý panel)"
 
-#: C/releases.xml:1564(para)
+#: C/releases.xml:1616(para)
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
@@ -2124,11 +2120,11 @@ msgstr ""
 "Opraven problém #332261 (nesprávné zpracování exec_prefix během operací "
 "configure/makefiles)"
 
-#: C/releases.xml:1567(para)
+#: C/releases.xml:1619(para)
 msgid "Fixed problem #336649 (permission numbers presentation)"
 msgstr "Opraven problém #336649 (číselná prezentace oprávnění)"
 
-#: C/releases.xml:1570(para)
+#: C/releases.xml:1622(para)
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
@@ -2136,54 +2132,54 @@ msgstr ""
 "Opraven problém se zhroucením při použití poškozeného nebo neodpovídajícího "
 "vzoru regulárního výrazu v pokročilém přejmenování"
 
-#: C/releases.xml:1578(para)
+#: C/releases.xml:1630(para)
 msgid "Monitoring of mounted volumes"
 msgstr "Sledování připojených svazků"
 
-#: C/releases.xml:1581(para)
+#: C/releases.xml:1633(para)
 msgid "Rewritten internal viewer"
 msgstr "Přepsán interní prohlížeč"
 
-#: C/releases.xml:1584(para)
+#: C/releases.xml:1636(para)
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
 msgstr "Externí nástroje a prohlížeč štítků Exif/IPTC pro interní prohlížeč"
 
-#: C/releases.xml:1587(para)
+#: C/releases.xml:1639(para)
 msgid "Zooming for internal viewer"
 msgstr "Přibližování pro interní prohlížeč"
 
-#: C/releases.xml:1590(para)
+#: C/releases.xml:1642(para)
 msgid "Text selection for internal viewer"
 msgstr "Výběr textu pro interní prohlížeč"
 
-#: C/releases.xml:1593(para)
+#: C/releases.xml:1645(para)
 msgid "Revamped toolbar layout"
 msgstr "Přepracováno rozvržení lišty nástrojů"
 
-#: C/releases.xml:1596(para)
+#: C/releases.xml:1648(para)
 msgid "Options for controlling copy and move overwriting"
 msgstr "Volby pro ovládání přepisu při kopírování a přesunu"
 
-#: C/releases.xml:1599(para)
+#: C/releases.xml:1651(para)
 msgid "Copying selected full file paths with SHIFT+click on toolbar button"
 msgstr ""
 "Kopírování úplné cesty k vybranému souboru pomocí Shift+kliknutí na tlačítku "
 "lišty nástrojů"
 
-#: C/releases.xml:1602(para)
+#: C/releases.xml:1654(para)
 msgid "Better handling the change of the column sorting key"
 msgstr "Lepší zacházení se změnami klíče řazení sloupce"
 
-#: C/releases.xml:1605(para)
+#: C/releases.xml:1657(para)
 msgid "Initial doc framework"
 msgstr "Počáteční rámec dokumentace"
 
-#: C/releases.xml:1608(para)
+#: C/releases.xml:1660(para)
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 msgstr ""
 "Nové nebo aktualizované překlady: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 
-#: C/releases.xml:1614(para)
+#: C/releases.xml:1666(para)
 msgid ""
 "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
 "viewer"
@@ -2191,18 +2187,18 @@ msgstr ""
 "<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
 "prohlížeč"
 
-#: C/releases.xml:1617(para)
+#: C/releases.xml:1669(para)
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External viewer"
 msgstr ""
 "<keycombo><keycap>Alt</keycap><keycap>F3</keycap></keycombo> Externí "
 "prohlížeč"
 
-#: C/releases.xml:1620(para)
+#: C/releases.xml:1672(para)
 msgid "<keycap>ALT+letters</keycap> Quick search"
 msgstr "Rychlé hledání pomocí <keycap>Alt+písmeno</keycap>"
 
-#: C/releases.xml:1623(para)
+#: C/releases.xml:1675(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo> Deselecting all files"
@@ -2210,31 +2206,31 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>A</keycap></"
 "keycombo> Zrušit označení všech souborů"
 
-#: C/releases.xml:1632(para)
+#: C/releases.xml:1684(para)
 msgid "1.1.7"
 msgstr "1.1.7"
 
-#: C/releases.xml:1633(para)
+#: C/releases.xml:1685(para)
 msgid "2006-02-12"
 msgstr "12.2.2006"
 
-#: C/releases.xml:1639(para)
+#: C/releases.xml:1691(para)
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr "Opraveno zhroucení, když se zkouší kopírovat aktuálně vybrané soubory"
 
-#: C/releases.xml:1642(para)
+#: C/releases.xml:1694(para)
 msgid "Fixed filename escaping"
 msgstr "Opraveno ošetření názvů souborů sekvencemi escape"
 
-#: C/releases.xml:1645(para)
+#: C/releases.xml:1697(para)
 msgid "Fixed CTRL+ALT+letter bad responsiveness when typing too fast"
 msgstr "Opravena špatná odezva Ctrl+Alt+písmeno při rychlém psaní"
 
-#: C/releases.xml:1648(para)
+#: C/releases.xml:1700(para)
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
 msgstr "Opravena chyba z Debianu #288933 (chyba kompilace amd64/gcc-4.0)"
 
-#: C/releases.xml:1651(para)
+#: C/releases.xml:1703(para)
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory "
 "to itself)"
@@ -2242,7 +2238,7 @@ msgstr ""
 "Opraven problém #138933 (nekonečná rekurze při táhni-a-upusť složky na sebe "
 "sama)"
 
-#: C/releases.xml:1654(para)
+#: C/releases.xml:1706(para)
 msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
@@ -2250,25 +2246,25 @@ msgstr ""
 "Opraven problém s odpojovacím tlačítkem, které se nechovalo správně při "
 "připojení k serveru FTP a režimu supermount"
 
-#: C/releases.xml:1659(para)
+#: C/releases.xml:1711(para)
 msgid "Fixed update after renaming without FAM"
 msgstr ""
 "Opravena aktualizace po přejmenování bez FAM (File Alteration Monitor – "
 "sledování změn souborů)"
 
-#: C/releases.xml:1667(para)
+#: C/releases.xml:1719(para)
 msgid "New GNOME Commander logo"
 msgstr "Nové logo GNOME Commander"
 
-#: C/releases.xml:1670(para)
+#: C/releases.xml:1722(para)
 msgid "Added internal F3 viewer"
 msgstr "Přidán interní prohlížeč pro F3"
 
-#: C/releases.xml:1673(para)
+#: C/releases.xml:1725(para)
 msgid "Copying selected filename(s) to clipboard"
 msgstr "Kopírování názvů vybraného souboru či souborů do schránky"
 
-#: C/releases.xml:1676(para)
+#: C/releases.xml:1728(para)
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <keycap>CTRL"
 "+SHIFT+ENTER</keycap>"
@@ -2276,27 +2272,27 @@ msgstr ""
 "Vkládání plné cesty k vybranému souboru do příkazového řádku při zmáčknutí "
 "<keycap>Ctrl+Shift+Enter</keycap>"
 
-#: C/releases.xml:1679(para)
+#: C/releases.xml:1731(para)
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 "Nástroj pokročilého přejmenování – nová zástupná proměnná $g pro "
 "prarodičovskou složku"
 
-#: C/releases.xml:1682(para)
+#: C/releases.xml:1734(para)
 msgid ""
 "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
 "Tlačítka nástrojové lišty (vyjmout, kopírovat a vložit) nyní reagují na "
 "aktuální stav"
 
-#: C/releases.xml:1685(para)
+#: C/releases.xml:1737(para)
 msgid ""
 "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
 "Dialogové okno pro správu záložek je nyní přístupné také přes klávesové "
 "zkratky záložek"
 
-#: C/releases.xml:1688(para)
+#: C/releases.xml:1740(para)
 msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
@@ -2304,7 +2300,7 @@ msgstr ""
 "Nové nebo aktualizované překlady: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, "
 "pa, pt_BR, rw, uk, zh_TW"
 
-#: C/releases.xml:1694(para)
+#: C/releases.xml:1746(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Multi-Rename-"
 "Tool"
@@ -2312,7 +2308,7 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo> Nástroj "
 "vícenásobného přejmenování"
 
-#: C/releases.xml:1697(para)
+#: C/releases.xml:1749(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></"
 "keycombo> Copying the current working directory from the active file list to "
@@ -2322,14 +2318,14 @@ msgstr ""
 "keycombo> Kopírovat aktuální pracovní složku z aktivního seznamu souborů do "
 "toho neaktivního"
 
-#: C/releases.xml:1700(para)
+#: C/releases.xml:1752(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all files"
 msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>=</keycap></keycombo> Vybrat všechny "
 "soubory"
 
-#: C/releases.xml:1703(para)
+#: C/releases.xml:1755(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Unselect all "
 "files"
@@ -2337,36 +2333,36 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo> Zrušit výběr "
 "všech souborů"
 
-#: C/releases.xml:1706(para)
+#: C/releases.xml:1758(para)
 msgid "<keycap>=</keycap> Select files using a pattern"
 msgstr "<keycap>=</keycap> Vybrat soubory pomocí vzoru"
 
-#: C/releases.xml:1715(para)
+#: C/releases.xml:1767(para)
 msgid "1.1.6"
 msgstr "1.1.6"
 
-#: C/releases.xml:1716(para)
+#: C/releases.xml:1768(para)
 msgid "2004-01-20"
 msgstr "20.1.2004"
 
-#: C/releases.xml:1722(para)
+#: C/releases.xml:1774(para)
 msgid ""
 "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
 "Opraveno zhroucení, které nastávalo při postupu zpět v historii a při zadání "
 "jiné složky"
 
-#: C/releases.xml:1725(para)
+#: C/releases.xml:1777(para)
 msgid "Fixed ftp-quick-connect problems"
 msgstr "Opraven problém s rychlým připojováním FTP"
 
-#: C/releases.xml:1728(para)
+#: C/releases.xml:1780(para)
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr ""
 "Funkci rychlého hledání lze od nynějška aktivovat i psaním velkých písmen"
 
-#: C/releases.xml:1731(para)
+#: C/releases.xml:1783(para)
 msgid ""
 "<keycap>CTRL+ALT</keycap> no longer needs to be used to activate quick-"
 "search when the cmdline is hidden"
@@ -2374,26 +2370,26 @@ msgstr ""
 "<keycap>Ctrl+Alt</keycap> není nadále potřeba používat k aktivaci rychlého "
 "hledání, když je skryt příkazový řádek"
 
-#: C/releases.xml:1739(para)
+#: C/releases.xml:1791(para)
 msgid "Updated the cvs-plugin so that it can be used to diff and log files"
 msgstr ""
 "Aktualizován zásuvný modul CVS, takže může být používán pro soubory diff a "
 "log"
 
-#: C/releases.xml:1742(para)
+#: C/releases.xml:1794(para)
 msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
 msgstr ""
 "V indikátoru složky použit při najetí myší tučný text namísto podtržení"
 
-#: C/releases.xml:1745(para)
+#: C/releases.xml:1797(para)
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr ""
 "Popisek s aktuální pracovní složku je nyní možné vybrat (to je ten vlevo na "
 "příkazovém řádku)"
 
-#: C/releases.xml:1748(para)
+#: C/releases.xml:1800(para)
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
@@ -2401,24 +2397,24 @@ msgstr ""
 "Odstraněna položka nabídky „Uložit polohu“. Velikost a poloha je místo toho "
 "od nynějška ukládána automaticky"
 
-#: C/releases.xml:1751(para)
+#: C/releases.xml:1803(para)
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr "Do indikátoru složky přidáno tlačítko pro rozbalování historie složek"
 
-#: C/releases.xml:1754(para)
+#: C/releases.xml:1806(para)
 msgid "Added history to the select and unselect by pattern dialogs"
 msgstr ""
 "Přidána historie do dialogového okna se vzorem pro výběr a zrušení výběru"
 
-#: C/releases.xml:1757(para)
+#: C/releases.xml:1809(para)
 msgid "Sorting column and direction is now remembered"
 msgstr "Řazení sloupců a směr se nyní pamatuje"
 
-#: C/releases.xml:1763(para)
+#: C/releases.xml:1815(para)
 msgid "<keycap>F2</keycap> Open the rename dialog"
 msgstr "<keycap>F2</keycap> Otevřít dialogové okno přejmenování"
 
-#: C/releases.xml:1766(para)
+#: C/releases.xml:1818(para)
 msgid ""
 "<keycap>SHIFT+F10</keycap> Bring up the file context menu (the windows menu "
 "key also works)"
@@ -2426,7 +2422,7 @@ msgstr ""
 "<keycap>Shift+F10</keycap> Zobrazit kontextovou nabídku souboru (klávesa s "
 "kontextovou nabídkou Windows pracuje také)"
 
-#: C/releases.xml:1769(para)
+#: C/releases.xml:1821(para)
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Copy the "
 "current working directory from the inactive file list to the active one"
@@ -2434,15 +2430,15 @@ msgstr ""
 "<keycombo><keycap>Ctrl</keycap><keycap>.</keycap></keycombo> Kopírovat "
 "aktuální pracovní složku ze seznamu neaktivních souborů do toho aktivního"
 
-#: C/releases.xml:1778(para)
+#: C/releases.xml:1830(para)
 msgid "1.1.5"
 msgstr "1.1.5"
 
-#: C/releases.xml:1779(para)
+#: C/releases.xml:1831(para)
 msgid "2004-01-12"
 msgstr "12.1.2004"
 
-#: C/releases.xml:1785(para)
+#: C/releases.xml:1837(para)
 msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
@@ -2450,13 +2446,13 @@ msgstr ""
 "Sloupec přípony je od teď skryt, když je přípona zobrazována jen dohromady s "
 "názvem souboru"
 
-#: C/releases.xml:1788(para)
+#: C/releases.xml:1840(para)
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr ""
 "Opraveno překreslování, které nebylo nutné, u seznamu souborů při "
 "přetahování souborů přes něj"
 
-#: C/releases.xml:1791(para)
+#: C/releases.xml:1843(para)
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
@@ -2464,16 +2460,16 @@ msgstr ""
 "Opraven problém s připojením FTP, které nezmizelo z připojení na liště "
 "nástrojů, když bylo odpojeno"
 
-#: C/releases.xml:1794(para)
+#: C/releases.xml:1846(para)
 msgid "The program no longer tries to center itself on the desktop"
 msgstr ""
 "Program se již nadále nepokouší sám sebe umístit na střed pracovní plochy"
 
-#: C/releases.xml:1797(para)
+#: C/releases.xml:1849(para)
 msgid "Fixed problems when renaming directories"
 msgstr "Opraveny problémy při přejmenování složek"
 
-#: C/releases.xml:1805(para)
+#: C/releases.xml:1857(para)
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
@@ -2481,19 +2477,19 @@ msgstr ""
 "Zobrazení cesty nad seznamem souborů je možné použít k pohybu zpět na složky "
 "v cestě"
 
-#: C/releases.xml:1812(para)
+#: C/releases.xml:1864(para)
 msgid "1.1.4"
 msgstr "1.1.4"
 
-#: C/releases.xml:1813(para)
+#: C/releases.xml:1865(para)
 msgid "2003-11-24"
 msgstr "24.11.2003"
 
-#: C/releases.xml:1819(para)
+#: C/releases.xml:1871(para)
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr "Opravena chyba při vybírání více souborů pomocí shift+tlačítko myši"
 
-#: C/releases.xml:1822(para)
+#: C/releases.xml:1874(para)
 msgid ""
 "Stopped superfluous updates of the file list on machines with the imon "
 "kernel patch applied"
@@ -2501,11 +2497,11 @@ msgstr ""
 "Ukončeny zbytečné aktualizace seznamu souborů na počítačích s jádrem s "
 "aplikovanou záplatou imon"
 
-#: C/releases.xml:1825(para)
+#: C/releases.xml:1877(para)
 msgid "Cleaned up the file-popup menu"
 msgstr "Vyčištěna kontextová nabídka souboru"
 
-#: C/releases.xml:1828(para)
+#: C/releases.xml:1880(para)
 msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
@@ -2513,29 +2509,29 @@ msgstr ""
 "Opravena chyba „Soubor nenalezen“ při procházení rodičovské složky, když "
 "rodičovská složka obsahuje mezery"
 
-#: C/releases.xml:1831(para)
+#: C/releases.xml:1883(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr "Opravena možná asynchronní chyba při rušení operace přenosu"
 
-#: C/releases.xml:1834(para)
+#: C/releases.xml:1886(para)
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
 "Přepracován vzhled karet a odstraněny barevné karty v dialogovém okně voleb"
 
-#: C/releases.xml:1837(para)
+#: C/releases.xml:1889(para)
 msgid "Improved plugin-system"
 msgstr "Zdokonalen systém zásuvných modulů"
 
-#: C/releases.xml:1844(para)
+#: C/releases.xml:1896(para)
 msgid "1.1.3"
 msgstr "1.1.3"
 
-#: C/releases.xml:1845(para)
+#: C/releases.xml:1897(para)
 msgid "2003-11-14"
 msgstr "14.11.2003"
 
-#: C/releases.xml:1851(para)
+#: C/releases.xml:1903(para)
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same "
@@ -2546,16 +2542,16 @@ msgstr ""
 "tomu, že GNOME Commander zkoušel odstranit ten stejný soubor ze seznamu "
 "dvakrát"
 
-#: C/releases.xml:1858(para)
+#: C/releases.xml:1910(para)
 msgid "Accessing files on mounted devices should now work better"
 msgstr ""
 "Od teď by měl lépe fungovat přístup k souborům na připojených zařízeních"
 
-#: C/releases.xml:1861(para)
+#: C/releases.xml:1913(para)
 msgid "Devices without the device filename should not disappear anymore"
 msgstr "Zařízení bez názvu souboru zařízení by se již neměla objevovat"
 
-#: C/releases.xml:1864(para)
+#: C/releases.xml:1916(para)
 msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
@@ -2563,7 +2559,7 @@ msgstr ""
 "Provedena oprava, po které je použitelnější funkce ponechání otevřeného "
 "terminálového okna po skončení práce programu"
 
-#: C/releases.xml:1870(para)
+#: C/releases.xml:1922(para)
 msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
@@ -2571,15 +2567,15 @@ msgstr ""
 "Opravena chyba, kdy se nová složka objevovala vícekrát ve stejném seznamu "
 "souborů, dokud není znovu načten"
 
-#: C/releases.xml:1881(para)
+#: C/releases.xml:1933(para)
 msgid "The delete confirmation can now be disabled"
 msgstr "Od teď lze vypínat dotaz na potvrzení odstranění"
 
-#: C/releases.xml:1884(para)
+#: C/releases.xml:1936(para)
 msgid "Better error messages when a mount fails"
 msgstr "Lepší chybové zprávy při selhání připojení zařízení"
 
-#: C/releases.xml:1887(para)
+#: C/releases.xml:1939(para)
 msgid ""
 "Made the calculation of a directory's total size start automatically when "
 "the file prefs dialog is shown"
@@ -2587,7 +2583,7 @@ msgstr ""
 "Při zobrazení dialogového okna předvoleb souboru se spustí automatický "
 "přepočet celkové velikosti složky"
 
-#: C/releases.xml:1893(para)
+#: C/releases.xml:1945(para)
 msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
@@ -2595,50 +2591,50 @@ msgstr ""
 "Přidán filtr pro záložní soubory a navíc i filtr pro skryté soubory do "
 "hlavní nabídky pro rychlejší přístup"
 
-#: C/releases.xml:1903(para)
+#: C/releases.xml:1955(para)
 msgid "1.1.2"
 msgstr "1.1.2"
 
-#: C/releases.xml:1904(para)
+#: C/releases.xml:1956(para)
 msgid "2003-11-07"
 msgstr "7.11.2003"
 
-#: C/releases.xml:1910(para)
+#: C/releases.xml:1962(para)
 msgid "Much better handling of non UTF8 filenames"
 msgstr "Mnohem lepší práce s názvy souborů v jiném kódování než UTF-8"
 
-#: C/releases.xml:1913(para)
+#: C/releases.xml:1965(para)
 msgid "Removed unsafe uri-creation"
 msgstr "Odstraněno nebezpečné vytváření URI"
 
-#: C/releases.xml:1921(para)
+#: C/releases.xml:1973(para)
 msgid "Three ways to show with file extensions"
 msgstr "Tři způsoby zobrazení s příponami souborů"
 
-#: C/releases.xml:1928(para)
+#: C/releases.xml:1980(para)
 msgid "1.1.1"
 msgstr "1.1.1"
 
-#: C/releases.xml:1929(para)
+#: C/releases.xml:1981(para)
 msgid "2003-11-05"
 msgstr "5.11.2003"
 
-#: C/releases.xml:1935(para)
+#: C/releases.xml:1987(para)
 msgid ""
 "Stopped showing the file extension in both the name column and the ext column"
 msgstr ""
 "Zastaveno zobrazování přípon souborů jak ve sloupci s názvem, tak ve sloupci "
 "přípony"
 
-#: C/releases.xml:1938(para)
+#: C/releases.xml:1990(para)
 msgid "Fixed crashes that happened when browsing directories"
 msgstr "Opraveno zhroucení, které nastávalo při procházení složek"
 
-#: C/releases.xml:1941(para)
+#: C/releases.xml:1993(para)
 msgid "Fixed update problems when copying and moving files"
 msgstr "Opraveny problémy s aktualizací při kopírování a přesouvání souborů"
 
-#: C/releases.xml:1944(para)
+#: C/releases.xml:1996(para)
 msgid ""
 "The connection combo boxes should now show the correct connection as "
 "selected all the time"
@@ -2646,69 +2642,69 @@ msgstr ""
 "Rozbalovací seznam s připojeními by měl nyní zobrazovat správná připojení, "
 "která jsou stále vybírána"
 
-#: C/releases.xml:1947(para)
+#: C/releases.xml:1999(para)
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr ""
 "Odstraněny nějaké chyby vztahující se k vybírání souborů pomocí klávesnice"
 
-#: C/releases.xml:1950(para)
+#: C/releases.xml:2002(para)
 msgid "Fixed the edit mime-types feature"
 msgstr "Opravena funkce úprav typů MIME"
 
-#: C/releases.xml:1958(para)
+#: C/releases.xml:2010(para)
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
 "Přidáno tlačítko pro změnu výchozí aplikace pro MIME v dialogovém okně "
 "vlastností souboru"
 
-#: C/releases.xml:1965(para)
+#: C/releases.xml:2017(para)
 msgid "1.1.0"
 msgstr "1.1.0"
 
-#: C/releases.xml:1966(para)
+#: C/releases.xml:2018(para)
 msgid "2003-11-01"
 msgstr "1.11.2003"
 
-#: C/releases.xml:1972(para)
+#: C/releases.xml:2024(para)
 msgid "SMB browsing"
 msgstr "Procházení SMB"
 
-#: C/releases.xml:1975(para)
+#: C/releases.xml:2027(para)
 msgid "Plugins"
 msgstr "Zásuvné moduly"
 
-#: C/releases.xml:1978(para)
+#: C/releases.xml:2030(para)
 msgid "Major rewrite of a lot of code"
 msgstr "Významné přepsání větší části kódu"
 
-#: C/releases.xml:1985(para)
+#: C/releases.xml:2037(para)
 msgid "1.0.1"
 msgstr "1.0.1"
 
-#: C/releases.xml:1986(para)
+#: C/releases.xml:2038(para)
 msgid "2003-06-27"
 msgstr "27.6.2003"
 
-#: C/releases.xml:1992(para)
+#: C/releases.xml:2044(para)
 msgid "Improved file list update in non-fam mode"
 msgstr ""
 "Zdokonalena aktualizace seznamu souborů v režimu bez FAM (File Alteration "
 "Monitor – sledování změn souborů)"
 
-#: C/releases.xml:1995(para)
+#: C/releases.xml:2047(para)
 msgid "Empty directories can now be entered on ftp servers"
 msgstr "Nyní lze na serverech FTP vstupovat do prázdných složek"
 
-#: C/releases.xml:2002(para)
+#: C/releases.xml:2054(para)
 msgid "1.0"
 msgstr "1.0"
 
-#: C/releases.xml:2003(para)
+#: C/releases.xml:2055(para)
 msgid "2003-06-05"
 msgstr "5.6.2003"
 
-#: C/releases.xml:2005(para)
+#: C/releases.xml:2057(para)
 msgid ""
 "This is the \"production stable\" 1.0 release. Mainly small bugfixes from "
 "previous version."
@@ -2716,27 +2712,27 @@ msgstr ""
 "Jedná se o „stabilní produkční“ vydání 1.0. Hlavně opraveny chyby z "
 "předchozích verzí."
 
-#: C/releases.xml:2011(para)
+#: C/releases.xml:2063(para)
 msgid "0.9.12"
 msgstr "0.9.12"
 
-#: C/releases.xml:2012(para)
+#: C/releases.xml:2064(para)
 msgid "2003-03-18"
 msgstr "18.3.2003"
 
-#: C/releases.xml:2014(para)
+#: C/releases.xml:2066(para)
 msgid "Bugfixes"
 msgstr "Opravy chyb"
 
-#: C/releases.xml:2018(para)
+#: C/releases.xml:2070(para)
 msgid "0.9.11"
 msgstr "0.9.11"
 
-#: C/releases.xml:2019(para)
+#: C/releases.xml:2071(para)
 msgid "2003-03-13"
 msgstr "13.3.2003"
 
-#: C/releases.xml:2021(para)
+#: C/releases.xml:2073(para)
 msgid ""
 "Added support for $p in advrename dialog. This will give you the parent "
 "directory. Fixed a bug where deleting a directory sometimes only emptied the "
@@ -2748,15 +2744,15 @@ msgstr ""
 "jen vyprázdnilo složku, ale neodstranilo ji. Opraveno také, že složka „..“ "
 "je viditelná v sezení ftp."
 
-#: C/releases.xml:2029(para)
+#: C/releases.xml:2081(para)
 msgid "0.9.10"
 msgstr "0.9.10"
 
-#: C/releases.xml:2030(para)
+#: C/releases.xml:2082(para)
 msgid "2003-03-24"
 msgstr "24.3.2003"
 
-#: C/releases.xml:2032(para)
+#: C/releases.xml:2084(para)
 msgid ""
 "Fixed an imageloading bug when using themes other than the default one. New "
 "bookmark feature. New template feature in the advanced-rename dialog. See "
@@ -2770,15 +2766,15 @@ msgstr ""
 "okno vlastností souboru s podporou přejmenování. Nyní je možné přetahovat "
 "soubory do složky „..“. Lze skrýt lištu nástrojů a lištu tlačítek."
 
-#: C/releases.xml:2043(para)
+#: C/releases.xml:2095(para)
 msgid "0.9.9"
 msgstr "0.9.9"
 
-#: C/releases.xml:2044(para)
+#: C/releases.xml:2096(para)
 msgid "2003-01-19"
 msgstr "19.1.2003"
 
-#: C/releases.xml:2046(para)
+#: C/releases.xml:2098(para)
 msgid ""
 "Improved the advanced rename tool Added quick connect feature. Improved "
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
@@ -2789,15 +2785,15 @@ msgstr ""
 "které obsahovalo. Přidán výchozí motiv ikon mime s nízkým rozlišením. "
 "Upravena vyskakovací nabídka souboru, aby vypadala víc normálně."
 
-#: C/releases.xml:2056(para)
+#: C/releases.xml:2108(para)
 msgid "0.9.8"
 msgstr "0.9.8"
 
-#: C/releases.xml:2057(para)
+#: C/releases.xml:2109(para)
 msgid "2002-07-16"
 msgstr "16.7.2002"
 
-#: C/releases.xml:2059(para)
+#: C/releases.xml:2111(para)
 msgid ""
 "New things in this release are autoscroll at DND, better quicksearch, "
 "mounting and unmounting, file lists refresh without FAM, last visited "
@@ -2808,61 +2804,61 @@ msgstr ""
 "seznamů souborů bez FAM (File Alteration Monitor – sledování změn souborů), "
 "historie naposledy navštívených složek a další"
 
-#: C/releases.xml:2067(para)
+#: C/releases.xml:2119(para)
 msgid "0.9.7"
 msgstr "0.9.7"
 
-#: C/releases.xml:2068(para)
+#: C/releases.xml:2120(para)
 msgid "2002-06-07"
 msgstr "7.6.2002"
 
-#: C/releases.xml:2073(para)
+#: C/releases.xml:2125(para)
 msgid "0.9.6"
 msgstr "0.9.6"
 
-#: C/releases.xml:2074(para)
+#: C/releases.xml:2126(para)
 msgid "2002-04-04"
 msgstr "4.4.2002"
 
-#: C/releases.xml:2076(para)
+#: C/releases.xml:2128(para)
 msgid "MIME support has been added and bugs have been fixed."
 msgstr "Přidána podpora pro MIME a opraveny chyby."
 
-#: C/releases.xml:2080(para)
+#: C/releases.xml:2132(para)
 msgid "0.9.5"
 msgstr "0.9.5"
 
-#: C/releases.xml:2081(para)
+#: C/releases.xml:2133(para)
 msgid "2002-03-27"
 msgstr "27.3.2002"
 
-#: C/releases.xml:2083(para)
+#: C/releases.xml:2135(para)
 msgid "Added an embedded terminal and fixed some bugs."
 msgstr "Přidán vestavěný terminál a opraveny některé chyby."
 
-#: C/releases.xml:2087(para)
+#: C/releases.xml:2139(para)
 msgid "0.9.4"
 msgstr "0.9.4"
 
-#: C/releases.xml:2088(para)
+#: C/releases.xml:2140(para)
 msgid "2002-03-21"
 msgstr "21.3.2002"
 
-#: C/releases.xml:2090(para)
+#: C/releases.xml:2142(para)
 msgid "Added FAM support, DnD and more."
 msgstr ""
 "Přidána podpora FAM (File Alteration Monitor – sledování změn souborů), "
 "táhni-a-pusť a další."
 
-#: C/releases.xml:2094(para)
+#: C/releases.xml:2146(para)
 msgid "0.9.2"
 msgstr "0.9.2"
 
-#: C/releases.xml:2095(para)
+#: C/releases.xml:2147(para)
 msgid "2002-03-09"
 msgstr "9.3.2002"
 
-#: C/releases.xml:2097(para)
+#: C/releases.xml:2149(para)
 msgid ""
 "Improved stability and less memory leaks. CVS is disabled until it actually "
 "works well."
@@ -2870,27 +2866,27 @@ msgstr ""
 "Zlepšena stabilita a úniky paměti. CVS je zakázáno do doby, než bude správně "
 "pracovat."
 
-#: C/releases.xml:2101(para)
+#: C/releases.xml:2153(para)
 msgid "0.91-pre1"
 msgstr "0.91-pre1"
 
-#: C/releases.xml:2102(para)
+#: C/releases.xml:2154(para)
 msgid "2002-02-06"
 msgstr "6.2.2002"
 
-#: C/releases.xml:2104(para)
+#: C/releases.xml:2156(para)
 msgid "Improved user interface and lots of other small hacks."
 msgstr "Zdokonaleno uživatelské rozhraní a řady dalších drobných vylepšení."
 
-#: C/releases.xml:2108(para)
+#: C/releases.xml:2160(para)
 msgid "0.90-pre1"
 msgstr "0.90-pre1"
 
-#: C/releases.xml:2109(para)
+#: C/releases.xml:2161(para)
 msgid "2001-08-02"
 msgstr "2.8.2001"
 
-#: C/releases.xml:2111(para)
+#: C/releases.xml:2163(para)
 msgid "The first public version of GNOME Commander."
 msgstr "První veřejná verze aplikace GNOME Commander."
 
@@ -3226,8 +3222,8 @@ msgid "GNOME Commander Manual"
 msgstr "Příručka aplikace GNOME Commander"
 
 #: C/gnome-commander.xml:30(subtitle)
-msgid "GNOME Commander Desktop Application Manual V1.6.0"
-msgstr "Příručka k aplikaci GNOME Commander V1.6.0"
+msgid "GNOME Commander Desktop Application Manual V1.8.0"
+msgstr "Příručka k aplikaci GNOME Commander V1.8.0"
 
 #: C/gnome-commander.xml:32(year)
 msgid "2012"
@@ -3485,8 +3481,8 @@ msgid "GNOME Commander Manual V1.6.0;"
 msgstr "Příručka V1.6.0 k aplikaci GNOME Commander;"
 
 #: C/gnome-commander.xml:411(releaseinfo)
-msgid "This manual describes version 1.6.0 of GNOME Commander."
-msgstr "Tato příručka popisuje GNOME Commander ve verzi 1.6.0."
+msgid "This manual describes version 1.8.0 of GNOME Commander."
+msgstr "Tato příručka popisuje GNOME Commander ve verzi 1.8.0."
 
 #: C/gnome-commander.xml:413(title)
 msgid "Feedback"
@@ -16391,408 +16387,3 @@ msgstr ""
 msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
 
-#~ msgid "2014-??-??"
-#~ msgstr "??.??.2014"
-
-#~ msgid "2014-???-???"
-#~ msgstr "??.??.2014"
-
-#~ msgid "Document icon directory"
-#~ msgstr "Složka ikon dokumentů"
-
-#~ msgid ""
-#~ "If you wish to customize the document icons select the folder containing "
-#~ "the new document icons here."
-#~ msgstr ""
-#~ "Pokus si přejete přizpůsobit ikony dokumentů podle sebe, vyberte zde "
-#~ "složku, která obsahuje vaše nové ikony."
-
-#~ msgid "Using Nautilus icon theme"
-#~ msgstr "Použití ikon motivu z aplikace Nautilus"
-
-#~ msgid ""
-#~ "This is outdated info since Nautilus and later GNOME versions no longer "
-#~ "use these kind of themes."
-#~ msgstr ""
-#~ "Tyto informace jsou zastaralé, protože Nautilus a novější verze GNOME již "
-#~ "tento druh motivu nepoužívají."
-
-#~ msgid ""
-#~ "The default icon theme that comes with GNOME Commander lacks icons for a "
-#~ "lot of file types and only looks good at icon size 16. There are other "
-#~ "themes around though, that are more complete and looks better in bigger "
-#~ "sizes. Unscalable Gorilla by Jimmac is one example and can be used in "
-#~ "GNOME Commander by following these steps:"
-#~ msgstr ""
-#~ "Výchozí motiv ikon, který je součásti balíku GNOME Commander postrádá "
-#~ "ikony pro některé typy souborů a vypadá dobře jen při velikosti 16. "
-#~ "Přitom existují jiné motivy, které jsou kompletnější a při větších "
-#~ "velikostech vypadají lépe. Motiv Unscalable Gorilla od autora Jimmac je "
-#~ "jedním z nich a v aplikaci GNOME Commander jej můžete použít následovně:"
-
-#~ msgid "Download the theme."
-#~ msgstr "Stáhněte motiv."
-
-#~ msgid "Unpack the theme to where ever you want."
-#~ msgstr "Rozbalte motiv, kamkoliv chcete."
-
-#~ msgid ""
-#~ "Start GNOME Commander open the <guimenu>Options</guimenu> dialog. In the "
-#~ "<guimenuitem>Layout</guimenuitem> tab set the Theme icon directory to be "
-#~ "the folder where you extracted Unscalable Gorilla. Also change Row height "
-#~ "and Icon size to 20 or some other size that you like. When you're done "
-#~ "also make sure that the Graphical mode is set to MIME icons."
-#~ msgstr ""
-#~ "Spusťte GNOME Commander a otevřete dialogové okno <guimenu>Volby</"
-#~ "guimenu>. Na kartě <guimenuitem>Vzhled</guimenuitem> nastavte Složku ikon "
-#~ "motivu na složku, do které jste rozbalili motiv Unscalable Gorilla. Také "
-#~ "změňte Výšku řádku a Velikost ikon na 20 nebo jinou vytouženou velikost. "
-#~ "Na konec se přesvědčte, že Grafický režim je nastavený na Ikony MIME."
-
-#~ msgid ""
-#~ "When you now close the <guimenu>Options</guimenu> dialog the file "
-#~ "listings should refresh and you should see Unscalable Gorilla being used."
-#~ msgstr ""
-#~ "Po zavření dialogového okna <guimenu>Volby</guimenu> byste měli "
-#~ "aktualizovat výpis souborů a pak už bystě měli vidět použitý motiv "
-#~ "Unscalable Gorilla."
-
-#~ msgid "~/.gnome2/gnome-commander"
-#~ msgstr "~/.gnome2/gnome-commander"
-
-#~ msgid "Section"
-#~ msgstr "Oddíl"
-
-#~ msgid "Key"
-#~ msgstr "Klíč"
-
-#~ msgid "Value"
-#~ msgstr "Hodnota"
-
-#~ msgid "Refer to"
-#~ msgstr "Odkaz na"
-
-#~ msgid "[network]"
-#~ msgstr "[network]"
-
-#~ msgid "ftp_anonymous_password"
-#~ msgstr "ftp_anonymous_password"
-
-#~ msgid "string"
-#~ msgstr "řetězec"
-
-#~ msgid "[options]"
-#~ msgstr "[options]"
-
-#~ msgid "backup_filter"
-#~ msgstr "backup_filter"
-
-#~ msgid "btn_relief"
-#~ msgstr "btn_relief"
-
-#~ msgid "cmdline_history_length"
-#~ msgstr "cmdline_history_length"
-
-#~ msgid "cmdline_visibility"
-#~ msgstr "cmdline_visibility"
-
-#~ msgid "boolean"
-#~ msgstr "pravdivostní"
-
-#~ msgid "Show commandline."
-#~ msgstr "Zobrazovat příkazový řádek."
-
-#~ msgid "conbuttons_visibility"
-#~ msgstr "conbuttons_visibility"
-
-#~ msgid "Show connection/device buttons."
-#~ msgstr "Zobrazovat tlačítka připojení/zařízení."
-
-#~ msgid "con_list_visibility"
-#~ msgstr "con_list_visibility"
-
-#~ msgid "Show connection/device list."
-#~ msgstr "Zobrazovat seznam připojení/zařízení."
-
-#~ msgid "date_disp_mode"
-#~ msgstr "date_disp_mode"
-
-#~ msgid "dir_cache_size"
-#~ msgstr "dir_cache_size"
-
-#~ msgid "document_icon_dir"
-#~ msgstr "document_icon_dir"
-
-#~ msgid "ext_disp_mode"
-#~ msgstr "ext_disp_mode"
-
-#~ msgid "hidden_filter"
-#~ msgstr "hidden_filter"
-
-#~ msgid "icon_size"
-#~ msgstr "icon_size"
-
-#~ msgid "integer"
-#~ msgstr "celé číslo"
-
-#~ msgid "dev_icon_size"
-#~ msgstr "dev_icon_size"
-
-#~ msgid "Size of device icons. Defaults to 16."
-#~ msgstr "Velikost ikony zařízení. Výchozí je 16."
-
-#~ msgid "icon_scale_quality"
-#~ msgstr "icon_scale_quality"
-
-#~ msgid "layout"
-#~ msgstr "layout"
-
-#~ msgid "list_font"
-#~ msgstr "list_font"
-
-#~ msgid "list_orientation"
-#~ msgstr "list_orientation"
-
-#~ msgid "list_row_height"
-#~ msgstr "list_row_height"
-
-#~ msgid "main_win_pos_x"
-#~ msgstr "main_win_pos_x"
-
-#~ msgid "main_win_pos_y"
-#~ msgstr "main_win_pos_y"
-
-#~ msgid "perm_disp_mode"
-#~ msgstr "perm_disp_mode"
-
-#~ msgid "left_mouse_button_mode"
-#~ msgstr "left_mouse_button_mode"
-
-#~ msgid "left_mouse_button_unselects"
-#~ msgstr "left_mouse_button_unselects"
-
-#~ msgid "right_mouse_button_mode"
-#~ msgstr "right_mouse_button_mode"
-
-#~ msgid "select_dirs"
-#~ msgstr "select_dirs"
-
-#~ msgid "show_block_device"
-#~ msgstr "show_block_device"
-
-#~ msgid "show_char_device"
-#~ msgstr "show_char_device"
-
-#~ msgid "show_directory"
-#~ msgstr "show_directory"
-
-#~ msgid "show_fifo"
-#~ msgstr "show_fifo"
-
-#~ msgid "show_regular"
-#~ msgstr "show_regular"
-
-#~ msgid "show_socket"
-#~ msgstr "show_socket"
-
-#~ msgid "show_symbolic_link"
-#~ msgstr "show_symbolic_link"
-
-#~ msgid "show_toolbar"
-#~ msgstr "show_toolbar"
-
-#~ msgid "show_unknown"
-#~ msgstr "show_unknown"
-
-#~ msgid "size_disp_mode"
-#~ msgstr "size_disp_mode"
-
-#~ msgid "symlink_prefix"
-#~ msgstr "symlink_prefix"
-
-#~ msgid "\"%s\" is crucial here - it is expanded to original filename."
-#~ msgstr "„%s“ je zde podstatné – je rozvinuto do původního názvu souboru."
-
-#~ msgid ""
-#~ "Empty value means 'use \"link to %s\" for symlink' (or translation if "
-#~ "available), other values = use given string for symlink name. "
-#~ "<placeholder-1/>"
-#~ msgstr ""
-#~ "Prázdná hodnota znamená „použít \"link to %s\" pro symbolický "
-#~ "odkaz“ (nebo překlad, pokud je dostupný), jiné hodnoty = použít zadaný "
-#~ "řetězec pro symbolický odkaz. <placeholder-1/>"
-
-#~ msgid "theme_icon_dir"
-#~ msgstr "theme_icon_dir"
-
-#~ msgid "[sort]"
-#~ msgstr "[sort]"
-
-#~ msgid "case_sensitive"
-#~ msgstr "case_sensitive"
-
-#~ msgid "[confirm]"
-#~ msgstr "[confirm]"
-
-#~ msgid "delete"
-#~ msgstr "delete"
-
-#~ msgid "confirm_mouse_dnd"
-#~ msgstr "confirm_mouse_dnd"
-
-#~ msgid "If enabled, confirm drag &amp; drop operations"
-#~ msgstr "Pokud je zapnuto, musí se potvrzovat operace „táhni a upusť“"
-
-#~ msgid "[colors]"
-#~ msgstr "[colors]"
-
-#~ msgid "curs_bg"
-#~ msgstr "curs_bg"
-
-#~ msgid "Cursor background"
-#~ msgstr "Pozadí kurzoru"
-
-#~ msgid "curs_fg"
-#~ msgstr "curs_fg"
-
-#~ msgid "Cursor foreground"
-#~ msgstr "Popředí kurzoru"
-
-#~ msgid "mode"
-#~ msgstr "mode"
-
-#~ msgid "norm_bg"
-#~ msgstr "norm_bg"
-
-#~ msgid "Current background"
-#~ msgstr "Aktuální pozadí"
-
-#~ msgid "norm_fg"
-#~ msgstr "norm_fg"
-
-#~ msgid "Current foreground"
-#~ msgstr "Aktuální popředí"
-
-#~ msgid "alt_bg"
-#~ msgstr "alt_bg"
-
-#~ msgid "Alternate background"
-#~ msgstr "Střídající pozadí"
-
-#~ msgid "alt_fg"
-#~ msgstr "alt_fg"
-
-#~ msgid "Alternate foreground"
-#~ msgstr "Střídající popředí"
-
-#~ msgid "sel_bg"
-#~ msgstr "sel_bg"
-
-#~ msgid "Selected background"
-#~ msgstr "Vybrané pozadí"
-
-#~ msgid "sel_fg"
-#~ msgstr "sel_fg"
-
-#~ msgid "Selected foreground"
-#~ msgstr "Vybrané popředí"
-
-#~ msgid "use_ls_colors"
-#~ msgstr "use_ls_colors"
-
-#~ msgid ""
-#~ "Colorize files according to the LS_COLORS environment variable. Defaults "
-#~ "to FALSE."
-#~ msgstr ""
-#~ "Obarvovat soubory podle proměnné prostředí LS_COLORS. Výchozí je VYPNUTO."
-
-#~ msgid "[programs]"
-#~ msgstr "[programs]"
-
-#~ msgid "buttonbar_visibility"
-#~ msgstr "buttonbar_visibility"
-
-#~ msgid "differ"
-#~ msgstr "differ"
-
-#~ msgid "editor"
-#~ msgstr "editor"
-
-#~ msgid "honor_expect_uris"
-#~ msgstr "honor_expect_uris"
-
-#~ msgid "always_show_tabs"
-#~ msgstr "always_show_tabs"
-
-#~ msgid "tab_lock_indicator"
-#~ msgstr "tab_lock_indicator"
-
-#~ msgid "allow_multiple_instances"
-#~ msgstr "allow_multiple_instances"
-
-#~ msgid "skip_mounting"
-#~ msgstr "skip_mounting"
-
-#~ msgid "toolbar_visibility"
-#~ msgstr "toolbar_visibility"
-
-#~ msgid "use_internal_viewer"
-#~ msgstr "use_internal_viewer"
-
-#~ msgid "viewer"
-#~ msgstr "viewer"
-
-#~ msgid "[devices]"
-#~ msgstr "[devices]"
-
-#~ msgid "only_icon"
-#~ msgstr "only_icon"
-
-#~ msgid "[quick-connect]"
-#~ msgstr "[quick-connect]"
-
-#~ msgid "uri"
-#~ msgstr "uri"
-
-#~ msgid "URI for the last entered location."
-#~ msgstr "Adresa URI pro naposledy zadané umístění."
-
-#~ msgid "[defaults]"
-#~ msgstr "[defaults]"
-
-#~ msgid "backup_pattern"
-#~ msgstr "backup_pattern"
-
-#~ msgid "[local_bookmarks]"
-#~ msgstr "[local_bookmarks]"
-
-#~ msgid "count"
-#~ msgstr "count"
-
-#~ msgid "name<emphasis><subscript>n</subscript></emphasis>"
-#~ msgstr "name<emphasis><subscript>n</subscript></emphasis>"
-
-#~ msgid "path<emphasis><subscript>n</subscript></emphasis>"
-#~ msgstr "path<emphasis><subscript>n</subscript></emphasis>"
-
-#~ msgid "[smb_bookmarks]"
-#~ msgstr "[smb_bookmarks]"
-
-#~ msgid "[plugins]"
-#~ msgstr "[plugins]"
-
-#~ msgid "auto_load<emphasis><subscript>n</subscript></emphasis>"
-#~ msgstr "auto_load<emphasis><subscript>n</subscript></emphasis>"
-
-#~ msgid "[key-bindings]"
-#~ msgstr "[key-bindings]"
-
-#~ msgid ""
-#~ "[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
-#~ "win&gt;]<emphasis>key_name</emphasis>"
-#~ msgstr ""
-#~ "[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;"
-#~ "win&gt;]<emphasis>název_klávesy</emphasis>"
-
-#~ msgid "action[|options]"
-#~ msgstr "akce[|volby]"

@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2016-10-06 20:34+0000\n"
-"PO-Revision-Date: 2016-10-07 00:24+0200\n"
+"POT-Creation-Date: 2016-11-07 20:32+0000\n"
+"PO-Revision-Date: 2016-11-08 07:51+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -29,7 +29,7 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.7\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1860
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1862
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -72,7 +72,7 @@ msgstr "souborový systém"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: ../data/gnome-commander.appdata.xml.in.h:7
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:451
 msgid "SSH"
 msgstr "SSH"
 
@@ -1269,65 +1269,65 @@ msgstr ""
 msgid "No error description available"
 msgstr "Popis chyby není k dispozici"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:310
+#: ../plugins/fileroller/file-roller-plugin.cc:334
 msgid "What file name should the new archive have?"
 msgstr "Jaký název souboru by měl mít nový archiv?"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:312
+#: ../plugins/fileroller/file-roller-plugin.cc:336
 msgid "Create Archive"
 msgstr "Vytvořit archiv"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:420
+#: ../plugins/fileroller/file-roller-plugin.cc:444
 msgid "Create Archive..."
 msgstr "Vytvořit archiv…"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:432
+#: ../plugins/fileroller/file-roller-plugin.cc:456
 msgid "Extract in Current Directory"
 msgstr "Rozbalit do aktuální složky"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:439
-#: ../plugins/fileroller/file-roller-plugin.cc:449
+#: ../plugins/fileroller/file-roller-plugin.cc:463
+#: ../plugins/fileroller/file-roller-plugin.cc:473
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Rozbalit do „%s“"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:499
-#: ../src/gnome-cmd-advrename-profile-component.cc:918
+#: ../plugins/fileroller/file-roller-plugin.cc:523
+#: ../src/gnome-cmd-advrename-profile-component.cc:930
 #: ../src/plugin_manager.cc:406 ../src/tags/gnome-cmd-tags.cc:686
 msgid "File"
 msgstr "Soubor"
 
 #. destroy model automatically with view
-#: ../plugins/fileroller/file-roller-plugin.cc:516
+#: ../plugins/fileroller/file-roller-plugin.cc:540
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:358
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1406
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2057
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:460
-#: ../src/gnome-cmd-user-actions.cc:247
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:457
+#: ../src/gnome-cmd-user-actions.cc:248
 msgid "Options"
 msgstr "Volby"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:528
+#: ../plugins/fileroller/file-roller-plugin.cc:552
 msgid "File-roller options"
 msgstr "Volby aplikace file-roller"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:531
+#: ../plugins/fileroller/file-roller-plugin.cc:555
 msgid "Default archive type"
 msgstr "Výchozí typ archivu"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: ../plugins/fileroller/file-roller-plugin.cc:539
+#: ../plugins/fileroller/file-roller-plugin.cc:563
 msgid "File prefix pattern"
 msgstr "Vzory předpony souborů"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:550
+#: ../plugins/fileroller/file-roller-plugin.cc:574
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:357
 msgid "Test result:"
 msgstr "Výsledek testu:"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:557
+#: ../plugins/fileroller/file-roller-plugin.cc:581
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "\"strftime\" for other patterns."
@@ -1335,7 +1335,7 @@ msgstr ""
 "Pro původní název souboru použijte zástupnou proměnnou $N. Další proměnné "
 "viz manuálová stránka funkce „strftime“."
 
-#: ../plugins/fileroller/file-roller-plugin.cc:708
+#: ../plugins/fileroller/file-roller-plugin.cc:732
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1351,89 +1351,89 @@ msgstr ""
 "Toto je ukázkový zásuvný modul, který je užitečný hlavně jako jednoduchý "
 "příklad pro začínající programátory zásuvných modulů"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:127
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:179
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:131
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:181
 msgid "/_Save Profile As..."
 msgstr "/_Uložit profil jako…"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:136
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:188
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:140
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:190
 msgid "/_Manage Profiles..."
 msgstr "/_Spravovat profily…"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:188
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:238
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:192
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:240
 msgid "Profiles"
 msgstr "Profily"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:332
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:336
 msgid "Remove from file list"
 msgstr "Odebrat ze seznamu souborů"
 
 #. {file_umount, "file.umount"},
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:336
-#: ../src/gnome-cmd-user-actions.cc:234
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:340
+#: ../src/gnome-cmd-user-actions.cc:235
 msgid "View file"
 msgstr "Zobrazit soubor"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:340
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:344
 msgid "File properties"
 msgstr "Vlastnosti souboru"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:346
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:350
 msgid "Update file list"
 msgstr "Aktualizovat seznam souborů"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:524
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:528
 msgid "Advanced Rename Tool"
 msgstr "Pokročilý nástroj na přejmenování"
 
 #. Results
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:535
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:539
 msgid "Results"
 msgstr "Výsledky"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:608
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:612
 msgid "Old name"
 msgstr "Starý název"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:612
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:616
 msgid "Current file name"
 msgstr "Současný název souboru"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:614
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:618
 msgid "New name"
 msgstr "Nový název"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:618
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:622
 msgid "New file name"
 msgstr "Nový název souboru"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:620
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:624
 #: ../src/tags/gnome-cmd-tags.cc:327 ../src/tags/gnome-cmd-tags.cc:391
 msgid "Size"
 msgstr "Velikost"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:624
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:628
 msgid "File size"
 msgstr "Velikost souboru"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:626
-#: ../src/gnome-cmd-advrename-profile-component.cc:920
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-profile-component.cc:932
 #: ../src/tags/gnome-cmd-tags.cc:342 ../src/tags/gnome-cmd-tags.cc:418
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:630
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:634
 msgid "File modification date"
 msgstr "Datum úpravy souboru"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:697
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1142
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:701
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1144
 msgid "Profiles..."
 msgstr "Profily…"
 
-#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:702
+#: ../src/dialogs/gnome-cmd-advrename-dialog.cc:706
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.h:84
 msgid "Reset"
 msgstr "Obnovit"
@@ -1545,35 +1545,35 @@ msgstr "„%s“ není platné umístění"
 msgid "Please check spelling and try again."
 msgstr "Zkontrolujte prosím překlepy a zkuste to znovu."
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:425 ../src/gnome-cmd-main-win.cc:1188
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:424 ../src/gnome-cmd-main-win.cc:1188
 msgid "Remote Server"
 msgstr "Vzdálený server"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:440
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:439
 msgid "Service _type:"
 msgstr "_Typ služby:"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:453
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "FTP (with login)"
 msgstr "FTP (s přihlášením)"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:454
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:453
 msgid "Public FTP"
 msgstr "Veřejné FTP"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:456
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:455
 msgid "Windows share"
 msgstr "Sdílení Windows"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:458
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:457
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:459
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:458
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Zabezpečené WebDAV (HTTPS)"
 
-#: ../src/dialogs/gnome-cmd-con-dialog.cc:460
+#: ../src/dialogs/gnome-cmd-con-dialog.cc:459
 msgid "Custom location"
 msgstr "Vlastní umístění"
 
@@ -1604,19 +1604,19 @@ msgstr ""
 msgid "Delete problem"
 msgstr "Problém při odstraňování"
 
-#: ../src/dialogs/gnome-cmd-delete-dialog.cc:209 ../src/gnome-cmd-xfer.cc:211
-#: ../src/gnome-cmd-xfer.cc:230
+#: ../src/dialogs/gnome-cmd-delete-dialog.cc:209 ../src/gnome-cmd-xfer.cc:209
+#: ../src/gnome-cmd-xfer.cc:228
 msgid "Abort"
 msgstr "Přerušit"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-xfer.cc:230
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-xfer.cc:228
 msgid "Retry"
 msgstr "Opakovat"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-xfer.cc:211
-#: ../src/gnome-cmd-xfer.cc:230
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-xfer.cc:209
+#: ../src/gnome-cmd-xfer.cc:228
 msgid "Skip"
 msgstr "Přeskočit"
 
@@ -1636,12 +1636,12 @@ msgstr[2] "Chcete odstranit %d vybraných souborů?"
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:958
-#: ../src/gnome-cmd-main-win.cc:1182 ../src/gnome-cmd-user-actions.cc:208
+#: ../src/gnome-cmd-main-win.cc:1182 ../src/gnome-cmd-user-actions.cc:209
 msgid "Delete"
 msgstr "Odstranit"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:884
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:885
 #: ../src/utils.cc:523 ../src/utils.cc:551
 msgid "Cancel"
 msgstr "Zrušit"
@@ -1674,37 +1674,37 @@ msgstr "_Název"
 msgid "Image:"
 msgstr "Obrázek:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:350
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:348
 #: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:193
 msgid "Directory name:"
 msgstr "Název složky:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:350
-#: ../src/gnome-cmd-file-selector.cc:1134
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:348
+#: ../src/gnome-cmd-file-selector.cc:1159
 msgid "File name:"
 msgstr "Název souboru:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:361
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:359
 msgid "Symlink target:"
 msgstr "Cíl symbolického odkazu:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:376
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:374
 msgid "Location:"
 msgstr "Umístění:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:384
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:382
 msgid "Volume:"
 msgstr "Svazek:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:414
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:412
 msgid "Free space:"
 msgstr "Volné místo:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:426
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:424
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:433
+#: ../src/dialogs/gnome-cmd-file-props-dialog.cc:431
 msgid "MIME Type:"
 msgstr "Typ MIME:"
 
@@ -1737,12 +1737,12 @@ msgid "Access permissions"
 msgstr "Přístupová práva"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:622
-#: ../src/intviewer/viewer-window.cc:1502
+#: ../src/intviewer/viewer-window.cc:1503
 msgid "Type"
 msgstr "Typ"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:623
-#: ../src/intviewer/viewer-window.cc:1503
+#: ../src/intviewer/viewer-window.cc:1504
 msgid "Metadata namespace"
 msgstr "Jmenný prostor metadat"
 
@@ -1754,36 +1754,36 @@ msgstr "Jmenný prostor metadat"
 #. NULL);
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:630
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:260
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:371
-#: ../src/intviewer/viewer-window.cc:1510 ../src/plugin_manager.cc:404
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:368
+#: ../src/intviewer/viewer-window.cc:1511 ../src/plugin_manager.cc:404
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Name"
 msgstr "Název"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:631
-#: ../src/intviewer/viewer-window.cc:1511
+#: ../src/intviewer/viewer-window.cc:1512
 msgid "Tag name"
 msgstr "Název štítku"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:633
-#: ../src/intviewer/viewer-window.cc:1513
+#: ../src/intviewer/viewer-window.cc:1514
 msgid "Value"
 msgstr "Hodnota"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:634
-#: ../src/intviewer/viewer-window.cc:1514
+#: ../src/intviewer/viewer-window.cc:1515
 msgid "Tag value"
 msgstr "Hodnota štítku"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:636
-#: ../src/intviewer/viewer-window.cc:1516 ../src/tags/gnome-cmd-tags.cc:166
+#: ../src/intviewer/viewer-window.cc:1517 ../src/tags/gnome-cmd-tags.cc:166
 #: ../src/tags/gnome-cmd-tags.cc:317 ../src/tags/gnome-cmd-tags.cc:419
 #: ../src/tags/gnome-cmd-tags.cc:530
 msgid "Description"
 msgstr "Popis"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:637
-#: ../src/intviewer/viewer-window.cc:1517
+#: ../src/intviewer/viewer-window.cc:1518
 msgid "Metadata tag description"
 msgstr "Popis metadat štítku"
 
@@ -1793,7 +1793,7 @@ msgid "File Properties"
 msgstr "Vlastnosti souboru"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:715
-#: ../src/gnome-cmd-user-actions.cc:228
+#: ../src/gnome-cmd-user-actions.cc:229
 msgid "Properties"
 msgstr "Vlastnosti"
 
@@ -1861,22 +1861,22 @@ msgid "Invalid shortcut."
 msgstr "Neplatná klávesová zkratka."
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:626
-#: ../src/gnome-cmd-user-actions.cc:246
+#: ../src/gnome-cmd-user-actions.cc:247
 msgid "Do nothing"
 msgstr "Nedělat nic"
 
-#: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:68
-#: ../src/gnome-cmd-file-selector.cc:1072
+#: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:67
+#: ../src/gnome-cmd-file-selector.cc:1097
 msgid "No file name entered"
 msgstr "Nebyl zadán název souboru"
 
-#: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:138
+#: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:137
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
 #, c-format
 msgid "Copy \"%s\" to"
 msgstr "Kopírovat „%s“ do"
 
-#: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:145
+#: ../src/dialogs/gnome-cmd-make-copy-dialog.cc:144
 msgid "Copy File"
 msgstr "Kopírovat soubor"
 
@@ -1924,25 +1924,25 @@ msgstr ""
 msgid "New Bookmark"
 msgstr "Nová záložka"
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:126
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:124
 msgid "Profile"
 msgstr "Profil"
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:127
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:125
 msgid "Profile name"
 msgstr "Název profilu"
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:134
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:135
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:132
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:133
 #: ../src/tags/gnome-cmd-tags.cc:196
 msgid "Template"
 msgstr "Šablona"
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:296
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:288
 msgid "New profile"
 msgstr "Nový profil"
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:343
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:335
 msgid ""
 "To rename a profile, click on the corresponding row and type a new name, or "
 "press escape to cancel."
@@ -1950,21 +1950,9 @@ msgstr ""
 "Chcete-li přejmenovat profil, klepněte do odpovídajícího řádku a napište "
 "nový název nebo akci zrušte stisknutím Escape."
 
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:351
+#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:343
 msgid "_Duplicate"
 msgstr "_Duplikovat"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:368
-msgid "/Local path..."
-msgstr "/Místní cesta…"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:369
-msgid "/Remote location..."
-msgstr "/Vzdálené umístění…"
-
-#: ../src/dialogs/gnome-cmd-manage-profiles-dialog.h:376
-msgid "_Import"
-msgstr "_Import"
 
 #: ../src/dialogs/gnome-cmd-mkdir-dialog.cc:94
 msgid "A directory name must be entered"
@@ -1995,7 +1983,7 @@ msgid "Middle mouse button"
 msgstr "Prostřední tlačítko myši"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:118
-#: ../src/gnome-cmd-main-win.cc:1172 ../src/gnome-cmd-user-actions.cc:278
+#: ../src/gnome-cmd-main-win.cc:1172 ../src/gnome-cmd-user-actions.cc:279
 msgid "Up one directory"
 msgstr "O úroveň výš"
 
@@ -2032,7 +2020,7 @@ msgid "Case sensitive"
 msgstr "Rozlišovat velikost písmen"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:165
-#: ../src/gnome-cmd-user-actions.cc:211
+#: ../src/gnome-cmd-user-actions.cc:212
 msgid "Quick search"
 msgstr "Rychlé hledání"
 
@@ -2367,7 +2355,7 @@ msgstr "Nejprve se dotázat"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:986
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1006
-#: ../src/gnome-cmd-file-selector.cc:1323
+#: ../src/gnome-cmd-file-selector.cc:1348
 msgid "Skip all"
 msgstr "Přeskočit vše"
 
@@ -2633,7 +2621,7 @@ msgid "Unselect Using Pattern"
 msgstr "Zrušit výběr podle vzoru"
 
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: ../src/gnome-cmd-main-win.cc:1180 ../src/gnome-cmd-user-actions.cc:205
+#: ../src/gnome-cmd-main-win.cc:1180 ../src/gnome-cmd-user-actions.cc:206
 msgid "Copy"
 msgstr "Kopírovat"
 
@@ -2644,7 +2632,7 @@ msgstr "Nejdřív se zeptat"
 
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:105
 #: ../src/dialogs/gnome-cmd-prepare-move-dialog.cc:98
-#: ../src/gnome-cmd-xfer.cc:211
+#: ../src/gnome-cmd-xfer.cc:209
 msgid "Skip All"
 msgstr "Přeskočit vše"
 
@@ -2684,48 +2672,48 @@ msgstr[1] "přesunout %d soubory do"
 msgstr[2] "přesunout %d souborů do"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:148
-#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:188
+#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:149
+#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:189
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "Složka „%s“ neexistuje, chcete jej vytvořit?"
 
-#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:151
-#: ../src/gnome-cmd-advrename-profile-component.cc:418
-#: ../src/gnome-cmd-advrename-profile-component.cc:737
-#: ../src/gnome-cmd-advrename-profile-component.cc:769 ../src/utils.cc:678
+#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
+#: ../src/gnome-cmd-advrename-profile-component.cc:430
+#: ../src/gnome-cmd-advrename-profile-component.cc:749
+#: ../src/gnome-cmd-advrename-profile-component.cc:781 ../src/utils.cc:678
 msgid "No"
 msgstr "Ne"
 
-#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:151
-#: ../src/gnome-cmd-advrename-profile-component.cc:418
-#: ../src/gnome-cmd-advrename-profile-component.cc:737
-#: ../src/gnome-cmd-advrename-profile-component.cc:769 ../src/utils.cc:678
+#: ../src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
+#: ../src/gnome-cmd-advrename-profile-component.cc:430
+#: ../src/gnome-cmd-advrename-profile-component.cc:749
+#: ../src/gnome-cmd-advrename-profile-component.cc:781 ../src/utils.cc:678
 msgid "Yes"
 msgstr "Ano"
 
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:212
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:211
 #, c-format
 msgid "No server selected"
 msgstr "Není vybrán žádný server"
 
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:361
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:358
 msgid "Network protocol"
 msgstr "Síťový protokol"
 
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:372
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:369
 msgid "Connection name"
 msgstr "Název připojení"
 
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:426
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:423
 msgid "Remote Connections"
 msgstr "Vzdálená připojení"
 
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:432
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:429
 msgid "Connections"
 msgstr "Připojení"
 
-#: ../src/dialogs/gnome-cmd-remote-dialog.cc:463
+#: ../src/dialogs/gnome-cmd-remote-dialog.cc:460
 msgid "Anonymous FTP password:"
 msgstr "Heslo anonymního FTP:"
 
@@ -2737,19 +2725,19 @@ msgstr "Prohledávat pouze místní složky"
 msgid "Files _not containing text"
 msgstr "Soubory _neobsahující text"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:323
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:332
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:357
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:325
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:334
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:359
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Selhalo čtení ze souboru %s: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:409
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:411
 #, c-format
 msgid "Searching in: %s"
 msgstr "Hledá se v: %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:522
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:524
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -2757,7 +2745,7 @@ msgstr[0] "Nalezen %d výskyt - vyhledávání přerušeno"
 msgstr[1] "Nalezeny %d výskyty - vyhledávání přerušeno"
 msgstr[2] "Nalezeno %d výskytů - vyhledávání přerušeno"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:523
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:525
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2765,34 +2753,34 @@ msgstr[0] "Nalezen %d výskyt"
 msgstr[1] "Nalezeny %d výskyty"
 msgstr[2] "Nalezeno %d výskytů"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:687
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:689
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr "Selhalo nastavení id skupiny procesů %d: %s.\n"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:811
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:813
 msgid "Error parsing the search command."
 msgstr "Chyba při zpracování příkazu vyhledávání."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:823
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:825
 msgid "Error running the search command."
 msgstr "Chyba při spuštění příkazu vyhledávání."
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:937
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:939
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Selhala změna složky mimo %s"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1046
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1048
 msgid "Search..."
 msgstr "Hledat…"
 
 #. search in
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1160
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1162
 msgid "Select Directory"
 msgstr "Vybrat složku"
 
-#: ../src/dialogs/gnome-cmd-search-dialog.cc:1163
+#: ../src/dialogs/gnome-cmd-search-dialog.cc:1165
 msgid "_Look in folder:"
 msgstr "H_ledat ve složce:"
 
@@ -2985,139 +2973,139 @@ msgstr "/Čas/MM"
 msgid "/Time/SS"
 msgstr "/Čas/SS"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:598
+#: ../src/gnome-cmd-advrename-profile-component.cc:610
 msgid "_Select range:"
 msgstr "_Vybrat rozsah:"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:608
+#: ../src/gnome-cmd-advrename-profile-component.cc:620
 msgid "_Inverse selection"
 msgstr "_Invertovat výběr"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:676
+#: ../src/gnome-cmd-advrename-profile-component.cc:688
 msgid "Range Selection"
 msgstr "Výběr rozsahu"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:727
+#: ../src/gnome-cmd-advrename-profile-component.cc:739
 msgid "Add Rule"
 msgstr "Přidat pravidlo"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:762
+#: ../src/gnome-cmd-advrename-profile-component.cc:774
 msgid "Edit Rule"
 msgstr "Upravit pravidlo"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:889
+#: ../src/gnome-cmd-advrename-profile-component.cc:901
 msgid "_Template"
 msgstr "Ša_blona"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:917
+#: ../src/gnome-cmd-advrename-profile-component.cc:929
 #: ../src/gnome-cmd-file.cc:593
 msgid "Directory"
 msgstr "Složka"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:919
 #: ../src/gnome-cmd-advrename-profile-component.cc:931
+#: ../src/gnome-cmd-advrename-profile-component.cc:943
 msgid "Counter"
 msgstr "Počítadlo"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:921
+#: ../src/gnome-cmd-advrename-profile-component.cc:933
 msgid "Metatag"
 msgstr "Metaštítek"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:948
+#: ../src/gnome-cmd-advrename-profile-component.cc:960
 msgid "_Start:"
 msgstr "Z_ačít od:"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:955
+#: ../src/gnome-cmd-advrename-profile-component.cc:967
 msgid "Ste_p:"
 msgstr "Kr_ok:"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:962
+#: ../src/gnome-cmd-advrename-profile-component.cc:974
 msgid "Di_gits:"
 msgstr "Čís_lic:"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:966
+#: ../src/gnome-cmd-advrename-profile-component.cc:978
 msgid "auto"
 msgstr "automaticky"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:979
+#: ../src/gnome-cmd-advrename-profile-component.cc:991
 msgid "Regex replacing"
 msgstr "Náhrada regulárním výrazem"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1018
+#: ../src/gnome-cmd-advrename-profile-component.cc:1030
 msgid "Remove A_ll"
 msgstr "Odstranit _vše"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1031
+#: ../src/gnome-cmd-advrename-profile-component.cc:1043
 msgid "Case"
 msgstr "Velikost písmen"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1043
+#: ../src/gnome-cmd-advrename-profile-component.cc:1055
 msgid "<unchanged>"
 msgstr "<nezměněno>"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1044
+#: ../src/gnome-cmd-advrename-profile-component.cc:1056
 msgid "lowercase"
 msgstr "všechna malá"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1045
+#: ../src/gnome-cmd-advrename-profile-component.cc:1057
 msgid "UPPERCASE"
 msgstr "VŠECHNA VELKÁ"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1047
+#: ../src/gnome-cmd-advrename-profile-component.cc:1059
 msgid "Sentence case"
 msgstr "Velká na začátku věty"
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-profile-component.cc:1048
+#: ../src/gnome-cmd-advrename-profile-component.cc:1060
 msgid "Initial Caps"
 msgstr "První velká"
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-profile-component.cc:1049
+#: ../src/gnome-cmd-advrename-profile-component.cc:1061
 msgid "tOGGLE cASE"
 msgstr "pŘEPNOUT vELIKOST"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1059
+#: ../src/gnome-cmd-advrename-profile-component.cc:1071
 msgid "Trim blanks"
 msgstr "Oříznutí mezer"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1071
+#: ../src/gnome-cmd-advrename-profile-component.cc:1083
 msgid "<none>"
 msgstr "<žádné>"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1072
+#: ../src/gnome-cmd-advrename-profile-component.cc:1084
 msgid "leading"
 msgstr "úvodní"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1073
+#: ../src/gnome-cmd-advrename-profile-component.cc:1085
 msgid "trailing"
 msgstr "koncové"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1074
+#: ../src/gnome-cmd-advrename-profile-component.cc:1086
 msgid "leading and trailing"
 msgstr "úvodní a koncové"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1229
+#: ../src/gnome-cmd-advrename-profile-component.cc:1241
 msgid "Search for"
 msgstr "Vyhledat"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1232
+#: ../src/gnome-cmd-advrename-profile-component.cc:1244
 msgid "Regex pattern"
 msgstr "Vzor v podobě regulárního výrazu"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1234
+#: ../src/gnome-cmd-advrename-profile-component.cc:1246
 msgid "Replace with"
 msgstr "Nahradit za"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1237
+#: ../src/gnome-cmd-advrename-profile-component.cc:1249
 msgid "Replacement"
 msgstr "Náhrada"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1239
+#: ../src/gnome-cmd-advrename-profile-component.cc:1251
 msgid "Match case"
 msgstr "Dodržet velikost"
 
-#: ../src/gnome-cmd-advrename-profile-component.cc:1242
+#: ../src/gnome-cmd-advrename-profile-component.cc:1254
 msgid "Case sensitive matching"
 msgstr "Rozlišovat velikost písmen"
 
@@ -3271,16 +3259,16 @@ msgstr "Hledají se pracovní skupiny a počítače"
 msgid "Go to: Samba Network"
 msgstr "Přejít na síť Samba"
 
-#: ../src/gnome-cmd-data.cc:3505 ../src/gnome-cmd-data.cc:4507
+#: ../src/gnome-cmd-data.cc:3510 ../src/gnome-cmd-data.cc:4514
 #, c-format
 msgid "link to %s"
 msgstr "Symbolický odkaz na %s"
 
-#: ../src/gnome-cmd-data.cc:3777
+#: ../src/gnome-cmd-data.cc:3782
 msgid "Audio Files"
 msgstr "Zvukové soubory"
 
-#: ../src/gnome-cmd-data.cc:3785
+#: ../src/gnome-cmd-data.cc:3790
 msgid "CamelCase"
 msgstr "První písmena velká"
 
@@ -3288,11 +3276,11 @@ msgstr "První písmena velká"
 msgid "Waiting for file list"
 msgstr "Čeká se na seznam souborů"
 
-#: ../src/gnome-cmd-dir-indicator.cc:436
+#: ../src/gnome-cmd-dir-indicator.cc:411
 msgid "Add current dir"
 msgstr "Přidat aktuální složku"
 
-#: ../src/gnome-cmd-dir-indicator.cc:437
+#: ../src/gnome-cmd-dir-indicator.cc:412
 msgid "Manage bookmarks..."
 msgstr "Spravovat záložky…"
 
@@ -3372,15 +3360,15 @@ msgstr "/Vytvořit zde _odkaz"
 msgid "/C_ancel"
 msgstr "/_Zrušit"
 
-#: ../src/gnome-cmd-file-list.cc:1423
+#: ../src/gnome-cmd-file-list.cc:1432
 msgid "Directory listing failed."
 msgstr "Výpis složky selhal."
 
-#: ../src/gnome-cmd-file-list.cc:1476
+#: ../src/gnome-cmd-file-list.cc:1485
 msgid "Failed to open connection."
 msgstr "Nelze otevřít spojení."
 
-#: ../src/gnome-cmd-file-list.cc:2193 ../src/gnome-cmd-file-list.cc:2208
+#: ../src/gnome-cmd-file-list.cc:2202 ../src/gnome-cmd-file-list.cc:2217
 msgid "Not an ordinary file."
 msgstr "Není normální soubor."
 
@@ -3430,7 +3418,7 @@ msgstr "_Vyjmout"
 msgid "_Copy"
 msgstr "_Kopírovat"
 
-#: ../src/gnome-cmd-file-popmenu.cc:513 ../src/gnome-cmd-user-actions.cc:206
+#: ../src/gnome-cmd-file-popmenu.cc:513 ../src/gnome-cmd-user-actions.cc:207
 msgid "Copy file names"
 msgstr "Kopírovat názvy souborů"
 
@@ -3444,7 +3432,7 @@ msgstr "Přejmenovat"
 
 #. {file_run, "file.run"},
 #: ../src/gnome-cmd-file-popmenu.cc:517 ../src/gnome-cmd-main-win.cc:1185
-#: ../src/gnome-cmd-user-actions.cc:231
+#: ../src/gnome-cmd-user-actions.cc:232
 msgid "Send files"
 msgstr "Odeslat soubory"
 
@@ -3482,7 +3470,7 @@ msgid "%s free"
 msgstr "%s volných"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
-#: ../src/gnome-cmd-user-actions.cc:1691 ../src/gnome-cmd-user-actions.cc:1699
+#: ../src/gnome-cmd-user-actions.cc:1692 ../src/gnome-cmd-user-actions.cc:1700
 msgid "The tab is locked, close anyway?"
 msgstr "Karta je zamknutá. Přesto ji zavřít?"
 
@@ -3518,24 +3506,24 @@ msgstr "Z_avřít všechny karty"
 msgid "Close _Duplicate Tabs"
 msgstr "Zavřít _duplicitní karty"
 
-#: ../src/gnome-cmd-file-selector.cc:1106
+#: ../src/gnome-cmd-file-selector.cc:1131
 msgid "No file name given"
 msgstr "Nebyl zadán název souboru"
 
-#: ../src/gnome-cmd-file-selector.cc:1137
+#: ../src/gnome-cmd-file-selector.cc:1162
 msgid "New Text File"
 msgstr "Nový textový soubor"
 
-#: ../src/gnome-cmd-file-selector.cc:1271
+#: ../src/gnome-cmd-file-selector.cc:1296
 msgid "Symbolic link name:"
 msgstr "Název symbolického odkazu:"
 
-#: ../src/gnome-cmd-file-selector.cc:1277
-#: ../src/gnome-cmd-file-selector.cc:1323 ../src/gnome-cmd-user-actions.cc:884
+#: ../src/gnome-cmd-file-selector.cc:1302
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:885
 msgid "Create Symbolic Link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: ../src/gnome-cmd-file-selector.cc:1394
+#: ../src/gnome-cmd-file-selector.cc:1419
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -3801,7 +3789,7 @@ msgstr "F9 Hledat"
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME Commander - PRÁVA SPRÁVCE ROOT"
 
-#: ../src/gnome-cmd-main-win.cc:1171 ../src/gnome-cmd-user-actions.cc:272
+#: ../src/gnome-cmd-main-win.cc:1171 ../src/gnome-cmd-user-actions.cc:273
 msgid "Refresh"
 msgstr "Aktualizovat"
 
@@ -3825,11 +3813,11 @@ msgstr "Přejít na nejnovější"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Kopírovat názvy souborů (SHIFT pro úplné cesty, ALT pro adresy URI)"
 
-#: ../src/gnome-cmd-main-win.cc:1179 ../src/gnome-cmd-user-actions.cc:207
+#: ../src/gnome-cmd-main-win.cc:1179 ../src/gnome-cmd-user-actions.cc:208
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../src/gnome-cmd-main-win.cc:1181 ../src/gnome-cmd-user-actions.cc:210
+#: ../src/gnome-cmd-main-win.cc:1181 ../src/gnome-cmd-user-actions.cc:211
 msgid "Paste"
 msgstr "Vložit"
 
@@ -3850,27 +3838,27 @@ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr "Nelze načíst modul jazyka Python „gnomevfs“ („gnome.vfs“)"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:269
-#: ../src/gnome-cmd-user-actions.cc:212
+#: ../src/gnome-cmd-user-actions.cc:213
 msgid "Search"
 msgstr "Hledat"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:118
+#: ../src/gnome-cmd-selection-profile-component.cc:125
 msgid "Path matches regex:"
 msgstr "Cesta odpovídá regulárnímu výrazu:"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:119
+#: ../src/gnome-cmd-selection-profile-component.cc:126
 msgid "Name contains:"
 msgstr "Název obsahuje:"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:128
+#: ../src/gnome-cmd-selection-profile-component.cc:135
 msgid "Unlimited depth"
 msgstr "Neomezené zanoření"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:129
+#: ../src/gnome-cmd-selection-profile-component.cc:136
 msgid "Current directory only"
 msgstr "Pouze aktuální složka"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:132
+#: ../src/gnome-cmd-selection-profile-component.cc:139
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
@@ -3878,17 +3866,17 @@ msgstr[0] "%i úroveň"
 msgstr[1] "%i úrovně"
 msgstr[2] "%i úrovní"
 
-#: ../src/gnome-cmd-selection-profile-component.cc:137
+#: ../src/gnome-cmd-selection-profile-component.cc:144
 msgid "Search _recursively:"
 msgstr "Hledat _rekurzivně:"
 
 #. find text
-#: ../src/gnome-cmd-selection-profile-component.cc:142
+#: ../src/gnome-cmd-selection-profile-component.cc:149
 msgid "Contains _text:"
 msgstr "Obsahuje _text: "
 
 #. case check
-#: ../src/gnome-cmd-selection-profile-component.cc:153
+#: ../src/gnome-cmd-selection-profile-component.cc:160
 msgid "Case sensiti_ve"
 msgstr "Rozlišo_vat velikost písmen"
 
@@ -3909,289 +3897,293 @@ msgid "Go to bookmarked location"
 msgstr "Přejít na uložené umístění"
 
 #: ../src/gnome-cmd-user-actions.cc:196
+msgid "Show bookmarks of current device"
+msgstr "Zobrazit záložky aktuálního zařízení"
+
+#: ../src/gnome-cmd-user-actions.cc:197
 msgid "Execute command"
 msgstr "Spustit příkaz"
 
-#: ../src/gnome-cmd-user-actions.cc:197
+#: ../src/gnome-cmd-user-actions.cc:198
 msgid "Open terminal"
 msgstr "Otevřít terminál"
 
-#: ../src/gnome-cmd-user-actions.cc:198
+#: ../src/gnome-cmd-user-actions.cc:199
 msgid "Open terminal as root"
 msgstr "Otevřít terminál jako superuživatel"
 
-#: ../src/gnome-cmd-user-actions.cc:199
+#: ../src/gnome-cmd-user-actions.cc:200
 msgid "Start GNOME Commander as root"
 msgstr "Spustit GNOME Commander jako superuživatel"
 
-#: ../src/gnome-cmd-user-actions.cc:200
+#: ../src/gnome-cmd-user-actions.cc:201
 msgid "Close connection"
 msgstr "Zavřít připojení"
 
-#: ../src/gnome-cmd-user-actions.cc:201
+#: ../src/gnome-cmd-user-actions.cc:202
 msgid "New connection"
 msgstr "Nové připojení"
 
-#: ../src/gnome-cmd-user-actions.cc:202
+#: ../src/gnome-cmd-user-actions.cc:203
 msgid "Open connection"
 msgstr "Otevřít připojení"
 
-#: ../src/gnome-cmd-user-actions.cc:203
+#: ../src/gnome-cmd-user-actions.cc:204
 msgid "Change left connection"
 msgstr "Změnit připojení vlevo"
 
-#: ../src/gnome-cmd-user-actions.cc:204
+#: ../src/gnome-cmd-user-actions.cc:205
 msgid "Change right connection"
 msgstr "Změnit připojení vpravo"
 
-#: ../src/gnome-cmd-user-actions.cc:209
+#: ../src/gnome-cmd-user-actions.cc:210
 msgid "Show user defined files"
 msgstr "Zobrazit uživatelem definované soubory"
 
-#: ../src/gnome-cmd-user-actions.cc:213
+#: ../src/gnome-cmd-user-actions.cc:214
 msgid "Advanced rename tool"
 msgstr "Pokročilý nástroj přejmenování"
 
-#: ../src/gnome-cmd-user-actions.cc:214
+#: ../src/gnome-cmd-user-actions.cc:215
 msgid "Change permissions"
 msgstr "Změnit oprávnění"
 
-#: ../src/gnome-cmd-user-actions.cc:215
+#: ../src/gnome-cmd-user-actions.cc:216
 msgid "Change owner/group"
 msgstr "Změnit vlastníka/skupinu"
 
-#: ../src/gnome-cmd-user-actions.cc:216
+#: ../src/gnome-cmd-user-actions.cc:217
 msgid "Copy files"
 msgstr "Kopírovat soubory"
 
-#: ../src/gnome-cmd-user-actions.cc:217
+#: ../src/gnome-cmd-user-actions.cc:218
 msgid "Copy files with rename"
 msgstr "Kopírovat a zároveň přejmenovat soubory"
 
-#: ../src/gnome-cmd-user-actions.cc:218
+#: ../src/gnome-cmd-user-actions.cc:219
 msgid "Create symbolic link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: ../src/gnome-cmd-user-actions.cc:219
+#: ../src/gnome-cmd-user-actions.cc:220
 msgid "Delete files"
 msgstr "Odstranit soubory"
 
-#: ../src/gnome-cmd-user-actions.cc:220
+#: ../src/gnome-cmd-user-actions.cc:221
 msgid "Compare files (diff)"
 msgstr "Porovnat soubory (diff)"
 
-#: ../src/gnome-cmd-user-actions.cc:221
+#: ../src/gnome-cmd-user-actions.cc:222
 msgid "Edit file"
 msgstr "Upravit soubor"
 
-#: ../src/gnome-cmd-user-actions.cc:222
+#: ../src/gnome-cmd-user-actions.cc:223
 msgid "Edit a new file"
 msgstr "Upravit nový soubor"
 
-#: ../src/gnome-cmd-user-actions.cc:223
+#: ../src/gnome-cmd-user-actions.cc:224
 msgid "Quit"
 msgstr "Ukončit"
 
-#: ../src/gnome-cmd-user-actions.cc:224
+#: ../src/gnome-cmd-user-actions.cc:225
 msgid "View with external viewer"
 msgstr "Zobrazit v externím prohlížeči"
 
-#: ../src/gnome-cmd-user-actions.cc:225
+#: ../src/gnome-cmd-user-actions.cc:226
 msgid "View with internal viewer"
 msgstr "Zobrazit v interním prohlížeči"
 
-#: ../src/gnome-cmd-user-actions.cc:226
+#: ../src/gnome-cmd-user-actions.cc:227
 msgid "Create directory"
 msgstr "Vytvořit složku"
 
-#: ../src/gnome-cmd-user-actions.cc:227
+#: ../src/gnome-cmd-user-actions.cc:228
 msgid "Move files"
 msgstr "Přesunout soubory"
 
-#: ../src/gnome-cmd-user-actions.cc:229
+#: ../src/gnome-cmd-user-actions.cc:230
 msgid "Rename files"
 msgstr "Přejmenovat soubory"
 
-#: ../src/gnome-cmd-user-actions.cc:232
+#: ../src/gnome-cmd-user-actions.cc:233
 msgid "Synchronize directories"
 msgstr "Synchronizovat složky"
 
-#: ../src/gnome-cmd-user-actions.cc:235
+#: ../src/gnome-cmd-user-actions.cc:236
 msgid "About GNOME Commander"
 msgstr "O aplikaci GNOME Commander"
 
-#: ../src/gnome-cmd-user-actions.cc:236
+#: ../src/gnome-cmd-user-actions.cc:237
 msgid "Help contents"
 msgstr "Obsah nápovědy"
 
-#: ../src/gnome-cmd-user-actions.cc:237
+#: ../src/gnome-cmd-user-actions.cc:238
 msgid "Help on keyboard shortcuts"
 msgstr "Nápověda klávesových zkratek"
 
-#: ../src/gnome-cmd-user-actions.cc:238
+#: ../src/gnome-cmd-user-actions.cc:239
 msgid "Report a problem"
 msgstr "Nahlásit chybu"
 
-#: ../src/gnome-cmd-user-actions.cc:239
+#: ../src/gnome-cmd-user-actions.cc:240
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander na webu"
 
-#: ../src/gnome-cmd-user-actions.cc:240
+#: ../src/gnome-cmd-user-actions.cc:241
 msgid "Compare directories"
 msgstr "Porovnat složky"
 
-#: ../src/gnome-cmd-user-actions.cc:241
+#: ../src/gnome-cmd-user-actions.cc:242
 msgid "Invert selection"
 msgstr "Invertovat výběr"
 
-#: ../src/gnome-cmd-user-actions.cc:242
+#: ../src/gnome-cmd-user-actions.cc:243
 msgid "Select all"
 msgstr "Vybrat vše"
 
-#: ../src/gnome-cmd-user-actions.cc:243
+#: ../src/gnome-cmd-user-actions.cc:244
 msgid "Toggle selection"
 msgstr "Přepnout výběr"
 
-#: ../src/gnome-cmd-user-actions.cc:244
+#: ../src/gnome-cmd-user-actions.cc:245
 msgid "Toggle selection and move cursor downward"
 msgstr "Přepnout výběr a přesunout kurzor níž"
 
-#: ../src/gnome-cmd-user-actions.cc:245
+#: ../src/gnome-cmd-user-actions.cc:246
 msgid "Unselect all"
 msgstr "Zrušit výběr"
 
-#: ../src/gnome-cmd-user-actions.cc:248
+#: ../src/gnome-cmd-user-actions.cc:249
 msgid "Keyboard shortcuts"
 msgstr "Klávesové zkratky"
 
-#: ../src/gnome-cmd-user-actions.cc:249
+#: ../src/gnome-cmd-user-actions.cc:250
 msgid "Configure plugins"
 msgstr "Nastavit zásuvné moduly"
 
-#: ../src/gnome-cmd-user-actions.cc:250
+#: ../src/gnome-cmd-user-actions.cc:251
 msgid "Execute Python plugin"
 msgstr "Spustit zásuvný modul Python"
 
-#: ../src/gnome-cmd-user-actions.cc:251
+#: ../src/gnome-cmd-user-actions.cc:252
 msgid "Back one directory"
 msgstr "Zpět o jednu složku"
 
-#: ../src/gnome-cmd-user-actions.cc:252
+#: ../src/gnome-cmd-user-actions.cc:253
 msgid "Close the current tab"
 msgstr "Zavřít aktuální kartu"
 
-#: ../src/gnome-cmd-user-actions.cc:253
+#: ../src/gnome-cmd-user-actions.cc:254
 msgid "Close all tabs"
 msgstr "Zavřít všechny karty"
 
-#: ../src/gnome-cmd-user-actions.cc:254
+#: ../src/gnome-cmd-user-actions.cc:255
 msgid "Close duplicate tabs"
 msgstr "Zavřít duplicitní karty"
 
-#: ../src/gnome-cmd-user-actions.cc:255
+#: ../src/gnome-cmd-user-actions.cc:256
 msgid "Change directory"
 msgstr "Změnit složku"
 
-#: ../src/gnome-cmd-user-actions.cc:256
+#: ../src/gnome-cmd-user-actions.cc:257
 msgid "Show directory history"
 msgstr "Zobrazit historii složky"
 
-#: ../src/gnome-cmd-user-actions.cc:257
+#: ../src/gnome-cmd-user-actions.cc:258
 msgid "Equal panel size"
 msgstr "Stejná velikost panelů"
 
-#: ../src/gnome-cmd-user-actions.cc:258
+#: ../src/gnome-cmd-user-actions.cc:259
 msgid "Maximize panel size"
 msgstr "Maximalizovat velikost panelů"
 
-#: ../src/gnome-cmd-user-actions.cc:259
+#: ../src/gnome-cmd-user-actions.cc:260
 msgid "Back to the first directory"
 msgstr "Zpět do první složky"
 
-#: ../src/gnome-cmd-user-actions.cc:260
+#: ../src/gnome-cmd-user-actions.cc:261
 msgid "Forward one directory"
 msgstr "Vpřed o jednu složku"
 
-#: ../src/gnome-cmd-user-actions.cc:261
+#: ../src/gnome-cmd-user-actions.cc:262
 msgid "Home directory"
 msgstr "Domovská složka"
 
-#: ../src/gnome-cmd-user-actions.cc:262
+#: ../src/gnome-cmd-user-actions.cc:263
 msgid "Open directory in the active window"
 msgstr "Otevřít složku v aktivním okně"
 
-#: ../src/gnome-cmd-user-actions.cc:263
+#: ../src/gnome-cmd-user-actions.cc:264
 msgid "Open directory in the inactive window"
 msgstr "Otevřít složku v neaktivním okně"
 
-#: ../src/gnome-cmd-user-actions.cc:264
+#: ../src/gnome-cmd-user-actions.cc:265
 msgid "Open directory in the left window"
 msgstr "Otevřít složku v levém okně"
 
-#: ../src/gnome-cmd-user-actions.cc:265
+#: ../src/gnome-cmd-user-actions.cc:266
 msgid "Open directory in the right window"
 msgstr "Otevřít složku v pravém okně"
 
-#: ../src/gnome-cmd-user-actions.cc:266
+#: ../src/gnome-cmd-user-actions.cc:267
 msgid "Open directory in the new tab"
 msgstr "Otevřít složku v nové kartě"
 
-#: ../src/gnome-cmd-user-actions.cc:267
+#: ../src/gnome-cmd-user-actions.cc:268
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Otevřít složku v nové kartě (neaktivní okno)"
 
-#: ../src/gnome-cmd-user-actions.cc:268
+#: ../src/gnome-cmd-user-actions.cc:269
 msgid "Forward to the last directory"
 msgstr "Vpřed do poslední složky"
 
-#: ../src/gnome-cmd-user-actions.cc:269
+#: ../src/gnome-cmd-user-actions.cc:270
 msgid "Next tab"
 msgstr "Následující karta"
 
-#: ../src/gnome-cmd-user-actions.cc:270
+#: ../src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in a new tab"
 msgstr "Otevřít složku v nové kartě"
 
-#: ../src/gnome-cmd-user-actions.cc:271
+#: ../src/gnome-cmd-user-actions.cc:272
 msgid "Previous tab"
 msgstr "Předchozí karta"
 
-#: ../src/gnome-cmd-user-actions.cc:273
+#: ../src/gnome-cmd-user-actions.cc:274
 msgid "Root directory"
 msgstr "Kořenová složka"
 
-#: ../src/gnome-cmd-user-actions.cc:274
+#: ../src/gnome-cmd-user-actions.cc:275
 msgid "Lock/unlock tab"
 msgstr "Zamknout/odemknout kartu"
 
-#: ../src/gnome-cmd-user-actions.cc:276
+#: ../src/gnome-cmd-user-actions.cc:277
 msgid "Show terminal"
 msgstr "Zobrazit terminál"
 
-#: ../src/gnome-cmd-user-actions.cc:279
+#: ../src/gnome-cmd-user-actions.cc:280
 msgid "Display main menu"
 msgstr "Zobrazit hlavní nabídku"
 
-#: ../src/gnome-cmd-user-actions.cc:280
+#: ../src/gnome-cmd-user-actions.cc:281
 msgid "Move cursor one step up"
 msgstr "Přesunout kurzor o krok nahoru"
 
-#: ../src/gnome-cmd-user-actions.cc:281
+#: ../src/gnome-cmd-user-actions.cc:282
 msgid "Move cursor one step down"
 msgstr "Přesunout kurzor o krok dolů"
 
 #: ../src/gnome-cmd-user-actions.cc:802 ../src/gnome-cmd-user-actions.cc:947
-#: ../src/gnome-cmd-user-actions.cc:1176
+#: ../src/gnome-cmd-user-actions.cc:1177
 msgid "No valid command given."
 msgstr "Nebyl zadán žádný platný příkaz."
 
-#: ../src/gnome-cmd-user-actions.cc:814 ../src/gnome-cmd-user-actions.cc:958
-#: ../src/gnome-cmd-user-actions.cc:1189 ../src/gnome-cmd-user-actions.cc:1228
+#: ../src/gnome-cmd-user-actions.cc:815 ../src/gnome-cmd-user-actions.cc:959
+#: ../src/gnome-cmd-user-actions.cc:1190 ../src/gnome-cmd-user-actions.cc:1229
 #: ../src/utils.cc:137
 msgid "Unable to execute command."
 msgstr "Nelze spustit příkaz."
 
-#: ../src/gnome-cmd-user-actions.cc:879
+#: ../src/gnome-cmd-user-actions.cc:880
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
@@ -4199,52 +4191,52 @@ msgstr[0] "Vytvořit symbolický odkaz %i souboru v %s?"
 msgstr[1] "Vytvořit symbolické odkazy %i souborů v %s?"
 msgstr[2] "Vytvořit symbolické odkazy %i souborů v %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:884
+#: ../src/gnome-cmd-user-actions.cc:885
 msgid "Create"
 msgstr "Vytvořit"
 
-#: ../src/gnome-cmd-user-actions.cc:975 ../src/gnome-cmd-user-actions.cc:992
-#: ../src/gnome-cmd-user-actions.cc:1031
+#: ../src/gnome-cmd-user-actions.cc:976 ../src/gnome-cmd-user-actions.cc:993
+#: ../src/gnome-cmd-user-actions.cc:1032
 msgid "Operation not supported on remote file systems"
 msgstr "Operace není podporována na vzdálených souborových systémech"
 
-#: ../src/gnome-cmd-user-actions.cc:1007
+#: ../src/gnome-cmd-user-actions.cc:1008
 msgid "Too many selected files"
 msgstr "Příliš mnoho vybraných souborů"
 
-#: ../src/gnome-cmd-user-actions.cc:1261
+#: ../src/gnome-cmd-user-actions.cc:1262
 msgid "Unable to open terminal in root mode."
 msgstr "Nelze otevřít terminál v režimu uživatele root."
 
-#: ../src/gnome-cmd-user-actions.cc:1266
+#: ../src/gnome-cmd-user-actions.cc:1267
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "Nenalezeno gksudo, xdg-su, gksu, gnomesu, kdesu ani beesu."
 
-#: ../src/gnome-cmd-user-actions.cc:1285
+#: ../src/gnome-cmd-user-actions.cc:1286
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Nelze spustit GNOME Commander v režimu správce root."
 
-#: ../src/gnome-cmd-user-actions.cc:1288
+#: ../src/gnome-cmd-user-actions.cc:1289
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "Nenalezeno gksudo, xdg-su, gksu, gnomesu, kdesu ani beesu"
 
-#: ../src/gnome-cmd-user-actions.cc:1896
+#: ../src/gnome-cmd-user-actions.cc:1897
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: ../src/gnome-cmd-user-actions.cc:2000 ../src/gnome-cmd-user-actions.cc:2003
+#: ../src/gnome-cmd-user-actions.cc:2007 ../src/gnome-cmd-user-actions.cc:2010
 msgid "There was an error opening home page."
 msgstr "Při otevírání domovské stránky došlo k chybě."
 
-#: ../src/gnome-cmd-user-actions.cc:2014 ../src/gnome-cmd-user-actions.cc:2017
+#: ../src/gnome-cmd-user-actions.cc:2021 ../src/gnome-cmd-user-actions.cc:2024
 msgid "There was an error reporting problem."
 msgstr "Nahlášení chyby se nezdařilo."
 
-#: ../src/gnome-cmd-user-actions.cc:2044
+#: ../src/gnome-cmd-user-actions.cc:2051
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Rychlý a mocný správce souborů pro pracovní prostředí GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:2048
+#: ../src/gnome-cmd-user-actions.cc:2055
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4256,7 +4248,7 @@ msgstr ""
 "Free Software Foundation, a to buď ve verzi 2 této licence nebo (dle vaší "
 "volby) v libovolné novější verzi."
 
-#: ../src/gnome-cmd-user-actions.cc:2052
+#: ../src/gnome-cmd-user-actions.cc:2059
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4268,7 +4260,7 @@ msgstr ""
 "KONKRÉTNÍ ÚČEL. Více podrobností najdete přímo v licenci GNU General Public "
 "License."
 
-#: ../src/gnome-cmd-user-actions.cc:2056
+#: ../src/gnome-cmd-user-actions.cc:2063
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4279,7 +4271,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, "
 "USA."
 
-#: ../src/gnome-cmd-user-actions.cc:2073
+#: ../src/gnome-cmd-user-actions.cc:2080
 msgid "translator-credits"
 msgstr ""
 "Jaroslav Jiricka <jiricka@mujbox.cz>\n"
@@ -4289,7 +4281,7 @@ msgstr ""
 "Lucas Lommer <llommer@svn.gnome.org>\n"
 "Marek Černocký <marek@manet.cz>"
 
-#: ../src/gnome-cmd-xfer.cc:201
+#: ../src/gnome-cmd-xfer.cc:199
 #, c-format
 msgid ""
 "Overwrite file:\n"
@@ -4312,15 +4304,15 @@ msgstr ""
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 
-#: ../src/gnome-cmd-xfer.cc:211
+#: ../src/gnome-cmd-xfer.cc:209
 msgid "Replace"
 msgstr "Nahradit"
 
-#: ../src/gnome-cmd-xfer.cc:211
+#: ../src/gnome-cmd-xfer.cc:209
 msgid "Replace All"
 msgstr "Nahradit vše"
 
-#: ../src/gnome-cmd-xfer.cc:226
+#: ../src/gnome-cmd-xfer.cc:224
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -4331,32 +4323,32 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:229
+#: ../src/gnome-cmd-xfer.cc:227
 msgid "Transfer problem"
 msgstr "Problém přenosu"
 
-#: ../src/gnome-cmd-xfer.cc:268
+#: ../src/gnome-cmd-xfer.cc:266
 msgid "copying..."
 msgstr "kopíruje se…"
 
-#: ../src/gnome-cmd-xfer.cc:276
+#: ../src/gnome-cmd-xfer.cc:274
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[soubor %ld z %ld] „%s“"
 
-#: ../src/gnome-cmd-xfer.cc:427
+#: ../src/gnome-cmd-xfer.cc:425
 msgid "Copying a directory into itself is a bad idea."
 msgstr "Kopírování složky do sebe sama není dobrý nápad."
 
-#: ../src/gnome-cmd-xfer.cc:427
+#: ../src/gnome-cmd-xfer.cc:425
 msgid "The whole operation was cancelled."
 msgstr "Celá operace byla zrušena."
 
-#: ../src/gnome-cmd-xfer.cc:468
+#: ../src/gnome-cmd-xfer.cc:466
 msgid "preparing..."
 msgstr "připravuje se…"
 
-#: ../src/gnome-cmd-xfer.cc:547
+#: ../src/gnome-cmd-xfer.cc:545
 msgid "downloading to /tmp"
 msgstr "stahuje se do /tmp"
 
@@ -4559,7 +4551,7 @@ msgstr "_80 znaků na řádek"
 msgid "Quick _Help"
 msgstr "Rychlá _nápověda"
 
-#: ../src/intviewer/viewer-window.cc:1162
+#: ../src/intviewer/viewer-window.cc:1161
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "Vzor „%s“ nebyl nalezen"
@@ -8921,3 +8913,12 @@ msgstr "Nelze číst ze složky %s: %s"
 #: ../src/utils.h:287
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
+
+#~ msgid "/Local path..."
+#~ msgstr "/Místní cesta…"
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Vzdálené umístění…"
+
+#~ msgid "_Import"
+#~ msgstr "_Import"
