@@ -3,7 +3,7 @@
  * @brief Utility functions for working with GKeyFile data structures from GLib
  * @note Originally taken from the GnuCash project
  * (gnc-gkeyfile-utils.h, David Hampton <hampton@employees.org>)
- * @copyright (C) 2013-2016 Uwe Scholz\n
+ * @copyright (C) 2013-2017 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
