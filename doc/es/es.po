@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-06 19:14+0000\n"
-"PO-Revision-Date: 2017-01-09 12:27+0100\n"
+"PO-Revision-Date: 2017-01-09 13:16+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: \n"
@@ -78,10 +78,14 @@ msgstr ""
 #: C/releases.xml:36(para)
 msgid "Device list entry width is set equal to the longest string in the list"
 msgstr ""
+"La anchura de la entrada de la lista de dispositivos es igual a la cadena "
+"más larga de la lista"
 
 #: C/releases.xml:39(para)
 msgid "Fixed a bug in advance rename tool when utilizing METATAGS"
 msgstr ""
+"Corregido un error en la herramienta de renombrado avanzado utilizando "
+"METAETIQUETAS"
 
 #: C/releases.xml:43(para) C/releases.xml:85(para) C/releases.xml:128(para)
 #: C/releases.xml:209(para) C/releases.xml:234(para) C/releases.xml:265(para)
@@ -105,6 +109,8 @@ msgid ""
 "Disk free space label is shown in status bar if device list isn't shown "
 "(works after restarting gcmd)"
 msgstr ""
+"La etiqueta de espacio libre en el disco se muestra en la barra de estado si "
+"no se muestra la lista de dispositivos (funciona después de reiniciar gcmd)"
 
 #: C/releases.xml:50(para)
 msgid "Shortcut can be assigned for:"
@@ -112,12 +118,14 @@ msgstr "Se pueden asignar atajos para:"
 
 #: C/releases.xml:53(para)
 msgid "Moving the cursor up or down (\"Move cursor one step up/down\")"
-msgstr ""
+msgstr "Subir o bajar el cursor («Subir o bajar el cursor una posición»)"
 
 #: C/releases.xml:56(para)
 msgid ""
 "Viewing bookmarks of current device (\"Show bookmarks of current device\")"
 msgstr ""
+"Ver marcadores del dispositivo actual («Mostrar marcadores del dispositivo "
+"actual»)"
 
 #: C/releases.xml:61(para)
 #| msgid "New or updated translations: cs, el, sr, sr@latin"
@@ -209,6 +217,8 @@ msgstr ""
 #: C/releases.xml:118(para)
 msgid "Fixed string escaping for directories with ampersand (see bgo#769309)"
 msgstr ""
+"Corregido el escapado de cadenas para carpetas con «&» (consulte el error nº "
+"769309)"
 
 #: C/releases.xml:121(para)
 msgid ""
@@ -261,6 +271,8 @@ msgid ""
 "Copy directory path to clipboard after right click on dir-indicator (Thanks "
 "to Puux)"
 msgstr ""
+"Copiar la dura de la carpeta al portapapeles después de pulsar con el botón "
+"derecho en el indicador de la carpeta (gracias a Puux)"
 
 #: C/releases.xml:150(para)
 msgid "Show/hide mainmenu can be set as keyboard shortcut now (Thanks to Puux)"
@@ -271,6 +283,8 @@ msgstr ""
 #: C/releases.xml:153(para)
 msgid "Simple plug-in system for file context menu (Thanks to Puux)"
 msgstr ""
+"Sencillo sistema de complementos para el menú contextual de los archivos "
+"(gracias a Puux)"
 
 #: C/releases.xml:156(para)
 msgid ""
@@ -284,16 +298,22 @@ msgid ""
 "Write bookmark changes immediately to file, Sync bookmarks between all "
 "instances (Thanks to Puux)"
 msgstr ""
+"Escribir los cambios en los marcadores inmediatamente en el archivo, "
+"sincronizar marcadores entre todas las instancias (gracias a Puux)"
 
 #: C/releases.xml:162(para)
 msgid ""
 "Storage of options is done in the dconf database now instead of a gnome-"
 "config file (see bgo#570733)"
 msgstr ""
+"Guardar la configuración en la base de datos de dconf en lugar de en un "
+"archivo de configuración de GNOME (consulte el error nº 570733)"
 
 #: C/releases.xml:165(para)
 msgid "Devices and fav-apps are now stored within the GKeyFile format"
 msgstr ""
+"Los dispositivos y las aplicaciones favoritas se guardan ahora con el "
+"formato GKeyFile"
 
 #: C/releases.xml:168(para)
 msgid ""
@@ -339,6 +359,8 @@ msgstr "Otros cambios:"
 #: C/releases.xml:191(para)
 msgid "Removed \"Open folder\" command in popup menu and user actions"
 msgstr ""
+"Eliminado el comando «Abrir carpeta» en el menú emergente y en las acciones "
+"del usuario"
 
 #: C/releases.xml:198(para)
 #| msgid "1.4.8"
@@ -570,6 +592,8 @@ msgid ""
 "Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in "
 "ebuild)"
 msgstr ""
+"Error de Gentoo nº 509574 corregido (cambio de python-r1 a python-single-r1 "
+"en ebuild)"
 
 #: C/releases.xml:410(para)
 msgid ""
@@ -592,6 +616,8 @@ msgid ""
 "Text selection in int. viewer works on lines with TAB characters (Thanks to "
 "Jan Vleeshouwers)"
 msgstr ""
+"La selección de texto en el visor interno funciona en líneas con caracteres "
+"de tabulador (gracias a Vleeshouwers)"
 
 #: C/releases.xml:424(para)
 msgid "New or updated translations: cs, el, sr, sr@latin"
@@ -15838,6 +15864,16 @@ msgid ""
 "pressed while clicking the pop-up menu entry, the script will be called "
 "separately for each selected file."
 msgstr ""
+"El menú emergente de GNOME Commander, que se puede abrir pulsando con el "
+"botón derecho sobre un archivo o carpeta o pulsando <keycombo><keycap>Mayús</"
+"keycap><keycap>F10</keycap></keycombo>, se puede extender fácilmente "
+"poniendo archivos ejecutables en <guilabel>~/.gnome-commander/scripts/</"
+"guilabel>. Por cada archivo en esta carpeta se mostrará una entrada en el "
+"menú emergente. Cuando se pulse una de estas entradas, se ejecutará el "
+"script asociado con los nombres de los elementos seleccionados como "
+"argumentos. Cuando se pulsa la tecla <keycap>Mayús</keycap> mientras se "
+"pulsa la entra del menú, el script se llamará individualmente para cada "
+"archivo seleccionado."
 
 #: C/gnome-commander.xml:7241(title)
 msgid "Example picture of the pop-up menu with four additional entries"
@@ -15855,6 +15891,10 @@ msgid ""
 "key-value format: <guilabel>#[key]: [value]</guilabel>, with '#' being the "
 "first character in a text line."
 msgstr ""
+"Los archivos pueden ser binarios o de texto. En el segundo caso es posible "
+"manejar algunas variables de configuración en GNOME Commander usando un "
+"formato clave-valor: <guilabel>#[clave]: [valor]</guilabel>, siendo «#» el "
+"primer carácter de una línea de texto"
 
 #: C/gnome-commander.xml:7257(para)
 msgid "Currently, the following keys are implemented:"
