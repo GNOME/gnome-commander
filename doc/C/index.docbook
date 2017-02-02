@@ -413,7 +413,7 @@
     <legalnotice>
       <title>Feedback</title>
       <para>To report a bug or make a suggestion regarding the &app; application or
-      this manual, follow the directions in the <ulink type="help" url="ghelp:gnome-feedback">GNOME Feedback Page</ulink>.
+      this manual, follow the directions in the <ulink type="help" url="help:gnome-feedback">GNOME Feedback Page</ulink>.
       </para>
 
 
@@ -7713,7 +7713,7 @@
       General Public license as published by the Free Software
       Foundation; either version 2 of the License, or (at your option)
       any later version. A copy of this license can be found at this
-      <ulink type="help" url="ghelp:gpl">link</ulink>, or in the file
+      <ulink type="help" url="help:gpl">link</ulink>, or in the file
       COPYING included with the source code of this program.</para>
     </sect2>
   </sect1>

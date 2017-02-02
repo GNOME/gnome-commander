@@ -12,7 +12,6 @@ EXTRA_DIST =                \
 	xmldocs.make            \
 	omf.make                \
 	m4                      \
-	gnome-doc-utils.make    \
 	AUTHORS                 \
 	ChangeLog               \
 	INSTALL                 \

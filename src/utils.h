@@ -28,6 +28,7 @@
 
 #include <stdio.h>
 
+#include <config.h>
 #include <libgnome/gnome-help.h>
 
 #include "gnome-cmd-file.h"
@@ -280,8 +281,17 @@ inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, cons
 inline void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL)
 {
     GError *error = NULL;
+    gchar help_uri[256] = "help:";
 
-    gnome_help_display (file_name, link_id, &error);
+    strcat(help_uri, PACKAGE_NAME);
+
+    if (link_id != NULL)
+    {
+        strcat(help_uri, "/");
+        strcat(help_uri, link_id);
+    }
+
+    gtk_show_uri (NULL, help_uri,  gtk_get_current_event_time (), &error);
 
     if (error != NULL)
         gnome_cmd_error_message (_("There was an error displaying help."), error);

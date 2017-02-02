@@ -7,14 +7,14 @@ EXTRA_DIST = \
 	internal_viewer_hacking.txt \
 	$(man1_MANS)
 
+@YELP_HELP_RULES@
 
-include $(top_srcdir)/gnome-doc-utils.make
-dist-hook: doc-dist-hook
-
-DOC_MODULE = gnome-commander
-DOC_ENTITIES =
-DOC_INCLUDES = legal.xml releases.xml
-DOC_FIGURES = \
+HELP_ID = gnome-commander
+HELP_FILES = \
+	index.docbook \
+	legal.xml \
+	releases.xml
+HELP_MEDIA = \
 	figures/create_archive.png                              \
 	figures/dev_cd.png                                      \
 	figures/extract_archive.png                             \
@@ -41,7 +41,7 @@ DOC_FIGURES = \
 	figures/gnome-commander_simple_plugins_example.png      \
 	figures/mounting.png
 
-DOC_LINGUAS = cs de el es fr ru sl
+HELP_LINGUAS = cs de el es fr ru sl
 
 
 -include $(top_srcdir)/git.mk
