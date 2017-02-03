@@ -37,7 +37,12 @@
 /configure.lineno
 /depcomp
 /doc/doxygen/
+/doc/*/*.docbook
+/doc/*/*.mo
+/doc/*/*.stamp
+/doc/*/*.xml
 /duplo-report.txt
+!/doc/C/**
 /err.txt
 /install-sh
 /intltool-extract.in
