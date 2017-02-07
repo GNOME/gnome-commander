@@ -360,8 +360,8 @@ if test "x$have_python" != "xno"; then
 fi
 
 if test "x$have_python" != "xno"; then
-    PY_PREFIX=`$PYTHON -c 'import sys ; print sys.prefix'`
-    PY_EXEC_PREFIX=`$PYTHON -c 'import sys ; print sys.exec_prefix'`
+    PY_PREFIX=`$PYTHON -c 'import sys ; print(sys.prefix)'`
+    PY_EXEC_PREFIX=`$PYTHON -c 'import sys ; print(sys.exec_prefix)'`
     PYTHON_LIBS="-lpython$PYTHON_VERSION"
     PYTHON_LIB_LOC="-L$PY_EXEC_PREFIX/lib/python$PYTHON_VERSION/config"
     PYTHON_CFLAGS="-I$PY_PREFIX/include/python$PYTHON_VERSION"
