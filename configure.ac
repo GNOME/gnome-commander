@@ -1,4 +1,4 @@
-AC_INIT(gnome-commander, 1.7.0, http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander)
+AC_INIT([gnome-commander],[1.7.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander])
 AC_CONFIG_SRCDIR(src/gnome-cmd-includes.h)
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -9,7 +9,7 @@ YELP_HELP_INIT
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 
 GLIB_GSETTINGS
 
@@ -461,7 +461,7 @@ dnl =====================
 dnl Write some output
 dnl =====================
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 data/gnome-commander.ebuild
 data/gnome-commander.spec
@@ -488,6 +488,7 @@ src/intviewer/Makefile
 tests/Makefile
 README
 ])
+AC_OUTPUT
 
 
 
