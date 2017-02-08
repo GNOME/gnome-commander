@@ -16,7 +16,7 @@ GLIB_GSETTINGS
 AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LEX
-AM_PROG_LIBTOOL
+LT_INIT
 IT_PROG_INTLTOOL([0.50.1])
 
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
