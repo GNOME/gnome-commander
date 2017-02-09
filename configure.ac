@@ -35,9 +35,8 @@ dnl ===================
 dnl Gettext stuff
 dnl ===================
 
-AC_SUBST([GETTEXT_PACKAGE], [gnome-commander])
-AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], "$GETTEXT_PACKAGE", [Define to the gettext package name.])
-
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl ===================
 dnl Check for libraries

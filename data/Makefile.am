@@ -4,8 +4,6 @@ desktopdir = $(datadir)/applications
 desktop_in_files = @PACKAGE@.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-@INTLTOOL_DESKTOP_RULE@
-
 gsettings_ENUM_NAMESPACE = org.gnome.gnome-commander
 gsettings_ENUM_FILES = $(top_srcdir)/src/gnome-cmd-types.h \
                        $(top_srcdir)/src/gnome-cmd-data.h \

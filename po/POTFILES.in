@@ -1,6 +1,5 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-[encoding: UTF-8]
 data/gnome-commander.appdata.xml.in
 data/gnome-commander.desktop.in.in
 data/org.gnome.gnome-commander.gschema.xml

@@ -1,8 +1,8 @@
 [Desktop Entry]
-_Name=GNOME Commander
-_Comment=A two paned file manager
+Name=GNOME Commander
+Comment=A two paned file manager
 # TRANSLATORS: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-_Keywords=file;manager;folder;explore;disk;filesystem;
+Keywords=file;manager;folder;explore;disk;filesystem;
 Exec=gnome-commander
 Icon=gnome-commander
 Terminal=false
