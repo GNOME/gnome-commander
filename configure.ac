@@ -18,9 +18,6 @@ AC_PROG_CXX
 AM_PROG_LEX
 LT_INIT
 
-dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
-AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
-
 AX_CXX_COMPILE_STDCXX_11
 
 dnl add -Wall to CFLAGS when using gcc
