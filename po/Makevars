@@ -38,13 +38,21 @@ MSGID_BUGS_ADDRESS = gcmd-devel@nongnu.org
 
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
-  --add-comments \
   --from-code=UTF-8 \
-  --keyword=_ \
-  --keyword=N_ \
-  --keyword=C_:1c,2 \
-  --keyword=NC_:1c,2 \
-  --keyword=g_dngettext:2,3
+  --keyword=_ --flag=_:1:pass-c-format \
+  --keyword=N_ --flag=N_:1:pass-c-format \
+  --flag=g_log:3:c-format --flag=g_logv:3:c-format \
+  --flag=g_error:1:c-format --flag=g_message:1:c-format \
+  --flag=g_critical:1:c-format --flag=g_warning:1:c-format \
+  --flag=g_print:1:c-format \
+  --flag=g_printerr:1:c-format \
+  --flag=g_strdup_printf:1:c-format --flag=g_strdup_vprintf:1:c-format \
+  --flag=g_printf_string_upper_bound:1:c-format \
+  --flag=g_snprintf:3:c-format --flag=g_vsnprintf:3:c-format \
+  --flag=g_string_sprintf:2:c-format \
+  --flag=g_string_sprintfa:2:c-format \
+  --flag=g_scanner_error:2:c-format \
+  --flag=g_scanner_warn:2:c-format
 
 # These two variables depend on the location of this directory.
 subdir = po
