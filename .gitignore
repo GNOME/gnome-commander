@@ -10,6 +10,7 @@
 /.dirstamp
 /.gitignore
 /.libs
+/ABOUT-NLS
 /GPATH
 /GRTAGS
 /GSYMS
@@ -30,6 +31,7 @@
 /config.h.in
 /config.log
 /config.lt
+/config.rpath
 /config.status
 /config.status.lineno
 /config.sub
@@ -50,11 +52,7 @@
 /intltool-update.in
 /libtool
 /ltmain.sh
-/m4/libtool.m4
-/m4/ltoptions.m4
-/m4/ltsugar.m4
-/m4/ltversion.m4
-/m4/lt~obsolete.m4
+/m4/*
 /missing
 /plugins/cvs/
 /data/org.gnome.gnome-commander.enums.xml
