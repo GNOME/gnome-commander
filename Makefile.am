@@ -18,9 +18,6 @@ EXTRA_DIST =                \
 	NEWS                    \
 	README
 
-DISTCLEANFILES =            \
-	po/.intltool-merge-cache
-
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 
 AUTOMAKE_OPTIONS = dist-bzip2 no-dist-gzip

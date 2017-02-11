@@ -20,8 +20,6 @@ mimetopdir = $(datadir)/@PACKAGE@/mime
 mimexmldir = $(mimetopdir)/packages
 mimexml_DATA = gnome-commander-mime.xml
 
-@INTLTOOL_XML_RULE@
-
 ebuild_files = @PACKAGE@.ebuild
 ebuild_DATA_NOINST = @PACKAGE@-@VERSION@.ebuild
 
@@ -50,6 +48,5 @@ install-data-hook:
 uninstall-hook:
 	for target in $(DESTDIR)/$(mimetopdir)/* ; \
 		do test "x$${target}" != "x$(DESTDIR)/$(mimexmldir)" && rm -rf $${target} ; done
-
 
 -include $(top_srcdir)/git.mk
