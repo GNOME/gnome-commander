@@ -517,23 +517,5 @@ echo "  ODF support    : ${have_gsf}"
 echo "  PDF support    : ${have_pdf}"
 echo "  SAMBA support  : ${have_samba}"
 echo ""
-echo ""
-echo "The following libraries will be used:"
-echo ""
-echo "  glib           : ${GLIB_VERSION}	in ${GLIB_PREFIX}"
-echo "  gtk+           : ${GTK_VERSION}	in ${GTK_PREFIX}"
-echo "  gnome          : ${GNOME_VERSION}	in ${GNOME_PREFIX}"
-echo "  gnomeui        : ${GNOMEUI_VERSION}	in ${GNOMEUI_PREFIX}"
-echo "  gnome-vfs      : ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
-echo "  gnome-keyring  : ${GNOME_KEYRING_VERSION}	in ${GNOME_KEYRING_PREFIX}"
-echo "  libUnique      : ${UNIQUE_VERSION}	in ${UNIQUE_PREFIX}"
-if test "x$have_pdf" = "xyes"; then
-echo "  poppler-glib   : ${POPPLER_VERSION}  	in ${POPPLER_PREFIX}"
-fi
-if test "x$have_python" = "xyes"; then
-echo "  python         : ${PYTHON_VERSION}  	in ${PY_EXEC_PREFIX}"
-fi
-echo ""
-echo ""
 echo "Type 'make' to build $PACKAGE-$VERSION and then 'make install' to install"
 echo ""
