@@ -69,25 +69,7 @@ AC_SUBST(POPPLER_REQ)
 AC_SUBST(GOBJECT_CFLAGS)
 
 dnl Check for glib
-AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
-if pkg-config --exists glib-2.0 ; then
-    GLIB_CFLAGS=`pkg-config --cflags glib-2.0`
-    GLIB_LIBS=`pkg-config --libs glib-2.0`
-    GLIB_PREFIX=`pkg-config --variable=prefix glib-2.0`
-    GLIB_VERSION=`pkg-config --modversion glib-2.0`
-    AC_SUBST(GLIB_VERSION)
-    AC_SUBST(GLIB_PREFIX)
-    AC_SUBST(GLIB_CFLAGS)
-    AC_SUBST(GLIB_LIBS)
-
-    if pkg-config --exists glib-2.0 '>=' ${GLIB_REQ} ; then
-        AC_MSG_RESULT(yes)
-    else
-        AC_MSG_ERROR("only ${GLIB_VERSION} found")
-    fi
-else
-    AC_MSG_ERROR(no)
-fi
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= ${GLIB_REQ}])
 
 dnl Check for gobject
 PKG_CHECK_MODULES([GOBJECT],[gobject-2.0])
