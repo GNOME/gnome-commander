@@ -74,21 +74,7 @@ dnl Check for gobject
 PKG_CHECK_MODULES([GOBJECT],[gobject-2.0])
 
 dnl Check for gmodule
-AC_MSG_CHECKING(if gmodule >= ${GMODULE_REQ} exists)
-if pkg-config --exists gmodule-2.0 ; then
-    if pkg-config --exists gmodule-2.0 '>=' ${GMODULE_REQ} ; then
-        AC_MSG_RESULT(yes)
-        GMODULE_AVAIL="yes"
-    else
-        AC_MSG_ERROR("only `pkg-config --modversion gmodule-2.0` found")
-        GMODULE_AVAIL="no"
-    fi
-else
-    AC_MSG_ERROR(no)
-    GMODULE_AVAIL="no"
-fi
-AC_SUBST(GMODULE_AVAIL)
-
+PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= ${GMODULE_REQ}])
 
 dnl Check for gtk+
 AC_MSG_CHECKING(if gtk+ >= ${GTK_REQ} exists)
@@ -477,7 +463,6 @@ echo "The following settings will be used:"
 echo ""
 echo "  host           : ${host}"
 echo "  prefix         : ${prefix}"
-echo "  module support : ${GMODULE_AVAIL}"
 echo "  compiler       : ${CC}"
 echo "  CFLAGS         : ${CFLAGS}"
 echo "  LDFLAGS        : ${LDFLAGS}"
