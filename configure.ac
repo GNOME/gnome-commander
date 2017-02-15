@@ -77,26 +77,7 @@ dnl Check for gmodule
 PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= ${GMODULE_REQ}])
 
 dnl Check for gtk+
-AC_MSG_CHECKING(if gtk+ >= ${GTK_REQ} exists)
-if pkg-config --exists gtk+-2.0 ; then
-    GTK_CFLAGS=`pkg-config --cflags gtk+-2.0`
-    GTK_LIBS=`pkg-config --libs gtk+-2.0`
-    GTK_PREFIX=`pkg-config --variable=prefix gtk+-2.0`
-    GTK_VERSION=`pkg-config --modversion gtk+-2.0`
-    AC_SUBST(GTK_VERSION)
-    AC_SUBST(GTK_PREFIX)
-    AC_SUBST(GTK_CFLAGS)
-    AC_SUBST(GTK_LIBS)
-
-    if pkg-config --exists gtk+-2.0 '>=' ${GTK_REQ} ; then
-        AC_MSG_RESULT(yes)
-    else
-        AC_MSG_ERROR("only ${GTK_VERSION} found")
-    fi
-else
-    AC_MSG_ERROR(no)
-fi
-
+PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= ${GTK_REQ}])
 
 dnl Check for libgnome
 AC_MSG_CHECKING(if libgnome >= ${GNOME_REQ} exists)
