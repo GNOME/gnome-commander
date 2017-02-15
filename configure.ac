@@ -80,26 +80,7 @@ dnl Check for gtk+
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= ${GTK_REQ}])
 
 dnl Check for libgnome
-AC_MSG_CHECKING(if libgnome >= ${GNOME_REQ} exists)
-if pkg-config --exists libgnome-2.0 ; then
-    GNOME_CFLAGS=`pkg-config --cflags libgnome-2.0`
-    GNOME_LIBS=`pkg-config --libs libgnome-2.0`
-    GNOME_PREFIX=`pkg-config --variable=prefix libgnome-2.0`
-    GNOME_VERSION=`pkg-config --modversion libgnome-2.0`
-    AC_SUBST(GNOME_VERSION)
-    AC_SUBST(GNOME_PREFIX)
-    AC_SUBST(GNOME_LIBS)
-    AC_SUBST(GNOME_CFLAGS)
-
-    if pkg-config --exists libgnome-2.0 '>=' ${GNOME_REQ} ; then
-        AC_MSG_RESULT(yes)
-    else
-        AC_MSG_ERROR("only ${GNOME_VERSION} found")
-    fi
-else
-    AC_MSG_ERROR(no)
-fi
-
+PKG_CHECK_MODULES([GNOME], [libgnome-2.0 >= ${GNOME_REQ}])
 
 dnl Check for libgnomeui
 AC_MSG_CHECKING(if libgnomeui >= ${GNOMEUI_REQ} exists)
