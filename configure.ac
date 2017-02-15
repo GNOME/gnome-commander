@@ -83,26 +83,7 @@ dnl Check for libgnome
 PKG_CHECK_MODULES([GNOME], [libgnome-2.0 >= ${GNOME_REQ}])
 
 dnl Check for libgnomeui
-AC_MSG_CHECKING(if libgnomeui >= ${GNOMEUI_REQ} exists)
-if pkg-config --exists libgnomeui-2.0 ; then
-    GNOMEUI_CFLAGS=`pkg-config --cflags libgnomeui-2.0`
-    GNOMEUI_LIBS=`pkg-config --libs libgnomeui-2.0`
-    GNOMEUI_PREFIX=`pkg-config --variable=prefix libgnomeui-2.0`
-    GNOMEUI_VERSION=`pkg-config --modversion libgnomeui-2.0`
-    AC_SUBST(GNOMEUI_VERSION)
-    AC_SUBST(GNOMEUI_PREFIX)
-    AC_SUBST(GNOMEUI_CFLAGS)
-    AC_SUBST(GNOMEUI_LIBS)
-
-    if pkg-config --exists libgnomeui-2.0 '>=' ${GNOMEUI_REQ} ; then
-        AC_MSG_RESULT(yes)
-    else
-        AC_MSG_ERROR("only ${GNOMEUI_VERSION} found")
-    fi
-else
-    AC_MSG_ERROR(no)
-fi
-
+PKG_CHECK_MODULES([GNOMEUI], [libgnomeui-2.0 >= ${GNOMEUI_REQ}])
 
 dnl Check for gnome-vfs
 AC_MSG_CHECKING(if gnome-vfs >= ${GNOMEVFS_REQ} exists)
