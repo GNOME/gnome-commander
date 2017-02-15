@@ -86,29 +86,7 @@ dnl Check for libgnomeui
 PKG_CHECK_MODULES([GNOMEUI], [libgnomeui-2.0 >= ${GNOMEUI_REQ}])
 
 dnl Check for gnome-vfs
-AC_MSG_CHECKING(if gnome-vfs >= ${GNOMEVFS_REQ} exists)
-if pkg-config --exists gnome-vfs-2.0 ; then
-    GNOMEVFS_CFLAGS=`pkg-config --cflags gnome-vfs-2.0`
-    GNOMEVFS_LIBS=`pkg-config --libs gnome-vfs-2.0`
-    GNOMEVFS_PREFIX=`pkg-config --variable=prefix gnome-vfs-2.0`
-    GNOMEVFS_VERSION=`pkg-config --modversion gnome-vfs-2.0`
-    AC_SUBST(GNOMEVFS_VERSION)
-    AC_SUBST(GNOMEVFS_PREFIX)
-    AC_SUBST(GNOMEVFS_CFLAGS)
-    AC_SUBST(GNOMEVFS_LIBS)
-
-    if pkg-config --exists gnome-vfs-2.0 '>=' ${GNOMEVFS_REQ} ; then
-        have_gnomevfs=yes
-        AC_MSG_RESULT(yes)
-    else
-	have_gnomevfs=no
-        AC_MSG_ERROR("only ${GNOMEVFS_VERSION} found")
-    fi
-else
-    have_gnomevfs=no
-    AC_MSG_ERROR(no)
-fi
-
+PKG_CHECK_MODULES([GNOMEVFS], [gnome-vfs-2.0 >= ${GNOMEVFS_REQ}])
 
 dnl Check for gnome-keyring
 PKG_CHECK_MODULES(GNOME_KEYRING, [ gnome-keyring-1 >= ${GNOME_KEYRING_REQ} ])
