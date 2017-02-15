@@ -90,19 +90,9 @@ PKG_CHECK_MODULES([GNOMEVFS], [gnome-vfs-2.0 >= ${GNOMEVFS_REQ}])
 
 dnl Check for gnome-keyring
 PKG_CHECK_MODULES(GNOME_KEYRING, [ gnome-keyring-1 >= ${GNOME_KEYRING_REQ} ])
-GNOME_KEYRING_PREFIX=`pkg-config --variable=prefix gnome-keyring-1`
-GNOME_KEYRING_VERSION=`pkg-config --modversion gnome-keyring-1`
-AC_SUBST([GNOME_KEYRING_PREFIX])
-AC_SUBST([GNOME_KEYRING_VERSION])
-
 
 dnl Check for libUnique
 PKG_CHECK_MODULES(UNIQUE, [ unique-1.0 >= ${UNIQUE_REQ} ])
-UNIQUE_PREFIX=`pkg-config --variable=prefix unique-1.0`
-UNIQUE_VERSION=`pkg-config --modversion unique-1.0`
-AC_SUBST([UNIQUE_PREFIX])
-AC_SUBST([UNIQUE_VERSION])
-
 
 dnl Check for samba support
 AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support])
@@ -173,10 +163,6 @@ if test x$with_poppler != xno; then
 fi
 if test "x$have_pdf" = "xyes"; then
    AC_DEFINE(HAVE_PDF, 1, [Define to 1 if you have PDF support])
-   POPPLER_PREFIX=`pkg-config --variable=prefix poppler-glib`
-   POPPLER_VERSION=`pkg-config --modversion poppler-glib`
-   AC_SUBST(POPPLER_VERSION)
-   AC_SUBST(POPPLER_PREFIX)
 fi
 
 
