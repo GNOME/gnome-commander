@@ -228,18 +228,12 @@ fi
 if test "x$have_python" != "xno"; then
     PY_PREFIX=`$PYTHON -c 'import sys ; print(sys.prefix)'`
     PY_EXEC_PREFIX=`$PYTHON -c 'import sys ; print(sys.exec_prefix)'`
-    PYTHON_LIBS="-lpython$PYTHON_VERSION"
-    PYTHON_LIB_LOC="-L$PY_EXEC_PREFIX/lib/python$PYTHON_VERSION/config"
-    PYTHON_CFLAGS="-I$PY_PREFIX/include/python$PYTHON_VERSION"
-    PYTHON_MAKEFILE="$PY_EXEC_PREFIX/lib/python$PYTHON_VERSION/config/Makefile"
-    PYTHON_LOCALMODLIBS=`sed -n -e 's/^LOCALMODLIBS=\(.*\)/\1/p' $PYTHON_MAKEFILE`
-    PYTHON_BASEMODLIBS=`sed -n -e 's/^BASEMODLIBS=\(.*\)/\1/p' $PYTHON_MAKEFILE`
-    PYTHON_OTHER_LIBS=`sed -n -e 's/^LIBS=\(.*\)/\1/p' $PYTHON_MAKEFILE`
-    PYTHON_EXTRA_LIBS="$PYTHON_LOCALMODLIBS $PYTHON_BASEMODLIBS $PYTHON_OTHER_LIBS"
+    dnl PYTHON_LIBS="-lpython$PYTHON_VERSION"
+    PYTHON_LIBS=`$PYTHON-config --ldflags`
+    dnl PYTHON_CFLAGS="-I$PY_PREFIX/include/python$PYTHON_VERSION"
+    PYTHON_CFLAGS=`$PYTHON-config --cflags`
     AC_SUBST([PYTHON_LIBS])
-    AC_SUBST([PYTHON_LIB_LOC])
     AC_SUBST([PYTHON_CFLAGS])
-    AC_SUBST([PYTHON_EXTRA_LIBS])
 
     dnl FIXME: do we really need this test?
     AC_MSG_CHECKING([whether we can build a shared library depending on libpython])
@@ -254,7 +248,7 @@ Py_Exit (0);
 }
 EOF
 
-    if ${CC} $PYTHON_CFLAGS $PYTHON_LIBS $PYTHON_EXTRA_LIBS -fPIC -shared -o testpython.so testpython.c -Wl,-soname,testpython.so >/dev/null 2>&1 && \
+    if ${CC} $PYTHON_CFLAGS $PYTHON_LIBS -fPIC -shared -o testpython.so testpython.c -Wl,-soname,testpython.so >/dev/null 2>&1 && \
         ( objdump --headers --private-headers testpython.so | grep 'testpython' ) >/dev/null 2>&1; then
         result=yes
     else
@@ -373,7 +367,6 @@ echo "  CFLAGS         : ${CFLAGS}"
 echo "  LDFLAGS        : ${LDFLAGS}"
 echo ""
 echo "  Python plugins support: ${enable_python}"
-echo ""
 echo ""
 echo "Optional file metadata support:"
 echo ""

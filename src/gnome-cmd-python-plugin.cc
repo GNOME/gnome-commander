@@ -222,7 +222,11 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     if (!pURIclass)
         goto out_B;
 
+#if PY_MAJOR_VERSION > 2
+    pName = PyUnicode_FromString(plugin->fname);
+#else
     pName = PyString_FromString(plugin->fname);
+#endif
     pModule = PyImport_Import(pName);
     Py_XDECREF(pName);
 
@@ -287,8 +291,13 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
 
     main_win_xid = GDK_WINDOW_XID (GTK_WIDGET (mw)->window);
     pMainWinXID = PyLong_FromUnsignedLong (main_win_xid);
+#if PY_MAJOR_VERSION > 2
+    pActiveCwd = PyUnicode_FromString(active_dir);
+    pInactiveCwd = PyUnicode_FromString(inactive_dir);
+#else
     pActiveCwd = PyString_FromString (active_dir);
     pInactiveCwd = PyString_FromString (inactive_dir);
+#endif
     pSelectedFiles = PyTuple_New(n);
 
     DEBUG('p', "Main window XID: %lu (%#lx)\n", main_win_xid, main_win_xid);
@@ -319,7 +328,11 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
 
     if (pValue)
     {
+#if PY_MAJOR_VERSION > 2
+        retval = PyLong_AsLong(pValue);
+#else
         retval = PyInt_AsLong(pValue);
+#endif
         DEBUG('p', "Result of call %s." MODULE_INIT_FUNC "(): %ld\n", plugin->fname, retval);
     }
     else
