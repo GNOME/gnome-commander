@@ -31,7 +31,6 @@ RDEPEND="
 	gsf? ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
 	samba? ( >=gnome-base/gnome-vfs-@GNOMEVFS_REQ@[samba] )
 	pdf? ( >=app-text/poppler-@POPPLER_REQ@ )
-	python? ( >=dev-python/gnome-vfs-python-@GNOMEVFS_REQ@ )
 	taglib? ( >=media-libs/taglib-@TAGLIB_REQ@ )
 "
 DEPEND="
