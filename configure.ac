@@ -299,10 +299,6 @@ GNOME_PREFIX_TMP=`pkg-config --variable=prefix libgnome-2.0`
 AC_DEFINE_UNQUOTED(GNOME_PREFIX, "$GNOME_PREFIX_TMP", "")
 
 
-dnl Set HELP_DIR in config.h.
-AC_DEFINE_UNQUOTED(HELP_DIR, "${PREFIX}/share/gnome/help/${PACKAGE}", "")
-
-
 PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
 AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
 
