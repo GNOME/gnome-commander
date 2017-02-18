@@ -15860,7 +15860,7 @@ msgid ""
 "GNOME Commander is capable of executing python plugins. A Python plugin is a "
 "normal python application containing a predefined entry function."
 msgstr ""
-"SGNOME Commander ist in der Lage, Python-Plugins auszuführen. Ein Python-"
+"GNOME Commander ist in der Lage, Python-Plugins auszuführen. Ein Python-"
 "Plugin ist eine normale Python-Anwendung, die vordefinierte Funktionen "
 "enthält."
 
