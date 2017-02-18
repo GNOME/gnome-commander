@@ -25,6 +25,7 @@ extern "C"
 }
 
 #include <config.h>
+#include <glib/gi18n.h>
 #include <locale.h>
 #include <unique/unique.h>
 #include <libgnomeui/gnome-ui-init.h>
@@ -52,10 +53,6 @@ gchar *start_dir_left;
 gchar *start_dir_right;
 gchar *config_dir;
 gchar *debug_flags;
-
-#ifdef HAVE_LOCALE_H
-struct lconv *locale_information;
-#endif
 
 extern gint created_files_cnt;
 extern gint deleted_files_cnt;
@@ -109,17 +106,10 @@ int main (int argc, char *argv[])
         return 0;
     }
 
-#ifdef ENABLE_NLS
-    bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
+    setlocale (LC_ALL, "");
+    bindtextdomain (PACKAGE, DATADIR "/locale");
     bind_textdomain_codeset (PACKAGE, "UTF-8");
     textdomain (PACKAGE);
-#endif
-
-#ifdef HAVE_LOCALE_H
-    if (setlocale(LC_ALL, "") == NULL)
-        g_warning ("Error while processing locales, call to setlocale failed");
-    locale_information = localeconv();
-#endif
 
     gnome_cmd_mime_config();
 

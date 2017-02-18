@@ -290,10 +290,6 @@ fi
 AC_SUBST(PREFIX)
 
 
-dnl Set PACKAGE_LOCALE_DIR in config.h.
-AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${PREFIX}/${DATADIRNAME}/locale", [definition of PACKAGE_LOCALE_DIR])
-
-
 dnl Set PIXMAPS_DIR in config.h.
 AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${PREFIX}/share/pixmaps/${PACKAGE}", [pixmaps location])
 

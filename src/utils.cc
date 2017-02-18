@@ -20,7 +20,6 @@
  */
 
 #include <config.h>
-#include <locale.h>
 #include <errno.h>
 #include <dirent.h>
 #include <fnmatch.h>
@@ -46,10 +45,6 @@ struct TmpDlData
     GtkWidget *dialog;
     gpointer *args;
 };
-
-#ifdef HAVE_LOCALE_H
-extern struct lconv *locale_information;
-#endif
 
 #define FIX_PW_HACK
 #define STRINGS_TO_URIS_CHUNK 1024
