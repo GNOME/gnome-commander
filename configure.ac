@@ -74,6 +74,11 @@ AC_SUBST(LIBGSF_REQ)
 AC_SUBST(POPPLER_REQ)
 AC_SUBST(GOBJECT_CFLAGS)
 
+dnl Google Test library for 'make check'
+dnl This variable is currently used only in gentoo ebuild.
+GTEST_REQ=1.7.0
+AC_SUBST(GTEST_REQ)
+
 dnl Check for glib
 AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
 if pkg-config --exists glib-2.0 ; then
