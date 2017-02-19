@@ -65,6 +65,11 @@ AC_SUBST(TAGLIB_REQ)
 AC_SUBST(LIBGSF_REQ)
 AC_SUBST(POPPLER_REQ)
 
+dnl Google Test library for 'make check'
+dnl This variable is currently used only in gentoo ebuild.
+GTEST_REQ=1.7.0
+AC_SUBST(GTEST_REQ)
+
 dnl Check for glib
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= ${GLIB_REQ}])
 
