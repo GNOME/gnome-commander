@@ -87,16 +87,16 @@ dnl Check for gnome-vfs
 PKG_CHECK_MODULES([GNOMEVFS], [gnome-vfs-2.0 >= ${GNOMEVFS_REQ}], have_gnomevfs=yes, have_gnomevfs=no)
 
 dnl Check for gnome-keyring
-PKG_CHECK_MODULES(GNOME_KEYRING, [ gnome-keyring-1 >= ${GNOME_KEYRING_REQ} ])
+PKG_CHECK_MODULES(GNOME_KEYRING, [gnome-keyring-1 >= ${GNOME_KEYRING_REQ}])
 
 dnl Check for libUnique
-PKG_CHECK_MODULES(UNIQUE, [ unique-1.0 >= ${UNIQUE_REQ} ])
+PKG_CHECK_MODULES(UNIQUE, [unique-1.0 >= ${UNIQUE_REQ}])
 
 dnl Check for samba support
 AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support])
 have_samba=no
-if test "x$with_samba" != xno; then
-   if test "x$have_gnomevfs" != xyes; then
+if test "x$with_samba" != "xno"; then
+   if test "x$have_gnomevfs" != "xyes"; then
    have_samba=no
    else
    have_samba=yes
@@ -359,6 +359,7 @@ echo "  CFLAGS         : ${CFLAGS}"
 echo "  LDFLAGS        : ${LDFLAGS}"
 echo ""
 echo "  Python plugins support: ${enable_python}"
+echo "  Samba support  : ${have_samba}"
 echo ""
 echo "Optional file metadata support:"
 echo ""
@@ -371,7 +372,6 @@ echo "  FLAC support   : ${have_taglib}"
 echo "  OLE2 support   : ${have_gsf}"
 echo "  ODF support    : ${have_gsf}"
 echo "  PDF support    : ${have_pdf}"
-echo "  SAMBA support  : ${have_samba}"
 echo ""
 echo "Type 'make' to build $PACKAGE-$VERSION and then 'make install' to install"
 echo ""
