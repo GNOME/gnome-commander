@@ -3,7 +3,13 @@ gnome-commander 1.8.0
 ---------------
 
 New features:
- * ...
+ * [build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall and David King)
+ * [build] Translations are now handled by upstream gettext instead of intltool
+ * [build] New documentation infrastructure: Use yelp-tools instead of gnome-doc-utils
+ * Code cleanup
+
+Bug fixes:
+ * [build] Python is now found at build time, too, when its version is equal to or higher than 3.x
 
 ===================================
 gnome-commander 1.6.0

@@ -24,13 +24,27 @@
     <tbody>
         <row valign="top">
             <entry><para>1.8.0</para></entry>
-            <entry><para>2016-??-??</para></entry>
+            <entry><para>2017-??-??</para></entry>
             <entry>
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                           <para>...</para>
+                           <para>[build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall and David King)</para>
+                       </listitem>
+                        <listitem>
+                           <para>[build] Translations are now handled by upstream gettext instead of intltool</para>
+                       </listitem>
+                        <listitem>
+                           <para>[build] New documentation infrastructure: Use yelp-tools instead of gnome-doc-utils</para>
+                       </listitem>
+                    </itemizedlist>
+                </para>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                           <para>[build] Python is now found at build time, too, when its version is equal to or higher than 3.x</para>
                        </listitem>
                     </itemizedlist>
                 </para>
