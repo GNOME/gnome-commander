@@ -2,7 +2,7 @@
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
     Copyright (C) 2007-2012 Piotr Eljasiak
-    Copyright (C) 2013-2016 Uwe Scholz
+    Copyright (C) 2013-2017 Uwe Scholz
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #include "file-roller-small.xpm"
 
 #define NAME "File Roller Plugin"
-#define COPYRIGHT "Copyright \n\xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2016 Uwe Scholz"
+#define COPYRIGHT "Copyright \n\xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2017 Uwe Scholz"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define TRANSLATOR_CREDITS "Translations: https://l10n.gnome.org/module/gnome-commander/"
 #define WEBPAGE "http://gcmd.github.io"
