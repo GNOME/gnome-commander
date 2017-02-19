@@ -93,7 +93,7 @@ dnl Check for libUnique
 PKG_CHECK_MODULES(UNIQUE, [unique-1.0 >= ${UNIQUE_REQ}])
 
 dnl Check for samba support
-AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support])
+AC_ARG_WITH(samba, [AS_HELP_STRING([--without-samba], [disable SAMBA support])])
 have_samba=no
 if test "x$with_samba" != "xno"; then
    if test "x$have_gnomevfs" != "xyes"; then
@@ -109,7 +109,7 @@ AM_CONDITIONAL([HAVE_SAMBA],[test "x$have_samba" = "xyes"])
 
 
 dnl Check for exiv2 support
-AC_ARG_WITH(exiv2, [  --without-exiv2         disable EXIF and IPTC support])
+AC_ARG_WITH(exiv2, [AS_HELP_STRING([--without-exiv2], [disable EXIF and IPTC support])])
 have_exiv2=no
 if test x$with_exiv2 != xno; then
     PKG_CHECK_MODULES(EXIV2, exiv2 >= $EXIV2_REQ, have_exiv2=yes, have_exiv2=no)
@@ -120,7 +120,7 @@ fi
 
 
 dnl Check for taglib support
-AC_ARG_WITH(taglib, [  --without-taglib         disable taglib (ID3, Vorbis, APE and FLAC) support])
+AC_ARG_WITH(taglib, [AS_HELP_STRING([--without-taglib], [disable taglib (ID3, Vorbis, APE and FLAC) support])])
 have_taglib=no
 if test x$with_taglib != xno; then
     PKG_CHECK_MODULES(TAGLIB, taglib >= $TAGLIB_REQ, have_taglib=yes, have_taglib=no)
@@ -131,14 +131,14 @@ fi
 
 
 dnl Check for libchm support
-AC_ARG_WITH(libchm, [  --without-libchm         disable CHM support])
+AC_ARG_WITH(libchm, [AS_HELP_STRING([--without-libchm], [disable CHM support])])
 have_chm=no
 AC_CHECK_LIB(chm, chm_open, have_chm=yes, have_chm=no)
 AM_CONDITIONAL(HAVE_CHM, test "x$have_chm" = "xyes")
 
 
 dnl Check for libgsf support
-AC_ARG_WITH(libgsf, [  --without-libgsf         disable OLE and ODF support])
+AC_ARG_WITH(libgsf, [AS_HELP_STRING([--without-libgsf], [disable OLE and ODF support])])
 have_gsf=no
 if test x$with_libgsf != xno; then
     PKG_CHECK_MODULES(GSF, libgsf-1 >= $LIBGSF_REQ, have_gsf=yes, have_gsf=no)
@@ -154,7 +154,7 @@ fi
 
 
 dnl Check for poppler support
-AC_ARG_WITH(poppler, [  --without-poppler        disable PDF support])
+AC_ARG_WITH([poppler], [AS_HELP_STRING([--with-poppler], [disable PDF support])])
 have_pdf=no
 if test x$with_poppler != xno; then
     PKG_CHECK_MODULES(POPPLER, poppler-glib >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
