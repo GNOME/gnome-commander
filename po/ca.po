@@ -7800,7 +7800,7 @@ msgstr "Afrikaans"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:181
 msgid "Malayalam"
-msgstr "Malayalam"
+msgstr "Malaiàlam"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:67
 #, c-format
