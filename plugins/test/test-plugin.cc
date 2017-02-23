@@ -185,7 +185,7 @@ GtkType test_plugin_get_type ()
     {
         GtkTypeInfo info =
         {
-            "TestPlugin",
+            (gchar*) "TestPlugin",
             sizeof (TestPlugin),
             sizeof (TestPluginClass),
             (GtkClassInitFunc) class_init,

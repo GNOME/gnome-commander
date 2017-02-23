@@ -492,7 +492,7 @@ GtkType gnome_cmd_dir_indicator_get_type ()
     if (type == 0)
     {
         GtkTypeInfo info = {
-            "GnomeCmdDirIndicator",
+            (gchar*) "GnomeCmdDirIndicator",
             sizeof(GnomeCmdDirIndicator),
             sizeof(GnomeCmdDirIndicatorClass),
             (GtkClassInitFunc) class_init,

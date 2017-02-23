@@ -142,7 +142,7 @@ GtkType gnome_cmd_con_home_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdConHome",
+            (gchar*) "GnomeCmdConHome",
             sizeof (GnomeCmdConHome),
             sizeof (GnomeCmdConHomeClass),
             (GtkClassInitFunc) class_init,

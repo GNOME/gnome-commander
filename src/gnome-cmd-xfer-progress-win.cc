@@ -139,7 +139,7 @@ GtkType gnome_cmd_xfer_progress_win_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdXferProgressWin",
+            (gchar*) "GnomeCmdXferProgressWin",
             sizeof (GnomeCmdXferProgressWin),
             sizeof (GnomeCmdXferProgressWinClass),
             (GtkClassInitFunc) class_init,

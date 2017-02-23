@@ -282,7 +282,7 @@ GtkType gnome_cmd_cmdline_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdCmdline",
+            (gchar*) "GnomeCmdCmdline",
             sizeof (GnomeCmdCmdline),
             sizeof (GnomeCmdCmdlineClass),
             (GtkClassInitFunc) class_init,

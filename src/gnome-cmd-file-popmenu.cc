@@ -754,7 +754,7 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdFilePopmenu",
+            (gchar*) "GnomeCmdFilePopmenu",
             sizeof (GnomeCmdFilePopmenu),
             sizeof (GnomeCmdFilePopmenuClass),
             (GtkClassInitFunc) class_init,

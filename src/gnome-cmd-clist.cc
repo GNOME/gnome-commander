@@ -547,7 +547,7 @@ GtkType gnome_cmd_clist_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdCList",
+            (gchar*) "GnomeCmdCList",
             sizeof (GnomeCmdCList),
             sizeof (GnomeCmdCListClass),
             (GtkClassInitFunc) class_init,

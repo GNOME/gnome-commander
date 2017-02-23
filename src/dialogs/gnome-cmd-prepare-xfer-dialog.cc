@@ -352,7 +352,7 @@ GtkType gnome_cmd_prepare_xfer_dialog_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdPrepareXferDialog",
+            (gchar*) "GnomeCmdPrepareXferDialog",
             sizeof (GnomeCmdPrepareXferDialog),
             sizeof (GnomeCmdPrepareXferDialogClass),
             (GtkClassInitFunc) class_init,

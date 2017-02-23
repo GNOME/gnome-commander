@@ -187,7 +187,7 @@ GtkType gnome_cmd_chmod_component_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdChmodComponent",
+            (gchar*) "GnomeCmdChmodComponent",
             sizeof (GnomeCmdChmodComponent),
             sizeof (GnomeCmdChmodComponentClass),
             (GtkClassInitFunc) class_init,

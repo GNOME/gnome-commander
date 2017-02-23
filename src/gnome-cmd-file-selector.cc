@@ -877,7 +877,7 @@ GtkType gnome_cmd_file_selector_get_type ()
     {
         GtkTypeInfo fs_info =
         {
-            "GnomeCmdFileSelector",
+            (gchar*) "GnomeCmdFileSelector",
             sizeof (GnomeCmdFileSelector),
             sizeof (GnomeCmdFileSelectorClass),
             (GtkClassInitFunc) class_init,

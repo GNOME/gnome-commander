@@ -306,7 +306,7 @@ GtkType gnome_cmd_quicksearch_popup_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdQuicksearchPopup",
+            (gchar*) "GnomeCmdQuicksearchPopup",
             sizeof (GnomeCmdQuicksearchPopup),
             sizeof (GnomeCmdQuicksearchPopupClass),
             (GtkClassInitFunc) class_init,

@@ -135,7 +135,7 @@ GtkType gnome_cmd_chown_component_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdChownComponent",
+            (gchar*) "GnomeCmdChownComponent",
             sizeof (GnomeCmdChownComponent),
             sizeof (GnomeCmdChownComponentClass),
             (GtkClassInitFunc) class_init,

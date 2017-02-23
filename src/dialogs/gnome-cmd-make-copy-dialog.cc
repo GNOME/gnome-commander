@@ -162,7 +162,7 @@ GtkType gnome_cmd_make_copy_dialog_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdMakeCopyDialog",
+            (gchar*) "GnomeCmdMakeCopyDialog",
             sizeof (GnomeCmdMakeCopyDialog),
             sizeof (GnomeCmdMakeCopyDialogClass),
             (GtkClassInitFunc) class_init,

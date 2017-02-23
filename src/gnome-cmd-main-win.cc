@@ -839,7 +839,7 @@ GtkType gnome_cmd_main_win_get_type ()
     {
         GtkTypeInfo mw_info =
         {
-            "GnomeCmdMainWin",
+            (gchar*) "GnomeCmdMainWin",
             sizeof (GnomeCmdMainWin),
             sizeof (GnomeCmdMainWinClass),
             (GtkClassInitFunc) class_init,

@@ -450,7 +450,7 @@ GtkType gnome_cmd_combo_get_type ()
     {
         static const GtkTypeInfo combo_info =
         {
-            "GnomeCmdCombo",
+            (gchar*) "GnomeCmdCombo",
             sizeof (GnomeCmdCombo),
             sizeof (GnomeCmdComboClass),
             (GtkClassInitFunc) class_init,

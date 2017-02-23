@@ -160,7 +160,7 @@ GtkType gnome_cmd_string_dialog_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdStringDialog",
+            (gchar*) "GnomeCmdStringDialog",
             sizeof (GnomeCmdStringDialog),
             sizeof (GnomeCmdStringDialogClass),
             (GtkClassInitFunc) class_init,

@@ -228,7 +228,7 @@ GtkType gnome_cmd_con_smb_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdConSmb",
+            (gchar*) "GnomeCmdConSmb",
             sizeof (GnomeCmdConSmb),
             sizeof (GnomeCmdConSmbClass),
             (GtkClassInitFunc) class_init,

@@ -225,7 +225,7 @@ GtkType gnome_cmd_con_remote_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdConRemote",
+            (gchar*) "GnomeCmdConRemote",
             sizeof (GnomeCmdConRemote),
             sizeof (GnomeCmdConRemoteClass),
             (GtkClassInitFunc) class_init,

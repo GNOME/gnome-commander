@@ -844,7 +844,7 @@ GtkType gnome_cmd_main_menu_get_type ()
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdMainMenu",
+            (gchar*) "GnomeCmdMainMenu",
             sizeof (GnomeCmdMainMenu),
             sizeof (GnomeCmdMainMenuClass),
             (GtkClassInitFunc) class_init,

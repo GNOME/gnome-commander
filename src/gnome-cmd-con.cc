@@ -223,7 +223,7 @@ GtkType gnome_cmd_con_get_type ()
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdCon",
+            (gchar*) "GnomeCmdCon",
             sizeof (GnomeCmdCon),
             sizeof (GnomeCmdConClass),
             (GtkClassInitFunc) class_init,
