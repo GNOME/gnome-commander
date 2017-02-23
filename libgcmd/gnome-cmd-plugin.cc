@@ -77,9 +77,9 @@ GtkType gnome_cmd_plugin_get_type ()
 
     if (type == 0)
     {
-        GtkTypeInfo info =
+        static const GtkTypeInfo info =
         {
-            "GnomeCmdPlugin",
+            (char*) "GnomeCmdPlugin",
             sizeof (GnomeCmdPlugin),
             sizeof (GnomeCmdPluginClass),
             (GtkClassInitFunc) class_init,
