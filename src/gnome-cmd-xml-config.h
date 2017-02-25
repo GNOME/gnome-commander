@@ -129,6 +129,8 @@ namespace XML
                             s << '"';
                             break;
 
+                        case stateTag:
+                        case stateNone:
                         default:
                             break;
                     }
@@ -151,6 +153,9 @@ namespace XML
                 case Controller::whatComment:
                     s << "\n<!-- " << controller.str << " -->";
                     break; // Controller::whatComment
+
+                default:
+                    break;
             }
 
             return *this;
@@ -202,6 +207,7 @@ namespace XML
                     else
                         s << '>';
 
+                case stateNone:
                 default:
                     break;
             }

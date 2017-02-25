@@ -486,6 +486,7 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
 
         case CON_URI:       return gnome_cmd_con_make_custom_uri (s, uri);
 
+        case CON_LOCAL:
         default:            return s;
     }
 }
