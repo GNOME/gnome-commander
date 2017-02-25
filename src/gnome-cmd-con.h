@@ -373,7 +373,10 @@ inline gchar *gnome_cmd_con_get_free_space (GnomeCmdCon *con, GnomeCmdDir *dir, 
     if (!free_space)
         return _("Unknown disk usage");
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
     gchar *retval = g_strdup_printf (fmt, free_space);
+#pragma GCC diagnostic pop
     g_free (free_space);
 
     return retval;
