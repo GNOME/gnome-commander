@@ -568,12 +568,12 @@ inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, std::string value)
         return;
 
     // remove trailing whitespace from a string
-    std::string::size_type end = value.find_last_not_of(" \t\n\r\0",std::string::npos,5);
+    std::string::size_type string_end = value.find_last_not_of(" \t\n\r\0",std::string::npos,5);
 
-    if (end==std::string::npos)
+    if (string_end==std::string::npos)
         return;
 
-    value.erase(end+1);
+    value.erase(string_end+1);
 
     metadata[tag].insert(value);
 }

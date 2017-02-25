@@ -198,7 +198,7 @@ class GnomeCmdUserActions
     unsigned size()                                                         {  return action.size();                                  }
 
     const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();            }
-    const gchar *name(const std::string &description)                       {  return action_func[action_name[description]].c_str();  }
+    const gchar *name(const std::string &name_description)                   {  return action_func[action_name[name_description]].c_str();  }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();            }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                    }
 
@@ -212,9 +212,9 @@ inline GnomeCmdUserActions::UserAction::UserAction(GnomeCmdUserActionFunc _func,
         user_data = _user_data;
 }
 
-inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *name, const char *user_data)
+inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name, const char *user_data)
 {
-    return register_action(0, keyval, name, user_data);
+    return register_action(0, keyval, action_name, user_data);
 }
 
 

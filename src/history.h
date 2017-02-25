@@ -33,7 +33,7 @@ class History
 
     GList *ents;
 
-    explicit History(gint max): is_locked(FALSE), pos(NULL), ents(NULL) { this->max = max;}
+    explicit History(gint maxHistory): is_locked(FALSE), pos(NULL), ents(NULL) { this->max = maxHistory;}
     ~History();
 
     History &operator = (GList *list);

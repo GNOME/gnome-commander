@@ -70,12 +70,12 @@ struct GnomeCmdNotebook
     GtkWidget *page() const             {  return gtk_notebook_get_nth_page (*this, get_current_page());  }
     GtkWidget *page(gint n) const       {  return gtk_notebook_get_nth_page (*this, n);   }
 
-    gint insert_page(GtkWidget *page, gint n, GtkWidget *label=NULL);
-    gint insert_page(GtkWidget *page, gint n, const gchar *label)           {  return insert_page(page, n, label ? gtk_label_new (label) : NULL);  }
-    gint prepend_page(GtkWidget *page, GtkWidget *label=NULL)               {  return insert_page(page, 0, label);                                 }
-    gint prepend_page(GtkWidget *page, const gchar *label)                  {  return insert_page(page, 0, label);   }
-    gint append_page(GtkWidget *page, GtkWidget *label=NULL)                {  return insert_page(page, -1, label);                                }
-    gint append_page(GtkWidget *page, const gchar *label)                   {  return insert_page(page, -1, label);  }
+    gint insert_page(GtkWidget *page_insert, gint n, GtkWidget *label=NULL);
+    gint insert_page(GtkWidget *page_insert, gint n, const gchar *label)    {  return insert_page(page_insert, n, label ? gtk_label_new (label) : NULL);  }
+    gint prepend_page(GtkWidget *page_prepend, GtkWidget *label=NULL)       {  return insert_page(page_prepend, 0, label);                                 }
+    gint prepend_page(GtkWidget *page_prepend, const gchar *label)          {  return insert_page(page_prepend, 0, label);   }
+    gint append_page(GtkWidget *page_append, GtkWidget *label=NULL)         {  return insert_page(page_append, -1, label);                                }
+    gint append_page(GtkWidget *page_append, const gchar *label)            {  return insert_page(page_append, -1, label);  }
 
     void remove_page(gint n);
     void remove_page()                                                      {  remove_page (get_current_page());                                   }
@@ -96,11 +96,11 @@ struct GnomeCmdNotebook
     int find_tab_num_at_pos(gint screen_x, gint screen_y) const;
 };
 
-inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *label)
+inline gint GnomeCmdNotebook::insert_page(GtkWidget *page_insert, gint n, GtkWidget *label)
 {
     if (tabs_visibility==HIDE_TABS_IF_ONE && size()==1)
         gtk_notebook_set_show_tabs (*this, TRUE);
-    return gtk_notebook_insert_page (*this, page, label, n);
+    return gtk_notebook_insert_page (*this, page_insert, label, n);
 }
 
 inline void GnomeCmdNotebook::remove_page(gint n)

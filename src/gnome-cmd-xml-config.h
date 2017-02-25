@@ -171,12 +171,12 @@ namespace XML
 
         const char *tabs(unsigned offset=0) const
         {
-            static std::string tabs(32,'\t');
+            static std::string mytabs(32,'\t');
 
-            if (tabs.size() <= tags.size())
-                tabs.append(32,'\t');
+            if (mytabs.size() <= tags.size())
+                mytabs.append(32,'\t');
 
-            return tabs.c_str() + tabs.size() - tags.size() + offset;
+            return mytabs.c_str() + mytabs.size() - tags.size() + offset;
         }
 
         // I don't know any way easier (legal) to clear std::stringstream...
