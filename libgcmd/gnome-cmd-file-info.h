@@ -48,10 +48,10 @@ struct GnomeCmdFileInfoClass
     GObjectClass parent_class;
 };
 
-inline void GnomeCmdFileInfo::setup(GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+inline void GnomeCmdFileInfo::setup(GnomeVFSURI *uri_setup, GnomeVFSFileInfo *info_setup)
 {
-    this->info = info;
-    this->uri = uri;
+    this->info = info_setup;
+    this->uri = uri_setup;
 }
 
 #endif //__GNOME_CMD_FILE_INFO_H__
