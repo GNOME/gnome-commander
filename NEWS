@@ -1,4 +1,25 @@
 ===================================
+gnome-commander 1.6.3
+---------------
+
+Bug fixes:
+ * libunique (sometimes called only 'unique') is now optional via configure option
+
+New or updated translations: 
+ * cs (Marek Černocký)
+ * es (Daniel Mustieles)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * ru (Stas Solovey)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+
+New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+
+===================================
 gnome-commander 1.6.2
 ---------------
 

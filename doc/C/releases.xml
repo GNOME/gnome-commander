@@ -23,6 +23,29 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.6.3</para></entry>
+            <entry><para>2017-02-26</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>libunique (sometimes called only 'unique') is now optional via configure option</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: cs, es, pl, pt_BR, ru, sr, sl@latin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
             <entry><para>1.6.2</para></entry>
             <entry><para>2016-11-06</para></entry>
             <entry>
