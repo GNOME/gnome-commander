@@ -214,13 +214,17 @@ AC_SUBST([GNOME_KEYRING_PREFIX])
 AC_SUBST([GNOME_KEYRING_VERSION])
 
 
-dnl Check for libUnique
-PKG_CHECK_MODULES(UNIQUE, [ unique-1.0 >= ${UNIQUE_REQ} ])
-UNIQUE_PREFIX=`pkg-config --variable=prefix unique-1.0`
-UNIQUE_VERSION=`pkg-config --modversion unique-1.0`
-AC_SUBST([UNIQUE_PREFIX])
-AC_SUBST([UNIQUE_VERSION])
-
+AC_ARG_WITH([unique], AS_HELP_STRING([--without-unique], [disable unique support]))
+AS_IF([test "x$with_unique" != "xno"],
+   [
+      PKG_CHECK_MODULES([UNIQUE], [unique-1.0 >= ${UNIQUE_REQ}], have_unique=yes, have_unique=no)
+   ],
+   [test "x$with_unique" = "xno"], [have_unique=no])
+if test "x$have_unique" = "xyes"; then
+   AC_DEFINE(HAVE_UNIQUE, 1, [Define to 1 if you have unique support])
+else
+   AC_MSG_WARN([unique >= ${UNIQUE_REQ} not found, disabling unique support])
+fi
 
 dnl Check for samba support
 AC_ARG_WITH(samba, [  --without-samba         disable SAMBA support])
@@ -499,13 +503,14 @@ echo "=========================================="
 echo ""
 echo "The following settings will be used:"
 echo ""
-echo "  host           : ${host}"
-echo "  prefix         : ${prefix}"
-echo "  module support : ${GMODULE_AVAIL}"
-echo "  compiler       : ${CC}"
-echo "  CFLAGS         : ${CFLAGS}"
-echo "  LDFLAGS        : ${LDFLAGS}"
+echo "  host             : ${host}"
+echo "  prefix           : ${prefix}"
+echo "  module support   : ${GMODULE_AVAIL}"
+echo "  compiler         : ${CC}"
+echo "  CFLAGS           : ${CFLAGS}"
+echo "  LDFLAGS          : ${LDFLAGS}"
 echo ""
+echo "  libUnique support: ${have_unique}"
 echo "  Python plugins support: ${enable_python}"
 echo ""
 echo ""
@@ -531,7 +536,6 @@ echo "  gnome          : ${GNOME_VERSION}	in ${GNOME_PREFIX}"
 echo "  gnomeui        : ${GNOMEUI_VERSION}	in ${GNOMEUI_PREFIX}"
 echo "  gnome-vfs      : ${GNOMEVFS_VERSION}	in ${GNOMEVFS_PREFIX}"
 echo "  gnome-keyring  : ${GNOME_KEYRING_VERSION}	in ${GNOME_KEYRING_PREFIX}"
-echo "  libUnique      : ${UNIQUE_VERSION}	in ${UNIQUE_PREFIX}"
 if test "x$have_pdf" = "xyes"; then
 echo "  poppler-glib   : ${POPPLER_VERSION}  	in ${POPPLER_PREFIX}"
 fi

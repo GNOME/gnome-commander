@@ -26,7 +26,9 @@ extern "C"
 
 #include <config.h>
 #include <locale.h>
+#ifdef HAVE_UNIQUE
 #include <unique/unique.h>
+#endif
 #include <libgnomeui/gnome-ui-init.h>
 
 #include "gnome-cmd-includes.h"
@@ -73,6 +75,7 @@ static const GOptionEntry options [] =
 };
 
 
+#ifdef HAVE_UNIQUE
 static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, UniqueMessageData *msg, guint t, gpointer  user_data)
 {
     switch (cmd)
@@ -89,13 +92,16 @@ static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, Un
 
     return UNIQUE_RESPONSE_OK;
 }
+#endif
 
 
 int main (int argc, char *argv[])
 {
     GnomeProgram *program;
     GOptionContext *option_context;
+#ifdef HAVE_UNIQUE
     UniqueApp *app;
+#endif
 
     main_win = NULL;
 
@@ -148,12 +154,16 @@ int main (int argc, char *argv[])
     gnome_cmd_data.migrate_all_data_to_gsettings();
     gnome_cmd_data.load();
 
+#ifdef HAVE_UNIQUE
     app = unique_app_new ("org.gnome.GnomeCommander", NULL);
+#endif
 
+#ifdef HAVE_UNIQUE
     if (!gnome_cmd_data.options.allow_multiple_instances && unique_app_is_running (app))
         unique_app_send_message (app, UNIQUE_ACTIVATE, NULL);
     else
     {
+#endif
         if (start_dir_left)
             gnome_cmd_data.tabs[LEFT].push_back(make_pair(string(start_dir_left),make_triple(GnomeCmdFileList::COLUMN_NAME,GTK_SORT_ASCENDING,FALSE)));
 
@@ -170,9 +180,10 @@ int main (int argc, char *argv[])
 
         main_win = new GnomeCmdMainWin;
         main_win_widget = *main_win;
-
+#ifdef HAVE_UNIQUE
         unique_app_watch_window (app, *main_win);
         g_signal_connect (app, "message-received", G_CALLBACK (on_message_received), NULL);
+#endif
 
         gtk_widget_show (*main_win);
         gcmd_owner.load_async();
@@ -195,11 +206,15 @@ int main (int argc, char *argv[])
         IMAGE_free ();
 
         remove_temp_download_dir ();
+#ifdef HAVE_UNIQUE
     }
+#endif
 
     gnome_vfs_shutdown ();
 
+#ifdef HAVE_UNIQUE
     g_object_unref (app);
+#endif
     g_object_unref (program);
     g_free (debug_flags);
 
