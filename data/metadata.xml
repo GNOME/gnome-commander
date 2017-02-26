@@ -22,5 +22,6 @@
   <flag name="pdf">Add metadata support for PDF</flag>
   <flag name="python">Add support for python plugins"</flag>
   <flag name="taglib">Add metadata support for ID3, Vorbis, FLAC and APE</flag>
+  <flag name="unique">Enable single instance support using dev-libs/libunique</flag>
 </use>
 </pkgmetadata>
