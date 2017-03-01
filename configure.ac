@@ -95,7 +95,17 @@ dnl Check for gnome-keyring
 PKG_CHECK_MODULES(GNOME_KEYRING, [gnome-keyring-1 >= ${GNOME_KEYRING_REQ}])
 
 dnl Check for libUnique
-PKG_CHECK_MODULES(UNIQUE, [unique-1.0 >= ${UNIQUE_REQ}])
+AC_ARG_WITH([unique], AS_HELP_STRING([--without-unique], [disable unique support]))
+AS_IF([test "x$with_unique" != "xno"],
+   [
+      PKG_CHECK_MODULES([UNIQUE], [unique-1.0 >= ${UNIQUE_REQ}], have_unique=yes, have_unique=no)
+   ],
+   [test "x$with_unique" = "xno"], [have_unique=no])
+if test "x$have_unique" = "xyes"; then
+   AC_DEFINE(HAVE_UNIQUE, 1, [Define to 1 if you have unique support])
+else
+   AC_MSG_WARN([unique >= ${UNIQUE_REQ} not found, disabling unique support])
+fi
 
 dnl Check for samba support
 AC_ARG_WITH(samba, [AS_HELP_STRING([--without-samba], [disable SAMBA support])])
@@ -357,14 +367,15 @@ echo "=========================================="
 echo ""
 echo "The following settings will be used:"
 echo ""
-echo "  host           : ${host}"
-echo "  prefix         : ${prefix}"
-echo "  compiler       : ${CC}"
-echo "  CFLAGS         : ${CFLAGS}"
-echo "  LDFLAGS        : ${LDFLAGS}"
+echo "  host             : ${host}"
+echo "  prefix           : ${prefix}"
+echo "  compiler         : ${CC}"
+echo "  CFLAGS           : ${CFLAGS}"
+echo "  LDFLAGS          : ${LDFLAGS}"
 echo ""
+echo "  libunique support:      ${have_unique}"
 echo "  Python plugins support: ${enable_python}"
-echo "  Samba support  : ${have_samba}"
+echo "  Samba support:          ${have_samba}"
 echo ""
 echo "Optional file metadata support:"
 echo ""

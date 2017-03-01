@@ -181,6 +181,7 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.quick_search_exact_match_end);
 
 
+#ifdef HAVE_UNIQUE
     // Multiple instances
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Multiple instances"));
@@ -189,7 +190,7 @@ inline GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     check = create_check (parent, _("Don't start a new instance"), "multiple_instance_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.allow_multiple_instances);
-
+#endif
 
     // Save on exit
     cat_box = create_vbox (parent, FALSE, 0);
