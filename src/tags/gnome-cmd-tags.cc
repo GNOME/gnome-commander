@@ -657,7 +657,7 @@ const gchar *gcmd_tags_get_name(const GnomeCmdTag tag)
 }
 
 
-const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag)
+GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag)
 {
     return metatags[tag].tag_class;
 }
