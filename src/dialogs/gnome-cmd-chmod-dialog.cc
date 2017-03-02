@@ -41,7 +41,7 @@ enum ChmodRecursiveMode
     CHMOD_MAX
 };
 
-static gchar *recurse_opts[CHMOD_MAX] = {
+static const gchar *recurse_opts[CHMOD_MAX] = {
     N_("All files"),
     N_("Directories only")
 };

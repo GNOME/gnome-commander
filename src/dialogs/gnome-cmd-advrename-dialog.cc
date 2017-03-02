@@ -131,7 +131,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(Gnom
     i->path = g_strdup (_("/_Save Profile As..."));
     i->callback = (GtkItemFactoryCallback) manage_profiles;
     i->callback_action = TRUE;
-    i->item_type = "<StockItem>";
+    i->item_type = (gchar *) "<StockItem>";
     i->extra_data = GTK_STOCK_SAVE_AS;
     ++i;
 
@@ -139,12 +139,12 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(Gnom
     {
         i->path = g_strdup (_("/_Manage Profiles..."));
         i->callback = (GtkItemFactoryCallback) manage_profiles;
-        i->item_type = "<StockItem>";
+        i->item_type = (gchar *) "<StockItem>";
         i->extra_data = GTK_STOCK_EDIT;
         ++i;
 
         i->path = g_strdup ("/");
-        i->item_type = "<Separator>";
+        i->item_type = (gchar *) "<Separator>";
         ++i;
 
         for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg->profiles.begin(); p!=cfg->profiles.end(); ++p, ++i)
@@ -152,7 +152,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(Gnom
             i->path = g_strconcat ("/", p->name.c_str(), NULL);
             i->callback = (GtkItemFactoryCallback) load_profile;
             i->callback_action = (i-items)-3;
-            i->item_type = "<StockItem>";
+            i->item_type = (gchar *) "<StockItem>";
             i->extra_data = GTK_STOCK_REVERT_TO_SAVED;
         }
     }
