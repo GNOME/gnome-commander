@@ -26,10 +26,6 @@
 
 #include "utils.h"
 
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-#include <regex.h>
-#endif
-
 namespace GnomeCmd
 {
     struct FindPattern
@@ -54,11 +50,7 @@ namespace GnomeCmd
     class Regex: virtual public FindPattern
     {
       protected:
-#if GLIB_CHECK_VERSION (2, 14, 0)
         GRegex *re;
-#else
-        regex_t re;
-#endif
         gboolean malformed_pattern;
 
         void compile_pattern();
@@ -78,10 +70,6 @@ namespace GnomeCmd
 
     class RegexFind: public Regex
     {
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-        regmatch_t pmatch;
-#endif
-
       public:
 
         RegexFind();
@@ -116,28 +104,18 @@ namespace GnomeCmd
 
     inline Regex::Regex(): malformed_pattern(TRUE)
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         re = NULL;
-#endif
     }
 
     inline Regex::~Regex()
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         g_regex_unref (re);
-#else
-        if (!malformed_pattern)  regfree(&re);
-#endif
     }
 
     inline void Regex::assign(const gchar *from, gboolean case_sensitive)
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         if (re)
             g_regex_unref (re);
-#else
-        if (!malformed_pattern)  regfree(&re);
-#endif
         match_case = case_sensitive;
 
         if (from && *from)
@@ -150,12 +128,8 @@ namespace GnomeCmd
 
     inline void Regex::assign(const std::string &from, gboolean case_sensitive)
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         if (re)
             g_regex_unref (re);
-#else
-        if (!malformed_pattern)  regfree(&re);
-#endif
         match_case = case_sensitive;
         pattern = from;
 
@@ -164,54 +138,32 @@ namespace GnomeCmd
 
     inline void Regex::compile_pattern()
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         GError *error = NULL;
         re = g_regex_new (pattern.c_str(), GRegexCompileFlags(match_case ? G_REGEX_OPTIMIZE : G_REGEX_OPTIMIZE | G_REGEX_CASELESS), G_REGEX_MATCH_NOTEMPTY, &error);
         malformed_pattern = pattern.empty() || error;
         if (error)  g_error_free (error);
-#else
-        malformed_pattern = pattern.empty() || regcomp(&re, pattern.c_str(), (match_case ? REG_EXTENDED : REG_EXTENDED|REG_ICASE))!=0;
-#endif
     }
 
     inline RegexFind::RegexFind()
     {
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-        memset(&pmatch, 0, sizeof(pmatch));
-#endif
     }
 
     inline RegexFind::RegexFind(const gchar *from, gboolean case_sensitive): Regex(from,case_sensitive)
     {
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-        memset(&pmatch, 0, sizeof(pmatch));
-#endif
-
     }
 
     inline RegexFind::RegexFind(const std::string &from, gboolean case_sensitive): Regex(from,case_sensitive)
     {
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-        memset(&pmatch, 0, sizeof(pmatch));
-#endif
     }
 
     inline int RegexFind::start() const
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         return 0;
-#else
-        return pmatch.rm_so;
-#endif
     }
 
     inline int RegexFind::end() const
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         return 0;
-#else
-        return pmatch.rm_eo;
-#endif
     }
 
     inline void RegexReplace::assign(const gchar *from, const gchar *to, gboolean case_sensitive)
@@ -226,34 +178,7 @@ namespace GnomeCmd
 
     inline gchar *RegexReplace::replace(const gchar *s)
     {
-#if GLIB_CHECK_VERSION (2, 14, 0)
         return g_regex_replace (re, s, -1, 0, replacement.c_str(), G_REGEX_MATCH_NOTEMPTY, NULL);
-#else
-        regmatch_t pmatch;
-
-        memset(&pmatch, 0, sizeof(pmatch));
-
-        std::vector<std::pair<int,int> > match;
-
-        for (const gchar *i=s; *i && regexec(&re,i,1,&pmatch,0)==0; i+=pmatch.rm_eo)
-            if (pmatch.rm_so!=pmatch.rm_eo)
-                match.push_back(std::make_pair(pmatch.rm_so,pmatch.rm_eo));
-
-        gchar *dest = (gchar *) g_malloc (strlen(s) + match.size()*replacement.size() + 1),    // allocate new string big enough to hold all data
-              *retval = dest;
-
-        for (std::vector<std::pair<int,int> >::const_iterator i=match.begin(); i!=match.end(); ++i)
-        {
-            dest += i->first;
-            src += i->second;
-            memcpy(dest, replacement.c_str(), replacement.size());
-            dest += replacement.size();
-        }
-
-        strcpy(dest, src);
-
-        return retval;
-#endif
     }
 }
 
