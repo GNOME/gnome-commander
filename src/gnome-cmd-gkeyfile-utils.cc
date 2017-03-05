@@ -44,7 +44,7 @@
  *  (non-ignored) error occurred.
  */
 GKeyFile *gcmd_key_file_load_from_file (const gchar *filename,
-					gboolean ignore_error)
+                    gboolean ignore_error)
 {
     GKeyFile *key_file;
     GKeyFileFlags flags;
@@ -55,18 +55,18 @@ GKeyFile *gcmd_key_file_load_from_file (const gchar *filename,
     g_return_val_if_fail(filename != NULL, NULL);
     
     if (!g_file_test(filename, G_FILE_TEST_EXISTS))
-	return NULL;
+    return NULL;
     
     key_file = g_key_file_new();
     if (!key_file)
-	return NULL;
+    return NULL;
     
     if (g_key_file_load_from_file(key_file, filename, flags, &error))
-	return key_file;
+    return key_file;
     
     /* An error occurred */
     if (!ignore_error)
-	g_warning("Unable to read file %s: %s\n", filename, error->message);
+    g_warning("Unable to read file %s: %s\n", filename, error->message);
     return key_file;
 }
 
@@ -84,7 +84,7 @@ GKeyFile *gcmd_key_file_load_from_file (const gchar *filename,
  *  FALSE if there was an error.
  */
 gboolean gcmd_key_file_save_to_file (const gchar *filename,
-				     GKeyFile *key_file)
+                     GKeyFile *key_file)
 {
     gchar *contents;
     FILE *fd;
@@ -101,29 +101,29 @@ gboolean gcmd_key_file_save_to_file (const gchar *filename,
     fd = fopen(filename, "w");
     if (fd == NULL)
     {
-	g_critical("Cannot open file %s!\n", filename);
-	g_free(contents);
-	return FALSE;
+    g_critical("Cannot open file %s!\n", filename);
+    g_free(contents);
+    return FALSE;
     }
     
     written = fprintf(fd, "%s", contents);
     if (written < 0)
     {
-	success = FALSE;
-	g_critical("Cannot write to file %s!\n", filename);
-	fclose(fd);
+    success = FALSE;
+    g_critical("Cannot write to file %s!\n", filename);
+    fclose(fd);
     }
     else if (written != length)
     {
-	success = FALSE;
-	g_critical("File %s truncated (provided %d, written %d)",
-		   filename, length, (int)written);
-	/* Ignore any error */
-	fclose(fd);
+    success = FALSE;
+    g_critical("File %s truncated (provided %d, written %d)",
+           filename, length, (int)written);
+    /* Ignore any error */
+    fclose(fd);
     }
     else if (fclose(fd) == -1)
     {
-	g_warning("Close failed for file %s!", filename);
+    g_warning("Close failed for file %s!", filename);
     }
     g_free(contents);
     return success;
