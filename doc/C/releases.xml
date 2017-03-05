@@ -23,6 +23,26 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.6.4</para></entry>
+            <entry><para>2017-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem bgo#779574 (Other favourite apps settings not saved)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
             <entry><para>1.6.3</para></entry>
             <entry><para>2017-02-26</para></entry>
             <entry>

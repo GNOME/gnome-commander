@@ -1,4 +1,14 @@
 ===================================
+gnome-commander 1.6.4
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#779574 (Other favourite apps settings not saved)
+
+New or updated docs:
+ * es (Daniel Mustieles)
+
+===================================
 gnome-commander 1.6.3
 ---------------
 
