@@ -502,7 +502,7 @@
       <summary>Backup file pattern</summary>
       <description>
           The given string defines suffixes (separated by semicolon) for files which
-          should by filtered out if backup files should by hidden.
+          should be filtered out if backup files should be hidden.
       </description>
     </key>
   </schema>
