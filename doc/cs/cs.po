@@ -39,6 +39,9 @@ msgid ""
 "<year>2008</year> <year>2007</year> <year>2006</year> <holder>Piotr "
 "Eljasiak</holder>"
 msgstr ""
+"<year>2012</year> <year>2011</year> <year>2010</year> <year>2009</year> "
+"<year>2008</year> <year>2007</year> <year>2006</year> <holder>Piotr "
+"Eljasiak</holder>"
 
 #. (itstool) path: articleinfo/copyright
 #: C/index.docbook:41
@@ -46,6 +49,8 @@ msgid ""
 "<year>2017</year> <year>2016</year> <year>2015</year> <year>2014</year> "
 "<year>2013</year> <holder>Uwe Scholz</holder>"
 msgstr ""
+"<year>2017</year> <year>2016</year> <year>2015</year> <year>2014</year> "
+"<year>2013</year> <holder>Uwe Scholz</holder>"
 
 #. (itstool) path: publisher/publishername
 #. (itstool) path: revdescription/para
@@ -74,17 +79,17 @@ msgstr ""
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:71
 msgid "<firstname>Piotr</firstname> <surname>Eljasiak</surname>"
-msgstr ""
+msgstr "<firstname>Piotr</firstname> <surname>Eljasiak</surname>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:75
 msgid "<firstname>Laurent</firstname> <surname>Coudeur</surname>"
-msgstr ""
+msgstr "<firstname>Laurent</firstname> <surname>Coudeur</surname>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:79
 msgid "<firstname>Uwe</firstname> <surname>Scholz</surname>"
-msgstr ""
+msgstr "<firstname>Uwe</firstname> <surname>Scholz</surname>"
 
 #. (itstool) path: revdescription/para
 #: C/index.docbook:120 C/index.docbook:129 C/index.docbook:138
@@ -104,6 +109,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.3;</revnumber> <date>2006-12-11</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.3 k aplikaci GNOME Commander;</revnumber> <date>"
+"11.12.2006</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:125
@@ -111,6 +118,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.4;</revnumber> <date>2007-06-09</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.4 k aplikaci GNOME Commander;</revnumber> <date>"
+"9.6.2007</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:134
@@ -118,6 +127,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.5;</revnumber> <date>2008-02-29</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.5 k aplikaci GNOME Commander;</revnumber> <date>"
+"29.2.2008</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:143
@@ -125,6 +136,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.6;</revnumber> <date>2008-06-01</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.6 k aplikaci GNOME Commander;</revnumber> <date>"
+"1.6.2008</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:152
@@ -132,6 +145,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.7;</revnumber> <date>2008-07-28</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.7 k aplikaci GNOME Commander;</revnumber> <date>"
+"28.7.2008</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:161
@@ -139,6 +154,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8;</revnumber> <date>2009-06-29</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8 k aplikaci GNOME Commander;</revnumber> <date>"
+"29.6.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:170
@@ -146,6 +163,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.1;</revnumber> <date>2009-08-10</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.1 k aplikaci GNOME Commander;</revnumber> <date>"
+"10.8.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:179
@@ -153,6 +172,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.2;</revnumber> <date>2009-09-22</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.2 k aplikaci GNOME Commander;</revnumber> <date>"
+"22.9.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:188
@@ -160,6 +181,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.3;</revnumber> <date>2009-10-28</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.3 k aplikaci GNOME Commander;</revnumber> <date>"
+"28.10.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:197
@@ -167,6 +190,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.4;</revnumber> <date>2009-12-03</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.4 k aplikaci GNOME Commander;</revnumber> <date>"
+"3.12.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:206
@@ -174,6 +199,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.5;</revnumber> <date>2010-02-13</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.5 k aplikaci GNOME Commander;</revnumber> <date>"
+"13.2.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:215
@@ -181,6 +208,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.6;</revnumber> <date>2010-06-01</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.6 k aplikaci GNOME Commander;</revnumber> <date>"
+"1.6.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:225
@@ -188,6 +217,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.7;</revnumber> <date>2010-07-27</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.7 k aplikaci GNOME Commander;</revnumber> <date>"
+"27.7.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:235
@@ -195,6 +226,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.8;</revnumber> <date>2010-09-09</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.8 k aplikaci GNOME Commander;</revnumber> <date>"
+"9.9.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:245
@@ -202,6 +235,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.9;</revnumber> <date>2010-12-03</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.9 k aplikaci GNOME Commander;</revnumber> <date>"
+"13.2.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:255
@@ -209,6 +244,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.10;</revnumber> <date>2011-01-15</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.10 k aplikaci GNOME Commander;</revnumber> <date>"
+"15.1.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:265
@@ -216,6 +253,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.11;</revnumber> <date>2011-05-01</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.11 k aplikaci GNOME Commander;</revnumber> <date>"
+"1.5.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:275
@@ -223,6 +262,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.12;</revnumber> <date>2011-06-15</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.12 k aplikaci GNOME Commander;</revnumber> <date>"
+"15.6.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:285
@@ -230,6 +271,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.13;</revnumber> <date>2011-08-06</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.13 k aplikaci GNOME Commander;</revnumber> <date>"
+"6.8.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:295
@@ -237,6 +280,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.14;</revnumber> <date>2011-10-04</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.14 k aplikaci GNOME Commander;</revnumber> <date>"
+"4.10.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:305
@@ -244,6 +289,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.15;</revnumber> <date>2011-12-06</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.2.8.15 k aplikaci GNOME Commander;</revnumber> <date>"
+"6.12.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revdescription/para
 #: C/index.docbook:319
@@ -264,6 +311,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4;</revnumber> <date>2014-03-17</date> "
 "<_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4 k aplikaci GNOME Commander;</revnumber> <date>"
+"17.3.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:330
@@ -271,6 +320,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.1;</revnumber> <date>2014-04-05</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.1 k aplikaci GNOME Commander;</revnumber> <date>"
+"5.4.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:339
@@ -278,6 +329,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.2;</revnumber> <date>2014-05-23</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.2 k aplikaci GNOME Commander;</revnumber> <date>"
+"23.5.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:348
@@ -285,6 +338,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.3;</revnumber> <date>2014-06-22</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.3 k aplikaci GNOME Commander;</revnumber> <date>"
+"22.6.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:357
@@ -292,6 +347,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.4;</revnumber> <date>2014-11-11</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.4 k aplikaci GNOME Commander;</revnumber> <date>"
+"11.11.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:366
@@ -299,6 +356,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.5;</revnumber> <date>2015-01-24</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.5 k aplikaci GNOME Commander;</revnumber> <date>"
+"24.1.2015</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:375
@@ -306,6 +365,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.6;</revnumber> <date>2015-05-19</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.6 k aplikaci GNOME Commander;</revnumber> <date>"
+"19.5.2015</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:384
@@ -313,6 +374,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.7;</revnumber> <date>2014-05-30</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.7 k aplikaci GNOME Commander;</revnumber> <date>"
+"30.5.2015</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:393
@@ -320,6 +383,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.8;</revnumber> <date>2016-03-14</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.4.8 k aplikaci GNOME Commander;</revnumber> <date>"
+"14.3.2016</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:402
@@ -327,6 +392,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.6.0;</revnumber> <date>2016-10-04</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.6.0 k aplikaci GNOME Commander;</revnumber> <date>"
+"14.10.2016</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:411
@@ -334,6 +401,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.8.0;</revnumber> <date>2017-??-??</"
 "date> <_:revdescription-1/>"
 msgstr ""
+"<revnumber>Příručka V1.8.0 k aplikaci GNOME Commander;</revnumber> <date>"
+"?.?.2017</date> <_:revdescription-1/>"
 
 #. (itstool) path: articleinfo/releaseinfo
 #: C/index.docbook:421
@@ -373,7 +442,7 @@ msgstr "<primary>gnome-commander</primary>"
 #. (itstool) path: article/indexterm
 #: C/index.docbook:438
 msgid "<primary>file manager</primary>"
-msgstr ""
+msgstr "<primary>správce souborů</primary>"
 
 #. (itstool) path: sect1/title
 #. (itstool) path: sect2/title
@@ -832,10 +901,8 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:704
-#, fuzzy
-#| msgid "[gtk,gnome,bonobo options]"
 msgid "<guilabel>[gtk,gnome,bonobo options]</guilabel>"
-msgstr "[přepínače gtk, gnome, bonobo]"
+msgstr "<guilabel>[přepínače gtk, gnome, bonobo]</guilabel>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:707
@@ -2284,15 +2351,6 @@ msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1424
-#, fuzzy
-#| msgid ""
-#| "The name and the path of a bookmark are editable by pressing the "
-#| "<guimenu>Edit</guimenu> button. In contrast, the shortcut of a bookmark "
-#| "in the third column is taken from the associated user action <guimenu>Go "
-#| "to bookmarked location</guimenu>, adjustable by clicking on the menu "
-#| "entry <menuchoice><guimenu>Settings</guimenu><guimenuitem>Keyboard "
-#| "Shortcuts...</guimenuitem></menuchoice>. In the bookmarks window it is "
-#| "only shown as a reference but it is not editable."
 msgid ""
 "The name and the path of a bookmark are editable by pressing the "
 "<guimenu>Edit</guimenu> button. In contrast, the shortcut of a bookmark in "
@@ -2306,7 +2364,7 @@ msgstr ""
 "<guimenu>Upravit</guimenu>. Oproti tomu, klávesová zkratka záložky ve třetím "
 "sloupci se bere z přidružené uživatelské akce <guimenu>Přejít na uložené "
 "umístění</guimenu> a změnit se dá kliknutím na položku nabídky "
-"<menuchoice><guimenu>Nastavení</guimenu><guimenuitem>Klávesové zkratky…</"
+"<menuchoice><guimenu>Nastavení</guimenu> <guimenuitem>Klávesové zkratky…</"
 "guimenuitem></menuchoice>. V okně záložek se zobrazuje jen pro informaci a "
 "přímo tam ji nelze změnit."
 
@@ -11488,13 +11546,8 @@ msgstr "Tabulka voleb formátu"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4689
-#, fuzzy
-#| msgid ""
-#| "<guilabel>Size display mode</guilabel> select the size information format."
 msgid "<guilabel>Size display mode</guilabel>"
-msgstr ""
-"<guilabel>Režim zobrazení velikosti</guilabel> vybírá formát informací o "
-"velikosti."
+msgstr "<guilabel>Režim zobrazení velikosti</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4694
@@ -11551,14 +11604,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4729
-#, fuzzy
-#| msgid ""
-#| "<guilabel>Permission display mode</guilabel> select the permissions "
-#| "display format."
 msgid "<guilabel>Permission display mode</guilabel>"
-msgstr ""
-"<guilabel>Režim zobrazení přístupových práv</guilabel> vybírá formát "
-"zobrazení práv."
+msgstr "<guilabel>Režim zobrazení přístupových práv</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4734
@@ -11586,10 +11633,8 @@ msgstr "Zobrazuje oprávnění ve formátu osmičkového čísla."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4752
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Date format</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Formát data</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4760
@@ -11688,10 +11733,8 @@ msgstr "Karta voleb vzhledu"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4831
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>File panes</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Panely souborů</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4836
@@ -11758,16 +11801,12 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4867
-#, fuzzy
-#| msgid ""
-#| "You can select here how file extensions are displayed in this drop down "
-#| "list. There are three options available: <placeholder-1/>"
 msgid ""
 "You can select here how file extensions are displayed in this drop down "
 "list. There are three options available: <_:itemizedlist-1/>"
 msgstr ""
 "Zde můžete v rozbalovacím seznamu vybrat, jak se zobrazují přípony souborů. "
-"Jsou k dispozici tři možnosti: <placeholder-1/>"
+"Jsou k dispozici tři možnosti: <_:itemizedlist-1/>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4889
@@ -11807,16 +11846,12 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4892
-#, fuzzy
-#| msgid ""
-#| "The graphical mode has three display options in the drop down list: "
-#| "<placeholder-1/>"
 msgid ""
 "The graphical mode has three display options in the drop down list: <_:"
 "itemizedlist-1/>"
 msgstr ""
 "Grafický režim má tři možnosti zobrazení v rozbalovacím seznamu: "
-"<placeholder-1/>"
+"<_:itemizedlist-1/>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4913
@@ -12153,19 +12188,14 @@ msgstr "<guilabel>Nastylovaný text</guilabel>: název karty je barevně"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:5054
-#, fuzzy
-#| msgid ""
-#| "In the tab lock indicator section, you can configure the way how a locked "
-#| "tab will by indicated. There are three different possibilities: "
-#| "<placeholder-1/>"
 msgid ""
 "In the tab lock indicator section, you can configure the way how a locked "
 "tab will by indicated. There are three different possibilities: <_:"
 "itemizedlist-1/>"
 msgstr ""
 "V části týkající se indikátoru zámčených karet můžete nastavit, jakým "
-"způsobem je signalizováno zamknutí karty. Jsou tři různé možnosti: "
-"<placeholder-1/>"
+"způsobem je signalizováno zamknutí karty. Jsou tři různé možnosti: <_:"
+"itemizedlist-1/>"
 
 #. (itstool) path: figure/title
 #: C/index.docbook:5065
@@ -12323,10 +12353,8 @@ msgstr "Vybírá výchozí akci v dialogovém okně."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5172
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Copy overwrite</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Přepisovat při kopírování</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5177 C/index.docbook:5219
@@ -12378,10 +12406,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5214
-#, fuzzy
-#| msgid "<guilabel>Move here</guilabel>: The item is moved"
 msgid "<guilabel>Move overwrite</guilabel>"
-msgstr "<guilabel>Přesunout sem</guilabel>: položka bude přesunuta"
+msgstr "<guilabel>Přepisovat při přesunu</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5222
@@ -12419,10 +12445,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5258
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Drag and Drop</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Táhni a upusť</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5263
@@ -20698,42 +20722,6 @@ msgstr "První veřejná verze aplikace GNOME Commander."
 
 #~ msgid "file manager"
 #~ msgstr "správce souborů"
-
-#~ msgid "--help"
-#~ msgstr "--help"
-
-#~ msgid "--version"
-#~ msgstr "--version"
-
-#~ msgid "-d, --debug=STRING"
-#~ msgstr "-d, --debug=ŘETĚZEC"
-
-#~ msgid "Examples"
-#~ msgstr "Příklady"
-
-#~ msgid "-d nvl"
-#~ msgstr "-d nvl"
-
-#~ msgid "gnome-commander <placeholder-1/>"
-#~ msgstr "gnome-commander <placeholder-1/>"
-
-#~ msgid "SPACE"
-#~ msgstr "MEZERNÍK"
-
-#~ msgid "INSERT"
-#~ msgstr "INSERT"
-
-#~ msgid "+"
-#~ msgstr "+"
-
-#~ msgid "NUM +"
-#~ msgstr "NUM +"
-
-#~ msgid "NUM -"
-#~ msgstr "NUM -"
-
-#~ msgid "NUM *"
-#~ msgstr "NUM *"
 
 #~ msgid "Shows file search window."
 #~ msgstr "Ukazuje okno hledání souboru."
