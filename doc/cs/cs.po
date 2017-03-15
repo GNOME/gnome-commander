@@ -1,13 +1,13 @@
 # Czech translation for gnome-commander.
 # Copyright (C) 2011 gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
-# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015, 2016.
+# Marek Černocký <marek@manet.cz>, 2011, 2012, 2014, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "POT-Creation-Date: 2017-03-11 11:45+0000\n"
-"PO-Revision-Date: 2016-11-08 08:02+0200\n"
+"PO-Revision-Date: 2017-03-15 08:47+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -75,6 +75,8 @@ msgid ""
 "<firstname>GNOME Documentation Project</firstname> <surname/> <affiliation> "
 "<orgname>GNOME</orgname> </affiliation>"
 msgstr ""
+"<firstname>GNOME Documentation Project</firstname> <surname/> "
+"<affiliation><orgname>GNOME</orgname></affiliation>"
 
 #. (itstool) path: authorgroup/author
 #: C/index.docbook:71
@@ -109,8 +111,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.3;</revnumber> <date>2006-12-11</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.3 k aplikaci GNOME Commander;</revnumber> <date>"
-"11.12.2006</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.3 k aplikaci GNOME Commander;</revnumber> "
+"<date>11.12.2006</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:125
@@ -118,8 +120,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.4;</revnumber> <date>2007-06-09</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.4 k aplikaci GNOME Commander;</revnumber> <date>"
-"9.6.2007</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.4 k aplikaci GNOME Commander;</revnumber> "
+"<date>9.6.2007</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:134
@@ -127,8 +129,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.5;</revnumber> <date>2008-02-29</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.5 k aplikaci GNOME Commander;</revnumber> <date>"
-"29.2.2008</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.5 k aplikaci GNOME Commander;</revnumber> "
+"<date>29.2.2008</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:143
@@ -136,8 +138,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.6;</revnumber> <date>2008-06-01</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.6 k aplikaci GNOME Commander;</revnumber> <date>"
-"1.6.2008</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.6 k aplikaci GNOME Commander;</revnumber> "
+"<date>1.6.2008</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:152
@@ -145,8 +147,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.7;</revnumber> <date>2008-07-28</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.7 k aplikaci GNOME Commander;</revnumber> <date>"
-"28.7.2008</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.7 k aplikaci GNOME Commander;</revnumber> "
+"<date>28.7.2008</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:161
@@ -154,8 +156,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8;</revnumber> <date>2009-06-29</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8 k aplikaci GNOME Commander;</revnumber> <date>"
-"29.6.2009</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8 k aplikaci GNOME Commander;</revnumber> "
+"<date>29.6.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:170
@@ -163,8 +165,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.1;</revnumber> <date>2009-08-10</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.1 k aplikaci GNOME Commander;</revnumber> <date>"
-"10.8.2009</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.1 k aplikaci GNOME Commander;</revnumber> "
+"<date>10.8.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:179
@@ -172,8 +174,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.2;</revnumber> <date>2009-09-22</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.2 k aplikaci GNOME Commander;</revnumber> <date>"
-"22.9.2009</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.2 k aplikaci GNOME Commander;</revnumber> "
+"<date>22.9.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:188
@@ -181,8 +183,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.3;</revnumber> <date>2009-10-28</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.3 k aplikaci GNOME Commander;</revnumber> <date>"
-"28.10.2009</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.3 k aplikaci GNOME Commander;</revnumber> "
+"<date>28.10.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:197
@@ -190,8 +192,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.4;</revnumber> <date>2009-12-03</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.4 k aplikaci GNOME Commander;</revnumber> <date>"
-"3.12.2009</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.4 k aplikaci GNOME Commander;</revnumber> "
+"<date>3.12.2009</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:206
@@ -199,8 +201,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.5;</revnumber> <date>2010-02-13</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.5 k aplikaci GNOME Commander;</revnumber> <date>"
-"13.2.2010</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.5 k aplikaci GNOME Commander;</revnumber> "
+"<date>13.2.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:215
@@ -208,8 +210,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.6;</revnumber> <date>2010-06-01</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.6 k aplikaci GNOME Commander;</revnumber> <date>"
-"1.6.2010</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.6 k aplikaci GNOME Commander;</revnumber> "
+"<date>1.6.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:225
@@ -217,8 +219,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.7;</revnumber> <date>2010-07-27</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.7 k aplikaci GNOME Commander;</revnumber> <date>"
-"27.7.2010</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.7 k aplikaci GNOME Commander;</revnumber> "
+"<date>27.7.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:235
@@ -226,8 +228,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.8;</revnumber> <date>2010-09-09</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.8 k aplikaci GNOME Commander;</revnumber> <date>"
-"9.9.2010</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.8 k aplikaci GNOME Commander;</revnumber> "
+"<date>9.9.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:245
@@ -235,8 +237,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.9;</revnumber> <date>2010-12-03</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.9 k aplikaci GNOME Commander;</revnumber> <date>"
-"13.2.2010</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.9 k aplikaci GNOME Commander;</revnumber> "
+"<date>13.2.2010</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:255
@@ -244,8 +246,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.10;</revnumber> <date>2011-01-15</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.10 k aplikaci GNOME Commander;</revnumber> <date>"
-"15.1.2011</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.10 k aplikaci GNOME Commander;</revnumber> "
+"<date>15.1.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:265
@@ -253,8 +255,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.11;</revnumber> <date>2011-05-01</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.11 k aplikaci GNOME Commander;</revnumber> <date>"
-"1.5.2011</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.11 k aplikaci GNOME Commander;</revnumber> "
+"<date>1.5.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:275
@@ -262,8 +264,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.12;</revnumber> <date>2011-06-15</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.12 k aplikaci GNOME Commander;</revnumber> <date>"
-"15.6.2011</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.12 k aplikaci GNOME Commander;</revnumber> "
+"<date>15.6.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:285
@@ -271,8 +273,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.13;</revnumber> <date>2011-08-06</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.13 k aplikaci GNOME Commander;</revnumber> <date>"
-"6.8.2011</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.13 k aplikaci GNOME Commander;</revnumber> "
+"<date>6.8.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:295
@@ -280,8 +282,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.14;</revnumber> <date>2011-10-04</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.14 k aplikaci GNOME Commander;</revnumber> <date>"
-"4.10.2011</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.14 k aplikaci GNOME Commander;</revnumber> "
+"<date>4.10.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:305
@@ -289,8 +291,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.2.8.15;</revnumber> <date>2011-12-06</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.2.8.15 k aplikaci GNOME Commander;</revnumber> <date>"
-"6.12.2011</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.2.8.15 k aplikaci GNOME Commander;</revnumber> "
+"<date>6.12.2011</date> <_:revdescription-1/>"
 
 #. (itstool) path: revdescription/para
 #: C/index.docbook:319
@@ -311,8 +313,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4;</revnumber> <date>2014-03-17</date> "
 "<_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4 k aplikaci GNOME Commander;</revnumber> <date>"
-"17.3.2014</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4 k aplikaci GNOME Commander;</revnumber> "
+"<date>17.3.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:330
@@ -320,8 +322,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.1;</revnumber> <date>2014-04-05</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.1 k aplikaci GNOME Commander;</revnumber> <date>"
-"5.4.2014</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.1 k aplikaci GNOME Commander;</revnumber> "
+"<date>5.4.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:339
@@ -329,8 +331,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.2;</revnumber> <date>2014-05-23</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.2 k aplikaci GNOME Commander;</revnumber> <date>"
-"23.5.2014</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.2 k aplikaci GNOME Commander;</revnumber> "
+"<date>23.5.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:348
@@ -338,8 +340,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.3;</revnumber> <date>2014-06-22</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.3 k aplikaci GNOME Commander;</revnumber> <date>"
-"22.6.2014</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.3 k aplikaci GNOME Commander;</revnumber> "
+"<date>22.6.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:357
@@ -347,8 +349,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.4;</revnumber> <date>2014-11-11</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.4 k aplikaci GNOME Commander;</revnumber> <date>"
-"11.11.2014</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.4 k aplikaci GNOME Commander;</revnumber> "
+"<date>11.11.2014</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:366
@@ -356,8 +358,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.5;</revnumber> <date>2015-01-24</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.5 k aplikaci GNOME Commander;</revnumber> <date>"
-"24.1.2015</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.5 k aplikaci GNOME Commander;</revnumber> "
+"<date>24.1.2015</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:375
@@ -365,8 +367,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.6;</revnumber> <date>2015-05-19</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.6 k aplikaci GNOME Commander;</revnumber> <date>"
-"19.5.2015</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.6 k aplikaci GNOME Commander;</revnumber> "
+"<date>19.5.2015</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:384
@@ -374,8 +376,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.7;</revnumber> <date>2014-05-30</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.7 k aplikaci GNOME Commander;</revnumber> <date>"
-"30.5.2015</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.7 k aplikaci GNOME Commander;</revnumber> "
+"<date>30.5.2015</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:393
@@ -383,8 +385,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.4.8;</revnumber> <date>2016-03-14</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.4.8 k aplikaci GNOME Commander;</revnumber> <date>"
-"14.3.2016</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.4.8 k aplikaci GNOME Commander;</revnumber> "
+"<date>14.3.2016</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:402
@@ -392,8 +394,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.6.0;</revnumber> <date>2016-10-04</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.6.0 k aplikaci GNOME Commander;</revnumber> <date>"
-"14.10.2016</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.6.0 k aplikaci GNOME Commander;</revnumber> "
+"<date>14.10.2016</date> <_:revdescription-1/>"
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:411
@@ -401,8 +403,8 @@ msgid ""
 "<revnumber>GNOME Commander Manual V1.8.0;</revnumber> <date>2017-??-??</"
 "date> <_:revdescription-1/>"
 msgstr ""
-"<revnumber>Příručka V1.8.0 k aplikaci GNOME Commander;</revnumber> <date>"
-"?.?.2017</date> <_:revdescription-1/>"
+"<revnumber>Příručka V1.8.0 k aplikaci GNOME Commander;</revnumber> "
+"<date>?.?.2017</date> <_:revdescription-1/>"
 
 #. (itstool) path: articleinfo/releaseinfo
 #: C/index.docbook:421
@@ -1053,13 +1055,13 @@ msgstr ""
 #. (itstool) path: row/entry
 #: C/index.docbook:799 C/index.docbook:6576
 msgid "<keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo>"
-msgstr "<keycombo><keycap>Ctrl</keycap> <keycap>A</keycap></keycombo>"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #. (itstool) path: row/entry
 #: C/index.docbook:800 C/index.docbook:4280
 msgid "<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>"
-msgstr "<keycombo><keycap>Ctrl</keycap> <keycap>+</keycap></keycombo>"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:805
@@ -1082,14 +1084,14 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo>"
 msgstr ""
-"<keycombo><keycap>Ctrl</keycap> <keycap>Shift</keycap> <keycap>A</keycap></"
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>A</keycap></"
 "keycombo>"
 
 #. (itstool) path: entry/para
 #. (itstool) path: row/entry
 #: C/index.docbook:812 C/index.docbook:4284 C/index.docbook:6411
 msgid "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo>"
-msgstr "<keycombo><keycap>Ctrl</keycap> <keycap>-</keycap></keycombo>"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:817 C/index.docbook:6417
@@ -1101,7 +1103,8 @@ msgstr "Vybrat všechny položky se stejnou příponou"
 #: C/index.docbook:821 C/index.docbook:6416
 msgid "<keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo>"
 msgstr ""
-"<keycombo><keycap>Alt</keycap> <keycap>+ (na numeriské klávesnici)</keycap></keycombo>"
+"<keycombo><keycap>Alt</keycap><keycap>+ (na numeriské klávesnici)</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:826 C/index.docbook:6422
@@ -1113,7 +1116,8 @@ msgstr "Zrušit výběr všech položek se stejnou příponou"
 #: C/index.docbook:830 C/index.docbook:6421
 msgid "<keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo>"
 msgstr ""
-"<keycombo><keycap>Alt</keycap> <keycap>- (na numeriské klávesnici)</keycap></keycombo>"
+"<keycombo><keycap>Alt</keycap><keycap>- (na numeriské klávesnici)</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:835 C/index.docbook:6382 C/index.docbook:6387
@@ -1135,8 +1139,7 @@ msgstr ""
 #. (itstool) path: row/entry
 #: C/index.docbook:842 C/index.docbook:6386
 msgid "<keycombo><keycap>NUM +</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>+ (na numeriské klávesnici)</keycap></keycombo>"
+msgstr "<keycombo><keycap>+ (na numeriské klávesnici)</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:847 C/index.docbook:6392
@@ -1159,8 +1162,7 @@ msgstr ""
 #. (itstool) path: row/entry
 #: C/index.docbook:855 C/index.docbook:6391
 msgid "<keycombo><keycap>NUM -</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>- (na numeriské klávesnici)</keycap></keycombo>"
+msgstr "<keycombo><keycap>- (na numeriské klávesnici)</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:860 C/index.docbook:6397 C/index.docbook:7040
@@ -1181,8 +1183,7 @@ msgstr ""
 #. (itstool) path: row/entry
 #: C/index.docbook:866 C/index.docbook:6396
 msgid "<keycombo><keycap>NUM *</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>* (na numeriské klávesnici)</keycap></keycombo>"
+msgstr "<keycombo><keycap>* (na numeriské klávesnici)</keycap></keycombo>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:872
@@ -1870,6 +1871,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows file search "
 "window.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_dialog_search.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje okno hledání "
+"souboru.</phrase></textobject>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1139
@@ -1993,6 +1997,10 @@ msgid ""
 "commander_dialog_file_properties.png\" format=\"PNG\"/> </imageobject> "
 "<textobject> <phrase>Shows file properties dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_dialog_file_properties.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Ukazuje dialogové okno s vlastnostmi souboru.</phrase></"
+"textobject>"
 
 #. (itstool) path: tip/para
 #: C/index.docbook:1192
@@ -2267,6 +2275,10 @@ msgid ""
 "commander_dialog_file_permissions.png\" format=\"PNG\"/> </imageobject> "
 "<textobject> <phrase>Shows file permissions dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_dialog_file_permissions.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Ukazuje dialogové okno s oprávněními souboru.</phrase></"
+"textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1403
@@ -2346,8 +2358,7 @@ msgstr "cesta, na kterou záložka ukazuje"
 msgid ""
 "In the bookmark list there are four different columns displayed: <_:"
 "orderedlist-1/>"
-msgstr ""
-"V seznamu záložek se zobrazují čtyři různé sloupce: <_:orderedlist-1/>"
+msgstr "V seznamu záložek se zobrazují čtyři různé sloupce: <_:orderedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:1424
@@ -2394,6 +2405,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows bookmark "
 "management dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_dialog_bookmark.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno "
+"správy záložek.</phrase></textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:1447
@@ -2513,6 +2527,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject><phrase>Shows advanced "
 "file renaming dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_dialog_adv_rename."
+"png\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové "
+"okno nástroje pokročilého přejmenování.</phrase></textobject>"
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1491
@@ -2612,7 +2629,7 @@ msgstr ""
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1551
 msgid "<guibutton>Apply</guibutton>"
-msgstr ""
+msgstr "<guibutton>Použít</guibutton>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1555
@@ -2624,7 +2641,7 @@ msgstr ""
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1559
 msgid "<guibutton>Close</guibutton>"
-msgstr ""
+msgstr "<guibutton>Zavřít</guibutton>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1563
@@ -2634,7 +2651,7 @@ msgstr "Zavře dialogové okno bez přejmenování souboru."
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1567
 msgid "<guibutton>Reset</guibutton>"
-msgstr ""
+msgstr "<guibutton>Obnovit</guibutton>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1571
@@ -2644,7 +2661,7 @@ msgstr "Obnoví aktuální nastavení na výchozí."
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:1575
 msgid "<guibutton>Profiles...</guibutton>"
-msgstr ""
+msgstr "<guibutton>Profily…</guibutton>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:1579
@@ -10439,6 +10456,9 @@ msgid ""
 "commander_dialog_remote_connections.png\" format=\"PNG\"/> </imageobject> "
 "<textobject><phrase>Overview of remote servers.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_dialog_remote_connections.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Přehled vzdálených serverů.</phrase></textobject>"
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:4118
@@ -10565,6 +10585,10 @@ msgid ""
 "<textobject><phrase>Creating a new remote server connection.</phrase> </"
 "textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_dialog_remote_server.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Vytváření nového připojení ke vzdálenému serveru.</"
+"phrase></textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:4161
@@ -10908,7 +10932,7 @@ msgstr "Oddálit nebo zmenšit velikost písma"
 #. (itstool) path: row/entry
 #: C/index.docbook:4288
 msgid "<keycombo><keycap>CTRL</keycap><keycap>0</keycap></keycombo>"
-msgstr "<keycombo><keycap>Ctrl</keycap> <keycap>0</keycap></keycombo>"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>0</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4289
@@ -10923,7 +10947,7 @@ msgstr "Manipulace s obrázkem:"
 #. (itstool) path: row/entry
 #: C/index.docbook:4295 C/index.docbook:6666
 msgid "<keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo>"
-msgstr "<keycombo><keycap>Ctrl</keycap> <keycap>R</keycap></keycombo>"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>R</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4296
@@ -11130,6 +11154,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander general preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_general.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno "
+"obecných předvoleb aplikace GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4392
@@ -11538,6 +11565,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander format preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_format.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno "
+"s předvolbami formátu v aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4669
@@ -11725,6 +11755,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander layout preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_layout.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno "
+"s předvolbami vzhledu v aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4811 C/index.docbook:5127
@@ -11850,8 +11883,8 @@ msgid ""
 "The graphical mode has three display options in the drop down list: <_:"
 "itemizedlist-1/>"
 msgstr ""
-"Grafický režim má tři možnosti zobrazení v rozbalovacím seznamu: "
-"<_:itemizedlist-1/>"
+"Grafický režim má tři možnosti zobrazení v rozbalovacím seznamu: <_:"
+"itemizedlist-1/>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4913
@@ -11913,7 +11946,7 @@ msgstr ""
 #. (itstool) path: row/entry
 #: C/index.docbook:4953
 msgid "<_:para-1/> <guilabel>MIME icon settings</guilabel>"
-msgstr ""
+msgstr "<_:para-1/> <guilabel>Nastavení ikon MIME</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4958
@@ -12062,6 +12095,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander dialog for editing custom colors."
 "</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_options_layout_colors.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Ukazuje dialogové okno pro nastavení vlastních barev v "
+"aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:5029
@@ -12223,6 +12260,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander tabs preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_tabs.png\" "
+"format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno s "
+"předvolbami karet v aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:5081
@@ -12321,13 +12361,15 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander confirmation preferences dialog.</"
 "phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_options_confirmation.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Ukazuje dialogové okno s předvolbami potvrzování v "
+"aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5147
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Delete</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Odstranit</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5152
@@ -12476,19 +12518,14 @@ msgstr "<guilabel>Zrušit</guilabel>: neprovede se nic"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5266
-#, fuzzy
-#| msgid ""
-#| "When this option is selected and if an item is dragged and dropped by "
-#| "using the mouse, a dialog opens in which the user is asked what should "
-#| "happen: <placeholder-1/>"
 msgid ""
 "When this option is selected and if an item is dragged and dropped by using "
 "the mouse, a dialog opens in which the user is asked what should happen: <_:"
 "itemizedlist-1/>"
 msgstr ""
 "Když je vybrána tato volba a položka je přetažena pomocí myši, otevře se "
-"dialogové okno, ve kterém je uživatel dotázán, co se má provést: "
-"<placeholder-1/>"
+"dialogové okno, ve kterém je uživatel dotázán, co se má provést: <_:"
+"itemizedlist-1/>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:5281
@@ -12550,6 +12587,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander filters preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_filters.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno "
+"s předvolbami filtrů v aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5305
@@ -12558,10 +12598,8 @@ msgstr "Karta voleb filtrů"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5325
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Filetypes to hide</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Skrývat tyto typy souborů</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5330
@@ -12650,10 +12688,8 @@ msgstr "Periferní zařízení, která přenáší data po skupinách bajtů, t�
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5405
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Also hide</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Rovněž skrýt</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5410
@@ -12750,6 +12786,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander programs preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_programs."
+"png\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové "
+"okno s předvolbami programů v aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5478
@@ -12758,10 +12797,8 @@ msgstr "Karta voleb programů"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5498
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>MIME application</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Aplikace pro MIME</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5503
@@ -12780,10 +12817,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5511
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Standard programs</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Standardní programy</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5515
@@ -12882,10 +12917,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5568
-#, fuzzy
-#| msgid "Other favorite apps"
 msgid "<guilabel>Other favorite apps</guilabel>"
-msgstr "Jiné oblíbené aplikace"
+msgstr "<guilabel>Jiné oblíbené aplikace</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5571
@@ -12956,10 +12989,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5615
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Global app options</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Globální volby aplikace</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5618
@@ -13123,6 +13154,9 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander new application dialog.</phrase> "
 "</textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_dialog_application."
+"png\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové "
+"okno nové aplikace v GNOME Commanderu.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5744
@@ -13131,10 +13165,8 @@ msgstr "Karta nové aplikace"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5764
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Label:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Popisek:</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5773 C/index.docbook:6102
@@ -13145,10 +13177,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5779
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Command:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Příkaz:</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5788
@@ -13171,10 +13201,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5795
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Icon:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Ikona:</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5800
@@ -13237,10 +13265,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5853
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Show for</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Zobrazovat pro</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5858
@@ -13359,16 +13385,12 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:5933
-#, fuzzy
-#| msgid ""
-#| "Below the <guilabel>Devices</guilabel> window you have two options: "
-#| "<placeholder-1/>"
 msgid ""
 "Below the <guilabel>Devices</guilabel> window you have two options: <_:"
 "itemizedlist-1/>"
 msgstr ""
-"V dolní části okna <guilabel>Zařízení</guilabel> máte dvě volby: "
-"<placeholder-1/>"
+"V dolní části okna <guilabel>Zařízení</guilabel> máte dvě volby: <_:"
+"itemizedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:5939
@@ -13405,6 +13427,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander devices preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-commander_options_devices.png"
+"\" format=\"PNG\"/></imageobject> <textobject><phrase>Ukazuje dialogové okno "
+"s předvolbami zařízení v aplikaci GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5957
@@ -13413,10 +13438,8 @@ msgstr "Karta Zařízení"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5977
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Devices:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Zařízení</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5982
@@ -13525,6 +13548,9 @@ msgid ""
 "imageobject> <textobject> <phrase>Shows GNOME Commander new devices dialog.</"
 "phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/dev_cd.png\" format=\"PNG\"/></"
+"imageobject> <textobject><phrase>Ukazuje okno nového zařízení v aplikaci "
+"GNOME Commander.</phrase></textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:6073
@@ -13533,17 +13559,13 @@ msgstr "Karta s volbami zařízení"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6093
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Alias:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Přezdívka</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6108
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Device:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Zařízení</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6117
@@ -13556,10 +13578,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6123
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Mount point:</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Přípojný bod</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6132
@@ -13571,10 +13591,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6138
-#, fuzzy
-#| msgid "<guilabel>x</guilabel> xfer"
 msgid "<guilabel>Icon</guilabel>"
-msgstr "<guilabel>x</guilabel> přenos"
+msgstr "<guilabel>Ikona</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6147
@@ -13652,11 +13670,8 @@ msgstr "Definovatelné uživatelem"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6186
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F1</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F1</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6187 C/index.docbook:7029
@@ -13665,11 +13680,8 @@ msgstr "Nápověda"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6191
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F2</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6192 C/index.docbook:6307
@@ -13678,11 +13690,8 @@ msgstr "Přejmenovat soubor"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6196
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F3</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6197 C/index.docbook:7203
@@ -13691,11 +13700,8 @@ msgstr "Zobrazit soubory"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6201
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F4</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F4</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6202 C/index.docbook:6962 C/index.docbook:6963
@@ -13704,11 +13710,8 @@ msgstr "Upravit soubor"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6206
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F5</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F5</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6207 C/index.docbook:6918 C/index.docbook:6919
@@ -13717,11 +13720,8 @@ msgstr "Kopírovat soubory"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6211
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F6</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F6</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6212
@@ -13730,11 +13730,8 @@ msgstr "Přejmenovat nebo přesunout soubory"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6216
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F7</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F7</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6217 C/index.docbook:6930 C/index.docbook:6931
@@ -13743,11 +13740,8 @@ msgstr "Vytvořit složku"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6221
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F8</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F8</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6222 C/index.docbook:6537 C/index.docbook:6943
@@ -13757,11 +13751,8 @@ msgstr "Odstranit soubory"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6226
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F9</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F9</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6227 C/index.docbook:6262 C/index.docbook:7156
@@ -13770,11 +13761,8 @@ msgstr "Hledat"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6231
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>F12</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>F12</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6232 C/index.docbook:6950 C/index.docbook:6951
@@ -13801,11 +13789,8 @@ msgstr "ano"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6241
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>1</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6242 C/index.docbook:6362 C/index.docbook:6870
@@ -13815,11 +13800,8 @@ msgstr "Změnit připojení v levém panelu"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6246
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6247 C/index.docbook:6367 C/index.docbook:6882
@@ -13829,11 +13811,8 @@ msgstr "Změnit připojení v pravém panelu"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6256
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6257 C/index.docbook:7206 C/index.docbook:7207
@@ -13842,20 +13821,14 @@ msgstr "Zobrazit v externím prohlížeči"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6261
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>"
 
 #. (itstool) path: row/entry
 #. (itstool) path: entry/para
 #: C/index.docbook:6266 C/index.docbook:6779
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>F8</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6267
@@ -13864,12 +13837,8 @@ msgstr "Otevřít seznam historie pro příkazový řádek"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6276
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>DOWN</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>↓</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6277 C/index.docbook:7169
@@ -13878,14 +13847,8 @@ msgstr "Otevřít seznam historie navštívených složek"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6286
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
-#| "viewer"
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>F2</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
-"prohlížeč"
+msgstr "<keycombo><keycap>Shift</keycap><keycap>F2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6287 C/index.docbook:6902 C/index.docbook:6903
@@ -13894,14 +13857,8 @@ msgstr "Porovnat složky"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6291
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
-#| "viewer"
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
-"prohlížeč"
+msgstr "<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6292 C/index.docbook:7210 C/index.docbook:7211
@@ -13910,14 +13867,8 @@ msgstr "Zobrazit v interním prohlížeči"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6296
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
-#| "viewer"
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>F4</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
-"prohlížeč"
+msgstr "<keycombo><keycap>Shift</keycap><keycap>F4</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6297 C/index.docbook:6958 C/index.docbook:6959
@@ -13926,14 +13877,8 @@ msgstr "Upravit nový soubor"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6301
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
-#| "viewer"
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
-"prohlížeč"
+msgstr "<keycombo><keycap>Shift</keycap><keycap>F5</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6302
@@ -13942,25 +13887,13 @@ msgstr "Vytvořit kopii souboru v aktuální složce"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6306
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
-#| "viewer"
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>F6</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
-"prohlížeč"
+msgstr "<keycombo><keycap>Shift</keycap><keycap>F6</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6311
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> Internal "
-#| "viewer"
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>Shift</keycap><keycap>F3</keycap></keycombo> Interní "
-"prohlížeč"
+msgstr "<keycombo><keycap>Shift</keycap><keycap>F10</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6312
@@ -13969,12 +13902,8 @@ msgstr "Zobrazit kontextovou nabídku pro vybrané soubory"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6321
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F3</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>F3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6322
@@ -13983,12 +13912,8 @@ msgstr "Řadit podle názvu"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6326
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F4</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>F4</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6327
@@ -13997,12 +13922,8 @@ msgstr "Řadit podle přípony"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6331
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F5</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>F5</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6332
@@ -14011,12 +13932,8 @@ msgstr "Řadit podle data/času"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6336
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F6</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>F6</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6337
@@ -14025,12 +13942,8 @@ msgstr "Řadit podle velikosti"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6341
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F7</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>F7</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6342
@@ -14039,16 +13952,12 @@ msgstr "Neřadit"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6351
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>F5</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6352 C/index.docbook:6934 C/index.docbook:6935
@@ -14057,30 +13966,18 @@ msgstr "Vytvořit symbolický odkaz"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6361
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgid "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Hledat soubory"
+msgstr "<keycombo><keycap>Super</keycap><keycap>1</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6366
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgid "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Hledat soubory"
+msgstr "<keycombo><keycap>Super</keycap><keycap>2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6371
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Search files"
 msgid "<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo>"
-msgstr ""
-"<keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo> Hledat soubory"
+msgstr "<keycombo><keycap>Super</keycap><keycap>F</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6372
@@ -14089,19 +13986,13 @@ msgstr "Hledat soubory"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6381
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>=</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>=</keycap></keycombo>"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6401
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>NUM /</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>/ (na numeriské klávesnici)</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6402
@@ -14110,12 +14001,8 @@ msgstr "Obnovit výběr"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6406
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>=</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6407 C/index.docbook:6577 C/index.docbook:7161
@@ -14129,21 +14016,13 @@ msgstr "Zrušit výběr všech souborů"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6431
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>BACKSPACE</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>BackSpace</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6432
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>PageUp</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>PageUp</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6433
@@ -14152,12 +14031,8 @@ msgstr "Přepnout do rodičovské složky (cd ..)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6442
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>ENTER</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Enter</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6443
@@ -14166,12 +14041,8 @@ msgstr "Změnit složku nebo provést příkazový řádek, jestliže není prá
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6447
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Shift</keycap><keycap>Enter</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6448
@@ -14184,12 +14055,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6457
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>PageDown</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6458 C/index.docbook:6866 C/index.docbook:6867
@@ -14198,12 +14065,8 @@ msgstr "Změnit složku"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6467
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>←</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6468 C/index.docbook:6855
@@ -14212,12 +14075,8 @@ msgstr "Vrátit se zpět do poslední navštívené složky"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6472
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>→</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6473 C/index.docbook:7012
@@ -14226,12 +14085,8 @@ msgstr "Přejít vpřed do následující navštívené složky"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6482
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>\\</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6483 C/index.docbook:7153
@@ -14240,21 +14095,13 @@ msgstr "Přejít do kořenové složky"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6487
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>~</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>~</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6488
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>`</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6489 C/index.docbook:7037
@@ -14281,12 +14128,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6515
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6516 C/index.docbook:7129
@@ -14295,16 +14138,12 @@ msgstr "Zobrazit vlastnosti pro vybraný soubor"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6525
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>ALT</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Alt</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6526
@@ -14318,21 +14157,13 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6536
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>DELETE</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Delete</keycap></keycombo>"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6546
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6547 C/index.docbook:6915
@@ -14341,12 +14172,8 @@ msgstr "Kopírovat soubory do schránky (ale ne té globální)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6551
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6552 C/index.docbook:6939
@@ -14355,12 +14182,8 @@ msgstr "Vyjmout soubory do schránky (ale ne té globální)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6556
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6557
@@ -14369,16 +14192,12 @@ msgstr "Vložit ze schránky do aktuální složky (ale ne z té globální)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6566
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>C</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6567
@@ -14387,12 +14206,8 @@ msgstr "Kopírovat názvy vybraných souborů do schránky"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6586
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6587
@@ -14401,12 +14216,8 @@ msgstr "Otevřít oblíbené složky (záložky)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6591
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6592
@@ -14415,11 +14226,8 @@ msgstr "Nástroj vícenásobného přejmenování"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6601
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>TAB</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Tab</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6602 C/index.docbook:6607
@@ -14428,21 +14236,13 @@ msgstr "Přepnout mezi levým a pravým seznamem souborů"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6606
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>U</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>U</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6611
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>←</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6612 C/index.docbook:7101
@@ -14455,12 +14255,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6616
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>→</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6617 C/index.docbook:7089
@@ -14473,12 +14269,8 @@ msgstr ""
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6621
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>.</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6622 C/index.docbook:7081
@@ -14490,16 +14282,12 @@ msgstr ""
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6626
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>.</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6627 C/index.docbook:7085
@@ -14511,12 +14299,8 @@ msgstr ""
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6636 C/index.docbook:6752
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6637 C/index.docbook:7076 C/index.docbook:7077
@@ -14525,12 +14309,8 @@ msgstr "Otevřít složku v nové kartě"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6641 C/index.docbook:6747
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6642
@@ -14539,16 +14319,12 @@ msgstr "Zavřít aktuální kartu"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6646
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>W</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6647 C/index.docbook:6886 C/index.docbook:6887
@@ -14557,12 +14333,8 @@ msgstr "Zavřít všechny karty"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6651
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6652
@@ -14571,16 +14343,12 @@ msgstr "Přepnout na následující kartu"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6656
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Tab</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6657
@@ -14594,12 +14362,8 @@ msgstr "Aktualizovat aktivní seznam souborů"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6671
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6672 C/index.docbook:7117
@@ -14608,16 +14372,12 @@ msgstr "Dialogové okno voleb"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6676
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6677
@@ -14626,16 +14386,12 @@ msgstr "Přepnout zobrazování skrytých souborů"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6681
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>=</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6682
@@ -14644,12 +14400,8 @@ msgstr "Nastavit oba panely jako stejné"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6691
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6692 C/index.docbook:7065
@@ -14658,12 +14410,8 @@ msgstr "Otevřít nové vzdálené připojení"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6696
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6697
@@ -14672,16 +14420,12 @@ msgstr "Připojit se ke vzdálenému serveru"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6701
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>F</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6702 C/index.docbook:6891
@@ -14690,12 +14434,8 @@ msgstr "Odpojit se od vzdáleného serveru"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6711
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>5</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6712
@@ -14704,24 +14444,17 @@ msgstr "Vytvořit kontrolní součet MD5 (128bitový)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6721
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>Alt</keycap><keycap>písmeno(a)</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6722
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter(s)</"
 "keycap></keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Alt</keycap><keycap>písmeno(a)</"
+"keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6723
@@ -14734,11 +14467,8 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6732
-#, fuzzy
-#| msgid ""
-#| "Use the <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo>."
 msgid "<keycombo><keycap>Letter</keycap></keycombo>"
-msgstr "Použijte <keycombo><keycap>Alt</keycap><keycap>F7</keycap></keycombo>."
+msgstr "<keycombo><keycap>písmeno</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6733
@@ -14747,12 +14477,8 @@ msgstr "Přesměrovat na příkazový řádek, kurzor skočí na příkazový ř
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6737
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>ESC</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Esc</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6738
@@ -14761,12 +14487,8 @@ msgstr "Vymazat příkazový řádek"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6742
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>K</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>K</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6743
@@ -14785,12 +14507,8 @@ msgstr "Smazat slovo napravo od kurzoru"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6757
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>P</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>P</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6758
@@ -14799,12 +14517,8 @@ msgstr "Přidat úplnou cestu k aktuální složce na konec příkazového řád
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6762
-#, fuzzy
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo>"
-msgstr ""
-"Použijte <keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo>."
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>Enter</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6763
@@ -14817,16 +14531,12 @@ msgstr ""
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6767
-#, fuzzy
-#| msgid ""
-#| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
-#| "keycap></keycombo>."
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></"
 "keycombo>"
 msgstr ""
-"Zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</"
-"keycap></keycombo>."
+"<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Enter</keycap></"
+"keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6768
@@ -14838,21 +14548,13 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6777
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>↓</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6778
-#, fuzzy
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo>"
-msgstr ""
-"přiblížit (<keycombo><keycap>Ctrl</keycap><keycap>+</keycap></keycombo>),"
+msgstr "<keycombo><keycap>Ctrl</keycap><keycap>E</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6780
@@ -14934,16 +14636,12 @@ msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:6799
-#, fuzzy
-#| msgid ""
-#| "In the keyboard shortcut dialog a table with three columns is shown: "
-#| "<placeholder-1/>"
 msgid ""
 "In the keyboard shortcut dialog a table with three columns is shown: <_:"
 "orderedlist-1/>"
 msgstr ""
-"V dialogovém okně klávesových zkratek jsou zobrazeny tři sloupce: "
-"<placeholder-1/>"
+"V dialogovém okně klávesových zkratek jsou zobrazeny tři sloupce: <_:"
+"orderedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:6805
@@ -15028,6 +14726,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander keyboard shortcuts.</phrase> </"
 "textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/gnome-"
+"commander_dialog_keyboard_shortcuts.png\" format=\"PNG\"/></imageobject> "
+"<textobject><phrase>Ukazuje klávesové zkratky v aplikaci GNOME Commander.</"
+"phrase></textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:6833
@@ -16012,19 +15714,17 @@ msgid ""
 "<ulink url=\"http://www.python.org/doc/\" type=\"http\">Python "
 "documentation</ulink>"
 msgstr ""
+"<ulink url=\"http://www.python.org/doc/\" type=\"http\">Dokumentace k jazyku "
+"Python</ulink>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7405
-#, fuzzy
-#| msgid ""
-#| "list of selected <ulink url=\"http://www.pygtk.org/pygnomevfs/class-"
-#| "gnomevfs-uri.html\" type=\"http\">file uris</ulink> in active pane"
 msgid ""
 "<ulink url=\"http://www.pygtk.org/pygnomevfs/\" type=\"http\">Python "
 "gnomevfs reference manual</ulink>"
 msgstr ""
-"seznam vybraných <ulink url=\"http://www.pygtk.org/pygnomevfs/class-gnomevfs-"
-"uri.html\" type=\"http\">adres URI souborů</ulink> v aktivním panelu"
+"<ulink url=\"http://www.pygtk.org/pygnomevfs/\" type=\"http\">Referenční "
+"příručka Python gnomevfs</ulink>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7408
@@ -16032,6 +15732,8 @@ msgid ""
 "<ulink url=\"http://www.pygtk.org/\" type=\"http\">PyGTK: GTK+ for Python</"
 "ulink>"
 msgstr ""
+"<ulink url=\"http://www.pygtk.org/\" type=\"http\">PyGTK: GTK+ pro Python</"
+"ulink>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7411
@@ -16039,6 +15741,9 @@ msgid ""
 "<ulink url=\"http://www.learningpython.com/2006/05/07/creating-a-gui-using-"
 "pygtk-and-glade/\" type=\"http\">Creating a GUI using PyGTK and Glade</ulink>"
 msgstr ""
+"<ulink url=\"http://www.learningpython.com/2006/05/07/creating-a-gui-using-"
+"pygtk-and-glade/\" type=\"http\">Vytváření grafické uživatelského rozhraní "
+"pomocí PyGTK a Glade</ulink>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7414
@@ -16046,6 +15751,8 @@ msgid ""
 "<ulink url=\"http://sebsauvage.net/python/snyppets/\" type=\"http\">Python "
 "code snippets</ulink>"
 msgstr ""
+"<ulink url=\"http://sebsauvage.net/python/snyppets/\" type=\"http\">Úryvky "
+"kódu v jazyce Python</ulink>"
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:7424
@@ -16164,6 +15871,9 @@ msgid ""
 "\"/> </imageobject> <textobject> <phrase>This entry allows creating archives "
 "easily.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/create_archive.png\" format=\"PNG"
+"\"/></imageobject> <textobject><phrase>Tato položka umožňuje jednoduše "
+"vytvářet archivy.</phrase></textobject>"
 
 #. (itstool) path: figure/title
 #: C/index.docbook:7470 C/index.docbook:7499
@@ -16191,6 +15901,9 @@ msgid ""
 "\"/> </imageobject> <textobject> <phrase>This entry allows extract archives "
 "easily.</phrase> </textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/extract_archive.png\" format=\"PNG"
+"\"/></imageobject> <textobject><phrase>Tato položka umožňuje jednoduše "
+"rozbalovat archivy.</phrase></textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:7485
@@ -16255,6 +15968,9 @@ msgid ""
 "imageobject> <textobject> <phrase>Mounting in GNOME Commander.</phrase> </"
 "textobject>"
 msgstr ""
+"<imageobject><imagedata fileref=\"figures/mounting.png\" format=\"PNG\"/></"
+"imageobject> <textobject><phrase>Připojování zařízení v GNOME Commanderu.</"
+"phrase></textobject>"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:7512
@@ -16354,7 +16070,7 @@ msgid ""
 "keycombo>."
 msgstr ""
 "Když chcete vložit cestu k aktuálnímu souboru do příkazové řádky GNOME "
-"Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap> <keycap>Shift</keycap> "
+"Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap> "
 "<keycap>Enter</keycap></keycombo>."
 
 #. (itstool) path: listitem/para
@@ -16364,8 +16080,8 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>Enter</keycap></keycombo>."
 msgstr ""
 "Když chcete vložit název aktuálního souboru do příkazové řádky GNOME "
-"Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap> <keycap>Enter</"
-"keycap></keycombo>."
+"Commanderu, zmáčkněte <keycombo><keycap>Ctrl</keycap><keycap>Enter</keycap></"
+"keycombo>."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:7564
@@ -16471,10 +16187,8 @@ msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7597
-#, fuzzy
-#| msgid "git clone git://git.gnome.org/gnome-commander"
 msgid "<command>git clone git://git.gnome.org/gnome-commander</command>"
-msgstr "git clone git://git.gnome.org/gnome-commander"
+msgstr "<command>git clone git://git.gnome.org/gnome-commander</command>"
 
 #. (itstool) path: note/para
 #: C/index.docbook:7601
@@ -16521,24 +16235,18 @@ msgstr ""
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:7618
-#, fuzzy
-#| msgid "~/.gnome-commander/devices"
 msgid "<guilabel>~/.gnome-commander/devices</guilabel>"
-msgstr "~/.gnome-commander/devices"
+msgstr "<guilabel>~/.gnome-commander/devices</guilabel>"
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:7626
-#, fuzzy
-#| msgid "~/.gnome-commander/fav-apps"
 msgid "<guilabel>~/.gnome-commander/fav-apps</guilabel>"
-msgstr "~/.gnome-commander/fav-apps"
+msgstr "<guilabel>~/.gnome-commander/fav-apps</guilabel>"
 
 #. (itstool) path: varlistentry/term
 #: C/index.docbook:7634
-#, fuzzy
-#| msgid "~/.gnome-commander/gnome-commander.xml"
 msgid "<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>"
-msgstr "~/.gnome-commander/gnome-commander.xml"
+msgstr "<guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>"
 
 #. (itstool) path: note/para
 #: C/index.docbook:7643
@@ -16621,22 +16329,18 @@ msgstr ""
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:7669
-#, fuzzy
-#| msgid "Known limitation: <placeholder-1/>"
 msgid "Known limitation: <_:itemizedlist-1/>"
-msgstr "Známá omezení: <placeholder-1/>"
+msgstr "Známá omezení: <_:itemizedlist-1/>"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:7674
-#, fuzzy
-#| msgid "Given enough eyeballs, all bugs are shallow."
 msgid "<emphasis>Given enough eyeballs, all bugs are shallow.</emphasis>"
-msgstr "Je-li dost očí, jsou všechny chyby průhledné."
+msgstr "<emphasis>Je-li dost očí, jsou všechny chyby malé.</emphasis>"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:7676
 msgid "<foreignphrase>Linus law.</foreignphrase>"
-msgstr ""
+msgstr "<foreignphrase>Linusův zákon</foreignphrase>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:7688
@@ -16735,14 +16439,6 @@ msgstr ""
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7721
-#, fuzzy
-#| msgid ""
-#| "This program is distributed under the terms of the GNU General Public "
-#| "license as published by the Free Software Foundation; either version 2 of "
-#| "the License, or (at your option) any later version. A copy of this "
-#| "license can be found at this <ulink type=\"help\" url=\"ghelp:gpl\">link</"
-#| "ulink>, or in the file COPYING included with the source code of this "
-#| "program."
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license as published by the Free Software Foundation; either version 2 of "
@@ -16754,26 +16450,17 @@ msgstr ""
 "Tento program je šířen podle ustanovení licence GNU General Public License, "
 "vydávané Free Software Foundation; a to buď verze 2 této licence anebo "
 "(podle vlastního uvážení) kterékoliv pozdější verze. Kopii této licence "
-"naleznete <ulink url=\"ghelp:gpl\" type=\"help\">pod tímto odkazem</ulink> "
-"nebo v souboru COPYING přiloženém ke zdrojovým kódům tohoto programu. "
+"naleznete pod tímto <ulink type=\"http\" url=\"https://www.gnu.org/licenses/"
+"gpl-2.0.html\">odkazem</ulink> nebo v souboru COPYING přiloženém ke "
+"zdrojovým kódům tohoto programu. "
 
 #. (itstool) path: para/ulink
 #: C/legal.xml:9
-#, fuzzy
-#| msgid "Symlinks"
 msgid "link"
-msgstr "Symbolické odkazy"
+msgstr "odkazem"
 
 #. (itstool) path: legalnotice/para
 #: C/legal.xml:2
-#, fuzzy
-#| msgid ""
-#| "Permission is granted to copy, distribute and/or modify this document "
-#| "under the terms of the GNU Free Documentation License (GFDL), Version 1.1 "
-#| "or any later version published by the Free Software Foundation with no "
-#| "Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You "
-#| "can find a copy of the GFDL at this <ulink type=\"help\" url=\"ghelp:fdl"
-#| "\">link</ulink> or in the file COPYING-DOCS distributed with this manual."
 msgid ""
 "Permission is granted to copy, distribute and/or modify this documentation "
 "under the terms of the GNU Free Documentation License (GFDL), Version 1.1 or "
@@ -16781,12 +16468,12 @@ msgid ""
 "Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You can "
 "find a copy of the GFDL at this <_:ulink-1/>."
 msgstr ""
-"Je povoleno kopírovat, šířit a/nebo upravovat tento dokument za podmínek GNU "
-"Free Documentation License (GFDL) ve verzi 1.1 nebo v jakékoli další verzi "
-"vydané nadací Free Software Foundation; bez neměnných oddílů, bez textů "
-"předních desek a bez textů zadních desek. Kopii licence GFDL naleznete pod "
-"<ulink type=\"help\" url=\"ghelp:fdl\">tímto odkazem</ulink> nebo v souboru "
-"COPYING-DOCS dodávaném s touto příručkou."
+"Je povoleno kopírovat, šířit a/nebo upravovat tuto dokumentaci za podmínek "
+"GNU Free Documentation License (GFDL) ve verzi 1.1 nebo v jakékoli další "
+"verzi vydané nadací Free Software Foundation; bez neměnných oddílů, bez "
+"textů předních desek a bez textů zadních desek. Kopii licence GFDL naleznete "
+"pod tímto <_:ulink-1/> nebo v souboru COPYING-DOCS dodávaném s touto "
+"příručkou."
 
 #. (itstool) path: legalnotice/para
 #: C/legal.xml:11
@@ -16868,18 +16555,13 @@ msgstr ""
 
 #. (itstool) path: legalnotice/para
 #: C/legal.xml:27
-#, fuzzy
-#| msgid ""
-#| "DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE "
-#| "TERMS OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER "
-#| "UNDERSTANDING THAT: <placeholder-1/>"
 msgid ""
 "DOCUMENT AND MODIFIED VERSIONS OF THE DOCUMENT ARE PROVIDED UNDER THE TERMS "
 "OF THE GNU FREE DOCUMENTATION LICENSE WITH THE FURTHER UNDERSTANDING THAT: "
 "<_:orderedlist-1/>"
 msgstr ""
 "DOKUMENT A JEHO UPRAVENÉ VERZE JSOU ŠÍŘENY V SOULADU SE ZNĚNÍM LICENCE GNU "
-"FREE DOCUMENTATION LICENSE S NÁSLEDUJÍCÍM USTANOVENÍM: <placeholder-1/>"
+"FREE DOCUMENTATION LICENSE S NÁSLEDUJÍCÍM USTANOVENÍM: <_:orderedlist-1/>"
 
 #. (itstool) path: sect1/title
 #: C/releases.xml:9
@@ -16908,10 +16590,8 @@ msgstr "1.8.0"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:27
-#, fuzzy
-#| msgid "2016-??-??"
 msgid "2017-??-??"
-msgstr "??.??.2016"
+msgstr "??.??.2017"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:29 C/releases.xml:86 C/releases.xml:167 C/releases.xml:192
@@ -16933,12 +16613,14 @@ msgid ""
 "[build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall "
 "and David King)"
 msgstr ""
+"[sestavení] Nepoužívá se nadále gnome-autogen.sh (velké díky si zaslouží "
+"Philip Withnall a David King)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:36
 msgid ""
 "[build] Translations are now handled by upstream gettext instead of intltool"
-msgstr ""
+msgstr "[sestavení] Překlady jsou nyní zpracovány přes gettext místo intltool"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:39
@@ -16946,6 +16628,8 @@ msgid ""
 "[build] New documentation infrastructure: Use yelp-tools instead of gnome-"
 "doc-utils"
 msgstr ""
+"[sestavení] Nová infrastruktura pro dokumentaci: Používají se yelp-tools "
+"místo gnome-doc-utils"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:43 C/releases.xml:57 C/releases.xml:159 C/releases.xml:184
@@ -16970,6 +16654,8 @@ msgid ""
 "[build] Python is now found at build time, too, when its version is equal to "
 "or higher than 3.x"
 msgstr ""
+"[sestavení] Python je nyní vyhledán už ve chvíli sestavování i když jeho "
+"verze je rovna nebo vyšší 3.x"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:54
@@ -17751,16 +17437,12 @@ msgstr "T"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:534
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo> Open "
-#| "directory in a new tab (replaces the old Multi-Rename-Tool binding)"
 msgid ""
 "<_:keycombo-1/> Open directory in a new tab (replaces the old Multi-Rename-"
 "Tool binding)"
 msgstr ""
-"<keycombo><keycap>Ctrl</keycap><keycap>T</keycap></keycombo> Otevřít složku "
-"v nové kartě (nahradilo starou zkratku Nástroj vícenásobného přejmenování)"
+"<_:keycombo-1/> Otevřít složku v nové kartě (nahradilo starou zkratku "
+"Nástroj vícenásobného přejmenování)"
 
 #. (itstool) path: keycombo/keycap
 #: C/releases.xml:537 C/releases.xml:540
@@ -17769,10 +17451,8 @@ msgstr "W"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:537
-#, fuzzy
-#| msgid "Close current tab"
 msgid "<_:keycombo-1/> Close current tab"
-msgstr "Zavřít aktuální kartu"
+msgstr "<_:keycombo-1/> Zavřít aktuální kartu"
 
 #. (itstool) path: keycombo/keycap
 #: C/releases.xml:540 C/releases.xml:546 C/releases.xml:1462
@@ -17783,10 +17463,8 @@ msgstr "Shift"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:540
-#, fuzzy
-#| msgid "Close all tabs"
 msgid "<_:keycombo-1/> Close all tabs"
-msgstr "Zavřít všechny karty"
+msgstr "<_:keycombo-1/> Zavřít všechny karty"
 
 #. (itstool) path: keycombo/keycap
 #: C/releases.xml:543 C/releases.xml:546
@@ -17795,17 +17473,13 @@ msgstr "TAB"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:543
-#, fuzzy
-#| msgid "Switch to the next tab"
 msgid "<_:keycombo-1/> Switch to the next tab"
-msgstr "Přepnout na následující kartu"
+msgstr "<_:keycombo-1/> Přepnout na následující kartu"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:546
-#, fuzzy
-#| msgid "Switch to the previous tab"
 msgid "<_:keycombo-1/> Switch to the previous tab"
-msgstr "Přepnout na předchozí kartu"
+msgstr "<_:keycombo-1/> Přepnout na předchozí kartu"
 
 #. (itstool) path: keycombo/keycap
 #: C/releases.xml:549 C/releases.xml:552 C/releases.xml:1238
@@ -17819,10 +17493,8 @@ msgstr "1"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:549
-#, fuzzy
-#| msgid "Change left connection"
 msgid "<_:keycombo-1/> Change left connection"
-msgstr "Změnit připojení v levém panelu"
+msgstr "<_:keycombo-1/> Změnit připojení v levém panelu"
 
 #. (itstool) path: keycombo/keycap
 #: C/releases.xml:552
@@ -17831,10 +17503,8 @@ msgstr "2"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:552
-#, fuzzy
-#| msgid "Change right connection"
 msgid "<_:keycombo-1/> Change right connection"
-msgstr "Změnit připojení v pravém panelu"
+msgstr "<_:keycombo-1/> Změnit připojení v pravém panelu"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:561
@@ -18633,10 +18303,8 @@ msgstr "E"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1100
-#, fuzzy
-#| msgid "Open the history list for the command line"
 msgid "<_:keycombo-1/> Open the history list for the command line"
-msgstr "Otevřít seznam historie pro příkazový řádek"
+msgstr "<_:keycombo-1/> Otevřít seznam historie pro příkazový řádek"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1105
@@ -18645,14 +18313,8 @@ msgstr "Nové klávesové zkratky pro interní prohlížeč:"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1108
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>T</keycap></keycombo> Show metadata tags (replaces the "
-#| "old E)"
 msgid "<_:keycombo-1/> Show metadata tags (replaces the old E)"
-msgstr ""
-"<keycombo><keycap>T</keycap></keycombo> Zobrazit metadata štítků (nahradilo "
-"původní E)"
+msgstr "<_:keycombo-1/>  Zobrazit metadata štítků (nahradilo původní E)"
 
 #. (itstool) path: keycombo/keycap
 #: C/releases.xml:1111 C/releases.xml:1159 C/releases.xml:1683
@@ -18666,10 +18328,8 @@ msgstr "Enter"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1111
-#, fuzzy
-#| msgid "Shows metadata tags"
 msgid "<_:keycombo-1/> Show metadata tags"
-msgstr "Zobrazit štítky metadat"
+msgstr "<_:keycombo-1/> Zobrazit štítky metadat"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:1120
@@ -18740,8 +18400,8 @@ msgstr "kliknutí"
 msgid ""
 "Copying selected URIs to clipboard with <_:keycombo-1/> on toolbar button"
 msgstr ""
-"Kopírování vybraných adres URI do schránky pomocí <_:keycombo-1/> na tlačítko "
-"na nástrojové liště"
+"Kopírování vybraných adres URI do schránky pomocí <_:keycombo-1/> na "
+"tlačítko na nástrojové liště"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1162 C/releases.xml:1223
@@ -19071,6 +18731,8 @@ msgid ""
 "<_:keycombo-1/> Open new connection to remote server (replaces the old <_:"
 "keycombo-2/>)"
 msgstr ""
+"<_:keycombo-1/> Otevřít nové připojení ke vzdálenému serveru (nahradilo "
+"původní <_:keycombo-2/>)"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:1370
@@ -19569,7 +19231,7 @@ msgstr "A"
 #. (itstool) path: listitem/para
 #: C/releases.xml:1689
 msgid "<_:keycombo-1/> Deselecting all files"
-msgstr ""
+msgstr "<_:keycombo-1/> Zrušit označení všech souborů"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:1698
@@ -20393,564 +20055,3 @@ msgstr "2.8.2001"
 #: C/releases.xml:2177
 msgid "The first public version of GNOME Commander."
 msgstr "První veřejná verze aplikace GNOME Commander."
-
-#~ msgid "..."
-#~ msgstr "…"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo> Close "
-#~ "current tab"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo> Zavřít "
-#~ "aktuální kartu"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>W</keycap></"
-#~ "keycombo> Close all tabs"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>W</keycap></"
-#~ "keycombo> Zavřít všechny karty"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo> Switch to "
-#~ "the next tab"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Tab</keycap></keycombo> Přepnout "
-#~ "na následující kartu"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>TAB</"
-#~ "keycap></keycombo> Switch to the previous tab"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>Tab</"
-#~ "keycap></keycombo> Přepnout na předchozí kartu"
-
-#~ msgid ""
-#~ "<keycombo><keycap>SUPER</keycap><keycap>1</keycap></keycombo> Change left "
-#~ "connection"
-#~ msgstr ""
-#~ "<keycombo><keycap>Super</keycap><keycap>1</keycap></keycombo> Změnit "
-#~ "připojení vlevo"
-
-#~ msgid ""
-#~ "<keycombo><keycap>SUPER</keycap><keycap>2</keycap></keycombo> Change "
-#~ "right connection"
-#~ msgstr ""
-#~ "<keycombo><keycap>Super</keycap><keycap>2</keycap></keycombo> Změnit "
-#~ "připojení vpravo"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the "
-#~ "history list for the command line"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>E</keycap></keycombo> Otevřít "
-#~ "seznam s historií pro příkazový řádek"
-
-#~ msgid ""
-#~ "<keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo> Show "
-#~ "metadata tags"
-#~ msgstr ""
-#~ "<keycombo><keycap>Alt</keycap><keycap>Enter</keycap></keycombo> Zobrazit "
-#~ "metadata štítků"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>LEFT/RIGHT</keycap></keycombo> "
-#~ "Copying the current working directory from the active file list to the "
-#~ "inactive one"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>šipka vlevo/šipka vpravo</keycap></"
-#~ "keycombo> Kopírovat aktuální pracovní složku z aktivního seznamu souborů "
-#~ "do toho neaktivního"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo> Open new "
-#~ "connection to remote server (replaces the old <keycombo><keycap>CTRL</"
-#~ "keycap><keycap>G</keycap></keycombo>)"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo> Otevřít nové "
-#~ "připojení ke vzdálenému serveru (nahradilo původní "
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>)"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>\\</keycap></keycombo> Go to the "
-#~ "root directory"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>\\</keycap></keycombo> Přejít do "
-#~ "kořenové složky"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Go to the "
-#~ "home directory"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>`</keycap></keycombo> Přejít do "
-#~ "domovské složky"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> Create MD5 "
-#~ "(128-bit) checksum"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>5</keycap></keycombo> Vytvořit "
-#~ "kontrolní součet MD5 (128bitový)"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
-#~ "keycombo> Copy selected file names to clipboard"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>C</keycap></"
-#~ "keycombo> Kopírovat názvy vybraných souborů do schránky"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
-#~ "keycombo> Set both panels equal"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>=</keycap></"
-#~ "keycombo> Nastavení obou panelů jako stejné"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
-#~ "keycombo> Toggle hidden files on/off"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>H</keycap></"
-#~ "keycombo> Přepnout zapnutí/vypnutí skrytých souborů"
-
-#~ msgid ""
-#~ "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External "
-#~ "viewer"
-#~ msgstr ""
-#~ "<keycombo><keycap>Alt</keycap><keycap>F3</keycap></keycombo> Externí "
-#~ "prohlížeč"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
-#~ "keycombo> Deselecting all files"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>A</keycap></"
-#~ "keycombo> Zrušit označení všech souborů"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo> Multi-Rename-"
-#~ "Tool"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>M</keycap></keycombo> Nástroj "
-#~ "vícenásobného přejmenování"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></"
-#~ "keycombo> Copying the current working directory from the active file list "
-#~ "to the inactive one"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>.</keycap></"
-#~ "keycombo> Kopírovat aktuální pracovní složku z aktivního seznamu souborů "
-#~ "do toho neaktivního"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo> Select all "
-#~ "files"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>=</keycap></keycombo> Vybrat "
-#~ "všechny soubory"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo> Unselect all "
-#~ "files"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>-</keycap></keycombo> Zrušit výběr "
-#~ "všech souborů"
-
-#~ msgid ""
-#~ "<keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo> Copy the "
-#~ "current working directory from the inactive file list to the active one"
-#~ msgstr ""
-#~ "<keycombo><keycap>Ctrl</keycap><keycap>.</keycap></keycombo> Kopírovat "
-#~ "aktuální pracovní složku ze seznamu neaktivních souborů do toho aktivního"
-
-#~ msgid "2012"
-#~ msgstr "2012"
-
-#~ msgid "2011"
-#~ msgstr "2011"
-
-#~ msgid "2010"
-#~ msgstr "2010"
-
-#~ msgid "2009"
-#~ msgstr "2009"
-
-#~ msgid "2008"
-#~ msgstr "2008"
-
-#~ msgid "2007"
-#~ msgstr "2007"
-
-#~ msgid "2006"
-#~ msgstr "2006"
-
-#~ msgid "Piotr Eljasiak"
-#~ msgstr "Piotr Eljasiak"
-
-#~ msgid "2016"
-#~ msgstr "2016"
-
-#~ msgid "2015"
-#~ msgstr "2015"
-
-#~ msgid "2014"
-#~ msgstr "2014"
-
-#~ msgid "2013"
-#~ msgstr "2013"
-
-#~ msgid "Uwe Scholz"
-#~ msgstr "Uwe Scholz"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "Piotr"
-#~ msgstr "Piotr"
-
-#~ msgid "Eljasiak"
-#~ msgstr "Eljasiak"
-
-#~ msgid "Laurent"
-#~ msgstr "Laurent"
-
-#~ msgid "Coudeur"
-#~ msgstr "Coudeur"
-
-#~ msgid "Uwe"
-#~ msgstr "Uwe"
-
-#~ msgid "Scholz"
-#~ msgstr "Scholz"
-
-#~ msgid "GNOME Commander Manual V1.2.3;"
-#~ msgstr "Příručka V1.2.3 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.4;"
-#~ msgstr "Příručka V1.2.4 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.5;"
-#~ msgstr "Příručka V1.2.5 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.6;"
-#~ msgstr "Příručka V1.2.6 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.7;"
-#~ msgstr "Příručka V1.2.7 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8;"
-#~ msgstr "Příručka V1.2.8 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.1;"
-#~ msgstr "Příručka V1.2.8.1 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.2;"
-#~ msgstr "Příručka V1.2.8.2 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.3;"
-#~ msgstr "Příručka V1.2.8.3 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.4;"
-#~ msgstr "Příručka V1.2.8.4 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.5;"
-#~ msgstr "Příručka V1.2.8.5 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.6;"
-#~ msgstr "Příručka V1.2.8.6 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.7;"
-#~ msgstr "Příručka V1.2.8.7 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.8;"
-#~ msgstr "Příručka V1.2.8.8 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.9;"
-#~ msgstr "Příručka V1.2.8.9 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.10;"
-#~ msgstr "Příručka V1.2.8.10 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.11;"
-#~ msgstr "Příručka V1.2.8.11 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.12;"
-#~ msgstr "Příručka V1.2.8.12 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.13;"
-#~ msgstr "Příručka V1.2.8.13 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.14;"
-#~ msgstr "Příručka V1.2.8.14 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.2.8.15;"
-#~ msgstr "Příručka V1.2.8.15 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4;"
-#~ msgstr "Příručka V1.4 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.1;"
-#~ msgstr "Příručka V1.4.1 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.2;"
-#~ msgstr "Příručka V1.4.2 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.3;"
-#~ msgstr "Příručka V1.4.3 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.4;"
-#~ msgstr "Příručka V1.4.4 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.5;"
-#~ msgstr "Příručka V1.4.5 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.6;"
-#~ msgstr "Příručka V1.4.6 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.4.7;"
-#~ msgstr "Příručka V1.4.7 k aplikaci GNOME Commander;"
-
-#~ msgid "2014-05-30"
-#~ msgstr "30.5.2014"
-
-#~ msgid "GNOME Commander Manual V1.4.8;"
-#~ msgstr "Příručka V1.4.8 k aplikaci GNOME Commander;"
-
-#~ msgid "GNOME Commander Manual V1.6.0;"
-#~ msgstr "Příručka V1.6.0 k aplikaci GNOME Commander;"
-
-#~ msgid "file manager"
-#~ msgstr "správce souborů"
-
-#~ msgid "Shows file search window."
-#~ msgstr "Ukazuje okno hledání souboru."
-
-#~ msgid "Shows file properties dialog."
-#~ msgstr "Ukazuje dialogové okno s vlastnostmi souboru."
-
-#~ msgid "Shows file permissions dialog."
-#~ msgstr "Ukazuje dialogové okno s oprávněními souboru."
-
-#~ msgid "Shows bookmark management dialog."
-#~ msgstr "Ukazuje dialogové okno správy záložek."
-
-#~ msgid "Shows advanced file renaming dialog."
-#~ msgstr "Ukazuje dialogové okno nástroje pokročilého přejmenování."
-
-#~ msgid "Counter"
-#~ msgstr "Počítadlo"
-
-#~ msgid "Regex replacing"
-#~ msgstr "Náhrada regulárním výrazem"
-
-#~ msgid "Case"
-#~ msgstr "Velikost písmen"
-
-#~ msgid "Trim blanks"
-#~ msgstr "Oříznutí mezer"
-
-#~ msgid "Results"
-#~ msgstr "Výsledky"
-
-#~ msgid "Apply"
-#~ msgstr "Použít"
-
-#~ msgid "Close"
-#~ msgstr "Zavřít"
-
-#~ msgid "Reset"
-#~ msgstr "Obnovit"
-
-#~ msgid "Profiles..."
-#~ msgstr "Profily…"
-
-#~ msgid "Range syntax"
-#~ msgstr "Syntaxe rozsahů"
-
-#~ msgid "(start_index:end_index)"
-#~ msgstr "(index_začátku:index_konce)"
-
-#~ msgid "Overview of remote servers."
-#~ msgstr "Přehled vzdálených serverů."
-
-#~ msgid "Creating a new remote server connection."
-#~ msgstr "Vytváření nového připojení ke vzdálenému serveru"
-
-#~ msgid "Shows GNOME Commander general preferences dialog."
-#~ msgstr "Ukazuje dialogové okno obecných předvoleb aplikace GNOME Commander."
-
-#~ msgid "Left Mouse button"
-#~ msgstr "Levé tlačítko myši"
-
-#~ msgid "Right Mouse button"
-#~ msgstr "Pravé tlačítko myši"
-
-#~ msgid "Sorting options"
-#~ msgstr "Nastavení řazení"
-
-#~ msgid "Quick search using"
-#~ msgstr "Rychlé hledání"
-
-#~ msgid "Multiple instances"
-#~ msgstr "Vícenásobné spuštění"
-
-#~ msgid "Save on exit"
-#~ msgstr "Při ukončení uložit"
-
-#~ msgid "Shows GNOME Commander format preferences dialog."
-#~ msgstr ""
-#~ "Ukazuje dialogové okno předvoleb formátu v aplikaci GNOME Commander."
-
-#~ msgid "Size display mode"
-#~ msgstr "Režim zobrazení velikosti"
-
-#~ msgid "Permission display mode"
-#~ msgstr "Režim zobrazení přístupových práv"
-
-#~ msgid "Date format"
-#~ msgstr "Formát data"
-
-#~ msgid "Shows GNOME Commander layout preferences dialog."
-#~ msgstr ""
-#~ "Ukazuje dialogové okno předvoleb vzhledu v aplikaci GNOME Commander."
-
-#~ msgid "File panes"
-#~ msgstr "Panely souborů"
-
-#~ msgid "MIME icon settings"
-#~ msgstr "Nastavení ikon MIME"
-
-#~ msgid "Shows GNOME Commander dialog for editing custom colors."
-#~ msgstr ""
-#~ "Ukazuje dialogové okno pro nastavení vlastních barev v aplikaci GNOME "
-#~ "Commander."
-
-#~ msgid "Shows GNOME Commander tabs preferences dialog."
-#~ msgstr "Ukazuje dialogové okno předvoleb karet v aplikaci GNOME Commander."
-
-#~ msgid "Shows GNOME Commander confirmation preferences dialog."
-#~ msgstr ""
-#~ "Ukazuje dialogové okno předvoleb potvrzování v aplikaci GNOME Commander."
-
-#~ msgid "Copy overwrite"
-#~ msgstr "Přepisovat při kopírování"
-
-#~ msgid "Move overwrite"
-#~ msgstr "Přepisovat při přesunu"
-
-#~ msgid "Drag and Drop"
-#~ msgstr "Táhni a upusť"
-
-#~ msgid "Shows GNOME Commander filters preferences dialog."
-#~ msgstr "Ukazuje dialogové okno předvoleb filtrů v aplikaci GNOME Commander."
-
-#~ msgid "Filetypes to hide"
-#~ msgstr "Skrývat tyto typy souborů"
-
-#~ msgid "Also hide"
-#~ msgstr "Rovněž skrýt"
-
-#~ msgid "Shows GNOME Commander programs preferences dialog."
-#~ msgstr ""
-#~ "Ukazuje dialogové okno předvoleb programů v aplikaci GNOME Commander."
-
-#~ msgid "MIME application"
-#~ msgstr "Aplikace pro MIME"
-
-#~ msgid "Standard programs"
-#~ msgstr "Standardní programy"
-
-#~ msgid "Global app options"
-#~ msgstr "Globální volby aplikace"
-
-#~ msgid "Shows GNOME Commander new application dialog."
-#~ msgstr "Ukazuje dialogové okno nové aplikace v GNOME Commanderu."
-
-#~ msgid "Label:"
-#~ msgstr "Popisek:"
-
-#~ msgid "Command:"
-#~ msgstr "Příkaz:"
-
-#~ msgid "Icon:"
-#~ msgstr "Ikona:"
-
-#~ msgid "Show for"
-#~ msgstr "Zobrazovat pro"
-
-#~ msgid "Shows GNOME Commander devices preferences dialog."
-#~ msgstr ""
-#~ "Ukazuje dialogové okno předvoleb zařízení v aplikaci GNOME Commander."
-
-#~ msgid "Devices:"
-#~ msgstr "Zařízení"
-
-#~ msgid "Shows GNOME Commander new devices dialog."
-#~ msgstr "Ukazuje okno nového zařízní v aplikaci GNOME Commander."
-
-#~ msgid "Alias:"
-#~ msgstr "Přezdívka"
-
-#~ msgid "Device:"
-#~ msgstr "Zařízení"
-
-#~ msgid "Mount point:"
-#~ msgstr "Přípojný bod"
-
-#~ msgid "Icon"
-#~ msgstr "Ikona"
-
-#~ msgid "DOWN"
-#~ msgstr "šipka dolů"
-
-#~ msgid "NUM /"
-#~ msgstr "číselné /"
-
-#~ msgid "BACKSPACE"
-#~ msgstr "BACKSPACE"
-
-#~ msgid "LEFT"
-#~ msgstr "šipka vlevo"
-
-#~ msgid "~"
-#~ msgstr "~"
-
-#~ msgid "DELETE"
-#~ msgstr "DELETE"
-
-#~ msgid "Letter(s)"
-#~ msgstr "Písmeno(a)"
-
-#~ msgid "Letter"
-#~ msgstr "Písmeno"
-
-#~ msgid "Shows GNOME Commander keyboard shortcuts."
-#~ msgstr "Ukazuje klávesové zkratky v aplikaci GNOME Commander."
-
-#~ msgid "Python documentation"
-#~ msgstr "Dokumentace Python"
-
-#~ msgid "Python gnomevfs reference manual"
-#~ msgstr "Referenční příručka Python gnomevfs"
-
-#~ msgid "PyGTK: GTK+ for Python"
-#~ msgstr "PyGTK: GTK+ pro Python"
-
-#~ msgid "Creating a GUI using PyGTK and Glade"
-#~ msgstr "Vytváření grafické uživatelského rozhraní pomocí PyGTK a Glade"
-
-#~ msgid "Python code snippets"
-#~ msgstr "Útržky kódu v jazyce Python"
-
-#~ msgid "This entry allows creating archives easily."
-#~ msgstr "Tato položka umožňuje jednoduše vytvářet archivy."
-
-#~ msgid "This entry allows extract archives easily."
-#~ msgstr "Tato položka umožňuje jednoduše rozbalovat archivy"
-
-#~ msgid "Mounting in GNOME Commander."
-#~ msgstr "Připojování zařízení v GNOME Commanderu"
-
-#~ msgid "Linus law."
-#~ msgstr "Linusův zákon"
