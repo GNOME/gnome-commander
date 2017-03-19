@@ -36,6 +36,7 @@ namespace GnomeCmd
         FindPattern(): match_case(FALSE)    {}
         FindPattern(const gchar *from, gboolean case_sensitive): match_case(case_sensitive)  {  if (from)  pattern = from;  }
         FindPattern(const std::string &from, gboolean case_sensitive): pattern(from), match_case(case_sensitive)           {}
+        FindPattern(const FindPattern&) = default;
     };
 
     struct ReplacePattern: virtual FindPattern
