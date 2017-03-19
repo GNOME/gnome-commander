@@ -190,17 +190,17 @@ class GnomeCmdUserActions
     {
         const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i)   {}
 
-        const ACTIONS_COLL::key_type &operator * () const                   {  return (ACTIONS_COLL::iterator::operator * ()).first;  }
+        const ACTIONS_COLL::key_type &operator * () const                   {  return (ACTIONS_COLL::iterator::operator * ()).first;       }
     };
 
-    const_iterator begin()                                                  {  return action.begin();                                 }
-    const_iterator end()                                                    {  return action.end();                                   }
-    unsigned size()                                                         {  return action.size();                                  }
+    const_iterator begin()                                                  {  return action.begin();                                      }
+    const_iterator end()                                                    {  return action.end();                                        }
+    unsigned size()                                                         {  return action.size();                                       }
 
-    const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();            }
-    const gchar *name(const std::string &name_description)                   {  return action_func[action_name[name_description]].c_str();  }
-    const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();            }
-    const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                    }
+    const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();                 }
+    const gchar *name(const std::string &name_description)                  {  return action_func[action_name[name_description]].c_str();  }
+    const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();                 }
+    const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                         }
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr);
 };
