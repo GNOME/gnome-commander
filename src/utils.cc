@@ -1360,6 +1360,26 @@ void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
 }
 
 
+void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id)
+{
+    GError *error = NULL;
+    gchar help_uri[256] = "help:";
+
+    strcat(help_uri, PACKAGE_NAME);
+
+    if (link_id != NULL)
+    {
+        strcat(help_uri, "/");
+        strcat(help_uri, link_id);
+    }
+
+    gtk_show_uri (NULL, help_uri,  gtk_get_current_event_time (), &error);
+
+    if (error != NULL)
+        gnome_cmd_error_message (_("There was an error displaying help."), error);
+}
+
+
 gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
 {
     // sanity
@@ -1415,6 +1435,16 @@ gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
     return TRUE;
 }
 
+template <typename T>
+std::string &stringify(std::string &s, const T &val)
+{
+   std::ostringstream os;
+
+   os << val;
+   s = os.str();
+
+   return s;
+}
 
 int split(const string &s, vector<string> &coll, const char *sep)
 {

@@ -278,7 +278,7 @@ inline void GnomeCmdConnectDialog::Private::show_entry(GtkWidget *table, GtkWidg
 }
 
 
-inline gboolean GnomeCmdConnectDialog::verify_uri()
+gboolean GnomeCmdConnectDialog::verify_uri()
 {
     string uri;
     string server;
