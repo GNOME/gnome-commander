@@ -170,8 +170,6 @@ inline ID GnomeCmdOwner::HashTable<T,ID>::operator [] (const gchar *name)
 {
     Entry *entry = lookup(name);
 
-    g_assert (entry != NULL);
-
     return entry ? entry->id : -1;
 }
 
