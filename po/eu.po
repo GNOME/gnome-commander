@@ -1,4 +1,4 @@
-# Basque translation for gnomecommander
+# Basque translation for gnome-commander
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -10,9 +10,9 @@ msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1-6\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2017-02-26 21:28+0000\n"
-"PO-Revision-Date: 2017-03-25 20:53+0100\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"POT-Creation-Date: 2017-03-25 19:55+0000\n"
+"PO-Revision-Date: 2017-04-04 09:46+0200\n"
+"Last-Translator: Inaki Larranaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -23,13 +23,12 @@ msgstr ""
 "\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1860
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1864
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
 #: ../data/gnome-commander.appdata.xml.in.h:2
-#| msgid "A two paned file manager"
 msgid "Two-pane file manager"
 msgstr "Bi paneleko fitxategi-kudeatzailea"
 
@@ -42,14 +41,11 @@ msgid ""
 "FTP and Samba access."
 msgstr ""
 "GNOME Commander 'bi paneletako' fitxategi-kudeatzaile grafiko bat da "
-"mahaigaineko "
-"GNOME ingurunearentzako. Panel bakoitzean fitxak edukitzeko eginbidea dauka, "
-"baita "
-"gailuen botoi pertsonalizatuak konfiguratzeko, laster-markak kudeatzeko, "
-"erabat "
-"barneratutako komando-lerroa, fitxategien bilaketa azkarra, barneko "
-"irudi-ikustailea, "
-"taldeka izenez aldatzeko tresna, eta bai FTP bai Samba sarbideak ere."
+"mahaigaineko GNOME ingurunearentzako. Panel bakoitzean fitxak edukitzeko "
+"eginbidea dauka, baita gailuen botoi pertsonalizatuak konfiguratzeko, laster-"
+"markak kudeatzeko, erabat barneratutako komando-lerroa, fitxategien bilaketa "
+"azkarra, barneko irudi-ikustailea, taldeka izenez aldatzeko tresna, eta bai "
+"FTP bai Samba sarbideak ere."
 
 #: ../data/gnome-commander.appdata.xml.in.h:4
 msgid ""
@@ -57,18 +53,15 @@ msgid ""
 "management, working in parallel through special applications, and running "
 "smart commands."
 msgstr ""
-"GNOME Commander erabiltzaile aurreratuentzako bideratuta dago:"
-"fitxategien kudeaketa zehatzean sakontzeko, paraleloan lan egiteko "
-"aplikazio berezien bitartez, eta komando azkarrak exekutatzeko baita ere."
+"GNOME Commander erabiltzaile aurreratuentzako bideratuta dago:fitxategien "
+"kudeaketa zehatzean sakontzeko, paraleloan lan egiteko aplikazio berezien "
+"bitartez, eta komando azkarrak exekutatzeko baita ere."
 
 #: ../data/gnome-commander.appdata.xml.in.h:5
-#| msgid "File Manager"
 msgid "file manager"
 msgstr "fitxategi-kudeatzailea"
 
 #: ../data/gnome-commander.appdata.xml.in.h:6
-#| msgid "%d file listed"
-#| msgid_plural "%d files listed"
 msgid "file system"
 msgstr "fitxategi-sistema"
 
@@ -83,7 +76,6 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../data/gnome-commander.appdata.xml.in.h:9
-#| msgid "WebDAV (HTTP)"
 msgid "WebDAV"
 msgstr "WebDAV"
 
@@ -105,9 +97,8 @@ msgid ""
 "Whether to use the system's default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
 msgstr ""
-"Sistemaren letra-zabalera finko lehenetsia erabili edo ez "
-"fitxategien paneletan, gnome-commander tresnaren letra-tipo "
-"zehatzaren ordez."
+"Sistemaren letra-zabalera finko lehenetsia erabili edo ez fitxategien "
+"paneletan, gnome-commander tresnaren letra-tipo zehatzaren ordez."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:3
 msgid "Panel font"
@@ -118,11 +109,10 @@ msgid ""
 "A custom font that will be used for the file panes if the \"Use default font"
 "\" option is turned off."
 msgstr ""
-"Letra-tipo pertsonalizatua erabiliko da fitxategien paneletan "
-"baldin eta \"Erabili letra-tipo lehenetsia\" aukera desaktibatuta badago."
+"Letra-tipo pertsonalizatua erabiliko da fitxategien paneletan baldin eta "
+"\"Erabili letra-tipo lehenetsia\" aukera desaktibatuta badago."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:5
-#| msgid "Size display mode"
 msgid "Filesize display mode"
 msgstr "Fitxategi-tamaina bistaratzeko modua"
 
@@ -130,8 +120,8 @@ msgstr "Fitxategi-tamaina bistaratzeko modua"
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
 msgstr ""
-"Fitxategien tamaina dagokien panelaren zutabean nola bistaratuko den zehazten "
-"du."
+"Fitxategien tamaina dagokien panelaren zutabean nola bistaratuko den "
+"zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:7
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:328
@@ -147,7 +137,6 @@ msgstr ""
 "zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:9
-#| msgid "Graphical mode:"
 msgid "Graphical layout mode"
 msgstr "Diseinu grafikoaren modua"
 
@@ -157,7 +146,6 @@ msgstr ""
 "Fitxategien eta karpeten ikono-estiloa zehazten du fitxategien paneletan."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:11
-#| msgid "Row height:"
 msgid "List row height"
 msgstr "Errenkada-altuera"
 
@@ -179,7 +167,6 @@ msgid "Date format"
 msgstr "Data-formatua"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:19
-#| msgid "Full file path of file excluding the file name."
 msgid "Format of the date in the file pane."
 msgstr "Dataren formatua fitxategien panelean."
 
@@ -188,12 +175,10 @@ msgid "List font"
 msgstr "Zerrendaren letra-tipoa"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:21
-#| msgid "Match end of the file name"
 msgid "The font in the file panes."
 msgstr "Fitxategien paneleko letra-tipoa"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:22
-#| msgid "Permission display mode"
 msgid "Extension display mode"
 msgstr "Luzapenak bistaratzeko modua"
 
@@ -202,7 +187,6 @@ msgid "Defines where the file name extension is displayed."
 msgstr "Fitxategi-izenen luzapenak non bistaratuko diren zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:24
-#| msgid "Left mouse button"
 msgid "Left mouse button mode"
 msgstr "Saguaren ezkerreko botoiaren modua"
 
@@ -213,7 +197,6 @@ msgstr ""
 "irekitzeko."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:26
-#| msgid "Left mouse button"
 msgid "Left mouse button unselects"
 msgstr "Saguaren ezkerreko botoia desautatzeko"
 
@@ -221,32 +204,28 @@ msgstr "Saguaren ezkerreko botoia desautatzeko"
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
-"Desautatutako elementu batean klik eginez hautatutako elementuak "
-"desautatuko dituen zehazten du."
+"Desautatutako elementu batean klik eginez hautatutako elementuak desautatuko "
+"dituen zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:28
-#| msgid "Right mouse button"
 msgid "Right mouse button mode"
 msgstr "Saguaren eskuineko botoiaren modua"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:29
 msgid "Defines what happens when the right mouse button is clicked on an item."
 msgstr ""
-"Saguaren eskuineko botoiarekin elementu batean klik egitean zer gertatuko den "
-"zehazten du."
+"Saguaren eskuineko botoiarekin elementu batean klik egitean zer gertatuko "
+"den zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:30
-#| msgid "Icon size:"
 msgid "Icon size"
 msgstr "Ikono-tamaina"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:31
-#| msgid "Number of lines in the document."
 msgid "Size of icons in the file pane."
 msgstr "Fitxategien paneleko ikonoen tamaina zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:32
-#| msgid "Icon size:"
 msgid "Device icon size"
 msgstr "Gailuen ikono-tamaina"
 
@@ -255,7 +234,6 @@ msgid "Icon size in the device list."
 msgstr "Gailuen zerrendako ikonoen tamaina."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:34
-#| msgid "Scaling quality:"
 msgid "Icon scale quality"
 msgstr "Ikonoen eskalatze-kalitatea"
 
@@ -268,7 +246,6 @@ msgstr ""
 "zehazten ditu."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:36
-#| msgid "Theme icon directory:"
 msgid "MIME icon directory"
 msgstr "MIME ikonoen direktorioa"
 
@@ -285,15 +262,14 @@ msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
 msgstr ""
-"Katearen matrize honek komando-lerroan exekutatutako komandoen "
-"historia adierazten du."
+"Katearen matrize honek komando-lerroan exekutatutako komandoen historia "
+"adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:40
 msgid "Command line history length"
 msgstr "Komando-lerroaren historiaren luzera"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:41
-#| msgid "Optional information"
 msgid "Horizontal orientation"
 msgstr "Orientazio horizontala"
 
@@ -312,7 +288,6 @@ msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
 msgstr "Erabiltzailearen Interfaze Grafikoa (GUI) freskatzeko bitartea (mseg)."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:45
-#| msgid "Show Device Buttons"
 msgid "Show device buttons"
 msgstr "Erakutsi gailuaren botoiak"
 
@@ -321,7 +296,6 @@ msgid "Defines if device buttons are shown."
 msgstr "Gailuaren botoiak erakutsiko diren edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:47
-#| msgid "Show Device List"
 msgid "Show device list"
 msgstr "Erakutsi gailuen zerrenda"
 
@@ -330,7 +304,6 @@ msgid "Defines if the list of devices is shown."
 msgstr "Gailuen zerrenda erakutsiko den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:49
-#| msgid "Show Command Line"
 msgid "Show command line"
 msgstr "Erakutsi komando-lerroa"
 
@@ -339,17 +312,14 @@ msgid "Defines if command line is shown."
 msgstr "Komando-lerroa erakutsiko den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:51
-#| msgid "Show Toolbar"
 msgid "Show toolbar"
 msgstr "Erakutsi tresna-barra"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:52
-#| msgid "Specifies which disc the track is on."
 msgid "Defines if the toolbar is shown."
 msgstr "Tresna-barra erakutsiko den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:53
-#| msgid "Show Buttonbar"
 msgid "Show buttonbar"
 msgstr "Erakutsi botoi-barra"
 
@@ -358,7 +328,6 @@ msgid "Defines if the buttonbar is shown."
 msgstr "Botoi-barra erakutsiko den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:55
-#| msgid "Symlink target:"
 msgid "Symlink string"
 msgstr "Esteka sinbolikoen katea"
 
@@ -372,8 +341,7 @@ msgid ""
 msgstr ""
 "Kate honek sortu berri den esteka sinbolikoaren izen lehenetsia zehazten du. "
 "Utzi katea hutsik programaren iturburuan txertatutako balio lehenetsia "
-"erabiltzeko. "
-"'%s' batek jatorriko elementuaren izena hedatuko dio estekari."
+"erabiltzeko. '%s' batek jatorriko elementuaren izena hedatuko dio estekari."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:58
 msgid "Main window horizontal position"
@@ -400,7 +368,6 @@ msgid "This option defines the width of the main window."
 msgstr "Aukera honek leiho nagusiaren zabalera zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:64
-#| msgid "Row height:"
 msgid "Main window height"
 msgstr "Leiho nagusiaren altuera"
 
@@ -417,7 +384,6 @@ msgid "This option defines the width of the icon column."
 msgstr "Aukera honek 'Ikonoa' zutabearen zabalera zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:68
-#| msgid "With file name"
 msgid "Width of name column"
 msgstr "'Izena' zutabearen zabalera"
 
@@ -450,7 +416,6 @@ msgid "This option defines the width of the size column."
 msgstr "Aukera honek 'Tamaina' zutabearen zabalera zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:76
-#| msgid "Title of the document."
 msgid "Width of date column"
 msgstr "'Data' zutabearen zabalera"
 
@@ -483,7 +448,6 @@ msgid "This option defines the width of the group column."
 msgstr "Aukera honek 'Taldea' zutabearen zabalera zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:84
-#| msgid "Windows share"
 msgid "Main window state"
 msgstr "Leiho nagusiaren egoera"
 
@@ -492,12 +456,11 @@ msgid ""
 "The number represents the main window state, e.g. 'maximized', 'fullscreen', "
 "etc. and is calculated internally."
 msgstr ""
-"Zenbakiak leiho nagusiaren egoera adierazten du, adib. 'maximized' "
-"(maximizatuta), 'fullscreen' "
-"(pantaila osoa), eta abar. eta barnean kalkulatzen da."
+"Zenbakiak leiho nagusiaren egoera adierazten du, adib. "
+"'maximized' (maximizatuta), 'fullscreen' (pantaila osoa), eta abar. eta "
+"barnean kalkulatzen da."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:86
-#| msgid "Middle mouse button"
 msgid "Middle mouse button mode"
 msgstr "Saguaren erdiko botoiaren modua"
 
@@ -507,7 +470,6 @@ msgstr ""
 "Saguaren erdiko botoiarekin klik egitean zer gertatuko den zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:88
-#| msgid "Select directories"
 msgid "Save directories on exit"
 msgstr "Gorde direktorioak irtetean"
 
@@ -520,7 +482,6 @@ msgstr ""
 "ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:90
-#| msgid "Save on exit"
 msgid "Save tabs on exit"
 msgstr "Gorde fitxak irtetean"
 
@@ -529,11 +490,10 @@ msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
 msgstr ""
-"GNOME Commander abiaraztean unean irekita dauden "
-"fitxak berriro irekiko diren edo ez adierazten du."
+"GNOME Commander abiaraztean unean irekita dauden fitxak berriro irekiko "
+"diren edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:92
-#| msgid "Show directory history"
 msgid "Save directory history on exit"
 msgstr "Gorde direktorioaren historia irtetean"
 
@@ -543,7 +503,6 @@ msgstr ""
 "Bisitatutako direktorioen historia irtetean gordeko den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:94
-#| msgid "Always show the tab bar"
 msgid "Always show tab bar"
 msgstr "Beti erakutsi fitxa-barra"
 
@@ -561,17 +520,16 @@ msgid "Defines the style of the tab lock indicator."
 msgstr "Fitxaren blokeoaren adierazlearen estiloa zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:98
-#| msgid "Case sensitive matching"
 msgid "Case sensitive sorting"
 msgstr "Bereiztu Maius/minuskulak ordenatzean"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:99
 msgid "This option defines if sorting should be case sensitive."
 msgstr ""
-"Ordenatzean maiuskulak eta minuskulak bereiztu behar diren ala ez zehazten du."
+"Ordenatzean maiuskulak eta minuskulak bereiztu behar diren ala ez zehazten "
+"du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:100
-#| msgid "Select directories"
 msgid "Select directories when all is marked"
 msgstr "Hautatu direktorioak dena markatuta dagoenean"
 
@@ -580,11 +538,10 @@ msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
 msgstr ""
-"Fitxategi-paneleko elementu guztiak markatu "
-"behar direnean direktorioak markatuko diren adierazten du."
+"Fitxategi-paneleko elementu guztiak markatu behar direnean direktorioak "
+"markatuko diren adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:102
-#| msgid "Multiple instances"
 msgid "Allow multiple instances"
 msgstr "Onartu hainbat instantzia"
 
@@ -605,7 +562,6 @@ msgstr ""
 "behar duen edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:106
-#| msgid "Quick search"
 msgid "Quick search exact match end"
 msgstr "Bilaketa azkarraren amaierako bat etortze esplizitua"
 
@@ -618,7 +574,6 @@ msgstr ""
 "behar duen edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:108
-#| msgid "Show only the icons"
 msgid "Only device icons"
 msgstr "Gailuen ikonoak soilik"
 
@@ -627,8 +582,8 @@ msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
 msgstr ""
-"Ikono eta testu-etiketen ordez gailuen ikonoak soilik erakutsiko diren "
-"edo ez adierazten du."
+"Ikono eta testu-etiketen ordez gailuen ikonoak soilik erakutsiko diren edo "
+"ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:110
 msgid "Skip device mounting"
@@ -651,7 +606,6 @@ msgid "This option defines if the main menu is visible or not."
 msgstr "Menu nagusia ikusgai egongo den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:114
-#| msgid "Quick search"
 msgid "Quick search shortcut"
 msgstr "Bilaketa azkarraren lasterbidea"
 
@@ -676,7 +630,6 @@ msgid "This string defines the password for anonymous FTP connections."
 msgstr "Kate honek FTP konexio anonimoen pasahitza zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:120
-#| msgid "Confirm before delete"
 msgid "Confirm delete"
 msgstr "Berretsi ezabatzea"
 
@@ -685,7 +638,6 @@ msgid "Defines if deletion of an item should be confirmed."
 msgstr "Elementu bat ezabatzean berretsi behar den edo ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:122
-#| msgid "Delete files"
 msgid "Delete default"
 msgstr "Ezabatu lehenetsia"
 
@@ -694,11 +646,10 @@ msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr ""
-"Ezabatzearen berrespenaren elkarrizketa-koadroan aktibo egongo "
-"den aukera lehenetsia ezartzen du."
+"Ezabatzearen berrespenaren elkarrizketa-koadroan aktibo egongo den aukera "
+"lehenetsia ezartzen du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:124
-#| msgid "Copy overwrite"
 msgid "Confirm copy overwrite"
 msgstr "Berretsi gainidatziz kopiatzea"
 
@@ -708,11 +659,9 @@ msgid ""
 "copy command."
 msgstr ""
 "Kopiatzeko komandoarekin elementuak gainidaztean egongo den portaera "
-"lehenetsia "
-"adierazten du."
+"lehenetsia adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:126
-#| msgid "Move overwrite"
 msgid "Confirm move overwrite"
 msgstr "Berretsi lekuz aldatzeak gainidaztea"
 
@@ -725,7 +674,6 @@ msgstr ""
 "diren ala ez portaera lehenetsia zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:128
-#| msgid "Confirm mouse operation"
 msgid "Confirm mouse drag and drop"
 msgstr "Berretsi saguaren arrastatzea eta jaregitea"
 
@@ -736,7 +684,6 @@ msgstr ""
 "zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:130
-#| msgid "Unknown file type"
 msgid "Hide unknown filetypes"
 msgstr "Ezkutatu fitxategi-mota ezezagunak"
 
@@ -746,12 +693,10 @@ msgstr ""
 "Ezkutatu fitxategiak hauen motak beste mota batzuekin bat ez etortzean."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:132
-#| msgid "Regular files"
 msgid "Hide regular files"
 msgstr "Ezkutatu fitxategi arruntak"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:133
-#| msgid "All directories"
 msgid "Hide directories"
 msgstr "Ezkutatu direktorioak"
 
@@ -764,17 +709,14 @@ msgid "Hide sockets"
 msgstr "Ezkutatu socket-ak"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:136
-#| msgid "Character devices"
 msgid "Hide character devices"
 msgstr "Ezkutatu karaktere-gailuak"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:137
-#| msgid "Block devices"
 msgid "Hide block devices"
 msgstr "Ezkutatu bloke-gailuak"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:138
-#| msgid "Create symbolic link"
 msgid "Hide symbolic links"
 msgstr "Ezkutatu esteka sinbolikoak"
 
@@ -783,7 +725,6 @@ msgid "Hide files and folders starting with a dot"
 msgstr "Ezkutatu puntu batekin hasten diren fitxategiak eta karpetak "
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:140
-#| msgid "Backup files"
 msgid "Hide backup files"
 msgstr "Ezkutatu Babeskopia-fitxategiak"
 
@@ -794,24 +735,25 @@ msgstr ""
 "guztiak."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:142
-#| msgid "Backup files"
 msgid "Backup file pattern"
 msgstr "Babeskopia-fitxategien eredua"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:143
+#| msgid ""
+#| "The given string defines suffixes (separated by semicolon) for files "
+#| "which should by filtered out if backup files should by hidden."
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
-"should by filtered out if backup files should by hidden."
+"should be filtered out if backup files should be hidden."
 msgstr ""
-"Emandako kateak atzizkiak zehazten ditu (puntu eta komaz bereiztuta) "
-"iragazi beharko liratekeena babeskopiaren fitxategiak ezkutatzean."
+"Emandako kateak atzizkiak zehazten ditu (puntu eta komaz bereiztuta) iragazi "
+"beharko liratekeena babeskopiaren fitxategiak iragaztean."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:144
 msgid "Do not download files"
 msgstr "Ez deskargatu fitxategiak"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:145
-#| msgid "Always download remote files before opening in external programs"
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -820,7 +762,6 @@ msgstr ""
 "ala ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:146
-#| msgid "Use Internal Viewer"
 msgid "Use internal viewer"
 msgstr "Erabili barneko ikustailea"
 
@@ -829,7 +770,6 @@ msgid "This option defines if the internal viewer should be used by default."
 msgstr "barneko ikustailea lehenetsi gisa erabiliko den ala ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:148
-#| msgid "Execute command"
 msgid "Viewer command"
 msgstr "Ikustailearen komandoa"
 
@@ -838,7 +778,6 @@ msgid "This string defines the command for starting the (external) viewer."
 msgstr "Kate honek (kanpoko) ikustailea abiarazteko komandoa zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:150
-#| msgid "Execute command"
 msgid "Editor command"
 msgstr "Editorearen komandoa"
 
@@ -847,7 +786,6 @@ msgid "This string defines the command for starting the editor."
 msgstr "Kate honek editorea abiarazteko komandoa zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:152
-#| msgid "Invalid command"
 msgid "Differ command"
 msgstr "Diff-en komandoa"
 
@@ -868,7 +806,6 @@ msgstr ""
 "komando bat amaitzean ala ez."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:156
-#| msgid "Unable to open terminal"
 msgid "Command for opening a terminal"
 msgstr "Komandoa terminal bat irekitzeko"
 
@@ -888,7 +825,6 @@ msgstr ""
 "du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:160
-#| msgid "Invalid command"
 msgid "Send to command"
 msgstr "Bidali komandoari"
 
@@ -897,7 +833,6 @@ msgid "This string defines the command for sending files to a receiver."
 msgstr "Kate honek fitxategiak hartzaileari bidaltzeko komandoa zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:162
-#| msgid "Color scheme:"
 msgid "Color theme"
 msgstr "Kolore-gaia"
 
@@ -970,7 +905,6 @@ msgid "Cursor background color in custom mode."
 msgstr "Kurtsorearen atzeko planoaren kolorea modu pertsonalizatuan."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:180
-#| msgid "Respect theme colors"
 msgid "Use LS colors"
 msgstr "Erabili LS koloreak"
 
@@ -1143,7 +1077,6 @@ msgstr ""
 "LS_COLORS balio zuriaren atzeko planoaren kolorearen mapaketa doitzen du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:214
-#| msgid "Case sensitive matching"
 msgid "Case sensitive search"
 msgstr "Bereiztu Maius/minuskulak bilaketan"
 
@@ -1156,7 +1089,6 @@ msgstr ""
 "diren ala ez."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:216
-#| msgid "Search for"
 msgid "Search mode"
 msgstr "Bilaketaren modua"
 
@@ -1174,7 +1106,6 @@ msgid "'UTF8'"
 msgstr "'UTF8'"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:224
-#| msgid "Character Count"
 msgid "Character set"
 msgstr "Karaktere-jokoa"
 
@@ -1183,7 +1114,6 @@ msgid "This option defines the default character encoding."
 msgstr "Karaktere-kodeketa lehenetsia zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:226
-#| msgid "File name:"
 msgid "Fixed font name"
 msgstr "Letra-tipo finkoaren izena"
 
@@ -1192,7 +1122,6 @@ msgid "Name of the default font with fixed character width."
 msgstr "Finkatutako karaktere-zabalerako letra-tipo lehenetsiaren izena"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:228
-#| msgid "Profile name"
 msgid "Variable font name"
 msgstr "Letra-tipo aldakorraren izena"
 
@@ -1209,22 +1138,20 @@ msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr ""
-"Aukera honek desplazamendu hamaseitarra modu hamaseitarrean "
-"bistaratuko den ala ez adierazten du."
+"Aukera honek desplazamendu hamaseitarra modu hamaseitarrean bistaratuko den "
+"ala ez adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:232
-#| msgid "Graphical mode:"
 msgid "Wrap mode"
 msgstr "Itzulbiratze-modua"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:233
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
-"Aukera honek gehiegizko luzera duten lerroak itzulbiratuko "
-"diren ala ez adierazten du."
+"Aukera honek gehiegizko luzera duten lerroak itzulbiratuko diren ala ez "
+"adierazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:234
-#| msgid "Icon size:"
 msgid "Font size"
 msgstr "Letra-tamaina"
 
@@ -1233,7 +1160,6 @@ msgid "This option defines the default font size."
 msgstr "Aukera honek letra-tamaina lehenetsia definitzen du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:236
-#| msgid "size"
 msgid "Tab size"
 msgstr "Fitxaren tamaina"
 
@@ -1258,7 +1184,6 @@ msgstr ""
 "aukera honek."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:240
-#| msgid "Flip _Horizontal"
 msgid "Horizontal offset"
 msgstr "Desplazamendu horizontala"
 
@@ -1283,17 +1208,14 @@ msgstr ""
 "bisuala zehazten du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:244
-#| msgid "Windows share"
 msgid "Window width"
 msgstr "Leihoaren zabalera"
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:245
-#| msgid "View with internal viewer"
 msgid "The width of the internal file viewer window."
 msgstr "Barneko fitxategi-ikustailearen leihoaren zabalera."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:246
-#| msgid "Row height:"
 msgid "Window height"
 msgstr "Leihoaren altuera"
 
@@ -1302,7 +1224,6 @@ msgid "The height of the internal file viewer window."
 msgstr "Barneko fitxategi-ikustailearen leihoaren altuera."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:248
-#| msgid "Search _for: "
 msgid "Search pattern for text"
 msgstr "Testuaren bilaketa-eredua"
 
@@ -1311,8 +1232,8 @@ msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr ""
-"Katearen matrize honek barneko fitxategi-ikustailean "
-"bilatu diren testuen historia gordetzen du."
+"Katearen matrize honek barneko fitxategi-ikustailean bilatu diren testuen "
+"historia gordetzen du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:250
 msgid "Search pattern for hex values"
@@ -1323,11 +1244,10 @@ msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr ""
-"Katearen matrize honek barneko fitxategi-ikustailean "
-"bilatu diren balio hamaseitarren historia gordetzen du."
+"Katearen matrize honek barneko fitxategi-ikustailean bilatu diren balio "
+"hamaseitarren historia gordetzen du."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:252
-#| msgid "File size"
 msgid "File suffix"
 msgstr "Fitxategiaren atzizkia"
 
@@ -1338,7 +1258,6 @@ msgstr ""
 "eraikitzeko erabiltzen da."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:254
-#| msgid "Regex pattern"
 msgid "Prefix pattern"
 msgstr "Aurrizkiaren eredua"
 
@@ -1351,7 +1270,6 @@ msgstr ""
 "eraikitzeko erabiltzen da."
 
 #: ../data/org.gnome.gnome-commander.gschema.xml.h:256
-#| msgid "Available plugins"
 msgid "Automatically loaded plugins"
 msgstr "Automatikoki kargatutako pluginak"
 
@@ -1360,8 +1278,8 @@ msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
 msgstr ""
-"Automatikoki kargatutako pluginen zerrenda da hau, non "
-"sarrera bakoitzak pluginaren fitxategi-izena adierazten duen."
+"Automatikoki kargatutako pluginen zerrenda da hau, non sarrera bakoitzak "
+"pluginaren fitxategi-izena adierazten duen."
 
 #: ../libgcmd/gnome-cmd-string-dialog.cc:128
 msgid "No error description available"
@@ -1412,13 +1330,11 @@ msgid "File-roller options"
 msgstr "File-roller aukerak"
 
 #: ../plugins/fileroller/file-roller-plugin.cc:531
-#| msgid "Default type"
 msgid "Default archive type"
 msgstr "Artxibo mota lehenetsia"
 
 #. The pattern defining the file name prefix of the archive to be created
 #: ../plugins/fileroller/file-roller-plugin.cc:539
-#| msgid "File patterns"
 msgid "File prefix pattern"
 msgstr "Fitxategiaren aurrizkiaren eredua"
 
@@ -1432,8 +1348,8 @@ msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "\"strftime\" for other patterns."
 msgstr ""
-"Erabili $N jatorrizko fitxategi-izenaren eredu gisa. Ikusi "
-"\"strftime\" komandoaren man eskuliburua beste ereduak ezagutzeko."
+"Erabili $N jatorrizko fitxategi-izenaren eredu gisa. Ikusi \"strftime\" "
+"komandoaren man eskuliburua beste ereduak ezagutzeko."
 
 #: ../plugins/fileroller/file-roller-plugin.cc:708
 msgid ""
@@ -2356,7 +2272,6 @@ msgid "Green tiger"
 msgstr "Tigre berdea"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:713
-#| msgid "Counter"
 msgid "Winter"
 msgstr "Negua"
 
@@ -2615,7 +2530,6 @@ msgid "Differ:"
 msgstr "Diferentziatzailea:"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1583
-#| msgid "Send files"
 msgid "Send files:"
 msgstr "Bidali fitxategiak:"
 
@@ -2628,7 +2542,6 @@ msgid "Use Internal Viewer"
 msgstr "Erabili barneko ikustailea"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1610
-#| msgid "Other favorite apps"
 msgid "Other favourite apps"
 msgstr "Beste gogoko aplikazioak"
 
@@ -2637,7 +2550,6 @@ msgid "Label"
 msgstr "Etiketa"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1618
-#| msgid "Command:"
 msgid "Command"
 msgstr "Komandoa"
 
@@ -3267,7 +3179,6 @@ msgstr "Muntatzeak huts egin du: ez da euskarririk aurkitu"
 
 #: ../src/gnome-cmd-con-device.cc:132
 #, c-format
-#| msgid "Mount failed: mount exited with existatus %d"
 msgid "Mount failed: mount exited with exitstatus %d"
 msgstr "Muntatzeak huts egin du: %d egoerarekin irten da"
 
@@ -3370,16 +3281,16 @@ msgstr "Lantaldeak eta ostalariak bilatzen"
 msgid "Go to: Samba Network"
 msgstr "Joan hona: Samba sarea"
 
-#: ../src/gnome-cmd-data.cc:3505 ../src/gnome-cmd-data.cc:4507
+#: ../src/gnome-cmd-data.cc:3509 ../src/gnome-cmd-data.cc:4511
 #, c-format
 msgid "link to %s"
 msgstr "Estekatu hona: %s"
 
-#: ../src/gnome-cmd-data.cc:3777
+#: ../src/gnome-cmd-data.cc:3781
 msgid "Audio Files"
 msgstr "Audioko fitxategiak"
 
-#: ../src/gnome-cmd-data.cc:3785
+#: ../src/gnome-cmd-data.cc:3789
 msgid "CamelCase"
 msgstr "CamelCase"
 
@@ -3580,7 +3491,6 @@ msgstr "%s libre"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
 #: ../src/gnome-cmd-user-actions.cc:1693 ../src/gnome-cmd-user-actions.cc:1701
-#| msgid "The tab is locked, close anyway ?"
 msgid "The tab is locked, close anyway?"
 msgstr "Fitxa blokeatuta dago. Itxi dena den?"
 
@@ -3778,7 +3688,6 @@ msgid "Maximize Panel Size"
 msgstr "Maximizatu panelaren tamaina"
 
 #: ../src/gnome-cmd-main-menu.cc:651
-#| msgid "Image Orientation"
 msgid "Horizontal Orientation"
 msgstr "Orientazio horizontala"
 
@@ -4007,7 +3916,6 @@ msgid "Go to bookmarked location"
 msgstr "Joan laster-markatutako kokalekura"
 
 #: ../src/gnome-cmd-user-actions.cc:196
-#| msgid "Bookmark current directory"
 msgid "Show bookmarks of current device"
 msgstr "Erakutsi uneko gailuaren laster-markak"
 
@@ -4285,7 +4193,6 @@ msgstr "Eraman kurtsorea bat behera"
 
 #: ../src/gnome-cmd-user-actions.cc:803 ../src/gnome-cmd-user-actions.cc:948
 #: ../src/gnome-cmd-user-actions.cc:1177
-#| msgid "Invalid command"
 msgid "No valid command given."
 msgstr "Ez da baliozko komandorik eman."
 
@@ -4320,7 +4227,6 @@ msgid "Unable to open terminal in root mode."
 msgstr "Ezin da terminala 'root' moduan ireki."
 
 #: ../src/gnome-cmd-user-actions.cc:1267
-#| msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "Ez da gksudo, xdg-su, gksu, gnomesu, kdesu edo beesu aurkitu."
 
@@ -4329,7 +4235,6 @@ msgid "Unable to start GNOME Commander in root mode."
 msgstr "Ezin da GNOME Commander root moduan abiarazi."
 
 #: ../src/gnome-cmd-user-actions.cc:1289
-#| msgid "xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "Ez da gksudo, xdg-su, gksu, gnomesu, kdesu edo beesu aurkitu"
 
@@ -6355,12 +6260,6 @@ msgid "Reference Black/White"
 msgstr "Beltz/Zuri erreferentzia"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
-#| msgid ""
-#| "The reference black point value and reference white point value. No "
-#| "defaults are given in TIFF, but the values below are given as defaults "
-#| "here. The color space is declared in a color space information tag, with "
-#| "the default being the value that gives the optimal image characteristics "
-#| "Interoperability these conditions."
 msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
@@ -6371,8 +6270,8 @@ msgstr ""
 "Puntu beltzaren erreferentzia eta puntu zuriaren erreferentzia. Lehenetsirik "
 "ez da ematen TIFF formatuan, baina azpiko balioak lehenetsi gisa ematen dira "
 "hemen. Kolore-espazioa kolore-espazioaren informazioko etiketan zehazten da, "
-"irudiaren ezaugarri optimoei baldintza hauek ematen "
-"dizkien balioa da lehenetsia."
+"irudiaren ezaugarri optimoei baldintza hauek ematen dizkien balioa da "
+"lehenetsia."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Related Image File Format"
@@ -6809,12 +6708,6 @@ msgid "YCbCr Coefficients"
 msgstr "YCbCr koefizienteak"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
-#| msgid ""
-#| "The matrix coefficients for transformation from RGB to YCbCr image data. "
-#| "No default is given in TIFF; but here \"Color Space Guidelines\" is used "
-#| "as the default. The color space is declared in a color space information "
-#| "tag, with the default being the value that gives the optimal image "
-#| "characteristics Interoperability this condition."
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
@@ -6825,8 +6718,8 @@ msgstr ""
 "Irudiaren GBU datutik YCbCr datuetara bihurtzeko matrize-koefizienteak. TIFF "
 "formatuan lehenetsirik egon ez arren, \"Kolore-espazioaren gidalerroak\" "
 "erabiltzen da lehenetsi gisa. kolore-espazioaren etiketan definitzen da "
-"kolore-espazioa, irudiaren ezaugarrien optimoaren "
-"baldintza ematen duen balioa da lehenetsia."
+"kolore-espazioa, irudiaren ezaugarrien optimoaren baldintza ematen duen "
+"balioa da lehenetsia."
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid "YCbCr Positioning"
