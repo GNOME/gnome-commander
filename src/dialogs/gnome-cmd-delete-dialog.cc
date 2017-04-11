@@ -84,7 +84,7 @@ static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData
     else
         if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK)
         {
-            if (info->file_index >= 0 && info->files_total > 0)
+            if (info->files_total > 0)
             {
                 gfloat f = (gfloat)info->file_index/(gfloat)info->files_total;
                 g_free (data->msg);
