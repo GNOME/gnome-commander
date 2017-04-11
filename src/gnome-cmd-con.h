@@ -427,37 +427,7 @@ inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, gboolean use_aut
 }
 
 #ifdef HAVE_SAMBA
-inline std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
-{
-    share = '/' + share;
-
-    user = stringify (gnome_vfs_escape_string (user.c_str()));
-    password = stringify (gnome_vfs_escape_string (password.c_str()));
-
-    if (!password.empty() && !use_auth)
-    {
-        user += ':';
-        user += password;
-    }
-
-    if (!domain.empty())
-        user = domain + ';' + user;
-
-    const gchar *join = !folder.empty() && folder[0] != '/' ? "/" : "";
-
-    folder = share + join + folder;
-    folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
-
-    s = "smb://";
-
-    if (!user.empty())
-        s += user + '@';
-
-    s += server;
-    s += folder;
-
-    return s;
-}
+std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password);
 #endif
 
 inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
