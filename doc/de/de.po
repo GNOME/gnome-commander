@@ -13301,7 +13301,7 @@ msgstr "Voll ausgeschriebene URI der Datei (oder Liste für Mehrfachauswahl)"
 #. (itstool) path: entry/para
 #: C/index.docbook:5699
 msgid "Full path to the directory containing file"
-msgstr "<Vollständiger Pfad zum Ordner, der die Datei enthält"
+msgstr "Vollständiger Pfad zum Ordner, der die Datei enthält"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5704
@@ -15310,7 +15310,7 @@ msgid ""
 "guimenuitem></menuchoice>"
 msgstr ""
 "Dateien mit dem Differ in <menuchoice><guimenu>Einstellungen</"
-"guimenu><guimenuitem>Optionen …</guimenuitem><guimenuitem>Programme/"
+"guimenu><guimenuitem>Optionen …</guimenuitem><guimenuitem>Programme</"
 "guimenuitem></menuchoice> vergleichen"
 
 #. (itstool) path: entry/para
@@ -19367,7 +19367,7 @@ msgstr "md5sum"
 #. (itstool) path: listitem/para
 #: C/releases.xml:1412
 msgid "<_:command-1/> Create MD5 (128-bit) checksum"
-msgstr "<_:keycombo-1/> Erzeugen der MD5(128-bit)-Checksumme"
+msgstr "<_:command-1/> Erzeugen der MD5(128-bit)-Checksumme"
 
 #. (itstool) path: para/command
 #: C/releases.xml:1415
@@ -19377,7 +19377,7 @@ msgstr "sha1sum"
 #. (itstool) path: listitem/para
 #: C/releases.xml:1415
 msgid "<_:command-1/> Create SHA-1 (160-bit) checksum"
-msgstr "<_:keycombo-1/> Erzeugen der SHA-1(160-bit)-Checksumme"
+msgstr "<_:command-1/> Erzeugen der SHA-1(160-bit)-Checksumme"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1420
@@ -20646,4 +20646,3 @@ msgstr "2. August 2001"
 #: C/releases.xml:2177
 msgid "The first public version of GNOME Commander."
 msgstr "Die erste veröffentlichte Version von GNOME Commander."
-
