@@ -411,7 +411,7 @@ static void up_clicked_callback (GtkButton *button, GtkWidget *bm_view)
         return;
 
     bookmark->group->bookmarks = g_list_insert_before (bookmark->group->bookmarks, g_list_previous (elem), bookmark);
-    g_list_remove_link (bookmark->group->bookmarks, elem);
+    bookmark->group->bookmarks = g_list_remove_link (bookmark->group->bookmarks, elem);
 
     GtkTreePath *path = gtk_tree_model_get_path (model, &iter);
     GtkTreeIter prev;
@@ -447,7 +447,7 @@ static void down_clicked_callback (GtkButton *button, GtkWidget *bm_view)
     if (!elem)
         return;
 
-    g_list_insert (elem, bookmark, 2);
+    elem = g_list_insert (elem, bookmark, 2);
     bookmark->group->bookmarks = g_list_remove_link (bookmark->group->bookmarks, elem);
 
     GtkTreeIter next = iter;
