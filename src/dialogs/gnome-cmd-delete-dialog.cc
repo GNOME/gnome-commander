@@ -243,14 +243,15 @@ static gboolean update_delete_status_widgets (DeleteData *data)
 
 inline void do_delete (DeleteData *data)
 {
-    data->mutex = g_mutex_new ();
+    g_mutex_init(data->mutex);
     data->delete_done = FALSE;
     data->vfs_status = GNOME_VFS_OK;
     data->problem_action = -1;
     create_delete_progress_win (data);
 
-    data->thread = g_thread_create ((GThreadFunc) perform_delete_operation, data, FALSE, NULL);
+    data->thread = g_thread_new (NULL, (GThreadFunc) perform_delete_operation, data);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_delete_status_widgets, data);
+    g_mutex_clear(data->mutex);
 }
 
 

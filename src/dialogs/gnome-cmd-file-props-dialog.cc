@@ -176,7 +176,7 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
     data->size = 0;
     data->count_done = FALSE;
 
-    data->thread = g_thread_create ((PthreadFunc) calc_tree_size_func, data, TRUE, NULL);
+    data->thread = g_thread_new (NULL, (PthreadFunc) calc_tree_size_func, data);
 
     data->updater_proc_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_count_status, data);
 }
@@ -698,7 +698,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
     data->uri = f->get_uri();
-    data->mutex = g_mutex_new ();
+    g_mutex_init(data->mutex);
     data->msg = NULL;
     data->notebook = notebook;
     f->ref();
