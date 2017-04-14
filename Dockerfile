@@ -9,7 +9,7 @@ RUN \
   apt-get install -yq sudo && \
   echo $LANG && \
   echo $LC_ALL && \
-  sudo apt-get build-dep gnome-commander -y &&
+  sudo apt-get build-dep gnome-commander -y && \
   sudo apt-get install -y -qq autoconf-archive cmake flex git-core gnome-common libglib2.0-dev libgtest-dev libunique-dev yelp-tools
 
 RUN \
