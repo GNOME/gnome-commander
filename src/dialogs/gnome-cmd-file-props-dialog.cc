@@ -209,15 +209,11 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (result == GNOME_VFS_OK)
     {
+        
         uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
         gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
 
-        if (uid == data->f->info->uid)
-            uid = -1;
-        if (gid == data->f->info->gid)
-            gid = -1;
-
-        if (uid != -1 || gid != -1)
+        if (uid != data->f->info->uid || gid != data->f->info->gid)
             result = data->f->chown(uid,gid);
     }
 
