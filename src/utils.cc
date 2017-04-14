@@ -1435,17 +1435,6 @@ gboolean gnome_cmd_prepend_su_to_vector (int &argc, char **&argv)
     return TRUE;
 }
 
-template <typename T>
-std::string &stringify(std::string &s, const T &val)
-{
-   std::ostringstream os;
-
-   os << val;
-   s = os.str();
-
-   return s;
-}
-
 int split(const string &s, vector<string> &coll, const char *sep)
 {
   coll.clear();

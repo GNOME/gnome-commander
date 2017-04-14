@@ -315,7 +315,15 @@ inline std::string &stringify(std::string &s, gchar *val)
 }
 
 template <typename T>
-std::string &stringify(std::string &s, const T &val);
+std::string &stringify(std::string &s, const T &val)
+{
+   std::ostringstream os;
+
+   os << val;
+   s = os.str();
+
+   return s;
+}
 
 inline std::string stringify(gchar *val)
 {
