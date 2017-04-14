@@ -17335,7 +17335,7 @@ msgstr ""
 #: C/releases.xml:76
 msgid "Fixed string escaping for directories with ampersand (see bgo#769309)"
 msgstr ""
-"Corregido el escapado de cadenas para carpetas con «&» (consulte el error nº "
+"Corregido el escapado de cadenas para carpetas con «&amp;» (consulte el error nº "
 "769309)"
 
 #. (itstool) path: listitem/para
