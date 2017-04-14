@@ -588,6 +588,7 @@ static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string,
     gint col = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (cell), "column"));
 
     if (gtk_tree_model_get_iter (model, &iter, path))
+    {
         if (col==COL_ACTION && GnomeCmdKeyShortcutsDialog::user_actions)
             gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                 col, new_text,
@@ -597,6 +598,7 @@ static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string,
             gtk_list_store_set (GTK_LIST_STORE (model), &iter,
                                 col, new_text,
                                 -1);
+    }
 
     gtk_tree_path_free (path);
 }
