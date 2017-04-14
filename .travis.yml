@@ -2,28 +2,11 @@ sudo:     required
 dist:     trusty
 language: cpp
 
-compiler:
-  - gcc
-
-before_script:
-  - sudo apt-get update -qq
-  - echo $LANG
-  - echo $LC_ALL
-  - sudo apt-get install libgtest-dev
-  - sudo mkdir /usr/src/gtest/build
-  - cd /usr/src/gtest/build
-  - sudo cmake .. -DBUILD_SHARED_LIBS=1
-  - sudo make -j4
-  - sudo ln -s /usr/src/gtest/build/libgtest.so /usr/lib/libgtest.so
-  - sudo ln -s /usr/src/gtest/build/libgtest_main.so /usr/lib/libgtest_main.so
-  - sudo apt-get build-dep -qq gnome-commander
-  - sudo apt-get install -qq gnome-common libunique-dev scrollkeeper libglib2.0-dev
-  - cd -
+services:
+  - docker
 
 script:
-  - ./autogen.sh
-  - make
-  - make check
+- docker build -t turboscholz/gnome-commander .
 
 branches:
   only:
