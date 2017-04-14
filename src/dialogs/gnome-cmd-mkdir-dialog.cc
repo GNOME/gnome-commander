@@ -36,10 +36,12 @@ inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
 
     // make an absolute filename from one that is starting with a tilde
     if (filename.compare(0, 2, "~/")==0)
+    {
         if (gnome_cmd_dir_is_local (dir))
             stringify (filename, gnome_vfs_expand_initial_tilde (filename.c_str()));
         else
             filename.erase(0,1);
+    }
 
 #ifdef HAVE_SAMBA
     // smb exception handling: test if we are in a samba share...
