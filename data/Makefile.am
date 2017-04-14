@@ -4,6 +4,9 @@ desktopdir = $(datadir)/applications
 desktop_in_files = @PACKAGE@.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+$(desktop_DATA): %.desktop: %.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+
 gsettings_ENUM_NAMESPACE = org.gnome.gnome-commander
 gsettings_ENUM_FILES = $(top_srcdir)/src/gnome-cmd-types.h \
                        $(top_srcdir)/src/gnome-cmd-data.h \
