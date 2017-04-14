@@ -285,7 +285,7 @@ GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, co
 }
 
 
-GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, gchar *name)
+GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *text, const gchar *name)
 {
     GtkWidget *radio = gtk_radio_button_new_with_mnemonic (group, text);
 
