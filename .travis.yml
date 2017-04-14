@@ -6,7 +6,7 @@ services:
   - docker
 
 script:
-- docker build -t turboscholz/gnome-commander .
+- docker build .
 
 branches:
   only:
