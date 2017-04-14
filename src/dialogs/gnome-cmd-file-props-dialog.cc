@@ -286,7 +286,7 @@ inline void add_sep (GtkWidget *table, gint y)
 }
 
 
-inline void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=NULL)
+void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=NULL)
 {
     if (!metadata.has_tag (tag))
         return;
@@ -328,7 +328,7 @@ inline void add_width_height_tag (GtkWidget *dialog, GtkWidget *table, gint &y, 
 }
 
 
-inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
+GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
     gint y = 0;
     GtkWidget *dialog = data->dialog;
