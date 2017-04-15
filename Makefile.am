@@ -45,10 +45,24 @@ ChangeLog:
 	  echo A git checkout and git-log is required to generate this file >> $@); \
 	fi
 
+#
+# Add filenames to this variable if the should be added to .gitignore automatically
+#
+GITIGNOREFILES = \
+	doc/doxygen/ \
+	data/gnome-commander.desktop.in \
+	data/gnome-commander.ebuild \
+	data/gnome-commander.spec \
+	.geanyprj \
+	INSTALL \
+	py-compile \
+	translators.sh
+
 MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_TOPLEVEL) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN) \
-	$(GITIGNORE_MAINTAINERCLEANFILES_M4_GETTEXT)
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_GETTEXT) \
+	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
 
 .PHONY: ChangeLog
 
