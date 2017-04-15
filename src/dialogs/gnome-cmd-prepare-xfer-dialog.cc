@@ -259,9 +259,9 @@ static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *even
         case GDK_F6:
             gnome_cmd_toggle_file_name_selection (dialog->dest_dir_entry);
             return TRUE;
+        default:
+            return FALSE;
     }
-
-    return FALSE;
 }
 
 
