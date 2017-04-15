@@ -1,7 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
+AM_CXXFLAGS = $(WARN_CXXFLAGS)
+AM_LDFLAGS = $(WARN_LDFLAGS)
+
 AM_CPPFLAGS = \
-	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
 	-I$(srcdir)/.. \
 	$(GLIB_CFLAGS) \

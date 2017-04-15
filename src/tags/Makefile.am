@@ -2,8 +2,10 @@
 
 noinst_LIBRARIES = libgcmd-tags.a
 
+AM_CXXFLAGS = $(WARN_CXXFLAGS)
+AM_LDFLAGS = $(WARN_LDFLAGS)
+
 AM_CPPFLAGS = \
-	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
 	-I$(srcdir)/.. \
 	$(GNOMEUI_CFLAGS) \

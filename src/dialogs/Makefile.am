@@ -2,8 +2,10 @@
 
 noinst_LIBRARIES = libgcmd-dialogs.a
 
+AM_CXXFLAGS = $(WARN_CXXFLAGS) -Wno-error=missing-declarations -Wno-missing-declarations
+AM_LDFLAGS = $(WARN_LDFLAGS)
+
 AM_CPPFLAGS = \
-	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
 	-I$(srcdir)/.. \
 	$(GNOMEUI_CFLAGS) \

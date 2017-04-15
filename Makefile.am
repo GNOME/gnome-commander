@@ -1,5 +1,9 @@
 ACLOCAL_AMFLAGS = -I m4
 
+AM_CXXFLAGS = $(WARN_CXXFLAGS)
+
+AM_LDFLAGS = $(WARN_LDFLAGS)
+
 SUBDIRS = libgcmd src plugins po pixmaps doc data tests
 
 distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper

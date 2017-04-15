@@ -13,19 +13,15 @@ AC_USE_SYSTEM_EXTENSIONS
 
 GLIB_GSETTINGS
 
+AX_IS_RELEASE([minor-version])
+AX_COMPILER_FLAGS
+AX_COMPILER_FLAGS_CXXFLAGS
+AX_CXX_COMPILE_STDCXX_11
+
 AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LEX
 LT_INIT
-
-AX_CXX_COMPILE_STDCXX_11
-
-dnl add -Wall to CFLAGS when using gcc
-CC_WARNINGS=
-if test "x$GCC" = "xyes"; then
-  CC_WARNINGS="-Wall"
-fi
-AC_SUBST(CC_WARNINGS)
 
 dnl ===================
 dnl Gettext stuff
