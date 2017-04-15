@@ -211,8 +211,8 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
 
     gtk_item_factory_create_items (ifac, items_size, items, this);
 
-    for (guint i=0; i<items_size; ++i)
-        g_free (items[i].path);
+    for (guint ii=0; ii<items_size; ++ii)
+        g_free (items[ii].path);
 
     g_free (items);
 
