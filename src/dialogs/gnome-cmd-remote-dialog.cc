@@ -282,19 +282,6 @@ static gint sort_by_name (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2,
 }
 
 
-static gint sort_by_auth (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
-{
-    gboolean a1;
-    gboolean a2;
-
-    gtk_tree_model_get (model, i1, COL_AUTH, &a1, -1);
-    gtk_tree_model_get (model, i2, COL_AUTH, &a2, -1);
-
-    return a1 == a2 ? sort_by_name (model, i1, i2, user_data) :
-                      a1 ? -1 : 1;
-}
-
-
 static gint sort_by_method (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
 {
     GnomeCmdCon *c1;
