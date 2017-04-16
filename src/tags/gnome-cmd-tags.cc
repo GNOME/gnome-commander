@@ -636,6 +636,7 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
                 t.name = "Vorbis.";
                 break;
 
+            case TAG_NONE_CLASS:
             default:
                 t.name = empty_string;
                 break;
@@ -713,6 +714,7 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
         case TAG_VORBIS:
             return "Vorbis";
 
+        case TAG_NONE_CLASS:
         default:
             break;
     }
@@ -732,6 +734,7 @@ const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag 
         case TAG_IMAGE:
         case TAG_EXIF :
         case TAG_IPTC :
+        case TAG_ICC  :
 #ifndef HAVE_EXIV2
                         return _(no_support_for_exiv2_tags_string);
 #endif
@@ -778,6 +781,7 @@ const std::string gcmd_tags_get_value_string(GnomeCmdFile *f, const GnomeCmdTag 
 
         case TAG_RPM  : break;
 
+        case TAG_NONE_CLASS:
         default:        break;
     }
 
