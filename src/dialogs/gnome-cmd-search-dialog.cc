@@ -566,7 +566,7 @@ gboolean SearchData::join_thread_func (SearchData *data)
         g_thread_join (data->thread);
 
     if (data->pdata.mutex)
-        g_mutex_free (data->pdata.mutex);
+        g_mutex_clear (data->pdata.mutex);
 
     return FALSE;
 }
@@ -585,9 +585,9 @@ gboolean SearchData::start_generic_search()
     }
 
     if (!pdata.mutex)
-        pdata.mutex = g_mutex_new ();
+        g_mutex_init(pdata.mutex);
 
-    thread = g_thread_create ((GThreadFunc) perform_search_operation, this, TRUE, NULL);
+    thread = g_thread_new (NULL, (GThreadFunc) perform_search_operation, this);
 
     return TRUE;
 }
