@@ -484,6 +484,7 @@ struct GnomeCmdData
         gboolean match_case;
 
         Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
+        ~Selection();
 
         const std::string &description() const    {  return filename_pattern;  }
         void reset();
