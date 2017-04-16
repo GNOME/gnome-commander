@@ -587,7 +587,7 @@ inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const gchar *value
 
 
 template <typename T>
-inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const T &value)
+void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const T &value)
 {
    std::ostringstream os;
 
