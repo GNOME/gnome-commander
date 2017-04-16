@@ -92,8 +92,12 @@ void GnomeCmdFileMetadata::addf(const GnomeCmdTag tag, const gchar *fmt, ...)
         va_end (args);
 
         // If that worked, return the string
-        if (n > -1 && n < buff.size())
-          break;
+        if (n > -1)
+        {
+            guint letters = n;
+            if (letters < buff.size())
+                break;
+        }
 
         buff.resize(n > -1 ? n+1 : buff.size()*2);
     }
