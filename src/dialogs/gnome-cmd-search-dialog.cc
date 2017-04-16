@@ -490,6 +490,8 @@ static gpointer perform_search_operation (SearchData *data)
     return NULL;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 
 static gboolean update_search_status_widgets (SearchData *data)
 {
@@ -550,6 +552,7 @@ static gboolean update_search_status_widgets (SearchData *data)
     return FALSE;    // returning FALSE here stops the timeout callbacks
 }
 
+#pragma GCC diagnostic pop
 
 /**
  * This function gets called then the search-dialog is about the be destroyed.
