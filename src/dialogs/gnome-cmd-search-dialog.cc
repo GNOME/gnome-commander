@@ -382,9 +382,9 @@ inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event)
         case GDK_F4:
             gnome_cmd_file_list_edit (fl);
             return TRUE;
+        default:
+            return FALSE;
     }
-
-    return FALSE;
 }
 
 
