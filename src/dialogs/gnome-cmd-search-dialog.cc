@@ -514,7 +514,7 @@ static gboolean update_search_status_widgets (SearchData *data)
         gnome_cmd_file_list_free (files);
     }
 
-    if (!data->search_done && !data->stopped || data->pdata.files)
+    if ((!data->search_done && !data->stopped) || data->pdata.files)
         return TRUE;
 
     if (!data->dialog_destroyed)
