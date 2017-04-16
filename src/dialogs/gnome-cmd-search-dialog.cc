@@ -660,6 +660,8 @@ gchar *SearchData::build_search_command()
         case Filter::TYPE_REGEX:
             g_string_append_printf (command, " -regextype posix-extended -iregex '.*/.*%s.*'", file_pattern_utf8);
             break;
+        default:
+            ;
     }
 
     if (dialog->defaults.default_profile.content_search)
