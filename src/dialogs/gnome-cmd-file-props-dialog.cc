@@ -44,7 +44,7 @@ struct GnomeCmdFilePropsDialogPrivate
     GtkWidget *dialog;
     GnomeCmdFile *f;
     GThread *thread;
-    GMutex *mutex;
+    GMutex mutex;
     gboolean count_done;
     gchar *msg;
     guint updater_proc_id;
@@ -113,10 +113,10 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
     if (data->stop)
         g_thread_exit (NULL);
 
-    g_mutex_lock (data->mutex);
+    g_mutex_lock (&data->mutex);
     g_free (data->msg);
     data->msg = create_nice_size_str (data->size);
-    g_mutex_unlock (data->mutex);
+    g_mutex_unlock (&data->mutex);
 }
 
 
@@ -153,10 +153,10 @@ static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate
 
 static gboolean update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 {
-    g_mutex_lock (data->mutex);
+    g_mutex_lock (&data->mutex);
     if (data->size_label)
         gtk_label_set_text (GTK_LABEL (data->size_label), data->msg);
-    g_mutex_unlock (data->mutex);
+    g_mutex_unlock (&data->mutex);
 
     if (data->count_done)
     {
@@ -694,7 +694,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     data->dialog = GTK_WIDGET (dialog);
     data->f = f;
     data->uri = f->get_uri();
-    g_mutex_init(data->mutex);
+    g_mutex_init(&data->mutex);
     data->msg = NULL;
     data->notebook = notebook;
     f->ref();

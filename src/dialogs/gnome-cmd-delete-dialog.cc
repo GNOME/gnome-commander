@@ -48,7 +48,7 @@ struct DeleteData
     gboolean delete_done;         // tells the main thread that the work thread is done
     gchar *msg;                   // a message descriping the current status of the delete operation
     gfloat progress;              // a float values between 0 and 1 representing the progress of the whole operation
-    GMutex *mutex;                // used to sync the main and worker thread
+    GMutex mutex;                 // used to sync the main and worker thread
 };
 
 
@@ -63,7 +63,7 @@ static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData
 {
     gint ret = 0;
 
-    g_mutex_lock (data->mutex);
+    g_mutex_lock (&data->mutex);
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR)
     {
@@ -71,10 +71,10 @@ static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData
         data->problem_file = str_uri_basename(info->source_name);
         data->problem = TRUE;
 
-        g_mutex_unlock (data->mutex);
+        g_mutex_unlock (&data->mutex);
         while (data->problem_action == -1)
             g_thread_yield ();
-        g_mutex_lock (data->mutex);
+        g_mutex_lock (&data->mutex);
         ret = data->problem_action;
         data->problem_action = -1;
         g_free (data->problem_file);
@@ -102,7 +102,7 @@ static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData
         else
             data->vfs_status = info->vfs_status;
 
-    g_mutex_unlock (data->mutex);
+    g_mutex_unlock (&data->mutex);
 
     return ret;
 }
@@ -194,7 +194,7 @@ static void perform_delete_operation (DeleteData *data)
 
 static gboolean update_delete_status_widgets (DeleteData *data)
 {
-    g_mutex_lock (data->mutex);
+    g_mutex_lock (&data->mutex);
 
     gtk_label_set_text (GTK_LABEL (data->proglabel), data->msg);
     gtk_progress_set_percentage (GTK_PROGRESS (data->progbar), data->progress);
@@ -212,7 +212,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
         data->problem = FALSE;
     }
 
-    g_mutex_unlock (data->mutex);
+    g_mutex_unlock (&data->mutex);
 
 
     if (data->delete_done)
@@ -243,7 +243,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
 
 inline void do_delete (DeleteData *data)
 {
-    g_mutex_init(data->mutex);
+    g_mutex_init(&data->mutex);
     data->delete_done = FALSE;
     data->vfs_status = GNOME_VFS_OK;
     data->problem_action = -1;
@@ -251,7 +251,7 @@ inline void do_delete (DeleteData *data)
 
     data->thread = g_thread_new (NULL, (GThreadFunc) perform_delete_operation, data);
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_delete_status_widgets, data);
-    g_mutex_clear(data->mutex);
+    g_mutex_clear(&data->mutex);
 }
 
 
