@@ -133,7 +133,7 @@ const regular_paper_sizes[] =
 #endif
 
 
-inline gchar *paper_name (gdouble doc_width, double doc_height)
+static gchar *paper_name (gdouble doc_width, double doc_height)
 {
     gchar *s = NULL;
 
