@@ -269,7 +269,14 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 
     char s[256];
     time_t t = time (NULL);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
     strftime (s, sizeof(s), locale_format, localtime (&t));
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     gchar *utf8_str = g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
 
     gtk_label_set_text (GTK_LABEL (test_label), utf8_str);

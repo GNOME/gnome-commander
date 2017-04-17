@@ -58,6 +58,10 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
 
         DEBUG('t', "\t%s (%s) = %s\n", i->key().c_str(), gcmd_tags_get_name(tag), i->toString().c_str());
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (tag)
         {
             case TAG_NONE:
@@ -101,6 +105,9 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
                 break;
         }
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 #endif
 

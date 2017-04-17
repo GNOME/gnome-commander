@@ -36,12 +36,16 @@ using namespace std;
 
 #ifdef HAVE_PDF
 
-gchar * pgd_format_date (time_t utime)
+static gchar * pgd_format_date (time_t utime)
 {
 	time_t time = (time_t) utime;
         char s[256];
         const char *fmt_hack = "%c";
         size_t len;
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
 #ifdef HAVE_LOCALTIME_R
         struct tm t;
         if (time == 0 || !localtime_r (&time, &t)) return NULL;
@@ -50,6 +54,9 @@ gchar * pgd_format_date (time_t utime)
         struct tm *t;
         if (time == 0 || !(t = localtime (&time)) ) return NULL;
         len = strftime (s, sizeof (s), fmt_hack, t);
+#endif
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
 #endif
 	
         if (len == 0 || s[0] == '\0') return NULL;
@@ -185,7 +192,11 @@ inline gchar *paper_name (gdouble doc_width, double doc_height)
 #endif
 
 
-void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
+static void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
+#ifdef __GNUC__
+__attribute__((unused));
+#endif
+static void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
     g_return_if_fail (f->info != NULL);

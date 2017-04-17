@@ -61,6 +61,10 @@ static DICT<GnomeCmdTag> gsf_tags(TAG_NONE);
 
 inline const gchar *lid2lang (guint lid)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (lid)
     {
         case 0x0400:
@@ -183,6 +187,9 @@ inline const gchar *lid2lang (guint lid)
         default:
             return NULL;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 
@@ -204,6 +211,10 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 
     if (contents)
     {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (id)
         {
             case TAG_DOC_DATECREATED:
@@ -232,6 +243,9 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
             default:
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         g_strdelimit (contents, "\t\n\r", ' ');
         g_strstrip (contents);
@@ -251,7 +265,11 @@ inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata *meta
         return;
 
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
+#ifdef HAVE_GSF_1_14_24
+    GError         *err = gsf_doc_meta_data_read_from_odf (sections, meta_file);
+#else
     GError         *err = gsf_opendoc_metadata_read (meta_file, sections);
+#endif
 
     if (!err)
         gsf_doc_meta_data_foreach (sections, &process_metadata, metadata);
@@ -265,7 +283,11 @@ inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata *meta
 inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata *metadata)
 {
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
+#ifdef HAVE_GSF_1_14_24
+    GError         *err = gsf_doc_meta_data_read_from_odf (sections, input);
+#else
     GError         *err = gsf_msole_metadata_read (input, sections);
+#endif
 
     if (!err)
         gsf_doc_meta_data_foreach (sections, &process_metadata, metadata);

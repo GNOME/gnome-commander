@@ -144,13 +144,13 @@ inline void load_data(DICT<KEY,VAL> &dict, void *a, unsigned n)
     if (!a)
         return;
 
-    typedef struct
+    struct TUPLE
     {
         KEY key;
         VAL value;
-    } TUPLE;
+    };
 
-    TUPLE *t = static_cast<TUPLE *>(a);
+    struct TUPLE *t = static_cast<struct TUPLE *>(a);
 
     for (unsigned i=0; i<n; ++i, ++t)
          dict.add(t->key,t->value);
@@ -163,13 +163,13 @@ inline void load_data(DICT<KEY,std::string> &dict, void *a, unsigned n)
     if (!a)
         return;
 
-    typedef struct
+    struct TUPLE
     {
         KEY  key;
         char *value;
-    } TUPLE;
+    };
 
-    TUPLE *t = static_cast<TUPLE *>(a);
+    struct TUPLE *t = static_cast<struct TUPLE *>(a);
 
     for (unsigned i=0; i<n; ++i, ++t)
          dict.add(t->key,t->value);
@@ -182,13 +182,13 @@ inline void load_data(DICT<std::string,VAL> &dict, void *a, unsigned n)
     if (!a)
         return;
 
-    typedef struct
+    struct TUPLE
     {
         char *key;
         VAL  value;
-    } TUPLE;
+    };
 
-    TUPLE *t = static_cast<TUPLE *>(a);
+    struct TUPLE *t = static_cast<struct TUPLE *>(a);
 
     for (unsigned i=0; i<n; ++i, ++t)
          dict.add(t->key,t->value);
@@ -200,13 +200,13 @@ inline void load_data(DICT<std::string,std::string> &dict, void *a, unsigned n)
     if (!a)
         return;
 
-    typedef struct
+    struct TUPLE
     {
         char *key;
         char *value;
-    } TUPLE;
+    };
 
-    TUPLE *t = static_cast<TUPLE *>(a);
+    struct TUPLE *t = static_cast<struct TUPLE *>(a);
 
     for (unsigned i=0; i<n; ++i, ++t)
          dict.add(t->key,t->value);
