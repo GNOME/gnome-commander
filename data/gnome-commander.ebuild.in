@@ -56,9 +56,10 @@ src_configure() {
 		$(use_with chm libchm) \
 		$(use_with exif exiv2) \
 		$(use_with gsf libgsf) \
+		$(use_with pdf poppler) \
 		$(use_with samba) \
 		$(use_with taglib) \
-		$(use_with pdf poppler)
+		$(use_with unique)
 }
 
 pkg_postinst() {
