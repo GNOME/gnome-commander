@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-tags-poppler.h"
 #include "gnome-cmd-tags.h"
 #include "utils.h"
 #include "dict.h"
@@ -192,11 +193,7 @@ inline gchar *paper_name (gdouble doc_width, double doc_height)
 #endif
 
 
-static void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
-#ifdef __GNUC__
-__attribute__((unused));
-#endif
-static void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
+void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
     g_return_if_fail (f->info != NULL);
