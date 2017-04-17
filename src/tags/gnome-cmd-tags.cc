@@ -38,7 +38,6 @@
 
 using namespace std;
 
-
 struct GnomeCmdTagName
 {
     const gchar *name;

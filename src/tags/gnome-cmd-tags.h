@@ -543,8 +543,11 @@ class GnomeCmdFileMetadata
     void add (const GnomeCmdTag tag, const gchar *value);
     template <typename T>
     void add (const GnomeCmdTag tag, const T &value);
-    void addf (const GnomeCmdTag tag, const gchar *fmt, ...);
-
+#ifdef __GNUC__
+    void addf (const GnomeCmdTag tag, const gchar *fmt, ...) __attribute__ ((format (gnu_printf, 3, 4)));
+#else
+    void addf (const GnomeCmdTag tag, const gchar *fmt, ...)
+#endif
     gboolean has_tag (const GnomeCmdTag tag);
 
     const std::string operator[] (const GnomeCmdTag tag);
