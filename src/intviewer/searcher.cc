@@ -602,6 +602,6 @@ void g_viewer_searcher_start_search(GViewerSearcher *src, gboolean forward)
 
     src->priv->search_forward = forward;
 
-    src->priv->search_thread = g_thread_create (search_func, (gpointer) src, TRUE, NULL);
+    src->priv->search_thread = g_thread_new (NULL, search_func, (gpointer) src);
     g_return_if_fail (src->priv->search_thread!=NULL);
 }
