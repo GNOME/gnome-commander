@@ -804,3 +804,19 @@ const gchar *gcmd_tags_get_description(const GnomeCmdTag tag)
 {
     return _(metatags[tag].description);
 }
+
+void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, std::string value)
+{
+    if (value.empty())
+        return;
+
+    // remove trailing whitespace from a string
+    std::string::size_type string_end = value.find_last_not_of(" \t\n\r\0",std::string::npos,5);
+
+    if (string_end==std::string::npos)
+        return;
+
+    value.erase(string_end+1);
+
+    metadata[tag].insert(value);
+}

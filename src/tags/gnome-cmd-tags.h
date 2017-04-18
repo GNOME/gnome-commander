@@ -564,24 +564,6 @@ inline gboolean GnomeCmdFileMetadata::is_accessed (const GnomeCmdTagClass tag_cl
     return elem==accessed.end() ? FALSE : elem->second;
 }
 
-
-void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, std::string value)
-{
-    if (value.empty())
-        return;
-
-    // remove trailing whitespace from a string
-    std::string::size_type string_end = value.find_last_not_of(" \t\n\r\0",std::string::npos,5);
-
-    if (string_end==std::string::npos)
-        return;
-
-    value.erase(string_end+1);
-
-    metadata[tag].insert(value);
-}
-
-
 inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const gchar *value)
 {
     if (value && *value)
