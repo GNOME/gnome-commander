@@ -701,15 +701,15 @@ static void gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id,
  * @param translator_credits The translator for the current locale.
  * @param webpage The plugins's webpage.
  */
-void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
-                                       const gchar  *name,
-                                       const gchar  *version,
-                                       const gchar  *copyright,
-                                       const gchar  *comments,
-                                       const gchar **authors,
-                                       const gchar **documenters,
-                                       const gchar  *translator_credits,
-                                       const gchar  *webpage)
+static void gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
+                                              const gchar  *name,
+                                              const gchar  *version,
+                                              const gchar  *copyright,
+                                              const gchar  *comments,
+                                              const gchar **authors,
+                                              const gchar **documenters,
+                                              const gchar  *translator_credits,
+                                              const gchar  *webpage)
 {
     GArray *authors_array = g_array_new (FALSE, FALSE, sizeof(char*));
     GArray *documenters_array = NULL;
