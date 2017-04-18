@@ -41,7 +41,7 @@
 
 #ifdef HAVE_GSF_1_14_26
 #include <gsf/gsf.h>
-#elif HAVE_GSF
+#elif defined(HAVE_GSF)
 #include <gsf/gsf-infile.h>
 #include <gsf/gsf-infile-msole.h>
 #include <gsf/gsf-infile-zip.h>
