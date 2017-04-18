@@ -236,10 +236,17 @@ const char *gv_file_load(ViewerFileOps *ops, int fd)
         return gv_file_init_growing_view (ops, ops->filename);
     }
 #ifdef HAVE_MMAP
+ #if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
     if ((size_t) ops->s.st_size == ops->s.st_size)
         ops->data = (unsigned char *) mmap (0, ops->s.st_size, PROT_READ, MAP_FILE | MAP_SHARED, ops->file, 0);
     else
         ops->data = (unsigned char *) MAP_FAILED;
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     if (ops->data != MAP_FAILED)
     {
@@ -256,10 +263,17 @@ const char *gv_file_load(ViewerFileOps *ops, int fd)
     * for any reason, so we use this as fallback (pavel@ucw.cz) */
 
     // Make sure view->s.st_size is not truncated when passed to g_malloc
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
     if ((gulong) ops->s.st_size == ops->s.st_size)
         ops->data = (unsigned char *) g_try_malloc ((gulong) ops->s.st_size);
     else
         ops->data = NULL;
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     if (ops->data == NULL ||
         lseek (ops->file, 0, SEEK_SET) != 0 ||
@@ -305,12 +319,19 @@ int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index)
          */
                 if (n != -1)
                     ops->bytes_read += n;
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
                 if (ops->s.st_size < ops->bytes_read)
                 {
                     ops->bottom_first = INVALID_OFFSET; // Invalidate cache
                     ops->s.st_size = ops->bytes_read;
                     ops->last_byte = ops->bytes_read;
                 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
             }
             ops->blocks = page;
         }

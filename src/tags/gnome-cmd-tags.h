@@ -565,7 +565,7 @@ inline gboolean GnomeCmdFileMetadata::is_accessed (const GnomeCmdTagClass tag_cl
 }
 
 
-inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, std::string value)
+void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, std::string value)
 {
     if (value.empty())
         return;

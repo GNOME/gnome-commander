@@ -826,7 +826,11 @@ inline void image_render_start_background_pixbuf_loading (ImageRender *obj)
 
     // Start background loading
     g_object_ref (obj);
+#if GLIB_CHECK_VERSION(2, 32, 0)
+    obj->priv->pixbuf_loading_thread = g_thread_new("pixbuf_load", (GThreadFunc) image_render_pixbuf_loading_thread, (gpointer) obj);
+#else
     obj->priv->pixbuf_loading_thread = g_thread_create((GThreadFunc) image_render_pixbuf_loading_thread, (gpointer) obj, FALSE, NULL);
+#endif
 }
 
 

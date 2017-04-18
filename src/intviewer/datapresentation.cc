@@ -123,6 +123,9 @@ void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present)
             dp->scroll_lines = binfixed_scroll_lines;
             dp->get_end_of_line_offset = binfixed_get_eol;
             break;
+
+        default:
+            break;
     }
 }
 

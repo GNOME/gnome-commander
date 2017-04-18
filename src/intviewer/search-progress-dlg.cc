@@ -135,7 +135,7 @@ GType gviewer_search_progress_dlg_get_type ()
 }
 
 
-GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
+static GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
 {
     GViewerSearchProgressDlg *dlg = (GViewerSearchProgressDlg *) g_object_new (gviewer_search_progress_dlg_get_type(), NULL);
 
@@ -143,7 +143,7 @@ GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
 }
 
 
-gboolean search_progress_dlg_timeout(gpointer data)
+static gboolean search_progress_dlg_timeout(gpointer data)
 {
     g_return_val_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG (data), FALSE);
 

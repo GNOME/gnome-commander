@@ -68,7 +68,7 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
                 break;
 
             case TAG_EXIF_MAKERNOTE:
-                metadata->addf(tag,_("unsupported tag (suppressed %u B of binary data)"), i->size());
+                metadata->addf(tag,_("unsupported tag (suppressed %ld B of binary data)"), i->size());
                 break;
 
             case TAG_EXIF_EXIFVERSION:

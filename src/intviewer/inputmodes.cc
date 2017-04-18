@@ -390,7 +390,7 @@ inline gboolean utf8_is_valid_char(GVInputModesData *imd, offset_type offset)
 {
     int len = utf8_get_char_len(imd, offset);
 
-    if (len==0 || (gv_input_mode_get_byte(imd, offset+len)==INVALID_CHAR))
+    if (len==0 || (gv_input_mode_get_byte(imd, offset+len)==(int)INVALID_CHAR))
         return FALSE;
 
     if (len==1)

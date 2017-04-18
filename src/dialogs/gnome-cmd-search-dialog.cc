@@ -1023,6 +1023,9 @@ void GnomeCmdSearchDialog::Private::on_dialog_response(GtkDialog *window, int re
                 g_free (dpath);
             }
 
+#if defined (__GNUC__) && __GNUC__ >= 7
+        __attribute__ ((fallthrough));
+#endif
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:

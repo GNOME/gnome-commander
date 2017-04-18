@@ -122,7 +122,7 @@ inline void set_text_mode (GViewerSearchDlg *sdlg)
 
 static void set_hex_mode (GViewerSearchDlg *sdlg)
 {
-#if HEX_HISTORY
+#if defined(HEX_HISTORY)
     for (GList *i=gnome_cmd_data.intviewer_defaults.hex_patterns.ents; i; i=i->next)
         if (i->data)
             gtk_combo_box_prepend_text (GTK_COMBO_BOX (sdlg->priv->entry), (gchar *) i->data);

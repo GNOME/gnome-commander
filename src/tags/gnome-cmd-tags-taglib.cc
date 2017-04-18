@@ -24,6 +24,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-tags.h"
+#include "gnome-cmd-tags-taglib.h"
 #include "utils.h"
 #include "dict.h"
 
@@ -91,7 +92,11 @@ inline bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::Aud
             N_("Reserved")
         };
 
-        static const gchar *emphasis_names[] =
+        static const gchar *emphasis_names[]
+#ifdef __GNUC__
+        __attribute__ ((unused))
+#endif
+        =
         {
             N_("None"),
             N_("10-15ms"),
@@ -163,7 +168,7 @@ inline bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::Aud
 }
 
 
-inline void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *id3v2Tag)
+static void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *id3v2Tag)
 {
     if (!id3v2Tag)
         return;
@@ -177,6 +182,10 @@ inline void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *i
 
         string val;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (tag)
         {
             case TAG_NONE:
@@ -228,6 +237,9 @@ inline void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *i
             default:
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         metadata.add(tag,val);
         DEBUG('t', "\t%s (%s) = %s\n", id.c_str(), gcmd_tags_get_name(tag), val.c_str());
@@ -246,6 +258,10 @@ inline bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComm
 
         string val;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (tag)
         {
             case TAG_NONE:
@@ -255,6 +271,10 @@ inline bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComm
                 val = i->second.toString().to8Bit(true);
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
 
         metadata.add(tag,val);
         DEBUG('t', "\t%s (%s) = %s\n", id.c_str(), gcmd_tags_get_name(tag), val.c_str());
@@ -264,7 +284,7 @@ inline bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComm
 }
 
 
-inline bool getTag(GnomeCmdFileMetadata &metadata, TagLib::File *file, const TagLib::Tag *tag)
+static bool getTag(GnomeCmdFileMetadata &metadata, TagLib::File *file, const TagLib::Tag *tag)
 {
     if (!tag || tag->isEmpty())
         return false;
@@ -396,7 +416,7 @@ void gcmd_tags_taglib_init()
     static struct
     {
         GnomeCmdTag tag;
-        gchar *name;
+        const gchar *name;
     }
     ogg_data[] = {
                   {TAG_AUDIO_COMMENT,"COMMENT"},

@@ -49,7 +49,7 @@ inline void bch_free(GHashTable *bch)
 
 static void bch_set_value(GHashTable *bch, int key, int value)
 {
-    g_hash_table_insert (bch, (gpointer) key, (gpointer) value);
+    g_hash_table_insert (bch, GINT_TO_POINTER(key), GINT_TO_POINTER(value));
 }
 
 
