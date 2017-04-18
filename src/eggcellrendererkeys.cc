@@ -254,7 +254,7 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
     static const gchar text_hyper[] = "Hyper+";
 #endif
 
-    gchar *keyval_name = gdk_keyval_name (gdk_keyval_to_upper (accel_key));
+    const gchar *keyval_name = gdk_keyval_name (gdk_keyval_to_upper (accel_key));
     if (!keyval_name)
         keyval_name = "";
 
