@@ -295,8 +295,8 @@ static void gviewer_destroy (GtkObject *widget)
 static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 {
     gboolean control_chars = FALSE; /* True if found ASCII < 0x20 */
-    gboolean ascii_chars = FALSE;
-    gboolean extended_chars = FALSE; /* True if found ASCII >= 0x80 */
+    //gboolean ascii_chars = FALSE;
+    //gboolean extended_chars = FALSE; /* True if found ASCII >= 0x80 */
 
     const char *mime = gnome_vfs_get_mime_type_for_data(data, len);
 
@@ -308,10 +308,10 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
     {
         if (data[i]<0x20 && data[i]!=10 && data[i]!=13 && data[i]!=9)
             control_chars = TRUE;
-        if (data[i]>=0x80)
-            extended_chars = TRUE;
-        if (data[i]>=0x20 && data[i]<=0x7F)
-            ascii_chars = TRUE;
+        //if (data[i]>=0x80)
+        //    extended_chars = TRUE;
+        //if (data[i]>=0x20 && data[i]<=0x7F)
+        //    ascii_chars = TRUE;
         /* TODO: add UTF-8 detection */
     }
 
