@@ -381,7 +381,7 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
                 if (len < 5)
                     return buf0;
 
-                gchar *sep = " ";
+                gchar *sep = (gchar*) " ";
 
                 gchar *src  = buf0;
                 gchar *dest = buf1;
