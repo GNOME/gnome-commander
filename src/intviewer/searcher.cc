@@ -301,7 +301,7 @@ void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
 }
 
 
-void update_progress_indicator (GViewerSearcher *src, offset_type pos)
+static void update_progress_indicator (GViewerSearcher *src, offset_type pos)
 {
     gdouble d = (pos*1000.0) / src->priv->max_offset;
 
@@ -312,13 +312,13 @@ void update_progress_indicator (GViewerSearcher *src, offset_type pos)
 }
 
 
-gboolean check_abort_request (GViewerSearcher *src)
+static gboolean check_abort_request (GViewerSearcher *src)
 {
     return g_atomic_int_get (&src->priv->abort_indicator)!=0;
 }
 
 
-gboolean search_hex_forward (GViewerSearcher *src)
+static gboolean search_hex_forward (GViewerSearcher *src)
 {
     offset_type m, n, j;
     int i;
@@ -368,7 +368,7 @@ gboolean search_hex_forward (GViewerSearcher *src)
 }
 
 
-gboolean search_hex_backward (GViewerSearcher *src)
+static gboolean search_hex_backward (GViewerSearcher *src)
 {
     offset_type m, n, j;
     int i;
@@ -422,7 +422,7 @@ gboolean search_hex_backward (GViewerSearcher *src)
 }
 
 
-gboolean search_text_forward (GViewerSearcher *src)
+static gboolean search_text_forward (GViewerSearcher *src)
 {
     offset_type m, n, j;
     int i;
@@ -486,7 +486,7 @@ gboolean search_text_forward (GViewerSearcher *src)
 }
 
 
-gboolean search_text_backward (GViewerSearcher *src)
+static gboolean search_text_backward (GViewerSearcher *src)
 {
     offset_type m, n, j;
     int i;
@@ -552,7 +552,7 @@ gboolean search_text_backward (GViewerSearcher *src)
 }
 
 
-gpointer search_func (gpointer user_data)
+static gpointer search_func (gpointer user_data)
 {
     g_return_val_if_fail (G_IS_VIEWERSEARCHER(user_data), NULL);
 
