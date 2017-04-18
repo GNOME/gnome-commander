@@ -1029,7 +1029,7 @@ static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_de
             pango_layout_set_text(layout, str, -1);
             pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
         }
-        maxwidth = MAX(maxwidth, logical_rect.width);
+        maxwidth = MAX(maxwidth, MAX(0, logical_rect.width));
     }
 
     g_object_unref (layout);
