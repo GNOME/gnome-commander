@@ -229,7 +229,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *s
     if (status->image_width > 0 && status->image_height > 0)
     {
         gchar zoom[10];
-        char *size_string = ""; // size_string = gnome_vfs_format_file_size_for_display (bytes);
+        char *size_string = strdup(""); // size_string = gnome_vfs_format_file_size_for_display (bytes);
 
         if (!status->best_fit)
             g_snprintf(zoom, sizeof(zoom), "%i%%", (int)(status->scale_factor*100.0));
@@ -242,6 +242,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRender::Status *s
                     ngettext ("bit/sample", "bits/sample", status->bits_per_sample),
                     size_string,
                     status->best_fit?_("(fit to window)"):zoom);
+        free(size_string);
     }
 
     gtk_signal_emit (GTK_OBJECT (viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
