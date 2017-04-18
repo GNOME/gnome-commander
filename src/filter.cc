@@ -28,11 +28,11 @@
 using namespace std;
 
 
-Filter::Filter(const gchar *exp, gboolean case_sens, Type type): re_exp(NULL), fn_exp(NULL), fn_flags(0)
+Filter::Filter(const gchar *exp, gboolean case_sens, Type _type): re_exp(NULL), fn_exp(NULL), fn_flags(0)
 {
-    this->type = type;
+    this->type = _type;
 
-    switch (type)
+    switch (_type)
     {
         case TYPE_REGEX:
             re_exp = g_new (regex_t, 1);
