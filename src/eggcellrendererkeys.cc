@@ -464,6 +464,8 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
         // case GDK_Hyper_L:
         // case GDK_Hyper_R:
             return TRUE;
+        default:
+            break;
     }
 
     GdkDisplay *display = gtk_widget_get_display (widget);
