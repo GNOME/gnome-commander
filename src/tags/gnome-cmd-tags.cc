@@ -69,7 +69,9 @@ static char no_support_for_taglib_tags_string[] = N_("<ID3, APE, FLAC and Vorbis
 #endif
 
 #ifndef HAVE_GSF
+#ifndef HAVE_PDF
 static char no_support_for_libgsf_tags_string[] = N_("<OLE2 and ODF tags not supported>");
+#endif
 #endif
 
 #ifndef HAVE_PDF
