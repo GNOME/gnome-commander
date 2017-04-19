@@ -319,6 +319,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wswitch-default"
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #endif
 %}
 [^%$]+                          ECHO;                                      // concatenate consecutive non-[%$] chars into single TEXT chunk
