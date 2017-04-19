@@ -381,6 +381,9 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
         case DISP_MODE_IMAGE:
             client = obj->priv->iscrollbox;
             break;
+
+        default:
+            break;
     }
 
     if (client != obj->priv->last_client)
@@ -403,6 +406,9 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
 
             case DISP_MODE_IMAGE:
                 image_render_notify_status_changed(obj->priv->imgr);
+                break;
+
+            default:
                 break;
         }
 
