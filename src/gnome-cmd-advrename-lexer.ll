@@ -538,7 +538,14 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
                     {
                       static char counter_value[MAX_PRECISION+1];
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
                       snprintf (counter_value, MAX_PRECISION+1, (*i)->counter.fmt, (*i)->counter.n);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
                       fmt += counter_value;
 
                       (*i)->counter.n += (*i)->counter.step;
@@ -552,8 +559,15 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
                       static char random_value[MAX_XRANDOM_PRECISION+1];
 
                       sprintf (custom_counter_fmt, "%%0%u%c", (*i)->random.x_prec, (*i)->type==XRANDOM ? 'x' : 'X');
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
                       snprintf (random_value, MAX_XRANDOM_PRECISION+1, custom_counter_fmt, (*i)->random.x_prec<MAX_XRANDOM_PRECISION ? g_random_int_range (0,1 << 4*(*i)->random.x_prec)
                                                                                                                                      : g_random_int ());
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
                       fmt += random_value;
                     }
                     break;
@@ -581,8 +595,15 @@ char *gnome_cmd_advrename_gen_fname (GnomeCmdFile *f, size_t new_fname_size)
   gboolean new_fname_has_percent = convert ((char *) fmt.c_str(), '%', ESC);
   convert ((char *) fmt.c_str(), SUB, '%');
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
   if (!strftime(new_fname, new_fname_size+1, fmt.c_str(), localtime(&f->info->mtime)))      // if new_fname is not big enough...
     new_fname[new_fname_size] = '\0';                                                       //      ... truncate
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
   if (new_fname_has_percent)
     convert (new_fname, ESC, '%');
