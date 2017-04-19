@@ -81,7 +81,7 @@ struct CHUNK
       int prec;
       int init_step;
       int init_prec;
-      char fmt[9];
+      char fmt[16];
     } counter;
 
     struct
