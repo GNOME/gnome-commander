@@ -383,6 +383,9 @@ void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &h
           g_free((*i)->tag.name);
           g_free(*i);
           break;
+
+      default:
+          break;
     }
 
   fname_template.clear();
