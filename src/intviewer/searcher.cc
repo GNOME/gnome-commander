@@ -348,7 +348,7 @@ static gboolean search_hex_forward (GViewerSearcher *src)
             break;
         }
 
-        j += MAX(data->good[i], data->bad[value] - m + 1 + i);
+        j += MAX((offset_type)data->good[i], data->bad[value] - m + 1 + i);
 
         if (--update_counter==0)
         {
@@ -402,7 +402,7 @@ static gboolean search_hex_backward (GViewerSearcher *src)
             break;
         }
 
-        j -= MAX(data->good[i], data->bad[value] - m + 1 + i);
+        j -= MAX((offset_type)data->good[i], data->bad[value] - m + 1 + i);
 
         if (--update_counter==0)
         {
