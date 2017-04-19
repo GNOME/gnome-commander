@@ -160,6 +160,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                     case 'n' : p->type = NAME;            break;
                                     case 'N' : p->type = FULL_NAME;       break;
                                     case 'p' : p->type = PARENT_DIR;      break;
+                                    default: break;
                                   }
 
                                   from = to = 0;
@@ -175,6 +176,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                           if (strchr(yytext+3,','))
                                               to = from<0 && to+from>0 ? 0 : from+to;
                                           break;
+                                      default: break;
                                   }
 
                                   g_strfreev(a);
@@ -217,6 +219,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   {
                                     case 'x' : p->type = XRANDOM;       break;
                                     case 'X' : p->type = XXRANDOM;      break;
+                                    default: break;
                                   }
                                   p->random.x_prec = min (precision, MAX_XRANDOM_PRECISION);
 
@@ -257,6 +260,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                     case 'n' : p->type = NAME;            break;
                                     case 'N' : p->type = FULL_NAME;       break;
                                     case 'p' : p->type = PARENT_DIR;      break;
+                                    default: break;
                                   }
 
                                   p->tag.beg = 0;
@@ -290,6 +294,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   {
                                     case 'x' : p->type = XRANDOM;       break;
                                     case 'X' : p->type = XXRANDOM;      break;
+                                    default: break;
                                   }
                                   p->random.x_prec = MAX_XRANDOM_PRECISION;
 
@@ -310,8 +315,17 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template_has_percent = TRUE;
                                 }
 
+%{
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-default"
+#endif
+%}
 [^%$]+                          ECHO;                                      // concatenate consecutive non-[%$] chars into single TEXT chunk
 %%
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 
 void gnome_cmd_advrename_reset_counter(int n, long start, int precision, int step)
