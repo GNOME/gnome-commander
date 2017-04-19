@@ -340,6 +340,8 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
         case 80:
             gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->fixed_limit_menu_items[2]), TRUE);
             break;
+        default:
+            break;
     }
 
     gviewer_set_wrap_mode(obj->priv->viewer, settings->wrap_mode);
@@ -436,6 +438,9 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         case GDK_KP_Subtract:
            menu_view_zoom_out(NULL, w);
            return TRUE;
+
+        default:
+           break;
     }
 
     if (state_is_ctrl(event->state))
@@ -453,6 +458,9 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
             case GDK_W:
                 gtk_widget_destroy (GTK_WIDGET (w));
                 return TRUE;
+
+            default:
+                break;
         }
 
     if (state_is_shift(event->state))
@@ -461,6 +469,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
             case GDK_F7:
                menu_edit_find_next(NULL, w);
                return TRUE;
+            default:
+                break;
         }
 
     if (state_is_alt(event->state))
@@ -470,6 +480,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
             case GDK_KP_Enter:
                 gviewer_window_show_metadata(w);
                 return TRUE;
+            default:
+                break;
         }
 
     switch (state_is_blank(event->keyval))
@@ -485,6 +497,9 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         case GDK_F7:
            menu_edit_find(NULL, w);
            return TRUE;
+
+        default:
+           break;
     }
 
     return FALSE;
@@ -548,6 +563,10 @@ static GtkWidget *create_menu_item (MENUITEMTYPE type,
 {
     GtkWidget *menuitem;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (type)
     {
         case MI_CHECK:
@@ -559,6 +578,9 @@ static GtkWidget *create_menu_item (MENUITEMTYPE type,
             menuitem = gtk_image_menu_item_new_with_mnemonic (_(name));
             break;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     if (pixmap_type != GNOME_APP_PIXMAP_NONE && pixmap_info != NULL)
     {
@@ -663,6 +685,9 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                                                   menudata->modifier,
                                                   menudata->callback, user_data);
                 }
+                break;
+
+            default:
                 break;
         }
 
