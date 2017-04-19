@@ -331,7 +331,8 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 
 void gnome_cmd_advrename_reset_counter(int n, long start, int precision, int step)
 {
-  n = std::max(abs(start),abs(--n*step+start));
+  --n;
+  n = std::max(abs(start),abs(n*step+start));
 
   int auto_precision = n ? log10(n)+1 : 1;
 
