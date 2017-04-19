@@ -370,7 +370,7 @@ static gboolean search_hex_forward (GViewerSearcher *src)
 
 static gboolean search_hex_backward (GViewerSearcher *src)
 {
-    offset_type m, n, j;
+    offset_type m, j;
     int i;
     gboolean found = FALSE;
     int update_counter;
@@ -380,7 +380,6 @@ static gboolean search_hex_backward (GViewerSearcher *src)
     data = src->priv->b_reverse_data;
 
     m = data->pattern_len;
-    n = src->priv->max_offset;
     j = src->priv->start_offset;
     update_counter = src->priv->update_interval;
 
@@ -488,7 +487,7 @@ static gboolean search_text_forward (GViewerSearcher *src)
 
 static gboolean search_text_backward (GViewerSearcher *src)
 {
-    offset_type m, n, j;
+    offset_type m, j;
     int i;
     gboolean found = FALSE;
     int update_counter;
@@ -498,7 +497,6 @@ static gboolean search_text_backward (GViewerSearcher *src)
     data = src->priv->ct_reverse_data;
 
     m = data->pattern_len;
-    n = src->priv->max_offset;
     j = src->priv->start_offset;
 
     update_counter = src->priv->update_interval;
