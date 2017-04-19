@@ -568,6 +568,10 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
         return FALSE;
 
     // Mouse scroll wheel
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (event->direction)
     {
         case GDK_SCROLL_UP:
@@ -581,6 +585,9 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
         default:
             return FALSE;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     text_render_position_changed (w);
     text_render_redraw (w);
@@ -934,6 +941,10 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
     if (!obj->priv->dp)
         return FALSE;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (scroll)
     {
         case GTK_SCROLL_STEP_BACKWARD:
@@ -962,7 +973,9 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
         default:
             return FALSE;
     }
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     text_render_position_changed(obj);
     text_render_redraw(obj);
 
@@ -1220,6 +1233,9 @@ void  text_render_set_display_mode (TextRender *w, TextRender::DISPLAYMODE mode)
         w->priv->display_line = hex_mode_display_line;
         w->priv->pixel_to_offset = hex_mode_pixel_to_offset;
         w->priv->copy_to_clipboard = hex_mode_copy_to_clipboard;
+        break;
+
+    default:
         break;
     }
 
