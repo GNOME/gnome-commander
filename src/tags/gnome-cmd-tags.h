@@ -546,7 +546,7 @@ class GnomeCmdFileMetadata
 #ifdef __GNUC__
     void addf (const GnomeCmdTag tag, const gchar *fmt, ...) __attribute__ ((format (gnu_printf, 3, 4)));
 #else
-    void addf (const GnomeCmdTag tag, const gchar *fmt, ...)
+    void addf (const GnomeCmdTag tag, const gchar *fmt, ...);
 #endif
     gboolean has_tag (const GnomeCmdTag tag);
 

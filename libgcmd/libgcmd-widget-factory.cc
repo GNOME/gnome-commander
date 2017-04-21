@@ -521,7 +521,6 @@ static void on_response (GtkDialog *dialog, gint id, gpointer data)
     gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
-
 void create_error_dialog (const gchar *msg, ...)
 {
     va_list      argptr;

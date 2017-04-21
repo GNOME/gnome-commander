@@ -166,6 +166,10 @@ void progress_bar_update (GtkWidget *pbar, gint max);
 
 const char *get_entry_text (GtkWidget *parent, const gchar *entry_name);
 
-void create_error_dialog (const gchar *msg, ...);
+#ifdef __GNUC__
+    void create_error_dialog (const gchar *msg, ...) __attribute__ ((format (gnu_printf, 1, 2)));
+#else
+    void create_error_dialog (const gchar *msg, ...);
+#endif
 
 #endif //__LIBGCMD_WIDGET_FACTORY_H__
