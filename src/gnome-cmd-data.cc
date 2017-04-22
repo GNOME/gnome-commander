@@ -2396,7 +2396,10 @@ static gboolean load_fav_apps_old (const gchar *fname)
     return TRUE;
 }
 
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
 inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format, GList *strings)
 {
     gchar key[128];
@@ -2407,6 +2410,9 @@ inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format
         gnome_cmd_data_set_string (key, (gchar *) strings->data);
     }
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 /**
  * This function converts a GList into a NULL terminated array of char pointers.
@@ -2474,6 +2480,10 @@ inline gboolean GnomeCmdData::save_auto_load_plugins()
 }
 
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
 inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
 {
     GList *list = NULL;
@@ -2490,6 +2500,9 @@ inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
 
     return list;
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 
 inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings, const gchar *key)
