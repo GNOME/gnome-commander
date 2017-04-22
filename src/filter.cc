@@ -66,12 +66,12 @@ Filter::~Filter()
 
 gboolean Filter::match(const gchar *text)
 {
-    static regmatch_t match;
+    static regmatch_t _match;
 
     switch (type)
     {
         case TYPE_REGEX:
-            return regexec (re_exp, text, 1, &match, 0) == 0;
+            return regexec (re_exp, text, 1, &_match, 0) == 0;
 
         case TYPE_FNMATCH:
             return fnmatch (fn_exp, text, fn_flags) == 0;
