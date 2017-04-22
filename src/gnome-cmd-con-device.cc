@@ -183,7 +183,7 @@ static void dev_open (GnomeCmdCon *con)
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
 
-    g_thread_create ((GThreadFunc) do_mount_thread_func, con, FALSE, NULL);
+    g_thread_new (NULL, (GThreadFunc) do_mount_thread_func, con);
 }
 
 
