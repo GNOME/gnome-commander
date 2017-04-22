@@ -33,6 +33,9 @@
 #include "tags/gnome-cmd-tags.h"
 #include "utils.h"
 
+// This define is used to remove warnings for CLAMP makro when doying CLAMP((uint) 1, 0, 2)
+#define MYCLAMP(x, low, high) (((x) > (high)) ? (high) : (((x) <= (low)) ? (low) : (x)))
+
 using namespace std;
 
 
@@ -717,11 +720,10 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_counter_step_spin_value_chan
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
-
 void GnomeCmdAdvrenameProfileComponent::Private::on_counter_digits_combo_value_changed (GtkWidget *combo, GnomeCmdAdvrenameProfileComponent *component)
 {
     component->profile.counter_width = gtk_combo_box_get_active (GTK_COMBO_BOX (combo));
-    component->profile.counter_width = CLAMP(component->profile.counter_width, 0, 16);
+    component->profile.counter_width = MYCLAMP(component->profile.counter_width, 0, 16);
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
