@@ -108,8 +108,8 @@ struct GnomeCmdFileList
     GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order);
     ~GnomeCmdFileList();
 
-    int size()                          {  return g_list_length (get_visible_files());  }
-    bool empty()                        {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
+    guint size()                          {  return g_list_length (get_visible_files());  }
+    bool empty()                          {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
     void clear();
 
     void reload();
