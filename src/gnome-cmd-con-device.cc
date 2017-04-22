@@ -51,7 +51,7 @@ struct GnomeCmdConDevicePrivate
 static GnomeCmdConClass *parent_class = NULL;
 
 
-inline gboolean is_mounted (GnomeCmdCon *con)
+static gboolean is_mounted (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
 
