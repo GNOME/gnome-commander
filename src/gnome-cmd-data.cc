@@ -49,7 +49,6 @@ using namespace std;
 #define DEFAULT_GUI_UPDATE_RATE 100
 
 GnomeCmdData gnome_cmd_data;
-GnomeVFSVolumeMonitor *monitor = NULL;
 
 struct GnomeCmdData::Private
 {
@@ -1838,11 +1837,11 @@ inline gboolean load_connections (const gchar *fname)
                 case 'B':
                     if (server)
                     {
-                        gchar name[256], path[256];
-                        gint ret = sscanf (line, "B: %256s %256s\n", name, path);
+                        gchar name[256], new_path[256];
+                        gint ret = sscanf (line, "B: %256s %256s\n", name, new_path);
 
                         if (ret == 2)
-                            gnome_cmd_con_add_bookmark (GNOME_CMD_CON (server), gnome_vfs_unescape_string (name, NULL), gnome_vfs_unescape_string (path, NULL));
+                            gnome_cmd_con_add_bookmark (GNOME_CMD_CON (server), gnome_vfs_unescape_string (name, NULL), gnome_vfs_unescape_string (new_path, NULL));
                     }
                     break;
 
@@ -2079,7 +2078,7 @@ static void drive_disconnected (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSD
 
 inline void set_vfs_volume_monitor ()
 {
-    monitor = gnome_vfs_get_volume_monitor ();
+    GnomeVFSVolumeMonitor *monitor = gnome_vfs_get_volume_monitor ();
 
     g_signal_connect (monitor, "volume-mounted", G_CALLBACK (volume_mounted), NULL);
     g_signal_connect (monitor, "volume-unmounted", G_CALLBACK (volume_unmounted), NULL);
