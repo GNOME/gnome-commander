@@ -168,7 +168,10 @@ draw_cell_pixmap (GdkWindow    *window,
     return x + MAX (width, 0);
 }
 
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
 static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRow *clist_row, gint column)
 {
     PangoLayout *layout;
@@ -202,6 +205,9 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
             return NULL;
     }
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 
 static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow *clist_row)
