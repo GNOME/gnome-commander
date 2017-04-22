@@ -105,7 +105,7 @@ static void gcmd_settings_dispose (GObject *object)
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
 
-void on_size_display_mode_changed ()
+static void on_size_display_mode_changed ()
 {
     gint size_disp_mode;
 
@@ -115,7 +115,7 @@ void on_size_display_mode_changed ()
     main_win->update_view();
 }
 
-void on_perm_display_mode_changed ()
+static void on_perm_display_mode_changed ()
 {
     gint perm_disp_mode;
 
@@ -125,7 +125,7 @@ void on_perm_display_mode_changed ()
     main_win->update_view();
 }
 
-void on_graphical_layout_mode_changed ()
+static void on_graphical_layout_mode_changed ()
 {
     gint graphical_layout_mode;
 
@@ -135,7 +135,7 @@ void on_graphical_layout_mode_changed ()
     main_win->update_view();
 }
 
-void on_list_row_height_changed ()
+static void on_list_row_height_changed ()
 {
     guint list_row_height;
 
@@ -145,7 +145,7 @@ void on_list_row_height_changed ()
     main_win->update_view();
 }
 
-void on_date_disp_format_changed ()
+static void on_date_disp_format_changed ()
 {
     GnomeCmdDateFormat date_format;
 
@@ -156,7 +156,7 @@ void on_date_disp_format_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_unknown_changed()
+static void on_filter_hide_unknown_changed()
 {
     gboolean filter;
 
@@ -166,7 +166,7 @@ void on_filter_hide_unknown_changed()
     main_win->update_view();
 }
 
-void on_filter_hide_regular_changed ()
+static void on_filter_hide_regular_changed ()
 {
     gboolean filter;
 
@@ -176,7 +176,7 @@ void on_filter_hide_regular_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_directory_changed ()
+static void on_filter_hide_directory_changed ()
 {
     gboolean filter;
 
@@ -186,7 +186,7 @@ void on_filter_hide_directory_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_fifo_changed ()
+static void on_filter_hide_fifo_changed ()
 {
     gboolean filter;
 
@@ -196,7 +196,7 @@ void on_filter_hide_fifo_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_socket_changed ()
+static void on_filter_hide_socket_changed ()
 {
     gboolean filter;
 
@@ -206,7 +206,7 @@ void on_filter_hide_socket_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_character_device_changed ()
+static void on_filter_hide_character_device_changed ()
 {
     gboolean filter;
 
@@ -216,7 +216,7 @@ void on_filter_hide_character_device_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_block_device_changed ()
+static void on_filter_hide_block_device_changed ()
 {
     gboolean filter;
 
@@ -226,7 +226,7 @@ void on_filter_hide_block_device_changed ()
     main_win->update_view();
 }
 
-void on_filter_hide_symbolic_link_changed ()
+static void on_filter_hide_symbolic_link_changed ()
 {
     gboolean filter;
 
@@ -236,7 +236,7 @@ void on_filter_hide_symbolic_link_changed ()
     main_win->update_view();
 }
 
-void on_filter_dotfile_changed ()
+static void on_filter_dotfile_changed ()
 {
     gboolean filter;
 
@@ -246,7 +246,7 @@ void on_filter_dotfile_changed ()
     main_win->update_view();
 }
 
-void on_filter_backup_changed ()
+static void on_filter_backup_changed ()
 {
     gboolean filter;
 
@@ -256,7 +256,7 @@ void on_filter_backup_changed ()
     main_win->update_view();
 }
 
-void on_backup_pattern_changed ()
+static void on_backup_pattern_changed ()
 {
     char *backup_pattern;
 
@@ -266,7 +266,7 @@ void on_backup_pattern_changed ()
     g_free(backup_pattern);
 }
 
-void on_list_font_changed ()
+static void on_list_font_changed ()
 {
     g_free(gnome_cmd_data.options.list_font);
     gnome_cmd_data.options.list_font = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
@@ -274,7 +274,7 @@ void on_list_font_changed ()
     main_win->update_view();
 }
 
-void on_ext_disp_mode_changed ()
+static void on_ext_disp_mode_changed ()
 {
     gint ext_disp_mode;
 
@@ -284,7 +284,7 @@ void on_ext_disp_mode_changed ()
     main_win->update_view();
 }
 
-void on_icon_size_changed ()
+static void on_icon_size_changed ()
 {
     guint icon_size;
 
@@ -294,7 +294,7 @@ void on_icon_size_changed ()
     main_win->update_view();
 }
 
-void on_show_devbuttons_changed ()
+static void on_show_devbuttons_changed ()
 {
     gboolean show_devbuttons;
 
@@ -304,7 +304,7 @@ void on_show_devbuttons_changed ()
     main_win->fs(INACTIVE)->update_show_devbuttons();
 }
 
-void on_show_devlist_changed ()
+static void on_show_devlist_changed ()
 {
     gboolean show_devlist;
 
@@ -315,7 +315,7 @@ void on_show_devlist_changed ()
     main_win->fs(INACTIVE)->update_show_devlist();
 }
 
-void on_show_cmdline_changed ()
+static void on_show_cmdline_changed ()
 {
     gboolean show_cmdline;
 
@@ -324,7 +324,7 @@ void on_show_cmdline_changed ()
     main_win->update_cmdline_visibility();
 }
 
-void on_show_toolbar_changed ()
+static void on_show_toolbar_changed ()
 {
     if (gnome_cmd_data.show_toolbar != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR))
     {
@@ -333,7 +333,7 @@ void on_show_toolbar_changed ()
     }
 }
 
-void on_show_buttonbar_changed ()
+static void on_show_buttonbar_changed ()
 {
     if (gnome_cmd_data.buttonbar_visibility != g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR))
     {
@@ -342,7 +342,7 @@ void on_show_buttonbar_changed ()
     }
 }
 
-void on_horizontal_orientation_changed ()
+static void on_horizontal_orientation_changed ()
 {
     gboolean horizontal_orientation;
 
@@ -353,7 +353,7 @@ void on_horizontal_orientation_changed ()
     main_win->focus_file_lists();
 }
 
-void on_always_show_tabs_changed ()
+static void on_always_show_tabs_changed ()
 {
     gboolean always_show_tabs;
 
@@ -363,7 +363,7 @@ void on_always_show_tabs_changed ()
     main_win->update_style();
 }
 
-void on_tab_lock_indicator_changed ()
+static void on_tab_lock_indicator_changed ()
 {
     gint tab_lock_indicator;
 
@@ -373,7 +373,7 @@ void on_tab_lock_indicator_changed ()
     main_win->update_style();
 }
 
-void on_confirm_delete_changed ()
+static void on_confirm_delete_changed ()
 {
     gboolean confirm_delete;
 
@@ -381,7 +381,7 @@ void on_confirm_delete_changed ()
     gnome_cmd_data.options.confirm_delete = confirm_delete;
 }
 
-void on_confirm_delete_default_changed ()
+static void on_confirm_delete_default_changed ()
 {
     gint confirm_delete_default;
 
@@ -389,7 +389,7 @@ void on_confirm_delete_default_changed ()
     gnome_cmd_data.options.confirm_delete_default = (GtkButtonsType) confirm_delete_default;
 }
 
-void on_confirm_copy_overwrite_changed ()
+static void on_confirm_copy_overwrite_changed ()
 {
     gint confirm_copy_overwrite;
 
@@ -397,7 +397,7 @@ void on_confirm_copy_overwrite_changed ()
     gnome_cmd_data.options.confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) confirm_copy_overwrite;
 }
 
-void on_confirm_move_overwrite_changed ()
+static void on_confirm_move_overwrite_changed ()
 {
     gint confirm_move_overwrite;
 
@@ -405,7 +405,7 @@ void on_confirm_move_overwrite_changed ()
     gnome_cmd_data.options.confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) confirm_move_overwrite;
 }
 
-void on_mouse_drag_and_drop_changed ()
+static void on_mouse_drag_and_drop_changed ()
 {
     gboolean confirm_mouse_dnd;
 
@@ -413,7 +413,7 @@ void on_mouse_drag_and_drop_changed ()
     gnome_cmd_data.options.confirm_mouse_dnd = confirm_mouse_dnd;
 }
 
-void on_select_dirs_changed ()
+static void on_select_dirs_changed ()
 {
     gboolean select_dirs;
 
@@ -421,7 +421,7 @@ void on_select_dirs_changed ()
     gnome_cmd_data.options.select_dirs = select_dirs;
 }
 
-void on_case_sensitive_changed ()
+static void on_case_sensitive_changed ()
 {
     gboolean case_sensitive;
 
@@ -429,13 +429,13 @@ void on_case_sensitive_changed ()
     gnome_cmd_data.options.case_sens_sort = case_sensitive;
 }
 
-void on_symlink_string_changed ()
+static void on_symlink_string_changed ()
 {
     g_free(gnome_cmd_data.options.symlink_prefix);
     gnome_cmd_data.options.symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
 }
 
-void on_theme_changed()
+static void on_theme_changed()
 {
     gint theme;
 
@@ -445,7 +445,7 @@ void on_theme_changed()
     main_win->update_view();
 }
 
-void on_custom_color_norm_fg_changed()
+static void on_custom_color_norm_fg_changed()
 {
     gint theme;
 
@@ -459,7 +459,7 @@ void on_custom_color_norm_fg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_norm_bg_changed()
+static void on_custom_color_norm_bg_changed()
 {
     gint theme;
 
@@ -473,7 +473,7 @@ void on_custom_color_norm_bg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_alt_fg_changed()
+static void on_custom_color_alt_fg_changed()
 {
     gint theme;
 
@@ -487,7 +487,7 @@ void on_custom_color_alt_fg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_alt_bg_changed()
+static void on_custom_color_alt_bg_changed()
 {
     gint theme;
 
@@ -501,7 +501,7 @@ void on_custom_color_alt_bg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_sel_fg_changed()
+static void on_custom_color_sel_fg_changed()
 {
     gint theme;
 
@@ -515,7 +515,7 @@ void on_custom_color_sel_fg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_sel_bg_changed()
+static void on_custom_color_sel_bg_changed()
 {
     gint theme;
 
@@ -529,7 +529,7 @@ void on_custom_color_sel_bg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_curs_fg_changed()
+static void on_custom_color_curs_fg_changed()
 {
     gint theme;
 
@@ -543,7 +543,7 @@ void on_custom_color_curs_fg_changed()
         main_win->update_view();
 }
 
-void on_custom_color_curs_bg_changed()
+static void on_custom_color_curs_bg_changed()
 {
     gint theme;
 
@@ -557,7 +557,7 @@ void on_custom_color_curs_bg_changed()
         main_win->update_view();
 }
 
-void on_use_ls_colors_changed()
+static void on_use_ls_colors_changed()
 {
     gboolean use_ls_colors;
 
@@ -567,7 +567,7 @@ void on_use_ls_colors_changed()
     main_win->update_view();
 }
 
-void on_ls_color_black_fg_changed()
+static void on_ls_color_black_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.black_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -577,7 +577,7 @@ void on_ls_color_black_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_black_bg_changed()
+static void on_ls_color_black_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.black_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -587,7 +587,7 @@ void on_ls_color_black_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_red_fg_changed()
+static void on_ls_color_red_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.red_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -597,7 +597,7 @@ void on_ls_color_red_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_red_bg_changed()
+static void on_ls_color_red_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.red_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -607,7 +607,7 @@ void on_ls_color_red_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_green_fg_changed()
+static void on_ls_color_green_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.green_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -617,7 +617,7 @@ void on_ls_color_green_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_green_bg_changed()
+static void on_ls_color_green_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.green_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -627,7 +627,7 @@ void on_ls_color_green_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_yellow_fg_changed()
+static void on_ls_color_yellow_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.yellow_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -637,7 +637,7 @@ void on_ls_color_yellow_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_yellow_bg_changed()
+static void on_ls_color_yellow_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.yellow_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -647,7 +647,7 @@ void on_ls_color_yellow_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_blue_fg_changed()
+static void on_ls_color_blue_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.blue_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -657,7 +657,7 @@ void on_ls_color_blue_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_blue_bg_changed()
+static void on_ls_color_blue_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.blue_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -667,7 +667,7 @@ void on_ls_color_blue_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_magenta_fg_changed()
+static void on_ls_color_magenta_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.magenta_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -677,7 +677,7 @@ void on_ls_color_magenta_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_magenta_bg_changed()
+static void on_ls_color_magenta_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.magenta_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -687,7 +687,7 @@ void on_ls_color_magenta_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_cyan_fg_changed()
+static void on_ls_color_cyan_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.cyan_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -697,7 +697,7 @@ void on_ls_color_cyan_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_cyan_bg_changed()
+static void on_ls_color_cyan_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.cyan_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -707,7 +707,7 @@ void on_ls_color_cyan_bg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_white_fg_changed()
+static void on_ls_color_white_fg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.white_fg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -717,7 +717,7 @@ void on_ls_color_white_fg_changed()
         main_win->update_view();
 }
 
-void on_ls_color_white_bg_changed()
+static void on_ls_color_white_bg_changed()
 {
     gnome_cmd_data.set_color_if_valid_key_value(gnome_cmd_data.options.ls_colors_palette.white_bg,
                                                 gnome_cmd_data.options.gcmd_settings->colors,
@@ -727,7 +727,7 @@ void on_ls_color_white_bg_changed()
         main_win->update_view();
 }
 
-void on_always_download_changed()
+static void on_always_download_changed()
 {
     gboolean always_download;
 
@@ -735,7 +735,7 @@ void on_always_download_changed()
     gnome_cmd_data.options.honor_expect_uris = always_download;
 }
 
-void on_multiple_instances_changed()
+static void on_multiple_instances_changed()
 {
     gboolean allow_multiple_instances;
 
@@ -743,21 +743,21 @@ void on_multiple_instances_changed()
     gnome_cmd_data.options.allow_multiple_instances = allow_multiple_instances;
 }
 
-void on_use_internal_viewer_changed()
+static void on_use_internal_viewer_changed()
 {
     gboolean use_internal_viewer;
     use_internal_viewer = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
     gnome_cmd_data.options.use_internal_viewer = use_internal_viewer;
 }
 
-void on_quick_search_shortcut_changed()
+static void on_quick_search_shortcut_changed()
 {
     gint quick_search;
     quick_search = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
     gnome_cmd_data.options.quick_search = (GnomeCmdQuickSearchShortcut) quick_search;
 }
 
-void on_quick_search_exact_match_begin_changed()
+static void on_quick_search_exact_match_begin_changed()
 {
     gboolean quick_search_exact_match;
 
@@ -765,7 +765,7 @@ void on_quick_search_exact_match_begin_changed()
     gnome_cmd_data.options.quick_search_exact_match_begin = quick_search_exact_match;
 }
 
-void on_quick_search_exact_match_end_changed()
+static void on_quick_search_exact_match_end_changed()
 {
     gboolean quick_search_exact_match;
 
@@ -773,7 +773,7 @@ void on_quick_search_exact_match_end_changed()
     gnome_cmd_data.options.quick_search_exact_match_end = quick_search_exact_match;
 }
 
-void on_dev_skip_mounting_changed()
+static void on_dev_skip_mounting_changed()
 {
     gboolean skip_mounting;
 
@@ -781,7 +781,7 @@ void on_dev_skip_mounting_changed()
     gnome_cmd_data.options.skip_mounting = skip_mounting;
 }
 
-void on_dev_only_icon_changed()
+static void on_dev_only_icon_changed()
 {
     gboolean dev_only_icon;
 
@@ -789,7 +789,7 @@ void on_dev_only_icon_changed()
     gnome_cmd_data.options.device_only_icon = dev_only_icon;
 }
 
-void on_mainmenu_visibility_changed()
+static void on_mainmenu_visibility_changed()
 {
     gboolean mainmenu_visibility;
 
@@ -798,7 +798,7 @@ void on_mainmenu_visibility_changed()
     main_win->update_mainmenu_visibility();
 }
 
-void on_viewer_cmd_changed()
+static void on_viewer_cmd_changed()
 {
     gchar *viewer_cmd;
     g_free(gnome_cmd_data.options.viewer);
@@ -806,7 +806,7 @@ void on_viewer_cmd_changed()
     gnome_cmd_data.options.viewer = viewer_cmd;
 }
 
-void on_editor_cmd_changed()
+static void on_editor_cmd_changed()
 {
     gchar *editor_cmd;
     g_free(gnome_cmd_data.options.editor);
@@ -814,7 +814,7 @@ void on_editor_cmd_changed()
     gnome_cmd_data.options.editor = editor_cmd;
 }
 
-void on_differ_cmd_changed()
+static void on_differ_cmd_changed()
 {
     gchar *differ_cmd;
     g_free(gnome_cmd_data.options.differ);
@@ -822,7 +822,7 @@ void on_differ_cmd_changed()
     gnome_cmd_data.options.differ = differ_cmd;
 }
 
-void on_sendto_cmd_changed()
+static void on_sendto_cmd_changed()
 {
     gchar *sendto_cmd;
     g_free(gnome_cmd_data.options.sendto);
@@ -830,7 +830,7 @@ void on_sendto_cmd_changed()
     gnome_cmd_data.options.sendto = sendto_cmd;
 }
 
-void on_terminal_cmd_changed()
+static void on_terminal_cmd_changed()
 {
     gchar *terminal_cmd;
     g_free(gnome_cmd_data.options.termopen);
@@ -838,7 +838,7 @@ void on_terminal_cmd_changed()
     gnome_cmd_data.options.termopen = terminal_cmd;
 }
 
-void on_terminal_exec_cmd_changed()
+static void on_terminal_exec_cmd_changed()
 {
     gchar *terminal_exec_cmd;
     g_free(gnome_cmd_data.options.termexec);
@@ -846,13 +846,13 @@ void on_terminal_exec_cmd_changed()
     gnome_cmd_data.options.termexec = terminal_exec_cmd;
 }
 
-void on_ftp_anonymous_password_changed()
+static void on_ftp_anonymous_password_changed()
 {
     g_free(gnome_cmd_data.priv->ftp_anonymous_password);
     gnome_cmd_data.priv->ftp_anonymous_password = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
 }
 
-void on_use_gcmd_block_changed()
+static void on_use_gcmd_block_changed()
 {
     gnome_cmd_data.use_gcmd_block = g_settings_get_boolean (gnome_cmd_data.options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 }
