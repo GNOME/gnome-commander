@@ -468,11 +468,11 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
 
                 g_return_val_if_fail (items!=NULL, NULL);
 
-                for (guint i=0; i<G_N_ELEMENTS(metatags); ++i)
+                for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
                 {
-                    GnomeCmdTag tag = metatags[i];
+                    GnomeCmdTag tag = metatags[ii];
                     const gchar *class_name = gcmd_tags_get_class_name(tag);
-                    GtkItemFactoryEntry *p = items+i;
+                    GtkItemFactoryEntry *p = items+ii;
 
                     if (!class_name || *class_name==0)
                     {
@@ -483,8 +483,8 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
                     {
                         strncpy (s, gcmd_tags_get_title (tag), BUFF_SIZE-1);
 
-                        for (gchar *i=s; *i; ++i)
-                            if (*i=='/')  *i = ' ';
+                        for (gchar *kk=s; *kk; ++kk)
+                            if (*kk=='/')  *kk = ' ';
 
                         p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(tag), s);
                         p->callback = (GtkItemFactoryCallback) insert_num_tag;
@@ -498,8 +498,8 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
 
                 gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), items, this);
 
-                for (guint i=0; i<G_N_ELEMENTS(metatags); ++i)
-                    g_free (items[i].path);
+                for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
+                    g_free (items[ii].path);
 
                 g_free (items);
 
@@ -632,16 +632,16 @@ inline gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (Gt
     if (result==GTK_RESPONSE_OK)
     {
         gint beg, end;
-        GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "filename");
+        GtkWidget *local_entry = lookup_widget (GTK_WIDGET (dialog), "filename");
 
         gboolean inversed = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "inverse")));
 
-        if (gtk_editable_get_selection_bounds (GTK_EDITABLE (entry), &beg, &end))
+        if (gtk_editable_get_selection_bounds (GTK_EDITABLE (local_entry), &beg, &end))
         {
 #if GTK_CHECK_VERSION (2, 16, 0)
-            guint16 len = gtk_entry_get_text_length (GTK_ENTRY (entry));
+            guint16 len = gtk_entry_get_text_length (GTK_ENTRY (local_entry));
 #else
-            guint16 len = (guint16) g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (entry)), -1);
+            guint16 len = (guint16) g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (local_entry)), -1);
 #endif
             if (!inversed)
                 range = end==len ? g_strdup_printf ("%s(%i:)", placeholder, beg) :
@@ -911,26 +911,26 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_box_pack_start (GTK_BOX (vbox), align, FALSE, FALSE, 0);
 
         {
-            GtkWidget *vbox = gtk_vbox_new (FALSE, 6);
-            gtk_container_add (GTK_CONTAINER (align), vbox);
+            GtkWidget *local_vbox = gtk_vbox_new (FALSE, 6);
+            gtk_container_add (GTK_CONTAINER (align), local_vbox);
 
             component->priv->template_combo = combo = gtk_combo_box_entry_new_text ();
             component->priv->template_entry = gtk_bin_get_child (GTK_BIN (component->priv->template_combo));
             gtk_entry_set_activates_default (GTK_ENTRY (component->priv->template_entry), TRUE);
             gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
-            gtk_box_pack_start (GTK_BOX (vbox), combo, FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_vbox), combo, FALSE, FALSE, 0);
             g_object_ref (component->priv->template_entry);
 
-            GtkWidget *bbox = gtk_hbutton_box_new ();
-            gtk_box_pack_start (GTK_BOX (vbox), bbox, TRUE, FALSE, 0);
+            GtkWidget *local_bbox = gtk_hbutton_box_new ();
+            gtk_box_pack_start (GTK_BOX (local_vbox), local_bbox, TRUE, FALSE, 0);
 
-            gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
-            gtk_box_set_spacing (GTK_BOX (bbox), 6);
-            gtk_box_pack_start (GTK_BOX (bbox), component->priv->create_button_with_menu (_("Directory"), GnomeCmdAdvrenameProfileComponent::Private::DIR_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (bbox), component->priv->create_button_with_menu (_("File"), GnomeCmdAdvrenameProfileComponent::Private::FILE_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (bbox), component->priv->create_button_with_menu (_("Counter"), GnomeCmdAdvrenameProfileComponent::Private::COUNTER_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (bbox), component->priv->create_button_with_menu (_("Date"), GnomeCmdAdvrenameProfileComponent::Private::DATE_MENU), FALSE, FALSE, 0);
-            gtk_box_pack_start (GTK_BOX (bbox), component->priv->create_button_with_menu (_("Metatag"), GnomeCmdAdvrenameProfileComponent::Private::METATAG_MENU), FALSE, FALSE, 0);
+            gtk_button_box_set_layout (GTK_BUTTON_BOX (local_bbox), GTK_BUTTONBOX_START);
+            gtk_box_set_spacing (GTK_BOX (local_bbox), 6);
+            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Directory"), GnomeCmdAdvrenameProfileComponent::Private::DIR_MENU), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("File"), GnomeCmdAdvrenameProfileComponent::Private::FILE_MENU), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Counter"), GnomeCmdAdvrenameProfileComponent::Private::COUNTER_MENU), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Date"), GnomeCmdAdvrenameProfileComponent::Private::DATE_MENU), FALSE, FALSE, 0);
+            gtk_box_pack_start (GTK_BOX (local_bbox), component->priv->create_button_with_menu (_("Metatag"), GnomeCmdAdvrenameProfileComponent::Private::METATAG_MENU), FALSE, FALSE, 0);
         }
     }
 
