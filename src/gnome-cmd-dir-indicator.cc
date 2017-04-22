@@ -181,7 +181,6 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
 
     // find out where in the label the pointer is at
     gint iX = (gint) event->x;
-    gint iY = (gint) event->y;
 
     for (gint i=0; i < indicator->priv->numPositions; i++)
     {
