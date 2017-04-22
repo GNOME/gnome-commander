@@ -543,12 +543,11 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
 
     const gchar sep = isUNC ? '\\' : G_DIR_SEPARATOR;
     GArray *pos = g_array_sized_new (FALSE, FALSE, sizeof(gint), 16);
-    gint i;
 
     for (s = isUNC ? path+2 : path+1; *s; ++s)
         if (*s==sep)
         {
-            i = s-path;
+            gint i = s-path;
             g_array_append_val (pos, i);
         }
 
@@ -580,10 +579,10 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
         indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
     }
 
-    for (i = isUNC ? 1 : 0; i < pos->len; i++)
+    for (guint ii = isUNC ? 1 : 0; ii < pos->len; ii++)
     {
-        indicator->priv->slashCharPosition[pos_idx] = g_array_index (pos, gint, i);
-        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (pos, gint, i)+1);
+        indicator->priv->slashCharPosition[pos_idx] = g_array_index (pos, gint, ii);
+        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (pos, gint, ii)+1);
     }
 
     if (indicator->priv->numPositions>0)
