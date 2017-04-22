@@ -244,6 +244,10 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
     g_return_val_if_fail (con->open_result != GnomeCmdCon::OPEN_NOT_STARTED, FALSE);
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (con->open_result)
     {
         case GnomeCmdCon::OPEN_IN_PROGRESS:
@@ -273,6 +277,9 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
         default:
             return FALSE;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 
