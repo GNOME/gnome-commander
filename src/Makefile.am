@@ -110,6 +110,9 @@ gnome_commander_LDADD = \
 	$(PYTHON_LIBS) \
 	$(PYTHON_EXTRA_LIBS)
 
+CLEANFILES = \
+	gnome-cmd-advrename-lexer.cc
+
 gcmd_block_SOURCES = block.cc
 
 -include $(top_srcdir)/git.mk
