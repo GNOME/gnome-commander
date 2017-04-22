@@ -3833,6 +3833,10 @@ void GnomeCmdData::load()
     g_free (xml_cfg_path);
 }
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
 /**
  * This method returns an int value which is either the given user_value or,
  * the default integer value of the given GSettings key. The user_value is returned
@@ -3912,6 +3916,9 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 
     return return_value;
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 void GnomeCmdData::save_xml ()
 {
@@ -4382,6 +4389,10 @@ gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings_give
 }
 
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
 /**
  * This method stores the value for a given key if the value is different from the  currently stored one
  * under the keys value. This function is able of storing several types of GSettings values (except enums
@@ -4451,6 +4462,9 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings_given, co
 
     return rv;
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 gboolean GnomeCmdData::set_gsettings_color_when_changed (GSettings *settings_given, const char *key, GdkColor *color)
 {
