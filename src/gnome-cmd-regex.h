@@ -44,6 +44,7 @@ namespace GnomeCmd
         std::string replacement;
 
         ReplacePattern()    {}
+        ~ReplacePattern()   {}
         ReplacePattern(const gchar *from, const gchar *to, gboolean case_sensitive);
         ReplacePattern(const std::string &from, const std::string &to, gboolean case_sensitive): FindPattern(from,case_sensitive), replacement(to) {}
     };

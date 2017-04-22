@@ -506,6 +506,7 @@ struct GnomeCmdData
         explicit SearchConfig(std::vector<Selection> &selections): width(600), height(400), name_patterns(SEARCH_HISTORY_SIZE), content_patterns(SEARCH_HISTORY_SIZE), profiles(selections)   {  default_profile.name = "Default";  }
 
         friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
+        ~SearchConfig() {};
     };
 
     struct AdvrenameConfig
