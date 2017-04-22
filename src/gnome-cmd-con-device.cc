@@ -475,7 +475,10 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
             if (overlay)
             {
                 GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
                 if (umount)
                 {
                     gdk_pixbuf_copy_area (umount, 0, 0,
@@ -485,7 +488,9 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 
                     con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
                 }
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
                 g_object_unref (overlay);
             }
         }
