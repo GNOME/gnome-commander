@@ -52,13 +52,13 @@ inline gint word_is_roman_numeral (gchar *text)
 }
 
 
-gchar *gcmd_convert_unchanged (gchar *string)
+static gchar *gcmd_convert_unchanged (gchar *string)
 {
     return string;
 }
 
 
-gchar *gcmd_convert_ltrim (gchar *string)
+static gchar *gcmd_convert_ltrim (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -67,7 +67,7 @@ gchar *gcmd_convert_ltrim (gchar *string)
 }
 
 
-gchar *gcmd_convert_rtrim (gchar *string)
+static gchar *gcmd_convert_rtrim (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -76,7 +76,7 @@ gchar *gcmd_convert_rtrim (gchar *string)
 }
 
 
-gchar *gcmd_convert_strip (gchar *string)
+static gchar *gcmd_convert_strip (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -85,7 +85,7 @@ gchar *gcmd_convert_strip (gchar *string)
 }
 
 
-gchar *gcmd_convert_lowercase (gchar *string)
+static gchar *gcmd_convert_lowercase (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -98,7 +98,7 @@ gchar *gcmd_convert_lowercase (gchar *string)
 }
 
 
-gchar *gcmd_convert_uppercase (gchar *string)
+static gchar *gcmd_convert_uppercase (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -113,7 +113,7 @@ gchar *gcmd_convert_uppercase (gchar *string)
 
 // Function to set the first letter of each word to uppercase, according the "Chicago Manual of Style" (http://www.chicagomanualofstyle.org/)
 // No needed to reallocate
-gchar *gcmd_convert_sentence_case (gchar *string)
+static gchar *gcmd_convert_sentence_case (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -229,7 +229,7 @@ gchar *gcmd_convert_sentence_case (gchar *string)
 }
 
 
-gchar *gcmd_convert_initial_caps (gchar *string)
+static gchar *gcmd_convert_initial_caps (gchar *string)
 {
     if (!string || !*string)
         return string;
@@ -284,7 +284,7 @@ gchar *gcmd_convert_initial_caps (gchar *string)
 }
 
 
-gchar *gcmd_convert_toggle_case (gchar *string)
+static gchar *gcmd_convert_toggle_case (gchar *string)
 {
     return string;
 }
