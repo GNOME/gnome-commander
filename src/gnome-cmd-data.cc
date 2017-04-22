@@ -2419,7 +2419,7 @@ inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format
  * This array is stored into the given GSettings key.
  * @returns The return value of g_settings_set_strv if the length of the GList is > 0, else true.
  */
-gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *settings, const gchar *key, GList *strings)
+gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *settings_given, const gchar *key, GList *strings)
 {
     gboolean rv = true;
     guint number_of_strings = g_list_length (strings);
@@ -2438,7 +2438,7 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
         str_array[ii] = NULL;
 
         // store the NULL terminated str_array in GSettings
-        rv = g_settings_set_strv(settings, key, str_array);
+        rv = g_settings_set_strv(settings_given, key, str_array);
 
         g_free(str_array);
     }
@@ -2505,12 +2505,12 @@ inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
 #endif
 
 
-inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings, const gchar *key)
+inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings_given, const gchar *key)
 {
     GList *list = NULL;
 
     gchar** gsettings_array;
-    gsettings_array = g_settings_get_strv (settings, key);
+    gsettings_array = g_settings_get_strv (settings_given, key);
 
     for(gint i = 0; gsettings_array[i]; ++i)
     {
@@ -3124,19 +3124,19 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
  * the keys value is resetted to the default value.
  * @returns TRUE if the current value is resetted by the default value, else FALSE
  */
-gboolean GnomeCmdData::set_valid_color_string(GSettings *settings, const char* key)
+gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const char* key)
 {
     gchar *colorstring;
     gboolean return_value;
 
-    colorstring = g_settings_get_string (settings, key);
+    colorstring = g_settings_get_string (settings_given, key);
     if (!is_valid_color_string(colorstring))
     {
         GVariant *variant;
-        variant = g_settings_get_default_value (settings, key);
+        variant = g_settings_get_default_value (settings_given, key);
         g_warning("Illegal color string \'%s\' for gsettings key %s. Resetting to default value \'%s\'",
                   colorstring, key, g_variant_get_string(variant, NULL));
-        g_settings_set_string (settings, key, g_variant_get_string(variant, NULL));
+        g_settings_set_string (settings_given, key, g_variant_get_string(variant, NULL));
         g_variant_unref (variant);
         return_value = TRUE;
     }
@@ -3838,16 +3838,16 @@ void GnomeCmdData::load()
  * the default integer value of the given GSettings key. The user_value is returned
  * if it is different from the default value of the GSettings key.
  * @param user_value An integer value
- * @param settings A GSettings pointer
+ * @param settings_given A GSettings pointer
  * @param key a GSettings key path given as a char array
  */
-gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettings *settings, const char *key)
+gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettings *settings_given, const char *key)
 {
     GVariant *variant;
     gint default_value;
     gint return_value;
 
-    variant = g_settings_get_default_value (settings, key);
+    variant = g_settings_get_default_value (settings_given, key);
 
     switch (g_variant_classify(variant))
     {
@@ -3855,12 +3855,12 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
         // default value, i.e. nobody changed the given key before gcmd data migration was started.
         case G_VARIANT_CLASS_STRING:
         {
-            default_value = g_settings_get_enum (settings, key);
+            default_value = g_settings_get_enum (settings_given, key);
 
             if (user_value != default_value)
-                g_settings_set_enum (settings, key, user_value);
+                g_settings_set_enum (settings_given, key, user_value);
 
-            return_value = g_settings_get_enum(settings, key);
+            return_value = g_settings_get_enum(settings_given, key);
 
             break;
         }
@@ -3869,9 +3869,9 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
             default_value = g_variant_get_uint32 (variant);
 
             if (user_value != default_value)
-                g_settings_set_uint (settings, key, user_value);
+                g_settings_set_uint (settings_given, key, user_value);
 
-            return_value = g_settings_get_uint(settings, key);
+            return_value = g_settings_get_uint(settings_given, key);
 
             break;
         }
@@ -3880,9 +3880,9 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
             default_value = g_variant_get_int32 (variant);
 
             if (user_value != default_value)
-                g_settings_set_int (settings, key, user_value);
+                g_settings_set_int (settings_given, key, user_value);
 
-            return_value = g_settings_get_int(settings, key);
+            return_value = g_settings_get_int(settings_given, key);
 
             break;
         }
@@ -3894,9 +3894,9 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
             buser_value = user_value == 1 ? TRUE : FALSE;
 
             if (buser_value != bdef_value)
-                g_settings_set_boolean (settings, key, buser_value);
+                g_settings_set_boolean (settings_given, key, buser_value);
 
-            return_value = g_settings_get_boolean (settings, key) ? 1 : 0;
+            return_value = g_settings_get_boolean (settings_given, key) ? 1 : 0;
 
             break;
         }
@@ -3990,12 +3990,12 @@ void GnomeCmdData::save_xml ()
  * entry of the array is set to user_value.
  * @returns FALSE if an error occured setting the key value to a new string.
  */
-gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key)
+gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings_given, const char *key)
 {
     GVariant *variant;
     gint rv = true;
 
-    variant = g_settings_get_default_value (settings, key);
+    variant = g_settings_get_default_value (settings_given, key);
 
     if (g_variant_classify(variant) == G_VARIANT_CLASS_STRING)
     {
@@ -4003,10 +4003,10 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
 
         // In the following it is assumed that the value behind 'default_value' is the actual
         // default value, i.e. nobody changed the given key before gcmd data migration was started.
-        default_value = g_settings_get_string (settings, key);
+        default_value = g_settings_get_string (settings_given, key);
 
         if (strcmp(user_value, default_value) != 0)
-            rv = g_settings_set_string (settings, key, user_value);
+            rv = g_settings_set_string (settings_given, key, user_value);
     }
     else if (g_variant_classify(variant) == G_VARIANT_CLASS_ARRAY)
     {
@@ -4015,7 +4015,7 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
         str_array[0] = g_strdup(user_value);
         str_array[1] = NULL;
 
-        rv = (gint) g_settings_set_strv(settings, key, str_array);
+        rv = (gint) g_settings_set_strv(settings_given, key, str_array);
 
         g_free(str_array);
     }
@@ -4295,18 +4295,18 @@ gboolean GnomeCmdData::gnome_cmd_data_parse_color (const gchar *spec, GdkColor *
  * string representing color is used to set back the string in the
  * GSettings key.
  */
-gboolean GnomeCmdData::set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key)
+gboolean GnomeCmdData::set_color_if_valid_key_value(GdkColor *color, GSettings *settings_given, const char *key)
 {
     gboolean return_value;
     gchar *colorstring_new;
 
-    colorstring_new = g_settings_get_string (settings, key);
+    colorstring_new = g_settings_get_string (settings_given, key);
     if (!gnome_cmd_data.is_valid_color_string(colorstring_new))
     {
         gchar *colorstring_old;
 
         colorstring_old = gdk_color_to_string (color);
-        g_settings_set_string (settings, key, colorstring_old);
+        g_settings_set_string (settings_given, key, colorstring_old);
         g_warning("Illegal color string \'%s\'. Resetting to old value \'%s\'", colorstring_new, colorstring_old);
         g_free(colorstring_old);
         return_value = TRUE;
@@ -4354,20 +4354,20 @@ void GnomeCmdData::gnome_cmd_data_get_color_gnome_config (const gchar *path, Gdk
  * types, see @link set_gsettings_when_changed @endlink .
  * @returns TRUE if new value could be stored, else FALSE
  */
-gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint new_value)
+gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings_given, const char *key, gint new_value)
 {
     GVariant *default_val;
     gboolean rv = true;
 
-    default_val = g_settings_get_default_value (settings, key);
+    default_val = g_settings_get_default_value (settings_given, key);
 
     // An enum key must be of type G_VARIANT_CLASS_STRING
     if (g_variant_classify(default_val) == G_VARIANT_CLASS_STRING)
     {
         gint old_value;
-        old_value = g_settings_get_enum(settings, key);
+        old_value = g_settings_get_enum(settings_given, key);
         if (old_value != new_value)
-            rv = g_settings_set_enum (settings, key, new_value);
+            rv = g_settings_set_enum (settings_given, key, new_value);
     }
     else
     {
@@ -4390,11 +4390,11 @@ gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings, con
  * to the correct type so that *value can be saved.
  * @returns TRUE if new value could be stored, else FALSE
  */
-gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value)
+gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings_given, const char *key, gpointer value)
 {
     GVariant *default_val;
     gboolean rv = true;
-    default_val = g_settings_get_default_value (settings, key);
+    default_val = g_settings_get_default_value (settings_given, key);
 
     switch (g_variant_classify(default_val))
     {
@@ -4403,9 +4403,9 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
             gint old_value;
             gint new_value = *(gint*) value;
 
-            old_value = g_settings_get_int (settings, key);
+            old_value = g_settings_get_int (settings_given, key);
             if (old_value != new_value)
-                rv = g_settings_set_int (settings, key, new_value);
+                rv = g_settings_set_int (settings_given, key, new_value);
             break;
         }
         case G_VARIANT_CLASS_UINT32:
@@ -4413,9 +4413,9 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
             gint old_value;
             gint new_value = *(gint*) value;
 
-            old_value = g_settings_get_uint (settings, key);
+            old_value = g_settings_get_uint (settings_given, key);
             if (old_value != new_value)
-                rv = g_settings_set_uint (settings, key, new_value);
+                rv = g_settings_set_uint (settings_given, key, new_value);
             break;
         }
         case G_VARIANT_CLASS_STRING:
@@ -4423,9 +4423,9 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
             gchar *old_value;
             gchar *new_value = (char*) value;
 
-            old_value = g_settings_get_string (settings, key);
+            old_value = g_settings_get_string (settings_given, key);
             if (strcmp(old_value, new_value) != 0)
-                rv = g_settings_set_string (settings, key, new_value);
+                rv = g_settings_set_string (settings_given, key, new_value);
             g_free(old_value);
             break;
         }
@@ -4434,9 +4434,9 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
             gboolean old_value;
             gboolean new_value = *(gboolean*) value;
 
-            old_value = g_settings_get_boolean (settings, key);
+            old_value = g_settings_get_boolean (settings_given, key);
             if (old_value != new_value)
-                rv = g_settings_set_boolean (settings, key, new_value);
+                rv = g_settings_set_boolean (settings_given, key, new_value);
             break;
         }
         default:
@@ -4452,13 +4452,13 @@ gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings, const ch
     return rv;
 }
 
-gboolean GnomeCmdData::set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkColor *color)
+gboolean GnomeCmdData::set_gsettings_color_when_changed (GSettings *settings_given, const char *key, GdkColor *color)
 {
     gboolean return_value;
     gchar *colorstring;
 
     colorstring = gdk_color_to_string (color);
-    return_value = set_gsettings_when_changed (settings, key, colorstring);
+    return_value = set_gsettings_when_changed (settings_given, key, colorstring);
     g_free(colorstring);
 
     return return_value;
