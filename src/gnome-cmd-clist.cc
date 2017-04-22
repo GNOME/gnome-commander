@@ -168,10 +168,6 @@ draw_cell_pixmap (GdkWindow    *window,
     return x + MAX (width, 0);
 }
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
 static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRow *clist_row, gint column)
 {
     PangoLayout *layout;
@@ -182,6 +178,10 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
 
     GtkCell *cell = &clist_row->cell[column];
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (cell->type)
     {
         case GTK_CELL_TEXT:
@@ -204,10 +204,10 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
         default:
             return NULL;
     }
-}
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
+}
 
 
 static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow *clist_row)
@@ -370,6 +370,11 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
 
         pixmap_width = 0;
         offset = 0;
+
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (clist_row->cell[i].type)
         {
             case GTK_CELL_PIXMAP:
@@ -385,13 +390,12 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
             default:
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         switch (clist->column[i].justification)
         {
-            case GTK_JUSTIFY_LEFT:
-                offset = clip_rectangle.x + clist_row->cell[i].horizontal;
-                break;
-
             case GTK_JUSTIFY_RIGHT:
                 offset = (clip_rectangle.x + clist_row->cell[i].horizontal + clip_rectangle.width - width);
                 break;
@@ -400,9 +404,19 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
             case GTK_JUSTIFY_FILL:
                 offset = (clip_rectangle.x + clist_row->cell[i].horizontal + (clip_rectangle.width/2) - (width/2));
                 break;
+
+            case GTK_JUSTIFY_LEFT:
+            default:
+                offset = clip_rectangle.x + clist_row->cell[i].horizontal;
+                break;
+
         };
 
         // Draw Text and/or Pixmap
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (clist_row->cell[i].type)
         {
             case GTK_CELL_PIXMAP:
@@ -444,6 +458,9 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
             default:
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     }
 
     // draw focus rectangle
