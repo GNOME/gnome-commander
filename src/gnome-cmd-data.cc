@@ -1517,7 +1517,7 @@ inline XML::xstream &operator << (XML::xstream &xml, GnomeCmdBookmark &bookmark)
 }
 
 
-inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
+static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 {
     if (!con)
         return;
@@ -1541,7 +1541,7 @@ inline void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 /**
  * Save favourite applications in the given file by means of GKeyFile.
  */
-inline void save_devices (const gchar *fname)
+static void save_devices (const gchar *fname)
 {
     GList *devices;
     gchar *path = config_dir ?
@@ -1772,7 +1772,7 @@ static void save_fav_apps (const gchar *fname)
 }
 
 
-inline gboolean load_connections (const gchar *fname)
+static gboolean load_connections (const gchar *fname)
 {
     guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list));
 
@@ -2089,7 +2089,7 @@ inline void set_vfs_volume_monitor ()
 }
 
 
-inline void load_vfs_auto_devices ()
+static void load_vfs_auto_devices ()
 {
     GnomeVFSVolumeMonitor *monitor = gnome_vfs_get_volume_monitor ();
     GList *volumes = gnome_vfs_volume_monitor_get_mounted_volumes (monitor);
@@ -2541,7 +2541,7 @@ inline void GnomeCmdData::load_intviewer_defaults()
 }
 
 
-inline void GnomeCmdData::load_rename_history()
+void GnomeCmdData::load_rename_history()
 {
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
