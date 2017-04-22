@@ -169,7 +169,7 @@ draw_cell_pixmap (GdkWindow    *window,
 }
 
 
-inline PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRow *clist_row, gint column)
+static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRow *clist_row, gint column)
 {
     PangoLayout *layout;
     GtkStyle *style;
