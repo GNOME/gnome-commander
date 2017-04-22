@@ -703,6 +703,10 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
+    if (res != GNOME_VFS_OK)
+    {
+        DEBUG ('t', "Could not retrieve file information for %s\n", uri_str);
+    }
     gnome_vfs_uri_unref (uri);
 
     GnomeCmdFile *f;
@@ -754,6 +758,10 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     GnomeVFSURI *uri = f->get_uri();
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+    if (res != GNOME_VFS_OK)
+    {
+        DEBUG ('t', "Could not retrieve file information for changed file %s\n", uri_str);
+    }
     gnome_vfs_uri_unref (uri);
 
     dir->priv->needs_mtime_update = TRUE;
