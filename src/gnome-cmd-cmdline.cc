@@ -430,6 +430,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
     g_return_val_if_fail (event != NULL, FALSE);
 
     if (state_is_ctrl (event->state))
+    {
         switch (event->keyval)
         {
             case GDK_Down:
@@ -439,54 +440,74 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
             case GDK_Return:
                 event->string[0] = '\0';
                 return FALSE;
+            default:
+                return FALSE;
         }
+    }
     else
+    {
         if (state_is_shift (event->state))
+        {
             switch (event->keyval)
             {
                 case GDK_Return:
                     on_exec (cmdline, TRUE);
                     event->keyval = GDK_Escape;
                     return TRUE;
-            }
-        else
-        if (state_is_ctrl_shift (event->state))
-            switch (event->keyval)
-            {
-                case GDK_Return:
-                    event->string[0] = '\0';
+                default:
                     return FALSE;
             }
+        }
         else
-            if (state_is_blank (event->state))
+        {
+            if (state_is_ctrl_shift (event->state))
+            {
                 switch (event->keyval)
                 {
                     case GDK_Return:
-                        on_exec (cmdline, FALSE);
-                        event->keyval = GDK_Escape;
-                        return TRUE;
-
-                    case GDK_Escape:
-                        gnome_cmd_cmdline_set_text (cmdline, "");
-                        main_win->focus_file_lists();
-                        return TRUE;
-
-                    case GDK_Up:
-                    case GDK_Down:
-                        {
-                            gboolean ret;
-                            GdkEventKey event2 = *event;
-                            GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
-                            GtkWidget *file_list = *fs->file_list();
-
-                            gtk_widget_grab_focus (file_list);
-                            fs->set_active(TRUE);
-
-                            gtk_signal_emit_by_name (GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
-                            event->keyval = 0;
-                        }
-                        break;
+                        event->string[0] = '\0';
+                        return FALSE;
+                    default:
+                        return FALSE;
                 }
+            }
+            else
+            {
+                if (state_is_blank (event->state))
+                {
+                    switch (event->keyval)
+                    {
+                        case GDK_Return:
+                            on_exec (cmdline, FALSE);
+                            event->keyval = GDK_Escape;
+                            return TRUE;
 
+                        case GDK_Escape:
+                            gnome_cmd_cmdline_set_text (cmdline, "");
+                            main_win->focus_file_lists();
+                            return TRUE;
+
+                        case GDK_Up:
+                        case GDK_Down:
+                            {
+                                gboolean ret;
+                                GdkEventKey event2 = *event;
+                                GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
+                                GtkWidget *file_list = *fs->file_list();
+
+                                gtk_widget_grab_focus (file_list);
+                                fs->set_active(TRUE);
+
+                                gtk_signal_emit_by_name (GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
+                                event->keyval = 0;
+                            }
+                            return FALSE;
+                        default:
+                            return FALSE;
+                    }
+                }
+            }
+        }
+    }
     return FALSE;
 }
