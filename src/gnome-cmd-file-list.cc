@@ -541,12 +541,13 @@ void GnomeCmdFileList::toggle_file(GnomeCmdFile *f)
     if (row == -1)
         return;
 
-    if (row < priv->visible_files.size())
+    guint real_row = row;
+    if (real_row < priv->visible_files.size())
     {
         if (!priv->selected_files.contain(f))
-            select_file(f, row);
+            select_file(f, real_row);
         else
-            unselect_file(f, row);
+            unselect_file(f, real_row);
     }
 }
 
