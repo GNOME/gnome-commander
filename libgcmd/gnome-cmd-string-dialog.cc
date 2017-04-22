@@ -51,7 +51,7 @@ static void on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
 
         valid = dialog->priv->ok_cb (dialog, (const gchar**)values, dialog->priv->data);
         if (!valid)
-            create_error_dialog (dialog->priv->error_desc);
+            create_error_dialog ("%s", dialog->priv->error_desc);
         g_free (values);
     }
 
