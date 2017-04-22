@@ -225,7 +225,10 @@ static gboolean dev_close (GnomeCmdCon *con)
 
     gnome_cmd_con_set_default_dir (con, NULL);
 
-    chdir (g_get_home_dir ());
+    if (chdir (g_get_home_dir ()) == -1)
+    {
+        DEBUG ('m', "Could not go back to home directory before unmounting\n");
+    }
 
     if (dev_con->priv->autovolume)
     {
