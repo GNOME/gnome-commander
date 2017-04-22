@@ -73,7 +73,7 @@ static void get_file_info_func (GnomeCmdCon *con)
 
 static gboolean start_get_file_info (GnomeCmdCon *con)
 {
-    g_thread_create ((GThreadFunc) get_file_info_func, con, FALSE, NULL);
+    g_thread_new (NULL, (GThreadFunc) get_file_info_func, con);
 
     return FALSE;
 }
