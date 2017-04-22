@@ -177,7 +177,7 @@ static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj);
 
 inline GtkTreeModel *create_model ();
 inline void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
-inline GtkWidget *create_view ();
+GtkWidget *create_view ();
 
 /*****************************************
     public functions
@@ -1508,7 +1508,7 @@ inline void fill_model (GtkTreeStore *tree, GnomeCmdFile *f)
 }
 
 
-inline GtkWidget *create_view ()
+GtkWidget *create_view ()
 {
     GtkWidget *view = gtk_tree_view_new ();
 
