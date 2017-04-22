@@ -213,14 +213,14 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
         gtk_clist_set_column_resizeable (*fl, i, TRUE);
 
     static GtkItemFactoryEntry items[] = {
-                                            {N_("/_Copy here"), "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_RECURSIVE, "<StockItem>", GTK_STOCK_COPY},
-                                            {N_("/_Move here"), "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_REMOVESOURCE, "<StockItem>", GTK_STOCK_COPY},
-                                            {N_("/_Link here"), "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu,GNOME_VFS_XFER_LINK_ITEMS,"<StockItem>", GTK_STOCK_CONVERT},
-                                            {"/", NULL, NULL, 0, "<Separator>"},
-                                            {N_("/C_ancel"), "Esc", (GtkItemFactoryCallback) on_dnd_popup_menu, 0, "<StockItem>", GTK_STOCK_CANCEL}
+                                            {(gchar*) N_("/_Copy here"), (gchar*) "<control>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_RECURSIVE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
+                                            {(gchar*) N_("/_Move here"), (gchar*) "<shift>", (GtkItemFactoryCallback) on_dnd_popup_menu, GNOME_VFS_XFER_REMOVESOURCE, (gchar*) "<StockItem>", GTK_STOCK_COPY},
+                                            {(gchar*) N_("/_Link here"), (gchar*) "<control><shift>", (GtkItemFactoryCallback) on_dnd_popup_menu,GNOME_VFS_XFER_LINK_ITEMS, (gchar*) "<StockItem>", GTK_STOCK_CONVERT},
+                                            {(gchar*) "/", NULL, NULL, 0, (gchar*) "<Separator>"},
+                                            {(gchar*) N_("/C_ancel"), (gchar*) "Esc", (GtkItemFactoryCallback) on_dnd_popup_menu, 0, (gchar*) "<StockItem>", GTK_STOCK_CANCEL}
                                          };
 
-    ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+    ifac = gtk_item_factory_new (GTK_TYPE_MENU, (const gchar*) "<main>", NULL);
     gtk_item_factory_set_translate_func (ifac, translate_menu, NULL, NULL);
     gtk_item_factory_create_items (ifac, G_N_ELEMENTS (items), items, fl);
 }

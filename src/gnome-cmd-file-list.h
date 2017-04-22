@@ -40,10 +40,10 @@ GType gnome_cmd_file_list_get_type ();
 
 
 /* DnD target names */
-#define TARGET_MC_DESKTOP_ICON_TYPE     "application/x-mc-desktop-icon"
-#define TARGET_URI_LIST_TYPE            "text/uri-list"
-#define TARGET_TEXT_PLAIN_TYPE          "text/plain"
-#define TARGET_URL_TYPE                 "_NETSCAPE_URL"
+#define TARGET_MC_DESKTOP_ICON_TYPE     (gchar*) "application/x-mc-desktop-icon"
+#define TARGET_URI_LIST_TYPE            (gchar*) "text/uri-list"
+#define TARGET_TEXT_PLAIN_TYPE          (gchar*) "text/plain"
+#define TARGET_URL_TYPE                 (gchar*) "_NETSCAPE_URL"
 
 /* Standard DnD types */
 enum TargetType
