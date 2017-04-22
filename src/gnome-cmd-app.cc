@@ -70,7 +70,7 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
 }
 
 
-char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, gint size)
+static char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, gint size)
 {
     char *retval  = NULL;
     GtkIconInfo *icon_info = NULL;
