@@ -1993,7 +1993,7 @@ void GnomeCmdFileList::toggle_and_step()
 
     if (f)
         toggle_file(f);
-    if (priv->cur_file < size()-1)
+    if (priv->cur_file < (gint)size()-1)
         focus_file_at_row (this, priv->cur_file+1);
 }
 
