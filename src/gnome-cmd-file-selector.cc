@@ -1476,33 +1476,33 @@ gboolean GnomeCmdFileSelector::is_active()
 GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::ColumnID sort_col, GtkSortType sort_order, gboolean locked, gboolean activate)
 {
     // create the list
-    GnomeCmdFileList *list = new GnomeCmdFileList(sort_col,sort_order);
+    GnomeCmdFileList *fl = new GnomeCmdFileList(sort_col,sort_order);
 
     if (activate)
-        this->list = list;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
+        this->list = fl;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
 
-    list->locked = locked;
-    list->update_style();
+    fl->locked = locked;
+    fl->update_style();
 
     // hide dir column
-    list->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
+    fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the scrollwindow that we'll place the list in
     GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_container_add (GTK_CONTAINER (scrolled_window), *list);
+    gtk_container_add (GTK_CONTAINER (scrolled_window), *fl);
 
     GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
 
-    list->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
-    list->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : NULL);
+    fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
+    fl->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : NULL);
 
-    gtk_box_pack_start (GTK_BOX (hbox), list->tab_label_pin, FALSE, FALSE, 3);
-    gtk_box_pack_start (GTK_BOX (hbox), list->tab_label_text, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (hbox), fl->tab_label_pin, FALSE, FALSE, 3);
+    gtk_box_pack_start (GTK_BOX (hbox), fl->tab_label_text, FALSE, FALSE, 0);
 
     if (locked && gnome_cmd_data.options.tab_lock_indicator==GnomeCmdData::TAB_LOCK_ICON)
-        gtk_widget_show (list->tab_label_pin);
-    gtk_widget_show (list->tab_label_text);
+        gtk_widget_show (fl->tab_label_pin);
+    gtk_widget_show (fl->tab_label_text);
 
     gint n = notebook->append_page(scrolled_window, hbox);
 #if GTK_CHECK_VERSION (2, 10, 0)
@@ -1511,26 +1511,26 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
 
     gtk_widget_show_all (scrolled_window);
 
-    g_signal_connect (list, "con-changed", G_CALLBACK (on_list_con_changed), this);
-    g_signal_connect (list, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
-    g_signal_connect (list, "files-changed", G_CALLBACK (on_list_files_changed), this);
+    g_signal_connect (fl, "con-changed", G_CALLBACK (on_list_con_changed), this);
+    g_signal_connect (fl, "dir-changed", G_CALLBACK (on_list_dir_changed), this);
+    g_signal_connect (fl, "files-changed", G_CALLBACK (on_list_files_changed), this);
 
     if (activate)
     {
         notebook->set_current_page(n);
-        gtk_widget_grab_focus (*list);
+        gtk_widget_grab_focus (*fl);
     }
 
     if (dir)
-        list->set_connection(gnome_cmd_dir_get_connection (dir), dir);
+        fl->set_connection(gnome_cmd_dir_get_connection (dir), dir);
 
-    g_signal_connect (list, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
-    g_signal_connect (list, "file-released", G_CALLBACK (on_list_file_released), this);
-    g_signal_connect (list, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
-    g_signal_connect (list, "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), this);
+    g_signal_connect (fl, "file-clicked", G_CALLBACK (on_list_file_clicked), this);
+    g_signal_connect (fl, "file-released", G_CALLBACK (on_list_file_released), this);
+    g_signal_connect (fl, "list-clicked", G_CALLBACK (on_list_list_clicked), this);
+    g_signal_connect (fl, "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), this);
 
-    g_signal_connect (list, "key-press-event", G_CALLBACK (on_list_key_pressed), this);
-    g_signal_connect (list, "key-press-event", G_CALLBACK (on_list_key_pressed_private), this);
+    g_signal_connect (fl, "key-press-event", G_CALLBACK (on_list_key_pressed), this);
+    g_signal_connect (fl, "key-press-event", G_CALLBACK (on_list_key_pressed_private), this);
 
     return scrolled_window;
 }
