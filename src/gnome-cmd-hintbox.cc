@@ -257,6 +257,10 @@ gnome_cmd_label_set_attributes (GtkLabel *label, ...)
     {
       PangoAttrType   attr_type = ( PangoAttrType) va_arg (args, gint);
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
       switch (attr_type)
         {
         case PANGO_ATTR_LANGUAGE:
@@ -335,6 +339,9 @@ gnome_cmd_label_set_attributes (GtkLabel *label, ...)
           attr = NULL;
           break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
       if (attr)
         {
