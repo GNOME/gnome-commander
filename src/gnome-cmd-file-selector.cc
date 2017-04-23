@@ -1131,7 +1131,15 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_return_val_if_fail (filepath, TRUE);
 
     gchar *escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
     gchar *cmd = g_strdup_printf (gnome_cmd_data.options.editor, escaped_filepath);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
     g_free (filepath);
     g_free (escaped_filepath);
 
@@ -1332,7 +1340,14 @@ void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdF
     const gchar *labels[] = {_("Symbolic link name:")};
 
     gchar *fname = get_utf8 (f->get_name());
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
     gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_free (fname);
 
     GtkWidget *dialog = gnome_cmd_string_dialog_new (_("Create Symbolic Link"),
@@ -1358,7 +1373,14 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
     {
         GnomeCmdFile *f = (GnomeCmdFile *) files->data;
         gchar *fname = get_utf8 (f->get_name());
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
         gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), symlink_name);
 
