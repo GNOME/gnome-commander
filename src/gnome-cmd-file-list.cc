@@ -2836,7 +2836,7 @@ static void unref_uri_list (GList *list)
 }
 
 
-void free_dnd_popup_data (gpointer *data)
+static void free_dnd_popup_data (gpointer *data)
 {
     if (data)
     {
