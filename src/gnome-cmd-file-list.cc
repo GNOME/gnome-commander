@@ -363,7 +363,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gbo
 }
 
 
-inline FileFormatData::~FileFormatData()
+FileFormatData::~FileFormatData()
 {
     g_free (dpath);
     g_free (fname);
