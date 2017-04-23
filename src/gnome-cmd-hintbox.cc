@@ -331,7 +331,6 @@ gnome_cmd_label_set_attributes (GtkLabel *label, ...)
         default:
           g_warning ("%s: invalid PangoAttribute type %d",
                      G_STRFUNC, attr_type);
-        case -1:
         case PANGO_ATTR_INVALID:
           attr = NULL;
           break;
