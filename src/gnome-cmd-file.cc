@@ -663,7 +663,14 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 
         case FALSE: {
                         gchar *filename = f->get_quoted_real_path();
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
                         gchar *command = g_strdup_printf (gnome_cmd_data.options.viewer, filename);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
                         run_command (command);
                         g_free (filename);
                     }
@@ -727,7 +734,14 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
 
     gchar *fpath = f->get_quoted_real_path();
     gchar *dpath = f->get_unescaped_dirname();
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
     gchar *command = g_strdup_printf (gnome_cmd_data.options.editor, fpath);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     run_command_indir (command, dpath, FALSE);
 
