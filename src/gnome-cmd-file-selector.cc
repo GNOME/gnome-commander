@@ -268,6 +268,7 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
     g_return_if_fail (f->info!=NULL);
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    {
         if (!fl->locked)
         {
             fl->invalidate_tree_size();
@@ -279,6 +280,7 @@ void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeC
         }
         else
             new_tab(f->is_dotdot ? gnome_cmd_dir_get_parent (fl->cwd) : GNOME_CMD_DIR (f));
+    }
 }
 
 
