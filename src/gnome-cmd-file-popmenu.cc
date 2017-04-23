@@ -352,6 +352,9 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 if (!ok) return FALSE;
             }
             return TRUE;
+
+        default:
+            break;
     }
 
     return FALSE;
