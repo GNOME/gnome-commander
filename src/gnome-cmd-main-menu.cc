@@ -149,6 +149,10 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
     GtkWidget *shortcut=NULL;
     GtkWidget *content = NULL;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (spec->type)
     {
         case MENU_TYPE_BASIC:
@@ -214,6 +218,9 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
             g_warning ("This MENU_TYPE is not implemented");
             return NULL;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     gtk_widget_show (item);
 
