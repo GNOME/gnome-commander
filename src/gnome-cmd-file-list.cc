@@ -1111,6 +1111,10 @@ static void on_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gflo
         if (start_row < 0 || end_row < 0)
             return;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (scroll_type)
         {
             case GTK_SCROLL_STEP_BACKWARD:
@@ -1135,6 +1139,9 @@ static void on_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gflo
                 break;
         }
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     fl->priv->cur_file = clist->focus_row;
 }
@@ -2275,6 +2282,9 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_Subtract:
                 toggle_files_with_same_extension (this, FALSE);
                 break;
+
+            default:
+                break;
         }
     }
     else if (state_is_ctrl_alt (event->state) || state_is_ctrl_alt_shift (event->state))
@@ -2344,6 +2354,9 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
+
+            default:
+                break;
         }
     }
     else if (state_is_alt_shift (event->state))
@@ -2354,6 +2367,8 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_Enter:
                 show_visible_tree_sizes();
                 return TRUE;
+            default:
+                break;
         }
     }
     else if (state_is_ctrl (event->state))
@@ -2385,6 +2400,9 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_F6:
                 on_column_clicked (*this, COLUMN_SIZE, this);
                 return TRUE;
+
+            default:
+                break;
         }
     }
     else if (state_is_blank (event->state))
@@ -2469,6 +2487,9 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_Menu:
                 show_file_popup_with_warp (this);
                 return TRUE;
+
+            default:
+                break;
         }
     }
 
@@ -2595,6 +2616,9 @@ void GnomeCmdFileList::set_directory(GnomeCmdDir *dir)
                 gnome_cmd_dir_relist_files (dir, gnome_cmd_con_needs_list_visprog (con));
             else
                 on_dir_list_ok (dir, NULL, this);
+            break;
+
+        default:
             break;
     }
 
@@ -2862,6 +2886,10 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
     GnomeVFSXferOptions xferOptions;
 
     // find out what operation to perform
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (context->action)
     {
         case GDK_ACTION_MOVE:
@@ -2880,6 +2908,9 @@ static void drag_data_received (GtkWidget *widget, GdkDragContext *context, gint
             g_warning ("Unknown context->action in drag_data_received");
             return;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     fl->drop_files(xferOptions,uri_list,to);
 }
