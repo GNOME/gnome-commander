@@ -200,6 +200,9 @@ namespace XML
                 case stateAttribute:
                     s << '"';
 
+#if defined (__GNUC__) && __GNUC__ >= 7
+                __attribute__ ((fallthrough));
+#endif
                 case stateTagName:
                 case stateTag:
                     if (self_closed)
