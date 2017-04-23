@@ -1434,7 +1434,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 }
 
 
-gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelector *fs)
+static gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     if (state_is_blank (event->state))
         if (event->keyval == GDK_Escape)
