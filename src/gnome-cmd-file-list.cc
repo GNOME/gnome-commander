@@ -1084,7 +1084,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     fl->priv->sort_raising[col] = fl->priv->current_col == col ? !fl->priv->sort_raising[col] :
-                                                                 file_list_column[col].default_sort_direction;
+                                                                 (static_cast<bool>(file_list_column[col].default_sort_direction));
 
     fl->priv->sort_func = file_list_column[col].sort_func;
     fl->priv->current_col = col;
