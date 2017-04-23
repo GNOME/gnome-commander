@@ -1998,7 +1998,7 @@ void GnomeCmdFileList::toggle_and_step()
 }
 
 
-void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_file)
+void GnomeCmdFileList::focus_file(const gchar *file_to_focus, gboolean scroll_to_file)
 {
     for (GList *i=get_visible_files(); i; i=i->next)
     {
@@ -2011,7 +2011,7 @@ void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_fi
         if (row == -1)
             return;
 
-        if (strcmp (f->info->name, focus_file) == 0)
+        if (strcmp (f->info->name, file_to_focus) == 0)
         {
             priv->cur_file = row;
             focus_file_at_row (this, row);
@@ -2024,7 +2024,7 @@ void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_fi
     /* The file was not found, remember the filename in case the file gets
        added to the list in the future (after a FAM event etc). */
     g_free (priv->focus_later);
-    priv->focus_later = g_strdup (focus_file);
+    priv->focus_later = g_strdup (file_to_focus);
 }
 
 
