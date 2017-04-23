@@ -134,6 +134,10 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
     {
         GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (f->info->type)
         {
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
@@ -153,6 +157,9 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
             default:
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     }
 
     GnomeCmd::Collection<GnomeCmdFile *> &marked_files = list->get_marked_files();
@@ -161,6 +168,10 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
     {
         GnomeCmdFile *f = *i;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
         switch (f->info->type)
         {
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
@@ -177,6 +188,9 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
             default:
                 break;
         }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     }
 
     gchar *sel_str = g_strdup (size2string (sel_bytes/1024, size_mode));
@@ -507,6 +521,9 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEven
             case 9:
                 fs->forward();
                 break;
+
+            default:
+                break;
         }
 }
 
@@ -619,6 +636,10 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
 
     int tab_clicked;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (event->type)
     {
         case GDK_BUTTON_PRESS:
@@ -717,6 +738,9 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
         default:
             return FALSE;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 
@@ -1203,6 +1227,9 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_KP_Enter:
                 add_file_to_cmdline (list, TRUE);
                 return TRUE;
+
+            default:
+                break;
         }
     }
     else if (state_is_alt (event->state))
@@ -1220,6 +1247,9 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 forward();
                 g_signal_stop_emission_by_name (list, "key-press-event");
                 return TRUE;
+
+            default:
+                break;
         }
     }
     else if (state_is_ctrl (event->state))
@@ -1245,6 +1275,9 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_KP_Enter:
                 add_file_to_cmdline (list, FALSE);
                 return TRUE;
+
+            default:
+                break;
         }
     }
     else if (state_is_blank (event->state))
@@ -1284,6 +1317,9 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_set_text (main_win->get_cmdline(), "");
                 return TRUE;
+
+            default:
+                break;
         }
     }
 
@@ -1531,6 +1567,9 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
                 g_free (s);
                 return;
             }
+            break;
+
+        default:
             break;
     }
 
