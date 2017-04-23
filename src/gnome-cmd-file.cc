@@ -281,7 +281,7 @@ GnomeVFSResult GnomeCmdFile::chown(uid_t uid, gid_t gid)
 {
     g_return_val_if_fail (info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
-    if (uid != -1)
+    if (uid != (uid_t)-1)
         info->uid = uid;
     info->gid = gid;
 
