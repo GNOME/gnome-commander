@@ -766,25 +766,25 @@ void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f)
 }
 
 
-void GnomeCmdFile::update_info(GnomeVFSFileInfo *info)
+void GnomeCmdFile::update_info(GnomeVFSFileInfo *file_info)
 {
-    g_return_if_fail (info != NULL);
+    g_return_if_fail (file_info != NULL);
 
     g_free (collate_key);
     gnome_vfs_file_info_unref (this->info);
-    gnome_vfs_file_info_ref (info);
-    this->info = info;
+    gnome_vfs_file_info_ref (file_info);
+    this->info = file_info;
 
     gchar *utf8_name;
 
     if (!gnome_cmd_data.options.case_sens_sort)
     {
-        gchar *s = get_utf8 (info->name);
+        gchar *s = get_utf8 (file_info->name);
         utf8_name = g_utf8_casefold (s, -1);
         g_free (s);
     }
     else
-        utf8_name = get_utf8 (info->name);
+        utf8_name = get_utf8 (file_info->name);
 
     collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
