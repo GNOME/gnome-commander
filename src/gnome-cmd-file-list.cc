@@ -611,18 +611,18 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
     for (GList *i=fl->get_visible_files(); i; i=i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+        GnomeCmdFile *ff = (GnomeCmdFile *) i->data;
 
-        if (f && f->info)
+        if (ff && ff->info)
         {
-            const gchar *ext2 = f->get_extension();
+            const gchar *ext2 = ff->get_extension();
 
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
                 if (select)
-                    fl->select_file(f);
+                    fl->select_file(ff);
                 else
-                    fl->unselect_file(f);
+                    fl->unselect_file(ff);
             }
         }
     }
