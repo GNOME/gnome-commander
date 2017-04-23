@@ -45,8 +45,11 @@ namespace GnomeCmd
 
         ReplacePattern()    {}
         ~ReplacePattern()   {}
-        ReplacePattern(const gchar *from, const gchar *to, gboolean case_sensitive);
         ReplacePattern(const std::string &from, const std::string &to, gboolean case_sensitive): FindPattern(from,case_sensitive), replacement(to) {}
+        ReplacePattern(const gchar *from, const gchar *to, gboolean case_sensitive): FindPattern(from,case_sensitive)
+          {
+              if (to)  replacement = to;
+          }
     };
 
     class Regex: virtual public FindPattern
@@ -98,11 +101,6 @@ namespace GnomeCmd
         gchar *replace(const gchar *s);
         gchar *replace(const std::string &s)    {  return replace(s.c_str());  }
     };
-
-    inline ReplacePattern::ReplacePattern(const gchar *from, const gchar *to, gboolean case_sensitive): FindPattern(from,case_sensitive)
-    {
-        if (to)  replacement = to;
-    }
 
     inline Regex::Regex(): malformed_pattern(TRUE)
     {

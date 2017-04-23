@@ -1599,7 +1599,7 @@ static void save_devices (const gchar *fname)
  * @note This function should be deleted a while after
  * the release of gcmd-v1.6, see @link load_fav_apps @endlink.
  */
-inline void save_devices_old (const gchar *fname)
+static void save_devices_old (const gchar *fname)
 {
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
@@ -1957,7 +1957,7 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
 }
 
 
-inline void add_vfs_volume (GnomeVFSVolume *volume)
+static void add_vfs_volume (GnomeVFSVolume *volume)
 {
     if (!gnome_vfs_volume_is_user_visible (volume))
         return;
