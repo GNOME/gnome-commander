@@ -669,7 +669,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     if (dp != NULL)
     {
         struct dirent *ep;
-        while (ep = readdir (dp))
+        while ((ep = readdir (dp)))
         {
             struct stat buf;
             string s (user_dir);
