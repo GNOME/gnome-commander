@@ -96,7 +96,7 @@ void GnomeCmdNotebook::show_tabs(TabBarVisibility _show_tabs)
     if (_show_tabs!=tabs_visibility)
     {
         tabs_visibility = _show_tabs;
-        gtk_notebook_set_show_tabs (*this, _show_tabs==SHOW_TABS || _show_tabs!=HIDE_TABS && size()>1);
+        gtk_notebook_set_show_tabs (*this, _show_tabs==SHOW_TABS || (_show_tabs!=HIDE_TABS && size()>1));
     }
 }
 
