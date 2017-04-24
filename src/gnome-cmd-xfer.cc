@@ -552,6 +552,10 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                    XFER_PRIORITY,
                                    (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
                                    NULL, NULL);
+    if (result != GNOME_VFS_OK)
+    {
+        DEBUG ('x', "Downloading could not be started properly as of wrong arguments in gnome_vfs_async_xfer()\n");
+    }
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }
