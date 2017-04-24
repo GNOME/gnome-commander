@@ -128,7 +128,7 @@ static GtkTooltips *toolbar_tooltips = NULL;
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
 
-gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
+static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
 {
     g_return_val_if_fail (mw!=NULL, FALSE);
 
