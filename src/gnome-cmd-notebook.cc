@@ -148,6 +148,9 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
                     if (screen_y <= y_root + tab->allocation.y + tab->allocation.height)
                         return page_num;
                 }
+
+                break;
+            default:
                 break;
         }
     }
