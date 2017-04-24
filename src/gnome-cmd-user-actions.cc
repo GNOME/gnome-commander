@@ -981,7 +981,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
     GList *sel_files = active_fl->get_selected_files();
 
-    string s;
+    string files_to_differ;
 
     switch (g_list_length (sel_files))
     {
@@ -992,8 +992,8 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
             if (!get_fs (INACTIVE)->is_local())
                 gnome_cmd_show_message (*main_win, _("Operation not supported on remote file systems"));
             else
-                if (!append_real_path (s, get_selected_file (ACTIVE)) || !append_real_path (s, get_selected_file (INACTIVE)))
-                    s.clear();
+                if (!append_real_path (files_to_differ, get_selected_file (ACTIVE)) || !append_real_path (files_to_differ, get_selected_file (INACTIVE)))
+                    files_to_differ.clear();
             break;
 
         case 2:
@@ -1001,7 +1001,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
             sel_files = active_fl->sort_selection(sel_files);
 
             for (GList *i = sel_files; i; i = i->next)
-                append_real_path (s, GNOME_CMD_FILE (i->data));
+                append_real_path (files_to_differ, GNOME_CMD_FILE (i->data));
             break;
 
         default:
@@ -1011,9 +1011,9 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
     g_list_free (sel_files);
 
-    if (!s.empty())
+    if (!files_to_differ.empty())
     {
-        gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, s.c_str(), "");
+        gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, files_to_differ.c_str(), "");
 
         run_command (cmd);
 
