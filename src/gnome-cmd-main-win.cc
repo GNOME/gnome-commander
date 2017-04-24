@@ -254,6 +254,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
                 case  TOOLBAR_BTN_COPY:       mw->priv->tb_cap_copy_btn = w;  break;
                 case  TOOLBAR_BTN_PASTE:      mw->priv->tb_cap_paste_btn = w;  break;
                 case  TOOLBAR_BTN_DISCONNECT: mw->priv->tb_con_drop_btn = w;  break;
+                default: break;
             }
         }
 
@@ -523,6 +524,10 @@ static void on_fs_list_resize_column (GtkCList *clist, gint column, gint width, 
 
 static void on_size_allocate (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (gnome_cmd_data.main_win_state)
     {
         case GDK_WINDOW_STATE_FULLSCREEN:
@@ -534,6 +539,9 @@ static void on_size_allocate (GtkWidget *widget, GtkAllocation *allocation, gpoi
             gnome_cmd_data.main_win_width = allocation->width;
             gnome_cmd_data.main_win_height = allocation->height;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 
@@ -638,6 +646,10 @@ inline void restore_size_and_pos (GnomeCmdMainWin *mw)
     if (x >= 0 && y >= 0)
         gtk_window_move (GTK_WINDOW (mw), x, y);
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (gnome_cmd_data.main_win_state)
     {
         case GDK_WINDOW_STATE_MAXIMIZED:
@@ -648,6 +660,9 @@ inline void restore_size_and_pos (GnomeCmdMainWin *mw)
         default:
             break;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 
@@ -661,6 +676,10 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
 {
     gint x, y;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (event->new_window_state)
     {
         case GDK_WINDOW_STATE_MAXIMIZED:    // not usable
@@ -677,6 +696,9 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
             gnome_cmd_data_set_main_win_pos (x, y);
     }
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     gnome_cmd_data.main_win_state = event->new_window_state;
 
     return FALSE;
@@ -946,6 +968,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
                 return TRUE;
+            default:
+                break;
         }
     }
     else if (state_is_ctrl_shift (event->state))
@@ -957,6 +981,8 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 gnome_cmd_data.options.filter.hidden = !gnome_cmd_data.options.filter.hidden;
                 gnome_cmd_data.save();
                 return TRUE;
+            default:
+                break;
         }
     }
     else if (state_is_ctrl (event->state))
@@ -1001,6 +1027,9 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                     clear_event_key (event);
                 }
                 return TRUE;
+
+            default:
+                break;
         }
     }
     else if (state_is_alt_shift (event->state))
@@ -1020,6 +1049,9 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 fs(ACTIVE)->set_connection(GNOME_CMD_CON (con));
             }
             break;
+
+            default:
+                break;
         }
     }
     else
@@ -1068,6 +1100,9 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 case GDK_F9:
                     on_search_clicked (NULL, this);
                     return TRUE;
+
+                default:
+                    break;
             }
 
     return fs(ACTIVE)->key_pressed(event);
