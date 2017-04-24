@@ -1064,6 +1064,10 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
 {
     gint x, y;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (gnome_cmd_data.main_win_state)
     {
         case GDK_WINDOW_STATE_MAXIMIZED:
@@ -1076,6 +1080,9 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
             gnome_cmd_data_set_main_win_pos (x, y);
             break;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     gtk_widget_destroy (*main_win);
 }
