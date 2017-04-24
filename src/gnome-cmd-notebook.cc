@@ -107,11 +107,11 @@ int GnomeCmdNotebook::find_tab_num_at_pos(gint screen_x, gint screen_y) const
         return -1;
 
     GtkPositionType tab_pos = gtk_notebook_get_tab_pos (*this);
-    GtkWidget *page;
+    GtkWidget *the_page;
 
-    for (int page_num=0; (page=GnomeCmdNotebook::page(page_num)); ++page_num)
+    for (int page_num=0; (the_page=GnomeCmdNotebook::page(page_num)); ++page_num)
     {
-        GtkWidget *tab = gtk_notebook_get_tab_label (*this, page);
+        GtkWidget *tab = gtk_notebook_get_tab_label (*this, the_page);
 
         g_return_val_if_fail (tab!=NULL, -1);
 
