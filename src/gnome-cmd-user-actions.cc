@@ -121,7 +121,7 @@ inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 
 
 // The file returned from this function is not to be unrefed
-inline GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
+static GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
 {
     GnomeCmdFile *f = get_fl (fsID)->get_first_selected_file();
 
@@ -141,7 +141,7 @@ inline gboolean append_real_path (string &s, const gchar *name)
 }
 
 
-inline gboolean append_real_path (string &s, GnomeCmdFile *f)
+static gboolean append_real_path (string &s, GnomeCmdFile *f)
 {
     if (!f)
         return FALSE;
