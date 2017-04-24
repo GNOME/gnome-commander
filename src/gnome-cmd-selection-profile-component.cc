@@ -234,14 +234,14 @@ void GnomeCmdSelectionProfileComponent::copy()
 }
 
 
-void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::Selection &profile)
+void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::Selection &profile_in)
 {
-    stringify(profile.filename_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->pattern_combo)));
-    profile.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
-    profile.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
-    stringify(profile.text_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->find_text_combo)));
-    profile.content_search = !profile.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
-    profile.match_case = profile.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
+    stringify(profile_in.filename_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->pattern_combo)));
+    profile_in.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
+    profile_in.max_depth = gtk_combo_box_get_active (GTK_COMBO_BOX (priv->recurse_combo)) - 1;
+    stringify(profile_in.text_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->find_text_combo)));
+    profile_in.content_search = !profile_in.text_pattern.empty() && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->find_text_check));
+    profile_in.match_case = profile_in.content_search && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (priv->case_check));
 }
 
 void GnomeCmdSelectionProfileComponent::set_focus()
