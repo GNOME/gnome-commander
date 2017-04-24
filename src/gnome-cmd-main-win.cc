@@ -1112,7 +1112,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 }
 
 
-inline void GnomeCmdMainWin::open_tabs(FileSelectorID id)
+void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 {
     GnomeCmdCon *home = get_home_con ();
 
