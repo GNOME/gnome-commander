@@ -196,6 +196,9 @@ static gboolean on_key_pressed_after (GtkWidget *entry, GdkEventKey *event, Gnom
                 }
             }
             break;
+
+        default:
+            break;
     }
 
     if (popup->priv->pos)
