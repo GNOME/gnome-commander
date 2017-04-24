@@ -135,8 +135,8 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
 
-    if (!(event->keyval >= GDK_A && event->keyval <= GDK_Z || event->keyval >= GDK_a && event->keyval <= GDK_z ||
-          event->keyval >= GDK_0 && event->keyval <= GDK_9 ||
+    if (!((event->keyval >= GDK_A && event->keyval <= GDK_Z) || (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
+          (event->keyval >= GDK_0 && event->keyval <= GDK_9) ||
           event->keyval == GDK_period || event->keyval == GDK_question|| event->keyval == GDK_asterisk || event->keyval == GDK_bracketleft))
         return FALSE;
 
