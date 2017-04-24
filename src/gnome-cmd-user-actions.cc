@@ -1013,7 +1013,14 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
     if (!files_to_differ.empty())
     {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
         gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, files_to_differ.c_str(), "");
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         run_command (cmd);
 
@@ -1038,7 +1045,14 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
     append_real_path (s, GNOME_CMD_FILE (active_fs->get_directory()));
     append_real_path (s, GNOME_CMD_FILE (inactive_fs->get_directory()));
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
     gchar *cmd = g_strdup_printf (gnome_cmd_data.options.differ, s.c_str(), "");
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     run_command (cmd);
 
