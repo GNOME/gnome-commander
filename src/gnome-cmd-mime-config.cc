@@ -17,6 +17,7 @@
  */
 
 #include <glib.h>
+#include "gnome-cmd-mime-config.h"
 
 /** 
  * This function adds a path stored in MIMETOP_DIR to the environment
