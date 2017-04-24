@@ -691,6 +691,9 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
                 gnome_cmd_data.main_win_state == GDK_WINDOW_STATE_FULLSCREEN)
                 break;  // not usable
 
+#if defined (__GNUC__) && __GNUC__ >= 7
+        __attribute__ ((fallthrough));
+#endif
         default:            // other are usable
             gdk_window_get_root_origin (mw->window, &x, &y);
             gnome_cmd_data_set_main_win_pos (x, y);
