@@ -887,12 +887,12 @@ FileSelectorID GnomeCmdMainWin::fs() const
 }
 
 
-FileSelectorID GnomeCmdMainWin::fs(GnomeCmdFileSelector *fs) const
+FileSelectorID GnomeCmdMainWin::fs(GnomeCmdFileSelector *fselector) const
 {
-    if (!priv->file_selector[LEFT] || priv->file_selector[LEFT]==*fs)
+    if (!priv->file_selector[LEFT] || priv->file_selector[LEFT]==*fselector)
         return LEFT;
 
-    if (!priv->file_selector[RIGHT] || priv->file_selector[RIGHT]==*fs)
+    if (!priv->file_selector[RIGHT] || priv->file_selector[RIGHT]==*fselector)
         return RIGHT;
 
     g_assert_not_reached();
@@ -1129,31 +1129,31 @@ inline void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 }
 
 
-void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
+void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fselector)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fselector));
 
-    g_signal_emit (this, signals[SWITCH_FS], 0, fs);
+    g_signal_emit (this, signals[SWITCH_FS], 0, fselector);
 }
 
 
 void GnomeCmdMainWin::change_connection(FileSelectorID id)
 {
-    GnomeCmdFileSelector *fs = this->fs(id);
+    GnomeCmdFileSelector *fselector = this->fs(id);
 
-    switch_fs(fs);
+    switch_fs(fselector);
     if (gnome_cmd_data.show_devlist)
-        fs->con_combo->popup_list();
+        fselector->con_combo->popup_list();
 }
 
 
 void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
 {
-    GnomeCmdFileSelector *fs =  this->fs(fsID);
+    GnomeCmdFileSelector *fselector =  this->fs(fsID);
     GnomeCmdFileSelector *other = this->fs(!fsID);
 
     GnomeCmdDir *dir = other->get_directory();
-    gboolean fs_is_active = fs->is_active();
+    gboolean fs_is_active = fselector->is_active();
 
     if (!fs_is_active)
     {
@@ -1163,13 +1163,13 @@ void GnomeCmdMainWin::set_fs_directory_to_opposite(FileSelectorID fsID)
             dir = GNOME_CMD_IS_DIR (file) ? GNOME_CMD_DIR (file) : gnome_cmd_dir_new_from_info (file->info, dir);
     }
 
-    if (fs->file_list()->locked)
-        fs->new_tab(dir);
+    if (fselector->file_list()->locked)
+        fselector->new_tab(dir);
     else
-        fs->file_list()->set_connection(other->get_connection(), dir);
+        fselector->file_list()->set_connection(other->get_connection(), dir);
 
     other->set_active(!fs_is_active);
-    fs->set_active(fs_is_active);
+    fselector->set_active(fs_is_active);
 }
 
 
