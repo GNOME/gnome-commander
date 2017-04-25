@@ -2269,6 +2269,10 @@ int parse_command(string *cmd, gchar *command)
 		}
                 *cmd += '%';
 		cmdlen = cmd->length();
+#if defined (__GNUC__) && __GNUC__ >= 7
+		__attribute__ ((fallthrough));
+#endif
+
             case '%':           // %%  percent sign
 		if (cmdcap < cmdlen + 1)
 		{
