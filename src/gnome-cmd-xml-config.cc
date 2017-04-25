@@ -624,8 +624,10 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_BOOLEAN, "match-case", &param4,
                                              G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "content-search", &param5,
                                              G_MARKUP_COLLECT_INVALID))
+            {
                 xml_search_profile.match_case = param4;
                 xml_search_profile.content_search = param5;
+            }
             break;
 
         case XML_GNOMECOMMANDER_KEYBINDINGS_KEY:
