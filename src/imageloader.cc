@@ -189,6 +189,10 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
         "i-symlink.png"
     };
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (type)
     {
         case GNOME_VFS_FILE_TYPE_DIRECTORY:
@@ -209,6 +213,9 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
         default:
             return names[1];
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     return NULL;
 }
@@ -423,6 +430,10 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     GdkPixmap **pixmap,
                                     GdkBitmap **mask)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (gnome_cmd_data.options.layout)
     {
         case GNOME_CMD_LAYOUT_TYPE_ICONS:
@@ -436,6 +447,9 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
         default:
             return FALSE;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     return FALSE;
 }
