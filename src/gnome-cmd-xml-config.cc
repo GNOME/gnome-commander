@@ -845,7 +845,7 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
     xml_fs_names.add(LEFT,"left");
     xml_fs_names.add(RIGHT,"right");
 
-    if (xml_len==-1)
+    if (xml_len==(gsize)-1)
         xml_len = strlen (xml);
 
     GMarkupParseContext *context = g_markup_parse_context_new (&parser, GMarkupParseFlags(0), &cfg, NULL);
