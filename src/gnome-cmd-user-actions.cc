@@ -689,7 +689,7 @@ GtkTreeModel *gnome_cmd_user_actions_create_model ()
 
 
 template <typename F>
-inline void get_file_list (string &s, GList *sfl, F f)
+static void get_file_list (string &s, GList *sfl, F f)
 {
     vector<string> a;
 
