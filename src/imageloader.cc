@@ -120,7 +120,7 @@ void IMAGE_init ()
 
      // Load file type icons
 
-     for (gint i=0; i<NUM_FILE_TYPE_PIXMAPS; i++)
+     for (size_t i=0; i<NUM_FILE_TYPE_PIXMAPS; i++)
     {
         CacheEntry *e = &file_type_pixmaps[i];
         gchar *path = g_build_filename (PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
@@ -253,7 +253,7 @@ inline gchar *get_mime_document_type_icon_path (const gchar *mime_type, const gc
  */
 inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
-    for (gint i=0; i<G_N_ELEMENTS(categories); i++)
+    for (size_t i=0; i<G_N_ELEMENTS(categories); i++)
         if (g_str_has_prefix (mime_type, categories[i][0]))
             return g_build_filename (icon_dir, categories[i][1], NULL);
 
