@@ -68,6 +68,7 @@ inline GdkColor *code2color (gint code)
         case 45: return palette.magenta_bg;
         case 46: return palette.cyan_bg;
         case 47: return palette.white_bg;
+        default: break;
     }
 
     return NULL;
