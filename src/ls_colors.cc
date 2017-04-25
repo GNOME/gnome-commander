@@ -165,7 +165,7 @@ static LsColor *create_color (gchar *ls_color)
 }
 
 
-static void init (gchar *ls_colors)
+static void init (const gchar *ls_colors)
 {
     gchar **ents = g_strsplit (ls_colors, ":", 0);
 
@@ -191,7 +191,7 @@ static void init (gchar *ls_colors)
 
 void ls_colors_init ()
 {
-    gchar *s = getenv ("LS_COLORS");
+    const gchar *s = getenv ("LS_COLORS");
     if (!s)
         s = DEFAULT_COLORS;
 
