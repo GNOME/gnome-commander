@@ -201,15 +201,15 @@ inline void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
         GnomeVFSURI *uri = GNOME_CMD_FILE_INFO (files->data)->uri;
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
-        gchar *path = gnome_vfs_get_local_path_from_uri (uri_str);
+        gchar *uri_str_file = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+        gchar *path = gnome_vfs_get_local_path_from_uri (uri_str_file);
         gchar *tmp = cmd;
-        gchar *arg = g_shell_quote (path);
-        cmd = g_strdup_printf ("%s %s", tmp, arg);
-        g_free (arg);
+        gchar *arg_file = g_shell_quote (path);
+        cmd = g_strdup_printf ("%s %s", tmp, arg_file);
+        g_free (arg_file);
         g_free (path);
         g_free (tmp);
-        g_free (uri_str);
+        g_free (uri_str_file);
     }
 
     g_printerr ("add: %s\n", cmd);
