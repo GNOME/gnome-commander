@@ -1029,8 +1029,13 @@ gchar *get_temp_download_filepath (const gchar *fname)
 
     if (!tmp_file_dir)
     {
+        if (chdir (tmp_dir))
+        {
+            gnome_cmd_show_message (NULL, _("Failed to change working directory to a temporary directory."), strerror (errno));
+
+            return NULL;
+        }
         gchar *tmp_file_dir_template = g_strdup_printf ("gcmd-%s-XXXXXX", g_get_user_name());
-        chdir (tmp_dir);
         tmp_file_dir = mkdtemp (tmp_file_dir_template);
         if (!tmp_file_dir)
         {
@@ -1053,7 +1058,11 @@ void remove_temp_download_dir ()
         gchar *path = g_build_filename (g_get_tmp_dir (), tmp_file_dir, NULL);
         gchar *command = g_strdup_printf ("rm -rf %s", path);
         g_free (path);
-        system (command);
+        int status;
+        if ((status = system (command)))
+        {
+            g_warning ("executing \"%s\" failed with exit status %d\n", command, status);
+        }
         g_free (command);
     }
 }
