@@ -114,7 +114,14 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
         else
             arg = g_shell_quote (in_command);
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
         command = g_strdup_printf (gnome_cmd_data.options.termexec, arg);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
         g_free (arg);
     }
@@ -422,7 +429,14 @@ const gchar *time2string (time_t t, const gchar *date_format)
     struct tm lt;
 
     localtime_r (&t, &lt);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
+#endif
     strftime (buf, sizeof(buf), date_format, &lt);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     // convert formatted date from current locale to UTF8
     gchar *loc_date = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
