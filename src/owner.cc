@@ -140,5 +140,5 @@ gpointer GnomeCmdOwner::perform_load_operation (GnomeCmdOwner *self)
 
 void GnomeCmdOwner::load_async()
 {
-    thread = g_thread_create ((GThreadFunc) perform_load_operation, this, TRUE, NULL);
+    thread = g_thread_new (NULL, (GThreadFunc) perform_load_operation, this);
 }
