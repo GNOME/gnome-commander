@@ -405,6 +405,9 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
         case GNOME_CMD_SIZE_DISP_MODE_PLAIN:
             g_snprintf (buf0, sizeof(buf0), "%lu ", size);
             break;
+
+        default:
+            break;
     }
 
     return buf0;
