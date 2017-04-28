@@ -119,7 +119,7 @@ static gboolean str_ncase_equal (gchar *a, gchar *b)
 }
 
 
-guint str_hash (gchar *key)
+static guint str_hash (gchar *key)
 {
     gchar *s = g_ascii_strup (key, strlen (key));
     gint i = g_str_hash (s);
