@@ -209,22 +209,26 @@ GnomeCmdPlugin *test_plugin_new ()
 }
 
 
-extern "C" GnomeCmdPlugin *create_plugin ()
+extern "C"
 {
-    return test_plugin_new ();
+    GnomeCmdPlugin *create_plugin ()
+    {
+        return test_plugin_new ();
+    }
 }
 
-
-extern "C" PluginInfo *get_plugin_info ()
+extern "C"
 {
-    if (!plugin_nfo.authors)
+    PluginInfo *get_plugin_info ()
     {
-        plugin_nfo.authors = g_new0 (gchar *, 2);
-        plugin_nfo.authors[0] = AUTHOR;
-        plugin_nfo.authors[1] = NULL;
-        plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
-                                          "simple example for aspiring plugin hackers"));
+        if (!plugin_nfo.authors)
+        {
+            plugin_nfo.authors = g_new0 (gchar *, 2);
+            plugin_nfo.authors[0] = AUTHOR;
+            plugin_nfo.authors[1] = NULL;
+            plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
+                                            "simple example for aspiring plugin hackers"));
+        }
+        return &plugin_nfo;
     }
-
-    return &plugin_nfo;
 }

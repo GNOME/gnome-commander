@@ -50,5 +50,10 @@ struct _TestPluginClass
 GtkType test_plugin_get_type ();
 
 GnomeCmdPlugin *test_plugin_new ();
+extern "C"
+{
+    GnomeCmdPlugin *create_plugin   ();
+    PluginInfo     *get_plugin_info ();
+}
 
 #endif //__TEST_PLUGIN_H__
