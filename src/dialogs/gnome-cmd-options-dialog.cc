@@ -65,7 +65,7 @@ static void on_confirm_delete_toggled (GtkToggleButton *togglebutton, GtkWidget 
  *
  **********************************************************************/
 
-GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -285,7 +285,7 @@ static void on_date_format_update (GtkEditable *editable, GtkWidget *options_dia
 }
 
 
-GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box, *table;
     GtkWidget *radio, *label, *entry;
@@ -692,7 +692,7 @@ static void on_ls_colors_edit (GtkButton *btn, GtkWidget *parent)
 }
 
 
-GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat;
     GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
@@ -942,7 +942,7 @@ inline void store_tabs_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
  *
  **********************************************************************/
 
-GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *radio, *check;
@@ -1554,7 +1554,7 @@ static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *table1, *table2;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
@@ -1939,7 +1939,7 @@ static void on_device_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
+static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &cfg)
 {
     GtkWidget *frame, *hbox, *scrolled_window, *vbox, *cat, *cat_box;
     GtkWidget *button, *clist, *bbox, *check;
