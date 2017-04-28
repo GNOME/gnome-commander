@@ -3791,7 +3791,6 @@ void GnomeCmdData::load()
         load_rename_history();
 
         // add a few default templates here - for new users
-#if GLIB_CHECK_VERSION (2, 14, 0)
         {
             AdvrenameConfig::Profile p;
 
@@ -3810,7 +3809,6 @@ void GnomeCmdData::load()
 
             advrename_defaults.profiles.push_back(p);
         }
-#endif
 
     }
 

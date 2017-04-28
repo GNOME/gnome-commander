@@ -123,13 +123,6 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->match_case : FALSE);
     gtk_container_add (GTK_CONTAINER (align), check);
 
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-    GtkWidget *box = gnome_cmd_hint_box_new (_("Some regular expressions functionality is disabled. "
-                                               "To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. "
-                                               "Please contact your package maintainer about that."));
-    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), box);
-#endif
-
 #if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
 #else

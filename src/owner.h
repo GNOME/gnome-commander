@@ -173,13 +173,11 @@ inline ID GnomeCmdOwner::HashTable<T,ID>::operator [] (const gchar *name)
     return entry ? entry->id : -1;
 }
 
-#if GLIB_CHECK_VERSION (2, 14, 0)
 template <typename T, typename ID>
 inline GList *GnomeCmdOwner::HashTable<T,ID>::get_names()
 {
     return g_hash_table_get_keys (name_table);  //  FIXME:  sort ?
 }
-#endif
 
 inline GnomeCmdOwner::GnomeCmdUsers::Entry *GnomeCmdOwner::new_entry(const struct passwd *pw)
 {

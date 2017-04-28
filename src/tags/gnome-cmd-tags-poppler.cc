@@ -333,12 +333,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 
         f->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%u", g_list_length(list));
 
-#if GLIB_CHECK_VERSION(2, 28, 0)
         g_list_free_full(list, g_object_unref);
-#else
-        g_list_foreach(list, (GFunc)g_object_unref, NULL);
-        g_list_free(list);
-#endif
     }
     else
     {

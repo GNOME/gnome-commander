@@ -109,10 +109,6 @@ int main (int argc, char *argv[])
 
     main_win = NULL;
 
-#if !GLIB_CHECK_VERSION (2, 32, 0)
-    g_thread_init (NULL);
-#endif
-
     if (!g_thread_supported ())
     {
         g_printerr ("GNOME Commander needs thread support in glib to work, bailing out...\n");
