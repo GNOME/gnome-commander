@@ -53,5 +53,9 @@ struct _FileRollerPluginClass
 GtkType file_roller_plugin_get_type ();
 
 GnomeCmdPlugin *file_roller_plugin_new ();
-
+extern "C"
+{
+    GnomeCmdPlugin *create_plugin ();
+    PluginInfo     *get_plugin_info ();
+}
 #endif //__FILE_ROLLER_PLUGIN_H__

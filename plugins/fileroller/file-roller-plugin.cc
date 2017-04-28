@@ -716,21 +716,27 @@ GnomeCmdPlugin *file_roller_plugin_new ()
 }
 
 
-extern "C" GnomeCmdPlugin *create_plugin ()
+extern "C"
 {
-    return file_roller_plugin_new ();
+    GnomeCmdPlugin *create_plugin ()
+    {
+        return file_roller_plugin_new ();
+    }
 }
 
 
-extern "C" PluginInfo *get_plugin_info ()
+extern "C"
 {
-    if (!plugin_nfo.authors)
+    PluginInfo *get_plugin_info ()
     {
-        plugin_nfo.authors = g_new0 (gchar *, 2);
-        plugin_nfo.authors[0] = (char*) AUTHOR;
-        plugin_nfo.authors[1] = NULL;
-        plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
-                                          "and extracting compressed archives."));
+        if (!plugin_nfo.authors)
+        {
+            plugin_nfo.authors = g_new0 (gchar *, 2);
+            plugin_nfo.authors[0] = (gchar*) AUTHOR;
+            plugin_nfo.authors[1] = NULL;
+            plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
+                                            "and extracting compressed archives."));
+        }
+        return &plugin_nfo;
     }
-    return &plugin_nfo;
 }
