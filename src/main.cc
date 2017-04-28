@@ -75,6 +75,10 @@ static const GOptionEntry options [] =
 #ifdef HAVE_UNIQUE
 static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, UniqueMessageData *msg, guint t, gpointer  user_data)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wswitch-enum"
+#endif
     switch (cmd)
     {
         case UNIQUE_ACTIVATE:
@@ -86,6 +90,9 @@ static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, Un
         default:
             break;
     }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     return UNIQUE_RESPONSE_OK;
 }
