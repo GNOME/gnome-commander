@@ -1464,7 +1464,7 @@ int split(const string &s, vector<string> &coll, const char *sep)
   int n = 1;
   int start = 0;
 
-  for (int end; (end=s.find(sep,start))!=string::npos; ++n)
+  for (int end; (size_t)(end=s.find(sep,start))!=string::npos; ++n)
   {
     coll.push_back(string(s,start,end-start));
     start = end + seplen;
