@@ -155,7 +155,11 @@ static void scan_plugins_in_dir (const gchar *dpath)
     }
 
     prev_dir = getcwd (buff, sizeof(buff));
-    chdir (dpath);
+    if (chdir (dpath))
+    {
+        g_warning ("Could not change directory to %s: %s", dpath, strerror (errno));
+        return;
+    }
 
     while ((ent = readdir (dir)) != NULL)
     {
@@ -196,7 +200,13 @@ static void scan_plugins_in_dir (const gchar *dpath)
     closedir (dir);
 
     if (prev_dir)
-        chdir (prev_dir);
+    {
+        if (chdir (prev_dir))
+        {
+            g_warning ("Could not change directory back to %s: %s", prev_dir, strerror (errno));
+            return;
+        }
+    }
 }
 
 
