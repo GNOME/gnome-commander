@@ -69,8 +69,14 @@ inline GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
 GnomeCmdUserActions *GnomeCmdKeyShortcutsDialog::user_actions = NULL;
 
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#endif
 G_DEFINE_TYPE (GnomeCmdKeyShortcutsDialog, gnome_cmd_key_shortcuts_dialog, GTK_TYPE_DIALOG)
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 static void gnome_cmd_key_shortcuts_dialog_finalize (GObject *object)
 {

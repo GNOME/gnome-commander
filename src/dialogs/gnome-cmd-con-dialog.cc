@@ -342,8 +342,14 @@ gboolean GnomeCmdConnectDialog::verify_uri()
     return TRUE;
 }
 
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
+#endif
 G_DEFINE_TYPE (GnomeCmdConnectDialog, gnome_cmd_connect_dialog, GTK_TYPE_DIALOG)
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 
 static void gnome_cmd_connect_dialog_finalize (GObject *object)
