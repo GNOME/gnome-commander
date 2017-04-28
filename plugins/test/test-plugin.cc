@@ -224,7 +224,7 @@ extern "C"
         if (!plugin_nfo.authors)
         {
             plugin_nfo.authors = g_new0 (gchar *, 2);
-            plugin_nfo.authors[0] = AUTHOR;
+            plugin_nfo.authors[0] = (gchar*) AUTHOR;
             plugin_nfo.authors[1] = NULL;
             plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
                                             "simple example for aspiring plugin hackers"));
