@@ -207,7 +207,7 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(
             else
             {
                 if (!b)
-                    b = "/";
+                    b = (char*) "/";
                 b = c ? g_strconcat (G_DIR_SEPARATOR_S, b, c, NULL) : g_strdup (b);
                 g_free (c);
                 set_resources(ent->workgroup_name, a, b);
