@@ -271,7 +271,7 @@ GList *plugin_manager_get_all ()
 }
 
 
-PluginData *get_selected_plugin (GtkCList *list)
+static PluginData *get_selected_plugin (GtkCList *list)
 {
     return (PluginData *) gtk_clist_get_row_data (list, list->focus_row);
 }
