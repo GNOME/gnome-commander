@@ -432,7 +432,7 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
     GtkRequisition requisition;
 
     if (keys->sizing_label == NULL)
-        keys->sizing_label = gtk_label_new (_("New accelerator..."));
+        keys->sizing_label = gtk_label_new (_("New accelerator…"));
 
     gtk_widget_size_request (keys->sizing_label, &requisition);
     GTK_CELL_RENDERER_CLASS (parent_class)->get_size (cell, widget, cell_area, x_offset, y_offset, width, height);
@@ -649,7 +649,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 
     gtk_widget_modify_fg (label, GTK_STATE_NORMAL, &widget->style->fg[GTK_STATE_SELECTED]);
 
-    gtk_label_set_text (GTK_LABEL (label), _("New accelerator..."));
+    gtk_label_set_text (GTK_LABEL (label), _("New accelerator…"));
 
     gtk_container_add (GTK_CONTAINER (eventbox), label);
 

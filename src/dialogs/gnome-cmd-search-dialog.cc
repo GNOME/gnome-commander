@@ -178,7 +178,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
 
     GtkItemFactoryEntry *i = items;
 
-    i->path = g_strdup (_("/_Save Profile As..."));
+    i->path = g_strdup (_("/_Save Profile As…"));
     i->callback = (GtkItemFactoryCallback) manage_profiles;
     i->callback_action = TRUE;
     i->item_type = (gchar*) "<StockItem>";
@@ -187,7 +187,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
 
     if (!cfg.profiles.empty())
     {
-        i->path = g_strdup (_("/_Manage Profiles..."));
+        i->path = g_strdup (_("/_Manage Profiles…"));
         i->callback = (GtkItemFactoryCallback) manage_profiles;
         i->item_type = (gchar*) "<StockItem>";
         i->extra_data = GTK_STOCK_EDIT;
@@ -523,7 +523,7 @@ static gboolean update_search_status_widgets (SearchData *data)
     {
         int matches = data->dialog->priv->result_list->size();
 
-        gchar *fmt = data->stopped ? ngettext("Found %d match - search aborted", "Found %d matches - search aborted", matches) :
+        gchar *fmt = data->stopped ? ngettext("Found %d match — search aborted", "Found %d matches — search aborted", matches) :
                                      ngettext("Found %d match", "Found %d matches", matches);
 
         gchar *msg = g_strdup_printf (fmt, matches);
@@ -1052,7 +1052,7 @@ static void gnome_cmd_search_dialog_init (GnomeCmdSearchDialog *dialog)
 {
     dialog->priv = new GnomeCmdSearchDialog::Private(dialog);
 
-    gtk_window_set_title (*dialog, _("Search..."));
+    gtk_window_set_title (*dialog, _("Search…"));
     gtk_window_set_resizable (*dialog, TRUE);
     gtk_dialog_set_has_separator (*dialog, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
@@ -1148,7 +1148,7 @@ GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): def
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
     gtk_window_set_transient_for (*this, *main_win);
 
-    GtkWidget *button = priv->create_button_with_menu(_("Profiles..."), cfg);
+    GtkWidget *button = priv->create_button_with_menu(_("Profiles…"), cfg);
 
     gtk_dialog_add_action_widget (*this, button, GCMD_RESPONSE_PROFILES);
 

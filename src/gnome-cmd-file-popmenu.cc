@@ -119,7 +119,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
             data->files = g_list_append (data->files, f);
         }
         else
-            gnome_cmd_show_message (NULL, f->info->name, _("Couldn't retrieve MIME type of the file."));
+            gnome_cmd_show_message (NULL, f->info->name, _("Couldn’t retrieve MIME type of the file."));
     }
 
     g_hash_table_foreach (hash, (GHFunc) htcb_exec_with_app, NULL);
@@ -161,7 +161,7 @@ static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
     const gchar *labels[] = {_("Application:")};
     GtkWidget *dialog;
 
-    dialog = gnome_cmd_string_dialog_new (_("Open with other..."), labels, 1,
+    dialog = gnome_cmd_string_dialog_new (_("Open with other…"), labels, 1,
                                           (GnomeCmdStringDialogCallback) on_open_with_other_ok, files);
 
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
@@ -471,7 +471,7 @@ inline gchar *get_default_application_action_name (GList *files, gchar **icon_pa
 
     gchar *escaped_app_name = string_double_underscores (app->name);
     gnome_vfs_mime_application_free (app);
-    gchar *retval = g_strdup_printf (_("_Open with \"%s\""), escaped_app_name);
+    gchar *retval = g_strdup_printf (_("_Open with “%s”"), escaped_app_name);
     g_free (escaped_app_name);
 
     return retval;
@@ -520,7 +520,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GTK_STOCK_EXECUTE),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PIXMAPS_DIR G_DIR_SEPARATOR_S  "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GTK_STOCK_PROPERTIES),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Properties…"), NULL, on_properties, GTK_STOCK_PROPERTIES),
         GNOMEUIINFO_END
     };
 
@@ -566,7 +566,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Add open with other
     apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
-    apps_uiinfo[i].label = g_strdup (_("Other _Application..."));
+    apps_uiinfo[i].label = g_strdup (_("Other _Application…"));
     apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
     apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_NONE;

@@ -263,7 +263,7 @@ static gboolean update_xfer_gui_func (XferData *data)
     {
         if (data->prev_phase != GNOME_VFS_XFER_PHASE_COPYING)
         {
-            gnome_cmd_xfer_progress_win_set_action (data->win, _("copying..."));
+            gnome_cmd_xfer_progress_win_set_action (data->win, _("copying…"));
             data->prev_file = -1;
         }
 
@@ -271,7 +271,7 @@ static gboolean update_xfer_gui_func (XferData *data)
         {
             gchar *t = str_uri_basename (data->cur_file_name);
             gchar *fn = get_utf8 (t);
-            gchar *msg = g_strdup_printf (_("[file %ld of %ld] \"%s\""), data->cur_file, data->files_total, fn);
+            gchar *msg = g_strdup_printf (_("[file %ld of %ld] “%s”"), data->cur_file, data->files_total, fn);
 
             gnome_cmd_xfer_progress_win_set_msg (data->win, msg);
 
@@ -463,7 +463,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
 
     data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (num_files));
     gtk_widget_ref (GTK_WIDGET (data->win));
-    gtk_window_set_title (GTK_WINDOW (data->win), _("preparing..."));
+    gtk_window_set_title (GTK_WINDOW (data->win), _("preparing…"));
     gtk_widget_show (GTK_WIDGET (data->win));
 
     //  start the transfer

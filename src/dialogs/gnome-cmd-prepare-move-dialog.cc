@@ -123,7 +123,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     {
         GnomeCmdFile *f = (GnomeCmdFile *) data->dialog->src_files->data;
         gchar *fname = get_utf8 (f->info->name);
-        dest_dir_frame_msg = g_strdup_printf (_("Move \"%s\" to"), fname);
+        dest_dir_frame_msg = g_strdup_printf (_("Move “%s” to"), fname);
         g_free (fname);
     }
     else

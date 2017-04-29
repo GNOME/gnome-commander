@@ -187,7 +187,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     cat = create_category (parent, cat_box, _("Multiple instances"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    check = create_check (parent, _("Don't start a new instance"), "multiple_instance_check");
+    check = create_check (parent, _("Don’t start a new instance"), "multiple_instance_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.allow_multiple_instances);
 #endif
@@ -369,7 +369,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
     g_object_set_data (G_OBJECT (parent), "date_format_test_label", label);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    label = create_label (parent, _("See the manual page for \"strftime\" for help on how to set the format string."));
+    label = create_label (parent, _("See the manual page for “strftime” for help on how to set the format string."));
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
     table_add (table, label, 1, 2, GTK_FILL);
 
@@ -453,7 +453,7 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 
 static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
 {
-    GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit Colors..."));
+    GtkWidget *dlg = gnome_cmd_dialog_new (_("Edit Colors…"));
     g_object_ref (dlg);
 
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
@@ -782,7 +782,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     gtk_box_pack_start (GTK_BOX (hbox), cm_optmenu, TRUE, TRUE, 0);
 
 
-    btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
+    btn = create_button_with_data (parent, _("Edit…"), GTK_SIGNAL_FUNC (on_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "color_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (btn, cfg.color_mode == GNOME_CMD_COLOR_CUSTOM);
@@ -797,7 +797,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
     g_signal_connect (check, "toggled", G_CALLBACK (on_ls_colors_toggled), parent);
     gtk_box_pack_start (GTK_BOX (hbox), check, TRUE, TRUE, 0);
 
-    btn = create_button_with_data (parent, _("Edit colors..."), GTK_SIGNAL_FUNC (on_ls_colors_edit), parent);
+    btn = create_button_with_data (parent, _("Edit colors…"), GTK_SIGNAL_FUNC (on_ls_colors_edit), parent);
     g_object_set_data (G_OBJECT (parent), "ls_colors_edit_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (btn, cfg.use_ls_colors);

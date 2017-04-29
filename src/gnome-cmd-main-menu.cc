@@ -420,26 +420,26 @@ static void init (GnomeCmdMainMenu *main_menu)
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("_Properties..."), "Alt+ENTER", NULL,
+            MENU_TYPE_ITEM, _("_Properties…"), "Alt+ENTER", NULL,
             (gpointer) file_properties, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
             NULL
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_Search..."), "Alt+F7", NULL,
+            MENU_TYPE_ITEM, _("_Search…"), "Alt+F7", NULL,
             (gpointer) edit_search, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("_Quick Search..."), "", NULL,
+            MENU_TYPE_ITEM, _("_Quick Search…"), "", NULL,
             (gpointer) edit_quick_search, NULL,
             GNOME_APP_PIXMAP_NONE, 0,
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("_Enable Filter..."), "", NULL,
+            MENU_TYPE_ITEM, _("_Enable Filter…"), "", NULL,
             (gpointer) edit_filter, NULL,
             GNOME_APP_PIXMAP_NONE, 0,
             NULL
@@ -666,13 +666,13 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData bookmarks_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Bookmark this Directory..."), "", NULL,
+            MENU_TYPE_ITEM, _("_Bookmark this Directory…"), "", NULL,
             (gpointer) bookmarks_add_current, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ADD,
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("_Manage Bookmarks..."), "Ctrl+D", NULL,
+            MENU_TYPE_ITEM, _("_Manage Bookmarks…"), "Ctrl+D", NULL,
             (gpointer) bookmarks_edit, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
@@ -684,7 +684,7 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData plugins_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Configure Plugins..."), "", NULL,
+            MENU_TYPE_ITEM, _("_Configure Plugins…"), "", NULL,
             (gpointer) plugins_configure, NULL,
             GNOME_APP_PIXMAP_DATA, exec_wheel_xpm,
             NULL
@@ -696,13 +696,13 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData options_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Options..."), "Ctrl+O", NULL,
+            MENU_TYPE_ITEM, _("_Options…"), "Ctrl+O", NULL,
             (gpointer) options_edit, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("_Keyboard Shortcuts..."), "", NULL,
+            MENU_TYPE_ITEM, _("_Keyboard Shortcuts…"), "", NULL,
             (gpointer) options_edit_shortcuts, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC,
             NULL
@@ -713,13 +713,13 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData connections_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Remote Server..."), "Ctrl+F", NULL,
+            MENU_TYPE_ITEM, _("_Remote Server…"), "Ctrl+F", NULL,
             (gpointer) connections_open, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("New Connection..."), "Ctrl+N", NULL,
+            MENU_TYPE_ITEM, _("New Connection…"), "Ctrl+N", NULL,
             (gpointer) connections_new, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             NULL

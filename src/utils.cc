@@ -529,7 +529,7 @@ void mime_exec_single (GnomeCmdFile *f)
         if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
         {
             gchar *fname = get_utf8 (f->info->name);
-            gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
+            gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
             gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
                                           _("Make Executable?"),
                                           -1, _("Cancel"), _("OK"), NULL);
@@ -558,7 +558,7 @@ void mime_exec_single (GnomeCmdFile *f)
             if (f->mime_begins_with("text/"))
             {
                 gchar *fname = get_utf8 (f->info->name);
-                gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
+                gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), fname);
                 gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                                               -1, _("Cancel"), _("Display"), _("Run"), NULL);
                 g_free (fname);
@@ -1256,7 +1256,7 @@ gboolean create_dir_if_needed (const gchar *dpath)
     {
         if (errno == ENOENT)
         {
-            g_print (_("Creating directory %s... "), dpath);
+            g_print (_("Creating directory %s… "), dpath);
             if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)  return TRUE;  else
             {
                 gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
@@ -1265,7 +1265,7 @@ gboolean create_dir_if_needed (const gchar *dpath)
             }
         }
         else
-            g_warning (_("Couldn't read from the directory %s: %s"), dpath, strerror (errno));
+            g_warning (_("Couldn’t read from the directory %s: %s"), dpath, strerror (errno));
 
         return FALSE;
     }

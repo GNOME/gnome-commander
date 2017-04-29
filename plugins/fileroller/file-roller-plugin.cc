@@ -448,7 +448,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
     FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
 
-    item = create_menu_item (_("Create Archive..."), TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
+    item = create_menu_item (_("Create Archive…"), TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
     items = g_list_append (items, item);
 
     if (num_files == 1)
@@ -467,7 +467,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                 gchar *text;
 
-                text = g_strdup_printf (_("Extract to '%s'"), fname);
+                text = g_strdup_printf (_("Extract to “%s”"), fname);
                 item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
                 g_object_set_data (G_OBJECT (item), "target_name", g_strdup (fname));
                 items = g_list_append (items, item);
@@ -477,7 +477,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                 {
                     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (state->inactive_dir_uri), NULL);
 
-                    text = g_strdup_printf (_("Extract to '%s'"), path);
+                    text = g_strdup_printf (_("Extract to “%s”"), path);
                     item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
                     g_object_set_data (G_OBJECT (item), "target_dir", path);
                     items = g_list_append (items, item);
@@ -592,7 +592,7 @@ static void configure (GnomeCmdPlugin *plugin)
     g_object_set_data (G_OBJECT (dialog), "date_format_test_label", label);
     table_add (table, label, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    gchar* text = g_strdup_printf("<small>%s</small>",_("Use $N as a pattern for the original file name. See the manual page for \"strftime\" for other patterns."));
+    gchar* text = g_strdup_printf("<small>%s</small>",_("Use $N as a pattern for the original file name. See the manual page for “strftime” for other patterns."));
     label = create_label (dialog, text);
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
     gtk_label_set_markup (GTK_LABEL (label), text);

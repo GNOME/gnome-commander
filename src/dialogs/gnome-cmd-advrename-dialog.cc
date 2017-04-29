@@ -128,7 +128,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(Gnom
 
     GtkItemFactoryEntry *i = items;
 
-    i->path = g_strdup (_("/_Save Profile As..."));
+    i->path = g_strdup (_("/_Save Profile As…"));
     i->callback = (GtkItemFactoryCallback) manage_profiles;
     i->callback_action = TRUE;
     i->item_type = (gchar *) "<StockItem>";
@@ -137,7 +137,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(Gnom
 
     if (!cfg->profiles.empty())
     {
-        i->path = g_strdup (_("/_Manage Profiles..."));
+        i->path = g_strdup (_("/_Manage Profiles…"));
         i->callback = (GtkItemFactoryCallback) manage_profiles;
         i->item_type = (gchar *) "<StockItem>";
         i->extra_data = GTK_STOCK_EDIT;
@@ -698,7 +698,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_window_set_transient_for (*this, *main_win);
 
     gtk_dialog_add_action_widget (*this,
-                                  priv->create_button_with_menu (_("Profiles..."), &cfg),
+                                  priv->create_button_with_menu (_("Profiles…"), &cfg),
                                   GCMD_RESPONSE_PROFILES);
 
     gtk_dialog_add_buttons (*this,

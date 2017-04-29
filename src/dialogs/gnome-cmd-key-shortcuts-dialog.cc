@@ -489,7 +489,7 @@ inline gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint ac
                                              (GtkDialogFlags) (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                                              GTK_MESSAGE_WARNING,
                                              GTK_BUTTONS_NONE,
-                                             _("Shortcut \"%s\" is already taken by \"%s\"."),
+                                             _("Shortcut “%s” is already taken by “%s”."),
                                              accel_string, action);
     gtk_dialog_add_buttons (GTK_DIALOG (dlg), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                               _("_Reassign shortcut"), GTK_RESPONSE_OK,
@@ -497,7 +497,7 @@ inline gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint ac
     gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_CANCEL);
     gtk_window_set_title (GTK_WINDOW (dlg), _("Conflicting Shortcuts"));
     gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), _("Reassigning the shortcut will cause it "
-                                                                          "to be removed from \"%s\"."), action);
+                                                                          "to be removed from “%s”."), action);
     gtk_widget_show_all (dlg);
     gint response = gtk_dialog_run (GTK_DIALOG (dlg));
 

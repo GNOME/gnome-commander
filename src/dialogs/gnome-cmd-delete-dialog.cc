@@ -130,7 +130,7 @@ inline void create_delete_progress_win (DeleteData *data)
     GtkWidget *button;
 
     data->progwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW (data->progwin), _("Deleting..."));
+    gtk_window_set_title (GTK_WINDOW (data->progwin), _("Deleting…"));
     gtk_window_set_policy (GTK_WINDOW (data->progwin), FALSE, FALSE, FALSE);
     gtk_window_set_position (GTK_WINDOW (data->progwin), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (data->progwin), 300, -1);
@@ -202,7 +202,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
     if (data->problem)
     {
         const gchar *error = gnome_vfs_result_to_string (data->vfs_status);
-        gchar *msg = g_strdup_printf (_("Error while deleting \"%s\"\n\n%s"), data->problem_file, error);
+        gchar *msg = g_strdup_printf (_("Error while deleting “%s”\n\n%s"), data->problem_file, error);
 
         data->problem_action = run_simple_dialog (
             *main_win, TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
@@ -275,7 +275,7 @@ void gnome_cmd_delete_dialog_show (GList *files)
                 return;
 
             gchar *fname = get_utf8 (f->info->name);
-            msg = g_strdup_printf (_("Do you want to delete \"%s\"?"), fname);
+            msg = g_strdup_printf (_("Do you want to delete “%s”?"), fname);
             g_free (fname);
         }
         else

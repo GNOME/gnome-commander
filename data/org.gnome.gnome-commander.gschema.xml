@@ -30,7 +30,7 @@
       <default>true</default>
       <summary>Use default font</summary>
       <description>
-          Whether to use the system's default fixed width font for the file
+          Whether to use the system’s default fixed width font for the file
           panels instead of a font specific to gnome-commander.
       </description>
     </key>
@@ -38,7 +38,7 @@
       <default>'DejaVu Sans Mono 8'</default>
       <summary>Panel font</summary>
       <description>
-          A custom font that will be used for the file panes if the "Use default font" option is turned off.
+          A custom font that will be used for the file panes if the “Use default font” option is turned off.
       </description>
     </key>
     <key name='size-display-mode' enum='org.gnome.gnome-commander.GnomeCmdSizeDispMode'>
@@ -187,7 +187,7 @@
       <summary>Symlink string</summary>
       <description>
           This string defines the default name of a newly created symlink. Leave the string
-          empty to use the default value which is hard coded into the program code. A '%s'
+          empty to use the default value which is hard coded into the program code. A “%s”
           will be expanded to the item name for which a link should be created.
       </description>
     </key>
@@ -287,7 +287,7 @@
       <default>4</default>
       <summary>Main window state</summary>
       <description>
-          The number represents the main window state, e.g. 'maximized', 'fullscreen', etc. and is calculated internally.
+          The number represents the main window state, e.g. “maximized”, “fullscreen”, etc. and is calculated internally.
       </description>
     </key>
     <key name="middle-mouse-btn-mode" enum="org.gnome.gnome-commander.MiddleMouseButtonMode">

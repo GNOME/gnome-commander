@@ -39,7 +39,7 @@ static GtkWindowClass *parent_class = NULL;
 static void on_cancel (GtkButton *btn, GnomeCmdXferProgressWin *win)
 {
     win->cancel_pressed = TRUE;
-    gnome_cmd_xfer_progress_win_set_action (win, _("stopping..."));
+    gnome_cmd_xfer_progress_win_set_action (win, _("stopping…"));
     gtk_widget_set_sensitive (GTK_WIDGET (win), FALSE);
 }
 

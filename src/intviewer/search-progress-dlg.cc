@@ -72,7 +72,7 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
     GtkDialog *dlg = GTK_DIALOG(sdlg);
     // sdlg->priv->progress = 0;
 
-    gtk_window_set_title (GTK_WINDOW (dlg), _("Searching..."));
+    gtk_window_set_title (GTK_WINDOW (dlg), _("Searching…"));
     gtk_window_set_modal (GTK_WINDOW (dlg), TRUE);
     gtk_dialog_add_button (dlg, GTK_STOCK_STOP, 12);
 
@@ -182,7 +182,7 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
     GtkWidget *w = gviewer_search_progress_dlg_new(parent);
     GViewerSearchProgressDlg *dlg = GVIEWER_SEARCH_PROGRESS_DLG (w);
 
-    gchar *str = g_strdup_printf (_("Searching for \"%s\""), searching_text);
+    gchar *str = g_strdup_printf (_("Searching for “%s”"), searching_text);
     gtk_label_set_text (GTK_LABEL (dlg->priv->label), str);
 
     dlg->priv->abort_indicator = abort;

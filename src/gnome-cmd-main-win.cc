@@ -782,7 +782,7 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->file_selector[LEFT] = NULL;
     mw->priv->file_selector[RIGHT] = NULL;
 
-    gnome_app_construct (GNOME_APP (mw), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander - ROOT PRIVILEGES") :
+    gnome_app_construct (GNOME_APP (mw), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander — ROOT PRIVILEGES") :
                                                                                    _("GNOME Commander"));
     g_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);

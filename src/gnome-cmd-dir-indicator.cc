@@ -408,7 +408,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), NULL, NULL, indicator);
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), GTK_SIGNAL_FUNC (on_bookmarks_add_current), indicator);
-    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks..."), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks…"), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
 
     gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, NULL, NULL, NULL);
 

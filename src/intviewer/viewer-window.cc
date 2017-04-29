@@ -768,7 +768,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
-        {MI_NORMAL, _("Find..."), GDK_F, GDK_CONTROL_MASK, G_CALLBACK (menu_edit_find),
+        {MI_NORMAL, _("Find…"), GDK_F, GDK_CONTROL_MASK, G_CALLBACK (menu_edit_find),
                 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
@@ -1181,7 +1181,7 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
     {
         GtkWidget *w;
 
-        w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern \"%s\" was not found"), obj->priv->search_pattern);
+        w = gtk_message_dialog_new(GTK_WINDOW (obj), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, _("Pattern “%s” was not found"), obj->priv->search_pattern);
         gtk_dialog_run (GTK_DIALOG (w));
         gtk_widget_destroy (w);
     }

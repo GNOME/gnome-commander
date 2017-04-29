@@ -146,7 +146,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                     else
                     {
                         // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-                        gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
+                        gchar *msg = g_strdup_printf (_("The directory “%s” doesn’t exist, do you want to create it?"),
                                                       g_path_get_basename (parent_dir));
                         gint choice = run_simple_dialog (GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
                                                          -1, _("No"), _("Yes"), NULL);
@@ -186,7 +186,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             else
             {
                 // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-                gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
+                gchar *msg = g_strdup_printf (_("The directory “%s” doesn’t exist, do you want to create it?"),
                                               g_path_get_basename (dest_path));
                 GtkWidget *dir_dialog = gtk_message_dialog_new (*main_win,
                                                             (GtkDialogFlags) 0,
