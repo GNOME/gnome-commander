@@ -377,13 +377,13 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
                 if (i)
                     g_snprintf (buf0, sizeof(buf0), "%.1f %s ", dsize, prefixes[i]);
                 else
-                    g_snprintf (buf0, sizeof(buf0), "%lu %s ", size, prefixes[0]);
+                    g_snprintf (buf0, sizeof(buf0), "%" GNOME_VFS_SIZE_FORMAT_STR " %s ", size, prefixes[0]);
             }
             break;
 
         case GNOME_CMD_SIZE_DISP_MODE_GROUPED:
             {
-                gint len = g_snprintf (buf0, sizeof(buf0), "%lu ", size);
+                gint len = g_snprintf (buf0, sizeof(buf0), "%" GNOME_VFS_SIZE_FORMAT_STR " ", size);
 
                 if (len < 5)
                     return buf0;
@@ -406,11 +406,11 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
             return buf1;
 
         case GNOME_CMD_SIZE_DISP_MODE_LOCALE:
-            g_snprintf (buf0, sizeof(buf0), "%'lu ", size);
+            g_snprintf (buf0, sizeof(buf0), "%'" GNOME_VFS_SIZE_FORMAT_STR " ", size);
             break;
 
         case GNOME_CMD_SIZE_DISP_MODE_PLAIN:
-            g_snprintf (buf0, sizeof(buf0), "%lu ", size);
+            g_snprintf (buf0, sizeof(buf0), "%" GNOME_VFS_SIZE_FORMAT_STR " ", size);
             break;
 
         default:
