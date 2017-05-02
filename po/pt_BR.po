@@ -18,16 +18,16 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2017-04-28 21:32+0000\n"
-"PO-Revision-Date: 2017-04-30 16:33-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"POT-Creation-Date: 2017-05-01 18:09+0000\n"
+"PO-Revision-Date: 2017-05-02 04:36-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
 "X-Project-Style: gnome\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
@@ -41,11 +41,11 @@ msgstr "Gerenciador de arquivos com dois painéis"
 
 #: data/gnome-commander.appdata.xml.in:10
 msgid ""
-"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
-"desktop environment. It features separate tabs for each pane, setting up "
-"custom device buttons, bookmark manager, fully integrated commandline, file "
-"quick search, an internal image viewer, a powerful batch renaming tool, and "
-"FTP and Samba access."
+"GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
+"environment. It features separate tabs for each pane, setting up custom "
+"device buttons, bookmark manager, fully integrated commandline, file quick "
+"search, an internal image viewer, a powerful batch renaming tool, and FTP "
+"and Samba access."
 msgstr ""
 "GNOME Commander é um gerenciador de arquivos gráfico de dois painéis para o "
 "ambiente do GNOME. Ele apresenta abas separadas para cada painel, "
@@ -84,7 +84,7 @@ msgstr "Usar fonte padrão"
 
 #: data/org.gnome.gnome-commander.gschema.xml:32
 msgid ""
-"Whether to use the system's default fixed width font for the file panels "
+"Whether to use the system’s default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
 msgstr ""
 "Se deve usar a fonte de largura fixa padrão do sistema para os painéis em "
@@ -96,11 +96,11 @@ msgstr "Fonte do painel"
 
 #: data/org.gnome.gnome-commander.gschema.xml:40
 msgid ""
-"A custom font that will be used for the file panes if the \"Use default font"
-"\" option is turned off."
+"A custom font that will be used for the file panes if the “Use default font” "
+"option is turned off."
 msgstr ""
 "Uma fonte personalizada que será usada para os painéis de arquivos se a "
-"opção \"Usar fonte padrão\" estiver desabilitada."
+"opção “Usar fonte padrão” estiver desabilitada."
 
 #: data/org.gnome.gnome-commander.gschema.xml:46
 msgid "Filesize display mode"
@@ -147,7 +147,7 @@ msgstr "Define a altura de uma linha no painel de arquivos."
 #. the single quotes which sourround the string.
 #: data/org.gnome.gnome-commander.gschema.xml:76
 msgid "'%F %R'"
-msgstr "\"%F %R\""
+msgstr "'%F %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:77
 #: src/dialogs/gnome-cmd-options-dialog.cc:351
@@ -322,12 +322,12 @@ msgstr "String de link simbólico"
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
-"code. A '%s' will be expanded to the item name for which a link should be "
+"code. A “%s” will be expanded to the item name for which a link should be "
 "created."
 msgstr ""
 "Essa string define o nome padrão de um link simbólico recém-criado. Deixe a "
 "string em branco para usar o valor padrão que está inserido no código do "
-"programa. Um \"%s\" será expandido para o nome do item para o qual um link "
+"programa. Um “%s” será expandido para o nome do item para o qual um link "
 "deve ser criado."
 
 #: data/org.gnome.gnome-commander.gschema.xml:196
@@ -440,11 +440,11 @@ msgstr "Estado da janela principal"
 
 #: data/org.gnome.gnome-commander.gschema.xml:289
 msgid ""
-"The number represents the main window state, e.g. 'maximized', 'fullscreen', "
+"The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
 msgstr ""
-"O número representa o estado da janela principal (ex.: \"maximizado\", "
-"\"tela cheia\", etc.) e é calculado internamente."
+"O número representa o estado da janela principal (ex.: “maximizado”, “tela "
+"cheia”, etc.) e é calculado internamente."
 
 #: data/org.gnome.gnome-commander.gschema.xml:295
 msgid "Middle mouse button mode"
@@ -1281,28 +1281,28 @@ msgstr "Qual o nome do novo pacote?"
 msgid "Create Archive"
 msgstr "Criar pacote"
 
-#: plugins/fileroller/file-roller-plugin.cc:444
-msgid "Create Archive..."
-msgstr "Criar pacote..."
+#: plugins/fileroller/file-roller-plugin.cc:451
+msgid "Create Archive…"
+msgstr "Criar pacote…"
 
-#: plugins/fileroller/file-roller-plugin.cc:456
+#: plugins/fileroller/file-roller-plugin.cc:463
 msgid "Extract in Current Directory"
 msgstr "Extrair no diretório atual"
 
-#: plugins/fileroller/file-roller-plugin.cc:463
-#: plugins/fileroller/file-roller-plugin.cc:473
+#: plugins/fileroller/file-roller-plugin.cc:470
+#: plugins/fileroller/file-roller-plugin.cc:480
 #, c-format
-msgid "Extract to '%s'"
-msgstr "Extrair para \"%s\""
+msgid "Extract to “%s”"
+msgstr "Extrair para “%s”"
 
-#: plugins/fileroller/file-roller-plugin.cc:523
+#: plugins/fileroller/file-roller-plugin.cc:537
 #: src/gnome-cmd-advrename-profile-component.cc:932 src/plugin_manager.cc:416
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Arquivo"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:540
+#: plugins/fileroller/file-roller-plugin.cc:554
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:364
 #: src/dialogs/gnome-cmd-options-dialog.cc:1414
 #: src/dialogs/gnome-cmd-options-dialog.cc:2065
@@ -1312,33 +1312,33 @@ msgstr "Arquivo"
 msgid "Options"
 msgstr "Opções"
 
-#: plugins/fileroller/file-roller-plugin.cc:552
+#: plugins/fileroller/file-roller-plugin.cc:566
 msgid "File-roller options"
 msgstr "Opções do desempacotador de arquivos"
 
-#: plugins/fileroller/file-roller-plugin.cc:555
+#: plugins/fileroller/file-roller-plugin.cc:569
 msgid "Default archive type"
 msgstr "Tipo padrão de pacote"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:563
+#: plugins/fileroller/file-roller-plugin.cc:577
 msgid "File prefix pattern"
 msgstr "Padrão de prefixo do arquivo"
 
-#: plugins/fileroller/file-roller-plugin.cc:574
+#: plugins/fileroller/file-roller-plugin.cc:588
 #: src/dialogs/gnome-cmd-options-dialog.cc:365
 msgid "Test result:"
 msgstr "Resultado do teste:"
 
-#: plugins/fileroller/file-roller-plugin.cc:581
+#: plugins/fileroller/file-roller-plugin.cc:595
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
-"\"strftime\" for other patterns."
+"“strftime” for other patterns."
 msgstr ""
 "Use $N como um padrão para o nome de arquivo original. Veja a página de "
-"manual para \"strftime\" para outros padrões."
+"manual para “strftime” para outros padrões."
 
-#: plugins/fileroller/file-roller-plugin.cc:737
+#: plugins/fileroller/file-roller-plugin.cc:751
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1356,13 +1356,13 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:131
 #: src/dialogs/gnome-cmd-search-dialog.cc:181
-msgid "/_Save Profile As..."
-msgstr "/_Salvar perfil como..."
+msgid "/_Save Profile As…"
+msgstr "/_Salvar perfil como…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:140
 #: src/dialogs/gnome-cmd-search-dialog.cc:190
-msgid "/_Manage Profiles..."
-msgstr "/_Gerenciar perfis..."
+msgid "/_Manage Profiles…"
+msgstr "/_Gerenciar perfis…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:192
 #: src/dialogs/gnome-cmd-search-dialog.cc:240
@@ -1433,8 +1433,8 @@ msgstr "Data de modificação do arquivo"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:701
 #: src/dialogs/gnome-cmd-search-dialog.cc:1151
-msgid "Profiles..."
-msgstr "Perfis..."
+msgid "Profiles…"
+msgstr "Perfis…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:706
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:84
@@ -1531,8 +1531,8 @@ msgstr "Por favor, digite um nome e tente novamente."
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:332
 #, c-format
-msgid "\"%s\" is not a valid location"
-msgstr "\"%s\" não é uma localização válida"
+msgid "“%s” is not a valid location"
+msgstr "“%s” não é uma localização válida"
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:333
 msgid "Please check spelling and try again."
@@ -1583,17 +1583,17 @@ msgstr[0] "Arquivo %ld de %ld excluído"
 msgstr[1] "Arquivos %ld de %ld excluídos"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:133
-msgid "Deleting..."
-msgstr "Excluindo..."
+msgid "Deleting…"
+msgstr "Excluindo…"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:205
 #, c-format
 msgid ""
-"Error while deleting \"%s\"\n"
+"Error while deleting “%s”\n"
 "\n"
 "%s"
 msgstr ""
-"Erro ao excluir \"%s\"\n"
+"Erro ao excluir “%s”\n"
 "\n"
 "%s"
 
@@ -1619,8 +1619,8 @@ msgstr "Pular"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:278
 #, c-format
-msgid "Do you want to delete \"%s\"?"
-msgstr "Você deseja excluir \"%s\"?"
+msgid "Do you want to delete “%s”?"
+msgstr "Você deseja excluir “%s”?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:282
 #, c-format
@@ -1837,8 +1837,8 @@ msgstr "Dados opcionais"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:492
 #, c-format
-msgid "Shortcut \"%s\" is already taken by \"%s\"."
-msgstr "O atalho \"%s\" já é utilizado por \"%s\"."
+msgid "Shortcut “%s” is already taken by “%s”."
+msgstr "O atalho “%s” já é utilizado por “%s”."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:495
 msgid "_Reassign shortcut"
@@ -1850,8 +1850,8 @@ msgstr "Atalhos em conflito"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:499
 #, c-format
-msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
-msgstr "A reatribuição do atalho causará a sua remoção de \"%s\"."
+msgid "Reassigning the shortcut will cause it to be removed from “%s”."
+msgstr "A reatribuição do atalho causará a sua remoção de “%s”."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:555
 msgid "Invalid shortcut."
@@ -1870,8 +1870,8 @@ msgstr "Nenhum nome de arquivo digitado"
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
 #, c-format
-msgid "Copy \"%s\" to"
-msgstr "Copiar \"%s\" para"
+msgid "Copy “%s” to"
+msgstr "Copiar “%s” para"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:144
 msgid "Copy File"
@@ -2043,7 +2043,7 @@ msgid "Multiple instances"
 msgstr "Múltiplas instâncias"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:190
-msgid "Don't start a new instance"
+msgid "Don’t start a new instance"
 msgstr "Não iniciar uma nova instância"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:197
@@ -2100,15 +2100,14 @@ msgstr "Formatar:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:372
 msgid ""
-"See the manual page for \"strftime\" for help on how to set the format "
-"string."
+"See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
-"Veja a página do manual para \"strftime\" para ajuda ou como definir um "
+"Veja a página do manual para “strftime” para ajuda ou como definir um "
 "formato para a cadeia de caracteres."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:456
-msgid "Edit Colors..."
-msgstr "Editar cores..."
+msgid "Edit Colors…"
+msgstr "Editar cores…"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:469
 msgid "Colors"
@@ -2278,8 +2277,8 @@ msgid "Color scheme:"
 msgstr "Esquema de cor:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:785
-msgid "Edit..."
-msgstr "Editar..."
+msgid "Edit…"
+msgstr "Editar…"
 
 #. LS_COLORS
 #: src/dialogs/gnome-cmd-options-dialog.cc:792
@@ -2287,8 +2286,8 @@ msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Colorir arquivos de acordo com a variável de ambiente LS_COLORS"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:800
-msgid "Edit colors..."
-msgstr "Editar cores..."
+msgid "Edit colors…"
+msgstr "Editar cores…"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:808
 msgid "MIME icon settings"
@@ -2654,8 +2653,8 @@ msgstr "Mover"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:126
 #, c-format
-msgid "Move \"%s\" to"
-msgstr "Mover \"%s\" para"
+msgid "Move “%s” to"
+msgstr "Mover “%s” para"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:130
 #, c-format
@@ -2668,8 +2667,8 @@ msgstr[1] "mover %d arquivos para"
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:149
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:189
 #, c-format
-msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr "O diretório \"%s\" não existe, você quer criá-lo?"
+msgid "The directory “%s” doesn’t exist, do you want to create it?"
+msgstr "O diretório “%s” não existe, você quer criá-lo?"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
 #: src/gnome-cmd-advrename-profile-component.cc:433
@@ -2732,10 +2731,10 @@ msgstr "Pesquisando em: %s"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:526
 #, c-format
-msgid "Found %d match - search aborted"
-msgid_plural "Found %d matches - search aborted"
-msgstr[0] "Localizada %d correspondência - busca interrompida"
-msgstr[1] "Localizadas %d correspondências - busca interrompida"
+msgid "Found %d match — search aborted"
+msgid_plural "Found %d matches — search aborted"
+msgstr[0] "Localizada %d correspondência — busca interrompida"
+msgstr[1] "Localizadas %d correspondências — busca interrompida"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:527
 #, c-format
@@ -2763,8 +2762,8 @@ msgid "Failed to change directory outside of %s"
 msgstr "Falha ao alterar o diretório fora de %s"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:1055
-msgid "Search..."
-msgstr "Pesquisar..."
+msgid "Search…"
+msgstr "Pesquisar…"
 
 #. search in
 #: src/dialogs/gnome-cmd-search-dialog.cc:1169
@@ -2803,8 +2802,8 @@ msgid "Disabled"
 msgstr "Desabilitado"
 
 #: src/eggcellrendererkeys.cc:435 src/eggcellrendererkeys.cc:652
-msgid "New accelerator..."
-msgstr "Novo acelerador..."
+msgid "New accelerator…"
+msgstr "Novo acelerador…"
 
 #: src/gnome-cmd-about-plugin.cc:180
 msgid "Credits"
@@ -3268,9 +3267,10 @@ msgstr "Esperando por lista de arquivos"
 msgid "Add current dir"
 msgstr "Adicionar o diretório atual"
 
+# janela de atalhos
 #: src/gnome-cmd-dir-indicator.cc:411
-msgid "Manage bookmarks..."
-msgstr "Gerenciar marcadores..."
+msgid "Manage bookmarks…"
+msgstr "Gerencia marcadores…"
 
 #: src/gnome-cmd-file.cc:591
 msgid "Unknown file type"
@@ -3361,7 +3361,7 @@ msgid "Not an ordinary file."
 msgstr "Não é um arquivo comum."
 
 #: src/gnome-cmd-file-popmenu.cc:122
-msgid "Couldn't retrieve MIME type of the file."
+msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Não foi possível recuperar o tipo MIME do arquivo."
 
 #: src/gnome-cmd-file-popmenu.cc:137
@@ -3373,8 +3373,8 @@ msgid "Application:"
 msgstr "Aplicativo:"
 
 #: src/gnome-cmd-file-popmenu.cc:164
-msgid "Open with other..."
-msgstr "Abrir com outro..."
+msgid "Open with other…"
+msgstr "Abrir com outro…"
 
 #: src/gnome-cmd-file-popmenu.cc:169
 msgid "Needs terminal"
@@ -3387,8 +3387,8 @@ msgstr "_Abrir"
 
 #: src/gnome-cmd-file-popmenu.cc:474
 #, c-format
-msgid "_Open with \"%s\""
-msgstr "Abrir c_om \"%s\""
+msgid "_Open with “%s”"
+msgstr "Abrir c_om “%s”"
 
 #: src/gnome-cmd-file-popmenu.cc:496
 msgid "Open Wit_h"
@@ -3430,12 +3430,12 @@ msgid "Open _terminal here"
 msgstr "Abrir o _terminal aqui"
 
 #: src/gnome-cmd-file-popmenu.cc:523 src/gnome-cmd-main-menu.cc:423
-msgid "_Properties..."
-msgstr "_Propriedades..."
+msgid "_Properties…"
+msgstr "_Propriedades…"
 
 #: src/gnome-cmd-file-popmenu.cc:569
-msgid "Other _Application..."
-msgstr "Outro _aplicativo..."
+msgid "Other _Application…"
+msgstr "Outro _aplicativo…"
 
 #: src/gnome-cmd-file-selector.cc:199
 #, c-format
@@ -3551,16 +3551,16 @@ msgid "Create _Symbolic Link"
 msgstr "Criar ligação _simbólica"
 
 #: src/gnome-cmd-main-menu.cc:430
-msgid "_Search..."
-msgstr "_Pesquisar..."
+msgid "_Search…"
+msgstr "_Pesquisar…"
 
 #: src/gnome-cmd-main-menu.cc:436
-msgid "_Quick Search..."
-msgstr "Pes_quisa rápida..."
+msgid "_Quick Search…"
+msgstr "Pes_quisa rápida…"
 
 #: src/gnome-cmd-main-menu.cc:442
-msgid "_Enable Filter..."
-msgstr "_Habilitar filtro..."
+msgid "_Enable Filter…"
+msgstr "_Habilitar filtro…"
 
 #: src/gnome-cmd-main-menu.cc:449
 msgid "_Diff"
@@ -3660,32 +3660,33 @@ msgid "Horizontal Orientation"
 msgstr "Orientação horizontal"
 
 #: src/gnome-cmd-main-menu.cc:669
-msgid "_Bookmark this Directory..."
-msgstr "_Marcar este diretório..."
+msgid "_Bookmark this Directory…"
+msgstr "_Marcar este diretório…"
 
 #: src/gnome-cmd-main-menu.cc:675
-msgid "_Manage Bookmarks..."
-msgstr "_Gerenciar marcadores..."
+msgid "_Manage Bookmarks…"
+msgstr "_Gerenciar marcadores…"
 
 #: src/gnome-cmd-main-menu.cc:687
-msgid "_Configure Plugins..."
-msgstr "_Configurar plugins..."
+msgid "_Configure Plugins…"
+msgstr "_Configurar plugins…"
 
 #: src/gnome-cmd-main-menu.cc:699
-msgid "_Options..."
-msgstr "_Opções..."
+msgid "_Options…"
+msgstr "_Opções…"
 
 #: src/gnome-cmd-main-menu.cc:705
-msgid "_Keyboard Shortcuts..."
-msgstr "_Atalhos de teclado..."
+msgid "_Keyboard Shortcuts…"
+msgstr "_Atalhos de teclado…"
 
 #: src/gnome-cmd-main-menu.cc:716
-msgid "_Remote Server..."
-msgstr "Servidor _remoto..."
+msgid "_Remote Server…"
+msgstr "Servidor _remoto…"
 
+# janela de atalhos
 #: src/gnome-cmd-main-menu.cc:722
-msgid "New Connection..."
-msgstr "Nova conexão..."
+msgid "New Connection…"
+msgstr "Nova conexão…"
 
 #: src/gnome-cmd-main-menu.cc:733
 msgid "_Documentation"
@@ -3774,8 +3775,8 @@ msgid "F9 Search"
 msgstr "F9 Pesquisar"
 
 #: src/gnome-cmd-main-win.cc:785
-msgid "GNOME Commander - ROOT PRIVILEGES"
-msgstr "GNOME Commander - PRIVILÉGIOS DE ADMINISTRADOR"
+msgid "GNOME Commander — ROOT PRIVILEGES"
+msgstr "GNOME Commander — PRIVILÉGIOS DE SUPERUSUÁRIO"
 
 #: src/gnome-cmd-main-win.cc:1209 src/gnome-cmd-user-actions.cc:273
 msgid "Refresh"
@@ -3822,8 +3823,8 @@ msgid "Drop connection"
 msgstr "Abandonar conexão"
 
 #: src/gnome-cmd-python-plugin.cc:216
-msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
-msgstr "Não foi possível carregar o módulo python \"gnomevfs\" (\"gnome.vfs\")"
+msgid "Can’t load python module “gnomevfs” (“gnome.vfs”)"
+msgstr "Não foi possível carregar o módulo python “gnomevfs” (“gnome.vfs”)"
 
 #: src/gnome-cmd-quicksearch-popup.cc:272 src/gnome-cmd-user-actions.cc:213
 msgid "Search"
@@ -3872,7 +3873,7 @@ msgstr "Nenhum arquivo selecionado"
 
 #: src/gnome-cmd-user-actions.cc:193
 msgid "Bookmark current directory"
-msgstr "Marcar este diretório..."
+msgstr "Marcar este diretório"
 
 # janela de atalhos
 #: src/gnome-cmd-user-actions.cc:194
@@ -4231,7 +4232,7 @@ msgstr "Não foi possível iniciar o GNOME Commander no modo root."
 
 #: src/gnome-cmd-user-actions.cc:1310
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
-msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu ou beesu não foram localizados."
+msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu ou beesu não foram localizados"
 
 #: src/gnome-cmd-user-actions.cc:1918
 msgid "Bookmarks"
@@ -4258,7 +4259,7 @@ msgid ""
 msgstr ""
 "GNOME Commander é um software livre; você pode redistribuí-lo e/ou modificá-"
 "lo sob os termos da Licença Pública Geral GNU publicada pela Free Software "
-"\"Foundation; qualquer versão 2 da Licença, ou (a seu critério) outra versão "
+"Foundation; qualquer versão 2 da Licença, ou (a seu critério) outra versão "
 "posterior."
 
 #: src/gnome-cmd-user-actions.cc:2080
@@ -4344,13 +4345,13 @@ msgid "Transfer problem"
 msgstr "Problema na transferência"
 
 #: src/gnome-cmd-xfer.cc:266
-msgid "copying..."
-msgstr "copiando..."
+msgid "copying…"
+msgstr "copiando…"
 
 #: src/gnome-cmd-xfer.cc:274
 #, c-format
-msgid "[file %ld of %ld] \"%s\""
-msgstr "[arquivo %ld de %ld] \"%s\""
+msgid "[file %ld of %ld] “%s”"
+msgstr "[arquivo %ld de %ld] “%s”"
 
 #: src/gnome-cmd-xfer.cc:425
 msgid "Copying a directory into itself is a bad idea."
@@ -4361,16 +4362,16 @@ msgid "The whole operation was cancelled."
 msgstr "A operação inteira foi cancelada."
 
 #: src/gnome-cmd-xfer.cc:466
-msgid "preparing..."
-msgstr "preparando..."
+msgid "preparing…"
+msgstr "preparando…"
 
 #: src/gnome-cmd-xfer.cc:545
 msgid "downloading to /tmp"
 msgstr "baixando para /tmp"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
-msgid "stopping..."
-msgstr "parando..."
+msgid "stopping…"
+msgstr "parando…"
 
 #: src/gnome-cmd-xfer-progress-win.cc:85
 msgid "Progress"
@@ -4388,7 +4389,7 @@ msgstr "%.0f%% copiado(s)"
 
 #: src/imageloader.cc:109
 #, c-format
-msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
 "Não foi possível carregar o pixmap de tipo de arquivo instalado, tentando "
 "então carregar %s"
@@ -4396,7 +4397,7 @@ msgstr ""
 #: src/imageloader.cc:113 src/imageloader.cc:137
 #, c-format
 msgid ""
-"Can't find the pixmap anywhere. Make sure you have installed the program or "
+"Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Não foi possível localizar o pixmap. Veja se você instalou o programa ou "
@@ -4404,7 +4405,7 @@ msgstr ""
 
 #: src/imageloader.cc:134
 #, c-format
-msgid "Couldn't load installed pixmap, trying to load %s instead"
+msgid "Couldn’t load installed pixmap, trying to load %s instead"
 msgstr ""
 "Não foi possível localizar nenhum pixmap instalado, tente carregar %s no "
 "lugar daquele"
@@ -4425,13 +4426,13 @@ msgstr "_Hexadecimal"
 
 #. sdlg->priv->progress = 0;
 #: src/intviewer/search-progress-dlg.cc:75
-msgid "Searching..."
-msgstr "Pesquisando..."
+msgid "Searching…"
+msgstr "Pesquisando…"
 
 #: src/intviewer/search-progress-dlg.cc:185
 #, c-format
-msgid "Searching for \"%s\""
-msgstr "Pesquisando por \"%s\""
+msgid "Searching for “%s”"
+msgstr "Pesquisando por “%s”"
 
 #: src/intviewer/viewer-widget.cc:210
 #, c-format
@@ -4495,8 +4496,8 @@ msgid "_Copy Text Selection"
 msgstr "_Copiar o texto selecionado"
 
 #: src/intviewer/viewer-window.cc:771
-msgid "Find..."
-msgstr "Localizar..."
+msgid "Find…"
+msgstr "Localizar…"
 
 #: src/intviewer/viewer-window.cc:775
 msgid "Find Next"
@@ -4568,8 +4569,8 @@ msgstr "Aj_uda rápida"
 
 #: src/intviewer/viewer-window.cc:1184
 #, c-format
-msgid "Pattern \"%s\" was not found"
-msgstr "O padrão \"%s\" não foi localizado"
+msgid "Pattern “%s” was not found"
+msgstr "O padrão “%s” não foi localizado"
 
 #: src/main.cc:67
 msgid "Specify debug flags to use"
@@ -4775,9 +4776,8 @@ msgid "Is New"
 msgstr "É novo"
 
 #: src/tags/gnome-cmd-tags.cc:135
-msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr ""
-"Ajustar para \"1\" se a faixa é nova para o usuário (o padrão é \"0\")."
+msgid "Set to “1” if track is new to the user (default “0”)."
+msgstr "Ajustar para “1” se a faixa é nova para o usuário (o padrão é “0”)."
 
 #: src/tags/gnome-cmd-tags.cc:136
 msgid "ISRC"
@@ -4848,8 +4848,8 @@ msgid "Copyrighted"
 msgstr "Protegido"
 
 #: src/tags/gnome-cmd-tags.cc:144
-msgid "\"1\" if the copyrighted bit is set."
-msgstr "\"1\" se o bit de proteção estiver definido."
+msgid "“1” if the copyrighted bit is set."
+msgstr "“1” se o bit de proteção estiver definido."
 
 #: src/tags/gnome-cmd-tags.cc:145
 msgid "Layer"
@@ -4864,8 +4864,8 @@ msgid "Original Audio"
 msgstr "Áudio original"
 
 #: src/tags/gnome-cmd-tags.cc:146
-msgid "\"1\" if the \"original\" bit is set."
-msgstr "\"1\" se o bit \"original\" estiver definido."
+msgid "“1” if the “original” bit is set."
+msgstr "“1” se o bit “original” estiver definido."
 
 #: src/tags/gnome-cmd-tags.cc:147
 msgid "MPEG Version"
@@ -5195,8 +5195,8 @@ msgid "Note Count"
 msgstr "Contagem de notas"
 
 #: src/tags/gnome-cmd-tags.cc:187
-msgid "Number of \"notes\" in the document."
-msgstr "Número de \"notes\" no documento."
+msgid "Number of “notes” in the document."
+msgstr "Número de “notes” no documento."
 
 #: src/tags/gnome-cmd-tags.cc:188
 msgid "Object Count"
@@ -5227,9 +5227,8 @@ msgid "Presentation Format"
 msgstr "Formato da apresentação"
 
 #: src/tags/gnome-cmd-tags.cc:191
-msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
-msgstr ""
-"Tipo de apresentação, como \"Mostrar na tela\", \"Mostrar slides\", etc."
+msgid "Type of presentation, like “On-screen Show”, “SlideView”, etc."
+msgstr "Tipo de apresentação, como “Mostrar na tela”, “Mostrar slides”, etc."
 
 #: src/tags/gnome-cmd-tags.cc:192
 msgid "Print Date"
@@ -5271,11 +5270,11 @@ msgstr "Segurança"
 
 #: src/tags/gnome-cmd-tags.cc:196
 msgid ""
-"One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
-"enforced\" or \"Locked for annotations\"."
+"One of: “Password protected”, “Read-only recommended”, “Read-only enforced” "
+"or “Locked for annotations”."
 msgstr ""
-"Um entre: \"Protegido por senha\", \"Recomendado somente leitura\", "
-"\"Somente leitura obrigatório\" ou \"Bloqueado para anotações\"."
+"Um entre: “Protegido por senha”, “Recomendado somente leitura”, “Somente "
+"leitura obrigatório” ou “Bloqueado para anotações”."
 
 #: src/tags/gnome-cmd-tags.cc:197
 msgid "Slide Count"
@@ -5411,7 +5410,7 @@ msgstr ""
 "A etiqueta de informação de espaço de cores é sempre gravada como o "
 "especificador de espaço de core. Normalmente sRGB é usado para definir o "
 "espaço de core baseado nas condições e no ambiente do monitor do PC. Se um "
-"espaço de cor além do sRGB for usado, \"Descalibrado\" é definido. Dados de "
+"espaço de cor além do sRGB for usado, “Descalibrado” é definido. Dados de "
 "imagem gravados como Descalibrado podem ser tratados como sRGB quando forem "
 "convertidos para FlashPix."
 
@@ -5480,24 +5479,23 @@ msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
 "claiming rights to the image. The Interoperability copyright statement "
-"including date and rights should be written in this field; e.g., "
-"\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
-"both the photographer and editor copyrights, with each recorded in a "
-"separate part of the statement. When there is a clear distinction between "
-"the photographer and editor copyrights, these are to be written in the order "
-"of photographer followed by editor copyright, separated by NULL (in this "
-"case, since the statement also ends with a NULL, there are two NULL codes) "
-"(see example 1). When only the photographer is given, it is terminated by "
-"one NULL code. When only the editor copyright is given, the photographer "
-"copyright part consists of one space followed by a terminating NULL code, "
-"then the editor copyright is given. When the field is left blank, it is "
-"treated as unknown."
+"including date and rights should be written in this field; e.g., “Copyright, "
+"John Smith, 19xx. All rights reserved.”. The field records both the "
+"photographer and editor copyrights, with each recorded in a separate part of "
+"the statement. When there is a clear distinction between the photographer "
+"and editor copyrights, these are to be written in the order of photographer "
+"followed by editor copyright, separated by NULL (in this case, since the "
+"statement also ends with a NULL, there are two NULL codes) (see example 1). "
+"When only the photographer is given, it is terminated by one NULL code. When "
+"only the editor copyright is given, the photographer copyright part consists "
+"of one space followed by a terminating NULL code, then the editor copyright "
+"is given. When the field is left blank, it is treated as unknown."
 msgstr ""
 "Informação de copyright. A etiqueta é usada para indicar o copyright de "
 "tanto fotógrafo quanto do editor. É o aviso de copyright da pessoa ou "
 "organização reivindicando seus direitos de imagem. A declaração de copyright "
 "de interoperabilidade incluindo data de direitos deve ser escrito neste "
-"campo; ex., \"Copyright, João Carlos, 20xx. Todos direitos reservados.\". O "
+"campo; ex., “Copyright, João Carlos, 20xx. Todos direitos reservados.”. O "
 "campo armazena tanto o copyright do fotógrafo quanto do editor, com cada um "
 "armazenado em uma parte separada da declaração. Quando há uma distinção "
 "clara entre o copyright do fotógrafo e do editor, essas devem ser escritas "
@@ -5875,10 +5873,10 @@ msgstr "Latitude norte ou sul"
 #: src/tags/gnome-cmd-tags.cc:248
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
-"'N' indicates north latitude, and 'S' is south latitude."
+"“N” indicates north latitude, and “S” is south latitude."
 msgstr ""
-"Indica se a latitude é norte ou sul. O valor ASCII \"N\" indica latitude "
-"norte e \"S\" é latitude."
+"Indica se a latitude é norte ou sul. O valor ASCII “N” indica latitude norte "
+"e “S” é latitude."
 
 #: src/tags/gnome-cmd-tags.cc:249
 msgid "Longitude"
@@ -5904,11 +5902,11 @@ msgstr "Longitude leste ou oeste"
 
 #: src/tags/gnome-cmd-tags.cc:250
 msgid ""
-"Indicates whether the longitude is east or west longitude. ASCII 'E' "
-"indicates east longitude, and 'W' is west longitude."
+"Indicates whether the longitude is east or west longitude. ASCII “E” "
+"indicates east longitude, and “W” is west longitude."
 msgstr ""
-"Indica se a longitude é leste ou oeste. ASCII \"E\" indica longitude leste e "
-"\"W\" é longitude oeste."
+"Indica se a longitude é leste ou oeste. ASCII “E” indica longitude leste e "
+"“W” é longitude oeste."
 
 #: src/tags/gnome-cmd-tags.cc:251
 msgid "GPS Tag Version"
@@ -6016,10 +6014,10 @@ msgstr "Índice de interoperabilidade"
 
 #: src/tags/gnome-cmd-tags.cc:259
 msgid ""
-"Indicates the identification of the Interoperability rule. Use \"R98\" for "
+"Indicates the identification of the Interoperability rule. Use “R98” for "
 "stating ExifR98 Rules."
 msgstr ""
-"Indica a identificação da regra de interoperabilidade. Use \"R98\" para "
+"Indica a identificação da regra de interoperabilidade. Use “R98” para "
 "declarar as regras ExifR98."
 
 #: src/tags/gnome-cmd-tags.cc:260
@@ -6247,9 +6245,9 @@ msgid ""
 "format. In JPEG compressed files a JPEG marker is used instead of this tag. "
 "If this field does not exist, the TIFF default of 1 (chunky) is assumed."
 msgstr ""
-"Indica se componentes de pixel são gravados em um formato planar ou \"chucky"
-"\". Em arquivos JPEG comprimidos, um marcador JPEG é usado em vez dessa "
-"etiqueta. Se esse campo não existe, o padrão TIFF de 1 (\"chunky\") é "
+"Indica se componentes de pixel são gravados em um formato planar ou “chucky”"
+". Em arquivos JPEG comprimidos, um marcador JPEG é usado em vez dessa "
+"etiqueta. Se esse campo não existe, o padrão TIFF de 1 (“chunky”) é "
 "presumido."
 
 #: src/tags/gnome-cmd-tags.cc:280
@@ -6315,7 +6313,7 @@ msgstr "Arquivo de som relacionado"
 msgid ""
 "This tag is used to record the name of an audio file related to the image "
 "data. The only relational information recorded here is the Exif audio file "
-"name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+"name and extension (an ASCII string consisting of 8 characters + “.” + 3 "
 "characters). The path is not recorded. When using this tag, audio files must "
 "be recorded in conformance to the Exif audio format. Writers are also "
 "allowed to store the data such as Audio within APP2 as FlashPix extension "
@@ -6323,8 +6321,8 @@ msgid ""
 "format. If multiple files are mapped to one file, the above format is used "
 "to record just one audio file name. If there are multiple audio files, the "
 "first recorded file is given. When there are three Exif audio files "
-"\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file "
-"name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple "
+"“SND00001.WAV”, “SND00002.WAV” and “SND00003.WAV”, the Exif image file name "
+"for each of them, “DSC00001.JPG”, is indicated. By combining multiple "
 "relational information, a variety of playback possibilities can be "
 "supported. The method of using relational information is left to the "
 "implementation on the playback side. Since this information is an ASCII "
@@ -6335,7 +6333,7 @@ msgstr ""
 "Essa etiqueta é usada para registrar o nome de um arquivo de áudio "
 "relacionado aos dados da imagem. As únicas informações relacional "
 "registradas aqui são do nome de arquivo de áudio Exif e sua extensão (uma "
-"string ASCII consistindo de 8 caracteres + \".\" + 3 caracteres). O caminho "
+"string ASCII consistindo de 8 caracteres + “.” + 3 caracteres). O caminho "
 "não é registrado. Ao usar essa etiqueta, arquivos de áudio deve ser "
 "registrados em conformidade com o formato de áudio Exif. Escritores também "
 "podem armazenar dados tais como Áudio dentro de APP2 como dados de fluxo de "
@@ -6343,15 +6341,15 @@ msgstr ""
 "o formato de áudio Exif. Se múltiplos arquivos são mapeados para um arquivo, "
 "o formato acima é usado para registrar apenas um nome de arquivo de áudio. "
 "Se houver múltiplos arquivos de áudio, o primeiro arquivo gravado é dado. "
-"Quando há arquivos de áudio \"SND00001.WAV\", \"SND00002.WAV\" e \"SND00003."
-"WAV\", o nome do arquivo de áudio Exif para cada um deles, um \"DSC00001.JPG"
-"\", é o indicado. Ao combinar múltiplas informações relacionais, uma "
-"variedade de possibilidades de reprodução pode ser aceita. O método de usar "
-"informações relacionais é deixado para a implementação no lado da "
-"reprodução. Já que esta informação é uma string de caracteres ASCII, ela é "
-"terminada com NULO. Quando essa etiqueta é usada para mapear arquivos de "
-"áudio, a relação do arquivo de áudio para dados de imagem deve ser indicada "
-"último arquivo de áudio."
+"Quando há arquivos de áudio “SND00001.WAV”, “SND00002.WAV” e “SND00003.WAV”, "
+"o nome do arquivo de áudio Exif para cada um deles, um “DSC00001.JPG”, é o "
+"indicado. Ao combinar múltiplas informações relacionais, uma variedade de "
+"possibilidades de reprodução pode ser aceita. O método de usar informações "
+"relacionais é deixado para a implementação no lado da reprodução. Já que "
+"esta informação é uma string de caracteres ASCII, ela é terminada com NULO. "
+"Quando essa etiqueta é usada para mapear arquivos de áudio, a relação do "
+"arquivo de áudio para dados de imagem deve ser indicada último arquivo de "
+"áudio."
 
 #: src/tags/gnome-cmd-tags.cc:286
 msgid "Resolution Unit"
@@ -6645,13 +6643,13 @@ msgid ""
 "of the <Exif.ImageDescription> tag. The character code used in the <Exif."
 "UserComment> tag is identified based on an ID code in a fixed 8-byte area at "
 "the start of the tag data area. The unused portion of the area is padded "
-"with NULL (\"00.h\"). ID codes are assigned by means of registration. The "
+"with NULL (“00.h”). ID codes are assigned by means of registration. The "
 "value of CountN is determinated based on the 8 bytes in the character code "
 "area and the number of bytes in the user comment part. Since the TYPE is not "
 "ASCII, NULL termination is not necessary. The ID code for the <Exif."
 "UserComment> area may be a Defined code such as JIS or ASCII, or may be "
 "Undefined. The Undefined name is UndefinedText, and the ID code is filled "
-"with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif."
+"with 8 bytes of all “NULL” (“00.H”). An Exif reader that reads the <Exif."
 "UserComment> tag must have a function for determining the ID code. This "
 "function is not required in Exif readers that do not use the <Exif."
 "UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
@@ -6663,19 +6661,20 @@ msgstr ""
 "limitações de código de caracteres na etiqueta <Exif.ImageDescription>. O "
 "código de caractere usado na etiqueta <Exif.UserComment> é identificado com "
 "base em um código de ID em uma área fixa de 8 bytes no início da área de "
-"dados da etiqueta. A porção não usada da área é preenchida com NULO (\"00.h"
-"\"). Códigos de ID são atribuídos por meio de registro. O valor de CountN é "
+"dados da etiqueta. A porção não usada da área é preenchida com NULO (“00.h”)"
+". Códigos de ID são atribuídos por meio de registro. O valor de CountN é "
 "determinado com base nos 8 bytes na área de código de caracteres e o número "
 "de bytes na parte do comentário do usuário. Já que o TYPE não é ASCII, "
-"terminação NULA não é necessária. O código de ID para a área <Exif."
-"UserComment> pode ser um código Definido, tal como JIS ou ASCII, ou pode ser "
-"Indefinido. O nome Indefinido é UndefinedText, o código de ID é preenchido "
-"com 8 bytes de todos \"NULO\"s (\"00.H\"). Um leitor de Exif que lê etiqueta "
-"<Exif.UserComment> deve ter uma função para determinar o código de ID. Essa "
-"função não é obrigatória em leitores de Exif que não usem a etiqueta <Exif."
-"UserComment>. Quando uma área <Exif.UserComment> é deixada de lado, é "
-"recomendável que o código de ID seja ASCII e que a parte de comentário do "
-"usuário a seguir seja preenchida com caracteres em branco [20.H]."
+"terminação NULA não é necessária. O código de ID para a área "
+"<Exif.UserComment> pode ser um código Definido, tal como JIS ou ASCII, ou "
+"pode ser Indefinido. O nome Indefinido é UndefinedText, o código de ID é "
+"preenchido com 8 bytes de todos “NULO”s (“00.H”). Um leitor de Exif que lê "
+"etiqueta <Exif.UserComment> deve ter uma função para determinar o código de "
+"ID. Essa função não é obrigatória em leitores de Exif que não usem a "
+"etiqueta <Exif.UserComment>. Quando uma área <Exif.UserComment> é deixada de "
+"lado, é recomendável que o código de ID seja ASCII e que a parte de "
+"comentário do usuário a seguir seja preenchida com caracteres em branco "
+"[20.H]."
 
 #: src/tags/gnome-cmd-tags.cc:312 src/tags/gnome-cmd-tags.cc:439
 msgid "White Balance"
@@ -6725,14 +6724,14 @@ msgstr "Coeficientes YCbCr"
 #: src/tags/gnome-cmd-tags.cc:316
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
-"default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
+"default is given in TIFF; but here “Color Space Guidelines” is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
 "under this condition."
 msgstr ""
 "Os coeficientes de matriz para transformação de dados de imagem RGB para "
-"YCbCr. Nenhum padrão é dado no TIFF; mas aqui \"diretrizes de espaço de cor"
-"\" é usada por padrão. O espaço de cor é declarado em uma etiqueta de "
+"YCbCr. Nenhum padrão é dado no TIFF; mas aqui “diretrizes de espaço de cor” "
+"é usada por padrão. O espaço de cor é declarado em uma etiqueta de "
 "informação de espaço de cor, com o padrão sendo o valor que fornece as "
 "características otimizadas de imagem sob esta condição."
 
@@ -6756,15 +6755,15 @@ msgid ""
 msgstr ""
 "A posição dos componentes de crominância em relação ao componente de "
 "luminância. Esse campo é atribuído apenas para os dados comprimidos JPEG ou "
-"dados YCbCr não comprimidos. O padrão TIFF é 1 (centralizado); mas quando Y:"
-"cb:Cr = 4:2:2 é recomendado que 2 (\"co-sited\") seja usado para registrar "
+"dados YCbCr não comprimidos. O padrão TIFF é 1 (centralizado); mas quando "
+"Y:cb:Cr = 4:2:2 é recomendado que 2 (“co-sited”) seja usado para registrar "
 "dados, para melhorar a qualidade da imagem quando visualizado em sistemas de "
 "TV. Quando este campo não existir, o leitor deve presumir o padrão do TIFF. "
 "No caso de Y:Cb:Cr = 4:2:0, o padrão (centralizado) do TIFF é recomendado. "
-"Se o leitor não possuir a capacidade de suportar ambos tipos de <Exif."
-"YCbCrPositioning>, ele deve seguir o padrão do TIFF independente do valor "
-"deste campo. É preferível que leitores sejam capazes de suportar ambos "
-"posicionamentos centralizado e \"co-sited\"."
+"Se o leitor não possuir a capacidade de suportar ambos tipos de "
+"<Exif.YCbCrPositioning>, ele deve seguir o padrão do TIFF independente do "
+"valor deste campo. É preferível que leitores sejam capazes de suportar ambos "
+"posicionamentos centralizado e “co-sited”."
 
 #: src/tags/gnome-cmd-tags.cc:318
 msgid "YCbCr Sub-Sampling"
@@ -6804,7 +6803,7 @@ msgid "Content"
 msgstr "Conteúdo"
 
 #: src/tags/gnome-cmd-tags.cc:321
-msgid "File's contents filtered as plain text."
+msgid "File’s contents filtered as plain text."
 msgstr "Conteúdos do arquivo filtrado como texto plano."
 
 #: src/tags/gnome-cmd-tags.cc:322
@@ -6813,9 +6812,8 @@ msgstr "Texto/Notas livremente editáveis."
 
 #: src/tags/gnome-cmd-tags.cc:323
 msgid ""
-"MIME type of the file or if a directory it should contain value \"Folder\"."
-msgstr ""
-"Tipo MIME do arquivo ou se um diretório deveria conter o valor \"Pasta\"."
+"MIME type of the file or if a directory it should contain value “Folder”."
+msgstr "Tipo MIME do arquivo ou se um diretório deveria conter o valor “Pasta”."
 
 #: src/tags/gnome-cmd-tags.cc:324
 msgid "Editable array of keywords."
@@ -6847,8 +6845,8 @@ msgid "Full file path of file excluding the file name."
 msgstr "Caminho completo do arquivo excluindo o nome do arquivo."
 
 #: src/tags/gnome-cmd-tags.cc:329
-msgid "Permission string in unix format eg \"-rw-r--r--\"."
-msgstr "String de permissão no formato unix (ex.: \"-rw-r--r--\")."
+msgid "Permission string in unix format eg “-rw-r--r--”."
+msgstr "String de permissão no formato unix (ex.: “-rw-r--r--”)."
 
 #: src/tags/gnome-cmd-tags.cc:330 src/tags/gnome-cmd-tags.cc:389
 msgid "Publisher"
@@ -7579,8 +7577,8 @@ msgid "Exposure time used to capture the photo in seconds."
 msgstr "Tempo de exposição usado para capturar a foto em segundos."
 
 #: src/tags/gnome-cmd-tags.cc:427
-msgid "Set to \"1\" if flash was fired."
-msgstr "Definido como \"1\" se o flash foi disparado."
+msgid "Set to “1” if flash was fired."
+msgstr "Definido como “1” se o flash foi disparado."
 
 #: src/tags/gnome-cmd-tags.cc:429
 msgid "Focal length of lens in mm."
@@ -7632,11 +7630,11 @@ msgstr "Modelo da câmera usada para produzir a imagem."
 
 #: src/tags/gnome-cmd-tags.cc:436
 msgid ""
-"Represents the orientation of the image wrt camera (IE \"top,left\" or "
-"\"bottom,right\")."
+"Represents the orientation of the image wrt camera (IE “top,left” or “bottom,"
+"right”)."
 msgstr ""
-"Representa a orientação da câmera wrt imagem (i.e. \"topo, esquerdo\" ou "
-"\"embaixo,direito\")."
+"Representa a orientação da câmera wrt imagem (i.e. “topo, esquerdo” ou "
+"“embaixo,direito”)."
 
 #: src/tags/gnome-cmd-tags.cc:437
 msgid "Software used to produce/enhance the image."
@@ -7668,12 +7666,12 @@ msgstr "Ação aconselhada"
 
 #: src/tags/gnome-cmd-tags.cc:441
 msgid ""
-"The type of action that this object provides to a previous object. '01' "
-"Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+"The type of action that this object provides to a previous object. “01” "
+"Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
 msgstr ""
-"O tipo de ação que esse objeto fornece a um objeto anterior. \"01\" matar "
-"objeto, \"02\" substituir de objeto, \"03\" anexar objeto, \"04\" "
-"referenciar objeto."
+"O tipo de ação que esse objeto fornece a um objeto anterior. “01” matar "
+"objeto, “02” substituir de objeto, “03” anexar objeto, “04” referenciar "
+"objeto."
 
 #: src/tags/gnome-cmd-tags.cc:442
 msgid "ARM Identifier"
@@ -7910,11 +7908,11 @@ msgstr "Atualização editorial"
 #: src/tags/gnome-cmd-tags.cc:468
 msgid ""
 "The type of update this object provides to a previous object. The link to "
-"the previous object is made using the ARM. '01' indicates an additional "
+"the previous object is made using the ARM. “01” indicates an additional "
 "language."
 msgstr ""
 "O tipo de atualização que esse objeto fornece a um objeto anterior. O "
-"vínculo com o objeto anterior é feito usando o ARM. \"01\" indica um idioma "
+"vínculo com o objeto anterior é feito usando o ARM. “01” indica um idioma "
 "adicional."
 
 #: src/tags/gnome-cmd-tags.cc:469
@@ -7939,13 +7937,13 @@ msgstr "Prioridade do envelope"
 
 #: src/tags/gnome-cmd-tags.cc:471
 msgid ""
-"Specifies the envelope handling priority and not the editorial urgency. '1' "
-"for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+"Specifies the envelope handling priority and not the editorial urgency. “1” "
+"for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
 "defined."
 msgstr ""
 "Especifica a prioridade de manipulação do envelope e não a urgência "
-"editorial. '1' para mais urgente, '5' para normal e '8' para menos urgente. "
-"'9' é definido pelo usuário."
+"editorial. “1” para mais urgente, “5” para normal e “8” para menos urgente. "
+"“9” é definido pelo usuário."
 
 #: src/tags/gnome-cmd-tags.cc:472
 msgid "Expiration Date"
@@ -8007,11 +8005,11 @@ msgstr "Orientação da imagem"
 
 #: src/tags/gnome-cmd-tags.cc:478
 msgid ""
-"The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+"The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
 msgstr ""
-"A disposição da área de imagem: \"P\" para retrato, \"L\" para a paisagem, e "
-"\"S\" para a quadrado."
+"A disposição da área de imagem: “P” para retrato, “L” para a paisagem, e “S” "
+"para a quadrado."
 
 #: src/tags/gnome-cmd-tags.cc:479
 msgid "Image Type"
@@ -8086,8 +8084,8 @@ msgid "Object Cycle"
 msgstr "Ciclo de objeto"
 
 #: src/tags/gnome-cmd-tags.cc:486
-msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
-msgstr "Onde \"a\" é manhã, \"p\" é tarde, \"b\" é ambos."
+msgid "Where “a” is morning, “p” is evening, “b” is both."
+msgstr "Onde “a” é manhã, “p” é tarde, “b” é ambos."
 
 #: src/tags/gnome-cmd-tags.cc:487
 msgid "Object Name"
@@ -8360,11 +8358,11 @@ msgstr "Urgente"
 #: src/tags/gnome-cmd-tags.cc:517
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
-"handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+"handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
 msgstr ""
 "Especifica a urgência editorial de conteúdo e não necessariamente prioridade "
-"de manipulação do envelope. \"1\" para mais urgente, \"5\" para normal e "
-"\"8\" para menos urgente."
+"de manipulação do envelope. “1” para mais urgente, “5” para normal e “8” "
+"para menos urgente."
 
 #: src/tags/gnome-cmd-tags.cc:518
 msgid "Writer/Editor"
@@ -8431,40 +8429,40 @@ msgid "Fast Web View"
 msgstr "Visualização web rápida"
 
 #: src/tags/gnome-cmd-tags.cc:525
-msgid "Set to \"1\" if optimized for network access."
-msgstr "Defina para \"1\" se é otimizada para acesso via rede."
+msgid "Set to “1” if optimized for network access."
+msgstr "Defina para “1” se é otimizada para acesso via rede."
 
 #: src/tags/gnome-cmd-tags.cc:526
 msgid "Printing"
 msgstr "Impressão"
 
 #: src/tags/gnome-cmd-tags.cc:526
-msgid "Set to \"1\" if printing is allowed."
-msgstr "Defina para \"1\" se a impressão é permitida."
+msgid "Set to “1” if printing is allowed."
+msgstr "Defina para “1” se a impressão é permitida."
 
 #: src/tags/gnome-cmd-tags.cc:527
 msgid "Printing in High Resolution"
 msgstr "Impressão em alta resolução"
 
 #: src/tags/gnome-cmd-tags.cc:527
-msgid "Set to \"1\" if high resolution printing is allowed."
-msgstr "Defina para \"1\" se a impressão em alta resolução é permitida."
+msgid "Set to “1” if high resolution printing is allowed."
+msgstr "Defina para “1” se a impressão em alta resolução é permitida."
 
 #: src/tags/gnome-cmd-tags.cc:528
 msgid "Copying"
 msgstr "Cópia"
 
 #: src/tags/gnome-cmd-tags.cc:528
-msgid "Set to \"1\" if copying the contents is allowed."
-msgstr "Defina para \"1\" se a cópia do conteúdo é permitida."
+msgid "Set to “1” if copying the contents is allowed."
+msgstr "Defina para “1” se a cópia do conteúdo é permitida."
 
 #: src/tags/gnome-cmd-tags.cc:529
 msgid "Modifying"
 msgstr "Modificação"
 
 #: src/tags/gnome-cmd-tags.cc:529
-msgid "Set to \"1\" if modifying the contents is allowed."
-msgstr "Defina para \"1\" se a alteração do conteúdo é permitida."
+msgid "Set to “1” if modifying the contents is allowed."
+msgstr "Defina para “1” se a alteração do conteúdo é permitida."
 
 #: src/tags/gnome-cmd-tags.cc:530
 msgid "Document Assembly"
@@ -8472,20 +8470,20 @@ msgstr "Montagem do documento"
 
 #: src/tags/gnome-cmd-tags.cc:530
 msgid ""
-"Set to \"1\" if inserting, rotating, or deleting pages and creating "
-"navigation elements is allowed."
+"Set to “1” if inserting, rotating, or deleting pages and creating navigation "
+"elements is allowed."
 msgstr ""
-"Defina para \"1\" se a inserção, rotação ou exclusão de páginas e a criação "
-"de elementos de navegação são permitidos."
+"Defina para “1” se a inserção, rotação ou exclusão de páginas e a criação de "
+"elementos de navegação são permitidos."
 
 #: src/tags/gnome-cmd-tags.cc:531
 msgid "Commenting"
 msgstr "Comentários"
 
 #: src/tags/gnome-cmd-tags.cc:531
-msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+msgid "Set to “1” if adding or modifying text annotations is allowed."
 msgstr ""
-"Defina para \"1\" se a adição ou a modificação de textos de anotações são "
+"Defina para “1” se a adição ou a modificação de textos de anotações são "
 "permitidas."
 
 #: src/tags/gnome-cmd-tags.cc:532
@@ -8493,18 +8491,17 @@ msgid "Form Filling"
 msgstr "Preenchimento de formulário"
 
 #: src/tags/gnome-cmd-tags.cc:532
-msgid "Set to \"1\" if filling of form fields is allowed."
-msgstr ""
-"Defina para \"1\" se o preenchimento de campos de formulário é permitido."
+msgid "Set to “1” if filling of form fields is allowed."
+msgstr "Defina para “1” se o preenchimento de campos de formulário é permitido."
 
 #: src/tags/gnome-cmd-tags.cc:533
 msgid "Accessibility Support"
 msgstr "Suporte à acessibilidade"
 
 #: src/tags/gnome-cmd-tags.cc:533
-msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
 msgstr ""
-"Defina para \"1\" se o suporte à acessibilidade (ex. leitores de tela) está "
+"Defina para “1” se o suporte à acessibilidade (ex. leitores de tela) está "
 "habilitado."
 
 #: src/tags/gnome-cmd-tags.cc:534
@@ -8890,10 +8887,10 @@ msgstr "Nenhum aplicativo padrão localizado para o tipo MIME %s."
 #: src/utils.cc:532
 #, c-format
 msgid ""
-"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
+"“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
-"\"%s\" parece ser um arquivo binário executável mas falta um bit executável. "
+"“%s” parece ser um arquivo binário executável mas falta um bit executável. "
 "Você quer adicioná-lo executá-lo?"
 
 #: src/utils.cc:534
@@ -8907,10 +8904,10 @@ msgstr "OK"
 #: src/utils.cc:561
 #, c-format
 msgid ""
-"\"%s\" is an executable text file. Do you want to run it, or display its "
+"“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
-"\"%s\" é um arquivo de texto executável. Você gostaria de executá-lo, ou "
+"“%s” é um arquivo de texto executável. Você gostaria de executá-lo, ou "
 "visualizá-lo?"
 
 #: src/utils.cc:562
@@ -8964,8 +8961,8 @@ msgstr "Falha ao criar um diretório para armazenar arquivos temporários."
 
 #: src/utils.cc:1259
 #, c-format
-msgid "Creating directory %s... "
-msgstr "Criando diretório %s... "
+msgid "Creating directory %s… "
+msgstr "Criando diretório %s… "
 
 #: src/utils.cc:1262
 #, c-format
@@ -8974,12 +8971,51 @@ msgstr "Falha ao criar diretório %s"
 
 #: src/utils.cc:1268
 #, c-format
-msgid "Couldn't read from the directory %s: %s"
+msgid "Couldn’t read from the directory %s: %s"
 msgstr "Não foi possível ler do diretório %s: %s"
 
 #: src/utils.cc:1405
 msgid "There was an error displaying help."
 msgstr "Houve um erro ao exibir a ajuda."
+
+#~ msgid "Create Archive..."
+#~ msgstr "Criar pacote..."
+
+#~ msgid "Profiles..."
+#~ msgstr "Perfis..."
+
+#~ msgid "Edit..."
+#~ msgstr "Editar..."
+
+#~ msgid "Search..."
+#~ msgstr "Pesquisar..."
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Gerenciar marcadores..."
+
+#~ msgid "_Properties..."
+#~ msgstr "_Propriedades..."
+
+#~ msgid "_Search..."
+#~ msgstr "_Pesquisar..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Opções..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Atalhos de teclado..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "Servidor _remoto..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Nova conexão..."
+
+#~ msgid "copying..."
+#~ msgstr "copiando..."
+
+#~ msgid "Find..."
+#~ msgstr "Localizar..."
 
 #~ msgid ""
 #~ "Some regular expressions functionality is disabled. To enable it's "
