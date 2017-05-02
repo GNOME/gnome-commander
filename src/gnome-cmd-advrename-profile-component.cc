@@ -709,14 +709,28 @@ void GnomeCmdAdvrenameProfileComponent::Private::on_template_entry_changed(GtkEn
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     component->profile.counter_start = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
 
 void GnomeCmdAdvrenameProfileComponent::Private::on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameProfileComponent *component)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     component->profile.counter_step = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
@@ -1271,8 +1285,15 @@ void GnomeCmdAdvrenameProfileComponent::update()
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_editable_select_region (GTK_EDITABLE (priv->template_entry), -1, -1);
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), profile.counter_start);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), profile.counter_step);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->counter_digits_combo), profile.counter_width);
 
     if (!model_is_empty(priv->regex_model))

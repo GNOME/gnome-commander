@@ -349,7 +349,14 @@ static void egg_cell_renderer_keys_get_property  (GObject *object, guint param_i
 {
     g_return_if_fail (EGG_IS_CELL_RENDERER_KEYS (object));
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (object);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     switch (param_id)
     {
@@ -376,7 +383,14 @@ static void egg_cell_renderer_keys_set_property (GObject *object, guint param_id
 {
     g_return_if_fail (EGG_IS_CELL_RENDERER_KEYS (object));
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (object);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     switch (param_id)
     {
@@ -428,7 +442,14 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
                                       gint            *width,
                                       gint            *height)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     EggCellRendererKeys *keys = (EggCellRendererKeys *) cell;
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     GtkRequisition requisition;
 
     if (keys->sizing_label == NULL)
@@ -615,8 +636,15 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     GtkWidget *label;
     GtkWidget *eventbox;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     GtkCellRendererText *celltext = GTK_CELL_RENDERER_TEXT (cell);
     EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (cell);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     // If the cell isn't editable we return NULL
     if (celltext->editable == FALSE)
