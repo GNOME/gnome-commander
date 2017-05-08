@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.7.0\n"
 "Report-Msgid-Bugs-To: gcmd-devel@nongnu.org\n"
 "POT-Creation-Date: 2017-04-23 19:10+0530\n"
-"PO-Revision-Date: 2017-04-23 19:12+0530\n"
+"PO-Revision-Date: 2017-05-08 20:11+0200\n"
 "Last-Translator: Abhishek Lolage <abhisheklolage@gmail.com>\n"
 "Language-Team: Marathi\n"
 "Language: mr\n"
@@ -61,7 +61,7 @@ msgstr "फाइल; मॅनेजर; फोल्डर; एक्सप्
 #. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/gnome-commander.desktop.in.in:9
 msgid "gnome-commander"
-msgstr "जीनोम-कमांडर"
+msgstr "gnome-commander"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
 msgid "Use default font"
