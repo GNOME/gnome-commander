@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2017-04-28 21:32+0000\n"
-"PO-Revision-Date: 2017-05-01 17:11+0000\n"
+"POT-Creation-Date: 2017-05-02 07:39+0000\n"
+"PO-Revision-Date: 2017-05-09 14:39+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-data.cc:1865 src/gnome-cmd-main-win.cc:786
@@ -30,17 +30,17 @@ msgstr "Manajer berkas dua panel"
 
 #: data/gnome-commander.appdata.xml.in:10
 msgid ""
-"GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
-"desktop environment. It features separate tabs for each pane, setting up "
-"custom device buttons, bookmark manager, fully integrated commandline, file "
-"quick search, an internal image viewer, a powerful batch renaming tool, and "
-"FTP and Samba access."
+"GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
+"environment. It features separate tabs for each pane, setting up custom "
+"device buttons, bookmark manager, fully integrated commandline, file quick "
+"search, an internal image viewer, a powerful batch renaming tool, and FTP "
+"and Samba access."
 msgstr ""
-"GNOME Commander adalah manajer berkas grafis \"dua-panel\" bagi lingkungan "
-"desktop GNOME. Memiliki fitur tab terpisah bagi setiap panel, penyiapan "
-"tombol perangkat ubahan, manajer tanda taut, perintah baris sepenuhnya "
-"terintegrasi, pencarian cepat berkas, penampil citra internal, alat pengubah "
-"nama batch yang kuat, dan akses FTP dan Samba."
+"GNOME Commander adalah suatu manajer berkas grafis \"dua panel\" bagi "
+"lingkungan desktop GNOME. Memiliki fitur-fitur tab-tab terpisah bagi setiap "
+"panel, menyiapkan tombol perangkat tersuai, manajer markah, perintah baris "
+"terintegrasi penuh, pencarian cepat berkas, penampil citra internal, alat "
+"pengubah nama batch yang kuat, dan akses Samba serta FTP."
 
 #: data/gnome-commander.appdata.xml.in:17
 msgid ""
@@ -73,7 +73,7 @@ msgstr "Pakai fonta baku"
 
 #: data/org.gnome.gnome-commander.gschema.xml:32
 msgid ""
-"Whether to use the system's default fixed width font for the file panels "
+"Whether to use the system’s default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
 msgstr ""
 "Apakah memakai fonta lebar tetap baku sistem untuk panel berkas sebagai "
@@ -85,8 +85,8 @@ msgstr "Fonta panel"
 
 #: data/org.gnome.gnome-commander.gschema.xml:40
 msgid ""
-"A custom font that will be used for the file panes if the \"Use default font"
-"\" option is turned off."
+"A custom font that will be used for the file panes if the “Use default font” "
+"option is turned off."
 msgstr ""
 "Fonta ubahan yang akan dipakai bagi panel berkas bila opsi \"Pakai fonta baku"
 "\" dimatikan."
@@ -311,12 +311,12 @@ msgstr "String symlink"
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
-"code. A '%s' will be expanded to the item name for which a link should be "
+"code. A “%s” will be expanded to the item name for which a link should be "
 "created."
 msgstr ""
 "String ini menentukan nama baku dari symlink yang baru dibuat. Biarkan "
 "string kosong untuk memakai nilai baku yang ditanam ke dalam kode program. "
-"Sebuah '%s' akan diekspansi ke nama butir yang dibuatkan tautnya."
+"Sebuah \"%s\" akan diekspansi ke nama butir yang dibuatkan tautnya."
 
 #: data/org.gnome.gnome-commander.gschema.xml:196
 msgid "Main window horizontal position"
@@ -428,11 +428,11 @@ msgstr "Keadaan jendela utama"
 
 #: data/org.gnome.gnome-commander.gschema.xml:289
 msgid ""
-"The number represents the main window state, e.g. 'maximized', 'fullscreen', "
+"The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
 msgstr ""
-"Angka yang mewakili keadaan jendela utama, mis. 'termaksimalkan', 'layar "
-"penuh', dsb. dan dihitung secara internal."
+"Angka yang mewakili keadaan jendela utama, mis. \"termaksimalkan\", \"layar "
+"penuh\", dsb. dan dihitung secara internal."
 
 #: data/org.gnome.gnome-commander.gschema.xml:295
 msgid "Middle mouse button mode"
@@ -1259,28 +1259,28 @@ msgstr "Nama berkas untuk arsip baru mesti apa?"
 msgid "Create Archive"
 msgstr "Buat Arsip"
 
-#: plugins/fileroller/file-roller-plugin.cc:444
-msgid "Create Archive..."
-msgstr "Buat Arsip..."
+#: plugins/fileroller/file-roller-plugin.cc:451
+msgid "Create Archive…"
+msgstr "Buat Arsip…"
 
-#: plugins/fileroller/file-roller-plugin.cc:456
+#: plugins/fileroller/file-roller-plugin.cc:463
 msgid "Extract in Current Directory"
 msgstr "Ekstrak dalam Direktori Kini"
 
-#: plugins/fileroller/file-roller-plugin.cc:463
-#: plugins/fileroller/file-roller-plugin.cc:473
+#: plugins/fileroller/file-roller-plugin.cc:470
+#: plugins/fileroller/file-roller-plugin.cc:480
 #, c-format
-msgid "Extract to '%s'"
-msgstr "Ekstrak ke '%s'"
+msgid "Extract to “%s”"
+msgstr "Ekstrak ke \"%s\""
 
-#: plugins/fileroller/file-roller-plugin.cc:523
+#: plugins/fileroller/file-roller-plugin.cc:537
 #: src/gnome-cmd-advrename-profile-component.cc:932 src/plugin_manager.cc:416
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Berkas"
 
 #. destroy model automatically with view
-#: plugins/fileroller/file-roller-plugin.cc:540
+#: plugins/fileroller/file-roller-plugin.cc:554
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:364
 #: src/dialogs/gnome-cmd-options-dialog.cc:1414
 #: src/dialogs/gnome-cmd-options-dialog.cc:2065
@@ -1290,33 +1290,33 @@ msgstr "Berkas"
 msgid "Options"
 msgstr "Opsi"
 
-#: plugins/fileroller/file-roller-plugin.cc:552
+#: plugins/fileroller/file-roller-plugin.cc:566
 msgid "File-roller options"
 msgstr "Opsi file-roller"
 
-#: plugins/fileroller/file-roller-plugin.cc:555
+#: plugins/fileroller/file-roller-plugin.cc:569
 msgid "Default archive type"
 msgstr "Tipe arsip baku"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: plugins/fileroller/file-roller-plugin.cc:563
+#: plugins/fileroller/file-roller-plugin.cc:577
 msgid "File prefix pattern"
 msgstr "Pola prefiks berkas"
 
-#: plugins/fileroller/file-roller-plugin.cc:574
+#: plugins/fileroller/file-roller-plugin.cc:588
 #: src/dialogs/gnome-cmd-options-dialog.cc:365
 msgid "Test result:"
 msgstr "Hasil uji:"
 
-#: plugins/fileroller/file-roller-plugin.cc:581
+#: plugins/fileroller/file-roller-plugin.cc:595
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
-"\"strftime\" for other patterns."
+"“strftime” for other patterns."
 msgstr ""
 "Gunakan $N sebagai pola untuk nama berkas asli. Lihat halaman manual untuk "
 "\"strftime\" bagi pola lain."
 
-#: plugins/fileroller/file-roller-plugin.cc:737
+#: plugins/fileroller/file-roller-plugin.cc:751
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1334,13 +1334,13 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:131
 #: src/dialogs/gnome-cmd-search-dialog.cc:181
-msgid "/_Save Profile As..."
-msgstr "/_Simpan Profil Sebagai..."
+msgid "/_Save Profile As…"
+msgstr "/_Simpan Profil Sebagai…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:140
 #: src/dialogs/gnome-cmd-search-dialog.cc:190
-msgid "/_Manage Profiles..."
-msgstr "/_Kelola Profil..."
+msgid "/_Manage Profiles…"
+msgstr "/_Kelola Profil…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:192
 #: src/dialogs/gnome-cmd-search-dialog.cc:240
@@ -1411,7 +1411,7 @@ msgstr "Tanggal perubahan berkas"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:701
 #: src/dialogs/gnome-cmd-search-dialog.cc:1151
-msgid "Profiles..."
+msgid "Profiles…"
 msgstr "Profil…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:706
@@ -1509,7 +1509,7 @@ msgstr "Harap masukkan suatu nama dan coba lagi."
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:332
 #, c-format
-msgid "\"%s\" is not a valid location"
+msgid "“%s” is not a valid location"
 msgstr "\"%s\" bukan lokasi yang valid"
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:333
@@ -1560,13 +1560,13 @@ msgid_plural "Deleted %ld of %ld files"
 msgstr[0] "Menghapus %ld dari %ld berkas"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:133
-msgid "Deleting..."
+msgid "Deleting…"
 msgstr "Menghapus kontak…"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:205
 #, c-format
 msgid ""
-"Error while deleting \"%s\"\n"
+"Error while deleting “%s”\n"
 "\n"
 "%s"
 msgstr ""
@@ -1596,7 +1596,7 @@ msgstr "Lewati"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:278
 #, c-format
-msgid "Do you want to delete \"%s\"?"
+msgid "Do you want to delete “%s”?"
 msgstr "Apakah Anda ingin menghapus \"%s\"?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:282
@@ -1812,7 +1812,7 @@ msgstr "Data opsional"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:492
 #, c-format
-msgid "Shortcut \"%s\" is already taken by \"%s\"."
+msgid "Shortcut “%s” is already taken by “%s”."
 msgstr "Pintasan \"%s\" telah dipakai oleh \"%s\"."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:495
@@ -1825,7 +1825,7 @@ msgstr "Pintasan Yang Konflik"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:499
 #, c-format
-msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr "Mengalihkan pintasan akan menyebabkan itu dihapus dari \"%s\"."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:555
@@ -1845,7 +1845,7 @@ msgstr "Tak ada nama berkas yang dimasukkan"
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
 #, c-format
-msgid "Copy \"%s\" to"
+msgid "Copy “%s” to"
 msgstr "Salin \"%s\" ke"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:144
@@ -2018,8 +2018,8 @@ msgid "Multiple instances"
 msgstr "Instansi berganda"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:190
-msgid "Don't start a new instance"
-msgstr "Jangan mulai suatu instansi baru"
+msgid "Don’t start a new instance"
+msgstr "Jangan memulai suatu instansi baru"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:197
 msgid "Save on exit"
@@ -2075,14 +2075,13 @@ msgstr "Format:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:372
 msgid ""
-"See the manual page for \"strftime\" for help on how to set the format "
-"string."
+"See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
 "Lihat halaman manual bagi \"strftime\" untuk bantuan tentang bagaimana "
 "menata string format."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:456
-msgid "Edit Colors..."
+msgid "Edit Colors…"
 msgstr "Sunting Warna…"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:469
@@ -2253,7 +2252,7 @@ msgid "Color scheme:"
 msgstr "Skema warna:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:785
-msgid "Edit..."
+msgid "Edit…"
 msgstr "Sunting…"
 
 #. LS_COLORS
@@ -2262,7 +2261,7 @@ msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Warnai berkas menurut variabel lingkungan LS_COLORS"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:800
-msgid "Edit colors..."
+msgid "Edit colors…"
 msgstr "Sunting warna…"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:808
@@ -2628,7 +2627,7 @@ msgstr "Pindah"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:126
 #, c-format
-msgid "Move \"%s\" to"
+msgid "Move “%s” to"
 msgstr "Pindahkan \"%s\" ke"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:130
@@ -2641,8 +2640,8 @@ msgstr[0] "pindah %d berkas ke"
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:149
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:189
 #, c-format
-msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr "Direktori '%s' tak ada, apakah Anda ingin membuatnya?"
+msgid "The directory “%s” doesn’t exist, do you want to create it?"
+msgstr "Direktori \"%s\" tak ada, apakah Anda ingin membuatnya?"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
 #: src/gnome-cmd-advrename-profile-component.cc:433
@@ -2705,9 +2704,9 @@ msgstr "Mencari di: %s"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:526
 #, c-format
-msgid "Found %d match - search aborted"
-msgid_plural "Found %d matches - search aborted"
-msgstr[0] "Ditemukan %d kecocokan - pencarian digugurkan"
+msgid "Found %d match — search aborted"
+msgid_plural "Found %d matches — search aborted"
+msgstr[0] "Ditemukan %d kecocokan — pencarian digugurkan"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:527
 #, c-format
@@ -2734,7 +2733,7 @@ msgid "Failed to change directory outside of %s"
 msgstr "Gagal pindah direktori di luar %s"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:1055
-msgid "Search..."
+msgid "Search…"
 msgstr "Cari…"
 
 #. search in
@@ -2773,7 +2772,7 @@ msgid "Disabled"
 msgstr "Dinonaktifkan"
 
 #: src/eggcellrendererkeys.cc:435 src/eggcellrendererkeys.cc:652
-msgid "New accelerator..."
+msgid "New accelerator…"
 msgstr "Akselerator baru…"
 
 #: src/gnome-cmd-about-plugin.cc:180
@@ -3238,8 +3237,8 @@ msgid "Add current dir"
 msgstr "Tambah dir kini"
 
 #: src/gnome-cmd-dir-indicator.cc:411
-msgid "Manage bookmarks..."
-msgstr "Kelola penanda taut..."
+msgid "Manage bookmarks…"
+msgstr "Kelola penanda taut…"
 
 #: src/gnome-cmd-file.cc:591
 msgid "Unknown file type"
@@ -3330,7 +3329,7 @@ msgid "Not an ordinary file."
 msgstr "Bukan berkas biasa."
 
 #: src/gnome-cmd-file-popmenu.cc:122
-msgid "Couldn't retrieve MIME type of the file."
+msgid "Couldn’t retrieve MIME type of the file."
 msgstr "Tak bisa mendapatkan tipe MIME dari berkas."
 
 #: src/gnome-cmd-file-popmenu.cc:137
@@ -3342,7 +3341,7 @@ msgid "Application:"
 msgstr "Aplikasi:"
 
 #: src/gnome-cmd-file-popmenu.cc:164
-msgid "Open with other..."
+msgid "Open with other…"
 msgstr "Buka dengan yang lain…"
 
 #: src/gnome-cmd-file-popmenu.cc:169
@@ -3356,8 +3355,8 @@ msgstr "_Buka"
 
 #: src/gnome-cmd-file-popmenu.cc:474
 #, c-format
-msgid "_Open with \"%s\""
-msgstr "_Buka dengan \"%s\""
+msgid "_Open with “%s”"
+msgstr "_Buka dengan \"%s"
 
 #: src/gnome-cmd-file-popmenu.cc:496
 msgid "Open Wit_h"
@@ -3398,12 +3397,12 @@ msgid "Open _terminal here"
 msgstr "Buka _terminal di sini"
 
 #: src/gnome-cmd-file-popmenu.cc:523 src/gnome-cmd-main-menu.cc:423
-msgid "_Properties..."
+msgid "_Properties…"
 msgstr "_Properti…"
 
 #: src/gnome-cmd-file-popmenu.cc:569
-msgid "Other _Application..."
-msgstr "_Aplikasi Lain..."
+msgid "Other _Application…"
+msgstr "_Aplikasi Lain…"
 
 #: src/gnome-cmd-file-selector.cc:199
 #, c-format
@@ -3517,16 +3516,16 @@ msgid "Create _Symbolic Link"
 msgstr "Buat Taut _Simbolik"
 
 #: src/gnome-cmd-main-menu.cc:430
-msgid "_Search..."
-msgstr "_Cari..."
+msgid "_Search…"
+msgstr "_Cari…"
 
 #: src/gnome-cmd-main-menu.cc:436
-msgid "_Quick Search..."
-msgstr "Pencarian _Kilat..."
+msgid "_Quick Search…"
+msgstr "_Pencarian Cepat…"
 
 #: src/gnome-cmd-main-menu.cc:442
-msgid "_Enable Filter..."
-msgstr "Fungsikan P_enyaring..."
+msgid "_Enable Filter…"
+msgstr "Fungsikan P_enyaring…"
 
 #: src/gnome-cmd-main-menu.cc:449
 msgid "_Diff"
@@ -3625,32 +3624,32 @@ msgid "Horizontal Orientation"
 msgstr "Orientasi Horisontal"
 
 #: src/gnome-cmd-main-menu.cc:669
-msgid "_Bookmark this Directory..."
+msgid "_Bookmark this Directory…"
 msgstr "_Tandatauti Direktori ini…"
 
 #: src/gnome-cmd-main-menu.cc:675
-msgid "_Manage Bookmarks..."
-msgstr "_Kelola Penanda Taut..."
+msgid "_Manage Bookmarks…"
+msgstr "Kelola Penanda Taut…"
 
 #: src/gnome-cmd-main-menu.cc:687
-msgid "_Configure Plugins..."
-msgstr "_Konfigurasikan Pengaya..."
+msgid "_Configure Plugins…"
+msgstr "_Konfigurasikan Pengaya…"
 
 #: src/gnome-cmd-main-menu.cc:699
-msgid "_Options..."
+msgid "_Options…"
 msgstr "_Opsi…"
 
 #: src/gnome-cmd-main-menu.cc:705
-msgid "_Keyboard Shortcuts..."
-msgstr "Pintasan Papan Ti_k..."
+msgid "_Keyboard Shortcuts…"
+msgstr "Pintasan Papan Ti_k…"
 
 #: src/gnome-cmd-main-menu.cc:716
-msgid "_Remote Server..."
-msgstr "Serve_r Jauh..."
+msgid "_Remote Server…"
+msgstr "Se_rver Jauh…"
 
 #: src/gnome-cmd-main-menu.cc:722
-msgid "New Connection..."
-msgstr "Koneksi Baru..."
+msgid "New Connection…"
+msgstr "Koneksi Baru…"
 
 #: src/gnome-cmd-main-menu.cc:733
 msgid "_Documentation"
@@ -3739,8 +3738,8 @@ msgid "F9 Search"
 msgstr "F9 Cari"
 
 #: src/gnome-cmd-main-win.cc:785
-msgid "GNOME Commander - ROOT PRIVILEGES"
-msgstr "GNOME Commander - PRIVILESE ROOT"
+msgid "GNOME Commander — ROOT PRIVILEGES"
+msgstr "GNOME Commander — PRIVILESE ROOT"
 
 #: src/gnome-cmd-main-win.cc:1209 src/gnome-cmd-user-actions.cc:273
 msgid "Refresh"
@@ -3787,8 +3786,8 @@ msgid "Drop connection"
 msgstr "Putuskan koneksi"
 
 #: src/gnome-cmd-python-plugin.cc:216
-msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
-msgstr "Tak bisa memuat modul python 'gnomevfs' ('gnome.vfs')"
+msgid "Can’t load python module “gnomevfs” (“gnome.vfs”)"
+msgstr "Tak bisa memuat modul python \"gnomevfs\" (\"gnome.vfs\")"
 
 #: src/gnome-cmd-quicksearch-popup.cc:272 src/gnome-cmd-user-actions.cc:213
 msgid "Search"
@@ -4268,12 +4267,12 @@ msgid "Transfer problem"
 msgstr "Masalah transfer"
 
 #: src/gnome-cmd-xfer.cc:266
-msgid "copying..."
+msgid "copying…"
 msgstr "menyalin…"
 
 #: src/gnome-cmd-xfer.cc:274
 #, c-format
-msgid "[file %ld of %ld] \"%s\""
+msgid "[file %ld of %ld] “%s”"
 msgstr "[berkas %ld dari %ld] \"%s\""
 
 #: src/gnome-cmd-xfer.cc:425
@@ -4285,7 +4284,7 @@ msgid "The whole operation was cancelled."
 msgstr "Seluruh operasi dibatalkan."
 
 #: src/gnome-cmd-xfer.cc:466
-msgid "preparing..."
+msgid "preparing…"
 msgstr "mempersiapkan…"
 
 #: src/gnome-cmd-xfer.cc:545
@@ -4293,7 +4292,7 @@ msgid "downloading to /tmp"
 msgstr "mengunduh ke /tmp"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
-msgid "stopping..."
+msgid "stopping…"
 msgstr "menghentikan…"
 
 #: src/gnome-cmd-xfer-progress-win.cc:85
@@ -4312,7 +4311,7 @@ msgstr "%.0f%% disalin"
 
 #: src/imageloader.cc:109
 #, c-format
-msgid "Couldn't load installed file type pixmap, trying to load %s instead"
+msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
 "Tak bisa memuat pixmap tipe berkas yang dipasang, mencoba memuat %s sebagai "
 "gantinya"
@@ -4320,7 +4319,7 @@ msgstr ""
 #: src/imageloader.cc:113 src/imageloader.cc:137
 #, c-format
 msgid ""
-"Can't find the pixmap anywhere. Make sure you have installed the program or "
+"Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
 msgstr ""
 "Tak bisa temukan pixmap dimanapun. Pastikan bahwa Anda telah memasang "
@@ -4329,9 +4328,10 @@ msgstr ""
 
 #: src/imageloader.cc:134
 #, c-format
-msgid "Couldn't load installed pixmap, trying to load %s instead"
+msgid "Couldn’t load installed pixmap, trying to load %s instead"
 msgstr ""
-"Tak bisa memuat pixmap yang dipasang, mencoba memuat %s sebagai gantinya"
+"Tak bisa memuat pixmap tipe berkas yang dipasang, mencoba memuat %s sebagai "
+"gantinya"
 
 #: src/intviewer/search-dlg.cc:243
 msgid "Find"
@@ -4349,12 +4349,12 @@ msgstr "_Heksadesimal"
 
 #. sdlg->priv->progress = 0;
 #: src/intviewer/search-progress-dlg.cc:75
-msgid "Searching..."
+msgid "Searching…"
 msgstr "Mencari…"
 
 #: src/intviewer/search-progress-dlg.cc:185
 #, c-format
-msgid "Searching for \"%s\""
+msgid "Searching for “%s”"
 msgstr "Mencari \"%s\""
 
 #: src/intviewer/viewer-widget.cc:210
@@ -4417,7 +4417,7 @@ msgid "_Copy Text Selection"
 msgstr "_Salin Pilihan Teks"
 
 #: src/intviewer/viewer-window.cc:771
-msgid "Find..."
+msgid "Find…"
 msgstr "Cari…"
 
 #: src/intviewer/viewer-window.cc:775
@@ -4490,7 +4490,7 @@ msgstr "_Bantuan Cepat"
 
 #: src/intviewer/viewer-window.cc:1184
 #, c-format
-msgid "Pattern \"%s\" was not found"
+msgid "Pattern “%s” was not found"
 msgstr "Pola \"%s\" tak ditemukan"
 
 #: src/main.cc:67
@@ -4696,7 +4696,7 @@ msgid "Is New"
 msgstr "Baru"
 
 #: src/tags/gnome-cmd-tags.cc:135
-msgid "Set to \"1\" if track is new to the user (default \"0\")."
+msgid "Set to “1” if track is new to the user (default “0”)."
 msgstr "Isi dengan \"1\" bila trek baru bagi pengguna (bakunya \"0\")."
 
 #: src/tags/gnome-cmd-tags.cc:136
@@ -4768,7 +4768,7 @@ msgid "Copyrighted"
 msgstr "Memiliki hak cipta"
 
 #: src/tags/gnome-cmd-tags.cc:144
-msgid "\"1\" if the copyrighted bit is set."
+msgid "“1” if the copyrighted bit is set."
 msgstr "\"1\" bila bit berhakcipta ditata."
 
 #: src/tags/gnome-cmd-tags.cc:145
@@ -4784,7 +4784,7 @@ msgid "Original Audio"
 msgstr "Audio Asli"
 
 #: src/tags/gnome-cmd-tags.cc:146
-msgid "\"1\" if the \"original\" bit is set."
+msgid "“1” if the “original” bit is set."
 msgstr "\"1\" bila bit \"asli\" ditata."
 
 #: src/tags/gnome-cmd-tags.cc:147
@@ -5115,7 +5115,7 @@ msgid "Note Count"
 msgstr "Cacah Catatan"
 
 #: src/tags/gnome-cmd-tags.cc:187
-msgid "Number of \"notes\" in the document."
+msgid "Number of “notes” in the document."
 msgstr "Cacah \"catatan\" dalam dokumen."
 
 #: src/tags/gnome-cmd-tags.cc:188
@@ -5147,7 +5147,7 @@ msgid "Presentation Format"
 msgstr "Format Presentasi"
 
 #: src/tags/gnome-cmd-tags.cc:191
-msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+msgid "Type of presentation, like “On-screen Show”, “SlideView”, etc."
 msgstr "Tipe presentasi, seperti \"Pertunjukan Di Layar\", \"SlideView\", dsb."
 
 #: src/tags/gnome-cmd-tags.cc:192
@@ -5188,8 +5188,8 @@ msgstr "Keamanan"
 
 #: src/tags/gnome-cmd-tags.cc:196
 msgid ""
-"One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
-"enforced\" or \"Locked for annotations\"."
+"One of: “Password protected”, “Read-only recommended”, “Read-only enforced” "
+"or “Locked for annotations”."
 msgstr ""
 "Satu dari: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\", atau \"Locked for annotations\"."
@@ -5393,18 +5393,17 @@ msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
 "claiming rights to the image. The Interoperability copyright statement "
-"including date and rights should be written in this field; e.g., "
-"\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
-"both the photographer and editor copyrights, with each recorded in a "
-"separate part of the statement. When there is a clear distinction between "
-"the photographer and editor copyrights, these are to be written in the order "
-"of photographer followed by editor copyright, separated by NULL (in this "
-"case, since the statement also ends with a NULL, there are two NULL codes) "
-"(see example 1). When only the photographer is given, it is terminated by "
-"one NULL code. When only the editor copyright is given, the photographer "
-"copyright part consists of one space followed by a terminating NULL code, "
-"then the editor copyright is given. When the field is left blank, it is "
-"treated as unknown."
+"including date and rights should be written in this field; e.g., “Copyright, "
+"John Smith, 19xx. All rights reserved.”. The field records both the "
+"photographer and editor copyrights, with each recorded in a separate part of "
+"the statement. When there is a clear distinction between the photographer "
+"and editor copyrights, these are to be written in the order of photographer "
+"followed by editor copyright, separated by NULL (in this case, since the "
+"statement also ends with a NULL, there are two NULL codes) (see example 1). "
+"When only the photographer is given, it is terminated by one NULL code. When "
+"only the editor copyright is given, the photographer copyright part consists "
+"of one space followed by a terminating NULL code, then the editor copyright "
+"is given. When the field is left blank, it is treated as unknown."
 msgstr ""
 "Informasi hak cipta. Tag dipakai untuk mengindikasikan hak cipta editor dan "
 "fotografer. Ini adalah keterangan hak cipta dari orang atau organisasi yang "
@@ -5782,10 +5781,10 @@ msgstr "Lintang Utara atau Selatan"
 #: src/tags/gnome-cmd-tags.cc:248
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
-"'N' indicates north latitude, and 'S' is south latitude."
+"“N” indicates north latitude, and “S” is south latitude."
 msgstr ""
 "Mengindikasikan apakah lintang adalah lintang utara atau selatan. Nilai "
-"ASCII 'N' mengindikasikan lintang utara (North), dan 'S' adalah lintang "
+"ASCII \"N\" mengindikasikan lintang utara (North), dan \"S\" adalah lintang "
 "selatan (South)."
 
 #: src/tags/gnome-cmd-tags.cc:249
@@ -5812,11 +5811,11 @@ msgstr "Bujur Timur atau Barat"
 
 #: src/tags/gnome-cmd-tags.cc:250
 msgid ""
-"Indicates whether the longitude is east or west longitude. ASCII 'E' "
-"indicates east longitude, and 'W' is west longitude."
+"Indicates whether the longitude is east or west longitude. ASCII “E” "
+"indicates east longitude, and “W” is west longitude."
 msgstr ""
-"Mengindikasikan apakah bujur adalah bujur timur atau barat. ASCII 'E' "
-"menandakan bujur timur (East), dan 'W' adalah bujur barat (West)."
+"Mengindikasikan apakah bujur adalah bujur timur atau barat. ASCII \"E\" "
+"menandakan bujur timur (East), dan \"W\" adalah bujur barat (West)."
 
 #: src/tags/gnome-cmd-tags.cc:251
 msgid "GPS Tag Version"
@@ -5922,7 +5921,7 @@ msgstr "Indeks Interoperabilitas"
 
 #: src/tags/gnome-cmd-tags.cc:259
 msgid ""
-"Indicates the identification of the Interoperability rule. Use \"R98\" for "
+"Indicates the identification of the Interoperability rule. Use “R98” for "
 "stating ExifR98 Rules."
 msgstr ""
 "Mengindikasikan identifikasi dari aturan Interoperabilitas. Gunakan \"R98\" "
@@ -6214,7 +6213,7 @@ msgstr "Berkas Suara Terkait"
 msgid ""
 "This tag is used to record the name of an audio file related to the image "
 "data. The only relational information recorded here is the Exif audio file "
-"name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+"name and extension (an ASCII string consisting of 8 characters + “.” + 3 "
 "characters). The path is not recorded. When using this tag, audio files must "
 "be recorded in conformance to the Exif audio format. Writers are also "
 "allowed to store the data such as Audio within APP2 as FlashPix extension "
@@ -6222,8 +6221,8 @@ msgid ""
 "format. If multiple files are mapped to one file, the above format is used "
 "to record just one audio file name. If there are multiple audio files, the "
 "first recorded file is given. When there are three Exif audio files "
-"\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file "
-"name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple "
+"“SND00001.WAV”, “SND00002.WAV” and “SND00003.WAV”, the Exif image file name "
+"for each of them, “DSC00001.JPG”, is indicated. By combining multiple "
 "relational information, a variety of playback possibilities can be "
 "supported. The method of using relational information is left to the "
 "implementation on the playback side. Since this information is an ASCII "
@@ -6533,13 +6532,13 @@ msgid ""
 "of the <Exif.ImageDescription> tag. The character code used in the <Exif."
 "UserComment> tag is identified based on an ID code in a fixed 8-byte area at "
 "the start of the tag data area. The unused portion of the area is padded "
-"with NULL (\"00.h\"). ID codes are assigned by means of registration. The "
+"with NULL (“00.h”). ID codes are assigned by means of registration. The "
 "value of CountN is determinated based on the 8 bytes in the character code "
 "area and the number of bytes in the user comment part. Since the TYPE is not "
 "ASCII, NULL termination is not necessary. The ID code for the <Exif."
 "UserComment> area may be a Defined code such as JIS or ASCII, or may be "
 "Undefined. The Undefined name is UndefinedText, and the ID code is filled "
-"with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif."
+"with 8 bytes of all “NULL” (“00.H”). An Exif reader that reads the <Exif."
 "UserComment> tag must have a function for determining the ID code. This "
 "function is not required in Exif readers that do not use the <Exif."
 "UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
@@ -6610,16 +6609,16 @@ msgstr "Koefisien YCbCr"
 #: src/tags/gnome-cmd-tags.cc:316
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
-"default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
+"default is given in TIFF; but here “Color Space Guidelines” is used as the "
 "default. The color space is declared in a color space information tag, with "
 "the default being the value that gives the optimal image characteristics "
 "under this condition."
 msgstr ""
 "Koefisien matriks untuk transformasi dari data citra RGB ke YCbCr. Tidak ada "
-"default diberikan dalam TIFF, tapi di sini \"Panduan Ruang Warna\" digunakan "
-"sebagai default. Ruang warna dinyatakan dalam tag informasi ruang warna, "
-"dengan default menjadi nilai yang memberikan optimal karakteristik gambar di "
-"bawah kondisi ini."
+"nilai baku yang diberikan dalam TIFF, tapi di sini \"Panduan Ruang Warna\" "
+"digunakan sebagai nilai baku. Ruang warna dinyatakan dalam tag informasi "
+"ruang warna, dengan nilai baku adalah yang memberikan karakteristik citra "
+"optimal di bawah kondisi ini."
 
 #: src/tags/gnome-cmd-tags.cc:317
 msgid "YCbCr Positioning"
@@ -6688,7 +6687,7 @@ msgid "Content"
 msgstr "Isi"
 
 #: src/tags/gnome-cmd-tags.cc:321
-msgid "File's contents filtered as plain text."
+msgid "File’s contents filtered as plain text."
 msgstr "Isi berkas disaring sebagai teks polos."
 
 #: src/tags/gnome-cmd-tags.cc:322
@@ -6697,7 +6696,7 @@ msgstr "Teks bebas/catatan yang dapat disunting."
 
 #: src/tags/gnome-cmd-tags.cc:323
 msgid ""
-"MIME type of the file or if a directory it should contain value \"Folder\"."
+"MIME type of the file or if a directory it should contain value “Folder”."
 msgstr ""
 "Tipe MIME dari berkas atau bila suatu direktori, itu mesti memuat nilai "
 "\"Folder\"."
@@ -6731,7 +6730,7 @@ msgid "Full file path of file excluding the file name."
 msgstr "Path lengkap dari berkas tak termasuk nama berkas."
 
 #: src/tags/gnome-cmd-tags.cc:329
-msgid "Permission string in unix format eg \"-rw-r--r--\"."
+msgid "Permission string in unix format eg “-rw-r--r--”."
 msgstr "String hak akses dalam format unix, mis \"-rw-r--r--\"."
 
 #: src/tags/gnome-cmd-tags.cc:330 src/tags/gnome-cmd-tags.cc:389
@@ -7464,7 +7463,7 @@ msgid "Exposure time used to capture the photo in seconds."
 msgstr "Waktu pencahayaan yang dipakai untuk menangkap foto dalam detik."
 
 #: src/tags/gnome-cmd-tags.cc:427
-msgid "Set to \"1\" if flash was fired."
+msgid "Set to “1” if flash was fired."
 msgstr "Isi dengan \"1\" bila lampu kilat ditembakkan."
 
 #: src/tags/gnome-cmd-tags.cc:429
@@ -7517,8 +7516,8 @@ msgstr "Model dari kamera yang dipakai untuk mengambil gambar."
 
 #: src/tags/gnome-cmd-tags.cc:436
 msgid ""
-"Represents the orientation of the image wrt camera (IE \"top,left\" or "
-"\"bottom,right\")."
+"Represents the orientation of the image wrt camera (IE “top,left” or “bottom,"
+"right”)."
 msgstr ""
 "Merepresentasikan orientasi gambar terhadap kamera (yaitu \"kiri,atas\" atau "
 "\"bawah,kanan\")."
@@ -7553,11 +7552,12 @@ msgstr "Aksi Disarankan"
 
 #: src/tags/gnome-cmd-tags.cc:441
 msgid ""
-"The type of action that this object provides to a previous object. '01' "
-"Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+"The type of action that this object provides to a previous object. “01” "
+"Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
 msgstr ""
-"Tipe tindakan yang disediakan oleh objek ini ke objek sebelumnya. '01' "
-"Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+"Tipe tindakan yang disediakan oleh objek ini ke objek sebelumnya. \"01\" "
+"Object Kill, \"02\" Object Replace, \"03\" Object Append, \"04\" Object "
+"Reference."
 
 #: src/tags/gnome-cmd-tags.cc:442
 msgid "ARM Identifier"
@@ -7795,11 +7795,12 @@ msgstr "Pemutakhiran Editorial"
 #: src/tags/gnome-cmd-tags.cc:468
 msgid ""
 "The type of update this object provides to a previous object. The link to "
-"the previous object is made using the ARM. '01' indicates an additional "
+"the previous object is made using the ARM. “01” indicates an additional "
 "language."
 msgstr ""
 "Tipe pemutakhiran yang disediakan oleh objek ini ke objek sebelumnya. Taut "
-"ke objek sebelumnya dibuat memakai ARM. '01' mengindikasikan bahasa tambahan."
+"ke objek sebelumnya dibuat memakai ARM. \"01\" mengindikasikan bahasa "
+"tambahan."
 
 #: src/tags/gnome-cmd-tags.cc:469
 msgid "Edit Status"
@@ -7823,12 +7824,12 @@ msgstr "Prioritas Amplop"
 
 #: src/tags/gnome-cmd-tags.cc:471
 msgid ""
-"Specifies the envelope handling priority and not the editorial urgency. '1' "
-"for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+"Specifies the envelope handling priority and not the editorial urgency. “1” "
+"for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
 "defined."
 msgstr ""
-"Menyatakan prioritas penanganan amplop dan bukan urgensi editorial. '1' "
-"paling urgen, '5' untuk normal, dan '8' untuk paling tidak urgen. '9' "
+"Menyatakan prioritas penanganan amplop dan bukan urgensi editorial. \"1\" "
+"paling urgen, \"5\" untuk normal, dan \"8\" untuk paling tidak urgen. \"9\" "
 "didefinisikan oleh pengguna."
 
 #: src/tags/gnome-cmd-tags.cc:472
@@ -7893,11 +7894,11 @@ msgstr "Orientasi Gambar"
 
 #: src/tags/gnome-cmd-tags.cc:478
 msgid ""
-"The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+"The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
 msgstr ""
-"Tata letak area gambar: 'P' untuk potret, 'L' untuk lansekap, dan 'S' untuk "
-"bujur sangkar."
+"Tata letak area gambar: \"P\" untuk potret, \"L\" untuk lansekap, dan \"S\" "
+"untuk bujur sangkar."
 
 #: src/tags/gnome-cmd-tags.cc:479
 msgid "Image Type"
@@ -7970,8 +7971,8 @@ msgid "Object Cycle"
 msgstr "Siklus Objek"
 
 #: src/tags/gnome-cmd-tags.cc:486
-msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
-msgstr "Dimana 'a' adalah pagi, 'p' adalah malam, 'b' adalah keduanya."
+msgid "Where “a” is morning, “p” is evening, “b” is both."
+msgstr "Dimana \"a\" adalah pagi, \"p\" adalah malam, \"b\" adalah keduanya."
 
 #: src/tags/gnome-cmd-tags.cc:487
 msgid "Object Name"
@@ -8239,11 +8240,11 @@ msgstr "Urgensi"
 #: src/tags/gnome-cmd-tags.cc:517
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
-"handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+"handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
 msgstr ""
 "Menentukan urgensi editorial dari konten dan belum tentu prioritas "
-"penanganan amplop. '1' paling mendesak, '5' normal, dan '8' paling tidak "
-"mendesak."
+"penanganan amplop. \"1\" paling mendesak, \"5\" normal, dan \"8\" paling "
+"tidak mendesak."
 
 #: src/tags/gnome-cmd-tags.cc:518
 msgid "Writer/Editor"
@@ -8310,7 +8311,7 @@ msgid "Fast Web View"
 msgstr "Tilikan Web Cepat"
 
 #: src/tags/gnome-cmd-tags.cc:525
-msgid "Set to \"1\" if optimized for network access."
+msgid "Set to “1” if optimized for network access."
 msgstr "Isi dengan \"1\" bila dioptimasi untuk akses jaringan."
 
 #: src/tags/gnome-cmd-tags.cc:526
@@ -8318,32 +8319,32 @@ msgid "Printing"
 msgstr "Pencetakan"
 
 #: src/tags/gnome-cmd-tags.cc:526
-msgid "Set to \"1\" if printing is allowed."
-msgstr "Isi dengan \"1\" bila mencetak diijinkan."
+msgid "Set to “1” if printing is allowed."
+msgstr "Isi dengan \"1\" bila mencetak diizinkan."
 
 #: src/tags/gnome-cmd-tags.cc:527
 msgid "Printing in High Resolution"
 msgstr "Mencetak dalam Resolusi Tinggi"
 
 #: src/tags/gnome-cmd-tags.cc:527
-msgid "Set to \"1\" if high resolution printing is allowed."
-msgstr "Isi dengan \"1\" bila pencetakan resolusi tinggi diijinkan."
+msgid "Set to “1” if high resolution printing is allowed."
+msgstr "Isi dengan \"1\" bila pencetakan resolusi tinggi diizinkan."
 
 #: src/tags/gnome-cmd-tags.cc:528
 msgid "Copying"
 msgstr "Menyalin"
 
 #: src/tags/gnome-cmd-tags.cc:528
-msgid "Set to \"1\" if copying the contents is allowed."
-msgstr "Isi dengan \"1\" bila menyalin isi diijinkan."
+msgid "Set to “1” if copying the contents is allowed."
+msgstr "Isi dengan \"1\" bila menyalin isi diizinkan."
 
 #: src/tags/gnome-cmd-tags.cc:529
 msgid "Modifying"
 msgstr "Mengubah"
 
 #: src/tags/gnome-cmd-tags.cc:529
-msgid "Set to \"1\" if modifying the contents is allowed."
-msgstr "Isi dengan \"1\" bila mengubah isi diijinkan."
+msgid "Set to “1” if modifying the contents is allowed."
+msgstr "Isi dengan \"1\" bila mengubah isi diizinkan."
 
 #: src/tags/gnome-cmd-tags.cc:530
 msgid "Document Assembly"
@@ -8351,18 +8352,18 @@ msgstr "Assembly Dokumen"
 
 #: src/tags/gnome-cmd-tags.cc:530
 msgid ""
-"Set to \"1\" if inserting, rotating, or deleting pages and creating "
-"navigation elements is allowed."
+"Set to “1” if inserting, rotating, or deleting pages and creating navigation "
+"elements is allowed."
 msgstr ""
 "Isi dengan \"1\" bila menyisipkan, memutar, atau menghapus halaman dan "
-"membuat elemen navigasi diijinkan."
+"membuat elemen navigasi diizinkan."
 
 #: src/tags/gnome-cmd-tags.cc:531
 msgid "Commenting"
 msgstr "Mengomentari"
 
 #: src/tags/gnome-cmd-tags.cc:531
-msgid "Set to \"1\" if adding or modifying text annotations is allowed."
+msgid "Set to “1” if adding or modifying text annotations is allowed."
 msgstr ""
 "Isi dengan \"1\" bila menambah atau mengubah anotasi teks diperbolehkan."
 
@@ -8371,15 +8372,15 @@ msgid "Form Filling"
 msgstr "Pengisian Formulir"
 
 #: src/tags/gnome-cmd-tags.cc:532
-msgid "Set to \"1\" if filling of form fields is allowed."
-msgstr "Isi dengan \"1\" bila mengisi ruas-ruas formulir diijinkan."
+msgid "Set to “1” if filling of form fields is allowed."
+msgstr "Isi dengan \"1\" bila mengisi ruas-ruas formulir diizinkan."
 
 #: src/tags/gnome-cmd-tags.cc:533
 msgid "Accessibility Support"
 msgstr "Dukungan Aksesibilitas"
 
 #: src/tags/gnome-cmd-tags.cc:533
-msgid "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
+msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
 msgstr ""
 "Isi dengan \"1\" bila dukungan aksesibilitas (mis. pembaca layar) "
 "difungsikan."
@@ -8767,7 +8768,7 @@ msgstr "Tak ada aplikasi baku yang ditemukan bagi tipe MIME %s."
 #: src/utils.cc:532
 #, c-format
 msgid ""
-"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
+"“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
 "\"%s\" nampaknya adalah berkas executable biner tapi tak memiliki bit "
@@ -8784,7 +8785,7 @@ msgstr "OK"
 #: src/utils.cc:561
 #, c-format
 msgid ""
-"\"%s\" is an executable text file. Do you want to run it, or display its "
+"“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 "\"%s\" adalah berkas teks executable. Apakah Anda ingin menjalankannya atau "
@@ -8836,8 +8837,8 @@ msgstr "Gagal membuat suatu direktori tempat menyimpan berkas temporer."
 
 #: src/utils.cc:1259
 #, c-format
-msgid "Creating directory %s... "
-msgstr "Membuat direktori %s... "
+msgid "Creating directory %s… "
+msgstr "Membuat direktori %s… "
 
 #: src/utils.cc:1262
 #, c-format
@@ -8846,7 +8847,7 @@ msgstr "Gagal membuat direktori %s"
 
 #: src/utils.cc:1268
 #, c-format
-msgid "Couldn't read from the directory %s: %s"
+msgid "Couldn’t read from the directory %s: %s"
 msgstr "Tak bisa membaca dari direktori %s: %s"
 
 #: src/utils.cc:1405
