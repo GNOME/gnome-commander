@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <gtk/gtkclipboard.h>
+#include <gtk/gtk.h>
 #include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-url.h>
 #include <set>
