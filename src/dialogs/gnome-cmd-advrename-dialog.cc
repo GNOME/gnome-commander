@@ -24,7 +24,7 @@
 #include <regex.h>
 #include <unistd.h>
 #include <errno.h>
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-advrename-dialog.h"
