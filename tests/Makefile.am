@@ -13,7 +13,9 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/src \
 	-I$(top_srcdir)/src/intviewer \
-	-I$(srcdir)
+	-I$(srcdir) \
+	-DGTK_DISABLE_SINGLE_INCLUDES \
+	-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES
 
 INTVLIBS = \
 	$(GLIB_LIBS) \
