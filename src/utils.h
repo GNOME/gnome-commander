@@ -29,7 +29,6 @@
 #include <stdio.h>
 
 #include <config.h>
-#include <libgnome/gnome-help.h>
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
