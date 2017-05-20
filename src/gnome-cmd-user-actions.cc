@@ -98,8 +98,16 @@ GcmdUserActionSettings *gcmd_user_action_settings_new ()
 
 static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
 {
-    gs->filter = g_settings_new (GCMD_PREF_FILTER);
-    gs->general = g_settings_new (GCMD_PREF_GENERAL);
+    GSettingsSchemaSource   *global_schema_source;
+    GSettingsSchema         *global_schema;
+
+    global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
+    gs->filter = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
+    gs->general = g_settings_new_full (global_schema, NULL, NULL);
 }
 
 /***********************************

@@ -566,6 +566,8 @@ struct GnomeCmdData
 
     typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
+    static GSettingsSchemaSource* GetGlobalSchemaSource();
+
     struct Private;
 
     Private *priv;
@@ -638,6 +640,7 @@ struct GnomeCmdData
     void free();                // FIXME: free() -> ~GnomeCmdData()
 
     void load();
+    void gsettings_init();
     void migrate_all_data_to_gsettings();
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);
     gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
