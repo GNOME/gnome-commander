@@ -62,6 +62,33 @@ struct GnomeCmdData::Private
     gboolean         settings_monitor_enabled;
 };
 
+GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
+{
+    GSettingsSchemaSource   *global_schema_source;
+    std::string              g_schema_path(PREFIX);
+
+    g_schema_path.append("/share/glib-2.0/schemas");
+
+    global_schema_source = g_settings_schema_source_get_default ();
+
+    GSettingsSchemaSource *parent = global_schema_source;
+    GError *error = NULL;
+
+    global_schema_source = g_settings_schema_source_new_from_directory
+                               ((gchar*) g_schema_path.c_str(),
+                                parent,
+                                FALSE,
+                                &error);
+
+    if (global_schema_source == NULL)
+    {
+        g_printerr(_("Could not load schemas from %s: %s\n"),
+                   (gchar*) g_schema_path.c_str(), error->message);
+        g_clear_error (&error);
+    }
+
+    return global_schema_source;
+}
 
 struct _GcmdSettings
 {
@@ -1267,14 +1294,35 @@ static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 
 static void gcmd_settings_init (GcmdSettings *gs)
 {
-    gs->general        = g_settings_new (GCMD_PREF_GENERAL);
-    gs->filter         = g_settings_new (GCMD_PREF_FILTER);
-    gs->confirm        = g_settings_new (GCMD_PREF_CONFIRM);
-    gs->colors         = g_settings_new (GCMD_PREF_COLORS);
-    gs->programs       = g_settings_new (GCMD_PREF_PROGRAMS);
-    gs->network        = g_settings_new (GCMD_PREF_NETWORK);
-    gs->internalviewer = g_settings_new (GCMD_PREF_INTERNAL_VIEWER);
-    gs->plugins        = g_settings_new (GCMD_PREF_PLUGINS);
+    GSettingsSchemaSource   *global_schema_source;
+    GSettingsSchema         *global_schema;
+
+    global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
+    gs->general = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
+    gs->filter = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_CONFIRM, FALSE);
+    gs->confirm = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_COLORS, FALSE);
+    gs->colors = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
+    gs->programs = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_NETWORK, FALSE);
+    gs->network = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_INTERNAL_VIEWER, FALSE);
+    gs->internalviewer = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PLUGINS, FALSE);
+    gs->plugins = g_settings_new_full (global_schema, NULL, NULL);
+
     //TODO: Activate the following function in GCMD > 1.6
     //gcmd_connect_gsettings_signals(gs);
 }
@@ -2652,6 +2700,11 @@ void GnomeCmdData::free()
     }
 }
 
+void GnomeCmdData::gsettings_init()
+{
+    options.gcmd_settings = gcmd_settings_new();
+}
+
 /**
  * This method converts user settings from gcmds old config files, created via gnome config to
  * GSettings. Therefore, it first looks for those files in question and then converts the data.
@@ -2660,7 +2713,6 @@ void GnomeCmdData::free()
 void GnomeCmdData::migrate_all_data_to_gsettings()
 {
     guint temp_value;
-    options.gcmd_settings = gcmd_settings_new();
     gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
 
     ///////////////////////////////////////////////////////////////////////

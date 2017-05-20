@@ -361,7 +361,12 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
                        path);
     }
 
-    gnome_popup_menu_do_popup (indicator->priv->dir_history_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, NULL, NULL, NULL);
+    gnome_popup_menu_do_popup (indicator->priv->dir_history_popup,
+                               (GtkMenuPositionFunc) get_popup_pos,
+                               indicator,
+                               NULL,
+                               NULL,
+                               NULL);
 
     gint w = -1;
 
