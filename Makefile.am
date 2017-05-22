@@ -64,6 +64,9 @@ MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_GETTEXT) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
 
+# Remove targets if the command fails
+.DELETE_ON_ERROR:
+
 .PHONY: ChangeLog
 
 -include $(top_srcdir)/git.mk
