@@ -49,10 +49,10 @@ HAVE_UPDATE_MIME_DATABASE = @HAVE_UPDATE_MIME_DATABASE@
 
 install-data-hook:
 	test "x$(HAVE_UPDATE_MIME_DATABASE)" == "xyes" && \
-		update-mime-database -V $(DESTDIR)/$(mimetopdir)
+		update-mime-database -V $(mimetopdir)
 
 uninstall-hook:
-	for target in $(DESTDIR)/$(mimetopdir)/* ; \
-		do test "x$${target}" != "x$(DESTDIR)/$(mimexmldir)" && rm -rf $${target} ; done
+	for target in $(mimetopdir)/* ; \
+		do test "x$${target}" != "x$(mimexmldir)" && rm -rf $${target} ; done
 
 -include $(top_srcdir)/git.mk
