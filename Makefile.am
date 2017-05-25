@@ -46,6 +46,11 @@ ChangeLog:
 	fi
 
 #
+# To be able to generate ChangeLog independendly of the files timestamp
+#
+.PHONY: ChangeLog
+
+#
 # Add filenames to this variable if the should be added to .gitignore automatically
 #
 GITIGNOREFILES = \
@@ -68,7 +73,5 @@ MAINTAINERCLEANFILES = \
 
 # Remove targets if the command fails
 .DELETE_ON_ERROR:
-
-.PHONY: ChangeLog
 
 -include $(top_srcdir)/git.mk
