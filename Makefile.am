@@ -60,6 +60,7 @@ GITIGNOREFILES = \
 	data/gnome-commander.spec \
 	po/gnome-commander.pot \
 	.geanyprj \
+	ChangeLog \
 	INSTALL \
 	README \
 	py-compile \
