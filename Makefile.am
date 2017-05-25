@@ -55,6 +55,7 @@ GITIGNOREFILES = \
 	data/gnome-commander.spec \
 	.geanyprj \
 	INSTALL \
+	README \
 	py-compile \
 	translators.sh
 
