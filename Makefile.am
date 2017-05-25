@@ -53,6 +53,7 @@ GITIGNOREFILES = \
 	data/gnome-commander.desktop.in \
 	data/gnome-commander.ebuild \
 	data/gnome-commander.spec \
+	po/gnome-commander.pot \
 	.geanyprj \
 	INSTALL \
 	README \
