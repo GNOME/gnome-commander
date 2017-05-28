@@ -52,6 +52,8 @@ using namespace std;
 #define GCMD_INTERNAL_VIEWER               "org.gnome.gnome-commander.preferences.internal-viewer"
 #define GCMD_GSETTINGS_IV_CHARSET          "charset"
 
+#define NUMBER_OF_CHARSETS       22
+
 /***********************************
  * Functions for using GSettings
  ***********************************/
@@ -113,7 +115,7 @@ struct GViewerWindowPrivate
     GtkWidget *statusbar;
 
     GtkAccelGroup *accel_group;
-    GtkWidget *ascii_menu_item;
+    GtkWidget *encoding_menu_item[NUMBER_OF_CHARSETS];
     GtkWidget *wrap_mode_menu_item;
     GtkWidget *hex_offset_menu_item;
     GtkWidget *show_exif_menu_item;
@@ -355,6 +357,94 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
             settings->hex_decimal_offset);
 
     gviewer_set_encoding(obj->priv->viewer, settings->charset);
+    if (strcmp(settings->charset, (gchar*) "UTF8") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[0]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ASCII") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[1]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP437") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[2]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-6") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[3]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ARABIC") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[4]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP864") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[5]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-4") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[6]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-2") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[7]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1250") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[8]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-5") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[9]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1251") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[10]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-7") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[11]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1253") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[12]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "HEBREW") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[13]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP862") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[14]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-8") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[15]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-15") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[16]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-3") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[17]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-9") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[18]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1254") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[19]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1252") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[20]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-1") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[21]), TRUE);
+    }
 
     gtk_window_resize(GTK_WINDOW (obj),
         settings->rect.width, settings->rect.height);
@@ -770,36 +860,36 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         {MI_NONE}
     };
 
-#define ENCODING_MENU_ITEM(label, keyval, value) {MI_RADIO, _(label), \
+#define ENCODING_MENU_ITEM(label, keyval, value, item_number) {MI_RADIO, _(label), \
             keyval, NO_MODIFIER, G_CALLBACK (menu_view_set_charset), \
             GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO, \
             G_OBJ_CHARSET_KEY, (gpointer *) GUINT_TO_POINTER(value), \
-            NO_MENU_ITEM, &text_encoding_list}
+            &obj->priv->encoding_menu_item[item_number], &text_encoding_list}
 
     GSList *text_encoding_list = NULL;
     MENU_ITEM_DATA encoding_menu_items[] = {
-        ENCODING_MENU_ITEM("_UTF-8", GDK_u, "UTF8"),
-        ENCODING_MENU_ITEM("English (US-_ASCII)", GDK_a, "ASCII"),
-        ENCODING_MENU_ITEM("Terminal (CP437)", GDK_q, "CP437"),
-        ENCODING_MENU_ITEM("Arabic (ISO-8859-6)", NO_KEYVAL, "ISO-8859-6"),
-        ENCODING_MENU_ITEM("Arabic (Windows, CP1256)", NO_KEYVAL, "ARABIC"),
-        ENCODING_MENU_ITEM("Arabic (Dos, CP864)", NO_KEYVAL, "CP864"),
-        ENCODING_MENU_ITEM("Baltic (ISO-8859-4)", NO_KEYVAL, "ISO-8859-4"),
-        ENCODING_MENU_ITEM("Central European (ISO-8859-2)", NO_KEYVAL, "ISO-8859-2"),
-        ENCODING_MENU_ITEM("Central European (CP1250)", NO_KEYVAL, "CP1250"),
-        ENCODING_MENU_ITEM("Cyrillic (ISO-8859-5)", NO_KEYVAL, "ISO-8859-5"),
-        ENCODING_MENU_ITEM("Cyrillic (CP1251)", NO_KEYVAL, "CP1251"),
-        ENCODING_MENU_ITEM("Greek (ISO-8859-7)", NO_KEYVAL, "ISO-8859-7"),
-        ENCODING_MENU_ITEM("Greek (CP1253)", NO_KEYVAL, "CP1253"),
-        ENCODING_MENU_ITEM("Hebrew (Windows, CP1255)", NO_KEYVAL, "HEBREW"),
-        ENCODING_MENU_ITEM("Hebrew (Dos, CP862)", NO_KEYVAL, "CP862"),
-        ENCODING_MENU_ITEM("Hebrew (ISO-8859-8)", NO_KEYVAL, "ISO-8859-8"),
-        ENCODING_MENU_ITEM("Latin 9 (ISO-8859-15))", NO_KEYVAL, "ISO-8859-15"),
-        ENCODING_MENU_ITEM("Maltese (ISO-8859-3)", NO_KEYVAL, "ISO-8859-3"),
-        ENCODING_MENU_ITEM("Turkish (ISO-8859-9)", NO_KEYVAL, "ISO-8859-9"),
-        ENCODING_MENU_ITEM("Turkish (CP1254)", NO_KEYVAL, "CP1254"),
-        ENCODING_MENU_ITEM("Western (CP1252)", NO_KEYVAL, "CP1252"),
-        ENCODING_MENU_ITEM("Western (ISO-8859-1)", NO_KEYVAL, "ISO-8859-1"),
+        ENCODING_MENU_ITEM("_UTF-8", GDK_u, "UTF8", 0),
+        ENCODING_MENU_ITEM("English (US-_ASCII)", GDK_a, "ASCII", 1),
+        ENCODING_MENU_ITEM("Terminal (CP437)", GDK_q, "CP437", 2),
+        ENCODING_MENU_ITEM("Arabic (ISO-8859-6)", NO_KEYVAL, "ISO-8859-6", 3),
+        ENCODING_MENU_ITEM("Arabic (Windows, CP1256)", NO_KEYVAL, "ARABIC", 4),
+        ENCODING_MENU_ITEM("Arabic (Dos, CP864)", NO_KEYVAL, "CP864",5 ),
+        ENCODING_MENU_ITEM("Baltic (ISO-8859-4)", NO_KEYVAL, "ISO-8859-4",6 ),
+        ENCODING_MENU_ITEM("Central European (ISO-8859-2)", NO_KEYVAL, "ISO-8859-2", 7),
+        ENCODING_MENU_ITEM("Central European (CP1250)", NO_KEYVAL, "CP1250", 8),
+        ENCODING_MENU_ITEM("Cyrillic (ISO-8859-5)", NO_KEYVAL, "ISO-8859-5", 9),
+        ENCODING_MENU_ITEM("Cyrillic (CP1251)", NO_KEYVAL, "CP1251", 10),
+        ENCODING_MENU_ITEM("Greek (ISO-8859-7)", NO_KEYVAL, "ISO-8859-7", 11),
+        ENCODING_MENU_ITEM("Greek (CP1253)", NO_KEYVAL, "CP1253", 12),
+        ENCODING_MENU_ITEM("Hebrew (Windows, CP1255)", NO_KEYVAL, "HEBREW", 13),
+        ENCODING_MENU_ITEM("Hebrew (Dos, CP862)", NO_KEYVAL, "CP862", 14),
+        ENCODING_MENU_ITEM("Hebrew (ISO-8859-8)", NO_KEYVAL, "ISO-8859-8", 15),
+        ENCODING_MENU_ITEM("Latin 9 (ISO-8859-15))", NO_KEYVAL, "ISO-8859-15", 16),
+        ENCODING_MENU_ITEM("Maltese (ISO-8859-3)", NO_KEYVAL, "ISO-8859-3", 17),
+        ENCODING_MENU_ITEM("Turkish (ISO-8859-9)", NO_KEYVAL, "ISO-8859-9", 18),
+        ENCODING_MENU_ITEM("Turkish (CP1254)", NO_KEYVAL, "CP1254", 19),
+        ENCODING_MENU_ITEM("Western (CP1252)", NO_KEYVAL, "CP1252", 20),
+        ENCODING_MENU_ITEM("Western (ISO-8859-1)", NO_KEYVAL, "ISO-8859-1", 21),
         {MI_NONE}
     };
 
@@ -984,9 +1074,6 @@ static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj)
 
     gchar *charset = (gchar *) g_object_get_data (G_OBJECT (item), G_OBJ_CHARSET_KEY);
     g_return_if_fail (charset!=NULL);
-
-    // ASCII is set implicitly when setting a charset
-    // gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (w->priv->ascii_menu_item), TRUE);
 
     gviewer_set_encoding(obj->priv->viewer, charset);
     gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
