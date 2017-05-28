@@ -45,13 +45,17 @@ DISTCLEANFILES = $(appdata_DATA) $(desktop_DATA)
 
 HAVE_UPDATE_MIME_DATABASE = @HAVE_UPDATE_MIME_DATABASE@
 
+#
+# Keep in mind: Although $DESTDIR is often empty, it is needed
+# for 'make distcheck' so leave it here, please!
+#
 install-data-hook:
 	test "x$(HAVE_UPDATE_MIME_DATABASE)" == "xyes" && \
-		update-mime-database -V $(mimetopdir)
+		update-mime-database -V $(DESTDIR)/$(mimetopdir)
 
 uninstall-hook:
-	for target in $(mimetopdir)/* ; \
-		do test "x$${target}" != "x$(mimexmldir)" && rm -rf $${target} ; done
+	for target in $(DESTDIR)/$(mimetopdir)/* ; \
+		do test "x$${target}" != "x$(DESTDIR)/$(mimexmldir)" && rm -rf $${target} ; done
 
 
 -include $(top_srcdir)/git.mk
