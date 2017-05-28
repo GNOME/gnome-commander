@@ -32,13 +32,19 @@
                         <listitem>
                             <para>Fixed problem bgo#779574 (Other favourite apps settings not saved)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#619112 (Internal-viewer by default display incorrect code pages)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>New or updated docs: cs</para>
+                            <para>New or updated translations: cs, de, eu, hu, id, pl, pt_BR, sr, sl@latin, sv</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>

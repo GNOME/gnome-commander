@@ -4,8 +4,23 @@ gnome-commander 1.6.4
 
 Bug fixes:
  * Fixed problem bgo#779574 (Other favourite apps settings not saved)
+ * Fixed problem bgo#619112 (Internal-viewer by default display incorrect code pages)
+
+New or updated translations:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * eu (Inaki Larranaga Murgoitio)
+ * hu (Balázs Úr)
+ * id (Andika Triwidada)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
 
 New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
  * es (Daniel Mustieles)
 
 ===================================
