@@ -23,8 +23,34 @@
     </thead>
     <tbody>
         <row valign="top">
-            <entry><para>1.6.4</para></entry>
+            <entry><para>1.6.5</para></entry>
             <entry><para>2017-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem bgo#619112 (Internal-viewer by default display incorrect code pages)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+            <entry><para>1.6.4</para></entry>
+            <entry><para>2017-05-28</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
