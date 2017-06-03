@@ -2071,32 +2071,20 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-#endif
 
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_window_set_default_size(GTK_WINDOW (dialog), 560, 600);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_box_set_spacing (GTK_BOX (content_area), 2);
     gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
     gtk_box_set_spacing (GTK_BOX (content_area),6);
-#else
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
-#endif
 
     GnomeCmdNotebook *notebook = new GnomeCmdNotebook(GnomeCmdNotebook::SHOW_TABS);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_container_add (GTK_CONTAINER (content_area), *notebook);
-#else
-    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), *notebook);
-#endif
 
     notebook->append_page(create_general_tab (dialog, cfg), _("General"));
     notebook->append_page(create_format_tab (dialog, cfg), _("Format"));
@@ -2110,11 +2098,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     // open the tab which was actinve when closing the options notebook last time
     notebook->set_current_page (activetab);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
-#else
-    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
-#endif
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

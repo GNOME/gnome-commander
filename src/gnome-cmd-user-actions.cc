@@ -21,7 +21,6 @@
 
 #include <gtk/gtk.h>
 #include <libgnome/gnome-util.h>
-#include <libgnomeui/gnome-url.h>
 #include <set>
 #include <algorithm>
 
@@ -177,11 +176,7 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
     if (e1.keyval > e2.keyval)
         return false;
 
-#if GTK_CHECK_VERSION (2, 10, 0)
     return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK));
-#else
-    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK));
-#endif
 }
 
 
@@ -330,21 +325,13 @@ void GnomeCmdUserActions::init()
     if (!registered("connections.change_left"))
     {
         register_action(GDK_MOD1_MASK, GDK_1, "connections.change_left");
-#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_1, "connections.change_left");
-#else
-        register_action(GDK_MOD4_MASK, GDK_1, "connections.change_left");
-#endif
     }
 
     if (!registered("connections.change_right"))
     {
         register_action(GDK_MOD1_MASK, GDK_2, "connections.change_right");
-#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_2, "connections.change_right");
-#else
-        register_action(GDK_MOD4_MASK, GDK_2, "connections.change_right");
-#endif
     }
 
     if (!registered("edit.copy_filenames"))
@@ -356,11 +343,7 @@ void GnomeCmdUserActions::init()
     if (!registered("edit.search"))
     {
         register_action(GDK_MOD1_MASK, GDK_F7, "edit.search");
-#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_F, "edit.search");
-#else
-        register_action(GDK_MOD4_MASK, GDK_F, "edit.search");
-#endif
     }
 
     if (!registered("file.advrename"))
@@ -515,11 +498,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     GdkEventKey event;
 
     event.keyval = keyval;
-#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-#else
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-#endif
     if (action.find(event)!=action.end())
         return FALSE;
 
@@ -547,11 +526,7 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-#else
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-#endif
     map <GdkEventKey, UserAction>::iterator pos = action.find(event);
 
     if (pos!=action.end())
@@ -579,11 +554,7 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-#else
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-#endif
 
     return action.find(event)!=action.end();
 }
@@ -622,13 +593,9 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr)
             if (state & GDK_SHIFT_MASK)    xml << XML::attr("shift") << 1;
             if (state & GDK_CONTROL_MASK)  xml << XML::attr("control") << 1;
             if (state & GDK_MOD1_MASK)     xml << XML::attr("alt") << 1;
-#if GTK_CHECK_VERSION (2, 10, 0)
             if (state & GDK_SUPER_MASK)    xml << XML::attr("super") << 1;
             if (state & GDK_HYPER_MASK)    xml << XML::attr("hyper") << 1;
             if (state & GDK_META_MASK)     xml << XML::attr("meta") << 1;
-#else
-            if (state & GDK_MOD4_MASK)     xml << XML::attr("super") << 1;
-#endif
 
             xml << XML::attr("action") << usr.action_func[i->second.func];
             if (!i->second.user_data.empty())
@@ -2031,13 +1998,8 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     if (!gtk_show_uri (NULL, "http://gcmd.github.io/", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error opening home page."), error);
-#else
-    if (!gnome_url_show ("http://gcmd.github.io/", &error))
-        gnome_cmd_error_message (_("There was an error opening home page."), error);
-#endif
 }
 
 
@@ -2045,13 +2007,8 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     if (!gtk_show_uri (NULL, "http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
-#else
-    if (!gnome_url_show("http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", &error))
-        gnome_cmd_error_message (_("There was an error reporting problem."), error);
-#endif
 }
 
 

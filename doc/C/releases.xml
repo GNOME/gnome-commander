@@ -40,6 +40,17 @@
                        </listitem>
                     </itemizedlist>
                 </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                           <para>Increased minimum GTK version from 2.8.0 to 2.18.0</para>
+                       </listitem>
+                        <listitem>
+                           <para>Code cleanup</para>
+                       </listitem>
+                    </itemizedlist>
+                </para>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>

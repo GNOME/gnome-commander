@@ -1529,9 +1529,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     gtk_widget_show (fl->tab_label_text);
 
     gint n = notebook->append_page(scrolled_window, hbox);
-#if GTK_CHECK_VERSION (2, 10, 0)
     gtk_notebook_set_tab_reorderable (*notebook, scrolled_window, TRUE);
-#endif
 
     gtk_widget_show_all (scrolled_window);
 

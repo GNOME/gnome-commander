@@ -641,11 +641,7 @@ inline gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (Gt
 
         if (gtk_editable_get_selection_bounds (GTK_EDITABLE (local_entry), &beg, &end))
         {
-#if GTK_CHECK_VERSION (2, 16, 0)
             guint16 len = gtk_entry_get_text_length (GTK_ENTRY (local_entry));
-#else
-            guint16 len = (guint16) g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (local_entry)), -1);
-#endif
             if (!inversed)
                 range = end==len ? g_strdup_printf ("%s(%i:)", placeholder, beg) :
                                    g_strdup_printf ("%s(%i:%i)", placeholder, beg, end);

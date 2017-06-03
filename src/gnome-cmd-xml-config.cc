@@ -371,10 +371,8 @@ static void xml_start(GMarkupParseContext *context,
                                                  G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "control", &control,
                                                  G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "alt", &alt,
                                                  G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "super", &super,
-#if GTK_CHECK_VERSION (2, 10, 0)
                                                  G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "hyper", &hyper,
                                                  G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "meta", &meta,
-#endif
                                                  G_MARKUP_COLLECT_INVALID))
                     {
                         if (gcmd_user_actions.has_action(param2))
@@ -392,13 +390,9 @@ static void xml_start(GMarkupParseContext *context,
                                 if (shift)  accel_mask |= GDK_SHIFT_MASK;
                                 if (control)  accel_mask |= GDK_CONTROL_MASK;
                                 if (alt)  accel_mask |= GDK_MOD1_MASK;
-#if GTK_CHECK_VERSION (2, 10, 0)
                                 if (super)  accel_mask |= GDK_SUPER_MASK;
                                 if (hyper)  accel_mask |= GDK_HYPER_MASK;
                                 if (meta)  accel_mask |= GDK_META_MASK;
-#else
-                                if (super)  accel_mask |= GDK_MOD4_MASK;
-#endif
                                 gcmd_user_actions.register_action(accel_mask, keyval, param2, param3);
                             }
                             else

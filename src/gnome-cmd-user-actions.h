@@ -70,13 +70,9 @@ inline std::string key2str(guint state, guint key_val)
     if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
     if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
     if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
-#if GTK_CHECK_VERSION (2, 10, 0)
     if (state & GDK_SUPER_MASK)    key_name += gdk_modifiers_names[GDK_SUPER_MASK];
     if (state & GDK_HYPER_MASK)    key_name += gdk_modifiers_names[GDK_HYPER_MASK];
     if (state & GDK_META_MASK)     key_name += gdk_modifiers_names[GDK_META_MASK];
-#else
-    if (state & GDK_MOD4_MASK)     key_name += gdk_modifiers_names[GDK_MOD4_MASK];
-#endif
 
     if (ascii_isalnum (key_val))
         key_name += g_ascii_tolower (key_val);

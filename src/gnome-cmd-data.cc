@@ -3805,13 +3805,11 @@ void GnomeCmdData::load()
                             {GDK_SHIFT_MASK, "<shift>"},
                             {GDK_CONTROL_MASK, "<control>"},
                             {GDK_MOD1_MASK, "<alt>"},
-#if GTK_CHECK_VERSION (2, 10, 0)
                             {GDK_SUPER_MASK, "<super>"},
                             {GDK_SUPER_MASK, "<win>"},
                             {GDK_SUPER_MASK, "<mod4>"},
                             {GDK_HYPER_MASK, "<hyper>"},
                             {GDK_META_MASK, "<meta>"},
-#endif
                             {GDK_MOD1_MASK, "<mod1>"},
                             {GDK_MOD4_MASK, "<super>"},
                             {GDK_MOD4_MASK, "<win>"},

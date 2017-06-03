@@ -6,6 +6,9 @@ New features:
  * [build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall and David King)
  * [build] Translations are now handled by upstream gettext instead of intltool
  * [build] New documentation infrastructure: Use yelp-tools instead of gnome-doc-utils
+
+Other changes:
+ * Increased minimum GTK version from 2.8.0 to 2.18.0
  * Code cleanup
 
 Bug fixes:
