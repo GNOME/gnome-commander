@@ -18,7 +18,7 @@ IUSE="chm exif gsf pdf python taglib samba test +unique"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND="
-	app-text/gnome-doc-utils
+	app-text/yelp-tools
 	>=dev-libs/glib-@GLIB_REQ@:2
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 	gnome-base/gnome-keyring
