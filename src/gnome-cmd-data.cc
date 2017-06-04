@@ -2470,7 +2470,7 @@ inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format
 gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *settings_given, const gchar *key, GList *strings)
 {
     gboolean rv = true;
-    guint number_of_strings = g_list_length (strings);
+    guint number_of_strings = strings == NULL ? 0 : g_list_length (strings);
     if (number_of_strings > 0)
     {
         gint ii;
