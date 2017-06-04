@@ -169,16 +169,6 @@ GtkWidget *create_hsep (GtkWidget *parent)
 }
 
 
-GtkWidget *create_vsep (GtkWidget *parent)
-{
-    GtkWidget *sep = gtk_vseparator_new ();
-    g_object_ref (sep);
-    g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
-    gtk_widget_show (sep);
-    return sep;
-}
-
-
 GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content)
 {
     GtkWidget *hbox = create_hbox (parent, FALSE, 0);
@@ -471,16 +461,6 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
     g_object_set_data_full (G_OBJECT (parent), "progress_bar", w, g_object_unref);
     gtk_widget_show (w);
     gtk_progress_set_show_text (GTK_PROGRESS (w), TRUE);
-    return w;
-}
-
-
-GtkWidget *create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask)
-{
-    GtkWidget *w = gtk_pixmap_new (pm, mask);
-    g_object_ref (w);
-    g_object_set_data_full (G_OBJECT (parent), "pixmap", w, g_object_unref);
-    gtk_widget_show (w);
     return w;
 }
 

@@ -53,8 +53,6 @@ GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text);
 
 GtkWidget *create_hsep (GtkWidget *parent);
 
-GtkWidget *create_vsep (GtkWidget *parent);
-
 GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content);
 
 GtkWidget *create_category (GtkWidget *parent, GtkWidget *content, const gchar *title);
@@ -154,8 +152,6 @@ inline void table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAtta
 {
     gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, y_opts, 0, 0);
 }
-
-GtkWidget *create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask);
 
 GtkWidget *create_progress_bar (GtkWidget *parent);
 
