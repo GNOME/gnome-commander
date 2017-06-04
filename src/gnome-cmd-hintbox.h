@@ -19,12 +19,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_HINTBOX_H__
-#define __GNOME_CMD_HINTBOX_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_HINT_BOX  (gnome_cmd_hint_box_get_type ())
 
 GType      gnome_cmd_hint_box_get_type () G_GNUC_CONST;
 GtkWidget *gnome_cmd_hint_box_new (const gchar *hint);
-
-#endif // __GNOME_CMD_HINTBOX_H__

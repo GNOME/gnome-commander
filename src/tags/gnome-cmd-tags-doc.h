@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_TAGS_DOC_H__
-#define __GNOME_CMD_TAGS_DOC_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-tags.h"
@@ -29,5 +28,3 @@ void gcmd_tags_libgsf_init();
 void gcmd_tags_libgsf_shutdown();
 
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f);
-
-#endif // __GNOME_CMD_TAGS_DOC_H__

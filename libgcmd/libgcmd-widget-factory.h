@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LIBGCMD_WIDGET_FACTORY_H__
-#define __LIBGCMD_WIDGET_FACTORY_H__
+#pragma once
 
 GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name);
 
@@ -171,5 +170,3 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name);
 #else
     void create_error_dialog (const gchar *msg, ...);
 #endif
-
-#endif //__LIBGCMD_WIDGET_FACTORY_H__

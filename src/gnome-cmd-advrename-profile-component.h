@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_H__
-#define __GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -66,5 +65,3 @@ struct GnomeCmdAdvrenameProfileComponent
     void set_sample_fname(const gchar *fname);
     GtkTreeModel *get_regex_model() const;
 };
-
-#endif // __GNOME_CMD_ADVRENAME_PROFILE_COMPONENT_H__

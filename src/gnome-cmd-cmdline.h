@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_CMDLINE_H__
-#define __GNOME_CMD_CMDLINE_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CMDLINE              (gnome_cmd_cmdline_get_type ())
 #define GNOME_CMD_CMDLINE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdline))
@@ -70,5 +69,3 @@ void gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history);
 void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline);
 
 gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *event);
-
-#endif // __GNOME_CMD_CMDLINE_H__

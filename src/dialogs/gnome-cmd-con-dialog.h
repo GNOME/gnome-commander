@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_DIALOG_H__
-#define __GNOME_CMD_CON_DIALOG_H__
+#pragma once
 
 #include <gtk/gtkdialog.h>
 
@@ -31,5 +30,3 @@
 
 GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias=TRUE);
 gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server);
-
-#endif // __GNOME_CMD_CON_DIALOG_H__

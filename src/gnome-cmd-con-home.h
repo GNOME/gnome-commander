@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_HOME_H__
-#define __GNOME_CMD_CON_HOME_H__
+#pragma once
 
 #include "gnome-cmd-con.h"
 
@@ -47,5 +46,3 @@ struct GnomeCmdConHomeClass
 GtkType gnome_cmd_con_home_get_type ();
 
 GnomeCmdCon *gnome_cmd_con_home_new ();
-
-#endif // __GNOME_CMD_CON_HOME_H__

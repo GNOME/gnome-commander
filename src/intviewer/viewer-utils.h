@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __LIBGVIEWER_UTILS_H__
-#define __LIBGVIEWER_UTILS_H__
+#pragma once
 
 #define GVIEWER_DEFAULT_PATH_PREFIX "/gnome-commander/internal_viewer/"
 
@@ -42,5 +41,3 @@ inline char_type chartype_toupper(char_type ch)
 }
 
 #define CHARTYPE_CASE(ch,casesens) ((casesens)?ch:chartype_toupper(ch))
-
-#endif

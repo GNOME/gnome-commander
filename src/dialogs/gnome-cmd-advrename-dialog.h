@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_ADVRENAME_DIALOG_H__
-#define __GNOME_CMD_ADVRENAME_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-list.h"
@@ -66,5 +65,3 @@ struct GnomeCmdAdvrenameDialog
     void unset();
     void update_new_filenames();
 };
-
-#endif // __GNOME_CMD_ADVRENAME_DIALOG_H__

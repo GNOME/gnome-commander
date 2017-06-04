@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MAKE_COPY_DIALOG_H__
-#define __GNOME_CMD_MAKE_COPY_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -51,5 +50,3 @@ struct GnomeCmdMakeCopyDialogClass
 GtkWidget *gnome_cmd_make_copy_dialog_new (GnomeCmdFile *f, GnomeCmdDir *dir);
 
 GtkType gnome_cmd_make_copy_dialog_get_type ();
-
-#endif // __GNOME_CMD_MAKE_COPY_DIALOG_H__

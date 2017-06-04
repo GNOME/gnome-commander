@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
-#define __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-menu-button.h"
@@ -384,5 +383,3 @@ namespace GnomeCmd
     template <typename CONFIG, typename PROFILE, typename COMPONENT>
     const char *ManageProfilesDialog<CONFIG,PROFILE,COMPONENT>::help_id;
 }
-
-#endif // __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__

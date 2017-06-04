@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#pragma once
 
 #include <string>
 #include <vector>
@@ -417,5 +416,3 @@ inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::stri
 }
 
 gint get_string_pixel_size (const char *s, int len);
-
-#endif // __UTILS_H__

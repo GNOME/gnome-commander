@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_NOTEBOOK_H__
-#define __GNOME_CMD_NOTEBOOK_H__
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -129,5 +128,3 @@ inline void GnomeCmdNotebook::next_page()
         if (n>1)
             set_current_page(0);
 }
-
-#endif // __GNOME_CMD_NOTEBOOK_H__

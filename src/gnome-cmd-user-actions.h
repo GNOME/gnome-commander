@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_USER_ACTIONS_H__
-#define __GNOME_CMD_USER_ACTIONS_H__
+#pragma once
 
 #include <string>
 #include <map>
@@ -342,5 +341,3 @@ GNOME_CMD_USER_ACTION(help_keyboard);
 GNOME_CMD_USER_ACTION(help_web);
 GNOME_CMD_USER_ACTION(help_problem);
 GNOME_CMD_USER_ACTION(help_about);
-
-#endif // __GNOME_CMD_USER_ACTIONS_H__

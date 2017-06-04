@@ -19,8 +19,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __FILE_ROLLER_PLUGIN_H__
-#define __FILE_ROLLER_PLUGIN_H__
+#pragma once
 
 #define PLUGIN_TYPE_SETTINGS (plugin_settings_get_type ())
 G_DECLARE_FINAL_TYPE (PluginSettings, plugin_settings, GCMD, SETTINGS, GObject)
@@ -58,4 +57,3 @@ extern "C"
     GnomeCmdPlugin *create_plugin ();
     PluginInfo     *get_plugin_info ();
 }
-#endif //__FILE_ROLLER_PLUGIN_H__

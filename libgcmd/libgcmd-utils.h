@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LIB_GCMD_UTILS_H__
-#define __LIB_GCMD_UTILS_H__
+#pragma once
 
 gchar *get_utf8 (const gchar *unknown);
 
@@ -47,5 +46,3 @@ inline gchar *get_bold_mono_text (const gchar *in)
     g_free (escaped_text);
     return result;
 }
-
-#endif //__LIB_GCMD_UTILS_H__

@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_CON_SMB_H__
-#define __GNOME_CMD_CON_SMB_H__
+#pragma once
 
 #include "gnome-cmd-con.h"
 
@@ -42,5 +41,3 @@ inline GnomeCmdCon *gnome_cmd_con_smb_new ()
 {
     return GNOME_CMD_CON (g_object_new (GNOME_CMD_TYPE_CON_SMB, NULL));
 }
-
-#endif // __GNOME_CMD_CON_SMB_H__

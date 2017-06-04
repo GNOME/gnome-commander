@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_TAGS_H__
-#define __GNOME_CMD_TAGS_H__
+#pragma once
 
 #include <string>
 #include <map>
@@ -595,6 +594,3 @@ inline const std::string GnomeCmdFileMetadata::operator[] (const GnomeCmdTag tag
 
     return pos==metadata.end() ? NODATA : join(pos->second, ", ");
 }
-
-
-#endif // __GNOME_CMD_TAGS_H__

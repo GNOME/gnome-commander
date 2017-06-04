@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __GVIEWER_WINDOW_H__
-#define __GVIEWER_WINDOW_H__
+#pragma once
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
@@ -89,5 +88,3 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings);
 
 void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings);
-
-#endif

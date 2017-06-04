@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __OWNER_H__
-#define __OWNER_H__
+#pragma once
 
 #include <grp.h>
 #include <pwd.h>
@@ -270,5 +269,3 @@ inline const char *GnomeCmdOwner::get_name_by_gid(gid_t id)
 }
 
 extern GnomeCmdOwner gcmd_owner;
-
-#endif // __OWNER_H__

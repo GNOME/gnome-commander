@@ -18,12 +18,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_PREPARE_COPY_DIALOG_H__
-#define __GNOME_CMD_PREPARE_COPY_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 
 void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
-
-#endif // __GNOME_CMD_PREPARE_COPY_DIALOG_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_H__
-#define __GNOME_CMD_FILE_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_FILE              (gnome_cmd_file_get_type ())
 #define GNOME_CMD_FILE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFile))
@@ -204,5 +203,3 @@ inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {
     return info->mime_type ? gnome_vfs_mime_get_default_application (info->mime_type) : NULL;
 }
-
-#endif // __GNOME_CMD_FILE_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CHOWN_DIALOG_H__
-#define __GNOME_CMD_CHOWN_DIALOG_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CHOWN_DIALOG              (gnome_cmd_chown_dialog_get_type ())
 #define GNOME_CMD_CHOWN_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CHOWN_DIALOG, GnomeCmdChownDialog))
@@ -50,5 +49,3 @@ struct GnomeCmdChownDialogClass
 
 
 GtkWidget *gnome_cmd_chown_dialog_new (GList *files);
-
-#endif // __GNOME_CMD_CHOWN_DIALOG_H__

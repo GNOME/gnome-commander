@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __PLUGIN_MANAGER_H__
-#define __PLUGIN_MANAGER_H__
+#pragma once
 
 #include <gmodule.h>
 
@@ -42,5 +41,3 @@ void plugin_manager_init ();
 void plugin_manager_shutdown ();
 GList *plugin_manager_get_all ();
 void plugin_manager_show ();
-
-#endif // __PLUGIN_MANAGER_H__

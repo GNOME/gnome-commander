@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_PIXMAP_H__
-#define __GNOME_CMD_PIXMAP_H__
+#pragma once
 
 struct GnomeCmdPixmap
 {
@@ -51,5 +50,3 @@ inline void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
 
     g_free (pixmap);
 }
-
-#endif // __GNOME_CMD_PIXMAP_H__

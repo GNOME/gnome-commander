@@ -19,12 +19,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_ADVRENAME_REGEX_DIALOG_H__
-#define __GNOME_CMD_ADVRENAME_REGEX_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-regex.h"
 
 gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmd::RegexReplace *rx);
-
-#endif // __GNOME_CMD_ADVRENAME_REGEX_DIALOG_H__

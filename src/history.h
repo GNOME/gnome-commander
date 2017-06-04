@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __HISTORY_H__
-#define __HISTORY_H__
+#pragma once
 
 class History
 {
@@ -72,5 +71,3 @@ inline History &History::operator = (GList *list)
 
     return *this;
 }
-
-#endif // __HISTORY_H__

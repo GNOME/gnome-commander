@@ -42,8 +42,7 @@
    Author: Anders Carlsson <andersca@codefactory.se>
 */
 
-#ifndef __GNOME_CMD_ABOUT_PLUGIN_H__
-#define __GNOME_CMD_ABOUT_PLUGIN_H__
+#pragma once
 
 #include <gtk/gtkdialog.h>
 
@@ -71,5 +70,3 @@ struct GnomeCmdAboutPluginClass
 GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;
 
 GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info);
-
-#endif // __GNOME_CMD_ABOUT_PLUGIN_H__

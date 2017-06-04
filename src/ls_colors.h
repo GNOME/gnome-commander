@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LS_COLORS_H__
-#define __LS_COLORS_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -33,5 +32,3 @@ struct LsColor
 
 void     ls_colors_init ();
 LsColor *ls_colors_get (GnomeCmdFile *f);
-
-#endif // __LS_COLORS_H__

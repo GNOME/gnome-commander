@@ -18,11 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_OPTIONS_DIALOG_H__
-#define __GNOME_CMD_OPTIONS_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
 gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg);
-
-#endif // __GNOME_CMD_OPTIONS_DIALOG_H__

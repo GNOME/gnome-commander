@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_SMB_NET_H__
-#define __GNOME_CMD_SMB_NET_H__
+#pragma once
 
 enum SmbEntityType
 {
@@ -38,7 +37,4 @@ struct SmbEntity
     gchar *workgroup_name;
 };
 
-
 SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name);
-
-#endif // __GNOME_CMD_SMB_NET_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __CAP_H__
-#define __CAP_H__
+#pragma once
 
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-dir.h"
@@ -28,5 +27,3 @@
 void cap_cut_files (GnomeCmdFileList *fl, GList *files);
 void cap_copy_files (GnomeCmdFileList *fl, GList *files);
 void cap_paste_files (GnomeCmdDir *dir);
-
-#endif // __CAP_H__

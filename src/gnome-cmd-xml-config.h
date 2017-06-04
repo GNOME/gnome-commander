@@ -30,8 +30,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#ifndef __GNOME_CMD_XML_CONFIG_H__
-#define __GNOME_CMD_XML_CONFIG_H__
+#pragma once
 
 #include <stack>
 #include <string>
@@ -294,5 +293,3 @@ struct GnomeCmdData;
 
 gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdData &cfg);
 gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg);
-
-#endif // __GNOME_CMD_XML_CONFIG_H__

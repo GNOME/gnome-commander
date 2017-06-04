@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __DICT_H
-#define __DICT_H
+#pragma once
 
 #include <utility>
 #include <map>
@@ -211,5 +210,3 @@ inline void load_data(DICT<std::string,std::string> &dict, void *a, unsigned n)
     for (unsigned i=0; i<n; ++i, ++t)
          dict.add(t->key,t->value);
 }
-
-#endif

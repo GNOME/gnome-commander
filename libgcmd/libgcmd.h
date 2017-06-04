@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LIBGCMD_H__
-#define __LIBGCMD_H__
+#pragma once
 
 #include <libgcmd/libgcmd-deps.h>
 #include <libgcmd/libgcmd-utils.h>
@@ -31,5 +30,3 @@
 #include <libgcmd/gnome-cmd-dialog.h>
 #include <libgcmd/gnome-cmd-string-dialog.h>
 #include <libgcmd/plugin-info.h>
-
-#endif //__LIBGCMD_H__

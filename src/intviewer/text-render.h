@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __TEXT_RENDER_H__
-#define __TEXT_RENDER_H__
+#pragma once
 
 #define TYPE_TEXT_RENDER               (text_render_get_type ())
 #define TEXT_RENDER(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_TEXT_RENDER, TextRender))
@@ -112,5 +111,3 @@ offset_type text_render_get_last_displayed_offset(TextRender *w);
 void text_render_ensure_offset_visible(TextRender *w, offset_type offset);
 
 void text_render_set_marker(TextRender *w, offset_type start, offset_type end);
-
-#endif /* __TEXT_RENDER_H__ */

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TUPLE_H__
-#define __TUPLE_H__
+#pragma once
 
 #include <utility>
 
@@ -78,5 +77,3 @@ inline triple<T1,T2,T3> make_triple(const T1 &t1, const T2 &t2, const T3 &t3)
 {
     return triple<T1,T2,T3>(t1,t2,t3);
 }
-
-#endif // __TUPLE_H__

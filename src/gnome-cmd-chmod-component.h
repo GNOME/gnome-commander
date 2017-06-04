@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CHMOD_COMPONENT_H__
-#define __GNOME_CMD_CHMOD_COMPONENT_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -56,5 +55,3 @@ GtkType gnome_cmd_chmod_component_get_type ();
 
 GnomeVFSFilePermissions gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
 void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, GnomeVFSFilePermissions perms);
-
-#endif // __GNOME_CMD_CHMOD_COMPONENT_H__

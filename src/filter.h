@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __FILTER_H__
-#define __FILTER_H__
+#pragma once
 
 #include <fnmatch.h>
 #include <regex.h>
@@ -53,5 +52,3 @@ inline gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *str
     return pattern && string && fnmatch (pattern, string, FNM_NOESCAPE) == 0;
 #endif
 }
-
-#endif // __FILTER_H__

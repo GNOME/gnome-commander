@@ -19,12 +19,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __DIRLIST_H__
-#define __DIRLIST_H__
+#pragma once
 
 #include "gnome-cmd-dir.h"
 
 void dirlist_list (GnomeCmdDir *dir, gboolean visprog);
 void dirlist_cancel (GnomeCmdDir *dir);
-
-#endif // __DIRLIST_H__

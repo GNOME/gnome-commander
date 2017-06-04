@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __IMAGE_RENDER_H__
-#define __IMAGE_RENDER_H__
+#pragma once
 
 #define TYPE_IMAGE_RENDER               (image_render_get_type ())
 #define IMAGE_RENDER(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_IMAGE_RENDER, ImageRender))
@@ -84,5 +83,3 @@ void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
 double image_render_get_scale_factor (ImageRender *obj);
 
 void image_render_operation (ImageRender *obj, ImageRender::DISPLAYMODE op);
-
-#endif /* __IMAGE_RENDER_H__ */

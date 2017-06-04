@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_STRING_DIALOG_H__
-#define __GNOME_CMD_STRING_DIALOG_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_STRING_DIALOG              (gnome_cmd_string_dialog_get_type ())
 #define GNOME_CMD_STRING_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_STRING_DIALOG, GnomeCmdStringDialog))
@@ -84,7 +83,3 @@ void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GtkSig
 void gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, const gchar *value);
 
 void gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar *msg);
-
-#endif //__GNOME_CMD_STRING_DIALOG_H__
-
-

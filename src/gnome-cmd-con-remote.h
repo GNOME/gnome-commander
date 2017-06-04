@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_REMOTE_H__
-#define __GNOME_CMD_CON_REMOTE_H__
+#pragma once
 
 #include "gnome-cmd-con.h"
 
@@ -48,5 +47,3 @@ GtkType gnome_cmd_con_remote_get_type ();
 GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const std::string &uri_str, GnomeCmdCon::Authentication auth=GnomeCmdCon::SAVE_PERMANENTLY);
 
 void gnome_cmd_con_remote_set_host_name (GnomeCmdConRemote *con, const gchar *host_name);
-
-#endif // __GNOME_CMD_CON_REMOTE_H__

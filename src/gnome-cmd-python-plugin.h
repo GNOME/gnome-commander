@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_PYTHON_PLUGIN_H__
-#define __GNOME_CMD_PYTHON_PLUGIN_H__
+#pragma once
 
 #include "gnome-cmd-main-win.h"
 
@@ -37,5 +36,3 @@ void python_plugin_manager_shutdown ();
 
 GList *gnome_cmd_python_plugin_get_list();
 gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCmdMainWin *mw);
-
-#endif // __GNOME_CMD_PYTHON_PLUGIN_H__

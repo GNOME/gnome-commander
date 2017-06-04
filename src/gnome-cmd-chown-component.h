@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CHOWN_COMPONENT_H__
-#define __GNOME_CMD_CHOWN_COMPONENT_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -55,5 +54,3 @@ GtkType gnome_cmd_chown_component_get_type ();
 void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group);
 uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component);
 gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component);
-
-#endif // __GNOME_CMD_CHOWN_COMPONENT_H__

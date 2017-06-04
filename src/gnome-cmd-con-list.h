@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_LIST_H__
-#define __GNOME_CMD_CON_LIST_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
@@ -113,5 +112,3 @@ inline GList *get_remote_cons ()
 {
     return gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ());
 }
-
-#endif // __GNOME_CMD_CON_LIST_H__

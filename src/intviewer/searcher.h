@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef SEARCHER_H
-#define SEARCHER_H
+#pragma once
 
 #include <glib.h>
 #include <glib-object.h>
@@ -122,5 +121,3 @@ gint * g_viewer_searcher_get_abort_indicator(GViewerSearcher *src);
    (read glib's "atomic operations").
    */
 gint * g_viewer_searcher_get_complete_indicator(GViewerSearcher *src);
-
-#endif /* SEARCHER_H */

@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_PATH_H__
-#define __GNOME_CMD_PATH_H__
+#pragma once
 
 struct GnomeCmdPath
 {
@@ -37,5 +36,3 @@ struct GnomeCmdPath
     virtual GnomeCmdPath *get_parent() = 0;
     virtual GnomeCmdPath *get_child(const gchar *child) = 0;
 };
-
-#endif // __GNOME_CMD_PATH_H__

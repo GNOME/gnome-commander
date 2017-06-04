@@ -31,8 +31,7 @@
  * The orginal comments are left intact above
  */
 
-#ifndef __GNOME_CMD_COMBO_H__
-#define __GNOME_CMD_COMBO_H__
+#pragma once
 
 #include "imageloader.h"
 #include "gnome-cmd-pixmap.h"
@@ -112,5 +111,3 @@ inline void *GnomeCmdCombo::operator new (size_t size)
 {
     return g_object_new (GNOME_CMD_TYPE_COMBO, NULL);
 }
-
-#endif // __GNOME_CMD_COMBO_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_TAGS_EXIV2_H__
-#define __GNOME_CMD_TAGS_EXIV2_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-tags.h"
@@ -29,5 +28,3 @@ void gcmd_tags_exiv2_init();
 inline void gcmd_tags_exiv2_shutdown()      {}
 
 void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f);
-
-#endif // __GNOME_CMD_TAGS_EXIV2_H__

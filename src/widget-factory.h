@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __WIDGET_FACTORY_H__
-#define __WIDGET_FACTORY_H__
+#pragma once
 
 #include "libgcmd/libgcmd-deps.h"
 #include "gnome-cmd-combo.h"
@@ -34,5 +33,3 @@ inline GnomeCmdCombo *create_clist_combo (GtkWidget *parent, gint num_cols, gint
 
     return combo;
 }
-
-#endif // __WIDGET_FACTORY_H__

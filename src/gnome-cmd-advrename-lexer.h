@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_ADVRENAME_LEXER_H__
-#define __GNOME_CMD_ADVRENAME_LEXER_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -31,5 +30,3 @@
 void gnome_cmd_advrename_reset_counter(int n, long start=1, int precision=-1, int step=1);
 void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &has_counters);
 char *gnome_cmd_advrename_gen_fname(GnomeCmdFile *f, size_t new_fname_size=NAME_MAX);
-
-#endif // __GNOME_CMD_ADVRENAME_LEXER_H__

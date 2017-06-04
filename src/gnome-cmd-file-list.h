@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_LIST_H__
-#define __GNOME_CMD_FILE_LIST_H__
+#pragma once
 
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
@@ -267,5 +266,3 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
 gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
-
-#endif // __GNOME_CMD_FILE_LIST_H__

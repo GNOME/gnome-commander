@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_PREPARE_XFER_DIALOG_H__
-#define __GNOME_CMD_PREPARE_XFER_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-selector.h"
@@ -63,5 +62,3 @@ struct GnomeCmdPrepareXferDialogClass
 GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to);
 
 GtkType gnome_cmd_prepare_xfer_dialog_get_type ();
-
-#endif // __GNOME_CMD_PREPARE_XFER_DIALOG_H__

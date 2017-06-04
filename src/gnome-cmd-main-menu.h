@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_MAIN_MENU_H__
-#define __GNOME_CMD_MAIN_MENU_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 #include "plugin_manager.h"
@@ -60,5 +59,3 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
 void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
 
 void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data);
-
-#endif // __GNOME_CMD_MAIN_MENU_H__

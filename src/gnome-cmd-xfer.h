@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_XFER_H__
-#define __GNOME_CMD_XFER_H__
+#pragma once
 
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
@@ -62,5 +61,3 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                       GnomeVFSXferOverwriteMode xferOverwriteMode,
                                       GtkSignalFunc on_completed_func,
                                       gpointer on_completed_data);
-
-#endif // __GNOME_CMD_XFER_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_LIST_POPMENU_H__
-#define __GNOME_CMD_LIST_POPMENU_H__
+#pragma once
 
 #include "gnome-cmd-file-selector.h"
 
@@ -47,5 +46,3 @@ struct GnomeCmdListPopmenuClass
 GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs);
 
 GtkType gnome_cmd_list_popmenu_get_type ();
-
-#endif // __GNOME_CMD_LIST_POPMENU_H__

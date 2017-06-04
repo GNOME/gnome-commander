@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __GVIEWER_BM_CHARTYPE_H__
-#define __GVIEWER_BM_CHARTYPE_H__
+#pragma once
 
 #include <glib.h>
 #include <glib-object.h>
@@ -65,5 +64,3 @@ inline int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data)
 {
     return data->good[0];
 }
-
-#endif /* __GLIBVIEWER_BM_CHARTYPE_H__ */

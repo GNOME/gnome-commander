@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __IMAGELOADER_H__
-#define __IMAGELOADER_H__
+#pragma once
 
 #include "gnome-cmd-pixmap.h"
 
@@ -79,5 +78,3 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     GdkBitmap **mask);
 
 void IMAGE_clear_mime_cache ();
-
-#endif // __IMAGELOADER_H__

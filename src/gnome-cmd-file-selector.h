@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_SELECTOR_H__
-#define __GNOME_CMD_FILE_SELECTOR_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_FILE_SELECTOR              (gnome_cmd_file_selector_get_type ())
 #define GNOME_CMD_FILE_SELECTOR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_SELECTOR, GnomeCmdFileSelector))
@@ -160,5 +159,3 @@ inline FileSelectorID operator ! (FileSelectorID id)
         default:        return id;
     }
 }
-
-#endif // __GNOME_CMD_FILE_SELECTOR_H__

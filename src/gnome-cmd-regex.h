@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_REGEX_H__
-#define __GNOME_CMD_REGEX_H__
+#pragma once
 
 #include <glib.h>
 
@@ -181,5 +180,3 @@ namespace GnomeCmd
         return g_regex_replace (re, s, -1, 0, replacement.c_str(), G_REGEX_MATCH_NOTEMPTY, NULL);
     }
 }
-
-#endif // __GNOME_CMD_REGEX_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_DATA_H__
-#define __GNOME_CMD_DATA_H__
+#pragma once
 
 #include <vector>
 #include <string>
@@ -697,5 +696,3 @@ extern gchar *config_dir;
 
 extern DICT<guint> gdk_key_names;
 extern DICT<guint> gdk_modifiers_names;
-
-#endif // __GNOME_CMD_DATA_H__

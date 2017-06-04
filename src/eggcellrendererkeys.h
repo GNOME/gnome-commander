@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __EGG_CELL_RENDERER_KEYS_H__
-#define __EGG_CELL_RENDERER_KEYS_H__
+#pragma once
 
 #include <gtk/gtkcellrenderertext.h>
 
@@ -62,5 +61,3 @@ void  egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint k
 void  egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, GdkModifierType *mask);
 void  egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, GtkCellRendererAccelMode accel_mode);
 gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods);
-
-#endif // __GTK_CELL_RENDERER_KEYS_H__

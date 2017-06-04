@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_CHMOD_DIALOG_H__
-#define __GNOME_CMD_CHMOD_DIALOG_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CHMOD_DIALOG              (gnome_cmd_chmod_dialog_get_type ())
 #define GNOME_CMD_CHMOD_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CHMOD_DIALOG, GnomeCmdChmodDialog))
@@ -49,5 +48,3 @@ struct GnomeCmdChmodDialogClass
 
 
 GtkWidget *gnome_cmd_chmod_dialog_new (GList *files);
-
-#endif // __GNOME_CMD_CHMOD_DIALOG_H__

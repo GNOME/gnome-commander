@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __HANDLE_H__
-#define __HANDLE_H__
+#pragma once
 
 struct Handle
 {
@@ -68,5 +67,3 @@ inline gpointer handle_get_ref (Handle *h)
 
     return h->ref;
 }
-
-#endif // __HANDLE_H__

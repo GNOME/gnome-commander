@@ -16,9 +16,6 @@
     along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __GNOME_CMD_MIME_CONFIG_H__
-#define __GNOME_CMD_MIME_CONFIG_H__
+#pragma once
 
 void gnome_cmd_mime_config(void);
-
-#endif

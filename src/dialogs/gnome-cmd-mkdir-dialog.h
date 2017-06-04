@@ -19,11 +19,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MKDIR_DIALOG_H__
-#define __GNOME_CMD_MKDIR_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-dir.h"
 
 gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_file=NULL);
-
-#endif // __GNOME_CMD_MKDIR_DIALOG_H__

@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __LIBGVIEWER_SEARCH_PROGRESS_DLG_H__
-#define __LIBGVIEWER_SEARCH_PROGRESS_DLG_H__
+#pragma once
 
 #define GVIEWER_SEARCH_PROGRESS_DLG(obj)          GTK_CHECK_CAST (obj, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlg)
 #define GVIEWER_SEARCH_PROGRESS_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlgClass)
@@ -47,5 +46,3 @@ GType gviewer_search_progress_dlg_get_type ();
 void gviewer_show_search_progress_dlg(GtkWindow *parent,
                                       const gchar *searching_text,
                                       gint *abort, gint *complete, gint *progress);
-
-#endif /* __LIBGVIEWER_SEARCH_PROGRESS_DLG_H__ */

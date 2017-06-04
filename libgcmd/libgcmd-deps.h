@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LIBGCMD_DEPS_H__
-#define __LIBGCMD_DEPS_H__
+#pragma once
 
 #include <glib.h>
 #include <glib/gi18n.h>
@@ -36,5 +35,3 @@
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
 extern GtkWidget *main_win_widget;
-
-#endif //__LIBGCMD_DEPS_H__

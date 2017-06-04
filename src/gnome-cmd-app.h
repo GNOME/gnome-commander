@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_APP_H__
-#define __GNOME_CMD_APP_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-pixmap.h"
@@ -94,5 +93,3 @@ gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
 void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
 
 GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app);
-
-#endif // __GNOME_CMD_APP_H__

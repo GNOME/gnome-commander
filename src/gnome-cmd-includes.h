@@ -19,12 +19,9 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_INCLUDES_H__
-#define __GNOME_CMD_INCLUDES_H__
+#pragma once
 
 #include <libgcmd/libgcmd.h>
 #include <gtk/gtkmarshal.h>
 
 typedef void *(*PthreadFunc)(void *);
-
-#endif // __GNOME_CMD_INCLUDES_H__

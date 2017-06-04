@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__
-#define __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -62,5 +61,3 @@ struct GnomeCmdSelectionProfileComponent
 
     void set_default_activation(GtkWindow *w);
 };
-
-#endif // __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__

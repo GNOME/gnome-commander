@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __LIB_GVIEWER_H__
-#define __LIB_GVIEWER_H__
+#pragma once
 
 #include <gtk/gtk.h>
 #include <gtk/gtkadjustment.h>
@@ -42,5 +41,3 @@
 #include "search-dlg.h"
 #include "searcher.h"
 #include "search-progress-dlg.h"
-
-#endif

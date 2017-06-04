@@ -19,9 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_COLLECTION_H__
-#define __GNOME_CMD_FILE_COLLECTION_H__
-
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -72,5 +70,3 @@ inline void GnomeCmdFileCollection::add(GList *files)
     for (; files; files = files->next)
         add(GNOME_CMD_FILE (files->data));
 }
-
-#endif // __GNOME_CMD_FILE_COLLECTION_H__

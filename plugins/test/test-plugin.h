@@ -19,8 +19,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __TEST_PLUGIN_H__
-#define __TEST_PLUGIN_H__
+#pragma once
 
 #define TEST_PLUGIN(obj) \
     GTK_CHECK_CAST (obj, test_plugin_get_type (), TestPlugin)
@@ -55,5 +54,3 @@ extern "C"
     GnomeCmdPlugin *create_plugin   ();
     PluginInfo     *get_plugin_info ();
 }
-
-#endif //__TEST_PLUGIN_H__

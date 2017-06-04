@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_STATE_H__
-#define __GNOME_CMD_STATE_H__
+#pragma once
 
 struct GnomeCmdState 
 {
@@ -31,5 +30,3 @@ struct GnomeCmdState
     GList *active_dir_selected_files;
     GList *inactive_dir_selected_files;
 };
-
-#endif //__GNOME_CMD_STATE_H__

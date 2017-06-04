@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__
-#define __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -30,5 +29,3 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir);
 
 void gnome_cmd_update_bookmark_dialog ();
-
-#endif // __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__

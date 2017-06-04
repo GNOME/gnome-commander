@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MAIN_WIN_H__
-#define __GNOME_CMD_MAIN_WIN_H__
+#pragma once
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
@@ -103,7 +102,4 @@ struct GnomeCmdMainWin
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw);
 };
 
-
 extern GnomeCmdMainWin *main_win;
-
-#endif // __GNOME_CMD_MAIN_WIN_H__

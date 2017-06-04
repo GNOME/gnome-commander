@@ -22,9 +22,6 @@
  *
  */
 
-#ifndef __CP437_H__
-#define __CP437_H__
+#pragma once
 
 extern unsigned int ascii_cp437_to_unicode[256];
-
-#endif // __CP437_H__

@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_H__
-#define __GNOME_CMD_CON_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CON              (gnome_cmd_con_get_type ())
 #define GNOME_CMD_CON(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON, GnomeCmdCon))
@@ -463,5 +462,3 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
         default:            return s;
     }
 }
-
-#endif // __GNOME_CMD_CON_H__

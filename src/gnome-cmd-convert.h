@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CONVERT_H__
-#define __GNOME_CMD_CONVERT_H__
+#pragma once
 
 typedef gchar *(*GnomeCmdConvertFunc) (gchar *string);
 
@@ -35,5 +34,3 @@ gchar *gcmd_convert_uppercase (gchar *string);
 gchar *gcmd_convert_sentence_case (gchar *string);
 gchar *gcmd_convert_initial_caps (gchar *string);
 gchar *gcmd_convert_toggle_case (gchar *string);
-
-#endif // __GNOME_CMD_CONVERT_H__

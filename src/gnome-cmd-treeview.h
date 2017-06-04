@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_TREEVIEW_H__
-#define __GNOME_CMD_TREEVIEW_H__
+#pragma once
 
 GtkTreeViewColumn *gnome_cmd_treeview_create_new_text_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL);
 GtkTreeViewColumn *gnome_cmd_treeview_create_new_pixbuf_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL);
@@ -32,5 +31,3 @@ inline GtkTreeViewColumn *gnome_cmd_treeview_create_new_text_column (GtkTreeView
 
     return gnome_cmd_treeview_create_new_text_column (view, renderer, COL_ID, title);
 }
-
-#endif // __GNOME_CMD_TREEVIEW_H__
