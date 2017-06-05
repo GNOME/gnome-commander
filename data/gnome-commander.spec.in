@@ -173,7 +173,7 @@ scrollkeeper-update -q || :
 
 %changelog
 * Mon Jun 05 2017 Uwe Scholz <u.scholz83@gmx.de>
-- set default srcext to .bz2
+- set default srcext to .xz
 
 * Mon Jun 05 2017 Uwe Scholz <u.scholz83@gmx.de>
 - added missing files in files section
