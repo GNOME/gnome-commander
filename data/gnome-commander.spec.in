@@ -166,7 +166,15 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}/
 
+%{_datadir}/%{name}/mime/
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.%{name}.enums.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
+
 %changelog
+* Mon Jun 05 2017 Uwe Scholz <u.scholz83@gmx.de>
+- added missing files in files section
+
 * Mon Sep 12 2011 Piotr Eljasiak <epiotr@use.pl>
 - added gnome-keyring dependency
 
