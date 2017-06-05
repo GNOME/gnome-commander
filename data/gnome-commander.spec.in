@@ -224,7 +224,7 @@ scrollkeeper-update -q || :
 * Sun Feb 4 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added libgsf dependencies
 
-* Wed Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+* Tue Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added build and runtime deps for python and gnome-python2-gnomevfs
 
 * Sat Jan 20 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-5
