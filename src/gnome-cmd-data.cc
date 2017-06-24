@@ -1607,19 +1607,19 @@ static void save_devices (const gchar *fname)
             GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
-                gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
+                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
 
                 gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
                 if (device_fn && device_fn[0] != '\0')
-                    device_fn = gnome_vfs_escape_path_string (device_fn);
+                    device_fn = g_strescape (device_fn, NULL);
                 else
                     device_fn = g_strdup ("x");
 
-                gchar *mountp = gnome_vfs_escape_path_string (gnome_cmd_con_device_get_mountp (device));
+                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
 
                 gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
                 if (icon_path && icon_path[0] != '\0')
-                    icon_path = gnome_vfs_escape_path_string (icon_path);
+                    icon_path = g_strescape (icon_path, NULL);
                 else
                     icon_path = g_strdup ("x");
 
@@ -1661,18 +1661,18 @@ static void save_devices_old (const gchar *fname)
             GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (i->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
-                gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
+                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
                 gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
-                gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
+                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
                 gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
 
                 if (device_fn && device_fn[0] != '\0')
-                    device_fn = gnome_vfs_escape_string (device_fn);
+                    device_fn = g_strescape (device_fn, NULL);
                 else
                     device_fn = g_strdup ("x");
 
                 if (icon_path && icon_path[0] != '\0')
-                    icon_path = gnome_vfs_escape_string (icon_path);
+                    icon_path = g_strescape (icon_path, NULL);
                 else
                     icon_path = g_strdup ("x");
 
@@ -1712,11 +1712,11 @@ static void save_fav_apps_old (const gchar *fname)
             GnomeCmdApp *app = (GnomeCmdApp *) i->data;
             if (app)
             {
-                gchar *name = gnome_vfs_escape_string (gnome_cmd_app_get_name (app));
-                gchar *cmd = gnome_vfs_escape_string (gnome_cmd_app_get_command (app));
-                gchar *icon_path = gnome_vfs_escape_string (gnome_cmd_app_get_icon_path (app));
+                gchar *name = g_strescape (gnome_cmd_app_get_name (app), NULL);
+                gchar *cmd = g_strescape (gnome_cmd_app_get_command (app), NULL);
+                gchar *icon_path = g_strescape (gnome_cmd_app_get_icon_path (app), NULL);
                 gint target = gnome_cmd_app_get_target (app);
-                gchar *pattern_string = gnome_vfs_escape_string (gnome_cmd_app_get_pattern_string (app));
+                gchar *pattern_string = g_strescape (gnome_cmd_app_get_pattern_string (app), NULL);
                 gint handles_uris = gnome_cmd_app_get_handles_uris (app);
                 gint handles_multiple = gnome_cmd_app_get_handles_multiple (app);
                 gint requires_terminal = gnome_cmd_app_get_requires_terminal (app);
@@ -1988,7 +1988,7 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
         if (device && !gnome_cmd_con_device_get_autovol (device))
         {
-            gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
+            gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
             gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
 
             rc = strcmp(mountp2, mountpoint)==0;

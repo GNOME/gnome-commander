@@ -539,8 +539,8 @@ const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
 
 string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_auth, string &server, string &port, string &folder, string &user, string &password)
 {
-    user = stringify (gnome_vfs_escape_string (user.c_str()));
-    password = stringify (gnome_vfs_escape_string (password.c_str()));
+    user = stringify (g_strescape (user.c_str(), NULL));
+    password = stringify (g_strescape (password.c_str(), NULL));
 
     if (!password.empty() && !use_auth)
     {
@@ -571,8 +571,8 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std:
 {
     share = '/' + share;
 
-    user = stringify (gnome_vfs_escape_string (user.c_str()));
-    password = stringify (gnome_vfs_escape_string (password.c_str()));
+    user = stringify (g_strescape (user.c_str(), NULL));
+    password = stringify (g_strescape (password.c_str(), NULL));
 
     if (!password.empty() && !use_auth)
     {
