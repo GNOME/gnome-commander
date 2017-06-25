@@ -8725,7 +8725,7 @@ msgstr "Malajálamština"
 #: src/tags/gnome-cmd-tags-exiv2.cc:71
 #, c-format
 msgid "unsupported tag (suppressed %ld B of binary data)"
-msgstr "nepodporovaný štítek (přeskakuje se %u B binárních dat)"
+msgstr "nepodporovaný štítek (přeskakuje se %ld B binárních dat)"
 
 #. Note to translators: first placeholder is the paper name (eg. * A4)
 #: src/tags/gnome-cmd-tags-poppler.cc:103
