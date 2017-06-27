@@ -32,6 +32,9 @@
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
 #include "cap.h"
+#include "gnome-cmd-con-list.h"
+#include "gnome-cmd-plain-path.h"
+#include "gnome-cmd-xfer.h"
 
 #include <fnmatch.h>
 
@@ -64,6 +67,113 @@ struct GnomeCmdFilePopmenuPrivate
 {
     GList *data_list;
 };
+
+
+static void do_mime_exec_multiple (gpointer *args)
+{
+    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
+    GList *files = (GList *) args[1];
+
+    if (files)
+    {
+        string cmd = gnome_cmd_app_get_command (app);
+
+        set<string> dirs;
+
+        for (; files; files = files->next)
+        {
+            cmd += ' ';
+            cmd += stringify (g_shell_quote ((gchar *) files->data));
+
+            gchar *dpath = g_path_get_dirname ((gchar *) files->data);
+
+            if (dpath)
+                dirs.insert (stringify (dpath));
+        }
+
+        if (dirs.size()==1)
+            run_command_indir (cmd.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
+        else
+            run_command_indir (cmd.c_str(), NULL, gnome_cmd_app_get_requires_terminal (app));
+
+        g_list_free (files);
+    }
+
+    gnome_cmd_app_free (app);
+    g_free (args);
+}
+
+
+static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
+{
+    g_return_if_fail (files != NULL);
+    g_return_if_fail (app != NULL);
+
+    GList *src_uri_list = NULL;
+    GList *dest_uri_list = NULL;
+    GList *local_files = NULL;
+    gboolean asked = FALSE;
+    guint no_of_remote_files = 0;
+    gint retid;
+
+    for (; files; files = files->next)
+    {
+        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+
+        if (gnome_vfs_uri_is_local (f->get_uri()))
+            local_files = g_list_append (local_files, f->get_real_path());
+        else
+        {
+            ++no_of_remote_files;
+            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
+            {
+                local_files = g_list_append (local_files,  f->get_uri_str());
+            }
+            else
+            {
+                if (!asked)
+                {
+                    gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
+                                                           "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
+                                                  gnome_cmd_app_get_name (app));
+                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
+                    asked = TRUE;
+                }
+
+                if (retid==1)
+                {
+                    gchar *path_str = get_temp_download_filepath (f->get_name());
+
+                    if (!path_str) return;
+
+                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (f->get_uri());
+                    GnomeCmdPlainPath path(path_str);
+                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
+
+                    src_uri_list = g_list_append (src_uri_list, src_uri);
+                    dest_uri_list = g_list_append (dest_uri_list, dest_uri);
+                    local_files = g_list_append (local_files, path_str);
+                }
+            }
+        }
+    }
+
+    g_list_free (files);
+
+    gpointer *args = g_new0 (gpointer, 2);
+    args[0] = app;
+    args[1] = local_files;
+
+    if (src_uri_list)
+        gnome_cmd_xfer_tmp_download_multiple (src_uri_list,
+                                              dest_uri_list,
+                                              GNOME_VFS_XFER_FOLLOW_LINKS,
+                                              GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+                                              GTK_SIGNAL_FUNC (do_mime_exec_multiple),
+                                              args);
+    else
+        do_mime_exec_multiple (args);
+}
 
 
 inline void exec_with_app (GList *files, GnomeCmdApp *app)

@@ -30,6 +30,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-plain-path.h"
 #include "utils.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-xfer.h"
@@ -89,6 +90,14 @@ static GtkTargetEntry drop_types [] =
 
 
 static guint signals[LAST_SIGNAL] = { 0 };
+
+
+struct TmpDlData
+{
+    GnomeCmdFile *f;
+    GtkWidget *dialog;
+    gpointer *args;
+};
 
 
 struct GnomeCmdFileListColumn
@@ -1173,6 +1182,171 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
     g_signal_stop_emission_by_name (clist, "button-press-event");
 
     return TRUE;
+}
+
+
+static void do_mime_exec_single (gpointer *args)
+{
+    g_return_if_fail (args != NULL);
+
+    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
+    gchar *path = (gchar *) args[1];
+    gchar *dpath = (gchar *) args[2];
+
+    string cmd = gnome_cmd_app_get_command (app);
+    cmd += ' ';
+    cmd += stringify (g_shell_quote (path));
+
+    run_command_indir (cmd.c_str(), dpath, gnome_cmd_app_get_requires_terminal (app));
+
+    g_free (path);
+    g_free (dpath);
+    gnome_cmd_app_free (app);
+    g_free (args);
+}
+
+
+static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
+{
+    if (id == GTK_RESPONSE_YES)
+    {
+        gchar *path_str = get_temp_download_filepath (dldata->f->get_name());
+
+        if (!path_str) return;
+
+        dldata->args[1] = (gpointer) path_str;
+
+        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (dldata->f->get_uri());
+        GnomeCmdPlainPath path(path_str);
+        GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
+
+        gnome_cmd_xfer_tmp_download (src_uri,
+                                     dest_uri,
+                                     GNOME_VFS_XFER_FOLLOW_LINKS,
+                                     GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+                                     GTK_SIGNAL_FUNC (do_mime_exec_single),
+                                     dldata->args);
+    }
+    else
+    {
+        gnome_cmd_app_free ((GnomeCmdApp *) dldata->args[0]);
+        g_free (dldata->args);
+    }
+
+    g_free (dldata);
+    gtk_widget_destroy (dldata->dialog);
+}
+
+
+static void mime_exec_single (GnomeCmdFile *f)
+{
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
+
+    gpointer *args;
+    GnomeVFSMimeApplication *vfs_app;
+    GnomeCmdApp *app;
+
+    if (!f->info->mime_type)
+        return;
+
+    // Check if the file is a binary executable that lacks the executable bit
+
+    if (!f->is_executable())
+    {
+        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
+        {
+            gchar *fname = get_utf8 (f->info->name);
+            gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
+            gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
+                                          _("Make Executable?"),
+                                          -1, _("Cancel"), _("OK"), NULL);
+            g_free (fname);
+            g_free (msg);
+
+            if (ret != 1)  return;  else
+            {
+                GnomeVFSResult result = f->chmod((GnomeVFSFilePermissions) (f->info->permissions|GNOME_VFS_PERM_USER_EXEC));
+                if (result != GNOME_VFS_OK)
+                    return;
+            }
+        }
+    }
+
+    // If the file is executable but not a binary file, check if the user wants to exec it or open it
+
+    if (f->is_executable())
+    {
+        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
+        {
+            f->execute();
+            return;
+        }
+        else
+            if (f->mime_begins_with("text/"))
+            {
+                gchar *fname = get_utf8 (f->info->name);
+                gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), fname);
+                gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
+                                              -1, _("Cancel"), _("Display"), _("Run"), NULL);
+                g_free (fname);
+                g_free (msg);
+
+                if (ret != 1)
+                {
+                    if (ret == 2)
+                        f->execute();
+                    return;
+                }
+            }
+    }
+
+    vfs_app = gnome_vfs_mime_get_default_application (f->info->mime_type);
+    if (!vfs_app)
+    {
+        gchar *msg = g_strdup_printf (_("No default application found for the MIME type %s."), f->info->mime_type);
+        gnome_cmd_show_message (NULL, msg, "Open the \"File types and programs\" page in the Control Center to add one.");
+        g_free (msg);
+        return;
+    }
+
+    app = gnome_cmd_app_new_from_vfs_app (vfs_app);
+    gnome_vfs_mime_application_free (vfs_app);
+
+    args = g_new0 (gpointer, 3);
+
+    if (f->is_local())
+    {
+        args[0] = (gpointer) app;
+        args[1] = (gpointer) f->get_real_path();
+        args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
+        do_mime_exec_single (args);
+    }
+    else
+    {
+        if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
+        {
+            args[0] = (gpointer) app;
+            args[1] = (gpointer) f->get_uri_str();
+            // args[2] is NULL here (don't set exec dir for remote files)
+            do_mime_exec_single (args);
+        }
+        else
+        {
+            gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
+            GtkWidget *dialog = gtk_message_dialog_new (*main_win, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s", msg);
+            TmpDlData *dldata = g_new0 (TmpDlData, 1);
+            args[0] = (gpointer) app;
+            // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
+            dldata->f = f;
+            dldata->dialog = dialog;
+            dldata->args = args;
+
+            g_signal_connect (dialog, "response", G_CALLBACK (on_tmp_download_response), dldata);
+            gtk_widget_show (dialog);
+            g_free (msg);
+        }
+    }
 }
 
 

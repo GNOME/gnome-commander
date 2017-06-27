@@ -127,9 +127,6 @@ const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (time_t t, const gchar *date_format);
 
-void mime_exec_single (GnomeCmdFile *f);
-void mime_exec_multiple (GList *files, GnomeCmdApp *app);
-
 void clear_event_key (GdkEventKey *event);
 
 inline gboolean state_is_blank (gint state)
