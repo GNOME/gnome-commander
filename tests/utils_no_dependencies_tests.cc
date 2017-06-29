@@ -1,9 +1,12 @@
 /**
- * @file gcmd_tests_main.cc
+ * @file utils_no_dependencies_test.cc
  * @brief Part of GNOME Commander - A GNOME based file manager
  *
- * @copyright (C) 2006 Assaf Gordon\n
- * @copyright (C) 2007-2012 Piotr Eljasiak\n
+ * @details In this file all tests are placed which belong to the
+ * Boyer–Moore string search algorithm, used in the internal viewer of
+ * GCMD. Currently, only a single test is implemented in which a short
+ * pattern of integers is searched inside a bigger array of integers.
+ *
  * @copyright (C) 2013-2017 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
@@ -21,10 +24,13 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
- #include "gtest/gtest.h"
+#include <glib.h>
+#include <gtest/gtest.h>
+#include "../src/gnome-cmd-includes.h"
+#include "../src/utils-no-dependencies.h"
 
 
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+TEST(StrUriBasename, IfNullReturnNull)
+{
+    EXPECT_EQ (NULL, str_uri_basename(NULL));
 }
