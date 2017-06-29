@@ -226,25 +226,6 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     return result;
 }
 
-gchar *str_uri_basename (const gchar *uri)
-{
-    if (!uri)
-        return NULL;
-
-    int len = strlen (uri),
-        last_slash=0;
-
-    if (len < 2)
-        return NULL;
-
-    for (int i=0; i<len; i++)
-        if (uri[i] == '/')
-            last_slash = i;
-
-    return gnome_vfs_unescape_string (&uri[last_slash+1], NULL);
-}
-
-
 const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
 {
     const char *s;

@@ -33,6 +33,7 @@
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-app.h"
+#include "utils-no-dependencies.h"
 
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
@@ -116,8 +117,6 @@ inline char *int2string (gint i)
 {
     return g_strdup_printf ("%d", i);
 }
-
-gchar *str_uri_basename (const gchar *uri);
 
 const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max);
 const gchar *name2string (gchar *filename, gchar *buf, guint max);

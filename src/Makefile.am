@@ -81,6 +81,7 @@ gnome_commander_SOURCES = \
 	plugin_manager.h plugin_manager.cc \
 	tuple.h \
 	utils.h utils.cc \
+	utils-no-dependencies.h utils-no-dependencies.cc \
 	widget-factory.h
 
 if HAVE_PYTHON
