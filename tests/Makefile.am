@@ -74,7 +74,7 @@ iv_bm_search_CXXFLAGS = $(AM_CPPFLAGS)
 iv_bm_search_LDFLAGS = $(INTVLIBS)
 iv_bm_search_LDADD = $(ADDITIONAL_LDADD)
 
-iv_datapresentation_SOURCES = iv_datapresentation.cc gcmd_tests_main.cc
+iv_datapresentation_SOURCES = iv_datapresentation_test.cc gcmd_tests_main.cc
 iv_datapresentation_CXXFLAGS = $(AM_CPPFLAGS)
 iv_datapresentation_LDFLAGS = $(INTVLIBS)
 iv_datapresentation_LDADD = $(ADDITIONAL_LDADD)
