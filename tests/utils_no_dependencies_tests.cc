@@ -34,3 +34,20 @@ TEST(StrUriBasename, IfNullReturnNull)
 {
     EXPECT_EQ (NULL, str_uri_basename(NULL));
 }
+
+
+TEST(StrUriBasename, IfArgStringLengthIsShorterThanTwoBytesReturnNull)
+{
+    gchar* argument;
+    argument = (gchar*) "a";
+    EXPECT_EQ (NULL, str_uri_basename(argument));
+}
+
+
+TEST(StrUriBasename, ReturnEscapedStringAfterLastSlash)
+{
+    gchar* argument;
+    argument = (gchar*) "http://xyz";
+    EXPECT_STREQ ("xyz", str_uri_basename(argument));
+}
+

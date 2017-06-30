@@ -35,7 +35,7 @@ gchar* str_uri_basename (const gchar *uri)
 
     int last_slash = 0;
 
-    for (int i=0; i<len; i++)
+    for (int i = 0; i < len; i++)
         if (uri[i] == '/')
             last_slash = i;
 
