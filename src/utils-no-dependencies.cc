@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include <glib.h>
 #include <string.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include "utils-no-dependencies.h"
 
 
@@ -39,7 +39,7 @@ gchar* str_uri_basename (const gchar *uri)
         if (uri[i] == '/')
             last_slash = i;
 
-    return gnome_vfs_unescape_string (&uri[last_slash+1], NULL);
+    return g_uri_unescape_string (&uri[last_slash+1], NULL);
 }
 
 

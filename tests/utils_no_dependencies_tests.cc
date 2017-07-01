@@ -30,24 +30,19 @@
 #include "../src/utils-no-dependencies.h"
 
 
-TEST(StrUriBasename, IfNullReturnNull)
+TEST(StrUriBasename, ReturnNull)
 {
     EXPECT_EQ (NULL, str_uri_basename(NULL));
-}
 
-
-TEST(StrUriBasename, IfArgStringLengthIsShorterThanTwoBytesReturnNull)
-{
-    gchar* argument;
-    argument = (gchar*) "a";
-    EXPECT_EQ (NULL, str_uri_basename(argument));
+    // If argument string length is shorter
+    // than two bytes return null
+    EXPECT_EQ (NULL, str_uri_basename((gchar*) "a"));
 }
 
 
 TEST(StrUriBasename, ReturnEscapedStringAfterLastSlash)
 {
-    gchar* argument;
-    argument = (gchar*) "http://xyz";
-    EXPECT_STREQ ("xyz", str_uri_basename(argument));
+    EXPECT_STREQ ("xyz", str_uri_basename((gchar*) "http://xyz"));
+    EXPECT_STREQ ("xyz?", str_uri_basename((gchar*) "http://xyz?"));
 }
 
