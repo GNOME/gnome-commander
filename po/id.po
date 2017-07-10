@@ -8,19 +8,19 @@ msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1-6\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2017-03-11 19:45+0000\n"
-"PO-Revision-Date: 2017-05-01 17:02+0000\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2017-06-05 15:41+0000\n"
+"PO-Revision-Date: 2017-06-18 14:22+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #: ../data/gnome-commander.appdata.xml.in.h:1
-#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1864
+#: ../data/gnome-commander.desktop.in.in.h:1 ../src/gnome-cmd-data.cc:1912
 #: ../src/gnome-cmd-main-win.cc:761
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -1271,65 +1271,70 @@ msgstr ""
 msgid "No error description available"
 msgstr "Keterangan kesalahan tak tersedia"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:310
+#: ../plugins/fileroller/file-roller-plugin.cc:109 ../src/gnome-cmd-data.cc:86
+#, c-format
+msgid "Could not load schemas from %s: %s\n"
+msgstr "Tak bisa memuat skema dari %s: %s\n"
+
+#: ../plugins/fileroller/file-roller-plugin.cc:344
 msgid "What file name should the new archive have?"
 msgstr "Nama berkas untuk arsip baru mesti apa?"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:312
+#: ../plugins/fileroller/file-roller-plugin.cc:346
 msgid "Create Archive"
 msgstr "Buat Arsip"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:420
+#: ../plugins/fileroller/file-roller-plugin.cc:454
 msgid "Create Archive..."
 msgstr "Buat Arsip..."
 
-#: ../plugins/fileroller/file-roller-plugin.cc:432
+#: ../plugins/fileroller/file-roller-plugin.cc:466
 msgid "Extract in Current Directory"
 msgstr "Ekstrak dalam Direktori Kini"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:439
-#: ../plugins/fileroller/file-roller-plugin.cc:449
+#: ../plugins/fileroller/file-roller-plugin.cc:473
+#: ../plugins/fileroller/file-roller-plugin.cc:483
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Ekstrak ke '%s'"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:499
+#: ../plugins/fileroller/file-roller-plugin.cc:533
 #: ../src/gnome-cmd-advrename-profile-component.cc:918
 #: ../src/plugin_manager.cc:406 ../src/tags/gnome-cmd-tags.cc:686
 msgid "File"
 msgstr "Berkas"
 
 #. destroy model automatically with view
-#: ../plugins/fileroller/file-roller-plugin.cc:516
+#: ../plugins/fileroller/file-roller-plugin.cc:550
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:358
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:1407
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:2058
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: ../src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: ../src/dialogs/gnome-cmd-remote-dialog.cc:460
-#: ../src/gnome-cmd-user-actions.cc:248
+#: ../src/gnome-cmd-user-actions.cc:256
 msgid "Options"
 msgstr "Opsi"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:528
+#: ../plugins/fileroller/file-roller-plugin.cc:562
 msgid "File-roller options"
 msgstr "Opsi file-roller"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:531
+#: ../plugins/fileroller/file-roller-plugin.cc:565
 msgid "Default archive type"
 msgstr "Tipe arsip baku"
 
 #. The pattern defining the file name prefix of the archive to be created
-#: ../plugins/fileroller/file-roller-plugin.cc:539
+#: ../plugins/fileroller/file-roller-plugin.cc:573
 msgid "File prefix pattern"
 msgstr "Pola prefiks berkas"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:550
+#: ../plugins/fileroller/file-roller-plugin.cc:584
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:358
 msgid "Test result:"
 msgstr "Hasil uji:"
 
-#: ../plugins/fileroller/file-roller-plugin.cc:557
+#: ../plugins/fileroller/file-roller-plugin.cc:591
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "\"strftime\" for other patterns."
@@ -1337,7 +1342,7 @@ msgstr ""
 "Gunakan $N sebagai pola untuk nama berkas asli. Lihat halaman manual untuk "
 "\"strftime\" bagi pola lain."
 
-#: ../plugins/fileroller/file-roller-plugin.cc:708
+#: ../plugins/fileroller/file-roller-plugin.cc:742
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -1374,7 +1379,7 @@ msgstr "Hapus dari daftar berkas"
 
 #. {file_umount, "file.umount"},
 #: ../src/dialogs/gnome-cmd-advrename-dialog.cc:336
-#: ../src/gnome-cmd-user-actions.cc:235
+#: ../src/gnome-cmd-user-actions.cc:243
 msgid "View file"
 msgstr "Tilik berkas"
 
@@ -1634,12 +1639,12 @@ msgstr[0] "Anda Anda ingin menghapus %d berkas yang dipilih?"
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:959
-#: ../src/gnome-cmd-main-win.cc:1182 ../src/gnome-cmd-user-actions.cc:209
+#: ../src/gnome-cmd-main-win.cc:1182 ../src/gnome-cmd-user-actions.cc:217
 msgid "Delete"
 msgstr "Hapus"
 
 #: ../src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:885
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:893
 #: ../src/utils.cc:523 ../src/utils.cc:551
 msgid "Cancel"
 msgstr "Batal"
@@ -1735,12 +1740,12 @@ msgid "Access permissions"
 msgstr "Permisi akses"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:622
-#: ../src/intviewer/viewer-window.cc:1502
+#: ../src/intviewer/viewer-window.cc:1589
 msgid "Type"
 msgstr "Tipe"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:623
-#: ../src/intviewer/viewer-window.cc:1503
+#: ../src/intviewer/viewer-window.cc:1590
 msgid "Metadata namespace"
 msgstr "Ruang name metadata"
 
@@ -1753,35 +1758,35 @@ msgstr "Ruang name metadata"
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:630
 #: ../src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:260
 #: ../src/dialogs/gnome-cmd-remote-dialog.cc:371
-#: ../src/intviewer/viewer-window.cc:1510 ../src/plugin_manager.cc:404
+#: ../src/intviewer/viewer-window.cc:1597 ../src/plugin_manager.cc:404
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Name"
 msgstr "Nama"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:631
-#: ../src/intviewer/viewer-window.cc:1511
+#: ../src/intviewer/viewer-window.cc:1598
 msgid "Tag name"
 msgstr "Nama tag"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:633
-#: ../src/intviewer/viewer-window.cc:1513
+#: ../src/intviewer/viewer-window.cc:1600
 msgid "Value"
 msgstr "Nilai"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:634
-#: ../src/intviewer/viewer-window.cc:1514
+#: ../src/intviewer/viewer-window.cc:1601
 msgid "Tag value"
 msgstr "Nilai tag"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:636
-#: ../src/intviewer/viewer-window.cc:1516 ../src/tags/gnome-cmd-tags.cc:166
+#: ../src/intviewer/viewer-window.cc:1603 ../src/tags/gnome-cmd-tags.cc:166
 #: ../src/tags/gnome-cmd-tags.cc:317 ../src/tags/gnome-cmd-tags.cc:419
 #: ../src/tags/gnome-cmd-tags.cc:530
 msgid "Description"
 msgstr "Deskripsi"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:637
-#: ../src/intviewer/viewer-window.cc:1517
+#: ../src/intviewer/viewer-window.cc:1604
 msgid "Metadata tag description"
 msgstr "Deskripsi tag metadata"
 
@@ -1791,7 +1796,7 @@ msgid "File Properties"
 msgstr "Properti Berkas"
 
 #: ../src/dialogs/gnome-cmd-file-props-dialog.cc:715
-#: ../src/gnome-cmd-user-actions.cc:229
+#: ../src/gnome-cmd-user-actions.cc:237
 msgid "Properties"
 msgstr "Properti"
 
@@ -1859,7 +1864,7 @@ msgid "Invalid shortcut."
 msgstr "Pintasan tak valid."
 
 #: ../src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:626
-#: ../src/gnome-cmd-user-actions.cc:247
+#: ../src/gnome-cmd-user-actions.cc:255
 msgid "Do nothing"
 msgstr "Jangan lakukan apa pun"
 
@@ -1994,7 +1999,7 @@ msgid "Middle mouse button"
 msgstr "Tombol tengah tetikus"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:118
-#: ../src/gnome-cmd-main-win.cc:1172 ../src/gnome-cmd-user-actions.cc:279
+#: ../src/gnome-cmd-main-win.cc:1172 ../src/gnome-cmd-user-actions.cc:287
 msgid "Up one directory"
 msgstr "Naik satu direktori"
 
@@ -2031,7 +2036,7 @@ msgid "Case sensitive"
 msgstr "Peka huruf besar kecil"
 
 #: ../src/dialogs/gnome-cmd-options-dialog.cc:165
-#: ../src/gnome-cmd-user-actions.cc:212
+#: ../src/gnome-cmd-user-actions.cc:220
 msgid "Quick search"
 msgstr "Pencarian cepat"
 
@@ -2631,7 +2636,7 @@ msgid "Unselect Using Pattern"
 msgstr "Lepas Pilihan Dengan Pola"
 
 #: ../src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: ../src/gnome-cmd-main-win.cc:1180 ../src/gnome-cmd-user-actions.cc:206
+#: ../src/gnome-cmd-main-win.cc:1180 ../src/gnome-cmd-user-actions.cc:214
 msgid "Copy"
 msgstr "Salin"
 
@@ -3259,16 +3264,16 @@ msgstr "Mencari workgroup dan host"
 msgid "Go to: Samba Network"
 msgstr "Ke: Jaringan Samba"
 
-#: ../src/gnome-cmd-data.cc:3509 ../src/gnome-cmd-data.cc:4511
+#: ../src/gnome-cmd-data.cc:3561 ../src/gnome-cmd-data.cc:4563
 #, c-format
 msgid "link to %s"
 msgstr "taut ke %s"
 
-#: ../src/gnome-cmd-data.cc:3781
+#: ../src/gnome-cmd-data.cc:3833
 msgid "Audio Files"
 msgstr "Berkas Audio"
 
-#: ../src/gnome-cmd-data.cc:3789
+#: ../src/gnome-cmd-data.cc:3841
 msgid "CamelCase"
 msgstr "CamelCase"
 
@@ -3276,11 +3281,11 @@ msgstr "CamelCase"
 msgid "Waiting for file list"
 msgstr "Menunggu daftar berkas"
 
-#: ../src/gnome-cmd-dir-indicator.cc:411
+#: ../src/gnome-cmd-dir-indicator.cc:416
 msgid "Add current dir"
 msgstr "Tambah dir kini"
 
-#: ../src/gnome-cmd-dir-indicator.cc:412
+#: ../src/gnome-cmd-dir-indicator.cc:417
 msgid "Manage bookmarks..."
 msgstr "Kelola penanda taut..."
 
@@ -3418,7 +3423,7 @@ msgstr "Po_tong"
 msgid "_Copy"
 msgstr "Sa_lin"
 
-#: ../src/gnome-cmd-file-popmenu.cc:513 ../src/gnome-cmd-user-actions.cc:207
+#: ../src/gnome-cmd-file-popmenu.cc:513 ../src/gnome-cmd-user-actions.cc:215
 msgid "Copy file names"
 msgstr "Salin nama berkas"
 
@@ -3432,7 +3437,7 @@ msgstr "Ubah Nama"
 
 #. {file_run, "file.run"},
 #: ../src/gnome-cmd-file-popmenu.cc:517 ../src/gnome-cmd-main-win.cc:1185
-#: ../src/gnome-cmd-user-actions.cc:232
+#: ../src/gnome-cmd-user-actions.cc:240
 msgid "Send files"
 msgstr "Kirim berkas"
 
@@ -3466,7 +3471,7 @@ msgid "%s free"
 msgstr "%s bebas"
 
 #: ../src/gnome-cmd-file-selector.cc:634 ../src/gnome-cmd-file-selector.cc:709
-#: ../src/gnome-cmd-user-actions.cc:1693 ../src/gnome-cmd-user-actions.cc:1701
+#: ../src/gnome-cmd-user-actions.cc:1701 ../src/gnome-cmd-user-actions.cc:1709
 msgid "The tab is locked, close anyway?"
 msgstr "Tab terkunci, tutup saja?"
 
@@ -3515,7 +3520,7 @@ msgid "Symbolic link name:"
 msgstr "Nama taut simbolis:"
 
 #: ../src/gnome-cmd-file-selector.cc:1302
-#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:885
+#: ../src/gnome-cmd-file-selector.cc:1348 ../src/gnome-cmd-user-actions.cc:893
 msgid "Create Symbolic Link"
 msgstr "Buat Taut Simbolik"
 
@@ -3699,7 +3704,7 @@ msgstr "Koneksi Baru..."
 msgid "_Documentation"
 msgstr "_Dokumentasi"
 
-#: ../src/gnome-cmd-main-menu.cc:732 ../src/intviewer/viewer-window.cc:889
+#: ../src/gnome-cmd-main-menu.cc:732 ../src/intviewer/viewer-window.cc:979
 msgid "_Keyboard Shortcuts"
 msgstr "Pintasan Papan Ti_k"
 
@@ -3717,7 +3722,7 @@ msgstr "Tent_ang"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:773 ../src/intviewer/viewer-window.cc:901
+#: ../src/gnome-cmd-main-menu.cc:773 ../src/intviewer/viewer-window.cc:991
 msgid "_File"
 msgstr "_Berkas"
 
@@ -3729,11 +3734,11 @@ msgstr "_Sunting"
 msgid "_Mark"
 msgstr "_Tandai"
 
-#: ../src/gnome-cmd-main-menu.cc:785 ../src/intviewer/viewer-window.cc:904
+#: ../src/gnome-cmd-main-menu.cc:785 ../src/intviewer/viewer-window.cc:994
 msgid "_View"
 msgstr "_Tampilan"
 
-#: ../src/gnome-cmd-main-menu.cc:789 ../src/intviewer/viewer-window.cc:915
+#: ../src/gnome-cmd-main-menu.cc:789 ../src/intviewer/viewer-window.cc:1005
 msgid "_Settings"
 msgstr "_Pengaturan"
 
@@ -3749,7 +3754,7 @@ msgstr "_Penanda Taut"
 msgid "_Plugins"
 msgstr "_Pengaya"
 
-#: ../src/gnome-cmd-main-menu.cc:805 ../src/intviewer/viewer-window.cc:920
+#: ../src/gnome-cmd-main-menu.cc:805 ../src/intviewer/viewer-window.cc:1010
 msgid "_Help"
 msgstr "Ba_ntuan"
 
@@ -3785,7 +3790,7 @@ msgstr "F9 Cari"
 msgid "GNOME Commander - ROOT PRIVILEGES"
 msgstr "GNOME Commander - PRIVILESE ROOT"
 
-#: ../src/gnome-cmd-main-win.cc:1171 ../src/gnome-cmd-user-actions.cc:273
+#: ../src/gnome-cmd-main-win.cc:1171 ../src/gnome-cmd-user-actions.cc:281
 msgid "Refresh"
 msgstr "Segarkan"
 
@@ -3809,11 +3814,11 @@ msgstr "Ke yang terakhir"
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Salin nama berkas (SHIFT untuk path lengkap, ALT untuk URI)"
 
-#: ../src/gnome-cmd-main-win.cc:1179 ../src/gnome-cmd-user-actions.cc:208
+#: ../src/gnome-cmd-main-win.cc:1179 ../src/gnome-cmd-user-actions.cc:216
 msgid "Cut"
 msgstr "Potong"
 
-#: ../src/gnome-cmd-main-win.cc:1181 ../src/gnome-cmd-user-actions.cc:211
+#: ../src/gnome-cmd-main-win.cc:1181 ../src/gnome-cmd-user-actions.cc:219
 msgid "Paste"
 msgstr "Tempel"
 
@@ -3834,7 +3839,7 @@ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgstr "Tak bisa memuat modul python 'gnomevfs' ('gnome.vfs')"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:269
-#: ../src/gnome-cmd-user-actions.cc:213
+#: ../src/gnome-cmd-user-actions.cc:221
 msgid "Search"
 msgstr "Cari"
 
@@ -3874,361 +3879,361 @@ msgstr "Memuat _teks:"
 msgid "Case sensiti_ve"
 msgstr "_Peka huruf besar kecil"
 
-#: ../src/gnome-cmd-user-actions.cc:129
+#: ../src/gnome-cmd-user-actions.cc:137
 msgid "No file selected"
 msgstr "Tak ada berkas yang dipilih"
 
-#: ../src/gnome-cmd-user-actions.cc:193
+#: ../src/gnome-cmd-user-actions.cc:201
 msgid "Bookmark current directory"
 msgstr "Tandabukui direktori saat ini"
 
-#: ../src/gnome-cmd-user-actions.cc:194
+#: ../src/gnome-cmd-user-actions.cc:202
 msgid "Manage bookmarks"
 msgstr "Mengelola penanda taut"
 
-#: ../src/gnome-cmd-user-actions.cc:195
+#: ../src/gnome-cmd-user-actions.cc:203
 msgid "Go to bookmarked location"
 msgstr "Ke lokasi yang ditandatauti"
 
-#: ../src/gnome-cmd-user-actions.cc:196
+#: ../src/gnome-cmd-user-actions.cc:204
 msgid "Show bookmarks of current device"
 msgstr "Tampilkan tanda taut dari perangkat saat ini"
 
-#: ../src/gnome-cmd-user-actions.cc:197
+#: ../src/gnome-cmd-user-actions.cc:205
 msgid "Execute command"
 msgstr "Jalankan perintah"
 
-#: ../src/gnome-cmd-user-actions.cc:198
+#: ../src/gnome-cmd-user-actions.cc:206
 msgid "Open terminal"
 msgstr "Buka terminal"
 
-#: ../src/gnome-cmd-user-actions.cc:199
+#: ../src/gnome-cmd-user-actions.cc:207
 msgid "Open terminal as root"
 msgstr "Buka terminal sebagai root"
 
-#: ../src/gnome-cmd-user-actions.cc:200
+#: ../src/gnome-cmd-user-actions.cc:208
 msgid "Start GNOME Commander as root"
 msgstr "Mulai GNOME Commander sebagai root"
 
-#: ../src/gnome-cmd-user-actions.cc:201
+#: ../src/gnome-cmd-user-actions.cc:209
 msgid "Close connection"
 msgstr "Tutup koneksi"
 
-#: ../src/gnome-cmd-user-actions.cc:202
+#: ../src/gnome-cmd-user-actions.cc:210
 msgid "New connection"
 msgstr "Koneksi baru"
 
-#: ../src/gnome-cmd-user-actions.cc:203
+#: ../src/gnome-cmd-user-actions.cc:211
 msgid "Open connection"
 msgstr "Buka koneksi"
 
-#: ../src/gnome-cmd-user-actions.cc:204
+#: ../src/gnome-cmd-user-actions.cc:212
 msgid "Change left connection"
 msgstr "Ubah koneksi kiri"
 
-#: ../src/gnome-cmd-user-actions.cc:205
+#: ../src/gnome-cmd-user-actions.cc:213
 msgid "Change right connection"
 msgstr "Ubah koneksi kanan"
 
-#: ../src/gnome-cmd-user-actions.cc:210
+#: ../src/gnome-cmd-user-actions.cc:218
 msgid "Show user defined files"
 msgstr "Tampilkan berkas yang didefinisikan oleh pengguna"
 
-#: ../src/gnome-cmd-user-actions.cc:214
+#: ../src/gnome-cmd-user-actions.cc:222
 msgid "Advanced rename tool"
 msgstr "Alat ubah nama tingkat lanjut"
 
-#: ../src/gnome-cmd-user-actions.cc:215
+#: ../src/gnome-cmd-user-actions.cc:223
 msgid "Change permissions"
 msgstr "Ubah hak akses"
 
-#: ../src/gnome-cmd-user-actions.cc:216
+#: ../src/gnome-cmd-user-actions.cc:224
 msgid "Change owner/group"
 msgstr "Ubah pemilik/grup"
 
-#: ../src/gnome-cmd-user-actions.cc:217
+#: ../src/gnome-cmd-user-actions.cc:225
 msgid "Copy files"
 msgstr "Salin berkas"
 
-#: ../src/gnome-cmd-user-actions.cc:218
+#: ../src/gnome-cmd-user-actions.cc:226
 msgid "Copy files with rename"
 msgstr "Salin berkas sambil ubah nama"
 
-#: ../src/gnome-cmd-user-actions.cc:219
+#: ../src/gnome-cmd-user-actions.cc:227
 msgid "Create symbolic link"
 msgstr "Buat taut simbolik"
 
-#: ../src/gnome-cmd-user-actions.cc:220
+#: ../src/gnome-cmd-user-actions.cc:228
 msgid "Delete files"
 msgstr "Hapus Berkas"
 
-#: ../src/gnome-cmd-user-actions.cc:221
+#: ../src/gnome-cmd-user-actions.cc:229
 msgid "Compare files (diff)"
 msgstr "Bandingkan berkas (diff)"
 
-#: ../src/gnome-cmd-user-actions.cc:222
+#: ../src/gnome-cmd-user-actions.cc:230
 msgid "Edit file"
 msgstr "Sunting berkas"
 
-#: ../src/gnome-cmd-user-actions.cc:223
+#: ../src/gnome-cmd-user-actions.cc:231
 msgid "Edit a new file"
 msgstr "Sunting suatu berkas baru"
 
-#: ../src/gnome-cmd-user-actions.cc:224
+#: ../src/gnome-cmd-user-actions.cc:232
 msgid "Quit"
 msgstr "Keluar"
 
-#: ../src/gnome-cmd-user-actions.cc:225
+#: ../src/gnome-cmd-user-actions.cc:233
 msgid "View with external viewer"
 msgstr "Tilik dengan penampil eksternal"
 
-#: ../src/gnome-cmd-user-actions.cc:226
+#: ../src/gnome-cmd-user-actions.cc:234
 msgid "View with internal viewer"
 msgstr "Tilik dengan penampil internal"
 
-#: ../src/gnome-cmd-user-actions.cc:227
+#: ../src/gnome-cmd-user-actions.cc:235
 msgid "Create directory"
 msgstr "Buat direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:228
+#: ../src/gnome-cmd-user-actions.cc:236
 msgid "Move files"
 msgstr "Memindah berkas"
 
-#: ../src/gnome-cmd-user-actions.cc:230
+#: ../src/gnome-cmd-user-actions.cc:238
 msgid "Rename files"
 msgstr "Ubah nama berkas"
 
-#: ../src/gnome-cmd-user-actions.cc:233
+#: ../src/gnome-cmd-user-actions.cc:241
 msgid "Synchronize directories"
 msgstr "Selaraskan direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:236
+#: ../src/gnome-cmd-user-actions.cc:244
 msgid "About GNOME Commander"
 msgstr "Tentang GNOME Commander"
 
-#: ../src/gnome-cmd-user-actions.cc:237
+#: ../src/gnome-cmd-user-actions.cc:245
 msgid "Help contents"
 msgstr "Isi bantuan"
 
-#: ../src/gnome-cmd-user-actions.cc:238
+#: ../src/gnome-cmd-user-actions.cc:246
 msgid "Help on keyboard shortcuts"
 msgstr "Bantuan tentang pintasan papan tik"
 
-#: ../src/gnome-cmd-user-actions.cc:239
+#: ../src/gnome-cmd-user-actions.cc:247
 msgid "Report a problem"
 msgstr "Laporkan suatu masalah"
 
-#: ../src/gnome-cmd-user-actions.cc:240
+#: ../src/gnome-cmd-user-actions.cc:248
 msgid "GNOME Commander on the web"
 msgstr "GNOME Commander di Web"
 
-#: ../src/gnome-cmd-user-actions.cc:241
+#: ../src/gnome-cmd-user-actions.cc:249
 msgid "Compare directories"
 msgstr "Bandingkan direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:242
+#: ../src/gnome-cmd-user-actions.cc:250
 msgid "Invert selection"
 msgstr "Balik pilihan"
 
-#: ../src/gnome-cmd-user-actions.cc:243
+#: ../src/gnome-cmd-user-actions.cc:251
 msgid "Select all"
 msgstr "Pilih semua"
 
-#: ../src/gnome-cmd-user-actions.cc:244
+#: ../src/gnome-cmd-user-actions.cc:252
 msgid "Toggle selection"
 msgstr "Jungkitkan pilihan"
 
-#: ../src/gnome-cmd-user-actions.cc:245
+#: ../src/gnome-cmd-user-actions.cc:253
 msgid "Toggle selection and move cursor downward"
 msgstr "Jungkitkan pilihan dan pindahkan kursor ke bawah"
 
-#: ../src/gnome-cmd-user-actions.cc:246
+#: ../src/gnome-cmd-user-actions.cc:254
 msgid "Unselect all"
 msgstr "Tidak pilih semua"
 
-#: ../src/gnome-cmd-user-actions.cc:249
+#: ../src/gnome-cmd-user-actions.cc:257
 msgid "Keyboard shortcuts"
 msgstr "Pintasan papan tik"
 
-#: ../src/gnome-cmd-user-actions.cc:250
+#: ../src/gnome-cmd-user-actions.cc:258
 msgid "Configure plugins"
 msgstr "Mengatur pengaya"
 
-#: ../src/gnome-cmd-user-actions.cc:251
+#: ../src/gnome-cmd-user-actions.cc:259
 msgid "Execute Python plugin"
 msgstr "Jalankan pengaya Python"
 
-#: ../src/gnome-cmd-user-actions.cc:252
+#: ../src/gnome-cmd-user-actions.cc:260
 msgid "Back one directory"
 msgstr "Mundur satu direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:253
+#: ../src/gnome-cmd-user-actions.cc:261
 msgid "Close the current tab"
 msgstr "Tutup tab saat ini"
 
-#: ../src/gnome-cmd-user-actions.cc:254
+#: ../src/gnome-cmd-user-actions.cc:262
 msgid "Close all tabs"
 msgstr "Tutup semua tab"
 
-#: ../src/gnome-cmd-user-actions.cc:255
+#: ../src/gnome-cmd-user-actions.cc:263
 msgid "Close duplicate tabs"
 msgstr "Tutup tab yang duplikat"
 
-#: ../src/gnome-cmd-user-actions.cc:256
+#: ../src/gnome-cmd-user-actions.cc:264
 msgid "Change directory"
 msgstr "Ubah direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:257
+#: ../src/gnome-cmd-user-actions.cc:265
 msgid "Show directory history"
 msgstr "Tampilkan riwayat direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:258
+#: ../src/gnome-cmd-user-actions.cc:266
 msgid "Equal panel size"
 msgstr "Ukuran panel sama"
 
-#: ../src/gnome-cmd-user-actions.cc:259
+#: ../src/gnome-cmd-user-actions.cc:267
 msgid "Maximize panel size"
 msgstr "Maksimalkan ukuran panel"
 
-#: ../src/gnome-cmd-user-actions.cc:260
+#: ../src/gnome-cmd-user-actions.cc:268
 msgid "Back to the first directory"
 msgstr "Kembali ke direktori pertama"
 
-#: ../src/gnome-cmd-user-actions.cc:261
+#: ../src/gnome-cmd-user-actions.cc:269
 msgid "Forward one directory"
 msgstr "Maju satu direktori"
 
-#: ../src/gnome-cmd-user-actions.cc:262
+#: ../src/gnome-cmd-user-actions.cc:270
 msgid "Home directory"
 msgstr "Direktori rumah"
 
-#: ../src/gnome-cmd-user-actions.cc:263
+#: ../src/gnome-cmd-user-actions.cc:271
 msgid "Open directory in the active window"
 msgstr "Buka direktori dalam jendela aktif"
 
-#: ../src/gnome-cmd-user-actions.cc:264
+#: ../src/gnome-cmd-user-actions.cc:272
 msgid "Open directory in the inactive window"
 msgstr "Buka direktori dalam jendela yang tak aktif"
 
-#: ../src/gnome-cmd-user-actions.cc:265
+#: ../src/gnome-cmd-user-actions.cc:273
 msgid "Open directory in the left window"
 msgstr "Buka direktori di jendela kiri"
 
-#: ../src/gnome-cmd-user-actions.cc:266
+#: ../src/gnome-cmd-user-actions.cc:274
 msgid "Open directory in the right window"
 msgstr "Buka direktori di jendela kanan"
 
-#: ../src/gnome-cmd-user-actions.cc:267
+#: ../src/gnome-cmd-user-actions.cc:275
 msgid "Open directory in the new tab"
 msgstr "Buka direktori di tab baru"
 
-#: ../src/gnome-cmd-user-actions.cc:268
+#: ../src/gnome-cmd-user-actions.cc:276
 msgid "Open directory in the new tab (inactive window)"
 msgstr "Buka direktori dalam tab baru (jendela yang tak aktif)"
 
-#: ../src/gnome-cmd-user-actions.cc:269
+#: ../src/gnome-cmd-user-actions.cc:277
 msgid "Forward to the last directory"
 msgstr "Maju ke direktori terakhir"
 
-#: ../src/gnome-cmd-user-actions.cc:270
+#: ../src/gnome-cmd-user-actions.cc:278
 msgid "Next tab"
 msgstr "Tab selanjutnya"
 
-#: ../src/gnome-cmd-user-actions.cc:271
+#: ../src/gnome-cmd-user-actions.cc:279
 msgid "Open directory in a new tab"
 msgstr "Buka direktori dalam tab baru"
 
-#: ../src/gnome-cmd-user-actions.cc:272
+#: ../src/gnome-cmd-user-actions.cc:280
 msgid "Previous tab"
 msgstr "Tab sebelumnya"
 
-#: ../src/gnome-cmd-user-actions.cc:274
+#: ../src/gnome-cmd-user-actions.cc:282
 msgid "Root directory"
 msgstr "Direktori root"
 
-#: ../src/gnome-cmd-user-actions.cc:275
+#: ../src/gnome-cmd-user-actions.cc:283
 msgid "Lock/unlock tab"
 msgstr "Kunci/buka kunci tab"
 
-#: ../src/gnome-cmd-user-actions.cc:277
+#: ../src/gnome-cmd-user-actions.cc:285
 msgid "Show terminal"
 msgstr "Tampilkan terminal"
 
-#: ../src/gnome-cmd-user-actions.cc:280
+#: ../src/gnome-cmd-user-actions.cc:288
 msgid "Display main menu"
 msgstr "Tampilkan menu utama"
 
-#: ../src/gnome-cmd-user-actions.cc:281
+#: ../src/gnome-cmd-user-actions.cc:289
 msgid "Move cursor one step up"
 msgstr "Naikkan kursor satu langkah"
 
-#: ../src/gnome-cmd-user-actions.cc:282
+#: ../src/gnome-cmd-user-actions.cc:290
 msgid "Move cursor one step down"
 msgstr "Turunkan kursor satu langkah"
 
-#: ../src/gnome-cmd-user-actions.cc:803 ../src/gnome-cmd-user-actions.cc:948
-#: ../src/gnome-cmd-user-actions.cc:1177
+#: ../src/gnome-cmd-user-actions.cc:811 ../src/gnome-cmd-user-actions.cc:956
+#: ../src/gnome-cmd-user-actions.cc:1185
 msgid "No valid command given."
 msgstr "Tidak ada perintah valid yang diberikan."
 
-#: ../src/gnome-cmd-user-actions.cc:815 ../src/gnome-cmd-user-actions.cc:959
-#: ../src/gnome-cmd-user-actions.cc:1190 ../src/gnome-cmd-user-actions.cc:1229
+#: ../src/gnome-cmd-user-actions.cc:823 ../src/gnome-cmd-user-actions.cc:967
+#: ../src/gnome-cmd-user-actions.cc:1198 ../src/gnome-cmd-user-actions.cc:1237
 #: ../src/utils.cc:137
 msgid "Unable to execute command."
 msgstr "Tak bisa mengeksekusi perintah."
 
-#: ../src/gnome-cmd-user-actions.cc:880
+#: ../src/gnome-cmd-user-actions.cc:888
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Buat taut simbolik dari %i berkas dalam %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:885
+#: ../src/gnome-cmd-user-actions.cc:893
 msgid "Create"
 msgstr "Buat"
 
-#: ../src/gnome-cmd-user-actions.cc:976 ../src/gnome-cmd-user-actions.cc:993
-#: ../src/gnome-cmd-user-actions.cc:1032
+#: ../src/gnome-cmd-user-actions.cc:984 ../src/gnome-cmd-user-actions.cc:1001
+#: ../src/gnome-cmd-user-actions.cc:1040
 msgid "Operation not supported on remote file systems"
 msgstr "Operasi tak didukung pada sistem berkas jauh"
 
-#: ../src/gnome-cmd-user-actions.cc:1008
+#: ../src/gnome-cmd-user-actions.cc:1016
 msgid "Too many selected files"
 msgstr "File yang dipilih terlalu banyak"
 
-#: ../src/gnome-cmd-user-actions.cc:1262
+#: ../src/gnome-cmd-user-actions.cc:1270
 msgid "Unable to open terminal in root mode."
 msgstr "Tak bisa membuka terminal dalam mode root."
 
-#: ../src/gnome-cmd-user-actions.cc:1267
+#: ../src/gnome-cmd-user-actions.cc:1275
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found."
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu, atau beesu tak ditemukan."
 
-#: ../src/gnome-cmd-user-actions.cc:1286
+#: ../src/gnome-cmd-user-actions.cc:1294
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Tak bisa memulai GNOME Commander dalam mode root."
 
-#: ../src/gnome-cmd-user-actions.cc:1289
+#: ../src/gnome-cmd-user-actions.cc:1297
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "gksudo, xdg-su, gksu, gnomesu, kdesu, atau beesu tak ditemukan"
 
-#: ../src/gnome-cmd-user-actions.cc:1898
+#: ../src/gnome-cmd-user-actions.cc:1906
 msgid "Bookmarks"
 msgstr "Penanda"
 
-#: ../src/gnome-cmd-user-actions.cc:2008 ../src/gnome-cmd-user-actions.cc:2011
+#: ../src/gnome-cmd-user-actions.cc:2016 ../src/gnome-cmd-user-actions.cc:2019
 msgid "There was an error opening home page."
 msgstr "Ada galat saat membuka laman web."
 
-#: ../src/gnome-cmd-user-actions.cc:2022 ../src/gnome-cmd-user-actions.cc:2025
+#: ../src/gnome-cmd-user-actions.cc:2030 ../src/gnome-cmd-user-actions.cc:2033
 msgid "There was an error reporting problem."
 msgstr "Ada galat saat melaporkan masalah."
 
-#: ../src/gnome-cmd-user-actions.cc:2052
+#: ../src/gnome-cmd-user-actions.cc:2060
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Manajer berkas yang cepat dan bertenaga bagi desktop GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:2056
+#: ../src/gnome-cmd-user-actions.cc:2064
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4240,7 +4245,7 @@ msgstr ""
 "sebagaimana dipublikasikan oleh Free Software Foundation; Lisensi versi 2 "
 "atau (sesuai pilihan Anda) sebarang versi setelahnya."
 
-#: ../src/gnome-cmd-user-actions.cc:2060
+#: ../src/gnome-cmd-user-actions.cc:2068
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4251,7 +4256,7 @@ msgstr ""
 "ADANYA JAMINAN; termasuk tanpa jaminan DAYA JUAL atau KELAIKAN UNTUK TUJUAN "
 "TERTENTU. Lihat GNU General Public License untuk rincian lebih lanjut."
 
-#: ../src/gnome-cmd-user-actions.cc:2064
+#: ../src/gnome-cmd-user-actions.cc:2072
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4261,9 +4266,11 @@ msgstr ""
 "GNOME Commander, jika tidak, tulislah surat ke Free Software Foundation, "
 "Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:2081
+#: ../src/gnome-cmd-user-actions.cc:2089
 msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2012-2014, 2016-2017"
+msgstr ""
+"Andika Triwidada <andika@gmail.com>, 2012-2014, 2016-2017.\n"
+"Kukuh Syafaat <syafaatkukuh@gmail.com>, 2017."
 
 #: ../src/gnome-cmd-xfer.cc:201
 #, c-format
@@ -4382,12 +4389,12 @@ msgid "Find"
 msgstr "Cari"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:273 ../src/intviewer/viewer-window.cc:705
-#: ../src/intviewer/viewer-window.cc:907
+#: ../src/intviewer/search-dlg.cc:273 ../src/intviewer/viewer-window.cc:795
+#: ../src/intviewer/viewer-window.cc:997
 msgid "_Text"
 msgstr "_Teks"
 
-#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:713
+#: ../src/intviewer/search-dlg.cc:274 ../src/intviewer/viewer-window.cc:803
 msgid "_Hexadecimal"
 msgstr "_Heksadesimal"
 
@@ -4428,111 +4435,111 @@ msgstr "(paskan ke jendela)"
 msgid "_Copy selection"
 msgstr "_Salin pilihan"
 
-#: ../src/intviewer/viewer-window.cc:695
+#: ../src/intviewer/viewer-window.cc:785
 msgid "_Close"
 msgstr "_Tutup"
 
-#: ../src/intviewer/viewer-window.cc:709
+#: ../src/intviewer/viewer-window.cc:799
 msgid "_Binary"
 msgstr "_Biner"
 
-#: ../src/intviewer/viewer-window.cc:717 ../src/intviewer/viewer-window.cc:912
+#: ../src/intviewer/viewer-window.cc:807 ../src/intviewer/viewer-window.cc:1002
 msgid "_Image"
 msgstr "_Gambar"
 
-#: ../src/intviewer/viewer-window.cc:722
+#: ../src/intviewer/viewer-window.cc:812
 msgid "_Zoom In"
 msgstr "_Perbesar"
 
-#: ../src/intviewer/viewer-window.cc:726
+#: ../src/intviewer/viewer-window.cc:816
 msgid "Zoom _Out"
 msgstr "Per_kecil"
 
-#: ../src/intviewer/viewer-window.cc:730
+#: ../src/intviewer/viewer-window.cc:820
 msgid "_Normal Size"
 msgstr "Ukuran _Normal"
 
-#: ../src/intviewer/viewer-window.cc:734
+#: ../src/intviewer/viewer-window.cc:824
 msgid "Best _Fit"
 msgstr "Pas _Ukuran"
 
-#: ../src/intviewer/viewer-window.cc:744
+#: ../src/intviewer/viewer-window.cc:834
 msgid "_Copy Text Selection"
 msgstr "_Salin Pilihan Teks"
 
-#: ../src/intviewer/viewer-window.cc:748
+#: ../src/intviewer/viewer-window.cc:838
 msgid "Find..."
 msgstr "Cari…"
 
-#: ../src/intviewer/viewer-window.cc:752
+#: ../src/intviewer/viewer-window.cc:842
 msgid "Find Next"
 msgstr "Cari Selanjutnya"
 
-#: ../src/intviewer/viewer-window.cc:756
+#: ../src/intviewer/viewer-window.cc:846
 msgid "Find Previous"
 msgstr "Cari Sebelumnya"
 
-#: ../src/intviewer/viewer-window.cc:761
+#: ../src/intviewer/viewer-window.cc:851
 msgid "_Wrap lines"
 msgstr "_Lipat baris"
 
-#: ../src/intviewer/viewer-window.cc:766
+#: ../src/intviewer/viewer-window.cc:856
 msgid "_Encoding"
 msgstr "M_engode"
 
-#: ../src/intviewer/viewer-window.cc:807
+#: ../src/intviewer/viewer-window.cc:897
 msgid "Show Metadata _Tags"
 msgstr "Tampilkan _Tag Metadata"
 
-#: ../src/intviewer/viewer-window.cc:813
+#: ../src/intviewer/viewer-window.cc:903
 msgid "_Rotate Clockwise"
 msgstr "Puta_r Searah Jarum Jam"
 
-#: ../src/intviewer/viewer-window.cc:818
+#: ../src/intviewer/viewer-window.cc:908
 msgid "Rotate Counter Clockwis_e"
 msgstr "Putar B_erlawanan Arah Jarum Jam"
 
-#: ../src/intviewer/viewer-window.cc:823
+#: ../src/intviewer/viewer-window.cc:913
 msgid "_Rotate 180°"
 msgstr "Puta_r 180°"
 
-#: ../src/intviewer/viewer-window.cc:828
+#: ../src/intviewer/viewer-window.cc:918
 msgid "Flip _Vertical"
 msgstr "Jungkir _Vertikal"
 
-#: ../src/intviewer/viewer-window.cc:833
+#: ../src/intviewer/viewer-window.cc:923
 msgid "Flip _Horizontal"
 msgstr "Jungkir _Horisontal"
 
-#: ../src/intviewer/viewer-window.cc:843
+#: ../src/intviewer/viewer-window.cc:933
 msgid "_Binary Mode"
 msgstr "Mode _Biner"
 
-#: ../src/intviewer/viewer-window.cc:849
+#: ../src/intviewer/viewer-window.cc:939
 msgid "_Hexadecimal Offset"
 msgstr "Offset _Heksadesimal"
 
-#: ../src/intviewer/viewer-window.cc:855
+#: ../src/intviewer/viewer-window.cc:945
 msgid "_Save Current Settings"
 msgstr "_Simpan Pengaturan Saat Ini"
 
-#: ../src/intviewer/viewer-window.cc:865
+#: ../src/intviewer/viewer-window.cc:955
 msgid "_20 chars/line"
 msgstr "_20 kar/baris"
 
-#: ../src/intviewer/viewer-window.cc:870
+#: ../src/intviewer/viewer-window.cc:960
 msgid "_40 chars/line"
 msgstr "_40 kar/baris"
 
-#: ../src/intviewer/viewer-window.cc:875
+#: ../src/intviewer/viewer-window.cc:965
 msgid "_80 chars/line"
 msgstr "_80 kar/baris"
 
-#: ../src/intviewer/viewer-window.cc:884
+#: ../src/intviewer/viewer-window.cc:974
 msgid "Quick _Help"
 msgstr "_Bantuan Cepat"
 
-#: ../src/intviewer/viewer-window.cc:1162
+#: ../src/intviewer/viewer-window.cc:1249
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "Pola \"%s\" tak ditemukan"
