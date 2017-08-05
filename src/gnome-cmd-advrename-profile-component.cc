@@ -908,7 +908,6 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
         gtk_box_pack_start (GTK_BOX (vbox), align, FALSE, FALSE, 0);
 
         {
-            GtkWidget *bbox;
             GtkWidget *local_vbox = gtk_vbox_new (FALSE, 6);
             gtk_container_add (GTK_CONTAINER (align), local_vbox);
 
@@ -986,6 +985,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
     // Regex
     {
+        GtkWidget *bbox;
         str = g_strdup_printf ("<b>%s</b>", _("Regex replacing"));
         label = gtk_label_new (str);
         g_free (str);

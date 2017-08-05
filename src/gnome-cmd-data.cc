@@ -1773,7 +1773,7 @@ static void save_fav_apps (const gchar *fname)
                     /* Are the names equal? -> Change the name */
                     if (!strcmp(group_name_to_test, group_name))
                     {
-                        int name_occurence = 2;
+                        static int name_occurence = 2;
                         gchar *new_name = g_strdup_printf("%s_%d",
                                             gnome_cmd_app_get_name(app2),
                                             name_occurence);
