@@ -312,7 +312,7 @@ struct FileFormatData
 gchar FileFormatData::empty_string[] = "";
 
 
-inline FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
+FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
 {
     // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
@@ -338,11 +338,11 @@ inline FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gbo
         fname = get_utf8 (f->get_name());
 
     if (fl->priv->base_dir != NULL)
-	text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), NULL);
+        text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), NULL);
     else 
-	text[GnomeCmdFileList::COLUMN_DIR] = dpath;
+        text[GnomeCmdFileList::COLUMN_DIR] = dpath;
 
-    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);	
+    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
 
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (f->get_extension());
