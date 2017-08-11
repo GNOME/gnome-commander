@@ -2,7 +2,7 @@
 
 SUBDIRS = dialogs tags intviewer
 
-AM_CXXFLAGS = $(WARN_CXXFLAGS)
+AM_CXXFLAGS = $(WARN_CXXFLAGS) -Wno-error=switch-default -Wno-switch-default
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
