@@ -59,7 +59,8 @@ typedef enum
 typedef enum
 {
     GNOME_CMD_QUICK_SEARCH_CTRL_ALT,
-    GNOME_CMD_QUICK_SEARCH_ALT
+    GNOME_CMD_QUICK_SEARCH_ALT,
+    GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER
 }GnomeCmdQuickSearchShortcut;
 
 

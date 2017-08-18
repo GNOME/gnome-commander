@@ -133,28 +133,49 @@ static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, Gn
     g_return_val_if_fail (mw!=NULL, FALSE);
 
     if (event->type!=GDK_KEY_PRESS)
+    {
         return FALSE;
+    }
 
     if (!((event->keyval >= GDK_A && event->keyval <= GDK_Z) || (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
           (event->keyval >= GDK_0 && event->keyval <= GDK_9) ||
           event->keyval == GDK_period || event->keyval == GDK_question|| event->keyval == GDK_asterisk || event->keyval == GDK_bracketleft))
+    {
         return FALSE;
+    }
 
-    if (!gnome_cmd_data.options.quick_search)
+    if (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
+    {
         return FALSE;
+    }
 
-    if (!state_is_alt (event->state) && !state_is_alt_shift (event->state))
+    if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
+        && (!state_is_alt (event->state) && !state_is_alt_shift (event->state)))
+    {
         return FALSE;
+    }
+    
+    if (state_is_ctrl (event->state) || state_is_ctrl_shift (event->state) || state_is_ctrl_alt_shift (event->state)
+        || ((state_is_alt (event->state) || state_is_alt_shift (event->state)) && gnome_cmd_data.options.quick_search != GNOME_CMD_QUICK_SEARCH_ALT))
+    {
+        return FALSE;
+    }
 
     GnomeCmdFileSelector *fs = mw->fs(ACTIVE);
     if (!fs || !fs->file_list())
+    {
         return FALSE;
+    }
 
     if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->file_list())))
+    {
         return FALSE;
+    }
 
     if (gnome_cmd_file_list_quicksearch_shown (fs->file_list()))
+    {
         return FALSE;
+    }
 
     gnome_cmd_file_list_show_quicksearch (fs->file_list(), event->keyval);
 

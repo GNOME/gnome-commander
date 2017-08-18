@@ -2461,7 +2461,8 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 break;
         }
     }
-    else if (state_is_ctrl_alt (event->state) || state_is_ctrl_alt_shift (event->state))
+    else if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
+             && (state_is_ctrl_alt (event->state) || state_is_ctrl_alt_shift (event->state)))
     {
         if ((event->keyval >= GDK_a && event->keyval <= GDK_z)
             || (event->keyval >= GDK_A && event->keyval <= GDK_Z)

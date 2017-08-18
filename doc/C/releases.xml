@@ -38,9 +38,12 @@
                         <listitem>
                            <para>[build] New documentation infrastructure: Use yelp-tools instead of gnome-doc-utils</para>
                        </listitem>
+                        <listitem>
+                           <para>Quick search can be activated by just typing a letter, adjustable in the options tab</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
-                <para>New features:</para>
+                <para>Other changes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>

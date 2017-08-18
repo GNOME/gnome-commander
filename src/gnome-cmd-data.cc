@@ -778,9 +778,9 @@ static void on_use_internal_viewer_changed()
 
 static void on_quick_search_shortcut_changed()
 {
-    gint quick_search;
-    quick_search = g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
-    gnome_cmd_data.options.quick_search = (GnomeCmdQuickSearchShortcut) quick_search;
+    GnomeCmdQuickSearchShortcut quick_search;
+    quick_search = (GnomeCmdQuickSearchShortcut) g_settings_get_enum (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
+    gnome_cmd_data.options.quick_search = quick_search;
 }
 
 static void on_quick_search_exact_match_begin_changed()
