@@ -173,7 +173,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group (radio), _("Just letters"), "quick_search");
+    radio = create_radio (parent, get_radio_group (radio), _("Just letters (command line access with CTRL+ALT+C)"), "quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);

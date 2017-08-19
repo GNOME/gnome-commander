@@ -155,8 +155,10 @@ static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, Gn
         return FALSE;
     }
     
-    if (state_is_ctrl (event->state) || state_is_ctrl_shift (event->state) || state_is_ctrl_alt_shift (event->state)
-        || ((state_is_alt (event->state) || state_is_alt_shift (event->state)) && gnome_cmd_data.options.quick_search != GNOME_CMD_QUICK_SEARCH_ALT))
+    if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER) &&
+        (state_is_ctrl (event->state) || state_is_ctrl_shift (event->state) || state_is_ctrl_alt_shift (event->state)
+        || (state_is_alt (event->state) || state_is_alt_shift (event->state))
+        || (state_is_ctrl_alt(event->state))))
     {
         return FALSE;
     }
@@ -984,7 +986,19 @@ void GnomeCmdMainWin::refocus()
 
 gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 {
-    if (state_is_alt (event->state))
+    if (state_is_ctrl_alt (event->state))
+    {
+        switch (event->keyval)
+        {
+            case GDK_c:
+            case GDK_C:
+                if (gnome_cmd_data.cmdline_visibility && (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER))
+                    gnome_cmd_cmdline_focus(main_win->get_cmdline());
+                return TRUE;
+                break;
+        }
+    }
+    else if (state_is_alt (event->state))
     {
         switch (event->keyval)
         {
