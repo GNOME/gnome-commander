@@ -152,7 +152,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     // Sort options
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Sorting"));
+    cat = create_category (parent, cat_box, _("Sorting/Quick search"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     check = create_check (parent, _("Case sensitive"), "case_sens_check");
