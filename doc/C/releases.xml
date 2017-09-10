@@ -41,6 +41,9 @@
                         <listitem>
                            <para>Quick search can be activated by just typing a letter, adjustable in the options tab</para>
                        </listitem>
+                        <listitem>
+                           <para>Option for saving/not saving the command line history on exit</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
                 <para>Other changes:</para>
