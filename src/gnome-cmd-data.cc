@@ -2472,24 +2472,31 @@ inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format
 gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *settings_given, const gchar *key, GList *strings)
 {
     gboolean rv = true;
-    guint number_of_strings = strings == NULL ? 0 : g_list_length (strings);
-    if (number_of_strings > 0)
+
+    if (strings == NULL)
+    {
+        rv = g_settings_set_strv(settings_given, key, NULL);
+    }
+    else
     {
         gint ii;
         gchar** str_array;
-        str_array = (gchar**) g_malloc ((number_of_strings + 1) * sizeof(char*));
-        GList *str_list = strings;
+        str_array = (gchar**) g_malloc ((g_list_length (strings) + 1) * sizeof(char*));
 
-        // build up a char array for storage in GSettings
-        for (ii = 0; str_list; str_list = str_list->next, ++ii)
+        // Build up a NULL terminated char array for storage in GSettings
+        for (ii = 0; strings; strings = strings->next, ++ii)
         {
-            str_array[ii] = g_strdup((const gchar*) str_list->data);
+            str_array[ii] = g_strdup((const gchar*) strings->data);
         }
         str_array[ii] = NULL;
 
-        // store the NULL terminated str_array in GSettings
         rv = g_settings_set_strv(settings_given, key, str_array);
 
+        // Free the char array
+        for (ii = 0; strings; strings = strings->next, ++ii)
+        {
+            g_free(str_array[ii]);
+        }
         g_free(str_array);
     }
     return rv;
@@ -3064,6 +3071,10 @@ void GnomeCmdData::migrate_all_data_to_gsettings()
             str_array[ii] = NULL;
             g_settings_set_strv(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, str_array);
 
+            for (ii = 0; list_pointer; list_pointer=list_pointer->next, ++ii)
+            {
+                g_free(str_array[ii]);
+            }
             g_free(str_array);
             g_list_free(cmdline_history_for_migration);
         }
@@ -3825,7 +3836,6 @@ void GnomeCmdData::load()
     load_data (gdk_modifiers_names, gdk_mod_names_data, G_N_ELEMENTS(gdk_mod_names_data));
 
     load_cmdline_history();
-    //load_dir_history ();
 
     if (!priv->con_list)
         priv->con_list = gnome_cmd_con_list_new ();
@@ -4078,6 +4088,8 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
 
         rv = (gint) g_settings_set_strv(settings_given, key, str_array);
 
+        g_free(str_array[0]);
+        g_free(str_array[1]);
         g_free(str_array);
     }
     else
@@ -4233,8 +4245,6 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD, priv->ftp_anonymous_password);
 
     save_cmdline_history();
-    //write_dir_history ();
-
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_intviewer_defaults();
@@ -4243,6 +4253,7 @@ void GnomeCmdData::save()
 
     save_auto_load_plugins();
 }
+
 
 gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
 {
