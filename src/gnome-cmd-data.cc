@@ -1348,6 +1348,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_dirs_on_exit = cfg.save_dirs_on_exit;
     save_tabs_on_exit = cfg.save_tabs_on_exit;
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
+    save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
     symlink_prefix = g_strdup (cfg.symlink_prefix);
     main_win_pos[0] = cfg.main_win_pos[0];
     main_win_pos[1] = cfg.main_win_pos[1];
@@ -1409,6 +1410,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_dirs_on_exit = cfg.save_dirs_on_exit;
         save_tabs_on_exit = cfg.save_tabs_on_exit;
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
+        save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
         symlink_prefix = g_strdup (cfg.symlink_prefix);
         main_win_pos[0] = cfg.main_win_pos[0];
         main_win_pos[1] = cfg.main_win_pos[1];
@@ -2494,14 +2496,17 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
 }
 
 
-inline void GnomeCmdData::save_cmdline_history()
+void GnomeCmdData::save_cmdline_history()
 {
-    if (!cmdline_visibility)
-        return;
-
-    cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
-
-    set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
+    if (options.save_cmdline_history_on_exit)
+    {
+        cmdline_history = gnome_cmd_cmdline_get_history (main_win->get_cmdline());
+        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, cmdline_history);
+    }
+    else
+    {
+        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, NULL);
+    }
 }
 
 
@@ -3609,6 +3614,7 @@ void GnomeCmdData::load()
     options.save_dirs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT);
     options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
     options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
+    options.save_cmdline_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT);
 
     options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
     options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
@@ -4215,6 +4221,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT, &(options.save_dirs_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT, &(options.save_tabs_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT, &(options.save_dir_history_on_exit));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT, &(options.save_cmdline_history_on_exit));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);

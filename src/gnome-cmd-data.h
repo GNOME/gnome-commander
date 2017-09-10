@@ -86,6 +86,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SAVE_DIRS_ON_EXIT               "save-dirs-on-exit"
 #define GCMD_SETTINGS_SAVE_TABS_ON_EXIT               "save-tabs-on-exit"
 #define GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT        "save-dir-history-on-exit"
+#define GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT    "save-cmdline-history-on-exit"
 #define GCMD_SETTINGS_ALWAYS_SHOW_TABS                "always-show-tabs"
 #define GCMD_SETTINGS_TAB_LOCK_INDICATOR              "tab-lock-indicator"
 #define GCMD_SETTINGS_MAIN_WIN_STATE                  "main-win-state"
@@ -261,6 +262,7 @@ struct GnomeCmdData
         gboolean                     save_dirs_on_exit;
         gboolean                     save_tabs_on_exit;
         gboolean                     save_dir_history_on_exit;
+        gboolean                     save_cmdline_history_on_exit;
         gchar                       *symlink_prefix;
         gint                         main_win_pos[2];
         // Format
@@ -319,6 +321,7 @@ struct GnomeCmdData
                    save_dirs_on_exit(FALSE),
                    save_tabs_on_exit(TRUE),
                    save_dir_history_on_exit(TRUE),
+                   save_cmdline_history_on_exit(TRUE),
                    symlink_prefix(NULL),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),

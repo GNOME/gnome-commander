@@ -216,6 +216,10 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dir_history_on_exit);
 
+    check = create_check (parent, _("Commandline history"), "save_cmdline_history");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_cmdline_history_on_exit);
+
 
     return frame;
 }
@@ -237,6 +241,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
     GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
     GtkWidget *save_dir_history = lookup_widget (dialog, "save_dir_history");
+    GtkWidget *save_cmdline_history = lookup_widget (dialog, "save_cmdline_history");
 
     cfg.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -262,6 +267,7 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     cfg.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
     cfg.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
     cfg.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
+    cfg.save_cmdline_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_cmdline_history));
 }
 
 
