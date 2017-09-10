@@ -89,6 +89,9 @@ void DEBUG (gchar flag, const gchar *format, ...)
  */
 void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
 {
+    g_return_if_fail (in_command != NULL);
+    g_return_if_fail (strlen(in_command) != 0);
+
     gchar *command;
 
     if (term)
@@ -119,7 +122,7 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
         command = g_strdup (in_command);
 
     DEBUG ('g', "running%s: %s\n", (term?" in terminal":""), command);
- 
+
     gint argc;
     gchar **argv;
     GError *error = NULL;
