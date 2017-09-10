@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2017-08-19 10:09+0000\n"
-"PO-Revision-Date: 2017-09-03 18:17+0200\n"
+"POT-Creation-Date: 2017-09-09 17:14+0000\n"
+"PO-Revision-Date: 2017-09-10 20:08+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -36,12 +36,6 @@ msgid "Two-pane file manager"
 msgstr "Kétpaneles fájlkezelő"
 
 #: data/gnome-commander.appdata.xml.in:10
-#| msgid ""
-#| "GNOME Commander is a \"two-pane\" graphical file manager for the GNOME "
-#| "desktop environment. It features separate tabs for each pane, setting up "
-#| "custom device buttons, bookmark manager, fully integrated commandline, "
-#| "file quick search, an internal image viewer, a powerful batch renaming "
-#| "tool, and FTP and Samba access."
 msgid ""
 "GNOME Commander is a “two-pane” graphical file manager for the GNOME desktop "
 "environment. It features separate tabs for each pane, setting up custom "
@@ -84,9 +78,6 @@ msgid "Use default font"
 msgstr "Alapértelmezett betűkészlet használata"
 
 #: data/org.gnome.gnome-commander.gschema.xml:32
-#| msgid ""
-#| "Whether to use the system's default fixed width font for the file panels "
-#| "instead of a font specific to gnome-commander."
 msgid ""
 "Whether to use the system’s default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
@@ -99,9 +90,6 @@ msgid "Panel font"
 msgstr "Panel betűkészlete"
 
 #: data/org.gnome.gnome-commander.gschema.xml:40
-#| msgid ""
-#| "A custom font that will be used for the file panes if the \"Use default "
-#| "font\" option is turned off."
 msgid ""
 "A custom font that will be used for the file panes if the “Use default font” "
 "option is turned off."
@@ -323,11 +311,6 @@ msgid "Symlink string"
 msgstr "Szimbolikus link karakterlánca"
 
 #: data/org.gnome.gnome-commander.gschema.xml:188
-#| msgid ""
-#| "This string defines the default name of a newly created symlink. Leave "
-#| "the string empty to use the default value which is hard coded into the "
-#| "program code. A '%s' will be expanded to the item name for which a link "
-#| "should be created."
 msgid ""
 "This string defines the default name of a newly created symlink. Leave the "
 "string empty to use the default value which is hard coded into the program "
@@ -448,9 +431,6 @@ msgid "Main window state"
 msgstr "Főablak állapota"
 
 #: data/org.gnome.gnome-commander.gschema.xml:289
-#| msgid ""
-#| "The number represents the main window state, e.g. 'maximized', "
-#| "'fullscreen', etc. and is calculated internally."
 msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
@@ -737,9 +717,6 @@ msgid "Backup file pattern"
 msgstr "Másolatfájl minta"
 
 #: data/org.gnome.gnome-commander.gschema.xml:503
-#| msgid ""
-#| "The given string defines suffixes (separated by semicolon) for files "
-#| "which should by filtered out if backup files should by hidden."
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -1277,7 +1254,6 @@ msgstr "Nem érhető el a hibaleírás"
 
 #: plugins/fileroller/file-roller-plugin.cc:109 src/gnome-cmd-data.cc:85
 #, c-format
-#| msgid "Couldn't read from the directory %s: %s"
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Nem sikerült betölteni a sémákat innen: %s: %s\n"
 
@@ -1290,7 +1266,6 @@ msgid "Create Archive"
 msgstr "Archívum létrehozása"
 
 #: plugins/fileroller/file-roller-plugin.cc:485
-#| msgid "Create Archive"
 msgid "Create Archive…"
 msgstr "Archívum létrehozása…"
 
@@ -1301,7 +1276,6 @@ msgstr "Kibontás a jelenlegi könyvtárban"
 #: plugins/fileroller/file-roller-plugin.cc:504
 #: plugins/fileroller/file-roller-plugin.cc:514
 #, c-format
-#| msgid "Extract to '%s'"
 msgid "Extract to “%s”"
 msgstr "Kibontás ide: „%s”"
 
@@ -1341,9 +1315,6 @@ msgid "Test result:"
 msgstr "Teszteredmény:"
 
 #: plugins/fileroller/file-roller-plugin.cc:629
-#| msgid ""
-#| "Use $N as a pattern for the original file name. See the manual page for "
-#| "\"strftime\" for other patterns."
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
@@ -1369,13 +1340,11 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:131
 #: src/dialogs/gnome-cmd-search-dialog.cc:181
-#| msgid "/_Save Profile As..."
 msgid "/_Save Profile As…"
 msgstr "/Profil mentése _másként…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:140
 #: src/dialogs/gnome-cmd-search-dialog.cc:190
-#| msgid "/_Manage Profiles..."
 msgid "/_Manage Profiles…"
 msgstr "/Profilok _kezelése…"
 
@@ -1448,7 +1417,6 @@ msgstr "Fájl módosítási dátuma"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:701
 #: src/dialogs/gnome-cmd-search-dialog.cc:1151
-#| msgid "Profiles"
 msgid "Profiles…"
 msgstr "Profilok…"
 
@@ -1547,7 +1515,6 @@ msgstr "Adjon meg egy nevet, és próbálja újra."
 
 #: src/dialogs/gnome-cmd-con-dialog.cc:332
 #, c-format
-#| msgid "\"%s\" is not a valid location"
 msgid "“%s” is not a valid location"
 msgstr "A(z) „%s” nem érvényes hely"
 
@@ -1600,16 +1567,11 @@ msgstr[0] "%ld törölve %ld fájlból"
 msgstr[1] "%ld törölve %ld fájlból"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:133
-#| msgid "Deleting..."
 msgid "Deleting…"
 msgstr "Törlés…"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:205
 #, c-format
-#| msgid ""
-#| "Error while deleting \"%s\"\n"
-#| "\n"
-#| "%s"
 msgid ""
 "Error while deleting “%s”\n"
 "\n"
@@ -1641,7 +1603,6 @@ msgstr "Kihagyás"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:278
 #, c-format
-#| msgid "Do you want to delete \"%s\"?"
 msgid "Do you want to delete “%s”?"
 msgstr "Valóban törölni akarja a következőt: „%s”?"
 
@@ -1859,7 +1820,6 @@ msgstr "Opcionális adat"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:492
 #, c-format
-#| msgid "Shortcut \"%s\" is already taken by \"%s\"."
 msgid "Shortcut “%s” is already taken by “%s”."
 msgstr "A(z) „%s” gyorsbillentyű már hozzá van rendelve ehhez: „%s”."
 
@@ -1873,7 +1833,6 @@ msgstr "Gyorsbillentyű ütközések"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:499
 #, c-format
-#| msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
 msgstr ""
 "A gyorsbillentyű hozzárendelésének módosítása esetén el lesz távolítva "
@@ -1896,7 +1855,6 @@ msgstr "Nem adott meg fájlnevet"
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:137
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:140
 #, c-format
-#| msgid "Copy \"%s\" to"
 msgid "Copy “%s” to"
 msgstr "„%s” másolása ide"
 
@@ -2037,8 +1995,9 @@ msgid "Select directories"
 msgstr "Könyvtárak kijelölése"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:155
-msgid "Sorting"
-msgstr "Rendezés"
+#| msgid "Quick search"
+msgid "Sorting/Quick search"
+msgstr "Rendezés/gyors keresés"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:158
 msgid "Case sensitive"
@@ -2054,7 +2013,6 @@ msgid "CTRL+ALT+letters"
 msgstr "Ctrl+Alt+betűk"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:172
-#| msgid "ALT+letters (menu access with F10)"
 msgid "ALT+letters (menu access with F12)"
 msgstr "Alt+betűk (a menü elérése az F12-vel)"
 
@@ -2075,7 +2033,6 @@ msgid "Multiple instances"
 msgstr "Többszörös előfordulás"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:196
-#| msgid "Don't start a new instance"
 msgid "Don’t start a new instance"
 msgstr "Ne indítson új példányt"
 
@@ -2132,9 +2089,6 @@ msgid "Format:"
 msgstr "Formátum:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:384
-#| msgid ""
-#| "See the manual page for \"strftime\" for help on how to set the format "
-#| "string."
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
@@ -2142,7 +2096,6 @@ msgstr ""
 "használatát."
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:468
-#| msgid "Edit Colors..."
 msgid "Edit Colors…"
 msgstr "Színek szerkesztése…"
 
@@ -2314,7 +2267,6 @@ msgid "Color scheme:"
 msgstr "Színséma:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:797
-#| msgid "_Edit"
 msgid "Edit…"
 msgstr "Szerkesztés…"
 
@@ -2324,7 +2276,6 @@ msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Fájlok színezése az LS_COLORS környezeti változó szerint"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:812
-#| msgid "Edit colors..."
 msgid "Edit colors…"
 msgstr "Színek szerkesztése…"
 
@@ -2693,7 +2644,6 @@ msgstr "Áthelyezés"
 
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:126
 #, c-format
-#| msgid "Move \"%s\" to"
 msgid "Move “%s” to"
 msgstr "„%s” áthelyezése ide"
 
@@ -2708,7 +2658,6 @@ msgstr[1] "%d fájl áthelyezése"
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:149
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:189
 #, c-format
-#| msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgid "The directory “%s” doesn’t exist, do you want to create it?"
 msgstr "A(z) „%s” könyvtár nem létezik, szeretné létrehozni?"
 
@@ -2775,8 +2724,6 @@ msgstr "Keresés ebben: %s"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:526
 #, c-format
-#| msgid "Found %d match - search aborted"
-#| msgid_plural "Found %d matches - search aborted"
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "%d egyezés található — a keresés leállítva"
@@ -2809,7 +2756,6 @@ msgid "Failed to change directory outside of %s"
 msgstr "Nem sikerült a(z) %s helyen kívüli könyvtár váltása"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:1055
-#| msgid "Search"
 msgid "Search…"
 msgstr "Keresés…"
 
@@ -2850,7 +2796,6 @@ msgid "Disabled"
 msgstr "Letiltva"
 
 #: src/eggcellrendererkeys.cc:425 src/eggcellrendererkeys.cc:631
-#| msgid "New accelerator..."
 msgid "New accelerator…"
 msgstr "Új gyorsbillentyű…"
 
@@ -3316,7 +3261,6 @@ msgid "Add current dir"
 msgstr "Jelenlegi könyvtár hozzáadása"
 
 #: src/gnome-cmd-dir-indicator.cc:416
-#| msgid "Manage bookmarks"
 msgid "Manage bookmarks…"
 msgstr "Könyvjelzők kezelése…"
 
@@ -3398,9 +3342,6 @@ msgstr "/Még_se"
 
 #: src/gnome-cmd-file-list.cc:1260
 #, c-format
-#| msgid ""
-#| "\"%s\" seems to be a binary executable file but it lacks the executable "
-#| "bit. Do you want to set it and then run the file?"
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
@@ -3418,9 +3359,6 @@ msgstr "OK"
 
 #: src/gnome-cmd-file-list.cc:1289
 #, c-format
-#| msgid ""
-#| "\"%s\" is an executable text file. Do you want to run it, or display its "
-#| "contents?"
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
 "contents?"
@@ -3473,7 +3411,6 @@ msgid "Not an ordinary file."
 msgstr "Nem közönséges fájl."
 
 #: src/gnome-cmd-file-popmenu.cc:232
-#| msgid "Couldn't retrieve MIME type of the file."
 msgid "Couldn’t retrieve MIME type of the file."
 msgstr "A fájl MIME-típusa nem kérhető le."
 
@@ -3486,7 +3423,6 @@ msgid "Application:"
 msgstr "Alkalmazás:"
 
 #: src/gnome-cmd-file-popmenu.cc:274
-#| msgid "Open with other..."
 msgid "Open with other…"
 msgstr "Megnyitás mással…"
 
@@ -3501,7 +3437,6 @@ msgstr "Me_gnyitás"
 
 #: src/gnome-cmd-file-popmenu.cc:584
 #, c-format
-#| msgid "_Open with \"%s\""
 msgid "_Open with “%s”"
 msgstr "Megnyitás _ezzel: „%s”"
 
@@ -3544,12 +3479,10 @@ msgid "Open _terminal here"
 msgstr "_Terminál nyitása itt"
 
 #: src/gnome-cmd-file-popmenu.cc:633 src/gnome-cmd-main-menu.cc:423
-#| msgid "Properties"
 msgid "_Properties…"
 msgstr "_Tulajdonságok…"
 
 #: src/gnome-cmd-file-popmenu.cc:679
-#| msgid "Other _Application..."
 msgid "Other _Application…"
 msgstr "Egyéb _alkalmazás…"
 
@@ -3667,17 +3600,14 @@ msgid "Create _Symbolic Link"
 msgstr "_Szimbolikus link létrehozása"
 
 #: src/gnome-cmd-main-menu.cc:430
-#| msgid "Search"
 msgid "_Search…"
 msgstr "_Keresés…"
 
 #: src/gnome-cmd-main-menu.cc:436
-#| msgid "_Quick Search..."
 msgid "_Quick Search…"
 msgstr "_Gyors keresés…"
 
 #: src/gnome-cmd-main-menu.cc:442
-#| msgid "_Enable Filter..."
 msgid "_Enable Filter…"
 msgstr "Szűrő _engedélyezése…"
 
@@ -3778,37 +3708,30 @@ msgid "Horizontal Orientation"
 msgstr "Vízszintes elhelyezés"
 
 #: src/gnome-cmd-main-menu.cc:669
-#| msgid "_Bookmark this Directory..."
 msgid "_Bookmark this Directory…"
 msgstr "_Könyvjelző erre a könyvtárra…"
 
 #: src/gnome-cmd-main-menu.cc:675
-#| msgid "_Manage Bookmarks..."
 msgid "_Manage Bookmarks…"
 msgstr "Könyvjel_zők kezelése…"
 
 #: src/gnome-cmd-main-menu.cc:687
-#| msgid "_Configure Plugins..."
 msgid "_Configure Plugins…"
 msgstr "_Bővítmények beállítása…"
 
 #: src/gnome-cmd-main-menu.cc:699
-#| msgid "Options"
 msgid "_Options…"
 msgstr "_Beállítások…"
 
 #: src/gnome-cmd-main-menu.cc:705
-#| msgid "_Keyboard Shortcuts"
 msgid "_Keyboard Shortcuts…"
 msgstr "_Gyorsbillentyűk…"
 
 #: src/gnome-cmd-main-menu.cc:716
-#| msgid "Remote Server"
 msgid "_Remote Server…"
 msgstr "_Távoli kiszolgáló…"
 
 #: src/gnome-cmd-main-menu.cc:722
-#| msgid "New connection"
 msgid "New Connection…"
 msgstr "Új kapcsolat…"
 
@@ -3899,7 +3822,6 @@ msgid "F9 Search"
 msgstr "F9 Keresés"
 
 #: src/gnome-cmd-main-win.cc:808
-#| msgid "GNOME Commander - ROOT PRIVILEGES"
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — RENDSZERGAZDAI JOGOSULTSÁGOK"
 
@@ -3949,7 +3871,6 @@ msgid "Drop connection"
 msgstr "Kapcsolat eldobása"
 
 #: src/gnome-cmd-python-plugin.cc:216
-#| msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
 msgid "Can’t load python module “gnomevfs” (“gnome.vfs”)"
 msgstr "A „gnomevfs” („gnome.vfs”) python modul nem tölthető be"
 
@@ -4441,13 +4362,11 @@ msgid "Transfer problem"
 msgstr "Átviteli probléma"
 
 #: src/gnome-cmd-xfer.cc:266
-#| msgid "Copying"
 msgid "copying…"
 msgstr "másolás…"
 
 #: src/gnome-cmd-xfer.cc:274
 #, c-format
-#| msgid "[file %ld of %ld] \"%s\""
 msgid "[file %ld of %ld] “%s”"
 msgstr "[%ld. fájl, összesen %ld] „%s”"
 
@@ -4460,7 +4379,6 @@ msgid "The whole operation was cancelled."
 msgstr "Az egész művelet megszakítva."
 
 #: src/gnome-cmd-xfer.cc:466
-#| msgid "preparing..."
 msgid "preparing…"
 msgstr "előkészítés…"
 
@@ -4469,7 +4387,6 @@ msgid "downloading to /tmp"
 msgstr "letöltés a /tmp könyvtárba"
 
 #: src/gnome-cmd-xfer-progress-win.cc:42
-#| msgid "stopping..."
 msgid "stopping…"
 msgstr "leállítás…"
 
@@ -4489,7 +4406,6 @@ msgstr "%.0f%% másolva"
 
 #: src/imageloader.cc:109
 #, c-format
-#| msgid "Couldn't load installed file type pixmap, trying to load %s instead"
 msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
 "Nem lehet betölteni a telepített fájltípus-képet, megpróbálom ezt betölteni "
@@ -4497,9 +4413,6 @@ msgstr ""
 
 #: src/imageloader.cc:113 src/imageloader.cc:137
 #, c-format
-#| msgid ""
-#| "Can't find the pixmap anywhere. Make sure you have installed the program "
-#| "or is executing gnome-commander from the gnome-commander-%s/src directory"
 msgid ""
 "Can’t find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory"
@@ -4510,7 +4423,6 @@ msgstr ""
 
 #: src/imageloader.cc:134
 #, c-format
-#| msgid "Couldn't load installed pixmap, trying to load %s instead"
 msgid "Couldn’t load installed pixmap, trying to load %s instead"
 msgstr ""
 "Nem lehet betölteni a telepített képet, megpróbálom ezt betölteni helyette: "
@@ -4532,13 +4444,11 @@ msgstr "_Hexadecimális"
 
 #. sdlg->priv->progress = 0;
 #: src/intviewer/search-progress-dlg.cc:75
-#| msgid "Searching..."
 msgid "Searching…"
 msgstr "Keresés…"
 
 #: src/intviewer/search-progress-dlg.cc:185
 #, c-format
-#| msgid "Searching for \"%s\""
 msgid "Searching for “%s”"
 msgstr "„%s” keresése"
 
@@ -4604,7 +4514,6 @@ msgid "_Copy Text Selection"
 msgstr "Szövegk_ijelölés másolása"
 
 #: src/intviewer/viewer-window.cc:861
-#| msgid "Find"
 msgid "Find…"
 msgstr "Keresés…"
 
@@ -4678,7 +4587,6 @@ msgstr "Gyors _súgó"
 
 #: src/intviewer/viewer-window.cc:1271
 #, c-format
-#| msgid "Pattern \"%s\" was not found"
 msgid "Pattern “%s” was not found"
 msgstr "A(z) „%s” minta nem található"
 
@@ -4886,7 +4794,6 @@ msgid "Is New"
 msgstr "Új"
 
 #: src/tags/gnome-cmd-tags.cc:135
-#| msgid "Set to \"1\" if track is new to the user (default \"0\")."
 msgid "Set to “1” if track is new to the user (default “0”)."
 msgstr "Állítsa „1”-re, ha a dal új a felhasználónak (alapértelmezetten „0”)."
 
@@ -4959,7 +4866,6 @@ msgid "Copyrighted"
 msgstr "Szerzői jogvédelem alatt áll"
 
 #: src/tags/gnome-cmd-tags.cc:144
-#| msgid "\"1\" if the copyrighted bit is set."
 msgid "“1” if the copyrighted bit is set."
 msgstr "„1”, ha a szerzői jog bit be van állítva."
 
@@ -4976,7 +4882,6 @@ msgid "Original Audio"
 msgstr "Eredeti hang"
 
 #: src/tags/gnome-cmd-tags.cc:146
-#| msgid "\"1\" if the \"original\" bit is set."
 msgid "“1” if the “original” bit is set."
 msgstr "„1”, ha az „eredeti” bit be van állítva."
 
@@ -5309,7 +5214,6 @@ msgid "Note Count"
 msgstr "Megjegyzések száma"
 
 #: src/tags/gnome-cmd-tags.cc:187
-#| msgid "Number of \"notes\" in the document."
 msgid "Number of “notes” in the document."
 msgstr "A „megjegyzések” száma a dokumentumban."
 
@@ -5342,7 +5246,6 @@ msgid "Presentation Format"
 msgstr "Bemutató formátum"
 
 #: src/tags/gnome-cmd-tags.cc:191
-#| msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgid "Type of presentation, like “On-screen Show”, “SlideView”, etc."
 msgstr "A bemutató típusa, például: „Képernyős vetítés”, „Diavetítés”, stb."
 
@@ -5387,9 +5290,6 @@ msgid "Security"
 msgstr "Biztonság"
 
 #: src/tags/gnome-cmd-tags.cc:196
-#| msgid ""
-#| "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
-#| "enforced\" or \"Locked for annotations\"."
 msgid ""
 "One of: “Password protected”, “Read-only recommended”, “Read-only enforced” "
 "or “Locked for annotations”."
@@ -5595,22 +5495,6 @@ msgstr ""
 "iránya."
 
 #: src/tags/gnome-cmd-tags.cc:216
-#| msgid ""
-#| "Copyright information. The tag is used to indicate both the photographer "
-#| "and editor copyrights. It is the copyright notice of the person or "
-#| "organization claiming rights to the image. The Interoperability copyright "
-#| "statement including date and rights should be written in this field; e."
-#| "g., \"Copyright, John Smith, 19xx. All rights reserved.\". The field "
-#| "records both the photographer and editor copyrights, with each recorded "
-#| "in a separate part of the statement. When there is a clear distinction "
-#| "between the photographer and editor copyrights, these are to be written "
-#| "in the order of photographer followed by editor copyright, separated by "
-#| "NULL (in this case, since the statement also ends with a NULL, there are "
-#| "two NULL codes) (see example 1). When only the photographer is given, it "
-#| "is terminated by one NULL code. When only the editor copyright is given, "
-#| "the photographer copyright part consists of one space followed by a "
-#| "terminating NULL code, then the editor copyright is given. When the field "
-#| "is left blank, it is treated as unknown."
 msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
@@ -6007,9 +5891,6 @@ msgid "North or South Latitude"
 msgstr "Északi vagy déli szélesség"
 
 #: src/tags/gnome-cmd-tags.cc:248
-#| msgid ""
-#| "Indicates whether the latitude is north or south latitude. The ASCII "
-#| "value 'N' indicates north latitude, and 'S' is south latitude."
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "“N” indicates north latitude, and “S” is south latitude."
@@ -6040,9 +5921,6 @@ msgid "East or West Longitude"
 msgstr "Keleti vagy nyugati hosszúság"
 
 #: src/tags/gnome-cmd-tags.cc:250
-#| msgid ""
-#| "Indicates whether the longitude is east or west longitude. ASCII 'E' "
-#| "indicates east longitude, and 'W' is west longitude."
 msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII “E” "
 "indicates east longitude, and “W” is west longitude."
@@ -6155,9 +6033,6 @@ msgid "Interoperability Index"
 msgstr "Interoperabilitási index"
 
 #: src/tags/gnome-cmd-tags.cc:259
-#| msgid ""
-#| "Indicates the identification of the Interoperability rule. Use \"R98\" "
-#| "for stating ExifR98 Rules."
 msgid ""
 "Indicates the identification of the Interoperability rule. Use “R98” for "
 "stating ExifR98 Rules."
@@ -6450,25 +6325,6 @@ msgid "Related Sound File"
 msgstr "Kapcsolódó hangfájl"
 
 #: src/tags/gnome-cmd-tags.cc:285
-#| msgid ""
-#| "This tag is used to record the name of an audio file related to the image "
-#| "data. The only relational information recorded here is the Exif audio "
-#| "file name and extension (an ASCII string consisting of 8 characters + '.' "
-#| "+ 3 characters). The path is not recorded. When using this tag, audio "
-#| "files must be recorded in conformance to the Exif audio format. Writers "
-#| "are also allowed to store the data such as Audio within APP2 as FlashPix "
-#| "extension stream data. Audio files must be recorded in conformance to the "
-#| "Exif audio format. If multiple files are mapped to one file, the above "
-#| "format is used to record just one audio file name. If there are multiple "
-#| "audio files, the first recorded file is given. When there are three Exif "
-#| "audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the "
-#| "Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By "
-#| "combining multiple relational information, a variety of playback "
-#| "possibilities can be supported. The method of using relational "
-#| "information is left to the implementation on the playback side. Since "
-#| "this information is an ASCII character string, it is terminated by NULL. "
-#| "When this tag is used to map audio files, the relation of the audio file "
-#| "to image data must also be indicated on the audio file end."
 msgid ""
 "This tag is used to record the name of an audio file related to the image "
 "data. The only relational information recorded here is the Exif audio file "
@@ -6790,25 +6646,6 @@ msgid "User Comment"
 msgstr "Felhasználói megjegyzés"
 
 #: src/tags/gnome-cmd-tags.cc:311
-#| msgid ""
-#| "A tag for Exif users to write keywords or comments on the image besides "
-#| "those in <Exif.ImageDescription>, and without the character code "
-#| "limitations of the <Exif.ImageDescription> tag. The character code used "
-#| "in the <Exif.UserComment> tag is identified based on an ID code in a "
-#| "fixed 8-byte area at the start of the tag data area. The unused portion "
-#| "of the area is padded with NULL (\"00.h\"). ID codes are assigned by "
-#| "means of registration. The value of CountN is determinated based on the 8 "
-#| "bytes in the character code area and the number of bytes in the user "
-#| "comment part. Since the TYPE is not ASCII, NULL termination is not "
-#| "necessary. The ID code for the <Exif.UserComment> area may be a Defined "
-#| "code such as JIS or ASCII, or may be Undefined. The Undefined name is "
-#| "UndefinedText, and the ID code is filled with 8 bytes of all \"NULL"
-#| "\" (\"00.H\"). An Exif reader that reads the <Exif.UserComment> tag must "
-#| "have a function for determining the ID code. This function is not "
-#| "required in Exif readers that do not use the <Exif.UserComment> tag. When "
-#| "a <Exif.UserComment> area is set aside, it is recommended that the ID "
-#| "code be ASCII and that the following user comment part be filled with "
-#| "blank characters [20.H]."
 msgid ""
 "A tag for Exif users to write keywords or comments on the image besides "
 "those in <Exif.ImageDescription>, and without the character code limitations "
@@ -6892,12 +6729,6 @@ msgid "YCbCr Coefficients"
 msgstr "YCbCr együtthatók"
 
 #: src/tags/gnome-cmd-tags.cc:316
-#| msgid ""
-#| "The matrix coefficients for transformation from RGB to YCbCr image data. "
-#| "No default is given in TIFF; but here \"Color Space Guidelines\" is used "
-#| "as the default. The color space is declared in a color space information "
-#| "tag, with the default being the value that gives the optimal image "
-#| "characteristics under this condition."
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here “Color Space Guidelines” is used as the "
@@ -6979,7 +6810,6 @@ msgid "Content"
 msgstr "Tartalom"
 
 #: src/tags/gnome-cmd-tags.cc:321
-#| msgid "File's contents filtered as plain text."
 msgid "File’s contents filtered as plain text."
 msgstr "Fájl tartalma egyszerű szövegként szűrve."
 
@@ -6988,9 +6818,6 @@ msgid "Editable free text/notes."
 msgstr "Szerkeszthető szabad szöveg/megjegyzések."
 
 #: src/tags/gnome-cmd-tags.cc:323
-#| msgid ""
-#| "MIME type of the file or if a directory it should contain value \"Folder"
-#| "\"."
 msgid ""
 "MIME type of the file or if a directory it should contain value “Folder”."
 msgstr ""
@@ -7026,7 +6853,6 @@ msgid "Full file path of file excluding the file name."
 msgstr "A fájl teljes elérési útvonala fájlnév nélkül."
 
 #: src/tags/gnome-cmd-tags.cc:329
-#| msgid "Permission string in unix format eg \"-rw-r--r--\"."
 msgid "Permission string in unix format eg “-rw-r--r--”."
 msgstr "Jogok karakterlánca UNIX formátumban, például: „-rw-r--r--”."
 
@@ -7755,7 +7581,6 @@ msgid "Exposure time used to capture the photo in seconds."
 msgstr "A fénykép rögzítéséhez használt expozíciós idős másodpercben."
 
 #: src/tags/gnome-cmd-tags.cc:427
-#| msgid "Set to \"1\" if flash was fired."
 msgid "Set to “1” if flash was fired."
 msgstr "Állítsa „1”-re, ha a vaku használva volt."
 
@@ -7808,9 +7633,6 @@ msgid "Model of camera used to take the image."
 msgstr "A kép készítéséhez használt fényképező modellje."
 
 #: src/tags/gnome-cmd-tags.cc:436
-#| msgid ""
-#| "Represents the orientation of the image wrt camera (IE \"top,left\" or "
-#| "\"bottom,right\")."
 msgid ""
 "Represents the orientation of the image wrt camera (IE “top,left” or “bottom,"
 "right”)."
@@ -7847,10 +7669,6 @@ msgid "Action Advised"
 msgstr "Javasolt művelet"
 
 #: src/tags/gnome-cmd-tags.cc:441
-#| msgid ""
-#| "The type of action that this object provides to a previous object. '01' "
-#| "Object Kill, '02' Object Replace, '03' Object Append, '04' Object "
-#| "Reference."
 msgid ""
 "The type of action that this object provides to a previous object. “01” "
 "Object Kill, “02” Object Replace, “03” Object Append, “04” Object Reference."
@@ -8100,10 +7918,6 @@ msgid "Editorial Update"
 msgstr "Szerkesztői frissítés"
 
 #: src/tags/gnome-cmd-tags.cc:468
-#| msgid ""
-#| "The type of update this object provides to a previous object. The link to "
-#| "the previous object is made using the ARM. '01' indicates an additional "
-#| "language."
 msgid ""
 "The type of update this object provides to a previous object. The link to "
 "the previous object is made using the ARM. “01” indicates an additional "
@@ -8134,10 +7948,6 @@ msgid "Envelope Priority"
 msgstr "Boríték prioritás"
 
 #: src/tags/gnome-cmd-tags.cc:471
-#| msgid ""
-#| "Specifies the envelope handling priority and not the editorial urgency. "
-#| "'1' for most urgent, '5' for normal, and '8' for least urgent. '9' is "
-#| "user-defined."
 msgid ""
 "Specifies the envelope handling priority and not the editorial urgency. “1” "
 "for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
@@ -8209,9 +8019,6 @@ msgid "Image Orientation"
 msgstr "Kép tájolása"
 
 #: src/tags/gnome-cmd-tags.cc:478
-#| msgid ""
-#| "The layout of the image area: 'P' for portrait, 'L' for landscape, and "
-#| "'S' for square."
 msgid ""
 "The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
@@ -8287,7 +8094,6 @@ msgid "Object Cycle"
 msgstr "Objektumciklus"
 
 #: src/tags/gnome-cmd-tags.cc:486
-#| msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
 msgid "Where “a” is morning, “p” is evening, “b” is both."
 msgstr "Ahol „a” a reggel, „p” az este, „b” pedig mindkettő."
 
@@ -8559,10 +8365,6 @@ msgid "Urgency"
 msgstr "Sürgősség"
 
 #: src/tags/gnome-cmd-tags.cc:517
-#| msgid ""
-#| "Specifies the editorial urgency of content and not necessarily the "
-#| "envelope handling priority. '1' is most urgent, '5' normal, and '8' least "
-#| "urgent."
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
@@ -8636,7 +8438,6 @@ msgid "Fast Web View"
 msgstr "Gyors webnézet"
 
 #: src/tags/gnome-cmd-tags.cc:525
-#| msgid "Set to \"1\" if optimized for network access."
 msgid "Set to “1” if optimized for network access."
 msgstr "Állítsa „1”-re, ha hálózati hozzáférésre van optimalizálva."
 
@@ -8645,7 +8446,6 @@ msgid "Printing"
 msgstr "Nyomtatás"
 
 #: src/tags/gnome-cmd-tags.cc:526
-#| msgid "Set to \"1\" if printing is allowed."
 msgid "Set to “1” if printing is allowed."
 msgstr "Állítsa „1”-re, ha a nyomtatás engedélyezett."
 
@@ -8654,7 +8454,6 @@ msgid "Printing in High Resolution"
 msgstr "Nagy felbontású nyomtatás"
 
 #: src/tags/gnome-cmd-tags.cc:527
-#| msgid "Set to \"1\" if high resolution printing is allowed."
 msgid "Set to “1” if high resolution printing is allowed."
 msgstr "Állítsa „1”-re, ha a nagy felbontású nyomtatás engedélyezett."
 
@@ -8663,7 +8462,6 @@ msgid "Copying"
 msgstr "Másolás"
 
 #: src/tags/gnome-cmd-tags.cc:528
-#| msgid "Set to \"1\" if copying the contents is allowed."
 msgid "Set to “1” if copying the contents is allowed."
 msgstr "Állítsa „1”-re, ha a tartalom másolása engedélyezett."
 
@@ -8672,7 +8470,6 @@ msgid "Modifying"
 msgstr "Módosítás"
 
 #: src/tags/gnome-cmd-tags.cc:529
-#| msgid "Set to \"1\" if modifying the contents is allowed."
 msgid "Set to “1” if modifying the contents is allowed."
 msgstr "Állítsa „1”-re, ha a tartalom módosítása engedélyezett."
 
@@ -8681,9 +8478,6 @@ msgid "Document Assembly"
 msgstr "Dokumentum összeszerelés"
 
 #: src/tags/gnome-cmd-tags.cc:530
-#| msgid ""
-#| "Set to \"1\" if inserting, rotating, or deleting pages and creating "
-#| "navigation elements is allowed."
 msgid ""
 "Set to “1” if inserting, rotating, or deleting pages and creating navigation "
 "elements is allowed."
@@ -8696,7 +8490,6 @@ msgid "Commenting"
 msgstr "Megjegyzések"
 
 #: src/tags/gnome-cmd-tags.cc:531
-#| msgid "Set to \"1\" if adding or modifying text annotations is allowed."
 msgid "Set to “1” if adding or modifying text annotations is allowed."
 msgstr ""
 "Állítsa „1”-re, ha engedélyezett a szövegkommentárok hozzáadása és "
@@ -8707,7 +8500,6 @@ msgid "Form Filling"
 msgstr "Űrlapkitöltés"
 
 #: src/tags/gnome-cmd-tags.cc:532
-#| msgid "Set to \"1\" if filling of form fields is allowed."
 msgid "Set to “1” if filling of form fields is allowed."
 msgstr "Állítsa „1”-re, ha engedélyezett az űrlap mezőinek kitöltése."
 
@@ -8716,8 +8508,6 @@ msgid "Accessibility Support"
 msgstr "Akadálymentesítési támogatás"
 
 #: src/tags/gnome-cmd-tags.cc:533
-#| msgid ""
-#| "Set to \"1\" if accessibility support (e.g. screen readers) is enabled."
 msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
 msgstr ""
 "Állítsa „1”-re, ha az akadálymentesítési támogatás (például képernyőolvasók) "
@@ -9037,7 +8827,6 @@ msgstr "Malajálam"
 
 #: src/tags/gnome-cmd-tags-exiv2.cc:71
 #, c-format
-#| msgid "unsupported tag (suppressed %u B of binary data)"
 msgid "unsupported tag (suppressed %ld B of binary data)"
 msgstr "nem támogatott címke (elnyomva %ld B bináris adat)"
 
@@ -9112,7 +8901,6 @@ msgstr[0] "%s bájt"
 msgstr[1] "%s bájt"
 
 #: src/utils.cc:744
-#| msgid "Failed to create a directory in which to store temporary files."
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Nem sikerült a munkakönyvtárat átváltani az átmeneti könyvtárra."
 
@@ -9122,7 +8910,6 @@ msgstr "Nem sikerült könyvtárat létrehozni az átmeneti fájlok tárolásáh
 
 #: src/utils.cc:952
 #, c-format
-#| msgid "Creating directory %s... "
 msgid "Creating directory %s… "
 msgstr "%s könyvtár létrehozása… "
 
@@ -9133,7 +8920,6 @@ msgstr "A(z) %s könyvtár létrehozása nem sikerült"
 
 #: src/utils.cc:961
 #, c-format
-#| msgid "Couldn't read from the directory %s: %s"
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Nem lehet olvasni a(z) %s könyvtárból: %s"
 
