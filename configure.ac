@@ -2,7 +2,7 @@ AC_INIT([gnome-commander],[1.7.0],[http://bugzilla.gnome.org/enter_bug.cgi?produ
 AC_CONFIG_SRCDIR(src/gnome-cmd-includes.h)
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 
 YELP_HELP_INIT
 

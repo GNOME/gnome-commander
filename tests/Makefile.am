@@ -93,7 +93,7 @@ iv_datapresentation_CXXFLAGS = $(AM_CPPFLAGS)
 iv_datapresentation_LDFLAGS = $(INTVLIBS)
 iv_datapresentation_LDADD = $(ADDITIONAL_LDADD)
 
-utils_no_dependencies_SOURCES = utils_no_dependencies_tests.cc $(top_srcdir)/src/utils-no-dependencies.cc gcmd_tests_main.cc
+utils_no_dependencies_SOURCES = utils_no_dependencies_tests.cc ../src/utils-no-dependencies.cc gcmd_tests_main.cc
 utils_no_dependencies_CXXFLAGS = $(AM_CPPFLAGS)
 utils_no_dependencies_LDFLAGS = $(GCMD_LIBS)
 utils_no_dependencies_LDADD = $(ADDITIONAL_LDADD)
