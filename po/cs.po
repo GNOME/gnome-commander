@@ -2071,10 +2071,8 @@ msgid "Commandline history"
 msgstr "Historie příkazového řádku"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:223
-#, fuzzy
-#| msgid "Search for"
 msgid "Search history"
-msgstr "Vyhledat"
+msgstr "Historie hledání"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:331
 msgid "Size display mode"
