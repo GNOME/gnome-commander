@@ -44,6 +44,9 @@
                         <listitem>
                            <para>Option for saving/not saving the command line history on exit</para>
                        </listitem>
+                        <listitem>
+                           <para>Option for saving/not saving the search history on exit</para>
+                       </listitem>
                     </itemizedlist>
                 </para>
                 <para>Other changes:</para>

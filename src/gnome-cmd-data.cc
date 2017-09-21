@@ -1349,6 +1349,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     save_tabs_on_exit = cfg.save_tabs_on_exit;
     save_dir_history_on_exit = cfg.save_dir_history_on_exit;
     save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
+    save_search_history_on_exit = cfg.save_search_history_on_exit;
     symlink_prefix = g_strdup (cfg.symlink_prefix);
     main_win_pos[0] = cfg.main_win_pos[0];
     main_win_pos[1] = cfg.main_win_pos[1];
@@ -1411,6 +1412,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         save_tabs_on_exit = cfg.save_tabs_on_exit;
         save_dir_history_on_exit = cfg.save_dir_history_on_exit;
         save_cmdline_history_on_exit = cfg.save_cmdline_history_on_exit;
+        save_search_history_on_exit = cfg.save_search_history_on_exit;
         symlink_prefix = g_strdup (cfg.symlink_prefix);
         main_win_pos[0] = cfg.main_win_pos[0];
         main_win_pos[1] = cfg.main_win_pos[1];
@@ -3626,6 +3628,7 @@ void GnomeCmdData::load()
     options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
     options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
     options.save_cmdline_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT);
+    options.save_search_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT);
 
     options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
     options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
@@ -4234,6 +4237,7 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT, &(options.save_tabs_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT, &(options.save_dir_history_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_CMDLINE_HISTORY_ON_EXIT, &(options.save_cmdline_history_on_exit));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT, &(options.save_search_history_on_exit));
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);
@@ -4672,7 +4676,14 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
     xml << XML::tag("Profile") << XML::attr("name") << XML::escape(cfg.name);
 
         xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
-                                   << XML::attr("match-case") << 0 << XML::chardata() << XML::escape(cfg.filename_pattern) << XML::endtag();
+                                   << XML::attr("match-case") << 0 << XML::chardata();
+
+        if (!strcmp("Default", cfg.name.c_str()) && gnome_cmd_data.options.save_search_history_on_exit)
+            xml << XML::escape(cfg.filename_pattern);
+        else
+            xml << "";
+        xml << XML::endtag()
+
         xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
         xml << XML::tag("Text") << XML::attr("content-search") << cfg.content_search << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
 
@@ -4689,15 +4700,18 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchConfig &cfg)
         xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
         xml << cfg.default_profile;
 
-        xml << XML::tag("History");
+        if (gnome_cmd_data.options.save_search_history_on_exit)
+        {
+            xml << XML::tag("History");
 
-        for (GList *i=cfg.name_patterns.ents; i; i=i->next)
-            xml << XML::tag("Pattern") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+            for (GList *i=cfg.name_patterns.ents; i; i=i->next)
+                xml << XML::tag("Pattern") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
 
-        for (GList *i=cfg.content_patterns.ents; i; i=i->next)
-            xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+            for (GList *i=cfg.content_patterns.ents; i; i=i->next)
+                xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
 
-        xml << XML::endtag();
+            xml << XML::endtag();
+        }
 
     xml << XML::endtag();
 
