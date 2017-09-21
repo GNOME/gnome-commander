@@ -4682,7 +4682,8 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
             xml << XML::escape(cfg.filename_pattern);
         else
             xml << "";
-        xml << XML::endtag()
+
+        xml << XML::endtag();
 
         xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
         xml << XML::tag("Text") << XML::attr("content-search") << cfg.content_search << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
