@@ -4337,11 +4337,11 @@
             <para><guilabel>Left mouse button</guilabel> configures the action
             resulting from clicking the left mouse button.</para>
           </listitem>
-			<listitem>
-          	<para><guilabel>Middle mouse button</guilabel> configures the action resulting from clicking the middle mouse button.</para>
+            <listitem>
+            <para><guilabel>Middle mouse button</guilabel> configures the action resulting from clicking the middle mouse button.</para>
           </listitem>
           <listitem>
-          	<para><guilabel>Right mouse button</guilabel> configures the action
+            <para><guilabel>Right mouse button</guilabel> configures the action
             resulting from clicking the right mouse button.</para>
           </listitem>
           <listitem>
@@ -4352,7 +4352,7 @@
             <para><guilabel>Selection</guilabel> makes directories selectable also by keyboard shortcuts.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Sorting</guilabel> configures whether sorting is
+            <para><guilabel>Sorting/Quick search</guilabel> configures whether sorting and the quick search is
             case sensitive.</para>
           </listitem>
           <listitem>
@@ -4360,10 +4360,10 @@
             of keys used for quick search.</para>
           </listitem>
           <listitem>
-          	<para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
+            <para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
           </listitem>
           <listitem>
-          	<para><guilabel>Save on exit</guilabel> configures the storage of location when &app; is closed.</para>
+            <para><guilabel>Save on exit</guilabel> configures the storage of location when &app; is closed.</para>
           </listitem>
         </itemizedlist>
       </para>
@@ -4503,7 +4503,7 @@
             <row>
               <entry colname="colspec0" valign="top">
                 <para>
-                  <guilabel>Sorting options</guilabel>
+                  <guilabel>Sorting/Quick search</guilabel>
                 </para>
               </entry>
               <entry colname="colspec2" valign="top">
@@ -4512,7 +4512,9 @@
               <entry colname="colspec3" valign="top">
                 <para>When this option is activated &app; will differentiate the
                 sorting order between upper case and lower case, upper case items are
-                then listed before lower case ones.</para>
+                then listed before lower case ones. Also the quicksearch will
+                differentiate between upper case and lower case if this is option
+                is activated.</para>
               </entry>
             </row>
             <row>
@@ -4527,7 +4529,8 @@
               <entry colname="colspec3" valign="top">
                 <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
                    pane to the first item using that letter. You can then enter more
-                   letters after the first one to refine the search.</para>
+                   letters after the first one to refine the search. By then pressing the up or down arrow key
+                   the cursor will jump to all files or folders which mach you selection.</para>
               </entry>
             </row>
             <row>
@@ -4545,6 +4548,24 @@
                   <para>By selecting this option you alter the standard GNOME behavior
                   and to access the menus with the keyboard you will need to use the
                   <keycap>F10</keycap>.</para>
+                </note>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Just letters (command line access with <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When you press a letter &app; will scroll down the selection cursor in the active
+                   pane to the first item using that letter. You can then enter more
+                   letters after the first one to refine the search.</para>
+                <note>
+                  <para>By selecting this option you alter the standard GNOME behavior
+                  and to access the command line with the keyboard you will need to use the command
+                  <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>.</para>
                 </note>
               </entry>
             </row>
@@ -4574,24 +4595,24 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel>Multiple instances</guilabel></para>
+                <para><guilabel>Multiple instances</guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Don't start a new instance</para>
+                <para>Don't start a new instance</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; can only have one instance running.</para>
+                <para>By activating this option &app; can only have one instance running.</para>
               </entry>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel>Save on exit</guilabel></para>
+                <para><guilabel>Save on exit</guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Directories</para>
+                <para>Directories</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
+                <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
                 <note>
                   <para>Regardless of 'Save on exit' option, locations for locked tabs are always saved on exit.</para>
                 </note>
@@ -4599,24 +4620,46 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel></guilabel></para>
+                <para><guilabel></guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Tabs</para>
+                <para>Tabs</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
+                <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
               </entry>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel></guilabel></para>
+                <para><guilabel></guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Directory history</para>
+                <para>Directory history</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible again.</para>
+                <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible again.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Commandline history</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By activating this option &app; saves the history of executed commandline commands on exit. When restarted, the history of commands in the commandline accessible again.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Search history</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By activating this option &app; saves the history of search patters on exit. When restarted, the history of search patterns is accessible again.</para>
               </entry>
             </row>
           </tbody>
