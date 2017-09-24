@@ -5664,6 +5664,15 @@
             	  <para>In this text box you can type in the command line used to start your app from the list above with a favourite terminal application. %s is the variable used to pass the command to be executed  in the terminal. Default value: "gnome-terminal -e %s".</para>
             	</entry>
               </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Leave terminal window open</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>With this checkbox you can decide if you want the leave a terminal window open when the command in it finishes.</para>
+            	</entry>
+              </row>
             </tbody>
           </tgroup>
         </table>

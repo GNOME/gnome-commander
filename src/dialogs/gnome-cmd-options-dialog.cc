@@ -1341,9 +1341,9 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
     if (gnome_cmd_data.options.is_name_double(name))
     {
-	gnome_cmd_show_message (GTK_WINDOW (dialog),
-				_("An app with this label exists already.\nPlease choose another label."));
-	return;
+        gnome_cmd_show_message (GTK_WINDOW (dialog),
+            _("An app with this label exists already.\nPlease choose another label."));
+        return;
     }
 
     GnomeCmdApp *app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
@@ -1680,7 +1680,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
-    table2 = create_table (parent, 1, 2);
+    table2 = create_table (parent, 1, 3);
     cat = create_category (parent, table2, _("Global app options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1689,6 +1689,10 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     entry = create_entry (parent, "termexec", cfg.termexec);
     table_add (table2, entry, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+
+    check = create_check (parent, _("Leave terminal window open"), "is_use_gcmd_block");
+    table_add (table2, check, 0, 2, GTK_FILL);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gcmd_block);
 
     return frame;
 }
@@ -1702,6 +1706,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     GtkWidget *entry4 = lookup_widget (dialog, "sendto");
     GtkWidget *entry5 = lookup_widget (dialog, "termopen");
     GtkWidget *entry6 = lookup_widget (dialog, "termexec");
+    GtkWidget *check_use_gcmd_block = lookup_widget (dialog, "is_use_gcmd_block");
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
 
@@ -1711,6 +1716,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     cfg.set_sendto(gtk_entry_get_text (GTK_ENTRY (entry4)));
     cfg.set_termopen(gtk_entry_get_text (GTK_ENTRY (entry5)));
     cfg.set_termexec(gtk_entry_get_text (GTK_ENTRY (entry6)));
+    gnome_cmd_data.use_gcmd_block = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_use_gcmd_block));
 
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
     cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));

@@ -9,6 +9,7 @@ New features:
  * Quick search can be activated by just typing a letter, adjustable in the options tab
  * Option for saving/not saving the command line history on exit
  * Option for saving/not saving the search history on exit
+ * Added a checkbox for option to leave the terminal window open when a command finishes to the options menu
 
 Other changes:
  * Increased minimum GTK version from 2.8.0 to 2.18.0

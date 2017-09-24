@@ -116,6 +116,6 @@ gnome_commander_LDADD = \
 CLEANFILES = \
 	gnome-cmd-advrename-lexer.cc
 
-gcmd_block_SOURCES = block.cc
+gcmd_block_SOURCES = gnome-cmd-block.cc
 
 -include $(top_srcdir)/git.mk

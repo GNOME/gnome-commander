@@ -2676,7 +2676,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
-    use_gcmd_block = FALSE;
+    use_gcmd_block = TRUE;
 
     main_win_width = 600;
     main_win_height = 400;
