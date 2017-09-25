@@ -3122,7 +3122,7 @@ msgstr "Rozlišovat velikost písmen"
 #: src/gnome-cmd-block.cc:37
 #, c-format
 msgid "The program has now finished. Press Enter to close this window.\n"
-msgstr "Program právě skončil. Zmáčknutím Enter zavřete okno."
+msgstr "Program právě skončil. Zmáčknutím Enter zavřete okno.\n"
 
 #: src/gnome-cmd-chmod-component.cc:121
 msgid "Read"
