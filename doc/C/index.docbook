@@ -4513,7 +4513,7 @@
                 <para>When this option is activated &app; will differentiate the
                 sorting order between upper case and lower case, upper case items are
                 then listed before lower case ones. Also the quicksearch will
-                differentiate between upper case and lower case if this is option
+                differentiate between upper case and lower case if this option
                 is activated.</para>
               </entry>
             </row>
@@ -4530,7 +4530,7 @@
                 <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
                    pane to the first item using that letter. You can then enter more
                    letters after the first one to refine the search. By then pressing the up or down arrow key
-                   the cursor will jump to all files or folders which mach you selection.</para>
+                   the cursor will jump to all files or folders which mach your selection.</para>
               </entry>
             </row>
             <row>
