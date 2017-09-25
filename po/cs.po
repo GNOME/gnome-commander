@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&keywords=I18N+L10N&component=application\n"
-"POT-Creation-Date: 2017-09-21 19:02+0000\n"
-"PO-Revision-Date: 2017-09-21 21:15+0200\n"
+"POT-Creation-Date: 2017-09-25 04:22+0000\n"
+"PO-Revision-Date: 2017-09-25 10:25+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -782,8 +782,8 @@ msgstr ""
 "mezi soubory."
 
 #: data/org.gnome.gnome-commander.gschema.xml:561
-msgid "Use gcmd-block for terminal commands"
-msgstr "Používat gcmd-block pro příkazy terminálu"
+msgid "Leave terminal open"
+msgstr "Ponechávat terminál otevřený"
 
 #: data/org.gnome.gnome-commander.gschema.xml:562
 msgid ""
@@ -1303,7 +1303,7 @@ msgstr "Soubor"
 #: plugins/fileroller/file-roller-plugin.cc:588
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:364
 #: src/dialogs/gnome-cmd-options-dialog.cc:1438
-#: src/dialogs/gnome-cmd-options-dialog.cc:2089
+#: src/dialogs/gnome-cmd-options-dialog.cc:2095
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:444 src/gnome-cmd-user-actions.cc:251
@@ -2058,7 +2058,7 @@ msgid "Directories"
 msgstr "Složky"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:210
-#: src/dialogs/gnome-cmd-options-dialog.cc:2116
+#: src/dialogs/gnome-cmd-options-dialog.cc:2122
 msgid "Tabs"
 msgstr "Karty"
 
@@ -2440,7 +2440,7 @@ msgid "Command:"
 msgstr "Příkaz:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1420
-#: src/dialogs/gnome-cmd-options-dialog.cc:1848
+#: src/dialogs/gnome-cmd-options-dialog.cc:1854
 msgid "Icon:"
 msgstr "Ikona:"
 
@@ -2541,64 +2541,68 @@ msgstr "Globální volby aplikace"
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminálový příkaz pro aplikace v seznamu výše:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1842
+#: src/dialogs/gnome-cmd-options-dialog.cc:1693
+msgid "Leave terminal window open"
+msgstr "Nechávat okno s terminálem otevřené"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:1848
 msgid "Alias:"
 msgstr "Přezdívka:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1844
+#: src/dialogs/gnome-cmd-options-dialog.cc:1850
 msgid "Device:"
 msgstr "Zařízení:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1846
+#: src/dialogs/gnome-cmd-options-dialog.cc:1852
 msgid "Mount point:"
 msgstr "Přípojný bod:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1889
+#: src/dialogs/gnome-cmd-options-dialog.cc:1895
 msgid "New Device"
 msgstr "Nové zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1902
+#: src/dialogs/gnome-cmd-options-dialog.cc:1908
 msgid "Edit Device"
 msgstr "Úprava zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1984
-#: src/dialogs/gnome-cmd-options-dialog.cc:2120
+#: src/dialogs/gnome-cmd-options-dialog.cc:1990
+#: src/dialogs/gnome-cmd-options-dialog.cc:2126
 msgid "Devices"
 msgstr "Zařízení"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1994
+#: src/dialogs/gnome-cmd-options-dialog.cc:2000
 msgid "Alias"
 msgstr "Přezdívka"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2024
+#: src/dialogs/gnome-cmd-options-dialog.cc:2030
 msgid "Show only the icons"
 msgstr "Zobrazovat pouze ikony"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2028
+#: src/dialogs/gnome-cmd-options-dialog.cc:2034
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Přeskočit připojování (užitečné, pokud používáte super-mount)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2113
+#: src/dialogs/gnome-cmd-options-dialog.cc:2119
 msgid "General"
 msgstr "Obecné"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2114 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2120 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formát"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2115
+#: src/dialogs/gnome-cmd-options-dialog.cc:2121
 msgid "Layout"
 msgstr "Vzhled"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2117
+#: src/dialogs/gnome-cmd-options-dialog.cc:2123
 msgid "Confirmation"
 msgstr "Potvrzování"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2118
+#: src/dialogs/gnome-cmd-options-dialog.cc:2124
 msgid "Filters"
 msgstr "Filtry"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2119
+#: src/dialogs/gnome-cmd-options-dialog.cc:2125
 msgid "Programs"
 msgstr "Programy"
 
@@ -3114,6 +3118,11 @@ msgstr "Dodržet velikost"
 #: src/gnome-cmd-advrename-profile-component.cc:1252
 msgid "Case sensitive matching"
 msgstr "Rozlišovat velikost písmen"
+
+#: src/gnome-cmd-block.cc:37
+#, c-format
+msgid "The program has now finished. Press Enter to close this window.\n"
+msgstr "Program právě skončil. Zmáčknutím Enter zavřete okno."
 
 #: src/gnome-cmd-chmod-component.cc:121
 msgid "Read"
@@ -8917,3 +8926,6 @@ msgstr "Nelze číst ze složky %s: %s"
 #: src/utils.cc:1101
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
+
+#~ msgid "Use gcmd-block for terminal commands"
+#~ msgstr "Používat gcmd-block pro příkazy terminálu"
