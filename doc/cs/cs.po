@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
-"POT-Creation-Date: 2017-09-25 17:00+0000\n"
+"POT-Creation-Date: 2017-09-25 17:05+0000\n"
 "PO-Revision-Date: 2017-09-25 19:01+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
@@ -11377,10 +11377,11 @@ msgstr ""
 #: C/index.docbook:4548
 msgid ""
 "By selecting this option you alter the standard GNOME behavior and to access "
-"the menus with the keyboard you will need to use the <keycap>F10</keycap>."
+"the menus with the keyboard you will need to use the <keycap>F10</keycap> "
+"key."
 msgstr ""
 "Tímto výběrem změníte standardní chování GNOME a pro přístup k nabídce z "
-"klávesnice budete potřebovat použít <keycap>F10</keycap>."
+"klávesnice budete potřebovat použít klávesu <keycap>F10</keycap>."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4559
