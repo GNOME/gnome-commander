@@ -102,6 +102,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT           "quick-search"
 #define GCMD_SETTINGS_MAIN_WIN_WIDTH                  "main-win-width"
 #define GCMD_SETTINGS_MAIN_WIN_HEIGHT                 "main-win-height"
+#define GCMD_SETTINGS_OPTS_DIALOG_WIDTH               "opts-dialog-width"
+#define GCMD_SETTINGS_OPTS_DIALOG_HEIGHT              "opts-dialog-height"
 #define GCMD_SETTINGS_COLUMN_WIDTH_ICON               "column-width-icon"
 #define GCMD_SETTINGS_COLUMN_WIDTH_NAME               "column-width-name"
 #define GCMD_SETTINGS_COLUMN_WIDTH_EXT                "column-width-ext"
@@ -637,6 +639,8 @@ struct GnomeCmdData
 
     guint                        main_win_width;
     guint                        main_win_height;
+    guint                        opts_dialog_width;
+    guint                        opts_dialog_height;
     GdkWindowState               main_win_state;
 
     std::map<guint,std::vector<Tab> > tabs;
