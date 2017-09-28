@@ -2,6 +2,9 @@
 gnome-commander 1.8.1
 ---------------
 
+New features:
+ * Store the size of the options dialog when closing itself
+
 Bug fixes:
  * ...
 

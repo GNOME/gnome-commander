@@ -219,6 +219,20 @@
           This option defines the height of the main window.
       </description>
     </key>
+    <key name="opts-dialog-width" type="u">
+      <default>560</default>
+      <summary>Options dialog width</summary>
+      <description>
+          This setting defines the width of the options dialog window.
+      </description>
+    </key>
+    <key name="opts-dialog-height" type="u">
+      <default>600</default>
+      <summary>Options dialog height</summary>
+      <description>
+          This setting defines the height of the options dialog window.
+      </description>
+    </key>
     <key name="column-width-icon" type="u">
       <default>16</default>
       <summary>Width of icon column</summary>

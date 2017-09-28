@@ -38,6 +38,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Store the size of the options dialog when closing itself</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated translations: ...</para>
                         </listitem>
                         <listitem>
