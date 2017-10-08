@@ -13,10 +13,31 @@ New features:
 
 Other changes:
  * Increased minimum GTK version from 2.8.0 to 2.18.0
- * Code cleanup
+ * Code cleanup (Thanks to Mamoru and Andreas for contributing)
 
 Bug fixes:
  * [build] Python is now found at build time, too, when its version is equal to or higher than 3.x
+
+New or updated translations:
+ * ca (Jordi Mas)
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * eo (Kristjan Schmidt)
+ * es (Daniel Mustieles)
+ * fi (Jiri Grönroos)
+ * hu (Balázs Úr)
+ * id (Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * sl (Matej Urbančič)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
+
+New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
 
 ===================================
 gnome-commander 1.6.4

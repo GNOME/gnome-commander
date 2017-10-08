@@ -71,6 +71,16 @@
                        </listitem>
                     </itemizedlist>
                 </para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New or updated translations: ca, cs, de, eo, es, fi, hu, id, pl, pt_BR, sl, sr, sr@latin, sv</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
             </entry>
         </row>
         <row valign="top">
