@@ -36,19 +36,17 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: automake
 BuildRequires: flex
-BuildRequires: intltool >= 0.35.0
 BuildRequires: libtool
-BuildRequires: gnome-common
 BuildRequires: desktop-file-utils
 BuildRequires: scrollkeeper
-BuildRequires: gettext >= 0.10.36
+BuildRequires: gettext >= 0.19.7
 BuildRequires: glib2-devel >= @GLIB_REQ@
 BuildRequires: gtk2-devel >= @GTK_REQ@
 BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
 BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
 BuildRequires: gnome-keyring-devel >= @GNOME_KEYRING_REQ@
 BuildRequires: unique-devel >= @UNIQUE_REQ@
-BuildRequires: gnome-doc-utils >= 0.3.2
+BuildRequires: yelp-tools
 BuildRequires: perl(XML::Parser)
 
 Requires:      glib2 >= @GLIB_REQ@
@@ -172,6 +170,11 @@ scrollkeeper-update -q || :
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Mon Oct 08 2017 Uwe Scholz <u.scholz83@gmx.de>
+- Removed intltool, gnome-common and gnome-doc-utils dependencies
+- Added yelp-tools dependency
+- Updated gettext version
+
 * Mon Jun 05 2017 Uwe Scholz <u.scholz83@gmx.de>
 - set default srcext to .xz
 
