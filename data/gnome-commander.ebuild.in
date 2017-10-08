@@ -40,7 +40,6 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 	dev-util/gtk-doc-am
-	>=dev-util/intltool-0.35.0
 	sys-devel/gettext
 	virtual/pkgconfig
 	test? ( >=dev-cpp/gtest-@GTEST_REQ@ )
