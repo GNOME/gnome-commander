@@ -457,10 +457,7 @@
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
       <title>Feedback</title>
-      <para>To report a bug or make a suggestion regarding the &app; application or
-      this manual, follow the directions in the <ulink type="help" url="help:gnome-feedback">GNOME Feedback Page</ulink>.
-      </para>
-
+      <para>You can report or view &app; bugs at the <ulink type="http" url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander">the gnome.org Bugzilla</ulink>.</para>
 
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice>
