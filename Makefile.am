@@ -24,7 +24,7 @@ EXTRA_DIST =                \
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 
-AUTOMAKE_OPTIONS = dist-bzip2 no-dist-gzip
+AUTOMAKE_OPTIONS = dist-xz no-dist-gzip
 
 distclean-local:
 	if test "$(srcdir)" = "."; then :; else \
