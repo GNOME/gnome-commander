@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander docs master\n"
-"POT-Creation-Date: 2017-10-09 19:07+0000\n"
-"PO-Revision-Date: 2017-10-11 20:56+0200\n"
+"POT-Creation-Date: 2017-10-20 13:38+0000\n"
+"PO-Revision-Date: 2017-10-24 22:42+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -514,12 +514,12 @@ msgid "GTK-2 GUI with standard mouse interactions"
 msgstr "GTK-2-Oberfläche mit Standard-Mausaktionen"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:490 C/releases.xml:649
+#: C/index.docbook:490 C/releases.xml:626
 msgid "Support for tabs"
 msgstr "Unterstützung für Reiter"
 
 #. (itstool) path: listitem/para
-#: C/index.docbook:493 C/releases.xml:658
+#: C/index.docbook:493 C/releases.xml:635
 msgid "One instance mode"
 msgstr "Ein-Instanz-Modus"
 
@@ -9986,7 +9986,7 @@ msgstr ""
 #. (itstool) path: sect3/para
 #: C/index.docbook:3891
 msgid "<guilabel>Range syntax</guilabel> <_:itemizedlist-1/>"
-msgstr ""
+msgstr "<guilabel>Syntax für Bereiche</guilabel> <_:itemizedlist-1/>"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:3906
@@ -11350,6 +11350,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander general preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_general."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der allgemeinen Einstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4425
@@ -11515,6 +11518,10 @@ msgid ""
 "before lower case ones. Also the quicksearch will differentiate between "
 "upper case and lower case if this option is activated."
 msgstr ""
+"Wenn diese Option aktiviert ist, unterscheidet GNOME Commander bei der "
+"Sortierung zwischen Groß- und Kleinschreibung. Großbuchstaben werden dabei "
+"vor Kleinbuchstaben eingeordnet. Diese Einstellung betrifft ebenfalls die "
+"Schnellsuche."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4555
@@ -11536,6 +11543,12 @@ msgid ""
 "first one to refine the search. By then pressing the up or down arrow key "
 "the cursor will jump to all files or folders which match your selection."
 msgstr ""
+"Beim Drücken von <keycombo><keycap>Strg</keycap><keycap>Alt</"
+"keycap><keycap>Buchstabe</keycap></keycombo> rollt GNOME Commander den "
+"Auswahlcursor in der aktiven Ansicht zum ersten Objekt, das diesen "
+"Buchstaben enthält. Sie können weitere Buchstaben eingeben, um die Suche zu "
+"verfeinern. Durch Drücken der Pfeiltasten nach oben und nach unten springt "
+"der Cursor durch alle Dateien oder Ordner, die Ihrer Auswahl entsprechen."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4574
@@ -11572,6 +11585,8 @@ msgid ""
 "Just letters (command line access with <keycombo><keycap>CTRL</"
 "keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)"
 msgstr ""
+"Buchstaben (Befehlszeilenzugriff mit <keycombo><keycap>Strg</"
+"keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4595
@@ -11580,6 +11595,10 @@ msgid ""
 "cursor in the active pane to the first item using that letter. You can then "
 "enter more letters after the first one to refine the search."
 msgstr ""
+"Wenn Sie in eine Buchstabentaste drücken, rollt GNOME Commander den "
+"Auswahlcursor in der aktiven Ansicht zum ersten Objekt, das diesen "
+"Buchstaben enthält. Sie können dann weitere Buchstaben eingeben, um die "
+"Suche zu verfeinern."
 
 #. (itstool) path: note/para
 #: C/index.docbook:4599
@@ -11589,6 +11608,10 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></"
 "keycombo>."
 msgstr ""
+"Bei Auswahl dieser Option ändern Sie das GNOME-Standardverhalten. Zum "
+"Zugriff auf die Befehlszeile mittels Tastatur müssen Sie die "
+"Tastenkombination <keycombo><keycap>Strg</keycap><keycap>Alt</"
+"keycap><keycap>C</keycap></keycombo> verwenden."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4610
@@ -11718,6 +11741,9 @@ msgid ""
 "commandline commands on exit. When restarted, the history of commands in the "
 "commandline accessible again."
 msgstr ""
+"Bei Aktivierung dieser Option speichert GNOME Commander den Verlauf der "
+"ausgeführten Befehle beim Beenden. Nach einem erneuten Programmstart können "
+"Sie wieder auf die gespeicherten Befehle zugreifen."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4692
@@ -11731,6 +11757,9 @@ msgid ""
 "patters on exit. When restarted, the history of search patterns is "
 "accessible again."
 msgstr ""
+"Bei Aktivierung dieser Option speichert GNOME Commander den Verlauf der "
+"eingegebenen Suchmuster beim Beenden. Nach einem erneuten Programmstart "
+"können Sie wieder auf die gespeicherten Suchmuster zugreifen."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4707
@@ -11808,6 +11837,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander format preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_format.png"
+"\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog der "
+"Formateinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4745
@@ -11993,6 +12025,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander layout preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_layout.png"
+"\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog der "
+"Layout-Einstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4887 C/index.docbook:5203
@@ -12343,6 +12378,11 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander dialog for editing custom colors."
 "</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_layout_colors.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt den Dialog der Einstellungen zum "
+"benutzerdefinierten Anpassen von Farben in GNOME Commander.</phrase> </"
+"textobject>"
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:5105
@@ -12509,6 +12549,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander tabs preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_tabs.png"
+"\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog der "
+"Reitereinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:5157
@@ -12606,6 +12649,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander confirmation preferences dialog.</"
 "phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_confirmation.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt den Dialog der Einstellungen für Bestätigungen in "
+"GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5223
@@ -12830,6 +12877,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander filters preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_filters."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der Filtereinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5381
@@ -13031,6 +13081,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander programs preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_programs."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der Programmeinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5554
@@ -13272,6 +13325,8 @@ msgid ""
 "With this checkbox you can decide if you want the leave a terminal window "
 "open when the command in it finishes."
 msgstr ""
+"In diesem Ankreuzfeld können Sie festlegen, ob das Terminalfenster geöffnet "
+"bleiben soll, wenn der darin ausgeführte Befehl beendet ist."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:5713
@@ -13412,6 +13467,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander new application dialog.</phrase> "
 "</textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_application.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt den Dialog der Einstellungen für neue Anwendungen "
+"in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5829
@@ -13688,6 +13747,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander devices preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_devices."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der Geräteeinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:6042
@@ -13808,6 +13870,9 @@ msgid ""
 "imageobject> <textobject> <phrase>Shows GNOME Commander new devices dialog.</"
 "phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/dev_cd.png\" format=\"PNG\"/> </"
+"imageobject> <textobject> <phrase>Zeigt den Dialog für neue Geräte in GNOME "
+"Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:6158
@@ -14279,8 +14344,6 @@ msgstr "Alle Dateien abwählen"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6516
-#| msgid ""
-#| "Press <keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>."
 msgid "<keycombo><keycap>BACKSPACE</keycap></keycombo>"
 msgstr "<keycombo><keycap>Rücktaste</keycap></keycombo>"
 
@@ -14608,8 +14671,6 @@ msgstr "Alle Reiter schließen"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:6736
-#| msgid ""
-#| "Zoom in (<keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo>),"
 msgid "<keycombo><keycap>CTRL</keycap><keycap>TAB</keycap></keycombo>"
 msgstr ""
 "<keycombo><keycap>Strg</keycap><keycap>Tabulatortaste</keycap></keycombo>"
@@ -15007,6 +15068,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander keyboard shortcuts.</phrase> </"
 "textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_keyboard_shortcuts.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt die Tastenkombinationen in GNOME Commander.</"
+"phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:6918
@@ -15404,7 +15469,7 @@ msgstr "Ordner öffnen"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7190 C/releases.xml:1392
+#: C/index.docbook:7190 C/releases.xml:1369
 msgid "Open the current location in Nautilus file manager"
 msgstr "Öffnen des aktuellen Ortes im Nautilus-Dateimanager"
 
@@ -15415,7 +15480,7 @@ msgstr "Terminal öffnen"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7194 C/releases.xml:1512
+#: C/index.docbook:7194 C/releases.xml:1489
 msgid "Open terminal in the current directory"
 msgstr "Terminal im aktiven Ordner öffnen"
 
@@ -15513,7 +15578,7 @@ msgstr "Dateien senden"
 
 #. (itstool) path: entry/para
 #. (itstool) path: listitem/para
-#: C/index.docbook:7250 C/releases.xml:1521
+#: C/index.docbook:7250 C/releases.xml:1498
 msgid "Send files via email or instant messenger (using nautilus-sendto)"
 msgstr ""
 "Senden von Dateien via E-Mail oder Sofortnachrichten unter Verwendung von "
@@ -16156,6 +16221,9 @@ msgid ""
 "\"/> </imageobject> <textobject> <phrase>This entry allows creating archives "
 "easily.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/create_archive.png\" format=\"PNG"
+"\"/> </imageobject> <textobject> <phrase>Hier können Sie einfach Archive "
+"anlegen.</phrase> </textobject>"
 
 #. (itstool) path: figure/title
 #: C/index.docbook:7555 C/index.docbook:7584
@@ -16181,6 +16249,9 @@ msgid ""
 "\"/> </imageobject> <textobject> <phrase>This entry allows extract archives "
 "easily.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/extract_archive.png\" format=\"PNG"
+"\"/> </imageobject> <textobject> <phrase>Hier können Sie einfach Archive "
+"entpacken.</phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:7570
@@ -16878,75 +16949,31 @@ msgstr "Was ist neu?"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:26
-msgid "1.8.1"
-msgstr "1.8.1"
-
-#. (itstool) path: entry/para
-#: C/releases.xml:27
-msgid "2017-??-??"
-msgstr "??-??-2017"
-
-#. (itstool) path: entry/para
-#: C/releases.xml:29 C/releases.xml:89 C/releases.xml:113 C/releases.xml:139
-#: C/releases.xml:162 C/releases.xml:207 C/releases.xml:232 C/releases.xml:334
-#: C/releases.xml:359 C/releases.xml:384 C/releases.xml:415 C/releases.xml:452
-#: C/releases.xml:483 C/releases.xml:511 C/releases.xml:536 C/releases.xml:567
-#: C/releases.xml:601 C/releases.xml:739 C/releases.xml:764 C/releases.xml:795
-#: C/releases.xml:820 C/releases.xml:837 C/releases.xml:851 C/releases.xml:874
-#: C/releases.xml:905 C/releases.xml:934 C/releases.xml:959 C/releases.xml:979
-#: C/releases.xml:1005 C/releases.xml:1036 C/releases.xml:1062
-#: C/releases.xml:1088 C/releases.xml:1123 C/releases.xml:1146
-#: C/releases.xml:1169 C/releases.xml:1298 C/releases.xml:1356
-#: C/releases.xml:1425 C/releases.xml:1548 C/releases.xml:1649
-#: C/releases.xml:1663 C/releases.xml:1714 C/releases.xml:1786
-#: C/releases.xml:1876 C/releases.xml:1959 C/releases.xml:2022
-#: C/releases.xml:2056 C/releases.xml:2088 C/releases.xml:2147
-#: C/releases.xml:2172 C/releases.xml:2229
-msgid "Bug fixes:"
-msgstr "Fehlerkorrekturen:"
-
-#. (itstool) path: listitem/para
-#: C/releases.xml:33
-msgid "..."
-msgstr "..."
-
-#. (itstool) path: entry/para
-#: C/releases.xml:37 C/releases.xml:52 C/releases.xml:124 C/releases.xml:147
-#: C/releases.xml:176 C/releases.xml:218 C/releases.xml:261 C/releases.xml:342
-#: C/releases.xml:367 C/releases.xml:398 C/releases.xml:435 C/releases.xml:466
-#: C/releases.xml:494 C/releases.xml:519 C/releases.xml:553 C/releases.xml:584
-#: C/releases.xml:645 C/releases.xml:750 C/releases.xml:778 C/releases.xml:803
-#: C/releases.xml:891 C/releases.xml:945 C/releases.xml:1022
-#: C/releases.xml:1243 C/releases.xml:1324 C/releases.xml:1382
-#: C/releases.xml:1493 C/releases.xml:1577 C/releases.xml:1686
-#: C/releases.xml:1737 C/releases.xml:1815 C/releases.xml:1904
-#: C/releases.xml:1976 C/releases.xml:2042 C/releases.xml:2118
-#: C/releases.xml:2158 C/releases.xml:2195 C/releases.xml:2209
-msgid "New features:"
-msgstr "Neue Funktionen:"
-
-#. (itstool) path: listitem/para
-#: C/releases.xml:41
-msgid "New or updated translations: ..."
-msgstr "Neue oder aktualisierte Übersetzungen: ..."
-
-#. (itstool) path: listitem/para
-#: C/releases.xml:44
-msgid "New or updated docs: ..."
-msgstr "Neue oder aktualisierte Dokumentation: ..."
-
-#. (itstool) path: entry/para
-#: C/releases.xml:49
 msgid "1.8.0"
 msgstr "1.8.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:50
+#: C/releases.xml:27
 msgid "2017-08-10"
 msgstr "10. August 2017"
 
+#. (itstool) path: entry/para
+#: C/releases.xml:29 C/releases.xml:101 C/releases.xml:124 C/releases.xml:153
+#: C/releases.xml:195 C/releases.xml:238 C/releases.xml:319 C/releases.xml:344
+#: C/releases.xml:375 C/releases.xml:412 C/releases.xml:443 C/releases.xml:471
+#: C/releases.xml:496 C/releases.xml:530 C/releases.xml:561 C/releases.xml:622
+#: C/releases.xml:727 C/releases.xml:755 C/releases.xml:780 C/releases.xml:868
+#: C/releases.xml:922 C/releases.xml:999 C/releases.xml:1220
+#: C/releases.xml:1301 C/releases.xml:1359 C/releases.xml:1470
+#: C/releases.xml:1554 C/releases.xml:1663 C/releases.xml:1714
+#: C/releases.xml:1792 C/releases.xml:1881 C/releases.xml:1953
+#: C/releases.xml:2019 C/releases.xml:2095 C/releases.xml:2135
+#: C/releases.xml:2172 C/releases.xml:2186
+msgid "New features:"
+msgstr "Neue Funktionen:"
+
 #. (itstool) path: listitem/para
-#: C/releases.xml:56
+#: C/releases.xml:33
 msgid ""
 "Quick search can be activated by just typing a letter, adjustable in the "
 "options tab"
@@ -16955,20 +16982,20 @@ msgstr ""
 "werden (anpassbar in den Optionen)."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:59
+#: C/releases.xml:36
 msgid "Option for saving/not saving the command line history on exit"
 msgstr ""
 "Option zum Speichern oder nicht speichern der Befehlszeilenchronik beim "
 "Beenden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:62
+#: C/releases.xml:39
 msgid "Option for saving/not saving the search history on exit"
 msgstr ""
 "Option zum Speichern oder nicht speichern des Suchverlaufs beim Beenden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:65
+#: C/releases.xml:42
 msgid ""
 "Added a settings option for deciding if the terminal window should stay open "
 "when a command finishes"
@@ -16978,7 +17005,7 @@ msgstr ""
 "ist."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:68
+#: C/releases.xml:45
 msgid ""
 "[build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall "
 "and David King)"
@@ -16987,14 +17014,14 @@ msgstr ""
 "Withnall und David King)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:71
+#: C/releases.xml:48
 msgid ""
 "[build] Translations are now handled by upstream gettext instead of intltool"
 msgstr ""
 "[build] Übersetzungen werden nun mit gettext anstatt intltool verarbeitet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:74
+#: C/releases.xml:51
 msgid ""
 "[build] New documentation infrastructure: Use yelp-tools instead of gnome-"
 "doc-utils"
@@ -17003,22 +17030,41 @@ msgstr ""
 "utils wird yelp-tools verwendet"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:78 C/releases.xml:320
+#: C/releases.xml:55 C/releases.xml:297
 msgid "Other changes:"
 msgstr "Weitere Änderungen:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:82
+#: C/releases.xml:59
 msgid "Increased minimum GTK version from 2.8.0 to 2.18.0"
 msgstr "Minimal erforderliche GTK-Version wurde von 2.8.0 auf 2.18.0 angehoben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:85 C/releases.xml:310
+#: C/releases.xml:62 C/releases.xml:287
 msgid "Code cleanup"
 msgstr "Code-Bereinigung"
 
+#. (itstool) path: entry/para
+#: C/releases.xml:66 C/releases.xml:90 C/releases.xml:116 C/releases.xml:139
+#: C/releases.xml:184 C/releases.xml:209 C/releases.xml:311 C/releases.xml:336
+#: C/releases.xml:361 C/releases.xml:392 C/releases.xml:429 C/releases.xml:460
+#: C/releases.xml:488 C/releases.xml:513 C/releases.xml:544 C/releases.xml:578
+#: C/releases.xml:716 C/releases.xml:741 C/releases.xml:772 C/releases.xml:797
+#: C/releases.xml:814 C/releases.xml:828 C/releases.xml:851 C/releases.xml:882
+#: C/releases.xml:911 C/releases.xml:936 C/releases.xml:956 C/releases.xml:982
+#: C/releases.xml:1013 C/releases.xml:1039 C/releases.xml:1065
+#: C/releases.xml:1100 C/releases.xml:1123 C/releases.xml:1146
+#: C/releases.xml:1275 C/releases.xml:1333 C/releases.xml:1402
+#: C/releases.xml:1525 C/releases.xml:1626 C/releases.xml:1640
+#: C/releases.xml:1691 C/releases.xml:1763 C/releases.xml:1853
+#: C/releases.xml:1936 C/releases.xml:1999 C/releases.xml:2033
+#: C/releases.xml:2065 C/releases.xml:2124 C/releases.xml:2149
+#: C/releases.xml:2206
+msgid "Bug fixes:"
+msgstr "Fehlerkorrekturen:"
+
 #. (itstool) path: listitem/para
-#: C/releases.xml:93
+#: C/releases.xml:70
 msgid ""
 "[build] Python is now found at build time, too, when its version is equal to "
 "or higher than 3.x"
@@ -17027,7 +17073,7 @@ msgstr ""
 "Version 3.x oder höher verfügbar ist"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:100
+#: C/releases.xml:77
 msgid ""
 "New or updated translations: ca, cs, de, eo, es, fi, hu, id, pl, pt_BR, sl, "
 "sr, sr@latin, sv"
@@ -17036,29 +17082,29 @@ msgstr ""
 "pt_BR, sl, sr, sr@latin, sv"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:103 C/releases.xml:131 C/releases.xml:154 C/releases.xml:349
+#: C/releases.xml:80 C/releases.xml:108 C/releases.xml:131 C/releases.xml:326
 msgid "New or updated docs: cs, de, es"
 msgstr "Neue oder aktualisierte Dokumentation: cs, de, es"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:110
+#: C/releases.xml:87
 msgid "1.6.4"
 msgstr "1.6.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:111
+#: C/releases.xml:88
 msgid "2017-05-28"
 msgstr "28. Mai 2017"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:117
+#: C/releases.xml:94
 msgid "Fixed problem bgo#779574 (Other favourite apps settings not saved)"
 msgstr ""
 "Fehlerkorrektur #779574 (Einstellungen für Standardanwendungen werden nicht "
 "gespeichert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:120
+#: C/releases.xml:97
 msgid ""
 "Fixed problem bgo#619112 (Internal-viewer by default display incorrect code "
 "pages)"
@@ -17067,7 +17113,7 @@ msgstr ""
 "falsche Codepages an)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:128
+#: C/releases.xml:105
 msgid ""
 "New or updated translations: cs, de, eu, hu, id, pl, pt_BR, sr, sl@latin, sv"
 msgstr ""
@@ -17075,17 +17121,17 @@ msgstr ""
 "sl@latin, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:136
+#: C/releases.xml:113
 msgid "1.6.3"
 msgstr "1.6.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:137
+#: C/releases.xml:114
 msgid "2017-02-26"
 msgstr "26. Februar 2017"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:143
+#: C/releases.xml:120
 msgid ""
 "libunique (sometimes called only 'unique') is now optional via configure "
 "option"
@@ -17094,23 +17140,23 @@ msgstr ""
 "Option verfügbar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:151
+#: C/releases.xml:128
 msgid "New or updated translations: cs, es, pl, pt_BR, ru, sr, sl@latin"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: cs, es, pl, pt_BR, ru, sr, sl@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:159
+#: C/releases.xml:136
 msgid "1.6.2"
 msgstr "1.6.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:160
+#: C/releases.xml:137
 msgid "2016-11-06"
 msgstr "6. November 2016"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:166
+#: C/releases.xml:143
 msgid ""
 "Fixed problem bgo#398734 (Color of marked files does not change when using "
 "theme colors)"
@@ -17119,21 +17165,21 @@ msgstr ""
 "benutzerdefinierte Farben nicht)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:169
+#: C/releases.xml:146
 msgid "Device list entry width is set equal to the longest string in the list"
 msgstr ""
 "Breite der Geräteliste wird durch die längste Zeichenkette in der Liste "
 "bestimmt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:172
+#: C/releases.xml:149
 msgid "Fixed a bug in advance rename tool when utilizing METATAGS"
 msgstr ""
 "Fehlerkorrektur im erweiterten Umbenennungswerkzeug bei Verwendung von "
 "METATAGS"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:180
+#: C/releases.xml:157
 msgid ""
 "Disk free space label is shown in status bar if device list isn't shown "
 "(works after restarting gcmd)"
@@ -17142,44 +17188,44 @@ msgstr ""
 "nicht sichtbar ist (erfordert einen Neustart von GNOME Commander)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:183
+#: C/releases.xml:160
 msgid "Shortcut can be assigned for:"
 msgstr "Tastenkombination kann zugewiesen werden für:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:186
+#: C/releases.xml:163
 msgid "Moving the cursor up or down (\"Move cursor one step up/down\")"
 msgstr "Bewegen der Eingabemarke nach oben oder unten"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:189
+#: C/releases.xml:166
 msgid ""
 "Viewing bookmarks of current device (\"Show bookmarks of current device\")"
 msgstr "Anzeigen der Lesezeichen das aktuellen Geräts"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:194
+#: C/releases.xml:171
 msgid "New or updated translations: hu, de, pl, sr, sl@latin"
 msgstr "Neue oder aktualisierte Übersetzungen: hu, de, pl, sr, sl@latin"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:197 C/releases.xml:222 C/releases.xml:405 C/releases.xml:473
-#: C/releases.xml:526
+#: C/releases.xml:174 C/releases.xml:199 C/releases.xml:382 C/releases.xml:450
+#: C/releases.xml:503
 msgid "New or updated docs: cs"
 msgstr "Neue oder aktualisierte Dokumentation: cs"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:204
+#: C/releases.xml:181
 msgid "1.6.1"
 msgstr "1.6.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:205
+#: C/releases.xml:182
 msgid "2016-10-18"
 msgstr "18. Oktober 2016"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:211
+#: C/releases.xml:188
 msgid ""
 "Fixed problem bgo#638174 (Selection background color not applied when using "
 "custom colors)"
@@ -17188,7 +17234,7 @@ msgstr ""
 "benutzerdefinierten Farben nicht angewendet)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:214
+#: C/releases.xml:191
 msgid ""
 "Fixed problem bgo#773063 (Compiles with gcc6 -Werror=format-security, Thanks "
 "to Mamoru Tasaka)"
@@ -17197,17 +17243,17 @@ msgstr ""
 "security, Beitrag von Mamoru Tasaka)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:229
+#: C/releases.xml:206
 msgid "1.6.0"
 msgstr "1.6.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:230
+#: C/releases.xml:207
 msgid "2016-10-04"
 msgstr "4. Oktober 2016"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:236
+#: C/releases.xml:213
 msgid ""
 "Fixed problem bgo#671616 (Right-Mouse popup menu is displayed in wrong "
 "position, Thanks to Puux)"
@@ -17215,7 +17261,7 @@ msgstr ""
 "Fehlerkorrektur #671616 (Rechtsklickmenü ist falsch platziert, Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:239
+#: C/releases.xml:216
 msgid ""
 "Fixed problem bgo#683087 (Crash opening properties window on certain "
 "objects, Thanks to Puux)"
@@ -17224,7 +17270,7 @@ msgstr ""
 "Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:242 C/releases.xml:431
+#: C/releases.xml:219 C/releases.xml:408
 msgid ""
 "Fixed problem bgo#742752 (Made options dialog resizable and added scrollbars)"
 msgstr ""
@@ -17232,7 +17278,7 @@ msgstr ""
 "Optionsdialog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:245
+#: C/releases.xml:222
 msgid ""
 "Preserve focused file after renamed with AdvRenDialog (Thanks to Martin "
 "Mocko)"
@@ -17241,28 +17287,28 @@ msgstr ""
 "Martin Mocko)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:248
+#: C/releases.xml:225
 msgid "Fixed problem bgo#767158 (Shortcuts stop working after changing layout)"
 msgstr ""
 "Fehlerkorrektur bgo#767158 (Tastenkürzel funktionieren nach dem Ändern des "
 "Layouts nicht mehr)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:251
+#: C/releases.xml:228
 msgid "Fixed string escaping for directories with ampersand (see bgo#769309)"
 msgstr ""
 "Korrektur der Zeichenkettenmaskierung für Ordner mit Ampersand (siehe "
 "bgo#769309)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:254
+#: C/releases.xml:231
 msgid ""
 "Fixed problem bgo#770062 (Memory leak in GnomeCmdPlainPath, Thanks to Eric)"
 msgstr ""
 "Fehlerkorrektur bgo#770062 (Speicherleck in GnomeCmdPlainPath, Dank an Eric)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:257
+#: C/releases.xml:234
 msgid ""
 "Fixed problem bgo#770063 (Memory leak in get_string_pixel_size, Thanks to "
 "Eric)"
@@ -17271,31 +17317,31 @@ msgstr ""
 "Eric)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:265
+#: C/releases.xml:242
 msgid "Always reopen the tab which was previously closed in the options dialog"
 msgstr ""
 "Es wird stets der Reiter geöffnet der vorher im Optionsdialog geschlossen "
 "wurde"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:268
+#: C/releases.xml:245
 msgid "Samba support is now optionally available via configure option"
 msgstr ""
 "Samba-Unterstützung ist nun optional über eine configure-Option verfügbar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:271
+#: C/releases.xml:248
 msgid "Configurable command for sending files to a preferred application"
 msgstr "Anpassbarer Befehl zum Senden von Dateien an eine bevorzugte Anwendung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:274
+#: C/releases.xml:251
 msgid ""
 "Button 'Edit files' accepts more than one selected file at the same time"
 msgstr "Der Knopf »Dateien bearbeiten« akzeptiert mehrere Dateien gleichzeitig"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:277
+#: C/releases.xml:254
 msgid ""
 "Device buttons and device list entries act as 'home buttons' for that device "
 "when it is already active"
@@ -17304,7 +17350,7 @@ msgstr ""
 "das Gerät, wenn es bereits aktiv ist"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:280
+#: C/releases.xml:257
 msgid ""
 "Copy directory path to clipboard after right click on dir-indicator (Thanks "
 "to Puux)"
@@ -17313,26 +17359,26 @@ msgstr ""
 "Zwischenablage kopiert (Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:283
+#: C/releases.xml:260
 msgid "Show/hide mainmenu can be set as keyboard shortcut now (Thanks to Puux)"
 msgstr ""
 "Für Anzeigen/Verbergen des Hauptmenüs kann nun eine Tastenkombination "
 "festgelegt werden (Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:286
+#: C/releases.xml:263
 msgid "Simple plug-in system for file context menu (Thanks to Puux)"
 msgstr "Einfaches Erweiterungssystem für Datei-Kontextmenü (Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:289
+#: C/releases.xml:266
 msgid ""
 "Display of application icons in the \"Open With\" popup menu (Thanks to Puux)"
 msgstr ""
 "Anzeige der Anwendungssymbole im »Öffnen mit«-Kontextmenü (Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:292
+#: C/releases.xml:269
 msgid ""
 "Write bookmark changes immediately to file, Sync bookmarks between all "
 "instances (Thanks to Puux)"
@@ -17341,7 +17387,7 @@ msgstr ""
 "zwischen allen Instanzen abgeglichen (Dank an Puux)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:295
+#: C/releases.xml:272
 msgid ""
 "Storage of options is done in the dconf database now instead of a gnome-"
 "config file (see bgo#570733)"
@@ -17350,13 +17396,13 @@ msgstr ""
 "gespeichert (siehe bgo#570733)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:298
+#: C/releases.xml:275
 msgid "Devices and fav-apps are now stored within the GKeyFile format"
 msgstr ""
 "Geräte und bevorzugte Anwendungen werden nun im GKeyFile-Format gespeichert"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:301
+#: C/releases.xml:278
 msgid ""
 "File Roller plugin can use patterns of strftime when creating the archive "
 "name"
@@ -17365,22 +17411,22 @@ msgstr ""
 "strftime-Muster verwenden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:304
+#: C/releases.xml:281
 msgid "Started usage of google test framework for unit tests"
 msgstr "Beginn der Nutzung des Google-Test-Frameworks für Unit-Tests"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:307
+#: C/releases.xml:284
 msgid "New colour theme 'Winter'"
 msgstr "Neues Farbthema: »Winter«"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:313
+#: C/releases.xml:290
 msgid "New or updated docs: cs, de, el, es"
 msgstr "Neue oder aktualisierte Dokumentation: cs, de, el, es"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:316
+#: C/releases.xml:293
 msgid ""
 "New or updated translations: bs, ca, cs, de, es, eu, fi, fr, hu, id, lt, nb, "
 "oc, pl, pt, pt_BR, ro, sk, sl, sr, sl@latin, sv, tr"
@@ -17389,23 +17435,23 @@ msgstr ""
 "id, lt, nb, oc, pl, pt, pt_BR, ro, sk, sl, sr, sl@latin, sv, tr"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:324
+#: C/releases.xml:301
 msgid "Removed \"Open folder\" command in popup menu and user actions"
 msgstr ""
 "»Ordner öffnen«-Befehl wurde aus Kontextmenü und Benutzeraktionen entfernt"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:331
+#: C/releases.xml:308
 msgid "1.4.9"
 msgstr "1.4.9"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:332
+#: C/releases.xml:309
 msgid "2016-09-18"
 msgstr "18. September 2016"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:338
+#: C/releases.xml:315
 msgid ""
 "Fixed bgo#764306 (Spelling mistake and wrong words in strings, thanks to "
 "Anders Jonsson)"
@@ -17414,7 +17460,7 @@ msgstr ""
 "Zeichenketten, Dank an Anders Jonsson)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:346
+#: C/releases.xml:323
 msgid ""
 "New or updated translations: cs, de, es, hu, hu, hu, id, pl, pt, ro, sk, sr, "
 "sr@latin, sv"
@@ -17423,17 +17469,17 @@ msgstr ""
 "ro, sk, sr, sr@latin, sv"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:356
+#: C/releases.xml:333
 msgid "1.4.8"
 msgstr "1.4.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:357
+#: C/releases.xml:334
 msgid "2016-03-14"
 msgstr "14. März 2016"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:363
+#: C/releases.xml:340
 msgid ""
 "Fixed problem bgo#761580 (Support gcc6 -Werror=format-security, thanks to "
 "Mamoru Tasaka)"
@@ -17442,27 +17488,27 @@ msgstr ""
 "security, Beitrag von Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:371
+#: C/releases.xml:348
 msgid "New or updated translations: cs, de, pl, pt, pt_BR, oc"
 msgstr "Neue oder aktualisierte Übersetzungen: cs, de, pl, pt, pt_BR, oc"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:374
+#: C/releases.xml:351
 msgid "New or updated docs: cs, de"
 msgstr "Neue oder aktualisierte Dokumentation: cs, de"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:381
+#: C/releases.xml:358
 msgid "1.4.7"
 msgstr "1.4.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:382
+#: C/releases.xml:359
 msgid "2015-05-30"
 msgstr "30. Mai 2015"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:388
+#: C/releases.xml:365
 msgid ""
 "Fixed problem bgo#745454 (Segmentation fault after find files, thanks to "
 "Mamoru Tasaka)"
@@ -17471,7 +17517,7 @@ msgstr ""
 "danke an Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:391
+#: C/releases.xml:368
 msgid ""
 "Fixed problem bgo#749869 (Segfault on the second search, thanks to Mamoru "
 "Tasaka)"
@@ -17480,7 +17526,7 @@ msgstr ""
 "danke an Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:394
+#: C/releases.xml:371
 msgid ""
 "Fixed problem bgo#734032 (Clicking on .png file looks at wrong MIME type, "
 "thanks to Mamoru Tasaka)"
@@ -17489,29 +17535,29 @@ msgstr ""
 "Typ, danke an Mamoru Tasaka)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:402
+#: C/releases.xml:379
 msgid "New or updated translations: co"
 msgstr "Neue oder aktualisierte Übersetzungen: co"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:412
+#: C/releases.xml:389
 msgid "1.4.6"
 msgstr "1.4.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:413
+#: C/releases.xml:390
 msgid "2015-05-19"
 msgstr "19. Mai 2015"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:419
+#: C/releases.xml:396
 msgid "Fixed problem bgo#748869 (crash when searching two times consecutively)"
 msgstr ""
 "Fehlerkorrektur bgo#748869 (Absturz bei zwei aufeinanderfolgenden "
 "suchvorgängen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:422
+#: C/releases.xml:399
 msgid ""
 "Fixed problem bgo#746003 (crash on opening property dialog on ftp-directory "
 "with \"odd\" uid)"
@@ -17520,7 +17566,7 @@ msgstr ""
 "einem FTP-Ordner mit »krummer« Benutzer-ID)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:425
+#: C/releases.xml:402
 msgid ""
 "Fixed problem bgo#747771 (appdata.xml file is not being translated, thanks "
 "to Dominique Leuenberger)"
@@ -17529,7 +17575,7 @@ msgstr ""
 "Dominique Leuenberger)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:428
+#: C/releases.xml:405
 msgid ""
 "Fixed problem bgo#653573 (Passwords store in plain text in ./gnome-commander/"
 "connections)"
@@ -17538,32 +17584,32 @@ msgstr ""
 "connections im Klartext gespeichert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:439
+#: C/releases.xml:416
 msgid "New or updated translations: bs, el, pt"
 msgstr "Neue oder aktualisierte Übersetzungen: bs, el, pt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:442
+#: C/releases.xml:419
 msgid "New or updated docs: cs, el"
 msgstr "Neue oder aktualisierte Dokumentation: cs, el"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:449
+#: C/releases.xml:426
 msgid "1.4.5"
 msgstr "1.4.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:450
+#: C/releases.xml:427
 msgid "2015-01-24"
 msgstr "24. Januar 2015"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:456
+#: C/releases.xml:433
 msgid "Fixed problem bgo#741316 (Appdata missing in POT)"
 msgstr "Fehlerkorrektur bgo#741316 (Appdata fehlt in POT)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:459
+#: C/releases.xml:436
 msgid ""
 "Fixed problem bgo#742716 (Option --start-right-dir crashes gnome-commander)"
 msgstr ""
@@ -17571,27 +17617,27 @@ msgstr ""
 "abstürzen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:462
+#: C/releases.xml:439
 msgid "Removed python-2.6 support from gentoo ebuild"
 msgstr "Unterstützung für Python v2.6 aus Gentoo-Ebuild entfernt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:470
+#: C/releases.xml:447
 msgid "New or updated translations: cs, hu, id, sr, sr@latin"
 msgstr "Neue oder aktualisierte Übersetzungen: cs, hu, id, sr, sr@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:480
+#: C/releases.xml:457
 msgid "1.4.4"
 msgstr "1.4.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:481
+#: C/releases.xml:458
 msgid "2014-11-11"
 msgstr "11. November 2014"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:487
+#: C/releases.xml:464
 msgid ""
 "Fixed problem bgo#571495 (Migrated from gnome_execute_shell to g_spawn_async)"
 msgstr ""
@@ -17599,7 +17645,7 @@ msgstr ""
 "g_spawn_async)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:490
+#: C/releases.xml:467
 msgid ""
 "Fixed problem bgo#737088 (Support for user's terminal different from gnome-"
 "terminal)"
@@ -17608,28 +17654,28 @@ msgstr ""
 "anstatt gnome-terminal)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:498
+#: C/releases.xml:475
 msgid "New or updated translations: cs, de, eu, fi, id, sr, sr@latin"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: cs, de, eu, fi, id, sr, sr@latin"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:501 C/releases.xml:591
+#: C/releases.xml:478 C/releases.xml:568
 msgid "New or updated docs: cs, es"
 msgstr "Neue oder aktualisierte Dokumentation: cs, es"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:508
+#: C/releases.xml:485
 msgid "1.4.3"
 msgstr "1.4.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:509
+#: C/releases.xml:486
 msgid "2014-06-22"
 msgstr "22. Juni 2014"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:515
+#: C/releases.xml:492
 msgid ""
 "Fixed problem bgo#731557 (Crash when drag 'n drop via mouse and file aready "
 "exists)"
@@ -17638,22 +17684,22 @@ msgstr ""
 "wenn die Datei bereits existiert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:523
+#: C/releases.xml:500
 msgid "New or updated translations: cs, de, eu, fi"
 msgstr "Neue oder aktualisierte Übersetzungen: cs, de, eu, fi"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:533
+#: C/releases.xml:510
 msgid "1.4.2"
 msgstr "1.4.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:534
+#: C/releases.xml:511
 msgid "2014-05-23"
 msgstr "23. Mai 2014"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:540
+#: C/releases.xml:517
 msgid ""
 "Fixed Gentoo problem #509574 (Switched from python-r1 to python-single-r1 in "
 "ebuild)"
@@ -17662,7 +17708,7 @@ msgstr ""
 "Ebuild)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:543
+#: C/releases.xml:520
 msgid ""
 "Fixed problem bgo#367949 (Corrected async_xfer_callback-results for moving "
 "folders)"
@@ -17671,7 +17717,7 @@ msgstr ""
 "Ordnerverschiebungen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:546
+#: C/releases.xml:523
 msgid ""
 "Fixed problem bgo#598161 (Selecting text in internal viewer on lines with "
 "TAB characters)"
@@ -17680,7 +17726,7 @@ msgstr ""
 "Zeilen mit Tabulatorzeichen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:549
+#: C/releases.xml:526
 msgid ""
 "Text selection in int. viewer works on lines with TAB characters (Thanks to "
 "Jan Vleeshouwers)"
@@ -17689,22 +17735,22 @@ msgstr ""
 "Tabulatorzeichen (Dank an Jan Vleeshouwers)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:557
+#: C/releases.xml:534
 msgid "New or updated translations: cs, el, sr, sr@latin"
 msgstr "Neue oder aktualisierte Übersetzungen: cs, el, sr, sr@latin"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:564
+#: C/releases.xml:541
 msgid "1.4.1"
 msgstr "1.4.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:565
+#: C/releases.xml:542
 msgid "2014-04-05"
 msgstr "5. April 2014"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:571
+#: C/releases.xml:548
 msgid ""
 "Fixed problem bgo#641842 (Use poppler-glib instead of poppler internal API)"
 msgstr ""
@@ -17712,12 +17758,12 @@ msgstr ""
 "internen Poppler-API)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:574
+#: C/releases.xml:551
 msgid "Fixed problem bgo#726682 (Patch to fix undefined reference to vtable)"
 msgstr "Fehlerkorrektur bgo#726682 (Patch für undefinierte Referenz zu vtable)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:577
+#: C/releases.xml:554
 msgid ""
 "Support for utf8 encoded creation and modification dates in document metadata"
 msgstr ""
@@ -17725,34 +17771,34 @@ msgstr ""
 "Dokument-Metadaten"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:580
+#: C/releases.xml:557
 msgid "Moved Search, Quick Search and Enable Filter from Edit to File menu"
 msgstr ""
 "Suche, Schnellsuche und Filteraktivierung wurde aus dem Bearbeiten- in das "
 "Datei-Menü verschoben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:588
+#: C/releases.xml:565
 msgid "New or updated translations: cs, es, fr , id , pt_BR, sl"
 msgstr "Neue oder aktualisierte Übersetzungen: cs, es, fr , id , pt_BR, sl"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:598
+#: C/releases.xml:575
 msgid "1.4.0"
 msgstr "1.4.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:599
+#: C/releases.xml:576
 msgid "2014-03-17"
 msgstr "17. März 2014"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:605
+#: C/releases.xml:582
 msgid "Fixed problem bgo#377463 (mkdir dialog loses focus)"
 msgstr "Fehlerkorrektur #377463 (Ordnererstellungsdialog verliert Fokus)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:608
+#: C/releases.xml:585
 msgid ""
 "Fixed problem bgo#492479 (file replace prompt must show date and size of "
 "files)"
@@ -17761,7 +17807,7 @@ msgstr ""
 "Zeitstempel und Größe von Dateien anzeigen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:611
+#: C/releases.xml:588
 msgid ""
 "Fixed problem bgo#617140 (GNOME Goal: Use accessor functions instead direct "
 "access)"
@@ -17770,7 +17816,7 @@ msgstr ""
 "direkten Zugriffs verwenden)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:614
+#: C/releases.xml:591
 msgid ""
 "Fixed problems bgo#632064, bgo#632208, bgo#633107, bgo#633167, bgo#633331, "
 "bgo#634972, bgo#637873, bgo#638059 (bugs in gnome-commander-help.master.po)"
@@ -17780,49 +17826,49 @@ msgstr ""
 "help.master.po)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:617
+#: C/releases.xml:594
 msgid "Fixed problem bgo#660043 (shortcut ALT+DOWN not documented)"
 msgstr ""
 "Fehlerkorrektur #660043 (Schnellzugriff ALT+Runter war nicht dokumentiert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:620
+#: C/releases.xml:597
 msgid "Fixed problem bgo#660268 (remember directory history between sessions)"
 msgstr ""
 "Fehlerkorrektur bgo#660268 (Sitzungsübergreifende Speicherung der "
 "Ordnerchronik)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:623
+#: C/releases.xml:600
 msgid "Fixed problem bgo#667080 (delete confirmation defaults to YES/OK)"
 msgstr "Fehlerkorrektur bgo#667080 (Vorgabe der Löschbestätigung auf YES/OK)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:626
+#: C/releases.xml:603
 msgid "Fixed Ubuntu problem #117226 (bookmarks unification)"
 msgstr "Beseitigtes Ubuntu-Problem #117226 (Lesezeichen-Vereinheitlichung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:629
+#: C/releases.xml:606
 msgid "Fixed problem with right mouse button selection not being precise"
 msgstr ""
 "Beseitigtes Problem mit der rechten Maustaste, wenn die Auswahl nicht "
 "präzise ist"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:632
+#: C/releases.xml:609
 msgid "Fixed problem bgo#696227 (detect and support libgsf &gt;= 1.14.26)"
 msgstr ""
 "Fehlerkorrektur bgo#696227 (Erkennung und Unterstützung für libgsf &gt;= "
 "1.14.26)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:635
+#: C/releases.xml:612
 msgid "Fixed problem bgo#684527 (Fixed typos in strings)"
 msgstr "Fehlerkorrektur #684527 (Tippfehler)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:638
+#: C/releases.xml:615
 msgid ""
 "Fixed problem bgo#660063 (define ALT+DOWN binding as user definable: view."
 "dir_history)"
@@ -17831,62 +17877,62 @@ msgstr ""
 "view.dir_history)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:641
+#: C/releases.xml:618
 msgid "Fixed problem bgo#642178 (lock tabs for prev/next buttons)"
 msgstr "Fehlerkorrektur bgo#642178 (Reiter für Vor-/Zurück-Knöpfe sperren)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:652
+#: C/releases.xml:629
 msgid "Revamped bookmarks dialog"
 msgstr "Überarbeiteter Lesezeichendialog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:655
+#: C/releases.xml:632
 msgid "Revamped file properties dialog"
 msgstr "Verbesserter Dateieigenschaftsdialog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:661
+#: C/releases.xml:638
 msgid "New colour theme: green tiger"
 msgstr "Neues Farbthema: Grün gestreift"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:664
+#: C/releases.xml:641
 msgid "User defined LS_COLORS colours"
 msgstr "Benutzerdefinierter Farben mit LS_COLORS"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:667
+#: C/releases.xml:644
 msgid "Possibility to select/deselect files only"
 msgstr "Möglichkeit, Dateien nur aus- oder abzuwählen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:670
+#: C/releases.xml:647
 msgid "Support for automatic width counters in advanced file rename"
 msgstr "Unterstützung für automatische Breite im Mehrfachumbenennungswerkzeug"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:673
+#: C/releases.xml:650
 msgid "Enhanced file name matching in quick search"
 msgstr "Verbesserte Erkennung von Dateinamen in Schnellsuche"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:676
+#: C/releases.xml:653
 msgid "Open terminal with administrator privileges"
 msgstr "Terminal mit Systemverwalterrechten öffnen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:679
+#: C/releases.xml:656
 msgid "Prompt to confirm drag &amp; drop operations"
 msgstr "Nachfrage zum Bestätigen von Ziehen-und-Ablegen-Vorgängen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:682
+#: C/releases.xml:659
 msgid "Right click popup menu for copying in internal viewer"
 msgstr "Kontextmenü für Kopieren im internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:685
+#: C/releases.xml:662
 msgid ""
 "--config-dir command line option for customized location of config files"
 msgstr ""
@@ -17894,34 +17940,34 @@ msgstr ""
 "Konfigurationsdateien"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:688
+#: C/releases.xml:665
 msgid "Several speed improvements including C++ rework and code cleanups"
 msgstr ""
 "Verbesserungen der Arbeitsgeschwindigkeit, C++-Optimierung und "
 "Codebereinigung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:691
+#: C/releases.xml:668
 msgid "New python plugin: 'apply_patch'"
 msgstr "Neues Python-Plugin: »apply_patch«"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:694
+#: C/releases.xml:671
 msgid "Dropped broken MIME type configuration"
 msgstr "Nicht nutzbare MIME-Typen-Konfiguration entfernt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:697
+#: C/releases.xml:674
 msgid "Dropped support for cvs plugin"
 msgstr "Unterstützung für CVS-Plugin entfernt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:700
+#: C/releases.xml:677
 msgid "New or updated docs: cs, de, en, es, el, fr, ru, sl"
 msgstr "Neue oder aktualisierte Dokumentation: cs, de, en, es, el, fr, ru, sl"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:703
+#: C/releases.xml:680
 msgid ""
 "New or updated translations: ca, cs, da, eo, es, eu, fr, hu, it, ja, ko, nb, "
 "pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
@@ -17930,31 +17976,31 @@ msgstr ""
 "ja, ko, nb, pl, pt_BR, ro, ru, sl, sr, sr@latin, sv, uk, zh_CN"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:706 C/releases.xml:1272 C/releases.xml:1410
-#: C/releases.xml:1530 C/releases.xml:1625 C/releases.xml:1699
-#: C/releases.xml:1771 C/releases.xml:1852 C/releases.xml:1932
-#: C/releases.xml:2001
+#: C/releases.xml:683 C/releases.xml:1249 C/releases.xml:1387
+#: C/releases.xml:1507 C/releases.xml:1602 C/releases.xml:1676
+#: C/releases.xml:1748 C/releases.xml:1829 C/releases.xml:1909
+#: C/releases.xml:1978
 msgid "New key bindings:"
 msgstr "Neue Tastenkürzel:"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:709 C/releases.xml:712 C/releases.xml:715 C/releases.xml:718
-#: C/releases.xml:721 C/releases.xml:1275 C/releases.xml:1533
-#: C/releases.xml:1536 C/releases.xml:1628 C/releases.xml:1631
-#: C/releases.xml:1634 C/releases.xml:1637 C/releases.xml:1702
-#: C/releases.xml:1774 C/releases.xml:1864 C/releases.xml:1935
-#: C/releases.xml:1938 C/releases.xml:1941 C/releases.xml:1944
-#: C/releases.xml:2010
+#: C/releases.xml:686 C/releases.xml:689 C/releases.xml:692 C/releases.xml:695
+#: C/releases.xml:698 C/releases.xml:1252 C/releases.xml:1510
+#: C/releases.xml:1513 C/releases.xml:1605 C/releases.xml:1608
+#: C/releases.xml:1611 C/releases.xml:1614 C/releases.xml:1679
+#: C/releases.xml:1751 C/releases.xml:1841 C/releases.xml:1912
+#: C/releases.xml:1915 C/releases.xml:1918 C/releases.xml:1921
+#: C/releases.xml:1987
 msgid "CTRL"
 msgstr "Strg"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:709 C/releases.xml:1283
+#: C/releases.xml:686 C/releases.xml:1260
 msgid "T"
 msgstr "T"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:709
+#: C/releases.xml:686
 msgid ""
 "<_:keycombo-1/> Open directory in a new tab (replaces the old Multi-Rename-"
 "Tool binding)"
@@ -17963,211 +18009,211 @@ msgstr ""
 "bisherige Tastenkombination für das Mehrfachumbenennungswerkzeug)"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:712 C/releases.xml:715
+#: C/releases.xml:689 C/releases.xml:692
 msgid "W"
 msgstr "W"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:712
+#: C/releases.xml:689
 msgid "<_:keycombo-1/> Close current tab"
 msgstr "<_:keycombo-1/> Aktuellen Reiter schließen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:715 C/releases.xml:721 C/releases.xml:1637
-#: C/releases.xml:1702 C/releases.xml:1774 C/releases.xml:1855
-#: C/releases.xml:1864 C/releases.xml:1938
+#: C/releases.xml:692 C/releases.xml:698 C/releases.xml:1614
+#: C/releases.xml:1679 C/releases.xml:1751 C/releases.xml:1832
+#: C/releases.xml:1841 C/releases.xml:1915
 msgid "SHIFT"
 msgstr "Umschalt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:715
+#: C/releases.xml:692
 msgid "<_:keycombo-1/> Close all tabs"
 msgstr "<_:keycombo-1/> Alle Reiter schließen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:718 C/releases.xml:721
+#: C/releases.xml:695 C/releases.xml:698
 msgid "TAB"
 msgstr "Tab"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:718
+#: C/releases.xml:695
 msgid "<_:keycombo-1/> Switch to the next tab"
 msgstr "<_:keycombo-1/> Zum nächsten Reiter wechseln"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:721
+#: C/releases.xml:698
 msgid "<_:keycombo-1/> Switch to the previous tab"
 msgstr "<_:keycombo-1/> Zum vorherigen Reiter wechseln"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:724 C/releases.xml:727 C/releases.xml:1413
+#: C/releases.xml:701 C/releases.xml:704 C/releases.xml:1390
 msgid "SUPER"
 msgstr "Super-Taste"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:724
+#: C/releases.xml:701
 msgid "1"
 msgstr "1"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:724
+#: C/releases.xml:701
 msgid "<_:keycombo-1/> Change left connection"
 msgstr "<_:keycombo-1/> Linke Verbindung wechseln"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:727
+#: C/releases.xml:704
 msgid "2"
 msgstr "2"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:727
+#: C/releases.xml:704
 msgid "<_:keycombo-1/> Change right connection"
 msgstr "<_:keycombo-1/> Rechte Verbindung wechseln"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:736
+#: C/releases.xml:713
 msgid "1.2.8.17"
 msgstr "1.2.8.17"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:737
+#: C/releases.xml:714
 msgid "2014-01-12"
 msgstr "12. Januar 2014"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:743
+#: C/releases.xml:720
 msgid "Fixed problem bgo#721132 (Support build with -Werror=format-security)"
 msgstr ""
 "Fehlerkorrektur bgo#721132 (Unterstützung für Erstellung mit -Werror=format-"
 "security)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:746
+#: C/releases.xml:723
 msgid "Updated GCMD home page location in source code"
 msgstr "Aktualisierung der GNOME-Commander-Webseite im Quellcode"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:754
+#: C/releases.xml:731
 msgid "Updated translations: es, id, pt_BR"
 msgstr "Aktualisierte Übersetzungen: es, id, pt_BR"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:761
+#: C/releases.xml:738
 msgid "1.2.8.16"
 msgstr "1.2.8.16"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:762
+#: C/releases.xml:739
 msgid "2013-12-23"
 msgstr "23. Dezember 2013"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:768
+#: C/releases.xml:745
 msgid "Fixed gcc-4.7 compiling problem"
 msgstr "Problem beim Kompilieren mit gcc-4.7"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:771
+#: C/releases.xml:748
 msgid "Fixed problem bgo#705724 (poppler &gt;= 0.24)"
 msgstr "Fehlerkorrektur #705724 (Build-Fehler für poppler &gt;= 0.24)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:774
+#: C/releases.xml:751
 msgid "Fixed problem bgo#676303 (poppler &gt;= 0.20.0)"
 msgstr "Fehlerkorrektur #676303 (Build-Fehler für poppler &gt;= 0.20.0)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:782
+#: C/releases.xml:759
 msgid "New or updated docs: de, el, fr"
 msgstr "Neue oder aktualisierte Dokumentation: de, el, fr"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:785
+#: C/releases.xml:762
 msgid "Updated translations: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 msgstr "Aktualisierte Übersetzungen: da, de, el, fr, hu, id, pt_br, ru, sl, th"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:792
+#: C/releases.xml:769
 msgid "1.2.8.15"
 msgstr "1.2.8.15"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:793
+#: C/releases.xml:770
 msgid "2011-12-06"
 msgstr "6. Dezember 2011"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:799
+#: C/releases.xml:776
 msgid "Fixed problem #65372 (missing links in gcmd-1.2.8 documentation)"
 msgstr ""
 "Fehlerkorrektur #665372 (Fehlende Links in der Dokumentation für gcmd-1.2.8)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:807
+#: C/releases.xml:784
 msgid "New or updated docs: cs, de, es, fr"
 msgstr ""
 "Neue oder aktualisierte Dokumentation: Deutsch, Französisch, Spanisch, "
 "Tschechisch"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:810
+#: C/releases.xml:787
 msgid "Updated translations: eo, es, sl"
 msgstr "Aktualisierte Übersetzungen: Esperanto, Spanisch. Slowenisch"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:817
+#: C/releases.xml:794
 msgid "1.2.8.14"
 msgstr "1.2.8.14"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:818
+#: C/releases.xml:795
 msgid "2011-10-04"
 msgstr "4. Oktober 2011"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:824
+#: C/releases.xml:801
 msgid "Fixed problem #621756 (custom port for ftp is not saved)"
 msgstr ""
 "Fehlerkorrektur #621756 (benutzerdefinierter Port für FTP wird nicht "
 "gespeichert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:827
+#: C/releases.xml:804
 msgid "Fixed problem #657780 (bugs in nl.po)"
 msgstr "Fehlerkorrektur #657780 (Fehler in nl.po)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:834
+#: C/releases.xml:811
 msgid "1.2.8.13"
 msgstr "1.2.8.13"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:835
+#: C/releases.xml:812
 msgid "2011-08-06"
 msgstr "6. August 2011"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:841
+#: C/releases.xml:818
 msgid "Fixed problem #646871 (crash on file properties when connected to FTP)"
 msgstr "Fehlerkorrektur #646871 (Absturz bei Dateieigenschaften über FTP)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:848
+#: C/releases.xml:825
 msgid "1.2.8.12"
 msgstr "1.2.8.12"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:849
+#: C/releases.xml:826
 msgid "2011-06-15"
 msgstr "15. Juni 2011"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:855
+#: C/releases.xml:832
 msgid "Fixed problem #618214 (crash when cancel a search)"
 msgstr "Fehlerkorrektur #618214 (Absturz beim Abbruch einer Suche)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:858
+#: C/releases.xml:835
 msgid ""
 "Fixed problem #640387 (yet another fix for deprecated python modules: md5, "
 "sha1)"
@@ -18176,66 +18222,66 @@ msgstr ""
 "Python-Module: md5, sha1)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:861
+#: C/releases.xml:838
 msgid "Fixed problem #649375 (bookmarks not updated for newly added ones)"
 msgstr ""
 "Fehlerkorrektur #649375 (Lesezeichen werden beim neu hinzufügen nicht "
 "gespeichert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:864
+#: C/releases.xml:841
 msgid "Fixed problem with mkdir permissions"
 msgstr "Beseitigtes Problem mit mkdir-Zugriffsrechten"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:871
+#: C/releases.xml:848
 msgid "1.2.8.11"
 msgstr "1.2.8.11"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:872
+#: C/releases.xml:849
 msgid "2011-05-01"
 msgstr "1. Mai 2011"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:878
+#: C/releases.xml:855
 msgid "Fixed problem #639243 (misleading docs for F2 shortcut)"
 msgstr ""
 "Fehlerkorrektur #639243 (Fehler in der Dokumentation für F2-Tastenkürzel)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:881
+#: C/releases.xml:858
 msgid "Fixed problem #640387 (usage of deprecated python modules: md5, sha1)"
 msgstr ""
 "Beseitigtes Problem #640387 (Verwendung veralteter Python-Module: md5, sha1)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:884
+#: C/releases.xml:861
 msgid "Fixed problem with starting GNOME Commander as root"
 msgstr "Fehlerkorrektur beim Starten von GNOME Commander als Root"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:887
+#: C/releases.xml:864
 msgid "Fixed problem with Traditional Chinese translation"
 msgstr "Beseitigtes Problem mit chinesischer (traditionell) Übersetzung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:895
+#: C/releases.xml:872
 msgid "Support for backward/forward mouse buttons"
 msgstr "Unterstützung für Vorwärts/Rückwärts-Maustasten"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:902
+#: C/releases.xml:879
 msgid "1.2.8.10"
 msgstr "1.2.8.10"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:903
+#: C/releases.xml:880
 msgid "2011-01-15"
 msgstr "15. Januar 2011"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:909
+#: C/releases.xml:886
 msgid ""
 "Fixed problem #448941 (numeric keypad arrows don't work in the main window)"
 msgstr ""
@@ -18243,7 +18289,7 @@ msgstr ""
 "Hauptfenster nicht)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:912
+#: C/releases.xml:889
 msgid ""
 "Fixed problem #620275 (add menu item to copy full path and file name to "
 "clipboard)"
@@ -18252,14 +18298,14 @@ msgstr ""
 "und Dateinamens in die Zwischenablage)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:915
+#: C/releases.xml:892
 msgid "Fixed problem #637501 (advrename: metatag popup menu shows wrong items)"
 msgstr ""
 "Fehlerkorrektur #637501 (advrename: Metatag-Kontextmenü zeigt falsche "
 "Einträge)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:918
+#: C/releases.xml:895
 msgid ""
 "Fixed problem with toggling path/basename/filename selections in copy/move "
 "dialogs"
@@ -18268,59 +18314,59 @@ msgstr ""
 "Auswahlen im Kopieren/Verschieben-Dialog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:921
+#: C/releases.xml:898
 msgid "Fixed problem with searching path for devices"
 msgstr "Beseitigtes Problem mit dem Suchpfad für Geräte"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:924
+#: C/releases.xml:901
 msgid "Updated translations: de"
 msgstr "Aktualisierte Übersetzungen: de"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:931
+#: C/releases.xml:908
 msgid "1.2.8.9"
 msgstr "1.2.8.9"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:932
+#: C/releases.xml:909
 msgid "2010-12-03"
 msgstr "3. Dezember 2010"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:938
+#: C/releases.xml:915
 msgid "Fixed problem #352024 (F10 key doesn't work)"
 msgstr "Fehlerkorrektur #352024 (Taste F10 funktioniert nicht)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:941
+#: C/releases.xml:918
 msgid "Fixed problem #631243 (advrename $c(width) regression)"
 msgstr ""
 "Fehlerkorrektur #631243 (Einschränkung in $c(width) regression in "
 "Mehrfachumbenennung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:949
+#: C/releases.xml:926
 msgid "Support for shell-style wildcards in quick search"
 msgstr "Unterstützung für Shell-Platzhalter in der Schnellsuche"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:956
+#: C/releases.xml:933
 msgid "1.2.8.8"
 msgstr "1.2.8.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:957
+#: C/releases.xml:934
 msgid "2010-09-09"
 msgstr "9. September 2010"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:963
+#: C/releases.xml:940
 msgid "Fixed problem #610764 (menu item won't stay checked)"
 msgstr "Fehlerkorrektur #610764 (Menüeintrag bleibt nicht markiert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:966
+#: C/releases.xml:943
 msgid ""
 "Fixed problem #626469 (add support for other su-like programs: xdg-su, "
 "gnomesu)"
@@ -18329,64 +18375,64 @@ msgstr ""
 "xdg-su und gnomesu)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:969
+#: C/releases.xml:946
 msgid "Fixed problem with broken Spanish translation"
 msgstr "Beseitigtes Problem mit spanischer Übersetzung"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:976
+#: C/releases.xml:953
 msgid "1.2.8.7"
 msgstr "1.2.8.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:977
+#: C/releases.xml:954
 msgid "2010-07-27"
 msgstr "27. Juli 2010"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:983
+#: C/releases.xml:960
 msgid "Fixed problem #540438 (no GUI message if meld cannot be executed)"
 msgstr ""
 "Fehlerkorrektur #540438 (keine GUI-Nachricht, falls Meld nicht ausgeführt "
 "werden kann)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:986
+#: C/releases.xml:963
 msgid "Fixed problem #616367 (\"File not found\" dialog after startup)"
 msgstr ""
 "Beseitigtes Problem #616367 (»Datei nicht gefunden«-Dialog nach dem Start)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:989
+#: C/releases.xml:966
 msgid "Fixed problem #620650 (buffer overflow in load_fav_apps())"
 msgstr "Fehlerkorrektur #620650 (Speicherüberlauf in load_fav_apps())"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:992
+#: C/releases.xml:969
 msgid "Fixed problem #622456 (do not build plugins as shared library objects)"
 msgstr ""
 "Fehlerkorrektur #622456 (Plugins nicht als gemeinsame Bibliotheksobjekte "
 "erstellen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:995
+#: C/releases.xml:972
 msgid "Fixed problem with editing options for favourite apps and devices"
 msgstr ""
 "Fehlerkorrektur beim Bearbeiten von Optionen für bevorzugte Anwendungen und "
 "Geräte"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1002
+#: C/releases.xml:979
 msgid "1.2.8.6"
 msgstr "1.2.8.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1003
+#: C/releases.xml:980
 msgid "2010-06-01"
 msgstr "1. Juni 2010"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1009
+#: C/releases.xml:986
 msgid ""
 "Fixed problems #600292, #612685 (crashes when double-clicking on a bookmark)"
 msgstr ""
@@ -18394,98 +18440,98 @@ msgstr ""
 "Lesezeichen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1012
+#: C/releases.xml:989
 msgid "Fixed problem #602795 (file content search)"
 msgstr "Fehlerkorrektur #602795 (Suche in Dateiinhalten)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1015
+#: C/releases.xml:992
 msgid "Fixed problem #609912 (build error with --as-needed)"
 msgstr "Fehlerkorrektur #609912 (Build-Fehler mit --as-needed)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1018
+#: C/releases.xml:995
 msgid "Fixed problem #616891 (build error on RHEL 5.5)"
 msgstr "Fehlerkorrektur #616891 (Build-Fehler unter RHEL 5.5)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1026
+#: C/releases.xml:1003
 msgid "New translations: ko"
 msgstr "Neue Übersetzungen: ko"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1033
+#: C/releases.xml:1010
 msgid "1.2.8.5"
 msgstr "1.2.8.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1034
+#: C/releases.xml:1011
 msgid "2010-02-13"
 msgstr "13. Februar 2010"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1040
+#: C/releases.xml:1017
 msgid "Fixed problem #604558 (cursor lost/placed in wrong position)"
 msgstr "Fehlerkorrektur #604558 (Cursor verloren/falsch platziert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1043
+#: C/releases.xml:1020
 msgid "Fixed problem #604904 (build error on OpenSolaris)"
 msgstr "Fehlerkorrektur #604904 (Build-Fehler unter OpenSolaris)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1046
+#: C/releases.xml:1023
 msgid "Fixed problem #609342 (do not show mtime for '..')"
 msgstr "Beseitigtes Problem #609342 (keine mtime anzeigen für »..«)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1049
+#: C/releases.xml:1026
 msgid "Fixed problem with editing connections to Windows network"
 msgstr "Fehlerkorrektur beim Bearbeiten von Verbindungen zum Windows-Netzwerk"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1052
+#: C/releases.xml:1029
 msgid "Fixed problem with nonexistent user actions"
 msgstr "Beseitigtes Problem mit nicht existierenden Benutzeraktionen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1059
+#: C/releases.xml:1036
 msgid "1.2.8.4"
 msgstr "1.2.8.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1060
+#: C/releases.xml:1037
 msgid "2009-12-03"
 msgstr "3. Dezember 2009"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1066
+#: C/releases.xml:1043
 msgid "Fixed problem #602916 (not working menu entry)"
 msgstr "Beseitigtes Problem #602916 (nicht funktionierender Menüeintrag)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1069
+#: C/releases.xml:1046
 msgid "Fixed problem #603301 (crash when cancelling symlink creation by ESC)"
 msgstr ""
 "Fehlerkorrektur #603301 (Absturz beim Abbruch der Verknüpfungserstellung "
 "durch ESC)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1072
+#: C/releases.xml:1049
 msgid "Fixed Ubuntu problem #369818 (incorrect sorting by size in panel)"
 msgstr ""
 "Fehlerkorrektur #347817 aus Ubuntu (unkorrekte Sortierung nach Größe im "
 "Panel)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1075
+#: C/releases.xml:1052
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
 "Beseitigtes Problem mit nicht funktionierenden Nummernblock im Kopieren/"
 "Verschieben-Dialog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1078
+#: C/releases.xml:1055
 msgid ""
 "Fixed problem with stalled keyboard after ALT+1/2 with hidden device list"
 msgstr ""
@@ -18493,79 +18539,79 @@ msgstr ""
 "Geräteliste"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1085
+#: C/releases.xml:1062
 msgid "1.2.8.3"
 msgstr "1.2.8.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1086
+#: C/releases.xml:1063
 msgid "2009-10-28"
 msgstr "28. Oktober 2009"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1092
+#: C/releases.xml:1069
 msgid "Fixed problem #541891 (file names with % in advanced file rename tool)"
 msgstr ""
 "Fehlerkorrektur #541891 (Dateinamen mit % in der erweiterten "
 "Mehrfachumbenennung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1095
+#: C/releases.xml:1072
 msgid "Fixed problem #581645 (uncomfortable quick search)"
 msgstr "Fehlerkorrektur #581645 (unkomfortable Schnellsuche)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1098
+#: C/releases.xml:1075
 msgid "Fixed problem #596768 (build warnings for python)"
 msgstr "Fehlerkorrektur #539753 (Build-Warnungen von Python)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1101
+#: C/releases.xml:1078
 msgid "Fixed problem #596973 (documentation build error)"
 msgstr "Fehlerkorrektur #596973 (Fehler bei der Dokumentationserstellung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1104
+#: C/releases.xml:1081
 msgid "Fixed problem #597144 (missing call to pclose)"
 msgstr "Fehlerkorrektur #597144 (Fehlender Aufruf zu pclose)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1107
+#: C/releases.xml:1084
 msgid "Fixed problem #597233 (validating of doc translations)"
 msgstr "Fehlerkorrektur #597233 (Überprüfung der Hanbuchübersetzungen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1110
+#: C/releases.xml:1087
 msgid "Fixed problem #597890 (wrong arguments passed to meld)"
 msgstr "Fehlerkorrektur #597890 (falsche an Meld übergebene Argumente)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1113
+#: C/releases.xml:1090
 msgid "Fixed problem #598278 (memory leak)"
 msgstr "Fehlerkorrektur #598278 (Speicherleck)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1120
+#: C/releases.xml:1097
 msgid "1.2.8.2"
 msgstr "1.2.8.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1121
+#: C/releases.xml:1098
 msgid "2009-09-22"
 msgstr "22. September 2009"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1127
+#: C/releases.xml:1104
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
 msgstr "Fixed problem #591944 (permissions set to 000 after chmod)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1130
+#: C/releases.xml:1107
 msgid "Fixed problem #595097 (build error for poppler &gt;= 0.11.3)"
 msgstr "Fehlerkorrektur #595097 (Build-Fehler für poppler &gt;= 0.11.3)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1133
+#: C/releases.xml:1110
 msgid ""
 "Fixed debian problem #438884 (wrong device label when switching panels with "
 "CTRL+U)"
@@ -18574,39 +18620,39 @@ msgstr ""
 "Ansicht mit Strg-U)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1136
+#: C/releases.xml:1113
 msgid "Fixed problem with broken file icon after renaming a symbolic link"
 msgstr ""
 "Beseitigtes Problem mit falschem Dateisymbol beim Umbenennen einer "
 "symbolischen Verknüpfung"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1143
+#: C/releases.xml:1120
 msgid "1.2.8.1"
 msgstr "1.2.8.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1144
+#: C/releases.xml:1121
 msgid "2009-08-10"
 msgstr "10. August 2001"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1150
+#: C/releases.xml:1127
 msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr "Fehlerkorrektur #587325 (Absturz in sauberer Chroot-Umgebung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1153
+#: C/releases.xml:1130
 msgid "Fixed problem #589108 (build error on openSUSE)"
 msgstr "Fehlerkorrektur #589108 (Build-Fehler unter openSUSE)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1156
+#: C/releases.xml:1133
 msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr "Fehlerkorrektur #351952 (Absturz während sysconf() unter FreeBSD)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1159
+#: C/releases.xml:1136
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename "
 "templates"
@@ -18615,17 +18661,17 @@ msgstr ""
 "Umbenennungswerkzeug"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1166
+#: C/releases.xml:1143
 msgid "1.2.8"
 msgstr "1.2.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1167
+#: C/releases.xml:1144
 msgid "2009-06-29"
 msgstr "29. Juni 2009"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1173
+#: C/releases.xml:1150
 msgid ""
 "Fixed problem #375357 (crash when cancelling calculation of dir properties)"
 msgstr ""
@@ -18633,25 +18679,25 @@ msgstr ""
 "Ordnereigenschaften)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1176
+#: C/releases.xml:1153
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
 msgstr ""
 "Fehlerkorrektur #536446 (Dateiname wird beim direkten Umbenennen in der "
 "Dateiansicht nicht fokussiert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1179
+#: C/releases.xml:1156
 msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgstr ""
 "Fehlerkorrektur #539812 (Absturz beim Löschen von Dateien: beschädigte it.po)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1182
+#: C/releases.xml:1159
 msgid "Fixed problem #548947 (non-UTF8 locale date problem)"
 msgstr "Fehlerkorrektur #548947 (Zeitproblem für Nicht-UTF8-Spracheinstellung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1185
+#: C/releases.xml:1162
 msgid ""
 "Fixed problem #548948 (crash when home directory contains non-UTF8 "
 "characters)"
@@ -18660,7 +18706,7 @@ msgstr ""
 "Zeichen enthält)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1188
+#: C/releases.xml:1165
 msgid ""
 "Fixed problem #548961 (support for input method when rename or quicksearch)"
 msgstr ""
@@ -18668,45 +18714,45 @@ msgstr ""
 "oder Schnellsuche)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1191
+#: C/releases.xml:1168
 msgid "Fixed problem #554586 (AC_PROG_CXX macro problem)"
 msgstr "Fehlerkorrektur #554586 (Problem mit dem Makro AC_PROG_CXX)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1194
+#: C/releases.xml:1171
 msgid "Fixed problem #554598 (GNOME Goal: LINGUAS)"
 msgstr "Fehlerkorrektur #554598 (GNOME Goal: LINGUAS)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1197
+#: C/releases.xml:1174
 msgid "Fixed problem #556664 (bookmarks can not be saved for mounted devices)"
 msgstr ""
 "Fehlerkorrektur #556664 (Lesezeichen für eingehängte Geräte können nicht "
 "gespeichert werden)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1200
+#: C/releases.xml:1177
 msgid "Fixed problem #567404 (crash when INSERT pressed over subdir)"
 msgstr "Fehlerkorrektur #567404 (Absturz bei INSERT über einem Unterordner)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1203
+#: C/releases.xml:1180
 msgid "Fixed problem #556836 (pane scrolling when moving between panes)"
 msgstr "Fehlerkorrektur #556836 (Rollen der Ansicht beim Ansichtswechsel)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1206
+#: C/releases.xml:1183
 msgid "Fixed problem #567506 (slow startup for systems with many users)"
 msgstr ""
 "Fehlerkorrektur #567506 (langsamer Start auf Systemen mit vielen Benutzern)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1209
+#: C/releases.xml:1186
 msgid "Fixed problem #570727 (usage of deprecated gnome_url_show)"
 msgstr "Beseitigtes Problem #570727 (Verwendung des veralteten gnome_url_show)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1212
+#: C/releases.xml:1189
 msgid ""
 "Fixed problem #571239 (replacing obsoleted GnomeColorPicker with "
 "GtkColorButton)"
@@ -18715,13 +18761,13 @@ msgstr ""
 "GtkColorButton)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1215
+#: C/releases.xml:1192
 msgid "Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)"
 msgstr ""
 "Fehlerkorrektur #571247 (Ersetzen des veralteten GnomePixmap durch GtkImage)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1218
+#: C/releases.xml:1195
 msgid ""
 "Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with "
 "GTK_STOCK_* counterparts)"
@@ -18730,7 +18776,7 @@ msgstr ""
 "GTK_STOCK_*-Zähler)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1221
+#: C/releases.xml:1198
 msgid ""
 "Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 "
 "locale)"
@@ -18739,52 +18785,52 @@ msgstr ""
 "Dateinamensortierung in Nicht-en_US.utf8-Spracheinstellung)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1224
+#: C/releases.xml:1201
 msgid "Fixed problem #579633 (accessing administrator privileges with gksudo)"
 msgstr ""
 "Fehlerkorrektur #579633 (Zugriff mit Systemverwalterrechten mittels gksudo)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1227
+#: C/releases.xml:1204
 msgid "Fixed problem #583135 (disabled 'Go to' button in search dialog)"
 msgstr "Fehlerkorrektur #583135 (deaktivierter Knopf »Gehe zu« im Suchdialog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1230
+#: C/releases.xml:1207
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr ""
 "Fehlerkorrektur #583711 (Absturz beim Drücken der Esc-Taste im "
 "Lesezeichendialog)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1233
+#: C/releases.xml:1210
 msgid "Fixed problem #584727 (wrong positioning of file popup menu)"
 msgstr ""
 "Fehlerkorrektur #584727 (falsche Positionierung des Kontextmenüs einer Datei)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1236
+#: C/releases.xml:1213
 msgid "Fixed problem with setting equal pane size in horizontal mode"
 msgstr ""
 "Beseitigtes Problem beim Angleichen der Ansichtsgrößen in horizontaler "
 "Anordnung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1239
+#: C/releases.xml:1216
 msgid "Fixed problem with refreshing MIME information after file renaming"
 msgstr ""
 "Beseitigtes Problem bei der Aktualisierung der MIME-Information nach dem "
 "Umbenennen von Dateien"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1247
+#: C/releases.xml:1224
 msgid "Support for PDF metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für PDF-Metatags in den Vorlagen des erweiterten "
 "Dateiumbenennungswerkzeugs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1250
+#: C/releases.xml:1227
 msgid ""
 "Revamped advanced file rename tool (regex backreferences ('\\number'), "
 "profiles, upper/lowercase conversion, blanks trimming and much more)"
@@ -18794,32 +18840,32 @@ msgstr ""
 "Entfernung von Leerzeichen und vieles mehr)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1254
+#: C/releases.xml:1231
 msgid "Support for metadata tags in internal viewer"
 msgstr "Unterstützung für Metadaten-Tags im internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1257
+#: C/releases.xml:1234
 msgid "Support for single-click open mode"
 msgstr "Unterstützung für Öffnen mit einfachem Klick"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1260
+#: C/releases.xml:1237
 msgid "Support for row alternate background in colour themes"
 msgstr "Unterstützung für alternative Hintergründe in Themenfarben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1263
+#: C/releases.xml:1240
 msgid "New colour theme: cafezinho"
 msgstr "Neues Farbthema: Cafezinho"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1266
+#: C/releases.xml:1243
 msgid "New or updated docs: de, en, es"
 msgstr "Neue oder aktualisierte Dokumentation: Deutsch, Englisch, Spanisch"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1269
+#: C/releases.xml:1246
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, "
 "sv"
@@ -18828,91 +18874,91 @@ msgstr ""
 "pt_BR, sl, sv"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1275
+#: C/releases.xml:1252
 msgid "E"
 msgstr "E"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1275
+#: C/releases.xml:1252
 msgid "<_:keycombo-1/> Open the history list for the command line"
 msgstr "<_:keycombo-1/> Öffnen der Chronik für die Befehlszeile"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1280
+#: C/releases.xml:1257
 msgid "New internal viewer key bindings:"
 msgstr "Neue Tastenkürzel des internen Betrachters:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1283
+#: C/releases.xml:1260
 msgid "<_:keycombo-1/> Show metadata tags (replaces the old E)"
 msgstr "<_:keycombo-1/>  Metadaten-Tags anzeigen (ersetzt das ursprüngliche E)"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1286 C/releases.xml:1334 C/releases.xml:1858
+#: C/releases.xml:1263 C/releases.xml:1311 C/releases.xml:1835
 msgid "ALT"
 msgstr "Alt"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1286
+#: C/releases.xml:1263
 msgid "ENTER"
 msgstr "Eingabetaste"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1286
+#: C/releases.xml:1263
 msgid "<_:keycombo-1/> Show metadata tags"
 msgstr "<_:keycombo-1/> Zeigt Metadaten-Tags"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1295
+#: C/releases.xml:1272
 msgid "1.2.7"
 msgstr "1.2.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1296
+#: C/releases.xml:1273
 msgid "2008-07-28"
 msgstr "28. Juli 2008"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1302
+#: C/releases.xml:1279
 msgid "Fixed problem #522430 (quick search for files starting with uppercase)"
 msgstr ""
 "Fehlerkorrektur #522430 (Schnellsuche nach Dateinamen, die mit "
 "Großbuchstaben beginnen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1305
+#: C/releases.xml:1282
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr "Fehlerkorrektur #532615 (Dateioperationen an der falschen Datei)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1308
+#: C/releases.xml:1285
 msgid "Fixed problem #538806 (quick search in root dir)"
 msgstr "Fehlerkorrektur #538806 (Schnellsuche im Basisordner)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1311
+#: C/releases.xml:1288
 msgid "Fixed problem #539753 (build error on Solaris)"
 msgstr "Fehlerkorrektur #539753 (Build-Fehler unter Solaris)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1314
+#: C/releases.xml:1291
 msgid "Fixed problem #541404 (update of host names)"
 msgstr "Fehlerkorrektur #541404 (Aktualisierung von Rechnernamen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1317
+#: C/releases.xml:1294
 msgid "Fixed problem with file sorting in advanced file rename tool"
 msgstr ""
 "Beseitigtes Problem mit der Sortierung von Dateien im erweiterten "
 "Umbenennungswerkzeug"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1320 C/releases.xml:1489 C/releases.xml:1573
+#: C/releases.xml:1297 C/releases.xml:1466 C/releases.xml:1550
 msgid "Build fixes"
 msgstr "Fehlerkorrekturen:"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1328
+#: C/releases.xml:1305
 msgid ""
 "Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)"
 msgstr ""
@@ -18920,17 +18966,17 @@ msgstr ""
 "und WebDAV)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1331
+#: C/releases.xml:1308
 msgid "User defined shortcuts to arbitrary programs"
 msgstr "Benutzerdefinierte Tastenkürzel für beliebige Programme"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1334
+#: C/releases.xml:1311
 msgid "click"
 msgstr "Klick"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1334
+#: C/releases.xml:1311
 msgid ""
 "Copying selected URIs to clipboard with <_:keycombo-1/> on toolbar button"
 msgstr ""
@@ -18938,23 +18984,23 @@ msgstr ""
 "Werkzeugleisten-Knopfes bei gedrückter <_:keycombo-1/>-Taste"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1337 C/releases.xml:1398
+#: C/releases.xml:1314 C/releases.xml:1375
 msgid "Revamped search dialog"
 msgstr "Überarbeiteter Suchdialog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1340
+#: C/releases.xml:1317
 msgid "Revamped transfer progress dialog"
 msgstr "Überarbeiteteter Fortschrittsanzeige-Dialog für Übertragungen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1343 C/releases.xml:1404 C/releases.xml:1524
-#: C/releases.xml:1619 C/releases.xml:1693 C/releases.xml:1765
+#: C/releases.xml:1320 C/releases.xml:1381 C/releases.xml:1501
+#: C/releases.xml:1596 C/releases.xml:1670 C/releases.xml:1742
 msgid "Updated help docs"
 msgstr "Aktualisierte Hilfedokumentation"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1346
+#: C/releases.xml:1323
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: Tschechisch, Deutsch, Spanisch, "
@@ -18962,53 +19008,53 @@ msgstr ""
 "Portugiesisch"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1353
+#: C/releases.xml:1330
 msgid "1.2.6"
 msgstr "1.2.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1354
+#: C/releases.xml:1331
 msgid "2008-06-01"
 msgstr "1. Juni 2008"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1360
+#: C/releases.xml:1337
 msgid "Fixed problem #392959 (dynamically changing user to root)"
 msgstr ""
 "Fehlerkorrektur #392959 (dynamischer Wechsel von Benutzer- zu "
 "Administratorrechten)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1363
+#: C/releases.xml:1340
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
 msgstr "Fehlerkorrektur #496150 (Rollen mit dem Mausrad)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1366
+#: C/releases.xml:1343
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
 msgstr ""
 "Fehlerkorrektur #499761 (Suchfenster wird nach der Sortierung von Spalten "
 "gelöscht)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1369
+#: C/releases.xml:1346
 msgid "Fixed problem #499764 (multiple selection problem)"
 msgstr "Fehlerkorrektur #499764 (Problem bei Mehrfachauswahl)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1372
+#: C/releases.xml:1349
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgstr "Beseitigtes Problem beim Sortieren UTF-8-kodierter Dateinamen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1375
+#: C/releases.xml:1352
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr ""
 "Beseitigtes Problem beim Kopieren von Dateien symbolische Verknüpfungen zu "
 "Ordnern"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1378
+#: C/releases.xml:1355
 msgid ""
 "Fixed problem with full file path handling while copying/moving to mounted "
 "devices"
@@ -19017,19 +19063,19 @@ msgstr ""
 "Verschiebens zu eingehängten Laufwerken"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1386
+#: C/releases.xml:1363
 msgid "Root Mode for starting GNOME Commander with administrator privileges"
 msgstr ""
 "Systemverwalter-Modus, um GNOME-Commander mit Administratorrechten zu "
 "starten."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1389
+#: C/releases.xml:1366
 msgid "GUI for keyboard shortcuts management"
 msgstr "Benutzeroberfläche für die Verwaltung von Tastenkürzeln"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1395
+#: C/releases.xml:1372
 msgid ""
 "Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers"
 msgstr ""
@@ -19037,7 +19083,7 @@ msgstr ""
 "Zufallszahlen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1401
+#: C/releases.xml:1378
 msgid ""
 "Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since "
 "GTK+ 2.10)"
@@ -19046,7 +19092,7 @@ msgstr ""
 "Umschalttasten (seit GTK+ 2.10)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1407
+#: C/releases.xml:1384
 msgid ""
 "New or updated translations: cs, de, en_GB, es, eu, fi, fr, hu, it, oc, pl, "
 "sl"
@@ -19056,40 +19102,40 @@ msgstr ""
 "Okzitanisch, Polnisch, Slowenisch"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1413
+#: C/releases.xml:1390
 msgid "F"
 msgstr "F"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1413
+#: C/releases.xml:1390
 msgid "<_:keycombo-1/> Search files"
 msgstr "<_:keycombo-1/> Nach Dateien suchen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1422
+#: C/releases.xml:1399
 msgid "1.2.5"
 msgstr "1.2.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1423
+#: C/releases.xml:1400
 msgid "2008-02-29"
 msgstr "29. Februar 2008"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1429
+#: C/releases.xml:1406
 msgid "Fixed problem #345314 (cursor not staying on file while renaming)"
 msgstr ""
 "Fehlerkorrektur #345314 (Cursor bleibt beim Umbenennen nicht im Dateinamen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1432
+#: C/releases.xml:1409
 msgid "Fixed problem #353889 (disappearing files after failed move (F6))"
 msgstr ""
 "Fehlerkorrektur #353889 (verschwindende Dateien nach gescheitertem "
 "Verschieben (F6))"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1435
+#: C/releases.xml:1412
 msgid ""
 "Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in "
 "renaming tool)"
@@ -19098,28 +19144,28 @@ msgstr ""
 "regulärer Ausdrücke im Umbenennungswerkzeug)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1438
+#: C/releases.xml:1415
 msgid "Fixed problems #365227 and #446361 (build issues on Solaris)"
 msgstr "Fehlerkorrekturen #365227 und #446361 (Build-Ausgaben auf Solaris)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1441
+#: C/releases.xml:1418
 msgid "Fixed problem #424159 (column sort problem)"
 msgstr "Fehlerkorrektur #424159 (Problem beim Sortieren der Spalten)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1444
+#: C/releases.xml:1421
 msgid "Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)"
 msgstr "Fehlerkorrektur #434545 (Debian-Fehler #421480: RIESIGE Gerätesymbole)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1447
+#: C/releases.xml:1424
 msgid "Fixed problem #447415 (inability to launch executables)"
 msgstr ""
 "Fehlerkorrektur #447415 (ausführbare Dateien können nicht ausgeführt werden)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1450
+#: C/releases.xml:1427
 msgid ""
 "Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)"
 msgstr ""
@@ -19127,26 +19173,26 @@ msgstr ""
 "einem separaten Terminal)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1453
+#: C/releases.xml:1430
 msgid "Fixed problem #449137 (renamed directories not accessed by name)"
 msgstr ""
 "Fehlerkorrektur #449137 (umbenannte Ordner sind nicht über deren Namen "
 "erreichbar)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1456
+#: C/releases.xml:1433
 msgid "Fixed problem #468685 (crash in python module)"
 msgstr "Fehlerkorrektur #468685 (Absturz im Python-Modul)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1459
+#: C/releases.xml:1436
 msgid "Fixed problem #490431 (view files with name containing '%')"
 msgstr ""
 "Fehlerkorrektur #490431 (Betrachten von Dateien, die im Namen ein '%' "
 "enthalten)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1462
+#: C/releases.xml:1439
 msgid ""
 "Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)"
 msgstr ""
@@ -19154,56 +19200,56 @@ msgstr ""
 "Umbenennungswerkzeug)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1465
+#: C/releases.xml:1442
 msgid "Fixed problem #510567 (failed assert when deleting dir)"
 msgstr "Beseitigtes Problem #510567 (Löschen von Ordnern)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1468
+#: C/releases.xml:1445
 msgid "Fixed problem when creating ~/dir"
 msgstr "Beseitigtes Problem bei der Erzeugung von ~/dir"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1471
+#: C/releases.xml:1448
 msgid "Fixed problem with updating of internal viewer status bar"
 msgstr ""
 "Beseitigtes Problem der Aktualisierung der Statuszeile des internen "
 "Betrachters"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1474
+#: C/releases.xml:1451
 msgid "Fixed crash when creating dir with absolute path on SMB share"
 msgstr ""
 "Beseitigtes Problem bei der Erstellung von Ordnern mit vollem Dateipfad auf "
 "SMB-Freigaben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1477
+#: C/releases.xml:1454
 msgid "Fixed crash when moving file with % in the name"
 msgstr "Beseitigtes Problem beim Absturz durch eine Datei mit % im Namen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1480
+#: C/releases.xml:1457
 msgid "Fixed problem with sporadically lost cursor in file pane"
 msgstr ""
 "Beseitigtes Problem mit gelegentlich verschwundenem Cursor in der "
 "Dateiansicht"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1483
+#: C/releases.xml:1460
 msgid "Fixed problem with mounting of devices with spaces in the name"
 msgstr ""
 "Beseitigtes Problem beim Einbinden von Geräten, deren Namen Leerzeichen "
 "enthalten"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1486
+#: C/releases.xml:1463
 msgid "Fixed problem with history of advrename templates"
 msgstr ""
 "Fehlerkorrektur in der Chronik der Vorlagen der erweiterten Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1497
+#: C/releases.xml:1474
 msgid ""
 "Support for APE, FLAC and Vorbis metatags in advanced file rename templates"
 msgstr ""
@@ -19211,45 +19257,45 @@ msgstr ""
 "erweiterten Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1500
+#: C/releases.xml:1477
 msgid "Support for Exif makernotes metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für Exif-Makernotes-Tags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1503
+#: C/releases.xml:1480
 msgid "Support for file metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung von Metadaten-Tags in den Vorlagen des "
 "Mehrfachumbenennungswerkzeugs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1506
+#: C/releases.xml:1483
 msgid "Use the GNOME authentication manager for user's security credentials"
 msgstr ""
 "GNOME-Legitimierungsverwaltung wird für Angelegenheiten der "
 "Benutzersicherheit verwendet"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1509
+#: C/releases.xml:1486
 msgid "Metadata tags in file properties dialog"
 msgstr "Metadaten-Tags im Datei-Eigenschaftsdialog"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1515
+#: C/releases.xml:1492
 msgid "Default GNOME theme icons for home, SMB and FTP locations"
 msgstr ""
 "Standardsymbole des GNOME-Themas für den persönlichen Ordner sowie FTP-"
 "Server und Orte im SMB-Netzwerk."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1518
+#: C/releases.xml:1495
 msgid "User defined shortcuts to bookmarks"
 msgstr "Benutzerdefinierte Tastenkürzel für Lesezeichen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1527
+#: C/releases.xml:1504
 msgid ""
 "New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, "
 "pt_BR, ro, sl, sv"
@@ -19259,12 +19305,12 @@ msgstr ""
 "Polnisch, Brasilianisches Portugiesisch, Rumänisch, Slowenisch, Schwedisch"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1533
+#: C/releases.xml:1510
 msgid "LEFT/RIGHT"
 msgstr "Links/Rechts"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1533 C/releases.xml:1938
+#: C/releases.xml:1510 C/releases.xml:1915
 msgid ""
 "<_:keycombo-1/> Copying the current working directory from the active file "
 "list to the inactive one"
@@ -19273,17 +19319,17 @@ msgstr ""
 "inaktive Dateiansicht"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1536
+#: C/releases.xml:1513
 msgid "N"
 msgstr "N"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1536
+#: C/releases.xml:1513
 msgid "G"
 msgstr "G"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1536
+#: C/releases.xml:1513
 msgid ""
 "<_:keycombo-1/> Open new connection to remote server (replaces the old <_:"
 "keycombo-2/>)"
@@ -19292,124 +19338,124 @@ msgstr ""
 "das frühere <_:keycombo-2/>)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1545
+#: C/releases.xml:1522
 msgid "1.2.4"
 msgstr "1.2.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1546
+#: C/releases.xml:1523
 msgid "2007-06-09"
 msgstr "9. Juni 2007"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1552
+#: C/releases.xml:1529
 msgid "Fixed problem with opening dirs by intviewer"
 msgstr "Fehlerkorrektur beim Öffnen von Ordnern im internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1555
+#: C/releases.xml:1532
 msgid "Fixed problem with editing dirs by GNOME Commander"
 msgstr "Fehlerkorrektur beim Bearbeiten von Ordnern durch GNOME Commander"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1558
+#: C/releases.xml:1535
 msgid "Fixed problem #351952 (crash while doing a content search)"
 msgstr "Fehlerkorrektur #351952 (Absturz während der Suche in Dateiinhalten)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1561
+#: C/releases.xml:1538
 msgid "Fixed problem #352253 (scrolling behaviour of the viewer)"
 msgstr "Fehlerkorrektur #352253 (Bildlaufverhalten des Betrachters)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1564
+#: C/releases.xml:1541
 msgid "Fixed problem #360175 (crash while entering a dir with %)"
 msgstr "Fehlerkorrektur #360175 (Absturz beim Öffnen eines Ordners mit %)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1567
+#: C/releases.xml:1544
 msgid "Fixed problem #371948 and #388970 (file path not escaped)"
 msgstr "Fehlerkorrekturen #371948 und #388970 (Dateipfad nicht maskiert)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1570
+#: C/releases.xml:1547
 msgid "Fixed problem #412162 (build with --enable-python=no)"
 msgstr "Fehlerkorrektur #412162 (Erstellung mit --enable-python=no)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1581
+#: C/releases.xml:1558
 msgid "Support for python plugins"
 msgstr "Unterstützung für Python-Plugins"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1584
+#: C/releases.xml:1561
 msgid "New python plugins:"
 msgstr "Neue Python-Plugins:"
 
 #. (itstool) path: para/command
-#: C/releases.xml:1587
+#: C/releases.xml:1564
 msgid "md5sum"
 msgstr "md5sum"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1587
+#: C/releases.xml:1564
 msgid "<_:command-1/> Create MD5 (128-bit) checksum"
 msgstr "<_:command-1/> Erzeugen der MD5(128-bit)-Checksumme"
 
 #. (itstool) path: para/command
-#: C/releases.xml:1590
+#: C/releases.xml:1567
 msgid "sha1sum"
 msgstr "sha1sum"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1590
+#: C/releases.xml:1567
 msgid "<_:command-1/> Create SHA-1 (160-bit) checksum"
 msgstr "<_:command-1/> Erzeugen der SHA-1(160-bit)-Checksumme"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1595
+#: C/releases.xml:1572
 msgid "Support for OLE and ODF metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für OLE- und ODF-Metatags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1598
+#: C/releases.xml:1575
 msgid "User defined shortcuts"
 msgstr "Benutzerdefinierte Tastenkürzel"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1601
+#: C/releases.xml:1578
 msgid "SMB authentication"
 msgstr "SMB-Authentifizierung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1604
+#: C/releases.xml:1581
 msgid "Displaying total size of files in selected subirs"
 msgstr "Anzeige der Gesamtgröße der Dateien in ausgewählten Unterordnern"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1607
+#: C/releases.xml:1584
 msgid "'cd -' for changing to the previous working directory"
 msgstr "'cd -' zum Wechseln in den vorherigen Arbeitsordner"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1610
+#: C/releases.xml:1587
 msgid "More intuitive usage of diff tool"
 msgstr "Intuitivere Benutzung des Diff-Werkzeugs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1613
+#: C/releases.xml:1590
 msgid "Directory synchronizing"
 msgstr "Abgleichen von Ordnern"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1616
+#: C/releases.xml:1593
 msgid "Creating directories 'mkdir -p' like"
 msgstr "Erzeugen von Verzeichnissen mittels 'mkdir -p'"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1622
+#: C/releases.xml:1599
 msgid ""
 "New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv"
 msgstr ""
@@ -19418,107 +19464,107 @@ msgstr ""
 "Polnisch, Slowenisch, Schwedisch"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1628
+#: C/releases.xml:1605
 msgid "\\"
 msgstr "\\"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1628
+#: C/releases.xml:1605
 msgid "<_:keycombo-1/> Go to the root directory"
 msgstr "<_:keycombo-1/> Zum Basisordner gehen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1631
+#: C/releases.xml:1608
 msgid "`"
 msgstr "`"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1631
+#: C/releases.xml:1608
 msgid "<_:keycombo-1/> Go to the home directory"
 msgstr "<_:keycombo-1/> Zum persönlichen Ordner gehen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1634
+#: C/releases.xml:1611
 msgid "5"
 msgstr "5"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1634
+#: C/releases.xml:1611
 msgid "<_:keycombo-1/> Create MD5 (128-bit) checksum"
 msgstr "<_:keycombo-1/> Erzeugen der MD5(128-bit)-Checksumme"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1637
+#: C/releases.xml:1614
 msgid "C"
 msgstr "C"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1637
+#: C/releases.xml:1614
 msgid "<_:keycombo-1/> Copy selected file names to clipboard"
 msgstr "<_:keycombo-1/> Ausgewählte Dateinamen in die Zwischenablage kopieren"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1646
+#: C/releases.xml:1623
 msgid "1.2.3"
 msgstr "1.2.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1647 C/releases.xml:1661
+#: C/releases.xml:1624 C/releases.xml:1638
 msgid "2006-12-11"
 msgstr "2006-12-11"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1653
+#: C/releases.xml:1630
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr "Fehlerkorrektur #384752 (falsche Zugriffsrechte für neue Ordner)"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1660
+#: C/releases.xml:1637
 msgid "1.2.2"
 msgstr "1.2.2"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1667
+#: C/releases.xml:1644
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr ""
 "Fehlerkorrektur für Erzeugung symbolischer Verknüpfungen bei Datei-"
 "Mehrfachauswahl"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1670
+#: C/releases.xml:1647
 msgid "Fixed problem with grouping of file size digits"
 msgstr "Beseitigtes Problem bei der Gruppierung der Ziffern für die Dateigröße"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1673
+#: C/releases.xml:1650
 msgid "Fixed problem with SMB UNC handling"
 msgstr "Beseitigtes Problem mit der Verarbeitung von SMB-UNC"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1676
+#: C/releases.xml:1653
 msgid "Fixed problem #367744 (filename not correctly displayed)"
 msgstr "Fehlerkorrektur #367744 (Unkorrekte Anzeige des Dateinamens) "
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1679
+#: C/releases.xml:1656
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr ""
 "fehlerkorrektur #374282 (Suche mit rekursiven symbolischen Verknüpfungen)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1682
+#: C/releases.xml:1659
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
 msgstr "Fehlerkorrektur #377706 (Dateiauswahl mit Umschalt+Bild ab)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1690
+#: C/releases.xml:1667
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für ID3-Metatags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1696
+#: C/releases.xml:1673
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: Arabisch, Britisches Englisch, "
@@ -19526,63 +19572,63 @@ msgstr ""
 
 #. (itstool) path: keycombo/keycap
 #. (itstool) path: para/keycap
-#: C/releases.xml:1702 C/releases.xml:1941 C/releases.xml:1947
+#: C/releases.xml:1679 C/releases.xml:1918 C/releases.xml:1924
 msgid "="
 msgstr "="
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1702
+#: C/releases.xml:1679
 msgid "<_:keycombo-1/> Set both panels equal"
 msgstr "<_:keycombo-1/> Ansichtsbreite ausgleichen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1711
+#: C/releases.xml:1688
 msgid "1.2.1"
 msgstr "1.2.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1712
+#: C/releases.xml:1689
 msgid "2006-10-16"
 msgstr "16. Oktober 2006"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1718
+#: C/releases.xml:1695
 msgid "Fixed problem with scrollkeeper database update"
 msgstr "Beseitigtes Problem bei der Aktualisierung der Scrollkeeper-Datenbank"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1721
+#: C/releases.xml:1698
 msgid "Fix for crash when cmd dir indicator is empty"
 msgstr ""
 "Beseitigtes Absturzproblem, wenn der Ordnerindikator der Befehlszeile leer "
 "ist."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1724
+#: C/releases.xml:1701
 msgid "Fixed problem with refreshing after chown or chmod"
 msgstr ""
 "Beseitigtes Problem bei der Aktualisierung nach dem Ausführen von chown oder "
 "chmod"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1727
+#: C/releases.xml:1704
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
 "Fehlerkorrektur #333898 (abgelehntes Symbol-Suffix in der Desktop-Datei)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1730
+#: C/releases.xml:1707
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr "Fehlerkorrektur #347561 (Plugin-Ordner wird unkorrekt gesetzt))"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1733
+#: C/releases.xml:1710
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr ""
 "Fehlerkorrektur #347817 (unkorrekte Verwendung der Linker-Flags im Makefile)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1741
+#: C/releases.xml:1718
 msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
@@ -19591,48 +19637,48 @@ msgstr ""
 "rpm) über das Archivmanager-Plugin"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1744
+#: C/releases.xml:1721
 msgid "New python-like indices for advanced file rename templates"
 msgstr ""
 "Neue Python-ähnliche Indizes für die Vorlagen der erweiterten "
 "Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1747
+#: C/releases.xml:1724
 msgid "Support for Exif and IPTC metatags in advanced file rename templates"
 msgstr ""
 "Unterstützung für EXIF- und ITPC-Metatags in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1750
+#: C/releases.xml:1727
 msgid "Fast access to advrename template placeholders"
 msgstr ""
 "Schneller Zugriff auf Platzhalter in den Vorlagen der erweiterten "
 "Dateiumbenennung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1753
+#: C/releases.xml:1730
 msgid "In-place rename (SHIFT+F6)"
 msgstr "Direktumbenennung in der Dateiansicht (Umschalttaste+F6)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1756
+#: C/releases.xml:1733
 msgid "Revamped application menus"
 msgstr "Überarbeitete Anwendungs-Menüs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1759
+#: C/releases.xml:1736
 msgid "\"Find\" feature for internal viewer"
 msgstr "Suchfunktion für den internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1762
+#: C/releases.xml:1739
 msgid "New icon for internal viewer"
 msgstr "Neues Symbol für den internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1768
+#: C/releases.xml:1745
 msgid ""
 "New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, "
 "pl, ru, sv, vi"
@@ -19642,52 +19688,52 @@ msgstr ""
 "Italienisch, Nepalesisch, Polnisch, Russisch, Schwedisch, Vietnamesisch"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1774
+#: C/releases.xml:1751
 msgid "H"
 msgstr "H"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1774
+#: C/releases.xml:1751
 msgid "<_:keycombo-1/> Toggle hidden files on/off"
 msgstr "<_:keycombo-1/> Verborgene Dateien anzeigen/verbergen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1783
+#: C/releases.xml:1760
 msgid "1.2.0"
 msgstr "1.2.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1784
+#: C/releases.xml:1761
 msgid "2006-05-12"
 msgstr "12. Mai 2006"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1790
+#: C/releases.xml:1767
 msgid "Fixed problem #171051 (crashes on search with non-existent path)"
 msgstr "Fehlerkorrektur #171051 (Absturz bei nicht existierendem Suchpfad)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1793
+#: C/releases.xml:1770
 msgid "Fixed problem with the lack of gnome menu entry"
 msgstr "Beseitigtes Problem mit dem mangelhaften Eintrag im GNOME-Menü"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1796
+#: C/releases.xml:1773
 msgid "Fixed a crash when viewing SMB connections"
 msgstr "Beseitigung eines Absturzfehlers beim Betrachten von SMB-Verbindungen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1799
+#: C/releases.xml:1776
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr "Fehlerkorrektur #309877 (Starke Artefakte beim horizontalen Rollen)  "
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1802
+#: C/releases.xml:1779
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr "Fehlerkorrektur #332258 (Parameter für rechten/linken Startordner)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1805
+#: C/releases.xml:1782
 msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
@@ -19696,13 +19742,13 @@ msgstr ""
 "sauber geparst)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1808
+#: C/releases.xml:1785
 msgid "Fixed problem #336649 (permission numbers presentation)"
 msgstr ""
 "Fehlerkorrektur #336649 (Anzeige der Zugriffsrechte in der Zahlenansicht)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1811
+#: C/releases.xml:1788
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
@@ -19712,136 +19758,136 @@ msgstr ""
 "Dateiumbenennungswerkzeug"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1819
+#: C/releases.xml:1796
 msgid "Monitoring of mounted volumes"
 msgstr "Überwachung eingebundener Datenträger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1822
+#: C/releases.xml:1799
 msgid "Rewritten internal viewer"
 msgstr "Neu geschriebener interner Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1825
+#: C/releases.xml:1802
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
 msgstr ""
 "Externe Werkzeuge und Exif/IPTC-Tags-Funktion für den internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1828
+#: C/releases.xml:1805
 msgid "Zooming for internal viewer"
 msgstr "Zoomfunktion für den internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1831
+#: C/releases.xml:1808
 msgid "Text selection for internal viewer"
 msgstr "Textauswahl für den internen Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1834
+#: C/releases.xml:1811
 msgid "Revamped toolbar layout"
 msgstr "Überarbeitung des Erscheinungsbildes der Werkzeugleiste"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1837
+#: C/releases.xml:1814
 msgid "Options for controlling copy and move overwriting"
 msgstr "optionen für das Überschreiben beim Kopieren und Verschieben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1840
+#: C/releases.xml:1817
 msgid "Copying selected full file paths with SHIFT+click on toolbar button"
 msgstr ""
 "Kopieren ausgewählter kompletter Dateipfade durch Klicken auf den "
 "Werkzeugleisten-Knopf bei gedrückter Umschalttaste"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1843
+#: C/releases.xml:1820
 msgid "Better handling the change of the column sorting key"
 msgstr "Besserer Umgang mit der Taste für die Sortierung der Spalten"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1846
+#: C/releases.xml:1823
 msgid "Initial doc framework"
 msgstr "Erste Dokumentationsumgebung"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1849
+#: C/releases.xml:1826
 msgid "New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: Deutsch, Spanisch, Baskisch, "
 "Ungarisch, Polnisch, Rumänisch, Slowenisch, Schwedisch, Vietnamesisch"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1855 C/releases.xml:1858
+#: C/releases.xml:1832 C/releases.xml:1835
 msgid "F3"
 msgstr "F3"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1855
+#: C/releases.xml:1832
 msgid "<_:keycombo-1/> Internal viewer"
 msgstr "<_:keycombo-1/> Interner Betrachter"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1858
+#: C/releases.xml:1835
 msgid "<_:keycombo-1/> External viewer"
 msgstr "<_:keycombo-1/> Externer Betrachter"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:1861
+#: C/releases.xml:1838
 msgid "ALT+letters"
 msgstr "Alt+Buchstaben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1861
+#: C/releases.xml:1838
 msgid "<_:keycap-1/> Quick search"
 msgstr "<_:keycap-1/> Schnellsuche"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1864
+#: C/releases.xml:1841
 msgid "A"
 msgstr "A"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1864
+#: C/releases.xml:1841
 msgid "<_:keycombo-1/> Deselecting all files"
 msgstr "<_:keycombo-1/> Alle Dateien abwählen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1873
+#: C/releases.xml:1850
 msgid "1.1.7"
 msgstr "1.1.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1874
+#: C/releases.xml:1851
 msgid "2006-02-12"
 msgstr "12. Februar 2006"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1880
+#: C/releases.xml:1857
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr ""
 "Beseitigtes Problem beim Versuch, die gegenwärtig ausgewählten Dateien zu "
 "kopieren"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1883
+#: C/releases.xml:1860
 msgid "Fixed filename escaping"
 msgstr "Korrektur der Maskierung von Dateinamen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1886
+#: C/releases.xml:1863
 msgid "Fixed CTRL+ALT+letter bad responsiveness when typing too fast"
 msgstr ""
 "Verbesserung der Reaktionsgeschwindigkeit von Strg+Alt+Buchstabe bei zu "
 "schnellem Schreiben"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1889
+#: C/releases.xml:1866
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
 msgstr "Debian-Fehlerkorrektur #288933 (Kompilierungsfehler bei amd64/gcc-4.0)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1892
+#: C/releases.xml:1869
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory "
 "to itself)"
@@ -19850,7 +19896,7 @@ msgstr ""
 "Ordners in sich selbst)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1895
+#: C/releases.xml:1872
 msgid ""
 "Fixed problem with the disconnect button not behaving correctly when "
 "connecting to ftp-servers and being in supermount mode"
@@ -19859,32 +19905,32 @@ msgstr ""
 "Supermount-Modus."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1900
+#: C/releases.xml:1877
 msgid "Fixed update after renaming without FAM"
 msgstr "Beseitigtes Problem nach dem Umbenennen ohne FAM"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1908
+#: C/releases.xml:1885
 msgid "New GNOME Commander logo"
 msgstr "Neues Logo für GNOME-Commander"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1911
+#: C/releases.xml:1888
 msgid "Added internal F3 viewer"
 msgstr "Interner Betrachter, erreichbar über F3"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1914
+#: C/releases.xml:1891
 msgid "Copying selected filename(s) to clipboard"
 msgstr "Kopieren ausgewählter Dateinamen in die Zwischenablage"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:1917
+#: C/releases.xml:1894
 msgid "CTRL+SHIFT+ENTER"
 msgstr "Strg+Umschalttaste+Eingabetaste"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1917
+#: C/releases.xml:1894
 msgid ""
 "Inserting selected file full path to the cmdline when pressing <_:keycap-1/>"
 msgstr ""
@@ -19892,13 +19938,13 @@ msgstr ""
 "Drücken von <_:keycap-1/>"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1920
+#: C/releases.xml:1897
 msgid "Multi-Rename-Tool - new $g placeholder for grandparent dir"
 msgstr ""
 "Mehrfachumbenennungswerkzeug - neuer Platzhalter $g für Großeltern-Ordner"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1923
+#: C/releases.xml:1900
 msgid ""
 "Toolbar buttons (cut, copy and paste) are now sensitive to the current state"
 msgstr ""
@@ -19906,7 +19952,7 @@ msgstr ""
 "den aktuellen Status"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1926
+#: C/releases.xml:1903
 msgid ""
 "Manage Bookmarks dialog is now accessible also via the bookmarks shortcut"
 msgstr ""
@@ -19914,7 +19960,7 @@ msgstr ""
 "Tastenkürzel erreichbar"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1929
+#: C/releases.xml:1906
 msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
@@ -19925,52 +19971,52 @@ msgstr ""
 "Kinyarwanda, Ukrainisch, Chinesisch (Taiwan)"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1935
+#: C/releases.xml:1912
 msgid "M"
 msgstr "M"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1935
+#: C/releases.xml:1912
 msgid "<_:keycombo-1/> Multi-Rename-Tool"
 msgstr "<_:keycombo-1/> Werkzeug zur Mehrfach-Umbenennung"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1938 C/releases.xml:2010
+#: C/releases.xml:1915 C/releases.xml:1987
 msgid "."
 msgstr "."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1941
+#: C/releases.xml:1918
 msgid "<_:keycombo-1/> Select all files"
 msgstr "<_:keycombo-1/> Alle Dateien auswählen"
 
 #. (itstool) path: keycombo/keycap
-#: C/releases.xml:1944
+#: C/releases.xml:1921
 msgid "-"
 msgstr "-"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1944
+#: C/releases.xml:1921
 msgid "<_:keycombo-1/> Unselect all files"
 msgstr "<_:keycombo-1/> Alle Dateien abwählen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1947
+#: C/releases.xml:1924
 msgid "<_:keycap-1/> Select files using a pattern"
 msgstr "<_:keycap-1/> Dateien anhand eines Musters auswählen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1956
+#: C/releases.xml:1933
 msgid "1.1.6"
 msgstr "1.1.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:1957
+#: C/releases.xml:1934
 msgid "2004-01-20"
 msgstr "20. Januar 2004"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1963
+#: C/releases.xml:1940
 msgid ""
 "Fixed crash when navigating back in the history and then entering another dir"
 msgstr ""
@@ -19978,12 +20024,12 @@ msgstr ""
 "Öffnen eines anderen Ordners"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1966
+#: C/releases.xml:1943
 msgid "Fixed ftp-quick-connect problems"
 msgstr "Beseitigter Fehler beim schnellen Verbinden mit FTP-Servern"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1969
+#: C/releases.xml:1946
 msgid ""
 "The quick-search function can now also be started by typing capital letters"
 msgstr ""
@@ -19991,12 +20037,12 @@ msgstr ""
 "werden"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:1972
+#: C/releases.xml:1949
 msgid "CTRL+ALT"
 msgstr "Strg+Alt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1972
+#: C/releases.xml:1949
 msgid ""
 "<_:keycap-1/> no longer needs to be used to activate quick-search when the "
 "cmdline is hidden"
@@ -20005,12 +20051,12 @@ msgstr ""
 "Befehlszeile nicht mehr erforderlich"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1980
+#: C/releases.xml:1957
 msgid "Updated the cvs-plugin so that it can be used to diff and log files"
 msgstr "Aktualisierung des CVS-Plugins zur Verwendung von Diff- und Logdateien"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1983
+#: C/releases.xml:1960
 msgid ""
 "Use bold text instead of underlined in the dir-indicator when focused by the "
 "mouse cursor"
@@ -20019,12 +20065,12 @@ msgstr ""
 "beim Fokussieren mit dem Mauszeiger"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1986
+#: C/releases.xml:1963
 msgid "The cwd label is selectable now (the one left of the cmdline)"
 msgstr "Das cwd-Widget ist nun auswählbar (links von der Befehlszeile)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1989
+#: C/releases.xml:1966
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
@@ -20033,39 +20079,39 @@ msgstr ""
 "nun automatisch gespeichert."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1992
+#: C/releases.xml:1969
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr "Knopf für die Ordnerchronik wurde zur Ordneranzeige hinzugefügt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1995
+#: C/releases.xml:1972
 msgid "Added history to the select and unselect by pattern dialogs"
 msgstr ""
 "Hinzufügen einer Chronik zu den Dialogen »Mit Schablone auswählen« und »Mit "
 "Schablone abwählen«"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:1998
+#: C/releases.xml:1975
 msgid "Sorting column and direction is now remembered"
 msgstr "Spaltensortierung und Sortierrichtung werden nun zwischengespeichert"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2004
+#: C/releases.xml:1981
 msgid "F2"
 msgstr "F2"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2004
+#: C/releases.xml:1981
 msgid "<_:keycap-1/> Open the rename dialog"
 msgstr "<_:keycap-1/> Öffnen des Umbenennen-Dialogs"
 
 #. (itstool) path: para/keycap
-#: C/releases.xml:2007
+#: C/releases.xml:1984
 msgid "SHIFT+F10"
 msgstr "Umschalttaste+F10"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2007
+#: C/releases.xml:1984
 msgid ""
 "<_:keycap-1/> Bring up the file context menu (the windows menu key also "
 "works)"
@@ -20073,7 +20119,7 @@ msgstr ""
 "<_:keycap-1/> Öffnet das Kontextmenü (Windows-Taste funktioniert ebenfalls)"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2010
+#: C/releases.xml:1987
 msgid ""
 "<_:keycombo-1/> Copy the current working directory from the inactive file "
 "list to the active one"
@@ -20082,17 +20128,17 @@ msgstr ""
 "die aktive Dateiansicht"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2019
+#: C/releases.xml:1996
 msgid "1.1.5"
 msgstr "1.1.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2020
+#: C/releases.xml:1997
 msgid "2004-01-12"
 msgstr "12. Januar 2004"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2026
+#: C/releases.xml:2003
 msgid ""
 "The ext column is now hidden when the extension is only showed together with "
 "the filename"
@@ -20101,14 +20147,14 @@ msgstr ""
 "zusammen mit dem Dateinamen angezeigt wird"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2029
+#: C/releases.xml:2006
 msgid "Fixed unnecessary redraws of the file list when dragging files over it"
 msgstr ""
 "Beseitigung unnötigen Neuzeichnens der Dateiliste, wenn Dateien darüber "
 "hinweggezogen werden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2032
+#: C/releases.xml:2009
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
@@ -20117,19 +20163,19 @@ msgstr ""
 "nicht aus der Verbindungs-Symbolleiste verschwinden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2035
+#: C/releases.xml:2012
 msgid "The program no longer tries to center itself on the desktop"
 msgstr ""
 "Die Anwendung versucht nun nicht mehr, das Fenster auf dem Desktop zu "
 "zentrieren"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2038
+#: C/releases.xml:2015
 msgid "Fixed problems when renaming directories"
 msgstr "Fehlerkorrekturen für das Umbenennen von Ordnern"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2046
+#: C/releases.xml:2023
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
@@ -20138,22 +20184,22 @@ msgstr ""
 "oben in der Ordnerstruktur benutzt werden"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2053
+#: C/releases.xml:2030
 msgid "1.1.4"
 msgstr "1.1.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2054
+#: C/releases.xml:2031
 msgid "2003-11-24"
 msgstr "24. November 2003"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2060
+#: C/releases.xml:2037
 msgid "Fixed bug when selecting multiple files with shift+mouse button"
 msgstr "Fehlerkorrektur beim Auswählen mehrerer Dateien mit Umschalt+Maustaste"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2063
+#: C/releases.xml:2040
 msgid ""
 "Stopped superfluous updates of the file list on machines with the imon "
 "kernel patch applied"
@@ -20162,12 +20208,12 @@ msgstr ""
 "aktiviertem Imon-Kernelpatch."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2066
+#: C/releases.xml:2043
 msgid "Cleaned up the file-popup menu"
 msgstr "Entschlackung des Datei-Kontextmenüs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2069
+#: C/releases.xml:2046
 msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
@@ -20176,13 +20222,13 @@ msgstr ""
 "wenn dieser Leerzeichen enthält"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2072
+#: C/releases.xml:2049
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr ""
 "Beseitigung eines möglichen async-Fehlers beim Abbruch einer xfer-Operation"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2075
+#: C/releases.xml:2052
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
@@ -20190,22 +20236,22 @@ msgstr ""
 "Einstellungsdialog."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2078
+#: C/releases.xml:2055
 msgid "Improved plugin-system"
 msgstr "Verbessertes Plugin-System"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2085
+#: C/releases.xml:2062
 msgid "1.1.3"
 msgstr "1.1.3"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2086
+#: C/releases.xml:2063
 msgid "2003-11-14"
 msgstr "14. November 2003"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2092
+#: C/releases.xml:2069
 msgid ""
 "Fixed a crash that happened when moving files on a machine with a snappy FAM "
 "installation. This lead to that GNOME Commander tried to remove the same "
@@ -20216,17 +20262,17 @@ msgstr ""
 "Datei zweimal aus der Liste zu löschen versuchte"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2099
+#: C/releases.xml:2076
 msgid "Accessing files on mounted devices should now work better"
 msgstr "Besserer Zugriff auf Dateien auf eingehängte Geräte"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2102
+#: C/releases.xml:2079
 msgid "Devices without the device filename should not disappear anymore"
 msgstr "Geräte ohne Gerätedateinamen verschwinden nun nicht mehr"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2105
+#: C/releases.xml:2082
 msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
@@ -20235,7 +20281,7 @@ msgstr ""
 "wenn das Programm beendet ist"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2111
+#: C/releases.xml:2088
 msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
@@ -20244,17 +20290,17 @@ msgstr ""
 "angezeigt, bis diese neu geladen wurde."
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2122
+#: C/releases.xml:2099
 msgid "The delete confirmation can now be disabled"
 msgstr "Die Bestätigung beim Löschen von Dateien kann nun deaktiviert werden"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2125
+#: C/releases.xml:2102
 msgid "Better error messages when a mount fails"
 msgstr "Verbesserte Fehlermeldung, wenn Einbinden eines Geräts fehlschlägt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2128
+#: C/releases.xml:2105
 msgid ""
 "Made the calculation of a directory's total size start automatically when "
 "the file prefs dialog is shown"
@@ -20263,7 +20309,7 @@ msgstr ""
 "Einstellungsdialogs "
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2134
+#: C/releases.xml:2111
 msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
@@ -20272,42 +20318,42 @@ msgstr ""
 "eines Filters für verborgene Dateien zum Hauptmenü für schnelleren Zugriff."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2144
+#: C/releases.xml:2121
 msgid "1.1.2"
 msgstr "1.1.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2145
+#: C/releases.xml:2122
 msgid "2003-11-07"
 msgstr "7. November 2003"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2151
+#: C/releases.xml:2128
 msgid "Much better handling of non UTF8 filenames"
 msgstr "Bessere Unterstützung von Nicht-UTF8-Dateinamen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2154
+#: C/releases.xml:2131
 msgid "Removed unsafe uri-creation"
 msgstr "Entfernen der unsicheren Erzeugung von URIs"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2162
+#: C/releases.xml:2139
 msgid "Three ways to show with file extensions"
 msgstr "Drei Möglichkeiten der Anzeige von Dateinamenerweiterungen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2169
+#: C/releases.xml:2146
 msgid "1.1.1"
 msgstr "1.1.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2170
+#: C/releases.xml:2147
 msgid "2003-11-05"
 msgstr "5. November 2003"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2176
+#: C/releases.xml:2153
 msgid ""
 "Stopped showing the file extension in both the name column and the ext column"
 msgstr ""
@@ -20315,19 +20361,19 @@ msgstr ""
 "angezeigt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2179
+#: C/releases.xml:2156
 msgid "Fixed crashes that happened when browsing directories"
 msgstr "Fehlerkorrekturen für Abstürze beim Durchsuchen von Ordnern"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2182
+#: C/releases.xml:2159
 msgid "Fixed update problems when copying and moving files"
 msgstr ""
 "Beseitigung von Problemen bei der Aktualisierung beim Kopieren und "
 "Verschieben von Dateien"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2185
+#: C/releases.xml:2162
 msgid ""
 "The connection combo boxes should now show the correct connection as "
 "selected all the time"
@@ -20336,18 +20382,18 @@ msgstr ""
 "anzeigen, wie ausgewählt"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2188
+#: C/releases.xml:2165
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr ""
 "Beseitigung einiger Fehler bei der Auswahl von Dateien mit der Tastatur"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2191
+#: C/releases.xml:2168
 msgid "Fixed the edit mime-types feature"
 msgstr "Korrektur in der Funktion zum Bearbeiten der MIME-Typen"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2199
+#: C/releases.xml:2176
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
@@ -20355,62 +20401,62 @@ msgstr ""
 "Eigenschaftsdialog"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2206
+#: C/releases.xml:2183
 msgid "1.1.0"
 msgstr "1.1.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2207
+#: C/releases.xml:2184
 msgid "2003-11-01"
 msgstr "1. November 2003"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2213
+#: C/releases.xml:2190
 msgid "SMB browsing"
 msgstr "Durchsuchen des SMB-Netzwerks"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2216
+#: C/releases.xml:2193
 msgid "Plugins"
 msgstr "Plugins"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2219
+#: C/releases.xml:2196
 msgid "Major rewrite of a lot of code"
 msgstr "Umfangreiche Überarbeitung großer Teile des Codes"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2226
+#: C/releases.xml:2203
 msgid "1.0.1"
 msgstr "1.0.1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2227
+#: C/releases.xml:2204
 msgid "2003-06-27"
 msgstr "27. Juni 2003"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2233
+#: C/releases.xml:2210
 msgid "Improved file list update in non-fam mode"
 msgstr "Verbesserte Dateilisten-Aktualisierung im Nicht-FAM-Modus"
 
 #. (itstool) path: listitem/para
-#: C/releases.xml:2236
+#: C/releases.xml:2213
 msgid "Empty directories can now be entered on ftp servers"
 msgstr "Leere Ordner auf FTP-Servern können geöffnet werden"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2243
+#: C/releases.xml:2220
 msgid "1.0"
 msgstr "1.0"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2244
+#: C/releases.xml:2221
 msgid "2003-06-05"
 msgstr "5. Juni 2003"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2246
+#: C/releases.xml:2223
 msgid ""
 "This is the \"production stable\" 1.0 release. Mainly small bugfixes from "
 "previous version."
@@ -20419,32 +20465,32 @@ msgstr ""
 "gegenüber der vorherigen Version."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2252
+#: C/releases.xml:2229
 msgid "0.9.12"
 msgstr "0.9.12"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2253
+#: C/releases.xml:2230
 msgid "2003-03-18"
 msgstr "18. März 2003"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2255
+#: C/releases.xml:2232
 msgid "Bugfixes"
 msgstr "Fehlerkorrekturen"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2259
+#: C/releases.xml:2236
 msgid "0.9.11"
 msgstr "0.9.11"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2260
+#: C/releases.xml:2237
 msgid "2003-03-13"
 msgstr "13. März 2003"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2262
+#: C/releases.xml:2239
 msgid ""
 "Added support for $p in advrename dialog. This will give you the parent "
 "directory. Fixed a bug where deleting a directory sometimes only emptied the "
@@ -20457,17 +20503,17 @@ msgstr ""
 "Ordner »..« nun sichtbar."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2270
+#: C/releases.xml:2247
 msgid "0.9.10"
 msgstr "0.9.10"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2271
+#: C/releases.xml:2248
 msgid "2003-03-24"
 msgstr "24. März 2003"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2273
+#: C/releases.xml:2250
 msgid ""
 "Fixed an imageloading bug when using themes other than the default one. New "
 "bookmark feature. New template feature in the advanced-rename dialog. See "
@@ -20484,17 +20530,17 @@ msgstr ""
 "können nun auch verborgen werden."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2284
+#: C/releases.xml:2261
 msgid "0.9.9"
 msgstr "0.9.9"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2285
+#: C/releases.xml:2262
 msgid "2003-01-19"
 msgstr "19. Januar 2003"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2287
+#: C/releases.xml:2264
 msgid ""
 "Improved the advanced rename tool Added quick connect feature. Improved "
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
@@ -20506,17 +20552,17 @@ msgstr ""
 "Dateien."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2297
+#: C/releases.xml:2274
 msgid "0.9.8"
 msgstr "0.9.8"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2298
+#: C/releases.xml:2275
 msgid "2002-07-16"
 msgstr "16. Juli 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2300
+#: C/releases.xml:2277
 msgid ""
 "New things in this release are autoscroll at DND, better quicksearch, "
 "mounting and unmounting, file lists refresh without FAM, last visited "
@@ -20527,73 +20573,73 @@ msgstr ""
 "ohne FAM, Chronik zuletzt geöffneter Ordner und mehr."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2308
+#: C/releases.xml:2285
 msgid "0.9.7"
 msgstr "0.9.7"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2309
+#: C/releases.xml:2286
 msgid "2002-06-07"
 msgstr "7. Juni 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2314
+#: C/releases.xml:2291
 msgid "0.9.6"
 msgstr "0.9.6"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2315
+#: C/releases.xml:2292
 msgid "2002-04-04"
 msgstr "4. April 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2317
+#: C/releases.xml:2294
 msgid "MIME support has been added and bugs have been fixed."
 msgstr "MIME-Unterstützung, einige Fehlerkorrekturen."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2321
+#: C/releases.xml:2298
 msgid "0.9.5"
 msgstr "0.9.5"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2322
+#: C/releases.xml:2299
 msgid "2002-03-27"
 msgstr "27. März 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2324
+#: C/releases.xml:2301
 msgid "Added an embedded terminal and fixed some bugs."
 msgstr ""
 "Hinzufügen eines eingebetteten Terminals sowie einige Fehlerkorrekturen."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2328
+#: C/releases.xml:2305
 msgid "0.9.4"
 msgstr "0.9.4"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2329
+#: C/releases.xml:2306
 msgid "2002-03-21"
 msgstr "21. März 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2331
+#: C/releases.xml:2308
 msgid "Added FAM support, DnD and more."
 msgstr "Unterstützung für FAM, Ziehen-und-Ablegen und mehr."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2335
+#: C/releases.xml:2312
 msgid "0.9.2"
 msgstr "0.9.2"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2336
+#: C/releases.xml:2313
 msgid "2002-03-09"
 msgstr "9. März 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2338
+#: C/releases.xml:2315
 msgid ""
 "Improved stability and less memory leaks. CVS is disabled until it actually "
 "works well."
@@ -20602,31 +20648,31 @@ msgstr ""
 "deaktiviert, bis es wirklich funktioniert."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2342
+#: C/releases.xml:2319
 msgid "0.91-pre1"
 msgstr "0.91-pre1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2343
+#: C/releases.xml:2320
 msgid "2002-02-06"
 msgstr "6. Februar 2002"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2345
+#: C/releases.xml:2322
 msgid "Improved user interface and lots of other small hacks."
 msgstr "Verbesserte Benutzeroberfläche und zahlreiche anderer kleinerer Hacks."
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2349
+#: C/releases.xml:2326
 msgid "0.90-pre1"
 msgstr "0.90-pre1"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2350
+#: C/releases.xml:2327
 msgid "2001-08-02"
 msgstr "2. August 2001"
 
 #. (itstool) path: entry/para
-#: C/releases.xml:2352
+#: C/releases.xml:2329
 msgid "The first public version of GNOME Commander."
 msgstr "Die erste veröffentlichte Version von GNOME Commander."
