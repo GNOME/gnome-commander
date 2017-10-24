@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander docs master\n"
-"POT-Creation-Date: 2017-10-15 14:39+0000\n"
-"PO-Revision-Date: 2017-10-16 23:43+0200\n"
+"POT-Creation-Date: 2017-10-24 20:10+0000\n"
+"PO-Revision-Date: 2017-10-24 22:48+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -9986,7 +9986,7 @@ msgstr ""
 #. (itstool) path: sect3/para
 #: C/index.docbook:3891
 msgid "<guilabel>Range syntax</guilabel> <_:itemizedlist-1/>"
-msgstr ""
+msgstr "<guilabel>Syntax für Bereiche</guilabel> <_:itemizedlist-1/>"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:3906
@@ -11350,6 +11350,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander general preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_general."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der allgemeinen Einstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4425
@@ -11515,6 +11518,10 @@ msgid ""
 "before lower case ones. Also the quicksearch will differentiate between "
 "upper case and lower case if this option is activated."
 msgstr ""
+"Wenn diese Option aktiviert ist, unterscheidet GNOME Commander bei der "
+"Sortierung zwischen Groß- und Kleinschreibung. Großbuchstaben werden dabei "
+"vor Kleinbuchstaben eingeordnet. Diese Einstellung betrifft ebenfalls die "
+"Schnellsuche."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4555
@@ -11536,6 +11543,12 @@ msgid ""
 "first one to refine the search. By then pressing the up or down arrow key "
 "the cursor will jump to all files or folders which match your selection."
 msgstr ""
+"Beim Drücken von <keycombo><keycap>Strg</keycap><keycap>Alt</"
+"keycap><keycap>Buchstabe</keycap></keycombo> rollt GNOME Commander den "
+"Auswahlcursor in der aktiven Ansicht zum ersten Objekt, das diesen "
+"Buchstaben enthält. Sie können weitere Buchstaben eingeben, um die Suche zu "
+"verfeinern. Durch Drücken der Pfeiltasten nach oben und nach unten springt "
+"der Cursor durch alle Dateien oder Ordner, die Ihrer Auswahl entsprechen."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4574
@@ -11572,6 +11585,8 @@ msgid ""
 "Just letters (command line access with <keycombo><keycap>CTRL</"
 "keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)"
 msgstr ""
+"Buchstaben (Befehlszeilenzugriff mit <keycombo><keycap>Strg</"
+"keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4595
@@ -11580,6 +11595,10 @@ msgid ""
 "cursor in the active pane to the first item using that letter. You can then "
 "enter more letters after the first one to refine the search."
 msgstr ""
+"Wenn Sie in eine Buchstabentaste drücken, rollt GNOME Commander den "
+"Auswahlcursor in der aktiven Ansicht zum ersten Objekt, das diesen "
+"Buchstaben enthält. Sie können dann weitere Buchstaben eingeben, um die "
+"Suche zu verfeinern."
 
 #. (itstool) path: note/para
 #: C/index.docbook:4599
@@ -11589,6 +11608,10 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></"
 "keycombo>."
 msgstr ""
+"Bei Auswahl dieser Option ändern Sie das GNOME-Standardverhalten. Zum "
+"Zugriff auf die Befehlszeile mittels Tastatur müssen Sie die "
+"Tastenkombination <keycombo><keycap>Strg</keycap><keycap>Alt</"
+"keycap><keycap>C</keycap></keycombo> verwenden."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4610
@@ -11718,6 +11741,9 @@ msgid ""
 "commandline commands on exit. When restarted, the history of commands in the "
 "commandline accessible again."
 msgstr ""
+"Bei Aktivierung dieser Option speichert GNOME Commander den Verlauf der "
+"ausgeführten Befehle beim Beenden. Nach einem erneuten Programmstart können "
+"Sie wieder auf die gespeicherten Befehle zugreifen."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4692
@@ -11731,6 +11757,9 @@ msgid ""
 "patters on exit. When restarted, the history of search patterns is "
 "accessible again."
 msgstr ""
+"Bei Aktivierung dieser Option speichert GNOME Commander den Verlauf der "
+"eingegebenen Suchmuster beim Beenden. Nach einem erneuten Programmstart "
+"können Sie wieder auf die gespeicherten Suchmuster zugreifen."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4707
@@ -11808,6 +11837,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander format preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_format.png"
+"\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog der "
+"Formateinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4745
@@ -11993,6 +12025,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander layout preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_layout.png"
+"\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog der "
+"Layout-Einstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:4887 C/index.docbook:5203
@@ -12343,6 +12378,11 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander dialog for editing custom colors."
 "</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_layout_colors.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt den Dialog der Einstellungen zum "
+"benutzerdefinierten Anpassen von Farben in GNOME Commander.</phrase> </"
+"textobject>"
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:5105
@@ -12509,6 +12549,9 @@ msgid ""
 "\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander tabs preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_tabs.png"
+"\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog der "
+"Reitereinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:5157
@@ -12606,6 +12649,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander confirmation preferences dialog.</"
 "phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_options_confirmation.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt den Dialog der Einstellungen für Bestätigungen in "
+"GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5223
@@ -12830,6 +12877,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander filters preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_filters."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der Filtereinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5381
@@ -13031,6 +13081,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander programs preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_programs."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der Programmeinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5554
@@ -13272,6 +13325,8 @@ msgid ""
 "With this checkbox you can decide if you want the leave a terminal window "
 "open when the command in it finishes."
 msgstr ""
+"In diesem Ankreuzfeld können Sie festlegen, ob das Terminalfenster geöffnet "
+"bleiben soll, wenn der darin ausgeführte Befehl beendet ist."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:5713
@@ -13412,6 +13467,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander new application dialog.</phrase> "
 "</textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_application.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt den Dialog der Einstellungen für neue Anwendungen "
+"in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5829
@@ -13688,6 +13747,9 @@ msgid ""
 "png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Shows GNOME "
 "Commander devices preferences dialog.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-commander_options_devices."
+"png\" format=\"PNG\"/> </imageobject> <textobject> <phrase>Zeigt den Dialog "
+"der Geräteeinstellungen in GNOME Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:6042
@@ -13808,6 +13870,9 @@ msgid ""
 "imageobject> <textobject> <phrase>Shows GNOME Commander new devices dialog.</"
 "phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/dev_cd.png\" format=\"PNG\"/> </"
+"imageobject> <textobject> <phrase>Zeigt den Dialog für neue Geräte in GNOME "
+"Commander.</phrase> </textobject>"
 
 #. (itstool) path: table/title
 #: C/index.docbook:6158
@@ -15003,6 +15068,10 @@ msgid ""
 "<textobject> <phrase>Shows GNOME Commander keyboard shortcuts.</phrase> </"
 "textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/gnome-"
+"commander_dialog_keyboard_shortcuts.png\" format=\"PNG\"/> </imageobject> "
+"<textobject> <phrase>Zeigt die Tastenkombinationen in GNOME Commander.</"
+"phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:6918
@@ -16152,6 +16221,9 @@ msgid ""
 "\"/> </imageobject> <textobject> <phrase>This entry allows creating archives "
 "easily.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/create_archive.png\" format=\"PNG"
+"\"/> </imageobject> <textobject> <phrase>Hier können Sie einfach Archive "
+"anlegen.</phrase> </textobject>"
 
 #. (itstool) path: figure/title
 #: C/index.docbook:7555 C/index.docbook:7584
@@ -16177,6 +16249,9 @@ msgid ""
 "\"/> </imageobject> <textobject> <phrase>This entry allows extract archives "
 "easily.</phrase> </textobject>"
 msgstr ""
+"<imageobject> <imagedata fileref=\"figures/extract_archive.png\" format=\"PNG"
+"\"/> </imageobject> <textobject> <phrase>Hier können Sie einfach Archive "
+"entpacken.</phrase> </textobject>"
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:7570
@@ -16925,6 +17000,7 @@ msgstr "Neue Funktionen:"
 #: C/releases.xml:41
 msgid "Store the size of the options dialog when closing itself"
 msgstr ""
+"Die Größe des Optionsdialogs wird gespeichert, wenn dieser geschlossen wird"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:44
@@ -19680,7 +19756,7 @@ msgstr "Beseitigung eines Absturzfehlers beim Betrachten von SMB-Verbindungen"
 #. (itstool) path: listitem/para
 #: C/releases.xml:1802
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
-msgstr "Fehlerkorrektur #309877 (Starke Artefakte beim horizontalen Rollen)  "
+msgstr "Fehlerkorrektur #309877 (Starke Artefakte beim horizontalen Rollen)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1805
@@ -20261,7 +20337,7 @@ msgid ""
 "the file prefs dialog is shown"
 msgstr ""
 "Automatischer Start der Größenberechnung von Ordnern während der Anzeige des "
-"Einstellungsdialogs "
+"Einstellungsdialogs"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2137
