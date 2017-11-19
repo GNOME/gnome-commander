@@ -248,7 +248,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-\$[cxXegnNp]\([^\)]*\)?         ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
+\$[cxXegnNp]\([^\)]*\)?         ECHO;                                      // do not substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
 
 \$[egnNp]                       {
                                   CHUNK *p = g_new0 (CHUNK,1);
