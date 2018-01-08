@@ -28,7 +28,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-main-win.h"
 #include "plugin_manager.h"
-#include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
 #include "cap.h"
@@ -292,14 +291,6 @@ static void on_execute (GtkMenuItem *menu_item, GList *files)
     GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
 
     f->execute();
-}
-
-
-static void on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data)
-{
-#ifdef HAVE_PYTHON
-    gnome_cmd_python_plugin_execute(data, main_win);
-#endif
 }
 
 
@@ -740,41 +731,6 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     if (match_count > 0)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
 
-    GList *py_plugins = NULL;
-#ifdef HAVE_PYTHON
-    py_plugins = gnome_cmd_python_plugin_get_list();
-#endif
-    guint n = g_list_length (py_plugins);
-
-    if (n)
-    {
-        GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
-        GnomeUIInfo *tmp = py_uiinfo;
-
-        for (; py_plugins; py_plugins = py_plugins->next, ++tmp)
-        {
-            PythonPluginData *data = (PythonPluginData *) py_plugins->data;
-
-            if (data)
-            {
-                tmp->type = GNOME_APP_UI_ITEM;
-                tmp->label = _(data->name);
-                tmp->moreinfo = (gpointer) on_execute_py_plugin;
-                tmp->user_data = data;
-                tmp->pixmap_type = GNOME_APP_PIXMAP_NONE; // GNOME_APP_PIXMAP_FILENAME;
-                // tmp->pixmap_info = "pixmaps/python-plugin.svg";
-            }
-        }
-
-        tmp->type = GNOME_APP_UI_ENDOFINFO;
-
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, NULL, FALSE, pos);
-        pos += n;
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
-
-        g_free (py_uiinfo);
-    }
-	
     // Script actions
     gchar *user_dir = g_build_filename (g_get_home_dir (), "." PACKAGE "/scripts", NULL);
     DIR *dp = opendir (user_dir);
@@ -798,7 +754,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         closedir (dp);
     }
 
-    n = g_list_length(slist);
+    guint n = g_list_length(slist);
     if (n)
     {
         GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);

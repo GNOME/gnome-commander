@@ -32,7 +32,6 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-style.h"
@@ -251,7 +250,6 @@ static UserActionData user_actions_data[] = {
                                              {options_edit, "options.edit", N_("Options")},
                                              {options_edit_shortcuts, "options.shortcuts", N_("Keyboard shortcuts")},
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
-                                             {plugins_execute_python, "plugins.execute_python", N_("Execute Python plugin")},
                                              {view_back, "view.back", N_("Back one directory")},
                                              {view_close_tab, "view.close_tab", N_("Close the current tab")},
                                              {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
@@ -386,13 +384,6 @@ void GnomeCmdUserActions::init()
 
     if (!registered("options.edit"))
         register_action(GDK_CONTROL_MASK, GDK_O, "options.edit");
-
-    if (!registered("plugins.execute_python"))
-    {
-        register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
-        register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
-    }
 
     if (!registered("dir_history"))
     {
@@ -1955,28 +1946,6 @@ void bookmarks_view (GtkMenuItem *menuitem, gpointer not_used)
 void plugins_configure (GtkMenuItem *menuitem, gpointer not_used)
 {
     plugin_manager_show ();
-}
-
-
-void plugins_execute_python (GtkMenuItem *menuitem, gpointer python_script)
-{
-    if (!python_script)
-        return;
-
-#ifdef HAVE_PYTHON
-    for (GList *py_plugins = gnome_cmd_python_plugin_get_list(); py_plugins; py_plugins = py_plugins->next)
-    {
-        PythonPluginData *py_plugin = (PythonPluginData *) py_plugins->data;
-
-        if (!g_ascii_strcasecmp (py_plugin->name, (gchar *) python_script))
-        {
-            gnome_cmd_python_plugin_execute (py_plugin, main_win);
-            return;
-        }
-    }
-#else
-    g_warning ("Python plugins not supported");
-#endif
 }
 
 

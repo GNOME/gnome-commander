@@ -84,11 +84,6 @@ gnome_commander_SOURCES = \
 	utils-no-dependencies.h utils-no-dependencies.cc \
 	widget-factory.h
 
-if HAVE_PYTHON
-gnome_commander_SOURCES += \
-	gnome-cmd-python-plugin.h gnome-cmd-python-plugin.cc
-endif
-
 if HAVE_SAMBA
 gnome_commander_SOURCES += \
 	gnome-cmd-con-smb.h gnome-cmd-con-smb.cc \
