@@ -56,7 +56,6 @@ static gchar *tmp_file_dir = NULL;
  * l: directory listings\n
  * m: connection debugging\n
  * n: directory monitoring\n
- * p: python plugins\n
  * s: smb network browser\n
  * t: metadata tags\n
  * u: user actions debugging\n

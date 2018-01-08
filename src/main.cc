@@ -44,7 +44,6 @@ extern "C"
 #include "ls_colors.h"
 #include "imageloader.h"
 #include "plugin_manager.h"
-#include "gnome-cmd-python-plugin.h"
 #include "tags/gnome-cmd-tags.h"
 
 using namespace std;
@@ -184,15 +183,9 @@ int main (int argc, char *argv[])
 
         gcmd_tags_init();
         plugin_manager_init ();
-#ifdef HAVE_PYTHON
-        python_plugin_manager_init ();
-#endif
 
         gtk_main ();
 
-#ifdef HAVE_PYTHON
-        python_plugin_manager_shutdown ();
-#endif
         plugin_manager_shutdown ();
         gcmd_tags_shutdown ();
         gcmd_user_actions.shutdown();

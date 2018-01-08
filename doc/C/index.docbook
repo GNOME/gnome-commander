@@ -514,9 +514,6 @@
         <para>User defined keyboard shortcuts</para>
       </listitem>
       <listitem>
-        <para>Python scripting</para>
-      </listitem>
-      <listitem>
         <para>Plugin support</para>
       </listitem>
       <listitem>
@@ -7089,10 +7086,6 @@
                                     </note></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>Execute Python plugin</para></entry>
-                        <entry><para>Execute python plugin with the given name.</para></entry>
-                    </row>
-                    <row valign="top">
                         <entry><para>Forward one directory</para></entry>
                         <entry><para>Go forward to the next visited directory</para></entry>
                     </row>
@@ -7359,150 +7352,6 @@
     </sect2>
   </sect1>
 
-<!-- ============= Python Plugins ================================ -->
-<!-- This section contains info about the python plugins.-->
-  <sect1 id="gnome-commander-python-plugins">
-    <title>Python Plugins</title>
-        <para>&app; is capable of executing python plugins. A Python plugin is a normal python application containing a predefined entry function.</para>
-    <para>&app; comes with built-in plugins:</para>
-    <itemizedlist>
-      <listitem>
-        <para><filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files</para>
-      </listitem>
-      <listitem>
-        <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
-      </listitem>
-      <listitem>
-        <para><filename>apply_patch</filename> - The plugin applies selected patches to the opposite pane using <command>patch -p1</command></para>
-      </listitem>
-    </itemizedlist>
-    <sect2 id="gnome-commander-python-plugins-working-with">
-      <title>Working with plugins</title>
-      <para>To start - simply place your plugin in <filename>~/.gnome-commander/plugins/</filename> directory.
-            If the plugin is meant to be accessed system widely, use alternate location: <filename>$(libdir)/$(PACKAGE)/plugins/</filename>.</para>
-      <para>Plugins will be added as new entries to the &app; context menus.</para>
-      <note>
-        <para>Keyboard shortcuts can be assigned to execute specific python plugins
-                     (eg. <keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> &#x2192; <filename>md5sum</filename>).</para>
-      </note>
-      <para>
-        <variablelist>
-          <title>Python plugins requirements</title>
-          <varlistentry>
-            <term>build</term>
-            <listitem>
-              <para>python-devel &#x2a7e; 2.4</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>run</term>
-            <listitem>
-              <para>python &#x2a7e; 2.4</para>
-              <para>gnome-python2-gnomevfs</para>
-              <para>pygtk (for GUI)</para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </para>
-    </sect2>
-    <sect2 id="gnome-commander-python-plugins-api">
-      <title>Plugins API</title>
-      <para>The entry (start) point for plugin is always main() function:</para>
-      <programlisting>
-    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)
-            </programlisting>
-
-            <para>where parameters are:</para>
-
-            <informaltable frame="topbot">
-                <tgroup cols='2'>
-                    <colspec colname="col1"/>
-                    <colspec colname="col2"/>
-                    <tbody>
-                        <row valign="top">
-                            <entry><para>main_wnd_xid</para></entry>
-                            <entry><para>XID of &app; main toplevel window</para></entry>
-                        </row>
-                        <row valign="top">
-                            <entry><para>active_cwd</para></entry>
-                            <entry><para>full path of current dir of active pane</para></entry>
-                        </row>
-                        <row valign="top">
-                            <entry><para>inactive_cwd</para></entry>
-                            <entry><para>full path of current dir of inactive pane</para></entry>
-                        </row>
-                        <row valign="top">
-                            <entry><para>selected_files</para></entry>
-                            <entry><para>list of selected <ulink url="http://www.pygtk.org/pygnomevfs/class-gnomevfs-uri.html" type="http">file uris</ulink> in active pane</para></entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </informaltable>
-        </sect2>
-
-        <sect2 id="gnome-commander-python-plugins-md5sum">
-            <title>Sample plugin: md5sum</title>
-      <para>
-        <programlisting>
-    #!/usr/bin/env python
-
-    try:
-        import gnomevfs
-    except ImportError:
-        import gnome.vfs as gnomevfs
-
-    import os
-    import string
-    import hashlib
-
-    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
-
-       parent_dir = string.split(active_cwd, os.sep)[-1]
-        if parent_dir=='':
-            parent_dir = 'root'
-        f_md5sum = file(inactive_cwd+os.sep+parent_dir+'.md5sum', 'w')
-        for uri in selected_files:
-            if gnomevfs.get_file_info(uri).type==gnomevfs.FILE_TYPE_REGULAR:
-                f = file(active_cwd+os.sep+uri.short_name, 'rb')
-                file_content = f.read()
-                f.close()
-                md5sum = hashlib.md5(file_content).hexdigest()
-                f_md5sum.write('%s  %s\n' % (md5sum, uri.short_name))
-        f_md5sum.close()
- 
-       return True
-             </programlisting>
-      </para>
-      <note>
-        <para>The latest version of md5sum code can be found in
-              <ulink type="http" url="http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py">git &app; repository.</ulink></para>
-      </note>
-    </sect2>
-
-        <sect2 id="gnome-commander-python-plugins-resources">
-            <title>Python resources</title>
-            <para>
-                <itemizedlist>
-                    <listitem>
-                        <para><ulink url="http://www.python.org/doc/" type="http">Python documentation</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.pygtk.org/pygnomevfs/" type="http">Python gnomevfs reference manual</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.pygtk.org/" type="http">PyGTK: GTK+ for Python</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.learningpython.com/2006/05/07/creating-a-gui-using-pygtk-and-glade/" type="http">Creating a GUI using PyGTK and Glade</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://sebsauvage.net/python/snyppets/" type="http">Python code snippets</ulink></para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </sect2>
-      </sect1>
-      
       <!-- ============= Tips and tricks ======================== -->
       <!-- This section contains info some very simple tips and tricks.-->
       <sect1 id="gnome-commander-tips-and-tricks">
@@ -7753,7 +7602,7 @@
         all in the spirit of free and open source software.</para>
     <para>Known limitation:
     <itemizedlist>
-    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS. This might be the cause that some Python plugins won't run on your system.</para></listitem>
+    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS.</para></listitem>
     <listitem><para>Configuration of default application depending on the files MIME type is broken and was finally removed in v1.4. See section <xref linkend="gnome-commander-mime-types"></xref> for more information.</para></listitem>
     </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
