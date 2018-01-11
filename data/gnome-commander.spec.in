@@ -14,7 +14,6 @@
 %define srcext .xz
 %endif
 
-%define        python_ver            @PYTHON_REQ@
 %define        exiv2_ver             @EXIV2_REQ@
 %define        taglib_ver            @TAGLIB_REQ@
 %define        libgsf_ver            @LIBGSF_REQ@
@@ -62,7 +61,6 @@ Requires:         meld
 Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
 
-BuildRequires:   python-devel >= %{python_ver}
 BuildRequires:   exiv2-devel >= %{exiv2_ver}
 BuildRequires:   taglib-devel >= %{taglib_ver}
 %if 0%{?fedora} >= 6
@@ -70,8 +68,6 @@ BuildRequires:   libgsf-devel >= %{libgsf_ver}
 %endif
 BuildRequires:   poppler-devel >= %{poppler_ver}
 
-Requires:        python >= %{python_ver}
-Requires:        gnome-python2-gnomevfs
 %if 0%{?fedora} >= 8
 Requires:        exiv2-libs >= %{exiv2_ver}
 %else
@@ -117,7 +113,6 @@ ansluta till FTP-servrar och SMB-nätverk.
 %build
 %configure \
    --disable-scrollkeeper \
-   --enable-python
 %{__make} %{?_smp_mflags}
 
 %install
@@ -170,6 +165,9 @@ scrollkeeper-update -q || :
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Thu Jan 11 2018 Uwe Scholz <u.scholz83@gmx.de>
+- removed build and runtime deps for python and gnome-python2-gnomevfs
+
 * Mon Oct 08 2017 Uwe Scholz <u.scholz83@gmx.de>
 - Removed intltool, gnome-common and gnome-doc-utils dependencies
 - Added yelp-tools dependency
