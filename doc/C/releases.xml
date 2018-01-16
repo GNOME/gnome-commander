@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.8.1</para></entry>
-            <entry><para>2017-??-??</para></entry>
+            <entry><para>2018-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -39,6 +39,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Store the size of the options dialog when closing itself</para>
+                        </listitem>
+                        <listitem>
+                            <para>Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ...</para>

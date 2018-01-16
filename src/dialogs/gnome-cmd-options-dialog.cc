@@ -90,6 +90,8 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     /* pack the vbox into the scrolled window */
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    /* https://stackoverflow.com/questions/9498699/remove-gtkscrolledwindow-frame-border-in-c */
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
@@ -325,6 +327,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
@@ -757,6 +760,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // File panes
     table = create_table (parent, 5, 2);
@@ -910,6 +914,7 @@ inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab bar"));
@@ -982,6 +987,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
 
     /* Delete options
@@ -1126,6 +1132,7 @@ inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &c
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Filetypes to hide"));
@@ -1595,6 +1602,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
@@ -1985,6 +1993,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Devices"));
