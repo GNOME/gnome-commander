@@ -734,33 +734,34 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     // Script actions
     gchar *user_dir = g_build_filename (g_get_home_dir (), "." PACKAGE "/scripts", NULL);
     DIR *dp = opendir (user_dir);
-    GList *slist = NULL;
+    GList *script_list = NULL;
     if (dp != NULL)
     {
-        struct dirent *ep;
-        while ((ep = readdir (dp)))
+        struct dirent *directory_entry;
+        while ((directory_entry = readdir (dp)))
         {
             struct stat buf;
-            string s (user_dir);
-            s.append ("/").append (ep->d_name);
-            if (stat (s.c_str(), &buf) == 0)
+            string script_path (user_dir);
+            script_path.append ("/").append (directory_entry->d_name);
+            if (stat (script_path.c_str(), &buf) == 0)
             {
                 if (buf.st_mode & S_IFREG)
                 {
-                    slist = g_list_append (slist, g_strdup(ep->d_name));
+		    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", script_path);
+                    script_list = g_list_append (script_list, g_strdup(directory_entry->d_name));
                 }
             }
         }
         closedir (dp);
     }
 
-    guint n = g_list_length(slist);
+    guint n = g_list_length(script_list);
     if (n)
     {
         GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
         GnomeUIInfo *tmp = py_uiinfo;
 
-        for (GList *l = slist; l; l = l->next)
+        for (GList *l = script_list; l; l = l->next)
         {
             ScriptData *data = g_new0 (ScriptData, 1);
             data->files = files;
@@ -807,7 +808,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         g_free (py_uiinfo);
     }
     g_free (user_dir);
-    g_list_free (slist);
+    g_list_free (script_list);
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, NULL, FALSE, pos++);
 
