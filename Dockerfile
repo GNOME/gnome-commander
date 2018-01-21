@@ -1,5 +1,5 @@
 # This is a Docker image for building gnome-commander
-FROM ubuntu:17.04
+FROM ubuntu:17.10
 MAINTAINER Uwe Scholz <u.scholz83@gmx.de>
 
 ENV GCMD_PATH /gnome-commander
