@@ -151,6 +151,8 @@ scrollkeeper-update -q || :
 
 %{_datadir}/applications/%{name}.desktop
 
+%{_datadir}/help/*
+
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}/
 
@@ -160,6 +162,11 @@ scrollkeeper-update -q || :
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Tue Feb 13 2018 Uwe Scholz <u.scholz83@gmx.de>
+- removed build and runtime deps for unique and unique-devel
+- fixed bogus date
+- fixed folders in _datadir
+
 * Thu Jan 11 2018 Uwe Scholz <u.scholz83@gmx.de>
 - removed build and runtime deps for python and gnome-python2-gnomevfs
 
