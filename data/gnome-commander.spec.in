@@ -151,9 +151,6 @@ scrollkeeper-update -q || :
 
 %{_datadir}/applications/%{name}.desktop
 
-%{_datadir}/gnome/help/%{name}/
-%{_datadir}/omf/%{name}/
-
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}/
 
