@@ -7,7 +7,7 @@ New features:
  * Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)
 
 Bug fixes:
- * ...
+ * Fix simple script system for file names with spaces
 
 New or updated translations: 
  * ...
