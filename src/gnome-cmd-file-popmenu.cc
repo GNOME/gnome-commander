@@ -301,6 +301,9 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
     GList *files = data->files;
+    
+    string quotationMarks = data->term ? "\\\"" : "\"";
+    
     if (state_is_shift (mask))
     {
         // Run script per file
@@ -308,7 +311,7 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) files->data;
             string command (data->name);
-            command.append (" ").append (f->get_name ());
+            command.append (" ").append (quotationMarks).append (f->get_name ()).append (quotationMarks);
 
             run_command_indir (command.c_str (), f->get_dirname (), data->term);
         }
@@ -321,7 +324,7 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
         for (; files; files = files->next)
         {
             GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-            command.append(f->get_name ()).append(" ");
+            command.append (quotationMarks).append(f->get_name ()).append (quotationMarks).append (" ");
         }
 
         run_command_indir (command.c_str (), ((GnomeCmdFile *) data->files->data)->get_dirname (), data->term);
@@ -747,7 +750,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             {
                 if (buf.st_mode & S_IFREG)
                 {
-		    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", script_path);
+                    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", script_path.c_str());
                     script_list = g_list_append (script_list, g_strdup(directory_entry->d_name));
                 }
             }
