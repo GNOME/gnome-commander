@@ -10,10 +10,22 @@ Bug fixes:
  * Fix simple script system for file names with spaces
 
 New or updated translations: 
- * ...
+ * cs (Marek Cernocky)
+ * da (Ask Hjorth Larsen)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+ * hu (Balázs Meskó)
+ * id (Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Isaac F. Ferreira Filho)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
  
 New or updated docs:
- * ...
+ * cs (Marek Cernocky)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
 
 ===================================
 gnome-commander 1.8.0

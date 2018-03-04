@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.8.1</para></entry>
-            <entry><para>2018-??-??</para></entry>
+            <entry><para>2018-03-04</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -44,10 +44,10 @@
                             <para>Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>New or updated translations: cs, da, de, es, hu, id, pl, pt_BR, sr, sr@latin, sv</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated docs: cs, de, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>
