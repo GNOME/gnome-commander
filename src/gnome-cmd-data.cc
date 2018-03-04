@@ -2199,7 +2199,11 @@ static inline void load_devices (const gchar *fname)
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
 
     keyfile = gcmd_key_file_load_from_file(path, 0);
-    g_return_if_fail(keyfile != NULL);
+
+    if (keyfile == NULL)
+    {
+        return;
+    }
 
     groups = g_key_file_get_groups (keyfile, &length);
 
@@ -2330,7 +2334,11 @@ static void load_fav_apps (const gchar *fname)
     gnome_cmd_data.options.fav_apps = NULL;
 
     keyfile = gcmd_key_file_load_from_file(path, 0);
-    g_return_if_fail(keyfile != NULL);
+
+    if (keyfile == NULL)
+    {
+        return;
+    }
 
     groups = g_key_file_get_groups (keyfile, &length);
 
