@@ -23,6 +23,34 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.8.2</para></entry>
+            <entry><para>2018-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.8.1</para></entry>
             <entry><para>2018-03-04</para></entry>
             <entry>
@@ -52,6 +80,8 @@
                     </itemizedlist>
                 </para>
             </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.8.0</para></entry>
             <entry><para>2017-08-10</para></entry>
             <entry>
