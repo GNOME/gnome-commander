@@ -333,7 +333,6 @@ GNOME_CMD_USER_ACTION(connections_close_current);
 
 /************** Plugins Menu ***********/
 GNOME_CMD_USER_ACTION(plugins_configure);
-GNOME_CMD_USER_ACTION(plugins_execute_python);
 
 /************** Help Menu **************/
 GNOME_CMD_USER_ACTION(help_help);
