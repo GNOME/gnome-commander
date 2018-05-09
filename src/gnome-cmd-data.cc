@@ -50,6 +50,8 @@ using namespace std;
 
 GnomeCmdData gnome_cmd_data;
 
+//static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
+
 struct GnomeCmdData::Private
 {
     GnomeCmdConList *con_list;
@@ -1343,8 +1345,7 @@ static void gcmd_settings_init (GcmdSettings *gs)
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PLUGINS, FALSE);
     gs->plugins = g_settings_new_full (global_schema, NULL, NULL);
 
-    //TODO: Activate the following function in GCMD > 1.6
-    //gcmd_connect_gsettings_signals(gs);
+    gcmd_connect_gsettings_signals(gs);
 }
 
 
@@ -1533,12 +1534,6 @@ inline gint GnomeCmdData::get_int (const gchar *path, int def)
 }
 
 
-inline void GnomeCmdData::set_int (const gchar *path, int value)
-{
-    gnome_config_set_int (path, value);
-}
-
-
 inline gchar* GnomeCmdData::get_string (const gchar *path, const gchar *def)
 {
     gboolean b = FALSE;
@@ -1562,21 +1557,6 @@ inline gboolean GnomeCmdData::get_bool (const gchar *path, gboolean def)
     if (b)
         return def;
     return value;
-}
-
-
-inline void GnomeCmdData::set_bool (const gchar *path, gboolean value)
-{
-    gnome_config_set_bool (path, value);
-}
-
-
-inline void GnomeCmdData::set_color (const gchar *path, GdkColor *color)
-{
-    gchar *color_str;
-    color_str = g_strdup_printf ("%d %d %d", color->red, color->green, color->blue);
-    set_string (path, color_str);
-    g_free (color_str);
 }
 
 
@@ -1608,6 +1588,229 @@ static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
         xml << *(GnomeCmdBookmark *) i->data;
 
     xml << XML::endtag("Group");
+}
+
+/**
+ * Save advance rename profiles in the given file by means of GKeyFile.
+ */
+void GnomeCmdData::save_advrename_config (const gchar *fname)
+{
+    // Wichtig sind die std::vector<Profile> profiles; unten:
+    //struct AdvrenameConfig
+    //{
+    //    struct Profile
+    //    {
+    //        std::string name;
+    //        std::string template_string;
+    //        guint counter_start;
+    //        guint counter_width;
+    //        gint counter_step;
+    //
+    //        std::vector<GnomeCmd::ReplacePattern> regexes;
+    //
+    //        guint case_conversion;
+    //        guint trim_blanks;
+    //
+    //        Profile(): template_string("$N"),
+    //                   counter_start(1), counter_width(1), counter_step(1),
+    //                   case_conversion(0), trim_blanks(3)                     {}
+    //        ~Profile()                                                        {}
+    //
+    //        const std::string &description() const {  return template_string;  }
+    //        void reset();
+    //    };
+    //
+    //    gint width, height;
+    //
+    //    Profile default_profile;
+    //    std::vector<Profile> profiles;
+    //
+    //    History templates;
+    //
+    //    AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)   {}
+    //    ~AdvrenameConfig()                                                              {}
+    //
+    //    friend XML::xstream &operator << (XML::xstream &xml, AdvrenameConfig &cfg);
+    //};
+
+
+    // xml << XML::tag("AdvancedRenameTool");
+    //
+    //    xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
+    //
+    //    xml << XML::tag("Profile") << XML::attr("name") << "Default";
+    //
+    //        xml << XML::tag("Template") << XML::chardata() << XML::escape(cfg.templates.empty()  ? "$N" : cfg.templates.front()) << XML::endtag();
+    //        xml << XML::tag("Counter") << XML::attr("start") << cfg.default_profile.counter_start
+    //                                   << XML::attr("step") << cfg.default_profile.counter_step
+    //                                   << XML::attr("width") << cfg.default_profile.counter_width << XML::endtag();
+    //
+    //        xml << XML::tag("Regexes");
+    //        for (vector<GnomeCmd::ReplacePattern>::const_iterator r=cfg.default_profile.regexes.begin(); r!=cfg.default_profile.regexes.end(); ++r)
+    //        {
+    //            xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
+    //            xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
+    //        }
+    //        xml << XML::endtag();
+    //
+    //        xml << XML::tag("CaseConversion") << XML::attr("use") << cfg.default_profile.case_conversion << XML::endtag();
+    //        xml << XML::tag("TrimBlanks") << XML::attr("use") << cfg.default_profile.trim_blanks << XML::endtag();
+    //
+    //    xml << XML::endtag();
+    //
+    //    .... PROFILES
+    //
+    //    xml << XML::tag("History");
+    //    for (GList *i=cfg.templates.ents; i; i=i->next)
+    //        xml << XML::tag("Template") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+    //    xml << XML::endtag();
+    //
+    //xml << XML::endtag();
+    //
+    //return xml;   
+    
+//        name                   = g_strdup(groups[i]);
+//        template_string        = g_key_file_get_string (keyfile, groups[i], ADVRENAME_TEMPLATE, &error);
+//        if (error == NULL)
+//            regexes_from       = g_key_file_get_string_list (keyfile, groups[i], ADVRENAME_FROM, &from_size, &error);
+//        if (error == NULL)
+//            regexes_to         = g_key_file_get_string_list (keyfile, groups[i], ADVRENAME_TO, &to_size, &error);
+//        if (error == NULL)
+//            regexes_match_case = g_key_file_get_boolean_list (keyfile, groups[i], ADVRENAME_MATCH_CASE, &match_case_size, &error);
+//        if (error == NULL)
+//            counter_start      = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_START, &error);
+//        if (error == NULL)
+//            counter_step       = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_STEP, &error);
+//        if (error == NULL)
+//            counter_width      = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_WIDTH, &error);
+//        if (error == NULL)
+//            case_conversion    = g_key_file_get_boolean (keyfile, groups[i], ADVRENAME_CASE_CONVERSION, &error);
+//        if (error == NULL)
+//            trim_blanks        = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_TRIM_BLANKS, &error);
+
+
+    GList *profiles_list;
+    gchar *path = config_dir ?
+        g_build_filename (config_dir, fname, NULL) :
+        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    GKeyFile *key_file;
+    key_file = g_key_file_new ();
+    gboolean have_profiles = false;
+    
+    for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p)
+    {
+        have_profiles = true;
+        
+        g_key_file_set_string(key_file,
+                              g_strescape (p->name, NULL),
+                              ADVRENAME_TEMPLATE,
+                              g_strescape (p->template_string.empty() ? "$N" : p->template_string, NULL));
+
+        g_key_file_set_uint64(key_file,
+                              g_strescape (p->name, NULL),
+                              ADVRENAME_COUNTER_START,
+                              p->counter_start);
+
+        g_key_file_set_uint64(key_file,
+                              g_strescape (p->name, NULL),
+                              ADVRENAME_COUNTER_STEP,
+                              p->counter_step);
+
+        g_key_file_set_uint64(key_file,
+                              g_strescape (p->name, NULL),
+                              ADVRENAME_COUNTER_WIDTH,
+                              p->counter_width);
+
+        // DAS HIER MUSS NOCH IN LISTEN GENDERT WERDEN!
+        for (vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
+        {
+            g_key_file_set_string(key_file,
+                                  g_strescape (p->name, NULL),
+                                  ADVRENAME_FROM,
+                                  g_strescape (r->pattern, NULL));
+    
+            g_key_file_set_string(key_file,
+                                  g_strescape (p->name, NULL),
+                                  ADVRENAME_TO,
+                                  g_strescape (r->replacement, NULL));
+    
+            g_key_file_set_boolean(key_file,
+                                   g_strescape (p->name, NULL),
+                                   ADVRENAME_MATCH_CASE,
+                                   r->match_case);
+        }
+
+        g_key_file_set_boolean(key_file,
+                               g_strescape (p->name, NULL),
+                               ADVRENAME_CASE_CONVERSION,
+                               p->case_conversion);
+
+        g_key_file_set_integer(key_file,
+                               g_strescape (p->name, NULL),
+                               ADVRENAME_TRIM_BLANKS,
+                               p->trim_blanks);
+
+    //        xml << XML::tag("Profile") << XML::attr("name") << p->name;
+    //            xml << XML::tag("Template") << XML::chardata() << XML::escape(p->template_string.empty() ? "$N" : p->template_string) << XML::endtag();
+    //            xml << XML::tag("Counter") << XML::attr("start") << p->counter_start
+    //                                       << XML::attr("step") << p->counter_step
+    //                                       << XML::attr("width") << p->counter_width << XML::endtag();
+    //            xml << XML::tag("Regexes");
+    //            for (vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
+    //            {
+    //                xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
+    //                xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
+    //            }
+    //            xml << XML::endtag();
+    //            xml << XML::tag("CaseConversion") << XML::attr("use") << p->case_conversion << XML::endtag();
+    //            xml << XML::tag("TrimBlanks") << XML::attr("use") << p->trim_blanks << XML::endtag();
+    //        xml << XML::endtag();
+    }
+    
+    if (have_profiles)
+        gcmd_key_file_save_to_file (path, key_file);
+    
+    //devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list);
+    //
+    //if (devices)
+    //{
+    //    for (; devices; devices = devices->next)
+    //    {
+    //        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
+    //        if (device && !gnome_cmd_con_device_get_autovol (device))
+    //        {
+    //            gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
+    //
+    //            gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
+    //            if (device_fn && device_fn[0] != '\0')
+    //                device_fn = g_strescape (device_fn, NULL);
+    //            else
+    //                device_fn = g_strdup ("x");
+    //
+    //            gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
+    //
+    //            gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
+    //            if (icon_path && icon_path[0] != '\0')
+    //                icon_path = g_strescape (icon_path, NULL);
+    //            else
+    //                icon_path = g_strdup ("x");
+    //
+    //            g_key_file_set_string(key_file,alias,"device",device_fn);
+    //            g_key_file_set_string(key_file,alias,"mount_point",mountp);
+    //            g_key_file_set_string(key_file,alias,"icon_path",icon_path);
+    //
+    //            g_free (alias);
+    //            g_free (device_fn);
+    //            g_free (mountp);
+    //            g_free (icon_path);
+    //        }
+    //    }
+    //
+    //    gcmd_key_file_save_to_file (path, key_file);
+    //}
+    
+    g_key_file_free(key_file);
+    g_free (path);
 }
 
 /**
@@ -2241,6 +2444,123 @@ static inline void load_devices (const gchar *fname)
 }
 
 /**
+ * This function reads the given file and sets up settings of the advance rename tool
+ * by means of GKeyFile.
+ */
+void GnomeCmdData::load_advrename_config (const gchar *fname)
+{
+    GKeyFile *keyfile;
+    gsize length;
+    gchar **groups;
+    gchar *path = config_dir ?
+        g_build_filename (config_dir, fname, NULL) :
+        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+
+    gnome_cmd_data.options.fav_apps = NULL;
+
+    keyfile = gcmd_key_file_load_from_file(path, 0);
+
+    //add a few default templates here - for new users
+    if (keyfile == NULL)
+    {
+        AdvrenameConfig::Profile p;
+
+        p.reset();
+        p.name = "Audio Files";
+        p.template_string = "$T(Audio.AlbumArtist) - $T(Audio.Title).$e";
+        p.regexes.push_back(GnomeCmd::ReplacePattern("[ _]+", " ", 0));
+        p.regexes.push_back(GnomeCmd::ReplacePattern("[fF]eat\\.", "fr.", 1));
+        p.counter_width = 1;
+        this->advrename_defaults.profiles.push_back(p);
+
+        p.reset();
+        p.name = "CamelCase";
+        p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", 0));
+        p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", 0));
+        this->advrename_defaults.profiles.push_back(p);
+
+        g_free(path);
+        g_key_file_free(keyfile);
+        return;
+    }
+
+    groups = g_key_file_get_groups (keyfile, &length);
+
+    for (guint i = 0; i < length; i++)
+    {
+        g_autofree gchar *name                  = NULL;
+        g_autofree gchar *template_string       = NULL;
+        gchar **regexes_from                    = NULL;
+        gchar **regexes_to                      = NULL;
+        g_autofree gboolean *regexes_match_case = NULL;
+        gsize from_size, to_size, match_case_size;
+        guint counter_start = 0;
+        guint counter_step  = 0;
+        guint counter_width = 0;
+        gboolean case_conversion = false;
+        guint trim_blanks = 0;
+        GError *error = NULL;
+
+        name                   = g_strdup(groups[i]);
+        template_string        = g_key_file_get_string (keyfile, groups[i], ADVRENAME_TEMPLATE, &error);
+        if (error == NULL)
+            regexes_from       = g_key_file_get_string_list (keyfile, groups[i], ADVRENAME_FROM, &from_size, &error);
+        if (error == NULL)
+            regexes_to         = g_key_file_get_string_list (keyfile, groups[i], ADVRENAME_TO, &to_size, &error);
+        if (error == NULL)
+            regexes_match_case = g_key_file_get_boolean_list (keyfile, groups[i], ADVRENAME_MATCH_CASE, &match_case_size, &error);
+        if (error == NULL)
+            counter_start      = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_START, &error);
+        if (error == NULL)
+            counter_step       = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_STEP, &error);
+        if (error == NULL)
+            counter_width      = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_WIDTH, &error);
+        if (error == NULL)
+            case_conversion    = g_key_file_get_boolean (keyfile, groups[i], ADVRENAME_CASE_CONVERSION, &error);
+        if (error == NULL)
+            trim_blanks        = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_TRIM_BLANKS, &error);
+
+        if (error != NULL)
+        {
+            g_warning ("Error in a key in %s, group \"%s\": %s\n", path, groups[i], error->message);
+            g_error_free (error);
+        }
+        else
+        {
+            if ((from_size != to_size) || (from_size != match_case_size) || (to_size != match_case_size))
+            {
+                g_warning ("The number of fields in 'from', 'to' and 'matchCase' are not the same. Skipping loading group \"%s\" of \"%s\".", groups[i], path);
+            }
+            else
+            {
+                AdvrenameConfig::Profile p;
+                
+                p.reset();
+                p.name = name;
+                p.template_string = template_string;
+                // as the lenght in each string_list is the same, we only need one upper limit for this loop
+                for (gsize ii = 0; ii < from_size; ii++)
+                {
+                    p.regexes.push_back(GnomeCmd::ReplacePattern(regexes_from[ii], regexes_to[ii], regexes_match_case[ii]));
+                }
+                p.counter_start = counter_start;
+                p.counter_step  = counter_step;
+                p.counter_width = counter_width;
+                p.case_conversion = case_conversion;
+                p.trim_blanks = trim_blanks;
+                this->advrename_defaults.profiles.push_back(p);
+            }
+        }
+        g_strfreev(regexes_from);
+        g_strfreev(regexes_to);
+    }
+    g_free(path);
+    g_strfreev(groups);
+    g_key_file_free(keyfile);
+}
+
+
+/**
  * This function reads the given file and sets up additional devices.
  *
  * @note Beginning with gcmd-v1.6 GKeyFile is used for storing and
@@ -2748,476 +3068,6 @@ void GnomeCmdData::gsettings_init()
 }
 
 /**
- * This method converts user settings from gcmds old config files, created via gnome config to
- * GSettings. Therefore, it first looks for those files in question and then converts the data.
- * This function should to be deleted in gcmd > 1.6
- */
-void GnomeCmdData::migrate_all_data_to_gsettings()
-{
-    guint temp_value;
-    gchar *package_config_path = gnome_config_get_real_path(PACKAGE);
-
-    ///////////////////////////////////////////////////////////////////////
-    // Data migration from .gnome2/gnome-commander, created by gnome_config
-    ///////////////////////////////////////////////////////////////////////
-    FILE *fd = fopen (package_config_path, "r");
-    if (fd)
-    {
-        // size_disp_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE);
-        // perm_disp_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
-        // layout
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
-        //list-row-height
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/list_row_height", 16),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT);
-        //date_disp_mode
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R"),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
-        //show_unknown
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_unknown", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_UNKNOWN);
-        //show_regular
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_regular", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_REGULAR);
-        //show_directory
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_directory", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_DIRECTORY);
-        //show_fifo
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_fifo", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_FIFO);
-        //show_socket
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_socket", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SOCKET);
-        //show_char_device
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_char_device", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_CHARACTER_DEVICE);
-        //show_block_device
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_block_device", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_BLOCK_DEVICE);
-        //show_symbolic_link
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/show_symbolic_link", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_HIDE_SYMBOLIC_LINK);
-        //hidden_filter
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/hidden_filter", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_DOTFILE);
-        //hidden_filter
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/backup_filter", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP);
-        //backup_pattern
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak"),
-                                                        options.gcmd_settings->filter, GCMD_SETTINGS_FILTER_BACKUP_PATTERN);
-        //list_font
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/list_font", "DejaVu Sans Mono 8"),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_LIST_FONT);
-        //ext_disp_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_EXT_DISP_MODE);
-        //left_mouse_button_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_CLICKS_TO_OPEN_ITEM);
-        //left_mouse_button_unselects
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_LEFT_MOUSE_BUTTON_UNSELECTS);
-        //right_mouse_button_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_RIGHT_MOUSE_BUTTON_MODE);
-        //icon_size
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/icon_size", 16),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_ICON_SIZE);
-        //dev-icon_size
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/dev_icon_size", 16),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_DEV_ICON_SIZE);
-        //icon_scale_quality
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_ICON_SCALE_QUALITY);
-        //theme_icon_dir
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/theme_icon_dir", "/usr/local/share/pixmaps/gnome-commander/mime-icons"),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MIME_ICON_DIR);
-        //cmdline_history_length
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/cmdline_history_length", 16),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY_LENGTH);
-        //middle_mouse_button_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/middle_mouse_button_mode", MIDDLE_BUTTON_GOES_UP_DIR),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MIDDLE_MOUSE_BUTTON_MODE);
-        //list_orientation
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/list_orientation", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION);
-        //conbuttons_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS);
-        //con_list_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_DEVLIST);
-        //cmdline_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_CMDLINE);
-        //toolbar_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_TOOLBAR);
-        //buttonbar_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR);
-        //gui_update_rate
-        temp_value = gnome_cmd_data_get_int ("/options/gui_update_rate", 100);
-        if (temp_value < MIN_GUI_UPDATE_RATE)
-            temp_value = MIN_GUI_UPDATE_RATE;
-        if (temp_value > MAX_GUI_UPDATE_RATE)
-            temp_value = MAX_GUI_UPDATE_RATE;
-        migrate_data_int_value_into_gsettings(temp_value, options.gcmd_settings->general, GCMD_SETTINGS_GUI_UPDATE_RATE);
-        //symlink_prefix
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/options/symlink_prefix", ""),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
-        //main_win_pos_x
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_pos_x", 0),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_X);
-        //main_win_pos_y
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_pos_y", 25),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_POS_Y);
-        //save_dirs_on_exit
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/save_dirs_on_exit", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT);
-        //save_tabs_on_exit
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/save_tabs_on_exit", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
-        //save_dir_history_on_exit
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/save_dir_history_on_exit", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
-        //always_show_tabs
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/options/always_show_tabs", FALSE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
-        //tab_lock_indicator
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/tab_lock_indicator", TAB_LOCK_ICON),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
-        //main_win_state
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_STATE);
-        //delete
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/confirm/delete", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE);
-        //delete_default
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/confirm/delete_default", 1),
-                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_DELETE_DEFAULT);
-        //confirm_copy_overwrite
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_COPY_OVERWRITE);
-        //confirm_move_overwrite
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
-                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOVE_OVERWRITE);
-        //confirm_mouse_dnd
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/confirm/confirm_mouse_dnd", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->confirm, GCMD_SETTINGS_CONFIRM_MOUSE_DRAG_AND_DROP);
-        //select_dirs
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/sort/select_dirs", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_SELECT_DIRS);
-        //case_sensitive
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_CASE_SENSITIVE);
-        //mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_GREEN_TIGER),
-                                                        options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_THEME);
-        GdkColor *color = g_new0 (GdkColor, 1);
-        //norm_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/norm_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_FG);
-        //norm_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/norm_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_NORM_BG);
-        //alt_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/alt_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_FG);
-        //alt_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/alt_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_ALT_BG);
-        //sel_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/sel_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_FG);
-        //sel_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/sel_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_SEL_BG);
-        //curs_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/curs_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_FG);
-        //curs_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/curs_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_CURS_BG);
-        //use_ls_colors
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/colors/use_ls_colors", TRUE) ? 1 : 0,
-                                              options.gcmd_settings->colors, GCMD_SETTINGS_COLORS_USE_LS_COLORS);
-        //ls_colors_black_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLACK_FG);
-        //ls_colors_black_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLACK_BG);
-        //ls_colors_red_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_red_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_RED_FG);
-        //ls_colors_red_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_red_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_RED_BG);
-        //ls_colors_green_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_green_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_GREEN_FG);
-        //ls_colors_green_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_green_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_GREEN_BG);
-        //ls_colors_yellow_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_yellow_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_YELLOW_FG);
-        //ls_colors_yellow_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_yellow_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_YELLOW_BG);
-        //ls_colors_blue_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_blue_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_FG);
-        //ls_colors_blue_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_blue_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_BLUE_BG);
-        //ls_colors_magenta_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_magenta_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_MAGENTA_FG);
-        //ls_colors_magenta_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_magenta_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_MAGENTA_BG);
-        //ls_colors_cyan_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_cyan_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_CYAN_FG);
-        //ls_colors_cyan_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_cyan_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_CYAN_BG);
-        //ls_colors_white_fg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_white_fg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_FG);
-        //ls_colors_white_bg
-        gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_white_bg", color);
-        migrate_data_string_value_into_gsettings(gdk_color_to_string (color),
-                                                 options.gcmd_settings->colors, GCMD_SETTINGS_LS_COLORS_WHITE_BG);
-        //honor_expect_uris
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->programs, GCMD_SETTINGS_DONT_DOWNLOAD);
-        //allow_multiple_instances
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/allow_multiple_instances", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_MULTIPLE_INSTANCES);
-        //use_internal_viewer
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE) ? 1 : 0,
-                                              options.gcmd_settings->programs, GCMD_SETTINGS_USE_INTERNAL_VIEWER);
-        //alt_quick_search
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_SHORTCUT);
-        //quick_search_exact_match_begin
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_begin", TRUE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_BEGIN);
-        //quick_search_exact_match_end
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/quick_search_exact_match_end", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_QUICK_SEARCH_EXACT_MATCH_END);
-        //skip_mounting
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_DEV_SKIP_MOUNTING);
-        //viewer
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/viewer", "gedit %s"),
-                                                        options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
-        //editor
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/editor", "gedit %s"),
-                                                        options.gcmd_settings->programs, GCMD_SETTINGS_EDITOR_CMD);
-        //differ
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/differ", "meld %s"),
-                                                        options.gcmd_settings->programs, GCMD_SETTINGS_DIFFER_CMD);
-        //sendto
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/sendto", "nautilus-sendto %s"),
-                                                        options.gcmd_settings->programs, GCMD_SETTINGS_SENDTO_CMD);
-        //terminal_open
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/terminal_open", "gnome-terminal"),
-                                                        options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_CMD);
-        //terminal_exec
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/programs/terminal_exec", "gnome-terminal -e %s"),
-                                                        options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
-        //use_gcmd_block
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
-        //only_icon
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/devices/only_icon", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_DEV_ONLY_ICON);
-        //mainmenu_visibility
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/programs/mainmenu_visibility", TRUE) ? 1 : 0,
-                                              options.gcmd_settings->general, GCMD_SETTINGS_MAINMENU_VISIBILITY);
-        //uri
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/"),
-                                                        options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
-        //ftp_anonymous_password
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com"),
-                                                        options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
-        //auto_load0 -> migrate the string into a gsettings string array
-        if (gnome_cmd_data_get_int ("/plugins/count", 0))
-        {
-            migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/plugins/auto_load0", "libfileroller.so"),
-                                                            options.gcmd_settings->plugins, GCMD_SETTINGS_PLUGINS_AUTOLOAD);
-        }
-        //cmdline-history/lineXX -> migrate the string into a gsettings string array
-        GList *cmdline_history_for_migration = NULL;
-        cmdline_history_for_migration = load_string_history ("/cmdline-history/line%d", -1);
-        if (cmdline_history_for_migration && cmdline_history_for_migration->data)
-        {
-            GList *list_pointer;
-            list_pointer = cmdline_history_for_migration;
-            gint ii, array_size = 0;
-            for (;list_pointer; list_pointer=list_pointer->next)
-                ++array_size;
-            gchar** str_array;
-            str_array = (gchar**) g_malloc ((array_size + 1)*sizeof(char*));
-
-            list_pointer = cmdline_history_for_migration;
-            for (ii = 0; list_pointer; list_pointer=list_pointer->next, ++ii)
-            {
-                str_array[ii] = g_strdup((const gchar*) list_pointer->data);
-            }
-            str_array[ii] = NULL;
-            g_settings_set_strv(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, str_array);
-
-            for (ii = 0; list_pointer; list_pointer=list_pointer->next, ++ii)
-            {
-                g_free(str_array[ii]);
-            }
-            g_free(str_array);
-            g_list_free(cmdline_history_for_migration);
-        }
-        /////////////////////// internal viewer specs ///////////////////////
-        //case_sens
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE) ? 1 : 0,
-                                              options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CASE_SENSITIVE);
-        //last_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_MODE);
-        //charset
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/charset", "UTF8"),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_CHARSET);
-        //fixed_font_name
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/fixed_font_name", "Monospace"),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_FIXED_FONT_NAME);
-        //variable_font_name
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/variable_font_name", "Sans"),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_VARIABLE_FONT_NAME);
-        //hex_offset_display
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/hex_offset_display", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_DISPLAY_HEX_OFFSET);
-        //wrap_mode
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_bool ("/internal_viewer/wrap_mode", TRUE) ? 1 : 0,
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_WRAP_MODE);
-        //font_size
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/font_size", 12),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_FONT_SIZE);
-        //tab_size
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/tab_size", 8),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_TAB_SIZE);
-        //binary_bytes_per_line
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/binary_bytes_per_line", 80),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_BINARY_BYTES_PER_LINE);
-        //x
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/x", 20),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_X_OFFSET);
-        //y
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/y", 20),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_Y_OFFSET);
-        //width
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/width", 400),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_WINDOW_WIDTH);
-        //height
-        migrate_data_int_value_into_gsettings(gnome_cmd_data_get_int ("/internal_viewer/height", 400),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_WINDOW_HEIGHT);
-        //text_pattern0
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/text_pattern0", ""),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT);
-        //hex_pattern0
-        migrate_data_string_value_into_gsettings(gnome_cmd_data_get_string ("/internal_viewer/hex_pattern0", ""),
-                                                        options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_HEX);
-        g_free(color);
-
-        fclose (fd);
-
-        // Rename config file
-        gchar* temp;
-        temp = g_strdup_printf("%s.deprecated", package_config_path);
-        if (g_rename(package_config_path, temp) != 0 )
-            g_warning("Renaming of %s to %s failed!", package_config_path, temp);
-        g_free(temp);
-    }
-    g_free(package_config_path);
-
-    ////////////////////////////////////////////////////////////////////////////
-    // Data migration from .gnome2/gnome-commander-size, created by gnome_config
-    ////////////////////////////////////////////////////////////////////////////
-    package_config_path = g_strdup_printf("%s-size",gnome_config_get_real_path(PACKAGE));
-    fd = fopen (package_config_path, "r");
-    if (fd)
-    {
-        // main_win/width
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/main_win/width", 600),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_WIDTH);
-        // main_win/height
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/main_win/height", 400),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_MAIN_WIN_HEIGHT);
-        // column-widths/fs_col_width0..8
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width0", 16),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_ICON);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width1", 140),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_NAME);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width2", 40),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_EXT);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width3", 240),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DIR);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width4", 70),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_SIZE);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width5", 150),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_DATE);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width6", 70),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_PERM);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width7", 50),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_OWNER);
-        migrate_data_int_value_into_gsettings(get_int ("/gnome-commander-size/column-widths/fs_col_width8", 50),
-                                                        options.gcmd_settings->general, GCMD_SETTINGS_COLUMN_WIDTH_GROUP);
-        fclose (fd);
-
-        // Rename config file
-        gchar* temp;
-        temp = g_strdup_printf("%s.deprecated", package_config_path);
-        if (g_rename(package_config_path, temp) != 0 )
-            g_warning("Renaming of %s to %s failed!", package_config_path, temp);
-        g_free(temp);
-    }
-    g_free(package_config_path);
-
-    // Activate gcmd gsettings signals
-    gcmd_connect_gsettings_signals(gnome_cmd_data.options.gcmd_settings);
-}
-
-/**
  * This function checks if the given GSettings keys enholds a valid color string. If not,
  * the keys value is resetted to the default value.
  * @returns TRUE if the current value is resetted by the default value, else FALSE
@@ -3637,23 +3487,6 @@ void GnomeCmdData::load()
     options.termexec = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_TERMINAL_EXEC_CMD);
     use_gcmd_block = g_settings_get_boolean(options.gcmd_settings->programs, GCMD_SETTINGS_USE_GCMD_BLOCK);
 
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_fg", options.ls_colors_palette.black_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_black_bg", options.ls_colors_palette.black_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_red_fg", options.ls_colors_palette.red_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_red_bg", options.ls_colors_palette.red_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_green_fg", options.ls_colors_palette.green_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_green_bg", options.ls_colors_palette.green_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_yellow_fg", options.ls_colors_palette.yellow_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_yellow_bg", options.ls_colors_palette.yellow_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_blue_fg", options.ls_colors_palette.blue_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_blue_bg", options.ls_colors_palette.blue_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_magenta_fg", options.ls_colors_palette.magenta_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_magenta_bg", options.ls_colors_palette.magenta_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_cyan_fg", options.ls_colors_palette.cyan_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_cyan_bg", options.ls_colors_palette.cyan_bg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_white_fg", options.ls_colors_palette.white_fg);
-    gnome_cmd_data_get_color_gnome_config ("/colors/ls_colors_white_bg", options.ls_colors_palette.white_bg);
-
     options.save_dirs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIRS_ON_EXIT);
     options.save_tabs_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_TABS_ON_EXIT);
     options.save_dir_history_on_exit = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_DIR_HISTORY_ON_EXIT);
@@ -3885,31 +3718,33 @@ void GnomeCmdData::load()
     if (load_devices_old ("devices") == FALSE)
         load_devices ("devices");
 
-    if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
-    {
-        load_rename_history();
+    load_advrename_config (ADVRENAME_CONFIG_FILENAME);
 
-        // add a few default templates here - for new users
-        {
-            AdvrenameConfig::Profile p;
-
-            p.name = _("Audio Files");
-            p.template_string = "$T(Audio.AlbumArtist) - $T(Audio.Title).$e";
-            p.regexes.push_back(GnomeCmd::ReplacePattern("[ _]+", " ", FALSE));
-            p.regexes.push_back(GnomeCmd::ReplacePattern("[fF]eat\\.", "fr.", TRUE));
-
-            advrename_defaults.profiles.push_back(p);
-
-            p.reset();
-            p.name = _("CamelCase");
-            p.template_string = "$N";
-            p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
-            p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
-
-            advrename_defaults.profiles.push_back(p);
-        }
-
-    }
+    //if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
+    //{
+    //    load_rename_history();
+    //
+    //    // add a few default templates here - for new users
+    //    {
+    //        AdvrenameConfig::Profile p;
+    //
+    //        p.name = _("Audio Files");
+    //        p.template_string = "$T(Audio.AlbumArtist) - $T(Audio.Title).$e";
+    //        p.regexes.push_back(GnomeCmd::ReplacePattern("[ _]+", " ", FALSE));
+    //        p.regexes.push_back(GnomeCmd::ReplacePattern("[fF]eat\\.", "fr.", TRUE));
+    //
+    //        advrename_defaults.profiles.push_back(p);
+    //
+    //        p.reset();
+    //        p.name = _("CamelCase");
+    //        p.template_string = "$N";
+    //        p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
+    //        p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
+    //
+    //        advrename_defaults.profiles.push_back(p);
+    //    }
+    //
+    //}
 
     if (!XML_cfg_has_connections)
         load_connections ("connections");
@@ -4283,6 +4118,7 @@ void GnomeCmdData::save()
     save_cmdline_history();
     save_devices ("devices");
     save_fav_apps ("fav-apps");
+    save_advrename_config(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
 
     save_xml ();
@@ -4302,15 +4138,6 @@ gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
     return v;
 }
 
-
-void GnomeCmdData::gnome_cmd_data_set_int (const gchar *path, int value)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    set_int (s, value);
-
-    g_free (s);
-}
 
 gchar* GnomeCmdData::gnome_cmd_data_get_string (const gchar *path, const gchar *def)
 {
@@ -4341,24 +4168,6 @@ gboolean GnomeCmdData::gnome_cmd_data_get_bool (const gchar *path, gboolean def)
     g_free (s);
 
     return v;
-}
-
-void GnomeCmdData::gnome_cmd_data_set_bool (const gchar *path, gboolean value)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    set_bool (s, value);
-
-    g_free (s);
-}
-
-void GnomeCmdData::gnome_cmd_data_set_color (const gchar *path, GdkColor *color)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    set_color (s, color);
-
-    g_free (s);
 }
 
 /**
@@ -4427,34 +4236,6 @@ gboolean GnomeCmdData::set_color_if_valid_key_value(GdkColor *color, GSettings *
     }
     g_free(colorstring_new);
     return return_value;
-}
-
-/**
- * This function loads a color specification into color by using gnome_config.
- * It will be obsolete in GCMD > 1.6.0
- */
-void GnomeCmdData::gnome_cmd_data_get_color_gnome_config (const gchar *path, GdkColor *color)
-{
-    gchar *def = g_strdup_printf ("%d %d %d",
-                                  color->red, color->green, color->blue);
-
-    gchar *gcmd_path = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    gchar *color_str = get_string (gcmd_path, def);
-
-    gint red, green, blue;
-    if (sscanf (color_str, "%u %u %u", &red, &green, &blue) != 3)
-        g_printerr ("Illegal color in config file\n");
-
-    if (color_str != def)
-        g_free (color_str);
-    g_free (def);
-
-    color->red   = (gushort) red;
-    color->green = (gushort) green;
-    color->blue  = (gushort) blue;
-
-    g_free (gcmd_path);
 }
 
 /**

@@ -198,6 +198,18 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_PLUGINS                             "org.gnome.gnome-commander.plugins.general"
 #define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"
 
+//gKeyFile constants
+#define ADVRENAME_CONFIG_FILENAME                     "advrename"
+#define ADVRENAME_TEMPLATE                            "template"
+#define ADVRENAME_FROM                                "from"
+#define ADVRENAME_TO                                  "to"
+#define ADVRENAME_MATCH_CASE                          "matchCase"
+#define ADVRENAME_COUNTER_START                       "counterStart"
+#define ADVRENAME_COUNTER_STEP                        "counterStep"
+#define ADVRENAME_COUNTER_WIDTH                       "counterWidth"
+#define ADVRENAME_CASE_CONVERSION                     "caseConversion"
+#define ADVRENAME_TRIM_BLANKS                         "trimBlanks"
+
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData
@@ -595,11 +607,9 @@ struct GnomeCmdData
     void save_intviewer_defaults();
     void set_settings_monitor (const char *file_path);
     inline gint get_int (const gchar *path, int def);
-    inline void set_int (const gchar *path, int value);
     inline gchar* get_string (const gchar *path, const gchar *def);
     inline void set_string (const gchar *path, const gchar *value);
     inline gboolean get_bool (const gchar *path, gboolean def);
-    inline void set_bool (const gchar *path, gboolean value);
     inline void set_color (const gchar *path, GdkColor *color);
 
   public:
@@ -658,14 +668,13 @@ struct GnomeCmdData
     gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
     void load_more();
     inline GList* load_string_history (const gchar *format, gint size);
+    void load_advrename_config (const gchar *fname);
+    void save_advrename_config (const gchar *fname);
     void save();
     void save_xml ();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
-    void gnome_cmd_data_set_int (const gchar *path, int value);
     gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
     void gnome_cmd_data_set_string (const gchar *path, const gchar *value);
-    void gnome_cmd_data_set_bool (const gchar *path, gboolean value);
-    void gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
     gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
     void gnome_cmd_data_get_color_gnome_config (const gchar *path, GdkColor *color);

@@ -144,7 +144,6 @@ int main (int argc, char *argv[])
     IMAGE_init ();
     gcmd_user_actions.init();
     gnome_cmd_data.gsettings_init();
-    gnome_cmd_data.migrate_all_data_to_gsettings();
     gnome_cmd_data.load();
 
 #ifdef HAVE_UNIQUE
