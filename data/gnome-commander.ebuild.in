@@ -5,7 +5,7 @@ EAPI=6
 
 GNOME2_LA_PUNT="yes"
 
-inherit eutils gnome2
+inherit gnome2
 
 DESCRIPTION="A graphical, full featured, twin-panel file manager"
 HOMEPAGE="http://gcmd.github.io/"
