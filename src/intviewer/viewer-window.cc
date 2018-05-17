@@ -482,7 +482,7 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
     settings->font_size = gviewer_get_font_size(obj->priv->viewer);
     settings->wrap_mode = gviewer_get_wrap_mode(obj->priv->viewer);
     settings->binary_bytes_per_line = gviewer_get_fixed_limit(obj->priv->viewer);
-    strncpy(settings->charset, gviewer_get_encoding(obj->priv->viewer), sizeof(settings->charset));
+    strncpy(settings->charset, gviewer_get_encoding(obj->priv->viewer), sizeof(settings->charset) - 1);
     settings->hex_decimal_offset = gviewer_get_hex_offset_display(obj->priv->viewer);
     settings->tab_size = gviewer_get_tab_size(obj->priv->viewer);
 }
@@ -1409,15 +1409,15 @@ void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
     iv_settings = iv_settings_new();
 
     gchar *temp = g_settings_get_string (iv_settings->internalviewer, GCMD_GSETTINGS_IV_CHARSET);
-    strncpy(settings->charset, temp, sizeof(settings->charset));
+    strncpy(settings->charset, temp, sizeof(settings->charset) - 1);
     g_free (temp);
 
     temp = g_settings_get_string (iv_settings->internalviewer, GCMD_SETTINGS_IV_FIXED_FONT_NAME);
-    strncpy(settings->fixed_font_name, temp, sizeof(settings->fixed_font_name));
+    strncpy(settings->fixed_font_name, temp, sizeof(settings->fixed_font_name) - 1);
     g_free (temp);
 
     temp = g_settings_get_string (iv_settings->internalviewer, GCMD_SETTINGS_IV_VARIABLE_FONT_NAME);
-    strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name));
+    strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name) - 1);
     g_free (temp);
 
     settings->hex_decimal_offset = g_settings_get_boolean (iv_settings->internalviewer, GCMD_SETTINGS_IV_DISPLAY_HEX_OFFSET);
