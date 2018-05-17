@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_CXXFLAGS = $(WARN_CXXFLAGS) -Werror=parentheses -Wno-parentheses
+AM_CXXFLAGS = $(WARN_CXXFLAGS) -Werror=parentheses -Wno-parentheses -Werror=cast-function-type -Wno-cast-function-type
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
