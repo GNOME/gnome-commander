@@ -207,9 +207,9 @@ inline GnomeCmdUserActions::UserAction::UserAction(GnomeCmdUserActionFunc _func,
         user_data = _user_data;
 }
 
-inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name, const char *user_data)
+inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name_argument, const char *user_data)
 {
-    return register_action(0, keyval, action_name, user_data);
+    return register_action(0, keyval, action_name_argument, user_data);
 }
 
 
