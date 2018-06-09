@@ -276,7 +276,15 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     lwd = NULL;
     connected_dir = NULL;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wuninitialized"
+#endif
     priv->current_col = sort_col;
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
     priv->sort_raising[sort_col] = sort_order;
     priv->sort_func = file_list_column[sort_col].sort_func;
 
