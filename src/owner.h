@@ -123,7 +123,7 @@ inline GnomeCmdOwner::HashTable<T,ID>::HashTable()
 }
 
 template <typename T, typename ID>
-inline GnomeCmdOwner::HashTable<T,ID>::~HashTable()
+GnomeCmdOwner::HashTable<T,ID>::~HashTable()
 {
     g_hash_table_destroy (id_table);
     g_hash_table_destroy (name_table);
