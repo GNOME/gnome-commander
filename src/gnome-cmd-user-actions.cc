@@ -479,9 +479,9 @@ void GnomeCmdUserActions::shutdown()
 }
 
 
-gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *action_name, const char *user_data)
+gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *the_action_name, const char *user_data)
 {
-    GnomeCmdUserActionFunc func = action_func[action_name];
+    GnomeCmdUserActionFunc func = action_func[the_action_name];
 
     if (!func)
         return FALSE;
@@ -507,7 +507,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
 }
 
 
-void GnomeCmdUserActions::unregister(const gchar *action_name)
+void GnomeCmdUserActions::unregister(const gchar *the_action_name)
 {
 }
 
@@ -525,9 +525,9 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
 }
 
 
-gboolean GnomeCmdUserActions::registered(const gchar *action_name)
+gboolean GnomeCmdUserActions::registered(const gchar *the_action_name)
 {
-    GnomeCmdUserActionFunc func = action_func[action_name];
+    GnomeCmdUserActionFunc func = action_func[the_action_name];
 
     if (!func)
         return FALSE;
