@@ -1143,8 +1143,15 @@ static void gnome_cmd_advrename_profile_component_class_init (GnomeCmdAdvrenameP
 
 GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &p): profile(p)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wuninitialized"
+#endif
     // Template
     gtk_widget_grab_focus (priv->template_entry);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_signal_connect (priv->template_combo, "changed", G_CALLBACK (Private::on_template_entry_changed), this);
 
     // Counter
