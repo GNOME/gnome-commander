@@ -1696,74 +1696,76 @@ void GnomeCmdData::save_advrename_config (const gchar *fname)
     key_file = g_key_file_new ();
     gboolean have_profiles = false;
     
-    for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p)
+    for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=this->advrename_defaults.profiles.begin(); p!=this->advrename_defaults.profiles.end(); ++p)
     {
         have_profiles = true;
         
         g_key_file_set_string(key_file,
-                              g_strescape (p->name, NULL),
+                              g_strescape (p->name.c_str(), NULL),
                               ADVRENAME_TEMPLATE,
-                              g_strescape (p->template_string.empty() ? "$N" : p->template_string, NULL));
+                              g_strescape (p->template_string.empty() ? "$N" : p->template_string.c_str(), NULL));
 
         g_key_file_set_uint64(key_file,
-                              g_strescape (p->name, NULL),
+                              g_strescape (p->name.c_str(), NULL),
                               ADVRENAME_COUNTER_START,
                               p->counter_start);
 
         g_key_file_set_uint64(key_file,
-                              g_strescape (p->name, NULL),
+                              g_strescape (p->name.c_str(), NULL),
                               ADVRENAME_COUNTER_STEP,
                               p->counter_step);
 
         g_key_file_set_uint64(key_file,
-                              g_strescape (p->name, NULL),
+                              g_strescape (p->name.c_str(), NULL),
                               ADVRENAME_COUNTER_WIDTH,
                               p->counter_width);
 
-        // DAS HIER MUSS NOCH IN LISTEN GENDERT WERDEN!
-        for (vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
+        gsize numberOfPatterns    = p->regexes.size();
+        gchar** advrenameFromList = g_new0(gchar *, p->regexes.size()+1);
+        gchar** advrenameToList   = g_new0(gchar *, p->regexes.size()+1);
+        gboolean* advrenameMatchCaseList = g_new0(gboolean, p->regexes.size()+1);
+        gsize counter = 0;
+
+        // Create char arrays out of the patterns, save them afterwards
+        for (vector<GnomeCmd::ReplacePattern>::const_iterator r = p->regexes.begin(); r != p->regexes.end(); ++r)
         {
-            g_key_file_set_string(key_file,
-                                  g_strescape (p->name, NULL),
-                                  ADVRENAME_FROM,
-                                  g_strescape (r->pattern, NULL));
-    
-            g_key_file_set_string(key_file,
-                                  g_strescape (p->name, NULL),
-                                  ADVRENAME_TO,
-                                  g_strescape (r->replacement, NULL));
-    
-            g_key_file_set_boolean(key_file,
-                                   g_strescape (p->name, NULL),
-                                   ADVRENAME_MATCH_CASE,
-                                   r->match_case);
+            advrenameFromList[counter] = g_strescape (r->pattern.c_str(), NULL);
+            advrenameToList[counter] = g_strescape (r->replacement.c_str(), NULL);
+            advrenameMatchCaseList[counter] = r->match_case;
+            counter++;
         }
 
+        g_key_file_set_string_list (key_file,
+                        g_strescape (p->name.c_str(), NULL),
+                        ADVRENAME_FROM,
+                        advrenameFromList,
+                        numberOfPatterns);
+
+        g_key_file_set_string_list (key_file,
+                        g_strescape (p->name.c_str(), NULL),
+                        ADVRENAME_TO,
+                        advrenameToList,
+                        numberOfPatterns);
+        
+        g_key_file_set_boolean_list (key_file,
+                        g_strescape (p->name.c_str(), NULL),
+                        ADVRENAME_MATCH_CASE,
+                        advrenameMatchCaseList,
+                        numberOfPatterns);
+
         g_key_file_set_boolean(key_file,
-                               g_strescape (p->name, NULL),
+                               g_strescape (p->name.c_str(), NULL),
                                ADVRENAME_CASE_CONVERSION,
                                p->case_conversion);
 
         g_key_file_set_integer(key_file,
-                               g_strescape (p->name, NULL),
+                               g_strescape (p->name.c_str(), NULL),
                                ADVRENAME_TRIM_BLANKS,
                                p->trim_blanks);
 
-    //        xml << XML::tag("Profile") << XML::attr("name") << p->name;
-    //            xml << XML::tag("Template") << XML::chardata() << XML::escape(p->template_string.empty() ? "$N" : p->template_string) << XML::endtag();
-    //            xml << XML::tag("Counter") << XML::attr("start") << p->counter_start
-    //                                       << XML::attr("step") << p->counter_step
-    //                                       << XML::attr("width") << p->counter_width << XML::endtag();
-    //            xml << XML::tag("Regexes");
-    //            for (vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
-    //            {
-    //                xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
-    //                xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
-    //            }
-    //            xml << XML::endtag();
-    //            xml << XML::tag("CaseConversion") << XML::attr("use") << p->case_conversion << XML::endtag();
-    //            xml << XML::tag("TrimBlanks") << XML::attr("use") << p->trim_blanks << XML::endtag();
-    //        xml << XML::endtag();
+        g_strfreev(advrenameFromList);
+        g_strfreev(advrenameToList);
+        g_free(advrenameMatchCaseList);
     }
     
     if (have_profiles)
