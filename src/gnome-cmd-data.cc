@@ -1689,7 +1689,6 @@ void GnomeCmdData::save_advrename_config (const gchar *fname)
 //            trim_blanks        = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_TRIM_BLANKS, &error);
 
 
-    GList *profiles_list;
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
