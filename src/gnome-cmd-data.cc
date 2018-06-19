@@ -2409,7 +2409,9 @@ void GnomeCmdData::load_advrename_config (const gchar *fname)
                 // as the lenght in each string_list is the same, we only need one upper limit for this loop
                 for (gsize ii = 0; ii < from_size; ii++)
                 {
-                    p.regexes.push_back(GnomeCmd::ReplacePattern(regexes_from[ii], regexes_to[ii], regexes_match_case[ii]));
+                    p.regexes.push_back(GnomeCmd::ReplacePattern(g_strcompress(regexes_from[ii]),
+                                                                 g_strcompress(regexes_to[ii]),
+                                                                 regexes_match_case[ii]));
                 }
                 p.counter_start = counter_start;
                 p.counter_step  = counter_step;
