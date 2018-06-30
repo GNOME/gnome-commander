@@ -2328,7 +2328,7 @@ void GnomeCmdData::load_advrename_config (const gchar *fname)
 
     keyfile = gcmd_key_file_load_from_file(path, 0);
 
-    //add a few default templates here - for new users
+    //add a few default profiles here - for new users
     if (keyfile == NULL)
     {
         AdvrenameConfig::Profile p;
