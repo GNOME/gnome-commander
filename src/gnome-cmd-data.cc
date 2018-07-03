@@ -61,7 +61,6 @@ struct GnomeCmdData::Private
 
     gchar           *ftp_anonymous_password;
     GFileMonitor    *settings_monitor;
-    gboolean         settings_monitor_enabled;
 };
 
 GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
@@ -3620,8 +3619,6 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 
 void GnomeCmdData::save_xml ()
 {
-    priv->settings_monitor_enabled = true;
-    
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
     ofstream f(xml_cfg_path);
