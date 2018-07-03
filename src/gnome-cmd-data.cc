@@ -2776,7 +2776,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 {
     quick_connect = NULL;
 
-    XML_cfg_has_connections = FALSE;
     XML_cfg_has_bookmarks = FALSE;
 
     horizontal_orientation = FALSE;
@@ -2867,24 +2866,6 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
 
     return return_value;
 }
-
-static void settings_file_changes (GFileMonitor *monitor, GFile *file, GFile *other_file, GFileMonitorEvent event_type, gpointer user_data)
-{
-    if (event_type == G_FILE_MONITOR_EVENT_CHANGED)
-    {
-        if (gnome_cmd_data.priv->settings_monitor_enabled)
-        {
-            gnome_cmd_data.priv->settings_monitor_enabled = false;
-        }
-        else
-        {
-            gnome_cmd_data.load ();
-            main_win->update_bookmarks ();
-            gnome_cmd_update_bookmark_dialog ();
-        }
-    }
-}
-
 
 void GnomeCmdData::load()
 {
