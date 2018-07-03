@@ -2984,17 +2984,6 @@ static void settings_file_changes (GFileMonitor *monitor, GFile *file, GFile *ot
 }
 
 
-void GnomeCmdData::set_settings_monitor (const char *file_path)
-{
-    if (priv->settings_monitor) return;
-
-    GFile *file = g_file_new_for_path (file_path);
-    priv->settings_monitor = g_file_monitor_file (file, G_FILE_MONITOR_NONE, NULL, NULL);
-    g_signal_connect (priv->settings_monitor, "changed", G_CALLBACK(settings_file_changes), NULL);
-    g_object_unref (file);
-}
-
-
 void GnomeCmdData::load()
 {
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
@@ -3629,8 +3618,6 @@ void GnomeCmdData::load()
     load_auto_load_plugins();
 
     set_vfs_volume_monitor ();
-
-    set_settings_monitor (xml_cfg_path);
 
     g_free (xml_cfg_path);
 }
