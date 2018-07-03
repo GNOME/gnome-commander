@@ -2787,43 +2787,6 @@ inline void GnomeCmdData::load_intviewer_defaults()
 }
 
 
-void GnomeCmdData::load_rename_history()
-{
-    gint size;
-    GList *from=NULL, *to=NULL, *csens=NULL;
-
-    advrename_defaults.width = gnome_cmd_data_get_int ("/advrename/width", 640);
-    advrename_defaults.height = gnome_cmd_data_get_int ("/advrename/height", 400);
-
-    size = gnome_cmd_data_get_int ("/template-history/size", 0);
-    advrename_defaults.templates = load_string_history ("/template-history/template%d", size);
-
-    advrename_defaults.default_profile.counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
-    advrename_defaults.default_profile.counter_width = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
-    advrename_defaults.default_profile.counter_step = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
-
-    size = gnome_cmd_data_get_int ("/rename-history/size", 0);
-
-    GList *tmp_from = from = load_string_history ("/rename-history/from%d", size);
-    GList *tmp_to = to = load_string_history ("/rename-history/to%d", size);
-    GList *tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
-
-    for (; tmp_from && size > 0; --size)
-    {
-        advrename_defaults.default_profile.regexes.push_back(GnomeCmd::ReplacePattern((gchar *) tmp_from->data,
-                                                                                      (gchar *) tmp_to->data,
-                                                                                      *((gchar *) tmp_csens->data)=='T'));
-        tmp_from = tmp_from->next;
-        tmp_to = tmp_to->next;
-        tmp_csens = tmp_csens->next;
-    }
-
-    g_list_free (from);
-    g_list_free (to);
-    g_list_free (csens);
-}
-
-
 /**
  * This function pushes the list of plugins to be automatically loaded into the
  * associated Glist.
