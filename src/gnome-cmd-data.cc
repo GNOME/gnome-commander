@@ -2762,9 +2762,7 @@ inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *set
 
     for(gint i = 0; gsettings_array[i]; ++i)
     {
-        gchar *value;
-        value = g_strdup (gsettings_array[i]);
-        list = g_list_append (list, value);
+        list = g_list_append (list, gsettings_array[i]);
     }
     g_free(gsettings_array);
 
