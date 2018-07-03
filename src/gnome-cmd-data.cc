@@ -3496,7 +3496,7 @@ void GnomeCmdData::load()
     // ToDo: Remove the check for xml cfg file in gcmd version >= 1.9.0
     if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
-        //advrename_defaults.template_history = g_strescape (advrename_defaults.templates.empty()  ? "$N" : advrename_defaults.templates.front(), NULL);
+        // Convert advrename history from xml into gsettings
         set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
         // Convert xml to keyfiles by using the save methods.
