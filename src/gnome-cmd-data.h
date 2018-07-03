@@ -667,8 +667,8 @@ struct GnomeCmdData
     gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
     void load_more();
     inline GList* load_string_history (const gchar *format, gint size);
-    void load_advrename_config (const gchar *fname);
-    void save_advrename_config (const gchar *fname);
+    void load_advrename_profiles (const gchar *fname);
+    void save_advrename_profiles (const gchar *fname);
     void save();
     void save_xml ();
     gint gnome_cmd_data_get_int (const gchar *path, int def);

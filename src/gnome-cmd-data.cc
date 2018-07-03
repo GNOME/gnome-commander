@@ -2217,7 +2217,7 @@ static inline void load_devices (const gchar *fname)
  * This function reads the given file and sets up settings of the advance rename tool
  * by means of GKeyFile.
  */
-void GnomeCmdData::load_advrename_config (const gchar *fname)
+void GnomeCmdData::load_advrename_profiles (const gchar *fname)
 {
     GKeyFile *keyfile;
     gsize length;
@@ -3858,7 +3858,7 @@ void GnomeCmdData::save()
     save_cmdline_history();
     save_devices ("devices");
     save_fav_apps ("fav-apps");
-    save_advrename_config(ADVRENAME_CONFIG_FILENAME);
+    save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
 
     save_xml ();
