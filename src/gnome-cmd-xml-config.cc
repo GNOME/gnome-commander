@@ -101,7 +101,10 @@ static bool is_default(GnomeCmdData::AdvrenameConfig::Profile &profile)
     return strcmp(profile.name.c_str(),"Default")==0;
 }
 
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
+#endif
 static void xml_start(GMarkupParseContext *context,
                       const gchar *element_name,
                       const gchar **attribute_names,
@@ -407,6 +410,9 @@ static void xml_start(GMarkupParseContext *context,
             break;
     }
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 
 static void xml_end (GMarkupParseContext *context,
