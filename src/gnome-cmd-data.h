@@ -113,6 +113,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_COLUMN_WIDTH_PERM               "column-width-perm"
 #define GCMD_SETTINGS_COLUMN_WIDTH_OWNER              "column-width-owner"
 #define GCMD_SETTINGS_COLUMN_WIDTH_GROUP              "column-width-group"
+#define GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH            "advrename-win-width"
+#define GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT           "advrename-win-height"
+#define GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY "advrename-template-history"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -199,8 +202,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"
 
 //gKeyFile constants
-#define ADVRENAME_CONFIG_FILENAME                     "advrename"
+#define ADVRENAME_CONFIG_FILENAME                     "advrename-profiles"
 #define ADVRENAME_TEMPLATE                            "template"
+#define ADVRENAME_DEFAULT_TEMPLATE                    "Default"
 #define ADVRENAME_FROM                                "from"
 #define ADVRENAME_TO                                  "to"
 #define ADVRENAME_MATCH_CASE                          "matchCase"
@@ -600,7 +604,6 @@ struct GnomeCmdData
 
     void load_auto_load_plugins();
     void load_cmdline_history();
-    void load_rename_history();
     void load_intviewer_defaults();
     gboolean save_auto_load_plugins();
     void save_cmdline_history();

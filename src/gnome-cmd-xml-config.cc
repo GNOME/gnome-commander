@@ -598,7 +598,6 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
 
     if (!g_file_get_contents (path, &xml, &xml_len, &error))
     {
-        g_warning ("%s", error->message);
         g_error_free (error);
 
         return FALSE;

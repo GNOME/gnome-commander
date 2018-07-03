@@ -1593,19 +1593,86 @@ static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 /**
  * Save advance rename profiles in the given file by means of GKeyFile.
  */
-void GnomeCmdData::save_advrename_config (const gchar *fname)
+void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 {
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
-    gboolean have_profiles = false;
     
+    // The following is copied into the for-loop below.
+    // ToDo: Fix this ugly code copy!
+
+    g_key_file_set_string(key_file,
+                          ADVRENAME_DEFAULT_TEMPLATE,
+                          ADVRENAME_TEMPLATE,
+                          g_strescape (advrename_defaults.templates.empty()  ? "$N" : advrename_defaults.templates.front(), NULL));
+
+    g_key_file_set_uint64(key_file,
+                          ADVRENAME_DEFAULT_TEMPLATE,
+                          ADVRENAME_COUNTER_START,
+                          advrename_defaults.default_profile.counter_start);
+
+    g_key_file_set_uint64(key_file,
+                          ADVRENAME_DEFAULT_TEMPLATE,
+                          ADVRENAME_COUNTER_STEP,
+                          advrename_defaults.default_profile.counter_step);
+
+    g_key_file_set_uint64(key_file,
+                          ADVRENAME_DEFAULT_TEMPLATE,
+                          ADVRENAME_COUNTER_WIDTH,
+                          advrename_defaults.default_profile.counter_width);
+
+    gsize numberOfPatterns    = advrename_defaults.default_profile.regexes.size();
+    gchar** advrenameFromList = g_new0(gchar *, advrename_defaults.default_profile.regexes.size()+1);
+    gchar** advrenameToList   = g_new0(gchar *, advrename_defaults.default_profile.regexes.size()+1);
+    gboolean* advrenameMatchCaseList = g_new0(gboolean, advrename_defaults.default_profile.regexes.size()+1);
+    gsize counter = 0;
+
+    // Create char arrays out of the patterns, save them afterwards
+    for (vector<GnomeCmd::ReplacePattern>::const_iterator r = advrename_defaults.default_profile.regexes.begin(); r != advrename_defaults.default_profile.regexes.end(); ++r)
+    {
+        advrenameFromList[counter] = g_strescape (r->pattern.c_str(), NULL);
+        advrenameToList[counter] = g_strescape (r->replacement.c_str(), NULL);
+        advrenameMatchCaseList[counter] = r->match_case;
+        counter++;
+    }
+
+    g_key_file_set_string_list (key_file,
+                    ADVRENAME_DEFAULT_TEMPLATE,
+                    ADVRENAME_FROM,
+                    advrenameFromList,
+                    numberOfPatterns);
+
+    g_key_file_set_string_list (key_file,
+                    ADVRENAME_DEFAULT_TEMPLATE,
+                    ADVRENAME_TO,
+                    advrenameToList,
+                    numberOfPatterns);
+
+    g_key_file_set_boolean_list (key_file,
+                    ADVRENAME_DEFAULT_TEMPLATE,
+                    ADVRENAME_MATCH_CASE,
+                    advrenameMatchCaseList,
+                    numberOfPatterns);
+
+    g_key_file_set_boolean(key_file,
+                           ADVRENAME_DEFAULT_TEMPLATE,
+                           ADVRENAME_CASE_CONVERSION,
+                           advrename_defaults.default_profile.case_conversion);
+
+    g_key_file_set_integer(key_file,
+                           ADVRENAME_DEFAULT_TEMPLATE,
+                           ADVRENAME_TRIM_BLANKS,
+                           advrename_defaults.default_profile.trim_blanks);
+
+    g_strfreev(advrenameFromList);
+    g_strfreev(advrenameToList);
+    g_free(advrenameMatchCaseList);
+
     for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=this->advrename_defaults.profiles.begin(); p!=this->advrename_defaults.profiles.end(); ++p)
     {
-        have_profiles = true;
-        
         g_key_file_set_string(key_file,
                               g_strescape (p->name.c_str(), NULL),
                               ADVRENAME_TEMPLATE,
@@ -1626,11 +1693,11 @@ void GnomeCmdData::save_advrename_config (const gchar *fname)
                               ADVRENAME_COUNTER_WIDTH,
                               p->counter_width);
 
-        gsize numberOfPatterns    = p->regexes.size();
-        gchar** advrenameFromList = g_new0(gchar *, p->regexes.size()+1);
-        gchar** advrenameToList   = g_new0(gchar *, p->regexes.size()+1);
-        gboolean* advrenameMatchCaseList = g_new0(gboolean, p->regexes.size()+1);
-        gsize counter = 0;
+        numberOfPatterns    = p->regexes.size();
+        advrenameFromList = g_new0(gchar *, p->regexes.size()+1);
+        advrenameToList   = g_new0(gchar *, p->regexes.size()+1);
+        advrenameMatchCaseList = g_new0(gboolean, p->regexes.size()+1);
+        counter = 0;
 
         // Create char arrays out of the patterns, save them afterwards
         for (vector<GnomeCmd::ReplacePattern>::const_iterator r = p->regexes.begin(); r != p->regexes.end(); ++r)
@@ -1674,8 +1741,7 @@ void GnomeCmdData::save_advrename_config (const gchar *fname)
         g_free(advrenameMatchCaseList);
     }
     
-    if (have_profiles)
-        gcmd_key_file_save_to_file (path, key_file);
+    gcmd_key_file_save_to_file (path, key_file);
     
     g_key_file_free(key_file);
     g_free (path);
@@ -2869,7 +2935,6 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
 
 void GnomeCmdData::load()
 {
-    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
     gchar *colorstring;
 
     if (!priv)
@@ -3245,6 +3310,11 @@ void GnomeCmdData::load()
 
     priv->ftp_anonymous_password = g_settings_get_string (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD);
 
+    advrename_defaults.width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH);
+    advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
+
+    advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
+
     static struct
     {
         guint code;
@@ -3460,36 +3530,33 @@ void GnomeCmdData::load()
     if (load_devices_old ("devices") == FALSE)
         load_devices ("devices");
 
-    load_advrename_config (ADVRENAME_CONFIG_FILENAME);
+    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
-    //if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
-    //{
-    //    load_rename_history();
-    //
-    //    // add a few default templates here - for new users
-    //    {
-    //        AdvrenameConfig::Profile p;
-    //
-    //        p.name = _("Audio Files");
-    //        p.template_string = "$T(Audio.AlbumArtist) - $T(Audio.Title).$e";
-    //        p.regexes.push_back(GnomeCmd::ReplacePattern("[ _]+", " ", FALSE));
-    //        p.regexes.push_back(GnomeCmd::ReplacePattern("[fF]eat\\.", "fr.", TRUE));
-    //
-    //        advrename_defaults.profiles.push_back(p);
-    //
-    //        p.reset();
-    //        p.name = _("CamelCase");
-    //        p.template_string = "$N";
-    //        p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
-    //        p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
-    //
-    //        advrename_defaults.profiles.push_back(p);
-    //    }
-    //
-    //}
+    // ToDo: Remove the check for xml cfg file in gcmd version >= 1.9.0
+    if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
+    {
+        //advrename_defaults.template_history = g_strescape (advrename_defaults.templates.empty()  ? "$N" : advrename_defaults.templates.front(), NULL);
+        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
-    if (!XML_cfg_has_connections)
-        load_connections ("connections");
+        // Convert xml to keyfiles by using the save methods.
+        save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
+
+        // Move gnome-commander.xml to gnome-commander.xml.deprecated
+        gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+        gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml.deprecated", NULL);
+        int rv;
+        rv = rename (xml_cfg_path_old, xml_cfg_path_new);
+        if (rv == -1)
+        {
+            g_warning("xml config file could not be renamed to \"%s\".", xml_cfg_path_new);
+        }
+        g_free (xml_cfg_path_old);
+        g_free (xml_cfg_path_new);
+    }
+
+    g_free (xml_cfg_path);
+
+    load_advrename_profiles (ADVRENAME_CONFIG_FILENAME);
 
     priv->con_list->unlock();
 
@@ -3501,8 +3568,6 @@ void GnomeCmdData::load()
     load_auto_load_plugins();
 
     set_vfs_volume_monitor ();
-
-    g_free (xml_cfg_path);
 }
 
 #if defined (__GNUC__)
@@ -3855,13 +3920,15 @@ void GnomeCmdData::save()
 
     set_gsettings_when_changed      (options.gcmd_settings->network, GCMD_SETTINGS_FTP_ANONYMOUS_PASSWORD, priv->ftp_anonymous_password);
 
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH, &(advrename_defaults.width));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));
+    set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
+
     save_cmdline_history();
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
-
-    save_xml ();
 
     save_auto_load_plugins();
 }
