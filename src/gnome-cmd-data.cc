@@ -3624,9 +3624,6 @@ void GnomeCmdData::save_xml ()
     ofstream f(xml_cfg_path);
     XML::xstream xml(f);
 
-    xml << XML::comment("Created with GNOME Commander (http://gcmd.github.io/)");
-    xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
-
     xml << *main_win;
 
     xml << XML::tag("History");
