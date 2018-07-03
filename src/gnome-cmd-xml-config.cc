@@ -245,7 +245,6 @@ static void xml_start(GMarkupParseContext *context,
             break;
 
         case XML_GNOMECOMMANDER_CONNECTIONS:
-            cfg->XML_cfg_has_connections = TRUE;
             break;
 
         case XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION:
