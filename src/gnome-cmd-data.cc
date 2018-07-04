@@ -1783,9 +1783,9 @@ static void save_devices (const gchar *fname)
                 else
                     icon_path = g_strdup ("x");
 
-                g_key_file_set_string(key_file,alias,"device",device_fn);
-                g_key_file_set_string(key_file,alias,"mount_point",mountp);
-                g_key_file_set_string(key_file,alias,"icon_path",icon_path);
+                g_key_file_set_string(key_file, alias, DEVICES_DEVICE, device_fn);
+                g_key_file_set_string(key_file, alias, DEVICES_MOUNT_POINT, mountp);
+                g_key_file_set_string(key_file, alias, DEVICES_ICON_PATH, icon_path);
 
                 g_free (alias);
                 g_free (device_fn);
@@ -1959,13 +1959,13 @@ static void save_fav_apps (const gchar *fname)
             if (!icon)
                 icon = g_strdup("");
 
-            g_key_file_set_string(key_file,group_name,"cmd",gnome_cmd_app_get_command(app));
-            g_key_file_set_string(key_file,group_name,"icon", icon);
-            g_key_file_set_string(key_file,group_name,"pattern",gnome_cmd_app_get_pattern_string(app));
-            g_key_file_set_integer(key_file,group_name,"target",gnome_cmd_app_get_target(app));
-            g_key_file_set_integer(key_file,group_name,"handles_uris",gnome_cmd_app_get_handles_uris(app));
-            g_key_file_set_integer(key_file,group_name,"handles_multiple",gnome_cmd_app_get_handles_multiple(app));
-            g_key_file_set_integer(key_file,group_name,"requires_terminal",gnome_cmd_app_get_requires_terminal(app));
+            g_key_file_set_string(key_file, group_name, FAV_APPS_CMD, gnome_cmd_app_get_command(app));
+            g_key_file_set_string(key_file, group_name, FAV_APPS_ICON, icon);
+            g_key_file_set_string(key_file, group_name, FAV_APPS_PATTERN, gnome_cmd_app_get_pattern_string(app));
+            g_key_file_set_integer(key_file, group_name, FAV_APPS_TARGET, gnome_cmd_app_get_target(app));
+            g_key_file_set_integer(key_file, group_name, FAV_APPS_HANDLES_URIS, gnome_cmd_app_get_handles_uris(app));
+            g_key_file_set_integer(key_file, group_name, FAV_APPS_HANDLES_MULTIPLE, gnome_cmd_app_get_handles_multiple(app));
+            g_key_file_set_integer(key_file, group_name, FAV_APPS_REQUIRES_TERMINAL, gnome_cmd_app_get_requires_terminal(app));
 
             g_free (icon);
             g_free (group_name);
@@ -2254,9 +2254,9 @@ static inline void load_devices (const gchar *fname)
         GError *error = NULL;
 
         alias     = g_strdup(groups[i]);
-        device_fn = g_key_file_get_string (keyfile, groups[i], "device", &error);
-        mountp    = g_key_file_get_string (keyfile, groups[i], "mount_point", &error);
-        icon_path = g_key_file_get_string (keyfile, groups[i], "icon_path", &error);
+        device_fn = g_key_file_get_string (keyfile, groups[i], DEVICES_DEVICE, &error);
+        mountp    = g_key_file_get_string (keyfile, groups[i], DEVICES_MOUNT_POINT, &error);
+        icon_path = g_key_file_get_string (keyfile, groups[i], DEVICES_ICON_PATH, &error);
 
         if (error != NULL)
         {
@@ -2470,7 +2470,7 @@ static gboolean load_devices_old (const gchar *fname)
 
     load_vfs_auto_devices ();
     save_devices_old ("devices.deprecated");
-    save_devices ("devices");
+    save_devices (DEVICES_FILENAME);
     return TRUE;
 }
 
@@ -2512,13 +2512,13 @@ static void load_fav_apps (const gchar *fname)
         GError *error = NULL;
 
         name              = g_strdup(groups[i]);
-        cmd               = g_key_file_get_string (keyfile, groups[i], "cmd", &error);
-        icon_path         = g_key_file_get_string (keyfile, groups[i], "icon", &error);
-        pattern           = g_key_file_get_string (keyfile, groups[i], "pattern", &error);
-        target            = g_key_file_get_integer (keyfile, groups[i], "target", &error);
-        handles_uris      = g_key_file_get_boolean (keyfile, groups[i], "handles_uris", &error);
-        handles_multiple  = g_key_file_get_boolean (keyfile, groups[i], "handles_multiple", &error);
-        requires_terminal = g_key_file_get_boolean (keyfile, groups[i], "requires_terminal", &error);
+        cmd               = g_key_file_get_string (keyfile, groups[i], FAV_APPS_CMD, &error);
+        icon_path         = g_key_file_get_string (keyfile, groups[i], FAV_APPS_ICON, &error);
+        pattern           = g_key_file_get_string (keyfile, groups[i], FAV_APPS_PATTERN, &error);
+        target            = g_key_file_get_integer (keyfile, groups[i], FAV_APPS_TARGET, &error);
+        handles_uris      = g_key_file_get_boolean (keyfile, groups[i], FAV_APPS_HANDLES_URIS, &error);
+        handles_multiple  = g_key_file_get_boolean (keyfile, groups[i], FAV_APPS_HANDLES_MULTIPLE, &error);
+        requires_terminal = g_key_file_get_boolean (keyfile, groups[i], FAV_APPS_REQUIRES_TERMINAL, &error);
 
         if (error != NULL)
         {
@@ -2629,7 +2629,7 @@ static gboolean load_fav_apps_old (const gchar *fname)
 
     g_free (path);
     save_fav_apps_old ("fav-apps.deprecated");
-    save_fav_apps ("fav-apps");
+    save_fav_apps (FAV_APPS_FILENAME);
     return TRUE;
 }
 
@@ -3487,8 +3487,8 @@ void GnomeCmdData::load()
     }
 
     priv->con_list->lock();
-    if (load_devices_old ("devices") == FALSE)
-        load_devices ("devices");
+    if (load_devices_old (DEVICES_FILENAME) == FALSE)
+        load_devices (DEVICES_FILENAME);
 
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
@@ -3731,8 +3731,8 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
 
 void GnomeCmdData::load_more()
 {
-    if (load_fav_apps_old ("fav-apps") == FALSE)
-        load_fav_apps("fav-apps");
+    if (load_fav_apps_old (FAV_APPS_FILENAME) == FALSE)
+        load_fav_apps(FAV_APPS_FILENAME);
 }
 
 
@@ -3879,8 +3879,8 @@ void GnomeCmdData::save()
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
     save_cmdline_history();
-    save_devices ("devices");
-    save_fav_apps ("fav-apps");
+    save_devices (DEVICES_FILENAME);
+    save_fav_apps (FAV_APPS_FILENAME);
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
 

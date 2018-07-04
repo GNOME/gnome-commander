@@ -213,6 +213,18 @@ GcmdSettings *gcmd_settings_new (void);
 #define ADVRENAME_COUNTER_WIDTH                       "counterWidth"
 #define ADVRENAME_CASE_CONVERSION                     "caseConversion"
 #define ADVRENAME_TRIM_BLANKS                         "trimBlanks"
+#define DEVICES_FILENAME                              "devices"
+#define DEVICES_DEVICE                                "device"
+#define DEVICES_MOUNT_POINT                           "mount_point"
+#define DEVICES_ICON_PATH                             "icon_path"
+#define FAV_APPS_FILENAME                             "fav-apps"
+#define FAV_APPS_CMD                                  "cmd"
+#define FAV_APPS_ICON                                 "icon"
+#define FAV_APPS_PATTERN                              "pattern"
+#define FAV_APPS_TARGET                               "target"
+#define FAV_APPS_HANDLES_URIS                         "handles_uris"
+#define FAV_APPS_HANDLES_MULTIPLE                     "handles_multiple"
+#define FAV_APPS_REQUIRES_TERMINAL                    "requires_terminal"
 
 struct GnomeCmdConRemote;
 
