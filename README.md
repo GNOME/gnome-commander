@@ -9,7 +9,7 @@ GNOME Commander is a fast and powerful twin-panel file manager for the Linux des
 ![ScreenShot](https://gcmd.github.io/ss/MainWin-Classic.png)
 
 * Website: https://gcmd.github.io/
-* Bugs: http://bugzilla.gnome.org/browse.cgi?product=gnome-commander
+* Bugs: https://gitlab.gnome.org/GNOME/gnome-commander/issues
 
 ### Mailing lists ###
 
@@ -57,7 +57,7 @@ If you have created a new plugin let us know about it on the [developer mailing 
 
 ### Problem reporting ###
 
-Bugs should be reported on [GNOME Bugzilla](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander).
+Bugs should be reported on [GNOME GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
 You will need to create an account for yourself.
 
 In the bug report please include:
@@ -76,7 +76,7 @@ For instance:
   it will be more useful if the stack trace is produced running the test
   program with the --sync command line option.
 
-See the Bugzilla [project page](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander) for the list of known bugs.
+Also, have a look at the list of known bugs on GitLab bevore opening a new bug.
 
 
 ## Building ##

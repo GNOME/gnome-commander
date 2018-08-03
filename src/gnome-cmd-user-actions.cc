@@ -1976,7 +1976,7 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-    if (!gtk_show_uri (NULL, "http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (NULL, "https://gitlab.gnome.org/GNOME/gnome-commander/issues", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
 }
 
