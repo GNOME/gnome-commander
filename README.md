@@ -1,6 +1,6 @@
 # GNOME Commander #
 
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.8.0.svg)](https://git.gnome.org/browse/gnome-commander/atom/?h=master)
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.8.0.svg)](https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/)
 
 ## Introduction ##
 
@@ -95,7 +95,7 @@ Get the latest source from the [GNOME ftp server](https://download.gnome.org/sou
 For installing GNOME Commander using the sources in the git repository, do the following:
 
 ```bash
-~ » git clone git://git.gnome.org/gnome-commander
+~ » git clone git@gitlab.gnome.org:GNOME/gnome-commander.git
 ~ » cd gnome-commander
 ~ » ./autogen.sh
 ~ » make

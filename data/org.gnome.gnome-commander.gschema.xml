@@ -824,7 +824,7 @@
       <!--Translators: This is the default string of encoding used by the internal viewer
           for displaying the file in the given encoding. You may want to customize it by using
           an encoding that is common in your country.
-          See https://git.gnome.org/browse/gnome-commander/tree/src/intviewer/viewer-window.cc#n781 for
+          See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
           a list of supported encodings. -->
       <default l10n="messages">'UTF8'</default>
       <summary>Character set</summary>
