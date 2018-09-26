@@ -381,6 +381,12 @@ Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir)
 }
 
 
+void gnome_cmd_dir_unref (GnomeCmdDir *dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    GNOME_CMD_FILE (dir)->unref();
+}
+
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
