@@ -94,6 +94,7 @@ struct GnomeCmdFileSelector
     void close_tab(gint n)                  {  if (notebook->size()>1)  notebook->remove_page(n);  }
 
     void update_tab_label(GnomeCmdFileList *fl);
+    GnomeCmdFileList get_gnome_cmd_file_list(GnomeCmdFileSelector &fs);
 
     void show_filter();
     void update_files();
@@ -110,6 +111,7 @@ struct GnomeCmdFileSelector
     gboolean key_pressed(GdkEventKey *event);
 
     friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs);
+    GList* GetTabs();
 };
 
 inline GnomeCmdFileList *GnomeCmdFileSelector::file_list(gint n) const

@@ -1746,6 +1746,91 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
     g_free (path);
 }
 
+
+/**
+ * Save tabs of a FileSelectorID in a given GKeyFile
+ */
+static void safe_tabs(GKeyFile* keyFile, enum FileSelectorID side)
+{
+    static gint counter = 1;
+
+    bool left = true;
+    if (side == LEFT)
+        left = true;
+    else if (side == RIGHT)
+        left = RIGHT;
+
+    GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(side);
+    GList *tabs = gnomeCmdFileSelector.GetTabs();
+
+    for (GList *i=tabs; i; i=i->next)
+    {
+        string alias = to_string(counter);
+        if (gnome_cmd_data.options.save_tabs_on_exit)
+        {
+                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
+                {
+                    g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LEFT, left);
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
+                }
+        }
+        else
+        {
+            if (gnome_cmd_data.options.save_dirs_on_exit)
+            {
+                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
+                {
+                    g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LEFT, left);
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
+                }
+            }
+            else
+            {
+                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
+                {
+                    g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LEFT, left);
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
+                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
+                }
+            }
+        }
+        counter++;
+    }
+    g_list_free (tabs);
+}
+
+
+/**
+ * Save panes layout in the given file by means of GKeyFile.
+ */
+static void save_pane_layout(const gchar *fname)
+{
+    gchar *path = config_dir ?
+        g_build_filename (config_dir, fname, NULL) :
+        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    GKeyFile *keyFile;
+    keyFile = g_key_file_new ();
+
+    safe_tabs(keyFile, LEFT);
+    safe_tabs(keyFile, RIGHT);
+
+    gcmd_key_file_save_to_file (path, keyFile);
+    g_key_file_free(keyFile);
+    g_free (path);
+}
+
+
 /**
  * Save favourite applications in the given file by means of GKeyFile.
  */
@@ -3500,6 +3585,7 @@ void GnomeCmdData::load()
 
         // Convert xml to keyfiles by using the save methods.
         save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
+        save_pane_layout(TABS_LAYOUT_FILENAME);
 
         // Move gnome-commander.xml to gnome-commander.xml.deprecated
         gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
@@ -3882,6 +3968,7 @@ void GnomeCmdData::save()
     save_devices (DEVICES_FILENAME);
     save_fav_apps (FAV_APPS_FILENAME);
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
+    save_pane_layout(TABS_LAYOUT_FILENAME);
     save_intviewer_defaults();
 
     save_auto_load_plugins();
@@ -4248,3 +4335,4 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::BookmarksConfig &cfg
 
     return xml;
 }
+

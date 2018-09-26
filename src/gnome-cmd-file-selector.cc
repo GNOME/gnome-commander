@@ -1633,3 +1633,11 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs)
 
     return xml;
 }
+
+
+GList* GnomeCmdFileSelector::GetTabs()
+{
+    GList *tabs = gtk_container_get_children (*this->notebook);
+
+    return tabs;
+}
