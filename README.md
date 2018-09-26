@@ -108,11 +108,13 @@ for detailed information regarding the installation of GNOME Commander.
 
 ### Tip for working with git ###
 
-There exists a [pre-commit.sh](pre-commit.sh) script in the main
-directory of the repository. Just type ``ln -s ../../pre-commit.sh
-.git/hooks/pre-commit`` to activate this script. It runs ``make`` and
-``make check`` before your change will be finally committed. This is
-really nice for lazy people.
+There exists a git-scripts directory with a [pre-commit](pre-commit)
+and a [pre-push](pre-push) hook. Just type ``ln -s ../../pre-commit
+.git/hooks/pre-commit`` and vice verso for the pre-push hook to
+activate each hook.
+
+Both scripts run simple checks before actually committing or pushing
+your source code changes.
 
 ### Docker ###
 
