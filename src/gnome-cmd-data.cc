@@ -1750,7 +1750,7 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 /**
  * Save tabs of a FileSelectorID in a given GKeyFile
  */
-static void safe_tabs(GKeyFile* keyFile, enum FileSelectorID side)
+static void save_tabs(GKeyFile* keyFile, enum FileSelectorID side)
 {
     static gint counter = 1;
 
@@ -1822,8 +1822,8 @@ static void save_pane_layout(const gchar *fname)
     GKeyFile *keyFile;
     keyFile = g_key_file_new ();
 
-    safe_tabs(keyFile, LEFT);
-    safe_tabs(keyFile, RIGHT);
+    save_tabs(keyFile, LEFT);
+    save_tabs(keyFile, RIGHT);
 
     gcmd_key_file_save_to_file (path, keyFile);
     g_key_file_free(keyFile);
