@@ -2209,44 +2209,6 @@ static void add_vfs_volume (GnomeVFSVolume *volume)
     gnome_vfs_drive_unref (drive);
 }
 
-#if 0
-inline void add_vfs_drive (GnomeVFSDrive *drive)
-{
-    if (!gnome_vfs_drive_is_user_visible (drive))
-        return;
-
-    char *uri = gnome_vfs_drive_get_activation_uri (drive);
-
-    if (!vfs_is_uri_local (uri))
-    {
-        g_free (uri);
-        return;
-    }
-
-    char *path = gnome_vfs_drive_get_device_path (drive);
-    char *icon = gnome_vfs_drive_get_icon (drive);
-    char *name = gnome_vfs_drive_get_display_name (drive);
-    GnomeVFSVolume *volume = gnome_vfs_drive_get_mounted_volume (drive);
-
-    char *localpath = gnome_vfs_get_local_path_from_uri (uri);
-
-    DEBUG('m',"name = %s\tpath = %s\turi = %s\tlocal = %s\n",name,path,uri,localpath);
-
-    GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path, localpath, icon);
-
-    gnome_cmd_con_device_set_autovol (ConDev, TRUE);
-
-    gnome_cmd_data.priv->con_list->add(ConDev);
-
-    g_free (path);
-    g_free (uri);
-    g_free (icon);
-    g_free (name);
-    g_free (localpath);
-
-    gnome_vfs_volume_unref (volume);
-}
-#endif
 
 static void volume_mounted (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSVolume *volume)
 {
@@ -2259,28 +2221,12 @@ static void volume_unmounted (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSVol
     remove_vfs_volume (volume);
 }
 
-#if 0
-static void drive_connected (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSDrive *drive)
-{
-    add_vfs_drive (drive);
-}
-
-static void drive_disconnected (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSDrive *drive)
-{
-    // TODO: Remove from Drives combobox
-}
-#endif
-
 inline void set_vfs_volume_monitor ()
 {
     GnomeVFSVolumeMonitor *monitor = gnome_vfs_get_volume_monitor ();
 
     g_signal_connect (monitor, "volume-mounted", G_CALLBACK (volume_mounted), NULL);
     g_signal_connect (monitor, "volume-unmounted", G_CALLBACK (volume_unmounted), NULL);
-#if 0
-    g_signal_connect (monitor, "drive-connected", G_CALLBACK (drive_connected), NULL);
-    g_signal_connect (monitor, "drive-disconnected", G_CALLBACK (drive_disconnected), NULL);
-#endif
 }
 
 
@@ -2296,15 +2242,6 @@ static void load_vfs_auto_devices ()
     }
     g_list_free (volumes);
 
-#if 0
-    GList *drives = gnome_vfs_volume_monitor_get_connected_drives (monitor);
-    for (GList *l = drives; l; l = l->next)
-    {
-        add_vfs_drive (l->data);
-        gnome_vfs_drive_unref (l->data);
-    }
-    g_list_free (drives);
-#endif
 }
 
 
