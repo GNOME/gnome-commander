@@ -227,7 +227,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define FAV_APPS_REQUIRES_TERMINAL                    "requires_terminal"
 #define TABS_LAYOUT_FILENAME                          "file-list-tabs"
 #define TAB_PATH                                      "path"
-#define TAB_LEFT                                      "left"
+#define TAB_FILESLECTORID                             "fileSelectorId"
 #define TAB_SORT                                      "sort"
 #define TAB_ASC                                       "asc"
 #define TAB_LOCK                                      "lock"

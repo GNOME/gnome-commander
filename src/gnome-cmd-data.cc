@@ -1750,17 +1750,36 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 /**
  * Save tabs of a FileSelectorID in a given GKeyFile
  */
-static void save_tabs(GKeyFile* keyFile, enum FileSelectorID side)
+static void save_tabs(GKeyFile* keyFile, enum FileSelectorID fileSelectorId)
 {
     static gint counter = 1;
+    string fileSelectorIdString;
 
-    bool left = true;
-    if (side == LEFT)
-        left = true;
-    else if (side == RIGHT)
-        left = RIGHT;
+    switch (fileSelectorId)
+    {
+        case LEFT:
+        {
+            fileSelectorIdString = "left";
+            break;
+        }
+        case RIGHT:
+        {
+            fileSelectorIdString = "right";
+            break;
+        }
+        case ACTIVE:
+        {
+            fileSelectorIdString = "active";
+            break;
+        }
+        case INACTIVE:
+        {
+            fileSelectorIdString = "inactive";
+            break;
+        }
+    }
 
-    GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(side);
+    GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(fileSelectorId);
     GList *tabs = gnomeCmdFileSelector.GetTabs();
 
     for (GList *i=tabs; i; i=i->next)
@@ -1772,7 +1791,7 @@ static void save_tabs(GKeyFile* keyFile, enum FileSelectorID side)
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
                 {
                     g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LEFT, left);
+                    g_key_file_set_string(keyFile, alias.c_str(), TAB_FILESLECTORID, fileSelectorIdString.c_str());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
@@ -1786,7 +1805,7 @@ static void save_tabs(GKeyFile* keyFile, enum FileSelectorID side)
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
                 {
                     g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LEFT, left);
+                    g_key_file_set_string(keyFile, alias.c_str(), TAB_FILESLECTORID, fileSelectorIdString.c_str());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
@@ -1798,7 +1817,7 @@ static void save_tabs(GKeyFile* keyFile, enum FileSelectorID side)
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
                 {
                     g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LEFT, left);
+                    g_key_file_set_string(keyFile, alias.c_str(), TAB_FILESLECTORID, fileSelectorIdString.c_str());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
                     g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
