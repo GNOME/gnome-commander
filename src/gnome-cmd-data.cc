@@ -4081,11 +4081,11 @@ gboolean GnomeCmdData::set_gsettings_enum_when_changed (GSettings *settings_give
 #pragma GCC diagnostic ignored "-Wswitch-enum"
 #endif
 /**
- * This method stores the value for a given key if the value is different from the  currently stored one
+ * This method stores the value for a given key if the value is different from the currently stored one
  * under the keys value. This function is able of storing several types of GSettings values (except enums
- * which is done in @link set_gsettings_enum_when_changed @endlink ). Therefore, it first checks the type
- * of GVariant of the default value of the given key. Depending on the result, the gpointer is than casted
- * to the correct type so that *value can be saved.
+ * which is done in @link set_gsettings_enum_when_changed @endlink, and complex variant types).
+ * Therefore, it first checks the type of GVariant of the default value of the given key. Depending on
+ * the result, the gpointer is than casted to the correct type so that *value can be saved.
  * @returns TRUE if new value could be stored, else FALSE
  */
 gboolean GnomeCmdData::set_gsettings_when_changed (GSettings *settings_given, const char *key, gpointer value)
