@@ -1748,105 +1748,69 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 
 
 /**
- * Save tabs of a FileSelectorID in a given GKeyFile
+ * Save tabs in given gSettings and in given key
  */
-static void save_tabs(GKeyFile* keyFile, enum FileSelectorID fileSelectorId)
+static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsKey)
 {
-    static gint counter = 1;
-    string fileSelectorIdString;
+    GVariant* fileListTabs;
+    GVariantBuilder gVariantBuilder;
+    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
 
-    switch (fileSelectorId)
+    for (int fileSelectorIdInt = LEFT; fileSelectorIdInt <= RIGHT; fileSelectorIdInt++)
     {
-        case LEFT:
-        {
-            fileSelectorIdString = "left";
-            break;
-        }
-        case RIGHT:
-        {
-            fileSelectorIdString = "right";
-            break;
-        }
-        case ACTIVE:
-        {
-            fileSelectorIdString = "active";
-            break;
-        }
-        case INACTIVE:
-        {
-            fileSelectorIdString = "inactive";
-            break;
-        }
-    }
+        FileSelectorID fileSelectorId = static_cast<FileSelectorID>(fileSelectorIdInt);
+        GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(fileSelectorId);
+        GList *tabs = gnomeCmdFileSelector.GetTabs();
 
-    GnomeCmdFileSelector gnomeCmdFileSelector = *main_win->fs(fileSelectorId);
-    GList *tabs = gnomeCmdFileSelector.GetTabs();
-
-    for (GList *i=tabs; i; i=i->next)
-    {
-        string alias = to_string(counter);
-        if (gnome_cmd_data.options.save_tabs_on_exit)
+        for (GList *i=tabs; i; i=i->next)
         {
+            if (gnome_cmd_data.options.save_tabs_on_exit)
+            {
                 GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
                 {
-                    g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
-                    g_key_file_set_string(keyFile, alias.c_str(), TAB_FILESLECTORID, fileSelectorIdString.c_str());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
-                }
-        }
-        else
-        {
-            if (gnome_cmd_data.options.save_dirs_on_exit)
-            {
-                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
-                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
-                {
-                    g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
-                    g_key_file_set_string(keyFile, alias.c_str(), TAB_FILESLECTORID, fileSelectorIdString.c_str());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
+                    g_variant_builder_add (&gVariantBuilder, "(syybb)",
+                                            GNOME_CMD_FILE (fl->cwd)->get_real_path(),
+                                            (guchar) fileSelectorId,
+                                            fl->get_sort_column(),
+                                            fl->get_sort_order(),
+                                            fl->locked);
                 }
             }
             else
             {
-                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
-                if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
+                if (gnome_cmd_data.options.save_dirs_on_exit)
                 {
-                    g_key_file_set_string(keyFile, alias.c_str(), TAB_PATH, GNOME_CMD_FILE (fl->cwd)->get_real_path());
-                    g_key_file_set_string(keyFile, alias.c_str(), TAB_FILESLECTORID, fileSelectorIdString.c_str());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_SORT, fl->get_sort_column());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_ASC, fl->get_sort_order());
-                    g_key_file_set_boolean(keyFile, alias.c_str(), TAB_LOCK, fl->locked);
+                    GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                    if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
+                    {
+                        g_variant_builder_add (&gVariantBuilder, "(syybb)",
+                                                GNOME_CMD_FILE (fl->cwd)->get_real_path(),
+                                                (guchar) fileSelectorId,
+                                                fl->get_sort_column(),
+                                                fl->get_sort_order(),
+                                                fl->locked);
+                    }
+                }
+                else
+                {
+                    GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                    if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
+                    {
+                        g_variant_builder_add (&gVariantBuilder, "(syybb)",
+                                                GNOME_CMD_FILE (fl->cwd)->get_real_path(),
+                                                (guchar) fileSelectorId,
+                                                fl->get_sort_column(),
+                                                fl->get_sort_order(),
+                                                fl->locked);
+                    }
                 }
             }
         }
-        counter++;
+        g_list_free (tabs);
     }
-    g_list_free (tabs);
-}
-
-
-/**
- * Save panes layout in the given file by means of GKeyFile.
- */
-static void save_pane_layout(const gchar *fname)
-{
-    gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    GKeyFile *keyFile;
-    keyFile = g_key_file_new ();
-
-    save_tabs(keyFile, LEFT);
-    save_tabs(keyFile, RIGHT);
-
-    gcmd_key_file_save_to_file (path, keyFile);
-    g_key_file_free(keyFile);
-    g_free (path);
+    fileListTabs = g_variant_builder_end (&gVariantBuilder);
+    g_settings_set_value(gSettings, gSettingsKey, fileListTabs);
 }
 
 
@@ -2934,6 +2898,38 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
     return return_value;
 }
 
+
+/**
+ * Loads tabs from gSettings into gcmd options
+ */
+void GnomeCmdData::load_tabs_from_gsettings()
+{
+    GVariant *gvTabs, *tab;
+    GVariantIter iter;
+
+    gvTabs = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
+
+    g_variant_iter_init (&iter, gvTabs);
+
+	while ((tab = g_variant_iter_next_value (&iter)) != NULL)
+    {
+        gchar *path;
+        gboolean sort_order, locked;
+        guchar fileSelectorId, sort_column;
+
+		g_assert (g_variant_is_of_type (tab, G_VARIANT_TYPE (GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING)));
+		g_variant_get(tab, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING, &path, &fileSelectorId, &sort_column, &sort_order, &locked);
+        string directory_path(path);
+        if (!directory_path.empty() && sort_column < GnomeCmdFileList::NUM_COLUMNS)
+        {
+            this->tabs[(FileSelectorID) fileSelectorId].push_back(make_pair(directory_path, make_triple((GnomeCmdFileList::ColumnID) sort_column, (GtkSortType) sort_order, locked)));
+        }
+		g_variant_unref(tab);
+        g_free(path);
+    }
+    g_variant_unref(gvTabs);
+}
+
 void GnomeCmdData::load()
 {
     gchar *colorstring;
@@ -3316,6 +3312,8 @@ void GnomeCmdData::load()
 
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
 
+    load_tabs_from_gsettings();
+
     static struct
     {
         guint code;
@@ -3541,7 +3539,6 @@ void GnomeCmdData::load()
 
         // Convert xml to keyfiles by using the save methods.
         save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
-        save_pane_layout(TABS_LAYOUT_FILENAME);
 
         // Move gnome-commander.xml to gnome-commander.xml.deprecated
         gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
@@ -3920,11 +3917,12 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT, &(advrename_defaults.height));
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
+    save_tabs_via_gsettings         (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
+
     save_cmdline_history();
     save_devices (DEVICES_FILENAME);
     save_fav_apps (FAV_APPS_FILENAME);
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
-    save_pane_layout(TABS_LAYOUT_FILENAME);
     save_intviewer_defaults();
 
     save_auto_load_plugins();
