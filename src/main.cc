@@ -164,7 +164,6 @@ int main (int argc, char *argv[])
 
         gcmd_user_actions.set_defaults();
         ls_colors_init ();
-        gnome_cmd_data.load_more();
 
         gnome_authentication_manager_init ();
 

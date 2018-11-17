@@ -2549,95 +2549,6 @@ static void load_fav_apps (const gchar *fname)
     g_key_file_free(keyfile);
 }
 
-/**
- * This function reads the given file and sets up favourite applications
- * by filling gnome_cmd_data.options.fav_apps.
- *
- * @note Beginning with gcmd-v1.6 GKeyFile is used for storing and
- * loading configuration files. For compatibility reasons, this
- * functions tries to load favourite applications from the given file
- * with the old format prior to gcmd-v1.6. Therefore it checks if the
- * very first letter in fname is alphanumeric. If yes, the given file
- * has a pre-v1.6 format and the file is loaded as in gcmd-v1.4. Also, a
- * backup configuration is stored in @c fav-apps.deprecated in the old file
- * format. If the result is no, then nothing happens and FALSE is
- * returned.
- *
- * @note In later versions of gcmd (later than v1.6), this function
- * might be removed, because when saving the configuration in @link
- * save_fav_apps() @endlink, GKeyFile is used and the old file
- * format isn't used anymore.
- *
- * @returns FALSE if the very first letter of the given file is not
- * alphanumeric and TRUE if it is alphanumeric.
- */
-static gboolean load_fav_apps_old (const gchar *fname)
-{
-    gnome_cmd_data.options.fav_apps = NULL;
-    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-
-    ifstream f(path);
-    string line;
-    int i = 0;
-
-    //Device file does not exist
-    if(f.fail())
-    {
-        g_free (path);
-        return FALSE;
-    }
-
-    while (getline(f,line))
-    {
-        /* Is the file using the new storage format? If yes, stop here
-         * and return FALSE, i.e. old file format is not used */
-        gchar **a = g_strsplit_set (line.c_str()," \t",-1);
-        if (i == 0)
-        {
-            if (!isalnum(a[0][0]))
-            {
-                g_strfreev (a);
-                g_free (path);
-                return FALSE;
-            }
-            i++;
-        }
-
-        if (g_strv_length (a)==8)
-        {
-            guint target, handles_uris, handles_multiple, requires_terminal;
-
-            if (string2uint (a[3], target) &&
-                string2uint (a[5], handles_uris) &&
-                string2uint (a[6], handles_multiple) &&
-                string2uint (a[7], requires_terminal))
-            {
-                gchar *name      = gnome_vfs_unescape_string (a[0], NULL);
-                gchar *cmd       = gnome_vfs_unescape_string (a[1], NULL);
-                gchar *icon_path = gnome_vfs_unescape_string (a[2], NULL);
-                gchar *pattern   = gnome_vfs_unescape_string (a[4], NULL);
-
-                gnome_cmd_data.options.fav_apps = g_list_append (
-                    gnome_cmd_data.options.fav_apps,
-                    gnome_cmd_app_new_with_values (
-                        name, cmd, icon_path, (AppTarget) target, pattern, handles_uris, handles_multiple, requires_terminal));
-
-                g_free (name);
-                g_free (cmd);
-                g_free (icon_path);
-                g_free (pattern);
-            }
-        }
-
-        g_strfreev (a);
-    }
-
-    g_free (path);
-    save_fav_apps_old ("fav-apps.deprecated");
-    save_fav_apps (FAV_APPS_FILENAME);
-    return TRUE;
-}
-
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wformat-nonliteral"
@@ -3556,6 +3467,7 @@ void GnomeCmdData::load()
     g_free (xml_cfg_path);
 
     load_advrename_profiles (ADVRENAME_CONFIG_FILENAME);
+    load_fav_apps(FAV_APPS_FILENAME);
 
     priv->con_list->unlock();
 
@@ -3766,12 +3678,6 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
     g_variant_unref (variant);
 
     return rv;
-}
-
-void GnomeCmdData::load_more()
-{
-    if (load_fav_apps_old (FAV_APPS_FILENAME) == FALSE)
-        load_fav_apps(FAV_APPS_FILENAME);
 }
 
 
