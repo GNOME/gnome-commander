@@ -448,7 +448,7 @@
       <default>[]</default>
       <summary>List of file tabs</summary>
       <description>
-          The tab entries in this list are used for restoring the tabs from the last session.
+          The entries in this list are used for restoring the tabs from the last session.
       </description>
     </key>
   </schema>
