@@ -3417,6 +3417,8 @@ void GnomeCmdData::load()
     priv->con_list->lock();
     if (load_devices (DEVICES_FILENAME) == FALSE)
         load_devices_from_gsettings();
+    else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
+        save_devices_via_gsettings(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
 
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
