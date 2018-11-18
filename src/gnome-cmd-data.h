@@ -120,6 +120,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING     "(syybb)"
 #define GCMD_SETTINGS_DEVICES                         "devices"
 #define GCMD_SETTINGS_DEVICES_FORMAT_STRING           "(ssss)"
+#define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
+#define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssybbb)"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -630,6 +632,7 @@ struct GnomeCmdData
     gboolean save_auto_load_plugins();
     void save_cmdline_history();
     void save_intviewer_defaults();
+    void save_fav_apps_via_gsettings();
     void set_settings_monitor (const char *file_path);
     inline gint get_int (const gchar *path, int def);
     inline gchar* get_string (const gchar *path, const gchar *def);
@@ -688,6 +691,7 @@ struct GnomeCmdData
     void load();
     void load_tabs_from_gsettings();
     void load_devices_from_gsettings();
+    void load_fav_apps_from_gsettings();
     void gsettings_init();
     void migrate_all_data_to_gsettings();
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);

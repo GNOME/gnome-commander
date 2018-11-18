@@ -458,6 +458,13 @@
           The entries in this list represent the devices configured by the user.
       </description>
     </key>
+    <key name="favorite-apps" type="a(ssssybbb)">
+      <default>[]</default>
+      <summary>List of favorite apps</summary>
+      <description>
+          The entries in this list represent the favorite apps configured by the user.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">

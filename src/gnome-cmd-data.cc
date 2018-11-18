@@ -1868,6 +1868,45 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
 
 
 /**
+ * Save devices
+ */
+ void GnomeCmdData::save_fav_apps_via_gsettings()
+{
+    if (gnome_cmd_data.options.fav_apps)
+    {
+        GVariant* favAppsToStore;
+        GVariantBuilder gVariantBuilder;
+        g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+
+        for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
+        {
+            GnomeCmdApp *app = (GnomeCmdApp *) i->data;
+            if (app)
+            {
+                gchar *iconPath = g_strdup(gnome_cmd_app_get_icon_path(app));
+                if (!iconPath)
+                    iconPath = g_strdup("");
+
+                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FAV_APPS_FORMAT_STRING,
+                                        gnome_cmd_app_get_name(app),
+                                        gnome_cmd_app_get_command(app),
+                                        iconPath,
+                                        gnome_cmd_app_get_pattern_string(app),
+                                        gnome_cmd_app_get_target(app),
+                                        gnome_cmd_app_get_handles_uris(app),
+                                        gnome_cmd_app_get_handles_multiple(app),
+                                        gnome_cmd_app_get_requires_terminal(app));
+
+                g_free (iconPath);
+            }
+        }
+        favAppsToStore = g_variant_builder_end (&gVariantBuilder);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_FAV_APPS, favAppsToStore);
+    }
+}
+
+
+/**
  * Save favourite applications in the given file by means of GKeyFile.
  */
 static void save_devices_old (const gchar *fname)
@@ -1926,49 +1965,13 @@ static void save_devices_old (const gchar *fname)
 /**
  * Save favourite applications in the given file by means of GKeyFile.
  */
-static void save_fav_apps (const gchar *fname)
+static void save_fav_apps_old (const gchar *fname)
 {
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
-
-    /* Check if there are groups with the same name -> This is not
-       allowed for GKeyFile but can happen when calling save_fav_apps
-       the first time after an upgrade from gcmd-v1.4 to gcmd-v1.6. This
-       loop should be deleted someday!*/
-    for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
-    {
-        GnomeCmdApp *app1 = (GnomeCmdApp *) i->data;
-        if (app1)
-        {
-            gchar *group_name_to_test = g_strdup(gnome_cmd_app_get_name(app1));
-
-            for (GList *j = i->next; j; j = j->next)
-            {
-                GnomeCmdApp *app2 = (GnomeCmdApp *) j->data;
-                if (app2)
-                {
-                    gchar *group_name = g_strdup(gnome_cmd_app_get_name(app2));
-
-                    /* Are the names equal? -> Change the name */
-                    if (!strcmp(group_name_to_test, group_name))
-                    {
-                        static int name_occurence = 2;
-                        gchar *new_name = g_strdup_printf("%s_%d",
-                                            gnome_cmd_app_get_name(app2),
-                                            name_occurence);
-                        name_occurence++;
-                        gnome_cmd_app_set_name (app2, new_name);
-                        g_free (new_name);
-                    }
-                    g_free (group_name);
-                }
-            }
-            g_free (group_name_to_test);
-        }
-    }
 
     /* Now save the list */
     for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
@@ -2377,14 +2380,51 @@ void GnomeCmdData::load_advrename_profiles (const gchar *fname)
 
 
 /**
+ * Loads devices from gSettings into gcmd options
+ */
+void GnomeCmdData::load_fav_apps_from_gsettings()
+{
+    GVariant *gvFavApps, *favApp;
+    GVariantIter iter;
+
+    gvFavApps = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_FAV_APPS);
+
+    g_variant_iter_init (&iter, gvFavApps);
+
+    gnome_cmd_data.options.fav_apps = NULL;
+
+	while ((favApp = g_variant_iter_next_value (&iter)) != NULL)
+    {
+        gchar *name, *command, *iconPath, *pattern;
+        gint target;
+        gboolean handlesUris, handlesMutiple, requiresTerminal;
+
+		g_assert (g_variant_is_of_type (favApp, G_VARIANT_TYPE (GCMD_SETTINGS_FAV_APPS_FORMAT_STRING)));
+		g_variant_get(favApp, GCMD_SETTINGS_FAV_APPS_FORMAT_STRING, &name, &command, &iconPath, &pattern, &target, &handlesUris, &handlesMutiple, &requiresTerminal);
+
+        gnome_cmd_data.options.fav_apps = g_list_append (
+            gnome_cmd_data.options.fav_apps,
+            gnome_cmd_app_new_with_values (
+            name, command, iconPath, (AppTarget) target, pattern,
+            handlesUris, handlesMutiple, requiresTerminal));
+
+		g_variant_unref(favApp);
+        g_free (name);
+        g_free (command);
+        g_free (iconPath);
+        g_free (pattern);
+    }
+    g_variant_unref(gvFavApps);
+}
+
+
+/**
  * This function reads the given file and sets up favourite applications
  * by means of GKeyFile and by filling gnome_cmd_data.options.fav_apps.
  */
-static void load_fav_apps (const gchar *fname)
+static gboolean load_fav_apps_old (const gchar *fname)
 {
     GKeyFile *keyfile;
-    gsize length;
-    gchar **groups;
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
@@ -2395,8 +2435,12 @@ static void load_fav_apps (const gchar *fname)
 
     if (keyfile == NULL)
     {
-        return;
+        g_free(path);
+        return FALSE;
     }
+
+    gsize length;
+    gchar **groups;
 
     groups = g_key_file_get_groups (keyfile, &length);
 
@@ -2440,9 +2484,15 @@ static void load_fav_apps (const gchar *fname)
         g_free (icon_path);
         g_free (pattern);
     }
+
+    remove(path);
+
     g_free(path);
     g_strfreev(groups);
     g_key_file_free(keyfile);
+
+    save_fav_apps_old("fav-apps.gkeyfile_deprecated");
+    return TRUE;
 }
 
 #if defined (__GNUC__)
@@ -3395,7 +3445,10 @@ void GnomeCmdData::load()
     g_free (xml_cfg_path);
 
     load_advrename_profiles (ADVRENAME_CONFIG_FILENAME);
-    load_fav_apps(FAV_APPS_FILENAME);
+    if (load_fav_apps_old(FAV_APPS_FILENAME) == FALSE)
+        load_fav_apps_from_gsettings();
+    else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
+        save_fav_apps_via_gsettings();
 
     priv->con_list->unlock();
 
@@ -3753,9 +3806,9 @@ void GnomeCmdData::save()
 
     save_tabs_via_gsettings         (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
     save_devices_via_gsettings      (options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
+    save_fav_apps_via_gsettings     ();
 
     save_cmdline_history();
-    save_fav_apps (FAV_APPS_FILENAME);
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
 
