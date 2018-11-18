@@ -1748,9 +1748,9 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 
 
 /**
- * Save devices in given gSettings and in given key
+ * Save devices in gSettings
  */
-static void save_devices_via_gsettings(GSettings *gSettings, const char *gSettingsKey)
+void GnomeCmdData::save_devices_via_gsettings()
 {
     GList *devices;
 
@@ -1795,7 +1795,7 @@ static void save_devices_via_gsettings(GSettings *gSettings, const char *gSettin
             }
         }
         devicesToStore = g_variant_builder_end (&gVariantBuilder);
-        g_settings_set_value(gSettings, gSettingsKey, devicesToStore);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
     }
 }
 
@@ -3418,7 +3418,7 @@ void GnomeCmdData::load()
     if (load_devices (DEVICES_FILENAME) == FALSE)
         load_devices_from_gsettings();
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
-        save_devices_via_gsettings(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
+        save_devices_via_gsettings();
 
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
@@ -3807,7 +3807,7 @@ void GnomeCmdData::save()
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
     save_tabs_via_gsettings         (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
-    save_devices_via_gsettings      (options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
+    save_devices_via_gsettings      ();
     save_fav_apps_via_gsettings     ();
 
     save_cmdline_history();

@@ -632,6 +632,7 @@ struct GnomeCmdData
     gboolean save_auto_load_plugins();
     void save_cmdline_history();
     void save_intviewer_defaults();
+    void save_devices_via_gsettings();
     void save_fav_apps_via_gsettings();
     void set_settings_monitor (const char *file_path);
     inline gint get_int (const gchar *path, int def);
