@@ -118,6 +118,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY "advrename-template-history"
 #define GCMD_SETTINGS_FILE_LIST_TABS                  "file-list-tabs"
 #define GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING     "(syybb)"
+#define GCMD_SETTINGS_DEVICES                         "devices"
+#define GCMD_SETTINGS_DEVICES_FORMAT_STRING           "(ssss)"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -685,6 +687,7 @@ struct GnomeCmdData
 
     void load();
     void load_tabs_from_gsettings();
+    void load_devices_from_gsettings();
     void gsettings_init();
     void migrate_all_data_to_gsettings();
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);

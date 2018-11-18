@@ -451,6 +451,13 @@
           The entries in this list are used for restoring the tabs from the last session.
       </description>
     </key>
+    <key name="devices" type="a(ssss)">
+      <default>[]</default>
+      <summary>List of devices</summary>
+      <description>
+          The entries in this list represent the devices configured by the user.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">

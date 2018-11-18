@@ -1748,6 +1748,59 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 
 
 /**
+ * Save devices in given gSettings and in given key
+ */
+static void save_devices_via_gsettings(GSettings *gSettings, const char *gSettingsKey)
+{
+    GList *devices;
+
+    devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list);
+    if (devices)
+    {
+        GVariant* devicesToStore;
+        GVariantBuilder gVariantBuilder;
+        g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+
+        for (; devices; devices = devices->next)
+        {
+            GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
+            if (device && !gnome_cmd_con_device_get_autovol (device))
+            {
+                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
+
+                gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
+                if (device_fn && device_fn[0] != '\0')
+                    device_fn = g_strescape (device_fn, NULL);
+                else
+                    device_fn = g_strdup ("x");
+
+                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
+
+                gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
+                if (icon_path && icon_path[0] != '\0')
+                    icon_path = g_strescape (icon_path, NULL);
+                else
+                    icon_path = g_strdup ("x");
+
+                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
+                                        alias,
+                                        device_fn,
+                                        mountp,
+                                        icon_path);
+
+                g_free (alias);
+                g_free (device_fn);
+                g_free (mountp);
+                g_free (icon_path);
+            }
+        }
+        devicesToStore = g_variant_builder_end (&gVariantBuilder);
+        g_settings_set_value(gSettings, gSettingsKey, devicesToStore);
+    }
+}
+
+
+/**
  * Save tabs in given gSettings and in given key
  */
 static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsKey)
@@ -1817,7 +1870,7 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
 /**
  * Save favourite applications in the given file by means of GKeyFile.
  */
-static void save_devices (const gchar *fname)
+static void save_devices_old (const gchar *fname)
 {
     GList *devices;
     gchar *path = config_dir ?
@@ -1869,105 +1922,6 @@ static void save_devices (const gchar *fname)
     g_free (path);
 }
 
-/**
- * Save devices in the given file with the file format prior to gcmd-v.1.6.
- *
- * @note This function should be deleted a while after
- * the release of gcmd-v1.6, see @link load_fav_apps @endlink.
- */
-static void save_devices_old (const gchar *fname)
-{
-    gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    FILE *fd = fopen (path, "w");
-
-    if (fd)
-    {
-        for (GList *i = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list); i; i = i->next)
-        {
-            GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (i->data);
-            if (device && !gnome_cmd_con_device_get_autovol (device))
-            {
-                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
-                gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
-                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
-                gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
-
-                if (device_fn && device_fn[0] != '\0')
-                    device_fn = g_strescape (device_fn, NULL);
-                else
-                    device_fn = g_strdup ("x");
-
-                if (icon_path && icon_path[0] != '\0')
-                    icon_path = g_strescape (icon_path, NULL);
-                else
-                    icon_path = g_strdup ("x");
-
-                fprintf (fd, "%s %s %s %s\n", alias, device_fn, mountp, icon_path);
-
-                g_free (alias);
-                g_free (device_fn);
-                g_free (mountp);
-                g_free (icon_path);
-            }
-        }
-
-        fclose (fd);
-    }
-    else
-        g_warning ("Failed to open the file %s for writing", path);
-
-    g_free (path);
-}
-
-/**
- * Save favourite applications in the given file with the file format
- * prior to gcmd-v.1.6.
- *
- * @note This function should be deleted a while after
- * the release of gcmd-v1.6, see @link load_fav_apps @endlink.
- */
-static void save_fav_apps_old (const gchar *fname)
-{
-    gchar *path = config_dir ? g_build_filename (config_dir, fname, NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    FILE *fd = fopen (path, "w");
-
-    if (fd)
-    {
-        for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
-        {
-            GnomeCmdApp *app = (GnomeCmdApp *) i->data;
-            if (app)
-            {
-                gchar *name = g_strescape (gnome_cmd_app_get_name (app), NULL);
-                gchar *cmd = g_strescape (gnome_cmd_app_get_command (app), NULL);
-                gchar *icon_path = g_strescape (gnome_cmd_app_get_icon_path (app), NULL);
-                gint target = gnome_cmd_app_get_target (app);
-                gchar *pattern_string = g_strescape (gnome_cmd_app_get_pattern_string (app), NULL);
-                gint handles_uris = gnome_cmd_app_get_handles_uris (app);
-                gint handles_multiple = gnome_cmd_app_get_handles_multiple (app);
-                gint requires_terminal = gnome_cmd_app_get_requires_terminal (app);
-
-                fprintf (fd, "%s\t%s\t%s\t%d\t%s\t%d\t%d\t%d\n",
-                         name, cmd, icon_path,
-                         target, pattern_string,
-                         handles_uris, handles_multiple, requires_terminal);
-
-                g_free (name);
-                g_free (cmd);
-                g_free (icon_path);
-                g_free (pattern_string);
-            }
-        }
-
-        fclose (fd);
-    }
-    else
-        g_warning ("Failed to open the file %s for writing", path);
-
-    g_free (path);
-}
 
 /**
  * Save favourite applications in the given file by means of GKeyFile.
@@ -2232,20 +2186,33 @@ static void load_vfs_auto_devices ()
  * This function reads the given file and sets up additional devices by
  * means of GKeyFile.
  */
-static inline void load_devices (const gchar *fname)
+static gboolean load_devices (const gchar *fname)
 {
-    GKeyFile *keyfile;
-    gsize length;
-    gchar **groups;
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
         g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
 
+    ifstream f(path);
+
+    //Device file does not exist
+    if(f.fail())
+    {
+        g_free (path);
+        return FALSE;
+    }
+
+    GKeyFile *keyfile;
+    gsize length;
+    gchar **groups;
+
     keyfile = gcmd_key_file_load_from_file(path, 0);
 
+    // keyfile exists but it is empty, no need to do anything here
     if (keyfile == NULL)
     {
-        return;
+        remove(path);
+        g_free (path);
+        return TRUE;
     }
 
     groups = g_key_file_get_groups (keyfile, &length);
@@ -2280,7 +2247,14 @@ static inline void load_devices (const gchar *fname)
 
     load_vfs_auto_devices ();
 
+    // delete deprecated file
+    remove(path);
+
     g_free (path);
+
+    save_devices_old ("devices.gkeyfile_deprecated");
+
+    return TRUE;
 }
 
 /**
@@ -2399,84 +2373,6 @@ void GnomeCmdData::load_advrename_profiles (const gchar *fname)
     g_free(path);
     g_strfreev(groups);
     g_key_file_free(keyfile);
-}
-
-
-/**
- * This function reads the given file and sets up additional devices.
- *
- * @note Beginning with gcmd-v1.6 GKeyFile is used for storing and
- * loading configuration files. For compatibility reasons, this
- * functions tries to load devices from the given file
- * with the old format prior to gcmd-v1.6. Therefore it checks if the
- * very first letter in fname is alphanumeric. If "yes", the given file
- * has a pre-v1.6 format and the file is loaded as in gcmd-v1.4. Also, a
- * backup configuration is stored in @c devices.deprecated in the old file
- * format. If "no", then nothing happens and FALSE is returned.
- *
- * @note In later versions of gcmd (later than v1.6), this function
- * might be removed, because when saving the configuration in @link
- * save_device() @endlink, GKeyFile is used and the old file
- * format isn't used anymore.
- *
- * @returns FALSE if the very first letter of the given file is not
- * alphanumeric and TRUE if it is alphanumeric.
- */
-static gboolean load_devices_old (const gchar *fname)
-{
-    gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-
-    ifstream f(path);
-    string line;
-    int i = 0;
-
-    //Device file does not exist
-    if(f.fail())
-    {
-        g_free (path);
-        return FALSE;
-    }
-
-    while (getline(f,line))
-    {
-        /* Is the file using the new storage format? If yes, stop here
-         * and return FALSE, i.e. old file format is not used*/
-        gchar **a = g_strsplit_set (line.c_str()," ",-1);
-        if (i == 0)
-        {
-            if (!isalnum(a[0][0]))
-            {
-                g_strfreev (a);
-                g_free (path);
-                return FALSE;
-            }
-            i++;
-        }
-
-        if (g_strv_length (a) == 4)
-        {
-            gchar *alias  = gnome_vfs_unescape_string (a[0], NULL);
-            gchar *device_fn  = gnome_vfs_unescape_string (a[1], NULL);
-            gchar *mountp  = gnome_vfs_unescape_string (a[2], NULL);
-            gchar *icon_path  = gnome_vfs_unescape_string (a[3], NULL);
-
-            gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountp, icon_path));
-
-            g_free (alias);
-            g_free (device_fn);
-            g_free (mountp);
-            g_free (icon_path);
-        }
-    }
-
-    g_free (path);
-
-    load_vfs_auto_devices ();
-    save_devices_old ("devices.deprecated");
-    save_devices (DEVICES_FILENAME);
-    return TRUE;
 }
 
 
@@ -2840,6 +2736,38 @@ void GnomeCmdData::load_tabs_from_gsettings()
     }
     g_variant_unref(gvTabs);
 }
+
+/**
+ * Loads devices from gSettings into gcmd options
+ */
+void GnomeCmdData::load_devices_from_gsettings()
+{
+    GVariant *gvDevices, *device;
+    GVariantIter iter;
+
+    gvDevices = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
+
+    g_variant_iter_init (&iter, gvDevices);
+
+	while ((device = g_variant_iter_next_value (&iter)) != NULL)
+    {
+        gchar *alias, *device_fn, *mountPoint, *iconPath;
+
+		g_assert (g_variant_is_of_type (device, G_VARIANT_TYPE (GCMD_SETTINGS_DEVICES_FORMAT_STRING)));
+		g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
+
+        gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, iconPath));
+
+		g_variant_unref(device);
+        g_free (alias);
+        g_free (device_fn);
+        g_free (mountPoint);
+        g_free (iconPath);
+    }
+    g_variant_unref(gvDevices);
+    load_vfs_auto_devices ();
+}
+
 
 void GnomeCmdData::load()
 {
@@ -3437,8 +3365,8 @@ void GnomeCmdData::load()
     }
 
     priv->con_list->lock();
-    if (load_devices_old (DEVICES_FILENAME) == FALSE)
-        load_devices (DEVICES_FILENAME);
+    if (load_devices (DEVICES_FILENAME) == FALSE)
+        load_devices_from_gsettings();
 
     gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
@@ -3824,9 +3752,9 @@ void GnomeCmdData::save()
     set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
     save_tabs_via_gsettings         (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
+    save_devices_via_gsettings      (options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
 
     save_cmdline_history();
-    save_devices (DEVICES_FILENAME);
     save_fav_apps (FAV_APPS_FILENAME);
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
