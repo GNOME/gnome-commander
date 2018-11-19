@@ -458,7 +458,7 @@
           The entries in this list represent the devices configured by the user.
       </description>
     </key>
-    <key name="favorite-apps" type="a(ssssybbb)">
+    <key name="favorite-apps" type="a(ssssubbb)">
       <default>[]</default>
       <summary>List of favorite apps</summary>
       <description>

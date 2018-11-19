@@ -121,7 +121,7 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DEVICES                         "devices"
 #define GCMD_SETTINGS_DEVICES_FORMAT_STRING           "(ssss)"
 #define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
-#define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssybbb)"
+#define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssubbb)"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"

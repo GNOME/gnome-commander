@@ -2396,7 +2396,7 @@ void GnomeCmdData::load_fav_apps_from_gsettings()
 	while ((favApp = g_variant_iter_next_value (&iter)) != NULL)
     {
         gchar *name, *command, *iconPath, *pattern;
-        gint target;
+        guint target;
         gboolean handlesUris, handlesMutiple, requiresTerminal;
 
 		g_assert (g_variant_is_of_type (favApp, G_VARIANT_TYPE (GCMD_SETTINGS_FAV_APPS_FORMAT_STRING)));
