@@ -47,6 +47,13 @@
           This string array represents the history of templates in the advance rename tool.
       </description>
     </key>
+    <key name="directory-history" type="as">
+      <default>[]</default>
+      <summary>History of visited directories</summary>
+      <description>
+          This string array represents the history of visited directories.
+      </description>
+    </key>
     <key name="use-default-font" type="b">
       <default>true</default>
       <summary>Use default font</summary>

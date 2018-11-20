@@ -2566,6 +2566,18 @@ void GnomeCmdData::save_cmdline_history()
 }
 
 
+void GnomeCmdData::save_directory_history()
+{
+    if (!options.save_dir_history_on_exit)
+        return;
+
+    set_gsettings_string_array_from_glist(
+        options.gcmd_settings->general,
+        GCMD_SETTINGS_DIRECTORY_HISTORY,
+        gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents);
+}
+
+
 inline void GnomeCmdData::save_intviewer_defaults()
 {
     set_gsettings_string_array_from_glist(options.gcmd_settings->internalviewer, GCMD_SETTINGS_IV_SEARCH_PATTERN_TEXT, intviewer_defaults.text_patterns.ents);
@@ -2636,6 +2648,18 @@ inline void GnomeCmdData::load_cmdline_history()
     g_list_free(cmdline_history);
 
     cmdline_history = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY);
+}
+
+
+inline void GnomeCmdData::load_directory_history()
+{
+    GList* directories = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
+
+    for (GList *i=directories; i; i=i->next)
+    {
+        gnome_cmd_con_get_dir_history (get_home_con())->add((const gchar *) i->data);
+    }
+    g_list_free(directories);
 }
 
 
@@ -3431,6 +3455,9 @@ void GnomeCmdData::load()
         // Convert xml to keyfiles by using the save methods.
         save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
 
+        // Convert directory history
+        save_directory_history();
+
         // Move gnome-commander.xml to gnome-commander.xml.deprecated
         gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
         gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml.deprecated", NULL);
@@ -3453,6 +3480,8 @@ void GnomeCmdData::load()
         save_fav_apps_via_gsettings();
 
     priv->con_list->unlock();
+
+    load_directory_history();
 
     gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
     quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);
@@ -3559,20 +3588,6 @@ void GnomeCmdData::save_xml ()
     XML::xstream xml(f);
 
     xml << *main_win;
-
-    xml << XML::tag("History");
-
-    if (options.save_dir_history_on_exit)
-    {
-        xml << XML::tag("Directories");
-
-        for (GList *i=gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents; i; i=i->next)
-            xml << XML::tag("Directory") << XML::attr("path") << XML::escape((const gchar *) i->data) << XML::endtag();
-
-        xml << XML::endtag("Directories");
-    }
-
-    xml << XML::endtag("History");
 
     xml << search_defaults;
     xml << bookmarks_defaults;
@@ -3809,8 +3824,9 @@ void GnomeCmdData::save()
     save_tabs_via_gsettings         (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_TABS);
     save_devices_via_gsettings      ();
     save_fav_apps_via_gsettings     ();
+    save_cmdline_history            ();
+    save_directory_history          ();
 
-    save_cmdline_history();
     save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
     save_intviewer_defaults();
 
