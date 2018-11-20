@@ -2528,7 +2528,7 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
     }
     else
     {
-        gint ii;
+        guint ii;
         gchar** str_array;
         str_array = (gchar**) g_malloc ((g_list_length (strings) + 1) * sizeof(char*));
 
@@ -2542,7 +2542,7 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
         rv = g_settings_set_strv(settings_given, key, str_array);
 
         // Free the char array
-        for (ii = 0; strings; strings = strings->next, ++ii)
+        for (ii = 0; ii < (g_list_length (strings) + 1); ii++)
         {
             g_free(str_array[ii]);
         }
