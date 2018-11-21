@@ -1822,12 +1822,14 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
                 GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
                 {
+                    gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
                     g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                            GNOME_CMD_FILE (fl->cwd)->get_real_path(),
+                                            realPath,
                                             (guchar) fileSelectorId,
                                             fl->get_sort_column(),
                                             fl->get_sort_order(),
                                             fl->locked);
+                    g_free(realPath);
                 }
             }
             else
@@ -1837,12 +1839,14 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
                     GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
                     if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
                     {
+                        gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
                         g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                                GNOME_CMD_FILE (fl->cwd)->get_real_path(),
+                                                realPath,
                                                 (guchar) fileSelectorId,
                                                 fl->get_sort_column(),
                                                 fl->get_sort_order(),
                                                 fl->locked);
+                        g_free(realPath);
                     }
                 }
                 else
@@ -1850,12 +1854,14 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
                     GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
                     if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
                     {
+                        gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
                         g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING,
-                                                GNOME_CMD_FILE (fl->cwd)->get_real_path(),
+                                                realPath,
                                                 (guchar) fileSelectorId,
                                                 fl->get_sort_column(),
                                                 fl->get_sort_order(),
                                                 fl->locked);
+                        g_free(realPath);
                     }
                 }
             }
