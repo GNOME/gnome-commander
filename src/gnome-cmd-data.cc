@@ -2638,7 +2638,6 @@ inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
 inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings_given, const gchar *key)
 {
     GList *list = NULL;
-
     gchar** gsettings_array;
     gsettings_array = g_settings_get_strv (settings_given, key);
 
@@ -2646,7 +2645,6 @@ inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *set
     {
         list = g_list_append (list, gsettings_array[i]);
     }
-    g_free(gsettings_array);
 
     return list;
 }
