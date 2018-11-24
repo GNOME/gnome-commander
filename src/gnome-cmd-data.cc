@@ -1674,23 +1674,26 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
 
     for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=this->advrename_defaults.profiles.begin(); p!=this->advrename_defaults.profiles.end(); ++p)
     {
+        gchar *nameString = g_strescape (p->name.c_str(), NULL);
+        gchar *templateString = g_strescape (p->template_string.empty() ? "$N" : p->template_string.c_str(), NULL);
         g_key_file_set_string(key_file,
-                              g_strescape (p->name.c_str(), NULL),
+                              nameString,
                               ADVRENAME_TEMPLATE,
-                              g_strescape (p->template_string.empty() ? "$N" : p->template_string.c_str(), NULL));
+                              templateString);
+        g_free(templateString);
 
         g_key_file_set_uint64(key_file,
-                              g_strescape (p->name.c_str(), NULL),
+                              nameString,
                               ADVRENAME_COUNTER_START,
                               p->counter_start);
 
         g_key_file_set_uint64(key_file,
-                              g_strescape (p->name.c_str(), NULL),
+                              nameString,
                               ADVRENAME_COUNTER_STEP,
                               p->counter_step);
 
         g_key_file_set_uint64(key_file,
-                              g_strescape (p->name.c_str(), NULL),
+                              nameString,
                               ADVRENAME_COUNTER_WIDTH,
                               p->counter_width);
 
@@ -1710,33 +1713,34 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
         }
 
         g_key_file_set_string_list (key_file,
-                        g_strescape (p->name.c_str(), NULL),
+                        nameString,
                         ADVRENAME_FROM,
                         advrenameFromList,
                         numberOfPatterns);
 
         g_key_file_set_string_list (key_file,
-                        g_strescape (p->name.c_str(), NULL),
+                        nameString,
                         ADVRENAME_TO,
                         advrenameToList,
                         numberOfPatterns);
         
         g_key_file_set_boolean_list (key_file,
-                        g_strescape (p->name.c_str(), NULL),
+                        nameString,
                         ADVRENAME_MATCH_CASE,
                         advrenameMatchCaseList,
                         numberOfPatterns);
 
         g_key_file_set_boolean(key_file,
-                               g_strescape (p->name.c_str(), NULL),
+                               nameString,
                                ADVRENAME_CASE_CONVERSION,
                                p->case_conversion);
 
         g_key_file_set_integer(key_file,
-                               g_strescape (p->name.c_str(), NULL),
+                               nameString,
                                ADVRENAME_TRIM_BLANKS,
                                p->trim_blanks);
 
+        g_free(nameString);
         g_strfreev(advrenameFromList);
         g_strfreev(advrenameToList);
         g_free(advrenameMatchCaseList);
