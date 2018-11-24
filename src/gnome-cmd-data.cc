@@ -1603,12 +1603,12 @@ void GnomeCmdData::save_advrename_profiles (const gchar *fname)
     // The following is copied into the for-loop below.
     // ToDo: Fix this ugly code copy!
 
-    gchar* templateString = g_strescape (advrename_defaults.templates.empty()  ? "$N" : advrename_defaults.templates.front(), NULL);
+    gchar* defaultTemplateString = g_strescape (advrename_defaults.templates.empty()  ? "$N" : advrename_defaults.templates.front(), NULL);
     g_key_file_set_string(key_file,
                           ADVRENAME_DEFAULT_TEMPLATE,
                           ADVRENAME_TEMPLATE,
-                          templateString);
-    g_free(templateString);
+                          defaultTemplateString);
+    g_free(defaultTemplateString);
 
     g_key_file_set_uint64(key_file,
                           ADVRENAME_DEFAULT_TEMPLATE,
