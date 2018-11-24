@@ -2511,24 +2511,6 @@ static gboolean load_fav_apps_old (const gchar *fname)
     return TRUE;
 }
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-inline void GnomeCmdData::gnome_cmd_data_set_string_history (const gchar *format, GList *strings)
-{
-    gchar key[128];
-
-    for (gint i=0; strings; strings=strings->next, ++i)
-    {
-        snprintf (key, sizeof (key), format, i);
-        gnome_cmd_data_set_string (key, (gchar *) strings->data);
-    }
-}
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
 /**
  * This function converts a GList into a NULL terminated array of char pointers.
  * This array is stored into the given GSettings key.

@@ -716,7 +716,6 @@ struct GnomeCmdData
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
     gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkColor *color);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
-    inline void gnome_cmd_data_set_string_history (const gchar *format, GList *strings);
     gboolean is_valid_color_string(const char *colorstring);
     gboolean set_valid_color_string(GSettings *settings, const char* key);
 
