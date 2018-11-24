@@ -151,7 +151,7 @@ struct GnomeCmdFileList::Private
     GtkWidget *column_pixmaps[NUM_COLUMNS];
     GtkWidget *column_labels[NUM_COLUMNS];
 
-    gint cur_file;
+    gint cur_file = -1;
     GnomeCmdFileCollection visible_files;
     GnomeCmd::Collection<GnomeCmdFile *> selected_files;      // contains GnomeCmdFile pointers, no refing
 
