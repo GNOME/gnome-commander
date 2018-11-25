@@ -3832,6 +3832,7 @@ void GnomeCmdData::save()
     save_intviewer_defaults();
 
     save_auto_load_plugins();
+    g_settings_sync ();
 }
 
 
