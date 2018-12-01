@@ -2659,6 +2659,8 @@ inline void GnomeCmdData::load_directory_history()
     for (GList *i=directories; i; i=i->next)
     {
         gnome_cmd_con_get_dir_history (get_home_con())->add((const gchar *) i->data);
+        // the add method above copies the char strings
+        g_free(i->data);
     }
     g_list_free(directories);
 }
