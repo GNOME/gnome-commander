@@ -690,7 +690,7 @@ struct GnomeCmdData
 
     GnomeCmdData();
 
-    void free();                // FIXME: free() -> ~GnomeCmdData()
+    ~GnomeCmdData();
 
     void load();
     void load_tabs_from_gsettings();

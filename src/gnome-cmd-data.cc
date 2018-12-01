@@ -2725,7 +2725,7 @@ GnomeCmdData::GnomeCmdData(): search_defaults(selections)
 }
 
 
-void GnomeCmdData::free()
+GnomeCmdData::~GnomeCmdData()
 {
     if (priv)
     {
