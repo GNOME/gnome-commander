@@ -552,11 +552,13 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
 
     if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
     {
+        gchar *path = GNOME_CMD_FILE (dir)->get_path();
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
-               GNOME_CMD_FILE (dir)->get_path(),
+               path,
                visprog);
         gnome_cmd_dir_relist_files (dir, visprog);
+        g_free(path);
     }
     else
         g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);
