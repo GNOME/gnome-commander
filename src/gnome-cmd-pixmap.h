@@ -40,13 +40,12 @@ inline void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
     if (!pixmap)
         return;
 
-    g_return_if_fail (pixmap->pixbuf != NULL);
-    g_return_if_fail (pixmap->pixmap != NULL);
-    g_return_if_fail (pixmap->mask != NULL);
-
-    g_object_unref (pixmap->pixbuf);
-    g_object_unref (pixmap->pixmap);
-    g_object_unref (pixmap->mask);
+    if (pixmap->pixbuf != NULL)
+        g_object_unref (pixmap->pixbuf);
+    if (pixmap->pixmap != NULL)
+        g_object_unref (pixmap->pixmap);
+    if (pixmap->mask != NULL)
+        g_object_unref (pixmap->mask);
 
     g_free (pixmap);
 }
