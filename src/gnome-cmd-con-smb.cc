@@ -170,6 +170,12 @@ static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void destroy (GtkObject *object)
 {
+    GnomeCmdConSmb *con_smb = GNOME_CMD_CON_SMB (object);
+
+    gnome_cmd_pixmap_free (con_smb->parent.go_pixmap);
+    gnome_cmd_pixmap_free (con_smb->parent.open_pixmap);
+    gnome_cmd_pixmap_free (con_smb->parent.close_pixmap);
+
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }

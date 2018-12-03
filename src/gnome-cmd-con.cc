@@ -95,6 +95,7 @@ static void destroy (GtkObject *object)
     g_free (con->close_text);
     g_free (con->close_tooltip);
     gnome_cmd_pixmap_free (con->close_pixmap);
+    gnome_cmd_pixmap_free (con->go_pixmap);
 
     if (con->priv->default_dir)
         gnome_cmd_dir_unref (con->priv->default_dir);

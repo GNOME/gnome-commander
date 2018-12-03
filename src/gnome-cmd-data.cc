@@ -2730,7 +2730,8 @@ GnomeCmdData::~GnomeCmdData()
     if (priv)
     {
         // free the connections
-        // g_object_unref (priv->con_list);
+        g_object_ref_sink (priv->con_list);
+        g_object_unref (priv->con_list);
 
         // close quick connect
         if (quick_connect)
