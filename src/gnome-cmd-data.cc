@@ -60,7 +60,6 @@ struct GnomeCmdData::Private
     gboolean         sort_direction[2];
 
     gchar           *ftp_anonymous_password;
-    GFileMonitor    *settings_monitor;
 };
 
 GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
@@ -2742,8 +2741,6 @@ GnomeCmdData::~GnomeCmdData()
 
         // free the anonymous password string
         g_free (priv->ftp_anonymous_password);
-
-        g_object_unref (priv->settings_monitor);
 
         g_free (priv);
     }
