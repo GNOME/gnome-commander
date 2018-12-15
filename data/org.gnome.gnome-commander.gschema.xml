@@ -479,6 +479,20 @@
           The entries in this list represent the favorite apps configured by the user.
       </description>
     </key>
+    <key name="search-win-width" type="u">
+      <default>600</default>
+      <summary>Search window width</summary>
+      <description>
+          This option defines the width of the search window.
+      </description>
+    </key>
+    <key name="search-win-height" type="u">
+      <default>400</default>
+      <summary>Search window height</summary>
+      <description>
+          This option defines the height of the search window.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">

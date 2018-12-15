@@ -126,6 +126,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
 #define GCMD_SETTINGS_FAV_APPS_FORMAT_STRING          "(ssssubbb)"
 #define GCMD_SETTINGS_DIRECTORY_HISTORY               "directory-history"
+#define GCMD_SETTINGS_SEARCH_WIN_WIDTH                "search-win-width"
+#define GCMD_SETTINGS_SEARCH_WIN_HEIGHT               "search-win-height"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
