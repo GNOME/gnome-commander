@@ -1589,168 +1589,61 @@ static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 }
 
 /**
- * Save advance rename profiles in the given file by means of GKeyFile.
+ * Save advance rename tool profiles in gSettings.
+ * The first profile is the active profile, i.e. the one which is used currently.
+ * It does not need to have a name != NULL, as it is not actively stored by the user.
+ * The others are profiles which can be choosen in the profile dialoge.
  */
-void GnomeCmdData::save_advrename_profiles (const gchar *fname)
+void GnomeCmdData::save_advrename_profiles ()
 {
-    gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
-    GKeyFile *key_file;
-    key_file = g_key_file_new ();
-    
-    // The following is copied into the for-loop below.
-    // ToDo: Fix this ugly code copy!
+    GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
+    add_advrename_profile_to_gvariant_builder(gVariantBuilder, advrename_defaults.default_profile);
 
-    gchar* defaultTemplateString = g_strescape (advrename_defaults.templates.empty()  ? "$N" : advrename_defaults.templates.front(), NULL);
-    g_key_file_set_string(key_file,
-                          ADVRENAME_DEFAULT_TEMPLATE,
-                          ADVRENAME_TEMPLATE,
-                          defaultTemplateString);
-    g_free(defaultTemplateString);
-
-    g_key_file_set_uint64(key_file,
-                          ADVRENAME_DEFAULT_TEMPLATE,
-                          ADVRENAME_COUNTER_START,
-                          advrename_defaults.default_profile.counter_start);
-
-    g_key_file_set_uint64(key_file,
-                          ADVRENAME_DEFAULT_TEMPLATE,
-                          ADVRENAME_COUNTER_STEP,
-                          advrename_defaults.default_profile.counter_step);
-
-    g_key_file_set_uint64(key_file,
-                          ADVRENAME_DEFAULT_TEMPLATE,
-                          ADVRENAME_COUNTER_WIDTH,
-                          advrename_defaults.default_profile.counter_width);
-
-    gsize numberOfPatterns    = advrename_defaults.default_profile.regexes.size();
-    gchar** advrenameFromList = g_new0(gchar *, advrename_defaults.default_profile.regexes.size()+1);
-    gchar** advrenameToList   = g_new0(gchar *, advrename_defaults.default_profile.regexes.size()+1);
-    gboolean* advrenameMatchCaseList = g_new0(gboolean, advrename_defaults.default_profile.regexes.size()+1);
-    gsize counter = 0;
-
-    // Create char arrays out of the patterns, save them afterwards
-    for (vector<GnomeCmd::ReplacePattern>::const_iterator r = advrename_defaults.default_profile.regexes.begin(); r != advrename_defaults.default_profile.regexes.end(); ++r)
+    for (auto profile : advrename_defaults.profiles)
     {
-        advrenameFromList[counter] = g_strescape (r->pattern.c_str(), NULL);
-        advrenameToList[counter] = g_strescape (r->replacement.c_str(), NULL);
-        advrenameMatchCaseList[counter] = r->match_case;
-        counter++;
+        add_advrename_profile_to_gvariant_builder(gVariantBuilder, profile);
     }
 
-    g_key_file_set_string_list (key_file,
-                    ADVRENAME_DEFAULT_TEMPLATE,
-                    ADVRENAME_FROM,
-                    advrenameFromList,
-                    numberOfPatterns);
+    GVariant* profilesToStore = g_variant_new(GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, gVariantBuilder);
+    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_PROFILES, profilesToStore);
+    g_variant_builder_unref(gVariantBuilder);
 
-    g_key_file_set_string_list (key_file,
-                    ADVRENAME_DEFAULT_TEMPLATE,
-                    ADVRENAME_TO,
-                    advrenameToList,
-                    numberOfPatterns);
-
-    g_key_file_set_boolean_list (key_file,
-                    ADVRENAME_DEFAULT_TEMPLATE,
-                    ADVRENAME_MATCH_CASE,
-                    advrenameMatchCaseList,
-                    numberOfPatterns);
-
-    g_key_file_set_boolean(key_file,
-                           ADVRENAME_DEFAULT_TEMPLATE,
-                           ADVRENAME_CASE_CONVERSION,
-                           advrename_defaults.default_profile.case_conversion);
-
-    g_key_file_set_integer(key_file,
-                           ADVRENAME_DEFAULT_TEMPLATE,
-                           ADVRENAME_TRIM_BLANKS,
-                           advrename_defaults.default_profile.trim_blanks);
-
-    g_strfreev(advrenameFromList);
-    g_strfreev(advrenameToList);
-    g_free(advrenameMatchCaseList);
-
-    for (vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=this->advrename_defaults.profiles.begin(); p!=this->advrename_defaults.profiles.end(); ++p)
-    {
-        gchar *nameString = g_strescape (p->name.c_str(), NULL);
-        gchar *templateString = g_strescape (p->template_string.empty() ? "$N" : p->template_string.c_str(), NULL);
-        g_key_file_set_string(key_file,
-                              nameString,
-                              ADVRENAME_TEMPLATE,
-                              templateString);
-        g_free(templateString);
-
-        g_key_file_set_uint64(key_file,
-                              nameString,
-                              ADVRENAME_COUNTER_START,
-                              p->counter_start);
-
-        g_key_file_set_uint64(key_file,
-                              nameString,
-                              ADVRENAME_COUNTER_STEP,
-                              p->counter_step);
-
-        g_key_file_set_uint64(key_file,
-                              nameString,
-                              ADVRENAME_COUNTER_WIDTH,
-                              p->counter_width);
-
-        numberOfPatterns    = p->regexes.size();
-        advrenameFromList = g_new0(gchar *, p->regexes.size()+1);
-        advrenameToList   = g_new0(gchar *, p->regexes.size()+1);
-        advrenameMatchCaseList = g_new0(gboolean, p->regexes.size()+1);
-        counter = 0;
-
-        // Create char arrays out of the patterns, save them afterwards
-        for (vector<GnomeCmd::ReplacePattern>::const_iterator r = p->regexes.begin(); r != p->regexes.end(); ++r)
-        {
-            advrenameFromList[counter] = g_strescape (r->pattern.c_str(), NULL);
-            advrenameToList[counter] = g_strescape (r->replacement.c_str(), NULL);
-            advrenameMatchCaseList[counter] = r->match_case;
-            counter++;
-        }
-
-        g_key_file_set_string_list (key_file,
-                        nameString,
-                        ADVRENAME_FROM,
-                        advrenameFromList,
-                        numberOfPatterns);
-
-        g_key_file_set_string_list (key_file,
-                        nameString,
-                        ADVRENAME_TO,
-                        advrenameToList,
-                        numberOfPatterns);
-        
-        g_key_file_set_boolean_list (key_file,
-                        nameString,
-                        ADVRENAME_MATCH_CASE,
-                        advrenameMatchCaseList,
-                        numberOfPatterns);
-
-        g_key_file_set_boolean(key_file,
-                               nameString,
-                               ADVRENAME_CASE_CONVERSION,
-                               p->case_conversion);
-
-        g_key_file_set_integer(key_file,
-                               nameString,
-                               ADVRENAME_TRIM_BLANKS,
-                               p->trim_blanks);
-
-        g_free(nameString);
-        g_strfreev(advrenameFromList);
-        g_strfreev(advrenameToList);
-        g_free(advrenameMatchCaseList);
-    }
-    
-    gcmd_key_file_save_to_file (path, key_file);
-    
-    g_key_file_free(key_file);
-    g_free (path);
 }
 
+
+void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile)
+{
+    gchar *nameString = g_strescape (profile.name.c_str(), NULL);
+    gchar *templateString = g_strescape (profile.template_string.empty() ? "$N" : profile.template_string.c_str(), NULL);
+
+    GVariantBuilder *gVariantBuilderAdvrenameFromArray = g_variant_builder_new(G_VARIANT_TYPE("as"));
+    GVariantBuilder *gVariantBuilderAdvrenameToList = g_variant_builder_new (G_VARIANT_TYPE("as"));
+    GVariantBuilder *gVariantBuilderAdvrenameMatchCaseList = g_variant_builder_new (G_VARIANT_TYPE("ab"));
+
+    // Create arrays out of the patterns, save them in g_variant_builders
+    for (auto r : profile.regexes)
+    {
+        g_variant_builder_add (gVariantBuilderAdvrenameFromArray, "s", r.pattern.c_str());
+        g_variant_builder_add (gVariantBuilderAdvrenameToList, "s", r.replacement.c_str());
+        g_variant_builder_add (gVariantBuilderAdvrenameMatchCaseList, "b", true);
+    }
+
+    g_variant_builder_add(builder, GCMD_SETTINGS_ADVRENAME_PROFILE_FORMAT_STRING,
+        nameString,
+        templateString,
+        profile.counter_start,
+        profile.counter_step,
+        profile.counter_width,
+        profile.case_conversion,
+        profile.trim_blanks,
+        gVariantBuilderAdvrenameFromArray,
+        gVariantBuilderAdvrenameToList,
+        gVariantBuilderAdvrenameMatchCaseList
+    );
+
+    g_free(nameString);
+    g_free(templateString);
+}
 
 /**
  * Save devices in gSettings
@@ -2272,24 +2165,96 @@ static gboolean load_devices (const gchar *fname)
 }
 
 /**
- * This function reads the given file and sets up settings of the advance rename tool
- * by means of GKeyFile.
+ * This method reads the gsettings section of the advance rename tool
  */
-void GnomeCmdData::load_advrename_profiles (const gchar *fname)
+void GnomeCmdData::load_advrename_profiles ()
 {
-    GKeyFile *keyfile;
-    gsize length;
-    gchar **groups;
-    gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+    GVariant *profiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_PROFILES);
 
-    gnome_cmd_data.options.fav_apps = NULL;
+    g_autoptr(GVariantIter) iter1 = NULL;
+    g_autoptr(GVariantIter) iter2 = NULL;
+    g_autoptr(GVariantIter) iter3 = NULL;
+    g_autoptr(GVariantIter) iter4 = NULL;
 
-    keyfile = gcmd_key_file_load_from_file(path, 0);
+    g_variant_get (profiles, GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, &iter1);
 
-    //add a few default profiles here - for new users
-    if (keyfile == NULL)
+    g_autofree gchar *name = NULL;
+    gchar *template_string = NULL;
+    guint counter_start = 0;
+    guint counter_step  = 0;
+    guint counter_width = 0;
+    gboolean case_conversion = false;
+    guint trim_blanks = 0;
+    gboolean isGVariantEmpty = true;
+    guint profileNumber = 0;
+
+    while (g_variant_iter_loop (iter1,
+            GCMD_SETTINGS_ADVRENAME_PROFILE_FORMAT_STRING,
+            &name,
+            &template_string,
+            &counter_start,
+            &counter_step,
+            &counter_width,
+            &case_conversion,
+            &trim_blanks,
+            &iter2,
+            &iter3,
+            &iter4))
+    {
+        isGVariantEmpty = false;
+
+        AdvrenameConfig::Profile p;
+
+        p.reset();
+
+        p.name = name;
+        p.template_string = template_string;
+        p.counter_start = counter_start;
+        p.counter_step  = counter_step;
+        p.counter_width = counter_width;
+        p.case_conversion = case_conversion;
+        p.trim_blanks = trim_blanks;
+
+        auto regexes_from = new vector<string>;
+        auto regexes_to = new vector<string>;
+        auto regexes_match_case = new vector<gboolean>;
+
+        gchar *string;
+        while (g_variant_iter_loop (iter2, "s", &string))
+        {
+            regexes_from->push_back(string);
+        }
+        while (g_variant_iter_loop (iter3, "s", &string))
+        {
+            regexes_to->push_back(string);
+        }
+        gboolean match_case;
+        while (g_variant_iter_loop (iter4, "b", &match_case))
+            regexes_match_case->push_back(match_case);
+
+        // as the lenght in each string_list is the same, we only need one upper limit for this loop
+        for (gsize ii = 0; ii < regexes_from->size(); ii++)
+        {
+            p.regexes.push_back(GnomeCmd::ReplacePattern(regexes_from->at(ii),
+                                                         regexes_to->at(ii),
+                                                         regexes_match_case->at(ii)));
+        }
+
+        if (profileNumber == 0)
+            this->advrename_defaults.default_profile = p;
+        else
+            this->advrename_defaults.profiles.push_back(p);
+
+        ++profileNumber;
+        delete(regexes_from);
+        delete(regexes_to);
+        delete(regexes_match_case);
+    }
+
+    g_variant_unref(profiles);
+
+    // Add two sample profiles here - for new users
+    if (isGVariantEmpty)
     {
         AdvrenameConfig::Profile p;
 
@@ -2306,91 +2271,7 @@ void GnomeCmdData::load_advrename_profiles (const gchar *fname)
         p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", 0));
         p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", 0));
         this->advrename_defaults.profiles.push_back(p);
-
-        g_free(path);
-        g_key_file_free(keyfile);
-        return;
     }
-
-    groups = g_key_file_get_groups (keyfile, &length);
-
-    for (guint i = 0; i < length; i++)
-    {
-        g_autofree gchar *name                  = NULL;
-        g_autofree gchar *template_string       = NULL;
-        gchar **regexes_from                    = NULL;
-        gchar **regexes_to                      = NULL;
-        g_autofree gboolean *regexes_match_case = NULL;
-        gsize from_size, to_size, match_case_size;
-        guint counter_start = 0;
-        guint counter_step  = 0;
-        guint counter_width = 0;
-        gboolean case_conversion = false;
-        guint trim_blanks = 0;
-        GError *error = NULL;
-
-        name                   = g_strdup(groups[i]);
-        template_string        = g_key_file_get_string (keyfile, groups[i], ADVRENAME_TEMPLATE, &error);
-        if (error == NULL)
-            regexes_from       = g_key_file_get_string_list (keyfile, groups[i], ADVRENAME_FROM, &from_size, &error);
-        if (error == NULL)
-            regexes_to         = g_key_file_get_string_list (keyfile, groups[i], ADVRENAME_TO, &to_size, &error);
-        if (error == NULL)
-            regexes_match_case = g_key_file_get_boolean_list (keyfile, groups[i], ADVRENAME_MATCH_CASE, &match_case_size, &error);
-        if (error == NULL)
-            counter_start      = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_START, &error);
-        if (error == NULL)
-            counter_step       = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_STEP, &error);
-        if (error == NULL)
-            counter_width      = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_COUNTER_WIDTH, &error);
-        if (error == NULL)
-            case_conversion    = g_key_file_get_boolean (keyfile, groups[i], ADVRENAME_CASE_CONVERSION, &error);
-        if (error == NULL)
-            trim_blanks        = g_key_file_get_integer (keyfile, groups[i], ADVRENAME_TRIM_BLANKS, &error);
-
-        if (error != NULL)
-        {
-            g_warning ("Error in a key in %s, group \"%s\": %s\n", path, groups[i], error->message);
-            g_error_free (error);
-        }
-        else
-        {
-            if ((from_size != to_size) || (from_size != match_case_size) || (to_size != match_case_size))
-            {
-                g_warning ("The number of fields in 'from', 'to' and 'matchCase' are not the same. Skipping loading group \"%s\" of \"%s\".", groups[i], path);
-            }
-            else
-            {
-                AdvrenameConfig::Profile p;
-                
-                p.reset();
-                p.name = name;
-                p.template_string = template_string;
-                // as the lenght in each string_list is the same, we only need one upper limit for this loop
-                for (gsize ii = 0; ii < from_size; ii++)
-                {
-                    gchar *regexes_from_ii = g_strcompress(regexes_from[ii]);
-                    gchar *regexes_to_ii = g_strcompress(regexes_to[ii]);
-                    p.regexes.push_back(GnomeCmd::ReplacePattern(regexes_from_ii,
-                                                                 regexes_to_ii,
-                                                                 regexes_match_case[ii]));
-                    g_free(regexes_from_ii);
-                    g_free(regexes_to_ii);
-                }
-                p.counter_start = counter_start;
-                p.counter_step  = counter_step;
-                p.counter_width = counter_width;
-                p.case_conversion = case_conversion;
-                p.trim_blanks = trim_blanks;
-                this->advrename_defaults.profiles.push_back(p);
-            }
-        }
-        g_strfreev(regexes_from);
-        g_strfreev(regexes_to);
-    }
-    g_free(path);
-    g_strfreev(groups);
-    g_key_file_free(keyfile);
 }
 
 
@@ -3454,7 +3335,7 @@ void GnomeCmdData::load()
         set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY, advrename_defaults.templates.ents);
 
         // Convert xml to keyfiles by using the save methods.
-        save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
+        save_advrename_profiles();
 
         // Convert directory history
         save_directory_history();
@@ -3474,7 +3355,7 @@ void GnomeCmdData::load()
 
     g_free (xml_cfg_path);
 
-    load_advrename_profiles (ADVRENAME_CONFIG_FILENAME);
+    load_advrename_profiles ();
     if (load_fav_apps_old(FAV_APPS_FILENAME) == FALSE)
         load_fav_apps_from_gsettings();
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
@@ -3828,7 +3709,7 @@ void GnomeCmdData::save()
     save_cmdline_history            ();
     save_directory_history          ();
 
-    save_advrename_profiles(ADVRENAME_CONFIG_FILENAME);
+    save_advrename_profiles();
     save_intviewer_defaults();
 
     save_auto_load_plugins();

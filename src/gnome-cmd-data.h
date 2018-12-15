@@ -116,6 +116,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH            "advrename-win-width"
 #define GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT           "advrename-win-height"
 #define GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY "advrename-template-history"
+#define GCMD_SETTINGS_ADVRENAME_PROFILES              "advrename-profiles"
+#define GCMD_SETTINGS_ADVRENAME_PROFILE_FORMAT_STRING "(ssuiuuuasasab)"
+#define GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING "a(ssuiuuuasasab)"
 #define GCMD_SETTINGS_FILE_LIST_TABS                  "file-list-tabs"
 #define GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING     "(syybb)"
 #define GCMD_SETTINGS_DEVICES                         "devices"
@@ -209,17 +212,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"
 
 //gKeyFile constants
-#define ADVRENAME_CONFIG_FILENAME                     "advrename-profiles"
-#define ADVRENAME_TEMPLATE                            "template"
-#define ADVRENAME_DEFAULT_TEMPLATE                    "Default"
-#define ADVRENAME_FROM                                "from"
-#define ADVRENAME_TO                                  "to"
-#define ADVRENAME_MATCH_CASE                          "matchCase"
-#define ADVRENAME_COUNTER_START                       "counterStart"
-#define ADVRENAME_COUNTER_STEP                        "counterStep"
-#define ADVRENAME_COUNTER_WIDTH                       "counterWidth"
-#define ADVRENAME_CASE_CONVERSION                     "caseConversion"
-#define ADVRENAME_TRIM_BLANKS                         "trimBlanks"
 #define DEVICES_FILENAME                              "devices"
 #define DEVICES_DEVICE                                "device"
 #define DEVICES_MOUNT_POINT                           "mount_point"
@@ -637,6 +629,7 @@ struct GnomeCmdData
     void save_intviewer_defaults();
     void save_devices_via_gsettings();
     void save_fav_apps_via_gsettings();
+    void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
     inline gint get_int (const gchar *path, int def);
     inline gchar* get_string (const gchar *path, const gchar *def);
     inline void set_string (const gchar *path, const gchar *value);
@@ -701,8 +694,8 @@ struct GnomeCmdData
     gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
     void load_more();
     inline GList* load_string_history (const gchar *format, gint size);
-    void load_advrename_profiles (const gchar *fname);
-    void save_advrename_profiles (const gchar *fname);
+    void load_advrename_profiles ();
+    void save_advrename_profiles ();
     void save();
     void save_xml ();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
