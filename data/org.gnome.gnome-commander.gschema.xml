@@ -493,6 +493,20 @@
           This option defines the height of the search window.
       </description>
     </key>
+    <key name="search-text-history" type="as">
+      <default>[]</default>
+      <summary>Search text history</summary>
+      <description>
+          This string array represents the history of text searches in the search tool.
+      </description>
+    </key>
+    <key name="search-pattern-history" type="as">
+      <default>[]</default>
+      <summary>Search pattern history</summary>
+      <description>
+          This string array represents the history of regular expression searches in the search tool.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">

@@ -128,6 +128,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_DIRECTORY_HISTORY               "directory-history"
 #define GCMD_SETTINGS_SEARCH_WIN_WIDTH                "search-win-width"
 #define GCMD_SETTINGS_SEARCH_WIN_HEIGHT               "search-win-height"
+#define GCMD_SETTINGS_SEARCH_PATTERN_HISTORY          "search-pattern-history"
+#define GCMD_SETTINGS_SEARCH_TEXT_HISTORY             "search-text-history"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -628,6 +630,7 @@ struct GnomeCmdData
     gboolean save_auto_load_plugins();
     void save_cmdline_history();
     void save_directory_history();
+    void save_search_history();
     void save_intviewer_defaults();
     void save_devices_via_gsettings();
     void save_fav_apps_via_gsettings();
