@@ -2400,32 +2400,27 @@ gboolean GnomeCmdData::set_gsettings_string_array_from_glist (GSettings *setting
 {
     gboolean rv = true;
 
-    if (strings == NULL)
+    if (strings == nullptr)
     {
-        rv = g_settings_set_strv(settings_given, key, NULL);
+        rv = g_settings_set_strv(settings_given, key, nullptr);
     }
     else
     {
         guint ii;
-        guint numberOfStrings = g_list_length (strings);
+        auto numberOfStrings = g_list_length (strings);
         gchar** str_array;
-        str_array = (gchar**) g_malloc ((numberOfStrings + 1) * sizeof(char*));
+        str_array = new char * [numberOfStrings + 1];
 
         // Build up a NULL terminated char array for storage in GSettings
         for (ii = 0; strings; strings = strings->next, ++ii)
         {
-            str_array[ii] = g_strdup((const gchar*) strings->data);
+            str_array[ii] = (gchar*) strings->data;
         }
-        str_array[ii] = NULL;
+        str_array[ii] = nullptr;
 
         rv = g_settings_set_strv(settings_given, key, str_array);
 
-        // Free the char array
-        for (ii = 0; ii < (numberOfStrings + 1); ii++)
-        {
-            g_free(str_array[ii]);
-        }
-        g_free(str_array);
+        delete[](str_array);
     }
     return rv;
 }
