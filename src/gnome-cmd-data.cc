@@ -3538,7 +3538,7 @@ void GnomeCmdData::save_xml ()
 gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings_given, const char *key)
 {
     GVariant *variant;
-    gint rv = true;
+    gboolean rv = true;
 
     variant = g_settings_get_default_value (settings_given, key);
 
@@ -3560,7 +3560,7 @@ gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user
         str_array[0] = g_strdup(user_value);
         str_array[1] = NULL;
 
-        rv = (gint) g_settings_set_strv(settings_given, key, str_array);
+        rv = g_settings_set_strv(settings_given, key, str_array);
 
         g_free(str_array[0]);
         g_free(str_array[1]);
