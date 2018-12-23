@@ -1588,6 +1588,50 @@ static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
     xml << XML::endtag("Group");
 }
 
+
+/**
+ * Save search profiles in gSettings.
+ * The first profile is the active profile, i.e. the one which is used currently.
+ * The others are profiles which can be choosen in the profile dialoge.
+ */
+void GnomeCmdData::save_search_profiles ()
+{
+    GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
+    add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
+
+    for (auto profile : selections)
+    {
+        add_search_profile_to_gvariant_builder(gVariantBuilder, profile);
+    }
+
+    GVariant* profilesToStore = g_variant_new(GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, gVariantBuilder);
+    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES, profilesToStore);
+    g_variant_builder_unref(gVariantBuilder);
+}
+
+
+void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, GnomeCmdData::Selection profile)
+{
+    gchar *nameString = g_strescape (profile.name.c_str(), NULL);
+    gchar *filenamePattern = g_strescape (profile.filename_pattern.c_str(), NULL);
+    gchar *textPattern = g_strescape (profile.text_pattern.c_str(), NULL);
+
+    g_variant_builder_add(builder, GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
+        nameString,
+        profile.max_depth,
+        (gint) profile.syntax,
+        filenamePattern,
+        profile.content_search,
+        profile.match_case,
+        textPattern
+    );
+
+    g_free(nameString);
+    g_free(filenamePattern);
+    g_free(textPattern);
+}
+
+
 /**
  * Save advance rename tool profiles in gSettings.
  * The first profile is the active profile, i.e. the one which is used currently.
@@ -1607,7 +1651,6 @@ void GnomeCmdData::save_advrename_profiles ()
     GVariant* profilesToStore = g_variant_new(GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, gVariantBuilder);
     g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_PROFILES, profilesToStore);
     g_variant_builder_unref(gVariantBuilder);
-
 }
 
 
@@ -1644,6 +1687,7 @@ void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *bu
     g_free(nameString);
     g_free(templateString);
 }
+
 
 /**
  * Save devices in gSettings
@@ -2272,6 +2316,58 @@ void GnomeCmdData::load_advrename_profiles ()
         p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", 0));
         this->advrename_defaults.profiles.push_back(p);
     }
+}
+
+
+/**
+ * This method reads the gsettings section of the search tool profiles
+ */
+void GnomeCmdData::load_search_profiles ()
+{
+    GVariant *profiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
+
+    g_autoptr(GVariantIter) iter1 = nullptr;
+
+    g_variant_get (profiles, GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, &iter1);
+
+    g_autofree gchar *name = nullptr;
+    gint maxDepth = 0;
+    gint syntax = 0;
+    gchar* filenamePattern = nullptr;
+    gboolean contentSearch = false;
+    gboolean matchCase = false;
+    gchar* textPattern = nullptr;
+    guint profileNumber = 0;
+
+    while (g_variant_iter_loop (iter1,
+            GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
+            &name,
+            &maxDepth,
+            &syntax,
+            &filenamePattern,
+            &contentSearch,
+            &matchCase,
+            &textPattern))
+    {
+        Selection selection;
+
+        selection.name             = name;
+        selection.max_depth        = maxDepth;
+        selection.syntax           = syntax == 0 ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+        selection.filename_pattern = filenamePattern;
+        selection.content_search   = contentSearch;
+        selection.match_case       = matchCase;
+        selection.text_pattern     = textPattern;
+
+        if (profileNumber == 0)
+            search_defaults.default_profile = selection;
+        else
+            selections.push_back(selection);
+
+        ++profileNumber;
+    }
+
+    g_variant_unref(profiles);
 }
 
 
@@ -3352,6 +3448,7 @@ void GnomeCmdData::load()
 
         // Convert xml to keyfiles by using the save methods.
         save_advrename_profiles();
+        save_search_profiles();
 
         // Convert directory history
         save_directory_history();
@@ -3372,6 +3469,8 @@ void GnomeCmdData::load()
     g_free (xml_cfg_path);
 
     load_advrename_profiles ();
+    load_search_profiles    ();
+
     if (load_fav_apps_old(FAV_APPS_FILENAME) == FALSE)
         load_fav_apps_from_gsettings();
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
@@ -3727,6 +3826,7 @@ void GnomeCmdData::save()
     save_cmdline_history            ();
     save_directory_history          ();
     save_search_history             ();
+    save_search_profiles            ();
 
     save_advrename_profiles();
     save_intviewer_defaults();

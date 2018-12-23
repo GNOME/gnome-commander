@@ -507,6 +507,13 @@
           This string array represents the history of regular expression searches in the search tool.
       </description>
     </key>
+    <key name="search-profiles" type="a(siisbbs)">
+      <default>[]</default>
+      <summary>List of search tool profiles</summary>
+      <description>
+          The entries in this array represent the profiles in the search tool with specific settings for each profile.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.network" path="/org/gnome/gnome-commander/preferences/network/">
     <key name="quick-connect-uri" type="s">

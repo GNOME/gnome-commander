@@ -130,6 +130,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SEARCH_WIN_HEIGHT               "search-win-height"
 #define GCMD_SETTINGS_SEARCH_PATTERN_HISTORY          "search-pattern-history"
 #define GCMD_SETTINGS_SEARCH_TEXT_HISTORY             "search-text-history"
+#define GCMD_SETTINGS_SEARCH_PROFILES                 "search-profiles"
+#define GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING    "(siisbbs)"
+#define GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING   "a(siisbbs)"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -635,6 +638,7 @@ struct GnomeCmdData
     void save_devices_via_gsettings();
     void save_fav_apps_via_gsettings();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
+    void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, Selection profile);
     inline gint get_int (const gchar *path, int def);
     inline gchar* get_string (const gchar *path, const gchar *def);
     inline void set_string (const gchar *path, const gchar *value);
@@ -701,6 +705,8 @@ struct GnomeCmdData
     inline GList* load_string_history (const gchar *format, gint size);
     void load_advrename_profiles ();
     void save_advrename_profiles ();
+    void load_search_profiles ();
+    void save_search_profiles ();
     void save();
     void save_xml ();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
