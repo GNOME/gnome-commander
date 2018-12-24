@@ -520,7 +520,7 @@ struct GnomeCmdData
         void on_size_display_mode_changed();
     };
 
-    struct Selection
+    struct SearchProfile
     {
         std::string name;
         std::string filename_pattern;
@@ -530,27 +530,35 @@ struct GnomeCmdData
         gboolean content_search;
         gboolean match_case;
 
-        Selection(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
-        ~Selection() {}
+        SearchProfile(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
+        ~SearchProfile() {}
 
         const std::string &description() const    {  return filename_pattern;  }
         void reset();
 
-        friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
+        friend XML::xstream &operator << (XML::xstream &xml, SearchProfile &cfg);
     };
 
     struct SearchConfig
     {
         gint width, height;
 
-        Selection default_profile;
+        SearchProfile default_profile;
 
         History name_patterns;
         History content_patterns;
 
-        std::vector<Selection> &profiles;
+        std::vector<SearchProfile> &profiles;
 
-        explicit SearchConfig(std::vector<Selection> &selections): width(600), height(400), name_patterns(SEARCH_HISTORY_SIZE), content_patterns(SEARCH_HISTORY_SIZE), profiles(selections)   {  default_profile.name = "Default";  }
+        explicit SearchConfig(std::vector<SearchProfile> &searchProfiles):
+            width(600),
+            height(400),
+            name_patterns(SEARCH_HISTORY_SIZE),
+            content_patterns(SEARCH_HISTORY_SIZE),
+            profiles(searchProfiles)
+        {
+            default_profile.name = "Default";
+        }
 
         friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
         ~SearchConfig() {};
@@ -638,7 +646,7 @@ struct GnomeCmdData
     void save_devices_via_gsettings();
     void save_fav_apps_via_gsettings();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
-    void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, Selection profile);
+    void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
     inline gint get_int (const gchar *path, int def);
     inline gchar* get_string (const gchar *path, const gchar *def);
     inline void set_string (const gchar *path, const gchar *value);
@@ -652,7 +660,7 @@ struct GnomeCmdData
     Options                      options;
     GcmdSettings                 *settings;
 
-    std::vector<Selection>       selections;
+    std::vector<SearchProfile>   profiles;
 
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;

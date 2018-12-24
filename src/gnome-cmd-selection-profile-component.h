@@ -46,14 +46,14 @@ struct GnomeCmdSelectionProfileComponent
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_SELECTION_PROFILE_COMPONENT, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    GnomeCmdData::Selection &profile;
+    GnomeCmdData::SearchProfile &profile;
 
-    GnomeCmdSelectionProfileComponent(GnomeCmdData::Selection &profile, GtkWidget *widget=NULL, gchar *label=NULL);
+    GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &profile, GtkWidget *widget=NULL, gchar *label=NULL);
     ~GnomeCmdSelectionProfileComponent()    {}
 
     void update();
     void copy();                                        //  copies component to associated profile
-    void copy(GnomeCmdData::Selection &profile);        //  copies component to specified profile
+    void copy(GnomeCmdData::SearchProfile &profile);    //  copies component to specified profile
     void set_focus();
 
     void set_name_patterns_history(GList *history);

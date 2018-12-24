@@ -88,7 +88,7 @@ static DICT<guint> xml_elem_names(XML_ELEM_NOT_FOUND);
 static stack<string> xml_paths;
 
 static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
-static GnomeCmdData::Selection xml_search_profile;
+static GnomeCmdData::SearchProfile xml_search_profile;
 
 static DICT<FileSelectorID> xml_fs_names(INACTIVE);
 static FileSelectorID xml_fs = INACTIVE;
@@ -462,7 +462,7 @@ static void xml_end (GMarkupParseContext *context,
 
         case XML_GNOMECOMMANDER_SELECTIONS_PROFILE:
             if (xml_search_profile.name!="Default")
-                cfg->selections.push_back(xml_search_profile);
+                cfg->profiles.push_back(xml_search_profile);
             break;
 
         default:

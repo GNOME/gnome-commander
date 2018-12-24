@@ -1499,7 +1499,7 @@ gboolean GnomeCmdData::Options::is_name_double(const gchar *name_to_test)
     return foundstate;
 }
 
-void GnomeCmdData::Selection::reset()
+void GnomeCmdData::SearchProfile::reset()
 {
     name.clear();
     filename_pattern.clear();
@@ -1599,7 +1599,7 @@ void GnomeCmdData::save_search_profiles ()
     GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
     add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
 
-    for (auto profile : selections)
+    for (auto profile : profiles)
     {
         add_search_profile_to_gvariant_builder(gVariantBuilder, profile);
     }
@@ -1610,19 +1610,19 @@ void GnomeCmdData::save_search_profiles ()
 }
 
 
-void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, GnomeCmdData::Selection profile)
+void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, GnomeCmdData::SearchProfile searchProfile)
 {
-    gchar *nameString = g_strescape (profile.name.c_str(), NULL);
-    gchar *filenamePattern = g_strescape (profile.filename_pattern.c_str(), NULL);
-    gchar *textPattern = g_strescape (profile.text_pattern.c_str(), NULL);
+    gchar *nameString = g_strescape (searchProfile.name.c_str(), NULL);
+    gchar *filenamePattern = g_strescape (searchProfile.filename_pattern.c_str(), NULL);
+    gchar *textPattern = g_strescape (searchProfile.text_pattern.c_str(), NULL);
 
     g_variant_builder_add(builder, GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
         nameString,
-        profile.max_depth,
-        (gint) profile.syntax,
+        searchProfile.max_depth,
+        (gint) searchProfile.syntax,
         filenamePattern,
-        profile.content_search,
-        profile.match_case,
+        searchProfile.content_search,
+        searchProfile.match_case,
         textPattern
     );
 
@@ -2213,14 +2213,14 @@ static gboolean load_devices (const gchar *fname)
  */
 void GnomeCmdData::load_advrename_profiles ()
 {
-    GVariant *profiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_PROFILES);
+    GVariant *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_PROFILES);
 
     g_autoptr(GVariantIter) iter1 = NULL;
     g_autoptr(GVariantIter) iter2 = NULL;
     g_autoptr(GVariantIter) iter3 = NULL;
     g_autoptr(GVariantIter) iter4 = NULL;
 
-    g_variant_get (profiles, GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, &iter1);
+    g_variant_get (gVariantProfiles, GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, &iter1);
 
     g_autofree gchar *name = NULL;
     gchar *template_string = NULL;
@@ -2285,9 +2285,9 @@ void GnomeCmdData::load_advrename_profiles ()
         }
 
         if (profileNumber == 0)
-            this->advrename_defaults.default_profile = p;
+            advrename_defaults.default_profile = p;
         else
-            this->advrename_defaults.profiles.push_back(p);
+            advrename_defaults.profiles.push_back(p);
 
         ++profileNumber;
         delete(regexes_from);
@@ -2295,7 +2295,7 @@ void GnomeCmdData::load_advrename_profiles ()
         delete(regexes_match_case);
     }
 
-    g_variant_unref(profiles);
+    g_variant_unref(gVariantProfiles);
 
     // Add two sample profiles here - for new users
     if (isGVariantEmpty)
@@ -2308,13 +2308,13 @@ void GnomeCmdData::load_advrename_profiles ()
         p.regexes.push_back(GnomeCmd::ReplacePattern("[ _]+", " ", 0));
         p.regexes.push_back(GnomeCmd::ReplacePattern("[fF]eat\\.", "fr.", 1));
         p.counter_width = 1;
-        this->advrename_defaults.profiles.push_back(p);
+        advrename_defaults.profiles.push_back(p);
 
         p.reset();
         p.name = "CamelCase";
         p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", 0));
         p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", 0));
-        this->advrename_defaults.profiles.push_back(p);
+        advrename_defaults.profiles.push_back(p);
     }
 }
 
@@ -2324,11 +2324,11 @@ void GnomeCmdData::load_advrename_profiles ()
  */
 void GnomeCmdData::load_search_profiles ()
 {
-    GVariant *profiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
+    GVariant *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
 
     g_autoptr(GVariantIter) iter1 = nullptr;
 
-    g_variant_get (profiles, GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, &iter1);
+    g_variant_get (gVariantProfiles, GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, &iter1);
 
     g_autofree gchar *name = nullptr;
     gint maxDepth = 0;
@@ -2349,25 +2349,27 @@ void GnomeCmdData::load_search_profiles ()
             &matchCase,
             &textPattern))
     {
-        Selection selection;
+        SearchProfile searchProfile;
 
-        selection.name             = name;
-        selection.max_depth        = maxDepth;
-        selection.syntax           = syntax == 0 ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
-        selection.filename_pattern = filenamePattern;
-        selection.content_search   = contentSearch;
-        selection.match_case       = matchCase;
-        selection.text_pattern     = textPattern;
+        searchProfile.reset();
+
+        searchProfile.name             = name;
+        searchProfile.max_depth        = maxDepth;
+        searchProfile.syntax           = syntax == 0 ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+        searchProfile.filename_pattern = filenamePattern;
+        searchProfile.content_search   = contentSearch;
+        searchProfile.match_case       = matchCase;
+        searchProfile.text_pattern     = textPattern;
 
         if (profileNumber == 0)
-            search_defaults.default_profile = selection;
+            search_defaults.default_profile = searchProfile;
         else
-            selections.push_back(selection);
+            profiles.push_back(searchProfile);
 
         ++profileNumber;
     }
 
-    g_variant_unref(profiles);
+    g_variant_unref(gVariantProfiles);
 }
 
 
@@ -2675,7 +2677,7 @@ inline void GnomeCmdData::load_auto_load_plugins()
 }
 
 
-GnomeCmdData::GnomeCmdData(): search_defaults(selections)
+GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
 {
     quick_connect = NULL;
 
@@ -3616,7 +3618,7 @@ void GnomeCmdData::save_xml ()
     xml << XML::endtag("Bookmarks");
 
     xml << XML::tag("Selections");
-    for (vector<Selection>::iterator i=selections.begin(); i!=selections.end(); ++i)
+    for (vector<SearchProfile>::iterator i=profiles.begin(); i!=profiles.end(); ++i)
         xml << *i;
     xml << XML::endtag("Selections");
 
@@ -4137,7 +4139,7 @@ const gchar *gnome_cmd_data_get_symlink_prefix ()
 }
 
 
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchProfile &cfg)
 {
     xml << XML::tag("Profile") << XML::attr("name") << XML::escape(cfg.name);
 

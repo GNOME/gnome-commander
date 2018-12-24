@@ -181,7 +181,7 @@ static void gnome_cmd_selection_profile_component_class_init (GnomeCmdSelectionP
 }
 
 
-GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdData::Selection &p, GtkWidget *widget, gchar *label): profile(p)
+GnomeCmdSelectionProfileComponent::GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &p, GtkWidget *widget, gchar *label): profile(p)
 {
     if (widget)
     {
@@ -234,7 +234,7 @@ void GnomeCmdSelectionProfileComponent::copy()
 }
 
 
-void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::Selection &profile_in)
+void GnomeCmdSelectionProfileComponent::copy(GnomeCmdData::SearchProfile &profile_in)
 {
     stringify(profile_in.filename_pattern, gtk_combo_box_get_active_text (GTK_COMBO_BOX (priv->pattern_combo)));
     profile_in.syntax = (Filter::Type) gtk_combo_box_get_active (GTK_COMBO_BOX (priv->filter_type_combo));
