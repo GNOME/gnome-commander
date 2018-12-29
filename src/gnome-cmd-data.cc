@@ -1597,7 +1597,13 @@ static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 void GnomeCmdData::save_search_profiles ()
 {
     GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
-    add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
+    if (options.save_search_history_on_exit)
+        add_search_profile_to_gvariant_builder(gVariantBuilder, search_defaults.default_profile);
+    else
+    {
+        SearchProfile searchProfile;
+        add_search_profile_to_gvariant_builder(gVariantBuilder, searchProfile);
+    }
 
     for (auto profile : profiles)
     {
@@ -2350,8 +2356,6 @@ void GnomeCmdData::load_search_profiles ()
             &textPattern))
     {
         SearchProfile searchProfile;
-
-        searchProfile.reset();
 
         searchProfile.name             = name;
         searchProfile.max_depth        = maxDepth;

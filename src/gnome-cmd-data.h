@@ -524,14 +524,11 @@ struct GnomeCmdData
     {
         std::string name;
         std::string filename_pattern;
-        Filter::Type syntax;
-        int max_depth;
+        Filter::Type syntax {Filter::TYPE_REGEX};
+        int max_depth {-1};
         std::string text_pattern;
-        gboolean content_search;
-        gboolean match_case;
-
-        SearchProfile(): syntax(Filter::TYPE_REGEX), max_depth(-1), content_search(FALSE), match_case(FALSE)       {}
-        ~SearchProfile() {}
+        gboolean content_search {FALSE};
+        gboolean match_case {FALSE};
 
         const std::string &description() const    {  return filename_pattern;  }
         void reset();
