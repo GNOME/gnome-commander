@@ -2685,8 +2685,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
 {
     quick_connect = NULL;
 
-    XML_cfg_has_bookmarks = FALSE;
-
     horizontal_orientation = FALSE;
 
     show_toolbar = TRUE;
@@ -3222,7 +3220,6 @@ void GnomeCmdData::load()
 
     advrename_defaults.width = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH);
     advrename_defaults.height = g_settings_get_uint (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT);
-
     advrename_defaults.templates.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY);
 
     load_tabs_from_gsettings();

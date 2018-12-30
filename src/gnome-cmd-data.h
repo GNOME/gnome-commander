@@ -652,8 +652,6 @@ struct GnomeCmdData
 
   public:
 
-    gboolean                     XML_cfg_has_bookmarks;
-
     Options                      options;
     GcmdSettings                 *settings;
 
