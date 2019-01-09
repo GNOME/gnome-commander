@@ -1682,7 +1682,7 @@ void GnomeCmdData::save_search_profiles ()
 }
 
 
-void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, GnomeCmdData::SearchProfile searchProfile)
+void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile)
 {
     gchar *nameString = g_strescape (searchProfile.name.c_str(), NULL);
     gchar *filenamePattern = g_strescape (searchProfile.filename_pattern.c_str(), NULL);
@@ -2347,7 +2347,7 @@ void GnomeCmdData::load_advrename_profiles ()
 
     g_variant_get (gVariantProfiles, GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, &iter1);
 
-    g_autofree gchar *name = NULL;
+    gchar *name = NULL;
     gchar *template_string = NULL;
     guint counter_start = 0;
     guint counter_step  = 0;
@@ -2372,20 +2372,20 @@ void GnomeCmdData::load_advrename_profiles ()
     {
         isGVariantEmpty = false;
 
-        AdvrenameConfig::Profile p;
+        AdvrenameConfig::Profile profile;
 
-        p.reset();
+        profile.reset();
 
-        p.name = name;
-        p.template_string = template_string;
-        p.counter_start = counter_start;
-        p.counter_step  = counter_step;
-        p.counter_width = counter_width;
-        p.case_conversion = case_conversion;
-        p.trim_blanks = trim_blanks;
+        profile.name            = name;
+        profile.template_string = template_string;
+        profile.counter_start   = counter_start;
+        profile.counter_step    = counter_step;
+        profile.counter_width   = counter_width;
+        profile.case_conversion = case_conversion;
+        profile.trim_blanks     = trim_blanks;
 
-        auto regexes_from = new vector<string>;
-        auto regexes_to = new vector<string>;
+        auto regexes_from       = new vector<string>;
+        auto regexes_to         = new vector<string>;
         auto regexes_match_case = new vector<gboolean>;
 
         gchar *string;
@@ -2404,15 +2404,15 @@ void GnomeCmdData::load_advrename_profiles ()
         // as the lenght in each string_list is the same, we only need one upper limit for this loop
         for (gsize ii = 0; ii < regexes_from->size(); ii++)
         {
-            p.regexes.push_back(GnomeCmd::ReplacePattern(regexes_from->at(ii),
-                                                         regexes_to->at(ii),
-                                                         regexes_match_case->at(ii)));
+            profile.regexes.push_back(GnomeCmd::ReplacePattern(regexes_from->at(ii),
+                                                               regexes_to->at(ii),
+                                                               regexes_match_case->at(ii)));
         }
 
         if (profileNumber == 0)
-            advrename_defaults.default_profile = p;
+            advrename_defaults.default_profile = profile;
         else
-            advrename_defaults.profiles.push_back(p);
+            advrename_defaults.profiles.push_back(profile);
 
         ++profileNumber;
         delete(regexes_from);
@@ -2451,18 +2451,18 @@ void GnomeCmdData::load_search_profiles ()
 {
     GVariant *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
 
-    g_autoptr(GVariantIter) iter1 = nullptr;
+    g_autoptr(GVariantIter) iter1 {nullptr};
 
     g_variant_get (gVariantProfiles, GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, &iter1);
 
-    g_autofree gchar *name = nullptr;
-    gint maxDepth = 0;
-    gint syntax = 0;
-    gchar* filenamePattern = nullptr;
-    gboolean contentSearch = false;
-    gboolean matchCase = false;
-    gchar* textPattern = nullptr;
-    guint profileNumber = 0;
+    gchar *name {nullptr};
+    gint maxDepth {0};
+    gint syntax {0};
+    gchar* filenamePattern {nullptr};
+    gboolean contentSearch {false};
+    gboolean matchCase {false};
+    gchar* textPattern {nullptr};
+    guint profileNumber {0};
 
     while (g_variant_iter_loop (iter1,
             GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
@@ -3562,7 +3562,7 @@ void GnomeCmdData::load()
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
         save_devices_via_gsettings();
 
-    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+    g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
     // ToDo: Remove the check for xml cfg file in gcmd version >= 1.9.0
     if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
@@ -3578,19 +3578,15 @@ void GnomeCmdData::load()
         save_directory_history();
 
         // Move gnome-commander.xml to gnome-commander.xml.deprecated
-        gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
-        gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml.deprecated", NULL);
-        int rv;
-        rv = rename (xml_cfg_path_old, xml_cfg_path_new);
+        g_autofree gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+        g_autofree gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml.deprecated", NULL);
+
+        auto rv = rename (xml_cfg_path_old, xml_cfg_path_new);
         if (rv == -1)
         {
             g_warning("xml config file could not be renamed to \"%s\".", xml_cfg_path_new);
         }
-        g_free (xml_cfg_path_old);
-        g_free (xml_cfg_path_new);
     }
-
-    g_free (xml_cfg_path);
 
     load_advrename_profiles ();
     load_search_profiles    ();
@@ -3601,9 +3597,9 @@ void GnomeCmdData::load()
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
         save_fav_apps_via_gsettings();
 
-    priv->con_list->unlock();
+    load_directory_history  ();
 
-    load_directory_history();
+    priv->con_list->unlock();
 
     gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
     quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);

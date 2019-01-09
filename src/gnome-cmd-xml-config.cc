@@ -274,7 +274,6 @@ static void xml_start(GMarkupParseContext *context,
             break;
 
         case XML_GNOMECOMMANDER_BOOKMARKS:
-            cfg->XML_cfg_has_bookmarks = TRUE;
             break;
 
         case XML_GNOMECOMMANDER_BOOKMARKS_GROUP:
