@@ -133,6 +133,12 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_SEARCH_PROFILES                 "search-profiles"
 #define GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING    "(siisbbs)"
 #define GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING   "a(siisbbs)"
+#define GCMD_SETTINGS_BOOKMARKS                       "bookmarks"
+#define GCMD_SETTINGS_BOOKMARK_FORMAT_STRING          "(bsss)"
+#define GCMD_SETTINGS_BOOKMARKS_FORMAT_STRING         "a(bsss)"
+#define GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH          "bookmarks-win-width"
+#define GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH          "bookmarks-win-width"
+#define GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT         "bookmarks-win-height"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -612,9 +618,7 @@ struct GnomeCmdData
 
     struct BookmarksConfig
     {
-        gint width, height;
-
-        BookmarksConfig(): width(400), height(250)   {}
+        gint width {400}, height {250};
 
         friend XML::xstream &operator << (XML::xstream &xml, BookmarksConfig &cfg);
     };
@@ -636,6 +640,7 @@ struct GnomeCmdData
     void load_directory_history();
     void load_intviewer_defaults();
     gboolean save_auto_load_plugins();
+    void load_bookmarks();
     void save_cmdline_history();
     void save_directory_history();
     void save_search_history();
@@ -643,6 +648,7 @@ struct GnomeCmdData
     void save_devices_via_gsettings();
     void save_fav_apps_via_gsettings();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
+    gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
     void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
     inline gint get_int (const gchar *path, int def);
     inline gchar* get_string (const gchar *path, const gchar *def);
@@ -710,6 +716,7 @@ struct GnomeCmdData
     void save_advrename_profiles ();
     void load_search_profiles ();
     void save_search_profiles ();
+    void save_bookmarks();
     void save();
     void save_xml ();
     gint gnome_cmd_data_get_int (const gchar *path, int def);

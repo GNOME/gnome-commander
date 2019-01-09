@@ -247,6 +247,27 @@
           This option defines the width of the main window.
       </description>
     </key>
+    <key name="bookmarks" type="a(bsss)">
+      <default>[]</default>
+      <summary>List of bookmarks</summary>
+      <description>
+          Each entry in this list represents a bookmark.
+      </description>
+    </key>
+    <key name="bookmarks-win-width" type="u">
+      <default>400</default>
+      <summary>Bookmarks window width</summary>
+      <description>
+          This option defines the width of the bookmarks window.
+      </description>
+    </key>
+    <key name="bookmarks-win-height" type="u">
+      <default>250</default>
+      <summary>Bookmarks window height</summary>
+      <description>
+          This option defines the height of the bookmarks window.
+      </description>
+    </key>
     <key name="main-win-height" type="u">
       <default>400</default>
       <summary>Main window height</summary>

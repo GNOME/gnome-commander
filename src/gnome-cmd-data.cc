@@ -1589,6 +1589,72 @@ static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
 }
 
 
+void GnomeCmdData::save_bookmarks()
+{
+    gboolean hasBookmarks = false;
+    GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
+    g_variant_builder_init (gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+
+    // Home
+    auto *con = priv->con_list->get_home();
+    hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "Home", con);
+
+    // Samba
+#ifdef HAVE_SAMBA
+    con = priv->con_list->get_smb();
+    hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, "SMB", con);
+#endif
+
+    // Others
+    for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
+    {
+        con = GNOME_CMD_CON (i->data);
+        std::string bookmarkGroupName = XML::escape(gnome_cmd_con_get_alias (con));
+        hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, bookmarkGroupName, con);
+    }
+
+    if (!hasBookmarks)
+    {
+        GVariant* bookmarksToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
+    }
+    else
+    {
+        GVariant* bookmarksToStore = g_variant_builder_end (gVariantBuilder);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
+    }
+
+    g_variant_builder_unref(gVariantBuilder);
+}
+
+
+gboolean GnomeCmdData::add_bookmark_to_gvariant_builder(GVariantBuilder *gVariantBuilder, std::string bookmarkGroupName, GnomeCmdCon *con)
+{
+    if (!con)
+        return FALSE;
+
+    GList *bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks;
+
+    if (!bookmarks)
+        return FALSE;
+
+    gboolean isRemote = GNOME_CMD_IS_CON_REMOTE (con) ? TRUE : FALSE;
+
+    for (GList *i = bookmarks; i; i = i->next)
+    {
+        auto bookmark = (GnomeCmdBookmark *) (i->data);
+
+        g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_BOOKMARK_FORMAT_STRING,
+                               isRemote,
+                               bookmarkGroupName.c_str(),
+                               bookmark->name,
+                               bookmark->path
+                              );
+    }
+    return TRUE;
+}
+
+
 /**
  * Save search profiles in gSettings.
  * The first profile is the active profile, i.e. the one which is used currently.
@@ -2139,6 +2205,58 @@ static void load_vfs_auto_devices ()
 }
 
 
+void GnomeCmdData::load_bookmarks()
+{
+    GnomeCmdCon *gnomeCmdCon {nullptr};
+
+    GVariant *gVariantBookmarks = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
+
+    g_autoptr(GVariantIter) iter1 {nullptr};
+
+    g_variant_get (gVariantBookmarks, GCMD_SETTINGS_BOOKMARKS_FORMAT_STRING, &iter1);
+
+    gboolean isRemote {false};
+    gchar *bookmarkGroupName {nullptr};
+    gchar *bookmarkName {nullptr};
+    gchar *bookmarkPath {nullptr};
+
+    while (g_variant_iter_loop (iter1,
+            GCMD_SETTINGS_BOOKMARK_FORMAT_STRING,
+            &isRemote,
+            &bookmarkGroupName,
+            &bookmarkName,
+            &bookmarkPath))
+    {
+        if (isRemote)
+            gnomeCmdCon = gnome_cmd_con_list_get()->find_alias(bookmarkGroupName);
+        else
+        {
+            if (strcmp(bookmarkGroupName, "Home") == 0)
+            {
+                gnomeCmdCon = gnome_cmd_con_list_get()->get_home();
+            }
+            else
+            {
+#ifdef HAVE_SAMBA
+                if (strcmp(bookmarkGroupName, "SMB") == 0)
+                {
+                    gnomeCmdCon = gnome_cmd_con_list_get()->get_smb();
+                }
+                else
+#endif
+                    gnomeCmdCon = NULL;
+            }
+        }
+        if (!gnomeCmdCon)
+            g_warning ("<Bookmarks> unknown connection: '%s' - ignored", bookmarkGroupName);
+        else
+            gnome_cmd_con_add_bookmark (gnomeCmdCon, g_strdup(bookmarkName), g_strdup(bookmarkPath));
+    }
+
+    g_variant_unref(gVariantBookmarks);
+}
+
+
 /**
  * This function reads the given file and sets up additional devices by
  * means of GKeyFile.
@@ -2213,6 +2331,7 @@ static gboolean load_devices (const gchar *fname)
 
     return TRUE;
 }
+
 
 /**
  * This method reads the gsettings section of the advance rename tool
@@ -3207,6 +3326,8 @@ void GnomeCmdData::load()
     search_defaults.width = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_WIDTH);
     search_defaults.content_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
     search_defaults.name_patterns.ents = get_list_from_gsettings_string_array (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
+    bookmarks_defaults.width = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH);
+    bookmarks_defaults.height = g_settings_get_uint(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT);
 
     options.always_show_tabs = g_settings_get_boolean (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS);
     options.tab_lock_indicator = (TabLockIndicator) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR);
@@ -3473,6 +3594,7 @@ void GnomeCmdData::load()
 
     load_advrename_profiles ();
     load_search_profiles    ();
+    load_bookmarks          ();
 
     if (load_fav_apps_old(FAV_APPS_FILENAME) == FALSE)
         load_fav_apps_from_gsettings();
@@ -3809,6 +3931,9 @@ void GnomeCmdData::save()
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SAVE_SEARCH_HISTORY_ON_EXIT, &(options.save_search_history_on_exit));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_WIDTH, &(search_defaults.width));
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_WIN_HEIGHT, &(search_defaults.height));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH, &(bookmarks_defaults.width));
+    set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT, &(bookmarks_defaults.height));
+
 
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_ALWAYS_SHOW_TABS, &(options.always_show_tabs));
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_TAB_LOCK_INDICATOR, options.tab_lock_indicator);
@@ -3830,6 +3955,7 @@ void GnomeCmdData::save()
     save_directory_history          ();
     save_search_history             ();
     save_search_profiles            ();
+    save_bookmarks                  ();
 
     save_advrename_profiles();
     save_intviewer_defaults();
