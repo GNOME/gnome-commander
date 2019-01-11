@@ -2487,13 +2487,13 @@ void GnomeCmdData::load_search_profiles ()
     g_variant_get (gVariantProfiles, GCMD_SETTINGS_SEARCH_PROFILES_FORMAT_STRING, &iter1);
 
     gchar *name {nullptr};
+    gchar *filenamePattern {nullptr};
+    gchar *textPattern {nullptr};
     gint maxDepth {0};
     gint syntax {0};
-    gchar* filenamePattern {nullptr};
+    guint profileNumber {0};
     gboolean contentSearch {false};
     gboolean matchCase {false};
-    gchar* textPattern {nullptr};
-    guint profileNumber {0};
 
     while (g_variant_iter_loop (iter1,
             GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
@@ -2505,15 +2505,23 @@ void GnomeCmdData::load_search_profiles ()
             &matchCase,
             &textPattern))
     {
+        g_autofree gchar *nameCompressed {nullptr};
+        g_autofree gchar *filenamePatternCompressed {nullptr};
+        g_autofree gchar *textPatternCompressed {nullptr};
+
+        nameCompressed = g_strcompress(name);
+        filenamePatternCompressed = g_strcompress(filenamePattern);
+        textPatternCompressed = g_strcompress(textPattern);
+
         SearchProfile searchProfile;
 
-        searchProfile.name             = name;
+        searchProfile.name             = nameCompressed;
         searchProfile.max_depth        = maxDepth;
         searchProfile.syntax           = syntax == 0 ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
-        searchProfile.filename_pattern = filenamePattern;
+        searchProfile.filename_pattern = filenamePatternCompressed;
         searchProfile.content_search   = contentSearch;
         searchProfile.match_case       = matchCase;
-        searchProfile.text_pattern     = textPattern;
+        searchProfile.text_pattern     = textPatternCompressed;
 
         if (profileNumber == 0)
             search_defaults.default_profile = searchProfile;
