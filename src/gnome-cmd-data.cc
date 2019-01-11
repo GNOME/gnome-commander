@@ -3000,25 +3000,25 @@ void GnomeCmdData::load_connections()
 
 	while ((connection = g_variant_iter_next_value (&iter)) != NULL)
     {
-        g_autofree gchar *name, *nameDecompressed, *uri, *uriDecompressed;
+        g_autofree gchar *name, *nameCompressed, *uri, *uriCompressed;
 
 		g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
 		g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
 
-        nameDecompressed = g_strcompress(name);
-        uriDecompressed  = g_strcompress(uri);
+        nameCompressed = g_strcompress(name);
+        uriCompressed  = g_strcompress(uri);
 
-        if (gnome_cmd_con_list_get()->has_alias(nameDecompressed))
+        if (gnome_cmd_con_list_get()->has_alias(nameCompressed))
         {
-            gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(nameDecompressed));
+            gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(nameCompressed));
         }
         else
         {
-            GnomeCmdConRemote *server = gnome_cmd_con_remote_new (nameDecompressed, uriDecompressed);
+            GnomeCmdConRemote *server = gnome_cmd_con_remote_new (nameCompressed, uriCompressed);
             if (server)
                 gnome_cmd_con_list_get()->add(server);
             else
-                g_warning ("<Connection> invalid URI: '%s' - ignored", uriDecompressed);
+                g_warning ("<Connection> invalid URI: '%s' - ignored", uriCompressed);
         }
 
 		g_variant_unref(connection);
