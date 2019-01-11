@@ -1927,6 +1927,37 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
 
 
 /**
+ * Save connections in gSettings
+ */
+void GnomeCmdData::save_connections()
+{
+    GVariant* connectionsToStore;
+    GVariantBuilder gVariantBuilder;
+    g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+
+    for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i = i->next)
+    {
+        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
+
+        if (con)
+        {
+            if (!con->alias || !*con->alias || !con->uri || !*con->uri)
+                continue;
+
+            g_autofree gchar *name = g_strescape (con->alias, nullptr);
+            g_autofree gchar *uri = g_strescape (con->uri, nullptr);
+
+            g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
+                                    name,
+                                    uri);
+        }
+    }
+    connectionsToStore = g_variant_builder_end (&gVariantBuilder);
+    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS, connectionsToStore);
+}
+
+
+/**
  * Save favourite applications in the given file by means of GKeyFile.
  */
 static void save_devices_old (const gchar *fname)
@@ -2955,6 +2986,46 @@ void GnomeCmdData::load_devices_from_gsettings()
     load_vfs_auto_devices ();
 }
 
+/**
+ * Loads connections from gSettings into gcmd options
+ */
+void GnomeCmdData::load_connections()
+{
+    GVariant *gvConnections, *connection;
+    GVariantIter iter;
+
+    gvConnections = g_settings_get_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
+
+    g_variant_iter_init (&iter, gvConnections);
+
+	while ((connection = g_variant_iter_next_value (&iter)) != NULL)
+    {
+        g_autofree gchar *name, *nameDecompressed, *uri, *uriDecompressed;
+
+		g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
+		g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
+
+        nameDecompressed = g_strcompress(name);
+        uriDecompressed  = g_strcompress(uri);
+
+        if (gnome_cmd_con_list_get()->has_alias(nameDecompressed))
+        {
+            gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(nameDecompressed));
+        }
+        else
+        {
+            GnomeCmdConRemote *server = gnome_cmd_con_remote_new (nameDecompressed, uriDecompressed);
+            if (server)
+                gnome_cmd_con_list_get()->add(server);
+            else
+                g_warning ("<Connection> invalid URI: '%s' - ignored", uriDecompressed);
+        }
+
+		g_variant_unref(connection);
+    }
+    g_variant_unref(gvConnections);
+}
+
 
 void GnomeCmdData::load()
 {
@@ -3590,6 +3661,7 @@ void GnomeCmdData::load()
 
     load_advrename_profiles ();
     load_search_profiles    ();
+    load_connections        ();
     load_bookmarks          ();
 
     if (load_fav_apps_old(FAV_APPS_FILENAME) == FALSE)
@@ -3709,18 +3781,6 @@ void GnomeCmdData::save_xml ()
 
     xml << search_defaults;
     xml << bookmarks_defaults;
-
-    xml << XML::tag("Connections");
-
-    for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
-
-        if (con)
-            xml << *con;
-    }
-
-    xml << XML::endtag("Connections");
 
     xml << XML::tag("Bookmarks");
 
@@ -3951,6 +4011,7 @@ void GnomeCmdData::save()
     save_directory_history          ();
     save_search_history             ();
     save_search_profiles            ();
+    save_connections                ();
     save_bookmarks                  ();
 
     save_advrename_profiles();

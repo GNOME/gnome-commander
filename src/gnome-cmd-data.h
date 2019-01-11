@@ -139,6 +139,8 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH          "bookmarks-win-width"
 #define GCMD_SETTINGS_BOOKMARKS_WINDOW_WIDTH          "bookmarks-win-width"
 #define GCMD_SETTINGS_BOOKMARKS_WINDOW_HEIGHT         "bookmarks-win-height"
+#define GCMD_SETTINGS_CONNECTIONS                     "connections"
+#define GCMD_SETTINGS_CONNECTION_FORMAT_STRING        "(ss)"
 
 #define GCMD_PREF_FILTER                              "org.gnome.gnome-commander.preferences.filter"
 #define GCMD_SETTINGS_FILTER_HIDE_UNKNOWN             "hide-unknown"
@@ -641,6 +643,8 @@ struct GnomeCmdData
     void load_intviewer_defaults();
     gboolean save_auto_load_plugins();
     void load_bookmarks();
+    void load_connections();
+    void save_connections();
     void save_cmdline_history();
     void save_directory_history();
     void save_search_history();

@@ -268,6 +268,13 @@
           This option defines the height of the bookmarks window.
       </description>
     </key>
+    <key name="connections" type="a(ss)">
+      <default>[]</default>
+      <summary>List of connectionss</summary>
+      <description>
+          Each entry in this list represents a connection.
+      </description>
+    </key>
     <key name="main-win-height" type="u">
       <default>400</default>
       <summary>Main window height</summary>
