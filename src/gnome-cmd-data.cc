@@ -2378,8 +2378,8 @@ void GnomeCmdData::load_advrename_profiles ()
 
     g_variant_get (gVariantProfiles, GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, &iter1);
 
-    gchar *name = NULL;
-    gchar *template_string = NULL;
+    gchar *name {nullptr};
+    gchar *templateString {nullptr};
     guint counter_start = 0;
     guint counter_step  = 0;
     guint counter_width = 0;
@@ -2391,7 +2391,7 @@ void GnomeCmdData::load_advrename_profiles ()
     while (g_variant_iter_loop (iter1,
             GCMD_SETTINGS_ADVRENAME_PROFILE_FORMAT_STRING,
             &name,
-            &template_string,
+            &templateString,
             &counter_start,
             &counter_step,
             &counter_width,
@@ -2408,7 +2408,7 @@ void GnomeCmdData::load_advrename_profiles ()
         profile.reset();
 
         profile.name            = name;
-        profile.template_string = template_string;
+        profile.template_string = templateString;
         profile.counter_start   = counter_start;
         profile.counter_step    = counter_step;
         profile.counter_width   = counter_width;
