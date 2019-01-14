@@ -1927,7 +1927,6 @@ static void on_device_remove (GtkWidget *button, GtkWidget *frame)
         GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
         gnome_cmd_con_list_get()->remove(dev);
         gtk_clist_remove (clist, clist->focus_row);
-        gnome_cmd_con_list_get()->remove(dev);
     }
 }
 
