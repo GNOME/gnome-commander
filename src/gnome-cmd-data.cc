@@ -2677,30 +2677,43 @@ void GnomeCmdData::save_cmdline_history()
 
 void GnomeCmdData::save_directory_history()
 {
-    if (!options.save_dir_history_on_exit)
-        return;
-
-    set_gsettings_string_array_from_glist(
-        options.gcmd_settings->general,
-        GCMD_SETTINGS_DIRECTORY_HISTORY,
-        gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents);
+    if (options.save_dir_history_on_exit)
+    {
+        set_gsettings_string_array_from_glist(
+            options.gcmd_settings->general,
+            GCMD_SETTINGS_DIRECTORY_HISTORY,
+            gnome_cmd_con_get_dir_history (priv->con_list->get_home())->ents);
+    }
+    else
+    {
+        GVariant* dirHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DIRECTORY_HISTORY, dirHistoryToStore);
+    }
 }
 
 
 void GnomeCmdData::save_search_history()
 {
-    if (!gnome_cmd_data.options.save_search_history_on_exit)
-        return;
+    if (gnome_cmd_data.options.save_search_history_on_exit)
+    {
+        set_gsettings_string_array_from_glist(
+            options.gcmd_settings->general,
+            GCMD_SETTINGS_SEARCH_PATTERN_HISTORY,
+            search_defaults.name_patterns.ents);
 
-    set_gsettings_string_array_from_glist(
-        options.gcmd_settings->general,
-        GCMD_SETTINGS_SEARCH_PATTERN_HISTORY,
-        search_defaults.name_patterns.ents);
+        set_gsettings_string_array_from_glist(
+            options.gcmd_settings->general,
+            GCMD_SETTINGS_SEARCH_TEXT_HISTORY,
+            search_defaults.content_patterns.ents);
+    }
+    else
+    {
+        GVariant* searchHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PATTERN_HISTORY, searchHistoryToStore);
 
-    set_gsettings_string_array_from_glist(
-        options.gcmd_settings->general,
-        GCMD_SETTINGS_SEARCH_TEXT_HISTORY,
-        search_defaults.content_patterns.ents);
+        searchHistoryToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_TEXT_HISTORY, searchHistoryToStore);
+    }
 }
 
 
