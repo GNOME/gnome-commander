@@ -39,10 +39,10 @@ using namespace std;
 
 struct GnomeCmdConDevicePrivate
 {
-    gchar *alias;
-    gchar *device_fn;
-    gchar *mountp;
-    gchar *icon_path;
+    gchar *alias {nullptr};
+    gchar *device_fn {nullptr};
+    gchar *mountp {nullptr};
+    gchar *icon_path {nullptr};
     gboolean autovolume;
     GnomeVFSVolume *vfsvol;
 };
