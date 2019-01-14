@@ -1684,23 +1684,15 @@ void GnomeCmdData::save_search_profiles ()
 
 void GnomeCmdData::add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile)
 {
-    gchar *nameString = g_strescape (searchProfile.name.c_str(), NULL);
-    gchar *filenamePattern = g_strescape (searchProfile.filename_pattern.c_str(), NULL);
-    gchar *textPattern = g_strescape (searchProfile.text_pattern.c_str(), NULL);
-
     g_variant_builder_add(builder, GCMD_SETTINGS_SEARCH_PROFILE_FORMAT_STRING,
-        nameString,
+        searchProfile.name.c_str(),
         searchProfile.max_depth,
         (gint) searchProfile.syntax,
-        filenamePattern,
+        searchProfile.filename_pattern.c_str(),
         searchProfile.content_search,
         searchProfile.match_case,
-        textPattern
+        searchProfile.text_pattern.c_str()
     );
-
-    g_free(nameString);
-    g_free(filenamePattern);
-    g_free(textPattern);
 }
 
 
@@ -1728,9 +1720,6 @@ void GnomeCmdData::save_advrename_profiles ()
 
 void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile)
 {
-    gchar *nameString = g_strescape (profile.name.c_str(), NULL);
-    gchar *templateString = g_strescape (profile.template_string.empty() ? "$N" : profile.template_string.c_str(), NULL);
-
     GVariantBuilder *gVariantBuilderAdvrenameFromArray = g_variant_builder_new(G_VARIANT_TYPE("as"));
     GVariantBuilder *gVariantBuilderAdvrenameToList = g_variant_builder_new (G_VARIANT_TYPE("as"));
     GVariantBuilder *gVariantBuilderAdvrenameMatchCaseList = g_variant_builder_new (G_VARIANT_TYPE("ab"));
@@ -1744,8 +1733,8 @@ void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *bu
     }
 
     g_variant_builder_add(builder, GCMD_SETTINGS_ADVRENAME_PROFILE_FORMAT_STRING,
-        nameString,
-        templateString,
+        profile.name.c_str(),
+        profile.template_string.empty() ? "$N" : profile.template_string.c_str(),
         profile.counter_start,
         profile.counter_step,
         profile.counter_width,
@@ -1755,9 +1744,6 @@ void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *bu
         gVariantBuilderAdvrenameToList,
         gVariantBuilderAdvrenameMatchCaseList
     );
-
-    g_free(nameString);
-    g_free(templateString);
 }
 
 
@@ -1780,31 +1766,15 @@ void GnomeCmdData::save_devices_via_gsettings()
             GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
-                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
-
-                gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
-                if (device_fn && device_fn[0] != '\0')
-                    device_fn = g_strescape (device_fn, NULL);
-                else
-                    device_fn = g_strdup ("x");
-
-                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
-
                 gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
-                if (icon_path && icon_path[0] != '\0')
-                    icon_path = g_strescape (icon_path, NULL);
-                else
-                    icon_path = g_strdup ("x");
+                if (!icon_path || icon_path[0] == '\0')
+                    icon_path = g_strdup ("");
 
                 g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
-                                        alias,
-                                        device_fn,
-                                        mountp,
+                                        gnome_cmd_con_device_get_alias (device),
+                                        gnome_cmd_con_device_get_device_fn (device),
+                                        gnome_cmd_con_device_get_mountp (device),
                                         icon_path);
-
-                g_free (alias);
-                g_free (device_fn);
-                g_free (mountp);
                 g_free (icon_path);
             }
         }
@@ -1931,9 +1901,10 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
  */
 void GnomeCmdData::save_connections()
 {
-    GVariant* connectionsToStore;
+    GVariant* connectionsToStore {nullptr};
     GVariantBuilder gVariantBuilder;
     g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+    gboolean hasConnections {false};
 
     for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i = i->next)
     {
@@ -1944,12 +1915,10 @@ void GnomeCmdData::save_connections()
             if (!con->alias || !*con->alias || !con->uri || !*con->uri)
                 continue;
 
-            g_autofree gchar *name = g_strescape (con->alias, nullptr);
-            g_autofree gchar *uri = g_strescape (con->uri, nullptr);
-
+            hasConnections = true;
             g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_CONNECTION_FORMAT_STRING,
-                                    name,
-                                    uri);
+                                    con->alias,
+                                    con->uri);
         }
     }
     connectionsToStore = g_variant_builder_end (&gVariantBuilder);
@@ -2505,23 +2474,15 @@ void GnomeCmdData::load_search_profiles ()
             &matchCase,
             &textPattern))
     {
-        g_autofree gchar *nameCompressed {nullptr};
-        g_autofree gchar *filenamePatternCompressed {nullptr};
-        g_autofree gchar *textPatternCompressed {nullptr};
-
-        nameCompressed = g_strcompress(name);
-        filenamePatternCompressed = g_strcompress(filenamePattern);
-        textPatternCompressed = g_strcompress(textPattern);
-
         SearchProfile searchProfile;
 
-        searchProfile.name             = nameCompressed;
+        searchProfile.name             = name;
         searchProfile.max_depth        = maxDepth;
         searchProfile.syntax           = syntax == 0 ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
-        searchProfile.filename_pattern = filenamePatternCompressed;
+        searchProfile.filename_pattern = filenamePattern;
         searchProfile.content_search   = contentSearch;
         searchProfile.match_case       = matchCase;
-        searchProfile.text_pattern     = textPatternCompressed;
+        searchProfile.text_pattern     = textPattern;
 
         if (profileNumber == 0)
             search_defaults.default_profile = searchProfile;
@@ -3008,25 +2969,22 @@ void GnomeCmdData::load_connections()
 
 	while ((connection = g_variant_iter_next_value (&iter)) != NULL)
     {
-        g_autofree gchar *name, *nameCompressed, *uri, *uriCompressed;
+        gchar *name, *uri;
 
-		g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
-		g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
+        g_assert (g_variant_is_of_type (connection, G_VARIANT_TYPE (GCMD_SETTINGS_CONNECTION_FORMAT_STRING)));
+        g_variant_get(connection, GCMD_SETTINGS_CONNECTION_FORMAT_STRING, &name, &uri);
 
-        nameCompressed = g_strcompress(name);
-        uriCompressed  = g_strcompress(uri);
-
-        if (gnome_cmd_con_list_get()->has_alias(nameCompressed))
+        if (gnome_cmd_con_list_get()->has_alias(name))
         {
-            gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(nameCompressed));
+            gnome_cmd_con_erase_bookmark (gnome_cmd_con_list_get()->find_alias(name));
         }
         else
         {
-            GnomeCmdConRemote *server = gnome_cmd_con_remote_new (nameCompressed, uriCompressed);
+            GnomeCmdConRemote *server = gnome_cmd_con_remote_new (name, uri);
             if (server)
                 gnome_cmd_con_list_get()->add(server);
             else
-                g_warning ("<Connection> invalid URI: '%s' - ignored", uriCompressed);
+                g_warning ("<Connection> invalid URI: '%s' - ignored", uri);
         }
 
 		g_variant_unref(connection);
