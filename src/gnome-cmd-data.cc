@@ -1752,12 +1752,12 @@ void GnomeCmdData::add_advrename_profile_to_gvariant_builder(GVariantBuilder *bu
  */
 void GnomeCmdData::save_devices_via_gsettings()
 {
+    GVariant* devicesToStore;
     GList *devices;
 
     devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list);
     if (devices)
     {
-        GVariant* devicesToStore;
         GVariantBuilder gVariantBuilder;
         g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
 
@@ -1779,6 +1779,12 @@ void GnomeCmdData::save_devices_via_gsettings()
             }
         }
         devicesToStore = g_variant_builder_end (&gVariantBuilder);
+        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
+    }
+    else
+    {
+        devicesToStore = g_settings_get_default_value(options.gcmd_settings->general,
+                                                      GCMD_SETTINGS_DEVICES);
         g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
     }
 }
@@ -1921,7 +1927,15 @@ void GnomeCmdData::save_connections()
                                     con->uri);
         }
     }
-    connectionsToStore = g_variant_builder_end (&gVariantBuilder);
+    if (hasConnections)
+    {
+        connectionsToStore = g_variant_builder_end (&gVariantBuilder);
+    }
+    else
+    {
+        g_variant_builder_clear (&gVariantBuilder);
+        connectionsToStore = g_settings_get_default_value (options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS);
+    }
     g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_CONNECTIONS, connectionsToStore);
 }
 
