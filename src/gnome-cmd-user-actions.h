@@ -151,6 +151,8 @@ class GnomeCmdUserActions
         UserAction(GnomeCmdUserActionFunc _func, const char *_user_data);
     };
 
+  public:
+
     static DICT<GnomeCmdUserActionFunc> action_func;
     static DICT<GnomeCmdUserActionFunc> action_name;
 
@@ -158,8 +160,6 @@ class GnomeCmdUserActions
 
     ACTIONS_COLL action;
 
-
-  public:
 
     void init();
     void set_defaults();

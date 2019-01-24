@@ -359,6 +359,13 @@
           This option defines the width of the group column.
       </description>
     </key>
+    <key name="keybindings" type="a(sssbbbbbb)">
+      <default>[]</default>
+      <summary>List of keybindings</summary>
+      <description>
+          Each entry in this list represents a keybinding.
+      </description>
+    </key>
     <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
     <key name="main-win-state" type="u">
       <default>4</default>
