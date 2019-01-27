@@ -3712,12 +3712,12 @@ void GnomeCmdData::load()
     priv->con_list->lock();
     if (load_devices (DEVICES_FILENAME) == FALSE)
         load_devices_from_gsettings();
-    else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
+    else // This is done for migration to gSettings. Can be deleted in gcmd 1.10.
         save_devices_via_gsettings();
 
     g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
 
-    // ToDo: Remove the check for xml cfg file in gcmd version >= 1.9.0
+    // ToDo: Remove the check for xml cfg file in gcmd version >= 1.10.0
     if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
         // Convert advrename history from xml into gsettings
@@ -3748,7 +3748,7 @@ void GnomeCmdData::load()
 
     if (load_fav_apps_old(FAV_APPS_FILENAME) == FALSE)
         load_fav_apps_from_gsettings();
-    else // This is done for migration to gSettings. Can be deleted in gcmd 1.9.
+    else // This is done for migration to gSettings. Can be deleted in gcmd 1.10.
         save_fav_apps_via_gsettings();
 
     load_directory_history  ();
