@@ -117,11 +117,7 @@ inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
     return dir;
 }
 
-inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    GNOME_CMD_FILE (dir)->unref();
-}
+void gnome_cmd_dir_unref (GnomeCmdDir *dir);
 
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);

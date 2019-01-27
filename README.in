@@ -131,8 +131,8 @@ in the AUTHORS file.
 5. Problem reporting
 --------------------------------
 
-Bugs should be reported to the GNOME bug tracking system
-(http://bugzilla.gnome.org, product gnome-commander). You will need to create an
+Bugs should be reported to the GitLab instance of Gnome
+(https://gitlab.gnome.org/GNOME/gnome-commander/issues). You will need to create an
 account for yourself.
 
 You can also report bugs using the GNOME program bug-buddy.

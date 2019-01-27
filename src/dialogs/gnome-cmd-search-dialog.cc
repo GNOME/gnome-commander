@@ -197,7 +197,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
         i->item_type = (gchar*) "<Separator>";
         ++i;
 
-        for (vector<GnomeCmdData::Selection>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
+        for (vector<GnomeCmdData::SearchProfile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
         {
             i->path = g_strconcat ("/", p->name.c_str(), NULL);
             i->callback = (GtkItemFactoryCallback) load_profile;
@@ -237,7 +237,7 @@ void GnomeCmdSearchDialog::Private::manage_profiles(GnomeCmdSearchDialog::Privat
     if (new_profile)
         priv->profile_component->copy();
 
-    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::Selection,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"gnome-commander-search"))
+    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::SearchProfile,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"gnome-commander-search"))
     {
         GtkWidget *menu = widget->parent;
 

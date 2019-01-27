@@ -369,7 +369,7 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *bm_view)
             
             main_win->update_bookmarks ();
             
-            gnome_cmd_data.save_xml ();
+            gnome_cmd_data.save_bookmarks ();
         }
     }
 }
@@ -563,7 +563,7 @@ void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
 
         main_win->update_bookmarks();
         
-        gnome_cmd_data.save_xml ();
+        gnome_cmd_data.save_bookmarks ();
     }
     else
     {

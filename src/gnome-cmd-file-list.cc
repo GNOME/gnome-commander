@@ -151,7 +151,7 @@ struct GnomeCmdFileList::Private
     GtkWidget *column_pixmaps[NUM_COLUMNS];
     GtkWidget *column_labels[NUM_COLUMNS];
 
-    gint cur_file;
+    gint cur_file = -1;
     GnomeCmdFileCollection visible_files;
     GnomeCmd::Collection<GnomeCmdFile *> selected_files;      // contains GnomeCmdFile pointers, no refing
 
@@ -276,7 +276,15 @@ GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
     lwd = NULL;
     connected_dir = NULL;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wuninitialized"
+#endif
     priv->current_col = sort_col;
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
     priv->sort_raising[sort_col] = sort_order;
     priv->sort_func = file_list_column[sort_col].sort_func;
 
@@ -3183,10 +3191,4 @@ void GnomeCmdFileList::drop_files(GnomeVFSXferOptions xferOptions, GList *uri_li
                                GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
                                GTK_SIGNAL_FUNC (unref_uri_list),
                                uri_list);
-}
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
-{
-    return xml << XML::tag("Tab") << XML::attr("path") << XML::escape((const char*) GNOME_CMD_FILE (fl.cwd)->get_real_path()) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::attr("lock") << fl.locked << XML::endtag();
 }

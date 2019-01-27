@@ -381,6 +381,12 @@ Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir)
 }
 
 
+void gnome_cmd_dir_unref (GnomeCmdDir *dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    GNOME_CMD_FILE (dir)->unref();
+}
+
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
@@ -546,11 +552,13 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
 
     if (!dir->priv->files || gnome_cmd_dir_is_local (dir))
     {
+        gchar *path = GNOME_CMD_FILE (dir)->get_path();
         DEBUG ('l', "relisting files for 0x%x %s %d\n",
                dir,
-               GNOME_CMD_FILE (dir)->get_path(),
+               path,
                visprog);
         gnome_cmd_dir_relist_files (dir, visprog);
+        g_free(path);
     }
     else
         g_signal_emit (dir, signals[LIST_OK], 0, dir->priv->files);

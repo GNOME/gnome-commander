@@ -26,6 +26,41 @@
   </enum>
 
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
+    <key name="advrename-profiles" type="a(ssuiuuuasasab)">
+      <default>[]</default>
+      <summary>List of advance rename tool profiles</summary>
+      <description>
+          The entries in this array represent the profiles in the advance rename tool with specific settings for each profile.
+      </description>
+    </key>
+    <key name="advrename-win-width" type="u">
+      <default>640</default>
+      <summary>Advance rename tool window width</summary>
+      <description>
+          This option defines the width of the advance rename tool window.
+      </description>
+    </key>
+    <key name="advrename-win-height" type="u">
+      <default>400</default>
+      <summary>Advance rename tool window height</summary>
+      <description>
+          This option defines the height of the advance rename tool window.
+      </description>
+    </key>
+    <key name="advrename-template-history" type="as">
+      <default>[]</default>
+      <summary>Advance rename tool template history</summary>
+      <description>
+          This string array represents the history of templates in the advance rename tool.
+      </description>
+    </key>
+    <key name="directory-history" type="as">
+      <default>[]</default>
+      <summary>History of visited directories</summary>
+      <description>
+          This string array represents the history of visited directories.
+      </description>
+    </key>
     <key name="use-default-font" type="b">
       <default>true</default>
       <summary>Use default font</summary>
@@ -212,6 +247,34 @@
           This option defines the width of the main window.
       </description>
     </key>
+    <key name="bookmarks" type="a(bsss)">
+      <default>[]</default>
+      <summary>List of bookmarks</summary>
+      <description>
+          Each entry in this list represents a bookmark.
+      </description>
+    </key>
+    <key name="bookmarks-win-width" type="u">
+      <default>400</default>
+      <summary>Bookmarks window width</summary>
+      <description>
+          This option defines the width of the bookmarks window.
+      </description>
+    </key>
+    <key name="bookmarks-win-height" type="u">
+      <default>250</default>
+      <summary>Bookmarks window height</summary>
+      <description>
+          This option defines the height of the bookmarks window.
+      </description>
+    </key>
+    <key name="connections" type="a(ss)">
+      <default>[]</default>
+      <summary>List of connectionss</summary>
+      <description>
+          Each entry in this list represents a connection.
+      </description>
+    </key>
     <key name="main-win-height" type="u">
       <default>400</default>
       <summary>Main window height</summary>
@@ -294,6 +357,13 @@
       <summary>Width of group column</summary>
       <description>
           This option defines the width of the group column.
+      </description>
+    </key>
+    <key name="keybindings" type="a(sssbbbbbb)">
+      <default>[]</default>
+      <summary>List of keybindings</summary>
+      <description>
+          Each entry in this list represents a keybinding.
       </description>
     </key>
     <!-- https://developer.gimp.org/api/2.0/gdk/gdk-Event-Structures.html#GdkWindowState -->
@@ -421,6 +491,62 @@
       <summary>Quick search shortcut</summary>
       <description>
           This option defines the shortcut for quick search.
+      </description>
+    </key>
+    <key name="file-list-tabs" type="a(syybb)">
+      <default>[]</default>
+      <summary>List of file tabs</summary>
+      <description>
+          The entries in this list are used for restoring the tabs from the last session.
+      </description>
+    </key>
+    <key name="devices" type="a(ssss)">
+      <default>[]</default>
+      <summary>List of devices</summary>
+      <description>
+          The entries in this list represent the devices configured by the user.
+      </description>
+    </key>
+    <key name="favorite-apps" type="a(ssssubbb)">
+      <default>[]</default>
+      <summary>List of favorite apps</summary>
+      <description>
+          The entries in this list represent the favorite apps configured by the user.
+      </description>
+    </key>
+    <key name="search-win-width" type="u">
+      <default>600</default>
+      <summary>Search window width</summary>
+      <description>
+          This option defines the width of the search window.
+      </description>
+    </key>
+    <key name="search-win-height" type="u">
+      <default>400</default>
+      <summary>Search window height</summary>
+      <description>
+          This option defines the height of the search window.
+      </description>
+    </key>
+    <key name="search-text-history" type="as">
+      <default>[]</default>
+      <summary>Search text history</summary>
+      <description>
+          This string array represents the history of text searches in the search tool.
+      </description>
+    </key>
+    <key name="search-pattern-history" type="as">
+      <default>[]</default>
+      <summary>Search pattern history</summary>
+      <description>
+          This string array represents the history of regular expression searches in the search tool.
+      </description>
+    </key>
+    <key name="search-profiles" type="a(siisbbs)">
+      <default>[]</default>
+      <summary>List of search tool profiles</summary>
+      <description>
+          The entries in this array represent the profiles in the search tool with specific settings for each profile.
       </description>
     </key>
   </schema>
@@ -803,7 +929,7 @@
       <!--Translators: This is the default string of encoding used by the internal viewer
           for displaying the file in the given encoding. You may want to customize it by using
           an encoding that is common in your country.
-          See https://git.gnome.org/browse/gnome-commander/tree/src/intviewer/viewer-window.cc#n781 for
+          See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
           a list of supported encodings. -->
       <default l10n="messages">'UTF8'</default>
       <summary>Character set</summary>

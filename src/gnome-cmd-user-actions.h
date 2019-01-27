@@ -151,6 +151,8 @@ class GnomeCmdUserActions
         UserAction(GnomeCmdUserActionFunc _func, const char *_user_data);
     };
 
+  public:
+
     static DICT<GnomeCmdUserActionFunc> action_func;
     static DICT<GnomeCmdUserActionFunc> action_name;
 
@@ -158,8 +160,6 @@ class GnomeCmdUserActions
 
     ACTIONS_COLL action;
 
-
-  public:
 
     void init();
     void set_defaults();
@@ -196,8 +196,6 @@ class GnomeCmdUserActions
     const gchar *name(const std::string &name_description)                  {  return action_func[action_name[name_description]].c_str();  }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();                 }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                         }
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr);
 };
 
 
@@ -207,9 +205,9 @@ inline GnomeCmdUserActions::UserAction::UserAction(GnomeCmdUserActionFunc _func,
         user_data = _user_data;
 }
 
-inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name, const char *user_data)
+inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name_argument, const char *user_data)
 {
-    return register_action(0, keyval, action_name, user_data);
+    return register_action(0, keyval, action_name_argument, user_data);
 }
 
 

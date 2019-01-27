@@ -479,9 +479,9 @@ void GnomeCmdUserActions::shutdown()
 }
 
 
-gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *action_name, const char *user_data)
+gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *the_action_name, const char *user_data)
 {
-    GnomeCmdUserActionFunc func = action_func[action_name];
+    GnomeCmdUserActionFunc func = action_func[the_action_name];
 
     if (!func)
         return FALSE;
@@ -507,7 +507,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
 }
 
 
-void GnomeCmdUserActions::unregister(const gchar *action_name)
+void GnomeCmdUserActions::unregister(const gchar *the_action_name)
 {
 }
 
@@ -525,9 +525,9 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
 }
 
 
-gboolean GnomeCmdUserActions::registered(const gchar *action_name)
+gboolean GnomeCmdUserActions::registered(const gchar *the_action_name)
 {
-    GnomeCmdUserActionFunc func = action_func[action_name];
+    GnomeCmdUserActionFunc func = action_func[the_action_name];
 
     if (!func)
         return FALSE;
@@ -564,40 +564,6 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
     return TRUE;
-}
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr)
-{
-    xml << XML::tag("KeyBindings");
-    for (GnomeCmdUserActions::ACTIONS_COLL::const_iterator i=usr.action.begin(); i!=usr.action.end(); ++i)
-        if (!ascii_isupper (i->first))                                         // ignore lowercase keys as they duplicate uppercase ones
-        {
-            guint state = i->first.state;
-            guint key_val = i->first.keyval;
-
-            xml << XML::tag("Key") << XML::attr("name");
-            if (ascii_isalnum (key_val))
-                xml << (gchar) key_val;
-            else
-                xml << gdk_key_names[key_val];
-
-            if (state & GDK_SHIFT_MASK)    xml << XML::attr("shift") << 1;
-            if (state & GDK_CONTROL_MASK)  xml << XML::attr("control") << 1;
-            if (state & GDK_MOD1_MASK)     xml << XML::attr("alt") << 1;
-            if (state & GDK_SUPER_MASK)    xml << XML::attr("super") << 1;
-            if (state & GDK_HYPER_MASK)    xml << XML::attr("hyper") << 1;
-            if (state & GDK_META_MASK)     xml << XML::attr("meta") << 1;
-
-            xml << XML::attr("action") << usr.action_func[i->second.func];
-            if (!i->second.user_data.empty())
-                xml << XML::attr("options") << XML::escape(i->second.user_data);
-
-            xml << XML::endtag();
-        }
-
-    xml << XML::endtag();
-
-    return xml;
 }
 
 
@@ -1976,7 +1942,7 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-    if (!gtk_show_uri (NULL, "http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (NULL, "https://gitlab.gnome.org/GNOME/gnome-commander/issues", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
 }
 

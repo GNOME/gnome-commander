@@ -88,7 +88,7 @@ static DICT<guint> xml_elem_names(XML_ELEM_NOT_FOUND);
 static stack<string> xml_paths;
 
 static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
-static GnomeCmdData::Selection xml_search_profile;
+static GnomeCmdData::SearchProfile xml_search_profile;
 
 static DICT<FileSelectorID> xml_fs_names(INACTIVE);
 static FileSelectorID xml_fs = INACTIVE;
@@ -101,7 +101,10 @@ static bool is_default(GnomeCmdData::AdvrenameConfig::Profile &profile)
     return strcmp(profile.name.c_str(),"Default")==0;
 }
 
-
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wimplicit-fallthrough"
+#endif
 static void xml_start(GMarkupParseContext *context,
                       const gchar *element_name,
                       const gchar **attribute_names,
@@ -245,7 +248,6 @@ static void xml_start(GMarkupParseContext *context,
             break;
 
         case XML_GNOMECOMMANDER_CONNECTIONS:
-            cfg->XML_cfg_has_connections = TRUE;
             break;
 
         case XML_GNOMECOMMANDER_CONNECTIONS_CONNECTION:
@@ -272,7 +274,6 @@ static void xml_start(GMarkupParseContext *context,
             break;
 
         case XML_GNOMECOMMANDER_BOOKMARKS:
-            cfg->XML_cfg_has_bookmarks = TRUE;
             break;
 
         case XML_GNOMECOMMANDER_BOOKMARKS_GROUP:
@@ -408,6 +409,9 @@ static void xml_start(GMarkupParseContext *context,
             break;
     }
 }
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 
 static void xml_end (GMarkupParseContext *context,
@@ -457,7 +461,7 @@ static void xml_end (GMarkupParseContext *context,
 
         case XML_GNOMECOMMANDER_SELECTIONS_PROFILE:
             if (xml_search_profile.name!="Default")
-                cfg->selections.push_back(xml_search_profile);
+                cfg->profiles.push_back(xml_search_profile);
             break;
 
         default:
@@ -599,7 +603,6 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
 
     if (!g_file_get_contents (path, &xml, &xml_len, &error))
     {
-        g_warning ("%s", error->message);
         g_error_free (error);
 
         return FALSE;

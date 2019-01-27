@@ -39,13 +39,13 @@ struct GnomeCmdConList::Private
     gboolean device_cons_changed;
     gboolean quick_ftp_cons_changed;
 
-    GList *remote_cons;
-    GList *device_cons;
-    GList *quick_ftp_cons;
+    GList *remote_cons    {nullptr};
+    GList *device_cons    {nullptr};
+    GList *quick_ftp_cons {nullptr};
 
-    GnomeCmdCon *home_con;
+    GnomeCmdCon *home_con {nullptr};
 #ifdef HAVE_SAMBA
-    GnomeCmdCon *smb_con;
+    GnomeCmdCon *smb_con  {nullptr};
 #endif
     GList *all_cons;
 };
@@ -152,9 +152,6 @@ static void init (GnomeCmdConList *con_list)
 #ifdef HAVE_SAMBA
     con_list->priv->smb_con = gnome_cmd_con_smb_new ();
 #endif
-    // con_list->priv->remote_cons = NULL;
-    // con_list->priv->device_cons = NULL;
-    // con_list->priv->quick_ftp_cons = NULL;
     con_list->priv->all_cons = g_list_append (NULL, con_list->priv->home_con);
 #ifdef HAVE_SAMBA
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);

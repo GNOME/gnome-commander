@@ -467,15 +467,15 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
             {
                 const int BUFF_SIZE = 2048;
                 gchar *s = (gchar *) g_malloc0 (BUFF_SIZE);
-                GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
+                GtkItemFactoryEntry *metatagItems = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
-                g_return_val_if_fail (items!=NULL, NULL);
+                g_return_val_if_fail (metatagItems!=NULL, NULL);
 
                 for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
                 {
                     GnomeCmdTag tag = metatags[ii];
                     const gchar *class_name = gcmd_tags_get_class_name(tag);
-                    GtkItemFactoryEntry *p = items+ii;
+                    GtkItemFactoryEntry *p = metatagItems+ii;
 
                     if (!class_name || *class_name==0)
                     {
@@ -499,12 +499,12 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
 
                 GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
 
-                gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), items, this);
+                gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), metatagItems, this);
 
                 for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
-                    g_free (items[ii].path);
+                    g_free (metatagItems[ii].path);
 
-                g_free (items);
+                g_free (metatagItems);
 
                 return gtk_item_factory_get_widget (ifac, "<main>");
             }
@@ -1143,8 +1143,15 @@ static void gnome_cmd_advrename_profile_component_class_init (GnomeCmdAdvrenameP
 
 GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &p): profile(p)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wuninitialized"
+#endif
     // Template
     gtk_widget_grab_focus (priv->template_entry);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_signal_connect (priv->template_combo, "changed", G_CALLBACK (Private::on_template_entry_changed), this);
 
     // Counter

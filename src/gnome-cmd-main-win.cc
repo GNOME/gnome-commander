@@ -1425,16 +1425,3 @@ void GnomeCmdMainWin::maximize_pane()
     else
         slide_set_0_100 (NULL, NULL);
 }
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw)
-{
-    xml << XML::tag("Layout");
-
-        xml << XML::tag("Panel") << XML::attr("name") << "left" << *mw.fs(LEFT) << XML::endtag();
-        xml << XML::tag("Panel") << XML::attr("name") << "right" << *mw.fs(RIGHT) << XML::endtag();
-
-    xml << XML::endtag();
-
-    return xml;
-}

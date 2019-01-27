@@ -458,7 +458,7 @@
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
       <title>Feedback</title>
-      <para>You can report or view &app; bugs at the <ulink type="http" url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander">the gnome.org Bugzilla</ulink>.</para>
+      <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
 
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice>
@@ -7225,7 +7225,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Report a problem</para></entry>
-                        <entry><para>Report problem to Bugzilla</para></entry>
+                        <entry><para>Report problem to gitlab.gnome.org</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Root directory</para></entry>
@@ -7592,7 +7592,7 @@
 -->
   <sect1 id="gnome-commander-bugs">
     <title>Known Bugs and Limitations</title>
-    <para>You can report or view &app; bugs at the <ulink type="http" url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander">the gnome.org Bugzilla</ulink>.</para>
+    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
     <para>Some words about bugs: Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
         this goes especially for development and testing versions. Quality bug reporting is very important
@@ -7647,7 +7647,7 @@
       <title>Bug Reporting</title>
     <para>
       If you found a bug, you can check if it is already reported on our 
-      <ulink type="http" url="https://bugzilla.gnome.org/browse.cgi?product=gnome-commander">Bugzilla</ulink> 
+      <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">GitLab</ulink>
       page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
       have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
     </sect2>

@@ -217,8 +217,6 @@ struct GnomeCmdFileList
 
     void init_dnd();
     void drop_files(GnomeVFSXferOptions xferOptions, GList *uri_list, GnomeCmdDir *dir);
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl);
 };
 
 
