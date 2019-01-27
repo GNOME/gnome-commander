@@ -98,8 +98,6 @@ struct GnomeCmdMainWin
     void update_mainmenu_visibility();
 
     void add_plugin_menu(PluginData *data);
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw);
 };
 
 extern GnomeCmdMainWin *main_win;

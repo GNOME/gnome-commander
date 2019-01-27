@@ -196,8 +196,6 @@ class GnomeCmdUserActions
     const gchar *name(const std::string &name_description)                  {  return action_func[action_name[name_description]].c_str();  }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();                 }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                         }
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr);
 };
 
 

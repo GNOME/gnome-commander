@@ -542,8 +542,6 @@ struct GnomeCmdData
 
         const std::string &description() const    {  return filename_pattern;  }
         void reset();
-
-        friend XML::xstream &operator << (XML::xstream &xml, SearchProfile &cfg);
     };
 
     struct SearchConfig
@@ -567,7 +565,6 @@ struct GnomeCmdData
             default_profile.name = "Default";
         }
 
-        friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
         ~SearchConfig() {};
     };
 
@@ -604,8 +601,6 @@ struct GnomeCmdData
 
         AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)   {}
         ~AdvrenameConfig()                                                              {}
-
-        friend XML::xstream &operator << (XML::xstream &xml, AdvrenameConfig &cfg);
     };
 
     struct IntViewerConfig
@@ -623,8 +618,6 @@ struct GnomeCmdData
     struct BookmarksConfig
     {
         gint width {400}, height {250};
-
-        friend XML::xstream &operator << (XML::xstream &xml, BookmarksConfig &cfg);
     };
 
     typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
@@ -728,7 +721,6 @@ struct GnomeCmdData
     void save_search_profiles ();
     void save_bookmarks();
     void save();
-    void save_xml ();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
     gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
     void gnome_cmd_data_set_string (const gchar *path, const gchar *value);

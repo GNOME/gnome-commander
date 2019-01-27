@@ -1558,37 +1558,6 @@ inline gboolean GnomeCmdData::get_bool (const gchar *path, gboolean def)
 }
 
 
-inline XML::xstream &operator << (XML::xstream &xml, GnomeCmdBookmark &bookmark)
-{
-    xml << XML::tag("Bookmark") << XML::attr("name") << XML::escape(bookmark.name);
-    xml << XML::attr("path") << XML::escape(bookmark.path) << XML::endtag();
-
-    return xml;
-}
-
-
-static void write(XML::xstream &xml, GnomeCmdCon *con, const gchar *name)
-{
-    if (!con)
-        return;
-
-    GList *bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks;
-
-    if (!bookmarks)
-        return;
-
-    xml << XML::tag("Group") << XML::attr("name") << name;
-
-    if (GNOME_CMD_IS_CON_REMOTE (con))
-        xml << XML::attr("remote") << TRUE;
-
-    for (GList *i=bookmarks; i; i=i->next)
-        xml << *(GnomeCmdBookmark *) i->data;
-
-    xml << XML::endtag("Group");
-}
-
-
 void GnomeCmdData::save_bookmarks()
 {
     gboolean hasBookmarks = false;
@@ -3884,45 +3853,6 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 #pragma GCC diagnostic pop
 #endif
 
-void GnomeCmdData::save_xml ()
-{
-    gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
-
-    ofstream f(xml_cfg_path);
-    XML::xstream xml(f);
-
-    xml << *main_win;
-
-    xml << search_defaults;
-    xml << bookmarks_defaults;
-
-    xml << XML::tag("Bookmarks");
-
-    write (xml, priv->con_list->get_home(), "Home");
-#ifdef HAVE_SAMBA
-    write (xml, priv->con_list->get_smb(), "SMB");
-#endif
-    for (GList *i=gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (i->data);
-        write (xml, con, XML::escape(gnome_cmd_con_get_alias (con)));
-    }
-
-    xml << XML::endtag("Bookmarks");
-
-    xml << XML::tag("Selections");
-    for (vector<SearchProfile>::iterator i=profiles.begin(); i!=profiles.end(); ++i)
-        xml << *i;
-    xml << XML::endtag("Selections");
-
-    xml << gcmd_user_actions;
-
-    xml << XML::endtag("GnomeCommander");
-
-    g_free (xml_cfg_path);
-}
-
-
 /**
  * This method sets the value of a given GSettings key to the string stored in user_value or to the default value,
  * depending on the value of user_value. If the class of the key is not a string but a string array, the first
@@ -4436,65 +4366,3 @@ const gchar *gnome_cmd_data_get_symlink_prefix ()
     symlink_prefix = g_settings_get_string (gnome_cmd_data.options.gcmd_settings->general, GCMD_SETTINGS_SYMLINK_PREFIX);
     return (strlen(symlink_prefix) > 0) ? symlink_prefix : _("link to %s");
 }
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchProfile &cfg)
-{
-    xml << XML::tag("Profile") << XML::attr("name") << XML::escape(cfg.name);
-
-        xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
-                                   << XML::attr("match-case") << 0 << XML::chardata();
-
-        if (!strcmp("Default", cfg.name.c_str()) && gnome_cmd_data.options.save_search_history_on_exit)
-            xml << XML::escape(cfg.filename_pattern);
-        else
-            xml << "";
-
-        xml << XML::endtag();
-
-        xml << XML::tag("Subdirectories") << XML::attr("max-depth") << cfg.max_depth << XML::endtag();
-        xml << XML::tag("Text") << XML::attr("content-search") << cfg.content_search << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
-
-    xml << XML::endtag();
-
-    return xml;
-}
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchConfig &cfg)
-{
-    xml << XML::tag("SearchTool");
-
-        xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
-        xml << cfg.default_profile;
-
-        if (gnome_cmd_data.options.save_search_history_on_exit)
-        {
-            xml << XML::tag("History");
-
-            for (GList *i=cfg.name_patterns.ents; i; i=i->next)
-                xml << XML::tag("Pattern") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
-
-            for (GList *i=cfg.content_patterns.ents; i; i=i->next)
-                xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
-
-            xml << XML::endtag();
-        }
-
-    xml << XML::endtag();
-
-    return xml;
-}
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::BookmarksConfig &cfg)
-{
-    xml << XML::tag("BookmarksTool");
-
-        xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
-
-    xml << XML::endtag();
-
-    return xml;
-}
-

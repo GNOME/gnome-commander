@@ -3192,9 +3192,3 @@ void GnomeCmdFileList::drop_files(GnomeVFSXferOptions xferOptions, GList *uri_li
                                GTK_SIGNAL_FUNC (unref_uri_list),
                                uri_list);
 }
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl)
-{
-    return xml << XML::tag("Tab") << XML::attr("path") << XML::escape((const char*) GNOME_CMD_FILE (fl.cwd)->get_real_path()) << XML::attr("sort") << fl.get_sort_column() << XML::attr("asc") << fl.get_sort_order() << XML::attr("lock") << fl.locked << XML::endtag();
-}

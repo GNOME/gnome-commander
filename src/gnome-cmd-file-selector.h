@@ -110,7 +110,6 @@ struct GnomeCmdFileSelector
 
     gboolean key_pressed(GdkEventKey *event);
 
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileSelector &fs);
     GList* GetTabs();
 };
 

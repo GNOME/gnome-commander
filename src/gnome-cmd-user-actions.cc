@@ -566,40 +566,6 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     return TRUE;
 }
 
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr)
-{
-    xml << XML::tag("KeyBindings");
-    for (auto thisAction : usr.action)
-        if (!ascii_isupper (thisAction.first)) // ignore lowercase keys as they duplicate uppercase ones
-        {
-            guint state = thisAction.first.state;
-            guint key_val = thisAction.first.keyval;
-
-            xml << XML::tag("Key") << XML::attr("name");
-            if (ascii_isalnum (key_val))
-                xml << (gchar) key_val;
-            else
-                xml << gdk_key_names[key_val];
-
-            if (state & GDK_SHIFT_MASK)    xml << XML::attr("shift") << 1;
-            if (state & GDK_CONTROL_MASK)  xml << XML::attr("control") << 1;
-            if (state & GDK_MOD1_MASK)     xml << XML::attr("alt") << 1;
-            if (state & GDK_SUPER_MASK)    xml << XML::attr("super") << 1;
-            if (state & GDK_HYPER_MASK)    xml << XML::attr("hyper") << 1;
-            if (state & GDK_META_MASK)     xml << XML::attr("meta") << 1;
-
-            xml << XML::attr("action") << usr.action_func[thisAction.second.func];
-            if (!thisAction.second.user_data.empty())
-                xml << XML::attr("options") << XML::escape(thisAction.second.user_data);
-
-            xml << XML::endtag();
-        }
-
-    xml << XML::endtag();
-
-    return xml;
-}
-
 
 static int sort_by_description (const void *data1, const void *data2)
 {

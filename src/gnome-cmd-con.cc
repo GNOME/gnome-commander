@@ -600,18 +600,3 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std:
     return s;
 }
 #endif
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con)
-{
-    if (!con.alias || !*con.alias || !con.uri || !*con.uri)
-        return xml;
-
-    xml << XML::tag("Connection");
-
-    xml << XML::attr("name") << XML::escape(con.alias);
-    xml << XML::attr("uri") << XML::escape(con.uri);
-    xml << XML::attr("auth") << con.auth;
-
-    return xml << XML::endtag();
-}
