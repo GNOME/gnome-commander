@@ -542,6 +542,8 @@ struct GnomeCmdData
 
         const std::string &description() const    {  return filename_pattern;  }
         void reset();
+
+        ~SearchProfile();
     };
 
     struct SearchConfig
