@@ -587,6 +587,8 @@ struct GnomeCmdData
 
             const std::string &description() const {  return template_string;  }
             void reset();
+
+            ~Profile();
         };
 
         gint width, height;

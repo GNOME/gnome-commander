@@ -4314,6 +4314,7 @@ GtkSortType GnomeCmdData::get_sort_direction(FileSelectorID id) const
 
 
 GnomeCmdData::SearchProfile::~SearchProfile(){};
+GnomeCmdData::AdvrenameConfig::Profile::~Profile(){};
 
 
 gpointer gnome_cmd_data_get_con_list ()
