@@ -3725,7 +3725,6 @@ void GnomeCmdData::load()
 
         // Convert xml to keyfiles by using the save methods.
         save_advrename_profiles();
-        save_search_profiles();
 
         // Convert directory history
         save_directory_history();
