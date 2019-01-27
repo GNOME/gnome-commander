@@ -575,20 +575,15 @@ struct GnomeCmdData
         struct Profile
         {
             std::string name;
-            std::string template_string;
-            guint counter_start;
-            guint counter_width;
-            gint counter_step;
+            std::string template_string {"$N"};
+            guint counter_start {1};
+            guint counter_width {1};
+            gint counter_step   {1};
 
             std::vector<GnomeCmd::ReplacePattern> regexes;
 
-            guint case_conversion;
-            guint trim_blanks;
-
-            Profile(): template_string("$N"),
-                       counter_start(1), counter_width(1), counter_step(1),
-                       case_conversion(0), trim_blanks(3)                     {}
-            ~Profile()                                                        {}
+            guint case_conversion {0};
+            guint trim_blanks {3};
 
             const std::string &description() const {  return template_string;  }
             void reset();
