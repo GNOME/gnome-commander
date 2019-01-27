@@ -5,6 +5,7 @@ MAINTAINER Uwe Scholz <u.scholz83@gmx.de>
 ENV GCMD_PATH /gnome-commander
 
 RUN \
+  sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
   apt-get update -qq && \
   apt-get install -yq sudo && \
   echo $LANG && \
