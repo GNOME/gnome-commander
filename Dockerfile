@@ -11,9 +11,10 @@ RUN \
   echo $LANG && \
   echo $LC_ALL && \
   sudo apt-get install gcc-8 g++-8 -y && \
-  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 && \
   sudo apt-get build-dep gnome-commander -y && \
-  sudo apt-get install -y -qq cmake flex git-core libglib2.0-dev libgtest-dev libunique-dev yelp-tools
+  sudo apt-get install -y -qq cmake flex git-core libglib2.0-dev libgtest-dev libunique-dev yelp-tools && \
+  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7 && \
+  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 
 RUN \
   cd /usr/src/gtest && \
