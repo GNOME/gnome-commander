@@ -270,7 +270,7 @@
     </key>
     <key name="connections" type="a(ss)">
       <default>[]</default>
-      <summary>List of connectionss</summary>
+      <summary>List of connections</summary>
       <description>
           Each entry in this list represents a connection.
       </description>
