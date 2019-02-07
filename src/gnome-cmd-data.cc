@@ -1735,7 +1735,7 @@ void GnomeCmdData::save_devices_via_gsettings()
             auto *device = GNOME_CMD_CON_DEVICE (devices->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
-                gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
+                gchar *icon_path = g_strdup (gnome_cmd_con_device_get_icon_path (device));
                 if (!icon_path || icon_path[0] == '\0')
                     icon_path = g_strdup ("");
 
