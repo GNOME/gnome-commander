@@ -1732,7 +1732,7 @@ void GnomeCmdData::save_devices_via_gsettings()
 
         for (; devices; devices = devices->next)
         {
-            GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
+            auto *device = GNOME_CMD_CON_DEVICE (devices->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
                 gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
@@ -3045,18 +3045,13 @@ void GnomeCmdData::load_devices_from_gsettings()
 
 	while ((device = g_variant_iter_next_value (&iter)) != NULL)
     {
-        gchar *alias, *device_fn, *mountPoint, *iconPath;
+        g_autofree gchar *alias, *device_fn, *mountPoint, *iconPath;
 
-		g_assert (g_variant_is_of_type (device, G_VARIANT_TYPE (GCMD_SETTINGS_DEVICES_FORMAT_STRING)));
 		g_variant_get(device, GCMD_SETTINGS_DEVICES_FORMAT_STRING, &alias, &device_fn, &mountPoint, &iconPath);
 
         gnome_cmd_data.priv->con_list->add (gnome_cmd_con_device_new (alias, device_fn, mountPoint, iconPath));
 
 		g_variant_unref(device);
-        g_free (alias);
-        g_free (device_fn);
-        g_free (mountPoint);
-        g_free (iconPath);
     }
     g_variant_unref(gvDevices);
     load_vfs_auto_devices ();
