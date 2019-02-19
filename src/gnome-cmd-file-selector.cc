@@ -811,7 +811,6 @@ static void init (GnomeCmdFileSelector *fs)
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
-        gchar *text;
         GnomeCmdCon *con = (GnomeCmdCon *) l->data;
 
 #ifdef HAVE_SAMBA
@@ -821,10 +820,9 @@ static void init (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con))  continue;
 #endif
 
-        text = g_strdup_printf("%s  ",(gchar *) gnome_cmd_con_get_alias (con));
-        string_size = get_string_pixel_size (text, strlen(text));
+        string textstring {gnome_cmd_con_get_alias (con)};
+        string_size = get_string_pixel_size (textstring.c_str(), textstring.length());
         max_string_size = string_size > max_string_size ? string_size : max_string_size;
-        g_free(text);
     }
 
     // create the connection combo
