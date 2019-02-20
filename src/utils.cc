@@ -882,20 +882,6 @@ gchar *unix_to_unc (const gchar *path)
 }
 
 
-gchar *unc_to_unix (const gchar *path)
-{
-    g_return_val_if_fail (path != NULL, NULL);
-    g_return_val_if_fail (path[0] == '\\', NULL);
-    g_return_val_if_fail (path[1] == '\\', NULL);
-
-    gchar *out = (gchar *) g_malloc(strlen(path));
-    strcpy (out, path+1);
-    transform (out, '\\', '/');
-
-    return out;
-}
-
-
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
 {
     GdkColor *c = g_new0 (GdkColor, 1);

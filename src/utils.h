@@ -212,7 +212,6 @@ GtkWidget *create_ui_pixmap (GtkWidget *window,
                              GtkIconSize size);
 
 gchar *unix_to_unc (const gchar *path);
-gchar *unc_to_unix (const gchar *path);
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b);
 GList *file_list_to_uri_list (GList *files);
 GList *file_list_to_info_list (GList *files);
