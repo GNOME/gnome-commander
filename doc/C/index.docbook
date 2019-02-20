@@ -408,6 +408,7 @@
                 <email>u.scholz83@gmx.de</email></para>
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
+      </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.6.1;</revnumber>
         <date>2016-10-18</date>
@@ -443,7 +444,6 @@
                 <email>u.scholz83@gmx.de</email></para>
           <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
-      </revision>
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.8.0;</revnumber>
