@@ -28,30 +28,30 @@
   <schema gettext-domain="gnome-commander" id="org.gnome.gnome-commander.preferences.general" path="/org/gnome/gnome-commander/preferences/general/">
     <key name="advrename-profiles" type="a(ssuiuuuasasab)">
       <default>[]</default>
-      <summary>List of advance rename tool profiles</summary>
+      <summary>List of advanced rename tool profiles</summary>
       <description>
-          The entries in this array represent the profiles in the advance rename tool with specific settings for each profile.
+          The entries in this array represent the profiles in the advanced rename tool with specific settings for each profile.
       </description>
     </key>
     <key name="advrename-win-width" type="u">
       <default>640</default>
-      <summary>Advance rename tool window width</summary>
+      <summary>Advanced rename tool window width</summary>
       <description>
-          This option defines the width of the advance rename tool window.
+          This option defines the width of the advanced rename tool window.
       </description>
     </key>
     <key name="advrename-win-height" type="u">
       <default>400</default>
-      <summary>Advance rename tool window height</summary>
+      <summary>Advanced rename tool window height</summary>
       <description>
-          This option defines the height of the advance rename tool window.
+          This option defines the height of the advanced rename tool window.
       </description>
     </key>
     <key name="advrename-template-history" type="as">
       <default>[]</default>
-      <summary>Advance rename tool template history</summary>
+      <summary>Advanced rename tool template history</summary>
       <description>
-          This string array represents the history of templates in the advance rename tool.
+          This string array represents the history of templates in the advanced rename tool.
       </description>
     </key>
     <key name="directory-history" type="as">
