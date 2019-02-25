@@ -4,7 +4,7 @@ SUBDIRS = device-icons file-type-icons mime-icons
 
 ## desktop icon
 dtidir = $(datadir)/pixmaps
-dti_DATA = gnome-commander.png
+dti_DATA = gnome-commander.svg
 
 ## application pixmaps
 pixmapsdir = $(datadir)/pixmaps/@PACKAGE@
@@ -16,7 +16,8 @@ pixmaps_DATA = \
 	gnome_cmd_arrow_blank.xpm \
 	gnome_cmd_arrow_down.xpm \
 	gnome_cmd_arrow_up.xpm \
-	gnome-commander.xpm \
+	gnome-commander.svg \
+	gnome-commander-symbolic.svg \
 	internal-viewer.xpm \
 	menu_bookmark.xpm \
 	overlay_symlink.xpm \

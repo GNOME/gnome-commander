@@ -59,7 +59,7 @@ static const gchar *pixmap_files[NUM_PIXMAPS] = {"",
                                                  "gnome_cmd_arrow_down.xpm",
                                                  "gnome_cmd_arrow_blank.xpm",
 
-                                                 "gnome-commander.xpm",
+                                                 "gnome-commander.svg",
                                                  "exec_wheel.xpm",
                                                  "menu_bookmark.xpm",
 
