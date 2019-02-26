@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-01-27 17:13+0000\n"
-"PO-Revision-Date: 2019-02-02 14:10+0100\n"
+"POT-Creation-Date: 2019-02-25 20:03+0000\n"
+"PO-Revision-Date: 2019-02-26 18:08+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -70,40 +70,40 @@ msgid "gnome-commander"
 msgstr "gnome-commander"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
-msgid "List of advance rename tool profiles"
+msgid "List of advanced rename tool profiles"
 msgstr "Lista profili zaawansowanego narzędzia zmiany nazw"
 
 #: data/org.gnome.gnome-commander.gschema.xml:32
 msgid ""
-"The entries in this array represent the profiles in the advance rename tool "
+"The entries in this array represent the profiles in the advanced rename tool "
 "with specific settings for each profile."
 msgstr ""
 "Wpisy w tej macierzy przedstawiają profile w zaawansowanym narzędziu zmiany "
 "nazw z konkretnymi ustawieniami dla każdego profilu."
 
 #: data/org.gnome.gnome-commander.gschema.xml:38
-msgid "Advance rename tool window width"
+msgid "Advanced rename tool window width"
 msgstr "Szerokość okna zaawansowanego narzędzia zmiany nazw"
 
 #: data/org.gnome.gnome-commander.gschema.xml:39
-msgid "This option defines the width of the advance rename tool window."
+msgid "This option defines the width of the advanced rename tool window."
 msgstr "Ta opcja określa szerokość okna zaawansowanego narzędzia zmiany nazw."
 
 #: data/org.gnome.gnome-commander.gschema.xml:45
-msgid "Advance rename tool window height"
+msgid "Advanced rename tool window height"
 msgstr "Wysokość okna zaawansowanego narzędzia zmiany nazw"
 
 #: data/org.gnome.gnome-commander.gschema.xml:46
-msgid "This option defines the height of the advance rename tool window."
+msgid "This option defines the height of the advanced rename tool window."
 msgstr "Ta opcja określa wysokość okna zaawansowanego narzędzia zmiany nazw."
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
-msgid "Advance rename tool template history"
+msgid "Advanced rename tool template history"
 msgstr "Historia szablonów zaawansowanego narzędzia zmiany nazw"
 
 #: data/org.gnome.gnome-commander.gschema.xml:53
 msgid ""
-"This string array represents the history of templates in the advance rename "
+"This string array represents the history of templates in the advanced rename "
 "tool."
 msgstr ""
 "Ta macierz ciągów przedstawia historię szablonów w zaawansowanym narzędziu "
@@ -1792,12 +1792,12 @@ msgid "Abort"
 msgstr "Przerwij"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: src/gnome-cmd-file-selector.cc:1408 src/gnome-cmd-xfer.cc:228
+#: src/gnome-cmd-file-selector.cc:1406 src/gnome-cmd-xfer.cc:228
 msgid "Retry"
 msgstr "Ponów"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: src/gnome-cmd-file-selector.cc:1408 src/gnome-cmd-xfer.cc:209
+#: src/gnome-cmd-file-selector.cc:1406 src/gnome-cmd-xfer.cc:209
 #: src/gnome-cmd-xfer.cc:228
 msgid "Skip"
 msgstr "Pomiń"
@@ -1823,7 +1823,7 @@ msgid "Delete"
 msgstr "Usuń"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:289 src/gnome-cmd-file-list.cc:1271
-#: src/gnome-cmd-file-list.cc:1299 src/gnome-cmd-file-selector.cc:1408
+#: src/gnome-cmd-file-list.cc:1299 src/gnome-cmd-file-selector.cc:1406
 #: src/gnome-cmd-user-actions.cc:817
 msgid "Cancel"
 msgstr "Anuluj"
@@ -1862,7 +1862,7 @@ msgid "Directory name:"
 msgstr "Nazwa katalogu:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1193
+#: src/gnome-cmd-file-selector.cc:1191
 msgid "File name:"
 msgstr "Nazwa pliku:"
 
@@ -2050,7 +2050,7 @@ msgid "Do nothing"
 msgstr "Nic nie rób"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1123
+#: src/gnome-cmd-file-selector.cc:1121
 msgid "No file name entered"
 msgstr "Nie podano nazwy pliku"
 
@@ -2549,7 +2549,7 @@ msgstr "Z potwierdzeniem"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1024
 #: src/dialogs/gnome-cmd-options-dialog.cc:1044
-#: src/gnome-cmd-file-selector.cc:1408
+#: src/gnome-cmd-file-selector.cc:1406
 msgid "Skip all"
 msgstr "Pomiń wszystkie"
 
@@ -3462,7 +3462,7 @@ msgstr "Wyszukiwanie grup roboczych i komputerów"
 msgid "Go to: Samba Network"
 msgstr "Przejście do: Sieć Samby"
 
-#: src/gnome-cmd-data.cc:3459 src/gnome-cmd-data.cc:4366
+#: src/gnome-cmd-data.cc:3454 src/gnome-cmd-data.cc:4365
 #, c-format
 msgid "link to %s"
 msgstr "dowiązanie do %s"
@@ -3762,24 +3762,24 @@ msgstr "Zamknij _wszystkie karty"
 msgid "Close _Duplicate Tabs"
 msgstr "Zamk_nij powtórzone karty"
 
-#: src/gnome-cmd-file-selector.cc:1165
+#: src/gnome-cmd-file-selector.cc:1163
 msgid "No file name given"
 msgstr "Nie podano nazwy pliku"
 
-#: src/gnome-cmd-file-selector.cc:1196
+#: src/gnome-cmd-file-selector.cc:1194
 msgid "New Text File"
 msgstr "Nowy plik tekstowy"
 
-#: src/gnome-cmd-file-selector.cc:1342
+#: src/gnome-cmd-file-selector.cc:1340
 msgid "Symbolic link name:"
 msgstr "Nazwa dowiązania symbolicznego:"
 
-#: src/gnome-cmd-file-selector.cc:1355 src/gnome-cmd-file-selector.cc:1408
+#: src/gnome-cmd-file-selector.cc:1353 src/gnome-cmd-file-selector.cc:1406
 #: src/gnome-cmd-user-actions.cc:817
 msgid "Create Symbolic Link"
 msgstr "Utwórz dowiązanie symboliczne"
 
-#: src/gnome-cmd-file-selector.cc:1479
+#: src/gnome-cmd-file-selector.cc:1477
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -9088,21 +9088,21 @@ msgid "Failed to create a directory in which to store temporary files."
 msgstr ""
 "Utworzenie katalogu do przechowywania plików tymczasowych się nie powiodło."
 
-#: src/utils.cc:954
+#: src/utils.cc:940
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Tworzenie katalogu %s… "
 
-#: src/utils.cc:957
+#: src/utils.cc:943
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Utworzenie katalogu %s się nie powiodło"
 
-#: src/utils.cc:963
+#: src/utils.cc:949
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Nie można odczytać z katalogu %s: %s"
 
-#: src/utils.cc:1100
+#: src/utils.cc:1086
 msgid "There was an error displaying help."
 msgstr "Wystąpił błąd podczas wyświetlania pomocy."
