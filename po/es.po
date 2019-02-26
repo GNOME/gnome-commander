@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-02-02 13:12+0000\n"
-"PO-Revision-Date: 2019-02-19 15:40+0100\n"
+"POT-Creation-Date: 2019-02-25 20:03+0000\n"
+"PO-Revision-Date: 2019-02-26 09:06+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -73,66 +73,66 @@ msgid "gnome-commander"
 msgstr "gnome-commander"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
-#| msgid "Advanced rename tool"
-msgid "List of advance rename tool profiles"
+#| msgid "List of advance rename tool profiles"
+msgid "List of advanced rename tool profiles"
 msgstr "Lista de perfiles de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:32
+#| msgid ""
+#| "This string array represents the history of commands executed in the "
+#| "command line."
 msgid ""
-"The entries in this array represent the profiles in the advance rename tool "
+"The entries in this array represent the profiles in the advanced rename tool "
 "with specific settings for each profile."
 msgstr ""
+"La entradas de esta lista representan los perfiles en la herramienta de "
+"renombrado avanzado con configuración específica para cada perfil."
 
 #: data/org.gnome.gnome-commander.gschema.xml:38
-#| msgid "Advanced rename tool"
-msgid "Advance rename tool window width"
+#| msgid "Advance rename tool window width"
+msgid "Advanced rename tool window width"
 msgstr "Anchura de la ventana de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:39
-#| msgid "This option defines the width of the main window."
-msgid "This option defines the width of the advance rename tool window."
+#| msgid "This option defines the width of the advance rename tool window."
+msgid "This option defines the width of the advanced rename tool window."
 msgstr ""
 "Esta opción define la anchura de la ventana de la herramienta de renombrado "
 "avanzado."
 
 #: data/org.gnome.gnome-commander.gschema.xml:45
-#| msgid "Advanced rename tool"
-msgid "Advance rename tool window height"
+#| msgid "Advance rename tool window height"
+msgid "Advanced rename tool window height"
 msgstr "Altura de la ventana de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:46
-#| msgid "This option defines the height of the main window."
-msgid "This option defines the height of the advance rename tool window."
+#| msgid "This option defines the height of the advance rename tool window."
+msgid "This option defines the height of the advanced rename tool window."
 msgstr ""
 "Esta opción define la altura de la ventana de la herramienta de renombrado "
 "avanzado."
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
-#| msgid "Advanced rename tool"
-msgid "Advance rename tool template history"
-msgstr "Histórico de la plantilla de la herramienta de renombrado avanzado"
+#| msgid "Advance rename tool template history"
+msgid "Advanced rename tool template history"
+msgstr "Histórico de plantillas de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:53
-#, fuzzy
 #| msgid ""
 #| "This string array represents the history of commands executed in the "
 #| "command line."
 msgid ""
-"This string array represents the history of templates in the advance rename "
+"This string array represents the history of templates in the advanced rename "
 "tool."
 msgstr ""
-"Esta cadena representa el histórico de comandos ejecutados en la línea de "
-"comandos."
+"Esta cadena representa el histórico de plantillas en la herramienta de "
+"renombrado avanzado."
 
 #: data/org.gnome.gnome-commander.gschema.xml:59
-#| msgid "Hide directories"
 msgid "History of visited directories"
 msgstr "Histórico de carpetas visitadas"
 
 #: data/org.gnome.gnome-commander.gschema.xml:60
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid "This string array represents the history of visited directories."
 msgstr "Esta cadena representa el histórico de carpetas visitadas."
 
@@ -416,7 +416,6 @@ msgid "This option defines the width of the main window."
 msgstr "Esta opción define la anchura de la ventana principal."
 
 #: data/org.gnome.gnome-commander.gschema.xml:252
-#| msgid "Edit Bookmark"
 msgid "List of bookmarks"
 msgstr "Lista de marcadores"
 
@@ -425,27 +424,22 @@ msgid "Each entry in this list represents a bookmark."
 msgstr "Cada entrada en esta lista representa un marcador."
 
 #: data/org.gnome.gnome-commander.gschema.xml:259
-#| msgid "Main window width"
 msgid "Bookmarks window width"
 msgstr "Anchura de la ventana de marcadores"
 
 #: data/org.gnome.gnome-commander.gschema.xml:260
-#| msgid "This option defines the width of the main window."
 msgid "This option defines the width of the bookmarks window."
 msgstr "Esta opción define la anchura de la ventana de marcadores."
 
 #: data/org.gnome.gnome-commander.gschema.xml:266
-#| msgid "Main window height"
 msgid "Bookmarks window height"
 msgstr "Altura de la ventana de marcadores"
 
 #: data/org.gnome.gnome-commander.gschema.xml:267
-#| msgid "This option defines the height of the main window."
 msgid "This option defines the height of the bookmarks window."
 msgstr "Esta opción define la altura de la ventana de marcadores."
 
 #: data/org.gnome.gnome-commander.gschema.xml:273
-#| msgid "Drop connection"
 msgid "List of connections"
 msgstr "Lista de conexiones"
 
@@ -739,7 +733,6 @@ msgid "This option defines the shortcut for quick search."
 msgstr "Esta opción define el atajo para la búsqueda rápida."
 
 #: data/org.gnome.gnome-commander.gschema.xml:498
-#| msgid "Listing failed: %s\n"
 msgid "List of file tabs"
 msgstr "Lista de pestañas de archivos"
 
@@ -748,18 +741,20 @@ msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
 msgstr ""
+"La entradas de esta lista se usan para restaurar las pestañas de la última "
+"sesión."
 
 #: data/org.gnome.gnome-commander.gschema.xml:505
-#| msgid "Hide block devices"
 msgid "List of devices"
 msgstr "Lista de dispositivos"
 
 #: data/org.gnome.gnome-commander.gschema.xml:506
 msgid "The entries in this list represent the devices configured by the user."
 msgstr ""
+"La entradas de esta lista representan los dispositivos configurados por el "
+"usuario."
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
-#| msgid "Other favourite apps"
 msgid "List of favorite apps"
 msgstr "Lista de aplicaciones favoritas"
 
@@ -767,52 +762,44 @@ msgstr "Lista de aplicaciones favoritas"
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
 msgstr ""
+"La entradas de esta lista representan las aplicaciones favoritas "
+"configuradas por el usuario."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
-#| msgid "Main window width"
 msgid "Search window width"
 msgstr "Anchura de la ventana de búsqueda"
 
 #: data/org.gnome.gnome-commander.gschema.xml:520
-#| msgid "This option defines the width of the main window."
 msgid "This option defines the width of the search window."
 msgstr "Esta opción define la anchura de la ventana de búsqueda."
 
 #: data/org.gnome.gnome-commander.gschema.xml:526
-#| msgid "Main window height"
 msgid "Search window height"
 msgstr "Altura de la ventana de búsqueda"
 
 #: data/org.gnome.gnome-commander.gschema.xml:527
-#| msgid "This option defines the height of the main window."
 msgid "This option defines the height of the search window."
 msgstr "Esta opción define la altura de la ventana de búsqueda."
 
 #: data/org.gnome.gnome-commander.gschema.xml:533
-#| msgid "Search history"
 msgid "Search text history"
 msgstr "Histórico de búsqueda de texto"
 
 #: data/org.gnome.gnome-commander.gschema.xml:534
-#, fuzzy
 #| msgid ""
 #| "This string array stores the history of text searches within the internal "
 #| "file viewer."
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
-"Esta cadena almacena el histórico de búsquedas de texto en el visor interno "
-"de archivos."
+"Esta cadena representa el histórico de búsquedas de texto en la herramienta "
+"de búsqueda."
 
 #: data/org.gnome.gnome-commander.gschema.xml:540
-#| msgid "Search history"
 msgid "Search pattern history"
 msgstr "Histórico de búsqueda de patrones"
 
 #: data/org.gnome.gnome-commander.gschema.xml:541
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -829,6 +816,8 @@ msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
 msgstr ""
+"La entradas de esta lista representan los perfiles en la herramienta de "
+"búsqueda con configuración específica para cada perfil."
 
 #: data/org.gnome.gnome-commander.gschema.xml:556
 msgid "Quick connect URI"
@@ -1851,12 +1840,12 @@ msgid "Abort"
 msgstr "Abortar"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: src/gnome-cmd-file-selector.cc:1408 src/gnome-cmd-xfer.cc:228
+#: src/gnome-cmd-file-selector.cc:1406 src/gnome-cmd-xfer.cc:228
 msgid "Retry"
 msgstr "Reintentar"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: src/gnome-cmd-file-selector.cc:1408 src/gnome-cmd-xfer.cc:209
+#: src/gnome-cmd-file-selector.cc:1406 src/gnome-cmd-xfer.cc:209
 #: src/gnome-cmd-xfer.cc:228
 msgid "Skip"
 msgstr "Saltar"
@@ -1881,7 +1870,7 @@ msgid "Delete"
 msgstr "Eliminar"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:289 src/gnome-cmd-file-list.cc:1271
-#: src/gnome-cmd-file-list.cc:1299 src/gnome-cmd-file-selector.cc:1408
+#: src/gnome-cmd-file-list.cc:1299 src/gnome-cmd-file-selector.cc:1406
 #: src/gnome-cmd-user-actions.cc:817
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1920,7 +1909,7 @@ msgid "Directory name:"
 msgstr "Nombre de la carpeta:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1193
+#: src/gnome-cmd-file-selector.cc:1191
 msgid "File name:"
 msgstr "Nombre del archivo:"
 
@@ -2106,7 +2095,7 @@ msgid "Do nothing"
 msgstr "No hacer nada"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1123
+#: src/gnome-cmd-file-selector.cc:1121
 msgid "No file name entered"
 msgstr "Ningún nombre de archivo introducido"
 
@@ -2607,7 +2596,7 @@ msgstr "Preguntar primero"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1024
 #: src/dialogs/gnome-cmd-options-dialog.cc:1044
-#: src/gnome-cmd-file-selector.cc:1408
+#: src/gnome-cmd-file-selector.cc:1406
 msgid "Skip all"
 msgstr "Saltar todos"
 
@@ -3512,7 +3501,7 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: src/gnome-cmd-data.cc:3459 src/gnome-cmd-data.cc:4370
+#: src/gnome-cmd-data.cc:3454 src/gnome-cmd-data.cc:4365
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
@@ -3806,24 +3795,24 @@ msgstr "Cerrar _todas las pestañas"
 msgid "Close _Duplicate Tabs"
 msgstr "Cerrar las pestañas _duplicadas"
 
-#: src/gnome-cmd-file-selector.cc:1165
+#: src/gnome-cmd-file-selector.cc:1163
 msgid "No file name given"
 msgstr "Ningún nombre de archivo dado"
 
-#: src/gnome-cmd-file-selector.cc:1196
+#: src/gnome-cmd-file-selector.cc:1194
 msgid "New Text File"
 msgstr "Nuevos archivo de texto"
 
-#: src/gnome-cmd-file-selector.cc:1342
+#: src/gnome-cmd-file-selector.cc:1340
 msgid "Symbolic link name:"
 msgstr "Nombre del enlace simbólico:"
 
-#: src/gnome-cmd-file-selector.cc:1355 src/gnome-cmd-file-selector.cc:1408
+#: src/gnome-cmd-file-selector.cc:1353 src/gnome-cmd-file-selector.cc:1406
 #: src/gnome-cmd-user-actions.cc:817
 msgid "Create Symbolic Link"
 msgstr "Crear un enlace simbólico"
 
-#: src/gnome-cmd-file-selector.cc:1479
+#: src/gnome-cmd-file-selector.cc:1477
 msgid "Filter:"
 msgstr "Filtro:"
 
@@ -9177,22 +9166,22 @@ msgstr "Falló al cambiar la carpeta de trabajo a una carpeta temporal."
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Falló al crear la carpeta en la que almacenar archivos temporalmente."
 
-#: src/utils.cc:954
+#: src/utils.cc:940
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Creando carpeta %s… "
 
-#: src/utils.cc:957
+#: src/utils.cc:943
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Falló al crear la carpeta %s"
 
-#: src/utils.cc:963
+#: src/utils.cc:949
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "No se pudo leer de la carpeta %s: %s"
 
-#: src/utils.cc:1100
+#: src/utils.cc:1086
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
 
