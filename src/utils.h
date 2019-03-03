@@ -216,6 +216,7 @@ GdkColor *gdk_color_new (gushort r, gushort g, gushort b);
 GList *file_list_to_uri_list (GList *files);
 GList *file_list_to_info_list (GList *files);
 
+int is_dir_existing(const gchar *dpath);
 gboolean create_dir_if_needed (const gchar *dpath);
 void fix_uri (GnomeVFSURI *uri);
 

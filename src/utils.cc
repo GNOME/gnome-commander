@@ -926,8 +926,12 @@ GList *file_list_to_info_list (GList *files)
     return infos;
 }
 
-
-gboolean create_dir_if_needed (const gchar *dpath)
+/**
+ * returns  1 if dir is existing,
+ * returns  0 if dir is not existing,
+ * returns -1 if dir is not readable
+ */
+int is_dir_existing(const gchar *dpath)
 {
     g_return_val_if_fail (dpath, FALSE);
 
@@ -937,21 +941,51 @@ gboolean create_dir_if_needed (const gchar *dpath)
     {
         if (errno == ENOENT)
         {
+            return 0;
+        }
+        else
+            g_warning (_("Couldn’t read from the directory %s: %s"), dpath, strerror (errno));
+
+        return -1;
+    }
+
+    closedir (dir);
+    return 1;
+}
+
+
+gboolean create_dir_if_needed (const gchar *dpath)
+{
+    g_return_val_if_fail (dpath, FALSE);
+
+    auto dir_exists = is_dir_existing(dpath);
+
+    switch (dir_exists)
+    {
+        case -1:
+        {
+            return FALSE;
+        }
+        case 0:
+        {
             g_print (_("Creating directory %s… "), dpath);
             if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)  return TRUE;  else
             {
                 gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
                 perror (msg);
                 g_free (msg);
+                return FALSE;
             }
+            break;
         }
-        else
-            g_warning (_("Couldn’t read from the directory %s: %s"), dpath, strerror (errno));
-
-        return FALSE;
+        case 1:
+        default:
+        {
+            return TRUE;
+        }
     }
 
-    closedir (dir);
+    // never reached
     return TRUE;
 }
 
