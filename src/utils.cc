@@ -969,7 +969,11 @@ gboolean create_dir_if_needed (const gchar *dpath)
         case 0:
         {
             g_print (_("Creating directory %s… "), dpath);
-            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)  return TRUE;  else
+            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)
+            {
+                return TRUE;
+            }
+            else
             {
                 gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
                 perror (msg);
