@@ -35,6 +35,8 @@
 #include "gnome-cmd-app.h"
 #include "utils-no-dependencies.h"
 
+using namespace std;
+
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
 extern gchar *debug_flags;
