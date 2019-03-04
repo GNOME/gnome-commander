@@ -44,6 +44,7 @@ static GdkBitmap *exec_mask = NULL;
 static GdkPixmap *blank_pixmap = NULL;
 static GdkBitmap *blank_mask = NULL;
 
+gchar* get_plugin_config_location();
 
 static void load_plugin (PluginData *data)
 {
@@ -219,9 +220,11 @@ void plugin_manager_init ()
     }
 
     // find user plugins
-    gchar *user_dir = g_build_filename (g_get_home_dir (), "." PACKAGE "/plugins", NULL);
-    create_dir_if_needed (user_dir);
-    scan_plugins_in_dir (user_dir);
+    gchar *user_dir = get_plugin_config_location();
+    if (create_dir_if_needed (user_dir))
+    {
+        scan_plugins_in_dir (user_dir);
+    }
     g_free (user_dir);
 
     // find system plugins
@@ -460,4 +463,38 @@ void plugin_manager_show ()
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);
     gtk_window_set_resizable ((GtkWindow *) GTK_WIDGET (dialog), TRUE);
     gtk_widget_show_all (GTK_WIDGET (dialog));
+}
+
+gchar* get_plugin_config_location()
+{
+    gchar* returnString {NULL};
+
+    string userPluginConfigDir = get_package_config_dir();
+    userPluginConfigDir += (char*) "/plugins";
+
+    auto dir_exists = is_dir_existing(userPluginConfigDir.c_str());
+
+    switch (dir_exists)
+    {
+        case 0:
+        {
+            if (create_dir_if_needed (userPluginConfigDir.c_str()))
+            {
+                returnString = g_strdup(userPluginConfigDir.c_str());
+            }
+            break;
+        }
+        case 1:
+        {
+            returnString = g_strdup(userPluginConfigDir.c_str());
+            break;
+        }
+        case -1:
+        default:
+        {
+            break;
+        }
+    }
+
+    return returnString;
 }
