@@ -1235,3 +1235,20 @@ gint get_string_pixel_size (const char *s, int len)
 
     return xSize;
 }
+
+
+gboolean move_old_to_new_location(const gchar* oldPath, const gchar* newPath)
+{
+    if (rename(oldPath, newPath) == 0)
+    {
+        return TRUE;
+    }
+    g_warning (_("Couldn’t move path from \"%s\" to \"%s\": %s"), oldPath, newPath, strerror (errno));
+
+    return FALSE;
+}
+
+gchar* get_package_config_dir()
+{
+    return g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);
+}
