@@ -735,7 +735,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
 
     // Script actions
-    gchar *user_dir = g_build_filename (g_get_user_config_dir (), "." PACKAGE "/scripts", NULL);
+    gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", NULL);
     DIR *dp = opendir (user_dir);
     GList *script_list = NULL;
     if (dp != NULL)
