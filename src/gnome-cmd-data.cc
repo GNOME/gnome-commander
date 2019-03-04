@@ -2028,7 +2028,7 @@ static void save_devices_old (const gchar *fname)
     GList *devices;
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+        g_build_filename (get_package_config_dir(), fname, NULL);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
 
@@ -2083,7 +2083,7 @@ static void save_fav_apps_old (const gchar *fname)
 {
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+        g_build_filename (get_package_config_dir(), fname, NULL);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
 
@@ -2359,7 +2359,7 @@ static gboolean load_devices (const gchar *fname)
 {
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+        g_build_filename (get_package_config_dir(), fname, NULL);
 
     ifstream f(path);
 
@@ -2638,7 +2638,7 @@ static gboolean load_fav_apps_old (const gchar *fname)
     GKeyFile *keyfile;
     gchar *path = config_dir ?
         g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (g_get_home_dir (), "." PACKAGE, fname, NULL);
+        g_build_filename (get_package_config_dir(), fname, NULL);
 
     gnome_cmd_data.options.fav_apps = NULL;
 
@@ -3710,7 +3710,7 @@ void GnomeCmdData::load()
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.10.
         save_devices_via_gsettings();
 
-    g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+    g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", NULL);
 
     // ToDo: Remove the check for xml cfg file in gcmd version >= 1.10.0
     if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
@@ -3725,8 +3725,8 @@ void GnomeCmdData::load()
         save_directory_history();
 
         // Move gnome-commander.xml to gnome-commander.xml.deprecated
-        g_autofree gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
-        g_autofree gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (g_get_home_dir (), "." PACKAGE, PACKAGE ".xml.deprecated", NULL);
+        g_autofree gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", NULL);
+        g_autofree gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (get_package_config_dir(), PACKAGE ".xml.deprecated", NULL);
 
         auto rv = rename (xml_cfg_path_old, xml_cfg_path_new);
         if (rv == -1)
