@@ -1243,7 +1243,7 @@ gboolean move_old_to_new_location(const gchar* oldPath, const gchar* newPath)
     {
         return TRUE;
     }
-    g_warning (_("Couldn’t move path from \"%s\" to \"%s\": %s"), oldPath, newPath, strerror (errno));
+    g_warning (_("Couldn’t move path from “%s” to “%s”: %s"), oldPath, newPath, strerror (errno));
 
     return FALSE;
 }
