@@ -7367,7 +7367,7 @@
     </sect2>
     <sect2 id="popup-menu-actions-examples">
         <title>Example Pop-up menu scripts</title>
-        <para>Some example scripts can be found <ulink url="https://git.gnome.org/browse/gnome-commander/tree/gcmd-scripts" type="https">online</ulink> in
+        <para>Some example scripts can be found <ulink url="https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/gcmd-scripts" type="https">online</ulink> in
         the &app; git repository.</para>
     </sect2>
   </sect1>
@@ -7520,7 +7520,7 @@
       <title>Getting &app;</title>
       <para>
             It&apos;s recommended to use the &app; package that is provided by your distribution.
-            Refer to &app; for the <ulink type="http" url="http://gcmd.github.io/download.html#distro">list of distributions</ulink>
+            Refer to &app; for the <ulink type="http" url="http://gcmd.github.io/download.html#external">list of distributions</ulink>
             supporting &app; packages.
         </para>
       <para>
@@ -7549,7 +7549,7 @@
       <para>For those of you who feel really adventurous, or maybe want to hack on the freshest code,
         the latest development source snapshots are available by using GIT:</para>
       <para>
-        <command>git clone git://git.gnome.org/gnome-commander</command>
+        <command>git clone https://gitlab.gnome.org/GNOME/gnome-commander.git</command>
       </para>
       <note>
         <para>The above works only to do a first time download and not for updating the code,
