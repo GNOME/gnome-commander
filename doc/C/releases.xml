@@ -23,6 +23,65 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.10.0</para></entry>
+            <entry><para>2019-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.8.1</para></entry>
+            <entry><para>2018-03-04</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fix simple script system for file names with spaces</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Store the size of the options dialog when closing itself</para>
+                        </listitem>
+                        <listitem>
+                            <para>Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, da, de, es, hu, id, pl, pt_BR, sr, sr@latin, sv</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, de, es</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.8.0</para></entry>
             <entry><para>2017-08-10</para></entry>
             <entry>
