@@ -7323,7 +7323,7 @@
         <para>
             The pop-up menu of &app;, which can be opened by right-clicking on a file or folder or by pressing
             <keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo>, can be easily extended by putting executable files into
-            <guilabel>~/.gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
+            <guilabel>~/.config/gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
             When such a menu entry is clicked, the associated script will be executed with the names of all selected items as arguments. When the
             <keycap>SHIFT</keycap> key is pressed while clicking the pop-up menu entry, the script will be called separately for each selected file.
         </para>
@@ -7567,10 +7567,29 @@
     <title>Configuration Files</title>
     <para>This section gives an overview of the configuration files used by &app;:
     </para>
+    <note>
+        <para>
+          Since &app; version 1.10.0 the location of configuration files changed from <guilabel>~/.gnome-commander</guilabel>
+          to <guilabel>~/.config/gnome-commander</guilabel>. Existing files are automatically moved when starting &app; 1.10.0
+          the first time.
+        </para>
+    </note>
+    <para>
+      <term>
+        <guilabel>~/.config/gnome-commander/scripts/*</guilabel>
+      </term>
+      In this directory the user can place scripts for the <xref linkend="popup-menu-actions"></xref>.
+    </para>
+    <note>
+      <para>
+        Since &app; version 1.10.0 the following option files are obsolete. If they have been created by ealier &app; versions
+        then the filename is extended automatically by <guilabel>*.deprecated</guilabel> and their settings are imported in
+        GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
+      </para>
     <variablelist>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/devices</guilabel>
+          <guilabel>~/.config/gnome-commander/devices</guilabel>
         </term>
         <listitem>
           <para/>
@@ -7578,7 +7597,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/fav-apps</guilabel>
+          <guilabel>~/.config/gnome-commander/fav-apps</guilabel>
         </term>
         <listitem>
           <para/>
@@ -7586,13 +7605,14 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>
+          <guilabel>~/.config/gnome-commander/gnome-commander.xml</guilabel>
         </term>
         <listitem>
           <para/>
         </listitem>
       </varlistentry>
     </variablelist>
+    </note>
     <note>
         <para>
             Since &app; version  1.6.0 the options file <guilabel>~/.gnome2/gnome-commander</guilabel> is obsolete.
