@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-02-25 20:03+0000\n"
-"PO-Revision-Date: 2019-02-26 09:06+0100\n"
+"POT-Creation-Date: 2019-03-04 20:14+0000\n"
+"PO-Revision-Date: 2019-03-05 12:37+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -73,14 +73,10 @@ msgid "gnome-commander"
 msgstr "gnome-commander"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
-#| msgid "List of advance rename tool profiles"
 msgid "List of advanced rename tool profiles"
 msgstr "Lista de perfiles de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:32
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid ""
 "The entries in this array represent the profiles in the advanced rename tool "
 "with specific settings for each profile."
@@ -89,38 +85,30 @@ msgstr ""
 "renombrado avanzado con configuración específica para cada perfil."
 
 #: data/org.gnome.gnome-commander.gschema.xml:38
-#| msgid "Advance rename tool window width"
 msgid "Advanced rename tool window width"
 msgstr "Anchura de la ventana de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:39
-#| msgid "This option defines the width of the advance rename tool window."
 msgid "This option defines the width of the advanced rename tool window."
 msgstr ""
 "Esta opción define la anchura de la ventana de la herramienta de renombrado "
 "avanzado."
 
 #: data/org.gnome.gnome-commander.gschema.xml:45
-#| msgid "Advance rename tool window height"
 msgid "Advanced rename tool window height"
 msgstr "Altura de la ventana de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:46
-#| msgid "This option defines the height of the advance rename tool window."
 msgid "This option defines the height of the advanced rename tool window."
 msgstr ""
 "Esta opción define la altura de la ventana de la herramienta de renombrado "
 "avanzado."
 
 #: data/org.gnome.gnome-commander.gschema.xml:52
-#| msgid "Advance rename tool template history"
 msgid "Advanced rename tool template history"
 msgstr "Histórico de plantillas de la herramienta de renombrado avanzado"
 
 #: data/org.gnome.gnome-commander.gschema.xml:53
-#| msgid ""
-#| "This string array represents the history of commands executed in the "
-#| "command line."
 msgid ""
 "This string array represents the history of templates in the advanced rename "
 "tool."
@@ -786,9 +774,6 @@ msgid "Search text history"
 msgstr "Histórico de búsqueda de texto"
 
 #: data/org.gnome.gnome-commander.gschema.xml:534
-#| msgid ""
-#| "This string array stores the history of text searches within the internal "
-#| "file viewer."
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
@@ -1529,7 +1514,7 @@ msgid "Extract to “%s”"
 msgstr "Extraer en «%s»"
 
 #: plugins/fileroller/file-roller-plugin.cc:571
-#: src/gnome-cmd-advrename-profile-component.cc:927 src/plugin_manager.cc:416
+#: src/gnome-cmd-advrename-profile-component.cc:927 src/plugin_manager.cc:419
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Archivo"
@@ -1984,7 +1969,7 @@ msgstr "Espacio de nombre de los metadatos"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:626
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:246
 #: src/dialogs/gnome-cmd-remote-dialog.cc:355
-#: src/intviewer/viewer-window.cc:1621 src/plugin_manager.cc:414
+#: src/intviewer/viewer-window.cc:1621 src/plugin_manager.cc:417
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Nombre"
@@ -4004,7 +3989,7 @@ msgstr "GNOME Commander en la _web"
 msgid "Report a _Problem"
 msgstr "Informar de un _problema"
 
-#: src/gnome-cmd-main-menu.cc:758 src/plugin_manager.cc:430
+#: src/gnome-cmd-main-menu.cc:758 src/plugin_manager.cc:433
 msgid "_About"
 msgstr "_Acerca de"
 
@@ -4854,27 +4839,27 @@ msgstr "Especificar la carpeta para los archivos de configuración"
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
-#: src/plugin_manager.cc:346
+#: src/plugin_manager.cc:349
 msgid "Disable"
 msgstr "Deshabilitar"
 
-#: src/plugin_manager.cc:346
+#: src/plugin_manager.cc:349
 msgid "Enable"
 msgstr "Habilitar"
 
-#: src/plugin_manager.cc:408
+#: src/plugin_manager.cc:411
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: src/plugin_manager.cc:415
+#: src/plugin_manager.cc:418
 msgid "Version"
 msgstr "Versión"
 
-#: src/plugin_manager.cc:421
+#: src/plugin_manager.cc:424
 msgid "_Enable"
 msgstr "_Habilitar"
 
-#: src/plugin_manager.cc:425
+#: src/plugin_manager.cc:428
 msgid "_Configure"
 msgstr "_Configurar"
 
@@ -9166,24 +9151,30 @@ msgstr "Falló al cambiar la carpeta de trabajo a una carpeta temporal."
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Falló al crear la carpeta en la que almacenar archivos temporalmente."
 
-#: src/utils.cc:940
-#, c-format
-msgid "Creating directory %s… "
-msgstr "Creando carpeta %s… "
-
-#: src/utils.cc:943
-#, c-format
-msgid "Failed to create the directory %s"
-msgstr "Falló al crear la carpeta %s"
-
-#: src/utils.cc:949
+#: src/utils.cc:947
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "No se pudo leer de la carpeta %s: %s"
 
-#: src/utils.cc:1086
+#: src/utils.cc:971
+#, c-format
+msgid "Creating directory %s… "
+msgstr "Creando carpeta %s… "
+
+#: src/utils.cc:978
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "Falló al crear la carpeta %s"
+
+#: src/utils.cc:1124
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
+
+#: src/utils.cc:1246
+#, c-format
+#| msgid "Couldn’t read from the directory %s: %s"
+msgid "Couldn’t move path from \"%s\" to \"%s\": %s"
+msgstr "No se pudo mover la ruta de «%s» a «%s»: %s"
 
 #~ msgid "Audio Files"
 #~ msgstr "Archivo de sonido"
