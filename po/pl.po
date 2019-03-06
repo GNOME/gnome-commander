@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-02-25 20:03+0000\n"
-"PO-Revision-Date: 2019-02-26 18:08+0100\n"
+"POT-Creation-Date: 2019-03-05 17:57+0000\n"
+"PO-Revision-Date: 2019-03-06 18:52+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -1480,7 +1480,7 @@ msgid "Extract to “%s”"
 msgstr "Rozpakuj do „%s”"
 
 #: plugins/fileroller/file-roller-plugin.cc:571
-#: src/gnome-cmd-advrename-profile-component.cc:927 src/plugin_manager.cc:416
+#: src/gnome-cmd-advrename-profile-component.cc:927 src/plugin_manager.cc:419
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Plik"
@@ -1937,7 +1937,7 @@ msgstr "Przestrzeń nazw metadanych"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:626
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:246
 #: src/dialogs/gnome-cmd-remote-dialog.cc:355
-#: src/intviewer/viewer-window.cc:1621 src/plugin_manager.cc:414
+#: src/intviewer/viewer-window.cc:1621 src/plugin_manager.cc:417
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Nazwa"
@@ -3971,7 +3971,7 @@ msgstr "_Witryna programu GNOME Commander"
 msgid "Report a _Problem"
 msgstr "Zgłoś p_roblem"
 
-#: src/gnome-cmd-main-menu.cc:758 src/plugin_manager.cc:430
+#: src/gnome-cmd-main-menu.cc:758 src/plugin_manager.cc:433
 msgid "_About"
 msgstr "_O programie"
 
@@ -4827,27 +4827,27 @@ msgstr "Podaje katalog plików konfiguracji"
 msgid "File Manager"
 msgstr "Menedżer plików"
 
-#: src/plugin_manager.cc:346
+#: src/plugin_manager.cc:349
 msgid "Disable"
 msgstr "Wyłącz"
 
-#: src/plugin_manager.cc:346
+#: src/plugin_manager.cc:349
 msgid "Enable"
 msgstr "Włącz"
 
-#: src/plugin_manager.cc:408
+#: src/plugin_manager.cc:411
 msgid "Available plugins"
 msgstr "Dostępne wtyczki"
 
-#: src/plugin_manager.cc:415
+#: src/plugin_manager.cc:418
 msgid "Version"
 msgstr "Wersja"
 
-#: src/plugin_manager.cc:421
+#: src/plugin_manager.cc:424
 msgid "_Enable"
 msgstr "_Włącz"
 
-#: src/plugin_manager.cc:425
+#: src/plugin_manager.cc:428
 msgid "_Configure"
 msgstr "S_konfiguruj"
 
@@ -9088,21 +9088,26 @@ msgid "Failed to create a directory in which to store temporary files."
 msgstr ""
 "Utworzenie katalogu do przechowywania plików tymczasowych się nie powiodło."
 
-#: src/utils.cc:940
-#, c-format
-msgid "Creating directory %s… "
-msgstr "Tworzenie katalogu %s… "
-
-#: src/utils.cc:943
-#, c-format
-msgid "Failed to create the directory %s"
-msgstr "Utworzenie katalogu %s się nie powiodło"
-
-#: src/utils.cc:949
+#: src/utils.cc:947
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Nie można odczytać z katalogu %s: %s"
 
-#: src/utils.cc:1086
+#: src/utils.cc:971
+#, c-format
+msgid "Creating directory %s… "
+msgstr "Tworzenie katalogu %s… "
+
+#: src/utils.cc:978
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "Utworzenie katalogu %s się nie powiodło"
+
+#: src/utils.cc:1124
 msgid "There was an error displaying help."
 msgstr "Wystąpił błąd podczas wyświetlania pomocy."
+
+#: src/utils.cc:1246
+#, c-format
+msgid "Couldn’t move path from “%s” to “%s”: %s"
+msgstr "Nie można przenieść ścieżki z „%s” do „%s”: %s"
