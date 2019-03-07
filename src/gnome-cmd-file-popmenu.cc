@@ -515,6 +515,11 @@ static void class_init (GnomeCmdFilePopmenuClass *klass)
 static void init (GnomeCmdFilePopmenu *menu)
 {
     menu->priv = g_new0 (GnomeCmdFilePopmenuPrivate, 1);
+
+    // Create scripts directory if needed
+    gchar *scripts_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", NULL);
+    create_dir_if_needed(scripts_dir);
+    g_free (scripts_dir);
 }
 
 
