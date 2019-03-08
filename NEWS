@@ -3,16 +3,23 @@ gnome-commander 1.10.0
 ---------------
 
 New features:
- * ...
+ * Gnome Commander options are now completely migrated to GSettings under the key "org.gnome.gnome-commander"
+ * Options in ~/.gnome2/gnome-commander and in ~/.gnome-commander/* are migrated automatically
+ * Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-commander
+ * Gnome Commander icon refreshed
 
 Bug fixes:
- * ...
+ * Various warnings at compile time have been fixed
+ * Several code improvements and memory leaks have been fixed
 
 New or updated translations:
- * ...
+ * cs (Marek Cernocky)
+ * es (Daniel Mustieles)
+ * hu (Balázs Úr)
+ * pl (Piotr Drąg)
 
 New or updated docs:
- * ...
+ * cs (Marek Cernocky)
 
 ===================================
 gnome-commander 1.8.1
@@ -21,9 +28,11 @@ gnome-commander 1.8.1
 New features:
  * Store the size of the options dialog when closing itself
  * Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)
+ * Removed python support completely
 
 Bug fixes:
  * Fix simple script system for file names with spaces
+ * Fixed bgo#785505: Problem when compiling GCMD with flex 2.6.4
 
 New or updated translations:
  * cs (Marek Cernocky)

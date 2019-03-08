@@ -30,7 +30,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Various warnings at compile time have been fixed</para>
+                        </listitem>
+                        <listitem>
+                            <para>Several code improvements and memory leaks have been fixed</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -38,13 +41,23 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Gnome Commander options are now completely migrated to GSettings under the key "org.gnome.gnome-commander"</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>Options in ~/.gnome2/gnome-commander and in ~/.gnome-commander/* are migrated automatically</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-commander</para>
+                        </listitem>
+                        <listitem>
+                            <para>Gnome Commander icon refreshed</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, es, hu, pl
+                        </para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -60,6 +73,9 @@
                         <listitem>
                             <para>Fix simple script system for file names with spaces</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed bgo#785505: Problem when compiling GCMD with flex 2.6.4</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
@@ -70,6 +86,9 @@
                         </listitem>
                         <listitem>
                             <para>Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed python support completely</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: cs, da, de, es, hu, id, pl, pt_BR, sr, sr@latin, sv</para>
