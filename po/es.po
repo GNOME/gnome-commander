@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-03-04 20:14+0000\n"
-"PO-Revision-Date: 2019-03-05 12:37+0100\n"
+"POT-Creation-Date: 2019-03-05 17:57+0000\n"
+"PO-Revision-Date: 2019-03-08 12:46+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -9172,8 +9172,8 @@ msgstr "Hubo un error al mostrar la ayuda."
 
 #: src/utils.cc:1246
 #, c-format
-#| msgid "Couldn’t read from the directory %s: %s"
-msgid "Couldn’t move path from \"%s\" to \"%s\": %s"
+#| msgid "Couldn’t move path from \"%s\" to \"%s\": %s"
+msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "No se pudo mover la ruta de «%s» a «%s»: %s"
 
 #~ msgid "Audio Files"
