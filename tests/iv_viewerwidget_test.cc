@@ -32,7 +32,7 @@
 #include "gtest/gtest.h"
 #include <libgviewer.h>
 
-const gchar *filename = "../NEWS";
+const gchar *filename = "../README";
 
 ////////////////////////////////////////////////////////////////////////
 
