@@ -547,13 +547,13 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
 gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 {
-    g_return_val_if_fail (server != NULL, FALSE);
+    g_return_val_if_fail (server != nullptr, FALSE);
 
-    GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
+    auto *dialog = reinterpret_cast<GnomeCmdConnectDialog*> (gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
 
-    g_return_val_if_fail (dialog != NULL, FALSE);
+    g_return_val_if_fail (dialog != nullptr, FALSE);
 
-    GnomeCmdCon *con = GNOME_CMD_CON (server);
+    auto *con = GNOME_CMD_CON (server);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
@@ -628,11 +628,11 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
     gint response = gtk_dialog_run (*dialog);
 
-    if (response==GTK_RESPONSE_OK)
+    if (response == GTK_RESPONSE_OK)
     {
         GnomeVFSURI *uri = gnome_vfs_uri_new (dialog->priv->uri_str.c_str());
 
-        const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : NULL;
+        const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
         const gchar *host = gnome_vfs_uri_get_host_name (uri);
 
         gnome_cmd_con_set_alias (con, alias);
