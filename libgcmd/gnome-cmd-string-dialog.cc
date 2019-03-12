@@ -30,7 +30,6 @@ struct GnomeCmdStringDialog::Private
     GnomeCmdStringDialogCallback ok_cb;
     GFunc cancel_cb;
     gpointer data;
-    GtkWidget *dialog;
     gchar *error_desc;
 };
 
