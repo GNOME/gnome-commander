@@ -23,6 +23,8 @@
 
 #include <utility>
 
+// ToDo: Since C++11 there exists std::tuple. Try to use this one instead of the triple class?!?
+
 template <typename T1, typename T2, typename T3>
 struct triple: public std::pair<T1,T2>
 {
