@@ -59,15 +59,15 @@ struct GnomeCmdConnectDialogClass
 
 struct GnomeCmdConnectDialog::Private
 {
-    string *alias;
+    string *alias {nullptr};
     string uri_str;
 
-    GnomeCmdCon::Authentication auth;
+    GnomeCmdCon::Authentication auth {GnomeCmdCon::SAVE_PERMANENTLY};
 
-    GtkWidget *required_table;
-    GtkWidget *optional_table;
+    GtkWidget *required_table {nullptr};
+    GtkWidget *optional_table {nullptr};
 
-    GtkWidget *type_combo;
+    GtkWidget *type_combo {nullptr};
 
     GtkWidget *alias_entry;
     GtkWidget *uri_entry;
@@ -88,15 +88,6 @@ struct GnomeCmdConnectDialog::Private
 
 inline GnomeCmdConnectDialog::Private::Private()
 {
-    alias = NULL;
-
-    auth = GnomeCmdCon::SAVE_PERMANENTLY;
-
-    required_table = NULL;
-    optional_table = NULL;
-
-    type_combo = NULL;
-
     alias_entry = gtk_entry_new ();
     uri_entry = gtk_entry_new ();
     server_entry = gtk_entry_new ();
