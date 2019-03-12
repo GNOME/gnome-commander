@@ -86,7 +86,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), rx->pattern.c_str());
+    gtk_entry_set_text (GTK_ENTRY (entry), rx ? rx->pattern.c_str() : nullptr);
     g_object_set_data (G_OBJECT (dialog), "pattern", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
@@ -97,7 +97,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), rx->replacement.c_str());
+    gtk_entry_set_text (GTK_ENTRY (entry), rx ? rx->replacement.c_str() : nullptr);
     g_object_set_data (G_OBJECT (dialog), "replace", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 1, 2);
