@@ -510,9 +510,9 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
  */
 GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 {
-    GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
+    auto *dialog = static_cast<GnomeCmdConnectDialog*> (g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
 
-    g_return_val_if_fail (dialog != NULL, NULL);
+    g_return_val_if_fail (dialog != nullptr, nullptr);
 
     if (has_alias)
         dialog->priv->alias = new string;
@@ -525,11 +525,11 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gint response = gtk_dialog_run (*dialog);
 
-    GnomeCmdConRemote *server = NULL;
+    GnomeCmdConRemote *server = nullptr;
 
     if (response==GTK_RESPONSE_OK)
     {
-        const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : NULL;
+        const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : nullptr;
 
         server = gnome_cmd_con_remote_new (alias, dialog->priv->uri_str);
 
