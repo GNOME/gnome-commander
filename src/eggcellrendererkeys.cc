@@ -475,12 +475,15 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
 
     // filter consumed modifiers
     if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
+    {
         accel_mods &= ~consumed_modifiers;
 
-    // put shift back if it changed the case of the key, not otherwise.
-    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
+        // put shift back if it changed the case of the key, not otherwise.
         if (accel_key != event->keyval)
+        {
             accel_mods |= GDK_SHIFT_MASK;
+        }
+    }
 
     if (accel_mods == 0)
         switch (event->keyval)
