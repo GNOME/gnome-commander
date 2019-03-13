@@ -760,7 +760,7 @@ GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info)
 {
     g_return_val_if_fail (info != nullptr, nullptr);
 
-    GnomeCmdAboutPlugin *about = (GnomeCmdAboutPlugin *) g_object_new (GNOME_CMD_TYPE_ABOUT_PLUGIN, NULL);
+    auto about = static_cast<GnomeCmdAboutPlugin*> (g_object_new (GNOME_CMD_TYPE_ABOUT_PLUGIN, nullptr));
 
     gnome_cmd_about_plugin_construct(about,
                                      info->name, info->version, info->copyright, info->comments,
