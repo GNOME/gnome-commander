@@ -418,10 +418,10 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
                                       gint            *width,
                                       gint            *height)
 {
-    EggCellRendererKeys *keys = (EggCellRendererKeys *) cell;
+    auto keys = reinterpret_cast <EggCellRendererKeys*> (cell);
     GtkRequisition requisition;
 
-    if (keys->sizing_label == NULL)
+    if (keys->sizing_label == nullptr)
         keys->sizing_label = gtk_label_new (_("New accelerator…"));
 
     gtk_widget_size_request (keys->sizing_label, &requisition);
