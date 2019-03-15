@@ -36,7 +36,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "gnome-cmd-gkeyfile-utils.h"

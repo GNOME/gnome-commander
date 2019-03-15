@@ -1,5 +1,5 @@
-/** 
- * @file owner.h
+/**
+ * @file gnome-cmd-owner.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2019 Uwe Scholz\n

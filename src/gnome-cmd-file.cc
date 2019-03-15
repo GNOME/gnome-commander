@@ -24,7 +24,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "utils.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "imageloader.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-plain-path.h"

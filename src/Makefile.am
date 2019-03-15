@@ -61,6 +61,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-menu-button.h gnome-cmd-menu-button.cc \
 	gnome-cmd-mime-config.h gnome-cmd-mime-config.cc \
 	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
+	gnome-cmd-owner.h gnome-cmd-owner.cc \
 	gnome-cmd-path.h \
 	gnome-cmd-pixmap.h gnome-cmd-pixmap.cc \
 	gnome-cmd-plain-path.h gnome-cmd-plain-path.cc \
@@ -79,7 +80,6 @@ gnome_commander_SOURCES = \
 	imageloader.cc imageloader.h \
 	ls_colors.h ls_colors.cc \
 	main.cc \
-	owner.h owner.cc \
 	plugin_manager.h plugin_manager.cc \
 	tuple.h \
 	utils.h utils.cc \

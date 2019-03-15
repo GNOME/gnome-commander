@@ -1,5 +1,5 @@
-/** 
- * @file owner.cc
+/**
+ * @file gnome-cmd-owner.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2019 Uwe Scholz\n
@@ -26,7 +26,7 @@
 #include <set>
 
 #include "gnome-cmd-includes.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "utils.h"
 
 using namespace std;

@@ -26,7 +26,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chown-component.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 
 using namespace std;
 

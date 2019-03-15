@@ -29,7 +29,7 @@
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-user-actions.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 
 using namespace std;
 

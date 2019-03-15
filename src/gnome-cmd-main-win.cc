@@ -37,7 +37,7 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con-list.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "utils.h"
 
 #include "../pixmaps/copy_file_names.xpm"
