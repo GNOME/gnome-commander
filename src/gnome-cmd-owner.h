@@ -53,8 +53,14 @@ class GnomeCmdOwner
             T data;
         };
 
-        Entry *lookup(ID id)                    {  return (Entry *) g_hash_table_lookup (id_table, &id);      }
-        Entry *lookup(const gchar *name)        {  return (Entry *) g_hash_table_lookup (name_table, name);   }
+        Entry *lookup(ID id)
+        {
+            return static_cast<Entry*> (g_hash_table_lookup (id_table, &id));
+        }
+        Entry *lookup(const gchar *name)
+        {
+            return static_cast<Entry*> (g_hash_table_lookup (name_table, name));
+        }
         Entry *add(ID id, const gchar *name);
 
       public:
@@ -117,7 +123,7 @@ class GnomeCmdOwner
 template <typename T, typename ID>
 inline GnomeCmdOwner::HashTable<T,ID>::HashTable()
 {
-    entries = NULL;
+    entries = nullptr;
     id_table = g_hash_table_new (g_int_hash, g_int_equal);
     name_table = g_hash_table_new (g_str_hash, g_str_equal);
 }
@@ -131,11 +137,11 @@ GnomeCmdOwner::HashTable<T,ID>::~HashTable()
     {
         for (GList *i = entries; i; i = g_list_next (i))
         {
-            Entry *e = (Entry *) i->data;
+            auto e = static_cast<Entry*> (i->data);
             g_free (e->name);
         }
 
-        g_list_foreach (entries, (GFunc) g_free, NULL);
+        g_list_foreach (entries, (GFunc) g_free, nullptr);
         g_list_free (entries);
     }
 }
@@ -161,7 +167,7 @@ inline const gchar *GnomeCmdOwner::HashTable<T,ID>::operator [] (ID id)
 {
     Entry *entry = lookup(id);
 
-    return entry ? entry->name : NULL;
+    return entry ? entry->name : nullptr;
 }
 
 template <typename T, typename ID>
@@ -180,7 +186,7 @@ inline GList *GnomeCmdOwner::HashTable<T,ID>::get_names()
 
 inline GnomeCmdOwner::GnomeCmdUsers::Entry *GnomeCmdOwner::new_entry(const struct passwd *pw)
 {
-    g_return_val_if_fail (pw!=NULL, NULL);
+    g_return_val_if_fail (pw != nullptr, nullptr);
 
     GnomeCmdUsers::Entry *entry = users.add(pw->pw_uid, pw->pw_name);
 
@@ -193,7 +199,7 @@ inline GnomeCmdOwner::GnomeCmdUsers::Entry *GnomeCmdOwner::new_entry(const struc
 
 inline GnomeCmdOwner::GnomeCmdGroups::Entry *GnomeCmdOwner::new_entry(const struct group *grp)
 {
-    g_return_val_if_fail (grp!=NULL, NULL);
+    g_return_val_if_fail (grp != nullptr, nullptr);
 
     GnomeCmdGroups::Entry *entry = groups.add(grp->gr_gid, grp->gr_name);
 
@@ -218,7 +224,7 @@ inline const char *GnomeCmdOwner::get_name_by_uid(uid_t id)
     if (entry)
         return entry->name;
 
-    struct passwd pwd, *result=NULL;
+    struct passwd pwd, *result = nullptr;
 
     getpwuid_r(id, &pwd, buff, buffsize, &result);
 
@@ -248,7 +254,7 @@ inline const char *GnomeCmdOwner::get_name_by_gid(gid_t id)
     if (entry)
         return entry->name;
 
-    struct group grp, *result=NULL;
+    struct group grp, *result = nullptr;
 
     getgrgid_r(id, &grp, buff, buffsize, &result);
 
