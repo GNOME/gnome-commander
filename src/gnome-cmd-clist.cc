@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-clist.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static GtkCListClass *parent_class = NULL;
+static GtkCListClass *parent_class = nullptr;
 
 
 /*******************************************
@@ -163,7 +163,7 @@ draw_cell_pixmap (GdkWindow    *window,
     gdk_draw_drawable (window, fg_gc, pixmap, xsrc, ysrc, x, y, width, height);
     gdk_gc_set_clip_origin (fg_gc, 0, 0);
     if (mask)
-        gdk_gc_set_clip_mask (fg_gc, NULL);
+        gdk_gc_set_clip_mask (fg_gc, nullptr);
 
     return x + MAX (width, 0);
 }
@@ -174,7 +174,7 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
     GtkStyle *style;
     gchar *text;
 
-    get_cell_style (clist, clist_row, GTK_STATE_NORMAL, column, &style, NULL, NULL);
+    get_cell_style (clist, clist_row, GTK_STATE_NORMAL, column, &style, nullptr, nullptr);
 
     GtkCell *cell = &clist_row->cell[column];
 
@@ -191,7 +191,7 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
                     GTK_CELL_TEXT (*cell)->text);
 
             if (!text)
-                return NULL;
+                return nullptr;
 
             layout = gtk_widget_create_pango_layout (GTK_WIDGET (clist),
                                                      ((cell->type == GTK_CELL_PIXTEXT) ?
@@ -202,7 +202,7 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
             return layout;
 
         default:
-            return NULL;
+            return nullptr;
     }
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
@@ -212,7 +212,7 @@ static PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRo
 
 static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow *clist_row)
 {
-    g_return_if_fail (clist != NULL);
+    g_return_if_fail (clist != nullptr);
 
     GdkRectangle *rect;
     GdkRectangle row_rectangle;
@@ -362,7 +362,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
         layout = my_gtk_clist_create_cell_layout (clist, clist_row, i);
         if (layout)
         {
-            pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
+            pango_layout_get_pixel_extents (layout, nullptr, &logical_rect);
             width = logical_rect.width;
         }
         else
@@ -451,7 +451,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
                                      row_rectangle.y + row_center_offset + clist_row->cell[i].vertical,
                                      layout);
                     g_object_unref (layout);
-                    gdk_gc_set_clip_rectangle (fg_gc, NULL);
+                    gdk_gc_set_clip_rectangle (fg_gc, nullptr);
                 }
                 break;
 
@@ -478,7 +478,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
                                     row_rectangle.x, row_rectangle.y,
                                     row_rectangle.width - 1,
                                     row_rectangle.height - 1);
-                gdk_gc_set_clip_rectangle (clist->xor_gc, NULL);
+                gdk_gc_set_clip_rectangle (clist->xor_gc, nullptr);
             }
     }
 }
@@ -489,7 +489,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
  ****/
 static void on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
-    gtk_widget_draw (GTK_WIDGET (clist), NULL);
+    gtk_widget_draw (GTK_WIDGET (clist), nullptr);
 }
 
 
@@ -524,7 +524,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -553,8 +553,8 @@ static void init (GnomeCmdCList *clist)
 
     GTK_CLIST (clist)->focus_row = 0;
 
-    g_signal_connect_after (clist, "scroll-vertical", G_CALLBACK (on_scroll_vertical), NULL);
-    g_signal_connect (clist, "realize", G_CALLBACK (on_realize), NULL);
+    g_signal_connect_after (clist, "scroll-vertical", G_CALLBACK (on_scroll_vertical), nullptr);
+    g_signal_connect (clist, "realize", G_CALLBACK (on_realize), nullptr);
 }
 
 
@@ -575,9 +575,9 @@ GtkType gnome_cmd_clist_get_type ()
             sizeof (GnomeCmdCListClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (gtk_clist_get_type (), &info);
@@ -588,12 +588,12 @@ GtkType gnome_cmd_clist_get_type ()
 
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
-    GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (GNOME_CMD_TYPE_CLIST, "n-columns", columns, NULL);
+    auto clist = static_cast <GnomeCmdCList*> (g_object_new (GNOME_CMD_TYPE_CLIST, "n-columns", columns, nullptr));
 
     for (gint i=0; i<columns; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);
 
-    if (titles != NULL)
+    if (titles != nullptr)
         for (gint i=0; i<columns; i++)
             gtk_clist_set_column_title (GTK_CLIST (clist), i, titles[i]);
 
@@ -629,7 +629,7 @@ gint gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
 
     g_return_val_if_fail (GNOME_CMD_IS_CLIST (clist), -1);
 
-    if (gtk_clist_get_selection_info (GTK_CLIST (clist), x, y, &row, NULL) == 0)
+    if (gtk_clist_get_selection_info (GTK_CLIST (clist), x, y, &row, nullptr) == 0)
         row = -1;
 
     return row;
@@ -646,7 +646,7 @@ void gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row)
     if (row == last_row) return;
 
     if (last_row >= 0)
-        draw_row (GTK_CLIST (clist), NULL, last_row, NULL);
+        draw_row (GTK_CLIST (clist), nullptr, last_row, nullptr);
     if (row >= 0)
-        draw_row (GTK_CLIST (clist), NULL, row, NULL);
+        draw_row (GTK_CLIST (clist), nullptr, row, nullptr);
 }
