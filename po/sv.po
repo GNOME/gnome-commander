@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-03-05 17:57+0000\n"
-"PO-Revision-Date: 2019-03-13 22:06+0100\n"
+"POT-Creation-Date: 2019-03-13 21:25+0000\n"
+"PO-Revision-Date: 2019-03-18 17:23+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -1970,7 +1970,7 @@ msgstr "Beskrivning"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:633
 #: src/intviewer/viewer-window.cc:1628
 msgid "Metadata tag description"
-msgstr "Beskrivning av metadatans tagg"
+msgstr "Beskrivning av metadatatagg"
 
 #. data->thread = 0;
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:688
@@ -2216,7 +2216,7 @@ msgstr "CTRL+ALT+bokstäver"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:174
 msgid "ALT+letters (menu access with F12)"
-msgstr "ALT+bokstav (menyåtkomst med F12)"
+msgstr "ALT+bokstäver (menyåtkomst med F12)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:178
 msgid "Just letters (command line access with CTRL+ALT+C)"
@@ -2952,7 +2952,7 @@ msgstr[1] "Hittade %d träffar"
 #: src/dialogs/gnome-cmd-search-dialog.cc:693
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
-msgstr "Misslyckades med att ange processgruppid för barnet %d: %s.\n"
+msgstr "Misslyckades med att ange processgrupp-ID för barnet %d: %s.\n"
 
 #: src/dialogs/gnome-cmd-search-dialog.cc:817
 msgid "Error parsing the search command."
@@ -3637,59 +3637,59 @@ msgstr "Öppna med annat…"
 msgid "Needs terminal"
 msgstr "Behöver ett terminalfönster"
 
-#: src/gnome-cmd-file-popmenu.cc:553 src/gnome-cmd-file-popmenu.cc:574
-#: src/gnome-cmd-file-popmenu.cc:599
+#: src/gnome-cmd-file-popmenu.cc:558 src/gnome-cmd-file-popmenu.cc:579
+#: src/gnome-cmd-file-popmenu.cc:604
 msgid "_Open"
 msgstr "_Öppna"
 
-#: src/gnome-cmd-file-popmenu.cc:578
+#: src/gnome-cmd-file-popmenu.cc:583
 #, c-format
 msgid "_Open with “%s”"
 msgstr "_Öppna med ”%s”"
 
-#: src/gnome-cmd-file-popmenu.cc:600
+#: src/gnome-cmd-file-popmenu.cc:605
 msgid "Open Wit_h"
 msgstr "Öppna m_ed"
 
-#: src/gnome-cmd-file-popmenu.cc:606
+#: src/gnome-cmd-file-popmenu.cc:611
 msgid "E_xecute"
 msgstr "_Kör"
 
-#: src/gnome-cmd-file-popmenu.cc:618 src/gnome-cmd-main-menu.cc:528
+#: src/gnome-cmd-file-popmenu.cc:623 src/gnome-cmd-main-menu.cc:528
 msgid "Cu_t"
 msgstr "Klipp _ut"
 
-#: src/gnome-cmd-file-popmenu.cc:619 src/gnome-cmd-main-menu.cc:534
+#: src/gnome-cmd-file-popmenu.cc:624 src/gnome-cmd-main-menu.cc:534
 msgid "_Copy"
 msgstr "_Kopiera"
 
-#: src/gnome-cmd-file-popmenu.cc:620 src/gnome-cmd-user-actions.cc:209
+#: src/gnome-cmd-file-popmenu.cc:625 src/gnome-cmd-user-actions.cc:209
 msgid "Copy file names"
 msgstr "Kopiera filnamn"
 
-#: src/gnome-cmd-file-popmenu.cc:621 src/gnome-cmd-main-menu.cc:546
+#: src/gnome-cmd-file-popmenu.cc:626 src/gnome-cmd-main-menu.cc:546
 msgid "_Delete"
 msgstr "_Ta bort"
 
-#: src/gnome-cmd-file-popmenu.cc:623
+#: src/gnome-cmd-file-popmenu.cc:628
 msgid "Rename"
 msgstr "Byt namn"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:624 src/gnome-cmd-main-win.cc:1258
+#: src/gnome-cmd-file-popmenu.cc:629 src/gnome-cmd-main-win.cc:1258
 #: src/gnome-cmd-user-actions.cc:234
 msgid "Send files"
 msgstr "Skicka filer"
 
-#: src/gnome-cmd-file-popmenu.cc:625 src/gnome-cmd-list-popmenu.cc:118
+#: src/gnome-cmd-file-popmenu.cc:630 src/gnome-cmd-list-popmenu.cc:118
 msgid "Open _terminal here"
 msgstr "Öppna _terminalfönster här"
 
-#: src/gnome-cmd-file-popmenu.cc:627 src/gnome-cmd-main-menu.cc:423
+#: src/gnome-cmd-file-popmenu.cc:632 src/gnome-cmd-main-menu.cc:423
 msgid "_Properties…"
 msgstr "_Egenskaper…"
 
-#: src/gnome-cmd-file-popmenu.cc:673
+#: src/gnome-cmd-file-popmenu.cc:678
 msgid "Other _Application…"
 msgstr "Annat _program…"
 
@@ -5019,35 +5019,35 @@ msgstr "Spårets text."
 
 #: src/tags/gnome-cmd-tags.cc:139
 msgid "MB album artist ID"
-msgstr "MB album artist id"
+msgstr "MB albumartist-ID"
 
 #: src/tags/gnome-cmd-tags.cc:139
 msgid "MusicBrainz album artist ID in UUID format."
-msgstr "MusicBrainz album-artist ID som UUID-format."
+msgstr "MusicBrainz albumartist-ID som UUID-format."
 
 #: src/tags/gnome-cmd-tags.cc:140
 msgid "MB Album ID"
-msgstr "MB album-id"
+msgstr "MB album-ID"
 
 #: src/tags/gnome-cmd-tags.cc:140
 msgid "MusicBrainz album ID in UUID format."
-msgstr "MusicBrainz album-id som UUID-format."
+msgstr "MusicBrainz album-ID som UUID-format."
 
 #: src/tags/gnome-cmd-tags.cc:141
 msgid "MB Artist ID"
-msgstr "MB Artist ID"
+msgstr "MB artist-ID"
 
 #: src/tags/gnome-cmd-tags.cc:141
 msgid "MusicBrainz artist ID in UUID format."
-msgstr "MusicBrainz artist-id som UUID-format."
+msgstr "MusicBrainz artist-ID som UUID-format."
 
 #: src/tags/gnome-cmd-tags.cc:142
 msgid "MB Track ID"
-msgstr "MB spår-id"
+msgstr "MB spår-ID"
 
 #: src/tags/gnome-cmd-tags.cc:142
 msgid "MusicBrainz track ID in UUID format."
-msgstr "MusicBrainz spår-id som UUID-format."
+msgstr "MusicBrainz spår-ID som UUID-format."
 
 #: src/tags/gnome-cmd-tags.cc:143
 msgid "Channel Mode"
@@ -5173,7 +5173,7 @@ msgstr "Upphovsmannens namn."
 
 #: src/tags/gnome-cmd-tags.cc:158
 msgid "Byte Count"
-msgstr "Byte-räknare"
+msgstr "Byteantal"
 
 #: src/tags/gnome-cmd-tags.cc:158
 msgid "Number of bytes in the document."
@@ -5181,7 +5181,7 @@ msgstr "Dokumentets antal byte."
 
 #: src/tags/gnome-cmd-tags.cc:159
 msgid "Case Sensitive"
-msgstr "Skilj på stora och små bokstäver"
+msgstr "Skiftlägeskänslig"
 
 #: src/tags/gnome-cmd-tags.cc:159
 msgid "Case sensitive."
@@ -5217,7 +5217,7 @@ msgstr "Teckenuppsättning"
 
 #: src/tags/gnome-cmd-tags.cc:163
 msgid "The MS codepage to encode strings for metadata."
-msgstr "MS teckenuppsättning för textsträngar i metadatan."
+msgstr "MS-teckenuppsättning för textsträngar i metadata."
 
 #: src/tags/gnome-cmd-tags.cc:164 src/tags/gnome-cmd-tags.cc:420
 msgid "Comments"
@@ -5233,7 +5233,7 @@ msgstr "Företag"
 
 #: src/tags/gnome-cmd-tags.cc:165
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr "Organisation som <Doc.Creator> är associerad med."
+msgstr "Organisation som entiteten <Doc.Creator> är associerad med."
 
 #: src/tags/gnome-cmd-tags.cc:167 src/tags/gnome-cmd-tags.cc:422
 msgid "Creator"
@@ -5244,8 +5244,8 @@ msgid ""
 "An entity primarily responsible for making the content of the resource, "
 "typically a person, organization, or service."
 msgstr ""
-"En entitet primärt ansvarig för skapandet av innehållet i resursen, "
-"exempelvis en person, organisation eller tjänst."
+"En entitet primärt ansvarig för skapandet av innehållet i resursen, oftast "
+"en person, organisation eller tjänst."
 
 #: src/tags/gnome-cmd-tags.cc:168
 msgid "Created"
@@ -5309,7 +5309,7 @@ msgstr "Antal gömda sidor"
 
 #: src/tags/gnome-cmd-tags.cc:175
 msgid "Number of hidden slides in the presentation document."
-msgstr "Antal gömda sidor i dokumentets presentation."
+msgstr "Antal gömda sidor i presentationsdokumentet."
 
 #: src/tags/gnome-cmd-tags.cc:176
 msgid "Image Count"
@@ -5342,7 +5342,7 @@ msgstr "Språk"
 
 #: src/tags/gnome-cmd-tags.cc:179
 msgid "The locale language of the intellectual content of the resource."
-msgstr "Språket hos skaparen av det intellektuella innehållet i resursen."
+msgstr "Språklokalen hos skaparen av det intellektuella innehållet i resursen."
 
 #: src/tags/gnome-cmd-tags.cc:180
 msgid "Last Printed"
@@ -5350,7 +5350,7 @@ msgstr "Senast utskriven"
 
 #: src/tags/gnome-cmd-tags.cc:180
 msgid "The last time this document was printed."
-msgstr "Tidpunkt när dokumentet senast skrev ut."
+msgstr "Tidpunkt när dokumentet senast skrevs ut."
 
 #: src/tags/gnome-cmd-tags.cc:181
 msgid "Last Saved By"
@@ -5451,7 +5451,7 @@ msgstr "Utskriftsdatum"
 
 #: src/tags/gnome-cmd-tags.cc:192
 msgid "Specifies the date and time when the document was last printed."
-msgstr "Anger datum och tid när dokumentet senast skrev ut."
+msgstr "Anger datum och tid när dokumentet senast skrevs ut."
 
 #: src/tags/gnome-cmd-tags.cc:193
 msgid "Printed By"
@@ -5491,7 +5491,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:197
 msgid "Slide Count"
-msgstr "Sidnumrering"
+msgstr "Sidantal"
 
 #: src/tags/gnome-cmd-tags.cc:197
 msgid "Number of slides in the presentation document."
@@ -5550,7 +5550,7 @@ msgid ""
 msgstr ""
 "Kameraägaren, fotografen eller bildens skapare. Detaljer kring formatet är "
 "inte specificerat, men det rekommenderas att informationen skrivs för att "
-"underlätta interoperabilitet. När fältet lämnas tomt tolkas det som okänd."
+"underlätta interoperabilitet. När fältet lämnas tomt tolkas det som okänt."
 
 #: src/tags/gnome-cmd-tags.cc:206
 msgid "Battery Level"
@@ -5570,9 +5570,9 @@ msgid ""
 "bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
 "is used instead of this tag."
 msgstr ""
-"Antalet databitar per bildkomponent. När varje bildpunkt består av 8 "
-"databitar, så är värdet för denna tagg 8. För JPEG-komprimerad bilddata "
-"används en särskild JPEG-markör istället för denna tagg."
+"Antalet databitar per bildkomponent. Varje bildkomponent består av 8 bitar, "
+"så värdet för denna tagg är 8. För JPEG-komprimerad bilddata används en "
+"särskild JPEG-markör istället för denna tagg."
 
 #: src/tags/gnome-cmd-tags.cc:208
 msgid "Brightness"
@@ -5588,7 +5588,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:209 src/tags/gnome-cmd-tags.cc:272
 msgid "CFA Pattern"
-msgstr "CFA Mönster"
+msgstr "CFA-mönster"
 
 #: src/tags/gnome-cmd-tags.cc:209 src/tags/gnome-cmd-tags.cc:272
 msgid ""
@@ -5600,7 +5600,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:210
 msgid "CFA Repeat Pattern Dim"
-msgstr "CFA-färgfiltrets repeterande dimension"
+msgstr "CFA repeterande mönsterdimension"
 
 #: src/tags/gnome-cmd-tags.cc:210
 msgid "CFA Repeat Pattern Dim."
@@ -5620,9 +5620,9 @@ msgid ""
 msgstr ""
 "Taggen för färgrymdsinformation skall alltid tolkas som en specifikation av "
 "färgrymd. Normalt används sRGB för att definiera färgrymden baserat på PC-"
-"arkitekturens förutsättningar och miljö. Om en färgrymd annan än sRGB "
-"använts, skall Okalibrerad anges. Bild-data registrerad som Okalibrerad kan "
-"tolkas som sRGB när det konverteras till FlashPix."
+"skärmens förutsättningar och miljö. Om en färgrymd annan än sRGB använts, "
+"skall Okalibrerad anges. Bilddata registrerad som Okalibrerad kan tolkas som "
+"sRGB när det konverteras till FlashPix."
 
 #: src/tags/gnome-cmd-tags.cc:212
 msgid "Components Configuration"
@@ -5638,10 +5638,10 @@ msgid ""
 "components other than Y, Cb, and Cr and to enable support of other sequences."
 msgstr ""
 "Information specifik för komprimerade data. Varje komponents kanaler är "
-"ordnade från 1 till 4. För okomprimerade data arrangemanget anges i taggen "
-"<Exif.PhotometricInterpretation>. Men eftersom <Exif."
+"ordnade från 1 till 4. För okomprimerade data anges dataarrangemanget i "
+"taggen <Exif.PhotometricInterpretation>. Men eftersom <Exif."
 "PhotometricInterpretation> endast kan ange ordningen hos Y, Cb och Cr, så "
-"finns denna tagg till för komprimerad data som är sammansatt av andra "
+"finns denna tagg till för komprimerade data som är sammansatt av andra "
 "komponenter än Y, Cb och Cr för att utgöra stöd för andra sekvenser."
 
 #: src/tags/gnome-cmd-tags.cc:213
@@ -5653,8 +5653,8 @@ msgid ""
 "Information specific to compressed data. The compression mode used for a "
 "compressed image is indicated in unit bits per pixel."
 msgstr ""
-"Information specifik för komprimerat data. Den komprimeringsläget som "
-"används för en komprimerad bild indikeras i enhetsbitar per bildpunkt."
+"Information specifik för komprimerade data. Komprimeringsläget som används "
+"för en komprimerad bild indikeras i enheten bitar per bildpunkt."
 
 #: src/tags/gnome-cmd-tags.cc:214
 msgid "Compression"
@@ -5666,7 +5666,7 @@ msgid ""
 "compressed, this designation is not necessary and is omitted. When "
 "thumbnails use JPEG compression, this tag value is set to 6."
 msgstr ""
-"Använd komprimeringsmetod för bilddatan. När den primära bilden är JPEG-"
+"Använd komprimeringsmetod för bilddata. När den primära bilden är JPEG-"
 "komprimerad behöver detta inte anges. När miniatyrbilder använder JPEG-"
 "komprimering så sätts värdet i denna tagg till 6."
 
@@ -5697,20 +5697,20 @@ msgid ""
 "of one space followed by a terminating NULL code, then the editor copyright "
 "is given. When the field is left blank, it is treated as unknown."
 msgstr ""
-"Upphovsrättslig information. Denna tagg används för att informera om vilken "
-"person (fotografen) och personer, organisationer och företag "
-"bildrättigheterna tillhör. För interoperabilitet skall detta fält inkludera "
-"även datum och upphovsrättsliga krav; exempelvis ”Copyright, John Smith, "
-"19xx. All rights reserved.”. Detta fält innehåller både fotografens och de "
-"redaktionella rättighetshavarna, där varje del registreras i en separat del. "
-"När distinktionen klart kan göras mellan fotografens och de redaktionella "
-"bildrättigheterna så skall fotografen skrivas först följt av annan "
-"innehavare av bildrättigheter, separerade med NULL (eftersom detta också "
-"slutar med NULL, så blir det två NULL-koder i detta fall). När endast "
-"fotografen anges, avslutas det med en NULL-kod. När endast den redaktionella "
-"rättighetshavaren angetts, så innehåller endast fotografdelen ett mellanslag "
-"följt av en NULL-kod, därefter anges den redaktionella delen. När detta fält "
-"lämnas tomt betraktas det som okänt."
+"Upphovsrättslig information. Denna tagg används för att informera om "
+"bildrättigheterna, både fotografens och de redaktionella. För "
+"interoperabilitet skall detta fält inkludera även datum och upphovsrättsliga "
+"krav; exempelvis ”Copyright, John Smith, 19xx. All rights reserved.”. Detta "
+"fält innehåller både fotografen och de redaktionella rättighetshavarna, där "
+"varje del registreras i en separat del. När distinktionen klart kan göras "
+"mellan fotografens bildrättigheter och de redaktionella bildrättigheterna så "
+"skall fotografen skrivas först följt av annan innehavare av bildrättigheter, "
+"separerade med NULL (eftersom detta också slutar med NULL, så blir det två "
+"NULL-koder i detta fall) (se exempel 1). När endast fotografen anges, "
+"avslutas det med en NULL-kod. När endast den redaktionella rättighetshavaren "
+"angetts, så innehåller fotografdelen endast ett mellanslag följt av en NULL-"
+"kod, därefter anges den redaktionella delen. När detta fält lämnas tomt "
+"betraktas det som okänt."
 
 #: src/tags/gnome-cmd-tags.cc:217
 msgid "Custom Rendered"
@@ -5800,7 +5800,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:225
 msgid "Exif Version"
-msgstr "Exif version"
+msgstr "Exif-version"
 
 #: src/tags/gnome-cmd-tags.cc:225
 msgid ""
@@ -5831,7 +5831,7 @@ msgid ""
 "The exposure index selected on the camera or input device at the time the "
 "image is captured."
 msgstr ""
-"Det valda exponeringsindexet i kameran eller indataenhet vid fångande av "
+"Det valda exponeringsindexet i kameran eller indataenheten vid fångande av "
 "bilden."
 
 #: src/tags/gnome-cmd-tags.cc:228
@@ -5844,9 +5844,9 @@ msgid ""
 "camera shoots a series of frames of the same scene at different exposure "
 "settings."
 msgstr ""
-"Denna tagg visar valt exponeringsläge när bilden togs. Ex. I autogafflings-"
-"läge, så tar kameran en serie bilder av samma scen med olika exponerings-"
-"inställningar."
+"Denna tagg visar valt exponeringsläge när bilden togs. I autogafflings-läge "
+"så tar kameran en serie bilder av samma scen med olika "
+"exponeringsinställningar."
 
 #: src/tags/gnome-cmd-tags.cc:229 src/tags/gnome-cmd-tags.cc:425
 msgid "Exposure Program"
@@ -5857,8 +5857,8 @@ msgid ""
 "The class of the program used by the camera to set exposure when the picture "
 "is taken."
 msgstr ""
-"Vilket programval som användes när bilden togs. Exempelvis bländarautomatik, "
-"programautomatik eller helautomatisk."
+"Programklass som används av kameran för att ställa in exponering när bilden "
+"tas."
 
 #: src/tags/gnome-cmd-tags.cc:230 src/tags/gnome-cmd-tags.cc:426
 msgid "Exposure Time"
@@ -5910,15 +5910,15 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:235
 msgid "FlashPix Version"
-msgstr "FlashPix Version"
+msgstr "FlashPix-version"
 
 #: src/tags/gnome-cmd-tags.cc:235
 msgid "The FlashPix format version supported by a FPXR file."
-msgstr "FlashPixVersion-formatets version som stöds av en FPXR-fil."
+msgstr "FlashPix-formatets version som stöds av en FPXR-fil."
 
 #: src/tags/gnome-cmd-tags.cc:236 src/tags/gnome-cmd-tags.cc:428
 msgid "F Number"
-msgstr "Bländarvärde"
+msgstr "Bländartal"
 
 #: src/tags/gnome-cmd-tags.cc:236 src/tags/gnome-cmd-tags.cc:428
 msgid ""
@@ -5934,7 +5934,7 @@ msgid ""
 "The actual focal length of the lens, in mm. Conversion is not made to the "
 "focal length of a 35 mm film camera."
 msgstr ""
-"Den faktiska brännvidden hos objektivet. Ej omräknat till motsvarande "
+"Den faktiska brännvidden hos objektivet, i mm. Ej omräknat till motsvarande "
 "brännvidd för en 35mm småbildskamera."
 
 #: src/tags/gnome-cmd-tags.cc:238
@@ -5972,7 +5972,7 @@ msgid ""
 "The number of pixels in the image width (X) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
-"Anger antalet bildpunkter i bildbredden för x-axeln per <Exif."
+"Antalet bildpunkter i bildbredden för x-axeln per <Exif."
 "FocalPlaneResolutionUnit> vid kamerans brännvidd."
 
 #: src/tags/gnome-cmd-tags.cc:241
@@ -5984,8 +5984,8 @@ msgid ""
 "The number of pixels in the image height (Y) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
-"Antalet pixlar för bildhöjden (y-axeln) per <Exif.FocalPlaneResolutionUnit> "
-"vid kamerans brännvidd."
+"Antalet bildpunkter i bildhöjden för y-axeln per <Exif."
+"FocalPlaneResolutionUnit> vid kamerans brännvidd."
 
 #: src/tags/gnome-cmd-tags.cc:242
 msgid "Gain Control"
@@ -6029,7 +6029,7 @@ msgid ""
 msgstr ""
 "Anger höjdreferensvärde. Om referensen är havsnivå och höjden är över "
 "havsnivån, så anges värdet 0. Om höjden är under havsnivå, så anges 1 och "
-"höjden anges som ett absolut-värde i taggen <Exif.GPS.Altitude>. "
+"höjden anges som ett absolutbelopp i taggen <Exif.GPS.Altitude>. "
 "Referensvärdet anges i meter."
 
 #: src/tags/gnome-cmd-tags.cc:246
@@ -6042,7 +6042,7 @@ msgid ""
 "Info IFD, like that of Exif IFD, has no image data."
 msgstr ""
 "En pekare till GPS Info IFD. Interoperabilitetsstrukturen för GPS Info IFD, "
-"likt den för Exif IFD, har ingen bilddata."
+"likt den för Exif IFD, har inga bilddata."
 
 #: src/tags/gnome-cmd-tags.cc:247
 msgid "Latitude"
@@ -6125,8 +6125,8 @@ msgid ""
 "UserComment> is to be used."
 msgstr ""
 "En textsträng som anger bildens titel. Två-bitars teckenkoder kan ej "
-"användas. När en två-bitars kod är nödvändig, så används Exif-taggen <Exif."
-"UserComment>."
+"användas. När en två-bitars kod är nödvändig, så ska Exif-taggen <Exif."
+"UserComment> användas."
 
 #: src/tags/gnome-cmd-tags.cc:253
 msgid "Image Length"
@@ -6150,7 +6150,7 @@ msgstr "Bildresursblock."
 
 #: src/tags/gnome-cmd-tags.cc:255
 msgid "Image Unique ID"
-msgstr "Unikt bild-id"
+msgstr "Unikt bild-ID"
 
 #: src/tags/gnome-cmd-tags.cc:255
 msgid ""
@@ -6195,9 +6195,9 @@ msgid ""
 msgstr ""
 "Interoperability IFD består av taggar som lagrar informationen för att "
 "försäkra sig om att interoperabiliteten pekas ut av följande tagg funnen i "
-"Exif IFD-interoperabilitetstrukturen för Interoperability IFD är densamma "
-"som den TIFF-definierade IFD-strukturen men innehåller inte bilddatan som är "
-"karakteristisk jämförd med normal TIFF-IFD."
+"Exif IFD. Interoperabilitetstrukturen för Interoperability IFD är densamma "
+"som den TIFF-definierade IFD-strukturen men innehåller inte bilddata som är "
+"karakteristiskt jämförd med normal TIFF-IFD."
 
 #: src/tags/gnome-cmd-tags.cc:259
 msgid "Interoperability Index"
@@ -6225,14 +6225,14 @@ msgstr "En IPTC/NAA-lagring."
 
 #: src/tags/gnome-cmd-tags.cc:262
 msgid "ISO Speed Ratings"
-msgstr "ISO Speed-betyg"
+msgstr "ISO-ljuskänslighet"
 
 #: src/tags/gnome-cmd-tags.cc:262
 msgid ""
 "The ISO Speed and ISO Latitude of the camera or input device as specified in "
 "ISO 12232."
 msgstr ""
-"Anger kamerans eller sensorns ISO-latitud och ISO-hastighet enligt "
+"Anger kamerans eller sensorns ISO-latitud och ISO-ljuskänslighet enligt "
 "specifikation ISO 12232."
 
 #: src/tags/gnome-cmd-tags.cc:263
@@ -6304,20 +6304,20 @@ msgid ""
 "A tag for manufacturers of Exif writers to record any desired information. "
 "The contents are up to the manufacturer."
 msgstr ""
-"En tagg för all sorts information avsedd för tillverkaren av den Exif-"
-"lagrande utrustningen. Innehållet är helt upp till tillverkarens godtycke."
+"En tagg för tillverkare av Exif-lagrande utrustning för att lagra all sorts "
+"information. Innehållet är helt upp till tillverkarens godtycke."
 
 #: src/tags/gnome-cmd-tags.cc:269
 msgid "Max Aperture Value"
-msgstr "Största bländarvärde"
+msgstr "Största bländare"
 
 #: src/tags/gnome-cmd-tags.cc:269
 msgid ""
 "The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
 "is given in the range of 00.00 to 99.99, but it is not limited to this range."
 msgstr ""
-"Objektivets största bländarvärde. Värdet är ett APEX-värde, vanligtvis "
-"angett mellan 00.00 till 99.99, dock inte begränsat till detta intervall."
+"Objektivets minsta F-värde. Värdet är ett APEX-värde, vanligtvis angett "
+"mellan 00.00 till 99.99, dock inte begränsat till detta intervall."
 
 #: src/tags/gnome-cmd-tags.cc:270 src/tags/gnome-cmd-tags.cc:434
 msgid "Metering Mode"
@@ -6343,11 +6343,11 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:273
 msgid "New Subfile Type"
-msgstr "Ny subfiltyp"
+msgstr "Ny underfilstyp"
 
 #: src/tags/gnome-cmd-tags.cc:273
 msgid "A general indication of the kind of data contained in this subfile."
-msgstr "En generell indikation av datatyp i subfilen."
+msgstr "En generell indikation av datatyp i underfilen."
 
 #: src/tags/gnome-cmd-tags.cc:274
 msgid "OECF"
@@ -6394,9 +6394,9 @@ msgid ""
 "not exist in an uncompressed file."
 msgstr ""
 "Information specifik för komprimerad data. När en komprimerad fil sparas "
-"måste den giltiga bredden av en meningsfull bild lagras i denna tagg, "
-"oavsett om det finns utfyllnadsdata eller ej eller en omstartsmarkör. Denna "
-"tag ska inte existera i en okomprimerad fil."
+"måste den giltiga bredden för den betydelsefulla bilden lagras i denna tagg, "
+"oavsett om det finns utfyllnadsdata eller ej, eller en omstartsmarkör. Denna "
+"tagg ska inte existera i en okomprimerad fil."
 
 #: src/tags/gnome-cmd-tags.cc:278
 msgid "Pixel Y Dimension"
@@ -6412,11 +6412,11 @@ msgid ""
 "tag will in fact be the same as that recorded in the SOF."
 msgstr ""
 "Information specifik för komprimerad data. När en komprimerad fil sparas "
-"måste den giltiga höjden för en meningsfull bild lagras i denna tag, oavsett "
-"om det finns en utfyllnad eller ej, eller en omstartsmarkör. Denna tag ska "
-"inte existera i en okomprimerad fil. Eftersom datautfyllnad är onödig i "
-"vertikal riktning är antalet lagrade rader i denna giltiga bildhöjdstagg "
-"densamma som den lagrad i SOF."
+"måste den giltiga höjden för den betydelsefulla bilden lagras i denna tagg, "
+"oavsett om det finns utfyllnadsdata eller ej, eller en omstartsmarkör. Denna "
+"tagg ska inte existera i en okomprimerad fil. Eftersom datautfyllnad är "
+"onödig i vertikal riktning är antalet lagrade rader i denna giltiga "
+"bildhöjdstagg densamma som den lagrad i SOF."
 
 #: src/tags/gnome-cmd-tags.cc:279
 msgid "Planar Configuration"
@@ -6442,8 +6442,8 @@ msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag "
 "is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"Kromaticiteten för de tre primära färgerna av bilden. Normalt är denna tagg "
-"inte nödvändig eftersom färgrymd anges i taggen <Exif.ColorSpace>."
+"Kromaticiteten för de tre primära färgerna av bilden. I normala fall är "
+"taggen onödig, eftersom färgrymd anges i taggen <Exif.ColorSpace>."
 
 #: src/tags/gnome-cmd-tags.cc:281
 msgid "Reference Black/White"
@@ -6457,10 +6457,10 @@ msgid ""
 "being the value that gives the optimal image characteristics under these "
 "conditions."
 msgstr ""
-"Den svarta och den vita referenspunktens värde. Inga standarder är givna i "
-"TIFF, men värdena nedan ges som standard här. Färgrymden deklareras i "
-"färgrymdens informationstagg där standard är värdet som ger optimal "
-"bildkarakteristik under dessa villkor."
+"Den svarta och den vita referenspunktens värde. Inga standardvärden är givna "
+"i TIFF, men värdena nedan ges som standard här. Färgrymden deklareras i en "
+"tagg för färgrymdsinformation, där standard är värdet som ger optimal "
+"interoperabilitet för bildkarakteristik under detta villkor."
 
 #: src/tags/gnome-cmd-tags.cc:282
 msgid "Related Image File Format"
@@ -6512,22 +6512,22 @@ msgid ""
 "indicated on the audio file end."
 msgstr ""
 "Denna tagg används för att lagra namnet på en ljudfil relaterad till "
-"bilddatan. Den enda relationella informationen lagrad här är Exif-"
+"bilddata. Den enda relationella informationen lagrad här är Exif-"
 "ljudfilsnamnet och filändelsen (en ASCII-sträng bestående av 8 tecken + ”.” "
 "+ 3 tecken). Sökvägen lagras inte. När denna tagg används måste ljudfilerna "
-"lagras i angivet Exif-ljudformat. Skrivare är också tillåtna att lagra data "
-"som ljud inom APP2 som FlashPix-utökningens strömdata. Ljudfiler måste "
-"lagras i överensstämmelse med Exif-ljudformatet. Om flera filer mappas till "
-"en fil, används det ovan angivna formatet för att lagra endast ett "
+"lagras i överensstämmelse med Exif-ljudformatet. Skrivare är också tillåtna "
+"att lagra data som ljud inom APP2 som FlashPix-utökningsströmdata. Ljudfiler "
+"måste lagras i överensstämmelse med Exif-ljudformatet. Om flera filer mappas "
+"till en fil, används det ovan angivna formatet för att lagra endast ett "
 "ljudfilsnamn. Om det finns flera lagrade ljudfiler anges den första. När det "
 "finns tre Exif-ljudfiler ”SND00001.WAV”, ”SND00002.WAV” och ”SND00003.WAV” "
-"indikeras Exif-bildfilnamnet för var och en av dem, ”DSC00001.JPG”. Genom "
+"indikeras Exif-bildfilnamnet för var och en av dem som ”DSC00001.JPG”. Genom "
 "att kombinera multipel relationell information kan en mängd olika "
-"uppspelningsmöjligheter stödas. Metoden att använda relationell information "
+"uppspelningsmöjligheter stödjas. Metoden att använd relationell information "
 "lämnas till implementationen på uppspelningssidan. Eftersom denna "
 "information är en ASCII-teckensträng är den avslutad med NULL. När denna "
 "tagg används för att mappa ljudfiler kommer relationen med ljudfilen till "
-"bilddatan också att indikeras på ljudfilens sida."
+"bilddata också att indikeras på ljudfilens sida."
 
 #: src/tags/gnome-cmd-tags.cc:286
 msgid "Resolution Unit"
@@ -6540,7 +6540,7 @@ msgid ""
 "image resolution is unknown, 2 (inches) is designated."
 msgstr ""
 "Enheten för att mäta <Exif.XResolution> och <Exif.YResolution>. Samma enhet "
-"används för att både <Exif.XResolution> och <Exif.YResolution>. Om "
+"används för både <Exif.XResolution> och <Exif.YResolution>. Om "
 "bildupplösningen är okänd är 2 (tum) angivet."
 
 #: src/tags/gnome-cmd-tags.cc:287
@@ -6554,7 +6554,7 @@ msgid ""
 "designation is not needed and is omitted."
 msgstr ""
 "Antalet rader per remsa. Detta är antalet rader i bilden för en remsa när en "
-"bild delas upp i remsa. Med JPEG-komprimerad data behövs inte denna och "
+"bild delas upp i remsor. Med JPEG-komprimerad data behövs inte denna och "
 "används inte."
 
 #: src/tags/gnome-cmd-tags.cc:288
@@ -6590,9 +6590,9 @@ msgid ""
 "The type of scene that was shot. It can also be used to record the mode in "
 "which the image was shot. Note that this differs from <Exif.SceneType> tag."
 msgstr ""
-"Taggen visar vilken typ av scen som fotograferades. Den kan också användas "
-"för att lagra i vilket läge bilden togs. Observera att det här skiljer sig "
-"från taggen <Exif.SceneType>."
+"Vilken typ av scen som fotograferades. Den kan också användas för att lagra "
+"i vilket läge bilden togs. Observera att det här skiljer sig från taggen "
+"<Exif.SceneType>."
 
 #: src/tags/gnome-cmd-tags.cc:291
 msgid "Scene Type"
@@ -6603,8 +6603,8 @@ msgid ""
 "The type of scene. If a DSC recorded the image, this tag value must always "
 "be set to 1, indicating that the image was directly photographed."
 msgstr ""
-"Scentypen. Om en digital stillbildskamera (DSC) lagrade bilden anges denna "
-"tagg till 3, indikerande att bilden var direkt fotograferad."
+"Scentypen. Om en digital stillbildskamera (DSC) lagrade bilden måste denna "
+"tagg anges till 1, indikerande att bilden var direkt fotograferad."
 
 #: src/tags/gnome-cmd-tags.cc:292
 msgid "Sensing Method"
@@ -6646,7 +6646,7 @@ msgid ""
 "camera or image input device used to generate the image. When the field is "
 "left blank, it is treated as unknown."
 msgstr ""
-"Denna tagg spelar in namnet och versionen på programmet eller fasta "
+"Denna tagg lagrar namnet och versionen på programmet eller den fasta "
 "programvaran för kameran eller bildindataenheten som användes för att skapa "
 "bilden. När fältet är tomt hanteras det som okänt."
 
@@ -6660,8 +6660,8 @@ msgid ""
 "values in the direction of image width, image height, and diagonal "
 "direction, as specified in ISO 12233."
 msgstr ""
-"Denna tagg lagrar kamerans eller inmatningsenhetens spatialfrekvenstabell "
-"och SFR-värden i fråga om bildens bredd, höjd och diagonal riktning enligt "
+"Denna tagg lagrar kamerans eller indataenhetens spatialfrekvenstabell och "
+"SFR-värden i fråga om bildens bredd, höjd och diagonal riktning enligt "
 "specifikationen ISO 12233."
 
 #: src/tags/gnome-cmd-tags.cc:297
@@ -6718,7 +6718,7 @@ msgstr "Visar platsen och ytan för huvudmotivet i scenen."
 
 #: src/tags/gnome-cmd-tags.cc:302
 msgid "Subject Distance"
-msgstr "Motiv-avstånd"
+msgstr "Motivavstånd"
 
 #: src/tags/gnome-cmd-tags.cc:302
 msgid "The distance to the subject, given in meters."
@@ -6827,7 +6827,7 @@ msgid ""
 "part be filled with blank characters [20.H]."
 msgstr ""
 "En tagg för Exif-användare att skriva nyckelord eller kommentarer i bilden "
-"förutom dessa i <Exif.ImageDescription> och utan teckenkodsbegränsningarna i "
+"förutom de i <Exif.ImageDescription> och utan teckenkodsbegränsningarna i "
 "taggen <Exif.ImageDescription>. Teckenkoden använd i <Exif.UserComment> "
 "identifieras som baserad på en ID-kod i ett fast 8-byte område i början på "
 "taggdataområdet. Den oanvända delen i området fylls ut med NULL (”00.h”). ID-"
@@ -6849,7 +6849,7 @@ msgstr "Vitbalans"
 
 #: src/tags/gnome-cmd-tags.cc:312
 msgid "The white balance mode set when the image was shot."
-msgstr "Det använda vitbalans-inställningen när bilden togs."
+msgstr "Den använda vitbalansinställningen när bilden togs."
 
 #: src/tags/gnome-cmd-tags.cc:313
 msgid "White Point"
@@ -6861,7 +6861,7 @@ msgid ""
 "necessary, since color space is specified in <Exif.ColorSpace> tag."
 msgstr ""
 "Kromaticiteten för bildens vitpunkt. I normala fall är taggen onödig, "
-"eftersom färgrymd anges i (<Exif.ColorSpace>)."
+"eftersom färgrymd anges i taggen <Exif.ColorSpace>."
 
 #: src/tags/gnome-cmd-tags.cc:314
 msgid "XML Packet"
@@ -6880,7 +6880,7 @@ msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
 "direction. When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
-"Antal bildpunkter per <Exif.ResolutionUnit> i anvisningen <Exif.ImageWidth>. "
+"Antal bildpunkter per <Exif.ResolutionUnit> i riktningen <Exif.ImageWidth>. "
 "När bildupplösningen inte är känd antas 72 [dpi]."
 
 #: src/tags/gnome-cmd-tags.cc:316
@@ -6895,10 +6895,11 @@ msgid ""
 "the default being the value that gives the optimal image characteristics "
 "under this condition."
 msgstr ""
-"Matriskoefficienterna för transformationen från RGB till YCbCr-bilddata. "
-"Ingen standard ges i TIFF; men här används ”Färgrymdsrekommendationer” som "
+"Matriskoefficienterna för transformation från RGB till YCbCr-bilddata. Ingen "
+"standard ges i TIFF; men här används ”Färgrymdsrekommendationer” som "
 "standard. Färgrymden deklareras i en tagg för färgrymdsinformation, där "
-"standard är värdet som ger optimal bildkarakteristik under detta villkor."
+"standard är värdet som ger optimal interoperabilitet för bildkarakteristik "
+"under detta villkor."
 
 #: src/tags/gnome-cmd-tags.cc:317
 msgid "YCbCr Positioning"
@@ -6926,8 +6927,8 @@ msgstr ""
 "system. Om fältet inte finns ska läsaren anta TIFF:s standardvärde. Om Y:Cb:"
 "Cr = 4:2:0 rekommenderas TIFF:s standard (centrerad). Om läsaren inte har "
 "stöd för båda typer av <Exif.YCbCrPositioning> ska den följa TIFF-standarden "
-"oavsett vad fältet visar för värde. Helst ska läsarna ha stöd för både "
-"centrerad och sida-vid-sida positionering."
+"oavsett vad fältet visar för värde. Helst ska läsare ha stöd för både "
+"centrerad positionering och positionering sida-vid-sida."
 
 #: src/tags/gnome-cmd-tags.cc:318
 msgid "YCbCr Sub-Sampling"
@@ -7022,8 +7023,8 @@ msgid ""
 "Editable DC type for the name of the publisher of the file (EG dc:publisher "
 "field in RSS feed)."
 msgstr ""
-"Redigerbar DC-typ för namnet på utgivaren av filen (EG dc:publisherfield i "
-"RSS-kanal)."
+"Redigerbar DC-typ för namnet på utgivaren av filen (t.ex. dc:publisher-fält "
+"i RSS-kanal)."
 
 #: src/tags/gnome-cmd-tags.cc:331
 msgid "Rank"
@@ -7050,7 +7051,7 @@ msgstr "Sorteringsordning för album"
 #: src/tags/gnome-cmd-tags.cc:333
 msgid ""
 "String which should be used instead of the album name for sorting purposes."
-msgstr "Sträng som ska användas istället för albumnamn vid sökning."
+msgstr "Sträng som ska användas istället för albumnamn vid sortering."
 
 #: src/tags/gnome-cmd-tags.cc:334
 msgid "Audio Encryption"
@@ -7074,7 +7075,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:336
 msgid "Band"
-msgstr "Orkester"
+msgstr "Band"
 
 #: src/tags/gnome-cmd-tags.cc:336
 msgid "Additional information about the performers in the recording."
@@ -7211,7 +7212,7 @@ msgstr "Händelsetid"
 
 #: src/tags/gnome-cmd-tags.cc:354
 msgid "Event timing codes."
-msgstr "Händelsetidkodekar."
+msgstr "Händelsetidkoder."
 
 #: src/tags/gnome-cmd-tags.cc:355
 msgid "File Owner"
@@ -7271,7 +7272,7 @@ msgstr "Lista över involverade människor."
 
 #: src/tags/gnome-cmd-tags.cc:362
 msgid "InvolvedPeople2"
-msgstr "InvolvedPeople2"
+msgstr "Involverade människor 2"
 
 #: src/tags/gnome-cmd-tags.cc:363
 msgid "Language."
@@ -7303,7 +7304,7 @@ msgstr "Mediatyp."
 
 #: src/tags/gnome-cmd-tags.cc:367
 msgid "Mix Artist"
-msgstr "Mix-artist"
+msgstr "Mixartist"
 
 #: src/tags/gnome-cmd-tags.cc:367
 msgid "Interpreted, remixed, or otherwise modified by."
@@ -7375,19 +7376,19 @@ msgstr "Ursprungligt filnamn."
 
 #: src/tags/gnome-cmd-tags.cc:376
 msgid "Original Lyricist"
-msgstr "Ursprunglig sångtext-författare"
+msgstr "Ursprunglig sångtextförfattare"
 
 #: src/tags/gnome-cmd-tags.cc:376
 msgid "Original lyricist."
-msgstr "Ursprunglig sångtext-författare."
+msgstr "Ursprunglig sångtextförfattare."
 
 #: src/tags/gnome-cmd-tags.cc:377
 msgid "Original Release Time"
-msgstr "Ursprungligt släppår"
+msgstr "Ursprunglig släpptid"
 
 #: src/tags/gnome-cmd-tags.cc:377
 msgid "Original release time."
-msgstr "Ursprungligt släppår."
+msgstr "Ursprunglig släpptid."
 
 #: src/tags/gnome-cmd-tags.cc:378
 msgid "Original Year"
@@ -7515,11 +7516,11 @@ msgstr "Reverb."
 
 #: src/tags/gnome-cmd-tags.cc:394
 msgid "Set Subtitle"
-msgstr "Ställ in textremsa"
+msgstr "Ställ in undertitel"
 
 #: src/tags/gnome-cmd-tags.cc:394
 msgid "Subtitle of the part of a set this track belongs to."
-msgstr "Undertext av delen för en uppsättning detta spår tillhör."
+msgstr "Undertitel för delen av en uppsättning detta spår tillhör."
 
 #: src/tags/gnome-cmd-tags.cc:395
 msgid "Signature"
@@ -7563,7 +7564,7 @@ msgstr "Synkroniserat tempo"
 
 #: src/tags/gnome-cmd-tags.cc:400
 msgid "Synchronized tempo codes."
-msgstr "Synkroniserad tempokodek."
+msgstr "Synkroniserade tempokoder."
 
 #: src/tags/gnome-cmd-tags.cc:401
 msgid "Tagging Time"
@@ -7607,11 +7608,11 @@ msgstr "Unik filidentifierare."
 
 #: src/tags/gnome-cmd-tags.cc:406
 msgid "Unsynchronized Lyrics"
-msgstr "Osynkroniserade texter"
+msgstr "Osynkroniserade sångtexter"
 
 #: src/tags/gnome-cmd-tags.cc:406
 msgid "Unsynchronized lyric."
-msgstr "Osynkroniserad text."
+msgstr "Osynkroniserad sångtext."
 
 #: src/tags/gnome-cmd-tags.cc:407
 msgid "User Text"
@@ -7655,7 +7656,7 @@ msgstr "WWW-ljudkälla"
 
 #: src/tags/gnome-cmd-tags.cc:412
 msgid "Official audio source webpage."
-msgstr "Ljudfilens officiella webbsida."
+msgstr "Ljudkällans officiella webbsida."
 
 #: src/tags/gnome-cmd-tags.cc:413
 msgid "WWW Commercial Info"
@@ -7697,7 +7698,7 @@ msgstr "WWW-radiosida"
 
 #: src/tags/gnome-cmd-tags.cc:417
 msgid "Official internet radio station homepage."
-msgstr "Officiell webbradiohemsida."
+msgstr "Officiell webbsida för webbradio."
 
 #: src/tags/gnome-cmd-tags.cc:418
 msgid "WWW User"
@@ -7728,8 +7729,8 @@ msgid ""
 "The program used by the camera to set exposure when the picture is taken. EG "
 "Manual, Normal, Aperture priority etc."
 msgstr ""
-"Använt programval när bilden togs. Exempelvis bländarautomatik, "
-"programautomatik eller helautomatik."
+"Använt programval för att ställa in exponering när bilden tas. Exempelvis "
+"bländarautomatik, programautomatik eller helautomatik."
 
 #: src/tags/gnome-cmd-tags.cc:426
 msgid "Exposure time used to capture the photo in seconds."
@@ -7760,7 +7761,7 @@ msgid ""
 "ISO speed used to acquire the document contents. For example, 100, 200, 400, "
 "etc."
 msgstr ""
-"ISO ljuskänslighet använd vid bildupptagning. Exempelvis 100, 200, 400, etc."
+"ISO-ljuskänslighet använd vid bildupptagning. Exempelvis 100, 200, 400, etc."
 
 #: src/tags/gnome-cmd-tags.cc:432
 msgid "String of keywords."
@@ -7779,7 +7780,7 @@ msgid ""
 "Metering mode used to acquire the image (IE Unknown, Average, "
 "CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
 msgstr ""
-"Ljusmätningsmetod när bilden togs (Okänt, Genomsnitt, Centrumvägt "
+"Ljusmätningsmetod när bilden togs (d.v.s. Okänt, Genomsnitt, Centrumvägt "
 "genomsnitt, Spot, Multispot, Evaluerande, Partiell)."
 
 #: src/tags/gnome-cmd-tags.cc:435
@@ -7795,7 +7796,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:437
 msgid "Software used to produce/enhance the image."
-msgstr "Datorprogram använt för att producera/redigera bilden."
+msgstr "Programvara använd för att producera/redigera bilden."
 
 #: src/tags/gnome-cmd-tags.cc:438
 msgid "Title of image."
@@ -7834,11 +7835,11 @@ msgstr "ARM-identifierare"
 
 #: src/tags/gnome-cmd-tags.cc:442
 msgid "Identifies the Abstract Relationship Method (ARM)."
-msgstr "Anger versionen av Abstract Relationship Method (ARM)."
+msgstr "Anger Abstract Relationship Method (ARM)."
 
 #: src/tags/gnome-cmd-tags.cc:443
 msgid "ARM Version"
-msgstr "ARM Version"
+msgstr "ARM-version"
 
 #: src/tags/gnome-cmd-tags.cc:443
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
@@ -7850,7 +7851,7 @@ msgstr "Ljudspårets längd"
 
 #: src/tags/gnome-cmd-tags.cc:444
 msgid "The running time of the audio data in the form HHMMSS."
-msgstr "Speltiden för ljuddatan i formen TTMMSS."
+msgstr "Speltiden för ljuddata i formen TTMMSS."
 
 #: src/tags/gnome-cmd-tags.cc:445
 msgid "Audio Outcue"
@@ -7858,7 +7859,7 @@ msgstr "Ljudslutvinjett"
 
 #: src/tags/gnome-cmd-tags.cc:445
 msgid "The content at the end of the audio data."
-msgstr "Innehållet i slutet av ljuddatan."
+msgstr "Innehållet i slutet av ljuddata."
 
 #: src/tags/gnome-cmd-tags.cc:446
 msgid "Audio Sampling Rate"
@@ -7894,16 +7895,16 @@ msgid ""
 "Name of the creator of the object, e.g. writer, photographer or graphic "
 "artist (multiple values allowed)."
 msgstr ""
-"Namn på skaparen av objektet, dvs. författaren, fotografen eller "
+"Namn på skaparen av objektet, t.ex. författaren, fotografen eller "
 "bildkonstnären (multipla värden tillåtna)."
 
 #: src/tags/gnome-cmd-tags.cc:450
 msgid "By-line Title"
-msgstr "By-line Titel"
+msgstr "Titel på by-line"
 
 #: src/tags/gnome-cmd-tags.cc:450
 msgid "Title of the creator or creators of the object."
-msgstr "Objektets skapare/skapares titel."
+msgstr "Objektets skapares titel."
 
 #: src/tags/gnome-cmd-tags.cc:451
 msgid "Caption, Abstract"
@@ -7911,14 +7912,15 @@ msgstr "Beskrivning"
 
 #: src/tags/gnome-cmd-tags.cc:451 src/tags/gnome-cmd-tags.cc:535
 msgid "A textual description of the data."
-msgstr "En beskrivning av datans innehåll."
+msgstr "En beskrivning av datainnehållet."
 
 #: src/tags/gnome-cmd-tags.cc:452
 msgid ""
 "Identifies the subject of the object in the opinion of the provider "
 "(Deprecated)."
 msgstr ""
-"Identifierar subjektet för objektet i tillhandahållarens åsikt (Föråldrad)."
+"Identifierar subjektet för objektet enligt tillhandahållarens åsikt "
+"(Föråldrad)."
 
 #: src/tags/gnome-cmd-tags.cc:453
 msgid "Coded Character Set"
@@ -7962,27 +7964,27 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:457
 msgid "Content Location Code"
-msgstr "Innehållets lokaliseringskod"
+msgstr "Innehållets platskod"
 
 #: src/tags/gnome-cmd-tags.cc:457
 msgid ""
 "The code of a country/geographical location referenced by the content of the "
 "object (multiple values allowed)."
 msgstr ""
-"Landskod/geografisk lokaliseringskod refererad av objektets innehåll "
-"(multipla värden tillåtna)."
+"Landskod/geografisk platskod refererad av objektets innehåll (multipla "
+"värden tillåtna)."
 
 #: src/tags/gnome-cmd-tags.cc:458
 msgid "Content Location Name"
-msgstr "Lokaliseringens namn"
+msgstr "Innehållets platsnamn"
 
 #: src/tags/gnome-cmd-tags.cc:458
 msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
-"Fullständigt och publicerbart namn på land/geografisk lokalisering refererad "
-"av objektets innehåll (multipla värden tillåtna)."
+"Fullständigt och publicerbart namn på land/geografisk plats refererad av "
+"objektets innehåll (multipla värden tillåtna)."
 
 #: src/tags/gnome-cmd-tags.cc:459
 msgid "Copyright Notice"
@@ -7998,7 +8000,7 @@ msgstr "Landskod"
 
 #: src/tags/gnome-cmd-tags.cc:460
 msgid "The code of the country/primary location where the object was created."
-msgstr "Landskoden för landet/primära lokaliseringen där objektet skapades."
+msgstr "Landskoden för landet/primära platsen där objektet skapades."
 
 #: src/tags/gnome-cmd-tags.cc:461
 msgid "Country Name"
@@ -8075,7 +8077,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:469
 msgid "Edit Status"
-msgstr "Redigerings-status"
+msgstr "Redigeringsstatus"
 
 #: src/tags/gnome-cmd-tags.cc:469
 msgid "Status of the object, according to the practice of the provider."
@@ -8083,7 +8085,7 @@ msgstr "Objektets status enligt tillhandahållarens rutiner."
 
 #: src/tags/gnome-cmd-tags.cc:470
 msgid "Envelope Number"
-msgstr "Konvolut nummer"
+msgstr "Konvolutnummer"
 
 #: src/tags/gnome-cmd-tags.cc:470
 msgid "A number unique for the date and the service ID."
@@ -8099,9 +8101,9 @@ msgid ""
 "for most urgent, “5” for normal, and “8” for least urgent. “9” is user-"
 "defined."
 msgstr ""
-"Specificerar konvolutets prioritet och inte dess redaktionella vikt. '1' för "
-"högsta prioritet, '5' för normal, och '8' för lägsta prioritet. '9' anger "
-"användardefinierat."
+"Specificerar konvolutets prioritet och inte dess redaktionella angelägenhet. "
+"”1” för högsta prioritet, ”5” för normal, och ”8” för lägsta prioritet. ”9” "
+"anger användardefinierat."
 
 #: src/tags/gnome-cmd-tags.cc:472
 msgid "Expiration Date"
@@ -8127,7 +8129,7 @@ msgstr "Filformat"
 
 #: src/tags/gnome-cmd-tags.cc:474
 msgid "File format of the data described by this metadata."
-msgstr "Datans filformat beskriven av denna metadata."
+msgstr "Filformat för data beskriven av denna metadata."
 
 #: src/tags/gnome-cmd-tags.cc:475
 msgid "File Version"
@@ -8166,7 +8168,7 @@ msgid ""
 "The layout of the image area: “P” for portrait, “L” for landscape, and “S” "
 "for square."
 msgstr ""
-"Anger bildytans uppställning: 'P' för porträtt, 'L' för landskap, och 'S' "
+"Anger bildytans uppställning: ”P” för porträtt, ”L” för landskap, och ”S” "
 "för kvadratisk."
 
 #: src/tags/gnome-cmd-tags.cc:479
@@ -8224,7 +8226,7 @@ msgstr "IIM-version, del 1."
 
 #: src/tags/gnome-cmd-tags.cc:485
 msgid "Object Attribute Reference"
-msgstr "Objektattribut referens"
+msgstr "Objektattributreferens"
 
 #: src/tags/gnome-cmd-tags.cc:485
 msgid ""
@@ -8256,7 +8258,7 @@ msgstr "Påstådd objektstorlek"
 
 #: src/tags/gnome-cmd-tags.cc:488
 msgid "The total size of the object data if it is known."
-msgstr "Objektdatans totala storlek om den ej är känd."
+msgstr "Objektdatas totala storlek om den är känd."
 
 #: src/tags/gnome-cmd-tags.cc:489
 msgid "Object Type Reference"
@@ -8313,7 +8315,7 @@ msgstr "Produkt-ID"
 
 #: src/tags/gnome-cmd-tags.cc:495
 msgid "Allows a provider to identify subsets of its overall service."
-msgstr "Tillåter tillhandahållaren att ange en undernivå av sin tjänst."
+msgstr "Tillåter tillhandahållaren att ange delmängder av sin tjänst."
 
 #: src/tags/gnome-cmd-tags.cc:496
 msgid "Program Version"
@@ -8340,8 +8342,8 @@ msgid ""
 "Contains rasterized object description and is used where characters that "
 "have not been coded are required for the caption."
 msgstr ""
-"Innehåller ett rasteriserat bild-objekt och används där ej användbara tecken "
-"är nödvändiga för beskrivningen."
+"Innehåller en rasteriserad objektbeskrivning och används där ej kodade "
+"tecken är nödvändiga för beskrivningen."
 
 #: src/tags/gnome-cmd-tags.cc:499
 msgid "Record Version"
@@ -8434,12 +8436,12 @@ msgid ""
 "The object data itself. Subfiles must be sequential so that the subfiles may "
 "be reassembled."
 msgstr ""
-"Själva objektdatan. Underfiler måste vara sekventiella så att underfiler kan "
-"återskapas."
+"Själva objektets data. Underfiler måste vara sekventiella så att "
+"underfilerna kan återskapas."
 
 #: src/tags/gnome-cmd-tags.cc:511
 msgid "Subject Reference"
-msgstr "Subjekt referens"
+msgstr "Subjektreferens"
 
 #: src/tags/gnome-cmd-tags.cc:511
 msgid ""
@@ -8447,7 +8449,7 @@ msgid ""
 "digit Subject Reference Number and an optional Subject Name, Subject Matter "
 "Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
-"En strukturerad definition av vad subjektet är, Den måste innehålla en IPR, "
+"En strukturerad definition av vad subjektet är. Den måste innehålla en IPR, "
 "ett 8-siffrigt Subjektreferensnummer och valfritt Subjektnamn, Namn på vad "
 "subjektet är och Namn på subjektdetalj, varje värde separerat med kolon (:)."
 
@@ -8509,7 +8511,7 @@ msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. “1” is most urgent, “5” normal, and “8” least urgent."
 msgstr ""
-"Anger den redaktionella vikten av innehållet och inte nödvändigtvis "
+"Anger den redaktionella angelägenheten av innehållet och inte nödvändigtvis "
 "konvolutets hanteringsprioritet. ”1” är viktigast, ”5” normalt, och ”8” "
 "minst angeläget."
 
@@ -8622,7 +8624,7 @@ msgid ""
 "Set to “1” if inserting, rotating, or deleting pages and creating navigation "
 "elements is allowed."
 msgstr ""
-"Ställ in till ”1” om infogning, rotering eller borttagning av sidor samt "
+"Ställ in till ”1” om infogning, rotering eller borttagning av sidor samt att "
 "skapa navigeringselement tillåts."
 
 #: src/tags/gnome-cmd-tags.cc:531
@@ -8652,7 +8654,7 @@ msgstr "Ställ in till ”1” om hjälpmedelsstöd (t.ex. skärmläsare) är ak
 
 #: src/tags/gnome-cmd-tags.cc:534
 msgid "Contact information for the creators or distributors of the track."
-msgstr "Skaparen eller distributörens kontaktinformation."
+msgstr "Kontaktinformation för skaparna eller distributörerna av ljudspåret."
 
 #: src/tags/gnome-cmd-tags.cc:536
 msgid "License"
@@ -8692,7 +8694,7 @@ msgstr "Nominell bithastighet"
 
 #: src/tags/gnome-cmd-tags.cc:540
 msgid "Nominal bitrate in kbps."
-msgstr "Bithastighet i kbps."
+msgstr "Nominell bithastighet i kbps."
 
 #: src/tags/gnome-cmd-tags.cc:541
 msgid "Organization"
