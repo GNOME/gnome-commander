@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-smb-path.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -35,7 +35,10 @@ class GnomeCmdSmbPath: public GnomeCmdPath
 
   protected:
 
-    virtual GnomeCmdSmbPath *do_clone() const       {  return new GnomeCmdSmbPath(*this);  }
+    virtual GnomeCmdSmbPath *do_clone() const override
+    {
+        return new GnomeCmdSmbPath(*this);
+    }
 
   public:
 
@@ -44,10 +47,16 @@ class GnomeCmdSmbPath: public GnomeCmdPath
     explicit GnomeCmdSmbPath(const gchar *path_str);
     virtual ~GnomeCmdSmbPath();
 
-    virtual const gchar *get_path()                 {  return path;                   }
-    virtual const gchar *get_display_path()         {  return display_path;           }
-    virtual GnomeCmdPath *get_parent();
-    virtual GnomeCmdPath *get_child(const gchar *child);
+    virtual const gchar *get_path() override
+    {
+        return path;
+    }
+    virtual const gchar *get_display_path() override
+    {
+        return display_path;
+    }
+    virtual GnomeCmdPath *get_parent() override;
+    virtual GnomeCmdPath *get_child(const gchar *child) override;
 };
 
 inline GnomeCmdSmbPath::GnomeCmdSmbPath(const GnomeCmdSmbPath &thePath)
