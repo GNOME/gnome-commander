@@ -586,9 +586,9 @@ std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std:
     if (!domain.empty())
         user = domain + ';' + user;
 
-    const gchar *join = !folder.empty() && folder[0] != '/' ? "/" : "";
+    const gchar *joinSign = !folder.empty() && folder[0] != '/' ? "/" : "";
 
-    folder = share + join + folder;
+    folder = share + joinSign + folder;
     folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
 
     s = "smb://";
