@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-con-list.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -51,7 +51,7 @@ struct GnomeCmdConList::Private
 };
 
 
-static GtkObjectClass *parent_class = NULL;
+static GtkObjectClass *parent_class = nullptr;
 
 enum
 {
@@ -152,7 +152,7 @@ static void init (GnomeCmdConList *con_list)
 #ifdef HAVE_SAMBA
     con_list->priv->smb_con = gnome_cmd_con_smb_new ();
 #endif
-    con_list->priv->all_cons = g_list_append (NULL, con_list->priv->home_con);
+    con_list->priv->all_cons = g_list_append (nullptr, con_list->priv->home_con);
 #ifdef HAVE_SAMBA
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);
 #endif
@@ -177,9 +177,9 @@ GtkType gnome_cmd_con_list_get_type ()
             sizeof (GnomeCmdConListClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (gtk_object_get_type (), &info);
@@ -350,7 +350,7 @@ void GnomeCmdConList::remove(GnomeCmdConDevice *con)
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->all_cons;
 }
@@ -358,7 +358,7 @@ GList *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 
 GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->remote_cons;
 }
@@ -366,7 +366,7 @@ GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
 
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->device_cons;
 }
@@ -382,14 +382,14 @@ void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
 
 GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
 {
-    g_return_val_if_fail (alias!=NULL, NULL);
+    g_return_val_if_fail (alias != nullptr, nullptr);
 
     GnomeCmdCon con;                // used as reference element to be looked for, no allocation necessary
     con.alias = (gchar *) alias;
 
-    GList *elem = g_list_find_custom (priv->all_cons, &con, (GCompareFunc) compare_alias);
+    auto elem = g_list_find_custom (priv->all_cons, &con, (GCompareFunc) compare_alias);
 
-    return elem ? (GnomeCmdCon *) elem->data : NULL;
+    return elem ? static_cast<GnomeCmdCon*> (elem->data) : nullptr;
 }
 
 
