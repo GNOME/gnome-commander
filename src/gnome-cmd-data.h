@@ -361,7 +361,7 @@ struct GnomeCmdData
         gboolean                     device_only_icon;
         gboolean                     skip_mounting;
 
-        Options(): gcmd_settings(NULL),
+        Options(): gcmd_settings(nullptr),
                    left_mouse_button_mode(LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK),
                    left_mouse_button_unselects(TRUE),
                    middle_mouse_button_mode(MIDDLE_BUTTON_GOES_UP_DIR),
@@ -377,11 +377,11 @@ struct GnomeCmdData
                    save_dir_history_on_exit(TRUE),
                    save_cmdline_history_on_exit(TRUE),
                    save_search_history_on_exit(TRUE),
-                   symlink_prefix(NULL),
+                   symlink_prefix(nullptr),
                    size_disp_mode(GNOME_CMD_SIZE_DISP_MODE_POWERED),
                    perm_disp_mode(GNOME_CMD_PERM_DISP_MODE_TEXT),
-                   date_format(NULL),
-                   list_font(NULL),
+                   date_format(nullptr),
+                   list_font(nullptr),
                    list_row_height(16),
                    ext_disp_mode(GNOME_CMD_EXT_DISP_BOTH),
                    layout(GNOME_CMD_LAYOUT_MIME_ICONS),
@@ -389,7 +389,7 @@ struct GnomeCmdData
                    use_ls_colors(FALSE),
                    icon_size(16),
                    icon_scale_quality(GDK_INTERP_HYPER),
-                   theme_icon_dir(NULL),
+                   theme_icon_dir(nullptr),
                    always_show_tabs(FALSE),
                    tab_lock_indicator(TAB_LOCK_ICON),
                    confirm_delete(TRUE),
@@ -397,17 +397,17 @@ struct GnomeCmdData
                    confirm_copy_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_move_overwrite(GNOME_CMD_CONFIRM_OVERWRITE_QUERY),
                    confirm_mouse_dnd(TRUE),
-                   backup_pattern(NULL),
-                   backup_pattern_list(NULL),
+                   backup_pattern(nullptr),
+                   backup_pattern_list(nullptr),
                    honor_expect_uris(FALSE),
-                   viewer(NULL),
+                   viewer(nullptr),
                    use_internal_viewer(TRUE),
-                   editor(NULL),
-                   differ(NULL),
-                   sendto(NULL),
-                   termopen(NULL),
-                   termexec(NULL),
-                   fav_apps(NULL),
+                   editor(nullptr),
+                   differ(nullptr),
+                   sendto(nullptr),
+                   termopen(nullptr),
+                   termexec(nullptr),
+                   fav_apps(nullptr),
                    device_only_icon(FALSE),
                    skip_mounting(FALSE)
         {
@@ -510,13 +510,13 @@ struct GnomeCmdData
 
         void add_fav_app(GnomeCmdApp *app)
         {
-            g_return_if_fail (app != NULL);
+            g_return_if_fail (app != nullptr);
             fav_apps = g_list_append (fav_apps, app);
         }
 
         void remove_fav_app(GnomeCmdApp *app)
         {
-            g_return_if_fail (app != NULL);
+            g_return_if_fail (app != nullptr);
             fav_apps = g_list_remove (fav_apps, app);
         }
 
@@ -625,7 +625,7 @@ struct GnomeCmdData
 
     struct Private;
 
-    Private *priv;
+    Private *priv {nullptr};
 
   private:
 
@@ -659,7 +659,7 @@ struct GnomeCmdData
   public:
 
     Options                      options;
-    GcmdSettings                 *settings;
+    GcmdSettings                 *settings {nullptr};
 
     std::vector<SearchProfile>   profiles;
 
@@ -670,14 +670,14 @@ struct GnomeCmdData
 
     gboolean                     horizontal_orientation;
 
-    gboolean                     show_toolbar;
-    gboolean                     show_devbuttons;
-    gboolean                     show_devlist;
-    gboolean                     cmdline_visibility;
-    gboolean                     buttonbar_visibility;
-    gboolean                     mainmenu_visibility;
+    gboolean                     show_toolbar {TRUE};
+    gboolean                     show_devbuttons {TRUE};
+    gboolean                     show_devlist {TRUE};
+    gboolean                     cmdline_visibility {TRUE};
+    gboolean                     buttonbar_visibility {TRUE};
+    gboolean                     mainmenu_visibility {TRUE};
 
-    guint                        dev_icon_size;
+    guint                        dev_icon_size {16};
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
 
