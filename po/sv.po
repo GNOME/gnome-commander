@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-03-13 21:25+0000\n"
-"PO-Revision-Date: 2019-03-18 17:23+0100\n"
+"POT-Creation-Date: 2019-03-25 19:15+0000\n"
+"PO-Revision-Date: 2019-03-25 20:19+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -63,11 +63,6 @@ msgstr "En tvåpanelers filhanterare"
 #: data/gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "fil;hanterare;mapp;utforska;disk;filsystem;"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-commander.desktop.in.in:9
-msgid "gnome-commander"
-msgstr "gnome-commander"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
 msgid "List of advanced rename tool profiles"
@@ -701,11 +696,11 @@ msgstr "Detta alternativ definierar om huvudmenyn är synlig eller ej."
 
 #: data/org.gnome.gnome-commander.gschema.xml:491
 msgid "Quick search shortcut"
-msgstr "Snabbsökgenväg"
+msgstr "Kortkommando för snabbsökning"
 
 #: data/org.gnome.gnome-commander.gschema.xml:492
 msgid "This option defines the shortcut for quick search."
-msgstr "Detta alternativ definierar genvägen för snabbsökningen."
+msgstr "Detta alternativ definierar kortkommandot för snabbsökningen."
 
 #: data/org.gnome.gnome-commander.gschema.xml:498
 msgid "List of file tabs"
@@ -2000,12 +1995,12 @@ msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
 msgstr ""
-"För att redigera en tangentbordsgenväg, klicka på motsvarande rad och ange "
-"en ny snabbtangent eller tryck esc för att avbryta."
+"För att redigera ett kortkommando, klicka på motsvarande rad och ange en ny "
+"snabbtangent eller tryck esc för att avbryta."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:349
 msgid "Shortcut Key"
-msgstr "Genvägstangent"
+msgstr "Kortkommando"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:350
 msgid "Keyboard shortcut for selected action"
@@ -2026,24 +2021,24 @@ msgstr "Valfri data"
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:492
 #, c-format
 msgid "Shortcut “%s” is already taken by “%s”."
-msgstr "Genvägen ”%s” används redan för ”%s”."
+msgstr "Kortkommandot ”%s” används redan för ”%s”."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:495
 msgid "_Reassign shortcut"
-msgstr "_Ändra genväg"
+msgstr "_Ändra kortkommando"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:498
 msgid "Conflicting Shortcuts"
-msgstr "Genvägar i konflikt"
+msgstr "Kortkommandon i konflikt"
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:499
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from “%s”."
-msgstr "Att omtilldela genvägen medför att den tas bort från ”%s”."
+msgstr "Att omtilldela kortkommandot medför att det tas bort från ”%s”."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:555
 msgid "Invalid shortcut."
-msgstr "Ogiltig genväg."
+msgstr "Ogiltigt kortkommando."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:634
 #: src/gnome-cmd-user-actions.cc:249
@@ -2079,7 +2074,7 @@ msgstr "Namn för bokmärket"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:249
 msgid "Shortcut"
-msgstr "Genväg"
+msgstr "Kortkommando"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:250
 msgid "Keyboard shortcut for selected bookmark"
@@ -2483,7 +2478,7 @@ msgstr "Redigera…"
 #. LS_COLORS
 #: src/dialogs/gnome-cmd-options-dialog.cc:820
 msgid "Colorize files according to the LS_COLORS environment variable"
-msgstr "Använd färgerna i miljö-variabeln LS_COLORS"
+msgstr "Använd färgerna i miljövariabeln LS_COLORS"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:828
 msgid "Edit colors…"
@@ -2566,7 +2561,7 @@ msgstr "Dra-och-släpp"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1056
 msgid "Confirm mouse operation"
-msgstr "Verifiera musåtgärd"
+msgstr "Bekräfta musåtgärd"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1138
 msgid "Filetypes to hide"
@@ -2623,7 +2618,7 @@ msgstr ""
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1423
 msgid "Label:"
-msgstr "Namn:"
+msgstr "Etikett:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1425
 msgid "Command:"
@@ -2728,7 +2723,7 @@ msgstr "Globala programalternativ"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1695
 msgid "Terminal command for apps in the list above:"
-msgstr "Terminalkommando för program i listan nedan:"
+msgstr "Terminalkommando för program i listan ovan:"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:1701
 msgid "Leave terminal window open"
@@ -3852,11 +3847,11 @@ msgstr "Avmarkera med mö_nster"
 
 #: src/gnome-cmd-main-menu.cc:504
 msgid "_Invert Selection"
-msgstr "_Invertera markeringarna"
+msgstr "_Invertera markering"
 
 #: src/gnome-cmd-main-menu.cc:510
 msgid "_Restore Selection"
-msgstr "_Återställ markeringarna"
+msgstr "_Återställ markering"
 
 #: src/gnome-cmd-main-menu.cc:517
 msgid "_Compare Directories"
@@ -3932,7 +3927,7 @@ msgstr "_Alternativ…"
 
 #: src/gnome-cmd-main-menu.cc:705
 msgid "_Keyboard Shortcuts…"
-msgstr "_Snabbtangenter…"
+msgstr "_Tangentbordsgenvägar…"
 
 #: src/gnome-cmd-main-menu.cc:716
 msgid "_Remote Server…"
@@ -3948,7 +3943,7 @@ msgstr "_Dokumentation"
 
 #: src/gnome-cmd-main-menu.cc:739 src/intviewer/viewer-window.cc:1002
 msgid "_Keyboard Shortcuts"
-msgstr "_Snabbtangenter"
+msgstr "_Tangentbordsgenvägar"
 
 #: src/gnome-cmd-main-menu.cc:745
 msgid "GNOME Commander on the _Web"
@@ -9070,6 +9065,9 @@ msgstr "Ett fel uppstod vid visande av hjälp."
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Kunde inte ändra sökväg från ”%s” till ”%s”: %s"
+
+#~ msgid "gnome-commander"
+#~ msgstr "gnome-commander"
 
 #~ msgid "Audio Files"
 #~ msgstr "Ljudfiler"
