@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "POT-Creation-Date: 2019-03-15 19:20+0000\n"
-"PO-Revision-Date: 2019-03-25 20:14+0100\n"
+"PO-Revision-Date: 2019-03-27 20:34+0100\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -9930,6 +9930,7 @@ msgstr "<guilabel>Intervallsyntax</guilabel> <_:itemizedlist-1/>"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:3923
+#, fuzzy
 msgid ""
 "If one of the indices is dropped, it is assumed that you want everything in "
 "that direction. I.e. (:3) means \"every character from the beginning of the "
@@ -9939,6 +9940,12 @@ msgid ""
 "to the end of the string. Index -3 stands for \"the third character from the "
 "end of the string\"."
 msgstr ""
+"Om ett av indexen tas bort så antas det att du vill ha allt i den "
+"riktningen. D.v.s. att (:3) betyder ”alla tecken från början på strängen upp "
+"till tecken 3, ej inräknat tecken 3.” (3:) skulle å andra sidan betyda ”alla "
+"tecken från strängen från och med tecken 3 (tecken 3 inräknat) upp till, och "
+"inkluderande, det sista.” Om index är negativ är det relativt till slutet på "
+"strängen. Index -3 betyder ”det tredje tecknet från slutet på strängen”."
 
 #. (itstool) path: tip/para
 #: C/index.docbook:3932
@@ -10451,6 +10458,9 @@ msgid ""
 "to remote servers. It is also your starting point for opening a connection "
 "to a remote server."
 msgstr ""
+"Dialogrutan Fjärranslutningar ger en översikt om de lagrade anslutningarna "
+"till fjärrservrar. Det är också din startpunkt för att öppna en anslutning "
+"till en fjärrserver."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4142
@@ -10460,6 +10470,10 @@ msgid ""
 "bar or by hitting <keycombo><keycap>CTRL</keycap><keycap>F</keycap></"
 "keycombo>."
 msgstr ""
+"Öppna dialogrutan genom att klicka på <menuchoice><guimenu>Anslutningar</"
+"guimenu><guimenuitem>Fjärrserver…</guimenuitem></menuchoice> i menyraden "
+"eller genom att trycka ned <keycombo><keycap>CTRL</keycap><keycap>F</"
+"keycap></keycombo>."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4145
@@ -10499,18 +10513,25 @@ msgstr "Den är uppdelad i fyra delar: <_:orderedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4149
+#, fuzzy
 msgid ""
 "Double click on a connection or select a connection and hit "
 "<keycombo><keycap>ENTER</keycap></keycombo> will open the remote connection "
 "in the active pane of GNOME Commander."
 msgstr ""
+"Dubbelklick på en anslutning eller att välja en anslutning och trycka ned "
+"<keycombo><keycap>RETUR</keycap></keycombo> kommer att öppna "
+"fjärranslutningen i GNOME Commanders aktiva panel."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4150
+#, fuzzy
 msgid ""
 "An example figure with three anonymous FTP and one secure SSH connection is "
 "shown below."
 msgstr ""
+"En exempelfigur med tre anonyma FTP-anslutningar och en säker SSH-anslutning "
+"visas nedan."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4151
@@ -10636,11 +10657,13 @@ msgid ""
 "Depending on the choice, different login details have to be entered in the "
 "Remote Server dialog."
 msgstr ""
+"Beroende på valet behöver olika inloggningsdetaljer anges i dialogrutan för "
+"fjärrserver."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:4192
 msgid "See an example for a public FTP server in the figure below."
-msgstr ""
+msgstr "Se ett exempel för en offentlig FTP-server i figuren nedan."
 
 #. (itstool) path: figure/title
 #: C/index.docbook:4195
@@ -10677,16 +10700,18 @@ msgstr ""
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:4211
-#, fuzzy
 msgid "Using the Internal Viewer"
 msgstr "Använda det interna visningsprogrammet"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4212
+#, fuzzy
 msgid ""
 "The internal viewer allows viewing contents of files in text, Unicode, "
 "binary, hex or graphical mode."
 msgstr ""
+"Det interna visningsprogrammet möjliggör visning av filers innehåll i text-, "
+"Unicode-, binär- eller hex-läge eller grafiskt läge."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4214
@@ -10697,6 +10722,12 @@ msgid ""
 "keycap></keycombo> (internal viewer). The internal viewer uses MMAP whenever "
 "possible for the fastest file loading."
 msgstr ""
+"För att börja visa filer, använd <keycap>F3</keycap> (standardvisare - "
+"definierad i <menuchoice><guimenu>Inställningar</"
+"guimenu><guimenuitem>Alternativ…</guimenuitem></menuchoice>) eller "
+"<keycombo><keycap>SKIFT</keycap><keycap>F3</keycap></keycombo> (internt "
+"visningsprogram). Det interna visningsprogrammet använder MMAP närhelst "
+"möjligt för snabb filinläsning."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:4220
@@ -10705,11 +10736,15 @@ msgstr "Visningslägen"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:4221
+#, fuzzy
 msgid ""
 "The <guilabel>View Modes</guilabel> group (In the <menuchoice><guimenu>View</"
 "guimenu></menuchoice> menu) contains the preferences that you can set to "
 "view images and texts in the internal viewer window:"
 msgstr ""
+"Gruppen <guilabel>Visningslägen</guilabel> (I menyn <menuchoice><guimenu>Vy</"
+"guimenu></menuchoice>) innehåller de inställningar du kan ställa in för att "
+"visa bilder och text i det interna visningsfönstret:"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4225
@@ -10738,6 +10773,9 @@ msgid ""
 "encoding in <menuchoice><guimenu>Text</guimenu><guimenuitem>Encoding</"
 "guimenuitem></menuchoice>."
 msgstr ""
+"För alla tre textlägena (läge 1 till 3) kan du ändra teckenkodningen i "
+"<menuchoice><guimenu>Text</guimenu><guimenuitem>Teckenkodning</guimenuitem></"
+"menuchoice>."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:4233
@@ -10746,14 +10784,20 @@ msgid ""
 "shown below the image by selecting <menuchoice><guimenu>Image</"
 "guimenu><guimenuitem>Show Metadata Tags</guimenuitem></menuchoice>."
 msgstr ""
+"För bildvisningsläget kan du välja om ytterligare metadata ska visas under "
+"bilden genom att välja <menuchoice><guimenu>Bild</guimenu><guimenuitem>Visa "
+"metadatataggar</guimenuitem></menuchoice>."
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:4235
+#, fuzzy
 msgid ""
 "Below of the <guilabel>View Modes</guilabel> in the "
 "<menuchoice><guimenu>View</guimenu></menuchoice> menu you can set the zoom "
 "factor. You can"
 msgstr ""
+"Under <guilabel>Visningslägena</guilabel> i meny <menuchoice><guimenu>Visa</"
+"guimenu></menuchoice> kan du ställa in zoomfaktorn. Du kan"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4239
@@ -10779,8 +10823,9 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4242
+#, fuzzy
 msgid "Fit the image into the window of the internal viewer."
-msgstr ""
+msgstr "Anpassa bilden till fönstret för det interna visningsprogrammet."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:4247
@@ -10790,10 +10835,13 @@ msgstr "För att rulla en bild"
 
 #. (itstool) path: sect3/para
 #: C/index.docbook:4248
+#, fuzzy
 msgid ""
 "To scroll around an image that is larger than the image window or full "
 "screen window, you can use the following methods:"
 msgstr ""
+"För att rulla en bild som är större än bildfönstret eller ett "
+"helskärmsfönster så kan du använda följande metoder:"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4252
@@ -10812,6 +10860,9 @@ msgid ""
 "the opposite direction to which you want to scroll. For example, if you want "
 "to scroll down the image, drag the image upwards."
 msgstr ""
+"Klicka på en godtycklig position i bilden och dra den genom att dra din mus "
+"i motsatt riktning mot dit du vill rulla. Om du exempelvis vill rulla ner i "
+"bilden drar du bilden uppåt."
 
 #. (itstool) path: sect3/title
 #: C/index.docbook:4264
@@ -10852,8 +10903,9 @@ msgstr "<keycombo><keycap>W</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4282
+#, fuzzy
 msgid "Toggles line wrapping (applicable only in text display modes)"
-msgstr ""
+msgstr "Växlar radbrytning (tillämplig endast i textvisningslägen)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4285
@@ -10874,7 +10926,6 @@ msgstr "Visar metadatataggar"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4289
-#, fuzzy
 msgid "Input Modes:"
 msgstr "Inmatningslägen:"
 
@@ -10910,7 +10961,7 @@ msgstr "<keycombo><keycap>U</keycap></keycombo>"
 #. (itstool) path: entry/para
 #: C/index.docbook:4302
 msgid "Sets UTF-8 input mode"
-msgstr ""
+msgstr "Ställer in UTF-8-inmatningsläge"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4305
@@ -10925,7 +10976,7 @@ msgstr "<keycombo><keycap>1</keycap></keycombo>"
 #. (itstool) path: entry/para
 #: C/index.docbook:4309
 msgid "Sets display mode to text, with fixed width font"
-msgstr ""
+msgstr "Ställer in visningsläge till text, med ett typsnitt med fast breddsteg"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:4312
@@ -10934,11 +10985,15 @@ msgstr "<keycombo><keycap>2</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4313
+#, fuzzy
 msgid ""
 "Sets display mode to binary. Switching to Binary display mode will "
 "automatically set ASCII input mode (UTF-8 is not supported with binary "
 "display)"
 msgstr ""
+"Ställer in visningsläge till binärt. Att växla till binärt visningsläge "
+"kommer automatiskt att ställa in ASCII-inmatningsläge (UTF-8 stöds ej med "
+"binär visning)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:4317
@@ -10947,11 +11002,15 @@ msgstr "<keycombo><keycap>3</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4318
+#, fuzzy
 msgid ""
 "Sets display mode to hex dump. Switching to hex display mode will "
 "automatically set ASCII input mode (UTF-8 is not supported with hex dump "
 "display)"
 msgstr ""
+"Ställer in visningsläge till hexdump. Att växla till hexvisningsläge kommer "
+"automatiskt att ställa in ASCII-inmatningsläge (UTF-8 stöds ej med "
+"hexdumpvisning)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:4322
@@ -11005,8 +11064,9 @@ msgstr "<keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4346
+#, fuzzy
 msgid "Rotates the image 90° (applicable only in IMAGE display mode)"
-msgstr ""
+msgstr "Roterar bilden 90° (endast tillämplig i IMAGE-visningsläge)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:4349
@@ -11019,8 +11079,9 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4350
+#, fuzzy
 msgid "Rotates the image 270° (applicable only in IMAGE display mode)"
-msgstr ""
+msgstr "Roterar bilden 270° (endast tillämplig i IMAGE-visningsläge)"
 
 #. (itstool) path: row/entry
 #: C/index.docbook:4356
@@ -11029,9 +11090,12 @@ msgstr "<keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4358
+#, fuzzy
 msgid ""
 "Saves the current window size, input mode, and other settings as the default."
 msgstr ""
+"Sparar aktuell fönsterstorlek, inmatningsläge och andra inställningar som "
+"standardvärdet."
 
 #. (itstool) path: note/para
 #: C/index.docbook:4359
@@ -11039,6 +11103,8 @@ msgid ""
 "Starting display mode is determined by the file's content, and is not saved "
 "as a user setting."
 msgstr ""
+"Inledande visningsläge avgörs av filens innehåll, och sparas inte som en "
+"användarinställning."
 
 #. (itstool) path: sect1/title
 #: C/index.docbook:4372
@@ -11071,6 +11137,9 @@ msgid ""
 "Commander basic behavior. It deals with the mouse, file matching, sorting "
 "and quick search features."
 msgstr ""
+"Fliken <guilabel>Allmänt</guilabel> används för att konfigurera GNOME "
+"Commanders grundläggande beteende. Den hanterar funktioner för musen, "
+"filmatchning, sortering och snabbsökning."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4383
@@ -11083,6 +11152,8 @@ msgid ""
 "<guilabel>Left mouse button</guilabel> configures the action resulting from "
 "clicking the left mouse button."
 msgstr ""
+"<guilabel>Vänster musknapp</guilabel> konfigurerar åtgärden som resulterar "
+"från att klicka på vänster musknapp."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4391
@@ -11090,6 +11161,8 @@ msgid ""
 "<guilabel>Middle mouse button</guilabel> configures the action resulting "
 "from clicking the middle mouse button."
 msgstr ""
+"<guilabel>Mittenmusknappen</guilabel> konfigurerar åtgärden som resulterar "
+"från att klicka på mittenmusknappen."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4394
@@ -11097,6 +11170,8 @@ msgid ""
 "<guilabel>Right mouse button</guilabel> configures the action resulting from "
 "clicking the right mouse button."
 msgstr ""
+"<guilabel>Höger musknapp</guilabel> konfigurerar åtgärden som resulterar "
+"från att klicka på höger musknapp."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4398
@@ -11104,6 +11179,8 @@ msgid ""
 "<guilabel>Match file names</guilabel> configures the pattern matching system "
 "used."
 msgstr ""
+"<guilabel>Matcha filnamn</guilabel> konfigurerar mönstermatchingssystemet "
+"som används."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4402
@@ -11112,7 +11189,7 @@ msgid ""
 "<guilabel>Selection</guilabel> makes directories selectable also by keyboard "
 "shortcuts."
 msgstr ""
-"<guilabel>Markering</guilabel> gör kataloger markerbara också av "
+"<guilabel>Markering</guilabel> gör även kataloger markerbara av "
 "tangentbordsgenvägar."
 
 #. (itstool) path: listitem/para
@@ -11121,13 +11198,18 @@ msgid ""
 "<guilabel>Sorting/Quick search</guilabel> configures whether sorting and the "
 "quick search is case sensitive."
 msgstr ""
+"<guilabel>Sortering/Snabbsök</guilabel> konfigurerar huruvida sortering och "
+"snabbsökningen är skiftlägeskänslig."
 
+# TODO: *using* not in GUI
 #. (itstool) path: listitem/para
 #: C/index.docbook:4409
 msgid ""
 "<guilabel>Quick search using</guilabel> configures the combination of keys "
 "used for quick search."
 msgstr ""
+"<guilabel>Snabbsök med</guilabel> konfigurerar kombinationen av tangenter "
+"som används för snabbsökning."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4413
@@ -11135,6 +11217,8 @@ msgid ""
 "<guilabel>Multiple instances</guilabel> configures the number of GNOME "
 "Commander that can be launched"
 msgstr ""
+"<guilabel>Multipla instanser</guilabel> konfigurerar antalet GNOME Commander-"
+"instanser som kan köras"
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:4416
@@ -11142,6 +11226,8 @@ msgid ""
 "<guilabel>Save on exit</guilabel> configures the storage of location when "
 "GNOME Commander is closed."
 msgstr ""
+"<guilabel>Spara vid avslut</guilabel> konfigurerar lagringen av plats när "
+"GNOME Commander stängs."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4420
@@ -11150,6 +11236,10 @@ msgid ""
 "guimenu><guimenuitem>Options...</guimenuitem></menuchoice>, then click on "
 "the <guilabel>General</guilabel> tab."
 msgstr ""
+"För att ändra de allmänna alternativen, klicka på "
+"<menuchoice><guimenu>Inställningar</guimenu><guimenuitem>Alternativ…</"
+"guimenuitem></menuchoice>, klicka sedan på fliken <guilabel>Allmänt</"
+"guilabel>."
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:4423
@@ -11157,6 +11247,8 @@ msgid ""
 "The options available are described in more details in the <xref linkend="
 "\"gcmd-TBL-setting1\"/>."
 msgstr ""
+"Alternativen som finns tillgängliga beskrivs i mer detalj i <xref linkend="
+"\"gcmd-TBL-setting1\"/>."
 
 #. (itstool) path: figure/title
 #: C/index.docbook:4427
@@ -11225,6 +11317,8 @@ msgid ""
 "When selecting this option, a single left mouse button click on a file will "
 "open it with the default application."
 msgstr ""
+"När detta alternativ väljs kommer ett ensamt klick med vänster musknapp på "
+"en fil att öppna den med standardprogrammet."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4479
@@ -11237,6 +11331,8 @@ msgid ""
 "When selecting this option, a double click with the left mouse button on a "
 "file will open it with the default application."
 msgstr ""
+"När detta alternativ väljs kommer ett dubbelklick med vänster musknapp på en "
+"fil att öppna den med standardprogrammet."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4492
@@ -11274,6 +11370,8 @@ msgid ""
 "The middle click is usually emulated by clicking both left and right buttons "
 "simultaneously on two buttons mice."
 msgstr ""
+"Mittenklick emuleras vanligen genom att klicka på både den vänstra och högra "
+"knappen samtidigt på möss med två knappar."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4520
@@ -11337,10 +11435,12 @@ msgid ""
 "upper case and lower case if this option is activated."
 msgstr ""
 
+# TODO: *using* not in GUI
 #. (itstool) path: entry/para
 #: C/index.docbook:4572
+#, fuzzy
 msgid "<guilabel>Quick search using</guilabel>"
-msgstr ""
+msgstr "<guilabel>Snabbsök med</guilabel>"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4577
@@ -11449,6 +11549,8 @@ msgstr "Starta inte en ny instans"
 msgid ""
 "By activating this option GNOME Commander can only have one instance running."
 msgstr ""
+"Genom att aktivera detta alternativ kan GNOME Commander endast ha en instans "
+"som körs."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4659
@@ -12892,6 +12994,8 @@ msgid ""
 "As you can see in the list above, \"%s\" can be used for filename expansion. "
 "All possible expansion types are listed in the table below:"
 msgstr ""
+"Som du kan se i listan ovan kan ”%s” användas för filnamnsexpansion. Alla "
+"möjliga expansionstyper listas i tabellen nedan:"
 
 #. (itstool) path: table/title
 #: C/index.docbook:5733
@@ -12915,23 +13019,28 @@ msgstr "%f"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5753
+#, fuzzy
 msgid "File name (or list for multiple selections)"
-msgstr ""
+msgstr "Filnamn (eller lista för flera markeringar)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5761
+#, fuzzy
 msgid "Quoted filename (or list for multiple selections)"
-msgstr ""
+msgstr "Citerat filnamn (eller lista för flera markeringar)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5769
+#, fuzzy
 msgid "Full file system path (or list for multiple selections)"
-msgstr ""
+msgstr "Fullständig filsystemssökväg (eller lista för flera markeringar)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5777
+#, fuzzy
 msgid "Quoted full file system path (or list for multiple selections)"
 msgstr ""
+"Citerad fullständig filsystemssökväg (eller lista för flera markeringar)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5785
@@ -12942,13 +13051,15 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5793
+#, fuzzy
 msgid "Fully qualified URI for the file (or list for multiple selections)"
 msgstr ""
+"Fullständig kvalificerad URI för filen (eller lista för flera markeringar)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5801
 msgid "Full path to the directory containing file"
-msgstr ""
+msgstr "Fullständig sökväg till katalogen som innehåller filen"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5806
@@ -12957,8 +13068,9 @@ msgstr "%D"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5809
+#, fuzzy
 msgid "Quoted full path to the directory containing file"
-msgstr ""
+msgstr "Citerad fullständig sökväg till katalogen som innehåller filen"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5817
@@ -13112,6 +13224,8 @@ msgid ""
 "Whether the application requires a terminal to be opened. In this case GNOME "
 "Commander starts the application in an independent terminal."
 msgstr ""
+"Huruvida programmet kräver en terminal för att öppnas. I detta fall startar "
+"GNOME Commander programmet i en oberoende terminal."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:5955
@@ -13209,10 +13323,13 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:6038
+#, fuzzy
 msgid ""
 "<guilabel>Skip mounting</guilabel>: If activated, GNOME Commander will not "
 "try to mount the devices by clicking on them."
 msgstr ""
+"<guilabel>Hoppa över montering</guilabel>: Om aktiverat kommer GNOME "
+"Commander inte att försöka montera enheter genom att klicka på dem."
 
 #. (itstool) path: listitem/para
 #: C/index.docbook:6035
@@ -13220,6 +13337,8 @@ msgid ""
 "Below the <guilabel>Devices</guilabel> window you have two options: <_:"
 "itemizedlist-1/>"
 msgstr ""
+"Nedanför fönstret <guilabel>Enheter</guilabel> har du två alternativ: <_:"
+"itemizedlist-1/>"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:6041
@@ -13227,6 +13346,8 @@ msgid ""
 "On the right hand side there are five buttons, described in the <xref "
 "linkend=\"gcmd-dev\"/> table below."
 msgstr ""
+"På höger sida finns det fem knappar, beskrivna i tabellen <xref linkend="
+"\"gcmd-dev\"/> nedan."
 
 #. (itstool) path: figure/title
 #: C/index.docbook:6044
@@ -13261,9 +13382,8 @@ msgstr ""
 
 #. (itstool) path: table/title
 #: C/index.docbook:6059
-#, fuzzy
 msgid "Devices tab"
-msgstr "Fliken Enheter"
+msgstr "Enhetsflik"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:6079
@@ -13423,7 +13543,7 @@ msgstr ""
 #. (itstool) path: figure/title
 #: C/index.docbook:6263 C/index.docbook:6920
 msgid "Keyboard Shortcuts"
-msgstr "Tangenbordsgenvägar"
+msgstr "Tangentbordsgenvägar"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:6264
@@ -14370,10 +14490,14 @@ msgstr "Användaråtgärder"
 
 #. (itstool) path: sect1/para
 #: C/index.docbook:6897
+#, fuzzy
 msgid ""
 "User actions trigger predefined functions (actions) and make GNOME Commander "
 "very flexible. They are accessed by a key or set of keys (shortcut key)."
 msgstr ""
+"Användaråtgärder utlöser fördefinierade funktioner (åtgärder) och gör GNOME "
+"Commander väldigt flexibelt. De koms åt genom en tangent eller en "
+"uppsättning tangenter (kortkommando)."
 
 #. (itstool) path: sect2/title
 #: C/index.docbook:6899
@@ -14471,6 +14595,9 @@ msgid ""
 "Commander config file (<guilabel>~/.gnome-commander/gnome-commander.xml</"
 "guilabel>)."
 msgstr ""
+"Tangentbindningar lagras i avsnittet &lt;KeyBindings&gt; i GNOME Commanders "
+"konfigurationsfil (<guilabel>~/.gnome-commander/gnome-commander.xml</"
+"guilabel>)."
 
 #. (itstool) path: imageobject/imagedata
 #. This is a reference to an external file such as an image or video. When
@@ -14532,6 +14659,7 @@ msgstr "Upp en katalog"
 msgid "Back to the first directory"
 msgstr "Tillbaka till första katalogen"
 
+# TODO: Forward? Not *Back*?
 #. (itstool) path: entry/para
 #: C/index.docbook:6961
 msgid "Go forward to the first visited directory"
@@ -14807,7 +14935,7 @@ msgstr "Hemkatalog"
 #. (itstool) path: entry/para
 #: C/index.docbook:7142
 msgid "Keyboard shortcuts"
-msgstr "Tangenbordsgenvägar"
+msgstr "Tangentbordsgenvägar"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7143
@@ -15020,8 +15148,9 @@ msgstr "Visa användardefinierade filer"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7271
+#, fuzzy
 msgid "Use file selection filter"
-msgstr ""
+msgstr "Använd filmarkeringsfilter"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7274
@@ -15055,22 +15184,23 @@ msgstr "Synkronisera kataloger (med hjälp av meld)"
 #. (itstool) path: entry/para
 #: C/index.docbook:7284
 msgid "Toggle selection"
-msgstr ""
+msgstr "Växla markering"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7285
 msgid "Toggle selection for cursor"
-msgstr ""
+msgstr "Växla markering för markör"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7288
 msgid "Toggle selection and move cursor downward"
-msgstr ""
+msgstr "Växla markering och flytta markören nedåt"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7289
+#, fuzzy
 msgid "Select file or directory and move cursor downward"
-msgstr ""
+msgstr "Markera fil eller katalog och flytta markören nedåt"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:7292
@@ -16318,6 +16448,8 @@ msgid ""
 "Fixed problem bgo#619112 (Internal-viewer by default display incorrect code "
 "pages)"
 msgstr ""
+"Fixade problem bgo#619112 (Internt visningsprogram visar som standard "
+"felaktiga teckenkodningar)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:183
@@ -16374,13 +16506,18 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:224
+#, fuzzy
 msgid "Device list entry width is set equal to the longest string in the list"
 msgstr ""
+"Postbredd för enhetslista sätts som samma som den längsta strängen i listan"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:227
+#, fuzzy
 msgid "Fixed a bug in advance rename tool when utilizing METATAGS"
 msgstr ""
+"Fixade ett fel i det avancerade namnbytesverktyget vid användning av "
+"METATAGGAR"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:235
@@ -16423,10 +16560,13 @@ msgstr "2016-10-18"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:266
+#, fuzzy
 msgid ""
 "Fixed problem bgo#638174 (Selection background color not applied when using "
 "custom colors)"
 msgstr ""
+"Fixade problem bgo#638174 (Bakgrundsfärg för markering tillämpas inte vid "
+"användning av anpassade färger)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:269
@@ -16489,8 +16629,10 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:306
+#, fuzzy
 msgid "Fixed string escaping for directories with ampersand (see bgo#769309)"
 msgstr ""
+"Fixade strängkontrollsekvenser för kataloger med et-tecken (se bgo#769309)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:309
@@ -16515,8 +16657,9 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:323
+#, fuzzy
 msgid "Samba support is now optionally available via configure option"
-msgstr ""
+msgstr "Samba-stöd finns nu valfritt tillgängligt genom configure-flagga"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:326
@@ -17470,8 +17613,9 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:976
+#, fuzzy
 msgid "Fixed problem with searching path for devices"
-msgstr ""
+msgstr "Fixade problem med sökning av sökväg för enheter"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:979
@@ -17675,6 +17819,8 @@ msgstr ""
 #: C/releases.xml:1130
 msgid "Fixed problem with not working keypad enter in copy/move dialog"
 msgstr ""
+"Fixade problem med ej fungerande returknapp på numeriska tangentbordet i "
+"dialogrutan för kopiera/flytta"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1133
@@ -18810,7 +18956,7 @@ msgstr ""
 #. (itstool) path: listitem/para
 #: C/releases.xml:1857
 msgid "Fixed problem #332258 (left/right start directory parameter)"
-msgstr ""
+msgstr "Fixade problem #332258 (parameter för vänster/höger startkatalog)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1860
@@ -18826,10 +18972,13 @@ msgstr "Fixade problem #336649 (talrepresentation av rättigheter)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1866
+#, fuzzy
 msgid ""
 "Fixed problem with crashes when using broken or non-matching regex pattern "
 "in advrename"
 msgstr ""
+"Fixade problem med krascher vid användning av trasiga eller ej matchande "
+"regex-mönster i advrename"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:1874
@@ -19125,25 +19274,32 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2044
+#, fuzzy
 msgid ""
 "Removed the 'Save Position' menu item. Size and position are now saved "
 "automatically instead"
 msgstr ""
+"Tog bort menyobjektet ”Spara position”. Storlek och position sparas nu "
+"istället automatiskt"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2047
+#, fuzzy
 msgid "Added button to the directory indicator to popup the directory history"
 msgstr ""
+"La till knapp till katalogindikatorn för att poppa upp kataloghistoriken"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2050
+#, fuzzy
 msgid "Added history to the select and unselect by pattern dialogs"
-msgstr ""
+msgstr "La till historik för dialogrutorna markera och avmarkera med mönster"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2053
+#, fuzzy
 msgid "Sorting column and direction is now remembered"
-msgstr ""
+msgstr "Sorteringskolumn och riktning koms nu ihåg"
 
 #. (itstool) path: para/keycap
 #: C/releases.xml:2059
@@ -19201,10 +19357,13 @@ msgstr "Fixade onödigt omritande av fillistan när filer dras över den"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2087
+#, fuzzy
 msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
 msgstr ""
+"Fixade problem med ftp-anslutningar som inte försvann från "
+"anslutningsverktygsfälten då de kopplades ner"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2090
@@ -19218,10 +19377,13 @@ msgstr "Fixade problem med namnbyte av kataloger"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2101
+#, fuzzy
 msgid ""
 "The dir indicator above each file list can now be used to navigate upwards "
 "in the directory structure"
 msgstr ""
+"Katalogindikatorn ovanför varje fillista kan nu användas för att navigera "
+"uppåt i katalogstrukturen"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:2108
@@ -19261,14 +19423,16 @@ msgstr ""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2127
+#, fuzzy
 msgid "Fixed possible async error when cancelling a xfer operation"
-msgstr ""
+msgstr "Fixade möjligt async-fel vid avbrott av en överföringsoperation"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2130
 msgid ""
 "Reworked the layout tab and removed the colors tab in the options dialog"
 msgstr ""
+"Omarbetade layoutfliken och tog bort färgfliken i dialogrutan för alternativ"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2133
@@ -19303,8 +19467,9 @@ msgstr "Att komma åt filer på monterade enheter ska nu fungera bättre"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2157
+#, fuzzy
 msgid "Devices without the device filename should not disappear anymore"
-msgstr ""
+msgstr "Enheter utan enhetsfilnamn bör inte längre försvinna"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2160
@@ -19312,6 +19477,8 @@ msgid ""
 "Fixed so that the feature where the terminal window stays open after a "
 "program has finished works more reliably"
 msgstr ""
+"Fixade så att funktionen där terminalfönstret förblir öppet efter att ett "
+"program har slutförts fungerar mer pålitligt"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2166
@@ -19319,6 +19486,8 @@ msgid ""
 "Fixes bug where a new directory would appear many times in the same file "
 "list until reloaded"
 msgstr ""
+"Fixar fel där en ny katalog skulle dyka upp många gånger i samma fillista "
+"tills den läses in på nytt"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2177
@@ -19336,6 +19505,8 @@ msgid ""
 "Made the calculation of a directory's total size start automatically when "
 "the file prefs dialog is shown"
 msgstr ""
+"Gjorde så beräkningen av en katalogs totala storlek startar automatiskt då "
+"dialogrutan för filegenskaper visas"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2189
@@ -19343,6 +19514,8 @@ msgid ""
 "Added filter for backup files and added that and the filter for hidden files "
 "to the main menu for faster access"
 msgstr ""
+"La till filter för säkerhetskopior och la till det och filtret för dolda "
+"filer till huvudmenyn för snabbare åtkomst"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:2199
@@ -19416,9 +19589,12 @@ msgstr "Fixade funktionen för att redigera mime-typer"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:2254
+#, fuzzy
 msgid ""
 "Added a button to change the default MIME-app in the file properties dialog"
 msgstr ""
+"La till en knapp för att ändra standard-MIME-program i dialogrutan för "
+"filegenskaper"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:2261
