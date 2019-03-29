@@ -18,7 +18,7 @@ pixmaps_DATA = \
 	gnome_cmd_arrow_up.xpm \
 	gnome-commander.svg \
 	gnome-commander-symbolic.svg \
-	internal-viewer.xpm \
+	internal-viewer.svg \
 	menu_bookmark.xpm \
 	overlay_symlink.xpm \
 	overlay_umount.xpm \

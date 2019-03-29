@@ -66,7 +66,7 @@ static const gchar *pixmap_files[NUM_PIXMAPS] = {"",
                                                  "overlay_symlink.xpm",
                                                  "overlay_umount.xpm",
 
-                                                 "internal-viewer.xpm"};
+                                                 "internal-viewer.svg"};
 
 
 static const gchar *categories[][2] = {{"text", "gnome-text-plain.png"},
