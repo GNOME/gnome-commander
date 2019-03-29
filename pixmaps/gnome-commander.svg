@@ -5,12 +5,36 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    viewBox="0 0 128 128"
    width="128"
    height="128"
    id="svg11300"
    version="1.1"
-   style="display:inline;enable-background:new">
+   style="display:inline;enable-background:new"
+   sodipodi:docname="gnome-commander.svg"
+   inkscape:version="0.92.4 (unknown)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="994"
+     id="namedview50"
+     showgrid="false"
+     inkscape:zoom="7.375"
+     inkscape:cx="61.741628"
+     inkscape:cy="63.193067"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg11300" />
   <title
      id="title4162">Adwaita Icon Template</title>
   <defs
@@ -82,7 +106,7 @@
        x1="32"
        gradientTransform="translate(604.81684,170.58641)"
        gradientUnits="userSpaceOnUse"
-       id="linearGradient1099"/>
+       id="linearGradient1099" />
     <linearGradient
        id="linearGradient1036">
       <stop
@@ -102,7 +126,7 @@
        cx="-244"
        gradientTransform="matrix(0.88333331,0,0,0.88333331,-460.35018,463.11973)"
        gradientUnits="userSpaceOnUse"
-       id="radialGradient1103"/>
+       id="radialGradient1103" />
     <linearGradient
        id="linearGradient1069">
       <stop
@@ -210,8 +234,10 @@
        style="display:inline;fill:#133f78;fill-opacity:1;stroke:none;stroke-width:1.97798562;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;enable-background:new" />
     <path
        style="display:inline;fill:#1c71d8;fill-opacity:1;stroke:none;stroke-width:1.9677422;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;enable-background:new"
-       d="M 115.50479,12.495242 H 12.495266 v 99.713448 h 91.936864 l 11.07266,-11.3159 z"
-       id="rect61"/>
+       d="m 114.93228,13.111581 c -0.65679,-0.656823 -1.87349,-0.616339 -1.87349,-0.616339 H 14.949078 c 0,0 -0.797413,-0.130975 -1.674151,0.745763 -0.876738,0.876737 -0.779661,1.721748 -0.779661,1.721748 v 97.245937 h 91.936864 l 11.07266,-11.3159 V 14.962753 c 0,0 0.0843,-1.194349 -0.57251,-1.851172 z"
+       id="rect61"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zcczcccccz" />
     <rect
        style="display:inline;opacity:1;fill:#3584e4;fill-opacity:1;stroke:none;stroke-width:1.43385339;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;enable-background:new"
        id="rect954"
@@ -316,6 +342,6 @@
     <path
        style="fill:#132c51;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 104.43213,112.20869 v 3.50838 l 11.07266,-11.07266 v -3.75162 z"
-       id="path5336"/>
+       id="path5336" />
   </g>
 </svg>
