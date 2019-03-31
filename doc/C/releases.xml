@@ -23,6 +23,62 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.12.0</para></entry>
+            <entry><para>2019-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.10.0</para></entry>
+            <entry><para>2019-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.10.0</para></entry>
             <entry><para>2019-03-31</para></entry>
             <entry>
