@@ -3,10 +3,10 @@ gnome-commander 1.10.0
 ---------------
 
 New features:
- * Gnome Commander options are now completely migrated to GSettings under the key "org.gnome.gnome-commander"
- * Options in ~/.gnome2/gnome-commander and in ~/.gnome-commander/* are migrated automatically
- * Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-commander
- * Gnome Commander icon refreshed
+ * Gnome Commander icon and internal viewer icon refreshed
+ * Gnome Commander settings are now completely migrated to GSettings under the key `org.gnome.gnome-commander`
+ * Settings in `~/.gnome2/gnome-commander` and in `~/.gnome-commander/*` are migrated automatically
+ * Script and plugin folder in `~/.gnome-commander` is moved into `~/.config/gnome-commander`
 
 Bug fixes:
  * Various warnings at compile time have been fixed
@@ -14,12 +14,27 @@ Bug fixes:
 
 New or updated translations:
  * cs (Marek Cernocky)
+ * da (Ask Hjorth Larsen)
+ * de (Mario Blättermann)
+ * de (Tim Sabsch)
  * es (Daniel Mustieles)
+ * es (Piotr Drąg)
  * hu (Balázs Úr)
+ * id (Kukuh Syafaat)
  * pl (Piotr Drąg)
+ * pt_BR (Isaac F. Ferreira Filho)
+ * pt_BR (Rafael Fontenelle)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
 
 New or updated docs:
  * cs (Marek Cernocky)
+ * de (Mario Blättermann)
+ * de (Tim Sabsch)
+ * es (Daniel Mustieles)
+ * es (Piotr Drąg)
+ * sv (Anders Jonsson)
 
 ===================================
 gnome-commander 1.8.1

@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.10.0</para></entry>
-            <entry><para>2019-??-??</para></entry>
+            <entry><para>2019-03-31</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -41,7 +41,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Gnome Commander options are now completely migrated to GSettings under the key "org.gnome.gnome-commander"</para>
+                            <para>Gnome Commander icon and internal viewer icon refreshed</para>
+                        </listitem>
+                        <listitem>
+                            <para>Gnome Commander settings are now completely migrated to GSettings under the key "org.gnome.gnome-commander"</para>
                         </listitem>
                         <listitem>
                             <para>Options in ~/.gnome2/gnome-commander and in ~/.gnome-commander/* are migrated automatically</para>
@@ -50,14 +53,10 @@
                             <para>Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-commander</para>
                         </listitem>
                         <listitem>
-                            <para>Gnome Commander icon refreshed</para>
+                            <para>New or updated translations: cs, da, de, es, hu, id, pl, pt_BR, sr, sr@latin, sv</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: cs, es, hu, pl
-                        </para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated docs: cs</para>
+                            <para>New or updated docs: cs, de, es, sv</para>
                         </listitem>
                     </itemizedlist>
                 </para>
