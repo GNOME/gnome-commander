@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-file-popmenu.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -59,7 +59,7 @@ struct ScriptData
     gboolean term;
 };
 
-static GtkMenuClass *parent_class = NULL;
+static GtkMenuClass *parent_class = nullptr;
 
 
 struct GnomeCmdFilePopmenuPrivate
@@ -70,19 +70,19 @@ struct GnomeCmdFilePopmenuPrivate
 
 static void do_mime_exec_multiple (gpointer *args)
 {
-    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
-    GList *files = (GList *) args[1];
+    auto app = static_cast<GnomeCmdApp*> (args[0]);
+    auto files = static_cast<GList*> (args[1]);
 
     if (files)
     {
-        string cmd = gnome_cmd_app_get_command (app);
+        string cmdString = gnome_cmd_app_get_command (app);
 
         set<string> dirs;
 
         for (; files; files = files->next)
         {
-            cmd += ' ';
-            cmd += stringify (g_shell_quote ((gchar *) files->data));
+            cmdString += ' ';
+            cmdString += stringify (g_shell_quote ((gchar *) files->data));
 
             gchar *dpath = g_path_get_dirname ((gchar *) files->data);
 
@@ -91,9 +91,9 @@ static void do_mime_exec_multiple (gpointer *args)
         }
 
         if (dirs.size()==1)
-            run_command_indir (cmd.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
+            run_command_indir (cmdString.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
         else
-            run_command_indir (cmd.c_str(), NULL, gnome_cmd_app_get_requires_terminal (app));
+            run_command_indir (cmdString.c_str(), nullptr, gnome_cmd_app_get_requires_terminal (app));
 
         g_list_free (files);
     }
@@ -105,19 +105,19 @@ static void do_mime_exec_multiple (gpointer *args)
 
 static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 {
-    g_return_if_fail (files != NULL);
-    g_return_if_fail (app != NULL);
+    g_return_if_fail (files != nullptr);
+    g_return_if_fail (app != nullptr);
 
-    GList *src_uri_list = NULL;
-    GList *dest_uri_list = NULL;
-    GList *local_files = NULL;
+    GList *src_uri_list = nullptr;
+    GList *dest_uri_list = nullptr;
+    GList *local_files = nullptr;
     gboolean asked = FALSE;
     guint no_of_remote_files = 0;
     gint retid;
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+        auto f = static_cast<GnomeCmdFile*> (files->data);
 
         if (gnome_vfs_uri_is_local (f->get_uri()))
             local_files = g_list_append (local_files, f->get_real_path());
@@ -135,7 +135,7 @@ static void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
                                                            "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
                                                   gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
+                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), nullptr);
                     asked = TRUE;
                 }
 
@@ -205,35 +205,35 @@ static void cb_exec_with_app (GtkMenuItem *menu_item, OpenWithData *data)
  */
 static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
 {
-    GHashTable *hash = g_hash_table_new (g_str_hash, g_str_equal);
+    auto gHashTable = g_hash_table_new (g_str_hash, g_str_equal);
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-        GnomeVFSMimeApplication *vfs_app = f->get_default_application();
+        auto f = static_cast<GnomeCmdFile*> (files->data);
+        auto vfs_app = f->get_default_application();
 
         if (vfs_app)
         {
-            OpenWithData *data = (OpenWithData *) g_hash_table_lookup (hash, vfs_app->id);
+            auto data = static_cast<OpenWithData*> (g_hash_table_lookup (gHashTable, vfs_app->id));
 
             if (!data)
             {
                 data = g_new0 (OpenWithData, 1);
                 data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
-                data->files = NULL;
-                g_hash_table_insert (hash, vfs_app->id, data);
+                data->files = nullptr;
+                g_hash_table_insert (gHashTable, vfs_app->id, data);
             }
 
             gnome_vfs_mime_application_free (vfs_app);
             data->files = g_list_append (data->files, f);
         }
         else
-            gnome_cmd_show_message (NULL, f->info->name, _("Couldn’t retrieve MIME type of the file."));
+            gnome_cmd_show_message (nullptr, f->info->name, _("Couldn’t retrieve MIME type of the file."));
     }
 
-    g_hash_table_foreach (hash, (GHFunc) htcb_exec_with_app, NULL);
+    g_hash_table_foreach (gHashTable, (GHFunc) htcb_exec_with_app, nullptr);
 
-    g_hash_table_destroy (hash);
+    g_hash_table_destroy (gHashTable);
 }
 
 
@@ -247,18 +247,18 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
         return FALSE;
     }
 
-    string cmd = values[0];
+    string cmdString = values[0];
 
     for (; files; files = files->next)
     {
-        cmd += ' ';
-        cmd += stringify (GNOME_CMD_FILE (files->data)->get_quoted_real_path());
+        cmdString += ' ';
+        cmdString += stringify (GNOME_CMD_FILE (files->data)->get_quoted_real_path());
     }
 
     GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     GnomeCmdDir *dir = fs->get_directory();
     gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
-    run_command_indir (cmd.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
+    run_command_indir (cmdString.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
     g_free (dpath);
 
     return TRUE;
@@ -298,18 +298,18 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
 {
     GdkModifierType mask;
 
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
-    GList *files = data->files;
-    
+    auto files = data->files;
+
     string quotationMarks = data->term ? "\\\"" : "\"";
-    
+
     if (state_is_shift (mask))
     {
         // Run script per file
         for (; files; files = files->next)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+            auto f = static_cast<GnomeCmdFile*> (files->data);
             string command (data->name);
             command.append (" ").append (quotationMarks).append (f->get_name ()).append (quotationMarks);
 
@@ -319,15 +319,15 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
     else
     {
         // Run script with list of files
-        string command (data->name);
-        command.append (" ");
+        string commandString (data->name);
+        commandString.append (" ");
         for (; files; files = files->next)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-            command.append (quotationMarks).append(f->get_name ()).append (quotationMarks).append (" ");
+            auto f = static_cast<GnomeCmdFile*> (files->data);
+            commandString.append (quotationMarks).append(f->get_name ()).append (quotationMarks).append (" ");
         }
 
-        run_command_indir (command.c_str (), ((GnomeCmdFile *) data->files->data)->get_dirname (), data->term);
+        run_command_indir (commandString.c_str (), (static_cast<GnomeCmdFile*> (data->files->data))->get_dirname (), data->term);
     }
 
     g_list_free (data->files);
@@ -406,7 +406,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS:
             for (; files; files = files->next)
             {
-                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                auto f = static_cast<GnomeCmdFile*> (files->data);
                 if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
@@ -415,7 +415,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_FILES:
             for (; files; files = files->next)
             {
-                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                auto f = static_cast<GnomeCmdFile*> (files->data);
                 if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
             }
@@ -424,7 +424,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS_AND_FILES:
             for (; files; files = files->next)
             {
-                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                auto f = static_cast<GnomeCmdFile*> (files->data);
                 if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR
                     && f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
@@ -441,7 +441,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 gint fn_flags = FNM_NOESCAPE;
 #endif
 
-                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                auto f = static_cast<GnomeCmdFile*> (files->data);
                 if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
 
@@ -449,7 +449,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 GList *patterns = gnome_cmd_app_get_pattern_list (app);
                 for (; patterns; patterns = patterns->next)
                 {
-                    gchar *pattern = (gchar *) patterns->data;
+                    auto pattern = (gchar *) patterns->data;
                     ok |= fnmatch (pattern, f->info->name, fn_flags) == 0;
                 }
 
@@ -483,7 +483,7 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdFilePopmenu *menu = GNOME_CMD_FILE_POPMENU (object);
 
-    g_list_foreach (menu->priv->data_list, (GFunc) g_free, NULL);
+    g_list_foreach (menu->priv->data_list, (GFunc) g_free, nullptr);
     g_list_free (menu->priv->data_list);
 
     g_free (menu->priv);
@@ -495,7 +495,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -517,7 +517,7 @@ static void init (GnomeCmdFilePopmenu *menu)
     menu->priv = g_new0 (GnomeCmdFilePopmenuPrivate, 1);
 
     // Create scripts directory if needed
-    gchar *scripts_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", NULL);
+    gchar *scripts_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
     create_dir_if_needed(scripts_dir);
     g_free (scripts_dir);
 }
@@ -526,7 +526,7 @@ static void init (GnomeCmdFilePopmenu *menu)
 inline gchar *string_double_underscores (const gchar *string)
 {
     if (!string)
-        return NULL;
+        return nullptr;
 
     int underscores = 0;
 
@@ -557,8 +557,8 @@ inline gchar *get_default_application_action_name (GList *files, gchar **icon_pa
     if (g_list_length(files)>1)
         return g_strdup (_("_Open"));
 
-    GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-    gchar *uri_str = f->get_uri_str();
+    auto f = static_cast<GnomeCmdFile*> (files->data);
+    auto uri_str = f->get_uri_str();
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
     
     if (icon_path)
@@ -570,7 +570,7 @@ inline gchar *get_default_application_action_name (GList *files, gchar **icon_pa
             gnome_cmd_app_free (gapp);
         }
         else
-            *icon_path = NULL;
+            *icon_path = nullptr;
     }
     
     g_free (uri_str);
@@ -601,14 +601,14 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     static GnomeUIInfo open_uiinfo[] =
     {
-        GNOMEUIINFO_ITEM_NONE(N_("_Open"), NULL, cb_exec_default),
+        GNOMEUIINFO_ITEM_NONE(N_("_Open"), nullptr, cb_exec_default),
         GNOMEUIINFO_SUBTREE(N_("Open Wit_h"), apps_uiinfo),
         GNOMEUIINFO_END
     };
 
     static GnomeUIInfo exec_uiinfo[] =
     {
-        GNOMEUIINFO_ITEM_NONE(N_("E_xecute"), NULL, on_execute),
+        GNOMEUIINFO_ITEM_NONE(N_("E_xecute"), nullptr, on_execute),
         GNOMEUIINFO_END
     };
 
@@ -620,31 +620,31 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     static GnomeUIInfo other_uiinfo[] =
     {
-        GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GTK_STOCK_CUT),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GTK_STOCK_COPY),
-        GNOMEUIINFO_ITEM(N_("Copy file names"), NULL, edit_copy_fnames, copy_file_names_xpm),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GTK_STOCK_DELETE),
+        GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), nullptr, on_cut, GTK_STOCK_CUT),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), nullptr, on_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM(N_("Copy file names"), nullptr, edit_copy_fnames, copy_file_names_xpm),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), nullptr, on_delete, GTK_STOCK_DELETE),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
-        GNOMEUIINFO_ITEM_STOCK(N_("Send files"), NULL, file_sendto, GTK_STOCK_EXECUTE),
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PIXMAPS_DIR G_DIR_SEPARATOR_S  "terminal.svg"),
+        GNOMEUIINFO_ITEM_NONE (N_("Rename"), nullptr, on_rename),
+        GNOMEUIINFO_ITEM_STOCK(N_("Send files"), nullptr, file_sendto, GTK_STOCK_EXECUTE),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), nullptr, command_open_terminal__internal, PIXMAPS_DIR G_DIR_SEPARATOR_S  "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(N_("_Properties…"), NULL, on_properties, GTK_STOCK_PROPERTIES),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Properties…"), nullptr, on_properties, GTK_STOCK_PROPERTIES),
         GNOMEUIINFO_END
     };
 
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-    GList *files = fl->get_selected_files();
-    if (!files) return NULL;
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), nullptr);
+    auto files = fl->get_selected_files();
+    if (!files) return nullptr;
 
-    GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) g_object_new (GNOME_CMD_TYPE_FILE_POPMENU, NULL);
+    auto menu = static_cast<GnomeCmdFilePopmenu*> (g_object_new (GNOME_CMD_TYPE_FILE_POPMENU, nullptr));
 
-    GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+    auto f = static_cast<GnomeCmdFile*> (files->data);
 
 
     // Fill the "Open With" menu with applications
     gint i = -1;
-    menu->priv->data_list = NULL;
+    menu->priv->data_list = nullptr;
 
     vfs_apps = tmp_list = gnome_vfs_mime_get_all_applications (f->info->mime_type);
     for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
@@ -699,21 +699,21 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Fill the menu
     pos = 0;
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), open_uiinfo, NULL, FALSE, pos);
+    gnome_app_fill_menu (GTK_MENU_SHELL (menu), open_uiinfo, nullptr, FALSE, pos);
 
     g_free ((gpointer) open_uiinfo[0].label);
 
     pos += 3;
     if (f->is_executable() && g_list_length (files) == 1)
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, NULL, FALSE, pos++);
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, nullptr, FALSE, pos++);
 
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
+    gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
     // Add favorite applications
     match_count = 0;
-    for (GList *j=gnome_cmd_data.options.fav_apps; j; j = j->next)
+    for (auto j = gnome_cmd_data.options.fav_apps; j; j = j->next)
     {
-        GnomeCmdApp *app = (GnomeCmdApp *) j->data;
+        auto app = static_cast<GnomeCmdApp*> (j->data);
         if (fav_app_matches_files (app, files))
         {
             add_fav_app_menu_item (menu, app, pos++, files);
@@ -721,9 +721,9 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         }
     }
 
-    for (GList *j=plugin_manager_get_all (); j; j = j->next)
+    for (auto j = plugin_manager_get_all (); j; j = j->next)
     {
-        PluginData *data = (PluginData *) j->data;
+        auto data = static_cast<PluginData*> (j->data);
         if (data->active)
         {
             GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin, main_win->get_state());
@@ -737,13 +737,13 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     }
 
     if (match_count > 0)
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
     // Script actions
-    gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", NULL);
+    gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
     DIR *dp = opendir (user_dir);
-    GList *script_list = NULL;
-    if (dp != NULL)
+    GList *script_list = nullptr;
+    if (dp != nullptr)
     {
         struct dirent *directory_entry;
         while ((directory_entry = readdir (dp)))
@@ -809,16 +809,16 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         tmp++;
         tmp->type = GNOME_APP_UI_ENDOFINFO;
 
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, NULL, FALSE, pos);
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, nullptr, FALSE, pos);
         pos += n;
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
+        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
         g_free (py_uiinfo);
     }
     g_free (user_dir);
     g_list_free (script_list);
 
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, NULL, FALSE, pos++);
+    gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, nullptr, FALSE, pos++);
 
     return GTK_WIDGET (menu);
 }
@@ -837,9 +837,9 @@ GtkType gnome_cmd_file_popmenu_get_type ()
             sizeof (GnomeCmdFilePopmenuClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         dlg_type = gtk_type_unique (gtk_menu_get_type (), &dlg_info);
