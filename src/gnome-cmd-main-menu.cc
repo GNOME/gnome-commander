@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-main-menu.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -497,6 +497,18 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("Unselect with P_attern"), "-", NULL,
             (gpointer) mark_unselect_with_pattern, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("Select with same _Extension"), "", NULL,
+            (gpointer) mark_select_all_with_same_extension, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("Unselect with same E_xtension"), "", NULL,
+            (gpointer) mark_unselect_all_with_same_extension, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },
