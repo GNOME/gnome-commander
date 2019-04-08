@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-file-selector.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -51,47 +51,26 @@ struct GnomeCmdFileSelectorClass
 };
 
 
-static GtkVBoxClass *parent_class = NULL;
+static GtkVBoxClass *parent_class = nullptr;
 
 
 class GnomeCmdFileSelector::Private
 {
   public:
 
-    GList *old_btns;
-    GtkWidget *filter_box;
+    GList *old_btns {nullptr};
+    GtkWidget *filter_box {nullptr};
 
-    History *dir_history;
-    gboolean active;
-    gboolean realized;
+    History *dir_history {nullptr};
+    gboolean active {FALSE};
+    gboolean realized {FALSE};
 
-    GnomeCmdFile *sym_file;
-
-    Private();
-    ~Private();
+    GnomeCmdFile *sym_file {nullptr};
 
     //////////////////////////////////////////////////////////////////  ->> GnomeCmdFileList
 
-    gboolean sel_first_file;
+    gboolean sel_first_file {TRUE};
 };
-
-
-inline GnomeCmdFileSelector::Private::Private()
-{
-    old_btns = NULL;
-    filter_box = NULL;
-    active = FALSE;
-    realized = FALSE;
-    sel_first_file = TRUE;
-    dir_history = NULL;
-    sym_file = NULL;
-}
-
-
-inline GnomeCmdFileSelector::Private::~Private()
-{
-}
-
 
 enum {DIR_CHANGED, LAST_SIGNAL};
 
@@ -108,7 +87,7 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
     GtkWidget *menu = gnome_cmd_list_popmenu_new (fs);
     g_object_ref (menu);
 
-    gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, fs, 3, GDK_CURRENT_TIME);
+    gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, fs, 3, GDK_CURRENT_TIME);
 }
 
 
@@ -132,7 +111,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 
     for (GList *i = all_files; i; i = i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+        auto f = static_cast<GnomeCmdFile*> (i->data);
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -238,7 +217,7 @@ inline void GnomeCmdFileSelector::update_direntry()
 
     gchar *tmp = gnome_cmd_dir_get_display_path (dir);
 
-    g_return_if_fail (tmp != NULL);
+    g_return_if_fail (tmp != nullptr);
 
     gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (dir_indicator), tmp);
 
@@ -264,8 +243,8 @@ inline void GnomeCmdFileSelector::update_vol_label()
 void GnomeCmdFileSelector::do_file_specific_action (GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (f!=NULL);
-    g_return_if_fail (f->info!=NULL);
+    g_return_if_fail (f != nullptr);
+    g_return_if_fail (f->info != nullptr);
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
@@ -336,7 +315,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 
     GdkModifierType mask;
 
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
     if (mask & GDK_CONTROL_MASK || fs->file_list()->locked)
         fs->new_tab(gnome_cmd_con_get_default_dir (con));
@@ -361,7 +340,7 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
     if (event->button!=1 && event->button!=2)
         return;
 
-    GnomeCmdCon *con = (GnomeCmdCon *) g_object_get_data (G_OBJECT (widget), "con");
+    auto con = static_cast<GnomeCmdCon*> (g_object_get_data (G_OBJECT (widget), "con"));
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
@@ -376,7 +355,7 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
 
 static void create_con_buttons (GnomeCmdFileSelector *fs)
 {
-    static GtkTooltips *tooltips = NULL;
+    static GtkTooltips *tooltips = nullptr;
 
     if (!gnome_cmd_data.show_devbuttons)
         return;
@@ -385,7 +364,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         gtk_object_destroy (GTK_OBJECT (l->data));
 
     g_list_free (fs->priv->old_btns);
-    fs->priv->old_btns = NULL;
+    fs->priv->old_btns = nullptr;
 
     if (!tooltips)
         tooltips = gtk_tooltips_new ();
@@ -403,13 +382,13 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GnomeCmdPixmap *pm = gnome_cmd_con_get_go_pixmap (con);
 
-        GtkWidget *btn = create_styled_button (NULL);
+        GtkWidget *btn = create_styled_button (nullptr);
         g_object_set_data (G_OBJECT (btn), "con", con);
         g_signal_connect (btn, "button-press-event", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
-        gtk_tooltips_set_tip (tooltips, btn, gnome_cmd_con_get_go_text (con), NULL);
+        gtk_tooltips_set_tip (tooltips, btn, gnome_cmd_con_get_go_text (con), nullptr);
 
         GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
         g_object_ref (hbox);
@@ -711,7 +690,7 @@ static gboolean on_notebook_button_pressed (GtkWidget *widget, GdkEventButton *e
                         gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
                         gtk_widget_show_all (menu);
-                        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
+                        gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, nullptr, event->button, event->time);
                     }
                     return TRUE;
 
@@ -763,7 +742,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -794,7 +773,7 @@ static void init (GnomeCmdFileSelector *fs)
     gint string_size = 0;
     gint max_string_size = 150;
 
-    fs->list = NULL;
+    fs->list = nullptr;
 
     fs->priv = new GnomeCmdFileSelector::Private;
 
@@ -811,7 +790,7 @@ static void init (GnomeCmdFileSelector *fs)
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
-        GnomeCmdCon *con = (GnomeCmdCon *) l->data;
+        auto con = static_cast<GnomeCmdCon*> (l->data);
 
 #ifdef HAVE_SAMBA
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
@@ -870,7 +849,7 @@ static void init (GnomeCmdFileSelector *fs)
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
     g_signal_connect (fs->con_combo, "item-selected", G_CALLBACK (on_con_combo_item_selected), fs);
-    g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), NULL);
+    g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), nullptr);
     g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
     g_signal_connect (fs->notebook, "switch-page", G_CALLBACK (on_notebook_switch_page), fs);
     g_signal_connect (fs->notebook, "button-press-event", G_CALLBACK (on_notebook_button_pressed), fs);
@@ -906,9 +885,9 @@ GtkType gnome_cmd_file_selector_get_type ()
             sizeof (GnomeCmdFileSelectorClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         fs_type = gtk_type_unique (gtk_vbox_get_type (), &fs_info);
@@ -1041,7 +1020,7 @@ void GnomeCmdFileSelector::update_connections()
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
         gchar *text[3];
-        GnomeCmdCon *con = (GnomeCmdCon *) l->data;
+        auto con = static_cast<GnomeCmdCon*> (l->data);
 
 #ifdef HAVE_SAMBA
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
@@ -1053,9 +1032,9 @@ void GnomeCmdFileSelector::update_connections()
         if (con == get_connection())
             found_my_con = TRUE;
 
-        text[0] = NULL;
+        text[0] = nullptr;
         text[1] = (gchar *) gnome_cmd_con_get_alias (con);
-        text[2] = NULL;
+        text[2] = nullptr;
 
         GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (con);
 
@@ -1079,7 +1058,7 @@ void GnomeCmdFileSelector::update_connections()
 
 static void update_style_notebook_tab (GtkWidget *widget, GnomeCmdFileSelector *fs)
 {
-    GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (widget));
+    auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (widget)));
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1126,7 +1105,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
     gchar *dpath = GNOME_CMD_FILE (dir)->get_real_path();
-    gchar *filepath = g_build_filename (dpath, fname, NULL);
+    gchar *filepath = g_build_filename (dpath, fname, nullptr);
     g_free (dpath);
     g_return_val_if_fail (filepath, TRUE);
 
@@ -1153,7 +1132,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
-    g_return_val_if_fail (fs->priv->sym_file != NULL, TRUE);
+    g_return_val_if_fail (fs->priv->sym_file != nullptr, TRUE);
 
     const gchar *fname = values[0];
 
@@ -1218,7 +1197,7 @@ void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
 
 gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 {
-    g_return_val_if_fail (event != NULL, FALSE);
+    g_return_val_if_fail (event != nullptr, FALSE);
 
     GnomeCmdFile *f;
 
@@ -1371,7 +1350,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
     for (; files; files=files->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+        auto f = static_cast<GnomeCmdFile*> (files->data);
         gchar *fname = get_utf8 (f->get_name());
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -1403,7 +1382,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
                 if (choice != 1)  // choice != SKIP_ALL
                 {
                     gchar *msg = g_strdup (gnome_vfs_result_to_string (result));
-                    choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 3, _("Skip"), _("Skip all"), _("Cancel"), _("Retry"), NULL);
+                    choice = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 3, _("Skip"), _("Skip all"), _("Cancel"), _("Retry"), nullptr);
                     g_free (msg);
                 }
         }
@@ -1421,7 +1400,7 @@ void GnomeCmdFileSelector::update_show_devbuttons()
         if (con_btns_hbox)
         {
             gtk_object_destroy (GTK_OBJECT (con_btns_hbox));
-            con_btns_hbox = NULL;
+            con_btns_hbox = nullptr;
         }
     }
     else
@@ -1452,7 +1431,7 @@ static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
     if (!fs->priv->filter_box) return;
 
     gtk_widget_destroy (fs->priv->filter_box);
-    fs->priv->filter_box = NULL;
+    fs->priv->filter_box = nullptr;
 }
 
 
@@ -1461,7 +1440,7 @@ static gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, G
     if (state_is_blank (event->state))
         if (event->keyval == GDK_Escape)
         {
-            on_filter_box_close (NULL, fs);
+            on_filter_box_close (nullptr, fs);
             return TRUE;
         }
 
@@ -1510,14 +1489,14 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the scrollwindow that we'll place the list in
-    GtkWidget *scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    GtkWidget *scrolled_window = gtk_scrolled_window_new (nullptr, nullptr);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (scrolled_window), *fl);
 
     GtkWidget *hbox = gtk_hbox_new (FALSE, 0);
 
     fl->tab_label_pin = gtk_image_new_from_file (PIXMAPS_DIR G_DIR_SEPARATOR_S "pin.png");
-    fl->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : NULL);
+    fl->tab_label_text = gtk_label_new (dir ? GNOME_CMD_FILE (dir)->get_name() : nullptr);
 
     gtk_box_pack_start (GTK_BOX (hbox), fl->tab_label_pin, FALSE, FALSE, 3);
     gtk_box_pack_start (GTK_BOX (hbox), fl->tab_label_text, FALSE, FALSE, 0);
@@ -1572,7 +1551,7 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
         case GnomeCmdData::TAB_LOCK_ASTERISK:
             if (fl->locked)
             {
-                gchar *s = g_strconcat ("* ", name, NULL);
+                gchar *s = g_strconcat ("* ", name, nullptr);
                 gtk_label_set_text (GTK_LABEL (fl->tab_label_text), s);
                 g_free (s);
                 return;
@@ -1582,7 +1561,7 @@ void GnomeCmdFileSelector::update_tab_label(GnomeCmdFileList *fl)
         case GnomeCmdData::TAB_LOCK_STYLED_TEXT:
             if (fl->locked)
             {
-                gchar *s = g_strconcat ("<span foreground='blue'>", name, "</span>", NULL);
+                gchar *s = g_strconcat ("<span foreground='blue'>", name, "</span>", nullptr);
                 gtk_label_set_markup (GTK_LABEL (fl->tab_label_text), s);
                 g_free (s);
                 return;
