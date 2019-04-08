@@ -265,17 +265,6 @@ void GnomeCmdFileList::Private::on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFS
 
 GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
-    tab_label_pin = nullptr;
-    tab_label_text = nullptr;
-    realized = FALSE;
-    modifier_click = FALSE;
-    locked = FALSE;
-
-    con = nullptr;
-    cwd = nullptr;
-    lwd = nullptr;
-    connected_dir = nullptr;
-
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wuninitialized"
