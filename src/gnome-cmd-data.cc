@@ -2820,31 +2820,6 @@ inline gboolean GnomeCmdData::save_auto_load_plugins()
 }
 
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
-{
-    GList *list = nullptr;
-
-    for (gint i=0; i<size || size==-1; ++i)
-    {
-        gchar *key = g_strdup_printf (format, i);
-        gchar *value = gnome_cmd_data_get_string (key, nullptr);
-        g_free (key);
-        if (!value)
-            break;
-        list = g_list_append (list, value);
-    }
-
-    return list;
-}
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-
 /**
  * Returns a GList with newly allocated char strings
  */
@@ -3833,54 +3808,6 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
-
-/**
- * This method sets the value of a given GSettings key to the string stored in user_value or to the default value,
- * depending on the value of user_value. If the class of the key is not a string but a string array, the first
- * entry of the array is set to user_value.
- * @returns FALSE if an error occured setting the key value to a new string.
- */
-gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings_given, const char *key)
-{
-    GVariant *variant;
-    gboolean rv = true;
-
-    variant = g_settings_get_default_value (settings_given, key);
-
-    if (g_variant_classify(variant) == G_VARIANT_CLASS_STRING)
-    {
-        gchar *default_value;
-
-        // In the following it is assumed that the value behind 'default_value' is the actual
-        // default value, i.e. nobody changed the given key before gcmd data migration was started.
-        default_value = g_settings_get_string (settings_given, key);
-
-        if (strcmp(user_value, default_value) != 0)
-            rv = g_settings_set_string (settings_given, key, user_value);
-    }
-    else if (g_variant_classify(variant) == G_VARIANT_CLASS_ARRAY)
-    {
-        gchar** str_array;
-        str_array = (gchar**) g_malloc (2*sizeof(char*));
-        str_array[0] = g_strdup(user_value);
-        str_array[1] = nullptr;
-
-        rv = g_settings_set_strv(settings_given, key, str_array);
-
-        g_free(str_array[0]);
-        g_free(str_array[1]);
-        g_free(str_array);
-    }
-    else
-    {
-        g_warning("Could not translate key value of type '%s'\n", g_variant_get_type_string (variant));
-        rv = false;
-    }
-    g_variant_unref (variant);
-
-    return rv;
-}
-
 
 void GnomeCmdData::save()
 {

@@ -711,9 +711,7 @@ struct GnomeCmdData
     void gsettings_init();
     void migrate_all_data_to_gsettings();
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);
-    gboolean migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings, const char *key);
     void load_more();
-    inline GList* load_string_history (const gchar *format, gint size);
     void load_advrename_profiles ();
     void save_advrename_profiles ();
     void load_search_profiles ();

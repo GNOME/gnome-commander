@@ -269,14 +269,6 @@ const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
 }
 
 
-const gchar *name2string (gchar *filename, gchar *buf, guint max)
-{
-    g_snprintf (buf, max, "%s", filename);
-
-    return buf;
-}
-
-
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
     switch (gnome_cmd_data.options.perm_disp_mode)

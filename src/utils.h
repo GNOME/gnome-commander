@@ -121,7 +121,6 @@ inline char *int2string (gint i)
 }
 
 const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max);
-const gchar *name2string (gchar *filename, gchar *buf, guint max);
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
