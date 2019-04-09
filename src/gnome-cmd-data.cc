@@ -131,6 +131,19 @@ static void gcmd_settings_dispose (GObject *object)
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
 }
 
+static void on_bookmarks_changed ()
+{
+    gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_home());
+#ifdef HAVE_SAMBA
+    gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_smb());
+#endif
+
+    gnome_cmd_data.load_bookmarks();
+
+    main_win->update_bookmarks ();
+    gnome_cmd_update_bookmark_dialog ();
+}
+
 static void on_size_display_mode_changed ()
 {
     gint size_disp_mode;
@@ -910,6 +923,11 @@ GcmdSettings *gcmd_settings_new ()
 static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 {
     g_signal_connect (gs->general,
+                      "changed::bookmarks",
+                      G_CALLBACK (on_bookmarks_changed),
+                      nullptr);
+
+    g_signal_connect (gs->general,
                       "changed::size-display-mode",
                       G_CALLBACK (on_size_display_mode_changed),
                       nullptr);
@@ -1592,7 +1610,6 @@ void GnomeCmdData::save_bookmarks()
         GVariant* bookmarksToStore = g_variant_builder_end (gVariantBuilder);
         g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
     }
-
     g_variant_builder_unref(gVariantBuilder);
 }
 

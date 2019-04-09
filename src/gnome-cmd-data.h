@@ -636,7 +636,6 @@ struct GnomeCmdData
     void load_directory_history();
     void load_intviewer_defaults();
     gboolean save_auto_load_plugins();
-    void load_bookmarks();
     void load_keybindings();
     void save_keybindings();
     void load_connections();
@@ -717,6 +716,7 @@ struct GnomeCmdData
     void load_search_profiles ();
     void save_search_profiles ();
     void save_bookmarks();
+    void load_bookmarks();
     void save();
     gint gnome_cmd_data_get_int (const gchar *path, int def);
     gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
