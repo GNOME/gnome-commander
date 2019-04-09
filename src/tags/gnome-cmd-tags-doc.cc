@@ -173,7 +173,7 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
     if (size < 0x374) // == 0x375 ??
         return;
 
-    gchar *buf = (gchar *) g_malloc0(size);
+    auto buf = static_cast<gchar*> (g_malloc0(size));
     gsf_input_read(input, size, (guint8 *) buf);
     if ((buf[0] != 0x0F) || (buf[1] != 0x0) ||
       !g_str_has_prefix (&buf[2], SfxDocumentInfo) ||

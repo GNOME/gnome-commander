@@ -502,7 +502,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri, gulong *count)
     {
         // A file
         GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-        result = gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
+        gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
         size += info->size;
         if (count!=NULL) {
             (*count)++;
