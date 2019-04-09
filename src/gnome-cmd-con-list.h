@@ -91,7 +91,6 @@ inline GnomeCmdConList *gnome_cmd_con_list_get ()
 }
 
 void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
-void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);

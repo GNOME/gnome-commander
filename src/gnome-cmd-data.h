@@ -718,13 +718,10 @@ struct GnomeCmdData
     void save_bookmarks();
     void load_bookmarks();
     void save();
-    gint gnome_cmd_data_get_int (const gchar *path, int def);
     gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
-    void gnome_cmd_data_set_string (const gchar *path, const gchar *value);
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
     gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
     void gnome_cmd_data_get_color_gnome_config (const gchar *path, GdkColor *color);
-    gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
     gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkColor *color);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
@@ -732,9 +729,6 @@ struct GnomeCmdData
     gboolean set_valid_color_string(GSettings *settings, const char* key);
 
     GnomeCmdConRemote *get_quick_connect() const       {  return quick_connect;                     }
-
-    GnomeCmdFileList::ColumnID get_sort_col(FileSelectorID id) const;
-    GtkSortType get_sort_direction(FileSelectorID id) const;
 };
 
 gpointer gnome_cmd_data_get_con_list ();

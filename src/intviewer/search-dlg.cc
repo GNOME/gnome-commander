@@ -360,20 +360,3 @@ GtkWidget* gviewer_search_dlg_new (GtkWindow *parent)
 
     return GTK_WIDGET (dlg);
 }
-
-
-void gviewer_show_search_dlg (GtkWindow *parent)
-{
-    GtkWidget *w = gviewer_search_dlg_new (parent);
-    GViewerSearchDlg *dlg = GVIEWER_SEARCH_DLG (w);
-
-    gtk_dialog_run (GTK_DIALOG (dlg));
-
-    g_warning ("Search mode = %d", (int) gviewer_search_dlg_get_search_mode (dlg));
-
-    gchar *text = gviewer_search_dlg_get_search_text_string (dlg);
-    g_warning ("Search text string = \"%s\"", text);
-    g_free (text);
-
-    gtk_widget_destroy (GTK_WIDGET (dlg));
-}

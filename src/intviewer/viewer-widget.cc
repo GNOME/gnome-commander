@@ -426,22 +426,6 @@ VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj)
 }
 
 
-void gviewer_load_filedesc(GViewer *obj, int fd)
-{
-    g_return_if_fail (IS_GVIEWER (obj));
-    g_return_if_fail (fd>2);
-
-    g_free (obj->priv->filename);
-    obj->priv->filename = NULL;
-
-    text_render_load_filedesc(obj->priv->textr, fd);
-
-    gviewer_auto_detect_display_mode(obj);
-
-    gviewer_set_display_mode(obj, obj->priv->dispmode);
-}
-
-
 void gviewer_load_file(GViewer *obj, const gchar*filename)
 {
     g_return_if_fail (IS_GVIEWER (obj));
@@ -456,15 +440,6 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     gviewer_auto_detect_display_mode(obj);
 
     gviewer_set_display_mode(obj, obj->priv->dispmode);
-}
-
-
-const gchar *gviewer_get_filename(GViewer *obj)
-{
-    g_return_val_if_fail (IS_GVIEWER (obj), NULL);
-    g_return_val_if_fail (obj->priv->filename, NULL);
-
-    return obj->priv->filename;
 }
 
 

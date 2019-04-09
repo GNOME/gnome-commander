@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-string-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -202,15 +202,6 @@ void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, co
     if (labels)
         for (gint i=0; i<rows; i++)
             gnome_cmd_string_dialog_set_label (dialog, i, labels[i]);
-}
-
-
-void gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden)
-{
-    g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
-    g_return_if_fail (row >= 0 && row < dialog->rows);
-
-    gtk_entry_set_visibility (GTK_ENTRY (dialog->entries[row]), !hidden);
 }
 
 

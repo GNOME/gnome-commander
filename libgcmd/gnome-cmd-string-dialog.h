@@ -68,8 +68,6 @@ inline void gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog, const g
 
 GtkType gnome_cmd_string_dialog_get_type ();
 
-void gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden);
-
 void gnome_cmd_string_dialog_set_title (GnomeCmdStringDialog *dialog, const gchar *title);
 
 void gnome_cmd_string_dialog_set_label (GnomeCmdStringDialog *dialog, gint row, const gchar *label);

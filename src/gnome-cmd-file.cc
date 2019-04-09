@@ -509,14 +509,6 @@ const gchar *GnomeCmdFile::get_mdate(gboolean overide_disp_setting)
 }
 
 
-const gchar *GnomeCmdFile::get_cdate(gboolean overide_disp_setting)
-{
-    g_return_val_if_fail (info != nullptr, nullptr);
-
-    return date2string (info->ctime, overide_disp_setting);
-}
-
-
 const gchar *GnomeCmdFile::get_size()
 {
     static gchar dir_indicator[] = "<DIR> ";
@@ -582,28 +574,6 @@ const gchar *GnomeCmdFile::get_type_string()
 
     type2string (info->type, type_str, MAX_TYPE_LENGTH);
     return type_str;
-}
-
-
-const gchar *GnomeCmdFile::get_type_desc()
-{
-    static const gchar *type_strings[] = {
-        N_("Unknown file type"),
-        N_("Regular file"),
-        N_("Directory"),
-        N_("FIFO"),
-        N_("UNIX Socket"),
-        N_("Character device"),
-        N_("Block device"),
-        N_("Symbolic link")
-    };
-
-    g_return_val_if_fail (info != nullptr, nullptr);
-
-    if (!info->symlink_name)
-        return type_strings[info->type];
-
-    return type_strings[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 }
 
 
@@ -748,21 +718,6 @@ void gnome_cmd_file_edit (GnomeCmdFile *f)
     g_free (command);
     g_free (dpath);
     g_free (fpath);
-}
-
-
-void gnome_cmd_file_show_cap_cut (GnomeCmdFile *f)
-{
-}
-
-
-void gnome_cmd_file_show_cap_copy (GnomeCmdFile *f)
-{
-}
-
-
-void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f)
-{
 }
 
 

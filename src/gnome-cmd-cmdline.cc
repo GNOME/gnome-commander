@@ -416,14 +416,6 @@ void gnome_cmd_cmdline_set_history (GnomeCmdCmdline *cmdline, GList *history)
 }
 
 
-GtkWidget *gnome_cmd_cmdline_get_entry (GnomeCmdCmdline *cmdline)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), nullptr);
-
-    return cmdline->priv->combo->entry;
-}
-
-
 gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *event)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), FALSE);

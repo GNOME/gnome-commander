@@ -64,8 +64,6 @@ void           gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode);
 VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj);
 
 void           gviewer_load_file(GViewer *obj, const gchar *filename);
-void           gviewer_load_filedesc(GViewer *obj, int fd);
-const gchar   *gviewer_get_filename(GViewer *obj);
 
 /* Text Render related settings */
 void        gviewer_set_tab_size(GViewer *obj, int tab_size);

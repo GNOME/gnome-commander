@@ -56,8 +56,6 @@ struct GnomeCmdData::Private
 {
     GnomeCmdConList *con_list;
     GList           *auto_load_plugins;
-    gint             sort_column[2];
-    gboolean         sort_direction[2];
 
     gchar           *ftp_anonymous_password;
 };
@@ -3992,43 +3990,11 @@ void GnomeCmdData::save()
 }
 
 
-gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, nullptr);
-
-    gint v = get_int (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
-
 gchar* GnomeCmdData::gnome_cmd_data_get_string (const gchar *path, const gchar *def)
 {
     gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, nullptr);
 
     gchar *v = get_string (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
-void GnomeCmdData::gnome_cmd_data_set_string (const gchar *path, const gchar *value)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, nullptr);
-
-    set_string (s, value);
-
-    g_free (s);
-}
-
-gboolean GnomeCmdData::gnome_cmd_data_get_bool (const gchar *path, gboolean def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, nullptr);
-
-    gboolean v = get_bool (s, def);
 
     g_free (s);
 
@@ -4224,18 +4190,6 @@ gboolean GnomeCmdData::set_gsettings_color_when_changed (GSettings *settings_giv
     g_free(colorstring);
 
     return return_value;
-}
-
-
-GnomeCmdFileList::ColumnID GnomeCmdData::get_sort_col(FileSelectorID id) const
-{
-    return (GnomeCmdFileList::ColumnID) priv->sort_column[id];
-}
-
-
-GtkSortType GnomeCmdData::get_sort_direction(FileSelectorID id) const
-{
-    return (GtkSortType) priv->sort_direction[id];
 }
 
 

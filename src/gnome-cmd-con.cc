@@ -383,14 +383,6 @@ GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con)
 }
 
 
-void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookmarks)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    con->priv->bookmarks = bookmarks;
-}
-
-
 void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, gchar *name, gchar *path)
 {
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);

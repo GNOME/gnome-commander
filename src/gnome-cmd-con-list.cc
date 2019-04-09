@@ -280,30 +280,6 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRem
 }
 
 
-void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRemote *remote_con)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, remote_con) != -1);
-    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, remote_con) != -1);
-
-    con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, remote_con);
-    con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, remote_con);
-
-    g_signal_handlers_disconnect_by_func (remote_con, (gpointer) on_con_updated, con_list);
-
-    if (con_list->priv->update_lock)
-    {
-        con_list->priv->changed = TRUE;
-        con_list->priv->quick_ftp_cons_changed = TRUE;
-    }
-    else
-    {
-        gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
-        gtk_signal_emit (*con_list, signals[QUICK_FTP_LIST_CHANGED]);
-    }
-}
-
-
 void GnomeCmdConList::add(GnomeCmdConDevice *con)
 {
     g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
