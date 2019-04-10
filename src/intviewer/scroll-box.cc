@@ -169,7 +169,7 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
     g_return_if_fail (IS_SCROLL_BOX (obj));
     g_return_if_fail (client != nullptr);
 
-    if (obj->priv->client)
+    if (obj->priv)
     {
         if (obj->priv->client)
             g_object_unref (obj->priv->client);
