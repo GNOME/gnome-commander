@@ -1,4 +1,4 @@
-/** 
+/**
  * @file plugin_manager.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -38,11 +38,11 @@ using namespace std;
 #define MODULE_INFO_FUNC "get_plugin_info"
 
 
-static GList *plugins = NULL;
-static GdkPixmap *exec_pixmap = NULL;
-static GdkBitmap *exec_mask = NULL;
-static GdkPixmap *blank_pixmap = NULL;
-static GdkBitmap *blank_mask = NULL;
+static GList *plugins = nullptr;
+static GdkPixmap *exec_pixmap = nullptr;
+static GdkBitmap *exec_mask = nullptr;
+static GdkPixmap *blank_pixmap = nullptr;
+static GdkBitmap *blank_mask = nullptr;
 
 gchar* get_plugin_config_location();
 
@@ -162,7 +162,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
         return;
     }
 
-    while ((ent = readdir (dir)) != NULL)
+    while ((ent = readdir (dir)) != nullptr)
     {
         struct stat buf;
 
@@ -176,10 +176,10 @@ static void scan_plugins_in_dir (const gchar *dpath)
                 // the direntry has the correct extension and is a regular file, let's accept it
                 PluginData *data = g_new0 (PluginData, 1);
                 data->fname = g_strdup (ent->d_name);
-                data->fpath = g_build_filename (dpath, ent->d_name, NULL);
+                data->fpath = g_build_filename (dpath, ent->d_name, nullptr);
                 data->loaded = FALSE;
                 data->active = FALSE;
-                data->menu = NULL;
+                data->menu = nullptr;
                 data->autoload = FALSE;
                 activate_plugin (data);
                 if (!data->loaded)
@@ -237,7 +237,7 @@ void plugin_manager_init ()
 
         for (GList *l2 = plugins; l2; l2 = l2->next)
         {
-            PluginData *data = (PluginData *) l2->data;
+            auto data = static_cast<PluginData*> (l2->data);
             if (strcmp (name, data->fname) == 0)
                 data->autoload = TRUE;
         }
@@ -246,7 +246,7 @@ void plugin_manager_init ()
     // inactivate plugins that shouldn't be autoloaded
     for (GList *l=plugins; l; l=l->next)
     {
-        PluginData *data = (PluginData *) l->data;
+        auto data = static_cast<PluginData*> (l->data);
         if (!data->autoload)
             inactivate_plugin (data);
     }
@@ -255,11 +255,11 @@ void plugin_manager_init ()
 
 void plugin_manager_shutdown ()
 {
-    GList *out = NULL;
+    GList *out = nullptr;
 
     for (GList *l=plugins; l; l=l->next)
     {
-        PluginData *data = (PluginData *) l->data;
+        auto data = static_cast<PluginData*> (l->data);
         if (data->active)
             out = g_list_append (out, data->fname);
     }
@@ -276,7 +276,7 @@ GList *plugin_manager_get_all ()
 
 static PluginData *get_selected_plugin (GtkCList *list)
 {
-    return (PluginData *) gtk_clist_get_row_data (list, list->focus_row);
+    return static_cast<PluginData*> (gtk_clist_get_row_data (list, list->focus_row));
 }
 
 
@@ -288,14 +288,14 @@ static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
 
     for (GList *i=plugins; i; i=i->next, ++row)
     {
-        PluginData *data = (PluginData *) i->data;
+        auto data = static_cast<PluginData*> (i->data);
         gchar *text[5];
 
-        text[0] = NULL;
+        text[0] = nullptr;
         text[1] = (gchar *) data->info->name;
         text[2] = (gchar *) data->info->version;
         text[3] = data->fname;
-        text[4] = NULL;
+        text[4] = nullptr;
 
         if (only_update)
             gtk_clist_set_text (list, row, 1, text[1]);
@@ -337,7 +337,7 @@ static void on_plugin_selected (GtkCList *list, gint row, gint column, GdkEventB
     GtkWidget *about_button = lookup_widget (dialog, "about_button");
 
     PluginData *data = get_selected_plugin (list);
-    g_return_if_fail (data != NULL);
+    g_return_if_fail (data != nullptr);
 
     if (event && event->type == GDK_2BUTTON_PRESS && event->button == 1)
     {
@@ -375,7 +375,7 @@ static void on_configure (GtkButton *button, GtkWidget *dialog)
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
 
-    g_return_if_fail (data != NULL);
+    g_return_if_fail (data != nullptr);
     g_return_if_fail (data->active);
 
     gnome_cmd_plugin_configure (data->plugin);
@@ -387,7 +387,7 @@ static void on_about (GtkButton *button, GtkWidget *dialog)
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
 
-    g_return_if_fail (data != NULL);
+    g_return_if_fail (data != nullptr);
 
     GtkWidget *about = gnome_cmd_about_plugin_new (data->info);
 
@@ -412,7 +412,7 @@ void plugin_manager_show ()
     g_object_ref (dialog);
 
     hbox = create_vbox (dialog, FALSE, 6);
-    avail_list = create_clist (dialog, "avail_list", 4, 20, GTK_SIGNAL_FUNC (on_plugin_selected), NULL);
+    avail_list = create_clist (dialog, "avail_list", 4, 20, GTK_SIGNAL_FUNC (on_plugin_selected), nullptr);
     create_clist_column (avail_list, 0, 20, "");
     create_clist_column (avail_list, 1, 200, _("Name"));
     create_clist_column (avail_list, 2, 50, _("Version"));
@@ -467,7 +467,7 @@ void plugin_manager_show ()
 
 gchar* get_plugin_config_location()
 {
-    gchar* returnString {NULL};
+    gchar* returnString {nullptr};
 
     string userPluginConfigDir = get_package_config_dir();
     userPluginConfigDir += (char*) "/plugins";

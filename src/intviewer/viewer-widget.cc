@@ -120,7 +120,7 @@ GtkType gviewer_get_type ()
 
 GtkWidget *gviewer_new ()
 {
-    GViewer *w = (GViewer *) g_object_new (gviewer_get_type (), NULL);
+    auto w = static_cast<GViewer*> (g_object_new (gviewer_get_type (), NULL));
 
     return GTK_WIDGET (w);
 }
@@ -155,7 +155,7 @@ static void gviewer_init (GViewer *w)
     w->priv->img_initialized = FALSE;
     w->priv->dispmode = DISP_MODE_TEXT_FIXED;
 
-    w->priv->textr = (TextRender *) text_render_new();
+    w->priv->textr = reinterpret_cast<TextRender*> (text_render_new());
 
     gviewer_set_tab_size(w, DEFAULT_TAB_SIZE);
     gviewer_set_wrap_mode(w, DEFAULT_WRAP_MODE);
@@ -171,7 +171,7 @@ static void gviewer_init (GViewer *w)
     gtk_widget_show (w->priv->tscrollbox);
     g_object_ref (w->priv->tscrollbox);
 
-    w->priv->imgr  = (ImageRender *) image_render_new();
+    w->priv->imgr = reinterpret_cast<ImageRender*> (image_render_new());
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
     w->priv->iscrollbox = scroll_box_new();
@@ -288,7 +288,9 @@ static void gviewer_destroy (GtkObject *widget)
     }
 
     if (GTK_OBJECT_CLASS(parent_class)->destroy)
-        (*GTK_OBJECT_CLASS(parent_class)->destroy)(widget);
+    {
+        (*GTK_OBJECT_CLASS(parent_class)->destroy) (widget);
+    }
 }
 
 
