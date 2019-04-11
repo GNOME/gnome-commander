@@ -63,7 +63,7 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 {
     char *type = (char *) key;
     const GsfDocProp *prop = (const GsfDocProp *) value;
-    GnomeCmdFileMetadata *metadata = (GnomeCmdFileMetadata *) user_data;
+    auto metadata = static_cast<GnomeCmdFileMetadata*> (user_data);
 
     if (!key || !value || !metadata)  return;
 
@@ -206,9 +206,9 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
 
 inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metadata)
 {
-    // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", NULL};
+    // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", nullptr};
 
-    // GsfInput *src = NULL;
+    // GsfInput *src = nullptr;
 
     // src = gsf_infile_child_by_name (infile, "\005SummaryInformation");
 
@@ -345,8 +345,8 @@ void gcmd_tags_libgsf_shutdown()
 
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (f != NULL);
-    g_return_if_fail (f->info != NULL);
+    g_return_if_fail (f != nullptr);
+    g_return_if_fail (f->info != nullptr);
 
 #ifdef HAVE_GSF
     if (f->metadata && f->metadata->is_accessed(TAG_DOC))  return;
@@ -360,18 +360,18 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 
     if (!f->is_local())  return;
 
-    GError *err = NULL;
+    GError *err = nullptr;
     gchar *fname = f->get_real_path();
 
     DEBUG('t', "Loading doc metadata for '%s'\n", fname);
 
-    GsfInput *input = gsf_input_mmap_new (fname, NULL);
+    GsfInput *input = gsf_input_mmap_new (fname, nullptr);
     if (!input)
         input = gsf_input_stdio_new (fname, &err);
 
     if (!input)
     {
-        g_return_if_fail (err != NULL);
+        g_return_if_fail (err != nullptr);
         g_warning ("'%s' error: %s", fname, err->message);
         g_error_free (err);
         g_free (fname);
@@ -380,12 +380,12 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 
     g_free (fname);
 
-    GsfInfile *infile = NULL;
+    GsfInfile *infile = nullptr;
 
-    if ((infile = gsf_infile_msole_new (input, NULL)))
+    if ((infile = gsf_infile_msole_new (input, nullptr)))
         process_msole_infile(infile, f->metadata);
     else
-        if ((infile = gsf_infile_zip_new (input, NULL)))
+        if ((infile = gsf_infile_zip_new (input, nullptr)))
             process_opendoc_infile(infile, f->metadata);
 
     if (infile)

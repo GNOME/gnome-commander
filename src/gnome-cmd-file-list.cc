@@ -748,7 +748,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         // create a list with the uri's of the selected files and calculate the total_length needed
         for (auto i = sel_files; i; i = i->next)
         {
-            GnomeCmdFile *f = (GnomeCmdFile *) i->data;
+            auto f = static_cast<GnomeCmdFile*> (i->data);
             const gchar *fn = nullptr;
 
             if (gnome_vfs_uri_is_local (f->get_uri()))
