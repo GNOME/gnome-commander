@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-main-win.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -743,10 +743,10 @@ static void destroy (GtkObject *object)
         main_win->priv->key_snooper_id = 0;
     }
 
-    if (main_win->advrename_dlg)
+    if (main_win && main_win->advrename_dlg)
         gtk_widget_destroy (*main_win->advrename_dlg);
 
-    if (main_win->file_search_dlg)
+    if (main_win && main_win->file_search_dlg)
         gtk_widget_destroy (*main_win->file_search_dlg);
 
     gtk_main_quit ();

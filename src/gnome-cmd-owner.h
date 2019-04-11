@@ -26,15 +26,15 @@
 
 class GnomeCmdOwner
 {
-    GThread *thread;
-    gboolean stop_thread;
+    GThread *thread {nullptr};
+    gboolean stop_thread {FALSE};
     char *buff;
     size_t buffsize;
 
     uid_t user_id;
     gid_t group_id;
 
-    GList *group_names;
+    GList *group_names {nullptr};
 
   public:
 

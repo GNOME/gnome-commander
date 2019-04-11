@@ -43,10 +43,6 @@ static gint compare_names (const gchar *name1, const gchar *name2)
 
 GnomeCmdOwner::GnomeCmdOwner()
 {
-    thread = NULL;
-    stop_thread = FALSE;
-    group_names = NULL;
-
     if (!buff)
     {
         long int pw_size = sysconf(_SC_GETPW_R_SIZE_MAX);
