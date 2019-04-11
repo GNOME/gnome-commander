@@ -36,7 +36,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-manage-bookmarks-dialog.h"
 #include "gnome-cmd-gkeyfile-utils.h"
@@ -56,8 +56,6 @@ struct GnomeCmdData::Private
 {
     GnomeCmdConList *con_list;
     GList           *auto_load_plugins;
-    gint             sort_column[2];
-    gboolean         sort_direction[2];
 
     gchar           *ftp_anonymous_password;
 };
@@ -72,7 +70,7 @@ GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
     global_schema_source = g_settings_schema_source_get_default ();
 
     GSettingsSchemaSource *parent = global_schema_source;
-    GError *error = NULL;
+    GError *error = nullptr;
 
     global_schema_source = g_settings_schema_source_new_from_directory
                                ((gchar*) g_schema_path.c_str(),
@@ -80,7 +78,7 @@ GSettingsSchemaSource* GnomeCmdData::GetGlobalSchemaSource()
                                 FALSE,
                                 &error);
 
-    if (global_schema_source == NULL)
+    if (global_schema_source == nullptr)
     {
         g_printerr(_("Could not load schemas from %s: %s\n"),
                    (gchar*) g_schema_path.c_str(), error->message);
@@ -129,6 +127,19 @@ static void gcmd_settings_dispose (GObject *object)
     g_clear_object (&gs->plugins);
 
     G_OBJECT_CLASS (gcmd_settings_parent_class)->dispose (object);
+}
+
+static void on_bookmarks_changed ()
+{
+    gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_home());
+#ifdef HAVE_SAMBA
+    gnome_cmd_con_erase_bookmark (gnome_cmd_data.priv->con_list->get_smb());
+#endif
+
+    gnome_cmd_data.load_bookmarks();
+
+    main_win->update_bookmarks ();
+    gnome_cmd_update_bookmark_dialog ();
 }
 
 static void on_size_display_mode_changed ()
@@ -903,411 +914,416 @@ static void gcmd_settings_class_init (GcmdSettingsClass *klass)
 
 GcmdSettings *gcmd_settings_new ()
 {
-    return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, NULL);
+    return (GcmdSettings *) g_object_new (GCMD_TYPE_SETTINGS, nullptr);
 }
 
 
 static void gcmd_connect_gsettings_signals(GcmdSettings *gs)
 {
     g_signal_connect (gs->general,
+                      "changed::bookmarks",
+                      G_CALLBACK (on_bookmarks_changed),
+                      nullptr);
+
+    g_signal_connect (gs->general,
                       "changed::size-display-mode",
                       G_CALLBACK (on_size_display_mode_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::perm-display-mode",
                       G_CALLBACK (on_perm_display_mode_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::graphical-layout-mode",
                       G_CALLBACK (on_graphical_layout_mode_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::list-row-height",
                       G_CALLBACK (on_list_row_height_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::date-disp-format",
                       G_CALLBACK (on_date_disp_format_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::list-font",
                       G_CALLBACK (on_list_font_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-unknown",
                       G_CALLBACK (on_filter_hide_unknown_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-regular",
                       G_CALLBACK (on_filter_hide_regular_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-directory",
                       G_CALLBACK (on_filter_hide_directory_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-fifo",
                       G_CALLBACK (on_filter_hide_fifo_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-socket",
                       G_CALLBACK (on_filter_hide_socket_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-char-device",
                       G_CALLBACK (on_filter_hide_character_device_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-block-device",
                       G_CALLBACK (on_filter_hide_block_device_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-symbolic-link",
                       G_CALLBACK (on_filter_hide_symbolic_link_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-dotfile",
                       G_CALLBACK (on_filter_dotfile_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::hide-backup-files",
                       G_CALLBACK (on_filter_backup_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->filter,
                       "changed::backup-pattern",
                       G_CALLBACK (on_backup_pattern_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::extension-display-mode",
                       G_CALLBACK (on_ext_disp_mode_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::icon-size",
                       G_CALLBACK (on_icon_size_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::show-devbuttons",
                       G_CALLBACK (on_show_devbuttons_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::show-devlist",
                       G_CALLBACK (on_show_devlist_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::show-cmdline",
                       G_CALLBACK (on_show_cmdline_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::show-toolbar",
                       G_CALLBACK (on_show_toolbar_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::show-buttonbar",
                       G_CALLBACK (on_show_buttonbar_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::horizontal-orientation",
                       G_CALLBACK (on_horizontal_orientation_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::symlink-string",
                       G_CALLBACK (on_symlink_string_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::always-show-tabs",
                       G_CALLBACK (on_always_show_tabs_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::tab-lock-indicator",
                       G_CALLBACK (on_tab_lock_indicator_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->confirm,
                       "changed::delete",
                       G_CALLBACK (on_confirm_delete_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->confirm,
                       "changed::delete-default",
                       G_CALLBACK (on_confirm_delete_default_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->confirm,
                       "changed::copy-overwrite",
                       G_CALLBACK (on_confirm_copy_overwrite_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->confirm,
                       "changed::move-overwrite",
                       G_CALLBACK (on_confirm_move_overwrite_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->confirm,
                       "changed::mouse-drag-and-drop",
                       G_CALLBACK (on_mouse_drag_and_drop_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::select-dirs",
                       G_CALLBACK (on_select_dirs_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::case-sensitive",
                       G_CALLBACK (on_case_sensitive_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::theme",
                       G_CALLBACK (on_theme_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-norm-fg",
                       G_CALLBACK (on_custom_color_norm_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-norm-bg",
                       G_CALLBACK (on_custom_color_norm_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-alt-fg",
                       G_CALLBACK (on_custom_color_alt_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-alt-bg",
                       G_CALLBACK (on_custom_color_alt_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-sel-fg",
                       G_CALLBACK (on_custom_color_sel_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-sel-bg",
                       G_CALLBACK (on_custom_color_sel_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-curs-fg",
                       G_CALLBACK (on_custom_color_curs_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::custom-curs-bg",
                       G_CALLBACK (on_custom_color_curs_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::use-ls-colors",
                       G_CALLBACK (on_use_ls_colors_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-black-fg",
                       G_CALLBACK (on_ls_color_black_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-black-bg",
                       G_CALLBACK (on_ls_color_black_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-red-fg",
                       G_CALLBACK (on_ls_color_red_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-red-bg",
                       G_CALLBACK (on_ls_color_red_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-green-fg",
                       G_CALLBACK (on_ls_color_green_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-green-bg",
                       G_CALLBACK (on_ls_color_green_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-yellow-fg",
                       G_CALLBACK (on_ls_color_yellow_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-yellow-bg",
                       G_CALLBACK (on_ls_color_yellow_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-blue-fg",
                       G_CALLBACK (on_ls_color_blue_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-blue-bg",
                       G_CALLBACK (on_ls_color_blue_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-magenta-fg",
                       G_CALLBACK (on_ls_color_magenta_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-magenta-bg",
                       G_CALLBACK (on_ls_color_magenta_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-cyan-fg",
                       G_CALLBACK (on_ls_color_cyan_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-cyan-bg",
                       G_CALLBACK (on_ls_color_cyan_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-white-fg",
                       G_CALLBACK (on_ls_color_white_fg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->colors,
                       "changed::lscm-white-bg",
                       G_CALLBACK (on_ls_color_white_bg_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::dont-download",
                       G_CALLBACK (on_always_download_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::allow-multiple-instances",
                       G_CALLBACK (on_multiple_instances_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::use-internal-viewer",
                       G_CALLBACK (on_use_internal_viewer_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::quick-search",
                       G_CALLBACK (on_quick_search_shortcut_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::quick-search-exact-match-begin",
                       G_CALLBACK (on_quick_search_exact_match_begin_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::quick-search-exact-match-end",
                       G_CALLBACK (on_quick_search_exact_match_end_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::dev-skip-mounting",
                       G_CALLBACK (on_dev_skip_mounting_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::dev-only-icon",
                       G_CALLBACK (on_dev_only_icon_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::mainmenu-visibility",
                       G_CALLBACK (on_mainmenu_visibility_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::opts-dialog-width",
                       G_CALLBACK (on_opts_dialog_width_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->general,
                       "changed::opts-dialog-height",
                       G_CALLBACK (on_opts_dialog_height_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::viewer-cmd",
                       G_CALLBACK (on_viewer_cmd_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::editor-cmd",
                       G_CALLBACK (on_editor_cmd_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::differ-cmd",
                       G_CALLBACK (on_differ_cmd_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::sendto-cmd",
                       G_CALLBACK (on_sendto_cmd_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::terminal-cmd",
                       G_CALLBACK (on_terminal_cmd_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::terminal-exec-cmd",
                       G_CALLBACK (on_terminal_exec_cmd_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->programs,
                       "changed::use-gcmd-block",
                       G_CALLBACK (on_use_gcmd_block_changed),
-                      NULL);
+                      nullptr);
 
     g_signal_connect (gs->network,
                       "changed::ftp-anonymous-password",
                       G_CALLBACK (on_ftp_anonymous_password_changed),
-                      NULL);
+                      nullptr);
 
 }
 
@@ -1320,28 +1336,28 @@ static void gcmd_settings_init (GcmdSettings *gs)
     global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
-    gs->general = g_settings_new_full (global_schema, NULL, NULL);
+    gs->general = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
-    gs->filter = g_settings_new_full (global_schema, NULL, NULL);
+    gs->filter = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_CONFIRM, FALSE);
-    gs->confirm = g_settings_new_full (global_schema, NULL, NULL);
+    gs->confirm = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_COLORS, FALSE);
-    gs->colors = g_settings_new_full (global_schema, NULL, NULL);
+    gs->colors = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
-    gs->programs = g_settings_new_full (global_schema, NULL, NULL);
+    gs->programs = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_NETWORK, FALSE);
-    gs->network = g_settings_new_full (global_schema, NULL, NULL);
+    gs->network = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_INTERNAL_VIEWER, FALSE);
-    gs->internalviewer = g_settings_new_full (global_schema, NULL, NULL);
+    gs->internalviewer = g_settings_new_full (global_schema, nullptr, nullptr);
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PLUGINS, FALSE);
-    gs->plugins = g_settings_new_full (global_schema, NULL, NULL);
+    gs->plugins = g_settings_new_full (global_schema, nullptr, nullptr);
 
     gcmd_connect_gsettings_signals(gs);
 }
@@ -1406,7 +1422,7 @@ GnomeCmdData::Options::Options(const Options &cfg)
     fav_apps = cfg.fav_apps;
     device_only_icon = cfg.device_only_icon;
     skip_mounting = cfg.skip_mounting;
-    gcmd_settings = NULL;
+    gcmd_settings = nullptr;
 }
 
 
@@ -1468,7 +1484,7 @@ GnomeCmdData::Options &GnomeCmdData::Options::operator = (const Options &cfg)
         fav_apps = cfg.fav_apps;
         device_only_icon = cfg.device_only_icon;
         skip_mounting = cfg.skip_mounting;
-        gcmd_settings = NULL;
+        gcmd_settings = nullptr;
     }
 
     return *this;
@@ -1487,10 +1503,10 @@ gboolean GnomeCmdData::Options::is_name_double(const gchar *name_to_test)
     gboolean foundstate = FALSE;
     for (app_pointer = gnome_cmd_data.options.fav_apps; app_pointer; app_pointer = app_pointer->next)
     {
-        GnomeCmdApp *app = (GnomeCmdApp *) app_pointer->data;
+        auto *app = static_cast<GnomeCmdApp*> (app_pointer->data);
         if (app)
         {
-            gchar *app_name = g_strdup(gnome_cmd_app_get_name(app));
+            auto app_name = g_strdup(gnome_cmd_app_get_name(app));
             if (!strcmp(app_name, name_to_test))
             foundstate = TRUE;
             g_free (app_name);
@@ -1592,7 +1608,6 @@ void GnomeCmdData::save_bookmarks()
         GVariant* bookmarksToStore = g_variant_builder_end (gVariantBuilder);
         g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS, bookmarksToStore);
     }
-
     g_variant_builder_unref(gVariantBuilder);
 }
 
@@ -1611,7 +1626,7 @@ gboolean GnomeCmdData::add_bookmark_to_gvariant_builder(GVariantBuilder *gVarian
 
     for (GList *i = bookmarks; i; i = i->next)
     {
-        auto bookmark = (GnomeCmdBookmark *) (i->data);
+        auto bookmark = static_cast<GnomeCmdBookmark*> (i->data);
 
         g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_BOOKMARK_FORMAT_STRING,
                                isRemote,
@@ -1778,7 +1793,7 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
         {
             if (gnome_cmd_data.options.save_tabs_on_exit)
             {
-                GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                auto fl = reinterpret_cast <GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
                 if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con))
                 {
                     gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
@@ -1795,7 +1810,7 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
             {
                 if (gnome_cmd_data.options.save_dirs_on_exit)
                 {
-                    GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                    auto fl = reinterpret_cast <GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
                     if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && (fl==gnomeCmdFileSelector.file_list() || fl->locked))
                     {
                         gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
@@ -1810,7 +1825,7 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
                 }
                 else
                 {
-                    GnomeCmdFileList *fl = (GnomeCmdFileList *) gtk_bin_get_child (GTK_BIN (i->data));
+                    auto fl = reinterpret_cast<GnomeCmdFileList*> (gtk_bin_get_child (GTK_BIN (i->data)));
                     if (GNOME_CMD_FILE_LIST (fl) && gnome_cmd_con_is_local (fl->con) && fl->locked)
                     {
                         gchar* realPath = GNOME_CMD_FILE (fl->cwd)->get_real_path();
@@ -1845,7 +1860,7 @@ static void save_tabs_via_gsettings(GSettings *gSettings, const char *gSettingsK
 
         for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
         {
-            GnomeCmdApp *app = (GnomeCmdApp *) i->data;
+            auto app = static_cast<GnomeCmdApp*> (i->data);
             if (app)
             {
                 gchar *iconPath = g_strdup(gnome_cmd_app_get_icon_path(app));
@@ -1975,7 +1990,7 @@ void GnomeCmdData::load_keybindings()
 
     g_variant_iter_init (&iter, gvKeybindings);
 
-	while ((keybinding = g_variant_iter_next_value (&iter)) != NULL)
+	while ((keybinding = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *name, *action, *option;
         gboolean shift, control, alt, super, hyper, meta;
@@ -2027,8 +2042,8 @@ static void save_devices_old (const gchar *fname)
 {
     GList *devices;
     gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (get_package_config_dir(), fname, NULL);
+        g_build_filename (config_dir, fname, nullptr) :
+        g_build_filename (get_package_config_dir(), fname, nullptr);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
 
@@ -2041,19 +2056,19 @@ static void save_devices_old (const gchar *fname)
             GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (devices->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
-                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), NULL);
+                gchar *alias = g_strescape (gnome_cmd_con_device_get_alias (device), nullptr);
 
                 gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
                 if (device_fn && device_fn[0] != '\0')
-                    device_fn = g_strescape (device_fn, NULL);
+                    device_fn = g_strescape (device_fn, nullptr);
                 else
                     device_fn = g_strdup ("x");
 
-                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
+                gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), nullptr);
 
                 gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
                 if (icon_path && icon_path[0] != '\0')
-                    icon_path = g_strescape (icon_path, NULL);
+                    icon_path = g_strescape (icon_path, nullptr);
                 else
                     icon_path = g_strdup ("x");
 
@@ -2082,15 +2097,15 @@ static void save_devices_old (const gchar *fname)
 static void save_fav_apps_old (const gchar *fname)
 {
     gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (get_package_config_dir(), fname, NULL);
+        g_build_filename (config_dir, fname, nullptr) :
+        g_build_filename (get_package_config_dir(), fname, nullptr);
     GKeyFile *key_file;
     key_file = g_key_file_new ();
 
     /* Now save the list */
     for (GList *i = gnome_cmd_data.options.fav_apps; i; i = i->next)
     {
-        GnomeCmdApp *app = (GnomeCmdApp *) i->data;
+        auto app = static_cast<GnomeCmdApp*> (i->data);
         if (app)
         {
             gchar *group_name = g_strdup(gnome_cmd_app_get_name(app));
@@ -2189,8 +2204,8 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
         if (device && !gnome_cmd_con_device_get_autovol (device))
         {
-            gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), NULL);
-            gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
+            gchar *mountp = g_strescape (gnome_cmd_con_device_get_mountp (device), nullptr);
+            gchar *mountp2= gnome_vfs_unescape_string (mountp, nullptr);
 
             rc = strcmp(mountp2, mountpoint)==0;
 
@@ -2225,7 +2240,7 @@ static void add_vfs_volume (GnomeVFSVolume *volume)
     GnomeVFSDrive *drive = gnome_vfs_volume_get_drive (volume);
 
     // Try to load the icon, using current theme
-    const gchar *iconpath = NULL;
+    const gchar *iconpath = nullptr;
     GtkIconTheme *icontheme = gtk_icon_theme_get_default();
     if (icontheme)
     {
@@ -2246,7 +2261,7 @@ static void add_vfs_volume (GnomeVFSVolume *volume)
     // Don't create a new device connect if one already exists. This can happen if the user manually added the same device in "Options|Devices" menu
     if (!device_mount_point_exists (gnome_cmd_data.priv->con_list, localpath))
     {
-        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
+        GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path?path:nullptr, localpath, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_vfs_volume (ConDev, volume);
         gnome_cmd_data.priv->con_list->add(ConDev);
@@ -2279,8 +2294,8 @@ inline void set_vfs_volume_monitor ()
 {
     GnomeVFSVolumeMonitor *monitor = gnome_vfs_get_volume_monitor ();
 
-    g_signal_connect (monitor, "volume-mounted", G_CALLBACK (volume_mounted), NULL);
-    g_signal_connect (monitor, "volume-unmounted", G_CALLBACK (volume_unmounted), NULL);
+    g_signal_connect (monitor, "volume-mounted", G_CALLBACK (volume_mounted), nullptr);
+    g_signal_connect (monitor, "volume-unmounted", G_CALLBACK (volume_unmounted), nullptr);
 }
 
 
@@ -2303,7 +2318,7 @@ void GnomeCmdData::load_bookmarks()
 {
     GnomeCmdCon *gnomeCmdCon {nullptr};
 
-    GVariant *gVariantBookmarks = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
+    auto *gVariantBookmarks = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_BOOKMARKS);
 
     g_autoptr(GVariantIter) iter1 {nullptr};
 
@@ -2338,7 +2353,7 @@ void GnomeCmdData::load_bookmarks()
                 }
                 else
 #endif
-                    gnomeCmdCon = NULL;
+                    gnomeCmdCon = nullptr;
             }
         }
         if (!gnomeCmdCon)
@@ -2358,8 +2373,8 @@ void GnomeCmdData::load_bookmarks()
 static gboolean load_devices (const gchar *fname)
 {
     gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (get_package_config_dir(), fname, NULL);
+        g_build_filename (config_dir, fname, nullptr) :
+        g_build_filename (get_package_config_dir(), fname, nullptr);
 
     ifstream f(path);
 
@@ -2377,7 +2392,7 @@ static gboolean load_devices (const gchar *fname)
     keyfile = gcmd_key_file_load_from_file(path, 0);
 
     // keyfile exists but it is empty, no need to do anything here
-    if (keyfile == NULL)
+    if (keyfile == nullptr)
     {
         remove(path);
         g_free (path);
@@ -2388,18 +2403,18 @@ static gboolean load_devices (const gchar *fname)
 
     for (guint i = 0; i < length; i++)
     {
-        gchar *alias     = NULL;
-        gchar *device_fn = NULL;
-        gchar *mountp    = NULL;
-        gchar *icon_path = NULL;
-        GError *error = NULL;
+        gchar *alias     = nullptr;
+        gchar *device_fn = nullptr;
+        gchar *mountp    = nullptr;
+        gchar *icon_path = nullptr;
+        GError *error = nullptr;
 
         alias     = g_strdup(groups[i]);
         device_fn = g_key_file_get_string (keyfile, groups[i], DEVICES_DEVICE, &error);
         mountp    = g_key_file_get_string (keyfile, groups[i], DEVICES_MOUNT_POINT, &error);
         icon_path = g_key_file_get_string (keyfile, groups[i], DEVICES_ICON_PATH, &error);
 
-        if (error != NULL)
+        if (error != nullptr)
         {
              fprintf (stderr, "Unable to read file: %s\n", error->message);
              g_error_free (error);
@@ -2434,10 +2449,10 @@ void GnomeCmdData::load_advrename_profiles ()
 {
     GVariant *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_ADVRENAME_PROFILES);
 
-    g_autoptr(GVariantIter) iter1 = NULL;
-    g_autoptr(GVariantIter) iter2 = NULL;
-    g_autoptr(GVariantIter) iter3 = NULL;
-    g_autoptr(GVariantIter) iter4 = NULL;
+    g_autoptr(GVariantIter) iter1 = nullptr;
+    g_autoptr(GVariantIter) iter2 = nullptr;
+    g_autoptr(GVariantIter) iter3 = nullptr;
+    g_autoptr(GVariantIter) iter4 = nullptr;
 
     g_variant_get (gVariantProfiles, GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING, &iter1);
 
@@ -2543,7 +2558,7 @@ void GnomeCmdData::load_advrename_profiles ()
  */
 void GnomeCmdData::load_search_profiles ()
 {
-    GVariant *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
+    auto *gVariantProfiles = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_SEARCH_PROFILES);
 
     g_autoptr(GVariantIter) iter1 {nullptr};
 
@@ -2602,9 +2617,9 @@ void GnomeCmdData::load_fav_apps_from_gsettings()
 
     g_variant_iter_init (&iter, gvFavApps);
 
-    gnome_cmd_data.options.fav_apps = NULL;
+    gnome_cmd_data.options.fav_apps = nullptr;
 
-	while ((favApp = g_variant_iter_next_value (&iter)) != NULL)
+	while ((favApp = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *name, *command, *iconPath, *pattern;
         guint target;
@@ -2637,14 +2652,14 @@ static gboolean load_fav_apps_old (const gchar *fname)
 {
     GKeyFile *keyfile;
     gchar *path = config_dir ?
-        g_build_filename (config_dir, fname, NULL) :
-        g_build_filename (get_package_config_dir(), fname, NULL);
+        g_build_filename (config_dir, fname, nullptr) :
+        g_build_filename (get_package_config_dir(), fname, nullptr);
 
-    gnome_cmd_data.options.fav_apps = NULL;
+    gnome_cmd_data.options.fav_apps = nullptr;
 
     keyfile = gcmd_key_file_load_from_file(path, 0);
 
-    if (keyfile == NULL)
+    if (keyfile == nullptr)
     {
         g_free(path);
         return FALSE;
@@ -2657,15 +2672,15 @@ static gboolean load_fav_apps_old (const gchar *fname)
 
     for (guint i = 0; i < length; i++)
     {
-        gchar *name      = NULL;
-        gchar *cmd       = NULL;
-        gchar *icon_path = NULL;
-        gchar *pattern   = NULL;
+        gchar *name      = nullptr;
+        gchar *cmd       = nullptr;
+        gchar *icon_path = nullptr;
+        gchar *pattern   = nullptr;
         guint target;
         guint handles_uris;
         guint handles_multiple;
         guint requires_terminal;
-        GError *error = NULL;
+        GError *error = nullptr;
 
         name              = g_strdup(groups[i]);
         cmd               = g_key_file_get_string (keyfile, groups[i], FAV_APPS_CMD, &error);
@@ -2676,7 +2691,7 @@ static gboolean load_fav_apps_old (const gchar *fname)
         handles_multiple  = g_key_file_get_boolean (keyfile, groups[i], FAV_APPS_HANDLES_MULTIPLE, &error);
         requires_terminal = g_key_file_get_boolean (keyfile, groups[i], FAV_APPS_REQUIRES_TERMINAL, &error);
 
-        if (error != NULL)
+        if (error != nullptr)
         {
              fprintf (stderr, "Unable to read file: %s\n", error->message);
              g_error_free (error);
@@ -2750,7 +2765,7 @@ void GnomeCmdData::save_cmdline_history()
     }
     else
     {
-        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, NULL);
+        set_gsettings_string_array_from_glist(options.gcmd_settings->general, GCMD_SETTINGS_CMDLINE_HISTORY, nullptr);
     }
 }
 
@@ -2820,37 +2835,12 @@ inline gboolean GnomeCmdData::save_auto_load_plugins()
 }
 
 
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-nonliteral"
-#endif
-inline GList* GnomeCmdData::load_string_history (const gchar *format, gint size)
-{
-    GList *list = NULL;
-
-    for (gint i=0; i<size || size==-1; ++i)
-    {
-        gchar *key = g_strdup_printf (format, i);
-        gchar *value = gnome_cmd_data_get_string (key, NULL);
-        g_free (key);
-        if (!value)
-            break;
-        list = g_list_append (list, value);
-    }
-
-    return list;
-}
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
-
 /**
  * Returns a GList with newly allocated char strings
  */
 inline GList* GnomeCmdData::get_list_from_gsettings_string_array (GSettings *settings_given, const gchar *key)
 {
-    GList *list = NULL;
+    GList *list = nullptr;
     gchar** gsettings_array;
     gsettings_array = g_settings_get_strv (settings_given, key);
 
@@ -2909,23 +2899,13 @@ inline void GnomeCmdData::load_auto_load_plugins()
 
 GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
 {
-    quick_connect = NULL;
-
-    horizontal_orientation = FALSE;
-
-    show_toolbar = TRUE;
-    show_devbuttons = TRUE;
-    show_devlist = TRUE;
-    cmdline_visibility = TRUE;
-    buttonbar_visibility = TRUE;
-    mainmenu_visibility = TRUE;
+    quick_connect = nullptr;
 
     //TODO: Include into GnomeCmdData::Options
-    dev_icon_size = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
 
-    cmdline_history = NULL;
+    cmdline_history = nullptr;
     cmdline_history_length = 0;
 
     use_gcmd_block = TRUE;
@@ -2937,9 +2917,6 @@ GnomeCmdData::GnomeCmdData(): search_defaults(profiles)
 
     umask = ::umask(0);
     ::umask(umask);
-
-    priv = NULL;
-    settings = NULL;
 }
 
 
@@ -2986,8 +2963,8 @@ gboolean GnomeCmdData::set_valid_color_string(GSettings *settings_given, const c
         GVariant *variant;
         variant = g_settings_get_default_value (settings_given, key);
         g_warning("Illegal color string \'%s\' for gsettings key %s. Resetting to default value \'%s\'",
-                  colorstring, key, g_variant_get_string(variant, NULL));
-        g_settings_set_string (settings_given, key, g_variant_get_string(variant, NULL));
+                  colorstring, key, g_variant_get_string(variant, nullptr));
+        g_settings_set_string (settings_given, key, g_variant_get_string(variant, nullptr));
         g_variant_unref (variant);
         return_value = TRUE;
     }
@@ -3012,7 +2989,7 @@ void GnomeCmdData::load_tabs_from_gsettings()
 
     g_variant_iter_init (&iter, gvTabs);
 
-	while ((tab = g_variant_iter_next_value (&iter)) != NULL)
+	while ((tab = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *path;
         gboolean sort_order, locked;
@@ -3043,7 +3020,7 @@ void GnomeCmdData::load_devices_from_gsettings()
 
     g_variant_iter_init (&iter, gvDevices);
 
-	while ((device = g_variant_iter_next_value (&iter)) != NULL)
+	while ((device = g_variant_iter_next_value (&iter)) != nullptr)
     {
         g_autofree gchar *alias, *device_fn, *mountPoint, *iconPath;
 
@@ -3069,7 +3046,7 @@ void GnomeCmdData::load_connections()
 
     g_variant_iter_init (&iter, gvConnections);
 
-	while ((connection = g_variant_iter_next_value (&iter)) != NULL)
+	while ((connection = g_variant_iter_next_value (&iter)) != nullptr)
     {
         gchar *name, *uri;
 
@@ -3242,7 +3219,7 @@ void GnomeCmdData::load_colors()
         gnome_cmd_data.gnome_cmd_data_parse_color(colorstring, options.ls_colors_palette.white_bg);
         g_free(colorstring);
     }
-    colorstring = NULL;
+    colorstring = nullptr;
 }
 
 
@@ -3319,14 +3296,14 @@ void GnomeCmdData::load_color_themes()
     options.color_themes[GNOME_CMD_COLOR_WINTER].curs_bg = gdk_color_new (0,0xffff,0xffff);
 
     options.color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
-    options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].alt_fg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].alt_bg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].sel_fg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].sel_bg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
-    options.color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
+    options.color_themes[GNOME_CMD_COLOR_NONE].norm_fg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].norm_bg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].alt_fg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].alt_bg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].sel_fg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].sel_bg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].curs_fg = nullptr;
+    options.color_themes[GNOME_CMD_COLOR_NONE].curs_bg = nullptr;
 }
 
 void GnomeCmdData::load()
@@ -3372,7 +3349,7 @@ void GnomeCmdData::load()
     options.perm_disp_mode = (GnomeCmdPermDispMode) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_PERM_DISP_MODE);
 
     gchar *utf8_date_format = g_settings_get_string (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT);
-    options.date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
+    options.date_format = g_locale_from_utf8 (utf8_date_format, -1, nullptr, nullptr, nullptr);
     g_free (utf8_date_format);
 
     options.layout = (GnomeCmdLayout) g_settings_get_enum (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE);
@@ -3454,7 +3431,7 @@ void GnomeCmdData::load()
     if (!*options.symlink_prefix || strcmp(options.symlink_prefix, _("link to %s"))==0)
     {
         g_free (options.symlink_prefix);
-        options.symlink_prefix = NULL;
+        options.symlink_prefix = nullptr;
     }
 
     options.viewer = g_settings_get_string(options.gcmd_settings->programs, GCMD_SETTINGS_VIEWER_CMD);
@@ -3710,7 +3687,7 @@ void GnomeCmdData::load()
     else // This is done for migration to gSettings. Can be deleted in gcmd 1.10.
         save_devices_via_gsettings();
 
-    g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", NULL);
+    g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", nullptr) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", nullptr);
 
     // ToDo: Remove the check for xml cfg file in gcmd version >= 1.10.0
     if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
@@ -3725,8 +3702,8 @@ void GnomeCmdData::load()
         save_directory_history();
 
         // Move gnome-commander.xml to gnome-commander.xml.deprecated
-        g_autofree gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", NULL);
-        g_autofree gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", NULL) : g_build_filename (get_package_config_dir(), PACKAGE ".xml.deprecated", NULL);
+        g_autofree gchar *xml_cfg_path_old = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", nullptr) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", nullptr);
+        g_autofree gchar *xml_cfg_path_new = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", nullptr) : g_build_filename (get_package_config_dir(), PACKAGE ".xml.deprecated", nullptr);
 
         auto rv = rename (xml_cfg_path_old, xml_cfg_path_new);
         if (rv == -1)
@@ -3751,7 +3728,7 @@ void GnomeCmdData::load()
     priv->con_list->unlock();
 
     gchar *quick_connect_uri = g_settings_get_string(options.gcmd_settings->network, GCMD_SETTINGS_QUICK_CONNECT_URI);
-    quick_connect = gnome_cmd_con_remote_new (NULL, quick_connect_uri);
+    quick_connect = gnome_cmd_con_remote_new (nullptr, quick_connect_uri);
     g_free (quick_connect_uri);
 
     load_intviewer_defaults();
@@ -3847,54 +3824,6 @@ gint GnomeCmdData::migrate_data_int_value_into_gsettings(int user_value, GSettin
 #pragma GCC diagnostic pop
 #endif
 
-/**
- * This method sets the value of a given GSettings key to the string stored in user_value or to the default value,
- * depending on the value of user_value. If the class of the key is not a string but a string array, the first
- * entry of the array is set to user_value.
- * @returns FALSE if an error occured setting the key value to a new string.
- */
-gboolean GnomeCmdData::migrate_data_string_value_into_gsettings(const char* user_value, GSettings *settings_given, const char *key)
-{
-    GVariant *variant;
-    gboolean rv = true;
-
-    variant = g_settings_get_default_value (settings_given, key);
-
-    if (g_variant_classify(variant) == G_VARIANT_CLASS_STRING)
-    {
-        gchar *default_value;
-
-        // In the following it is assumed that the value behind 'default_value' is the actual
-        // default value, i.e. nobody changed the given key before gcmd data migration was started.
-        default_value = g_settings_get_string (settings_given, key);
-
-        if (strcmp(user_value, default_value) != 0)
-            rv = g_settings_set_string (settings_given, key, user_value);
-    }
-    else if (g_variant_classify(variant) == G_VARIANT_CLASS_ARRAY)
-    {
-        gchar** str_array;
-        str_array = (gchar**) g_malloc (2*sizeof(char*));
-        str_array[0] = g_strdup(user_value);
-        str_array[1] = NULL;
-
-        rv = g_settings_set_strv(settings_given, key, str_array);
-
-        g_free(str_array[0]);
-        g_free(str_array[1]);
-        g_free(str_array);
-    }
-    else
-    {
-        g_warning("Could not translate key value of type '%s'\n", g_variant_get_type_string (variant));
-        rv = false;
-    }
-    g_variant_unref (variant);
-
-    return rv;
-}
-
-
 void GnomeCmdData::save()
 {
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_SIZE_DISP_MODE, options.size_disp_mode);
@@ -3902,7 +3831,7 @@ void GnomeCmdData::save()
     set_gsettings_enum_when_changed (options.gcmd_settings->general, GCMD_SETTINGS_GRAPHICAL_LAYOUT_MODE, options.layout);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_LIST_ROW_HEIGHT, &(options.list_row_height));
 
-    gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, NULL, NULL, NULL);
+    gchar *utf8_date_format = g_locale_to_utf8 (options.date_format, -1, nullptr, nullptr, nullptr);
     set_gsettings_when_changed      (options.gcmd_settings->general, GCMD_SETTINGS_DATE_DISP_FORMAT, utf8_date_format);
     g_free (utf8_date_format);
 
@@ -4061,43 +3990,11 @@ void GnomeCmdData::save()
 }
 
 
-gint GnomeCmdData::gnome_cmd_data_get_int (const gchar *path, int def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    gint v = get_int (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
-
 gchar* GnomeCmdData::gnome_cmd_data_get_string (const gchar *path, const gchar *def)
 {
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, nullptr);
 
     gchar *v = get_string (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
-void GnomeCmdData::gnome_cmd_data_set_string (const gchar *path, const gchar *value)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    set_string (s, value);
-
-    g_free (s);
-}
-
-gboolean GnomeCmdData::gnome_cmd_data_get_bool (const gchar *path, gboolean def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
-
-    gboolean v = get_bool (s, def);
 
     g_free (s);
 
@@ -4293,18 +4190,6 @@ gboolean GnomeCmdData::set_gsettings_color_when_changed (GSettings *settings_giv
     g_free(colorstring);
 
     return return_value;
-}
-
-
-GnomeCmdFileList::ColumnID GnomeCmdData::get_sort_col(FileSelectorID id) const
-{
-    return (GnomeCmdFileList::ColumnID) priv->sort_column[id];
-}
-
-
-GtkSortType GnomeCmdData::get_sort_direction(FileSelectorID id) const
-{
-    return (GtkSortType) priv->sort_direction[id];
 }
 
 

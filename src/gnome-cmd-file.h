@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-file.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -72,7 +72,6 @@ struct GnomeCmdFile
     const gchar *get_group();
     const gchar *get_adate(gboolean overide_disp_setting);
     const gchar *get_mdate(gboolean overide_disp_setting);
-    const gchar *get_cdate(gboolean overide_disp_setting);
     const gchar *get_size();
     GnomeVFSFileSize get_tree_size();
     const gchar *get_tree_size_as_str();
@@ -85,7 +84,6 @@ struct GnomeCmdFile
     GnomeCmdDir *get_parent_dir();
 
     const gchar *get_type_string();
-    const gchar *get_type_desc();
     gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
 
     GnomeVFSResult chmod(GnomeVFSFilePermissions perm);
@@ -170,9 +168,6 @@ void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
 void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer);
 void gnome_cmd_file_edit (GnomeCmdFile *f);
-void gnome_cmd_file_show_cap_cut (GnomeCmdFile *f);
-void gnome_cmd_file_show_cap_copy (GnomeCmdFile *f);
-void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);

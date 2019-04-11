@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-user-actions.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -183,13 +183,13 @@ class GnomeCmdUserActions
 
     struct const_iterator: ACTIONS_COLL::iterator
     {
-        const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i)   {}
+        explicit const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i) {}
 
         const ACTIONS_COLL::key_type &operator * () const                   {  return (ACTIONS_COLL::iterator::operator * ()).first;       }
     };
 
-    const_iterator begin()                                                  {  return action.begin();                                      }
-    const_iterator end()                                                    {  return action.end();                                        }
+    const_iterator begin()                                                  {  return (const_iterator) action.begin();                                      }
+    const_iterator end()                                                    {  return (const_iterator) action.end();                                        }
     unsigned size()                                                         {  return action.size();                                       }
 
     const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();                 }

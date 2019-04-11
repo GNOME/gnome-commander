@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-dir-indicator.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -53,7 +53,7 @@ struct GnomeCmdDirIndicatorPrivate
 };
 
 
-static GtkFrameClass *parent_class = NULL;
+static GtkFrameClass *parent_class = nullptr;
 
 
 /*******************************
@@ -156,7 +156,7 @@ inline void update_markup (GnomeCmdDirIndicator *indicator, gint i)
 
         gchar *mt = get_mono_text (t);
         gchar *ms = get_bold_mono_text (s);
-        m = g_strconcat (ms, mt, NULL);
+        m = g_strconcat (ms, mt, nullptr);
         g_free (t);
         g_free (mt);
         g_free (ms);
@@ -174,9 +174,9 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
-    if (indicator->priv->slashCharPosition == NULL)
+    if (indicator->priv->slashCharPosition == nullptr)
         return FALSE;
-    if (indicator->priv->slashPixelPosition == NULL)
+    if (indicator->priv->slashPixelPosition == nullptr)
         return FALSE;
 
     // find out where in the label the pointer is at
@@ -198,7 +198,7 @@ static gint on_dir_indicator_motion (GnomeCmdDirIndicator *indicator, GdkEventMo
 
         // clear underline, cursor=pointer
         update_markup (indicator, -1);
-        gdk_window_set_cursor (GTK_WIDGET (indicator)->window, NULL);
+        gdk_window_set_cursor (GTK_WIDGET (indicator)->window, nullptr);
     }
 
     return TRUE;
@@ -211,7 +211,7 @@ static gint on_dir_indicator_leave (GnomeCmdDirIndicator *indicator, GdkEventMot
 
     // clear underline, cursor=pointer
     update_markup (indicator, -1);
-    gdk_window_set_cursor (GTK_WIDGET (indicator)->window, NULL);
+    gdk_window_set_cursor (GTK_WIDGET (indicator)->window, nullptr);
 
     return TRUE;
 }
@@ -253,26 +253,26 @@ static gboolean on_history_button_clicked (GtkWidget *button, GnomeCmdDirIndicat
 
 static void on_dir_history_popup_hide (GtkMenu *menu, GnomeCmdDirIndicator *indicator)
 {
-    indicator->priv->dir_history_popup = NULL;
+    indicator->priv->dir_history_popup = nullptr;
     indicator->priv->history_is_popped = FALSE;
 }
 
 
 static void on_bookmark_popup_hide (GtkMenu *menu, GnomeCmdDirIndicator *indicator)
 {
-    indicator->priv->bookmark_popup = NULL;
+    indicator->priv->bookmark_popup = nullptr;
     indicator->priv->bookmark_is_popped = FALSE;
 }
 
 
 static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 {
-    g_return_if_fail (path != NULL);
+    g_return_if_fail (path != nullptr);
 
     GdkModifierType mask;
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
-    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) g_object_get_data (G_OBJECT (item), "indicator");
+    auto indicator = static_cast<GnomeCmdDirIndicator*> (g_object_get_data (G_OBJECT (item), "indicator"));
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
@@ -291,12 +291,12 @@ static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 
 static void on_bookmark_item_selected (GtkMenuItem *item, GnomeCmdBookmark *bm)
 {
-    g_return_if_fail (bm != NULL);
+    g_return_if_fail (bm != nullptr);
 
     GdkModifierType mask;
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
-    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) g_object_get_data (G_OBJECT (item), "indicator");
+    auto indicator = static_cast<GnomeCmdDirIndicator*> (g_object_get_data (G_OBJECT (item), "indicator"));
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
@@ -364,9 +364,9 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
     gnome_popup_menu_do_popup (indicator->priv->dir_history_popup,
                                (GtkMenuPositionFunc) get_popup_pos,
                                indicator,
-                               NULL,
-                               NULL,
-                               NULL);
+                               nullptr,
+                               nullptr,
+                               nullptr);
 
     gint w = -1;
 
@@ -385,7 +385,7 @@ static void on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *i
 
 static void on_bookmarks_manage (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
 {
-    bookmarks_edit (NULL, NULL);
+    bookmarks_edit (nullptr, nullptr);
 }
 
 
@@ -403,7 +403,7 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 
     for (GList *l = group->bookmarks; l; l = l->next)
     {
-        GnomeCmdBookmark *bm = (GnomeCmdBookmark *) l->data;
+        auto bm = static_cast<GnomeCmdBookmark*> (l->data);
         add_menu_item (indicator,
                        GTK_MENU_SHELL (indicator->priv->bookmark_popup),
                        bm->name,
@@ -411,11 +411,11 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
                        bm);
     }
 
-    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), NULL, NULL, indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), nullptr, nullptr, indicator);
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), GTK_SIGNAL_FUNC (on_bookmarks_add_current), indicator);
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks…"), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
 
-    gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, NULL, NULL, NULL);
+    gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, nullptr, nullptr, nullptr);
 
     gint w = -1;
 
@@ -432,11 +432,11 @@ static void init (GnomeCmdDirIndicator *indicator)
 
     indicator->priv = g_new0 (GnomeCmdDirIndicatorPrivate, 1);
     // below assignments are not necessary any longer due to above g_new0()
-    //  indicator->priv->dir_history_popup = NULL;
-    //  indicator->priv->bookmark_popup = NULL;
+    //  indicator->priv->dir_history_popup = nullptr;
+    //  indicator->priv->bookmark_popup = nullptr;
     //  indicator->priv->history_is_popped = FALSE;
-    //  indicator->priv->slashCharPosition = NULL;
-    //  indicator->priv->slashPixelPosition = NULL;
+    //  indicator->priv->slashCharPosition = nullptr;
+    //  indicator->priv->slashPixelPosition = nullptr;
     //  indicator->priv->numPositions = 0;
 
     // create the directory label and its event box
@@ -466,7 +466,7 @@ static void init (GnomeCmdDirIndicator *indicator)
     gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
 
     // create the bookmark popup button
-    indicator->priv->bookmark_button = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
+    indicator->priv->bookmark_button = create_styled_pixmap_button (nullptr, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->bookmark_button, GTK_CAN_FOCUS);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), GTK_RELIEF_NONE);
     g_object_set_data_full (G_OBJECT (indicator), "button", indicator->priv->bookmark_button, g_object_unref);
@@ -501,9 +501,9 @@ GtkType gnome_cmd_dir_indicator_get_type ()
             sizeof(GnomeCmdDirIndicatorClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (gtk_frame_get_type (), &info);
@@ -515,7 +515,7 @@ GtkType gnome_cmd_dir_indicator_get_type ()
 
 GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
-    GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) g_object_new (GNOME_CMD_TYPE_DIR_INDICATOR, NULL);
+    auto dir_indicator = static_cast<GnomeCmdDirIndicator*> (g_object_new (GNOME_CMD_TYPE_DIR_INDICATOR, nullptr));
 
     g_signal_connect (dir_indicator, "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
@@ -535,8 +535,8 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
     g_free (indicator->priv->slashCharPosition);
     g_free (indicator->priv->slashPixelPosition);
     indicator->priv->numPositions = 0;
-    indicator->priv->slashCharPosition = NULL;
-    indicator->priv->slashPixelPosition = NULL;
+    indicator->priv->slashCharPosition = nullptr;
+    indicator->priv->slashPixelPosition = nullptr;
 
     if (!path)
         return;

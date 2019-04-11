@@ -29,7 +29,7 @@
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-user-actions.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 
 using namespace std;
 
@@ -179,9 +179,9 @@ static void gnome_cmd_chown_dialog_init (GnomeCmdChownDialog *dialog)
 
 GtkWidget *gnome_cmd_chown_dialog_new (GList *files)
 {
-    g_return_val_if_fail (files != NULL, NULL);
+    g_return_val_if_fail (files != nullptr, nullptr);
 
-    GnomeCmdChownDialog *dialog = (GnomeCmdChownDialog *) g_object_new (GNOME_CMD_TYPE_CHOWN_DIALOG, NULL);
+    auto *dialog = static_cast<GnomeCmdChownDialog*> (g_object_new (GNOME_CMD_TYPE_CHOWN_DIALOG, nullptr));
     dialog->priv->files = gnome_cmd_file_list_copy (files);
     GnomeCmdFile *f = GNOME_CMD_FILE (dialog->priv->files->data);
 

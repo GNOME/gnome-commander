@@ -67,7 +67,6 @@ static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR)
     {
-        data->vfs_status = info->vfs_status;
         data->problem_file = str_uri_basename(info->source_name);
         data->problem = TRUE;
 

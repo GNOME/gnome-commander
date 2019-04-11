@@ -101,7 +101,7 @@ class DICT<T,T>
 
   public:
 
-    DICT(const T no_val=T()): NO_VALUE(no_val)   {}
+    explicit DICT(const T no_val = T()): NO_VALUE(no_val) {}
 
     void add(const T k, const T &v);
 

@@ -329,8 +329,6 @@ inline GnomeCmdPixmap *gnome_cmd_con_get_close_pixmap (GnomeCmdCon *con)
 
 GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
-void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookmarks);
-
 void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, gchar *name, gchar *path);
 
 void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con);

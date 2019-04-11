@@ -120,7 +120,7 @@ GtkType gviewer_get_type ()
 
 GtkWidget *gviewer_new ()
 {
-    GViewer *w = (GViewer *) g_object_new (gviewer_get_type (), NULL);
+    auto w = static_cast<GViewer*> (g_object_new (gviewer_get_type (), NULL));
 
     return GTK_WIDGET (w);
 }
@@ -155,7 +155,7 @@ static void gviewer_init (GViewer *w)
     w->priv->img_initialized = FALSE;
     w->priv->dispmode = DISP_MODE_TEXT_FIXED;
 
-    w->priv->textr = (TextRender *) text_render_new();
+    w->priv->textr = reinterpret_cast<TextRender*> (text_render_new());
 
     gviewer_set_tab_size(w, DEFAULT_TAB_SIZE);
     gviewer_set_wrap_mode(w, DEFAULT_WRAP_MODE);
@@ -171,7 +171,7 @@ static void gviewer_init (GViewer *w)
     gtk_widget_show (w->priv->tscrollbox);
     g_object_ref (w->priv->tscrollbox);
 
-    w->priv->imgr  = (ImageRender *) image_render_new();
+    w->priv->imgr = reinterpret_cast<ImageRender*> (image_render_new());
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
     w->priv->iscrollbox = scroll_box_new();
@@ -288,7 +288,9 @@ static void gviewer_destroy (GtkObject *widget)
     }
 
     if (GTK_OBJECT_CLASS(parent_class)->destroy)
-        (*GTK_OBJECT_CLASS(parent_class)->destroy)(widget);
+    {
+        (*GTK_OBJECT_CLASS(parent_class)->destroy) (widget);
+    }
 }
 
 
@@ -426,22 +428,6 @@ VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj)
 }
 
 
-void gviewer_load_filedesc(GViewer *obj, int fd)
-{
-    g_return_if_fail (IS_GVIEWER (obj));
-    g_return_if_fail (fd>2);
-
-    g_free (obj->priv->filename);
-    obj->priv->filename = NULL;
-
-    text_render_load_filedesc(obj->priv->textr, fd);
-
-    gviewer_auto_detect_display_mode(obj);
-
-    gviewer_set_display_mode(obj, obj->priv->dispmode);
-}
-
-
 void gviewer_load_file(GViewer *obj, const gchar*filename)
 {
     g_return_if_fail (IS_GVIEWER (obj));
@@ -456,15 +442,6 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     gviewer_auto_detect_display_mode(obj);
 
     gviewer_set_display_mode(obj, obj->priv->dispmode);
-}
-
-
-const gchar *gviewer_get_filename(GViewer *obj)
-{
-    g_return_val_if_fail (IS_GVIEWER (obj), NULL);
-    g_return_val_if_fail (obj->priv->filename, NULL);
-
-    return obj->priv->filename;
 }
 
 

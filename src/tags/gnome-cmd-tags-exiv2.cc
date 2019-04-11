@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-tags-exiv2.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
