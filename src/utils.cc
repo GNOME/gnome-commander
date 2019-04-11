@@ -1,4 +1,4 @@
-/** 
+/**
  * @file utils.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -269,14 +269,6 @@ const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
 }
 
 
-const gchar *name2string (gchar *filename, gchar *buf, guint max)
-{
-    g_snprintf (buf, max, "%s", filename);
-
-    return buf;
-}
-
-
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
     switch (gnome_cmd_data.options.perm_disp_mode)
@@ -506,11 +498,11 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri, gulong *count)
 
         g_list_free (list);
 
-    } else if (result==GNOME_VFS_ERROR_NOT_A_DIRECTORY) 
+    } else if (result==GNOME_VFS_ERROR_NOT_A_DIRECTORY)
     {
         // A file
         GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-        result = gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
+        gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
         size += info->size;
         if (count!=NULL) {
             (*count)++;
@@ -912,19 +904,6 @@ GList *file_list_to_uri_list (GList *files)
     return uris;
 }
 
-
-GList *file_list_to_info_list (GList *files)
-{
-    GList *infos = NULL;
-
-    for (; files; files = files->next)
-    {
-        GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        infos = g_list_append (infos, f->info);
-    }
-
-    return infos;
-}
 
 /**
  * returns  1 if dir is existing,

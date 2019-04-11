@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-quicksearch-popup.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -31,7 +31,7 @@
 using namespace std;
 
 
-static GtkWindowClass *parent_class = NULL;
+static GtkWindowClass *parent_class = nullptr;
 
 struct GnomeCmdQuicksearchPopupPrivate
 {
@@ -60,7 +60,7 @@ inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *f)
 static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (popup->priv->fl));
-    g_return_if_fail (text != NULL);
+    g_return_if_fail (text != nullptr);
 
     gboolean first = TRUE;
 
@@ -71,19 +71,19 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
     if (popup->priv->matches)
     {
         g_list_free (popup->priv->matches);
-        popup->priv->matches = NULL;
+        popup->priv->matches = nullptr;
     }
 
     gchar *pattern;
 
     if (gnome_cmd_data.options.quick_search_exact_match_begin)
-        pattern = gnome_cmd_data.options.quick_search_exact_match_end ? g_strdup (text) : g_strconcat (text, "*", NULL);
+        pattern = gnome_cmd_data.options.quick_search_exact_match_end ? g_strdup (text) : g_strconcat (text, "*", nullptr);
     else
-        pattern = gnome_cmd_data.options.quick_search_exact_match_end ? g_strconcat ("*", text, NULL) : g_strconcat ("*", text, "*", NULL);
+        pattern = gnome_cmd_data.options.quick_search_exact_match_end ? g_strconcat ("*", text, nullptr) : g_strconcat ("*", text, "*", nullptr);
 
     for (GList *files = popup->priv->fl->get_visible_files(); files; files = files->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+        auto f = static_cast<GnomeCmdFile*> (files->data);
 
         if (gnome_cmd_filter_fnmatch (pattern, f->info->name, gnome_cmd_data.options.case_sens_sort))
         {
@@ -100,7 +100,7 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
     g_free (pattern);
 
     // If no file matches the new filter, focus on the last file that matched a previous filter
-    if (popup->priv->matches==NULL && popup->priv->last_focused_file!=NULL)
+    if (popup->priv->matches == nullptr && popup->priv->last_focused_file != nullptr)
         popup->priv->matches = g_list_append (popup->priv->matches, popup->priv->last_focused_file);
 
     popup->priv->pos = popup->priv->matches;
@@ -116,7 +116,7 @@ inline void hide_popup (GnomeCmdQuicksearchPopup *popup)
     gtk_widget_grab_focus (GTK_WIDGET (popup->priv->fl));
     if (popup->priv->matches)
         g_list_free (popup->priv->matches);
-    popup->priv->last_focused_file = NULL;
+    popup->priv->last_focused_file = nullptr;
     gtk_widget_hide (GTK_WIDGET (popup));
 }
 
@@ -245,7 +245,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -266,7 +266,7 @@ static void init (GnomeCmdQuicksearchPopup *popup)
 {
     popup->priv = g_new0 (GnomeCmdQuicksearchPopupPrivate, 1);
 
-    popup->frame = gtk_frame_new (NULL);
+    popup->frame = gtk_frame_new (nullptr);
     gtk_frame_set_shadow_type (GTK_FRAME (popup->frame), GTK_SHADOW_OUT);
     popup->box = gtk_hbox_new (FALSE, 2);
     popup->lbl = gtk_label_new (_("Search"));
@@ -314,9 +314,9 @@ GtkType gnome_cmd_quicksearch_popup_get_type ()
             sizeof (GnomeCmdQuicksearchPopupClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (gtk_window_get_type (), &info);
@@ -329,10 +329,10 @@ GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl)
 {
     GnomeCmdQuicksearchPopup *popup;
 
-    popup = (GnomeCmdQuicksearchPopup *) g_object_new (GNOME_CMD_TYPE_QUICKSEARCH_POPUP, NULL);
+    popup = static_cast<GnomeCmdQuicksearchPopup*> (g_object_new (GNOME_CMD_TYPE_QUICKSEARCH_POPUP, nullptr));
     GTK_WINDOW (popup)->type = GTK_WINDOW_POPUP;
     popup->priv->fl = fl;
-    popup->priv->last_focused_file = NULL;
+    popup->priv->last_focused_file = nullptr;
     set_popup_position (popup);
 
     return GTK_WIDGET (popup);

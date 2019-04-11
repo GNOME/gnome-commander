@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-xfer-progress-win.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static GtkWindowClass *parent_class = NULL;
+static GtkWindowClass *parent_class = nullptr;
 
 
 /******************************
@@ -57,7 +57,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -118,13 +118,13 @@ static void init (GnomeCmdXferProgressWin *win)
 
 GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files)
 {
-    GnomeCmdXferProgressWin *win = (GnomeCmdXferProgressWin *) g_object_new (GNOME_CMD_TYPE_XFER_PROGRESS_WIN, NULL);
+    auto win = static_cast<GnomeCmdXferProgressWin*> (g_object_new (GNOME_CMD_TYPE_XFER_PROGRESS_WIN, nullptr));
 
-    if (no_of_files<2)
+    if (no_of_files < 2)
     {
         GtkWidget *vbox = gtk_bin_get_child (GTK_BIN (win));
         gtk_container_remove (GTK_CONTAINER (vbox), win->fileprog);
-        win->fileprog = NULL;
+        win->fileprog = nullptr;
     }
 
     return GTK_WIDGET (win);
@@ -144,9 +144,9 @@ GtkType gnome_cmd_xfer_progress_win_get_type ()
             sizeof (GnomeCmdXferProgressWinClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);

@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-main-menu.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -82,17 +82,17 @@ struct MenuData
 
 #define MENUTYPE_END { \
     MENU_TYPE_END, \
-    NULL, NULL, NULL, \
-    NULL, NULL, \
-    (GnomeUIPixmapType) 0, NULL, \
-    NULL }
+    nullptr, nullptr, nullptr, \
+    nullptr, nullptr, \
+    (GnomeUIPixmapType) 0, nullptr, \
+    nullptr }
 
 #define MENUTYPE_SEPARATOR { \
     MENU_TYPE_SEPARATOR, \
-    NULL, NULL, NULL, \
-    NULL, NULL, \
-    (GnomeUIPixmapType) 0, NULL, \
-    NULL }
+    nullptr, nullptr, nullptr, \
+    nullptr, nullptr, \
+    (GnomeUIPixmapType) 0, nullptr, \
+    nullptr }
 
 
 struct GnomeCmdMainMenuPrivate
@@ -121,7 +121,7 @@ struct GnomeCmdMainMenuPrivate
 };
 
 
-static GtkMenuBarClass *parent_class = NULL;
+static GtkMenuBarClass *parent_class = nullptr;
 
 
 /*******************************
@@ -130,7 +130,7 @@ static GtkMenuBarClass *parent_class = NULL;
 
 static void on_bookmark_selected (GtkMenuItem *menuitem, GnomeCmdBookmark *bookmark)
 {
-    g_return_if_fail (bookmark != NULL);
+    g_return_if_fail (bookmark != nullptr);
 
     gnome_cmd_bookmark_goto (bookmark);
 }
@@ -144,10 +144,10 @@ static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdMainMen
 
 static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
 {
-    GtkWidget *item=NULL;
-    GtkWidget *desc=NULL;
-    GtkWidget *shortcut=NULL;
-    GtkWidget *content = NULL;
+    GtkWidget *item=nullptr;
+    GtkWidget *desc=nullptr;
+    GtkWidget *shortcut=nullptr;
+    GtkWidget *content = nullptr;
 
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
@@ -179,7 +179,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 
             if (spec->pixmap_type != 0 && spec->pixmap_info)
             {
-                GtkWidget *pixmap = NULL;
+                GtkWidget *pixmap = nullptr;
                 pixmap = create_ui_pixmap (*main_win, spec->pixmap_type, spec->pixmap_info, GTK_ICON_SIZE_MENU);
 
                 if (pixmap)
@@ -189,7 +189,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
                 }
             }
             if (spec->tooltip)
-                gtk_tooltips_set_tip (main_menu->priv->tooltips, item, spec->tooltip, NULL);
+                gtk_tooltips_set_tip (main_menu->priv->tooltips, item, spec->tooltip, nullptr);
             gtk_container_add (GTK_CONTAINER (item), content);
             break;
 
@@ -216,7 +216,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 
         default:
             g_warning ("This MENU_TYPE is not implemented");
-            return NULL;
+            return nullptr;
     }
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
@@ -240,7 +240,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 static GtkWidget *create_menu (GnomeCmdMainMenu *main_menu, MenuData *spec, MenuData *childs)
 {
     GtkWidget *submenu = gtk_menu_new ();
-    GtkWidget *menu_item = create_menu_item (main_menu, NULL, spec);
+    GtkWidget *menu_item = create_menu_item (main_menu, nullptr, spec);
 
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item), submenu);
 
@@ -267,15 +267,15 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
                GtkSignalFunc callback,
                gpointer user_data)
 {
-    g_return_val_if_fail (GTK_IS_MENU_SHELL (menu), NULL);
+    g_return_val_if_fail (GTK_IS_MENU_SHELL (menu), nullptr);
 
     GtkWidget *item, *label;
-    GtkWidget *pixmap_widget = NULL;
+    GtkWidget *pixmap_widget = nullptr;
 
     item = gtk_image_menu_item_new ();
 
     if (tooltip)
-        gtk_tooltips_set_tip (main_menu->priv->tooltips, item, tooltip, NULL);
+        gtk_tooltips_set_tip (main_menu->priv->tooltips, item, tooltip, nullptr);
 
     if (pixmap && mask)
         pixmap_widget = gtk_pixmap_new (pixmap, mask);
@@ -323,7 +323,7 @@ static void add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *m
 {
     GtkWidget *item;
 
-    item = add_menu_item (main_menu, menu, bookmark->name, NULL,
+    item = add_menu_item (main_menu, menu, bookmark->name, nullptr,
                           IMAGE_get_pixmap (PIXMAP_BOOKMARK), IMAGE_get_mask (PIXMAP_BOOKMARK),
                           GTK_SIGNAL_FUNC (on_bookmark_selected), bookmark);
 
@@ -335,12 +335,12 @@ static void add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *m
 static void add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBookmarkGroup *group)
 {
     g_return_if_fail (GTK_IS_MENU_SHELL (menu));
-    g_return_if_fail (group != NULL);
+    g_return_if_fail (group != nullptr);
 
     GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (group->con);
-    GtkWidget *item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), NULL,
-                                     pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL,
-                                     NULL, NULL);
+    GtkWidget *item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), nullptr,
+                                     pixmap?pixmap->pixmap:nullptr, pixmap?pixmap->mask:nullptr,
+                                     nullptr, nullptr);
 
     // Remember this bookmarks item-widget so that we can remove it later
     main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
@@ -352,7 +352,7 @@ static void add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu,
 
     for (GList *bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
     {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+        auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
         add_bookmark_menu_item (main_menu, GTK_MENU_SHELL (submenu), bookmark);
     }
 }
@@ -375,7 +375,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -396,80 +396,80 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData files_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("Change _Owner/Group"), "", NULL,
-            (gpointer) file_chown, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Change _Owner/Group"), "", nullptr,
+            (gpointer) file_chown, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Change Per_missions"), "", NULL,
-            (gpointer) file_chmod, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Change Per_missions"), "", nullptr,
+            (gpointer) file_chmod, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Advanced _Rename Tool"), "Ctrl+M", NULL,
-            (gpointer) file_advrename, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Advanced _Rename Tool"), "Ctrl+M", nullptr,
+            (gpointer) file_advrename, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Create _Symbolic Link"), "Ctrl+Shift+F5", NULL,
-            (gpointer) file_create_symlink, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Create _Symbolic Link"), "Ctrl+Shift+F5", nullptr,
+            (gpointer) file_create_symlink, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Properties…"), "Alt+ENTER", NULL,
-            (gpointer) file_properties, NULL,
+            MENU_TYPE_ITEM, _("_Properties…"), "Alt+ENTER", nullptr,
+            (gpointer) file_properties, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_Search…"), "Alt+F7", NULL,
-            (gpointer) edit_search, NULL,
+            MENU_TYPE_ITEM, _("_Search…"), "Alt+F7", nullptr,
+            (gpointer) edit_search, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Quick Search…"), "", NULL,
-            (gpointer) edit_quick_search, NULL,
+            MENU_TYPE_ITEM, _("_Quick Search…"), "", nullptr,
+            (gpointer) edit_quick_search, nullptr,
             GNOME_APP_PIXMAP_NONE, 0,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Enable Filter…"), "", NULL,
-            (gpointer) edit_filter, NULL,
+            MENU_TYPE_ITEM, _("_Enable Filter…"), "", nullptr,
+            (gpointer) edit_filter, nullptr,
             GNOME_APP_PIXMAP_NONE, 0,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_Diff"), "", NULL,
-            (gpointer) file_diff, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("_Diff"), "", nullptr,
+            (gpointer) file_diff, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("S_ynchronize Directories"), "", NULL,
-            (gpointer) file_sync_dirs, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("S_ynchronize Directories"), "", nullptr,
+            (gpointer) file_sync_dirs, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("Start _GNOME Commander as root"), "", NULL,
-            (gpointer) command_root_mode, NULL,
+            MENU_TYPE_ITEM, _("Start _GNOME Commander as root"), "", nullptr,
+            (gpointer) command_root_mode, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_AUTHENTICATION,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_Quit"), "Ctrl+Q", NULL,
-            (gpointer) file_exit, NULL,
+            MENU_TYPE_ITEM, _("_Quit"), "Ctrl+Q", nullptr,
+            (gpointer) file_exit, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_QUIT,
-            NULL
+            nullptr
         },
         MENUTYPE_END
     };
@@ -477,47 +477,59 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData mark_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Select All"), "Ctrl++", NULL,
-            (gpointer) mark_select_all, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("_Select All"), "Ctrl++", nullptr,
+            (gpointer) mark_select_all, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Unselect All"), "Ctrl+-", NULL,
-            (gpointer) mark_unselect_all, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("_Unselect All"), "Ctrl+-", nullptr,
+            (gpointer) mark_unselect_all, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Select with _Pattern"), "+", NULL,
-            (gpointer) mark_select_with_pattern, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Select with _Pattern"), "+", nullptr,
+            (gpointer) mark_select_with_pattern, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Unselect with P_attern"), "-", NULL,
-            (gpointer) mark_unselect_with_pattern, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Unselect with P_attern"), "-", nullptr,
+            (gpointer) mark_unselect_with_pattern, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Invert Selection"), "*", NULL,
-            (gpointer) mark_invert_selection, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Select with same _Extension"), "", nullptr,
+            (gpointer) mark_select_all_with_same_extension, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Restore Selection"), "", NULL,
-            (gpointer) mark_restore_selection, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Unselect with same E_xtension"), "", nullptr,
+            (gpointer) mark_unselect_all_with_same_extension, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
+        },
+        {
+            MENU_TYPE_ITEM, _("_Invert Selection"), "*", nullptr,
+            (gpointer) mark_invert_selection, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
+        },
+        {
+            MENU_TYPE_ITEM, _("_Restore Selection"), "", nullptr,
+            (gpointer) mark_restore_selection, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_Compare Directories"), "Shift+F2", NULL,
-            (gpointer) mark_compare_directories, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("_Compare Directories"), "Shift+F2", nullptr,
+            (gpointer) mark_compare_directories, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         MENUTYPE_END
     };
@@ -525,35 +537,35 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData edit_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("Cu_t"), "Ctrl+X", NULL,
-            (gpointer) edit_cap_cut, NULL,
+            MENU_TYPE_ITEM, _("Cu_t"), "Ctrl+X", nullptr,
+            (gpointer) edit_cap_cut, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CUT,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Copy"), "Ctrl+C", NULL,
-            (gpointer) edit_cap_copy, NULL,
+            MENU_TYPE_ITEM, _("_Copy"), "Ctrl+C", nullptr,
+            (gpointer) edit_cap_copy, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Paste"), "Ctrl+V", NULL,
-            (gpointer) edit_cap_paste, NULL,
+            MENU_TYPE_ITEM, _("_Paste"), "Ctrl+V", nullptr,
+            (gpointer) edit_cap_paste, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PASTE,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Delete"), "Delete", NULL,
-            (gpointer) file_delete, NULL,
+            MENU_TYPE_ITEM, _("_Delete"), "Delete", nullptr,
+            (gpointer) file_delete, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DELETE,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("Copy _File Names"), "", NULL,
-            (gpointer) edit_copy_fnames, NULL,
+            MENU_TYPE_ITEM, _("Copy _File Names"), "", nullptr,
+            (gpointer) edit_copy_fnames, nullptr,
             GNOME_APP_PIXMAP_NONE, 0,
-            NULL
+            nullptr
         },
         MENUTYPE_END
     };
@@ -561,104 +573,104 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData view_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Back"), "Alt+Left", NULL,
-            (gpointer) view_back, NULL,
+            MENU_TYPE_ITEM, _("_Back"), "Alt+Left", nullptr,
+            (gpointer) view_back, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_BACK,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Forward"), "Alt+Right", NULL,
-            (gpointer) view_forward, NULL,
+            MENU_TYPE_ITEM, _("_Forward"), "Alt+Right", nullptr,
+            (gpointer) view_forward, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_FORWARD,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Refresh"), "Ctrl+R", NULL,
-            (gpointer) view_refresh, NULL,
+            MENU_TYPE_ITEM, _("_Refresh"), "Ctrl+R", nullptr,
+            (gpointer) view_refresh, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("Open in New _Tab"), "Ctrl+T", NULL,
-            (gpointer) view_new_tab, NULL,
+            MENU_TYPE_ITEM, _("Open in New _Tab"), "Ctrl+T", nullptr,
+            (gpointer) view_new_tab, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OPEN,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Close Tab"), "Ctrl+W", NULL,
-            (gpointer) view_close_tab, NULL,
+            MENU_TYPE_ITEM, _("_Close Tab"), "Ctrl+W", nullptr,
+            (gpointer) view_close_tab, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Close _All Tabs"), "Ctrl+Shift+W", NULL,
-            (gpointer) view_close_all_tabs, NULL,
+            MENU_TYPE_ITEM, _("Close _All Tabs"), "Ctrl+Shift+W", nullptr,
+            (gpointer) view_close_all_tabs, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Toolbar"), "", NULL,
-            (gpointer) view_toolbar, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Toolbar"), "", nullptr,
+            (gpointer) view_toolbar, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Device Buttons"), "", NULL,
-            (gpointer) view_conbuttons, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Device Buttons"), "", nullptr,
+            (gpointer) view_conbuttons, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Device List"), "", NULL,
-            (gpointer) view_devlist, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Device List"), "", nullptr,
+            (gpointer) view_devlist, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Command Line"), "", NULL,
-            (gpointer) view_cmdline, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Command Line"), "", nullptr,
+            (gpointer) view_cmdline, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Buttonbar"), "", NULL,
-            (gpointer) view_buttonbar, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
-        },
-        MENUTYPE_SEPARATOR,
-        {
-            MENU_TYPE_TOGGLEITEM, _("Show Hidden Files"), "Ctrl+Shift+H", NULL,
-            (gpointer) view_hidden_files, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
-        },
-        {
-            MENU_TYPE_TOGGLEITEM, _("Show Backup Files"), "", NULL,
-            (gpointer) view_backup_files, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Buttonbar"), "", nullptr,
+            (gpointer) view_buttonbar, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_Equal Panel Size"), "Ctrl+Shift+=", NULL,
-            (gpointer) view_equal_panes, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Hidden Files"), "Ctrl+Shift+H", nullptr,
+            (gpointer) view_hidden_files, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Maximize Panel Size"), "", NULL,
-            (gpointer) view_maximize_pane, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_TOGGLEITEM, _("Show Backup Files"), "", nullptr,
+            (gpointer) view_backup_files, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
+        },
+        MENUTYPE_SEPARATOR,
+        {
+            MENU_TYPE_ITEM, _("_Equal Panel Size"), "Ctrl+Shift+=", nullptr,
+            (gpointer) view_equal_panes, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         {
-            MENU_TYPE_TOGGLEITEM, _("Horizontal Orientation"), "", NULL,
-            (gpointer) view_horizontal_orientation, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("Maximize Panel Size"), "", nullptr,
+            (gpointer) view_maximize_pane, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
+        },
+        {
+            MENU_TYPE_TOGGLEITEM, _("Horizontal Orientation"), "", nullptr,
+            (gpointer) view_horizontal_orientation, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         MENUTYPE_END
     };
@@ -666,16 +678,16 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData bookmarks_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Bookmark this Directory…"), "", NULL,
-            (gpointer) bookmarks_add_current, NULL,
+            MENU_TYPE_ITEM, _("_Bookmark this Directory…"), "", nullptr,
+            (gpointer) bookmarks_add_current, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ADD,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Manage Bookmarks…"), "Ctrl+D", NULL,
-            (gpointer) bookmarks_edit, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            NULL
+            MENU_TYPE_ITEM, _("_Manage Bookmarks…"), "Ctrl+D", nullptr,
+            (gpointer) bookmarks_edit, nullptr,
+            GNOME_APP_PIXMAP_NONE, nullptr,
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         MENUTYPE_END
@@ -684,10 +696,10 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData plugins_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Configure Plugins…"), "", NULL,
-            (gpointer) plugins_configure, NULL,
+            MENU_TYPE_ITEM, _("_Configure Plugins…"), "", nullptr,
+            (gpointer) plugins_configure, nullptr,
             GNOME_APP_PIXMAP_DATA, exec_wheel_xpm,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         MENUTYPE_END
@@ -696,16 +708,16 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData options_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Options…"), "Ctrl+O", NULL,
-            (gpointer) options_edit, NULL,
+            MENU_TYPE_ITEM, _("_Options…"), "Ctrl+O", nullptr,
+            (gpointer) options_edit, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Keyboard Shortcuts…"), "", NULL,
-            (gpointer) options_edit_shortcuts, NULL,
+            MENU_TYPE_ITEM, _("_Keyboard Shortcuts…"), "", nullptr,
+            (gpointer) options_edit_shortcuts, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC,
-            NULL
+            nullptr
         },
         MENUTYPE_END
     };
@@ -713,16 +725,16 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData connections_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Remote Server…"), "Ctrl+F", NULL,
-            (gpointer) connections_open, NULL,
+            MENU_TYPE_ITEM, _("_Remote Server…"), "Ctrl+F", nullptr,
+            (gpointer) connections_open, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("New Connection…"), "Ctrl+N", NULL,
-            (gpointer) connections_new, NULL,
+            MENU_TYPE_ITEM, _("New Connection…"), "Ctrl+N", nullptr,
+            (gpointer) connections_new, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
-            NULL
+            nullptr
         },
         MENUTYPE_END
     };
@@ -730,50 +742,50 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData help_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("_Documentation"), "F1", NULL,
-            (gpointer) help_help, NULL,
+            MENU_TYPE_ITEM, _("_Documentation"), "F1", nullptr,
+            (gpointer) help_help, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("_Keyboard Shortcuts"), "", NULL,
-            (gpointer) help_keyboard, NULL,
+            MENU_TYPE_ITEM, _("_Keyboard Shortcuts"), "", nullptr,
+            (gpointer) help_keyboard, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("GNOME Commander on the _Web"), "", NULL,
-            (gpointer) help_web, NULL,
+            MENU_TYPE_ITEM, _("GNOME Commander on the _Web"), "", nullptr,
+            (gpointer) help_web, nullptr,
             GNOME_APP_PIXMAP_NONE, 0,
-            NULL
+            nullptr
         },
         {
-            MENU_TYPE_ITEM, _("Report a _Problem"), "", NULL,
-            (gpointer) help_problem, NULL,
+            MENU_TYPE_ITEM, _("Report a _Problem"), "", nullptr,
+            (gpointer) help_problem, nullptr,
             GNOME_APP_PIXMAP_NONE, 0,
-            NULL
+            nullptr
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_About"), "", NULL,
-            (gpointer) help_about, NULL,
+            MENU_TYPE_ITEM, _("_About"), "", nullptr,
+            (gpointer) help_about, nullptr,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ABOUT,
-            NULL
+            nullptr
         },
         MENUTYPE_END
     };
 
     MenuData spec = { MENU_TYPE_BASIC, "", "", "",
-                      NULL, NULL,
-                      GNOME_APP_PIXMAP_NONE, NULL,
-                      NULL };
+                      nullptr, nullptr,
+                      GNOME_APP_PIXMAP_NONE, nullptr,
+                      nullptr };
 
     main_menu->priv = g_new (GnomeCmdMainMenuPrivate, 1);
     main_menu->priv->tooltips = gtk_tooltips_new ();
-    main_menu->priv->bookmark_menuitems = NULL;
-    main_menu->priv->connections_menuitems = NULL;
-    main_menu->priv->group_menuitems = NULL;
-    main_menu->priv->view_menuitems = NULL;
+    main_menu->priv->bookmark_menuitems = nullptr;
+    main_menu->priv->connections_menuitems = nullptr;
+    main_menu->priv->group_menuitems = nullptr;
+    main_menu->priv->view_menuitems = nullptr;
 
     //gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 
@@ -839,7 +851,7 @@ static void init (GnomeCmdMainMenu *main_menu)
 
 GtkWidget *gnome_cmd_main_menu_new ()
 {
-    return (GtkWidget *) g_object_new (GNOME_CMD_TYPE_MAIN_MENU, NULL);
+    return (GtkWidget *) g_object_new (GNOME_CMD_TYPE_MAIN_MENU, nullptr);
 }
 
 
@@ -856,9 +868,9 @@ GtkType gnome_cmd_main_menu_get_type ()
             sizeof (GnomeCmdMainMenuClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         dlg_type = gtk_type_unique (gtk_menu_bar_get_type (), &dlg_info);
@@ -872,7 +884,7 @@ static void add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con, const
     GtkMenuShell *connections_menu =GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
     GtkWidget *item;
 
-    item = add_menu_item (main_menu, connections_menu, text, NULL, pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL, func, con);
+    item = add_menu_item (main_menu, connections_menu, text, nullptr, pixmap?pixmap->pixmap:nullptr, pixmap?pixmap->mask:nullptr, func, con);
 
     main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, item);
 }
@@ -889,9 +901,9 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     // GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
     // Remove all old items
-    g_list_foreach (main_menu->priv->connections_menuitems, (GFunc) gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->connections_menuitems, (GFunc) gtk_widget_destroy, nullptr);
     g_list_free (main_menu->priv->connections_menuitems);
-    main_menu->priv->connections_menuitems = NULL;
+    main_menu->priv->connections_menuitems = nullptr;
 
     // separator
     main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, add_separator (main_menu, connections_menu));
@@ -936,14 +948,14 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
     // Remove all old bookmark menu items
-    g_list_foreach (main_menu->priv->bookmark_menuitems, (GFunc) gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->bookmark_menuitems, (GFunc) gtk_widget_destroy, nullptr);
     g_list_free (main_menu->priv->bookmark_menuitems);
-    main_menu->priv->bookmark_menuitems = NULL;
+    main_menu->priv->bookmark_menuitems = nullptr;
 
     // Remove all old group menu items
-    g_list_foreach (main_menu->priv->group_menuitems, (GFunc) gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->group_menuitems, (GFunc) gtk_widget_destroy, nullptr);
     g_list_free (main_menu->priv->group_menuitems);
-    main_menu->priv->group_menuitems = NULL;
+    main_menu->priv->group_menuitems = nullptr;
 
     // Add bookmark groups
     GList *cons = gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ());
@@ -971,7 +983,7 @@ void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu)
 
 static void on_plugin_menu_activate (GtkMenuItem *item, PluginData *data)
 {
-    g_return_if_fail (data != NULL);
+    g_return_if_fail (data != nullptr);
 
     GnomeCmdState *state = main_win->get_state();
     gnome_cmd_plugin_update_main_menu_state (data->plugin, state);

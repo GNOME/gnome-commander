@@ -60,5 +60,3 @@ gchar *gviewer_search_dlg_get_search_text_string (GViewerSearchDlg *sdlg);
 guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen);
 
 gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg);
-
-void gviewer_show_search_dlg (GtkWindow *parent);

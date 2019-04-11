@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-con-home.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -30,7 +30,7 @@
 using namespace std;
 
 
-static GnomeCmdConClass *parent_class = NULL;
+static GnomeCmdConClass *parent_class = nullptr;
 
 
 
@@ -95,7 +95,7 @@ static void class_init (GnomeCmdConHomeClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    parent_class = (GnomeCmdConClass *) gtk_type_class (GNOME_CMD_TYPE_CON);
+    parent_class = static_cast<GnomeCmdConClass*>(gtk_type_class (GNOME_CMD_TYPE_CON));
 
     object_class->destroy = destroy;
 
@@ -153,9 +153,9 @@ GtkType gnome_cmd_con_home_get_type ()
             sizeof (GnomeCmdConHomeClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
@@ -166,7 +166,7 @@ GtkType gnome_cmd_con_home_get_type ()
 
 GnomeCmdCon *gnome_cmd_con_home_new ()
 {
-    GnomeCmdConHome *con = (GnomeCmdConHome *) g_object_new (GNOME_CMD_TYPE_CON_HOME, NULL);
+    auto con = static_cast<GnomeCmdConHome*>(g_object_new (GNOME_CMD_TYPE_CON_HOME, nullptr));
 
     return GNOME_CMD_CON (con);
 }

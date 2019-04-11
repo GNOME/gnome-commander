@@ -66,12 +66,6 @@ GtkWidget *gnome_cmd_button_menu_new (const gchar *label, GtkWidget *menu)
 }
 
 
-GtkWidget *gnome_cmd_button_menu_new_from_stock (const gchar *stock_id, GtkWidget *menu)
-{
-    return create_menu_button (stock_id, NULL, menu);
-}
-
-
 GtkWidget *gnome_cmd_button_menu_new_from_stock (const gchar *stock_id, const gchar *label, GtkWidget *menu)
 {
     return create_menu_button (stock_id, label, menu);

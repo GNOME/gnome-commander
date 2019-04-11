@@ -22,7 +22,6 @@
 #pragma once
 
 GtkWidget *gnome_cmd_button_menu_new (const gchar *label, GtkWidget *menu);
-GtkWidget *gnome_cmd_button_menu_new_from_stock (const gchar *stock_id, GtkWidget *menu);
 GtkWidget *gnome_cmd_button_menu_new_from_stock (const gchar *stock_id, const gchar *label, GtkWidget *menu);
 gulong gnome_cmd_button_menu_connect_handler (GtkWidget *button, GtkWidget *menu);
 void gnome_cmd_button_menu_disconnect_handler (GtkWidget *button, GtkWidget *menu);

@@ -50,12 +50,12 @@ struct GnomeCmdAdvrenameDialogClass
 
 struct GnomeCmdAdvrenameDialog::Private
 {
-    gboolean template_has_counters;
+    gboolean template_has_counters {FALSE};
 
-    GtkWidget *vbox;
-    GnomeCmdAdvrenameProfileComponent *profile_component;
-    GtkWidget *files_view;
-    GtkWidget *profile_menu_button;
+    GtkWidget *vbox {NULL};
+    GnomeCmdAdvrenameProfileComponent *profile_component {NULL};
+    GtkWidget *files_view {NULL};
+    GtkWidget *profile_menu_button {NULL};
 
     Private();
     ~Private();
@@ -92,11 +92,6 @@ struct GnomeCmdAdvrenameDialog::Private
 
 inline GnomeCmdAdvrenameDialog::Private::Private()
 {
-    profile_menu_button = NULL;
-    template_has_counters = FALSE;
-    vbox = NULL;
-    profile_component = NULL;
-    files_view = NULL;
 }
 
 

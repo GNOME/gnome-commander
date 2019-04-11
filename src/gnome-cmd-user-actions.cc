@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-user-actions.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -569,8 +569,8 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
 
 static int sort_by_description (const void *data1, const void *data2)
 {
-    const gchar *s1 = ((UserActionData *) data1)->description;
-    const gchar *s2 = ((UserActionData *) data2)->description;
+    const gchar *s1 = (static_cast<const UserActionData*> (data1))->description;
+    const gchar *s2 = (static_cast<const UserActionData*> (data2))->description;
 
     if (!s1 && !s2)
         return 0;
@@ -596,7 +596,7 @@ static int sort_by_description (const void *data1, const void *data2)
 
 GtkTreeModel *gnome_cmd_user_actions_create_model ()
 {
-    UserActionData *data = (UserActionData *) g_memdup (user_actions_data, sizeof(user_actions_data));
+    auto data = static_cast<UserActionData*> (g_memdup (user_actions_data, sizeof(user_actions_data)));
 
     qsort (data, G_N_ELEMENTS(user_actions_data), sizeof(UserActionData), sort_by_description);
 
@@ -1359,7 +1359,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     for (GList *i2=fl2->get_visible_files(); i2; i2=i2->next)
     {
-        GnomeCmdFile *f2 = (GnomeCmdFile *) i2->data;
+        auto f2 = static_cast<GnomeCmdFile*> (i2->data);
 
         if (!f2->is_dotdot && f2->info->type!=GNOME_VFS_FILE_TYPE_DIRECTORY)
             files2[f2->get_name()] = f2;
@@ -1369,7 +1369,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     for (GList *i1=fl1->get_visible_files(); i1; i1=i1->next)
     {
-        GnomeCmdFile *f1 = (GnomeCmdFile *) i1->data;
+        auto f1 = static_cast<GnomeCmdFile*> (i1->data);
 
         if (f1->is_dotdot || f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
             continue;
@@ -1796,7 +1796,7 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
 {
-    get_fl (ACTIVE)->set_connection((GnomeCmdCon *) con);
+    get_fl (ACTIVE)->set_connection(static_cast<GnomeCmdCon*> (con));
 }
 
 
@@ -1824,7 +1824,7 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)            // this 
     if (con == inactive->get_connection())
         inactive->set_connection(home);
 
-    gnome_cmd_con_close ((GnomeCmdCon *) con);
+    gnome_cmd_con_close (static_cast<GnomeCmdCon*> (con));
 }
 
 
@@ -1867,7 +1867,7 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
     {
         for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_home_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
         {
-            GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+            auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
 
             if (name == bookmark->name)
             {
@@ -1884,7 +1884,7 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
         {
             for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_smb_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
             {
-                GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+                auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
 
                 if (name == bookmark->name)
                 {

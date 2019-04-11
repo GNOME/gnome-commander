@@ -48,8 +48,6 @@ GtkWidget *gnome_cmd_cmdline_new ();
 
 GtkType gnome_cmd_cmdline_get_type ();
 
-GtkWidget *gnome_cmd_cmdline_get_entry (GnomeCmdCmdline *cmdline);
-
 void gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd);
 
 void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text);

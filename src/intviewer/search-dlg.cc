@@ -35,7 +35,7 @@ using namespace std;
 // HEX history doesn't work yet
 #undef HEX_HISTORY
 
-static GtkDialogClass *parent_class = NULL;
+static GtkDialogClass *parent_class = nullptr;
 
 void entry_changed(GtkEntry *entry, gpointer  user_data);
 static void search_dlg_destroy (GtkObject *object);
@@ -59,10 +59,10 @@ struct GViewerSearchDlgPrivate
 
 guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*/ guint &buflen)
 {
-    g_return_val_if_fail (sdlg!=NULL, NULL);
-    g_return_val_if_fail (sdlg->priv!=NULL, NULL);
-    g_return_val_if_fail (sdlg->priv->search_hex_buffer!=NULL, NULL);
-    g_return_val_if_fail (sdlg->priv->search_hex_buflen>0, NULL);
+    g_return_val_if_fail (sdlg != nullptr, nullptr);
+    g_return_val_if_fail (sdlg->priv != nullptr, nullptr);
+    g_return_val_if_fail (sdlg->priv->search_hex_buffer != nullptr, nullptr);
+    g_return_val_if_fail (sdlg->priv->search_hex_buflen>0, nullptr);
 
     guint8 *result = g_new0 (guint8, sdlg->priv->search_hex_buflen);
     memcpy (result, sdlg->priv->search_hex_buffer, sdlg->priv->search_hex_buflen);
@@ -75,9 +75,9 @@ guint8 *gviewer_search_dlg_get_search_hex_buffer (GViewerSearchDlg *sdlg, /*out*
 
 gchar *gviewer_search_dlg_get_search_text_string (GViewerSearchDlg *sdlg)
 {
-    g_return_val_if_fail (sdlg!=NULL, NULL);
-    g_return_val_if_fail (sdlg->priv!=NULL, NULL);
-    g_return_val_if_fail (sdlg->priv->search_text_string!=NULL, NULL);
+    g_return_val_if_fail (sdlg != nullptr, nullptr);
+    g_return_val_if_fail (sdlg->priv != nullptr, nullptr);
+    g_return_val_if_fail (sdlg->priv->search_text_string != nullptr, nullptr);
 
     return g_strdup (sdlg->priv->search_text_string);
 }
@@ -85,8 +85,8 @@ gchar *gviewer_search_dlg_get_search_text_string (GViewerSearchDlg *sdlg)
 
 SEARCHMODE gviewer_search_dlg_get_search_mode (GViewerSearchDlg *sdlg)
 {
-    g_return_val_if_fail (sdlg!=NULL, SEARCH_MODE_TEXT);
-    g_return_val_if_fail (sdlg->priv!=NULL, SEARCH_MODE_TEXT);
+    g_return_val_if_fail (sdlg != nullptr, SEARCH_MODE_TEXT);
+    g_return_val_if_fail (sdlg->priv != nullptr, SEARCH_MODE_TEXT);
 
     return sdlg->priv->searchmode;
 }
@@ -94,8 +94,8 @@ SEARCHMODE gviewer_search_dlg_get_search_mode (GViewerSearchDlg *sdlg)
 
 gboolean gviewer_search_dlg_get_case_sensitive (GViewerSearchDlg *sdlg)
 {
-    g_return_val_if_fail (sdlg!=NULL, TRUE);
-    g_return_val_if_fail (sdlg->priv!=NULL, TRUE);
+    g_return_val_if_fail (sdlg != nullptr, TRUE);
+    g_return_val_if_fail (sdlg->priv != nullptr, TRUE);
 
     return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (sdlg->priv->case_sensitive_checkbox));
 }
@@ -141,8 +141,8 @@ static void set_hex_mode (GViewerSearchDlg *sdlg)
 
 static void search_mode_text (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 {
-    g_return_if_fail (btn!=NULL);
-    g_return_if_fail (sdlg!=NULL);
+    g_return_if_fail (btn != nullptr);
+    g_return_if_fail (sdlg != nullptr);
 
     if (!gtk_toggle_button_get_active(btn))
         return;
@@ -153,8 +153,8 @@ static void search_mode_text (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 
 static void search_mode_hex (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 {
-    g_return_if_fail (btn!=NULL);
-    g_return_if_fail (sdlg!=NULL);
+    g_return_if_fail (btn != nullptr);
+    g_return_if_fail (sdlg != nullptr);
 
     if (gtk_toggle_button_get_active(btn))
         set_hex_mode(sdlg);
@@ -163,14 +163,14 @@ static void search_mode_hex (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 
 static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearchDlg *sdlg)
 {
-    g_return_if_fail (sdlg!=NULL);
-    g_return_if_fail (sdlg->priv!=NULL);
+    g_return_if_fail (sdlg != nullptr);
+    g_return_if_fail (sdlg->priv != nullptr);
 
     if (arg1 != GTK_RESPONSE_OK)
         return;
 
-    g_return_if_fail (sdlg->priv->search_text_string==NULL);
-    g_return_if_fail (sdlg->priv->search_hex_buffer==NULL);
+    g_return_if_fail (sdlg->priv->search_text_string==nullptr);
+    g_return_if_fail (sdlg->priv->search_hex_buffer==nullptr);
 
     gchar *pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (sdlg->priv->entry));
 
@@ -186,7 +186,7 @@ static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearch
     else    // hex mode search
     {
         sdlg->priv->search_hex_buffer = text2hex (pattern, sdlg->priv->search_hex_buflen);
-        g_return_if_fail (sdlg->priv->search_hex_buffer!=NULL);
+        g_return_if_fail (sdlg->priv->search_hex_buffer != nullptr);
 
         gnome_cmd_data.intviewer_defaults.hex_patterns.add(pattern);
     }
@@ -209,7 +209,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
     gboolean enable = FALSE;
 
     GViewerSearchDlg *sdlg = GVIEWER_SEARCH_DLG (user_data);
-    g_return_if_fail (sdlg->priv!=NULL);
+    g_return_if_fail (sdlg->priv != nullptr);
 
     if (sdlg->priv->searchmode==SEARCH_MODE_HEX)
     {
@@ -217,7 +217,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
         guint len;
         guint8 *buf = text2hex (gtk_entry_get_text (entry), len);
 
-        enable = buf!=NULL && len>0;
+        enable = buf != nullptr && len>0;
         g_free (buf);
     }
     else
@@ -256,21 +256,21 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
     sdlg->priv->table = GTK_WIDGET (table);
 
     // Label
-    sdlg->priv->label = gtk_label_new(NULL);
+    sdlg->priv->label = gtk_label_new(nullptr);
     gtk_label_set_markup_with_mnemonic (GTK_LABEL (sdlg->priv->label), "_Search for:");
     gtk_table_attach(table, sdlg->priv->label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
     // Entry Box
     sdlg->priv->entry = gtk_combo_box_entry_new_text();
     entry = gtk_bin_get_child (GTK_BIN (sdlg->priv->entry));
-    g_object_set(entry, "activates-default", TRUE, NULL);
+    g_object_set(entry, "activates-default", TRUE, nullptr);
     g_signal_connect (entry, "changed", G_CALLBACK (entry_changed), sdlg);
     gtk_table_attach(table, sdlg->priv->entry, 1, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
     set_text_history (sdlg);
 
     // Search mode radio buttons
-    sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL, _("_Text"));
+    sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(nullptr, _("_Text"));
     sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON (sdlg->priv->text_mode), _("_Hexadecimal"));
 
     g_signal_connect (sdlg->priv->text_mode, "toggled", G_CALLBACK (search_mode_text), sdlg);
@@ -318,10 +318,10 @@ static void search_dlg_destroy (GtkObject *object)
         gnome_cmd_data.intviewer_defaults.search_mode = w->priv->searchmode;
 
         g_free (w->priv->search_text_string);
-        w->priv->search_text_string = NULL;
+        w->priv->search_text_string = nullptr;
 
         g_free (w->priv);
-        w->priv = NULL;
+        w->priv = nullptr;
     }
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -337,11 +337,11 @@ GType gviewer_search_dlg_get_type ()
       static const GTypeInfo ttt_info =
       {
         sizeof (GViewerSearchDlgClass),
-        NULL, // base_init
-        NULL, // base_finalize
+        nullptr, // base_init
+        nullptr, // base_finalize
         (GClassInitFunc) class_init,
-        NULL, // class_finalize
-        NULL, // class_data
+        nullptr, // class_finalize
+        nullptr, // class_data
         sizeof (GViewerSearchDlg),
         0, // n_preallocs
         (GInstanceInitFunc) search_dlg_init,
@@ -356,24 +356,7 @@ GType gviewer_search_dlg_get_type ()
 
 GtkWidget* gviewer_search_dlg_new (GtkWindow *parent)
 {
-    GViewerSearchDlg *dlg = (GViewerSearchDlg *) g_object_new (gviewer_search_dlg_get_type(), NULL);
+    auto dlg = static_cast<GViewerSearchDlg*> (g_object_new (gviewer_search_dlg_get_type(), nullptr));
 
     return GTK_WIDGET (dlg);
-}
-
-
-void gviewer_show_search_dlg (GtkWindow *parent)
-{
-    GtkWidget *w = gviewer_search_dlg_new (parent);
-    GViewerSearchDlg *dlg = GVIEWER_SEARCH_DLG (w);
-
-    gtk_dialog_run (GTK_DIALOG (dlg));
-
-    g_warning ("Search mode = %d", (int) gviewer_search_dlg_get_search_mode (dlg));
-
-    gchar *text = gviewer_search_dlg_get_search_text_string (dlg);
-    g_warning ("Search text string = \"%s\"", text);
-    g_free (text);
-
-    gtk_widget_destroy (GTK_WIDGET (dlg));
 }

@@ -1,5 +1,5 @@
-/** 
- * @file owner.cc
+/**
+ * @file gnome-cmd-owner.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
  * @copyright (C) 2013-2019 Uwe Scholz\n
@@ -26,7 +26,7 @@
 #include <set>
 
 #include "gnome-cmd-includes.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "utils.h"
 
 using namespace std;
@@ -43,10 +43,6 @@ static gint compare_names (const gchar *name1, const gchar *name2)
 
 GnomeCmdOwner::GnomeCmdOwner()
 {
-    thread = NULL;
-    stop_thread = FALSE;
-    group_names = NULL;
-
     if (!buff)
     {
         long int pw_size = sysconf(_SC_GETPW_R_SIZE_MAX);
@@ -120,11 +116,11 @@ gpointer GnomeCmdOwner::perform_load_operation (GnomeCmdOwner *self)
 
     self->group_names = g_list_sort (self->group_names, (GCompareFunc) compare_names); ;
 
-    return NULL;
+    return nullptr;
 }
 
 
 void GnomeCmdOwner::load_async()
 {
-    thread = g_thread_new (NULL, (GThreadFunc) perform_load_operation, this);
+    thread = g_thread_new (nullptr, (GThreadFunc) perform_load_operation, this);
 }
