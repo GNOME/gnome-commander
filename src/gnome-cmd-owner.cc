@@ -120,11 +120,11 @@ gpointer GnomeCmdOwner::perform_load_operation (GnomeCmdOwner *self)
 
     self->group_names = g_list_sort (self->group_names, (GCompareFunc) compare_names); ;
 
-    return NULL;
+    return nullptr;
 }
 
 
 void GnomeCmdOwner::load_async()
 {
-    thread = g_thread_new (NULL, (GThreadFunc) perform_load_operation, this);
+    thread = g_thread_new (nullptr, (GThreadFunc) perform_load_operation, this);
 }

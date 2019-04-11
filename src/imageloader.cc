@@ -1,4 +1,4 @@
-/** 
+/**
  * @file imageloader.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -79,8 +79,8 @@ static const gchar *categories[][2] = {{"text", "gnome-text-plain.png"},
 static GnomeCmdPixmap *pixmaps[NUM_PIXMAPS];
 static CacheEntry file_type_pixmaps[NUM_FILE_TYPE_PIXMAPS];
 
-static GHashTable *mime_cache = NULL;
-static GdkPixbuf *symlink_pixbuf = NULL;
+static GHashTable *mime_cache = nullptr;
+static GdkPixbuf *symlink_pixbuf = nullptr;
 
 
 static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **bm, GdkPixmap **lpm, GdkBitmap **lbm);
@@ -97,14 +97,14 @@ void IMAGE_init ()
 
     for (gint i=1; i<NUM_PIXMAPS; i++)
     {
-        gchar *path = g_build_filename (PIXMAPS_DIR, pixmap_files[i], NULL);
+        gchar *path = g_build_filename (PIXMAPS_DIR, pixmap_files[i], nullptr);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
         pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
         if (!pixmaps[i])
         {
-            gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], NULL);
+            gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], nullptr);
 
             g_warning (_("Couldn’t load installed file type pixmap, trying to load %s instead"), path2);
 
@@ -123,13 +123,13 @@ void IMAGE_init ()
      for (size_t i=0; i<NUM_FILE_TYPE_PIXMAPS; i++)
     {
         CacheEntry *e = &file_type_pixmaps[i];
-        gchar *path = g_build_filename (PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
+        gchar *path = g_build_filename (PIXMAPS_DIR, file_type_pixmap_files[i], nullptr);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
         if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
         {
-            gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], NULL);
+            gchar *path2 = g_build_filename ("../pixmaps", pixmap_files[i], nullptr);
 
             g_warning (_("Couldn’t load installed pixmap, trying to load %s instead"), path2);
 
@@ -145,7 +145,7 @@ void IMAGE_init ()
 
 GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
 {
-    return pixmap_id > 0 && pixmap_id < NUM_PIXMAPS ? pixmaps[pixmap_id] : NULL;
+    return pixmap_id > 0 && pixmap_id < NUM_PIXMAPS ? pixmaps[pixmap_id] : nullptr;
 }
 
 
@@ -217,7 +217,7 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
 #pragma GCC diagnostic pop
 #endif
 
-    return NULL;
+    return nullptr;
 }
 
 
@@ -227,7 +227,7 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
  */
 inline gchar *get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
 {
-    return g_build_filename (icon_dir, get_type_icon_name (type), NULL);
+    return g_build_filename (icon_dir, get_type_icon_name (type), nullptr);
 }
 
 
@@ -239,7 +239,7 @@ inline gchar *get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *
 inline gchar *get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
     gchar *icon_name = get_mime_icon_name (mime_type);
-    gchar *icon_path = g_build_filename (icon_dir, icon_name, NULL);
+    gchar *icon_path = g_build_filename (icon_dir, icon_name, nullptr);
     g_free (icon_name);
 
     return icon_path;
@@ -255,9 +255,9 @@ inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_
 {
     for (size_t i=0; i<G_N_ELEMENTS(categories); i++)
         if (g_str_has_prefix (mime_type, categories[i][0]))
-            return g_build_filename (icon_dir, categories[i][1], NULL);
+            return g_build_filename (icon_dir, categories[i][1], nullptr);
 
-    return NULL;
+    return nullptr;
 }
 
 
@@ -273,7 +273,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
 
     DEBUG ('i', "Trying to load \"%s\"\n\n", icon_path);
 
-    pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
+    pixbuf = gdk_pixbuf_new_from_file (icon_path, nullptr);
     if (!pixbuf) return FALSE;
 
 
@@ -337,18 +337,18 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
     if (type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)
         return FALSE;
 
-    CacheEntry *entry = (CacheEntry *) g_hash_table_lookup (mime_cache, mime_type);
+    auto entry = static_cast<CacheEntry*> (g_hash_table_lookup (mime_cache, mime_type));
     if (!entry)
     {
         // We're looking up this mime-type for the first time
 
-        gchar *icon_path = NULL;
-        gchar *icon_path2 = NULL;
-        gchar *icon_path3 = NULL;
-        GdkPixmap *pm = NULL;
-        GdkBitmap *bm = NULL;
-        GdkPixmap *lpm = NULL;
-        GdkBitmap *lbm = NULL;
+        gchar *icon_path = nullptr;
+        gchar *icon_path2 = nullptr;
+        gchar *icon_path3 = nullptr;
+        GdkPixmap *pm = nullptr;
+        GdkBitmap *bm = nullptr;
+        GdkPixmap *lpm = nullptr;
+        GdkBitmap *lbm = nullptr;
 
         DEBUG ('y', "Looking up pixmap for: %s\n", mime_type);
 
@@ -379,7 +379,7 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         g_free (icon_path3);
 
         entry = g_new0 (CacheEntry, 1);
-        entry->dead_end = (pm == NULL || bm == NULL);
+        entry->dead_end = (pm == nullptr || bm == nullptr);
         entry->pixmap = pm;
         entry->mask = bm;
         entry->lnk_pixmap = lpm;
@@ -473,9 +473,9 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
 
 void IMAGE_clear_mime_cache ()
 {
-    g_return_if_fail (mime_cache != NULL);
+    g_return_if_fail (mime_cache != nullptr);
 
-    g_hash_table_foreach_remove (mime_cache, (GHRFunc) remove_entry, NULL);
+    g_hash_table_foreach_remove (mime_cache, (GHRFunc) remove_entry, nullptr);
 }
 
 
@@ -484,6 +484,6 @@ void IMAGE_free ()
     for (int i=0; i<NUM_PIXMAPS; i++)
     {
         gnome_cmd_pixmap_free (pixmaps[i]);
-        pixmaps[i] = NULL;
+        pixmaps[i] = nullptr;
     }
 }

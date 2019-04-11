@@ -151,12 +151,12 @@ SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name)
         b = TRUE;
     }
 
-    SmbEntity *ent = (SmbEntity *) g_hash_table_lookup (entities, name);
+    auto ent = static_cast<SmbEntity*> (g_hash_table_lookup (entities, name));
     if (!ent && !b)
     {
         DEBUG ('s', "Entity not found, rebuilding the database\n");
         rebuild_map ();
-        ent = (SmbEntity *) g_hash_table_lookup (entities, name);
+        ent = static_cast<SmbEntity*> (g_hash_table_lookup (entities, name));
     }
 
     if (ent)
