@@ -23,14 +23,14 @@
     </thead>
     <tbody>
         <row valign="top">
-            <entry><para>1.10.0</para></entry>
+            <entry><para>1.10.1</para></entry>
             <entry><para>2019-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>List of bookmarks is synchronized between Gnome Commander instances</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -38,7 +38,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Menu entry for (un)selecting files with the same filename suffix</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ...</para>

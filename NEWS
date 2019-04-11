@@ -3,10 +3,11 @@ gnome-commander 1.10.1
 ---------------
 
 New features:
- * ...
+ * Menu entry for (un)selecting files with the same filename suffix
 
 Bug fixes:
- * ...
+ * List of bookmarks is synchronized between Gnome Commander instances
+
 
 New or updated translations:
  * ...
