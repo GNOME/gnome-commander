@@ -3689,6 +3689,18 @@ void GnomeCmdData::load()
 
     g_autofree gchar *xml_cfg_path = config_dir ? g_build_filename (config_dir, PACKAGE ".xml", nullptr) : g_build_filename (get_package_config_dir(), PACKAGE ".xml", nullptr);
 
+    // ToDo: Remove the check for connections file in gcmd version > 1.10.1
+    // Move connections to connections.deprecated
+    g_autofree gchar *connections_path_old = g_build_filename (get_package_config_dir(), "connections", nullptr);
+    ifstream f(connections_path_old);
+
+    // If connections file does exist - rename it so that the user know it can be removed
+    if(!f.fail())
+    {
+        g_autofree gchar *connections_path_new = g_build_filename (get_package_config_dir(), "connections.deprecated", nullptr);
+        rename (connections_path_old, connections_path_new);
+    }
+
     // ToDo: Remove the check for xml cfg file in gcmd version >= 1.10.0
     if (gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
