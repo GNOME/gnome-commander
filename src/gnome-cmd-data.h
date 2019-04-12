@@ -34,7 +34,6 @@
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-regex.h"
-#include "gnome-cmd-xml-config.h"
 #include "filter.h"
 #include "history.h"
 #include "dict.h"
@@ -644,8 +643,8 @@ struct GnomeCmdData
     void save_directory_history();
     void save_search_history();
     void save_intviewer_defaults();
-    void save_devices_via_gsettings();
-    void save_fav_apps_via_gsettings();
+    void save_devices();
+    void save_fav_apps();
     void add_advrename_profile_to_gvariant_builder(GVariantBuilder *builder, AdvrenameConfig::Profile profile);
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
     void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
@@ -705,8 +704,8 @@ struct GnomeCmdData
     void load_colors();
     void load_color_themes();
     void load_tabs_from_gsettings();
-    void load_devices_from_gsettings();
-    void load_fav_apps_from_gsettings();
+    void load_devices();
+    void load_fav_apps();
     void gsettings_init();
     void migrate_all_data_to_gsettings();
     gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);

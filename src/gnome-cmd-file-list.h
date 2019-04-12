@@ -24,7 +24,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-collection.h"
-#include "gnome-cmd-xml-config.h"
 #include "filter.h"
 
 #define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())

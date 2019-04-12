@@ -30,7 +30,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-xml-config.h"
 #include "dict.h"
 
 #define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)

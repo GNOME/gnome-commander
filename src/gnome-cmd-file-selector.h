@@ -34,7 +34,6 @@ struct GnomeCmdMainWin;
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-notebook.h"
-#include "gnome-cmd-xml-config.h"
 
 
 struct GnomeCmdCombo;
