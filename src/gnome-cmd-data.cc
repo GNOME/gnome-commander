@@ -1539,41 +1539,6 @@ void GnomeCmdData::AdvrenameConfig::Profile::reset()
 }
 
 
-inline gint GnomeCmdData::get_int (const gchar *path, int def)
-{
-    gboolean b = FALSE;
-    gint value = gnome_config_get_int_with_default (path, &b);
-
-    return b ? def : value;
-}
-
-
-inline gchar* GnomeCmdData::get_string (const gchar *path, const gchar *def)
-{
-    gboolean b = FALSE;
-    gchar *value = gnome_config_get_string_with_default (path, &b);
-    if (b)
-        return g_strdup (def);
-    return value;
-}
-
-
-inline void GnomeCmdData::set_string (const gchar *path, const gchar *value)
-{
-    gnome_config_set_string (path, value);
-}
-
-
-inline gboolean GnomeCmdData::get_bool (const gchar *path, gboolean def)
-{
-    gboolean b = FALSE;
-    gboolean value = gnome_config_get_bool_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
-
 void GnomeCmdData::save_bookmarks()
 {
     gboolean hasBookmarks = false;

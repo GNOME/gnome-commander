@@ -720,7 +720,6 @@ struct GnomeCmdData
     gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
     gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
-    void gnome_cmd_data_get_color_gnome_config (const gchar *path, GdkColor *color);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
     gboolean set_gsettings_color_when_changed (GSettings *settings, const char *key, GdkColor *color);
     gboolean set_gsettings_enum_when_changed (GSettings *settings, const char *key, gint value);
