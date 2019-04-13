@@ -1594,7 +1594,7 @@ void GnomeCmdData::save_bookmarks()
     for (GList *i = gnome_cmd_con_list_get_all_remote (gnome_cmd_data.priv->con_list); i; i=i->next)
     {
         con = GNOME_CMD_CON (i->data);
-        std::string bookmarkGroupName = XML::escape(gnome_cmd_con_get_alias (con));
+        string bookmarkGroupName = gnome_cmd_con_get_alias (con);
         hasBookmarks |= add_bookmark_to_gvariant_builder(gVariantBuilder, bookmarkGroupName, con);
     }
 
