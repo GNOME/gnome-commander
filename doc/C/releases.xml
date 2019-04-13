@@ -32,6 +32,9 @@
                         <listitem>
                             <para>List of bookmarks is synchronized between Gnome Commander instances</para>
                         </listitem>
+                        <listitem>
+                            <para>Removed gnome-config references, fixing bgo#570733 and issue #27 on GitLab</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

@@ -7,7 +7,7 @@ New features:
 
 Bug fixes:
  * List of bookmarks is synchronized between Gnome Commander instances
-
+ * Removed gnome-config references, fixing bgo#570733 and issue #27 on GitLab
 
 New or updated translations:
  * ...
