@@ -707,7 +707,6 @@ struct GnomeCmdData
     void load_fav_apps();
     void gsettings_init();
     void migrate_all_data_to_gsettings();
-    gint migrate_data_int_value_into_gsettings(gint user_value, GSettings *settings, const char *key);
     void load_more();
     void load_advrename_profiles ();
     void save_advrename_profiles ();
