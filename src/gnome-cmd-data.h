@@ -649,7 +649,6 @@ struct GnomeCmdData
     gboolean add_bookmark_to_gvariant_builder(GVariantBuilder *builder, std::string bookmarkName, GnomeCmdCon *con);
     void add_search_profile_to_gvariant_builder(GVariantBuilder *builder, SearchProfile searchProfile);
     inline gint get_int (const gchar *path, int def);
-    inline gchar* get_string (const gchar *path, const gchar *def);
     inline void set_string (const gchar *path, const gchar *value);
     inline gboolean get_bool (const gchar *path, gboolean def);
     inline void set_color (const gchar *path, GdkColor *color);
@@ -717,7 +716,6 @@ struct GnomeCmdData
     void save_bookmarks();
     void load_bookmarks();
     void save();
-    gchar* gnome_cmd_data_get_string (const gchar *path, const gchar *def);
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
     gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
     gboolean set_gsettings_when_changed (GSettings *settings, const char *key, gpointer value);
