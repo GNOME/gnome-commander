@@ -2538,7 +2538,7 @@ msgstr "Xác định thư mục đầu cho ô bên phải"
 msgid "File Manager"
 msgstr "Bộ quản lý tập tin"
 
-#: ../src/owner.cc:102
+#: ../src/gnome-cmd-owner.cc:102
 #, c-format
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"

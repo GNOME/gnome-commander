@@ -2553,7 +2553,7 @@ msgstr "གཡས་པེན་འདི་གི་དོན་ལུ་འག
 msgid "File Manager"
 msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པ།"
 
-#: ../src/owner.cc:102
+#: ../src/gnome-cmd-owner.cc:102
 #, c-format
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"
