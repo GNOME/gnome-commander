@@ -23,7 +23,6 @@
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
-#include "gnome-cmd-xml-config.h"
 #include "plugin_manager.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
