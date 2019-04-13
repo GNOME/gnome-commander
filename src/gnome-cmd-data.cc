@@ -3677,17 +3677,6 @@ void GnomeCmdData::save()
 }
 
 
-gchar* GnomeCmdData::gnome_cmd_data_get_string (const gchar *path, const gchar *def)
-{
-    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, nullptr);
-
-    gchar *v = get_string (s, def);
-
-    g_free (s);
-
-    return v;
-}
-
 /**
  * This function tests if the given colorstring enholds a valid color-describing string.
  * See documentation of gdk_color_parse() for valid strings.
