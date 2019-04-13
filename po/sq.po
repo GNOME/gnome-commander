@@ -2831,7 +2831,7 @@ msgstr "nisje për djathtas paneli"
 msgid "File Manager"
 msgstr "Organizuesi i file"
 
-#: ../src/owner.cc:102
+#: ../src/gnome-cmd-owner.cc:102
 #, fuzzy, c-format
 msgid "When parsing the users and groups on this system it was found that the user %s is part of the group %s. This user can however not be found.\n"
 msgstr "Kur përdorues dhe në sistemi përdorues është nga grupi përdorues nuk j"

@@ -2570,7 +2570,7 @@ msgstr "Specify the start directory for the right pane"
 msgid "File Manager"
 msgstr "File panes"
 
-#: ../src/owner.cc:102
+#: ../src/gnome-cmd-owner.cc:102
 #, c-format
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"

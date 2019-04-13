@@ -2825,7 +2825,7 @@ msgstr ""
 msgid "File Manager"
 msgstr "Bainisteoir Comhad"
 
-#: ../src/owner.cc:102
+#: ../src/gnome-cmd-owner.cc:102
 #, c-format
 msgid "When parsing the users and groups on this system it was found that the user %s is part of the group %s. This user can however not be found.\n"
 msgstr ""
