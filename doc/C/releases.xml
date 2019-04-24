@@ -44,6 +44,9 @@
                             <para>Menu entry for (un)selecting files with the same filename suffix</para>
                         </listitem>
                         <listitem>
+                            <para>Search window can be optionally minimized or moved below the main window</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated translations: ...</para>
                         </listitem>
                         <listitem>
