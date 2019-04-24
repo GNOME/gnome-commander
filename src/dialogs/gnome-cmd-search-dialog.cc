@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-search-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -1134,7 +1134,14 @@ void GnomeCmdSearchDialog::show_and_set_focus()
 GnomeCmdSearchDialog::GnomeCmdSearchDialog(GnomeCmdData::SearchConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
-    gtk_window_set_transient_for (*this, *main_win);
+    if (gnome_cmd_data.options.search_window_is_transient)
+    {
+        gtk_window_set_transient_for (*this, *main_win);
+    }
+    else
+    {
+        gtk_window_set_type_hint (*this, GDK_WINDOW_TYPE_HINT_NORMAL);
+    }
 
     GtkWidget *button = priv->create_button_with_menu(_("Profiles…"), cfg);
 
