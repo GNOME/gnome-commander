@@ -85,8 +85,15 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 
     // Progress Bar
     sdlg->priv->progressbar = gtk_progress_bar_new();
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR (sdlg->priv->progressbar), "0.0");
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (sdlg->priv->progressbar), 0.0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     gtk_box_pack_start(GTK_BOX(dlg->vbox), sdlg->priv->progressbar, TRUE, TRUE, 0);
 
@@ -155,8 +162,15 @@ static gboolean search_progress_dlg_timeout(gpointer data)
     progress = g_atomic_int_get (w->priv->progress_value);
 
     g_snprintf(text, sizeof(text), "%3.1f%%", progress/10.0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR (w->priv->progressbar), text);
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (w->priv->progressbar), progress/1000.0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     if (g_atomic_int_get (w->priv->completed_indicator)!=0)
     {
@@ -193,8 +207,15 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     dprogress = g_atomic_int_get (dlg->priv->progress_value);
     g_snprintf(text, sizeof(text), "%3.1f%%", dprogress/10.0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR (dlg->priv->progressbar), text);
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR (dlg->priv->progressbar), dprogress/1000.0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     gtk_dialog_run(GTK_DIALOG(dlg));
 
