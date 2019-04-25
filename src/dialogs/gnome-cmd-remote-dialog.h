@@ -2,7 +2,7 @@
  * @file gnome-cmd-remote-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_REMOTE_DIALOG_H__
-#define __GNOME_CMD_REMOTE_DIALOG_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_REMOTE_DIALOG              (gnome_cmd_remote_dialog_get_type ())
 #define GNOME_CMD_REMOTE_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_REMOTE_DIALOG, GnomeCmdRemoteDialog))
@@ -57,5 +56,3 @@ GType gnome_cmd_remote_dialog_get_type ();
 GtkWidget *gnome_cmd_remote_dialog_new ();
 
 void show_quick_connect_dialog ();
-
-#endif // __GNOME_CMD_REMOTE_DIALOG_H__

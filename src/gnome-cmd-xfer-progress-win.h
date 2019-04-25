@@ -2,7 +2,7 @@
  * @file gnome-cmd-xfer-progress-win.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_XFER_PROGRESS_WIN_H__
-#define __GNOME_CMD_XFER_PROGRESS_WIN_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_XFER_PROGRESS_WIN              (gnome_cmd_xfer_progress_win_get_type ())
 #define GNOME_CMD_XFER_PROGRESS_WIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_XFER_PROGRESS_WIN, GnomeCmdXferProgressWin))
@@ -62,5 +61,3 @@ void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *wi
 void gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win, const gchar *string);
 
 void gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win, const gchar *string);
-
-#endif // __GNOME_CMD_XFER_PROGRESS_WIN_H__

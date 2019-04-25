@@ -2525,7 +2525,7 @@ msgstr "Укажи началната папка за дясното крило"
 msgid "File Manager"
 msgstr "Файлов управител"
 
-#: ../src/owner.cc:102
+#: ../src/gnome-cmd-owner.cc:102
 #, c-format
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"

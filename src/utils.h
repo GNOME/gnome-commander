@@ -2,7 +2,7 @@
  * @file utils.h 
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#pragma once
 
 #include <string>
 #include <vector>
@@ -29,12 +28,14 @@
 #include <stdio.h>
 
 #include <config.h>
-#include <libgnome/gnome-help.h>
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-app.h"
+#include "utils-no-dependencies.h"
+
+using namespace std;
 
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
@@ -119,18 +120,12 @@ inline char *int2string (gint i)
     return g_strdup_printf ("%d", i);
 }
 
-gchar *str_uri_basename (const gchar *uri);
-
 const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max);
-const gchar *name2string (gchar *filename, gchar *buf, guint max);
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (time_t t, const gchar *date_format);
-
-void mime_exec_single (GnomeCmdFile *f);
-void mime_exec_multiple (GList *files, GnomeCmdApp *app);
 
 void clear_event_key (GdkEventKey *event);
 
@@ -197,15 +192,10 @@ void set_cursor_busy_for_widget (GtkWidget *widget);
 
 inline void set_cursor_default_for_widget (GtkWidget *widget)
 {
-#if GTK_CHECK_VERSION (2, 14, 0)
     GdkWindow *window = gtk_widget_get_window (widget);
 
     if (window)
         gdk_window_set_cursor (window, NULL);
-#else
-    if (widget->window)
-        gdk_window_set_cursor (widget->window, NULL);
-#endif
 }
 
 void set_cursor_busy ();
@@ -223,11 +213,10 @@ GtkWidget *create_ui_pixmap (GtkWidget *window,
                              GtkIconSize size);
 
 gchar *unix_to_unc (const gchar *path);
-gchar *unc_to_unix (const gchar *path);
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b);
 GList *file_list_to_uri_list (GList *files);
-GList *file_list_to_info_list (GList *files);
 
+int is_dir_existing(const gchar *dpath);
 gboolean create_dir_if_needed (const gchar *dpath);
 void fix_uri (GnomeVFSURI *uri);
 
@@ -424,4 +413,6 @@ inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::stri
 
 gint get_string_pixel_size (const char *s, int len);
 
-#endif // __UTILS_H__
+gboolean move_old_to_new_location(const gchar* oldPath, const gchar* newPath);
+
+gchar* get_package_config_dir();

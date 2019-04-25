@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-con-remote.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 using namespace std;
 
 
-static GnomeCmdConClass *parent_class = NULL;
+static GnomeCmdConClass *parent_class = nullptr;
 
 
 static void get_file_info_func (GnomeCmdCon *con)
@@ -73,7 +73,7 @@ static void get_file_info_func (GnomeCmdCon *con)
 
 static gboolean start_get_file_info (GnomeCmdCon *con)
 {
-    g_thread_new (NULL, (GThreadFunc) get_file_info_func, con);
+    g_thread_new (nullptr, (GThreadFunc) get_file_info_func, con);
 
     return FALSE;
 }
@@ -83,7 +83,7 @@ static void remote_open (GnomeCmdCon *con)
 {
     DEBUG('m', "Opening remote connection\n");
 
-    g_return_if_fail (con->uri!=NULL);
+    g_return_if_fail (con->uri != nullptr);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -97,9 +97,9 @@ static void remote_open (GnomeCmdCon *con)
 
 static gboolean remote_close (GnomeCmdCon *con)
 {
-    gnome_cmd_con_set_default_dir (con, NULL);
+    gnome_cmd_con_set_default_dir (con, nullptr);
     delete con->base_path;
-    con->base_path = NULL;
+    con->base_path = nullptr;
     con->state = GnomeCmdCon::STATE_CLOSED;
     con->open_result = GnomeCmdCon::OPEN_NOT_STARTED;
 
@@ -122,7 +122,7 @@ static gboolean remote_open_is_needed (GnomeCmdCon *con)
 
 static GnomeVFSURI *remote_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    g_return_val_if_fail (con->uri != NULL, NULL);
+    g_return_val_if_fail (con->uri != nullptr, nullptr);
 
     GnomeVFSURI *u0 = gnome_vfs_uri_new (con->uri);
     GnomeVFSURI *u1 = gnome_vfs_uri_append_path (u0, path->get_path());
@@ -145,6 +145,12 @@ static GnomeCmdPath *remote_create_path (GnomeCmdCon *con, const gchar *path_str
 
 static void destroy (GtkObject *object)
 {
+    GnomeCmdConRemote *con_remote = GNOME_CMD_CON_REMOTE (object);
+
+    gnome_cmd_pixmap_free (con_remote->parent.go_pixmap);
+    gnome_cmd_pixmap_free (con_remote->parent.open_pixmap);
+    gnome_cmd_pixmap_free (con_remote->parent.close_pixmap);
+
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -155,7 +161,7 @@ static void class_init (GnomeCmdConRemoteClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    parent_class = (GnomeCmdConClass *) gtk_type_class (GNOME_CMD_TYPE_CON);
+    parent_class = static_cast<GnomeCmdConClass*> (gtk_type_class (GNOME_CMD_TYPE_CON));
 
     object_class->destroy = destroy;
 
@@ -173,7 +179,7 @@ static void init (GnomeCmdConRemote *remote_con)
     guint dev_icon_size = gnome_cmd_data.dev_icon_size;
     gint icon_size;
 
-    g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, NULL));
+    g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, nullptr));
 
     GnomeCmdCon *con = GNOME_CMD_CON (remote_con);
 
@@ -230,9 +236,9 @@ GtkType gnome_cmd_con_remote_get_type ()
             sizeof (GnomeCmdConRemoteClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);
@@ -249,15 +255,15 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 
     GnomeVFSURI *uri = gnome_vfs_uri_new (canonical_uri);
 
-    g_return_val_if_fail (uri != NULL, NULL);
+    g_return_val_if_fail (uri != nullptr, nullptr);
 
-    GnomeCmdConRemote *server = (GnomeCmdConRemote *) g_object_new (GNOME_CMD_TYPE_CON_REMOTE, NULL);
+    auto server = static_cast<GnomeCmdConRemote*> (g_object_new (GNOME_CMD_TYPE_CON_REMOTE, nullptr));
 
-    g_return_val_if_fail (server != NULL, NULL);
+    g_return_val_if_fail (server != nullptr, nullptr);
 
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
     const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
-    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), NULL);
+    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (uri), nullptr);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
@@ -280,8 +286,8 @@ GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const string &u
 
 void gnome_cmd_con_remote_set_host_name (GnomeCmdConRemote *con, const gchar *host_name)
 {
-    g_return_if_fail (con != NULL);
-    g_return_if_fail (host_name != NULL);
+    g_return_if_fail (con != nullptr);
+    g_return_if_fail (host_name != nullptr);
 
     GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens remote connection to %s"), host_name);
     GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes remote connection to %s"), host_name);

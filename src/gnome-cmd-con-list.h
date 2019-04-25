@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-con-list.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_LIST_H__
-#define __GNOME_CMD_CON_LIST_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
@@ -59,7 +58,11 @@ struct GnomeCmdConList
     void remove(GnomeCmdConDevice *con);
 
     GnomeCmdCon *find_alias(const gchar *alias) const;
-    gboolean has_alias(const gchar *alias) const            {  return find_alias(alias)!=NULL;  }
+
+    gboolean has_alias(const gchar *alias) const
+    {
+        return find_alias(alias) != nullptr;
+    }
 
     GnomeCmdCon *get_home();
     GnomeCmdCon *get_smb();
@@ -79,16 +82,15 @@ struct GnomeCmdConListClass
 
 inline GnomeCmdConList *gnome_cmd_con_list_new ()
 {
-    return (GnomeCmdConList *) g_object_new (GNOME_CMD_TYPE_CON_LIST, NULL);
+    return static_cast<GnomeCmdConList *>(g_object_new (GNOME_CMD_TYPE_CON_LIST, nullptr));
 }
 
 inline GnomeCmdConList *gnome_cmd_con_list_get ()
 {
-    return (GnomeCmdConList *) gnome_cmd_data_get_con_list ();
+    return static_cast<GnomeCmdConList *>(gnome_cmd_data_get_con_list ());
 }
 
 void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
-void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConRemote *ftp_con);
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *list);
@@ -113,5 +115,3 @@ inline GList *get_remote_cons ()
 {
     return gnome_cmd_con_list_get_all_remote (gnome_cmd_con_list_get ());
 }
-
-#endif // __GNOME_CMD_CON_LIST_H__

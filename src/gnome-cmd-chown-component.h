@@ -2,7 +2,7 @@
  * @file gnome-cmd-chown-component.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CHOWN_COMPONENT_H__
-#define __GNOME_CMD_CHOWN_COMPONENT_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 
@@ -55,5 +54,3 @@ GtkType gnome_cmd_chown_component_get_type ();
 void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group);
 uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component);
 gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component);
-
-#endif // __GNOME_CMD_CHOWN_COMPONENT_H__

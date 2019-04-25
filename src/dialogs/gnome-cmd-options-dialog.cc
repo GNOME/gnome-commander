@@ -2,7 +2,7 @@
  * @file gnome-cmd-options-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -90,6 +90,8 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     /* pack the vbox into the scrolled window */
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    /* https://stackoverflow.com/questions/9498699/remove-gtkscrolledwindow-frame-border-in-c */
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
@@ -152,7 +154,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     // Sort options
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Sorting"));
+    cat = create_category (parent, cat_box, _("Sorting/Quick search"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     check = create_check (parent, _("Case sensitive"), "case_sens_check");
@@ -167,10 +169,16 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !cfg.quick_search);
-    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F10)"), "quick_search");
+    if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("ALT+letters (menu access with F12)"), "alt_quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), cfg.quick_search);
+    if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group (radio), _("Just letters (command line access with CTRL+ALT+C)"), "quick_search");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (cfg.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     check = create_check (parent, _("Match beginning of the file name"), "qsearch_exact_match_begin");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
@@ -210,6 +218,14 @@ static GtkWidget *create_general_tab (GtkWidget *parent, GnomeCmdData::Options &
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_dir_history_on_exit);
 
+    check = create_check (parent, _("Commandline history"), "save_cmdline_history");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_cmdline_history_on_exit);
+
+    check = create_check (parent, _("Search history"), "save_search_history");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), cfg.save_search_history_on_exit);
+
 
     return frame;
 }
@@ -223,13 +239,16 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
     GtkWidget *rmb_popup_radio = lookup_widget (dialog, "rmb_popup_radio");
     GtkWidget *select_dirs = lookup_widget (dialog, "select_dirs");
     GtkWidget *case_sens_check = lookup_widget (dialog, "case_sens_check");
-    GtkWidget *quick_search = lookup_widget (dialog, "quick_search");
+    GtkWidget *ctrl_alt_quick_search = lookup_widget (dialog, "ctrl_alt_quick_search");
+    GtkWidget *alt_quick_search = lookup_widget (dialog, "alt_quick_search");
     GtkWidget *multiple_instance_check = lookup_widget (dialog, "multiple_instance_check");
     GtkWidget *qsearch_exact_match_begin = lookup_widget (dialog, "qsearch_exact_match_begin");
     GtkWidget *qsearch_exact_match_end = lookup_widget (dialog, "qsearch_exact_match_end");
     GtkWidget *save_dirs = lookup_widget (dialog, "save_dirs");
     GtkWidget *save_tabs = lookup_widget (dialog, "save_tabs");
     GtkWidget *save_dir_history = lookup_widget (dialog, "save_dir_history");
+    GtkWidget *save_cmdline_history = lookup_widget (dialog, "save_cmdline_history");
+    GtkWidget *save_search_history = lookup_widget (dialog, "save_search_history");
 
     cfg.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
 
@@ -243,13 +262,20 @@ inline void store_general_options (GtkWidget *dialog, GnomeCmdData::Options &cfg
 
     cfg.select_dirs = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (select_dirs));
     cfg.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    cfg.quick_search = (GnomeCmdQuickSearchShortcut) gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (quick_search));
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ctrl_alt_quick_search)))
+        cfg.quick_search = GNOME_CMD_QUICK_SEARCH_CTRL_ALT;
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search)))
+        cfg.quick_search = GNOME_CMD_QUICK_SEARCH_ALT;
+    else
+        cfg.quick_search = GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER;
     cfg.allow_multiple_instances = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (multiple_instance_check));
     cfg.quick_search_exact_match_begin = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_begin));
     cfg.quick_search_exact_match_end = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qsearch_exact_match_end));
     cfg.save_dirs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dirs));
     cfg.save_tabs_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_tabs));
     cfg.save_dir_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_dir_history));
+    cfg.save_cmdline_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_cmdline_history));
+    cfg.save_search_history_on_exit = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_search_history));
 }
 
 
@@ -301,6 +327,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent, GnomeCmdData::Options &c
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
@@ -733,6 +760,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent, GnomeCmdData::Options &c
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     // File panes
     table = create_table (parent, 5, 2);
@@ -900,6 +928,7 @@ inline GtkWidget *create_tabs_tab (GtkWidget *parent, GnomeCmdData::Options &cfg
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Tab bar"));
@@ -972,6 +1001,7 @@ static GtkWidget *create_confirmation_tab (GtkWidget *parent, GnomeCmdData::Opti
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
 
     /* Delete options
@@ -1116,6 +1146,7 @@ inline GtkWidget *create_filter_tab (GtkWidget *parent, GnomeCmdData::Options &c
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Filetypes to hide"));
@@ -1331,9 +1362,9 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
     if (gnome_cmd_data.options.is_name_double(name))
     {
-	gnome_cmd_show_message (GTK_WINDOW (dialog),
-				_("An app with this label exists already.\nPlease choose another label."));
-	return;
+        gnome_cmd_show_message (GTK_WINDOW (dialog),
+            _("An app with this label exists already.\nPlease choose another label."));
+        return;
     }
 
     GnomeCmdApp *app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
@@ -1585,6 +1616,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !cfg.honor_expect_uris);
@@ -1670,7 +1702,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
     for (GList *apps = gnome_cmd_data.options.fav_apps; apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
-    table2 = create_table (parent, 1, 2);
+    table2 = create_table (parent, 1, 3);
     cat = create_category (parent, table2, _("Global app options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1679,6 +1711,10 @@ static GtkWidget *create_programs_tab (GtkWidget *parent, GnomeCmdData::Options 
 
     entry = create_entry (parent, "termexec", cfg.termexec);
     table_add (table2, entry, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+
+    check = create_check (parent, _("Leave terminal window open"), "is_use_gcmd_block");
+    table_add (table2, check, 0, 2, GTK_FILL);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gcmd_block);
 
     return frame;
 }
@@ -1692,6 +1728,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     GtkWidget *entry4 = lookup_widget (dialog, "sendto");
     GtkWidget *entry5 = lookup_widget (dialog, "termopen");
     GtkWidget *entry6 = lookup_widget (dialog, "termexec");
+    GtkWidget *check_use_gcmd_block = lookup_widget (dialog, "is_use_gcmd_block");
     GtkWidget *check_uris = lookup_widget (dialog, "honor_expect_uris");
     GtkWidget *check_iv = lookup_widget (dialog, "use_internal_viewer");
 
@@ -1701,6 +1738,7 @@ inline void store_programs_options (GtkWidget *dialog, GnomeCmdData::Options &cf
     cfg.set_sendto(gtk_entry_get_text (GTK_ENTRY (entry4)));
     cfg.set_termopen(gtk_entry_get_text (GTK_ENTRY (entry5)));
     cfg.set_termexec(gtk_entry_get_text (GTK_ENTRY (entry6)));
+    gnome_cmd_data.use_gcmd_block = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_use_gcmd_block));
 
     cfg.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
     cfg.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
@@ -1903,7 +1941,6 @@ static void on_device_remove (GtkWidget *button, GtkWidget *frame)
         GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
         gnome_cmd_con_list_get()->remove(dev);
         gtk_clist_remove (clist, clist->focus_row);
-        gnome_cmd_con_list_get()->remove(dev);
     }
 }
 
@@ -1969,6 +2006,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent, GnomeCmdData::Options &
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
     gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (scrolled_window), vbox);
+    gtk_viewport_set_shadow_type(GTK_VIEWPORT (gtk_bin_get_child (GTK_BIN (scrolled_window))), GTK_SHADOW_NONE);
 
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Devices"));
@@ -2085,32 +2123,20 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-#endif
 
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
-    gtk_window_set_default_size(GTK_WINDOW (dialog), 560, 600);
+    gtk_window_set_default_size(GTK_WINDOW (dialog), gnome_cmd_data.opts_dialog_width, gnome_cmd_data.opts_dialog_height);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_box_set_spacing (GTK_BOX (content_area), 2);
     gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
     gtk_box_set_spacing (GTK_BOX (content_area),6);
-#else
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
-#endif
 
     GnomeCmdNotebook *notebook = new GnomeCmdNotebook(GnomeCmdNotebook::SHOW_TABS);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_container_add (GTK_CONTAINER (content_area), *notebook);
-#else
-    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), *notebook);
-#endif
 
     notebook->append_page(create_general_tab (dialog, cfg), _("General"));
     notebook->append_page(create_format_tab (dialog, cfg), _("Format"));
@@ -2124,11 +2150,7 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
     // open the tab which was actinve when closing the options notebook last time
     notebook->set_current_page (activetab);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
-#else
-    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
-#endif
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
@@ -2147,6 +2169,9 @@ gboolean gnome_cmd_options_dialog (GtkWindow *parent, GnomeCmdData::Options &cfg
         store_programs_options (dialog, cfg);
         store_devices_options (dialog, cfg);
     }
+
+    gnome_cmd_data.opts_dialog_width = dialog->allocation.width;
+    gnome_cmd_data.opts_dialog_height = dialog->allocation.height;
 
     // store the current active tab
     activetab = notebook->get_current_page();

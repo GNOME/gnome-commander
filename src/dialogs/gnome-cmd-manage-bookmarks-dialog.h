@@ -2,7 +2,7 @@
  * @file gnome-cmd-manage-bookmarks-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__
-#define __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -30,5 +29,3 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
 void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir);
 
 void gnome_cmd_update_bookmark_dialog ();
-
-#endif // __GNOME_CMD_MANAGE_BOOKMARKS_DIALOG_H__

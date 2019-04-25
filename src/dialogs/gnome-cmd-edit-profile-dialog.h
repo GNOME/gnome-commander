@@ -2,7 +2,7 @@
  * @file gnome-cmd-edit-profile-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_EDIT_PROFILE_DIALOG_H__
-#define __GNOME_CMD_EDIT_PROFILE_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -86,32 +85,20 @@ namespace GnomeCmd
                                                          GTK_STOCK_OK, GTK_RESPONSE_OK,
                                                          NULL);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
         GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-#endif
 
         gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
         gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
         // HIG defaults
         gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
         gtk_box_set_spacing (GTK_BOX (content_area), 2);
         gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
         gtk_box_set_spacing (GTK_BOX (content_area),6);
-#else
-        gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-        gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
-        gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
-#endif
 
         GtkWidget *vbox = gtk_vbox_new (FALSE, 6);
         gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
         gtk_box_pack_start (GTK_BOX (content_area), vbox, TRUE, TRUE, 0);
-#else
-        gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), vbox, TRUE, TRUE, 0);
-#endif
 
         gchar *str = g_strdup_printf ("<b>%s</b>", _("_Name"));
         GtkWidget *label = gtk_label_new_with_mnemonic (str);
@@ -136,11 +123,7 @@ namespace GnomeCmd
 
         component->update();
 
-#if GTK_CHECK_VERSION (2, 14, 0)
         gtk_widget_show_all (content_area);
-#else
-        gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
-#endif
 
         gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
@@ -151,5 +134,3 @@ namespace GnomeCmd
         gtk_widget_destroy (dialog);
     }
 }
-
-#endif // __GNOME_CMD_EDIT_PROFILE_DIALOG_H__

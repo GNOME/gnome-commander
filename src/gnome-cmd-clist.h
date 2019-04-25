@@ -2,7 +2,7 @@
  * @file gnome-cmd-clist.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_CLIST_H__
-#define __GNOME_CMD_CLIST_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CLIST              (gnome_cmd_clist_get_type ())
 #define GNOME_CMD_CLIST(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CLIST, GnomeCmdCList))
@@ -60,5 +59,3 @@ void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset);
 
 gint gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y);
 void gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row);
-
-#endif // __GNOME_CMD_CLIST_H__

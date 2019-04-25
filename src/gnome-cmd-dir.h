@@ -2,7 +2,7 @@
  * @file gnome-cmd-dir.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_DIR_H__
-#define __GNOME_CMD_DIR_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_DIR              (gnome_cmd_dir_get_type ())
 #define GNOME_CMD_DIR(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_DIR, GnomeCmdDir))
@@ -118,11 +117,7 @@ inline GnomeCmdDir *gnome_cmd_dir_ref (GnomeCmdDir *dir)
     return dir;
 }
 
-inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    GNOME_CMD_FILE (dir)->unref();
-}
+void gnome_cmd_dir_unref (GnomeCmdDir *dir);
 
 GList *gnome_cmd_dir_get_files (GnomeCmdDir *dir);
 void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);
@@ -137,7 +132,6 @@ GnomeVFSURI *gnome_cmd_dir_get_uri (GnomeCmdDir *dir);
 gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir);
 
 GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename);
-gchar       *gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename);
 
 GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string absolute_filename);
 
@@ -145,7 +139,6 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar *old_uri_str);
-gboolean gnome_cmd_dir_uses_fam (GnomeCmdDir *dir);
 
 void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);
 void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir);
@@ -170,5 +163,3 @@ inline gchar *gnome_cmd_dir_get_free_space (GnomeCmdDir *dir)
 
     return gnome_vfs_format_file_size_for_display (free_space);
 }
-
-#endif // __GNOME_CMD_DIR_H__

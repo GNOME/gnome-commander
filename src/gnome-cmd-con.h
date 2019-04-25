@@ -2,7 +2,7 @@
  * @file gnome-cmd-con.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_H__
-#define __GNOME_CMD_CON_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CON              (gnome_cmd_con_get_type ())
 #define GNOME_CMD_CON(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CON, GnomeCmdCon))
@@ -115,8 +114,6 @@ struct GnomeCmdCon
     gchar               *open_failed_msg;
 
     GnomeCmdConPrivate  *priv;
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdCon &con);
 };
 
 struct GnomeCmdConClass
@@ -332,8 +329,6 @@ inline GnomeCmdPixmap *gnome_cmd_con_get_close_pixmap (GnomeCmdCon *con)
 
 GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
-void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookmarks);
-
 void gnome_cmd_con_add_bookmark (GnomeCmdCon *con, gchar *name, gchar *path);
 
 void gnome_cmd_con_erase_bookmark (GnomeCmdCon *con);
@@ -463,5 +458,3 @@ inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID m
         default:            return s;
     }
 }
-
-#endif // __GNOME_CMD_CON_H__

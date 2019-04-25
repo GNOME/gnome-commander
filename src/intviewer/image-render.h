@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __IMAGE_RENDER_H__
-#define __IMAGE_RENDER_H__
+#pragma once
 
 #define TYPE_IMAGE_RENDER               (image_render_get_type ())
 #define IMAGE_RENDER(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_IMAGE_RENDER, ImageRender))
@@ -84,5 +83,3 @@ void image_render_set_scale_factor (ImageRender *obj, double scalefactor);
 double image_render_get_scale_factor (ImageRender *obj);
 
 void image_render_operation (ImageRender *obj, ImageRender::DISPLAYMODE op);
-
-#endif /* __IMAGE_RENDER_H__ */

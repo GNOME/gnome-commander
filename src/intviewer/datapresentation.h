@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __LIBGVIEWER_DATA_PRESENTATION_H__
-#define __LIBGVIEWER_DATA_PRESENTATION_H__
+#pragma once
 
 struct GVDataPresentation;
 
@@ -50,5 +49,3 @@ void gv_set_tab_size(GVDataPresentation *dp, guint tab_size);
 offset_type gv_align_offset_to_line_start(GVDataPresentation *dp, offset_type offset);
 offset_type gv_scroll_lines (GVDataPresentation *dp, offset_type current_offset, int delta);
 offset_type gv_get_end_of_line_offset(GVDataPresentation *dp, offset_type start_of_line);
-
-#endif

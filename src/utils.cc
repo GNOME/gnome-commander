@@ -1,8 +1,8 @@
-/** 
+/**
  * @file utils.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,21 +30,11 @@
 #include "gnome-cmd-includes.h"
 #include "utils.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-con-list.h"
-#include "gnome-cmd-xfer.h"
 
 using namespace std;
 
-
-struct TmpDlData
-{
-    GnomeCmdFile *f;
-    GtkWidget *dialog;
-    gpointer *args;
-};
 
 #define FIX_PW_HACK
 #define STRINGS_TO_URIS_CHUNK 1024
@@ -66,7 +56,6 @@ static gchar *tmp_file_dir = NULL;
  * l: directory listings\n
  * m: connection debugging\n
  * n: directory monitoring\n
- * p: python plugins\n
  * s: smb network browser\n
  * t: metadata tags\n
  * u: user actions debugging\n
@@ -99,6 +88,9 @@ void DEBUG (gchar flag, const gchar *format, ...)
  */
 void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean term)
 {
+    g_return_if_fail (in_command != NULL);
+    g_return_if_fail (strlen(in_command) != 0);
+
     gchar *command;
 
     if (term)
@@ -129,7 +121,7 @@ void run_command_indir (const gchar *in_command, const gchar *dpath, gboolean te
         command = g_strdup (in_command);
 
     DEBUG ('g', "running%s: %s\n", (term?" in terminal":""), command);
- 
+
     gint argc;
     gchar **argv;
     GError *error = NULL;
@@ -236,25 +228,6 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     return result;
 }
 
-gchar *str_uri_basename (const gchar *uri)
-{
-    if (!uri)
-        return NULL;
-
-    int len = strlen (uri),
-        last_slash=0;
-
-    if (len < 2)
-        return NULL;
-
-    for (int i=0; i<len; i++)
-        if (uri[i] == '/')
-            last_slash = i;
-
-    return gnome_vfs_unescape_string (&uri[last_slash+1], NULL);
-}
-
-
 const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
 {
     const char *s;
@@ -291,14 +264,6 @@ const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
     }
 
     g_snprintf (buf, max, "%s", s);
-
-    return buf;
-}
-
-
-const gchar *name2string (gchar *filename, gchar *buf, guint max)
-{
-    g_snprintf (buf, max, "%s", filename);
 
     return buf;
 }
@@ -449,284 +414,6 @@ const gchar *time2string (time_t t, const gchar *date_format)
 }
 
 
-inline void no_mime_app_found_error (gchar *mime_type)
-{
-    gchar *msg = g_strdup_printf (_("No default application found for the MIME type %s."), mime_type);
-    gnome_cmd_show_message (NULL, msg, "Open the \"File types and programs\" page in the Control Center to add one.");
-    g_free (msg);
-}
-
-
-static void do_mime_exec_single (gpointer *args)
-{
-    g_return_if_fail (args != NULL);
-
-    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
-    gchar *path = (gchar *) args[1];
-    gchar *dpath = (gchar *) args[2];
-
-    string cmd = gnome_cmd_app_get_command (app);
-    cmd += ' ';
-    cmd += stringify (g_shell_quote (path));
-
-    run_command_indir (cmd.c_str(), dpath, gnome_cmd_app_get_requires_terminal (app));
-
-    g_free (path);
-    g_free (dpath);
-    gnome_cmd_app_free (app);
-    g_free (args);
-}
-
-
-static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
-{
-    if (id == GTK_RESPONSE_YES)
-    {
-        gchar *path_str = get_temp_download_filepath (dldata->f->get_name());
-
-        if (!path_str) return;
-
-        dldata->args[1] = (gpointer) path_str;
-
-        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (dldata->f->get_uri());
-        GnomeCmdPlainPath path(path_str);
-        GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
-
-        gnome_cmd_xfer_tmp_download (src_uri,
-                                     dest_uri,
-                                     GNOME_VFS_XFER_FOLLOW_LINKS,
-                                     GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-                                     GTK_SIGNAL_FUNC (do_mime_exec_single),
-                                     dldata->args);
-    }
-    else
-    {
-        gnome_cmd_app_free ((GnomeCmdApp *) dldata->args[0]);
-        g_free (dldata->args);
-    }
-
-    g_free (dldata);
-    gtk_widget_destroy (dldata->dialog);
-}
-
-
-void mime_exec_single (GnomeCmdFile *f)
-{
-    g_return_if_fail (f != NULL);
-    g_return_if_fail (f->info != NULL);
-
-    gpointer *args;
-    GnomeVFSMimeApplication *vfs_app;
-    GnomeCmdApp *app;
-
-    if (!f->info->mime_type)
-        return;
-
-    // Check if the file is a binary executable that lacks the executable bit
-
-    if (!f->is_executable())
-    {
-        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
-        {
-            gchar *fname = get_utf8 (f->info->name);
-            gchar *msg = g_strdup_printf (_("“%s” seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
-            gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg,
-                                          _("Make Executable?"),
-                                          -1, _("Cancel"), _("OK"), NULL);
-            g_free (fname);
-            g_free (msg);
-
-            if (ret != 1)  return;  else
-            {
-                GnomeVFSResult result = f->chmod((GnomeVFSFilePermissions) (f->info->permissions|GNOME_VFS_PERM_USER_EXEC));
-                if (result != GNOME_VFS_OK)
-                    return;
-            }
-        }
-    }
-
-    // If the file is executable but not a binary file, check if the user wants to exec it or open it
-
-    if (f->is_executable())
-    {
-        if (f->has_mime_type("application/x-executable") || f->has_mime_type("application/x-executable-binary"))
-        {
-            f->execute();
-            return;
-        }
-        else
-            if (f->mime_begins_with("text/"))
-            {
-                gchar *fname = get_utf8 (f->info->name);
-                gchar *msg = g_strdup_printf (_("“%s” is an executable text file. Do you want to run it, or display its contents?"), fname);
-                gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
-                                              -1, _("Cancel"), _("Display"), _("Run"), NULL);
-                g_free (fname);
-                g_free (msg);
-
-                if (ret != 1)
-                {
-                    if (ret == 2)
-                        f->execute();
-                    return;
-                }
-            }
-    }
-
-    vfs_app = gnome_vfs_mime_get_default_application (f->info->mime_type);
-    if (!vfs_app)
-    {
-        no_mime_app_found_error (f->info->mime_type);
-        return;
-    }
-
-    app = gnome_cmd_app_new_from_vfs_app (vfs_app);
-    gnome_vfs_mime_application_free (vfs_app);
-
-    args = g_new0 (gpointer, 3);
-
-    if (f->is_local())
-    {
-        args[0] = (gpointer) app;
-        args[1] = (gpointer) f->get_real_path();
-        args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
-        do_mime_exec_single (args);
-    }
-    else
-    {
-        if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
-        {
-            args[0] = (gpointer) app;
-            args[1] = (gpointer) f->get_uri_str();
-            // args[2] is NULL here (don't set exec dir for remote files)
-            do_mime_exec_single (args);
-        }
-        else
-        {
-            gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
-            GtkWidget *dialog = gtk_message_dialog_new (*main_win, GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s", msg);
-            TmpDlData *dldata = g_new0 (TmpDlData, 1);
-            args[0] = (gpointer) app;
-            // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
-            dldata->f = f;
-            dldata->dialog = dialog;
-            dldata->args = args;
-
-            g_signal_connect (dialog, "response", G_CALLBACK (on_tmp_download_response), dldata);
-            gtk_widget_show (dialog);
-            g_free (msg);
-        }
-    }
-}
-
-
-static void do_mime_exec_multiple (gpointer *args)
-{
-    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
-    GList *files = (GList *) args[1];
-
-    if (files)
-    {
-        string cmd = gnome_cmd_app_get_command (app);
-
-        set<string> dirs;
-
-        for (; files; files = files->next)
-        {
-            cmd += ' ';
-            cmd += stringify (g_shell_quote ((gchar *) files->data));
-
-            gchar *dpath = g_path_get_dirname ((gchar *) files->data);
-
-            if (dpath)
-                dirs.insert (stringify (dpath));
-        }
-
-        if (dirs.size()==1)
-            run_command_indir (cmd.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
-        else
-            run_command_indir (cmd.c_str(), NULL, gnome_cmd_app_get_requires_terminal (app));
-
-        g_list_free (files);
-    }
-
-    gnome_cmd_app_free (app);
-    g_free (args);
-}
-
-
-void mime_exec_multiple (GList *files, GnomeCmdApp *app)
-{
-    g_return_if_fail (files != NULL);
-    g_return_if_fail (app != NULL);
-
-    GList *src_uri_list = NULL;
-    GList *dest_uri_list = NULL;
-    GList *local_files = NULL;
-    gboolean asked = FALSE;
-    guint no_of_remote_files = 0;
-    gint retid;
-
-    for (; files; files = files->next)
-    {
-        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
-
-        if (gnome_vfs_uri_is_local (f->get_uri()))
-            local_files = g_list_append (local_files, f->get_real_path());
-        else
-        {
-            ++no_of_remote_files;
-            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.options.honor_expect_uris)
-            {
-                local_files = g_list_append (local_files,  f->get_uri_str());
-            }
-            else
-            {
-                if (!asked)
-                {
-                    gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
-                                                           "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?", no_of_remote_files),
-                                                  gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (*main_win, TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
-                    asked = TRUE;
-                }
-
-                if (retid==1)
-                {
-                    gchar *path_str = get_temp_download_filepath (f->get_name());
-
-                    if (!path_str) return;
-
-                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (f->get_uri());
-                    GnomeCmdPlainPath path(path_str);
-                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), &path);
-
-                    src_uri_list = g_list_append (src_uri_list, src_uri);
-                    dest_uri_list = g_list_append (dest_uri_list, dest_uri);
-                    local_files = g_list_append (local_files, path_str);
-                }
-            }
-        }
-    }
-
-    g_list_free (files);
-
-    gpointer *args = g_new0 (gpointer, 2);
-    args[0] = app;
-    args[1] = local_files;
-
-    if (src_uri_list)
-        gnome_cmd_xfer_tmp_download_multiple (src_uri_list,
-                                              dest_uri_list,
-                                              GNOME_VFS_XFER_FOLLOW_LINKS,
-                                              GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-                                              GTK_SIGNAL_FUNC (do_mime_exec_multiple),
-                                              args);
-    else
-        do_mime_exec_multiple (args);
-}
-
-
 void clear_event_key (GdkEventKey *event)
 {
     g_return_if_fail (event != NULL);
@@ -811,11 +498,11 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri, gulong *count)
 
         g_list_free (list);
 
-    } else if (result==GNOME_VFS_ERROR_NOT_A_DIRECTORY) 
+    } else if (result==GNOME_VFS_ERROR_NOT_A_DIRECTORY)
     {
         // A file
         GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-        result = gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
+        gnome_vfs_get_file_info (dir_uri_str, info, GNOME_VFS_FILE_INFO_DEFAULT);
         size += info->size;
         if (count!=NULL) {
             (*count)++;
@@ -1187,20 +874,6 @@ gchar *unix_to_unc (const gchar *path)
 }
 
 
-gchar *unc_to_unix (const gchar *path)
-{
-    g_return_val_if_fail (path != NULL, NULL);
-    g_return_val_if_fail (path[0] == '\\', NULL);
-    g_return_val_if_fail (path[1] == '\\', NULL);
-
-    gchar *out = (gchar *) g_malloc(strlen(path));
-    strcpy (out, path+1);
-    transform (out, '\\', '/');
-
-    return out;
-}
-
-
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
 {
     GdkColor *c = g_new0 (GdkColor, 1);
@@ -1232,21 +905,12 @@ GList *file_list_to_uri_list (GList *files)
 }
 
 
-GList *file_list_to_info_list (GList *files)
-{
-    GList *infos = NULL;
-
-    for (; files; files = files->next)
-    {
-        GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
-        infos = g_list_append (infos, f->info);
-    }
-
-    return infos;
-}
-
-
-gboolean create_dir_if_needed (const gchar *dpath)
+/**
+ * returns  1 if dir is existing,
+ * returns  0 if dir is not existing,
+ * returns -1 if dir is not readable
+ */
+int is_dir_existing(const gchar *dpath)
 {
     g_return_val_if_fail (dpath, FALSE);
 
@@ -1256,21 +920,55 @@ gboolean create_dir_if_needed (const gchar *dpath)
     {
         if (errno == ENOENT)
         {
-            g_print (_("Creating directory %s… "), dpath);
-            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)  return TRUE;  else
-            {
-                gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
-                perror (msg);
-                g_free (msg);
-            }
+            return 0;
         }
         else
             g_warning (_("Couldn’t read from the directory %s: %s"), dpath, strerror (errno));
 
-        return FALSE;
+        return -1;
     }
 
     closedir (dir);
+    return 1;
+}
+
+
+gboolean create_dir_if_needed (const gchar *dpath)
+{
+    g_return_val_if_fail (dpath, FALSE);
+
+    auto dir_exists = is_dir_existing(dpath);
+
+    switch (dir_exists)
+    {
+        case -1:
+        {
+            return FALSE;
+        }
+        case 0:
+        {
+            g_print (_("Creating directory %s… "), dpath);
+            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)
+            {
+                return TRUE;
+            }
+            else
+            {
+                gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
+                perror (msg);
+                g_free (msg);
+                return FALSE;
+            }
+            break;
+        }
+        case 1:
+        default:
+        {
+            return TRUE;
+        }
+    }
+
+    // never reached
     return TRUE;
 }
 
@@ -1515,4 +1213,21 @@ gint get_string_pixel_size (const char *s, int len)
     g_free (buf);
 
     return xSize;
+}
+
+
+gboolean move_old_to_new_location(const gchar* oldPath, const gchar* newPath)
+{
+    if (rename(oldPath, newPath) == 0)
+    {
+        return TRUE;
+    }
+    g_warning (_("Couldn’t move path from “%s” to “%s”: %s"), oldPath, newPath, strerror (errno));
+
+    return FALSE;
+}
+
+gchar* get_package_config_dir()
+{
+    return g_build_filename (g_get_user_config_dir(), PACKAGE, NULL);
 }

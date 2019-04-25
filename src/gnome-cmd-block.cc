@@ -1,8 +1,8 @@
 /** 
- * @file gnome-cmd-python-plugin.h
+ * @file block.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,23 +19,27 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_PYTHON_PLUGIN_H__
-#define __GNOME_CMD_PYTHON_PLUGIN_H__
+#include <config.h>
+#include <libintl.h>
+#include <locale.h>
+#include <stdio.h>
 
-#include "gnome-cmd-main-win.h"
+using namespace std;
 
-struct PythonPluginData
+#define _(String) gettext (String)
+
+int main (int argc, char **argv)
 {
-    gchar *name;        // plugin name
-    gchar *path;        // full path to plugin (including file name, but without ext: .py or .pyc)
-    gchar *fname;       // file name (without ext: .py or .pyc)
-};
+    setlocale (LC_ALL, "");
+    bindtextdomain (PACKAGE, DATADIR "/locale");
+    textdomain (PACKAGE);
+    printf ("---------------------------------------------------------------\n");
+    printf (_("The program has now finished. Press Enter to close this window.\n"));
 
+    FILE *fd = fdopen (0, "r");
 
-void python_plugin_manager_init ();
-void python_plugin_manager_shutdown ();
+    getc(fd);
+    fclose(fd);
 
-GList *gnome_cmd_python_plugin_get_list();
-gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCmdMainWin *mw);
-
-#endif // __GNOME_CMD_PYTHON_PLUGIN_H__
+    return 0;
+}

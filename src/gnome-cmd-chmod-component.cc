@@ -2,7 +2,7 @@
  * @file gnome-cmd-chmod-component.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -171,7 +171,7 @@ static void init (GnomeCmdChmodComponent *comp)
 
 GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 {
-    GnomeCmdChmodComponent *comp = (GnomeCmdChmodComponent *) g_object_new (GNOME_CMD_TYPE_CHMOD_COMPONENT, NULL);
+    auto comp = static_cast <GnomeCmdChmodComponent*> (g_object_new (GNOME_CMD_TYPE_CHMOD_COMPONENT, nullptr));
 
     gnome_cmd_chmod_component_set_perms (comp, perms);
 

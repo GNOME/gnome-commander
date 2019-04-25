@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-main-win.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con-list.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "utils.h"
 
 #include "../pixmaps/copy_file_names.xpm"
@@ -133,28 +133,51 @@ static gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, Gn
     g_return_val_if_fail (mw!=NULL, FALSE);
 
     if (event->type!=GDK_KEY_PRESS)
+    {
         return FALSE;
+    }
 
     if (!((event->keyval >= GDK_A && event->keyval <= GDK_Z) || (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
           (event->keyval >= GDK_0 && event->keyval <= GDK_9) ||
           event->keyval == GDK_period || event->keyval == GDK_question|| event->keyval == GDK_asterisk || event->keyval == GDK_bracketleft))
+    {
         return FALSE;
+    }
 
-    if (!gnome_cmd_data.options.quick_search)
+    if (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_CTRL_ALT)
+    {
         return FALSE;
+    }
 
-    if (!state_is_alt (event->state) && !state_is_alt_shift (event->state))
+    if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_ALT)
+        && (!state_is_alt (event->state) && !state_is_alt_shift (event->state)))
+    {
         return FALSE;
+    }
+    
+    if ((gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER) &&
+        (state_is_ctrl (event->state) || state_is_ctrl_shift (event->state) || state_is_ctrl_alt_shift (event->state)
+        || (state_is_alt (event->state) || state_is_alt_shift (event->state))
+        || (state_is_ctrl_alt(event->state))))
+    {
+        return FALSE;
+    }
 
     GnomeCmdFileSelector *fs = mw->fs(ACTIVE);
     if (!fs || !fs->file_list())
+    {
         return FALSE;
+    }
 
     if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->file_list())))
+    {
         return FALSE;
+    }
 
     if (gnome_cmd_file_list_quicksearch_shown (fs->file_list()))
+    {
         return FALSE;
+    }
 
     gnome_cmd_file_list_show_quicksearch (fs->file_list(), event->keyval);
 
@@ -720,10 +743,10 @@ static void destroy (GtkObject *object)
         main_win->priv->key_snooper_id = 0;
     }
 
-    if (main_win->advrename_dlg)
+    if (main_win && main_win->advrename_dlg)
         gtk_widget_destroy (*main_win->advrename_dlg);
 
-    if (main_win->file_search_dlg)
+    if (main_win && main_win->file_search_dlg)
         gtk_widget_destroy (*main_win->file_search_dlg);
 
     gtk_main_quit ();
@@ -963,7 +986,19 @@ void GnomeCmdMainWin::refocus()
 
 gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 {
-    if (state_is_alt (event->state))
+    if (state_is_ctrl_alt (event->state))
+    {
+        switch (event->keyval)
+        {
+            case GDK_c:
+            case GDK_C:
+                if (gnome_cmd_data.cmdline_visibility && (gnome_cmd_data.options.quick_search == GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER))
+                    gnome_cmd_cmdline_focus(main_win->get_cmdline());
+                return TRUE;
+                break;
+        }
+    }
+    else if (state_is_alt (event->state))
     {
         switch (event->keyval)
         {
@@ -1389,17 +1424,4 @@ void GnomeCmdMainWin::maximize_pane()
         slide_set_100_0 (NULL, NULL);
     else
         slide_set_0_100 (NULL, NULL);
-}
-
-
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw)
-{
-    xml << XML::tag("Layout");
-
-        xml << XML::tag("Panel") << XML::attr("name") << "left" << *mw.fs(LEFT) << XML::endtag();
-        xml << XML::tag("Panel") << XML::attr("name") << "right" << *mw.fs(RIGHT) << XML::endtag();
-
-    xml << XML::endtag();
-
-    return xml;
 }

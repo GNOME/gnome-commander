@@ -1,23 +1,22 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4} )
 GNOME2_LA_PUNT="yes"
 
-inherit eutils gnome2 python-single-r1
+inherit gnome2
 
 DESCRIPTION="A graphical, full featured, twin-panel file manager"
-HOMEPAGE="http://gcmd.github.io/"
+HOMEPAGE="https://gcmd.github.io/"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="chm exif gsf pdf python taglib samba test unique"
+IUSE="chm exif gsf pdf taglib samba test +unique"
 
 RDEPEND="
-	app-text/gnome-doc-utils
+	app-text/yelp-tools
 	>=dev-libs/glib-@GLIB_REQ@:2
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 	gnome-base/gnome-keyring
@@ -35,8 +34,8 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 	dev-util/gtk-doc-am
-	>=dev-util/intltool-0.35.0
 	sys-devel/gettext
+	>=sys-devel/gcc-8.2.0
 	virtual/pkgconfig
 	test? ( >=dev-cpp/gtest-@GTEST_REQ@ )
 "
@@ -44,13 +43,13 @@ DEPEND="
 src_configure() {
 	gnome2_src_configure \
 		--disable-static \
-		$(use_enable python) \
 		$(use_with chm libchm) \
 		$(use_with exif exiv2) \
 		$(use_with gsf libgsf) \
+		$(use_with pdf poppler) \
 		$(use_with samba) \
 		$(use_with taglib) \
-		$(use_with pdf poppler)
+		$(use_with unique)
 }
 
 pkg_postinst() {

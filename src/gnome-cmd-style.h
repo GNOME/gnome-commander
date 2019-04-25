@@ -2,7 +2,7 @@
  * @file gnome-cmd-style.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_STYLE_H__
-#define __GNOME_CMD_STYLE_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -28,5 +27,3 @@ extern GtkStyle *list_style, *sel_list_style;
 extern GtkStyle *alt_list_style, *alt_sel_list_style;
 
 void gnome_cmd_style_create (GnomeCmdData::Options &cfg);
-
-#endif // __GNOME_CMD_STYLE_H__

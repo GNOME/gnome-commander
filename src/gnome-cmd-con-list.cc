@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-con-list.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,19 +39,19 @@ struct GnomeCmdConList::Private
     gboolean device_cons_changed;
     gboolean quick_ftp_cons_changed;
 
-    GList *remote_cons;
-    GList *device_cons;
-    GList *quick_ftp_cons;
+    GList *remote_cons    {nullptr};
+    GList *device_cons    {nullptr};
+    GList *quick_ftp_cons {nullptr};
 
-    GnomeCmdCon *home_con;
+    GnomeCmdCon *home_con {nullptr};
 #ifdef HAVE_SAMBA
-    GnomeCmdCon *smb_con;
+    GnomeCmdCon *smb_con  {nullptr};
 #endif
     GList *all_cons;
 };
 
 
-static GtkObjectClass *parent_class = NULL;
+static GtkObjectClass *parent_class = nullptr;
 
 enum
 {
@@ -152,10 +152,7 @@ static void init (GnomeCmdConList *con_list)
 #ifdef HAVE_SAMBA
     con_list->priv->smb_con = gnome_cmd_con_smb_new ();
 #endif
-    // con_list->priv->remote_cons = NULL;
-    // con_list->priv->device_cons = NULL;
-    // con_list->priv->quick_ftp_cons = NULL;
-    con_list->priv->all_cons = g_list_append (NULL, con_list->priv->home_con);
+    con_list->priv->all_cons = g_list_append (nullptr, con_list->priv->home_con);
 #ifdef HAVE_SAMBA
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);
 #endif
@@ -180,9 +177,9 @@ GtkType gnome_cmd_con_list_get_type ()
             sizeof (GnomeCmdConListClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (gtk_object_get_type (), &info);
@@ -283,30 +280,6 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRem
 }
 
 
-void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConRemote *remote_con)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
-    g_return_if_fail (g_list_index (con_list->priv->all_cons, remote_con) != -1);
-    g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, remote_con) != -1);
-
-    con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, remote_con);
-    con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, remote_con);
-
-    g_signal_handlers_disconnect_by_func (remote_con, (gpointer) on_con_updated, con_list);
-
-    if (con_list->priv->update_lock)
-    {
-        con_list->priv->changed = TRUE;
-        con_list->priv->quick_ftp_cons_changed = TRUE;
-    }
-    else
-    {
-        gtk_signal_emit (*con_list, signals[LIST_CHANGED]);
-        gtk_signal_emit (*con_list, signals[QUICK_FTP_LIST_CHANGED]);
-    }
-}
-
-
 void GnomeCmdConList::add(GnomeCmdConDevice *con)
 {
     g_return_if_fail (g_list_index (priv->all_cons, con) == -1);
@@ -353,7 +326,7 @@ void GnomeCmdConList::remove(GnomeCmdConDevice *con)
 
 GList *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->all_cons;
 }
@@ -361,7 +334,7 @@ GList *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 
 GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->remote_cons;
 }
@@ -369,7 +342,7 @@ GList *gnome_cmd_con_list_get_all_remote (GnomeCmdConList *con_list)
 
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), nullptr);
 
     return con_list->priv->device_cons;
 }
@@ -385,14 +358,14 @@ void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
 
 GnomeCmdCon *GnomeCmdConList::find_alias(const gchar *alias) const
 {
-    g_return_val_if_fail (alias!=NULL, NULL);
+    g_return_val_if_fail (alias != nullptr, nullptr);
 
     GnomeCmdCon con;                // used as reference element to be looked for, no allocation necessary
     con.alias = (gchar *) alias;
 
-    GList *elem = g_list_find_custom (priv->all_cons, &con, (GCompareFunc) compare_alias);
+    auto elem = g_list_find_custom (priv->all_cons, &con, (GCompareFunc) compare_alias);
 
-    return elem ? (GnomeCmdCon *) elem->data : NULL;
+    return elem ? static_cast<GnomeCmdCon*> (elem->data) : nullptr;
 }
 
 

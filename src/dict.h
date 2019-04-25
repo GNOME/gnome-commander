@@ -2,7 +2,7 @@
  * @file dict.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __DICT_H
-#define __DICT_H
+#pragma once
 
 #include <utility>
 #include <map>
@@ -102,7 +101,7 @@ class DICT<T,T>
 
   public:
 
-    DICT(const T no_val=T()): NO_VALUE(no_val)   {}
+    explicit DICT(const T no_val = T()): NO_VALUE(no_val) {}
 
     void add(const T k, const T &v);
 
@@ -211,5 +210,3 @@ inline void load_data(DICT<std::string,std::string> &dict, void *a, unsigned n)
     for (unsigned i=0; i<n; ++i, ++t)
          dict.add(t->key,t->value);
 }
-
-#endif

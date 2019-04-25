@@ -2,7 +2,7 @@
  * @file libgcmd-widget-factory.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LIBGCMD_WIDGET_FACTORY_H__
-#define __LIBGCMD_WIDGET_FACTORY_H__
+#pragma once
 
 GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name);
 
@@ -53,8 +52,6 @@ GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, Gtk
 GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text);
 
 GtkWidget *create_hsep (GtkWidget *parent);
-
-GtkWidget *create_vsep (GtkWidget *parent);
 
 GtkWidget *create_space_hbox (GtkWidget *parent, GtkWidget *content);
 
@@ -156,8 +153,6 @@ inline void table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAtta
     gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, y_opts, 0, 0);
 }
 
-GtkWidget *create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask);
-
 GtkWidget *create_progress_bar (GtkWidget *parent);
 
 GtkWidget *create_sw (GtkWidget *parent);
@@ -171,5 +166,3 @@ const char *get_entry_text (GtkWidget *parent, const gchar *entry_name);
 #else
     void create_error_dialog (const gchar *msg, ...);
 #endif
-
-#endif //__LIBGCMD_WIDGET_FACTORY_H__

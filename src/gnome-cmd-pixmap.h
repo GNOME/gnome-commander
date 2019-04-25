@@ -2,7 +2,7 @@
  * @file gnome-cmd-pixmap.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_PIXMAP_H__
-#define __GNOME_CMD_PIXMAP_H__
+#pragma once
 
 struct GnomeCmdPixmap
 {
@@ -41,15 +40,12 @@ inline void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
     if (!pixmap)
         return;
 
-    g_return_if_fail (pixmap->pixbuf != NULL);
-    g_return_if_fail (pixmap->pixmap != NULL);
-    g_return_if_fail (pixmap->mask != NULL);
-
-    g_object_unref (pixmap->pixbuf);
-    g_object_unref (pixmap->pixmap);
-    g_object_unref (pixmap->mask);
+    if (pixmap->pixbuf != NULL)
+        g_object_unref (pixmap->pixbuf);
+    if (pixmap->pixmap != NULL)
+        g_object_unref (pixmap->pixmap);
+    if (pixmap->mask != NULL)
+        g_object_unref (pixmap->mask);
 
     g_free (pixmap);
 }
-
-#endif // __GNOME_CMD_PIXMAP_H__

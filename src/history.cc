@@ -2,7 +2,7 @@
  * @file history.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,17 +46,7 @@ void History::add(const gchar *text)
     if (!text || !*text)
         return;
 
-    // If we are in the middle of the history list, lets kill all items that are in front of us
-    GList *l = ents;
-    while (l && l != pos)
-    {
-        g_free (l->data);
-        GList *n = g_list_remove_link (l, l);
-        g_list_free (l);
-        l = n;
-    }
-
-    ents = string_history_add (l, text, max);
+    ents = string_history_add (ents, text, max);
     pos = ents;
 }
 

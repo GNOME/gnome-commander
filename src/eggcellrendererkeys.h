@@ -2,7 +2,7 @@
  * @file eggcellrendererkeys.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __EGG_CELL_RENDERER_KEYS_H__
-#define __EGG_CELL_RENDERER_KEYS_H__
+#pragma once
 
 #include <gtk/gtkcellrenderertext.h>
 
@@ -58,17 +57,7 @@ struct EggCellRendererKeysClass
 GType egg_cell_renderer_keys_get_type ();
 GtkCellRenderer *egg_cell_renderer_keys_new ();
 
-#if !GTK_CHECK_VERSION (2, 10, 0)
-enum GtkCellRendererAccelMode
-{
-  GTK_CELL_RENDERER_ACCEL_MODE_GTK,
-  GTK_CELL_RENDERER_ACCEL_MODE_OTHER
-};
-#endif
-
 void  egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, GdkModifierType mask);
 void  egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, GdkModifierType *mask);
 void  egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, GtkCellRendererAccelMode accel_mode);
 gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods);
-
-#endif // __GTK_CELL_RENDERER_KEYS_H__

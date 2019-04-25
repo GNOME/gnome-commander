@@ -2,7 +2,7 @@
  * @file gnome-cmd-plugin.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_PLUGIN_H__
-#define __GNOME_CMD_PLUGIN_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_PLUGIN              (gnome_cmd_plugin_get_type ())
 #define GNOME_CMD_PLUGIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_PLUGIN, GnomeCmdPlugin))
@@ -61,5 +60,3 @@ GList *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCm
 void gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
 void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin);
-
-#endif //__GNOME_CMD_PLUGIN_H__

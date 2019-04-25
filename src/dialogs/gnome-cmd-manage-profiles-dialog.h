@@ -2,7 +2,7 @@
  * @file gnome-cmd-manage-profiles-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
-#define __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-menu-button.h"
@@ -295,29 +294,19 @@ namespace GnomeCmd
                                                          GTK_STOCK_OK, GTK_RESPONSE_OK,
                                                          NULL);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
         GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-#endif
 
         GtkWidget *vbox, *hbox, *scrolled_window, *view, *box, *button;
 
         gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
         gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
         gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
         gtk_box_set_spacing (GTK_BOX (content_area), 2);
-#else
-        gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-#endif
         gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
         vbox = gtk_vbox_new (FALSE, 12);
         gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
-#if GTK_CHECK_VERSION (2, 14, 0)
         gtk_container_add (GTK_CONTAINER (content_area), vbox);
-#else
-        gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
-#endif
 
         hbox = gtk_hbox_new (FALSE, 12);
         gtk_container_add (GTK_CONTAINER (vbox), hbox);
@@ -354,11 +343,7 @@ namespace GnomeCmd
         g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
         gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
         gtk_widget_show_all (content_area);
-#else
-        gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
-#endif
 
         gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
@@ -398,5 +383,3 @@ namespace GnomeCmd
     template <typename CONFIG, typename PROFILE, typename COMPONENT>
     const char *ManageProfilesDialog<CONFIG,PROFILE,COMPONENT>::help_id;
 }
-
-#endif // __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__

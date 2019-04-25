@@ -2,7 +2,7 @@
  * @file libgcmd-utils.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __LIB_GCMD_UTILS_H__
-#define __LIB_GCMD_UTILS_H__
+#pragma once
 
 gchar *get_utf8 (const gchar *unknown);
 
@@ -47,5 +46,3 @@ inline gchar *get_bold_mono_text (const gchar *in)
     g_free (escaped_text);
     return result;
 }
-
-#endif //__LIB_GCMD_UTILS_H__

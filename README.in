@@ -2,7 +2,7 @@
 
                 Copyright (C) 2001-2006 Marcus Bjurman <marbj499@student.liu.se>
                 Copyright (C) 2007-2012 Piotr Eljasiak <epiotr@use.pl>
-                Copyright (C) 2013-2017 Uwe Scholz <u.scholz83@gmx.de>
+                Copyright (C) 2013-2019 Uwe Scholz <u.scholz83@gmx.de>
                 http://gcmd.github.io/
 
 
@@ -68,8 +68,8 @@ Plugins:
 3. Building
 --------------------------------
 
-GNOME Commander requires glib >= @GLIB_REQ@, GTK+ >= @GTK_REQ@, gnome >= @GNOMEUI_REQ@, 
-gnome-keyring >= @GNOME_KEYRING_REQ@ and unique >= @UNIQUE_REQ@ libraries.
+GNOME Commander requires glib >= @GLIB_REQ@, GTK+ >= @GTK_REQ@, gnome >= @GNOMEUI_REQ@
+and gnome-keyring >= @GNOME_KEYRING_REQ@ libraries.
 
 Additionally GNOME Commander may require:
 
@@ -78,6 +78,9 @@ Additionally GNOME Commander may require:
     gnome-commander makes use of that functionality by being able to update
     its visible directories even when files are create/deleted or changed by
     other programs.
+
+  * unique >= @UNIQUE_REQ@
+    Optional - for uniqueness support: only one running instance at a time
 
   * python >= @PYTHON_REQ@
     Optional - for python plugins support.
@@ -94,6 +97,11 @@ Additionally GNOME Commander may require:
   * poppler >= @POPPLER_REQ@
     Optional - for PDF support.
 
+If you install GNOME Commander by manually compiling the sources, keep in
+mind that on most Linux distributions you have to install the development
+packages for the above libraries to be found by the configure script.
+These packages are normaly indicated by a "-dev" or "-devel" suffix,
+e.g. libgnome-dev, taglib-dev, etc.
 
 Simple install procedure:
 
@@ -123,8 +131,8 @@ in the AUTHORS file.
 5. Problem reporting
 --------------------------------
 
-Bugs should be reported to the GNOME bug tracking system
-(http://bugzilla.gnome.org, product gnome-commander). You will need to create an
+Bugs should be reported to the GitLab instance of Gnome
+(https://gitlab.gnome.org/GNOME/gnome-commander/issues). You will need to create an
 account for yourself.
 
 You can also report bugs using the GNOME program bug-buddy.

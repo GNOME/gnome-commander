@@ -2,7 +2,7 @@
  * @file gnome-cmd-file-list.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,13 +19,11 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_LIST_H__
-#define __GNOME_CMD_FILE_LIST_H__
+#pragma once
 
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-collection.h"
-#include "gnome-cmd-xml-config.h"
 #include "filter.h"
 
 #define GNOME_CMD_TYPE_FILE_LIST              (gnome_cmd_file_list_get_type ())
@@ -70,13 +68,13 @@ struct GnomeCmdFileList
 
     Private *priv;
 
-    GtkWidget *tab_label_pin;
-    GtkWidget *tab_label_text;
+    GtkWidget *tab_label_pin {nullptr};
+    GtkWidget *tab_label_text {nullptr};
 
-    gboolean realized;
-    gboolean modifier_click;
+    gboolean realized {FALSE};
+    gboolean modifier_click {FALSE};
 
-    gboolean locked;
+    gboolean locked {FALSE};
 
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
@@ -101,15 +99,16 @@ struct GnomeCmdFileList
         NUM_COLUMNS
     };
 
-    GnomeCmdCon *con;
-    GnomeCmdDir *cwd, *lwd;         // current & last working dir
-    GnomeCmdDir *connected_dir;
+    GnomeCmdCon *con {nullptr};
+    GnomeCmdDir *cwd {nullptr};     // current working dir
+    GnomeCmdDir *lwd {nullptr};     // last working dir
+    GnomeCmdDir *connected_dir {nullptr};
 
     GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order);
     ~GnomeCmdFileList();
 
     guint size()                          {  return g_list_length (get_visible_files());  }
-    bool empty()                          {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
+    bool empty()                          {  return get_visible_files() == nullptr;            }    // FIXME should be: size()==0
     void clear();
 
     void reload();
@@ -208,7 +207,7 @@ struct GnomeCmdFileList
      * already exist, or just set the file list to the last or the
      * current working dir.
      */
-    void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
+    void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir = nullptr);
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
 
@@ -218,14 +217,12 @@ struct GnomeCmdFileList
 
     void init_dnd();
     void drop_files(GnomeVFSXferOptions xferOptions, GList *uri_list, GnomeCmdDir *dir);
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdFileList &fl);
 };
 
 
 inline void *GnomeCmdFileList::operator new (size_t size)
 {
-    return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
+    return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, nullptr);
 }
 
 inline GnomeCmdFileList::~GnomeCmdFileList()
@@ -249,7 +246,7 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 {
     GnomeCmdFile *f = get_focused_file();
 
-    return !f || f->is_dotdot ? NULL : f;
+    return !f || f->is_dotdot ? nullptr : f;
 }
 
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl);
@@ -267,5 +264,3 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
 gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
-
-#endif // __GNOME_CMD_FILE_LIST_H__

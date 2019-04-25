@@ -2,7 +2,7 @@
     GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
     Copyright (C) 2007-2012 Piotr Eljasiak
-    Copyright (C) 2013-2017 Uwe Scholz
+    Copyright (C) 2013-2019 Uwe Scholz
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,18 +19,19 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
 #include <stdlib.h>
+#include <string>
 #include <libgcmd/libgcmd.h>
 #include "file-roller-plugin.h"
 #include "file-roller.xpm"
 #include "file-roller-small.xpm"
 
 #define NAME "File Roller Plugin"
-#define COPYRIGHT "Copyright \n\xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2017 Uwe Scholz"
+#define COPYRIGHT "Copyright \n\xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2019 Uwe Scholz"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define TRANSLATOR_CREDITS "Translations: https://l10n.gnome.org/module/gnome-commander/"
 #define WEBPAGE "http://gcmd.github.io"
-#define VERSION "1.6.0"
 
 #define GCMD_PLUGINS_FILE_ROLLER                     "org.gnome.gnome-commander.plugins.file-roller-plugin"
 #define GCMD_PLUGINS_FILE_ROLLER_DEFAULT_TYPE        "default-type"
@@ -85,6 +86,34 @@ static const gchar *handled_extensions[NUMBER_OF_EXTENSIONS + 1] =
  * Functions for using GSettings
  ***********************************/
 
+static GSettingsSchemaSource* GetGlobalSchemaSource()
+{
+    GSettingsSchemaSource   *global_schema_source;
+    std::string              g_schema_path(PREFIX);
+
+    g_schema_path.append("/share/glib-2.0/schemas");
+
+    global_schema_source = g_settings_schema_source_get_default ();
+
+    GSettingsSchemaSource *parent = global_schema_source;
+    GError *error = NULL;
+
+    global_schema_source = g_settings_schema_source_new_from_directory
+                               ((gchar*) g_schema_path.c_str(),
+                                parent,
+                                FALSE,
+                                &error);
+
+    if (global_schema_source == NULL)
+    {
+        g_printerr(_("Could not load schemas from %s: %s\n"),
+                   (gchar*) g_schema_path.c_str(), error->message);
+        g_clear_error (&error);
+    }
+
+    return global_schema_source;
+}
+
 struct _PluginSettings
 {
     GObject parent;
@@ -122,7 +151,12 @@ PluginSettings *plugin_settings_new ()
 
 static void plugin_settings_init (PluginSettings *gs)
 {
-    gs->file_roller_plugin = g_settings_new (GCMD_PLUGINS_FILE_ROLLER);
+    GSettingsSchemaSource   *global_schema_source;
+    GSettingsSchema         *global_schema;
+
+    global_schema_source = GetGlobalSchemaSource();
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PLUGINS_FILE_ROLLER, FALSE);
+    gs->file_roller_plugin = g_settings_new_full (global_schema, NULL, NULL);
 }
 
 

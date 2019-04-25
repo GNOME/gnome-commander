@@ -2,7 +2,7 @@
  * @file gnome-cmd-con-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,15 +59,15 @@ struct GnomeCmdConnectDialogClass
 
 struct GnomeCmdConnectDialog::Private
 {
-    string *alias;
+    string *alias {nullptr};
     string uri_str;
 
-    GnomeCmdCon::Authentication auth;
+    GnomeCmdCon::Authentication auth {GnomeCmdCon::SAVE_PERMANENTLY};
 
-    GtkWidget *required_table;
-    GtkWidget *optional_table;
+    GtkWidget *required_table {nullptr};
+    GtkWidget *optional_table {nullptr};
 
-    GtkWidget *type_combo;
+    GtkWidget *type_combo {nullptr};
 
     GtkWidget *alias_entry;
     GtkWidget *uri_entry;
@@ -88,15 +88,6 @@ struct GnomeCmdConnectDialog::Private
 
 inline GnomeCmdConnectDialog::Private::Private()
 {
-    alias = NULL;
-
-    auth = GnomeCmdCon::SAVE_PERMANENTLY;
-
-    required_table = NULL;
-    optional_table = NULL;
-
-    type_combo = NULL;
-
     alias_entry = gtk_entry_new ();
     uri_entry = gtk_entry_new ();
     server_entry = gtk_entry_new ();
@@ -510,9 +501,9 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
  */
 GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 {
-    GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
+    auto *dialog = static_cast<GnomeCmdConnectDialog*> (g_object_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
 
-    g_return_val_if_fail (dialog != NULL, NULL);
+    g_return_val_if_fail (dialog != nullptr, nullptr);
 
     if (has_alias)
         dialog->priv->alias = new string;
@@ -525,11 +516,11 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     gint response = gtk_dialog_run (*dialog);
 
-    GnomeCmdConRemote *server = NULL;
+    GnomeCmdConRemote *server = nullptr;
 
     if (response==GTK_RESPONSE_OK)
     {
-        const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : NULL;
+        const gchar *alias = dialog->priv->alias && !dialog->priv->alias->empty() ? dialog->priv->alias->c_str() : nullptr;
 
         server = gnome_cmd_con_remote_new (alias, dialog->priv->uri_str);
 
@@ -547,13 +538,13 @@ GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
 gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 {
-    g_return_val_if_fail (server != NULL, FALSE);
+    g_return_val_if_fail (server != nullptr, FALSE);
 
-    GnomeCmdConnectDialog *dialog = (GnomeCmdConnectDialog *) gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
+    auto *dialog = reinterpret_cast<GnomeCmdConnectDialog*> (gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, nullptr));
 
-    g_return_val_if_fail (dialog != NULL, FALSE);
+    g_return_val_if_fail (dialog != nullptr, FALSE);
 
-    GnomeCmdCon *con = GNOME_CMD_CON (server);
+    auto *con = GNOME_CMD_CON (server);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->type_combo), con->method);
 
@@ -628,11 +619,11 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server)
 
     gint response = gtk_dialog_run (*dialog);
 
-    if (response==GTK_RESPONSE_OK)
+    if (response == GTK_RESPONSE_OK)
     {
         GnomeVFSURI *uri = gnome_vfs_uri_new (dialog->priv->uri_str.c_str());
 
-        const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : NULL;
+        const gchar *alias = dialog->priv->alias ? dialog->priv->alias->c_str() : nullptr;
         const gchar *host = gnome_vfs_uri_get_host_name (uri);
 
         gnome_cmd_con_set_alias (con, alias);

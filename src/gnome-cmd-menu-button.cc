@@ -2,7 +2,7 @@
  * @file gnome-cmd-menu-button.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,12 +63,6 @@ inline GtkWidget *create_menu_button (const gchar *stock_id, const gchar *label_
 GtkWidget *gnome_cmd_button_menu_new (const gchar *label, GtkWidget *menu)
 {
     return create_menu_button (NULL, label, menu);
-}
-
-
-GtkWidget *gnome_cmd_button_menu_new_from_stock (const gchar *stock_id, GtkWidget *menu)
-{
-    return create_menu_button (stock_id, NULL, menu);
 }
 
 

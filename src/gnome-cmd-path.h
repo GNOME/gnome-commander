@@ -2,7 +2,7 @@
  * @file gnome-cmd-path.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_PATH_H__
-#define __GNOME_CMD_PATH_H__
+#pragma once
 
 struct GnomeCmdPath
 {
@@ -37,5 +36,3 @@ struct GnomeCmdPath
     virtual GnomeCmdPath *get_parent() = 0;
     virtual GnomeCmdPath *get_child(const gchar *child) = 0;
 };
-
-#endif // __GNOME_CMD_PATH_H__

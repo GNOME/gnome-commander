@@ -2,7 +2,7 @@
  * @file ls_colors.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,7 +71,7 @@ inline GdkColor *code2color (gint code)
         default: break;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 
@@ -82,7 +82,7 @@ static LsColor *ext_color (gchar *key, gchar *val)
 
     ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
     if (ret < 1)
-        return NULL;
+        return nullptr;
 
     do
         key++;
@@ -90,8 +90,8 @@ static LsColor *ext_color (gchar *key, gchar *val)
     col = g_new (LsColor, 1);
     col->type = GNOME_VFS_FILE_TYPE_REGULAR;
     col->ext = g_strdup (key);
-    col->fg = NULL;
-    col->bg = NULL;
+    col->fg = nullptr;
+    col->bg = nullptr;
 
     for (i=0; i<ret; i++)
     {
@@ -110,9 +110,9 @@ static LsColor *type_color (gchar *key, gchar *val)
 {
     int i, n[3];
     LsColor *col = g_new0 (LsColor, 1);
-    // col->ext = NULL;
-    // col->fg = NULL;
-    // col->bg = NULL;
+    // col->ext = nullptr;
+    // col->fg = nullptr;
+    // col->bg = nullptr;
 
     if (strcmp (key, "fi") == 0)
         col->type = GNOME_VFS_FILE_TYPE_REGULAR;
@@ -131,7 +131,7 @@ static LsColor *type_color (gchar *key, gchar *val)
     else
     {
         g_free (col);
-        return NULL;
+        return nullptr;
     }
 
     int ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
@@ -150,7 +150,7 @@ static LsColor *type_color (gchar *key, gchar *val)
 
 static LsColor *create_color (gchar *ls_color)
 {
-    LsColor *col = NULL;
+    LsColor *col = nullptr;
 
     gchar **s = g_strsplit (ls_color, "=", 0);
     gchar *key = s[0];
@@ -206,11 +206,11 @@ LsColor *ls_colors_get (GnomeCmdFile *f)
     if (f->info->symlink_name)
         return type_colors[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 
-    LsColor *col = NULL;
+    LsColor *col = nullptr;
     const gchar *ext = f->get_extension();
 
     if (ext)
-        col = (LsColor *) g_hash_table_lookup (::map, ext);
+        col = static_cast<LsColor*> (g_hash_table_lookup (::map, ext));
 
     if (!col)
         col = type_colors[f->info->type];

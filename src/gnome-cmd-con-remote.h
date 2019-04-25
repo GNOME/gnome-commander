@@ -2,7 +2,7 @@
  * @file gnome-cmd-con-remote.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_REMOTE_H__
-#define __GNOME_CMD_CON_REMOTE_H__
+#pragma once
 
 #include "gnome-cmd-con.h"
 
@@ -48,5 +47,3 @@ GtkType gnome_cmd_con_remote_get_type ();
 GnomeCmdConRemote *gnome_cmd_con_remote_new (const gchar *alias, const std::string &uri_str, GnomeCmdCon::Authentication auth=GnomeCmdCon::SAVE_PERMANENTLY);
 
 void gnome_cmd_con_remote_set_host_name (GnomeCmdConRemote *con, const gchar *host_name);
-
-#endif // __GNOME_CMD_CON_REMOTE_H__

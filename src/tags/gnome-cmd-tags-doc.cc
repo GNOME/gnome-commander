@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-tags-doc.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -59,145 +59,11 @@ using namespace std;
 #ifdef HAVE_GSF
 static DICT<GnomeCmdTag> gsf_tags(TAG_NONE);
 
-inline const gchar *lid2lang (guint lid)
-{
-#if defined (__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-    switch (lid)
-    {
-        case 0x0400:
-            return _("No Proofing");
-        case 0x0401:
-            return _("Arabic");
-        case 0x0402:
-            return _("Bulgarian");
-        case 0x0403:
-            return _("Catalan");
-        case 0x0404:
-            return _("Traditional Chinese");
-        case 0x0804:
-            return _("Simplified Chinese");
-        case 0x0405:
-            return _("Chechen");
-        case 0x0406:
-            return _("Danish");
-        case 0x0407:
-            return _("German");
-        case 0x0807:
-            return _("Swiss German");
-        case 0x0408:
-            return _("Greek");
-        case 0x0409:
-            return _("U.S. English");
-        case 0x0809:
-            return _("U.K. English");
-        case 0x0c09:
-            return _("Australian English");
-        case 0x040a:
-            return _("Castilian Spanish");
-        case 0x080a:
-            return _("Mexican Spanish");
-        case 0x040b:
-            return _("Finnish");
-        case 0x040c:
-            return _("French");
-        case 0x080c:
-            return _("Belgian French");
-        case 0x0c0c:
-            return _("Canadian French");
-        case 0x100c:
-            return _("Swiss French");
-        case 0x040d:
-            return _("Hebrew");
-        case 0x040e:
-            return _("Hungarian");
-        case 0x040f:
-            return _("Icelandic");
-        case 0x0410:
-            return _("Italian");
-        case 0x0810:
-            return _("Swiss Italian");
-        case 0x0411:
-            return _("Japanese");
-        case 0x0412:
-            return _("Korean");
-        case 0x0413:
-            return _("Dutch");
-        case 0x0813:
-            return _("Belgian Dutch");
-        case 0x0414:
-            return _("Norwegian Bokmal");
-        case 0x0814:
-            return _("Norwegian Nynorsk");
-        case 0x0415:
-            return _("Polish");
-        case 0x0416:
-            return _("Brazilian Portuguese");
-        case 0x0816:
-            return _("Portuguese");
-        case 0x0417:
-            return _("Rhaeto-Romanic");
-        case 0x0418:
-            return _("Romanian");
-        case 0x0419:
-            return _("Russian");
-        case 0x041a:
-            return _("Croato-Serbian (Latin)");
-        case 0x081a:
-            return _("Serbo-Croatian (Cyrillic)");
-        case 0x041b:
-            return _("Slovak");
-        case 0x041c:
-            return _("Albanian");
-        case 0x041d:
-            return _("Swedish");
-        case 0x041e:
-            return _("Thai");
-        case 0x041f:
-            return _("Turkish");
-        case 0x0420:
-            return _("Urdu");
-        case 0x0421:
-            return _("Indonesian");
-        case 0x0422:
-            return _("Ukrainian");
-        case 0x0423:
-            return _("Byelorussian");
-        case 0x0424:
-            return _("Slovenian");
-        case 0x0425:
-            return _("Estonian");
-        case 0x0426:
-            return _("Latvian");
-        case 0x0427:
-            return _("Lithuanian");
-        case 0x0429:
-            return _("Farsi");
-        case 0x042D:
-            return _("Basque");
-        case 0x042F:
-            return _("Macedonian");
-        case 0x0436:
-            return _("Afrikaans");
-        case 0x043E:
-            return _("Malayalam");
-
-        default:
-            return NULL;
-    }
-#if defined (__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-}
-
-
 static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 {
     char *type = (char *) key;
     const GsfDocProp *prop = (const GsfDocProp *) value;
-    GnomeCmdFileMetadata *metadata = (GnomeCmdFileMetadata *) user_data;
+    auto metadata = static_cast<GnomeCmdFileMetadata*> (user_data);
 
     if (!key || !value || !metadata)  return;
 
@@ -307,7 +173,7 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
     if (size < 0x374) // == 0x375 ??
         return;
 
-    gchar *buf = (gchar *) g_malloc0(size);
+    auto buf = static_cast<gchar*> (g_malloc0(size));
     gsf_input_read(input, size, (guint8 *) buf);
     if ((buf[0] != 0x0F) || (buf[1] != 0x0) ||
       !g_str_has_prefix (&buf[2], SfxDocumentInfo) ||
@@ -340,9 +206,9 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
 
 inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metadata)
 {
-    // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", NULL};
+    // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", nullptr};
 
-    // GsfInput *src = NULL;
+    // GsfInput *src = nullptr;
 
     // src = gsf_infile_child_by_name (infile, "\005SummaryInformation");
 
@@ -479,8 +345,8 @@ void gcmd_tags_libgsf_shutdown()
 
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (f != NULL);
-    g_return_if_fail (f->info != NULL);
+    g_return_if_fail (f != nullptr);
+    g_return_if_fail (f->info != nullptr);
 
 #ifdef HAVE_GSF
     if (f->metadata && f->metadata->is_accessed(TAG_DOC))  return;
@@ -494,18 +360,18 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 
     if (!f->is_local())  return;
 
-    GError *err = NULL;
+    GError *err = nullptr;
     gchar *fname = f->get_real_path();
 
     DEBUG('t', "Loading doc metadata for '%s'\n", fname);
 
-    GsfInput *input = gsf_input_mmap_new (fname, NULL);
+    GsfInput *input = gsf_input_mmap_new (fname, nullptr);
     if (!input)
         input = gsf_input_stdio_new (fname, &err);
 
     if (!input)
     {
-        g_return_if_fail (err != NULL);
+        g_return_if_fail (err != nullptr);
         g_warning ("'%s' error: %s", fname, err->message);
         g_error_free (err);
         g_free (fname);
@@ -514,12 +380,12 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 
     g_free (fname);
 
-    GsfInfile *infile = NULL;
+    GsfInfile *infile = nullptr;
 
-    if ((infile = gsf_infile_msole_new (input, NULL)))
+    if ((infile = gsf_infile_msole_new (input, nullptr)))
         process_msole_infile(infile, f->metadata);
     else
-        if ((infile = gsf_infile_zip_new (input, NULL)))
+        if ((infile = gsf_infile_zip_new (input, nullptr)))
             process_opendoc_infile(infile, f->metadata);
 
     if (infile)

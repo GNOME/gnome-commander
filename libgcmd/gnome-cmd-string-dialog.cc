@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-string-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,6 @@ struct GnomeCmdStringDialog::Private
     GnomeCmdStringDialogCallback ok_cb;
     GFunc cancel_cb;
     gpointer data;
-    GtkWidget *dialog;
     gchar *error_desc;
 };
 
@@ -178,7 +177,7 @@ GtkType gnome_cmd_string_dialog_get_type ()
 
 GtkWidget *gnome_cmd_string_dialog_new_with_cancel (const gchar *title, const gchar **labels, gint rows, GnomeCmdStringDialogCallback ok_cb, GtkSignalFunc cancel_cb, gpointer user_data)
 {
-    GnomeCmdStringDialog *dialog = (GnomeCmdStringDialog *) g_object_new (GNOME_CMD_TYPE_STRING_DIALOG, NULL);
+    auto *dialog = static_cast< GnomeCmdStringDialog* >(g_object_new (GNOME_CMD_TYPE_STRING_DIALOG, NULL));
 
     gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, cancel_cb, user_data);
 
@@ -203,15 +202,6 @@ void gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog, co
     if (labels)
         for (gint i=0; i<rows; i++)
             gnome_cmd_string_dialog_set_label (dialog, i, labels[i]);
-}
-
-
-void gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden)
-{
-    g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
-    g_return_if_fail (row >= 0 && row < dialog->rows);
-
-    gtk_entry_set_visibility (GTK_ENTRY (dialog->entries[row]), !hidden);
 }
 
 

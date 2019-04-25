@@ -2,7 +2,7 @@
  * @file gnome-cmd-advrename-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #include <regex.h>
 #include <unistd.h>
 #include <errno.h>
-#include <gtk/gtkdialog.h>
+#include <gtk/gtk.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-advrename-dialog.h"
@@ -50,12 +50,12 @@ struct GnomeCmdAdvrenameDialogClass
 
 struct GnomeCmdAdvrenameDialog::Private
 {
-    gboolean template_has_counters;
+    gboolean template_has_counters {FALSE};
 
-    GtkWidget *vbox;
-    GnomeCmdAdvrenameProfileComponent *profile_component;
-    GtkWidget *files_view;
-    GtkWidget *profile_menu_button;
+    GtkWidget *vbox {NULL};
+    GnomeCmdAdvrenameProfileComponent *profile_component {NULL};
+    GtkWidget *files_view {NULL};
+    GtkWidget *profile_menu_button {NULL};
 
     Private();
     ~Private();
@@ -92,11 +92,6 @@ struct GnomeCmdAdvrenameDialog::Private
 
 inline GnomeCmdAdvrenameDialog::Private::Private()
 {
-    profile_menu_button = NULL;
-    template_has_counters = FALSE;
-    vbox = NULL;
-    profile_component = NULL;
-    files_view = NULL;
 }
 
 

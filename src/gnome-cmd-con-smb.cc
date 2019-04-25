@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-con-smb.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ struct GnomeCmdConSmbClass
 };
 
 
-static GnomeCmdConClass *parent_class = NULL;
+static GnomeCmdConClass *parent_class = nullptr;
 
 
 static void
@@ -45,7 +45,7 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
                         GList *results, /* GnomeVFSGetFileInfoResult *items */
                         GnomeCmdCon *con)
 {
-    g_return_if_fail (results != NULL);
+    g_return_if_fail (results != nullptr);
 
     if (con->state == GnomeCmdCon::STATE_OPENING)
     {
@@ -85,7 +85,7 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 static void smb_open (GnomeCmdCon *con)
 {
     if (!con->base_path)
-        con->base_path = new GnomeCmdSmbPath(NULL, NULL, NULL);
+        con->base_path = new GnomeCmdSmbPath(nullptr, nullptr, nullptr);
 
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
     if (!uri)
@@ -98,7 +98,7 @@ static void smb_open (GnomeCmdCon *con)
     }
 
     DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri,  GNOME_VFS_URI_HIDE_PASSWORD));
-    GList *uri_list = g_list_append (NULL, uri);
+    GList *uri_list = g_list_append (nullptr, uri);
 
     con->state = GnomeCmdCon::STATE_OPENING;
     con->open_result = GnomeCmdCon::OPEN_IN_PROGRESS;
@@ -141,11 +141,11 @@ static GnomeVFSURI *smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
     GnomeVFSURI *u1, *u2;
 
     u1 = gnome_vfs_uri_new ("smb:");
-    if (!u1) return NULL;
+    if (!u1) return nullptr;
 
     u2 = gnome_vfs_uri_append_path (u1, path->get_path());
     gnome_vfs_uri_unref (u1);
-    if (!u2) return NULL;
+    if (!u2) return nullptr;
 
     const gchar *p = gnome_vfs_uri_get_path (u2);
     gchar *s = g_strdup_printf ("smb:/%s", p);
@@ -170,6 +170,12 @@ static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 
 static void destroy (GtkObject *object)
 {
+    GnomeCmdConSmb *con_smb = GNOME_CMD_CON_SMB (object);
+
+    gnome_cmd_pixmap_free (con_smb->parent.go_pixmap);
+    gnome_cmd_pixmap_free (con_smb->parent.open_pixmap);
+    gnome_cmd_pixmap_free (con_smb->parent.close_pixmap);
+
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -180,7 +186,7 @@ static void class_init (GnomeCmdConSmbClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    parent_class = (GnomeCmdConClass *) gtk_type_class (GNOME_CMD_TYPE_CON);
+    parent_class = static_cast<GnomeCmdConClass*> (gtk_type_class (GNOME_CMD_TYPE_CON));
 
     object_class->destroy = destroy;
 
@@ -233,9 +239,9 @@ GtkType gnome_cmd_con_smb_get_type ()
             sizeof (GnomeCmdConSmbClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (GNOME_CMD_TYPE_CON, &info);

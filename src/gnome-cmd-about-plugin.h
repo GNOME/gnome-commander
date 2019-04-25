@@ -2,7 +2,7 @@
  * @file gnome-cmd-about-plugin.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,8 +42,7 @@
    Author: Anders Carlsson <andersca@codefactory.se>
 */
 
-#ifndef __GNOME_CMD_ABOUT_PLUGIN_H__
-#define __GNOME_CMD_ABOUT_PLUGIN_H__
+#pragma once
 
 #include <gtk/gtkdialog.h>
 
@@ -71,5 +70,3 @@ struct GnomeCmdAboutPluginClass
 GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;
 
 GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info);
-
-#endif // __GNOME_CMD_ABOUT_PLUGIN_H__

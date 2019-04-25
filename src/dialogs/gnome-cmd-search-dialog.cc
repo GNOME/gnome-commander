@@ -2,7 +2,7 @@
  * @file gnome-cmd-search-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -83,19 +83,19 @@ struct SearchData
 
     GnomeCmdSearchDialog *dialog;
 
-    GnomeCmdDir *start_dir;                     /**< the directory to start searching from */
+    GnomeCmdDir *start_dir {nullptr};                     /**< the directory to start searching from */
 
-    Filter *name_filter;
-    regex_t *content_regex;
-    gint context_id;                            /**< the context id of the status bar */
-    GList *match_dirs;                          /**< the directories which we found matching files in */
-    GThread *thread;
+    Filter *name_filter {nullptr};
+    regex_t *content_regex {nullptr};
+    gint context_id {0};                            /**< the context id of the status bar */
+    GList *match_dirs {nullptr};                          /**< the directories which we found matching files in */
+    GThread *thread {nullptr};
     ProtectedData pdata;
-    gint update_gui_timeout_id;
+    gint update_gui_timeout_id {0};
 
-    gboolean search_done;
-    gboolean stopped;                           /**< stops the search routine if set to TRUE. This is done by the stop_button */
-    gboolean dialog_destroyed;                  /**< set when the search dialog is destroyed, also stops the search of course */
+    gboolean search_done {TRUE};
+    gboolean stopped {TRUE};                           /**< stops the search routine if set to TRUE. This is done by the stop_button */
+    gboolean dialog_destroyed {FALSE};                  /**< set when the search dialog is destroyed, also stops the search of course */
 
     explicit SearchData(GnomeCmdSearchDialog *dlg);
 
@@ -197,7 +197,7 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_placeholder_menu(GnomeCm
         i->item_type = (gchar*) "<Separator>";
         ++i;
 
-        for (vector<GnomeCmdData::Selection>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
+        for (vector<GnomeCmdData::SearchProfile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p, ++i)
         {
             i->path = g_strconcat ("/", p->name.c_str(), NULL);
             i->callback = (GtkItemFactoryCallback) load_profile;
@@ -230,14 +230,14 @@ inline GtkWidget *GnomeCmdSearchDialog::Private::create_button_with_menu(gchar *
 
 void GnomeCmdSearchDialog::Private::manage_profiles(GnomeCmdSearchDialog::Private *priv, guint new_profile, GtkWidget *widget)
 {
-    GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_SEARCH_DIALOG);
+    auto *dialog = reinterpret_cast<GnomeCmdSearchDialog*> (gtk_widget_get_ancestor (priv->profile_menu_button, GNOME_CMD_TYPE_SEARCH_DIALOG));
 
-    g_return_if_fail (dialog!=NULL);
+    g_return_if_fail (dialog != nullptr);
 
     if (new_profile)
         priv->profile_component->copy();
 
-    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::Selection,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"gnome-commander-search"))
+    if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::SearchConfig,GnomeCmdData::SearchProfile,GnomeCmdSelectionProfileComponent> (*dialog,dialog->defaults,new_profile,_("Profiles"),"gnome-commander-search"))
     {
         GtkWidget *menu = widget->parent;
 
@@ -265,18 +265,6 @@ void GnomeCmdSearchDialog::Private::load_profile(GnomeCmdSearchDialog::Private *
 
 inline SearchData::SearchData(GnomeCmdSearchDialog *dlg): dialog(dlg)
 {
-    start_dir = NULL;
-
-    name_filter = NULL;
-    content_regex = NULL;
-    context_id = 0;
-    match_dirs = NULL;
-    thread = NULL;
-    update_gui_timeout_id = 0;
-
-    search_done = TRUE;
-    stopped = TRUE;
-    dialog_destroyed = FALSE;
 }
 
 

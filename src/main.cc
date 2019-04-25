@@ -2,7 +2,7 @@
  * @file main.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,14 +37,13 @@ extern "C"
 #include "gnome-cmd-mime-config.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-user-actions.h"
-#include "owner.h"
+#include "gnome-cmd-owner.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-con.h"
 #include "utils.h"
 #include "ls_colors.h"
 #include "imageloader.h"
 #include "plugin_manager.h"
-#include "gnome-cmd-python-plugin.h"
 #include "tags/gnome-cmd-tags.h"
 
 using namespace std;
@@ -137,14 +136,26 @@ int main (int argc, char *argv[])
     gdk_rgb_init ();
     gnome_vfs_init ();
 
-    gchar *conf_dir = g_build_filename (g_get_home_dir (), "." PACKAGE, NULL);
+
+    // ToDo: Remove somewhen after 1.10 release:
+    ///////////////////////////////////
+    auto userConfigDirOld = g_build_filename (g_get_home_dir (), "." PACKAGE, NULL);
+
+    if (is_dir_existing(userConfigDirOld) == 1)
+    {
+        auto userPluginConfigDirNew = get_package_config_dir();
+        move_old_to_new_location(userConfigDirOld, userPluginConfigDirNew);
+    }
+    ///////////////////////////////////
+
+    gchar *conf_dir = get_package_config_dir();
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
 
     /* Load Settings */
     IMAGE_init ();
     gcmd_user_actions.init();
-    gnome_cmd_data.migrate_all_data_to_gsettings();
+    gnome_cmd_data.gsettings_init();
     gnome_cmd_data.load();
 
 #ifdef HAVE_UNIQUE
@@ -165,7 +176,6 @@ int main (int argc, char *argv[])
 
         gcmd_user_actions.set_defaults();
         ls_colors_init ();
-        gnome_cmd_data.load_more();
 
         gnome_authentication_manager_init ();
 
@@ -183,15 +193,9 @@ int main (int argc, char *argv[])
 
         gcmd_tags_init();
         plugin_manager_init ();
-#ifdef HAVE_PYTHON
-        python_plugin_manager_init ();
-#endif
 
         gtk_main ();
 
-#ifdef HAVE_PYTHON
-        python_plugin_manager_shutdown ();
-#endif
         plugin_manager_shutdown ();
         gcmd_tags_shutdown ();
         gcmd_user_actions.shutdown();

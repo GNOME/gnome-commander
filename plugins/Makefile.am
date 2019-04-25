@@ -2,8 +2,4 @@
 
 SUBDIRS = test fileroller
 
-if HAVE_PYTHON
-SUBDIRS += python
-endif
-
 -include $(top_srcdir)/git.mk

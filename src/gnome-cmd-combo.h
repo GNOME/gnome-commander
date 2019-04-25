@@ -2,7 +2,7 @@
  * @file gnome-cmd-combo.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,8 +31,7 @@
  * The orginal comments are left intact above
  */
 
-#ifndef __GNOME_CMD_COMBO_H__
-#define __GNOME_CMD_COMBO_H__
+#pragma once
 
 #include "imageloader.h"
 #include "gnome-cmd-pixmap.h"
@@ -112,5 +111,3 @@ inline void *GnomeCmdCombo::operator new (size_t size)
 {
     return g_object_new (GNOME_CMD_TYPE_COMBO, NULL);
 }
-
-#endif // __GNOME_CMD_COMBO_H__

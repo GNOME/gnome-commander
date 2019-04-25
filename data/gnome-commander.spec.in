@@ -3,18 +3,17 @@
 #
 # Source archive's extension can be specified with rpm --define 'srcext .foo'
 # where .foo is the source archive's actual extension.
-# To compile an RPM from a .gz source archive, give the command
-#   rpmbuild -tb --define 'srcext .gz' @PACKAGE@-@VERSION@.tar.gz
+# To compile an RPM from a .bz2 source archive, give the command
+#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
 #
 
 %if %{?rel:0}%{!?rel:1}
 %define rel 1
 %endif
 %if %{?srcext:0}%{!?srcext:1}
-%define srcext .bz2
+%define srcext .xz
 %endif
 
-%define        python_ver            @PYTHON_REQ@
 %define        exiv2_ver             @EXIV2_REQ@
 %define        taglib_ver            @TAGLIB_REQ@
 %define        libgsf_ver            @LIBGSF_REQ@
@@ -36,19 +35,16 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: automake
 BuildRequires: flex
-BuildRequires: intltool >= 0.35.0
 BuildRequires: libtool
-BuildRequires: gnome-common
 BuildRequires: desktop-file-utils
 BuildRequires: scrollkeeper
-BuildRequires: gettext >= 0.10.36
+BuildRequires: gettext >= 0.19.7
 BuildRequires: glib2-devel >= @GLIB_REQ@
 BuildRequires: gtk2-devel >= @GTK_REQ@
 BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
 BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
 BuildRequires: gnome-keyring-devel >= @GNOME_KEYRING_REQ@
-BuildRequires: unique-devel >= @UNIQUE_REQ@
-BuildRequires: gnome-doc-utils >= 0.3.2
+BuildRequires: yelp-tools
 BuildRequires: perl(XML::Parser)
 
 Requires:      glib2 >= @GLIB_REQ@
@@ -57,14 +53,12 @@ Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
 Requires:      gnome-vfs2-smb >= @GNOMEVFS_REQ@
 Requires:      libgnomeui >= @GNOMEUI_REQ@
 Requires:      gnome-keyring >= @GNOME_KEYRING_REQ@
-Requires:      unique >= @UNIQUE_REQ@
 
 Requires:         findutils, grep
 Requires:         meld
 Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
 
-BuildRequires:   python-devel >= %{python_ver}
 BuildRequires:   exiv2-devel >= %{exiv2_ver}
 BuildRequires:   taglib-devel >= %{taglib_ver}
 %if 0%{?fedora} >= 6
@@ -72,8 +66,6 @@ BuildRequires:   libgsf-devel >= %{libgsf_ver}
 %endif
 BuildRequires:   poppler-devel >= %{poppler_ver}
 
-Requires:        python >= %{python_ver}
-Requires:        gnome-python2-gnomevfs
 %if 0%{?fedora} >= 8
 Requires:        exiv2-libs >= %{exiv2_ver}
 %else
@@ -119,7 +111,6 @@ ansluta till FTP-servrar och SMB-nätverk.
 %build
 %configure \
    --disable-scrollkeeper \
-   --enable-python
 %{__make} %{?_smp_mflags}
 
 %install
@@ -160,13 +151,36 @@ scrollkeeper-update -q || :
 
 %{_datadir}/applications/%{name}.desktop
 
-%{_datadir}/gnome/help/%{name}/
-%{_datadir}/omf/%{name}/
+%{_datadir}/help/*
 
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/%{name}/
 
+%{_datadir}/%{name}/mime/
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.%{name}.enums.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
+
 %changelog
+* Tue Feb 13 2018 Uwe Scholz <u.scholz83@gmx.de>
+- removed build and runtime deps for unique and unique-devel
+- fixed bogus date
+- fixed folders in _datadir
+
+* Thu Jan 11 2018 Uwe Scholz <u.scholz83@gmx.de>
+- removed build and runtime deps for python and gnome-python2-gnomevfs
+
+* Sun Oct 08 2017 Uwe Scholz <u.scholz83@gmx.de>
+- Removed intltool, gnome-common and gnome-doc-utils dependencies
+- Added yelp-tools dependency
+- Updated gettext version
+
+* Mon Jun 05 2017 Uwe Scholz <u.scholz83@gmx.de>
+- set default srcext to .xz
+
+* Mon Jun 05 2017 Uwe Scholz <u.scholz83@gmx.de>
+- added missing files in files section
+
 * Mon Sep 12 2011 Piotr Eljasiak <epiotr@use.pl>
 - added gnome-keyring dependency
 
@@ -216,7 +230,7 @@ scrollkeeper-update -q || :
 * Sun Feb 4 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added libgsf dependencies
 
-* Wed Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+* Tue Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added build and runtime deps for python and gnome-python2-gnomevfs
 
 * Sat Jan 20 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-5

@@ -2,7 +2,7 @@
  * @file plugin_manager.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __PLUGIN_MANAGER_H__
-#define __PLUGIN_MANAGER_H__
+#pragma once
 
 #include <gmodule.h>
 
@@ -42,5 +41,3 @@ void plugin_manager_init ();
 void plugin_manager_shutdown ();
 GList *plugin_manager_get_all ();
 void plugin_manager_show ();
-
-#endif // __PLUGIN_MANAGER_H__

@@ -1,11 +1,13 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_CXXFLAGS = $(WARN_CXXFLAGS)
+AM_CXXFLAGS = $(WARN_CXXFLAGS) -Werror=parentheses -Wno-parentheses -Werror=cast-function-type -Wno-cast-function-type
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
 	$(GNOMEUI_CFLAGS) \
-	$(GNOMEVFS_CFLAGS)
+	$(GNOMEVFS_CFLAGS) \
+	-DGTK_DISABLE_SINGLE_INCLUDES \
+	-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES
 
 pkglib_LTLIBRARIES = libgcmd.la
 
@@ -20,7 +22,6 @@ libgcmd_la_SOURCES = \
 	plugin-info.h \
 	libgcmd-deps.h \
 	libgcmd.h
-
 
 libgcmd_la_LIBADD = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
 libgcmd_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)

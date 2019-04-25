@@ -2,7 +2,7 @@
  * @file gnome-cmd-rename-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -148,6 +148,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint wi
 
     gtk_entry_set_text (dialog->priv->textbox, fname);
 
+    gtk_window_set_focus (GTK_WINDOW (dialog), GTK_WIDGET (dialog->priv->textbox));
     gtk_widget_grab_focus (GTK_WIDGET (dialog->priv->textbox));
     gtk_editable_select_region (GTK_EDITABLE (dialog->priv->textbox), 0, -1);
     gtk_widget_show (GTK_WIDGET (dialog->priv->textbox));

@@ -3,7 +3,7 @@
  * @brief Utility functions for working with GKeyFile data structures from GLib
  * @note Originally taken from the GnuCash project
  * (gnc-gkeyfile-utils.h, David Hampton <hampton@employees.org>)
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_GKEYFILE_UTILS_H__
-#define __GNOME_CMD_GKEYFILE_UTILS_H__
+#pragma once
 
 GKeyFile *gcmd_key_file_load_from_file (const gchar *file,
                     gboolean ignore_error);
@@ -29,6 +28,3 @@ GKeyFile *gcmd_key_file_load_from_file (const gchar *file,
 
 gboolean gcmd_key_file_save_to_file (const gchar *file,
                      GKeyFile *key_file);
-
-#endif // __GNOME_CMD_GKEYFILE_UTILS_H__
-

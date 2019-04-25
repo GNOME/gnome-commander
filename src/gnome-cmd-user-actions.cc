@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-user-actions.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,9 +19,8 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <gtk/gtkclipboard.h>
+#include <gtk/gtk.h>
 #include <libgnome/gnome-util.h>
-#include <libgnomeui/gnome-url.h>
 #include <set>
 #include <algorithm>
 
@@ -33,7 +32,6 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-style.h"
@@ -98,8 +96,16 @@ GcmdUserActionSettings *gcmd_user_action_settings_new ()
 
 static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
 {
-    gs->filter = g_settings_new (GCMD_PREF_FILTER);
-    gs->general = g_settings_new (GCMD_PREF_GENERAL);
+    GSettingsSchemaSource   *global_schema_source;
+    GSettingsSchema         *global_schema;
+
+    global_schema_source = GnomeCmdData::GetGlobalSchemaSource();
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_FILTER, FALSE);
+    gs->filter = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
+    gs->general = g_settings_new_full (global_schema, NULL, NULL);
 }
 
 /***********************************
@@ -169,11 +175,7 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
     if (e1.keyval > e2.keyval)
         return false;
 
-#if GTK_CHECK_VERSION (2, 10, 0)
     return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK));
-#else
-    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK));
-#endif
 }
 
 
@@ -248,7 +250,6 @@ static UserActionData user_actions_data[] = {
                                              {options_edit, "options.edit", N_("Options")},
                                              {options_edit_shortcuts, "options.shortcuts", N_("Keyboard shortcuts")},
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
-                                             {plugins_execute_python, "plugins.execute_python", N_("Execute Python plugin")},
                                              {view_back, "view.back", N_("Back one directory")},
                                              {view_close_tab, "view.close_tab", N_("Close the current tab")},
                                              {view_close_all_tabs, "view.close_all_tabs", N_("Close all tabs")},
@@ -322,21 +323,13 @@ void GnomeCmdUserActions::init()
     if (!registered("connections.change_left"))
     {
         register_action(GDK_MOD1_MASK, GDK_1, "connections.change_left");
-#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_1, "connections.change_left");
-#else
-        register_action(GDK_MOD4_MASK, GDK_1, "connections.change_left");
-#endif
     }
 
     if (!registered("connections.change_right"))
     {
         register_action(GDK_MOD1_MASK, GDK_2, "connections.change_right");
-#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_2, "connections.change_right");
-#else
-        register_action(GDK_MOD4_MASK, GDK_2, "connections.change_right");
-#endif
     }
 
     if (!registered("edit.copy_filenames"))
@@ -348,11 +341,7 @@ void GnomeCmdUserActions::init()
     if (!registered("edit.search"))
     {
         register_action(GDK_MOD1_MASK, GDK_F7, "edit.search");
-#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_F, "edit.search");
-#else
-        register_action(GDK_MOD4_MASK, GDK_F, "edit.search");
-#endif
     }
 
     if (!registered("file.advrename"))
@@ -395,13 +384,6 @@ void GnomeCmdUserActions::init()
 
     if (!registered("options.edit"))
         register_action(GDK_CONTROL_MASK, GDK_O, "options.edit");
-
-    if (!registered("plugins.execute_python"))
-    {
-        register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
-        register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
-        register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
-    }
 
     if (!registered("dir_history"))
     {
@@ -497,9 +479,9 @@ void GnomeCmdUserActions::shutdown()
 }
 
 
-gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *action_name, const char *user_data)
+gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *the_action_name, const char *user_data)
 {
-    GnomeCmdUserActionFunc func = action_func[action_name];
+    GnomeCmdUserActionFunc func = action_func[the_action_name];
 
     if (!func)
         return FALSE;
@@ -507,11 +489,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     GdkEventKey event;
 
     event.keyval = keyval;
-#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-#else
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-#endif
     if (action.find(event)!=action.end())
         return FALSE;
 
@@ -529,7 +507,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
 }
 
 
-void GnomeCmdUserActions::unregister(const gchar *action_name)
+void GnomeCmdUserActions::unregister(const gchar *the_action_name)
 {
 }
 
@@ -539,11 +517,7 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-#else
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-#endif
     map <GdkEventKey, UserAction>::iterator pos = action.find(event);
 
     if (pos!=action.end())
@@ -551,9 +525,9 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
 }
 
 
-gboolean GnomeCmdUserActions::registered(const gchar *action_name)
+gboolean GnomeCmdUserActions::registered(const gchar *the_action_name)
 {
-    GnomeCmdUserActionFunc func = action_func[action_name];
+    GnomeCmdUserActionFunc func = action_func[the_action_name];
 
     if (!func)
         return FALSE;
@@ -571,11 +545,7 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
-#else
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-#endif
 
     return action.find(event)!=action.end();
 }
@@ -596,49 +566,11 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     return TRUE;
 }
 
-XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr)
-{
-    xml << XML::tag("KeyBindings");
-    for (GnomeCmdUserActions::ACTIONS_COLL::const_iterator i=usr.action.begin(); i!=usr.action.end(); ++i)
-        if (!ascii_isupper (i->first))                                         // ignore lowercase keys as they duplicate uppercase ones
-        {
-            guint state = i->first.state;
-            guint key_val = i->first.keyval;
-
-            xml << XML::tag("Key") << XML::attr("name");
-            if (ascii_isalnum (key_val))
-                xml << (gchar) key_val;
-            else
-                xml << gdk_key_names[key_val];
-
-            if (state & GDK_SHIFT_MASK)    xml << XML::attr("shift") << 1;
-            if (state & GDK_CONTROL_MASK)  xml << XML::attr("control") << 1;
-            if (state & GDK_MOD1_MASK)     xml << XML::attr("alt") << 1;
-#if GTK_CHECK_VERSION (2, 10, 0)
-            if (state & GDK_SUPER_MASK)    xml << XML::attr("super") << 1;
-            if (state & GDK_HYPER_MASK)    xml << XML::attr("hyper") << 1;
-            if (state & GDK_META_MASK)     xml << XML::attr("meta") << 1;
-#else
-            if (state & GDK_MOD4_MASK)     xml << XML::attr("super") << 1;
-#endif
-
-            xml << XML::attr("action") << usr.action_func[i->second.func];
-            if (!i->second.user_data.empty())
-                xml << XML::attr("options") << XML::escape(i->second.user_data);
-
-            xml << XML::endtag();
-        }
-
-    xml << XML::endtag();
-
-    return xml;
-}
-
 
 static int sort_by_description (const void *data1, const void *data2)
 {
-    const gchar *s1 = ((UserActionData *) data1)->description;
-    const gchar *s2 = ((UserActionData *) data2)->description;
+    const gchar *s1 = (static_cast<const UserActionData*> (data1))->description;
+    const gchar *s2 = (static_cast<const UserActionData*> (data2))->description;
 
     if (!s1 && !s2)
         return 0;
@@ -664,7 +596,7 @@ static int sort_by_description (const void *data1, const void *data2)
 
 GtkTreeModel *gnome_cmd_user_actions_create_model ()
 {
-    UserActionData *data = (UserActionData *) g_memdup (user_actions_data, sizeof(user_actions_data));
+    auto data = static_cast<UserActionData*> (g_memdup (user_actions_data, sizeof(user_actions_data)));
 
     qsort (data, G_N_ELEMENTS(user_actions_data), sizeof(UserActionData), sort_by_description);
 
@@ -1427,7 +1359,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     for (GList *i2=fl2->get_visible_files(); i2; i2=i2->next)
     {
-        GnomeCmdFile *f2 = (GnomeCmdFile *) i2->data;
+        auto f2 = static_cast<GnomeCmdFile*> (i2->data);
 
         if (!f2->is_dotdot && f2->info->type!=GNOME_VFS_FILE_TYPE_DIRECTORY)
             files2[f2->get_name()] = f2;
@@ -1437,7 +1369,7 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 
     for (GList *i1=fl1->get_visible_files(); i1; i1=i1->next)
     {
-        GnomeCmdFile *f1 = (GnomeCmdFile *) i1->data;
+        auto f1 = static_cast<GnomeCmdFile*> (i1->data);
 
         if (f1->is_dotdot || f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
             continue;
@@ -1864,7 +1796,7 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
 {
-    get_fl (ACTIVE)->set_connection((GnomeCmdCon *) con);
+    get_fl (ACTIVE)->set_connection(static_cast<GnomeCmdCon*> (con));
 }
 
 
@@ -1892,7 +1824,7 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)            // this 
     if (con == inactive->get_connection())
         inactive->set_connection(home);
 
-    gnome_cmd_con_close ((GnomeCmdCon *) con);
+    gnome_cmd_con_close (static_cast<GnomeCmdCon*> (con));
 }
 
 
@@ -1935,7 +1867,7 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
     {
         for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_home_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
         {
-            GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+            auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
 
             if (name == bookmark->name)
             {
@@ -1952,7 +1884,7 @@ void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
         {
             for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_smb_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
             {
-                GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+                auto bookmark = static_cast<GnomeCmdBookmark*> (bookmarks->data);
 
                 if (name == bookmark->name)
                 {
@@ -1983,28 +1915,6 @@ void plugins_configure (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void plugins_execute_python (GtkMenuItem *menuitem, gpointer python_script)
-{
-    if (!python_script)
-        return;
-
-#ifdef HAVE_PYTHON
-    for (GList *py_plugins = gnome_cmd_python_plugin_get_list(); py_plugins; py_plugins = py_plugins->next)
-    {
-        PythonPluginData *py_plugin = (PythonPluginData *) py_plugins->data;
-
-        if (!g_ascii_strcasecmp (py_plugin->name, (gchar *) python_script))
-        {
-            gnome_cmd_python_plugin_execute (py_plugin, main_win);
-            return;
-        }
-    }
-#else
-    g_warning ("Python plugins not supported");
-#endif
-}
-
-
 /************** Help Menu **************/
 
 void help_help (GtkMenuItem *menuitem, gpointer not_used)
@@ -2023,13 +1933,8 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     if (!gtk_show_uri (NULL, "http://gcmd.github.io/", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error opening home page."), error);
-#else
-    if (!gnome_url_show ("http://gcmd.github.io/", &error))
-        gnome_cmd_error_message (_("There was an error opening home page."), error);
-#endif
 }
 
 
@@ -2037,13 +1942,8 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-#if GTK_CHECK_VERSION (2, 14, 0)
-    if (!gtk_show_uri (NULL, "http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (NULL, "https://gitlab.gnome.org/GNOME/gnome-commander/issues", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
-#else
-    if (!gnome_url_show("http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", &error))
-        gnome_cmd_error_message (_("There was an error reporting problem."), error);
-#endif
 }
 
 
@@ -2067,7 +1967,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
 
     static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
                                      "Copyright \xc2\xa9 2007-2012 Piotr Eljasiak\n"
-                                     "Copyright \xc2\xa9 2013-2017 Uwe Scholz";
+                                     "Copyright \xc2\xa9 2013-2019 Uwe Scholz";
 
     static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 

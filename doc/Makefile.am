@@ -41,7 +41,7 @@ HELP_MEDIA = \
 	figures/gnome-commander_simple_plugins_example.png      \
 	figures/mounting.png
 
-HELP_LINGUAS = cs de el es fr ru sl
+HELP_LINGUAS = cs de el es fr ru sl sv
 
 
 -include $(top_srcdir)/git.mk

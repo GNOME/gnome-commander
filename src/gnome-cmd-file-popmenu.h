@@ -2,7 +2,7 @@
  * @file gnome-cmd-file-popmenu.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_POPMENU_H__
-#define __GNOME_CMD_FILE_POPMENU_H__
+#pragma once
 
 #include "gnome-cmd-file-list.h"
 
@@ -52,5 +51,3 @@ struct GnomeCmdFilePopmenuClass
 GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
 
 GtkType gnome_cmd_file_popmenu_get_type ();
-
-#endif // __GNOME_CMD_FILE_POPMENU_H__

@@ -1,6 +1,6 @@
 # GNOME Commander #
 
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.6.3.svg)](https://git.gnome.org/browse/gnome-commander/atom/?h=master)  |  [![Travis](https://img.shields.io/travis/gcmd/gnome-commander.svg)](https://travis-ci.org/gcmd/gnome-commander)
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.10.1.svg)](https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/)
 
 ## Introduction ##
 
@@ -9,7 +9,7 @@ GNOME Commander is a fast and powerful twin-panel file manager for the Linux des
 ![ScreenShot](https://gcmd.github.io/ss/MainWin-Classic.png)
 
 * Website: https://gcmd.github.io/
-* Bugs: http://bugzilla.gnome.org/browse.cgi?product=gnome-commander
+* Bugs: https://gitlab.gnome.org/GNOME/gnome-commander/issues
 
 ### Mailing lists ###
 
@@ -57,7 +57,7 @@ If you have created a new plugin let us know about it on the [developer mailing 
 
 ### Problem reporting ###
 
-Bugs should be reported on [GNOME Bugzilla](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander).
+Bugs should be reported on [GNOME GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
 You will need to create an account for yourself.
 
 In the bug report please include:
@@ -76,7 +76,7 @@ For instance:
   it will be more useful if the stack trace is produced running the test
   program with the --sync command line option.
 
-See the Bugzilla [project page](http://bugzilla.gnome.org/browse.cgi?product=gnome-commander) for the list of known bugs.
+Also, have a look at the list of known bugs on GitLab bevore opening a new bug.
 
 
 ## Building ##
@@ -95,7 +95,7 @@ Get the latest source from the [GNOME ftp server](https://download.gnome.org/sou
 For installing GNOME Commander using the sources in the git repository, do the following:
 
 ```bash
-~ » git clone git://git.gnome.org/gnome-commander
+~ » git clone git@gitlab.gnome.org:GNOME/gnome-commander.git
 ~ » cd gnome-commander
 ~ » ./autogen.sh
 ~ » make
@@ -108,11 +108,13 @@ for detailed information regarding the installation of GNOME Commander.
 
 ### Tip for working with git ###
 
-There exists a [pre-commit.sh](pre-commit.sh) script in the main
-directory of the repository. Just type ``ln -s ../../pre-commit.sh
-.git/hooks/pre-commit`` to activate this script. It runs ``make`` and
-``make check`` before your change will be finally committed. This is
-really nice for lazy people.
+There exists a git-scripts directory with a [pre-commit](pre-commit)
+and a [pre-push](pre-push) hook. Just type ``ln -s ../../pre-commit
+.git/hooks/pre-commit`` and vice verso for the pre-push hook to
+activate each hook.
+
+Both scripts run simple checks before actually committing or pushing
+your source code changes.
 
 ### Docker ###
 

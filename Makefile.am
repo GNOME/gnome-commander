@@ -1,4 +1,4 @@
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = --install -I m4
 
 AM_CXXFLAGS = $(WARN_CXXFLAGS)
 
@@ -24,7 +24,7 @@ EXTRA_DIST =                \
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
 
-AUTOMAKE_OPTIONS = dist-bzip2 no-dist-gzip
+AUTOMAKE_OPTIONS = dist-xz no-dist-gzip
 
 distclean-local:
 	if test "$(srcdir)" = "."; then :; else \
@@ -46,6 +46,11 @@ ChangeLog:
 	fi
 
 #
+# To be able to generate ChangeLog independendly of the files timestamp
+#
+.PHONY: ChangeLog
+
+#
 # Add filenames to this variable if the should be added to .gitignore automatically
 #
 GITIGNOREFILES = \
@@ -53,8 +58,11 @@ GITIGNOREFILES = \
 	data/gnome-commander.desktop.in \
 	data/gnome-commander.ebuild \
 	data/gnome-commander.spec \
+	po/gnome-commander.pot \
 	.geanyprj \
+	ChangeLog \
 	INSTALL \
+	README \
 	py-compile \
 	translators.sh
 
@@ -64,6 +72,7 @@ MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_GETTEXT) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL)
 
-.PHONY: ChangeLog
+# Remove targets if the command fails
+.DELETE_ON_ERROR:
 
 -include $(top_srcdir)/git.mk

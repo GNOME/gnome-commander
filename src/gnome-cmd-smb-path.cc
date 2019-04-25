@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-smb-path.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,10 +39,10 @@ inline void GnomeCmdSmbPath::set_resources(const gchar *set_res_workgroup, const
         {
             this->resource = g_strdup (set_res_resource);
             this->resource_path = g_strdup (set_res_path);
-            this->path = g_strconcat (G_DIR_SEPARATOR_S, set_res_resource, set_res_path, NULL);
+            this->path = g_strconcat (G_DIR_SEPARATOR_S, set_res_resource, set_res_path, nullptr);
         }
         else
-            this->path = g_strconcat (G_DIR_SEPARATOR_S, set_res_workgroup, NULL);
+            this->path = g_strconcat (G_DIR_SEPARATOR_S, set_res_workgroup, nullptr);
     }
     else
         this->path = g_strdup (G_DIR_SEPARATOR_S);
@@ -54,11 +54,11 @@ inline void GnomeCmdSmbPath::set_resources(const gchar *set_res_workgroup, const
 GnomeCmdPath *GnomeCmdSmbPath::get_parent()
 {
     if (!workgroup)
-        return NULL;
+        return nullptr;
 
-    gchar *a = NULL,
-          *b = NULL,
-          *c = NULL;
+    gchar *a = nullptr,
+          *b = nullptr,
+          *c = nullptr;
 
     if (resource)
     {
@@ -71,7 +71,7 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
             if (u1 && gnome_vfs_uri_has_parent (u1))
             {
                 GnomeVFSURI *u2 = gnome_vfs_uri_get_parent (u1);
-                g_return_val_if_fail (u2 != NULL, NULL);
+                g_return_val_if_fail (u2 != nullptr, nullptr);
 
                 gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_PASSWORD);
                 gnome_vfs_uri_unref (u2);
@@ -93,12 +93,12 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
 
  GnomeCmdPath *GnomeCmdSmbPath::get_child(const gchar *child)
 {
-    g_return_val_if_fail (child != NULL, NULL);
-    g_return_val_if_fail (child[0] != '/', NULL);
+    g_return_val_if_fail (child != nullptr, nullptr);
+    g_return_val_if_fail (child[0] != '/', nullptr);
 
-    gchar *a = NULL,
-          *b = NULL,
-          *c = NULL;
+    gchar *a = nullptr,
+          *b = nullptr,
+          *c = nullptr;
 
     if (workgroup)
     {
@@ -116,7 +116,7 @@ GnomeCmdPath *GnomeCmdSmbPath::get_parent()
                 else
                     u2 = gnome_vfs_uri_append_path (u1, child);
                 gnome_vfs_uri_unref (u1);
-                g_return_val_if_fail (u2 != NULL, NULL);
+                g_return_val_if_fail (u2 != nullptr, nullptr);
 
                 c = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (u2), 0);
                 gnome_vfs_uri_unref (u2);
@@ -151,10 +151,10 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *constr_workgroup, const gchar *con
 
 GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(0), resource_path(0), path(0), display_path(0)
 {
-    g_return_if_fail (path_str != NULL);
+    g_return_if_fail (path_str != nullptr);
 
     gchar *s, *t;
-    gchar *c = NULL;
+    gchar *c = nullptr;
 
     DEBUG('s', "Creating smb-path for %s\n", path_str);
 
@@ -175,23 +175,23 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(
     gchar **v = g_strsplit (s, G_DIR_SEPARATOR_S, 0);
     g_free (t);
 
-    if (v[0] != NULL)
+    if (v[0] != nullptr)
     {
-        gchar *a = NULL;
-        gchar *b = NULL;
+        gchar *a = nullptr;
+        gchar *b = nullptr;
 
         a = g_strdup (v[0]);
-        if (v[1] != NULL)
+        if (v[1] != nullptr)
         {
             b = g_strdup (v[1]);
-            if (v[2] != NULL)
+            if (v[2] != nullptr)
             {
-                c = g_strconcat (G_DIR_SEPARATOR_S, v[2], NULL);
-                if (v[3] != NULL)
+                c = g_strconcat (G_DIR_SEPARATOR_S, v[2], nullptr);
+                if (v[3] != nullptr)
                 {
                     gchar *t1 = c;
                     gchar *t2 = g_strjoinv (G_DIR_SEPARATOR_S, &v[3]);
-                    c = g_strjoin (G_DIR_SEPARATOR_S, t1, t2, NULL);
+                    c = g_strjoin (G_DIR_SEPARATOR_S, t1, t2, nullptr);
                     g_free (t1);
                     g_free (t2);
                 }
@@ -208,7 +208,7 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(
             {
                 if (!b)
                     b = (char*) "/";
-                b = c ? g_strconcat (G_DIR_SEPARATOR_S, b, c, NULL) : g_strdup (b);
+                b = c ? g_strconcat (G_DIR_SEPARATOR_S, b, c, nullptr) : g_strdup (b);
                 g_free (c);
                 set_resources(ent->workgroup_name, a, b);
             }
@@ -217,5 +217,5 @@ GnomeCmdSmbPath::GnomeCmdSmbPath(const gchar *path_str): workgroup(0), resource(
             g_warning ("Can't find a host or workgroup named %s", a);
     }
     else
-        set_resources(NULL, NULL, NULL);
+        set_resources(nullptr, nullptr, nullptr);
 }

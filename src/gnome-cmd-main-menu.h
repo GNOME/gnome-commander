@@ -2,7 +2,7 @@
  * @file gnome-cmd-main-menu.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_MAIN_MENU_H__
-#define __GNOME_CMD_MAIN_MENU_H__
+#pragma once
 
 #include "gnome-cmd-file.h"
 #include "plugin_manager.h"
@@ -60,5 +59,3 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
 void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
 
 void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data);
-
-#endif // __GNOME_CMD_MAIN_MENU_H__

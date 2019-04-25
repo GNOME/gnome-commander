@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __LIBGVIEWER_FILEOPS_H__
-#define __LIBGVIEWER_FILEOPS_H__
+#pragma once
 
 /*
     File Handling functions (based on Midnight Commander's view.c)
@@ -68,5 +67,3 @@ offset_type gv_file_get_max_offset(ViewerFileOps *ops);
 void gv_file_close (ViewerFileOps *ops);
 
 void gv_file_free (ViewerFileOps *ops);
-
-#endif // __LIBGVIEWER_FILEOPS_H__

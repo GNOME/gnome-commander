@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-file.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_H__
-#define __GNOME_CMD_FILE_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_FILE              (gnome_cmd_file_get_type ())
 #define GNOME_CMD_FILE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE, GnomeCmdFile))
@@ -73,7 +72,6 @@ struct GnomeCmdFile
     const gchar *get_group();
     const gchar *get_adate(gboolean overide_disp_setting);
     const gchar *get_mdate(gboolean overide_disp_setting);
-    const gchar *get_cdate(gboolean overide_disp_setting);
     const gchar *get_size();
     GnomeVFSFileSize get_tree_size();
     const gchar *get_tree_size_as_str();
@@ -86,7 +84,6 @@ struct GnomeCmdFile
     GnomeCmdDir *get_parent_dir();
 
     const gchar *get_type_string();
-    const gchar *get_type_desc();
     gboolean get_type_pixmap_and_mask(GdkPixmap **pixmap, GdkBitmap **mask);
 
     GnomeVFSResult chmod(GnomeVFSFilePermissions perm);
@@ -171,9 +168,6 @@ void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
 void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer);
 void gnome_cmd_file_edit (GnomeCmdFile *f);
-void gnome_cmd_file_show_cap_cut (GnomeCmdFile *f);
-void gnome_cmd_file_show_cap_copy (GnomeCmdFile *f);
-void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f);
 
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);
@@ -204,5 +198,3 @@ inline GnomeVFSMimeApplication *GnomeCmdFile::get_default_application()
 {
     return info->mime_type ? gnome_vfs_mime_get_default_application (info->mime_type) : NULL;
 }
-
-#endif // __GNOME_CMD_FILE_H__

@@ -2,7 +2,7 @@
  * @file filter.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __FILTER_H__
-#define __FILTER_H__
+#pragma once
 
 #include <fnmatch.h>
 #include <regex.h>
@@ -53,5 +52,3 @@ inline gboolean gnome_cmd_filter_fnmatch (const gchar *pattern, const gchar *str
     return pattern && string && fnmatch (pattern, string, FNM_NOESCAPE) == 0;
 #endif
 }
-
-#endif // __FILTER_H__

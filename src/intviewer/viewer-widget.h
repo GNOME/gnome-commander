@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,7 @@
  *
  */
 
-#ifndef __GVIEWER_H__
-#define __GVIEWER_H__
+#pragma once
 
 #define GVIEWER(obj)          GTK_CHECK_CAST (obj, gviewer_get_type (), GViewer)
 #define GVIEWER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
@@ -65,8 +64,6 @@ void           gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode);
 VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj);
 
 void           gviewer_load_file(GViewer *obj, const gchar *filename);
-void           gviewer_load_filedesc(GViewer *obj, int fd);
-const gchar   *gviewer_get_filename(GViewer *obj);
 
 /* Text Render related settings */
 void        gviewer_set_tab_size(GViewer *obj, int tab_size);
@@ -98,5 +95,3 @@ void        gviewer_image_operation(GViewer *obj, ImageRender::DISPLAYMODE op);
 void        gviewer_copy_selection(GtkMenuItem *item, GViewer *obj);
 
 TextRender  *gviewer_get_text_render(GViewer *obj);
-
-#endif /* __GVIEWER_H__ */

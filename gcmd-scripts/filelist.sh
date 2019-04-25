@@ -8,8 +8,9 @@
 echo "Enter file name:"
 read list
 
-for n in $@
+for n in "$@"
 do
-  echo "$n" >> $list.txt
+  echo "$n" >> "$list"
+  echo "echo \"$n\" >> \"$list\""
 done
 

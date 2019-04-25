@@ -47,6 +47,10 @@ DISTCLEANFILES = $(appdata_DATA) $(desktop_DATA)
 
 HAVE_UPDATE_MIME_DATABASE = @HAVE_UPDATE_MIME_DATABASE@
 
+#
+# Keep in mind: Although $DESTDIR is often empty, it is needed
+# for 'make distcheck' so leave it here, please!
+#
 install-data-hook:
 	test "x$(HAVE_UPDATE_MIME_DATABASE)" == "xyes" && \
 		update-mime-database -V $(DESTDIR)/$(mimetopdir)

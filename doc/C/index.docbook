@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Uwe Scholz">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.8.0">
-  <!ENTITY manrevision "1.8.0">
-  <!ENTITY date "??? 2016">
+  <!ENTITY appversion "1.12.0">
+  <!ENTITY manrevision "1.12.0">
+  <!ENTITY date "??? 2019">
   <!ENTITY app "GNOME Commander">
 ]>
 <!-- Information about the entities
@@ -39,6 +39,8 @@
       <holder>Piotr Eljasiak</holder>
     </copyright>
     <copyright>
+      <year>2019</year>
+      <year>2018</year>
       <year>2017</year>
       <year>2016</year>
       <year>2015</year>
@@ -409,8 +411,71 @@
         </revdescription>
       </revision>
       <revision>
+        <revnumber>GNOME Commander Manual V1.6.1;</revnumber>
+        <date>2016-10-18</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.6.2;</revnumber>
+        <date>2016-11-06</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.6.3;</revnumber>
+        <date>2017-02-26</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.6.4;</revnumber>
+        <date>2017-05-28</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
         <revnumber>GNOME Commander Manual V1.8.0;</revnumber>
-        <date>2017-??-??</date>
+        <date>2017-08-10</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.8.1;</revnumber>
+        <date>2018-03-04</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.10.0;</revnumber>
+        <date>2019-03-31</date>
+        <revdescription>
+          <para role="author">Uwe Scholz
+                <email>u.scholz83@gmx.de</email></para>
+          <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.12.0;</revnumber>
+        <date>2019-??-??</date>
         <revdescription>
           <para role="author">Uwe Scholz
                 <email>u.scholz83@gmx.de</email></para>
@@ -421,10 +486,7 @@
     <releaseinfo>This manual describes version &appversion; of &app;. </releaseinfo>
     <legalnotice>
       <title>Feedback</title>
-      <para>To report a bug or make a suggestion regarding the &app; application or
-      this manual, follow the directions in the <ulink type="help" url="help:gnome-feedback">GNOME Feedback Page</ulink>.
-      </para>
-
+      <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
 
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice>
@@ -479,9 +541,6 @@
       </listitem>
       <listitem>
         <para>User defined keyboard shortcuts</para>
-      </listitem>
-      <listitem>
-        <para>Python scripting</para>
       </listitem>
       <listitem>
         <para>Plugin support</para>
@@ -4337,11 +4396,11 @@
             <para><guilabel>Left mouse button</guilabel> configures the action
             resulting from clicking the left mouse button.</para>
           </listitem>
-			<listitem>
-          	<para><guilabel>Middle mouse button</guilabel> configures the action resulting from clicking the middle mouse button.</para>
+            <listitem>
+            <para><guilabel>Middle mouse button</guilabel> configures the action resulting from clicking the middle mouse button.</para>
           </listitem>
           <listitem>
-          	<para><guilabel>Right mouse button</guilabel> configures the action
+            <para><guilabel>Right mouse button</guilabel> configures the action
             resulting from clicking the right mouse button.</para>
           </listitem>
           <listitem>
@@ -4352,7 +4411,7 @@
             <para><guilabel>Selection</guilabel> makes directories selectable also by keyboard shortcuts.</para>
           </listitem>
           <listitem>
-            <para><guilabel>Sorting</guilabel> configures whether sorting is
+            <para><guilabel>Sorting/Quick search</guilabel> configures whether sorting and the quick search is
             case sensitive.</para>
           </listitem>
           <listitem>
@@ -4360,10 +4419,10 @@
             of keys used for quick search.</para>
           </listitem>
           <listitem>
-          	<para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
+            <para><guilabel>Multiple instances</guilabel> configures the number of &app; that can be launched</para>
           </listitem>
           <listitem>
-          	<para><guilabel>Save on exit</guilabel> configures the storage of location when &app; is closed.</para>
+            <para><guilabel>Save on exit</guilabel> configures the storage of location when &app; is closed.</para>
           </listitem>
         </itemizedlist>
       </para>
@@ -4503,7 +4562,7 @@
             <row>
               <entry colname="colspec0" valign="top">
                 <para>
-                  <guilabel>Sorting options</guilabel>
+                  <guilabel>Sorting/Quick search</guilabel>
                 </para>
               </entry>
               <entry colname="colspec2" valign="top">
@@ -4512,7 +4571,9 @@
               <entry colname="colspec3" valign="top">
                 <para>When this option is activated &app; will differentiate the
                 sorting order between upper case and lower case, upper case items are
-                then listed before lower case ones.</para>
+                then listed before lower case ones. Also the quicksearch will
+                differentiate between upper case and lower case if this option
+                is activated.</para>
               </entry>
             </row>
             <row>
@@ -4527,7 +4588,8 @@
               <entry colname="colspec3" valign="top">
                 <para>By selecting this option when you press <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> &app; will scroll down the selection cursor in the active
                    pane to the first item using that letter. You can then enter more
-                   letters after the first one to refine the search.</para>
+                   letters after the first one to refine the search. By then pressing the up or down arrow key
+                   the cursor will jump to all files or folders which match your selection.</para>
               </entry>
             </row>
             <row>
@@ -4544,7 +4606,25 @@
                 <note>
                   <para>By selecting this option you alter the standard GNOME behavior
                   and to access the menus with the keyboard you will need to use the
-                  <keycap>F10</keycap>.</para>
+                  <keycap>F10</keycap> key.</para>
+                </note>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para/>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Just letters (command line access with <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>When you press a letter &app; will scroll down the selection cursor in the active
+                   pane to the first item using that letter. You can then enter more
+                   letters after the first one to refine the search.</para>
+                <note>
+                  <para>By selecting this option you alter the standard GNOME behavior
+                  and to access the command line with the keyboard you will need to use the command
+                  <keycombo><keycap>CTRL</keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>.</para>
                 </note>
               </entry>
             </row>
@@ -4574,24 +4654,24 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel>Multiple instances</guilabel></para>
+                <para><guilabel>Multiple instances</guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Don't start a new instance</para>
+                <para>Don't start a new instance</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; can only have one instance running.</para>
+                <para>By activating this option &app; can only have one instance running.</para>
               </entry>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel>Save on exit</guilabel></para>
+                <para><guilabel>Save on exit</guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Directories</para>
+                <para>Directories</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
+                <para>By activating this option &app; saves the current folder location on exit. When restarted, the two active location are reopened.</para>
                 <note>
                   <para>Regardless of 'Save on exit' option, locations for locked tabs are always saved on exit.</para>
                 </note>
@@ -4599,24 +4679,46 @@
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel></guilabel></para>
+                <para><guilabel></guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Tabs</para>
+                <para>Tabs</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
+                <para>By activating this option &app; saves all the opened tabs locations on exit. When restarted, all the tabs are reopened in their previous location.</para>
               </entry>
             </row>
             <row>
               <entry colname="colspec0" valign="top">
-	              <para><guilabel></guilabel></para>
+                <para><guilabel></guilabel></para>
               </entry>
               <entry colname="colspec2" valign="top">
-					<para>Directory history</para>
+                <para>Directory history</para>
               </entry>
               <entry colname="colspec3" valign="top">
-	              <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible again.</para>
+                <para>By activating this option &app; saves the history of opened directories on exit. When restarted, the history of visited directories is accessible again.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Commandline history</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By activating this option &app; saves the history of executed commandline commands on exit. When restarted, the history of commands in the commandline accessible again.</para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para><guilabel></guilabel></para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Search history</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para>By activating this option &app; saves the history of search patters on exit. When restarted, the history of search patterns is accessible again.</para>
               </entry>
             </row>
           </tbody>
@@ -5619,6 +5721,15 @@
             	</entry>
             	<entry colname="colspec3">
             	  <para>In this text box you can type in the command line used to start your app from the list above with a favourite terminal application. %s is the variable used to pass the command to be executed  in the terminal. Default value: "gnome-terminal -e %s".</para>
+            	</entry>
+              </row>
+              <row>
+            	<entry><para></para></entry>
+            	<entry colname="colspec2">
+            	  <para>Leave terminal window open</para>
+            	</entry>
+            	<entry colname="colspec3">
+            	  <para>With this checkbox you can decide if you want the leave a terminal window open when the command in it finishes.</para>
             	</entry>
               </row>
             </tbody>
@@ -7004,10 +7115,6 @@
                                     </note></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>Execute Python plugin</para></entry>
-                        <entry><para>Execute python plugin with the given name.</para></entry>
-                    </row>
-                    <row valign="top">
                         <entry><para>Forward one directory</para></entry>
                         <entry><para>Go forward to the next visited directory</para></entry>
                     </row>
@@ -7146,7 +7253,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Report a problem</para></entry>
-                        <entry><para>Report problem to Bugzilla</para></entry>
+                        <entry><para>Report problem to gitlab.gnome.org</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Root directory</para></entry>
@@ -7225,7 +7332,7 @@
         <para>
             The pop-up menu of &app;, which can be opened by right-clicking on a file or folder or by pressing
             <keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo>, can be easily extended by putting executable files into
-            <guilabel>~/.gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
+            <guilabel>~/.config/gnome-commander/scripts/</guilabel>. For each file in this directory a separate entry in the pop-up menu will be displayed.
             When such a menu entry is clicked, the associated script will be executed with the names of all selected items as arguments. When the
             <keycap>SHIFT</keycap> key is pressed while clicking the pop-up menu entry, the script will be called separately for each selected file.
         </para>
@@ -7269,155 +7376,11 @@
     </sect2>
     <sect2 id="popup-menu-actions-examples">
         <title>Example Pop-up menu scripts</title>
-        <para>Some example scripts can be found <ulink url="https://git.gnome.org/browse/gnome-commander/tree/gcmd-scripts" type="https">online</ulink> in
+        <para>Some example scripts can be found <ulink url="https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/gcmd-scripts" type="https">online</ulink> in
         the &app; git repository.</para>
     </sect2>
   </sect1>
 
-<!-- ============= Python Plugins ================================ -->
-<!-- This section contains info about the python plugins.-->
-  <sect1 id="gnome-commander-python-plugins">
-    <title>Python Plugins</title>
-        <para>&app; is capable of executing python plugins. A Python plugin is a normal python application containing a predefined entry function.</para>
-    <para>&app; comes with built-in plugins:</para>
-    <itemizedlist>
-      <listitem>
-        <para><filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files</para>
-      </listitem>
-      <listitem>
-        <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
-      </listitem>
-      <listitem>
-        <para><filename>apply_patch</filename> - The plugin applies selected patches to the opposite pane using <command>patch -p1</command></para>
-      </listitem>
-    </itemizedlist>
-    <sect2 id="gnome-commander-python-plugins-working-with">
-      <title>Working with plugins</title>
-      <para>To start - simply place your plugin in <filename>~/.gnome-commander/plugins/</filename> directory.
-            If the plugin is meant to be accessed system widely, use alternate location: <filename>$(libdir)/$(PACKAGE)/plugins/</filename>.</para>
-      <para>Plugins will be added as new entries to the &app; context menus.</para>
-      <note>
-        <para>Keyboard shortcuts can be assigned to execute specific python plugins
-                     (eg. <keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> &#x2192; <filename>md5sum</filename>).</para>
-      </note>
-      <para>
-        <variablelist>
-          <title>Python plugins requirements</title>
-          <varlistentry>
-            <term>build</term>
-            <listitem>
-              <para>python-devel &#x2a7e; 2.4</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>run</term>
-            <listitem>
-              <para>python &#x2a7e; 2.4</para>
-              <para>gnome-python2-gnomevfs</para>
-              <para>pygtk (for GUI)</para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </para>
-    </sect2>
-    <sect2 id="gnome-commander-python-plugins-api">
-      <title>Plugins API</title>
-      <para>The entry (start) point for plugin is always main() function:</para>
-      <programlisting>
-    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)
-            </programlisting>
-
-            <para>where parameters are:</para>
-
-            <informaltable frame="topbot">
-                <tgroup cols='2'>
-                    <colspec colname="col1"/>
-                    <colspec colname="col2"/>
-                    <tbody>
-                        <row valign="top">
-                            <entry><para>main_wnd_xid</para></entry>
-                            <entry><para>XID of &app; main toplevel window</para></entry>
-                        </row>
-                        <row valign="top">
-                            <entry><para>active_cwd</para></entry>
-                            <entry><para>full path of current dir of active pane</para></entry>
-                        </row>
-                        <row valign="top">
-                            <entry><para>inactive_cwd</para></entry>
-                            <entry><para>full path of current dir of inactive pane</para></entry>
-                        </row>
-                        <row valign="top">
-                            <entry><para>selected_files</para></entry>
-                            <entry><para>list of selected <ulink url="http://www.pygtk.org/pygnomevfs/class-gnomevfs-uri.html" type="http">file uris</ulink> in active pane</para></entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </informaltable>
-        </sect2>
-
-        <sect2 id="gnome-commander-python-plugins-md5sum">
-            <title>Sample plugin: md5sum</title>
-      <para>
-        <programlisting>
-    #!/usr/bin/env python
-
-    try:
-        import gnomevfs
-    except ImportError:
-        import gnome.vfs as gnomevfs
-
-    import os
-    import string
-    import hashlib
-
-    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
-
-       parent_dir = string.split(active_cwd, os.sep)[-1]
-        if parent_dir=='':
-            parent_dir = 'root'
-        f_md5sum = file(inactive_cwd+os.sep+parent_dir+'.md5sum', 'w')
-        for uri in selected_files:
-            if gnomevfs.get_file_info(uri).type==gnomevfs.FILE_TYPE_REGULAR:
-                f = file(active_cwd+os.sep+uri.short_name, 'rb')
-                file_content = f.read()
-                f.close()
-                md5sum = hashlib.md5(file_content).hexdigest()
-                f_md5sum.write('%s  %s\n' % (md5sum, uri.short_name))
-        f_md5sum.close()
- 
-       return True
-             </programlisting>
-      </para>
-      <note>
-        <para>The latest version of md5sum code can be found in
-              <ulink type="http" url="http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py">git &app; repository.</ulink></para>
-      </note>
-    </sect2>
-
-        <sect2 id="gnome-commander-python-plugins-resources">
-            <title>Python resources</title>
-            <para>
-                <itemizedlist>
-                    <listitem>
-                        <para><ulink url="http://www.python.org/doc/" type="http">Python documentation</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.pygtk.org/pygnomevfs/" type="http">Python gnomevfs reference manual</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.pygtk.org/" type="http">PyGTK: GTK+ for Python</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.learningpython.com/2006/05/07/creating-a-gui-using-pygtk-and-glade/" type="http">Creating a GUI using PyGTK and Glade</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://sebsauvage.net/python/snyppets/" type="http">Python code snippets</ulink></para>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </sect2>
-      </sect1>
-      
       <!-- ============= Tips and tricks ======================== -->
       <!-- This section contains info some very simple tips and tricks.-->
       <sect1 id="gnome-commander-tips-and-tricks">
@@ -7566,7 +7529,7 @@
       <title>Getting &app;</title>
       <para>
             It&apos;s recommended to use the &app; package that is provided by your distribution.
-            Refer to &app; for the <ulink type="http" url="http://gcmd.github.io/download.html#distro">list of distributions</ulink>
+            Refer to &app; for the <ulink type="http" url="http://gcmd.github.io/download.html#external">list of distributions</ulink>
             supporting &app; packages.
         </para>
       <para>
@@ -7595,7 +7558,7 @@
       <para>For those of you who feel really adventurous, or maybe want to hack on the freshest code,
         the latest development source snapshots are available by using GIT:</para>
       <para>
-        <command>git clone git://git.gnome.org/gnome-commander</command>
+        <command>git clone https://gitlab.gnome.org/GNOME/gnome-commander.git</command>
       </para>
       <note>
         <para>The above works only to do a first time download and not for updating the code,
@@ -7613,10 +7576,29 @@
     <title>Configuration Files</title>
     <para>This section gives an overview of the configuration files used by &app;:
     </para>
+    <note>
+        <para>
+          Since &app; version 1.10.0 the location of configuration files changed from <guilabel>~/.gnome-commander</guilabel>
+          to <guilabel>~/.config/gnome-commander</guilabel>. Existing files are automatically moved when starting &app; 1.10.0
+          the first time.
+        </para>
+    </note>
+    <para>
+      <term>
+        <guilabel>~/.config/gnome-commander/scripts/*</guilabel>
+      </term>
+      In this directory the user can place scripts for the <xref linkend="popup-menu-actions"></xref>.
+    </para>
+    <note>
+      <para>
+        Since &app; version 1.10.0 the following option files are obsolete. If they have been created by ealier &app; versions
+        then the filename is extended automatically by <guilabel>*.deprecated</guilabel> and their settings are imported in
+        GSettings under the path <guilabel>org.gnome.gnome-commander</guilabel>.
+      </para>
     <variablelist>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/devices</guilabel>
+          <guilabel>~/.config/gnome-commander/devices</guilabel>
         </term>
         <listitem>
           <para/>
@@ -7624,7 +7606,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/fav-apps</guilabel>
+          <guilabel>~/.config/gnome-commander/fav-apps</guilabel>
         </term>
         <listitem>
           <para/>
@@ -7632,13 +7614,14 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>~/.gnome-commander/gnome-commander.xml</guilabel>
+          <guilabel>~/.config/gnome-commander/gnome-commander.xml</guilabel>
         </term>
         <listitem>
           <para/>
         </listitem>
       </varlistentry>
     </variablelist>
+    </note>
     <note>
         <para>
             Since &app; version  1.6.0 the options file <guilabel>~/.gnome2/gnome-commander</guilabel> is obsolete.
@@ -7657,7 +7640,7 @@
 -->
   <sect1 id="gnome-commander-bugs">
     <title>Known Bugs and Limitations</title>
-    <para>You can report or view &app; bugs at the <ulink type="http" url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander">the gnome.org Bugzilla</ulink>.</para>
+    <para>You can report or view &app; bugs at <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">gitlab.gnome.org</ulink>.</para>
     <para>Some words about bugs: Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bug free.
         New bugs can be introduced with new features, or through other programs and libraries it depends on,
         this goes especially for development and testing versions. Quality bug reporting is very important
@@ -7668,7 +7651,7 @@
         all in the spirit of free and open source software.</para>
     <para>Known limitation:
     <itemizedlist>
-    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS. This might be the cause that some Python plugins won't run on your system.</para></listitem>
+    <listitem><para>&app; is still lacking on GVFS/GIO support. Instead it uses GnomeVFS.</para></listitem>
     <listitem><para>Configuration of default application depending on the files MIME type is broken and was finally removed in v1.4. See section <xref linkend="gnome-commander-mime-types"></xref> for more information.</para></listitem>
     </itemizedlist></para>
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
@@ -7712,7 +7695,7 @@
       <title>Bug Reporting</title>
     <para>
       If you found a bug, you can check if it is already reported on our 
-      <ulink type="http" url="https://bugzilla.gnome.org/browse.cgi?product=gnome-commander">Bugzilla</ulink> 
+      <ulink type="http" url="https://gitlab.gnome.org/GNOME/gnome-commander/issues">GitLab</ulink>
       page at Gnome.org. If not, please report the bug. If you want to fix it by yourself
       have a look at the section <xref linkend="gnome-commander-development-version"></xref>.</para>
     </sect2>

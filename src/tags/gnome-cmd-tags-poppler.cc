@@ -2,7 +2,7 @@
  * @file gnome-cmd-tags-poppler.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -71,7 +71,6 @@ inline guint enum_bit_to_01(int enum_value, int enum_bit)
 }
 
 
-#if GTK_CHECK_VERSION (2, 12, 0)
 inline gdouble get_tolerance (gdouble size)
 {
     if (size < 150.0f)
@@ -79,65 +78,12 @@ inline gdouble get_tolerance (gdouble size)
 
     return size >= 150.0f && size <= 600.0f ? 2.0f : 3.0f;
 }
-#else /* ! GTK 2.12.0 */
-struct regular_paper_size
-{
-    double width;
-    double height;
-    double width_tolerance;
-    double height_tolerance;
-    const char *description;
-}
-const regular_paper_sizes[] =
-{
-    // ISO 216 paper sizes, all values are in mm.  Source: http://en.wikipedia.org/wiki/Paper_size
-    {  210.0f,  297.0f, 2.0f, 2.0f, "A4"  },
-    {  841.0f, 1189.0f, 3.0f, 3.0f, "A0"  },
-    {  594.0f,  841.0f, 2.0f, 3.0f, "A1"  },
-    {  420.0f,  594.0f, 2.0f, 2.0f, "A2"  },
-    {  297.0f,  420.0f, 2.0f, 2.0f, "A3"  },
-    {  148.0f,  210.0f, 1.5f, 2.0f, "A5"  },
-    {  105.0f,  148.0f, 1.5f, 1.5f, "A6"  },
-    {   74.0f,  105.0f, 1.5f, 1.5f, "A7"  },
-    {   52.0f,   74.0f, 1.5f, 1.5f, "A8"  },
-    {   37.0f,   52.0f, 1.5f, 1.5f, "A9"  },
-    {   26.0f,   37.0f, 1.5f, 1.5f, "A10" },
-    { 1000.0f, 1414.0f, 3.0f, 3.0f, "B0"  },
-    {  707.0f, 1000.0f, 3.0f, 3.0f, "B1"  },
-    {  500.0f,  707.0f, 2.0f, 3.0f, "B2"  },
-    {  353.0f,  500.0f, 2.0f, 2.0f, "B3"  },
-    {  250.0f,  353.0f, 2.0f, 2.0f, "B4"  },
-    {  176.0f,  250.0f, 2.0f, 2.0f, "B5"  },
-    {  125.0f,  176.0f, 1.5f, 2.0f, "B6"  },
-    {   88.0f,  125.0f, 1.5f, 1.5f, "B7"  },
-    {   62.0f,   88.0f, 1.5f, 1.5f, "B8"  },
-    {   44.0f,   62.0f, 1.5f, 1.5f, "B9"  },
-    {   31.0f,   44.0f, 1.5f, 1.5f, "B10" },
-    {  917.0f, 1297.0f, 3.0f, 3.0f, "C0"  },
-    {  648.0f,  917.0f, 3.0f, 3.0f, "C1"  },
-    {  458.0f,  648.0f, 2.0f, 3.0f, "C2"  },
-    {  324.0f,  458.0f, 2.0f, 2.0f, "C3"  },
-    {  229.0f,  324.0f, 2.0f, 2.0f, "C4"  },
-    {  162.0f,  229.0f, 2.0f, 2.0f, "C5"  },
-    {  114.0f,  162.0f, 1.5f, 2.0f, "C6"  },
-    {   81.0f,  114.0f, 1.5f, 1.5f, "C7"  },
-    {   57.0f,   81.0f, 1.5f, 1.5f, "C8"  },
-    {   40.0f,   57.0f, 1.5f, 1.5f, "C9"  },
-    {   28.0f,   40.0f, 1.5f, 1.5f, "C10" },
-
-    // US paper sizes
-    {  279.0f,  216.0f, 3.0f, 3.0f, "Letter" },
-    {  356.0f,  216.0f, 3.0f, 3.0f, "Legal"  },
-    {  432.0f,  279.0f, 3.0f, 3.0f, "Ledger" }
-};
-#endif
 
 
 static gchar *paper_name (gdouble doc_width, double doc_height)
 {
     gchar *s = NULL;
 
-#if GTK_CHECK_VERSION (2, 12, 0)
     GList *paper_sizes = gtk_paper_size_get_paper_sizes (FALSE);
 
     for (GList *l = paper_sizes; l && l->data; l = g_list_next (l))
@@ -169,24 +115,6 @@ static gchar *paper_name (gdouble doc_width, double doc_height)
 
     g_list_foreach (paper_sizes, (GFunc) gtk_paper_size_free, NULL);
     g_list_free (paper_sizes);
-
-#else /* ! GTK 2.12.0 */
-
-    for (int i=G_N_ELEMENTS (regular_paper_sizes)-1; i >= 0; --i)
-    {
-        const regular_paper_size *size = &regular_paper_sizes[i];
-
-        if (ABS(doc_height - size->height) <= size->height_tolerance &&
-            ABS(doc_width - size->width) <= size->width_tolerance)
-            // Note to translators: first placeholder is the paper name (eg. * A4)
-            return g_strdup_printf (_("%s, Portrait"), size->description);
-        else
-            if (ABS(doc_width - size->height) <= size->height_tolerance &&
-                ABS(doc_height - size->width) <= size->width_tolerance)
-                // Note to translators: first placeholder is the paper name (eg. * A4)
-                return g_strdup_printf (_("%s, Landscape"), size->description);
-    }
-#endif
 
     return s;
 }

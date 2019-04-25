@@ -2,7 +2,7 @@
  * @file gnome-cmd-selection-profile-component.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__
-#define __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__
+#pragma once
 
 #include "gnome-cmd-data.h"
 
@@ -47,14 +46,14 @@ struct GnomeCmdSelectionProfileComponent
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_SELECTION_PROFILE_COMPONENT, NULL);  }
     void operator delete (void *p)      {  g_object_unref (p);  }
 
-    GnomeCmdData::Selection &profile;
+    GnomeCmdData::SearchProfile &profile;
 
-    GnomeCmdSelectionProfileComponent(GnomeCmdData::Selection &profile, GtkWidget *widget=NULL, gchar *label=NULL);
+    GnomeCmdSelectionProfileComponent(GnomeCmdData::SearchProfile &profile, GtkWidget *widget=NULL, gchar *label=NULL);
     ~GnomeCmdSelectionProfileComponent()    {}
 
     void update();
     void copy();                                        //  copies component to associated profile
-    void copy(GnomeCmdData::Selection &profile);        //  copies component to specified profile
+    void copy(GnomeCmdData::SearchProfile &profile);    //  copies component to specified profile
     void set_focus();
 
     void set_name_patterns_history(GList *history);
@@ -62,5 +61,3 @@ struct GnomeCmdSelectionProfileComponent
 
     void set_default_activation(GtkWindow *w);
 };
-
-#endif // __GNOME_CMD_SELECTION_PROFILE_COMPONENT_H__

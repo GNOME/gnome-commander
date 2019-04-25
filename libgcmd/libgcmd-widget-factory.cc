@@ -2,7 +2,7 @@
  * @file libgcmd-widget-factory.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -162,16 +162,6 @@ GtkWidget *create_bold_label (GtkWidget *parent, const gchar *text)
 GtkWidget *create_hsep (GtkWidget *parent)
 {
     GtkWidget *sep = gtk_hseparator_new ();
-    g_object_ref (sep);
-    g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
-    gtk_widget_show (sep);
-    return sep;
-}
-
-
-GtkWidget *create_vsep (GtkWidget *parent)
-{
-    GtkWidget *sep = gtk_vseparator_new ();
     g_object_ref (sep);
     g_object_set_data_full (G_OBJECT (parent), "sep", sep, g_object_unref);
     gtk_widget_show (sep);
@@ -492,16 +482,6 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
     g_object_set_data_full (G_OBJECT (parent), "progress_bar", w, g_object_unref);
     gtk_widget_show (w);
     gtk_progress_set_show_text (GTK_PROGRESS (w), TRUE);
-    return w;
-}
-
-
-GtkWidget *create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask)
-{
-    GtkWidget *w = gtk_pixmap_new (pm, mask);
-    g_object_ref (w);
-    g_object_set_data_full (G_OBJECT (parent), "pixmap", w, g_object_unref);
-    gtk_widget_show (w);
     return w;
 }
 

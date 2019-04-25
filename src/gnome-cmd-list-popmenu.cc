@@ -2,7 +2,7 @@
  * @file gnome-cmd-list-popmenu.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@
 using namespace std;
 
 
-static GtkMenuClass *parent_class = NULL;
+static GtkMenuClass *parent_class = nullptr;
 
 
 static void on_new_directory (GtkMenuItem *item, GnomeCmdFileSelector *fs)
@@ -74,7 +74,7 @@ static void destroy (GtkObject *object)
 
 static void map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -101,23 +101,23 @@ static void init (GnomeCmdListPopmenu *menu)
 
 GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), nullptr);
 
     static GnomeUIInfo new_uiinfo[] =
     {
-        GNOMEUIINFO_ITEM(N_("_Directory"), NULL, on_new_directory, file_type_dir_xpm),
-        GNOMEUIINFO_ITEM(N_("_Text File"), NULL, on_new_textfile, file_type_regular_xpm),
+        GNOMEUIINFO_ITEM(N_("_Directory"), nullptr, on_new_directory, file_type_dir_xpm),
+        GNOMEUIINFO_ITEM(N_("_Text File"), nullptr, on_new_textfile, file_type_regular_xpm),
         GNOMEUIINFO_END
     };
 
     static GnomeUIInfo popmenu_uiinfo[] =
     {
         GNOMEUIINFO_SUBTREE(N_("_New"), new_uiinfo),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Paste"), NULL, on_paste, GTK_STOCK_PASTE),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Paste"), nullptr, on_paste, GTK_STOCK_PASTE),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), nullptr, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(N_("_Refresh"), NULL, on_refresh, GTK_STOCK_REFRESH),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Refresh"), nullptr, on_refresh, GTK_STOCK_REFRESH),
         GNOMEUIINFO_END
     };
 
@@ -132,11 +132,11 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
             popmenu_uiinfo[i].user_data = fs;
 
-    GnomeCmdListPopmenu *menu = (GnomeCmdListPopmenu *) g_object_new (GNOME_CMD_TYPE_LIST_POPMENU, NULL);
+    auto menu = static_cast<GnomeCmdListPopmenu*> (g_object_new (GNOME_CMD_TYPE_LIST_POPMENU, nullptr));
 
     // Fill the menu
 
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, NULL, FALSE, 0);
+    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, nullptr, FALSE, 0);
 
     return GTK_WIDGET (menu);
 }
@@ -155,9 +155,9 @@ GtkType gnome_cmd_list_popmenu_get_type ()
             sizeof (GnomeCmdListPopmenuClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
+            /* reserved_1 */ nullptr,
+            /* reserved_2 */ nullptr,
+            (GtkClassInitFunc) nullptr
         };
 
         type = gtk_type_unique (gtk_menu_get_type (), &info);

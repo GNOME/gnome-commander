@@ -2,7 +2,7 @@
  * @file gnome-cmd-main-win.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,10 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_MAIN_WIN_H__
-#define __GNOME_CMD_MAIN_WIN_H__
+#pragma once
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-cmdline.h"
-#include "gnome-cmd-xml-config.h"
 #include "plugin_manager.h"
 #include "dialogs/gnome-cmd-advrename-dialog.h"
 #include "dialogs/gnome-cmd-search-dialog.h"
@@ -99,11 +97,6 @@ struct GnomeCmdMainWin
     void update_mainmenu_visibility();
 
     void add_plugin_menu(PluginData *data);
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdMainWin &mw);
 };
 
-
 extern GnomeCmdMainWin *main_win;
-
-#endif // __GNOME_CMD_MAIN_WIN_H__

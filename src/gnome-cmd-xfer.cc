@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-xfer.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@ struct XferData
 inline void free_xfer_data (XferData *data)
 {
     if (data->on_completed_func)
-        data->on_completed_func (data->on_completed_data, NULL);
+        data->on_completed_func (data->on_completed_data, nullptr);
 
     g_list_free (data->src_uri_list);
 
@@ -109,8 +109,8 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
     data->to_dir = to_dir;
     data->src_fl = src_fl;
     data->src_files = src_files;
-    data->win = NULL;
-    data->cur_file_name = NULL;
+    data->win = nullptr;
+    data->cur_file_name = nullptr;
     data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OK;
     data->cur_phase = (GnomeVFSXferPhase) -1;
     data->prev_phase = (GnomeVFSXferPhase) -1;
@@ -130,7 +130,7 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
         GList *uris;
         data->bytes_total = 0;
         data->files_total = 0;
-        for (uris = data->src_uri_list; uris != NULL; uris = uris->next) {
+        for (uris = data->src_uri_list; uris != nullptr; uris = uris->next) {
             GnomeVFSURI *uri;
             uri = (GnomeVFSURI*)uris->data;
             data->bytes_total += calc_tree_size(uri,&(data->files_total));
@@ -168,12 +168,12 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
     if (data->aborted)
         return 0;
 
-    if (info->source_name != NULL)
+    if (info->source_name != nullptr)
     {
         if (data->cur_file_name && strcmp (data->cur_file_name, info->source_name) != 0)
         {
             g_free (data->cur_file_name);
-            data->cur_file_name = NULL;
+            data->cur_file_name = nullptr;
         }
 
         if (!data->cur_file_name)
@@ -182,7 +182,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
     {
-    gchar *s = NULL;
+    gchar *s = nullptr;
     // Check if the src uri is from local ('file:///...'). If not, just use the base name.
     if ( !(s = gnome_vfs_get_local_path_from_uri (info->source_name) )) s = str_uri_basename (info->source_name);
         gchar *t = gnome_cmd_dir_is_local (data->to_dir) ? gnome_vfs_get_local_path_from_uri (info->target_name) : str_uri_basename (info->target_name);
@@ -206,7 +206,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
         gdk_threads_enter ();
 
         gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_QUESTION, text, " ",
-                         1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
+                         1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), nullptr);
         g_free(text);
 
         data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE;
@@ -225,7 +225,7 @@ static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgre
 
         gdk_threads_enter ();
         gint ret = run_simple_dialog (*main_win, FALSE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
-                                      -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+                                      -1, _("Abort"), _("Retry"), _("Skip"), nullptr);
         g_free (msg);
         g_free (fn);
         g_free (t);
@@ -253,7 +253,7 @@ static gboolean update_xfer_gui_func (XferData *data)
         data->aborted = TRUE;
 
         if (data->on_completed_func)
-            data->on_completed_func (data->on_completed_data, NULL);
+            data->on_completed_func (data->on_completed_data, nullptr);
 
         gtk_widget_destroy (GTK_WIDGET (data->win));
         return FALSE;
@@ -317,7 +317,7 @@ static gboolean update_xfer_gui_func (XferData *data)
 
                 for (; data->src_files; data->src_files = data->src_files->next)
                 {
-                    GnomeCmdFile *f = (GnomeCmdFile *) data->src_files->data;
+                    auto f = static_cast<GnomeCmdFile*> (data->src_files->data);
                     GnomeVFSURI *src_uri = f->get_uri();
                     if (!gnome_vfs_uri_exists (src_uri))
                         data->src_fl->remove_file(f);
@@ -331,13 +331,13 @@ static gboolean update_xfer_gui_func (XferData *data)
             gnome_cmd_dir_relist_files (data->to_dir, FALSE);
             main_win->focus_file_lists();
             gnome_cmd_dir_unref (data->to_dir);
-            data->to_dir = NULL;
+            data->to_dir = nullptr;
         }
 
         if (data->win)
         {
             gtk_widget_destroy (GTK_WIDGET (data->win));
-            data->win = NULL;
+            data->win = nullptr;
         }
 
         free_xfer_data (data);
@@ -380,7 +380,7 @@ inline gchar *remove_basename (gchar *in)
             return out;
         }
 
-    return NULL;
+    return nullptr;
 }
 
 
@@ -411,7 +411,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
                            GtkSignalFunc on_completed_func,
                            gpointer on_completed_data)
 {
-    g_return_if_fail (src_uri_list != NULL);
+    g_return_if_fail (src_uri_list != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
     GnomeVFSURI *src_uri, *dest_uri;
@@ -433,13 +433,13 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
             }
     }
 
-    XferData *data = create_xfer_data (xferOptions, src_uri_list, NULL,
+    XferData *data = create_xfer_data (xferOptions, src_uri_list, nullptr,
                                        to_dir, src_fl, src_files,
                                        (GFunc) on_completed_func, on_completed_data);
 
     gint num_files = g_list_length (src_uri_list);
 
-    if (num_files == 1 && dest_fn != NULL)
+    if (num_files == 1 && dest_fn != nullptr)
     {
         dest_uri = gnome_cmd_dir_get_child_uri (to_dir, dest_fn);
 
@@ -471,7 +471,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
                           xferOptions, GNOME_VFS_XFER_ERROR_MODE_QUERY, xferOverwriteMode,
                           XFER_PRIORITY,
                           (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
-                          NULL, NULL);
+                          nullptr, nullptr);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }
@@ -487,7 +487,7 @@ gnome_cmd_xfer_start (GList *src_files,
                       GtkSignalFunc on_completed_func,
                       gpointer on_completed_data)
 {
-    g_return_if_fail (src_files != NULL);
+    g_return_if_fail (src_files != nullptr);
     g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
     GList *src_uri_list = file_list_to_uri_list (src_files);
@@ -512,11 +512,11 @@ gnome_cmd_xfer_tmp_download (GnomeVFSURI *src_uri,
                              GtkSignalFunc on_completed_func,
                              gpointer on_completed_data)
 {
-    g_return_if_fail (src_uri != NULL);
-    g_return_if_fail (dest_uri != NULL);
+    g_return_if_fail (src_uri != nullptr);
+    g_return_if_fail (dest_uri != nullptr);
 
-    gnome_cmd_xfer_tmp_download_multiple (g_list_append (NULL, src_uri),
-                                          g_list_append (NULL, dest_uri),
+    gnome_cmd_xfer_tmp_download_multiple (g_list_append (nullptr, src_uri),
+                                          g_list_append (nullptr, dest_uri),
                                           xferOptions,
                                           xferOverwriteMode,
                                           on_completed_func,
@@ -532,13 +532,13 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                       GtkSignalFunc on_completed_func,
                                       gpointer on_completed_data)
 {
-    g_return_if_fail (src_uri_list != NULL);
-    g_return_if_fail (dest_uri_list != NULL);
+    g_return_if_fail (src_uri_list != nullptr);
+    g_return_if_fail (dest_uri_list != nullptr);
 
     XferData *data;
 
     data = create_xfer_data (xferOptions, src_uri_list, dest_uri_list,
-                             NULL, NULL, NULL,
+                             nullptr, nullptr, nullptr,
                              (GFunc) on_completed_func, on_completed_data);
 
     data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (g_list_length (src_uri_list)));
@@ -551,7 +551,7 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                    xferOptions, GNOME_VFS_XFER_ERROR_MODE_ABORT, xferOverwriteMode,
                                    XFER_PRIORITY,
                                    (GnomeVFSAsyncXferProgressCallback) async_xfer_callback, data,
-                                   NULL, NULL);
+                                   nullptr, nullptr);
     if (result != GNOME_VFS_OK)
     {
         DEBUG ('x', "Downloading could not be started properly as of wrong arguments in gnome_vfs_async_xfer()\n");

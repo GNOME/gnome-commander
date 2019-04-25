@@ -13,9 +13,18 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/src \
 	-I$(top_srcdir)/src/intviewer \
-	-I$(srcdir)
+	-I$(srcdir) \
+	-DGTK_DISABLE_SINGLE_INCLUDES \
+	-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES
 
 INTVLIBS = \
+	$(GLIB_LIBS) \
+	$(GOBJECT_CFLAGS) \
+	$(GTK_LIBS) \
+	$(GNOMEUI_LIBS) \
+	-lgtest
+
+GCMD_LIBS = \
 	$(GLIB_LIBS) \
 	$(GOBJECT_CFLAGS) \
 	$(GTK_LIBS) \
@@ -28,7 +37,7 @@ ADDITIONAL_LDADD = \
 	$(GTK_LIBS) \
 	$(GNOMEUI_LIBS)
 
-TESTS = \
+IV_TESTS = \
 	iv_viewerwidget \
 	iv_fileops \
 	iv_bm_search \
@@ -36,6 +45,13 @@ TESTS = \
 	iv_imagerenderer \
 	iv_inputmodes \
 	iv_textrenderer
+
+GCMD_TESTS = \
+	utils_no_dependencies
+
+TESTS = \
+	$(IV_TESTS) \
+	$(GCMD_TESTS)
 
 check_PROGRAMS = $(TESTS)
 
@@ -72,9 +88,14 @@ iv_bm_search_CXXFLAGS = $(AM_CPPFLAGS)
 iv_bm_search_LDFLAGS = $(INTVLIBS)
 iv_bm_search_LDADD = $(ADDITIONAL_LDADD)
 
-iv_datapresentation_SOURCES = iv_datapresentation.cc gcmd_tests_main.cc
+iv_datapresentation_SOURCES = iv_datapresentation_test.cc gcmd_tests_main.cc
 iv_datapresentation_CXXFLAGS = $(AM_CPPFLAGS)
 iv_datapresentation_LDFLAGS = $(INTVLIBS)
 iv_datapresentation_LDADD = $(ADDITIONAL_LDADD)
+
+utils_no_dependencies_SOURCES = utils_no_dependencies_tests.cc $(top_srcdir)/src/utils-no-dependencies.cc gcmd_tests_main.cc
+utils_no_dependencies_CXXFLAGS = $(AM_CPPFLAGS)
+utils_no_dependencies_LDFLAGS = $(GCMD_LIBS)
+utils_no_dependencies_LDADD = $(ADDITIONAL_LDADD)
 
 -include $(top_srcdir)/git.mk

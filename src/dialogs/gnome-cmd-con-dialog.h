@@ -2,7 +2,7 @@
  * @file gnome-cmd-con-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_CON_DIALOG_H__
-#define __GNOME_CMD_CON_DIALOG_H__
+#pragma once
 
 #include <gtk/gtkdialog.h>
 
@@ -31,5 +30,3 @@
 
 GnomeCmdConRemote *gnome_cmd_connect_dialog_new (gboolean has_alias=TRUE);
 gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConRemote *server);
-
-#endif // __GNOME_CMD_CON_DIALOG_H__

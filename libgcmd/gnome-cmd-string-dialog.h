@@ -2,7 +2,7 @@
  * @file gnome-cmd-string-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_STRING_DIALOG_H__
-#define __GNOME_CMD_STRING_DIALOG_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_STRING_DIALOG              (gnome_cmd_string_dialog_get_type ())
 #define GNOME_CMD_STRING_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_STRING_DIALOG, GnomeCmdStringDialog))
@@ -69,8 +68,6 @@ inline void gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog, const g
 
 GtkType gnome_cmd_string_dialog_get_type ();
 
-void gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden);
-
 void gnome_cmd_string_dialog_set_title (GnomeCmdStringDialog *dialog, const gchar *title);
 
 void gnome_cmd_string_dialog_set_label (GnomeCmdStringDialog *dialog, gint row, const gchar *label);
@@ -84,7 +81,3 @@ void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GtkSig
 void gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, const gchar *value);
 
 void gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar *msg);
-
-#endif //__GNOME_CMD_STRING_DIALOG_H__
-
-

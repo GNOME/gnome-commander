@@ -2,7 +2,9 @@
 
 SUBDIRS = dialogs tags intviewer
 
-AM_CXXFLAGS = $(WARN_CXXFLAGS)
+AM_CXXFLAGS = $(WARN_CXXFLAGS) -Wno-error=switch-default -Wno-switch-default \
+				-Werror=parentheses -Wno-parentheses \
+				-Werror=cast-function-type -Wno-cast-function-type
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
@@ -12,6 +14,8 @@ AM_CPPFLAGS = \
 	$(GNOME_KEYRING_CFLAGS) \
 	$(UNIQUE_CFLAGS) \
 	$(PYTHON_CFLAGS) \
+	-DGTK_DISABLE_SINGLE_INCLUDES \
+	-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES \
 	-DDATADIR=\""$(datadir)"\"\
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\" \
 	-DMIMETOP_DIR=\""$(datadir)/@PACKAGE@/"\"
@@ -57,6 +61,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-menu-button.h gnome-cmd-menu-button.cc \
 	gnome-cmd-mime-config.h gnome-cmd-mime-config.cc \
 	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
+	gnome-cmd-owner.h gnome-cmd-owner.cc \
 	gnome-cmd-path.h \
 	gnome-cmd-pixmap.h gnome-cmd-pixmap.cc \
 	gnome-cmd-plain-path.h gnome-cmd-plain-path.cc \
@@ -69,22 +74,16 @@ gnome_commander_SOURCES = \
 	gnome-cmd-user-actions.h gnome-cmd-user-actions.cc \
 	gnome-cmd-xfer.h gnome-cmd-xfer.cc \
 	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.cc \
-	gnome-cmd-xml-config.h gnome-cmd-xml-config.cc \
 	handle.h \
 	history.h history.cc \
 	imageloader.cc imageloader.h \
 	ls_colors.h ls_colors.cc \
 	main.cc \
-	owner.h owner.cc \
 	plugin_manager.h plugin_manager.cc \
 	tuple.h \
 	utils.h utils.cc \
+	utils-no-dependencies.h utils-no-dependencies.cc \
 	widget-factory.h
-
-if HAVE_PYTHON
-gnome_commander_SOURCES += \
-	gnome-cmd-python-plugin.h gnome-cmd-python-plugin.cc
-endif
 
 if HAVE_SAMBA
 gnome_commander_SOURCES += \
@@ -113,6 +112,6 @@ gnome_commander_LDADD = \
 CLEANFILES = \
 	gnome-cmd-advrename-lexer.cc
 
-gcmd_block_SOURCES = block.cc
+gcmd_block_SOURCES = gnome-cmd-block.cc
 
 -include $(top_srcdir)/git.mk

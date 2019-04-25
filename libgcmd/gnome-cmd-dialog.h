@@ -2,7 +2,7 @@
  * @file gnome-cmd-dialog.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_DIALOG_H__
-#define __GNOME_CMD_DIALOG_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_DIALOG              (gnome_cmd_dialog_get_type ())
 #define GNOME_CMD_DIALOG(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_DIALOG, GnomeCmdDialog))
@@ -61,7 +60,3 @@ GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *sto
 void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category);
 
 void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget *category);
-
-#endif //__GNOME_CMD_DIALOG_H__
-
-

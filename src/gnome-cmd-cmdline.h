@@ -2,7 +2,7 @@
  * @file gnome-cmd-cmdline.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_CMDLINE_H__
-#define __GNOME_CMD_CMDLINE_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_CMDLINE              (gnome_cmd_cmdline_get_type ())
 #define GNOME_CMD_CMDLINE(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_CMDLINE, GnomeCmdCmdline))
@@ -49,8 +48,6 @@ GtkWidget *gnome_cmd_cmdline_new ();
 
 GtkType gnome_cmd_cmdline_get_type ();
 
-GtkWidget *gnome_cmd_cmdline_get_entry (GnomeCmdCmdline *cmdline);
-
 void gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd);
 
 void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text);
@@ -70,5 +67,3 @@ void gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history);
 void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline);
 
 gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *event);
-
-#endif // __GNOME_CMD_CMDLINE_H__

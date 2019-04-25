@@ -2,7 +2,7 @@
  * @file gnome-cmd-types.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#ifndef __GNOME_CMD_TYPES_H__
-#define __GNOME_CMD_TYPES_H__
+#pragma once
 
 typedef gchar *GnomeCmdDateFormat;
 
@@ -60,7 +59,8 @@ typedef enum
 typedef enum
 {
     GNOME_CMD_QUICK_SEARCH_CTRL_ALT,
-    GNOME_CMD_QUICK_SEARCH_ALT
+    GNOME_CMD_QUICK_SEARCH_ALT,
+    GNOME_CMD_QUICK_SEARCH_JUST_A_CHARACTER
 }GnomeCmdQuickSearchShortcut;
 
 
@@ -95,24 +95,15 @@ typedef enum // The (reversed) order of following enums is significant
 
 struct GnomeCmdColorTheme
 {
-    gboolean respect_theme;
-    GdkColor *sel_fg, *sel_bg;
-    GdkColor *norm_fg, *norm_bg;
-    GdkColor *curs_fg, *curs_bg;
-    GdkColor *alt_fg, *alt_bg;
-
-    GnomeCmdColorTheme()
-    {
-        respect_theme = TRUE;
-        sel_fg = NULL;
-        sel_bg = NULL;
-        norm_fg = NULL;
-        norm_bg = NULL;
-        curs_fg = NULL;
-        curs_bg = NULL;
-        alt_fg = NULL;
-        alt_bg = NULL;
-    }
+    gboolean respect_theme {TRUE};
+    GdkColor *sel_fg {NULL};
+    GdkColor *sel_bg {NULL};
+    GdkColor *norm_fg {NULL};
+    GdkColor *norm_bg {NULL};
+    GdkColor *curs_fg {NULL};
+    GdkColor *curs_bg {NULL};
+    GdkColor *alt_fg {NULL};
+    GdkColor *alt_bg {NULL};
 
     ~GnomeCmdColorTheme()
     {
@@ -178,5 +169,3 @@ struct GnomeCmdBookmark
     gchar *path;
     GnomeCmdBookmarkGroup *group;
 };
-
-#endif // __GNOME_CMD_TYPES_H__

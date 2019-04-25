@@ -2,7 +2,7 @@
  * @file gnome-cmd-manage-bookmarks-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,29 +76,19 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
                                                      GTK_STOCK_JUMP_TO, RESPONSE_JUMP_TO,
                                                      NULL);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG (dialog));
-#endif
 
     GtkWidget *vbox, *hbox, *scrolled_window, *button;
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_box_set_spacing (GTK_BOX (content_area), 2);
-#else
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-#endif
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     vbox = gtk_vbox_new (FALSE, 12);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
- #if GTK_CHECK_VERSION (2, 14, 0)
    gtk_container_add (GTK_CONTAINER (content_area), vbox);
-#else
-    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), vbox);
-#endif
 
     hbox = gtk_hbox_new (FALSE, 12);
     gtk_container_add (GTK_CONTAINER (vbox), hbox);
@@ -147,11 +137,7 @@ void gnome_cmd_bookmark_dialog_new (const gchar *title, GtkWindow *parent)
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), RESPONSE_JUMP_TO);
     gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), RESPONSE_JUMP_TO, FALSE);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
-#else
-    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
-#endif
 
     g_signal_connect (dialog, "size-allocate", G_CALLBACK (size_allocate_callback), NULL);
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), view);
@@ -383,7 +369,7 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *bm_view)
             
             main_win->update_bookmarks ();
             
-            gnome_cmd_data.save_xml ();
+            gnome_cmd_data.save_bookmarks ();
         }
     }
 }
@@ -577,7 +563,7 @@ void gnome_cmd_bookmark_add_current (GnomeCmdDir *dir)
 
         main_win->update_bookmarks();
         
-        gnome_cmd_data.save_xml ();
+        gnome_cmd_data.save_bookmarks ();
     }
     else
     {

@@ -2,7 +2,7 @@
  * @file gnome-cmd-mkdir-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,15 +104,13 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdDir *
                     // the list of uri's to be created
                     GSList *uri_list = make_uri_list (dir, filename);
 
-                    GnomeVFSResult result = GNOME_VFS_OK;
-
                     guint perm = ((GNOME_VFS_PERM_USER_ALL | GNOME_VFS_PERM_GROUP_ALL | GNOME_VFS_PERM_OTHER_ALL) & ~gnome_cmd_data.umask ) | GNOME_VFS_PERM_USER_WRITE | GNOME_VFS_PERM_USER_EXEC;
 
                     for (GSList *i = uri_list; i; i = g_slist_next (i))
                     {
                         GnomeVFSURI *mkdir_uri = (GnomeVFSURI *) i->data;
 
-                        result = gnome_vfs_make_directory_for_uri (mkdir_uri, perm);
+                        auto result = gnome_vfs_make_directory_for_uri (mkdir_uri, perm);
 
                         if (result!=GNOME_VFS_OK)
                         {
@@ -162,35 +160,23 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
                                                      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                                      GTK_STOCK_OK, GTK_RESPONSE_OK,
                                                      NULL);
-#if GTK_CHECK_VERSION (2, 14, 0)
     GtkWidget *content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
-#endif
 
     gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
     // HIG defaults
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_box_set_spacing (GTK_BOX (content_area), 2);
     gtk_container_set_border_width (GTK_CONTAINER (content_area), 5);
     gtk_box_set_spacing (GTK_BOX (content_area),6);
-#else
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
-#endif
     GtkWidget *table, *label, *entry;
 
     table = gtk_table_new (3, 2, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (table), 5);
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_container_add (GTK_CONTAINER (content_area), table);
-#else
-    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
-#endif
 
     label = gtk_label_new_with_mnemonic (_("Directory name:"));
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
@@ -220,11 +206,7 @@ gboolean gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir, GnomeCmdFile *selected_fi
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
 
-#if GTK_CHECK_VERSION (2, 14, 0)
     gtk_widget_show_all (content_area);
-#else
-    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
-#endif
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

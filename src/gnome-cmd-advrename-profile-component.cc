@@ -2,7 +2,7 @@
  * @file gnome-cmd-advrename-profile-component.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -467,15 +467,15 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
             {
                 const int BUFF_SIZE = 2048;
                 gchar *s = (gchar *) g_malloc0 (BUFF_SIZE);
-                GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
+                GtkItemFactoryEntry *metatagItems = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
-                g_return_val_if_fail (items!=NULL, NULL);
+                g_return_val_if_fail (metatagItems!=NULL, NULL);
 
                 for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
                 {
                     GnomeCmdTag tag = metatags[ii];
                     const gchar *class_name = gcmd_tags_get_class_name(tag);
-                    GtkItemFactoryEntry *p = items+ii;
+                    GtkItemFactoryEntry *p = metatagItems+ii;
 
                     if (!class_name || *class_name==0)
                     {
@@ -499,12 +499,12 @@ inline GtkWidget *GnomeCmdAdvrenameProfileComponent::Private::create_placeholder
 
                 GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
 
-                gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), items, this);
+                gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), metatagItems, this);
 
                 for (guint ii=0; ii<G_N_ELEMENTS(metatags); ++ii)
-                    g_free (items[ii].path);
+                    g_free (metatagItems[ii].path);
 
-                g_free (items);
+                g_free (metatagItems);
 
                 return gtk_item_factory_get_widget (ifac, "<main>");
             }
@@ -641,11 +641,7 @@ inline gchar *GnomeCmdAdvrenameProfileComponent::Private::get_selected_range (Gt
 
         if (gtk_editable_get_selection_bounds (GTK_EDITABLE (local_entry), &beg, &end))
         {
-#if GTK_CHECK_VERSION (2, 16, 0)
             guint16 len = gtk_entry_get_text_length (GTK_ENTRY (local_entry));
-#else
-            guint16 len = (guint16) g_utf8_strlen (gtk_entry_get_text (GTK_ENTRY (local_entry)), -1);
-#endif
             if (!inversed)
                 range = end==len ? g_strdup_printf ("%s(%i:)", placeholder, beg) :
                                    g_strdup_printf ("%s(%i:%i)", placeholder, beg, end);
@@ -899,7 +895,6 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
     GtkWidget *table;
     GtkWidget *combo;
     GtkWidget *hbox;
-    GtkWidget *bbox;
     GtkWidget *spin;
     GtkWidget *button;
 
@@ -1004,6 +999,7 @@ static void gnome_cmd_advrename_profile_component_init (GnomeCmdAdvrenameProfile
 
     // Regex
     {
+        GtkWidget *bbox;
         str = g_strdup_printf ("<b>%s</b>", _("Regex replacing"));
         label = gtk_label_new (str);
         g_free (str);
@@ -1161,8 +1157,15 @@ static void gnome_cmd_advrename_profile_component_class_init (GnomeCmdAdvrenameP
 
 GnomeCmdAdvrenameProfileComponent::GnomeCmdAdvrenameProfileComponent(GnomeCmdData::AdvrenameConfig::Profile &p): profile(p)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wuninitialized"
+#endif
     // Template
     gtk_widget_grab_focus (priv->template_entry);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_signal_connect (priv->template_combo, "changed", G_CALLBACK (Private::on_template_entry_changed), this);
 
     // Counter

@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static GtkDialogClass *parent_class = NULL;
+static GtkDialogClass *parent_class = nullptr;
 
 static void search_progress_dlg_destroy (GtkObject *object);
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg);
@@ -47,9 +47,9 @@ struct GViewerSearchProgressDlgPrivate
 
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg)
 {
-    g_return_if_fail (sdlg!=NULL);
-    g_return_if_fail (sdlg->priv!=NULL);
-    g_return_if_fail (sdlg->priv->abort_indicator!=NULL);
+    g_return_if_fail (sdlg != nullptr);
+    g_return_if_fail (sdlg->priv != nullptr);
+    g_return_if_fail (sdlg->priv->abort_indicator != nullptr);
 
     g_atomic_int_add(sdlg->priv->abort_indicator, 1);
 }
@@ -110,7 +110,7 @@ static void search_progress_dlg_destroy (GtkObject *object)
     GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG (object);
 
     g_free (w->priv);
-    w->priv = NULL;
+    w->priv = nullptr;
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -125,11 +125,11 @@ GType gviewer_search_progress_dlg_get_type ()
         static const GTypeInfo ttt_info =
         {
             sizeof (GViewerSearchProgressDlgClass),
-            NULL, // base_init
-            NULL, // base_finalize
+            nullptr, // base_init
+            nullptr, // base_finalize
             (GClassInitFunc) search_progress_dlg_class_init,
-            NULL, // class_finalize
-            NULL, // class_data
+            nullptr, // class_finalize
+            nullptr, // class_data
             sizeof (GViewerSearchProgressDlg),
             0, // n_preallocs
             (GInstanceInitFunc) search_progress_dlg_init,
@@ -144,7 +144,7 @@ GType gviewer_search_progress_dlg_get_type ()
 
 static GtkWidget *gviewer_search_progress_dlg_new (GtkWindow *parent)
 {
-    GViewerSearchProgressDlg *dlg = (GViewerSearchProgressDlg *) g_object_new (gviewer_search_progress_dlg_get_type(), NULL);
+    auto dlg = static_cast<GViewerSearchProgressDlg*> (g_object_new (gviewer_search_progress_dlg_get_type(), NULL));
 
     return GTK_WIDGET (dlg);
 }
@@ -185,10 +185,10 @@ static gboolean search_progress_dlg_timeout(gpointer data)
 void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_text,
                                       gint *abort, gint *complete, gint *progress)
 {
-    g_return_if_fail (abort!=NULL);
-    g_return_if_fail (complete!=NULL);
-    g_return_if_fail (progress!=NULL);
-    g_return_if_fail (searching_text!=NULL);
+    g_return_if_fail (abort != nullptr);
+    g_return_if_fail (complete != nullptr);
+    g_return_if_fail (progress != nullptr);
+    g_return_if_fail (searching_text != nullptr);
 
     gdouble dprogress;
     gchar text[20];
@@ -219,7 +219,7 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     gtk_dialog_run(GTK_DIALOG(dlg));
 
-    GSource *src = g_main_context_find_source_by_id(NULL, timeout_source_id);
+    GSource *src = g_main_context_find_source_by_id(nullptr, timeout_source_id);
     if (src)
         g_source_destroy(src);
 

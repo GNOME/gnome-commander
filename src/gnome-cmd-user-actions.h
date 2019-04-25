@@ -1,8 +1,8 @@
-/** 
+/**
  * @file gnome-cmd-user-actions.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_USER_ACTIONS_H__
-#define __GNOME_CMD_USER_ACTIONS_H__
+#pragma once
 
 #include <string>
 #include <map>
@@ -31,7 +30,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-main-win.h"
-#include "gnome-cmd-xml-config.h"
 #include "dict.h"
 
 #define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
@@ -70,13 +68,9 @@ inline std::string key2str(guint state, guint key_val)
     if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
     if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
     if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
-#if GTK_CHECK_VERSION (2, 10, 0)
     if (state & GDK_SUPER_MASK)    key_name += gdk_modifiers_names[GDK_SUPER_MASK];
     if (state & GDK_HYPER_MASK)    key_name += gdk_modifiers_names[GDK_HYPER_MASK];
     if (state & GDK_META_MASK)     key_name += gdk_modifiers_names[GDK_META_MASK];
-#else
-    if (state & GDK_MOD4_MASK)     key_name += gdk_modifiers_names[GDK_MOD4_MASK];
-#endif
 
     if (ascii_isalnum (key_val))
         key_name += g_ascii_tolower (key_val);
@@ -156,6 +150,8 @@ class GnomeCmdUserActions
         UserAction(GnomeCmdUserActionFunc _func, const char *_user_data);
     };
 
+  public:
+
     static DICT<GnomeCmdUserActionFunc> action_func;
     static DICT<GnomeCmdUserActionFunc> action_name;
 
@@ -163,8 +159,6 @@ class GnomeCmdUserActions
 
     ACTIONS_COLL action;
 
-
-  public:
 
     void init();
     void set_defaults();
@@ -188,21 +182,19 @@ class GnomeCmdUserActions
 
     struct const_iterator: ACTIONS_COLL::iterator
     {
-        const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i)   {}
+        explicit const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i) {}
 
         const ACTIONS_COLL::key_type &operator * () const                   {  return (ACTIONS_COLL::iterator::operator * ()).first;       }
     };
 
-    const_iterator begin()                                                  {  return action.begin();                                      }
-    const_iterator end()                                                    {  return action.end();                                        }
+    const_iterator begin()                                                  {  return (const_iterator) action.begin();                                      }
+    const_iterator end()                                                    {  return (const_iterator) action.end();                                        }
     unsigned size()                                                         {  return action.size();                                       }
 
     const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();                 }
     const gchar *name(const std::string &name_description)                  {  return action_func[action_name[name_description]].c_str();  }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();                 }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                         }
-
-    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr);
 };
 
 
@@ -212,9 +204,9 @@ inline GnomeCmdUserActions::UserAction::UserAction(GnomeCmdUserActionFunc _func,
         user_data = _user_data;
 }
 
-inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name, const char *user_data)
+inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *action_name_argument, const char *user_data)
 {
-    return register_action(0, keyval, action_name, user_data);
+    return register_action(0, keyval, action_name_argument, user_data);
 }
 
 
@@ -338,7 +330,6 @@ GNOME_CMD_USER_ACTION(connections_close_current);
 
 /************** Plugins Menu ***********/
 GNOME_CMD_USER_ACTION(plugins_configure);
-GNOME_CMD_USER_ACTION(plugins_execute_python);
 
 /************** Help Menu **************/
 GNOME_CMD_USER_ACTION(help_help);
@@ -346,5 +337,3 @@ GNOME_CMD_USER_ACTION(help_keyboard);
 GNOME_CMD_USER_ACTION(help_web);
 GNOME_CMD_USER_ACTION(help_problem);
 GNOME_CMD_USER_ACTION(help_about);
-
-#endif // __GNOME_CMD_USER_ACTIONS_H__

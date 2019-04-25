@@ -2,7 +2,7 @@
  * @file gnome-cmd-file-info.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GNOME_CMD_FILE_INFO_H__
-#define __GNOME_CMD_FILE_INFO_H__
+#pragma once
 
 #define GNOME_CMD_TYPE_FILE_INFO              (gnome_cmd_file_info_get_type ())
 #define GNOME_CMD_FILE_INFO(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), GNOME_CMD_TYPE_FILE_INFO, GnomeCmdFileInfo))
@@ -53,5 +52,3 @@ inline void GnomeCmdFileInfo::setup(GnomeVFSURI *uri_setup, GnomeVFSFileInfo *in
     this->info = info_setup;
     this->uri = uri_setup;
 }
-
-#endif //__GNOME_CMD_FILE_INFO_H__

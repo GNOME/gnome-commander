@@ -1,15 +1,207 @@
 ===================================
+gnome-commander 1.12
+---------------
+
+New features:
+ * ...
+
+Bug fixes:
+ * ...
+
+New or updated translations:
+ * ...
+
+New or updated docs:
+ * ...
+
+===================================
+gnome-commander 1.10.0
+---------------
+
+New features:
+ * Gnome Commander icon and internal viewer icon refreshed
+ * Gnome Commander settings are now completely migrated to GSettings under the key `org.gnome.gnome-commander`
+ * Settings in `~/.gnome2/gnome-commander` and in `~/.gnome-commander/*` are migrated automatically
+ * Script and plugin folder in `~/.gnome-commander` is moved into `~/.config/gnome-commander`
+
+Bug fixes:
+ * Various warnings at compile time have been fixed
+ * Several code improvements and memory leaks have been fixed
+
+New or updated translations:
+ * cs (Marek Cernocky)
+ * da (Ask Hjorth Larsen)
+ * de (Mario Blättermann)
+ * de (Tim Sabsch)
+ * es (Daniel Mustieles)
+ * es (Piotr Drąg)
+ * hu (Balázs Úr)
+ * id (Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Isaac F. Ferreira Filho)
+ * pt_BR (Rafael Fontenelle)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
+
+New or updated docs:
+ * cs (Marek Cernocky)
+ * de (Mario Blättermann)
+ * de (Tim Sabsch)
+ * es (Daniel Mustieles)
+ * es (Piotr Drąg)
+ * sv (Anders Jonsson)
+
+===================================
+gnome-commander 1.8.1
+---------------
+
+New features:
+ * Store the size of the options dialog when closing itself
+ * Remove unnecessary border lines from the options dialog tabs (thanks to Elijah)
+ * Removed python support completely
+
+Bug fixes:
+ * Fix simple script system for file names with spaces
+ * Fixed bgo#785505: Problem when compiling GCMD with flex 2.6.4
+
+New or updated translations:
+ * cs (Marek Cernocky)
+ * da (Ask Hjorth Larsen)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+ * hu (Balázs Meskó)
+ * id (Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Isaac F. Ferreira Filho)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
+
+New or updated docs:
+ * cs (Marek Cernocky)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+
+===================================
 gnome-commander 1.8.0
 ---------------
 
 New features:
+ * Quick search can be activated by just typing a letter, adjustable in the options tab
+ * Option for saving/not saving the command line history on exit
+ * Option for saving/not saving the search history on exit
+ * Added a settings option for deciding if the terminal window should stay open when a command finishes
  * [build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall and David King)
  * [build] Translations are now handled by upstream gettext instead of intltool
  * [build] New documentation infrastructure: Use yelp-tools instead of gnome-doc-utils
- * Code cleanup
+
+Other changes:
+ * Increased minimum GTK version from 2.8.0 to 2.18.0
+ * Code cleanup (Thanks to Mamoru and Andreas for contributing)
 
 Bug fixes:
  * [build] Python is now found at build time, too, when its version is equal to or higher than 3.x
+
+New or updated translations:
+ * ca (Jordi Mas)
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * eo (Kristjan Schmidt)
+ * es (Daniel Mustieles)
+ * fi (Jiri Grönroos)
+ * hu (Balázs Úr)
+ * id (Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * sl (Matej Urbančič)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
+
+New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+
+===================================
+gnome-commander 1.6.4
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#779574 (Other favourite apps settings not saved)
+ * Fixed problem bgo#619112 (Internal-viewer by default display incorrect code pages)
+
+New or updated translations:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * eu (Inaki Larranaga Murgoitio)
+ * hu (Balázs Úr)
+ * id (Andika Triwidada)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+ * sv (Anders Jonsson)
+
+New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+
+===================================
+gnome-commander 1.6.3
+---------------
+
+Bug fixes:
+ * libunique (sometimes called only 'unique') is now optional via configure option
+
+New or updated translations: 
+ * cs (Marek Černocký)
+ * es (Daniel Mustieles)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * ru (Stas Solovey)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+
+New or updated docs:
+ * cs (Marek Černocký)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+
+===================================
+gnome-commander 1.6.2
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#398734 (Color of marked files does not change when using theme colors)
+ * Device list entry width is set equal to the longest string in the list
+ * Fixed a bug in advance rename tool when utilizing METATAGS
+New features:
+ * Disk free space label is shown in status bar if device list isn't shown (works after restarting gcmd)
+ * Shortcut can be assigned for:
+   - Moving the cursor up or down ("Move cursor one step up/down")
+   - Viewing bookmarks of current device ("Show bookmarks of current device")
+New or updated translations: 
+ * hu (Balázs Meskó)
+ * de (Mario Blättermann)
+ * pl (Piotr Drąg)
+ * sr (Мирослав Николић)
+ * sr@latin (Мирослав Николић)
+New or updated docs:
+ * cs (Marek Černocký)
+
+===================================
+gnome-commander 1.6.1
+---------------
+
+Bug fixes:
+ * Fixed problem bgo#638174 (Selection background color not applied when using custom colors)
+ * Fixed problem bgo#773063 (Compiles with gcc6 -Werror=format-security, Thanks to Mamoru Tasaka)
+
+New or updated docs:
+       cs (Marek Černocký)
 
 ===================================
 gnome-commander 1.6.0

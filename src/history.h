@@ -2,7 +2,7 @@
  * @file history.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,21 +19,20 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __HISTORY_H__
-#define __HISTORY_H__
+#pragma once
 
 class History
 {
     gint max;
-    gboolean is_locked;
+    gboolean is_locked {FALSE};
 
-    GList *pos;
+    GList *pos {NULL};
 
   public:
 
-    GList *ents;
+    GList *ents {NULL};
 
-    explicit History(gint maxHistory): is_locked(FALSE), pos(NULL), ents(NULL) { this->max = maxHistory;}
+    explicit History(gint maxHistory) { max = maxHistory;}
     ~History();
 
     History &operator = (GList *list);
@@ -72,5 +71,3 @@ inline History &History::operator = (GList *list)
 
     return *this;
 }
-
-#endif // __HISTORY_H__

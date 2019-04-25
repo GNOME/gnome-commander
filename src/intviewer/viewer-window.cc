@@ -4,7 +4,7 @@
  *
  * @copyright (C) 2006 Assaf Gordon\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,6 +52,8 @@ using namespace std;
 #define GCMD_INTERNAL_VIEWER               "org.gnome.gnome-commander.preferences.internal-viewer"
 #define GCMD_GSETTINGS_IV_CHARSET          "charset"
 
+#define NUMBER_OF_CHARSETS       22
+
 /***********************************
  * Functions for using GSettings
  ***********************************/
@@ -88,7 +90,7 @@ static void iv_settings_class_init (InternalViewerSettingsClass *klass)
 
 InternalViewerSettings *iv_settings_new ()
 {
-    return (InternalViewerSettings *) g_object_new (INTERNAL_VIEWER_SETTINGS, NULL);
+    return (InternalViewerSettings *) g_object_new (INTERNAL_VIEWER_SETTINGS, nullptr);
 }
 
 static void iv_settings_init (InternalViewerSettings *gs)
@@ -98,7 +100,7 @@ static void iv_settings_init (InternalViewerSettings *gs)
 
 /***********************************/
 
-static GtkWindowClass *parent_class = NULL;
+static GtkWindowClass *parent_class = nullptr;
 
 static double image_scale_factors[] = {0.1, 0.2, 0.33, 0.5, 0.67, 1, 1.25, 1.50, 2, 3, 4, 5, 6, 7, 8};
 
@@ -113,7 +115,7 @@ struct GViewerWindowPrivate
     GtkWidget *statusbar;
 
     GtkAccelGroup *accel_group;
-    GtkWidget *ascii_menu_item;
+    GtkWidget *encoding_menu_item[NUMBER_OF_CHARSETS];
     GtkWidget *wrap_mode_menu_item;
     GtkWidget *hex_offset_menu_item;
     GtkWidget *show_exif_menu_item;
@@ -207,8 +209,8 @@ GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *ini
 
 void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f)
 {
-    g_return_if_fail (obj!=NULL);
-    g_return_if_fail (f!=NULL);
+    g_return_if_fail (obj != nullptr);
+    g_return_if_fail (f != nullptr);
 
     g_free (obj->priv->filename);
 
@@ -228,11 +230,11 @@ GtkType gviewer_window_get_type ()
         GTypeInfo info =
         {
             sizeof (GViewerWindowClass),
-            NULL,
-            NULL,
+            nullptr,
+            nullptr,
             (GClassInitFunc) gviewer_window_class_init,
-            NULL,
-            NULL,
+            nullptr,
+            nullptr,
             sizeof(GViewerWindow),
             0,
             (GInstanceInitFunc) gviewer_window_init
@@ -245,7 +247,7 @@ GtkType gviewer_window_get_type ()
 
 static void gviewer_window_map (GtkWidget *widget)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+    if (GTK_WIDGET_CLASS (parent_class)->map != nullptr)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
@@ -267,15 +269,15 @@ static void gviewer_window_init (GViewerWindow *w)
     w->priv = g_new0 (GViewerWindowPrivate, 1);
 
     // w->priv->status_bar_msg = FALSE;
-    // w->priv->filename = NULL;
-    // w->priv->metadata_view = NULL;
+    // w->priv->filename = nullptr;
+    // w->priv->metadata_view = nullptr;
     // w->priv->metadata_visible = FALSE;
     w->priv->current_scale_index = 5;
 
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title (win, "GViewer");
 
-    g_signal_connect (w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), NULL);
+    g_signal_connect (w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), nullptr);
 
     w->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (w->priv->vbox);
@@ -284,7 +286,7 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_widget_show (w->priv->menubar);
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
 
-    w->priv->viewer = (GViewer *) gviewer_new();
+    w->priv->viewer = reinterpret_cast<GViewer*> (gviewer_new());
     g_object_ref (w->priv->viewer);
     gtk_widget_show (GTK_WIDGET (w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
@@ -315,15 +317,15 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status
     if (status_line)
         gtk_statusbar_push (GTK_STATUSBAR (w->priv->statusbar), w->priv->statusbar_ctx_id, status_line);
 
-    w->priv->status_bar_msg = status_line!=NULL;
+    w->priv->status_bar_msg = status_line != nullptr;
 }
 
 
 void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings)
 {
     g_return_if_fail (IS_GVIEWER_WINDOW (obj));
-    g_return_if_fail (settings!=NULL);
-    g_return_if_fail (obj->priv->viewer!=NULL);
+    g_return_if_fail (settings != nullptr);
+    g_return_if_fail (obj->priv->viewer != nullptr);
 
     gviewer_set_font_size(obj->priv->viewer, settings->font_size);
     gviewer_set_tab_size(obj->priv->viewer, settings->tab_size);
@@ -355,6 +357,94 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
             settings->hex_decimal_offset);
 
     gviewer_set_encoding(obj->priv->viewer, settings->charset);
+    if (strcmp(settings->charset, (gchar*) "UTF8") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[0]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ASCII") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[1]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP437") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[2]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-6") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[3]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ARABIC") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[4]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP864") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[5]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-4") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[6]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-2") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[7]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1250") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[8]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-5") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[9]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1251") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[10]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-7") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[11]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1253") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[12]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "HEBREW") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[13]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP862") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[14]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-8") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[15]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-15") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[16]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-3") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[17]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-9") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[18]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1254") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[19]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "CP1252") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[20]), TRUE);
+    }
+    else if (strcmp(settings->charset, (gchar*) "ISO-8859-1") == 0)
+    {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[21]), TRUE);
+    }
 
     gtk_window_resize(GTK_WINDOW (obj),
         settings->rect.width, settings->rect.height);
@@ -371,8 +461,8 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
 void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWindowSettings *settings)
 {
     g_return_if_fail (IS_GVIEWER_WINDOW (obj));
-    g_return_if_fail (settings!=NULL);
-    g_return_if_fail (obj->priv->viewer!=NULL);
+    g_return_if_fail (settings != nullptr);
+    g_return_if_fail (obj->priv->viewer != nullptr);
 
     memset(settings, 0, sizeof(GViewerWindowSettings));
 
@@ -392,7 +482,7 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
     settings->font_size = gviewer_get_font_size(obj->priv->viewer);
     settings->wrap_mode = gviewer_get_wrap_mode(obj->priv->viewer);
     settings->binary_bytes_per_line = gviewer_get_fixed_limit(obj->priv->viewer);
-    strncpy(settings->charset, gviewer_get_encoding(obj->priv->viewer), sizeof(settings->charset));
+    strncpy(settings->charset, gviewer_get_encoding(obj->priv->viewer), sizeof(settings->charset) - 1);
     settings->hex_decimal_offset = gviewer_get_hex_offset_display(obj->priv->viewer);
     settings->tab_size = gviewer_get_tab_size(obj->priv->viewer);
 }
@@ -409,10 +499,10 @@ static void gviewer_window_destroy (GtkObject *widget)
         g_object_unref (w->priv->viewer);
 
         g_free (w->priv->filename);
-        w->priv->filename = NULL;
+        w->priv->filename = nullptr;
 
         g_free (w->priv);
-        w->priv = NULL;
+        w->priv = nullptr;
     }
 
     if (GTK_OBJECT_CLASS(parent_class)->destroy)
@@ -431,12 +521,12 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         case GDK_plus:
         case GDK_KP_Add:
         case GDK_equal:
-           menu_view_zoom_in(NULL, w);
+           menu_view_zoom_in(nullptr, w);
            return TRUE;
 
         case GDK_minus:
         case GDK_KP_Subtract:
-           menu_view_zoom_out(NULL, w);
+           menu_view_zoom_out(nullptr, w);
            return TRUE;
 
         default:
@@ -467,7 +557,7 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         switch (event->keyval)
         {
             case GDK_F7:
-               menu_edit_find_next(NULL, w);
+               menu_edit_find_next(nullptr, w);
                return TRUE;
             default:
                 break;
@@ -495,7 +585,7 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
             return TRUE;
 
         case GDK_F7:
-           menu_edit_find(NULL, w);
+           menu_edit_find(nullptr, w);
            return TRUE;
 
         default:
@@ -582,9 +672,9 @@ static GtkWidget *create_menu_item (MENUITEMTYPE type,
 #pragma GCC diagnostic pop
 #endif
 
-    if (pixmap_type != GNOME_APP_PIXMAP_NONE && pixmap_info != NULL)
+    if (pixmap_type != GNOME_APP_PIXMAP_NONE && pixmap_info != nullptr)
     {
-        GtkWidget *pixmap = create_ui_pixmap (NULL, pixmap_type, pixmap_info, GTK_ICON_SIZE_MENU);
+        GtkWidget *pixmap = create_ui_pixmap (nullptr, pixmap_type, pixmap_info, GTK_ICON_SIZE_MENU);
         if (pixmap)
         {
             gtk_widget_show (pixmap);
@@ -642,12 +732,12 @@ inline GtkWidget *create_sub_menu(const gchar *name, GtkWidget *container)
 
 static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpointer user_data, MENU_ITEM_DATA *menudata)
 {
-    g_return_if_fail (menudata!=NULL);
-    g_return_if_fail (container!=NULL);
+    g_return_if_fail (menudata != nullptr);
+    g_return_if_fail (container != nullptr);
 
     while (menudata && menudata->menutype!=MI_NONE)
     {
-        GtkWidget *item = NULL;
+        GtkWidget *item = nullptr;
 
         switch (menudata->menutype)
         {
@@ -666,7 +756,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
             case MI_CHECK:
                 item = create_menu_item(menudata->menutype,
                                         menudata->label, container,
-                                        menudata->keyval ? accel : NULL,
+                                        menudata->keyval ? accel : nullptr,
                                         menudata->keyval,
                                         menudata->modifier,
                                         menudata->callback,
@@ -675,12 +765,12 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 
             case MI_RADIO:
                 if (!menudata->radio_list)
-                    g_warning ("radio_list field is NULL in \"%s\" menu item", menudata->label);
+                    g_warning ("radio_list field is nullptr in \"%s\" menu item", menudata->label);
                 else
                 {
                     item = create_radio_menu_item(menudata->radio_list,
                                                   menudata->label, container,
-                                                  menudata->keyval ? accel : NULL,
+                                                  menudata->keyval ? accel : nullptr,
                                                   menudata->keyval,
                                                   menudata->modifier,
                                                   menudata->callback, user_data);
@@ -703,10 +793,10 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 
 #define NO_KEYVAL       0
 #define NO_MODIFIER     0
-#define NO_GOBJ_KEY     NULL
-#define NO_GOBJ_VAL     NULL
-#define NO_MENU_ITEM    NULL
-#define NO_GSLIST       NULL
+#define NO_GOBJ_KEY     nullptr
+#define NO_GOBJ_VAL     nullptr
+#define NO_MENU_ITEM    nullptr
+#define NO_GSLIST       nullptr
 #define NO_PIXMAP_INFO  0
 
  static GtkWidget *gviewer_window_create_menus(GViewerWindow *obj)
@@ -722,7 +812,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         {MI_NONE}
     };
 
-    GSList *view_mode_list = NULL;
+    GSList *view_mode_list = nullptr;
 
     MENU_ITEM_DATA view_menu_items[] = {
         {MI_RADIO, _("_Text"), GDK_1, NO_MODIFIER, G_CALLBACK (menu_view_display_mode),
@@ -762,7 +852,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     };
 
 
-    GtkWidget *encoding_submenu = NULL;
+    GtkWidget *encoding_submenu = nullptr;
     MENU_ITEM_DATA text_menu_items[] = {
         {MI_NORMAL, _("_Copy Text Selection"), GDK_C, GDK_CONTROL_MASK, G_CALLBACK (menu_edit_copy),
                 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
@@ -786,43 +876,43 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 &obj->priv->wrap_mode_menu_item, NO_GSLIST},
         {MI_SEPERATOR},
-        {MI_SUBMENU, _("_Encoding"), NO_KEYVAL, NO_MODIFIER, G_CALLBACK (NULL),
+        {MI_SUBMENU, _("_Encoding"), NO_KEYVAL, NO_MODIFIER, G_CALLBACK (nullptr),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 &encoding_submenu, NO_GSLIST},
         {MI_NONE}
     };
 
-#define ENCODING_MENU_ITEM(label, keyval, value) {MI_RADIO, _(label), \
+#define ENCODING_MENU_ITEM(label, keyval, value, item_number) {MI_RADIO, _(label), \
             keyval, NO_MODIFIER, G_CALLBACK (menu_view_set_charset), \
             GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO, \
             G_OBJ_CHARSET_KEY, (gpointer *) GUINT_TO_POINTER(value), \
-            NO_MENU_ITEM, &text_encoding_list}
+            &obj->priv->encoding_menu_item[item_number], &text_encoding_list}
 
-    GSList *text_encoding_list = NULL;
+    GSList *text_encoding_list = nullptr;
     MENU_ITEM_DATA encoding_menu_items[] = {
-        ENCODING_MENU_ITEM("_UTF-8", GDK_u, "UTF8"),
-        ENCODING_MENU_ITEM("English (US-_ASCII)", GDK_a, "ASCII"),
-        ENCODING_MENU_ITEM("Terminal (CP437)", GDK_q, "CP437"),
-        ENCODING_MENU_ITEM("Arabic (ISO-8859-6)", NO_KEYVAL, "ISO-8859-6"),
-        ENCODING_MENU_ITEM("Arabic (Windows, CP1256)", NO_KEYVAL, "ARABIC"),
-        ENCODING_MENU_ITEM("Arabic (Dos, CP864)", NO_KEYVAL, "CP864"),
-        ENCODING_MENU_ITEM("Baltic (ISO-8859-4)", NO_KEYVAL, "ISO-8859-4"),
-        ENCODING_MENU_ITEM("Central European (ISO-8859-2)", NO_KEYVAL, "ISO-8859-2"),
-        ENCODING_MENU_ITEM("Central European (CP1250)", NO_KEYVAL, "CP1250"),
-        ENCODING_MENU_ITEM("Cyrillic (ISO-8859-5)", NO_KEYVAL, "ISO-8859-5"),
-        ENCODING_MENU_ITEM("Cyrillic (CP1251)", NO_KEYVAL, "CP1251"),
-        ENCODING_MENU_ITEM("Greek (ISO-8859-7)", NO_KEYVAL, "ISO-8859-7"),
-        ENCODING_MENU_ITEM("Greek (CP1253)", NO_KEYVAL, "CP1253"),
-        ENCODING_MENU_ITEM("Hebrew (Windows, CP1255)", NO_KEYVAL, "HEBREW"),
-        ENCODING_MENU_ITEM("Hebrew (Dos, CP862)", NO_KEYVAL, "CP862"),
-        ENCODING_MENU_ITEM("Hebrew (ISO-8859-8)", NO_KEYVAL, "ISO-8859-8"),
-        ENCODING_MENU_ITEM("Latin 9 (ISO-8859-15))", NO_KEYVAL, "ISO-8859-15"),
-        ENCODING_MENU_ITEM("Maltese (ISO-8859-3)", NO_KEYVAL, "ISO-8859-3"),
-        ENCODING_MENU_ITEM("Turkish (ISO-8859-9)", NO_KEYVAL, "ISO-8859-9"),
-        ENCODING_MENU_ITEM("Turkish (CP1254)", NO_KEYVAL, "CP1254"),
-        ENCODING_MENU_ITEM("Western (CP1252)", NO_KEYVAL, "CP1252"),
-        ENCODING_MENU_ITEM("Western (ISO-8859-1)", NO_KEYVAL, "ISO-8859-1"),
+        ENCODING_MENU_ITEM("_UTF-8", GDK_u, "UTF8", 0),
+        ENCODING_MENU_ITEM("English (US-_ASCII)", GDK_a, "ASCII", 1),
+        ENCODING_MENU_ITEM("Terminal (CP437)", GDK_q, "CP437", 2),
+        ENCODING_MENU_ITEM("Arabic (ISO-8859-6)", NO_KEYVAL, "ISO-8859-6", 3),
+        ENCODING_MENU_ITEM("Arabic (Windows, CP1256)", NO_KEYVAL, "ARABIC", 4),
+        ENCODING_MENU_ITEM("Arabic (Dos, CP864)", NO_KEYVAL, "CP864",5 ),
+        ENCODING_MENU_ITEM("Baltic (ISO-8859-4)", NO_KEYVAL, "ISO-8859-4",6 ),
+        ENCODING_MENU_ITEM("Central European (ISO-8859-2)", NO_KEYVAL, "ISO-8859-2", 7),
+        ENCODING_MENU_ITEM("Central European (CP1250)", NO_KEYVAL, "CP1250", 8),
+        ENCODING_MENU_ITEM("Cyrillic (ISO-8859-5)", NO_KEYVAL, "ISO-8859-5", 9),
+        ENCODING_MENU_ITEM("Cyrillic (CP1251)", NO_KEYVAL, "CP1251", 10),
+        ENCODING_MENU_ITEM("Greek (ISO-8859-7)", NO_KEYVAL, "ISO-8859-7", 11),
+        ENCODING_MENU_ITEM("Greek (CP1253)", NO_KEYVAL, "CP1253", 12),
+        ENCODING_MENU_ITEM("Hebrew (Windows, CP1255)", NO_KEYVAL, "HEBREW", 13),
+        ENCODING_MENU_ITEM("Hebrew (Dos, CP862)", NO_KEYVAL, "CP862", 14),
+        ENCODING_MENU_ITEM("Hebrew (ISO-8859-8)", NO_KEYVAL, "ISO-8859-8", 15),
+        ENCODING_MENU_ITEM("Latin 9 (ISO-8859-15))", NO_KEYVAL, "ISO-8859-15", 16),
+        ENCODING_MENU_ITEM("Maltese (ISO-8859-3)", NO_KEYVAL, "ISO-8859-3", 17),
+        ENCODING_MENU_ITEM("Turkish (ISO-8859-9)", NO_KEYVAL, "ISO-8859-9", 18),
+        ENCODING_MENU_ITEM("Turkish (CP1254)", NO_KEYVAL, "CP1254", 19),
+        ENCODING_MENU_ITEM("Western (CP1252)", NO_KEYVAL, "CP1252", 20),
+        ENCODING_MENU_ITEM("Western (ISO-8859-1)", NO_KEYVAL, "ISO-8859-1", 21),
         {MI_NONE}
     };
 
@@ -861,10 +951,10 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         {MI_NONE}
     };
 
-    GtkWidget *binary_mode_settings_submenu = NULL;
+    GtkWidget *binary_mode_settings_submenu = nullptr;
     MENU_ITEM_DATA settings_menu_items[] = {
         {MI_SUBMENU, _("_Binary Mode"), NO_KEYVAL, NO_MODIFIER,
-                G_CALLBACK (NULL),
+                G_CALLBACK (nullptr),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 &binary_mode_settings_submenu, NO_GSLIST},
@@ -883,7 +973,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         {MI_NONE}
     };
 
-    GSList *binmode_chars_per_line_list = NULL;
+    GSList *binmode_chars_per_line_list = nullptr;
     MENU_ITEM_DATA binmode_settings_menu_items[] = {
         {MI_RADIO, _("_20 chars/line"), GDK_2, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                 G_CALLBACK (menu_settings_binary_bytes_per_line),
@@ -957,8 +1047,8 @@ static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj)
 
 static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj)
 {
-    g_return_if_fail (obj!=NULL);
-    g_return_if_fail (obj->priv->viewer!=NULL);
+    g_return_if_fail (obj != nullptr);
+    g_return_if_fail (obj->priv->viewer != nullptr);
 
     if (gviewer_get_display_mode(obj->priv->viewer) != DISP_MODE_IMAGE)
         return;
@@ -993,7 +1083,7 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
     gviewer_set_display_mode(obj->priv->viewer, dispmode);
     gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
 
-    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), nullptr);
 }
 
 
@@ -1006,13 +1096,10 @@ static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj)
         return;
 
     gchar *charset = (gchar *) g_object_get_data (G_OBJECT (item), G_OBJ_CHARSET_KEY);
-    g_return_if_fail (charset!=NULL);
-
-    // ASCII is set implicitly when setting a charset
-    // gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (w->priv->ascii_menu_item), TRUE);
+    g_return_if_fail (charset != nullptr);
 
     gviewer_set_encoding(obj->priv->viewer, charset);
-    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), nullptr);
 }
 
 
@@ -1025,7 +1112,7 @@ static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj)
 
     gviewer_image_operation(obj->priv->viewer, imageop);
 
-    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), nullptr);
 }
 
 
@@ -1153,7 +1240,7 @@ static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow
     int bytes_per_line = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), G_OBJ_BYTES_PER_LINE_KEY));
 
     gviewer_set_fixed_limit(obj->priv->viewer, bytes_per_line);
-    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), nullptr);
 }
 
 
@@ -1211,13 +1298,13 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
     }
 
     // If a previous search is active, delete it
-    if (obj->priv->srchr!=NULL)
+    if (obj->priv->srchr != nullptr)
     {
         g_object_unref (obj->priv->srchr);
-        obj->priv->srchr = NULL;
+        obj->priv->srchr = nullptr;
 
         g_free (obj->priv->search_pattern);
-        obj->priv->search_pattern = NULL;
+        obj->priv->search_pattern = nullptr;
     }
 
     // Get the search information from the search dialog
@@ -1244,7 +1331,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
         guint buflen;
         guint8 *buffer = gviewer_search_dlg_get_search_hex_buffer (srch_dlg, buflen);
 
-        g_return_if_fail (buffer!=NULL);
+        g_return_if_fail (buffer != nullptr);
 
         obj->priv->search_pattern_len = buflen;
         g_viewer_searcher_setup_new_hex_search(obj->priv->srchr,
@@ -1300,7 +1387,7 @@ static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj)
     gboolean wrap = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item));
 
     gviewer_set_wrap_mode(obj->priv->viewer, wrap);
-    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
+    gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), nullptr);
 }
 
 
@@ -1316,21 +1403,21 @@ static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *o
 
 void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
 {
-    g_return_if_fail (settings!=NULL);
+    g_return_if_fail (settings != nullptr);
 
     InternalViewerSettings *iv_settings;
     iv_settings = iv_settings_new();
 
     gchar *temp = g_settings_get_string (iv_settings->internalviewer, GCMD_GSETTINGS_IV_CHARSET);
-    strncpy(settings->charset, temp, sizeof(settings->charset));
+    strncpy(settings->charset, temp, sizeof(settings->charset) - 1);
     g_free (temp);
 
     temp = g_settings_get_string (iv_settings->internalviewer, GCMD_SETTINGS_IV_FIXED_FONT_NAME);
-    strncpy(settings->fixed_font_name, temp, sizeof(settings->fixed_font_name));
+    strncpy(settings->fixed_font_name, temp, sizeof(settings->fixed_font_name) - 1);
     g_free (temp);
 
     temp = g_settings_get_string (iv_settings->internalviewer, GCMD_SETTINGS_IV_VARIABLE_FONT_NAME);
-    strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name));
+    strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name) - 1);
     g_free (temp);
 
     settings->hex_decimal_offset = g_settings_get_boolean (iv_settings->internalviewer, GCMD_SETTINGS_IV_DISPLAY_HEX_OFFSET);
@@ -1391,15 +1478,15 @@ static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj)
 
 inline void gviewer_window_show_metadata(GViewerWindow *w)
 {
-    g_return_if_fail (w!=NULL);
-    g_return_if_fail (w->priv->f!=NULL);
+    g_return_if_fail (w != nullptr);
+    g_return_if_fail (w->priv->f != nullptr);
 
     if (w->priv->metadata_visible)
         return;
 
     if (!w->priv->metadata_view)
     {
-        GtkWidget *scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+        GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
         gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
         gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
         gtk_container_add (GTK_CONTAINER (scrolledwindow), create_view ());
@@ -1427,8 +1514,8 @@ inline void gviewer_window_show_metadata(GViewerWindow *w)
 
 inline void gviewer_window_hide_metadata(GViewerWindow *obj)
 {
-    g_return_if_fail (obj!=NULL);
-    g_return_if_fail (obj->priv->metadata_view!=NULL);
+    g_return_if_fail (obj != nullptr);
+    g_return_if_fail (obj->priv->metadata_view != nullptr);
 
     if (!obj->priv->metadata_visible)
         return;
@@ -1482,7 +1569,7 @@ inline void fill_model (GtkTreeStore *tree, GnomeCmdFile *f)
 
         if (prev_tagclass!=curr_tagclass)
         {
-            gtk_tree_store_append (tree, &toplevel, NULL);
+            gtk_tree_store_append (tree, &toplevel, nullptr);
             gtk_tree_store_set (tree, &toplevel,
                                 COL_TAG, TAG_NONE,
                                 COL_TYPE, gcmd_tags_get_class_name(t),
@@ -1516,36 +1603,36 @@ GtkWidget *create_view ()
                   "rules-hint", TRUE,
                   "enable-search", TRUE,
                   "search-column", COL_VALUE,
-                  NULL);
+                  nullptr);
 
-    GtkCellRenderer *renderer = NULL;
-    GtkTreeViewColumn *col = NULL;
+    GtkCellRenderer *renderer = nullptr;
+    GtkTreeViewColumn *col = nullptr;
 
     GtkTooltips *tips = gtk_tooltips_new ();
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
-    gtk_tooltips_set_tip (tips, col->button, _("Metadata namespace"), NULL);
+    gtk_tooltips_set_tip (tips, col->button, _("Metadata namespace"), nullptr);
 
     g_object_set (renderer,
                   "weight-set", TRUE,
                   "weight", PANGO_WEIGHT_BOLD,
-                  NULL);
+                  nullptr);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
-    gtk_tooltips_set_tip (tips, col->button, _("Tag name"), NULL);
+    gtk_tooltips_set_tip (tips, col->button, _("Tag name"), nullptr);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
-    gtk_tooltips_set_tip (tips, col->button, _("Tag value"), NULL);
+    gtk_tooltips_set_tip (tips, col->button, _("Tag value"), nullptr);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
-    gtk_tooltips_set_tip (tips, col->button, _("Metadata tag description"), NULL);
+    gtk_tooltips_set_tip (tips, col->button, _("Metadata tag description"), nullptr);
 
     g_object_set (renderer,
                   "foreground-set", TRUE,
                   "foreground", "DarkGray",
                   "ellipsize-set", TRUE,
                   "ellipsize", PANGO_ELLIPSIZE_END,
-                  NULL);
+                  nullptr);
 
     return view;
 }

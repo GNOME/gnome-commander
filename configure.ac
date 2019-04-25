@@ -1,4 +1,4 @@
-AC_INIT([gnome-commander],[1.7.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander])
+AC_INIT([gnome-commander],[1.11.0],[https://gitlab.gnome.org/GNOME/gnome-commander/issues])
 AC_CONFIG_SRCDIR(src/gnome-cmd-includes.h)
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -36,7 +36,7 @@ dnl ===================
 
 GLIB_REQ=2.44.0
 GMODULE_REQ=2.0.0
-GTK_REQ=2.8.0
+GTK_REQ=2.18.0
 GNOME_REQ=2.0.0
 GNOMEUI_REQ=2.4.0
 GNOMEVFS_REQ=2.0.0
@@ -168,7 +168,7 @@ fi
 
 
 dnl Check for poppler support
-AC_ARG_WITH([poppler], [AS_HELP_STRING([--with-poppler], [disable PDF support])])
+AC_ARG_WITH([poppler], [AS_HELP_STRING([--without-poppler], [disable PDF support])])
 have_pdf=no
 if test x$with_poppler != xno; then
     PKG_CHECK_MODULES(POPPLER, poppler-glib >= $POPPLER_REQ, have_pdf=yes, have_pdf=no)
@@ -216,78 +216,6 @@ dnl Checks for library functions
 dnl =============================
 
 AC_FUNC_MMAP
-
-dnl ================================================================
-dnl Python
-dnl ================================================================
-
-AC_MSG_CHECKING([whether Python support is requested])
-AC_ARG_ENABLE([python],
-    AS_HELP_STRING([--enable-python],[Enable python support]),
-    [enable_python=$enableval have_python=$enableval],
-    [enable_python=autodetect have_python=yes])
-AC_MSG_RESULT([$enable_python])
-
-if test "x$have_python" != "xno"; then
-    AM_PATH_PYTHON([$PYTHON_REQ],[],[no])
-    if test "x$PYTHON" = "x:"; then
-        have_python=no
-    fi
-fi
-
-if test "x$have_python" != "xno"; then
-    AM_CHECK_PYTHON_HEADERS([],[have_python=no])
-fi
-
-if test "x$have_python" != "xno"; then
-    PY_PREFIX=`$PYTHON -c 'import sys ; print(sys.prefix)'`
-    PY_EXEC_PREFIX=`$PYTHON -c 'import sys ; print(sys.exec_prefix)'`
-    dnl PYTHON_LIBS="-lpython$PYTHON_VERSION"
-    PYTHON_LIBS=`$PYTHON-config --ldflags`
-    dnl PYTHON_CFLAGS="-I$PY_PREFIX/include/python$PYTHON_VERSION"
-    PYTHON_CFLAGS=`$PYTHON-config --cflags`
-    AC_SUBST([PYTHON_LIBS])
-    AC_SUBST([PYTHON_CFLAGS])
-
-    dnl FIXME: do we really need this test?
-    AC_MSG_CHECKING([whether we can build a shared library depending on libpython])
-    rm -rf testpython
-    mkdir testpython
-    cd testpython
-    cat > testpython.c <<EOF
-#include <Python.h>
-int testpython (void)
-{
-Py_Exit (0);
-}
-EOF
-
-    if ${CC} $PYTHON_CFLAGS $PYTHON_LIBS -fPIC -shared -o testpython.so testpython.c -Wl,-soname,testpython.so >/dev/null 2>&1 && \
-        ( objdump --headers --private-headers testpython.so | grep 'testpython' ) >/dev/null 2>&1; then
-        result=yes
-    else
-        result=no
-        have_python=no
-    fi
-    cd ..
-    rm -rf testpython
-    AC_MSG_RESULT([$result])
-fi
-
-if test "x$have_python" != "xyes"; then
-    if test "x$enable_python" = "xyes"; then
-        AC_MSG_ERROR([Python not found])
-    elif test "x$enable_python" = "xautodetect"; then
-        enable_python=no
-        AC_MSG_WARN([Python not found, disabling python support])
-    fi
-elif test "x$enable_python" != "xno"; then
-    enable_python=yes
-    AC_DEFINE([HAVE_PYTHON],[1],[Define to compile with python support])
-fi
-
-AM_CONDITIONAL([HAVE_PYTHON],[test "x$enable_python" = "xyes"])
-
 
 dnl =====================
 dnl Set stuff in config.h
@@ -341,10 +269,6 @@ pixmaps/file-type-icons/Makefile
 pixmaps/mime-icons/Makefile
 plugins/Makefile
 plugins/fileroller/Makefile
-plugins/python/Makefile
-plugins/python/md5sum/Makefile
-plugins/python/sha1sum/Makefile
-plugins/python/apply-patch/Makefile
 plugins/test/Makefile
 po/Makefile.in
 src/Makefile
@@ -369,7 +293,7 @@ echo ""
 echo "  host             : ${host}"
 echo "  prefix           : ${prefix}"
 echo "  compiler         : ${CC}"
-echo "  CFLAGS           : ${CFLAGS}"
+echo "  CXXFLAGS         : ${CXXFLAGS}"
 echo "  LDFLAGS          : ${LDFLAGS}"
 echo ""
 echo "  libunique support:      ${have_unique}"

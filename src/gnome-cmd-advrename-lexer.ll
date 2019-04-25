@@ -2,7 +2,7 @@
  * @file gnome-cmd-advrename-lexer.ll
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
- * @copyright (C) 2013-2017 Uwe Scholz\n
+ * @copyright (C) 2013-2019 Uwe Scholz\n
  *
  * @copyright This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -248,7 +248,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   fname_template.push_back(p);
                                 }
 
-\$[cxXegnNp]\([^\)]*\)?         ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
+\$[cxXegnNp]\([^\)]*\)?         ECHO;                                      // do not substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
 
 \$[egnNp]                       {
                                   CHUNK *p = g_new0 (CHUNK,1);
