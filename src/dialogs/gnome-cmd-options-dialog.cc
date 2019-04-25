@@ -893,12 +893,26 @@ inline void store_layout_options (GtkWidget *dialog, GnomeCmdData::Options &cfg)
     cfg.set_list_font (list_font);
 
     cfg.set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     cfg.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
     cfg.icon_scale_quality = (GdkInterpType) adj->value;
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     cfg.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 

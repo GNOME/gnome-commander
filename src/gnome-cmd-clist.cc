@@ -605,7 +605,14 @@ gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CLIST (clist), 0);
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     return GTK_ADJUSTMENT(GTK_CLIST(clist)->vadjustment)->value;
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 
@@ -619,7 +626,14 @@ void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset)
 {
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
 
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     gtk_adjustment_set_value (GTK_ADJUSTMENT (GTK_CLIST (clist)->vadjustment), voffset);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 }
 
 

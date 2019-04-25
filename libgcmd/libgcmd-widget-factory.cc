@@ -290,11 +290,25 @@ GtkWidget *create_radio_with_mnemonic (GtkWidget *parent, GSList *group, gchar *
 GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max, gint value)
 {
     GtkObject *adj = gtk_adjustment_new (value, min, max, 1, 10, 0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     GtkWidget *spin = gtk_spin_button_new (GTK_ADJUSTMENT (adj), 1, 0);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
     g_object_ref (spin);
     g_object_set_data_full (G_OBJECT (parent), name, spin, g_object_unref);
     gtk_widget_show (spin);
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin), TRUE);
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     return spin;
 }
@@ -324,7 +338,14 @@ GtkWidget *create_icon_entry (GtkWidget *parent, const gchar *name, const gchar 
 
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max)
 {
+#if defined (__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
+#endif
     GtkWidget *scale = gtk_hscale_new (GTK_ADJUSTMENT (gtk_adjustment_new (value, min, max, 0, 0, 0)));
+#if defined (__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
     g_object_ref (scale);
     g_object_set_data_full (G_OBJECT (parent), name, scale, g_object_unref);
