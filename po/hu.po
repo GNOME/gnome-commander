@@ -14,16 +14,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-03-05 17:57+0000\n"
-"PO-Revision-Date: 2019-03-06 21:44+0100\n"
-"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"POT-Creation-Date: 2019-04-24 20:40+0000\n"
+"PO-Revision-Date: 2019-04-25 21:27+0200\n"
+"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
 #: src/gnome-cmd-main-win.cc:809
@@ -66,11 +66,6 @@ msgstr "Egy kétpaneles fájlkezelő"
 #: data/gnome-commander.desktop.in.in:6
 msgid "file;manager;folder;explore;disk;filesystem;"
 msgstr "fájl;kezelő;mappa;felderítés;lemez;fájlrendszer;"
-
-#. TRANSLATORS: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/gnome-commander.desktop.in.in:9
-msgid "gnome-commander"
-msgstr "gnome-commander"
 
 #: data/org.gnome.gnome-commander.gschema.xml:31
 msgid "List of advanced rename tool profiles"
@@ -159,7 +154,7 @@ msgstr ""
 "paneloszlopban."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
-#: src/dialogs/gnome-cmd-options-dialog.cc:362
+#: src/dialogs/gnome-cmd-options-dialog.cc:372
 msgid "Permission display mode"
 msgstr "A jogosultságok megjelenítési módja"
 
@@ -195,7 +190,7 @@ msgid "'%F %R'"
 msgstr "'%F %R'"
 
 #: data/org.gnome.gnome-commander.gschema.xml:112
-#: src/dialogs/gnome-cmd-options-dialog.cc:378
+#: src/dialogs/gnome-cmd-options-dialog.cc:388
 msgid "Date format"
 msgstr "Dátumformátum"
 
@@ -617,7 +612,7 @@ msgid "Defines if the tab bar is always shown."
 msgstr "Meghatározza, hogy a lapsáv mindig megjelenik-e."
 
 #: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:929
+#: src/dialogs/gnome-cmd-options-dialog.cc:939
 msgid "Tab lock indicator"
 msgstr "Lapzárolás jelző"
 
@@ -767,21 +762,33 @@ msgid "This option defines the height of the search window."
 msgstr "Ez a beállítás meghatározza a keresés ablak magasságát."
 
 #: data/org.gnome.gnome-commander.gschema.xml:533
+msgid "Search window is transient"
+msgstr "A keresés ablak átmeneti"
+
+#: data/org.gnome.gnome-commander.gschema.xml:534
+msgid ""
+"Defines if the search window is transient or if it can be minimized and "
+"moved behind the main window."
+msgstr ""
+"Meghatározza, hogy a keresési ablak átmeneti-e, vagy minimalizálható-e és a "
+"főablak mögé mozgatható."
+
+#: data/org.gnome.gnome-commander.gschema.xml:540
 msgid "Search text history"
 msgstr "Szöveges keresések előzményei"
 
-#: data/org.gnome.gnome-commander.gschema.xml:534
+#: data/org.gnome.gnome-commander.gschema.xml:541
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
 "Ez a karakterlánctömb tartalmazza a szöveges keresések előzményeit a "
 "keresőeszközben."
 
-#: data/org.gnome.gnome-commander.gschema.xml:540
+#: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Search pattern history"
 msgstr "Keresési minták előzményei"
 
-#: data/org.gnome.gnome-commander.gschema.xml:541
+#: data/org.gnome.gnome-commander.gschema.xml:548
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
@@ -789,11 +796,11 @@ msgstr ""
 "Ez a karakterlánctömb tartalmazza a keresőeszközben végrehajtott reguláris "
 "kifejezés keresések előzményeit."
 
-#: data/org.gnome.gnome-commander.gschema.xml:547
+#: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "List of search tool profiles"
 msgstr "A keresőeszköz-profilok listája"
 
-#: data/org.gnome.gnome-commander.gschema.xml:548
+#: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
@@ -801,37 +808,37 @@ msgstr ""
 "A tömb elemei a keresőeszköz profiljait tartalmazzák, és minden profil "
 "különböző beállításokat tartalmaz."
 
-#: data/org.gnome.gnome-commander.gschema.xml:556
+#: data/org.gnome.gnome-commander.gschema.xml:563
 msgid "Quick connect URI"
 msgstr "Gyors kapcsolódási URI"
 
-#: data/org.gnome.gnome-commander.gschema.xml:557
+#: data/org.gnome.gnome-commander.gschema.xml:564
 msgid "Unified resource identifier for quick connections."
 msgstr "Egységes erőforrás-azonosító a gyors kapcsolatokhoz."
 
-#: data/org.gnome.gnome-commander.gschema.xml:568
+#: data/org.gnome.gnome-commander.gschema.xml:575
 msgid "Password for anonymous FTP connections"
 msgstr "Jelszó a névtelen FTP kapcsolatokhoz"
 
-#: data/org.gnome.gnome-commander.gschema.xml:569
+#: data/org.gnome.gnome-commander.gschema.xml:576
 msgid "This string defines the password for anonymous FTP connections."
 msgstr ""
 "Ez a karakterlánc meghatározza a névtelen FTP kapcsolatokhoz használt "
 "jelszót."
 
-#: data/org.gnome.gnome-commander.gschema.xml:577
+#: data/org.gnome.gnome-commander.gschema.xml:584
 msgid "Confirm delete"
 msgstr "Megerősítés törléskor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:578
+#: data/org.gnome.gnome-commander.gschema.xml:585
 msgid "Defines if deletion of an item should be confirmed."
 msgstr "Meghatározza, hogy az elemek törlését meg kell-e erősíteni."
 
-#: data/org.gnome.gnome-commander.gschema.xml:584
+#: data/org.gnome.gnome-commander.gschema.xml:591
 msgid "Delete default"
 msgstr "Alapértelmezés szerint törlés"
 
-#: data/org.gnome.gnome-commander.gschema.xml:585
+#: data/org.gnome.gnome-commander.gschema.xml:592
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
@@ -839,11 +846,11 @@ msgstr ""
 "Ez a beállítás meghatározza az alapértelmezetten aktív választási "
 "lehetőséget a megerősítő párbeszédablakon."
 
-#: data/org.gnome.gnome-commander.gschema.xml:591
+#: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Confirm copy overwrite"
 msgstr "Megerősítés másoláskori felülíráskor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:592
+#: data/org.gnome.gnome-commander.gschema.xml:599
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
@@ -851,11 +858,11 @@ msgstr ""
 "Ez a beállítás meghatározza az alapértelmezett viselkedést, amikor a másolás "
 "parancs felülírást okozna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:598
+#: data/org.gnome.gnome-commander.gschema.xml:605
 msgid "Confirm move overwrite"
 msgstr "Megerősítés áthelyezéskori felülíráskor"
 
-#: data/org.gnome.gnome-commander.gschema.xml:599
+#: data/org.gnome.gnome-commander.gschema.xml:606
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
@@ -863,70 +870,70 @@ msgstr ""
 "Ez a beállítás meghatározza az alapértelmezett viselkedést, amikor az "
 "áthelyezés parancs felülírást okozna."
 
-#: data/org.gnome.gnome-commander.gschema.xml:605
+#: data/org.gnome.gnome-commander.gschema.xml:612
 msgid "Confirm mouse drag and drop"
 msgstr "Megerősítés fogd és vidd műveleteknél"
 
-#: data/org.gnome.gnome-commander.gschema.xml:606
+#: data/org.gnome.gnome-commander.gschema.xml:613
 msgid "This option defines the behavior of mouse drag and drop operations."
 msgstr ""
 "Ez a beállítás meghatározza a viselkedést az egér fogd és vidd műveleteinél."
 
-#: data/org.gnome.gnome-commander.gschema.xml:614
+#: data/org.gnome.gnome-commander.gschema.xml:621
 msgid "Hide unknown filetypes"
 msgstr "Ismeretlen fájltípusok elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:615
+#: data/org.gnome.gnome-commander.gschema.xml:622
 msgid "Hide files which type does not match to one of the other types."
 msgstr "A fájlok elrejtése, ha nem egyeznek a típusok egyikével."
 
-#: data/org.gnome.gnome-commander.gschema.xml:619
+#: data/org.gnome.gnome-commander.gschema.xml:626
 msgid "Hide regular files"
 msgstr "Szabályos fájlok elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:623
+#: data/org.gnome.gnome-commander.gschema.xml:630
 msgid "Hide directories"
 msgstr "Könyvtárak elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:627
+#: data/org.gnome.gnome-commander.gschema.xml:634
 msgid "Hide FIFO pipes"
 msgstr "FIFO csővezetékek elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:631
+#: data/org.gnome.gnome-commander.gschema.xml:638
 msgid "Hide sockets"
 msgstr "Foglalatok elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:635
+#: data/org.gnome.gnome-commander.gschema.xml:642
 msgid "Hide character devices"
 msgstr "Karakteres eszközök elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:639
+#: data/org.gnome.gnome-commander.gschema.xml:646
 msgid "Hide block devices"
 msgstr "Blokkos eszközök elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:643
+#: data/org.gnome.gnome-commander.gschema.xml:650
 msgid "Hide symbolic links"
 msgstr "Szimbolikus linkek elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:647
+#: data/org.gnome.gnome-commander.gschema.xml:654
 msgid "Hide files and folders starting with a dot"
 msgstr "Ponttal kezdődő fájlok és mappák elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:651
+#: data/org.gnome.gnome-commander.gschema.xml:658
 msgid "Hide backup files"
 msgstr "Másolatfájlok elrejtése"
 
-#: data/org.gnome.gnome-commander.gschema.xml:652
+#: data/org.gnome.gnome-commander.gschema.xml:659
 msgid "Hide all files with a suffix defined as the backup pattern."
 msgstr ""
 "Minden olyan fájl elrejtése, amely másolatmintaként meghatározott utótaggal "
 "végződik."
 
-#: data/org.gnome.gnome-commander.gschema.xml:656
+#: data/org.gnome.gnome-commander.gschema.xml:663
 msgid "Backup file pattern"
 msgstr "Másolatfájl minta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:657
+#: data/org.gnome.gnome-commander.gschema.xml:664
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
@@ -935,11 +942,11 @@ msgstr ""
 "elválasztva) azoknál a fájloknál, amelyeket ki kell szűrni, ha a biztonsági "
 "másolat fájlokat el kell rejteni."
 
-#: data/org.gnome.gnome-commander.gschema.xml:666
+#: data/org.gnome.gnome-commander.gschema.xml:673
 msgid "Do not download files"
 msgstr "Ne töltse le a fájlokat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:667
+#: data/org.gnome.gnome-commander.gschema.xml:674
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
@@ -947,49 +954,49 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy a távoli fájlok mindig letöltésre "
 "kerüljenek-e, mielőtt egy külső program megnyitná azokat."
 
-#: data/org.gnome.gnome-commander.gschema.xml:673
+#: data/org.gnome.gnome-commander.gschema.xml:680
 msgid "Use internal viewer"
 msgstr "Beépített megjelenítő használata"
 
-#: data/org.gnome.gnome-commander.gschema.xml:674
+#: data/org.gnome.gnome-commander.gschema.xml:681
 msgid "This option defines if the internal viewer should be used by default."
 msgstr ""
 "Ez a beállítás meghatározza, hogy a beépített megjelenítő legyen "
 "alapértelmezés szerint használva."
 
-#: data/org.gnome.gnome-commander.gschema.xml:680
+#: data/org.gnome.gnome-commander.gschema.xml:687
 msgid "Viewer command"
 msgstr "Megjelenítő parancs"
 
-#: data/org.gnome.gnome-commander.gschema.xml:681
+#: data/org.gnome.gnome-commander.gschema.xml:688
 msgid "This string defines the command for starting the (external) viewer."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot a (külső) megjelenítő "
 "elindításához."
 
-#: data/org.gnome.gnome-commander.gschema.xml:687
+#: data/org.gnome.gnome-commander.gschema.xml:694
 msgid "Editor command"
 msgstr "Szerkesztő parancs"
 
-#: data/org.gnome.gnome-commander.gschema.xml:688
+#: data/org.gnome.gnome-commander.gschema.xml:695
 msgid "This string defines the command for starting the editor."
 msgstr "Ez a karakterlánc meghatározza a parancsot a szerkesztő elindításához."
 
-#: data/org.gnome.gnome-commander.gschema.xml:694
+#: data/org.gnome.gnome-commander.gschema.xml:701
 msgid "Differ command"
 msgstr "Összehasonlító parancs"
 
-#: data/org.gnome.gnome-commander.gschema.xml:695
+#: data/org.gnome.gnome-commander.gschema.xml:702
 msgid "This string defines the command for starting the diff tool."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot a összehasonlító eszköz "
 "elindításához."
 
-#: data/org.gnome.gnome-commander.gschema.xml:701
+#: data/org.gnome.gnome-commander.gschema.xml:708
 msgid "Leave terminal open"
 msgstr "Terminál nyitva hagyása"
 
-#: data/org.gnome.gnome-commander.gschema.xml:702
+#: data/org.gnome.gnome-commander.gschema.xml:709
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
@@ -997,111 +1004,111 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy nyitva maradjon-e a terminálablak a "
 "parancs befejeződése után."
 
-#: data/org.gnome.gnome-commander.gschema.xml:708
+#: data/org.gnome.gnome-commander.gschema.xml:715
 msgid "Command for opening a terminal"
 msgstr "Parancs a terminál megnyitásához"
 
-#: data/org.gnome.gnome-commander.gschema.xml:709
+#: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "This string defines the command for opening a terminal."
 msgstr "Ez a karakterlánc meghatározza a parancsot a terminál elindításához."
 
-#: data/org.gnome.gnome-commander.gschema.xml:715
+#: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "Command for execution in terminal"
 msgstr "A terminálban futtatandó parancs"
 
-#: data/org.gnome.gnome-commander.gschema.xml:716
+#: data/org.gnome.gnome-commander.gschema.xml:723
 msgid ""
 "This string defines the command for executing another command in a terminal."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot egy másik parancs terminálban "
 "történő végrehajtáshoz."
 
-#: data/org.gnome.gnome-commander.gschema.xml:722
+#: data/org.gnome.gnome-commander.gschema.xml:729
 msgid "Send to command"
 msgstr "Küldés parancs"
 
-#: data/org.gnome.gnome-commander.gschema.xml:723
+#: data/org.gnome.gnome-commander.gschema.xml:730
 msgid "This string defines the command for sending files to a receiver."
 msgstr ""
 "Ez a karakterlánc meghatározza a parancsot egy fogadóhoz történő küldéshez."
 
-#: data/org.gnome.gnome-commander.gschema.xml:731
+#: data/org.gnome.gnome-commander.gschema.xml:738
 msgid "Color theme"
 msgstr "Színséma"
 
-#: data/org.gnome.gnome-commander.gschema.xml:732
+#: data/org.gnome.gnome-commander.gschema.xml:739
 msgid "This option defines the current color theme."
 msgstr "Ez a beállítás meghatározza a jelenlegi színsémát."
 
-#: data/org.gnome.gnome-commander.gschema.xml:738
+#: data/org.gnome.gnome-commander.gschema.xml:745
 msgid "Normal foreground color"
 msgstr "Normál előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:739
+#: data/org.gnome.gnome-commander.gschema.xml:746
 msgid "Normal foreground color in custom mode."
 msgstr "Normál előtérszín egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:745
+#: data/org.gnome.gnome-commander.gschema.xml:752
 msgid "Normal background color"
 msgstr "Normál háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:746
+#: data/org.gnome.gnome-commander.gschema.xml:753
 msgid "Normal background color in custom mode."
 msgstr "Normál háttérszín egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:752
+#: data/org.gnome.gnome-commander.gschema.xml:759
 msgid "Alternate foreground color"
 msgstr "Alternatív előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:753
+#: data/org.gnome.gnome-commander.gschema.xml:760
 msgid "Alternate foreground color in custom mode."
 msgstr "Alternatív előtérszín egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:759
+#: data/org.gnome.gnome-commander.gschema.xml:766
 msgid "Alternate background color"
 msgstr "Alternatív háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:760
+#: data/org.gnome.gnome-commander.gschema.xml:767
 msgid "Alternate background color in custom mode."
 msgstr "Alternatív háttérszín egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:766
+#: data/org.gnome.gnome-commander.gschema.xml:773
 msgid "Selection foreground color"
 msgstr "Kijelölés előtérszíne"
 
-#: data/org.gnome.gnome-commander.gschema.xml:767
+#: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "Foreground color for selections in custom mode."
 msgstr "Kijelölés előtérszíne egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:773
+#: data/org.gnome.gnome-commander.gschema.xml:780
 msgid "Selection background color"
 msgstr "Kijelölés háttérszíne"
 
-#: data/org.gnome.gnome-commander.gschema.xml:774
+#: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Background color for selections in custom mode."
 msgstr "Kijelölés háttérszíne egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:780
+#: data/org.gnome.gnome-commander.gschema.xml:787
 msgid "Cursor foreground color"
 msgstr "Kurzor előtérszíne"
 
-#: data/org.gnome.gnome-commander.gschema.xml:781
+#: data/org.gnome.gnome-commander.gschema.xml:788
 msgid "Cursor foreground color in custom mode."
 msgstr "Kurzor előtérszíne egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:787
+#: data/org.gnome.gnome-commander.gschema.xml:794
 msgid "Cursor background color"
 msgstr "Kurzor háttérszíne"
 
-#: data/org.gnome.gnome-commander.gschema.xml:788
+#: data/org.gnome.gnome-commander.gschema.xml:795
 msgid "Cursor background color in custom mode."
 msgstr "Kurzor háttérszíne egyéni módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:794
+#: data/org.gnome.gnome-commander.gschema.xml:801
 msgid "Use LS colors"
 msgstr "LS színek használata"
 
-#: data/org.gnome.gnome-commander.gschema.xml:795
+#: data/org.gnome.gnome-commander.gschema.xml:802
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
@@ -1109,155 +1116,155 @@ msgstr ""
 "Ez a beállítás megadja, hogy az LS_COLORS környezeti változó értékét "
 "használja-e a fájlok és mappák színezéséhez."
 
-#: data/org.gnome.gnome-commander.gschema.xml:802
+#: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "LS_COLORS black foreground mapping"
 msgstr "LS_COLORS fekete előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:803
+#: data/org.gnome.gnome-commander.gschema.xml:810
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS black value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fekete érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:809
+#: data/org.gnome.gnome-commander.gschema.xml:816
 msgid "LS_COLORS black background mapping"
 msgstr "LS_COLORS fekete háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:810
+#: data/org.gnome.gnome-commander.gschema.xml:817
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS black value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fekete érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:816
+#: data/org.gnome.gnome-commander.gschema.xml:823
 msgid "LS_COLORS red foreground mapping"
 msgstr "LS_COLORS vörös előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:817
+#: data/org.gnome.gnome-commander.gschema.xml:824
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS red value."
 msgstr "Ez a beállítás módosítja az LS_COLORS vörös érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:823
+#: data/org.gnome.gnome-commander.gschema.xml:830
 msgid "LS_COLORS red background mapping"
 msgstr "LS_COLORS vörös háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:824
+#: data/org.gnome.gnome-commander.gschema.xml:831
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS red value."
 msgstr "Ez a beállítás módosítja az LS_COLORS vörös érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:830
+#: data/org.gnome.gnome-commander.gschema.xml:837
 msgid "LS_COLORS green foreground mapping"
 msgstr "LS_COLORS zöld előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:831
+#: data/org.gnome.gnome-commander.gschema.xml:838
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS green value."
 msgstr "Ez a beállítás módosítja az LS_COLORS zöld érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:837
+#: data/org.gnome.gnome-commander.gschema.xml:844
 msgid "LS_COLORS green background mapping"
 msgstr "LS_COLORS zöld háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:838
+#: data/org.gnome.gnome-commander.gschema.xml:845
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS green value."
 msgstr "Ez a beállítás módosítja az LS_COLORS zöld érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:844
+#: data/org.gnome.gnome-commander.gschema.xml:851
 msgid "LS_COLORS yellow foreground mapping"
 msgstr "LS_COLORS sárga előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:845
+#: data/org.gnome.gnome-commander.gschema.xml:852
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS yellow value."
 msgstr "Ez a beállítás módosítja az LS_COLORS sárga érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:851
+#: data/org.gnome.gnome-commander.gschema.xml:858
 msgid "LS_COLORS yellow background mapping"
 msgstr "LS_COLORS sárga háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:852
+#: data/org.gnome.gnome-commander.gschema.xml:859
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS yellow value."
 msgstr "Ez a beállítás módosítja az LS_COLORS sárga érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:858
+#: data/org.gnome.gnome-commander.gschema.xml:865
 msgid "LS_COLORS blue foreground mapping"
 msgstr "LS_COLORS kék előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:859
+#: data/org.gnome.gnome-commander.gschema.xml:866
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS blue value."
 msgstr "Ez a beállítás módosítja az LS_COLORS kék érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:865
+#: data/org.gnome.gnome-commander.gschema.xml:872
 msgid "LS_COLORS blue background mapping"
 msgstr "LS_COLORS kék háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:866
+#: data/org.gnome.gnome-commander.gschema.xml:873
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS blue value."
 msgstr "Ez a beállítás módosítja az LS_COLORS kék érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:872
+#: data/org.gnome.gnome-commander.gschema.xml:879
 msgid "LS_COLORS magenta foreground mapping"
 msgstr "LS_COLORS bíborvörös előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:873
+#: data/org.gnome.gnome-commander.gschema.xml:880
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS magenta value."
 msgstr "Ez a beállítás módosítja az LS_COLORS bíborvörös érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:879
+#: data/org.gnome.gnome-commander.gschema.xml:886
 msgid "LS_COLORS magenta background mapping"
 msgstr "LS_COLORS bíborvörös háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:880
+#: data/org.gnome.gnome-commander.gschema.xml:887
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS magenta value."
 msgstr "Ez a beállítás módosítja az LS_COLORS bíborvörös érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:886
+#: data/org.gnome.gnome-commander.gschema.xml:893
 msgid "LS_COLORS cyan foreground mapping"
 msgstr "LS_COLORS ciánkék előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:887
+#: data/org.gnome.gnome-commander.gschema.xml:894
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS cyan value."
 msgstr "Ez a beállítás módosítja az LS_COLORS ciánkék érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:893
+#: data/org.gnome.gnome-commander.gschema.xml:900
 msgid "LS_COLORS cyan background mapping"
 msgstr "LS_COLORS ciánkék háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:894
+#: data/org.gnome.gnome-commander.gschema.xml:901
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS cyan value."
 msgstr "Ez a beállítás módosítja az LS_COLORS ciánkék érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:900
+#: data/org.gnome.gnome-commander.gschema.xml:907
 msgid "LS_COLORS white foreground mapping"
 msgstr "LS_COLORS fehér előtérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:901
+#: data/org.gnome.gnome-commander.gschema.xml:908
 msgid ""
 "This option adjusts the foreground color mapping for LS_COLORS white value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fehér érték előtérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:907
+#: data/org.gnome.gnome-commander.gschema.xml:914
 msgid "LS_COLORS white background mapping"
 msgstr "LS_COLORS fehér háttérszín"
 
-#: data/org.gnome.gnome-commander.gschema.xml:908
+#: data/org.gnome.gnome-commander.gschema.xml:915
 msgid ""
 "This option adjusts the background color mapping for LS_COLORS white value."
 msgstr "Ez a beállítás módosítja az LS_COLORS fehér érték háttérszínét."
 
-#: data/org.gnome.gnome-commander.gschema.xml:916
+#: data/org.gnome.gnome-commander.gschema.xml:923
 msgid "Case sensitive search"
 msgstr "Kis- és nagybetű érzékeny keresés"
 
-#: data/org.gnome.gnome-commander.gschema.xml:917
+#: data/org.gnome.gnome-commander.gschema.xml:924
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
@@ -1265,11 +1272,11 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy a beépített megjelenítő keresője "
 "megkülönbözteti-e a kis- és nagybetűket."
 
-#: data/org.gnome.gnome-commander.gschema.xml:923
+#: data/org.gnome.gnome-commander.gschema.xml:930
 msgid "Search mode"
 msgstr "Keresési mód"
 
-#: data/org.gnome.gnome-commander.gschema.xml:924
+#: data/org.gnome.gnome-commander.gschema.xml:931
 msgid "This option defines the search mode of the internal viewer."
 msgstr "Ez a beállítás meghatározza a beépített megjelenítő keresési módját."
 
@@ -1278,39 +1285,39 @@ msgstr "Ez a beállítás meghatározza a beépített megjelenítő keresési m�
 #. an encoding that is common in your country.
 #. See https://gitlab.gnome.org/GNOME/gnome-commander/blob/master/src/intviewer/viewer-window.cc#L360 for
 #. a list of supported encodings.
-#: data/org.gnome.gnome-commander.gschema.xml:934
+#: data/org.gnome.gnome-commander.gschema.xml:941
 msgid "'UTF8'"
 msgstr "'UTF8'"
 
-#: data/org.gnome.gnome-commander.gschema.xml:935
+#: data/org.gnome.gnome-commander.gschema.xml:942
 msgid "Character set"
 msgstr "Karakterkészlet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:936
+#: data/org.gnome.gnome-commander.gschema.xml:943
 msgid "This option defines the default character encoding."
 msgstr "Ez a beállítás meghatározza az alapértelmezett karakterkészletet."
 
-#: data/org.gnome.gnome-commander.gschema.xml:942
+#: data/org.gnome.gnome-commander.gschema.xml:949
 msgid "Fixed font name"
 msgstr "Rögzített szélességű betűkészlet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:943
+#: data/org.gnome.gnome-commander.gschema.xml:950
 msgid "Name of the default font with fixed character width."
 msgstr "Az alapértelmezett rögzített szélességű betűkészlet neve"
 
-#: data/org.gnome.gnome-commander.gschema.xml:949
+#: data/org.gnome.gnome-commander.gschema.xml:956
 msgid "Variable font name"
 msgstr "Változó szélességű betűkészlet"
 
-#: data/org.gnome.gnome-commander.gschema.xml:950
+#: data/org.gnome.gnome-commander.gschema.xml:957
 msgid "Name of the default font with variable character width."
 msgstr "Az alapértelmezett változó szélességű betűkészlet neve"
 
-#: data/org.gnome.gnome-commander.gschema.xml:956
+#: data/org.gnome.gnome-commander.gschema.xml:963
 msgid "Display hex offset"
 msgstr "Alapértelmezett hexa eltolás"
 
-#: data/org.gnome.gnome-commander.gschema.xml:957
+#: data/org.gnome.gnome-commander.gschema.xml:964
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
@@ -1318,29 +1325,29 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy megjelenjen-e a hexadecimális eltolás hexa "
 "módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:963
+#: data/org.gnome.gnome-commander.gschema.xml:970
 msgid "Wrap mode"
 msgstr "Tördelés módja"
 
-#: data/org.gnome.gnome-commander.gschema.xml:964
+#: data/org.gnome.gnome-commander.gschema.xml:971
 msgid "This option defines if too long text lines should be wrapped."
 msgstr ""
 "Ez a beállítás meghatározza, hogy a túl hosszú szövegű sorokat kell-e "
 "tördelni."
 
-#: data/org.gnome.gnome-commander.gschema.xml:970
+#: data/org.gnome.gnome-commander.gschema.xml:977
 msgid "Font size"
 msgstr "Betűméret"
 
-#: data/org.gnome.gnome-commander.gschema.xml:971
+#: data/org.gnome.gnome-commander.gschema.xml:978
 msgid "This option defines the default font size."
 msgstr "Ez a beállítás meghatározza az alapértelmezett betűméretet."
 
-#: data/org.gnome.gnome-commander.gschema.xml:977
+#: data/org.gnome.gnome-commander.gschema.xml:984
 msgid "Tab size"
 msgstr "Tabulátor mérete"
 
-#: data/org.gnome.gnome-commander.gschema.xml:978
+#: data/org.gnome.gnome-commander.gschema.xml:985
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
@@ -1348,11 +1355,11 @@ msgstr ""
 "Ez a beállítás meghatározza a tabulátor karakter behúzási szélességét "
 "karakterekben."
 
-#: data/org.gnome.gnome-commander.gschema.xml:984
+#: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Bytes per line in binary mode"
 msgstr "Bájtok száma soronként bináris módban"
 
-#: data/org.gnome.gnome-commander.gschema.xml:985
+#: data/org.gnome.gnome-commander.gschema.xml:992
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
@@ -1360,11 +1367,11 @@ msgstr ""
 "Ez a beállítás meghatározza, hogy hány bájt jelenjen meg egy sorban bináris "
 "módban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:991
+#: data/org.gnome.gnome-commander.gschema.xml:998
 msgid "Horizontal offset"
 msgstr "Vízszintes eltolás"
 
-#: data/org.gnome.gnome-commander.gschema.xml:992
+#: data/org.gnome.gnome-commander.gschema.xml:999
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1372,11 +1379,11 @@ msgstr ""
 "Ez a beállítás meghatározza a beépített fájlmegjelenítő megjelenített "
 "eltolását vízszintes irányban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:998
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Vertical offset"
 msgstr "Függőleges eltolás"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1384,27 +1391,27 @@ msgstr ""
 "Ez a beállítás meghatározza a beépített fájlmegjelenítő megjelenített "
 "eltolását függőleges irányban."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Window width"
 msgstr "Ablakszélesség"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid "The width of the internal file viewer window."
 msgstr "A beépített fájlmegjelenítő ablak szélessége."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Window height"
 msgstr "Ablakmagasság"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "The height of the internal file viewer window."
 msgstr "A beépített fájlmegjelenítő ablak magassága."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Search pattern for text"
 msgstr "Szöveg keresési mintája"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1412,11 +1419,11 @@ msgstr ""
 "Ez a karakterlánctömb tárolja a szöveges keresések előzményeit a beépített "
 "fájlmegjelenítőben."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Search pattern for hex values"
 msgstr "Keresési minta hexa értékekhez"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1424,21 +1431,21 @@ msgstr ""
 "Ez a karakterlánctömb tárolja a hexa értékek keresési előzményeit a "
 "beépített fájlmegjelenítőben."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1035
+#: data/org.gnome.gnome-commander.gschema.xml:1042
 msgid "File suffix"
 msgstr "Fájlutótag"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1036
+#: data/org.gnome.gnome-commander.gschema.xml:1043
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Az alapértelmezett utótag az Archívumkezelő bővítménnyel létrehozott "
 "fájlokhoz."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1042
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid "Prefix pattern"
 msgstr "Előtag minta"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1043
+#: data/org.gnome.gnome-commander.gschema.xml:1050
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1446,11 +1453,11 @@ msgstr ""
 "Az előtag minta az Archívumkezelő bővítménnyel létrehozott fájlok nevének "
 "összeállításához használt."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1051
+#: data/org.gnome.gnome-commander.gschema.xml:1058
 msgid "Automatically loaded plugins"
 msgstr "Automatikusan betöltött bővítmények"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1052
+#: data/org.gnome.gnome-commander.gschema.xml:1059
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1458,11 +1465,11 @@ msgstr ""
 "Ez az automatikusan betöltött bővítmények listája, ahol minden egyes "
 "bejegyzés a bővítmény fájlnevét jelenti."
 
-#: libgcmd/gnome-cmd-string-dialog.cc:128
+#: libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
 msgstr "Nem érhető el a hibaleírás"
 
-#: plugins/fileroller/file-roller-plugin.cc:109 src/gnome-cmd-data.cc:85
+#: plugins/fileroller/file-roller-plugin.cc:109 src/gnome-cmd-data.cc:83
 #, c-format
 msgid "Could not load schemas from %s: %s\n"
 msgstr "Nem sikerült betölteni a sémákat innen: %s: %s\n"
@@ -1498,8 +1505,8 @@ msgstr "Fájl"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:588
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:364
-#: src/dialogs/gnome-cmd-options-dialog.cc:1445
-#: src/dialogs/gnome-cmd-options-dialog.cc:2103
+#: src/dialogs/gnome-cmd-options-dialog.cc:1455
+#: src/dialogs/gnome-cmd-options-dialog.cc:2113
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:444 src/gnome-cmd-user-actions.cc:250
@@ -1520,7 +1527,7 @@ msgid "File prefix pattern"
 msgstr "Fájlelőtag minta"
 
 #: plugins/fileroller/file-roller-plugin.cc:622
-#: src/dialogs/gnome-cmd-options-dialog.cc:392
+#: src/dialogs/gnome-cmd-options-dialog.cc:402
 msgid "Test result:"
 msgstr "Teszteredmény:"
 
@@ -1548,89 +1555,89 @@ msgstr ""
 "Ez egy példa bővítmény, amely leginkább egyszerű példaként használható "
 "törekvő bővítmény-hackereknek."
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:131
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:126
 #: src/dialogs/gnome-cmd-search-dialog.cc:181
 msgid "/_Save Profile As…"
 msgstr "/Profil mentése _másként…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:140
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:135
 #: src/dialogs/gnome-cmd-search-dialog.cc:190
 msgid "/_Manage Profiles…"
 msgstr "/Profilok _kezelése…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:192
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:187
 #: src/dialogs/gnome-cmd-search-dialog.cc:240
 msgid "Profiles"
 msgstr "Profilok"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:336
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:331
 msgid "Remove from file list"
 msgstr "Eltávolítás a fájllistából"
 
 #. {file_umount, "file.umount"},
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:340
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:335
 #: src/gnome-cmd-user-actions.cc:237
 msgid "View file"
 msgstr "Fájl megtekintése"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:344
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:339
 msgid "File properties"
 msgstr "Fájl tulajdonságai"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:350
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:345
 msgid "Update file list"
 msgstr "Fájllista frissítése"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:528
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:523
 msgid "Advanced Rename Tool"
 msgstr "Speciális átnevezőeszköz"
 
 #. Results
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:539
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:534
 msgid "Results"
 msgstr "Eredmények"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:612
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:607
 msgid "Old name"
 msgstr "Régi név"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:616
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:611
 msgid "Current file name"
 msgstr "Aktuális fájlnév"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:618
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:613
 msgid "New name"
 msgstr "Új név"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:622
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:617
 msgid "New file name"
 msgstr "Új fájlnév"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:624 src/tags/gnome-cmd-tags.cc:332
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:619 src/tags/gnome-cmd-tags.cc:332
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size"
 msgstr "Méret"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:628
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:623
 msgid "File size"
 msgstr "Fájlméret"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:630
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:625
 #: src/gnome-cmd-advrename-profile-component.cc:929
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Dátum"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:634
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:629
 msgid "File modification date"
 msgstr "Fájl módosítási dátuma"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:701
-#: src/dialogs/gnome-cmd-search-dialog.cc:1151
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:696
+#: src/dialogs/gnome-cmd-search-dialog.cc:1146
 msgid "Profiles…"
 msgstr "Profilok…"
 
-#: src/dialogs/gnome-cmd-advrename-dialog.cc:706
+#: src/dialogs/gnome-cmd-advrename-dialog.cc:701
 #: src/dialogs/gnome-cmd-edit-profile-dialog.h:83
 msgid "Reset"
 msgstr "Visszaállítás"
@@ -1650,7 +1657,7 @@ msgid "_Match case"
 msgstr "Kis- és nagybetűk mege_gyeznek"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1466
+#: src/dialogs/gnome-cmd-options-dialog.cc:1476
 msgid "All files"
 msgstr "Minden fájl"
 
@@ -1679,108 +1686,108 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Alkalmazás rekurzívan"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:180
+#: src/dialogs/gnome-cmd-con-dialog.cc:171
 msgid "_Alias:"
 msgstr "Á_lnév:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:185
+#: src/dialogs/gnome-cmd-con-dialog.cc:176
 msgid "_Location (URI):"
 msgstr "_Hely (URI):"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:216
+#: src/dialogs/gnome-cmd-con-dialog.cc:207
 msgid "_Server:"
 msgstr "_Kiszolgáló:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:227
+#: src/dialogs/gnome-cmd-con-dialog.cc:218
 msgid "Optional information"
 msgstr "Opcionális információ"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:251
+#: src/dialogs/gnome-cmd-con-dialog.cc:242
 msgid "S_hare:"
 msgstr "_Megosztás:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:254
+#: src/dialogs/gnome-cmd-con-dialog.cc:245
 msgid "_Port:"
 msgstr "_Port:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:256
+#: src/dialogs/gnome-cmd-con-dialog.cc:247
 msgid "_Folder:"
 msgstr "_Mappa:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:259
+#: src/dialogs/gnome-cmd-con-dialog.cc:250
 msgid "_User name:"
 msgstr "_Felhasználónév:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:262
+#: src/dialogs/gnome-cmd-con-dialog.cc:253
 msgid "_Domain name:"
 msgstr "_Tartománynév:"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:317
+#: src/dialogs/gnome-cmd-con-dialog.cc:308
 msgid "You must enter a name for the server"
 msgstr "A kiszolgáló nevét meg kell adni"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:317
+#: src/dialogs/gnome-cmd-con-dialog.cc:308
 msgid "Please enter a name and try again."
 msgstr "Adjon meg egy nevet, és próbálja újra."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:332
+#: src/dialogs/gnome-cmd-con-dialog.cc:323
 #, c-format
 msgid "“%s” is not a valid location"
 msgstr "A(z) „%s” nem érvényes hely"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:333
+#: src/dialogs/gnome-cmd-con-dialog.cc:324
 msgid "Please check spelling and try again."
 msgstr "Ellenőrizze a helyesírást és próbálja újra."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:430 src/gnome-cmd-main-win.cc:1261
+#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:1261
 msgid "Remote Server"
 msgstr "Távoli kiszolgáló"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:445
+#: src/dialogs/gnome-cmd-con-dialog.cc:436
 msgid "Service _type:"
 msgstr "Szolgáltatás _típusa:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: src/dialogs/gnome-cmd-con-dialog.cc:457
+#: src/dialogs/gnome-cmd-con-dialog.cc:448
 msgid "SSH"
 msgstr "SSH"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:458
+#: src/dialogs/gnome-cmd-con-dialog.cc:449
 msgid "FTP (with login)"
 msgstr "FTP (bejelentkezéssel)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:459
+#: src/dialogs/gnome-cmd-con-dialog.cc:450
 msgid "Public FTP"
 msgstr "Nyilvános FTP"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:461
+#: src/dialogs/gnome-cmd-con-dialog.cc:452
 msgid "Windows share"
 msgstr "Windows megosztás"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:463
+#: src/dialogs/gnome-cmd-con-dialog.cc:454
 msgid "WebDAV (HTTP)"
 msgstr "WebDAV (HTTP)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:464
+#: src/dialogs/gnome-cmd-con-dialog.cc:455
 msgid "Secure WebDAV (HTTPS)"
 msgstr "Biztonságos WebDAV (HTTPS)"
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:465
+#: src/dialogs/gnome-cmd-con-dialog.cc:456
 msgid "Custom location"
 msgstr "Egyéni hely"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:91
+#: src/dialogs/gnome-cmd-delete-dialog.cc:90
 #, c-format
 msgid "Deleted %ld of %ld file"
 msgid_plural "Deleted %ld of %ld files"
 msgstr[0] "%ld törölve %ld fájlból"
 msgstr[1] "%ld törölve %ld fájlból"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:133
+#: src/dialogs/gnome-cmd-delete-dialog.cc:132
 msgid "Deleting…"
 msgstr "Törlés…"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:205
+#: src/dialogs/gnome-cmd-delete-dialog.cc:204
 #, c-format
 msgid ""
 "Error while deleting “%s”\n"
@@ -1791,47 +1798,47 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/dialogs/gnome-cmd-delete-dialog.cc:207
 msgid "Delete problem"
 msgstr "Törlési hiba"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:209 src/gnome-cmd-xfer.cc:209
+#: src/dialogs/gnome-cmd-delete-dialog.cc:208 src/gnome-cmd-xfer.cc:209
 #: src/gnome-cmd-xfer.cc:228
 msgid "Abort"
 msgstr "Megszakítás"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: src/gnome-cmd-file-selector.cc:1406 src/gnome-cmd-xfer.cc:228
+#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/gnome-cmd-file-selector.cc:1385 src/gnome-cmd-xfer.cc:228
 msgid "Retry"
 msgstr "Újra"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:209
-#: src/gnome-cmd-file-selector.cc:1406 src/gnome-cmd-xfer.cc:209
+#: src/dialogs/gnome-cmd-delete-dialog.cc:208
+#: src/gnome-cmd-file-selector.cc:1385 src/gnome-cmd-xfer.cc:209
 #: src/gnome-cmd-xfer.cc:228
 msgid "Skip"
 msgstr "Kihagyás"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:278
+#: src/dialogs/gnome-cmd-delete-dialog.cc:277
 #, c-format
 msgid "Do you want to delete “%s”?"
 msgstr "Valóban törölni akarja a következőt: „%s”?"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:282
+#: src/dialogs/gnome-cmd-delete-dialog.cc:281
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Valóban törölni akarja a kijelölt fájlt?"
 msgstr[1] "Valóban törölni akarja a kijelölt %d fájlt?"
 
+#: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: src/dialogs/gnome-cmd-delete-dialog.cc:289
-#: src/dialogs/gnome-cmd-options-dialog.cc:996 src/gnome-cmd-main-win.cc:1255
+#: src/dialogs/gnome-cmd-options-dialog.cc:1006 src/gnome-cmd-main-win.cc:1255
 #: src/gnome-cmd-user-actions.cc:211
 msgid "Delete"
 msgstr "Törlés"
 
-#: src/dialogs/gnome-cmd-delete-dialog.cc:289 src/gnome-cmd-file-list.cc:1271
-#: src/gnome-cmd-file-list.cc:1299 src/gnome-cmd-file-selector.cc:1406
+#: src/dialogs/gnome-cmd-delete-dialog.cc:288 src/gnome-cmd-file-list.cc:1262
+#: src/gnome-cmd-file-list.cc:1290 src/gnome-cmd-file-selector.cc:1385
 #: src/gnome-cmd-user-actions.cc:817
 msgid "Cancel"
 msgstr "Mégse"
@@ -1865,12 +1872,12 @@ msgid "Image:"
 msgstr "Kép:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:183
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:181
 msgid "Directory name:"
 msgstr "Könyvtárnév:"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:344
-#: src/gnome-cmd-file-selector.cc:1191
+#: src/gnome-cmd-file-selector.cc:1170
 msgid "File name:"
 msgstr "Fájlnév:"
 
@@ -2058,7 +2065,7 @@ msgid "Do nothing"
 msgstr "Ne tegyen semmit"
 
 #: src/dialogs/gnome-cmd-make-copy-dialog.cc:67
-#: src/gnome-cmd-file-selector.cc:1121
+#: src/gnome-cmd-file-selector.cc:1100
 msgid "No file name entered"
 msgstr "Nem adott meg fájlnevet"
 
@@ -2151,7 +2158,7 @@ msgstr "_Kettőzés"
 msgid "A directory name must be entered"
 msgstr "A könyvtárnevet meg kell adni"
 
-#: src/dialogs/gnome-cmd-mkdir-dialog.cc:159
+#: src/dialogs/gnome-cmd-mkdir-dialog.cc:157
 msgid "Make Directory"
 msgstr "Könyvtár létrehozása"
 
@@ -2237,390 +2244,402 @@ msgstr "Illeszkedés a fájlnév kezdetére"
 msgid "Match end of the file name"
 msgstr "Illeszkedés a fájlnév végére"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:195
+#: src/dialogs/gnome-cmd-options-dialog.cc:193
+msgid "Search Window"
+msgstr "Keresés ablak"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:196
+msgid ""
+"Search window is minimizable\n"
+"(Needs program restart if altered)"
+msgstr ""
+"A keresési ablak minimalizálható-e\n"
+"(A módosítása a program újraindítását igényli)"
+
+#: src/dialogs/gnome-cmd-options-dialog.cc:203
 msgid "Multiple instances"
 msgstr "Többszörös előfordulás"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:198
+#: src/dialogs/gnome-cmd-options-dialog.cc:206
 msgid "Don’t start a new instance"
 msgstr "Ne indítson új példányt"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:205
+#: src/dialogs/gnome-cmd-options-dialog.cc:213
 msgid "Save on exit"
 msgstr "Mentés kilépéskor"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:208
-#: src/dialogs/gnome-cmd-options-dialog.cc:1147
+#: src/dialogs/gnome-cmd-options-dialog.cc:216
+#: src/dialogs/gnome-cmd-options-dialog.cc:1157
 msgid "Directories"
 msgstr "Könyvtárak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:212
-#: src/dialogs/gnome-cmd-options-dialog.cc:2130
+#: src/dialogs/gnome-cmd-options-dialog.cc:220
+#: src/dialogs/gnome-cmd-options-dialog.cc:2140
 msgid "Tabs"
 msgstr "Lapok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:217
+#: src/dialogs/gnome-cmd-options-dialog.cc:225
 msgid "Directory history"
 msgstr "Könyvtár előzmények"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:221
+#: src/dialogs/gnome-cmd-options-dialog.cc:229
 msgid "Commandline history"
 msgstr "Parancssor-előzmények"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:225
+#: src/dialogs/gnome-cmd-options-dialog.cc:233
 msgid "Search history"
 msgstr "Keresési előzmények"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:334
+#: src/dialogs/gnome-cmd-options-dialog.cc:344
 msgid "Size display mode"
 msgstr "A méretek megjelenítési módja"
 
 #. Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
-#: src/dialogs/gnome-cmd-options-dialog.cc:338
+#: src/dialogs/gnome-cmd-options-dialog.cc:348
 msgid "Powered"
 msgstr "Szuper (mérettől függő módon)"
 
 #. Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
-#: src/dialogs/gnome-cmd-options-dialog.cc:344
+#: src/dialogs/gnome-cmd-options-dialog.cc:354
 msgid "<locale>"
 msgstr "<területi beállítás>"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:349
+#: src/dialogs/gnome-cmd-options-dialog.cc:359
 msgid "Grouped"
 msgstr "Csoportosított"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:354
+#: src/dialogs/gnome-cmd-options-dialog.cc:364
 msgid "Plain"
 msgstr "Egyszerű"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:365
+#: src/dialogs/gnome-cmd-options-dialog.cc:375
 msgid "Text (rw-r--r--)"
 msgstr "Szöveges (rw-r-r--)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:370
+#: src/dialogs/gnome-cmd-options-dialog.cc:380
 msgid "Number (644)"
 msgstr "Numerikus (644)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:381
+#: src/dialogs/gnome-cmd-options-dialog.cc:391
 msgid "Format:"
 msgstr "Formátum:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:399
+#: src/dialogs/gnome-cmd-options-dialog.cc:409
 msgid ""
 "See the manual page for “strftime” for help on how to set the format string."
 msgstr ""
 "Lásd az „strftime” kézikönyvoldalát, amely leírja a formátum-karakterláncok "
 "használatát."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:483
+#: src/dialogs/gnome-cmd-options-dialog.cc:493
 msgid "Edit Colors…"
 msgstr "Színek szerkesztése…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:496
+#: src/dialogs/gnome-cmd-options-dialog.cc:506
 msgid "Colors"
 msgstr "Színek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:527
+#: src/dialogs/gnome-cmd-options-dialog.cc:537
 msgid "Foreground"
 msgstr "Előtér"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:529
+#: src/dialogs/gnome-cmd-options-dialog.cc:539
 msgid "Background"
 msgstr "Háttér"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:531
+#: src/dialogs/gnome-cmd-options-dialog.cc:541
 msgid "Default:"
 msgstr "Alapértelmezett:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:533
+#: src/dialogs/gnome-cmd-options-dialog.cc:543
 msgid "Alternate:"
 msgstr "Alternatív:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:535
+#: src/dialogs/gnome-cmd-options-dialog.cc:545
 msgid "Selected file:"
 msgstr "Kijelölt fájl:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:537
+#: src/dialogs/gnome-cmd-options-dialog.cc:547
 msgid "Cursor:"
 msgstr "Kurzor:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:618
+#: src/dialogs/gnome-cmd-options-dialog.cc:628
 msgid "Edit LS_COLORS Palette"
 msgstr "LS_COLORS paletta szerkesztése"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:630
+#: src/dialogs/gnome-cmd-options-dialog.cc:640
 msgid "Palette"
 msgstr "Paletta"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:685
+#: src/dialogs/gnome-cmd-options-dialog.cc:695
 msgid "Foreground:"
 msgstr "Előtér:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:687
+#: src/dialogs/gnome-cmd-options-dialog.cc:697
 msgid "Background:"
 msgstr "Háttér:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:689
+#: src/dialogs/gnome-cmd-options-dialog.cc:699
 msgid "Black"
 msgstr "Fekete"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:692
+#: src/dialogs/gnome-cmd-options-dialog.cc:702
 msgid "Red"
 msgstr "Vörös"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:695
+#: src/dialogs/gnome-cmd-options-dialog.cc:705
 msgid "Green"
 msgstr "Zöld"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:698
+#: src/dialogs/gnome-cmd-options-dialog.cc:708
 msgid "Yellow"
 msgstr "Sárga"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:701
+#: src/dialogs/gnome-cmd-options-dialog.cc:711
 msgid "Blue"
 msgstr "Kék"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:704
+#: src/dialogs/gnome-cmd-options-dialog.cc:714
 msgid "Magenta"
 msgstr "Bíborvörös"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:707
+#: src/dialogs/gnome-cmd-options-dialog.cc:717
 msgid "Cyan"
 msgstr "Ciánkék"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:710
+#: src/dialogs/gnome-cmd-options-dialog.cc:720
 msgid "White"
 msgstr "Fehér"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:714
+#: src/dialogs/gnome-cmd-options-dialog.cc:724
 msgid "_Reset"
 msgstr "_Visszaállítás"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:728
+#: src/dialogs/gnome-cmd-options-dialog.cc:738
 msgid "With file name"
 msgstr "A fájlnév mellett"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:729
+#: src/dialogs/gnome-cmd-options-dialog.cc:739
 msgid "In separate column"
 msgstr "Külön oszlopban"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:730
+#: src/dialogs/gnome-cmd-options-dialog.cc:740
 msgid "In both columns"
 msgstr "Mindkét oszlopban"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:734
+#: src/dialogs/gnome-cmd-options-dialog.cc:744
 msgid "No icons"
 msgstr "Nincsenek ikonok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:735
+#: src/dialogs/gnome-cmd-options-dialog.cc:745
 msgid "File type icons"
 msgstr "Fájltípus ikonok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:736
+#: src/dialogs/gnome-cmd-options-dialog.cc:746
 msgid "MIME icons"
 msgstr "MIME-ikonok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:740
+#: src/dialogs/gnome-cmd-options-dialog.cc:750
 msgid "Respect theme colors"
 msgstr "Téma színeinek használata"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:741
+#: src/dialogs/gnome-cmd-options-dialog.cc:751
 msgid "Modern"
 msgstr "Modern"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:742
+#: src/dialogs/gnome-cmd-options-dialog.cc:752
 msgid "Fusion"
 msgstr "Fúzió"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:743
+#: src/dialogs/gnome-cmd-options-dialog.cc:753
 msgid "Classic"
 msgstr "Klasszikus"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:744
+#: src/dialogs/gnome-cmd-options-dialog.cc:754
 msgid "Deep blue"
 msgstr "Mélykék"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:745
+#: src/dialogs/gnome-cmd-options-dialog.cc:755
 msgid "Cafezinho"
 msgstr "Cafezinho"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:746
+#: src/dialogs/gnome-cmd-options-dialog.cc:756
 msgid "Green tiger"
 msgstr "Zöld tigris"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:747
+#: src/dialogs/gnome-cmd-options-dialog.cc:757
 msgid "Winter"
 msgstr "Tél"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:748
+#: src/dialogs/gnome-cmd-options-dialog.cc:758
 msgid "Custom"
 msgstr "Egyéni"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:768
+#: src/dialogs/gnome-cmd-options-dialog.cc:778
 msgid "File panes"
 msgstr "Fájl panelek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:778
+#: src/dialogs/gnome-cmd-options-dialog.cc:788
 msgid "Font:"
 msgstr "Betűkészlet:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:780
+#: src/dialogs/gnome-cmd-options-dialog.cc:790
 msgid "Row height:"
 msgstr "Sormagasság:"
 
 #. File extensions
-#: src/dialogs/gnome-cmd-options-dialog.cc:784
+#: src/dialogs/gnome-cmd-options-dialog.cc:794
 msgid "Display file extensions:"
 msgstr "Fájlkiterjesztések megjelenítése:"
 
 #. Graphical mode
-#: src/dialogs/gnome-cmd-options-dialog.cc:792
+#: src/dialogs/gnome-cmd-options-dialog.cc:802
 msgid "Graphical mode:"
 msgstr "Grafikus üzemmód:"
 
 #. Color scheme
-#: src/dialogs/gnome-cmd-options-dialog.cc:801
+#: src/dialogs/gnome-cmd-options-dialog.cc:811
 msgid "Color scheme:"
 msgstr "Színséma:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:813
+#: src/dialogs/gnome-cmd-options-dialog.cc:823
 msgid "Edit…"
 msgstr "Szerkesztés…"
 
 #. LS_COLORS
-#: src/dialogs/gnome-cmd-options-dialog.cc:820
+#: src/dialogs/gnome-cmd-options-dialog.cc:830
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Fájlok színezése az LS_COLORS környezeti változó szerint"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:828
+#: src/dialogs/gnome-cmd-options-dialog.cc:838
 msgid "Edit colors…"
 msgstr "Színek szerkesztése…"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:836
+#: src/dialogs/gnome-cmd-options-dialog.cc:846
 msgid "MIME icon settings"
 msgstr "MIME-ikon beállítások"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:847
+#: src/dialogs/gnome-cmd-options-dialog.cc:857
 msgid "Icon size:"
 msgstr "Ikonméret:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:849
+#: src/dialogs/gnome-cmd-options-dialog.cc:859
 msgid "Scaling quality:"
 msgstr "Méretezés minősége:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:851
+#: src/dialogs/gnome-cmd-options-dialog.cc:861
 msgid "Theme icon directory:"
 msgstr "Téma ikon könyvtár:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:920
+#: src/dialogs/gnome-cmd-options-dialog.cc:930
 msgid "Tab bar"
 msgstr "Lapsáv"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:923
+#: src/dialogs/gnome-cmd-options-dialog.cc:933
 msgid "Always show the tab bar"
 msgstr "Mindig jelenjen meg a lapsáv"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:932
+#: src/dialogs/gnome-cmd-options-dialog.cc:942
 msgid "Lock icon"
 msgstr "Ikon zárolása"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:937
+#: src/dialogs/gnome-cmd-options-dialog.cc:947
 msgid "* (asterisk)"
 msgstr "* (csillag)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:942
+#: src/dialogs/gnome-cmd-options-dialog.cc:952
 msgid "Styled text"
 msgstr "Formázott szöveg"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:999
+#: src/dialogs/gnome-cmd-options-dialog.cc:1009
 msgid "Confirm before delete"
 msgstr "Megerősítés törlés előtt"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1004
+#: src/dialogs/gnome-cmd-options-dialog.cc:1014
 msgid "Confirm defaults to OK"
 msgstr "Alapértelmezetten OK megerősítés"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1013
+#: src/dialogs/gnome-cmd-options-dialog.cc:1023
 msgid "Copy overwrite"
 msgstr "Másoláskor felülírás"
 
 #. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-options-dialog.cc:1016
-#: src/dialogs/gnome-cmd-options-dialog.cc:1036
+#: src/dialogs/gnome-cmd-options-dialog.cc:1026
+#: src/dialogs/gnome-cmd-options-dialog.cc:1046
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:91
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
 msgid "Silently"
 msgstr "Szó nélkül"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1020
-#: src/dialogs/gnome-cmd-options-dialog.cc:1040
+#: src/dialogs/gnome-cmd-options-dialog.cc:1030
+#: src/dialogs/gnome-cmd-options-dialog.cc:1050
 msgid "Query first"
 msgstr "Kérdezzen rá"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1024
-#: src/dialogs/gnome-cmd-options-dialog.cc:1044
-#: src/gnome-cmd-file-selector.cc:1406
+#: src/dialogs/gnome-cmd-options-dialog.cc:1034
+#: src/dialogs/gnome-cmd-options-dialog.cc:1054
+#: src/gnome-cmd-file-selector.cc:1385
 msgid "Skip all"
 msgstr "Összes kihagyása"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1033
+#: src/dialogs/gnome-cmd-options-dialog.cc:1043
 msgid "Move overwrite"
 msgstr "Áthelyezéskor felülírás"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1053
+#: src/dialogs/gnome-cmd-options-dialog.cc:1063
 msgid "Drag and Drop"
 msgstr "Fogd és vidd"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1056
+#: src/dialogs/gnome-cmd-options-dialog.cc:1066
 msgid "Confirm mouse operation"
 msgstr "Megerősítés egérműveletkor"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1138
+#: src/dialogs/gnome-cmd-options-dialog.cc:1148
 msgid "Filetypes to hide"
 msgstr "Elrejtendő fájltípusok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1141
+#: src/dialogs/gnome-cmd-options-dialog.cc:1151
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1144
+#: src/dialogs/gnome-cmd-options-dialog.cc:1154
 msgid "Regular files"
 msgstr "Szabályos fájlok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1150
+#: src/dialogs/gnome-cmd-options-dialog.cc:1160
 msgid "Fifo files"
 msgstr "FIFO fájlok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1153
+#: src/dialogs/gnome-cmd-options-dialog.cc:1163
 msgid "Socket files"
 msgstr "Foglalat fájlok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1156
+#: src/dialogs/gnome-cmd-options-dialog.cc:1166
 msgid "Character devices"
 msgstr "Karakteres eszközök"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1159
+#: src/dialogs/gnome-cmd-options-dialog.cc:1169
 msgid "Block devices"
 msgstr "Blokkos eszközök"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1165
+#: src/dialogs/gnome-cmd-options-dialog.cc:1175
 msgid "Also hide"
 msgstr "Szintén rejtse el"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1168
+#: src/dialogs/gnome-cmd-options-dialog.cc:1178
 msgid "Hidden files"
 msgstr "Rejtett fájlok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1171
-#: src/dialogs/gnome-cmd-options-dialog.cc:1180
+#: src/dialogs/gnome-cmd-options-dialog.cc:1181
+#: src/dialogs/gnome-cmd-options-dialog.cc:1190
 msgid "Backup files"
 msgstr "Másolatfájlok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1174
+#: src/dialogs/gnome-cmd-options-dialog.cc:1184
 msgid "Symlinks"
 msgstr "Szimbolikus linkek"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1352
+#: src/dialogs/gnome-cmd-options-dialog.cc:1362
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2628,178 +2647,178 @@ msgstr ""
 "Már létezik egy alkalmazás ezzel a címkével.\n"
 "Válasszon másik címkét."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1423
+#: src/dialogs/gnome-cmd-options-dialog.cc:1433
 msgid "Label:"
 msgstr "Címke:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1425
+#: src/dialogs/gnome-cmd-options-dialog.cc:1435
 msgid "Command:"
 msgstr "Parancs:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1427
-#: src/dialogs/gnome-cmd-options-dialog.cc:1862
+#: src/dialogs/gnome-cmd-options-dialog.cc:1437
+#: src/dialogs/gnome-cmd-options-dialog.cc:1872
 msgid "Icon:"
 msgstr "Ikon:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1448
+#: src/dialogs/gnome-cmd-options-dialog.cc:1458
 msgid "Can handle multiple files"
 msgstr "Több fájlt tud kezelni"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1452
+#: src/dialogs/gnome-cmd-options-dialog.cc:1462
 msgid "Can handle URIs"
 msgstr "URI-kat tud kezelni"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1456
+#: src/dialogs/gnome-cmd-options-dialog.cc:1466
 msgid "Requires terminal"
 msgstr "Terminál szükséges"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1463
+#: src/dialogs/gnome-cmd-options-dialog.cc:1473
 msgid "Show for"
 msgstr "Jelenjen meg"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1472
+#: src/dialogs/gnome-cmd-options-dialog.cc:1482
 msgid "All directories"
 msgstr "Minden könyvtár esetén"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1477
+#: src/dialogs/gnome-cmd-options-dialog.cc:1487
 msgid "All directories and files"
 msgstr "Minden könyvtár és fájl esetén"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1482
+#: src/dialogs/gnome-cmd-options-dialog.cc:1492
 msgid "Some files"
 msgstr "Néhány fájl esetében"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1491
+#: src/dialogs/gnome-cmd-options-dialog.cc:1501
 msgid "File patterns"
 msgstr "Fájl minták"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1513
+#: src/dialogs/gnome-cmd-options-dialog.cc:1523
 msgid "New Application"
 msgstr "Új alkalmazás"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1523
+#: src/dialogs/gnome-cmd-options-dialog.cc:1533
 msgid "Edit Application"
 msgstr "Alkalmazás szerkesztése"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1607
+#: src/dialogs/gnome-cmd-options-dialog.cc:1617
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Mindig töltse le a távoli fájlokat, mielőtt egy külső programot elindítana"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1609
+#: src/dialogs/gnome-cmd-options-dialog.cc:1619
 msgid "MIME applications"
 msgstr "MIME-alkalmazások"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1613
+#: src/dialogs/gnome-cmd-options-dialog.cc:1623
 msgid "Standard programs"
 msgstr "Szabványos programok"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1616
+#: src/dialogs/gnome-cmd-options-dialog.cc:1626
 msgid "Viewer:"
 msgstr "Megjelenítő:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1618
+#: src/dialogs/gnome-cmd-options-dialog.cc:1628
 msgid "Editor:"
 msgstr "Szerkesztő:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1620
+#: src/dialogs/gnome-cmd-options-dialog.cc:1630
 msgid "Differ:"
 msgstr "Diff-elő:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1622
+#: src/dialogs/gnome-cmd-options-dialog.cc:1632
 msgid "Send files:"
 msgstr "Fájlok küldése:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1624
+#: src/dialogs/gnome-cmd-options-dialog.cc:1634
 msgid "Terminal:"
 msgstr "Terminál:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1630
+#: src/dialogs/gnome-cmd-options-dialog.cc:1640
 msgid "Use Internal Viewer"
 msgstr "Beépített megjelenítő használata"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1649
+#: src/dialogs/gnome-cmd-options-dialog.cc:1659
 msgid "Other favourite apps"
 msgstr "Egyéb kedvenc alkalmazások"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1656
+#: src/dialogs/gnome-cmd-options-dialog.cc:1666
 msgid "Label"
 msgstr "Címke"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1657
+#: src/dialogs/gnome-cmd-options-dialog.cc:1667
 msgid "Command"
 msgstr "Parancs"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1692
+#: src/dialogs/gnome-cmd-options-dialog.cc:1702
 msgid "Global app options"
 msgstr "Globális alkalmazás-beállítások"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1695
+#: src/dialogs/gnome-cmd-options-dialog.cc:1705
 msgid "Terminal command for apps in the list above:"
 msgstr "Terminál parancs a fenti listában lévő alkalmazásokhoz:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1701
+#: src/dialogs/gnome-cmd-options-dialog.cc:1711
 msgid "Leave terminal window open"
 msgstr "Terminálablak nyitva hagyása"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1856
+#: src/dialogs/gnome-cmd-options-dialog.cc:1866
 msgid "Alias:"
 msgstr "Álnév:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1858
+#: src/dialogs/gnome-cmd-options-dialog.cc:1868
 msgid "Device:"
 msgstr "Eszköz:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1860
+#: src/dialogs/gnome-cmd-options-dialog.cc:1870
 msgid "Mount point:"
 msgstr "Csatolási pont:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1903
+#: src/dialogs/gnome-cmd-options-dialog.cc:1913
 msgid "New Device"
 msgstr "Új eszköz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1916
+#: src/dialogs/gnome-cmd-options-dialog.cc:1926
 msgid "Edit Device"
 msgstr "Eszköz szerkesztése"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1998
-#: src/dialogs/gnome-cmd-options-dialog.cc:2134
+#: src/dialogs/gnome-cmd-options-dialog.cc:2008
+#: src/dialogs/gnome-cmd-options-dialog.cc:2144
 msgid "Devices"
 msgstr "Eszközök"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2008
+#: src/dialogs/gnome-cmd-options-dialog.cc:2018
 msgid "Alias"
 msgstr "Álnév"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2038
+#: src/dialogs/gnome-cmd-options-dialog.cc:2048
 msgid "Show only the icons"
 msgstr "Csak az ikonok megjelenítése"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2042
+#: src/dialogs/gnome-cmd-options-dialog.cc:2052
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Csatolás kihagyása (supermount esetén hasznos)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2127
+#: src/dialogs/gnome-cmd-options-dialog.cc:2137
 msgid "General"
 msgstr "Általános"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2128 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2138 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formátum"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2129
+#: src/dialogs/gnome-cmd-options-dialog.cc:2139
 msgid "Layout"
 msgstr "Elrendezés"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2131
+#: src/dialogs/gnome-cmd-options-dialog.cc:2141
 msgid "Confirmation"
 msgstr "Megerősítés"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2132
+#: src/dialogs/gnome-cmd-options-dialog.cc:2142
 msgid "Filters"
 msgstr "Szűrők"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2133
+#: src/dialogs/gnome-cmd-options-dialog.cc:2143
 msgid "Programs"
 msgstr "Programok"
 
@@ -2931,61 +2950,61 @@ msgstr "Csak helyi könyvtárak keresése"
 msgid "Files _not containing text"
 msgstr "A fájlok _nem tartalmazzák a szöveget"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:325
-#: src/dialogs/gnome-cmd-search-dialog.cc:334
-#: src/dialogs/gnome-cmd-search-dialog.cc:359
+#: src/dialogs/gnome-cmd-search-dialog.cc:313
+#: src/dialogs/gnome-cmd-search-dialog.cc:322
+#: src/dialogs/gnome-cmd-search-dialog.cc:347
 #, c-format
 msgid "Failed to read file %s: %s"
 msgstr "Nem sikerült a(z) „%s” fájlt olvasni: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:411
+#: src/dialogs/gnome-cmd-search-dialog.cc:399
 #, c-format
 msgid "Searching in: %s"
 msgstr "Keresés ebben: %s"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:526
+#: src/dialogs/gnome-cmd-search-dialog.cc:514
 #, c-format
 msgid "Found %d match — search aborted"
 msgid_plural "Found %d matches — search aborted"
 msgstr[0] "%d egyezés található — a keresés leállítva"
 msgstr[1] "%d egyezés található — a keresés leállítva"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:527
+#: src/dialogs/gnome-cmd-search-dialog.cc:515
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d egyezés található"
 msgstr[1] "%d egyezés található"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:693
+#: src/dialogs/gnome-cmd-search-dialog.cc:681
 #, c-format
 msgid "Failed to set process group id of child %d: %s.\n"
 msgstr ""
 "Nem sikerült beállítani a(z) %d gyermekfolyamat csoportazonosítóját: %s.\n"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:817
+#: src/dialogs/gnome-cmd-search-dialog.cc:805
 msgid "Error parsing the search command."
 msgstr "Hiba történt a keresési parancs értelmezése közben."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:829
+#: src/dialogs/gnome-cmd-search-dialog.cc:817
 msgid "Error running the search command."
 msgstr "Hiba történt a keresési parancs futtatása közben."
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:943
+#: src/dialogs/gnome-cmd-search-dialog.cc:931
 #, c-format
 msgid "Failed to change directory outside of %s"
 msgstr "Nem sikerült a(z) %s helyen kívüli könyvtár váltása"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1055
+#: src/dialogs/gnome-cmd-search-dialog.cc:1043
 msgid "Search…"
 msgstr "Keresés…"
 
 #. search in
-#: src/dialogs/gnome-cmd-search-dialog.cc:1169
+#: src/dialogs/gnome-cmd-search-dialog.cc:1164
 msgid "Select Directory"
 msgstr "Könyvtár kiválasztása"
 
-#: src/dialogs/gnome-cmd-search-dialog.cc:1172
+#: src/dialogs/gnome-cmd-search-dialog.cc:1167
 msgid "_Look in folder:"
 msgstr "_Keresés ebben a mappában:"
 
@@ -3016,7 +3035,7 @@ msgstr "A gyorsbillentyű típusa."
 msgid "Disabled"
 msgstr "Letiltva"
 
-#: src/eggcellrendererkeys.cc:425 src/eggcellrendererkeys.cc:631
+#: src/eggcellrendererkeys.cc:425 src/eggcellrendererkeys.cc:634
 msgid "New accelerator…"
 msgstr "Új gyorsbillentyű…"
 
@@ -3201,7 +3220,7 @@ msgstr "Szabály szerkesztése"
 msgid "_Template"
 msgstr "_Sablon"
 
-#: src/gnome-cmd-advrename-profile-component.cc:926 src/gnome-cmd-file.cc:593
+#: src/gnome-cmd-advrename-profile-component.cc:926
 msgid "Directory"
 msgstr "Könyvtár"
 
@@ -3428,7 +3447,7 @@ msgstr "Leválasztás innen: %s"
 msgid "Connecting to %s\n"
 msgstr "Kapcsolódás ehhez: %s\n"
 
-#: src/gnome-cmd-con.h:371
+#: src/gnome-cmd-con.h:369
 msgid "Unknown disk usage"
 msgstr "Ismeretlen lemezhasználat"
 
@@ -3466,12 +3485,12 @@ msgstr "Munkacsoportok és gépek keresése"
 msgid "Go to: Samba Network"
 msgstr "Ugrás a Samba hálózatba"
 
-#: src/gnome-cmd-data.cc:3454 src/gnome-cmd-data.cc:4365
+#: src/gnome-cmd-data.cc:3141 src/gnome-cmd-data.cc:3842
 #, c-format
 msgid "link to %s"
 msgstr "hivatkozás erre: %s"
 
-#: src/gnome-cmd-dir.cc:516
+#: src/gnome-cmd-dir.cc:514
 msgid "Waiting for file list"
 msgstr "Várakozás a fájllistára"
 
@@ -3482,34 +3501,6 @@ msgstr "Jelenlegi könyvtár hozzáadása"
 #: src/gnome-cmd-dir-indicator.cc:416
 msgid "Manage bookmarks…"
 msgstr "Könyvjelzők kezelése…"
-
-#: src/gnome-cmd-file.cc:591
-msgid "Unknown file type"
-msgstr "Ismeretlen fájltípus"
-
-#: src/gnome-cmd-file.cc:592
-msgid "Regular file"
-msgstr "Szabályos fájl"
-
-#: src/gnome-cmd-file.cc:594
-msgid "FIFO"
-msgstr "FIFO"
-
-#: src/gnome-cmd-file.cc:595
-msgid "UNIX Socket"
-msgstr "UNIX foglalat"
-
-#: src/gnome-cmd-file.cc:596
-msgid "Character device"
-msgstr "Karakteres eszköz"
-
-#: src/gnome-cmd-file.cc:597
-msgid "Block device"
-msgstr "Blokkos eszköz"
-
-#: src/gnome-cmd-file.cc:598
-msgid "Symbolic link"
-msgstr "Szimbolikus link"
 
 #: src/gnome-cmd-file-list.cc:125
 msgid "name"
@@ -3559,7 +3550,7 @@ msgstr "/_Hivatkozás ide"
 msgid "/C_ancel"
 msgstr "/Még_se"
 
-#: src/gnome-cmd-file-list.cc:1268
+#: src/gnome-cmd-file-list.cc:1259
 #, c-format
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
@@ -3568,15 +3559,15 @@ msgstr ""
 "A(z) „%s” bináris végrehajtható fájlnak tűnik, de hiányzik róla a "
 "végrehajtható bit. Szeretné ezt beállítani és futtatni a fájlt?"
 
-#: src/gnome-cmd-file-list.cc:1270
+#: src/gnome-cmd-file-list.cc:1261
 msgid "Make Executable?"
 msgstr "Legyen végrehajtható?"
 
-#: src/gnome-cmd-file-list.cc:1271
+#: src/gnome-cmd-file-list.cc:1262
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-file-list.cc:1297
+#: src/gnome-cmd-file-list.cc:1288
 #, c-format
 msgid ""
 "“%s” is an executable text file. Do you want to run it, or display its "
@@ -3585,24 +3576,24 @@ msgstr ""
 "A(z) „%s” egy futtatható szöveges fájl. Szeretné futtatni vagy megjeleníti a "
 "tartalmát?"
 
-#: src/gnome-cmd-file-list.cc:1298
+#: src/gnome-cmd-file-list.cc:1289
 msgid "Run or Display"
 msgstr "Futtatás vagy megjelenítés"
 
-#: src/gnome-cmd-file-list.cc:1299
+#: src/gnome-cmd-file-list.cc:1290
 msgid "Display"
 msgstr "Megjelenítés"
 
-#: src/gnome-cmd-file-list.cc:1299
+#: src/gnome-cmd-file-list.cc:1290
 msgid "Run"
 msgstr "Futtatás"
 
-#: src/gnome-cmd-file-list.cc:1315
+#: src/gnome-cmd-file-list.cc:1306
 #, c-format
 msgid "No default application found for the MIME type %s."
 msgstr "Nem található alapértelmezett alkalmazás a(z) %s MIME-típushoz."
 
-#: src/gnome-cmd-file-list.cc:1344 src/gnome-cmd-file-popmenu.cc:135
+#: src/gnome-cmd-file-list.cc:1335 src/gnome-cmd-file-popmenu.cc:135
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -3617,15 +3608,15 @@ msgstr[1] ""
 "%s nem képes távoli fájlok megnyitására. Szeretné letölteni a fájlokat egy "
 "átmeneti helyre, és azután megnyitni azokat?"
 
-#: src/gnome-cmd-file-list.cc:1622
+#: src/gnome-cmd-file-list.cc:1613
 msgid "Directory listing failed."
 msgstr "A könyvtárlistázás nem sikerült."
 
-#: src/gnome-cmd-file-list.cc:1675
+#: src/gnome-cmd-file-list.cc:1666
 msgid "Failed to open connection."
 msgstr "A kapcsolat megnyitása nem sikerült."
 
-#: src/gnome-cmd-file-list.cc:2392 src/gnome-cmd-file-list.cc:2407
+#: src/gnome-cmd-file-list.cc:2383 src/gnome-cmd-file-list.cc:2398
 msgid "Not an ordinary file."
 msgstr "Nem közönséges fájl."
 
@@ -3649,136 +3640,136 @@ msgstr "Megnyitás mással…"
 msgid "Needs terminal"
 msgstr "Terminál szükséges"
 
-#: src/gnome-cmd-file-popmenu.cc:553 src/gnome-cmd-file-popmenu.cc:574
-#: src/gnome-cmd-file-popmenu.cc:599
+#: src/gnome-cmd-file-popmenu.cc:558 src/gnome-cmd-file-popmenu.cc:579
+#: src/gnome-cmd-file-popmenu.cc:604
 msgid "_Open"
 msgstr "Me_gnyitás"
 
-#: src/gnome-cmd-file-popmenu.cc:578
+#: src/gnome-cmd-file-popmenu.cc:583
 #, c-format
 msgid "_Open with “%s”"
 msgstr "Megnyitás _ezzel: „%s”"
 
-#: src/gnome-cmd-file-popmenu.cc:600
+#: src/gnome-cmd-file-popmenu.cc:605
 msgid "Open Wit_h"
 msgstr "Megnyitás e_zzel"
 
-#: src/gnome-cmd-file-popmenu.cc:606
+#: src/gnome-cmd-file-popmenu.cc:611
 msgid "E_xecute"
 msgstr "_Végrehajtás"
 
-#: src/gnome-cmd-file-popmenu.cc:618 src/gnome-cmd-main-menu.cc:528
+#: src/gnome-cmd-file-popmenu.cc:623 src/gnome-cmd-main-menu.cc:540
 msgid "Cu_t"
 msgstr "_Kivágás"
 
-#: src/gnome-cmd-file-popmenu.cc:619 src/gnome-cmd-main-menu.cc:534
+#: src/gnome-cmd-file-popmenu.cc:624 src/gnome-cmd-main-menu.cc:546
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: src/gnome-cmd-file-popmenu.cc:620 src/gnome-cmd-user-actions.cc:209
+#: src/gnome-cmd-file-popmenu.cc:625 src/gnome-cmd-user-actions.cc:209
 msgid "Copy file names"
 msgstr "Fájlnevek másolása"
 
-#: src/gnome-cmd-file-popmenu.cc:621 src/gnome-cmd-main-menu.cc:546
+#: src/gnome-cmd-file-popmenu.cc:626 src/gnome-cmd-main-menu.cc:558
 msgid "_Delete"
 msgstr "_Törlés"
 
-#: src/gnome-cmd-file-popmenu.cc:623
+#: src/gnome-cmd-file-popmenu.cc:628
 msgid "Rename"
 msgstr "Átnevezés"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:624 src/gnome-cmd-main-win.cc:1258
+#: src/gnome-cmd-file-popmenu.cc:629 src/gnome-cmd-main-win.cc:1258
 #: src/gnome-cmd-user-actions.cc:234
 msgid "Send files"
 msgstr "Fájlok küldése"
 
-#: src/gnome-cmd-file-popmenu.cc:625 src/gnome-cmd-list-popmenu.cc:118
+#: src/gnome-cmd-file-popmenu.cc:630 src/gnome-cmd-list-popmenu.cc:118
 msgid "Open _terminal here"
 msgstr "_Terminál nyitása itt"
 
-#: src/gnome-cmd-file-popmenu.cc:627 src/gnome-cmd-main-menu.cc:423
+#: src/gnome-cmd-file-popmenu.cc:632 src/gnome-cmd-main-menu.cc:423
 msgid "_Properties…"
 msgstr "_Tulajdonságok…"
 
-#: src/gnome-cmd-file-popmenu.cc:673
+#: src/gnome-cmd-file-popmenu.cc:678
 msgid "Other _Application…"
 msgstr "Egyéb _alkalmazás…"
 
-#: src/gnome-cmd-file-selector.cc:199
+#: src/gnome-cmd-file-selector.cc:178
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
 msgstr[0] "%s a(z) %s kB-ból és %d a(z) %d fájlból"
 msgstr[1] "%s a(z) %s kB-ból és %d a(z) %d fájlból"
 
-#: src/gnome-cmd-file-selector.cc:203
+#: src/gnome-cmd-file-selector.cc:182
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d a(z) %d könyvtárból kijelölve"
 msgstr[1] "%s, %d a(z) %d könyvtárból kijelölve"
 
-#: src/gnome-cmd-file-selector.cc:258
+#: src/gnome-cmd-file-selector.cc:237
 #, c-format
 msgid "%s free"
 msgstr "%s szabad"
 
-#: src/gnome-cmd-file-selector.cc:657 src/gnome-cmd-file-selector.cc:732
+#: src/gnome-cmd-file-selector.cc:636 src/gnome-cmd-file-selector.cc:711
 #: src/gnome-cmd-user-actions.cc:1645 src/gnome-cmd-user-actions.cc:1653
 msgid "The tab is locked, close anyway?"
 msgstr "A lap zárolva van, mindenképp bezárja?"
 
-#: src/gnome-cmd-file-selector.cc:675 src/gnome-cmd-main-menu.cc:583
+#: src/gnome-cmd-file-selector.cc:654 src/gnome-cmd-main-menu.cc:595
 msgid "Open in New _Tab"
 msgstr "Megnyitás új _lapon"
 
-#: src/gnome-cmd-file-selector.cc:682
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Unlock Tab"
 msgstr "Lap _feloldása"
 
-#: src/gnome-cmd-file-selector.cc:682
+#: src/gnome-cmd-file-selector.cc:661
 msgid "_Lock Tab"
 msgstr "Lap _zárolása"
 
-#: src/gnome-cmd-file-selector.cc:687
+#: src/gnome-cmd-file-selector.cc:666
 msgid "_Refresh Tab"
 msgstr "Lap _frissítése"
 
-#: src/gnome-cmd-file-selector.cc:692
+#: src/gnome-cmd-file-selector.cc:671
 msgid "Copy Tab to Other _Pane"
 msgstr "Lap másolása a másik _panelre"
 
-#: src/gnome-cmd-file-selector.cc:698 src/gnome-cmd-main-menu.cc:589
+#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:601
 msgid "_Close Tab"
 msgstr "Lap _bezárása"
 
-#: src/gnome-cmd-file-selector.cc:703 src/gnome-cmd-main-menu.cc:595
+#: src/gnome-cmd-file-selector.cc:682 src/gnome-cmd-main-menu.cc:607
 msgid "Close _All Tabs"
 msgstr "_Minden lap bezárása"
 
-#: src/gnome-cmd-file-selector.cc:708
+#: src/gnome-cmd-file-selector.cc:687
 msgid "Close _Duplicate Tabs"
 msgstr "_Kettőzött lapok bezárása"
 
-#: src/gnome-cmd-file-selector.cc:1163
+#: src/gnome-cmd-file-selector.cc:1142
 msgid "No file name given"
 msgstr "Nem adott meg fájlnevet"
 
-#: src/gnome-cmd-file-selector.cc:1194
+#: src/gnome-cmd-file-selector.cc:1173
 msgid "New Text File"
 msgstr "Új szöveges fájl"
 
-#: src/gnome-cmd-file-selector.cc:1340
+#: src/gnome-cmd-file-selector.cc:1319
 msgid "Symbolic link name:"
 msgstr "Szimbolikus link neve:"
 
-#: src/gnome-cmd-file-selector.cc:1353 src/gnome-cmd-file-selector.cc:1406
+#: src/gnome-cmd-file-selector.cc:1332 src/gnome-cmd-file-selector.cc:1385
 #: src/gnome-cmd-user-actions.cc:817
 msgid "Create Symbolic Link"
 msgstr "Szimbolikus link létrehozása"
 
-#: src/gnome-cmd-file-selector.cc:1477
+#: src/gnome-cmd-file-selector.cc:1456
 msgid "Filter:"
 msgstr "Szűrő:"
 
@@ -3794,11 +3785,11 @@ msgstr "_Szöveges fájl"
 msgid "_New"
 msgstr "Ú_j"
 
-#: src/gnome-cmd-list-popmenu.cc:116 src/gnome-cmd-main-menu.cc:540
+#: src/gnome-cmd-list-popmenu.cc:116 src/gnome-cmd-main-menu.cc:552
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: src/gnome-cmd-list-popmenu.cc:120 src/gnome-cmd-main-menu.cc:576
+#: src/gnome-cmd-list-popmenu.cc:120 src/gnome-cmd-main-menu.cc:588
 msgid "_Refresh"
 msgstr "_Frissítés"
 
@@ -3863,152 +3854,160 @@ msgid "Unselect with P_attern"
 msgstr "Kijelölés megszüntetése mint_a alapján"
 
 #: src/gnome-cmd-main-menu.cc:504
+msgid "Select with same _Extension"
+msgstr "Kijelölés azonos _kiterjesztés alapján"
+
+#: src/gnome-cmd-main-menu.cc:510
+msgid "Unselect with same E_xtension"
+msgstr "Kijelölés megszüntetése azonos ki_terjesztés alapján"
+
+#: src/gnome-cmd-main-menu.cc:516
 msgid "_Invert Selection"
 msgstr "K_ijelölés megfordítása"
 
-#: src/gnome-cmd-main-menu.cc:510
+#: src/gnome-cmd-main-menu.cc:522
 msgid "_Restore Selection"
 msgstr "Kijelölés visszaállí_tása"
 
-#: src/gnome-cmd-main-menu.cc:517
+#: src/gnome-cmd-main-menu.cc:529
 msgid "_Compare Directories"
 msgstr "Könyvtárak össze_hasonlítása"
 
-#: src/gnome-cmd-main-menu.cc:553
+#: src/gnome-cmd-main-menu.cc:565
 msgid "Copy _File Names"
 msgstr "Fájl_nevek másolása"
 
-#: src/gnome-cmd-main-menu.cc:564
+#: src/gnome-cmd-main-menu.cc:576
 msgid "_Back"
 msgstr "_Vissza"
 
-#: src/gnome-cmd-main-menu.cc:570
+#: src/gnome-cmd-main-menu.cc:582
 msgid "_Forward"
 msgstr "_Előre"
 
-#: src/gnome-cmd-main-menu.cc:602
+#: src/gnome-cmd-main-menu.cc:614
 msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:608
+#: src/gnome-cmd-main-menu.cc:620
 msgid "Show Device Buttons"
 msgstr "Eszközgombok megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:614
+#: src/gnome-cmd-main-menu.cc:626
 msgid "Show Device List"
 msgstr "Eszközlista megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:620
+#: src/gnome-cmd-main-menu.cc:632
 msgid "Show Command Line"
 msgstr "Parancssor megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:626
+#: src/gnome-cmd-main-menu.cc:638
 msgid "Show Buttonbar"
 msgstr "Gombsor megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:633
+#: src/gnome-cmd-main-menu.cc:645
 msgid "Show Hidden Files"
 msgstr "Rejtett fájlok megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:639
+#: src/gnome-cmd-main-menu.cc:651
 msgid "Show Backup Files"
 msgstr "Másolatfájlok megjelenítése"
 
-#: src/gnome-cmd-main-menu.cc:646
+#: src/gnome-cmd-main-menu.cc:658
 msgid "_Equal Panel Size"
 msgstr "_Azonos panelméret"
 
-#: src/gnome-cmd-main-menu.cc:652
+#: src/gnome-cmd-main-menu.cc:664
 msgid "Maximize Panel Size"
 msgstr "Panelméret maximalizálása"
 
-#: src/gnome-cmd-main-menu.cc:658
+#: src/gnome-cmd-main-menu.cc:670
 msgid "Horizontal Orientation"
 msgstr "Vízszintes elhelyezés"
 
-#: src/gnome-cmd-main-menu.cc:669
+#: src/gnome-cmd-main-menu.cc:681
 msgid "_Bookmark this Directory…"
 msgstr "_Könyvjelző erre a könyvtárra…"
 
-#: src/gnome-cmd-main-menu.cc:675
+#: src/gnome-cmd-main-menu.cc:687
 msgid "_Manage Bookmarks…"
 msgstr "Könyvjel_zők kezelése…"
 
-#: src/gnome-cmd-main-menu.cc:687
+#: src/gnome-cmd-main-menu.cc:699
 msgid "_Configure Plugins…"
 msgstr "_Bővítmények beállítása…"
 
-#: src/gnome-cmd-main-menu.cc:699
+#: src/gnome-cmd-main-menu.cc:711
 msgid "_Options…"
 msgstr "_Beállítások…"
 
-#: src/gnome-cmd-main-menu.cc:705
+#: src/gnome-cmd-main-menu.cc:717
 msgid "_Keyboard Shortcuts…"
 msgstr "_Gyorsbillentyűk…"
 
-#: src/gnome-cmd-main-menu.cc:716
+#: src/gnome-cmd-main-menu.cc:728
 msgid "_Remote Server…"
 msgstr "_Távoli kiszolgáló…"
 
-#: src/gnome-cmd-main-menu.cc:722
+#: src/gnome-cmd-main-menu.cc:734
 msgid "New Connection…"
 msgstr "Új kapcsolat…"
 
-#: src/gnome-cmd-main-menu.cc:733
+#: src/gnome-cmd-main-menu.cc:745
 msgid "_Documentation"
 msgstr "_Dokumentáció"
 
-#: src/gnome-cmd-main-menu.cc:739 src/intviewer/viewer-window.cc:1002
+#: src/gnome-cmd-main-menu.cc:751 src/intviewer/viewer-window.cc:1002
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
-#: src/gnome-cmd-main-menu.cc:745
+#: src/gnome-cmd-main-menu.cc:757
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander a _weben"
 
-#: src/gnome-cmd-main-menu.cc:751
+#: src/gnome-cmd-main-menu.cc:763
 msgid "Report a _Problem"
 msgstr "_Hiba jelentése"
 
-#: src/gnome-cmd-main-menu.cc:758 src/plugin_manager.cc:433
+#: src/gnome-cmd-main-menu.cc:770 src/plugin_manager.cc:433
 msgid "_About"
 msgstr "_Névjegy"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: src/gnome-cmd-main-menu.cc:780 src/intviewer/viewer-window.cc:1014
+#: src/gnome-cmd-main-menu.cc:792 src/intviewer/viewer-window.cc:1014
 msgid "_File"
 msgstr "_Fájl"
 
-#: src/gnome-cmd-main-menu.cc:784
+#: src/gnome-cmd-main-menu.cc:796
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: src/gnome-cmd-main-menu.cc:788
+#: src/gnome-cmd-main-menu.cc:800
 msgid "_Mark"
 msgstr "_Kijelölés"
 
-#: src/gnome-cmd-main-menu.cc:792 src/intviewer/viewer-window.cc:1017
+#: src/gnome-cmd-main-menu.cc:804 src/intviewer/viewer-window.cc:1017
 msgid "_View"
 msgstr "_Nézet"
 
-#: src/gnome-cmd-main-menu.cc:796 src/intviewer/viewer-window.cc:1028
+#: src/gnome-cmd-main-menu.cc:808 src/intviewer/viewer-window.cc:1028
 msgid "_Settings"
 msgstr "_Beállítások"
 
-#: src/gnome-cmd-main-menu.cc:800
+#: src/gnome-cmd-main-menu.cc:812
 msgid "_Connections"
 msgstr "Kap_csolatok"
 
-#: src/gnome-cmd-main-menu.cc:804
+#: src/gnome-cmd-main-menu.cc:816
 msgid "_Bookmarks"
 msgstr "Könyvj_elzők"
 
-#: src/gnome-cmd-main-menu.cc:808
+#: src/gnome-cmd-main-menu.cc:820
 msgid "_Plugins"
 msgstr "Bő_vítmények"
 
-#: src/gnome-cmd-main-menu.cc:812 src/intviewer/viewer-window.cc:1033
+#: src/gnome-cmd-main-menu.cc:824 src/intviewer/viewer-window.cc:1033
 msgid "_Help"
 msgstr "_Súgó"
 
@@ -8804,238 +8803,6 @@ msgstr "Dokumentum"
 msgid "Image"
 msgstr "Kép"
 
-#: src/tags/gnome-cmd-tags-doc.cc:71
-msgid "No Proofing"
-msgstr "Nincs korrigálás"
-
-#: src/tags/gnome-cmd-tags-doc.cc:73
-msgid "Arabic"
-msgstr "Arab"
-
-#: src/tags/gnome-cmd-tags-doc.cc:75
-msgid "Bulgarian"
-msgstr "Bolgár"
-
-#: src/tags/gnome-cmd-tags-doc.cc:77
-msgid "Catalan"
-msgstr "Katalán"
-
-#: src/tags/gnome-cmd-tags-doc.cc:79
-msgid "Traditional Chinese"
-msgstr "Hagyományos kínai"
-
-#: src/tags/gnome-cmd-tags-doc.cc:81
-msgid "Simplified Chinese"
-msgstr "Egyszerűsített kínai"
-
-#: src/tags/gnome-cmd-tags-doc.cc:83
-msgid "Chechen"
-msgstr "Csecsen"
-
-#: src/tags/gnome-cmd-tags-doc.cc:85
-msgid "Danish"
-msgstr "Dán"
-
-#: src/tags/gnome-cmd-tags-doc.cc:87
-msgid "German"
-msgstr "Német"
-
-#: src/tags/gnome-cmd-tags-doc.cc:89
-msgid "Swiss German"
-msgstr "Svájci német"
-
-#: src/tags/gnome-cmd-tags-doc.cc:91
-msgid "Greek"
-msgstr "Görög"
-
-#: src/tags/gnome-cmd-tags-doc.cc:93
-msgid "U.S. English"
-msgstr "Amerikai angol"
-
-#: src/tags/gnome-cmd-tags-doc.cc:95
-msgid "U.K. English"
-msgstr "Brit angol"
-
-#: src/tags/gnome-cmd-tags-doc.cc:97
-msgid "Australian English"
-msgstr "Ausztrál angol"
-
-#: src/tags/gnome-cmd-tags-doc.cc:99
-msgid "Castilian Spanish"
-msgstr "Kasztíliai spanyol"
-
-#: src/tags/gnome-cmd-tags-doc.cc:101
-msgid "Mexican Spanish"
-msgstr "Mexikói spanyol"
-
-#: src/tags/gnome-cmd-tags-doc.cc:103
-msgid "Finnish"
-msgstr "Finn"
-
-#: src/tags/gnome-cmd-tags-doc.cc:105
-msgid "French"
-msgstr "Francia"
-
-#: src/tags/gnome-cmd-tags-doc.cc:107
-msgid "Belgian French"
-msgstr "Belgiumi francia"
-
-#: src/tags/gnome-cmd-tags-doc.cc:109
-msgid "Canadian French"
-msgstr "Kanadai francia"
-
-#: src/tags/gnome-cmd-tags-doc.cc:111
-msgid "Swiss French"
-msgstr "Svájci francia"
-
-#: src/tags/gnome-cmd-tags-doc.cc:113
-msgid "Hebrew"
-msgstr "Héber"
-
-#: src/tags/gnome-cmd-tags-doc.cc:115
-msgid "Hungarian"
-msgstr "Magyar"
-
-#: src/tags/gnome-cmd-tags-doc.cc:117
-msgid "Icelandic"
-msgstr "Izlandi"
-
-#: src/tags/gnome-cmd-tags-doc.cc:119
-msgid "Italian"
-msgstr "Olasz"
-
-#: src/tags/gnome-cmd-tags-doc.cc:121
-msgid "Swiss Italian"
-msgstr "Svájci olasz"
-
-#: src/tags/gnome-cmd-tags-doc.cc:123
-msgid "Japanese"
-msgstr "Japán"
-
-#: src/tags/gnome-cmd-tags-doc.cc:125
-msgid "Korean"
-msgstr "Koreai"
-
-#: src/tags/gnome-cmd-tags-doc.cc:127
-msgid "Dutch"
-msgstr "Holland"
-
-#: src/tags/gnome-cmd-tags-doc.cc:129
-msgid "Belgian Dutch"
-msgstr "Belgiumi holland"
-
-#: src/tags/gnome-cmd-tags-doc.cc:131
-msgid "Norwegian Bokmal"
-msgstr "Norvég Bokmal"
-
-#: src/tags/gnome-cmd-tags-doc.cc:133
-msgid "Norwegian Nynorsk"
-msgstr "Norvég Nynorsk"
-
-#: src/tags/gnome-cmd-tags-doc.cc:135
-msgid "Polish"
-msgstr "Lengyel"
-
-#: src/tags/gnome-cmd-tags-doc.cc:137
-msgid "Brazilian Portuguese"
-msgstr "Brazíliai portugál"
-
-#: src/tags/gnome-cmd-tags-doc.cc:139
-msgid "Portuguese"
-msgstr "Portugál"
-
-#: src/tags/gnome-cmd-tags-doc.cc:141
-msgid "Rhaeto-Romanic"
-msgstr "Rétoromán"
-
-#: src/tags/gnome-cmd-tags-doc.cc:143
-msgid "Romanian"
-msgstr "Román"
-
-#: src/tags/gnome-cmd-tags-doc.cc:145
-msgid "Russian"
-msgstr "Orosz"
-
-#: src/tags/gnome-cmd-tags-doc.cc:147
-msgid "Croato-Serbian (Latin)"
-msgstr "Horvát-Szerb (Latin)"
-
-#: src/tags/gnome-cmd-tags-doc.cc:149
-msgid "Serbo-Croatian (Cyrillic)"
-msgstr "Szerb-Horvát (cirill)"
-
-#: src/tags/gnome-cmd-tags-doc.cc:151
-msgid "Slovak"
-msgstr "Szlovák"
-
-#: src/tags/gnome-cmd-tags-doc.cc:153
-msgid "Albanian"
-msgstr "Albán"
-
-#: src/tags/gnome-cmd-tags-doc.cc:155
-msgid "Swedish"
-msgstr "Svéd"
-
-#: src/tags/gnome-cmd-tags-doc.cc:157
-msgid "Thai"
-msgstr "Thai"
-
-#: src/tags/gnome-cmd-tags-doc.cc:159
-msgid "Turkish"
-msgstr "Török"
-
-#: src/tags/gnome-cmd-tags-doc.cc:161
-msgid "Urdu"
-msgstr "Urdu"
-
-#: src/tags/gnome-cmd-tags-doc.cc:163
-msgid "Indonesian"
-msgstr "Indonéz"
-
-#: src/tags/gnome-cmd-tags-doc.cc:165
-msgid "Ukrainian"
-msgstr "Ukrán"
-
-#: src/tags/gnome-cmd-tags-doc.cc:167
-msgid "Byelorussian"
-msgstr "Belorusz"
-
-#: src/tags/gnome-cmd-tags-doc.cc:169
-msgid "Slovenian"
-msgstr "Szlovén"
-
-#: src/tags/gnome-cmd-tags-doc.cc:171
-msgid "Estonian"
-msgstr "Észt"
-
-#: src/tags/gnome-cmd-tags-doc.cc:173
-msgid "Latvian"
-msgstr "Lett"
-
-#: src/tags/gnome-cmd-tags-doc.cc:175
-msgid "Lithuanian"
-msgstr "Litván"
-
-#: src/tags/gnome-cmd-tags-doc.cc:177
-msgid "Farsi"
-msgstr "Perzsa"
-
-#: src/tags/gnome-cmd-tags-doc.cc:179
-msgid "Basque"
-msgstr "Baszk"
-
-#: src/tags/gnome-cmd-tags-doc.cc:181
-msgid "Macedonian"
-msgstr "Macedón"
-
-#: src/tags/gnome-cmd-tags-doc.cc:183
-msgid "Afrikaans"
-msgstr "Afrikaans"
-
-#: src/tags/gnome-cmd-tags-doc.cc:185
-msgid "Malayalam"
-msgstr "Malajálam"
-
 #: src/tags/gnome-cmd-tags-exiv2.cc:71
 #, c-format
 msgid "unsupported tag (suppressed %ld B of binary data)"
@@ -9097,48 +8864,246 @@ msgstr "Nincs"
 msgid "10-15ms"
 msgstr "10-15 ms"
 
-#: src/utils.cc:565
+#: src/utils.cc:557
 #, c-format
 msgid "(%sbyte)"
 msgid_plural "(%sbytes)"
 msgstr[0] "(%s bájt)"
 msgstr[1] "(%s bájt)"
 
-#: src/utils.cc:568
+#: src/utils.cc:560
 #, c-format
 msgid "%sbyte"
 msgid_plural "%sbytes"
 msgstr[0] "%s bájt"
 msgstr[1] "%s bájt"
 
-#: src/utils.cc:746
+#: src/utils.cc:738
 msgid "Failed to change working directory to a temporary directory."
 msgstr "Nem sikerült a munkakönyvtárat átváltani az átmeneti könyvtárra."
 
-#: src/utils.cc:756
+#: src/utils.cc:748
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Nem sikerült könyvtárat létrehozni az átmeneti fájlok tárolásához."
 
-#: src/utils.cc:947
+#: src/utils.cc:926
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Nem lehet olvasni a(z) %s könyvtárból: %s"
 
-#: src/utils.cc:971
+#: src/utils.cc:950
 #, c-format
 msgid "Creating directory %s… "
 msgstr "%s könyvtár létrehozása… "
 
-#: src/utils.cc:978
+#: src/utils.cc:957
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "A(z) %s könyvtár létrehozása nem sikerült"
 
-#: src/utils.cc:1124
+#: src/utils.cc:1103
 msgid "There was an error displaying help."
 msgstr "Hiba történt a súgó megjelenítése közben."
 
-#: src/utils.cc:1246
+#: src/utils.cc:1225
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Nem sikerült áthelyezni az útvonalat innen: „%s”, ide: „%s”: %s"
+
+#~ msgid "gnome-commander"
+#~ msgstr "gnome-commander"
+
+#~ msgid "Unknown file type"
+#~ msgstr "Ismeretlen fájltípus"
+
+#~ msgid "Regular file"
+#~ msgstr "Szabályos fájl"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX foglalat"
+
+#~ msgid "Character device"
+#~ msgstr "Karakteres eszköz"
+
+#~ msgid "Block device"
+#~ msgstr "Blokkos eszköz"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Szimbolikus link"
+
+#~ msgid "No Proofing"
+#~ msgstr "Nincs korrigálás"
+
+#~ msgid "Arabic"
+#~ msgstr "Arab"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bolgár"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalán"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Hagyományos kínai"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Egyszerűsített kínai"
+
+#~ msgid "Chechen"
+#~ msgstr "Csecsen"
+
+#~ msgid "Danish"
+#~ msgstr "Dán"
+
+#~ msgid "German"
+#~ msgstr "Német"
+
+#~ msgid "Swiss German"
+#~ msgstr "Svájci német"
+
+#~ msgid "Greek"
+#~ msgstr "Görög"
+
+#~ msgid "U.S. English"
+#~ msgstr "Amerikai angol"
+
+#~ msgid "U.K. English"
+#~ msgstr "Brit angol"
+
+#~ msgid "Australian English"
+#~ msgstr "Ausztrál angol"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Kasztíliai spanyol"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Mexikói spanyol"
+
+#~ msgid "Finnish"
+#~ msgstr "Finn"
+
+#~ msgid "French"
+#~ msgstr "Francia"
+
+#~ msgid "Belgian French"
+#~ msgstr "Belgiumi francia"
+
+#~ msgid "Canadian French"
+#~ msgstr "Kanadai francia"
+
+#~ msgid "Swiss French"
+#~ msgstr "Svájci francia"
+
+#~ msgid "Hebrew"
+#~ msgstr "Héber"
+
+#~ msgid "Hungarian"
+#~ msgstr "Magyar"
+
+#~ msgid "Icelandic"
+#~ msgstr "Izlandi"
+
+#~ msgid "Italian"
+#~ msgstr "Olasz"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Svájci olasz"
+
+#~ msgid "Japanese"
+#~ msgstr "Japán"
+
+#~ msgid "Korean"
+#~ msgstr "Koreai"
+
+#~ msgid "Dutch"
+#~ msgstr "Holland"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Belgiumi holland"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvég Bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvég Nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Lengyel"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Brazíliai portugál"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugál"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Rétoromán"
+
+#~ msgid "Romanian"
+#~ msgstr "Román"
+
+#~ msgid "Russian"
+#~ msgstr "Orosz"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Horvát-Szerb (Latin)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Szerb-Horvát (cirill)"
+
+#~ msgid "Slovak"
+#~ msgstr "Szlovák"
+
+#~ msgid "Albanian"
+#~ msgstr "Albán"
+
+#~ msgid "Swedish"
+#~ msgstr "Svéd"
+
+#~ msgid "Thai"
+#~ msgstr "Thai"
+
+#~ msgid "Turkish"
+#~ msgstr "Török"
+
+#~ msgid "Urdu"
+#~ msgstr "Urdu"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonéz"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrán"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Belorusz"
+
+#~ msgid "Slovenian"
+#~ msgstr "Szlovén"
+
+#~ msgid "Estonian"
+#~ msgstr "Észt"
+
+#~ msgid "Latvian"
+#~ msgstr "Lett"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Litván"
+
+#~ msgid "Farsi"
+#~ msgstr "Perzsa"
+
+#~ msgid "Basque"
+#~ msgstr "Baszk"
+
+#~ msgid "Macedonian"
+#~ msgstr "Macedón"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaans"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malajálam"
