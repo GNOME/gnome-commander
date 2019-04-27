@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-file-list.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -85,7 +85,7 @@ struct GnomeCmdFileList
     operator GtkCList * () const        {  return GTK_CLIST (this);        }
     operator GnomeCmdCList * () const   {  return GNOME_CMD_CLIST (this);  }
 
-    enum ColumnID
+    typedef enum ColumnID
     {
         COLUMN_ICON,
         COLUMN_NAME,
@@ -97,7 +97,7 @@ struct GnomeCmdFileList
         COLUMN_OWNER,
         COLUMN_GROUP,
         NUM_COLUMNS
-    };
+    }GnomeCmdFileListColumn;
 
     GnomeCmdCon *con {nullptr};
     GnomeCmdDir *cwd {nullptr};     // current working dir
@@ -151,7 +151,7 @@ struct GnomeCmdFileList
      * Returns a list with all files shown in the file list. The list is
      * the same as that in the file list it self so make a copy and ref
      * the files if needed
-     */    
+     */
     GList *get_visible_files();
 
     /**
@@ -160,13 +160,13 @@ struct GnomeCmdFileList
      * list is however not refed before returning
      */
     GList *get_selected_files();
-    
+
     /**
      * Returns a collection of all selected files.
      * A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked.
      */
     GnomeCmd::Collection<GnomeCmdFile *> &get_marked_files();
-                                              
+
     /**
      * Returns the currently focused file if any. The returned file is
      * not reffed. The ".." file is returned if focused
@@ -193,7 +193,10 @@ struct GnomeCmdFileList
     void show_dir_tree_size(GnomeCmdFile *f);
     void show_visible_tree_sizes();
 
-    void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (*this, col, value);  }
+    void show_column(ColumnID col, gboolean value)
+    {
+        gtk_clist_set_column_visibility (*this, col, value);
+    }
 
     ColumnID get_sort_column() const;
     GtkSortType get_sort_order() const;
