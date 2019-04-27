@@ -96,14 +96,14 @@ typedef enum // The (reversed) order of following enums is significant
 struct GnomeCmdColorTheme
 {
     gboolean respect_theme {TRUE};
-    GdkColor *sel_fg {NULL};
-    GdkColor *sel_bg {NULL};
-    GdkColor *norm_fg {NULL};
-    GdkColor *norm_bg {NULL};
-    GdkColor *curs_fg {NULL};
-    GdkColor *curs_bg {NULL};
-    GdkColor *alt_fg {NULL};
-    GdkColor *alt_bg {NULL};
+    GdkColor *sel_fg {nullptr};
+    GdkColor *sel_bg {nullptr};
+    GdkColor *norm_fg {nullptr};
+    GdkColor *norm_bg {nullptr};
+    GdkColor *curs_fg {nullptr};
+    GdkColor *curs_bg {nullptr};
+    GdkColor *alt_fg {nullptr};
+    GdkColor *alt_bg {nullptr};
 
     ~GnomeCmdColorTheme()
     {
