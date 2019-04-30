@@ -228,26 +228,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_PREF_PLUGINS                             "org.gnome.gnome-commander.plugins.general"
 #define GCMD_SETTINGS_PLUGINS_AUTOLOAD                "autoload"
 
-//gKeyFile constants
-#define DEVICES_FILENAME                              "devices"
-#define DEVICES_DEVICE                                "device"
-#define DEVICES_MOUNT_POINT                           "mount_point"
-#define DEVICES_ICON_PATH                             "icon_path"
-#define FAV_APPS_FILENAME                             "fav-apps"
-#define FAV_APPS_CMD                                  "cmd"
-#define FAV_APPS_ICON                                 "icon"
-#define FAV_APPS_PATTERN                              "pattern"
-#define FAV_APPS_TARGET                               "target"
-#define FAV_APPS_HANDLES_URIS                         "handles_uris"
-#define FAV_APPS_HANDLES_MULTIPLE                     "handles_multiple"
-#define FAV_APPS_REQUIRES_TERMINAL                    "requires_terminal"
-#define TABS_LAYOUT_FILENAME                          "file-list-tabs"
-#define TAB_PATH                                      "path"
-#define TAB_FILESLECTORID                             "fileSelectorId"
-#define TAB_SORT                                      "sort"
-#define TAB_ASC                                       "asc"
-#define TAB_LOCK                                      "lock"
-
 struct GnomeCmdConRemote;
 
 struct GnomeCmdData
