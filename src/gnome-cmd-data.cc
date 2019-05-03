@@ -1577,6 +1577,27 @@ void GnomeCmdData::save_bookmarks()
 }
 
 
+void GnomeCmdData::save_file_list_columns()
+{
+    GVariantBuilder* gVariantBuilder = g_variant_builder_new(G_VARIANT_TYPE_ARRAY);
+    g_variant_builder_init (gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+
+    for (int ii = GnomeCmdFileList::COLUMN_ICON; ii < GnomeCmdFileList::NUM_COLUMNS; ii++)
+    {
+        g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_FILE_LIST_COLUMN_FORMAT_STRING,
+                               fileListColumnLayouts[ii].position,
+                               fileListColumnLayouts[ii].width,
+                               fileListColumnLayouts[ii].visibility
+                              );
+    }
+
+    GVariant* fileListColumnsToStore = g_variant_builder_end (gVariantBuilder);
+    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_COLUMNS, fileListColumnsToStore);
+
+    g_variant_builder_unref(gVariantBuilder);
+}
+
+
 gboolean GnomeCmdData::add_bookmark_to_gvariant_builder(GVariantBuilder *gVariantBuilder, std::string bookmarkGroupName, GnomeCmdCon *con)
 {
     if (!con)
@@ -2226,6 +2247,35 @@ void GnomeCmdData::load_bookmarks()
     }
 
     g_variant_unref(gVariantBookmarks);
+}
+
+
+void GnomeCmdData::load_file_list_columns()
+{
+    auto *gVariantFileListColumns = g_settings_get_value (options.gcmd_settings->general, GCMD_SETTINGS_FILE_LIST_COLUMNS);
+
+    g_autoptr(GVariantIter) iter1 {nullptr};
+
+    g_variant_get (gVariantFileListColumns, GCMD_SETTINGS_FILE_LIST_COLUMNS_FORMAT_STRING, &iter1);
+
+    guint position {0};
+    guint width {0};
+    gboolean visible {true};
+    guint counter {0};
+
+    while (g_variant_iter_loop (iter1,
+            GCMD_SETTINGS_FILE_LIST_COLUMN_FORMAT_STRING,
+            &position,
+            &width,
+            &visible))
+    {
+        fileListColumnLayouts[counter].position = position;
+        fileListColumnLayouts[counter].width = width;
+        fileListColumnLayouts[counter].visibility = visible;
+        counter++;
+    }
+
+    g_variant_unref(gVariantFileListColumns);
 }
 
 
@@ -3413,6 +3463,7 @@ void GnomeCmdData::load()
     load_keybindings        ();
     load_fav_apps           ();
     load_directory_history  ();
+    load_file_list_columns  ();
 
     priv->con_list->unlock();
 
@@ -3588,6 +3639,7 @@ void GnomeCmdData::save()
     save_advrename_profiles         ();
     save_intviewer_defaults         ();
     save_auto_load_plugins          ();
+    save_file_list_columns          ();
 
     g_settings_sync ();
 }

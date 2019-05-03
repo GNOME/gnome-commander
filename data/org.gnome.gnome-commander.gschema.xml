@@ -296,6 +296,14 @@
           This setting defines the height of the options dialog window.
       </description>
     </key>
+    <key name="file-list-columns" type="a(uub)">
+      <!-- column id, column width, visibility -->
+      <default>[(0,16,true),(1,140,true),(2,40,true),(3,240,false),(4,70,true),(5,150,true),(6,70,true),(7,50,true),(8,50,true)]</default>
+      <summary>Columns in the main window tabs</summary>
+      <description>
+          This list defines the width and the visibility of the main window tab columns.
+      </description>
+    </key>
     <key name="column-width-icon" type="u">
       <default>16</default>
       <summary>Width of icon column</summary>
@@ -495,6 +503,7 @@
     </key>
     <key name="file-list-tabs" type="a(syybb)">
       <default>[]</default>
+      <!-- realPath, fileSelectorId, sort_column, sort_order, locked -->
       <summary>List of file tabs</summary>
       <description>
           The entries in this list are used for restoring the tabs from the last session.

@@ -120,6 +120,9 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_ADVRENAME_PROFILES_FORMAT_STRING "a(ssuiuuuasasab)"
 #define GCMD_SETTINGS_FILE_LIST_TABS                  "file-list-tabs"
 #define GCMD_SETTINGS_FILE_LIST_TAB_FORMAT_STRING     "(syybb)"
+#define GCMD_SETTINGS_FILE_LIST_COLUMNS               "file-list-columns"
+#define GCMD_SETTINGS_FILE_LIST_COLUMN_FORMAT_STRING  "(uub)"
+#define GCMD_SETTINGS_FILE_LIST_COLUMNS_FORMAT_STRING "a(uub)"
 #define GCMD_SETTINGS_DEVICES                         "devices"
 #define GCMD_SETTINGS_DEVICES_FORMAT_STRING           "(ssss)"
 #define GCMD_SETTINGS_FAV_APPS                        "favorite-apps"
@@ -600,6 +603,17 @@ struct GnomeCmdData
         gint width {400}, height {250};
     };
 
+    /**
+     * This struct holds information about the position, width and
+     * visibility of a column in the file lists.
+     */
+    struct FileListColumnLayout
+    {
+        guint position;
+        guint width;
+        gboolean visibility;
+    };
+
     typedef std::pair<std::string,triple<GnomeCmdFileList::ColumnID,GtkSortType,gboolean> > Tab;
 
     static GSettingsSchemaSource* GetGlobalSchemaSource();
@@ -658,6 +672,7 @@ struct GnomeCmdData
 
     guint                        dev_icon_size {16};
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
+    FileListColumnLayout         fileListColumnLayouts[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
 
     GList                       *cmdline_history;
@@ -696,6 +711,8 @@ struct GnomeCmdData
     void save_search_profiles ();
     void save_bookmarks();
     void load_bookmarks();
+    void load_file_list_columns ();
+    void save_file_list_columns ();
     void save();
     gboolean gnome_cmd_data_parse_color (const gchar *spec, GdkColor *color);
     gboolean set_color_if_valid_key_value(GdkColor *color, GSettings *settings, const char *key);
