@@ -309,13 +309,19 @@ struct FileFormatData
 gchar FileFormatData::empty_string[] = "";
 
 
-FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
+static char* GetGnomeCmdFileListIcon(GnomeCmdFile *f)
 {
     // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
-        text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) f->get_type_string();
+        return (gchar *) f->get_type_string();
     else
-        text[GnomeCmdFileList::COLUMN_ICON] = nullptr;
+        return nullptr;
+}
+
+
+FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
+{
+    text[GnomeCmdFileList::COLUMN_ICON] = GetGnomeCmdFileListIcon(f);
 
     // Prepare the strings to show
     gchar *t1 = f->get_path();
