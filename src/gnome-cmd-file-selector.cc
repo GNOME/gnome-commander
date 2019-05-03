@@ -1486,8 +1486,14 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     fl->locked = locked;
     fl->update_style();
 
-    // hide dir column
-    fl->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
+    // hide columns which shouldn't be visible
+    for(auto column = 0; column < GnomeCmdFileList::NUM_COLUMNS; column++)
+    {
+        if (!gnome_cmd_data.fileListColumnLayouts[column].visibility)
+        {
+            fl->show_column((GnomeCmdFileList::ColumnID) gnome_cmd_data.fileListColumnLayouts[column].position, FALSE);
+        }
+    }
 
     // create the scrollwindow that we'll place the list in
     GtkWidget *scrolled_window = gtk_scrolled_window_new (nullptr, nullptr);
