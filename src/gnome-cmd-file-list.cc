@@ -346,12 +346,30 @@ static char* GetGnomeCmdFileFormatExtension(GnomeCmdFile *f)
 }
 
 
+static gchar* GetGnomeCmdFileListDirString(GnomeCmdFileList *fl, GnomeCmdFile *f)
+{
+    gchar* returnValue;
+
+    gchar *t1 = f->get_path();
+    gchar *t2 = g_path_get_dirname (t1);
+    returnValue = get_utf8 (t2);
+    g_free (t1);
+    g_free (t2);
+
+    if (fl->priv->base_dir != nullptr)
+        returnValue = g_strconcat(get_utf8("."), returnValue + (strlen(fl->priv->base_dir)-1), nullptr);
+
+    return returnValue;
+}
+
+
 FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
 {
     text[GnomeCmdFileList::COLUMN_ICON] = GetGnomeCmdFileListIcon(f);
     fname = GetGnomeCmdFileFormatDataFname(f);
     text[GnomeCmdFileList::COLUMN_NAME] = fname;
     text[GnomeCmdFileList::COLUMN_EXT] = GetGnomeCmdFileFormatExtension(f);
+    text[GnomeCmdFileList::COLUMN_DIR] = GetGnomeCmdFileListDirString(fl, f);
 
     DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
 
