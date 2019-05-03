@@ -1877,9 +1877,11 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
 {
     GtkCList *clist = *fl;
 
-    FileFormatData data(fl, f,FALSE);
+    FileFormatData fileFormatData(fl, f, FALSE);
 
-    gint row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
+    gint row = in_row == -1
+        ? gtk_clist_append (clist, fileFormatData.text)
+        : gtk_clist_insert (clist, in_row, fileFormatData.text);
 
     // Setup row data and color
     if (!gnome_cmd_data.options.use_ls_colors)
@@ -2008,10 +2010,10 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
     if (row == -1)
         return;
 
-    FileFormatData data(this, f, FALSE);
+    FileFormatData fileFormatData(this, f, FALSE);
 
     for (gint i=1; i<NUM_COLUMNS; i++)
-        gtk_clist_set_text (*this, row, i, data.text[i]);
+        gtk_clist_set_text (*this, row, i, fileFormatData.text[i]);
 
     if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
     {
@@ -2032,10 +2034,10 @@ void GnomeCmdFileList::show_dir_tree_size(GnomeCmdFile *f)
     if (row == -1)
         return;
 
-    FileFormatData data(this, f,TRUE);
+    FileFormatData fileFormatData(this, f, TRUE);
 
     for (gint i=1; i<NUM_COLUMNS; i++)
-        gtk_clist_set_text (*this, row, i, data.text[i]);
+        gtk_clist_set_text (*this, row, i, fileFormatData.text[i]);
 }
 
 
