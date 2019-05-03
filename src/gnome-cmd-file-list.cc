@@ -336,7 +336,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
 
     if (fl->priv->base_dir != nullptr)
         text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), nullptr);
-    else 
+    else
         text[GnomeCmdFileList::COLUMN_DIR] = dpath;
 
     DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
@@ -670,7 +670,7 @@ void GnomeCmdFileList::create_column_titles()
 {
     gtk_clist_column_title_passive (*this, COLUMN_ICON);
 
-    for (gint i=COLUMN_NAME; i<NUM_COLUMNS; i++)
+    for (gint ii = COLUMN_NAME; ii < NUM_COLUMNS; ii++)
     {
         GtkWidget *hbox, *pixmap;
 
@@ -682,11 +682,11 @@ void GnomeCmdFileList::create_column_titles()
         g_object_set_data_full (*this, "column-hbox", hbox, g_object_unref);
         gtk_widget_show (hbox);
 
-        priv->column_labels[i] = gtk_label_new (_(file_list_column[i].title));
-        g_object_ref (priv->column_labels[i]);
-        g_object_set_data_full (*this, "column-label", priv->column_labels[i], g_object_unref);
-        gtk_widget_show (priv->column_labels[i]);
-        gtk_box_pack_start (GTK_BOX (hbox), priv->column_labels[i], TRUE, TRUE, 0);
+        priv->column_labels[ii] = gtk_label_new (_(file_list_column[ii].title));
+        g_object_ref (priv->column_labels[ii]);
+        g_object_set_data_full (*this, "column-label", priv->column_labels[ii], g_object_unref);
+        gtk_widget_show (priv->column_labels[ii]);
+        gtk_box_pack_start (GTK_BOX (hbox), priv->column_labels[ii], TRUE, TRUE, 0);
 
         pixmap = gtk_pixmap_new (pm, bm);
         g_object_ref (pixmap);
@@ -694,16 +694,15 @@ void GnomeCmdFileList::create_column_titles()
         gtk_widget_show (pixmap);
         gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, FALSE, 0);
 
-        priv->column_pixmaps[i] = pixmap;
-        gtk_clist_set_column_widget (*this, i, hbox);
+        priv->column_pixmaps[ii] = pixmap;
+        gtk_clist_set_column_widget (*this, ii, hbox);
     }
 
-    for (gint i=COLUMN_ICON; i<NUM_COLUMNS; i++)
+    for (gint ii = COLUMN_ICON; ii < NUM_COLUMNS; ii++)
     {
-        gtk_clist_set_column_width (*this, i, gnome_cmd_data.fs_col_width[i]);
-        gtk_clist_set_column_justification (*this, i, file_list_column[i].justification);
+        gtk_clist_set_column_width (*this, ii, gnome_cmd_data.fileListColumnLayouts[ii].width);
+        gtk_clist_set_column_justification (*this, ii, file_list_column[ii].justification);
     }
-
     gtk_clist_column_titles_show (*this);
 }
 
