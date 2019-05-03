@@ -318,6 +318,7 @@ static char* GetGnomeCmdFileListIcon(GnomeCmdFile *f)
         return nullptr;
 }
 
+
 static char* GetGnomeCmdFileFormatDataFname(GnomeCmdFile *f)
 {
     char* returnValue;
@@ -335,20 +336,24 @@ static char* GetGnomeCmdFileFormatDataFname(GnomeCmdFile *f)
     return returnValue;
 }
 
+
+static char* GetGnomeCmdFileFormatExtension(GnomeCmdFile *f)
+{
+    if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
+        return get_utf8 (f->get_extension());
+    else
+        return nullptr;
+}
+
+
 FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
 {
     text[GnomeCmdFileList::COLUMN_ICON] = GetGnomeCmdFileListIcon(f);
-
     fname = GetGnomeCmdFileFormatDataFname(f);
-
     text[GnomeCmdFileList::COLUMN_NAME] = fname;
+    text[GnomeCmdFileList::COLUMN_EXT] = GetGnomeCmdFileFormatExtension(f);
 
-    if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
-        fext = get_utf8 (f->get_extension());
-    else
-        fext = nullptr;
-
-    text[GnomeCmdFileList::COLUMN_EXT]   = fext;
+    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
 
     text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
 
