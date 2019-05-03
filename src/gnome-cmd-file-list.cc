@@ -318,42 +318,36 @@ static char* GetGnomeCmdFileListIcon(GnomeCmdFile *f)
         return nullptr;
 }
 
-
-FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
+static char* GetGnomeCmdFileFormatDataFname(GnomeCmdFile *f)
 {
-    text[GnomeCmdFileList::COLUMN_ICON] = GetGnomeCmdFileListIcon(f);
-
-    // Prepare the strings to show
-    gchar *t1 = f->get_path();
-    gchar *t2 = g_path_get_dirname (t1);
-    dpath = get_utf8 (t2);
-    g_free (t1);
-    g_free (t2);
+    char* returnValue;
 
     if (gnome_cmd_data.options.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         gchar *t = strip_extension (f->get_name());
-        fname = get_utf8 (t);
+        returnValue = get_utf8 (t);
         g_free (t);
     }
     else
-        fname = get_utf8 (f->get_name());
+        returnValue = get_utf8 (f->get_name());
 
-    if (fl->priv->base_dir != nullptr)
-        text[GnomeCmdFileList::COLUMN_DIR] = g_strconcat(get_utf8("."), dpath + (strlen(fl->priv->base_dir)-1), nullptr);
-    else
-        text[GnomeCmdFileList::COLUMN_DIR] = dpath;
+    return returnValue;
+}
 
-    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
+FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
+{
+    text[GnomeCmdFileList::COLUMN_ICON] = GetGnomeCmdFileListIcon(f);
+
+    fname = GetGnomeCmdFileFormatDataFname(f);
+
+    text[GnomeCmdFileList::COLUMN_NAME] = fname;
 
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (f->get_extension());
     else
         fext = nullptr;
 
-    //Set other file information
-    text[GnomeCmdFileList::COLUMN_NAME]  = fname;
     text[GnomeCmdFileList::COLUMN_EXT]   = fext;
 
     text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
