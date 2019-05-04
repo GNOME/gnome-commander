@@ -308,7 +308,7 @@ struct FileFormatData
 gchar FileFormatData::empty_string[] = "";
 
 
-static char* GetGnomeCmdFileListIcon(GnomeCmdFile *f)
+static gchar* GetGnomeCmdFileListIcon(GnomeCmdFile *f)
 {
     // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data.options.layout == GNOME_CMD_LAYOUT_TEXT)
@@ -318,7 +318,7 @@ static char* GetGnomeCmdFileListIcon(GnomeCmdFile *f)
 }
 
 
-static char* GetGnomeCmdFileFormatDataFname(GnomeCmdFile *f)
+static gchar* GetGnomeCmdFileFormatDataFname(GnomeCmdFile *f)
 {
     char* returnValue;
 
@@ -336,7 +336,7 @@ static char* GetGnomeCmdFileFormatDataFname(GnomeCmdFile *f)
 }
 
 
-static char* GetGnomeCmdFileListFormatExtension(GnomeCmdFile *f)
+static gchar* GetGnomeCmdFileListFormatExtension(GnomeCmdFile *f)
 {
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         return get_utf8 (f->get_extension());
