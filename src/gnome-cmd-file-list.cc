@@ -375,9 +375,6 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
     text[GnomeCmdFileList::COLUMN_NAME] = fname;
     text[GnomeCmdFileList::COLUMN_EXT] = GetGnomeCmdFileFormatExtension(f);
     text[GnomeCmdFileList::COLUMN_DIR] = GetGnomeCmdFileListDirString(fl, f);
-
-    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
-
     text[GnomeCmdFileList::COLUMN_SIZE]  = GetGnomeCmdFileListSize(f, tree_size);
 
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
@@ -394,6 +391,8 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
         text[GnomeCmdFileList::COLUMN_OWNER] = empty_string;
         text[GnomeCmdFileList::COLUMN_GROUP] = empty_string;
     }
+
+    DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
 }
 
 
