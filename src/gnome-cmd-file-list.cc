@@ -731,8 +731,8 @@ void GnomeCmdFileList::create_column_titles()
 
     for (guint ii = COLUMN_ICON; ii < NUM_COLUMNS; ii++)
     {
-        guint actualColumn;
-        for (guint jj = COLUMN_NAME; jj < NUM_COLUMNS; jj++)
+        guint actualColumn {0};
+        for (guint jj = COLUMN_ICON; jj < NUM_COLUMNS; jj++)
         {
             if (ii == gnome_cmd_data.fileListColumnLayouts[jj].position)
                 actualColumn = jj;
