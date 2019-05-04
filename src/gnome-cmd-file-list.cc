@@ -366,31 +366,77 @@ static gchar* GetGnomeCmdFileListSize(GnomeCmdFile *f, gboolean tree_size)
     return tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
 }
 
+static gboolean IsGnomeCmdFileAFile(GnomeCmdFile *f)
+{
+    return (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot);
+}
+
 
 FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
 {
-    text[GnomeCmdFileList::COLUMN_ICON] = GetGnomeCmdFileListIcon(f);
-    fname = GetGnomeCmdFileFormatDataFname(f);
-    text[GnomeCmdFileList::COLUMN_NAME] = fname;
-    text[GnomeCmdFileList::COLUMN_EXT] = GetGnomeCmdFileListFormatExtension(f);
-    text[GnomeCmdFileList::COLUMN_DIR] = GetGnomeCmdFileListDirString(fl, f);
-    text[GnomeCmdFileList::COLUMN_SIZE]  = GetGnomeCmdFileListSize(f, tree_size);
-
-    if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
+    for (guint ii = 0; ii < GnomeCmdFileList::NUM_COLUMNS; ii++)
     {
-        text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) f->get_mdate(FALSE);
-        text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) f->get_perm();
-        text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) f->get_owner();
-        text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) f->get_group();
+        switch (static_cast <GnomeCmdFileList::ColumnID> (gnome_cmd_data.fileListColumnLayouts[ii].position))
+        {
+            case GnomeCmdFileList::COLUMN_ICON:
+            {
+                text[ii] = GetGnomeCmdFileListIcon(f);
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_NAME:
+            {
+                fname = GetGnomeCmdFileFormatDataFname(f);
+                text[ii] = fname;
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_EXT:
+            {
+                text[ii] = GetGnomeCmdFileListFormatExtension(f);
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_DIR:
+            {
+                text[ii] = GetGnomeCmdFileListDirString(fl, f);
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_SIZE:
+            {
+                text[ii] = GetGnomeCmdFileListSize(f, tree_size);
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_DATE:
+            {
+                text[ii] = IsGnomeCmdFileAFile(f)
+                    ? (gchar *) f->get_mdate(FALSE)
+                    : empty_string;
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_PERM:
+            {
+                text[ii] = IsGnomeCmdFileAFile(f)
+                    ? (gchar *) f->get_perm()
+                    : empty_string;
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_OWNER:
+            {
+                text[ii] = IsGnomeCmdFileAFile(f)
+                    ? (gchar *) f->get_owner()
+                    : empty_string;
+                break;
+            }
+            case GnomeCmdFileList::COLUMN_GROUP:
+            {
+                text[ii] = IsGnomeCmdFileAFile(f)
+                    ? (gchar *) f->get_group()
+                    : empty_string;
+                break;
+            }
+            case GnomeCmdFileList::NUM_COLUMNS:
+            default:
+                break;
+        }
     }
-    else
-    {
-        text[GnomeCmdFileList::COLUMN_DATE]  = empty_string;
-        text[GnomeCmdFileList::COLUMN_PERM]  = empty_string;
-        text[GnomeCmdFileList::COLUMN_OWNER] = empty_string;
-        text[GnomeCmdFileList::COLUMN_GROUP] = empty_string;
-    }
-
     DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
 }
 
