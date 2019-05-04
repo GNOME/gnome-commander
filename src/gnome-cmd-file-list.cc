@@ -293,11 +293,10 @@ inline gchar *strip_extension (const gchar *fname)
 
 struct FileFormatData
 {
-    gchar *text[GnomeCmdFileList::NUM_COLUMNS];
+    gchar *text[GnomeCmdFileList::NUM_COLUMNS] {nullptr};
 
-    gchar *dpath;
-    gchar *fname;
-    gchar *fext;
+    gchar *dpath {nullptr};
+    gchar *fname {nullptr};
 
     static gchar empty_string[];
 
@@ -400,7 +399,6 @@ FileFormatData::~FileFormatData()
 {
     g_free (dpath);
     g_free (fname);
-    g_free (fext);
 }
 
 
