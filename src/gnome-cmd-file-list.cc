@@ -362,6 +362,11 @@ static gchar* GetGnomeCmdFileListDirString(GnomeCmdFileList *fl, GnomeCmdFile *f
     return returnValue;
 }
 
+static gchar* GetGnomeCmdFileListSize(GnomeCmdFile *f, gboolean tree_size)
+{
+    return tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
+}
+
 
 FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean tree_size)
 {
@@ -373,7 +378,7 @@ FileFormatData::FileFormatData(GnomeCmdFileList *fl, GnomeCmdFile *f, gboolean t
 
     DEBUG ('l', "FileFormatData text[GnomeCmdFileList::COLUMN_DIR]=[%s]\n", text[GnomeCmdFileList::COLUMN_DIR]);
 
-    text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) f->get_tree_size_as_str() : (gchar *) f->get_size();
+    text[GnomeCmdFileList::COLUMN_SIZE]  = GetGnomeCmdFileListSize(f, tree_size);
 
     if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY || !f->is_dotdot)
     {
