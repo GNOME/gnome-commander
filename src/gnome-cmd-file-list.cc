@@ -1934,6 +1934,16 @@ GtkSortType GnomeCmdFileList::get_sort_order() const
 }
 
 
+static guint GetFileTypeColumnId()
+{
+    for (guint ii = GnomeCmdFileList::COLUMN_ICON; ii < GnomeCmdFileList::NUM_COLUMNS; ii++)
+    {
+        if (gnome_cmd_data.fileListColumnLayouts[ii].position == GnomeCmdFileList::COLUMN_ICON)
+            return ii;
+    }
+    return 0;
+}
+
 inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_row)
 {
     GtkCList *clist = *fl;
@@ -1961,6 +1971,8 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
 
     gtk_clist_set_row_data (clist, row, f);
 
+    auto fileTypeColumnId = GetFileTypeColumnId();
+
     // If the use wants icons to show file types set it now
     if (gnome_cmd_data.options.layout != GNOME_CMD_LAYOUT_TEXT)
     {
@@ -1968,7 +1980,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
         GdkBitmap *mask;
 
         if (f->get_type_pixmap_and_mask(&pixmap, &mask))
-            gtk_clist_set_pixmap (clist, row, 0, pixmap, mask);
+            gtk_clist_set_pixmap (clist, row, fileTypeColumnId, pixmap, mask);
     }
 
     // If we have been waiting for this file to show up, focus it
