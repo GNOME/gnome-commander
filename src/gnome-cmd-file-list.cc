@@ -505,14 +505,24 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
 
     gdk_window_get_origin (GTK_CLIST (fl)->clist_window, &x0, &y0);
 
+    guint actualFileNameColumn {0};
+    for (guint ii = GnomeCmdFileList::COLUMN_ICON; ii < GnomeCmdFileList::NUM_COLUMNS; ii++)
+    {
+        if (gnome_cmd_data.fileListColumnLayouts[ii].position == GnomeCmdFileList::COLUMN_NAME)
+        {
+            actualFileNameColumn = ii;
+            break;
+        }
+    }
+
     gint row = GTK_CLIST (fl)->focus_row;
     gint rowh = GTK_CLIST (fl)->row_height + CELL_SPACING;
-    gint colx = GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_NAME].area.x - COLUMN_INSET - CELL_SPACING;
+    gint colx = GTK_CLIST (fl)->column[actualFileNameColumn].area.x - COLUMN_INSET - CELL_SPACING;
 
     x = x0 + colx;
     y = y0 + row*rowh + GTK_CLIST (fl)->voffset;
 
-    width = GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_NAME].area.width + 2*COLUMN_INSET;
+    width = GTK_CLIST (fl)->column[actualFileNameColumn].area.width + 2*COLUMN_INSET;
     if (gnome_cmd_data.options.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
         width += GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_EXT].area.width + 2*COLUMN_INSET + CELL_SPACING;
 
@@ -1172,7 +1182,8 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     fl->priv->sort_raising[col] = fl->priv->current_col == col ? !fl->priv->sort_raising[col] :
                                                                  (static_cast<bool>(file_list_column[col].default_sort_direction));
 
-    fl->priv->sort_func = file_list_column[col].sort_func;
+    auto actualColumnId = gnome_cmd_data.fileListColumnLayouts[col].position;
+    fl->priv->sort_func = file_list_column[actualColumnId].sort_func;
     fl->priv->current_col = col;
     update_column_sort_arrows (fl);
 
