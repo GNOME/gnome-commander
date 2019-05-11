@@ -1478,7 +1478,7 @@ GtkWidget *GnomeCmdFileSelector::new_tab(GnomeCmdDir *dir, GnomeCmdFileList::Col
     GtkSortType sort_order, gboolean locked, gboolean activate)
 {
     // create the list
-    GnomeCmdFileList *fl = new GnomeCmdFileList(sort_col,sort_order);
+    GnomeCmdFileList *fl = new GnomeCmdFileList(sort_col, sort_order);
 
     if (activate)
         this->list = fl;               //  ... update GnomeCmdFileSelector::list to point at newly created tab
