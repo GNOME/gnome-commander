@@ -1188,6 +1188,10 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
     auto actualColumnId = gnome_cmd_data.fileListColumnLayouts[col].position;
     fl->priv->sort_func = file_list_column[actualColumnId].sort_func;
+    if (actualColumnId == GnomeCmdFileList::COLUMN_ICON)
+    {
+        return;
+    }
     fl->priv->current_col = col;
     update_column_sort_arrows (fl);
 
