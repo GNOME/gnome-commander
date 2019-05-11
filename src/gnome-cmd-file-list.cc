@@ -265,18 +265,24 @@ void GnomeCmdFileList::Private::on_dnd_popup_menu(GnomeCmdFileList *fl, GnomeVFS
 
 GnomeCmdFileList::GnomeCmdFileList(ColumnID sort_col, GtkSortType sort_order)
 {
+    guint actualColumnId = gnome_cmd_data.fileListColumnLayouts[sort_col].position;
+
 #if defined (__GNUC__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wuninitialized"
 #endif
-    priv->current_col = sort_col;
+    priv->current_col = actualColumnId;
 #if defined (__GNUC__)
 #pragma GCC diagnostic pop
 #endif
 
-    priv->sort_raising[sort_col] = sort_order;
-    priv->sort_func = file_list_column[sort_col].sort_func;
+    priv->sort_raising[actualColumnId] = sort_order;
 
+    priv->sort_func = file_list_column[sort_col].sort_func;
+    if (priv->sort_func == nullptr)
+    {
+        priv->sort_func = file_list_column[COLUMN_NAME].sort_func;
+    }
     create_column_titles();
 }
 
@@ -749,9 +755,7 @@ void GnomeCmdFileList::toggle_with_pattern(Filter &pattern, gboolean mode)
 
 void GnomeCmdFileList::create_column_titles()
 {
-    gtk_clist_column_title_passive (*this, COLUMN_ICON);
-
-    for (guint ii = COLUMN_NAME; ii < NUM_COLUMNS; ii++)
+    for (guint ii = COLUMN_ICON; ii < NUM_COLUMNS; ii++)
     {
         GtkWidget *hbox, *pixmap;
 
@@ -800,7 +804,7 @@ static void update_column_sort_arrows (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    for (gint i=GnomeCmdFileList::COLUMN_NAME; i<GnomeCmdFileList::NUM_COLUMNS; i++)
+    for (gint i=GnomeCmdFileList::COLUMN_ICON; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
         if (i != fl->priv->current_col)
             gtk_pixmap_set (GTK_PIXMAP (fl->priv->column_pixmaps[i]),
@@ -1935,6 +1939,13 @@ static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 
 GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column() const
 {
+    for (guint ii = COLUMN_ICON; ii < NUM_COLUMNS; ++ii)
+    {
+        if (ii == gnome_cmd_data.fileListColumnLayouts[priv->current_col].position)
+        {
+            return (ColumnID) ii;
+        }
+    }
     return (ColumnID) priv->current_col;
 }
 
