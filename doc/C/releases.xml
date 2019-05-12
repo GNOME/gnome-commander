@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.10.1</para></entry>
-            <entry><para>2019-??-??</para></entry>
+            <entry><para>2019-05-12</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -47,10 +47,10 @@
                             <para>Search window can be optionally minimized or moved below the main window</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>New or updated translations: ar, bg dz, de, en_CA, en_GB, es, ga, hr, hu, ne, pl, pt_BR, rw, sq, vi, zh_TW</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated docs: de, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>

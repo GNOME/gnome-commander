@@ -11,10 +11,16 @@ Bug fixes:
  * Removed gnome-config references, fixing bgo#570733 and issue #27 on GitLab
 
 New or updated translations:
- * ...
+ * ar, bg dz, en_CA, en_GB, ga, hr, ne, rw, sq, vi, zh_TW (Elijah Zarezky)
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles)
+ * hu (Balázs Meskó)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
 
 New or updated docs:
- * ...
+ * de (Mario Blättermann)
+ * es (Daniel Mustieles
 
 ===================================
 gnome-commander 1.10.0
