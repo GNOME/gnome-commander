@@ -103,15 +103,6 @@ GcmdSettings *gcmd_settings_new (void);
 #define GCMD_SETTINGS_MAIN_WIN_HEIGHT                 "main-win-height"
 #define GCMD_SETTINGS_OPTS_DIALOG_WIDTH               "opts-dialog-width"
 #define GCMD_SETTINGS_OPTS_DIALOG_HEIGHT              "opts-dialog-height"
-#define GCMD_SETTINGS_COLUMN_WIDTH_ICON               "column-width-icon"
-#define GCMD_SETTINGS_COLUMN_WIDTH_NAME               "column-width-name"
-#define GCMD_SETTINGS_COLUMN_WIDTH_EXT                "column-width-ext"
-#define GCMD_SETTINGS_COLUMN_WIDTH_DIR                "column-width-dir"
-#define GCMD_SETTINGS_COLUMN_WIDTH_SIZE               "column-width-size"
-#define GCMD_SETTINGS_COLUMN_WIDTH_DATE               "column-width-date"
-#define GCMD_SETTINGS_COLUMN_WIDTH_PERM               "column-width-perm"
-#define GCMD_SETTINGS_COLUMN_WIDTH_OWNER              "column-width-owner"
-#define GCMD_SETTINGS_COLUMN_WIDTH_GROUP              "column-width-group"
 #define GCMD_SETTINGS_ADVRENAME_TOOL_WIDTH            "advrename-win-width"
 #define GCMD_SETTINGS_ADVRENAME_TOOL_HEIGHT           "advrename-win-height"
 #define GCMD_SETTINGS_ADVRENAME_TOOL_TEMPLATE_HISTORY "advrename-template-history"
@@ -671,7 +662,6 @@ struct GnomeCmdData
     gboolean                     mainmenu_visibility {TRUE};
 
     guint                        dev_icon_size {16};
-    guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     FileListColumnLayout         fileListColumnLayouts[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
 
