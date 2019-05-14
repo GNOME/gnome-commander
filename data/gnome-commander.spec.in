@@ -153,7 +153,7 @@ scrollkeeper-update -q || :
 
 %{_datadir}/help/*
 
-%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}.svg
 %{_datadir}/pixmaps/%{name}/
 
 %{_datadir}/%{name}/mime/
@@ -162,6 +162,9 @@ scrollkeeper-update -q || :
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Tue May 14 2019 Uwe Scholz <u.scholz83@gmx.de>
+- Updated the icon file name suffix from png to svg
+
 * Tue Feb 13 2018 Uwe Scholz <u.scholz83@gmx.de>
 - removed build and runtime deps for unique and unique-devel
 - fixed bogus date
