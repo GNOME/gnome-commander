@@ -24,13 +24,13 @@
     <tbody>
         <row valign="top">
             <entry><para>1.10.2</para></entry>
-            <entry><para>2019-??-??</para></entry>
+            <entry><para>2019-05-16</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fix for compilation error with exiv2 0.27.1 (Thanks to Mamoru Tasaka)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -38,13 +38,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated translations: ...</para>
-                        </listitem>
-                        <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated docs: es</para>
                         </listitem>
                     </itemizedlist>
                 </para>
