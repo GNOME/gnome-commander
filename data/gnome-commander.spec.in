@@ -21,7 +21,7 @@
 
 Name:          @PACKAGE@
 Version:       @VERSION@
-Epoch:         2
+Epoch:         4
 Release:       %{rel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
@@ -162,6 +162,9 @@ scrollkeeper-update -q || :
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Mon May 20 2019 Uwe Scholz <u.scholz83@gmx.de>
+- set epoch to 4
+
 * Thu May 16 2019 Uwe Scholz <u.scholz83@gmx.de>
 - Removed smp_mflags variable from the spec file
 
