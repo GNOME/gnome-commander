@@ -121,7 +121,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
 
 static GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
-{{GnomeCmdFileList::COLUMN_ICON,"",GTK_JUSTIFY_CENTER,GTK_SORT_ASCENDING, nullptr},
+{{GnomeCmdFileList::COLUMN_ICON, (const char*) '\0', GTK_JUSTIFY_CENTER,GTK_SORT_ASCENDING, nullptr},
  {GnomeCmdFileList::COLUMN_NAME, N_("name"), GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_name},
  {GnomeCmdFileList::COLUMN_EXT, N_("ext"), GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_ext},
  {GnomeCmdFileList::COLUMN_DIR, N_("dir"), GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_dir},
