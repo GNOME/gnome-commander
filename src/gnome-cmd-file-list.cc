@@ -2050,9 +2050,10 @@ gboolean GnomeCmdFileList::insert_file(GnomeCmdFile *f)
             priv->visible_files.add(f);
             add_file_to_clist (this, f, i);
 
-            if (i<=priv->cur_file)
+            if (i <= priv->cur_file)
+            {
                 priv->cur_file++;
-
+            }
             return TRUE;
         }
     }
