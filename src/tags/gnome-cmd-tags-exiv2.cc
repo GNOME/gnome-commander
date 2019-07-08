@@ -31,9 +31,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #ifdef HAVE_EXIV2
-#include <exiv2/exif.hpp>
-#include <exiv2/image.hpp>
-#include <exiv2/error.hpp>
+#include <exiv2/exiv2.hpp>
 #endif
 
 using namespace std;
