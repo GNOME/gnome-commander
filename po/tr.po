@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-05-16 21:07+0000\n"
-"PO-Revision-Date: 2019-07-21 16:53+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2019-08-26 10:05+0000\n"
+"PO-Revision-Date: 2019-09-05 12:11+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-POOTLE-MTIME: 1429308288.000000\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
@@ -753,15 +753,16 @@ msgid "This option defines the height of the search window."
 msgstr "Bu seçenek, arama penceresi yüksekliğini tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:533
-#| msgid "Search window width"
 msgid "Search window is transient"
-msgstr ""
+msgstr "Arama penceresi geçirgen"
 
 #: data/org.gnome.gnome-commander.gschema.xml:534
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
 msgstr ""
+"Arama penceresinin geçirgenlik durumunu veya küçültülüp ana pencerenin "
+"arkasına taşınabilme durumunu tanımlar."
 
 #: data/org.gnome.gnome-commander.gschema.xml:540
 msgid "Search text history"
@@ -2213,7 +2214,6 @@ msgid "Match end of the file name"
 msgstr "Dosya adının sonuyla eşleştir"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:193
-#| msgid "Search window width"
 msgid "Search Window"
 msgstr "Arama Penceresi"
 
@@ -3810,12 +3810,10 @@ msgid "Unselect with P_attern"
 msgstr "D_esen ile Seçileri Kaldır"
 
 #: src/gnome-cmd-main-menu.cc:504
-#| msgid "Select with _Pattern"
 msgid "Select with same _Extension"
 msgstr "Aynı _Uzantı ile Seç"
 
 #: src/gnome-cmd-main-menu.cc:510
-#| msgid "Unselect with P_attern"
 msgid "Unselect with same E_xtension"
 msgstr "Aynı U_zantı ile Seçimleri Kaldır"
 
@@ -4471,11 +4469,12 @@ msgstr ""
 #: src/gnome-cmd-user-actions.cc:2001
 msgid "translator-credits"
 msgstr ""
-"Kaan Özdinçer <kaanozdincer@gmail.com>, 2015\n"
-"Necdet Yücel <necdetyucel@gmail.com>, 2015.\n"
-"Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2016.\n"
-"Muhammet Kara <muhammetk@gmail.com>, 2016.\n"
-"Sabri Ünal <libreajans@gmail.com, 2019."
+"Kaan Özdinçer <kaanozdincer@gmail.com>\n"
+"Necdet Yücel <necdetyucel@gmail.com>\n"
+"Gökhan Gurbetoğlu <ggurbet@gmail.com>\n"
+"Muhammet Kara <muhammetk@gmail.com>\n"
+"Sabri Ünal <libreajans@gmail.com>\n"
+"Emin Tufan Çetin <etcetin@gmail.com>"
 
 #: src/gnome-cmd-xfer.cc:199
 #, c-format
