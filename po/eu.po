@@ -10,8 +10,8 @@
 msgid ""
 msgstr "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2019-04-24 20:40+0000\n"
-"PO-Revision-Date: 2019-09-20 10:00+0100\n"
+"POT-Creation-Date: 2019-09-20 08:15+0000\n"
+"PO-Revision-Date: 2019-10-27 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -37,14 +37,14 @@ msgid ""
 "device buttons, bookmark manager, fully integrated commandline, file quick "
 "search, an internal image viewer, a powerful batch renaming tool, and FTP "
 "and Samba access."
-msgstr ""
+msgstr "GNOME Commander bi paneleko fitxategi-kudeatzaile grafikoa da, GNOME mahaigain-ingurunean erabiltzeko sortua. Fitxa desberdinak ditu panel bakoitzerako, gailu-botoi pertsonalizatuak konfiguratu daitezke, laster-marken kudeatzailea du, komando-lerro integratua, fitxategien bilaketa azkarra, barneko irudi-ikustailea, izenak multzoka aldatzeko tresna eta FTP eta Samba sarbideak. "
 
 #: data/gnome-commander.appdata.xml.in:17
 msgid ""
 "GNOME Commander aims to advanced users who like to focus on precise file "
 "management, working in parallel through special applications, and running "
 "smart commands."
-msgstr ""
+msgstr "GNOME Commander erabiltzaile aurreratuak ditu jomugan, fitxategien kudeaketa zehatza nahi dutenak, aplikazio berezituen bidez paraleloan lan egiten dutenak eta komando adimentsuak exekutatzen dituztenak."
 
 #: data/gnome-commander.desktop.in.in:4
 msgid "A two paned file manager"
@@ -63,7 +63,7 @@ msgstr "Izena aldatzeko tresna aurreratuen profilen zerrenda"
 msgid ""
 "The entries in this array represent the profiles in the advanced rename tool "
 "with specific settings for each profile."
-msgstr ""
+msgstr "Matrize honetako sarrerek izenak aldatzeko tresna aurreratuko profilak ordezkatzen dituzte, eta profil bakoitzerako ezarpenak espezifikoak dituzte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:38
 msgid "Advanced rename tool window width"
@@ -89,7 +89,7 @@ msgstr "Izena aldatzeko tresna aurreratuaren txantiloi-historia"
 msgid ""
 "This string array represents the history of templates in the advanced rename "
 "tool."
-msgstr "Kate-matrize honek izena aldatzeko tresna aurreratuaren txantiloien historia adierazten du."
+msgstr "Kate-matrize honek izena aldatzeko tresna aurreratuaren txantiloien historia ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:59
 msgid "History of visited directories"
@@ -97,7 +97,7 @@ msgstr "Bisitatutako direktorioen historia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:60
 msgid "This string array represents the history of visited directories."
-msgstr ""
+msgstr "Kate-matrize honek bisitatutako direktorioen historia ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:66
 msgid "Use default font"
@@ -107,7 +107,7 @@ msgstr "Erabili letra-tipo lehenetsia"
 msgid ""
 "Whether to use the system’s default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
-msgstr ""
+msgstr "Sistemaren letra-tipo finko lehenetsia erabiliko den ala ez fitxategi-paneletan, gnome-commander aplikazioarena den letra-tipo espezifiko bat erabili ordez."
 
 #: data/org.gnome.gnome-commander.gschema.xml:74
 msgid "Panel font"
@@ -117,7 +117,7 @@ msgstr "Panelaren letra-tipoa"
 msgid ""
 "A custom font that will be used for the file panes if the “Use default font” "
 "option is turned off."
-msgstr ""
+msgstr "Fitxategi-paneletan erabiliko den letra-tipo pertsonalizatu bat “Erabili letra-tipo lehenetsia” aukera desaktibatuta badago."
 
 #: data/org.gnome.gnome-commander.gschema.xml:81
 msgid "Filesize display mode"
@@ -126,7 +126,7 @@ msgstr "Fitxategi-tamainaren bistaratzen modua"
 #: data/org.gnome.gnome-commander.gschema.xml:82
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
-msgstr ""
+msgstr "Fitxategi-tamaina hari lotutako panel-zutabean nola bistaratuko den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
 #: src/dialogs/gnome-cmd-options-dialog.cc:372
@@ -137,7 +137,7 @@ msgstr "Baimenak bistaratzeko modua"
 msgid ""
 "Defines how the file permission will be displayed in the associated pane "
 "column."
-msgstr ""
+msgstr "Fitxategi-baimenak haiei lotutako panel-zutabean nola bistaratuko diren definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:95
 msgid "Graphical layout mode"
@@ -145,7 +145,7 @@ msgstr "Diseinu grafikoaren modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:96
 msgid "Defines the icon style of files and folders in the file panes."
-msgstr ""
+msgstr "Fitxategi-paneletako fitxategien eta karpeten ikono-estiloa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:102
 msgid "List row height"
@@ -153,7 +153,7 @@ msgstr "Zerrendako errenkaden altuera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:103
 msgid "Defines the height of a row in the file pane."
-msgstr ""
+msgstr "Fitxategi-paneleko errenkaden altuera definitzen du."
 
 #. Translators: Feel free to replace the default date format to a common value
 #. used in your country. See "man strftime" for details. Attention: Do not change
@@ -181,23 +181,23 @@ msgstr "Fitxategi-panelen letra tipoa-"
 
 #: data/org.gnome.gnome-commander.gschema.xml:124
 msgid "Extension display mode"
-msgstr ""
+msgstr "Luzapenen bistaratzen modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:125
 msgid "Defines where the file name extension is displayed."
-msgstr ""
+msgstr "Fitxategi-izenen luzapenak bistaratuko diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:131
 msgid "Left mouse button mode"
-msgstr ""
+msgstr "Saguaren ezkerreko botoiaren modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:132
 msgid "Number of left mouse button clicks for opening a file or folder."
-msgstr ""
+msgstr "Saguaren ezkerreko botoiaren klik kopurua fitxategi bat edo karpeta bat irekitzeko."
 
 #: data/org.gnome.gnome-commander.gschema.xml:138
 msgid "Left mouse button unselects"
-msgstr ""
+msgstr "Saguaren ezkerreko botoiak desautatu egiten du"
 
 #: data/org.gnome.gnome-commander.gschema.xml:139
 msgid ""
@@ -206,11 +206,11 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:145
 msgid "Right mouse button mode"
-msgstr ""
+msgstr "Saguaren eskuineko botoiaren modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:146
 msgid "Defines what happens when the right mouse button is clicked on an item."
-msgstr ""
+msgstr "Saguaren eskuineko botoiarekin elementu baten klik egitean zer gertatzen den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:152
 msgid "Icon size"
@@ -218,64 +218,64 @@ msgstr "Ikonoaren tamaina"
 
 #: data/org.gnome.gnome-commander.gschema.xml:153
 msgid "Size of icons in the file pane."
-msgstr ""
+msgstr "Fitxategi-paneleko ikonoen tamaina."
 
 #: data/org.gnome.gnome-commander.gschema.xml:157
 msgid "Device icon size"
-msgstr ""
+msgstr "Gailuen ikonoen tamaina"
 
 #: data/org.gnome.gnome-commander.gschema.xml:158
 msgid "Icon size in the device list."
-msgstr ""
+msgstr "Gailu-zerrendako ikonoen tamaina."
 
 #: data/org.gnome.gnome-commander.gschema.xml:162
 msgid "Icon scale quality"
-msgstr ""
+msgstr "Ikono-eskalaren kalitatea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:163
 msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
-msgstr ""
+msgstr "Eskalatze-funtzioetan erabil daitezkeen interpolazio modu desberdinak deskribatzen ditu."
 
 #: data/org.gnome.gnome-commander.gschema.xml:167
 msgid "MIME icon directory"
-msgstr ""
+msgstr "MIME ikonoen direktorioa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:168
 msgid "Directory in which MIME icons are located."
-msgstr ""
+msgstr "MIME ikonoen kokaleku den direktorioa."
 
 #: data/org.gnome.gnome-commander.gschema.xml:172
 msgid "Command line history"
-msgstr ""
+msgstr "Komando-lerroaren historia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:173
 msgid ""
 "This string array represents the history of commands executed in the command "
 "line."
-msgstr ""
+msgstr "Kate-matrize honek komando-lerroan exekutatutako komandoen historia ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:180
 msgid "Command line history length"
-msgstr ""
+msgstr "Komando-lerroaren historiaren luzera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:184
 msgid "Horizontal orientation"
-msgstr ""
+msgstr "Orientazio horizontala"
 
 #: data/org.gnome.gnome-commander.gschema.xml:185
 msgid ""
 "Defines if the orientation of the file panes should be horizontal or not."
-msgstr ""
+msgstr "Fitxategi-panelen orientazioak horizontala izan behar duen ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:192
 msgid "GUI update rate"
-msgstr ""
+msgstr "Interfaze grafikoaren eguneratze-tasa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:193
 msgid "Update rate of the graphical user interphase in 1/1000ths of a second."
-msgstr ""
+msgstr "Erabiltzailearen interfaze grafikoaren eguneratze-tasa segundoen 1/1000etan "
 
 #: data/org.gnome.gnome-commander.gschema.xml:197
 msgid "Show device buttons"
@@ -319,7 +319,7 @@ msgstr "Botoi-barra erakutsiko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:222
 msgid "Symlink string"
-msgstr ""
+msgstr "Esteka sinbolikoen katea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:223
 msgid ""
@@ -383,7 +383,7 @@ msgstr "Konexioen zerrenda"
 
 #: data/org.gnome.gnome-commander.gschema.xml:274
 msgid "Each entry in this list represents a connection."
-msgstr "Zerrenda honetako sarrera konexio bat ordezkatzen du."
+msgstr "Zerrenda honetako sarrera bakoitzak konexio bat ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:280
 msgid "Main window height"
@@ -427,71 +427,71 @@ msgstr "Aukera honek izenaren zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:315
 msgid "Width of extension column"
-msgstr ""
+msgstr "Luzapenen zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:316
 msgid "This option defines the width of the extension column."
-msgstr ""
+msgstr "Aukera honek luzapenen zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:322
 msgid "Width of directory column"
-msgstr ""
+msgstr "Direktorioen zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:323
 msgid "This option defines the width of the directory column."
-msgstr ""
+msgstr "Aukera honek direktorioen zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:329
 msgid "Width of size column"
-msgstr ""
+msgstr "Tamainaren zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:330
 msgid "This option defines the width of the size column."
-msgstr ""
+msgstr "Aukera honek tamainaren zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:336
 msgid "Width of date column"
-msgstr ""
+msgstr "Dataren zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:337
 msgid "This option defines the width of the date column."
-msgstr ""
+msgstr "Aukera honek dataren zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:343
 msgid "Width of permissions column"
-msgstr ""
+msgstr "Baimenen zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:344
 msgid "This option defines the width of the permissions column."
-msgstr ""
+msgstr "Aukera honek baimenen zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:350
 msgid "Width of owner column"
-msgstr ""
+msgstr "Jabearen zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:351
 msgid "This option defines the width of the owner column."
-msgstr ""
+msgstr "Aukera honek jabearen zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:357
 msgid "Width of group column"
-msgstr ""
+msgstr "Taldearen zutabearen zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:358
 msgid "This option defines the width of the group column."
-msgstr ""
+msgstr "Aukera honek taldearen zutabearen zabalera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:364
 msgid "List of keybindings"
-msgstr ""
+msgstr "Laster-teklen zerrenda"
 
 #: data/org.gnome.gnome-commander.gschema.xml:365
 msgid "Each entry in this list represents a keybinding."
-msgstr ""
+msgstr "Zerrenda honetako sarrera bakoitzak laster-tekla bat ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:372
 msgid "Main window state"
-msgstr ""
+msgstr "Leihoaren egoera nagusia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:373
 msgid ""
@@ -501,21 +501,21 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:379
 msgid "Middle mouse button mode"
-msgstr ""
+msgstr "Saguaren erdiko botoiaren modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:380
 msgid "Defines what happens when the middle mouse button is clicked."
-msgstr ""
+msgstr "Saguaren erdiko botoiarekin klik egitean zer gertatzen den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:386
 msgid "Save directories on exit"
-msgstr ""
+msgstr "Gorde direktorioak irtetean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:387
 msgid ""
 "Defines if the current directories are opened again when GNOME Commander is "
 "restarted."
-msgstr ""
+msgstr "GNOME Commander berrabiaraztean uneko direktorioak irekiko diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:393
 msgid "Save tabs on exit"
@@ -525,66 +525,66 @@ msgstr "Gorde fitxak irtetean"
 msgid ""
 "Defines if the current open tabs are opened again when GNOME Commander is "
 "restarted."
-msgstr ""
+msgstr "GNOME Commander berrabiaraztean uneko fitxak irekiko diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:400
 msgid "Save directory history on exit"
-msgstr ""
+msgstr "Gorde direktorioaren historia irtetean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:401
 msgid "Defines if the history of visited directories is saved on exit."
-msgstr ""
+msgstr "Irtetean, bisitatutako direktorioen historia gordeko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:407
 msgid "Save commandline history on exit"
-msgstr ""
+msgstr "Gorde komando-lerroaren historia irtetean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:408
 msgid "Defines if the history of commands in the commandline is saved on exit."
-msgstr ""
+msgstr "Irtetean, komando-lerroaren historia gordeko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:414
 msgid "Save search history on exit"
-msgstr ""
+msgstr "Gorde bilaketen historia irtetean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:415
 msgid "Defines if the history of search patterns is saved on exit."
-msgstr ""
+msgstr "Irtetean, bilaketen historia gordeko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:421
 msgid "Always show tab bar"
-msgstr ""
+msgstr "Beti erakutsi fitxa-barra"
 
 #: data/org.gnome.gnome-commander.gschema.xml:422
 msgid "Defines if the tab bar is always shown."
-msgstr ""
+msgstr "Fitxa-barra beti erakutsiko den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:428
-#: src/dialogs/gnome-cmd-options-dialog.cc:939
+#: src/dialogs/gnome-cmd-options-dialog.cc:953
 msgid "Tab lock indicator"
 msgstr "Fitxen blokeoaren adierazlea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:429
 msgid "Defines the style of the tab lock indicator."
-msgstr ""
+msgstr "Fitxen blokeoaren adierazlearen estiloa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:435
 msgid "Case sensitive sorting"
-msgstr ""
+msgstr "Maiuskulen eta minuskulen araberako ordenatzea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:436
 msgid "This option defines if sorting should be case sensitive."
-msgstr ""
+msgstr "Aukera honek ordenatzeak maiuskulak eta minuskulak kontuan hartuko dituen ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:442
 msgid "Select directories when all is marked"
-msgstr ""
+msgstr "Hautatu direktorioak dena markatuta dagoenean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:443
 msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
-msgstr ""
+msgstr "Aukera honek definitzen du direktorioak markatutako egongo diren ala ez fitxategi-panel bateko elementu guztiak markatuko direnean."
 
 #: data/org.gnome.gnome-commander.gschema.xml:449
 msgid "Allow multiple instances"
@@ -640,15 +640,15 @@ msgstr "Menu nagusiaren ikusgaitasuna"
 
 #: data/org.gnome.gnome-commander.gschema.xml:485
 msgid "This option defines if the main menu is visible or not."
-msgstr ""
+msgstr "Aukera honek leiho nagusia ikusgai dagoen ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:491
 msgid "Quick search shortcut"
-msgstr ""
+msgstr "Bilaketa azkarraren lasterbidea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:492
 msgid "This option defines the shortcut for quick search."
-msgstr ""
+msgstr "Aukera honek bilaketa azkarraren lasterbidea definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:498
 msgid "List of file tabs"
@@ -658,7 +658,7 @@ msgstr "Fitxategi-fitxen zerrenda"
 msgid ""
 "The entries in this list are used for restoring the tabs from the last "
 "session."
-msgstr ""
+msgstr "Zerrenda honetako sarrerak azken saioko fitxak leheneratzeko erabiltzen dira."
 
 #: data/org.gnome.gnome-commander.gschema.xml:505
 msgid "List of devices"
@@ -666,7 +666,7 @@ msgstr "Gailuen zerrenda"
 
 #: data/org.gnome.gnome-commander.gschema.xml:506
 msgid "The entries in this list represent the devices configured by the user."
-msgstr ""
+msgstr "Zerrenda honetako sarrerak erabiltzaileak konfiguratutako gailuak ordezkatzen dituzte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:512
 msgid "List of favorite apps"
@@ -675,7 +675,7 @@ msgstr "Gogoko aplikazioen zerrenda"
 #: data/org.gnome.gnome-commander.gschema.xml:513
 msgid ""
 "The entries in this list represent the favorite apps configured by the user."
-msgstr ""
+msgstr "Zerrenda honetako sarrerak erabiltzaileak konfiguratutako gogoko aplikazioak ordezkatzen dituzte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:519
 msgid "Search window width"
@@ -695,58 +695,58 @@ msgstr "Aukera honek bilaketa-leihoaren altuera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:533
 msgid "Search window is transient"
-msgstr ""
+msgstr "Bilaketa-leihoa behin-behinekoa da"
 
 #: data/org.gnome.gnome-commander.gschema.xml:534
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
-msgstr ""
+msgstr "Bilaketa-leihoa behin-behinekoa den ala hura minimizatu eta leiho nagusiaren atzera mugitu ahal den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:540
 msgid "Search text history"
-msgstr ""
+msgstr "Bilaketa-testuaren historia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:541
 msgid ""
 "This string array represents the history of text searches in the search tool."
-msgstr ""
+msgstr "Kate-matrize honek bilaketa-tresnak erabilitako bilaketa-testuen historia ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Search pattern history"
-msgstr ""
+msgstr "Bilaketa-ereduen historia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:548
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
-msgstr ""
+msgstr "Kate-matrize honek bilaketa-tresnak erabilitako adierazpen erregularren historia ordezkatzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "List of search tool profiles"
-msgstr ""
+msgstr "Bilaketa-tresnaren profilen zerrenda"
 
 #: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
-msgstr ""
+msgstr "Matrize honetako sarrerek bilaketa-tresnako profilak ordezkatzen dituzte, eta profil bakoitzerako ezarpenak espezifikoak dituzte."
 
 #: data/org.gnome.gnome-commander.gschema.xml:563
 msgid "Quick connect URI"
-msgstr ""
+msgstr "Konexio azkarrerako URIa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:564
 msgid "Unified resource identifier for quick connections."
-msgstr ""
+msgstr "Konexio azkarretarako baliabideen identifikatzaile bateratua (URIa)."
 
 #: data/org.gnome.gnome-commander.gschema.xml:575
 msgid "Password for anonymous FTP connections"
-msgstr ""
+msgstr "FTP konexio anonimoetarako pasahitza"
 
 #: data/org.gnome.gnome-commander.gschema.xml:576
 msgid "This string defines the password for anonymous FTP connections."
-msgstr ""
+msgstr "Kate honek FTP konexio anonimoetarako pasahitza definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:584
 msgid "Confirm delete"
@@ -754,17 +754,17 @@ msgstr "Baieztatu ezabatzea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:585
 msgid "Defines if deletion of an item should be confirmed."
-msgstr ""
+msgstr "Elementu baten ezabatzea baieztatu behar den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:591
 msgid "Delete default"
-msgstr ""
+msgstr "Ezabatzearen lehenespena"
 
 #: data/org.gnome.gnome-commander.gschema.xml:592
 msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
-msgstr ""
+msgstr "Ezarpen honek ezabatzeak gauzatzeko baieztapen-koadroan aktibo egongo den aukera lehenetsia definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Confirm copy overwrite"
@@ -816,15 +816,15 @@ msgstr "Ezkutatu FIFO kanalizazioak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:638
 msgid "Hide sockets"
-msgstr ""
+msgstr "Ezkutatu socket-ak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:642
 msgid "Hide character devices"
-msgstr ""
+msgstr "Ezkutatu karaktere-gailuak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:646
 msgid "Hide block devices"
-msgstr ""
+msgstr "Ezkutatu bloke-gailuak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:650
 msgid "Hide symbolic links"
@@ -832,7 +832,7 @@ msgstr "Ezkutatu esteka sinbolikoak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:654
 msgid "Hide files and folders starting with a dot"
-msgstr ""
+msgstr "Ezkutatu puntu batekin hasten diren fitxategiak eta karpetak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:658
 msgid "Hide backup files"
@@ -840,11 +840,11 @@ msgstr "Ezkutatu babeskopia-fitxategiak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:659
 msgid "Hide all files with a suffix defined as the backup pattern."
-msgstr ""
+msgstr "Ezkutatu babeskopia-eredu izateko definitu den aurrizki bat dituzten fitxategi guztiak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:663
 msgid "Backup file pattern"
-msgstr ""
+msgstr "Babeskopia-fitxategien eredua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:664
 msgid ""
@@ -868,31 +868,31 @@ msgstr "Erabili barneko ikustailea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:681
 msgid "This option defines if the internal viewer should be used by default."
-msgstr ""
+msgstr "Aukera honek barneko ikustailea lehenetsi gisa erabili behar den definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:687
 msgid "Viewer command"
-msgstr ""
+msgstr "Ikustailearen komandoa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:688
 msgid "This string defines the command for starting the (external) viewer."
-msgstr ""
+msgstr "Kate honek (kanpoko) ikustailea abiarazteko komandoa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:694
 msgid "Editor command"
-msgstr ""
+msgstr "Editorearen komandoa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:695
 msgid "This string defines the command for starting the editor."
-msgstr ""
+msgstr "Kate honek editorea abiarazteko komandoa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:701
 msgid "Differ command"
-msgstr ""
+msgstr "Differ komandoa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:702
 msgid "This string defines the command for starting the diff tool."
-msgstr ""
+msgstr "Kate honek diff tresna abiarazteko komandoa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:708
 msgid "Leave terminal open"
@@ -902,7 +902,7 @@ msgstr "Utzi terminala irekita"
 msgid ""
 "This option defines if a terminal window should stay open after a command "
 "finishes inside of it."
-msgstr ""
+msgstr "Aukera honek komando bat amaitu ondoren terminalaren leihoa irekita utzi behar den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:715
 msgid "Command for opening a terminal"
@@ -910,7 +910,7 @@ msgstr "Terminal bat irekitzeko komandoa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:716
 msgid "This string defines the command for opening a terminal."
-msgstr ""
+msgstr "Kate honek terminal bat irekitzeko komandoa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:722
 msgid "Command for execution in terminal"
@@ -919,7 +919,7 @@ msgstr "Terminalean exekutatzeko komandoa"
 #: data/org.gnome.gnome-commander.gschema.xml:723
 msgid ""
 "This string defines the command for executing another command in a terminal."
-msgstr ""
+msgstr "Kate honek terminal batean beste komando bat exekutatzeko komandoa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:729
 msgid "Send to command"
@@ -927,7 +927,7 @@ msgstr "Bidali komandora"
 
 #: data/org.gnome.gnome-commander.gschema.xml:730
 msgid "This string defines the command for sending files to a receiver."
-msgstr ""
+msgstr "Kate honek fitxategiak jasotzaile bati bidaltzeko komandoa definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:738
 msgid "Color theme"
@@ -943,7 +943,7 @@ msgstr "Aurreko planoaren kolore normala"
 
 #: data/org.gnome.gnome-commander.gschema.xml:746
 msgid "Normal foreground color in custom mode."
-msgstr ""
+msgstr "Aurreko planoaren kolore normala modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:752
 msgid "Normal background color"
@@ -951,7 +951,7 @@ msgstr "Atzeko planoaren kolore normala"
 
 #: data/org.gnome.gnome-commander.gschema.xml:753
 msgid "Normal background color in custom mode."
-msgstr ""
+msgstr "Atzeko planoaren kolore normala modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:759
 msgid "Alternate foreground color"
@@ -959,7 +959,7 @@ msgstr "Aurreko planoaren ordezko kolorea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:760
 msgid "Alternate foreground color in custom mode."
-msgstr ""
+msgstr "Aurreko planoaren ordezko kolorea modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:766
 msgid "Alternate background color"
@@ -967,43 +967,43 @@ msgstr "Atzeko planoaren ordezko kolorea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:767
 msgid "Alternate background color in custom mode."
-msgstr ""
+msgstr "Atzeko planoaren ordezko kolorea modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:773
 msgid "Selection foreground color"
-msgstr ""
+msgstr "Hautapenaren aurreko planoaren kolorea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:774
 msgid "Foreground color for selections in custom mode."
-msgstr ""
+msgstr "Hautapenaren aurreko planoaren kolore modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:780
 msgid "Selection background color"
-msgstr ""
+msgstr "Hautapenaren atzeko planoaren kolorea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:781
 msgid "Background color for selections in custom mode."
-msgstr ""
+msgstr "Hautapenaren atzeko planoaren kolore modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:787
 msgid "Cursor foreground color"
-msgstr ""
+msgstr "Kurtsorearen aurreko planoaren kolorea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:788
 msgid "Cursor foreground color in custom mode."
-msgstr ""
+msgstr "Kurtsorearen aurreko planoaren kolorea modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:794
 msgid "Cursor background color"
-msgstr "Kurtsorearen atzeko planoko kolorea"
+msgstr "Kurtsorearen atzeko planoaren kolorea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:795
 msgid "Cursor background color in custom mode."
-msgstr ""
+msgstr "Kurtsorearen atzeko planoaren kolorea modu pertsonalizatuan."
 
 #: data/org.gnome.gnome-commander.gschema.xml:801
 msgid "Use LS colors"
-msgstr ""
+msgstr "Erabili LS koloreak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:802
 msgid ""
@@ -1188,27 +1188,27 @@ msgstr "Karaktere multzoa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:943
 msgid "This option defines the default character encoding."
-msgstr ""
+msgstr "Aukera honek karaktere-kodeketa lehenetsia definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:949
 msgid "Fixed font name"
-msgstr "Letra-tipoaren izen finkoa"
+msgstr "Letra-tipo finkoaren izena"
 
 #: data/org.gnome.gnome-commander.gschema.xml:950
 msgid "Name of the default font with fixed character width."
-msgstr ""
+msgstr "Karaktere-zabalera finkoa duen letra-tipo lehenetsiaren izena."
 
 #: data/org.gnome.gnome-commander.gschema.xml:956
 msgid "Variable font name"
-msgstr "Letra-tipoaren izen aldakorra"
+msgstr "Letra-tipo aldakorraren izena"
 
 #: data/org.gnome.gnome-commander.gschema.xml:957
 msgid "Name of the default font with variable character width."
-msgstr ""
+msgstr "Karaktere-zabalera aldakorra duen letra-tipo lehenetsiaren izena."
 
 #: data/org.gnome.gnome-commander.gschema.xml:963
 msgid "Display hex offset"
-msgstr ""
+msgstr "Bistaratu hex desplazamendua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:964
 msgid ""
@@ -1218,11 +1218,11 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:970
 msgid "Wrap mode"
-msgstr "Itzulbiratze-modua"
+msgstr "Egokitze-modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:971
 msgid "This option defines if too long text lines should be wrapped."
-msgstr ""
+msgstr "Aukera honek testu-lerro luzeegiak egokituko diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:977
 msgid "Font size"
@@ -1230,7 +1230,7 @@ msgstr "Letra-tamaina"
 
 #: data/org.gnome.gnome-commander.gschema.xml:978
 msgid "This option defines the default font size."
-msgstr ""
+msgstr "Aukera honek letra-tamaina lehenetsia definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:984
 msgid "Tab size"
@@ -1244,7 +1244,7 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Bytes per line in binary mode"
-msgstr ""
+msgstr "Byte-ak lerroko modu bitarrean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:992
 msgid ""
@@ -1278,7 +1278,7 @@ msgstr "Leihoaren zabalera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid "The width of the internal file viewer window."
-msgstr ""
+msgstr "Barneko fitxategi-ikustailearen leihoaren zabalera."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Window height"
@@ -1286,7 +1286,7 @@ msgstr "Leihoaren altuera"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "The height of the internal file viewer window."
-msgstr ""
+msgstr "Barneko fitxategi-ikustailearen leihoaren altuera."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Search pattern for text"
@@ -1310,25 +1310,25 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:1042
 msgid "File suffix"
-msgstr ""
+msgstr "Fitxategi-atzizkia"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1043
 msgid "Default file suffix of archives created with the File Roller plugin."
-msgstr ""
+msgstr "File Roller pluginarekin sortutako artxiboen fitxategi-atzizki lehenetsia."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid "Prefix pattern"
-msgstr ""
+msgstr "Aurrizki-eredua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1050
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
-msgstr ""
+msgstr "File Roller pluginarekin sortutako artxiboen izenak sortzeko erabiliko den aurrizki-eredua."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1058
 msgid "Automatically loaded plugins"
-msgstr ""
+msgstr "Automatikoki kargatutako pluginak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1059
 msgid ""
@@ -1368,7 +1368,7 @@ msgid "Extract to “%s”"
 msgstr "Erauzi hona: “%s”"
 
 #: plugins/fileroller/file-roller-plugin.cc:571
-#: src/gnome-cmd-advrename-profile-component.cc:927 src/plugin_manager.cc:419
+#: src/gnome-cmd-advrename-profile-component.cc:941 src/plugin_manager.cc:419
 #: src/tags/gnome-cmd-tags.cc:692
 msgid "File"
 msgstr "Fitxategia"
@@ -1376,8 +1376,8 @@ msgstr "Fitxategia"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:588
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:364
-#: src/dialogs/gnome-cmd-options-dialog.cc:1455
-#: src/dialogs/gnome-cmd-options-dialog.cc:2113
+#: src/dialogs/gnome-cmd-options-dialog.cc:1469
+#: src/dialogs/gnome-cmd-options-dialog.cc:2127
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:444 src/gnome-cmd-user-actions.cc:250
@@ -1395,7 +1395,7 @@ msgstr "Artxibo mota lehenetsia"
 #. The pattern defining the file name prefix of the archive to be created
 #: plugins/fileroller/file-roller-plugin.cc:611
 msgid "File prefix pattern"
-msgstr ""
+msgstr "Fitxategi-aurrizkien eredua"
 
 #: plugins/fileroller/file-roller-plugin.cc:622
 #: src/dialogs/gnome-cmd-options-dialog.cc:402
@@ -1406,13 +1406,13 @@ msgstr "Probaren emaitza:"
 msgid ""
 "Use $N as a pattern for the original file name. See the manual page for "
 "“strftime” for other patterns."
-msgstr ""
+msgstr "Erabili $N jatorrizko fitxategi-izenaren eredu modura. Ikus “strftime” eskuliburuan beste eredu batzuk ikasteko."
 
 #: plugins/fileroller/file-roller-plugin.cc:785
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
-msgstr "Artxibo konprimituak sortzeko eta erauzteko File Roller-en lasterbideak gehitzen dituen plugina."
+msgstr "Artxibo konprimatuak sortzeko eta erauzteko File Roller-en lasterbideak gehitzen dituen plugina."
 
 #: plugins/test/test-plugin.cc:229
 msgid ""
@@ -1488,7 +1488,7 @@ msgid "File size"
 msgstr "Fitxategiaren tamaina"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:625
-#: src/gnome-cmd-advrename-profile-component.cc:929
+#: src/gnome-cmd-advrename-profile-component.cc:943
 #: src/tags/gnome-cmd-tags.cc:347 src/tags/gnome-cmd-tags.cc:423
 msgid "Date"
 msgstr "Data"
@@ -1522,7 +1522,7 @@ msgid "_Match case"
 msgstr "_Maiuskula/minuskula"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1476
+#: src/dialogs/gnome-cmd-options-dialog.cc:1490
 msgid "All files"
 msgstr "Fitxategi denak"
 
@@ -1696,7 +1696,7 @@ msgstr[1] "Hautatutako %d fitxategiak ordeztu nahi dituzu?"
 
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/dialogs/gnome-cmd-delete-dialog.cc:288
-#: src/dialogs/gnome-cmd-options-dialog.cc:1006 src/gnome-cmd-main-win.cc:1255
+#: src/dialogs/gnome-cmd-options-dialog.cc:1020 src/gnome-cmd-main-win.cc:1255
 #: src/gnome-cmd-user-actions.cc:211
 msgid "Delete"
 msgstr "Ezabatu"
@@ -2069,7 +2069,7 @@ msgstr "Hautatu direktorioak"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:157
 msgid "Sorting/Quick search"
-msgstr ""
+msgstr "Ordenatzea/bilaketa azkarra"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:160
 msgid "Case sensitive"
@@ -2078,15 +2078,15 @@ msgstr "Maiuskulak/minuskulak"
 #: src/dialogs/gnome-cmd-options-dialog.cc:167
 #: src/gnome-cmd-user-actions.cc:214
 msgid "Quick search"
-msgstr "Bilaketa bizkorra"
+msgstr "Bilaketa azkarra"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:170
 msgid "CTRL+ALT+letters"
-msgstr "KTRL+ALT+hizkiak"
+msgstr "CTRL+ALT+letrak"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:174
 msgid "ALT+letters (menu access with F12)"
-msgstr ""
+msgstr "ALT+letrak (menura sartzeko: F12)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:178
 msgid "Just letters (command line access with CTRL+ALT+C)"
@@ -2123,12 +2123,12 @@ msgid "Save on exit"
 msgstr "Gorde irtetean"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:216
-#: src/dialogs/gnome-cmd-options-dialog.cc:1157
+#: src/dialogs/gnome-cmd-options-dialog.cc:1171
 msgid "Directories"
 msgstr "Direktorioak"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:220
-#: src/dialogs/gnome-cmd-options-dialog.cc:2140
+#: src/dialogs/gnome-cmd-options-dialog.cc:2154
 msgid "Tabs"
 msgstr "Fitxak"
 
@@ -2383,291 +2383,292 @@ msgstr "Eskalatze-kalitatea:"
 msgid "Theme icon directory:"
 msgstr "Gai-ikonoen direktorioa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:930
+#: src/dialogs/gnome-cmd-options-dialog.cc:944
 msgid "Tab bar"
 msgstr "Fitxa-barra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:933
+#: src/dialogs/gnome-cmd-options-dialog.cc:947
 msgid "Always show the tab bar"
 msgstr "Beti erakutsi fitxa-barra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:942
+#: src/dialogs/gnome-cmd-options-dialog.cc:956
 msgid "Lock icon"
 msgstr "Blokeoaren ikonoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:947
+#: src/dialogs/gnome-cmd-options-dialog.cc:961
 msgid "* (asterisk)"
 msgstr "* (izartxoa)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:952
+#: src/dialogs/gnome-cmd-options-dialog.cc:966
 msgid "Styled text"
 msgstr "Estilodun testua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1009
+#: src/dialogs/gnome-cmd-options-dialog.cc:1023
 msgid "Confirm before delete"
 msgstr "Berretsi ezabatu aurretik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1014
+#: src/dialogs/gnome-cmd-options-dialog.cc:1028
 msgid "Confirm defaults to OK"
 msgstr "Berretsi lehenespena Ados-era"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1023
+#: src/dialogs/gnome-cmd-options-dialog.cc:1037
 msgid "Copy overwrite"
 msgstr "Kopiatu gainidatziz"
 
 #. Create prepare copy specific widgets
-#: src/dialogs/gnome-cmd-options-dialog.cc:1026
-#: src/dialogs/gnome-cmd-options-dialog.cc:1046
+#: src/dialogs/gnome-cmd-options-dialog.cc:1040
+#: src/dialogs/gnome-cmd-options-dialog.cc:1060
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:91
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:84
 msgid "Silently"
 msgstr "Modu isilean"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1030
-#: src/dialogs/gnome-cmd-options-dialog.cc:1050
+#: src/dialogs/gnome-cmd-options-dialog.cc:1044
+#: src/dialogs/gnome-cmd-options-dialog.cc:1064
 msgid "Query first"
 msgstr "Kontsultatu lehendabizi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1034
-#: src/dialogs/gnome-cmd-options-dialog.cc:1054
+#: src/dialogs/gnome-cmd-options-dialog.cc:1048
+#: src/dialogs/gnome-cmd-options-dialog.cc:1068
 #: src/gnome-cmd-file-selector.cc:1385
 msgid "Skip all"
 msgstr "Saltatu denak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1043
+#: src/dialogs/gnome-cmd-options-dialog.cc:1057
 msgid "Move overwrite"
 msgstr "Aldatu lekuz gainidatziz"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1063
+#: src/dialogs/gnome-cmd-options-dialog.cc:1077
 msgid "Drag and Drop"
 msgstr "Arrastatu eta jaregin"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1066
+#: src/dialogs/gnome-cmd-options-dialog.cc:1080
 msgid "Confirm mouse operation"
 msgstr "Berretsi saguaren eragiketa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1148
+#: src/dialogs/gnome-cmd-options-dialog.cc:1162
 msgid "Filetypes to hide"
 msgstr "Ezkutatzeko fitxategi-motak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1151
+#: src/dialogs/gnome-cmd-options-dialog.cc:1165
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1154
+#: src/dialogs/gnome-cmd-options-dialog.cc:1168
 msgid "Regular files"
 msgstr "Fitxategi erregularrak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1160
+#: src/dialogs/gnome-cmd-options-dialog.cc:1174
 msgid "Fifo files"
 msgstr "Fifo fitxategiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1163
+#: src/dialogs/gnome-cmd-options-dialog.cc:1177
 msgid "Socket files"
 msgstr "Socket fitxategiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1166
+#: src/dialogs/gnome-cmd-options-dialog.cc:1180
 msgid "Character devices"
 msgstr "Karaktere-gailuak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1169
+#: src/dialogs/gnome-cmd-options-dialog.cc:1183
 msgid "Block devices"
 msgstr "Bloke-gailuak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1175
+#: src/dialogs/gnome-cmd-options-dialog.cc:1189
 msgid "Also hide"
 msgstr "Ezkutatu halaber"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1178
+#: src/dialogs/gnome-cmd-options-dialog.cc:1192
 msgid "Hidden files"
 msgstr "Ezkutuko fitxategiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1181
-#: src/dialogs/gnome-cmd-options-dialog.cc:1190
+#: src/dialogs/gnome-cmd-options-dialog.cc:1195
+#: src/dialogs/gnome-cmd-options-dialog.cc:1204
 msgid "Backup files"
 msgstr "Babeskopia-fitxategiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1184
+#: src/dialogs/gnome-cmd-options-dialog.cc:1198
 msgid "Symlinks"
 msgstr "Esteka sinbolikoak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1362
+#: src/dialogs/gnome-cmd-options-dialog.cc:1376
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
-msgstr ""
+msgstr "Badago etiketa hori duen aplikazio bat.\n"
+"Aukeratu beste etiketa bat."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1433
+#: src/dialogs/gnome-cmd-options-dialog.cc:1447
 msgid "Label:"
 msgstr "Etiketa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1435
+#: src/dialogs/gnome-cmd-options-dialog.cc:1449
 msgid "Command:"
 msgstr "Komandoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1437
-#: src/dialogs/gnome-cmd-options-dialog.cc:1872
+#: src/dialogs/gnome-cmd-options-dialog.cc:1451
+#: src/dialogs/gnome-cmd-options-dialog.cc:1886
 msgid "Icon:"
 msgstr "Ikonoa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1458
+#: src/dialogs/gnome-cmd-options-dialog.cc:1472
 msgid "Can handle multiple files"
 msgstr "Hainbat fitxategi maneia ditzake"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1462
+#: src/dialogs/gnome-cmd-options-dialog.cc:1476
 msgid "Can handle URIs"
 msgstr "URIak maneia ditzake"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1466
+#: src/dialogs/gnome-cmd-options-dialog.cc:1480
 msgid "Requires terminal"
 msgstr "Terminala behar du"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1473
+#: src/dialogs/gnome-cmd-options-dialog.cc:1487
 msgid "Show for"
 msgstr "Erakutsi"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1482
+#: src/dialogs/gnome-cmd-options-dialog.cc:1496
 msgid "All directories"
 msgstr "Direktorio guztiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1487
+#: src/dialogs/gnome-cmd-options-dialog.cc:1501
 msgid "All directories and files"
 msgstr "Direktorio eta fitxategi guztiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1492
+#: src/dialogs/gnome-cmd-options-dialog.cc:1506
 msgid "Some files"
 msgstr "Fitxategi batzuk"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1501
+#: src/dialogs/gnome-cmd-options-dialog.cc:1515
 msgid "File patterns"
 msgstr "Fitxategi-ereduak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1523
+#: src/dialogs/gnome-cmd-options-dialog.cc:1537
 msgid "New Application"
 msgstr "Aplikazio berria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1533
+#: src/dialogs/gnome-cmd-options-dialog.cc:1547
 msgid "Edit Application"
 msgstr "Editatu aplikazioa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1617
+#: src/dialogs/gnome-cmd-options-dialog.cc:1631
 msgid "Always download remote files before opening in external programs"
 msgstr "Deskargatu beti urruneko fitxategiak kanpoko programetan ireki aurretik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1619
+#: src/dialogs/gnome-cmd-options-dialog.cc:1633
 msgid "MIME applications"
 msgstr "MIME aplikazioak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1623
+#: src/dialogs/gnome-cmd-options-dialog.cc:1637
 msgid "Standard programs"
 msgstr "Programa estandarrak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1626
+#: src/dialogs/gnome-cmd-options-dialog.cc:1640
 msgid "Viewer:"
 msgstr "Ikustailea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1628
+#: src/dialogs/gnome-cmd-options-dialog.cc:1642
 msgid "Editor:"
 msgstr "Editorea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1630
+#: src/dialogs/gnome-cmd-options-dialog.cc:1644
 msgid "Differ:"
 msgstr "Diferentziatzailea:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1632
+#: src/dialogs/gnome-cmd-options-dialog.cc:1646
 msgid "Send files:"
 msgstr "Bidali fitxategiak:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1634
+#: src/dialogs/gnome-cmd-options-dialog.cc:1648
 msgid "Terminal:"
 msgstr "Terminala:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1640
+#: src/dialogs/gnome-cmd-options-dialog.cc:1654
 msgid "Use Internal Viewer"
 msgstr "Erabili barneko ikustailea"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1659
+#: src/dialogs/gnome-cmd-options-dialog.cc:1673
 msgid "Other favourite apps"
 msgstr "Beste gogoko aplikazio batzuk"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1666
+#: src/dialogs/gnome-cmd-options-dialog.cc:1680
 msgid "Label"
 msgstr "Etiketa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1667
+#: src/dialogs/gnome-cmd-options-dialog.cc:1681
 msgid "Command"
 msgstr "Komandoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1702
+#: src/dialogs/gnome-cmd-options-dialog.cc:1716
 msgid "Global app options"
-msgstr ""
+msgstr "Aplikazioaren aukera globalak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1705
+#: src/dialogs/gnome-cmd-options-dialog.cc:1719
 msgid "Terminal command for apps in the list above:"
 msgstr ""
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1711
+#: src/dialogs/gnome-cmd-options-dialog.cc:1725
 msgid "Leave terminal window open"
 msgstr "Utzi irekita terminalaren leihoa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1866
+#: src/dialogs/gnome-cmd-options-dialog.cc:1880
 msgid "Alias:"
 msgstr "Aliasa:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1868
+#: src/dialogs/gnome-cmd-options-dialog.cc:1882
 msgid "Device:"
 msgstr "Gailua:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1870
+#: src/dialogs/gnome-cmd-options-dialog.cc:1884
 msgid "Mount point:"
 msgstr "Muntatze-puntua:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1913
+#: src/dialogs/gnome-cmd-options-dialog.cc:1927
 msgid "New Device"
 msgstr "Gailu berria"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1926
+#: src/dialogs/gnome-cmd-options-dialog.cc:1940
 msgid "Edit Device"
 msgstr "Editatu gailua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2008
-#: src/dialogs/gnome-cmd-options-dialog.cc:2144
+#: src/dialogs/gnome-cmd-options-dialog.cc:2022
+#: src/dialogs/gnome-cmd-options-dialog.cc:2158
 msgid "Devices"
 msgstr "Gailuak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2018
+#: src/dialogs/gnome-cmd-options-dialog.cc:2032
 msgid "Alias"
 msgstr "Aliasa"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2048
+#: src/dialogs/gnome-cmd-options-dialog.cc:2062
 msgid "Show only the icons"
 msgstr "Erakutsi ikonoak soilik"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2052
+#: src/dialogs/gnome-cmd-options-dialog.cc:2066
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Saltatu muntatzea (erosoa 'super-mount'ekin)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2137
+#: src/dialogs/gnome-cmd-options-dialog.cc:2151
 msgid "General"
 msgstr "Orokorra"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2138 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2152 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Formatua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2139
+#: src/dialogs/gnome-cmd-options-dialog.cc:2153
 msgid "Layout"
 msgstr "Diseinua"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2141
+#: src/dialogs/gnome-cmd-options-dialog.cc:2155
 msgid "Confirmation"
 msgstr "Berrespena"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2142
+#: src/dialogs/gnome-cmd-options-dialog.cc:2156
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2143
+#: src/dialogs/gnome-cmd-options-dialog.cc:2157
 msgid "Programs"
 msgstr "Programak"
 
@@ -2752,16 +2753,16 @@ msgstr "“%s” direktoriorik ez dago. Sortu nahi duzu?"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
 #: src/gnome-cmd-advrename-profile-component.cc:433
-#: src/gnome-cmd-advrename-profile-component.cc:747
-#: src/gnome-cmd-advrename-profile-component.cc:779
+#: src/gnome-cmd-advrename-profile-component.cc:761
+#: src/gnome-cmd-advrename-profile-component.cc:793
 #: src/gnome-cmd-file-popmenu.cc:138
 msgid "No"
 msgstr "Ez"
 
 #: src/dialogs/gnome-cmd-prepare-xfer-dialog.cc:152
 #: src/gnome-cmd-advrename-profile-component.cc:433
-#: src/gnome-cmd-advrename-profile-component.cc:747
-#: src/gnome-cmd-advrename-profile-component.cc:779
+#: src/gnome-cmd-advrename-profile-component.cc:761
+#: src/gnome-cmd-advrename-profile-component.cc:793
 #: src/gnome-cmd-file-popmenu.cc:138
 msgid "Yes"
 msgstr "Bai"
@@ -2883,7 +2884,7 @@ msgstr "Laster-teklen mota."
 msgid "Disabled"
 msgstr "Desgaituta"
 
-#: src/eggcellrendererkeys.cc:425 src/eggcellrendererkeys.cc:634
+#: src/eggcellrendererkeys.cc:446 src/eggcellrendererkeys.cc:662
 msgid "New accelerator…"
 msgstr "Bizkortzaile berria…"
 
@@ -3056,126 +3057,126 @@ msgstr "_Alderantzikatu hautapena"
 msgid "Range Selection"
 msgstr "Barrutiaren hautapena"
 
-#: src/gnome-cmd-advrename-profile-component.cc:737
+#: src/gnome-cmd-advrename-profile-component.cc:751
 msgid "Add Rule"
 msgstr "Gehitu araua"
 
-#: src/gnome-cmd-advrename-profile-component.cc:772
+#: src/gnome-cmd-advrename-profile-component.cc:786
 msgid "Edit Rule"
 msgstr "Editatu araua"
 
-#: src/gnome-cmd-advrename-profile-component.cc:898
+#: src/gnome-cmd-advrename-profile-component.cc:912
 msgid "_Template"
 msgstr "_Txantiloia"
 
-#: src/gnome-cmd-advrename-profile-component.cc:926
+#: src/gnome-cmd-advrename-profile-component.cc:940
 msgid "Directory"
 msgstr "Direktorioa"
 
-#: src/gnome-cmd-advrename-profile-component.cc:928
-#: src/gnome-cmd-advrename-profile-component.cc:940
+#: src/gnome-cmd-advrename-profile-component.cc:942
+#: src/gnome-cmd-advrename-profile-component.cc:954
 msgid "Counter"
 msgstr "Kontagailua"
 
-#: src/gnome-cmd-advrename-profile-component.cc:930
+#: src/gnome-cmd-advrename-profile-component.cc:944
 msgid "Metatag"
 msgstr "Meta-etiketak"
 
-#: src/gnome-cmd-advrename-profile-component.cc:957
+#: src/gnome-cmd-advrename-profile-component.cc:971
 msgid "_Start:"
 msgstr "_Hasiera:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:964
+#: src/gnome-cmd-advrename-profile-component.cc:978
 msgid "Ste_p:"
 msgstr "_Urratsa:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:971
+#: src/gnome-cmd-advrename-profile-component.cc:985
 msgid "Di_gits:"
 msgstr "_Digituak:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:975
+#: src/gnome-cmd-advrename-profile-component.cc:989
 msgid "auto"
 msgstr "auto"
 
-#: src/gnome-cmd-advrename-profile-component.cc:989
+#: src/gnome-cmd-advrename-profile-component.cc:1003
 msgid "Regex replacing"
 msgstr "Adierazpen erregular bidezko ordeztea"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1028
+#: src/gnome-cmd-advrename-profile-component.cc:1042
 msgid "Remove A_ll"
 msgstr "Ke_ndu guztiak"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1041
+#: src/gnome-cmd-advrename-profile-component.cc:1055
 msgid "Case"
 msgstr "Maiuskulak/minuskulak"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1053
+#: src/gnome-cmd-advrename-profile-component.cc:1067
 msgid "<unchanged>"
 msgstr "<aldatu gabea>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1054
+#: src/gnome-cmd-advrename-profile-component.cc:1068
 msgid "lowercase"
 msgstr "minuskulak"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1055
+#: src/gnome-cmd-advrename-profile-component.cc:1069
 msgid "UPPERCASE"
 msgstr "MAIUSKULAK"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1057
+#: src/gnome-cmd-advrename-profile-component.cc:1071
 msgid "Sentence case"
 msgstr "Esaldi batean bezala"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1058
+#: src/gnome-cmd-advrename-profile-component.cc:1072
 msgid "Initial Caps"
 msgstr "Hasierako maiuskulak"
 
 #. FIXME
-#: src/gnome-cmd-advrename-profile-component.cc:1059
+#: src/gnome-cmd-advrename-profile-component.cc:1073
 msgid "tOGGLE cASE"
 msgstr "tXANDAKATU mAIUSKULAK"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1069
+#: src/gnome-cmd-advrename-profile-component.cc:1083
 msgid "Trim blanks"
 msgstr "Kendu zuriuneak"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1081
+#: src/gnome-cmd-advrename-profile-component.cc:1095
 msgid "<none>"
 msgstr "<bat ere ez>"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1082
+#: src/gnome-cmd-advrename-profile-component.cc:1096
 msgid "leading"
 msgstr "hasierakoa"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1083
+#: src/gnome-cmd-advrename-profile-component.cc:1097
 msgid "trailing"
 msgstr "amaierakoa"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1084
+#: src/gnome-cmd-advrename-profile-component.cc:1098
 msgid "leading and trailing"
 msgstr "hasierakoa eta amaierakoa"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1246
+#: src/gnome-cmd-advrename-profile-component.cc:1260
 msgid "Search for"
 msgstr "Bilatu hau:"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1249
+#: src/gnome-cmd-advrename-profile-component.cc:1263
 msgid "Regex pattern"
 msgstr "Adierazpen erregularraren eredua"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1251
+#: src/gnome-cmd-advrename-profile-component.cc:1265
 msgid "Replace with"
 msgstr "Ordeztu honekin"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1254
+#: src/gnome-cmd-advrename-profile-component.cc:1268
 msgid "Replacement"
 msgstr "Ordezpena"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1256
+#: src/gnome-cmd-advrename-profile-component.cc:1270
 msgid "Match case"
 msgstr "Maiuskula/minuskula"
 
-#: src/gnome-cmd-advrename-profile-component.cc:1259
+#: src/gnome-cmd-advrename-profile-component.cc:1273
 msgid "Case sensitive matching"
 msgstr "Bereizi maiuskulak eta minuskulak"
 
@@ -3532,7 +3533,7 @@ msgstr "_Propietateak…"
 
 #: src/gnome-cmd-file-popmenu.cc:678
 msgid "Other _Application…"
-msgstr ""
+msgstr "Beste _aplikazio bat…"
 
 #: src/gnome-cmd-file-selector.cc:178
 #, c-format
@@ -3693,11 +3694,11 @@ msgstr "Desautatu e_reduarekin"
 
 #: src/gnome-cmd-main-menu.cc:504
 msgid "Select with same _Extension"
-msgstr ""
+msgstr "Hautatu _luzapen berarekin"
 
 #: src/gnome-cmd-main-menu.cc:510
 msgid "Unselect with same E_xtension"
-msgstr ""
+msgstr "Desautatu l_uzapen berarekin"
 
 #: src/gnome-cmd-main-menu.cc:516
 msgid "_Invert Selection"
@@ -4446,7 +4447,7 @@ msgstr ""
 #: src/imageloader.cc:134
 #, c-format
 msgid "Couldn’t load installed pixmap, trying to load %s instead"
-msgstr ""
+msgstr "Ezin izan da instalatutako pixmap-a kargatu, %s kargatzeko saioa"
 
 #: src/intviewer/search-dlg.cc:243
 msgid "Find"
@@ -4467,7 +4468,7 @@ msgstr "_Hamaseitarra"
 msgid "Searching…"
 msgstr "Bilatzen…"
 
-#: src/intviewer/search-progress-dlg.cc:185
+#: src/intviewer/search-progress-dlg.cc:199
 #, c-format
 msgid "Searching for “%s”"
 msgstr "“%s” bilatzen"
@@ -4479,7 +4480,7 @@ msgstr "Posizioa: %lu / %lu\tZutabea: %d\t%s"
 
 #: src/intviewer/viewer-widget.cc:214
 msgid "Wrap"
-msgstr "Itzulbiratu"
+msgstr "Egokitu"
 
 #: src/intviewer/viewer-widget.cc:240
 msgid "pixel"
@@ -4547,7 +4548,7 @@ msgstr "Bilatu aurrekoa"
 
 #: src/intviewer/viewer-window.cc:874
 msgid "_Wrap lines"
-msgstr "_Itzulbiratu lerroak"
+msgstr "_Egokitu lerroak"
 
 #: src/intviewer/viewer-window.cc:879
 msgid "_Encoding"
@@ -5226,7 +5227,7 @@ msgstr "Ohar kopurua"
 
 #: src/tags/gnome-cmd-tags.cc:187
 msgid "Number of “notes” in the document."
-msgstr ""
+msgstr "Dokumentuko “ohar” kopurua"
 
 #: src/tags/gnome-cmd-tags.cc:188
 msgid "Object Count"
@@ -5434,17 +5435,17 @@ msgid ""
 "However, since <Exif.PhotometricInterpretation> can only express the order "
 "of Y, Cb and Cr, this tag is provided for cases when compressed data uses "
 "components other than Y, Cb, and Cr and to enable support of other sequences."
-msgstr "Konprimitutako datuen informazio zehatza. Osagai bakoitzaren kanalak 1. osagaitik 4. osagaira bezala ordenatzen dira. Konprimitu gabeko datuen kasuan  <Exif.PhotometricInterpretation> etiketak ematen die antolamendua. Hala ere,  <Exif.PhotometricInterpretation> etiketak Y, Cb eta Cr osagaien antolamenduan adierazten da. Konprimitutako datuek Y, Cb eta Cr-ren ordez bestelako datuak erabiltzen dituztenean sekuentzien jarraitasuna gaitzeko ematen da etiketa hau."
+msgstr "Konprimatutako datuen informazio zehatza. Osagai bakoitzaren kanalak 1. osagaitik 4. osagaira bezala ordenatzen dira. Konprimatu gabeko datuen kasuan  <Exif.PhotometricInterpretation> etiketak ematen die antolamendua. Hala ere,  <Exif.PhotometricInterpretation> etiketak Y, Cb eta Cr osagaien antolamenduan adierazten da. Konprimatutako datuek Y, Cb eta Cr-ren ordez bestelako datuak erabiltzen dituztenean sekuentzien jarraitasuna gaitzeko ematen da etiketa hau."
 
 #: src/tags/gnome-cmd-tags.cc:213
 msgid "Compressed Bits per Pixel"
-msgstr "Konprimitutako bit-ak pixeleko"
+msgstr "Konprimatutako bit-ak pixeleko"
 
 #: src/tags/gnome-cmd-tags.cc:213
 msgid ""
 "Information specific to compressed data. The compression mode used for a "
 "compressed image is indicated in unit bits per pixel."
-msgstr "Konprimitutako datuen informazio zehatza. Konprimitutako irudiaren konpresio-modua 'bit pixeleko' unitateetan adierazten da."
+msgstr "Konprimatutako datuen informazio zehatza. Konprimatutako irudiaren konpresio-modua 'bit pixeleko' unitateetan adierazten da."
 
 #: src/tags/gnome-cmd-tags.cc:214
 msgid "Compression"
@@ -5455,7 +5456,7 @@ msgid ""
 "The compression scheme used for the image data. When a primary image is JPEG "
 "compressed, this designation is not necessary and is omitted. When "
 "thumbnails use JPEG compression, this tag value is set to 6."
-msgstr "Irudiaren datuekin erabilitako konpresio-eskema. Irudi nagusia konprimitutako JPEG bada, izendapen hau ez da beharrezkoa eta bartertu egiten da. Koadro txikiek konprimitutako JPEG erabiltzen dutenean etiketa hau 6 balioarekin ezartzen da."
+msgstr "Irudiaren datuekin erabilitako konpresio-eskema. Irudi nagusia konprimatutako JPEG bada, izendapen hau ez da beharrezkoa eta bartertu egiten da. Koadro txikiek konprimatutako JPEG erabiltzen dutenean etiketa hau 6 balioarekin ezartzen da."
 
 #: src/tags/gnome-cmd-tags.cc:215
 msgid "Contrast"
@@ -5848,7 +5849,7 @@ msgstr "Irudiaren luzera"
 msgid ""
 "The number of rows of image data. In JPEG compressed data a JPEG marker is "
 "used instead of this tag."
-msgstr "Irudiaren datuen errenkada kopurua. Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa hau erabili ordez."
+msgstr "Irudiaren datuen errenkada kopurua. Konprimatutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa hau erabili ordez."
 
 #: src/tags/gnome-cmd-tags.cc:254
 msgid "Image Resources Block"
@@ -5877,7 +5878,7 @@ msgstr "Irudiaren zabalera"
 msgid ""
 "The number of columns of image data, equal to the number of pixels per row. "
 "In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Irudiaren datuen zutabe kopurua: hau da, pixel-kopurua errenkadako. Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen ordez."
+msgstr "Irudiaren datuen zutabe kopurua: hau da, pixel-kopurua errenkadako. Konprimatutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen ordez."
 
 #: src/tags/gnome-cmd-tags.cc:257
 msgid "Inter Color Profile"
@@ -5940,7 +5941,7 @@ msgstr "JPEG trukatzeko formatua"
 msgid ""
 "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
 "is not used for primary image JPEG data."
-msgstr "Konprimitutako JPEG koadro txikiaren datuen hasierako byte-aren desplazamendua (SOI). Ez da JPEG irudi nagusiaren datuetan erabiltzen."
+msgstr "Konprimatutako JPEG koadro txikiaren datuen hasierako byte-aren desplazamendua (SOI). Ez da JPEG irudi nagusiaren datuetan erabiltzen."
 
 #: src/tags/gnome-cmd-tags.cc:264
 msgid "JPEG Interchange Format Length"
@@ -5953,7 +5954,7 @@ msgid ""
 "a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not "
 "be recorded. Compressed thumbnails must be recorded in no more than 64 "
 "Kbytes, including all other data to be recorded in APP1."
-msgstr "Konprimitutako JPEG koadro txikiaren datuen byte kopurua. Ez da JPEG irudi nagusiaren datuetan erabiltzen. JPEG motako koadro txikiak ez dira zatitzen, jarraiako JPEG bit-korronte gisa gordetzen dira SOItik EOIra. Aplikazioaren eta COM markatzaileak ez dira gordetzen. Konprimitutako koadro txikiak ezin dira 64 KB baino tamaina handiagotan gorde (APP1-en gorde beharreko bestelako datu guztiak barne)."
+msgstr "Konprimatutako JPEG koadro txikiaren datuen byte kopurua. Ez da JPEG irudi nagusiaren datuetan erabiltzen. JPEG motako koadro txikiak ez dira zatitzen, jarraiako JPEG bit-korronte gisa gordetzen dira SOItik EOIra. Aplikazioaren eta COM markatzaileak ez dira gordetzen. Konprimatutako koadro txikiak ezin dira 64 KB baino tamaina handiagotan gorde (APP1-en gorde beharreko bestelako datu guztiak barne)."
 
 #: src/tags/gnome-cmd-tags.cc:265
 msgid "JPEG Procedure"
@@ -6056,7 +6057,7 @@ msgstr "Interpretazio fotometrikoa"
 msgid ""
 "The pixel composition. In JPEG compressed data a JPEG marker is used instead "
 "of this tag."
-msgstr "Pixelaren osagaiak. Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa hau erabili ordez."
+msgstr "Pixelaren osagaiak. Konprimatutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa hau erabili ordez."
 
 #: src/tags/gnome-cmd-tags.cc:277
 msgid "Pixel X Dimension"
@@ -6068,7 +6069,7 @@ msgid ""
 "the valid width of the meaningful image must be recorded in this tag, "
 "whether or not there is padding data or a restart marker. This tag should "
 "not exist in an uncompressed file."
-msgstr "Konpresio datuei buruzko informazio zehatza. Konprimitutako fitxategia gordetzean irudiaren baliozko zabalera adierazlea gorde behar da etiketa honetan, berdin dio datu betegarririk edo berrabiarateko markatzailerik dagoen edo ez. Etiketa hau ez luke konprimitu gabeko fitxategietan agertu behar."
+msgstr "Konpresio datuei buruzko informazio zehatza. Konprimatutako fitxategia gordetzean irudiaren baliozko zabalera adierazlea gorde behar da etiketa honetan, berdin dio datu betegarririk edo berrabiarateko markatzailerik dagoen edo ez. Etiketa hau ez luke konprimatu gabeko fitxategietan agertu behar."
 
 #: src/tags/gnome-cmd-tags.cc:278
 msgid "Pixel Y Dimension"
@@ -6082,7 +6083,7 @@ msgid ""
 "not exist in an uncompressed file. Since data padding is unnecessary in the "
 "vertical direction, the number of lines recorded in this valid image height "
 "tag will in fact be the same as that recorded in the SOF."
-msgstr "Konpresio datuei buruzko informazio zehatza. Konprimitutako fitxategia gordetzean irudiaren baliozko altuera adierazlea gorde behar da etiketa honetan, berdin dio datu betegarririk edo berrabiarateko markatzailerik dagoen edo ez. Etiketa hau ez luke konprimitu gabeko fitxategietan agertu behar. Datu betegarriak zentzurik ez dutenez norabide bertikalean, irudi honen baliozko altueraren etiketan gordetako lerro kopurua SOF-en gordetakoaren berdina izaten da."
+msgstr "Konpresio datuei buruzko informazio zehatza. Konprimatutako fitxategia gordetzean irudiaren baliozko altuera adierazlea gorde behar da etiketa honetan, berdin dio datu betegarririk edo berrabiarateko markatzailerik dagoen edo ez. Etiketa hau ez luke konprimatu gabeko fitxategietan agertu behar. Datu betegarriak zentzurik ez dutenez norabide bertikalean, irudi honen baliozko altueraren etiketan gordetako lerro kopurua SOF-en gordetakoaren berdina izaten da."
 
 #: src/tags/gnome-cmd-tags.cc:279
 msgid "Planar Configuration"
@@ -6093,7 +6094,7 @@ msgid ""
 "Indicates whether pixel components are recorded in a chunky or planar "
 "format. In JPEG compressed files a JPEG marker is used instead of this tag. "
 "If this field does not exist, the TIFF default of 1 (chunky) is assumed."
-msgstr "Pixelen osagaiak planoko edo zatikatutako formatuan gordeko diren adierazten du. Konprimitutako JPEG fitxategietan JPEG markatzailea erabiltzen da etiketa honen ordez. Eremua ez bada existitzen, TIFF-eko balio lehenetsia 1 (zatikatua) onartuko da."
+msgstr "Pixelen osagaiak planoko edo zatikatutako formatuan gordeko diren adierazten du. Konprimatutako JPEG fitxategietan JPEG markatzailea erabiltzen da etiketa honen ordez. Eremua ez bada existitzen, TIFF-eko balio lehenetsia 1 (zatikatua) onartuko da."
 
 #: src/tags/gnome-cmd-tags.cc:280
 msgid "Primary Chromaticities"
@@ -6188,7 +6189,7 @@ msgid ""
 "The number of rows per strip. This is the number of rows in the image of one "
 "strip when an image is divided into strips. With JPEG compressed data this "
 "designation is not needed and is omitted."
-msgstr "Errenkaden kopurua zatiko. Zati baten irudiaren errenkaden kopurua da, irudi bat bi zatitan zatitzen denean. Konprimitutako JPEG datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
+msgstr "Errenkaden kopurua zatiko. Zati baten irudiaren errenkaden kopurua da, irudi bat bi zatitan zatitzen denean. Konprimatutako JPEG datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
 
 #: src/tags/gnome-cmd-tags.cc:288
 msgid "Samples per Pixel"
@@ -6199,7 +6200,7 @@ msgid ""
 "The number of components per pixel. Since this standard applies to RGB and "
 "YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
 "JPEG marker is used instead of this tag."
-msgstr "Osagaien kopurua pixeleko. Estandar honek GBU eta YCbCr irudiei aplikatzen zaienez, etiketa hau 3 balioarekin ezartzen da. Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen ordez."
+msgstr "Osagaien kopurua pixeleko. Estandar honek GBU eta YCbCr irudiei aplikatzen zaienez, etiketa hau 3 balioarekin ezartzen da. Konprimatutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen ordez."
 
 #: src/tags/gnome-cmd-tags.cc:289
 msgid "Saturation"
@@ -6297,7 +6298,7 @@ msgstr "Zatiaren byte kopurua"
 msgid ""
 "The total number of bytes in each strip. With JPEG compressed data this "
 "designation is not needed and is omitted."
-msgstr "Zati bakoitzaren byte kopurua guztira. Konprimitutako JPEG datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
+msgstr "Zati bakoitzaren byte kopurua guztira. Konprimatutako JPEG datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
 
 #: src/tags/gnome-cmd-tags.cc:299
 msgid "Strip Offsets"
@@ -6308,7 +6309,7 @@ msgid ""
 "For each strip, the byte offset of that strip. It is recommended that this "
 "be selected so the number of strip bytes does not exceed 64 Kbytes. With "
 "JPEG compressed data this designation is not needed and is omitted."
-msgstr "Zati bakoitzean zatia desplazatzeko byte-a. Hau hautatzea aholkatzen da zatiaren byte tamainak 64 KB baino handiagoa ez izateko. Konprimitutako JPEG datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
+msgstr "Zati bakoitzean zatia desplazatzeko byte-a. Hau hautatzea aholkatzen da zatiaren byte tamainak 64 KB baino handiagoa ez izateko. Konprimatutako JPEG datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
 
 #: src/tags/gnome-cmd-tags.cc:300
 msgid "Sub IFD Offsets"
@@ -6496,7 +6497,7 @@ msgid ""
 "shall follow the TIFF default regardless of the value in this field. It is "
 "preferable that readers be able to support both centered and co-sited "
 "positioning."
-msgstr "Ñabarduraren osagaien posizioa luminantziaren osagarriarekiko. Eremu hau konprimitutako JPEG datuentzako edo konprimitu gabeko YCbCr datuentzako soilik izendatzen da. TIFF-en balio lehenetsia 1 (zentratua) da, baina Y:Cb:Cr = 4:2:2 denean 2 (batera kokatua) izatea gomendatzen da datuak grabatzeko, irudiaren kalitatea hobetzeko TV sistemetan ikusteko. Eremu hau ez bada existitzen, irakurleak TIFF-en lehenetsia hartuko du bere gain. Y:Cb:Cr = 4:2:0 egoeran TIFF-el lehenetsia (zentratua) gomendatzen da. Irakurleak ez badu gaitasunik <Exif.YCbCrPositioning>-eko bi motak onartzeko, TIFF-en balio lehenetsiarekin jarraituko du eremu honetako balioari ez ikusi eginez. Irakurleak bai zentratutako bai batera kokatutako posizioa onartzeko gaitasuna edukitzea izango litzateke hoberena."
+msgstr "Ñabarduraren osagaien posizioa luminantziaren osagarriarekiko. Eremu hau konprimatutako JPEG datuentzako edo konprimatu gabeko YCbCr datuentzako soilik izendatzen da. TIFF-en balio lehenetsia 1 (zentratua) da, baina Y:Cb:Cr = 4:2:2 denean 2 (batera kokatua) izatea gomendatzen da datuak grabatzeko, irudiaren kalitatea hobetzeko TV sistemetan ikusteko. Eremu hau ez bada existitzen, irakurleak TIFF-en lehenetsia hartuko du bere gain. Y:Cb:Cr = 4:2:0 egoeran TIFF-el lehenetsia (zentratua) gomendatzen da. Irakurleak ez badu gaitasunik <Exif.YCbCrPositioning>-eko bi motak onartzeko, TIFF-en balio lehenetsiarekin jarraituko du eremu honetako balioari ez ikusi eginez. Irakurleak bai zentratutako bai batera kokatutako posizioa onartzeko gaitasuna edukitzea izango litzateke hoberena."
 
 #: src/tags/gnome-cmd-tags.cc:318
 msgid "YCbCr Sub-Sampling"
@@ -6506,7 +6507,7 @@ msgstr "YCbCr azpilaginak"
 msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Ñabarduraren osagaira lagin-tasa luminantziaren osagaiarekiko. Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen ordez."
+msgstr "Ñabarduraren osagaira lagin-tasa luminantziaren osagaiarekiko. Konprimatutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen ordez."
 
 #: src/tags/gnome-cmd-tags.cc:319
 msgid "y Resolution"
@@ -6532,7 +6533,7 @@ msgstr "Edukia"
 
 #: src/tags/gnome-cmd-tags.cc:321
 msgid "File’s contents filtered as plain text."
-msgstr ""
+msgstr "Fitxategiaren edukiak testu soileko moduan iragaziak."
 
 #: src/tags/gnome-cmd-tags.cc:322
 msgid "Editable free text/notes."
@@ -8216,7 +8217,7 @@ msgstr "Dok"
 msgid "Image"
 msgstr "Irudia"
 
-#: src/tags/gnome-cmd-tags-exiv2.cc:71
+#: src/tags/gnome-cmd-tags-exiv2.cc:72
 #, c-format
 msgid "unsupported tag (suppressed %ld B of binary data)"
 msgstr ""
@@ -8323,441 +8324,3 @@ msgstr "Errorea gertatu da laguntza bistaratzean."
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr ""
 
-#~ msgid "Create Archive..."
-#~ msgstr "Sortu artxiboa..."
-
-#~ msgid "Profiles..."
-#~ msgstr "Profilak..."
-
-#~ msgid ""
-#~ "Some regular expressions functionality is disabled. To enable it's "
-#~ "necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your "
-#~ "package maintainer about that."
-#~ msgstr ""
-#~ "Zenbait adierazpen erregularren funtzionalitatea desgaituta daude. "
-#~ "Gaitzeko GNOME Commander eraiki behar da GLIB  ≥ 2.14 liburutegiarekin. "
-#~ "Jar zaitez paketearen mantentzailearekin harremanetan."
-
-#~ msgid "_Password:"
-#~ msgstr "_Pasahitza:"
-
-#~ msgid "Use _GNOME Keyring Manager for authentication"
-#~ msgstr "Erabili _GNOMEren gako-sorten kudeatzailea autentifikatzean"
-
-#~ msgid "/Local path..."
-#~ msgstr "/Bide-izen lokala..."
-
-#~ msgid "/Remote location..."
-#~ msgstr "/Urruneko kokalekua..."
-
-#~ msgid "_Import"
-#~ msgstr "_Inportatu"
-
-#~ msgid "Sorting"
-#~ msgstr "Ordenatu"
-
-#~ msgid "Edit..."
-#~ msgstr "Editatu..."
-
-#~ msgid "Document icon directory:"
-#~ msgstr "Dokumentu-ikonoen direktorioa:"
-
-#~ msgid "Save password in GNOME keyring"
-#~ msgstr "Gorde pasahitza GNOMEren gako-sortan"
-
-#~ msgid "Search..."
-#~ msgstr "Bilatu..."
-
-#~ msgid "Audio Files"
-#~ msgstr "Audioko fitxategiak"
-
-#~ msgid "CamelCase"
-#~ msgstr "CamelCase"
-
-#~ msgid "Manage bookmarks..."
-#~ msgstr "Kudeatu laster-markak..."
-
-#~ msgid "Open this _folder"
-#~ msgstr "Ireki _karpeta hau"
-
-#~ msgid "_Properties..."
-#~ msgstr "_Propietateak..."
-
-#~ msgid "Regular file"
-#~ msgstr "Fitxategi erregularra"
-
-#~ msgid "FIFO"
-#~ msgstr "FIFO"
-
-#~ msgid "UNIX Socket"
-#~ msgstr "UNIX socket-a"
-
-#~ msgid "Character device"
-#~ msgstr "Karaktere-gailua"
-
-#~ msgid "Block device"
-#~ msgstr "Blokeatu gailua"
-
-#~ msgid "Symbolic link"
-#~ msgstr "Esteka sinbolikoa"
-
-#~ msgid "Switch to Vertical Layout"
-#~ msgstr "Aldatu diseinu bertikalera"
-
-#~ msgid "Switch to Horizontal Layout"
-#~ msgstr "Aldatu diseinu horizontalera"
-
-#~ msgid "_Search..."
-#~ msgstr "_Bilatu..."
-
-#~ msgid "_Options..."
-#~ msgstr "_Aukerak..."
-
-#~ msgid "_Keyboard Shortcuts..."
-#~ msgstr "_Laster-teklak..."
-
-#~ msgid "_Remote Server..."
-#~ msgstr "_Urruneko zerbitzaria..."
-
-#~ msgid "New Connection..."
-#~ msgstr "Konexio berria..."
-
-#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
-#~ msgstr "Ezin da 'gnomevfs' python modulua kargatu ('gnome.vfs')"
-
-#~ msgid "Open folder"
-#~ msgstr "Ireki karpeta"
-
-#~ msgid "Execute Python plugin"
-#~ msgstr "Exekutatu Python-eko plugina"
-
-#~ msgid "Unable to start Nautilus."
-#~ msgstr "Ezin da Nautilus abiarazi."
-
-#~ msgid "copying..."
-#~ msgstr "kopiatzen..."
-
-#~ msgid "Find..."
-#~ msgstr "Bilatu..."
-
-#~ msgid "No Proofing"
-#~ msgstr "Frogapenik ez"
-
-#~ msgid "Arabic"
-#~ msgstr "Arabiera"
-
-#~ msgid "Bulgarian"
-#~ msgstr "Bulgariera"
-
-#~ msgid "Catalan"
-#~ msgstr "Katalaniera"
-
-#~ msgid "Traditional Chinese"
-#~ msgstr "Txinatar tradizionala"
-
-#~ msgid "Simplified Chinese"
-#~ msgstr "Txinatar soildua"
-
-#~ msgid "Chechen"
-#~ msgstr "Chechenera"
-
-#~ msgid "Danish"
-#~ msgstr "Daniera"
-
-#~ msgid "German"
-#~ msgstr "Alemaniera"
-
-#~ msgid "Swiss German"
-#~ msgstr "Suitzako alemana"
-
-#~ msgid "Greek"
-#~ msgstr "Greziera"
-
-#~ msgid "U.S. English"
-#~ msgstr "U.S. ingelesa"
-
-#~ msgid "U.K. English"
-#~ msgstr "U.K. ingelesa"
-
-#~ msgid "Australian English"
-#~ msgstr "Australiako ingelesa"
-
-#~ msgid "Castilian Spanish"
-#~ msgstr "Castilako gaztelera"
-
-#~ msgid "Mexican Spanish"
-#~ msgstr "Mexikoko gaztelera"
-
-#~ msgid "Finnish"
-#~ msgstr "Finlandiera"
-
-#~ msgid "French"
-#~ msgstr "Frantsesa"
-
-#~ msgid "Belgian French"
-#~ msgstr "Belgikako frantsesa"
-
-#~ msgid "Canadian French"
-#~ msgstr "Kanadiako frantsesa"
-
-#~ msgid "Swiss French"
-#~ msgstr "Suitzako frantsesa"
-
-#~ msgid "Hebrew"
-#~ msgstr "Hebreera"
-
-#~ msgid "Hungarian"
-#~ msgstr "Hungariera"
-
-#~ msgid "Icelandic"
-#~ msgstr "Islandiera"
-
-#~ msgid "Italian"
-#~ msgstr "Italiera"
-
-#~ msgid "Swiss Italian"
-#~ msgstr "Suitzako italiera"
-
-#~ msgid "Japanese"
-#~ msgstr "Japoniera"
-
-#~ msgid "Korean"
-#~ msgstr "Koreera"
-
-#~ msgid "Dutch"
-#~ msgstr "Nederlandera"
-
-#~ msgid "Belgian Dutch"
-#~ msgstr "Belgikako nederlandera"
-
-#~ msgid "Norwegian Bokmal"
-#~ msgstr "Norvegiako Bokmal"
-
-#~ msgid "Norwegian Nynorsk"
-#~ msgstr "Norvegiako Nynorsk"
-
-#~ msgid "Polish"
-#~ msgstr "Poloniera"
-
-#~ msgid "Brazilian Portuguese"
-#~ msgstr "Brasilgo portugesa"
-
-#~ msgid "Portuguese"
-#~ msgstr "Portugesa"
-
-#~ msgid "Rhaeto-Romanic"
-#~ msgstr "Erretorromaniera"
-
-#~ msgid "Romanian"
-#~ msgstr "Errumaniera"
-
-#~ msgid "Russian"
-#~ msgstr "Errusiera"
-
-#~ msgid "Croato-Serbian (Latin)"
-#~ msgstr "Kroazi-serbiera (Latinoa)"
-
-#~ msgid "Serbo-Croatian (Cyrillic)"
-#~ msgstr "Serbokroaziera (Zirilikoa)"
-
-#~ msgid "Slovak"
-#~ msgstr "Eslovakiera"
-
-#~ msgid "Albanian"
-#~ msgstr "Albaniera"
-
-#~ msgid "Swedish"
-#~ msgstr "Suediera"
-
-#~ msgid "Thai"
-#~ msgstr "Thailandiera"
-
-#~ msgid "Turkish"
-#~ msgstr "Turkiera"
-
-#~ msgid "Urdu"
-#~ msgstr "Urduera"
-
-#~ msgid "Indonesian"
-#~ msgstr "Indonesiera"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Ukraniera"
-
-#~ msgid "Byelorussian"
-#~ msgstr "Bielorrusiera"
-
-#~ msgid "Slovenian"
-#~ msgstr "Esloveniera"
-
-#~ msgid "Estonian"
-#~ msgstr "Estoniera"
-
-#~ msgid "Latvian"
-#~ msgstr "Letoniera"
-
-#~ msgid "Lithuanian"
-#~ msgstr "Lituaniera"
-
-#~ msgid "Farsi"
-#~ msgstr "Farsia"
-
-#~ msgid "Basque"
-#~ msgstr "Euskara"
-
-#~ msgid "Macedonian"
-#~ msgstr "Mazedoniera"
-
-#~ msgid "Afrikaans"
-#~ msgstr "Afrikaansa"
-
-#~ msgid "Malayalam"
-#~ msgstr "Malayalama"
-
-#~ msgid "CVS options"
-#~ msgstr "CVS aukerak"
-
-#~ msgid "Compression level"
-#~ msgstr "Konpresio-maila"
-
-#~ msgid "Unified diff format"
-#~ msgstr "Diff formatu bateratua"
-
-#~ msgid "A plugin that eventually will be a simple CVS client"
-#~ msgstr "Azkenean CVS bezero soil bat izango den plugina"
-
-#~ msgid "Compare with"
-#~ msgstr "Konparatu honekin:"
-
-#~ msgid "HEAD"
-#~ msgstr "HEAD"
-
-#~ msgid "The previous revision"
-#~ msgstr "Aurreko berrikuspena"
-
-#~ msgid "Other revision"
-#~ msgstr "Beste berrikuspen bat"
-
-#~ msgid "CVS Diff"
-#~ msgstr "CVS Diff"
-
-#~ msgid "revision"
-#~ msgstr "berrikuspena"
-
-#~ msgid "Revision:"
-#~ msgstr "Berrikuspena:"
-
-#~ msgid "Compare..."
-#~ msgstr "Konparatu..."
-
-#~ msgid "Author:"
-#~ msgstr "Egilea:"
-
-#~ msgid "Date:"
-#~ msgstr "Data:"
-
-#~ msgid "State:"
-#~ msgstr "Egoera:"
-
-#~ msgid "Lines:"
-#~ msgstr "Lerroak:"
-
-#~ msgid "Message:"
-#~ msgstr "Mezua:"
-
-#~ msgid "_Remote dir:"
-#~ msgstr "_Urruneko dir.:"
-
-#~ msgid "_Change"
-#~ msgstr "_Aldatu"
-
-#~ msgid "_MIME Types..."
-#~ msgstr "_MIME motak..."
-
-#~ msgid "_Contents"
-#~ msgstr "_Edukia"
-
-#~ msgid "Match file names using"
-#~ msgstr "Fitxategi-izenak parekatzeko erabili:"
-
-#~ msgid "Shell syntax"
-#~ msgstr "Shell sintaxia"
-
-#~ msgid "Regex syntax"
-#~ msgstr "Adierazpen erregularren sintaxia"
-
-#~ msgid "Sorting options"
-#~ msgstr "Ordenatzeko aukerak"
-
-#~ msgid "_Test"
-#~ msgstr "_Proba"
-
-#~ msgid "Authentication"
-#~ msgstr "Autentifikazioa"
-
-#~ msgid "Use GNOME Keyring Manager for authentication"
-#~ msgstr "Erabili GNOMEren gako-sorten kudeatzailea autentifikatzean"
-
-#~ msgid "Anonymous FTP access"
-#~ msgstr "FTP anonimoaren sarbidea"
-
-#~ msgid "Password:"
-#~ msgstr "Pasahitza:"
-
-#~ msgid "Network"
-#~ msgstr "Sarea"
-
-#~ msgid "GNOME authentication manager usage"
-#~ msgstr "GNOMEren autentifikazio-kudeatzailearen erabilera"
-
-#~ msgid "_Limited depth"
-#~ msgstr "Sakonera _mugatua"
-
-#~ msgid "Failed to open file %s: %s\n"
-#~ msgstr "Huts egin du %s fitxategia irekitzean: %s\n"
-
-#~ msgid "Search _recursively"
-#~ msgstr "Bilatu _errekurtsiboki"
-
-#~ msgid "_Go to"
-#~ msgstr "_Joan"
-
-#~ msgid "Enter password"
-#~ msgstr "Idatzi pasahitza"
-
-#~ msgid ""
-#~ "Problem: access not permitted\n"
-#~ "\n"
-#~ "please supply user credentials\n"
-#~ "\n"
-#~ "Remember: wrong credentials may lead to account locking"
-#~ msgstr ""
-#~ "Arazoa: sarbidea ez dago baimendua\n"
-#~ "\n"
-#~ "eman erabiltzailearen kredentzialak\n"
-#~ "\n"
-#~ "Gogoratu: okerreko kredentzialak kontua blokea dezake."
-
-#~ msgid "Can't find a host or workgroup named %s\n"
-#~ msgstr "Ezin da aurkitu %s izeneko ostalari edo lantalderik\n"
-
-#~ msgid "MIME types"
-#~ msgstr "MIME motak"
-
-#~ msgid ""
-#~ "The file \"%s\" already exists.\n"
-#~ "\n"
-#~ "Do you want to overwrite it?\n"
-#~ msgstr ""
-#~ "\"%s\" fitxategia badago lehendik.\n"
-#~ "\n"
-#~ "Gainidatzi nahi duzu?\n"
-
-#~ msgid "Trying to load %s instead\n"
-#~ msgstr "Horren ordez %s kargatzen saiatuko da\n"
-
-#~ msgid "Other..."
-#~ msgstr "Besterik..."
-
-#~ msgid "F10 Quit"
-#~ msgstr "F10 Irten"
