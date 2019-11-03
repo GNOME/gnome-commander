@@ -11,7 +11,7 @@ msgid ""
 msgstr "Project-Id-Version: gnome-commander master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2019-09-20 08:15+0000\n"
-"PO-Revision-Date: 2019-10-27 10:00+0100\n"
+"PO-Revision-Date: 2019-11-03 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -202,7 +202,7 @@ msgstr "Saguaren ezkerreko botoiak desautatu egiten du"
 #: data/org.gnome.gnome-commander.gschema.xml:139
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
-msgstr ""
+msgstr "Hautatu gabeko elementu batean klik egitean dagoeneko hautatuta dauden elementuak desautatzen dituen definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:145
 msgid "Right mouse button mode"
@@ -497,7 +497,7 @@ msgstr "Leihoaren egoera nagusia"
 msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
-msgstr ""
+msgstr "Zenbakiak leiho nagusiaren egoera ordezkatzen du, adibidez “maximizatua”, “pantaila osoa” eta abar, eta barnean kalkulatzen da."
 
 #: data/org.gnome.gnome-commander.gschema.xml:379
 msgid "Middle mouse button mode"
@@ -596,23 +596,23 @@ msgstr "Aukera honek instantzia anitz onartzen diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:456
 msgid "Quick search exact match begin"
-msgstr ""
+msgstr "Bilaketa azkarraren bat etortze zehatza hasieran"
 
 #: data/org.gnome.gnome-commander.gschema.xml:457
 msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
-msgstr ""
+msgstr "Aukera honek definitzen du bilaketa azkarra esplizituki bat etorri behar den elementu-izen baten hasieran."
 
 #: data/org.gnome.gnome-commander.gschema.xml:463
 msgid "Quick search exact match end"
-msgstr ""
+msgstr "Bilaketa azkarraren bat etortze zehatza amaieran"
 
 #: data/org.gnome.gnome-commander.gschema.xml:464
 msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
-msgstr ""
+msgstr "Aukera honek definitzen du bilaketa azkarra esplizituki bat etorri behar den elementu-izen baten amaieran."
 
 #: data/org.gnome.gnome-commander.gschema.xml:470
 msgid "Only device icons"
@@ -622,7 +622,7 @@ msgstr "Gailu-ikonoak soilik"
 msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
-msgstr ""
+msgstr "Aukera honek definitzen du gailu-ikonoak soilik erakutsiko diren, ikonoak eta testu-etiketa erakutsi ordez."
 
 #: data/org.gnome.gnome-commander.gschema.xml:477
 msgid "Skip device mounting"
@@ -632,7 +632,7 @@ msgstr "Saltatu gailuen muntatzea"
 msgid ""
 "This option defines if mounting of devices should be skipped when they are "
 "opened."
-msgstr ""
+msgstr "Aukera honek definitzen du gailuen muntaketa saltatu behar den ala ez haiek irekitzen direnean."
 
 #: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Main menu visibility"
@@ -768,31 +768,31 @@ msgstr "Ezarpen honek ezabatzeak gauzatzeko baieztapen-koadroan aktibo egongo de
 
 #: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Confirm copy overwrite"
-msgstr ""
+msgstr "Baieztatu gainidaztea kopiatzean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:599
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
-msgstr ""
+msgstr "Aukera honek kopiatzeko komandoa erabiltzean elementuak gainidatziko diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:605
 msgid "Confirm move overwrite"
-msgstr ""
+msgstr "Baieztatu gainidaztea lekuz aldatzean"
 
 #: data/org.gnome.gnome-commander.gschema.xml:606
 msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
-msgstr ""
+msgstr "Aukera honek lekuz aldatzeko komandoa erabiltzean elementuak gainidatziko diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:612
 msgid "Confirm mouse drag and drop"
-msgstr ""
+msgstr "Baieztatu saguaren arrastatzea eta jaregitea"
 
 #: data/org.gnome.gnome-commander.gschema.xml:613
 msgid "This option defines the behavior of mouse drag and drop operations."
-msgstr ""
+msgstr "Aukera honek saguaren arrastatzeko eta jaregiteko eragiketen portaera definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:621
 msgid "Hide unknown filetypes"
@@ -800,7 +800,7 @@ msgstr "Ezkutatu fitxategi mota ezezagunak"
 
 #: data/org.gnome.gnome-commander.gschema.xml:622
 msgid "Hide files which type does not match to one of the other types."
-msgstr ""
+msgstr "Ezkutatu beste motetako batekin bat ez datozen motak dituzten fitxategiak."
 
 #: data/org.gnome.gnome-commander.gschema.xml:626
 msgid "Hide regular files"
@@ -850,7 +850,7 @@ msgstr "Babeskopia-fitxategien eredua"
 msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
-msgstr ""
+msgstr "Emandako kateak babeskopiako fitxategiak ezkutuan egon behar badute iragaziko diren fitxategietako atzizkiak (puntu eta komaz bereiziak) definitzen ditu."
 
 #: data/org.gnome.gnome-commander.gschema.xml:673
 msgid "Do not download files"
@@ -860,7 +860,7 @@ msgstr "Ez deskargatu fitxategiak"
 msgid ""
 "This option defines if remote files should be downloaded before opened by "
 "external programs."
-msgstr ""
+msgstr "Aukera honek urruneko fitxategiak, kanpoko programekin ireki baino lehen, deskargatu behar diren ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:680
 msgid "Use internal viewer"
@@ -1009,7 +1009,7 @@ msgstr "Erabili LS koloreak"
 msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
-msgstr ""
+msgstr "Aukera honek fitxategiak eta karpetak margotzeko LS_COLORS ingurumen-aldagaiaren balioa erabili behar den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "LS_COLORS black foreground mapping"
@@ -1157,13 +1157,13 @@ msgstr ""
 
 #: data/org.gnome.gnome-commander.gschema.xml:923
 msgid "Case sensitive search"
-msgstr ""
+msgstr "Maiuskulen/minuskulen araberako bilaketa"
 
 #: data/org.gnome.gnome-commander.gschema.xml:924
 msgid ""
 "This option defines if searching within the internal viewer is case "
 "sensitive."
-msgstr ""
+msgstr "Aukera honek barneko ikustailearen bilaketak maiuskulak eta minuskulak kontuan hartuko dituen definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:930
 msgid "Search mode"
@@ -1171,7 +1171,7 @@ msgstr "Bilaketaren modua"
 
 #: data/org.gnome.gnome-commander.gschema.xml:931
 msgid "This option defines the search mode of the internal viewer."
-msgstr ""
+msgstr "Aukera honek barneko ikustailearen bilaketa modua definitzen du."
 
 #. Translators: This is the default string of encoding used by the internal viewer
 #. for displaying the file in the given encoding. You may want to customize it by using
@@ -1214,7 +1214,7 @@ msgstr "Bistaratu hex desplazamendua"
 msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
-msgstr ""
+msgstr "Aukera honek desplazamendu hamaseitarra hex moduan bistaratu behar den ala ez definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:970
 msgid "Wrap mode"
@@ -1240,7 +1240,7 @@ msgstr "Fitxa-tamaina"
 msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
-msgstr ""
+msgstr "Aukera honek koskatzearen zabalera definitzen du tabuladore-karaktere baten karaktereen arabera."
 
 #: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Bytes per line in binary mode"
@@ -1250,7 +1250,7 @@ msgstr "Byte-ak lerroko modu bitarrean"
 msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
-msgstr ""
+msgstr "Aukera honek lerro batek modu bitarrean zenbat byte bistaratu behar dituen definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:998
 msgid "Horizontal offset"
@@ -1260,7 +1260,7 @@ msgstr "Desplazamendu horizontala"
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
-msgstr ""
+msgstr "Aukera honek barneko fitxategi-ikustaileak norabide horizontalean duen ikusizko desplazamendua definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Vertical offset"
@@ -1270,7 +1270,7 @@ msgstr "Desplazamendu bertikala"
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
-msgstr ""
+msgstr "Aukera honek barneko fitxategi-ikustaileak norabide bertikalean duen ikusizko desplazamendua definitzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Window width"
@@ -1290,23 +1290,23 @@ msgstr "Barneko fitxategi-ikustailearen leihoaren altuera."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Search pattern for text"
-msgstr ""
+msgstr "Bilaketa-eredua testurako"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
-msgstr ""
+msgstr "Kate-matrize honek barneko fitxategi-ikustailean egindako testu-bilaketen historia gordetzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Search pattern for hex values"
-msgstr ""
+msgstr "Bilaketa-eredua hex balioetarako"
 
 #: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
-msgstr ""
+msgstr "Kate-matrize honek barneko fitxategi-ikustailean egindako hex-bilaketen historia gordetzen du."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1042
 msgid "File suffix"
@@ -1334,7 +1334,7 @@ msgstr "Automatikoki kargatutako pluginak"
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
-msgstr ""
+msgstr "Hau automatikoki kargatutako pluginen zerrenda da, eta sarrera bakoitzak pluginaren fitxategi-izena ordezkatzen du."
 
 #: libgcmd/gnome-cmd-string-dialog.cc:127
 msgid "No error description available"
@@ -1423,12 +1423,12 @@ msgstr "Pluginetan hacker-a izan nahi dutenentzat adibide soil gisa oso erabilga
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:126
 #: src/dialogs/gnome-cmd-search-dialog.cc:181
 msgid "/_Save Profile As…"
-msgstr ""
+msgstr "/_Gorde profila honela…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:135
 #: src/dialogs/gnome-cmd-search-dialog.cc:190
 msgid "/_Manage Profiles…"
-msgstr ""
+msgstr "/_Kudeatu profilak…"
 
 #: src/dialogs/gnome-cmd-advrename-dialog.cc:187
 #: src/dialogs/gnome-cmd-search-dialog.cc:240
@@ -1900,7 +1900,7 @@ msgstr "Aukerako datuak"
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:492
 #, c-format
 msgid "Shortcut “%s” is already taken by “%s”."
-msgstr ""
+msgstr "“%s” lasterbidea hartuta du “%s” ekintzak."
 
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:495
 msgid "_Reassign shortcut"
@@ -2090,7 +2090,7 @@ msgstr "ALT+letrak (menura sartzeko: F12)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:178
 msgid "Just letters (command line access with CTRL+ALT+C)"
-msgstr ""
+msgstr "Letrak soilik (komando-lerroaren bidezko sarbidea CTRL+ALT+C bidez)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:183
 msgid "Match beginning of the file name"
@@ -2108,7 +2108,8 @@ msgstr "Bilaketa-leihoa"
 msgid ""
 "Search window is minimizable\n"
 "(Needs program restart if altered)"
-msgstr ""
+msgstr "Bilaketa-leihoa minimizatu egin daiteke\n"
+"(programa berrabiarazi behar da)"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:203
 msgid "Multiple instances"
@@ -3232,7 +3233,7 @@ msgstr "Muntatzeak huts egin du: ez da euskarririk aurkitu"
 #: src/gnome-cmd-con-device.cc:132
 #, c-format
 msgid "Mount failed: mount exited with exitstatus %d"
-msgstr ""
+msgstr "Muntatzeak huts egin du: muntatzetik irten da %d irteera-egoerarekin"
 
 #: src/gnome-cmd-con-device.cc:203
 msgid "Device is now safe to remove"
@@ -3402,7 +3403,7 @@ msgstr "/_Utzi"
 msgid ""
 "“%s” seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
-msgstr ""
+msgstr "Badirudi “%s” fitxategi exekutagarria dela baina ez du bit exekutagarria. Hura ezarri eta fitxategia exekutatu nahi duzu?"
 
 #: src/gnome-cmd-file-list.cc:1261
 msgid "Make Executable?"
@@ -4435,7 +4436,7 @@ msgstr "%%%.0f kopiatuta"
 #: src/imageloader.cc:109
 #, c-format
 msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
-msgstr ""
+msgstr "Ezin izan da instalatutako pixmap fitxategi mota kargatu, %s kargatzen saiatzen"
 
 #: src/imageloader.cc:113 src/imageloader.cc:137
 #, c-format
@@ -4814,7 +4815,7 @@ msgstr "Berria da"
 
 #: src/tags/gnome-cmd-tags.cc:135
 msgid "Set to “1” if track is new to the user (default “0”)."
-msgstr ""
+msgstr "Ezarri “1” pista berria bada erabiltzailearentzako (lehenetsia: “0”)."
 
 #: src/tags/gnome-cmd-tags.cc:136
 msgid "ISRC"
@@ -4886,7 +4887,7 @@ msgstr "Copyright-a du"
 
 #: src/tags/gnome-cmd-tags.cc:144
 msgid "“1” if the copyrighted bit is set."
-msgstr ""
+msgstr "“1” copyright bit-a ezarrita badago."
 
 #: src/tags/gnome-cmd-tags.cc:145
 msgid "Layer"
@@ -4902,7 +4903,7 @@ msgstr "Jatorrizko audioa"
 
 #: src/tags/gnome-cmd-tags.cc:146
 msgid "“1” if the “original” bit is set."
-msgstr ""
+msgstr "“1” “jatorrizkoa” bit-a ezarrita badago."
 
 #: src/tags/gnome-cmd-tags.cc:147
 msgid "MPEG Version"
@@ -5795,7 +5796,7 @@ msgstr "Iparraren edo hegoaren latitudea"
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "“N” indicates north latitude, and “S” is south latitude."
-msgstr ""
+msgstr "Latitudea iparraldekoa ala hegoaldekoa den adierazten du. “N” ASCII balioak iparraldekoa adierazten du, “S” balioak hegoaldekoa."
 
 #: src/tags/gnome-cmd-tags.cc:249
 msgid "Longitude"
@@ -5818,7 +5819,7 @@ msgstr "Ekialdeko edo mendebaldeko longitudea"
 msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII “E” "
 "indicates east longitude, and “W” is west longitude."
-msgstr ""
+msgstr "Longitudea ekialdekoa ala mendebaldekoa den adierazten du. “E” ASCII balioak ekialdekoa adierazten du, “W” balioak mendebaldekoa."
 
 #: src/tags/gnome-cmd-tags.cc:251
 msgid "GPS Tag Version"
@@ -6546,7 +6547,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:324
 msgid "Editable array of keywords."
-msgstr "Gako-hitzen array editagarria."
+msgstr "Gako-hitzen matrize editagarria."
 
 #: src/tags/gnome-cmd-tags.cc:325
 msgid "Link"
@@ -6574,7 +6575,7 @@ msgstr "Bide-izen osoa baina fitxategi-izenik gabe."
 
 #: src/tags/gnome-cmd-tags.cc:329
 msgid "Permission string in unix format eg “-rw-r--r--”."
-msgstr ""
+msgstr "Baimen-katea unix formatuan, adibidez “-rw-r--r--”."
 
 #: src/tags/gnome-cmd-tags.cc:330 src/tags/gnome-cmd-tags.cc:389
 msgid "Publisher"
@@ -7752,7 +7753,7 @@ msgstr "Objektuaren zikloa"
 
 #: src/tags/gnome-cmd-tags.cc:486
 msgid "Where “a” is morning, “p” is evening, “b” is both."
-msgstr ""
+msgstr "Non “a” goiza den, “p” arratsaldea den, “b” biak diren."
 
 #: src/tags/gnome-cmd-tags.cc:487
 msgid "Object Name"
@@ -8069,7 +8070,7 @@ msgstr "Web ikuspegi bizkorra"
 
 #: src/tags/gnome-cmd-tags.cc:525
 msgid "Set to “1” if optimized for network access."
-msgstr ""
+msgstr "Ezarri “1” sareko sarbiderako optimizatuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:526
 msgid "Printing"
@@ -8077,7 +8078,7 @@ msgstr "Inprimatzen"
 
 #: src/tags/gnome-cmd-tags.cc:526
 msgid "Set to “1” if printing is allowed."
-msgstr ""
+msgstr "Ezarri “1” inprimatzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:527
 msgid "Printing in High Resolution"
@@ -8085,7 +8086,7 @@ msgstr "Bereizmen altuan inprimatzea"
 
 #: src/tags/gnome-cmd-tags.cc:527
 msgid "Set to “1” if high resolution printing is allowed."
-msgstr ""
+msgstr "Ezarri “1” bereizmen handiko inprimatzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:528
 msgid "Copying"
@@ -8093,7 +8094,7 @@ msgstr "Kopiatzea"
 
 #: src/tags/gnome-cmd-tags.cc:528
 msgid "Set to “1” if copying the contents is allowed."
-msgstr ""
+msgstr "Ezarri “1” edukiak kopiatzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:529
 msgid "Modifying"
@@ -8101,7 +8102,7 @@ msgstr "Eraldatzea"
 
 #: src/tags/gnome-cmd-tags.cc:529
 msgid "Set to “1” if modifying the contents is allowed."
-msgstr ""
+msgstr "Ezarri “1” edukiak aldatzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:530
 msgid "Document Assembly"
@@ -8111,7 +8112,7 @@ msgstr "Dokumentuaren muntaketa"
 msgid ""
 "Set to “1” if inserting, rotating, or deleting pages and creating navigation "
 "elements is allowed."
-msgstr ""
+msgstr "Ezarri “1” orrialdeak txertatzea, biratzea edo ezabatzea eta nabigazio-elementuak sortzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:531
 msgid "Commenting"
@@ -8119,7 +8120,7 @@ msgstr "Iruzkinak idaztea"
 
 #: src/tags/gnome-cmd-tags.cc:531
 msgid "Set to “1” if adding or modifying text annotations is allowed."
-msgstr ""
+msgstr "Ezarri “1” testu-oharpenak gehitzea edo aldatzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:532
 msgid "Form Filling"
@@ -8127,7 +8128,7 @@ msgstr "Inprimakiak betetzea"
 
 #: src/tags/gnome-cmd-tags.cc:532
 msgid "Set to “1” if filling of form fields is allowed."
-msgstr ""
+msgstr "Ezarri “1” inprimaki-eremuak betetzea onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:533
 msgid "Accessibility Support"
@@ -8135,7 +8136,7 @@ msgstr "Erabilerraztasunaren euskarria"
 
 #: src/tags/gnome-cmd-tags.cc:533
 msgid "Set to “1” if accessibility support (e.g. screen readers) is enabled."
-msgstr ""
+msgstr "Ezarri “1” irisgarritasun-euskarria (adibidez pantaila-irakurleak) onartuta badago."
 
 #: src/tags/gnome-cmd-tags.cc:534
 msgid "Contact information for the creators or distributors of the track."
@@ -8294,26 +8295,26 @@ msgstr[1] "%s byte"
 
 #: src/utils.cc:738
 msgid "Failed to change working directory to a temporary directory."
-msgstr ""
+msgstr "Huts egin du laneko direktoriotik aldi baterako direktorio batera aldatzeak."
 
 #: src/utils.cc:748
 msgid "Failed to create a directory in which to store temporary files."
-msgstr "Huts egin du direktorioa sortzean aldi baterako fitxategiak gordetzeko."
+msgstr "Huts egin du aldi baterako fitxategiak gordetzeko direktorioa sortzeak."
 
 #: src/utils.cc:926
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
-msgstr ""
+msgstr "Ezin izan da irakurri %s direktoriotik: %s"
 
 #: src/utils.cc:950
 #, c-format
 msgid "Creating directory %s… "
-msgstr ""
+msgstr "%s direktorioa sortzen… "
 
 #: src/utils.cc:957
 #, c-format
 msgid "Failed to create the directory %s"
-msgstr "Huts egin du %s fitxategia sortzean"
+msgstr "Huts egin du %s fitxategia sortzeak"
 
 #: src/utils.cc:1103
 msgid "There was an error displaying help."
@@ -8324,3 +8325,441 @@ msgstr "Errorea gertatu da laguntza bistaratzean."
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr ""
 
+#~ msgid "Create Archive..."
+#~ msgstr "Sortu artxiboa..."
+
+#~ msgid "Profiles..."
+#~ msgstr "Profilak..."
+
+#~ msgid ""
+#~ "Some regular expressions functionality is disabled. To enable it's "
+#~ "necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your "
+#~ "package maintainer about that."
+#~ msgstr ""
+#~ "Zenbait adierazpen erregularren funtzionalitatea desgaituta daude. "
+#~ "Gaitzeko GNOME Commander eraiki behar da GLIB  ≥ 2.14 liburutegiarekin. "
+#~ "Jar zaitez paketearen mantentzailearekin harremanetan."
+
+#~ msgid "_Password:"
+#~ msgstr "_Pasahitza:"
+
+#~ msgid "Use _GNOME Keyring Manager for authentication"
+#~ msgstr "Erabili _GNOMEren gako-sorten kudeatzailea autentifikatzean"
+
+#~ msgid "/Local path..."
+#~ msgstr "/Bide-izen lokala..."
+
+#~ msgid "/Remote location..."
+#~ msgstr "/Urruneko kokalekua..."
+
+#~ msgid "_Import"
+#~ msgstr "_Inportatu"
+
+#~ msgid "Sorting"
+#~ msgstr "Ordenatu"
+
+#~ msgid "Edit..."
+#~ msgstr "Editatu..."
+
+#~ msgid "Document icon directory:"
+#~ msgstr "Dokumentu-ikonoen direktorioa:"
+
+#~ msgid "Save password in GNOME keyring"
+#~ msgstr "Gorde pasahitza GNOMEren gako-sortan"
+
+#~ msgid "Search..."
+#~ msgstr "Bilatu..."
+
+#~ msgid "Audio Files"
+#~ msgstr "Audioko fitxategiak"
+
+#~ msgid "CamelCase"
+#~ msgstr "CamelCase"
+
+#~ msgid "Manage bookmarks..."
+#~ msgstr "Kudeatu laster-markak..."
+
+#~ msgid "Open this _folder"
+#~ msgstr "Ireki _karpeta hau"
+
+#~ msgid "_Properties..."
+#~ msgstr "_Propietateak..."
+
+#~ msgid "Regular file"
+#~ msgstr "Fitxategi erregularra"
+
+#~ msgid "FIFO"
+#~ msgstr "FIFO"
+
+#~ msgid "UNIX Socket"
+#~ msgstr "UNIX socket-a"
+
+#~ msgid "Character device"
+#~ msgstr "Karaktere-gailua"
+
+#~ msgid "Block device"
+#~ msgstr "Blokeatu gailua"
+
+#~ msgid "Symbolic link"
+#~ msgstr "Esteka sinbolikoa"
+
+#~ msgid "Switch to Vertical Layout"
+#~ msgstr "Aldatu diseinu bertikalera"
+
+#~ msgid "Switch to Horizontal Layout"
+#~ msgstr "Aldatu diseinu horizontalera"
+
+#~ msgid "_Search..."
+#~ msgstr "_Bilatu..."
+
+#~ msgid "_Options..."
+#~ msgstr "_Aukerak..."
+
+#~ msgid "_Keyboard Shortcuts..."
+#~ msgstr "_Laster-teklak..."
+
+#~ msgid "_Remote Server..."
+#~ msgstr "_Urruneko zerbitzaria..."
+
+#~ msgid "New Connection..."
+#~ msgstr "Konexio berria..."
+
+#~ msgid "Can't load python module 'gnomevfs' ('gnome.vfs')"
+#~ msgstr "Ezin da 'gnomevfs' python modulua kargatu ('gnome.vfs')"
+
+#~ msgid "Open folder"
+#~ msgstr "Ireki karpeta"
+
+#~ msgid "Execute Python plugin"
+#~ msgstr "Exekutatu Python-eko plugina"
+
+#~ msgid "Unable to start Nautilus."
+#~ msgstr "Ezin da Nautilus abiarazi."
+
+#~ msgid "copying..."
+#~ msgstr "kopiatzen..."
+
+#~ msgid "Find..."
+#~ msgstr "Bilatu..."
+
+#~ msgid "No Proofing"
+#~ msgstr "Frogapenik ez"
+
+#~ msgid "Arabic"
+#~ msgstr "Arabiera"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgariera"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalaniera"
+
+#~ msgid "Traditional Chinese"
+#~ msgstr "Txinatar tradizionala"
+
+#~ msgid "Simplified Chinese"
+#~ msgstr "Txinatar soildua"
+
+#~ msgid "Chechen"
+#~ msgstr "Chechenera"
+
+#~ msgid "Danish"
+#~ msgstr "Daniera"
+
+#~ msgid "German"
+#~ msgstr "Alemaniera"
+
+#~ msgid "Swiss German"
+#~ msgstr "Suitzako alemana"
+
+#~ msgid "Greek"
+#~ msgstr "Greziera"
+
+#~ msgid "U.S. English"
+#~ msgstr "U.S. ingelesa"
+
+#~ msgid "U.K. English"
+#~ msgstr "U.K. ingelesa"
+
+#~ msgid "Australian English"
+#~ msgstr "Australiako ingelesa"
+
+#~ msgid "Castilian Spanish"
+#~ msgstr "Castilako gaztelera"
+
+#~ msgid "Mexican Spanish"
+#~ msgstr "Mexikoko gaztelera"
+
+#~ msgid "Finnish"
+#~ msgstr "Finlandiera"
+
+#~ msgid "French"
+#~ msgstr "Frantsesa"
+
+#~ msgid "Belgian French"
+#~ msgstr "Belgikako frantsesa"
+
+#~ msgid "Canadian French"
+#~ msgstr "Kanadiako frantsesa"
+
+#~ msgid "Swiss French"
+#~ msgstr "Suitzako frantsesa"
+
+#~ msgid "Hebrew"
+#~ msgstr "Hebreera"
+
+#~ msgid "Hungarian"
+#~ msgstr "Hungariera"
+
+#~ msgid "Icelandic"
+#~ msgstr "Islandiera"
+
+#~ msgid "Italian"
+#~ msgstr "Italiera"
+
+#~ msgid "Swiss Italian"
+#~ msgstr "Suitzako italiera"
+
+#~ msgid "Japanese"
+#~ msgstr "Japoniera"
+
+#~ msgid "Korean"
+#~ msgstr "Koreera"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlandera"
+
+#~ msgid "Belgian Dutch"
+#~ msgstr "Belgikako nederlandera"
+
+#~ msgid "Norwegian Bokmal"
+#~ msgstr "Norvegiako Bokmal"
+
+#~ msgid "Norwegian Nynorsk"
+#~ msgstr "Norvegiako Nynorsk"
+
+#~ msgid "Polish"
+#~ msgstr "Poloniera"
+
+#~ msgid "Brazilian Portuguese"
+#~ msgstr "Brasilgo portugesa"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugesa"
+
+#~ msgid "Rhaeto-Romanic"
+#~ msgstr "Erretorromaniera"
+
+#~ msgid "Romanian"
+#~ msgstr "Errumaniera"
+
+#~ msgid "Russian"
+#~ msgstr "Errusiera"
+
+#~ msgid "Croato-Serbian (Latin)"
+#~ msgstr "Kroazi-serbiera (Latinoa)"
+
+#~ msgid "Serbo-Croatian (Cyrillic)"
+#~ msgstr "Serbokroaziera (Zirilikoa)"
+
+#~ msgid "Slovak"
+#~ msgstr "Eslovakiera"
+
+#~ msgid "Albanian"
+#~ msgstr "Albaniera"
+
+#~ msgid "Swedish"
+#~ msgstr "Suediera"
+
+#~ msgid "Thai"
+#~ msgstr "Thailandiera"
+
+#~ msgid "Turkish"
+#~ msgstr "Turkiera"
+
+#~ msgid "Urdu"
+#~ msgstr "Urduera"
+
+#~ msgid "Indonesian"
+#~ msgstr "Indonesiera"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukraniera"
+
+#~ msgid "Byelorussian"
+#~ msgstr "Bielorrusiera"
+
+#~ msgid "Slovenian"
+#~ msgstr "Esloveniera"
+
+#~ msgid "Estonian"
+#~ msgstr "Estoniera"
+
+#~ msgid "Latvian"
+#~ msgstr "Letoniera"
+
+#~ msgid "Lithuanian"
+#~ msgstr "Lituaniera"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsia"
+
+#~ msgid "Basque"
+#~ msgstr "Euskara"
+
+#~ msgid "Macedonian"
+#~ msgstr "Mazedoniera"
+
+#~ msgid "Afrikaans"
+#~ msgstr "Afrikaansa"
+
+#~ msgid "Malayalam"
+#~ msgstr "Malayalama"
+
+#~ msgid "CVS options"
+#~ msgstr "CVS aukerak"
+
+#~ msgid "Compression level"
+#~ msgstr "Konpresio-maila"
+
+#~ msgid "Unified diff format"
+#~ msgstr "Diff formatu bateratua"
+
+#~ msgid "A plugin that eventually will be a simple CVS client"
+#~ msgstr "Azkenean CVS bezero soil bat izango den plugina"
+
+#~ msgid "Compare with"
+#~ msgstr "Konparatu honekin:"
+
+#~ msgid "HEAD"
+#~ msgstr "HEAD"
+
+#~ msgid "The previous revision"
+#~ msgstr "Aurreko berrikuspena"
+
+#~ msgid "Other revision"
+#~ msgstr "Beste berrikuspen bat"
+
+#~ msgid "CVS Diff"
+#~ msgstr "CVS Diff"
+
+#~ msgid "revision"
+#~ msgstr "berrikuspena"
+
+#~ msgid "Revision:"
+#~ msgstr "Berrikuspena:"
+
+#~ msgid "Compare..."
+#~ msgstr "Konparatu..."
+
+#~ msgid "Author:"
+#~ msgstr "Egilea:"
+
+#~ msgid "Date:"
+#~ msgstr "Data:"
+
+#~ msgid "State:"
+#~ msgstr "Egoera:"
+
+#~ msgid "Lines:"
+#~ msgstr "Lerroak:"
+
+#~ msgid "Message:"
+#~ msgstr "Mezua:"
+
+#~ msgid "_Remote dir:"
+#~ msgstr "_Urruneko dir.:"
+
+#~ msgid "_Change"
+#~ msgstr "_Aldatu"
+
+#~ msgid "_MIME Types..."
+#~ msgstr "_MIME motak..."
+
+#~ msgid "_Contents"
+#~ msgstr "_Edukia"
+
+#~ msgid "Match file names using"
+#~ msgstr "Fitxategi-izenak parekatzeko erabili:"
+
+#~ msgid "Shell syntax"
+#~ msgstr "Shell sintaxia"
+
+#~ msgid "Regex syntax"
+#~ msgstr "Adierazpen erregularren sintaxia"
+
+#~ msgid "Sorting options"
+#~ msgstr "Ordenatzeko aukerak"
+
+#~ msgid "_Test"
+#~ msgstr "_Proba"
+
+#~ msgid "Authentication"
+#~ msgstr "Autentifikazioa"
+
+#~ msgid "Use GNOME Keyring Manager for authentication"
+#~ msgstr "Erabili GNOMEren gako-sorten kudeatzailea autentifikatzean"
+
+#~ msgid "Anonymous FTP access"
+#~ msgstr "FTP anonimoaren sarbidea"
+
+#~ msgid "Password:"
+#~ msgstr "Pasahitza:"
+
+#~ msgid "Network"
+#~ msgstr "Sarea"
+
+#~ msgid "GNOME authentication manager usage"
+#~ msgstr "GNOMEren autentifikazio-kudeatzailearen erabilera"
+
+#~ msgid "_Limited depth"
+#~ msgstr "Sakonera _mugatua"
+
+#~ msgid "Failed to open file %s: %s\n"
+#~ msgstr "Huts egin du %s fitxategia irekitzean: %s\n"
+
+#~ msgid "Search _recursively"
+#~ msgstr "Bilatu _errekurtsiboki"
+
+#~ msgid "_Go to"
+#~ msgstr "_Joan"
+
+#~ msgid "Enter password"
+#~ msgstr "Idatzi pasahitza"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Arazoa: sarbidea ez dago baimendua\n"
+#~ "\n"
+#~ "eman erabiltzailearen kredentzialak\n"
+#~ "\n"
+#~ "Gogoratu: okerreko kredentzialak kontua blokea dezake."
+
+#~ msgid "Can't find a host or workgroup named %s\n"
+#~ msgstr "Ezin da aurkitu %s izeneko ostalari edo lantalderik\n"
+
+#~ msgid "MIME types"
+#~ msgstr "MIME motak"
+
+#~ msgid ""
+#~ "The file \"%s\" already exists.\n"
+#~ "\n"
+#~ "Do you want to overwrite it?\n"
+#~ msgstr ""
+#~ "\"%s\" fitxategia badago lehendik.\n"
+#~ "\n"
+#~ "Gainidatzi nahi duzu?\n"
+
+#~ msgid "Trying to load %s instead\n"
+#~ msgstr "Horren ordez %s kargatzen saiatuko da\n"
+
+#~ msgid "Other..."
+#~ msgstr "Besterik..."
+
+#~ msgid "F10 Quit"
+#~ msgstr "F10 Irten"
