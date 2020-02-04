@@ -53,6 +53,8 @@ Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
 Requires:      gnome-vfs2-smb >= @GNOMEVFS_REQ@
 Requires:      libgnomeui >= @GNOMEUI_REQ@
 Requires:      gnome-keyring >= @GNOME_KEYRING_REQ@
+# For CentOS:
+Requires:      gnome-icon-theme-legacy >= 3.0
 
 Requires:         findutils, grep
 Requires:         meld
