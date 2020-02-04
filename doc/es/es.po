@@ -2,14 +2,14 @@
 # 
 # Jorge González <jorgegonz@svn.gnome.org>, 2008, 2010.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-help.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-03 10:43+0000\n"
-"PO-Revision-Date: 2019-11-29 12:56+0100\n"
+"POT-Creation-Date: 2020-01-06 04:38+0000\n"
+"PO-Revision-Date: 2020-02-04 15:30+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -22,7 +22,7 @@ msgstr ""
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2019"
+msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008-2020"
 
 #. (itstool) path: articleinfo/title
 #: C/index.docbook:29
@@ -31,7 +31,6 @@ msgstr "Manual de GNOME Commander"
 
 #. (itstool) path: articleinfo/subtitle
 #: C/index.docbook:30
-#| msgid "GNOME Commander Desktop Application Manual V1.10.0"
 msgid "GNOME Commander Desktop Application Manual V1.12.0"
 msgstr "Manual de aplicación de escritorio GNOME Commander V1.12.0"
 
@@ -471,9 +470,6 @@ msgstr ""
 
 #. (itstool) path: revhistory/revision
 #: C/index.docbook:476
-#| msgid ""
-#| "<revnumber>GNOME Commander Manual V1.10.1;</revnumber> <date>2019-??-??</"
-#| "date> <_:revdescription-1/>"
 msgid ""
 "<revnumber>GNOME Commander Manual V1.12.0;</revnumber> <date>2019-??-??</"
 "date> <_:revdescription-1/>"
@@ -483,7 +479,6 @@ msgstr ""
 
 #. (itstool) path: articleinfo/releaseinfo
 #: C/index.docbook:486
-#| msgid "This manual describes version 1.10.0 of GNOME Commander."
 msgid "This manual describes version 1.12.0 of GNOME Commander."
 msgstr "Este manual describe la versión 1.12.0 de GNOME Commander."
 
@@ -11543,7 +11538,6 @@ msgstr "CTRL+ALT+Letras"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4589
-#, fuzzy
 #| msgid ""
 #| "By selecting this option when you press <keycombo><keycap>CTRL</"
 #| "keycap><keycap>Alt</keycap><keycap>Letter</keycap></keycombo> GNOME "
@@ -11562,7 +11556,9 @@ msgstr ""
 "keycap><keycap>Alt</keycap><keycap>Letra</keycap></keycombo> GNOME Commander "
 "desplazará hacia abajo la selección del cursor en el panel activo hasta el "
 "primer elemento que use esa letra. Puede introducir más letras después de la "
-"primera para refinar la búsqueda."
+"primera para refinar la búsqueda. al pulsar las teclas de flecha arriba o "
+"abajo el cursor saltará a todos los archivos o carpetas que coincidan con su "
+"selección."
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4600
@@ -11595,7 +11591,6 @@ msgstr ""
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4618
-#, fuzzy
 #| msgid ""
 #| "Pressing <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</"
 #| "keycap></keycombo>."
@@ -11603,8 +11598,8 @@ msgid ""
 "Just letters (command line access with <keycombo><keycap>CTRL</"
 "keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)"
 msgstr ""
-"Pulsando <keycombo><keycap>CTRL</keycap><keycap>Mayús</keycap><keycap>H</"
-"keycap></keycombo>."
+"Sólo letras (acceso a la línea de comandos con <keycombo><keycap>CTRL</"
+"keycap><keycap>Alt</keycap><keycap>C</keycap></keycombo>)"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4621
@@ -11753,10 +11748,6 @@ msgstr "Histórico de la línea de comandos"
 
 #. (itstool) path: entry/para
 #: C/index.docbook:4710
-#| msgid ""
-#| "By activating this option GNOME Commander saves the history of opened "
-#| "directories on exit. When restarted, the history of visited directories "
-#| "is accessible again."
 msgid ""
 "By activating this option GNOME Commander saves the history of executed "
 "commandline commands on exit. When restarted, the history of commands in the "
@@ -15688,7 +15679,6 @@ msgstr "Acciones adicionales del menú emergente"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7332
-#, fuzzy
 #| msgid ""
 #| "The pop-up menu of GNOME Commander, which can be opened by right-clicking "
 #| "on a file or folder or by pressing <keycombo><keycap>SHIFT</"
@@ -15713,8 +15703,8 @@ msgstr ""
 "El menú emergente de GNOME Commander, que se puede abrir pulsando con el "
 "botón derecho sobre un archivo o carpeta o pulsando <keycombo><keycap>Mayús</"
 "keycap><keycap>F10</keycap></keycombo>, se puede extender fácilmente "
-"poniendo archivos ejecutables en <guilabel>~/.gnome-commander/scripts/</"
-"guilabel>. Por cada archivo en esta carpeta se mostrará una entrada en el "
+"poniendo archivos ejecutables en <guilabel>~/.config/gnome-commander/scripts/"
+"</guilabel>. Por cada archivo en esta carpeta se mostrará una entrada en el "
 "menú emergente. Cuando se pulse una de estas entradas, se ejecutará el "
 "script asociado con los nombres de los elementos seleccionados como "
 "argumentos. Cuando se pulsa la tecla <keycap>Mayús</keycap> mientras se "
@@ -16157,11 +16147,6 @@ msgstr "Obtener GNOME Commander"
 
 #. (itstool) path: sect2/para
 #: C/index.docbook:7530
-#| msgid ""
-#| "It's recommended to use the GNOME Commander package that is provided by "
-#| "your distribution. Refer to GNOME Commander for the <ulink type=\"http\" "
-#| "url=\"http://gcmd.github.io/download.html#distro\">list of distributions</"
-#| "ulink> supporting GNOME Commander packages."
 msgid ""
 "It's recommended to use the GNOME Commander package that is provided by your "
 "distribution. Refer to GNOME Commander for the <ulink type=\"http\" url="
@@ -16316,6 +16301,11 @@ msgid ""
 "gnome-commander</guilabel>. Existing files are automatically moved when "
 "starting GNOME Commander 1.10.0 the first time."
 msgstr ""
+"Desde la versión 1.10.0 de GNOME Commaner la ubicación de los archivos de "
+"configuración ha cambiado de <guilabel>~/.gnome-commander</guilabel> a "
+"<guilabel>~/.config/gnome-commander</guilabel>. Los archivos existentes se "
+"han movido automáticamente al ejecutar GNOME Commander 1.10.0 por primera "
+"vez."
 
 #. (itstool) path: para/term
 #: C/index.docbook:7587
@@ -16333,11 +16323,6 @@ msgstr ""
 
 #. (itstool) path: note/para
 #: C/index.docbook:7593
-#| msgid ""
-#| "Since GNOME Commander version 1.6.0 the options file <guilabel>~/.gnome2/"
-#| "gnome-commander</guilabel> is obsolete. The settings of this file are now "
-#| "stored in GSettings under the path <guilabel>org.gnome.gnome-commander</"
-#| "guilabel>."
 msgid ""
 "Since GNOME Commander version 1.10.0 the following option files are "
 "obsolete. If they have been created by ealier GNOME Commander versions then "
@@ -16796,6 +16781,8 @@ msgid ""
 "Gnome Commander settings are now completely migrated to GSettings under the "
 "key \"org.gnome.gnome-commander\""
 msgstr ""
+"La configuración de Gnome Commander se ha migrado por completo a GSettings "
+"bajo la clave \"org.gnome.gnome-commander\""
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:78
@@ -16812,6 +16799,8 @@ msgid ""
 "Script and plugin folder in ~/.gnome-commander is moved into ~/.config/gnome-"
 "commander"
 msgstr ""
+"La carpeta de scripts y complementos en ~/.gnome-commander se ha movido a ~/."
+"config/gnome-commander"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:84 C/releases.xml:121
@@ -16840,7 +16829,7 @@ msgstr "2018-03-04"
 #. (itstool) path: listitem/para
 #: C/releases.xml:101
 msgid "Fix simple script system for file names with spaces"
-msgstr ""
+msgstr "Corregido sistema de scripts para nombres de archivos con espacios"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:104
@@ -16850,7 +16839,7 @@ msgstr "Error nº 785505 corregido: problema al compilar GCMD con flex 2.6.4"
 #. (itstool) path: listitem/para
 #: C/releases.xml:112
 msgid "Store the size of the options dialog when closing itself"
-msgstr ""
+msgstr "Guardar el tamaño del diálogo de opciones cuando se cierra"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:115
@@ -16858,6 +16847,8 @@ msgid ""
 "Remove unnecessary border lines from the options dialog tabs (thanks to "
 "Elijah)"
 msgstr ""
+"Eliminar líneas de bordes innecesarias de las pestañas del diálogo de "
+"opciones (gracias a Elijah)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:118
@@ -16886,16 +16877,18 @@ msgid ""
 "Quick search can be activated by just typing a letter, adjustable in the "
 "options tab"
 msgstr ""
+"La búsqueda rápida se puede activar escribiendo simplemente una letra, "
+"ajustable en la pestaña de opciones"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:141
 msgid "Option for saving/not saving the command line history on exit"
-msgstr ""
+msgstr "Opción para guardar o no el histórico de la línea de comandos al salir"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:144
 msgid "Option for saving/not saving the search history on exit"
-msgstr ""
+msgstr "Opción para guardar o no el histórico de búsquedas al salir"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:147
@@ -16903,6 +16896,8 @@ msgid ""
 "Added a settings option for deciding if the terminal window should stay open "
 "when a command finishes"
 msgstr ""
+"Añade una opción de configuración para decidir si la ventana de la terminal "
+"debe permanecer abierta cuando el comando termina"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:150
@@ -16910,12 +16905,16 @@ msgid ""
 "[build] Don't use gnome-autogen.sh anymore (Many thanks to Philip Withnall "
 "and David King)"
 msgstr ""
+"[construcción] No usar más gnome-autogen.sh (Gracias a Philip Withnall y "
+"David King)"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:153
 msgid ""
 "[build] Translations are now handled by upstream gettext instead of intltool"
 msgstr ""
+"[construcción] Las traducciones se gestionan con la versión «upstream» de "
+"gettext en lugar de con intltool"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:156
@@ -16923,6 +16922,8 @@ msgid ""
 "[build] New documentation infrastructure: Use yelp-tools instead of gnome-"
 "doc-utils"
 msgstr ""
+"[construcción] Nueva infraestructura de documentación: uso de yelp-tools en "
+"lugar de gnome-doc-utils"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:160 C/releases.xml:402
@@ -16945,6 +16946,8 @@ msgid ""
 "[build] Python is now found at build time, too, when its version is equal to "
 "or higher than 3.x"
 msgstr ""
+"[construcción] Se busca Python en tiempo de construcción, también, cuando su "
+"versión es igual o superior a la 3.x"
 
 #. (itstool) path: listitem/para
 #: C/releases.xml:182
@@ -19209,6 +19212,8 @@ msgid ""
 "<_:keycombo-1/> Open new connection to remote server (replaces the old <_:"
 "keycombo-2/>)"
 msgstr ""
+"<_:keycombo-1/> Abrir una nueva conexión al servidor (reemplaza al antiguo "
+"<_:keycombo-2/>)"
 
 #. (itstool) path: entry/para
 #: C/releases.xml:1627
