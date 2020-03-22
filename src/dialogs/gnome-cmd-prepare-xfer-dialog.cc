@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-prepare-xfer-dialog.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -48,7 +48,9 @@ inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, con
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
-    gchar *user_path = g_strstrip (g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry))));
+    gchar *user_path = g_strstrip (g_strdup (gtk_label_get_text (GTK_LABEL (dialog->dest_dir_entry))));
+    gchar *user_directory_path = g_strstrip (g_strdup (gtk_label_get_text (GTK_LABEL (dialog->dest_dir_entry))));
+
     gchar *dest_path = NULL;
     gchar *dest_fn = NULL;
     gint user_path_len;
@@ -255,10 +257,6 @@ static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *even
             gtk_signal_emit_by_name (GTK_OBJECT (dialog->ok_button), "clicked", dialog, NULL);
             return TRUE;
 
-        case GDK_F5:
-        case GDK_F6:
-            gnome_cmd_toggle_file_name_selection (dialog->dest_dir_entry);
-            return TRUE;
         default:
             return FALSE;
     }
@@ -309,11 +307,9 @@ static void init (GnomeCmdPrepareXferDialog *dialog)
     dialog->dest_dir_frame = create_category (GTK_WIDGET (dialog), dest_dir_vbox, "");
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), dialog->dest_dir_frame);
 
-    GtkWidget *dest_dir_fileentry = create_file_entry (GTK_WIDGET (dialog), "file-entry", "");
-    gtk_box_pack_start (GTK_BOX (dest_dir_vbox), dest_dir_fileentry, FALSE, FALSE, 0);
-    dialog->dest_dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dest_dir_fileentry));
-
-    g_signal_connect (dialog->dest_dir_entry, "key-press-event", G_CALLBACK (on_dest_dir_entry_keypressed), dialog);
+    GtkWidget *dest_dir_file_label = create_label (GTK_WIDGET (dialog), "");
+    gtk_box_pack_start (GTK_BOX (dest_dir_vbox), dest_dir_file_label, FALSE, FALSE, 0);
+    dialog->dest_dir_entry = dest_dir_file_label;
 
     // options
     GtkWidget *options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);
@@ -430,11 +426,9 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
 
     if (dest_str)
     {
-        gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), dest_str);
+        gtk_label_set_text (GTK_LABEL (dialog->dest_dir_entry), dest_str);
         g_free (dest_str);
     }
-
-    gtk_widget_grab_focus (GTK_WIDGET (dialog->dest_dir_entry));
 
     return GTK_WIDGET (dialog);
 }
