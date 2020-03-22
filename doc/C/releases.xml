@@ -24,13 +24,13 @@
     <tbody>
         <row valign="top">
             <entry><para>1.10.3</para></entry>
-            <entry><para>2019-??-??</para></entry>
+            <entry><para>2020-??-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
