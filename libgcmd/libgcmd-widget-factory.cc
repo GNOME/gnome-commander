@@ -1,4 +1,4 @@
-/** 
+/**
  * @file libgcmd-widget-factory.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -335,23 +335,44 @@ GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint 
 }
 
 
-GtkWidget *create_file_entry (GtkWidget *parent, const gchar *name, const gchar *value)
+GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value)
 {
-    GtkWidget *fentry, *entry;
+    GtkWidget *chooser;
+    chooser = gtk_file_chooser_button_new (_("Folder selection"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+    if (value == nullptr)
+    {
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), "");
+    }
+    else
+    {
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (chooser), value);
+    }
+    g_object_ref (chooser);
+    g_object_set_data_full (G_OBJECT (parent), name, chooser, g_object_unref);
+    gtk_widget_show (chooser);
 
-    fentry = gnome_file_entry_new (NULL, NULL);
-    g_object_ref (fentry);
-    g_object_set_data_full (G_OBJECT (parent), "fileentry", fentry, g_object_unref);
-    gtk_widget_show (fentry);
+    return chooser;
+}
 
-    entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (fentry));
-    g_object_ref (entry);
-    g_object_set_data_full (G_OBJECT (parent), name, entry, g_object_unref);
-    if (value)
-        gtk_entry_set_text (GTK_ENTRY (entry), value);
-    gtk_widget_show (entry);
 
-    return fentry;
+GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value)
+{
+    GtkWidget *chooser;
+    chooser = gtk_file_chooser_button_new (_("File selection"), GTK_FILE_CHOOSER_ACTION_OPEN);
+    if (value == nullptr)
+    {
+        gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (chooser), "");
+    }
+    else
+    {
+        gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (chooser), value);
+    }
+
+    g_object_ref (chooser);
+    g_object_set_data_full (G_OBJECT (parent), name, chooser, g_object_unref);
+    gtk_widget_show (chooser);
+
+    return chooser;
 }
 
 

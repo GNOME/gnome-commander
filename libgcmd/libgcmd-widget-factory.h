@@ -109,7 +109,9 @@ GtkWidget *create_icon_entry (GtkWidget *parent, const gchar *name, const gchar 
 
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
 
-GtkWidget *create_file_entry (GtkWidget *parent, const gchar *name, const gchar *value);
+GtkWidget *create_directory_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value);
+
+GtkWidget *create_file_chooser_button (GtkWidget *parent, const gchar *name, const gchar *value);
 
 GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint rowh, GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved);
 
