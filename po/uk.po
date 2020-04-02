@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2019-09-20 08:14+0000\n"
-"PO-Revision-Date: 2020-03-31 20:12+0300\n"
+"PO-Revision-Date: 2020-04-02 09:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -129,6 +129,8 @@ msgid ""
 "Whether to use the system’s default fixed width font for the file panels "
 "instead of a font specific to gnome-commander."
 msgstr ""
+"Визначає, чи слід використовувати загальносистемний моноширинний шрифт для"
+" панелей файлів, замість шрифту, який є специфічним для gnome-commander."
 
 #: data/org.gnome.gnome-commander.gschema.xml:74
 msgid "Panel font"
@@ -139,6 +141,8 @@ msgid ""
 "A custom font that will be used for the file panes if the “Use default font” "
 "option is turned off."
 msgstr ""
+"Нетиповий шрифт, який буде використано для панелей файлів, якщо знято"
+" позначку з пункту «Використовувати типовий шрифт»."
 
 #: data/org.gnome.gnome-commander.gschema.xml:81
 #| msgid "Size display mode"
@@ -149,6 +153,7 @@ msgstr "Режим показу розміру файлів"
 msgid ""
 "Defines how the filesize will be displayed in the associated pane column."
 msgstr ""
+"Визначає, як буде показано розмір файла у пов'язаному із ним стовпчику панелі."
 
 #: data/org.gnome.gnome-commander.gschema.xml:88
 #: src/dialogs/gnome-cmd-options-dialog.cc:372
@@ -160,6 +165,8 @@ msgid ""
 "Defines how the file permission will be displayed in the associated pane "
 "column."
 msgstr ""
+"Визначає, як буде показано права доступу у пов'язаному із ними стовпчику"
+" панелі."
 
 #: data/org.gnome.gnome-commander.gschema.xml:95
 #| msgid "Graphical mode:"
@@ -234,6 +241,8 @@ msgstr "Ліва кнопка миші знімає позначення"
 msgid ""
 "Defines if a click on an unselected item unselects already selected items."
 msgstr ""
+"Визначає, чи буде клацання на непозначеному записі призводити до зняття"
+" позначення з позначених записів."
 
 #: data/org.gnome.gnome-commander.gschema.xml:145
 #| msgid "Right mouse button"
@@ -273,6 +282,8 @@ msgid ""
 "Describes the different interpolation modes that can be used with the "
 "scaling functions."
 msgstr ""
+"Описує різні режими інтерполяції, якими можна скористатися у функціях"
+" масштабування."
 
 #: data/org.gnome.gnome-commander.gschema.xml:167
 #| msgid "Theme icon directory:"
@@ -555,6 +566,8 @@ msgid ""
 "The number represents the main window state, e.g. “maximized”, “fullscreen”, "
 "etc. and is calculated internally."
 msgstr ""
+"Число, яке відповідає стану головного вікна, наприклад «максимізовано», «на"
+" увесь екран» тощо. Обчислюється на внутрішньому рівні програми."
 
 #: data/org.gnome.gnome-commander.gschema.xml:379
 #| msgid "Left mouse button"
@@ -646,6 +659,8 @@ msgstr "Впорядкування з урахуванням регістру"
 #: data/org.gnome.gnome-commander.gschema.xml:436
 msgid "This option defines if sorting should be case sensitive."
 msgstr ""
+"Цей параметр визначає, чи має бути враховано регістр символів під час"
+" упорядковування."
 
 #: data/org.gnome.gnome-commander.gschema.xml:442
 msgid "Select directories when all is marked"
@@ -656,6 +671,8 @@ msgid ""
 "This option defines if directories will be marked when all items in a file "
 "pane should be marked."
 msgstr ""
+"Цей параметр визначає, чи слід позначати каталоги, коли ви позначаєте усі"
+" записи на файловій панелі."
 
 #: data/org.gnome.gnome-commander.gschema.xml:449
 #| msgid "Multiple instances"
@@ -677,6 +694,8 @@ msgid ""
 "This option defines if quick search should match explicitly at the beginning "
 "of an item name."
 msgstr ""
+"Цей параметр визначає, чи має програма під час швидкого пошуку явними чином"
+" встановлювати відповідність записів за початком назви об'єкта."
 
 #: data/org.gnome.gnome-commander.gschema.xml:463
 #| msgid "Quick search"
@@ -688,6 +707,8 @@ msgid ""
 "This option defines if quick search should match explicitly at the end of an "
 "item name."
 msgstr ""
+"Цей параметр визначає, чи має програма під час швидкого пошуку явними чином"
+" встановлювати відповідність записів за кінцем назви об'єкта."
 
 #: data/org.gnome.gnome-commander.gschema.xml:470
 #| msgid "Show only the icons"
@@ -699,6 +720,8 @@ msgid ""
 "This option defines if only device icons should be shown instead of icons "
 "and text label."
 msgstr ""
+"Цей параметр визначає, чи слід показувати лише піктограми пристроїв замість"
+" піктограм із мітками."
 
 #: data/org.gnome.gnome-commander.gschema.xml:477
 msgid "Skip device mounting"
@@ -709,6 +732,8 @@ msgid ""
 "This option defines if mounting of devices should be skipped when they are "
 "opened."
 msgstr ""
+"Цей параметр визначає, чи слід пропускати монтування пристроїв, якщо їх"
+" відкрито."
 
 #: data/org.gnome.gnome-commander.gschema.xml:484
 msgid "Main menu visibility"
@@ -779,13 +804,15 @@ msgstr "Цей параметр визначає висоту вікна пош�
 
 #: data/org.gnome.gnome-commander.gschema.xml:533
 msgid "Search window is transient"
-msgstr ""
+msgstr "Вікно пошуку є перехідним"
 
 #: data/org.gnome.gnome-commander.gschema.xml:534
 msgid ""
 "Defines if the search window is transient or if it can be minimized and "
 "moved behind the main window."
 msgstr ""
+"Визначає, є вікно пошуку перехідним чи може бути мінімізоване і пересунуте за"
+" головне вікно програми."
 
 #: data/org.gnome.gnome-commander.gschema.xml:540
 msgid "Search text history"
@@ -795,38 +822,44 @@ msgstr "Журнал текстового пошуку"
 msgid ""
 "This string array represents the history of text searches in the search tool."
 msgstr ""
+"Масив рядків, який відповідає журналу текстового пошуку у засобі пошуку."
 
 #: data/org.gnome.gnome-commander.gschema.xml:547
 msgid "Search pattern history"
-msgstr ""
+msgstr "Журнал взірців пошуку"
 
 #: data/org.gnome.gnome-commander.gschema.xml:548
 msgid ""
 "This string array represents the history of regular expression searches in "
 "the search tool."
 msgstr ""
+"Масив рядків, який відповідає журналу пошуку за формальними виразами у засобі"
+" пошуку."
 
 #: data/org.gnome.gnome-commander.gschema.xml:554
 msgid "List of search tool profiles"
-msgstr ""
+msgstr "Список профілів засобу пошуку"
 
 #: data/org.gnome.gnome-commander.gschema.xml:555
 msgid ""
 "The entries in this array represent the profiles in the search tool with "
 "specific settings for each profile."
 msgstr ""
+"Записи у цьому масиві визначають профілі у засобі пошуку. Кожен запис"
+" зберігає специфічні параметри"
+" відповідного профілю."
 
 #: data/org.gnome.gnome-commander.gschema.xml:563
 msgid "Quick connect URI"
-msgstr ""
+msgstr "Адреса швидкого з'єднання"
 
 #: data/org.gnome.gnome-commander.gschema.xml:564
 msgid "Unified resource identifier for quick connections."
-msgstr ""
+msgstr "Уніфікований ідентифікатор ресурсу для швидких з'єднань."
 
 #: data/org.gnome.gnome-commander.gschema.xml:575
 msgid "Password for anonymous FTP connections"
-msgstr ""
+msgstr "Пароль для анонімних з'єднань FTP"
 
 #: data/org.gnome.gnome-commander.gschema.xml:576
 msgid "This string defines the password for anonymous FTP connections."
@@ -851,6 +884,7 @@ msgid ""
 "This setting defines the default active option in the delete confirmation "
 "dialog."
 msgstr ""
+"Цей параметр визначає типовий активний варіант у діалоговому вікні вилучення."
 
 #: data/org.gnome.gnome-commander.gschema.xml:598
 msgid "Confirm copy overwrite"
@@ -861,6 +895,8 @@ msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "copy command."
 msgstr ""
+"Цей параметр визначає типову поведінку при перезаписів об'єктів командою"
+" копіювання."
 
 #: data/org.gnome.gnome-commander.gschema.xml:605
 #| msgid "Move overwrite"
@@ -872,6 +908,8 @@ msgid ""
 "This option defines the default behavior when items will be overwritten by a "
 "move command."
 msgstr ""
+"Цей параметр визначає типову поведінку при перезаписів об'єктів командою"
+" пересування."
 
 #: data/org.gnome.gnome-commander.gschema.xml:612
 msgid "Confirm mouse drag and drop"
@@ -949,6 +987,8 @@ msgid ""
 "The given string defines suffixes (separated by semicolon) for files which "
 "should be filtered out if backup files should be hidden."
 msgstr ""
+"Заданий рядок визначає суфікси (відокремлені крапкою з комою) для файлів, які"
+" має бути відфільтровано, якщо наказати приховувати файли резервних копій."
 
 #: data/org.gnome.gnome-commander.gschema.xml:673
 msgid "Do not download files"
@@ -1360,6 +1400,8 @@ msgid ""
 "This option defines if the hexadecimal offset should be displayed in hex "
 "mode."
 msgstr ""
+"Цей параметр визначає, чи має бути показано шістнадцятковий зсув у режимі"
+" шістнадцяткового перегляду."
 
 #: data/org.gnome.gnome-commander.gschema.xml:970
 #| msgid "Graphical mode:"
@@ -1389,6 +1431,8 @@ msgid ""
 "This option defines the indentation width in terms of characters for a "
 "tabulator character."
 msgstr ""
+"Цей параметр визначає ширину відступу у одиницях символів для символу"
+" табуляції."
 
 #: data/org.gnome.gnome-commander.gschema.xml:991
 msgid "Bytes per line in binary mode"
@@ -1399,6 +1443,8 @@ msgid ""
 "This option defines how many bytes should be displayed in one line in binary "
 "mode."
 msgstr ""
+"Цей параметр визначає, скільки байтів має бути показано у одному рядку у"
+" двійковому режимі."
 
 #: data/org.gnome.gnome-commander.gschema.xml:998
 #| msgid "Flip _Horizontal"
@@ -1410,6 +1456,8 @@ msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
 msgstr ""
+"Цей параметр визначає візуальний відступ вікна вбудованого засобу перегляду у"
+" горизонтальному напрямку."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Vertical offset"
@@ -1451,6 +1499,8 @@ msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
 msgstr ""
+"Цей масив рядків зберігає журнал текстових пошуку у вбудованому засобі"
+" перегляду файлів."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Search pattern for hex values"
@@ -1461,6 +1511,8 @@ msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
 msgstr ""
+"Цей масив рядків зберігає журнал пошуку шістнадцяткових значень у вбудованому"
+" засобі перегляду файлів."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1042
 #| msgid "File size"
@@ -6851,10 +6903,12 @@ msgid ""
 "The total number of bytes in each strip. With JPEG compressed data this "
 "designation is not needed and is omitted."
 msgstr ""
+"Загальна кількість байтів у кожній смузі. Якщо дані JPEG стиснуто, це "
+"позначення є непотрібним — його буде пропущено."
 
 #: src/tags/gnome-cmd-tags.cc:299
 msgid "Strip Offsets"
-msgstr ""
+msgstr "Зсуви смуг"
 
 #: src/tags/gnome-cmd-tags.cc:299
 msgid ""
@@ -6869,7 +6923,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:300
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
-msgstr ""
+msgstr "Визначено корпорацією Adobe для увімкнення дерев TIFF у файлі TIFF."
 
 #: src/tags/gnome-cmd-tags.cc:301
 msgid "Subject Area"
@@ -8046,7 +8100,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:449
 msgid "By-line"
-msgstr ""
+msgstr "Підпис автора"
 
 #: src/tags/gnome-cmd-tags.cc:449
 msgid ""
@@ -8056,7 +8110,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:450
 msgid "By-line Title"
-msgstr ""
+msgstr "Посада автора"
 
 #: src/tags/gnome-cmd-tags.cc:450
 msgid "Title of the creator or creators of the object."
@@ -8224,11 +8278,11 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:470
 msgid "Envelope Number"
-msgstr "номер конверта"
+msgstr "Номер конверта"
 
 #: src/tags/gnome-cmd-tags.cc:470
 msgid "A number unique for the date and the service ID."
-msgstr ""
+msgstr "Унікальний номер для дати та ідентифікатор служби."
 
 #: src/tags/gnome-cmd-tags.cc:471
 msgid "Envelope Priority"
@@ -8376,7 +8430,7 @@ msgstr "Назва об'єкта"
 
 #: src/tags/gnome-cmd-tags.cc:487
 msgid "A shorthand reference for the object."
-msgstr ""
+msgstr "Стенографічне посилання на об'єкт."
 
 #: src/tags/gnome-cmd-tags.cc:488
 msgid "Object Size Announced"
@@ -8388,27 +8442,27 @@ msgstr "Загальний розмір даних об'єкта, якщо це 
 
 #: src/tags/gnome-cmd-tags.cc:489
 msgid "Object Type Reference"
-msgstr ""
+msgstr "Посилання на тип об'єкта"
 
 #: src/tags/gnome-cmd-tags.cc:489
 msgid "Distinguishes between different types of objects within the IIM."
-msgstr ""
+msgstr "Розрізнення типів об'єктів у IIM."
 
 #: src/tags/gnome-cmd-tags.cc:490
 msgid "Originating Program"
-msgstr ""
+msgstr "Програма для створення оригіналу"
 
 #: src/tags/gnome-cmd-tags.cc:490
 msgid "The type of program used to originate the object."
-msgstr ""
+msgstr "Тип програми, яку було використано для створення оригіналу об'єкта."
 
 #: src/tags/gnome-cmd-tags.cc:491
 msgid "Original Transmission Reference"
-msgstr ""
+msgstr "Посилання на початкове передавання"
 
 #: src/tags/gnome-cmd-tags.cc:491
 msgid "A code representing the location of original transmission."
-msgstr ""
+msgstr "Код, який відповідає розташуванню початкового об'єкта передавання."
 
 #: src/tags/gnome-cmd-tags.cc:492
 msgid "Preview Data"
@@ -8425,6 +8479,8 @@ msgstr "Формат файлу ескізу"
 #: src/tags/gnome-cmd-tags.cc:493
 msgid "Binary value indicating the file format of the object preview data."
 msgstr ""
+"Двійкове значення, яка вказує на формат файлів даних попереднього перегляду"
+" об'єкта."
 
 #: src/tags/gnome-cmd-tags.cc:494
 msgid "Preview File Format Version"
@@ -8440,7 +8496,7 @@ msgstr "ID продукту"
 
 #: src/tags/gnome-cmd-tags.cc:495
 msgid "Allows a provider to identify subsets of its overall service."
-msgstr ""
+msgstr "Надає змогу надавачу даних ідентифікувати підмножини загальної служби."
 
 #: src/tags/gnome-cmd-tags.cc:496
 msgid "Program Version"
@@ -8460,13 +8516,15 @@ msgstr "Провінція або штат, з якого походить об'
 
 #: src/tags/gnome-cmd-tags.cc:498
 msgid "Rasterized Caption"
-msgstr ""
+msgstr "Растрований підпис"
 
 #: src/tags/gnome-cmd-tags.cc:498
 msgid ""
 "Contains rasterized object description and is used where characters that "
 "have not been coded are required for the caption."
 msgstr ""
+"Містить растрований опис об'єкта і використовується там, де для підпису"
+" потрібні символи, які не було закодовано."
 
 #: src/tags/gnome-cmd-tags.cc:499
 msgid "Record Version"
