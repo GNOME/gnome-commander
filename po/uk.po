@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
 "POT-Creation-Date: 2019-09-20 08:14+0000\n"
-"PO-Revision-Date: 2020-04-02 09:48+0300\n"
+"PO-Revision-Date: 2020-04-02 10:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -387,6 +387,10 @@ msgid ""
 "code. A “%s” will be expanded to the item name for which a link should be "
 "created."
 msgstr ""
+"Цей рядок визначає типову назву для новостворених символічних посилань. Не"
+" заповнюйте, якщо слід використати типове значення, яке жорстко закодовано до"
+" коду програми. Замінник «%s» буде розгорнуто до назви запису, для якого має"
+" бути створено посилання."
 
 #: data/org.gnome.gnome-commander.gschema.xml:231
 msgid "Main window horizontal position"
@@ -1163,6 +1167,8 @@ msgid ""
 "This option triggers if the value of the environment variable LS_COLORS "
 "should be used to dye files and folders."
 msgstr ""
+"Цей параметр перемикає використання змінної середовища LS_COLORS для"
+" розфарбовування файлів і тек."
 
 #: data/org.gnome.gnome-commander.gschema.xml:809
 msgid "LS_COLORS black foreground mapping"
@@ -1534,6 +1540,8 @@ msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
 msgstr ""
+"Взірець префіксів використовується для побудови назв архівів, які буде"
+" створено за допомогою додатка File Roller."
 
 #: data/org.gnome.gnome-commander.gschema.xml:1058
 #| msgid "Available plugins"
@@ -4279,7 +4287,7 @@ msgstr "Редагувати (SHIFT для нового документа)"
 
 #: src/gnome-cmd-main-win.cc:1259
 msgid "Open terminal (SHIFT for root privileges)"
-msgstr ""
+msgstr "Відкрити термінал (SHIFT — права root)"
 
 #: src/gnome-cmd-main-win.cc:1262
 msgid "Drop connection"
@@ -4291,7 +4299,7 @@ msgstr "Пошук"
 
 #: src/gnome-cmd-selection-profile-component.cc:125
 msgid "Path matches regex:"
-msgstr ""
+msgstr "Шлях відповідає формальному виразу:"
 
 #: src/gnome-cmd-selection-profile-component.cc:126
 #| msgid "New connection"
@@ -4312,10 +4320,10 @@ msgstr "Лише поточний каталог"
 #, c-format
 msgid "%i level"
 msgid_plural "%i levels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%i рівень"
+msgstr[1] "%i рівні"
+msgstr[2] "%i рівнів"
+msgstr[3] "%i рівень"
 
 #: src/gnome-cmd-selection-profile-component.cc:144
 msgid "Search _recursively:"
@@ -4744,6 +4752,15 @@ msgid ""
 "<b>%s</b>\n"
 "<span color='dimgray' size='smaller'>%s</span>"
 msgstr ""
+"Перезаписати файл:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>\n"
+"\n"
+"Файлом:\n"
+"\n"
+"<b>%s</b>\n"
+"<span color='dimgray' size='smaller'>%s</span>"
 
 #: src/gnome-cmd-xfer.cc:209
 msgid "Replace"
@@ -4821,6 +4838,8 @@ msgstr "Скопійовано %.0f%%"
 #| "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgid "Couldn’t load installed file type pixmap, trying to load %s instead"
 msgstr ""
+"Не вдалося завантажити встановлене растрове зображення для типу файлів."
+" Намагаємося замість нього завантажити %s"
 
 #: src/imageloader.cc:113 src/imageloader.cc:137
 #, c-format
@@ -4836,6 +4855,8 @@ msgstr ""
 #| msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgid "Couldn’t load installed pixmap, trying to load %s instead"
 msgstr ""
+"Не вдалося завантажити встановлене растрове зображення. Намагаємося замість"
+" нього завантажити %s"
 
 #: src/intviewer/search-dlg.cc:243
 msgid "Find"
@@ -6963,15 +6984,15 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:305
 msgid "Subsec Time"
-msgstr ""
+msgstr "Частки секунд часу"
 
 #: src/tags/gnome-cmd-tags.cc:305
 msgid "Fractions of seconds for the <Exif.DateTime> tag."
-msgstr ""
+msgstr "Частки секунди для мітки <Exif.DateTime>."
 
 #: src/tags/gnome-cmd-tags.cc:306
 msgid "Subsec Time Digitized"
-msgstr ""
+msgstr "Частки секунди часу цифрування"
 
 #: src/tags/gnome-cmd-tags.cc:306
 msgid "Fractions of seconds for the <Exif.DateTimeDigitized> tag."
@@ -6979,7 +7000,7 @@ msgstr "Частки секунди для мітки <Exif.DateTimeDigitized>."
 
 #: src/tags/gnome-cmd-tags.cc:307
 msgid "Subsec Time Original"
-msgstr ""
+msgstr "Частки секунди часу створення оригіналу"
 
 #: src/tags/gnome-cmd-tags.cc:307
 msgid "Fractions of seconds for the <Exif.DateTimeOriginal> tag."
@@ -7298,7 +7319,7 @@ msgstr "Група"
 
 #: src/tags/gnome-cmd-tags.cc:336
 msgid "Additional information about the performers in the recording."
-msgstr ""
+msgstr "Додаткові відомості щодо виконавців на запису."
 
 #: src/tags/gnome-cmd-tags.cc:337
 msgid "BPM"
@@ -7362,11 +7383,11 @@ msgstr "Тип змісту"
 
 #: src/tags/gnome-cmd-tags.cc:346
 msgid "Encryption Registration"
-msgstr ""
+msgstr "Реєстрація шифрування"
 
 #: src/tags/gnome-cmd-tags.cc:346
 msgid "Encryption method registration."
-msgstr ""
+msgstr "Реєстрація способу шифрування."
 
 #: src/tags/gnome-cmd-tags.cc:347
 msgid "Date."
@@ -7520,11 +7541,11 @@ msgstr "Тип носія."
 
 #: src/tags/gnome-cmd-tags.cc:367
 msgid "Mix Artist"
-msgstr ""
+msgstr "Виконавець міксу"
 
 #: src/tags/gnome-cmd-tags.cc:367
 msgid "Interpreted, remixed, or otherwise modified by."
-msgstr ""
+msgstr "Автор інтерпретації, реміксу або іншої зміни."
 
 #: src/tags/gnome-cmd-tags.cc:368
 msgid "Mood"
@@ -7656,15 +7677,15 @@ msgstr "Час, який файл програвався."
 
 #: src/tags/gnome-cmd-tags.cc:384
 msgid "Playlist Delay"
-msgstr ""
+msgstr "Затримка списку відтворення"
 
 #: src/tags/gnome-cmd-tags.cc:384
 msgid "Playlist delay."
-msgstr ""
+msgstr "Затримка списку відтворення."
 
 #: src/tags/gnome-cmd-tags.cc:385
 msgid "Popularimeter"
-msgstr ""
+msgstr "Популяріметр"
 
 #: src/tags/gnome-cmd-tags.cc:385
 msgid "Rating of the audio file."
@@ -7672,11 +7693,11 @@ msgstr "Рейтинг аудіо файла."
 
 #: src/tags/gnome-cmd-tags.cc:386
 msgid "Position Sync"
-msgstr ""
+msgstr "Синхронізація позиції"
 
 #: src/tags/gnome-cmd-tags.cc:386
 msgid "Position synchronisation frame."
-msgstr ""
+msgstr "Кадр синхронізації позиції."
 
 #: src/tags/gnome-cmd-tags.cc:387
 msgid "Private"
@@ -7688,11 +7709,11 @@ msgstr "Приватний кадр."
 
 #: src/tags/gnome-cmd-tags.cc:388
 msgid "Produced Notice"
-msgstr ""
+msgstr "Нотатка щодо випуску"
 
 #: src/tags/gnome-cmd-tags.cc:388
 msgid "Produced notice."
-msgstr ""
+msgstr "Нотатка щодо випуску."
 
 #: src/tags/gnome-cmd-tags.cc:389
 msgid "Publisher."
@@ -7732,11 +7753,11 @@ msgstr "Реверберація."
 
 #: src/tags/gnome-cmd-tags.cc:394
 msgid "Set Subtitle"
-msgstr ""
+msgstr "Підзаголовок запису"
 
 #: src/tags/gnome-cmd-tags.cc:394
 msgid "Subtitle of the part of a set this track belongs to."
-msgstr ""
+msgstr "Підзаголовок частини запису, до якого належить ця доріжка."
 
 #: src/tags/gnome-cmd-tags.cc:395
 msgid "Signature"
@@ -7748,7 +7769,7 @@ msgstr "Кадр підпису."
 
 #: src/tags/gnome-cmd-tags.cc:396
 msgid "Size of the audio file in bytes, excluding the ID3 tag."
-msgstr ""
+msgstr "Розмір файла звукових даних у байтах, за виключенням мітки ID3."
 
 #: src/tags/gnome-cmd-tags.cc:397
 msgid "Song length"
@@ -7876,11 +7897,11 @@ msgstr "Офіційна вебсторінка джерела звукових 
 
 #: src/tags/gnome-cmd-tags.cc:413
 msgid "WWW Commercial Info"
-msgstr ""
+msgstr "WWW комерційних відомостей"
 
 #: src/tags/gnome-cmd-tags.cc:413
 msgid "URL pointing at a webpage containing commercial information."
-msgstr ""
+msgstr "Адреса вебсторінки, яка містить комерційні відомості."
 
 #: src/tags/gnome-cmd-tags.cc:414
 msgid "WWW Copyright"
@@ -7888,7 +7909,7 @@ msgstr "Авторські права WWW"
 
 #: src/tags/gnome-cmd-tags.cc:414
 msgid "URL pointing at a webpage that holds copyright."
-msgstr ""
+msgstr "Адреса, яка вказує на вебсторінку із записом щодо авторських прав."
 
 #: src/tags/gnome-cmd-tags.cc:415
 msgid "WWW Payment"
@@ -7899,6 +7920,7 @@ msgid ""
 "URL pointing at a webpage that will handle the process of paying for this "
 "file."
 msgstr ""
+"Адреса, яка вказує на вебсторінку, яка обробляє процедуру сплати за цей файл."
 
 #: src/tags/gnome-cmd-tags.cc:416
 msgid "WWW Publisher"
@@ -7926,7 +7948,7 @@ msgstr "Визначене користувачем вебпосилання."
 
 #: src/tags/gnome-cmd-tags.cc:419
 msgid "Name of an album the image belongs to."
-msgstr ""
+msgstr "Назва альбому, до якого належить це зображення."
 
 #: src/tags/gnome-cmd-tags.cc:421
 msgid "Embedded copyright message."
@@ -7948,7 +7970,7 @@ msgstr ""
 
 #: src/tags/gnome-cmd-tags.cc:426
 msgid "Exposure time used to capture the photo in seconds."
-msgstr ""
+msgstr "Тривалість експонування, яку було використано для зйомки, у секундах."
 
 #: src/tags/gnome-cmd-tags.cc:427
 #| msgid "Set to \"1\" if flash was fired."
@@ -7976,6 +7998,8 @@ msgid ""
 "ISO speed used to acquire the document contents. For example, 100, 200, 400, "
 "etc."
 msgstr ""
+"Швидкість ISO, яку було використано для створення вмісту документа. Приклади:"
+" 100, 200, 400 тощо."
 
 #: src/tags/gnome-cmd-tags.cc:432
 msgid "String of keywords."
@@ -8004,6 +8028,8 @@ msgid ""
 "Represents the orientation of the image wrt camera (IE “top,left” or “bottom,"
 "right”)."
 msgstr ""
+"Вказує на орієнтацію зображення щодо камери (тобто «top,left» або"
+" «bottom,right»)."
 
 #: src/tags/gnome-cmd-tags.cc:437
 msgid "Software used to produce/enhance the image."
