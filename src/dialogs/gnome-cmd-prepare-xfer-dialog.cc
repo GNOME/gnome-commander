@@ -303,7 +303,7 @@ static void class_init (GnomeCmdPrepareXferDialogClass *klass)
 
 static void init (GnomeCmdPrepareXferDialog *dialog)
 {
-    GtkWidget *dest_dir_vbox, *dir_entry, *label;
+    GtkWidget *dest_dir_vbox, *dir_entry;
 
     // dest dir
     dest_dir_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
