@@ -4,6 +4,7 @@ data/gnome-commander.appdata.xml.in
 data/gnome-commander.desktop.in.in
 data/org.gnome.gnome-commander.gschema.xml
 libgcmd/gnome-cmd-string-dialog.cc
+libgcmd/libgcmd-widget-factory.cc
 plugins/fileroller/file-roller-plugin.cc
 plugins/test/test-plugin.cc
 src/dialogs/gnome-cmd-advrename-dialog.cc
