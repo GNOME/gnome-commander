@@ -689,7 +689,6 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             open_uiinfo[j].user_data = fl;
 
     for (gint j=0; other_uiinfo[j].type != GNOME_APP_UI_ENDOFINFO; ++j)
-        if (other_uiinfo[j].type == GNOME_APP_UI_ITEM)
             other_uiinfo[j].user_data = fl;
 
     open_uiinfo[0].label = get_default_application_action_name(files, (gchar **) &open_uiinfo[0].pixmap_info);  // must be freed after gnome_app_fill_menu ()

@@ -1060,13 +1060,18 @@ void edit_filter (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
+void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
 {
     GdkModifierType mask;
+    GnomeCmdFileList *fl;
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    if ((GnomeCmdFileList*) fileList == nullptr)
+    {
+        fileList = get_fl (ACTIVE);
+    }
+    fl = (GnomeCmdFileList*) fileList;
     GList *sfl = fl->get_selected_files();
     sfl = fl->sort_selection(sfl);
 
