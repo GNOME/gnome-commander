@@ -32,6 +32,9 @@
                         <listitem>
                             <para>Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed issue #65 (Search options: 'copy file name' does not work)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
