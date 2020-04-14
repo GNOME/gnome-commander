@@ -20,7 +20,6 @@
  */
 
 #include <gtk/gtk.h>
-#include <libgnome/gnome-util.h>
 #include <set>
 #include <algorithm>
 
