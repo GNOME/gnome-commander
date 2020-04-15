@@ -20,7 +20,6 @@
  */
 
 #include <config.h>
-#include <libgnomeui/gnome-popup-menu.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir-indicator.h"
@@ -361,12 +360,13 @@ void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
                        path);
     }
 
-    gnome_popup_menu_do_popup (indicator->priv->dir_history_popup,
-                               (GtkMenuPositionFunc) get_popup_pos,
-                               indicator,
-                               nullptr,
-                               nullptr,
-                               nullptr);
+    gtk_menu_popup (GTK_MENU (indicator->priv->dir_history_popup),
+                    nullptr,
+                    nullptr,
+                    (GtkMenuPositionFunc) get_popup_pos,
+                    indicator,
+                    0,
+                    gtk_get_current_event_time());
 
     gint w = -1;
 
@@ -415,7 +415,13 @@ void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), GTK_SIGNAL_FUNC (on_bookmarks_add_current), indicator);
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks…"), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
 
-    gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, nullptr, nullptr, nullptr);
+    gtk_menu_popup (GTK_MENU (indicator->priv->bookmark_popup),
+                    nullptr,
+                    nullptr,
+                    (GtkMenuPositionFunc) get_popup_pos,
+                    indicator,
+                    0,
+                    gtk_get_current_event_time());
 
     gint w = -1;
 

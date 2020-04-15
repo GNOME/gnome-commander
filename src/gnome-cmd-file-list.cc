@@ -22,7 +22,6 @@
 #include <config.h>
 #include <stdio.h>
 #include <glib-object.h>
-#include <libgnomeui/gnome-popup-menu.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
@@ -817,7 +816,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     g_object_ref (menu);
     g_object_set_data_full (*fl, "file_popup_menu", menu, g_object_unref);
 
-    gnome_popup_menu_do_popup (menu, nullptr, nullptr, event, fl, nullptr);
+    gtk_menu_popup (GTK_MENU (menu), nullptr, nullptr, nullptr, fl, event->button, event->time);
 }
 
 
