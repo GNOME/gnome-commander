@@ -6,7 +6,7 @@
 
   <name xml:lang="en">GNOME Commander</name>
   <shortdesc xml:lang="en">Light and fast file manager for GNOME</shortdesc>
-  <homepage rdf:resource="http://gcmd.github.io/" />
+  <homepage rdf:resource="https://gcmd.github.io/" />
   <mailing-list rdf:resource="http://lists.nongnu.org/mailman/listinfo/gcmd-devel" />
   <download-page rdf:resource="http://download.gnome.org/sources/gnome-commander/" />
   <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/gnome-commander/issues/" />

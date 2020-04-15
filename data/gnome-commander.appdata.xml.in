@@ -35,13 +35,13 @@
       <image>https://gcmd.github.io/ss/MainWin-Classic.png</image>
     </screenshot>
     <screenshot width="950" height="540">
-      <image>http://gcmd.github.io/ss/adv_ren.png</image>
+      <image>https://gcmd.github.io/ss/adv_ren.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">http://gcmd.github.io/index.html</url>
+  <url type="homepage">https://gcmd.github.io/index.html</url>
   <url type="bugtracker">https://gitlab.gnome.org/GNOME/gnome-commander/issues</url>
   <url type="donation">https://gcmd.github.io/#donations</url>
-  <url type="help">http://gcmd.github.io/doc.html</url>
+  <url type="help">https://gcmd.github.io/doc.html</url>
   <url type="translate">https://gcmd.github.io/dev.html#trnsl</url>
   <update_contact>gcmd-devel@nongnu.org</update_contact>
   <project_group>GNOME</project_group>
