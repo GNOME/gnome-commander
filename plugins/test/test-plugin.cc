@@ -21,13 +21,12 @@
 
 #include <config.h>
 #include <gtk/gtk.h>
-#include <libgnomeui/gnome-dialog-util.h>
 #include <libgcmd/libgcmd.h>
 #include "test-plugin.h"
 #include "test-plugin.xpm"
 
 #define NAME "Example"
-#define COPYRIGHT "Copyright \xc2\xa9 2003-2006 Marcus Bjurman"
+#define COPYRIGHT "Copyright \xc2\xa9 2003-2006 Marcus Bjurman\n\xc2\xa9 2013-2020 Uwe Scholz"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define WEBPAGE "http://gcmd.github.io"
 
@@ -54,9 +53,23 @@ struct _TestPluginPrivate
 static GnomeCmdPluginClass *parent_class = NULL;
 
 
+static void show_dummy_dialog()
+{
+    GtkWidget *dialog;
+    GtkDialogFlags flags = GTK_DIALOG_MODAL;
+    dialog = gtk_message_dialog_new (nullptr,
+                                     flags,
+                                     GTK_MESSAGE_OTHER,
+                                     GTK_BUTTONS_OK,
+                                     "Test plugin dummy operation");
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+}
+
+
 static void on_dummy (GtkMenuItem *item, gpointer data)
 {
-    gnome_ok_dialog ("Test plugin dummy operation");
+    show_dummy_dialog();
 }
 
 
@@ -129,7 +142,7 @@ static void update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state
 
 static void configure (GnomeCmdPlugin *plugin)
 {
-    gnome_ok_dialog ("Test plugin configuration dialog");
+    show_dummy_dialog();
 }
 
 
