@@ -1,4 +1,4 @@
-/** 
+/**
  * @file gnome-cmd-about-plugin.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -20,7 +20,6 @@
  */
 
 #include <config.h>
-#include <libgnomeui/gnome-href.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-about-plugin.h"
@@ -238,6 +237,15 @@ static void gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *
 }
 
 
+static void link_button_clicked_callback (GtkWidget *widget, gpointer data)
+{
+    const gchar *link;
+
+	link = gtk_link_button_get_uri (GTK_LINK_BUTTON (widget));
+	gtk_show_uri (nullptr, link, gtk_get_current_event_time(), nullptr);
+}
+
+
 static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 {
     GtkWidget *vbox, *hbox, *image, *label, *alignment, *button;
@@ -284,7 +292,9 @@ static void gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
     gtk_label_set_justify (GTK_LABEL (priv->copyright_label), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start (GTK_BOX (vbox), priv->copyright_label, FALSE, FALSE, 0);
 
-    priv->web_button = gnome_href_new ("", _("Plugin Webpage"));
+    priv->web_button = gtk_link_button_new_with_label ("", _("Plugin Webpage"));
+    g_signal_connect (priv->web_button, "clicked", G_CALLBACK (link_button_clicked_callback), NULL);
+
     gtk_box_pack_start (GTK_BOX (vbox), priv->web_button, FALSE, FALSE, 0);
 
     gtk_widget_show (vbox);
@@ -441,10 +451,9 @@ inline void gnome_cmd_about_plugin_set_webpage (GnomeCmdAboutPlugin *about, cons
     g_free (about->priv->webpage);
 
     about->priv->webpage = g_strdup (webpage);
-    gnome_href_set_url (GNOME_HREF (about->priv->web_button), webpage);
+    gtk_link_button_set_uri(GTK_LINK_BUTTON (about->priv->web_button), webpage);
     gtk_widget_show (about->priv->web_button);
 }
-
 
 static void gnome_cmd_about_plugin_set_copyright (GnomeCmdAboutPlugin *about, const gchar *copyright)
 {
