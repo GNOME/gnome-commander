@@ -1937,7 +1937,7 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-    if (!gtk_show_uri (NULL, "http://gcmd.github.io/", GDK_CURRENT_TIME, &error))
+    if (!gtk_show_uri (NULL, "https://gcmd.github.io/", GDK_CURRENT_TIME, &error))
         gnome_cmd_error_message (_("There was an error opening home page."), error);
 }
 
@@ -2003,7 +2003,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
                            "documenters", documenters,
                            "logo-icon-name", PACKAGE_NAME,
                            "translator-credits", _("translator-credits"),
-                           "website", "http://gcmd.github.io",
+                           "website", "https://gcmd.github.io",
                            "website-label", "GNOME Commander Website",
                            NULL);
 

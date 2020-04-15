@@ -3252,7 +3252,7 @@ msgstr "Diretório"
 msgid "Counter"
 msgstr "Contador"
 
-# http://gcmd.github.io/tags.html
+# https://gcmd.github.io/tags.html
 #: src/gnome-cmd-advrename-profile-component.cc:930
 msgid "Metatag"
 msgstr "Metaetiqueta"

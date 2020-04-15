@@ -7490,7 +7490,7 @@
 	  <note><para>Since GNOME has changed to follow the freedesktop.org standard of handling mimetypes, the editing 
 	  of preferred programs in GNOME Commander is broken (since v1.1.7). You have still some possibilities 
 	  to change preferred default programs. For more informations please have a look at the 
-	  <ulink type="http" url="http://gcmd.github.io/doc.html#tips">Tips and Tricks section</ulink> of 
+	  <ulink type="http" url="https://gcmd.github.io/doc.html#tips">Tips and Tricks section</ulink> of
 	  the &app; home page.</para></note>
 	</sect2>
 	<sect2 id="gnome-commander-copy-path-names">
@@ -7529,7 +7529,7 @@
       <title>Getting &app;</title>
       <para>
             It&apos;s recommended to use the &app; package that is provided by your distribution.
-            Refer to &app; for the <ulink type="http" url="http://gcmd.github.io/download.html#external">list of distributions</ulink>
+            Refer to &app; for the <ulink type="http" url="https://gcmd.github.io/download.html#external">list of distributions</ulink>
             supporting &app; packages.
         </para>
       <para>
@@ -7547,7 +7547,7 @@
     <sect2 id="gnome-commander-stable-version">
       <title>Current stable version</title>
       <para>If you'd like to compile the latest stable version of &app; yourself, get it as a tar.xz
-      file from the <ulink type="http" url="http://gcmd.github.io/download.html">download section</ulink>
+      file from the <ulink type="http" url="https://gcmd.github.io/download.html">download section</ulink>
       on the &app; home page.</para>
       <para>After extracting the archive, first have a look at the <guimenu>README</guimenu> file, 
       where you get an overview of the downloaded release. Also, have a look at the 
