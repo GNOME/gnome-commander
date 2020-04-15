@@ -12,6 +12,7 @@ AM_CPPFLAGS = \
 
 plugindir = $(pkglibdir)/plugins
 
+## Change "noinst" to "plugin" to install the test plugin
 noinst_LTLIBRARIES = libtest.la
 
 libtest_la_SOURCES = \
