@@ -346,31 +346,52 @@ static void slide_set_0_100 (GtkMenu *menu, gpointer user_data)
 
 static GtkWidget *create_slide_popup ()
 {
-    static GnomeUIInfo popmenu_uiinfo[] =
+    static const GtkActionEntry entries[] =
     {
-        GNOMEUIINFO_ITEM_NONE("100 - 0", NULL, slide_set_100_0),
-        GNOMEUIINFO_ITEM_NONE("80 - 20", NULL, slide_set_80_20),
-        GNOMEUIINFO_ITEM_NONE("60 - 40", NULL, slide_set_60_40),
-        GNOMEUIINFO_ITEM_NONE("50 - 50", NULL, slide_set_50_50),
-        GNOMEUIINFO_ITEM_NONE("40 - 60", NULL, slide_set_40_60),
-        GNOMEUIINFO_ITEM_NONE("20 - 80", NULL, slide_set_20_80),
-        GNOMEUIINFO_ITEM_NONE("0 - 100", NULL, slide_set_0_100),
-        GNOMEUIINFO_END
+        { "align_100_0", NULL, "100 - 0", nullptr, nullptr, (GCallback) slide_set_100_0},
+        { "align_80_20", NULL, "80 - 20", nullptr, nullptr, (GCallback) slide_set_80_20},
+        { "align_60_40", NULL, "60 - 40", nullptr, nullptr, (GCallback) slide_set_60_40},
+        { "align_50_50", NULL, "50 - 50", nullptr, nullptr, (GCallback) slide_set_50_50},
+        { "align_40_60", NULL, "40 - 60", nullptr, nullptr, (GCallback) slide_set_40_60},
+        { "align_20_80", NULL, "20 - 80", nullptr, nullptr, (GCallback) slide_set_20_80},
+        { "align_0_100", NULL, "0 - 100", nullptr, nullptr, (GCallback) slide_set_0_100},
     };
 
-    // Set default callback data
+    static const char *ui_description =
+    "<ui>"
+    "  <popup name='Popup'>"
+    "    <menuitem action='align_100_0'/>"
+    "    <menuitem action='align_80_20'/>"
+    "    <menuitem action='align_60_40'/>"
+    "    <menuitem action='align_50_50'/>"
+    "    <menuitem action='align_40_60'/>"
+    "    <menuitem action='align_20_80'/>"
+    "    <menuitem action='align_0_100'/>"
+    "  </popup>"
+    "</ui>";
 
-    for (guint i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
-        if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
-            popmenu_uiinfo[i].user_data = main_win;
+    GtkActionGroup *action_group;
+    GtkUIManager *ui_manager;
+    GError *error;
 
-    GtkWidget *menu = gtk_menu_new ();
+    action_group = gtk_action_group_new ("MenuActions");
+    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), main_win);
+
+    ui_manager = gtk_ui_manager_new ();
+    gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
+
+    error = NULL;
+    if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui_description, -1, &error))
+      {
+        g_message ("building menus failed: %s", error->message);
+        g_error_free (error);
+        exit (EXIT_FAILURE);
+      }
+
+    GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/Popup");
+
     g_object_ref (menu);
     g_object_set_data_full (*main_win, "slide-popup", menu, g_object_unref);
-
-    // Fill the menu
-
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, NULL, FALSE, 0);
 
     return GTK_WIDGET (menu);
 }
