@@ -233,10 +233,8 @@ static GtkWidget *create_view_and_model ()
     GtkCellRenderer *renderer = NULL;
     GtkTreeViewColumn *col = NULL;
 
-    GtkTooltips *tips = gtk_tooltips_new ();
-
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (bm_view), renderer, COL_GROUP, _("Group"));
-    gtk_tooltips_set_tip (tips, col->button, _("Bookmark group"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Bookmark group"));
 
     g_object_set (renderer,
                   "weight-set", TRUE,
@@ -244,10 +242,10 @@ static GtkWidget *create_view_and_model ()
                   NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (bm_view), renderer, COL_NAME, _("Name"));
-    gtk_tooltips_set_tip (tips, col->button, _("Bookmark name"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Bookmark name"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (bm_view), renderer, COL_SHORTCUT, _("Shortcut"));
-    gtk_tooltips_set_tip (tips, col->button, _("Keyboard shortcut for selected bookmark"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Keyboard shortcut for selected bookmark"));
 
     g_object_set (renderer,
                   "foreground-set", TRUE,
@@ -255,7 +253,7 @@ static GtkWidget *create_view_and_model ()
                   NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (bm_view), renderer, COL_PATH, _("Path"));
-    gtk_tooltips_set_tip (tips, col->button, _("Bookmarked path"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Bookmarked path"));
 
     g_object_set (renderer,
                   "foreground-set", TRUE,

@@ -118,10 +118,8 @@ namespace GnomeCmd
         GtkCellRenderer *renderer = NULL;
         GtkTreeViewColumn *col = NULL;
 
-        GtkTooltips *tips = gtk_tooltips_new ();
-
         col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Profile"));
-        gtk_tooltips_set_tip (tips, col->button, _("Profile name"), NULL);
+        gtk_widget_set_tooltip_text (col->button, _("Profile name"));
         g_signal_connect (renderer, "edited", G_CALLBACK (cell_edited_callback), view);
 
         g_object_set (renderer,
@@ -129,7 +127,7 @@ namespace GnomeCmd
                       NULL);
 
         col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TEMPLATE, _("Template"));
-        gtk_tooltips_set_tip (tips, col->button, _("Template"), NULL);
+        gtk_widget_set_tooltip_text (col->button, _("Template"));
 
         g_object_set (renderer,
                       "foreground-set", TRUE,
