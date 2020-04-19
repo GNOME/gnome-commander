@@ -337,12 +337,10 @@ inline GtkWidget *create_view_and_model (GList *list)
     GtkCellRenderer *renderer = NULL;
     GtkTreeViewColumn *col = NULL;
 
-    GtkTooltips *tips = gtk_tooltips_new ();
-
     // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
 
     col = gnome_cmd_treeview_create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
-    gtk_tooltips_set_tip (tips, col->button, _("Network protocol"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Network protocol"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
 
     // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
@@ -353,7 +351,7 @@ inline GtkWidget *create_view_and_model (GList *list)
                   // NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Name"));
-    gtk_tooltips_set_tip (tips, col->button, _("Connection name"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Connection name"));
     gtk_tree_view_column_set_sort_column_id (col, SORTID_NAME);
     g_object_set (renderer,
                   "ellipsize-set", TRUE,

@@ -355,8 +355,6 @@ static void on_con_btn_clicked (GtkWidget *widget, GdkEventButton *event, GnomeC
 
 static void create_con_buttons (GnomeCmdFileSelector *fs)
 {
-    static GtkTooltips *tooltips = nullptr;
-
     if (!gnome_cmd_data.show_devbuttons)
         return;
 
@@ -365,9 +363,6 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = nullptr;
-
-    if (!tooltips)
-        tooltips = gtk_tooltips_new ();
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l=l->next)
     {
@@ -388,7 +383,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
-        gtk_tooltips_set_tip (tooltips, btn, gnome_cmd_con_get_go_text (con), nullptr);
+        gtk_widget_set_tooltip_text (btn, gnome_cmd_con_get_go_text (con));
 
         GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
         g_object_ref (hbox);

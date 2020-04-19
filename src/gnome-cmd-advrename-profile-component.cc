@@ -1241,22 +1241,20 @@ inline GtkWidget *create_regex_view ()
     GtkCellRenderer *renderer = NULL;
     GtkTreeViewColumn *col = NULL;
 
-    GtkTooltips *tips = gtk_tooltips_new ();
-
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_PATTERN, _("Search for"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
-    gtk_tooltips_set_tip (tips, col->button, _("Regex pattern"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Regex pattern"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_REPLACE, _("Replace with"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
-    gtk_tooltips_set_tip (tips, col->button, _("Replacement"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Replacement"));
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameProfileComponent::COL_MATCH_CASE, _("Match case"));
     g_object_set (renderer, "foreground", "red", NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameProfileComponent::COL_MALFORMED_REGEX);
-    gtk_tooltips_set_tip (tips, col->button, _("Case sensitive matching"), NULL);
+    gtk_widget_set_tooltip_text (col->button, _("Case sensitive matching"));
 
     g_object_set (renderer,
                   "xalign", 0.0,

@@ -116,8 +116,6 @@ struct GnomeCmdMainMenuPrivate
     GList *group_menuitems;
 
     GList *view_menuitems;
-
-    GtkTooltips *tooltips;
 };
 
 
@@ -189,7 +187,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
                 }
             }
             if (spec->tooltip)
-                gtk_tooltips_set_tip (main_menu->priv->tooltips, item, spec->tooltip, nullptr);
+                gtk_widget_set_tooltip_text(item, spec->tooltip);
             gtk_container_add (GTK_CONTAINER (item), content);
             break;
 
@@ -274,8 +272,7 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
 
     item = gtk_image_menu_item_new ();
 
-    if (tooltip)
-        gtk_tooltips_set_tip (main_menu->priv->tooltips, item, tooltip, nullptr);
+    gtk_widget_set_tooltip_text (item, tooltip);
 
     if (pixmap && mask)
         pixmap_widget = gtk_pixmap_new (pixmap, mask);
@@ -781,7 +778,6 @@ static void init (GnomeCmdMainMenu *main_menu)
                       nullptr };
 
     main_menu->priv = g_new (GnomeCmdMainMenuPrivate, 1);
-    main_menu->priv->tooltips = gtk_tooltips_new ();
     main_menu->priv->bookmark_menuitems = nullptr;
     main_menu->priv->connections_menuitems = nullptr;
     main_menu->priv->group_menuitems = nullptr;

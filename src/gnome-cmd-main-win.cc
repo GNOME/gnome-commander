@@ -123,7 +123,6 @@ struct GnomeCmdMainWin::Private
 static GnomeAppClass *parent_class = NULL;
 
 static guint signals[LAST_SIGNAL] = { 0 };
-static GtkTooltips *toolbar_tooltips = NULL;
 
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
@@ -238,9 +237,6 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
     g_object_set_data_full (*mw, "toolbar", mw->priv->toolbar, g_object_unref);
     gtk_widget_show (mw->priv->toolbar);
 
-    if (!toolbar_tooltips)
-        toolbar_tooltips = gtk_tooltips_new ();
-
     for (i=0; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; i++)
     {
         GtkWidget *w;
@@ -253,7 +249,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 
             w = create_styled_button (NULL);
             g_signal_connect (w, "clicked", G_CALLBACK (uiinfo[i].moreinfo), uiinfo[i].user_data);
-            gtk_tooltips_set_tip (toolbar_tooltips, w, uiinfo[i].hint, NULL);
+            gtk_widget_set_tooltip_text(w, uiinfo[i].hint);
             GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
 
             pixmap = create_ui_pixmap (
@@ -642,8 +638,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         return;
     }
 
-    g_return_if_fail (toolbar_tooltips != NULL);
-    gtk_tooltips_set_tip (toolbar_tooltips, btn, gnome_cmd_con_get_close_tooltip (con), NULL);
+    gtk_widget_set_tooltip_text(btn, gnome_cmd_con_get_close_tooltip (con));
     gtk_widget_set_sensitive (btn, TRUE);
 
     if (pm)
