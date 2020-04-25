@@ -1064,9 +1064,9 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer fileList)
     GdkModifierType mask;
     GnomeCmdFileList *fl;
 
-    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
-    if ((GnomeCmdFileList*) fileList == nullptr)
+    if (!GNOME_CMD_IS_FILE_LIST(fileList) || (GnomeCmdFileList*) fileList == nullptr)
     {
         fileList = get_fl (ACTIVE);
     }
@@ -1551,7 +1551,9 @@ void view_last (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_refresh (GtkMenuItem *menuitem, gpointer file_list)
 {
-    GnomeCmdFileList *fl = file_list ? GNOME_CMD_FILE_LIST (file_list) : get_fl (ACTIVE);
+    GnomeCmdFileList *fl = GNOME_CMD_IS_FILE_LIST(file_list)
+        ? GNOME_CMD_FILE_LIST (file_list)
+        : get_fl (ACTIVE);
     fl->reload();
 }
 

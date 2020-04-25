@@ -40,8 +40,6 @@
 #include "gnome-cmd-owner.h"
 #include "utils.h"
 
-#include "../pixmaps/copy_file_names.xpm"
-
 using namespace std;
 
 
@@ -192,7 +190,7 @@ inline GtkWidget *add_buttonbar_button (char *label,
 {
     GtkWidget *button = create_styled_button (label);
     g_object_set_data_full (*mw, data_label, button, g_object_unref);
-    GTK_WIDGET_UNSET_FLAGS (button, GTK_CAN_FOCUS);
+    gtk_widget_set_can_focus(button, FALSE);
 
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), button, TRUE, TRUE, 0);
 
@@ -227,59 +225,131 @@ static GtkWidget *create_separator (gboolean vertical)
     return box;
 }
 
-
-static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
+static struct
 {
+    const gchar *filename;
+    const gchar *stock_id;
+} stock_icons[] =
+{
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", "my_stock_copy_file_names_xpm" },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", "my_stock_terminal_svg" }
+};
+
+static gint n_stock_icons = G_N_ELEMENTS (stock_icons);
+
+static void
+register_my_stock_icons (void)
+{
+    GtkIconFactory *icon_factory;
+    GtkIconSet *icon_set;
+    GtkIconSource *icon_source;
     gint i;
 
-    mw->priv->toolbar = gtk_hbox_new (FALSE, 0);
+    icon_factory = gtk_icon_factory_new ();
+
+    for (i = 0; i < n_stock_icons; i++)
+       {
+           icon_set = gtk_icon_set_new ();
+           icon_source = gtk_icon_source_new ();
+           gtk_icon_source_set_filename (icon_source, stock_icons[i].filename);
+           gtk_icon_set_add_source (icon_set, icon_source);
+           gtk_icon_source_free (icon_source);
+           gtk_icon_factory_add (icon_factory, stock_icons[i].stock_id, icon_set);
+           gtk_icon_set_unref (icon_set);
+       }
+
+    gtk_icon_factory_add_default (icon_factory);
+
+    g_object_unref (icon_factory);
+}
+
+static void create_toolbar (GnomeCmdMainWin *mw)
+{
+    static const GtkActionEntry entries[] =
+    {
+        { "Refresh", GTK_STOCK_REFRESH, nullptr, nullptr, _("Refresh"), (GCallback) view_refresh },
+        { "Up", GTK_STOCK_GO_UP, nullptr, nullptr, _("Up one directory"), (GCallback) view_up },
+        { "First", GTK_STOCK_GOTO_FIRST, nullptr, nullptr, _("Go to the oldest"), (GCallback) view_first },
+        { "Back", GTK_STOCK_GO_BACK, nullptr, nullptr, _("Go back"), (GCallback) view_back },
+        { "Forward", GTK_STOCK_GO_FORWARD, nullptr, nullptr, _("Go forward"), (GCallback) view_forward },
+        { "Latest", GTK_STOCK_GOTO_LAST, nullptr, nullptr, _("Go to the latest"), (GCallback) view_last },
+        { "CopyFileNames", "my_stock_copy_file_names_xpm", nullptr, nullptr, _("Copy file names (SHIFT for full paths, ALT for URIs)"), (GCallback) edit_copy_fnames },
+        { "Cut", GTK_STOCK_CUT, nullptr, nullptr, _("Cut"), (GCallback) edit_cap_cut },
+        { "Copy", GTK_STOCK_COPY, nullptr, nullptr, _("Copy"), (GCallback) edit_cap_copy },
+        { "Paste", GTK_STOCK_PASTE, nullptr, nullptr, _("Paste"), (GCallback) edit_cap_paste },
+        { "Delete", GTK_STOCK_DELETE, nullptr, nullptr, _("Delete"), (GCallback) file_delete },
+        { "Edit", GTK_STOCK_EDIT,nullptr, nullptr, _("Edit (SHIFT for new document)"), (GCallback) file_edit },
+        { "Send", GTK_STOCK_EXECUTE, nullptr, nullptr, _("Send files"), (GCallback) file_sendto },
+        { "Terminal", "my_stock_terminal_svg", nullptr, nullptr, _("Open terminal (SHIFT for root privileges)"), (GCallback) command_open_terminal__internal },
+        { "Remote", GTK_STOCK_CONNECT, nullptr, nullptr, _("Remote Server"), (GCallback) connections_open },
+        { "Drop", nullptr, nullptr, nullptr, _("Drop connection"), (GCallback) connections_close_current }
+    };
+
+    static const char *ui_description =
+    "<ui>"
+    "  <toolbar action='Toolbar'>"
+    "    <toolitem action='Refresh'/>"
+    "    <toolitem action='Up'/>"
+    "    <toolitem action='First'/>"
+    "    <toolitem action='Back'/>"
+    "    <toolitem action='Forward'/>"
+    "    <toolitem action='Latest'/>"
+    "    <separator/>"
+    "    <toolitem action='CopyFileNames'/>"
+    "    <toolitem action='Cut'/>"
+    "    <toolitem action='Copy'/>"
+    "    <toolitem action='Paste'/>"
+    "    <toolitem action='Delete'/>"
+    "    <toolitem action='Edit'/>"
+    "    <toolitem action='Send'/>"
+    "    <toolitem action='Terminal'/>"
+    "    <separator/>"
+    "    <toolitem action='Remote'/>"
+    "    <toolitem action='Drop'/>"
+    "  </toolbar>"
+    "</ui>";
+
+    GtkActionGroup *action_group;
+    GtkUIManager *ui_manager;
+    GError *error;
+
+    register_my_stock_icons ();
+
+    action_group = gtk_action_group_new ("MenuActions");
+    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), mw);
+
+    ui_manager = gtk_ui_manager_new ();
+    gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
+
+    error = NULL;
+    if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui_description, -1, &error))
+      {
+        g_message ("building menus failed: %s", error->message);
+        g_error_free (error);
+        exit (EXIT_FAILURE);
+      }
+
+    mw->priv->toolbar = gtk_ui_manager_get_widget (ui_manager, "/Toolbar");
+    mw->priv->tb_first_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/First");
+    gtk_widget_set_can_focus(mw->priv->tb_first_btn, FALSE);
+    mw->priv->tb_back_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Back");
+    gtk_widget_set_can_focus(mw->priv->tb_back_btn, FALSE);
+    mw->priv->tb_fwd_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Forward");
+    gtk_widget_set_can_focus(mw->priv->tb_fwd_btn, FALSE);
+    mw->priv->tb_last_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Latest");
+    gtk_widget_set_can_focus(mw->priv->tb_last_btn, FALSE);
+    mw->priv->tb_cap_cut_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Cut");
+    gtk_widget_set_can_focus(mw->priv->tb_cap_cut_btn, FALSE);
+    mw->priv->tb_cap_copy_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Copy");
+    gtk_widget_set_can_focus(mw->priv->tb_cap_copy_btn, FALSE);
+    mw->priv->tb_cap_paste_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Paste");
+    gtk_widget_set_can_focus(mw->priv->tb_cap_paste_btn, FALSE);
+    mw->priv->tb_con_drop_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Drop");
+    gtk_widget_set_can_focus(mw->priv->tb_con_drop_btn, FALSE);
+
     g_object_ref (mw->priv->toolbar);
     g_object_set_data_full (*mw, "toolbar", mw->priv->toolbar, g_object_unref);
     gtk_widget_show (mw->priv->toolbar);
-
-    for (i=0; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; i++)
-    {
-        GtkWidget *w;
-
-        if (uiinfo[i].type == GNOME_APP_UI_SEPARATOR)
-            w = create_separator (TRUE);
-        else
-        {
-            GtkWidget *pixmap;
-
-            w = create_styled_button (NULL);
-            g_signal_connect (w, "clicked", G_CALLBACK (uiinfo[i].moreinfo), uiinfo[i].user_data);
-            gtk_widget_set_tooltip_text(w, uiinfo[i].hint);
-            GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
-
-            pixmap = create_ui_pixmap (
-                GTK_WIDGET (mw),
-                uiinfo[i].pixmap_type, uiinfo[i].pixmap_info,
-                GTK_ICON_SIZE_LARGE_TOOLBAR);
-            if (pixmap)
-            {
-                g_object_ref (pixmap);
-                gtk_widget_show (pixmap);
-                gtk_container_add (GTK_CONTAINER (w), pixmap);
-            }
-
-            switch (i)
-            {
-                case  TOOLBAR_BTN_FIRST:      mw->priv->tb_first_btn = w;  break;
-                case  TOOLBAR_BTN_BACK:       mw->priv->tb_back_btn = w;  break;
-                case  TOOLBAR_BTN_FORWARD:    mw->priv->tb_fwd_btn = w;  break;
-                case  TOOLBAR_BTN_LAST:       mw->priv->tb_last_btn = w;  break;
-                case  TOOLBAR_BTN_CUT:        mw->priv->tb_cap_cut_btn = w;  break;
-                case  TOOLBAR_BTN_COPY:       mw->priv->tb_cap_copy_btn = w;  break;
-                case  TOOLBAR_BTN_PASTE:      mw->priv->tb_cap_paste_btn = w;  break;
-                case  TOOLBAR_BTN_DISCONNECT: mw->priv->tb_con_drop_btn = w;  break;
-                default: break;
-            }
-        }
-
-        gtk_widget_show (w);
-        gtk_box_pack_start (GTK_BOX (mw->priv->toolbar), w, FALSE, TRUE, 2);
-    }
 
     mw->priv->toolbar_sep = create_separator (FALSE);
     gtk_widget_set_sensitive (mw->priv->tb_cap_paste_btn, FALSE);
@@ -622,7 +692,7 @@ void GnomeCmdMainWin::update_drop_con_button(GnomeCmdFileList *fl)
         return;
 
     GtkWidget *btn = priv->tb_con_drop_btn;
-    g_return_if_fail (GTK_IS_BUTTON (btn));
+    g_return_if_fail (GTK_IS_TOOL_BUTTON (btn));
 
     if (prev_pixmap)
     {
@@ -1255,33 +1325,9 @@ void GnomeCmdMainWin::update_bookmarks()
 
 void GnomeCmdMainWin::update_show_toolbar()
 {
-    static GnomeUIInfo toolbar_uiinfo[] =
-    {
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Refresh"), view_refresh, GTK_STOCK_REFRESH),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Up one directory"), view_up, GTK_STOCK_GO_UP),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go to the oldest"), view_first, GTK_STOCK_GOTO_FIRST),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go back"), view_back, GTK_STOCK_GO_BACK),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go forward"), view_forward, GTK_STOCK_GO_FORWARD),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go to the latest"), view_last, GTK_STOCK_GOTO_LAST),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM(NULL, _("Copy file names (SHIFT for full paths, ALT for URIs)"), edit_copy_fnames, copy_file_names_xpm),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Cut"), edit_cap_cut, GTK_STOCK_CUT),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Copy"), edit_cap_copy, GTK_STOCK_COPY),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Paste"), edit_cap_paste, GTK_STOCK_PASTE),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Delete"), file_delete, GTK_STOCK_DELETE),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Send files"), file_sendto, GTK_STOCK_EXECUTE),
-        GNOMEUIINFO_ITEM_FILENAME(NULL, _("Open terminal (SHIFT for root privileges)"), command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Remote Server"), connections_open, GTK_STOCK_CONNECT),
-        GNOMEUIINFO_ITEM_NONE(NULL, _("Drop connection"), connections_close_current),
-        GNOMEUIINFO_END
-    };
-
     if (gnome_cmd_data.show_toolbar)
     {
-        create_toolbar (this, toolbar_uiinfo);
+        create_toolbar (this);
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->toolbar, FALSE, TRUE, 0);
         gtk_box_reorder_child (GTK_BOX (priv->vbox), priv->toolbar, 2);
         gtk_box_pack_start (GTK_BOX (priv->vbox), priv->toolbar_sep, FALSE, TRUE, 0);
