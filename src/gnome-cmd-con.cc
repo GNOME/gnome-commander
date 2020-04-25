@@ -20,7 +20,6 @@
  */
 
 #include <config.h>
-#include <libgnomeui/libgnomeui.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con.h"
