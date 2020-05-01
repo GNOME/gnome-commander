@@ -78,3 +78,5 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     GdkBitmap **mask);
 
 void IMAGE_clear_mime_cache ();
+
+void register_my_stock_icons (void);
