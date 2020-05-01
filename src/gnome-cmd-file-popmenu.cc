@@ -560,8 +560,8 @@ inline gchar *get_default_application_action_name (GList *files, gchar **icon_pa
     auto f = static_cast<GnomeCmdFile*> (files->data);
     auto uri_str = f->get_uri_str();
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
-    
-    if (icon_path)
+
+    if (icon_path && app)
     {
         GnomeCmdApp *gapp = gnome_cmd_app_new_from_vfs_app (app);
         if (gapp)
@@ -572,7 +572,7 @@ inline gchar *get_default_application_action_name (GList *files, gchar **icon_pa
         else
             *icon_path = nullptr;
     }
-    
+
     g_free (uri_str);
 
     if (!app)
