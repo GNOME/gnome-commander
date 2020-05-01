@@ -291,20 +291,21 @@ static void create_toolbar (GnomeCmdMainWin *mw)
 
     mw->priv->toolbar = gtk_ui_manager_get_widget (ui_manager, "/Toolbar");
     mw->priv->tb_first_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/First");
-    gtk_widget_set_can_focus(mw->priv->tb_first_btn, FALSE);
     mw->priv->tb_back_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Back");
-    gtk_widget_set_can_focus(mw->priv->tb_back_btn, FALSE);
     mw->priv->tb_fwd_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Forward");
-    gtk_widget_set_can_focus(mw->priv->tb_fwd_btn, FALSE);
     mw->priv->tb_last_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Latest");
-    gtk_widget_set_can_focus(mw->priv->tb_last_btn, FALSE);
     mw->priv->tb_cap_cut_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Cut");
-    gtk_widget_set_can_focus(mw->priv->tb_cap_cut_btn, FALSE);
     mw->priv->tb_cap_copy_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Copy");
-    gtk_widget_set_can_focus(mw->priv->tb_cap_copy_btn, FALSE);
     mw->priv->tb_cap_paste_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Paste");
-    gtk_widget_set_can_focus(mw->priv->tb_cap_paste_btn, FALSE);
     mw->priv->tb_con_drop_btn = gtk_ui_manager_get_widget (ui_manager, "/Toolbar/Drop");
+
+    gtk_widget_set_can_focus(mw->priv->tb_first_btn, FALSE);
+    gtk_widget_set_can_focus(mw->priv->tb_back_btn, FALSE);
+    gtk_widget_set_can_focus(mw->priv->tb_fwd_btn, FALSE);
+    gtk_widget_set_can_focus(mw->priv->tb_last_btn, FALSE);
+    gtk_widget_set_can_focus(mw->priv->tb_cap_cut_btn, FALSE);
+    gtk_widget_set_can_focus(mw->priv->tb_cap_copy_btn, FALSE);
+    gtk_widget_set_can_focus(mw->priv->tb_cap_paste_btn, FALSE);
     gtk_widget_set_can_focus(mw->priv->tb_con_drop_btn, FALSE);
 
     g_object_ref (mw->priv->toolbar);
