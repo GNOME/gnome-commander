@@ -225,44 +225,6 @@ static GtkWidget *create_separator (gboolean vertical)
     return box;
 }
 
-static struct
-{
-    const gchar *filename;
-    const gchar *stock_id;
-} stock_icons[] =
-{
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", "my_stock_copy_file_names_xpm" },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", "my_stock_terminal_svg" }
-};
-
-static gint n_stock_icons = G_N_ELEMENTS (stock_icons);
-
-static void
-register_my_stock_icons (void)
-{
-    GtkIconFactory *icon_factory;
-    GtkIconSet *icon_set;
-    GtkIconSource *icon_source;
-    gint i;
-
-    icon_factory = gtk_icon_factory_new ();
-
-    for (i = 0; i < n_stock_icons; i++)
-       {
-           icon_set = gtk_icon_set_new ();
-           icon_source = gtk_icon_source_new ();
-           gtk_icon_source_set_filename (icon_source, stock_icons[i].filename);
-           gtk_icon_set_add_source (icon_set, icon_source);
-           gtk_icon_source_free (icon_source);
-           gtk_icon_factory_add (icon_factory, stock_icons[i].stock_id, icon_set);
-           gtk_icon_set_unref (icon_set);
-       }
-
-    gtk_icon_factory_add_default (icon_factory);
-
-    g_object_unref (icon_factory);
-}
-
 static void create_toolbar (GnomeCmdMainWin *mw)
 {
     static const GtkActionEntry entries[] =
@@ -312,8 +274,6 @@ static void create_toolbar (GnomeCmdMainWin *mw)
     GtkActionGroup *action_group;
     GtkUIManager *ui_manager;
     GError *error;
-
-    register_my_stock_icons ();
 
     action_group = gtk_action_group_new ("MenuActions");
     gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), mw);
