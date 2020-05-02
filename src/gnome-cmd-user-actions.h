@@ -135,6 +135,8 @@ inline GdkEventKey str2key(gchar *s)
     return str2key(s, event);
 }
 
+GnomeCmdFileSelector *get_fs (const FileSelectorID fsID);
+GnomeCmdFileList     *get_fl (const FileSelectorID fsID);
 
 class GnomeCmdUserActions
 {

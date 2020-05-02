@@ -111,19 +111,17 @@ static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
  * UserActions
  ***********************************/
 
-inline GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
+GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
 {
     return main_win->fs(fsID);
 }
 
-
-inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
+GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 {
     GnomeCmdFileSelector *fs = get_fs (fsID);
 
     return fs ? fs->file_list() : NULL;
 }
-
 
 // The file returned from this function is not to be unrefed
 static GnomeCmdFile *get_selected_file (const FileSelectorID fsID)

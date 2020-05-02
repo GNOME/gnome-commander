@@ -37,8 +37,6 @@
 
 #include <fnmatch.h>
 
-#include "../pixmaps/copy_file_names.xpm"
-
 using namespace std;
 
 
@@ -335,33 +333,15 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
 }
 
 
-static void on_cut (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_rename (GtkMenuItem *item, gpointer not_used)
 {
-    gnome_cmd_file_list_cap_cut (fl);
+    gnome_cmd_file_list_show_rename_dialog (get_fl (ACTIVE));
 }
 
 
-static void on_copy (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_properties (GtkMenuItem *item, gpointer not_used)
 {
-    gnome_cmd_file_list_cap_copy (fl);
-}
-
-
-static void on_delete (GtkMenuItem *item, GnomeCmdFileList *fl)
-{
-    gnome_cmd_file_list_show_delete_dialog (fl);
-}
-
-
-static void on_rename (GtkMenuItem *item, GnomeCmdFileList *fl)
-{
-    gnome_cmd_file_list_show_rename_dialog (fl);
-}
-
-
-static void on_properties (GtkMenuItem *item, GnomeCmdFileList *fl)
-{
-    gnome_cmd_file_list_show_properties_dialog (fl);
+    gnome_cmd_file_list_show_properties_dialog (get_fl (ACTIVE));
 }
 
 
@@ -618,33 +598,17 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_END
     };
 
-    static GnomeUIInfo other_uiinfo[] =
-    {
-        GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), nullptr, on_cut, GTK_STOCK_CUT),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), nullptr, on_copy, GTK_STOCK_COPY),
-        GNOMEUIINFO_ITEM(N_("Copy file names"), nullptr, edit_copy_fnames, copy_file_names_xpm),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), nullptr, on_delete, GTK_STOCK_DELETE),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_NONE (N_("Rename"), nullptr, on_rename),
-        GNOMEUIINFO_ITEM_STOCK(N_("Send files"), nullptr, file_sendto, GTK_STOCK_EXECUTE),
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), nullptr, command_open_terminal__internal, PIXMAPS_DIR G_DIR_SEPARATOR_S  "terminal.svg"),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(N_("_Properties…"), nullptr, on_properties, GTK_STOCK_PROPERTIES),
-        GNOMEUIINFO_END
-    };
-
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), nullptr);
     auto files = fl->get_selected_files();
     if (!files) return nullptr;
 
-    auto menu = static_cast<GnomeCmdFilePopmenu*> (g_object_new (GNOME_CMD_TYPE_FILE_POPMENU, nullptr));
-
     auto f = static_cast<GnomeCmdFile*> (files->data);
 
+    GtkUIManager *ui_manager = get_general_ui_manager();
+    GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/General");
 
     // Fill the "Open With" menu with applications
     gint i = -1;
-    menu->priv->data_list = nullptr;
 
     vfs_apps = tmp_list = gnome_vfs_mime_get_all_applications (f->info->mime_type);
     for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
@@ -682,14 +646,13 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     gnome_vfs_mime_application_list_free (tmp_list);
     apps_uiinfo[++i].type = GNOME_APP_UI_ENDOFINFO;
+    //////////////////////////////////////////////
+
 
     // Set default callback data
     for (gint j=0; open_uiinfo[j].type != GNOME_APP_UI_ENDOFINFO; ++j)
         if (open_uiinfo[j].type == GNOME_APP_UI_ITEM)
             open_uiinfo[j].user_data = fl;
-
-    for (gint j=0; other_uiinfo[j].type != GNOME_APP_UI_ENDOFINFO; ++j)
-            other_uiinfo[j].user_data = fl;
 
     open_uiinfo[0].label = get_default_application_action_name(files, (gchar **) &open_uiinfo[0].pixmap_info);  // must be freed after gnome_app_fill_menu ()
     open_uiinfo[0].pixmap_type = open_uiinfo[0].pixmap_info ? GNOME_APP_PIXMAP_FILENAME : GNOME_APP_PIXMAP_NONE;
@@ -698,7 +661,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Fill the menu
     pos = 0;
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), open_uiinfo, nullptr, FALSE, pos);
+    //gnome_app_fill_menu (GTK_MENU_SHELL (menu), open_uiinfo, nullptr, FALSE, pos);
 
     g_free ((gpointer) open_uiinfo[0].label);
 
@@ -706,7 +669,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     if (f->is_executable() && g_list_length (files) == 1)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, nullptr, FALSE, pos++);
 
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
+    //gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
     // Add favorite applications
     match_count = 0;
@@ -715,7 +678,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         auto app = static_cast<GnomeCmdApp*> (j->data);
         if (fav_app_matches_files (app, files))
         {
-            add_fav_app_menu_item (menu, app, pos++, files);
+            //add_fav_app_menu_item (menu, app, pos++, files);
             match_count++;
         }
     }
@@ -728,15 +691,15 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin, main_win->get_state());
             if (items)
             {
-                add_plugin_menu_items (menu, items, pos);
+                //add_plugin_menu_items (menu, items, pos);
                 match_count++;
                 pos += g_list_length (items);
             }
         }
     }
 
-    if (match_count > 0)
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
+    //if (match_count > 0)
+    //    gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
     // Script actions
     gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
@@ -808,16 +771,16 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         tmp++;
         tmp->type = GNOME_APP_UI_ENDOFINFO;
 
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, nullptr, FALSE, pos);
+        //gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, nullptr, FALSE, pos);
         pos += n;
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
+        //gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
         g_free (py_uiinfo);
     }
     g_free (user_dir);
     g_list_free (script_list);
 
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, nullptr, FALSE, pos++);
+    //gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, nullptr, FALSE, pos++);
 
     return GTK_WIDGET (menu);
 }
@@ -844,4 +807,58 @@ GtkType gnome_cmd_file_popmenu_get_type ()
         dlg_type = gtk_type_unique (gtk_menu_get_type (), &dlg_info);
     }
     return dlg_type;
+}
+
+/**
+ * In this ui_manager the generic popup entries are placed. Dynamic entries will be added later.
+ */
+ GtkUIManager *get_general_ui_manager()
+{
+    static const GtkActionEntry entries[] =
+    {
+        { "Cut", GTK_STOCK_CUT, _("Cut"), nullptr, nullptr, (GCallback) edit_cap_cut },
+        { "Copy", GTK_STOCK_COPY, _("Copy"), nullptr, nullptr, (GCallback) edit_cap_copy },
+        { "CopyFileNames", "my_stock_copy_file_names_xpm", _("Copy file names"), nullptr, nullptr, (GCallback) edit_copy_fnames },
+        { "Delete", GTK_STOCK_DELETE, _("Delete"), nullptr, nullptr, (GCallback) file_delete },
+        { "Rename", GTK_STOCK_EDIT, _("Rename"), nullptr, nullptr, (GCallback) on_rename },
+        { "Send", GTK_STOCK_EXECUTE, _("Send files"), nullptr, nullptr, (GCallback) file_sendto },
+        { "Terminal", "my_stock_terminal_svg", _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
+        { "Properties", GTK_STOCK_PROPERTIES, _("_Properties…"), nullptr, nullptr, (GCallback) on_properties },
+    };
+
+    static const char *ui_description =
+    "<ui>"
+    "  <popup action='General'>"
+    "    <menuitem action='Cut'/>"
+    "    <menuitem action='Copy'/>"
+    "    <menuitem action='CopyFileNames'/>"
+    "    <menuitem action='Delete'/>"
+    "    <separator/>"
+    "    <menuitem action='Rename'/>"
+    "    <menuitem action='Send'/>"
+    "    <menuitem action='Terminal'/>"
+    "    <separator/>"
+    "    <menuitem action='Properties'/>"
+    "  </popup>"
+    "</ui>";
+
+    GtkActionGroup *action_group;
+    GtkUIManager *ui_manager;
+    GError *error;
+
+    action_group = gtk_action_group_new ("PopupActions");
+    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), main_win);
+
+    ui_manager = gtk_ui_manager_new ();
+    gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
+
+    error = NULL;
+    if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui_description, -1, &error))
+      {
+        g_message ("building menus failed: %s", error->message);
+        g_error_free (error);
+        exit (EXIT_FAILURE);
+      }
+
+    return ui_manager;
 }
