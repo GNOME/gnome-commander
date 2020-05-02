@@ -51,3 +51,6 @@ struct GnomeCmdFilePopmenuClass
 GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
 
 GtkType gnome_cmd_file_popmenu_get_type ();
+
+GtkUIManager *get_general_ui_manager();
+void add_open_with_entries(GtkUIManager *ui_manager);
