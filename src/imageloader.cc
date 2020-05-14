@@ -141,7 +141,7 @@ void IMAGE_init ()
         g_free (path);
     }
 
-    register_my_stock_icons ();
+    register_gnome_commander_stock_icons ();
 }
 
 
@@ -496,13 +496,13 @@ static struct
     const gchar *stock_id;
 } stock_icons[] =
 {
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", "my_stock_copy_file_names_xpm" },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", "my_stock_terminal_svg" }
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", "gnome-commander-copy-file-names" },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", "gnome-commander-terminal" }
 };
 
 static gint n_stock_icons = G_N_ELEMENTS (stock_icons);
 
-void register_my_stock_icons (void)
+void register_gnome_commander_stock_icons (void)
 {
     GtkIconFactory *icon_factory;
     GtkIconSet *icon_set;
@@ -525,4 +525,53 @@ void register_my_stock_icons (void)
     gtk_icon_factory_add_default (icon_factory);
 
     g_object_unref (icon_factory);
+}
+
+/**
+ * This method registers stock icon with a given application name and its absolute path name.
+ * Returns the stockId for the registered stock icon. Has to be g_free'ed.
+ */
+char* register_application_stock_icon(const char* applicationName, const char* defaultAppIconPath)
+{
+    // First, create the stockId string
+    g_return_val_if_fail (applicationName, nullptr);
+    g_return_val_if_fail (defaultAppIconPath, nullptr);
+
+    if( access( defaultAppIconPath, F_OK ) == -1 )
+    {
+        // icon doesn't exist
+        return nullptr;
+    }
+
+    // add "gnome-commander-" in front of the stockId to prevent doubled id's
+    char* stockId = g_strdup_printf("%s%s", PACKAGE "-", applicationName);
+
+    // is the icon already loaded into the default icon factory?
+    auto  gtkIconSet = gtk_icon_factory_lookup_default (stockId);
+    if (gtkIconSet != nullptr)
+    {
+        // don't need to record the icon anymore
+        return stockId;
+    }
+
+    // Now register the stock icon with the created stockId
+    GtkIconFactory *icon_factory;
+    GtkIconSet *icon_set;
+    GtkIconSource *icon_source;
+
+    icon_factory = gtk_icon_factory_new ();
+
+    icon_set = gtk_icon_set_new ();
+    icon_source = gtk_icon_source_new ();
+    gtk_icon_source_set_filename (icon_source, defaultAppIconPath);
+    gtk_icon_set_add_source (icon_set, icon_source);
+    gtk_icon_source_free (icon_source);
+    gtk_icon_factory_add (icon_factory, stockId, icon_set);
+    gtk_icon_set_unref (icon_set);
+
+    gtk_icon_factory_add_default (icon_factory);
+
+    g_object_unref (icon_factory);
+
+    return stockId;
 }
