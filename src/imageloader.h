@@ -1,4 +1,4 @@
-/** 
+/**
  * @file imageloader.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -20,6 +20,9 @@
  */
 
 #pragma once
+
+#define COPYFILENAMES_STOCKID "gnome-commander-copy-file-names"
+#define TERMINAL_STOCKID "gnome-commander-terminal"
 
 #include "gnome-cmd-pixmap.h"
 

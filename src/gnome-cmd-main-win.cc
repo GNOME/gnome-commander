@@ -235,14 +235,14 @@ static void create_toolbar (GnomeCmdMainWin *mw)
         { "Back", GTK_STOCK_GO_BACK, nullptr, nullptr, _("Go back"), (GCallback) view_back },
         { "Forward", GTK_STOCK_GO_FORWARD, nullptr, nullptr, _("Go forward"), (GCallback) view_forward },
         { "Latest", GTK_STOCK_GOTO_LAST, nullptr, nullptr, _("Go to the latest"), (GCallback) view_last },
-        { "CopyFileNames", "my_stock_copy_file_names_xpm", nullptr, nullptr, _("Copy file names (SHIFT for full paths, ALT for URIs)"), (GCallback) edit_copy_fnames },
+        { "CopyFileNames", COPYFILENAMES_STOCKID, nullptr, nullptr, _("Copy file names (SHIFT for full paths, ALT for URIs)"), (GCallback) edit_copy_fnames },
         { "Cut", GTK_STOCK_CUT, nullptr, nullptr, _("Cut"), (GCallback) edit_cap_cut },
         { "Copy", GTK_STOCK_COPY, nullptr, nullptr, _("Copy"), (GCallback) edit_cap_copy },
         { "Paste", GTK_STOCK_PASTE, nullptr, nullptr, _("Paste"), (GCallback) edit_cap_paste },
         { "Delete", GTK_STOCK_DELETE, nullptr, nullptr, _("Delete"), (GCallback) file_delete },
         { "Edit", GTK_STOCK_EDIT,nullptr, nullptr, _("Edit (SHIFT for new document)"), (GCallback) file_edit },
         { "Send", GTK_STOCK_EXECUTE, nullptr, nullptr, _("Send files"), (GCallback) file_sendto },
-        { "Terminal", "my_stock_terminal_svg", nullptr, nullptr, _("Open terminal (SHIFT for root privileges)"), (GCallback) command_open_terminal__internal },
+        { "Terminal", TERMINAL_STOCKID, nullptr, nullptr, _("Open terminal (SHIFT for root privileges)"), (GCallback) command_open_terminal__internal },
         { "Remote", GTK_STOCK_CONNECT, nullptr, nullptr, _("Remote Server"), (GCallback) connections_open },
         { "Drop", nullptr, nullptr, nullptr, _("Drop connection"), (GCallback) connections_close_current }
     };
