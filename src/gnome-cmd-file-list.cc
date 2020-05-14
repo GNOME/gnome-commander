@@ -687,6 +687,7 @@ void GnomeCmdFileList::create_column_titles()
         gtk_widget_show (priv->column_labels[i]);
         gtk_box_pack_start (GTK_BOX (hbox), priv->column_labels[i], TRUE, TRUE, 0);
 
+        // ToDo: Replace GtkPixmap with GtkImage
         pixmap = gtk_pixmap_new (pm, bm);
         g_object_ref (pixmap);
         g_object_set_data_full (*this, "column-pixmap", pixmap, g_object_unref);
@@ -1492,7 +1493,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
             return TRUE;
         }
         else
-            if (event->button == 3)
+            if (event->button == 3 && fl->priv->right_mb_timeout_id > 0)
                 g_source_remove (fl->priv->right_mb_timeout_id);
     }
 
