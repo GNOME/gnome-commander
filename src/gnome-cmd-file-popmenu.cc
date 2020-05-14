@@ -607,12 +607,6 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         GNOMEUIINFO_END
     };
 
-    static GnomeUIInfo sep_uiinfo[] =
-    {
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_END
-    };
-
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
     auto files = gnomeCmdFileList->get_selected_files();
     if (!files) return nullptr;
