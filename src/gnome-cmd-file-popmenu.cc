@@ -601,32 +601,19 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
 {
     gint pos, match_count;
 
-    static GnomeUIInfo exec_uiinfo[] =
-    {
-        GNOMEUIINFO_ITEM_NONE(N_("E_xecute"), nullptr, on_execute),
-        GNOMEUIINFO_END
-    };
-
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
     auto files = gnomeCmdFileList->get_selected_files();
     if (!files) return nullptr;
 
-    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
-
     GtkUIManager *ui_manager = get_file_popup_ui_manager(gnomeCmdFileList);
     add_open_with_entries(ui_manager, gnomeCmdFileList);
+    add_execute_entry(ui_manager, gnomeCmdFileList);
     GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/FilePopup");
-
-    exec_uiinfo[0].user_data = files;
 
     // Fill the menu
     pos = 0;
 
     pos += 3;
-    if (gnomeCmdFile->is_executable() && g_list_length (files) == 1)
-        gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, nullptr, FALSE, pos++);
-
-    //gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
     // Add favorite applications
     match_count = 0;
@@ -784,6 +771,7 @@ GtkType gnome_cmd_file_popmenu_get_type ()
         { "Rename",        GTK_STOCK_EDIT,          _("Rename"),                 nullptr, nullptr, (GCallback) on_rename },
         { "Send",          GTK_STOCK_EXECUTE,       _("Send files"),             nullptr, nullptr, (GCallback) file_sendto },
         { "Properties",    GTK_STOCK_PROPERTIES,    _("_Properties…"),           nullptr, nullptr, (GCallback) on_properties },
+        { "Execute",       GTK_STOCK_EXECUTE,       _("E_xecute"),               nullptr, nullptr, (GCallback) on_execute },
         { "Terminal",      "gnome-commander-terminal", _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
         { "CopyFileNames", "gnome-commander-copy-file-names", _("Copy file names"), nullptr, nullptr, (GCallback) edit_copy_fnames },
     };
@@ -839,8 +827,7 @@ void add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdF
     static guint mergeIdOpenWith = 0;
     static GtkActionGroup *dynamicActionGroup = nullptr;
     auto files = gnomeCmdFileList->get_selected_files();
-    GnomeCmdFile *gnomeCmdFile = nullptr;
-    gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);;
+    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
 
     if (mergeIdOpenWith != 0)
     {
@@ -933,4 +920,28 @@ void add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdF
 
     g_free(openWithDefaultAppName);
     gnome_vfs_mime_application_list_free (tmp_list);
+}
+
+void add_execute_entry(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList)
+{
+    static guint mergeIdExecute = 0;
+    static GtkActionGroup *dynamicActionGroup = nullptr;
+    auto files = gnomeCmdFileList->get_selected_files();
+    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+
+    if (mergeIdExecute != 0)
+    {
+        gtk_ui_manager_remove_ui (ui_manager, mergeIdExecute);
+        mergeIdExecute = 0;
+    }
+
+    if (gnomeCmdFile->is_executable() && g_list_length (files) == 1)
+    {
+        mergeIdExecute = gtk_ui_manager_new_merge_id (ui_manager);
+        dynamicActionGroup = gtk_action_group_new ("executeActionGroup");
+        gtk_ui_manager_insert_action_group (ui_manager, dynamicActionGroup, 0);
+
+        gtk_ui_manager_add_ui (ui_manager, mergeIdExecute, "/FilePopup/Cut", "Execute", "Execute",
+                               GTK_UI_MANAGER_AUTO, true);
+    }
 }
