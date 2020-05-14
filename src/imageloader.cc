@@ -496,8 +496,8 @@ static struct
     const gchar *stock_id;
 } stock_icons[] =
 {
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", "gnome-commander-copy-file-names" },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", "gnome-commander-terminal" }
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", COPYFILENAMES_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", TERMINAL_STOCKID }
 };
 
 static gint n_stock_icons = G_N_ELEMENTS (stock_icons);
