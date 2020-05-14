@@ -34,6 +34,7 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-xfer.h"
+#include "imageloader.h"
 
 #include <fnmatch.h>
 
@@ -47,7 +48,6 @@ struct OpenWithData
 {
     GList *files;
     GnomeCmdApp *app;
-    GtkPixmap *pm;
 };
 
 struct ScriptData
@@ -189,8 +189,8 @@ static void htcb_exec_with_app (const gchar *key, OpenWithData *data, gpointer u
 }
 
 
-/* Executes a list of files with the same application
- *
+/**
+ * Executes a list of files with the same application
  */
 static void cb_exec_with_app (GtkMenuItem *menu_item, OpenWithData *data)
 {
@@ -532,34 +532,60 @@ inline gchar *string_double_underscores (const gchar *string)
 }
 
 
-inline gchar *get_default_application_action_name (GList *files, gchar **icon_path)
+inline GnomeVFSMimeApplication *get_default_gnome_vfs_app_for_mime_type(GnomeCmdFile *gnomeCmdFile)
 {
-    if (g_list_length(files)>1)
-        return g_strdup (_("_Open"));
+    auto uri_str = gnomeCmdFile->get_uri_str();
+    auto *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, gnomeCmdFile->info->mime_type);
+    g_free (uri_str);
+    return app;
+}
 
-    auto f = static_cast<GnomeCmdFile*> (files->data);
-    auto uri_str = f->get_uri_str();
-    GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
 
-    if (icon_path && app)
+inline gchar *get_default_application_action_name (GnomeCmdFile *gnomeCmdFile)
+{
+    auto app = get_default_gnome_vfs_app_for_mime_type(gnomeCmdFile);
+
+    if (!app)
+    {
+        return nullptr;
+    }
+
+    gchar *escaped_app_name = string_double_underscores (app->name);
+    gnome_vfs_mime_application_free (app);
+
+    return escaped_app_name;
+}
+
+
+inline gchar *get_default_application_icon_path (GnomeCmdFile *gnomeCmdFile)
+{
+    gchar* icon_path = nullptr;
+
+    auto app = get_default_gnome_vfs_app_for_mime_type(gnomeCmdFile);
+
+    if (app)
     {
         GnomeCmdApp *gapp = gnome_cmd_app_new_from_vfs_app (app);
         if (gapp)
         {
-            *icon_path = g_strdup (gapp->icon_path);
+            icon_path = g_strdup (gapp->icon_path);
             gnome_cmd_app_free (gapp);
         }
-        else
-            *icon_path = nullptr;
+        gnome_vfs_mime_application_free (app);
     }
 
-    g_free (uri_str);
+    return icon_path;
+}
 
-    if (!app)
+
+inline gchar *get_default_application_action_label (GnomeCmdFile *gnomeCmdFile)
+{
+    gchar *escaped_app_name = get_default_application_action_name (gnomeCmdFile);
+    if (escaped_app_name == nullptr)
+    {
         return g_strdup (_("_Open"));
+    }
 
-    gchar *escaped_app_name = string_double_underscores (app->name);
-    gnome_vfs_mime_application_free (app);
     gchar *retval = g_strdup_printf (_("_Open with “%s”"), escaped_app_name);
     g_free (escaped_app_name);
 
@@ -571,20 +597,9 @@ inline gchar *get_default_application_action_name (GList *files, gchar **icon_pa
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
+GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
 {
     gint pos, match_count;
-    GList *vfs_apps, *tmp_list;
-
-    // Make place for separator and open with other...
-    static GnomeUIInfo apps_uiinfo[MAX_OPEN_WITH_APPS+2];
-
-    static GnomeUIInfo open_uiinfo[] =
-    {
-        GNOMEUIINFO_ITEM_NONE(N_("_Open"), nullptr, cb_exec_default),
-        GNOMEUIINFO_SUBTREE(N_("Open Wit_h"), apps_uiinfo),
-        GNOMEUIINFO_END
-    };
 
     static GnomeUIInfo exec_uiinfo[] =
     {
@@ -598,75 +613,23 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_END
     };
 
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), nullptr);
-    auto files = fl->get_selected_files();
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
+    auto files = gnomeCmdFileList->get_selected_files();
     if (!files) return nullptr;
 
-    auto f = static_cast<GnomeCmdFile*> (files->data);
+    auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
 
-    GtkUIManager *ui_manager = get_general_ui_manager();
-    GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/General");
+    GtkUIManager *ui_manager = get_file_popup_ui_manager(gnomeCmdFileList);
+    add_open_with_entries(ui_manager, gnomeCmdFileList);
+    GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/FilePopup");
 
-    // Fill the "Open With" menu with applications
-    gint i = -1;
-
-    vfs_apps = tmp_list = gnome_vfs_mime_get_all_applications (f->info->mime_type);
-    for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
-    {
-        GnomeVFSMimeApplication *vfs_app = (GnomeVFSMimeApplication *) vfs_apps->data;
-
-        if (vfs_app)
-        {
-            OpenWithData *data = g_new0 (OpenWithData, 1);
-
-            data->files = files;
-            data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
-
-            apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
-            apps_uiinfo[i].label = g_strdup (gnome_cmd_app_get_name (data->app));
-            apps_uiinfo[i].moreinfo = (gpointer) cb_exec_with_app;
-            apps_uiinfo[i].user_data = data;
-            if (data->app->icon_path)
-            {
-                apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_FILENAME;
-                apps_uiinfo[i].pixmap_info = g_strdup (data->app->icon_path);
-            }
-        }
-    }
-
-    if (i >= 0)
-        apps_uiinfo[++i].type = GNOME_APP_UI_SEPARATOR;
-
-    // Add open with other
-    apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
-    apps_uiinfo[i].label = g_strdup (_("Other _Application…"));
-    apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
-    apps_uiinfo[i].user_data = files;
-    apps_uiinfo[i].pixmap_type = GNOME_APP_PIXMAP_NONE;
-
-    gnome_vfs_mime_application_list_free (tmp_list);
-    apps_uiinfo[++i].type = GNOME_APP_UI_ENDOFINFO;
-    //////////////////////////////////////////////
-
-
-    // Set default callback data
-    for (gint j=0; open_uiinfo[j].type != GNOME_APP_UI_ENDOFINFO; ++j)
-        if (open_uiinfo[j].type == GNOME_APP_UI_ITEM)
-            open_uiinfo[j].user_data = fl;
-
-    open_uiinfo[0].label = get_default_application_action_name(files, (gchar **) &open_uiinfo[0].pixmap_info);  // must be freed after gnome_app_fill_menu ()
-    open_uiinfo[0].pixmap_type = open_uiinfo[0].pixmap_info ? GNOME_APP_PIXMAP_FILENAME : GNOME_APP_PIXMAP_NONE;
-    open_uiinfo[0].user_data = files;
     exec_uiinfo[0].user_data = files;
 
     // Fill the menu
     pos = 0;
-    //gnome_app_fill_menu (GTK_MENU_SHELL (menu), open_uiinfo, nullptr, FALSE, pos);
-
-    g_free ((gpointer) open_uiinfo[0].label);
 
     pos += 3;
-    if (f->is_executable() && g_list_length (files) == 1)
+    if (gnomeCmdFile->is_executable() && g_list_length (files) == 1)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, nullptr, FALSE, pos++);
 
     //gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
@@ -781,6 +744,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     g_list_free (script_list);
 
     //gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, nullptr, FALSE, pos++);
+    menu = gtk_ui_manager_get_widget (ui_manager, "/FilePopup");
 
     return GTK_WIDGET (menu);
 }
@@ -812,23 +776,31 @@ GtkType gnome_cmd_file_popmenu_get_type ()
 /**
  * In this ui_manager the generic popup entries are placed. Dynamic entries will be added later.
  */
- GtkUIManager *get_general_ui_manager()
+ GtkUIManager *get_file_popup_ui_manager(GnomeCmdFileList *gnomeCmdFileList)
 {
+    auto files = gnomeCmdFileList->get_selected_files();
     static const GtkActionEntry entries[] =
     {
-        { "Cut", GTK_STOCK_CUT, _("Cut"), nullptr, nullptr, (GCallback) edit_cap_cut },
-        { "Copy", GTK_STOCK_COPY, _("Copy"), nullptr, nullptr, (GCallback) edit_cap_copy },
-        { "CopyFileNames", "my_stock_copy_file_names_xpm", _("Copy file names"), nullptr, nullptr, (GCallback) edit_copy_fnames },
-        { "Delete", GTK_STOCK_DELETE, _("Delete"), nullptr, nullptr, (GCallback) file_delete },
-        { "Rename", GTK_STOCK_EDIT, _("Rename"), nullptr, nullptr, (GCallback) on_rename },
-        { "Send", GTK_STOCK_EXECUTE, _("Send files"), nullptr, nullptr, (GCallback) file_sendto },
-        { "Terminal", "my_stock_terminal_svg", _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
-        { "Properties", GTK_STOCK_PROPERTIES, _("_Properties…"), nullptr, nullptr, (GCallback) on_properties },
+        { "OpenWith",      nullptr,                 _("Open Wit_h") },
+        { "OtherApp",      nullptr,                 _("Other _Application…"),    nullptr, nullptr, (GCallback) on_open_with_other },
+        { "OpenWithOther", nullptr,                 _("Open Wit_h …"),           nullptr, nullptr, (GCallback) on_open_with_other },
+        { "Cut",           GTK_STOCK_CUT,           _("Cut"),                    nullptr, nullptr, (GCallback) edit_cap_cut },
+        { "Copy",          GTK_STOCK_COPY,          _("Copy"),                   nullptr, nullptr, (GCallback) edit_cap_copy },
+        { "Delete",        GTK_STOCK_DELETE,        _("Delete"),                 nullptr, nullptr, (GCallback) file_delete },
+        { "Rename",        GTK_STOCK_EDIT,          _("Rename"),                 nullptr, nullptr, (GCallback) on_rename },
+        { "Send",          GTK_STOCK_EXECUTE,       _("Send files"),             nullptr, nullptr, (GCallback) file_sendto },
+        { "Properties",    GTK_STOCK_PROPERTIES,    _("_Properties…"),           nullptr, nullptr, (GCallback) on_properties },
+        { "Terminal",      "gnome-commander-terminal", _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
+        { "CopyFileNames", "gnome-commander-copy-file-names", _("Copy file names"), nullptr, nullptr, (GCallback) edit_copy_fnames },
     };
 
     static const char *ui_description =
     "<ui>"
-    "  <popup action='General'>"
+    "  <popup action='FilePopup'>"
+    "    <placeholder name='OpenWithDefault'/>"
+    "    <menu action='OpenWith'>"
+    "      <placeholder name='OpenWithPlaceholder'/>"
+    "    </menu>"
     "    <menuitem action='Cut'/>"
     "    <menuitem action='Copy'/>"
     "    <menuitem action='CopyFileNames'/>"
@@ -847,18 +819,124 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     GError *error;
 
     action_group = gtk_action_group_new ("PopupActions");
-    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), main_win);
+    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), files);
 
     ui_manager = gtk_ui_manager_new ();
     gtk_ui_manager_insert_action_group (ui_manager, action_group, 0);
 
-    error = NULL;
+    error = nullptr;
     if (!gtk_ui_manager_add_ui_from_string (ui_manager, ui_description, -1, &error))
-      {
+    {
         g_message ("building menus failed: %s", error->message);
         g_error_free (error);
         exit (EXIT_FAILURE);
-      }
+    }
 
     return ui_manager;
+}
+
+/**
+ * This method adds all "open" popup entries (for opening the selected files
+ * or folders with dedicated programs) into the given GtkUIManager.
+ */
+void add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList)
+{
+    GtkAction *dynAction;
+    static guint mergeIdOpenWith = 0;
+    static GtkActionGroup *dynamicActionGroup = nullptr;
+    auto files = gnomeCmdFileList->get_selected_files();
+    GnomeCmdFile *gnomeCmdFile = nullptr;
+    gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);;
+
+    if (mergeIdOpenWith != 0)
+    {
+        gtk_ui_manager_remove_ui (ui_manager, mergeIdOpenWith);
+        mergeIdOpenWith = 0;
+    }
+
+    mergeIdOpenWith = gtk_ui_manager_new_merge_id (ui_manager);
+    dynamicActionGroup = gtk_action_group_new ("dynamicActionGroup");
+    gtk_ui_manager_insert_action_group (ui_manager, dynamicActionGroup, 0);
+
+    gchar *defaultAppIconPath = nullptr;
+    gchar *appStockId = nullptr;
+    gchar *openWithDefaultAppName = nullptr;
+    gchar *openWithDefaultAppLabel = nullptr;
+
+    // Only try to find a default application for the first file in the list of selected files
+    openWithDefaultAppName  = get_default_application_action_name(gnomeCmdFile);
+    defaultAppIconPath      = get_default_application_icon_path(gnomeCmdFile);
+    openWithDefaultAppLabel = get_default_application_action_label(gnomeCmdFile);
+
+    if (openWithDefaultAppName != nullptr)
+    {
+        // Add the default "Open" menu entry at the top of the popup
+        appStockId = register_application_stock_icon(openWithDefaultAppName, defaultAppIconPath);
+        dynAction = gtk_action_new ("Open", openWithDefaultAppLabel, nullptr, appStockId);
+        g_signal_connect (dynAction, "activate", G_CALLBACK (cb_exec_default), files);
+        gtk_action_group_add_action (dynamicActionGroup, dynAction);
+        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWithDefault", openWithDefaultAppLabel, "Open",
+                               GTK_UI_MANAGER_AUTO, true);
+        g_free (defaultAppIconPath);
+        g_free(openWithDefaultAppLabel);
+        g_free(appStockId);
+    }
+    else
+    {
+        DEBUG ('u', "No default application found for the MIME type of: %s\n", gnomeCmdFile->get_name());
+        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWithDefault", "OpenWithOther", "OpenWithOther",
+                               GTK_UI_MANAGER_AUTO, true);
+    }
+
+    // Add menu items in the "Open with" submenu
+    gint ii = -1;
+    GList *vfs_apps, *tmp_list;
+    vfs_apps = tmp_list = gnome_vfs_mime_get_all_applications (gnomeCmdFile->info->mime_type);
+    for (; vfs_apps && ii < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
+    {
+        auto vfs_app = (GnomeVFSMimeApplication *) vfs_apps->data;
+
+        if (vfs_app)
+        {
+            OpenWithData *data = g_new0 (OpenWithData, 1);
+
+            data->files = files;
+            data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
+
+            gchar* openWithAppName  = g_strdup (gnome_cmd_app_get_name (data->app));
+
+            // Only add the entry to the submenu if its name different from the default app
+            if (strcmp(openWithAppName, openWithDefaultAppName) == 0)
+            {
+                gnome_cmd_app_free(data->app);
+                g_free(data);
+                g_free(openWithAppName);
+                continue;
+            }
+            appStockId = register_application_stock_icon(openWithAppName, gnome_cmd_app_get_icon_path(data->app));
+            dynAction = gtk_action_new (openWithAppName, openWithAppName, nullptr, appStockId);
+            g_signal_connect (dynAction, "activate", G_CALLBACK (cb_exec_with_app), data);
+            gtk_action_group_add_action (dynamicActionGroup, dynAction);
+            gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", openWithAppName, openWithAppName,
+                                   GTK_UI_MANAGER_AUTO, true);
+            ii++;
+            g_free(appStockId);
+            g_free(openWithAppName);
+        }
+    }
+
+    // If the number of mime apps is zero, we have added an "OpenWith" entry already further above
+    if (g_list_length(tmp_list) > 0)
+    {
+        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", "dynsep", nullptr,
+                               GTK_UI_MANAGER_SEPARATOR, false);
+        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", "OtherApp", "OtherApp",
+                               GTK_UI_MANAGER_AUTO, false);
+    }
+
+    gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/Cut", "dynsep", nullptr,
+                           GTK_UI_MANAGER_SEPARATOR, true);
+
+    g_free(openWithDefaultAppName);
+    gnome_vfs_mime_application_list_free (tmp_list);
 }

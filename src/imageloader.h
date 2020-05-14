@@ -79,4 +79,6 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
 
 void IMAGE_clear_mime_cache ();
 
-void register_my_stock_icons (void);
+void register_gnome_commander_stock_icons (void);
+
+char* register_application_stock_icon(const char* openWithDefaultLabel, const char* defaultAppIconPath);
