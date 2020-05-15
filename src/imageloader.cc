@@ -497,6 +497,7 @@ static struct
 } stock_icons[] =
 {
     { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", COPYFILENAMES_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "mail-send.png", MAILSEND_STOCKID },
     { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", TERMINAL_STOCKID }
 };
 
