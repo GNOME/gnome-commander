@@ -22,7 +22,8 @@
 #pragma once
 
 #define COPYFILENAMES_STOCKID "gnome-commander-copy-file-names"
-#define TERMINAL_STOCKID "gnome-commander-terminal"
+#define MAILSEND_STOCKID      "gnome-commander-mail-send"
+#define TERMINAL_STOCKID      "gnome-commander-terminal"
 
 #include "gnome-cmd-pixmap.h"
 

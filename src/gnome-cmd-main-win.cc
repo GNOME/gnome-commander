@@ -241,7 +241,7 @@ static void create_toolbar (GnomeCmdMainWin *mw)
         { "Paste", GTK_STOCK_PASTE, nullptr, nullptr, _("Paste"), (GCallback) edit_cap_paste },
         { "Delete", GTK_STOCK_DELETE, nullptr, nullptr, _("Delete"), (GCallback) file_delete },
         { "Edit", GTK_STOCK_EDIT,nullptr, nullptr, _("Edit (SHIFT for new document)"), (GCallback) file_edit },
-        { "Send", GTK_STOCK_EXECUTE, nullptr, nullptr, _("Send files"), (GCallback) file_sendto },
+        { "Send", MAILSEND_STOCKID, nullptr, nullptr, _("Send files"), (GCallback) file_sendto },
         { "Terminal", TERMINAL_STOCKID, nullptr, nullptr, _("Open terminal (SHIFT for root privileges)"), (GCallback) command_open_terminal__internal },
         { "Remote", GTK_STOCK_CONNECT, nullptr, nullptr, _("Remote Server"), (GCallback) connections_open },
         { "Drop", nullptr, nullptr, nullptr, _("Drop connection"), (GCallback) connections_close_current }
