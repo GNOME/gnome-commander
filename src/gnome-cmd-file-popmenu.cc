@@ -437,12 +437,12 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
 }
 
 
-inline void add_plugin_menu_items (GnomeCmdFilePopmenu *menu, GList *items, gint pos)
+inline void add_plugin_menu_items (GtkMenuShell *menu, GList *items, gint pos)
 {
     for (; items; items = items->next)
     {
         GtkWidget *item = GTK_WIDGET (items->data);
-        gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos++);
+        gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos);
     }
 }
 
@@ -593,22 +593,40 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
 
-    gint pos, match_count;
+    guint pos;
     static guint mergeIdFavApp = 0;
 
     auto files = gnomeCmdFileList->get_selected_files();
     if (!files) return nullptr;
 
     GtkUIManager *uiManager = get_file_popup_ui_manager(gnomeCmdFileList);
-    add_open_with_entries(uiManager, gnomeCmdFileList);
+
+    // Add "Open With" popup entries
+    pos = add_open_with_entries(uiManager, gnomeCmdFileList);
+    pos += 2;
+
+    // Add plugin popup entries
+    for (auto plugins = plugin_manager_get_all (); plugins; plugins = plugins->next)
+    {
+        auto pluginData = static_cast<PluginData*> (plugins->data);
+        if (pluginData->active)
+        {
+            GList *items = gnome_cmd_plugin_create_popup_menu_items (pluginData->plugin, main_win->get_state());
+            if (items)
+            {
+                GtkWidget *menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
+                add_plugin_menu_items (GTK_MENU_SHELL(menu), items, ++pos);
+            }
+        }
+    }
 
     // Add favorite applications
-    match_count = 0;
     if (mergeIdFavApp != 0)
     {
         gtk_ui_manager_remove_ui (uiManager, mergeIdFavApp);
         mergeIdFavApp = 0;
     }
+
     mergeIdFavApp = gtk_ui_manager_new_merge_id (uiManager);
     for (auto j = gnome_cmd_data.options.fav_apps; j; j = j->next)
     {
@@ -616,35 +634,11 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         if (fav_app_matches_files (app, files))
         {
             add_fav_app_menu_item (uiManager, mergeIdFavApp, app, files);
-            match_count++;
+            pos++;
         }
     }
-    if (match_count > 0)
-    {
-        gtk_ui_manager_add_ui (uiManager, mergeIdFavApp, "/FilePopup/FavoriteApps", "dynsep", nullptr,
-                               GTK_UI_MANAGER_SEPARATOR, true);
-    }
-
-    for (auto j = plugin_manager_get_all (); j; j = j->next)
-    {
-        auto data = static_cast<PluginData*> (j->data);
-        if (data->active)
-        {
-            GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin, main_win->get_state());
-            if (items)
-            {
-                //add_plugin_menu_items (menu, items, pos);
-                match_count++;
-                pos += g_list_length (items);
-            }
-        }
-    }
-
-    //if (match_count > 0)
-    //    gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
 
     add_execute_entry(uiManager, gnomeCmdFileList);
-    GtkWidget *menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
 
     // Script actions
     gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
@@ -721,9 +715,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
     g_free (user_dir);
     g_list_free (script_list);
 
-    menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
-
-    return GTK_WIDGET (menu);
+    return GTK_WIDGET (gtk_ui_manager_get_widget (uiManager, "/FilePopup"));
 }
 
 
@@ -779,12 +771,13 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     "    <menu action='OpenWith'>"
     "      <placeholder name='OpenWithPlaceholder'/>"
     "    </menu>"
+    "    <separator/>"
     "    <placeholder name='FavoriteApps'/>"
+    "    <separator/>"
     "    <menuitem action='Cut'/>"
     "    <menuitem action='Copy'/>"
     "    <menuitem action='CopyFileNames'/>"
     "    <menuitem action='Delete'/>"
-    "    <separator/>"
     "    <menuitem action='Rename'/>"
     "    <menuitem action='Send'/>"
     "    <menuitem action='Terminal'/>"
@@ -817,9 +810,11 @@ GtkType gnome_cmd_file_popmenu_get_type ()
 /**
  * This method adds all "open" popup entries (for opening the selected files
  * or folders with dedicated programs) into the given GtkUIManager.
+ * Returns: the number of new entries in the main level of the popup menu
  */
-void add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList)
+guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList)
 {
+    guint newTopMenuItems = 0;
     GtkAction *dynAction;
     static guint mergeIdOpenWith = 0;
     static GtkActionGroup *dynamicActionGroup = nullptr;
@@ -864,7 +859,10 @@ void add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdF
         DEBUG ('u', "No default application found for the MIME type of: %s\n", gnomeCmdFile->get_name());
         gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWithDefault", "OpenWithOther", "OpenWithOther",
                                GTK_UI_MANAGER_AUTO, true);
+        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWithDefault", "dynsep", nullptr,
+                               GTK_UI_MANAGER_SEPARATOR, false);
     }
+    newTopMenuItems++;
 
     // Add menu items in the "Open with" submenu
     gint ii = -1;
@@ -906,17 +904,14 @@ void add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdF
     // If the number of mime apps is zero, we have added an "OpenWith" entry already further above
     if (g_list_length(tmp_list) > 0)
     {
-        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", "dynsep", nullptr,
-                               GTK_UI_MANAGER_SEPARATOR, false);
         gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", "OtherApp", "OtherApp",
                                GTK_UI_MANAGER_AUTO, false);
+        newTopMenuItems++;
     }
-
-    gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/Cut", "dynsep", nullptr,
-                           GTK_UI_MANAGER_SEPARATOR, true);
 
     g_free(openWithDefaultAppName);
     gnome_vfs_mime_application_list_free (tmp_list);
+    return newTopMenuItems;
 }
 
 void add_execute_entry(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmdFileList)
