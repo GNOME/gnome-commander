@@ -30,13 +30,13 @@ using namespace std;
 GnomeCmdApp *gnome_cmd_app_new ()
 {
     GnomeCmdApp *app = g_new0 (GnomeCmdApp, 1);
-    // app->name = NULL;
-    // app->cmd = NULL;
-    // app->icon_path = NULL;
-    // app->pixmap = NULL;
+    // app->name = nullptr;
+    // app->cmd = nullptr;
+    // app->icon_path = nullptr;
+    // app->pixmap = nullptr;
     app->target = APP_TARGET_ALL_FILES;
-    // app->pattern_string = NULL;
-    // app->pattern_list = NULL;
+    // app->pattern_string = nullptr;
+    // app->pattern_list = nullptr;
     // app->handles_uris = FALSE;
     // app->handles_multiple = FALSE;
     // app->requires_terminal = FALSE;
@@ -72,13 +72,13 @@ GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
 
 static char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, gint size)
 {
-    char *retval  = NULL;
-    GtkIconInfo *icon_info = NULL;
+    char *retval  = nullptr;
+    GtkIconInfo *icon_info = nullptr;
     char *icon_no_extension;
     char *p;
 
-    if (icon_name == NULL || strcmp (icon_name, "") == 0)
-        return NULL;
+    if (icon_name == nullptr || strcmp (icon_name, "") == 0)
+        return nullptr;
 
     if (g_path_is_absolute (icon_name)) {
         if (g_file_test (icon_name, G_FILE_TEST_EXISTS)) {
@@ -109,7 +109,7 @@ static char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, g
 
     icon_info = gtk_icon_theme_lookup_icon (icon_theme, icon_no_extension, size, (GtkIconLookupFlags) 0);
     if (!icon_info)
-        return NULL;
+        return nullptr;
     retval = g_strdup (gtk_icon_info_get_filename (icon_info));
 
     g_free (icon_no_extension);
@@ -121,7 +121,7 @@ static char* panel_find_icon (GtkIconTheme *icon_theme, const char *icon_name, g
 
 GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
 {
-    g_return_val_if_fail (vfs_app != NULL, NULL);
+    g_return_val_if_fail (vfs_app != nullptr, nullptr);
 
     GtkIconTheme *theme = gtk_icon_theme_get_default ();
     char *icon = panel_find_icon (theme, gnome_vfs_mime_application_get_icon (vfs_app), 16);
@@ -130,7 +130,7 @@ GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
                                           vfs_app->command,
                                           icon,
                                           APP_TARGET_ALL_FILES,
-                                          NULL,
+                                          nullptr,
                                           vfs_app->expects_uris == GNOME_VFS_MIME_APPLICATION_ARGUMENT_TYPE_URIS,
                                           vfs_app->can_open_multiple_files,
                                           vfs_app->requires_terminal);
@@ -154,7 +154,7 @@ GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app)
 
 void gnome_cmd_app_free (GnomeCmdApp *app)
 {
-    g_return_if_fail (app != NULL);
+    g_return_if_fail (app != nullptr);
 
     g_free (app->name);
     g_free (app->cmd);
@@ -167,8 +167,8 @@ void gnome_cmd_app_free (GnomeCmdApp *app)
 
 void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name)
 {
-    g_return_if_fail (app != NULL);
-    g_return_if_fail (name != NULL);
+    g_return_if_fail (app != nullptr);
+    g_return_if_fail (name != nullptr);
 
     g_free (app->name);
 
@@ -178,7 +178,7 @@ void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name)
 
 void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd)
 {
-    g_return_if_fail (app != NULL);
+    g_return_if_fail (app != nullptr);
 
     if (!cmd) return;
 
@@ -190,7 +190,7 @@ void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd)
 
 void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 {
-    g_return_if_fail (app != NULL);
+    g_return_if_fail (app != nullptr);
 
     if (!icon_path) return;
 
@@ -201,7 +201,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
     app->icon_path = g_strdup (icon_path);
 
     //FIXME: Check GError here
-    GdkPixbuf *tmp = gdk_pixbuf_new_from_file (icon_path, NULL);
+    GdkPixbuf *tmp = gdk_pixbuf_new_from_file (icon_path, nullptr);
 
     if (tmp)
     {
@@ -217,7 +217,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 
 void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target)
 {
-    g_return_if_fail (app != NULL);
+    g_return_if_fail (app != nullptr);
 
     app->target = target;
 }
@@ -225,8 +225,8 @@ void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target)
 
 void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_string)
 {
-    g_return_if_fail (app != NULL);
-    g_return_if_fail (pattern_string != NULL);
+    g_return_if_fail (app != nullptr);
+    g_return_if_fail (pattern_string != nullptr);
 
     if (app->pattern_string)
         g_free (app->pattern_string);
@@ -234,9 +234,9 @@ void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_st
     app->pattern_string = g_strdup (pattern_string);
 
     // Free old list with patterns
-    g_list_foreach (app->pattern_list, (GFunc) g_free, NULL);
+    g_list_foreach (app->pattern_list, (GFunc) g_free, nullptr);
     g_list_free (app->pattern_list);
-    app->pattern_list = NULL;
+    app->pattern_list = nullptr;
 
     // Create the new one
     gchar **ents = g_strsplit (pattern_string, ";", 0);
@@ -267,7 +267,7 @@ void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_te
 
 const gchar *gnome_cmd_app_get_name (GnomeCmdApp *app)
 {
-    g_return_val_if_fail (app != NULL, NULL);
+    g_return_val_if_fail (app != nullptr, nullptr);
 
     return app->name;
 }
@@ -275,7 +275,7 @@ const gchar *gnome_cmd_app_get_name (GnomeCmdApp *app)
 
 const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app)
 {
-    g_return_val_if_fail (app != NULL, NULL);
+    g_return_val_if_fail (app != nullptr, nullptr);
 
     return app->cmd;
 }
@@ -283,7 +283,7 @@ const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app)
 
 const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app)
 {
-    g_return_val_if_fail (app != NULL, NULL);
+    g_return_val_if_fail (app != nullptr, nullptr);
 
     return app->icon_path;
 }
