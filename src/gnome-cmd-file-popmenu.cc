@@ -345,37 +345,29 @@ static void on_properties (GtkMenuItem *item, gpointer not_used)
 }
 
 
-static void add_fav_app_menu_item (GnomeCmdFilePopmenu *menu, GnomeCmdApp *app, gint pos, GList *files)
+static void add_fav_app_menu_item (GtkUIManager *uiManager, guint mergeIdFavApp, GnomeCmdApp *app, GList *files)
 {
+    g_return_if_fail(app != nullptr);
+    g_return_if_fail(g_list_length(files) != 0);
+
     OpenWithData *data = g_new0 (OpenWithData, 1);
 
     data->app = gnome_cmd_app_dup (app);
     data->files = files;
 
-    menu->priv->data_list = g_list_append (menu->priv->data_list, data);
+    auto iconPath = gnome_cmd_app_get_icon_path(app);
+    auto appName = gnome_cmd_app_get_name(app);
+    auto stockId = register_application_stock_icon(appName, iconPath);
 
-    GtkWidget *item = gtk_image_menu_item_new ();
+    auto dynamicActionGroup = gtk_action_group_new (appName);
+    gtk_ui_manager_insert_action_group (uiManager, dynamicActionGroup, 0);
 
-    if (GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app))
-        if (GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask))
-        {
-            gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
-        }
-
-    gtk_widget_show (item);
-    gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos);
-
-    // Create the contents of the menu item
-    GtkWidget *label = gtk_label_new (gnome_cmd_app_get_name (app));
-    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
-    gtk_widget_show (label);
-    gtk_container_add (GTK_CONTAINER (item), label);
-
-    // Connect to the signal and set user data
-    g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
-
-    g_signal_connect (item, "activate", G_CALLBACK (cb_exec_with_app), data);
+    auto dynAction = gtk_action_new (appName, appName, nullptr, stockId);
+    g_signal_connect (dynAction, "activate", G_CALLBACK (cb_exec_with_app), data);
+    gtk_action_group_add_action (dynamicActionGroup, dynAction);
+    gtk_ui_manager_add_ui (uiManager, mergeIdFavApp, "/FilePopup/FavoriteApps", appName, appName,
+                           GTK_UI_MANAGER_AUTO, true);
+    g_free(stockId);
 }
 
 
@@ -599,32 +591,38 @@ inline gchar *get_default_application_action_label (GnomeCmdFile *gnomeCmdFile)
 
 GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
 {
-    gint pos, match_count;
-
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (gnomeCmdFileList), nullptr);
+
+    gint pos, match_count;
+    static guint mergeIdFavApp = 0;
+
     auto files = gnomeCmdFileList->get_selected_files();
     if (!files) return nullptr;
 
-    GtkUIManager *ui_manager = get_file_popup_ui_manager(gnomeCmdFileList);
-    add_open_with_entries(ui_manager, gnomeCmdFileList);
-    add_execute_entry(ui_manager, gnomeCmdFileList);
-    GtkWidget *menu = gtk_ui_manager_get_widget (ui_manager, "/FilePopup");
-
-    // Fill the menu
-    pos = 0;
-
-    pos += 3;
+    GtkUIManager *uiManager = get_file_popup_ui_manager(gnomeCmdFileList);
+    add_open_with_entries(uiManager, gnomeCmdFileList);
 
     // Add favorite applications
     match_count = 0;
+    if (mergeIdFavApp != 0)
+    {
+        gtk_ui_manager_remove_ui (uiManager, mergeIdFavApp);
+        mergeIdFavApp = 0;
+    }
+    mergeIdFavApp = gtk_ui_manager_new_merge_id (uiManager);
     for (auto j = gnome_cmd_data.options.fav_apps; j; j = j->next)
     {
         auto app = static_cast<GnomeCmdApp*> (j->data);
         if (fav_app_matches_files (app, files))
         {
-            //add_fav_app_menu_item (menu, app, pos++, files);
+            add_fav_app_menu_item (uiManager, mergeIdFavApp, app, files);
             match_count++;
         }
+    }
+    if (match_count > 0)
+    {
+        gtk_ui_manager_add_ui (uiManager, mergeIdFavApp, "/FilePopup/FavoriteApps", "dynsep", nullptr,
+                               GTK_UI_MANAGER_SEPARATOR, true);
     }
 
     for (auto j = plugin_manager_get_all (); j; j = j->next)
@@ -644,6 +642,9 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
 
     //if (match_count > 0)
     //    gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
+
+    add_execute_entry(uiManager, gnomeCmdFileList);
+    GtkWidget *menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
 
     // Script actions
     gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
@@ -715,17 +716,12 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         tmp++;
         tmp->type = GNOME_APP_UI_ENDOFINFO;
 
-        //gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, nullptr, FALSE, pos);
-        pos += n;
-        //gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, nullptr, FALSE, pos++);
-
         g_free (py_uiinfo);
     }
     g_free (user_dir);
     g_list_free (script_list);
 
-    //gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, nullptr, FALSE, pos++);
-    menu = gtk_ui_manager_get_widget (ui_manager, "/FilePopup");
+    menu = gtk_ui_manager_get_widget (uiManager, "/FilePopup");
 
     return GTK_WIDGET (menu);
 }
@@ -783,6 +779,7 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     "    <menu action='OpenWith'>"
     "      <placeholder name='OpenWithPlaceholder'/>"
     "    </menu>"
+    "    <placeholder name='FavoriteApps'/>"
     "    <menuitem action='Cut'/>"
     "    <menuitem action='Copy'/>"
     "    <menuitem action='CopyFileNames'/>"
