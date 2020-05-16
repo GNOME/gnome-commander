@@ -770,7 +770,7 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     {
         { "OpenWith",      nullptr,                 _("Open Wit_h") },
         { "OtherApp",      nullptr,                 _("Other _Application…"),    nullptr, nullptr, (GCallback) on_open_with_other },
-        { "OpenWithOther", nullptr,                 _("Open Wit_h …"),           nullptr, nullptr, (GCallback) on_open_with_other },
+        { "OpenWithOther", nullptr,                 _("Open Wit_h…"),           nullptr, nullptr, (GCallback) on_open_with_other },
         { "Cut",           GTK_STOCK_CUT,           _("Cut"),                    nullptr, nullptr, (GCallback) edit_cap_cut },
         { "Copy",          GTK_STOCK_COPY,          _("Copy"),                   nullptr, nullptr, (GCallback) edit_cap_copy },
         { "Delete",        GTK_STOCK_DELETE,        _("Delete"),                 nullptr, nullptr, (GCallback) file_delete },
