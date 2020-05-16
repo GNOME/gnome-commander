@@ -584,6 +584,96 @@ inline gchar *get_default_application_action_label (GnomeCmdFile *gnomeCmdFile)
     return retval;
 }
 
+inline GList *get_list_of_action_scripts(const gchar* userDir)
+{
+    DIR *dp = opendir (userDir);
+    GList *scriptList = nullptr;
+    if (dp != nullptr)
+    {
+        struct dirent *directoryEntry;
+        while ((directoryEntry = readdir (dp)))
+        {
+            struct stat buf;
+            string script_path (userDir);
+            script_path.append ("/").append (directoryEntry->d_name);
+            if (stat (script_path.c_str(), &buf) == 0)
+            {
+                if (buf.st_mode & S_IFREG)
+                {
+                    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", script_path.c_str());
+                    scriptList = g_list_append (scriptList, g_strdup(directoryEntry->d_name));
+                }
+            }
+        }
+        closedir (dp);
+    }
+    return scriptList;
+}
+
+inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
+{
+    guint pos = 0;
+    auto userDir = g_build_filename (g_get_user_config_dir (), SCRIPT_DIRECTORY, nullptr);
+    auto scriptList = get_list_of_action_scripts(userDir);
+
+    static guint mergeIdActionScripts = 0;
+    if (mergeIdActionScripts != 0)
+    {
+        gtk_ui_manager_remove_ui (uiManager, mergeIdActionScripts);
+        mergeIdActionScripts = 0;
+    }
+    mergeIdActionScripts = gtk_ui_manager_new_merge_id (uiManager);
+
+    static GtkActionGroup *dynamicActionGroup = gtk_action_group_new ("actionScripts");
+    gtk_ui_manager_insert_action_group (uiManager, dynamicActionGroup, 0);
+
+    for (GList *script = scriptList; script; script = script->next)
+    {
+        ScriptData *scriptData = g_new0 (ScriptData, 1);
+        scriptData->files = files;
+
+        string scriptPathName (userDir);
+        scriptPathName.append ("/").append ((char*) script->data);
+        scriptData->name = g_strdup (scriptPathName.c_str());
+
+        FILE *fileStream = fopen (scriptData->name, "r");
+        if (fileStream)
+        {
+            char buf[256];
+            while (fgets (buf, 256, fileStream))
+            {
+                if (strncmp (buf, "#name:", 6) == 0)
+                {
+                    buf[strlen (buf)-1] = '\0';
+                    g_free ((gpointer) script->data);
+                    script->data = g_strdup (buf+7);
+                }
+                else if (strncmp (buf, "#term:", 6) == 0)
+                {
+                    scriptData->term = strncmp (buf + 7, "true", 4) == 0;
+                }
+            }
+            fclose (fileStream);
+        }
+
+
+        // Only add the script to the ActionGroup if it wasn't added before
+        if (!gtk_action_group_get_action (dynamicActionGroup, (gchar*) script->data))
+        {
+            auto dynAction = gtk_action_new ((gchar*) script->data, (gchar*) script->data, nullptr, GTK_STOCK_EXECUTE);
+            g_signal_connect (dynAction, "activate", G_CALLBACK (on_execute_script), scriptData);
+            gtk_action_group_add_action (dynamicActionGroup, dynAction);
+        }
+
+        gtk_ui_manager_add_ui (uiManager, mergeIdActionScripts, "/FilePopup/ActionScripts", (gchar*) script->data,
+                               (gchar*) script->data, GTK_UI_MANAGER_AUTO, true);
+        pos++;
+    }
+    g_free (userDir);
+    g_list_free (scriptList);
+
+    return pos;
+}
 
 /***********************************
  * Public functions
@@ -620,13 +710,12 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         }
     }
 
-    // Add favorite applications
+    // Add favorite applications menu entries
     if (mergeIdFavApp != 0)
     {
         gtk_ui_manager_remove_ui (uiManager, mergeIdFavApp);
         mergeIdFavApp = 0;
     }
-
     mergeIdFavApp = gtk_ui_manager_new_merge_id (uiManager);
     for (auto j = gnome_cmd_data.options.fav_apps; j; j = j->next)
     {
@@ -638,82 +727,11 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *gnomeCmdFileList)
         }
     }
 
+    // Add execute menu entry
     add_execute_entry(uiManager, gnomeCmdFileList);
 
-    // Script actions
-    gchar *user_dir = g_build_filename (g_get_user_config_dir (), PACKAGE "/scripts", nullptr);
-    DIR *dp = opendir (user_dir);
-    GList *script_list = nullptr;
-    if (dp != nullptr)
-    {
-        struct dirent *directory_entry;
-        while ((directory_entry = readdir (dp)))
-        {
-            struct stat buf;
-            string script_path (user_dir);
-            script_path.append ("/").append (directory_entry->d_name);
-            if (stat (script_path.c_str(), &buf) == 0)
-            {
-                if (buf.st_mode & S_IFREG)
-                {
-                    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", script_path.c_str());
-                    script_list = g_list_append (script_list, g_strdup(directory_entry->d_name));
-                }
-            }
-        }
-        closedir (dp);
-    }
-
-    guint n = g_list_length(script_list);
-    if (n)
-    {
-        GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
-        GnomeUIInfo *tmp = py_uiinfo;
-
-        for (GList *l = script_list; l; l = l->next)
-        {
-            ScriptData *data = g_new0 (ScriptData, 1);
-            data->files = files;
-
-            string s (user_dir);
-            s.append ("/").append ((char*) l->data);
-
-            FILE *ff = fopen (s.c_str (), "r");
-            if (ff)
-            {
-                char buf[256];
-                while (fgets (buf, 256, ff))
-                {
-                    if (strncmp (buf, "#name:", 6) == 0)
-                    {
-                        buf[strlen (buf)-1] = '\0';
-                        g_free ((gpointer) l->data);
-                        l->data = g_strdup (buf+7);
-                    }
-                    else if (strncmp (buf, "#term:", 6) == 0)
-                    {
-                        data->term = strncmp (buf + 7, "true", 4) == 0;
-                    }
-                }
-                fclose (ff);
-            }
-
-            data->name = g_strdup (s.c_str ());
-            tmp->type = GNOME_APP_UI_ITEM;
-            tmp->label = (gchar*) l->data;
-            tmp->moreinfo = (gpointer) on_execute_script;
-            tmp->user_data = data;
-            tmp->pixmap_type = GNOME_APP_PIXMAP_STOCK;
-            tmp->pixmap_info = GTK_STOCK_EXECUTE;
-            tmp++;
-        }
-        tmp++;
-        tmp->type = GNOME_APP_UI_ENDOFINFO;
-
-        g_free (py_uiinfo);
-    }
-    g_free (user_dir);
-    g_list_free (script_list);
+    // Add script action menu entries
+    add_action_script_entries(uiManager, files);
 
     return GTK_WIDGET (gtk_ui_manager_get_widget (uiManager, "/FilePopup"));
 }
@@ -773,6 +791,8 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     "    </menu>"
     "    <separator/>"
     "    <placeholder name='FavoriteApps'/>"
+    "    <separator/>"
+    "    <placeholder name='ActionScripts'/>"
     "    <separator/>"
     "    <menuitem action='Cut'/>"
     "    <menuitem action='Copy'/>"

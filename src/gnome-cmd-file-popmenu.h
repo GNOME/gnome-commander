@@ -30,6 +30,7 @@
 #define GNOME_CMD_IS_FILE_POPMENU_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_FILE_POPMENU))
 #define GNOME_CMD_FILE_POPMENU_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS((obj), GNOME_CMD_TYPE_FILE_POPMENU, GnomeCmdFilePopmenuClass))
 
+#define SCRIPT_DIRECTORY PACKAGE "/" "scripts"
 
 struct GnomeCmdFilePopmenuPrivate;
 
