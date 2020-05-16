@@ -3,7 +3,7 @@
 noinst_LIBRARIES = libgcmd-dialogs.a
 
 AM_CXXFLAGS = $(WARN_CXXFLAGS) -Werror=parentheses -Wno-parentheses \
-				-Werror=cast-function-type -Wno-cast-function-type
+				-Werror=cast-function-type -Wno-cast-function-type -Wno-deprecated-declarations
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
