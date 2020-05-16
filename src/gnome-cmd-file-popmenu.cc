@@ -299,6 +299,7 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
     gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
     auto files = data->files;
+    char *dirName = nullptr;
 
     string quotationMarks = data->term ? "\\\"" : "\"";
 
@@ -308,10 +309,12 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
         for (; files; files = files->next)
         {
             auto f = static_cast<GnomeCmdFile*> (files->data);
+            dirName = f->get_dirname ();
             string command (data->name);
             command.append (" ").append (quotationMarks).append (f->get_name ()).append (quotationMarks);
 
-            run_command_indir (command.c_str (), f->get_dirname (), data->term);
+            run_command_indir (command.c_str (), dirName, data->term);
+            g_free(dirName);
         }
     }
     else
@@ -319,13 +322,15 @@ static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
         // Run script with list of files
         string commandString (data->name);
         commandString.append (" ");
+        dirName = static_cast<GnomeCmdFile*> (data->files->data)->get_dirname ();
         for (; files; files = files->next)
         {
             auto f = static_cast<GnomeCmdFile*> (files->data);
             commandString.append (quotationMarks).append(f->get_name ()).append (quotationMarks).append (" ");
         }
 
-        run_command_indir (commandString.c_str (), (static_cast<GnomeCmdFile*> (data->files->data))->get_dirname (), data->term);
+        run_command_indir (commandString.c_str (), dirName, data->term);
+        g_free(dirName);
     }
 
     g_list_free (data->files);
@@ -770,12 +775,12 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     {
         { "OpenWith",      nullptr,                 _("Open Wit_h") },
         { "OtherApp",      nullptr,                 _("Other _Application…"),    nullptr, nullptr, (GCallback) on_open_with_other },
-        { "OpenWithOther", nullptr,                 _("Open Wit_h…"),           nullptr, nullptr, (GCallback) on_open_with_other },
+        { "OpenWithOther", nullptr,                 _("Open Wit_h…"),            nullptr, nullptr, (GCallback) on_open_with_other },
         { "Cut",           GTK_STOCK_CUT,           _("Cut"),                    nullptr, nullptr, (GCallback) edit_cap_cut },
         { "Copy",          GTK_STOCK_COPY,          _("Copy"),                   nullptr, nullptr, (GCallback) edit_cap_copy },
         { "Delete",        GTK_STOCK_DELETE,        _("Delete"),                 nullptr, nullptr, (GCallback) file_delete },
         { "Rename",        GTK_STOCK_EDIT,          _("Rename"),                 nullptr, nullptr, (GCallback) on_rename },
-        { "Send",          MAILSEND_STOCKID,       _("Send files"),             nullptr, nullptr, (GCallback) file_sendto },
+        { "Send",          MAILSEND_STOCKID,        _("Send files"),             nullptr, nullptr, (GCallback) file_sendto },
         { "Properties",    GTK_STOCK_PROPERTIES,    _("_Properties…"),           nullptr, nullptr, (GCallback) on_properties },
         { "Execute",       GTK_STOCK_EXECUTE,       _("E_xecute"),               nullptr, nullptr, (GCallback) on_execute },
         { "Terminal",      "gnome-commander-terminal", _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
