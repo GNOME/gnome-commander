@@ -904,6 +904,8 @@ guint add_open_with_entries(GtkUIManager *ui_manager, GnomeCmdFileList *gnomeCmd
     // If the number of mime apps is zero, we have added an "OpenWith" entry already further above
     if (g_list_length(tmp_list) > 0)
     {
+        gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", "dynsep", nullptr,
+                               GTK_UI_MANAGER_SEPARATOR, false);
         gtk_ui_manager_add_ui (ui_manager, mergeIdOpenWith, "/FilePopup/OpenWith", "OtherApp", "OtherApp",
                                GTK_UI_MANAGER_AUTO, false);
         newTopMenuItems++;
