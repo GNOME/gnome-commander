@@ -53,8 +53,8 @@ struct OpenWithData
 struct ScriptData
 {
     GList *files;
-    const char *name;
-    gboolean term;
+    char *path;
+    gboolean inTerminal;
 };
 
 static GtkMenuClass *parent_class = nullptr;
@@ -292,49 +292,49 @@ static void on_execute (GtkMenuItem *menu_item, GList *files)
 }
 
 
-static void on_execute_script (GtkMenuItem *menu_item, ScriptData *data)
+static void on_execute_script (GtkMenuItem *menuItem, ScriptData *scriptData)
 {
     GdkModifierType mask;
 
     gdk_window_get_pointer (nullptr, nullptr, nullptr, &mask);
 
-    auto files = data->files;
     char *dirName = nullptr;
 
-    string quotationMarks = data->term ? "\\\"" : "\"";
+    string quotationMarks = scriptData->inTerminal ? "\\\"" : "\"";
 
     if (state_is_shift (mask))
     {
         // Run script per file
-        for (; files; files = files->next)
+        for (auto files = scriptData->files; files; files = files->next)
         {
-            auto f = static_cast<GnomeCmdFile*> (files->data);
-            dirName = f->get_dirname ();
-            string command (data->name);
-            command.append (" ").append (quotationMarks).append (f->get_name ()).append (quotationMarks);
+            auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+            string command (scriptData->path);
+            command.append (" ").append (quotationMarks).append (gnomeCmdFile->get_name ()).append (quotationMarks);
 
-            run_command_indir (command.c_str (), dirName, data->term);
+            dirName = gnomeCmdFile->get_dirname (); // must be g_free'd
+            run_command_indir (command.c_str (), dirName, scriptData->inTerminal);
             g_free(dirName);
         }
     }
     else
     {
         // Run script with list of files
-        string commandString (data->name);
+        string commandString (scriptData->path);
         commandString.append (" ");
-        dirName = static_cast<GnomeCmdFile*> (data->files->data)->get_dirname ();
-        for (; files; files = files->next)
+        for (auto files = scriptData->files; files; files = files->next)
         {
-            auto f = static_cast<GnomeCmdFile*> (files->data);
-            commandString.append (quotationMarks).append(f->get_name ()).append (quotationMarks).append (" ");
+            auto gnomeCmdFile = static_cast<GnomeCmdFile*> (files->data);
+            commandString.append (quotationMarks).append(gnomeCmdFile->get_name ()).append (quotationMarks).append (" ");
         }
 
-        run_command_indir (commandString.c_str (), dirName, data->term);
+        dirName = static_cast<GnomeCmdFile*> (scriptData->files->data)->get_dirname (); // must be g_free'd
+        run_command_indir (commandString.c_str (), dirName, scriptData->inTerminal);
         g_free(dirName);
     }
 
-    g_list_free (data->files);
-    g_free ((gpointer) data->name);
+    // ToDo: free also the other scriptData structs
+    g_list_free (scriptData->files);
+    g_free ((gpointer) scriptData->path);
 }
 
 
@@ -589,24 +589,25 @@ inline gchar *get_default_application_action_label (GnomeCmdFile *gnomeCmdFile)
     return retval;
 }
 
-inline GList *get_list_of_action_scripts(const gchar* userDir)
+inline GList *get_list_of_action_script_file_names(const gchar* scriptsDir)
 {
-    DIR *dp = opendir (userDir);
+    DIR *dp = opendir (scriptsDir);
     GList *scriptList = nullptr;
     if (dp != nullptr)
     {
         struct dirent *directoryEntry;
         while ((directoryEntry = readdir (dp)))
         {
+            char *fileName = directoryEntry->d_name;
             struct stat buf;
-            string script_path (userDir);
-            script_path.append ("/").append (directoryEntry->d_name);
-            if (stat (script_path.c_str(), &buf) == 0)
+            string scriptPath (scriptsDir);
+            scriptPath.append ("/").append (fileName);
+            if (stat (scriptPath.c_str(), &buf) == 0)
             {
                 if (buf.st_mode & S_IFREG)
                 {
-                    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", script_path.c_str());
-                    scriptList = g_list_append (scriptList, g_strdup(directoryEntry->d_name));
+                    DEBUG('p', "Adding \'%s\' to the list of scripts.\n", scriptPath.c_str());
+                    scriptList = g_list_append (scriptList, g_strdup(fileName));
                 }
             }
         }
@@ -618,8 +619,8 @@ inline GList *get_list_of_action_scripts(const gchar* userDir)
 inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
 {
     guint pos = 0;
-    auto userDir = g_build_filename (g_get_user_config_dir (), SCRIPT_DIRECTORY, nullptr);
-    auto scriptList = get_list_of_action_scripts(userDir);
+    auto scriptsDir = g_build_filename (g_get_user_config_dir (), SCRIPT_DIRECTORY, nullptr);
+    auto scriptFileNames = get_list_of_action_script_file_names(scriptsDir);
 
     static guint mergeIdActionScripts = 0;
     if (mergeIdActionScripts != 0)
@@ -632,16 +633,17 @@ inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
     static GtkActionGroup *dynamicActionGroup = gtk_action_group_new ("actionScripts");
     gtk_ui_manager_insert_action_group (uiManager, dynamicActionGroup, 0);
 
-    for (GList *script = scriptList; script; script = script->next)
+    for (GList *scriptFileName = scriptFileNames; scriptFileName; scriptFileName = scriptFileName->next)
     {
-        ScriptData *scriptData = g_new0 (ScriptData, 1);
+        auto scriptData = g_new0 (ScriptData, 1);
         scriptData->files = files;
 
-        string scriptPathName (userDir);
-        scriptPathName.append ("/").append ((char*) script->data);
-        scriptData->name = g_strdup (scriptPathName.c_str());
+        string scriptPath (scriptsDir);
+        scriptPath.append ("/").append ((char*) scriptFileName->data);
+        scriptData->path = g_strdup (scriptPath.c_str());
 
-        FILE *fileStream = fopen (scriptData->name, "r");
+        char *scriptName = nullptr;
+        FILE *fileStream = fopen (scriptData->path, "r");
         if (fileStream)
         {
             char buf[256];
@@ -650,32 +652,35 @@ inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
                 if (strncmp (buf, "#name:", 6) == 0)
                 {
                     buf[strlen (buf)-1] = '\0';
-                    g_free ((gpointer) script->data);
-                    script->data = g_strdup (buf+7);
+                    // Script name given inside the script file
+                    scriptName = g_strdup (buf+7);
                 }
                 else if (strncmp (buf, "#term:", 6) == 0)
                 {
-                    scriptData->term = strncmp (buf + 7, "true", 4) == 0;
+                    scriptData->inTerminal = strncmp (buf + 7, "true", 4) == 0;
                 }
             }
             fclose (fileStream);
         }
 
+        auto dynAction = gtk_action_new (scriptName, scriptName, nullptr, GTK_STOCK_EXECUTE);
 
-        // Only add the script to the ActionGroup if it wasn't added before
-        if (!gtk_action_group_get_action (dynamicActionGroup, (gchar*) script->data))
+        // remove action if it was added in a previous run of this method
+        if (gtk_action_group_get_action (dynamicActionGroup, scriptName))
         {
-            auto dynAction = gtk_action_new ((gchar*) script->data, (gchar*) script->data, nullptr, GTK_STOCK_EXECUTE);
-            g_signal_connect (dynAction, "activate", G_CALLBACK (on_execute_script), scriptData);
-            gtk_action_group_add_action (dynamicActionGroup, dynAction);
+            gtk_action_group_remove_action(dynamicActionGroup, dynAction);
         }
 
-        gtk_ui_manager_add_ui (uiManager, mergeIdActionScripts, "/FilePopup/ActionScripts", (gchar*) script->data,
-                               (gchar*) script->data, GTK_UI_MANAGER_AUTO, true);
+        g_signal_connect (dynAction, "activate", G_CALLBACK (on_execute_script), scriptData);
+        gtk_action_group_add_action (dynamicActionGroup, dynAction);
+
+        gtk_ui_manager_add_ui (uiManager, mergeIdActionScripts, "/FilePopup/ActionScripts", scriptName,
+                               scriptName, GTK_UI_MANAGER_AUTO, true);
+        g_free(scriptName);
         pos++;
     }
-    g_free (userDir);
-    g_list_free (scriptList);
+    g_free (scriptsDir);
+    g_list_free_full(scriptFileNames, g_free);
 
     return pos;
 }
