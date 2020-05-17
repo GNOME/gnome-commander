@@ -55,6 +55,10 @@ struct ScriptData
     GList *files;
     char *path;
     gboolean inTerminal;
+
+    // this list is only used to free memory of all script paths
+    // after one script is executed:
+    GList *allScripts;
 };
 
 static GtkMenuClass *parent_class = nullptr;
@@ -332,9 +336,12 @@ static void on_execute_script (GtkMenuItem *menuItem, ScriptData *scriptData)
         g_free(dirName);
     }
 
-    // ToDo: free also the other scriptData structs
-    g_list_free (scriptData->files);
-    g_free ((gpointer) scriptData->path);
+    for (auto script = scriptData->allScripts; script; script = script->next)
+    {
+        g_free(((ScriptData*) script->data)->path); // this is the pathName of each script
+    }
+    g_list_free (scriptData->allScripts); // free all scriptData structs
+    g_free (scriptData);
 }
 
 
@@ -622,6 +629,10 @@ inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
     auto scriptsDir = g_build_filename (g_get_user_config_dir (), SCRIPT_DIRECTORY, nullptr);
     auto scriptFileNames = get_list_of_action_script_file_names(scriptsDir);
 
+    // This list is used to store a reference to each ScriptData structure
+    // It can be used to free the memory for each scriptData structure later on...
+    GList* scriptDataList = nullptr;
+
     static guint mergeIdActionScripts = 0;
     if (mergeIdActionScripts != 0)
     {
@@ -637,6 +648,10 @@ inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
     {
         auto scriptData = g_new0 (ScriptData, 1);
         scriptData->files = files;
+
+        // store a reference to a list of all scripts in scriptData->allScripts
+        scriptDataList = g_list_append (scriptDataList, scriptData);
+        scriptData->allScripts = scriptDataList;
 
         string scriptPath (scriptsDir);
         scriptPath.append ("/").append ((char*) scriptFileName->data);
