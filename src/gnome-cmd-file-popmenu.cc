@@ -623,7 +623,7 @@ inline GList *get_list_of_action_script_file_names(const gchar* scriptsDir)
     return scriptList;
 }
 
-inline guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
+guint add_action_script_entries(GtkUIManager *uiManager, GList *files)
 {
     guint pos = 0;
     auto scriptsDir = g_build_filename (g_get_user_config_dir (), SCRIPT_DIRECTORY, nullptr);
