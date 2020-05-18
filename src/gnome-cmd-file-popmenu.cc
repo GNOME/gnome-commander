@@ -69,7 +69,6 @@ struct GnomeCmdFilePopmenuPrivate
     GList *data_list;
 };
 
-
 static void do_mime_exec_multiple (gpointer *args)
 {
     auto app = static_cast<GnomeCmdApp*> (args[0]);
