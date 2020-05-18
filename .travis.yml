@@ -11,9 +11,7 @@ script:
 branches:
   only:
     - master
-    - gcmd-1-8
-    - gcmd-1-6
-    - gcmd-1-4
+    - gcmd-1-10
 
 notifications:
   recipients:
