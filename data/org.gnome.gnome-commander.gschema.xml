@@ -725,7 +725,7 @@
       </description>
     </key>
     <key name="sendto-cmd" type="s">
-      <default>'nautilus-sendto %s'</default>
+      <default>'xdg-email --attach %s'</default>
       <summary>Send to command</summary>
       <description>
           This string defines the command for sending files to a receiver.
