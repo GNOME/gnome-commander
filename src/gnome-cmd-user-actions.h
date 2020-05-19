@@ -211,6 +211,7 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
     return register_action(0, keyval, action_name_argument, user_data);
 }
 
+int parse_command(string *cmd, const gchar *command);
 
 extern GnomeCmdUserActions gcmd_user_actions;
 
