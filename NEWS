@@ -8,6 +8,7 @@ New features:
 Bug fixes:
  * Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)
  * Fixed issue #65 (Search options: 'copy file name' does not work)
+ * Fixed issue #83 (Switch from nautilus-sendto to xdg-email as default send-to command)
 
 New or updated translations:
  * ...
