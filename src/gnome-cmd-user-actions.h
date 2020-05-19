@@ -213,6 +213,8 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
 
 int parse_command(string *cmd, const gchar *command);
 
+void eventually_warn_if_xdg_email_is_used();
+
 extern GnomeCmdUserActions gcmd_user_actions;
 
 

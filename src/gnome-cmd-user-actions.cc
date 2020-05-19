@@ -62,6 +62,7 @@ struct _GcmdUserActionSettings
     GObject parent;
     GSettings *filter;
     GSettings *general;
+    GSettings *programs;
 };
 
 G_DEFINE_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, G_TYPE_OBJECT)
@@ -76,6 +77,7 @@ static void gcmd_user_action_settings_dispose (GObject *object)
     GcmdUserActionSettings *gs = GCMD_USER_ACTIONS (object);
 
     g_clear_object (&gs->general);
+    g_clear_object (&gs->programs);
 
     G_OBJECT_CLASS (gcmd_user_action_settings_parent_class)->dispose (object);
 }
@@ -105,6 +107,9 @@ static void gcmd_user_action_settings_init (GcmdUserActionSettings *gs)
 
     global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_GENERAL, FALSE);
     gs->general = g_settings_new_full (global_schema, NULL, NULL);
+
+    global_schema = g_settings_schema_source_lookup (global_schema_source, GCMD_PREF_PROGRAMS, FALSE);
+    gs->programs = g_settings_new_full (global_schema, NULL, NULL);
 }
 
 /***********************************
@@ -876,6 +881,8 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
         gchar  **argv  = nullptr;
         GError  *error = nullptr;
 
+        eventually_warn_if_xdg_email_is_used();
+
         DEBUG ('g', "Invoking 'Send files': %s\n", commandString.c_str());
         g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
 
@@ -885,6 +892,22 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
         }
         g_strfreev (argv);
     }
+}
+
+
+void eventually_warn_if_xdg_email_is_used()
+{
+    auto fileList = get_fl (ACTIVE);
+    GList *selectedFileList = fileList->get_selected_files();
+    auto currentSendToString = g_settings_get_string (gcmd_user_actions.settings->programs, GCMD_SETTINGS_SENDTO_CMD);
+
+    if ((g_strcmp0(currentSendToString, "xdg-email --attach %s") == 0)
+        && g_list_length(selectedFileList) > 1)
+    {
+        gnome_cmd_show_message (*main_win, _("Warning"), _("The default send-to command only supports one selected file at a time. You can change the command in the program options."));
+    }
+    g_list_free(selectedFileList);
+    g_free(currentSendToString);
 }
 
 
