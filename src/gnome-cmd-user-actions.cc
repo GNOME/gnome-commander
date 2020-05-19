@@ -725,7 +725,7 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
 	string cmd;
 	
 	cmd.reserve(2000);
-	if (parse_command(&cmd, command) == 0)
+	if (parse_command(&cmd, (const gchar*) command) == 0)
 	{
 	    DEBUG ('g', "Edit file command is not valid.\n");
 	    gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -870,7 +870,7 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
     
     cmd.reserve(2000);
 
-    if (parse_command(&cmd, g_strdup(gnome_cmd_data.options.sendto)) == 0)
+    if (parse_command(&cmd, (const gchar*) gnome_cmd_data.options.sendto) == 0)
     {
 	    DEBUG ('g', "Sendto command is not valid.\n");
 	    gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -1126,7 +1126,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     }
 
     cmd.reserve(2000);
-    if (parse_command(&cmd, (gchar*) command) == 0)
+    if (parse_command(&cmd, (const gchar*) command) == 0)
     {
 	DEBUG ('g', "Command is not valid.\n");
 	gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -2029,7 +2029,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
  * \param[out] cmd A string with parsed symbols listed above
  * \returns Length of the cmd string
  */
-int parse_command(string *cmd, gchar *command)
+int parse_command(string *cmd, const gchar *command)
 {
     gboolean percent = FALSE;
     gboolean blcheck = FALSE;
@@ -2049,7 +2049,7 @@ int parse_command(string *cmd, gchar *command)
     cmdcap = cmd->capacity();
     cmdlen = cmd->length();
 
-    for (const char *s=(const char *) command; *s; ++s)
+    for (auto s = command; *s; ++s)
     {
         if (!percent)
         {
