@@ -861,16 +861,10 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gchar        *command = NULL;
-    string        dir_path;
-    string        cmd;
+    string commandString;
+    commandString.reserve(2000);
 
-    command = g_strdup (gnome_cmd_data.options.sendto);
-    g_return_if_fail (command != NULL);
-    
-    cmd.reserve(2000);
-
-    if (parse_command(&cmd, (const gchar*) gnome_cmd_data.options.sendto) == 0)
+    if (parse_command(&commandString, (const gchar*) gnome_cmd_data.options.sendto) == 0)
     {
 	    DEBUG ('g', "Sendto command is not valid.\n");
 	    gnome_cmd_show_message (*main_win, _("No valid command given."));
@@ -878,15 +872,17 @@ void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
     }
     else
     {
-        GnomeCmdDir *dir = NULL;
         gint     argc;
-        gchar  **argv  = NULL;
-        GError  *error = NULL;
-        DEBUG ('g', "Invoking 'Send files': %s\n", cmd.c_str());
-        g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
-        if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+        gchar  **argv  = nullptr;
+        GError  *error = nullptr;
+
+        DEBUG ('g', "Invoking 'Send files': %s\n", commandString.c_str());
+        g_shell_parse_argv (commandString.c_str(), &argc, &argv, nullptr);
+
+        if (!g_spawn_async (nullptr, argv, nullptr, G_SPAWN_SEARCH_PATH, nullptr, nullptr, nullptr, &error))
+        {
             gnome_cmd_error_message (_("Unable to execute command."), error);
-        g_free (command);
+        }
         g_strfreev (argv);
     }
 }
