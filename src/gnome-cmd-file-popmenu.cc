@@ -793,17 +793,17 @@ GtkType gnome_cmd_file_popmenu_get_type ()
     static const GtkActionEntry entries[] =
     {
         { "OpenWith",      nullptr,                 _("Open Wit_h") },
-        { "OtherApp",      nullptr,                 _("Other _Application…"),    nullptr, nullptr, (GCallback) on_open_with_other },
-        { "OpenWithOther", nullptr,                 _("Open Wit_h…"),            nullptr, nullptr, (GCallback) on_open_with_other },
-        { "Cut",           GTK_STOCK_CUT,           _("Cut"),                    nullptr, nullptr, (GCallback) edit_cap_cut },
-        { "Copy",          GTK_STOCK_COPY,          _("Copy"),                   nullptr, nullptr, (GCallback) edit_cap_copy },
-        { "Delete",        GTK_STOCK_DELETE,        _("Delete"),                 nullptr, nullptr, (GCallback) file_delete },
-        { "Rename",        GTK_STOCK_EDIT,          _("Rename"),                 nullptr, nullptr, (GCallback) on_rename },
-        { "Send",          MAILSEND_STOCKID,        _("Send files"),             nullptr, nullptr, (GCallback) file_sendto },
-        { "Properties",    GTK_STOCK_PROPERTIES,    _("_Properties…"),           nullptr, nullptr, (GCallback) on_properties },
-        { "Execute",       GTK_STOCK_EXECUTE,       _("E_xecute"),               nullptr, nullptr, (GCallback) on_execute },
-        { "Terminal",      "gnome-commander-terminal", _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
-        { "CopyFileNames", "gnome-commander-copy-file-names", _("Copy file names"), nullptr, nullptr, (GCallback) edit_copy_fnames },
+        { "OtherApp",      nullptr,                 _("Other _Application…"), nullptr, nullptr, (GCallback) on_open_with_other },
+        { "OpenWithOther", nullptr,                 _("Open Wit_h…"),         nullptr, nullptr, (GCallback) on_open_with_other },
+        { "Cut",           GTK_STOCK_CUT,           _("Cut"),                 nullptr, nullptr, (GCallback) edit_cap_cut },
+        { "Copy",          GTK_STOCK_COPY,          _("Copy"),                nullptr, nullptr, (GCallback) edit_cap_copy },
+        { "Delete",        GTK_STOCK_DELETE,        _("Delete"),              nullptr, nullptr, (GCallback) file_delete },
+        { "Rename",        GTK_STOCK_EDIT,          _("Rename"),              nullptr, nullptr, (GCallback) on_rename },
+        { "Send",          MAILSEND_STOCKID,        _("Send files"),          nullptr, nullptr, (GCallback) file_sendto },
+        { "Properties",    GTK_STOCK_PROPERTIES,    _("_Properties…"),        nullptr, nullptr, (GCallback) on_properties },
+        { "Execute",       GTK_STOCK_EXECUTE,       _("E_xecute"),            nullptr, nullptr, (GCallback) on_execute },
+        { "Terminal",      TERMINAL_STOCKID,        _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
+        { "CopyFileNames", COPYFILENAMES_STOCKID,   _("Copy file names"),     nullptr, nullptr, (GCallback) edit_copy_fnames },
     };
 
     static const char *ui_description =
