@@ -22,11 +22,13 @@
 #pragma once
 
 #define FILETYPEICONS_FOLDER        "file-type-icons"
+
 #define COPYFILENAMES_STOCKID       "gnome-commander-copy-file-names"
-#define MAILSEND_STOCKID            "gnome-commander-mail-send"
-#define TERMINAL_STOCKID            "gnome-commander-terminal"
+#define EXEC_WHEEL_STOCKID          "gnome-commander-exec_wheel"
 #define FILETYPEDIR_STOCKID         "gnome-commander-file-type-dir"
 #define FILETYPEREGULARFILE_STOCKID "gnome-commander-file-type-regular-file"
+#define MAILSEND_STOCKID            "gnome-commander-mail-send"
+#define TERMINAL_STOCKID            "gnome-commander-terminal"
 
 #include "gnome-cmd-pixmap.h"
 
