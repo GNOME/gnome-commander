@@ -225,7 +225,7 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
     if (spec->type == MENU_TYPE_ITEM)
     {
         // Connect to the signal and set user data
-        g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, spec->user_data);
+        g_object_set_data (G_OBJECT (item), "uidata", spec->user_data);
         g_signal_connect (item, "activate", G_CALLBACK (spec->moreinfo), spec->user_data);
     }
 
@@ -297,7 +297,7 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
     // Connect to the signal and set user data
     if (callback)
     {
-        g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, user_data);
+        g_object_set_data (G_OBJECT (item), "uidata", user_data);
         g_signal_connect (item, "activate", callback, user_data);
     }
 

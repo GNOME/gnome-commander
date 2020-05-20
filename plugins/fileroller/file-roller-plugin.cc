@@ -449,7 +449,7 @@ static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
     gtk_container_add (GTK_CONTAINER (item), label);
 
     // Connect to the signal and set user data
-    g_object_set_data (G_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
+    g_object_set_data (G_OBJECT (item), "uidata", data);
 
     if (callback)
         g_signal_connect (item, "activate", G_CALLBACK (callback), data);
