@@ -27,9 +27,7 @@
 #include "gnome-cmd-user-actions.h"
 #include "utils.h"
 #include "cap.h"
-
-#include "../pixmaps/file-type-icons/file_type_dir.xpm"
-#include "../pixmaps/file-type-icons/file_type_regular.xpm"
+#include "imageloader.h"
 
 using namespace std;
 
@@ -103,40 +101,50 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), nullptr);
 
-    static GnomeUIInfo new_uiinfo[] =
+    static const GtkActionEntry entries[] =
     {
-        GNOMEUIINFO_ITEM(N_("_Directory"), nullptr, on_new_directory, file_type_dir_xpm),
-        GNOMEUIINFO_ITEM(N_("_Text File"), nullptr, on_new_textfile, file_type_regular_xpm),
-        GNOMEUIINFO_END
+        { "New",          nullptr,                     _("_New") },
+        { "Paste",        GTK_STOCK_PASTE,             _("_Paste"),              nullptr, nullptr, (GCallback) on_paste },
+        { "Terminal",     TERMINAL_STOCKID,            _("Open _terminal here"), nullptr, nullptr, (GCallback) command_open_terminal__internal },
+        { "Refresh",      GTK_STOCK_REFRESH,           _("_Refresh"),            nullptr, nullptr, (GCallback) on_refresh },
+        { "NewDirectory", FILETYPEDIR_STOCKID,         _("_Directory"),          nullptr, nullptr, (GCallback) on_new_directory },
+        { "NewTextFile",  FILETYPEREGULARFILE_STOCKID, _("_Text File"),          nullptr, nullptr, (GCallback) on_new_textfile }
     };
 
-    static GnomeUIInfo popmenu_uiinfo[] =
+    static const char *uiDescription =
+    "<ui>"
+    "  <popup action='EmptyFileListPopup'>"
+    "    <menu action='New'>"
+    "      <menuitem action='NewDirectory'/>"
+    "      <menuitem action='NewTextFile'/>"
+    "    </menu>"
+    "    <menuitem action='Paste'/>"
+    "    <separator/>"
+    "    <menuitem action='Terminal'/>"
+    "    <separator/>"
+    "    <menuitem action='Refresh'/>"
+    "  </popup>"
+    "</ui>";
+
+    GtkActionGroup *action_group;
+    GtkUIManager *uiManager;
+    GError *error;
+
+    action_group = gtk_action_group_new ("PopupActions");
+    gtk_action_group_add_actions (action_group, entries, G_N_ELEMENTS (entries), fs);
+
+    uiManager = gtk_ui_manager_new ();
+    gtk_ui_manager_insert_action_group (uiManager, action_group, 0);
+
+    error = nullptr;
+    if (!gtk_ui_manager_add_ui_from_string (uiManager, uiDescription, -1, &error))
     {
-        GNOMEUIINFO_SUBTREE(N_("_New"), new_uiinfo),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Paste"), nullptr, on_paste, GTK_STOCK_PASTE),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), nullptr, command_open_terminal__internal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
-        GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(N_("_Refresh"), nullptr, on_refresh, GTK_STOCK_REFRESH),
-        GNOMEUIINFO_END
-    };
+        g_message ("building menus failed: %s", error->message);
+        g_error_free (error);
+        exit (EXIT_FAILURE);
+    }
 
-
-    // Set default callback data
-
-    for (int i = 0; new_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
-        if (new_uiinfo[i].type == GNOME_APP_UI_ITEM)
-            new_uiinfo[i].user_data = fs;
-
-    for (int i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
-        if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
-            popmenu_uiinfo[i].user_data = fs;
-
-    auto menu = static_cast<GnomeCmdListPopmenu*> (g_object_new (GNOME_CMD_TYPE_LIST_POPMENU, nullptr));
-
-    // Fill the menu
-
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, nullptr, FALSE, 0);
+    GtkWidget *menu = gtk_ui_manager_get_widget (uiManager, "/EmptyFileListPopup");
 
     return GTK_WIDGET (menu);
 }

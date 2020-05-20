@@ -497,8 +497,10 @@ static struct
 } stock_icons[] =
 {
     { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", COPYFILENAMES_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "mail-send.png", MAILSEND_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg", TERMINAL_STOCKID }
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "mail-send.png",       MAILSEND_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg",        TERMINAL_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S FILETYPEICONS_FOLDER G_DIR_SEPARATOR_S "file_type_dir.xpm",     FILETYPEDIR_STOCKID},
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S FILETYPEICONS_FOLDER G_DIR_SEPARATOR_S "file_type_regular.xpm", FILETYPEREGULARFILE_STOCKID},
 };
 
 static gint n_stock_icons = G_N_ELEMENTS (stock_icons);
