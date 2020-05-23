@@ -32,7 +32,8 @@
 #include "gnome-cmd-main-win.h"
 #include "dict.h"
 
-#define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
+#define GNOME_CMD_USER_ACTION(f)       void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
+#define GNOME_CMD_USER_ACTION_TGL(f)   void f(GtkToggleAction *toggleAction=nullptr, gpointer user_data=nullptr)
 
 #define USER_ACTION_SETTINGS (gcmd_user_action_settings_get_type ())
 G_DECLARE_FINAL_TYPE (GcmdUserActionSettings, gcmd_user_action_settings, GCMD, USER_ACTIONS, GObject)
@@ -277,14 +278,14 @@ GNOME_CMD_USER_ACTION(command_open_terminal_as_root);
 GNOME_CMD_USER_ACTION(command_root_mode);
 
 /************** View Menu **************/
-GNOME_CMD_USER_ACTION(view_conbuttons);
-GNOME_CMD_USER_ACTION(view_devlist);
-GNOME_CMD_USER_ACTION(view_toolbar);
-GNOME_CMD_USER_ACTION(view_buttonbar);
-GNOME_CMD_USER_ACTION(view_cmdline);
+GNOME_CMD_USER_ACTION_TGL(view_conbuttons);
+GNOME_CMD_USER_ACTION_TGL(view_devlist);
+GNOME_CMD_USER_ACTION_TGL(view_toolbar);
+GNOME_CMD_USER_ACTION_TGL(view_buttonbar);
+GNOME_CMD_USER_ACTION_TGL(view_cmdline);
 GNOME_CMD_USER_ACTION(view_dir_history);
-GNOME_CMD_USER_ACTION(view_hidden_files);
-GNOME_CMD_USER_ACTION(view_backup_files);
+GNOME_CMD_USER_ACTION_TGL(view_hidden_files);
+GNOME_CMD_USER_ACTION_TGL(view_backup_files);
 GNOME_CMD_USER_ACTION(view_up);
 GNOME_CMD_USER_ACTION(view_first);
 GNOME_CMD_USER_ACTION(view_back);
@@ -309,7 +310,7 @@ GNOME_CMD_USER_ACTION(view_next_tab);
 GNOME_CMD_USER_ACTION(view_in_new_tab);
 GNOME_CMD_USER_ACTION(view_in_inactive_tab);
 GNOME_CMD_USER_ACTION(view_toggle_tab_lock);
-GNOME_CMD_USER_ACTION(view_horizontal_orientation);
+GNOME_CMD_USER_ACTION_TGL(view_horizontal_orientation);
 GNOME_CMD_USER_ACTION(view_main_menu);
 GNOME_CMD_USER_ACTION(view_step_up);
 GNOME_CMD_USER_ACTION(view_step_down);
