@@ -99,6 +99,7 @@ struct GnomeCmdMainWin::Private
     GtkWidget *find_btn;
 
     GtkWidget *menubar;
+    GtkWidget *menubar_new;
     GtkWidget *toolbar;
     GtkWidget *toolbar_sep;
     GtkWidget *cmdline;
@@ -864,11 +865,17 @@ static void init (GnomeCmdMainWin *mw)
     gtk_widget_show (mw->priv->vbox);
 
     mw->priv->menubar = gnome_cmd_main_menu_new ();
+    mw->priv->menubar_new = get_gnome_cmd_main_menu_bar (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
+
     g_object_ref (mw->priv->menubar);
+    g_object_ref (mw->priv->menubar_new);
     g_object_set_data_full (*mw, "vbox", mw->priv->menubar, g_object_unref);
+    g_object_set_data_full (*mw, "vbox", mw->priv->menubar_new, g_object_unref);
     if(gnome_cmd_data.mainmenu_visibility)
-		gtk_widget_show (mw->priv->menubar);
-    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar, FALSE, TRUE, 0);
+    {
+        gtk_widget_show (mw->priv->menubar_new);
+    }
+    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar_new, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), create_separator (FALSE), FALSE, TRUE, 0);
 
     gnome_app_set_contents (GNOME_APP (mw), mw->priv->vbox);
@@ -1395,18 +1402,18 @@ void GnomeCmdMainWin::update_mainmenu_visibility()
 {
     if (gnome_cmd_data.mainmenu_visibility)
     {
-        gtk_widget_show (priv->menubar);
+        gtk_widget_show (priv->menubar_new);
     }
     else
     {
-        gtk_widget_hide (priv->menubar);
+        gtk_widget_hide (priv->menubar_new);
     }
 }
 
 
-void GnomeCmdMainWin::add_plugin_menu(PluginData *data)
+void GnomeCmdMainWin::add_plugin_menu(PluginData *pluginData)
 {
-    gnome_cmd_main_menu_add_plugin_menu (GNOME_CMD_MAIN_MENU (priv->menubar), data);
+    gnome_cmd_main_menu_add_plugin_menu (GNOME_CMD_MAIN_MENU (priv->menubar), pluginData);
 }
 
 

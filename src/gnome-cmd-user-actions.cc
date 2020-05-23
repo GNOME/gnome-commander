@@ -1431,47 +1431,48 @@ void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 /* Changing of GSettings here will trigger functions in gnome-cmd-data.cc */
 /* ********************************************************************** */
 
-void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
+void view_conbuttons (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, checkitem->active);
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVBUTTONS, active);
 }
 
 
-void view_devlist (GtkMenuItem *menuitem, gpointer not_used)
+void view_devlist (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, checkitem->active);
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_DEVLIST, active);
 }
 
 
-void view_toolbar (GtkMenuItem *menuitem, gpointer not_used)
+void view_toolbar (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, checkitem->active);
+
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_TOOLBAR, active);
 }
 
 
-void view_buttonbar (GtkMenuItem *menuitem, gpointer not_used)
+void view_buttonbar (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, checkitem->active);
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_BUTTONBAR, active);
 }
 
 
-void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
+void view_cmdline (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, checkitem->active);
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_SHOW_CMDLINE, active);
 }
 
 
@@ -1481,29 +1482,30 @@ void view_dir_history (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
+void view_hidden_files (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, !checkitem->active);
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_DOTFILE, !active);
 }
 
 
-void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
+void view_backup_files (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_BACKUP, !checkitem->active);
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->filter, GCMD_SETTINGS_FILTER_BACKUP, !active);
 }
 
 
-void view_horizontal_orientation (GtkMenuItem *menuitem, gpointer not_used)
+void view_horizontal_orientation (GtkToggleAction *toggleAction, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;
-    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, checkitem->active);
+
+    auto active = gtk_toggle_action_get_active(toggleAction);
+    g_settings_set_boolean (gcmd_user_actions.settings->general, GCMD_SETTINGS_HORIZONTAL_ORIENTATION, active);
 }
 
 void view_step_up (GtkMenuItem *menuitem, gpointer not_used)

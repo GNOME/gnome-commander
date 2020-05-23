@@ -54,8 +54,10 @@ GtkType gnome_cmd_main_menu_get_type ();
 
 void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu);
 
+GtkWidget *get_gnome_cmd_main_menu_bar (GnomeCmdMainMenu *main_menu);
+
 void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
 
 void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
 
-void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data);
+void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *pluginData);
