@@ -1,4 +1,4 @@
-/** 
+/**
  * @file libgcmd-deps.h
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -30,7 +30,6 @@
 #include <libgnome/gnome-config.h>
 #include <libgnome/gnome-exec.h>
 #include <libgnomeui/gnome-app-helper.h>
-#include <libgnomeui/gnome-icon-entry.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 

@@ -76,7 +76,7 @@ GtkWidget *create_tabframe (GtkWidget *parent)
 
 GtkWidget *create_space_frame (GtkWidget *parent, gint space)
 {
-    GtkWidget *frame = create_frame (parent, NULL, space);
+    GtkWidget *frame = create_frame (parent, nullptr, space);
     gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_NONE);
     return frame;
 }
@@ -310,15 +310,95 @@ GtkWidget *create_color_button (GtkWidget *parent, const gchar *name)
 }
 
 
-GtkWidget *create_icon_entry (GtkWidget *parent, const gchar *name, const gchar *icon_path)
+static void preview_update (GtkFileChooser *fileChooser, GtkImage *preview)
 {
-    GtkWidget *icon_entry = gnome_icon_entry_new (NULL, NULL);
-    g_object_ref (icon_entry);
-    g_object_set_data_full (G_OBJECT (parent), name, icon_entry, g_object_unref);
-    gtk_widget_show (icon_entry);
-    if (icon_path)
-        gnome_icon_entry_set_filename (GNOME_ICON_ENTRY (icon_entry), icon_path);
-    return icon_entry;
+    char *filename;
+    GdkPixbuf *pixbuf;
+
+    filename = gtk_file_chooser_get_preview_filename (fileChooser);
+    if (filename)
+    {
+        pixbuf = gdk_pixbuf_new_from_file (filename, nullptr);
+
+        gtk_file_chooser_set_preview_widget_active (fileChooser, pixbuf != nullptr);
+
+        if (pixbuf)
+        {
+            gtk_image_set_from_pixbuf (preview, pixbuf);
+            g_object_unref (pixbuf);
+        }
+
+        g_free (filename);
+    }
+}
+
+
+static void icon_button_clicked (GtkButton *button, const gchar* iconPath)
+{
+    GtkWidget *dialog;
+    GtkFileFilter *filter;
+    GtkWidget *preview;
+    int responseValue;
+
+    dialog = gtk_file_chooser_dialog_new (_("Select an Image File"),
+                                            GTK_WINDOW (gtk_widget_get_ancestor ((GtkWidget*)button, GTK_TYPE_WINDOW)),
+                                            GTK_FILE_CHOOSER_ACTION_OPEN,
+                                            GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                            GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                                            nullptr);
+    if (iconPath)
+    {
+        auto folderPath = g_path_get_dirname(iconPath);
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), folderPath);
+        g_free(folderPath);
+    }
+    else
+    {
+        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), PIXMAPS_DIR);
+    }
+
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_add_pixbuf_formats (filter);
+    gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), filter);
+
+    preview = gtk_image_new ();
+    gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER (dialog), preview);
+    g_signal_connect (dialog, "update-preview", G_CALLBACK (preview_update), preview);
+
+    responseValue = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (responseValue == GTK_RESPONSE_ACCEPT)
+    {
+        auto icon_path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+        gtk_image_set_from_file (GTK_IMAGE (gtk_button_get_image (button)), icon_path);
+        gtk_button_set_label (button, icon_path == nullptr ? _("Choose Icon") : nullptr);
+        gtk_widget_set_tooltip_text(GTK_WIDGET(button), icon_path);
+    }
+
+    gtk_widget_destroy (dialog);
+}
+
+
+GtkWidget *create_icon_button_widget (GtkWidget *parent, const gchar *name, const gchar *iconPath)
+{
+    auto image = gtk_image_new ();
+    auto gtkButton = gtk_button_new ();
+    if (iconPath && *iconPath != '\0')
+    {
+        gtk_image_set_from_file (GTK_IMAGE (image), iconPath);
+        gtk_widget_set_tooltip_text(gtkButton, iconPath);
+    }
+    else
+    {
+        gtk_button_set_label (GTK_BUTTON(gtkButton), _("Choose Icon"));
+    }
+    gtk_button_set_image (GTK_BUTTON (gtkButton), image);
+    g_signal_connect (gtkButton, "clicked", G_CALLBACK (icon_button_clicked), (gpointer) iconPath);
+    g_object_ref (gtkButton);
+    g_object_set_data_full (G_OBJECT (parent), name, gtkButton, g_object_unref);
+    gtk_widget_show (gtkButton);
+
+    return gtkButton;
 }
 
 
@@ -380,7 +460,7 @@ GtkWidget *create_clist (GtkWidget *parent, const gchar *name, gint cols, gint r
 {
     GtkWidget *sw, *clist;
 
-    sw = gtk_scrolled_window_new (NULL, NULL);
+    sw = gtk_scrolled_window_new (nullptr, nullptr);
     g_object_ref (sw);
     g_object_set_data_full (G_OBJECT (parent), "sw", sw, g_object_unref);
     gtk_widget_show (sw);
@@ -488,7 +568,7 @@ GtkWidget *create_progress_bar (GtkWidget *parent)
 
 GtkWidget *create_sw (GtkWidget *parent)
 {
-    GtkWidget *scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+    GtkWidget *scrolledwindow = gtk_scrolled_window_new (nullptr, nullptr);
     g_object_ref (scrolledwindow);
     g_object_set_data_full (G_OBJECT (parent), "scrolledwindow", scrolledwindow, g_object_unref);
     gtk_widget_show (scrolledwindow);
@@ -510,8 +590,8 @@ void progress_bar_update (GtkWidget *pbar, gint max)
 const char *get_entry_text (GtkWidget *parent, const gchar *entry_name)
 {
     GtkWidget *entry = lookup_widget (parent, entry_name);
-    if (!entry) return NULL;
-    if (!GTK_IS_ENTRY (entry)) return NULL;
+    if (!entry) return nullptr;
+    if (!GTK_IS_ENTRY (entry)) return nullptr;
 
     return gtk_entry_get_text (GTK_ENTRY (entry));
 }
