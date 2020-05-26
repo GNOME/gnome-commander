@@ -1328,7 +1328,7 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
 {
     GtkWidget *name_entry = lookup_widget (dialog, "name_entry");
     GtkWidget *cmd_entry = lookup_widget (dialog, "cmd_entry");
-    GtkWidget *icon_entry = lookup_widget (dialog, "icon_entry");
+    GtkWidget *iconWidget = lookup_widget (dialog, "icon_entry");
     GtkWidget *pattern_entry = lookup_widget (dialog, "pattern_entry");
     GtkWidget *target_files = lookup_widget (dialog, "show_for_all_files");
     GtkWidget *target_dirs = lookup_widget (dialog, "show_for_all_dirs");
@@ -1339,7 +1339,8 @@ static void get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd,
 
     *name = (gchar *) gtk_entry_get_text (GTK_ENTRY (name_entry));
     *cmd = (gchar *) gtk_entry_get_text (GTK_ENTRY (cmd_entry));
-    *icon_path = (gchar *) gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (icon_entry));
+    // Get icon_path string
+    g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
     *pattern_string = NULL;
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (target_files)))
         *target = APP_TARGET_ALL_FILES;
@@ -1463,8 +1464,9 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     entry = create_entry (dialog, "cmd_entry", s);
     table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    if (app) s = gnome_cmd_app_get_icon_path (app);
-    entry = create_icon_entry (dialog, "icon_entry", s);
+    s = gnome_cmd_app_get_icon_path (app);
+    entry = create_icon_button_widget (dialog, "icon_entry", s);
+
     table_add (table, entry, 1, 2, GTK_FILL);
 
 
@@ -1814,7 +1816,7 @@ inline void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **
     GtkWidget *alias_entry = lookup_widget (dialog, "alias_entry");
     GtkWidget *device_entry = lookup_widget (dialog, "device_entry");
     GtkWidget *mountp_entry = lookup_widget (dialog, "mountp_entry");
-    GtkWidget *icon_entry = lookup_widget (dialog, "device_iconentry");
+    GtkWidget *iconWidget = lookup_widget (dialog, "device_iconentry");
 
     gchar* device = (gchar *) gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (device_entry));
     gchar* mountp = (gchar *) gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (mountp_entry));
@@ -1822,7 +1824,9 @@ inline void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **
     *alias = (gchar *) gtk_entry_get_text (GTK_ENTRY (alias_entry));
     *device_utf8 = g_filename_to_utf8(device, -1, nullptr, nullptr, nullptr);
     *mountp_utf8 = g_filename_to_utf8(mountp, -1, nullptr, nullptr, nullptr);
-    *icon_path = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (icon_entry));
+    // Get device_iconentry path
+    g_object_get (G_OBJECT (gtk_button_get_image (GTK_BUTTON (iconWidget))), "file", icon_path, NULL);
+
 
     g_free(device);
     g_free(mountp);
@@ -1878,7 +1882,6 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     GtkWidget *table, *entry, *label;
     GtkWidget *dialog;
     const gchar *s = NULL;
-    gchar *icon_dir;
 
     dialog = gnome_cmd_dialog_new ("");
     g_object_ref (dialog);
@@ -1913,11 +1916,9 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     entry = create_directory_chooser_button (dialog, "mountp_entry", s);
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
-    if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
-    entry = create_icon_entry (dialog, "device_iconentry", s);
-    icon_dir = g_build_filename (PIXMAPS_DIR, "device-icons", NULL);
-    gnome_icon_entry_set_pixmap_subdir (GNOME_ICON_ENTRY (entry), icon_dir);
-    g_free (icon_dir);
+    s = gnome_cmd_con_device_get_icon_path (dev);
+    entry = create_icon_button_widget (dialog, "device_iconentry", s);
+
     table_add (table, entry, 1, 3, GTK_FILL);
 
     gnome_cmd_dialog_add_button (

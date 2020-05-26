@@ -105,7 +105,7 @@ GtkWidget *create_spin (GtkWidget *parent, const gchar *name, gint min, gint max
 
 GtkWidget *create_color_button (GtkWidget *parent, const gchar *name);
 
-GtkWidget *create_icon_entry (GtkWidget *parent, const gchar *name, const gchar *icon_path);
+GtkWidget *create_icon_button_widget (GtkWidget *parent, const gchar *name, const gchar *icon_path);
 
 GtkWidget *create_scale (GtkWidget *parent, const gchar *name, gint value, gint min, gint max);
 
