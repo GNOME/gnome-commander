@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2020-05-19 19:39+0000\n"
-"PO-Revision-Date: 2020-05-20 08:43+0300\n"
+"POT-Creation-Date: 2020-05-26 21:05+0000\n"
+"PO-Revision-Date: 2020-05-27 11:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Generator: Lokalize 20.07.70\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:856
+#: src/gnome-cmd-main-win.cc:857
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -1487,11 +1487,20 @@ msgstr ""
 msgid "No error description available"
 msgstr "Опис помилки відсутній"
 
-#: libgcmd/libgcmd-widget-factory.cc:362
+#: libgcmd/libgcmd-widget-factory.cc:357
+#| msgid "_Select range:"
+msgid "Select an Image File"
+msgstr "Виберіть файл зображення"
+
+#: libgcmd/libgcmd-widget-factory.cc:388 libgcmd/libgcmd-widget-factory.cc:407
+msgid "Choose Icon"
+msgstr "Виберіть піктограму"
+
+#: libgcmd/libgcmd-widget-factory.cc:442
 msgid "Folder selection"
 msgstr "Вибір теки"
 
-#: libgcmd/libgcmd-widget-factory.cc:382
+#: libgcmd/libgcmd-widget-factory.cc:462
 msgid "File selection"
 msgstr "Вибір файла"
 
@@ -1532,8 +1541,8 @@ msgstr "Файл"
 #. destroy model automatically with view
 #: plugins/fileroller/file-roller-plugin.cc:588
 #: src/dialogs/gnome-cmd-key-shortcuts-dialog.cc:362
-#: src/dialogs/gnome-cmd-options-dialog.cc:1472
-#: src/dialogs/gnome-cmd-options-dialog.cc:2141
+#: src/dialogs/gnome-cmd-options-dialog.cc:1474
+#: src/dialogs/gnome-cmd-options-dialog.cc:2142
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:129
 #: src/dialogs/gnome-cmd-prepare-move-dialog.cc:115
 #: src/dialogs/gnome-cmd-remote-dialog.cc:442 src/gnome-cmd-user-actions.cc:252
@@ -1684,7 +1693,7 @@ msgid "_Match case"
 msgstr "Враховувати _регістр"
 
 #: src/dialogs/gnome-cmd-chmod-dialog.cc:45
-#: src/dialogs/gnome-cmd-options-dialog.cc:1493
+#: src/dialogs/gnome-cmd-options-dialog.cc:1495
 msgid "All files"
 msgstr "Усі файли"
 
@@ -1766,7 +1775,7 @@ msgstr "«%s» не є правильною адресою"
 msgid "Please check spelling and try again."
 msgstr "Будь ласка, перевірте правильність написання і повторіть спробу."
 
-#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:246
+#: src/dialogs/gnome-cmd-con-dialog.cc:421 src/gnome-cmd-main-win.cc:247
 msgid "Remote Server"
 msgstr "Віддалений сервер"
 
@@ -1864,7 +1873,7 @@ msgstr[3] "Бажаєте вилучити %d вибраний файл?"
 #: src/dialogs/gnome-cmd-delete-dialog.cc:287
 #: src/dialogs/gnome-cmd-delete-dialog.cc:288
 #: src/dialogs/gnome-cmd-options-dialog.cc:1023
-#: src/gnome-cmd-file-popmenu.cc:800 src/gnome-cmd-main-win.cc:242
+#: src/gnome-cmd-file-popmenu.cc:800 src/gnome-cmd-main-win.cc:243
 #: src/gnome-cmd-user-actions.cc:213
 msgid "Delete"
 msgstr "Видалити"
@@ -2213,7 +2222,7 @@ msgstr "Скасування вибору файлів одним клацанн
 msgid "Middle mouse button"
 msgstr "Середня кнопка миші"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:120 src/gnome-cmd-main-win.cc:233
+#: src/dialogs/gnome-cmd-options-dialog.cc:120 src/gnome-cmd-main-win.cc:234
 #: src/gnome-cmd-user-actions.cc:282
 msgid "Up one directory"
 msgstr "Вище на один каталог"
@@ -2305,7 +2314,7 @@ msgid "Directories"
 msgstr "Каталоги"
 
 #: src/dialogs/gnome-cmd-options-dialog.cc:220
-#: src/dialogs/gnome-cmd-options-dialog.cc:2168
+#: src/dialogs/gnome-cmd-options-dialog.cc:2169
 msgid "Tabs"
 msgstr "Вкладки"
 
@@ -2670,7 +2679,7 @@ msgstr "Резервні файли"
 msgid "Symlinks"
 msgstr "Символічні посилання"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1379
+#: src/dialogs/gnome-cmd-options-dialog.cc:1380
 msgid ""
 "An app with this label exists already.\n"
 "Please choose another label."
@@ -2678,178 +2687,178 @@ msgstr ""
 "Програма з цією міткою вже існує.\n"
 "Будь ласка, виберіть іншу мітку."
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1450
+#: src/dialogs/gnome-cmd-options-dialog.cc:1451
 msgid "Label:"
 msgstr "Позначка:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1452
+#: src/dialogs/gnome-cmd-options-dialog.cc:1453
 msgid "Command:"
 msgstr "Команда:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1454
-#: src/dialogs/gnome-cmd-options-dialog.cc:1900
+#: src/dialogs/gnome-cmd-options-dialog.cc:1455
+#: src/dialogs/gnome-cmd-options-dialog.cc:1903
 msgid "Icon:"
 msgstr "Значок:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1475
+#: src/dialogs/gnome-cmd-options-dialog.cc:1477
 msgid "Can handle multiple files"
 msgstr "Підтримує декілька файлів у параметрах"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1479
+#: src/dialogs/gnome-cmd-options-dialog.cc:1481
 msgid "Can handle URIs"
 msgstr "Підтримує параметри у вигляді URI"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1483
+#: src/dialogs/gnome-cmd-options-dialog.cc:1485
 msgid "Requires terminal"
 msgstr "Запускати в терміналі"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1490
+#: src/dialogs/gnome-cmd-options-dialog.cc:1492
 msgid "Show for"
 msgstr "Показувати для"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1499
+#: src/dialogs/gnome-cmd-options-dialog.cc:1501
 msgid "All directories"
 msgstr "Усіх каталогів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1504
+#: src/dialogs/gnome-cmd-options-dialog.cc:1506
 msgid "All directories and files"
 msgstr "Усіх каталогів та файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1509
+#: src/dialogs/gnome-cmd-options-dialog.cc:1511
 msgid "Some files"
 msgstr "Деяких файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1518
+#: src/dialogs/gnome-cmd-options-dialog.cc:1520
 msgid "File patterns"
 msgstr "Шаблони файлів"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1540
+#: src/dialogs/gnome-cmd-options-dialog.cc:1542
 msgid "New Application"
 msgstr "Новий додаток"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1550
+#: src/dialogs/gnome-cmd-options-dialog.cc:1552
 msgid "Edit Application"
 msgstr "Правка додатка"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1634
+#: src/dialogs/gnome-cmd-options-dialog.cc:1636
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Завжди завантажувати віддалені файли перед відкриттям в зовнішніх програмах"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1636
+#: src/dialogs/gnome-cmd-options-dialog.cc:1638
 msgid "MIME applications"
 msgstr "MIME додатки"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1640
+#: src/dialogs/gnome-cmd-options-dialog.cc:1642
 msgid "Standard programs"
 msgstr "Стандартні програми"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1643
+#: src/dialogs/gnome-cmd-options-dialog.cc:1645
 msgid "Viewer:"
 msgstr "Переглядач:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1645
+#: src/dialogs/gnome-cmd-options-dialog.cc:1647
 msgid "Editor:"
 msgstr "Редактор:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1647
+#: src/dialogs/gnome-cmd-options-dialog.cc:1649
 msgid "Differ:"
 msgstr "Порівняння:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1649
+#: src/dialogs/gnome-cmd-options-dialog.cc:1651
 msgid "Send files:"
 msgstr "Надіслати файли:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1651
+#: src/dialogs/gnome-cmd-options-dialog.cc:1653
 msgid "Terminal:"
 msgstr "Термінал:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1657
+#: src/dialogs/gnome-cmd-options-dialog.cc:1659
 msgid "Use Internal Viewer"
 msgstr "Використати вбудований переглядач"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1676
+#: src/dialogs/gnome-cmd-options-dialog.cc:1678
 msgid "Other favourite apps"
 msgstr "Інші улюблені програми"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1683
+#: src/dialogs/gnome-cmd-options-dialog.cc:1685
 msgid "Label"
 msgstr "Позначка"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1684
+#: src/dialogs/gnome-cmd-options-dialog.cc:1686
 msgid "Command"
 msgstr "Команда"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1719
+#: src/dialogs/gnome-cmd-options-dialog.cc:1721
 msgid "Global app options"
 msgstr "Загальні параметри програм"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1722
+#: src/dialogs/gnome-cmd-options-dialog.cc:1724
 msgid "Terminal command for apps in the list above:"
 msgstr "Команда термінала для програм у наведеному вище списку:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1728
+#: src/dialogs/gnome-cmd-options-dialog.cc:1730
 msgid "Leave terminal window open"
 msgstr "Лишити вікно термінала відкритим"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1894
+#: src/dialogs/gnome-cmd-options-dialog.cc:1897
 msgid "Alias:"
 msgstr "Псевдоніми:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1896
+#: src/dialogs/gnome-cmd-options-dialog.cc:1899
 msgid "Device:"
 msgstr "Пристрій:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1898
+#: src/dialogs/gnome-cmd-options-dialog.cc:1901
 msgid "Mount point:"
 msgstr "Точка монтування:"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1941
+#: src/dialogs/gnome-cmd-options-dialog.cc:1942
 msgid "New Device"
 msgstr "Новий пристрій"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:1954
+#: src/dialogs/gnome-cmd-options-dialog.cc:1955
 msgid "Edit Device"
 msgstr "Правка пристрою"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2036
-#: src/dialogs/gnome-cmd-options-dialog.cc:2172
+#: src/dialogs/gnome-cmd-options-dialog.cc:2037
+#: src/dialogs/gnome-cmd-options-dialog.cc:2173
 msgid "Devices"
 msgstr "Пристрої"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2046
+#: src/dialogs/gnome-cmd-options-dialog.cc:2047
 msgid "Alias"
 msgstr "Псевдонім"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2076
+#: src/dialogs/gnome-cmd-options-dialog.cc:2077
 msgid "Show only the icons"
 msgstr "Показувати лише піктограми"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2080
+#: src/dialogs/gnome-cmd-options-dialog.cc:2081
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Не виконувати монтування (корисно при використанні super-mount)"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2165
+#: src/dialogs/gnome-cmd-options-dialog.cc:2166
 msgid "General"
 msgstr "Загальне"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2166 src/tags/gnome-cmd-tags.cc:323
+#: src/dialogs/gnome-cmd-options-dialog.cc:2167 src/tags/gnome-cmd-tags.cc:323
 msgid "Format"
 msgstr "Формат"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2167
+#: src/dialogs/gnome-cmd-options-dialog.cc:2168
 msgid "Layout"
 msgstr "Розташування"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2169
+#: src/dialogs/gnome-cmd-options-dialog.cc:2170
 msgid "Confirmation"
 msgstr "Підтвердження"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2170
+#: src/dialogs/gnome-cmd-options-dialog.cc:2171
 msgid "Filters"
 msgstr "Фільтри"
 
-#: src/dialogs/gnome-cmd-options-dialog.cc:2171
+#: src/dialogs/gnome-cmd-options-dialog.cc:2172
 msgid "Programs"
 msgstr "Програми"
 
@@ -2878,7 +2887,7 @@ msgid "Unselect Using Pattern"
 msgstr "Зняти позначення за взірцем"
 
 #: src/dialogs/gnome-cmd-prepare-copy-dialog.cc:85
-#: src/gnome-cmd-file-popmenu.cc:799 src/gnome-cmd-main-win.cc:240
+#: src/gnome-cmd-file-popmenu.cc:799 src/gnome-cmd-main-win.cc:241
 #: src/gnome-cmd-user-actions.cc:210
 msgid "Copy"
 msgstr "Копіювати"
@@ -3711,7 +3720,7 @@ msgstr "Інша п_рограма…"
 msgid "Open Wit_h…"
 msgstr "Відкрити за допо_могою…"
 
-#: src/gnome-cmd-file-popmenu.cc:798 src/gnome-cmd-main-win.cc:239
+#: src/gnome-cmd-file-popmenu.cc:798 src/gnome-cmd-main-win.cc:240
 #: src/gnome-cmd-user-actions.cc:212
 msgid "Cut"
 msgstr "Вирізати"
@@ -3721,12 +3730,12 @@ msgid "Rename"
 msgstr "Перей_менувати"
 
 #. {file_run, "file.run"},
-#: src/gnome-cmd-file-popmenu.cc:802 src/gnome-cmd-main-win.cc:244
+#: src/gnome-cmd-file-popmenu.cc:802 src/gnome-cmd-main-win.cc:245
 #: src/gnome-cmd-user-actions.cc:236
 msgid "Send files"
 msgstr "Відправити файли"
 
-#: src/gnome-cmd-file-popmenu.cc:803 src/gnome-cmd-main-menu.cc:420
+#: src/gnome-cmd-file-popmenu.cc:803 src/gnome-cmd-main-menu.cc:307
 msgid "_Properties…"
 msgstr "В_ластивості…"
 
@@ -3734,7 +3743,7 @@ msgstr "В_ластивості…"
 msgid "E_xecute"
 msgstr "_Виконати"
 
-#: src/gnome-cmd-file-popmenu.cc:805 src/gnome-cmd-list-popmenu.cc:118
+#: src/gnome-cmd-file-popmenu.cc:805 src/gnome-cmd-list-popmenu.cc:108
 msgid "Open _terminal here"
 msgstr "Запустити у _терміналі"
 
@@ -3766,11 +3775,11 @@ msgid "%s free"
 msgstr "%s вільно"
 
 #: src/gnome-cmd-file-selector.cc:631 src/gnome-cmd-file-selector.cc:706
-#: src/gnome-cmd-user-actions.cc:1668 src/gnome-cmd-user-actions.cc:1676
+#: src/gnome-cmd-user-actions.cc:1670 src/gnome-cmd-user-actions.cc:1678
 msgid "The tab is locked, close anyway?"
 msgstr "Вкладку заблоковано. Закрити її попри це?"
 
-#: src/gnome-cmd-file-selector.cc:649 src/gnome-cmd-main-menu.cc:592
+#: src/gnome-cmd-file-selector.cc:649 src/gnome-cmd-main-menu.cc:347
 msgid "Open in New _Tab"
 msgstr "_Відкрити на новій вкладці"
 
@@ -3790,11 +3799,11 @@ msgstr "_Оновити вкладку"
 msgid "Copy Tab to Other _Pane"
 msgstr "Копіювати вкладку у іншу _панель"
 
-#: src/gnome-cmd-file-selector.cc:672 src/gnome-cmd-main-menu.cc:598
+#: src/gnome-cmd-file-selector.cc:672 src/gnome-cmd-main-menu.cc:348
 msgid "_Close Tab"
 msgstr "_Закрити вкладки"
 
-#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:604
+#: src/gnome-cmd-file-selector.cc:677 src/gnome-cmd-main-menu.cc:349
 msgid "Close _All Tabs"
 msgstr "_Закрити всі вкладки"
 
@@ -3823,325 +3832,324 @@ msgstr "Створення символічного посилання"
 msgid "Filter:"
 msgstr "Фільтр:"
 
-#: src/gnome-cmd-list-popmenu.cc:108
-msgid "_Directory"
-msgstr "_Каталог"
-
-#: src/gnome-cmd-list-popmenu.cc:109
-msgid "_Text File"
-msgstr "_Текстовий файл"
-
-#: src/gnome-cmd-list-popmenu.cc:115
+#: src/gnome-cmd-list-popmenu.cc:106
 msgid "_New"
 msgstr "С_творити"
 
-#: src/gnome-cmd-list-popmenu.cc:116 src/gnome-cmd-main-menu.cc:549
+#: src/gnome-cmd-list-popmenu.cc:107 src/gnome-cmd-main-menu.cc:322
 msgid "_Paste"
 msgstr "Вст_авити"
 
-#: src/gnome-cmd-list-popmenu.cc:120 src/gnome-cmd-main-menu.cc:585
+#: src/gnome-cmd-list-popmenu.cc:109 src/gnome-cmd-main-menu.cc:346
 msgid "_Refresh"
 msgstr "_Оновити"
 
-#: src/gnome-cmd-main-menu.cc:396
-msgid "Change _Owner/Group"
-msgstr "Змінити _власника/групу"
+#: src/gnome-cmd-list-popmenu.cc:110
+msgid "_Directory"
+msgstr "_Каталог"
 
-#: src/gnome-cmd-main-menu.cc:402
-msgid "Change Per_missions"
-msgstr "Змінити _права доступу"
+#: src/gnome-cmd-list-popmenu.cc:111
+msgid "_Text File"
+msgstr "_Текстовий файл"
 
-#: src/gnome-cmd-main-menu.cc:408
-msgid "Advanced _Rename Tool"
-msgstr "_Розширений інструмент перейменування"
-
-#: src/gnome-cmd-main-menu.cc:414
-msgid "Create _Symbolic Link"
-msgstr "Створити _символічне посилання"
-
-#: src/gnome-cmd-main-menu.cc:427
-msgid "_Search…"
-msgstr "З_найти…"
-
-#: src/gnome-cmd-main-menu.cc:433
-msgid "_Quick Search…"
-msgstr "_Швидкий пошук…"
-
-#: src/gnome-cmd-main-menu.cc:439
-msgid "_Enable Filter…"
-msgstr "_Увімкнути фільтр…"
-
-#: src/gnome-cmd-main-menu.cc:446
-msgid "_Diff"
-msgstr "Показати ві_дміни"
-
-#: src/gnome-cmd-main-menu.cc:452
-msgid "S_ynchronize Directories"
-msgstr "С_инхронізувати каталоги"
-
-#: src/gnome-cmd-main-menu.cc:459
-msgid "Start _GNOME Commander as root"
-msgstr "Запуск _GCommander під Root-ом"
-
-#: src/gnome-cmd-main-menu.cc:466
-msgid "_Quit"
-msgstr "Ви_йти"
-
-#: src/gnome-cmd-main-menu.cc:477
-msgid "_Select All"
-msgstr "Виді_лити все"
-
-#: src/gnome-cmd-main-menu.cc:483
-msgid "_Unselect All"
-msgstr "_Зняти все позначення"
-
-#: src/gnome-cmd-main-menu.cc:489
-msgid "Select with _Pattern"
-msgstr "Позначити за вз_ірцем"
-
-#: src/gnome-cmd-main-menu.cc:495
-msgid "Unselect with P_attern"
-msgstr "З_няти позначення за взірцем"
-
-#: src/gnome-cmd-main-menu.cc:501
-msgid "Select with same _Extension"
-msgstr "Позначити файли з тим самим су_фіксом"
-
-#: src/gnome-cmd-main-menu.cc:507
-msgid "Unselect with same E_xtension"
-msgstr "Зняти позначення з файлів з тим самим с_уфіксом"
-
-#: src/gnome-cmd-main-menu.cc:513
-msgid "_Invert Selection"
-msgstr "_Інвертувати позначення"
-
-#: src/gnome-cmd-main-menu.cc:519
-msgid "_Restore Selection"
-msgstr "_Відновити позначення"
-
-#: src/gnome-cmd-main-menu.cc:526
-msgid "_Compare Directories"
-msgstr "_Порівняти каталоги"
-
-#: src/gnome-cmd-main-menu.cc:537
-msgid "Cu_t"
-msgstr "_Вирізати"
-
-#: src/gnome-cmd-main-menu.cc:543
-msgid "_Copy"
-msgstr "_Копіювати"
-
-#: src/gnome-cmd-main-menu.cc:555
-msgid "_Delete"
-msgstr "В_идалити"
-
-#: src/gnome-cmd-main-menu.cc:562
-msgid "Copy _File Names"
-msgstr "Копіювати назву _файлу"
-
-#: src/gnome-cmd-main-menu.cc:573
-msgid "_Back"
-msgstr "Н_азад"
-
-#: src/gnome-cmd-main-menu.cc:579
-msgid "_Forward"
-msgstr "В_перед"
-
-#: src/gnome-cmd-main-menu.cc:611
-msgid "Show Toolbar"
-msgstr "Панель інструментів"
-
-#: src/gnome-cmd-main-menu.cc:617
-msgid "Show Device Buttons"
-msgstr "Показати кнопки пристроїв"
-
-#: src/gnome-cmd-main-menu.cc:623
-msgid "Show Device List"
-msgstr "Показати список пристроїв"
-
-#: src/gnome-cmd-main-menu.cc:629
-msgid "Show Command Line"
-msgstr "Показати командний рядок"
-
-#: src/gnome-cmd-main-menu.cc:635
-msgid "Show Buttonbar"
-msgstr "Показати панель кнопок"
-
-#: src/gnome-cmd-main-menu.cc:642
-msgid "Show Hidden Files"
-msgstr "Показати приховані файли"
-
-#: src/gnome-cmd-main-menu.cc:648
-msgid "Show Backup Files"
-msgstr "Показати резервні файли"
-
-#: src/gnome-cmd-main-menu.cc:655
-msgid "_Equal Panel Size"
-msgstr "З_рівняти розмір панелей"
-
-#: src/gnome-cmd-main-menu.cc:661
-msgid "Maximize Panel Size"
-msgstr "Максимізувати розмір панелі"
-
-#: src/gnome-cmd-main-menu.cc:667
-msgid "Horizontal Orientation"
-msgstr "Горизонтальна орієнтація"
-
-#: src/gnome-cmd-main-menu.cc:678
-msgid "_Bookmark this Directory…"
-msgstr "_Закладка на поточний каталог…"
-
-#: src/gnome-cmd-main-menu.cc:684
-msgid "_Manage Bookmarks…"
-msgstr "_Керування закладками…"
-
-#: src/gnome-cmd-main-menu.cc:696
-msgid "_Configure Plugins…"
-msgstr "_Налаштувати додатки…"
-
-#: src/gnome-cmd-main-menu.cc:708
-msgid "_Options…"
-msgstr "П_араметри…"
-
-#: src/gnome-cmd-main-menu.cc:714
-msgid "_Keyboard Shortcuts…"
-msgstr "_Клавіатурні скорочення…"
-
-#: src/gnome-cmd-main-menu.cc:725
-msgid "_Remote Server…"
-msgstr "_Віддалений сервер…"
-
-#: src/gnome-cmd-main-menu.cc:731
-msgid "New Connection…"
-msgstr "Нове з'єднання…"
-
-#: src/gnome-cmd-main-menu.cc:742
-msgid "_Documentation"
-msgstr "_Документація"
-
-#: src/gnome-cmd-main-menu.cc:748 src/intviewer/viewer-window.cc:1002
-msgid "_Keyboard Shortcuts"
-msgstr "_Комбінації клавіш"
-
-#: src/gnome-cmd-main-menu.cc:754
-msgid "GNOME Commander on the _Web"
-msgstr "GNOME Commander у _веб"
-
-#: src/gnome-cmd-main-menu.cc:760
-msgid "Report a _Problem"
-msgstr "Сповістити про _проблему"
-
-#: src/gnome-cmd-main-menu.cc:767 src/plugin_manager.cc:433
-msgid "_About"
-msgstr "_Про модуль"
-
-#. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: src/gnome-cmd-main-menu.cc:788 src/intviewer/viewer-window.cc:1014
+#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:1014
 msgid "_File"
 msgstr "_Файл"
 
-#: src/gnome-cmd-main-menu.cc:792
+#: src/gnome-cmd-main-menu.cc:303
+msgid "Change _Owner/Group"
+msgstr "Змінити _власника/групу"
+
+#: src/gnome-cmd-main-menu.cc:304
+msgid "Change Per_missions"
+msgstr "Змінити _права доступу"
+
+#: src/gnome-cmd-main-menu.cc:305
+msgid "Advanced _Rename Tool"
+msgstr "_Розширений інструмент перейменування"
+
+#: src/gnome-cmd-main-menu.cc:306
+msgid "Create _Symbolic Link"
+msgstr "Створити _символічне посилання"
+
+#: src/gnome-cmd-main-menu.cc:308
+msgid "_Search…"
+msgstr "З_найти…"
+
+#: src/gnome-cmd-main-menu.cc:309
+msgid "_Quick Search…"
+msgstr "_Швидкий пошук…"
+
+#: src/gnome-cmd-main-menu.cc:310
+msgid "_Enable Filter…"
+msgstr "_Увімкнути фільтр…"
+
+#: src/gnome-cmd-main-menu.cc:311
+msgid "_Diff"
+msgstr "Показати ві_дміни"
+
+#: src/gnome-cmd-main-menu.cc:312
+msgid "S_ynchronize Directories"
+msgstr "С_инхронізувати каталоги"
+
+#: src/gnome-cmd-main-menu.cc:313
+msgid "Start _GNOME Commander as root"
+msgstr "Запуск _GCommander під Root-ом"
+
+#: src/gnome-cmd-main-menu.cc:314
+msgid "_Quit"
+msgstr "Ви_йти"
+
+#: src/gnome-cmd-main-menu.cc:319
 msgid "_Edit"
 msgstr "_Правка"
 
-#: src/gnome-cmd-main-menu.cc:796
+#: src/gnome-cmd-main-menu.cc:320
+msgid "Cu_t"
+msgstr "_Вирізати"
+
+#: src/gnome-cmd-main-menu.cc:321
+msgid "_Copy"
+msgstr "_Копіювати"
+
+#: src/gnome-cmd-main-menu.cc:323
+msgid "_Delete"
+msgstr "В_идалити"
+
+#: src/gnome-cmd-main-menu.cc:324
+msgid "Copy _File Names"
+msgstr "Копіювати назву _файлу"
+
+#: src/gnome-cmd-main-menu.cc:329
 msgid "_Mark"
 msgstr "В_ідмітка"
 
-#: src/gnome-cmd-main-menu.cc:800 src/intviewer/viewer-window.cc:1017
+#: src/gnome-cmd-main-menu.cc:330
+msgid "_Select All"
+msgstr "Виді_лити все"
+
+#: src/gnome-cmd-main-menu.cc:331
+msgid "_Unselect All"
+msgstr "_Зняти все позначення"
+
+#: src/gnome-cmd-main-menu.cc:332
+msgid "Select with _Pattern"
+msgstr "Позначити за вз_ірцем"
+
+#: src/gnome-cmd-main-menu.cc:333
+msgid "Unselect with P_attern"
+msgstr "З_няти позначення за взірцем"
+
+#: src/gnome-cmd-main-menu.cc:334
+msgid "Select with same _Extension"
+msgstr "Позначити файли з тим самим су_фіксом"
+
+#: src/gnome-cmd-main-menu.cc:335
+msgid "Unselect with same E_xtension"
+msgstr "Зняти позначення з файлів з тим самим с_уфіксом"
+
+#: src/gnome-cmd-main-menu.cc:336
+msgid "_Invert Selection"
+msgstr "_Інвертувати позначення"
+
+#: src/gnome-cmd-main-menu.cc:337
+msgid "_Restore Selection"
+msgstr "_Відновити позначення"
+
+#: src/gnome-cmd-main-menu.cc:338
+msgid "_Compare Directories"
+msgstr "_Порівняти каталоги"
+
+#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:1017
 msgid "_View"
 msgstr "_Вигляд"
 
-#: src/gnome-cmd-main-menu.cc:804 src/intviewer/viewer-window.cc:1028
+#: src/gnome-cmd-main-menu.cc:344
+msgid "_Back"
+msgstr "Н_азад"
+
+#: src/gnome-cmd-main-menu.cc:345
+msgid "_Forward"
+msgstr "В_перед"
+
+#: src/gnome-cmd-main-menu.cc:350
+msgid "_Equal Panel Size"
+msgstr "З_рівняти розмір панелей"
+
+#: src/gnome-cmd-main-menu.cc:351
+msgid "Maximize Panel Size"
+msgstr "Максимізувати розмір панелі"
+
+#: src/gnome-cmd-main-menu.cc:356
+msgid "Show Toolbar"
+msgstr "Панель інструментів"
+
+#: src/gnome-cmd-main-menu.cc:357
+msgid "Show Device Buttons"
+msgstr "Показати кнопки пристроїв"
+
+#: src/gnome-cmd-main-menu.cc:358
+msgid "Show Device List"
+msgstr "Показати список пристроїв"
+
+#: src/gnome-cmd-main-menu.cc:359
+msgid "Show Command Line"
+msgstr "Показати командний рядок"
+
+#: src/gnome-cmd-main-menu.cc:360
+msgid "Show Buttonbar"
+msgstr "Показати панель кнопок"
+
+#: src/gnome-cmd-main-menu.cc:361
+msgid "Show Hidden Files"
+msgstr "Показати приховані файли"
+
+#: src/gnome-cmd-main-menu.cc:362
+msgid "Show Backup Files"
+msgstr "Показати резервні файли"
+
+#: src/gnome-cmd-main-menu.cc:363
+msgid "Horizontal Orientation"
+msgstr "Горизонтальна орієнтація"
+
+#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:1028
 msgid "_Settings"
 msgstr "Н_астройки"
 
-#: src/gnome-cmd-main-menu.cc:808
+#: src/gnome-cmd-main-menu.cc:369
+msgid "_Options…"
+msgstr "П_араметри…"
+
+#: src/gnome-cmd-main-menu.cc:370
+msgid "_Keyboard Shortcuts…"
+msgstr "_Клавіатурні скорочення…"
+
+#: src/gnome-cmd-main-menu.cc:375
 msgid "_Connections"
 msgstr "З'_єднання"
 
-#: src/gnome-cmd-main-menu.cc:812
+#: src/gnome-cmd-main-menu.cc:376
+msgid "_Remote Server…"
+msgstr "_Віддалений сервер…"
+
+#: src/gnome-cmd-main-menu.cc:377
+msgid "New Connection…"
+msgstr "Нове з'єднання…"
+
+#: src/gnome-cmd-main-menu.cc:382
 msgid "_Bookmarks"
 msgstr "_Закладки"
 
-#: src/gnome-cmd-main-menu.cc:816
+#: src/gnome-cmd-main-menu.cc:383
+msgid "_Bookmark this Directory…"
+msgstr "_Закладка на поточний каталог…"
+
+#: src/gnome-cmd-main-menu.cc:384
+msgid "_Manage Bookmarks…"
+msgstr "_Керування закладками…"
+
+#: src/gnome-cmd-main-menu.cc:389
 msgid "_Plugins"
 msgstr "_Модулі"
 
-#: src/gnome-cmd-main-menu.cc:820 src/intviewer/viewer-window.cc:1033
+#: src/gnome-cmd-main-menu.cc:390
+msgid "_Configure Plugins…"
+msgstr "_Налаштувати додатки…"
+
+#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:1033
 msgid "_Help"
 msgstr "_Довідка"
 
-#: src/gnome-cmd-main-win.cc:232 src/gnome-cmd-user-actions.cc:276
+#: src/gnome-cmd-main-menu.cc:396
+msgid "_Documentation"
+msgstr "_Документація"
+
+#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:1002
+msgid "_Keyboard Shortcuts"
+msgstr "_Комбінації клавіш"
+
+#: src/gnome-cmd-main-menu.cc:398
+msgid "GNOME Commander on the _Web"
+msgstr "GNOME Commander у _веб"
+
+#: src/gnome-cmd-main-menu.cc:399
+msgid "Report a _Problem"
+msgstr "Сповістити про _проблему"
+
+#: src/gnome-cmd-main-menu.cc:400 src/plugin_manager.cc:433
+msgid "_About"
+msgstr "_Про модуль"
+
+#: src/gnome-cmd-main-win.cc:233 src/gnome-cmd-user-actions.cc:276
 msgid "Refresh"
 msgstr "Оновити"
 
-#: src/gnome-cmd-main-win.cc:234
+#: src/gnome-cmd-main-win.cc:235
 msgid "Go to the oldest"
 msgstr "Перейти до найстаршого"
 
-#: src/gnome-cmd-main-win.cc:235
+#: src/gnome-cmd-main-win.cc:236
 msgid "Go back"
 msgstr "Назад"
 
-#: src/gnome-cmd-main-win.cc:236
+#: src/gnome-cmd-main-win.cc:237
 msgid "Go forward"
 msgstr "Вперед"
 
-#: src/gnome-cmd-main-win.cc:237
+#: src/gnome-cmd-main-win.cc:238
 msgid "Go to the latest"
 msgstr "Перейти до останнього"
 
-#: src/gnome-cmd-main-win.cc:238
+#: src/gnome-cmd-main-win.cc:239
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
 msgstr "Копіювати імена файлів (SHIFT для повного шляху, ALT для URI)"
 
-#: src/gnome-cmd-main-win.cc:241 src/gnome-cmd-user-actions.cc:215
+#: src/gnome-cmd-main-win.cc:242 src/gnome-cmd-user-actions.cc:215
 msgid "Paste"
 msgstr "Вставити"
 
-#: src/gnome-cmd-main-win.cc:243
+#: src/gnome-cmd-main-win.cc:244
 msgid "Edit (SHIFT for new document)"
 msgstr "Редагувати (SHIFT для нового документа)"
 
-#: src/gnome-cmd-main-win.cc:245
+#: src/gnome-cmd-main-win.cc:246
 msgid "Open terminal (SHIFT for root privileges)"
 msgstr "Відкрити термінал (SHIFT — права root)"
 
-#: src/gnome-cmd-main-win.cc:247
+#: src/gnome-cmd-main-win.cc:248
 msgid "Drop connection"
 msgstr "Розірвати з'єднання"
 
-#: src/gnome-cmd-main-win.cc:494
+#: src/gnome-cmd-main-win.cc:495
 msgid "F3 View"
 msgstr "F3 Перегляд"
 
-#: src/gnome-cmd-main-win.cc:496
+#: src/gnome-cmd-main-win.cc:497
 msgid "F4 Edit"
 msgstr "F4 Правка"
 
-#: src/gnome-cmd-main-win.cc:498
+#: src/gnome-cmd-main-win.cc:499
 msgid "F5 Copy"
 msgstr "F5 Копіювати"
 
-#: src/gnome-cmd-main-win.cc:500
+#: src/gnome-cmd-main-win.cc:501
 msgid "F6 Move"
 msgstr "F6 Пересунути"
 
-#: src/gnome-cmd-main-win.cc:502
+#: src/gnome-cmd-main-win.cc:503
 msgid "F7 Mkdir"
 msgstr "F7 Створ.кат."
 
-#: src/gnome-cmd-main-win.cc:504
+#: src/gnome-cmd-main-win.cc:505
 msgid "F8 Delete"
 msgstr "F8 Видалити"
 
-#: src/gnome-cmd-main-win.cc:506
+#: src/gnome-cmd-main-win.cc:507
 msgid "F9 Search"
 msgstr "F9 Знайти"
 
-#: src/gnome-cmd-main-win.cc:855
+#: src/gnome-cmd-main-win.cc:856
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander – З ПРАВАМИ ROOT"
 
@@ -4509,8 +4517,8 @@ msgid ""
 "The default send-to command only supports one selected file at a time. You "
 "can change the command in the program options."
 msgstr ""
-"У типовій команді надсилання передбачено підтримку обробки лише одного файла"
-" за раз. Змінити команду можна за допомогою параметрів програми."
+"У типовій команді надсилання передбачено підтримку обробки лише одного файла "
+"за раз. Змінити команду можна за допомогою параметрів програми."
 
 #: src/gnome-cmd-user-actions.cc:924 src/gnome-cmd-user-actions.cc:941
 #: src/gnome-cmd-user-actions.cc:987
@@ -4537,23 +4545,23 @@ msgstr "Не вдалося запустити GNOME Commander у режимі �
 msgid "gksudo, xdg-su, gksu, gnomesu, kdesu or beesu is not found"
 msgstr "Не знайдено xgksudo, dg-su, gksu, gnomesu, kdesu чи beesu."
 
-#: src/gnome-cmd-user-actions.cc:1873
+#: src/gnome-cmd-user-actions.cc:1875
 msgid "Bookmarks"
 msgstr "Закладки"
 
-#: src/gnome-cmd-user-actions.cc:1960
+#: src/gnome-cmd-user-actions.cc:1962
 msgid "There was an error opening home page."
 msgstr "Помилка відкриття домашньої сторінки."
 
-#: src/gnome-cmd-user-actions.cc:1969
+#: src/gnome-cmd-user-actions.cc:1971
 msgid "There was an error reporting problem."
 msgstr "Виникла проблема звіту про помилку."
 
-#: src/gnome-cmd-user-actions.cc:1995
+#: src/gnome-cmd-user-actions.cc:1997
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Швидкий та потужний менеджер файлів для середовища GNOME"
 
-#: src/gnome-cmd-user-actions.cc:1999
+#: src/gnome-cmd-user-actions.cc:2001
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -4565,7 +4573,7 @@ msgstr ""
 "Public License (не нижче версії 2), що публікується Фордом Вільного "
 "Програмного Забезпечення. "
 
-#: src/gnome-cmd-user-actions.cc:2003
+#: src/gnome-cmd-user-actions.cc:2005
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -4577,7 +4585,7 @@ msgstr ""
 "ВІДПОВІДНІСТЬ ПЕВНІЙ МЕТІ. Для отримання додаткової інформації ознайомтесь з "
 "GNU General Public License."
 
-#: src/gnome-cmd-user-actions.cc:2007
+#: src/gnome-cmd-user-actions.cc:2009
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -4588,7 +4596,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
-#: src/gnome-cmd-user-actions.cc:2024
+#: src/gnome-cmd-user-actions.cc:2026
 msgid "translator-credits"
 msgstr "Maxim Dziumanenko <mvd@mylinux.com.ua>"
 
