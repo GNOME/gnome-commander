@@ -186,22 +186,22 @@ GtkWidget *create_view ();
     (defined in the header file)
 *****************************************/
 
-GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *initial_settings)
+GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *gViewerWindowSettings)
 {
-    GViewerWindowSettings set;
+    GViewerWindowSettings gViewerWindowSettings;
 
-    if (!initial_settings)
+    if (!gViewerWindowSettings)
     {
-        gviewer_window_load_settings(&set);
-        initial_settings = &set;
+        gviewer_window_load_settings(&gViewerWindowSettings);
+        gViewerWindowSettings = &gViewerWindowSettings;
     }
 
     GtkWidget *w = gviewer_window_new ();
 
     gviewer_window_load_file (GVIEWER_WINDOW (w), f);
 
-    if (initial_settings)
-        gviewer_window_set_settings(GVIEWER_WINDOW (w), initial_settings);
+    if (gViewerWindowSettings)
+        gviewer_window_set_settings(GVIEWER_WINDOW (w), gViewerWindowSettings);
 
     return w;
 }
@@ -321,132 +321,132 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status
 }
 
 
-void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings)
+void gviewer_window_set_settings(GViewerWindow *gViewerWindow, /*in*/ GViewerWindowSettings *settings)
 {
-    g_return_if_fail (IS_GVIEWER_WINDOW (obj));
+    g_return_if_fail (IS_GVIEWER_WINDOW (gViewerWindow));
     g_return_if_fail (settings != nullptr);
-    g_return_if_fail (obj->priv->viewer != nullptr);
+    g_return_if_fail (gViewerWindow->priv->viewer != nullptr);
 
-    gviewer_set_font_size(obj->priv->viewer, settings->font_size);
-    gviewer_set_tab_size(obj->priv->viewer, settings->tab_size);
+    gviewer_set_font_size(gViewerWindow->priv->viewer, settings->font_size);
+    gviewer_set_tab_size(gViewerWindow->priv->viewer, settings->tab_size);
 
-    gviewer_set_fixed_limit(obj->priv->viewer, settings->binary_bytes_per_line);
+    gviewer_set_fixed_limit(gViewerWindow->priv->viewer, settings->binary_bytes_per_line);
     switch (settings->binary_bytes_per_line)
     {
         case 20:
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->fixed_limit_menu_items[0]), TRUE);
+            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->fixed_limit_menu_items[0]), TRUE);
             break;
         case 40:
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->fixed_limit_menu_items[1]), TRUE);
+            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->fixed_limit_menu_items[1]), TRUE);
             break;
         case 80:
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->fixed_limit_menu_items[2]), TRUE);
+            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->fixed_limit_menu_items[2]), TRUE);
             break;
         default:
             break;
     }
 
-    gviewer_set_wrap_mode(obj->priv->viewer, settings->wrap_mode);
+    gviewer_set_wrap_mode(gViewerWindow->priv->viewer, settings->wrap_mode);
     gtk_check_menu_item_set_active(
-        GTK_CHECK_MENU_ITEM (obj->priv->wrap_mode_menu_item),
+        GTK_CHECK_MENU_ITEM (gViewerWindow->priv->wrap_mode_menu_item),
             settings->wrap_mode);
 
-    gviewer_set_hex_offset_display(obj->priv->viewer, settings->hex_decimal_offset);
+    gviewer_set_hex_offset_display(gViewerWindow->priv->viewer, settings->hex_decimal_offset);
     gtk_check_menu_item_set_active(
-        GTK_CHECK_MENU_ITEM (obj->priv->hex_offset_menu_item),
+        GTK_CHECK_MENU_ITEM (gViewerWindow->priv->hex_offset_menu_item),
             settings->hex_decimal_offset);
 
-    gviewer_set_encoding(obj->priv->viewer, settings->charset);
+    gviewer_set_encoding(gViewerWindow->priv->viewer, settings->charset);
     if (strcmp(settings->charset, (gchar*) "UTF8") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[0]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[0]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ASCII") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[1]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[1]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP437") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[2]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[2]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-6") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[3]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[3]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ARABIC") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[4]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[4]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP864") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[5]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[5]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-4") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[6]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[6]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-2") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[7]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[7]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP1250") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[8]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[8]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-5") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[9]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[9]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP1251") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[10]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[10]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-7") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[11]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[11]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP1253") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[12]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[12]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "HEBREW") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[13]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[13]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP862") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[14]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[14]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-8") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[15]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[15]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-15") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[16]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[16]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-3") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[17]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[17]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-9") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[18]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[18]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP1254") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[19]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[19]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "CP1252") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[20]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[20]), TRUE);
     }
     else if (strcmp(settings->charset, (gchar*) "ISO-8859-1") == 0)
     {
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (obj->priv->encoding_menu_item[21]), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[21]), TRUE);
     }
 
-    gtk_window_resize(GTK_WINDOW (obj),
+    gtk_window_resize(GTK_WINDOW (gViewerWindow),
         settings->rect.width, settings->rect.height);
 
 #if 0
@@ -454,7 +454,7 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
     if (GTK_WIDGET (obj)->window)
         gdk_window_move (GTK_WIDGET (obj)->window, settings->rect.x, settings->rect.y);
 #endif
-    gtk_window_set_position (GTK_WINDOW (obj), GTK_WIN_POS_CENTER);
+    gtk_window_set_position (GTK_WINDOW (gViewerWindow), GTK_WIN_POS_CENTER);
 }
 
 
@@ -799,7 +799,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 #define NO_GSLIST       nullptr
 #define NO_PIXMAP_INFO  0
 
- static GtkWidget *gviewer_window_create_menus(GViewerWindow *obj)
+ static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
 {
     GtkWidget *int_viewer_menu;
     GtkWidget *submenu;
@@ -874,7 +874,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
         {MI_CHECK, _("_Wrap lines"), GDK_W, NO_MODIFIER, G_CALLBACK (menu_view_wrap),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
-                &obj->priv->wrap_mode_menu_item, NO_GSLIST},
+                &gViewerWindow->priv->wrap_mode_menu_item, NO_GSLIST},
         {MI_SEPERATOR},
         {MI_SUBMENU, _("_Encoding"), NO_KEYVAL, NO_MODIFIER, G_CALLBACK (nullptr),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
@@ -887,7 +887,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
             keyval, NO_MODIFIER, G_CALLBACK (menu_view_set_charset), \
             GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO, \
             G_OBJ_CHARSET_KEY, (gpointer *) GUINT_TO_POINTER(value), \
-            &obj->priv->encoding_menu_item[item_number], &text_encoding_list}
+            &gViewerWindow->priv->encoding_menu_item[item_number], &text_encoding_list}
 
     GSList *text_encoding_list = nullptr;
     MENU_ITEM_DATA encoding_menu_items[] = {
@@ -963,7 +963,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 G_CALLBACK (menu_settings_hex_decimal_offset),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
-                &obj->priv->hex_offset_menu_item, NO_GSLIST},
+                &gViewerWindow->priv->hex_offset_menu_item, NO_GSLIST},
         {MI_SEPERATOR},
         {MI_NORMAL, _("_Save Current Settings"), GDK_s, GDK_CONTROL_MASK,
                 G_CALLBACK (menu_settings_save_settings),
@@ -979,17 +979,17 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 G_CALLBACK (menu_settings_binary_bytes_per_line),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 G_OBJ_BYTES_PER_LINE_KEY, (gpointer *) GUINT_TO_POINTER(20),
-                &obj->priv->fixed_limit_menu_items[0], &binmode_chars_per_line_list},
+                &gViewerWindow->priv->fixed_limit_menu_items[0], &binmode_chars_per_line_list},
         {MI_RADIO, _("_40 chars/line"), GDK_4, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                 G_CALLBACK (menu_settings_binary_bytes_per_line),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 G_OBJ_BYTES_PER_LINE_KEY, (gpointer *) GUINT_TO_POINTER(40),
-                &obj->priv->fixed_limit_menu_items[1], &binmode_chars_per_line_list},
+                &gViewerWindow->priv->fixed_limit_menu_items[1], &binmode_chars_per_line_list},
         {MI_RADIO, _("_80 chars/line"), GDK_8, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                 G_CALLBACK (menu_settings_binary_bytes_per_line),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 G_OBJ_BYTES_PER_LINE_KEY, (gpointer *) GUINT_TO_POINTER(80),
-                &obj->priv->fixed_limit_menu_items[2], &binmode_chars_per_line_list},
+                &gViewerWindow->priv->fixed_limit_menu_items[2], &binmode_chars_per_line_list},
         {MI_NONE}
     };
 
@@ -1008,32 +1008,32 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     };
 
     int_viewer_menu = gtk_menu_bar_new ();
-    obj->priv->accel_group = gtk_accel_group_new ();
+    gViewerWindow->priv->accel_group = gtk_accel_group_new ();
 
     // File Menu
     submenu = create_sub_menu(_("_File"), int_viewer_menu);
-    create_menu_items(submenu, obj->priv->accel_group, obj, file_menu_items);
+    create_menu_items(submenu, gViewerWindow->priv->accel_group, gViewerWindow, file_menu_items);
 
     submenu = create_sub_menu(_("_View"), int_viewer_menu);
-    create_menu_items(submenu, obj->priv->accel_group, obj, view_menu_items);
+    create_menu_items(submenu, gViewerWindow->priv->accel_group, gViewerWindow, view_menu_items);
 
     submenu = create_sub_menu(_("_Text"), int_viewer_menu);
-    create_menu_items(submenu, obj->priv->accel_group, obj, text_menu_items);
+    create_menu_items(submenu, gViewerWindow->priv->accel_group, gViewerWindow, text_menu_items);
     // "encoding_submenu" was initialized when "text_menu_items" is usd to create the "text" menu
-    create_menu_items(encoding_submenu, obj->priv->accel_group, obj, encoding_menu_items);
+    create_menu_items(encoding_submenu, gViewerWindow->priv->accel_group, gViewerWindow, encoding_menu_items);
 
     submenu = create_sub_menu(_("_Image"), int_viewer_menu);
-    create_menu_items(submenu, obj->priv->accel_group, obj, image_menu_items);
+    create_menu_items(submenu, gViewerWindow->priv->accel_group, gViewerWindow, image_menu_items);
 
     submenu = create_sub_menu(_("_Settings"), int_viewer_menu);
-    create_menu_items(submenu, obj->priv->accel_group, obj, settings_menu_items);
+    create_menu_items(submenu, gViewerWindow->priv->accel_group, gViewerWindow, settings_menu_items);
 
-    create_menu_items(binary_mode_settings_submenu, obj->priv->accel_group, obj, binmode_settings_menu_items);
+    create_menu_items(binary_mode_settings_submenu, gViewerWindow->priv->accel_group, gViewerWindow, binmode_settings_menu_items);
 
     submenu = create_sub_menu(_("_Help"), int_viewer_menu);
-    create_menu_items(submenu, obj->priv->accel_group, obj, help_menu_items);
+    create_menu_items(submenu, gViewerWindow->priv->accel_group, gViewerWindow, help_menu_items);
 
-    gtk_window_add_accel_group (GTK_WINDOW (obj), obj->priv->accel_group);
+    gtk_window_add_accel_group (GTK_WINDOW (gViewerWindow), gViewerWindow->priv->accel_group);
     return int_viewer_menu;
 }
 
