@@ -357,91 +357,91 @@ void gviewer_window_set_settings(GViewerWindow *gViewerWindow, /*in*/ GViewerWin
             settings->hex_decimal_offset);
 
     gviewer_set_encoding(gViewerWindow->priv->viewer, settings->charset);
-    if (strcmp(settings->charset, (gchar*) "UTF8") == 0)
+    if (strcmp(settings->charset, (gchar*) UTF8) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[0]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ASCII") == 0)
+    else if (strcmp(settings->charset, (gchar*) ASCII) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[1]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP437") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP437) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[2]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-6") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88596) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[3]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ARABIC") == 0)
+    else if (strcmp(settings->charset, (gchar*) ARABIC) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[4]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP864") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP864) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[5]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-4") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88594) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[6]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-2") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88592) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[7]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP1250") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP1250) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[8]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-5") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88595) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[9]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP1251") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP1251) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[10]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-7") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88597) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[11]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP1253") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP1253) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[12]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "HEBREW") == 0)
+    else if (strcmp(settings->charset, (gchar*) HEBREW) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[13]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP862") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP862) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[14]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-8") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88598) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[15]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-15") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO885915) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[16]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-3") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88593) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[17]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-9") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88599) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[18]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP1254") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP1254) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[19]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "CP1252") == 0)
+    else if (strcmp(settings->charset, (gchar*) CP1252) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[20]), TRUE);
     }
-    else if (strcmp(settings->charset, (gchar*) "ISO-8859-1") == 0)
+    else if (strcmp(settings->charset, (gchar*) ISO88591) == 0)
     {
         gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gViewerWindow->priv->encoding_menu_item[21]), TRUE);
     }
