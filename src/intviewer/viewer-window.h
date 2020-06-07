@@ -38,6 +38,28 @@ InternalViewerSettings *iv_settings_new (void);
 #define IS_GVIEWER_WINDOW(obj) \
     GTK_CHECK_TYPE (obj, gviewer_window_get_type ())
 
+#define UTF8      "UTF8"           // UTF-8
+#define ASCII     "ASCII"          // English (US-ASCII)
+#define CP437     "CP437"          // Terminal (CP437)
+#define ISO88596  "ISO-8859-6"     // Arabic (ISO-8859-6)
+#define ARABIC    "ARABIC"         // Arabic (Windows, CP1256)
+#define CP864     "CP864"          // Arabic (Dos, CP864)
+#define ISO88594  "ISO-8859-4"     // Baltic (ISO-8859-4)
+#define ISO88592  "ISO-8859-2"     // Central European (ISO-8859-2)
+#define CP1250    "CP1250"         // Central European (CP1250)
+#define ISO88595  "ISO-8859-5"     // Cyrillic (ISO-8859-5)
+#define CP1251    "CP1251"         // Cyrillic (CP1251)
+#define ISO88597  "ISO-8859-7"     // Greek (ISO-8859-7)
+#define CP1253    "CP1253"         // Greek (CP1253)
+#define HEBREW    "HEBREW"         // Hebrew (Windows, CP1255)
+#define CP862     "CP862"          // Hebrew (Dos, CP862)
+#define ISO88598  "ISO-8859-8"     // Hebrew (ISO-8859-8)
+#define ISO885915 "ISO-8859-15"    // Latin 9 (ISO-8859-15))
+#define ISO88593  "ISO-8859-3"     // Maltese (ISO-8859-3)
+#define ISO88599  "ISO-8859-9"     // Turkish (ISO-8859-9)
+#define CP1254    "CP1254"         // Turkish (CP1254)
+#define CP1252    "CP1252"         // Western (CP1252)
+#define ISO88591  "ISO-8859-1"     // Western (ISO-8859-1)
 
 struct GViewerWindowSettings
 {
