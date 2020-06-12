@@ -75,6 +75,7 @@ struct GViewerWindowSettings
 
     gboolean wrap_mode;
     gboolean hex_decimal_offset;
+    gboolean metadata_visible;
 };
 
 
@@ -107,6 +108,8 @@ void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f);
 GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *initial_settings=NULL);
 
 void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWindowSettings *settings);
-void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings);
+
+GViewerWindowSettings *gviewer_window_get_settings();
+void gviewer_window_load_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings);
 
 void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings);

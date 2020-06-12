@@ -993,6 +993,13 @@
           This option defines how many bytes should be displayed in one line in binary mode.
       </description>
     </key>
+    <key name="metadata-visible" type="b">
+      <default>true</default>
+      <summary>Metadata view</summary>
+      <description>
+          This option defines if metadata should be visible.
+      </description>
+    </key>
     <key name="offset-x" type="i">
       <default>20</default>
       <summary>Horizontal offset</summary>
