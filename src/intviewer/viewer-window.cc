@@ -478,16 +478,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
     if (state_is_ctrl(event->state))
         switch (event->keyval)
         {
-            case GDK_t:
-            case GDK_T:
-                if (w->priv->metadata_visible)
-                    gviewer_window_hide_metadata(w);
-                else
-                    gviewer_window_show_metadata(w);
-                return TRUE;
-
-            case GDK_w:
-            case GDK_W:
+            case GDK_q:
+            case GDK_Q:
                 gtk_widget_destroy (GTK_WIDGET (w));
                 return TRUE;
 
@@ -498,9 +490,6 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
     if (state_is_shift(event->state))
         switch (event->keyval)
         {
-            case GDK_F7:
-               menu_edit_find_next(nullptr, w);
-               return TRUE;
             default:
                 break;
         }
@@ -508,28 +497,12 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
     if (state_is_alt(event->state))
         switch (event->keyval)
         {
-            case GDK_Return:
-            case GDK_KP_Enter:
-                gviewer_window_show_metadata(w);
-                return TRUE;
             default:
                 break;
         }
 
     switch (state_is_blank(event->keyval))
     {
-        case GDK_t:
-        case GDK_T:
-            if (w->priv->metadata_visible)
-                gviewer_window_hide_metadata(w);
-            else
-                gviewer_window_show_metadata(w);
-            return TRUE;
-
-        case GDK_F7:
-           menu_edit_find(nullptr, w);
-           return TRUE;
-
         default:
            break;
     }
