@@ -496,10 +496,15 @@ static struct
     const gchar *stock_id;
 } stock_icons[] =
 {
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm", COPYFILENAMES_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "exec_wheel.xpm",      EXEC_WHEEL_STOCKID},
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "mail-send.png",       MAILSEND_STOCKID },
-    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg",        TERMINAL_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "copy_file_names.xpm",    COPYFILENAMES_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "exec_wheel.xpm",         EXEC_WHEEL_STOCKID},
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "mail-send.png",          MAILSEND_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "terminal.svg",           TERMINAL_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "rotate-90-16.xpm",       ROTATE_90_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "rotate-270-16.xpm",      ROTATE_270_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "rotate-180-16.xpm",      ROTATE_180_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "flip-vertical-16.xpm",   FLIP_VERTICAL_STOCKID },
+    { PIXMAPS_DIR G_DIR_SEPARATOR_S "flip-horizontal-16.xpm", FLIP_HORIZONTAL_STOCKID },
     { PIXMAPS_DIR G_DIR_SEPARATOR_S FILETYPEICONS_FOLDER G_DIR_SEPARATOR_S "file_type_dir.xpm",     FILETYPEDIR_STOCKID},
     { PIXMAPS_DIR G_DIR_SEPARATOR_S FILETYPEICONS_FOLDER G_DIR_SEPARATOR_S "file_type_regular.xpm", FILETYPEREGULARFILE_STOCKID},
 };

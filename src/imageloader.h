@@ -29,6 +29,11 @@
 #define FILETYPEREGULARFILE_STOCKID "gnome-commander-file-type-regular-file"
 #define MAILSEND_STOCKID            "gnome-commander-mail-send"
 #define TERMINAL_STOCKID            "gnome-commander-terminal"
+#define ROTATE_90_STOCKID           "gnome-commander-rotate-90"
+#define ROTATE_270_STOCKID          "gnome-commander-rotate-270"
+#define ROTATE_180_STOCKID          "gnome-commander-rotate-180"
+#define FLIP_VERTICAL_STOCKID       "gnome-commander-flip-vertical"
+#define FLIP_HORIZONTAL_STOCKID     "gnome-commander-flip-horizontal"
 
 #include "gnome-cmd-pixmap.h"
 
