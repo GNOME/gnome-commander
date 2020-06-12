@@ -103,7 +103,7 @@ inline GtkWidget *gviewer_window_new ()
     return (GtkWidget *) g_object_new (gviewer_window_get_type (), NULL);
 }
 
-void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f);
+void gviewer_window_load_file (GViewerWindow *gViewerWindow, GnomeCmdFile *f);
 
 GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *initial_settings=NULL);
 
