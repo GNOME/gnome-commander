@@ -564,8 +564,6 @@ static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
     "      </menu>"
     "    </menu>"
     "    <menu action='ImageMenu'>"
-    "      <menuitem action='ShowMetadataTags'/>"
-    "      <separator/>"
     "      <menuitem action='RotateClockwise'/>"
     "      <menuitem action='RotateCounterClockwise'/>"
     "      <menuitem action='Rotate180'/>"
@@ -578,6 +576,7 @@ static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
     "        <menuitem action='40CharsPerLine'/>"
     "        <menuitem action='80CharsPerLine'/>"
     "      </menu>"
+    "      <menuitem action='ShowMetadataTags'/>"
     "      <menuitem action='HexadecimalOffset'/>"
     "      <separator/>"
     "      <menuitem action='SaveCurrentSettings'/>"
@@ -776,7 +775,7 @@ static GtkWidget *gviewer_window_create_menus(GViewerWindow *gViewerWindow)
     gViewerWindow->priv->hex_offset_menu_item = gtk_ui_manager_get_widget (uiManager, "/InternalViewerMenuBar/SettingsMenu/HexadecimalOffset");
 
     // Reference toggle item ImageMenu->ShowMetadataTags
-    gViewerWindow->priv->show_exif_menu_item = gtk_ui_manager_get_widget (uiManager, "/InternalViewerMenuBar/ImageMenu/ShowMetadataTags");
+    gViewerWindow->priv->show_exif_menu_item = gtk_ui_manager_get_widget (uiManager, "/InternalViewerMenuBar/SettingsMenu/ShowMetadataTags");
 
     return gtk_ui_manager_get_widget (uiManager, "/InternalViewerMenuBar");
 }
