@@ -207,11 +207,6 @@ gboolean app_needs_terminal (GnomeCmdFile *f);
 gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir ();
 
-GtkWidget *create_ui_pixmap (GtkWidget *window,
-                             GnomeUIPixmapType pixmap_type,
-                             gconstpointer pixmap_info,
-                             GtkIconSize size);
-
 gchar *unix_to_unc (const gchar *path);
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b);
 GList *file_list_to_uri_list (GList *files);

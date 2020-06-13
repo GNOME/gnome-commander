@@ -798,58 +798,6 @@ inline GtkWidget *scale_pixbuf (GdkPixbuf *pixbuf, GtkIconSize icon_size)
     return gtk_image_new_from_pixbuf (pixbuf);
 }
 
-// Creates a pixmap appropriate for items
-
-GtkWidget *create_ui_pixmap (GtkWidget *unused, GnomeUIPixmapType pixmap_type, gconstpointer pixmap_info, GtkIconSize icon_size)
-{
-    GtkWidget *pixmap = NULL;
-    char *name;
-
-    switch (pixmap_type)
-    {
-        case GNOME_APP_PIXMAP_STOCK:
-            pixmap = gtk_image_new_from_stock (static_cast<const gchar *>(pixmap_info), icon_size);
-            break;
-
-        case GNOME_APP_PIXMAP_DATA:
-            if (pixmap_info)
-            {
-                GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) pixmap_info);
-                if (pixbuf != NULL)
-                {
-                    pixmap = scale_pixbuf (pixbuf, icon_size);
-                    g_object_unref (pixbuf);
-                }
-            }
-            break;
-
-        case GNOME_APP_PIXMAP_NONE:
-            break;
-
-        case GNOME_APP_PIXMAP_FILENAME:
-            name = gnome_program_locate_file (gnome_program_get (), GNOME_FILE_DOMAIN_APP_PIXMAP,
-                                              static_cast<const gchar *>(pixmap_info), TRUE, NULL);
-
-            if (!name)
-                g_warning ("Could not find GNOME pixmap file %s", (char *) pixmap_info);
-            else
-            {
-                GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (name, NULL);
-                pixmap = scale_pixbuf (pixbuf, icon_size);
-                g_object_unref (pixbuf);
-                g_free (name);
-            }
-            break;
-
-        default:
-            g_assert_not_reached ();
-            g_warning ("Invalid pixmap_type %d", (int) pixmap_type);
-    }
-
-    return pixmap;
-}
-
-
 inline void transform (gchar *s, gchar from, gchar to)
 {
     gint len = strlen (s);
