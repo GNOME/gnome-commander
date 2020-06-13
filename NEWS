@@ -3,7 +3,7 @@ gnome-commander 1.10.3
 ---------------
 
 New features:
- * ...
+ * InternalViewer: Show metadata file information by default
 
 Bug fixes:
  * Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)
