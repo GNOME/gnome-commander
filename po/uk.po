@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2020-05-26 21:05+0000\n"
-"PO-Revision-Date: 2020-05-27 11:45+0300\n"
+"POT-Creation-Date: 2020-06-13 17:50+0000\n"
+"PO-Revision-Date: 2020-06-14 10:04+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1386,10 +1386,20 @@ msgstr ""
 "двійковому режимі."
 
 #: data/org.gnome.gnome-commander.gschema.xml:998
+#| msgid "Metadata"
+msgid "Metadata view"
+msgstr "Перегляд метаданих"
+
+#: data/org.gnome.gnome-commander.gschema.xml:999
+#| msgid "This option defines if sorting should be case sensitive."
+msgid "This option defines if metadata should be visible."
+msgstr "Цей параметр визначає, чи має бути показано метадані."
+
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Horizontal offset"
 msgstr "Горизонтальний зсув"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1397,11 +1407,11 @@ msgstr ""
 "Цей параметр визначає візуальний відступ вікна вбудованого засобу перегляду "
 "у горизонтальному напрямку."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Vertical offset"
 msgstr "Вертикальний зсув"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1409,27 +1419,27 @@ msgstr ""
 "Цей параметр визначає візуальний відступ вікна вбудованого засобу перегляду "
 "у вертикальному напрямку."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Window width"
 msgstr "Ширина вікна"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "The width of the internal file viewer window."
 msgstr "Ширина вікна вбудованого переглядача файлів."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Window height"
 msgstr "Висота вікна"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "The height of the internal file viewer window."
 msgstr "Висота вікна вбудованого засобу перегляду файлів."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Search pattern for text"
 msgstr "Взірець пошуку для тексту"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1437,11 +1447,11 @@ msgstr ""
 "Цей масив рядків зберігає журнал текстових пошуку у вбудованому засобі "
 "перегляду файлів."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Search pattern for hex values"
 msgstr "Взірець пошуку для шістнадцяткових значень"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1034
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1449,21 +1459,21 @@ msgstr ""
 "Цей масив рядків зберігає журнал пошуку шістнадцяткових значень у "
 "вбудованому засобі перегляду файлів."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1042
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid "File suffix"
 msgstr "Суфікс назв файлів"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1043
+#: data/org.gnome.gnome-commander.gschema.xml:1050
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr ""
 "Типовий суфікс назв архівів, які буде створено за допомогою додатка File "
 "Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1049
+#: data/org.gnome.gnome-commander.gschema.xml:1056
 msgid "Prefix pattern"
 msgstr "Взірець префіксів"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1050
+#: data/org.gnome.gnome-commander.gschema.xml:1057
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1471,11 +1481,11 @@ msgstr ""
 "Взірець префіксів використовується для побудови назв архівів, які буде "
 "створено за допомогою додатка File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1058
+#: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid "Automatically loaded plugins"
 msgstr "Автоматично завантажувані модулі"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1059
+#: data/org.gnome.gnome-commander.gschema.xml:1066
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1488,7 +1498,6 @@ msgid "No error description available"
 msgstr "Опис помилки відсутній"
 
 #: libgcmd/libgcmd-widget-factory.cc:357
-#| msgid "_Select range:"
 msgid "Select an Image File"
 msgstr "Виберіть файл зображення"
 
@@ -1975,12 +1984,12 @@ msgid "Access permissions"
 msgstr "Права доступу"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:616
-#: src/intviewer/viewer-window.cc:1611
+#: src/intviewer/viewer-window.cc:1348
 msgid "Type"
 msgstr "Тип"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:617
-#: src/intviewer/viewer-window.cc:1612
+#: src/intviewer/viewer-window.cc:1349
 msgid "Metadata namespace"
 msgstr "Простір імен метаданих"
 
@@ -1993,35 +2002,35 @@ msgstr "Простір імен метаданих"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:624
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:353
-#: src/intviewer/viewer-window.cc:1619 src/plugin_manager.cc:417
+#: src/intviewer/viewer-window.cc:1356 src/plugin_manager.cc:417
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Назва"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:625
-#: src/intviewer/viewer-window.cc:1620
+#: src/intviewer/viewer-window.cc:1357
 msgid "Tag name"
 msgstr "Назва тегу"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:627
-#: src/intviewer/viewer-window.cc:1622
+#: src/intviewer/viewer-window.cc:1359
 msgid "Value"
 msgstr "Значення"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:628
-#: src/intviewer/viewer-window.cc:1623
+#: src/intviewer/viewer-window.cc:1360
 msgid "Tag value"
 msgstr "Значення тегу"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:630
-#: src/intviewer/viewer-window.cc:1625 src/tags/gnome-cmd-tags.cc:171
+#: src/intviewer/viewer-window.cc:1362 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Опис"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:631
-#: src/intviewer/viewer-window.cc:1626
+#: src/intviewer/viewer-window.cc:1363
 msgid "Metadata tag description"
 msgstr "Опис теґу метаданих"
 
@@ -3852,8 +3861,7 @@ msgstr "_Каталог"
 msgid "_Text File"
 msgstr "_Текстовий файл"
 
-#. File Menu
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:1014
+#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:594
 msgid "_File"
 msgstr "_Файл"
 
@@ -3961,7 +3969,7 @@ msgstr "_Відновити позначення"
 msgid "_Compare Directories"
 msgstr "_Порівняти каталоги"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:1017
+#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:608
 msgid "_View"
 msgstr "_Вигляд"
 
@@ -4013,7 +4021,7 @@ msgstr "Показати резервні файли"
 msgid "Horizontal Orientation"
 msgstr "Горизонтальна орієнтація"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:1028
+#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:673
 msgid "_Settings"
 msgstr "Н_астройки"
 
@@ -4057,7 +4065,7 @@ msgstr "_Модулі"
 msgid "_Configure Plugins…"
 msgstr "_Налаштувати додатки…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:1033
+#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:692
 msgid "_Help"
 msgstr "_Довідка"
 
@@ -4065,7 +4073,7 @@ msgstr "_Довідка"
 msgid "_Documentation"
 msgstr "_Документація"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:1002
+#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:694
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбінації клавіш"
 
@@ -4717,12 +4725,12 @@ msgid "Find"
 msgstr "Пошук"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:818
-#: src/intviewer/viewer-window.cc:1020
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:600
+#: src/intviewer/viewer-window.cc:617
 msgid "_Text"
 msgstr "_Текст"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:826
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:602
 msgid "_Hexadecimal"
 msgstr "_Шістнадцяткове"
 
@@ -4769,111 +4777,204 @@ msgstr "(до розміру вікна)"
 msgid "_Copy selection"
 msgstr "_Копіювати позначене"
 
-#: src/intviewer/viewer-window.cc:808
+#: src/intviewer/viewer-window.cc:595
 msgid "_Close"
 msgstr "_Закрити"
 
-#: src/intviewer/viewer-window.cc:822
+#: src/intviewer/viewer-window.cc:601
 msgid "_Binary"
 msgstr "_Бінарний"
 
-#: src/intviewer/viewer-window.cc:830 src/intviewer/viewer-window.cc:1025
+#: src/intviewer/viewer-window.cc:603 src/intviewer/viewer-window.cc:663
 msgid "_Image"
 msgstr "_Зображення"
 
-#: src/intviewer/viewer-window.cc:835
+#: src/intviewer/viewer-window.cc:609
 msgid "_Zoom In"
 msgstr "_Збільшити"
 
-#: src/intviewer/viewer-window.cc:839
-msgid "Zoom _Out"
+#: src/intviewer/viewer-window.cc:610
+#| msgid "Zoom _Out"
+msgid "_Zoom Out"
 msgstr "З_меншити"
 
-#: src/intviewer/viewer-window.cc:843
+#: src/intviewer/viewer-window.cc:611
 msgid "_Normal Size"
 msgstr "_Нормальний розмір"
 
-#: src/intviewer/viewer-window.cc:847
-msgid "Best _Fit"
-msgstr "_Оптимальний розмір"
+#: src/intviewer/viewer-window.cc:612
+#| msgid "Best _Fit"
+msgid "_Best Fit"
+msgstr "_Оптимізувати"
 
-#: src/intviewer/viewer-window.cc:857
+#: src/intviewer/viewer-window.cc:618
 msgid "_Copy Text Selection"
 msgstr "_Копіювати позначений текст"
 
-#: src/intviewer/viewer-window.cc:861
+#: src/intviewer/viewer-window.cc:619
 msgid "Find…"
 msgstr "Знайти…"
 
-#: src/intviewer/viewer-window.cc:865
+#: src/intviewer/viewer-window.cc:620
 msgid "Find Next"
 msgstr "Знайти далі"
 
-#: src/intviewer/viewer-window.cc:869
+#: src/intviewer/viewer-window.cc:621
 msgid "Find Previous"
 msgstr "Знайти позаду"
 
-#: src/intviewer/viewer-window.cc:874
-msgid "_Wrap lines"
-msgstr "_Згорнути рядки"
-
-#: src/intviewer/viewer-window.cc:879
+#: src/intviewer/viewer-window.cc:622
 msgid "_Encoding"
 msgstr "_Кодування"
 
-#: src/intviewer/viewer-window.cc:920
+#: src/intviewer/viewer-window.cc:627
+msgid "_Wrap lines"
+msgstr "_Згорнути рядки"
+
+#: src/intviewer/viewer-window.cc:632
+msgid "_UTF-8"
+msgstr "_UTF-8"
+
+#: src/intviewer/viewer-window.cc:633
+msgid "English (US-_ASCII)"
+msgstr "Англійське (US-_ASCII)"
+
+#: src/intviewer/viewer-window.cc:634
+#| msgid "Terminal:"
+msgid "Terminal (CP437)"
+msgstr "Термінал (CP437)"
+
+#: src/intviewer/viewer-window.cc:635
+msgid "Arabic (ISO-8859-6)"
+msgstr "Арабське (ISO-8859-6)"
+
+#: src/intviewer/viewer-window.cc:636
+msgid "Arabic (Windows, CP1256)"
+msgstr "Арабське (Windows, CP1256)"
+
+#: src/intviewer/viewer-window.cc:637
+msgid "Arabic (Dos, CP864)"
+msgstr "Арабське (DOS, CP864)"
+
+#: src/intviewer/viewer-window.cc:638
+msgid "Baltic (ISO-8859-4)"
+msgstr "Балтійське (ISO-8859-4)"
+
+#: src/intviewer/viewer-window.cc:639
+msgid "Central European (ISO-8859-2)"
+msgstr "Центральноєвропейське (ISO-8859-2)"
+
+#: src/intviewer/viewer-window.cc:640
+msgid "Central European (CP1250)"
+msgstr "Центральноєвропейське (CP1250)"
+
+#: src/intviewer/viewer-window.cc:641
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "Кирилиця (ISO-8859-5)"
+
+#: src/intviewer/viewer-window.cc:642
+msgid "Cyrillic (CP1251)"
+msgstr "Кирилиця (CP1251)"
+
+#: src/intviewer/viewer-window.cc:643
+msgid "Greek (ISO-8859-7)"
+msgstr "Грецьке (ISO 8859-7)"
+
+#: src/intviewer/viewer-window.cc:644
+msgid "Greek (CP1253)"
+msgstr "Грецьке (CP1253)"
+
+#: src/intviewer/viewer-window.cc:645
+msgid "Hebrew (Windows, CP1255)"
+msgstr "Іврит (Windows, CP1255)"
+
+#: src/intviewer/viewer-window.cc:646
+msgid "Hebrew (Dos, CP862)"
+msgstr "Іврит (DOS, CP862)"
+
+#: src/intviewer/viewer-window.cc:647
+msgid "Hebrew (ISO-8859-8)"
+msgstr "Іврит (ISO-8859-8)"
+
+#: src/intviewer/viewer-window.cc:648
+msgid "Latin 9 (ISO-8859-15)"
+msgstr "Латиниця 9 (ISO-8859-15)"
+
+#: src/intviewer/viewer-window.cc:649
+msgid "Maltese (ISO-8859-3)"
+msgstr "Мальтійська (ISO-8859-3)"
+
+#: src/intviewer/viewer-window.cc:650
+msgid "Turkish (ISO-8859-9)"
+msgstr "Турецьке (ISO 8859-9)"
+
+#: src/intviewer/viewer-window.cc:651
+msgid "Turkish (CP1254)"
+msgstr "Турецьке (CP1254)"
+
+#: src/intviewer/viewer-window.cc:652
+msgid "Western (CP1252)"
+msgstr "Західноєвропейське (CP1252)"
+
+#: src/intviewer/viewer-window.cc:653
+msgid "Western (ISO-8859-1)"
+msgstr "Західне (ISO-8859-1)"
+
+#: src/intviewer/viewer-window.cc:658
 msgid "Show Metadata _Tags"
 msgstr "Показати _теги метаданих"
 
-#: src/intviewer/viewer-window.cc:926
-msgid "_Rotate Clockwise"
-msgstr "_Розвернути за годинником"
+#: src/intviewer/viewer-window.cc:664
+#| msgid "_Rotate Clockwise"
+msgid "Rotate Clockwise"
+msgstr "Обернути за годинниковою стрілкою"
 
-#: src/intviewer/viewer-window.cc:931
+#: src/intviewer/viewer-window.cc:665
 msgid "Rotate Counter Clockwis_e"
 msgstr "Розвернути _проти годинника"
 
-#: src/intviewer/viewer-window.cc:936
-msgid "_Rotate 180°"
-msgstr "_Розвернути на 180°"
+#: src/intviewer/viewer-window.cc:666
+#| msgid "_Rotate 180°"
+msgid "Rotate 180°"
+msgstr "Обернути на 180°"
 
-#: src/intviewer/viewer-window.cc:941
+#: src/intviewer/viewer-window.cc:667
 msgid "Flip _Vertical"
 msgstr "Відобразити _вертикально"
 
-#: src/intviewer/viewer-window.cc:946
+#: src/intviewer/viewer-window.cc:668
 msgid "Flip _Horizontal"
 msgstr "Відобразити _горизонтально"
 
-#: src/intviewer/viewer-window.cc:956
+#: src/intviewer/viewer-window.cc:674
 msgid "_Binary Mode"
 msgstr "_Бінарний режим"
 
-#: src/intviewer/viewer-window.cc:962
-msgid "_Hexadecimal Offset"
-msgstr "_Шістнадцятковий зсув"
-
-#: src/intviewer/viewer-window.cc:968
+#: src/intviewer/viewer-window.cc:675
 msgid "_Save Current Settings"
 msgstr "_Зберегти чинні налаштування"
 
-#: src/intviewer/viewer-window.cc:978
+#: src/intviewer/viewer-window.cc:680
+msgid "_Hexadecimal Offset"
+msgstr "_Шістнадцятковий зсув"
+
+#: src/intviewer/viewer-window.cc:685
 msgid "_20 chars/line"
 msgstr "_20 символів на лінію"
 
-#: src/intviewer/viewer-window.cc:983
+#: src/intviewer/viewer-window.cc:686
 msgid "_40 chars/line"
 msgstr "_40 символів на лінію"
 
-#: src/intviewer/viewer-window.cc:988
+#: src/intviewer/viewer-window.cc:687
 msgid "_80 chars/line"
 msgstr "_80 символів на лінію"
 
-#: src/intviewer/viewer-window.cc:997
+#: src/intviewer/viewer-window.cc:693
 msgid "Quick _Help"
 msgstr "Швидка _довідка"
 
-#: src/intviewer/viewer-window.cc:1271
+#: src/intviewer/viewer-window.cc:1002
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "Взірець «%s» не знайдено"
