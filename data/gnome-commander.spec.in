@@ -159,7 +159,7 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %{_datadir}/%{name}/mime/
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 

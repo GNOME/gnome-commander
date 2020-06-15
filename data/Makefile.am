@@ -15,7 +15,7 @@ gsettings_ENUM_FILES = $(top_srcdir)/src/gnome-cmd-types.h \
 gsettings_SCHEMAS = org.gnome.@PACKAGE@.gschema.xml
 @GSETTINGS_RULES@
 
-appdatadir = $(datadir)/appdata
+appdatadir = $(datadir)/metainfo
 appdata_in_files = @PACKAGE@.appdata.xml.in
 appdata_DATA = $(appdata_in_files:.xml.in=.xml)
 
