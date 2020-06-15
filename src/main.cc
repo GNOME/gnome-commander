@@ -19,11 +19,6 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-extern "C"
-{
-    void gnome_authentication_manager_init ();
-}
-
 #include <config.h>
 #include <glib/gi18n.h>
 #include <locale.h>
@@ -177,7 +172,9 @@ int main (int argc, char *argv[])
         gcmd_user_actions.set_defaults();
         ls_colors_init ();
 
-        gnome_authentication_manager_init ();
+        // This had to be commented out as it is part of the deprecated libgnomeui.
+        // To finally migrate away from it when switching over to GIO, see https://wiki.gnome.org/Attic/LibgnomeMustDie
+        //gnome_authentication_manager_init ();
 
         gnome_cmd_style_create (gnome_cmd_data.options);
 
