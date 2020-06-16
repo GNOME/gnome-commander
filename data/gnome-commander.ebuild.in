@@ -22,7 +22,6 @@ RDEPEND="
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
 	gnome-base/gnome-keyring
 	>=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
-	>=gnome-base/libgnomeui-@GNOMEUI_REQ@
 	>=x11-libs/gtk+-@GTK_REQ@:2
 	chm? ( dev-libs/chmlib )
 	exif? ( >=media-gfx/exiv2-@EXIV2_REQ@ )

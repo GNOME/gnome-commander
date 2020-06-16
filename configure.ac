@@ -37,7 +37,6 @@ dnl ===================
 GLIB_REQ=2.44.0
 GMODULE_REQ=2.0.0
 GTK_REQ=2.24.0
-GNOMEUI_REQ=2.4.0
 GNOMEVFS_REQ=2.0.0
 GNOME_KEYRING_REQ=2.22
 UNIQUE_REQ=0.9.3
@@ -49,7 +48,6 @@ POPPLER_REQ=0.18
 
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
-AC_SUBST(GNOMEUI_REQ)
 AC_SUBST(GNOMEVFS_REQ)
 AC_SUBST(GNOME_KEYRING_REQ)
 AC_SUBST(UNIQUE_REQ)
@@ -75,9 +73,6 @@ PKG_CHECK_MODULES([GMODULE], [gmodule-2.0 >= ${GMODULE_REQ}])
 
 dnl Check for gtk+
 PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= ${GTK_REQ}])
-
-dnl Check for libgnomeui
-PKG_CHECK_MODULES([GNOMEUI], [libgnomeui-2.0 >= ${GNOMEUI_REQ}])
 
 dnl Check for gnome-vfs
 PKG_CHECK_MODULES([GNOMEVFS], [gnome-vfs-2.0 >= ${GNOMEVFS_REQ}], have_gnomevfs=yes, have_gnomevfs=no)
@@ -229,11 +224,6 @@ AC_SUBST(PREFIX)
 
 dnl Set PIXMAPS_DIR in config.h.
 AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${PREFIX}/share/pixmaps/${PACKAGE}", [pixmaps location])
-
-
-dnl Set GNOME_PREFIX in config.h.
-GNOME_PREFIX_TMP=`pkg-config --variable=prefix libgnome-2.0`
-AC_DEFINE_UNQUOTED(GNOME_PREFIX, "$GNOME_PREFIX_TMP", "")
 
 
 PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"

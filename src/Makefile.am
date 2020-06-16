@@ -9,7 +9,7 @@ AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
-	$(GNOMEUI_CFLAGS) \
+	$(GTK_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	$(GNOME_KEYRING_CFLAGS) \
 	$(UNIQUE_CFLAGS) \
@@ -97,7 +97,7 @@ gnome_commander_LDADD = \
 	dialogs/libgcmd-dialogs.a \
 	tags/libgcmd-tags.a \
 	intviewer/libgviewer.a \
-	$(GNOMEUI_LIBS) \
+	$(GTK_LIBS) \
 	$(GNOMEVFS_LIBS) \
 	$(GNOME_KEYRING_LIBS) \
 	$(UNIQUE_LIBS) \
