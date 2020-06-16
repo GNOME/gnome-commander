@@ -7,6 +7,7 @@ AM_CPPFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GOBJECT_CFLAGS) \
 	$(GTK_CFLAGS) \
+	$(GNOMEVFS_CFLAGS) \
 	$(GTEST_CPPFLAGS) \
 	-I$(top_builddir)/src \
 	-I$(top_srcdir) \
@@ -31,7 +32,8 @@ GCMD_LIBS = \
 ADDITIONAL_LDADD = \
 	$(top_builddir)/src/intviewer/libgviewer.a \
 	$(GOBJECT_LIBS) \
-	$(GTK_LIBS)
+	$(GTK_LIBS) \
+	$(GNOMEVFS_LIBS)
 
 IV_TESTS = \
 	iv_viewerwidget \
