@@ -1,4 +1,4 @@
-/** 
+/**
  * @file main.cc
  * @copyright (C) 2001-2006 Marcus Bjurman\n
  * @copyright (C) 2007-2012 Piotr Eljasiak\n
@@ -25,7 +25,6 @@
 #ifdef HAVE_UNIQUE
 #include <unique/unique.h>
 #endif
-#include <libgnomeui/gnome-ui-init.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
@@ -56,13 +55,13 @@ extern int created_dirs_cnt;
 extern int deleted_dirs_cnt;
 
 
-static const GOptionEntry options [] =
+static GOptionEntry options [] =
 {
-    {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), NULL},
-    {"start-left-dir", 'l', 0, G_OPTION_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), NULL},
-    {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), NULL},
-    {"config-dir", 0, 0, G_OPTION_ARG_STRING, &config_dir, N_("Specify the directory for configuration files"), NULL},
-    {NULL}
+    {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), nullptr},
+    {"start-left-dir", 'l', 0, G_OPTION_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), nullptr},
+    {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), nullptr},
+    {"config-dir", 0, 0, G_OPTION_ARG_STRING, &config_dir, N_("Specify the directory for configuration files"), nullptr},
+    {nullptr}
 };
 
 
@@ -95,13 +94,13 @@ static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, Un
 
 int main (int argc, char *argv[])
 {
-    GnomeProgram *program;
+    GError *error = nullptr;
     GOptionContext *option_context;
 #ifdef HAVE_UNIQUE
     UniqueApp *app;
 #endif
 
-    main_win = NULL;
+    main_win = nullptr;
 
     if (!g_thread_supported ())
     {
@@ -116,14 +115,15 @@ int main (int argc, char *argv[])
 
     gnome_cmd_mime_config();
 
-    option_context = g_option_context_new (PACKAGE);
-    g_option_context_add_main_entries (option_context, options, NULL);
-    program = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
-                                  argc, argv,
-                                  GNOME_PARAM_GOPTION_CONTEXT, option_context,
-                                  GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
-                                  GNOME_PARAM_APP_DATADIR, DATADIR,
-                                  GNOME_PARAM_NONE);
+    if (!gtk_init_with_args (&argc, &argv,
+                             _("File Manager"),
+                             options,
+                             PACKAGE,
+                             &error))
+    {
+        g_printerr ("%s\n", error->message);
+        return 1;
+    }
 
     if (debug_flags && strchr(debug_flags,'a'))
         debug_flags = g_strdup("cdfgiklmnpstuvwyzx");
@@ -134,7 +134,7 @@ int main (int argc, char *argv[])
 
     // ToDo: Remove somewhen after 1.10 release:
     ///////////////////////////////////
-    auto userConfigDirOld = g_build_filename (g_get_home_dir (), "." PACKAGE, NULL);
+    auto userConfigDirOld = g_build_filename (g_get_home_dir (), "." PACKAGE, nullptr);
 
     if (is_dir_existing(userConfigDirOld) == 1)
     {
@@ -154,12 +154,12 @@ int main (int argc, char *argv[])
     gnome_cmd_data.load();
 
 #ifdef HAVE_UNIQUE
-    app = unique_app_new ("org.gnome.GnomeCommander", NULL);
+    app = unique_app_new ("org.gnome.GnomeCommander", nullptr);
 #endif
 
 #ifdef HAVE_UNIQUE
     if (!gnome_cmd_data.options.allow_multiple_instances && unique_app_is_running (app))
-        unique_app_send_message (app, UNIQUE_ACTIVATE, NULL);
+        unique_app_send_message (app, UNIQUE_ACTIVATE, nullptr);
     else
     {
 #endif
@@ -182,7 +182,7 @@ int main (int argc, char *argv[])
         main_win_widget = *main_win;
 #ifdef HAVE_UNIQUE
         unique_app_watch_window (app, *main_win);
-        g_signal_connect (app, "message-received", G_CALLBACK (on_message_received), NULL);
+        g_signal_connect (app, "message-received", G_CALLBACK (on_message_received), nullptr);
 #endif
 
         gtk_widget_show (*main_win);
@@ -209,7 +209,6 @@ int main (int argc, char *argv[])
 #ifdef HAVE_UNIQUE
     g_object_unref (app);
 #endif
-    g_object_unref (program);
     g_free (debug_flags);
 
     DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);

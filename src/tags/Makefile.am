@@ -9,7 +9,7 @@ AM_LDFLAGS = $(WARN_LDFLAGS)
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	-I$(srcdir)/.. \
-	$(GNOMEUI_CFLAGS) \
+	$(GTK_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	$(EXIV2_CFLAGS) \
 	$(TAGLIB_CFLAGS) \

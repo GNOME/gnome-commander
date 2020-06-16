@@ -5,7 +5,7 @@ AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
-	$(GNOMEUI_CFLAGS) \
+	$(GTK_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	-DGTK_DISABLE_SINGLE_INCLUDES \
 	-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES
@@ -18,6 +18,6 @@ libtest_la_SOURCES = \
 	test-plugin.h test-plugin.cc \
 	test-plugin.xpm
 
-libtest_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
+libtest_la_LDFLAGS = $(GTK_LIBS) $(GNOMEVFS_LIBS) -module -avoid-version
 
 -include $(top_srcdir)/git.mk

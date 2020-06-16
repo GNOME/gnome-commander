@@ -72,7 +72,7 @@ enum
 
 struct GnomeCmdMainWinClass
 {
-    GnomeAppClass parent_class;
+    GtkWindowClass parent_class;
 
     void (* switch_fs) (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 };
@@ -119,7 +119,7 @@ struct GnomeCmdMainWin::Private
     guint key_snooper_id;
 };
 
-static GnomeAppClass *parent_class = NULL;
+static GtkWindowClass *parent_class = nullptr;
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -813,7 +813,7 @@ static void class_init (GnomeCmdMainWinClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GnomeAppClass *) gtk_type_class (gnome_app_get_type ());
+    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
     signals[SWITCH_FS] =
         g_signal_new ("switch-fs",
@@ -853,8 +853,11 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->file_selector[LEFT] = NULL;
     mw->priv->file_selector[RIGHT] = NULL;
 
-    gnome_app_construct (GNOME_APP (mw), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander — ROOT PRIVILEGES") :
-                                                                                   _("GNOME Commander"));
+    gtk_window_set_title (GTK_WINDOW (mw),
+                          gcmd_owner.is_root()
+                            ? _("GNOME Commander — ROOT PRIVILEGES")
+                            : _("GNOME Commander"));
+
     g_object_set_data (*mw, "main_win", mw);
     restore_size_and_pos (mw);
     gtk_window_set_policy (*mw, TRUE, TRUE, FALSE);
@@ -878,7 +881,8 @@ static void init (GnomeCmdMainWin *mw)
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->menubar_new, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), create_separator (FALSE), FALSE, TRUE, 0);
 
-    gnome_app_set_contents (GNOME_APP (mw), mw->priv->vbox);
+    gtk_widget_show (mw->priv->vbox);
+    gtk_container_add (GTK_CONTAINER (mw), mw->priv->vbox);
 
     mw->priv->paned = gnome_cmd_data.horizontal_orientation ? gtk_vpaned_new () : gtk_hpaned_new ();
 
@@ -951,7 +955,7 @@ GtkType gnome_cmd_main_win_get_type ()
             (GtkClassInitFunc) NULL
         };
 
-        mw_type = gtk_type_unique (gnome_app_get_type (), &mw_info);
+        mw_type = gtk_type_unique (gtk_window_get_type (), &mw_info);
     }
 
     return mw_type;

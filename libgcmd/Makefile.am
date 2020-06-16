@@ -4,7 +4,7 @@ AM_CXXFLAGS = $(WARN_CXXFLAGS) -Werror=parentheses -Wno-parentheses -Werror=cast
 AM_LDFLAGS = $(WARN_LDFLAGS)
 
 AM_CPPFLAGS = \
-	$(GNOMEUI_CFLAGS) \
+	$(GTK_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	-DGTK_DISABLE_SINGLE_INCLUDES \
 	-DGDK_PIXBUF_DISABLE_SINGLE_INCLUDES
@@ -23,7 +23,7 @@ libgcmd_la_SOURCES = \
 	libgcmd-deps.h \
 	libgcmd.h
 
-libgcmd_la_LIBADD = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
-libgcmd_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)
+libgcmd_la_LIBADD = $(GTK_LIBS) $(GNOMEVFS_LIBS)
+libgcmd_la_LDFLAGS = $(GTK_LIBS) $(GNOMEVFS_LIBS)
 
 -include $(top_srcdir)/git.mk
