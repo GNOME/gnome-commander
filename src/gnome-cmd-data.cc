@@ -1705,21 +1705,25 @@ void GnomeCmdData::save_devices()
     GList *devices;
 
     devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data.priv->con_list);
-    if (devices)
+    if (devices && g_list_length(devices) > 0)
     {
-        GVariantBuilder gVariantBuilder;
-        g_variant_builder_init (&gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+        GVariantBuilder *gVariantBuilder = nullptr;
 
         for (; devices; devices = devices->next)
         {
             auto *device = GNOME_CMD_CON_DEVICE (devices->data);
             if (device && !gnome_cmd_con_device_get_autovol (device))
             {
+                if (!gVariantBuilder)
+                {
+                    g_variant_builder_init (gVariantBuilder, G_VARIANT_TYPE_ARRAY);
+                }
+
                 gchar *icon_path = g_strdup (gnome_cmd_con_device_get_icon_path (device));
                 if (!icon_path || icon_path[0] == '\0')
                     icon_path = g_strdup ("");
 
-                g_variant_builder_add (&gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
+                g_variant_builder_add (gVariantBuilder, GCMD_SETTINGS_DEVICES_FORMAT_STRING,
                                         gnome_cmd_con_device_get_alias (device),
                                         gnome_cmd_con_device_get_device_fn (device),
                                         gnome_cmd_con_device_get_mountp (device),
@@ -1727,15 +1731,17 @@ void GnomeCmdData::save_devices()
                 g_free (icon_path);
             }
         }
-        devicesToStore = g_variant_builder_end (&gVariantBuilder);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
+
+        if (gVariantBuilder)
+        {
+            devicesToStore = g_variant_builder_end (gVariantBuilder);
+            g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
+            return;
+        }
     }
-    else
-    {
-        devicesToStore = g_settings_get_default_value(options.gcmd_settings->general,
-                                                      GCMD_SETTINGS_DEVICES);
-        g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
-    }
+
+    devicesToStore = g_settings_get_default_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES);
+    g_settings_set_value(options.gcmd_settings->general, GCMD_SETTINGS_DEVICES, devicesToStore);
 }
 
 
