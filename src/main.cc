@@ -95,7 +95,7 @@ static UniqueResponse on_message_received (UniqueApp *app, UniqueCommand cmd, Un
 int main (int argc, char *argv[])
 {
     GError *error = nullptr;
-    GOptionContext *option_context;
+
 #ifdef HAVE_UNIQUE
     UniqueApp *app;
 #endif
