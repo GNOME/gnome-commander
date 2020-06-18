@@ -4,6 +4,7 @@ gnome-commander 1.10.3
 
 New features:
  * InternalViewer: Show metadata file information by default
+ * Minor memory management improvements
 
 Bug fixes:
  * Fixed issue #29 (Migrate deprecated GnomeFileEntry to GtkFileChooserButton)
@@ -12,10 +13,21 @@ Bug fixes:
  * Fixed issue #83 (Switch from nautilus-sendto to xdg-email as default send-to command)
 
 New or updated translations:
- * ...
+ * cs (Marek Černocký)
+ * de (Wolfgang Stöggl)
+ * es (Daniel Mustieles)
+ * eu (Asier Sarasua Garmendia)
+ * id (Andika Triwidada)
+ * id (Kukuh Syafaat)
+ * pl (Piotr Drąg)
+ * pt_BR (Rafael Fontenelle)
+ * pt_BR (Uwe Scholz)
+ * sv (Anders Jonsson)
+ * uk (Yuri Chornoivan)
 
 New or updated docs:
- * ...
+ * cs (Marek Černocký)
+ * es (Daniel Mustieles)
 
 ===================================
 gnome-commander 1.10.2

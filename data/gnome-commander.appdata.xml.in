@@ -46,4 +46,21 @@
   <update_contact>gcmd-devel@nongnu.org</update_contact>
   <project_group>GNOME</project_group>
   <translation type="gettext">gnome-commander</translation>
+
+    <releases>
+    <release version="1.10.3" date="2020-06-19">
+      <description>
+        <p>
+          This release includes bug fixes, library removals, translation updates and a small new feature
+        </p>
+        <ul>
+          <li>InternalViewer: Show metadata file information by default</li>
+          <li>Get rid of deprecated libgnome and libgnomeui libraries</li>
+          <li>In the file search the option 'copy file name' does work again</li>
+          <li>Switched from nautilus-sendto to xdg-email as default send-to command</li>
+        </ul>
+      </description>
+    </release>
+    </releases>
+
 </component>

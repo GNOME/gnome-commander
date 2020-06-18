@@ -24,7 +24,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.10.3</para></entry>
-            <entry><para>2020-??-??</para></entry>
+            <entry><para>2020-06-19</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -50,10 +50,13 @@
                             <para>InternalViewer: Show metadata file information by default</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ...</para>
+                            <para>Minor memory management improvements</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated docs: ...</para>
+                            <para>New or updated translations: cs, de, es, eu, id, id, pl, pt_BR, pt_BR, sv, uk</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated docs: cs, es</para>
                         </listitem>
                     </itemizedlist>
                 </para>
