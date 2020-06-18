@@ -75,6 +75,10 @@ PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= ${GTK_REQ}])
 dnl Check for gnome-vfs
 PKG_CHECK_MODULES([GNOMEVFS], [gnome-vfs-2.0 >= ${GNOMEVFS_REQ}], have_gnomevfs=yes, have_gnomevfs=no)
 
+if test "x$have_gnomevfs" != "xyes"; then
+AC_MSG_ERROR([[gnome-vfs >= ${GNOMEVFS_REQ}] not found])
+fi
+
 dnl Check for libUnique
 AC_ARG_WITH([unique], AS_HELP_STRING([--without-unique], [disable unique support]))
 AS_IF([test "x$with_unique" != "xno"],
