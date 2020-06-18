@@ -81,9 +81,6 @@ Additionally GNOME Commander may require:
   * unique >= @UNIQUE_REQ@
     Optional - for uniqueness support: only one running instance at a time
 
-  * python >= @PYTHON_REQ@
-    Optional - for python plugins support.
-
   * exiv2 >= @EXIV2_REQ@
     Optional - for Exif and IPTC support.
 
