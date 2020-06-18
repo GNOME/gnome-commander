@@ -68,15 +68,10 @@ Plugins:
 3. Building
 --------------------------------
 
-GNOME Commander requires glib >= @GLIB_REQ@ and GTK+ >= @GTK_REQ@ libraries.
+GNOME Commander requires glib >= @GLIB_REQ@, GTK+ >= @GTK_REQ@ and
+libraries gnome-vfs >= @GNOMEVFS_REQ@.
 
 Additionally GNOME Commander may require:
-
-  * gnome-vfs >= @GNOMEVFS_REQ@
-    Used for most of the file handling. If gnome-vfs is built to use fam
-    gnome-commander makes use of that functionality by being able to update
-    its visible directories even when files are create/deleted or changed by
-    other programs.
 
   * unique >= @UNIQUE_REQ@
     Optional - for uniqueness support: only one running instance at a time
