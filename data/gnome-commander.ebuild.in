@@ -20,7 +20,6 @@ RDEPEND="
 	app-text/yelp-tools
 	>=dev-libs/glib-@GLIB_REQ@:2
 	unique? ( >=dev-libs/libunique-@UNIQUE_REQ@:1 )
-	gnome-base/gnome-keyring
 	>=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
 	>=x11-libs/gtk+-@GTK_REQ@:2
 	chm? ( dev-libs/chmlib )
