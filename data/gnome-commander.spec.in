@@ -163,6 +163,9 @@ scrollkeeper-update -q || :
 * Thu Jun 18 2020 Uwe Scholz <u.scholz83@gmx.de>
 - remove gnome-keyring-1 dependency
 
+* Tue Jun 16 2020 Uwe Scholz <u.scholz83@gmx.de>
+- remove libgnomeui dependency
+
 * Mon May 20 2019 Uwe Scholz <u.scholz83@gmx.de>
 - set epoch to 4
 
