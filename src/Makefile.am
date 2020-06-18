@@ -11,7 +11,6 @@ AM_CPPFLAGS = \
 	-I$(top_srcdir) \
 	$(GTK_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
-	$(GNOME_KEYRING_CFLAGS) \
 	$(UNIQUE_CFLAGS) \
 	$(PYTHON_CFLAGS) \
 	-DGTK_DISABLE_SINGLE_INCLUDES \
@@ -99,7 +98,6 @@ gnome_commander_LDADD = \
 	intviewer/libgviewer.a \
 	$(GTK_LIBS) \
 	$(GNOMEVFS_LIBS) \
-	$(GNOME_KEYRING_LIBS) \
 	$(UNIQUE_LIBS) \
 	$(EXIV2_LIBS) \
 	$(TAGLIB_LIBS) \

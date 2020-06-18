@@ -38,7 +38,6 @@ GLIB_REQ=2.44.0
 GMODULE_REQ=2.0.0
 GTK_REQ=2.24.0
 GNOMEVFS_REQ=2.0.0
-GNOME_KEYRING_REQ=2.22
 UNIQUE_REQ=0.9.3
 PYTHON_REQ=2.5
 EXIV2_REQ=0.14
@@ -49,7 +48,6 @@ POPPLER_REQ=0.18
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
 AC_SUBST(GNOMEVFS_REQ)
-AC_SUBST(GNOME_KEYRING_REQ)
 AC_SUBST(UNIQUE_REQ)
 AC_SUBST(PYTHON_REQ)
 AC_SUBST(EXIV2_REQ)
@@ -76,9 +74,6 @@ PKG_CHECK_MODULES([GTK], [gtk+-2.0 >= ${GTK_REQ}])
 
 dnl Check for gnome-vfs
 PKG_CHECK_MODULES([GNOMEVFS], [gnome-vfs-2.0 >= ${GNOMEVFS_REQ}], have_gnomevfs=yes, have_gnomevfs=no)
-
-dnl Check for gnome-keyring
-PKG_CHECK_MODULES(GNOME_KEYRING, [gnome-keyring-1 >= ${GNOME_KEYRING_REQ}])
 
 dnl Check for libUnique
 AC_ARG_WITH([unique], AS_HELP_STRING([--without-unique], [disable unique support]))
