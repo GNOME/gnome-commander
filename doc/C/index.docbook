@@ -6700,7 +6700,7 @@
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></entry>
-            <entry><para>Multi-Rename-Tool</para></entry>
+            <entry><para>Advanced Rename Tool</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
