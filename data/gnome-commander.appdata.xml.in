@@ -47,7 +47,18 @@
   <project_group>GNOME</project_group>
   <translation type="gettext">gnome-commander</translation>
 
-    <releases>
+  <releases>
+    <release version="1.10.4" date="2020-??-??">
+      <description>
+        <p>
+          This release includes ...
+        </p>
+        <ul>
+          <li>...</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="1.10.3" date="2020-06-19">
       <description>
         <p>
@@ -61,6 +72,6 @@
         </ul>
       </description>
     </release>
-    </releases>
+  </releases>
 
 </component>
