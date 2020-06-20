@@ -1,10 +1,10 @@
-# GNOME Commander #
+# Gnome Commander #
 
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/GNOME/gnome-commander/1.10.3.svg)](https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/)
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/GNOME/gnome-commander/master/COPYING)  |  [![GitHub commits](https://img.shields.io/github/commits-since/gcmd/gnome-commander/1.10.3/gcmd-1-10)](https://gitlab.gnome.org/GNOME/gnome-commander/tree/master/)
 
 ## Introduction ##
 
-GNOME Commander is a fast and powerful twin-panel file manager for the Linux desktop.
+Gnome Commander is a fast and powerful twin-panel file manager for the Linux desktop.
 
 ![ScreenShot](https://gcmd.github.io/ss/MainWin-Classic.png)
 
@@ -16,14 +16,14 @@ GNOME Commander is a fast and powerful twin-panel file manager for the Linux des
 * https://lists.nongnu.org/mailman/listinfo/gcmd-users → for users
 * https://lists.nongnu.org/mailman/listinfo/gcmd-devel → for developers
 
-You can find email addresses of the people who have created GNOME Commander
+You can find email addresses of the people who have created Gnome Commander
 in the [AUTHORS](AUTHORS) file.
 
 ### Distribution packages ###
 
-GNOME Commander is 
-[available in many distributions](https://gcmd.github.io/download.html#external)
-like Debian, Fedora, Gentoo, Arch, etc.
+Gnome Commander is
+[available in distributions](https://gcmd.github.io/download.html#external)
+like Fedora, Gentoo, Arch, etc.
 
 ## Contributing ##
 
@@ -36,28 +36,19 @@ should check the [TODO](TODO) file first before filing a feature request.
 
 ### Translations ###
 
-This program is hosted on the GNOME git server. Therefore, it would be 
-great if you could help translating using [damned lies](https://l10n.gnome.org/).
+It would be great if you could help translating using [damned lies](https://l10n.gnome.org/).
 
 
 ### Cool hacks ###
 
-Send an email with the patch to the [developers mailing list](https://lists.nongnu.org/mailman/listinfo/gcmd-devel).
-Please create the patch either
-* with the diff-command: ``diff -Naur $OLD_FILE $NEW_FILE > patch.txt``
-* or with git-diff: ``git diff $COMMIT_ID1 $COMMIT_ID2 > patch.txt``
+Have a look in the [Gnome Wiki](https://wiki.gnome.org/GitLab#GitLab_workflow_for_code_contribution) how to contribute with new lines of code.
 
-Also, write a good explanation of what the patch does.
-
-
-### Plugins ###
-
-If you have created a new plugin let us know about it on the [developer mailing list](https://lists.nongnu.org/mailman/listinfo/gcmd-devel).
+Don't forget to write a good explanation of what your patch does.
 
 
 ### Problem reporting ###
 
-Bugs should be reported on [GNOME GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
+Bugs should be reported on [Gnome GitLab](https://gitlab.gnome.org/GNOME/gnome-commander/issues).
 You will need to create an account for yourself.
 
 In the bug report please include:
@@ -81,18 +72,18 @@ Also, have a look at the list of known bugs on GitLab bevore opening a new bug.
 
 ## Building ##
 
-Get the latest source from the [GNOME ftp server](https://download.gnome.org/sources/gnome-commander/).
+Get the latest source from the [Gnome ftp server](https://download.gnome.org/sources/gnome-commander/).
 
 ```bash
 ~ » tar -xf gnome-commander-$VERSION.tar.xz # unpack the sources
 ~ » cd gnome-commander-$VERSION             # change to the toplevel directory
 ~ » ./configure                             # run the `configure' script
-~ » make                                    # build GNOME Commander
+~ » make                                    # build Gnome Commander
   [ Become root if necessary ]
-~ » make install                            # install GNOME Commander
+~ » make install                            # install Gnome Commander
 ```
 
-For installing GNOME Commander using the sources in the git repository, do the following:
+For installing Gnome Commander using the sources in the git repository, do the following:
 
 ```bash
 ~ » git clone git@gitlab.gnome.org:GNOME/gnome-commander.git
@@ -104,7 +95,7 @@ For installing GNOME Commander using the sources in the git repository, do the f
 ```
 
 After executing ``./configure`` or ``./autogen.sh`` see the file ``INSTALL``
-for detailed information regarding the installation of GNOME Commander.
+for detailed information regarding the installation of Gnome Commander.
 
 ### Tip for working with git ###
 
