@@ -186,7 +186,7 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
 
     if (GnomeCmd::ManageProfilesDialog<GnomeCmdData::AdvrenameConfig,GnomeCmdData::AdvrenameConfig::Profile,GnomeCmdAdvrenameProfileComponent> (GTK_WINDOW (dialog),cfg,new_profile,_("Profiles"),"gnome-commander-advanced-rename"))
     {
-        GtkWidget *menu = widget->parent;
+        GtkWidget *menu = gtk_widget_get_parent(widget);
 
         gnome_cmd_button_menu_disconnect_handler (priv->profile_menu_button, menu);
         g_object_unref (gtk_item_factory_from_widget (menu));
@@ -524,11 +524,11 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
     gtk_window_set_resizable (*dialog, TRUE);
     gtk_dialog_set_has_separator (*dialog, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
-    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_box_set_spacing (GTK_BOX (gtk_dialog_get_content_area(GTK_DIALOG (dialog))), 2);
 
     GtkWidget *vbox = dialog->priv->vbox = gtk_vbox_new (FALSE, 6);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
-    gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), vbox, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area(GTK_DIALOG (dialog))), vbox, TRUE, TRUE, 0);
 
     // Results
     gchar *str = g_strdup_printf ("<b>%s</b>", _("Results"));

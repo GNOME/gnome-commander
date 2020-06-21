@@ -32,7 +32,7 @@ GtkWidget *lookup_widget (GtkWidget *widget, const gchar *widget_name)
 
     for (;;)
     {
-        parent = GTK_IS_MENU (widget) ? gtk_menu_get_attach_widget (GTK_MENU (widget)) : widget->parent;
+        parent = GTK_IS_MENU (widget) ? gtk_menu_get_attach_widget (GTK_MENU (widget)) : gtk_widget_get_parent(widget);
         if (!parent)
             break;
         widget = parent;
@@ -204,7 +204,7 @@ GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label,
     GtkAccelGroup *accel_group = gtk_accel_group_new ();
     GtkWidget *w = gtk_button_new_with_label ("");
 
-    key = gtk_label_parse_uline (GTK_LABEL (GTK_BIN (w)->child), label);
+    key = gtk_label_parse_uline (GTK_LABEL (gtk_bin_get_child( GTK_BIN (w))), label);
     gtk_widget_add_accelerator (w, "clicked", accel_group, key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
     gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     g_object_ref (w);
