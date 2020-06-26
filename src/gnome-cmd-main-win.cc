@@ -1216,7 +1216,7 @@ void GnomeCmdMainWin::open_tabs(FileSelectorID id)
 
     for (vector<GnomeCmdData::Tab>::const_iterator i=gnome_cmd_data.tabs[id].begin(); i!=last_tab; ++i)
     {
-        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()));
+        GnomeCmdDir *dir = gnome_cmd_dir_new (home, gnome_cmd_con_create_path (home, i->first.c_str()), true);
         fs(id)->new_tab(dir, i->second.first, i->second.second, i->second.third, TRUE);
     }
 }
