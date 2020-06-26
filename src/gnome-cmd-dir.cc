@@ -296,7 +296,7 @@ GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeCmdCon *con)
 }
 
 
-GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
+GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path, gboolean isStartup)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     g_return_val_if_fail (path!=nullptr, nullptr);
@@ -332,7 +332,10 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     }
     else
     {
-        gnome_cmd_show_message (*main_win, path->get_display_path(), gnome_vfs_result_to_string (res));
+        if (!isStartup)
+        {
+            gnome_cmd_show_message (*main_win, path->get_display_path(), gnome_vfs_result_to_string (res));
+        }
         gnome_vfs_file_info_unref (info);
     }
 
