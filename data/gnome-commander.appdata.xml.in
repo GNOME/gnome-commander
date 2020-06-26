@@ -54,6 +54,7 @@
           This release includes ...
         </p>
         <ul>
+          <li>Silently move to home directory if startup directory is missing</li>
           <li>...</li>
         </ul>
       </description>

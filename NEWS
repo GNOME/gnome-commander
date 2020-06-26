@@ -3,7 +3,7 @@ gnome-commander 1.10.4
 ---------------
 
 New features:
- * ...
+ * - Silently move to home directory if startup directory is missing
 
 Bug fixes:
  * ...

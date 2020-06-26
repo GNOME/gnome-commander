@@ -38,6 +38,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Silently move to home directory if startup directory is missing</para>
+                        </listitem>
+                        <listitem>
                             <para>...</para>
                         </listitem>
                         <listitem>
