@@ -301,28 +301,27 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), nullptr);
     g_return_val_if_fail (path!=nullptr, nullptr);
 
-    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
-    if (!uri) return nullptr;
+    auto gnomeVFSUri = gnome_cmd_con_create_uri (con, path);
+    if (!gnomeVFSUri) return nullptr;
 
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD);
+    gchar *uri_str = gnome_vfs_uri_to_string (gnomeVFSUri, GNOME_VFS_URI_HIDE_PASSWORD);
 
     GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
+    g_free (uri_str);
     if (dir)
     {
-        g_free (uri_str);
         return dir;
     }
 
-    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
-                                                                  GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
-                                                                  GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
+    auto infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+    auto gnomeVFSFileInfo = gnome_vfs_file_info_new ();
+    auto gnomeVFSResult = gnome_vfs_get_file_info_uri (gnomeVFSUri, gnomeVFSFileInfo, infoOpts);
+    gnome_vfs_uri_unref (gnomeVFSUri);
 
-    if (res == GNOME_VFS_OK)
+    if (gnomeVFSResult == GNOME_VFS_OK)
     {
         dir = static_cast<GnomeCmdDir*> (g_object_new (GNOME_CMD_TYPE_DIR, nullptr));
-        gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, nullptr);
+        gnome_cmd_file_setup (GNOME_CMD_FILE (dir), gnomeVFSFileInfo, nullptr);
 
         dir->priv->con = con;
         gnome_cmd_dir_set_path (dir, path);
@@ -332,12 +331,9 @@ GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     }
     else
     {
-        gnome_cmd_show_message (*main_win, path->get_display_path(), gnome_vfs_result_to_string (res));
-        gnome_vfs_file_info_unref (info);
+        gnome_cmd_show_message (*main_win, path->get_display_path(), gnome_vfs_result_to_string (gnomeVFSResult));
+        gnome_vfs_file_info_unref (gnomeVFSFileInfo);
     }
-
-    gnome_vfs_uri_unref (uri);
-    g_free (uri_str);
 
     return dir;
 }
