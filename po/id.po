@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander gcmd-1-10\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gnome-commander/issues\n"
-"POT-Creation-Date: 2020-05-27 11:42+0000\n"
-"PO-Revision-Date: 2020-05-30 17:44+0700\n"
+"POT-Creation-Date: 2020-07-16 14:29+0000\n"
+"PO-Revision-Date: 2020-07-19 10:38+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 2.3.1\n"
 
 #: data/gnome-commander.appdata.xml.in:7 data/gnome-commander.desktop.in.in:3
-#: src/gnome-cmd-main-win.cc:857
+#: src/gnome-cmd-main-win.cc:859
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -1360,10 +1360,18 @@ msgstr ""
 "biner."
 
 #: data/org.gnome.gnome-commander.gschema.xml:998
+msgid "Metadata view"
+msgstr "Tampilan metadata"
+
+#: data/org.gnome.gnome-commander.gschema.xml:999
+msgid "This option defines if metadata should be visible."
+msgstr "Opsi ini menentukan apakah metadata harus terlihat."
+
+#: data/org.gnome.gnome-commander.gschema.xml:1005
 msgid "Horizontal offset"
 msgstr "Ofset horisontal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:999
+#: data/org.gnome.gnome-commander.gschema.xml:1006
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "horizontal direction."
@@ -1371,11 +1379,11 @@ msgstr ""
 "Opsi ini menentukan ofset visual dari penampil berkas internal dalam arah "
 "horisontal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1005
+#: data/org.gnome.gnome-commander.gschema.xml:1012
 msgid "Vertical offset"
 msgstr "Ofset vertikal"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1006
+#: data/org.gnome.gnome-commander.gschema.xml:1013
 msgid ""
 "This option defines the visual offset of the internal file viewer in "
 "vertical direction."
@@ -1383,27 +1391,27 @@ msgstr ""
 "Opsi ini menentukan ofset visual dari penampil berkas internal dalam arah "
 "vertikal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1012
+#: data/org.gnome.gnome-commander.gschema.xml:1019
 msgid "Window width"
 msgstr "Lebar jendela"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1013
+#: data/org.gnome.gnome-commander.gschema.xml:1020
 msgid "The width of the internal file viewer window."
 msgstr "Lebar jendela penampil berkas internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1019
+#: data/org.gnome.gnome-commander.gschema.xml:1026
 msgid "Window height"
 msgstr "Tinggi jendela"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1020
+#: data/org.gnome.gnome-commander.gschema.xml:1027
 msgid "The height of the internal file viewer window."
 msgstr "Tinggi jendela penampil berkas internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1026
+#: data/org.gnome.gnome-commander.gschema.xml:1033
 msgid "Search pattern for text"
 msgstr "Pola pencarian teks"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1027
+#: data/org.gnome.gnome-commander.gschema.xml:1034
 msgid ""
 "This string array stores the history of text searches within the internal "
 "file viewer."
@@ -1411,11 +1419,11 @@ msgstr ""
 "Larik string ini menyimpan riwayat pencarian teks di dalam penampil berkas "
 "internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1033
+#: data/org.gnome.gnome-commander.gschema.xml:1040
 msgid "Search pattern for hex values"
 msgstr "Pola pencarian untuk nilai heksa"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1034
+#: data/org.gnome.gnome-commander.gschema.xml:1041
 msgid ""
 "This string array stores the history of searches for hex values within the "
 "internal file viewer."
@@ -1423,19 +1431,19 @@ msgstr ""
 "Larik string ini menyimpan riwayat pencarian nilai heksa di dalam penampil "
 "berkas internal."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1042
+#: data/org.gnome.gnome-commander.gschema.xml:1049
 msgid "File suffix"
 msgstr "Sufiks berkas"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1043
+#: data/org.gnome.gnome-commander.gschema.xml:1050
 msgid "Default file suffix of archives created with the File Roller plugin."
 msgstr "Sufix berkas baku arsip yang dibuat dengan pengaya File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1049
+#: data/org.gnome.gnome-commander.gschema.xml:1056
 msgid "Prefix pattern"
 msgstr "Pola prefiks"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1050
+#: data/org.gnome.gnome-commander.gschema.xml:1057
 msgid ""
 "The prefix pattern is used to build up the name for an archive created with "
 "the File Roller plugin."
@@ -1443,11 +1451,11 @@ msgstr ""
 "Pola prefiks dipakai untuk membangun nama bagi suatu arsip yang dibuat "
 "dengan pengaya File Roller."
 
-#: data/org.gnome.gnome-commander.gschema.xml:1058
+#: data/org.gnome.gnome-commander.gschema.xml:1065
 msgid "Automatically loaded plugins"
 msgstr "Pengaya yang otomatis dimuat"
 
-#: data/org.gnome.gnome-commander.gschema.xml:1059
+#: data/org.gnome.gnome-commander.gschema.xml:1066
 msgid ""
 "This is the list of automatically loaded plugins, whereas each entry "
 "represents the file name of the plugin."
@@ -1941,12 +1949,12 @@ msgid "Access permissions"
 msgstr "Permisi akses"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:616
-#: src/intviewer/viewer-window.cc:1611
+#: src/intviewer/viewer-window.cc:1348
 msgid "Type"
 msgstr "Tipe"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:617
-#: src/intviewer/viewer-window.cc:1612
+#: src/intviewer/viewer-window.cc:1349
 msgid "Metadata namespace"
 msgstr "Ruang name metadata"
 
@@ -1959,35 +1967,35 @@ msgstr "Ruang name metadata"
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:624
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:244
 #: src/dialogs/gnome-cmd-remote-dialog.cc:353
-#: src/intviewer/viewer-window.cc:1619 src/plugin_manager.cc:417
+#: src/intviewer/viewer-window.cc:1356 src/plugin_manager.cc:417
 #: src/tags/gnome-cmd-tags.cc:327
 msgid "Name"
 msgstr "Nama"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:625
-#: src/intviewer/viewer-window.cc:1620
+#: src/intviewer/viewer-window.cc:1357
 msgid "Tag name"
 msgstr "Nama tag"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:627
-#: src/intviewer/viewer-window.cc:1622
+#: src/intviewer/viewer-window.cc:1359
 msgid "Value"
 msgstr "Nilai"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:628
-#: src/intviewer/viewer-window.cc:1623
+#: src/intviewer/viewer-window.cc:1360
 msgid "Tag value"
 msgstr "Nilai tag"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:630
-#: src/intviewer/viewer-window.cc:1625 src/tags/gnome-cmd-tags.cc:171
+#: src/intviewer/viewer-window.cc:1362 src/tags/gnome-cmd-tags.cc:171
 #: src/tags/gnome-cmd-tags.cc:322 src/tags/gnome-cmd-tags.cc:424
 #: src/tags/gnome-cmd-tags.cc:535
 msgid "Description"
 msgstr "Deskripsi"
 
 #: src/dialogs/gnome-cmd-file-props-dialog.cc:631
-#: src/intviewer/viewer-window.cc:1626
+#: src/intviewer/viewer-window.cc:1363
 msgid "Metadata tag description"
 msgstr "Deskripsi tag metadata"
 
@@ -3488,12 +3496,12 @@ msgstr "Mencari workgroup dan host"
 msgid "Go to: Samba Network"
 msgstr "Ke: Jaringan Samba"
 
-#: src/gnome-cmd-data.cc:3141 src/gnome-cmd-data.cc:3842
+#: src/gnome-cmd-data.cc:3147 src/gnome-cmd-data.cc:3848
 #, c-format
 msgid "link to %s"
 msgstr "taut ke %s"
 
-#: src/gnome-cmd-dir.cc:514
+#: src/gnome-cmd-dir.cc:517
 msgid "Waiting for file list"
 msgstr "Menunggu daftar berkas"
 
@@ -3792,8 +3800,7 @@ msgstr "_Direktori"
 msgid "_Text File"
 msgstr "Berkas _Teks"
 
-#. File Menu
-#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:1014
+#: src/gnome-cmd-main-menu.cc:302 src/intviewer/viewer-window.cc:594
 msgid "_File"
 msgstr "_Berkas"
 
@@ -3901,7 +3908,7 @@ msgstr "Kembalikan Pi_lihan"
 msgid "_Compare Directories"
 msgstr "_Bandingkan Direktori"
 
-#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:1017
+#: src/gnome-cmd-main-menu.cc:343 src/intviewer/viewer-window.cc:608
 msgid "_View"
 msgstr "_Tampilan"
 
@@ -3953,7 +3960,7 @@ msgstr "Tampilkan Berkas Cadangan"
 msgid "Horizontal Orientation"
 msgstr "Orientasi Horisontal"
 
-#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:1028
+#: src/gnome-cmd-main-menu.cc:368 src/intviewer/viewer-window.cc:673
 msgid "_Settings"
 msgstr "_Pengaturan"
 
@@ -3997,7 +4004,7 @@ msgstr "_Pengaya"
 msgid "_Configure Plugins…"
 msgstr "_Konfigurasikan Pengaya…"
 
-#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:1033
+#: src/gnome-cmd-main-menu.cc:395 src/intviewer/viewer-window.cc:692
 msgid "_Help"
 msgstr "Ba_ntuan"
 
@@ -4005,7 +4012,7 @@ msgstr "Ba_ntuan"
 msgid "_Documentation"
 msgstr "_Dokumentasi"
 
-#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:1002
+#: src/gnome-cmd-main-menu.cc:397 src/intviewer/viewer-window.cc:694
 msgid "_Keyboard Shortcuts"
 msgstr "Pintasan Papan Ti_k"
 
@@ -4089,7 +4096,7 @@ msgstr "F8 Hapus"
 msgid "F9 Search"
 msgstr "F9 Cari"
 
-#: src/gnome-cmd-main-win.cc:856
+#: src/gnome-cmd-main-win.cc:858
 msgid "GNOME Commander — ROOT PRIVILEGES"
 msgstr "GNOME Commander — PRIVILESE ROOT"
 
@@ -4654,12 +4661,12 @@ msgid "Find"
 msgstr "Cari"
 
 #. Search mode radio buttons
-#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:818
-#: src/intviewer/viewer-window.cc:1020
+#: src/intviewer/search-dlg.cc:273 src/intviewer/viewer-window.cc:600
+#: src/intviewer/viewer-window.cc:617
 msgid "_Text"
 msgstr "_Teks"
 
-#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:826
+#: src/intviewer/search-dlg.cc:274 src/intviewer/viewer-window.cc:602
 msgid "_Hexadecimal"
 msgstr "_Heksadesimal"
 
@@ -4702,132 +4709,220 @@ msgstr "(paskan ke jendela)"
 msgid "_Copy selection"
 msgstr "_Salin pilihan"
 
-#: src/intviewer/viewer-window.cc:808
+#: src/intviewer/viewer-window.cc:595
 msgid "_Close"
 msgstr "_Tutup"
 
-#: src/intviewer/viewer-window.cc:822
+#: src/intviewer/viewer-window.cc:601
 msgid "_Binary"
 msgstr "_Biner"
 
-#: src/intviewer/viewer-window.cc:830 src/intviewer/viewer-window.cc:1025
+#: src/intviewer/viewer-window.cc:603 src/intviewer/viewer-window.cc:663
 msgid "_Image"
 msgstr "_Gambar"
 
-#: src/intviewer/viewer-window.cc:835
+#: src/intviewer/viewer-window.cc:609
 msgid "_Zoom In"
 msgstr "_Perbesar"
 
-#: src/intviewer/viewer-window.cc:839
-msgid "Zoom _Out"
+#: src/intviewer/viewer-window.cc:610
+msgid "_Zoom Out"
 msgstr "Per_kecil"
 
-#: src/intviewer/viewer-window.cc:843
+#: src/intviewer/viewer-window.cc:611
 msgid "_Normal Size"
 msgstr "Ukuran _Normal"
 
-#: src/intviewer/viewer-window.cc:847
-msgid "Best _Fit"
+#: src/intviewer/viewer-window.cc:612
+msgid "_Best Fit"
 msgstr "Pas _Ukuran"
 
-#: src/intviewer/viewer-window.cc:857
+#: src/intviewer/viewer-window.cc:618
 msgid "_Copy Text Selection"
 msgstr "_Salin Pilihan Teks"
 
-#: src/intviewer/viewer-window.cc:861
+#: src/intviewer/viewer-window.cc:619
 msgid "Find…"
 msgstr "Cari…"
 
-#: src/intviewer/viewer-window.cc:865
+#: src/intviewer/viewer-window.cc:620
 msgid "Find Next"
 msgstr "Cari Selanjutnya"
 
-#: src/intviewer/viewer-window.cc:869
+#: src/intviewer/viewer-window.cc:621
 msgid "Find Previous"
 msgstr "Cari Sebelumnya"
 
-#: src/intviewer/viewer-window.cc:874
-msgid "_Wrap lines"
-msgstr "_Lipat baris"
-
-#: src/intviewer/viewer-window.cc:879
+#: src/intviewer/viewer-window.cc:622
 msgid "_Encoding"
 msgstr "M_engode"
 
-#: src/intviewer/viewer-window.cc:920
+#: src/intviewer/viewer-window.cc:627
+msgid "_Wrap lines"
+msgstr "_Lipat baris"
+
+#: src/intviewer/viewer-window.cc:632
+msgid "_UTF-8"
+msgstr "_UTF-8"
+
+#: src/intviewer/viewer-window.cc:633
+msgid "English (US-_ASCII)"
+msgstr "Inggris (US-_ASCII)"
+
+#: src/intviewer/viewer-window.cc:634
+msgid "Terminal (CP437)"
+msgstr "Terminal (CP437)"
+
+#: src/intviewer/viewer-window.cc:635
+msgid "Arabic (ISO-8859-6)"
+msgstr "Arab (ISO-8859-6)"
+
+#: src/intviewer/viewer-window.cc:636
+msgid "Arabic (Windows, CP1256)"
+msgstr "Arab (Windows, CP1256)"
+
+#: src/intviewer/viewer-window.cc:637
+msgid "Arabic (Dos, CP864)"
+msgstr "Arab (Dos, CP864)"
+
+#: src/intviewer/viewer-window.cc:638
+msgid "Baltic (ISO-8859-4)"
+msgstr "Baltik (ISO-8859-4)"
+
+#: src/intviewer/viewer-window.cc:639
+msgid "Central European (ISO-8859-2)"
+msgstr "Eropa Tengah (ISO-8859-2)"
+
+#: src/intviewer/viewer-window.cc:640
+msgid "Central European (CP1250)"
+msgstr "Eropa Tengah (CP1250)"
+
+#: src/intviewer/viewer-window.cc:641
+msgid "Cyrillic (ISO-8859-5)"
+msgstr "Sirilik (ISO-8859-5)"
+
+#: src/intviewer/viewer-window.cc:642
+msgid "Cyrillic (CP1251)"
+msgstr "Sirilik (CP1251)"
+
+#: src/intviewer/viewer-window.cc:643
+msgid "Greek (ISO-8859-7)"
+msgstr "Yunani (ISO-8859-7)"
+
+#: src/intviewer/viewer-window.cc:644
+msgid "Greek (CP1253)"
+msgstr "Yunani (CP1253)"
+
+#: src/intviewer/viewer-window.cc:645
+msgid "Hebrew (Windows, CP1255)"
+msgstr "Ibrani (Windows, CP1255)"
+
+#: src/intviewer/viewer-window.cc:646
+msgid "Hebrew (Dos, CP862)"
+msgstr "Ibrani (Dos, CP862)"
+
+#: src/intviewer/viewer-window.cc:647
+msgid "Hebrew (ISO-8859-8)"
+msgstr "Ibrani (ISO-8859-8)"
+
+#: src/intviewer/viewer-window.cc:648
+msgid "Latin 9 (ISO-8859-15)"
+msgstr "Latin 9 (ISO-8859-15)"
+
+#: src/intviewer/viewer-window.cc:649
+msgid "Maltese (ISO-8859-3)"
+msgstr "Malta (ISO-8859-3)"
+
+#: src/intviewer/viewer-window.cc:650
+msgid "Turkish (ISO-8859-9)"
+msgstr "Turki (ISO-8859-9)"
+
+#: src/intviewer/viewer-window.cc:651
+msgid "Turkish (CP1254)"
+msgstr "Turki (CP1254)"
+
+#: src/intviewer/viewer-window.cc:652
+msgid "Western (CP1252)"
+msgstr "Barat (CP1252)"
+
+#: src/intviewer/viewer-window.cc:653
+msgid "Western (ISO-8859-1)"
+msgstr "Barat (ISO-8859-1)"
+
+#: src/intviewer/viewer-window.cc:658
 msgid "Show Metadata _Tags"
 msgstr "Tampilkan _Tag Metadata"
 
-#: src/intviewer/viewer-window.cc:926
-msgid "_Rotate Clockwise"
-msgstr "Puta_r Searah Jarum Jam"
+#: src/intviewer/viewer-window.cc:664
+msgid "Rotate Clockwise"
+msgstr "Putar Searah Jarum Jam"
 
-#: src/intviewer/viewer-window.cc:931
+#: src/intviewer/viewer-window.cc:665
 msgid "Rotate Counter Clockwis_e"
 msgstr "Putar B_erlawanan Arah Jarum Jam"
 
-#: src/intviewer/viewer-window.cc:936
-msgid "_Rotate 180°"
-msgstr "Puta_r 180°"
+#: src/intviewer/viewer-window.cc:666
+msgid "Rotate 180°"
+msgstr "Putar 180°"
 
-#: src/intviewer/viewer-window.cc:941
+#: src/intviewer/viewer-window.cc:667
 msgid "Flip _Vertical"
 msgstr "Jungkir _Vertikal"
 
-#: src/intviewer/viewer-window.cc:946
+#: src/intviewer/viewer-window.cc:668
 msgid "Flip _Horizontal"
 msgstr "Jungkir _Horisontal"
 
-#: src/intviewer/viewer-window.cc:956
+#: src/intviewer/viewer-window.cc:674
 msgid "_Binary Mode"
 msgstr "Mode _Biner"
 
-#: src/intviewer/viewer-window.cc:962
-msgid "_Hexadecimal Offset"
-msgstr "Offset _Heksadesimal"
-
-#: src/intviewer/viewer-window.cc:968
+#: src/intviewer/viewer-window.cc:675
 msgid "_Save Current Settings"
 msgstr "_Simpan Pengaturan Saat Ini"
 
-#: src/intviewer/viewer-window.cc:978
+#: src/intviewer/viewer-window.cc:680
+msgid "_Hexadecimal Offset"
+msgstr "Offset _Heksadesimal"
+
+#: src/intviewer/viewer-window.cc:685
 msgid "_20 chars/line"
 msgstr "_20 kar/baris"
 
-#: src/intviewer/viewer-window.cc:983
+#: src/intviewer/viewer-window.cc:686
 msgid "_40 chars/line"
 msgstr "_40 kar/baris"
 
-#: src/intviewer/viewer-window.cc:988
+#: src/intviewer/viewer-window.cc:687
 msgid "_80 chars/line"
 msgstr "_80 kar/baris"
 
-#: src/intviewer/viewer-window.cc:997
+#: src/intviewer/viewer-window.cc:693
 msgid "Quick _Help"
 msgstr "_Bantuan Cepat"
 
-#: src/intviewer/viewer-window.cc:1271
+#: src/intviewer/viewer-window.cc:1002
 #, c-format
 msgid "Pattern “%s” was not found"
 msgstr "Pola \"%s\" tak ditemukan"
 
-#: src/main.cc:66
+#: src/main.cc:60
 msgid "Specify debug flags to use"
 msgstr "Nyatakan flag debug yang akan dipakai"
 
-#: src/main.cc:67
+#: src/main.cc:61
 msgid "Specify the start directory for the left pane"
 msgstr "Nyatakan direktori awal bagi panel kiri"
 
-#: src/main.cc:68
+#: src/main.cc:62
 msgid "Specify the start directory for the right pane"
 msgstr "Nyatakan direktori awal bagi panel kanan"
 
-#: src/main.cc:69
+#: src/main.cc:63
 msgid "Specify the directory for configuration files"
 msgstr "Menyatakan direktori bagi berkas konfigurasi"
 
-#: src/main.cc:129
+#: src/main.cc:119
 msgid "File Manager"
 msgstr "Manajer Berkas"
 
@@ -8866,26 +8961,26 @@ msgstr "Gagal mengubah direktori kerja ke suatu direktori temporer."
 msgid "Failed to create a directory in which to store temporary files."
 msgstr "Gagal membuat suatu direktori tempat menyimpan berkas temporer."
 
-#: src/utils.cc:926
+#: src/utils.cc:874
 #, c-format
 msgid "Couldn’t read from the directory %s: %s"
 msgstr "Tak bisa membaca dari direktori %s: %s"
 
-#: src/utils.cc:950
+#: src/utils.cc:898
 #, c-format
 msgid "Creating directory %s… "
 msgstr "Membuat direktori %s… "
 
-#: src/utils.cc:957
+#: src/utils.cc:905
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Gagal membuat direktori %s"
 
-#: src/utils.cc:1103
+#: src/utils.cc:1051
 msgid "There was an error displaying help."
 msgstr "Ada kesalahan saat menampilkan bantuan."
 
-#: src/utils.cc:1225
+#: src/utils.cc:1173
 #, c-format
 msgid "Couldn’t move path from “%s” to “%s”: %s"
 msgstr "Tak bisa memindah path dari “%s” ke “%s”: %s"
