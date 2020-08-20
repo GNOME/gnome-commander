@@ -2180,7 +2180,7 @@ msgid ""
 "valid UTF-8 encoding"
 msgstr ""
 "Per a afegir un directori als punts d'interès, la codificació UTF-8 de tot "
-"el camí de cerca del directori ha de ser vàlida."
+"el camí de cerca del directori ha de ser vàlida"
 
 #: src/dialogs/gnome-cmd-manage-bookmarks-dialog.cc:550
 msgid "New Bookmark"
@@ -3477,7 +3477,7 @@ msgstr "S'està muntant %s"
 #: src/gnome-cmd-con-device.cc:418
 #, c-format
 msgid "Go to: %s (%s)"
-msgstr "Ves a: %s (%s)"
+msgstr "Vés a: %s (%s)"
 
 #: src/gnome-cmd-con-device.cc:419
 #, c-format
@@ -4090,7 +4090,7 @@ msgstr "Actualitza"
 
 #: src/gnome-cmd-main-win.cc:235
 msgid "Go to the oldest"
-msgstr "Ves al més antic"
+msgstr "Vés al més antic"
 
 #: src/gnome-cmd-main-win.cc:236
 msgid "Go back"
@@ -4102,7 +4102,7 @@ msgstr "Ves endavant"
 
 #: src/gnome-cmd-main-win.cc:238
 msgid "Go to the latest"
-msgstr "Ves al més nou"
+msgstr "Vés al més nou"
 
 #: src/gnome-cmd-main-win.cc:239
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
@@ -4171,7 +4171,7 @@ msgstr "El nom conté:"
 
 #: src/gnome-cmd-selection-profile-component.cc:135
 msgid "Unlimited depth"
-msgstr "Profunditat ilimitada"
+msgstr "Profunditat il·limitada"
 
 #: src/gnome-cmd-selection-profile-component.cc:136
 msgid "Current directory only"
@@ -4264,7 +4264,7 @@ msgstr "Eina de canvi de nom avançada"
 
 #: src/gnome-cmd-user-actions.cc:219
 msgid "Change permissions"
-msgstr "Canvia els permissos"
+msgstr "Canvia els permisos"
 
 #: src/gnome-cmd-user-actions.cc:220
 msgid "Change owner/group"
@@ -4344,7 +4344,7 @@ msgstr "Informa d'un problema"
 
 #: src/gnome-cmd-user-actions.cc:244
 msgid "GNOME Commander on the web"
-msgstr "Ves a la web del GNOME Commander"
+msgstr "Vés a la web del GNOME Commander"
 
 #: src/gnome-cmd-user-actions.cc:245
 msgid "Compare directories"
@@ -6244,7 +6244,7 @@ msgid ""
 "A pointer to the GPS Info IFD. The Interoperability structure of the GPS "
 "Info IFD, like that of Exif IFD, has no image data."
 msgstr ""
-"Un punter a l'IFD d'informació del GPS. La estructura d'interoperabilitat de"
+"Un punter a l'IFD d'informació del GPS. L'estructura d'interoperabilitat de"
 " l'IFD d'informació del GPS, com el de l'IFD Exif, no conté dades d'imatge."
 
 #: src/tags/gnome-cmd-tags.cc:247
@@ -6500,7 +6500,7 @@ msgid ""
 "When the field is left blank, it is treated as unknown."
 msgstr ""
 "El fabricant de l'equip d'enregistrament. És a dir, el fabricant de la "
-"càmera digital, escànner, digitalitzador de vídeo o altre equip que ha "
+"càmera digital, escàner, digitalitzador de vídeo o altre equip que ha "
 "generat la imatge. Quan el camp és buit, es tracta com a desconegut."
 
 #: src/tags/gnome-cmd-tags.cc:268
@@ -6622,7 +6622,7 @@ msgid ""
 "tag will in fact be the same as that recorded in the SOF."
 msgstr ""
 "Informació específica de dades comprimides. Quan es grava un fitxer "
-"comprimit, cal registrar en aquesta etiqueta l'alçàrua vàlida de la imatge "
+"comprimit, cal registrar en aquesta etiqueta l'alçària vàlida de la imatge "
 "significativa, tant si hi ha o no dades de rellotge o un marcador de "
 "reinici. Aquesta etiqueta no hauria d'existir en un fitxer no comprimit. Com"
 " que el rellotge de dades no és necessari en la direcció vertical, el nombre"
@@ -6653,7 +6653,7 @@ msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag"
 " is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"La cromaticitat dels tres colors primaris de la imatge. Normalment, aquest "
+"La cromaticitat dels tres colors primaris de la imatge. Normalment, aquesta "
 "etiqueta no és necessària, ja que l'espai de color s'especifica a l'etiqueta"
 " <Exif.ColorSpace>."
 
@@ -6884,7 +6884,7 @@ msgid ""
 msgstr ""
 "Aquesta etiqueta registra els valors de la taula de freqüència espacial de "
 "la càmera o del dispositiu d'entrada i els valors SFR en la direcció de "
-"l'amplada de l'imatge, l'alçària de la imatge i la direcció diagonal, tal "
+"l'amplada de la imatge, l'alçària de la imatge i la direcció diagonal, tal "
 "com s'especifica a la ISO 12233."
 
 #: src/tags/gnome-cmd-tags.cc:297
@@ -7025,7 +7025,7 @@ msgstr "Rang de transferència"
 
 #: src/tags/gnome-cmd-tags.cc:310
 msgid "Transfer range."
-msgstr "El rang de transferència"
+msgstr "El rang de transferència."
 
 #: src/tags/gnome-cmd-tags.cc:311
 msgid "User Comment"
@@ -7055,7 +7055,7 @@ msgstr ""
 "a la imatge a més dels de <Exif.ImageDescription>, i sense les limitacions "
 "de el codi de caràcters de l'etiqueta <Exif.ImageDescription>. El codi de "
 "caràcter utilitzat en l'etiqueta <Exif.UserComment> s'identifica en base a "
-"un codi d'identificació en una àrea fixa de 8 bytes a l'començament de "
+"un codi d'identificació en una àrea fixa de 8 bytes al començament de "
 "l'àrea de dades de l'etiqueta. La part no utilitzada de l'àrea està farcida "
 "amb NULL ( \"00.h\"). Els codis d'identificació s'assignen per mitjà d'un "
 "registre. El valor de CountN es determina en base als 8 bytes de l'àrea de "
@@ -7656,7 +7656,7 @@ msgstr "Ordre de Classificació dels Intèrprets"
 
 #: src/tags/gnome-cmd-tags.cc:381
 msgid "Performer sort order."
-msgstr "Ordre de classificació dels intèrprets"
+msgstr "Ordre de classificació dels intèrprets."
 
 #: src/tags/gnome-cmd-tags.cc:382
 msgid "Picture"
@@ -8041,7 +8041,7 @@ msgstr "El programari utilitzat per a produir/millorar la imatge."
 
 #: src/tags/gnome-cmd-tags.cc:438
 msgid "Title of image."
-msgstr "Títol de la imatge"
+msgstr "Títol de la imatge."
 
 #: src/tags/gnome-cmd-tags.cc:439
 msgid ""
@@ -8172,8 +8172,8 @@ msgid ""
 "Control functions used for the announcement, invocation or designation of "
 "coded character sets."
 msgstr ""
-"Funcions de control que s'utilitzen per avisar, invocar o designar el "
-"conjunts de caràcters codificat."
+"Funcions de control que s'utilitzen per avisar, invocar o designar els "
+"jocs de caràcters codificats."
 
 #: src/tags/gnome-cmd-tags.cc:454
 msgid "City"
@@ -8380,7 +8380,7 @@ msgstr "Versió del format de fitxer."
 
 #: src/tags/gnome-cmd-tags.cc:476
 msgid "Fixture Identifier"
-msgstr "Identificador de l'accesori"
+msgstr "Identificador de l'accessori"
 
 #: src/tags/gnome-cmd-tags.cc:476
 msgid ""
@@ -8398,7 +8398,7 @@ msgstr "Titular"
 msgid ""
 "A publishable entry providing a synopsis of the contents of the object."
 msgstr ""
-"Una entrada publicable que proporciona una sinopsis del contingut de "
+"Una entrada publicable que proporciona una sinopsi del contingut de "
 "l'objecte."
 
 #: src/tags/gnome-cmd-tags.cc:478
@@ -8781,7 +8781,7 @@ msgstr "Mida de la pàgina"
 
 #: src/tags/gnome-cmd-tags.cc:519
 msgid "Page size format."
-msgstr "Format de la mida de la pàgina"
+msgstr "Format de la mida de la pàgina."
 
 #: src/tags/gnome-cmd-tags.cc:520
 msgid "Page Width"
